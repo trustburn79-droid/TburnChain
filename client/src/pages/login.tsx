@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { Lock } from "lucide-react";
+import { queryClient } from "@/lib/queryClient";
 
 interface LoginFormData {
   password: string;
@@ -35,10 +36,15 @@ export default function Login({ onLoginSuccess }: LoginProps) {
       });
 
       if (response.ok) {
+        // Invalidate auth check query to trigger re-fetch
+        await queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+        
         toast({
           title: "Login Successful",
           description: "Welcome to TBURN Blockchain Explorer",
         });
+        
+        // Call onLoginSuccess after invalidating queries
         onLoginSuccess();
       } else {
         toast({
