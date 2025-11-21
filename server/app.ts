@@ -6,8 +6,15 @@ import express, {
   Response,
   NextFunction,
 } from "express";
+import session from "express-session";
 
 import { registerRoutes } from "./routes";
+
+declare module "express-session" {
+  interface SessionData {
+    authenticated?: boolean;
+  }
+}
 
 // Fix BigInt JSON serialization
 (BigInt.prototype as any).toJSON = function () {
@@ -32,6 +39,21 @@ declare module 'http' {
     rawBody: unknown
   }
 }
+
+// Session configuration
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  })
+);
+
 app.use(express.json({
   verify: (req, _res, buf) => {
     req.rawBody = buf;

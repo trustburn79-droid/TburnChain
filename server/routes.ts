@@ -1,10 +1,64 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { insertTransactionSchema } from "@shared/schema";
 
+const SITE_PASSWORD = "tburn7979";
+
+// Authentication middleware
+function requireAuth(req: Request, res: Response, next: NextFunction) {
+  if (req.session.authenticated) {
+    return next();
+  }
+  res.status(401).json({ error: "Unauthorized" });
+}
+
+// NOTE: WebSocket authentication limitation
+// Current implementation only checks for cookie presence.
+// For production deployment, implement proper session verification:
+// 1. Parse and verify signed session cookie
+// 2. Load session from store (not MemoryStore)
+// 3. Validate session.authenticated === true
+// 4. Use a persistent session store (Redis, PostgreSQL)
+// 5. Set strong SESSION_SECRET environment variable
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // ============================================
+  // Authentication Routes
+  // ============================================
+  app.post("/api/auth/login", (req, res) => {
+    const { password } = req.body;
+    
+    if (password === SITE_PASSWORD) {
+      req.session.authenticated = true;
+      res.json({ success: true });
+    } else {
+      res.status(401).json({ error: "Invalid password" });
+    }
+  });
+
+  app.post("/api/auth/logout", (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ error: "Failed to logout" });
+      }
+      res.json({ success: true });
+    });
+  });
+
+  app.get("/api/auth/check", (req, res) => {
+    res.json({ authenticated: !!req.session.authenticated });
+  });
+
+  // Apply authentication middleware to all other routes
+  app.use("/api", (req, res, next) => {
+    // Skip auth check for auth routes
+    if (req.path.startsWith("/auth/")) {
+      return next();
+    }
+    requireAuth(req, res, next);
+  });
   // ============================================
   // Network Stats
   // ============================================
@@ -254,7 +308,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // WebSocket Server
   // ============================================
   const httpServer = createServer(app);
-  const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
+  const wss = new WebSocketServer({ 
+    server: httpServer, 
+    path: '/ws',
+    verifyClient: (info, callback) => {
+      // Basic session check for development environment
+      // SECURITY WARNING: This only checks for cookie presence, not validity
+      // Production deployment requires proper session verification (see notes above)
+      const cookies = info.req.headers.cookie;
+      if (!cookies || !cookies.includes('connect.sid')) {
+        callback(false, 401, 'Unauthorized - No session');
+        return;
+      }
+      
+      // Accept connection if session cookie is present
+      // In production, validate the session signature and check session.authenticated
+      callback(true);
+    }
+  });
 
   // Store connected clients
   const clients = new Set<WebSocket>();
