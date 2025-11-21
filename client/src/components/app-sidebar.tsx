@@ -8,6 +8,7 @@ import {
   Home,
   Layers,
   Server,
+  Zap,
 } from "lucide-react";
 import {
   Sidebar,
@@ -63,6 +64,12 @@ const menuItems = [
     title: "Smart Contracts",
     url: "/contracts",
     icon: FileCode,
+    group: "Developer",
+  },
+  {
+    title: "TX Simulator",
+    url: "/simulator",
+    icon: Zap,
     group: "Developer",
   },
   {

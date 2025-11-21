@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
+import { insertTransactionSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
@@ -59,6 +60,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const transactions = await storage.getAllTransactions();
       res.json(transactions);
     } catch (error) {
+      console.error("Error fetching transactions:", error);
       res.status(500).json({ error: "Failed to fetch transactions" });
     }
   });
@@ -83,6 +85,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(transaction);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch transaction" });
+    }
+  });
+
+  app.post("/api/transactions", async (req, res) => {
+    try {
+      // Validate request body with Zod schema
+      const validationResult = insertTransactionSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validationResult.error.errors 
+        });
+      }
+      
+      const transaction = await storage.createTransaction(validationResult.data);
+      res.status(201).json(transaction);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: "Failed to create transaction", details: errorMessage });
     }
   });
 

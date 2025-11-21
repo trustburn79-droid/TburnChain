@@ -92,6 +92,19 @@ A professional blockchain explorer similar to Solana/Etherscan, built for the TB
 - Uptime tracking
 - Sync status monitoring
 
+### 9. Transaction Simulator (/simulator) ✅ NEW
+- Interactive transaction creation and broadcasting
+- Form validation: address format (0x + 40 hex), gas limits, numeric values
+- Three preset transaction types:
+  - Simple Transfer (1.5 TBURN, gas 21000)
+  - Contract Creation (empty "to", gas 500000, includes input data)
+  - Large Transfer (100 TBURN, gas 50000, random shard)
+- Random transaction generator
+- Real-time transaction preview with estimated fees
+- Support for contract creation (empty "to" address)
+- Server-side Zod validation
+- Automatic wei/Gwei conversion for token amounts and gas prices
+
 ## API Endpoints
 
 ### Network Stats
@@ -114,6 +127,9 @@ A professional blockchain explorer similar to Solana/Etherscan, built for the TB
 ### Smart Contracts
 - `GET /api/contracts` - All contracts
 - `GET /api/contracts/:address` - Contract by address
+
+### Transaction Simulator
+- `POST /api/transactions` - Create a new transaction (Zod validated)
 
 ### AI Models
 - `GET /api/ai/models` - All AI models
@@ -302,17 +318,30 @@ Automated end-to-end tests completed successfully using Playwright:
 
 ## Recent Changes (November 21, 2025)
 
-### Fixed Issues
+### New Features
+1. ✅ **Transaction Simulator** - Complete implementation with validation and presets
+   - Address regex validation (0x + 40 hex characters)
+   - Gas limit and numeric input validation
+   - Server-side Zod schema validation
+   - Contract creation support (empty "to" field allowed)
+   - Three preset transaction types
+   - Real-time transaction preview
+
+### Fixed Issues  
 1. ✅ BigInt JSON serialization - Added toJSON method to BigInt.prototype
 2. ✅ Token amount formatting - Fixed validators stake display to use formatNumber
 3. ✅ Scientific notation in wei values - Use BigInt for large number generation
 4. ✅ Safe formatTokenAmount - Added fallback handling for non-wei values
+5. ✅ **Type consistency** - Fixed bigint mode: "number" to use regular numbers throughout
+6. ✅ **Mock data BigInt bug** - Removed all BigInt literals from mock data generation
+7. ✅ **Transaction sorting crash** - Fixed 500 error when fetching transactions after creation
 
 ### Optimizations
 1. TanStack Query v5 for efficient data fetching
 2. Skeleton loading states for better UX
 3. Responsive layouts with Tailwind
 4. WebSocket connection for real-time updates
+5. Consistent data types across frontend and backend
 
 ## Contact & Support
 

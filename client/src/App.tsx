@@ -17,6 +17,7 @@ import AIOrchestration from "@/pages/ai-orchestration";
 import Sharding from "@/pages/sharding";
 import SmartContracts from "@/pages/smart-contracts";
 import NodeHealth from "@/pages/node-health";
+import TransactionSimulator from "@/pages/transaction-simulator";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/" component={Dashboard} />
       <Route path="/blocks" component={Blocks} />
       <Route path="/transactions" component={Transactions} />
+      <Route path="/simulator" component={TransactionSimulator} />
       <Route path="/validators" component={Validators} />
       <Route path="/ai" component={AIOrchestration} />
       <Route path="/sharding" component={Sharding} />
