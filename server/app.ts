@@ -9,6 +9,11 @@ import express, {
 
 import { registerRoutes } from "./routes";
 
+// Fix BigInt JSON serialization
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
+
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
     hour: "numeric",
