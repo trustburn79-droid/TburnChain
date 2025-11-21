@@ -13,6 +13,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const stats = await storage.getNetworkStats();
       res.json(stats);
     } catch (error) {
+      console.error("Error fetching network stats:", error);
       res.status(500).json({ error: "Failed to fetch network stats" });
     }
   });
@@ -35,6 +36,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const blocks = await storage.getRecentBlocks(limit);
       res.json(blocks);
     } catch (error) {
+      console.error("Error fetching recent blocks:", error);
       res.status(500).json({ error: "Failed to fetch recent blocks" });
     }
   });

@@ -15,8 +15,18 @@ import {
   type InsertShard,
   type NetworkStats,
   type InsertNetworkStats,
+  blocks,
+  transactions,
+  accounts,
+  validators,
+  smartContracts,
+  aiModels,
+  shards,
+  networkStats as networkStatsTable,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { db } from "./db";
+import { eq, desc } from "drizzle-orm";
 
 export interface IStorage {
   // Network Stats
@@ -461,4 +471,150 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// PostgreSQL-based storage implementation
+export class DbStorage implements IStorage {
+  // Network Stats
+  async getNetworkStats(): Promise<NetworkStats> {
+    const result = await db.select().from(networkStatsTable).limit(1);
+    if (result.length === 0) {
+      // Initialize if not exists
+      const initialStats: InsertNetworkStats = {
+        currentBlockHeight: 1245678,
+        tps: 45230,
+        avgBlockTime: 1,
+        activeValidators: 125,
+        totalValidators: 150,
+        totalTransactions: 89234567,
+        totalAccounts: 234567,
+        marketCap: "12450000000",
+        circulatingSupply: "500000000",
+      };
+      await db.insert(networkStatsTable).values(initialStats);
+      return { ...initialStats, id: "singleton", updatedAt: new Date() };
+    }
+    return result[0];
+  }
+
+  async updateNetworkStats(stats: Partial<InsertNetworkStats>): Promise<NetworkStats> {
+    await db
+      .update(networkStatsTable)
+      .set({ ...stats, updatedAt: new Date() })
+      .where(eq(networkStatsTable.id, "singleton"));
+    return this.getNetworkStats();
+  }
+
+  // Blocks
+  async getAllBlocks(): Promise<Block[]> {
+    return db.select().from(blocks).orderBy(desc(blocks.blockNumber));
+  }
+
+  async getRecentBlocks(limit = 10): Promise<Block[]> {
+    return db.select().from(blocks).orderBy(desc(blocks.blockNumber)).limit(limit);
+  }
+
+  async getBlockByNumber(blockNumber: number): Promise<Block | undefined> {
+    const result = await db.select().from(blocks).where(eq(blocks.blockNumber, blockNumber)).limit(1);
+    return result[0];
+  }
+
+  async createBlock(insertBlock: InsertBlock): Promise<Block> {
+    const result = await db.insert(blocks).values(insertBlock).returning();
+    return result[0];
+  }
+
+  // Transactions
+  async getAllTransactions(): Promise<Transaction[]> {
+    return db.select().from(transactions).orderBy(desc(transactions.timestamp));
+  }
+
+  async getRecentTransactions(limit = 10): Promise<Transaction[]> {
+    return db.select().from(transactions).orderBy(desc(transactions.timestamp)).limit(limit);
+  }
+
+  async getTransactionByHash(hash: string): Promise<Transaction | undefined> {
+    const result = await db.select().from(transactions).where(eq(transactions.hash, hash)).limit(1);
+    return result[0];
+  }
+
+  async createTransaction(insertTx: InsertTransaction): Promise<Transaction> {
+    const result = await db.insert(transactions).values(insertTx).returning();
+    return result[0];
+  }
+
+  // Accounts
+  async getAccountByAddress(address: string): Promise<Account | undefined> {
+    const result = await db.select().from(accounts).where(eq(accounts.address, address)).limit(1);
+    return result[0];
+  }
+
+  async createAccount(insertAccount: InsertAccount): Promise<Account> {
+    const result = await db.insert(accounts).values(insertAccount).returning();
+    return result[0];
+  }
+
+  // Validators
+  async getAllValidators(): Promise<Validator[]> {
+    return db.select().from(validators);
+  }
+
+  async getValidatorByAddress(address: string): Promise<Validator | undefined> {
+    const result = await db.select().from(validators).where(eq(validators.address, address)).limit(1);
+    return result[0];
+  }
+
+  async createValidator(insertValidator: InsertValidator): Promise<Validator> {
+    const result = await db.insert(validators).values(insertValidator).returning();
+    return result[0];
+  }
+
+  // Smart Contracts
+  async getAllContracts(): Promise<SmartContract[]> {
+    return db.select().from(smartContracts);
+  }
+
+  async getContractByAddress(address: string): Promise<SmartContract | undefined> {
+    const result = await db.select().from(smartContracts).where(eq(smartContracts.address, address)).limit(1);
+    return result[0];
+  }
+
+  async createContract(insertContract: InsertSmartContract): Promise<SmartContract> {
+    const result = await db.insert(smartContracts).values(insertContract).returning();
+    return result[0];
+  }
+
+  // AI Models
+  async getAllAiModels(): Promise<AiModel[]> {
+    return db.select().from(aiModels);
+  }
+
+  async getAiModelByName(name: string): Promise<AiModel | undefined> {
+    const result = await db.select().from(aiModels).where(eq(aiModels.name, name)).limit(1);
+    return result[0];
+  }
+
+  async updateAiModel(name: string, data: Partial<AiModel>): Promise<AiModel> {
+    await db.update(aiModels).set(data).where(eq(aiModels.name, name));
+    const result = await this.getAiModelByName(name);
+    if (!result) throw new Error(`AI Model ${name} not found`);
+    return result;
+  }
+
+  // Shards
+  async getAllShards(): Promise<Shard[]> {
+    return db.select().from(shards);
+  }
+
+  async getShardById(shardId: number): Promise<Shard | undefined> {
+    const result = await db.select().from(shards).where(eq(shards.shardId, shardId)).limit(1);
+    return result[0];
+  }
+
+  async updateShard(shardId: number, data: Partial<Shard>): Promise<Shard> {
+    await db.update(shards).set(data).where(eq(shards.shardId, shardId));
+    const result = await this.getShardById(shardId);
+    if (!result) throw new Error(`Shard ${shardId} not found`);
+    return result;
+  }
+}
+
+export const storage = new DbStorage();

@@ -3,13 +3,14 @@
 ## Project Overview
 A professional blockchain explorer similar to Solana/Etherscan, built for the TBURN blockchain mainnet. The project features real-time network monitoring, AI orchestration management, validator tracking, smart contract interface, sharding system monitoring, and comprehensive node health dashboards.
 
-**Status**: MVP Complete ✅  
+**Status**: MVP Complete ✅ | **Database**: PostgreSQL ✅  
 **Last Updated**: November 21, 2025
 
 ## Tech Stack
 - **Frontend**: React 18, TypeScript, Vite, Wouter (routing), TanStack Query v5
 - **Backend**: Express.js, WebSocket (ws library)
-- **Storage**: In-memory (MemStorage) with mock data - ready for cloud migration
+- **Database**: PostgreSQL (Neon Serverless) with Drizzle ORM ✅
+- **Storage**: DbStorage (PostgreSQL-based) with seed data
 - **UI**: Shadcn UI, Tailwind CSS, Radix UI primitives
 - **AI Integrations**: Anthropic Claude 4.5 Sonnet, OpenAI GPT-5 (via Replit AI Integrations)
 - **Data Visualization**: Recharts
@@ -36,7 +37,9 @@ A professional blockchain explorer similar to Solana/Etherscan, built for the TB
 │       └── queryClient.ts       # TanStack Query configuration
 ├── server/
 │   ├── routes.ts        # REST API + WebSocket server
-│   ├── storage.ts       # IStorage interface + MemStorage implementation
+│   ├── storage.ts       # IStorage interface + DbStorage (PostgreSQL) + MemStorage
+│   ├── db.ts            # Drizzle database client configuration
+│   ├── seed.ts          # Database seeding script
 │   └── app.ts           # Express app configuration
 └── shared/
     └── schema.ts        # TypeScript types & Drizzle schemas
@@ -188,19 +191,39 @@ Following a professional, data-centric blockchain explorer aesthetic:
 - Custom hover/active states via `hover-elevate` and `active-elevate-2` utilities
 - Consistent spacing and border radius (rounded-md)
 
+## Database Information
+
+### PostgreSQL Setup
+- **Provider**: Neon Serverless PostgreSQL
+- **ORM**: Drizzle ORM
+- **Schema**: 8 tables (blocks, transactions, accounts, validators, smart_contracts, ai_models, shards, network_stats)
+- **Seeding**: Automated via `server/seed.ts`
+- **Migration**: `npm run db:push` (Drizzle Kit)
+
+### Database Tables
+1. **blocks** - Blockchain blocks with transaction counts, gas usage
+2. **transactions** - Transaction history with status tracking
+3. **accounts** - User accounts and balances
+4. **validators** - Validator nodes with staking info
+5. **smart_contracts** - Deployed contracts with verification status
+6. **ai_models** - AI orchestration statistics
+7. **shards** - Shard performance metrics
+8. **network_stats** - Network-wide statistics (singleton)
+
+### Data Persistence
+- ✅ All data persists across server restarts
+- ✅ Transaction Simulator saves to database
+- ✅ WebSocket updates work with database backend
+
 ## Known Issues & Limitations
 
 ### Current Limitations
-1. **Mock Data**: All data is currently stored in-memory
-   - Ready for cloud migration with real blockchain backend
-   - No persistence across server restarts
-
-2. **WebSocket Security**: No authentication or rate limiting
+1. **WebSocket Security**: No authentication or rate limiting
    - Suitable for development/testing
    - Needs hardening for production deployment
 
-3. **Data Validation**: Limited input validation on API endpoints
-   - Assumes well-formed data from blockchain backend
+2. **Data Validation**: Input validation implemented for transaction simulator
+   - All other endpoints assume well-formed data from blockchain backend
 
 ### Vite HMR WebSocket Warning
 - Browser console shows Vite HMR WebSocket errors in Replit environment
@@ -319,13 +342,21 @@ Automated end-to-end tests completed successfully using Playwright:
 ## Recent Changes (November 21, 2025)
 
 ### New Features
-1. ✅ **Transaction Simulator** - Complete implementation with validation and presets
+1. ✅ **PostgreSQL Database Integration** - Complete database setup and migration
+   - Neon Serverless PostgreSQL with Drizzle ORM
+   - Full schema implementation (8 tables)
+   - DbStorage class for all database operations
+   - Database seeding with realistic mock data
+   - Data persistence across server restarts
+   
+2. ✅ **Transaction Simulator** - Complete implementation with validation and presets
    - Address regex validation (0x + 40 hex characters)
    - Gas limit and numeric input validation
    - Server-side Zod schema validation
    - Contract creation support (empty "to" field allowed)
    - Three preset transaction types
    - Real-time transaction preview
+   - Transactions saved to PostgreSQL database
 
 ### Fixed Issues  
 1. ✅ BigInt JSON serialization - Added toJSON method to BigInt.prototype
@@ -335,6 +366,7 @@ Automated end-to-end tests completed successfully using Playwright:
 5. ✅ **Type consistency** - Fixed bigint mode: "number" to use regular numbers throughout
 6. ✅ **Mock data BigInt bug** - Removed all BigInt literals from mock data generation
 7. ✅ **Transaction sorting crash** - Fixed 500 error when fetching transactions after creation
+8. ✅ **Neon WebSocket configuration** - Added WebSocket constructor for Node.js environment
 
 ### Optimizations
 1. TanStack Query v5 for efficient data fetching
