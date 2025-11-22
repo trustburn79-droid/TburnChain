@@ -92,8 +92,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/network/stats", async (_req, res) => {
     try {
-      const stats = await storage.getNetworkStats();
-      res.json(stats);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const stats = await client.getNetworkStats();
+        res.json(stats);
+      } else {
+        // Fetch from local database (demo mode)
+        const stats = await storage.getNetworkStats();
+        res.json(stats);
+      }
     } catch (error) {
       console.error("Error fetching network stats:", error);
       res.status(500).json({ error: "Failed to fetch network stats" });
@@ -134,10 +142,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Blocks
   // ============================================
-  app.get("/api/blocks", async (_req, res) => {
+  app.get("/api/blocks", async (req, res) => {
     try {
-      const blocks = await storage.getAllBlocks();
-      res.json(blocks);
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const blocks = await client.getRecentBlocks(limit);
+        res.json(blocks);
+      } else {
+        // Fetch from local database (demo mode)
+        const blocks = await storage.getAllBlocks();
+        res.json(blocks);
+      }
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch blocks" });
     }
@@ -146,8 +163,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blocks/recent", async (req, res) => {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
-      const blocks = await storage.getRecentBlocks(limit);
-      res.json(blocks);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const blocks = await client.getRecentBlocks(limit);
+        res.json(blocks);
+      } else {
+        // Fetch from local database (demo mode)
+        const blocks = await storage.getRecentBlocks(limit);
+        res.json(blocks);
+      }
     } catch (error) {
       console.error("Error fetching recent blocks:", error);
       res.status(500).json({ error: "Failed to fetch recent blocks" });
@@ -170,10 +195,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Transactions
   // ============================================
-  app.get("/api/transactions", async (_req, res) => {
+  app.get("/api/transactions", async (req, res) => {
     try {
-      const transactions = await storage.getAllTransactions();
-      res.json(transactions);
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const transactions = await client.getRecentTransactions(limit);
+        res.json(transactions);
+      } else {
+        // Fetch from local database (demo mode)
+        const transactions = await storage.getAllTransactions();
+        res.json(transactions);
+      }
     } catch (error) {
       console.error("Error fetching transactions:", error);
       res.status(500).json({ error: "Failed to fetch transactions" });
@@ -183,8 +217,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/transactions/recent", async (req, res) => {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
-      const transactions = await storage.getRecentTransactions(limit);
-      res.json(transactions);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const transactions = await client.getRecentTransactions(limit);
+        res.json(transactions);
+      } else {
+        // Fetch from local database (demo mode)
+        const transactions = await storage.getRecentTransactions(limit);
+        res.json(transactions);
+      }
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch recent transactions" });
     }
@@ -193,11 +235,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/transactions/:hash", async (req, res) => {
     try {
       const hash = req.params.hash;
-      const transaction = await storage.getTransactionByHash(hash);
-      if (!transaction) {
-        return res.status(404).json({ error: "Transaction not found" });
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const transaction = await client.getTransaction(hash);
+        res.json(transaction);
+      } else {
+        // Fetch from local database (demo mode)
+        const transaction = await storage.getTransactionByHash(hash);
+        if (!transaction) {
+          return res.status(404).json({ error: "Transaction not found" });
+        }
+        res.json(transaction);
       }
-      res.json(transaction);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch transaction" });
     }
