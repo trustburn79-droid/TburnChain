@@ -15,6 +15,8 @@ import {
   type InsertShard,
   type NetworkStats,
   type InsertNetworkStats,
+  type ConsensusRound,
+  type InsertConsensusRound,
   blocks,
   transactions,
   accounts,
@@ -23,6 +25,7 @@ import {
   aiModels,
   shards,
   networkStats as networkStatsTable,
+  consensusRounds,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -89,6 +92,7 @@ export class MemStorage implements IStorage {
   private contracts: Map<string, SmartContract>;
   private aiModels: Map<string, AiModel>;
   private shards: Map<number, Shard>;
+  private consensusRounds: Map<number, import("@shared/schema").ConsensusRound>;
 
   constructor() {
     // Initialize network stats with TBURN high-performance metrics (basis points: 10000 = 100.00%)
@@ -119,6 +123,7 @@ export class MemStorage implements IStorage {
     this.contracts = new Map();
     this.aiModels = new Map();
     this.shards = new Map();
+    this.consensusRounds = new Map();
 
     this.initializeMockData();
   }
@@ -606,6 +611,30 @@ export class MemStorage implements IStorage {
       startTime: blockStartTime,
     };
   }
+
+  async createConsensusRound(data: import("@shared/schema").InsertConsensusRound): Promise<import("@shared/schema").ConsensusRound> {
+    const round: import("@shared/schema").ConsensusRound = {
+      id: `round-${data.blockHeight}`,
+      ...data,
+      createdAt: new Date(),
+    };
+    this.consensusRounds.set(Number(data.blockHeight), round);
+    return round;
+  }
+
+  async getLatestConsensusRound(): Promise<import("@shared/schema").ConsensusRound | null> {
+    if (this.consensusRounds.size === 0) return null;
+    const blockHeights = Array.from(this.consensusRounds.keys());
+    const maxBlockHeight = Math.max(...blockHeights);
+    return this.consensusRounds.get(maxBlockHeight) || null;
+  }
+
+  async updateConsensusRound(blockHeight: number, data: Partial<import("@shared/schema").ConsensusRound>): Promise<void> {
+    const existing = this.consensusRounds.get(blockHeight);
+    if (existing) {
+      this.consensusRounds.set(blockHeight, { ...existing, ...data });
+    }
+  }
 }
 
 // PostgreSQL-based storage implementation
@@ -840,6 +869,27 @@ export class DbStorage implements IStorage {
       avgBlockTimeMs: Number(stats.avgBlockTime),
       startTime: blockStartTime,
     };
+  }
+
+  async createConsensusRound(data: InsertConsensusRound): Promise<ConsensusRound> {
+    const [round] = await db.insert(consensusRounds).values(data).returning();
+    return round;
+  }
+
+  async getLatestConsensusRound(): Promise<ConsensusRound | null> {
+    const [round] = await db
+      .select()
+      .from(consensusRounds)
+      .orderBy(desc(consensusRounds.blockHeight))
+      .limit(1);
+    return round || null;
+  }
+
+  async updateConsensusRound(blockHeight: number, data: Partial<ConsensusRound>): Promise<void> {
+    await db
+      .update(consensusRounds)
+      .set(data)
+      .where(eq(consensusRounds.blockHeight, BigInt(blockHeight)));
   }
 }
 
