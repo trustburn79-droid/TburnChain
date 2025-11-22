@@ -59,11 +59,11 @@ export default function Dashboard() {
         ) : (
           <>
             <StatCard
-              title="Network TPS"
+              title="Current TPS"
               value={formatNumber(networkStats?.tps || 0)}
               icon={Zap}
               trend={{ value: 12.5, isPositive: true }}
-              subtitle="transactions/sec"
+              subtitle={`Peak: ${formatNumber(networkStats?.peakTps || 0)} TPS`}
             />
             <StatCard
               title="Block Height"
@@ -72,26 +72,27 @@ export default function Dashboard() {
               subtitle="latest block"
             />
             <StatCard
-              title="Active Validators"
-              value={`${networkStats?.activeValidators || 0}/${networkStats?.totalValidators || 0}`}
-              icon={Server}
-              subtitle="online now"
-            />
-            <StatCard
-              title="Avg Block Time"
-              value={`${networkStats?.avgBlockTime || 0}s`}
+              title="Block Time"
+              value={`${networkStats?.avgBlockTime || 0}ms`}
               icon={Clock}
               trend={{ value: 5.2, isPositive: false }}
-              subtitle="per block"
+              subtitle={`P99: ${networkStats?.blockTimeP99 || 0}ms`}
+            />
+            <StatCard
+              title="SLA Uptime"
+              value={`${((networkStats?.slaUptime || 9990) / 100).toFixed(2)}%`}
+              icon={Activity}
+              subtitle="last 30 days"
             />
           </>
         )}
       </div>
 
       {/* Secondary Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-4">
         {statsLoading ? (
           <>
+            <Skeleton className="h-24" />
             <Skeleton className="h-24" />
             <Skeleton className="h-24" />
             <Skeleton className="h-24" />
@@ -135,6 +136,22 @@ export default function Dashboard() {
                 <div className="text-2xl font-semibold tabular-nums">
                   ${formatNumber(networkStats?.marketCap || 0)}
                 </div>
+              </CardContent>
+            </Card>
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  Active Validators
+                </CardTitle>
+                <Server className="h-4 w-4 text-primary" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-semibold tabular-nums">
+                  {networkStats?.activeValidators || 0} / {networkStats?.totalValidators || 0}
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {((networkStats?.activeValidators || 0) / (networkStats?.totalValidators || 1) * 100).toFixed(1)}% online
+                </p>
               </CardContent>
             </Card>
           </>
