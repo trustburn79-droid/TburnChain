@@ -154,6 +154,23 @@ export const networkStats = pgTable("network_stats", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// Consensus Rounds
+export const consensusRounds = pgTable("consensus_rounds", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  blockHeight: bigint("block_height", { mode: "number" }).notNull().unique(),
+  proposerAddress: text("proposer_address").notNull(),
+  currentPhase: integer("current_phase").notNull().default(1), // 1-5
+  prevoteCount: integer("prevote_count").notNull().default(0),
+  precommitCount: integer("precommit_count").notNull().default(0),
+  totalValidators: integer("total_validators").notNull().default(0),
+  requiredQuorum: integer("required_quorum").notNull().default(0),
+  avgBlockTimeMs: integer("avg_block_time_ms").notNull().default(0),
+  status: text("status").notNull().default("in_progress"), // in_progress, completed, failed
+  startTime: bigint("start_time", { mode: "number" }).notNull(), // Unix timestamp in ms
+  completedTime: bigint("completed_time", { mode: "number" }), // Unix timestamp in ms
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ============================================
 // Insert Schemas and Types
 // ============================================
@@ -167,6 +184,7 @@ export const insertAiModelSchema = createInsertSchema(aiModels).omit({ id: true,
 export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id: true, createdAt: true, executedAt: true });
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
+export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).omit({ id: true, createdAt: true });
 
 // Types
 export type Block = typeof blocks.$inferSelect;
@@ -195,6 +213,9 @@ export type InsertShard = z.infer<typeof insertShardSchema>;
 
 export type NetworkStats = typeof networkStats.$inferSelect;
 export type InsertNetworkStats = z.infer<typeof insertNetworkStatsSchema>;
+
+export type ConsensusRound = typeof consensusRounds.$inferSelect;
+export type InsertConsensusRound = z.infer<typeof insertConsensusRoundSchema>;
 
 // ============================================
 // Additional Types for Frontend
