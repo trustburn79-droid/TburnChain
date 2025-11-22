@@ -1,10 +1,29 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
+import rateLimit from "express-rate-limit";
 import { storage } from "./storage";
 import { insertTransactionSchema } from "@shared/schema";
 
 const SITE_PASSWORD = "tburn7979";
+
+// Rate limiters
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 attempts per window
+  message: { error: "Too many login attempts. Please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const apiLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100, // 100 requests per window
+  message: { error: "Too many requests. Please slow down." },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => req.path.startsWith("/auth/"), // Skip auth routes
+});
 
 // Authentication middleware
 function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -27,7 +46,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Authentication Routes
   // ============================================
-  app.post("/api/auth/login", (req, res) => {
+  app.post("/api/auth/login", loginLimiter, (req, res) => {
     const { password } = req.body;
     
     if (password === SITE_PASSWORD) {
@@ -50,6 +69,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/auth/check", (req, res) => {
     res.json({ authenticated: !!req.session.authenticated });
   });
+
+  // Apply rate limiting to all API routes
+  app.use("/api", apiLimiter);
 
   // Apply authentication middleware to all other routes
   app.use("/api", (req, res, next) => {

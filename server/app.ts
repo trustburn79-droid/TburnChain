@@ -38,6 +38,9 @@ export function log(message: string, source = "express") {
 
 export const app = express();
 
+// Trust proxy for rate limiting in Replit environment
+app.set('trust proxy', 1);
+
 declare module 'http' {
   interface IncomingMessage {
     rawBody: unknown

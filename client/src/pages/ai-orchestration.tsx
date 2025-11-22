@@ -23,8 +23,8 @@ export default function AIOrchestration() {
 
   const totalRequests = aiModels?.reduce((sum, m) => sum + m.requestCount, 0) || 0;
   const totalCost = aiModels?.reduce((sum, m) => sum + parseFloat(m.totalCost), 0) || 0;
-  const avgResponseTime = aiModels?.reduce((sum, m) => sum + m.avgResponseTime, 0) / (aiModels?.length || 1) || 0;
-  const avgCacheHitRate = aiModels?.reduce((sum, m) => sum + m.cacheHitRate, 0) / (aiModels?.length || 1) || 0;
+  const avgResponseTime = (aiModels?.reduce((sum, m) => sum + m.avgResponseTime, 0) || 0) / (aiModels?.length || 1);
+  const avgCacheHitRate = (aiModels?.reduce((sum, m) => sum + m.cacheHitRate, 0) || 0) / (aiModels?.length || 1) / 100; // Convert basis points to percentage
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -40,10 +40,36 @@ export default function AIOrchestration() {
   };
 
   const getModelIcon = (name: string) => {
-    if (name.includes("gpt")) return "🤖";
-    if (name.includes("claude")) return "🧠";
-    if (name.includes("llama")) return "🦙";
+    if (name.includes("gpt")) return "🧠";
+    if (name.includes("claude")) return "🎯";
+    if (name.includes("llama")) return "⚡";
     return "🔮";
+  };
+
+  const getBandLabel = (band: string) => {
+    switch (band) {
+      case "strategic":
+        return "Strategic AI • Long-term Planning";
+      case "tactical":
+        return "Tactical AI • Mid-term Optimization";
+      case "operational":
+        return "Operational AI • Real-time Control";
+      default:
+        return band;
+    }
+  };
+
+  const getBandColor = (band: string) => {
+    switch (band) {
+      case "strategic":
+        return "border-l-blue-500 bg-blue-50 dark:bg-blue-950/20";
+      case "tactical":
+        return "border-l-purple-500 bg-purple-50 dark:bg-purple-950/20";
+      case "operational":
+        return "border-l-green-500 bg-green-50 dark:bg-green-950/20";
+      default:
+        return "";
+    }
   };
 
   return (
@@ -54,7 +80,7 @@ export default function AIOrchestration() {
           AI Orchestration
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Triple-Band AI model management and monitoring (GPT-5, Claude, Llama)
+          Triple-Band AI System: Strategic • Tactical • Operational
         </p>
       </div>
 
@@ -113,41 +139,53 @@ export default function AIOrchestration() {
               ? (model.successCount / model.requestCount) * 100
               : 0;
 
+            const uptime = model.uptime ? model.uptime / 100 : 99.9;
+            const accuracy = model.accuracy ? model.accuracy / 100 : successRate;
+            const cacheHit = model.cacheHitRate / 100;
+
             return (
-              <Card key={model.id} className="hover-elevate" data-testid={`card-ai-model-${model.name}`}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium flex items-center gap-2">
-                    <span className="text-2xl">{getModelIcon(model.name)}</span>
-                    {model.name}
-                  </CardTitle>
-                  {getStatusBadge(model.status)}
+              <Card 
+                key={model.id} 
+                className={`hover-elevate ${getBandColor(model.band)}`}
+                data-testid={`card-ai-model-${model.name}`}
+              >
+                <CardHeader className="space-y-2 pb-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-4xl">{getModelIcon(model.name)}</span>
+                      <div>
+                        <CardTitle className="text-lg font-bold capitalize">{model.band} AI</CardTitle>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {model.name} • {getBandLabel(model.band).split(' • ')[1]}
+                        </p>
+                      </div>
+                    </div>
+                    {getStatusBadge(model.status)}
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Requests</span>
+                      <span className="text-muted-foreground">Uptime:</span>
+                      <span className="font-semibold tabular-nums">{uptime.toFixed(2)}%</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        {model.band === 'strategic' ? 'Decisions' : model.band === 'tactical' ? 'Actions' : 'Operations'}:
+                      </span>
                       <span className="font-semibold tabular-nums">{formatNumber(model.requestCount)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Success Rate</span>
-                      <span className="font-semibold tabular-nums">{successRate.toFixed(1)}%</span>
+                      <span className="text-muted-foreground">Accuracy:</span>
+                      <span className="font-semibold tabular-nums">{accuracy.toFixed(2)}%</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Avg Time</span>
-                      <span className="font-semibold tabular-nums">{model.avgResponseTime}ms</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Cache Hit</span>
-                      <span className="font-semibold tabular-nums">{model.cacheHitRate}%</span>
+                      <span className="text-muted-foreground">Cache Hit:</span>
+                      <span className="font-semibold tabular-nums">{cacheHit.toFixed(1)}%</span>
                     </div>
                   </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground mb-1">Success Rate</div>
-                    <Progress value={successRate} className="h-2" />
-                  </div>
-                  <div className="pt-2 border-t">
-                    <div className="text-xs text-muted-foreground">Total Cost</div>
-                    <div className="text-lg font-semibold tabular-nums">${parseFloat(model.totalCost).toFixed(4)}</div>
+                  <div className="pt-3 border-t text-xs text-muted-foreground">
+                    <strong>Last Used:</strong> {model.lastUsed ? new Date(model.lastUsed).toLocaleTimeString() : 'Active'}
                   </div>
                 </CardContent>
               </Card>

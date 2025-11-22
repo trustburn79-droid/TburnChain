@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - BURN Chain v4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #333; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 28px; }
+        .warning-banner { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 20px auto; max-width: 1400px; border-radius: 8px; }
+        .nav { background: white; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow-x: auto; white-space: nowrap; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; gap: 10px; }
+        .nav a { display: inline-block; padding: 10px 20px; text-decoration: none; color: #666; border-radius: 6px; font-size: 14px; }
+        .nav a:hover { background: #f0f0f0; }
+        .nav a.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .stat-card .icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 15px; }
+        .stat-card .value { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .card h3 { font-size: 18px; margin-bottom: 20px; color: #333; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #666; margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .btn-secondary { background: #f0f0f0; color: #333; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn:hover { opacity: 0.9; }
+        .action-grid { display: grid; gap: 15px; }
+        .action-btn { padding: 20px; background: white; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 15px; }
+        .action-btn:hover { border-color: #667eea; background: #f9f9ff; }
+        .action-btn .icon { font-size: 32px; }
+        .action-btn .content .title { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+        .action-btn .content .desc { font-size: 13px; color: #666; }
+        .log-entry { padding: 10px 15px; margin-bottom: 5px; border-radius: 6px; font-family: monospace; font-size: 12px; }
+        .log-info { background: #eff6ff; color: #1e40af; }
+        .log-warn { background: #fef3c7; color: #92400e; }
+        .log-error { background: #fee2e2; color: #991b1b; }
+        .log-scroll { max-height: 400px; overflow-y: auto; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge-healthy { background: #d1fae5; color: #065f46; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔥 BURN Chain v4.0</h1>
+            <div style="text-align: right; font-size: 14px;">
+                <div>Administrator Panel</div>
+                <div style="margin-top: 5px; font-size: 12px; opacity: 0.9;">⚠️ Full Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="warning-banner">
+        <strong>⚠️ Administrator Access</strong><br>
+        <span style="font-size: 14px; color: #666;">You have full control over the blockchain. Use with caution. All actions are logged.</span>
+    </div>
+
+    <div class="nav">
+        <div class="nav-content">
+            <a href="01_dashboard.html">📊 Dashboard</a>
+            <a href="02_network.html">🌐 Network</a>
+            <a href="03_consensus.html">✅ Consensus</a>
+            <a href="04_shards.html">📦 Shards</a>
+            <a href="05_transactions.html">💸 Transactions</a>
+            <a href="06_cross_shard.html">↔️ Cross-Shard</a>
+            <a href="07_validators.html">🛡️ Validators</a>
+            <a href="08_ai.html">🧠 AI</a>
+            <a href="09_contracts.html">📝 Contracts</a>
+            <a href="10_wallet.html">💳 Wallet</a>
+            <a href="11_metrics.html">📈 Metrics</a>
+            <a href="12_admin.html" class="active">⚙️ Admin</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid-4">
+            <div class="stat-card">
+                <div class="icon" style="background: #d1fae5; color: #065f46;">✓</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Node Status</div>
+                <div class="value" style="font-size: 24px;"><span class="badge badge-healthy">Healthy</span></div>
+                <div style="font-size: 12px; color: #999;">All systems operational</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #dbeafe; color: #1e40af;">💾</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Database Size</div>
+                <div class="value" style="font-size: 28px;">2.4 TB</div>
+                <div style="font-size: 12px; color: #999;">18% of 13.3TB capacity</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #fef3c7; color: #92400e;">🧠</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Memory Usage</div>
+                <div class="value" style="font-size: 28px;">34 GB</div>
+                <div style="font-size: 12px; color: #999;">42% of 80GB</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #e9d5ff; color: #7c3aed;">⚡</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">CPU Load</div>
+                <div class="value" style="font-size: 28px;">56%</div>
+                <div style="font-size: 12px; color: #999;">Normal (30-70%)</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>⚙️ Consensus Settings</h3>
+                <div class="input-group">
+                    <label>Committee Size</label>
+                    <input type="number" value="21" />
+                    <span style="font-size: 12px; color: #999;">Number of validators in BFT committee</span>
+                </div>
+                <div class="input-group">
+                    <label>Round Timeout (ms)</label>
+                    <input type="number" value="1000" />
+                    <span style="font-size: 12px; color: #999;">Maximum time per consensus round</span>
+                </div>
+                <div class="input-group">
+                    <label>Block Time Target (ms)</label>
+                    <input type="number" value="100" />
+                    <span style="font-size: 12px; color: #999;">Target block production time</span>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">💾 Save Configuration</button>
+            </div>
+
+            <div class="card">
+                <h3>📦 Shard Settings</h3>
+                <div class="input-group">
+                    <label>Max Shards</label>
+                    <input type="number" value="64" />
+                    <span style="font-size: 12px; color: #999;">Maximum number of shards</span>
+                </div>
+                <div class="input-group">
+                    <label>Split Threshold (%)</label>
+                    <input type="number" value="85" />
+                    <span style="font-size: 12px; color: #999;">Load threshold for shard splitting</span>
+                </div>
+                <div class="input-group">
+                    <label>Merge Threshold (%)</label>
+                    <input type="number" value="20" />
+                    <span style="font-size: 12px; color: #999;">Load threshold for shard merging</span>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">💾 Save Configuration</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🔧 Administrative Actions</h3>
+            <div class="action-grid">
+                <div class="action-btn" onclick="alert('Restarting node...')">
+                    <div class="icon">🔄</div>
+                    <div class="content">
+                        <div class="title">Restart Node</div>
+                        <div class="desc">Apply configuration changes and refresh system</div>
+                    </div>
+                </div>
+                <div class="action-btn" onclick="alert('Creating backup...')">
+                    <div class="icon">💾</div>
+                    <div class="content">
+                        <div class="title">Backup Database</div>
+                        <div class="desc">Create full snapshot of blockchain data (~20 minutes)</div>
+                    </div>
+                </div>
+                <div class="action-btn" onclick="alert('Exporting metrics...')">
+                    <div class="icon">📊</div>
+                    <div class="content">
+                        <div class="title">Export Metrics</div>
+                        <div class="desc">Download performance data (CSV/JSON/PDF)</div>
+                    </div>
+                </div>
+                <div class="action-btn" onclick="alert('Clearing mempool...')">
+                    <div class="icon">🧹</div>
+                    <div class="content">
+                        <div class="title">Clear Mempool</div>
+                        <div class="desc">Remove stuck/invalid transactions</div>
+                    </div>
+                </div>
+                <div class="action-btn" onclick="alert('Rebalancing shards...')">
+                    <div class="icon">⚖️</div>
+                    <div class="content">
+                        <div class="title">Rebalance Shards</div>
+                        <div class="desc">Redistribute load across shards (~5 minutes)</div>
+                    </div>
+                </div>
+                <div class="action-btn" onclick="if(confirm('Are you SURE? This will stop the blockchain!')) alert('Emergency stop initiated')">
+                    <div class="icon">🛑</div>
+                    <div class="content">
+                        <div class="title">Emergency Stop</div>
+                        <div class="desc">⚠️ Halt blockchain for critical issues ONLY</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📋 System Logs</h3>
+            <div class="log-scroll">
+                <div class="log-entry log-info">[2025-11-14 13:45:23] INFO: Consensus round #1234567 completed in 98ms</div>
+                <div class="log-entry log-info">[2025-11-14 13:45:23] INFO: Block finalized: height=1234567, txs=5203</div>
+                <div class="log-entry log-info">[2025-11-14 13:45:22] INFO: AI: Load balanced 234 transactions</div>
+                <div class="log-entry log-info">[2025-11-14 13:45:21] INFO: Validator 0x7a8f...3d2e: Proposer for round</div>
+                <div class="log-entry log-info">[2025-11-14 13:45:20] INFO: Committee selected: 21 validators</div>
+                <div class="log-entry log-warn">[2025-11-14 13:45:18] WARN: Shard 3 approaching split threshold (98% load)</div>
+                <div class="log-entry log-info">[2025-11-14 13:45:15] INFO: Cross-shard TX completed: 100 BURN (S3→S17)</div>
+                <div class="log-entry log-error">[2025-11-14 13:45:12] ERROR: Failed to connect to peer 12D3KooW...xyz</div>
+                <div class="log-entry log-info">[2025-11-14 13:45:10] INFO: Transaction validated: 0xab3f...8c2d</div>
+                <div class="log-entry log-info">[2025-11-14 13:45:08] INFO: New validator joined: 0x2c5d...4b9a</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #2a2a2a; color: white; padding: 30px; text-align: center;">
+        <p>BURN Chain v4.0 - AI-Enhanced Enterprise Blockchain</p>
+        <p style="font-size: 12px; opacity: 0.7; margin-top: 10px;">© 2025 BURN Chain. All rights reserved.</p>
+    </div>
+</body>
+</html>

@@ -7,6 +7,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DemoBanner } from "@/components/DemoBanner";
 
 // Pages
 import Dashboard from "@/pages/dashboard";
@@ -71,6 +72,7 @@ function AuthenticatedApp() {
         <div className="flex h-screen w-full">
           <AppSidebar />
           <div className="flex flex-col flex-1">
+            <DemoBanner />
             <header className="flex items-center justify-between p-4 border-b">
               <SidebarTrigger data-testid="button-sidebar-toggle" />
               <ThemeToggle />

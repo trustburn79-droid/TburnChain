@@ -91,6 +91,7 @@ export const smartContracts = pgTable("smart_contracts", {
 export const aiModels = pgTable("ai_models", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull().unique(), // gpt-5, claude-sonnet-4-5, llama-3
+  band: text("band").notNull().default("operational"), // strategic, tactical, operational
   status: text("status").notNull().default("active"), // active, inactive, error
   requestCount: integer("request_count").notNull().default(0),
   successCount: integer("success_count").notNull().default(0),
@@ -98,7 +99,25 @@ export const aiModels = pgTable("ai_models", {
   avgResponseTime: integer("avg_response_time").notNull().default(0), // ms
   totalCost: text("total_cost").notNull().default("0"),
   lastUsed: timestamp("last_used"),
-  cacheHitRate: integer("cache_hit_rate").notNull().default(0), // percentage
+  cacheHitRate: integer("cache_hit_rate").notNull().default(0), // basis points (7500 = 75.00%)
+  accuracy: integer("accuracy").notNull().default(0), // basis points (9680 = 96.80%)
+  uptime: integer("uptime").notNull().default(10000), // basis points (9990 = 99.90%)
+});
+
+// AI Decisions (Triple-Band AI tracking)
+export const aiDecisions = pgTable("ai_decisions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  band: text("band").notNull(), // strategic, tactical, operational
+  modelName: text("model_name").notNull(),
+  decision: text("decision").notNull(),
+  impact: text("impact").notNull(), // high, medium, low
+  category: text("category").notNull(), // scaling, optimization, validation, etc.
+  shardId: integer("shard_id"),
+  validatorAddress: text("validator_address"),
+  status: text("status").notNull().default("executed"), // pending, executed, failed
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  executedAt: timestamp("executed_at"),
 });
 
 // Shard Information
@@ -119,13 +138,19 @@ export const networkStats = pgTable("network_stats", {
   id: varchar("id").primaryKey().default("singleton"),
   currentBlockHeight: bigint("current_block_height", { mode: "number" }).notNull().default(0),
   tps: integer("tps").notNull().default(0),
-  avgBlockTime: integer("avg_block_time").notNull().default(0), // seconds
+  peakTps: integer("peak_tps").notNull().default(0),
+  avgBlockTime: integer("avg_block_time").notNull().default(0), // milliseconds
+  blockTimeP99: integer("block_time_p99").notNull().default(0), // milliseconds
+  slaUptime: integer("sla_uptime").notNull().default(9990), // basis points (9990 = 99.90%)
+  latency: integer("latency").notNull().default(0), // milliseconds
+  latencyP99: integer("latency_p99").notNull().default(0), // milliseconds
   activeValidators: integer("active_validators").notNull().default(0),
   totalValidators: integer("total_validators").notNull().default(0),
   totalTransactions: bigint("total_transactions", { mode: "number" }).notNull().default(0),
   totalAccounts: integer("total_accounts").notNull().default(0),
   marketCap: text("market_cap").notNull().default("0"),
   circulatingSupply: text("circulating_supply").notNull().default("0"),
+  successRate: integer("success_rate").notNull().default(9970), // basis points (9970 = 99.70%)
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
@@ -139,6 +164,7 @@ export const insertAccountSchema = createInsertSchema(accounts).omit({ id: true,
 export const insertValidatorSchema = createInsertSchema(validators).omit({ id: true, joinedAt: true });
 export const insertSmartContractSchema = createInsertSchema(smartContracts).omit({ id: true, deployedAt: true });
 export const insertAiModelSchema = createInsertSchema(aiModels).omit({ id: true, lastUsed: true });
+export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id: true, createdAt: true, executedAt: true });
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
 
@@ -160,6 +186,9 @@ export type InsertSmartContract = z.infer<typeof insertSmartContractSchema>;
 
 export type AiModel = typeof aiModels.$inferSelect;
 export type InsertAiModel = z.infer<typeof insertAiModelSchema>;
+
+export type AiDecision = typeof aiDecisions.$inferSelect;
+export type InsertAiDecision = z.infer<typeof insertAiDecisionSchema>;
 
 export type Shard = typeof shards.$inferSelect;
 export type InsertShard = z.infer<typeof insertShardSchema>;

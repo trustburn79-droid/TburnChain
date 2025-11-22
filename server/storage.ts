@@ -81,18 +81,24 @@ export class MemStorage implements IStorage {
   private shards: Map<number, Shard>;
 
   constructor() {
-    // Initialize network stats
+    // Initialize network stats with TBURN high-performance metrics (basis points: 10000 = 100.00%)
     this.networkStats = {
       id: "singleton",
       currentBlockHeight: 1245678,
-      tps: 45230,
-      avgBlockTime: 1,
+      tps: 347892, // TBURN current TPS
+      peakTps: 485231, // TBURN peak TPS
+      avgBlockTime: 98, // TBURN block time in ms
+      blockTimeP99: 125, // P99 block time
+      slaUptime: 9990, // 99.90% uptime (basis points)
+      latency: 12, // avg latency in ms
+      latencyP99: 45, // P99 latency in ms
       activeValidators: 125,
       totalValidators: 150,
       totalTransactions: 89234567,
       totalAccounts: 234567,
       marketCap: "12450000000",
       circulatingSupply: "500000000",
+      successRate: 9970, // 99.70% success rate (basis points)
       updatedAt: new Date(),
     };
 
@@ -108,43 +114,52 @@ export class MemStorage implements IStorage {
   }
 
   private initializeMockData() {
-    // Initialize AI Models
+    // Initialize Triple-Band AI Models (basis points: 10000 = 100.00%)
     const aiModels: AiModel[] = [
       {
         id: randomUUID(),
         name: "gpt-5",
+        band: "strategic", // Strategic AI
         status: "active",
-        requestCount: 12450,
-        successCount: 12389,
-        failureCount: 61,
+        requestCount: 2341,
+        successCount: 2267,
+        failureCount: 74,
         avgResponseTime: 245,
         totalCost: "124.56",
         lastUsed: new Date(),
-        cacheHitRate: 68,
+        cacheHitRate: 6800, // 68.00% (basis points)
+        accuracy: 9680, // 96.80% (basis points)
+        uptime: 9990, // 99.90% (basis points)
       },
       {
         id: randomUUID(),
         name: "claude-sonnet-4-5",
+        band: "tactical", // Tactical AI
         status: "active",
-        requestCount: 8934,
-        successCount: 8901,
-        failureCount: 33,
-        avgResponseTime: 312,
+        requestCount: 15892,
+        successCount: 15734,
+        failureCount: 158,
+        avgResponseTime: 198,
         totalCost: "89.34",
         lastUsed: new Date(),
-        cacheHitRate: 72,
+        cacheHitRate: 7200, // 72.00% (basis points)
+        accuracy: 9420, // 94.20% (basis points)
+        uptime: 9980, // 99.80% (basis points)
       },
       {
         id: randomUUID(),
         name: "llama-3",
+        band: "operational", // Operational AI
         status: "active",
-        requestCount: 5623,
-        successCount: 5598,
-        failureCount: 25,
-        avgResponseTime: 189,
-        totalCost: "28.12",
+        requestCount: 89234,
+        successCount: 88789,
+        failureCount: 445,
+        avgResponseTime: 45,
+        totalCost: "12.45",
         lastUsed: new Date(),
-        cacheHitRate: 75,
+        cacheHitRate: 8500, // 85.00% (basis points)
+        accuracy: 9850, // 98.50% (basis points)
+        uptime: 9995, // 99.95% (basis points)
       },
     ];
 
