@@ -210,6 +210,20 @@ export class TBurnClient {
     return this.request<any>(`/api/ai/models/${name}`);
   }
 
+  async getAIDecisions(limit?: number): Promise<any[]> {
+    const query = limit ? `?limit=${limit}` : '';
+    return this.request<any[]>(`/api/ai/decisions${query}`);
+  }
+
+  async getRecentAIDecisions(limit?: number): Promise<any[]> {
+    const query = limit ? `?limit=${limit}` : '';
+    return this.request<any[]>(`/api/ai/decisions/recent${query}`);
+  }
+
+  async getAIDecision(id: string): Promise<any> {
+    return this.request<any>(`/api/ai/decisions/${id}`);
+  }
+
   async getShards(): Promise<any[]> {
     return this.request<any[]>('/api/shards');
   }

@@ -11,6 +11,8 @@ import {
   type InsertSmartContract,
   type AiModel,
   type InsertAiModel,
+  type AiDecision,
+  type InsertAiDecision,
   type Shard,
   type InsertShard,
   type NetworkStats,
@@ -29,6 +31,7 @@ import {
   validators,
   smartContracts,
   aiModels,
+  aiDecisions,
   shards,
   networkStats as networkStatsTable,
   consensusRounds,
@@ -76,6 +79,12 @@ export interface IStorage {
   getAiModelByName(name: string): Promise<AiModel | undefined>;
   updateAiModel(name: string, data: Partial<AiModel>): Promise<AiModel>;
 
+  // AI Decisions
+  getAllAiDecisions(limit?: number): Promise<AiDecision[]>;
+  getAiDecisionById(id: string): Promise<AiDecision | undefined>;
+  createAiDecision(data: InsertAiDecision): Promise<AiDecision>;
+  getRecentAiDecisions(limit?: number): Promise<AiDecision[]>;
+
   // Shards
   getAllShards(): Promise<Shard[]>;
   getShardById(shardId: number): Promise<Shard | undefined>;
@@ -120,6 +129,7 @@ export class MemStorage implements IStorage {
   private validators: Map<string, Validator>;
   private contracts: Map<string, SmartContract>;
   private aiModels: Map<string, AiModel>;
+  private aiDecisions: Map<string, AiDecision>;
   private shards: Map<number, Shard>;
   private consensusRounds: Map<number, import("@shared/schema").ConsensusRound>;
   private crossShardMessages: Map<string, CrossShardMessage>;
@@ -153,6 +163,7 @@ export class MemStorage implements IStorage {
     this.validators = new Map();
     this.contracts = new Map();
     this.aiModels = new Map();
+    this.aiDecisions = new Map();
     this.shards = new Map();
     this.consensusRounds = new Map();
     this.crossShardMessages = new Map();
@@ -212,6 +223,67 @@ export class MemStorage implements IStorage {
     ];
 
     aiModels.forEach(model => this.aiModels.set(model.name, model));
+
+    // Initialize AI Decisions (recent decisions from Triple-Band AI)
+    const aiDecisionData: InsertAiDecision[] = [
+      {
+        band: "strategic",
+        modelName: "gpt-5",
+        decision: "Shard Splitting Approved",
+        impact: "high",
+        category: "scaling",
+        shardId: 3,
+        status: "executed",
+        metadata: { confidence: 95, details: "Shard 3 overload detected at 98% capacity. Split into Shard 3 and 48 to maintain optimal performance." },
+      },
+      {
+        band: "tactical",
+        modelName: "claude-sonnet-4-5",
+        decision: "Committee Rebalanced",
+        impact: "medium",
+        category: "optimization",
+        status: "executed",
+        metadata: { confidence: 92, details: "Optimized validator selection for better geographic distribution. Replaced 3 high-latency validators." },
+      },
+      {
+        band: "operational",
+        modelName: "llama-3",
+        decision: "Load Balancing Adjusted",
+        impact: "low",
+        category: "optimization",
+        shardId: 1,
+        status: "executed",
+        metadata: { confidence: 98, details: "Real-time load distribution adjusted for Shard 1. Response time improved by 12ms." },
+      },
+      {
+        band: "strategic",
+        modelName: "gpt-5",
+        decision: "Network Scaling Initiated",
+        impact: "high",
+        category: "scaling",
+        status: "pending",
+        metadata: { confidence: 88, details: "Preparing to add 25 new validators to handle projected 30% TPS increase." },
+      },
+      {
+        band: "tactical",
+        modelName: "claude-sonnet-4-5",
+        decision: "Gas Price Optimization",
+        impact: "medium",
+        category: "optimization",
+        status: "executed",
+        metadata: { confidence: 94, details: "Adjusted base gas price to 15 Gwei based on network congestion analysis." },
+      },
+    ];
+
+    aiDecisionData.forEach(decision => {
+      const aiDecision: AiDecision = {
+        id: randomUUID(),
+        ...decision,
+        createdAt: new Date(Date.now() - Math.random() * 3600000), // Random time within last hour
+        executedAt: decision.status === "executed" ? new Date(Date.now() - Math.random() * 1800000) : null,
+      };
+      this.aiDecisions.set(aiDecision.id, aiDecision);
+    });
 
     // Initialize Shards
     const shards: Shard[] = [
@@ -581,6 +653,34 @@ export class MemStorage implements IStorage {
     return updated;
   }
 
+  // AI Decisions
+  async getAllAiDecisions(limit: number = 100): Promise<AiDecision[]> {
+    return Array.from(this.aiDecisions.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice(0, limit);
+  }
+
+  async getAiDecisionById(id: string): Promise<AiDecision | undefined> {
+    return this.aiDecisions.get(id);
+  }
+
+  async createAiDecision(data: InsertAiDecision): Promise<AiDecision> {
+    const decision: AiDecision = {
+      id: randomUUID(),
+      ...data,
+      createdAt: new Date(),
+      executedAt: data.status === "executed" ? new Date() : null,
+    };
+    this.aiDecisions.set(decision.id, decision);
+    return decision;
+  }
+
+  async getRecentAiDecisions(limit: number = 10): Promise<AiDecision[]> {
+    return Array.from(this.aiDecisions.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice(0, limit);
+  }
+
   // Shards
   async getAllShards(): Promise<Shard[]> {
     return Array.from(this.shards.values());
@@ -929,6 +1029,28 @@ export class DbStorage implements IStorage {
     const result = await this.getAiModelByName(name);
     if (!result) throw new Error(`AI Model ${name} not found`);
     return result;
+  }
+
+  // AI Decisions
+  async getAllAiDecisions(limit: number = 100): Promise<AiDecision[]> {
+    return db.select().from(aiDecisions).orderBy(desc(aiDecisions.createdAt)).limit(limit);
+  }
+
+  async getAiDecisionById(id: string): Promise<AiDecision | undefined> {
+    const result = await db.select().from(aiDecisions).where(eq(aiDecisions.id, id)).limit(1);
+    return result[0];
+  }
+
+  async createAiDecision(data: InsertAiDecision): Promise<AiDecision> {
+    const decision = await db.insert(aiDecisions).values({
+      ...data,
+      executedAt: data.status === "executed" ? new Date() : null,
+    }).returning();
+    return decision[0];
+  }
+
+  async getRecentAiDecisions(limit: number = 10): Promise<AiDecision[]> {
+    return db.select().from(aiDecisions).orderBy(desc(aiDecisions.createdAt)).limit(limit);
   }
 
   // Shards
