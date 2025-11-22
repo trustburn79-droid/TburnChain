@@ -8,6 +8,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DemoBanner } from "@/components/DemoBanner";
+import { WebSocketProvider } from "@/lib/websocket-context";
 
 // Pages
 import Dashboard from "@/pages/dashboard";
@@ -73,23 +74,25 @@ function AuthenticatedApp() {
   }
 
   return (
-    <TooltipProvider>
-      <SidebarProvider style={style as React.CSSProperties}>
-        <div className="flex h-screen w-full">
-          <AppSidebar />
-          <div className="flex flex-col flex-1">
-            <DemoBanner />
-            <header className="flex items-center justify-between p-4 border-b">
-              <SidebarTrigger data-testid="button-sidebar-toggle" />
-              <ThemeToggle />
-            </header>
-            <main className="flex-1 overflow-auto">
-              <Router />
-            </main>
+    <WebSocketProvider>
+      <TooltipProvider>
+        <SidebarProvider style={style as React.CSSProperties}>
+          <div className="flex h-screen w-full">
+            <AppSidebar />
+            <div className="flex flex-col flex-1">
+              <DemoBanner />
+              <header className="flex items-center justify-between p-4 border-b">
+                <SidebarTrigger data-testid="button-sidebar-toggle" />
+                <ThemeToggle />
+              </header>
+              <main className="flex-1 overflow-auto">
+                <Router />
+              </main>
+            </div>
           </div>
-        </div>
-      </SidebarProvider>
-    </TooltipProvider>
+        </SidebarProvider>
+      </TooltipProvider>
+    </WebSocketProvider>
   );
 }
 
