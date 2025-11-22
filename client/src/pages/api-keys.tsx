@@ -66,10 +66,8 @@ export default function ApiKeys() {
       if (!label.trim()) {
         throw new Error("Label is required");
       }
-      return apiRequest<NewApiKeyResponse>("/api/keys", {
-        method: "POST",
-        body: JSON.stringify({ label: label.trim() }),
-      });
+      const res = await apiRequest("POST", "/api/keys", { label: label.trim() });
+      return await res.json() as NewApiKeyResponse;
     },
     onSuccess: (data) => {
       setNewKey(data);
@@ -92,9 +90,7 @@ export default function ApiKeys() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      await apiRequest(`/api/keys/${id}`, {
-        method: "DELETE",
-      });
+      await apiRequest("DELETE", `/api/keys/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/keys"] });
