@@ -1,0 +1,79 @@
+# TBURN Network Configuration
+# Network topology and node configuration
+
+[network]
+name = "TBURN Mainnet"
+version = "4.0.0"
+protocol_version = "1.0"
+
+[network.topology]
+type = "mesh"
+redundancy_factor = 3
+max_peer_connections = 50
+
+[nodes]
+# Main RPC nodes
+[[nodes.rpc]]
+id = "rpc-001"
+region = "us-east-1"
+endpoint = "https://rpc-us-east.tburn.io"
+websocket = "wss://ws-us-east.tburn.io"
+status = "active"
+
+[[nodes.rpc]]
+id = "rpc-002"
+region = "eu-west-1"
+endpoint = "https://rpc-eu-west.tburn.io"
+websocket = "wss://ws-eu-west.tburn.io"
+status = "active"
+
+[[nodes.rpc]]
+id = "rpc-003"
+region = "ap-southeast-1"
+endpoint = "https://rpc-ap-southeast.tburn.io"
+websocket = "wss://ws-ap-southeast.tburn.io"
+status = "active"
+
+# Validator nodes
+[[nodes.validators]]
+id = "validator-001"
+name = "TBURN Foundation"
+region = "us-east-1"
+stake = "1000000"
+commission = 0.05
+status = "active"
+
+[[nodes.validators]]
+id = "validator-002"
+name = "Crypto Ventures Ltd"
+region = "eu-west-1"
+stake = "750000"
+commission = 0.08
+status = "active"
+
+# Archive nodes
+[[nodes.archive]]
+id = "archive-001"
+region = "us-east-1"
+endpoint = "https://archive-us-east.tburn.io"
+retention_days = 365
+status = "active"
+
+[peering]
+discovery_protocol = "DHT"
+bootstrap_nodes = [
+  "/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
+  "/ip4/104.236.179.241/tcp/4001/p2p/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM"
+]
+
+[networking]
+listen_port = 30303
+max_peers = 50
+nat_traversal = true
+upnp_enabled = true
+
+[sync]
+fast_sync = true
+snap_sync = true
+warp_sync = false
+sync_mode = "full"

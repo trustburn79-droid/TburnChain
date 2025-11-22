@@ -1,0 +1,148 @@
+# TBURN AI Orchestration Configuration
+# Triple-Band AI System for blockchain operations
+
+ai_orchestration:
+  enabled: true
+  version: "1.0"
+  
+  # Strategic AI - High-level decisions
+  strategic:
+    model: "GPT-5"
+    provider: "OpenAI"
+    endpoint: "https://api.openai.com/v1/chat/completions"
+    weight: 0.4
+    temperature: 0.3
+    max_tokens: 2000
+    timeout_seconds: 10
+    retry_count: 3
+    
+    responsibilities:
+      - network_topology_optimization
+      - long_term_capacity_planning
+      - security_threat_assessment
+      - economic_model_adjustment
+      
+    decision_thresholds:
+      critical: 0.95
+      high: 0.85
+      medium: 0.75
+      low: 0.60
+  
+  # Tactical AI - Medium-term optimization
+  tactical:
+    model: "Claude Sonnet 4.5"
+    provider: "Anthropic"
+    endpoint: "https://api.anthropic.com/v1/messages"
+    weight: 0.4
+    temperature: 0.5
+    max_tokens: 4000
+    timeout_seconds: 8
+    retry_count: 3
+    
+    responsibilities:
+      - shard_load_balancing
+      - validator_performance_analysis
+      - transaction_routing_optimization
+      - gas_price_adjustment
+      
+    metrics:
+      - shard_utilization
+      - cross_shard_latency
+      - validator_uptime
+      - transaction_throughput
+  
+  # Operational AI - Real-time execution
+  operational:
+    model: "Llama-3.1-70B"
+    provider: "Meta"
+    endpoint: "https://api.meta.ai/v1/completions"
+    weight: 0.2
+    temperature: 0.7
+    max_tokens: 1000
+    timeout_seconds: 5
+    retry_count: 2
+    
+    responsibilities:
+      - real_time_transaction_routing
+      - immediate_shard_assignment
+      - cache_optimization
+      - request_prioritization
+      
+    performance_targets:
+      response_time_ms: 50
+      accuracy: 0.95
+      throughput_tps: 347000
+
+# Consensus Integration
+consensus:
+  ai_weight: 0.30  # 30% AI input, 70% validator consensus
+  human_override: true
+  emergency_fallback: "validator_only"
+  
+  voting:
+    quorum: 0.67
+    ai_veto_threshold: 0.90
+    validator_veto_threshold: 0.75
+
+# Monitoring & Metrics
+monitoring:
+  enabled: true
+  prometheus_endpoint: "http://localhost:9090"
+  
+  metrics:
+    - name: "ai_request_count"
+      type: "counter"
+      labels: ["model", "status"]
+    
+    - name: "ai_response_time"
+      type: "histogram"
+      labels: ["model"]
+      buckets: [50, 100, 250, 500, 1000, 2500, 5000]
+    
+    - name: "ai_decision_accuracy"
+      type: "gauge"
+      labels: ["model", "decision_type"]
+    
+    - name: "ai_cost_per_request"
+      type: "gauge"
+      labels: ["model"]
+    
+    - name: "ai_cache_hit_rate"
+      type: "gauge"
+      labels: ["model"]
+
+# Cost Management
+cost_management:
+  daily_budget_usd: 1000
+  per_request_limit_usd: 0.10
+  cache_enabled: true
+  cache_ttl_seconds: 300
+  
+  optimization:
+    batch_requests: true
+    use_cache_first: true
+    fallback_to_cheaper_model: true
+
+# Security
+security:
+  api_key_rotation_days: 30
+  encrypt_requests: true
+  audit_logging: true
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 1000
+    requests_per_hour: 50000
+
+# Fallback Strategy
+fallback:
+  strategy: "cascading"
+  order:
+    - cache
+    - operational_ai
+    - tactical_ai
+    - strategic_ai
+    - deterministic_algorithm
+  
+  deterministic_algorithm:
+    enabled: true
+    algorithm: "round_robin_with_load"

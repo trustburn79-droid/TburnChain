@@ -18,6 +18,8 @@ import AIOrchestration from "@/pages/ai-orchestration";
 import Sharding from "@/pages/sharding";
 import SmartContracts from "@/pages/smart-contracts";
 import NodeHealth from "@/pages/node-health";
+import PerformanceMetrics from "@/pages/performance-metrics";
+import Consensus from "@/pages/consensus";
 import TransactionSimulator from "@/pages/transaction-simulator";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
@@ -34,6 +36,8 @@ function Router() {
       <Route path="/sharding" component={Sharding} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
+      <Route path="/metrics" component={PerformanceMetrics} />
+      <Route path="/consensus" component={Consensus} />
       <Route component={NotFound} />
     </Switch>
   );

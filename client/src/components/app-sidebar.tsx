@@ -8,6 +8,8 @@ import {
   Home,
   Layers,
   Server,
+  TrendingUp,
+  Vote,
   Zap,
 } from "lucide-react";
 import {
@@ -49,6 +51,12 @@ const menuItems = [
     group: "Network",
   },
   {
+    title: "Consensus",
+    url: "/consensus",
+    icon: Vote,
+    group: "Network",
+  },
+  {
     title: "AI Orchestration",
     url: "/ai",
     icon: Bot,
@@ -76,6 +84,12 @@ const menuItems = [
     title: "Node Health",
     url: "/health",
     icon: BarChart3,
+    group: "Admin",
+  },
+  {
+    title: "Performance",
+    url: "/metrics",
+    icon: TrendingUp,
     group: "Admin",
   },
 ];

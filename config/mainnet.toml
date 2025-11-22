@@ -1,0 +1,127 @@
+# TBURN Blockchain Mainnet Configuration
+# Production-ready configuration for TBURN mainnet explorer
+
+[network]
+name = "TBURN Mainnet"
+chain_id = 1
+network_id = 1
+genesis_hash = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+
+[consensus]
+mechanism = "Proof of Stake + AI Orchestration"
+block_time_ms = 98
+target_tps = 347000
+confirmation_blocks = 12
+
+# AI-Enhanced Consensus
+[consensus.ai]
+enabled = true
+strategic_ai = "GPT-5"
+tactical_ai = "Claude Sonnet 4.5"
+operational_ai = "Llama-3.1-70B"
+decision_threshold = 0.85
+
+[network.performance]
+target_tps = 347000
+avg_block_time_ms = 98
+max_block_size_mb = 50
+transaction_pool_size = 100000
+
+[network.sla]
+uptime_target = 0.999
+max_downtime_minutes_per_month = 43
+monitoring_interval_seconds = 5
+
+[sharding]
+enabled = true
+total_shards = 5
+shard_names = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon"]
+cross_shard_enabled = true
+load_balancing = "ai_optimized"
+
+[sharding.allocation]
+Alpha = { capacity = 0.25, focus = "DeFi" }
+Beta = { capacity = 0.20, focus = "NFT" }
+Gamma = { capacity = 0.20, focus = "Gaming" }
+Delta = { capacity = 0.20, focus = "Enterprise" }
+Epsilon = { capacity = 0.15, focus = "Cross-shard" }
+
+[validators]
+min_stake = "32000"  # BURN tokens
+max_validators = 100
+commission_range = [0.01, 0.15]  # 1% - 15%
+reward_apy_range = [0.06, 0.12]  # 6% - 12%
+
+[validators.requirements]
+min_uptime = 0.98
+max_latency_ms = 100
+min_cpu_cores = 16
+min_ram_gb = 64
+min_storage_tb = 4
+
+[smart_contracts]
+evm_compatible = true
+solidity_version = "^0.8.20"
+max_contract_size_kb = 24
+gas_limit_per_block = 30000000
+base_gas_price_gwei = 0.8
+
+[smart_contracts.verification]
+enabled = true
+supported_compilers = ["solc"]
+auto_verification = false
+
+[api]
+rest_port = 3000
+websocket_port = 8080
+max_connections = 10000
+rate_limit_per_minute = 1000
+
+[api.endpoints]
+explorer = "https://explorer.tburn.io"
+rpc = "https://rpc.tburn.io"
+websocket = "wss://ws.tburn.io"
+
+[security]
+session_duration_hours = 24
+password_required = true
+rate_limiting = true
+ddos_protection = true
+
+[monitoring]
+prometheus_enabled = true
+grafana_enabled = true
+alert_email = "ops@tburn.io"
+alert_slack_webhook = ""
+
+[database]
+type = "PostgreSQL"
+max_connections = 100
+connection_timeout_seconds = 30
+query_timeout_seconds = 60
+
+[logging]
+level = "info"
+format = "json"
+output = "stdout"
+file_path = "/var/log/tburn/explorer.log"
+
+[deployment]
+environment = "production"
+region = "global"
+cdn_enabled = true
+backup_enabled = true
+backup_interval_hours = 6
+
+[deployment.cloud]
+provider = "multi-cloud"  # AWS, GCP, Azure
+auto_scaling = true
+min_instances = 3
+max_instances = 20
+
+[features]
+demo_mode = true  # Set to false for production
+real_time_updates = true
+transaction_simulator = true
+contract_ide = true
+ai_orchestration_dashboard = true

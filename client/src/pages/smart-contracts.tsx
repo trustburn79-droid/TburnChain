@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { FileCode, CheckCircle, XCircle } from "lucide-react";
+import { FileCode, CheckCircle, XCircle, Code2, List } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
   TableBody,
@@ -13,9 +15,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
+import { SmartContractEditor } from "@/components/SmartContractEditor";
 import type { SmartContract } from "@shared/schema";
 
 export default function SmartContracts() {
+  const [activeTab, setActiveTab] = useState("editor");
   const { data: contracts, isLoading } = useQuery<SmartContract[]>({
     queryKey: ["/api/contracts"],
   });
@@ -32,77 +36,93 @@ export default function SmartContracts() {
             Smart Contracts
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Browse and interact with deployed smart contracts
+            Build, deploy, and interact with smart contracts
           </p>
         </div>
-        <Button data-testid="button-deploy-contract">
-          <FileCode className="h-4 w-4 mr-2" />
-          Deploy Contract
-        </Button>
       </div>
 
-      {/* Contract Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
-        {isLoading ? (
-          <>
-            <Skeleton className="h-24" />
-            <Skeleton className="h-24" />
-            <Skeleton className="h-24" />
-          </>
-        ) : (
-          <>
-            <Card className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Contracts
-                </CardTitle>
-                <FileCode className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
-                  {formatNumber(totalContracts)}
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Verified Contracts
-                </CardTitle>
-                <CheckCircle className="h-4 w-4 text-green-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
-                  {formatNumber(verifiedContracts)}
-                  <span className="text-sm text-muted-foreground ml-2">
-                    ({totalContracts > 0 ? ((verifiedContracts / totalContracts) * 100).toFixed(1) : 0}%)
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Interactions
-                </CardTitle>
-                <XCircle className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
-                  {formatNumber(contracts?.reduce((sum, c) => sum + c.transactionCount, 0) || 0)}
-                </div>
-              </CardContent>
-            </Card>
-          </>
-        )}
-      </div>
+      {/* Tabs for Editor and Contract List */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsTrigger value="editor" className="flex items-center gap-2" data-testid="tab-contract-editor">
+            <Code2 className="h-4 w-4" />
+            Contract IDE
+          </TabsTrigger>
+          <TabsTrigger value="list" className="flex items-center gap-2" data-testid="tab-contract-list">
+            <List className="h-4 w-4" />
+            Deployed Contracts
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Contracts Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle>All Smart Contracts</CardTitle>
-        </CardHeader>
-        <CardContent>
+        {/* Contract Editor Tab */}
+        <TabsContent value="editor" className="mt-6">
+          <SmartContractEditor />
+        </TabsContent>
+
+        {/* Deployed Contracts Tab */}
+        <TabsContent value="list" className="mt-6 space-y-6">
+          {/* Contract Stats */}
+          <div className="grid gap-4 md:grid-cols-3">
+            {isLoading ? (
+              <>
+                <Skeleton className="h-24" />
+                <Skeleton className="h-24" />
+                <Skeleton className="h-24" />
+              </>
+            ) : (
+              <>
+                <Card className="hover-elevate">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Total Contracts
+                    </CardTitle>
+                    <FileCode className="h-4 w-4 text-primary" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {formatNumber(totalContracts)}
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="hover-elevate">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Verified Contracts
+                    </CardTitle>
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {formatNumber(verifiedContracts)}
+                      <span className="text-sm text-muted-foreground ml-2">
+                        ({totalContracts > 0 ? ((verifiedContracts / totalContracts) * 100).toFixed(1) : 0}%)
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="hover-elevate">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Total Interactions
+                    </CardTitle>
+                    <XCircle className="h-4 w-4 text-primary" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {formatNumber(contracts?.reduce((sum, c) => sum + c.transactionCount, 0) || 0)}
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
+          </div>
+
+          {/* Contracts Table */}
+          <Card>
+            <CardHeader>
+              <CardTitle>All Smart Contracts</CardTitle>
+            </CardHeader>
+            <CardContent>
           {isLoading ? (
             <div className="space-y-2">
               <Skeleton className="h-12 w-full" />
@@ -167,13 +187,21 @@ export default function SmartContracts() {
             <div className="text-center py-12">
               <FileCode className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <p className="text-muted-foreground">No smart contracts deployed yet</p>
-              <Button className="mt-4" variant="outline" data-testid="button-deploy-first-contract">
-                Deploy Your First Contract
+              <Button 
+                className="mt-4" 
+                variant="outline" 
+                onClick={() => setActiveTab("editor")}
+                data-testid="button-deploy-first-contract"
+              >
+                <Code2 className="h-4 w-4 mr-2" />
+                Go to Contract IDE
               </Button>
             </div>
           )}
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

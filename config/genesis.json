@@ -1,0 +1,119 @@
+{
+  "chainId": 1,
+  "networkId": 1,
+  "name": "TBURN Mainnet",
+  "timestamp": "2024-01-01T00:00:00Z",
+  "genesisHash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "consensus": {
+    "mechanism": "PoS + AI Orchestration",
+    "blockTime": 98,
+    "epochLength": 32,
+    "slotDuration": 3
+  },
+  "sharding": {
+    "enabled": true,
+    "shards": [
+      {
+        "id": 0,
+        "name": "Alpha",
+        "genesisHash": "0xalpha0000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "id": 1,
+        "name": "Beta",
+        "genesisHash": "0xbeta00000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "id": 2,
+        "name": "Gamma",
+        "genesisHash": "0xgamma0000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "id": 3,
+        "name": "Delta",
+        "genesisHash": "0xdelta0000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "id": 4,
+        "name": "Epsilon",
+        "genesisHash": "0xepsilon000000000000000000000000000000000000000000000000000000000"
+      }
+    ]
+  },
+  "genesis": {
+    "difficulty": "0x400000000",
+    "gasLimit": "0x1c9c380",
+    "extraData": "0x544255524e20426c6f636b636861696e2047656e65736973"
+  },
+  "alloc": {
+    "0x0000000000000000000000000000000000000001": {
+      "balance": "1000000000000000000000000000",
+      "comment": "TBURN Foundation Treasury"
+    },
+    "0x0000000000000000000000000000000000000002": {
+      "balance": "500000000000000000000000000",
+      "comment": "Validator Rewards Pool"
+    },
+    "0x0000000000000000000000000000000000000003": {
+      "balance": "300000000000000000000000000",
+      "comment": "Ecosystem Development Fund"
+    },
+    "0x0000000000000000000000000000000000000004": {
+      "balance": "200000000000000000000000000",
+      "comment": "Community Grants"
+    }
+  },
+  "validators": [
+    {
+      "address": "0x742d35cc6634c0532925a3b844bc9e7595f0beb0",
+      "stake": "1000000000000000000000000",
+      "name": "TBURN Foundation",
+      "blsPublicKey": "0x1234567890abcdef"
+    },
+    {
+      "address": "0x7ef5a6135f1fd6a02593eedc869c6d41d934aef8",
+      "stake": "750000000000000000000000",
+      "name": "Crypto Ventures Ltd",
+      "blsPublicKey": "0xabcdef1234567890"
+    }
+  ],
+  "aiOrchestration": {
+    "enabled": true,
+    "models": [
+      {
+        "name": "GPT-5",
+        "role": "strategic",
+        "endpoint": "https://api.openai.com/v1/chat/completions",
+        "weight": 0.4
+      },
+      {
+        "name": "Claude Sonnet 4.5",
+        "role": "tactical",
+        "endpoint": "https://api.anthropic.com/v1/messages",
+        "weight": 0.4
+      },
+      {
+        "name": "Llama-3.1-70B",
+        "role": "operational",
+        "endpoint": "https://api.meta.ai/v1/completions",
+        "weight": 0.2
+      }
+    ]
+  },
+  "config": {
+    "chainId": 1,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "petersburgBlock": 0,
+    "istanbulBlock": 0,
+    "berlinBlock": 0,
+    "londonBlock": 0,
+    "mergeNetsplitBlock": 0,
+    "terminalTotalDifficulty": "0x0",
+    "terminalTotalDifficultyPassed": true
+  }
+}
