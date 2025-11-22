@@ -73,6 +73,11 @@ export interface IStorage {
   getLatencyDistribution(): Promise<import("@shared/schema").LatencyBucket[]>;
   getTPSHistory(minutes?: number): Promise<import("@shared/schema").TPSHistoryPoint[]>;
   getConsensusState(): Promise<import("@shared/schema").ConsensusState>;
+  
+  // Consensus Rounds
+  createConsensusRound(data: import("@shared/schema").InsertConsensusRound): Promise<import("@shared/schema").ConsensusRound>;
+  getLatestConsensusRound(): Promise<import("@shared/schema").ConsensusRound | null>;
+  updateConsensusRound(blockHeight: number, data: Partial<import("@shared/schema").ConsensusRound>): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
