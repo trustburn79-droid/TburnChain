@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validators - BURN Chain v4.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #333; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 28px; }
+        .nav { background: white; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow-x: auto; white-space: nowrap; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; gap: 10px; }
+        .nav a { display: inline-block; padding: 10px 20px; text-decoration: none; color: #666; border-radius: 6px; font-size: 14px; }
+        .nav a:hover { background: #f0f0f0; }
+        .nav a.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .stat-card .icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 15px; }
+        .stat-card .value { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .card h3 { font-size: 18px; margin-bottom: 20px; color: #333; }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: #f9f9f9; }
+        th { padding: 12px; text-align: left; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; }
+        td { padding: 14px 12px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+        tr:hover { background: #f9f9f9; cursor: pointer; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge-active { background: #d1fae5; color: #065f46; }
+        .badge-foundation { background: #dbeafe; color: #1e40af; }
+        .badge-enterprise { background: #fef3c7; color: #92400e; }
+        .badge-community { background: #e9d5ff; color: #7c3aed; }
+        .rank-medal { font-size: 18px; margin-right: 5px; }
+        .address { font-family: monospace; font-size: 12px; color: #667eea; font-weight: 600; }
+        .progress-bar { background: #f0f0f0; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+        .progress-fill { background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; transition: width 0.3s; }
+        canvas { max-height: 300px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔥 BURN Chain v4.0</h1>
+            <div style="text-align: right; font-size: 14px;">
+                <div>Validator Dashboard</div>
+                <div style="margin-top: 5px; font-size: 12px; opacity: 0.9;">1,247 Active Validators</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <div class="nav-content">
+            <a href="01_dashboard.html">📊 Dashboard</a>
+            <a href="02_network.html">🌐 Network</a>
+            <a href="03_consensus.html">✅ Consensus</a>
+            <a href="04_shards.html">📦 Shards</a>
+            <a href="05_transactions.html">💸 Transactions</a>
+            <a href="06_cross_shard.html">↔️ Cross-Shard</a>
+            <a href="07_validators.html" class="active">🛡️ Validators</a>
+            <a href="08_ai.html">🧠 AI</a>
+            <a href="09_contracts.html">📝 Contracts</a>
+            <a href="10_wallet.html">💳 Wallet</a>
+            <a href="11_metrics.html">📈 Metrics</a>
+            <a href="12_admin.html">⚙️ Admin</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 통계 카드 -->
+        <div class="grid-4">
+            <div class="stat-card">
+                <div class="icon" style="background: #d1fae5; color: #065f46;">🛡️</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Total Validators</div>
+                <div class="value" id="totalValidators">1,247</div>
+                <div style="font-size: 12px; color: #10b981; font-weight: 600;">
+                    <span id="activeValidators">1,245</span> Active (99.8%)
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #dbeafe; color: #1e40af;">💰</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Total Staked</div>
+                <div class="value">1.2B BURN</div>
+                <div style="font-size: 12px; color: #999;">68% of supply</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #fef3c7; color: #92400e;">📈</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">APY Rate</div>
+                <div class="value">12.5%</div>
+                <div style="font-size: 12px; color: #999;">Annual yield</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #e9d5ff; color: #7c3aed;">⏱️</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Avg Uptime</div>
+                <div class="value">99.9%</div>
+                <div style="font-size: 12px; color: #999;">Last 30 days</div>
+            </div>
+        </div>
+
+        <!-- 스테이킹 분포 -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>📊 Staking Distribution</h3>
+            <div style="margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; color: #666;">Top 10</span>
+                    <span style="font-size: 13px; font-weight: 600;">320M BURN (26.7%)</span>
+                </div>
+                <div style="background: #e5e7eb; border-radius: 8px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #667eea, #764ba2); width: 26.7%; height: 100%;"></div>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; color: #666;">Top 11-50</span>
+                    <span style="font-size: 13px; font-weight: 600;">480M BURN (40.0%)</span>
+                </div>
+                <div style="background: #e5e7eb; border-radius: 8px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #10b981, #059669); width: 40%; height: 100%;"></div>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; color: #666;">Top 51-100</span>
+                    <span style="font-size: 13px; font-weight: 600;">280M BURN (23.3%)</span>
+                </div>
+                <div style="background: #e5e7eb; border-radius: 8px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #f59e0b, #d97706); width: 23.3%; height: 100%;"></div>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; color: #666;">Others</span>
+                    <span style="font-size: 13px; font-weight: 600;">120M BURN (10.0%)</span>
+                </div>
+                <div style="background: #e5e7eb; border-radius: 8px; height: 12px; overflow: hidden;">
+                    <div style="background: #94a3b8; width: 10%; height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 검색 및 필터 -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div style="display: flex; gap: 10px;">
+                    <button class="type-filter-btn active" onclick="filterValidatorType('all')" style="padding: 8px 16px; border: 2px solid #667eea; background: #667eea; color: white; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">All</button>
+                    <button class="type-filter-btn" onclick="filterValidatorType('foundation')" style="padding: 8px 16px; border: 2px solid #ddd; background: white; color: #666; border-radius: 6px; cursor: pointer; font-size: 13px;">Foundation</button>
+                    <button class="type-filter-btn" onclick="filterValidatorType('enterprise')" style="padding: 8px 16px; border: 2px solid #ddd; background: white; color: #666; border-radius: 6px; cursor: pointer; font-size: 13px;">Enterprise</button>
+                    <button class="type-filter-btn" onclick="filterValidatorType('community')" style="padding: 8px 16px; border: 2px solid #ddd; background: white; color: #666; border-radius: 6px; cursor: pointer; font-size: 13px;">Community</button>
+                </div>
+                <input type="text" id="searchValidator" placeholder="Search validator address..." style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; width: 280px; font-size: 14px;" oninput="searchValidators()">
+            </div>
+        </div>
+
+        <!-- 검증자 랭킹 -->
+        <div class="card">
+            <h3>🏆 Validator Rankings (Top 20)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 60px;">Rank</th>
+                        <th>Validator</th>
+                        <th>Stake</th>
+                        <th>Power</th>
+                        <th>Comm</th>
+                        <th>Uptime</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="validatorTable">
+                    <tr>
+                        <td><span class="rank-medal">🥇</span>1</td>
+                        <td>
+                            <div class="address">0x7a8f...3d2e</div>
+                            <div style="font-size: 11px; color: #999; margin-top: 2px;">
+                                <span class="badge badge-foundation">Foundation</span>
+                            </div>
+                        </td>
+                        <td><strong>15.2M BURN</strong></td>
+                        <td>1.27%</td>
+                        <td>5%</td>
+                        <td>
+                            <div>100%</div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                        </td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-medal">🥈</span>2</td>
+                        <td>
+                            <div class="address">0x9b4c...8a1f</div>
+                            <div style="font-size: 11px; color: #999; margin-top: 2px;">
+                                <span class="badge badge-enterprise">Enterprise</span>
+                            </div>
+                        </td>
+                        <td><strong>12.8M BURN</strong></td>
+                        <td>1.07%</td>
+                        <td>7%</td>
+                        <td>
+                            <div>99.9%</div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 99.9%"></div></div>
+                        </td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-medal">🥉</span>3</td>
+                        <td>
+                            <div class="address">0x2c5d...4b9a</div>
+                            <div style="font-size: 11px; color: #999; margin-top: 2px;">
+                                <span class="badge badge-community">Community</span>
+                            </div>
+                        </td>
+                        <td><strong>11.5M BURN</strong></td>
+                        <td>0.96%</td>
+                        <td>10%</td>
+                        <td>
+                            <div>99.8%</div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 99.8%"></div></div>
+                        </td>
+                        <td><span class="badge badge-active">Active</span></td>
+                    </tr>
+                    <!-- 더 많은 검증자들이 JavaScript로 추가됩니다 -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 차트 -->
+        <div class="grid-2">
+            <div class="card">
+                <h3>📊 Staking Distribution</h3>
+                <canvas id="stakingChart"></canvas>
+            </div>
+            <div class="card">
+                <h3>📈 Validator Growth</h3>
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 검증자 타입 -->
+        <div class="card">
+            <h3>🏷️ Validator Types</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="padding: 20px; background: #dbeafe; border-radius: 10px;">
+                    <div style="font-size: 24px; font-weight: 700; color: #1e40af;">~50</div>
+                    <div style="font-size: 14px; color: #666; margin-top: 5px;">Foundation Nodes</div>
+                    <div style="font-size: 12px; color: #999; margin-top: 8px;">High trust, low fees</div>
+                </div>
+                <div style="padding: 20px; background: #fef3c7; border-radius: 10px;">
+                    <div style="font-size: 24px; font-weight: 700; color: #92400e;">~400</div>
+                    <div style="font-size: 14px; color: #666; margin-top: 5px;">Enterprise Nodes</div>
+                    <div style="font-size: 12px; color: #999; margin-top: 8px;">High performance</div>
+                </div>
+                <div style="padding: 20px; background: #e9d5ff; border-radius: 10px;">
+                    <div style="font-size: 24px; font-weight: 700; color: #7c3aed;">~800</div>
+                    <div style="font-size: 14px; color: #666; margin-top: 5px;">Community Nodes</div>
+                    <div style="font-size: 12px; color: #999; margin-top: 8px;">Decentralization</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #2a2a2a; color: white; padding: 30px; text-align: center;">
+        <p>BURN Chain v4.0 - AI-Enhanced Enterprise Blockchain</p>
+        <p style="font-size: 12px; opacity: 0.7; margin-top: 10px;">© 2025 BURN Chain. All rights reserved.</p>
+    </div>
+
+    <script>
+        let currentValidatorFilter = 'all';
+        
+        // 검증자 타입 필터
+        function filterValidatorType(type) {
+            currentValidatorFilter = type;
+            document.querySelectorAll('.type-filter-btn').forEach(btn => {
+                btn.style.background = 'white';
+                btn.style.color = '#666';
+                btn.style.borderColor = '#ddd';
+            });
+            event.target.style.background = '#667eea';
+            event.target.style.color = 'white';
+            event.target.style.borderColor = '#667eea';
+            
+            const rows = document.querySelectorAll('#validatorTable tr');
+            rows.forEach(row => {
+                const badge = row.querySelector('.badge');
+                if (!badge) return;
+                
+                const validatorType = badge.textContent.toLowerCase().trim();
+                if (type === 'all' || validatorType === type) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // 검증자 검색
+        function searchValidators() {
+            const search = document.getElementById('searchValidator').value.toLowerCase();
+            const rows = document.querySelectorAll('#validatorTable tr');
+            rows.forEach(row => {
+                const address = row.querySelector('.address');
+                if (!address) return;
+                
+                const addressText = address.textContent.toLowerCase();
+                if (addressText.includes(search) || search === '') {
+                    // 필터도 함께 적용
+                    if (currentValidatorFilter === 'all') {
+                        row.style.display = '';
+                    } else {
+                        const badge = row.querySelector('.badge');
+                        if (!badge) {
+                            row.style.display = 'none';
+                            return;
+                        }
+                        const validatorType = badge.textContent.toLowerCase().trim();
+                        row.style.display = validatorType === currentValidatorFilter ? '' : 'none';
+                    }
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // 추가 검증자 데이터 생성
+        const validatorTypes = ['Foundation', 'Enterprise', 'Community'];
+        const badges = ['badge-foundation', 'badge-enterprise', 'badge-community'];
+        const tbody = document.getElementById('validatorTable');
+        
+        for (let i = 4; i <= 20; i++) {
+            const typeIndex = i % 3;
+            const stake = (15 - i * 0.5).toFixed(1);
+            const power = (stake / 1200 * 100).toFixed(2);
+            const commission = [5, 7, 10][typeIndex];
+            const uptime = (99.5 + Math.random() * 0.5).toFixed(1);
+            
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${i}</td>
+                <td>
+                    <div class="address">0x${Math.random().toString(16).substr(2, 4)}...${Math.random().toString(16).substr(2, 4)}</div>
+                    <div style="font-size: 11px; color: #999; margin-top: 2px;">
+                        <span class="badge ${badges[typeIndex]}">${validatorTypes[typeIndex]}</span>
+                    </div>
+                </td>
+                <td><strong>${stake}M BURN</strong></td>
+                <td>${power}%</td>
+                <td>${commission}%</td>
+                <td>
+                    <div>${uptime}%</div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: ${uptime}%"></div></div>
+                </td>
+                <td><span class="badge badge-active">Active</span></td>
+            `;
+            tbody.appendChild(row);
+        }
+
+        // 스테이킹 분포 차트
+        const stakingCtx = document.getElementById('stakingChart').getContext('2d');
+        new Chart(stakingCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Top 10', 'Top 11-50', 'Top 51-100', 'Others'],
+                datasets: [{
+                    data: [320, 480, 280, 120],
+                    backgroundColor: ['#667eea', '#764ba2', '#a855f7', '#d8b4fe']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // 검증자 성장 차트
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Validators',
+                    data: [450, 678, 892, 1023, 1156, 1247],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 실시간 업데이트 시뮬레이션
+        setInterval(() => {
+            const active = 1243 + Math.floor(Math.random() * 5);
+            document.getElementById('activeValidators').textContent = active.toLocaleString();
+        }, 5000);
+    </script>
+</body>
+</html>

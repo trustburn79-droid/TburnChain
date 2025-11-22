@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Contracts - BURN Chain v4.0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #333; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 28px; }
+        .nav { background: white; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow-x: auto; white-space: nowrap; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; gap: 10px; }
+        .nav a { display: inline-block; padding: 10px 20px; text-decoration: none; color: #666; border-radius: 6px; font-size: 14px; }
+        .nav a:hover { background: #f0f0f0; }
+        .nav a.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .card h3 { font-size: 18px; margin-bottom: 20px; color: #333; }
+        .editor-container { border: 2px solid #e0e0e0; border-radius: 8px; overflow: hidden; height: 400px; }
+        .CodeMirror { height: 100%; font-size: 14px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .btn-secondary { background: #f0f0f0; color: #333; }
+        .btn:hover { opacity: 0.9; }
+        .toolbar { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge-success { background: #d1fae5; color: #065f46; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px; margin: 15px 0; }
+        .success-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 16px; border-radius: 8px; margin: 15px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: #f9f9f9; }
+        th { padding: 12px; text-align: left; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+        tr:hover { background: #f9f9f9; cursor: pointer; }
+        .template-card { padding: 20px; background: #f9f9f9; border-radius: 10px; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+        .template-card:hover { background: white; border-color: #667eea; }
+        .template-card .title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .template-card .desc { font-size: 13px; color: #666; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #666; margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔥 BURN Chain v4.0</h1>
+            <div style="text-align: right; font-size: 14px;">
+                <div>Smart Contract IDE</div>
+                <div style="margin-top: 5px; font-size: 12px; opacity: 0.9;">Solidity Compatible</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <div class="nav-content">
+            <a href="01_dashboard.html">📊 Dashboard</a>
+            <a href="02_network.html">🌐 Network</a>
+            <a href="03_consensus.html">✅ Consensus</a>
+            <a href="04_shards.html">📦 Shards</a>
+            <a href="05_transactions.html">💸 Transactions</a>
+            <a href="06_cross_shard.html">↔️ Cross-Shard</a>
+            <a href="07_validators.html">🛡️ Validators</a>
+            <a href="08_ai.html">🧠 AI</a>
+            <a href="09_contracts.html" class="active">📝 Contracts</a>
+            <a href="10_wallet.html">💳 Wallet</a>
+            <a href="11_metrics.html">📈 Metrics</a>
+            <a href="12_admin.html">⚙️ Admin</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 템플릿 선택 -->
+        <div class="card" id="templateSection">
+            <h3>📚 Contract Templates</h3>
+            <div class="grid-3">
+                <div class="template-card" onclick="loadTemplate('erc20')">
+                    <div class="title">💰 ERC-20 Token</div>
+                    <div class="desc">Standard fungible token contract</div>
+                </div>
+                <div class="template-card" onclick="loadTemplate('erc721')">
+                    <div class="title">🎨 ERC-721 NFT</div>
+                    <div class="desc">Non-fungible token contract</div>
+                </div>
+                <div class="template-card" onclick="loadTemplate('staking')">
+                    <div class="title">🔒 Staking</div>
+                    <div class="desc">Token staking with rewards</div>
+                </div>
+                <div class="template-card" onclick="loadTemplate('marketplace')">
+                    <div class="title">🏪 Marketplace</div>
+                    <div class="desc">NFT trading marketplace</div>
+                </div>
+                <div class="template-card" onclick="loadTemplate('dao')">
+                    <div class="title">🗳️ DAO Governance</div>
+                    <div class="desc">Decentralized governance</div>
+                </div>
+                <div class="template-card" onclick="loadTemplate('multisig')">
+                    <div class="title">🔐 Multisig Wallet</div>
+                    <div class="desc">Multi-signature wallet</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 코드 에디터 -->
+        <div class="card">
+            <h3>✏️ Contract Editor</h3>
+            <div class="toolbar">
+                <button class="btn btn-secondary" onclick="newContract()">📄 New</button>
+                <button class="btn btn-secondary" onclick="saveContract()">💾 Save</button>
+                <button class="btn btn-primary" onclick="compileContract()">🔨 Compile</button>
+                <button class="btn btn-primary" onclick="deployContract()">🚀 Deploy</button>
+            </div>
+            <div class="editor-container">
+                <textarea id="code-editor">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract SimpleToken {
+    string public name = "My Token";
+    string public symbol = "MTK";
+    uint8 public decimals = 18;
+    uint256 public totalSupply;
+    
+    mapping(address => uint256) public balanceOf;
+    
+    constructor(uint256 _initialSupply) {
+        totalSupply = _initialSupply * 10 ** uint256(decimals);
+        balanceOf[msg.sender] = totalSupply;
+    }
+    
+    function transfer(address _to, uint256 _value) 
+        public returns (bool success) 
+    {
+        require(balanceOf[msg.sender] >= _value, "Insufficient balance");
+        balanceOf[msg.sender] -= _value;
+        balanceOf[_to] += _value;
+        return true;
+    }
+}</textarea>
+            </div>
+        </div>
+
+        <!-- 컴파일 결과 -->
+        <div class="card" id="compileResult" style="display: none;">
+            <h3>✓ Compilation Results</h3>
+            <div class="success-box">
+                <div style="font-weight: 600; margin-bottom: 10px;">✓ Compilation successful!</div>
+                <div style="display: grid; gap: 8px; font-size: 14px;">
+                    <div>Gas estimate: <strong>1,234,567</strong></div>
+                    <div>Contract size: <strong>4.2 KB</strong></div>
+                    <div>Optimization: <span class="badge badge-success">Enabled</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 배포 폼 -->
+        <div class="card" id="deployForm" style="display: none;">
+            <h3>🚀 Deploy Contract</h3>
+            <div class="input-group">
+                <label>Contract Name</label>
+                <input type="text" value="SimpleToken" readonly />
+            </div>
+            <div class="input-group">
+                <label>Constructor Arguments</label>
+                <input type="text" placeholder="_initialSupply: 1000000" />
+            </div>
+            <div class="input-group">
+                <label>Shard Selection</label>
+                <select style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    <option>Auto-select (AI Optimized)</option>
+                    <option>Shard 7 (Load: 45%)</option>
+                    <option>Shard 12 (Load: 58%)</option>
+                    <option>Shard 23 (Load: 39%)</option>
+                </select>
+            </div>
+            <div class="info-box">
+                <div style="display: grid; gap: 8px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Gas Limit:</span>
+                        <strong>2,000,000</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Gas Price:</span>
+                        <strong>0.8 Gwei</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Estimated Cost:</span>
+                        <strong>0.98 BURN</strong>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="executeDeploy()">🚀 Deploy Contract</button>
+        </div>
+
+        <!-- 배포된 컨트랙트 -->
+        <div class="card">
+            <h3>📜 Deployed Contracts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Contract</th>
+                        <th>Address</th>
+                        <th>Shard</th>
+                        <th>Deployed</th>
+                        <th>Calls</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onclick="alert('Contract interaction coming soon!')">
+                        <td>
+                            <div style="font-weight: 600;">SimpleToken</div>
+                            <div style="font-size: 12px; color: #999;">ERC-20 Token</div>
+                        </td>
+                        <td style="font-family: monospace; font-size: 12px; color: #667eea;">0x7a8f...3d2e</td>
+                        <td><span class="badge" style="background: #dbeafe; color: #1e40af;">S12</span></td>
+                        <td>2 hours ago</td>
+                        <td><strong>1,234</strong></td>
+                        <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Interact</button></td>
+                    </tr>
+                    <tr onclick="alert('Contract interaction coming soon!')">
+                        <td>
+                            <div style="font-weight: 600;">NFTMarketplace</div>
+                            <div style="font-size: 12px; color: #999;">NFT Trading</div>
+                        </td>
+                        <td style="font-family: monospace; font-size: 12px; color: #667eea;">0x9b4c...8a1f</td>
+                        <td><span class="badge" style="background: #dbeafe; color: #1e40af;">S7</span></td>
+                        <td>1 day ago</td>
+                        <td><strong>8,923</strong></td>
+                        <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Interact</button></td>
+                    </tr>
+                    <tr onclick="alert('Contract interaction coming soon!')">
+                        <td>
+                            <div style="font-weight: 600;">StakingPool</div>
+                            <div style="font-size: 12px; color: #999;">DeFi Staking</div>
+                        </td>
+                        <td style="font-family: monospace; font-size: 12px; color: #667eea;">0x2c5d...4b9a</td>
+                        <td><span class="badge" style="background: #dbeafe; color: #1e40af;">S23</span></td>
+                        <td>3 days ago</td>
+                        <td><strong>15,432</strong></td>
+                        <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Interact</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="background: #2a2a2a; color: white; padding: 30px; text-align: center;">
+        <p>BURN Chain v4.0 - AI-Enhanced Enterprise Blockchain</p>
+        <p style="font-size: 12px; opacity: 0.7; margin-top: 10px;">© 2025 BURN Chain. All rights reserved.</p>
+    </div>
+
+    <script>
+        // CodeMirror 에디터 초기화
+        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'javascript',
+            lineNumbers: true,
+            theme: 'default',
+            indentUnit: 4
+        });
+
+        function loadTemplate(type) {
+            const templates = {
+                erc20: `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract ERC20Token {
+    string public name = "My Token";
+    string public symbol = "MTK";
+    uint8 public decimals = 18;
+    uint256 public totalSupply;
+    
+    mapping(address => uint256) public balanceOf;
+    
+    constructor(uint256 _initialSupply) {
+        totalSupply = _initialSupply * 10 ** uint256(decimals);
+        balanceOf[msg.sender] = totalSupply;
+    }
+    
+    function transfer(address _to, uint256 _value) public returns (bool) {
+        require(balanceOf[msg.sender] >= _value);
+        balanceOf[msg.sender] -= _value;
+        balanceOf[_to] += _value;
+        return true;
+    }
+}`,
+                erc721: `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract MyNFT {
+    string public name = "My NFT";
+    string public symbol = "MNFT";
+    
+    mapping(uint256 => address) public ownerOf;
+    mapping(address => uint256) public balanceOf;
+    uint256 public nextTokenId;
+    
+    function mint(address to) external {
+        ownerOf[nextTokenId] = to;
+        balanceOf[to]++;
+        nextTokenId++;
+    }
+    
+    function transfer(address to, uint256 tokenId) external {
+        require(ownerOf[tokenId] == msg.sender);
+        ownerOf[tokenId] = to;
+        balanceOf[msg.sender]--;
+        balanceOf[to]++;
+    }
+}`
+            };
+            
+            editor.setValue(templates[type] || templates.erc20);
+            alert(`✓ Loaded ${type.toUpperCase()} template`);
+        }
+
+        function newContract() {
+            if (confirm('Create new contract? (unsaved changes will be lost)')) {
+                editor.setValue('// New Contract\npragma solidity ^0.8.20;\n\ncontract MyContract {\n    \n}');
+            }
+        }
+
+        function saveContract() {
+            alert('✓ Contract saved locally');
+        }
+
+        function compileContract() {
+            document.getElementById('compileResult').style.display = 'block';
+            document.getElementById('deployForm').style.display = 'block';
+            alert('✓ Compilation successful!');
+        }
+
+        function deployContract() {
+            document.getElementById('deployForm').style.display = 'block';
+            document.getElementById('deployForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function executeDeploy() {
+            alert('🚀 Deploying contract...\n\n✓ Contract deployed successfully!\nAddress: 0x' + Math.random().toString(16).substr(2, 40));
+        }
+    </script>
+</body>
+</html>

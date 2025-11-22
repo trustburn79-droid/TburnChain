@@ -22,6 +22,9 @@ export const blocks = pgTable("blocks", {
   shardId: integer("shard_id").notNull().default(0),
   stateRoot: text("state_root").notNull(),
   receiptsRoot: text("receipts_root").notNull(),
+  executionClass: text("execution_class").notNull().default("standard"), // standard, parallel, cross_shard
+  latencyNs: bigint("latency_ns", { mode: "number" }).notNull().default(0), // nanoseconds
+  parallelBatchId: varchar("parallel_batch_id"), // for parallel execution tracking
 });
 
 // Transactions
@@ -42,6 +45,10 @@ export const transactions = pgTable("transactions", {
   input: text("input"),
   contractAddress: text("contract_address"),
   shardId: integer("shard_id").notNull().default(0),
+  executionClass: text("execution_class").notNull().default("standard"), // standard, parallel, cross_shard
+  latencyNs: bigint("latency_ns", { mode: "number" }).notNull().default(0), // nanoseconds
+  parallelBatchId: varchar("parallel_batch_id"), // for parallel execution tracking
+  crossShardMessageId: varchar("cross_shard_message_id"), // if cross-shard transaction
 });
 
 // Accounts
@@ -70,6 +77,11 @@ export const validators = pgTable("validators", {
   apy: integer("apy").notNull().default(0), // basis points (1250 = 12.50%)
   delegators: integer("delegators").notNull().default(0),
   joinedAt: timestamp("joined_at").notNull().defaultNow(),
+  missedBlocks: integer("missed_blocks").notNull().default(0),
+  avgBlockTime: integer("avg_block_time").notNull().default(0), // milliseconds
+  rewardEarned: text("reward_earned").notNull().default("0"),
+  slashCount: integer("slash_count").notNull().default(0),
+  lastActiveAt: timestamp("last_active_at"),
 });
 
 // Smart Contracts
@@ -131,6 +143,11 @@ export const shards = pgTable("shards", {
   validatorCount: integer("validator_count").notNull().default(0),
   tps: integer("tps").notNull().default(0),
   load: integer("load").notNull().default(0), // percentage
+  peakTps: integer("peak_tps").notNull().default(0),
+  avgBlockTime: integer("avg_block_time").notNull().default(0), // milliseconds
+  crossShardTxCount: integer("cross_shard_tx_count").notNull().default(0),
+  stateSize: text("state_size").notNull().default("0"), // bytes
+  lastSyncedAt: timestamp("last_synced_at"),
 });
 
 // Network Stats (singleton table for current network state)
@@ -183,6 +200,37 @@ export const apiKeys = pgTable("api_keys", {
   revokedAt: timestamp("revoked_at"), // null if active, timestamp if revoked
 });
 
+// Cross-Shard Messages (for cross-shard transaction tracking)
+export const crossShardMessages = pgTable("cross_shard_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  messageId: text("message_id").notNull().unique(), // unique identifier for the message
+  fromShardId: integer("from_shard_id").notNull(),
+  toShardId: integer("to_shard_id").notNull(),
+  transactionHash: text("transaction_hash").notNull(),
+  status: text("status").notNull().default("pending"), // pending, confirmed, failed
+  messageType: text("message_type").notNull(), // transfer, contract_call, state_sync
+  payload: jsonb("payload").notNull(), // message payload
+  sentAt: timestamp("sent_at").notNull().defaultNow(),
+  confirmedAt: timestamp("confirmed_at"),
+  failedAt: timestamp("failed_at"),
+  retryCount: integer("retry_count").notNull().default(0),
+  gasUsed: bigint("gas_used", { mode: "number" }).notNull().default(0),
+});
+
+// Wallet Balances (for tracking user wallet balances and history)
+export const walletBalances = pgTable("wallet_balances", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  address: text("address").notNull().unique(),
+  balance: text("balance").notNull().default("0"),
+  stakedBalance: text("staked_balance").notNull().default("0"),
+  unstakedBalance: text("unstaked_balance").notNull().default("0"),
+  rewardsEarned: text("rewards_earned").notNull().default("0"),
+  transactionCount: integer("transaction_count").notNull().default(0),
+  lastTransactionAt: timestamp("last_transaction_at"),
+  firstSeenAt: timestamp("first_seen_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // ============================================
 // Insert Schemas and Types
 // ============================================
@@ -190,14 +238,16 @@ export const apiKeys = pgTable("api_keys", {
 export const insertBlockSchema = createInsertSchema(blocks).omit({ id: true });
 export const insertTransactionSchema = createInsertSchema(transactions).omit({ id: true });
 export const insertAccountSchema = createInsertSchema(accounts).omit({ id: true, createdAt: true, updatedAt: true });
-export const insertValidatorSchema = createInsertSchema(validators).omit({ id: true, joinedAt: true });
+export const insertValidatorSchema = createInsertSchema(validators).omit({ id: true, joinedAt: true, lastActiveAt: true });
 export const insertSmartContractSchema = createInsertSchema(smartContracts).omit({ id: true, deployedAt: true });
 export const insertAiModelSchema = createInsertSchema(aiModels).omit({ id: true, lastUsed: true });
 export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id: true, createdAt: true, executedAt: true });
-export const insertShardSchema = createInsertSchema(shards).omit({ id: true });
+export const insertShardSchema = createInsertSchema(shards).omit({ id: true, lastSyncedAt: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
 export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).omit({ id: true, createdAt: true });
 export const insertApiKeySchema = createInsertSchema(apiKeys).omit({ id: true, createdAt: true, lastUsedAt: true, revokedAt: true });
+export const insertCrossShardMessageSchema = createInsertSchema(crossShardMessages).omit({ id: true, sentAt: true, confirmedAt: true, failedAt: true });
+export const insertWalletBalanceSchema = createInsertSchema(walletBalances).omit({ id: true, firstSeenAt: true, updatedAt: true, lastTransactionAt: true });
 
 // Types
 export type Block = typeof blocks.$inferSelect;
@@ -232,6 +282,12 @@ export type InsertConsensusRound = z.infer<typeof insertConsensusRoundSchema>;
 
 export type ApiKey = typeof apiKeys.$inferSelect;
 export type InsertApiKey = z.infer<typeof insertApiKeySchema>;
+
+export type CrossShardMessage = typeof crossShardMessages.$inferSelect;
+export type InsertCrossShardMessage = z.infer<typeof insertCrossShardMessageSchema>;
+
+export type WalletBalance = typeof walletBalances.$inferSelect;
+export type InsertWalletBalance = z.infer<typeof insertWalletBalanceSchema>;
 
 // ============================================
 // Additional Types for Frontend

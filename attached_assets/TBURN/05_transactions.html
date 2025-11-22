@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - BURN Chain v4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #333; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 28px; }
+        .nav { background: white; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow-x: auto; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; gap: 10px; }
+        .nav a { display: inline-block; padding: 10px 20px; text-decoration: none; color: #666; border-radius: 6px; font-size: 14px; }
+        .nav a:hover { background: #f0f0f0; }
+        .nav a.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .stat-card .icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 15px; }
+        .stat-card .value { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .card h3 { font-size: 18px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: #f9f9f9; }
+        th { padding: 12px; text-align: left; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+        tr:hover { background: #f9f9f9; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge-success { background: #d1fae5; color: #065f46; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .tx-stream { max-height: 400px; overflow-y: auto; }
+        .tx-item { padding: 12px; background: #f9f9f9; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+        .tx-hash { font-family: monospace; font-weight: 600; color: #667eea; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔥 BURN Chain v4.0</h1>
+            <div style="text-align: right; font-size: 14px;">
+                <div>Transaction Explorer</div>
+                <div style="margin-top: 5px; font-size: 12px; opacity: 0.9;">89,456,782 Total TX</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <div class="nav-content">
+            <a href="01_dashboard.html">📊 Dashboard</a>
+            <a href="02_network.html">🌐 Network</a>
+            <a href="03_consensus.html">✅ Consensus</a>
+            <a href="04_shards.html">📦 Shards</a>
+            <a href="05_transactions.html" class="active">💸 Transactions</a>
+            <a href="06_cross_shard.html">↔️ Cross-Shard</a>
+            <a href="07_validators.html">🛡️ Validators</a>
+            <a href="08_ai.html">🧠 AI</a>
+            <a href="09_contracts.html">📝 Contracts</a>
+            <a href="10_wallet.html">💳 Wallet</a>
+            <a href="11_metrics.html">📈 Metrics</a>
+            <a href="12_admin.html">⚙️ Admin</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid-4">
+            <div class="stat-card">
+                <div class="icon" style="background: #d1fae5; color: #065f46;">💸</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Total Transactions</div>
+                <div class="value">89.5M</div>
+                <div style="font-size: 12px; color: #999;">Since genesis</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #dbeafe; color: #1e40af;">✅</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Success Rate</div>
+                <div class="value">99.7%</div>
+                <div style="font-size: 12px; color: #999;">Last 24 hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #fef3c7; color: #92400e;">⚡</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Avg Gas Price</div>
+                <div class="value">0.8 Gwei</div>
+                <div style="font-size: 12px; color: #999;">Range: 0.5-1.2</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #e9d5ff; color: #7c3aed;">⏱️</div>
+                <div style="color: #666; font-size: 13px; margin-bottom: 8px;">Avg Finality</div>
+                <div class="value">98 ms</div>
+                <div style="font-size: 12px; color: #999;">Instant confirm</div>
+            </div>
+        </div>
+
+        <!-- 필터 및 검색 -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="filter-btn active" onclick="filterTx('all')" style="padding: 8px 16px; border: 2px solid #667eea; background: #667eea; color: white; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">All Types</button>
+                    <button class="filter-btn" onclick="filterTx('transfer')" style="padding: 8px 16px; border: 2px solid #ddd; background: white; color: #666; border-radius: 6px; cursor: pointer; font-size: 13px;">Transfer</button>
+                    <button class="filter-btn" onclick="filterTx('contract')" style="padding: 8px 16px; border: 2px solid #ddd; background: white; color: #666; border-radius: 6px; cursor: pointer; font-size: 13px;">Contract</button>
+                    <button class="filter-btn" onclick="filterTx('cross-shard')" style="padding: 8px 16px; border: 2px solid #ddd; background: white; color: #666; border-radius: 6px; cursor: pointer; font-size: 13px;">Cross-Shard</button>
+                    <button class="filter-btn" onclick="filterTx('deploy')" style="padding: 8px 16px; border: 2px solid #ddd; background: white; color: #666; border-radius: 6px; cursor: pointer; font-size: 13px;">Deploy</button>
+                </div>
+                <input type="text" id="searchTx" placeholder="Search TX Hash or Address..." style="padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; width: 280px; font-size: 14px;" oninput="searchTransactions()">
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🔴 Live Transaction Stream</h3>
+            <div class="tx-stream">
+                <div class="tx-item">
+                    <div>
+                        <span class="tx-hash">0xab3f...8c2d</span>
+                        <span style="color: #666; margin: 0 10px;">→</span>
+                        <span style="color: #666;">Transfer</span>
+                    </div>
+                    <div>
+                        <strong>100 BURN</strong>
+                        <span class="badge badge-success">Success</span>
+                    </div>
+                </div>
+                <div class="tx-item">
+                    <div>
+                        <span class="tx-hash">0x7d2e...5a1b</span>
+                        <span style="color: #666; margin: 0 10px;">→</span>
+                        <span style="color: #666;">Contract Call</span>
+                    </div>
+                    <div>
+                        <strong>2.5 BURN</strong>
+                        <span class="badge badge-success">Success</span>
+                    </div>
+                </div>
+                <div class="tx-item">
+                    <div>
+                        <span class="tx-hash">0x9f4a...3c7e</span>
+                        <span style="color: #666; margin: 0 10px;">→</span>
+                        <span style="color: #666;">Cross-Shard</span>
+                    </div>
+                    <div>
+                        <strong>250 BURN</strong>
+                        <span class="badge badge-success">Success</span>
+                    </div>
+                </div>
+                <div class="tx-item">
+                    <div>
+                        <span class="tx-hash">0x2b8c...1f9d</span>
+                        <span style="color: #666; margin: 0 10px;">→</span>
+                        <span style="color: #666;">Deploy</span>
+                    </div>
+                    <div>
+                        <strong>5.2 BURN</strong>
+                        <span class="badge badge-success">Success</span>
+                    </div>
+                </div>
+                <div class="tx-item">
+                    <div>
+                        <span class="tx-hash">0x6e3a...7c2d</span>
+                        <span style="color: #666; margin: 0 10px;">→</span>
+                        <span style="color: #666;">Transfer</span>
+                    </div>
+                    <div>
+                        <strong>50 BURN</strong>
+                        <span class="badge badge-pending">Pending</span>
+                    </div>
+                </div>
+                <div class="tx-item">
+                    <div>
+                        <span class="tx-hash">0x4f1b...9e5c</span>
+                        <span style="color: #666; margin: 0 10px;">→</span>
+                        <span style="color: #666;">Swap</span>
+                    </div>
+                    <div>
+                        <strong>120 BURN</strong>
+                        <span class="badge badge-success">Success</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">⏸️ Pause Stream</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📋 Recent Transactions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>TX Hash</th>
+                        <th>Type</th>
+                        <th>From/To</th>
+                        <th>Amount</th>
+                        <th>Shard</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-family: monospace; font-size: 12px; color: #667eea;">0xab3f...8c2d</td>
+                        <td>Transfer</td>
+                        <td style="font-family: monospace; font-size: 11px;">0x7a8f...3d2e</td>
+                        <td><strong>100 BURN</strong></td>
+                        <td><span class="badge" style="background: #dbeafe; color: #1e40af;">S12</span></td>
+                        <td>2s ago</td>
+                        <td><span class="badge badge-success">Success</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: monospace; font-size: 12px; color: #667eea;">0x7d2e...5a1b</td>
+                        <td>Contract</td>
+                        <td style="font-family: monospace; font-size: 11px;">0x9b4c...8a1f</td>
+                        <td><strong>2.5 BURN</strong></td>
+                        <td><span class="badge" style="background: #dbeafe; color: #1e40af;">S7</span></td>
+                        <td>5s ago</td>
+                        <td><span class="badge badge-success">Success</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: monospace; font-size: 12px; color: #667eea;">0x9f4a...3c7e</td>
+                        <td>Cross-Shard</td>
+                        <td style="font-family: monospace; font-size: 11px;">0x2c5d...4b9a</td>
+                        <td><strong>250 BURN</strong></td>
+                        <td><span class="badge" style="background: #e9d5ff; color: #7c3aed;">S3→S17</span></td>
+                        <td>8s ago</td>
+                        <td><span class="badge badge-success">Success</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="background: #2a2a2a; color: white; padding: 30px; text-align: center;">
+        <p>BURN Chain v4.0 - AI-Enhanced Enterprise Blockchain</p>
+        <p style="font-size: 12px; opacity: 0.7; margin-top: 10px;">© 2025 BURN Chain. All rights reserved.</p>
+    </div>
+
+    <script>
+        // 필터 기능
+        let currentFilter = 'all';
+        function filterTx(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.style.background = 'white';
+                btn.style.color = '#666';
+                btn.style.borderColor = '#ddd';
+            });
+            event.target.style.background = '#667eea';
+            event.target.style.color = 'white';
+            event.target.style.borderColor = '#667eea';
+            
+            const rows = document.querySelectorAll('#txTable tbody tr');
+            rows.forEach(row => {
+                const txType = row.cells[1].textContent.toLowerCase().trim();
+                if (type === 'all' || 
+                    txType === type || 
+                    (type === 'cross-shard' && txType === 'cross-shard')) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // 검색 기능
+        function searchTransactions() {
+            const search = document.getElementById('searchTx').value.toLowerCase();
+            const rows = document.querySelectorAll('#txTable tbody tr');
+            rows.forEach(row => {
+                const hash = row.cells[0].textContent.toLowerCase();
+                const fromTo = row.cells[2].textContent.toLowerCase();
+                if (hash.includes(search) || fromTo.includes(search) || search === '') {
+                    // 필터도 함께 적용
+                    if (currentFilter === 'all') {
+                        row.style.display = '';
+                    } else {
+                        const txType = row.cells[1].textContent.toLowerCase().trim();
+                        row.style.display = (txType === currentFilter || 
+                            (currentFilter === 'cross-shard' && txType === 'cross-shard')) ? '' : 'none';
+                    }
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Simulate live TX stream
+        const txStream = document.querySelector('.tx-stream');
+        setInterval(() => {
+            const newTx = document.createElement('div');
+            newTx.className = 'tx-item';
+            const hash = '0x' + Math.random().toString(16).substr(2, 4) + '...' + Math.random().toString(16).substr(2, 4);
+            const amount = Math.floor(Math.random() * 1000) + 10;
+            newTx.innerHTML = `
+                <div>
+                    <span class="tx-hash">${hash}</span>
+                    <span style="color: #666; margin: 0 10px;">→</span>
+                    <span style="color: #666;">Transfer</span>
+                </div>
+                <div>
+                    <strong>${amount} BURN</strong>
+                    <span class="badge badge-success">Success</span>
+                </div>
+            `;
+            txStream.insertBefore(newTx, txStream.firstChild);
+            if (txStream.children.length > 10) {
+                txStream.removeChild(txStream.lastChild);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

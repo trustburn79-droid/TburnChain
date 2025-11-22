@@ -19,6 +19,10 @@ import {
   type InsertConsensusRound,
   type ApiKey,
   type InsertApiKey,
+  type CrossShardMessage,
+  type InsertCrossShardMessage,
+  type WalletBalance,
+  type InsertWalletBalance,
   blocks,
   transactions,
   accounts,
@@ -29,6 +33,8 @@ import {
   networkStats as networkStatsTable,
   consensusRounds,
   apiKeys,
+  crossShardMessages,
+  walletBalances,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -92,6 +98,18 @@ export interface IStorage {
   createApiKey(data: InsertApiKey): Promise<ApiKey>;
   revokeApiKey(id: string): Promise<void>;
   updateApiKeyLastUsed(id: string): Promise<void>;
+
+  // Cross-Shard Messages
+  getAllCrossShardMessages(limit?: number): Promise<CrossShardMessage[]>;
+  getCrossShardMessageById(id: string): Promise<CrossShardMessage | undefined>;
+  createCrossShardMessage(data: InsertCrossShardMessage): Promise<CrossShardMessage>;
+  updateCrossShardMessage(id: string, data: Partial<CrossShardMessage>): Promise<void>;
+
+  // Wallet Balances
+  getAllWalletBalances(limit?: number): Promise<WalletBalance[]>;
+  getWalletBalanceByAddress(address: string): Promise<WalletBalance | undefined>;
+  createWalletBalance(data: InsertWalletBalance): Promise<WalletBalance>;
+  updateWalletBalance(address: string, data: Partial<WalletBalance>): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -104,6 +122,8 @@ export class MemStorage implements IStorage {
   private aiModels: Map<string, AiModel>;
   private shards: Map<number, Shard>;
   private consensusRounds: Map<number, import("@shared/schema").ConsensusRound>;
+  private crossShardMessages: Map<string, CrossShardMessage>;
+  private walletBalances: Map<string, WalletBalance>;
 
   constructor() {
     // Initialize network stats with TBURN high-performance metrics (basis points: 10000 = 100.00%)
@@ -135,6 +155,8 @@ export class MemStorage implements IStorage {
     this.aiModels = new Map();
     this.shards = new Map();
     this.consensusRounds = new Map();
+    this.crossShardMessages = new Map();
+    this.walletBalances = new Map();
 
     this.initializeMockData();
   }
@@ -202,7 +224,12 @@ export class MemStorage implements IStorage {
         transactionCount: 18234567,
         validatorCount: 30,
         tps: 9046,
+        peakTps: 12456,
+        avgBlockTime: 95,
         load: 45,
+        crossShardTxCount: 2345,
+        stateSize: "45.2GB",
+        lastSyncedAt: new Date(),
       },
       {
         id: randomUUID(),
@@ -213,7 +240,12 @@ export class MemStorage implements IStorage {
         transactionCount: 17891234,
         validatorCount: 30,
         tps: 8976,
+        peakTps: 11234,
+        avgBlockTime: 98,
         load: 42,
+        crossShardTxCount: 1987,
+        stateSize: "43.8GB",
+        lastSyncedAt: new Date(),
       },
       {
         id: randomUUID(),
@@ -224,7 +256,12 @@ export class MemStorage implements IStorage {
         transactionCount: 18123456,
         validatorCount: 30,
         tps: 9125,
+        peakTps: 12789,
+        avgBlockTime: 92,
         load: 48,
+        crossShardTxCount: 2567,
+        stateSize: "46.1GB",
+        lastSyncedAt: new Date(),
       },
       {
         id: randomUUID(),
@@ -235,7 +272,12 @@ export class MemStorage implements IStorage {
         transactionCount: 17234567,
         validatorCount: 30,
         tps: 8654,
+        peakTps: 10987,
+        avgBlockTime: 101,
         load: 39,
+        crossShardTxCount: 1756,
+        stateSize: "42.3GB",
+        lastSyncedAt: new Date(),
       },
       {
         id: randomUUID(),
@@ -246,7 +288,12 @@ export class MemStorage implements IStorage {
         transactionCount: 18345678,
         validatorCount: 30,
         tps: 9429,
+        peakTps: 13456,
+        avgBlockTime: 89,
         load: 52,
+        crossShardTxCount: 2890,
+        stateSize: "47.5GB",
+        lastSyncedAt: new Date(),
       },
     ];
 
@@ -269,16 +316,22 @@ export class MemStorage implements IStorage {
         status: i < 10 ? "active" : Math.random() > 0.5 ? "inactive" : "jailed",
         uptime: Math.floor(Math.random() * 1000) + 9000, // 90.00-99.99% in basis points
         totalBlocks: Math.floor(Math.random() * 50000) + 10000,
+        missedBlocks: Math.floor(Math.random() * 100),
+        avgBlockTime: Math.floor(Math.random() * 50) + 80,
         votingPower: (Math.random() * 1000000).toFixed(0),
         apy: Math.floor(Math.random() * 1000) + 800, // 8.00-17.99% in basis points
         delegators: Math.floor(Math.random() * 500) + 50,
+        rewardEarned: (Math.random() * 100000).toFixed(2),
+        slashCount: Math.floor(Math.random() * 5),
         joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
+        lastActiveAt: new Date(),
       };
       this.validators.set(validator.address, validator);
     }
 
     // Initialize Blocks
     const now = Math.floor(Date.now() / 1000);
+    const executionClasses = ["standard", "parallel", "cross_shard"];
     for (let i = 0; i < 50; i++) {
       const blockNumber = 1245678 - i;
       const block: Block = {
@@ -295,6 +348,9 @@ export class MemStorage implements IStorage {
         shardId: Math.floor(Math.random() * 5),
         stateRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
         receiptsRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
+        executionClass: executionClasses[Math.floor(Math.random() * executionClasses.length)],
+        latencyNs: Math.floor(Math.random() * 50000000) + 10000000,
+        parallelBatchId: Math.random() > 0.3 ? `batch-${Math.floor(Math.random() * 100)}` : null,
       };
       this.blocks.set(block.id, block);
     }
@@ -326,6 +382,10 @@ export class MemStorage implements IStorage {
         input: Math.random() > 0.5 ? `0x${Math.random().toString(16).substr(2, 128)}` : null,
         contractAddress: Math.random() > 0.9 ? `0x${Math.random().toString(16).substr(2, 40)}` : null,
         shardId: Math.floor(Math.random() * 5),
+        executionClass: executionClasses[Math.floor(Math.random() * executionClasses.length)],
+        latencyNs: Math.floor(Math.random() * 100000000) + 5000000,
+        parallelBatchId: Math.random() > 0.3 ? `batch-${Math.floor(Math.random() * 100)}` : null,
+        crossShardMessageId: Math.random() > 0.8 ? `msg-${Math.random().toString(16).substr(2, 8)}` : null,
       };
       this.transactions.set(tx.id, tx);
     }
@@ -671,6 +731,70 @@ export class MemStorage implements IStorage {
   async updateApiKeyLastUsed(id: string): Promise<void> {
     throw new Error("API Keys not supported in MemStorage");
   }
+
+  // Cross-Shard Messages (basic implementation for MemStorage)
+  async getAllCrossShardMessages(limit: number = 100): Promise<CrossShardMessage[]> {
+    return Array.from(this.crossShardMessages.values())
+      .sort((a, b) => b.sentAt.getTime() - a.sentAt.getTime())
+      .slice(0, limit);
+  }
+
+  async getCrossShardMessageById(id: string): Promise<CrossShardMessage | undefined> {
+    return this.crossShardMessages.get(id);
+  }
+
+  async createCrossShardMessage(data: InsertCrossShardMessage): Promise<CrossShardMessage> {
+    const message: CrossShardMessage = {
+      id: randomUUID(),
+      ...data,
+      sentAt: new Date(),
+      confirmedAt: null,
+      failedAt: null,
+    };
+    this.crossShardMessages.set(message.id, message);
+    return message;
+  }
+
+  async updateCrossShardMessage(id: string, data: Partial<CrossShardMessage>): Promise<void> {
+    const existing = this.crossShardMessages.get(id);
+    if (existing) {
+      this.crossShardMessages.set(id, { ...existing, ...data });
+    }
+  }
+
+  // Wallet Balances (basic implementation for MemStorage)
+  async getAllWalletBalances(limit: number = 100): Promise<WalletBalance[]> {
+    return Array.from(this.walletBalances.values())
+      .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+      .slice(0, limit);
+  }
+
+  async getWalletBalanceByAddress(address: string): Promise<WalletBalance | undefined> {
+    return this.walletBalances.get(address);
+  }
+
+  async createWalletBalance(data: InsertWalletBalance): Promise<WalletBalance> {
+    const wallet: WalletBalance = {
+      id: randomUUID(),
+      ...data,
+      firstSeenAt: new Date(),
+      updatedAt: new Date(),
+      lastTransactionAt: null,
+    };
+    this.walletBalances.set(wallet.address, wallet);
+    return wallet;
+  }
+
+  async updateWalletBalance(address: string, data: Partial<WalletBalance>): Promise<void> {
+    const existing = this.walletBalances.get(address);
+    if (existing) {
+      this.walletBalances.set(address, {
+        ...existing,
+        ...data,
+        updatedAt: new Date(),
+      });
+    }
+  }
 }
 
 // PostgreSQL-based storage implementation
@@ -956,6 +1080,47 @@ export class DbStorage implements IStorage {
 
   async updateApiKeyLastUsed(id: string): Promise<void> {
     await db.update(apiKeys).set({ lastUsedAt: new Date() }).where(eq(apiKeys.id, id));
+  }
+
+  // Cross-Shard Messages
+  async getAllCrossShardMessages(limit: number = 100): Promise<CrossShardMessage[]> {
+    return db.select().from(crossShardMessages).orderBy(desc(crossShardMessages.sentAt)).limit(limit);
+  }
+
+  async getCrossShardMessageById(id: string): Promise<CrossShardMessage | undefined> {
+    const result = await db.select().from(crossShardMessages).where(eq(crossShardMessages.id, id)).limit(1);
+    return result[0];
+  }
+
+  async createCrossShardMessage(data: InsertCrossShardMessage): Promise<CrossShardMessage> {
+    const result = await db.insert(crossShardMessages).values(data).returning();
+    return result[0];
+  }
+
+  async updateCrossShardMessage(id: string, data: Partial<CrossShardMessage>): Promise<void> {
+    await db.update(crossShardMessages).set(data).where(eq(crossShardMessages.id, id));
+  }
+
+  // Wallet Balances
+  async getAllWalletBalances(limit: number = 100): Promise<WalletBalance[]> {
+    return db.select().from(walletBalances).orderBy(desc(walletBalances.updatedAt)).limit(limit);
+  }
+
+  async getWalletBalanceByAddress(address: string): Promise<WalletBalance | undefined> {
+    const result = await db.select().from(walletBalances).where(eq(walletBalances.address, address)).limit(1);
+    return result[0];
+  }
+
+  async createWalletBalance(data: InsertWalletBalance): Promise<WalletBalance> {
+    const result = await db.insert(walletBalances).values(data).returning();
+    return result[0];
+  }
+
+  async updateWalletBalance(address: string, data: Partial<WalletBalance>): Promise<void> {
+    await db.update(walletBalances).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(walletBalances.address, address));
   }
 }
 

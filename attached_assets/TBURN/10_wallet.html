@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet - BURN Chain v4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #333; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 28px; }
+        .nav { background: white; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow-x: auto; white-space: nowrap; }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; gap: 10px; }
+        .nav a { display: inline-block; padding: 10px 20px; text-decoration: none; color: #666; border-radius: 6px; font-size: 14px; }
+        .nav a:hover { background: #f0f0f0; }
+        .nav a.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .wallet-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); margin-bottom: 30px; }
+        .wallet-balance { font-size: 48px; font-weight: 700; margin: 15px 0; }
+        .wallet-usd { font-size: 18px; opacity: 0.9; }
+        .wallet-address { background: rgba(255, 255, 255, 0.2); padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .card h3 { font-size: 18px; margin-bottom: 20px; color: #333; }
+        .action-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer; transition: all 0.3s; text-decoration: none; color: #333; }
+        .action-btn:hover { transform: translateY(-4px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+        .action-btn .icon { font-size: 40px; margin-bottom: 12px; }
+        .action-btn .title { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+        .action-btn .desc { font-size: 12px; color: #999; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #666; margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; transition: border-color 0.3s; }
+        .input-group input:focus { outline: none; border-color: #667eea; }
+        .input-with-btn { display: flex; gap: 10px; }
+        .input-with-btn input { flex: 1; }
+        .input-with-btn button { padding: 12px 20px; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .btn-primary { width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: opacity 0.3s; }
+        .btn-primary:hover { opacity: 0.9; }
+        .token-item { display: flex; align-items: center; justify-content: space-between; padding: 16px; background: #f9f9f9; border-radius: 10px; margin-bottom: 12px; }
+        .token-icon { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 15px; }
+        .tx-history-item { padding: 16px; border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
+        .tx-history-item:hover { background: #f9f9f9; }
+        .tx-history-item:last-child { border-bottom: none; }
+        .tx-type { font-size: 18px; margin-right: 10px; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-left: 10px; }
+        .badge-received { background: #d1fae5; color: #065f46; }
+        .badge-sent { background: #fee2e2; color: #991b1b; }
+        .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px; margin-top: 15px; }
+        .copy-btn { background: rgba(255, 255, 255, 0.3); border: none; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+        .copy-btn:hover { background: rgba(255, 255, 255, 0.4); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔥 BURN Chain v4.0</h1>
+            <div style="text-align: right; font-size: 14px;">
+                <div>Digital Wallet</div>
+                <div style="margin-top: 5px; font-size: 12px; opacity: 0.9;">Secure & Fast</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <div class="nav-content">
+            <a href="01_dashboard.html">📊 Dashboard</a>
+            <a href="02_network.html">🌐 Network</a>
+            <a href="03_consensus.html">✅ Consensus</a>
+            <a href="04_shards.html">📦 Shards</a>
+            <a href="05_transactions.html">💸 Transactions</a>
+            <a href="06_cross_shard.html">↔️ Cross-Shard</a>
+            <a href="07_validators.html">🛡️ Validators</a>
+            <a href="08_ai.html">🧠 AI</a>
+            <a href="09_contracts.html">📝 Contracts</a>
+            <a href="10_wallet.html" class="active">💳 Wallet</a>
+            <a href="11_metrics.html">📈 Metrics</a>
+            <a href="12_admin.html">⚙️ Admin</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 지갑 카드 -->
+        <div class="wallet-card">
+            <div style="font-size: 14px; opacity: 0.9;">Total Balance</div>
+            <div class="wallet-balance" id="totalBalance">1,234.56 BURN</div>
+            <div class="wallet-usd">≈ $12,345.60 USD</div>
+            <div class="wallet-address">
+                <span id="walletAddress">0x7a8f9b3d2c5e8a1f4b7c9d6e3a2f8b5c1d4e7f9a</span>
+                <button class="copy-btn" onclick="copyAddress()">📋 Copy</button>
+            </div>
+        </div>
+
+        <!-- 빠른 작업 -->
+        <div class="grid-3">
+            <a href="#send" class="action-btn" onclick="showSend()">
+                <div class="icon">💸</div>
+                <div class="title">Send</div>
+                <div class="desc">Transfer BURN to another address</div>
+            </a>
+            <a href="#receive" class="action-btn" onclick="showReceive()">
+                <div class="icon">📥</div>
+                <div class="title">Receive</div>
+                <div class="desc">Get QR & Address</div>
+            </a>
+            <a href="#swap" class="action-btn" onclick="alert('Swap feature coming soon!')">
+                <div class="icon">💱</div>
+                <div class="title">Swap</div>
+                <div class="desc">Exchange tokens instantly</div>
+            </a>
+        </div>
+
+        <!-- 송금 폼 -->
+        <div class="card" id="sendForm" style="display: none;">
+            <h3>💸 Send BURN</h3>
+            <div class="input-group">
+                <label>Recipient Address</label>
+                <input type="text" id="recipientAddress" placeholder="0x..." />
+            </div>
+            <div class="input-group">
+                <label>Amount (BURN)</label>
+                <div class="input-with-btn">
+                    <input type="number" id="sendAmount" placeholder="0.00" step="0.01" />
+                    <button onclick="setMaxAmount()">MAX</button>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">
+                    Available: <span id="availableBalance">1,234.56 BURN</span>
+                </div>
+            </div>
+            <div class="info-box">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span>Gas Fee:</span>
+                    <strong>0.0008 BURN</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: #666;">
+                    <span>Est. Time:</span>
+                    <span>~100ms</span>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="sendTransaction()">📤 Send Transaction</button>
+        </div>
+
+        <!-- 수신 폼 -->
+        <div class="card" id="receiveForm" style="display: none;">
+            <h3>📥 Receive BURN</h3>
+            <div style="text-align: center; padding: 30px;">
+                <div style="width: 200px; height: 200px; background: #f0f0f0; margin: 0 auto 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 100px;">
+                    📱
+                </div>
+                <div style="font-size: 14px; color: #666; margin-bottom: 15px;">Your Wallet Address</div>
+                <div style="background: #f9f9f9; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 13px; word-break: break-all; margin-bottom: 15px;">
+                    0x7a8f9b3d2c5e8a1f4b7c9d6e3a2f8b5c1d4e7f9a
+                </div>
+                <button class="btn-primary" onclick="copyAddress()">📋 Copy Address</button>
+            </div>
+        </div>
+
+        <!-- 토큰 자산 -->
+        <div class="card">
+            <h3>💰 Token Assets</h3>
+            <div class="token-item">
+                <div style="display: flex; align-items: center;">
+                    <div class="token-icon">🔥</div>
+                    <div>
+                        <div style="font-weight: 600;">BURN</div>
+                        <div style="font-size: 12px; color: #999;">Native Token</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-weight: 600;">1,234.56</div>
+                    <div style="font-size: 12px; color: #999;">$12,345.60</div>
+                </div>
+            </div>
+            <div class="token-item">
+                <div style="display: flex; align-items: center;">
+                    <div class="token-icon" style="background: linear-gradient(135deg, #10b981, #059669);">💵</div>
+                    <div>
+                        <div style="font-weight: 600;">USDC</div>
+                        <div style="font-size: 12px; color: #999;">Stablecoin</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-weight: 600;">5,000.00</div>
+                    <div style="font-size: 12px; color: #999;">$5,000.00</div>
+                </div>
+            </div>
+            <div class="token-item">
+                <div style="display: flex; align-items: center;">
+                    <div class="token-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">💎</div>
+                    <div>
+                        <div style="font-weight: 600;">MTK</div>
+                        <div style="font-size: 12px; color: #999;">My Token</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-weight: 600;">10,000.00</div>
+                    <div style="font-size: 12px; color: #999;">$1,200.00</div>
+                </div>
+            </div>
+            <button style="width: 100%; padding: 12px; background: #f0f0f0; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; color: #666; cursor: pointer; margin-top: 15px;">
+                + Add Token
+            </button>
+        </div>
+
+        <!-- 트랜잭션 히스토리 -->
+        <div class="card">
+            <h3>📜 Transaction History</h3>
+            <div>
+                <div class="tx-history-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <span class="tx-type">✓</span>
+                            <div>
+                                <div style="font-weight: 600;">Received</div>
+                                <div style="font-size: 12px; color: #999; margin-top: 3px;">From: 0x9b4c...8a1f</div>
+                                <div style="font-size: 11px; color: #999; margin-top: 2px;">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 600; color: #10b981;">+100 BURN</div>
+                            <span class="badge badge-received">Success</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tx-history-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <span class="tx-type">→</span>
+                            <div>
+                                <div style="font-weight: 600;">Sent</div>
+                                <div style="font-size: 12px; color: #999; margin-top: 3px;">To: 0x2c5d...4b9a</div>
+                                <div style="font-size: 11px; color: #999; margin-top: 2px;">5 hours ago</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 600; color: #ef4444;">-50 BURN</div>
+                            <span class="badge badge-sent">Success</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tx-history-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <span class="tx-type">📝</span>
+                            <div>
+                                <div style="font-weight: 600;">Contract Call</div>
+                                <div style="font-size: 12px; color: #999; margin-top: 3px;">Token Swap</div>
+                                <div style="font-size: 11px; color: #999; margin-top: 2px;">1 day ago</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 600;">-0.5 BURN</div>
+                            <span class="badge badge-sent">Success</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 보안 기능 -->
+        <div class="card">
+            <h3>🔒 Security Features</h3>
+            <div style="display: grid; gap: 15px;">
+                <div style="display: flex; align-items: start; gap: 15px;">
+                    <div style="font-size: 24px;">✓</div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">Ed25519 Signatures</div>
+                        <div style="font-size: 13px; color: #666;">Military-grade encryption, quantum-resistant</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: start; gap: 15px;">
+                    <div style="font-size: 24px;">✓</div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">Hardware Wallet Support</div>
+                        <div style="font-size: 13px; color: #666;">Ledger & Trezor integration</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: start; gap: 15px;">
+                    <div style="font-size: 24px;">✓</div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">Multi-Signature</div>
+                        <div style="font-size: 13px; color: #666;">Require multiple approvals for high-value transactions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #2a2a2a; color: white; padding: 30px; text-align: center;">
+        <p>BURN Chain v4.0 - AI-Enhanced Enterprise Blockchain</p>
+        <p style="font-size: 12px; opacity: 0.7; margin-top: 10px;">© 2025 BURN Chain. All rights reserved.</p>
+    </div>
+
+    <script>
+        function showSend() {
+            document.getElementById('sendForm').style.display = 'block';
+            document.getElementById('receiveForm').style.display = 'none';
+            document.getElementById('sendForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showReceive() {
+            document.getElementById('receiveForm').style.display = 'block';
+            document.getElementById('sendForm').style.display = 'none';
+            document.getElementById('receiveForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyAddress() {
+            const address = document.getElementById('walletAddress').textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                alert('✓ Address copied to clipboard!');
+            });
+        }
+
+        function setMaxAmount() {
+            document.getElementById('sendAmount').value = '1234.56';
+        }
+
+        function sendTransaction() {
+            const recipient = document.getElementById('recipientAddress').value;
+            const amount = document.getElementById('sendAmount').value;
+            
+            if (!recipient || !amount) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (parseFloat(amount) > 1234.56) {
+                alert('Insufficient balance');
+                return;
+            }
+            
+            // 시뮬레이션
+            alert(`✓ Sending ${amount} BURN to ${recipient.substring(0, 10)}...\n\nTransaction will be confirmed in ~100ms`);
+            
+            // 폼 초기화
+            document.getElementById('recipientAddress').value = '';
+            document.getElementById('sendAmount').value = '';
+        }
+
+        // 실시간 잔액 업데이트 시뮬레이션
+        setInterval(() => {
+            const balance = (1234.56 + (Math.random() - 0.5) * 0.1).toFixed(2);
+            document.getElementById('totalBalance').textContent = `${balance} BURN`;
+            document.getElementById('availableBalance').textContent = `${balance} BURN`;
+        }, 10000);
+    </script>
+</body>
+</html>
