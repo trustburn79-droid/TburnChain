@@ -161,7 +161,7 @@ export class TBurnClient {
         throw error;
       }
 
-      return await response.body.json();
+      return await response.body.json() as T;
     } catch (error: any) {
       console.error(`[TBURN Client] Request error:`, error.message);
       throw error;

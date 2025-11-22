@@ -8,6 +8,7 @@ import { z } from "zod";
 // ============================================
 
 // Blocks
+// Blocks (Multi-Hash Cryptographic System)
 export const blocks = pgTable("blocks", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   blockNumber: bigint("block_number", { mode: "number" }).notNull().unique(),
@@ -25,9 +26,13 @@ export const blocks = pgTable("blocks", {
   executionClass: text("execution_class").notNull().default("standard"), // standard, parallel, cross_shard
   latencyNs: bigint("latency_ns", { mode: "number" }).notNull().default(0), // nanoseconds
   parallelBatchId: varchar("parallel_batch_id"), // for parallel execution tracking
+  
+  // TBURN v7.0: Multi-Hash Cryptographic System (Purpose-Optimized Hash Selection)
+  hashAlgorithm: text("hash_algorithm").notNull().default("blake3"), // blake3, sha3-256, keccak256, sha256d, blake2b
 });
 
 // Transactions
+// Transactions (Multi-Hash Cryptographic System)
 export const transactions = pgTable("transactions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   hash: text("hash").notNull().unique(),
@@ -49,6 +54,9 @@ export const transactions = pgTable("transactions", {
   latencyNs: bigint("latency_ns", { mode: "number" }).notNull().default(0), // nanoseconds
   parallelBatchId: varchar("parallel_batch_id"), // for parallel execution tracking
   crossShardMessageId: varchar("cross_shard_message_id"), // if cross-shard transaction
+  
+  // TBURN v7.0: Multi-Hash Cryptographic System (Purpose-Optimized Hash Selection)
+  hashAlgorithm: text("hash_algorithm").notNull().default("blake3"), // blake3, sha3-256, keccak256, sha256d, blake2b
 });
 
 // Accounts
@@ -63,7 +71,7 @@ export const accounts = pgTable("accounts", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// Validators
+// Validators (AI-Enhanced Committee BFT with Reputation System)
 export const validators = pgTable("validators", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   address: text("address").notNull().unique(),
@@ -82,6 +90,14 @@ export const validators = pgTable("validators", {
   rewardEarned: text("reward_earned").notNull().default("0"),
   slashCount: integer("slash_count").notNull().default(0),
   lastActiveAt: timestamp("last_active_at"),
+  
+  // TBURN v7.0: AI-Enhanced Committee BFT (Stake + Reputation + Performance)
+  reputationScore: integer("reputation_score").notNull().default(8500), // basis points (8500 = 85.00%)
+  performanceScore: integer("performance_score").notNull().default(9000), // basis points
+  committeeSelectionCount: integer("committee_selection_count").notNull().default(0),
+  aiTrustScore: integer("ai_trust_score").notNull().default(7500), // AI-assessed validator reliability
+  behaviorScore: integer("behavior_score").notNull().default(9500), // Network behavior quality
+  adaptiveWeight: integer("adaptive_weight").notNull().default(10000), // Dynamic committee weight
 });
 
 // Smart Contracts
@@ -99,7 +115,7 @@ export const smartContracts = pgTable("smart_contracts", {
   verified: boolean("verified").notNull().default(false),
 });
 
-// AI Model Stats
+// AI Model Stats (Triple-Band AI Orchestration with Feedback Learning)
 export const aiModels = pgTable("ai_models", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull().unique(), // gpt-5, claude-sonnet-4-5, llama-3
@@ -114,6 +130,15 @@ export const aiModels = pgTable("ai_models", {
   cacheHitRate: integer("cache_hit_rate").notNull().default(0), // basis points (7500 = 75.00%)
   accuracy: integer("accuracy").notNull().default(0), // basis points (9680 = 96.80%)
   uptime: integer("uptime").notNull().default(10000), // basis points (9990 = 99.90%)
+  
+  // TBURN v7.0: Triple-Band AI with Inter-Model Feedback Learning
+  feedbackLearningScore: integer("feedback_learning_score").notNull().default(8000), // Learning effectiveness
+  crossBandInteractions: integer("cross_band_interactions").notNull().default(0), // Inter-band communications
+  strategicDecisions: integer("strategic_decisions").notNull().default(0), // Long-term decisions made
+  tacticalDecisions: integer("tactical_decisions").notNull().default(0), // Mid-term optimizations
+  operationalDecisions: integer("operational_decisions").notNull().default(0), // Real-time actions
+  modelWeight: integer("model_weight").notNull().default(3333), // Dynamic weight in triple-band (basis points)
+  consensusContribution: integer("consensus_contribution").notNull().default(0), // Contributions to consensus decisions
 });
 
 // AI Decisions (Triple-Band AI tracking)
@@ -133,6 +158,7 @@ export const aiDecisions = pgTable("ai_decisions", {
 });
 
 // Shard Information
+// Shards (Dynamic AI-Driven Sharding with ML Optimization)
 export const shards = pgTable("shards", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   shardId: integer("shard_id").notNull().unique(),
@@ -148,9 +174,18 @@ export const shards = pgTable("shards", {
   crossShardTxCount: integer("cross_shard_tx_count").notNull().default(0),
   stateSize: text("state_size").notNull().default("0"), // bytes
   lastSyncedAt: timestamp("last_synced_at"),
+  
+  // TBURN v7.0: Dynamic AI-Driven Sharding (ML-Based Optimization)
+  mlOptimizationScore: integer("ml_optimization_score").notNull().default(8500), // basis points
+  predictedLoad: integer("predicted_load").notNull().default(0), // AI-predicted load percentage
+  rebalanceCount: integer("rebalance_count").notNull().default(0), // AI-triggered rebalances
+  aiRecommendation: text("ai_recommendation").notNull().default("stable"), // stable, split, merge, rebalance
+  profilingScore: integer("profiling_score").notNull().default(9000), // Real-time profiling effectiveness
+  capacityUtilization: integer("capacity_utilization").notNull().default(5000), // basis points (50%)
 });
 
 // Network Stats (singleton table for current network state)
+// Network Stats (Predictive Self-Healing System with Multi-Algorithm Monitoring)
 export const networkStats = pgTable("network_stats", {
   id: varchar("id").primaryKey().default("singleton"),
   currentBlockHeight: bigint("current_block_height", { mode: "number" }).notNull().default(0),
@@ -169,6 +204,16 @@ export const networkStats = pgTable("network_stats", {
   circulatingSupply: text("circulating_supply").notNull().default("0"),
   successRate: integer("success_rate").notNull().default(9970), // basis points (9970 = 99.70%)
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  
+  // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms)
+  trendAnalysisScore: integer("trend_analysis_score").notNull().default(8500), // basis points
+  anomalyDetectionScore: integer("anomaly_detection_score").notNull().default(9200), // basis points
+  patternMatchingScore: integer("pattern_matching_score").notNull().default(8800), // basis points
+  timeseriesScore: integer("timeseries_score").notNull().default(9000), // basis points
+  healingEventsCount: integer("healing_events_count").notNull().default(0), // Auto-recovery count
+  anomaliesDetected: integer("anomalies_detected").notNull().default(0), // Detected anomalies
+  predictedFailureRisk: integer("predicted_failure_risk").notNull().default(500), // basis points (5%)
+  selfHealingStatus: text("self_healing_status").notNull().default("healthy"), // healthy, monitoring, healing, critical
 });
 
 // Consensus Rounds
@@ -201,6 +246,7 @@ export const apiKeys = pgTable("api_keys", {
 });
 
 // Cross-Shard Messages (for cross-shard transaction tracking)
+// Cross-Shard Messages (Hybrid Message Routing Protocol with Reputation)
 export const crossShardMessages = pgTable("cross_shard_messages", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   messageId: text("message_id").notNull().unique(), // unique identifier for the message
@@ -215,6 +261,12 @@ export const crossShardMessages = pgTable("cross_shard_messages", {
   failedAt: timestamp("failed_at"),
   retryCount: integer("retry_count").notNull().default(0),
   gasUsed: bigint("gas_used", { mode: "number" }).notNull().default(0),
+  
+  // TBURN v7.0: Hybrid Message Routing Protocol (Reputation-based P2P Routing)
+  routingPriority: integer("routing_priority").notNull().default(5), // 1-10, reputation-based
+  peerReputation: integer("peer_reputation").notNull().default(8000), // basis points
+  networkQuality: integer("network_quality").notNull().default(9000), // basis points (peer connection quality)
+  routeOptimization: text("route_optimization").notNull().default("balanced"), // speed, reputation, cost
 });
 
 // Wallet Balances (for tracking user wallet balances and history)
