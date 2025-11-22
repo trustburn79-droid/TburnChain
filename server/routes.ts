@@ -2,6 +2,8 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import rateLimit from "express-rate-limit";
+import bcrypt from "bcryptjs";
+import { randomBytes } from "crypto";
 import { storage } from "./storage";
 import { insertTransactionSchema } from "@shared/schema";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
@@ -474,6 +476,79 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(health);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch node health" });
+    }
+  });
+
+  // ============================================
+  // API Keys (Secure Management)
+  // ============================================
+  // Get all active API keys (excluding revoked ones)
+  app.get("/api/keys", async (_req, res) => {
+    try {
+      const keys = await storage.getAllApiKeys();
+      // Never return the hashed key to the client
+      const sanitized = keys.map(({ hashedKey, ...key }) => key);
+      res.json(sanitized);
+    } catch (error) {
+      console.error("Error fetching API keys:", error);
+      res.status(500).json({ error: "Failed to fetch API keys" });
+    }
+  });
+
+  // Create a new API key
+  app.post("/api/keys", async (req, res) => {
+    try {
+      const { label } = req.body;
+      
+      if (!label || typeof label !== "string" || label.trim().length === 0) {
+        return res.status(400).json({ error: "Label is required" });
+      }
+
+      // Generate a random API key (32 bytes = 64 hex characters)
+      const rawKey = randomBytes(32).toString("hex");
+      
+      // Hash the API key using bcrypt
+      const hashedKey = await bcrypt.hash(rawKey, 10);
+
+      // Store in database
+      const apiKey = await storage.createApiKey({
+        label: label.trim(),
+        hashedKey,
+        userId: null, // Future: link to user account
+      });
+
+      // Return the raw key ONLY ONCE (client must save it)
+      res.json({
+        id: apiKey.id,
+        label: apiKey.label,
+        key: rawKey, // IMPORTANT: This is the only time we return the raw key
+        createdAt: apiKey.createdAt,
+      });
+    } catch (error) {
+      console.error("Error creating API key:", error);
+      res.status(500).json({ error: "Failed to create API key" });
+    }
+  });
+
+  // Revoke (delete) an API key
+  app.delete("/api/keys/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existing = await storage.getApiKeyById(id);
+      if (!existing) {
+        return res.status(404).json({ error: "API key not found" });
+      }
+
+      if (existing.revokedAt) {
+        return res.status(400).json({ error: "API key already revoked" });
+      }
+
+      await storage.revokeApiKey(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error revoking API key:", error);
+      res.status(500).json({ error: "Failed to revoke API key" });
     }
   });
 
