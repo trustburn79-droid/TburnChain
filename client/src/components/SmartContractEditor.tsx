@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Loader2, CheckCircle, FileCode, Save, Rocket, Code2 } from 'lucide-react';
+import { Loader2, CheckCircle, FileCode, Save, Rocket, Code2, Coins, Palette, Lock, Store, Vote, LockKeyhole } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const TEMPLATES = {
@@ -327,12 +327,12 @@ export function SmartContractEditor() {
   const { toast } = useToast();
 
   const templateOptions = [
-    { key: 'erc20' as TemplateKey, icon: '💰', title: 'ERC-20 Token', desc: 'Standard fungible token' },
-    { key: 'erc721' as TemplateKey, icon: '🎨', title: 'ERC-721 NFT', desc: 'Non-fungible token' },
-    { key: 'staking' as TemplateKey, icon: '🔒', title: 'Staking', desc: 'Token staking with rewards' },
-    { key: 'marketplace' as TemplateKey, icon: '🏪', title: 'Marketplace', desc: 'NFT trading marketplace' },
-    { key: 'dao' as TemplateKey, icon: '🗳️', title: 'DAO Governance', desc: 'Decentralized governance' },
-    { key: 'multisig' as TemplateKey, icon: '🔐', title: 'Multisig Wallet', desc: 'Multi-signature wallet' },
+    { key: 'erc20' as TemplateKey, Icon: Coins, title: 'ERC-20 Token', desc: 'Standard fungible token' },
+    { key: 'erc721' as TemplateKey, Icon: Palette, title: 'ERC-721 NFT', desc: 'Non-fungible token' },
+    { key: 'staking' as TemplateKey, Icon: Lock, title: 'Staking', desc: 'Token staking with rewards' },
+    { key: 'marketplace' as TemplateKey, Icon: Store, title: 'Marketplace', desc: 'NFT trading marketplace' },
+    { key: 'dao' as TemplateKey, Icon: Vote, title: 'DAO Governance', desc: 'Decentralized governance' },
+    { key: 'multisig' as TemplateKey, Icon: LockKeyhole, title: 'Multisig Wallet', desc: 'Multi-signature wallet' },
   ];
 
   const loadTemplate = (templateKey: TemplateKey) => {
@@ -401,7 +401,7 @@ export function SmartContractEditor() {
                 }`}
               >
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl">{template.icon}</span>
+                  <template.Icon className="h-6 w-6 mt-1" />
                   <div>
                     <div className="font-semibold">{template.title}</div>
                     <div className="text-sm text-muted-foreground">{template.desc}</div>

@@ -88,10 +88,10 @@ export default function Consensus() {
       <div>
         <h1 className="text-3xl font-semibold flex items-center gap-2">
           <Vote className="h-8 w-8" />
-          Consensus Monitor
+          Consensus Overview
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          AI-Enhanced Committee BFT • Round #{currentRound.toLocaleString()} • {progress}% Complete
+          AI-Enhanced Committee BFT | Round #{currentRound.toLocaleString()} | {progress}% Complete
         </p>
       </div>
 
@@ -103,7 +103,7 @@ export default function Consensus() {
             Consensus Round #{currentRound.toLocaleString()} in Progress
           </div>
           <div className="text-sm mt-1">
-            Phase: {activePhase?.label || "Initializing"} • {completedPhases} of 5 phases completed • Target: {avgBlockTime}ms
+            Phase: {activePhase?.label || "Initializing"} | {completedPhases} of 5 phases completed | Target: {avgBlockTime}ms
           </div>
         </AlertDescription>
       </Alert>
