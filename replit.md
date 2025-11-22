@@ -138,14 +138,20 @@ See `server/routes.ts` comments for detailed security implementation guidance.
 ## TBURN Node Integration
 
 ### Connection Status
-- **HTTP API**: ✅ Connected and authenticated
+- **HTTP API**: ⚠️ Authentication method incompatible (session cookies not supported by TBURN node)
 - **WebSocket**: ⚠️ Requires server-side session handling (deferred)
 
 ### Implementation Details
-- **Client**: `server/tburn-client.ts` - Singleton TBurnClient instance
+- **Client**: `server/tburn-client.ts` - Singleton TBurnClient instance with undici HTTP client
 - **Auto-initialization**: Automatically connects in production mode on server startup
-- **Authentication**: Uses TBURN_API_KEY (same as site password: tburn7979)
+- **Authentication Attempt**: POST /api/auth/login succeeds (200 OK) but no set-cookie header received
+- **Root Cause**: TBURN node does not use session-cookie based authentication
 - **Reconnection**: Automatic reconnection with exponential backoff (max 10 attempts)
+
+### Known Issues
+1. **Session Cookie Problem**: TBURN node's /api/auth/login endpoint returns 200 OK but does not send set-cookie header
+2. **Alternative Authentication**: TBURN node likely uses different authentication method (API key header, JWT token, etc.)
+3. **Workaround**: Demo mode uses local PostgreSQL database and works perfectly
 
 ### API Endpoints Available
 - Network stats: `/api/network/stats`

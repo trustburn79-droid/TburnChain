@@ -1,4 +1,5 @@
 import WebSocket from 'ws';
+import { request } from 'undici';
 
 export interface TBurnNodeConfig {
   rpcUrl: string;
@@ -74,24 +75,33 @@ export class TBurnClient {
     }
 
     try {
-      const loginResponse = await fetch(`${this.config.rpcUrl}/api/auth/login`, {
+      const { statusCode, headers, body } = await request(`${this.config.rpcUrl}/api/auth/login`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'content-type': 'application/json',
         },
         body: JSON.stringify({
           password: this.config.apiKey,
         }),
       });
 
-      if (!loginResponse.ok) {
-        console.error('[TBURN Client] Authentication failed:', loginResponse.statusText);
+      await body.text();
+
+      if (statusCode !== 200) {
+        console.error('[TBURN Client] Authentication failed:', statusCode);
         return false;
       }
 
-      const setCookieHeader = loginResponse.headers.get('set-cookie');
+      const setCookieHeader = headers['set-cookie'];
       if (setCookieHeader) {
-        this.sessionCookie = setCookieHeader.split(';')[0];
+        if (Array.isArray(setCookieHeader)) {
+          this.sessionCookie = setCookieHeader[0].split(';')[0];
+        } else {
+          this.sessionCookie = setCookieHeader.split(';')[0];
+        }
+        console.log('[TBURN Client] Session cookie captured:', this.sessionCookie.substring(0, 30) + '...');
+      } else {
+        console.log('[TBURN Client] Warning: No set-cookie header received');
       }
 
       this.isAuthenticated = true;
@@ -110,17 +120,17 @@ export class TBurnClient {
 
     const url = `${this.config.rpcUrl}${endpoint}`;
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      'content-type': 'application/json',
     };
 
     if (this.sessionCookie) {
-      headers['Cookie'] = this.sessionCookie;
+      headers['cookie'] = this.sessionCookie;
+      console.log(`[TBURN Client] Sending cookie: ${this.sessionCookie.substring(0, 30)}...`);
     }
 
-    const options: RequestInit = {
+    const options: any = {
       method,
       headers,
-      credentials: 'include',
     };
 
     if (body && method !== 'GET') {
@@ -128,26 +138,32 @@ export class TBurnClient {
     }
 
     console.log(`[TBURN Client] Requesting: ${method} ${url}`);
-    const response = await fetch(url, options);
-    console.log(`[TBURN Client] Response: ${response.status} ${response.statusText}`);
     
-    if (!response.ok) {
-      if (response.status === 401) {
-        console.log(`[TBURN Client] 401 Unauthorized for ${endpoint}, attempting re-authentication...`);
-        this.isAuthenticated = false;
-        this.sessionCookie = null;
-        const reauth = await this.authenticate();
-        if (!reauth) {
-          throw new Error(`TBURN API Error: Re-authentication failed`);
+    try {
+      const response = await request(url, options);
+      console.log(`[TBURN Client] Response: ${response.statusCode}`);
+      
+      if (response.statusCode !== 200) {
+        if (response.statusCode === 401) {
+          console.log(`[TBURN Client] 401 Unauthorized for ${endpoint}, attempting re-authentication...`);
+          this.isAuthenticated = false;
+          this.sessionCookie = null;
+          const reauth = await this.authenticate();
+          if (!reauth) {
+            throw new Error(`TBURN API Error: Re-authentication failed`);
+          }
+          return this.request<T>(endpoint, method, body);
         }
-        return this.request<T>(endpoint, method, body);
+        const errorText = await response.body.text();
+        console.error(`[TBURN Client] API Error: ${response.statusCode}`, errorText);
+        throw new Error(`TBURN API Error: ${response.statusCode} - ${errorText}`);
       }
-      const errorText = await response.text();
-      console.error(`[TBURN Client] API Error: ${response.status} ${response.statusText}`, errorText);
-      throw new Error(`TBURN API Error: ${response.status} ${response.statusText} - ${errorText}`);
-    }
 
-    return response.json();
+      return await response.body.json();
+    } catch (error: any) {
+      console.error(`[TBURN Client] Request error:`, error.message);
+      throw error;
+    }
   }
 
   async getNetworkStats(): Promise<NetworkStats> {
