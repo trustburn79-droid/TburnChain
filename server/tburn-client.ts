@@ -157,13 +157,42 @@ export class TBurnClient {
         const errorText = await response.body.text();
         console.error(`[TBURN Client] API Error: ${response.statusCode}`, errorText);
         const error: any = new Error(`TBURN API Error: ${response.statusCode} - ${errorText}`);
-        error.statusCode = response.statusCode; // Attach statusCode for reliable error handling
+        error.statusCode = response.statusCode;
         throw error;
       }
 
-      return await response.body.json() as T;
+      // Enterprise-grade response validation
+      const contentType = response.headers['content-type'] || '';
+      const responseText = await response.body.text();
+      
+      // Detect HTML responses (endpoint not implemented or misconfigured)
+      if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
+        console.warn(`[TBURN Client] HTML response detected for ${endpoint} - endpoint may not be implemented`);
+        const error: any = new Error(`TBURN API Error: Endpoint returned HTML instead of JSON - ${endpoint} may not be implemented on mainnet`);
+        error.statusCode = response.statusCode;
+        error.isHtmlResponse = true;
+        error.endpoint = endpoint;
+        throw error;
+      }
+
+      // Validate JSON content type
+      if (!contentType.includes('application/json') && !contentType.includes('text/plain')) {
+        console.warn(`[TBURN Client] Unexpected content-type: ${contentType} for ${endpoint}`);
+      }
+
+      // Parse and return JSON
+      try {
+        return JSON.parse(responseText) as T;
+      } catch (parseError) {
+        console.error(`[TBURN Client] JSON parse error for ${endpoint}:`, responseText.substring(0, 200));
+        const error: any = new Error(`TBURN API Error: Invalid JSON response from ${endpoint}`);
+        error.statusCode = response.statusCode;
+        error.isParseError = true;
+        error.responsePreview = responseText.substring(0, 200);
+        throw error;
+      }
     } catch (error: any) {
-      console.error(`[TBURN Client] Request error:`, error.message);
+      console.error(`[TBURN Client] Request error for ${endpoint}:`, error.message);
       throw error;
     }
   }

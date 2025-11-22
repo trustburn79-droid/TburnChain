@@ -16,6 +16,10 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
+localPort = 33621
+externalPort = 3002
+
+[[ports]]
 localPort = 35135
 externalPort = 3000
 
@@ -59,5 +63,5 @@ integrations = ["javascript_anthropic_ai_integrations:1.0.0", "javascript_websoc
 [userenv.shared]
 TBURN_NODE_URL = "https://tburn1.replit.app"
 TBURN_WS_URL = "wss://tburn1.replit.app/ws"
-NODE_MODE = "demo"
-VITE_NODE_MODE = "demo"
+NODE_MODE = "production"
+VITE_NODE_MODE = "production"

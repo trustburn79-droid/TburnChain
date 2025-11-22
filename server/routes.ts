@@ -1225,59 +1225,103 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   if (isProductionMode()) {
     const client = getTBurnClient();
+    
+    // Enterprise-grade fallback tracking: prevent log spam for unimplemented endpoints
+    const endpointFallbackStatus = new Map<string, { disabled: boolean; warned: boolean }>();
 
     // Poll AI Decisions every 10 seconds
     setInterval(async () => {
-      if (clients.size === 0) return;
+      if (clients.size === 0 || endpointFallbackStatus.get('ai_decisions')?.disabled) return;
       try {
         const decisions = await client.getAIDecisions(10);
         broadcastUpdate('ai_decisions_snapshot', decisions, aiDecisionsSnapshotSchema);
         console.log(`[Production Poll] AI Decisions: ${decisions.length} items fetched and broadcast`);
-      } catch (error) {
-        console.error('Error polling AI decisions from mainnet:', error);
-        // Clear diff cache on error to allow recovery broadcasts
+      } catch (error: any) {
+        const status = endpointFallbackStatus.get('ai_decisions') || { disabled: false, warned: false };
+        
+        if (error.isHtmlResponse) {
+          if (!status.warned) {
+            console.warn('[Production Poll] AI Decisions endpoint not implemented on mainnet - using local fallback data');
+            endpointFallbackStatus.set('ai_decisions', { disabled: true, warned: true });
+          }
+          // Fallback to local storage (empty or demo data)
+          const localDecisions = await storage.getAllAiDecisions(10);
+          broadcastUpdate('ai_decisions_snapshot', localDecisions, aiDecisionsSnapshotSchema);
+        } else {
+          console.error('Error polling AI decisions from mainnet:', error.message);
+        }
         lastBroadcastState.delete('ai_decisions_snapshot');
       }
     }, 10000);
 
     // Poll Cross-Shard Messages every 5 seconds
     setInterval(async () => {
-      if (clients.size === 0) return;
+      if (clients.size === 0 || endpointFallbackStatus.get('cross_shard')?.disabled) return;
       try {
         const messages = await client.getCrossShardMessages(10);
         broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
         console.log(`[Production Poll] Cross-Shard Messages: ${messages.length} items fetched and broadcast`);
-      } catch (error) {
-        console.error('Error polling cross-shard messages from mainnet:', error);
-        // Clear diff cache on error to allow recovery broadcasts
+      } catch (error: any) {
+        const status = endpointFallbackStatus.get('cross_shard') || { disabled: false, warned: false };
+        
+        if (error.isHtmlResponse) {
+          if (!status.warned) {
+            console.warn('[Production Poll] Cross-Shard Messages endpoint not implemented on mainnet - using local fallback data');
+            endpointFallbackStatus.set('cross_shard', { disabled: true, warned: true });
+          }
+          const localMessages = await storage.getAllCrossShardMessages(10);
+          broadcastUpdate('cross_shard_snapshot', localMessages, crossShardMessagesSnapshotSchema);
+        } else {
+          console.error('Error polling cross-shard messages from mainnet:', error.message);
+        }
         lastBroadcastState.delete('cross_shard_snapshot');
       }
     }, 5000);
 
     // Poll Wallet Balances every 10 seconds
     setInterval(async () => {
-      if (clients.size === 0) return;
+      if (clients.size === 0 || endpointFallbackStatus.get('wallets')?.disabled) return;
       try {
         const wallets = await client.getWalletBalances(10);
         broadcastUpdate('wallet_balances_snapshot', wallets, walletBalancesSnapshotSchema);
         console.log(`[Production Poll] Wallet Balances: ${wallets.length} items fetched and broadcast`);
-      } catch (error) {
-        console.error('Error polling wallet balances from mainnet:', error);
-        // Clear diff cache on error to allow recovery broadcasts
+      } catch (error: any) {
+        const status = endpointFallbackStatus.get('wallets') || { disabled: false, warned: false };
+        
+        if (error.isHtmlResponse) {
+          if (!status.warned) {
+            console.warn('[Production Poll] Wallet Balances endpoint not implemented on mainnet - using local fallback data');
+            endpointFallbackStatus.set('wallets', { disabled: true, warned: true });
+          }
+          const localWallets = await storage.getAllWalletBalances(10);
+          broadcastUpdate('wallet_balances_snapshot', localWallets, walletBalancesSnapshotSchema);
+        } else {
+          console.error('Error polling wallet balances from mainnet:', error.message);
+        }
         lastBroadcastState.delete('wallet_balances_snapshot');
       }
     }, 10000);
 
     // Poll Consensus Rounds every 2 seconds (high-volatility)
     setInterval(async () => {
-      if (clients.size === 0) return;
+      if (clients.size === 0 || endpointFallbackStatus.get('consensus_rounds')?.disabled) return;
       try {
         const rounds = await client.getConsensusRounds(5);
         broadcastUpdate('consensus_rounds_snapshot', rounds, consensusRoundsSnapshotSchema);
         console.log(`[Production Poll] Consensus Rounds: ${rounds.length} items fetched and broadcast`);
-      } catch (error) {
-        console.error('Error polling consensus rounds from mainnet:', error);
-        // Clear diff cache on error to allow recovery broadcasts
+      } catch (error: any) {
+        const status = endpointFallbackStatus.get('consensus_rounds') || { disabled: false, warned: false };
+        
+        if (error.isHtmlResponse) {
+          if (!status.warned) {
+            console.warn('[Production Poll] Consensus Rounds endpoint not implemented on mainnet - using local fallback data');
+            endpointFallbackStatus.set('consensus_rounds', { disabled: true, warned: true });
+          }
+          const localRounds = await storage.getAllConsensusRounds(5);
+          broadcastUpdate('consensus_rounds_snapshot', localRounds, consensusRoundsSnapshotSchema);
+        } else {
+          console.error('Error polling consensus rounds from mainnet:', error.message);
+        }
         lastBroadcastState.delete('consensus_rounds_snapshot');
       }
     }, 2000);
@@ -1289,9 +1333,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const state = await client.getConsensusState();
         broadcastUpdate('consensus_state_update', state, consensusStateSchema);
         console.log('[Production Poll] Consensus State: fetched and broadcast');
-      } catch (error) {
-        console.error('Error polling consensus state from mainnet:', error);
-        // Clear diff cache on error to allow recovery broadcasts
+      } catch (error: any) {
+        console.error('Error polling consensus state from mainnet:', error.message);
         lastBroadcastState.delete('consensus_state_update');
       }
     }, 2000);
