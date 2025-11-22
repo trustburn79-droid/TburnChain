@@ -31,6 +31,7 @@ The explorer adopts a professional, data-centric aesthetic with a focus on reada
 - **Sharding**: Multi-shard monitoring (Alpha, Beta, Gamma, Delta, Epsilon) with per-shard TPS, block height, load, and validator distribution.
 - **Smart Contracts**: Tracking deployed contracts, verification status, transaction counts, balances, and an interaction interface.
 - **Node Health**: Display of system metrics (CPU, memory, disk), network metrics (RPC/WebSocket connections), uptime, and sync status.
+- **API Key Management**: Secure admin interface for generating, managing, and revoking API keys with bcrypt hashing and one-time key display.
 
 ### System Design Choices
 - **Monorepo Structure**: `client/` for frontend, `server/` for backend, and `shared/` for common types and schemas.
@@ -51,6 +52,7 @@ The explorer adopts a professional, data-centric aesthetic with a focus on reada
 - **Data Visualization**: Recharts
 - **Validation**: Zod
 - **Session Management**: `express-session`
+- **Password Hashing**: bcryptjs (for API key management)
 
 ## Authentication & Security
 
@@ -95,6 +97,18 @@ See `server/routes.ts` comments for detailed security implementation guidance.
 
 ## Recent Changes (November 22, 2025)
 
+### API Key Management System
+4. ✅ **Secure API Key Management** (November 22, 2025)
+   - Admin UI for creating, viewing, and revoking API keys
+   - Bcrypt-based key hashing (cost factor 10) for secure storage
+   - One-time key display in modal with clipboard copy functionality
+   - Database table: `api_keys` (id, label, hashed_key, user_id, created_at, last_used_at, revoked_at)
+   - Backend routes: GET/POST/DELETE `/api/keys` with authentication middleware
+   - Storage layer: `getAllApiKeys()`, `createApiKey()`, `revokeApiKey()`, `updateApiKeyLastUsed()`
+   - Frontend: Security section in sidebar, dedicated API Keys page at `/api-keys`
+   - Security: Raw keys (64-char hex) shown only once, never logged or stored in plaintext
+   - E2E tested: Key creation, modal display, clipboard copy, revocation, database verification
+
 ### Production Node Integration
 1. ✅ **TBURN Mainnet Node Connection**
    - HTTP RPC client with authentication to https://tburn1.replit.app/
@@ -118,7 +132,7 @@ See `server/routes.ts` comments for detailed security implementation guidance.
 ### Previous Features (November 21, 2025)
 1. ✅ **PostgreSQL Database Integration**
    - Neon Serverless PostgreSQL with Drizzle ORM
-   - 8 tables: blocks, transactions, accounts, validators, smart_contracts, ai_models, shards, network_stats
+   - 9 tables: blocks, transactions, accounts, validators, smart_contracts, ai_models, shards, network_stats, api_keys
    - Database seeding with 100 transactions, 50 blocks, 10 validators
    - Data persistence across server restarts
 
