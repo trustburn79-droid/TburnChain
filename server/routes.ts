@@ -4,6 +4,7 @@ import { WebSocketServer, WebSocket } from "ws";
 import rateLimit from "express-rate-limit";
 import { storage } from "./storage";
 import { insertTransactionSchema } from "@shared/schema";
+import { getTBurnClient, isProductionMode } from "./tburn-client";
 
 const SITE_PASSWORD = "tburn7979";
 
@@ -43,6 +44,11 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
 // 5. Set strong SESSION_SECRET environment variable
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize TBURN client if in production mode
+  if (isProductionMode()) {
+    getTBurnClient();
+  }
+
   // ============================================
   // Authentication Routes
   // ============================================

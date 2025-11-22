@@ -56,3 +56,4 @@ integrations = ["javascript_anthropic_ai_integrations:1.0.0", "javascript_websoc
 TBURN_NODE_URL = "https://tburn1.replit.app"
 TBURN_WS_URL = "wss://tburn1.replit.app/ws"
 NODE_MODE = "production"
+VITE_NODE_MODE = "production"
