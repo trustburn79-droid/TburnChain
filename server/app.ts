@@ -7,6 +7,8 @@ import express, {
   NextFunction,
 } from "express";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
+import { Pool } from "@neondatabase/serverless";
 
 import { registerRoutes } from "./routes";
 
@@ -15,6 +17,8 @@ declare module "express-session" {
     authenticated?: boolean;
   }
 }
+
+const PgSession = connectPgSimple(session);
 
 // Fix BigInt JSON serialization
 (BigInt.prototype as any).toJSON = function () {
@@ -40,9 +44,16 @@ declare module 'http' {
   }
 }
 
-// Session configuration
+// Session configuration with PostgreSQL store
+const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
+
 app.use(
   session({
+    store: new PgSession({
+      pool: sessionPool,
+      createTableIfMissing: true,
+      tableName: 'session', // Store sessions in 'session' table
+    }),
     secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
     resave: false,
     saveUninitialized: false,
@@ -50,9 +61,13 @@ app.use(
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
     },
   })
 );
+
+// Log session store type
+log(`Session store: ${process.env.NODE_ENV === "production" ? "PostgreSQL (Production)" : "PostgreSQL (Development)"}`, "session");
 
 app.use(express.json({
   verify: (req, _res, buf) => {
