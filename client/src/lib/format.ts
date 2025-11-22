@@ -75,3 +75,40 @@ export function formatGas(gas: number | string): string {
 export function formatPercentage(value: number): string {
   return `${value.toFixed(2)}%`;
 }
+
+export function formatGasPrice(gasPriceWei: string | number): string {
+  try {
+    const wei = BigInt(gasPriceWei.toString());
+    const gwei = Number(wei) / 1e9;
+    return `${gwei.toFixed(2)} Gwei`;
+  } catch {
+    return '0 Gwei';
+  }
+}
+
+export function calculateTransactionFee(
+  gasPriceWei: string,
+  gasUsed: number | string
+): string {
+  try {
+    const price = BigInt(gasPriceWei);
+    const used = BigInt(gasUsed.toString());
+    const feeWei = price * used;
+    return formatTokenAmount(feeWei.toString(), 18, 'TBURN');
+  } catch {
+    return '0 TBURN';
+  }
+}
+
+export function calculateTransactionFeeValue(
+  gasPriceWei: string,
+  gasUsed: number | string
+): bigint {
+  try {
+    const price = BigInt(gasPriceWei);
+    const used = BigInt(gasUsed.toString());
+    return price * used;
+  } catch {
+    return BigInt(0);
+  }
+}

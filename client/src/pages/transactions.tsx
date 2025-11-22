@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatAddress, formatTimeAgo, formatTokenAmount, formatGas } from "@/lib/format";
+import { formatAddress, formatTimeAgo, formatTokenAmount, formatGas, formatGasPrice, calculateTransactionFee } from "@/lib/format";
 import type { Transaction } from "@shared/schema";
 
 export default function Transactions() {
@@ -66,7 +66,9 @@ export default function Transactions() {
                     <TableHead>From</TableHead>
                     <TableHead>To</TableHead>
                     <TableHead>Value</TableHead>
-                    <TableHead>Gas</TableHead>
+                    <TableHead>Gas Used</TableHead>
+                    <TableHead>Gas Price</TableHead>
+                    <TableHead>Txn Fee</TableHead>
                     <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -98,7 +100,17 @@ export default function Transactions() {
                         {formatTokenAmount(tx.value)}
                       </TableCell>
                       <TableCell className="tabular-nums text-sm">
-                        {formatGas(tx.gas)}
+                        {tx.gasUsed != null ? formatGas(tx.gasUsed) : (
+                          <span className="text-muted-foreground">-</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="tabular-nums text-sm">
+                        {formatGasPrice(tx.gasPrice)}
+                      </TableCell>
+                      <TableCell className="tabular-nums text-sm font-medium">
+                        {tx.gasUsed != null ? calculateTransactionFee(tx.gasPrice, tx.gasUsed) : (
+                          <span className="text-muted-foreground">Pending</span>
+                        )}
                       </TableCell>
                       <TableCell>
                         {getStatusBadge(tx.status)}
