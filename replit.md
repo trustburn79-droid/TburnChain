@@ -109,6 +109,18 @@ See `server/routes.ts` comments for detailed security implementation guidance.
    - Security: Raw keys (64-char hex) shown only once, never logged or stored in plaintext
    - E2E tested: Key creation, modal display, clipboard copy, revocation, database verification
 
+### WebSocket Schema Validation System
+5. ✅ **Mandatory Schema Validation for All Broadcasts** (November 22, 2025)
+   - Zod select schemas: aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema
+   - Snapshot array schemas: aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema
+   - broadcastUpdate signature: (type, data, schema, skipDiffCheck=false) with REQUIRED schema parameter
+   - Schema.parse() validation before every broadcast (lines 74-81 in routes.ts)
+   - 100% coverage: All 15 broadcast paths (7 mutations, 4 demo snapshots, 4 production polls) validated
+   - Fail-safe behavior: Validation failure → console.error + abort (prevents malformed data emission)
+   - Differential broadcasting: Hash-based deduplication remains intact
+   - Error recovery: Clear lastBroadcastState on polling failures to enable re-broadcast
+   - Structured logging: "[Production Poll] {Domain}: {count} items" for automated verification
+
 ### Production Node Integration
 1. ✅ **TBURN Mainnet Node Connection**
    - HTTP RPC client with authentication to https://tburn1.replit.app/

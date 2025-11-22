@@ -249,6 +249,44 @@ export const insertApiKeySchema = createInsertSchema(apiKeys).omit({ id: true, c
 export const insertCrossShardMessageSchema = createInsertSchema(crossShardMessages).omit({ id: true, sentAt: true, confirmedAt: true, failedAt: true });
 export const insertWalletBalanceSchema = createInsertSchema(walletBalances).omit({ id: true, firstSeenAt: true, updatedAt: true, lastTransactionAt: true });
 
+// ============================================
+// Select Schemas for WebSocket Validation
+// ============================================
+// AI Decisions (add read-only fields to insert schema)
+export const aiDecisionSelectSchema = insertAiDecisionSchema.extend({
+  id: z.string(),
+  createdAt: z.string().or(z.date()),
+  executedAt: z.string().or(z.date()).optional(),
+});
+
+// Cross-Shard Messages (add read-only fields)
+export const crossShardMessageSelectSchema = insertCrossShardMessageSchema.extend({
+  id: z.string(),
+  sentAt: z.string().or(z.date()),
+  confirmedAt: z.string().or(z.date()).optional(),
+  failedAt: z.string().or(z.date()).optional(),
+});
+
+// Wallet Balances (add read-only fields)
+export const walletBalanceSelectSchema = insertWalletBalanceSchema.extend({
+  id: z.string(),
+  firstSeenAt: z.string().or(z.date()),
+  updatedAt: z.string().or(z.date()),
+  lastTransactionAt: z.string().or(z.date()).optional(),
+});
+
+// Consensus Rounds (add read-only fields)
+export const consensusRoundSelectSchema = insertConsensusRoundSchema.extend({
+  id: z.string(),
+  createdAt: z.string().or(z.date()),
+});
+
+// Snapshot schemas (arrays for periodic broadcasts)
+export const aiDecisionsSnapshotSchema = z.array(aiDecisionSelectSchema);
+export const crossShardMessagesSnapshotSchema = z.array(crossShardMessageSelectSchema);
+export const walletBalancesSnapshotSchema = z.array(walletBalanceSelectSchema);
+export const consensusRoundsSnapshotSchema = z.array(consensusRoundSelectSchema);
+
 // Types
 export type Block = typeof blocks.$inferSelect;
 export type InsertBlock = z.infer<typeof insertBlockSchema>;

@@ -5,7 +5,12 @@ import rateLimit from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
 import { storage } from "./storage";
-import { insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema, insertConsensusRoundSchema } from "@shared/schema";
+import { 
+  insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema, 
+  insertWalletBalanceSchema, insertConsensusRoundSchema,
+  aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema,
+  aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema
+} from "@shared/schema";
 import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 
@@ -50,6 +55,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize TBURN client if in production mode
   if (isProductionMode()) {
     getTBurnClient();
+  }
+
+  // WebSocket clients - initialized early for use in broadcast functions
+  const clients = new Set<WebSocket>();
+
+  // Track last broadcast state per channel for differential broadcasting
+  const lastBroadcastState = new Map<string, string>();
+
+  // Centralized broadcast helper with schema validation and differential logic
+  function broadcastUpdate(type: string, data: any, schema: z.ZodType<any>, skipDiffCheck = false) {
+    if (clients.size === 0) return;
+
+    try {
+      // Schema validation: validate payload structure before broadcasting
+      try {
+        schema.parse(data);
+      } catch (validationError) {
+        console.error(`Schema validation failed for ${type}:`, validationError);
+        // Validation failed - abort broadcast to prevent malformed data emission
+        return;
+      }
+
+      // Basic validation: ensure data is serializable
+      const dataHash = JSON.stringify(data);
+      
+      // Differential logic: only broadcast if data actually changed (unless forced)
+      if (!skipDiffCheck) {
+        const lastHash = lastBroadcastState.get(type);
+        
+        if (lastHash === dataHash) {
+          // Data unchanged, suppress redundant emission
+          return;
+        }
+      }
+      
+      // ALWAYS update last broadcast state to prevent infinite loops
+      // This applies even when skipDiffCheck=true (mutation broadcasts)
+      lastBroadcastState.set(type, dataHash);
+
+      const message = JSON.stringify({
+        type,
+        data,
+        timestamp: Date.now(),
+        lastSyncedAt: new Date().toISOString(),
+      });
+
+      let successCount = 0;
+      clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          try {
+            client.send(message);
+            successCount++;
+          } catch (error) {
+            console.error(`Failed to send ${type} to client:`, error);
+          }
+        }
+      });
+
+      if (successCount > 0) {
+        console.log(`Broadcasted ${type} to ${successCount} client(s)`);
+      }
+    } catch (error) {
+      console.error(`Error broadcasting ${type}:`, error);
+      // Schema validation failure or serialization error - abort broadcast
+    }
   }
 
   // ============================================
@@ -489,6 +559,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Demo mode only - create AI decision locally
       const validated = insertAiDecisionSchema.parse(req.body);
       const decision = await storage.createAiDecision(validated);
+      
+      // Broadcast the new AI decision to WebSocket clients
+      broadcastUpdate('ai_decision_update', decision, aiDecisionSelectSchema, true);
+      
       res.status(201).json(decision);
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
@@ -600,6 +674,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Demo mode only - create cross-shard message locally
       const validated = insertCrossShardMessageSchema.parse(req.body);
       const message = await storage.createCrossShardMessage(validated);
+      
+      // Broadcast the new cross-shard message to WebSocket clients
+      broadcastUpdate('cross_shard_update', message, crossShardMessageSelectSchema, true);
+      
       res.status(201).json(message);
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
@@ -628,6 +706,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       await storage.updateCrossShardMessage(id, req.body);
       const updated = await storage.getCrossShardMessageById(id);
+      
+      // Broadcast the updated cross-shard message to WebSocket clients
+      broadcastUpdate('cross_shard_update', updated, crossShardMessageSelectSchema, true);
+      
       res.json(updated);
     } catch (error: unknown) {
       res.status(500).json({ error: "Failed to update cross-shard message" });
@@ -791,6 +873,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Demo mode only - create wallet balance locally
       const validated = insertWalletBalanceSchema.parse(req.body);
       const wallet = await storage.createWalletBalance(validated);
+      
+      // Broadcast the new wallet balance to WebSocket clients
+      broadcastUpdate('wallet_balance_update', wallet, walletBalanceSelectSchema, true);
+      
       res.status(201).json(wallet);
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
@@ -819,6 +905,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       await storage.updateWalletBalance(address, req.body);
       const updated = await storage.getWalletBalanceByAddress(address);
+      
+      // Broadcast the updated wallet balance to WebSocket clients
+      broadcastUpdate('wallet_balance_update', updated, walletBalanceSelectSchema, true);
+      
       res.json(updated);
     } catch (error: unknown) {
       res.status(500).json({ error: "Failed to update wallet balance" });
@@ -901,6 +991,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Demo mode only - create consensus round locally
       const validated = insertConsensusRoundSchema.parse(req.body);
       const round = await storage.createConsensusRound(validated);
+      
+      // Broadcast the new consensus round to WebSocket clients
+      broadcastUpdate('consensus_round_update', round, consensusRoundSelectSchema, true);
+      
       res.status(201).json(round);
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
@@ -939,6 +1033,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       await storage.updateConsensusRound(blockHeight, validated);
       const updated = await storage.getConsensusRoundByBlockHeight(blockHeight);
+      
+      // Broadcast the updated consensus round to WebSocket clients
+      broadcastUpdate('consensus_round_update', updated, consensusRoundSelectSchema, true);
+      
       res.json(updated);
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
@@ -970,9 +1068,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       callback(true);
     }
   });
-
-  // Store connected clients
-  const clients = new Set<WebSocket>();
 
   wss.on('connection', (ws) => {
     console.log('New WebSocket client connected');
@@ -1067,6 +1162,114 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error('Error broadcasting block updates:', error);
     }
   }, 2000);
+
+  // Broadcast periodic snapshots for domain-specific data
+  // AI Decisions snapshot every 15 seconds (aggregated list)
+  setInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const decisions = await storage.getRecentAiDecisions(10);
+      broadcastUpdate('ai_decisions_snapshot', decisions, aiDecisionsSnapshotSchema);
+    } catch (error) {
+      console.error('Error broadcasting AI decisions snapshot:', error);
+    }
+  }, 15000);
+
+  // Cross-Shard Messages snapshot every 15 seconds (aggregated list)
+  setInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const messages = await storage.getAllCrossShardMessages(10);
+      broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
+    } catch (error) {
+      console.error('Error broadcasting cross-shard snapshot:', error);
+    }
+  }, 15000);
+
+  // Wallet Balances snapshot every 15 seconds (aggregated list)
+  setInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const wallets = await storage.getAllWalletBalances(10);
+      broadcastUpdate('wallet_balances_snapshot', wallets, walletBalancesSnapshotSchema);
+    } catch (error) {
+      console.error('Error broadcasting wallet balances snapshot:', error);
+    }
+  }, 15000);
+
+  // Consensus Rounds snapshot every 3 seconds (high-volatility metrics)
+  setInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const rounds = await storage.getAllConsensusRounds(5);
+      broadcastUpdate('consensus_rounds_snapshot', rounds, consensusRoundsSnapshotSchema);
+    } catch (error) {
+      console.error('Error broadcasting consensus rounds snapshot:', error);
+    }
+  }, 3000);
+
+  // ============================================
+  // Production Mode Polling (TBurnClient-based)
+  // ============================================
+  if (isProductionMode()) {
+    const client = getTBurnClient();
+
+    // Poll AI Decisions every 10 seconds
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const decisions = await client.getAIDecisions(10);
+        broadcastUpdate('ai_decisions_snapshot', decisions, aiDecisionsSnapshotSchema);
+        console.log(`[Production Poll] AI Decisions: ${decisions.length} items fetched and broadcast`);
+      } catch (error) {
+        console.error('Error polling AI decisions from mainnet:', error);
+        // Clear diff cache on error to allow recovery broadcasts
+        lastBroadcastState.delete('ai_decisions_snapshot');
+      }
+    }, 10000);
+
+    // Poll Cross-Shard Messages every 5 seconds
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const messages = await client.getCrossShardMessages(10);
+        broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
+        console.log(`[Production Poll] Cross-Shard Messages: ${messages.length} items fetched and broadcast`);
+      } catch (error) {
+        console.error('Error polling cross-shard messages from mainnet:', error);
+        // Clear diff cache on error to allow recovery broadcasts
+        lastBroadcastState.delete('cross_shard_snapshot');
+      }
+    }, 5000);
+
+    // Poll Wallet Balances every 10 seconds
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const wallets = await client.getWalletBalances(10);
+        broadcastUpdate('wallet_balances_snapshot', wallets, walletBalancesSnapshotSchema);
+        console.log(`[Production Poll] Wallet Balances: ${wallets.length} items fetched and broadcast`);
+      } catch (error) {
+        console.error('Error polling wallet balances from mainnet:', error);
+        // Clear diff cache on error to allow recovery broadcasts
+        lastBroadcastState.delete('wallet_balances_snapshot');
+      }
+    }, 10000);
+
+    // Poll Consensus Rounds every 2 seconds (high-volatility)
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const rounds = await client.getConsensusRounds(5);
+        broadcastUpdate('consensus_rounds_snapshot', rounds, consensusRoundsSnapshotSchema);
+        console.log(`[Production Poll] Consensus Rounds: ${rounds.length} items fetched and broadcast`);
+      } catch (error) {
+        console.error('Error polling consensus rounds from mainnet:', error);
+        // Clear diff cache on error to allow recovery broadcasts
+        lastBroadcastState.delete('consensus_rounds_snapshot');
+      }
+    }, 2000);
+  }
 
   return httpServer;
 }
