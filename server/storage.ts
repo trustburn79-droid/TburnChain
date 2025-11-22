@@ -68,6 +68,11 @@ export interface IStorage {
   getAllShards(): Promise<Shard[]>;
   getShardById(shardId: number): Promise<Shard | undefined>;
   updateShard(shardId: number, data: Partial<Shard>): Promise<Shard>;
+
+  // Analytics
+  getLatencyDistribution(): Promise<import("@shared/schema").LatencyBucket[]>;
+  getTPSHistory(minutes?: number): Promise<import("@shared/schema").TPSHistoryPoint[]>;
+  getConsensusState(): Promise<import("@shared/schema").ConsensusState>;
 }
 
 export class MemStorage implements IStorage {
@@ -362,7 +367,14 @@ export class MemStorage implements IStorage {
 
   async createBlock(insertBlock: InsertBlock): Promise<Block> {
     const id = randomUUID();
-    const block: Block = { ...insertBlock, id };
+    const block: Block = { 
+      ...insertBlock, 
+      id,
+      transactionCount: insertBlock.transactionCount ?? 0,
+      gasUsed: insertBlock.gasUsed ?? 0,
+      gasLimit: insertBlock.gasLimit ?? 0,
+      shardId: insertBlock.shardId ?? 0,
+    };
     this.blocks.set(id, block);
     return block;
   }
@@ -385,7 +397,13 @@ export class MemStorage implements IStorage {
 
   async createTransaction(insertTx: InsertTransaction): Promise<Transaction> {
     const id = randomUUID();
-    const tx: Transaction = { ...insertTx, id };
+    const tx: Transaction = { 
+      ...insertTx, 
+      id,
+      status: insertTx.status ?? "pending",
+      gasUsed: insertTx.gasUsed ?? null,
+      shardId: insertTx.shardId ?? 0,
+    };
     this.transactions.set(id, tx);
     return tx;
   }
@@ -400,6 +418,10 @@ export class MemStorage implements IStorage {
     const account: Account = {
       ...insertAccount,
       id,
+      balance: insertAccount.balance ?? "0",
+      nonce: insertAccount.nonce ?? 0,
+      code: insertAccount.code ?? null,
+      isContract: insertAccount.isContract ?? false,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -421,6 +443,13 @@ export class MemStorage implements IStorage {
     const validator: Validator = {
       ...insertValidator,
       id,
+      commission: insertValidator.commission ?? 500,
+      status: insertValidator.status ?? "active",
+      uptime: insertValidator.uptime ?? 10000,
+      totalBlocks: insertValidator.totalBlocks ?? 0,
+      votingPower: insertValidator.votingPower ?? "0",
+      apy: insertValidator.apy ?? 0,
+      delegators: insertValidator.delegators ?? 0,
       joinedAt: new Date(),
     };
     this.validators.set(validator.address, validator);
@@ -441,6 +470,11 @@ export class MemStorage implements IStorage {
     const contract: SmartContract = {
       ...insertContract,
       id,
+      transactionCount: insertContract.transactionCount ?? 0,
+      balance: insertContract.balance ?? "0",
+      abi: insertContract.abi ?? null,
+      sourceCode: insertContract.sourceCode ?? null,
+      verified: insertContract.verified ?? false,
       deployedAt: new Date(),
     };
     this.contracts.set(contract.address, contract);
@@ -484,6 +518,89 @@ export class MemStorage implements IStorage {
     this.shards.set(shardId, updated);
     return updated;
   }
+
+  // Analytics
+  async getLatencyDistribution(): Promise<import("@shared/schema").LatencyBucket[]> {
+    const stats = await this.getNetworkStats();
+    const avgLatency = stats.latency;
+    const totalTx = Number(stats.totalTransactions);
+    
+    const under10 = avgLatency < 15 ? 45 : 30;
+    const range10to20 = avgLatency < 20 ? 35 : 25;
+    const range20to30 = 15;
+    const range30to40 = 4;
+    const range40to50 = 0.8;
+    const over50 = 0.2;
+    
+    return [
+      { range: "<10ms", count: Math.floor(totalTx * under10 / 100), percentage: under10 },
+      { range: "10-20ms", count: Math.floor(totalTx * range10to20 / 100), percentage: range10to20 },
+      { range: "20-30ms", count: Math.floor(totalTx * range20to30 / 100), percentage: range20to30 },
+      { range: "30-40ms", count: Math.floor(totalTx * range30to40 / 100), percentage: range30to40 },
+      { range: "40-50ms", count: Math.floor(totalTx * range40to50 / 100), percentage: range40to50 },
+      { range: ">50ms", count: Math.floor(totalTx * over50 / 100), percentage: over50 },
+    ];
+  }
+
+  async getTPSHistory(minutes = 60): Promise<import("@shared/schema").TPSHistoryPoint[]> {
+    const stats = await this.getNetworkStats();
+    const now = Date.now();
+    const peakTPS = stats.peakTps;
+    
+    return Array.from({ length: minutes }, (_, i) => {
+      const variance = 0.15;
+      const trend = Math.sin((i / minutes) * Math.PI) * 0.1;
+      const value = peakTPS * (0.85 + variance * (i / minutes) + trend);
+      return {
+        timestamp: now - (minutes - i) * 60 * 1000,
+        tps: Math.floor(value),
+      };
+    });
+  }
+
+  async getConsensusState(): Promise<import("@shared/schema").ConsensusState> {
+    const stats = await this.getNetworkStats();
+    const validators = await this.getAllValidators();
+    const activeValidators = validators.filter(v => v.status === "active");
+    
+    const now = Date.now();
+    const blockStartTime = now - 800;
+    const elapsed = now - blockStartTime;
+    
+    let currentPhase = 1;
+    if (elapsed >= 700) currentPhase = 5;
+    else if (elapsed >= 500) currentPhase = 4;
+    else if (elapsed >= 300) currentPhase = 3;
+    else if (elapsed >= 150) currentPhase = 2;
+    
+    const proposer = activeValidators[0]?.address || "0x0000...0000";
+    const prevoteCount = activeValidators.filter(v => v.uptime >= 9500).length;
+    const precommitCount = activeValidators.filter(v => v.uptime >= 9700).length;
+    
+    const phases: import("@shared/schema").ConsensusPhase[] = [
+      { number: 1, label: "NewHeight", time: elapsed >= 0 ? "0ms" : "Pending", status: elapsed >= 0 ? "completed" : "pending" },
+      { number: 2, label: "Propose", time: elapsed >= 150 ? "150ms" : currentPhase === 2 ? `${elapsed}ms` : "Pending", status: currentPhase > 2 ? "completed" : currentPhase === 2 ? "active" : "pending" },
+      { number: 3, label: "Prevote", time: elapsed >= 300 ? "300ms" : currentPhase === 3 ? `${elapsed}ms` : "Pending", status: currentPhase > 3 ? "completed" : currentPhase === 3 ? "active" : "pending" },
+      { number: 4, label: "Precommit", time: elapsed >= 500 ? "500ms" : currentPhase === 4 ? `${elapsed}ms` : "Pending", status: currentPhase > 4 ? "completed" : currentPhase === 4 ? "active" : "pending" },
+      { number: 5, label: "Finalize", time: elapsed >= 700 ? "700ms" : "Pending", status: currentPhase === 5 ? "active" : "pending" },
+    ];
+    
+    const totalValidators = activeValidators.length;
+    const requiredQuorum = Math.ceil((totalValidators * 2) / 3);
+    
+    return {
+      currentPhase,
+      phases,
+      proposer,
+      blockHeight: Number(stats.currentBlockHeight),
+      prevoteCount,
+      precommitCount,
+      totalValidators,
+      requiredQuorum,
+      avgBlockTimeMs: Number(stats.avgBlockTime),
+      startTime: blockStartTime,
+    };
+  }
 }
 
 // PostgreSQL-based storage implementation
@@ -495,14 +612,20 @@ export class DbStorage implements IStorage {
       // Initialize if not exists
       const initialStats: InsertNetworkStats = {
         currentBlockHeight: 1245678,
-        tps: 45230,
-        avgBlockTime: 1,
+        tps: 347892,
+        peakTps: 485231,
+        avgBlockTime: 98,
+        blockTimeP99: 125,
+        slaUptime: 9990,
+        latency: 12,
+        latencyP99: 45,
         activeValidators: 125,
         totalValidators: 150,
         totalTransactions: 89234567,
         totalAccounts: 234567,
         marketCap: "12450000000",
         circulatingSupply: "500000000",
+        successRate: 9970,
       };
       await db.insert(networkStatsTable).values(initialStats);
       return { ...initialStats, id: "singleton", updatedAt: new Date() };
@@ -629,6 +752,89 @@ export class DbStorage implements IStorage {
     const result = await this.getShardById(shardId);
     if (!result) throw new Error(`Shard ${shardId} not found`);
     return result;
+  }
+
+  // Analytics
+  async getLatencyDistribution(): Promise<import("@shared/schema").LatencyBucket[]> {
+    const stats = await this.getNetworkStats();
+    const avgLatency = stats.latency;
+    const totalTx = Number(stats.totalTransactions);
+    
+    const under10 = avgLatency < 15 ? 45 : 30;
+    const range10to20 = avgLatency < 20 ? 35 : 25;
+    const range20to30 = 15;
+    const range30to40 = 4;
+    const range40to50 = 0.8;
+    const over50 = 0.2;
+    
+    return [
+      { range: "<10ms", count: Math.floor(totalTx * under10 / 100), percentage: under10 },
+      { range: "10-20ms", count: Math.floor(totalTx * range10to20 / 100), percentage: range10to20 },
+      { range: "20-30ms", count: Math.floor(totalTx * range20to30 / 100), percentage: range20to30 },
+      { range: "30-40ms", count: Math.floor(totalTx * range30to40 / 100), percentage: range30to40 },
+      { range: "40-50ms", count: Math.floor(totalTx * range40to50 / 100), percentage: range40to50 },
+      { range: ">50ms", count: Math.floor(totalTx * over50 / 100), percentage: over50 },
+    ];
+  }
+
+  async getTPSHistory(minutes = 60): Promise<import("@shared/schema").TPSHistoryPoint[]> {
+    const stats = await this.getNetworkStats();
+    const now = Date.now();
+    const peakTPS = stats.peakTps;
+    
+    return Array.from({ length: minutes }, (_, i) => {
+      const variance = 0.15;
+      const trend = Math.sin((i / minutes) * Math.PI) * 0.1;
+      const value = peakTPS * (0.85 + variance * (i / minutes) + trend);
+      return {
+        timestamp: now - (minutes - i) * 60 * 1000,
+        tps: Math.floor(value),
+      };
+    });
+  }
+
+  async getConsensusState(): Promise<import("@shared/schema").ConsensusState> {
+    const stats = await this.getNetworkStats();
+    const validators = await this.getAllValidators();
+    const activeValidators = validators.filter(v => v.status === "active");
+    
+    const now = Date.now();
+    const blockStartTime = now - 800;
+    const elapsed = now - blockStartTime;
+    
+    let currentPhase = 1;
+    if (elapsed >= 700) currentPhase = 5;
+    else if (elapsed >= 500) currentPhase = 4;
+    else if (elapsed >= 300) currentPhase = 3;
+    else if (elapsed >= 150) currentPhase = 2;
+    
+    const proposer = activeValidators[0]?.address || "0x0000...0000";
+    const prevoteCount = activeValidators.filter(v => v.uptime >= 9500).length;
+    const precommitCount = activeValidators.filter(v => v.uptime >= 9700).length;
+    
+    const phases: import("@shared/schema").ConsensusPhase[] = [
+      { number: 1, label: "NewHeight", time: elapsed >= 0 ? "0ms" : "Pending", status: elapsed >= 0 ? "completed" : "pending" },
+      { number: 2, label: "Propose", time: elapsed >= 150 ? "150ms" : currentPhase === 2 ? `${elapsed}ms` : "Pending", status: currentPhase > 2 ? "completed" : currentPhase === 2 ? "active" : "pending" },
+      { number: 3, label: "Prevote", time: elapsed >= 300 ? "300ms" : currentPhase === 3 ? `${elapsed}ms` : "Pending", status: currentPhase > 3 ? "completed" : currentPhase === 3 ? "active" : "pending" },
+      { number: 4, label: "Precommit", time: elapsed >= 500 ? "500ms" : currentPhase === 4 ? `${elapsed}ms` : "Pending", status: currentPhase > 4 ? "completed" : currentPhase === 4 ? "active" : "pending" },
+      { number: 5, label: "Finalize", time: elapsed >= 700 ? "700ms" : "Pending", status: currentPhase === 5 ? "active" : "pending" },
+    ];
+    
+    const totalValidators = activeValidators.length;
+    const requiredQuorum = Math.ceil((totalValidators * 2) / 3);
+    
+    return {
+      currentPhase,
+      phases,
+      proposer,
+      blockHeight: Number(stats.currentBlockHeight),
+      prevoteCount,
+      precommitCount,
+      totalValidators,
+      requiredQuorum,
+      avgBlockTimeMs: Number(stats.avgBlockTime),
+      startTime: blockStartTime,
+    };
   }
 }
 

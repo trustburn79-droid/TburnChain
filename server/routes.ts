@@ -94,6 +94,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/network/latency-distribution", async (_req, res) => {
+    try {
+      const distribution = await storage.getLatencyDistribution();
+      res.json(distribution);
+    } catch (error) {
+      console.error("Error fetching latency distribution:", error);
+      res.status(500).json({ error: "Failed to fetch latency distribution" });
+    }
+  });
+
+  app.get("/api/network/tps-history", async (req, res) => {
+    try {
+      const minutes = req.query.minutes ? parseInt(req.query.minutes as string) : 60;
+      const history = await storage.getTPSHistory(minutes);
+      res.json(history);
+    } catch (error) {
+      console.error("Error fetching TPS history:", error);
+      res.status(500).json({ error: "Failed to fetch TPS history" });
+    }
+  });
+
+  app.get("/api/consensus/current", async (_req, res) => {
+    try {
+      const state = await storage.getConsensusState();
+      res.json(state);
+    } catch (error) {
+      console.error("Error fetching consensus state:", error);
+      res.status(500).json({ error: "Failed to fetch consensus state" });
+    }
+  });
+
   // ============================================
   // Blocks
   // ============================================

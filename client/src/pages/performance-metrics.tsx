@@ -7,36 +7,20 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { TrendingUp, Zap, Trophy, Clock, Radio, CheckCircle } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { formatNumber } from "@/lib/format";
-import type { NetworkStats } from "@shared/schema";
+import type { NetworkStats, LatencyBucket, TPSHistoryPoint } from "@shared/schema";
 
-interface LatencyBucket {
-  range: string;
-  count: number;
-  percentage: number;
+interface LatencyBucketWithColor extends LatencyBucket {
   color: string;
 }
 
-// Generate latency distribution from stats
-function generateLatencyDistribution(avgLatency: number, p99: number, totalTx: number): LatencyBucket[] {
-  // Simulated distribution based on avg and p99
-  const under10 = avgLatency < 15 ? 45 : 30;
-  const range10to20 = avgLatency < 20 ? 35 : 25;
-  const range20to30 = 15;
-  const range30to40 = 4;
-  const range40to50 = 0.8;
-  const over50 = 0.2;
-  
-  const txCount = Number(totalTx) || 10000;
-  
-  return [
-    { range: "<10ms", count: Math.floor(txCount * under10 / 100), percentage: under10, color: "from-green-600 to-green-700" },
-    { range: "10-20ms", count: Math.floor(txCount * range10to20 / 100), percentage: range10to20, color: "from-blue-600 to-blue-700" },
-    { range: "20-30ms", count: Math.floor(txCount * range20to30 / 100), percentage: range20to30, color: "from-yellow-600 to-yellow-700" },
-    { range: "30-40ms", count: Math.floor(txCount * range30to40 / 100), percentage: range30to40, color: "from-gray-500 to-gray-600" },
-    { range: "40-50ms", count: Math.floor(txCount * range40to50 / 100), percentage: range40to50, color: "from-gray-600 to-gray-700" },
-    { range: ">50ms", count: Math.floor(txCount * over50 / 100), percentage: over50, color: "from-gray-700 to-gray-800" },
-  ];
-}
+const LATENCY_COLORS = [
+  "from-green-600 to-green-700",
+  "from-blue-600 to-blue-700",
+  "from-yellow-600 to-yellow-700",
+  "from-gray-500 to-gray-600",
+  "from-gray-600 to-gray-700",
+  "from-gray-700 to-gray-800",
+];
 
 function SLACard({ title, value, unit, target, targetMet, detail }: {
   title: string;
@@ -74,8 +58,18 @@ function SLACard({ title, value, unit, target, targetMet, detail }: {
 }
 
 export default function PerformanceMetrics() {
-  const { data: stats, isLoading } = useQuery<NetworkStats>({
+  const { data: stats, isLoading: isStatsLoading } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
+    refetchInterval: 5000,
+  });
+
+  const { data: latencyData, isLoading: isLatencyLoading } = useQuery<LatencyBucket[]>({
+    queryKey: ["/api/network/latency-distribution"],
+    refetchInterval: 10000,
+  });
+
+  const { data: tpsHistory, isLoading: isTPSLoading } = useQuery<TPSHistoryPoint[]>({
+    queryKey: ["/api/network/tps-history"],
     refetchInterval: 5000,
   });
 
@@ -87,21 +81,20 @@ export default function PerformanceMetrics() {
   const latencyP99 = stats?.latencyP99 || 0;
   const slaUptime = stats?.slaUptime || 0;
   const successRate = stats?.successRate || 0;
-  const totalTransactions = stats?.totalTransactions || 0;
   
-  // Generate latency distribution
-  const latencyDistribution = generateLatencyDistribution(latency, latencyP99, totalTransactions);
+  // Add colors to latency distribution
+  const latencyDistribution: LatencyBucketWithColor[] = (latencyData || []).map((bucket, idx) => ({
+    ...bucket,
+    color: LATENCY_COLORS[idx] || "from-gray-700 to-gray-800",
+  }));
   
-  // Generate TPS chart data from peakTPS (simulated historical data)
-  const tpsChartData = Array.from({ length: 60 }, (_, i) => {
-    const variance = 0.15; // 15% variance
-    const trend = Math.sin((i / 60) * Math.PI) * 0.1; // Slight trend
-    const value = peakTPS * (0.85 + variance * (i / 60) + trend);
-    return {
-      time: `${59 - i}m`,
-      tps: Math.floor(value),
-    };
-  });
+  // Format TPS history for chart
+  const tpsChartData = (tpsHistory || []).map((point, idx) => ({
+    time: `${Math.floor((tpsHistory?.length || 60) - idx)}m`,
+    tps: point.tps,
+  })).reverse();
+
+  const isLoading = isStatsLoading || isLatencyLoading || isTPSLoading;
 
   return (
     <div className="flex flex-col gap-6 p-6">

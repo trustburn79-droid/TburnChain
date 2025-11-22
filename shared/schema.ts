@@ -232,3 +232,38 @@ export interface ShardMetrics {
   blockHeight: number;
   status: "active" | "syncing" | "error";
 }
+
+// ============================================
+// Advanced Analytics Types
+// ============================================
+
+export interface LatencyBucket {
+  range: string;
+  count: number;
+  percentage: number;
+}
+
+export interface TPSHistoryPoint {
+  timestamp: number;
+  tps: number;
+}
+
+export interface ConsensusPhase {
+  number: number;
+  label: string;
+  time: string;
+  status: "completed" | "active" | "pending";
+}
+
+export interface ConsensusState {
+  currentPhase: number;
+  phases: ConsensusPhase[];
+  proposer: string;
+  blockHeight: number;
+  prevoteCount: number;
+  precommitCount: number;
+  totalValidators: number;
+  requiredQuorum: number;
+  avgBlockTimeMs: number;
+  startTime: number;
+}
