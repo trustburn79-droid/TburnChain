@@ -97,6 +97,33 @@ See `server/routes.ts` comments for detailed security implementation guidance.
 
 ## Recent Changes (November 22, 2025)
 
+### WebSocket Frontend Integration System
+6. ✅ **Real-Time Frontend Pages with WebSocket Subscriptions** (November 22, 2025)
+   - **useWebSocketChannel Hook**: Reusable hook with Zod validation, TanStack Query cache hydration, REST fallback
+   - **Message Deduplication**: Hash-based (channel + timestamp + data) prevents duplicates while allowing multiple messages per second
+   - **Update Modes**: 'snapshot' (replace array), 'update' (add/update by ID), 'replace' (replace object)
+   - **Auto-Reconnect**: Exponential backoff with WebSocket connection resilience
+   
+   **New Pages Created**:
+   - `/ai` - AI Orchestration enhanced with "AI Decision Stream" section (tabbed History + Live Feed)
+   - `/cross-shard` - Cross-Shard Communication with shard topology, message queue, per-shard health cards
+   - `/wallets` - Wallet Explorer with searchable address list, balance breakdown (staked/unstaked/rewards)
+   - `/consensus` - Enhanced with WebSocket updates (consensus_state_update channel, replace mode)
+   
+   **WebSocket Channels**:
+   - ai_decisions_snapshot → ['/api/ai/decisions'] (snapshot mode)
+   - cross_shard_snapshot → ['/api/cross-shard/messages'] (snapshot mode)
+   - wallet_balances_snapshot → ['/api/wallets'] (snapshot mode)
+   - consensus_state_update → ['/api/consensus/current'] (replace mode)
+   
+   **Backend Enhancements**:
+   - consensusStateSchema added to shared/schema.ts
+   - TBurnClient.getConsensusState() method for production mode
+   - Demo mode broadcasts: All domains every 2-15 seconds
+   - Production mode broadcasts: All domains polling mainnet (including consensus state)
+   
+   **E2E Testing**: All pages verified with Playwright - navigation, data display, search, WebSocket integration working
+
 ### API Key Management System
 4. ✅ **Secure API Key Management** (November 22, 2025)
    - Admin UI for creating, viewing, and revoking API keys
