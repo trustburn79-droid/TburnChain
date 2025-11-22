@@ -9,8 +9,10 @@ export function formatHash(hash: string): string {
   return formatAddress(hash, 8, 6);
 }
 
-export function formatNumber(num: number | string): string {
+export function formatNumber(num: number | string | null | undefined): string {
+  if (num == null) return '0';
   const n = typeof num === 'string' ? parseFloat(num) : num;
+  if (isNaN(n)) return '0';
   if (n >= 1e9) return `${(n / 1e9).toFixed(2)}B`;
   if (n >= 1e6) return `${(n / 1e6).toFixed(2)}M`;
   if (n >= 1e3) return `${(n / 1e3).toFixed(2)}K`;
