@@ -49,3 +49,10 @@ waitForPort = 5000
 
 [agent]
 integrations = ["javascript_anthropic_ai_integrations:1.0.0", "javascript_websocket:1.0.0", "javascript_openai_ai_integrations:1.0.0"]
+
+[userenv]
+
+[userenv.shared]
+TBURN_NODE_URL = "https://tburn1.replit.app"
+TBURN_WS_URL = "wss://tburn1.replit.app/ws"
+NODE_MODE = "production"
