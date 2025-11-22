@@ -127,16 +127,24 @@ export class TBurnClient {
       options.body = JSON.stringify(body);
     }
 
+    console.log(`[TBURN Client] Requesting: ${method} ${url}`);
     const response = await fetch(url, options);
+    console.log(`[TBURN Client] Response: ${response.status} ${response.statusText}`);
     
     if (!response.ok) {
       if (response.status === 401) {
+        console.log(`[TBURN Client] 401 Unauthorized for ${endpoint}, attempting re-authentication...`);
         this.isAuthenticated = false;
         this.sessionCookie = null;
-        await this.authenticate();
+        const reauth = await this.authenticate();
+        if (!reauth) {
+          throw new Error(`TBURN API Error: Re-authentication failed`);
+        }
         return this.request<T>(endpoint, method, body);
       }
-      throw new Error(`TBURN API Error: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      console.error(`[TBURN Client] API Error: ${response.status} ${response.statusText}`, errorText);
+      throw new Error(`TBURN API Error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     return response.json();
