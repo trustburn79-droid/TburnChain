@@ -248,6 +248,15 @@ export class TBurnClient {
     return this.request<any>(`/api/wallets/${address}`);
   }
 
+  async getConsensusRounds(limit?: number): Promise<any[]> {
+    const query = limit ? `?limit=${limit}` : '';
+    return this.request<any[]>(`/api/consensus/rounds${query}`);
+  }
+
+  async getConsensusRound(blockHeight: number): Promise<any> {
+    return this.request<any>(`/api/consensus/rounds/${blockHeight}`);
+  }
+
   async getShard(id: number): Promise<any> {
     return this.request<any>(`/api/shards/${id}`);
   }

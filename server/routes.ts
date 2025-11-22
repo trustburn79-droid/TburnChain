@@ -5,7 +5,7 @@ import rateLimit from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
 import { storage } from "./storage";
-import { insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema } from "@shared/schema";
+import { insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema, insertConsensusRoundSchema } from "@shared/schema";
 import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 
@@ -822,6 +822,129 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(updated);
     } catch (error: unknown) {
       res.status(500).json({ error: "Failed to update wallet balance" });
+    }
+  });
+
+  // ============================================
+  // Consensus Rounds
+  // ============================================
+  app.get("/api/consensus/rounds", async (req, res) => {
+    try {
+      const limitParam = req.query.limit as string | undefined;
+      let limit = limitParam ? parseInt(limitParam) : 100;
+      
+      // Validate limit is a valid number
+      if (isNaN(limit) || limit < 1) {
+        return res.status(400).json({ error: "Invalid limit parameter" });
+      }
+      
+      // Clamp limit to maximum 500 to prevent high-load queries
+      limit = Math.min(limit, 500);
+      
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const rounds = await client.getConsensusRounds(limit);
+        res.json(rounds);
+      } else {
+        // Fetch from local database (demo mode)
+        const rounds = await storage.getAllConsensusRounds(limit);
+        res.json(rounds);
+      }
+    } catch (error: unknown) {
+      res.status(500).json({ error: "Failed to fetch consensus rounds" });
+    }
+  });
+
+  app.get("/api/consensus/rounds/:blockHeight", async (req, res) => {
+    try {
+      const blockHeight = parseInt(req.params.blockHeight);
+      
+      // Validate blockHeight is a valid number
+      if (isNaN(blockHeight)) {
+        return res.status(400).json({ error: "Invalid block height parameter" });
+      }
+      
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const round = await client.getConsensusRound(blockHeight);
+        res.json(round);
+      } else {
+        // Fetch from local database (demo mode)
+        const round = await storage.getConsensusRoundByBlockHeight(blockHeight);
+        if (!round) {
+          return res.status(404).json({ error: "Consensus round not found" });
+        }
+        res.json(round);
+      }
+    } catch (error: any) {
+      // Propagate 404 from TBURN client if round not found
+      // TBurnClient attaches statusCode to error object for reliable error handling
+      if (error.statusCode === 404) {
+        return res.status(404).json({ error: "Consensus round not found" });
+      }
+      res.status(500).json({ error: "Failed to fetch consensus round" });
+    }
+  });
+
+  app.post("/api/consensus/rounds", async (req, res) => {
+    try {
+      if (isProductionMode()) {
+        // In production mode, consensus rounds are generated automatically by TBURN mainnet
+        return res.status(501).json({
+          error: "Not Implemented",
+          message: "Consensus rounds are generated automatically by TBURN mainnet. Manual creation is only available in demo mode."
+        });
+      }
+      
+      // Demo mode only - create consensus round locally
+      const validated = insertConsensusRoundSchema.parse(req.body);
+      const round = await storage.createConsensusRound(validated);
+      res.status(201).json(round);
+    } catch (error: unknown) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid request data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create consensus round" });
+    }
+  });
+
+  app.patch("/api/consensus/rounds/:blockHeight", async (req, res) => {
+    try {
+      if (isProductionMode()) {
+        // In production mode, consensus round updates are managed by TBURN mainnet
+        return res.status(501).json({
+          error: "Not Implemented",
+          message: "Consensus round updates are managed by TBURN mainnet. Manual updates are only available in demo mode."
+        });
+      }
+
+      // Demo mode only - update consensus round locally
+      const blockHeight = parseInt(req.params.blockHeight);
+      
+      // Validate blockHeight is a valid number
+      if (isNaN(blockHeight)) {
+        return res.status(400).json({ error: "Invalid block height parameter" });
+      }
+      
+      const existing = await storage.getConsensusRoundByBlockHeight(blockHeight);
+      if (!existing) {
+        return res.status(404).json({ error: "Consensus round not found" });
+      }
+      
+      // Validate update payload with partial schema
+      const partialSchema = insertConsensusRoundSchema.partial();
+      const validated = partialSchema.parse(req.body);
+      
+      await storage.updateConsensusRound(blockHeight, validated);
+      const updated = await storage.getConsensusRoundByBlockHeight(blockHeight);
+      res.json(updated);
+    } catch (error: unknown) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid request data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to update consensus round" });
     }
   });
 

@@ -96,6 +96,8 @@ export interface IStorage {
   getConsensusState(): Promise<import("@shared/schema").ConsensusState>;
   
   // Consensus Rounds
+  getAllConsensusRounds(limit?: number): Promise<import("@shared/schema").ConsensusRound[]>;
+  getConsensusRoundByBlockHeight(blockHeight: number): Promise<import("@shared/schema").ConsensusRound | undefined>;
   createConsensusRound(data: import("@shared/schema").InsertConsensusRound): Promise<import("@shared/schema").ConsensusRound>;
   getLatestConsensusRound(): Promise<import("@shared/schema").ConsensusRound | null>;
   updateConsensusRound(blockHeight: number, data: Partial<import("@shared/schema").ConsensusRound>): Promise<void>;
@@ -783,6 +785,16 @@ export class MemStorage implements IStorage {
     };
   }
 
+  async getAllConsensusRounds(limit: number = 100): Promise<import("@shared/schema").ConsensusRound[]> {
+    return Array.from(this.consensusRounds.values())
+      .sort((a, b) => Number(b.blockHeight) - Number(a.blockHeight))
+      .slice(0, limit);
+  }
+
+  async getConsensusRoundByBlockHeight(blockHeight: number): Promise<import("@shared/schema").ConsensusRound | undefined> {
+    return this.consensusRounds.get(blockHeight);
+  }
+
   async createConsensusRound(data: import("@shared/schema").InsertConsensusRound): Promise<import("@shared/schema").ConsensusRound> {
     const round: import("@shared/schema").ConsensusRound = {
       id: `round-${data.blockHeight}`,
@@ -802,9 +814,10 @@ export class MemStorage implements IStorage {
 
   async updateConsensusRound(blockHeight: number, data: Partial<import("@shared/schema").ConsensusRound>): Promise<void> {
     const existing = this.consensusRounds.get(blockHeight);
-    if (existing) {
-      this.consensusRounds.set(blockHeight, { ...existing, ...data });
+    if (!existing) {
+      throw new Error(`Consensus round not found for block height ${blockHeight}`);
     }
+    this.consensusRounds.set(blockHeight, { ...existing, ...data });
   }
 
   // API Keys (not implemented for MemStorage)
@@ -1153,6 +1166,23 @@ export class DbStorage implements IStorage {
       avgBlockTimeMs: latestRound.avgBlockTimeMs,
       startTime: Number(latestRound.startTime),
     };
+  }
+
+  async getAllConsensusRounds(limit: number = 100): Promise<ConsensusRound[]> {
+    return db
+      .select()
+      .from(consensusRounds)
+      .orderBy(desc(consensusRounds.blockHeight))
+      .limit(limit);
+  }
+
+  async getConsensusRoundByBlockHeight(blockHeight: number): Promise<ConsensusRound | undefined> {
+    const [round] = await db
+      .select()
+      .from(consensusRounds)
+      .where(eq(consensusRounds.blockHeight, BigInt(blockHeight)))
+      .limit(1);
+    return round;
   }
 
   async createConsensusRound(data: InsertConsensusRound): Promise<ConsensusRound> {
