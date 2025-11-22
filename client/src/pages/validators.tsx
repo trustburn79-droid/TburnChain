@@ -155,25 +155,25 @@ export default function Validators() {
                         </div>
                       </TableCell>
                       {/* TBURN v7.0: AI-Enhanced Committee BFT - Reputation System */}
-                      <TableCell>
+                      <TableCell data-testid={`metric-reputation-${validator.address.slice(0, 10)}`}>
                         <div className="flex items-center gap-2">
                           <Shield className="h-3 w-3 text-blue-500" />
                           <span className="text-sm tabular-nums font-medium">{(validator.reputationScore / 100).toFixed(1)}%</span>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell data-testid={`metric-performance-${validator.address.slice(0, 10)}`}>
                         <div className="flex items-center gap-2">
                           <Target className="h-3 w-3 text-green-500" />
                           <span className="text-sm tabular-nums font-medium">{(validator.performanceScore / 100).toFixed(1)}%</span>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell data-testid={`metric-aitrust-${validator.address.slice(0, 10)}`}>
                         <div className="flex items-center gap-2">
                           <Brain className="h-3 w-3 text-purple-500" />
                           <span className="text-sm tabular-nums font-medium">{(validator.aiTrustScore / 100).toFixed(1)}%</span>
                         </div>
                       </TableCell>
-                      <TableCell className="tabular-nums">
+                      <TableCell className="tabular-nums" data-testid={`metric-committee-${validator.address.slice(0, 10)}`}>
                         <Badge variant="outline" className="font-mono text-xs">
                           {formatNumber(validator.committeeSelectionCount)}
                         </Badge>

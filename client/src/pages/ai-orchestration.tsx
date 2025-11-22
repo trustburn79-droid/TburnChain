@@ -58,10 +58,10 @@ export default function AIOrchestration() {
   };
 
   const getModelIcon = (name: string) => {
-    if (name.includes("gpt")) return "🧠";
-    if (name.includes("claude")) return "🎯";
-    if (name.includes("llama")) return "⚡";
-    return "🔮";
+    if (name.includes("gpt")) return <Brain className="h-4 w-4" />;
+    if (name.includes("claude")) return <Target className="h-4 w-4" />;
+    if (name.includes("llama")) return <Zap className="h-4 w-4" />;
+    return <Bot className="h-4 w-4" />;
   };
 
   const getBandLabel = (band: string) => {
@@ -239,7 +239,7 @@ export default function AIOrchestration() {
                 <CardHeader className="space-y-2 pb-4">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="text-4xl">{getModelIcon(model.name)}</span>
+                      <div className="text-primary">{getModelIcon(model.name)}</div>
                       <div>
                         <CardTitle className="text-lg font-bold capitalize">{model.band} AI</CardTitle>
                         <p className="text-xs text-muted-foreground mt-0.5">
@@ -274,21 +274,21 @@ export default function AIOrchestration() {
                   
                   {/* TBURN v7.0: Triple-Band Feedback Learning Metrics */}
                   <div className="pt-3 border-t space-y-2">
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-sm" data-testid={`metric-learning-${model.name}`}>
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Brain className="h-3 w-3" />
                         Learning:
                       </span>
                       <span className="font-semibold tabular-nums">{(model.feedbackLearningScore / 100).toFixed(1)}%</span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-sm" data-testid={`metric-crossband-${model.name}`}>
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Network className="h-3 w-3" />
                         Cross-Band:
                       </span>
                       <span className="font-semibold tabular-nums">{formatNumber(model.crossBandInteractions)}</span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-sm" data-testid={`metric-weight-${model.name}`}>
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Scale className="h-3 w-3" />
                         Weight:

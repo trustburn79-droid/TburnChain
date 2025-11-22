@@ -157,28 +157,28 @@ export default function Sharding() {
 
                 {/* TBURN v7.0: Dynamic AI-Driven Sharding with ML Optimization */}
                 <div className="pt-3 border-t space-y-2">
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center justify-between text-xs" data-testid={`metric-mlopt-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <Brain className="h-3 w-3" />
                       ML Optimization:
                     </span>
                     <span className="font-semibold">{(shard.mlOptimizationScore / 100).toFixed(1)}%</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center justify-between text-xs" data-testid={`metric-predicted-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <TrendingUp className="h-3 w-3" />
                       Predicted Load:
                     </span>
                     <span className="font-semibold">{shard.predictedLoad}%</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center justify-between text-xs" data-testid={`metric-profiling-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <Activity className="h-3 w-3" />
                       Profiling:
                     </span>
                     <span className="font-semibold">{(shard.profilingScore / 100).toFixed(1)}%</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center justify-between text-xs" data-testid={`metric-capacity-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <Zap className="h-3 w-3" />
                       Capacity:
@@ -260,19 +260,19 @@ export default function Sharding() {
                         </div>
                       </TableCell>
                       {/* TBURN v7.0: Dynamic AI-Driven Sharding - ML Optimization */}
-                      <TableCell>
+                      <TableCell data-testid={`metric-mlopt-table-${shard.shardId}`}>
                         <div className="flex items-center gap-2">
                           <Brain className="h-3 w-3 text-purple-500" />
                           <span className="text-sm tabular-nums font-medium">{(shard.mlOptimizationScore / 100).toFixed(1)}%</span>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell data-testid={`metric-predicted-table-${shard.shardId}`}>
                         <div className="flex items-center gap-2">
                           <TrendingUp className="h-3 w-3 text-blue-500" />
                           <span className="text-sm tabular-nums font-medium">{shard.predictedLoad}%</span>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell data-testid={`metric-recommendation-${shard.shardId}`}>
                         <Badge 
                           variant={shard.aiRecommendation === "stable" ? "outline" : "secondary"}
                           className="capitalize"

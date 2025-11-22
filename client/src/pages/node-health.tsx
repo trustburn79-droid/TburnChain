@@ -250,7 +250,7 @@ export default function NodeHealth() {
           ) : networkStats ? (
             <div className="grid gap-4 md:grid-cols-2">
               {/* Trend Analysis */}
-              <Card className="hover-elevate">
+              <Card className="hover-elevate" data-testid="card-selfhealing-trend">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     Trend Analysis
@@ -258,7 +258,7 @@ export default function NodeHealth() {
                   <TrendingUp className="h-4 w-4 text-blue-500" />
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="text-3xl font-semibold tabular-nums text-blue-600 dark:text-blue-400">
+                  <div className="text-3xl font-semibold tabular-nums text-blue-600 dark:text-blue-400" data-testid="metric-trend-score">
                     {(networkStats.trendAnalysisScore / 100).toFixed(1)}%
                   </div>
                   <Progress value={networkStats.trendAnalysisScore / 100} className="h-2" />
@@ -269,7 +269,7 @@ export default function NodeHealth() {
               </Card>
 
               {/* Anomaly Detection */}
-              <Card className="hover-elevate">
+              <Card className="hover-elevate" data-testid="card-selfhealing-anomaly">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     Anomaly Detection
@@ -277,7 +277,7 @@ export default function NodeHealth() {
                   <AlertTriangle className="h-4 w-4 text-yellow-500" />
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="text-3xl font-semibold tabular-nums text-yellow-600 dark:text-yellow-400">
+                  <div className="text-3xl font-semibold tabular-nums text-yellow-600 dark:text-yellow-400" data-testid="metric-anomaly-score">
                     {(networkStats.anomalyDetectionScore / 100).toFixed(1)}%
                   </div>
                   <Progress value={networkStats.anomalyDetectionScore / 100} className="h-2" />
@@ -288,7 +288,7 @@ export default function NodeHealth() {
               </Card>
 
               {/* Pattern Matching */}
-              <Card className="hover-elevate">
+              <Card className="hover-elevate" data-testid="card-selfhealing-pattern">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     Pattern Matching
@@ -296,7 +296,7 @@ export default function NodeHealth() {
                   <Network className="h-4 w-4 text-green-500" />
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="text-3xl font-semibold tabular-nums text-green-600 dark:text-green-400">
+                  <div className="text-3xl font-semibold tabular-nums text-green-600 dark:text-green-400" data-testid="metric-pattern-score">
                     {(networkStats.patternMatchingScore / 100).toFixed(1)}%
                   </div>
                   <Progress value={networkStats.patternMatchingScore / 100} className="h-2" />
@@ -307,7 +307,7 @@ export default function NodeHealth() {
               </Card>
 
               {/* Timeseries Analysis */}
-              <Card className="hover-elevate">
+              <Card className="hover-elevate" data-testid="card-selfhealing-timeseries">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     Timeseries Forecast
@@ -315,7 +315,7 @@ export default function NodeHealth() {
                   <Clock className="h-4 w-4 text-purple-500" />
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="text-3xl font-semibold tabular-nums text-purple-600 dark:text-purple-400">
+                  <div className="text-3xl font-semibold tabular-nums text-purple-600 dark:text-purple-400" data-testid="metric-timeseries-score">
                     {(networkStats.timeseriesScore / 100).toFixed(1)}%
                   </div>
                   <Progress value={networkStats.timeseriesScore / 100} className="h-2" />
