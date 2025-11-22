@@ -228,6 +228,15 @@ export class TBurnClient {
     return this.request<any[]>('/api/shards');
   }
 
+  async getCrossShardMessages(limit?: number): Promise<any[]> {
+    const query = limit ? `?limit=${limit}` : '';
+    return this.request<any[]>(`/api/cross-shard/messages${query}`);
+  }
+
+  async getCrossShardMessage(id: string): Promise<any> {
+    return this.request<any>(`/api/cross-shard/messages/${id}`);
+  }
+
   async getShard(id: number): Promise<any> {
     return this.request<any>(`/api/shards/${id}`);
   }
