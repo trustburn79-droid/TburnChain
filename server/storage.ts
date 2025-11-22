@@ -157,6 +157,15 @@ export class MemStorage implements IStorage {
       circulatingSupply: "500000000",
       successRate: 9970, // 99.70% success rate (basis points)
       updatedAt: new Date(),
+      // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms)
+      trendAnalysisScore: 8500, // 85.00%
+      anomalyDetectionScore: 9200, // 92.00%
+      patternMatchingScore: 8800, // 88.00%
+      timeseriesScore: 9000, // 90.00%
+      healingEventsCount: 142,
+      anomaliesDetected: 23,
+      predictedFailureRisk: 300, // 3.00%
+      selfHealingStatus: "healthy",
     };
 
     this.blocks = new Map();
@@ -191,6 +200,13 @@ export class MemStorage implements IStorage {
         cacheHitRate: 6800, // 68.00% (basis points)
         accuracy: 9680, // 96.80% (basis points)
         uptime: 9990, // 99.90% (basis points)
+        feedbackLearningScore: 8200, // 82.00%
+        crossBandInteractions: 1542,
+        strategicDecisions: 12450,
+        tacticalDecisions: 2100,
+        operationalDecisions: 684,
+        modelWeight: 3500, // 35.00%
+        consensusContribution: 8934,
       },
       {
         id: randomUUID(),
@@ -206,6 +222,13 @@ export class MemStorage implements IStorage {
         cacheHitRate: 7200, // 72.00% (basis points)
         accuracy: 9420, // 94.20% (basis points)
         uptime: 9980, // 99.80% (basis points)
+        feedbackLearningScore: 8500, // 85.00%
+        crossBandInteractions: 2234,
+        strategicDecisions: 1892,
+        tacticalDecisions: 11340,
+        operationalDecisions: 2660,
+        modelWeight: 3300, // 33.00%
+        consensusContribution: 12456,
       },
       {
         id: randomUUID(),
@@ -221,6 +244,13 @@ export class MemStorage implements IStorage {
         cacheHitRate: 8500, // 85.00% (basis points)
         accuracy: 9850, // 98.50% (basis points)
         uptime: 9995, // 99.95% (basis points)
+        feedbackLearningScore: 7800, // 78.00%
+        crossBandInteractions: 3456,
+        strategicDecisions: 892,
+        tacticalDecisions: 5234,
+        operationalDecisions: 83108,
+        modelWeight: 3200, // 32.00%
+        consensusContribution: 67834,
       },
     ];
 
@@ -281,6 +311,10 @@ export class MemStorage implements IStorage {
       const aiDecision: AiDecision = {
         id: randomUUID(),
         ...decision,
+        status: decision.status ?? "pending",
+        shardId: decision.shardId ?? null,
+        validatorAddress: decision.validatorAddress ?? null,
+        metadata: decision.metadata ?? null,
         createdAt: new Date(Date.now() - Math.random() * 3600000), // Random time within last hour
         executedAt: decision.status === "executed" ? new Date(Date.now() - Math.random() * 1800000) : null,
       };
@@ -304,6 +338,12 @@ export class MemStorage implements IStorage {
         crossShardTxCount: 2345,
         stateSize: "45.2GB",
         lastSyncedAt: new Date(),
+        mlOptimizationScore: 8700, // 87.00% ML optimization effectiveness
+        predictedLoad: 48, // AI-predicted load percentage
+        rebalanceCount: 12, // AI-triggered rebalances
+        aiRecommendation: "stable", // AI recommendation: stable
+        profilingScore: 9100, // 91.00% profiling effectiveness
+        capacityUtilization: 4500, // 45.00% capacity utilization
       },
       {
         id: randomUUID(),
@@ -320,6 +360,12 @@ export class MemStorage implements IStorage {
         crossShardTxCount: 1987,
         stateSize: "43.8GB",
         lastSyncedAt: new Date(),
+        mlOptimizationScore: 8900, // 89.00% ML optimization effectiveness
+        predictedLoad: 45, // AI-predicted load percentage
+        rebalanceCount: 8, // AI-triggered rebalances
+        aiRecommendation: "stable", // AI recommendation: stable
+        profilingScore: 9300, // 93.00% profiling effectiveness
+        capacityUtilization: 4200, // 42.00% capacity utilization
       },
       {
         id: randomUUID(),
@@ -336,6 +382,12 @@ export class MemStorage implements IStorage {
         crossShardTxCount: 2567,
         stateSize: "46.1GB",
         lastSyncedAt: new Date(),
+        mlOptimizationScore: 8600, // 86.00% ML optimization effectiveness
+        predictedLoad: 51, // AI-predicted load percentage
+        rebalanceCount: 15, // AI-triggered rebalances
+        aiRecommendation: "stable", // AI recommendation: stable
+        profilingScore: 8900, // 89.00% profiling effectiveness
+        capacityUtilization: 4800, // 48.00% capacity utilization
       },
       {
         id: randomUUID(),
@@ -352,6 +404,12 @@ export class MemStorage implements IStorage {
         crossShardTxCount: 1756,
         stateSize: "42.3GB",
         lastSyncedAt: new Date(),
+        mlOptimizationScore: 9200, // 92.00% ML optimization effectiveness
+        predictedLoad: 42, // AI-predicted load percentage
+        rebalanceCount: 5, // AI-triggered rebalances
+        aiRecommendation: "stable", // AI recommendation: stable
+        profilingScore: 9400, // 94.00% profiling effectiveness
+        capacityUtilization: 3900, // 39.00% capacity utilization
       },
       {
         id: randomUUID(),
@@ -368,6 +426,12 @@ export class MemStorage implements IStorage {
         crossShardTxCount: 2890,
         stateSize: "47.5GB",
         lastSyncedAt: new Date(),
+        mlOptimizationScore: 8400, // 84.00% ML optimization effectiveness
+        predictedLoad: 55, // AI-predicted load percentage
+        rebalanceCount: 18, // AI-triggered rebalances
+        aiRecommendation: "stable", // AI recommendation: stable
+        profilingScore: 8700, // 87.00% profiling effectiveness
+        capacityUtilization: 5200, // 52.00% capacity utilization
       },
     ];
 
@@ -399,6 +463,13 @@ export class MemStorage implements IStorage {
         slashCount: Math.floor(Math.random() * 5),
         joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
         lastActiveAt: new Date(),
+        // TBURN v7.0: AI-Enhanced Committee BFT (Stake + Reputation + Performance)
+        reputationScore: Math.floor(Math.random() * 1500) + 8000, // 80.00-95.00% in basis points
+        performanceScore: Math.floor(Math.random() * 1000) + 8500, // 85.00-95.00% in basis points
+        committeeSelectionCount: Math.floor(Math.random() * 500) + 100,
+        aiTrustScore: Math.floor(Math.random() * 2000) + 7000, // 70.00-90.00% AI-assessed reliability
+        behaviorScore: Math.floor(Math.random() * 500) + 9000, // 90.00-95.00% network behavior quality
+        adaptiveWeight: Math.floor(Math.random() * 2000) + 9000, // 90.00-110.00% dynamic committee weight
       };
       this.validators.set(validator.address, validator);
     }
@@ -425,6 +496,7 @@ export class MemStorage implements IStorage {
         executionClass: executionClasses[Math.floor(Math.random() * executionClasses.length)],
         latencyNs: Math.floor(Math.random() * 50000000) + 10000000,
         parallelBatchId: Math.random() > 0.3 ? `batch-${Math.floor(Math.random() * 100)}` : null,
+        hashAlgorithm: "blake3", // TBURN v7.0: Multi-Hash Cryptographic System
       };
       this.blocks.set(block.id, block);
     }
@@ -460,6 +532,7 @@ export class MemStorage implements IStorage {
         latencyNs: Math.floor(Math.random() * 100000000) + 5000000,
         parallelBatchId: Math.random() > 0.3 ? `batch-${Math.floor(Math.random() * 100)}` : null,
         crossShardMessageId: Math.random() > 0.8 ? `msg-${Math.random().toString(16).substr(2, 8)}` : null,
+        hashAlgorithm: "blake3", // TBURN v7.0: Multi-Hash Cryptographic System
       };
       this.transactions.set(tx.id, tx);
     }
@@ -529,6 +602,10 @@ export class MemStorage implements IStorage {
       gasUsed: insertBlock.gasUsed ?? 0,
       gasLimit: insertBlock.gasLimit ?? 0,
       shardId: insertBlock.shardId ?? 0,
+      executionClass: insertBlock.executionClass ?? "standard",
+      latencyNs: insertBlock.latencyNs ?? 0,
+      parallelBatchId: insertBlock.parallelBatchId ?? null,
+      hashAlgorithm: insertBlock.hashAlgorithm ?? "blake3", // TBURN v7.0: Multi-Hash Cryptographic System
     };
     this.blocks.set(id, block);
     return block;
@@ -555,9 +632,17 @@ export class MemStorage implements IStorage {
     const tx: Transaction = { 
       ...insertTx, 
       id,
+      to: insertTx.to ?? null,
+      input: insertTx.input ?? null,
+      contractAddress: insertTx.contractAddress ?? null,
       status: insertTx.status ?? "pending",
       gasUsed: insertTx.gasUsed ?? null,
       shardId: insertTx.shardId ?? 0,
+      executionClass: insertTx.executionClass ?? "standard",
+      latencyNs: insertTx.latencyNs ?? 0,
+      parallelBatchId: insertTx.parallelBatchId ?? null,
+      crossShardMessageId: insertTx.crossShardMessageId ?? null,
+      hashAlgorithm: insertTx.hashAlgorithm ?? "blake3", // TBURN v7.0: Multi-Hash Cryptographic System
     };
     this.transactions.set(id, tx);
     return tx;
@@ -595,6 +680,7 @@ export class MemStorage implements IStorage {
 
   async createValidator(insertValidator: InsertValidator): Promise<Validator> {
     const id = randomUUID();
+    const now = new Date();
     const validator: Validator = {
       ...insertValidator,
       id,
@@ -605,7 +691,19 @@ export class MemStorage implements IStorage {
       votingPower: insertValidator.votingPower ?? "0",
       apy: insertValidator.apy ?? 0,
       delegators: insertValidator.delegators ?? 0,
-      joinedAt: new Date(),
+      joinedAt: now,
+      missedBlocks: insertValidator.missedBlocks ?? 0,
+      avgBlockTime: insertValidator.avgBlockTime ?? 0,
+      rewardEarned: insertValidator.rewardEarned ?? "0",
+      slashCount: insertValidator.slashCount ?? 0,
+      lastActiveAt: now,
+      // TBURN v7.0: AI-Enhanced Committee BFT (Stake + Reputation + Performance)
+      reputationScore: insertValidator.reputationScore ?? 8500,
+      performanceScore: insertValidator.performanceScore ?? 9000,
+      committeeSelectionCount: insertValidator.committeeSelectionCount ?? 0,
+      aiTrustScore: insertValidator.aiTrustScore ?? 7500,
+      behaviorScore: insertValidator.behaviorScore ?? 9500,
+      adaptiveWeight: insertValidator.adaptiveWeight ?? 10000,
     };
     this.validators.set(validator.address, validator);
     return validator;
@@ -670,6 +768,10 @@ export class MemStorage implements IStorage {
     const decision: AiDecision = {
       id: randomUUID(),
       ...data,
+      status: data.status ?? "pending",
+      shardId: data.shardId ?? null,
+      validatorAddress: data.validatorAddress ?? null,
+      metadata: data.metadata ?? null,
       createdAt: new Date(),
       executedAt: data.status === "executed" ? new Date() : null,
     };
@@ -799,6 +901,14 @@ export class MemStorage implements IStorage {
     const round: import("@shared/schema").ConsensusRound = {
       id: `round-${data.blockHeight}`,
       ...data,
+      totalValidators: data.totalValidators ?? 0,
+      status: data.status ?? "in_progress",
+      currentPhase: data.currentPhase ?? 1,
+      prevoteCount: data.prevoteCount ?? 0,
+      precommitCount: data.precommitCount ?? 0,
+      requiredQuorum: data.requiredQuorum ?? 0,
+      avgBlockTimeMs: data.avgBlockTimeMs ?? 0,
+      completedTime: data.completedTime ?? null,
       createdAt: new Date(),
     };
     this.consensusRounds.set(Number(data.blockHeight), round);
@@ -860,9 +970,17 @@ export class MemStorage implements IStorage {
     const message: CrossShardMessage = {
       id: randomUUID(),
       ...data,
+      status: data.status ?? "pending",
+      retryCount: data.retryCount ?? 0,
+      gasUsed: data.gasUsed ?? 0,
       sentAt: new Date(),
       confirmedAt: null,
       failedAt: null,
+      // TBURN v7.0: Hybrid Message Routing Protocol (Reputation-based P2P Routing)
+      routingPriority: data.routingPriority ?? 5,
+      peerReputation: data.peerReputation ?? 8000,
+      networkQuality: data.networkQuality ?? 9000,
+      routeOptimization: data.routeOptimization ?? "balanced",
     };
     this.crossShardMessages.set(message.id, message);
     return message;
@@ -890,6 +1008,11 @@ export class MemStorage implements IStorage {
     const wallet: WalletBalance = {
       id: randomUUID(),
       ...data,
+      transactionCount: data.transactionCount ?? 0,
+      balance: data.balance ?? "0",
+      stakedBalance: data.stakedBalance ?? "0",
+      unstakedBalance: data.unstakedBalance ?? "0",
+      rewardsEarned: data.rewardsEarned ?? "0",
       firstSeenAt: new Date(),
       updatedAt: new Date(),
       lastTransactionAt: null,
@@ -917,7 +1040,8 @@ export class DbStorage implements IStorage {
     const result = await db.select().from(networkStatsTable).limit(1);
     if (result.length === 0) {
       // Initialize if not exists
-      const initialStats: InsertNetworkStats = {
+      const initialStats: NetworkStats = {
+        id: "singleton",
         currentBlockHeight: 1245678,
         tps: 347892,
         peakTps: 485231,
@@ -933,9 +1057,19 @@ export class DbStorage implements IStorage {
         marketCap: "12450000000",
         circulatingSupply: "500000000",
         successRate: 9970,
+        updatedAt: new Date(),
+        // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms)
+        trendAnalysisScore: 8500,
+        anomalyDetectionScore: 9200,
+        patternMatchingScore: 8800,
+        timeseriesScore: 9000,
+        healingEventsCount: 142,
+        anomaliesDetected: 23,
+        predictedFailureRisk: 300,
+        selfHealingStatus: "healthy",
       };
       await db.insert(networkStatsTable).values(initialStats);
-      return { ...initialStats, id: "singleton", updatedAt: new Date() };
+      return initialStats;
     }
     return result[0];
   }
@@ -1180,7 +1314,7 @@ export class DbStorage implements IStorage {
     const [round] = await db
       .select()
       .from(consensusRounds)
-      .where(eq(consensusRounds.blockHeight, BigInt(blockHeight)))
+      .where(eq(consensusRounds.blockHeight, blockHeight))
       .limit(1);
     return round;
   }
@@ -1203,7 +1337,7 @@ export class DbStorage implements IStorage {
     await db
       .update(consensusRounds)
       .set(data)
-      .where(eq(consensusRounds.blockHeight, BigInt(blockHeight)));
+      .where(eq(consensusRounds.blockHeight, blockHeight));
   }
 
   // API Keys

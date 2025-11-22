@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { BarChart3, Server, Wifi, HardDrive, Cpu, Activity } from "lucide-react";
+import { BarChart3, Server, Wifi, HardDrive, Cpu, Activity, Shield, TrendingUp, AlertTriangle, Network, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,9 +21,20 @@ interface NodeHealth {
   lastBlockTime: number;
 }
 
+interface NetworkStats {
+  trendAnalysisScore: number;
+  anomalyDetectionScore: number;
+  patternMatchingScore: number;
+  timeseriesScore: number;
+}
+
 export default function NodeHealth() {
   const { data: health, isLoading } = useQuery<NodeHealth>({
     queryKey: ["/api/node/health"],
+  });
+
+  const { data: networkStats, isLoading: isStatsLoading } = useQuery<NetworkStats>({
+    queryKey: ["/api/network/stats"],
   });
 
   const getStatusBadge = (status: string) => {
@@ -61,7 +72,7 @@ export default function NodeHealth() {
             Node Health
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Monitor node performance and system resources
+            Predictive Self-Healing with 4 AI-Powered Algorithms
           </p>
         </div>
         <LiveIndicator label="Monitoring" />
@@ -216,6 +227,111 @@ export default function NodeHealth() {
           </>
         ) : null}
       </div>
+
+      {/* TBURN v7.0: Predictive Self-Healing System */}
+      <Card className="border-2 border-purple-500/20">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-5 w-5 text-purple-500" />
+            Self-Healing Prediction Algorithms
+          </CardTitle>
+          <p className="text-sm text-muted-foreground">
+            AI-powered anomaly detection and predictive maintenance
+          </p>
+        </CardHeader>
+        <CardContent>
+          {isStatsLoading ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+            </div>
+          ) : networkStats ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Trend Analysis */}
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Trend Analysis
+                  </CardTitle>
+                  <TrendingUp className="h-4 w-4 text-blue-500" />
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-3xl font-semibold tabular-nums text-blue-600 dark:text-blue-400">
+                    {(networkStats.trendAnalysisScore / 100).toFixed(1)}%
+                  </div>
+                  <Progress value={networkStats.trendAnalysisScore / 100} className="h-2" />
+                  <div className="text-xs text-muted-foreground">
+                    Historical pattern recognition
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Anomaly Detection */}
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Anomaly Detection
+                  </CardTitle>
+                  <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-3xl font-semibold tabular-nums text-yellow-600 dark:text-yellow-400">
+                    {(networkStats.anomalyDetectionScore / 100).toFixed(1)}%
+                  </div>
+                  <Progress value={networkStats.anomalyDetectionScore / 100} className="h-2" />
+                  <div className="text-xs text-muted-foreground">
+                    Real-time outlier identification
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Pattern Matching */}
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Pattern Matching
+                  </CardTitle>
+                  <Network className="h-4 w-4 text-green-500" />
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-3xl font-semibold tabular-nums text-green-600 dark:text-green-400">
+                    {(networkStats.patternMatchingScore / 100).toFixed(1)}%
+                  </div>
+                  <Progress value={networkStats.patternMatchingScore / 100} className="h-2" />
+                  <div className="text-xs text-muted-foreground">
+                    Behavioral signature analysis
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Timeseries Analysis */}
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Timeseries Forecast
+                  </CardTitle>
+                  <Clock className="h-4 w-4 text-purple-500" />
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-3xl font-semibold tabular-nums text-purple-600 dark:text-purple-400">
+                    {(networkStats.timeseriesScore / 100).toFixed(1)}%
+                  </div>
+                  <Progress value={networkStats.timeseriesScore / 100} className="h-2" />
+                  <div className="text-xs text-muted-foreground">
+                    Predictive failure prevention
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">No prediction data available</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* System Metrics */}
       <Card>

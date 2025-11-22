@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Bot, Cpu, DollarSign, Zap, Activity, TrendingUp } from "lucide-react";
+import { Bot, Cpu, DollarSign, Zap, Activity, TrendingUp, Brain, Network, Scale, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -143,6 +143,75 @@ export default function AIOrchestration() {
         )}
       </div>
 
+      {/* TBURN v7.0: Triple-Band Decision Breakdown */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="h-5 w-5" />
+            Triple-Band Decision Breakdown
+          </CardTitle>
+          <CardDescription>
+            Real-time decision distribution across strategic, tactical, and operational AI layers
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <Skeleton className="h-24" />
+          ) : aiModels && aiModels.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-3">
+              {aiModels.map((model) => {
+                const totalDecisions = model.strategicDecisions + model.tacticalDecisions + model.operationalDecisions;
+                const strategicPct = totalDecisions > 0 ? (model.strategicDecisions / totalDecisions * 100) : 0;
+                const tacticalPct = totalDecisions > 0 ? (model.tacticalDecisions / totalDecisions * 100) : 0;
+                const operationalPct = totalDecisions > 0 ? (model.operationalDecisions / totalDecisions * 100) : 0;
+                
+                return (
+                  <div key={model.id} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium capitalize">{model.band} AI</span>
+                      <Badge variant="outline" className="text-xs">
+                        {formatNumber(totalDecisions)} total
+                      </Badge>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-muted-foreground">Strategic</span>
+                          <span className="font-semibold">{formatNumber(model.strategicDecisions)} ({strategicPct.toFixed(1)}%)</span>
+                        </div>
+                        <Progress value={strategicPct} className="h-1.5" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-muted-foreground">Tactical</span>
+                          <span className="font-semibold">{formatNumber(model.tacticalDecisions)} ({tacticalPct.toFixed(1)}%)</span>
+                        </div>
+                        <Progress value={tacticalPct} className="h-1.5" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-muted-foreground">Operational</span>
+                          <span className="font-semibold">{formatNumber(model.operationalDecisions)} ({operationalPct.toFixed(1)}%)</span>
+                        </div>
+                        <Progress value={operationalPct} className="h-1.5" />
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t text-xs text-muted-foreground flex items-center justify-between">
+                      <span>Consensus Contribution:</span>
+                      <span className="font-semibold text-foreground">{formatNumber(model.consensusContribution)}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-6">
+              <p className="text-muted-foreground text-sm">No decision data available</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Model Status Grid */}
       <div className="grid gap-4 md:grid-cols-3">
         {isLoading ? (
@@ -202,6 +271,32 @@ export default function AIOrchestration() {
                       <span className="font-semibold tabular-nums">{cacheHit.toFixed(1)}%</span>
                     </div>
                   </div>
+                  
+                  {/* TBURN v7.0: Triple-Band Feedback Learning Metrics */}
+                  <div className="pt-3 border-t space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <Brain className="h-3 w-3" />
+                        Learning:
+                      </span>
+                      <span className="font-semibold tabular-nums">{(model.feedbackLearningScore / 100).toFixed(1)}%</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <Network className="h-3 w-3" />
+                        Cross-Band:
+                      </span>
+                      <span className="font-semibold tabular-nums">{formatNumber(model.crossBandInteractions)}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <Scale className="h-3 w-3" />
+                        Weight:
+                      </span>
+                      <span className="font-semibold tabular-nums">{(model.modelWeight / 100).toFixed(1)}%</span>
+                    </div>
+                  </div>
+                  
                   <div className="pt-3 border-t text-xs text-muted-foreground">
                     <strong>Last Used:</strong> {model.lastUsed ? new Date(model.lastUsed).toLocaleTimeString() : 'Active'}
                   </div>
@@ -239,6 +334,9 @@ export default function AIOrchestration() {
                     <TableHead>Failed</TableHead>
                     <TableHead>Avg Time</TableHead>
                     <TableHead>Cache Hit</TableHead>
+                    <TableHead>Learning</TableHead>
+                    <TableHead>Cross-Band</TableHead>
+                    <TableHead>Weight</TableHead>
                     <TableHead className="text-right">Cost</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -258,6 +356,13 @@ export default function AIOrchestration() {
                       </TableCell>
                       <TableCell className="tabular-nums">{model.avgResponseTime}ms</TableCell>
                       <TableCell className="tabular-nums">{(model.cacheHitRate / 100).toFixed(1)}%</TableCell>
+                      <TableCell className="tabular-nums">
+                        <Badge variant="outline" className="font-mono text-xs">
+                          {(model.feedbackLearningScore / 100).toFixed(1)}%
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="tabular-nums">{formatNumber(model.crossBandInteractions)}</TableCell>
+                      <TableCell className="tabular-nums">{(model.modelWeight / 100).toFixed(1)}%</TableCell>
                       <TableCell className="text-right tabular-nums font-medium">
                         ${parseFloat(model.totalCost).toFixed(4)}
                       </TableCell>

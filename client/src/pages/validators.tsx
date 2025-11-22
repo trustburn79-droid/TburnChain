@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Server, Award, Users, TrendingUp } from "lucide-react";
+import { Server, Award, Users, TrendingUp, Shield, Target, Brain } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -47,7 +47,7 @@ export default function Validators() {
           Validators
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Network validators and staking information
+          AI-Enhanced Committee BFT: Stake + Reputation + Performance
         </p>
       </div>
 
@@ -113,6 +113,10 @@ export default function Validators() {
                     <TableHead>Commission</TableHead>
                     <TableHead>APY</TableHead>
                     <TableHead>Uptime</TableHead>
+                    <TableHead>Reputation</TableHead>
+                    <TableHead>Performance</TableHead>
+                    <TableHead>AI Trust</TableHead>
+                    <TableHead>Committee</TableHead>
                     <TableHead>Blocks</TableHead>
                     <TableHead>Delegators</TableHead>
                   </TableRow>
@@ -149,6 +153,30 @@ export default function Validators() {
                           <Progress value={validator.uptime / 100} className="w-16" />
                           <span className="text-sm tabular-nums">{(validator.uptime / 100).toFixed(2)}%</span>
                         </div>
+                      </TableCell>
+                      {/* TBURN v7.0: AI-Enhanced Committee BFT - Reputation System */}
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Shield className="h-3 w-3 text-blue-500" />
+                          <span className="text-sm tabular-nums font-medium">{(validator.reputationScore / 100).toFixed(1)}%</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Target className="h-3 w-3 text-green-500" />
+                          <span className="text-sm tabular-nums font-medium">{(validator.performanceScore / 100).toFixed(1)}%</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Brain className="h-3 w-3 text-purple-500" />
+                          <span className="text-sm tabular-nums font-medium">{(validator.aiTrustScore / 100).toFixed(1)}%</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="tabular-nums">
+                        <Badge variant="outline" className="font-mono text-xs">
+                          {formatNumber(validator.committeeSelectionCount)}
+                        </Badge>
                       </TableCell>
                       <TableCell className="tabular-nums">
                         {formatNumber(validator.totalBlocks)}

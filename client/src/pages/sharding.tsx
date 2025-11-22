@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Grid3x3, Layers, ArrowLeftRight } from "lucide-react";
+import { Grid3x3, Layers, ArrowLeftRight, Brain, TrendingUp, Activity, Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,7 +23,7 @@ export default function Sharding() {
 
   const activeShards = shards?.filter(s => s.status === "active").length || 0;
   const totalTps = shards?.reduce((sum, s) => sum + s.tps, 0) || 0;
-  const avgLoad = shards?.reduce((sum, s) => sum + s.load, 0) / (shards?.length || 1) || 0;
+  const avgLoad = (shards?.reduce((sum, s) => sum + s.load, 0) || 0) / (shards?.length || 1);
   const totalValidators = shards?.reduce((sum, s) => sum + s.validatorCount, 0) || 0;
 
   const getStatusBadge = (status: string) => {
@@ -53,7 +53,7 @@ export default function Sharding() {
           Sharding System
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Monitor shard performance and cross-shard communication
+          Dynamic AI-Driven Sharding with ML-Based Optimization
         </p>
       </div>
 
@@ -155,9 +155,47 @@ export default function Sharding() {
                   />
                 </div>
 
-                <div className="pt-2 border-t">
-                  <Badge variant="outline" className="w-full justify-center">
-                    Shard ID: {shard.shardId}
+                {/* TBURN v7.0: Dynamic AI-Driven Sharding with ML Optimization */}
+                <div className="pt-3 border-t space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Brain className="h-3 w-3" />
+                      ML Optimization:
+                    </span>
+                    <span className="font-semibold">{(shard.mlOptimizationScore / 100).toFixed(1)}%</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <TrendingUp className="h-3 w-3" />
+                      Predicted Load:
+                    </span>
+                    <span className="font-semibold">{shard.predictedLoad}%</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Activity className="h-3 w-3" />
+                      Profiling:
+                    </span>
+                    <span className="font-semibold">{(shard.profilingScore / 100).toFixed(1)}%</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Zap className="h-3 w-3" />
+                      Capacity:
+                    </span>
+                    <span className="font-semibold">{(shard.capacityUtilization / 100).toFixed(1)}%</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t flex items-center justify-between gap-2">
+                  <Badge variant="outline" className="text-xs">
+                    ID: {shard.shardId}
+                  </Badge>
+                  <Badge 
+                    variant={shard.aiRecommendation === "stable" ? "outline" : "secondary"}
+                    className="text-xs capitalize"
+                  >
+                    {shard.aiRecommendation}
                   </Badge>
                 </div>
               </CardContent>
@@ -193,6 +231,9 @@ export default function Sharding() {
                     <TableHead>Validators</TableHead>
                     <TableHead>TPS</TableHead>
                     <TableHead>Load</TableHead>
+                    <TableHead>ML Optimization</TableHead>
+                    <TableHead>Predicted Load</TableHead>
+                    <TableHead>AI Recommendation</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -217,6 +258,27 @@ export default function Sharding() {
                             {shard.load}%
                           </span>
                         </div>
+                      </TableCell>
+                      {/* TBURN v7.0: Dynamic AI-Driven Sharding - ML Optimization */}
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Brain className="h-3 w-3 text-purple-500" />
+                          <span className="text-sm tabular-nums font-medium">{(shard.mlOptimizationScore / 100).toFixed(1)}%</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <TrendingUp className="h-3 w-3 text-blue-500" />
+                          <span className="text-sm tabular-nums font-medium">{shard.predictedLoad}%</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge 
+                          variant={shard.aiRecommendation === "stable" ? "outline" : "secondary"}
+                          className="capitalize"
+                        >
+                          {shard.aiRecommendation}
+                        </Badge>
                       </TableCell>
                     </TableRow>
                   ))}
