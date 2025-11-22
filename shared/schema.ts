@@ -168,6 +168,7 @@ export const consensusRounds = pgTable("consensus_rounds", {
   status: text("status").notNull().default("in_progress"), // in_progress, completed, failed
   startTime: bigint("start_time", { mode: "number" }).notNull(), // Unix timestamp in ms
   completedTime: bigint("completed_time", { mode: "number" }), // Unix timestamp in ms
+  phasesJson: text("phases_json").notNull(), // Stores ConsensusPhase[] as JSON
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

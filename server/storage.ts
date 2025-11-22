@@ -828,10 +828,10 @@ export class DbStorage implements IStorage {
   }
 
   async getConsensusState(): Promise<import("@shared/schema").ConsensusState> {
-    const stats = await this.getNetworkStats();
     const latestRound = await this.getLatestConsensusRound();
     
     if (!latestRound) {
+      const stats = await this.getNetworkStats();
       const validators = await this.getAllValidators();
       const activeValidators = validators.filter(v => v.status === "active");
       const totalValidators = activeValidators.length;
@@ -853,65 +853,14 @@ export class DbStorage implements IStorage {
         totalValidators,
         requiredQuorum,
         avgBlockTimeMs: Number(stats.avgBlockTime),
-        startTime: Date.now(),
+        startTime: 0,
       };
     }
 
-    const now = Date.now();
-    const phase1Start = Number(latestRound.phase1Start || now);
-    const currentPhase = latestRound.currentPhase;
-
-    const buildPhaseTime = (start: bigint | null, end: bigint | null): string => {
-      if (!start) return "Pending";
-      if (!end) {
-        const elapsed = now - Number(start);
-        return `${elapsed}ms`;
-      }
-      const duration = Number(end) - Number(start);
-      return `${duration}ms`;
-    };
-
-    const buildPhaseStatus = (phaseNum: number): "completed" | "active" | "pending" => {
-      if (phaseNum < currentPhase) return "completed";
-      if (phaseNum === currentPhase) return "active";
-      return "pending";
-    };
-
-    const phases: import("@shared/schema").ConsensusPhase[] = [
-      { 
-        number: 1, 
-        label: "NewHeight", 
-        time: buildPhaseTime(latestRound.phase1Start, latestRound.phase1End), 
-        status: buildPhaseStatus(1) 
-      },
-      { 
-        number: 2, 
-        label: "Propose", 
-        time: buildPhaseTime(latestRound.phase2Start, latestRound.phase2End), 
-        status: buildPhaseStatus(2) 
-      },
-      { 
-        number: 3, 
-        label: "Prevote", 
-        time: buildPhaseTime(latestRound.phase3Start, latestRound.phase3End), 
-        status: buildPhaseStatus(3) 
-      },
-      { 
-        number: 4, 
-        label: "Precommit", 
-        time: buildPhaseTime(latestRound.phase4Start, latestRound.phase4End), 
-        status: buildPhaseStatus(4) 
-      },
-      { 
-        number: 5, 
-        label: "Finalize", 
-        time: buildPhaseTime(latestRound.phase5Start, latestRound.phase5End), 
-        status: buildPhaseStatus(5) 
-      },
-    ];
+    const phases: import("@shared/schema").ConsensusPhase[] = JSON.parse(latestRound.phasesJson);
     
     return {
-      currentPhase,
+      currentPhase: latestRound.currentPhase,
       phases,
       proposer: latestRound.proposerAddress,
       blockHeight: Number(latestRound.blockHeight),
@@ -919,8 +868,8 @@ export class DbStorage implements IStorage {
       precommitCount: latestRound.precommitCount,
       totalValidators: latestRound.totalValidators,
       requiredQuorum: latestRound.requiredQuorum,
-      avgBlockTimeMs: Number(stats.avgBlockTime),
-      startTime: phase1Start,
+      avgBlockTimeMs: latestRound.avgBlockTimeMs,
+      startTime: Number(latestRound.startTime),
     };
   }
 

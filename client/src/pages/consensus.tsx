@@ -103,7 +103,7 @@ export default function Consensus() {
             Consensus Round #{currentRound.toLocaleString()} in Progress
           </div>
           <div className="text-sm mt-1">
-            Phase: {activePhase?.label || "Initializing"} • Time Elapsed: {completedPhases * avgBlockTime / 5}ms / {avgBlockTime}ms Target
+            Phase: {activePhase?.label || "Initializing"} • {completedPhases} of 5 phases completed • Target: {avgBlockTime}ms
           </div>
         </AlertDescription>
       </Alert>
