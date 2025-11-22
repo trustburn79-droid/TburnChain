@@ -21,6 +21,7 @@ import NodeHealth from "@/pages/node-health";
 import PerformanceMetrics from "@/pages/performance-metrics";
 import Consensus from "@/pages/consensus";
 import TransactionSimulator from "@/pages/transaction-simulator";
+import ApiKeys from "@/pages/api-keys";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 
@@ -38,6 +39,7 @@ function Router() {
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />
       <Route path="/consensus" component={Consensus} />
+      <Route path="/api-keys" component={ApiKeys} />
       <Route component={NotFound} />
     </Switch>
   );

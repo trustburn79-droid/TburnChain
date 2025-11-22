@@ -6,6 +6,7 @@ import {
   FileCode,
   Grid3x3,
   Home,
+  Key,
   Layers,
   Server,
   TrendingUp,
@@ -91,6 +92,12 @@ const menuItems = [
     url: "/metrics",
     icon: TrendingUp,
     group: "Admin",
+  },
+  {
+    title: "API Keys",
+    url: "/api-keys",
+    icon: Key,
+    group: "Security",
   },
 ];
 
