@@ -170,6 +170,30 @@ export class TBurnClient {
     return this.request<ValidatorData>(`/api/validators/${address}`);
   }
 
+  async getContracts(): Promise<any[]> {
+    return this.request<any[]>('/api/contracts');
+  }
+
+  async getContract(address: string): Promise<any> {
+    return this.request<any>(`/api/contracts/${address}`);
+  }
+
+  async getAIModels(): Promise<any[]> {
+    return this.request<any[]>('/api/ai/models');
+  }
+
+  async getAIModel(name: string): Promise<any> {
+    return this.request<any>(`/api/ai/models/${name}`);
+  }
+
+  async getShards(): Promise<any[]> {
+    return this.request<any[]>('/api/shards');
+  }
+
+  async getShard(id: number): Promise<any> {
+    return this.request<any>(`/api/shards/${id}`);
+  }
+
   connectWebSocket(): void {
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
       console.log('[TBURN WS] Already connected or connecting');

@@ -294,8 +294,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/validators", async (_req, res) => {
     try {
-      const validators = await storage.getAllValidators();
-      res.json(validators);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const validators = await client.getValidators();
+        res.json(validators);
+      } else {
+        // Fetch from local database (demo mode)
+        const validators = await storage.getAllValidators();
+        res.json(validators);
+      }
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch validators" });
     }
@@ -304,11 +312,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/validators/:address", async (req, res) => {
     try {
       const address = req.params.address;
-      const validator = await storage.getValidatorByAddress(address);
-      if (!validator) {
-        return res.status(404).json({ error: "Validator not found" });
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const validator = await client.getValidator(address);
+        res.json(validator);
+      } else {
+        // Fetch from local database (demo mode)
+        const validator = await storage.getValidatorByAddress(address);
+        if (!validator) {
+          return res.status(404).json({ error: "Validator not found" });
+        }
+        res.json(validator);
       }
-      res.json(validator);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch validator" });
     }
@@ -319,8 +335,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/contracts", async (_req, res) => {
     try {
-      const contracts = await storage.getAllContracts();
-      res.json(contracts);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const contracts = await client.getContracts();
+        res.json(contracts);
+      } else {
+        // Fetch from local database (demo mode)
+        const contracts = await storage.getAllContracts();
+        res.json(contracts);
+      }
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch contracts" });
     }
@@ -329,11 +353,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/contracts/:address", async (req, res) => {
     try {
       const address = req.params.address;
-      const contract = await storage.getContractByAddress(address);
-      if (!contract) {
-        return res.status(404).json({ error: "Contract not found" });
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const contract = await client.getContract(address);
+        res.json(contract);
+      } else {
+        // Fetch from local database (demo mode)
+        const contract = await storage.getContractByAddress(address);
+        if (!contract) {
+          return res.status(404).json({ error: "Contract not found" });
+        }
+        res.json(contract);
       }
-      res.json(contract);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch contract" });
     }
@@ -344,8 +376,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/ai/models", async (_req, res) => {
     try {
-      const models = await storage.getAllAiModels();
-      res.json(models);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const models = await client.getAIModels();
+        res.json(models);
+      } else {
+        // Fetch from local database (demo mode)
+        const models = await storage.getAllAiModels();
+        res.json(models);
+      }
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch AI models" });
     }
@@ -354,11 +394,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/ai/models/:name", async (req, res) => {
     try {
       const name = req.params.name;
-      const model = await storage.getAiModelByName(name);
-      if (!model) {
-        return res.status(404).json({ error: "AI model not found" });
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const model = await client.getAIModel(name);
+        res.json(model);
+      } else {
+        // Fetch from local database (demo mode)
+        const model = await storage.getAiModelByName(name);
+        if (!model) {
+          return res.status(404).json({ error: "AI model not found" });
+        }
+        res.json(model);
       }
-      res.json(model);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch AI model" });
     }
@@ -369,8 +417,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/shards", async (_req, res) => {
     try {
-      const shards = await storage.getAllShards();
-      res.json(shards);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const shards = await client.getShards();
+        res.json(shards);
+      } else {
+        // Fetch from local database (demo mode)
+        const shards = await storage.getAllShards();
+        res.json(shards);
+      }
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch shards" });
     }
@@ -379,11 +435,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/shards/:id", async (req, res) => {
     try {
       const shardId = parseInt(req.params.id);
-      const shard = await storage.getShardById(shardId);
-      if (!shard) {
-        return res.status(404).json({ error: "Shard not found" });
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const shard = await client.getShard(shardId);
+        res.json(shard);
+      } else {
+        // Fetch from local database (demo mode)
+        const shard = await storage.getShardById(shardId);
+        if (!shard) {
+          return res.status(404).json({ error: "Shard not found" });
+        }
+        res.json(shard);
       }
-      res.json(shard);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch shard" });
     }
