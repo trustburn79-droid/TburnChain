@@ -17,6 +17,8 @@ import {
   type InsertNetworkStats,
   type ConsensusRound,
   type InsertConsensusRound,
+  type ApiKey,
+  type InsertApiKey,
   blocks,
   transactions,
   accounts,
@@ -26,6 +28,7 @@ import {
   shards,
   networkStats as networkStatsTable,
   consensusRounds,
+  apiKeys,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -81,6 +84,14 @@ export interface IStorage {
   createConsensusRound(data: import("@shared/schema").InsertConsensusRound): Promise<import("@shared/schema").ConsensusRound>;
   getLatestConsensusRound(): Promise<import("@shared/schema").ConsensusRound | null>;
   updateConsensusRound(blockHeight: number, data: Partial<import("@shared/schema").ConsensusRound>): Promise<void>;
+
+  // API Keys
+  getAllApiKeys(): Promise<ApiKey[]>;
+  getApiKeyById(id: string): Promise<ApiKey | undefined>;
+  getApiKeyByHash(hashedKey: string): Promise<ApiKey | undefined>;
+  createApiKey(data: InsertApiKey): Promise<ApiKey>;
+  revokeApiKey(id: string): Promise<void>;
+  updateApiKeyLastUsed(id: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -635,6 +646,31 @@ export class MemStorage implements IStorage {
       this.consensusRounds.set(blockHeight, { ...existing, ...data });
     }
   }
+
+  // API Keys (not implemented for MemStorage)
+  async getAllApiKeys(): Promise<ApiKey[]> {
+    return [];
+  }
+
+  async getApiKeyById(id: string): Promise<ApiKey | undefined> {
+    return undefined;
+  }
+
+  async getApiKeyByHash(hashedKey: string): Promise<ApiKey | undefined> {
+    return undefined;
+  }
+
+  async createApiKey(data: InsertApiKey): Promise<ApiKey> {
+    throw new Error("API Keys not supported in MemStorage");
+  }
+
+  async revokeApiKey(id: string): Promise<void> {
+    throw new Error("API Keys not supported in MemStorage");
+  }
+
+  async updateApiKeyLastUsed(id: string): Promise<void> {
+    throw new Error("API Keys not supported in MemStorage");
+  }
 }
 
 // PostgreSQL-based storage implementation
@@ -892,6 +928,34 @@ export class DbStorage implements IStorage {
       .update(consensusRounds)
       .set(data)
       .where(eq(consensusRounds.blockHeight, BigInt(blockHeight)));
+  }
+
+  // API Keys
+  async getAllApiKeys(): Promise<ApiKey[]> {
+    return db.select().from(apiKeys).where(eq(apiKeys.revokedAt, null)).orderBy(desc(apiKeys.createdAt));
+  }
+
+  async getApiKeyById(id: string): Promise<ApiKey | undefined> {
+    const result = await db.select().from(apiKeys).where(eq(apiKeys.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getApiKeyByHash(hashedKey: string): Promise<ApiKey | undefined> {
+    const result = await db.select().from(apiKeys).where(eq(apiKeys.hashedKey, hashedKey)).limit(1);
+    return result[0];
+  }
+
+  async createApiKey(data: InsertApiKey): Promise<ApiKey> {
+    const result = await db.insert(apiKeys).values(data).returning();
+    return result[0];
+  }
+
+  async revokeApiKey(id: string): Promise<void> {
+    await db.update(apiKeys).set({ revokedAt: new Date() }).where(eq(apiKeys.id, id));
+  }
+
+  async updateApiKeyLastUsed(id: string): Promise<void> {
+    await db.update(apiKeys).set({ lastUsedAt: new Date() }).where(eq(apiKeys.id, id));
   }
 }
 
