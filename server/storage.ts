@@ -226,7 +226,7 @@ export class MemStorage implements IStorage {
 
     shards.forEach(shard => this.shards.set(shard.shardId, shard));
 
-    // Initialize Validators
+    // Initialize Validators (basis points: 10000 = 100.00%)
     const validatorNames = [
       "Genesis Validator", "Quantum Node", "Stellar Forge", "Nebula Keeper",
       "Cosmic Guardian", "Alpha Prime", "Beta Nexus", "Gamma Core",
@@ -239,12 +239,12 @@ export class MemStorage implements IStorage {
         address: `0x${Math.random().toString(16).substr(2, 40)}`,
         name: validatorNames[i] || `Validator ${i + 1}`,
         stake: (Math.random() * 5000000 + 1000000).toFixed(0),
-        commission: Math.floor(Math.random() * 10) + 5,
+        commission: Math.floor(Math.random() * 1000) + 500, // 5.00-14.99% in basis points
         status: i < 10 ? "active" : Math.random() > 0.5 ? "inactive" : "jailed",
-        uptime: Math.floor(Math.random() * 10) + 90,
+        uptime: Math.floor(Math.random() * 1000) + 9000, // 90.00-99.99% in basis points
         totalBlocks: Math.floor(Math.random() * 50000) + 10000,
         votingPower: (Math.random() * 1000000).toFixed(0),
-        apy: Math.floor(Math.random() * 10) + 8,
+        apy: Math.floor(Math.random() * 1000) + 800, // 8.00-17.99% in basis points
         delegators: Math.floor(Math.random() * 500) + 50,
         joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
       };

@@ -62,12 +62,12 @@ export const validators = pgTable("validators", {
   address: text("address").notNull().unique(),
   name: text("name").notNull(),
   stake: text("stake").notNull(),
-  commission: integer("commission").notNull().default(10), // percentage
+  commission: integer("commission").notNull().default(500), // basis points (500 = 5.00%)
   status: text("status").notNull().default("active"), // active, inactive, jailed
-  uptime: integer("uptime").notNull().default(100), // percentage
+  uptime: integer("uptime").notNull().default(10000), // basis points (10000 = 100.00%)
   totalBlocks: integer("total_blocks").notNull().default(0),
   votingPower: text("voting_power").notNull().default("0"),
-  apy: integer("apy").notNull().default(0), // percentage
+  apy: integer("apy").notNull().default(0), // basis points (1250 = 12.50%)
   delegators: integer("delegators").notNull().default(0),
   joinedAt: timestamp("joined_at").notNull().defaultNow(),
 });

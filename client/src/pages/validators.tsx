@@ -23,7 +23,8 @@ export default function Validators() {
 
   const activeValidators = validators?.filter(v => v.status === "active").length || 0;
   const totalStake = validators?.reduce((sum, v) => sum + parseFloat(v.stake), 0) || 0;
-  const avgApy = validators?.reduce((sum, v) => sum + v.apy, 0) / (validators?.length || 1) || 0;
+  // Convert basis points to percentage (10000 = 100.00%)
+  const avgApy = (validators?.reduce((sum, v) => sum + v.apy, 0) || 0) / (validators?.length || 1) / 100;
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -138,15 +139,15 @@ export default function Validators() {
                         {formatNumber(validator.stake)} TBURN
                       </TableCell>
                       <TableCell className="tabular-nums">
-                        {validator.commission}%
+                        {(validator.commission / 100).toFixed(2)}%
                       </TableCell>
                       <TableCell className="tabular-nums text-green-600 dark:text-green-400 font-medium">
-                        {validator.apy}%
+                        {(validator.apy / 100).toFixed(2)}%
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <Progress value={validator.uptime} className="w-16" />
-                          <span className="text-sm tabular-nums">{validator.uptime}%</span>
+                          <Progress value={validator.uptime / 100} className="w-16" />
+                          <span className="text-sm tabular-nums">{(validator.uptime / 100).toFixed(2)}%</span>
                         </div>
                       </TableCell>
                       <TableCell className="tabular-nums">
