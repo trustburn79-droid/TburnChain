@@ -156,7 +156,9 @@ export class TBurnClient {
         }
         const errorText = await response.body.text();
         console.error(`[TBURN Client] API Error: ${response.statusCode}`, errorText);
-        throw new Error(`TBURN API Error: ${response.statusCode} - ${errorText}`);
+        const error: any = new Error(`TBURN API Error: ${response.statusCode} - ${errorText}`);
+        error.statusCode = response.statusCode; // Attach statusCode for reliable error handling
+        throw error;
       }
 
       return await response.body.json();
@@ -235,6 +237,15 @@ export class TBurnClient {
 
   async getCrossShardMessage(id: string): Promise<any> {
     return this.request<any>(`/api/cross-shard/messages/${id}`);
+  }
+
+  async getWalletBalances(limit?: number): Promise<any[]> {
+    const query = limit ? `?limit=${limit}` : '';
+    return this.request<any[]>(`/api/wallets${query}`);
+  }
+
+  async getWalletBalance(address: string): Promise<any> {
+    return this.request<any>(`/api/wallets/${address}`);
   }
 
   async getShard(id: number): Promise<any> {

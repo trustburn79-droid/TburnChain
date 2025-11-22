@@ -5,7 +5,7 @@ import rateLimit from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
 import { storage } from "./storage";
-import { insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema } from "@shared/schema";
+import { insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema } from "@shared/schema";
 import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 
@@ -576,17 +576,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         res.json(message);
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       // Propagate 404 from TBURN client if message not found
-      // TBurnClient throws: "TBURN API Error: {statusCode} - {errorText}"
-      if (error instanceof Error) {
-        const match = error.message.match(/TBURN API Error: (\d+)/);
-        if (match) {
-          const statusCode = parseInt(match[1]);
-          if (statusCode === 404) {
-            return res.status(404).json({ error: "Cross-shard message not found" });
-          }
-        }
+      // TBurnClient attaches statusCode to error object for reliable error handling
+      if (error.statusCode === 404) {
+        return res.status(404).json({ error: "Cross-shard message not found" });
       }
       res.status(500).json({ error: "Failed to fetch cross-shard message" });
     }
@@ -734,6 +728,100 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error revoking API key:", error);
       res.status(500).json({ error: "Failed to revoke API key" });
+    }
+  });
+
+  // ============================================
+  // Wallet Balances
+  // ============================================
+  app.get("/api/wallets", async (req, res) => {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const wallets = await client.getWalletBalances(limit);
+        res.json(wallets);
+      } else {
+        // Fetch from local database (demo mode)
+        const wallets = await storage.getAllWalletBalances(limit);
+        res.json(wallets);
+      }
+    } catch (error: unknown) {
+      res.status(500).json({ error: "Failed to fetch wallet balances" });
+    }
+  });
+
+  app.get("/api/wallets/:address", async (req, res) => {
+    try {
+      const address = req.params.address;
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const wallet = await client.getWalletBalance(address);
+        res.json(wallet);
+      } else {
+        // Fetch from local database (demo mode)
+        const wallet = await storage.getWalletBalanceByAddress(address);
+        if (!wallet) {
+          return res.status(404).json({ error: "Wallet not found" });
+        }
+        res.json(wallet);
+      }
+    } catch (error: any) {
+      // Propagate 404 from TBURN client if wallet not found
+      // TBurnClient attaches statusCode to error object for reliable error handling
+      if (error.statusCode === 404) {
+        return res.status(404).json({ error: "Wallet not found" });
+      }
+      res.status(500).json({ error: "Failed to fetch wallet balance" });
+    }
+  });
+
+  app.post("/api/wallets", async (req, res) => {
+    try {
+      if (isProductionMode()) {
+        // In production mode, wallet balances are managed by TBURN mainnet
+        return res.status(501).json({
+          error: "Not Implemented",
+          message: "Wallet balances are managed by TBURN mainnet. Manual creation is only available in demo mode."
+        });
+      }
+      
+      // Demo mode only - create wallet balance locally
+      const validated = insertWalletBalanceSchema.parse(req.body);
+      const wallet = await storage.createWalletBalance(validated);
+      res.status(201).json(wallet);
+    } catch (error: unknown) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid request data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create wallet balance" });
+    }
+  });
+
+  app.patch("/api/wallets/:address", async (req, res) => {
+    try {
+      if (isProductionMode()) {
+        // In production mode, wallet balance updates are managed by TBURN mainnet
+        return res.status(501).json({
+          error: "Not Implemented",
+          message: "Wallet balance updates are managed by TBURN mainnet. Manual updates are only available in demo mode."
+        });
+      }
+
+      // Demo mode only - update wallet balance locally
+      const address = req.params.address;
+      const existing = await storage.getWalletBalanceByAddress(address);
+      if (!existing) {
+        return res.status(404).json({ error: "Wallet not found" });
+      }
+      
+      await storage.updateWalletBalance(address, req.body);
+      const updated = await storage.getWalletBalanceByAddress(address);
+      res.json(updated);
+    } catch (error: unknown) {
+      res.status(500).json({ error: "Failed to update wallet balance" });
     }
   });
 
