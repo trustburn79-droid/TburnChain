@@ -32,7 +32,7 @@ import {
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, isNull } from "drizzle-orm";
 
 export interface IStorage {
   // Network Stats
@@ -932,7 +932,7 @@ export class DbStorage implements IStorage {
 
   // API Keys
   async getAllApiKeys(): Promise<ApiKey[]> {
-    return db.select().from(apiKeys).where(eq(apiKeys.revokedAt, null)).orderBy(desc(apiKeys.createdAt));
+    return db.select().from(apiKeys).where(isNull(apiKeys.revokedAt)).orderBy(desc(apiKeys.createdAt));
   }
 
   async getApiKeyById(id: string): Promise<ApiKey | undefined> {
