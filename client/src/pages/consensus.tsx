@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Vote, TrendingUp, Zap } from "lucide-react";
+import { Vote, TrendingUp, Zap, Check, Clock, Minus } from "lucide-react";
 import { formatAddress } from "@/lib/format";
 import { useQuery } from "@tanstack/react-query";
 import type { ConsensusState } from "@shared/schema";
@@ -10,9 +10,9 @@ import type { ConsensusState } from "@shared/schema";
 
 function PhaseCard({ phase }: { phase: import("@shared/schema").ConsensusPhase }) {
   const getIcon = () => {
-    if (phase.status === "completed") return "✓";
-    if (phase.status === "active") return "⏳";
-    return "--";
+    if (phase.status === "completed") return <Check className="h-8 w-8" />;
+    if (phase.status === "active") return <Clock className="h-8 w-8" />;
+    return <Minus className="h-8 w-8" />;
   };
 
   const getStyles = () => {
@@ -28,7 +28,7 @@ function PhaseCard({ phase }: { phase: import("@shared/schema").ConsensusPhase }
   return (
     <Card className={`text-center ${getStyles()} hover-elevate`}>
       <CardContent className="pt-6">
-        <div className="text-4xl font-bold mb-2">{getIcon()}</div>
+        <div className="flex justify-center mb-2">{getIcon()}</div>
         <div className="font-semibold text-sm mb-1">
           {phase.number}. {phase.label}
         </div>
@@ -100,7 +100,7 @@ export default function Consensus() {
         <Zap className="h-5 w-5 text-green-600" />
         <AlertDescription className="text-green-800 dark:text-green-200">
           <div className="font-semibold text-lg">
-            ⚡ Consensus Round #{currentRound.toLocaleString()} in Progress
+            Consensus Round #{currentRound.toLocaleString()} in Progress
           </div>
           <div className="text-sm mt-1">
             Phase: {activePhase?.label || "Initializing"} • Time Elapsed: {completedPhases * avgBlockTime / 5}ms / {avgBlockTime}ms Target
@@ -130,8 +130,8 @@ export default function Consensus() {
             <div>
               <div className="flex justify-between mb-2">
                 <span className="font-semibold">Prevote (2f+1 required)</span>
-                <span className="text-green-600 font-semibold">
-                  {prevoteCount.current}/{prevoteCount.total} ✓
+                <span className="text-green-600 font-semibold flex items-center gap-1">
+                  {prevoteCount.current}/{prevoteCount.total} <Check className="h-4 w-4" />
                 </span>
               </div>
               <Progress value={prevoteProgress} className="h-8" />
