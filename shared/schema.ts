@@ -172,6 +172,17 @@ export const consensusRounds = pgTable("consensus_rounds", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// API Keys (for secure API access management)
+export const apiKeys = pgTable("api_keys", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  label: text("label").notNull(), // user-friendly name for the key
+  hashedKey: text("hashed_key").notNull().unique(), // bcrypt hashed API key
+  userId: varchar("user_id"), // nullable - for future multi-user support
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  lastUsedAt: timestamp("last_used_at"),
+  revokedAt: timestamp("revoked_at"), // null if active, timestamp if revoked
+});
+
 // ============================================
 // Insert Schemas and Types
 // ============================================
@@ -186,6 +197,7 @@ export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id:
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
 export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).omit({ id: true, createdAt: true });
+export const insertApiKeySchema = createInsertSchema(apiKeys).omit({ id: true, createdAt: true, lastUsedAt: true, revokedAt: true });
 
 // Types
 export type Block = typeof blocks.$inferSelect;
@@ -217,6 +229,9 @@ export type InsertNetworkStats = z.infer<typeof insertNetworkStatsSchema>;
 
 export type ConsensusRound = typeof consensusRounds.$inferSelect;
 export type InsertConsensusRound = z.infer<typeof insertConsensusRoundSchema>;
+
+export type ApiKey = typeof apiKeys.$inferSelect;
+export type InsertApiKey = z.infer<typeof insertApiKeySchema>;
 
 // ============================================
 // Additional Types for Frontend
