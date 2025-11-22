@@ -239,7 +239,7 @@ export default function AIOrchestration() {
                         {formatNumber(model.failureCount)}
                       </TableCell>
                       <TableCell className="tabular-nums">{model.avgResponseTime}ms</TableCell>
-                      <TableCell className="tabular-nums">{model.cacheHitRate}%</TableCell>
+                      <TableCell className="tabular-nums">{(model.cacheHitRate / 100).toFixed(1)}%</TableCell>
                       <TableCell className="text-right tabular-nums font-medium">
                         ${parseFloat(model.totalCost).toFixed(4)}
                       </TableCell>
