@@ -5,6 +5,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Vote, TrendingUp, Zap, Check, Clock, Minus } from "lucide-react";
 import { formatAddress } from "@/lib/format";
 import { useQuery } from "@tanstack/react-query";
+import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
+import { consensusStateSchema } from "@shared/schema";
 import type { ConsensusState } from "@shared/schema";
 
 
@@ -41,7 +43,14 @@ function PhaseCard({ phase }: { phase: import("@shared/schema").ConsensusPhase }
 export default function Consensus() {
   const { data: consensusState, isLoading } = useQuery<ConsensusState>({
     queryKey: ["/api/consensus/current"],
-    refetchInterval: 2000,
+  });
+
+  // WebSocket integration for real-time consensus state updates
+  useWebSocketChannel({
+    channel: "consensus_state_update",
+    schema: consensusStateSchema,
+    queryKey: ["/api/consensus/current"],
+    updateMode: "replace",
   });
 
   // Use actual consensus data from backend

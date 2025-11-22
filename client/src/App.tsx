@@ -17,6 +17,8 @@ import Transactions from "@/pages/transactions";
 import Validators from "@/pages/validators";
 import AIOrchestration from "@/pages/ai-orchestration";
 import Sharding from "@/pages/sharding";
+import CrossShard from "@/pages/cross-shard";
+import Wallets from "@/pages/wallets";
 import SmartContracts from "@/pages/smart-contracts";
 import NodeHealth from "@/pages/node-health";
 import PerformanceMetrics from "@/pages/performance-metrics";
@@ -36,6 +38,8 @@ function Router() {
       <Route path="/validators" component={Validators} />
       <Route path="/ai" component={AIOrchestration} />
       <Route path="/sharding" component={Sharding} />
+      <Route path="/cross-shard" component={CrossShard} />
+      <Route path="/wallets" component={Wallets} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

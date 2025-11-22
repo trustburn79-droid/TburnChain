@@ -1,5 +1,6 @@
 import {
   Activity,
+  ArrowRightLeft,
   BarChart3,
   Blocks,
   Bot,
@@ -68,6 +69,18 @@ const menuItems = [
     url: "/sharding",
     icon: Grid3x3,
     group: "Network",
+  },
+  {
+    title: "Cross-Shard",
+    url: "/cross-shard",
+    icon: ArrowRightLeft,
+    group: "Network",
+  },
+  {
+    title: "Wallets",
+    url: "/wallets",
+    icon: Layers,
+    group: "Explorer",
   },
   {
     title: "Smart Contracts",

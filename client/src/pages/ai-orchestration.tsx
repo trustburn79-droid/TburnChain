@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Bot, Cpu, DollarSign, Zap } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Bot, Cpu, DollarSign, Zap, Activity, TrendingUp } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 import { StatCard } from "@/components/stat-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
   TableBody,
@@ -14,11 +16,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatNumber } from "@/lib/format";
-import type { AiModel } from "@shared/schema";
+import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
+import { aiDecisionsSnapshotSchema } from "@shared/schema";
+import type { AiModel, AiDecision } from "@shared/schema";
 
 export default function AIOrchestration() {
+  const [activeTab, setActiveTab] = useState("history");
+
   const { data: aiModels, isLoading } = useQuery<AiModel[]>({
     queryKey: ["/api/ai/models"],
+  });
+
+  const { data: aiDecisions, isLoading: decisionsLoading } = useQuery<AiDecision[]>({
+    queryKey: ["/api/ai/decisions"],
+  });
+
+  // WebSocket integration for real-time AI decisions
+  useWebSocketChannel({
+    channel: "ai_decisions_snapshot",
+    schema: aiDecisionsSnapshotSchema,
+    queryKey: ["/api/ai/decisions"],
+    updateMode: "snapshot",
   });
 
   const totalRequests = aiModels?.reduce((sum, m) => sum + m.requestCount, 0) || 0;
@@ -253,6 +271,166 @@ export default function AIOrchestration() {
               <p className="text-muted-foreground">No model data available</p>
             </div>
           )}
+        </CardContent>
+      </Card>
+
+      {/* AI Decision Stream */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <Activity className="h-5 w-5" />
+                AI Decision Stream
+              </CardTitle>
+              <CardDescription className="mt-1">
+                Real-time AI decisions across all bands
+              </CardDescription>
+            </div>
+            {aiDecisions && aiDecisions.length > 0 && (
+              <Badge variant="outline" className="gap-1">
+                <TrendingUp className="h-3 w-3" />
+                {aiDecisions.length} decisions
+              </Badge>
+            )}
+          </div>
+        </CardHeader>
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="history" data-testid="tab-decisions-history">
+                Decision History
+              </TabsTrigger>
+              <TabsTrigger value="live" data-testid="tab-decisions-live">
+                Live Feed
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="history">
+              {decisionsLoading ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : aiDecisions && aiDecisions.length > 0 ? (
+                <div className="rounded-md border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Band</TableHead>
+                        <TableHead>Model</TableHead>
+                        <TableHead>Decision</TableHead>
+                        <TableHead>Category</TableHead>
+                        <TableHead>Impact</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Timestamp</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {aiDecisions.map((decision) => (
+                        <TableRow key={decision.id} className="hover-elevate" data-testid={`row-decision-${decision.id}`}>
+                          <TableCell>
+                            <Badge variant="outline" className={`capitalize ${
+                              decision.band === 'strategic' ? 'border-blue-500 text-blue-600 dark:text-blue-400' :
+                              decision.band === 'tactical' ? 'border-purple-500 text-purple-600 dark:text-purple-400' :
+                              'border-green-500 text-green-600 dark:text-green-400'
+                            }`}>
+                              {decision.band}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="font-medium">{decision.modelName}</TableCell>
+                          <TableCell className="max-w-md truncate" title={decision.decision}>
+                            {decision.decision}
+                          </TableCell>
+                          <TableCell className="capitalize">{decision.category}</TableCell>
+                          <TableCell>
+                            <Badge variant={
+                              decision.impact === 'high' ? 'destructive' :
+                              decision.impact === 'medium' ? 'secondary' :
+                              'outline'
+                            } className="capitalize">
+                              {decision.impact}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant={
+                              decision.status === 'executed' ? 'default' :
+                              decision.status === 'pending' ? 'secondary' :
+                              'destructive'
+                            } className="capitalize">
+                              {decision.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-muted-foreground text-sm tabular-nums">
+                            {new Date(decision.createdAt).toLocaleString()}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground">No AI decisions recorded yet</p>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="live">
+              {decisionsLoading ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : aiDecisions && aiDecisions.length > 0 ? (
+                <div className="space-y-3">
+                  {aiDecisions.slice(0, 10).map((decision) => (
+                    <Card key={decision.id} className={`hover-elevate ${getBandColor(decision.band)}`} data-testid={`card-live-decision-${decision.id}`}>
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1 space-y-1">
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline" className="capitalize text-xs">
+                                {decision.band}
+                              </Badge>
+                              <span className="text-xs text-muted-foreground">{decision.modelName}</span>
+                              <Badge variant={decision.impact === 'high' ? 'destructive' : decision.impact === 'medium' ? 'secondary' : 'outline'} className="text-xs capitalize">
+                                {decision.impact} impact
+                              </Badge>
+                            </div>
+                            <p className="font-medium">{decision.decision}</p>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <span className="capitalize">{decision.category}</span>
+                              <span>•</span>
+                              <span>{new Date(decision.createdAt).toLocaleString()}</span>
+                            </div>
+                          </div>
+                          <Badge variant={
+                            decision.status === 'executed' ? 'default' :
+                            decision.status === 'pending' ? 'secondary' :
+                            'destructive'
+                          } className="capitalize shrink-0">
+                            {decision.status}
+                          </Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                  {aiDecisions.length > 10 && (
+                    <p className="text-center text-sm text-muted-foreground">
+                      Showing latest 10 decisions. View "Decision History" tab for all.
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground">No live decisions yet. Waiting for AI activity...</p>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
     </div>

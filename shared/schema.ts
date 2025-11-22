@@ -398,3 +398,24 @@ export interface ConsensusState {
   avgBlockTimeMs: number;
   startTime: number;
 }
+
+// Zod schemas for WebSocket validation
+export const consensusPhaseSchema = z.object({
+  number: z.number(),
+  label: z.string(),
+  time: z.string(),
+  status: z.enum(["completed", "active", "pending"]),
+});
+
+export const consensusStateSchema = z.object({
+  currentPhase: z.number(),
+  phases: z.array(consensusPhaseSchema),
+  proposer: z.string(),
+  blockHeight: z.number(),
+  prevoteCount: z.number(),
+  precommitCount: z.number(),
+  totalValidators: z.number(),
+  requiredQuorum: z.number(),
+  avgBlockTimeMs: z.number(),
+  startTime: z.number(),
+});

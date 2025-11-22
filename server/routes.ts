@@ -9,7 +9,8 @@ import {
   insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema, 
   insertWalletBalanceSchema, insertConsensusRoundSchema,
   aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema,
-  aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema
+  aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema,
+  consensusStateSchema
 } from "@shared/schema";
 import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
@@ -1208,6 +1209,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }, 3000);
 
+  // Consensus State snapshot every 2 seconds (current consensus view)
+  setInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const state = await storage.getConsensusState();
+      broadcastUpdate('consensus_state_update', state, consensusStateSchema);
+    } catch (error) {
+      console.error('Error broadcasting consensus state update:', error);
+    }
+  }, 2000);
+
   // ============================================
   // Production Mode Polling (TBurnClient-based)
   // ============================================
@@ -1267,6 +1279,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error('Error polling consensus rounds from mainnet:', error);
         // Clear diff cache on error to allow recovery broadcasts
         lastBroadcastState.delete('consensus_rounds_snapshot');
+      }
+    }, 2000);
+
+    // Poll Consensus State every 2 seconds (current consensus view)
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const state = await client.getConsensusState();
+        broadcastUpdate('consensus_state_update', state, consensusStateSchema);
+        console.log('[Production Poll] Consensus State: fetched and broadcast');
+      } catch (error) {
+        console.error('Error polling consensus state from mainnet:', error);
+        // Clear diff cache on error to allow recovery broadcasts
+        lastBroadcastState.delete('consensus_state_update');
       }
     }, 2000);
   }

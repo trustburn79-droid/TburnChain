@@ -71,7 +71,7 @@ export function useWebSocketChannel<T>({
 }: UseWebSocketChannelOptions<T>) {
   const { lastMessage, isConnected } = useWebSocket();
   const queryClient = useQueryClient();
-  const processedTimestampRef = useRef<number>(0);
+  const processedMessageHashRef = useRef<string>('');
 
   useEffect(() => {
     if (!enabled || !lastMessage || !isConnected) {
@@ -86,11 +86,13 @@ export function useWebSocketChannel<T>({
         return;
       }
 
-      // Prevent duplicate processing (same timestamp)
-      if (message.timestamp === processedTimestampRef.current) {
+      // Prevent duplicate processing using unique message hash
+      // (channel + timestamp + data hash ensures uniqueness)
+      const messageHash = `${message.type}-${message.timestamp}-${JSON.stringify(message.data)}`;
+      if (messageHash === processedMessageHashRef.current) {
         return;
       }
-      processedTimestampRef.current = message.timestamp;
+      processedMessageHashRef.current = messageHash;
 
       // Validate with Zod schema
       const parseResult = schema.safeParse(message.data);

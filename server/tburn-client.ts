@@ -257,6 +257,10 @@ export class TBurnClient {
     return this.request<any>(`/api/consensus/rounds/${blockHeight}`);
   }
 
+  async getConsensusState(): Promise<any> {
+    return this.request<any>('/api/consensus/current');
+  }
+
   async getShard(id: number): Promise<any> {
     return this.request<any>(`/api/shards/${id}`);
   }
