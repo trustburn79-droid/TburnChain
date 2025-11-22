@@ -829,45 +829,98 @@ export class DbStorage implements IStorage {
 
   async getConsensusState(): Promise<import("@shared/schema").ConsensusState> {
     const stats = await this.getNetworkStats();
-    const validators = await this.getAllValidators();
-    const activeValidators = validators.filter(v => v.status === "active");
+    const latestRound = await this.getLatestConsensusRound();
     
+    if (!latestRound) {
+      const validators = await this.getAllValidators();
+      const activeValidators = validators.filter(v => v.status === "active");
+      const totalValidators = activeValidators.length;
+      const requiredQuorum = Math.ceil((totalValidators * 2) / 3);
+      
+      return {
+        currentPhase: 1,
+        phases: [
+          { number: 1, label: "NewHeight", time: "Pending", status: "pending" },
+          { number: 2, label: "Propose", time: "Pending", status: "pending" },
+          { number: 3, label: "Prevote", time: "Pending", status: "pending" },
+          { number: 4, label: "Precommit", time: "Pending", status: "pending" },
+          { number: 5, label: "Finalize", time: "Pending", status: "pending" },
+        ],
+        proposer: activeValidators[0]?.address || "0x0000...0000",
+        blockHeight: Number(stats.currentBlockHeight),
+        prevoteCount: 0,
+        precommitCount: 0,
+        totalValidators,
+        requiredQuorum,
+        avgBlockTimeMs: Number(stats.avgBlockTime),
+        startTime: Date.now(),
+      };
+    }
+
     const now = Date.now();
-    const blockStartTime = now - 800;
-    const elapsed = now - blockStartTime;
-    
-    let currentPhase = 1;
-    if (elapsed >= 700) currentPhase = 5;
-    else if (elapsed >= 500) currentPhase = 4;
-    else if (elapsed >= 300) currentPhase = 3;
-    else if (elapsed >= 150) currentPhase = 2;
-    
-    const proposer = activeValidators[0]?.address || "0x0000...0000";
-    const prevoteCount = activeValidators.filter(v => v.uptime >= 9500).length;
-    const precommitCount = activeValidators.filter(v => v.uptime >= 9700).length;
-    
+    const phase1Start = Number(latestRound.phase1Start || now);
+    const currentPhase = latestRound.currentPhase;
+
+    const buildPhaseTime = (start: bigint | null, end: bigint | null): string => {
+      if (!start) return "Pending";
+      if (!end) {
+        const elapsed = now - Number(start);
+        return `${elapsed}ms`;
+      }
+      const duration = Number(end) - Number(start);
+      return `${duration}ms`;
+    };
+
+    const buildPhaseStatus = (phaseNum: number): "completed" | "active" | "pending" => {
+      if (phaseNum < currentPhase) return "completed";
+      if (phaseNum === currentPhase) return "active";
+      return "pending";
+    };
+
     const phases: import("@shared/schema").ConsensusPhase[] = [
-      { number: 1, label: "NewHeight", time: elapsed >= 0 ? "0ms" : "Pending", status: elapsed >= 0 ? "completed" : "pending" },
-      { number: 2, label: "Propose", time: elapsed >= 150 ? "150ms" : currentPhase === 2 ? `${elapsed}ms` : "Pending", status: currentPhase > 2 ? "completed" : currentPhase === 2 ? "active" : "pending" },
-      { number: 3, label: "Prevote", time: elapsed >= 300 ? "300ms" : currentPhase === 3 ? `${elapsed}ms` : "Pending", status: currentPhase > 3 ? "completed" : currentPhase === 3 ? "active" : "pending" },
-      { number: 4, label: "Precommit", time: elapsed >= 500 ? "500ms" : currentPhase === 4 ? `${elapsed}ms` : "Pending", status: currentPhase > 4 ? "completed" : currentPhase === 4 ? "active" : "pending" },
-      { number: 5, label: "Finalize", time: elapsed >= 700 ? "700ms" : "Pending", status: currentPhase === 5 ? "active" : "pending" },
+      { 
+        number: 1, 
+        label: "NewHeight", 
+        time: buildPhaseTime(latestRound.phase1Start, latestRound.phase1End), 
+        status: buildPhaseStatus(1) 
+      },
+      { 
+        number: 2, 
+        label: "Propose", 
+        time: buildPhaseTime(latestRound.phase2Start, latestRound.phase2End), 
+        status: buildPhaseStatus(2) 
+      },
+      { 
+        number: 3, 
+        label: "Prevote", 
+        time: buildPhaseTime(latestRound.phase3Start, latestRound.phase3End), 
+        status: buildPhaseStatus(3) 
+      },
+      { 
+        number: 4, 
+        label: "Precommit", 
+        time: buildPhaseTime(latestRound.phase4Start, latestRound.phase4End), 
+        status: buildPhaseStatus(4) 
+      },
+      { 
+        number: 5, 
+        label: "Finalize", 
+        time: buildPhaseTime(latestRound.phase5Start, latestRound.phase5End), 
+        status: buildPhaseStatus(5) 
+      },
     ];
-    
-    const totalValidators = activeValidators.length;
-    const requiredQuorum = Math.ceil((totalValidators * 2) / 3);
     
     return {
       currentPhase,
       phases,
-      proposer,
-      blockHeight: Number(stats.currentBlockHeight),
-      prevoteCount,
-      precommitCount,
-      totalValidators,
-      requiredQuorum,
+      proposer: latestRound.proposerAddress,
+      blockHeight: Number(latestRound.blockHeight),
+      prevoteCount: latestRound.prevoteCount,
+      precommitCount: latestRound.precommitCount,
+      totalValidators: latestRound.totalValidators,
+      requiredQuorum: latestRound.requiredQuorum,
       avgBlockTimeMs: Number(stats.avgBlockTime),
-      startTime: blockStartTime,
+      startTime: phase1Start,
     };
   }
 
