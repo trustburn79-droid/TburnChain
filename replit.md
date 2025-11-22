@@ -93,9 +93,29 @@ See `server/routes.ts` comments for detailed security implementation guidance.
 - This is a Replit/Vite internal issue and does not affect application functionality
 - Application WebSocket (`/ws`) works correctly
 
-## Recent Changes (November 21, 2025)
+## Recent Changes (November 22, 2025)
 
-### New Features
+### Production Node Integration
+1. ✅ **TBURN Mainnet Node Connection**
+   - HTTP RPC client with authentication to https://tburn1.replit.app/
+   - WebSocket connection for real-time updates (wss://tburn1.replit.app/ws)
+   - Session cookie-based authentication successful for HTTP
+   - Environment variables: TBURN_NODE_URL, TBURN_WS_URL, TBURN_API_KEY, VITE_NODE_MODE
+
+2. ✅ **Production vs Demo Mode**
+   - NODE_MODE environment variable controls demo/production mode
+   - Demo mode (default): Uses seeded database data
+   - Production mode: Connects to live TBURN mainnet node
+   - DemoBanner shows "DEMO MODE" or "LIVE MODE" based on configuration
+   - TBURN client initialized automatically in production mode
+
+3. ✅ **Data Architecture Refactoring**
+   - Removed all client-side data fabrication from Consensus page
+   - Added database columns: avg_block_time_ms, start_time, status, completed_time to consensus_rounds
+   - All emoji characters removed from application (replaced with Lucide React icons)
+   - Consensus page title changed to "Consensus Overview"
+
+### Previous Features (November 21, 2025)
 1. ✅ **PostgreSQL Database Integration**
    - Neon Serverless PostgreSQL with Drizzle ORM
    - 8 tables: blocks, transactions, accounts, validators, smart_contracts, ai_models, shards, network_stats
@@ -114,3 +134,30 @@ See `server/routes.ts` comments for detailed security implementation guidance.
    - Server-side Zod schema validation
    - Three preset transaction types
    - Transactions saved to PostgreSQL database
+
+## TBURN Node Integration
+
+### Connection Status
+- **HTTP API**: ✅ Connected and authenticated
+- **WebSocket**: ⚠️ Requires server-side session handling (deferred)
+
+### Implementation Details
+- **Client**: `server/tburn-client.ts` - Singleton TBurnClient instance
+- **Auto-initialization**: Automatically connects in production mode on server startup
+- **Authentication**: Uses TBURN_API_KEY (same as site password: tburn7979)
+- **Reconnection**: Automatic reconnection with exponential backoff (max 10 attempts)
+
+### API Endpoints Available
+- Network stats: `/api/network/stats`
+- Blocks: `/api/blocks`, `/api/blocks/:hash`
+- Transactions: `/api/transactions`, `/api/transactions/:hash`
+- Validators: `/api/validators`, `/api/validators/:address`
+- Smart Contracts: `/api/contracts`, `/api/contracts/:address`
+- AI Models: `/api/ai/models`
+- Shards: `/api/shards`
+
+### WebSocket Messages
+- `network_stats_update`: Real-time network statistics
+- `new_block`: New block notifications
+- `new_transaction`: New transaction notifications
+- `validator_update`: Validator status changes
