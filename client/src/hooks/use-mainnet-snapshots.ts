@@ -109,12 +109,17 @@ export function useMainnetSnapshots(refetchInterval: number = 5000) {
   // Function to record a failure
   const recordFailure = (endpoint: string, error: any) => {
     const errorMessage = error?.toString() || "Unknown error";
-    const statusCode = error?.response?.status || 
+    // Check for status codes in the error message (format: "401: {error...}")
+    const statusMatch = errorMessage.match(/^(\d{3}):/);
+    const statusCode = statusMatch ? parseInt(statusMatch[1]) : 
+                       error?.response?.status || 
                        (errorMessage.includes("429") ? 429 : 
+                        errorMessage.includes("401") ? 401 :
                         errorMessage.includes("500") ? 500 :
                         errorMessage.includes("502") ? 502 : undefined);
     
     const errorType = statusCode === 429 ? "api-rate-limit" as const :
+                     statusCode === 401 ? "api-error" as const : // 401 is also an API error
                      (statusCode === 500 || statusCode === 502) ? "api-error" as const :
                      "network-error" as const;
 
