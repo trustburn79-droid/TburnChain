@@ -1174,53 +1174,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (clients.size === 0) return;
 
     try {
-      const stats = await storage.getNetworkStats();
-      let newTps = stats.tps;
+      let stats = await storage.getNetworkStats();
       
       if (isProductionMode()) {
-        // Production Mode: Calculate real-time TPS from actual block data
+        // Production Mode: Fetch real-time stats from TBURN mainnet
         try {
-          // Get blocks from last 10 seconds
-          const recentBlocks = await storage.getRecentBlocks(10);
+          const client = getTBurnClient();
+          const mainnetStats = await client.getNetworkStats();
           
-          if (recentBlocks.length >= 2) {
-            // Calculate time span
-            const oldestBlock = recentBlocks[recentBlocks.length - 1];
-            const newestBlock = recentBlocks[0];
-            const timeDiffSeconds = newestBlock.timestamp - oldestBlock.timestamp;
-            
-            if (timeDiffSeconds > 0) {
-              // Count total transactions in this time period
-              const totalTxs = recentBlocks.reduce((sum, block) => sum + block.transactionCount, 0);
-              
-              // Calculate real TPS
-              newTps = Math.floor(totalTxs / timeDiffSeconds);
-              
-              // Update database with real TPS
-              await storage.updateNetworkStats({ tps: newTps });
-              
-              console.log(`[Real-time TPS] Calculated: ${newTps} TPS (${totalTxs} txs / ${timeDiffSeconds}s from ${recentBlocks.length} blocks)`);
-            }
-          }
+          // Use mainnet TPS directly (no recalculation needed)
+          await storage.updateNetworkStats({
+            tps: mainnetStats.tps,
+            currentBlockHeight: mainnetStats.currentBlockHeight,
+            totalTransactions: mainnetStats.totalTransactions,
+          });
+          
+          stats = mainnetStats;
+          console.log(`[Production TPS] Mainnet TPS: ${mainnetStats.tps.toLocaleString()}`);
         } catch (error) {
-          console.error('Error calculating real-time TPS:', error);
-          // Fallback: keep existing TPS value
+          console.error('Error fetching mainnet stats:', error);
+          // Fallback: use cached database stats
         }
       } else {
-        // Demo Mode: Simulate TPS variations (only if TPS > 0)
+        // Demo Mode: Simulate TPS variations
+        let newTps = stats.tps;
         if (stats.tps > 0) {
           newTps = Math.floor(stats.tps * (0.95 + Math.random() * 0.1));
-          await storage.updateNetworkStats({ tps: newTps });
         } else {
           // Initialize with reasonable demo TPS if 0
           newTps = Math.floor(55000 + Math.random() * 10000); // 55K-65K
-          await storage.updateNetworkStats({ tps: newTps });
         }
+        await storage.updateNetworkStats({ tps: newTps });
+        stats = { ...stats, tps: newTps };
       }
 
       const message = JSON.stringify({
         type: 'network_stats_update',
-        data: { ...stats, tps: newTps },
+        data: stats,
         timestamp: Date.now(),
       });
 
