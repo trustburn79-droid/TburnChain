@@ -1175,10 +1175,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     try {
       const stats = await storage.getNetworkStats();
+      let newTps = stats.tps;
       
-      // Simulate real-time TPS changes
-      const newTps = Math.floor(stats.tps * (0.95 + Math.random() * 0.1));
-      await storage.updateNetworkStats({ tps: newTps });
+      if (isProductionMode()) {
+        // Production Mode: Calculate real-time TPS from actual block data
+        try {
+          // Get blocks from last 10 seconds
+          const recentBlocks = await storage.getRecentBlocks(10);
+          
+          if (recentBlocks.length >= 2) {
+            // Calculate time span
+            const oldestBlock = recentBlocks[recentBlocks.length - 1];
+            const newestBlock = recentBlocks[0];
+            const timeDiffSeconds = newestBlock.timestamp - oldestBlock.timestamp;
+            
+            if (timeDiffSeconds > 0) {
+              // Count total transactions in this time period
+              const totalTxs = recentBlocks.reduce((sum, block) => sum + block.transactionCount, 0);
+              
+              // Calculate real TPS
+              newTps = Math.floor(totalTxs / timeDiffSeconds);
+              
+              // Update database with real TPS
+              await storage.updateNetworkStats({ tps: newTps });
+              
+              console.log(`[Real-time TPS] Calculated: ${newTps} TPS (${totalTxs} txs / ${timeDiffSeconds}s from ${recentBlocks.length} blocks)`);
+            }
+          }
+        } catch (error) {
+          console.error('Error calculating real-time TPS:', error);
+          // Fallback: keep existing TPS value
+        }
+      } else {
+        // Demo Mode: Simulate TPS variations (only if TPS > 0)
+        if (stats.tps > 0) {
+          newTps = Math.floor(stats.tps * (0.95 + Math.random() * 0.1));
+          await storage.updateNetworkStats({ tps: newTps });
+        } else {
+          // Initialize with reasonable demo TPS if 0
+          newTps = Math.floor(55000 + Math.random() * 10000); // 55K-65K
+          await storage.updateNetworkStats({ tps: newTps });
+        }
+      }
 
       const message = JSON.stringify({
         type: 'network_stats_update',
