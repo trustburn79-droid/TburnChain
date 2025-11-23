@@ -31,6 +31,24 @@ import {
   type InsertValidatorVote,
   type CommitteeSnapshot,
   type InsertCommitteeSnapshot,
+  type Member,
+  type InsertMember,
+  type MemberProfile,
+  type InsertMemberProfile,
+  type MemberStakingPosition,
+  type InsertMemberStakingPosition,
+  type MemberGovernanceProfile,
+  type InsertMemberGovernanceProfile,
+  type MemberFinancialProfile,
+  type InsertMemberFinancialProfile,
+  type MemberSecurityProfile,
+  type InsertMemberSecurityProfile,
+  type MemberPerformanceMetrics,
+  type InsertMemberPerformanceMetrics,
+  type MemberSlashEvent,
+  type InsertMemberSlashEvent,
+  type MemberAuditLog,
+  type InsertMemberAuditLog,
   blocks,
   transactions,
   accounts,
@@ -47,6 +65,15 @@ import {
   delegations,
   validatorVotes,
   committeeSnapshots,
+  members,
+  memberProfiles,
+  memberStakingPositions,
+  memberGovernanceProfiles,
+  memberFinancialProfiles,
+  memberSecurityProfiles,
+  memberPerformanceMetrics,
+  memberSlashEvents,
+  memberAuditLogs,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -136,6 +163,61 @@ export interface IStorage {
   getWalletBalanceByAddress(address: string): Promise<WalletBalance | undefined>;
   createWalletBalance(data: InsertWalletBalance): Promise<WalletBalance>;
   updateWalletBalance(address: string, data: Partial<WalletBalance>): Promise<void>;
+
+  // Member Management System
+  // Members
+  getAllMembers(limit?: number): Promise<Member[]>;
+  getMemberById(id: string): Promise<Member | undefined>;
+  getMemberByAddress(address: string): Promise<Member | undefined>;
+  createMember(data: InsertMember): Promise<Member>;
+  updateMember(id: string, data: Partial<Member>): Promise<void>;
+  
+  // Member Profiles
+  getMemberProfileByMemberId(memberId: string): Promise<MemberProfile | undefined>;
+  createMemberProfile(data: InsertMemberProfile): Promise<MemberProfile>;
+  updateMemberProfile(memberId: string, data: Partial<MemberProfile>): Promise<void>;
+  
+  // Member Staking Positions
+  getMemberStakingPositions(memberId: string): Promise<MemberStakingPosition[]>;
+  createMemberStakingPosition(data: InsertMemberStakingPosition): Promise<MemberStakingPosition>;
+  updateMemberStakingPosition(id: string, data: Partial<MemberStakingPosition>): Promise<void>;
+  
+  // Member Governance Profiles
+  getMemberGovernanceProfile(memberId: string): Promise<MemberGovernanceProfile | undefined>;
+  createMemberGovernanceProfile(data: InsertMemberGovernanceProfile): Promise<MemberGovernanceProfile>;
+  updateMemberGovernanceProfile(memberId: string, data: Partial<MemberGovernanceProfile>): Promise<void>;
+  
+  // Member Financial Profiles
+  getMemberFinancialProfile(memberId: string): Promise<MemberFinancialProfile | undefined>;
+  createMemberFinancialProfile(data: InsertMemberFinancialProfile): Promise<MemberFinancialProfile>;
+  updateMemberFinancialProfile(memberId: string, data: Partial<MemberFinancialProfile>): Promise<void>;
+  
+  // Member Security Profiles
+  getMemberSecurityProfile(memberId: string): Promise<MemberSecurityProfile | undefined>;
+  createMemberSecurityProfile(data: InsertMemberSecurityProfile): Promise<MemberSecurityProfile>;
+  updateMemberSecurityProfile(memberId: string, data: Partial<MemberSecurityProfile>): Promise<void>;
+  
+  // Member Performance Metrics
+  getMemberPerformanceMetrics(memberId: string): Promise<MemberPerformanceMetrics | undefined>;
+  createMemberPerformanceMetrics(data: InsertMemberPerformanceMetrics): Promise<MemberPerformanceMetrics>;
+  updateMemberPerformanceMetrics(memberId: string, data: Partial<MemberPerformanceMetrics>): Promise<void>;
+  
+  // Member Slash Events
+  getMemberSlashEvents(memberId: string): Promise<MemberSlashEvent[]>;
+  createMemberSlashEvent(data: InsertMemberSlashEvent): Promise<MemberSlashEvent>;
+  
+  // Member Audit Logs
+  getMemberAuditLogs(memberId: string, limit?: number): Promise<MemberAuditLog[]>;
+  createMemberAuditLog(data: InsertMemberAuditLog): Promise<MemberAuditLog>;
+  
+  // Member Analytics
+  getMemberStatistics(): Promise<{
+    totalMembers: number;
+    activeMembers: number;
+    totalValidators: number;
+    totalStakers: number;
+    kycVerified: number;
+  }>;
 }
 
 export class MemStorage implements IStorage {
@@ -1780,6 +1862,184 @@ export class DbStorage implements IStorage {
       ...data,
       updatedAt: new Date(),
     }).where(eq(walletBalances.address, address));
+  }
+
+  // Member Management System Implementation
+
+  // Members
+  async getAllMembers(limit: number = 100): Promise<Member[]> {
+    return db.select().from(members).orderBy(desc(members.createdAt)).limit(limit);
+  }
+
+  async getMemberById(id: string): Promise<Member | undefined> {
+    const result = await db.select().from(members).where(eq(members.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getMemberByAddress(address: string): Promise<Member | undefined> {
+    const result = await db.select().from(members).where(eq(members.accountAddress, address)).limit(1);
+    return result[0];
+  }
+
+  async createMember(data: InsertMember): Promise<Member> {
+    const result = await db.insert(members).values(data).returning();
+    return result[0];
+  }
+
+  async updateMember(id: string, data: Partial<Member>): Promise<void> {
+    await db.update(members).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(members.id, id));
+  }
+
+  // Member Profiles
+  async getMemberProfileByMemberId(memberId: string): Promise<MemberProfile | undefined> {
+    const result = await db.select().from(memberProfiles).where(eq(memberProfiles.memberId, memberId)).limit(1);
+    return result[0];
+  }
+
+  async createMemberProfile(data: InsertMemberProfile): Promise<MemberProfile> {
+    const result = await db.insert(memberProfiles).values(data).returning();
+    return result[0];
+  }
+
+  async updateMemberProfile(memberId: string, data: Partial<MemberProfile>): Promise<void> {
+    await db.update(memberProfiles).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(memberProfiles.memberId, memberId));
+  }
+
+  // Member Staking Positions
+  async getMemberStakingPositions(memberId: string): Promise<MemberStakingPosition[]> {
+    return db.select().from(memberStakingPositions).where(eq(memberStakingPositions.memberId, memberId));
+  }
+
+  async createMemberStakingPosition(data: InsertMemberStakingPosition): Promise<MemberStakingPosition> {
+    const result = await db.insert(memberStakingPositions).values(data).returning();
+    return result[0];
+  }
+
+  async updateMemberStakingPosition(id: string, data: Partial<MemberStakingPosition>): Promise<void> {
+    await db.update(memberStakingPositions).set(data).where(eq(memberStakingPositions.id, id));
+  }
+
+  // Member Governance Profiles
+  async getMemberGovernanceProfile(memberId: string): Promise<MemberGovernanceProfile | undefined> {
+    const result = await db.select().from(memberGovernanceProfiles).where(eq(memberGovernanceProfiles.memberId, memberId)).limit(1);
+    return result[0];
+  }
+
+  async createMemberGovernanceProfile(data: InsertMemberGovernanceProfile): Promise<MemberGovernanceProfile> {
+    const result = await db.insert(memberGovernanceProfiles).values(data).returning();
+    return result[0];
+  }
+
+  async updateMemberGovernanceProfile(memberId: string, data: Partial<MemberGovernanceProfile>): Promise<void> {
+    await db.update(memberGovernanceProfiles).set(data).where(eq(memberGovernanceProfiles.memberId, memberId));
+  }
+
+  // Member Financial Profiles
+  async getMemberFinancialProfile(memberId: string): Promise<MemberFinancialProfile | undefined> {
+    const result = await db.select().from(memberFinancialProfiles).where(eq(memberFinancialProfiles.memberId, memberId)).limit(1);
+    return result[0];
+  }
+
+  async createMemberFinancialProfile(data: InsertMemberFinancialProfile): Promise<MemberFinancialProfile> {
+    const result = await db.insert(memberFinancialProfiles).values(data).returning();
+    return result[0];
+  }
+
+  async updateMemberFinancialProfile(memberId: string, data: Partial<MemberFinancialProfile>): Promise<void> {
+    await db.update(memberFinancialProfiles).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(memberFinancialProfiles.memberId, memberId));
+  }
+
+  // Member Security Profiles
+  async getMemberSecurityProfile(memberId: string): Promise<MemberSecurityProfile | undefined> {
+    const result = await db.select().from(memberSecurityProfiles).where(eq(memberSecurityProfiles.memberId, memberId)).limit(1);
+    return result[0];
+  }
+
+  async createMemberSecurityProfile(data: InsertMemberSecurityProfile): Promise<MemberSecurityProfile> {
+    const result = await db.insert(memberSecurityProfiles).values(data).returning();
+    return result[0];
+  }
+
+  async updateMemberSecurityProfile(memberId: string, data: Partial<MemberSecurityProfile>): Promise<void> {
+    await db.update(memberSecurityProfiles).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(memberSecurityProfiles.memberId, memberId));
+  }
+
+  // Member Performance Metrics
+  async getMemberPerformanceMetrics(memberId: string): Promise<MemberPerformanceMetrics | undefined> {
+    const result = await db.select().from(memberPerformanceMetrics).where(eq(memberPerformanceMetrics.memberId, memberId)).limit(1);
+    return result[0];
+  }
+
+  async createMemberPerformanceMetrics(data: InsertMemberPerformanceMetrics): Promise<MemberPerformanceMetrics> {
+    const result = await db.insert(memberPerformanceMetrics).values(data).returning();
+    return result[0];
+  }
+
+  async updateMemberPerformanceMetrics(memberId: string, data: Partial<MemberPerformanceMetrics>): Promise<void> {
+    await db.update(memberPerformanceMetrics).set({
+      ...data,
+      metricsUpdatedAt: new Date(),
+    }).where(eq(memberPerformanceMetrics.memberId, memberId));
+  }
+
+  // Member Slash Events
+  async getMemberSlashEvents(memberId: string): Promise<MemberSlashEvent[]> {
+    return db.select().from(memberSlashEvents).where(eq(memberSlashEvents.memberId, memberId)).orderBy(desc(memberSlashEvents.occurredAt));
+  }
+
+  async createMemberSlashEvent(data: InsertMemberSlashEvent): Promise<MemberSlashEvent> {
+    const result = await db.insert(memberSlashEvents).values(data).returning();
+    return result[0];
+  }
+
+  // Member Audit Logs
+  async getMemberAuditLogs(memberId: string, limit: number = 100): Promise<MemberAuditLog[]> {
+    return db.select().from(memberAuditLogs).where(eq(memberAuditLogs.memberId, memberId)).orderBy(desc(memberAuditLogs.timestamp)).limit(limit);
+  }
+
+  async createMemberAuditLog(data: InsertMemberAuditLog): Promise<MemberAuditLog> {
+    const result = await db.insert(memberAuditLogs).values(data).returning();
+    return result[0];
+  }
+
+  // Member Analytics
+  async getMemberStatistics(): Promise<{
+    totalMembers: number;
+    activeMembers: number;
+    totalValidators: number;
+    totalStakers: number;
+    kycVerified: number;
+  }> {
+    // Get all members to calculate statistics
+    const allMembers = await this.getAllMembers(10000);
+    
+    const stats = {
+      totalMembers: allMembers.length,
+      activeMembers: allMembers.filter(m => m.memberStatus === 'active').length,
+      totalValidators: allMembers.filter(m => 
+        ['active_validator', 'inactive_validator', 'genesis_validator', 'enterprise_validator', 'governance_validator'].includes(m.memberTier)
+      ).length,
+      totalStakers: allMembers.filter(m => 
+        m.memberTier !== 'basic_user'
+      ).length,
+      kycVerified: allMembers.filter(m => 
+        m.kycLevel !== 'none'
+      ).length,
+    };
+    
+    return stats;
   }
 }
 

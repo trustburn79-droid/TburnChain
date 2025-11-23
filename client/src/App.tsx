@@ -28,6 +28,8 @@ import Consensus from "@/pages/consensus";
 import TransactionSimulator from "@/pages/transaction-simulator";
 import ApiKeys from "@/pages/api-keys";
 import AdminPage from "@/pages/admin";
+import Members from "@/pages/members";
+import MemberDetail from "@/pages/member-detail";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 
@@ -41,6 +43,8 @@ function Router() {
       <Route path="/simulator" component={TransactionSimulator} />
       <Route path="/validators" component={Validators} />
       <Route path="/validator/:address" component={ValidatorDetail} />
+      <Route path="/members" component={Members} />
+      <Route path="/members/:id" component={MemberDetail} />
       <Route path="/ai" component={AIOrchestration} />
       <Route path="/sharding" component={Sharding} />
       <Route path="/cross-shard" component={CrossShard} />

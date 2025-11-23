@@ -12,6 +12,7 @@ import {
   Server,
   Settings,
   TrendingUp,
+  Users,
   Vote,
   Zap,
 } from "lucide-react";
@@ -51,6 +52,12 @@ const menuItems = [
     title: "Validators",
     url: "/validators",
     icon: Server,
+    group: "Network",
+  },
+  {
+    title: "Members",
+    url: "/members",
+    icon: Users,
     group: "Network",
   },
   {

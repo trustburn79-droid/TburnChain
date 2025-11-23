@@ -323,6 +323,263 @@ export const committeeSnapshots = pgTable("committee_snapshots", {
 });
 
 // ============================================
+// MEMBER MANAGEMENT SYSTEM
+// ============================================
+
+// Members - Core member table
+export const members = pgTable("members", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  accountAddress: text("account_address").notNull().unique(),
+  publicKey: text("public_key").notNull(),
+  
+  // Identity Information
+  displayName: text("display_name"),
+  legalName: text("legal_name"), // KYC verified name
+  entityType: text("entity_type").notNull().default("individual"), // individual, corporation, partnership, dao, foundation, government
+  jurisdiction: text("jurisdiction"), // ISO 3166-1 country code
+  registrationNumber: text("registration_number"), // business/legal registration
+  
+  // Member Classification
+  memberTier: text("member_tier").notNull().default("basic_user"), // basic_user, delegated_staker, candidate_validator, active_validator, inactive_validator, genesis_validator, enterprise_validator, governance_validator, probation_validator, suspended_validator, slashed_validator
+  memberStatus: text("member_status").notNull().default("pending"), // pending, active, inactive, suspended, terminated, blacklisted
+  
+  // KYC/AML
+  kycLevel: text("kyc_level").notNull().default("none"), // none, basic, enhanced, institutional
+  kycProvider: text("kyc_provider"),
+  kycVerifiedAt: timestamp("kyc_verified_at"),
+  kycExpiryDate: timestamp("kyc_expiry_date"),
+  amlRiskScore: integer("aml_risk_score").notNull().default(0), // 0-100 (lower is safer)
+  sanctionsCheckPassed: boolean("sanctions_check_passed").notNull().default(false),
+  pepStatus: boolean("pep_status").notNull().default(false), // Politically Exposed Person
+  
+  // Contact (encrypted)
+  encryptedEmail: text("encrypted_email"),
+  encryptedPhone: text("encrypted_phone"),
+  
+  // Validator Reference (if member is a validator)
+  validatorId: varchar("validator_id"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  lastActivityAt: timestamp("last_activity_at"),
+});
+
+// Member Profiles - Extended member information
+export const memberProfiles = pgTable("member_profiles", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull().unique(),
+  
+  // Profile Information
+  bio: text("bio"),
+  avatarUrl: text("avatar_url"),
+  website: text("website"),
+  twitter: text("twitter"),
+  telegram: text("telegram"),
+  discord: text("discord"),
+  github: text("github"),
+  
+  // Preferences
+  preferredLanguage: text("preferred_language").notNull().default("en"), // ISO 639-1
+  preferredCurrency: text("preferred_currency").notNull().default("USD"), // ISO 4217
+  timezone: text("timezone").notNull().default("UTC"), // IANA timezone
+  
+  // Notification Settings
+  emailNotifications: boolean("email_notifications").notNull().default(true),
+  smsNotifications: boolean("sms_notifications").notNull().default(false),
+  pushNotifications: boolean("push_notifications").notNull().default(true),
+  
+  // Referral
+  referralCode: text("referral_code").unique(),
+  referredBy: text("referred_by"), // member address who referred
+  referralCount: integer("referral_count").notNull().default(0),
+  referralRewardsEarned: text("referral_rewards_earned").notNull().default("0"),
+  
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Member Staking Positions
+export const memberStakingPositions = pgTable("member_staking_positions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull(),
+  stakingType: text("staking_type").notNull(), // self_validation, delegation, liquid_staking
+  validatorAddress: text("validator_address"), // if delegated staking
+  
+  amount: text("amount").notNull(),
+  shares: text("shares").notNull().default("0"),
+  stakedAt: timestamp("staked_at").notNull().defaultNow(),
+  lockPeriod: integer("lock_period").notNull().default(0), // days
+  unlockAt: timestamp("unlock_at"),
+  
+  autoCompound: boolean("auto_compound").notNull().default(false),
+  tierBonus: integer("tier_bonus").notNull().default(0), // basis points
+  
+  status: text("status").notNull().default("active"), // active, unbonding, unbonded, slashed
+  
+  // Rewards
+  accumulatedRewards: text("accumulated_rewards").notNull().default("0"),
+  claimedRewards: text("claimed_rewards").notNull().default("0"),
+  lastClaimAt: timestamp("last_claim_at"),
+});
+
+// Member Governance Profile
+export const memberGovernanceProfiles = pgTable("member_governance_profiles", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull().unique(),
+  
+  // Voting Power
+  votingPower: text("voting_power").notNull().default("0"),
+  delegatedVotingPower: text("delegated_voting_power").notNull().default("0"),
+  
+  // Proposal Activity
+  proposalsCreated: integer("proposals_created").notNull().default(0),
+  proposalsPassed: integer("proposals_passed").notNull().default(0),
+  proposalsRejected: integer("proposals_rejected").notNull().default(0),
+  
+  // Voting Activity
+  totalVotesCast: integer("total_votes_cast").notNull().default(0),
+  votesFor: integer("votes_for").notNull().default(0),
+  votesAgainst: integer("votes_against").notNull().default(0),
+  votesAbstain: integer("votes_abstain").notNull().default(0),
+  votingParticipationRate: integer("voting_participation_rate").notNull().default(0), // basis points
+  
+  // Delegation
+  delegatedTo: text("delegated_to"), // member address if voting power is delegated
+  delegatedFrom: jsonb("delegated_from").notNull().default([]), // array of addresses who delegated to this member
+  
+  // Reputation
+  reputationScore: integer("reputation_score").notNull().default(5000), // basis points
+  contributionLevel: text("contribution_level").notNull().default("observer"), // observer, participant, contributor, leader
+  
+  lastVoteAt: timestamp("last_vote_at"),
+  lastProposalAt: timestamp("last_proposal_at"),
+});
+
+// Member Financial Profile
+export const memberFinancialProfiles = pgTable("member_financial_profiles", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull().unique(),
+  
+  // Balances
+  totalBalance: text("total_balance").notNull().default("0"),
+  availableBalance: text("available_balance").notNull().default("0"),
+  lockedBalance: text("locked_balance").notNull().default("0"),
+  stakedBalance: text("staked_balance").notNull().default("0"),
+  
+  // Transaction Statistics
+  totalTransactions: bigint("total_transactions", { mode: "number" }).notNull().default(0),
+  totalSent: text("total_sent").notNull().default("0"),
+  totalReceived: text("total_received").notNull().default("0"),
+  totalFeesPaid: text("total_fees_paid").notNull().default("0"),
+  
+  // Rewards Statistics
+  validatorRewards: text("validator_rewards").notNull().default("0"),
+  stakingRewards: text("staking_rewards").notNull().default("0"),
+  delegationRewards: text("delegation_rewards").notNull().default("0"),
+  referralRewards: text("referral_rewards").notNull().default("0"),
+  
+  // Slashing
+  totalSlashed: text("total_slashed").notNull().default("0"),
+  slashCount: integer("slash_count").notNull().default(0),
+  
+  // Tax Information
+  taxReportingEnabled: boolean("tax_reporting_enabled").notNull().default(false),
+  taxJurisdiction: text("tax_jurisdiction"),
+  
+  firstTransactionAt: timestamp("first_transaction_at"),
+  lastTransactionAt: timestamp("last_transaction_at"),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Member Security Profile
+export const memberSecurityProfiles = pgTable("member_security_profiles", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull().unique(),
+  
+  // Authentication
+  twoFactorEnabled: boolean("two_factor_enabled").notNull().default(false),
+  multiSigEnabled: boolean("multi_sig_enabled").notNull().default(false),
+  requiredConfirmations: integer("required_confirmations").notNull().default(1),
+  
+  // Access Control
+  ipWhitelist: jsonb("ip_whitelist").notNull().default([]), // array of allowed IPs
+  allowedRegions: jsonb("allowed_regions").notNull().default([]), // array of ISO country codes
+  maxSessionDuration: integer("max_session_duration").notNull().default(86400), // seconds
+  
+  // Security Events
+  failedLoginAttempts: integer("failed_login_attempts").notNull().default(0),
+  lastFailedLogin: timestamp("last_failed_login"),
+  lastKeyRotation: timestamp("last_key_rotation"),
+  nextKeyRotationDue: timestamp("next_key_rotation_due"),
+  
+  // Risk Management
+  riskScore: integer("risk_score").notNull().default(0), // 0-100 (higher is riskier)
+  lastRiskAssessment: timestamp("last_risk_assessment").notNull().defaultNow(),
+  
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Member Performance Metrics
+export const memberPerformanceMetrics = pgTable("member_performance_metrics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull(),
+  validatorAddress: text("validator_address"), // if member is a validator
+  
+  // Real-time Metrics
+  currentUptime: integer("current_uptime").notNull().default(0), // seconds
+  currentTps: integer("current_tps").notNull().default(0),
+  currentLatencyMs: integer("current_latency_ms").notNull().default(0),
+  
+  // SLA Compliance
+  slaComplianceRate: integer("sla_compliance_rate").notNull().default(0), // basis points
+  downtimeIncidents: integer("downtime_incidents").notNull().default(0),
+  
+  // Performance Grade
+  performanceGrade: text("performance_grade").notNull().default("B"), // S, A, B, C, D, F
+  performanceScore: integer("performance_score").notNull().default(5000), // 0-10000
+  performanceRank: integer("performance_rank"), // overall rank among validators
+  
+  metricsUpdatedAt: timestamp("metrics_updated_at").notNull().defaultNow(),
+});
+
+// Member Slash Events
+export const memberSlashEvents = pgTable("member_slash_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull(),
+  validatorAddress: text("validator_address"),
+  
+  slashType: text("slash_type").notNull(), // double_sign, downtime, invalid_block, consensus_violation, security_breach
+  amount: text("amount").notNull(),
+  reason: text("reason").notNull(),
+  evidenceHash: text("evidence_hash"),
+  
+  appealStatus: text("appeal_status").notNull().default("none"), // none, pending, approved, rejected
+  appealDeadline: timestamp("appeal_deadline"),
+  
+  occurredAt: timestamp("occurred_at").notNull().defaultNow(),
+});
+
+// Member Audit Logs
+export const memberAuditLogs = pgTable("member_audit_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull(),
+  
+  actionType: text("action_type").notNull(), // login, logout, stake, unstake, vote, propose, withdraw, etc.
+  actor: text("actor").notNull(), // who performed the action (member address or system)
+  target: text("target"), // target of the action if applicable
+  
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  
+  success: boolean("success").notNull(),
+  errorMessage: text("error_message"),
+  
+  details: jsonb("details"), // additional context
+  
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+});
+
+// ============================================
 // Insert Schemas and Types
 // ============================================
 
@@ -342,6 +599,17 @@ export const insertWalletBalanceSchema = createInsertSchema(walletBalances).omit
 export const insertDelegationSchema = createInsertSchema(delegations).omit({ id: true, delegatedAt: true });
 export const insertValidatorVoteSchema = createInsertSchema(validatorVotes).omit({ id: true, timestamp: true });
 export const insertCommitteeSnapshotSchema = createInsertSchema(committeeSnapshots).omit({ id: true, createdAt: true });
+
+// Member Management System Insert Schemas
+export const insertMemberSchema = createInsertSchema(members).omit({ id: true, createdAt: true, updatedAt: true, lastActivityAt: true });
+export const insertMemberProfileSchema = createInsertSchema(memberProfiles).omit({ id: true, updatedAt: true });
+export const insertMemberStakingPositionSchema = createInsertSchema(memberStakingPositions).omit({ id: true, stakedAt: true, lastClaimAt: true });
+export const insertMemberGovernanceProfileSchema = createInsertSchema(memberGovernanceProfiles).omit({ id: true, lastVoteAt: true, lastProposalAt: true });
+export const insertMemberFinancialProfileSchema = createInsertSchema(memberFinancialProfiles).omit({ id: true, updatedAt: true, firstTransactionAt: true, lastTransactionAt: true });
+export const insertMemberSecurityProfileSchema = createInsertSchema(memberSecurityProfiles).omit({ id: true, updatedAt: true, lastFailedLogin: true, lastKeyRotation: true, nextKeyRotationDue: true, lastRiskAssessment: true });
+export const insertMemberPerformanceMetricsSchema = createInsertSchema(memberPerformanceMetrics).omit({ id: true, metricsUpdatedAt: true });
+export const insertMemberSlashEventSchema = createInsertSchema(memberSlashEvents).omit({ id: true, occurredAt: true });
+export const insertMemberAuditLogSchema = createInsertSchema(memberAuditLogs).omit({ id: true, timestamp: true });
 
 // Infer the types for the new tables
 export type Delegation = typeof delegations.$inferSelect;
@@ -428,6 +696,34 @@ export type InsertCrossShardMessage = z.infer<typeof insertCrossShardMessageSche
 
 export type WalletBalance = typeof walletBalances.$inferSelect;
 export type InsertWalletBalance = z.infer<typeof insertWalletBalanceSchema>;
+
+// Member Management System Types
+export type Member = typeof members.$inferSelect;
+export type InsertMember = z.infer<typeof insertMemberSchema>;
+
+export type MemberProfile = typeof memberProfiles.$inferSelect;
+export type InsertMemberProfile = z.infer<typeof insertMemberProfileSchema>;
+
+export type MemberStakingPosition = typeof memberStakingPositions.$inferSelect;
+export type InsertMemberStakingPosition = z.infer<typeof insertMemberStakingPositionSchema>;
+
+export type MemberGovernanceProfile = typeof memberGovernanceProfiles.$inferSelect;
+export type InsertMemberGovernanceProfile = z.infer<typeof insertMemberGovernanceProfileSchema>;
+
+export type MemberFinancialProfile = typeof memberFinancialProfiles.$inferSelect;
+export type InsertMemberFinancialProfile = z.infer<typeof insertMemberFinancialProfileSchema>;
+
+export type MemberSecurityProfile = typeof memberSecurityProfiles.$inferSelect;
+export type InsertMemberSecurityProfile = z.infer<typeof insertMemberSecurityProfileSchema>;
+
+export type MemberPerformanceMetrics = typeof memberPerformanceMetrics.$inferSelect;
+export type InsertMemberPerformanceMetrics = z.infer<typeof insertMemberPerformanceMetricsSchema>;
+
+export type MemberSlashEvent = typeof memberSlashEvents.$inferSelect;
+export type InsertMemberSlashEvent = z.infer<typeof insertMemberSlashEventSchema>;
+
+export type MemberAuditLog = typeof memberAuditLogs.$inferSelect;
+export type InsertMemberAuditLog = z.infer<typeof insertMemberAuditLogSchema>;
 
 // ============================================
 // Additional Types for Frontend

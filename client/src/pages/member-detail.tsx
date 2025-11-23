@@ -1,0 +1,797 @@
+import { useParams, Link } from "wouter";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Users,
+  Shield,
+  Coins,
+  Award,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  ArrowLeft,
+  Wallet,
+  TrendingUp,
+  TrendingDown,
+  Activity,
+  Lock,
+  Unlock,
+  FileText,
+  Clock,
+  DollarSign,
+  Vote,
+  Settings,
+} from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
+import { queryClient, apiRequest } from "@/lib/queryClient";
+
+interface MemberDetail {
+  id: string;
+  accountAddress: string;
+  memberTier: string;
+  memberStatus: string;
+  kycLevel: string;
+  joinedAt: string;
+  updatedAt: string;
+  profile?: {
+    displayName: string;
+    email?: string;
+    avatarUrl?: string;
+    bio?: string;
+    location?: string;
+    website?: string;
+    twitter?: string;
+    updatedAt?: string;
+  };
+  governance?: {
+    votingPower: string;
+    proposalsCreated: number;
+    votesParticipated: number;
+    currentDelegations: number;
+    delegatedVotingPower: string;
+  };
+  financial?: {
+    totalStaked: string;
+    totalRewards: string;
+    totalWithdrawn: string;
+    pendingRewards: string;
+    lockedBalance: string;
+    availableBalance: string;
+    updatedAt?: string;
+  };
+  security?: {
+    twoFactorEnabled: boolean;
+    lastPasswordChange: string;
+    failedLoginAttempts: number;
+    lastFailedLogin?: string;
+    apiKeysActive: number;
+    ipWhitelist: string[];
+    updatedAt?: string;
+  };
+  performance?: {
+    totalTransactions: number;
+    successfulTransactions: number;
+    failedTransactions: number;
+    averageResponseTime: number;
+    reliability: number;
+    uptime: number;
+    slashEvents: number;
+    reputationScore: number;
+    metricsUpdatedAt?: string;
+  };
+  stakingPositions?: Array<{
+    id: string;
+    validatorAddress: string;
+    amount: string;
+    rewards: string;
+    stakedAt: string;
+    lastClaimAt?: string;
+    status: string;
+  }>;
+  slashEvents?: Array<{
+    id: string;
+    slashType: string;
+    amount: string;
+    reason: string;
+    occurredAt: string;
+    reversedAt?: string;
+  }>;
+}
+
+const tierColors: Record<string, string> = {
+  basic_user: "bg-gray-500",
+  staker: "bg-blue-500",
+  active_validator: "bg-green-500",
+  inactive_validator: "bg-yellow-500",
+  genesis_validator: "bg-purple-500",
+  enterprise_validator: "bg-indigo-500",
+  governance_validator: "bg-pink-500",
+};
+
+const statusColors: Record<string, string> = {
+  active: "bg-green-500",
+  inactive: "bg-gray-500",
+  suspended: "bg-red-500",
+  pending_kyc: "bg-yellow-500",
+};
+
+const kycColors: Record<string, string> = {
+  none: "bg-gray-500",
+  basic: "bg-blue-500",
+  advanced: "bg-green-500",
+  institutional: "bg-purple-500",
+};
+
+export default function MemberDetailPage() {
+  const params = useParams();
+  const memberId = params.id;
+
+  // Fetch member details
+  const { data: member, isLoading } = useQuery<MemberDetail>({
+    queryKey: [`/api/members/${memberId}`],
+    refetchInterval: 10000,
+  });
+
+  // Fetch audit logs
+  const { data: auditLogs } = useQuery<Array<{
+    id: string;
+    action: string;
+    details: string;
+    timestamp: string;
+    performedBy?: string;
+  }>>({
+    queryKey: [`/api/members/${memberId}/audit-logs`],
+    refetchInterval: 30000,
+  });
+
+  const formatAmount = (amount: string | undefined) => {
+    if (!amount) return "0";
+    const value = parseFloat(amount) / 1e18;
+    if (value >= 1e6) return `${(value / 1e6).toFixed(2)}M`;
+    if (value >= 1e3) return `${(value / 1e3).toFixed(2)}K`;
+    return value.toFixed(4);
+  };
+
+  const getTierIcon = (tier: string) => {
+    if (tier.includes("validator")) return <Shield className="h-5 w-5" />;
+    if (tier === "staker") return <Coins className="h-5 w-5" />;
+    return <Users className="h-5 w-5" />;
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "active":
+        return <CheckCircle className="h-5 w-5" />;
+      case "inactive":
+        return <XCircle className="h-5 w-5" />;
+      case "suspended":
+        return <AlertCircle className="h-5 w-5" />;
+      default:
+        return <AlertCircle className="h-5 w-5" />;
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto p-8">
+        <div className="space-y-4">
+          <Skeleton className="h-12 w-1/3" />
+          <Skeleton className="h-64 w-full" />
+          <Skeleton className="h-96 w-full" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!member) {
+    return (
+      <div className="container mx-auto p-8">
+        <div className="text-center py-12">
+          <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2">Member Not Found</h2>
+          <p className="text-muted-foreground mb-4">
+            The member you're looking for doesn't exist.
+          </p>
+          <Link href="/members">
+            <Button variant="outline">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Members
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto p-8">
+      {/* Header */}
+      <div className="mb-8">
+        <Link href="/members">
+          <Button variant="outline" size="sm" className="mb-4">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Members
+          </Button>
+        </Link>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">
+              {member.profile?.displayName || "Anonymous Member"}
+            </h1>
+            <div className="flex items-center gap-4">
+              <code className="text-sm bg-muted px-2 py-1 rounded">
+                {member.accountAddress}
+              </code>
+              <Badge className={`${tierColors[member.memberTier]} text-white`}>
+                <span className="flex items-center gap-1">
+                  {getTierIcon(member.memberTier)}
+                  {member.memberTier.replace(/_/g, " ").toUpperCase()}
+                </span>
+              </Badge>
+              <Badge className={`${statusColors[member.memberStatus]} text-white`}>
+                <span className="flex items-center gap-1">
+                  {getStatusIcon(member.memberStatus)}
+                  {member.memberStatus.replace(/_/g, " ").toUpperCase()}
+                </span>
+              </Badge>
+              <Badge className={`${kycColors[member.kycLevel]} text-white`}>
+                KYC: {member.kycLevel.toUpperCase()}
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Overview Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <Card data-testid="card-voting-power">
+          <CardHeader className="pb-3">
+            <CardDescription className="flex items-center gap-2">
+              <Vote className="h-4 w-4" />
+              Voting Power
+            </CardDescription>
+            <CardTitle className="text-2xl">
+              {member.governance?.votingPower || "0"}
+            </CardTitle>
+          </CardHeader>
+        </Card>
+        <Card data-testid="card-total-staked">
+          <CardHeader className="pb-3">
+            <CardDescription className="flex items-center gap-2">
+              <Lock className="h-4 w-4" />
+              Total Staked
+            </CardDescription>
+            <CardTitle className="text-2xl">
+              {formatAmount(member.financial?.totalStaked)} TBURN
+            </CardTitle>
+          </CardHeader>
+        </Card>
+        <Card data-testid="card-total-rewards">
+          <CardHeader className="pb-3">
+            <CardDescription className="flex items-center gap-2">
+              <DollarSign className="h-4 w-4" />
+              Total Rewards
+            </CardDescription>
+            <CardTitle className="text-2xl">
+              {formatAmount(member.financial?.totalRewards)} TBURN
+            </CardTitle>
+          </CardHeader>
+        </Card>
+        <Card data-testid="card-reputation">
+          <CardHeader className="pb-3">
+            <CardDescription className="flex items-center gap-2">
+              <Award className="h-4 w-4" />
+              Reputation Score
+            </CardDescription>
+            <CardTitle className="text-2xl">
+              {member.performance?.reputationScore || 0}/100
+            </CardTitle>
+          </CardHeader>
+        </Card>
+      </div>
+
+      {/* Detailed Information Tabs */}
+      <Tabs defaultValue="profile" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="profile" data-testid="tab-profile">
+            Profile
+          </TabsTrigger>
+          <TabsTrigger value="staking" data-testid="tab-staking">
+            Staking ({member.stakingPositions?.length || 0})
+          </TabsTrigger>
+          <TabsTrigger value="governance" data-testid="tab-governance">
+            Governance
+          </TabsTrigger>
+          <TabsTrigger value="financial" data-testid="tab-financial">
+            Financial
+          </TabsTrigger>
+          <TabsTrigger value="performance" data-testid="tab-performance">
+            Performance
+          </TabsTrigger>
+          <TabsTrigger value="security" data-testid="tab-security">
+            Security
+          </TabsTrigger>
+          <TabsTrigger value="audit" data-testid="tab-audit">
+            Audit Logs
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Profile Tab */}
+        <TabsContent value="profile">
+          <Card>
+            <CardHeader>
+              <CardTitle>Profile Information</CardTitle>
+              <CardDescription>
+                Member profile and contact details
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <div className="text-sm text-muted-foreground">Display Name</div>
+                  <div className="font-medium">{member.profile?.displayName || "Not set"}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Email</div>
+                  <div className="font-medium">{member.profile?.email || "Not set"}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Location</div>
+                  <div className="font-medium">{member.profile?.location || "Not set"}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Website</div>
+                  <div className="font-medium">{member.profile?.website || "Not set"}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Member Since</div>
+                  <div className="font-medium">
+                    {formatDistanceToNow(new Date(member.joinedAt), { addSuffix: true })}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Last Updated</div>
+                  <div className="font-medium">
+                    {formatDistanceToNow(new Date(member.updatedAt), { addSuffix: true })}
+                  </div>
+                </div>
+              </div>
+              {member.profile?.bio && (
+                <div>
+                  <div className="text-sm text-muted-foreground mb-2">Bio</div>
+                  <div className="p-3 bg-muted rounded-md">{member.profile.bio}</div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Staking Tab */}
+        <TabsContent value="staking">
+          <Card>
+            <CardHeader>
+              <CardTitle>Staking Positions</CardTitle>
+              <CardDescription>
+                Active and historical staking positions
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {member.stakingPositions && member.stakingPositions.length > 0 ? (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Validator</TableHead>
+                      <TableHead>Amount Staked</TableHead>
+                      <TableHead>Rewards</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Staked At</TableHead>
+                      <TableHead>Last Claim</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {member.stakingPositions.map((position) => (
+                      <TableRow key={position.id}>
+                        <TableCell>
+                          <Link href={`/validator/${position.validatorAddress}`}>
+                            <Button variant="ghost" className="p-0 h-auto font-mono">
+                              {position.validatorAddress.slice(0, 6)}...
+                              {position.validatorAddress.slice(-4)}
+                            </Button>
+                          </Link>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1">
+                            <Coins className="h-4 w-4 text-muted-foreground" />
+                            {formatAmount(position.amount)} TBURN
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1">
+                            <DollarSign className="h-4 w-4 text-muted-foreground" />
+                            {formatAmount(position.rewards)} TBURN
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant={position.status === "active" ? "default" : "secondary"}>
+                            {position.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          {formatDistanceToNow(new Date(position.stakedAt), { addSuffix: true })}
+                        </TableCell>
+                        <TableCell>
+                          {position.lastClaimAt
+                            ? formatDistanceToNow(new Date(position.lastClaimAt), { addSuffix: true })
+                            : "Never"}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <div className="text-center py-8">
+                  <Coins className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground">No staking positions found</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Governance Tab */}
+        <TabsContent value="governance">
+          <Card>
+            <CardHeader>
+              <CardTitle>Governance Participation</CardTitle>
+              <CardDescription>
+                Voting power and participation metrics
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div>
+                  <div className="text-sm text-muted-foreground">Voting Power</div>
+                  <div className="text-2xl font-bold">{member.governance?.votingPower || "0"}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Proposals Created</div>
+                  <div className="text-2xl font-bold">
+                    {member.governance?.proposalsCreated || 0}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Votes Participated</div>
+                  <div className="text-2xl font-bold">
+                    {member.governance?.votesParticipated || 0}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Current Delegations</div>
+                  <div className="text-2xl font-bold">
+                    {member.governance?.currentDelegations || 0}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Delegated Voting Power</div>
+                  <div className="text-2xl font-bold">
+                    {member.governance?.delegatedVotingPower || "0"}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Financial Tab */}
+        <TabsContent value="financial">
+          <Card>
+            <CardHeader>
+              <CardTitle>Financial Overview</CardTitle>
+              <CardDescription>
+                Balances, rewards, and financial metrics
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div>
+                  <div className="text-sm text-muted-foreground">Total Staked</div>
+                  <div className="text-2xl font-bold">
+                    {formatAmount(member.financial?.totalStaked)} TBURN
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Total Rewards</div>
+                  <div className="text-2xl font-bold text-green-500">
+                    {formatAmount(member.financial?.totalRewards)} TBURN
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Total Withdrawn</div>
+                  <div className="text-2xl font-bold">
+                    {formatAmount(member.financial?.totalWithdrawn)} TBURN
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Pending Rewards</div>
+                  <div className="text-2xl font-bold text-yellow-500">
+                    {formatAmount(member.financial?.pendingRewards)} TBURN
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Locked Balance</div>
+                  <div className="text-2xl font-bold">
+                    {formatAmount(member.financial?.lockedBalance)} TBURN
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Available Balance</div>
+                  <div className="text-2xl font-bold text-blue-500">
+                    {formatAmount(member.financial?.availableBalance)} TBURN
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Performance Tab */}
+        <TabsContent value="performance">
+          <Card>
+            <CardHeader>
+              <CardTitle>Performance Metrics</CardTitle>
+              <CardDescription>
+                Transaction history and performance indicators
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div>
+                    <div className="text-sm text-muted-foreground">Total Transactions</div>
+                    <div className="text-2xl font-bold">
+                      {member.performance?.totalTransactions || 0}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Success Rate</div>
+                    <div className="text-2xl font-bold text-green-500">
+                      {((member.performance?.successfulTransactions || 0) /
+                        (member.performance?.totalTransactions || 1) * 100).toFixed(1)}%
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Avg Response Time</div>
+                    <div className="text-2xl font-bold">
+                      {member.performance?.averageResponseTime || 0}ms
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Slash Events</div>
+                    <div className="text-2xl font-bold text-red-500">
+                      {member.performance?.slashEvents || 0}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-sm">Reliability</span>
+                      <span className="text-sm font-medium">
+                        {member.performance?.reliability || 0}%
+                      </span>
+                    </div>
+                    <Progress value={member.performance?.reliability || 0} />
+                  </div>
+                  <div>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-sm">Uptime</span>
+                      <span className="text-sm font-medium">
+                        {member.performance?.uptime || 0}%
+                      </span>
+                    </div>
+                    <Progress value={member.performance?.uptime || 0} />
+                  </div>
+                  <div>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-sm">Reputation Score</span>
+                      <span className="text-sm font-medium">
+                        {member.performance?.reputationScore || 0}/100
+                      </span>
+                    </div>
+                    <Progress value={member.performance?.reputationScore || 0} />
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Security Tab */}
+        <TabsContent value="security">
+          <Card>
+            <CardHeader>
+              <CardTitle>Security Settings</CardTitle>
+              <CardDescription>
+                Account security and access control
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <div className="text-sm text-muted-foreground">Two-Factor Authentication</div>
+                  <div className="flex items-center gap-2 mt-1">
+                    {member.security?.twoFactorEnabled ? (
+                      <>
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                        <span className="font-medium">Enabled</span>
+                      </>
+                    ) : (
+                      <>
+                        <XCircle className="h-5 w-5 text-red-500" />
+                        <span className="font-medium">Disabled</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">API Keys Active</div>
+                  <div className="text-2xl font-bold">{member.security?.apiKeysActive || 0}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Failed Login Attempts</div>
+                  <div className="text-2xl font-bold text-red-500">
+                    {member.security?.failedLoginAttempts || 0}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Last Password Change</div>
+                  <div className="font-medium">
+                    {member.security?.lastPasswordChange
+                      ? formatDistanceToNow(new Date(member.security.lastPasswordChange), {
+                          addSuffix: true,
+                        })
+                      : "Never"}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">Last Failed Login</div>
+                  <div className="font-medium">
+                    {member.security?.lastFailedLogin
+                      ? formatDistanceToNow(new Date(member.security.lastFailedLogin), {
+                          addSuffix: true,
+                        })
+                      : "Never"}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">IP Whitelist</div>
+                  <div className="font-medium">
+                    {member.security?.ipWhitelist?.length || 0} IPs
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Audit Logs Tab */}
+        <TabsContent value="audit">
+          <Card>
+            <CardHeader>
+              <CardTitle>Audit Logs</CardTitle>
+              <CardDescription>
+                Recent activity and changes
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {auditLogs && auditLogs.length > 0 ? (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Timestamp</TableHead>
+                      <TableHead>Action</TableHead>
+                      <TableHead>Details</TableHead>
+                      <TableHead>Performed By</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {auditLogs.map((log) => (
+                      <TableRow key={log.id}>
+                        <TableCell>
+                          {formatDistanceToNow(new Date(log.timestamp), { addSuffix: true })}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">{log.action}</Badge>
+                        </TableCell>
+                        <TableCell className="max-w-md truncate">{log.details}</TableCell>
+                        <TableCell>{log.performedBy || "System"}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <div className="text-center py-8">
+                  <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground">No audit logs available</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Slash Events */}
+          {member.slashEvents && member.slashEvents.length > 0 && (
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>Slash Events</CardTitle>
+                <CardDescription>
+                  Penalties and slashing history
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Date</TableHead>
+                      <TableHead>Type</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Reason</TableHead>
+                      <TableHead>Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {member.slashEvents.map((event) => (
+                      <TableRow key={event.id}>
+                        <TableCell>
+                          {formatDistanceToNow(new Date(event.occurredAt), { addSuffix: true })}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="destructive">{event.slashType}</Badge>
+                        </TableCell>
+                        <TableCell className="text-red-500">
+                          -{formatAmount(event.amount)} TBURN
+                        </TableCell>
+                        <TableCell>{event.reason}</TableCell>
+                        <TableCell>
+                          {event.reversedAt ? (
+                            <Badge variant="outline">Reversed</Badge>
+                          ) : (
+                            <Badge variant="destructive">Active</Badge>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}

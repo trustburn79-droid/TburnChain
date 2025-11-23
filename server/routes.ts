@@ -716,6 +716,205 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
+  // Member Management System API Endpoints
+  // ============================================
+  
+  // Get all members
+  app.get("/api/members", async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const members = await storage.getAllMembers(limit);
+      res.json(members);
+    } catch (error) {
+      console.error("Error fetching members:", error);
+      res.status(500).json({ error: "Failed to fetch members" });
+    }
+  });
+  
+  // Get member by ID
+  app.get("/api/members/:id", async (req, res) => {
+    try {
+      const member = await storage.getMemberById(req.params.id);
+      if (!member) {
+        return res.status(404).json({ error: "Member not found" });
+      }
+      
+      // Get associated profiles
+      const [profile, governance, financial, security, performance, stakingPositions, slashEvents] = await Promise.all([
+        storage.getMemberProfileByMemberId(member.id),
+        storage.getMemberGovernanceProfile(member.id),
+        storage.getMemberFinancialProfile(member.id),
+        storage.getMemberSecurityProfile(member.id),
+        storage.getMemberPerformanceMetrics(member.id),
+        storage.getMemberStakingPositions(member.id),
+        storage.getMemberSlashEvents(member.id),
+      ]);
+      
+      res.json({
+        ...member,
+        profile,
+        governance,
+        financial,
+        security,
+        performance,
+        stakingPositions,
+        slashEvents,
+      });
+    } catch (error) {
+      console.error("Error fetching member:", error);
+      res.status(500).json({ error: "Failed to fetch member" });
+    }
+  });
+  
+  // Get member by address
+  app.get("/api/members/address/:address", async (req, res) => {
+    try {
+      const member = await storage.getMemberByAddress(req.params.address);
+      if (!member) {
+        return res.status(404).json({ error: "Member not found" });
+      }
+      
+      // Get associated profiles
+      const [profile, governance, financial, security, performance] = await Promise.all([
+        storage.getMemberProfileByMemberId(member.id),
+        storage.getMemberGovernanceProfile(member.id),
+        storage.getMemberFinancialProfile(member.id),
+        storage.getMemberSecurityProfile(member.id),
+        storage.getMemberPerformanceMetrics(member.id),
+      ]);
+      
+      res.json({
+        ...member,
+        profile,
+        governance,
+        financial,
+        security,
+        performance,
+      });
+    } catch (error) {
+      console.error("Error fetching member by address:", error);
+      res.status(500).json({ error: "Failed to fetch member" });
+    }
+  });
+  
+  // Create new member
+  app.post("/api/members", async (req, res) => {
+    try {
+      const member = await storage.createMember(req.body);
+      
+      // Create associated profiles
+      await Promise.all([
+        storage.createMemberProfile({ memberId: member.id, ...req.body.profile }),
+        storage.createMemberGovernanceProfile({ memberId: member.id }),
+        storage.createMemberFinancialProfile({ memberId: member.id }),
+        storage.createMemberSecurityProfile({ memberId: member.id }),
+      ]);
+      
+      res.status(201).json(member);
+    } catch (error) {
+      console.error("Error creating member:", error);
+      res.status(500).json({ error: "Failed to create member" });
+    }
+  });
+  
+  // Update member
+  app.patch("/api/members/:id", async (req, res) => {
+    try {
+      await storage.updateMember(req.params.id, req.body);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error updating member:", error);
+      res.status(500).json({ error: "Failed to update member" });
+    }
+  });
+  
+  // Update member tier
+  app.post("/api/members/:id/tier", async (req, res) => {
+    try {
+      const { tier } = req.body;
+      await storage.updateMember(req.params.id, { memberTier: tier });
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error updating member tier:", error);
+      res.status(500).json({ error: "Failed to update member tier" });
+    }
+  });
+  
+  // Update member status
+  app.post("/api/members/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      await storage.updateMember(req.params.id, { memberStatus: status });
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error updating member status:", error);
+      res.status(500).json({ error: "Failed to update member status" });
+    }
+  });
+  
+  // Get member staking positions
+  app.get("/api/members/:id/staking", async (req, res) => {
+    try {
+      const positions = await storage.getMemberStakingPositions(req.params.id);
+      res.json(positions);
+    } catch (error) {
+      console.error("Error fetching staking positions:", error);
+      res.status(500).json({ error: "Failed to fetch staking positions" });
+    }
+  });
+  
+  // Create staking position
+  app.post("/api/members/:id/staking", async (req, res) => {
+    try {
+      const position = await storage.createMemberStakingPosition({
+        memberId: req.params.id,
+        ...req.body,
+      });
+      res.status(201).json(position);
+    } catch (error) {
+      console.error("Error creating staking position:", error);
+      res.status(500).json({ error: "Failed to create staking position" });
+    }
+  });
+  
+  // Get member audit logs
+  app.get("/api/members/:id/audit-logs", async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const logs = await storage.getMemberAuditLogs(req.params.id, limit);
+      res.json(logs);
+    } catch (error) {
+      console.error("Error fetching audit logs:", error);
+      res.status(500).json({ error: "Failed to fetch audit logs" });
+    }
+  });
+  
+  // Create audit log
+  app.post("/api/members/:id/audit-logs", async (req, res) => {
+    try {
+      const log = await storage.createMemberAuditLog({
+        memberId: req.params.id,
+        ...req.body,
+      });
+      res.status(201).json(log);
+    } catch (error) {
+      console.error("Error creating audit log:", error);
+      res.status(500).json({ error: "Failed to create audit log" });
+    }
+  });
+  
+  // Get member statistics
+  app.get("/api/members/stats/summary", async (_req, res) => {
+    try {
+      const stats = await storage.getMemberStatistics();
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching member statistics:", error);
+      res.status(500).json({ error: "Failed to fetch member statistics" });
+    }
+  });
+
+  // ============================================
   // Smart Contracts
   // ============================================
   app.get("/api/contracts", async (_req, res) => {

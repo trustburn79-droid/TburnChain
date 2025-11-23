@@ -5,6 +5,9 @@ import {
   Clock,
   Server,
   TrendingUp,
+  Users,
+  Shield,
+  Award,
   Zap,
 } from "lucide-react";
 import { StatCard } from "@/components/stat-card";
@@ -15,6 +18,14 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
+
+interface MemberStats {
+  totalMembers: number;
+  activeMembers: number;
+  totalValidators: number;
+  totalStakers: number;
+  kycVerified: number;
+}
 
 export default function Dashboard() {
   const { data: networkStats, isLoading: statsLoading } = useQuery<NetworkStats>({
@@ -27,6 +38,10 @@ export default function Dashboard() {
 
   const { data: recentTxs, isLoading: txsLoading } = useQuery<Transaction[]>({
     queryKey: ["/api/transactions/recent"],
+  });
+
+  const { data: memberStats, isLoading: memberStatsLoading } = useQuery<MemberStats>({
+    queryKey: ["/api/members/stats/summary"],
   });
 
   return (
@@ -156,6 +171,96 @@ export default function Dashboard() {
             </Card>
           </>
         )}
+      </div>
+
+      {/* Member Statistics */}
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Users className="h-5 w-5" />
+          Member Management
+        </h2>
+        <div className="grid gap-4 md:grid-cols-5">
+          {memberStatsLoading ? (
+            <>
+              <Skeleton className="h-24" />
+              <Skeleton className="h-24" />
+              <Skeleton className="h-24" />
+              <Skeleton className="h-24" />
+              <Skeleton className="h-24" />
+            </>
+          ) : (
+            <>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Total Members
+                  </CardTitle>
+                  <Users className="h-4 w-4 text-primary" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums">
+                    {formatNumber(memberStats?.totalMembers || 0)}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Active Members
+                  </CardTitle>
+                  <Activity className="h-4 w-4 text-green-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums">
+                    {formatNumber(memberStats?.activeMembers || 0)}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Total Validators
+                  </CardTitle>
+                  <Shield className="h-4 w-4 text-blue-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums">
+                    {formatNumber(memberStats?.totalValidators || 0)}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Total Stakers
+                  </CardTitle>
+                  <Award className="h-4 w-4 text-purple-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums">
+                    {formatNumber(memberStats?.totalStakers || 0)}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    KYC Verified
+                  </CardTitle>
+                  <Shield className="h-4 w-4 text-indigo-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums">
+                    {formatNumber(memberStats?.kycVerified || 0)}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {((memberStats?.kycVerified || 0) / (memberStats?.totalMembers || 1) * 100).toFixed(1)}% verified
+                  </p>
+                </CardContent>
+              </Card>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Blocks and Transactions Grid */}
