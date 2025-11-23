@@ -567,30 +567,54 @@ export default function AdminPage() {
           {recentFailures && recentFailures.length > 0 && (
             <Card className="mt-4 border-orange-500/50">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-orange-500" />
-                  Recent Failures
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4 text-orange-500" />
+                    Failure History (Past 24h)
+                  </CardTitle>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => {
+                      localStorage.removeItem("tburn_admin_failure_history");
+                      window.location.reload();
+                    }}
+                    className="h-6 text-xs px-2"
+                  >
+                    Clear History
+                  </Button>
+                </div>
+                <CardDescription className="text-xs mt-1">
+                  Historical API failures stored locally - Not current errors
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-1 max-h-32 overflow-y-auto">
-                  {recentFailures.map((failure, idx) => (
-                    <div key={idx} className="text-xs flex items-center justify-between py-1 border-b last:border-0">
-                      <span className="text-muted-foreground">
-                        {new Date(failure.timestamp).toLocaleTimeString()}
-                      </span>
-                      <span className={`font-mono ${
-                        failure.errorType === "api-rate-limit" ? "text-yellow-500" :
-                        failure.errorType === "api-error" ? "text-red-500" :
-                        "text-orange-500"
-                      }`}>
-                        {failure.statusCode || failure.errorType}
-                      </span>
-                      <span className="text-muted-foreground truncate max-w-[200px]">
-                        {failure.endpoint}
-                      </span>
-                    </div>
-                  ))}
+                  {recentFailures.map((failure, idx) => {
+                    const ageMs = Date.now() - failure.timestamp;
+                    const ageMinutes = Math.floor(ageMs / 60000);
+                    const ageHours = Math.floor(ageMinutes / 60);
+                    const ageText = ageHours > 0 ? `${ageHours}h ago` : `${ageMinutes}m ago`;
+                    
+                    return (
+                      <div key={idx} className="text-xs flex items-center justify-between py-1 border-b last:border-0">
+                        <span className="text-muted-foreground">
+                          {new Date(failure.timestamp).toLocaleTimeString()} 
+                          <span className="text-orange-500 ml-1">({ageText})</span>
+                        </span>
+                        <span className={`font-mono ${
+                          failure.errorType === "api-rate-limit" ? "text-yellow-500" :
+                          failure.errorType === "api-error" ? "text-red-500" :
+                          "text-orange-500"
+                        }`}>
+                          {failure.statusCode || failure.errorType}
+                        </span>
+                        <span className="text-muted-foreground truncate max-w-[200px]">
+                          {failure.endpoint}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
