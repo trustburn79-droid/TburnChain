@@ -363,16 +363,32 @@ export class ValidatorSimulationService {
     }
     const producer = activeValidators[this.currentBlockHeight % activeValidators.length];
     
+    // Calculate realistic gas based on transaction types
+    const transactionCount = 100 + Math.floor(Math.random() * 400); // 100-500 txs
+    
+    // Mix of transaction types for realistic gas usage:
+    // 20% simple transfers (21,000 gas each)
+    // 50% smart contract calls (50,000-200,000 gas each)
+    // 30% DeFi/complex operations (200,000-500,000 gas each)
+    const simpleTransfers = Math.floor(transactionCount * 0.2);
+    const contractCalls = Math.floor(transactionCount * 0.5);
+    const complexOps = transactionCount - simpleTransfers - contractCalls;
+    
+    const gasUsed = 
+      (simpleTransfers * 21000) + // Simple transfers
+      (contractCalls * (50000 + Math.floor(Math.random() * 150000))) + // Smart contracts
+      (complexOps * (200000 + Math.floor(Math.random() * 300000))); // DeFi/complex
+    
     // Create block
     const block = {
       blockNumber: this.currentBlockHeight,
       hash: crypto.randomBytes(32).toString('hex'),
       parentHash: crypto.randomBytes(32).toString('hex'),
       timestamp: Math.floor(Date.now() / 1000),
-      transactionCount: 100 + Math.floor(Math.random() * 400), // 100-500 txs
+      transactionCount: transactionCount,
       validatorAddress: producer.address,
-      gasUsed: Number(BigInt(21000) * BigInt(100 + Math.floor(Math.random() * 400))), // Convert to number
-      gasLimit: 30000000, // Keep as number
+      gasUsed: Math.min(gasUsed, 30000000), // Cap at gas limit
+      gasLimit: 30000000, // 30M gas limit (standard for high-throughput chains)
       size: 50000 + Math.floor(Math.random() * 100000),
       shardId: Math.floor(Math.random() * 5),
       stateRoot: crypto.randomBytes(32).toString('hex'),
