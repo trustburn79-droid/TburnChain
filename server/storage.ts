@@ -234,6 +234,13 @@ export class MemStorage implements IStorage {
   private crossShardMessages: Map<string, CrossShardMessage>;
   private walletBalances: Map<string, WalletBalance>;
 
+  // Memory management limits to prevent memory leaks
+  private readonly MAX_BLOCKS = 100;
+  private readonly MAX_TRANSACTIONS = 500;
+  private readonly MAX_AI_DECISIONS = 100;
+  private readonly MAX_CONSENSUS_ROUNDS = 100;
+  private readonly MAX_CROSS_SHARD_MESSAGES = 50;
+
   constructor() {
     // Initialize network stats with TBURN high-performance metrics (basis points: 10000 = 100.00%)
     this.networkStats = {
@@ -692,6 +699,19 @@ export class MemStorage implements IStorage {
   }
 
   async createBlock(insertBlock: InsertBlock): Promise<Block> {
+    // Clean up old blocks if we've reached the limit
+    if (this.blocks.size >= this.MAX_BLOCKS) {
+      // Get all blocks sorted by blockNumber
+      const sortedBlocks = Array.from(this.blocks.entries())
+        .sort((a, b) => Number(a[1].blockNumber) - Number(b[1].blockNumber));
+      
+      // Remove the oldest 20% of blocks
+      const toRemove = Math.floor(this.MAX_BLOCKS * 0.2);
+      for (let i = 0; i < toRemove; i++) {
+        this.blocks.delete(sortedBlocks[i][0]);
+      }
+    }
+
     const id = randomUUID();
     const block: Block = { 
       ...insertBlock, 
@@ -726,6 +746,19 @@ export class MemStorage implements IStorage {
   }
 
   async createTransaction(insertTx: InsertTransaction): Promise<Transaction> {
+    // Clean up old transactions if we've reached the limit
+    if (this.transactions.size >= this.MAX_TRANSACTIONS) {
+      // Get all transactions sorted by timestamp
+      const sortedTxs = Array.from(this.transactions.entries())
+        .sort((a, b) => Number(a[1].timestamp) - Number(b[1].timestamp));
+      
+      // Remove the oldest 20% of transactions
+      const toRemove = Math.floor(this.MAX_TRANSACTIONS * 0.2);
+      for (let i = 0; i < toRemove; i++) {
+        this.transactions.delete(sortedTxs[i][0]);
+      }
+    }
+
     const id = randomUUID();
     const tx: Transaction = { 
       ...insertTx, 
@@ -1043,6 +1076,23 @@ export class MemStorage implements IStorage {
   }
 
   async createAiDecision(data: InsertAiDecision): Promise<AiDecision> {
+    // Clean up old AI decisions if we've reached the limit
+    if (this.aiDecisions.size >= this.MAX_AI_DECISIONS) {
+      // Get all decisions sorted by createdAt
+      const sortedDecisions = Array.from(this.aiDecisions.entries())
+        .sort((a, b) => {
+          const aTime = a[1].createdAt ? a[1].createdAt.getTime() : 0;
+          const bTime = b[1].createdAt ? b[1].createdAt.getTime() : 0;
+          return aTime - bTime;
+        });
+      
+      // Remove the oldest 20% of decisions
+      const toRemove = Math.floor(this.MAX_AI_DECISIONS * 0.2);
+      for (let i = 0; i < toRemove; i++) {
+        this.aiDecisions.delete(sortedDecisions[i][0]);
+      }
+    }
+
     const decision: AiDecision = {
       id: randomUUID(),
       ...data,
@@ -1176,6 +1226,19 @@ export class MemStorage implements IStorage {
   }
 
   async createConsensusRound(data: import("@shared/schema").InsertConsensusRound): Promise<import("@shared/schema").ConsensusRound> {
+    // Clean up old consensus rounds if we've reached the limit
+    if (this.consensusRounds.size >= this.MAX_CONSENSUS_ROUNDS) {
+      // Get all rounds sorted by blockHeight
+      const sortedRounds = Array.from(this.consensusRounds.entries())
+        .sort((a, b) => a[0] - b[0]);
+      
+      // Remove the oldest 20% of rounds
+      const toRemove = Math.floor(this.MAX_CONSENSUS_ROUNDS * 0.2);
+      for (let i = 0; i < toRemove; i++) {
+        this.consensusRounds.delete(sortedRounds[i][0]);
+      }
+    }
+
     const round: import("@shared/schema").ConsensusRound = {
       id: `round-${data.blockHeight}`,
       ...data,
