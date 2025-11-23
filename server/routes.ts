@@ -291,22 +291,124 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
-  // Blocks
+  // Blocks - Enterprise Grade API
   // ============================================
   app.get("/api/blocks", async (req, res) => {
     try {
-      const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
+      // Parse query parameters
+      const page = req.query.page ? parseInt(req.query.page as string) : 1;
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 20;
+      const offset = (page - 1) * limit;
+      
+      // Parse filters
+      const validatorAddress = req.query.validator as string | undefined;
+      const shardId = req.query.shard ? parseInt(req.query.shard as string) : undefined;
+      const hashAlgorithm = req.query.hashAlgorithm as string | undefined;
+      const startTime = req.query.startTime ? parseInt(req.query.startTime as string) : undefined;
+      const endTime = req.query.endTime ? parseInt(req.query.endTime as string) : undefined;
+      const sortBy = (req.query.sortBy as string) || 'number';
+      const sortOrder = (req.query.sortOrder as string) || 'desc';
+      
       if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
+        // Production mode - Fetch from TBURN mainnet
         const client = getTBurnClient();
         const blocks = await client.getRecentBlocks(limit);
-        res.json(blocks);
+        const totalBlocks = 1000000; // Estimated total blocks for production
+        
+        res.json({
+          blocks,
+          pagination: {
+            page,
+            limit,
+            totalPages: Math.ceil(totalBlocks / limit),
+            totalItems: totalBlocks,
+            hasNext: page * limit < totalBlocks,
+            hasPrev: page > 1
+          }
+        });
       } else {
-        // Fetch from local database (demo mode)
-        const blocks = await storage.getAllBlocks();
-        res.json(blocks);
+        // Demo mode - Use local storage with filtering
+        const allBlocks = await storage.getAllBlocks();
+        
+        // Apply filters
+        let filteredBlocks = allBlocks;
+        
+        if (validatorAddress) {
+          filteredBlocks = filteredBlocks.filter(b => b.validatorAddress === validatorAddress);
+        }
+        
+        if (shardId !== undefined) {
+          filteredBlocks = filteredBlocks.filter(b => b.shardId === shardId);
+        }
+        
+        if (hashAlgorithm) {
+          filteredBlocks = filteredBlocks.filter(b => b.hashAlgorithm === hashAlgorithm);
+        }
+        
+        if (startTime) {
+          filteredBlocks = filteredBlocks.filter(b => b.timestamp >= startTime);
+        }
+        
+        if (endTime) {
+          filteredBlocks = filteredBlocks.filter(b => b.timestamp <= endTime);
+        }
+        
+        // Sort blocks
+        filteredBlocks.sort((a, b) => {
+          let comparison = 0;
+          switch (sortBy) {
+            case 'number':
+              comparison = a.blockNumber - b.blockNumber;
+              break;
+            case 'timestamp':
+              comparison = a.timestamp - b.timestamp;
+              break;
+            case 'transactionCount':
+              comparison = a.transactionCount - b.transactionCount;
+              break;
+            case 'size':
+              comparison = a.size - b.size;
+              break;
+            default:
+              comparison = a.blockNumber - b.blockNumber;
+          }
+          return sortOrder === 'desc' ? -comparison : comparison;
+        });
+        
+        // Paginate
+        const paginatedBlocks = filteredBlocks.slice(offset, offset + limit);
+        
+        // Get validator names for display
+        const validators = await storage.getAllValidators();
+        const validatorMap = new Map(validators.map(v => [v.address, v.name]));
+        
+        // Enrich blocks with validator names
+        const enrichedBlocks = paginatedBlocks.map(block => ({
+          ...block,
+          validatorName: validatorMap.get(block.validatorAddress) || 'Unknown'
+        }));
+        
+        res.json({
+          blocks: enrichedBlocks,
+          pagination: {
+            page,
+            limit,
+            totalPages: Math.ceil(filteredBlocks.length / limit),
+            totalItems: filteredBlocks.length,
+            hasNext: page * limit < filteredBlocks.length,
+            hasPrev: page > 1
+          },
+          filters: {
+            validator: validatorAddress,
+            shard: shardId,
+            hashAlgorithm,
+            startTime,
+            endTime
+          }
+        });
       }
     } catch (error) {
+      console.error("Error fetching blocks:", error);
       res.status(500).json({ error: "Failed to fetch blocks" });
     }
   });
@@ -356,6 +458,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(blockTransactions);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch block transactions" });
+    }
+  });
+
+  // Block Search API
+  app.get("/api/blocks/search", async (req, res) => {
+    try {
+      const query = req.query.q as string;
+      if (!query) {
+        return res.status(400).json({ error: "Search query is required" });
+      }
+      
+      const allBlocks = await storage.getAllBlocks();
+      const validators = await storage.getAllValidators();
+      const validatorMap = new Map(validators.map(v => [v.address, v.name]));
+      
+      // Search by block number, hash, or validator
+      const results = allBlocks.filter(block => {
+        const validatorName = validatorMap.get(block.validatorAddress) || '';
+        return (
+          block.blockNumber.toString().includes(query) ||
+          block.hash.toLowerCase().includes(query.toLowerCase()) ||
+          block.validatorAddress.toLowerCase().includes(query.toLowerCase()) ||
+          validatorName.toLowerCase().includes(query.toLowerCase())
+        );
+      }).slice(0, 20); // Limit to 20 results
+      
+      // Enrich with validator names
+      const enrichedResults = results.map(block => ({
+        ...block,
+        validatorName: validatorMap.get(block.validatorAddress) || 'Unknown'
+      }));
+      
+      res.json(enrichedResults);
+    } catch (error) {
+      console.error("Error searching blocks:", error);
+      res.status(500).json({ error: "Failed to search blocks" });
     }
   });
 
