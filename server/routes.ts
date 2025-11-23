@@ -50,13 +50,24 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
 function requireAdmin(req: Request, res: Response, next: NextFunction) {
   // Check basic authentication first
   if (!req.session.authenticated) {
+    console.warn('[Admin] Unauthorized access attempt - not authenticated');
     return res.status(401).json({ error: "Unauthorized" });
   }
   
   // Check admin password from request header
   const adminPassword = req.headers['x-admin-password'] as string;
   
-  if (!adminPassword || !ADMIN_PASSWORD) {
+  // Log ADMIN_PASSWORD status (without exposing the actual value)
+  if (!ADMIN_PASSWORD) {
+    console.error('[Admin] CRITICAL: ADMIN_PASSWORD environment variable not set!');
+    return res.status(500).json({ 
+      error: "Server Configuration Error",
+      message: "Admin password not configured on server"
+    });
+  }
+  
+  if (!adminPassword) {
+    console.warn('[Admin] Missing admin password in request header');
     return res.status(403).json({ 
       error: "Forbidden",
       message: "Admin password required for this operation"
@@ -72,7 +83,7 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
     });
   }
   
-  console.log('[Admin] Admin access granted for session:', req.sessionID);
+  console.log('[Admin] ✅ Admin access granted for session:', req.sessionID);
   next();
 }
 
@@ -755,35 +766,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.post("/api/admin/restart-mainnet", requireAdmin, async (req, res) => {
     try {
-      console.log('[Admin] Mainnet restart requested');
+      console.log('═══════════════════════════════════════════');
+      console.log('[Admin] 🔄 MAINNET RESTART REQUESTED');
+      console.log('[Admin] Session ID:', req.sessionID);
+      console.log('[Admin] Timestamp:', new Date().toISOString());
+      console.log('═══════════════════════════════════════════');
       
+      // Send immediate success response
       res.json({
         success: true,
-        message: "Mainnet restart initiated. Server will restart in 1 second."
+        message: "Mainnet restart initiated successfully. Server will restart in 2 seconds.",
+        timestamp: Date.now(),
+        status: "restart_initiated"
       });
       
+      // Delay restart to ensure response is sent
       setTimeout(() => {
-        console.log('[Admin] Initiating server restart via process.exit(0)');
+        console.log('[Admin] 🚀 INITIATING SERVER RESTART NOW...');
+        console.log('[Admin] Using process.exit(0) for clean shutdown');
+        console.log('[Admin] Replit will automatically restart the service');
+        console.log('═══════════════════════════════════════════');
+        
+        // Clean exit - Replit will automatically restart
         process.exit(0);
-      }, 1000);
+      }, 2000);
       
     } catch (error: any) {
-      console.error('[Admin] Restart failed:', error);
+      console.error('═══════════════════════════════════════════');
+      console.error('[Admin] ❌ RESTART FAILED:', error);
+      console.error('═══════════════════════════════════════════');
       res.status(500).json({
         success: false,
-        message: error.message || "Failed to restart mainnet"
+        message: error.message || "Failed to restart mainnet",
+        error: error.toString()
       });
     }
   });
 
   app.post("/api/admin/check-health", requireAdmin, async (req, res) => {
     try {
-      console.log('[Admin] Health check requested');
+      console.log('[Admin] 🏥 Health check requested');
       
       const stats = await storage.getNetworkStats();
       const recentBlocks = await storage.getRecentBlocks(5);
       
       if (!recentBlocks || recentBlocks.length === 0) {
+        console.warn('[Admin] ⚠️ Health check: No blocks found');
         return res.json({
           healthy: false,
           details: { error: "No blocks found", status: 'paused' }
@@ -793,18 +821,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
       const isHealthy = timeSinceLastBlock < 3600;
       
-      res.json({
+      const healthStatus = {
         healthy: isHealthy,
         details: {
           lastBlockNumber: stats.currentBlockHeight,
           lastBlockTime: recentBlocks[0].timestamp,
           timeSinceLastBlock,
           tps: stats.tps,
-          status: isHealthy ? 'active' : 'paused'
+          peakTps: stats.peakTps,
+          status: isHealthy ? 'active' : 'paused',
+          blockCount: recentBlocks.length
         }
+      };
+      
+      console.log('[Admin] ✅ Health check complete:', {
+        healthy: isHealthy,
+        status: healthStatus.details.status,
+        timeSinceLastBlock: Math.floor(timeSinceLastBlock),
+        tps: stats.tps
       });
+      
+      res.json(healthStatus);
     } catch (error: any) {
-      console.error('[Admin] Health check failed:', error);
+      console.error('[Admin] ❌ Health check failed:', error);
       res.status(500).json({
         healthy: false,
         details: { error: error.message }

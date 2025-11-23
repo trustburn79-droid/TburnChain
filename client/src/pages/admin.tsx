@@ -61,6 +61,7 @@ export default function AdminPage() {
 
   const restartMainnetMutation = useMutation({
     mutationFn: async (password: string) => {
+      console.log('[Admin UI] Sending restart request with password');
       const response = await fetch("/api/admin/restart-mainnet", {
         method: "POST",
         headers: {
@@ -69,26 +70,40 @@ export default function AdminPage() {
         },
         credentials: "include",
       });
+      
       if (!response.ok) {
         const error = await response.json();
+        console.error('[Admin UI] Restart request failed:', error);
         throw new Error(error.message || "Failed to restart mainnet");
       }
-      return response.json();
+      
+      const result = await response.json();
+      console.log('[Admin UI] Restart request successful:', result);
+      return result;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log('[Admin UI] Restart initiated successfully, response:', data);
       toast({
-        title: "Mainnet Restart Initiated",
-        description: "TBURN mainnet restart request sent successfully. Please wait for confirmation.",
+        title: "✅ Mainnet Restart Initiated",
+        description: "Server restart in progress. Block production will resume in 30-60 seconds. Monitor the status above.",
+        duration: 8000,
       });
       setShowRestartDialog(false);
       setAdminPassword("");
-      queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
+      
+      // Refresh stats after a delay to show updated status
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/blocks/recent"] });
+      }, 3000);
     },
     onError: (error: any) => {
+      console.error('[Admin UI] Restart failed:', error);
       toast({
-        title: "Restart Failed",
-        description: error.message || "Failed to restart mainnet. Please check logs.",
+        title: "❌ Restart Failed",
+        description: error.message || "Failed to restart mainnet. Check server logs or verify admin password.",
         variant: "destructive",
+        duration: 10000,
       });
       setAdminPassword("");
     },
@@ -96,6 +111,7 @@ export default function AdminPage() {
 
   const checkHealthMutation = useMutation({
     mutationFn: async (password: string) => {
+      console.log('[Admin UI] Sending health check request');
       const response = await fetch("/api/admin/check-health", {
         method: "POST",
         headers: {
@@ -104,26 +120,40 @@ export default function AdminPage() {
         },
         credentials: "include",
       });
+      
       if (!response.ok) {
         const error = await response.json();
+        console.error('[Admin UI] Health check failed:', error);
         throw new Error(error.message || "Failed to check health");
       }
-      return response.json();
+      
+      const result = await response.json();
+      console.log('[Admin UI] Health check result:', result);
+      return result;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const healthStatus = data.healthy ? "Healthy ✅" : "Degraded ⚠️";
+      const statusDetails = data.details?.status || "unknown";
+      
+      console.log('[Admin UI] Health check complete:', data);
       toast({
-        title: "Health Check Complete",
-        description: "Mainnet health check completed successfully.",
+        title: `Health Check: ${healthStatus}`,
+        description: `Status: ${statusDetails.toUpperCase()} | TPS: ${data.details?.tps || 0} | Last Block: ${data.details?.timeSinceLastBlock?.toFixed(0)}s ago`,
+        variant: data.healthy ? "default" : "destructive",
+        duration: 8000,
       });
       setShowHealthCheckDialog(false);
       setAdminPassword("");
       queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/blocks/recent"] });
     },
     onError: (error: any) => {
+      console.error('[Admin UI] Health check error:', error);
       toast({
-        title: "Health Check Failed",
-        description: error.message || "Failed to check health.",
+        title: "❌ Health Check Failed",
+        description: error.message || "Failed to perform health check. Verify admin password.",
         variant: "destructive",
+        duration: 10000,
       });
       setAdminPassword("");
     },
@@ -315,7 +345,7 @@ export default function AdminPage() {
                 Restart Mainnet
               </Button>
               <p className="text-xs text-muted-foreground">
-                Sends a restart request to tburn1.replit.app. This will resume block production and transaction processing.
+                Triggers a clean server restart via process.exit(0). Replit will automatically restart the service within 5-10 seconds.
               </p>
             </div>
 
@@ -386,19 +416,20 @@ export default function AdminPage() {
           <div className="space-y-2">
             <h4 className="font-semibold">Expected Behavior:</h4>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-              <li>Restart request is sent to tburn1.replit.app</li>
-              <li>Mainnet service will restart block production</li>
-              <li>Validators will resume consensus</li>
-              <li>New blocks will start being generated</li>
-              <li>TPS will return to normal levels</li>
+              <li>Server receives restart command and shuts down cleanly</li>
+              <li>Replit automatically restarts the application (5-10s)</li>
+              <li>Service reconnects to production mainnet at tburn1.replit.app</li>
+              <li>Fresh data polling begins, block production resumes</li>
+              <li>Status changes from PAUSED → ACTIVE, TPS returns to normal</li>
             </ul>
           </div>
           <Separator />
           <div className="space-y-2">
             <h4 className="font-semibold">Recovery Time:</h4>
             <p className="text-muted-foreground">
-              Typically 30-60 seconds for full mainnet restart and consensus re-establishment.
-              Monitor the "Last Block" metric above to confirm block production has resumed.
+              Service restart: 5-10 seconds (automatic) | Data sync: 10-20 seconds | 
+              Full recovery: 30-60 seconds total. Monitor "Last Block" and "Current TPS" 
+              metrics above to confirm successful restart.
             </p>
           </div>
         </CardContent>
@@ -417,9 +448,10 @@ export default function AdminPage() {
                 <div className="text-sm">
                   <p className="font-semibold text-foreground mb-2">This action will:</p>
                   <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-                    <li>Send a restart request to tburn1.replit.app</li>
-                    <li>Resume block production and transaction processing</li>
-                    <li>Take approximately 30-60 seconds to complete</li>
+                    <li>Trigger clean shutdown via process.exit(0)</li>
+                    <li>Replit auto-restarts the service (5-10s)</li>
+                    <li>Reconnect to mainnet and resume data polling</li>
+                    <li>Full recovery in 30-60 seconds</li>
                   </ul>
                 </div>
                 <div className="space-y-2">

@@ -72,6 +72,14 @@ app.use(
 // Log session store type
 log(`Session store: ${process.env.NODE_ENV === "production" ? "PostgreSQL (Production)" : "PostgreSQL (Development)"}`, "session");
 
+// Verify critical environment variables
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+if (ADMIN_PASSWORD) {
+  log(`✅ ADMIN_PASSWORD loaded (length: ${ADMIN_PASSWORD.length} chars)`, "security");
+} else {
+  log(`⚠️ WARNING: ADMIN_PASSWORD not set! Admin functions will not work.`, "security");
+}
+
 app.use(express.json({
   verify: (req, _res, buf) => {
     req.rawBody = buf;
