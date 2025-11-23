@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Cube,
+  Box,
   Search,
   Filter,
   RefreshCw,
@@ -129,10 +129,10 @@ export default function Blocks() {
   const [searchInput, setSearchInput] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   
-  // Filters
-  const [selectedValidator, setSelectedValidator] = useState<string>("");
-  const [selectedShard, setSelectedShard] = useState<string>("");
-  const [selectedHashAlgorithm, setSelectedHashAlgorithm] = useState<string>("");
+  // Filters - Initialize with "all" to match SelectItem values
+  const [selectedValidator, setSelectedValidator] = useState<string>("all");
+  const [selectedShard, setSelectedShard] = useState<string>("all");
+  const [selectedHashAlgorithm, setSelectedHashAlgorithm] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("number");
   const [sortOrder, setSortOrder] = useState<string>("desc");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -149,9 +149,9 @@ export default function Blocks() {
     params.set("sortBy", sortBy);
     params.set("sortOrder", sortOrder);
     
-    if (selectedValidator) params.set("validator", selectedValidator);
-    if (selectedShard) params.set("shard", selectedShard);
-    if (selectedHashAlgorithm) params.set("hashAlgorithm", selectedHashAlgorithm);
+    if (selectedValidator && selectedValidator !== "all") params.set("validator", selectedValidator);
+    if (selectedShard && selectedShard !== "all") params.set("shard", selectedShard);
+    if (selectedHashAlgorithm && selectedHashAlgorithm !== "all") params.set("hashAlgorithm", selectedHashAlgorithm);
     
     return params.toString();
   }, [page, sortBy, sortOrder, selectedValidator, selectedShard, selectedHashAlgorithm]);
@@ -238,16 +238,18 @@ export default function Blocks() {
   
   // Clear filters
   const clearFilters = () => {
-    setSelectedValidator("");
-    setSelectedShard("");
-    setSelectedHashAlgorithm("");
+    setSelectedValidator("all");
+    setSelectedShard("all");
+    setSelectedHashAlgorithm("all");
     setSortBy("number");
     setSortOrder("desc");
     setPage(1);
   };
   
   // Check if filters are active
-  const hasActiveFilters = selectedValidator || selectedShard || selectedHashAlgorithm;
+  const hasActiveFilters = (selectedValidator && selectedValidator !== "all") || 
+                          (selectedShard && selectedShard !== "all") || 
+                          (selectedHashAlgorithm && selectedHashAlgorithm !== "all");
   
   // Format functions
   const formatHash = (hash: string) => {
@@ -278,7 +280,7 @@ export default function Blocks() {
   // Render empty state
   const renderEmptyState = () => (
     <div className="flex flex-col items-center justify-center py-12 text-center">
-      <Cube className="h-12 w-12 text-muted-foreground mb-4" />
+      <Box className="h-12 w-12 text-muted-foreground mb-4" />
       <h3 className="text-lg font-semibold mb-2">No Blocks Found</h3>
       <p className="text-muted-foreground mb-4">
         {hasActiveFilters 
@@ -318,7 +320,7 @@ export default function Blocks() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Cube className="h-8 w-8 text-primary" />
+            <Box className="h-8 w-8 text-primary" />
             <div>
               <h1 className="text-3xl font-bold">Blocks</h1>
               <p className="text-muted-foreground">
@@ -417,7 +419,7 @@ export default function Blocks() {
                       <SelectValue placeholder="All validators" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All validators</SelectItem>
+                      <SelectItem value="all">All validators</SelectItem>
                       {validators.slice(0, 21).map(v => (
                         <SelectItem key={v.id} value={v.address}>
                           {v.name}
@@ -435,7 +437,7 @@ export default function Blocks() {
                       <SelectValue placeholder="All shards" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All shards</SelectItem>
+                      <SelectItem value="all">All shards</SelectItem>
                       {SHARD_OPTIONS.map(s => (
                         <SelectItem key={s.value} value={s.value}>
                           {s.label}
@@ -453,7 +455,7 @@ export default function Blocks() {
                       <SelectValue placeholder="All algorithms" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All algorithms</SelectItem>
+                      <SelectItem value="all">All algorithms</SelectItem>
                       {HASH_ALGORITHMS.map(algo => (
                         <SelectItem key={algo} value={algo}>
                           {algo}
