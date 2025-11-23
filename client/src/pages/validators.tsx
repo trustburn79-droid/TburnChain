@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
 import { Server, Award, Users, TrendingUp, Shield, Target, Brain, Vote, Coins, Crown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -35,8 +36,12 @@ export default function Validators() {
         const message = JSON.parse(lastMessage.data);
         if (message.type === 'voting_activity') {
           setVotingActivity(message.data);
+          // Invalidate the cache to trigger refetch with new data
+          queryClient.invalidateQueries({ queryKey: ['/api/validators'] });
         } else if (message.type === 'validators_update') {
           setValidatorUpdates(message.data);
+          // Invalidate the cache to trigger refetch with new data
+          queryClient.invalidateQueries({ queryKey: ['/api/validators'] });
         }
       } catch (error) {
         // Ignore JSON parse errors
