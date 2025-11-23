@@ -752,13 +752,16 @@ export class MemStorage implements IStorage {
     const rank = sortedValidators.findIndex(v => v.address === address) + 1;
     const isCommittee = rank <= 21;
 
-    // Generate mock delegation data
+    // Generate mock delegation data (TBURN total supply: 100,000,000)
     const delegators = [];
     const numDelegators = validator.delegators || 0;
     for (let i = 0; i < Math.min(numDelegators, 10); i++) {
+      // Realistic delegation amounts: 100 - 50,000 TBURN per delegator
+      const tburnAmount = Math.random() * 49900 + 100; // 100 to 50,000 TBURN
+      const weiAmount = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
       delegators.push({
         address: `0x${Math.random().toString(16).slice(2, 42)}`,
-        amount: ((Math.random() * 10000 + 1000) * 1e18).toString(),
+        amount: weiAmount.toString(),
         timestamp: Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 30 * 24 * 60 * 60)
       });
     }
@@ -774,12 +777,15 @@ export class MemStorage implements IStorage {
       });
     }
 
-    // Generate reward history
+    // Generate reward history (realistic amounts based on APY)
     const rewardHistory = [];
     for (let i = 0; i < 30; i++) {
+      // Daily rewards: 10 - 500 TBURN based on stake and APY
+      const tburnReward = Math.random() * 490 + 10; // 10 to 500 TBURN daily
+      const weiReward = BigInt(Math.floor(tburnReward * 1e18)); // Convert to Wei
       rewardHistory.push({
         timestamp: Math.floor(Date.now() / 1000) - (30 - i) * 24 * 3600,
-        amount: ((Math.random() * 500 + 100) * 1e18).toString(),
+        amount: weiReward.toString(),
         type: Math.random() > 0.7 ? 'block' : 'delegation'
       });
     }
@@ -819,9 +825,10 @@ export class MemStorage implements IStorage {
       throw new Error(`Validator ${address} not found`);
     }
 
-    // Update delegated stake
+    // Update delegated stake (amount is in TBURN, convert to Wei)
     const currentDelegated = BigInt(validator.delegatedStake || 0);
-    const additionalDelegation = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const tburnAmount = parseFloat(amount); // Amount in TBURN
+    const additionalDelegation = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
     const newDelegated = currentDelegated + additionalDelegation;
     
     // Update voting power
@@ -840,9 +847,10 @@ export class MemStorage implements IStorage {
       throw new Error(`Validator ${address} not found`);
     }
 
-    // Update delegated stake
+    // Update delegated stake (amount is in TBURN, convert to Wei)
     const currentDelegated = BigInt(validator.delegatedStake || 0);
-    const undelegateAmount = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const tburnAmount = parseFloat(amount); // Amount in TBURN
+    const undelegateAmount = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
     const newDelegated = currentDelegated > undelegateAmount ? currentDelegated - undelegateAmount : BigInt(0);
     
     // Update voting power
@@ -1358,12 +1366,16 @@ export class DbStorage implements IStorage {
     const isCommittee = rank <= 21;
 
     // Generate mock delegation data (in production this would come from delegations table)
+    // TBURN total supply: 100,000,000
     const delegators = [];
     const numDelegators = validator.delegators || 0;
     for (let i = 0; i < Math.min(numDelegators, 10); i++) {
+      // Realistic delegation amounts: 100 - 50,000 TBURN per delegator
+      const tburnAmount = Math.random() * 49900 + 100; // 100 to 50,000 TBURN
+      const weiAmount = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
       delegators.push({
         address: `0x${Math.random().toString(16).slice(2, 42)}`,
-        amount: ((Math.random() * 10000 + 1000) * 1e18).toString(),
+        amount: weiAmount.toString(),
         timestamp: Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 30 * 24 * 60 * 60)
       });
     }
@@ -1379,12 +1391,15 @@ export class DbStorage implements IStorage {
       });
     }
 
-    // Generate reward history
+    // Generate reward history (realistic amounts based on APY)
     const rewardHistory = [];
     for (let i = 0; i < 30; i++) {
+      // Daily rewards: 10 - 500 TBURN based on stake and APY
+      const tburnReward = Math.random() * 490 + 10; // 10 to 500 TBURN daily
+      const weiReward = BigInt(Math.floor(tburnReward * 1e18)); // Convert to Wei
       rewardHistory.push({
         timestamp: Math.floor(Date.now() / 1000) - (30 - i) * 24 * 3600,
-        amount: ((Math.random() * 500 + 100) * 1e18).toString(),
+        amount: weiReward.toString(),
         type: Math.random() > 0.7 ? 'block' : 'delegation'
       });
     }
@@ -1424,9 +1439,10 @@ export class DbStorage implements IStorage {
       throw new Error(`Validator ${address} not found`);
     }
 
-    // Update delegated stake
+    // Update delegated stake (amount is in TBURN, convert to Wei)
     const currentDelegated = BigInt(validator.delegatedStake || 0);
-    const additionalDelegation = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const tburnAmount = parseFloat(amount); // Amount in TBURN
+    const additionalDelegation = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
     const newDelegated = currentDelegated + additionalDelegation;
     
     // Update voting power
@@ -1445,9 +1461,10 @@ export class DbStorage implements IStorage {
       throw new Error(`Validator ${address} not found`);
     }
 
-    // Update delegated stake
+    // Update delegated stake (amount is in TBURN, convert to Wei)
     const currentDelegated = BigInt(validator.delegatedStake || 0);
-    const undelegateAmount = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const tburnAmount = parseFloat(amount); // Amount in TBURN
+    const undelegateAmount = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
     const newDelegated = currentDelegated > undelegateAmount ? currentDelegated - undelegateAmount : BigInt(0);
     
     // Update voting power

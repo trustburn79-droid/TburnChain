@@ -9,7 +9,7 @@ const ENTERPRISE_VALIDATORS_CONFIG = {
   COMMITTEE_SIZE: 21, // BFT committee size
   EPOCH_DURATION: 60000, // 1 minute epochs
   BLOCK_TIME: 100, // 100ms block time
-  BASE_VOTING_POWER: "1000000000000000000000", // 1000 TBURN
+  BASE_VOTING_POWER: "50000000000000000000000", // 50,000 TBURN base (total supply: 100M TBURN)
   DELEGATION_MULTIPLIER: 1.5,
   QUORUM_THRESHOLD: 6700, // 67% in basis points
 };
@@ -186,7 +186,7 @@ export class ValidatorSimulationService {
           status: index < ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS ? "active" : "inactive",
           jailed: false,
           slashEvents: Math.floor(Math.random() * 3),
-          rewardEarned: (Math.random() * 1000000).toFixed(0), // Add rewardEarned
+          rewardEarned: BigInt(Math.floor(Math.random() * 10000 * 1e18)).toString(), // 0-10,000 TBURN earned
           slashCount: Math.floor(Math.random() * 3), // Add slashCount
           reputationScore: profile.reputation,
           performanceScore: 8500 + Math.floor(Math.random() * 1500),
@@ -219,10 +219,12 @@ export class ValidatorSimulationService {
       const address = this.generateValidatorAddress(i);
       const isActive = i < ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS;
       
-      // Calculate stake based on tier
-      const baseStake = BigInt(ENTERPRISE_VALIDATORS_CONFIG.BASE_VOTING_POWER);
-      const stakeFactor = BigInt(profile.reputation) / BigInt(1000); // Higher reputation = more stake
-      const stake = (baseStake * stakeFactor).toString();
+      // Calculate stake based on tier (Total supply: 100M TBURN)
+      // Top validators: 200,000 - 800,000 TBURN
+      // Average validators: 50,000 - 200,000 TBURN
+      const reputationFactor = profile.reputation / 10000; // 0.7 - 0.98
+      const baseTBURN = 50000 + (750000 * reputationFactor); // 50k-800k TBURN
+      const stake = BigInt(Math.floor(baseTBURN * 1e18)).toString(); // Convert to Wei
       
       // Generate realistic metrics
       const uptime = 9500 + Math.floor(Math.random() * 500); // 95-99.99%
