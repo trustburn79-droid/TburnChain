@@ -1499,6 +1499,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }, 2000);
 
+  // Validator Updates snapshot every 5 seconds (voting power changes, status updates)
+  setInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const validators = await storage.getAllValidators();
+      // Get top validators by voting power
+      const topValidators = validators
+        .sort((a, b) => {
+          const aVotingPower = BigInt(a.stake) + BigInt(a.delegatedStake || 0);
+          const bVotingPower = BigInt(b.stake) + BigInt(b.delegatedStake || 0);
+          return Number(bVotingPower - aVotingPower);
+        })
+        .slice(0, 21); // Top 21 committee validators
+      
+      broadcastUpdate('validators_update', {
+        validators: topValidators,
+        totalValidators: validators.length,
+        activeCount: validators.filter(v => v.status === 'active').length,
+        committeeSize: 21,
+      }, z.object({
+        validators: z.array(z.any()),
+        totalValidators: z.number(),
+        activeCount: z.number(),
+        committeeSize: z.number(),
+      }));
+    } catch (error) {
+      console.error('Error broadcasting validator updates:', error);
+    }
+  }, 5000);
+  
+  // Validator Voting Activity snapshot every 3 seconds  
+  setInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      // Get recent consensus rounds to show voting activity
+      const recentRounds = await storage.getAllConsensusRounds(5);
+      const votingActivity = recentRounds.map(round => ({
+        blockHeight: round.blockHeight,
+        proposer: round.proposerAddress,
+        prevotes: round.prevoteCount,
+        precommits: round.precommitCount,
+        totalValidators: round.totalValidators,
+        quorumReached: round.precommitCount >= round.requiredQuorum,
+        status: round.status,
+      }));
+      
+      broadcastUpdate('voting_activity', votingActivity, z.array(z.object({
+        blockHeight: z.number(),
+        proposer: z.string(),
+        prevotes: z.number(),
+        precommits: z.number(),
+        totalValidators: z.number(),
+        quorumReached: z.boolean(),
+        status: z.string(),
+      })));
+    } catch (error) {
+      console.error('Error broadcasting voting activity:', error);
+    }
+  }, 3000);
+
   // ============================================
   // Production Mode Polling (TBurnClient-based)
   // ============================================
