@@ -2006,7 +2006,7 @@ export class DbStorage implements IStorage {
 
   // Member Audit Logs
   async getMemberAuditLogs(memberId: string, limit: number = 100): Promise<MemberAuditLog[]> {
-    return db.select().from(memberAuditLogs).where(eq(memberAuditLogs.memberId, memberId)).orderBy(desc(memberAuditLogs.timestamp)).limit(limit);
+    return db.select().from(memberAuditLogs).where(eq(memberAuditLogs.memberId, memberId)).orderBy(desc(memberAuditLogs.createdAt)).limit(limit);
   }
 
   async createMemberAuditLog(data: InsertMemberAuditLog): Promise<MemberAuditLog> {

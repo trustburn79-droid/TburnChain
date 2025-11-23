@@ -49,6 +49,23 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 
+// Helper function to safely validate and format dates
+const isValidDate = (date: any): boolean => {
+  if (!date) return false;
+  const d = new Date(date);
+  return d instanceof Date && !isNaN(d.getTime()) && d.getTime() > 0;
+};
+
+// Safe date formatting helper
+const formatDateSafe = (date: any, options?: any): string => {
+  if (!isValidDate(date)) return "N/A";
+  try {
+    return formatDistanceToNow(new Date(date), options);
+  } catch (error) {
+    return "N/A";
+  }
+};
+
 interface MemberDetail {
   id: string;
   accountAddress: string;
@@ -240,7 +257,7 @@ export default function MemberDetailPage() {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-4xl font-bold mb-2">
-              {member.profile?.displayName || "Anonymous Member"}
+              {member.displayName || member.profile?.displayName || "Anonymous Member"}
             </h1>
             <div className="flex items-center gap-4">
               <code className="text-sm bg-muted px-2 py-1 rounded">
@@ -353,15 +370,15 @@ export default function MemberDetailPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="text-sm text-muted-foreground">Display Name</div>
-                  <div className="font-medium">{member.profile?.displayName || "Not set"}</div>
+                  <div className="font-medium">{member.displayName || "Not set"}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Email</div>
-                  <div className="font-medium">{member.profile?.email || "Not set"}</div>
+                  <div className="text-sm text-muted-foreground">Account Address</div>
+                  <div className="font-medium font-mono text-sm">{member.accountAddress}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Location</div>
-                  <div className="font-medium">{member.profile?.location || "Not set"}</div>
+                  <div className="text-sm text-muted-foreground">Legal Name</div>
+                  <div className="font-medium">{member.legalName || "Not set"}</div>
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground">Website</div>
@@ -370,13 +387,13 @@ export default function MemberDetailPage() {
                 <div>
                   <div className="text-sm text-muted-foreground">Member Since</div>
                   <div className="font-medium">
-                    {formatDistanceToNow(new Date(member.joinedAt), { addSuffix: true })}
+                    {formatDateSafe(member.joinedAt, { addSuffix: true })}
                   </div>
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground">Last Updated</div>
                   <div className="font-medium">
-                    {formatDistanceToNow(new Date(member.updatedAt), { addSuffix: true })}
+                    {formatDateSafe(member.updatedAt, { addSuffix: true })}
                   </div>
                 </div>
               </div>
@@ -441,11 +458,11 @@ export default function MemberDetailPage() {
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          {formatDistanceToNow(new Date(position.stakedAt), { addSuffix: true })}
+                          {formatDateSafe(position.stakedAt, { addSuffix: true })}
                         </TableCell>
                         <TableCell>
                           {position.lastClaimAt
-                            ? formatDistanceToNow(new Date(position.lastClaimAt), { addSuffix: true })
+                            ? formatDateSafe(position.lastClaimAt, { addSuffix: true })
                             : "Never"}
                         </TableCell>
                       </TableRow>
@@ -672,7 +689,7 @@ export default function MemberDetailPage() {
                   <div className="text-sm text-muted-foreground">Last Password Change</div>
                   <div className="font-medium">
                     {member.security?.lastPasswordChange
-                      ? formatDistanceToNow(new Date(member.security.lastPasswordChange), {
+                      ? formatDateSafe(member.security.lastPasswordChange, {
                           addSuffix: true,
                         })
                       : "Never"}
@@ -682,7 +699,7 @@ export default function MemberDetailPage() {
                   <div className="text-sm text-muted-foreground">Last Failed Login</div>
                   <div className="font-medium">
                     {member.security?.lastFailedLogin
-                      ? formatDistanceToNow(new Date(member.security.lastFailedLogin), {
+                      ? formatDateSafe(member.security.lastFailedLogin, {
                           addSuffix: true,
                         })
                       : "Never"}
@@ -723,13 +740,15 @@ export default function MemberDetailPage() {
                     {auditLogs.map((log) => (
                       <TableRow key={log.id}>
                         <TableCell>
-                          {formatDistanceToNow(new Date(log.timestamp), { addSuffix: true })}
+                          {formatDateSafe(log.createdAt, { addSuffix: true })}
                         </TableCell>
                         <TableCell>
                           <Badge variant="outline">{log.action}</Badge>
                         </TableCell>
-                        <TableCell className="max-w-md truncate">{log.details}</TableCell>
-                        <TableCell>{log.performedBy || "System"}</TableCell>
+                        <TableCell className="max-w-md truncate">
+                          {log.resource} {log.resourceId ? `(${log.resourceId})` : ''}
+                        </TableCell>
+                        <TableCell>{log.actor || "System"}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -767,7 +786,7 @@ export default function MemberDetailPage() {
                     {member.slashEvents.map((event) => (
                       <TableRow key={event.id}>
                         <TableCell>
-                          {formatDistanceToNow(new Date(event.occurredAt), { addSuffix: true })}
+                          {formatDateSafe(event.occurredAt, { addSuffix: true })}
                         </TableCell>
                         <TableCell>
                           <Badge variant="destructive">{event.slashType}</Badge>

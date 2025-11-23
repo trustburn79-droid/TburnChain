@@ -564,19 +564,24 @@ export const memberAuditLogs = pgTable("member_audit_logs", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   memberId: varchar("member_id").notNull(),
   
-  actionType: text("action_type").notNull(), // login, logout, stake, unstake, vote, propose, withdraw, etc.
-  actor: text("actor").notNull(), // who performed the action (member address or system)
-  target: text("target"), // target of the action if applicable
+  action: text("action").notNull(), // login, logout, stake, unstake, vote, propose, withdraw, etc.
+  resource: text("resource").notNull(), // what was affected
+  resourceId: text("resource_id"), // ID of the affected resource
   
+  oldValue: jsonb("old_value"), // previous state
+  newValue: jsonb("new_value"), // new state
+  
+  actor: text("actor").notNull(), // who performed the action (member address or system)
+  actorType: text("actor_type").notNull().default("system"), // system, member, admin
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
   
-  success: boolean("success").notNull(),
+  status: text("status").notNull().default("success"), // success, failed
   errorMessage: text("error_message"),
   
-  details: jsonb("details"), // additional context
+  metadata: jsonb("metadata"), // additional context
   
-  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 // ============================================
