@@ -3,6 +3,13 @@
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
+**Latest Updates (November 23, 2025):**
+- **Complete Member Management System**: Fully implemented member/staker/validator management with CRUD operations, statistics display, and detailed member profiles
+- **Member Creation UI**: Added intuitive dialog-based member creation form with fields for account address, display name, email, location, bio, tier selection, and KYC level
+- **Validator-to-Member Sync**: Implemented "Sync Validators" button that converts all 125 validators into members with complete profile initialization
+- **Database Schema Fixes**: Resolved all schema mismatches and added missing columns to member profile tables (proposals_passed, referral_count, multi_sig_enabled, etc.)
+- **Member Statistics Dashboard**: Added real-time member statistics to the main dashboard showing total members, active members, validators, stakers, and KYC verification status
+
 ## User Preferences
 I prefer simple language and detailed explanations. I want iterative development with clear communication on progress. Ask before making major changes to the codebase. Ensure all new features have comprehensive test coverage. Do not make changes to files within the `shared/` directory without explicit approval.
 

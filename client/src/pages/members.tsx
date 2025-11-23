@@ -30,6 +30,29 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import {
   Search,
   Users,
   Shield,
@@ -110,12 +133,47 @@ const kycColors: Record<string, string> = {
   institutional: "bg-purple-500",
 };
 
+// Form schema for member creation
+const memberFormSchema = z.object({
+  accountAddress: z.string().min(42, "Invalid account address"),
+  displayName: z.string().min(2, "Display name must be at least 2 characters"),
+  email: z.string().email("Invalid email address").optional(),
+  bio: z.string().optional(),
+  location: z.string().optional(),
+  memberTier: z.enum([
+    "basic_user",
+    "staker",
+    "active_validator",
+    "inactive_validator",
+    "genesis_validator",
+    "enterprise_validator",
+    "governance_validator",
+  ]),
+  kycLevel: z.enum(["none", "basic", "advanced", "institutional"]),
+});
+
 export default function MembersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [tierFilter, setTierFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [kycFilter, setKycFilter] = useState<string>("all");
   const [selectedTab, setSelectedTab] = useState("all");
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const { toast } = useToast();
+
+  // Form for member creation
+  const form = useForm<z.infer<typeof memberFormSchema>>({
+    resolver: zodResolver(memberFormSchema),
+    defaultValues: {
+      accountAddress: "",
+      displayName: "",
+      email: "",
+      bio: "",
+      location: "",
+      memberTier: "basic_user",
+      kycLevel: "none",
+    },
+  });
 
   // Fetch members
   const { data: members = [], isLoading } = useQuery<Member[]>({
@@ -170,6 +228,59 @@ export default function MembersPage() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/members"] });
+    },
+  });
+
+  // Create member mutation
+  const createMemberMutation = useMutation({
+    mutationFn: async (values: z.infer<typeof memberFormSchema>) => {
+      const response = await apiRequest('POST', '/api/members', values);
+      return response;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/members"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/members/stats/summary"] });
+      toast({
+        title: "Member Created",
+        description: "New member has been created successfully.",
+      });
+      setCreateDialogOpen(false);
+      form.reset();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to create member. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Handle form submission
+  const onSubmit = (values: z.infer<typeof memberFormSchema>) => {
+    createMemberMutation.mutate(values);
+  };
+
+  // Sync validators mutation
+  const syncValidatorsMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest('POST', '/api/members/sync-validators', {});
+      return response;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/members"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/members/stats/summary"] });
+      toast({
+        title: "Validators Synced",
+        description: "All validators have been synced to the members system.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to sync validators. Please try again.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -335,11 +446,202 @@ export default function MembersPage() {
 
         <TabsContent value={selectedTab}>
           <Card>
-            <CardHeader>
-              <CardTitle>Members List</CardTitle>
-              <CardDescription>
-                {filteredMembers.length} members found
-              </CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+              <div>
+                <CardTitle>Members List</CardTitle>
+                <CardDescription>
+                  {filteredMembers.length} members found
+                </CardDescription>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => syncValidatorsMutation.mutate()}
+                  disabled={syncValidatorsMutation.isPending}
+                  data-testid="button-sync-validators"
+                >
+                  <Shield className="h-4 w-4 mr-2" />
+                  {syncValidatorsMutation.isPending ? "Syncing..." : "Sync Validators"}
+                </Button>
+                <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button data-testid="button-create-member">
+                      <UserPlus className="h-4 w-4 mr-2" />
+                      Create Member
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Create New Member</DialogTitle>
+                    <DialogDescription>
+                      Add a new member to the TBURN blockchain network
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                      <FormField
+                        control={form.control}
+                        name="accountAddress"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Account Address</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="0x..."
+                                {...field}
+                                data-testid="input-account-address"
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              The blockchain wallet address (42 characters)
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="displayName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Display Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="John Doe"
+                                {...field}
+                                data-testid="input-display-name"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email (Optional)</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                placeholder="john@example.com"
+                                {...field}
+                                data-testid="input-email"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="location"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Location (Optional)</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="New York, USA"
+                                {...field}
+                                data-testid="input-location"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="bio"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Bio (Optional)</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Tell us about yourself..."
+                                className="resize-none"
+                                {...field}
+                                data-testid="textarea-bio"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="memberTier"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Member Tier</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger data-testid="select-member-tier">
+                                    <SelectValue placeholder="Select a tier" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="basic_user">Basic User</SelectItem>
+                                  <SelectItem value="staker">Staker</SelectItem>
+                                  <SelectItem value="active_validator">Active Validator</SelectItem>
+                                  <SelectItem value="inactive_validator">Inactive Validator</SelectItem>
+                                  <SelectItem value="genesis_validator">Genesis Validator</SelectItem>
+                                  <SelectItem value="enterprise_validator">Enterprise Validator</SelectItem>
+                                  <SelectItem value="governance_validator">Governance Validator</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="kycLevel"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>KYC Level</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger data-testid="select-kyc-level">
+                                    <SelectValue placeholder="Select KYC level" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="none">None</SelectItem>
+                                  <SelectItem value="basic">Basic</SelectItem>
+                                  <SelectItem value="advanced">Advanced</SelectItem>
+                                  <SelectItem value="institutional">Institutional</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <DialogFooter>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setCreateDialogOpen(false)}
+                          data-testid="button-cancel"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          type="submit"
+                          disabled={createMemberMutation.isPending}
+                          data-testid="button-submit-member"
+                        >
+                          {createMemberMutation.isPending ? "Creating..." : "Create Member"}
+                        </Button>
+                      </DialogFooter>
+                    </form>
+                  </Form>
+                </DialogContent>
+              </Dialog>
+              </div>
             </CardHeader>
             <CardContent>
               {isLoading ? (

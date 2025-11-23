@@ -12,7 +12,8 @@ import {
   insertWalletBalanceSchema, insertConsensusRoundSchema,
   aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema,
   aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema,
-  consensusStateSchema
+  consensusStateSchema,
+  type InsertMember
 } from "@shared/schema";
 import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
@@ -938,7 +939,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             kycLevel: "institutional", // Validators typically have institutional KYC
             sanctionsCheckPassed: true, // Assume validators are verified
             validatorId: validator.id,
-            lastActivityAt: validator.lastActiveAt || new Date(),
           };
           
           const member = await storage.createMember(memberData);
@@ -958,8 +958,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }),
             storage.createMemberFinancialProfile({ 
               memberId: member.id,
-              totalStaked: validator.stake,
-              totalRewardsEarned: validator.rewardEarned,
+              stakedBalance: validator.stake,
+              validatorRewards: validator.rewardEarned,
             }),
             storage.createMemberSecurityProfile({ 
               memberId: member.id,
