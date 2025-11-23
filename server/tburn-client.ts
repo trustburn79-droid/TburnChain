@@ -113,7 +113,7 @@ export class TBurnClient {
     }
   }
 
-  private async request<T>(endpoint: string, method = 'GET', body?: any): Promise<T> {
+  private async request<T>(endpoint: string, method = 'GET', body?: any, customHeaders?: Record<string, string>): Promise<T> {
     if (!this.isAuthenticated) {
       await this.authenticate();
     }
@@ -121,6 +121,7 @@ export class TBurnClient {
     const url = `${this.config.rpcUrl}${endpoint}`;
     const headers: Record<string, string> = {
       'content-type': 'application/json',
+      ...customHeaders, // Merge custom headers
     };
 
     if (this.sessionCookie) {
@@ -377,11 +378,20 @@ export class TBurnClient {
   }
 
   // Admin Control Methods
-  async restartMainnet(): Promise<{ success: boolean; message: string }> {
+  async restartMainnet(adminPassword: string): Promise<{ success: boolean; message: string }> {
     try {
+      console.log('[TBURN Client] Attempting mainnet restart with admin credentials');
+      const headers: Record<string, string> = {};
+      
+      if (adminPassword) {
+        headers['X-Admin-Password'] = adminPassword;
+      }
+      
       const response = await this.request<{ success: boolean; message: string }>(
         '/api/admin/restart',
-        'POST'
+        'POST',
+        {},
+        headers
       );
       return response;
     } catch (error: any) {
@@ -393,11 +403,20 @@ export class TBurnClient {
     }
   }
 
-  async checkMainnetHealth(): Promise<{ healthy: boolean; details: any }> {
+  async checkMainnetHealth(adminPassword: string): Promise<{ healthy: boolean; details: any }> {
     try {
+      console.log('[TBURN Client] Performing mainnet health check with admin credentials');
+      const headers: Record<string, string> = {};
+      
+      if (adminPassword) {
+        headers['X-Admin-Password'] = adminPassword;
+      }
+      
       const response = await this.request<{ healthy: boolean; details: any }>(
         '/api/admin/health',
-        'GET'
+        'GET',
+        undefined,
+        headers
       );
       return response;
     } catch (error: any) {

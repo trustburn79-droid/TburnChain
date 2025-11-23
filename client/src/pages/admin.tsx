@@ -412,32 +412,34 @@ export default function AdminPage() {
               <Shield className="h-5 w-5 text-destructive" />
               Confirm Mainnet Restart
             </AlertDialogTitle>
-            <AlertDialogDescription className="space-y-4">
-              <div className="text-sm">
-                <p className="font-semibold text-foreground mb-2">This action will:</p>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-                  <li>Send a restart request to tburn1.replit.app</li>
-                  <li>Resume block production and transaction processing</li>
-                  <li>Take approximately 30-60 seconds to complete</li>
-                </ul>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="admin-password-restart" className="flex items-center gap-2">
-                  <Shield className="h-4 w-4" />
-                  Admin Password Required
-                </Label>
-                <Input
-                  id="admin-password-restart"
-                  type="password"
-                  placeholder="Enter admin password"
-                  value={adminPassword}
-                  onChange={(e) => setAdminPassword(e.target.value)}
-                  data-testid="input-admin-password"
-                  disabled={restartMainnetMutation.isPending}
-                />
-                <p className="text-xs text-muted-foreground">
-                  Enter your admin password to authorize this critical operation.
-                </p>
+            <AlertDialogDescription asChild>
+              <div className="space-y-4">
+                <div className="text-sm">
+                  <p className="font-semibold text-foreground mb-2">This action will:</p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                    <li>Send a restart request to tburn1.replit.app</li>
+                    <li>Resume block production and transaction processing</li>
+                    <li>Take approximately 30-60 seconds to complete</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="admin-password-restart" className="flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    Admin Password Required
+                  </Label>
+                  <Input
+                    id="admin-password-restart"
+                    type="password"
+                    placeholder="Enter admin password"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    data-testid="input-admin-password"
+                    disabled={restartMainnetMutation.isPending}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Enter your admin password to authorize this critical operation.
+                  </p>
+                </div>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -482,29 +484,31 @@ export default function AdminPage() {
               <Shield className="h-5 w-5" />
               Confirm Health Check
             </AlertDialogTitle>
-            <AlertDialogDescription className="space-y-4">
-              <div className="text-sm">
-                <p className="text-muted-foreground">
-                  This will perform a comprehensive health check on the TBURN mainnet infrastructure.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="admin-password-health" className="flex items-center gap-2">
-                  <Shield className="h-4 w-4" />
-                  Admin Password Required
-                </Label>
-                <Input
-                  id="admin-password-health"
-                  type="password"
-                  placeholder="Enter admin password"
-                  value={adminPassword}
-                  onChange={(e) => setAdminPassword(e.target.value)}
-                  data-testid="input-admin-password-health"
-                  disabled={checkHealthMutation.isPending}
-                />
-                <p className="text-xs text-muted-foreground">
-                  Enter your admin password to authorize this operation.
-                </p>
+            <AlertDialogDescription asChild>
+              <div className="space-y-4">
+                <div className="text-sm">
+                  <p className="text-muted-foreground">
+                    This will perform a comprehensive health check on the TBURN mainnet infrastructure.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="admin-password-health" className="flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    Admin Password Required
+                  </Label>
+                  <Input
+                    id="admin-password-health"
+                    type="password"
+                    placeholder="Enter admin password"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    data-testid="input-admin-password-health"
+                    disabled={checkHealthMutation.isPending}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Enter your admin password to authorize this operation.
+                  </p>
+                </div>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>

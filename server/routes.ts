@@ -753,7 +753,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Admin Control Panel
   // ============================================
-  app.post("/api/admin/restart-mainnet", requireAdmin, async (_req, res) => {
+  app.post("/api/admin/restart-mainnet", requireAdmin, async (req, res) => {
     try {
       if (!isProductionMode()) {
         return res.status(501).json({
@@ -764,7 +764,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log('[Admin] Mainnet restart requested');
       const client = getTBurnClient();
-      const result = await client.restartMainnet();
+      const adminPassword = req.headers['x-admin-password'] as string;
+      const result = await client.restartMainnet(adminPassword);
       
       if (result.success) {
         console.log('[Admin] Mainnet restart successful:', result.message);
@@ -788,7 +789,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/check-health", requireAdmin, async (_req, res) => {
+  app.post("/api/admin/check-health", requireAdmin, async (req, res) => {
     try {
       if (!isProductionMode()) {
         return res.status(501).json({
@@ -799,7 +800,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log('[Admin] Health check requested');
       const client = getTBurnClient();
-      const result = await client.checkMainnetHealth();
+      const adminPassword = req.headers['x-admin-password'] as string;
+      const result = await client.checkMainnetHealth(adminPassword);
       
       if (result.healthy) {
         console.log('[Admin] Health check successful');
