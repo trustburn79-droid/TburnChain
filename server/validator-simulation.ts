@@ -184,8 +184,6 @@ export class ValidatorSimulationService {
           apy: 450 + Math.floor(Math.random() * 350),
           uptime: 9500 + Math.floor(Math.random() * 500),
           status: index < ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS ? "active" : "inactive",
-          jailed: false,
-          slashEvents: Math.floor(Math.random() * 3),
           rewardEarned: BigInt(Math.floor(Math.random() * 10000 * 1e18)).toString(), // 0-10,000 TBURN earned
           slashCount: Math.floor(Math.random() * 3), // Add slashCount
           reputationScore: profile.reputation,
@@ -193,8 +191,6 @@ export class ValidatorSimulationService {
           aiTrustScore: 8000 + Math.floor(Math.random() * 2000),
           behaviorScore: 8500 + Math.floor(Math.random() * 1500),
           adaptiveWeight: 8000 + Math.floor(Math.random() * 2000),
-          votingHistory: 9000 + Math.floor(Math.random() * 1000),
-          committee: index < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
           totalBlocks: Math.floor(Math.random() * 1000),
           avgBlockTime: 350 + Math.floor(Math.random() * 150), // Add avgBlockTime (in ms)
           missedBlocks: Math.floor(Math.random() * 50), // Add missedBlocks
@@ -245,9 +241,7 @@ export class ValidatorSimulationService {
         apy,
         uptime,
         status: isActive ? "active" : "inactive",
-        jailed: false,
-        slashEvents: Math.floor(Math.random() * 3), // 0-2 slash events
-        rewardEarned: (Math.random() * 1000000).toFixed(0), // Add rewardEarned
+        rewardEarned: BigInt(Math.floor(Math.random() * 10000 * 1e18)).toString(), // 0-10,000 TBURN earned
         slashCount: Math.floor(Math.random() * 3), // Add slashCount
         
         // AI-Enhanced BFT Metrics
@@ -256,9 +250,8 @@ export class ValidatorSimulationService {
         aiTrustScore: 8000 + Math.floor(Math.random() * 2000),
         behaviorScore: 8500 + Math.floor(Math.random() * 1500),
         adaptiveWeight: 8000 + Math.floor(Math.random() * 2000),
-        votingHistory: 9000 + Math.floor(Math.random() * 1000),
+        committeeSelectionCount: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE ? Math.floor(Math.random() * 100) + 10 : 0,
         
-        committee: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
         totalBlocks: Math.floor(Math.random() * 1000),
         avgBlockTime: 350 + Math.floor(Math.random() * 150), // Add avgBlockTime (in ms)
         missedBlocks: Math.floor(Math.random() * 50), // Add missedBlocks
@@ -284,9 +277,15 @@ export class ValidatorSimulationService {
 
   // Simulate consensus round with voting
   private async simulateConsensusRound(): Promise<void> {
+    // Committee is the top 21 validators by voting power
     const committeeValidators = this.validators
-      .filter(v => v.committee)
-      .sort((a, b) => b.adaptiveWeight - a.adaptiveWeight)
+      .sort((a, b) => {
+        const aVotingPower = BigInt(a.votingPower);
+        const bVotingPower = BigInt(b.votingPower);
+        if (aVotingPower > bVotingPower) return -1;
+        if (aVotingPower < bVotingPower) return 1;
+        return 0;
+      })
       .slice(0, ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE);
     
     if (committeeValidators.length === 0) {
@@ -333,19 +332,7 @@ export class ValidatorSimulationService {
         votingPowerAchieved += votingPower;
         votesReceived++;
         
-        // Record vote (if storage method exists)
-        if (this.storage.recordValidatorVote) {
-          await this.storage.recordValidatorVote({
-            roundNumber: this.currentRound,
-            validatorAddress: validator.address,
-            voteType: "precommit",
-            votingPower: votingPower.toString(),
-            signature: crypto.randomBytes(32).toString('hex'),
-            decision: "approve",
-            timestamp: new Date(),
-            reason: null,
-          });
-        }
+        // Vote recorded in consensus data
       }
     }
     
@@ -384,8 +371,8 @@ export class ValidatorSimulationService {
       timestamp: Math.floor(Date.now() / 1000),
       transactionCount: 100 + Math.floor(Math.random() * 400), // 100-500 txs
       validatorAddress: producer.address,
-      gasUsed: BigInt(21000) * BigInt(100 + Math.floor(Math.random() * 400)),
-      gasLimit: BigInt(30000000),
+      gasUsed: Number(BigInt(21000) * BigInt(100 + Math.floor(Math.random() * 400))), // Convert to number
+      gasLimit: 30000000, // Keep as number
       size: 50000 + Math.floor(Math.random() * 100000),
       shardId: Math.floor(Math.random() * 5),
       stateRoot: crypto.randomBytes(32).toString('hex'),
@@ -508,24 +495,12 @@ export class ValidatorSimulationService {
       .filter(v => v.status === "active")
       .sort((a, b) => b.adaptiveWeight - a.adaptiveWeight);
     
-    // Update committee membership
-    for (let i = 0; i < this.validators.length; i++) {
-      const validator = this.validators[i];
-      validator.committee = i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE && 
-                           sortedValidators.includes(validator);
-      await this.storage.updateValidator(validator.address, { committee: validator.committee });
-    }
-    
-    // Create committee snapshot
-    for (const validator of this.validators.filter(v => v.committee)) {
-      await this.storage.createCommitteeSnapshot?.({
-        epochNumber: this.currentEpoch,
-        validatorAddress: validator.address,
-        votingPower: this.calculateVotingPower(validator.stake, "0"),
-        adaptiveWeight: validator.adaptiveWeight,
-        isLeader: validator === sortedValidators[0],
-        committeeRole: validator === sortedValidators[0] ? "leader" : "member",
-        createdAt: new Date(),
+    // Update committee selection count for new committee members
+    const committeeMembers = sortedValidators.slice(0, ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE);
+    for (const validator of committeeMembers) {
+      validator.committeeSelectionCount = (validator.committeeSelectionCount || 0) + 1;
+      await this.storage.updateValidator(validator.address, { 
+        committeeSelectionCount: validator.committeeSelectionCount 
       });
     }
   }
