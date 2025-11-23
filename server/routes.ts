@@ -31,7 +31,7 @@ const loginLimiter = rateLimit({
 
 const apiLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 100, // 100 requests per window
+  max: 2000, // 2000 requests per window (handles intensive polling from Explorer)
   message: { error: "Too many requests. Please slow down." },
   standardHeaders: true,
   legacyHeaders: false,
