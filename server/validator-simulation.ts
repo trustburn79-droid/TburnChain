@@ -274,11 +274,19 @@ export class ValidatorSimulationService {
     // Update consensus data with voting results
     const quorumAchieved = Math.floor((Number(votingPowerAchieved) / Number(totalVotingPower)) * 10000);
     
-    // Save consensus round to database
-    await this.storage.createConsensusRound(consensusData);
-    
-    // Update round only (block height is updated in the main loop)
-    this.currentRound++;
+    // Save consensus round to database with error handling
+    try {
+      await this.storage.createConsensusRound(consensusData);
+      // Update round only after successful insertion
+      this.currentRound++;
+    } catch (error: any) {
+      if (error?.code === '23505') {
+        // Duplicate key error - skip this round as it already exists
+        console.log(`Consensus round for block ${this.currentBlockHeight} already exists, skipping`);
+      } else {
+        console.error("Error creating consensus round:", error);
+      }
+    }
   }
 
   // Simulate block production
@@ -310,11 +318,27 @@ export class ValidatorSimulationService {
       hashAlgorithm: "blake3",
     };
     
-    await this.storage.createBlock(block);
-    
-    // Update validator's total blocks
-    producer.totalBlocks = (producer.totalBlocks || 0) + 1;
-    await this.storage.updateValidator(producer.address, { totalBlocks: producer.totalBlocks });
+    try {
+      await this.storage.createBlock(block);
+      
+      // Update validator's total blocks
+      producer.totalBlocks = (producer.totalBlocks || 0) + 1;
+      await this.storage.updateValidator(producer.address, { totalBlocks: producer.totalBlocks });
+      
+      // Increment block height ONLY after successful insertion
+      this.currentBlockHeight++;
+    } catch (error: any) {
+      if (error?.code === '23505') {
+        // Duplicate key error - resync with database
+        const recentBlocks = await this.storage.getRecentBlocks(1);
+        if (recentBlocks.length > 0) {
+          this.currentBlockHeight = recentBlocks[0].blockNumber + 1;
+          console.log(`📦 Resynced block height to: ${this.currentBlockHeight}`);
+        }
+      } else {
+        console.error("Error creating block:", error);
+      }
+    }
   }
 
   // Update network stats based on validator activity
