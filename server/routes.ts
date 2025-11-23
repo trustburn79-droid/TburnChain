@@ -1661,7 +1661,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const blocks = await storage.getRecentBlocks(1);
       if (blocks.length > 0) {
         const message = JSON.stringify({
-          type: 'new_block',
+          type: 'block_created',
           data: blocks[0],
           timestamp: Date.now(),
         });

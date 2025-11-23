@@ -1,15 +1,23 @@
-import { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, ReactNode, useCallback } from "react";
+
+interface WebSocketMessage {
+  type: string;
+  data: any;
+  timestamp: number;
+}
 
 interface WebSocketContextValue {
   socket: WebSocket | null;
   isConnected: boolean;
   lastMessage: MessageEvent | null;
+  subscribeToEvent: (eventType: string, callback: (data: any) => void) => (() => void);
 }
 
 const WebSocketContext = createContext<WebSocketContextValue>({
   socket: null,
   isConnected: false,
   lastMessage: null,
+  subscribeToEvent: () => () => {},
 });
 
 export const useWebSocket = () => useContext(WebSocketContext);
@@ -24,6 +32,7 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
   const reconnectAttemptsRef = useRef(0);
+  const eventListeners = useRef<Map<string, Set<(data: any) => void>>>(new Map());
 
   const connect = () => {
     try {
@@ -42,6 +51,23 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
 
       socket.onmessage = (event) => {
         setLastMessage(event);
+        
+        // Parse message and notify event listeners
+        try {
+          const message = JSON.parse(event.data) as WebSocketMessage;
+          const listeners = eventListeners.current.get(message.type);
+          if (listeners) {
+            listeners.forEach(callback => {
+              try {
+                callback(message.data);
+              } catch (error) {
+                console.error(`[WebSocket] Error in event listener for ${message.type}:`, error);
+              }
+            });
+          }
+        } catch (error) {
+          // Not all messages may be in our expected format, ignore parse errors
+        }
       };
 
       socket.onerror = (error) => {
@@ -65,6 +91,22 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
     }
   };
 
+  // Subscribe to specific event types
+  const subscribeToEvent = useCallback((eventType: string, callback: (data: any) => void) => {
+    if (!eventListeners.current.has(eventType)) {
+      eventListeners.current.set(eventType, new Set());
+    }
+    eventListeners.current.get(eventType)?.add(callback);
+    
+    // Return unsubscribe function
+    return () => {
+      eventListeners.current.get(eventType)?.delete(callback);
+      if (eventListeners.current.get(eventType)?.size === 0) {
+        eventListeners.current.delete(eventType);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     connect();
 
@@ -84,6 +126,7 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
         socket: socketRef.current,
         isConnected,
         lastMessage,
+        subscribeToEvent,
       }}
     >
       {children}
