@@ -1290,7 +1290,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             peakTps: Math.max(stats.peakTps, mainnetStats.tps),
           });
           
-          stats = mainnetStats;
+          // Refresh stats from storage after update
+          stats = await storage.getNetworkStats();
           console.log(`[Production TPS] Mainnet TPS: ${mainnetStats.tps.toLocaleString()}`);
         } catch (error) {
           console.error('Error fetching mainnet stats:', error);
