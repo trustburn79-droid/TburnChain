@@ -712,7 +712,9 @@ export default function MembersPage() {
                         </TableCell>
                         <TableCell>
                           <div className="text-sm text-muted-foreground">
-                            {formatDistanceToNow(new Date(member.joinedAt), { addSuffix: true })}
+                            {member.joinedAt && !isNaN(new Date(member.joinedAt).getTime())
+                              ? formatDistanceToNow(new Date(member.joinedAt), { addSuffix: true })
+                              : "Recently joined"}
                           </div>
                         </TableCell>
                         <TableCell>
