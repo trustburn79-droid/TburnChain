@@ -311,10 +311,11 @@ export class ValidatorSimulationService {
       startTime: Date.now(), // Unix timestamp in milliseconds
       completedTime: Date.now() + Math.floor(Math.random() * 50), // Complete within 50ms
       phasesJson: JSON.stringify([
-        { phase: "propose", timestamp: Date.now() },
-        { phase: "prevote", timestamp: Date.now() + 10 },
-        { phase: "precommit", timestamp: Date.now() + 20 },
-        { phase: "commit", timestamp: Date.now() + 30 },
+        { number: 1, label: "NewHeight", time: "0ms", status: "completed" },
+        { number: 2, label: "Propose", time: "150ms", status: "completed" },
+        { number: 3, label: "Prevote", time: "300ms", status: "completed" },
+        { number: 4, label: "Precommit", time: "500ms", status: "completed" },
+        { number: 5, label: "Finalize", time: "700ms", status: "completed" },
       ]),
     };
     
