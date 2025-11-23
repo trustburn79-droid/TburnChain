@@ -375,6 +375,39 @@ export class TBurnClient {
   isConnected(): boolean {
     return this.ws !== null && this.ws.readyState === WebSocket.OPEN;
   }
+
+  // Admin Control Methods
+  async restartMainnet(): Promise<{ success: boolean; message: string }> {
+    try {
+      const response = await this.request<{ success: boolean; message: string }>(
+        '/api/admin/restart',
+        'POST'
+      );
+      return response;
+    } catch (error: any) {
+      console.error('[TBURN Client] Restart mainnet error:', error);
+      return {
+        success: false,
+        message: error.message || 'Failed to restart mainnet',
+      };
+    }
+  }
+
+  async checkMainnetHealth(): Promise<{ healthy: boolean; details: any }> {
+    try {
+      const response = await this.request<{ healthy: boolean; details: any }>(
+        '/api/admin/health',
+        'GET'
+      );
+      return response;
+    } catch (error: any) {
+      console.error('[TBURN Client] Health check error:', error);
+      return {
+        healthy: false,
+        details: { error: error.message || 'Health check failed' },
+      };
+    }
+  }
 }
 
 let tburnClient: TBurnClient | null = null;

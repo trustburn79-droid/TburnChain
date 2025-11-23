@@ -10,6 +10,7 @@ import {
   Key,
   Layers,
   Server,
+  Settings,
   TrendingUp,
   Vote,
   Zap,
@@ -93,6 +94,12 @@ const menuItems = [
     url: "/simulator",
     icon: Zap,
     group: "Developer",
+  },
+  {
+    title: "Admin Panel",
+    url: "/admin",
+    icon: Settings,
+    group: "Admin",
   },
   {
     title: "Node Health",

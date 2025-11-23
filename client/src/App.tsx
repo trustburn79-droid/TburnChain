@@ -25,6 +25,7 @@ import PerformanceMetrics from "@/pages/performance-metrics";
 import Consensus from "@/pages/consensus";
 import TransactionSimulator from "@/pages/transaction-simulator";
 import ApiKeys from "@/pages/api-keys";
+import AdminPage from "@/pages/admin";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 
@@ -45,6 +46,7 @@ function Router() {
       <Route path="/metrics" component={PerformanceMetrics} />
       <Route path="/consensus" component={Consensus} />
       <Route path="/api-keys" component={ApiKeys} />
+      <Route path="/admin" component={AdminPage} />
       <Route component={NotFound} />
     </Switch>
   );

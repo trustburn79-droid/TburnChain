@@ -23,6 +23,13 @@ The frontend is built with React 18, TypeScript, Vite, Wouter for routing, and T
 - **Smart Contracts**: Tracking deployed contracts, verification, transaction counts, balances, and an interaction interface.
 - **Node Health**: Predictive Self-Healing System using 4 AI algorithms (Trend Analysis, Anomaly Detection, Pattern Matching, Timeseries Forecast), displaying system metrics (CPU, memory, disk), network metrics, uptime, and sync status.
 - **API Key Management**: Secure admin interface for generating, managing, and revoking API keys with bcrypt hashing and one-time display.
+- **Admin Control Panel**: Production-only mainnet management interface with:
+  - Real-time mainnet health monitoring (block production, TPS, last block time)
+  - Mainnet pause detection with critical alerts (detects >1 hour block production stalls)
+  - Remote mainnet restart capability via POST /api/admin/restart endpoint
+  - Comprehensive health check via POST /api/admin/health endpoint
+  - Status dashboard with last block timestamp, TPS metrics, and peak TPS history
+  - Automatic recovery status tracking with expected 30-60s restart time
 
 ### System Design Choices
 The project utilizes a monorepo structure (`client/`, `server/`, `shared/`). Drizzle ORM ensures type-safe database interactions. All critical data is persisted in PostgreSQL. Session-based authentication protects API routes and WebSocket connections.

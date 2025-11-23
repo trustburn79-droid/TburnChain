@@ -720,6 +720,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
+  // Admin Control Panel
+  // ============================================
+  app.post("/api/admin/restart-mainnet", requireAuth, async (_req, res) => {
+    try {
+      if (!isProductionMode()) {
+        return res.status(501).json({
+          error: "Not Implemented",
+          message: "Mainnet restart is only available in production mode. This is a demo environment."
+        });
+      }
+
+      console.log('[Admin] Mainnet restart requested');
+      const client = getTBurnClient();
+      const result = await client.restartMainnet();
+      
+      if (result.success) {
+        console.log('[Admin] Mainnet restart successful:', result.message);
+        res.json({
+          success: true,
+          message: result.message || "Mainnet restart request sent successfully. Please wait for confirmation.",
+        });
+      } else {
+        console.error('[Admin] Mainnet restart failed:', result.message);
+        res.status(500).json({
+          success: false,
+          message: result.message || "Failed to restart mainnet. Please check logs.",
+        });
+      }
+    } catch (error: any) {
+      console.error('[Admin] Mainnet restart error:', error);
+      res.status(500).json({
+        success: false,
+        message: error.message || "Failed to restart mainnet. Please check logs.",
+      });
+    }
+  });
+
+  app.post("/api/admin/check-health", requireAuth, async (_req, res) => {
+    try {
+      if (!isProductionMode()) {
+        return res.status(501).json({
+          error: "Not Implemented",
+          message: "Health check is only available in production mode. This is a demo environment."
+        });
+      }
+
+      console.log('[Admin] Health check requested');
+      const client = getTBurnClient();
+      const result = await client.checkMainnetHealth();
+      
+      if (result.healthy) {
+        console.log('[Admin] Health check successful');
+        res.json(result);
+      } else {
+        console.warn('[Admin] Health check detected issues:', result.details);
+        res.json(result);
+      }
+    } catch (error: any) {
+      console.error('[Admin] Health check error:', error);
+      res.status(500).json({
+        healthy: false,
+        details: { error: error.message || "Health check failed" },
+      });
+    }
+  });
+
+  // ============================================
   // Node Health
   // ============================================
   app.get("/api/node/health", async (_req, res) => {
