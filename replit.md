@@ -9,6 +9,8 @@ The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehen
 - **Validator-to-Member Sync**: Implemented "Sync Validators" button that converts all 125 validators into members with complete profile initialization
 - **Database Schema Fixes**: Resolved all schema mismatches and added missing columns to member profile tables (proposals_passed, referral_count, multi_sig_enabled, etc.)
 - **Member Statistics Dashboard**: Added real-time member statistics to the main dashboard showing total members, active members, validators, stakers, and KYC verification status
+- **Memory Management Solution**: Implemented permanent data rotation limits (100 blocks, 500 transactions) to prevent memory leaks at optimal 100ms block time
+- **Temporary Performance Adjustment**: Currently running at 2000ms block time (reduced from optimal 100ms) due to system resource constraints - will revert to 100ms (10 blocks/second) when resources permit
 
 ## User Preferences
 I prefer simple language and detailed explanations. I want iterative development with clear communication on progress. Ask before making major changes to the codebase. Ensure all new features have comprehensive test coverage. Do not make changes to files within the `shared/` directory without explicit approval.

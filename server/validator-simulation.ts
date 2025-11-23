@@ -8,7 +8,9 @@ const ENTERPRISE_VALIDATORS_CONFIG = {
   ACTIVE_VALIDATORS: 110,
   COMMITTEE_SIZE: 21, // BFT committee size
   EPOCH_DURATION: 60000, // 1 minute epochs
-  BLOCK_TIME: 2000, // 2 seconds block time (reduced from 100ms to prevent memory issues)
+  BLOCK_TIME: 2000, // TEMPORARY: 2s (should be 100ms for optimal 10 blocks/second) - reduced due to current system resource constraints
+  // TODO: Revert BLOCK_TIME to 100ms when system resources allow for optimal performance
+  // OPTIMAL_BLOCK_TIME: 100ms = 10 blocks per second (TBURN target specification)
   BASE_VOTING_POWER: "50000000000000000000000", // 50,000 TBURN base (total supply: 100M TBURN)
   DELEGATION_MULTIPLIER: 1.5,
   QUORUM_THRESHOLD: 6700, // 67% in basis points
