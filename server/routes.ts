@@ -18,6 +18,7 @@ import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 
 const SITE_PASSWORD = "tburn7979";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
 // Rate limiters
 const loginLimiter = rateLimit({
@@ -43,6 +44,36 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
     return next();
   }
   res.status(401).json({ error: "Unauthorized" });
+}
+
+// Admin authentication middleware
+function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  // Check basic authentication first
+  if (!req.session.authenticated) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  
+  // Check admin password from request header
+  const adminPassword = req.headers['x-admin-password'] as string;
+  
+  if (!adminPassword || !ADMIN_PASSWORD) {
+    return res.status(403).json({ 
+      error: "Forbidden",
+      message: "Admin password required for this operation"
+    });
+  }
+  
+  // Verify admin password
+  if (adminPassword !== ADMIN_PASSWORD) {
+    console.warn('[Admin] Invalid admin password attempt from session:', req.sessionID);
+    return res.status(403).json({ 
+      error: "Forbidden",
+      message: "Invalid admin password"
+    });
+  }
+  
+  console.log('[Admin] Admin access granted for session:', req.sessionID);
+  next();
 }
 
 // NOTE: WebSocket authentication limitation
@@ -722,7 +753,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Admin Control Panel
   // ============================================
-  app.post("/api/admin/restart-mainnet", requireAuth, async (_req, res) => {
+  app.post("/api/admin/restart-mainnet", requireAdmin, async (_req, res) => {
     try {
       if (!isProductionMode()) {
         return res.status(501).json({
@@ -757,7 +788,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/check-health", requireAuth, async (_req, res) => {
+  app.post("/api/admin/check-health", requireAdmin, async (_req, res) => {
     try {
       if (!isProductionMode()) {
         return res.status(501).json({

@@ -1,9 +1,22 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { 
   Server, 
   Activity, 
@@ -14,7 +27,8 @@ import {
   Power,
   Clock,
   Database,
-  Zap
+  Zap,
+  Shield
 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -31,6 +45,9 @@ interface MainnetHealth {
 
 export default function AdminPage() {
   const { toast } = useToast();
+  const [showRestartDialog, setShowRestartDialog] = useState(false);
+  const [showHealthCheckDialog, setShowHealthCheckDialog] = useState(false);
+  const [adminPassword, setAdminPassword] = useState("");
 
   const { data: stats } = useQuery({
     queryKey: ["/api/network/stats"],
@@ -43,11 +60,12 @@ export default function AdminPage() {
   });
 
   const restartMainnetMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (password: string) => {
       const response = await fetch("/api/admin/restart-mainnet", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Admin-Password": password,
         },
         credentials: "include",
       });
@@ -62,6 +80,8 @@ export default function AdminPage() {
         title: "Mainnet Restart Initiated",
         description: "TBURN mainnet restart request sent successfully. Please wait for confirmation.",
       });
+      setShowRestartDialog(false);
+      setAdminPassword("");
       queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
     },
     onError: (error: any) => {
@@ -70,15 +90,17 @@ export default function AdminPage() {
         description: error.message || "Failed to restart mainnet. Please check logs.",
         variant: "destructive",
       });
+      setAdminPassword("");
     },
   });
 
   const checkHealthMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (password: string) => {
       const response = await fetch("/api/admin/check-health", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Admin-Password": password,
         },
         credentials: "include",
       });
@@ -93,7 +115,17 @@ export default function AdminPage() {
         title: "Health Check Complete",
         description: "Mainnet health check completed successfully.",
       });
+      setShowHealthCheckDialog(false);
+      setAdminPassword("");
       queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Health Check Failed",
+        description: error.message || "Failed to check health.",
+        variant: "destructive",
+      });
+      setAdminPassword("");
     },
   });
 
@@ -271,7 +303,7 @@ export default function AdminPage() {
               <Button
                 variant="destructive"
                 className="w-full"
-                onClick={() => restartMainnetMutation.mutate()}
+                onClick={() => setShowRestartDialog(true)}
                 disabled={restartMainnetMutation.isPending}
                 data-testid="button-restart-mainnet"
               >
@@ -293,7 +325,7 @@ export default function AdminPage() {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={() => checkHealthMutation.mutate()}
+                onClick={() => setShowHealthCheckDialog(true)}
                 disabled={checkHealthMutation.isPending}
                 data-testid="button-check-health"
               >
@@ -371,6 +403,142 @@ export default function AdminPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Restart Confirmation Dialog */}
+      <AlertDialog open={showRestartDialog} onOpenChange={setShowRestartDialog}>
+        <AlertDialogContent data-testid="dialog-restart-confirm">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-destructive" />
+              Confirm Mainnet Restart
+            </AlertDialogTitle>
+            <AlertDialogDescription className="space-y-4">
+              <div className="text-sm">
+                <p className="font-semibold text-foreground mb-2">This action will:</p>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                  <li>Send a restart request to tburn1.replit.app</li>
+                  <li>Resume block production and transaction processing</li>
+                  <li>Take approximately 30-60 seconds to complete</li>
+                </ul>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="admin-password-restart" className="flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  Admin Password Required
+                </Label>
+                <Input
+                  id="admin-password-restart"
+                  type="password"
+                  placeholder="Enter admin password"
+                  value={adminPassword}
+                  onChange={(e) => setAdminPassword(e.target.value)}
+                  data-testid="input-admin-password"
+                  disabled={restartMainnetMutation.isPending}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Enter your admin password to authorize this critical operation.
+                </p>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel 
+              onClick={() => {
+                setAdminPassword("");
+                setShowRestartDialog(false);
+              }}
+              disabled={restartMainnetMutation.isPending}
+              data-testid="button-cancel-restart"
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => restartMainnetMutation.mutate(adminPassword)}
+              disabled={!adminPassword || restartMainnetMutation.isPending}
+              className="bg-destructive hover:bg-destructive/90"
+              data-testid="button-confirm-restart"
+            >
+              {restartMainnetMutation.isPending ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Restarting...
+                </>
+              ) : (
+                <>
+                  <Power className="h-4 w-4 mr-2" />
+                  Restart Mainnet
+                </>
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Health Check Dialog */}
+      <AlertDialog open={showHealthCheckDialog} onOpenChange={setShowHealthCheckDialog}>
+        <AlertDialogContent data-testid="dialog-health-confirm">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5" />
+              Confirm Health Check
+            </AlertDialogTitle>
+            <AlertDialogDescription className="space-y-4">
+              <div className="text-sm">
+                <p className="text-muted-foreground">
+                  This will perform a comprehensive health check on the TBURN mainnet infrastructure.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="admin-password-health" className="flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  Admin Password Required
+                </Label>
+                <Input
+                  id="admin-password-health"
+                  type="password"
+                  placeholder="Enter admin password"
+                  value={adminPassword}
+                  onChange={(e) => setAdminPassword(e.target.value)}
+                  data-testid="input-admin-password-health"
+                  disabled={checkHealthMutation.isPending}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Enter your admin password to authorize this operation.
+                </p>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel 
+              onClick={() => {
+                setAdminPassword("");
+                setShowHealthCheckDialog(false);
+              }}
+              disabled={checkHealthMutation.isPending}
+              data-testid="button-cancel-health"
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => checkHealthMutation.mutate(adminPassword)}
+              disabled={!adminPassword || checkHealthMutation.isPending}
+              data-testid="button-confirm-health"
+            >
+              {checkHealthMutation.isPending ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Checking...
+                </>
+              ) : (
+                <>
+                  <Activity className="h-4 w-4 mr-2" />
+                  Check Health
+                </>
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
