@@ -1187,6 +1187,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             tps: mainnetStats.tps,
             currentBlockHeight: mainnetStats.currentBlockHeight,
             totalTransactions: mainnetStats.totalTransactions,
+            peakTps: Math.max(stats.peakTps, mainnetStats.tps),
           });
           
           stats = mainnetStats;
