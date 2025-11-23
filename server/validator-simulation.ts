@@ -1,5 +1,5 @@
 import { IStorage } from "./storage";
-import { Validator, NetworkStats } from "@shared/schema";
+import { Validator, NetworkStats, InsertConsensusRound, InsertBlock } from "@shared/schema";
 import * as crypto from 'crypto';
 
 // TBURN v7.0 Enterprise Validator Configuration
@@ -79,6 +79,15 @@ function generateRemainingValidators(): typeof VALIDATOR_PROFILES {
   return [...VALIDATOR_PROFILES, ...remaining];
 }
 
+// Helper to map phase strings to integers for database
+const PHASE_MAPPING: Record<string, number> = {
+  'propose': 1,
+  'prevote': 2,
+  'precommit': 3,
+  'commit': 4,
+  'complete': 5,
+};
+
 export class ValidatorSimulationService {
   private storage: IStorage;
   private validators: Validator[] = [];
@@ -109,15 +118,30 @@ export class ValidatorSimulationService {
     return votingPower.toString();
   }
 
-  // Initialize 125 enterprise validators
+  // Initialize 125 enterprise validators and set correct block height
   public async initializeValidators(): Promise<void> {
     console.log("🚀 Initializing 125 Enterprise Validators...");
+    
+    // Get latest block height from database to avoid duplicates
+    const recentBlocks = await this.storage.getRecentBlocks(1);
+    if (recentBlocks.length > 0) {
+      this.currentBlockHeight = recentBlocks[0].blockNumber + 1;
+      console.log(`📦 Resuming from block height: ${this.currentBlockHeight}`);
+    } else {
+      this.currentBlockHeight = 1245678; // Start from default if no blocks exist
+      console.log(`📦 Starting from initial block height: ${this.currentBlockHeight}`);
+    }
     
     // Check if validators already exist
     const existingValidators = await this.storage.getAllValidators();
     if (existingValidators.length > 0) {
       console.log(`✅ Found ${existingValidators.length} existing validators, using them`);
-      this.validators = existingValidators;
+      // Add committee field to existing validators
+      this.validators = existingValidators.map((v, i) => ({
+        ...v,
+        committee: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
+        votingHistory: v.votingHistory || 9000 + Math.floor(Math.random() * 1000),
+      }));
       return;
     }
     
@@ -160,7 +184,7 @@ export class ValidatorSimulationService {
         votingHistory: 9000 + Math.floor(Math.random() * 1000),
         
         committee: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
-        blocksProposed: Math.floor(Math.random() * 1000),
+        totalBlocks: Math.floor(Math.random() * 1000),
         delegators: 10 + Math.floor(Math.random() * 990),
         
         joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000), // Random time in last year
@@ -188,26 +212,35 @@ export class ValidatorSimulationService {
       .sort((a, b) => b.adaptiveWeight - a.adaptiveWeight)
       .slice(0, ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE);
     
+    if (committeeValidators.length === 0) {
+      console.warn("No committee validators available for consensus round");
+      return;
+    }
+    
     const proposer = committeeValidators[this.currentRound % committeeValidators.length];
     const totalVotingPower = committeeValidators.reduce((sum, v) => {
       return sum + BigInt(this.calculateVotingPower(v.stake, "0"));
     }, BigInt(0));
     
-    // Create consensus round
-    const round = {
-      roundNumber: this.currentRound,
+    // Create consensus round data for database
+    const consensusData: InsertConsensusRound = {
       blockHeight: this.currentBlockHeight,
       proposerAddress: proposer.address,
-      shardId: Math.floor(Math.random() * 5), // 0-4 shards
-      phase: "commit" as const,
-      status: "success" as const,
-      quorumRequired: ENTERPRISE_VALIDATORS_CONFIG.QUORUM_THRESHOLD,
-      quorumAchieved: 0,
-      totalVotingPower: totalVotingPower.toString(),
-      votesReceived: 0,
-      tpsAchieved: 45000 + Math.floor(Math.random() * 25000), // 45K-70K TPS
-      startTime: new Date(),
-      endTime: new Date(),
+      currentPhase: PHASE_MAPPING['commit'] || 4, // Map phase string to integer
+      prevoteCount: Math.floor(committeeValidators.length * 0.9), // 90% prevotes
+      precommitCount: Math.floor(committeeValidators.length * 0.85), // 85% precommits
+      totalValidators: committeeValidators.length,
+      requiredQuorum: Math.ceil(committeeValidators.length * ENTERPRISE_VALIDATORS_CONFIG.QUORUM_THRESHOLD / 10000),
+      avgBlockTimeMs: ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME,
+      status: "completed",
+      startTime: Date.now(), // Unix timestamp in milliseconds
+      completedTime: Date.now() + Math.floor(Math.random() * 50), // Complete within 50ms
+      phasesJson: JSON.stringify([
+        { phase: "propose", timestamp: Date.now() },
+        { phase: "prevote", timestamp: Date.now() + 10 },
+        { phase: "precommit", timestamp: Date.now() + 20 },
+        { phase: "commit", timestamp: Date.now() + 30 },
+      ]),
     };
     
     // Simulate voting
@@ -222,25 +255,27 @@ export class ValidatorSimulationService {
         votingPowerAchieved += votingPower;
         votesReceived++;
         
-        // Record vote
-        await this.storage.recordValidatorVote?.({
-          roundNumber: round.roundNumber,
-          validatorAddress: validator.address,
-          voteType: "precommit",
-          votingPower: votingPower.toString(),
-          signature: crypto.randomBytes(32).toString('hex'),
-          decision: "approve",
-          timestamp: new Date(),
-          reason: null,
-        });
+        // Record vote (if storage method exists)
+        if (this.storage.recordValidatorVote) {
+          await this.storage.recordValidatorVote({
+            roundNumber: this.currentRound,
+            validatorAddress: validator.address,
+            voteType: "precommit",
+            votingPower: votingPower.toString(),
+            signature: crypto.randomBytes(32).toString('hex'),
+            decision: "approve",
+            timestamp: new Date(),
+            reason: null,
+          });
+        }
       }
     }
     
-    round.quorumAchieved = Math.floor((Number(votingPowerAchieved) / Number(totalVotingPower)) * 10000);
-    round.votesReceived = votesReceived;
+    // Update consensus data with voting results
+    const quorumAchieved = Math.floor((Number(votingPowerAchieved) / Number(totalVotingPower)) * 10000);
     
-    // Store consensus round
-    await this.storage.createConsensusRound?.(round);
+    // Save consensus round to database
+    await this.storage.createConsensusRound(consensusData);
     
     // Update round only (block height is updated in the main loop)
     this.currentRound++;
@@ -249,6 +284,10 @@ export class ValidatorSimulationService {
   // Simulate block production
   private async simulateBlockProduction(): Promise<void> {
     const activeValidators = this.validators.filter(v => v.status === "active");
+    if (activeValidators.length === 0) {
+      console.warn("No active validators for block production");
+      return;
+    }
     const producer = activeValidators[this.currentBlockHeight % activeValidators.length];
     
     // Create block
@@ -273,9 +312,9 @@ export class ValidatorSimulationService {
     
     await this.storage.createBlock(block);
     
-    // Update validator's blocks proposed
-    producer.blocksProposed++;
-    await this.storage.updateValidator(producer.address, { blocksProposed: producer.blocksProposed });
+    // Update validator's total blocks
+    producer.totalBlocks = (producer.totalBlocks || 0) + 1;
+    await this.storage.updateValidator(producer.address, { totalBlocks: producer.totalBlocks });
   }
 
   // Update network stats based on validator activity
