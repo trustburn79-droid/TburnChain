@@ -457,21 +457,107 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/validators/:address", async (req, res) => {
     try {
       const address = req.params.address;
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const validator = await client.getValidator(address);
-        res.json(validator);
-      } else {
-        // Fetch from local database (demo mode)
-        const validator = await storage.getValidatorByAddress(address);
-        if (!validator) {
-          return res.status(404).json({ error: "Validator not found" });
-        }
-        res.json(validator);
-      }
+      // Use the getValidatorDetails method to get extended validator info
+      const validatorDetails = await storage.getValidatorDetails(address);
+      res.json(validatorDetails);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch validator" });
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(error instanceof Error && error.message.includes("not found") ? 404 : 500)
+        .json({ error: "Failed to fetch validator", details: errorMessage });
+    }
+  });
+
+  // Validator activation/deactivation
+  app.post("/api/validators/:address/activate", async (req, res) => {
+    try {
+      const address = req.params.address;
+      await storage.activateValidator(address);
+      res.json({ success: true, message: "Validator activated" });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: "Failed to activate validator", details: errorMessage });
+    }
+  });
+
+  app.post("/api/validators/:address/deactivate", async (req, res) => {
+    try {
+      const address = req.params.address;
+      await storage.deactivateValidator(address);
+      res.json({ success: true, message: "Validator deactivated" });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: "Failed to deactivate validator", details: errorMessage });
+    }
+  });
+
+  // Delegation
+  app.post("/api/validators/:address/delegate", async (req, res) => {
+    try {
+      const address = req.params.address;
+      const { amount } = req.body;
+      
+      if (!amount || isNaN(parseFloat(amount))) {
+        return res.status(400).json({ error: "Invalid delegation amount" });
+      }
+
+      // Mock delegator address (in production, this would come from auth context)
+      const delegatorAddress = `0x${Math.random().toString(16).slice(2, 42)}`;
+      
+      await storage.delegateToValidator(address, amount, delegatorAddress);
+      res.json({ success: true, message: `Delegated ${amount} TBURN to validator` });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: "Failed to delegate", details: errorMessage });
+    }
+  });
+
+  app.post("/api/validators/:address/undelegate", async (req, res) => {
+    try {
+      const address = req.params.address;
+      const { amount } = req.body;
+      
+      if (!amount || isNaN(parseFloat(amount))) {
+        return res.status(400).json({ error: "Invalid undelegation amount" });
+      }
+
+      // Mock delegator address (in production, this would come from auth context)
+      const delegatorAddress = `0x${Math.random().toString(16).slice(2, 42)}`;
+      
+      await storage.undelegateFromValidator(address, amount, delegatorAddress);
+      res.json({ success: true, message: `Undelegated ${amount} TBURN from validator` });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: "Failed to undelegate", details: errorMessage });
+    }
+  });
+
+  // Claim rewards
+  app.post("/api/validators/:address/claim-rewards", async (req, res) => {
+    try {
+      const address = req.params.address;
+      const reward = await storage.claimRewards(address);
+      res.json({ success: true, amount: reward.amount, message: "Rewards claimed successfully" });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: "Failed to claim rewards", details: errorMessage });
+    }
+  });
+
+  // Update commission
+  app.post("/api/validators/:address/commission", async (req, res) => {
+    try {
+      const address = req.params.address;
+      const { commission } = req.body;
+      
+      if (commission === undefined || commission < 0 || commission > 2000) {
+        return res.status(400).json({ error: "Invalid commission rate (must be 0-2000 basis points)" });
+      }
+
+      await storage.updateValidatorCommission(address, commission);
+      res.json({ success: true, message: "Commission updated" });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: "Failed to update commission", details: errorMessage });
     }
   });
 

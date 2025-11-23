@@ -15,6 +15,7 @@ import Dashboard from "@/pages/dashboard";
 import Blocks from "@/pages/blocks";
 import Transactions from "@/pages/transactions";
 import Validators from "@/pages/validators";
+import ValidatorDetail from "@/pages/validator-detail";
 import AIOrchestration from "@/pages/ai-orchestration";
 import Sharding from "@/pages/sharding";
 import CrossShard from "@/pages/cross-shard";
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/transactions" component={Transactions} />
       <Route path="/simulator" component={TransactionSimulator} />
       <Route path="/validators" component={Validators} />
+      <Route path="/validator/:address" component={ValidatorDetail} />
       <Route path="/ai" component={AIOrchestration} />
       <Route path="/sharding" component={Sharding} />
       <Route path="/cross-shard" component={CrossShard} />

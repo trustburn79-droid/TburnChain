@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
+import { Link } from "wouter";
 import { Server, Award, Users, TrendingUp, Shield, Target, Brain, Vote, Coins, Crown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -181,13 +182,16 @@ export default function Validators() {
                         key={validator.id}
                         className="hover-elevate cursor-pointer"
                         data-testid={`row-validator-${validator.address.slice(0, 10)}`}
+                        onClick={() => window.location.href = `/validator/${validator.address}`}
                       >
                         <TableCell className="font-mono text-sm">
                           #{index + 1}
                         </TableCell>
                         <TableCell>
                           <div className="flex flex-col gap-1">
-                            <span className="font-semibold">{validator.name}</span>
+                            <Link href={`/validator/${validator.address}`}>
+                              <span className="font-semibold text-primary hover:underline">{validator.name}</span>
+                            </Link>
                             <span className="font-mono text-xs text-muted-foreground">
                               {formatAddress(validator.address)}
                             </span>

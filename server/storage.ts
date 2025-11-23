@@ -78,6 +78,13 @@ export interface IStorage {
   getValidatorByAddress(address: string): Promise<Validator | undefined>;
   createValidator(validator: InsertValidator): Promise<Validator>;
   updateValidator(address: string, data: Partial<Validator>): Promise<Validator>;
+  getValidatorDetails(address: string): Promise<any>;
+  delegateToValidator(address: string, amount: string, delegatorAddress: string): Promise<void>;
+  undelegateFromValidator(address: string, amount: string, delegatorAddress: string): Promise<void>;
+  claimRewards(address: string): Promise<{ amount: string }>;
+  activateValidator(address: string): Promise<void>;
+  deactivateValidator(address: string): Promise<void>;
+  updateValidatorCommission(address: string, commission: number): Promise<void>;
 
   // Smart Contracts
   getAllContracts(): Promise<SmartContract[]>;
@@ -458,6 +465,7 @@ export class MemStorage implements IStorage {
         address: `0x${Math.random().toString(16).substr(2, 40)}`,
         name: validatorNames[i] || `Validator ${i + 1}`,
         stake: (Math.random() * 5000000 + 1000000).toFixed(0),
+        delegatedStake: (Math.random() * 2000000).toFixed(0),
         commission: Math.floor(Math.random() * 1000) + 500, // 5.00-14.99% in basis points
         status: i < 10 ? "active" : Math.random() > 0.5 ? "inactive" : "jailed",
         uptime: Math.floor(Math.random() * 1000) + 9000, // 90.00-99.99% in basis points
@@ -692,6 +700,7 @@ export class MemStorage implements IStorage {
     const validator: Validator = {
       ...insertValidator,
       id,
+      delegatedStake: insertValidator.delegatedStake ?? "0",
       commission: insertValidator.commission ?? 500,
       status: insertValidator.status ?? "active",
       uptime: insertValidator.uptime ?? 10000,
@@ -725,6 +734,167 @@ export class MemStorage implements IStorage {
     const updated = { ...validator, ...data };
     this.validators.set(address, updated);
     return updated;
+  }
+
+  async getValidatorDetails(address: string): Promise<any> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Calculate rank
+    const allValidators = await this.getAllValidators();
+    const sortedValidators = allValidators.sort((a, b) => {
+      const aPower = BigInt(a.stake) + BigInt(a.delegatedStake || 0);
+      const bPower = BigInt(b.stake) + BigInt(b.delegatedStake || 0);
+      return Number(bPower - aPower);
+    });
+    const rank = sortedValidators.findIndex(v => v.address === address) + 1;
+    const isCommittee = rank <= 21;
+
+    // Generate mock delegation data
+    const delegators = [];
+    const numDelegators = validator.delegators || 0;
+    for (let i = 0; i < Math.min(numDelegators, 10); i++) {
+      delegators.push({
+        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        amount: ((Math.random() * 10000 + 1000) * 1e18).toString(),
+        timestamp: Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 30 * 24 * 60 * 60)
+      });
+    }
+
+    // Generate performance history
+    const performanceHistory = [];
+    for (let i = 0; i < 24; i++) {
+      performanceHistory.push({
+        timestamp: Math.floor(Date.now() / 1000) - (24 - i) * 3600,
+        blockTime: validator.avgBlockTime + (Math.random() - 0.5) * 0.5,
+        missedBlocks: Math.floor(Math.random() * 3),
+        uptime: validator.uptime + (Math.random() - 0.5) * 500
+      });
+    }
+
+    // Generate reward history
+    const rewardHistory = [];
+    for (let i = 0; i < 30; i++) {
+      rewardHistory.push({
+        timestamp: Math.floor(Date.now() / 1000) - (30 - i) * 24 * 3600,
+        amount: ((Math.random() * 500 + 100) * 1e18).toString(),
+        type: Math.random() > 0.7 ? 'block' : 'delegation'
+      });
+    }
+
+    // Generate events
+    const events = [
+      {
+        id: randomUUID(),
+        timestamp: Math.floor(Date.now() / 1000) - 86400,
+        type: 'activated',
+        description: 'Validator activated',
+        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+      },
+      {
+        id: randomUUID(),
+        timestamp: Math.floor(Date.now() / 1000) - 172800,
+        type: 'reward',
+        description: 'Claimed rewards: 1,234.56 TBURN',
+        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+      }
+    ];
+
+    return {
+      ...validator,
+      rank,
+      isCommittee,
+      delegators,
+      performanceHistory,
+      rewardHistory,
+      events
+    };
+  }
+
+  async delegateToValidator(address: string, amount: string, delegatorAddress: string): Promise<void> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Update delegated stake
+    const currentDelegated = BigInt(validator.delegatedStake || 0);
+    const additionalDelegation = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const newDelegated = currentDelegated + additionalDelegation;
+    
+    // Update voting power
+    const votingPower = BigInt(validator.stake) + newDelegated;
+    
+    await this.updateValidator(address, {
+      delegatedStake: newDelegated.toString(),
+      votingPower: votingPower.toString(),
+      delegators: (validator.delegators || 0) + 1
+    });
+  }
+
+  async undelegateFromValidator(address: string, amount: string, delegatorAddress: string): Promise<void> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Update delegated stake
+    const currentDelegated = BigInt(validator.delegatedStake || 0);
+    const undelegateAmount = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const newDelegated = currentDelegated > undelegateAmount ? currentDelegated - undelegateAmount : BigInt(0);
+    
+    // Update voting power
+    const votingPower = BigInt(validator.stake) + newDelegated;
+    
+    await this.updateValidator(address, {
+      delegatedStake: newDelegated.toString(),
+      votingPower: votingPower.toString(),
+      delegators: Math.max(0, (validator.delegators || 0) - 1)
+    });
+  }
+
+  async claimRewards(address: string): Promise<{ amount: string }> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Calculate rewards based on stake and APY
+    const stake = BigInt(validator.stake);
+    const delegatedStake = BigInt(validator.delegatedStake || 0);
+    const totalStake = stake + delegatedStake;
+    const apy = validator.apy / 10000; // Convert basis points to decimal
+    const dailyRate = apy / 365;
+    const rewardAmount = totalStake * BigInt(Math.floor(dailyRate * 1e18)) / BigInt(1e18);
+    
+    // Update reward earned
+    const currentRewards = BigInt(validator.rewardEarned || 0);
+    await this.updateValidator(address, {
+      rewardEarned: (currentRewards + rewardAmount).toString()
+    });
+
+    return { amount: rewardAmount.toString() };
+  }
+
+  async activateValidator(address: string): Promise<void> {
+    await this.updateValidator(address, {
+      status: 'active',
+      lastActiveAt: new Date()
+    });
+  }
+
+  async deactivateValidator(address: string): Promise<void> {
+    await this.updateValidator(address, {
+      status: 'inactive'
+    });
+  }
+
+  async updateValidatorCommission(address: string, commission: number): Promise<void> {
+    await this.updateValidator(address, {
+      commission
+    });
   }
 
   // Smart Contracts
@@ -1169,6 +1339,167 @@ export class DbStorage implements IStorage {
     const result = await this.getValidatorByAddress(address);
     if (!result) throw new Error(`Validator ${address} not found`);
     return result;
+  }
+
+  async getValidatorDetails(address: string): Promise<any> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Calculate rank
+    const allValidators = await this.getAllValidators();
+    const sortedValidators = allValidators.sort((a, b) => {
+      const aPower = BigInt(a.stake) + BigInt(a.delegatedStake || 0);
+      const bPower = BigInt(b.stake) + BigInt(b.delegatedStake || 0);
+      return Number(bPower - aPower);
+    });
+    const rank = sortedValidators.findIndex(v => v.address === address) + 1;
+    const isCommittee = rank <= 21;
+
+    // Generate mock delegation data (in production this would come from delegations table)
+    const delegators = [];
+    const numDelegators = validator.delegators || 0;
+    for (let i = 0; i < Math.min(numDelegators, 10); i++) {
+      delegators.push({
+        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        amount: ((Math.random() * 10000 + 1000) * 1e18).toString(),
+        timestamp: Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 30 * 24 * 60 * 60)
+      });
+    }
+
+    // Generate performance history
+    const performanceHistory = [];
+    for (let i = 0; i < 24; i++) {
+      performanceHistory.push({
+        timestamp: Math.floor(Date.now() / 1000) - (24 - i) * 3600,
+        blockTime: validator.avgBlockTime + (Math.random() - 0.5) * 0.5,
+        missedBlocks: Math.floor(Math.random() * 3),
+        uptime: validator.uptime + (Math.random() - 0.5) * 500
+      });
+    }
+
+    // Generate reward history
+    const rewardHistory = [];
+    for (let i = 0; i < 30; i++) {
+      rewardHistory.push({
+        timestamp: Math.floor(Date.now() / 1000) - (30 - i) * 24 * 3600,
+        amount: ((Math.random() * 500 + 100) * 1e18).toString(),
+        type: Math.random() > 0.7 ? 'block' : 'delegation'
+      });
+    }
+
+    // Generate events
+    const events = [
+      {
+        id: randomUUID(),
+        timestamp: Math.floor(Date.now() / 1000) - 86400,
+        type: 'activated',
+        description: 'Validator activated',
+        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+      },
+      {
+        id: randomUUID(),
+        timestamp: Math.floor(Date.now() / 1000) - 172800,
+        type: 'reward',
+        description: 'Claimed rewards: 1,234.56 TBURN',
+        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+      }
+    ];
+
+    return {
+      ...validator,
+      rank,
+      isCommittee,
+      delegators,
+      performanceHistory,
+      rewardHistory,
+      events
+    };
+  }
+
+  async delegateToValidator(address: string, amount: string, delegatorAddress: string): Promise<void> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Update delegated stake
+    const currentDelegated = BigInt(validator.delegatedStake || 0);
+    const additionalDelegation = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const newDelegated = currentDelegated + additionalDelegation;
+    
+    // Update voting power
+    const votingPower = BigInt(validator.stake) + newDelegated;
+    
+    await this.updateValidator(address, {
+      delegatedStake: newDelegated.toString(),
+      votingPower: votingPower.toString(),
+      delegators: (validator.delegators || 0) + 1
+    });
+  }
+
+  async undelegateFromValidator(address: string, amount: string, delegatorAddress: string): Promise<void> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Update delegated stake
+    const currentDelegated = BigInt(validator.delegatedStake || 0);
+    const undelegateAmount = BigInt(amount) * BigInt(1e18); // Convert to Wei
+    const newDelegated = currentDelegated > undelegateAmount ? currentDelegated - undelegateAmount : BigInt(0);
+    
+    // Update voting power
+    const votingPower = BigInt(validator.stake) + newDelegated;
+    
+    await this.updateValidator(address, {
+      delegatedStake: newDelegated.toString(),
+      votingPower: votingPower.toString(),
+      delegators: Math.max(0, (validator.delegators || 0) - 1)
+    });
+  }
+
+  async claimRewards(address: string): Promise<{ amount: string }> {
+    const validator = await this.getValidatorByAddress(address);
+    if (!validator) {
+      throw new Error(`Validator ${address} not found`);
+    }
+
+    // Calculate rewards based on stake and APY
+    const stake = BigInt(validator.stake);
+    const delegatedStake = BigInt(validator.delegatedStake || 0);
+    const totalStake = stake + delegatedStake;
+    const apy = validator.apy / 10000; // Convert basis points to decimal
+    const dailyRate = apy / 365;
+    const rewardAmount = totalStake * BigInt(Math.floor(dailyRate * 1e18)) / BigInt(1e18);
+    
+    // Update reward earned
+    const currentRewards = BigInt(validator.rewardEarned || 0);
+    await this.updateValidator(address, {
+      rewardEarned: (currentRewards + rewardAmount).toString()
+    });
+
+    return { amount: rewardAmount.toString() };
+  }
+
+  async activateValidator(address: string): Promise<void> {
+    await this.updateValidator(address, {
+      status: 'active',
+      lastActiveAt: new Date()
+    });
+  }
+
+  async deactivateValidator(address: string): Promise<void> {
+    await this.updateValidator(address, {
+      status: 'inactive'
+    });
+  }
+
+  async updateValidatorCommission(address: string, commission: number): Promise<void> {
+    await this.updateValidator(address, {
+      commission
+    });
   }
 
   // Smart Contracts
