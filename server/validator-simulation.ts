@@ -113,6 +113,14 @@ export class ValidatorSimulationService {
   public async initializeValidators(): Promise<void> {
     console.log("🚀 Initializing 125 Enterprise Validators...");
     
+    // Check if validators already exist
+    const existingValidators = await this.storage.getAllValidators();
+    if (existingValidators.length > 0) {
+      console.log(`✅ Found ${existingValidators.length} existing validators, using them`);
+      this.validators = existingValidators;
+      return;
+    }
+    
     const allProfiles = generateRemainingValidators();
     const validators: Validator[] = [];
     
@@ -234,8 +242,7 @@ export class ValidatorSimulationService {
     // Store consensus round
     await this.storage.createConsensusRound?.(round);
     
-    // Update block height and round
-    this.currentBlockHeight++;
+    // Update round only (block height is updated in the main loop)
     this.currentRound++;
   }
 
@@ -300,14 +307,29 @@ export class ValidatorSimulationService {
       await this.initializeValidators();
     }
     
+    // Get latest block height from database to avoid conflicts
+    try {
+      const latestBlock = await this.storage.getRecentBlocks(1);
+      if (latestBlock && latestBlock.length > 0) {
+        this.currentBlockHeight = latestBlock[0].blockNumber + 1;
+        console.log(`📦 Starting from block height: ${this.currentBlockHeight}`);
+      }
+    } catch (error) {
+      console.log(`Using default block height: ${this.currentBlockHeight}`);
+    }
+    
     // Block production every 100ms
     this.blockInterval = setInterval(async () => {
       try {
         await this.simulateBlockProduction();
         await this.simulateConsensusRound();
         await this.updateNetworkStats();
+        // Increment block height after successful production
+        this.currentBlockHeight++;
       } catch (error) {
         console.error("Error in block simulation:", error);
+        // Still increment block height to avoid duplicate attempts
+        this.currentBlockHeight++;
       }
     }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
     

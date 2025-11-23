@@ -16,6 +16,7 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
+import { ValidatorSimulationService } from "./validator-simulation";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -101,6 +102,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
   if (isProductionMode()) {
     getTBurnClient();
   }
+
+  // Initialize validator simulation service
+  let validatorSimulation: ValidatorSimulationService | null = null;
+  
+  // Initialize validator simulation and start periodic updates
+  async function initializeValidatorSimulation() {
+    try {
+      validatorSimulation = new ValidatorSimulationService(storage);
+      await validatorSimulation.initializeValidators();
+      console.log("[ValidatorSim] ✅ Initialized 125 enterprise validators");
+      
+      // Start the validator simulation (this includes periodic updates)
+      await validatorSimulation.start();
+      console.log("[ValidatorSim] 🚀 Started validator simulation");
+      
+      // Broadcast validators updates periodically (every 30 seconds)
+      setInterval(async () => {
+        try {
+          // Get updated validators from storage (simulation updates them internally)
+          const validators = await storage.getAllValidators();
+          broadcastUpdate('validators', validators, z.array(z.any()));
+        } catch (error) {
+          console.error("[ValidatorSim] Error broadcasting validators:", error);
+        }
+      }, 30000);
+    } catch (error) {
+      console.error("[ValidatorSim] Failed to initialize:", error);
+    }
+  }
+  
+  // Initialize on startup
+  initializeValidatorSimulation();
 
   // WebSocket clients - initialized early for use in broadcast functions
   const clients = new Set<WebSocket>();
