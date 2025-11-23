@@ -38,7 +38,8 @@ import {
   CheckCircle,
   Timer,
   TrendingUp,
-  TrendingDown
+  TrendingDown,
+  Info
 } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -53,7 +54,7 @@ interface MainnetHealth {
   status: "active" | "paused" | "degraded" | "restarting" | "offline";
   tps: number;
   peakTps: number;
-  errorType?: "api-rate-limit" | "api-error" | "mainnet-offline";
+  errorType?: "api-rate-limit" | "api-error" | "mainnet-offline" | "network-error";
   retryAfter?: number;
   isStale?: boolean;
 }
@@ -259,7 +260,7 @@ export default function AdminPage() {
     return {
       isHealthy,
       lastBlockTime: lastBlock.timestamp,
-      lastBlockNumber: lastBlock.height || lastBlock.blockNumber || 0,
+      lastBlockNumber: lastBlock.height || (lastBlock as any).blockNumber || 0,
       timeSinceLastBlock,
       status,
       tps: statsData.tps || 0,
@@ -409,7 +410,27 @@ export default function AdminPage() {
               <div>
                 <h2 className="text-2xl font-bold">Mainnet Status</h2>
                 <p className="text-sm text-muted-foreground">
-                  Real-time health monitoring {health.isStale && "(using cached data)"}
+                  {shouldUseDemoMode ? (
+                    <span className="flex items-center gap-1">
+                      <Info className="h-3 w-3" />
+                      Demo Mode - API Unavailable
+                    </span>
+                  ) : stats.source === "cached" || blocks.source === "cached" ? (
+                    <span className="flex items-center gap-1">
+                      <Database className="h-3 w-3" />
+                      Using cached data (Last update: {lastLiveUpdate > 0 ? formatDistanceToNow(new Date(lastLiveUpdate)) + " ago" : "Unknown"})
+                    </span>
+                  ) : isLive ? (
+                    <span className="flex items-center gap-1">
+                      <Zap className="h-3 w-3 text-green-500" />
+                      Real-time health monitoring
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1">
+                      <WifiOff className="h-3 w-3 text-yellow-500" />
+                      Connection issues detected
+                    </span>
+                  )}
                 </p>
               </div>
             </div>
@@ -492,21 +513,54 @@ export default function AdminPage() {
             </Card>
           </div>
 
-          {/* Error Alert */}
+          {/* Error Alert with improved messaging */}
           {health.errorType && (
             <Alert className="mt-4" variant={health.errorType === "api-rate-limit" ? "default" : "destructive"}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>
-                {health.errorType === "api-rate-limit" ? "Rate Limited" : 
-                 health.errorType === "api-error" ? "API Error" : 
-                 "Connection Issue"}
+                {health.errorType === "api-rate-limit" ? "API Rate Limited" : 
+                 health.errorType === "api-error" ? "API Service Issue" : 
+                 "Connection Problem"}
               </AlertTitle>
               <AlertDescription>
-                {health.errorType === "api-rate-limit" ? 
-                  "Upstream API is rate limiting requests. Data may be stale." : 
-                 health.errorType === "api-error" ? 
-                  "Upstream API is returning errors. Using cached data where available." : 
-                  "Unable to connect to TBURN mainnet. Please check network connectivity."}
+                {health.errorType === "api-rate-limit" ? (
+                  <div className="space-y-2">
+                    <p>The TBURN API is temporarily limiting requests to prevent overload.</p>
+                    <p className="text-sm">
+                      {shouldUseDemoMode ? 
+                        "✅ Showing demo data to maintain UI functionality" : 
+                        stats.source === "cached" || blocks.source === "cached" ?
+                        "✅ Using cached data from your last successful connection" :
+                        "⏳ Waiting for API to recover..."}
+                    </p>
+                  </div>
+                ) : health.errorType === "api-error" ? (
+                  <div className="space-y-2">
+                    <p>The TBURN mainnet API is experiencing technical difficulties.</p>
+                    <p className="text-sm">
+                      {shouldUseDemoMode ? 
+                        "✅ Demo data is being displayed for demonstration purposes" : 
+                        stats.source === "cached" || blocks.source === "cached" ?
+                        "✅ Your last known good data is being displayed" :
+                        "⏳ Attempting to reconnect..."}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      This is typically temporary. The system will auto-recover when service is restored.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <p>Cannot establish connection to TBURN mainnet infrastructure.</p>
+                    <p className="text-sm">
+                      Possible causes: Network connectivity issues, firewall restrictions, or mainnet maintenance.
+                    </p>
+                    {shouldUseDemoMode && (
+                      <p className="text-sm font-medium">
+                        ✅ Demo mode active - showing sample blockchain data
+                      </p>
+                    )}
+                  </div>
+                )}
               </AlertDescription>
             </Alert>
           )}
