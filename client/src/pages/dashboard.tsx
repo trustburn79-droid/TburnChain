@@ -16,6 +16,7 @@ import { SearchBar } from "@/components/search-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DataSourceBadge } from "@/components/data-source-badge";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
 
@@ -54,7 +55,10 @@ export default function Dashboard() {
             Real-time blockchain data and network statistics
           </p>
         </div>
-        <LiveIndicator />
+        <div className="flex items-center gap-3">
+          <DataSourceBadge size="md" />
+          <LiveIndicator />
+        </div>
       </div>
 
       {/* Search Bar */}
@@ -79,12 +83,14 @@ export default function Dashboard() {
               icon={Zap}
               trend={{ value: 12.5, isPositive: true }}
               subtitle={`Peak: ${formatNumber(networkStats?.peakTps || 0)} TPS`}
+              showDataSource={true}
             />
             <StatCard
               title="Block Height"
               value={formatNumber(networkStats?.currentBlockHeight || 0)}
               icon={Blocks}
               subtitle="latest block"
+              showDataSource={true}
             />
             <StatCard
               title="Block Time"
@@ -92,12 +98,14 @@ export default function Dashboard() {
               icon={Clock}
               trend={{ value: 5.2, isPositive: false }}
               subtitle={`P99: ${networkStats?.blockTimeP99 || 0}ms`}
+              showDataSource={true}
             />
             <StatCard
               title="SLA Uptime"
               value={`${((networkStats?.slaUptime || 9990) / 100).toFixed(2)}%`}
               icon={Activity}
               subtitle="last 30 days"
+              showDataSource={true}
             />
           </>
         )}

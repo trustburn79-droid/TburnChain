@@ -3,12 +3,12 @@
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
-**Latest Updates (November 23, 2025):**
-- **Complete Member Management System**: Fully implemented member/staker/validator management with CRUD operations, statistics display, and detailed member profiles
-- **Member Creation UI**: Added intuitive dialog-based member creation form with fields for account address, display name, email, location, bio, tier selection, and KYC level
-- **Validator-to-Member Sync**: Implemented "Sync Validators" button that converts all 125 validators into members with complete profile initialization
-- **Database Schema Fixes**: Resolved all schema mismatches and added missing columns to member profile tables (proposals_passed, referral_count, multi_sig_enabled, etc.)
-- **Member Statistics Dashboard**: Added real-time member statistics to the main dashboard showing total members, active members, validators, stakers, and KYC verification status
+**Latest Updates (November 24, 2025):**
+- **Data Source Indicators**: Added visual badges to distinguish between real mainnet data and demo/simulated data on dashboard cards
+  - Green "Mainnet" badge for production data
+  - Amber "Demo Data" badge for simulated/development data
+  - Badges appear on main stat cards and in the header for clear data source identification
+- **Production Environment Improvements**: Enhanced API error handling and initialization for production deployments
 - **Memory Management Solution**: Implemented permanent data rotation limits (100 blocks, 500 transactions) to prevent memory leaks at optimal 100ms block time
 - **Temporary Performance Adjustment**: Currently running at 2000ms block time (reduced from optimal 100ms) due to system resource constraints - will revert to 100ms (10 blocks/second) when resources permit
 

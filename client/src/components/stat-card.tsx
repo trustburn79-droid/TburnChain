@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DataSourceBadge } from "./data-source-badge";
 
 interface StatCardProps {
   title: string;
@@ -12,11 +13,17 @@ interface StatCardProps {
   };
   subtitle?: string;
   className?: string;
+  showDataSource?: boolean;
 }
 
-export function StatCard({ title, value, icon: Icon, trend, subtitle, className }: StatCardProps) {
+export function StatCard({ title, value, icon: Icon, trend, subtitle, className, showDataSource = false }: StatCardProps) {
   return (
-    <Card className={cn("hover-elevate", className)} data-testid={`card-stat-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+    <Card className={cn("hover-elevate relative overflow-visible", className)} data-testid={`card-stat-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+      {showDataSource && (
+        <div className="absolute -top-2 -right-2 z-10">
+          <DataSourceBadge size="sm" />
+        </div>
+      )}
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
