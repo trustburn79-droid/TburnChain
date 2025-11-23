@@ -77,6 +77,7 @@ export const validators = pgTable("validators", {
   address: text("address").notNull().unique(),
   name: text("name").notNull(),
   stake: text("stake").notNull(),
+  delegatedStake: text("delegated_stake").notNull().default("0"), // Total delegated to this validator
   commission: integer("commission").notNull().default(500), // basis points (500 = 5.00%)
   status: text("status").notNull().default("active"), // active, inactive, jailed
   uptime: integer("uptime").notNull().default(10000), // basis points (10000 = 100.00%)

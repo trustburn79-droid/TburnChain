@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Server, Award, Users, TrendingUp, Shield, Target, Brain } from "lucide-react";
+import { Server, Award, Users, TrendingUp, Shield, Target, Brain, Vote, Coins, Crown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -15,14 +15,51 @@ import {
 } from "@/components/ui/table";
 import { formatAddress, formatTokenAmount, formatPercentage, formatNumber } from "@/lib/format";
 import type { Validator } from "@shared/schema";
+import { useEffect, useState } from "react";
+import { useWebSocket } from "@/lib/websocket-context";
 
 export default function Validators() {
   const { data: validators, isLoading } = useQuery<Validator[]>({
     queryKey: ["/api/validators"],
   });
 
+  const [votingActivity, setVotingActivity] = useState<any[]>([]);
+  const [validatorUpdates, setValidatorUpdates] = useState<any>(null);
+
+  // Subscribe to WebSocket updates
+  const { lastMessage } = useWebSocket();
+  
+  useEffect(() => {
+    if (lastMessage?.data) {
+      try {
+        const message = JSON.parse(lastMessage.data);
+        if (message.type === 'voting_activity') {
+          setVotingActivity(message.data);
+        } else if (message.type === 'validators_update') {
+          setValidatorUpdates(message.data);
+        }
+      } catch (error) {
+        // Ignore JSON parse errors
+      }
+    }
+  }, [lastMessage]);
+
+  // Calculate validators with voting power and committee status
+  const validatorsWithPower = validators?.map(v => {
+    const votingPower = BigInt(v.stake) + BigInt(v.delegatedStake || 0);
+    return {
+      ...v,
+      votingPower: votingPower.toString(),
+      votingPowerNumber: Number(votingPower / BigInt(1e18)), // Convert to TBURN units for display
+    };
+  }).sort((a, b) => Number(BigInt(b.votingPower) - BigInt(a.votingPower))) || [];
+
+  // Top 21 validators are committee members
+  const committeeMembers = new Set(validatorsWithPower.slice(0, 21).map(v => v.address));
+
   const activeValidators = validators?.filter(v => v.status === "active").length || 0;
   const totalStake = validators?.reduce((sum, v) => sum + parseFloat(v.stake), 0) || 0;
+  const totalDelegated = validators?.reduce((sum, v) => sum + parseFloat(v.delegatedStake || "0"), 0) || 0;
   // Convert basis points to percentage (10000 = 100.00%)
   const avgApy = (validators?.reduce((sum, v) => sum + v.apy, 0) || 0) / (validators?.length || 1) / 100;
 
@@ -52,9 +89,10 @@ export default function Validators() {
       </div>
 
       {/* Validator Stats */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
         {isLoading ? (
           <>
+            <Skeleton className="h-32" />
             <Skeleton className="h-32" />
             <Skeleton className="h-32" />
             <Skeleton className="h-32" />
@@ -72,13 +110,19 @@ export default function Validators() {
               title="Total Stake"
               value={`${formatNumber(totalStake)} TBURN`}
               icon={Award}
-              subtitle="total staked"
+              subtitle="direct staked"
             />
             <StatCard
-              title="Average APY"
-              value={`${avgApy.toFixed(2)}%`}
-              icon={TrendingUp}
-              subtitle="annual return"
+              title="Delegated Stake"
+              value={`${formatNumber(totalDelegated)} TBURN`}
+              icon={Coins}
+              subtitle="delegated tokens"
+            />
+            <StatCard
+              title="Committee Size"
+              value="21"
+              icon={Crown}
+              subtitle="top validators"
             />
             <StatCard
               title="Total Delegators"
@@ -107,85 +151,100 @@ export default function Validators() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead>Rank</TableHead>
                     <TableHead>Validator</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Stake</TableHead>
+                    <TableHead>Committee</TableHead>
+                    <TableHead>Voting Power</TableHead>
+                    <TableHead>Direct Stake</TableHead>
+                    <TableHead>Delegated</TableHead>
                     <TableHead>Commission</TableHead>
                     <TableHead>APY</TableHead>
                     <TableHead>Uptime</TableHead>
-                    <TableHead>Reputation</TableHead>
-                    <TableHead>Performance</TableHead>
                     <TableHead>AI Trust</TableHead>
-                    <TableHead>Committee</TableHead>
                     <TableHead>Blocks</TableHead>
                     <TableHead>Delegators</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {validators.map((validator) => (
-                    <TableRow
-                      key={validator.id}
-                      className="hover-elevate cursor-pointer"
-                      data-testid={`row-validator-${validator.address.slice(0, 10)}`}
-                    >
-                      <TableCell>
-                        <div className="flex flex-col gap-1">
-                          <span className="font-semibold">{validator.name}</span>
-                          <span className="font-mono text-xs text-muted-foreground">
-                            {formatAddress(validator.address)}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        {getStatusBadge(validator.status)}
-                      </TableCell>
-                      <TableCell className="tabular-nums">
-                        {formatNumber(validator.stake)} TBURN
-                      </TableCell>
-                      <TableCell className="tabular-nums">
-                        {(validator.commission / 100).toFixed(2)}%
-                      </TableCell>
-                      <TableCell className="tabular-nums text-green-600 dark:text-green-400 font-medium">
-                        {(validator.apy / 100).toFixed(2)}%
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Progress value={validator.uptime / 100} className="w-16" />
-                          <span className="text-sm tabular-nums">{(validator.uptime / 100).toFixed(2)}%</span>
-                        </div>
-                      </TableCell>
-                      {/* TBURN v7.0: AI-Enhanced Committee BFT - Reputation System */}
-                      <TableCell data-testid={`metric-reputation-${validator.address.slice(0, 10)}`}>
-                        <div className="flex items-center gap-2">
-                          <Shield className="h-3 w-3 text-blue-500" />
-                          <span className="text-sm tabular-nums font-medium">{(validator.reputationScore / 100).toFixed(1)}%</span>
-                        </div>
-                      </TableCell>
-                      <TableCell data-testid={`metric-performance-${validator.address.slice(0, 10)}`}>
-                        <div className="flex items-center gap-2">
-                          <Target className="h-3 w-3 text-green-500" />
-                          <span className="text-sm tabular-nums font-medium">{(validator.performanceScore / 100).toFixed(1)}%</span>
-                        </div>
-                      </TableCell>
-                      <TableCell data-testid={`metric-aitrust-${validator.address.slice(0, 10)}`}>
-                        <div className="flex items-center gap-2">
-                          <Brain className="h-3 w-3 text-purple-500" />
-                          <span className="text-sm tabular-nums font-medium">{(validator.aiTrustScore / 100).toFixed(1)}%</span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="tabular-nums" data-testid={`metric-committee-${validator.address.slice(0, 10)}`}>
-                        <Badge variant="outline" className="font-mono text-xs">
-                          {formatNumber(validator.committeeSelectionCount)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="tabular-nums">
-                        {formatNumber(validator.totalBlocks)}
-                      </TableCell>
-                      <TableCell className="tabular-nums">
-                        {formatNumber(validator.delegators)}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {validatorsWithPower.map((validator, index) => {
+                    const isCommitteeMember = committeeMembers.has(validator.address);
+                    const delegatedAmount = parseFloat(validator.delegatedStake || "0") / 1e18;
+                    const directStake = parseFloat(validator.stake) / 1e18;
+                    
+                    return (
+                      <TableRow
+                        key={validator.id}
+                        className="hover-elevate cursor-pointer"
+                        data-testid={`row-validator-${validator.address.slice(0, 10)}`}
+                      >
+                        <TableCell className="font-mono text-sm">
+                          #{index + 1}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col gap-1">
+                            <span className="font-semibold">{validator.name}</span>
+                            <span className="font-mono text-xs text-muted-foreground">
+                              {formatAddress(validator.address)}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {isCommitteeMember ? (
+                            <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+                              <Crown className="h-3 w-3 mr-1" />
+                              Committee
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline">Non-Committee</Badge>
+                          )}
+                        </TableCell>
+                        <TableCell className="tabular-nums font-medium">
+                          <div className="flex items-center gap-1">
+                            <Vote className="h-3 w-3 text-purple-500" />
+                            {formatNumber(validator.votingPowerNumber)} TBURN
+                          </div>
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {formatNumber(directStake)} TBURN
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {delegatedAmount > 0 ? (
+                            <div className="flex items-center gap-1">
+                              <Coins className="h-3 w-3 text-yellow-500" />
+                              {formatNumber(delegatedAmount)} TBURN
+                            </div>
+                          ) : (
+                            <span className="text-muted-foreground">0 TBURN</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {(validator.commission / 100).toFixed(2)}%
+                        </TableCell>
+                        <TableCell className="tabular-nums text-green-600 dark:text-green-400 font-medium">
+                          {(validator.apy / 100).toFixed(2)}%
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <Progress value={validator.uptime / 100} className="w-16" />
+                            <span className="text-sm tabular-nums">{(validator.uptime / 100).toFixed(2)}%</span>
+                          </div>
+                        </TableCell>
+                        {/* AI Trust Score for TBURN v7.0 */}
+                        <TableCell data-testid={`metric-aitrust-${validator.address.slice(0, 10)}`}>
+                          <div className="flex items-center gap-2">
+                            <Brain className="h-3 w-3 text-purple-500" />
+                            <span className="text-sm tabular-nums font-medium">{(validator.aiTrustScore / 100).toFixed(1)}%</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {formatNumber(validator.totalBlocks)}
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {formatNumber(validator.delegators)}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </div>
