@@ -343,6 +343,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/blocks/:blockNumber/transactions", async (req, res) => {
+    try {
+      const blockNumber = parseInt(req.params.blockNumber);
+      const block = await storage.getBlockByNumber(blockNumber);
+      if (!block) {
+        return res.status(404).json({ error: "Block not found" });
+      }
+      // Get all transactions for this block
+      const allTransactions = await storage.getAllTransactions();
+      const blockTransactions = allTransactions.filter(tx => tx.blockNumber === blockNumber);
+      res.json(blockTransactions);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch block transactions" });
+    }
+  });
+
   // ============================================
   // Transactions
   // ============================================

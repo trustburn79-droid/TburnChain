@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Blocks as BlocksIcon, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +16,7 @@ import { formatAddress, formatTimeAgo, formatNumber, formatGas } from "@/lib/for
 import type { Block } from "@shared/schema";
 
 export default function Blocks() {
+  const [, navigate] = useLocation();
   const { data: blocks, isLoading } = useQuery<Block[]>({
     queryKey: ["/api/blocks"],
   });
@@ -62,6 +64,7 @@ export default function Blocks() {
                       key={block.id}
                       className="hover-elevate cursor-pointer"
                       data-testid={`row-block-${block.blockNumber}`}
+                      onClick={() => navigate(`/blocks/${block.blockNumber}`)}
                     >
                       <TableCell className="font-mono font-semibold">
                         #{formatNumber(block.blockNumber)}

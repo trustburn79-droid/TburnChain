@@ -13,6 +13,7 @@ import { WebSocketProvider } from "@/lib/websocket-context";
 // Pages
 import Dashboard from "@/pages/dashboard";
 import Blocks from "@/pages/blocks";
+import BlockDetail from "@/pages/block-detail";
 import Transactions from "@/pages/transactions";
 import Validators from "@/pages/validators";
 import ValidatorDetail from "@/pages/validator-detail";
@@ -35,6 +36,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Dashboard} />
       <Route path="/blocks" component={Blocks} />
+      <Route path="/blocks/:blockNumber" component={BlockDetail} />
       <Route path="/transactions" component={Transactions} />
       <Route path="/simulator" component={TransactionSimulator} />
       <Route path="/validators" component={Validators} />
