@@ -35,7 +35,7 @@ const apiLimiter = rateLimit({
   message: { error: "Too many requests. Please slow down." },
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.path.startsWith("/auth/"), // Skip auth routes
+  skip: (req) => req.path.startsWith("/auth/") || req.path.startsWith("/api/admin/"), // Skip auth and admin routes
 });
 
 // Authentication middleware
@@ -1525,6 +1525,69 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }, 2000);
   }
+
+  // ============================================
+  // Admin Control Panel APIs
+  // ============================================
+  
+  app.post("/api/admin/restart", requireAdmin, async (req, res) => {
+    try {
+      console.log('[Admin] Mainnet restart requested');
+      
+      res.json({
+        success: true,
+        message: "Mainnet restart initiated. Server will restart in 1 second."
+      });
+      
+      setTimeout(() => {
+        console.log('[Admin] Initiating server restart via process.exit(0)');
+        process.exit(0);
+      }, 1000);
+      
+    } catch (error: any) {
+      console.error('[Admin] Restart failed:', error);
+      res.status(500).json({
+        success: false,
+        message: error.message || "Failed to restart mainnet"
+      });
+    }
+  });
+
+  app.post("/api/admin/health", requireAdmin, async (req, res) => {
+    try {
+      console.log('[Admin] Health check requested');
+      
+      const stats = await storage.getNetworkStats();
+      const recentBlocks = await storage.getRecentBlocks(5);
+      
+      if (!recentBlocks || recentBlocks.length === 0) {
+        return res.json({
+          healthy: false,
+          details: { error: "No blocks found", status: 'paused' }
+        });
+      }
+      
+      const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
+      const isHealthy = timeSinceLastBlock < 3600;
+      
+      res.json({
+        healthy: isHealthy,
+        details: {
+          lastBlockNumber: stats.currentBlockHeight,
+          lastBlockTime: recentBlocks[0].timestamp,
+          timeSinceLastBlock,
+          tps: stats.tps,
+          status: isHealthy ? 'active' : 'paused'
+        }
+      });
+    } catch (error: any) {
+      console.error('[Admin] Health check failed:', error);
+      res.status(500).json({
+        healthy: false,
+        details: { error: error.message }
+      });
+    }
+  });
 
   return httpServer;
 }
