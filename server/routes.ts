@@ -914,6 +914,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Sync validators to members
+  app.post("/api/members/sync-validators", async (req, res) => {
+    try {
+      // Get all validators
+      const allValidators = await storage.getAllValidators();
+      let syncedCount = 0;
+      let skippedCount = 0;
+      
+      for (const validator of allValidators) {
+        // Check if member already exists for this validator
+        const existingMember = await storage.getMemberByAddress(validator.address);
+        
+        if (!existingMember) {
+          // Create member for validator
+          const memberData: InsertMember = {
+            accountAddress: validator.address,
+            publicKey: validator.address, // Use address as public key for now
+            displayName: validator.name,
+            entityType: "corporation", // Validators are typically enterprise entities
+            memberTier: validator.stake === "0" ? "candidate_validator" : "active_validator",
+            memberStatus: validator.status === "active" ? "active" : "inactive",
+            kycLevel: "institutional", // Validators typically have institutional KYC
+            sanctionsCheckPassed: true, // Assume validators are verified
+            validatorId: validator.id,
+            lastActivityAt: validator.lastActiveAt || new Date(),
+          };
+          
+          const member = await storage.createMember(memberData);
+          
+          // Create associated profiles
+          await Promise.all([
+            storage.createMemberProfile({ 
+              memberId: member.id,
+              bio: `Enterprise validator running ${validator.name} node`,
+              preferredLanguage: "en",
+              preferredCurrency: "USD",
+              timezone: "UTC",
+            }),
+            storage.createMemberGovernanceProfile({ 
+              memberId: member.id,
+              votingPower: validator.votingPower,
+            }),
+            storage.createMemberFinancialProfile({ 
+              memberId: member.id,
+              totalStaked: validator.stake,
+              totalRewardsEarned: validator.rewardEarned,
+            }),
+            storage.createMemberSecurityProfile({ 
+              memberId: member.id,
+            }),
+          ]);
+          
+          syncedCount++;
+        } else {
+          // Update existing member's validator info
+          await storage.updateMember(existingMember.id, {
+            memberTier: validator.stake === "0" ? "candidate_validator" : "active_validator",
+            memberStatus: validator.status === "active" ? "active" : "inactive",
+            lastActivityAt: validator.lastActiveAt || new Date(),
+          });
+          skippedCount++;
+        }
+      }
+      
+      res.json({ 
+        success: true, 
+        message: `Synced ${syncedCount} validators to members, updated ${skippedCount} existing members`,
+        syncedCount,
+        skippedCount,
+        totalValidators: allValidators.length
+      });
+    } catch (error) {
+      console.error("Error syncing validators to members:", error);
+      res.status(500).json({ error: "Failed to sync validators to members" });
+    }
+  });
+
   // ============================================
   // Smart Contracts
   // ============================================
