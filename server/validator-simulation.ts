@@ -134,14 +134,72 @@ export class ValidatorSimulationService {
     
     // Check if validators already exist
     const existingValidators = await this.storage.getAllValidators();
-    if (existingValidators.length > 0) {
-      console.log(`✅ Found ${existingValidators.length} existing validators, using them`);
-      // Add committee field to existing validators
+    
+    if (existingValidators.length >= ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS) {
+      console.log(`✅ Found ${existingValidators.length} validators, using first ${ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS}`);
+      // Use first 125 existing validators
+      this.validators = existingValidators.slice(0, ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS).map((v, i) => ({
+        ...v,
+        committee: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
+        votingHistory: v.votingHistory || 9000 + Math.floor(Math.random() * 1000),
+      }));
+      return;
+    }
+    
+    if (existingValidators.length > 0 && existingValidators.length < ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS) {
+      console.log(`📊 Found ${existingValidators.length} existing validators, creating ${ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS - existingValidators.length} more to reach 125 total`);
+      // Use existing validators
       this.validators = existingValidators.map((v, i) => ({
         ...v,
         committee: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
         votingHistory: v.votingHistory || 9000 + Math.floor(Math.random() * 1000),
       }));
+      
+      // Create only the missing validators to reach 125
+      const missingCount = ENTERPRISE_VALIDATORS_CONFIG.TOTAL_VALIDATORS - existingValidators.length;
+      const startIndex = existingValidators.length;
+      
+      // Generate and save the missing validators
+      const allProfiles = generateRemainingValidators();
+      for (let i = 0; i < missingCount; i++) {
+        const index = startIndex + i;
+        const profile = allProfiles[index];
+        const address = this.generateValidatorAddress(index);
+        
+        const baseStake = BigInt(ENTERPRISE_VALIDATORS_CONFIG.BASE_VOTING_POWER);
+        const stakeFactor = BigInt(profile.reputation) / BigInt(1000);
+        const stake = (baseStake * stakeFactor).toString();
+        
+        const validator: Validator = {
+          id: `val-${index}`,
+          address,
+          name: profile.name,
+          stake,
+          delegatedStake: "0",
+          commission: 100 + Math.floor(Math.random() * 900),
+          apy: 450 + Math.floor(Math.random() * 350),
+          uptime: 9500 + Math.floor(Math.random() * 500),
+          status: index < ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS ? "active" : "inactive",
+          jailed: false,
+          slashEvents: Math.floor(Math.random() * 3),
+          reputationScore: profile.reputation,
+          performanceScore: 8500 + Math.floor(Math.random() * 1500),
+          aiTrustScore: 8000 + Math.floor(Math.random() * 2000),
+          behaviorScore: 8500 + Math.floor(Math.random() * 1500),
+          adaptiveWeight: 8000 + Math.floor(Math.random() * 2000),
+          votingHistory: 9000 + Math.floor(Math.random() * 1000),
+          committee: index < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
+          totalBlocks: Math.floor(Math.random() * 1000),
+          delegators: 10 + Math.floor(Math.random() * 990),
+          joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
+          lastActiveAt: new Date(),
+        };
+        
+        await this.storage.createValidator(validator);
+        this.validators.push(validator);
+      }
+      
+      console.log(`✅ Created ${missingCount} new validators, total now: ${this.validators.length}`);
       return;
     }
     

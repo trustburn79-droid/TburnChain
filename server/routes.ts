@@ -445,17 +445,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/validators", async (_req, res) => {
     try {
-      if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const validators = await client.getValidators();
-        res.json(validators);
-      } else {
-        // Fetch from local database (demo mode)
-        const validators = await storage.getAllValidators();
-        res.json(validators);
-      }
+      // Always use local database validators (we have simulation generating them)
+      const validators = await storage.getAllValidators();
+      res.json(validators);
     } catch (error) {
+      console.error("Error fetching validators:", error);
       res.status(500).json({ error: "Failed to fetch validators" });
     }
   });
