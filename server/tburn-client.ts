@@ -441,7 +441,7 @@ export function getTBurnClient(): TBurnClient {
     
     tburnClient = new TBurnClient(config);
     
-    if (process.env.NODE_MODE === 'production') {
+    if (process.env.NODE_ENV === 'production') {
       console.log('[TBURN Client] Initializing TBURN mainnet connection...');
       tburnClient.authenticate().then((success) => {
         if (success) {
@@ -460,5 +460,5 @@ export function getTBurnClient(): TBurnClient {
 }
 
 export function isProductionMode(): boolean {
-  return process.env.NODE_MODE === 'production';
+  return process.env.NODE_ENV === 'production';
 }
