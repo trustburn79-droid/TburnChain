@@ -755,66 +755,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.post("/api/admin/restart-mainnet", requireAdmin, async (req, res) => {
     try {
-      if (!isProductionMode()) {
-        return res.status(501).json({
-          error: "Not Implemented",
-          message: "Mainnet restart is only available in production mode. This is a demo environment."
-        });
-      }
-
       console.log('[Admin] Mainnet restart requested');
-      const client = getTBurnClient();
-      const adminPassword = req.headers['x-admin-password'] as string;
-      const result = await client.restartMainnet(adminPassword);
       
-      if (result.success) {
-        console.log('[Admin] Mainnet restart successful:', result.message);
-        res.json({
-          success: true,
-          message: result.message || "Mainnet restart request sent successfully. Please wait for confirmation.",
-        });
-      } else {
-        console.error('[Admin] Mainnet restart failed:', result.message);
-        res.status(500).json({
-          success: false,
-          message: result.message || "Failed to restart mainnet. Please check logs.",
-        });
-      }
+      res.json({
+        success: true,
+        message: "Mainnet restart initiated. Server will restart in 1 second."
+      });
+      
+      setTimeout(() => {
+        console.log('[Admin] Initiating server restart via process.exit(0)');
+        process.exit(0);
+      }, 1000);
+      
     } catch (error: any) {
-      console.error('[Admin] Mainnet restart error:', error);
+      console.error('[Admin] Restart failed:', error);
       res.status(500).json({
         success: false,
-        message: error.message || "Failed to restart mainnet. Please check logs.",
+        message: error.message || "Failed to restart mainnet"
       });
     }
   });
 
   app.post("/api/admin/check-health", requireAdmin, async (req, res) => {
     try {
-      if (!isProductionMode()) {
-        return res.status(501).json({
-          error: "Not Implemented",
-          message: "Health check is only available in production mode. This is a demo environment."
+      console.log('[Admin] Health check requested');
+      
+      const stats = await storage.getNetworkStats();
+      const recentBlocks = await storage.getRecentBlocks(5);
+      
+      if (!recentBlocks || recentBlocks.length === 0) {
+        return res.json({
+          healthy: false,
+          details: { error: "No blocks found", status: 'paused' }
         });
       }
-
-      console.log('[Admin] Health check requested');
-      const client = getTBurnClient();
-      const adminPassword = req.headers['x-admin-password'] as string;
-      const result = await client.checkMainnetHealth(adminPassword);
       
-      if (result.healthy) {
-        console.log('[Admin] Health check successful');
-        res.json(result);
-      } else {
-        console.warn('[Admin] Health check detected issues:', result.details);
-        res.json(result);
-      }
+      const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
+      const isHealthy = timeSinceLastBlock < 3600;
+      
+      res.json({
+        healthy: isHealthy,
+        details: {
+          lastBlockNumber: stats.currentBlockHeight,
+          lastBlockTime: recentBlocks[0].timestamp,
+          timeSinceLastBlock,
+          tps: stats.tps,
+          status: isHealthy ? 'active' : 'paused'
+        }
+      });
     } catch (error: any) {
-      console.error('[Admin] Health check error:', error);
+      console.error('[Admin] Health check failed:', error);
       res.status(500).json({
         healthy: false,
-        details: { error: error.message || "Health check failed" },
+        details: { error: error.message }
       });
     }
   });
@@ -1525,69 +1518,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }, 2000);
   }
-
-  // ============================================
-  // Admin Control Panel APIs
-  // ============================================
-  
-  app.post("/api/admin/restart", requireAdmin, async (req, res) => {
-    try {
-      console.log('[Admin] Mainnet restart requested');
-      
-      res.json({
-        success: true,
-        message: "Mainnet restart initiated. Server will restart in 1 second."
-      });
-      
-      setTimeout(() => {
-        console.log('[Admin] Initiating server restart via process.exit(0)');
-        process.exit(0);
-      }, 1000);
-      
-    } catch (error: any) {
-      console.error('[Admin] Restart failed:', error);
-      res.status(500).json({
-        success: false,
-        message: error.message || "Failed to restart mainnet"
-      });
-    }
-  });
-
-  app.post("/api/admin/health", requireAdmin, async (req, res) => {
-    try {
-      console.log('[Admin] Health check requested');
-      
-      const stats = await storage.getNetworkStats();
-      const recentBlocks = await storage.getRecentBlocks(5);
-      
-      if (!recentBlocks || recentBlocks.length === 0) {
-        return res.json({
-          healthy: false,
-          details: { error: "No blocks found", status: 'paused' }
-        });
-      }
-      
-      const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
-      const isHealthy = timeSinceLastBlock < 3600;
-      
-      res.json({
-        healthy: isHealthy,
-        details: {
-          lastBlockNumber: stats.currentBlockHeight,
-          lastBlockTime: recentBlocks[0].timestamp,
-          timeSinceLastBlock,
-          tps: stats.tps,
-          status: isHealthy ? 'active' : 'paused'
-        }
-      });
-    } catch (error: any) {
-      console.error('[Admin] Health check failed:', error);
-      res.status(500).json({
-        healthy: false,
-        details: { error: error.message }
-      });
-    }
-  });
 
   return httpServer;
 }
