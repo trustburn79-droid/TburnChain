@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useRef } from "react";
+import { useMainnetSnapshots } from "@/hooks/use-mainnet-snapshots";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -183,62 +184,48 @@ export default function AdminPage() {
   
   const { restartStatus, isRestartInProgress, startRestart, resetStatus } = useRestartMonitor();
 
-  // Queries with proper error handling and typing
-  const { data: stats, error: statsError } = useQuery<{
-    currentBlockHeight: number;
-    tps: number;
-    peakTps: number;
-    validators: number;
-    totalTransactions: string;
-  }>({
-    queryKey: ["/api/network/stats"],
-    refetchInterval: isRestartInProgress ? 2000 : 5000, // Faster polling during restart
-    retry: 3,
-    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
-  });
+  // Use snapshot system for resilient data handling
+  const snapshots = useMainnetSnapshots(isRestartInProgress ? 2000 : 5000);
+  const { stats, blocks, isLive, lastLiveUpdate, shouldUseDemoMode } = snapshots;
 
-  const { data: recentBlocks, error: blocksError } = useQuery<any[]>({
-    queryKey: ["/api/blocks/recent"],
-    refetchInterval: isRestartInProgress ? 2000 : 5000,
-    retry: 3,
-    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
-  });
-
-  // Calculate mainnet health with error classification
+  // Calculate mainnet health using snapshot data
   const calculateHealth = (): MainnetHealth => {
-    // Check for API errors
-    if (statsError || blocksError) {
-      const errorMessage = (statsError || blocksError)?.toString() || "";
-      const errorType = errorMessage.includes("429") ? "api-rate-limit" : 
-                       errorMessage.includes("500") ? "api-error" : 
-                       "mainnet-offline";
-      
+    // Priority 1: Check restart in progress
+    if (isRestartInProgress) {
       return {
         isHealthy: false,
         lastBlockTime: 0,
         lastBlockNumber: 0,
         timeSinceLastBlock: 0,
-        status: isRestartInProgress ? "restarting" : "degraded",
+        status: "restarting",
         tps: 0,
-        peakTps: 0,
-        errorType,
+        peakTps: 520000,
         isStale: true
       };
     }
 
-    if (!stats || !recentBlocks) {
+    // Priority 2: Extract data from snapshots
+    const statsData = stats.data;
+    const blocksData = blocks.data;
+    const errorType = stats.errorType || blocks.errorType;
+
+    // Priority 3: Check data availability
+    if (!statsData || !blocksData) {
       return {
         isHealthy: false,
         lastBlockTime: 0,
         lastBlockNumber: 0,
         timeSinceLastBlock: 0,
-        status: isRestartInProgress ? "restarting" : "offline",
+        status: "offline",
         tps: 0,
-        peakTps: 0
+        peakTps: 0,
+        errorType: errorType || "mainnet-offline",
+        isStale: true
       };
     }
 
-    const lastBlock = recentBlocks[0];
+    // Priority 4: Process block data
+    const lastBlock = blocksData[0];
     if (!lastBlock) {
       return {
         isHealthy: false,
@@ -246,24 +233,39 @@ export default function AdminPage() {
         lastBlockNumber: 0,
         timeSinceLastBlock: 0,
         status: "paused",
-        tps: stats.tps || 0,
-        peakTps: stats.peakTps || 0
+        tps: statsData.tps || 0,
+        peakTps: statsData.peakTps || 520000,
+        errorType,
+        isStale: stats.isStale || blocks.isStale
       };
     }
 
+    // Priority 5: Calculate health metrics
     const timeSinceLastBlock = Date.now() / 1000 - lastBlock.timestamp;
-    const isHealthy = timeSinceLastBlock < 3600; // 1 hour threshold
+    const isHealthy = timeSinceLastBlock < 3600 && isLive; // 1 hour threshold + live data
+
+    // Priority 6: Determine status based on source and staleness
+    let status: MainnetHealth["status"];
+    if (isHealthy && isLive) {
+      status = "active";
+    } else if (stats.isStale || blocks.isStale) {
+      status = "degraded";
+    } else if (timeSinceLastBlock > 7200) {
+      status = "offline";
+    } else {
+      status = "paused";
+    }
 
     return {
       isHealthy,
       lastBlockTime: lastBlock.timestamp,
-      lastBlockNumber: lastBlock.blockNumber,
+      lastBlockNumber: lastBlock.height || lastBlock.blockNumber || 0,
       timeSinceLastBlock,
-      status: isRestartInProgress ? "restarting" : 
-              isHealthy ? "active" : 
-              timeSinceLastBlock > 7200 ? "paused" : "degraded",
-      tps: stats.tps || 0,
-      peakTps: stats.peakTps || 0
+      status,
+      tps: statsData.tps || 0,
+      peakTps: statsData.peakTps || 520000,
+      errorType,
+      isStale: stats.isStale || blocks.isStale
     };
   };
 
