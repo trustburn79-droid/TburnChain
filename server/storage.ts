@@ -25,6 +25,12 @@ import {
   type InsertCrossShardMessage,
   type WalletBalance,
   type InsertWalletBalance,
+  type Delegation,
+  type InsertDelegation,
+  type ValidatorVote,
+  type InsertValidatorVote,
+  type CommitteeSnapshot,
+  type InsertCommitteeSnapshot,
   blocks,
   transactions,
   accounts,
@@ -38,6 +44,9 @@ import {
   apiKeys,
   crossShardMessages,
   walletBalances,
+  delegations,
+  validatorVotes,
+  committeeSnapshots,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -68,6 +77,7 @@ export interface IStorage {
   getAllValidators(): Promise<Validator[]>;
   getValidatorByAddress(address: string): Promise<Validator | undefined>;
   createValidator(validator: InsertValidator): Promise<Validator>;
+  updateValidator(address: string, data: Partial<Validator>): Promise<Validator>;
 
   // Smart Contracts
   getAllContracts(): Promise<SmartContract[]>;
@@ -95,12 +105,10 @@ export interface IStorage {
   getTPSHistory(minutes?: number): Promise<import("@shared/schema").TPSHistoryPoint[]>;
   getConsensusState(): Promise<import("@shared/schema").ConsensusState>;
   
-  // Consensus Rounds
-  getAllConsensusRounds(limit?: number): Promise<import("@shared/schema").ConsensusRound[]>;
-  getConsensusRoundByBlockHeight(blockHeight: number): Promise<import("@shared/schema").ConsensusRound | undefined>;
-  createConsensusRound(data: import("@shared/schema").InsertConsensusRound): Promise<import("@shared/schema").ConsensusRound>;
-  getLatestConsensusRound(): Promise<import("@shared/schema").ConsensusRound | null>;
-  updateConsensusRound(blockHeight: number, data: Partial<import("@shared/schema").ConsensusRound>): Promise<void>;
+  // Consensus Rounds (required for analytics)
+  createConsensusRound(data: InsertConsensusRound): Promise<ConsensusRound>;
+  getLatestConsensusRound(): Promise<ConsensusRound | null>;
+  updateConsensusRound(blockHeight: number, data: Partial<ConsensusRound>): Promise<void>;
 
   // API Keys
   getAllApiKeys(): Promise<ApiKey[]>;
@@ -709,6 +717,16 @@ export class MemStorage implements IStorage {
     return validator;
   }
 
+  async updateValidator(address: string, data: Partial<Validator>): Promise<Validator> {
+    const validator = this.validators.get(address);
+    if (!validator) {
+      throw new Error(`Validator with address ${address} not found`);
+    }
+    const updated = { ...validator, ...data };
+    this.validators.set(address, updated);
+    return updated;
+  }
+
   // Smart Contracts
   async getAllContracts(): Promise<SmartContract[]> {
     return Array.from(this.contracts.values());
@@ -1144,6 +1162,13 @@ export class DbStorage implements IStorage {
   async createValidator(insertValidator: InsertValidator): Promise<Validator> {
     const result = await db.insert(validators).values(insertValidator).returning();
     return result[0];
+  }
+
+  async updateValidator(address: string, data: Partial<Validator>): Promise<Validator> {
+    await db.update(validators).set(data).where(eq(validators.address, address));
+    const result = await this.getValidatorByAddress(address);
+    if (!result) throw new Error(`Validator ${address} not found`);
+    return result;
   }
 
   // Smart Contracts

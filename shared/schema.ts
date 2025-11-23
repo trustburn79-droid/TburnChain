@@ -342,6 +342,14 @@ export const insertDelegationSchema = createInsertSchema(delegations).omit({ id:
 export const insertValidatorVoteSchema = createInsertSchema(validatorVotes).omit({ id: true, timestamp: true });
 export const insertCommitteeSnapshotSchema = createInsertSchema(committeeSnapshots).omit({ id: true, createdAt: true });
 
+// Infer the types for the new tables
+export type Delegation = typeof delegations.$inferSelect;
+export type InsertDelegation = z.infer<typeof insertDelegationSchema>;
+export type ValidatorVote = typeof validatorVotes.$inferSelect;
+export type InsertValidatorVote = z.infer<typeof insertValidatorVoteSchema>;
+export type CommitteeSnapshot = typeof committeeSnapshots.$inferSelect;
+export type InsertCommitteeSnapshot = z.infer<typeof insertCommitteeSnapshotSchema>;
+
 // ============================================
 // Select Schemas for WebSocket Validation
 // ============================================
