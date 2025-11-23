@@ -185,9 +185,9 @@ export default function AdminPage() {
   
   const { restartStatus, isRestartInProgress, startRestart, resetStatus } = useRestartMonitor();
 
-  // Use snapshot system for resilient data handling
+  // Use snapshot system for real failure tracking
   const snapshots = useMainnetSnapshots(isRestartInProgress ? 2000 : 5000);
-  const { stats, blocks, isLive, lastLiveUpdate, shouldUseDemoMode } = snapshots;
+  const { stats, blocks, isLive, lastLiveUpdate, hasFailures, recentFailures, failureHistory } = snapshots;
 
   // Calculate mainnet health using snapshot data
   const calculateHealth = (): MainnetHealth => {
@@ -410,14 +410,14 @@ export default function AdminPage() {
               <div>
                 <h2 className="text-2xl font-bold">Mainnet Status</h2>
                 <p className="text-sm text-muted-foreground">
-                  {shouldUseDemoMode ? (
+                  {stats.source === "failed" || blocks.source === "failed" ? (
                     <span className="flex items-center gap-1">
-                      <Info className="h-3 w-3" />
-                      Demo Mode - API Unavailable
+                      <XCircle className="h-3 w-3 text-red-500" />
+                      API Connection Failed - {hasFailures ? `${failureHistory.length} failures recorded` : "No data available"}
                     </span>
                   ) : stats.source === "cached" || blocks.source === "cached" ? (
                     <span className="flex items-center gap-1">
-                      <Database className="h-3 w-3" />
+                      <Database className="h-3 w-3 text-yellow-500" />
                       Using cached data (Last update: {lastLiveUpdate > 0 ? formatDistanceToNow(new Date(lastLiveUpdate)) + " ago" : "Unknown"})
                     </span>
                   ) : isLive ? (
@@ -427,8 +427,8 @@ export default function AdminPage() {
                     </span>
                   ) : (
                     <span className="flex items-center gap-1">
-                      <WifiOff className="h-3 w-3 text-yellow-500" />
-                      Connection issues detected
+                      <WifiOff className="h-3 w-3 text-orange-500" />
+                      Connecting to mainnet...
                     </span>
                   )}
                 </p>
@@ -441,16 +441,17 @@ export default function AdminPage() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
+            <Card className={!stats.data || !blocks.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Last Block</p>
                     <p className="text-2xl font-bold" data-testid="text-last-block">
-                      #{health.lastBlockNumber || 0}
+                      {!blocks.data ? "---" : `#${health.lastBlockNumber || 0}`}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {health.lastBlockTime > 0 ? formatDistanceToNow(new Date(health.lastBlockTime * 1000), { addSuffix: true }) : "N/A"}
+                      {!blocks.data ? "No data" : 
+                       health.lastBlockTime > 0 ? formatDistanceToNow(new Date(health.lastBlockTime * 1000), { addSuffix: true }) : "N/A"}
                     </p>
                   </div>
                   <Database className="h-8 w-8 text-muted-foreground" />
@@ -458,16 +459,16 @@ export default function AdminPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={!stats.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Current TPS</p>
                     <p className="text-2xl font-bold" data-testid="text-current-tps">
-                      {health.tps.toLocaleString()}
+                      {!stats.data ? "---" : health.tps.toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Transactions per second
+                      {!stats.data ? "No data" : "Transactions per second"}
                     </p>
                   </div>
                   <Activity className="h-8 w-8 text-muted-foreground" />
@@ -475,16 +476,16 @@ export default function AdminPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={!stats.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Peak TPS</p>
                     <p className="text-2xl font-bold" data-testid="text-peak-tps">
-                      {health.peakTps.toLocaleString()}
+                      {!stats.data ? "---" : health.peakTps.toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      All-time high
+                      {!stats.data ? "No data" : "All-time high"}
                     </p>
                   </div>
                   <TrendingUp className="h-8 w-8 text-muted-foreground" />
@@ -492,19 +493,21 @@ export default function AdminPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={!blocks.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Time Since Block</p>
                     <p className="text-2xl font-bold" data-testid="text-time-since-block">
-                      {health.timeSinceLastBlock > 0 ? 
+                      {!blocks.data ? "---" : 
+                       health.timeSinceLastBlock > 0 ? 
                         `${Math.floor(health.timeSinceLastBlock)}s` : 
                         "N/A"
                       }
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {health.timeSinceLastBlock > 3600 ? "⚠️ Stalled" : "Normal"}
+                      {!blocks.data ? "No data" :
+                       health.timeSinceLastBlock > 3600 ? "⚠️ Stalled" : "Normal"}
                     </p>
                   </div>
                   <Clock className="h-8 w-8 text-muted-foreground" />
@@ -513,56 +516,84 @@ export default function AdminPage() {
             </Card>
           </div>
 
-          {/* Error Alert with improved messaging */}
+          {/* Error Alert showing real failures */}
           {health.errorType && (
-            <Alert className="mt-4" variant={health.errorType === "api-rate-limit" ? "default" : "destructive"}>
+            <Alert className="mt-4" variant="destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>
-                {health.errorType === "api-rate-limit" ? "API Rate Limited" : 
-                 health.errorType === "api-error" ? "API Service Issue" : 
-                 "Connection Problem"}
+                {health.errorType === "api-rate-limit" ? "API Rate Limit - Service Unavailable" : 
+                 health.errorType === "api-error" ? "API Error - Service Failed" : 
+                 health.errorType === "network-error" ? "Network Error - Connection Failed" :
+                 "Mainnet Offline"}
               </AlertTitle>
               <AlertDescription>
-                {health.errorType === "api-rate-limit" ? (
-                  <div className="space-y-2">
-                    <p>The TBURN API is temporarily limiting requests to prevent overload.</p>
+                <div className="space-y-2">
+                  <p className="font-medium">
+                    {health.errorType === "api-rate-limit" ? 
+                      "The TBURN API is rejecting requests due to rate limiting (HTTP 429)." :
+                     health.errorType === "api-error" ? 
+                      "The TBURN API returned an error response (HTTP 500/502)." :
+                     health.errorType === "network-error" ?
+                      "Failed to establish connection to TBURN mainnet API." :
+                      "The mainnet appears to be offline or unresponsive."}
+                  </p>
+                  
+                  {/* Show failure count */}
+                  {hasFailures && (
                     <p className="text-sm">
-                      {shouldUseDemoMode ? 
-                        "✅ Showing demo data to maintain UI functionality" : 
-                        stats.source === "cached" || blocks.source === "cached" ?
-                        "✅ Using cached data from your last successful connection" :
-                        "⏳ Waiting for API to recover..."}
+                      <span className="font-semibold text-red-500">
+                        {failureHistory.length} failure{failureHistory.length !== 1 ? 's' : ''} recorded
+                      </span>
+                      {stats.source === "cached" || blocks.source === "cached" ? 
+                        ` - Using cached data from ${formatDistanceToNow(new Date(lastLiveUpdate))} ago` :
+                        " - No cached data available"}
                     </p>
-                  </div>
-                ) : health.errorType === "api-error" ? (
-                  <div className="space-y-2">
-                    <p>The TBURN mainnet API is experiencing technical difficulties.</p>
-                    <p className="text-sm">
-                      {shouldUseDemoMode ? 
-                        "✅ Demo data is being displayed for demonstration purposes" : 
-                        stats.source === "cached" || blocks.source === "cached" ?
-                        "✅ Your last known good data is being displayed" :
-                        "⏳ Attempting to reconnect..."}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      This is typically temporary. The system will auto-recover when service is restored.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    <p>Cannot establish connection to TBURN mainnet infrastructure.</p>
-                    <p className="text-sm">
-                      Possible causes: Network connectivity issues, firewall restrictions, or mainnet maintenance.
-                    </p>
-                    {shouldUseDemoMode && (
-                      <p className="text-sm font-medium">
-                        ✅ Demo mode active - showing sample blockchain data
-                      </p>
-                    )}
-                  </div>
-                )}
+                  )}
+                  
+                  {/* Show current state */}
+                  <p className="text-sm font-medium">
+                    Current State: {stats.source === "failed" && blocks.source === "failed" ? 
+                      "❌ Complete failure - no data available" :
+                      stats.source === "cached" || blocks.source === "cached" ?
+                      "⚠️ Partial failure - showing stale cached data" :
+                      "🔄 Attempting to reconnect..."}
+                  </p>
+                </div>
               </AlertDescription>
             </Alert>
+          )}
+
+          {/* Failure History */}
+          {recentFailures && recentFailures.length > 0 && (
+            <Card className="mt-4 border-orange-500/50">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-orange-500" />
+                  Recent Failures
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-1 max-h-32 overflow-y-auto">
+                  {recentFailures.map((failure, idx) => (
+                    <div key={idx} className="text-xs flex items-center justify-between py-1 border-b last:border-0">
+                      <span className="text-muted-foreground">
+                        {new Date(failure.timestamp).toLocaleTimeString()}
+                      </span>
+                      <span className={`font-mono ${
+                        failure.errorType === "api-rate-limit" ? "text-yellow-500" :
+                        failure.errorType === "api-error" ? "text-red-500" :
+                        "text-orange-500"
+                      }`}>
+                        {failure.statusCode || failure.errorType}
+                      </span>
+                      <span className="text-muted-foreground truncate max-w-[200px]">
+                        {failure.endpoint}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           )}
         </CardContent>
       </Card>
