@@ -170,18 +170,24 @@ export class ValidatorSimulationService {
         const stakeFactor = BigInt(profile.reputation) / BigInt(1000);
         const stake = (baseStake * stakeFactor).toString();
         
+        // Calculate voting power as stake + delegated stake
+        const votingPower = BigInt(stake) + BigInt("0"); // delegatedStake starts at 0
+        
         const validator: Validator = {
           id: `val-${index}`,
           address,
           name: profile.name,
           stake,
           delegatedStake: "0",
+          votingPower: votingPower.toString(), // Add votingPower field
           commission: 100 + Math.floor(Math.random() * 900),
           apy: 450 + Math.floor(Math.random() * 350),
           uptime: 9500 + Math.floor(Math.random() * 500),
           status: index < ENTERPRISE_VALIDATORS_CONFIG.ACTIVE_VALIDATORS ? "active" : "inactive",
           jailed: false,
           slashEvents: Math.floor(Math.random() * 3),
+          rewardEarned: (Math.random() * 1000000).toFixed(0), // Add rewardEarned
+          slashCount: Math.floor(Math.random() * 3), // Add slashCount
           reputationScore: profile.reputation,
           performanceScore: 8500 + Math.floor(Math.random() * 1500),
           aiTrustScore: 8000 + Math.floor(Math.random() * 2000),
@@ -190,6 +196,8 @@ export class ValidatorSimulationService {
           votingHistory: 9000 + Math.floor(Math.random() * 1000),
           committee: index < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
           totalBlocks: Math.floor(Math.random() * 1000),
+          avgBlockTime: 350 + Math.floor(Math.random() * 150), // Add avgBlockTime (in ms)
+          missedBlocks: Math.floor(Math.random() * 50), // Add missedBlocks
           delegators: 10 + Math.floor(Math.random() * 990),
           joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
           lastActiveAt: new Date(),
@@ -221,17 +229,24 @@ export class ValidatorSimulationService {
       const commission = 100 + Math.floor(Math.random() * 900); // 1-10%
       const apy = 450 + Math.floor(Math.random() * 350); // 4.5-8%
       
+      // Calculate voting power as stake + delegated stake
+      const votingPower = BigInt(stake) + BigInt("0"); // delegatedStake starts at 0
+      
       const validator: Validator = {
         id: `val-${i}`,
         address,
         name: profile.name,
         stake,
+        delegatedStake: "0", // Add delegatedStake
+        votingPower: votingPower.toString(), // Add votingPower
         commission,
         apy,
         uptime,
         status: isActive ? "active" : "inactive",
         jailed: false,
         slashEvents: Math.floor(Math.random() * 3), // 0-2 slash events
+        rewardEarned: (Math.random() * 1000000).toFixed(0), // Add rewardEarned
+        slashCount: Math.floor(Math.random() * 3), // Add slashCount
         
         // AI-Enhanced BFT Metrics
         reputationScore: profile.reputation,
@@ -243,6 +258,8 @@ export class ValidatorSimulationService {
         
         committee: i < ENTERPRISE_VALIDATORS_CONFIG.COMMITTEE_SIZE,
         totalBlocks: Math.floor(Math.random() * 1000),
+        avgBlockTime: 350 + Math.floor(Math.random() * 150), // Add avgBlockTime (in ms)
+        missedBlocks: Math.floor(Math.random() * 50), // Add missedBlocks
         delegators: 10 + Math.floor(Math.random() * 990),
         
         joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000), // Random time in last year
