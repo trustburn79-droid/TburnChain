@@ -441,16 +441,16 @@ export default function AdminPage() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card className={!stats.data || !blocks.data ? "opacity-50" : ""}>
+            <Card className={blocks.source === "failed" || !blocks.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Last Block</p>
                     <p className="text-2xl font-bold" data-testid="text-last-block">
-                      {!blocks.data ? "---" : `#${health.lastBlockNumber || 0}`}
+                      {!blocks.data || blocks.source === "failed" ? "---" : `#${health.lastBlockNumber || 0}`}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!blocks.data ? "No data" : 
+                      {!blocks.data || blocks.source === "failed" ? "No data" : 
                        health.lastBlockTime > 0 ? formatDistanceToNow(new Date(health.lastBlockTime * 1000), { addSuffix: true }) : "N/A"}
                     </p>
                   </div>
@@ -459,16 +459,16 @@ export default function AdminPage() {
               </CardContent>
             </Card>
 
-            <Card className={!stats.data ? "opacity-50" : ""}>
+            <Card className={stats.source === "failed" || !stats.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Current TPS</p>
                     <p className="text-2xl font-bold" data-testid="text-current-tps">
-                      {!stats.data ? "---" : health.tps.toLocaleString()}
+                      {!stats.data || stats.source === "failed" ? "---" : health.tps.toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!stats.data ? "No data" : "Transactions per second"}
+                      {!stats.data || stats.source === "failed" ? "No data" : "Transactions per second"}
                     </p>
                   </div>
                   <Activity className="h-8 w-8 text-muted-foreground" />
@@ -476,16 +476,16 @@ export default function AdminPage() {
               </CardContent>
             </Card>
 
-            <Card className={!stats.data ? "opacity-50" : ""}>
+            <Card className={stats.source === "failed" || !stats.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Peak TPS</p>
                     <p className="text-2xl font-bold" data-testid="text-peak-tps">
-                      {!stats.data ? "---" : health.peakTps.toLocaleString()}
+                      {!stats.data || stats.source === "failed" ? "---" : health.peakTps.toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!stats.data ? "No data" : "All-time high"}
+                      {!stats.data || stats.source === "failed" ? "No data" : "All-time high"}
                     </p>
                   </div>
                   <TrendingUp className="h-8 w-8 text-muted-foreground" />
@@ -493,20 +493,20 @@ export default function AdminPage() {
               </CardContent>
             </Card>
 
-            <Card className={!blocks.data ? "opacity-50" : ""}>
+            <Card className={blocks.source === "failed" || !blocks.data ? "opacity-50" : ""}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Time Since Block</p>
                     <p className="text-2xl font-bold" data-testid="text-time-since-block">
-                      {!blocks.data ? "---" : 
+                      {!blocks.data || blocks.source === "failed" ? "---" : 
                        health.timeSinceLastBlock > 0 ? 
                         `${Math.floor(health.timeSinceLastBlock)}s` : 
                         "N/A"
                       }
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!blocks.data ? "No data" :
+                      {!blocks.data || blocks.source === "failed" ? "No data" :
                        health.timeSinceLastBlock > 3600 ? "⚠️ Stalled" : "Normal"}
                     </p>
                   </div>
