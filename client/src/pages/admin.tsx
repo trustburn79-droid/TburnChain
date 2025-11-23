@@ -331,8 +331,16 @@ export default function AdminPage() {
         credentials: "include",
       });
       
+      // Check content type to handle non-JSON responses
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        // If not JSON, likely an error page (502, 503, etc)
+        console.error('[Admin] Health check returned non-JSON response:', response.status, response.statusText);
+        throw new Error(`Server error (${response.status}): ${response.statusText}. Server may be restarting.`);
+      }
+      
       if (!response.ok) {
-        const error = await response.json();
+        const error = await response.json().catch(() => ({ message: "Failed to parse error response" }));
         throw new Error(error.message || "Failed to check health");
       }
       
