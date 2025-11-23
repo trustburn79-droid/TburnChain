@@ -1,66 +1,169 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DEMO_STATS, DEMO_BLOCKS, DEMO_HEALTH } from "@/data/admin-demo";
+
+// Failure record interface
+interface FailureRecord {
+  timestamp: number;
+  endpoint: string;
+  errorType: "api-rate-limit" | "api-error" | "network-error";
+  statusCode?: number;
+  message: string;
+}
 
 interface Snapshot<T> {
   data: T | null;
   receivedAt: number;
-  source: "live" | "cached" | "demo";
+  source: "live" | "cached" | "failed";
   isStale: boolean;
   errorType?: "api-rate-limit" | "api-error" | "network-error";
+  failureCount?: number;
+}
+
+interface NetworkStats {
+  height: number;
+  tps: number;
+  peakTps: number;
+  totalTransactions: string;
+  totalValidators: number;
+  consensusRounds: number;
+  stakingAPY: number;
+  totalStake: string;
+}
+
+interface Block {
+  height: number;
+  hash: string;
+  timestamp: number;
+  transactionCount: number;
+  validator: string;
+  size: number;
+}
+
+interface MainnetHealth {
+  isHealthy: boolean;
+  lastBlockTime: number;
+  lastBlockNumber: number;
+  timeSinceLastBlock: number;
+  status: "active" | "paused" | "degraded" | "restarting" | "offline";
+  tps: number;
+  peakTps: number;
+  errorType?: "api-rate-limit" | "api-error" | "mainnet-offline" | "network-error";
+  retryAfter?: number;
+  isStale?: boolean;
 }
 
 interface MainnetSnapshots {
-  stats: Snapshot<typeof DEMO_STATS>;
-  blocks: Snapshot<typeof DEMO_BLOCKS>;
-  health: Snapshot<typeof DEMO_HEALTH>;
+  stats: Snapshot<NetworkStats>;
+  blocks: Snapshot<Block[]>;
+  health: Snapshot<MainnetHealth>;
   isLive: boolean;
   lastLiveUpdate: number;
   consecutiveErrors: number;
+  failureHistory: FailureRecord[];
 }
 
 const MAX_CACHE_AGE = 5 * 60 * 1000; // 5 minutes
-const MAX_CONSECUTIVE_ERRORS = 3;
+const FAILURE_HISTORY_KEY = "tburn_admin_failure_history";
+const MAX_FAILURE_RECORDS = 100;
+
+// Load failure history from localStorage
+function loadFailureHistory(): FailureRecord[] {
+  try {
+    const stored = localStorage.getItem(FAILURE_HISTORY_KEY);
+    if (stored) {
+      const history = JSON.parse(stored);
+      // Keep only recent failures (last 24 hours)
+      const cutoff = Date.now() - (24 * 60 * 60 * 1000);
+      return history.filter((f: FailureRecord) => f.timestamp > cutoff).slice(-MAX_FAILURE_RECORDS);
+    }
+  } catch (e) {
+    console.error("Failed to load failure history:", e);
+  }
+  return [];
+}
+
+// Save failure history to localStorage
+function saveFailureHistory(history: FailureRecord[]) {
+  try {
+    const toSave = history.slice(-MAX_FAILURE_RECORDS);
+    localStorage.setItem(FAILURE_HISTORY_KEY, JSON.stringify(toSave));
+  } catch (e) {
+    console.error("Failed to save failure history:", e);
+  }
+}
 
 export function useMainnetSnapshots(refetchInterval: number = 5000) {
   const [snapshots, setSnapshots] = useState<MainnetSnapshots>({
-    stats: { data: null, receivedAt: 0, source: "demo", isStale: true },
-    blocks: { data: null, receivedAt: 0, source: "demo", isStale: true },
-    health: { data: null, receivedAt: 0, source: "demo", isStale: true },
+    stats: { data: null, receivedAt: 0, source: "failed", isStale: true, failureCount: 0 },
+    blocks: { data: null, receivedAt: 0, source: "failed", isStale: true, failureCount: 0 },
+    health: { data: null, receivedAt: 0, source: "failed", isStale: true, failureCount: 0 },
     isLive: false,
     lastLiveUpdate: 0,
-    consecutiveErrors: 0
+    consecutiveErrors: 0,
+    failureHistory: loadFailureHistory()
   });
 
-  const lastGoodStats = useRef<typeof DEMO_STATS | null>(null);
-  const lastGoodBlocks = useRef<typeof DEMO_BLOCKS | null>(null);
+  const lastGoodStats = useRef<NetworkStats | null>(null);
+  const lastGoodBlocks = useRef<Block[] | null>(null);
 
-  // Query for stats with caching
+  // Function to record a failure
+  const recordFailure = (endpoint: string, error: any) => {
+    const errorMessage = error?.toString() || "Unknown error";
+    const statusCode = error?.response?.status || 
+                       (errorMessage.includes("429") ? 429 : 
+                        errorMessage.includes("500") ? 500 :
+                        errorMessage.includes("502") ? 502 : undefined);
+    
+    const errorType = statusCode === 429 ? "api-rate-limit" as const :
+                     (statusCode === 500 || statusCode === 502) ? "api-error" as const :
+                     "network-error" as const;
+
+    const newFailure: FailureRecord = {
+      timestamp: Date.now(),
+      endpoint,
+      errorType,
+      statusCode,
+      message: errorMessage
+    };
+
+    setSnapshots(prev => {
+      const updatedHistory = [...prev.failureHistory, newFailure];
+      saveFailureHistory(updatedHistory);
+      return {
+        ...prev,
+        failureHistory: updatedHistory
+      };
+    });
+
+    return errorType;
+  };
+
+  // Query for stats
   const { 
     data: statsData, 
     error: statsError,
     isLoading: statsLoading,
     dataUpdatedAt: statsUpdatedAt
-  } = useQuery<typeof DEMO_STATS>({
+  } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
     refetchInterval,
-    retry: 2,
-    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000),
-    staleTime: 30000, // Consider data stale after 30 seconds
-    gcTime: MAX_CACHE_AGE // Keep in cache for 5 minutes
+    retry: 1, // Reduced retries - fail fast
+    retryDelay: 1000,
+    staleTime: 30000,
+    gcTime: MAX_CACHE_AGE
   });
 
-  // Query for blocks with caching
+  // Query for blocks
   const { 
     data: blocksData, 
     error: blocksError,
     isLoading: blocksLoading,
     dataUpdatedAt: blocksUpdatedAt
-  } = useQuery<typeof DEMO_BLOCKS>({
+  } = useQuery<Block[]>({
     queryKey: ["/api/blocks/recent"],
     refetchInterval,
-    retry: 2,
-    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000),
+    retry: 1, // Reduced retries - fail fast
+    retryDelay: 1000,
     staleTime: 30000,
     gcTime: MAX_CACHE_AGE
   });
@@ -72,22 +175,20 @@ export function useMainnetSnapshots(refetchInterval: number = 5000) {
     let hasLiveData = false;
 
     // Process stats
-    let statsSnapshot: Snapshot<typeof DEMO_STATS>;
+    let statsSnapshot: Snapshot<NetworkStats>;
     if (statsData && !statsError) {
       lastGoodStats.current = statsData;
       statsSnapshot = {
         data: statsData,
         receivedAt: statsUpdatedAt || now,
         source: "live" as const,
-        isStale: false
+        isStale: false,
+        failureCount: 0
       };
       hasLiveData = true;
       newConsecutiveErrors = 0;
     } else if (statsError) {
-      const errorMessage = statsError.toString();
-      const errorType = errorMessage.includes("429") ? "api-rate-limit" as const :
-                       errorMessage.includes("500") || errorMessage.includes("502") ? "api-error" as const :
-                       "network-error" as const;
+      const errorType = recordFailure("/api/network/stats", statsError);
       
       // Use cached data if available and not too old
       if (lastGoodStats.current && (now - (snapshots.stats.receivedAt || 0)) < MAX_CACHE_AGE) {
@@ -96,48 +197,43 @@ export function useMainnetSnapshots(refetchInterval: number = 5000) {
           receivedAt: snapshots.stats.receivedAt,
           source: "cached" as const,
           isStale: true,
-          errorType
+          errorType,
+          failureCount: (snapshots.stats.failureCount || 0) + 1
         };
       } else {
-        // Fall back to demo data
+        // Real failure - no data available
         statsSnapshot = {
-          data: DEMO_STATS,
+          data: null,
           receivedAt: now,
-          source: "demo" as const,
+          source: "failed" as const,
           isStale: true,
-          errorType
+          errorType,
+          failureCount: (snapshots.stats.failureCount || 0) + 1
         };
       }
       newConsecutiveErrors++;
     } else if (statsLoading && !snapshots.stats.data) {
-      // Initial loading, use demo data
-      statsSnapshot = {
-        data: DEMO_STATS,
-        receivedAt: now,
-        source: "demo" as const,
-        isStale: true
-      };
+      // Initial loading - show loading state
+      statsSnapshot = snapshots.stats;
     } else {
       statsSnapshot = snapshots.stats;
     }
 
     // Process blocks
-    let blocksSnapshot: Snapshot<typeof DEMO_BLOCKS>;
+    let blocksSnapshot: Snapshot<Block[]>;
     if (blocksData && !blocksError) {
       lastGoodBlocks.current = blocksData;
       blocksSnapshot = {
         data: blocksData,
         receivedAt: blocksUpdatedAt || now,
         source: "live" as const,
-        isStale: false
+        isStale: false,
+        failureCount: 0
       };
       hasLiveData = true;
       if (hasLiveData) newConsecutiveErrors = 0;
     } else if (blocksError) {
-      const errorMessage = blocksError.toString();
-      const errorType = errorMessage.includes("429") ? "api-rate-limit" as const :
-                       errorMessage.includes("500") || errorMessage.includes("502") ? "api-error" as const :
-                       "network-error" as const;
+      const errorType = recordFailure("/api/blocks/recent", blocksError);
       
       // Use cached data if available and not too old
       if (lastGoodBlocks.current && (now - (snapshots.blocks.receivedAt || 0)) < MAX_CACHE_AGE) {
@@ -146,54 +242,93 @@ export function useMainnetSnapshots(refetchInterval: number = 5000) {
           receivedAt: snapshots.blocks.receivedAt,
           source: "cached" as const,
           isStale: true,
-          errorType
+          errorType,
+          failureCount: (snapshots.blocks.failureCount || 0) + 1
         };
       } else {
-        // Fall back to demo data
+        // Real failure - no data available
         blocksSnapshot = {
-          data: DEMO_BLOCKS,
+          data: null,
           receivedAt: now,
-          source: "demo" as const,
+          source: "failed" as const,
           isStale: true,
-          errorType
+          errorType,
+          failureCount: (snapshots.blocks.failureCount || 0) + 1
         };
       }
       if (!hasLiveData) newConsecutiveErrors++;
     } else if (blocksLoading && !snapshots.blocks.data) {
-      // Initial loading, use demo data
-      blocksSnapshot = {
-        data: DEMO_BLOCKS,
-        receivedAt: now,
-        source: "demo" as const,
-        isStale: true
-      };
+      // Initial loading - show loading state
+      blocksSnapshot = snapshots.blocks;
     } else {
       blocksSnapshot = snapshots.blocks;
     }
 
     // Generate health snapshot based on available data
-    const healthSnapshot: Snapshot<typeof DEMO_HEALTH> = {
-      data: DEMO_HEALTH,
+    let healthData: MainnetHealth | null = null;
+    if (statsSnapshot.data && blocksSnapshot.data && blocksSnapshot.data.length > 0) {
+      const lastBlock = blocksSnapshot.data[0];
+      const timeSinceLastBlock = (Date.now() - lastBlock.timestamp * 1000) / 1000;
+      
+      healthData = {
+        isHealthy: timeSinceLastBlock < 3600 && statsSnapshot.data.tps > 0,
+        lastBlockTime: lastBlock.timestamp,
+        lastBlockNumber: lastBlock.height,
+        timeSinceLastBlock,
+        status: timeSinceLastBlock > 3600 ? "paused" : 
+                statsSnapshot.data.tps === 0 ? "offline" :
+                statsSnapshot.data.tps < 10000 ? "degraded" : 
+                "active",
+        tps: statsSnapshot.data.tps,
+        peakTps: statsSnapshot.data.peakTps,
+        isStale: statsSnapshot.isStale || blocksSnapshot.isStale,
+        errorType: statsSnapshot.errorType || blocksSnapshot.errorType
+      };
+    }
+
+    const healthSnapshot: Snapshot<MainnetHealth> = {
+      data: healthData,
       receivedAt: Math.max(statsSnapshot.receivedAt, blocksSnapshot.receivedAt),
-      source: hasLiveData ? "live" : statsSnapshot.source === "cached" || blocksSnapshot.source === "cached" ? "cached" : "demo",
-      isStale: statsSnapshot.isStale || blocksSnapshot.isStale
+      source: hasLiveData ? "live" : 
+              (statsSnapshot.source === "cached" || blocksSnapshot.source === "cached") ? "cached" : 
+              "failed",
+      isStale: statsSnapshot.isStale || blocksSnapshot.isStale,
+      failureCount: Math.max(statsSnapshot.failureCount || 0, blocksSnapshot.failureCount || 0)
     };
 
     // Update state
-    setSnapshots({
+    setSnapshots(prev => ({
       stats: statsSnapshot,
       blocks: blocksSnapshot,
       health: healthSnapshot,
       isLive: hasLiveData,
-      lastLiveUpdate: hasLiveData ? now : snapshots.lastLiveUpdate,
-      consecutiveErrors: newConsecutiveErrors
-    });
+      lastLiveUpdate: hasLiveData ? now : prev.lastLiveUpdate,
+      consecutiveErrors: newConsecutiveErrors,
+      failureHistory: prev.failureHistory
+    }));
   }, [statsData, statsError, statsLoading, statsUpdatedAt, blocksData, blocksError, blocksLoading, blocksUpdatedAt]);
+
+  // Clear old failures periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const cutoff = Date.now() - (24 * 60 * 60 * 1000);
+      setSnapshots(prev => {
+        const filtered = prev.failureHistory.filter(f => f.timestamp > cutoff);
+        if (filtered.length !== prev.failureHistory.length) {
+          saveFailureHistory(filtered);
+          return { ...prev, failureHistory: filtered };
+        }
+        return prev;
+      });
+    }, 60 * 60 * 1000); // Clean up every hour
+
+    return () => clearInterval(interval);
+  }, []);
 
   return {
     ...snapshots,
     isLoading: statsLoading || blocksLoading,
-    shouldUseDemoMode: snapshots.consecutiveErrors >= MAX_CONSECUTIVE_ERRORS || 
-                       import.meta.env.VITE_USE_DEMO_DATA === "true"
+    hasFailures: snapshots.consecutiveErrors > 0,
+    recentFailures: snapshots.failureHistory.slice(-10) // Last 10 failures for display
   };
 }
