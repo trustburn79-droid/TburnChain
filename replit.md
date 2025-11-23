@@ -14,6 +14,13 @@ The explorer uses a professional, data-centric aesthetic with Inter for UI and I
 ### Technical Implementations
 The frontend is built with React 18, TypeScript, Vite, Wouter for routing, and TanStack Query v5 for data fetching. The backend uses Express.js for REST APIs and `ws` for WebSocket communication. PostgreSQL (Neon Serverless) with Drizzle ORM provides data persistence via a DbStorage abstraction. Real-time updates are handled by WebSockets. BigInt values are serialized to strings, and token amounts are in Wei-unit strings. Timestamps are Unix seconds. A transaction simulator includes interactive creation, broadcasting, and Zod validation.
 
+**Admin Panel Resilience Layer**: Implements a client-side snapshot management system that preserves last known good data and gracefully falls back to demo data during API failures. Features include:
+- **Snapshot Persistence**: Saves successful API responses to localStorage with metadata (timestamp, source, error counts)
+- **Intelligent Fallback**: After 3 consecutive failures, automatically switches to demo data to maintain UI functionality
+- **Data Source Indicators**: Clear visual indicators showing whether data is live, cached (with last update time), or demo
+- **User-Friendly Error Messages**: Technical errors are translated into clear explanations with recovery guidance
+- **Error Classification**: Distinguishes between rate limits, API errors, network issues, and mainnet offline states
+
 ### Feature Specifications
 - **Dashboard**: Real-time network stats, recent blocks, transactions, and charts.
 - **Blocks & Transactions**: Detailed explorers with search/filter, supporting TBURN v7.0 Multi-Hash Cryptographic System (BLAKE3, SHA3-512, SHA-256).
