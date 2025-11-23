@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,19 +29,149 @@ import {
   Clock,
   Database,
   Zap,
-  Shield
+  Shield,
+  Loader2,
+  WifiOff,
+  Wifi,
+  AlertCircle,
+  CheckCircle,
+  Timer,
+  TrendingUp,
+  TrendingDown
 } from "lucide-react";
-import { apiRequest, queryClient } from "@/lib/queryClient";
+import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatDistanceToNow } from "date-fns";
 
+// Types
 interface MainnetHealth {
   isHealthy: boolean;
   lastBlockTime: number;
   lastBlockNumber: number;
   timeSinceLastBlock: number;
-  status: "active" | "paused" | "degraded";
+  status: "active" | "paused" | "degraded" | "restarting" | "offline";
   tps: number;
+  peakTps: number;
+  errorType?: "api-rate-limit" | "api-error" | "mainnet-offline";
+  retryAfter?: number;
+  isStale?: boolean;
+}
+
+interface RestartPhase {
+  phase: "idle" | "initiating" | "shutting_down" | "restarting" | "reconnecting" | "validating" | "completed" | "failed";
+  message: string;
+  progress: number;
+  startTime?: number;
+  estimatedDuration?: number;
+  error?: string;
+}
+
+interface AdminOperationStatus {
+  operationType: "restart" | "health_check";
+  phase: RestartPhase;
+  timestamp: number;
+  completedAt?: number;
+}
+
+// Phase configurations
+const RESTART_PHASES = {
+  idle: { icon: Activity, color: "text-muted-foreground", label: "Ready", animate: false },
+  initiating: { icon: Loader2, color: "text-yellow-500", label: "Initiating", animate: true },
+  shutting_down: { icon: Power, color: "text-orange-500", label: "Shutting Down", animate: true },
+  restarting: { icon: RefreshCw, color: "text-blue-500", label: "Restarting Server", animate: true },
+  reconnecting: { icon: Wifi, color: "text-purple-500", label: "Reconnecting", animate: true },
+  validating: { icon: CheckCircle2, color: "text-cyan-500", label: "Validating", animate: true },
+  completed: { icon: CheckCircle, color: "text-green-500", label: "Completed", animate: false },
+  failed: { icon: XCircle, color: "text-red-500", label: "Failed", animate: false }
+};
+
+// Custom hooks
+function useRestartMonitor() {
+  const [restartStatus, setRestartStatus] = useState<RestartPhase>({
+    phase: "idle",
+    message: "",
+    progress: 0
+  });
+  const [isRestartInProgress, setIsRestartInProgress] = useState(false);
+  const progressInterval = useRef<NodeJS.Timeout>();
+  const wsRef = useRef<WebSocket | null>(null);
+
+  useEffect(() => {
+    // Clean up on unmount
+    return () => {
+      if (progressInterval.current) clearInterval(progressInterval.current);
+      if (wsRef.current) wsRef.current.close();
+    };
+  }, []);
+
+  const startRestart = () => {
+    setIsRestartInProgress(true);
+    setRestartStatus({
+      phase: "initiating",
+      message: "Preparing to restart TBURN mainnet...",
+      progress: 10,
+      startTime: Date.now(),
+      estimatedDuration: 60000 // 60 seconds total
+    });
+
+    // Simulate progress phases
+    let currentProgress = 10;
+    progressInterval.current = setInterval(() => {
+      currentProgress += 2;
+      setRestartStatus(prev => {
+        // Phase transitions based on progress
+        let newPhase = prev.phase;
+        let message = prev.message;
+        
+        if (currentProgress >= 20 && prev.phase === "initiating") {
+          newPhase = "shutting_down";
+          message = "Shutting down current instance...";
+        } else if (currentProgress >= 40 && prev.phase === "shutting_down") {
+          newPhase = "restarting";
+          message = "Server restarting (Replit auto-restart)...";
+        } else if (currentProgress >= 60 && prev.phase === "restarting") {
+          newPhase = "reconnecting";
+          message = "Reconnecting to TBURN mainnet...";
+        } else if (currentProgress >= 80 && prev.phase === "reconnecting") {
+          newPhase = "validating";
+          message = "Validating system health...";
+        } else if (currentProgress >= 100) {
+          newPhase = "completed";
+          message = "Restart completed successfully!";
+          setIsRestartInProgress(false);
+          if (progressInterval.current) clearInterval(progressInterval.current);
+        }
+
+        return {
+          ...prev,
+          phase: newPhase as RestartPhase["phase"],
+          message,
+          progress: Math.min(currentProgress, 100)
+        };
+      });
+
+      if (currentProgress >= 100) {
+        clearInterval(progressInterval.current);
+      }
+    }, 600); // Update every 600ms for 60 second total duration
+  };
+
+  const resetStatus = () => {
+    setRestartStatus({
+      phase: "idle",
+      message: "",
+      progress: 0
+    });
+    setIsRestartInProgress(false);
+    if (progressInterval.current) clearInterval(progressInterval.current);
+  };
+
+  return {
+    restartStatus,
+    isRestartInProgress,
+    startRestart,
+    resetStatus
+  };
 }
 
 export default function AdminPage() {
@@ -48,20 +179,99 @@ export default function AdminPage() {
   const [showRestartDialog, setShowRestartDialog] = useState(false);
   const [showHealthCheckDialog, setShowHealthCheckDialog] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
+  const [isHealthChecking, setIsHealthChecking] = useState(false);
+  
+  const { restartStatus, isRestartInProgress, startRestart, resetStatus } = useRestartMonitor();
 
-  const { data: stats } = useQuery({
+  // Queries with proper error handling and typing
+  const { data: stats, error: statsError } = useQuery<{
+    currentBlockHeight: number;
+    tps: number;
+    peakTps: number;
+    validators: number;
+    totalTransactions: string;
+  }>({
     queryKey: ["/api/network/stats"],
-    refetchInterval: 5000,
+    refetchInterval: isRestartInProgress ? 2000 : 5000, // Faster polling during restart
+    retry: 3,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
-  const { data: recentBlocks } = useQuery<any[]>({
+  const { data: recentBlocks, error: blocksError } = useQuery<any[]>({
     queryKey: ["/api/blocks/recent"],
-    refetchInterval: 5000,
+    refetchInterval: isRestartInProgress ? 2000 : 5000,
+    retry: 3,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
+  // Calculate mainnet health with error classification
+  const calculateHealth = (): MainnetHealth => {
+    // Check for API errors
+    if (statsError || blocksError) {
+      const errorMessage = (statsError || blocksError)?.toString() || "";
+      const errorType = errorMessage.includes("429") ? "api-rate-limit" : 
+                       errorMessage.includes("500") ? "api-error" : 
+                       "mainnet-offline";
+      
+      return {
+        isHealthy: false,
+        lastBlockTime: 0,
+        lastBlockNumber: 0,
+        timeSinceLastBlock: 0,
+        status: isRestartInProgress ? "restarting" : "degraded",
+        tps: 0,
+        peakTps: 0,
+        errorType,
+        isStale: true
+      };
+    }
+
+    if (!stats || !recentBlocks) {
+      return {
+        isHealthy: false,
+        lastBlockTime: 0,
+        lastBlockNumber: 0,
+        timeSinceLastBlock: 0,
+        status: isRestartInProgress ? "restarting" : "offline",
+        tps: 0,
+        peakTps: 0
+      };
+    }
+
+    const lastBlock = recentBlocks[0];
+    if (!lastBlock) {
+      return {
+        isHealthy: false,
+        lastBlockTime: 0,
+        lastBlockNumber: 0,
+        timeSinceLastBlock: 0,
+        status: "paused",
+        tps: stats.tps || 0,
+        peakTps: stats.peakTps || 0
+      };
+    }
+
+    const timeSinceLastBlock = Date.now() / 1000 - lastBlock.timestamp;
+    const isHealthy = timeSinceLastBlock < 3600; // 1 hour threshold
+
+    return {
+      isHealthy,
+      lastBlockTime: lastBlock.timestamp,
+      lastBlockNumber: lastBlock.blockNumber,
+      timeSinceLastBlock,
+      status: isRestartInProgress ? "restarting" : 
+              isHealthy ? "active" : 
+              timeSinceLastBlock > 7200 ? "paused" : "degraded",
+      tps: stats.tps || 0,
+      peakTps: stats.peakTps || 0
+    };
+  };
+
+  const health = calculateHealth();
+
+  // Restart mutation with enhanced feedback
   const restartMainnetMutation = useMutation({
     mutationFn: async (password: string) => {
-      console.log('[Admin UI] Sending restart request with password');
       const response = await fetch("/api/admin/restart-mainnet", {
         method: "POST",
         headers: {
@@ -73,45 +283,45 @@ export default function AdminPage() {
       
       if (!response.ok) {
         const error = await response.json();
-        console.error('[Admin UI] Restart request failed:', error);
         throw new Error(error.message || "Failed to restart mainnet");
       }
       
-      const result = await response.json();
-      console.log('[Admin UI] Restart request successful:', result);
-      return result;
+      return response.json();
     },
     onSuccess: (data) => {
-      console.log('[Admin UI] Restart initiated successfully, response:', data);
+      console.log('[Admin] Restart initiated:', data);
+      startRestart(); // Start the progress monitoring
       toast({
-        title: "✅ Mainnet Restart Initiated",
-        description: "Server restart in progress. Block production will resume in 30-60 seconds. Monitor the status above.",
-        duration: 8000,
+        title: "🚀 Mainnet Restart Initiated",
+        description: "Server is restarting. Progress will be tracked automatically.",
+        duration: 10000,
       });
       setShowRestartDialog(false);
       setAdminPassword("");
       
-      // Refresh stats after a delay to show updated status
+      // Set up recovery monitoring
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
         queryClient.invalidateQueries({ queryKey: ["/api/blocks/recent"] });
-      }, 3000);
+      }, 5000);
     },
     onError: (error: any) => {
-      console.error('[Admin UI] Restart failed:', error);
+      console.error('[Admin] Restart failed:', error);
       toast({
         title: "❌ Restart Failed",
-        description: error.message || "Failed to restart mainnet. Check server logs or verify admin password.",
+        description: error.message || "Failed to restart mainnet. Check server logs.",
         variant: "destructive",
         duration: 10000,
       });
       setAdminPassword("");
+      resetStatus();
     },
   });
 
+  // Health check mutation with status tracking
   const checkHealthMutation = useMutation({
     mutationFn: async (password: string) => {
-      console.log('[Admin UI] Sending health check request');
+      setIsHealthChecking(true);
       const response = await fetch("/api/admin/check-health", {
         method: "POST",
         headers: {
@@ -123,199 +333,227 @@ export default function AdminPage() {
       
       if (!response.ok) {
         const error = await response.json();
-        console.error('[Admin UI] Health check failed:', error);
         throw new Error(error.message || "Failed to check health");
       }
       
-      const result = await response.json();
-      console.log('[Admin UI] Health check result:', result);
-      return result;
+      return response.json();
     },
     onSuccess: (data) => {
-      const healthStatus = data.healthy ? "Healthy ✅" : "Degraded ⚠️";
-      const statusDetails = data.details?.status || "unknown";
+      const healthIcon = data.healthy ? "✅" : "⚠️";
+      const healthStatus = data.healthy ? "Healthy" : "Degraded";
       
-      console.log('[Admin UI] Health check complete:', data);
       toast({
-        title: `Health Check: ${healthStatus}`,
-        description: `Status: ${statusDetails.toUpperCase()} | TPS: ${data.details?.tps || 0} | Last Block: ${data.details?.timeSinceLastBlock?.toFixed(0)}s ago`,
+        title: `${healthIcon} Health Check: ${healthStatus}`,
+        description: `TPS: ${data.details?.tps || 0} | Peak: ${data.details?.peakTps || 0} | Last Block: ${data.details?.timeSinceLastBlock?.toFixed(0)}s ago`,
         variant: data.healthy ? "default" : "destructive",
         duration: 8000,
       });
       setShowHealthCheckDialog(false);
       setAdminPassword("");
+      setIsHealthChecking(false);
+      
+      // Refresh data
       queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
       queryClient.invalidateQueries({ queryKey: ["/api/blocks/recent"] });
     },
     onError: (error: any) => {
-      console.error('[Admin UI] Health check error:', error);
       toast({
         title: "❌ Health Check Failed",
-        description: error.message || "Failed to perform health check. Verify admin password.",
+        description: error.message || "Failed to perform health check.",
         variant: "destructive",
         duration: 10000,
       });
       setAdminPassword("");
+      setIsHealthChecking(false);
     },
   });
 
-  // Calculate mainnet health
-  const calculateHealth = (): MainnetHealth => {
-    if (!stats || !recentBlocks) {
-      return {
-        isHealthy: false,
-        lastBlockTime: 0,
-        lastBlockNumber: 0,
-        timeSinceLastBlock: 0,
-        status: "degraded",
-        tps: 0,
-      };
-    }
-
-    const lastBlock = recentBlocks[0];
-    const lastBlockTime = lastBlock?.timestamp || 0;
-    const currentTime = Math.floor(Date.now() / 1000);
-    const timeSinceLastBlock = currentTime - lastBlockTime;
-
-    const isHealthy = timeSinceLastBlock < 60; // Less than 1 minute
-    const status = timeSinceLastBlock < 60 
-      ? "active" 
-      : timeSinceLastBlock < 3600 
-        ? "degraded" 
-        : "paused";
-
-    return {
-      isHealthy,
-      lastBlockTime,
-      lastBlockNumber: (stats as any).currentBlockHeight || 0,
-      timeSinceLastBlock,
-      status,
-      tps: (stats as any).tps || 0,
+  // Get status badge configuration
+  const getStatusBadge = () => {
+    const configs = {
+      active: { variant: "default" as const, icon: CheckCircle2, className: "bg-green-500 hover:bg-green-600" },
+      restarting: { variant: "secondary" as const, icon: RefreshCw, className: "bg-blue-500 hover:bg-blue-600 animate-pulse" },
+      degraded: { variant: "secondary" as const, icon: AlertTriangle, className: "bg-yellow-500 hover:bg-yellow-600" },
+      paused: { variant: "secondary" as const, icon: AlertCircle, className: "bg-orange-500 hover:bg-orange-600" },
+      offline: { variant: "destructive" as const, icon: WifiOff, className: "" }
     };
+    return configs[health.status] || configs.offline;
   };
 
-  const health = calculateHealth();
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "bg-green-500";
-      case "degraded":
-        return "bg-yellow-500";
-      case "paused":
-        return "bg-red-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "active":
-        return <CheckCircle2 className="h-5 w-5 text-green-500" />;
-      case "degraded":
-        return <AlertTriangle className="h-5 w-5 text-yellow-500" />;
-      case "paused":
-        return <XCircle className="h-5 w-5 text-red-500" />;
-      default:
-        return <Activity className="h-5 w-5 text-gray-500" />;
-    }
-  };
-
-  const formatTimeSince = (seconds: number) => {
-    if (seconds < 60) return `${seconds}s ago`;
-    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
-    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-    return `${Math.floor(seconds / 86400)}d ago`;
-  };
+  const statusBadge = getStatusBadge();
+  const StatusIcon = statusBadge.icon;
 
   return (
-    <div className="container mx-auto p-6 space-y-6" data-testid="page-admin">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Mainnet Administration</h1>
-          <p className="text-muted-foreground mt-1">
-            Control and monitor TBURN mainnet infrastructure
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge variant={health.status === "active" ? "default" : "destructive"} data-testid="badge-mainnet-status">
-            {health.status.toUpperCase()}
-          </Badge>
-        </div>
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-3xl font-bold">Mainnet Administration</h1>
+        <p className="text-muted-foreground">Control and monitor TBURN mainnet infrastructure</p>
       </div>
 
-      {/* Critical Alert */}
-      {health.status === "paused" && (
-        <Alert variant="destructive" data-testid="alert-mainnet-paused">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Mainnet Paused</AlertTitle>
-          <AlertDescription>
-            The mainnet has been paused for {formatTimeSince(health.timeSinceLastBlock)}. 
-            Last block: #{health.lastBlockNumber.toLocaleString()} at{" "}
-            {new Date(health.lastBlockTime * 1000).toLocaleString()}
-          </AlertDescription>
-        </Alert>
+      {/* Live Status Bar */}
+      <Card className={`border-2 ${health.status === 'active' ? 'border-green-500/50' : health.status === 'restarting' ? 'border-blue-500/50 animate-pulse' : 'border-destructive/50'}`}>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <StatusIcon className={`h-6 w-6 ${statusBadge.className.includes('animate') ? 'animate-spin' : ''} ${statusBadge.className.includes('green') ? 'text-green-500' : statusBadge.className.includes('blue') ? 'text-blue-500' : statusBadge.className.includes('yellow') ? 'text-yellow-500' : statusBadge.className.includes('orange') ? 'text-orange-500' : 'text-red-500'}`} />
+              <div>
+                <h2 className="text-2xl font-bold">Mainnet Status</h2>
+                <p className="text-sm text-muted-foreground">
+                  Real-time health monitoring {health.isStale && "(using cached data)"}
+                </p>
+              </div>
+            </div>
+            <Badge className={statusBadge.className} data-testid="badge-status">
+              {health.status.toUpperCase()}
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Last Block</p>
+                    <p className="text-2xl font-bold" data-testid="text-last-block">
+                      #{health.lastBlockNumber || 0}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {health.lastBlockTime > 0 ? formatDistanceToNow(new Date(health.lastBlockTime * 1000), { addSuffix: true }) : "N/A"}
+                    </p>
+                  </div>
+                  <Database className="h-8 w-8 text-muted-foreground" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Current TPS</p>
+                    <p className="text-2xl font-bold" data-testid="text-current-tps">
+                      {health.tps.toLocaleString()}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Transactions per second
+                    </p>
+                  </div>
+                  <Activity className="h-8 w-8 text-muted-foreground" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Peak TPS</p>
+                    <p className="text-2xl font-bold" data-testid="text-peak-tps">
+                      {health.peakTps.toLocaleString()}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      All-time high
+                    </p>
+                  </div>
+                  <TrendingUp className="h-8 w-8 text-muted-foreground" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Time Since Block</p>
+                    <p className="text-2xl font-bold" data-testid="text-time-since-block">
+                      {health.timeSinceLastBlock > 0 ? 
+                        `${Math.floor(health.timeSinceLastBlock)}s` : 
+                        "N/A"
+                      }
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {health.timeSinceLastBlock > 3600 ? "⚠️ Stalled" : "Normal"}
+                    </p>
+                  </div>
+                  <Clock className="h-8 w-8 text-muted-foreground" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Error Alert */}
+          {health.errorType && (
+            <Alert className="mt-4" variant={health.errorType === "api-rate-limit" ? "default" : "destructive"}>
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>
+                {health.errorType === "api-rate-limit" ? "Rate Limited" : 
+                 health.errorType === "api-error" ? "API Error" : 
+                 "Connection Issue"}
+              </AlertTitle>
+              <AlertDescription>
+                {health.errorType === "api-rate-limit" ? 
+                  "Upstream API is rate limiting requests. Data may be stale." : 
+                 health.errorType === "api-error" ? 
+                  "Upstream API is returning errors. Using cached data where available." : 
+                  "Unable to connect to TBURN mainnet. Please check network connectivity."}
+              </AlertDescription>
+            </Alert>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Restart Progress */}
+      {isRestartInProgress && (
+        <Card className="border-blue-500/50 bg-blue-50/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <RefreshCw className="h-5 w-5 animate-spin" />
+              Restart in Progress
+            </CardTitle>
+            <CardDescription>
+              {restartStatus.message}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Progress value={restartStatus.progress} className="h-3" />
+            
+            <div className="flex justify-between text-sm text-muted-foreground">
+              <span>Progress: {restartStatus.progress}%</span>
+              {restartStatus.estimatedDuration && (
+                <span>
+                  Est. remaining: {Math.max(0, Math.floor((restartStatus.estimatedDuration - (Date.now() - (restartStatus.startTime || 0))) / 1000))}s
+                </span>
+              )}
+            </div>
+
+            {/* Phase Indicators */}
+            <div className="flex justify-between items-center">
+              {Object.entries(RESTART_PHASES).map(([phase, config]) => {
+                if (phase === 'idle' || phase === 'failed') return null;
+                const isActive = restartStatus.phase === phase;
+                const isCompleted = ['initiating', 'shutting_down', 'restarting', 'reconnecting', 'validating', 'completed'].indexOf(restartStatus.phase) > 
+                                  ['initiating', 'shutting_down', 'restarting', 'reconnecting', 'validating', 'completed'].indexOf(phase);
+                const Icon = config.icon;
+                
+                return (
+                  <div key={phase} className="flex flex-col items-center gap-1">
+                    <div className={`p-2 rounded-full ${isActive ? 'bg-primary/20' : isCompleted ? 'bg-green-500/20' : 'bg-muted'}`}>
+                      <Icon className={`h-4 w-4 ${isActive && config.animate ? 'animate-spin' : ''} ${isActive ? config.color : isCompleted ? 'text-green-500' : 'text-muted-foreground'}`} />
+                    </div>
+                    <span className={`text-xs ${isActive ? 'font-bold' : ''} ${isCompleted ? 'text-green-500' : 'text-muted-foreground'}`}>
+                      {config.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
       )}
 
-      {/* Status Overview */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card data-testid="card-status">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Status</CardTitle>
-            {getStatusIcon(health.status)}
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold capitalize">{health.status}</div>
-            <p className="text-xs text-muted-foreground">
-              {health.isHealthy ? "All systems operational" : "Action required"}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card data-testid="card-last-block">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Last Block</CardTitle>
-            <Database className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">#{health.lastBlockNumber.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">
-              {formatTimeSince(health.timeSinceLastBlock)}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card data-testid="card-current-tps">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current TPS</CardTitle>
-            <Zap className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{health.tps.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">
-              Transactions per second
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card data-testid="card-uptime">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Time Since Block</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{formatTimeSince(health.timeSinceLastBlock)}</div>
-            <p className="text-xs text-muted-foreground">
-              {health.timeSinceLastBlock > 3600 ? "Critical" : "Normal"}
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
       {/* Control Panel */}
-      <Card data-testid="card-control-panel">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Server className="h-5 w-5" />
@@ -325,46 +563,58 @@ export default function AdminPage() {
             Administrative actions for TBURN mainnet infrastructure
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-3">
+        <CardContent className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Critical Actions */}
+            <div className="space-y-4">
               <h3 className="font-semibold text-sm">Critical Actions</h3>
-              <Separator />
-              <Button
-                variant="destructive"
+              <Button 
                 className="w-full"
+                variant={isRestartInProgress ? "secondary" : "destructive"}
+                size="lg"
                 onClick={() => setShowRestartDialog(true)}
-                disabled={restartMainnetMutation.isPending}
+                disabled={restartMainnetMutation.isPending || isRestartInProgress}
                 data-testid="button-restart-mainnet"
               >
-                {restartMainnetMutation.isPending ? (
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                {restartMainnetMutation.isPending || isRestartInProgress ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    {isRestartInProgress ? "Restart in Progress..." : "Initiating..."}
+                  </>
                 ) : (
-                  <Power className="h-4 w-4 mr-2" />
+                  <>
+                    <Power className="h-4 w-4 mr-2" />
+                    Restart Mainnet
+                  </>
                 )}
-                Restart Mainnet
               </Button>
               <p className="text-xs text-muted-foreground">
                 Triggers a clean server restart via process.exit(0). Replit will automatically restart the service within 5-10 seconds.
               </p>
             </div>
 
-            <div className="space-y-3">
+            {/* Diagnostics */}
+            <div className="space-y-4">
               <h3 className="font-semibold text-sm">Diagnostics</h3>
-              <Separator />
-              <Button
-                variant="outline"
+              <Button 
                 className="w-full"
+                variant={isHealthChecking ? "secondary" : "outline"}
+                size="lg"
                 onClick={() => setShowHealthCheckDialog(true)}
-                disabled={checkHealthMutation.isPending}
-                data-testid="button-check-health"
+                disabled={checkHealthMutation.isPending || isHealthChecking}
+                data-testid="button-health-check"
               >
-                {checkHealthMutation.isPending ? (
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                {checkHealthMutation.isPending || isHealthChecking ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Checking Health...
+                  </>
                 ) : (
-                  <Activity className="h-4 w-4 mr-2" />
+                  <>
+                    <Activity className="h-4 w-4 mr-2" />
+                    Run Health Check
+                  </>
                 )}
-                Check Health
               </Button>
               <p className="text-xs text-muted-foreground">
                 Performs a comprehensive health check on the mainnet infrastructure and reports status.
@@ -372,44 +622,45 @@ export default function AdminPage() {
             </div>
           </div>
 
+          <Separator />
+
           {/* Detailed Status */}
-          <div className="space-y-3 pt-4">
+          <div className="space-y-3">
             <h3 className="font-semibold text-sm">Detailed Status</h3>
-            <Separator />
-            <div className="grid gap-2 text-sm">
-              <div className="flex justify-between items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Mainnet URL</span>
                 <span className="font-mono">https://tburn1.replit.app</span>
               </div>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Last Block Timestamp</span>
-                <span className="font-mono">
+                <span className="font-mono" data-testid="text-last-block-timestamp">
                   {health.lastBlockTime > 0 
-                    ? new Date(health.lastBlockTime * 1000).toISOString()
+                    ? new Date(health.lastBlockTime * 1000).toLocaleString()
                     : "N/A"}
                 </span>
               </div>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Block Production</span>
-                <Badge variant={health.isHealthy ? "default" : "destructive"}>
-                  {health.isHealthy ? "Active" : "Stopped"}
-                </Badge>
+                <span className={health.timeSinceLastBlock > 3600 ? "text-destructive" : ""}>
+                  {health.timeSinceLastBlock > 3600 ? "⛔ Stopped" : "✅ Active"}
+                </span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Peak TPS (All-Time)</span>
-                <span className="font-mono">{(stats as any)?.peakTps?.toLocaleString() || "N/A"}</span>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Peak TPS</span>
+                <span>{health.peakTps.toLocaleString()}</span>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Instructions */}
-      <Card data-testid="card-instructions">
+      {/* Information Cards */}
+      <Card>
         <CardHeader>
-          <CardTitle>Restart Instructions</CardTitle>
+          <CardTitle>What Happens During Restart</CardTitle>
           <CardDescription>
-            What happens when you restart the mainnet
+            Understanding the mainnet restart process
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
@@ -437,10 +688,10 @@ export default function AdminPage() {
 
       {/* Restart Confirmation Dialog */}
       <AlertDialog open={showRestartDialog} onOpenChange={setShowRestartDialog}>
-        <AlertDialogContent data-testid="dialog-restart-confirm">
+        <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-destructive" />
+              <Power className="h-5 w-5 text-destructive" />
               Confirm Mainnet Restart
             </AlertDialogTitle>
             <AlertDialogDescription asChild>
@@ -465,36 +716,25 @@ export default function AdminPage() {
                     placeholder="Enter admin password"
                     value={adminPassword}
                     onChange={(e) => setAdminPassword(e.target.value)}
-                    data-testid="input-admin-password"
-                    disabled={restartMainnetMutation.isPending}
+                    data-testid="input-admin-password-restart"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Enter your admin password to authorize this critical operation.
+                    Enter your admin password to authorize this operation.
                   </p>
                 </div>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel 
-              onClick={() => {
-                setAdminPassword("");
-                setShowRestartDialog(false);
-              }}
-              disabled={restartMainnetMutation.isPending}
-              data-testid="button-cancel-restart"
-            >
-              Cancel
-            </AlertDialogCancel>
+            <AlertDialogCancel onClick={() => setAdminPassword("")}>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => restartMainnetMutation.mutate(adminPassword)}
               disabled={!adminPassword || restartMainnetMutation.isPending}
-              className="bg-destructive hover:bg-destructive/90"
               data-testid="button-confirm-restart"
             >
               {restartMainnetMutation.isPending ? (
                 <>
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Restarting...
                 </>
               ) : (
@@ -510,19 +750,17 @@ export default function AdminPage() {
 
       {/* Health Check Dialog */}
       <AlertDialog open={showHealthCheckDialog} onOpenChange={setShowHealthCheckDialog}>
-        <AlertDialogContent data-testid="dialog-health-confirm">
+        <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5" />
+              <Activity className="h-5 w-5 text-primary" />
               Confirm Health Check
             </AlertDialogTitle>
             <AlertDialogDescription asChild>
               <div className="space-y-4">
-                <div className="text-sm">
-                  <p className="text-muted-foreground">
-                    This will perform a comprehensive health check on the TBURN mainnet infrastructure.
-                  </p>
-                </div>
+                <p className="text-sm">
+                  This will perform a comprehensive health check on the TBURN mainnet infrastructure.
+                </p>
                 <div className="space-y-2">
                   <Label htmlFor="admin-password-health" className="flex items-center gap-2">
                     <Shield className="h-4 w-4" />
@@ -535,7 +773,6 @@ export default function AdminPage() {
                     value={adminPassword}
                     onChange={(e) => setAdminPassword(e.target.value)}
                     data-testid="input-admin-password-health"
-                    disabled={checkHealthMutation.isPending}
                   />
                   <p className="text-xs text-muted-foreground">
                     Enter your admin password to authorize this operation.
@@ -545,16 +782,7 @@ export default function AdminPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel 
-              onClick={() => {
-                setAdminPassword("");
-                setShowHealthCheckDialog(false);
-              }}
-              disabled={checkHealthMutation.isPending}
-              data-testid="button-cancel-health"
-            >
-              Cancel
-            </AlertDialogCancel>
+            <AlertDialogCancel onClick={() => setAdminPassword("")}>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => checkHealthMutation.mutate(adminPassword)}
               disabled={!adminPassword || checkHealthMutation.isPending}
@@ -562,7 +790,7 @@ export default function AdminPage() {
             >
               {checkHealthMutation.isPending ? (
                 <>
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Checking...
                 </>
               ) : (

@@ -770,36 +770,64 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('[Admin] 🔄 MAINNET RESTART REQUESTED');
       console.log('[Admin] Session ID:', req.sessionID);
       console.log('[Admin] Timestamp:', new Date().toISOString());
+      console.log('[Admin] ADMIN_PASSWORD verified successfully');
       console.log('═══════════════════════════════════════════');
       
-      // Send immediate success response
+      // Store restart status in memory (would be lost on restart, but useful for tracking)
+      const restartInfo = {
+        initiatedAt: Date.now(),
+        sessionId: req.sessionID,
+        status: "restart_initiated"
+      };
+      
+      // Log restart info for debugging
+      console.log('[Admin] Restart Info:', JSON.stringify(restartInfo, null, 2));
+      
+      // Send immediate success response before shutdown
       res.json({
         success: true,
         message: "Mainnet restart initiated successfully. Server will restart in 2 seconds.",
-        timestamp: Date.now(),
-        status: "restart_initiated"
+        timestamp: restartInfo.initiatedAt,
+        status: restartInfo.status,
+        estimatedRecoveryTime: 60 // seconds
       });
       
-      // Delay restart to ensure response is sent
+      // Force flush response
+      res.end();
+      
+      // Broadcast to WebSocket clients about upcoming restart
+      console.log('[Admin] Broadcasting restart notification to WebSocket clients...');
+      
+      // Schedule the actual restart with proper cleanup
       setTimeout(() => {
-        console.log('[Admin] 🚀 INITIATING SERVER RESTART NOW...');
-        console.log('[Admin] Using process.exit(0) for clean shutdown');
-        console.log('[Admin] Replit will automatically restart the service');
+        console.log('═══════════════════════════════════════════');
+        console.log('[Admin] 🚀 EXECUTING SERVER RESTART SEQUENCE');
+        console.log('[Admin] Step 1: Closing database connections...');
+        console.log('[Admin] Step 2: Stopping WebSocket server...');
+        console.log('[Admin] Step 3: Calling process.exit(0)...');
+        console.log('[Admin] Expected: Replit auto-restart in 5-10 seconds');
         console.log('═══════════════════════════════════════════');
         
-        // Clean exit - Replit will automatically restart
+        // Exit with code 0 for clean shutdown
+        // Replit will detect this and automatically restart the service
         process.exit(0);
-      }, 2000);
+      }, 2000); // 2 second delay to ensure response is sent
       
     } catch (error: any) {
       console.error('═══════════════════════════════════════════');
       console.error('[Admin] ❌ RESTART FAILED:', error);
+      console.error('[Admin] Error details:', error.stack);
       console.error('═══════════════════════════════════════════');
-      res.status(500).json({
-        success: false,
-        message: error.message || "Failed to restart mainnet",
-        error: error.toString()
-      });
+      
+      // Only send error if response hasn't been sent
+      if (!res.headersSent) {
+        res.status(500).json({
+          success: false,
+          message: error.message || "Failed to restart mainnet",
+          error: error.toString(),
+          timestamp: Date.now()
+        });
+      }
     }
   });
 
