@@ -283,6 +283,44 @@ export const walletBalances = pgTable("wallet_balances", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// Delegations table - tracks stake delegations to validators
+export const delegations = pgTable("delegations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  delegatorAddress: text("delegator_address").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  amount: text("amount").notNull(), // Wei amount as string
+  shares: text("shares").notNull(), // Delegation shares
+  rewardsClaimed: text("rewards_claimed").notNull().default("0"),
+  delegatedAt: timestamp("delegated_at").notNull().defaultNow(),
+  unbondingEndTime: timestamp("unbonding_end_time"),
+  status: text("status").notNull().default("bonded"), // bonded, unbonding, unbonded
+});
+
+// Validator Votes table - records individual validator votes
+export const validatorVotes = pgTable("validator_votes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  roundNumber: bigint("round_number", { mode: "number" }).notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  voteType: text("vote_type").notNull(), // prevote, precommit
+  votingPower: text("voting_power").notNull(),
+  signature: text("signature").notNull(),
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  decision: text("decision").notNull(), // approve, reject, abstain
+  reason: text("reason"),
+});
+
+// Committee Snapshots - tracks active committee members per epoch
+export const committeeSnapshots = pgTable("committee_snapshots", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  votingPower: text("voting_power").notNull(),
+  adaptiveWeight: integer("adaptive_weight").notNull(), // basis points
+  isLeader: boolean("is_leader").notNull().default(false),
+  committeeRole: text("committee_role").notNull().default("member"), // leader, member, backup
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ============================================
 // Insert Schemas and Types
 // ============================================
@@ -300,6 +338,9 @@ export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).om
 export const insertApiKeySchema = createInsertSchema(apiKeys).omit({ id: true, createdAt: true, lastUsedAt: true, revokedAt: true });
 export const insertCrossShardMessageSchema = createInsertSchema(crossShardMessages).omit({ id: true, sentAt: true, confirmedAt: true, failedAt: true });
 export const insertWalletBalanceSchema = createInsertSchema(walletBalances).omit({ id: true, firstSeenAt: true, updatedAt: true, lastTransactionAt: true });
+export const insertDelegationSchema = createInsertSchema(delegations).omit({ id: true, delegatedAt: true });
+export const insertValidatorVoteSchema = createInsertSchema(validatorVotes).omit({ id: true, timestamp: true });
+export const insertCommitteeSnapshotSchema = createInsertSchema(committeeSnapshots).omit({ id: true, createdAt: true });
 
 // ============================================
 // Select Schemas for WebSocket Validation
