@@ -83,7 +83,7 @@ export default function Transactions() {
                         {formatAddress(tx.hash, 8, 6)}
                       </TableCell>
                       <TableCell className="font-mono text-sm">
-                        #{tx.blockNumber.toLocaleString()}
+                        {tx.blockNumber != null ? `#${tx.blockNumber.toLocaleString()}` : '-'}
                       </TableCell>
                       <TableCell className="text-muted-foreground text-sm whitespace-nowrap">
                         {formatTimeAgo(tx.timestamp)}
