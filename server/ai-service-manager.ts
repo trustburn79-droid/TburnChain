@@ -1,11 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
 import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 import pLimit from "p-limit";
 import pRetry from "p-retry";
 import { EventEmitter } from "events";
 
 // AI Provider Types
-export type AIProvider = "anthropic" | "openai" | "meta";
+export type AIProvider = "anthropic" | "openai" | "gemini";
 
 export interface AIUsageStats {
   provider: AIProvider;
@@ -114,20 +115,27 @@ class AIServiceManager extends EventEmitter {
       this.requestLimiters.set("openai", pLimit(3)); // 3 concurrent requests
     }
     
-    // Meta/Llama would need separate integration
-    this.configs.set("meta", {
-      provider: "meta",
-      model: "llama-3.1-70b",
-      priority: 3,
-      maxRetries: 2,
-      maxRequestsPerMinute: 100,
-      dailyTokenLimit: 5000000, // 5M tokens per day
-      costPerToken: 0.000001 // $1 per 1M tokens
-    });
+    // Initialize Google Gemini (Using Replit AI Integration)
+    if (process.env.AI_INTEGRATIONS_GEMINI_API_KEY) {
+      const gemini = new GoogleGenAI({
+        apiKey: process.env.AI_INTEGRATIONS_GEMINI_API_KEY
+      });
+      this.providers.set("gemini", gemini);
+      this.configs.set("gemini", {
+        provider: "gemini",
+        model: "gemini-3-pro-preview", // Gemini 3.0 Pro
+        priority: 3,
+        maxRetries: 3,
+        maxRequestsPerMinute: 100,
+        dailyTokenLimit: 2000000, // 2M tokens per day
+        costPerToken: 0.000002 // $2 per 1M tokens input (based on pricing research)
+      });
+      this.requestLimiters.set("gemini", pLimit(3)); // 3 concurrent requests
+    }
   }
   
   private initializeUsageStats() {
-    for (const provider of ["anthropic", "openai", "meta"] as AIProvider[]) {
+    for (const provider of ["anthropic", "openai", "gemini"] as AIProvider[]) {
       this.usageStats.set(provider, {
         provider,
         totalRequests: 0,
@@ -325,6 +333,69 @@ class AIServiceManager extends EventEmitter {
     }
   }
   
+  private async callGemini(request: AIRequest): Promise<AIResponse> {
+    const gemini = this.providers.get("gemini");
+    const config = this.configs.get("gemini")!;
+    const stats = this.usageStats.get("gemini")!;
+    
+    const startTime = Date.now();
+    
+    try {
+      const model = gemini.models.generate({
+        model: config.model
+      });
+      
+      const result = await model.generateContent({
+        contents: [
+          {
+            parts: [
+              {
+                text: request.prompt
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          maxOutputTokens: request.maxTokens || 1024,
+          temperature: request.temperature || 0.5
+        },
+        systemInstruction: request.systemPrompt ? {
+          parts: [{
+            text: request.systemPrompt
+          }]
+        } : undefined
+      });
+      
+      const text = result.response?.text() || "";
+      const tokensUsed = result.response?.usageMetadata?.totalTokenCount || 0;
+      const cost = tokensUsed * (config.costPerToken || 0);
+      
+      // Update stats
+      stats.successfulRequests++;
+      stats.totalTokensUsed += tokensUsed;
+      stats.totalCost += cost;
+      stats.dailyUsage = (stats.dailyUsage || 0) + tokensUsed;
+      
+      return {
+        text,
+        provider: "gemini",
+        model: config.model,
+        tokensUsed,
+        cost,
+        processingTime: Date.now() - startTime
+      };
+    } catch (error) {
+      stats.failedRequests++;
+      if (this.isRateLimitError(error)) {
+        this.handleRateLimit("gemini");
+      }
+      throw error;
+    } finally {
+      stats.totalRequests++;
+      stats.lastRequestTime = new Date();
+    }
+  }
+  
   public async makeRequest(request: AIRequest): Promise<AIResponse> {
     const maxAttempts = 3;
     let lastError: any;
@@ -365,6 +436,11 @@ class AIServiceManager extends EventEmitter {
                 case "openai":
                   if (this.providers.has("openai")) {
                     return await this.callOpenAI(request);
+                  }
+                  break;
+                case "gemini":
+                  if (this.providers.has("gemini")) {
+                    return await this.callGemini(request);
                   }
                   break;
               }

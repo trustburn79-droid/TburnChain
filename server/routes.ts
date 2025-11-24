@@ -1778,9 +1778,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { provider } = req.body;
       
-      if (!provider || !['anthropic', 'openai', 'meta'].includes(provider)) {
+      if (!provider || !['anthropic', 'openai', 'gemini'].includes(provider)) {
         return res.status(400).json({
-          error: "Invalid provider. Must be one of: anthropic, openai, meta"
+          error: "Invalid provider. Must be one of: anthropic, openai, gemini"
         });
       }
       
@@ -1841,14 +1841,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { provider } = req.body;
       
-      if (!provider || !['anthropic', 'openai', 'meta'].includes(provider)) {
+      if (!provider || !['anthropic', 'openai', 'gemini'].includes(provider)) {
         return res.status(400).json({
-          error: "Invalid provider. Must be one of: anthropic, openai, meta"
+          error: "Invalid provider. Must be one of: anthropic, openai, gemini"
         });
       }
       
       console.log(`[Admin] 🔄 Switching to AI provider: ${provider}`);
-      aiService.switchProvider(provider as "anthropic" | "openai" | "meta");
+      aiService.switchProvider(provider as "anthropic" | "openai" | "gemini");
       
       res.json({
         success: true,
@@ -1871,10 +1871,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Reset all providers
       aiService.resetProvider("anthropic");
       aiService.resetProvider("openai");
-      aiService.resetProvider("meta");
+      aiService.resetProvider("gemini");
       
       // Also reset daily usage counters for testing
-      const providers: Array<"anthropic" | "openai" | "meta"> = ["anthropic", "openai", "meta"];
+      const providers: Array<"anthropic" | "openai" | "gemini"> = ["anthropic", "openai", "gemini"];
       providers.forEach(provider => {
         const stats = aiService.getAllUsageStats().find(s => s.provider === provider);
         if (stats) {
@@ -2534,7 +2534,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (clients.size === 0) return;
     
     const aiUsageSchema = z.array(z.object({
-      provider: z.enum(["anthropic", "openai", "meta"]),
+      provider: z.enum(["anthropic", "openai", "gemini"]),
       totalRequests: z.number(),
       successfulRequests: z.number(),
       failedRequests: z.number(),
@@ -2564,7 +2564,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     if (type === 'ai-usage') {
       schema = z.array(z.object({
-        provider: z.enum(["anthropic", "openai", "meta"]),
+        provider: z.enum(["anthropic", "openai", "gemini"]),
         totalRequests: z.number(),
         successfulRequests: z.number(),
         failedRequests: z.number(),
