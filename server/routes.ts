@@ -1475,7 +1475,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      const elapsedTime = Date.now() - new Date(restartSession.restartInitiatedAt).getTime();
+      const elapsedTime = restartSession.restartInitiatedAt 
+        ? Date.now() - new Date(restartSession.restartInitiatedAt).getTime()
+        : 0;
       
       // Auto-check health after expected restart time
       if (restartSession.isRestarting && elapsedTime > restartSession.expectedRestartTime) {
