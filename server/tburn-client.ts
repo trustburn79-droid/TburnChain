@@ -86,6 +86,25 @@ export class TBurnClient {
     console.log('[TBURN Client] Authentication cleared');
   }
 
+  // Get current rate limit status
+  getRateLimitStatus() {
+    const now = Date.now();
+    return {
+      isRateLimited: this.rateLimitedUntil > now,
+      rateLimitedUntil: this.rateLimitedUntil > now ? new Date(this.rateLimitedUntil) : null,
+      secondsRemaining: this.rateLimitedUntil > now ? Math.ceil((this.rateLimitedUntil - now) / 1000) : 0
+    };
+  }
+
+  // Report rate limit to external handler
+  onRateLimitDetected(retryAfterSeconds: number) {
+    this.rateLimitedUntil = Date.now() + (retryAfterSeconds * 1000);
+    // Emit event for RestartSupervisor to handle
+    this.eventHandlers.get('rate-limit')?.forEach(handler => 
+      handler({ rateLimitedUntil: new Date(this.rateLimitedUntil), retryAfterSeconds })
+    );
+  }
+
   // Connect or reconnect to the TBURN API
   async connect(): Promise<boolean> {
     try {
@@ -273,14 +292,19 @@ export class TBurnClient {
             await new Promise(resolve => setTimeout(resolve, delay));
             return this.request<T>(endpoint, method, body, customHeaders);
           }
-          console.log(`[TBURN Client] Server error (${response.statusCode}) for ${endpoint}, max retries reached. Falling back to simulated data.`);
+          console.log(`[TBURN Client] Server error (${response.statusCode}) for ${endpoint}, max retries reached.`);
         }
         
         const errorText = await response.body.text();
         console.error(`[TBURN Client] API Error: ${response.statusCode}`, errorText);
         const error: any = new Error(`TBURN API Error: ${response.statusCode} - ${errorText}`);
         error.statusCode = response.statusCode;
-        error.shouldFallback = response.statusCode >= 500 || response.statusCode === 429;
+        error.isRateLimited = response.statusCode === 429;
+        error.retryAfter = response.statusCode === 429 ? 
+          (Array.isArray(response.headers['retry-after']) ? 
+            parseInt(response.headers['retry-after'][0]) : 
+            parseInt(response.headers['retry-after'] as string) || 30) : 0;
+        // CRITICAL: NO FALLBACK TO SIMULATED DATA - ONLY REAL MAINNET DATA
         throw error;
       }
 
