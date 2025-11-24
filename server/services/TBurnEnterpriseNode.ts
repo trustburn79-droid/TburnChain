@@ -356,6 +356,43 @@ export class TBurnEnterpriseNode extends EventEmitter {
       });
     });
 
+    // AI Decisions endpoints
+    this.rpcApp.get('/api/ai/decisions', (req: Request, res: Response) => {
+      const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
+      const decisions = [];
+      const models = ['GPT-5', 'Claude Sonnet 4.5', 'Llama 4'];
+      
+      for (let i = 0; i < limit; i++) {
+        decisions.push({
+          id: `ai-decision-${Date.now()}-${i}`,
+          model: models[Math.floor(Math.random() * 3)],
+          decision: ['Block Valid', 'Transaction Approved', 'Consensus Reached', 'Shard Optimized'][Math.floor(Math.random() * 4)],
+          confidence: Math.random() * 0.3 + 0.7,
+          timestamp: Date.now() - i * 1000,
+          gasUsed: Math.floor(Math.random() * 100000) + 50000,
+          responseTime: Math.floor(Math.random() * 100) + 50
+        });
+      }
+      res.json(decisions);
+    });
+
+    // Wallet balances endpoint
+    this.rpcApp.get('/api/wallets', (req: Request, res: Response) => {
+      const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
+      const wallets = [];
+      
+      for (let i = 0; i < limit; i++) {
+        wallets.push({
+          id: `wallet-${i}`,
+          address: `tburn1${Math.random().toString(36).substring(2, 42)}`,
+          balance: (Math.random() * 1000000000000000000000).toString(),
+          nonce: Math.floor(Math.random() * 1000),
+          transactionCount: Math.floor(Math.random() * 10000)
+        });
+      }
+      res.json(wallets);
+    });
+
     // Consensus rounds endpoint
     this.rpcApp.get('/api/consensus/rounds', (_req: Request, res: Response) => {
       const rounds = [];
