@@ -379,41 +379,74 @@ export class TBurnEnterpriseNode extends EventEmitter {
       });
     });
 
-    // AI Models endpoint
+    // AI Models endpoint - TBURN v7.0 Triple-Band AI System
     this.rpcApp.get('/api/ai/models', (_req: Request, res: Response) => {
       const models = [
         { 
-          name: 'GPT-5', 
-          provider: 'OpenAI',
-          capability: 'General Intelligence',
-          weight: 0.40,
+          id: 'ai-model-gpt5',
+          name: 'GPT-5',
+          band: 'strategic',
+          status: 'active',
           requestCount: Math.floor(Math.random() * 50000) + 100000,
-          avgResponseTime: 45 + Math.random() * 10,
-          successRate: 0.995 + Math.random() * 0.004,
-          cost: 0.02,
-          cacheHitRate: 0.78 + Math.random() * 0.05
+          successCount: Math.floor(Math.random() * 50000) + 95000,
+          failureCount: Math.floor(Math.random() * 500) + 100,
+          avgResponseTime: Math.floor(45 + Math.random() * 10),
+          totalCost: (0.02 * (Math.random() * 50000 + 100000) / 1000).toFixed(4),
+          lastUsed: new Date().toISOString(),
+          cacheHitRate: Math.floor((0.78 + Math.random() * 0.05) * 10000), // basis points
+          accuracy: Math.floor((0.995 + Math.random() * 0.004) * 10000), // basis points
+          uptime: 9990, // 99.90%
+          feedbackLearningScore: 8500 + Math.floor(Math.random() * 1000),
+          crossBandInteractions: Math.floor(Math.random() * 5000) + 10000,
+          strategicDecisions: Math.floor(Math.random() * 30000) + 50000,
+          tacticalDecisions: Math.floor(Math.random() * 10000) + 5000,
+          operationalDecisions: Math.floor(Math.random() * 5000) + 1000,
+          modelWeight: 4000, // 40% weight in basis points
+          consensusContribution: Math.floor(Math.random() * 10000) + 20000
         },
         {
+          id: 'ai-model-claude',
           name: 'Claude Sonnet 4.5',
-          provider: 'Anthropic',
-          capability: 'Pattern Recognition',
-          weight: 0.35,
+          band: 'tactical',
+          status: 'active',
           requestCount: Math.floor(Math.random() * 40000) + 80000,
-          avgResponseTime: 38 + Math.random() * 8,
-          successRate: 0.997 + Math.random() * 0.002,
-          cost: 0.018,
-          cacheHitRate: 0.80 + Math.random() * 0.04
+          successCount: Math.floor(Math.random() * 40000) + 79000,
+          failureCount: Math.floor(Math.random() * 300) + 50,
+          avgResponseTime: Math.floor(38 + Math.random() * 8),
+          totalCost: (0.018 * (Math.random() * 40000 + 80000) / 1000).toFixed(4),
+          lastUsed: new Date().toISOString(),
+          cacheHitRate: Math.floor((0.80 + Math.random() * 0.04) * 10000), // basis points
+          accuracy: Math.floor((0.997 + Math.random() * 0.002) * 10000), // basis points
+          uptime: 9995, // 99.95%
+          feedbackLearningScore: 9000 + Math.floor(Math.random() * 500),
+          crossBandInteractions: Math.floor(Math.random() * 6000) + 12000,
+          strategicDecisions: Math.floor(Math.random() * 10000) + 5000,
+          tacticalDecisions: Math.floor(Math.random() * 40000) + 60000,
+          operationalDecisions: Math.floor(Math.random() * 10000) + 5000,
+          modelWeight: 3500, // 35% weight in basis points
+          consensusContribution: Math.floor(Math.random() * 12000) + 25000
         },
         {
+          id: 'ai-model-llama',
           name: 'Llama 4',
-          provider: 'Meta',
-          capability: 'Optimization',
-          weight: 0.25,
+          band: 'operational',
+          status: 'active',
           requestCount: Math.floor(Math.random() * 30000) + 60000,
-          avgResponseTime: 42 + Math.random() * 12,
-          successRate: 0.993 + Math.random() * 0.005,
-          cost: 0.015,
-          cacheHitRate: 0.75 + Math.random() * 0.06
+          successCount: Math.floor(Math.random() * 30000) + 58000,
+          failureCount: Math.floor(Math.random() * 400) + 150,
+          avgResponseTime: Math.floor(42 + Math.random() * 12),
+          totalCost: (0.015 * (Math.random() * 30000 + 60000) / 1000).toFixed(4),
+          lastUsed: new Date().toISOString(),
+          cacheHitRate: Math.floor((0.75 + Math.random() * 0.06) * 10000), // basis points
+          accuracy: Math.floor((0.993 + Math.random() * 0.005) * 10000), // basis points
+          uptime: 9985, // 99.85%
+          feedbackLearningScore: 8200 + Math.floor(Math.random() * 800),
+          crossBandInteractions: Math.floor(Math.random() * 4000) + 8000,
+          strategicDecisions: Math.floor(Math.random() * 5000) + 1000,
+          tacticalDecisions: Math.floor(Math.random() * 10000) + 5000,
+          operationalDecisions: Math.floor(Math.random() * 50000) + 80000,
+          modelWeight: 2500, // 25% weight in basis points
+          consensusContribution: Math.floor(Math.random() * 8000) + 15000
         }
       ];
       res.json(models);

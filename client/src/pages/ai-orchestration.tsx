@@ -243,7 +243,7 @@ export default function AIOrchestration() {
                       <div>
                         <CardTitle className="text-lg font-bold capitalize">{model.band} AI</CardTitle>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                          {model.name} • {getBandLabel(model.band).split(' • ')[1]}
+                          {model.name} • {getBandLabel(model.band)?.split(' • ')[1] || 'AI Processing'}
                         </p>
                       </div>
                     </div>
