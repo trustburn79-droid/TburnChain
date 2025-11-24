@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useEffect, useState } from "react";
 import { useWebSocket } from "@/lib/websocket-context";
 import { Activity, AlertCircle, Bot, RefreshCw } from "lucide-react";
@@ -200,21 +201,34 @@ export function AIUsageMonitor() {
                       <span className="text-xl">{getProviderIcon(provider.provider)}</span>
                       <h3 className="font-semibold capitalize">{provider.provider}</h3>
                       {/* Connection Status Indicator */}
-                      <div 
-                        className={`h-3 w-3 rounded-full ${
-                          healthStatus.get(provider.provider)?.isConnected 
-                            ? 'bg-green-500' 
-                            : 'bg-red-500'
-                        } animate-pulse`}
-                        title={
-                          healthStatus.get(provider.provider)?.isConnected 
-                            ? `Connected${healthStatus.get(provider.provider)?.averageResponseTime 
-                                ? ` (${Math.round(healthStatus.get(provider.provider)!.averageResponseTime!)}ms)` 
-                                : ''}`
-                            : 'Disconnected'
-                        }
-                        data-testid={`status-indicator-${provider.provider.toLowerCase()}`}
-                      />
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <div 
+                              className={`h-3 w-3 rounded-full ${
+                                healthStatus.get(provider.provider)?.isConnected 
+                                  ? 'bg-green-500' 
+                                  : 'bg-red-500'
+                              } animate-pulse cursor-help`}
+                              data-testid={`status-indicator-${provider.provider.toLowerCase()}`}
+                              aria-label={
+                                healthStatus.get(provider.provider)?.isConnected 
+                                  ? 'API Connected' 
+                                  : 'API Disconnected'
+                              }
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>
+                              {healthStatus.get(provider.provider)?.isConnected 
+                                ? `Connected${healthStatus.get(provider.provider)?.averageResponseTime 
+                                    ? ` (${Math.round(healthStatus.get(provider.provider)!.averageResponseTime!)}ms)` 
+                                    : ''}`
+                                : 'Disconnected'}
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                     {provider.isRateLimited && (
                       <Badge variant="destructive" className="gap-1">
