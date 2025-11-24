@@ -67,7 +67,7 @@ class AIServiceManager extends EventEmitter {
   private configs: Map<AIProvider, AIProviderConfig> = new Map();
   private usageStats: Map<AIProvider, AIUsageStats> = new Map();
   private requestLimiters: Map<AIProvider, ReturnType<typeof pLimit>> = new Map();
-  private activeProvider: AIProvider = "anthropic";
+  private activeProvider: AIProvider = "gemini"; // Gemini is now the default primary provider
   
   constructor() {
     super();
@@ -87,7 +87,7 @@ class AIServiceManager extends EventEmitter {
       this.configs.set("anthropic", {
         provider: "anthropic",
         model: "claude-sonnet-4-5",
-        priority: 1,
+        priority: 2, // Changed from 1 to 2 (Gemini is now priority 1)
         maxRetries: 3,
         maxRequestsPerMinute: 50,
         dailyTokenLimit: 1000000, // 1M tokens per day
@@ -106,7 +106,7 @@ class AIServiceManager extends EventEmitter {
       this.configs.set("openai", {
         provider: "openai",
         model: "gpt-5",
-        priority: 2,
+        priority: 3, // Changed from 2 to 3 (Gemini is priority 1, Anthropic is priority 2)
         maxRetries: 3,
         maxRequestsPerMinute: 60,
         dailyTokenLimit: 2000000, // 2M tokens per day
@@ -115,22 +115,25 @@ class AIServiceManager extends EventEmitter {
       this.requestLimiters.set("openai", pLimit(3)); // 3 concurrent requests
     }
     
-    // Initialize Google Gemini (Using Replit AI Integration)
-    if (process.env.AI_INTEGRATIONS_GEMINI_API_KEY) {
+    // Initialize Google Gemini (Priority #1 - Primary Provider)
+    // Check for user's own API key first, then fall back to Replit AI Integration
+    const geminiApiKey = process.env.GEMINI_API_KEY || process.env.AI_INTEGRATIONS_GEMINI_API_KEY;
+    if (geminiApiKey) {
       const gemini = new GoogleGenAI({
-        apiKey: process.env.AI_INTEGRATIONS_GEMINI_API_KEY
+        apiKey: geminiApiKey
       });
       this.providers.set("gemini", gemini);
       this.configs.set("gemini", {
         provider: "gemini",
         model: "gemini-3-pro-preview", // Gemini 3.0 Pro
-        priority: 3,
+        priority: 1, // PRIMARY PROVIDER - Highest priority
         maxRetries: 3,
         maxRequestsPerMinute: 100,
-        dailyTokenLimit: 2000000, // 2M tokens per day
-        costPerToken: 0.000002 // $2 per 1M tokens input (based on pricing research)
+        dailyTokenLimit: 5000000, // 5M tokens per day (increased for primary provider)
+        costPerToken: 0.000002 // $2 per 1M tokens input
       });
-      this.requestLimiters.set("gemini", pLimit(3)); // 3 concurrent requests
+      this.requestLimiters.set("gemini", pLimit(4)); // 4 concurrent requests (increased)
+      console.log("[AI Service] 🚀 Gemini initialized as PRIMARY provider");
     }
   }
   
