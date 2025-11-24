@@ -4,33 +4,51 @@ import { Progress } from '@/components/ui/progress';
 import { AlertCircle, Loader2, CheckCircle2, RefreshCcw } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+const REFRESH_SESSION_KEY = 'tburn_mainnet_restart_refresh_session';
 
 export function MainnetRestartOverlay() {
   const { status, isRestarting, isHealthy, getProgress, getRemainingTime, error } = useMainnetRestart();
   const queryClient = useQueryClient();
-  const hasRefreshed = useRef(false);
+  const [prevIsRestarting, setPrevIsRestarting] = useState(isRestarting);
 
   // Auto-refresh data when restart completes
   useEffect(() => {
-    if (!isRestarting && isHealthy && !hasRefreshed.current) {
-      hasRefreshed.current = true;
-      console.log('[MainnetRestart] Health restored, refreshing all data...');
+    // Track transition from restarting to not restarting (completion)
+    if (prevIsRestarting && !isRestarting && isHealthy) {
+      // Get the restart session ID from status
+      const sessionId = status?.restartInitiatedAt ? new Date(status.restartInitiatedAt).getTime().toString() : null;
       
-      // Invalidate all queries to refresh data
-      queryClient.invalidateQueries();
-      
-      // Reload page after a short delay for complete refresh
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      if (sessionId) {
+        // Check if we've already refreshed for this session
+        const refreshedSession = localStorage.getItem(REFRESH_SESSION_KEY);
+        
+        if (refreshedSession !== sessionId) {
+          console.log('[MainnetRestart] Restart completed, refreshing page once...');
+          
+          // Mark this session as refreshed
+          localStorage.setItem(REFRESH_SESSION_KEY, sessionId);
+          
+          // Invalidate all queries to refresh data
+          queryClient.invalidateQueries();
+          
+          // Reload page after a short delay for complete refresh
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+      }
     }
     
-    // Reset flag when restarting again
-    if (isRestarting) {
-      hasRefreshed.current = false;
+    // Clear the refresh session when a new restart begins
+    if (!prevIsRestarting && isRestarting) {
+      localStorage.removeItem(REFRESH_SESSION_KEY);
     }
-  }, [isRestarting, isHealthy, queryClient]);
+    
+    // Update previous state
+    setPrevIsRestarting(isRestarting);
+  }, [isRestarting, isHealthy, status, prevIsRestarting, queryClient]);
 
   // Only show overlay if restarting
   if (!isRestarting) {
