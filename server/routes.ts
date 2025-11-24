@@ -19,6 +19,7 @@ import {
 import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 import { ValidatorSimulationService } from "./validator-simulation";
+import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
