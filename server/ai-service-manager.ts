@@ -138,7 +138,8 @@ class AIServiceManager extends EventEmitter {
   }
   
   private initializeUsageStats() {
-    for (const provider of ["anthropic", "openai", "gemini"] as AIProvider[]) {
+    // Initialize in priority order: Gemini first, then Anthropic, then OpenAI
+    for (const provider of ["gemini", "anthropic", "openai"] as AIProvider[]) {
       this.usageStats.set(provider, {
         provider,
         totalRequests: 0,
@@ -344,33 +345,40 @@ class AIServiceManager extends EventEmitter {
     const startTime = Date.now();
     
     try {
-      const model = gemini.models.generate({
-        model: config.model
-      });
-      
-      const result = await model.generateContent({
+      // Prepare the request
+      const generateRequest: any = {
+        model: config.model,
         contents: [
           {
             parts: [
               {
                 text: request.prompt
               }
-            ]
+            ],
+            role: "user"
           }
         ],
         generationConfig: {
           maxOutputTokens: request.maxTokens || 1024,
           temperature: request.temperature || 0.5
-        },
-        systemInstruction: request.systemPrompt ? {
+        }
+      };
+      
+      // Add system instruction if provided
+      if (request.systemPrompt) {
+        generateRequest.systemInstruction = {
           parts: [{
             text: request.systemPrompt
           }]
-        } : undefined
-      });
+        };
+      }
       
-      const text = result.response?.text() || "";
-      const tokensUsed = result.response?.usageMetadata?.totalTokenCount || 0;
+      // Generate content using client.models.generateContent
+      const result = await gemini.models.generateContent(generateRequest);
+      
+      // Extract text from the response
+      const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      const tokensUsed = result.usageMetadata?.totalTokenCount || 0;
       const cost = tokensUsed * (config.costPerToken || 0);
       
       // Update stats
@@ -477,7 +485,13 @@ class AIServiceManager extends EventEmitter {
   }
   
   public getAllUsageStats(): AIUsageStats[] {
-    return Array.from(this.usageStats.values());
+    // Sort by priority (lower number = higher priority)
+    return Array.from(this.usageStats.values()).sort((a, b) => {
+      const configA = this.configs.get(a.provider);
+      const configB = this.configs.get(b.provider);
+      if (!configA || !configB) return 0;
+      return configA.priority - configB.priority;
+    });
   }
   
   public getProviderStats(provider: AIProvider): AIUsageStats | undefined {
