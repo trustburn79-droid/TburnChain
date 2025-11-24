@@ -45,6 +45,7 @@ import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatDistanceToNow } from "date-fns";
 import { useWebSocket } from "@/lib/websocket-context";
+import { AIUsageMonitor } from "@/components/AIUsageMonitor";
 
 // Types
 interface MainnetHealth {
@@ -773,6 +774,9 @@ export default function AdminPage() {
           </CardContent>
         </Card>
       )}
+      
+      {/* AI Usage Monitor */}
+      <AIUsageMonitor />
 
       {/* Control Panel */}
       <Card>
