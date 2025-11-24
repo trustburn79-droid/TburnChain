@@ -1836,6 +1836,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  app.get("/api/admin/ai-health", async (req, res) => {
+    try {
+      const healthStatus = await aiService.checkAllProviderConnections();
+      const stats = aiService.getAllUsageStats();
+      
+      // Combine health status with stats
+      const providers = stats.map(stat => ({
+        provider: stat.provider,
+        isConnected: healthStatus.get(stat.provider) || false,
+        connectionStatus: stat.connectionStatus || "disconnected",
+        lastHealthCheck: stat.lastHealthCheck,
+        averageResponseTime: stat.averageResponseTime,
+        isRateLimited: stat.isRateLimited
+      }));
+      
+      res.json({
+        success: true,
+        providers,
+        timestamp: new Date()
+      });
+    } catch (error: any) {
+      console.error('[Admin] ❌ Failed to check AI health:', error);
+      res.status(500).json({
+        error: "Failed to check AI provider health"
+      });
+    }
+  });
   
   app.post("/api/admin/ai-usage/switch-provider", async (req, res) => {
     try {
