@@ -739,6 +739,12 @@ export default function AdminPage() {
             </CardTitle>
             <CardDescription>
               {restartStatus.message}
+              {/* Show warning if taking too long */}
+              {restartStatus.startTime && (Date.now() - restartStatus.startTime) > 120000 && (
+                <div className="text-yellow-500 mt-1 text-xs">
+                  ⚠️ Taking longer than expected - External API may be rate-limiting
+                </div>
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
