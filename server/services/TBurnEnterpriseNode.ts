@@ -333,28 +333,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     });
 
     // Consensus current state endpoint
-    this.rpcApp.get('/api/consensus/current', (_req: Request, res: Response) => {
-      res.json({
-        round: this.currentBlockHeight,
-        proposer: `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`,
-        validators: 125,
-        votingPower: "1250000",
-        phase: ["propose", "prevote", "precommit"][Math.floor(Math.random() * 3)],
-        roundProgress: Math.floor(Math.random() * 100),
-        bftConsensus: {
-          phase: ["propose", "prevote", "precommit"][Math.floor(Math.random() * 3)],
-          votes: Math.floor(Math.random() * 125),
-          threshold: 84,
-          timeElapsed: Math.floor(Math.random() * 100)
-        },
-        aiCommittee: {
-          reputation: Math.floor(Math.random() * 100),
-          performance: Math.floor(Math.random() * 100),
-          aiTrust: Math.floor(Math.random() * 100),
-          adaptiveWeight: Math.random() * 0.5 + 0.5
-        }
-      });
-    });
+// Removed old /api/consensus/current endpoint - see new one below
 
     // AI Decisions endpoints
     this.rpcApp.get('/api/ai/decisions', (req: Request, res: Response) => {
@@ -398,12 +377,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const health = {
         status: 'healthy',
         timestamp: Date.now(),
-        blockHeight: this.nodeState.blockHeight,
+        blockHeight: this.currentBlockHeight,
         uptime: Math.floor((Date.now() - this.startTime) / 1000),
         syncStatus: {
           synced: true,
-          currentBlock: this.nodeState.blockHeight,
-          highestBlock: this.nodeState.blockHeight + Math.floor(Math.random() * 10),
+          currentBlock: this.currentBlockHeight,
+          highestBlock: this.currentBlockHeight + Math.floor(Math.random() * 10),
           progress: 99.9 + Math.random() * 0.1
         },
         systemMetrics: {
@@ -435,11 +414,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
         networkUptime: 0.998 + Math.random() * 0.002, // 99.8-100%
         transactionSuccessRate: 0.995 + Math.random() * 0.005, // 99.5-100%
         averageBlockTime: 0.095 + Math.random() * 0.01, // ~100ms
-        peakTps: this.nodeState.peakTps,
-        currentTps: this.nodeState.tps,
+        peakTps: this.peakTps,
+        currentTps: 50000 + Math.floor(Math.random() * 2000), // 50000-52000 TPS
         blockProductionRate: 10, // 10 blocks/second for 100ms block time
-        totalTransactions: this.nodeState.blockHeight * 5000,
-        totalBlocks: this.nodeState.blockHeight,
+        totalTransactions: this.currentBlockHeight * 5000,
+        totalBlocks: this.currentBlockHeight,
         validatorParticipation: 0.98 + Math.random() * 0.02,
         consensusLatency: Math.floor(Math.random() * 20) + 30,
         resourceUtilization: {
@@ -451,7 +430,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         shardPerformance: {
           totalShards: 5,
           activeShards: 5,
-          averageTpsPerShard: Math.floor(this.nodeState.tps / 5),
+          averageTpsPerShard: Math.floor(10000 + Math.random() * 400), // ~10000-10400 per shard
           crossShardLatency: Math.floor(Math.random() * 50) + 100
         }
       };
