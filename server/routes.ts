@@ -106,6 +106,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     getTBurnClient();
   }
 
+  // Start AI Provider Health Checks
+  aiService.startPeriodicHealthChecks(5); // Check every 5 minutes
+  console.log('[AI Health] ✅ Started periodic health checks (5 minute intervals)');
+
   // Initialize validator simulation service
   let validatorSimulation: ValidatorSimulationService | null = null;
   
