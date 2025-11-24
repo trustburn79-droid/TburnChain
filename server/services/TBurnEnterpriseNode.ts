@@ -306,28 +306,38 @@ export class TBurnEnterpriseNode extends EventEmitter {
           toShard = Math.floor(Math.random() * 5);
         }
         
+        const sentAt = new Date(Date.now() - Math.floor(Math.random() * 60000));
+        const status = statuses[Math.floor(Math.random() * statuses.length)];
+        const confirmedAt = status === 'confirmed' ? new Date(sentAt.getTime() + Math.floor(Math.random() * 5000)) : undefined;
+        const failedAt = status === 'failed' ? new Date(sentAt.getTime() + Math.floor(Math.random() * 5000)) : undefined;
+        
         messages.push({
           id: `msg-${Date.now()}-${i}`,
           messageId: `0x${crypto.randomBytes(32).toString('hex')}`,
-          fromShard,
-          toShard,
-          type: messageTypes[Math.floor(Math.random() * messageTypes.length)],
-          status: statuses[Math.floor(Math.random() * statuses.length)],
-          timestamp: Date.now() - Math.floor(Math.random() * 60000),
-          value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
-          gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString(),
-          confirmations: Math.floor(Math.random() * 12),
-          retryCount: Math.floor(Math.random() * 3),
+          fromShardId: fromShard,
+          toShardId: toShard,
+          transactionHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+          status,
+          messageType: messageTypes[Math.floor(Math.random() * messageTypes.length)],
           payload: {
             from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
             to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-            data: `0x${crypto.randomBytes(32).toString('hex')}`
-          }
+            data: `0x${crypto.randomBytes(32).toString('hex')}`,
+            value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
+            gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString()
+          },
+          sentAt: sentAt.toISOString(),
+          confirmedAt: confirmedAt?.toISOString(),
+          failedAt: failedAt?.toISOString(),
+          retryCount: Math.floor(Math.random() * 3),
+          gasUsed: (BigInt(50000 + Math.floor(Math.random() * 100000))),
+          routeOptimizationScore: 0.75 + Math.random() * 0.25,
+          aiRecommendations: ['Use direct route', 'Optimize gas usage', 'Batch with similar messages']
         });
       }
       
-      // Sort by timestamp descending
-      messages.sort((a, b) => b.timestamp - a.timestamp);
+      // Sort by sentAt descending
+      messages.sort((a, b) => new Date(b.sentAt).getTime() - new Date(a.sentAt).getTime());
       
       res.json(messages);
     });
@@ -335,6 +345,107 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Consensus current state endpoint
 // Removed old /api/consensus/current endpoint - see new one below
 
+    // AI Models endpoint
+    this.rpcApp.get('/api/ai/models', (_req: Request, res: Response) => {
+      const models = [
+        { 
+          name: 'GPT-5', 
+          provider: 'OpenAI',
+          capability: 'General Intelligence',
+          weight: 0.40,
+          requestCount: Math.floor(Math.random() * 50000) + 100000,
+          avgResponseTime: 45 + Math.random() * 10,
+          successRate: 0.995 + Math.random() * 0.004,
+          cost: 0.02,
+          cacheHitRate: 0.78 + Math.random() * 0.05
+        },
+        {
+          name: 'Claude Sonnet 4.5',
+          provider: 'Anthropic',
+          capability: 'Pattern Recognition',
+          weight: 0.35,
+          requestCount: Math.floor(Math.random() * 40000) + 80000,
+          avgResponseTime: 38 + Math.random() * 8,
+          successRate: 0.997 + Math.random() * 0.002,
+          cost: 0.018,
+          cacheHitRate: 0.80 + Math.random() * 0.04
+        },
+        {
+          name: 'Llama 4',
+          provider: 'Meta',
+          capability: 'Optimization',
+          weight: 0.25,
+          requestCount: Math.floor(Math.random() * 30000) + 60000,
+          avgResponseTime: 42 + Math.random() * 12,
+          successRate: 0.993 + Math.random() * 0.005,
+          cost: 0.015,
+          cacheHitRate: 0.75 + Math.random() * 0.06
+        }
+      ];
+      res.json(models);
+    });
+    
+    // AI Model by name endpoint
+    this.rpcApp.get('/api/ai/models/:name', (req: Request, res: Response) => {
+      const modelName = req.params.name;
+      const models: Record<string, any> = {
+        'GPT-5': { 
+          name: 'GPT-5', 
+          provider: 'OpenAI',
+          capability: 'General Intelligence',
+          weight: 0.40,
+          requestCount: Math.floor(Math.random() * 50000) + 100000,
+          avgResponseTime: 45 + Math.random() * 10,
+          successRate: 0.995 + Math.random() * 0.004,
+          cost: 0.02,
+          cacheHitRate: 0.78 + Math.random() * 0.05,
+          details: {
+            maxContextLength: 128000,
+            trainingCutoff: '2024-12',
+            specializations: ['Reasoning', 'Code Generation', 'Analysis']
+          }
+        },
+        'Claude Sonnet 4.5': {
+          name: 'Claude Sonnet 4.5',
+          provider: 'Anthropic',
+          capability: 'Pattern Recognition',
+          weight: 0.35,
+          requestCount: Math.floor(Math.random() * 40000) + 80000,
+          avgResponseTime: 38 + Math.random() * 8,
+          successRate: 0.997 + Math.random() * 0.002,
+          cost: 0.018,
+          cacheHitRate: 0.80 + Math.random() * 0.04,
+          details: {
+            maxContextLength: 200000,
+            trainingCutoff: '2024-11',
+            specializations: ['Pattern Detection', 'Security Analysis', 'Validation']
+          }
+        },
+        'Llama 4': {
+          name: 'Llama 4',
+          provider: 'Meta',
+          capability: 'Optimization',
+          weight: 0.25,
+          requestCount: Math.floor(Math.random() * 30000) + 60000,
+          avgResponseTime: 42 + Math.random() * 12,
+          successRate: 0.993 + Math.random() * 0.005,
+          cost: 0.015,
+          cacheHitRate: 0.75 + Math.random() * 0.06,
+          details: {
+            maxContextLength: 100000,
+            trainingCutoff: '2024-10',
+            specializations: ['Resource Optimization', 'Sharding Strategy', 'Load Balancing']
+          }
+        }
+      };
+      
+      if (models[modelName]) {
+        res.json(models[modelName]);
+      } else {
+        res.status(404).json({ error: 'Model not found' });
+      }
+    });
+    
     // AI Decisions endpoints
     this.rpcApp.get('/api/ai/decisions', (req: Request, res: Response) => {
       const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
@@ -490,6 +601,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         {
           name: 'propose',
           index: 0,
+          number: 1,
+          label: 'Propose',
+          time: '20ms',
+          status: currentPhase > 0 ? 'completed' as const : (currentPhase === 0 ? 'active' as const : 'pending' as const),
           quorumProgress: currentPhase > 0 ? 1.0 : Math.random() * 0.5 + 0.5,
           leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
           startTime,
@@ -498,6 +613,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         {
           name: 'prevote',
           index: 1,
+          number: 2,
+          label: 'Prevote',
+          time: '25ms',
+          status: currentPhase > 1 ? 'completed' as const : (currentPhase === 1 ? 'active' as const : 'pending' as const),
           quorumProgress: currentPhase > 1 ? 1.0 : (currentPhase === 1 ? Math.random() * 0.5 + 0.5 : 0),
           leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
           startTime: startTime + 20,
@@ -506,6 +625,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         {
           name: 'precommit',
           index: 2,
+          number: 3,
+          label: 'Precommit',
+          time: '25ms',
+          status: currentPhase > 2 ? 'completed' as const : (currentPhase === 2 ? 'active' as const : 'pending' as const),
           quorumProgress: currentPhase > 2 ? 1.0 : (currentPhase === 2 ? Math.random() * 0.5 + 0.5 : 0),
           leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
           startTime: startTime + 45,
@@ -514,6 +637,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         {
           name: 'commit',
           index: 3,
+          number: 4,
+          label: 'Commit',
+          time: '30ms',
+          status: currentPhase === 3 ? 'active' as const : 'pending' as const,
           quorumProgress: currentPhase === 3 ? Math.random() * 0.5 + 0.5 : 0,
           leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
           startTime: startTime + 70,
@@ -521,6 +648,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         }
       ];
       
+      const proposerAddress = `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`;
       const state = {
         currentPhase,
         phases,
@@ -530,7 +658,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         totalValidators,
         requiredQuorum,
         avgBlockTimeMs: 100,
-        startTime
+        startTime,
+        proposer: proposerAddress
       };
       
       res.json(state);
