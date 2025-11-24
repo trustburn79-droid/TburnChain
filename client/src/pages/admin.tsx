@@ -280,21 +280,42 @@ export default function AdminPage() {
   // Restart mutation with enhanced feedback
   const restartMainnetMutation = useMutation({
     mutationFn: async (password: string) => {
-      const response = await fetch("/api/admin/restart-mainnet", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Admin-Password": password,
-        },
-        credentials: "include",
-      });
+      // Set a timeout to handle the case where the server doesn't respond
+      // because it restarts before sending a complete response
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
       
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Failed to restart mainnet");
+      try {
+        const response = await fetch("/api/admin/restart-mainnet", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Admin-Password": password,
+          },
+          credentials: "include",
+          signal: controller.signal,
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || "Failed to restart mainnet");
+        }
+        
+        return response.json();
+      } catch (error: any) {
+        clearTimeout(timeoutId);
+        
+        // If the request was aborted or failed due to network error,
+        // it might mean the server is restarting - consider this a success
+        if (error.name === 'AbortError' || error.message === 'Failed to fetch') {
+          console.log('[Admin] Server restart initiated (connection lost as expected)');
+          return { success: true, message: 'Restart initiated - server disconnected as expected' };
+        }
+        
+        throw error;
       }
-      
-      return response.json();
     },
     onSuccess: (data) => {
       console.log('[Admin] Restart initiated:', data);
@@ -314,6 +335,20 @@ export default function AdminPage() {
       }, 5000);
     },
     onError: (error: any) => {
+      // Don't show error for expected connection failures during restart
+      if (error.message === 'Failed to fetch' || error.name === 'AbortError') {
+        console.log('[Admin] Connection lost during restart (expected behavior)');
+        startRestart(); // Start the progress monitoring anyway
+        toast({
+          title: "🚀 Mainnet Restart Initiated",
+          description: "Server is restarting. Connection lost as expected.",
+          duration: 10000,
+        });
+        setShowRestartDialog(false);
+        setAdminPassword("");
+        return;
+      }
+      
       console.error('[Admin] Restart failed:', error);
       toast({
         title: "❌ Restart Failed",
