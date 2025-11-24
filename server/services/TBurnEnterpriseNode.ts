@@ -393,34 +393,168 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json(wallets);
     });
 
-    // Consensus rounds endpoint
-    this.rpcApp.get('/api/consensus/rounds', (_req: Request, res: Response) => {
+    // Node health endpoint
+    this.rpcApp.get('/api/node/health', (_req: Request, res: Response) => {
+      const health = {
+        status: 'healthy',
+        timestamp: Date.now(),
+        blockHeight: this.nodeState.blockHeight,
+        uptime: Math.floor((Date.now() - this.startTime) / 1000),
+        syncStatus: {
+          synced: true,
+          currentBlock: this.nodeState.blockHeight,
+          highestBlock: this.nodeState.blockHeight + Math.floor(Math.random() * 10),
+          progress: 99.9 + Math.random() * 0.1
+        },
+        systemMetrics: {
+          cpuUsage: Math.random() * 0.3 + 0.2,
+          memoryUsage: Math.random() * 0.4 + 0.4,
+          diskUsage: Math.random() * 0.3 + 0.5,
+          networkLatency: Math.floor(Math.random() * 20) + 10
+        },
+        selfHealing: {
+          trendAnalysis: Math.random() * 0.2 + 0.8,
+          anomalyDetection: Math.random() * 0.15 + 0.85,
+          patternMatching: Math.random() * 0.2 + 0.75,
+          timeseries: Math.random() * 0.1 + 0.9
+        },
+        predictions: {
+          nextIssue: Date.now() + Math.floor(Math.random() * 86400000),
+          issueType: ['Memory', 'CPU', 'Disk', 'Network'][Math.floor(Math.random() * 4)],
+          confidence: Math.random() * 0.3 + 0.7
+        }
+      };
+      res.json(health);
+    });
+
+    // Performance metrics endpoint
+    this.rpcApp.get('/api/performance', (_req: Request, res: Response) => {
+      const now = Date.now();
+      const metrics = {
+        timestamp: now,
+        networkUptime: 0.998 + Math.random() * 0.002, // 99.8-100%
+        transactionSuccessRate: 0.995 + Math.random() * 0.005, // 99.5-100%
+        averageBlockTime: 0.095 + Math.random() * 0.01, // ~100ms
+        peakTps: this.nodeState.peakTps,
+        currentTps: this.nodeState.tps,
+        blockProductionRate: 10, // 10 blocks/second for 100ms block time
+        totalTransactions: this.nodeState.blockHeight * 5000,
+        totalBlocks: this.nodeState.blockHeight,
+        validatorParticipation: 0.98 + Math.random() * 0.02,
+        consensusLatency: Math.floor(Math.random() * 20) + 30,
+        resourceUtilization: {
+          cpu: Math.random() * 0.3 + 0.4,
+          memory: Math.random() * 0.3 + 0.5,
+          disk: Math.random() * 0.2 + 0.6,
+          network: Math.random() * 0.4 + 0.5
+        },
+        shardPerformance: {
+          totalShards: 5,
+          activeShards: 5,
+          averageTpsPerShard: Math.floor(this.nodeState.tps / 5),
+          crossShardLatency: Math.floor(Math.random() * 50) + 100
+        }
+      };
+      res.json(metrics);
+    });
+
+    // Consensus rounds endpoint - matches consensusRoundsSnapshotSchema
+    this.rpcApp.get('/api/consensus/rounds', (req: Request, res: Response) => {
+      const limit = Math.min(parseInt(req.query.limit as string) || 5, 10);
       const rounds = [];
-      const phases = ['propose', 'prevote', 'precommit', 'commit'];
-      const statuses = ['completed', 'completed', 'completed', 'in_progress'];
       
-      // Generate 5 recent consensus rounds
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < limit; i++) {
         const blockHeight = this.currentBlockHeight - i;
+        const startTime = Date.now() - (i * 100); // 100ms per block
+        const endTime = i === 0 ? null : startTime + 100; // null for in-progress
+        
+        // Create phases data
+        const phasesData = [
+          { name: 'propose', durationMs: 20, votes: 125, status: 'completed' },
+          { name: 'prevote', durationMs: 25, votes: i === 0 ? Math.floor(Math.random() * 125) : 125, status: i === 0 ? 'in_progress' : 'completed' },
+          { name: 'precommit', durationMs: 25, votes: i === 0 ? Math.floor(Math.random() * 84) : 125, status: i === 0 ? 'pending' : 'completed' },
+          { name: 'commit', durationMs: 30, votes: i === 0 ? 0 : 125, status: i === 0 ? 'pending' : 'completed' }
+        ];
+        
+        // AI participation data
+        const aiParticipation = [
+          { modelName: 'GPT-5', confidence: 0.95 + Math.random() * 0.05 },
+          { modelName: 'Claude Sonnet 4.5', confidence: 0.92 + Math.random() * 0.08 },
+          { modelName: 'Llama 4', confidence: 0.88 + Math.random() * 0.12 }
+        ];
+        
         rounds.push({
           id: `round-${blockHeight}`,
           blockHeight,
-          round: blockHeight,
-          phase: phases[Math.floor(Math.random() * phases.length)],
-          status: i === 0 ? 'in_progress' : 'completed',
-          proposer: `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`,
-          votes: Math.floor(Math.random() * 42) + 84, // 84-125 votes
-          totalVotes: 125,
-          timestamp: Date.now() - (i * 100), // 100ms per block
-          duration: 80 + Math.floor(Math.random() * 40), // 80-120ms
-          validators: 125,
-          prevotes: i === 0 ? Math.floor(Math.random() * 125) : 125,
-          precommits: i === 0 ? Math.floor(Math.random() * 125) : 125,
-          commits: i === 0 ? Math.floor(Math.random() * 84) : 125
+          roundNumber: i,
+          proposerAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
+          startTime,
+          endTime,
+          phasesJson: JSON.stringify(phasesData),
+          finalHash: i === 0 ? null : `0x${crypto.randomBytes(32).toString('hex')}`,
+          aiParticipation,
+          createdAt: new Date(startTime).toISOString()
         });
       }
       
       res.json(rounds);
+    });
+
+    // Consensus state endpoint - matches consensusStateSchema
+    this.rpcApp.get('/api/consensus/current', (_req: Request, res: Response) => {
+      const totalValidators = 125;
+      const requiredQuorum = Math.ceil(totalValidators * 2 / 3); // 84 validators
+      const currentPhase = Math.floor(Math.random() * 4); // 0=propose, 1=prevote, 2=precommit, 3=commit
+      const startTime = Date.now() - Math.floor(Math.random() * 50); // Started 0-50ms ago
+      
+      const phases = [
+        {
+          name: 'propose',
+          index: 0,
+          quorumProgress: currentPhase > 0 ? 1.0 : Math.random() * 0.5 + 0.5,
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
+          startTime,
+          endTime: currentPhase > 0 ? startTime + 20 : null
+        },
+        {
+          name: 'prevote',
+          index: 1,
+          quorumProgress: currentPhase > 1 ? 1.0 : (currentPhase === 1 ? Math.random() * 0.5 + 0.5 : 0),
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
+          startTime: startTime + 20,
+          endTime: currentPhase > 1 ? startTime + 45 : null
+        },
+        {
+          name: 'precommit',
+          index: 2,
+          quorumProgress: currentPhase > 2 ? 1.0 : (currentPhase === 2 ? Math.random() * 0.5 + 0.5 : 0),
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
+          startTime: startTime + 45,
+          endTime: currentPhase > 2 ? startTime + 70 : null
+        },
+        {
+          name: 'commit',
+          index: 3,
+          quorumProgress: currentPhase === 3 ? Math.random() * 0.5 + 0.5 : 0,
+          leaderAddress: `tburn1${Math.random().toString(36).substring(2, 42)}`,
+          startTime: startTime + 70,
+          endTime: null
+        }
+      ];
+      
+      const state = {
+        currentPhase,
+        phases,
+        blockHeight: this.currentBlockHeight,
+        prevoteCount: currentPhase >= 1 ? Math.floor(Math.random() * 41) + 84 : 0,
+        precommitCount: currentPhase >= 2 ? Math.floor(Math.random() * 41) + 84 : 0,
+        totalValidators,
+        requiredQuorum,
+        avgBlockTimeMs: 100,
+        startTime
+      };
+      
+      res.json(state);
     });
 
     // Get single cross-shard message
