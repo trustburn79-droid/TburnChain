@@ -77,6 +77,50 @@ export class TBurnClient {
     this.config = config;
   }
 
+  // Clear authentication to force re-authentication
+  clearAuth() {
+    this.isAuthenticated = false;
+    this.sessionCookie = null;
+    this.rateLimitedUntil = 0;
+    this.requestRetries = 0;
+    console.log('[TBURN Client] Authentication cleared');
+  }
+
+  // Connect or reconnect to the TBURN API
+  async connect(): Promise<boolean> {
+    try {
+      console.log('[TBURN Client] Attempting to connect...');
+      
+      // Clear any existing authentication
+      this.clearAuth();
+      
+      // Attempt to authenticate
+      const authenticated = await this.authenticate();
+      
+      if (!authenticated) {
+        console.error('[TBURN Client] Connection failed - authentication error');
+        return false;
+      }
+      
+      // Test connection with a simple request
+      try {
+        await this.getNetworkStats();
+        console.log('[TBURN Client] Successfully connected to TBURN mainnet');
+        return true;
+      } catch (error: any) {
+        if (error.statusCode === 429) {
+          console.warn('[TBURN Client] Connected but rate limited');
+          return false; // Connection exists but is rate limited
+        }
+        throw error;
+      }
+      
+    } catch (error) {
+      console.error('[TBURN Client] Connection failed:', error);
+      return false;
+    }
+  }
+
   async authenticate(): Promise<boolean> {
     if (this.isAuthenticated) {
       return true;
