@@ -3,9 +3,34 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { AlertCircle, Loader2, CheckCircle2, RefreshCcw } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 
 export function MainnetRestartOverlay() {
   const { status, isRestarting, isHealthy, getProgress, getRemainingTime, error } = useMainnetRestart();
+  const queryClient = useQueryClient();
+  const hasRefreshed = useRef(false);
+
+  // Auto-refresh data when restart completes
+  useEffect(() => {
+    if (!isRestarting && isHealthy && !hasRefreshed.current) {
+      hasRefreshed.current = true;
+      console.log('[MainnetRestart] Health restored, refreshing all data...');
+      
+      // Invalidate all queries to refresh data
+      queryClient.invalidateQueries();
+      
+      // Reload page after a short delay for complete refresh
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+    
+    // Reset flag when restarting again
+    if (isRestarting) {
+      hasRefreshed.current = false;
+    }
+  }, [isRestarting, isHealthy, queryClient]);
 
   // Only show overlay if restarting
   if (!isRestarting) {
