@@ -247,6 +247,10 @@ export class TBurnClient {
     const options: any = {
       method,
       headers,
+      // Add timeout to prevent hanging on rate-limited API
+      signal: AbortSignal.timeout(10000), // 10 second timeout
+      bodyTimeout: 10000,
+      headersTimeout: 10000,
     };
 
     if (body && method !== 'GET') {
