@@ -2946,7 +2946,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Enterprise-grade fallback tracking: prevent log spam for unimplemented endpoints
     const endpointFallbackStatus = new Map<string, { disabled: boolean; warned: boolean }>();
 
-    // Poll AI Decisions every 10 seconds
+    // Poll AI Decisions every 60 seconds (production stability)
     setInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('ai_decisions')?.disabled) return;
       try {
@@ -2969,9 +2969,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('ai_decisions_snapshot');
       }
-    }, 10000);
+    }, 60000);
 
-    // Poll Cross-Shard Messages every 5 seconds
+    // Poll Cross-Shard Messages every 30 seconds (production stability)
     setInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('cross_shard')?.disabled) return;
       try {
@@ -2993,9 +2993,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('cross_shard_snapshot');
       }
-    }, 5000);
+    }, 30000);
 
-    // Poll Wallet Balances every 10 seconds
+    // Poll Wallet Balances every 30 seconds (production stability)
     setInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('wallets')?.disabled) return;
       try {
@@ -3034,7 +3034,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('wallet_balances_snapshot');
       }
-    }, 10000);
+    }, 30000);
 
     // Poll Consensus Rounds every 2 seconds (high-volatility)
     setInterval(async () => {

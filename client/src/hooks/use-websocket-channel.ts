@@ -111,6 +111,16 @@ export function useWebSocketChannel<T>({
 
       switch (updateMode) {
         case 'snapshot':
+          // Production optimization: Skip update if data is identical (prevents UI flicker)
+          const currentData = queryClient.getQueryData(normalizedKey);
+          const newDataHash = JSON.stringify(validatedData);
+          const currentDataHash = JSON.stringify(currentData);
+          
+          if (newDataHash === currentDataHash) {
+            // Data unchanged - skip update to prevent UI flicker
+            return;
+          }
+          
           // Replace entire array (for periodic snapshots)
           queryClient.setQueryData(normalizedKey, validatedData);
           break;

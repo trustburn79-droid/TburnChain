@@ -661,11 +661,17 @@ export type InsertCommitteeSnapshot = z.infer<typeof insertCommitteeSnapshotSche
 // Select Schemas for WebSocket Validation
 // ============================================
 // AI Decisions (add read-only fields to insert schema)
+// Make all fields optional to handle incomplete mainnet API responses
 export const aiDecisionSelectSchema = insertAiDecisionSchema.extend({
   id: z.string(),
-  createdAt: z.string().or(z.date()),
+  band: z.string().optional(),
+  modelName: z.string().optional(),
+  decision: z.string().optional(),
+  impact: z.string().optional(),
+  category: z.string().optional(),
+  createdAt: z.string().or(z.date()).optional(),
   executedAt: z.string().or(z.date()).optional(),
-});
+}).partial();
 
 // Cross-Shard Messages (add read-only fields)
 export const crossShardMessageSelectSchema = insertCrossShardMessageSchema.extend({
