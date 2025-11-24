@@ -1300,6 +1300,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Shards API endpoint
+  app.get("/api/shards", async (req, res) => {
+    try {
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const shards = await client.getShards();
+        res.json(shards);
+      } else {
+        // Fetch from local database (demo mode)
+        const shards = await storage.getAllShards();
+        res.json(shards);
+      }
+    } catch (error: unknown) {
+      console.error('Error fetching shards:', error);
+      res.status(500).json({ error: "Failed to fetch shards" });
+    }
+  });
+
+  // AI Decisions endpoints
+  app.get("/api/ai/decisions", async (req, res) => {
+    try {
+      const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const decisions = await client.getRecentAIDecisions(limit);
+        res.json(decisions);
+      } else {
+        // Fetch from local database (demo mode)
+        const decisions = await storage.getRecentAiDecisions(limit);
+        res.json(decisions);
+      }
+    } catch (error: unknown) {
+      console.error('Error fetching AI decisions:', error);
+      res.status(500).json({ error: "Failed to fetch recent AI decisions" });
+    }
+  });
+
   app.get("/api/ai/decisions/:id", async (req, res) => {
     try {
       const id = req.params.id;
@@ -1318,6 +1357,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     } catch (error: unknown) {
       res.status(500).json({ error: "Failed to fetch AI decision" });
+    }
+  });
+
+  // Cross-Shard Messages endpoint
+  app.get("/api/cross-shard/messages", async (req, res) => {
+    try {
+      const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const messages = await client.getCrossShardMessages(limit);
+        res.json(messages);
+      } else {
+        // Fetch from local database (demo mode)
+        const messages = await storage.getAllCrossShardMessages(limit);
+        res.json(messages);
+      }
+    } catch (error: unknown) {
+      console.error('Error fetching cross-shard messages:', error);
+      res.status(500).json({ error: "Failed to fetch cross-shard messages" });
+    }
+  });
+
+  // Node Health endpoint
+  app.get("/api/node/health", async (req, res) => {
+    try {
+      if (isProductionMode()) {
+        // Fetch from TBURN mainnet node
+        const client = getTBurnClient();
+        const health = await client.getNodeHealth();
+        res.json(health);
+      } else {
+        // Generate demo health data
+        res.json({
+          status: "healthy",
+          uptime: Math.floor(Math.random() * 86400),
+          systemMetrics: {
+            cpuUsage: Math.floor(Math.random() * 100),
+            memoryUsage: Math.floor(Math.random() * 100),
+            diskUsage: Math.floor(Math.random() * 100)
+          },
+          networkMetrics: {
+            peersConnected: Math.floor(Math.random() * 50) + 75,
+            inboundConnections: Math.floor(Math.random() * 30) + 20,
+            outboundConnections: Math.floor(Math.random() * 30) + 20
+          },
+          syncStatus: {
+            syncing: false,
+            currentBlock: 1000000 + Math.floor(Math.random() * 1000),
+            highestBlock: 1001000
+          }
+        });
+      }
+    } catch (error: unknown) {
+      console.error('Error fetching node health:', error);
+      res.status(500).json({ error: "Failed to fetch node health" });
     }
   });
 

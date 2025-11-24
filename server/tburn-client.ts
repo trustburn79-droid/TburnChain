@@ -526,6 +526,10 @@ export class TBurnClient {
     return this.request<any>(`/api/shards/${id}`);
   }
 
+  async getNodeHealth(): Promise<any> {
+    return this.request<any>('/api/node/health');
+  }
+
   connectWebSocket(): void {
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
       console.log('[TBURN WS] Already connected or connecting');
