@@ -20,6 +20,7 @@ import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
+import { getRestartSupervisor, type RestartState } from "./services/RestartSupervisor";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -101,9 +102,13 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 // 5. Set strong SESSION_SECRET environment variable
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Initialize TBURN client if in production mode
+  // Initialize Restart Supervisor
+  const restartSupervisor = getRestartSupervisor(isProductionMode());
+  
+  // Initialize TBURN client if in production mode  
   if (isProductionMode()) {
-    getTBurnClient();
+    const tburnClient = getTBurnClient();
+    restartSupervisor.setTBurnClient(tburnClient);
   }
 
   // Start AI Provider Health Checks
@@ -1568,97 +1573,129 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('[Admin] ADMIN_PASSWORD verified successfully');
       console.log('═══════════════════════════════════════════');
       
-      // Create or update restart session in database with phase tracking
-      await storage.createOrUpdateRestartSession({
-        isRestarting: true,
-        restartInitiatedAt: new Date(),
-        expectedRestartTime: 60000,
-        lastHealthCheck: null,
-        isHealthy: false,
-        phase: "initiating",
-        phaseStartTime: new Date(),
-        phaseMessage: "Preparing to restart TBURN mainnet...",
-        progressPercentage: 10,
-        initiatingTime: new Date(),
-        sessionId: req.sessionID
-      });
+      // Get current state first
+      const currentState = restartSupervisor.getState();
       
-      // Store restart status for tracking
-      const restartInfo = {
-        initiatedAt: Date.now(),
-        sessionId: req.sessionID,
-        status: "restart_initiated"
-      };
+      if (currentState.isRestarting) {
+        return res.status(409).json({
+          success: false,
+          message: "Restart already in progress",
+          state: currentState
+        });
+      }
       
-      // Log restart info for debugging
-      console.log('[Admin] Restart Info:', JSON.stringify(restartInfo, null, 2));
-      console.log('[Admin] Restart session saved to database');
-      
-      // Send immediate success response before shutdown
+      // Send immediate response
       res.json({
         success: true,
-        message: "Mainnet restart initiated successfully. Server will restart in 2 seconds.",
-        timestamp: restartInfo.initiatedAt,
-        status: restartInfo.status,
+        message: "Mainnet restart initiated. Monitor progress via the status endpoint.",
+        timestamp: Date.now(),
         estimatedRecoveryTime: 60 // seconds
       });
       
-      // Force flush response
-      res.end();
-      
-      // Broadcast to WebSocket clients about upcoming restart
-      console.log('[Admin] Broadcasting restart notification to WebSocket clients...');
-      
-      // Broadcast restart phase update via WebSocket
-      const restartPhaseSchema = z.object({
-        phase: z.string(),
-        message: z.string(),
-        progress: z.number(),
-        timestamp: z.number()
+      // Start restart process asynchronously
+      restartSupervisor.initiateRestart({
+        force: req.body?.force || false,
+        clearRateLimit: req.body?.clearRateLimit || false,
+        maxRetries: 3
+      }).then(async (success) => {
+        if (success) {
+          console.log('[Admin] ✅ Mainnet restart completed successfully');
+          
+          // Update database with success status
+          await storage.createOrUpdateRestartSession({
+            isRestarting: false,
+            restartCompletedAt: new Date(),
+            phase: "completed",
+            phaseMessage: "Mainnet restart completed successfully",
+            progressPercentage: 100,
+            isHealthy: true,
+            completedTime: new Date()
+          });
+          
+          // Broadcast success
+          const restartPhaseSchema = z.object({
+            phase: z.string(),
+            message: z.string(),
+            progress: z.number(),
+            timestamp: z.number()
+          });
+          
+          broadcastUpdate('restart_phase_update', {
+            phase: 'completed',
+            message: 'Mainnet restart completed successfully',
+            progress: 100,
+            timestamp: Date.now()
+          }, restartPhaseSchema, true);
+          
+        } else {
+          console.error('[Admin] ❌ Mainnet restart failed');
+          
+          // Update database with failure status
+          await storage.createOrUpdateRestartSession({
+            isRestarting: false,
+            restartCompletedAt: new Date(),
+            phase: "failed",
+            phaseMessage: "Mainnet restart failed - please try again",
+            progressPercentage: 0,
+            isHealthy: false,
+            failedTime: new Date()
+          });
+          
+          // Broadcast failure
+          const restartPhaseSchema = z.object({
+            phase: z.string(),
+            message: z.string(),
+            progress: z.number(),
+            timestamp: z.number()
+          });
+          
+          broadcastUpdate('restart_phase_update', {
+            phase: 'failed',
+            message: 'Mainnet restart failed - please try again',
+            progress: 0,
+            timestamp: Date.now()
+          }, restartPhaseSchema, true);
+        }
+      }).catch((error) => {
+        console.error('[Admin] ❌ Restart process error:', error);
       });
       
-      broadcastUpdate('restart_phase_update', {
-        phase: 'initiating',
-        message: 'Preparing to restart TBURN mainnet...',
-        progress: 10,
-        timestamp: Date.now()
-      }, restartPhaseSchema, true);
-      
-      // Schedule phase transitions and actual restart
-      setTimeout(async () => {
-        // Update phase to shutting_down
+      // Subscribe to state changes and broadcast them
+      restartSupervisor.on('stateChanged', async (state: RestartState) => {
+        // Update database
         await storage.createOrUpdateRestartSession({
-          isRestarting: true,
-          phase: "shutting_down",
+          isRestarting: state.isRestarting,
+          restartInitiatedAt: state.restartInitiatedAt,
+          restartCompletedAt: state.restartCompletedAt,
+          phase: state.phase,
           phaseStartTime: new Date(),
-          phaseMessage: "Shutting down current instance...",
-          progressPercentage: 30,
-          shuttingDownTime: new Date()
+          phaseMessage: state.message,
+          progressPercentage: state.progress,
+          isHealthy: state.phase === 'completed',
+          error: state.error
+        });
+        
+        // Broadcast state update
+        const restartPhaseSchema = z.object({
+          phase: z.string(),
+          message: z.string(),
+          progress: z.number(),
+          timestamp: z.number(),
+          error: z.string().optional()
         });
         
         broadcastUpdate('restart_phase_update', {
-          phase: 'shutting_down',
-          message: 'Shutting down current instance...',
-          progress: 30,
-          timestamp: Date.now()
+          phase: state.phase,
+          message: state.message,
+          progress: state.progress,
+          timestamp: Date.now(),
+          error: state.error
         }, restartPhaseSchema, true);
-        
-        console.log('═══════════════════════════════════════════');
-        console.log('[Admin] 🚀 EXECUTING SERVER RESTART SEQUENCE');
-        console.log('[Admin] Step 1: Closing database connections...');
-        console.log('[Admin] Step 2: Stopping WebSocket server...');
-        console.log('[Admin] Step 3: Calling process.exit(0)...');
-        console.log('[Admin] Expected: Replit auto-restart in 5-10 seconds');
-        console.log('═══════════════════════════════════════════');
-        
-        // Exit with code 0 for clean shutdown
-        // Replit will detect this and automatically restart the service
-        process.exit(0);
-      }, 2000); // 2 second delay to ensure response is sent
+      });
       
     } catch (error: any) {
       console.error('═══════════════════════════════════════════');
-      console.error('[Admin] ❌ RESTART FAILED:', error);
+      console.error('[Admin] ❌ RESTART REQUEST FAILED:', error);
       console.error('[Admin] Error details:', error.stack);
       console.error('═══════════════════════════════════════════');
       
