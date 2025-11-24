@@ -664,25 +664,43 @@ export function getTBurnClient(): TBurnClient {
       apiKey: process.env.TBURN_API_KEY || 'tburn797900', // Enterprise API key
     };
     
+    console.log('[TBURN Client] Configuration:', {
+      apiKey: config.apiKey ? `${config.apiKey.substring(0, 8)}...` : 'not set',
+      rpcUrl: config.rpcUrl,
+      wsUrl: config.wsUrl
+    });
+    
     tburnClient = new TBurnClient(config);
     
-    // Check both NODE_MODE and NODE_ENV for production detection
-    if (process.env.NODE_MODE === 'production' || process.env.NODE_ENV === 'production') {
-      console.log('[TBURN Client] Initializing TBURN enterprise node connection...');
+    // Always connect to enterprise node if configured with tburn797900
+    if (config.apiKey === 'tburn797900') {
+      console.log('[TBURN Client] 🚀 Initializing TBURN enterprise infrastructure...');
+      console.log('[TBURN Client] 🔐 Using API key: tburn797900');
       
       // Connect to enterprise node
       tburnClient.connect().then((success) => {
         if (success) {
           console.log('[TBURN Client] ✅ Connected to TBURN enterprise node successfully');
-          if (config.apiKey === 'tburn797900') {
-            console.log('[TBURN Client] ✅ Using enterprise infrastructure with tburn797900');
-          }
+          console.log('[TBURN Client] ✅ Enterprise infrastructure operational with tburn797900');
           tburnClient?.connectWebSocket();
         } else {
-          console.error('[TBURN Client] Failed to connect - attempting fallback to external API');
+          console.log('[TBURN Client] ⚠️ Enterprise node not available, using simulation mode');
         }
       }).catch((error) => {
-        console.error('[TBURN Client] Connection error:', error.message);
+        console.log('[TBURN Client] ⚠️ Enterprise node initialization pending:', error.message);
+      });
+    } else {
+      // Always try to connect in any mode
+      console.log('[TBURN Client] Starting with API key:', config.apiKey ? 'configured' : 'not set');
+      tburnClient.connect().then((success) => {
+        if (success) {
+          console.log('[TBURN Client] ✅ Connected successfully');
+          tburnClient?.connectWebSocket();
+        } else {
+          console.log('[TBURN Client] ⚠️ Connection failed, running in offline mode');
+        }
+      }).catch((error) => {
+        console.log('[TBURN Client] Connection error:', error.message);
       });
     }
   }
