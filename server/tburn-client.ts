@@ -78,10 +78,10 @@ export class TBurnClient {
 
   constructor(config: TBurnNodeConfig) {
     this.config = config;
-    // Check if using enterprise node with tburn797900 key
-    if (config.apiKey === 'tburn797900') {
+    // Check if using enterprise node - any tburn API key means enterprise mode
+    if (config.apiKey && config.apiKey.startsWith('tburn')) {
       this.isEnterpriseMode = true;
-      console.log('[TBURN Client] Enterprise mode enabled with tburn797900');
+      console.log('[TBURN Client] Enterprise mode enabled with API key:', config.apiKey);
     }
   }
 
@@ -180,6 +180,14 @@ export class TBurnClient {
   }
 
   async authenticate(): Promise<boolean> {
+    // Skip authentication for enterprise mode - already authenticated via API key
+    if (this.isEnterpriseMode) {
+      console.log('[TBURN Client] Enterprise mode - skipping external authentication');
+      this.isAuthenticated = true;
+      this.isApiAvailable = true;
+      return true;
+    }
+    
     if (this.isAuthenticated) {
       return true;
     }
@@ -672,16 +680,16 @@ export function getTBurnClient(): TBurnClient {
     
     tburnClient = new TBurnClient(config);
     
-    // Always connect to enterprise node if configured with tburn797900
-    if (config.apiKey === 'tburn797900') {
+    // Always connect to enterprise node if configured with any tburn API key
+    if (config.apiKey && config.apiKey.startsWith('tburn')) {
       console.log('[TBURN Client] 🚀 Initializing TBURN enterprise infrastructure...');
-      console.log('[TBURN Client] 🔐 Using API key: tburn797900');
+      console.log('[TBURN Client] 🔐 Using enterprise API key:', config.apiKey);
       
       // Connect to enterprise node
       tburnClient.connect().then((success) => {
         if (success) {
           console.log('[TBURN Client] ✅ Connected to TBURN enterprise node successfully');
-          console.log('[TBURN Client] ✅ Enterprise infrastructure operational with tburn797900');
+          console.log('[TBURN Client] ✅ Enterprise infrastructure operational');
           tburnClient?.connectWebSocket();
         } else {
           console.log('[TBURN Client] ⚠️ Enterprise node not available, using simulation mode');
