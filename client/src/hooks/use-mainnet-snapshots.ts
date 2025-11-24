@@ -182,16 +182,48 @@ export function useMainnetSnapshots(refetchInterval: number = 5000) {
     // Process stats
     let statsSnapshot: Snapshot<NetworkStats>;
     if (statsData && !statsError) {
-      lastGoodStats.current = statsData;
-      statsSnapshot = {
-        data: statsData,
-        receivedAt: statsUpdatedAt || now,
-        source: "live" as const,
-        isStale: false,
-        failureCount: 0
-      };
-      hasLiveData = true;
-      newConsecutiveErrors = 0;
+      // Check if the data contains error metadata
+      const dataWithError = statsData as any;
+      if (dataWithError._errorType) {
+        // This is actually an error response with metadata
+        const errorType = dataWithError._errorType as Snapshot<NetworkStats>["errorType"];
+        recordFailure("/api/network/stats", `${dataWithError._errorCode}: Error response with type ${errorType}`);
+        
+        // Use cached data if available
+        if (lastGoodStats.current && (now - (snapshots.stats.receivedAt || 0)) < MAX_CACHE_AGE) {
+          statsSnapshot = {
+            data: lastGoodStats.current,
+            receivedAt: snapshots.stats.receivedAt,
+            source: "cached" as const,
+            isStale: true,
+            errorType,
+            failureCount: (snapshots.stats.failureCount || 0) + 1
+          };
+        } else {
+          // Real failure - no data available
+          statsSnapshot = {
+            data: null,
+            receivedAt: now,
+            source: "failed" as const,
+            isStale: true,
+            errorType,
+            failureCount: (snapshots.stats.failureCount || 0) + 1
+          };
+        }
+        newConsecutiveErrors++;
+      } else {
+        // Valid stats data
+        lastGoodStats.current = statsData;
+        statsSnapshot = {
+          data: statsData,
+          receivedAt: statsUpdatedAt || now,
+          source: "live" as const,
+          isStale: false,
+          failureCount: 0
+        };
+        hasLiveData = true;
+        newConsecutiveErrors = 0;
+      }
     } else if (statsError) {
       const errorType = recordFailure("/api/network/stats", statsError);
       

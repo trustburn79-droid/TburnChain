@@ -278,8 +278,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // NO FALLBACK - Return error state when mainnet API fails
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) for /api/network/stats - NO FALLBACK TO SIMULATION`);
           
-          // Return empty/error state stats
-          const errorStats: NetworkStats = {
+          // Determine the error type based on the status code
+          let errorType = "api-error";
+          if (mainnetError.statusCode === 429) {
+            errorType = "api-rate-limit";
+          } else if (mainnetError.statusCode >= 500) {
+            errorType = "mainnet-offline";
+          } else if (mainnetError.message && mainnetError.message.includes("ECONNREFUSED")) {
+            errorType = "network-error";
+          }
+          
+          // Return empty/error state stats with error information
+          const errorStats: any = {
             id: "singleton",
             currentBlockHeight: 0,
             tps: 0,
@@ -306,6 +316,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             anomaliesDetected: 0,
             predictedFailureRisk: 0,
             selfHealingStatus: "offline",
+            // Include error information for client
+            _errorType: errorType,
+            _errorCode: mainnetError.statusCode || 0,
           };
           res.json(errorStats);
         }
@@ -550,6 +563,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         } catch (mainnetError: any) {
           // NO FALLBACK - Return error when mainnet API fails
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) - NO FALLBACK TO SIMULATION`);
+          
+          // Determine the error type based on the status code
+          let errorType = "api-error";
+          if (mainnetError.statusCode === 429) {
+            errorType = "api-rate-limit";
+          } else if (mainnetError.statusCode >= 500) {
+            errorType = "mainnet-offline";
+          } else if (mainnetError.message && mainnetError.message.includes("ECONNREFUSED")) {
+            errorType = "network-error";
+          }
+          
+          // Return empty array with error metadata in response headers
+          res.setHeader('X-Error-Type', errorType);
+          res.setHeader('X-Error-Code', mainnetError.statusCode || '0');
           res.json([]); // Return empty array instead of simulated data
         }
       } else {
