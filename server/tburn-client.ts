@@ -64,6 +64,10 @@ export class TBurnClient {
   private eventHandlers: Map<string, Set<(data: any) => void>> = new Map();
   private sessionCookie: string | null = null;
   private isAuthenticated = false;
+  private lastRequestTime = 0;
+  private minRequestInterval = 500; // Minimum 500ms between requests to avoid rate limiting
+  private requestRetries = 0;
+  private maxRequestRetries = 3;
 
   constructor(config: TBurnNodeConfig) {
     this.config = config;
@@ -114,6 +118,16 @@ export class TBurnClient {
   }
 
   private async request<T>(endpoint: string, method = 'GET', body?: any, customHeaders?: Record<string, string>): Promise<T> {
+    // Rate limiting to avoid 429 errors
+    const now = Date.now();
+    const timeSinceLastRequest = now - this.lastRequestTime;
+    if (timeSinceLastRequest < this.minRequestInterval) {
+      const delay = this.minRequestInterval - timeSinceLastRequest;
+      console.log(`[TBURN Client] Rate limiting: waiting ${delay}ms before request`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+    this.lastRequestTime = Date.now();
+    
     if (!this.isAuthenticated) {
       await this.authenticate();
     }
@@ -155,13 +169,39 @@ export class TBurnClient {
           }
           return this.request<T>(endpoint, method, body);
         }
+        
+        // Handle rate limiting with exponential backoff
+        if (response.statusCode === 429) {
+          const retryAfter = response.headers['retry-after'];
+          const delay = retryAfter ? parseInt(retryAfter) * 1000 : 5000; // Default to 5 seconds
+          console.log(`[TBURN Client] Rate limited (429), retrying after ${delay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          return this.request<T>(endpoint, method, body);
+        }
+        
+        // Handle server errors with limited retry
+        if (response.statusCode >= 500 && response.statusCode < 600) {
+          if (this.requestRetries < this.maxRequestRetries) {
+            this.requestRetries++;
+            const delay = Math.pow(2, this.requestRetries) * 1000; // Exponential backoff
+            console.log(`[TBURN Client] Server error (${response.statusCode}), retrying in ${delay}ms (attempt ${this.requestRetries}/${this.maxRequestRetries})...`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+            return this.request<T>(endpoint, method, body, customHeaders);
+          }
+          console.log(`[TBURN Client] Server error (${response.statusCode}) for ${endpoint}, max retries reached. Falling back to simulated data.`);
+        }
+        
         const errorText = await response.body.text();
         console.error(`[TBURN Client] API Error: ${response.statusCode}`, errorText);
         const error: any = new Error(`TBURN API Error: ${response.statusCode} - ${errorText}`);
         error.statusCode = response.statusCode;
+        error.shouldFallback = response.statusCode >= 500 || response.statusCode === 429;
         throw error;
       }
 
+      // Reset retry counter on success
+      this.requestRetries = 0;
+      
       // Enterprise-grade response validation
       const contentType = response.headers['content-type'] || '';
       const responseText = await response.body.text();
@@ -441,7 +481,8 @@ export function getTBurnClient(): TBurnClient {
     
     tburnClient = new TBurnClient(config);
     
-    if (process.env.NODE_ENV === 'production') {
+    // Check both NODE_MODE and NODE_ENV for production detection
+    if (process.env.NODE_MODE === 'production' || process.env.NODE_ENV === 'production') {
       console.log('[TBURN Client] Initializing TBURN mainnet connection...');
       tburnClient.authenticate().then((success) => {
         if (success) {
@@ -460,5 +501,6 @@ export function getTBurnClient(): TBurnClient {
 }
 
 export function isProductionMode(): boolean {
-  return process.env.NODE_ENV === 'production';
+  // Check both NODE_MODE (our custom env var) and NODE_ENV (standard env var)
+  return process.env.NODE_MODE === 'production' || process.env.NODE_ENV === 'production';
 }

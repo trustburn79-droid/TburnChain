@@ -24,10 +24,6 @@ localPort = 38261
 externalPort = 3001
 
 [[ports]]
-localPort = 39479
-externalPort = 3002
-
-[[ports]]
 localPort = 44075
 externalPort = 3003
 
@@ -69,3 +65,9 @@ TBURN_NODE_URL = "https://tburn1.replit.app"
 TBURN_WS_URL = "wss://tburn1.replit.app/ws"
 NODE_MODE = "production"
 VITE_NODE_MODE = "production"
+
+[userenv.production]
+NODE_ENV = "production"
+
+[userenv.development]
+NODE_ENV = "development"

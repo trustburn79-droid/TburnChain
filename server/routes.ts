@@ -269,10 +269,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/network/stats", async (_req, res) => {
     try {
       if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const stats = await client.getNetworkStats();
-        res.json(stats);
+        try {
+          // Try to fetch from TBURN mainnet node
+          const client = getTBurnClient();
+          const stats = await client.getNetworkStats();
+          res.json(stats);
+        } catch (mainnetError: any) {
+          // NO FALLBACK - Return error state when mainnet API fails
+          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) for /api/network/stats - NO FALLBACK TO SIMULATION`);
+          
+          // Return empty/error state stats
+          const errorStats: NetworkStats = {
+            id: "singleton",
+            currentBlockHeight: 0,
+            tps: 0,
+            peakTps: 0,
+            avgBlockTime: 0,
+            blockTimeP99: 0,
+            slaUptime: 0,
+            latency: 0,
+            latencyP99: 0,
+            activeValidators: 0,
+            totalValidators: 0,
+            totalTransactions: 0,
+            totalAccounts: 0,
+            marketCap: "0",
+            circulatingSupply: "0",
+            successRate: 0,
+            updatedAt: new Date(),
+            // TBURN v7.0: Predictive Self-Healing System
+            trendAnalysisScore: 0,
+            anomalyDetectionScore: 0,
+            patternMatchingScore: 0,
+            timeseriesScore: 0,
+            healingEventsCount: 0,
+            anomaliesDetected: 0,
+            predictedFailureRisk: 0,
+            selfHealingStatus: "offline",
+          };
+          res.json(errorStats);
+        }
       } else {
         // Fetch from local database (demo mode)
         const stats = await storage.getNetworkStats();
@@ -369,23 +405,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const sortBy = (req.query.sortBy as string) || 'number';
       const sortOrder = (req.query.sortOrder as string) || 'desc';
       
+      console.log(`[API] /api/blocks request - page: ${page}, limit: ${limit}, production: ${isProductionMode()}`);
+      
       if (isProductionMode()) {
-        // Production mode - Fetch from TBURN mainnet
-        const client = getTBurnClient();
-        const blocks = await client.getRecentBlocks(limit);
-        const totalBlocks = 1000000; // Estimated total blocks for production
-        
-        res.json({
-          blocks,
-          pagination: {
-            page,
-            limit,
-            totalPages: Math.ceil(totalBlocks / limit),
-            totalItems: totalBlocks,
-            hasNext: page * limit < totalBlocks,
-            hasPrev: page > 1
+        try {
+          // Try to fetch from TBURN mainnet
+          const client = getTBurnClient();
+          const blocks = await client.getRecentBlocks(limit);
+          
+          // Check if we got valid data
+          if (blocks && blocks.length > 0) {
+            const totalBlocks = 1000000; // Estimated total blocks for production
+            
+            res.json({
+              blocks,
+              pagination: {
+                page,
+                limit,
+                totalPages: Math.ceil(totalBlocks / limit),
+                totalItems: totalBlocks,
+                hasNext: page * limit < totalBlocks,
+                hasPrev: page > 1
+              }
+            });
+          } else {
+            // No data from mainnet, fall back to simulated
+            throw new Error('No blocks returned from mainnet');
           }
-        });
+        } catch (mainnetError: any) {
+          // NO FALLBACK - Return error when mainnet API fails
+          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'no data'}) for /api/blocks - NO FALLBACK TO SIMULATION`);
+          
+          // Return empty result with error indication
+          res.json({
+            blocks: [],
+            pagination: {
+              page,
+              limit,
+              totalPages: 0,
+              totalItems: 0,
+              hasNext: false,
+              hasPrev: false
+            },
+            error: "Mainnet API temporarily unavailable",
+            isLive: false
+          });
+        }
       } else {
         // Demo mode - Use local storage with filtering
         const allBlocks = await storage.getAllBlocks();
@@ -477,10 +542,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
       if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const blocks = await client.getRecentBlocks(limit);
-        res.json(blocks);
+        try {
+          // Try to fetch from TBURN mainnet node
+          const client = getTBurnClient();
+          const blocks = await client.getRecentBlocks(limit);
+          res.json(blocks);
+        } catch (mainnetError: any) {
+          // NO FALLBACK - Return error when mainnet API fails
+          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) - NO FALLBACK TO SIMULATION`);
+          res.json([]); // Return empty array instead of simulated data
+        }
       } else {
         // Fetch from local database (demo mode)
         const blocks = await storage.getRecentBlocks(limit);
@@ -564,13 +635,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
       if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const transactions = await client.getRecentTransactions(limit);
-        res.json(transactions);
+        try {
+          // Try to fetch from TBURN mainnet node
+          const client = getTBurnClient();
+          const transactions = await client.getRecentTransactions(limit);
+          
+          // Check if we got valid data
+          if (transactions && transactions.length > 0) {
+            res.json(transactions);
+          } else {
+            // No data from mainnet, fall back to simulated
+            throw new Error('No transactions returned from mainnet');
+          }
+        } catch (mainnetError: any) {
+          // NO FALLBACK - Return error when mainnet API fails
+          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'no data'}) for /api/transactions - NO FALLBACK TO SIMULATION`);
+          res.json([]); // Return empty array instead of simulated data
+        }
       } else {
         // Fetch from local database (demo mode)
-        const transactions = await storage.getAllTransactions();
+        // PERFORMANCE FIX: Use getRecentTransactions with limit for demo mode too
+        const transactions = await storage.getRecentTransactions(limit);
         res.json(transactions);
       }
     } catch (error) {
@@ -583,10 +668,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
       if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
-        const client = getTBurnClient();
-        const transactions = await client.getRecentTransactions(limit);
-        res.json(transactions);
+        try {
+          // Try to fetch from TBURN mainnet node
+          const client = getTBurnClient();
+          const transactions = await client.getRecentTransactions(limit);
+          res.json(transactions);
+        } catch (mainnetError: any) {
+          // NO FALLBACK - Return error when mainnet API fails
+          console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'unknown'}) for /api/transactions/recent - NO FALLBACK TO SIMULATION`);
+          res.json([]); // Return empty array instead of simulated data
+        }
       } else {
         // Fetch from local database (demo mode)
         const transactions = await storage.getRecentTransactions(limit);
