@@ -22,13 +22,43 @@ interface AIProviderStats {
   lastRequestTime?: Date;
   lastRateLimitTime?: Date;
   rateLimitResetTime?: Date;
+  connectionStatus?: "connected" | "disconnected" | "rate_limited";
+  lastHealthCheck?: Date;
+  averageResponseTime?: number;
+}
+
+interface AIProviderHealth {
+  provider: string;
+  isConnected: boolean;
+  connectionStatus: string;
+  lastHealthCheck?: Date;
+  averageResponseTime?: number;
+  isRateLimited: boolean;
 }
 
 export function AIUsageMonitor() {
   const [aiStats, setAIStats] = useState<AIProviderStats[]>([]);
+  const [healthStatus, setHealthStatus] = useState<Map<string, AIProviderHealth>>(new Map());
   const [isSwitchingProvider, setIsSwitchingProvider] = useState(false);
   const { subscribeToEvent } = useWebSocket();
   const { toast } = useToast();
+
+  // Fetch health status
+  const fetchHealthStatus = async () => {
+    try {
+      const response = await fetch('/api/admin/ai-health');
+      const data = await response.json();
+      if (data.success) {
+        const healthMap = new Map<string, AIProviderHealth>();
+        data.providers.forEach((p: AIProviderHealth) => {
+          healthMap.set(p.provider, p);
+        });
+        setHealthStatus(healthMap);
+      }
+    } catch (error) {
+      console.error('Error fetching health status:', error);
+    }
+  };
 
   useEffect(() => {
     // Subscribe to AI usage updates
@@ -42,8 +72,15 @@ export function AIUsageMonitor() {
       .then(data => setAIStats(data))
       .catch(console.error);
 
+    // Initial health check
+    fetchHealthStatus();
+
+    // Set up periodic health checks (every 5 minutes)
+    const healthInterval = setInterval(fetchHealthStatus, 5 * 60 * 1000);
+
     return () => {
       unsubscribe();
+      clearInterval(healthInterval);
     };
   }, [subscribeToEvent]);
 
@@ -162,6 +199,22 @@ export function AIUsageMonitor() {
                     <div className="flex items-center gap-2">
                       <span className="text-xl">{getProviderIcon(provider.provider)}</span>
                       <h3 className="font-semibold capitalize">{provider.provider}</h3>
+                      {/* Connection Status Indicator */}
+                      <div 
+                        className={`h-3 w-3 rounded-full ${
+                          healthStatus.get(provider.provider)?.isConnected 
+                            ? 'bg-green-500' 
+                            : 'bg-red-500'
+                        } animate-pulse`}
+                        title={
+                          healthStatus.get(provider.provider)?.isConnected 
+                            ? `Connected${healthStatus.get(provider.provider)?.averageResponseTime 
+                                ? ` (${Math.round(healthStatus.get(provider.provider)!.averageResponseTime!)}ms)` 
+                                : ''}`
+                            : 'Disconnected'
+                        }
+                        data-testid={`status-indicator-${provider.provider.toLowerCase()}`}
+                      />
                     </div>
                     {provider.isRateLimited && (
                       <Badge variant="destructive" className="gap-1">
