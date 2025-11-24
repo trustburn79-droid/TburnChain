@@ -22,6 +22,9 @@ export interface AIUsageStats {
   isRateLimited: boolean;
   dailyLimit?: number;
   dailyUsage?: number;
+  connectionStatus?: "connected" | "disconnected" | "rate_limited";
+  lastHealthCheck?: Date;
+  averageResponseTime?: number;
 }
 
 export interface AIProviderConfig {
@@ -560,6 +563,143 @@ class AIServiceManager extends EventEmitter {
       totalRequests,
       totalCost
     };
+  }
+
+  // Health check for individual provider
+  public async checkProviderConnection(provider: AIProvider): Promise<boolean> {
+    const stats = this.usageStats.get(provider);
+    if (!stats) {
+      return false;
+    }
+
+    try {
+      const testRequest: AIRequest = {
+        prompt: "Hi",
+        maxTokens: 10,
+        temperature: 0.1
+      };
+
+      console.log(`[AI Health Check] Testing ${provider}...`);
+      const startTime = Date.now();
+      let result: any;
+      
+      switch (provider) {
+        case "gemini":
+          if (!this.providers.has("gemini")) {
+            stats.connectionStatus = "disconnected";
+            stats.lastHealthCheck = new Date();
+            return false;
+          }
+          result = await this.callGemini(testRequest);
+          break;
+        case "anthropic":
+          if (!this.providers.has("anthropic")) {
+            stats.connectionStatus = "disconnected";
+            stats.lastHealthCheck = new Date();
+            return false;
+          }
+          result = await this.callAnthropic(testRequest);
+          break;
+        case "openai":
+          if (!this.providers.has("openai")) {
+            stats.connectionStatus = "disconnected";
+            stats.lastHealthCheck = new Date();
+            return false;
+          }
+          result = await this.callOpenAI(testRequest);
+          break;
+        default:
+          stats.connectionStatus = "disconnected";
+          stats.lastHealthCheck = new Date();
+          return false;
+      }
+
+      const responseTime = Date.now() - startTime;
+      
+      // If we got a successful response, mark as healthy
+      if (result && result.text) {
+        stats.connectionStatus = "connected";
+        stats.lastHealthCheck = new Date();
+        stats.averageResponseTime = (stats.averageResponseTime || 0) * 0.9 + responseTime * 0.1; // Rolling average
+        console.log(`[AI Health Check] ${provider} is healthy (${responseTime}ms)`);
+        return true;
+      } else {
+        stats.connectionStatus = "disconnected";
+        stats.lastHealthCheck = new Date();
+        return false;
+      }
+    } catch (error: any) {
+      stats.lastHealthCheck = new Date();
+      
+      // Check if it's a rate limit error (still means API is reachable)
+      if (error.status === 429 || error.message?.includes("rate") || error.message?.includes("429")) {
+        stats.connectionStatus = "rate_limited";
+        console.log(`[AI Health Check] ${provider} is rate-limited but reachable`);
+        return true; // API is reachable, just rate limited
+      }
+      
+      stats.connectionStatus = "disconnected";
+      console.error(`[AI Health Check] ${provider} is unhealthy:`, error.message || error);
+      return false;
+    }
+  }
+
+  // Health check for all providers
+  public async checkAllProviderConnections(): Promise<Map<AIProvider, boolean>> {
+    const healthStatus = new Map<AIProvider, boolean>();
+    const providers: AIProvider[] = ["gemini", "anthropic", "openai"];
+    
+    // Check all providers in parallel
+    const results = await Promise.allSettled(
+      providers.map(async (provider) => {
+        const isHealthy = await this.checkProviderConnection(provider);
+        return { provider, isHealthy };
+      })
+    );
+    
+    results.forEach((result) => {
+      if (result.status === "fulfilled") {
+        healthStatus.set(result.value.provider, result.value.isHealthy);
+      } else {
+        // If check itself failed, mark as unhealthy
+        console.error("[AI Health Check] Health check failed:", result.reason);
+      }
+    });
+    
+    return healthStatus;
+  }
+
+  // Start periodic health checks (called from routes)
+  private healthCheckInterval?: NodeJS.Timeout;
+  
+  public startPeriodicHealthChecks(intervalMinutes: number = 5) {
+    if (this.healthCheckInterval) {
+      clearInterval(this.healthCheckInterval);
+    }
+    
+    // Run initial health check
+    this.checkAllProviderConnections().then((results) => {
+      console.log("[AI Health Check] Initial health check complete:", 
+        Array.from(results.entries()).map(([p, h]) => `${p}: ${h ? 'healthy' : 'unhealthy'}`).join(', '));
+    });
+    
+    // Schedule periodic checks
+    this.healthCheckInterval = setInterval(async () => {
+      const results = await this.checkAllProviderConnections();
+      this.emit("healthCheckUpdate", results);
+      console.log(`[AI Health Check] Periodic check (${intervalMinutes}min):`, 
+        Array.from(results.entries()).map(([p, h]) => `${p}: ${h ? 'healthy' : 'unhealthy'}`).join(', '));
+    }, intervalMinutes * 60 * 1000);
+    
+    console.log(`[AI Health Check] Started periodic health checks every ${intervalMinutes} minutes`);
+  }
+  
+  public stopPeriodicHealthChecks() {
+    if (this.healthCheckInterval) {
+      clearInterval(this.healthCheckInterval);
+      this.healthCheckInterval = undefined;
+      console.log("[AI Health Check] Stopped periodic health checks");
+    }
   }
 }
 
