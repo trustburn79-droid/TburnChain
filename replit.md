@@ -4,6 +4,11 @@
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
 **Latest Updates (November 24, 2025):**
+- **Production Data Stability Enhancement**: Eliminated UI flickering and race conditions on Cross-Shard and Wallets pages
+  - Fixed AI Decisions Zod validation errors by making all schema fields optional (`.partial()`) to handle incomplete mainnet API responses
+  - Increased WebSocket snapshot broadcast intervals to production-safe values: AI Decisions (60s), Cross-Shard (30s), Wallets (30s)
+  - Implemented deep data comparison in WebSocket channel to skip identical updates, preventing unnecessary cache invalidation
+  - Verified 35-second stability with no flickering via end-to-end Playwright testing
 - **Data Source Indicators**: Added visual badges to distinguish between real mainnet data and demo/simulated data on dashboard cards
   - Green "Mainnet" badge for production data
   - Amber "Demo Data" badge for simulated/development data
