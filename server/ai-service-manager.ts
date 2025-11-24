@@ -418,6 +418,26 @@ class AIServiceManager extends EventEmitter {
     }
   }
   
+  public switchProvider(provider: AIProvider) {
+    if (!this.providers.has(provider)) {
+      throw new Error(`Provider ${provider} is not configured`);
+    }
+    
+    const stats = this.usageStats.get(provider);
+    if (stats?.isRateLimited) {
+      throw new Error(`Provider ${provider} is currently rate limited`);
+    }
+    
+    this.activeProvider = provider;
+    console.log(`[AI Service] Manually switched to ${provider}`);
+    
+    // Emit event for WebSocket broadcasting
+    this.emit("providerSwitched", {
+      from: this.activeProvider,
+      to: provider
+    });
+  }
+  
   public checkHealth(): {
     availableProviders: AIProvider[];
     rateLimitedProviders: AIProvider[];

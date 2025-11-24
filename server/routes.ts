@@ -1823,6 +1823,84 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+  
+  // AI Usage Stats API Endpoints
+  app.get("/api/admin/ai-usage/stats", async (req, res) => {
+    try {
+      const stats = aiService.getAllUsageStats();
+      res.json(stats);
+    } catch (error: any) {
+      console.error('[Admin] ❌ Failed to get AI usage stats:', error);
+      res.status(500).json({
+        error: "Failed to get AI usage statistics"
+      });
+    }
+  });
+  
+  app.post("/api/admin/ai-usage/switch-provider", async (req, res) => {
+    try {
+      const { provider } = req.body;
+      
+      if (!provider || !['anthropic', 'openai', 'meta'].includes(provider)) {
+        return res.status(400).json({
+          error: "Invalid provider. Must be one of: anthropic, openai, meta"
+        });
+      }
+      
+      console.log(`[Admin] 🔄 Switching to AI provider: ${provider}`);
+      aiService.switchProvider(provider as "anthropic" | "openai" | "meta");
+      
+      res.json({
+        success: true,
+        message: `Switched to ${provider} provider`,
+        timestamp: Date.now()
+      });
+    } catch (error: any) {
+      console.error('[Admin] ❌ Failed to switch AI provider:', error);
+      res.status(500).json({
+        error: "Failed to switch AI provider",
+        message: error.message
+      });
+    }
+  });
+  
+  app.post("/api/admin/ai-usage/reset-limits", async (req, res) => {
+    try {
+      console.log('[Admin] 🔄 Resetting all AI provider limits');
+      
+      // Reset all providers
+      aiService.resetProvider("anthropic");
+      aiService.resetProvider("openai");
+      aiService.resetProvider("meta");
+      
+      // Also reset daily usage counters for testing
+      const providers: Array<"anthropic" | "openai" | "meta"> = ["anthropic", "openai", "meta"];
+      providers.forEach(provider => {
+        const stats = aiService.getAllUsageStats().find(s => s.provider === provider);
+        if (stats) {
+          stats.dailyUsage = 0;
+          stats.totalRequests = 0;
+          stats.successfulRequests = 0;
+          stats.failedRequests = 0;
+          stats.rateLimitHits = 0;
+          stats.totalTokensUsed = 0;
+          stats.totalCost = 0;
+        }
+      });
+      
+      res.json({
+        success: true,
+        message: "All AI provider limits have been reset",
+        timestamp: Date.now()
+      });
+    } catch (error: any) {
+      console.error('[Admin] ❌ Failed to reset AI limits:', error);
+      res.status(500).json({
+        error: "Failed to reset AI provider limits",
+        message: error.message
+      });
+    }
+  });
 
   // ============================================
   // Node Health
