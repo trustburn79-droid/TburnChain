@@ -2762,50 +2762,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }, 500); // Optimized for 100ms block time
 
-  // Broadcast periodic snapshots for domain-specific data
-  // AI Decisions snapshot every 15 seconds (aggregated list)
-  setInterval(async () => {
-    if (clients.size === 0) return;
-    try {
-      const decisions = await storage.getRecentAiDecisions(10);
-      broadcastUpdate('ai_decisions_snapshot', decisions, aiDecisionsSnapshotSchema);
-    } catch (error) {
-      console.error('Error broadcasting AI decisions snapshot:', error);
-    }
-  }, 15000);
+  // ============================================
+  // Development Mode Polling (Storage-based)
+  // ONLY runs when NOT in production mode
+  // ============================================
+  if (!isProductionMode()) {
+    // AI Decisions snapshot every 15 seconds (aggregated list)
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const decisions = await storage.getRecentAiDecisions(10);
+        broadcastUpdate('ai_decisions_snapshot', decisions, aiDecisionsSnapshotSchema);
+      } catch (error) {
+        console.error('Error broadcasting AI decisions snapshot:', error);
+      }
+    }, 15000);
 
-  // Cross-Shard Messages snapshot every 15 seconds (aggregated list)
-  setInterval(async () => {
-    if (clients.size === 0) return;
-    try {
-      const messages = await storage.getAllCrossShardMessages(10);
-      broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
-    } catch (error) {
-      console.error('Error broadcasting cross-shard snapshot:', error);
-    }
-  }, 15000);
+    // Cross-Shard Messages snapshot every 15 seconds (aggregated list)
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const messages = await storage.getAllCrossShardMessages(10);
+        broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
+      } catch (error) {
+        console.error('Error broadcasting cross-shard snapshot:', error);
+      }
+    }, 15000);
 
-  // Wallet Balances snapshot every 15 seconds (aggregated list)
-  setInterval(async () => {
-    if (clients.size === 0) return;
-    try {
-      const wallets = await storage.getAllWalletBalances(10);
-      broadcastUpdate('wallet_balances_snapshot', wallets, walletBalancesSnapshotSchema);
-    } catch (error) {
-      console.error('Error broadcasting wallet balances snapshot:', error);
-    }
-  }, 15000);
+    // Wallet Balances snapshot every 15 seconds (aggregated list)
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const wallets = await storage.getAllWalletBalances(10);
+        broadcastUpdate('wallet_balances_snapshot', wallets, walletBalancesSnapshotSchema);
+      } catch (error) {
+        console.error('Error broadcasting wallet balances snapshot:', error);
+      }
+    }, 15000);
 
-  // Consensus Rounds snapshot every 3 seconds (high-volatility metrics)
-  setInterval(async () => {
-    if (clients.size === 0) return;
-    try {
-      const rounds = await storage.getAllConsensusRounds(5);
-      broadcastUpdate('consensus_rounds_snapshot', rounds, consensusRoundsSnapshotSchema);
-    } catch (error) {
-      console.error('Error broadcasting consensus rounds snapshot:', error);
-    }
-  }, 3000);
+    // Consensus Rounds snapshot every 3 seconds (high-volatility metrics)
+    setInterval(async () => {
+      if (clients.size === 0) return;
+      try {
+        const rounds = await storage.getAllConsensusRounds(5);
+        broadcastUpdate('consensus_rounds_snapshot', rounds, consensusRoundsSnapshotSchema);
+      } catch (error) {
+        console.error('Error broadcasting consensus rounds snapshot:', error);
+      }
+    }, 3000);
+  }
 
   // Consensus State snapshot every 2 seconds (current consensus view)
   setInterval(async () => {
