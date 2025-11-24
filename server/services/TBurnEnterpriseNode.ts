@@ -332,6 +332,30 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json(messages);
     });
 
+    // Consensus current state endpoint
+    this.rpcApp.get('/api/consensus/current', (_req: Request, res: Response) => {
+      res.json({
+        round: this.currentBlockHeight,
+        proposer: `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`,
+        validators: 125,
+        votingPower: "1250000",
+        phase: ["propose", "prevote", "precommit"][Math.floor(Math.random() * 3)],
+        roundProgress: Math.floor(Math.random() * 100),
+        bftConsensus: {
+          phase: ["propose", "prevote", "precommit"][Math.floor(Math.random() * 3)],
+          votes: Math.floor(Math.random() * 125),
+          threshold: 84,
+          timeElapsed: Math.floor(Math.random() * 100)
+        },
+        aiCommittee: {
+          reputation: Math.floor(Math.random() * 100),
+          performance: Math.floor(Math.random() * 100),
+          aiTrust: Math.floor(Math.random() * 100),
+          adaptiveWeight: Math.random() * 0.5 + 0.5
+        }
+      });
+    });
+
     // Consensus rounds endpoint
     this.rpcApp.get('/api/consensus/rounds', (_req: Request, res: Response) => {
       const rounds = [];
