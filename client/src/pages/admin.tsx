@@ -233,7 +233,7 @@ export default function AdminPage() {
   const { restartStatus, isRestartInProgress, startRestart, resetStatus } = useRestartMonitor();
 
   // Use snapshot system for real failure tracking
-  const snapshots = useMainnetSnapshots(isRestartInProgress ? 2000 : 5000);
+  const snapshots = useMainnetSnapshots(isRestartInProgress ? 10000 : 30000); // Reduced polling frequency
   const { stats, blocks, isLive, lastLiveUpdate, hasFailures, recentFailures, failureHistory } = snapshots;
 
   // Calculate mainnet health using snapshot data

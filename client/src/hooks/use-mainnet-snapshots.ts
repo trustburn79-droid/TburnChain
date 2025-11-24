@@ -92,7 +92,7 @@ function saveFailureHistory(history: FailureRecord[]) {
   }
 }
 
-export function useMainnetSnapshots(refetchInterval: number = 5000) {
+export function useMainnetSnapshots(refetchInterval: number = 30000) { // Changed to 30 seconds to reduce API load
   const [snapshots, setSnapshots] = useState<MainnetSnapshots>({
     stats: { data: null, receivedAt: 0, source: "failed", isStale: true, failureCount: 0 },
     blocks: { data: null, receivedAt: 0, source: "failed", isStale: true, failureCount: 0 },
