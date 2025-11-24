@@ -4,6 +4,7 @@ import { useLocation, Link } from "wouter";
 import { useWebSocket } from "@/lib/websocket-context";
 import { queryClient } from "@/lib/queryClient";
 import { formatDistanceToNow } from "date-fns";
+import { formatAddress, formatHash, formatGas, formatSize } from "@/lib/formatters";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -251,22 +252,7 @@ export default function Blocks() {
                           (selectedShard && selectedShard !== "all") || 
                           (selectedHashAlgorithm && selectedHashAlgorithm !== "all");
   
-  // Format functions
-  const formatHash = (hash: string) => {
-    return `${hash.slice(0, 8)}...${hash.slice(-6)}`;
-  };
-  
-  const formatAddress = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  };
-  
-  const formatGas = (gas: number) => {
-    return (gas / 1e6).toFixed(2) + "M";
-  };
-  
-  const formatSize = (bytes: number) => {
-    return (bytes / 1024).toFixed(2) + " KB";
-  };
+  // Format functions are now imported from @/lib/formatters
   
   // Render loading skeleton
   const renderSkeleton = () => (
