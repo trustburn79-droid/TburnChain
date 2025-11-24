@@ -332,6 +332,36 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json(messages);
     });
 
+    // Consensus rounds endpoint
+    this.rpcApp.get('/api/consensus/rounds', (_req: Request, res: Response) => {
+      const rounds = [];
+      const phases = ['propose', 'prevote', 'precommit', 'commit'];
+      const statuses = ['completed', 'completed', 'completed', 'in_progress'];
+      
+      // Generate 5 recent consensus rounds
+      for (let i = 0; i < 5; i++) {
+        const blockHeight = this.currentBlockHeight - i;
+        rounds.push({
+          id: `round-${blockHeight}`,
+          blockHeight,
+          round: blockHeight,
+          phase: phases[Math.floor(Math.random() * phases.length)],
+          status: i === 0 ? 'in_progress' : 'completed',
+          proposer: `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`,
+          votes: Math.floor(Math.random() * 42) + 84, // 84-125 votes
+          totalVotes: 125,
+          timestamp: Date.now() - (i * 100), // 100ms per block
+          duration: 80 + Math.floor(Math.random() * 40), // 80-120ms
+          validators: 125,
+          prevotes: i === 0 ? Math.floor(Math.random() * 125) : 125,
+          precommits: i === 0 ? Math.floor(Math.random() * 125) : 125,
+          commits: i === 0 ? Math.floor(Math.random() * 84) : 125
+        });
+      }
+      
+      res.json(rounds);
+    });
+
     // Get single cross-shard message
     this.rpcApp.get('/api/cross-shard/messages/:id', (req: Request, res: Response) => {
       const messageId = req.params.id;
