@@ -2999,9 +2999,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     setInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('wallets')?.disabled) return;
       try {
-        const wallets = await client.getWalletBalances(10);
-        broadcastUpdate('wallet_balances_snapshot', wallets, walletBalancesSnapshotSchema);
-        console.log(`[Production Poll] Wallet Balances: ${wallets.length} items fetched and broadcast`);
+        const rawWallets = await client.getWalletBalances(10);
+        
+        // Transform mainnet wallet data to match frontend interface
+        const transformedWallets = rawWallets.map((wallet: any) => ({
+          id: wallet.id || `wallet-${wallet.address}`,
+          address: wallet.address,
+          balance: wallet.balance || "0",
+          nonce: wallet.nonce || 0,
+          // Add missing fields with default values
+          stakedBalance: wallet.stakedBalance || "0",
+          unstakedBalance: wallet.unstakedBalance || wallet.balance || "0",
+          rewardsEarned: wallet.rewardsEarned || "0",
+          transactionCount: wallet.transactionCount || 0,
+          lastTransactionAt: wallet.lastTransactionAt || null,
+          firstSeenAt: wallet.firstSeenAt || new Date().toISOString(),
+          updatedAt: wallet.updatedAt || new Date().toISOString(),
+        }));
+        
+        broadcastUpdate('wallet_balances_snapshot', transformedWallets, walletBalancesSnapshotSchema);
+        console.log(`[Production Poll] Wallet Balances: ${transformedWallets.length} items fetched and broadcast`);
       } catch (error: any) {
         const status = endpointFallbackStatus.get('wallets') || { disabled: false, warned: false };
         

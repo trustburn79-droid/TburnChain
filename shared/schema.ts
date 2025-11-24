@@ -678,9 +678,9 @@ export const crossShardMessageSelectSchema = insertCrossShardMessageSchema.exten
 // Wallet Balances (add read-only fields)
 export const walletBalanceSelectSchema = insertWalletBalanceSchema.extend({
   id: z.string(),
-  firstSeenAt: z.string().or(z.date()),
-  updatedAt: z.string().or(z.date()),
-  lastTransactionAt: z.string().or(z.date()).optional(),
+  firstSeenAt: z.string().or(z.date()).optional(),
+  updatedAt: z.string().or(z.date()).optional(),
+  lastTransactionAt: z.string().or(z.date()).nullish(),
 });
 
 // Consensus Rounds (add read-only fields)
