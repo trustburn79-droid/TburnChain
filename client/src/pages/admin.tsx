@@ -62,12 +62,15 @@ interface MainnetHealth {
 }
 
 interface RestartPhase {
-  phase: "idle" | "initiating" | "shutting_down" | "restarting" | "reconnecting" | "validating" | "completed" | "failed";
+  phase: "idle" | "initiating" | "stopping" | "waiting" | "shutting_down" | "restarting" | "reconnecting" | "validating" | "completed" | "failed";
   message: string;
   progress: number;
   startTime?: number;
   estimatedDuration?: number;
   error?: string;
+  retryCount?: number;
+  nextRetryAt?: Date;
+  rateLimitedUntil?: Date;
 }
 
 interface AdminOperationStatus {
@@ -749,6 +752,27 @@ export default function AdminPage() {
                 </span>
               )}
             </div>
+            
+            {/* Show rate limit info if present */}
+            {restartStatus.rateLimitedUntil && (
+              <div className="bg-orange-50 dark:bg-orange-950/20 p-3 rounded-md">
+                <div className="flex items-center gap-2 text-sm text-orange-600 dark:text-orange-400">
+                  <AlertCircle className="h-4 w-4" />
+                  <span>Rate Limited - Waiting for cooldown</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Retry after: {new Date(restartStatus.rateLimitedUntil).toLocaleTimeString()}
+                </p>
+              </div>
+            )}
+            
+            {/* Show retry count if retrying */}
+            {restartStatus.retryCount && restartStatus.retryCount > 0 && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <RefreshCw className="h-4 w-4" />
+                <span>Retry attempt: {restartStatus.retryCount}/3</span>
+              </div>
+            )}
 
             {/* Phase Indicators */}
             <div className="flex justify-between items-center">
