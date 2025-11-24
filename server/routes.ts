@@ -1999,21 +1999,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/node/health", async (_req, res) => {
     try {
-      const health = {
-        status: "healthy" as const,
-        uptime: Math.floor(Math.random() * 86400 * 30) + 86400 * 7, // 7-37 days
-        cpuUsage: Math.floor(Math.random() * 40) + 20, // 20-60%
-        memoryUsage: Math.floor(Math.random() * 30) + 40, // 40-70%
-        diskUsage: Math.floor(Math.random() * 20) + 50, // 50-70%
-        networkLatency: Math.floor(Math.random() * 30) + 10, // 10-40ms
-        rpcConnections: Math.floor(Math.random() * 50) + 100,
-        wsConnections: Math.floor(Math.random() * 30) + 50,
-        peersConnected: Math.floor(Math.random() * 20) + 80,
-        syncStatus: "Synced",
-        lastBlockTime: Math.floor(Math.random() * 3) + 1,
-      };
-      res.json(health);
+      // Use enterprise node monitor for real health data
+      const { getNodeMonitor } = await import('./services/NodeMonitor');
+      const monitor = getNodeMonitor();
+      let health = monitor.getHealth();
+      
+      if (!health) {
+        // Start monitoring if not started
+        await monitor.startMonitoring();
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for initial check
+        health = monitor.getHealth();
+      }
+      
+      if (health) {
+        // Convert to API response format
+        const response = {
+          status: health.status,
+          uptime: Math.floor(health.uptime / 1000), // Convert ms to seconds
+          cpuUsage: Math.floor(health.metrics.performance.cpuUsage),
+          memoryUsage: Math.floor(health.metrics.performance.memoryUsage),
+          diskUsage: Math.floor(health.metrics.performance.diskUsage),
+          networkLatency: Math.floor(health.metrics.performance.avgLatency),
+          rpcConnections: health.metrics.network.inboundConnections + health.metrics.network.outboundConnections,
+          wsConnections: health.metrics.network.inboundConnections,
+          peersConnected: health.metrics.network.peerCount,
+          syncStatus: health.metrics.sync.isSyncing ? "Syncing" : "Synced",
+          lastBlockTime: Math.floor(Date.now() / 1000 - health.metrics.blockProduction.current),
+          // Additional enterprise metrics
+          tps: health.metrics.performance.tps,
+          peakTps: health.metrics.performance.peakTps,
+          blockHeight: health.metrics.blockProduction.current,
+          blocksPerSecond: health.metrics.blockProduction.blocksPerSecond,
+          alerts: health.alerts
+        };
+        res.json(response);
+      } else {
+        // Fallback to mock data if monitoring hasn't started
+        const fallbackHealth = {
+          status: "initializing" as const,
+          uptime: 0,
+          cpuUsage: 0,
+          memoryUsage: 0,
+          diskUsage: 0,
+          networkLatency: 0,
+          rpcConnections: 0,
+          wsConnections: 0,
+          peersConnected: 0,
+          syncStatus: "Initializing",
+          lastBlockTime: 0,
+        };
+        res.json(fallbackHealth);
+      }
     } catch (error) {
+      console.error('[Node Health] Error:', error);
       res.status(500).json({ error: "Failed to fetch node health" });
     }
   });
