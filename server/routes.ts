@@ -1457,52 +1457,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Admin Control Panel
   // ============================================
-  // Track mainnet restart state (in-memory for simplicity)
-  let mainnetRestartState = {
-    isRestarting: false,
-    restartInitiatedAt: null as Date | null,
-    expectedRestartTime: 60000, // 60 seconds expected restart time
-    lastHealthCheck: null as Date | null,
-    isHealthy: false
-  };
-
   // Endpoint to get mainnet restart status
   app.get("/api/admin/restart-status", async (req, res) => {
     try {
-      // Check if restart timeout has passed
-      if (mainnetRestartState.isRestarting && mainnetRestartState.restartInitiatedAt) {
-        const elapsedTime = Date.now() - mainnetRestartState.restartInitiatedAt.getTime();
-        
-        // Auto-check health after expected restart time
-        if (elapsedTime > mainnetRestartState.expectedRestartTime) {
-          try {
-            // Check if mainnet is back by checking recent blocks
-            const recentBlocks = await storage.getRecentBlocks(1);
-            if (recentBlocks && recentBlocks.length > 0) {
-              const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
+      // Get restart session from database
+      const restartSession = await storage.getRestartSession();
+      
+      if (!restartSession) {
+        // No restart in progress
+        return res.json({
+          isRestarting: false,
+          restartInitiatedAt: null,
+          expectedRestartTime: 60000,
+          lastHealthCheck: null,
+          isHealthy: true,
+          elapsedTime: 0
+        });
+      }
+      
+      const elapsedTime = Date.now() - new Date(restartSession.restartInitiatedAt).getTime();
+      
+      // Auto-check health after expected restart time
+      if (restartSession.isRestarting && elapsedTime > restartSession.expectedRestartTime) {
+        try {
+          // Check if mainnet is back by checking recent blocks
+          const recentBlocks = await storage.getRecentBlocks(1);
+          if (recentBlocks && recentBlocks.length > 0) {
+            const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
+            
+            if (timeSinceLastBlock < 60) { // If block is less than 60 seconds old
+              // Mainnet is back online - update session
+              await storage.createOrUpdateRestartSession({
+                ...restartSession,
+                isRestarting: false,
+                isHealthy: true,
+                lastHealthCheck: new Date()
+              });
+              console.log("[API] Mainnet restart completed successfully");
               
-              if (timeSinceLastBlock < 60) { // If block is less than 60 seconds old
-                // Mainnet is back online
-                mainnetRestartState.isRestarting = false;
-                mainnetRestartState.isHealthy = true;
-                mainnetRestartState.lastHealthCheck = new Date();
-                console.log("[API] Mainnet restart completed successfully");
-              }
+              // Clear the session after a successful restart
+              setTimeout(async () => {
+                await storage.clearRestartSession();
+              }, 5000); // Clear after 5 seconds
             }
-          } catch (error) {
-            // Still not healthy, continue waiting
-            console.log("[API] Mainnet still restarting...");
           }
+        } catch (error) {
+          // Still not healthy, continue waiting
+          console.log("[API] Mainnet still restarting...");
         }
       }
       
+      // Return the current state
+      const currentSession = await storage.getRestartSession();
       res.json({
-        ...mainnetRestartState,
-        elapsedTime: mainnetRestartState.restartInitiatedAt 
-          ? Date.now() - mainnetRestartState.restartInitiatedAt.getTime() 
+        isRestarting: currentSession?.isRestarting || false,
+        restartInitiatedAt: currentSession?.restartInitiatedAt || null,
+        expectedRestartTime: currentSession?.expectedRestartTime || 60000,
+        lastHealthCheck: currentSession?.lastHealthCheck || null,
+        isHealthy: currentSession?.isHealthy || !currentSession?.isRestarting,
+        elapsedTime: currentSession?.restartInitiatedAt 
+          ? Date.now() - new Date(currentSession.restartInitiatedAt).getTime()
           : 0
       });
     } catch (error) {
+      console.error("[API] Failed to get restart status:", error);
       res.status(500).json({ error: "Failed to get restart status" });
     }
   });
@@ -1516,16 +1534,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('[Admin] ADMIN_PASSWORD verified successfully');
       console.log('═══════════════════════════════════════════');
       
-      // Update restart state
-      mainnetRestartState = {
+      // Create or update restart session in database
+      await storage.createOrUpdateRestartSession({
         isRestarting: true,
         restartInitiatedAt: new Date(),
         expectedRestartTime: 60000,
         lastHealthCheck: null,
         isHealthy: false
-      };
+      });
       
-      // Store restart status in memory (would be lost on restart, but useful for tracking)
+      // Store restart status for tracking
       const restartInfo = {
         initiatedAt: Date.now(),
         sessionId: req.sessionID,
@@ -1534,6 +1552,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Log restart info for debugging
       console.log('[Admin] Restart Info:', JSON.stringify(restartInfo, null, 2));
+      console.log('[Admin] Restart session saved to database');
       
       // Send immediate success response before shutdown
       res.json({
@@ -1602,11 +1621,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const isHealthy = timeSinceLastBlock < 3600;
       
       // Update restart state if healthy
-      if (isHealthy && mainnetRestartState.isRestarting) {
-        mainnetRestartState.isRestarting = false;
-        mainnetRestartState.isHealthy = true;
-        mainnetRestartState.lastHealthCheck = new Date();
+      const restartSession = await storage.getRestartSession();
+      if (isHealthy && restartSession?.isRestarting) {
+        await storage.createOrUpdateRestartSession({
+          ...restartSession,
+          isRestarting: false,
+          isHealthy: true,
+          lastHealthCheck: new Date()
+        });
         console.log("[Admin] Mainnet recovery detected via health check");
+        
+        // Clear the session after a successful restart
+        setTimeout(async () => {
+          await storage.clearRestartSession();
+        }, 5000); // Clear after 5 seconds
       }
       
       const healthStatus = {
