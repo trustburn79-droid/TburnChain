@@ -80,11 +80,11 @@ export default function AIOrchestration() {
   const getBandColor = (band: string) => {
     switch (band) {
       case "strategic":
-        return "border-l-blue-500 bg-blue-50 dark:bg-blue-950/20";
+        return "border-l-4 border-l-blue-500 bg-blue-50 dark:bg-blue-500/10";
       case "tactical":
-        return "border-l-purple-500 bg-purple-50 dark:bg-purple-950/20";
+        return "border-l-4 border-l-purple-500 bg-purple-50 dark:bg-purple-500/10";
       case "operational":
-        return "border-l-green-500 bg-green-50 dark:bg-green-950/20";
+        return "border-l-4 border-l-green-500 bg-green-50 dark:bg-green-500/10";
       default:
         return "";
     }
