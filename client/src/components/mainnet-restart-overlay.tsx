@@ -33,9 +33,9 @@ export function MainnetRestartOverlay() {
           // Invalidate all queries to refresh data
           queryClient.invalidateQueries();
           
-          // Reload page after a short delay for complete refresh
+          // Navigate to admin page after restart to verify status
           setTimeout(() => {
-            window.location.reload();
+            window.location.href = '/admin';
           }, 1000);
         }
       }
