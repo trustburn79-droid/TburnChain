@@ -20,6 +20,7 @@ import { z } from "zod";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
+import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
 import { getRestartSupervisor, type RestartState } from "./services/RestartSupervisor";
 
 const SITE_PASSWORD = "tburn7979";
