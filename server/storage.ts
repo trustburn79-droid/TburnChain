@@ -49,6 +49,8 @@ import {
   type InsertMemberSlashEvent,
   type MemberAuditLog,
   type InsertMemberAuditLog,
+  type RestartSession,
+  type InsertRestartSession,
   blocks,
   transactions,
   accounts,
@@ -74,6 +76,7 @@ import {
   memberPerformanceMetrics,
   memberSlashEvents,
   memberAuditLogs,
+  restartSessions,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -218,6 +221,11 @@ export interface IStorage {
     totalStakers: number;
     kycVerified: number;
   }>;
+  
+  // Restart Sessions
+  getRestartSession(): Promise<RestartSession | undefined>;
+  createOrUpdateRestartSession(data: InsertRestartSession): Promise<RestartSession>;
+  clearRestartSession(): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -233,6 +241,7 @@ export class MemStorage implements IStorage {
   private consensusRounds: Map<number, import("@shared/schema").ConsensusRound>;
   private crossShardMessages: Map<string, CrossShardMessage>;
   private walletBalances: Map<string, WalletBalance>;
+  private restartSession: RestartSession | undefined;
 
   // Memory management limits - PERMANENT SOLUTION for preventing memory leaks
   // These rotation limits enable the system to run at optimal 100ms block time (10 blocks/second)
@@ -285,6 +294,7 @@ export class MemStorage implements IStorage {
     this.consensusRounds = new Map();
     this.crossShardMessages = new Map();
     this.walletBalances = new Map();
+    this.restartSession = undefined;
 
     this.initializeMockData();
   }
@@ -2105,6 +2115,40 @@ export class DbStorage implements IStorage {
     };
     
     return stats;
+  }
+
+  // Restart Sessions
+  async getRestartSession(): Promise<RestartSession | undefined> {
+    const result = await db.select().from(restartSessions).where(eq(restartSessions.id, "singleton")).limit(1);
+    return result[0];
+  }
+
+  async createOrUpdateRestartSession(data: InsertRestartSession): Promise<RestartSession> {
+    const existingSession = await this.getRestartSession();
+    const sessionData = {
+      ...data,
+      id: "singleton", // Always use singleton ID
+      updatedAt: new Date(),
+    };
+
+    if (existingSession) {
+      // Update existing session
+      const result = await db.update(restartSessions)
+        .set(sessionData)
+        .where(eq(restartSessions.id, "singleton"))
+        .returning();
+      return result[0];
+    } else {
+      // Create new session
+      const result = await db.insert(restartSessions)
+        .values(sessionData)
+        .returning();
+      return result[0];
+    }
+  }
+
+  async clearRestartSession(): Promise<void> {
+    await db.delete(restartSessions).where(eq(restartSessions.id, "singleton"));
   }
 }
 

@@ -585,6 +585,20 @@ export const memberAuditLogs = pgTable("member_audit_logs", {
 });
 
 // ============================================
+// Restart Sessions table for tracking server restarts
+// ============================================
+export const restartSessions = pgTable("restart_sessions", {
+  id: varchar("id").primaryKey().default("singleton"), // Singleton pattern - only one row
+  isRestarting: boolean("is_restarting").notNull().default(false),
+  restartInitiatedAt: timestamp("restart_initiated_at"),
+  expectedRestartTime: integer("expected_restart_time").notNull().default(60000),
+  lastHealthCheck: timestamp("last_health_check"),
+  isHealthy: boolean("is_healthy").notNull().default(false),
+  sessionId: varchar("session_id"),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
 // Insert Schemas and Types
 // ============================================
 
@@ -615,6 +629,7 @@ export const insertMemberSecurityProfileSchema = createInsertSchema(memberSecuri
 export const insertMemberPerformanceMetricsSchema = createInsertSchema(memberPerformanceMetrics).omit({ id: true, metricsUpdatedAt: true });
 export const insertMemberSlashEventSchema = createInsertSchema(memberSlashEvents).omit({ id: true, occurredAt: true });
 export const insertMemberAuditLogSchema = createInsertSchema(memberAuditLogs).omit({ id: true, timestamp: true });
+export const insertRestartSessionSchema = createInsertSchema(restartSessions).omit({ updatedAt: true });
 
 // Infer the types for the new tables
 export type Delegation = typeof delegations.$inferSelect;
@@ -729,6 +744,9 @@ export type InsertMemberSlashEvent = z.infer<typeof insertMemberSlashEventSchema
 
 export type MemberAuditLog = typeof memberAuditLogs.$inferSelect;
 export type InsertMemberAuditLog = z.infer<typeof insertMemberAuditLogSchema>;
+
+export type RestartSession = typeof restartSessions.$inferSelect;
+export type InsertRestartSession = z.infer<typeof insertRestartSessionSchema>;
 
 // ============================================
 // Additional Types for Frontend
