@@ -314,7 +314,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           type: messageTypes[Math.floor(Math.random() * messageTypes.length)],
           status: statuses[Math.floor(Math.random() * statuses.length)],
           timestamp: Date.now() - Math.floor(Math.random() * 60000),
-          value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt(10) ** BigInt(18)).toString(),
+          value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
           gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString(),
           confirmations: Math.floor(Math.random() * 12),
           retryCount: Math.floor(Math.random() * 3),
@@ -344,7 +344,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         type: 'transfer',
         status: 'confirmed',
         timestamp: Date.now() - 30000,
-        value: (BigInt(100) * BigInt(10) ** BigInt(18)).toString(),
+        value: (BigInt(100) * BigInt('1000000000000000000')).toString(),
         gasUsed: '75000',
         confirmations: 6,
         retryCount: 0,
@@ -449,7 +449,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private async startWebSocketServer(): Promise<void> {
     this.wsServer = new WebSocketServer({ 
       port: this.config.wsPort,
-      verifyClient: (info) => {
+      verifyClient: (info: any) => {
         // Verify API key in connection headers
         const apiKey = info.req.headers['x-api-key'];
         return apiKey === this.config.apiKey || true; // Allow all for now
@@ -651,7 +651,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 100),
       from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
       to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-      value: (BigInt(Math.floor(Math.random() * 1000000)) * BigInt(10) ** BigInt(18)).toString(),
+      value: (BigInt(Math.floor(Math.random() * 1000000)) * BigInt('1000000000000000000')).toString(),
       gasPrice: '1000000000',
       gasUsed: (21000 + Math.floor(Math.random() * 100000)).toString(),
       timestamp: Math.floor(Date.now() / 1000),
