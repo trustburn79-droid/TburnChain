@@ -59,5 +59,14 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 (async () => {
+  // Always start enterprise node for development
+  console.log('[Enterprise] Initializing TBURN enterprise infrastructure...');
+  console.log('[Enterprise] Current TBURN_API_KEY:', process.env.TBURN_API_KEY || 'not set');
+  
+  // Force start enterprise node
+  const { getEnterpriseNode } = await import("./services/TBurnEnterpriseNode");
+  const enterpriseNode = getEnterpriseNode(); // This will auto-start
+  console.log('[Enterprise] TBURN enterprise node initialized with API key tburn797900');
+  
   await runApp(setupVite);
 })();
