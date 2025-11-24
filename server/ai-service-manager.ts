@@ -303,12 +303,21 @@ class AIServiceManager extends EventEmitter {
       }
       messages.push({ role: "user", content: request.prompt });
       
-      const completion = await openai.chat.completions.create({
+      // GPT-5 uses max_completion_tokens instead of max_tokens
+      const completionParams: any = {
         model: config.model,
         messages,
-        max_tokens: request.maxTokens || 1024,
         temperature: request.temperature || 0.5,
-      });
+      };
+
+      // Use appropriate parameter based on model
+      if (config.model === "gpt-5") {
+        completionParams.max_completion_tokens = request.maxTokens || 1024;
+      } else {
+        completionParams.max_tokens = request.maxTokens || 1024;
+      }
+
+      const completion = await openai.chat.completions.create(completionParams);
       
       const text = completion.choices[0]?.message?.content || "";
       const tokensUsed = completion.usage?.total_tokens || 0;
@@ -573,10 +582,11 @@ class AIServiceManager extends EventEmitter {
     }
 
     try {
+      // GPT-5 only supports temperature=1, so adjust for OpenAI
       const testRequest: AIRequest = {
         prompt: "Hi",
         maxTokens: 10,
-        temperature: 0.1
+        temperature: provider === "openai" ? 1.0 : 0.1
       };
 
       console.log(`[AI Health Check] Testing ${provider}...`);
