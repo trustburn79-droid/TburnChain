@@ -208,8 +208,9 @@ export class TBurnClient {
         
         // Handle rate limiting with exponential backoff
         if (response.statusCode === 429) {
-          const retryAfter = response.headers['retry-after'];
-          const delay = retryAfter ? parseInt(retryAfter) * 1000 : 30000; // Increased to 30 seconds default
+          const retryAfterHeader = response.headers['retry-after'];
+          const retryAfterValue = Array.isArray(retryAfterHeader) ? retryAfterHeader[0] : retryAfterHeader;
+          const delay = retryAfterValue ? parseInt(retryAfterValue) * 1000 : 30000; // Increased to 30 seconds default
           console.log(`[TBURN Client] Rate limited (429), will retry after ${delay}ms...`);
           
           // Set rate limited until time to prevent other requests

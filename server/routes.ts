@@ -1497,9 +1497,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Endpoint to get mainnet restart status
   app.get("/api/admin/restart-status", async (req, res) => {
     try {
-      // Get restart session from database
+      // Get supervisor state first (real-time)
+      const supervisorState = restartSupervisor.getState();
+      
+      // Get persisted session from database as fallback
       const restartSession = await storage.getRestartSession();
       
+      // If supervisor is actively restarting, use its state
+      if (supervisorState.isRestarting) {
+        return res.json({
+          isRestarting: true,
+          restartInitiatedAt: supervisorState.restartInitiatedAt,
+          expectedRestartTime: 60000,
+          phase: supervisorState.phase,
+          phaseMessage: supervisorState.message,
+          progressPercentage: supervisorState.progress,
+          isHealthy: false,
+          elapsedTime: supervisorState.restartInitiatedAt 
+            ? Date.now() - supervisorState.restartInitiatedAt.getTime()
+            : 0,
+          retryCount: supervisorState.retryCount,
+          nextRetryAt: supervisorState.nextRetryAt,
+          rateLimitedUntil: supervisorState.rateLimitedUntil,
+          error: supervisorState.error
+        });
+      }
+      
+      // If no active restart, return database state
       if (!restartSession) {
         // No restart in progress
         return res.json({
@@ -1604,12 +1628,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // Update database with success status
           await storage.createOrUpdateRestartSession({
             isRestarting: false,
-            restartCompletedAt: new Date(),
+            completedTime: new Date(),
             phase: "completed",
             phaseMessage: "Mainnet restart completed successfully",
             progressPercentage: 100,
-            isHealthy: true,
-            completedTime: new Date()
+            isHealthy: true
           });
           
           // Broadcast success
@@ -1633,12 +1656,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // Update database with failure status
           await storage.createOrUpdateRestartSession({
             isRestarting: false,
-            restartCompletedAt: new Date(),
+            failedTime: new Date(),
             phase: "failed",
             phaseMessage: "Mainnet restart failed - please try again",
             progressPercentage: 0,
             isHealthy: false,
-            failedTime: new Date()
+            failureReason: "Restart supervisor failed after multiple retries"
           });
           
           // Broadcast failure
@@ -1666,13 +1689,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         await storage.createOrUpdateRestartSession({
           isRestarting: state.isRestarting,
           restartInitiatedAt: state.restartInitiatedAt,
-          restartCompletedAt: state.restartCompletedAt,
+          completedTime: state.restartCompletedAt,
           phase: state.phase,
           phaseStartTime: new Date(),
           phaseMessage: state.message,
           progressPercentage: state.progress,
           isHealthy: state.phase === 'completed',
-          error: state.error
+          failureReason: state.error
         });
         
         // Broadcast state update
