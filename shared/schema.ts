@@ -595,6 +595,24 @@ export const restartSessions = pgTable("restart_sessions", {
   lastHealthCheck: timestamp("last_health_check"),
   isHealthy: boolean("is_healthy").notNull().default(false),
   sessionId: varchar("session_id"),
+  // Enhanced phase tracking for enterprise-grade monitoring
+  phase: varchar("phase").notNull().default("idle"), // idle | initiating | shutting_down | restarting | reconnecting | validating | completed | failed
+  phaseStartTime: timestamp("phase_start_time"),
+  phaseMessage: text("phase_message"),
+  progressPercentage: integer("progress_percentage").notNull().default(0),
+  // Phase timestamps for audit trail
+  initiatingTime: timestamp("initiating_time"),
+  shuttingDownTime: timestamp("shutting_down_time"),
+  restartingTime: timestamp("restarting_time"),
+  reconnectingTime: timestamp("reconnecting_time"),
+  validatingTime: timestamp("validating_time"),
+  completedTime: timestamp("completed_time"),
+  failedTime: timestamp("failed_time"),
+  failureReason: text("failure_reason"),
+  // Health metrics post-restart
+  postRestartTps: integer("post_restart_tps"),
+  postRestartBlockHeight: integer("post_restart_block_height"),
+  postRestartValidators: integer("post_restart_validators"),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 

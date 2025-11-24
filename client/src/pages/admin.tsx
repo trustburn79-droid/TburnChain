@@ -44,6 +44,7 @@ import {
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatDistanceToNow } from "date-fns";
+import { useWebSocket } from "@/lib/websocket-context";
 
 // Types
 interface MainnetHealth {
@@ -95,72 +96,114 @@ function useRestartMonitor() {
     progress: 0
   });
   const [isRestartInProgress, setIsRestartInProgress] = useState(false);
-  const progressInterval = useRef<NodeJS.Timeout>();
-  const wsRef = useRef<WebSocket | null>(null);
+  const { subscribeToEvent } = useWebSocket();
 
+  // Listen to WebSocket restart phase updates
   useEffect(() => {
-    // Clean up on unmount
+    const unsubscribe = subscribeToEvent('restart_phase_update', (data: any) => {
+      const { phase, message: phaseMessage, progress } = data;
+      
+      setRestartStatus({
+        phase: phase as RestartPhase["phase"],
+        message: phaseMessage,
+        progress,
+        startTime: phase === 'initiating' ? Date.now() : restartStatus.startTime,
+        estimatedDuration: 60000
+      });
+      
+      setIsRestartInProgress(phase !== 'completed' && phase !== 'failed' && phase !== 'idle');
+      
+      // Navigate to admin page after completion
+      if (phase === 'completed') {
+        setTimeout(() => {
+          window.location.href = '/admin';
+        }, 2000);
+      }
+    });
+    
     return () => {
-      if (progressInterval.current) clearInterval(progressInterval.current);
-      if (wsRef.current) wsRef.current.close();
+      unsubscribe();
     };
-  }, []);
+  }, [subscribeToEvent, restartStatus.startTime]);
+
+  // Poll restart status as fallback
+  useEffect(() => {
+    const checkStatus = async () => {
+      try {
+        const response = await fetch('/api/admin/restart-status');
+        if (response.ok) {
+          const status = await response.json();
+          
+          if (status.isRestarting) {
+            const progress = Math.min(
+              Math.floor((status.elapsedTime / status.expectedRestartTime) * 100),
+              100
+            );
+            
+            // Map server phase to client phase message
+            const phaseMap: Record<string, string> = {
+              'idle': '',
+              'initiating': 'Preparing to restart TBURN mainnet...',
+              'shutting_down': 'Shutting down current instance...',
+              'restarting': 'Server restarting (Replit auto-restart)...',
+              'reconnecting': 'Reconnecting to TBURN mainnet...',
+              'validating': 'Validating system health...',
+              'completed': 'Restart completed successfully!',
+              'failed': 'Restart failed'
+            };
+            
+            // Only update if we don't have WebSocket updates
+            if (!restartStatus.progress || restartStatus.progress === 0) {
+              setRestartStatus({
+                phase: (status.phase || 'restarting') as RestartPhase["phase"],
+                message: phaseMap[status.phase] || status.phaseMessage || 'Restarting...',
+                progress,
+                startTime: status.restartInitiatedAt ? new Date(status.restartInitiatedAt).getTime() : Date.now(),
+                estimatedDuration: status.expectedRestartTime
+              });
+            }
+            
+            setIsRestartInProgress(true);
+          } else {
+            if (isRestartInProgress) {
+              // Restart completed
+              setIsRestartInProgress(false);
+              setRestartStatus(prev => ({
+                ...prev,
+                phase: 'completed',
+                message: 'Restart completed successfully!',
+                progress: 100
+              }));
+              
+              // Navigate to admin page
+              setTimeout(() => {
+                window.location.href = '/admin';
+              }, 2000);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('[Admin] Failed to check restart status:', error);
+      }
+    };
+
+    const interval = setInterval(checkStatus, 3000);
+    checkStatus(); // Initial check
+    
+    return () => clearInterval(interval);
+  }, [isRestartInProgress, restartStatus.progress]);
 
   const startRestart = () => {
+    // The actual restart is triggered by the restart mutation
+    // This just sets the initial UI state
     setIsRestartInProgress(true);
     setRestartStatus({
       phase: "initiating",
       message: "Preparing to restart TBURN mainnet...",
       progress: 10,
       startTime: Date.now(),
-      estimatedDuration: 60000 // 60 seconds total
+      estimatedDuration: 60000
     });
-
-    // Simulate progress phases (keeping existing animation for now)
-    let currentProgress = 10;
-    progressInterval.current = setInterval(() => {
-      currentProgress += 2;
-      setRestartStatus(prev => {
-        // Phase transitions based on progress
-        let newPhase = prev.phase;
-        let message = prev.message;
-        
-        if (currentProgress >= 20 && prev.phase === "initiating") {
-          newPhase = "shutting_down";
-          message = "Shutting down current instance...";
-        } else if (currentProgress >= 40 && prev.phase === "shutting_down") {
-          newPhase = "restarting";
-          message = "Server restarting (Replit auto-restart)...";
-        } else if (currentProgress >= 60 && prev.phase === "restarting") {
-          newPhase = "reconnecting";
-          message = "Reconnecting to TBURN mainnet...";
-        } else if (currentProgress >= 80 && prev.phase === "reconnecting") {
-          newPhase = "validating";
-          message = "Validating system health...";
-        } else if (currentProgress >= 100) {
-          newPhase = "completed";
-          message = "Restart completed successfully!";
-          setIsRestartInProgress(false);
-          if (progressInterval.current) clearInterval(progressInterval.current);
-          
-          // Reload the page after completion to refresh all data
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }
-
-        return {
-          ...prev,
-          phase: newPhase as RestartPhase["phase"],
-          message,
-          progress: Math.min(currentProgress, 100)
-        };
-      });
-
-      if (currentProgress >= 100) {
-        clearInterval(progressInterval.current);
-      }
-    }, 600); // Update every 600ms for 60 second total duration
   };
 
   const resetStatus = () => {
@@ -170,7 +213,6 @@ function useRestartMonitor() {
       progress: 0
     });
     setIsRestartInProgress(false);
-    if (progressInterval.current) clearInterval(progressInterval.current);
   };
 
   return {

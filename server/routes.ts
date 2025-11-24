@@ -1563,13 +1563,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('[Admin] ADMIN_PASSWORD verified successfully');
       console.log('═══════════════════════════════════════════');
       
-      // Create or update restart session in database
+      // Create or update restart session in database with phase tracking
       await storage.createOrUpdateRestartSession({
         isRestarting: true,
         restartInitiatedAt: new Date(),
         expectedRestartTime: 60000,
         lastHealthCheck: null,
-        isHealthy: false
+        isHealthy: false,
+        phase: "initiating",
+        phaseStartTime: new Date(),
+        phaseMessage: "Preparing to restart TBURN mainnet...",
+        progressPercentage: 10,
+        initiatingTime: new Date(),
+        sessionId: req.sessionID
       });
       
       // Store restart status for tracking
@@ -1598,8 +1604,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Broadcast to WebSocket clients about upcoming restart
       console.log('[Admin] Broadcasting restart notification to WebSocket clients...');
       
-      // Schedule the actual restart with proper cleanup
-      setTimeout(() => {
+      // Broadcast restart phase update via WebSocket
+      const restartPhaseSchema = z.object({
+        phase: z.string(),
+        message: z.string(),
+        progress: z.number(),
+        timestamp: z.number()
+      });
+      
+      broadcastUpdate('restart_phase_update', {
+        phase: 'initiating',
+        message: 'Preparing to restart TBURN mainnet...',
+        progress: 10,
+        timestamp: Date.now()
+      }, restartPhaseSchema, true);
+      
+      // Schedule phase transitions and actual restart
+      setTimeout(async () => {
+        // Update phase to shutting_down
+        await storage.createOrUpdateRestartSession({
+          isRestarting: true,
+          phase: "shutting_down",
+          phaseStartTime: new Date(),
+          phaseMessage: "Shutting down current instance...",
+          progressPercentage: 30,
+          shuttingDownTime: new Date()
+        });
+        
+        broadcastUpdate('restart_phase_update', {
+          phase: 'shutting_down',
+          message: 'Shutting down current instance...',
+          progress: 30,
+          timestamp: Date.now()
+        }, restartPhaseSchema, true);
+        
         console.log('═══════════════════════════════════════════');
         console.log('[Admin] 🚀 EXECUTING SERVER RESTART SEQUENCE');
         console.log('[Admin] Step 1: Closing database connections...');
