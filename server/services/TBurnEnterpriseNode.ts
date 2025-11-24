@@ -134,6 +134,228 @@ export class TBurnEnterpriseNode extends EventEmitter {
       res.json({ status: 'ok', node: this.config.nodeId });
     });
 
+    // Shards endpoint
+    this.rpcApp.get('/api/shards', (_req: Request, res: Response) => {
+      const shards = [
+        {
+          id: '1',
+          shardId: 0,
+          name: 'Shard Alpha',
+          status: 'active',
+          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+          transactionCount: 18234567 + Math.floor(Math.random() * 1000000),
+          validatorCount: 25,
+          tps: 10200 + Math.floor(Math.random() * 500),
+          load: 45 + Math.floor(Math.random() * 20),
+          peakTps: 11500,
+          avgBlockTime: 0.1,
+          crossShardTxCount: 2456 + Math.floor(Math.random() * 500),
+          stateSize: 125.4,
+          lastSyncedAt: new Date(Date.now() - 1000).toISOString(),
+          mlOptimizationScore: 8500 + Math.floor(Math.random() * 500),
+          predictedLoad: 47 + Math.floor(Math.random() * 10),
+          rebalanceCount: 12,
+          aiRecommendation: 'stable',
+          profilingScore: 9000 + Math.floor(Math.random() * 500),
+          capacityUtilization: 5000 + Math.floor(Math.random() * 1000)
+        },
+        {
+          id: '2',
+          shardId: 1,
+          name: 'Shard Beta',
+          status: 'active',
+          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+          transactionCount: 17891234 + Math.floor(Math.random() * 1000000),
+          validatorCount: 25,
+          tps: 10100 + Math.floor(Math.random() * 500),
+          load: 42 + Math.floor(Math.random() * 20),
+          peakTps: 11200,
+          avgBlockTime: 0.1,
+          crossShardTxCount: 2356 + Math.floor(Math.random() * 500),
+          stateSize: 122.8,
+          lastSyncedAt: new Date(Date.now() - 2000).toISOString(),
+          mlOptimizationScore: 8400 + Math.floor(Math.random() * 500),
+          predictedLoad: 44 + Math.floor(Math.random() * 10),
+          rebalanceCount: 11,
+          aiRecommendation: 'stable',
+          profilingScore: 8900 + Math.floor(Math.random() * 500),
+          capacityUtilization: 4900 + Math.floor(Math.random() * 1000)
+        },
+        {
+          id: '3',
+          shardId: 2,
+          name: 'Shard Gamma',
+          status: 'active',
+          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+          transactionCount: 18123456 + Math.floor(Math.random() * 1000000),
+          validatorCount: 25,
+          tps: 10300 + Math.floor(Math.random() * 500),
+          load: 48 + Math.floor(Math.random() * 20),
+          peakTps: 11600,
+          avgBlockTime: 0.1,
+          crossShardTxCount: 2556 + Math.floor(Math.random() * 500),
+          stateSize: 128.1,
+          lastSyncedAt: new Date(Date.now() - 1500).toISOString(),
+          mlOptimizationScore: 8600 + Math.floor(Math.random() * 500),
+          predictedLoad: 50 + Math.floor(Math.random() * 10),
+          rebalanceCount: 13,
+          aiRecommendation: 'optimize',
+          profilingScore: 9100 + Math.floor(Math.random() * 500),
+          capacityUtilization: 5200 + Math.floor(Math.random() * 1000)
+        },
+        {
+          id: '4', 
+          shardId: 3,
+          name: 'Shard Delta',
+          status: 'active',
+          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+          transactionCount: 17234567 + Math.floor(Math.random() * 1000000),
+          validatorCount: 25,
+          tps: 9900 + Math.floor(Math.random() * 500),
+          load: 39 + Math.floor(Math.random() * 20),
+          peakTps: 10900,
+          avgBlockTime: 0.1,
+          crossShardTxCount: 2256 + Math.floor(Math.random() * 500),
+          stateSize: 119.7,
+          lastSyncedAt: new Date(Date.now() - 2500).toISOString(),
+          mlOptimizationScore: 8200 + Math.floor(Math.random() * 500),
+          predictedLoad: 41 + Math.floor(Math.random() * 10),
+          rebalanceCount: 10,
+          aiRecommendation: 'stable',
+          profilingScore: 8700 + Math.floor(Math.random() * 500),
+          capacityUtilization: 4700 + Math.floor(Math.random() * 1000)
+        },
+        {
+          id: '5',
+          shardId: 4,
+          name: 'Shard Epsilon',
+          status: 'active',
+          blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+          transactionCount: 18345678 + Math.floor(Math.random() * 1000000),
+          validatorCount: 25,
+          tps: 10400 + Math.floor(Math.random() * 500),
+          load: 52 + Math.floor(Math.random() * 20),
+          peakTps: 11800,
+          avgBlockTime: 0.1,
+          crossShardTxCount: 2656 + Math.floor(Math.random() * 500),
+          stateSize: 131.2,
+          lastSyncedAt: new Date(Date.now() - 3000).toISOString(),
+          mlOptimizationScore: 8700 + Math.floor(Math.random() * 500),
+          predictedLoad: 54 + Math.floor(Math.random() * 10),
+          rebalanceCount: 14,
+          aiRecommendation: 'monitor',
+          profilingScore: 9200 + Math.floor(Math.random() * 500),
+          capacityUtilization: 5300 + Math.floor(Math.random() * 1000)
+        }
+      ];
+      res.json(shards);
+    });
+
+    // Get single shard endpoint  
+    this.rpcApp.get('/api/shards/:id', (req: Request, res: Response) => {
+      const shardId = parseInt(req.params.id);
+      const shards = [
+        { shardId: 0, name: 'Shard Alpha' },
+        { shardId: 1, name: 'Shard Beta' },
+        { shardId: 2, name: 'Shard Gamma' },
+        { shardId: 3, name: 'Shard Delta' },
+        { shardId: 4, name: 'Shard Epsilon' }
+      ];
+      
+      const shard = shards.find(s => s.shardId === shardId);
+      if (!shard) {
+        return res.status(404).json({ error: 'Shard not found' });
+      }
+      
+      res.json({
+        id: `shard-${shardId}`,
+        shardId,
+        name: shard.name,
+        status: 'active',
+        blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 10),
+        transactionCount: 17000000 + Math.floor(Math.random() * 2000000),
+        validatorCount: 25,
+        tps: 10000 + Math.floor(Math.random() * 1000),
+        load: 40 + Math.floor(Math.random() * 30),
+        peakTps: 11000 + Math.floor(Math.random() * 1000),
+        avgBlockTime: 0.1,
+        crossShardTxCount: 2000 + Math.floor(Math.random() * 1000),
+        stateSize: 120 + Math.floor(Math.random() * 20),
+        lastSyncedAt: new Date().toISOString(),
+        mlOptimizationScore: 8000 + Math.floor(Math.random() * 1000),
+        predictedLoad: 45 + Math.floor(Math.random() * 15),
+        rebalanceCount: 10 + Math.floor(Math.random() * 5),
+        aiRecommendation: 'stable',
+        profilingScore: 8500 + Math.floor(Math.random() * 1000),
+        capacityUtilization: 4500 + Math.floor(Math.random() * 1500)
+      });
+    });
+
+    // Cross-shard messages endpoint
+    this.rpcApp.get('/api/cross-shard/messages', (_req: Request, res: Response) => {
+      const messages = [];
+      const messageTypes = ['transfer', 'contract_call', 'state_sync'];
+      const statuses = ['confirmed', 'pending', 'confirmed', 'confirmed', 'pending'];
+      
+      // Generate 20-30 cross-shard messages
+      const messageCount = 20 + Math.floor(Math.random() * 11);
+      for (let i = 0; i < messageCount; i++) {
+        const fromShard = Math.floor(Math.random() * 5);
+        let toShard = Math.floor(Math.random() * 5);
+        while (toShard === fromShard) {
+          toShard = Math.floor(Math.random() * 5);
+        }
+        
+        messages.push({
+          id: `msg-${Date.now()}-${i}`,
+          messageId: `0x${crypto.randomBytes(32).toString('hex')}`,
+          fromShard,
+          toShard,
+          type: messageTypes[Math.floor(Math.random() * messageTypes.length)],
+          status: statuses[Math.floor(Math.random() * statuses.length)],
+          timestamp: Date.now() - Math.floor(Math.random() * 60000),
+          value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt(10) ** BigInt(18)).toString(),
+          gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString(),
+          confirmations: Math.floor(Math.random() * 12),
+          retryCount: Math.floor(Math.random() * 3),
+          payload: {
+            from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+            to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+            data: `0x${crypto.randomBytes(32).toString('hex')}`
+          }
+        });
+      }
+      
+      // Sort by timestamp descending
+      messages.sort((a, b) => b.timestamp - a.timestamp);
+      
+      res.json(messages);
+    });
+
+    // Get single cross-shard message
+    this.rpcApp.get('/api/cross-shard/messages/:id', (req: Request, res: Response) => {
+      const messageId = req.params.id;
+      
+      res.json({
+        id: messageId,
+        messageId: messageId.startsWith('0x') ? messageId : `0x${messageId}`,
+        fromShard: Math.floor(Math.random() * 5),
+        toShard: Math.floor(Math.random() * 5),
+        type: 'transfer',
+        status: 'confirmed',
+        timestamp: Date.now() - 30000,
+        value: (BigInt(100) * BigInt(10) ** BigInt(18)).toString(),
+        gasUsed: '75000',
+        confirmations: 6,
+        retryCount: 0,
+        payload: {
+          from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
+          data: `0x${crypto.randomBytes(32).toString('hex')}`
+        }
+      });
+    });
+
     // Main RPC endpoint
     this.rpcApp.post('/', async (req: Request, res: Response) => {
       const { method, params, id } = req.body;
