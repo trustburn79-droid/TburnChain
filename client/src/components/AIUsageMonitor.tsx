@@ -102,8 +102,8 @@ export function AIUsageMonitor() {
         return "🤖";
       case 'openai':
         return "🧠";
-      case 'meta':
-        return "🔷";
+      case 'gemini':
+        return "💎";
       default:
         return "🤖";
     }
