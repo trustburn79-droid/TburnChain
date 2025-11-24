@@ -72,7 +72,7 @@ export class TBurnClient {
   private rateLimitedUntil = 0; // Track when rate limiting expires
   private concurrentRequests = 0; // Track concurrent requests
   private maxConcurrentRequests = 1; // Limit to 1 concurrent request
-  private simulationMode = true; // Enable simulation mode to bypass external API
+  private isApiAvailable = false; // Track if API is available
 
   constructor(config: TBurnNodeConfig) {
     this.config = config;
@@ -108,15 +108,6 @@ export class TBurnClient {
 
   // Connect or reconnect to the TBURN API
   async connect(): Promise<boolean> {
-    // In simulation mode, bypass external API connection
-    if (this.simulationMode) {
-      console.log('[TBURN Client] Running in SIMULATION MODE - bypassing external API');
-      this.isAuthenticated = true;
-      // Emit connected event for listeners
-      this.eventHandlers.get('connected')?.forEach(handler => handler({}));
-      return true;
-    }
-    
     try {
       console.log('[TBURN Client] Attempting to connect...');
       
@@ -128,6 +119,7 @@ export class TBurnClient {
       
       if (!authenticated) {
         console.error('[TBURN Client] Connection failed - authentication error');
+        this.isApiAvailable = false;
         return false;
       }
       
@@ -358,54 +350,30 @@ export class TBurnClient {
   }
 
   async getNetworkStats(): Promise<NetworkStats> {
-    if (this.simulationMode) {
-      return this.getSimulatedNetworkStats();
-    }
     return this.request<NetworkStats>('/api/network/stats');
   }
 
   async getRecentBlocks(limit = 10): Promise<BlockData[]> {
-    if (this.simulationMode) {
-      return this.getSimulatedBlocks(limit);
-    }
     return this.request<BlockData[]>(`/api/blocks/recent?limit=${limit}`);
   }
 
   async getBlock(heightOrHash: number | string): Promise<BlockData> {
-    if (this.simulationMode) {
-      return this.getSimulatedBlock(heightOrHash);
-    }
     return this.request<BlockData>(`/api/blocks/${heightOrHash}`);
   }
 
   async getRecentTransactions(limit = 20): Promise<TransactionData[]> {
-    if (this.simulationMode) {
-      return this.getSimulatedTransactions(limit);
-    }
     return this.request<TransactionData[]>(`/api/transactions/recent?limit=${limit}`);
   }
 
   async getTransaction(hash: string): Promise<TransactionData> {
-    if (this.simulationMode) {
-      return this.getSimulatedTransaction(hash);
-    }
     return this.request<TransactionData>(`/api/transactions/${hash}`);
   }
 
   async getValidators(): Promise<ValidatorData[]> {
-    if (this.simulationMode) {
-      return this.getSimulatedValidators();
-    }
     return this.request<ValidatorData[]>('/api/validators');
   }
 
   async getValidator(address: string): Promise<ValidatorData> {
-    if (this.simulationMode) {
-      const validators = await this.getSimulatedValidators();
-      const validator = validators.find(v => v.address === address);
-      if (!validator) throw new Error(`Validator ${address} not found`);
-      return validator;
-    }
     return this.request<ValidatorData>(`/api/validators/${address}`);
   }
 
@@ -611,123 +579,6 @@ export class TBurnClient {
     }
   }
 
-  // Simulation Methods
-  private simulatedBlockHeight = 1000000;
-  private simulatedTransactionCount = 0;
-  
-  private getSimulatedNetworkStats(): NetworkStats {
-    const baseStats = {
-      currentBlockHeight: this.simulatedBlockHeight++,
-      totalTransactions: 52847291 + this.simulatedTransactionCount,
-      tps: 428 + Math.floor(Math.random() * 100),
-      peakTps: 520847,
-      avgBlockTime: 1.2 + Math.random() * 0.3,
-      activeValidators: 125,
-      totalValidators: 125,
-      networkHashrate: "987.65 TH/s"
-    };
-    
-    this.simulatedTransactionCount += Math.floor(Math.random() * 500) + 100;
-    return baseStats;
-  }
-
-  private getSimulatedBlocks(limit: number): BlockData[] {
-    const blocks: BlockData[] = [];
-    const currentTime = Date.now();
-    
-    for (let i = 0; i < limit; i++) {
-      const height = this.simulatedBlockHeight - i;
-      blocks.push({
-        height,
-        hash: `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`,
-        timestamp: Math.floor((currentTime - i * 1200) / 1000),
-        transactionCount: Math.floor(Math.random() * 500) + 100,
-        proposer: `tburn1${Math.random().toString(36).substring(2, 40)}`,
-        size: 12000 + Math.floor(Math.random() * 5000),
-        gasUsed: (15000000 + Math.floor(Math.random() * 5000000)).toString(),
-        gasLimit: "30000000"
-      });
-    }
-    
-    return blocks;
-  }
-
-  private getSimulatedBlock(heightOrHash: number | string): BlockData {
-    const height = typeof heightOrHash === 'number' ? heightOrHash : this.simulatedBlockHeight;
-    return {
-      height,
-      hash: typeof heightOrHash === 'string' ? heightOrHash : `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`,
-      timestamp: Math.floor(Date.now() / 1000),
-      transactionCount: Math.floor(Math.random() * 500) + 100,
-      proposer: `tburn1${Math.random().toString(36).substring(2, 40)}`,
-      size: 12000 + Math.floor(Math.random() * 5000),
-      gasUsed: (15000000 + Math.floor(Math.random() * 5000000)).toString(),
-      gasLimit: "30000000"
-    };
-  }
-
-  private getSimulatedTransactions(limit: number): TransactionData[] {
-    const transactions: TransactionData[] = [];
-    const currentTime = Date.now();
-    
-    for (let i = 0; i < limit; i++) {
-      transactions.push({
-        hash: `0x${Math.random().toString(16).substring(2, 66).padEnd(64, '0')}`,
-        blockHeight: this.simulatedBlockHeight - Math.floor(Math.random() * 100),
-        from: `tburn1${Math.random().toString(36).substring(2, 40)}`,
-        to: `tburn1${Math.random().toString(36).substring(2, 40)}`,
-        value: Math.floor(Math.random() * 1000000).toString(),
-        gasPrice: "1000000000",
-        gasUsed: (21000 + Math.floor(Math.random() * 100000)).toString(),
-        timestamp: Math.floor((currentTime - i * 1000) / 1000),
-        status: Math.random() > 0.05 ? 'success' : 'failed',
-        nonce: Math.floor(Math.random() * 1000)
-      });
-    }
-    
-    return transactions;
-  }
-
-  private getSimulatedTransaction(hash: string): TransactionData {
-    return {
-      hash,
-      blockHeight: this.simulatedBlockHeight - Math.floor(Math.random() * 100),
-      from: `tburn1${Math.random().toString(36).substring(2, 40)}`,
-      to: `tburn1${Math.random().toString(36).substring(2, 40)}`,
-      value: Math.floor(Math.random() * 1000000).toString(),
-      gasPrice: "1000000000",
-      gasUsed: (21000 + Math.floor(Math.random() * 100000)).toString(),
-      timestamp: Math.floor(Date.now() / 1000),
-      status: 'success',
-      nonce: Math.floor(Math.random() * 1000)
-    };
-  }
-
-  private getSimulatedValidators(): ValidatorData[] {
-    const validators: ValidatorData[] = [];
-    const validatorNames = [
-      "TBURN Foundation", "Quantum Node", "Matrix Validator", "Cyber Core", 
-      "Digital Fortress", "Chain Guardian", "Block Sentinel", "Hash Power",
-      "Crypto Bastion", "Network Shield", "Consensus King", "Stake Master"
-    ];
-    
-    for (let i = 0; i < 125; i++) {
-      validators.push({
-        address: `tburn1validator${i.toString().padStart(3, '0')}${Math.random().toString(36).substring(2, 20)}`,
-        moniker: i < validatorNames.length ? validatorNames[i] : `Validator ${i + 1}`,
-        votingPower: (100000000000 - i * 500000000).toString(),
-        commission: 5 + Math.random() * 5,
-        status: i < 100 ? 'active' : Math.random() > 0.5 ? 'inactive' : 'jailed',
-        uptime: 95 + Math.random() * 5,
-        delegators: Math.floor(Math.random() * 10000) + 100,
-        selfStake: (10000000000 + Math.floor(Math.random() * 50000000000)).toString(),
-        totalStake: (50000000000 + Math.floor(Math.random() * 100000000000)).toString(),
-        missedBlocks: Math.floor(Math.random() * 10)
-      });
-    }
-    
-    return validators;
-  }
 }
 
 let tburnClient: TBurnClient | null = null;
@@ -745,15 +596,16 @@ export function getTBurnClient(): TBurnClient {
     // Check both NODE_MODE and NODE_ENV for production detection
     if (process.env.NODE_MODE === 'production' || process.env.NODE_ENV === 'production') {
       console.log('[TBURN Client] Initializing TBURN mainnet connection...');
+      // Don't block startup on API connection - handle failures gracefully
       tburnClient.authenticate().then((success) => {
         if (success) {
           console.log('[TBURN Client] Connected to TBURN mainnet successfully');
           tburnClient?.connectWebSocket();
         } else {
-          console.error('[TBURN Client] Failed to connect to TBURN mainnet');
+          console.error('[TBURN Client] Failed to connect to TBURN mainnet - service will run with limited functionality');
         }
       }).catch((error) => {
-        console.error('[TBURN Client] Connection error:', error);
+        console.error('[TBURN Client] Connection error - service will run with limited functionality:', error.message);
       });
     }
   }
