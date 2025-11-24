@@ -2571,7 +2571,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error broadcasting block updates:', error);
     }
-  }, 2000);
+  }, 500); // Optimized for 100ms block time
 
   // Broadcast periodic snapshots for domain-specific data
   // AI Decisions snapshot every 15 seconds (aggregated list)
@@ -2627,7 +2627,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error broadcasting consensus state update:', error);
     }
-  }, 2000);
+  }, 500); // Optimized for 100ms block time
 
   // Validator Updates snapshot every 5 seconds (voting power changes, status updates)
   setInterval(async () => {
@@ -2852,7 +2852,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('consensus_rounds_snapshot');
       }
-    }, 2000);
+    }, 500); // Optimized for 100ms block time
 
     // Poll Consensus State every 2 seconds (current consensus view)
     setInterval(async () => {
@@ -2865,7 +2865,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error('Error polling consensus state from mainnet:', error.message);
         lastBroadcastState.delete('consensus_state_update');
       }
-    }, 2000);
+    }, 500); // Optimized for 100ms block time
   }
 
   return httpServer;

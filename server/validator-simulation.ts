@@ -8,9 +8,8 @@ const ENTERPRISE_VALIDATORS_CONFIG = {
   ACTIVE_VALIDATORS: 110,
   COMMITTEE_SIZE: 21, // BFT committee size
   EPOCH_DURATION: 60000, // 1 minute epochs
-  BLOCK_TIME: 2000, // TEMPORARY: 2s (should be 100ms for optimal 10 blocks/second) - reduced due to current system resource constraints
-  // TODO: Revert BLOCK_TIME to 100ms when system resources allow for optimal performance
-  // OPTIMAL_BLOCK_TIME: 100ms = 10 blocks per second (TBURN target specification)
+  BLOCK_TIME: 100, // PRODUCTION: 100ms for optimal 10 blocks/second (TBURN v7.0 enterprise specification)
+  // Enterprise-grade performance: 10 blocks per second enables 50,000+ TPS capability
   BASE_VOTING_POWER: "50000000000000000000000", // 50,000 TBURN base (total supply: 100M TBURN)
   DELEGATION_MULTIPLIER: 1.5,
   QUORUM_THRESHOLD: 6700, // 67% in basis points
@@ -365,8 +364,8 @@ export class ValidatorSimulationService {
     }
     const producer = activeValidators[this.currentBlockHeight % activeValidators.length];
     
-    // Calculate realistic gas based on transaction types
-    const transactionCount = 100 + Math.floor(Math.random() * 400); // 100-500 txs
+    // ENTERPRISE PRODUCTION: Generate high transaction volume for 50,000+ TPS
+    const transactionCount = 5000 + Math.floor(Math.random() * 200); // 5000-5200 txs per block
     
     // Mix of transaction types for realistic gas usage:
     // 20% simple transfers (21,000 gas each)
@@ -427,14 +426,15 @@ export class ValidatorSimulationService {
   // Update network stats based on validator activity
   private async updateNetworkStats(): Promise<void> {
     const activeCount = this.validators.filter(v => v.status === "active").length;
-    const currentTPS = 45000 + Math.floor(Math.random() * 25000); // 45K-70K TPS
+    // ENTERPRISE PRODUCTION: 50,000-52,000 TPS (5000-5200 tx/block × 10 blocks/second)
+    const currentTPS = 50000 + Math.floor(Math.random() * 2000); // 50K-52K TPS
     
     await this.storage.updateNetworkStats({
       activeValidators: activeCount,
       totalValidators: this.validators.length,
       tps: currentTPS,
       currentBlockHeight: this.currentBlockHeight,
-      totalTransactions: this.currentBlockHeight * 300, // Avg 300 tx per block
+      totalTransactions: this.currentBlockHeight * 5100, // Avg 5100 tx per block (enterprise level)
     });
   }
 
