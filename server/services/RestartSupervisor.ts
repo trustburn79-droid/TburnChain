@@ -201,12 +201,16 @@ export class RestartSupervisor extends EventEmitter {
       return true; // Continue anyway for development mode
     }
 
+    let currentRetryCount = 0;
+
     try {
       const connected = await pRetry(
         async () => {
+          // Fix: Use local retry count to avoid state mutation issues
+          currentRetryCount++;
           this.updateState({
-            retryCount: this.state.retryCount + 1,
-            message: `Reconnection attempt ${this.state.retryCount + 1}/${maxRetries}...`
+            retryCount: currentRetryCount,
+            message: `Reconnection attempt ${currentRetryCount}/${maxRetries}...`
           });
 
           // Force re-authentication
@@ -215,30 +219,45 @@ export class RestartSupervisor extends EventEmitter {
           }
 
           // Attempt to reconnect
-          const result = await this.tburnClient.connect();
-          
-          if (!result) {
-            throw new Error('Connection failed');
-          }
+          try {
+            const result = await this.tburnClient.connect();
+            
+            if (!result) {
+              throw new Error('Connection failed');
+            }
 
-          return true;
+            return true;
+          } catch (connectError: any) {
+            // Check if it's a rate limit error
+            if (connectError.isRateLimited && connectError.retryAfter) {
+              const rateLimitedUntil = new Date(Date.now() + (connectError.retryAfter * 1000));
+              
+              // Update state with rate limit info
+              this.updateState({
+                rateLimitedUntil,
+                message: `Rate limited. Waiting ${connectError.retryAfter}s before retry...`,
+                nextRetryAt: rateLimitedUntil
+              });
+              
+              // Store for future reference
+              this.state.rateLimitedUntil = rateLimitedUntil;
+              
+              // Wait for rate limit to expire
+              await new Promise(resolve => setTimeout(resolve, connectError.retryAfter * 1000));
+              
+              // Throw to trigger retry
+              throw connectError;
+            }
+            
+            // Re-throw non-rate-limit errors
+            throw connectError;
+          }
         },
         {
           retries: maxRetries - 1, // pRetry counts first attempt as 0
           onFailedAttempt: (error) => {
             console.warn(`[RestartSupervisor] Reconnection attempt ${error.attemptNumber} failed:`, error.message);
             
-            // Check for rate limit response
-            if (error.message?.includes('429') || error.message?.includes('rate')) {
-              const retryAfter = this.parseRetryAfter(error);
-              this.state.rateLimitedUntil = new Date(Date.now() + retryAfter);
-              
-              this.updateState({
-                message: `Rate limited. Waiting ${Math.ceil(retryAfter / 1000)}s before retry...`,
-                nextRetryAt: this.state.rateLimitedUntil
-              });
-            }
-
             // Increase backoff for next attempt
             this.rateLimitBackoff = Math.min(this.rateLimitBackoff * 2, this.maxBackoff);
           }
@@ -247,6 +266,10 @@ export class RestartSupervisor extends EventEmitter {
 
       console.log('[RestartSupervisor] Successfully reconnected to mainnet');
       this.rateLimitBackoff = 1000; // Reset backoff on success
+      
+      // Clear retry count on success
+      this.updateState({ retryCount: 0 });
+      
       return true;
 
     } catch (error) {
