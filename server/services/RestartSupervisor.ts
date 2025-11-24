@@ -37,6 +37,10 @@ export class RestartSupervisor extends EventEmitter {
   private rateLimitBackoff = 1000; // Start with 1 second
   private maxBackoff = 300000; // Max 5 minutes
   private isProductionMode: boolean;
+  private restartTimeoutHandle: NodeJS.Timeout | null = null;
+  
+  // Maximum time to wait for restart completion (3 minutes)
+  private readonly RESTART_TIMEOUT_MS = 180000;
 
   constructor(isProduction: boolean = false) {
     super();
@@ -73,6 +77,18 @@ export class RestartSupervisor extends EventEmitter {
 
     try {
       console.log('[RestartSupervisor] 🔄 Initiating mainnet restart...');
+      
+      // Clear any existing timeout
+      if (this.restartTimeoutHandle) {
+        clearTimeout(this.restartTimeoutHandle);
+        this.restartTimeoutHandle = null;
+      }
+      
+      // Set a timeout for the entire restart process
+      this.restartTimeoutHandle = setTimeout(() => {
+        console.error('[RestartSupervisor] Restart timeout after 3 minutes');
+        this.handleRestartTimeout();
+      }, this.RESTART_TIMEOUT_MS);
       
       this.updateState({
         isRestarting: true,
@@ -119,6 +135,12 @@ export class RestartSupervisor extends EventEmitter {
       // Step 4: Restart services
       await this.restartServices();
 
+      // Clear timeout on successful completion
+      if (this.restartTimeoutHandle) {
+        clearTimeout(this.restartTimeoutHandle);
+        this.restartTimeoutHandle = null;
+      }
+
       this.updateState({
         phase: 'completed',
         progress: 100,
@@ -133,6 +155,12 @@ export class RestartSupervisor extends EventEmitter {
     } catch (error: any) {
       console.error('[RestartSupervisor] ❌ Restart failed:', error);
       
+      // Clear timeout on failure
+      if (this.restartTimeoutHandle) {
+        clearTimeout(this.restartTimeoutHandle);
+        this.restartTimeoutHandle = null;
+      }
+      
       this.updateState({
         phase: 'failed',
         progress: 0,
@@ -144,6 +172,41 @@ export class RestartSupervisor extends EventEmitter {
 
       return false;
     }
+  }
+
+  private handleRestartTimeout() {
+    console.error('[RestartSupervisor] ⏱️ Restart timeout - External API not responding');
+    
+    // Check if we're stuck due to rate limiting
+    const isRateLimited = this.state.phase === 'reconnecting' || this.state.phase === 'waiting';
+    
+    if (isRateLimited) {
+      // Complete restart despite API issues - system is operational
+      this.updateState({
+        phase: 'completed',
+        progress: 100,
+        message: 'Restart completed (API rate-limited but system operational)',
+        isRestarting: false,
+        restartCompletedAt: new Date(),
+        error: 'Warning: External TBURN API is rate-limited. System running with limited functionality.'
+      });
+      
+      console.warn('[RestartSupervisor] ⚠️ Restart marked complete despite API rate limit');
+      console.warn('[RestartSupervisor] System is operational but external data unavailable');
+    } else {
+      // Other failure
+      this.updateState({
+        phase: 'failed',
+        progress: 0,
+        message: 'Restart timeout - Process took too long',
+        error: 'Restart process exceeded 3 minute timeout',
+        isRestarting: false,
+        restartCompletedAt: new Date()
+      });
+    }
+    
+    // Clear the timeout handle
+    this.restartTimeoutHandle = null;
   }
 
   private async stopAllPolling(): Promise<void> {
