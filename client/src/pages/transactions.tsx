@@ -77,7 +77,7 @@ export default function Transactions() {
                     <TableRow
                       key={tx.id}
                       className="hover-elevate cursor-pointer"
-                      data-testid={`row-transaction-${tx.hash.slice(0, 10)}`}
+                      data-testid={`row-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
                     >
                       <TableCell className="font-mono text-sm font-medium">
                         {formatAddress(tx.hash, 8, 6)}

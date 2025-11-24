@@ -181,7 +181,7 @@ export default function Validators() {
                       <TableRow
                         key={validator.id}
                         className="hover-elevate cursor-pointer"
-                        data-testid={`row-validator-${validator.address.slice(0, 10)}`}
+                        data-testid={`row-validator-${validator.address?.slice(0, 10) || 'unknown'}`}
                         onClick={() => window.location.href = `/validator/${validator.address}`}
                       >
                         <TableCell className="font-mono text-sm">
@@ -239,7 +239,7 @@ export default function Validators() {
                           </div>
                         </TableCell>
                         {/* AI Trust Score for TBURN v7.0 */}
-                        <TableCell data-testid={`metric-aitrust-${validator.address.slice(0, 10)}`}>
+                        <TableCell data-testid={`metric-aitrust-${validator.address?.slice(0, 10) || 'unknown'}`}>
                           <div className="flex items-center gap-2">
                             <Brain className="h-3 w-3 text-purple-500" />
                             <span className="text-sm tabular-nums font-medium">{(validator.aiTrustScore / 100).toFixed(1)}%</span>

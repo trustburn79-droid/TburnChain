@@ -148,7 +148,7 @@ export default function SmartContracts() {
                     <TableRow
                       key={contract.id}
                       className="hover-elevate cursor-pointer"
-                      data-testid={`row-contract-${contract.address.slice(0, 10)}`}
+                      data-testid={`row-contract-${contract.address?.slice(0, 10) || 'unknown'}`}
                     >
                       <TableCell className="font-semibold">{contract.name}</TableCell>
                       <TableCell className="font-mono text-sm">

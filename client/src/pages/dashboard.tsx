@@ -349,7 +349,7 @@ export default function Dashboard() {
                   <div
                     key={tx.id}
                     className="flex items-center justify-between p-3 rounded-md hover-elevate border"
-                    data-testid={`card-transaction-${tx.hash.slice(0, 10)}`}
+                    data-testid={`card-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
                   >
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center gap-2">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Wallet, Search, TrendingUp, Users, DollarSign, Award } from "lucide-react";
+import { formatAddress } from "@/lib/formatters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -145,7 +146,7 @@ export default function Wallets() {
                   {filteredWallets.map((wallet) => (
                     <TableRow key={wallet.id} className="hover-elevate" data-testid={`row-wallet-${wallet.address}`}>
                       <TableCell className="font-mono text-sm" title={wallet.address}>
-                        {wallet.address.slice(0, 10)}...{wallet.address.slice(-8)}
+                        {formatAddress(wallet.address)}
                       </TableCell>
                       <TableCell className="font-semibold tabular-nums">
                         {formatBalance(wallet.balance)} TBURN
