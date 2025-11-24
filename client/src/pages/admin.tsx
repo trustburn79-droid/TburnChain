@@ -51,7 +51,7 @@ interface MainnetHealth {
   lastBlockTime: number;
   lastBlockNumber: number;
   timeSinceLastBlock: number;
-  status: "active" | "paused" | "degraded" | "restarting" | "offline";
+  status: "active" | "paused" | "degraded" | "restarting" | "offline" | "rate-limited";
   tps: number;
   peakTps: number;
   errorType?: "api-rate-limit" | "api-error" | "mainnet-offline" | "network-error";
@@ -215,7 +215,22 @@ export default function AdminPage() {
     const blocksData = blocks.data;
     const errorType = stats.errorType || blocks.errorType;
 
-    // Priority 3: Check data availability
+    // Priority 3: Check for rate limiting specifically
+    if (errorType === 'api-rate-limit') {
+      return {
+        isHealthy: false,
+        lastBlockTime: 0,
+        lastBlockNumber: 0,
+        timeSinceLastBlock: 0,
+        status: "rate-limited" as MainnetHealth["status"],
+        tps: 0,
+        peakTps: 0,
+        errorType: "api-rate-limit",
+        isStale: true
+      };
+    }
+
+    // Priority 4: Check data availability
     if (!statsData || !blocksData) {
       return {
         isHealthy: false,
@@ -426,7 +441,8 @@ export default function AdminPage() {
       restarting: { variant: "secondary" as const, icon: RefreshCw, className: "bg-blue-500 hover:bg-blue-600 animate-pulse" },
       degraded: { variant: "secondary" as const, icon: AlertTriangle, className: "bg-yellow-500 hover:bg-yellow-600" },
       paused: { variant: "secondary" as const, icon: AlertCircle, className: "bg-orange-500 hover:bg-orange-600" },
-      offline: { variant: "destructive" as const, icon: WifiOff, className: "" }
+      offline: { variant: "destructive" as const, icon: WifiOff, className: "" },
+      "rate-limited": { variant: "secondary" as const, icon: Clock, className: "bg-orange-500 hover:bg-orange-600" }
     };
     return configs[health.status] || configs.offline;
   };
@@ -450,7 +466,12 @@ export default function AdminPage() {
               <div>
                 <h2 className="text-2xl font-bold">Mainnet Status</h2>
                 <p className="text-sm text-muted-foreground">
-                  {stats.source === "failed" || blocks.source === "failed" ? (
+                  {health.status === "rate-limited" ? (
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3 text-orange-500" />
+                      Rate Limited by TBURN Mainnet API - Retrying connections
+                    </span>
+                  ) : stats.source === "failed" || blocks.source === "failed" ? (
                     <span className="flex items-center gap-1">
                       <XCircle className="h-3 w-3 text-red-500" />
                       API Connection Failed - {hasFailures ? `${failureHistory.length} failures recorded` : "No data available"}
