@@ -1734,6 +1734,95 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+  
+  // ============================================
+  // AI Usage Management Routes
+  // ============================================
+  app.get("/api/admin/ai/usage", requireAdmin, async (req, res) => {
+    try {
+      console.log('[Admin] 📊 AI usage stats requested');
+      const stats = aiService.getAllUsageStats();
+      const health = aiService.checkHealth();
+      
+      res.json({
+        providers: stats,
+        health,
+        timestamp: Date.now()
+      });
+    } catch (error: any) {
+      console.error('[Admin] ❌ Failed to get AI usage:', error);
+      res.status(500).json({
+        error: "Failed to retrieve AI usage statistics"
+      });
+    }
+  });
+  
+  app.get("/api/admin/ai/health", requireAdmin, async (req, res) => {
+    try {
+      console.log('[Admin] 🤖 AI service health check');
+      const health = aiService.checkHealth();
+      
+      res.json({
+        ...health,
+        timestamp: Date.now()
+      });
+    } catch (error: any) {
+      console.error('[Admin] ❌ AI health check failed:', error);
+      res.status(500).json({
+        error: "AI service health check failed"
+      });
+    }
+  });
+  
+  app.post("/api/admin/ai/reset-provider", requireAdmin, async (req, res) => {
+    try {
+      const { provider } = req.body;
+      
+      if (!provider || !['anthropic', 'openai', 'meta'].includes(provider)) {
+        return res.status(400).json({
+          error: "Invalid provider. Must be one of: anthropic, openai, meta"
+        });
+      }
+      
+      console.log(`[Admin] 🔄 Resetting AI provider: ${provider}`);
+      aiService.resetProvider(provider);
+      
+      res.json({
+        success: true,
+        message: `AI provider ${provider} has been reset`,
+        timestamp: Date.now()
+      });
+    } catch (error: any) {
+      console.error('[Admin] ❌ Failed to reset AI provider:', error);
+      res.status(500).json({
+        error: "Failed to reset AI provider"
+      });
+    }
+  });
+  
+  app.post("/api/admin/ai/test", requireAdmin, async (req, res) => {
+    try {
+      const { prompt = "Hello, this is a test. Please respond with OK." } = req.body;
+      
+      console.log('[Admin] 🧪 Testing AI service with prompt:', prompt);
+      const response = await aiService.makeRequest({
+        prompt,
+        maxTokens: 100
+      });
+      
+      res.json({
+        success: true,
+        response,
+        timestamp: Date.now()
+      });
+    } catch (error: any) {
+      console.error('[Admin] ❌ AI test failed:', error);
+      res.status(500).json({
+        error: "AI test failed",
+        message: error.message
+      });
+    }
+  });
 
   // ============================================
   // Node Health
@@ -2155,6 +2244,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }));
       }
     });
+    
+    // Send initial AI usage stats
+    const aiUsage = aiService.getAllUsageStats();
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({
+        type: 'ai_usage_stats',
+        data: aiUsage,
+        timestamp: Date.now()
+      }));
+    }
 
     ws.on('message', (message) => {
       try {
@@ -2351,6 +2450,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error('Error broadcasting validator updates:', error);
     }
   }, 5000);
+  
+  // AI Usage Stats broadcasting every 10 seconds
+  setInterval(() => {
+    if (clients.size === 0) return;
+    
+    const aiUsageSchema = z.array(z.object({
+      provider: z.enum(["anthropic", "openai", "meta"]),
+      totalRequests: z.number(),
+      successfulRequests: z.number(),
+      failedRequests: z.number(),
+      rateLimitHits: z.number(),
+      totalTokensUsed: z.number(),
+      totalCost: z.number(),
+      isRateLimited: z.boolean(),
+      dailyLimit: z.number().optional(),
+      dailyUsage: z.number().optional(),
+      lastRequestTime: z.date().optional(),
+      lastRateLimitTime: z.date().optional(),
+      rateLimitResetTime: z.date().optional()
+    }));
+    
+    try {
+      const stats = aiService.getAllUsageStats();
+      broadcastUpdate('ai_usage_stats', stats, aiUsageSchema);
+    } catch (error) {
+      console.error('Error broadcasting AI usage stats:', error);
+    }
+  }, 10000);
+  
+  // Setup AI Service event broadcasting
+  broadcastAIUsageStats((type, data) => {
+    // Create appropriate schema based on type
+    let schema: z.ZodType<any> = z.any();
+    
+    if (type === 'ai-usage') {
+      schema = z.array(z.object({
+        provider: z.enum(["anthropic", "openai", "meta"]),
+        totalRequests: z.number(),
+        successfulRequests: z.number(),
+        failedRequests: z.number(),
+        rateLimitHits: z.number(),
+        totalTokensUsed: z.number(),
+        totalCost: z.number(),
+        isRateLimited: z.boolean()
+      }));
+    } else if (type === 'ai-rate-limit') {
+      schema = z.object({
+        provider: z.string(),
+        resetTime: z.date()
+      });
+    } else if (type === 'ai-provider-switch') {
+      schema = z.object({
+        from: z.string(),
+        to: z.string()
+      });
+    }
+    
+    broadcastUpdate(type, data, schema, true);
+  });
   
   // Validator Voting Activity snapshot every 3 seconds  
   setInterval(async () => {
