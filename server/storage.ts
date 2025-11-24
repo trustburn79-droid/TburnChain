@@ -2124,27 +2124,25 @@ export class DbStorage implements IStorage {
   }
 
   async createOrUpdateRestartSession(data: InsertRestartSession): Promise<RestartSession> {
-    const existingSession = await this.getRestartSession();
     const sessionData = {
       ...data,
       id: "singleton", // Always use singleton ID
       updatedAt: new Date(),
     };
 
-    if (existingSession) {
-      // Update existing session
-      const result = await db.update(restartSessions)
-        .set(sessionData)
-        .where(eq(restartSessions.id, "singleton"))
-        .returning();
-      return result[0];
-    } else {
-      // Create new session
-      const result = await db.insert(restartSessions)
-        .values(sessionData)
-        .returning();
-      return result[0];
-    }
+    // Use UPSERT (INSERT ... ON CONFLICT DO UPDATE) to avoid race conditions
+    const result = await db.insert(restartSessions)
+      .values(sessionData)
+      .onConflictDoUpdate({
+        target: restartSessions.id,
+        set: {
+          ...sessionData,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
+    
+    return result[0];
   }
 
   async clearRestartSession(): Promise<void> {
