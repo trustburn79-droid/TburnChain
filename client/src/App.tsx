@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DemoBanner } from "@/components/DemoBanner";
 import { WebSocketProvider } from "@/lib/websocket-context";
+import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
 
 // Pages
 import Dashboard from "@/pages/dashboard";
@@ -104,6 +105,7 @@ function AuthenticatedApp() {
               </main>
             </div>
           </div>
+          <MainnetRestartOverlay />
         </SidebarProvider>
       </TooltipProvider>
     </WebSocketProvider>

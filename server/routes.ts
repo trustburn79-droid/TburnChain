@@ -1457,6 +1457,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Admin Control Panel
   // ============================================
+  // Track mainnet restart state (in-memory for simplicity)
+  let mainnetRestartState = {
+    isRestarting: false,
+    restartInitiatedAt: null as Date | null,
+    expectedRestartTime: 60000, // 60 seconds expected restart time
+    lastHealthCheck: null as Date | null,
+    isHealthy: false
+  };
+
+  // Endpoint to get mainnet restart status
+  app.get("/api/admin/restart-status", async (req, res) => {
+    try {
+      // Check if restart timeout has passed
+      if (mainnetRestartState.isRestarting && mainnetRestartState.restartInitiatedAt) {
+        const elapsedTime = Date.now() - mainnetRestartState.restartInitiatedAt.getTime();
+        
+        // Auto-check health after expected restart time
+        if (elapsedTime > mainnetRestartState.expectedRestartTime) {
+          try {
+            // Check if mainnet is back by checking recent blocks
+            const recentBlocks = await storage.getRecentBlocks(1);
+            if (recentBlocks && recentBlocks.length > 0) {
+              const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
+              
+              if (timeSinceLastBlock < 60) { // If block is less than 60 seconds old
+                // Mainnet is back online
+                mainnetRestartState.isRestarting = false;
+                mainnetRestartState.isHealthy = true;
+                mainnetRestartState.lastHealthCheck = new Date();
+                console.log("[API] Mainnet restart completed successfully");
+              }
+            }
+          } catch (error) {
+            // Still not healthy, continue waiting
+            console.log("[API] Mainnet still restarting...");
+          }
+        }
+      }
+      
+      res.json({
+        ...mainnetRestartState,
+        elapsedTime: mainnetRestartState.restartInitiatedAt 
+          ? Date.now() - mainnetRestartState.restartInitiatedAt.getTime() 
+          : 0
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get restart status" });
+    }
+  });
+
   app.post("/api/admin/restart-mainnet", requireAdmin, async (req, res) => {
     try {
       console.log('═══════════════════════════════════════════');
@@ -1465,6 +1515,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('[Admin] Timestamp:', new Date().toISOString());
       console.log('[Admin] ADMIN_PASSWORD verified successfully');
       console.log('═══════════════════════════════════════════');
+      
+      // Update restart state
+      mainnetRestartState = {
+        isRestarting: true,
+        restartInitiatedAt: new Date(),
+        expectedRestartTime: 60000,
+        lastHealthCheck: null,
+        isHealthy: false
+      };
       
       // Store restart status in memory (would be lost on restart, but useful for tracking)
       const restartInfo = {
@@ -1541,6 +1600,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const timeSinceLastBlock = Date.now() / 1000 - recentBlocks[0].timestamp;
       const isHealthy = timeSinceLastBlock < 3600;
+      
+      // Update restart state if healthy
+      if (isHealthy && mainnetRestartState.isRestarting) {
+        mainnetRestartState.isRestarting = false;
+        mainnetRestartState.isHealthy = true;
+        mainnetRestartState.lastHealthCheck = new Date();
+        console.log("[Admin] Mainnet recovery detected via health check");
+      }
       
       const healthStatus = {
         healthy: isHealthy,

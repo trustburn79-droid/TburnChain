@@ -116,7 +116,7 @@ function useRestartMonitor() {
       estimatedDuration: 60000 // 60 seconds total
     });
 
-    // Simulate progress phases
+    // Simulate progress phases (keeping existing animation for now)
     let currentProgress = 10;
     progressInterval.current = setInterval(() => {
       currentProgress += 2;
@@ -142,6 +142,11 @@ function useRestartMonitor() {
           message = "Restart completed successfully!";
           setIsRestartInProgress(false);
           if (progressInterval.current) clearInterval(progressInterval.current);
+          
+          // Reload the page after completion to refresh all data
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }
 
         return {
