@@ -186,7 +186,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("[ValidatorSim] 🚀 Started validator simulation");
       
       // Broadcast validators updates periodically (every 30 seconds)
-      setInterval(async () => {
+      createTrackedInterval(async () => {
         try {
           // Get updated validators from storage (simulation updates them internally)
           const validators = await storage.getAllValidators();
@@ -194,7 +194,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         } catch (error) {
           console.error("[ValidatorSim] Error broadcasting validators:", error);
         }
-      }, 30000);
+      }, 30000, 'validator_broadcast');
     } catch (error) {
       console.error("[ValidatorSim] Failed to initialize:", error);
       // In production, ensure we can still serve API requests even if simulation fails
