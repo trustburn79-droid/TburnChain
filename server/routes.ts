@@ -299,6 +299,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ authenticated: !!req.session.authenticated });
   });
 
+  // ============================================
+  // System Status (Public - No Auth Required)
+  // ============================================
+  app.get("/api/system/data-source", (_req, res) => {
+    const nodeUrl = process.env.TBURN_NODE_URL || 'http://localhost:8545';
+    const isLocalNode = nodeUrl.includes('localhost') || nodeUrl.includes('127.0.0.1');
+    const isProduction = isProductionMode();
+    
+    // Determine data source type
+    let dataSourceType: 'external-mainnet' | 'local-simulated' | 'testnet';
+    let isSimulated: boolean;
+    let message: string;
+    
+    if (!isLocalNode && isProduction) {
+      // External mainnet node configured
+      dataSourceType = 'external-mainnet';
+      isSimulated = false;
+      message = 'Connected to external TBURN mainnet node';
+    } else if (isLocalNode && isProduction) {
+      // Local node in production mode = simulated enterprise node
+      dataSourceType = 'local-simulated';
+      isSimulated = true;
+      message = 'Running local TBurnEnterpriseNode (simulated mainnet data)';
+    } else {
+      // Development/demo mode
+      dataSourceType = 'local-simulated';
+      isSimulated = true;
+      message = 'Development mode with simulated data';
+    }
+    
+    res.json({
+      dataSourceType,
+      isSimulated,
+      isProduction,
+      nodeUrl: isLocalNode ? 'localhost:8545 (local)' : nodeUrl,
+      message,
+      connectionStatus: 'connected',
+      lastChecked: new Date().toISOString()
+    });
+  });
+
   // Apply rate limiting to all API routes
   app.use("/api", apiLimiter);
 

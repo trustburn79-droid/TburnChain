@@ -1,16 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
-import { Database, TestTube } from "lucide-react";
+import { Database, TestTube, Wifi, WifiOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-interface DataSourceBadgeProps {
-  isProduction?: boolean;
-  className?: string;
-  size?: "sm" | "md" | "lg";
+interface DataSourceStatus {
+  dataSourceType: 'external-mainnet' | 'local-simulated' | 'testnet';
+  isSimulated: boolean;
+  isProduction: boolean;
+  nodeUrl: string;
+  message: string;
+  connectionStatus: 'connected' | 'disconnected' | 'error';
+  lastChecked: string;
 }
 
-export function DataSourceBadge({ isProduction, className, size = "sm" }: DataSourceBadgeProps) {
-  const nodeMode = import.meta.env.VITE_NODE_MODE || 'development';
-  const isRealData = isProduction !== undefined ? isProduction : nodeMode === 'production';
+interface DataSourceBadgeProps {
+  className?: string;
+  size?: "sm" | "md" | "lg";
+  showTooltip?: boolean;
+}
+
+export function DataSourceBadge({ className, size = "sm", showTooltip = true }: DataSourceBadgeProps) {
+  const { data: status, isLoading, isError } = useQuery<DataSourceStatus>({
+    queryKey: ["/api/system/data-source"],
+    refetchInterval: 30000,
+    staleTime: 10000,
+  });
   
   const sizeClasses = {
     sm: "h-5 text-xs px-1.5 py-0",
@@ -23,25 +38,51 @@ export function DataSourceBadge({ isProduction, className, size = "sm" }: DataSo
     md: "h-4 w-4", 
     lg: "h-5 w-5"
   };
-  
-  if (isRealData) {
+
+  if (isLoading) {
     return (
       <Badge 
-        variant="default"
+        variant="secondary"
         className={cn(
-          "bg-green-600 hover:bg-green-700 text-white border-green-700",
+          "bg-gray-500/20 text-gray-500 border-gray-500/50 animate-pulse",
           sizeClasses[size],
           className
         )}
-        data-testid="badge-data-source-real"
       >
-        <Database className={cn(iconSize[size], "mr-1")} />
-        Mainnet
+        <Wifi className={cn(iconSize[size], "mr-1")} />
+        Loading...
       </Badge>
     );
   }
+
+  if (isError || !status) {
+    return (
+      <Badge 
+        variant="destructive"
+        className={cn(sizeClasses[size], className)}
+      >
+        <WifiOff className={cn(iconSize[size], "mr-1")} />
+        Offline
+      </Badge>
+    );
+  }
+
+  const isRealMainnet = !status.isSimulated && status.dataSourceType === 'external-mainnet';
   
-  return (
+  const badgeContent = isRealMainnet ? (
+    <Badge 
+      variant="default"
+      className={cn(
+        "bg-green-600 hover:bg-green-700 text-white border-green-700",
+        sizeClasses[size],
+        className
+      )}
+      data-testid="badge-data-source-mainnet"
+    >
+      <Database className={cn(iconSize[size], "mr-1")} />
+      Mainnet
+    </Badge>
+  ) : (
     <Badge 
       variant="secondary"
       className={cn(
@@ -49,10 +90,55 @@ export function DataSourceBadge({ isProduction, className, size = "sm" }: DataSo
         sizeClasses[size],
         className
       )}
-      data-testid="badge-data-source-demo"
+      data-testid="badge-data-source-simulated"
     >
       <TestTube className={cn(iconSize[size], "mr-1")} />
-      Demo Data
+      Simulated
     </Badge>
+  );
+
+  if (!showTooltip) {
+    return badgeContent;
+  }
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        {badgeContent}
+      </TooltipTrigger>
+      <TooltipContent side="bottom" className="max-w-xs">
+        <div className="space-y-1 text-xs">
+          <p className="font-medium">{status.message}</p>
+          <p className="text-muted-foreground">Node: {status.nodeUrl}</p>
+          <p className="text-muted-foreground">
+            Status: {status.connectionStatus === 'connected' ? '🟢 Connected' : '🔴 Disconnected'}
+          </p>
+        </div>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+export function DataSourceIndicator({ className }: { className?: string }) {
+  const { data: status } = useQuery<DataSourceStatus>({
+    queryKey: ["/api/system/data-source"],
+    refetchInterval: 30000,
+    staleTime: 10000,
+  });
+
+  if (!status) return null;
+
+  const isRealMainnet = !status.isSimulated;
+
+  return (
+    <div className={cn("flex items-center gap-1.5 text-xs", className)}>
+      <span className={cn(
+        "w-2 h-2 rounded-full",
+        isRealMainnet ? "bg-green-500" : "bg-amber-500"
+      )} />
+      <span className="text-muted-foreground">
+        {isRealMainnet ? "Live Mainnet" : "Simulated Data"}
+      </span>
+    </div>
   );
 }
