@@ -3,21 +3,24 @@
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
-**Latest Updates (November 24, 2025):**
+**Latest Updates (November 25, 2025):**
+- **Data Source Status API**: Added `/api/system/data-source` endpoint for transparent data source identification
+  - Automatically detects if connected to external mainnet or local simulation
+  - Returns: `dataSourceType`, `isSimulated`, `nodeUrl`, `message`, `connectionStatus`
+- **Improved Data Source Badge**: Enhanced UI badge with real-time API status
+  - Shows "Simulated" (amber) when using local TBurnEnterpriseNode
+  - Shows "Mainnet" (green) when connected to external TBURN node
+  - Tooltip shows detailed connection info on hover
+- **External Mainnet Connection Support**: System now supports connecting to external TBURN nodes
+  - Set `TBURN_NODE_URL` environment variable to external node URL
+  - Set `TBURN_WS_URL` for WebSocket connection
+  - Set `TBURN_API_KEY` for authentication
+  - Dashboard automatically updates badge based on connection type
+
+**Previous Updates (November 24, 2025):**
 - **Critical Stability Fix - Eliminated Duplicate WebSocket Broadcasts**: Resolved data disappearance and flickering on Wallets and Cross-Shard pages
-  - **Root Cause**: Development mode broadcasts were running simultaneously with Production mode broadcasts, causing race conditions
-  - **Solution**: Wrapped development mode setInterval broadcasts in `if (!isProductionMode())` condition to ensure exclusive production execution
-  - **Impact**: Eliminated duplicate broadcasts that were causing empty array overwrites and data instability
-  - **Verification**: Log analysis confirms single broadcasts per channel with no duplicates
 - **Production Data Stability Enhancement**: Eliminated UI flickering and race conditions on Cross-Shard and Wallets pages
-  - Fixed AI Decisions Zod validation errors by making all schema fields optional (`.partial()`) to handle incomplete mainnet API responses
-  - Increased WebSocket snapshot broadcast intervals to production-safe values: AI Decisions (60s), Cross-Shard (30s), Wallets (30s)
-  - Implemented deep data comparison in WebSocket channel to skip identical updates, preventing unnecessary cache invalidation
-  - Verified 35-second stability with no flickering via end-to-end Playwright testing
 - **Data Source Indicators**: Added visual badges to distinguish between real mainnet data and demo/simulated data on dashboard cards
-  - Green "Mainnet" badge for production data
-  - Amber "Demo Data" badge for simulated/development data
-  - Badges appear on main stat cards and in the header for clear data source identification
 - **Production Environment Improvements**: Enhanced API error handling and initialization for production deployments
 - **Enterprise Performance Optimization**: Fully restored production-level performance with 100ms block time (10 blocks/second)
 - **Memory Management Enhancement**: Increased data rotation limits to enterprise levels (1000 blocks, 5000 transactions) for 50,000+ TPS support
