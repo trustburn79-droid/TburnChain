@@ -3094,29 +3094,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }, 30000, 'prod_cross_shard');
 
     // Poll Wallet Balances every 30 seconds (production stability)
+    // ENTERPRISE: Uses consistent 100 wallets from enterprise node cache
     createTrackedInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('wallets')?.disabled) return;
       try {
-        const rawWallets = await client.getWalletBalances(10);
+        // Request 100 wallets for consistency with API endpoint
+        const rawWallets = await client.getWalletBalances(100);
         
-        // Transform mainnet wallet data to match frontend interface
-        const transformedWallets = rawWallets.map((wallet: any) => ({
-          id: wallet.id || `wallet-${wallet.address}`,
-          address: wallet.address,
-          balance: wallet.balance || "0",
-          nonce: wallet.nonce || 0,
-          // Add missing fields with default values
-          stakedBalance: wallet.stakedBalance || "0",
-          unstakedBalance: wallet.unstakedBalance || wallet.balance || "0",
-          rewardsEarned: wallet.rewardsEarned || "0",
-          transactionCount: wallet.transactionCount || 0,
-          lastTransactionAt: wallet.lastTransactionAt || null,
-          firstSeenAt: wallet.firstSeenAt || new Date().toISOString(),
-          updatedAt: wallet.updatedAt || new Date().toISOString(),
-        }));
-        
-        broadcastUpdate('wallet_balances_snapshot', transformedWallets, walletBalancesSnapshotSchema);
-        console.log(`[Production Poll] Wallet Balances: ${transformedWallets.length} items fetched and broadcast`);
+        // Enterprise node now returns complete schema - no transformation needed
+        // Just validate and broadcast directly
+        broadcastUpdate('wallet_balances_snapshot', rawWallets, walletBalancesSnapshotSchema);
+        console.log(`[Production Poll] Wallet Balances: ${rawWallets.length} items fetched and broadcast`);
       } catch (error: any) {
         const status = endpointFallbackStatus.get('wallets') || { disabled: false, warned: false };
         
@@ -3125,7 +3113,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             console.warn('[Production Poll] Wallet Balances endpoint not implemented on mainnet - using local fallback data');
             endpointFallbackStatus.set('wallets', { disabled: true, warned: true });
           }
-          const localWallets = await storage.getAllWalletBalances(10);
+          const localWallets = await storage.getAllWalletBalances(100);
           broadcastUpdate('wallet_balances_snapshot', localWallets, walletBalancesSnapshotSchema);
         } else {
           console.error('Error polling wallet balances from mainnet:', error.message);

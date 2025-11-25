@@ -121,10 +121,115 @@ export class TBurnEnterpriseNode extends EventEmitter {
     { id: 'node-sentry-2', role: 'sentry', location: 'us-west-2', status: 'active' }
   ];
 
+  // ============================================
+  // ENTERPRISE WALLET CACHING SYSTEM
+  // Maintains consistent wallet data to prevent flickering
+  // ============================================
+  private walletCache: Map<string, any> = new Map();
+  private readonly WALLET_COUNT = 100; // Standard 100 wallets for consistency
+  private walletsInitialized = false;
+
   constructor(config: NodeConfig) {
     super();
     this.config = config;
     console.log(`[Enterprise Node] Initializing TBURN node: ${config.nodeId}`);
+  }
+
+  // ============================================
+  // ENTERPRISE WALLET INITIALIZATION
+  // Creates persistent wallet data with complete schema
+  // ============================================
+  private initializeWalletCache(): void {
+    if (this.walletsInitialized) return;
+
+    console.log(`[Enterprise Node] Initializing ${this.WALLET_COUNT} wallets with complete schema...`);
+    
+    // Generate consistent wallet addresses using deterministic seeds
+    for (let i = 0; i < this.WALLET_COUNT; i++) {
+      const seed = `wallet-seed-${i}`;
+      const addressSuffix = this.generateDeterministicAddress(seed);
+      const address = `tburn1${addressSuffix}`;
+      
+      // Calculate realistic balances based on wallet distribution
+      // Power law distribution: few whale wallets, many small wallets
+      const balanceMultiplier = Math.pow(0.8, i / 10); // Decreasing balance with index
+      const baseBalance = 100 + Math.random() * 900; // 100-1000 base
+      const balance = BigInt(Math.floor(baseBalance * balanceMultiplier * 1e18));
+      
+      // Staking allocation: ~15-25% of holdings typically staked
+      const stakingRatio = 0.15 + Math.random() * 0.10;
+      const stakedBalance = BigInt(Math.floor(Number(balance) * stakingRatio));
+      const unstakedBalance = balance - stakedBalance;
+      
+      // Rewards based on staking and time (simulated)
+      const rewardsRatio = 0.02 + Math.random() * 0.03; // 2-5% annual rewards
+      const rewardsEarned = BigInt(Math.floor(Number(stakedBalance) * rewardsRatio));
+      
+      // Transaction activity - realistic distribution
+      const transactionCount = Math.floor(1000 + Math.random() * 9000);
+      
+      // Timestamps
+      const now = Date.now();
+      const firstSeenAt = new Date(now - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000));
+      const lastTransactionAt = Math.random() > 0.3 
+        ? new Date(now - Math.floor(Math.random() * 24 * 60 * 60 * 1000))
+        : null;
+
+      const wallet = {
+        id: `wallet-${i}`,
+        address,
+        balance: balance.toString(),
+        stakedBalance: stakedBalance.toString(),
+        unstakedBalance: unstakedBalance.toString(),
+        rewardsEarned: rewardsEarned.toString(),
+        nonce: Math.floor(Math.random() * 10000),
+        transactionCount,
+        firstSeenAt: firstSeenAt.toISOString(),
+        lastTransactionAt: lastTransactionAt?.toISOString() || null,
+        updatedAt: new Date().toISOString(),
+      };
+
+      this.walletCache.set(address, wallet);
+    }
+
+    this.walletsInitialized = true;
+    console.log(`[Enterprise Node] ✅ Wallet cache initialized with ${this.walletCache.size} wallets`);
+  }
+
+  // Deterministic address generation for consistent data
+  private generateDeterministicAddress(seed: string): string {
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+      const char = seed.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    let value = Math.abs(hash);
+    for (let i = 0; i < 38; i++) {
+      result += chars[value % chars.length];
+      value = Math.floor(value / chars.length) + i;
+    }
+    return result;
+  }
+
+  // Get cached wallets with optional limit
+  private getCachedWallets(limit: number = this.WALLET_COUNT): any[] {
+    if (!this.walletsInitialized) {
+      this.initializeWalletCache();
+    }
+    
+    const wallets = Array.from(this.walletCache.values());
+    
+    // Sort by balance descending (whales first)
+    wallets.sort((a, b) => {
+      const balA = BigInt(a.balance);
+      const balB = BigInt(b.balance);
+      return balA > balB ? -1 : balA < balB ? 1 : 0;
+    });
+    
+    return wallets.slice(0, limit);
   }
 
   async start(): Promise<void> {
@@ -627,19 +732,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
     });
 
     // Wallet balances endpoint
+    // Enterprise Wallet API - Uses cached, consistent wallet data
     this.rpcApp.get('/api/wallets', (req: Request, res: Response) => {
-      const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
-      const wallets = [];
+      const limit = Math.min(parseInt(req.query.limit as string) || 100, 100);
       
-      for (let i = 0; i < limit; i++) {
-        wallets.push({
-          id: `wallet-${i}`,
-          address: `tburn1${Math.random().toString(36).substring(2, 42)}`,
-          balance: (Math.random() * 1000000000000000000000).toString(),
-          nonce: Math.floor(Math.random() * 1000),
-          transactionCount: Math.floor(Math.random() * 10000)
-        });
-      }
+      // Use enterprise wallet cache for consistent data
+      const wallets = this.getCachedWallets(limit);
       res.json(wallets);
     });
 
