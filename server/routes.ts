@@ -26,6 +26,42 @@ import { getRestartSupervisor, type RestartState } from "./services/RestartSuper
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
+// ============================================
+// ENTERPRISE STABILITY: Interval Tracking for Graceful Shutdown
+// ============================================
+const activeIntervals: NodeJS.Timeout[] = [];
+const activeTimeouts: NodeJS.Timeout[] = [];
+
+// Helper function to track intervals for cleanup
+function createTrackedInterval(callback: () => void, ms: number, name?: string): NodeJS.Timeout {
+  const interval = setInterval(callback, ms);
+  activeIntervals.push(interval);
+  if (name) {
+    console.log(`[Enterprise] Registered interval: ${name} (${ms}ms)`);
+  }
+  return interval;
+}
+
+// Helper function to track timeouts for cleanup
+function createTrackedTimeout(callback: () => void, ms: number): NodeJS.Timeout {
+  const timeout = setTimeout(callback, ms);
+  activeTimeouts.push(timeout);
+  return timeout;
+}
+
+// Graceful shutdown cleanup
+export function cleanupIntervals(): void {
+  console.log(`[Enterprise] Cleaning up ${activeIntervals.length} intervals and ${activeTimeouts.length} timeouts...`);
+  
+  activeIntervals.forEach(interval => clearInterval(interval));
+  activeIntervals.length = 0;
+  
+  activeTimeouts.forEach(timeout => clearTimeout(timeout));
+  activeTimeouts.length = 0;
+  
+  console.log('[Enterprise] ✅ All intervals and timeouts cleaned up');
+}
+
 // Rate limiters
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -2682,7 +2718,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Broadcast updates to all connected clients every 5 seconds
-  setInterval(async () => {
+  createTrackedInterval(async () => {
     if (clients.size === 0) return;
 
     try {
@@ -2736,10 +2772,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error broadcasting updates:', error);
     }
-  }, 5000);
+  }, 5000, 'network_stats');
 
-  // Broadcast new blocks every 2 seconds
-  setInterval(async () => {
+  // Broadcast new blocks every 500ms
+  createTrackedInterval(async () => {
     if (clients.size === 0) return;
 
     try {
@@ -2760,7 +2796,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error broadcasting block updates:', error);
     }
-  }, 500); // Optimized for 100ms block time
+  }, 500, 'block_updates'); // Optimized for 100ms block time
 
   // ============================================
   // Development Mode Polling (Storage-based)
@@ -2768,7 +2804,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   if (!isProductionMode()) {
     // AI Decisions snapshot every 15 seconds (aggregated list)
-    setInterval(async () => {
+    createTrackedInterval(async () => {
       if (clients.size === 0) return;
       try {
         const decisions = await storage.getRecentAiDecisions(10);
@@ -2776,10 +2812,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (error) {
         console.error('Error broadcasting AI decisions snapshot:', error);
       }
-    }, 15000);
+    }, 15000, 'dev_ai_decisions');
 
     // Cross-Shard Messages snapshot every 15 seconds (aggregated list)
-    setInterval(async () => {
+    createTrackedInterval(async () => {
       if (clients.size === 0) return;
       try {
         const messages = await storage.getAllCrossShardMessages(10);
@@ -2787,10 +2823,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (error) {
         console.error('Error broadcasting cross-shard snapshot:', error);
       }
-    }, 15000);
+    }, 15000, 'dev_cross_shard');
 
     // Wallet Balances snapshot every 15 seconds (aggregated list)
-    setInterval(async () => {
+    createTrackedInterval(async () => {
       if (clients.size === 0) return;
       try {
         const wallets = await storage.getAllWalletBalances(10);
@@ -2798,10 +2834,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (error) {
         console.error('Error broadcasting wallet balances snapshot:', error);
       }
-    }, 15000);
+    }, 15000, 'dev_wallets');
 
     // Consensus Rounds snapshot every 3 seconds (high-volatility metrics)
-    setInterval(async () => {
+    createTrackedInterval(async () => {
       if (clients.size === 0) return;
       try {
         const rounds = await storage.getAllConsensusRounds(5);
@@ -2809,11 +2845,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (error) {
         console.error('Error broadcasting consensus rounds snapshot:', error);
       }
-    }, 3000);
+    }, 3000, 'dev_consensus_rounds');
   }
 
-  // Consensus State snapshot every 2 seconds (current consensus view)
-  setInterval(async () => {
+  // Consensus State snapshot every 500ms (current consensus view)
+  createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
       const state = await storage.getConsensusState();
@@ -2821,10 +2857,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error broadcasting consensus state update:', error);
     }
-  }, 500); // Optimized for 100ms block time
+  }, 500, 'consensus_state'); // Optimized for 100ms block time
 
   // Validator Updates snapshot every 5 seconds (voting power changes, status updates)
-  setInterval(async () => {
+  createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
       const validators = await storage.getAllValidators();
@@ -2851,10 +2887,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error broadcasting validator updates:', error);
     }
-  }, 5000);
+  }, 5000, 'validators_update');
   
   // AI Usage Stats broadcasting every 10 seconds
-  setInterval(() => {
+  createTrackedInterval(() => {
     if (clients.size === 0) return;
     
     const aiUsageSchema = z.array(z.object({
@@ -2913,7 +2949,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Validator Voting Activity snapshot every 3 seconds  
-  setInterval(async () => {
+  createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
       // Get recent consensus rounds to show voting activity
@@ -2940,7 +2976,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error broadcasting voting activity:', error);
     }
-  }, 3000);
+  }, 3000, 'voting_activity');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)
@@ -2952,7 +2988,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const endpointFallbackStatus = new Map<string, { disabled: boolean; warned: boolean }>();
 
     // Poll AI Decisions every 60 seconds (production stability)
-    setInterval(async () => {
+    createTrackedInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('ai_decisions')?.disabled) return;
       try {
         const decisions = await client.getAIDecisions(10);
@@ -2974,10 +3010,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('ai_decisions_snapshot');
       }
-    }, 60000);
+    }, 60000, 'prod_ai_decisions');
 
     // Poll Cross-Shard Messages every 30 seconds (production stability)
-    setInterval(async () => {
+    createTrackedInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('cross_shard')?.disabled) return;
       try {
         const messages = await client.getCrossShardMessages(10);
@@ -2998,10 +3034,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('cross_shard_snapshot');
       }
-    }, 30000);
+    }, 30000, 'prod_cross_shard');
 
     // Poll Wallet Balances every 30 seconds (production stability)
-    setInterval(async () => {
+    createTrackedInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('wallets')?.disabled) return;
       try {
         const rawWallets = await client.getWalletBalances(10);
@@ -3039,10 +3075,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('wallet_balances_snapshot');
       }
-    }, 30000);
+    }, 30000, 'prod_wallets');
 
-    // Poll Consensus Rounds every 2 seconds (high-volatility)
-    setInterval(async () => {
+    // Poll Consensus Rounds every 500ms (high-volatility)
+    createTrackedInterval(async () => {
       if (clients.size === 0 || endpointFallbackStatus.get('consensus_rounds')?.disabled) return;
       try {
         const rounds = await client.getConsensusRounds(5);
@@ -3063,10 +3099,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         lastBroadcastState.delete('consensus_rounds_snapshot');
       }
-    }, 500); // Optimized for 100ms block time
+    }, 500, 'prod_consensus_rounds'); // Optimized for 100ms block time
 
-    // Poll Consensus State every 2 seconds (current consensus view)
-    setInterval(async () => {
+    // Poll Consensus State every 500ms (current consensus view)
+    createTrackedInterval(async () => {
       if (clients.size === 0) return;
       try {
         const state = await client.getConsensusState();
@@ -3076,8 +3112,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error('Error polling consensus state from mainnet:', error.message);
         lastBroadcastState.delete('consensus_state_update');
       }
-    }, 500); // Optimized for 100ms block time
+    }, 500, 'prod_consensus_state'); // Optimized for 100ms block time
   }
+
+  // ============================================
+  // ENTERPRISE STABILITY: Graceful Shutdown Handler
+  // ============================================
+  httpServer.on('close', () => {
+    console.log('[Enterprise] HTTP server closing, initiating cleanup...');
+    cleanupIntervals();
+  });
+
+  // Process-level shutdown handlers
+  process.on('SIGTERM', () => {
+    console.log('[Enterprise] SIGTERM received, initiating graceful shutdown...');
+    cleanupIntervals();
+    httpServer.close(() => {
+      console.log('[Enterprise] ✅ Server gracefully terminated');
+      process.exit(0);
+    });
+  });
+
+  process.on('SIGINT', () => {
+    console.log('[Enterprise] SIGINT received, initiating graceful shutdown...');
+    cleanupIntervals();
+    httpServer.close(() => {
+      console.log('[Enterprise] ✅ Server gracefully terminated');
+      process.exit(0);
+    });
+  });
+
+  console.log(`[Enterprise] ✅ Registered ${activeIntervals.length} tracked intervals for graceful shutdown`);
 
   return httpServer;
 }
