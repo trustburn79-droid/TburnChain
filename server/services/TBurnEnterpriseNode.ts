@@ -71,6 +71,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private tpsHistory: number[] = [];
   private peakTps = 520847;
   
+  // TBURN Gas Unit: Ember (EMB)
+  // 1 TBURN = 1,000,000 Ember (EMB)
+  // 1 EMB = 1e12 wei (since 1 TBURN = 1e18 wei)
+  // Standard Gas Price: 10 EMB = 1e13 wei
+  private readonly EMBER_PER_TBURN = 1_000_000;
+  private readonly WEI_PER_EMBER = BigInt('1000000000000'); // 1e12
+  private readonly DEFAULT_GAS_PRICE_EMBER = 10; // 10 EMB standard
+  private readonly DEFAULT_GAS_PRICE_WEI = '10000000000000'; // 10 EMB in wei
+  
   // Token Economics Simulation
   // TBURN Token Model: Demand-Supply Equilibrium Based Pricing
   private tokenPrice = 28.91; // Initial price in USD
@@ -1389,7 +1398,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       currentBlock: this.currentBlockHeight,
       highestBlock: this.currentBlockHeight,
       peerCount: this.peerCount,
-      gasPrice: '1000000000', // 1 Gwei
+      gasPrice: this.DEFAULT_GAS_PRICE_WEI, // 10 EMB (standard TBURN gas price)
       hashrate: '987.65 TH/s',
       difficulty: '15789234567890',
       uptime: Date.now() - this.startTime,
@@ -1426,7 +1435,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
       to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
       value: (BigInt(Math.floor(Math.random() * 1000000)) * BigInt('1000000000000000000')).toString(),
-      gasPrice: '1000000000',
+      gasPrice: this.DEFAULT_GAS_PRICE_WEI, // 10 EMB
       gasUsed: (21000 + Math.floor(Math.random() * 100000)).toString(),
       timestamp: Math.floor(Date.now() / 1000),
       status: Math.random() > 0.05 ? 'success' : 'failed',

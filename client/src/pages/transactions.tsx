@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatAddress, formatTimeAgo, formatTokenAmount, formatGas, formatGasPrice, calculateTransactionFee } from "@/lib/format";
+import { formatAddress, formatTimeAgo, formatTokenAmount, formatGasPriceEmber, calculateTransactionFeeEmber, formatGasEmber } from "@/lib/format";
 import type { Transaction } from "@shared/schema";
 
 export default function Transactions() {
@@ -67,8 +67,8 @@ export default function Transactions() {
                     <TableHead>To</TableHead>
                     <TableHead>Value</TableHead>
                     <TableHead>Gas Used</TableHead>
-                    <TableHead>Gas Price</TableHead>
-                    <TableHead>Txn Fee</TableHead>
+                    <TableHead>Gas Price (EMB)</TableHead>
+                    <TableHead>Fee (EMB)</TableHead>
                     <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -100,15 +100,15 @@ export default function Transactions() {
                         {formatTokenAmount(tx.value)}
                       </TableCell>
                       <TableCell className="tabular-nums text-sm">
-                        {tx.gasUsed != null ? formatGas(tx.gasUsed) : (
+                        {tx.gasUsed != null ? formatGasEmber(tx.gasUsed) : (
                           <span className="text-muted-foreground">-</span>
                         )}
                       </TableCell>
                       <TableCell className="tabular-nums text-sm">
-                        {formatGasPrice(tx.gasPrice)}
+                        {formatGasPriceEmber(tx.gasPrice)}
                       </TableCell>
                       <TableCell className="tabular-nums text-sm font-medium">
-                        {tx.gasUsed != null ? calculateTransactionFee(tx.gasPrice, tx.gasUsed) : (
+                        {tx.gasUsed != null ? calculateTransactionFeeEmber(tx.gasPrice, tx.gasUsed) : (
                           <span className="text-muted-foreground">Pending</span>
                         )}
                       </TableCell>

@@ -4,7 +4,8 @@ import { useLocation, Link } from "wouter";
 import { useWebSocket } from "@/lib/websocket-context";
 import { queryClient } from "@/lib/queryClient";
 import { formatDistanceToNow } from "date-fns";
-import { formatAddress, formatHash, formatGas, formatSize } from "@/lib/formatters";
+import { formatAddress, formatHash, formatSize } from "@/lib/formatters";
+import { formatGasEmber } from "@/lib/format";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -532,7 +533,7 @@ export default function Blocks() {
               <span>•</span>
               <span>Network TPS: 521,482</span>
               <span>•</span>
-              <span>Gas Price: 0.00001 TBURN</span>
+              <span>Gas Price: 10 EMB</span>
             </div>
           )}
         </div>
@@ -655,7 +656,7 @@ export default function Blocks() {
                       </TableCell>
                       <TableCell>
                         <span className="text-sm font-mono">
-                          {formatGas(block.gasUsed)}
+                          {formatGasEmber(block.gasUsed)}
                         </span>
                       </TableCell>
                       <TableCell>

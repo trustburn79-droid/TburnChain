@@ -19,7 +19,7 @@ export default function TransactionSimulator() {
     to: "",
     value: "",
     gas: "21000",
-    gasPrice: "20",
+    gasPrice: "10", // Default: 10 EMB (standard gas price)
     shardId: "0",
     data: "",
   });
@@ -38,12 +38,13 @@ export default function TransactionSimulator() {
   };
 
   const generateRandomTx = () => {
+    // Gas price in EMB: 5-50 EMB range
     setFormData({
       from: generateRandomAddress(),
       to: generateRandomAddress(),
       value: (Math.random() * 10).toFixed(4),
       gas: String(Math.floor(Math.random() * 100000) + 21000),
-      gasPrice: (Math.random() * 50 + 10).toFixed(2),
+      gasPrice: String(Math.floor(Math.random() * 45) + 5), // 5-50 EMB
       shardId: String(Math.floor(Math.random() * 5)),
       data: Math.random() > 0.7 ? `0x${Math.random().toString(16).substr(2, 64)}` : "",
     });
@@ -62,8 +63,8 @@ export default function TransactionSimulator() {
       // Convert to wei for value (18 decimals)
       const valueInWei = (BigInt(Math.floor(valueNum * 1e18))).toString();
       
-      // Convert gas price to wei (9 decimals for Gwei)
-      const gasPriceInWei = (BigInt(Math.floor(gasPriceNum * 1e9))).toString();
+      // Convert gas price from EMB to wei (1 EMB = 1e-6 TBURN = 1e12 wei)
+      const gasPriceInWei = (BigInt(Math.floor(gasPriceNum * 1e12))).toString();
       
       const tx = {
         hash: `0x${Math.random().toString(16).substr(2, 64)}`,
@@ -269,13 +270,13 @@ export default function TransactionSimulator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="gasPrice">Gas Price (Gwei)</Label>
+                  <Label htmlFor="gasPrice">Gas Price (EMB)</Label>
                   <Input
                     id="gasPrice"
                     data-testid="input-gas-price"
                     type="number"
-                    step="0.1"
-                    placeholder="20"
+                    step="1"
+                    placeholder="10"
                     value={formData.gasPrice}
                     onChange={(e) => setFormData({ ...formData, gasPrice: e.target.value })}
                   />
@@ -355,7 +356,15 @@ export default function TransactionSimulator() {
                 <div className="text-sm font-medium text-muted-foreground">Estimated Fee</div>
                 <div className="text-sm font-mono">
                   {formData.gas && formData.gasPrice
-                    ? `${((parseInt(formData.gas) * parseFloat(formData.gasPrice)) / 1e9).toFixed(6)} TBURN`
+                    ? (() => {
+                        const gasUsed = parseInt(formData.gas);
+                        const gasPriceEmb = parseFloat(formData.gasPrice);
+                        const feeEmb = gasUsed * gasPriceEmb;
+                        const feeTburn = feeEmb / 1e6; // 1M EMB = 1 TBURN
+                        if (feeEmb >= 1e6) return `${(feeEmb / 1e6).toFixed(2)}M EMB (${feeTburn.toFixed(4)} TBURN)`;
+                        if (feeEmb >= 1e3) return `${(feeEmb / 1e3).toFixed(1)}K EMB`;
+                        return `${feeEmb.toLocaleString()} EMB`;
+                      })()
                     : "N/A"}
                 </div>
               </div>
@@ -391,14 +400,14 @@ export default function TransactionSimulator() {
                     to: generateRandomAddress(),
                     value: "1.5",
                     gas: "21000",
-                    gasPrice: "20",
+                    gasPrice: "10", // 10 EMB (standard)
                     shardId: "0",
                     data: "",
                   });
                 }}
               >
                 <Send className="h-4 w-4 mr-2" />
-                Simple Transfer (1.5 TBURN)
+                Simple Transfer (1.5 TBURN, 10 EMB)
               </Button>
               
               <Button
@@ -411,14 +420,14 @@ export default function TransactionSimulator() {
                     to: "",
                     value: "0",
                     gas: "500000",
-                    gasPrice: "25",
+                    gasPrice: "25", // 25 EMB (express)
                     shardId: "0",
                     data: `0x${Math.random().toString(16).substr(2, 256)}`,
                   });
                 }}
               >
                 <Zap className="h-4 w-4 mr-2" />
-                Contract Creation
+                Contract Creation (25 EMB)
               </Button>
               
               <Button
@@ -431,14 +440,14 @@ export default function TransactionSimulator() {
                     to: generateRandomAddress(),
                     value: "100",
                     gas: "50000",
-                    gasPrice: "50",
+                    gasPrice: "50", // 50 EMB (instant)
                     shardId: String(Math.floor(Math.random() * 5)),
                     data: "",
                   });
                 }}
               >
                 <Send className="h-4 w-4 mr-2" />
-                Large Transfer (100 TBURN)
+                Large Transfer (100 TBURN, 50 EMB)
               </Button>
             </CardContent>
           </Card>

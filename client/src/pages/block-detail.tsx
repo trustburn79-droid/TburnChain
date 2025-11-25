@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatAddress, formatTimeAgo, formatNumber, formatGas } from "@/lib/format";
+import { formatAddress, formatTimeAgo, formatNumber, formatGasEmber } from "@/lib/format";
 import type { Block, Transaction } from "@shared/schema";
 
 export default function BlockDetail() {
@@ -139,11 +139,11 @@ export default function BlockDetail() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">Gas Used</p>
-                <p className="tabular-nums text-sm">{formatGas(block.gasUsed)}</p>
+                <p className="tabular-nums text-sm">{formatGasEmber(block.gasUsed)}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Gas Limit</p>
-                <p className="tabular-nums text-sm">{formatGas(block.gasLimit)}</p>
+                <p className="tabular-nums text-sm">{formatGasEmber(block.gasLimit)}</p>
               </div>
             </div>
 
@@ -206,7 +206,7 @@ export default function BlockDetail() {
                         {formatNumber(parseInt(tx.value) / 1e18)} TBURN
                       </TableCell>
                       <TableCell className="tabular-nums text-sm">
-                        {tx.gasUsed ? formatGas(tx.gasUsed) : "---"}
+                        {tx.gasUsed ? formatGasEmber(tx.gasUsed) : "---"}
                       </TableCell>
                       <TableCell>
                         {tx.status === "success" ? (

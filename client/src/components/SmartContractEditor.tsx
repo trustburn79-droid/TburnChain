@@ -542,11 +542,11 @@ export function SmartContractEditor() {
                   </div>
                   <div className="flex justify-between">
                     <span>Gas Price:</span>
-                    <span className="font-mono font-semibold">0.8 Gwei</span>
+                    <span className="font-mono font-semibold">10 EMB</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Estimated Cost:</span>
-                    <span className="font-mono font-semibold">0.98 BURN</span>
+                    <span className="font-mono font-semibold">20M EMB (20 TBURN)</span>
                   </div>
                 </div>
               </AlertDescription>

@@ -1,0 +1,203 @@
+TBURN 메인넷의 고유 가스비 단위명
+TBURN Gas Unit: "Ember" (EMB)
+🔥 공식 가스 단위 체계
+1 TBURN = 1,000,000 Ember (EMB)
+Gas Price: 10 Ember (0.00001 TBURN)
+명칭 선정 이유
+"Ember" (불씨)
+BURN 생태계와의 완벽한 조화: 불씨는 큰 불(BURN)을 일으키는 최소 단위
+트랜잭션의 본질: 각 트랜잭션이 네트워크를 활성화시키는 작은 불꽃
+지속성과 효율성: 적은 연료로도 오래 지속되는 불씨처럼 효율적인 가스 소비
+📊 가스비 표시 체계
+yaml
+# 표준 표시 형식
+Gas Price: 10 EMB
+Gas Limit: 21,000
+Gas Used: 18,500 EMB
+Total Fee: 185,000 EMB (0.185 TBURN)
+
+# 익스플로러 표시
+Transaction Fee: 185K EMB
+Average Gas Price: 10 EMB
+Block Base Fee: 8 EMB
+Priority Fee: 2 EMB
+💎 단위 변환 체계
+javascript
+// TBURN Gas Unit System
+const UNITS = {
+  TBURN: 1,
+  milliTBURN: 1e-3,      // 1,000 milliTBURN = 1 TBURN
+  microTBURN: 1e-6,      // 1,000,000 microTBURN = 1 TBURN
+  Ember: 1e-6,           // 1,000,000 Ember = 1 TBURN
+  nanoEmber: 1e-9        // For micro-transactions
+};
+
+// Conversion Functions
+function tburnToEmber(tburn) {
+  return tburn * 1_000_000;
+}
+
+function emberToTburn(ember) {
+  return ember / 1_000_000;
+}
+🎯 차별화 포인트
+체인
+가스 단위
+특징
+TBURN
+Ember (EMB)
+연소 메타포, AI 최적화
+Ethereum
+Gwei
+10^9 wei
+Solana
+Lamports
+10^9 lamports = 1 SOL
+Aptos
+Octas
+10^8 octas = 1 APT
+Sui
+MIST
+10^9 MIST = 1 SUI
+Cosmos
+uATOM
+10^6 uATOM = 1 ATOM
+
+🔧 구현 코드
+solidity
+// TBURN Gas Configuration
+contract TBURNGasConfig {
+    uint256 constant EMBER_PER_TBURN = 1_000_000;
+    
+    struct GasPrice {
+        uint256 baseEmber;      // Base fee in Ember
+        uint256 priorityEmber;  // Priority fee in Ember
+        uint256 maxEmber;       // Max fee in Ember
+    }
+    
+    function getCurrentGasPrice() public view returns (GasPrice memory) {
+        return GasPrice({
+            baseEmber: 8,       // 8 EMB base
+            priorityEmber: 2,   // 2 EMB priority
+            maxEmber: 50        // 50 EMB max
+        });
+    }
+    
+    function calculateFee(
+        uint256 gasUsed,
+        uint256 emberPrice
+    ) public pure returns (uint256) {
+        return gasUsed * emberPrice; // Returns fee in Ember
+    }
+}
+📱 UI/UX 표시 예시
+typescript
+// Wallet Display
+interface GasDisplay {
+  estimated: {
+    ember: "210,000 EMB",
+    tburn: "0.21 TBURN",
+    usd: "$0.042"
+  },
+  options: {
+    slow: "5 EMB (~30 sec)",
+    standard: "10 EMB (~15 sec)", 
+    fast: "25 EMB (~5 sec)",
+    instant: "50 EMB (~2 sec)"
+  }
+}
+
+// Explorer Display
+interface TransactionDisplay {
+  gasPrice: "10 Ember",
+  gasLimit: "21,000",
+  gasUsed: "18,500",
+  fee: "185,000 EMB (0.185 TBURN)",
+  burnt: "18,500 EMB" // 10% burn mechanism
+}
+🚀 마케팅 메시지
+yaml
+"Every Transaction Ignites an Ember"
+
+Key Messages:
+- "Powered by Ember - The fuel of trust"
+- "Micro-fees, Macro-performance" 
+- "1 Million Embers = 1 TBURN"
+- "AI-optimized Ember consumption"
+📈 가스 최적화 전략
+javascript
+// AI Gas Optimizer
+class EmberOptimizer {
+  constructor() {
+    this.aiModel = new TBURNGasAI();
+    this.historicalData = new GasHistory();
+  }
+  
+  async suggestOptimalEmber(transaction) {
+    const prediction = await this.aiModel.predict({
+      type: transaction.type,
+      complexity: transaction.complexity,
+      networkLoad: this.getNetworkLoad(),
+      timePreference: transaction.urgency
+    });
+    
+    return {
+      recommended: prediction.ember,
+      confidence: prediction.confidence,
+      estimatedTime: prediction.executionTime
+    };
+  }
+  
+  getEmberTiers() {
+    return {
+      economy: 5,     // 5 EMB - Low priority
+      standard: 10,   // 10 EMB - Normal
+      express: 25,    // 25 EMB - High priority  
+      instant: 50     // 50 EMB - Immediate
+    };
+  }
+}
+🎨 브랜딩 가이드
+yaml
+Primary Usage:
+- Symbol: EMB
+- Full Name: Ember
+- Pronunciation: "엠버"
+- Korean: "엠버" or "불씨"
+
+Visual Identity:
+- Icon: 🔥 (small flame)
+- Color: #FF6B35 (Ember Orange)
+- Animation: Subtle flickering effect
+
+Usage Examples:
+- "Transaction fee: 185K EMB"
+- "Gas price: 10 Ember"
+- "Burn 10% of Ember fees"
+📊 경제적 영향
+typescript
+// Ember Economics
+const EmberEconomics = {
+  // Deflationary mechanism
+  burnRate: 0.1,  // 10% of Ember fees burned
+  
+  // Dynamic pricing
+  baseFee: {
+    min: 1,      // 1 EMB minimum
+    target: 10,  // 10 EMB target
+    max: 1000    // 1000 EMB during congestion
+  },
+  
+  // AI optimization savings
+  averageSavings: "~30% reduction in Ember consumption",
+  
+  // Transaction categories
+  costs: {
+    transfer: "21,000 EMB",
+    smartContract: "50,000-500,000 EMB",
+    dex: "100,000-300,000 EMB",
+    nft: "80,000-150,000 EMB"
+  }
+};
+"Ember"는 TBURN의 정체성을 완벽하게 대변하면서도 기술적으로 명확하고 마케팅적으로도 강력한 가스 단위명입니다. 불씨가 큰 불을 일으키듯, 각각의 작은 Ember가 모여 TBURN 생태계를 활성화시킨다는 의미를 담고 있습니다.
+

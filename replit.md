@@ -4,6 +4,16 @@
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
 **Latest Updates (November 25, 2025):**
+- **TBURN Gas Unit: Ember (EMB)**: Implemented TBURN's unique gas unit system throughout the chain
+  - 1 TBURN = 1,000,000 Ember (EMB)
+  - Standard Gas Price: 10 EMB (0.00001 TBURN)
+  - Gas tiers: Economy (5 EMB), Standard (10 EMB), Express (25 EMB), Instant (50 EMB)
+  - All transaction fees, gas prices, and estimated costs now display in EMB
+  - Conversion utilities: `tburnToEmber()`, `emberToTburn()`, `formatEmber()`, `formatGasPriceEmber()`
+- **Enterprise Wallet Stability**: Fixed wallet data flickering and NaN issues
+  - 100 consistent wallets with deterministic addresses and power-law balance distribution
+  - Complete schema: balance, stakedBalance, unstakedBalance, rewardsEarned
+  - Unified wallet count (100) across API and WebSocket broadcasts
 - **Data Source Status API**: Added `/api/system/data-source` endpoint for transparent data source identification
   - Automatically detects if connected to external mainnet or local simulation
   - Returns: `dataSourceType`, `isSimulated`, `nodeUrl`, `message`, `connectionStatus`
