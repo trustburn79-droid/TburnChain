@@ -112,7 +112,7 @@ export default function Dashboard() {
       </div>
 
       {/* Secondary Stats */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-5">
         {statsLoading ? (
           <>
             <Skeleton className="h-24" />
@@ -151,6 +151,22 @@ export default function Dashboard() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
+                  TBURN Price
+                </CardTitle>
+                <TrendingUp className={`h-4 w-4 ${((networkStats as any)?.priceChangePercent || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`} />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-semibold tabular-nums">
+                  ${((networkStats as any)?.tokenPrice || 28.91).toFixed(2)}
+                </div>
+                <p className={`text-xs mt-1 ${((networkStats as any)?.priceChangePercent || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  {((networkStats as any)?.priceChangePercent || 0) >= 0 ? '↑' : '↓'} {Math.abs((networkStats as any)?.priceChangePercent || 0).toFixed(2)}%
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
                   Market Cap
                 </CardTitle>
                 <TrendingUp className="h-4 w-4 text-primary" />
@@ -159,6 +175,9 @@ export default function Dashboard() {
                 <div className="text-2xl font-semibold tabular-nums">
                   ${formatNumber(networkStats?.marketCap || 0)}
                 </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  = Price × Circulating Supply
+                </p>
               </CardContent>
             </Card>
             <Card className="hover-elevate">

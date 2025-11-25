@@ -71,6 +71,23 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private tpsHistory: number[] = [];
   private peakTps = 520847;
   
+  // Token Economics Simulation
+  // TBURN Token Model: Based on enterprise blockchain economics
+  private tokenPrice = 28.91; // Initial price in USD (calculated: $24.57B / 850M tokens)
+  private priceChangePercent = 0; // 24h change percentage
+  private lastPriceUpdate = Date.now();
+  private priceHistory: number[] = [28.91]; // Track price history for volatility
+  
+  // Supply Dynamics
+  private readonly TOTAL_SUPPLY = 1_000_000_000; // 1 billion TBURN total
+  private stakedAmount = 150_000_000; // 150M staked by validators
+  private circulatingSupply = 850_000_000; // 850M circulating (1B - 150M staked)
+  private burnedTokens = 0; // Burned tokens from transaction fees
+  
+  // Market simulation parameters
+  private readonly PRICE_VOLATILITY = 0.002; // 0.2% max change per update
+  private readonly PRICE_UPDATE_INTERVAL = 5000; // Update every 5 seconds
+  
   // Node cluster info
   private readonly nodeCluster = [
     { id: 'node-primary', role: 'validator', location: 'us-east-1', status: 'active' },
@@ -350,6 +367,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Calculate current TPS based on recent block production rate
       const currentTps = 50000 + Math.floor(Math.random() * 5000);
       
+      // Update token economics
+      this.updateTokenPrice();
+      this.updateSupplyDynamics();
+      
       res.json({
         id: 'singleton',
         currentBlockHeight: this.currentBlockHeight,
@@ -364,8 +385,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
         totalValidators: 125, // Total 125 validators
         totalTransactions: this.totalTransactions,
         totalAccounts: 527849, // 527K+ accounts on mainnet
-        marketCap: "24567890000", // $24.5B market cap
-        circulatingSupply: "850000000000000000000000000", // 850M TBURN tokens
+        
+        // Dynamic token economics (calculated values)
+        tokenPrice: this.tokenPrice,
+        priceChangePercent: this.priceChangePercent,
+        marketCap: this.calculateMarketCap(),
+        circulatingSupply: this.circulatingSupply.toString(),
+        totalSupply: this.TOTAL_SUPPLY.toString(),
+        stakedAmount: this.stakedAmount.toString(),
+        burnedTokens: this.burnedTokens.toString(),
+        
         successRate: 9970, // 99.70%
         updatedAt: new Date().toISOString(),
         
@@ -377,6 +406,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
         healingEventsCount: Math.floor(Math.random() * 10),
         anomaliesDetected: Math.floor(Math.random() * 5),
       });
+    });
+    
+    // Token Economics API endpoint
+    this.rpcApp.get('/api/token/economics', (_req: Request, res: Response) => {
+      res.json(this.getTokenEconomics());
     });
 
     // AI Models endpoint - TBURN v7.0 Triple-Band AI System
@@ -1272,10 +1306,80 @@ export class TBurnEnterpriseNode extends EventEmitter {
     };
   }
 
+  // Update token price with realistic market simulation
+  private updateTokenPrice(): void {
+    const now = Date.now();
+    if (now - this.lastPriceUpdate < this.PRICE_UPDATE_INTERVAL) {
+      return; // Don't update too frequently
+    }
+    
+    // Random walk with mean reversion (tends to stay around base price)
+    const basePrice = 28.91;
+    const randomChange = (Math.random() - 0.5) * 2 * this.PRICE_VOLATILITY;
+    const meanReversion = (basePrice - this.tokenPrice) * 0.01; // Slight pull toward base
+    
+    this.tokenPrice = Math.max(0.01, this.tokenPrice * (1 + randomChange) + meanReversion);
+    this.tokenPrice = Math.round(this.tokenPrice * 100) / 100; // Round to 2 decimals
+    
+    // Track price history (keep last 100 entries)
+    this.priceHistory.push(this.tokenPrice);
+    if (this.priceHistory.length > 100) {
+      this.priceHistory.shift();
+    }
+    
+    // Calculate 24h change (simulated as last N entries)
+    if (this.priceHistory.length > 10) {
+      const oldPrice = this.priceHistory[0];
+      this.priceChangePercent = ((this.tokenPrice - oldPrice) / oldPrice) * 100;
+      this.priceChangePercent = Math.round(this.priceChangePercent * 100) / 100;
+    }
+    
+    this.lastPriceUpdate = now;
+  }
+  
+  // Update supply dynamics (staking/unstaking simulation)
+  private updateSupplyDynamics(): void {
+    // Simulate small staking/unstaking activity
+    const stakingChange = Math.floor((Math.random() - 0.48) * 100000); // Slight bias toward staking
+    this.stakedAmount = Math.max(100_000_000, Math.min(200_000_000, this.stakedAmount + stakingChange));
+    this.circulatingSupply = this.TOTAL_SUPPLY - this.stakedAmount - this.burnedTokens;
+    
+    // Simulate token burn from fees (small amount per block)
+    this.burnedTokens += Math.floor(Math.random() * 10);
+  }
+  
+  // Calculate market cap dynamically
+  private calculateMarketCap(): string {
+    return Math.floor(this.tokenPrice * this.circulatingSupply).toString();
+  }
+  
+  // Get token economics data
+  getTokenEconomics(): any {
+    this.updateTokenPrice();
+    this.updateSupplyDynamics();
+    
+    return {
+      tokenPrice: this.tokenPrice,
+      priceChangePercent: this.priceChangePercent,
+      marketCap: this.calculateMarketCap(),
+      totalSupply: this.TOTAL_SUPPLY,
+      circulatingSupply: this.circulatingSupply,
+      stakedAmount: this.stakedAmount,
+      stakedPercent: Math.round((this.stakedAmount / this.TOTAL_SUPPLY) * 10000) / 100,
+      burnedTokens: this.burnedTokens,
+      fullyDilutedValuation: Math.floor(this.tokenPrice * this.TOTAL_SUPPLY).toString(),
+      lastUpdated: new Date().toISOString()
+    };
+  }
+
   async getNetworkStats(): Promise<any> {
     const avgTps = this.tpsHistory.length > 0 
       ? Math.floor(this.tpsHistory.reduce((a, b) => a + b, 0) / this.tpsHistory.length)
       : 4280;
+
+    // Update token economics before returning stats
+    this.updateTokenPrice();
+    this.updateSupplyDynamics();
 
     return {
       id: 'singleton',
@@ -1291,8 +1395,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
       activeValidators: 125,
       totalValidators: 125,
       totalAccounts: 527849, // 527K+ accounts on mainnet
-      marketCap: "24567890000", // $24.5B market cap
-      circulatingSupply: "850000000000000000000000000", // 850M TBURN tokens
+      
+      // Dynamic token economics (calculated values)
+      tokenPrice: this.tokenPrice,
+      priceChangePercent: this.priceChangePercent,
+      marketCap: this.calculateMarketCap(),
+      circulatingSupply: this.circulatingSupply.toString(),
+      totalSupply: this.TOTAL_SUPPLY.toString(),
+      stakedAmount: this.stakedAmount.toString(),
+      burnedTokens: this.burnedTokens.toString(),
+      
       successRate: 9970, // 99.70% in basis points
       updatedAt: new Date().toISOString(),
       
