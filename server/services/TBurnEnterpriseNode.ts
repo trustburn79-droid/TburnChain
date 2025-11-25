@@ -72,8 +72,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private peakTps = 520847;
   
   // Token Economics Simulation
-  // TBURN Token Model: Based on enterprise blockchain economics
-  private tokenPrice = 28.91; // Initial price in USD (calculated: $24.57B / 850M tokens)
+  // TBURN Token Model: Demand-Supply Equilibrium Based Pricing
+  private tokenPrice = 28.91; // Initial price in USD
   private priceChangePercent = 0; // 24h change percentage
   private lastPriceUpdate = Date.now();
   private priceHistory: number[] = [28.91]; // Track price history for volatility
@@ -84,9 +84,34 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private circulatingSupply = 850_000_000; // 850M circulating (1B - 150M staked)
   private burnedTokens = 0; // Burned tokens from transaction fees
   
-  // Market simulation parameters
-  private readonly PRICE_VOLATILITY = 0.002; // 0.2% max change per update
+  // Advanced Tokenomics Parameters (Demand-Supply Formula)
+  private readonly BASE_PRICE = 28.91; // Base equilibrium price
+  private readonly TPS_MAX = 520000; // Maximum theoretical TPS
   private readonly PRICE_UPDATE_INTERVAL = 5000; // Update every 5 seconds
+  private readonly MAX_PRICE_CHANGE = 0.05; // Max 5% change per update
+  
+  // Demand-side coefficients
+  private readonly ALPHA = 0.4;   // TPS utilization weight
+  private readonly BETA = 0.25;   // Activity index weight
+  private readonly GAMMA = 0.15;  // Confidence score weight
+  
+  // Supply-side coefficients
+  private readonly DELTA = 35;    // Net emission ratio weight
+  private readonly EPSILON = 0.6; // Staking lockup intensity weight
+  private readonly ZETA = 0.2;    // Validator performance weight
+  
+  // EMA smoothing for demand metrics
+  private readonly EMA_LAMBDA = 0.2;
+  private emaTps = 50000; // EMA-smoothed TPS
+  private emaActivityIndex = 1.0; // EMA-smoothed activity
+  
+  // Tokenomics indicators (exposed via API)
+  private demandIndex = 0;
+  private supplyPressure = 0;
+  private confidenceScore = 0;
+  private validatorPerformanceIndex = 0.95;
+  private emissionRate = 0.0001; // 0.01% per block cycle
+  private burnRate = 0.00005; // 0.005% burn from fees
   
   // Node cluster info
   private readonly nodeCluster = [
@@ -1192,6 +1217,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const metrics = this.collectMetrics();
       this.emit('metrics', metrics);
       
+      // Update token economics with current network state
+      // This ensures price reflects real-time demand/supply dynamics
+      this.updateTokenPrice();
+      this.updateSupplyDynamics();
+      
       // Broadcast metrics to WebSocket clients
       const message = JSON.stringify({
         type: 'metrics',
@@ -1306,28 +1336,117 @@ export class TBurnEnterpriseNode extends EventEmitter {
     };
   }
 
-  // Update token price with realistic market simulation
+  /**
+   * Advanced Token Price Calculation using Demand-Supply Equilibrium Model
+   * 
+   * Formula: price_t = basePrice × exp(demandTerm - supplyTerm)
+   * 
+   * DemandTerm = α·log(1+U) + β·ActivityIndex + γ·ConfidenceScore
+   * SupplyTerm = δ·NetEmissionRatio - ε·StakingLockupIntensity - ζ·ValidatorPerformanceIndex
+   * 
+   * Where:
+   * - U = TPS utilization ratio (current/max)
+   * - ActivityIndex = weighted sum of transaction volume, active accounts, utilization
+   * - ConfidenceScore = derived from TPS stability and SLA uptime
+   * - NetEmissionRatio = (emission - burn) / circulating supply
+   * - StakingLockupIntensity = stakedRatio^0.8
+   * - ValidatorPerformanceIndex = validator health metrics
+   */
   private updateTokenPrice(): void {
     const now = Date.now();
     if (now - this.lastPriceUpdate < this.PRICE_UPDATE_INTERVAL) {
       return; // Don't update too frequently
     }
     
-    // Random walk with mean reversion (tends to stay around base price)
-    const basePrice = 28.91;
-    const randomChange = (Math.random() - 0.5) * 2 * this.PRICE_VOLATILITY;
-    const meanReversion = (basePrice - this.tokenPrice) * 0.01; // Slight pull toward base
+    // Get current metrics
+    const currentTps = this.tpsHistory.length > 0 
+      ? this.tpsHistory[this.tpsHistory.length - 1] 
+      : 50000;
     
-    this.tokenPrice = Math.max(0.01, this.tokenPrice * (1 + randomChange) + meanReversion);
+    // 1. Update EMA-smoothed TPS
+    this.emaTps = this.EMA_LAMBDA * currentTps + (1 - this.EMA_LAMBDA) * this.emaTps;
+    
+    // 2. Calculate TPS Utilization (U)
+    const tpsUtilization = Math.min(this.emaTps / this.TPS_MAX, 1);
+    
+    // 3. Calculate Activity Index (normalized 0.8-1.4 range)
+    // Weights: tx volume (0.5), active accounts (0.3), utilization (0.2)
+    const txVolumeNorm = Math.min(this.totalTransactions / 100_000_000, 1.5); // Normalized
+    const activeAccountsNorm = Math.min(527849 / 1_000_000, 1); // ~52.8%
+    const utilizationNorm = tpsUtilization;
+    const rawActivityIndex = 0.5 * txVolumeNorm + 0.3 * activeAccountsNorm + 0.2 * utilizationNorm;
+    
+    // Add slight randomness to activity (market noise)
+    const activityNoise = 1 + (Math.random() - 0.5) * 0.1;
+    this.emaActivityIndex = this.EMA_LAMBDA * (rawActivityIndex * activityNoise) + 
+                            (1 - this.EMA_LAMBDA) * this.emaActivityIndex;
+    
+    // 4. Calculate Confidence Score (0-0.3 range)
+    // Based on TPS variance from 1h average and SLA uptime
+    const tpsVariance = this.calculateTpsVariance();
+    const slaUptime = 0.999; // 99.9% uptime
+    this.confidenceScore = Math.min(0.3, 
+      (1 - tpsVariance) * 0.15 + slaUptime * 0.15
+    );
+    
+    // 5. Calculate Demand Term
+    const demandTerm = 
+      this.ALPHA * Math.log(1 + tpsUtilization) +
+      this.BETA * this.emaActivityIndex +
+      this.GAMMA * this.confidenceScore;
+    
+    // 6. Calculate Supply-side metrics
+    const stakedRatio = this.stakedAmount / this.TOTAL_SUPPLY;
+    const stakingLockupIntensity = Math.pow(stakedRatio, 0.8);
+    
+    // Net emission ratio (emission - burn) / circulating supply in basis points
+    const netEmission = (this.emissionRate - this.burnRate) * this.circulatingSupply;
+    const netEmissionRatio = netEmission / this.circulatingSupply;
+    
+    // Validator performance index (0.85-1.1 range)
+    const activeValidatorShare = 125 / 125; // 100% active
+    const avgUptime = 0.999;
+    const slashEvents = 0; // No slashing events
+    this.validatorPerformanceIndex = 0.85 + 
+      activeValidatorShare * 0.15 + 
+      avgUptime * 0.1 - 
+      slashEvents * 0.05;
+    
+    // 7. Calculate Supply Term (negative = bullish pressure)
+    const supplyTerm = 
+      this.DELTA * netEmissionRatio -
+      this.EPSILON * stakingLockupIntensity -
+      this.ZETA * this.validatorPerformanceIndex;
+    
+    // 8. Store demand/supply indices for API
+    this.demandIndex = demandTerm;
+    this.supplyPressure = supplyTerm;
+    
+    // 9. Calculate new price using exponential formula
+    const termDiff = demandTerm - supplyTerm;
+    let newPrice = this.BASE_PRICE * Math.exp(termDiff);
+    
+    // 10. Apply price change cap (max ±5% per update)
+    const priceChange = (newPrice - this.tokenPrice) / this.tokenPrice;
+    const cappedChange = Math.max(-this.MAX_PRICE_CHANGE, 
+                         Math.min(this.MAX_PRICE_CHANGE, priceChange));
+    newPrice = this.tokenPrice * (1 + cappedChange);
+    
+    // 11. Add small random market noise
+    const marketNoise = 1 + (Math.random() - 0.5) * 0.004; // ±0.2% noise
+    newPrice *= marketNoise;
+    
+    // 12. Update price (minimum $1, maximum $1000)
+    this.tokenPrice = Math.max(1, Math.min(1000, newPrice));
     this.tokenPrice = Math.round(this.tokenPrice * 100) / 100; // Round to 2 decimals
     
-    // Track price history (keep last 100 entries)
+    // 13. Track price history
     this.priceHistory.push(this.tokenPrice);
     if (this.priceHistory.length > 100) {
       this.priceHistory.shift();
     }
     
-    // Calculate 24h change (simulated as last N entries)
+    // 14. Calculate price change percentage
     if (this.priceHistory.length > 10) {
       const oldPrice = this.priceHistory[0];
       this.priceChangePercent = ((this.tokenPrice - oldPrice) / oldPrice) * 100;
@@ -1335,6 +1454,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
     }
     
     this.lastPriceUpdate = now;
+  }
+  
+  // Calculate TPS variance (stability indicator)
+  private calculateTpsVariance(): number {
+    if (this.tpsHistory.length < 2) return 0;
+    
+    const recentTps = this.tpsHistory.slice(-20); // Last 20 samples
+    const avg = recentTps.reduce((a, b) => a + b, 0) / recentTps.length;
+    const variance = recentTps.reduce((sum, val) => sum + Math.pow(val - avg, 2), 0) / recentTps.length;
+    const stdDev = Math.sqrt(variance);
+    
+    // Normalize: lower variance = higher confidence
+    return Math.min(1, stdDev / avg);
   }
   
   // Update supply dynamics (staking/unstaking simulation)
@@ -1353,21 +1485,55 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return Math.floor(this.tokenPrice * this.circulatingSupply).toString();
   }
   
-  // Get token economics data
+  // Get comprehensive token economics data with demand-supply analysis
   getTokenEconomics(): any {
     this.updateTokenPrice();
     this.updateSupplyDynamics();
     
+    const stakedRatio = this.stakedAmount / this.TOTAL_SUPPLY;
+    const tpsUtilization = this.emaTps / this.TPS_MAX;
+    
     return {
+      // Core Price Metrics
       tokenPrice: this.tokenPrice,
       priceChangePercent: this.priceChangePercent,
       marketCap: this.calculateMarketCap(),
+      fullyDilutedValuation: Math.floor(this.tokenPrice * this.TOTAL_SUPPLY).toString(),
+      
+      // Supply Metrics
       totalSupply: this.TOTAL_SUPPLY,
       circulatingSupply: this.circulatingSupply,
       stakedAmount: this.stakedAmount,
-      stakedPercent: Math.round((this.stakedAmount / this.TOTAL_SUPPLY) * 10000) / 100,
+      stakedPercent: Math.round(stakedRatio * 10000) / 100,
       burnedTokens: this.burnedTokens,
-      fullyDilutedValuation: Math.floor(this.tokenPrice * this.TOTAL_SUPPLY).toString(),
+      
+      // Demand-Supply Equilibrium Indicators
+      demandIndex: Math.round(this.demandIndex * 1000) / 1000,
+      supplyPressure: Math.round(this.supplyPressure * 1000) / 1000,
+      priceDriver: this.demandIndex > Math.abs(this.supplyPressure) ? 'demand' : 'supply',
+      
+      // TPS-Based Demand Metrics
+      tpsUtilization: Math.round(tpsUtilization * 10000) / 100, // as percentage
+      emaTps: Math.round(this.emaTps),
+      activityIndex: Math.round(this.emaActivityIndex * 100) / 100,
+      confidenceScore: Math.round(this.confidenceScore * 1000) / 1000,
+      
+      // Consensus-Based Supply Metrics
+      stakingLockupIntensity: Math.round(Math.pow(stakedRatio, 0.8) * 1000) / 1000,
+      validatorPerformanceIndex: Math.round(this.validatorPerformanceIndex * 1000) / 1000,
+      emissionRate: this.emissionRate,
+      burnRate: this.burnRate,
+      netEmissionRate: Math.round((this.emissionRate - this.burnRate) * 100000) / 100000,
+      
+      // Price Formula Components
+      formula: {
+        basePrice: this.BASE_PRICE,
+        demandTerm: Math.round(this.demandIndex * 1000) / 1000,
+        supplyTerm: Math.round(this.supplyPressure * 1000) / 1000,
+        termDifference: Math.round((this.demandIndex - this.supplyPressure) * 1000) / 1000,
+        priceMultiplier: Math.round(Math.exp(this.demandIndex - this.supplyPressure) * 1000) / 1000
+      },
+      
       lastUpdated: new Date().toISOString()
     };
   }
@@ -1403,7 +1569,17 @@ export class TBurnEnterpriseNode extends EventEmitter {
       circulatingSupply: this.circulatingSupply.toString(),
       totalSupply: this.TOTAL_SUPPLY.toString(),
       stakedAmount: this.stakedAmount.toString(),
+      stakedPercent: Math.round((this.stakedAmount / this.TOTAL_SUPPLY) * 10000) / 100,
       burnedTokens: this.burnedTokens.toString(),
+      
+      // Demand-Supply Equilibrium Indicators
+      demandIndex: Math.round(this.demandIndex * 1000) / 1000,
+      supplyPressure: Math.round(this.supplyPressure * 1000) / 1000,
+      priceDriver: this.demandIndex > Math.abs(this.supplyPressure) ? 'demand' : 'supply',
+      tpsUtilization: Math.round((this.emaTps / this.TPS_MAX) * 10000) / 100,
+      activityIndex: Math.round(this.emaActivityIndex * 100) / 100,
+      confidenceScore: Math.round(this.confidenceScore * 1000) / 1000,
+      validatorPerformanceIndex: Math.round(this.validatorPerformanceIndex * 1000) / 1000,
       
       successRate: 9970, // 99.70% in basis points
       updatedAt: new Date().toISOString(),

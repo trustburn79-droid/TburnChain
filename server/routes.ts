@@ -477,6 +477,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================
+  // Token Economics API - Demand-Supply Equilibrium Model
+  // ============================================
+  app.get("/api/token/economics", async (_req, res) => {
+    try {
+      // Get token economics from the enterprise node simulation
+      const { getEnterpriseNode } = await import('./services/TBurnEnterpriseNode');
+      const node = getEnterpriseNode();
+      const economics = node.getTokenEconomics();
+      res.json(economics);
+    } catch (error) {
+      console.error("Error fetching token economics:", error);
+      res.status(500).json({ error: "Failed to fetch token economics" });
+    }
+  });
+
   app.get("/api/consensus/current", async (_req, res) => {
     try {
       const state = await storage.getConsensusState();
