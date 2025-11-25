@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Bot, Cpu, DollarSign, Zap, Activity, TrendingUp, Brain, Network, Scale, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -20,6 +20,43 @@ import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
 import { aiDecisionsSnapshotSchema } from "@shared/schema";
 import type { AiModel, AiDecision } from "@shared/schema";
 
+// Enterprise-grade safe date formatting
+function formatSafeDate(dateValue: string | Date | null | undefined): string {
+  if (!dateValue) return 'Just now';
+  try {
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+    if (isNaN(date.getTime())) return 'Just now';
+    return date.toLocaleString();
+  } catch {
+    return 'Just now';
+  }
+}
+
+// Enterprise-grade AI Decision normalizer
+interface NormalizedAiDecision {
+  id: string;
+  band: string;
+  modelName: string;
+  decision: string;
+  impact: string;
+  category: string;
+  status: string;
+  createdAt: string;
+}
+
+function normalizeAiDecision(raw: any): NormalizedAiDecision {
+  return {
+    id: raw.id || `decision-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    band: raw.band || 'operational',
+    modelName: raw.modelName || raw.model || 'Unknown Model',
+    decision: raw.decision || 'AI Decision',
+    impact: raw.impact || 'medium',
+    category: raw.category || raw.decisionType || 'general',
+    status: raw.status || 'executed',
+    createdAt: raw.createdAt || raw.timestamp || new Date().toISOString()
+  };
+}
+
 export default function AIOrchestration() {
   const [activeTab, setActiveTab] = useState("history");
 
@@ -38,6 +75,12 @@ export default function AIOrchestration() {
     queryKey: ["/api/ai/decisions"],
     updateMode: "snapshot",
   });
+
+  // Enterprise-grade: Normalize AI decisions for consistent display
+  const normalizedDecisions = useMemo(() => {
+    if (!aiDecisions || !Array.isArray(aiDecisions)) return [];
+    return aiDecisions.map(normalizeAiDecision);
+  }, [aiDecisions]);
 
   const totalRequests = aiModels?.reduce((sum, m) => sum + m.requestCount, 0) || 0;
   const totalCost = aiModels?.reduce((sum, m) => sum + parseFloat(m.totalCost), 0) || 0;
@@ -418,7 +461,7 @@ export default function AIOrchestration() {
                   <Skeleton className="h-12 w-full" />
                   <Skeleton className="h-12 w-full" />
                 </div>
-              ) : aiDecisions && aiDecisions.length > 0 ? (
+              ) : normalizedDecisions.length > 0 ? (
                 <div className="rounded-md border">
                   <Table>
                     <TableHeader>
@@ -433,7 +476,7 @@ export default function AIOrchestration() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {aiDecisions.map((decision) => (
+                      {normalizedDecisions.map((decision) => (
                         <TableRow key={decision.id} className="hover-elevate" data-testid={`row-decision-${decision.id}`}>
                           <TableCell>
                             <Badge variant="outline" className={`capitalize ${
@@ -468,7 +511,7 @@ export default function AIOrchestration() {
                             </Badge>
                           </TableCell>
                           <TableCell className="text-muted-foreground text-sm tabular-nums">
-                            {new Date(decision.createdAt).toLocaleString()}
+                            {formatSafeDate(decision.createdAt)}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -489,9 +532,9 @@ export default function AIOrchestration() {
                   <Skeleton className="h-12 w-full" />
                   <Skeleton className="h-12 w-full" />
                 </div>
-              ) : aiDecisions && aiDecisions.length > 0 ? (
+              ) : normalizedDecisions.length > 0 ? (
                 <div className="space-y-3">
-                  {aiDecisions.slice(0, 10).map((decision) => (
+                  {normalizedDecisions.slice(0, 10).map((decision) => (
                     <Card key={decision.id} className={`hover-elevate ${getBandColor(decision.band)}`} data-testid={`card-live-decision-${decision.id}`}>
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between gap-4">
@@ -509,7 +552,7 @@ export default function AIOrchestration() {
                             <div className="flex items-center gap-2 text-xs text-muted-foreground">
                               <span className="capitalize">{decision.category}</span>
                               <span>•</span>
-                              <span>{new Date(decision.createdAt).toLocaleString()}</span>
+                              <span>{formatSafeDate(decision.createdAt)}</span>
                             </div>
                           </div>
                           <Badge variant={
@@ -523,7 +566,7 @@ export default function AIOrchestration() {
                       </CardContent>
                     </Card>
                   ))}
-                  {aiDecisions.length > 10 && (
+                  {normalizedDecisions.length > 10 && (
                     <p className="text-center text-sm text-muted-foreground">
                       Showing latest 10 decisions. View "Decision History" tab for all.
                     </p>

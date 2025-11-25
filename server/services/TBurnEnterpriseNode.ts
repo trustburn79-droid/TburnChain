@@ -513,21 +513,55 @@ export class TBurnEnterpriseNode extends EventEmitter {
       }
     });
     
-    // AI Decisions endpoints
+    // AI Decisions endpoints - Enterprise-grade schema compliance
     this.rpcApp.get('/api/ai/decisions', (req: Request, res: Response) => {
-      const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
+      const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
       const decisions = [];
-      const models = ['GPT-5', 'Claude Sonnet 4.5', 'Llama 4'];
+      
+      // Triple-Band AI Model Configuration
+      const modelConfigs = [
+        { name: 'GPT-5', band: 'strategic', category: 'planning' },
+        { name: 'Claude Sonnet 4.5', band: 'tactical', category: 'optimization' },
+        { name: 'Llama 4', band: 'operational', category: 'execution' }
+      ];
+      
+      const decisionTemplates = [
+        { decision: 'Block Validation Complete', category: 'validation', impact: 'high' },
+        { decision: 'Transaction Verified Successfully', category: 'verification', impact: 'medium' },
+        { decision: 'Consensus Threshold Achieved', category: 'consensus', impact: 'high' },
+        { decision: 'Shard Load Balanced', category: 'optimization', impact: 'medium' },
+        { decision: 'Anomaly Pattern Detected and Resolved', category: 'security', impact: 'high' },
+        { decision: 'Cross-Shard Message Routed', category: 'routing', impact: 'low' },
+        { decision: 'Validator Performance Analyzed', category: 'monitoring', impact: 'medium' },
+        { decision: 'Gas Fee Optimized', category: 'optimization', impact: 'low' },
+        { decision: 'Network Latency Adjusted', category: 'performance', impact: 'medium' },
+        { decision: 'Smart Contract Execution Approved', category: 'execution', impact: 'high' }
+      ];
       
       for (let i = 0; i < limit; i++) {
+        const modelConfig = modelConfigs[i % 3];
+        const template = decisionTemplates[Math.floor(Math.random() * decisionTemplates.length)];
+        const timestamp = new Date(Date.now() - i * 2000);
+        
         decisions.push({
-          id: `ai-decision-${Date.now()}-${i}`,
-          model: models[Math.floor(Math.random() * 3)],
-          decision: ['Block Valid', 'Transaction Approved', 'Consensus Reached', 'Shard Optimized'][Math.floor(Math.random() * 4)],
-          confidence: Math.random() * 0.3 + 0.7,
-          timestamp: Date.now() - i * 1000,
-          gasUsed: Math.floor(Math.random() * 100000) + 50000,
-          responseTime: Math.floor(Math.random() * 100) + 50
+          id: `ai-decision-${this.currentBlockHeight}-${Date.now()}-${i}`,
+          band: modelConfig.band,
+          modelName: modelConfig.name,
+          decision: template.decision,
+          impact: template.impact,
+          category: template.category,
+          shardId: Math.floor(Math.random() * 5),
+          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * 125)).padStart(3, '0')}`,
+          status: 'executed',
+          metadata: {
+            confidence: 9000 + Math.floor(Math.random() * 1000),
+            responseTimeMs: 20 + Math.floor(Math.random() * 60),
+            blockHeight: this.currentBlockHeight - i,
+            gasUsed: 50000 + Math.floor(Math.random() * 100000),
+            feedbackScore: 8500 + Math.floor(Math.random() * 1500)
+          },
+          createdAt: timestamp.toISOString(),
+          executedAt: new Date(timestamp.getTime() + Math.floor(Math.random() * 100)).toISOString()
         });
       }
       res.json(decisions);
@@ -815,34 +849,58 @@ export class TBurnEnterpriseNode extends EventEmitter {
     });
 
     // ============================================
-    // AI DECISIONS RECENT - For production polling
+    // AI DECISIONS RECENT - Enterprise-grade schema compliance for production polling
     // ============================================
     this.rpcApp.get('/api/ai/decisions/recent', (req: Request, res: Response) => {
       const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
       const decisions = [];
-      const models = ['GPT-5', 'Claude Sonnet 4.5', 'Llama 4'];
-      const decisionTypes = ['block_validation', 'transaction_verification', 'shard_optimization', 'consensus_vote', 'anomaly_detection'];
-      const bands = { 'GPT-5': 'strategic', 'Claude Sonnet 4.5': 'tactical', 'Llama 4': 'operational' };
+      
+      // Triple-Band AI Model Configuration - aligned with frontend schema
+      const modelConfigs = [
+        { name: 'GPT-5', band: 'strategic' },
+        { name: 'Claude Sonnet 4.5', band: 'tactical' },
+        { name: 'Llama 4', band: 'operational' }
+      ];
+      
+      const decisionTemplates = [
+        { decision: 'Block Validation Complete', category: 'validation', impact: 'high' },
+        { decision: 'Transaction Verified Successfully', category: 'verification', impact: 'medium' },
+        { decision: 'Consensus Threshold Achieved', category: 'consensus', impact: 'high' },
+        { decision: 'Shard Load Balanced', category: 'optimization', impact: 'medium' },
+        { decision: 'Anomaly Pattern Detected and Resolved', category: 'security', impact: 'high' },
+        { decision: 'Cross-Shard Message Routed', category: 'routing', impact: 'low' },
+        { decision: 'Validator Performance Analyzed', category: 'monitoring', impact: 'medium' },
+        { decision: 'Gas Fee Optimized', category: 'optimization', impact: 'low' },
+        { decision: 'Network Latency Adjusted', category: 'performance', impact: 'medium' },
+        { decision: 'Smart Contract Execution Approved', category: 'execution', impact: 'high' }
+      ];
       
       for (let i = 0; i < limit; i++) {
-        const model = models[Math.floor(Math.random() * 3)];
-        const timestamp = new Date(Date.now() - i * 1000);
+        const modelConfig = modelConfigs[i % 3];
+        const template = decisionTemplates[Math.floor(Math.random() * decisionTemplates.length)];
+        const timestamp = new Date(Date.now() - i * 1500); // 1.5 seconds apart for recent
         
         decisions.push({
-          id: `ai-decision-${Date.now()}-${i}`,
-          model,
-          band: bands[model as keyof typeof bands],
-          decisionType: decisionTypes[Math.floor(Math.random() * decisionTypes.length)],
-          decision: ['Block Valid', 'Transaction Approved', 'Consensus Reached', 'Shard Optimized', 'Anomaly Resolved'][Math.floor(Math.random() * 5)],
-          confidence: 7000 + Math.floor(Math.random() * 3000), // 70-100% in basis points
-          responseTimeMs: Math.floor(Math.random() * 100) + 20,
-          gasUsed: Math.floor(Math.random() * 100000) + 50000,
-          timestamp: timestamp.toISOString(),
-          blockHeight: this.currentBlockHeight - i,
-          input: { blockHash: `0x${crypto.randomBytes(32).toString('hex')}`, validatorCount: 125 },
-          output: { approved: true, score: 9500 + Math.floor(Math.random() * 500) },
-          feedbackScore: 8500 + Math.floor(Math.random() * 1500),
-          createdAt: timestamp.toISOString()
+          id: `ai-decision-recent-${this.currentBlockHeight}-${Date.now()}-${i}`,
+          band: modelConfig.band,
+          modelName: modelConfig.name,
+          decision: template.decision,
+          impact: template.impact,
+          category: template.category,
+          shardId: Math.floor(Math.random() * 5),
+          validatorAddress: `tburn1validator${String(Math.floor(Math.random() * 125)).padStart(3, '0')}`,
+          status: i === 0 ? 'pending' : 'executed', // First one pending, rest executed
+          metadata: {
+            confidence: 9000 + Math.floor(Math.random() * 1000),
+            responseTimeMs: 20 + Math.floor(Math.random() * 60),
+            blockHeight: this.currentBlockHeight - i,
+            gasUsed: 50000 + Math.floor(Math.random() * 100000),
+            feedbackScore: 8500 + Math.floor(Math.random() * 1500),
+            input: { blockHash: `0x${crypto.randomBytes(32).toString('hex')}`, validatorCount: 125 },
+            output: { approved: true, score: 9500 + Math.floor(Math.random() * 500) }
+          },
+          createdAt: timestamp.toISOString(),
+          executedAt: i === 0 ? null : new Date(timestamp.getTime() + Math.floor(Math.random() * 100)).toISOString()
         });
       }
       
