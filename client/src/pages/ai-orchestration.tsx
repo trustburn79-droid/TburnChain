@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Bot, Cpu, DollarSign, Zap, Activity, TrendingUp, Brain, Network, Scale, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -20,7 +20,7 @@ import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
 import { aiDecisionsSnapshotSchema } from "@shared/schema";
 import type { AiModel, AiDecision } from "@shared/schema";
 
-// Enterprise-grade safe date formatting
+// Safe date formatting - handles null/invalid dates gracefully
 function formatSafeDate(dateValue: string | Date | null | undefined): string {
   if (!dateValue) return 'Just now';
   try {
@@ -30,31 +30,6 @@ function formatSafeDate(dateValue: string | Date | null | undefined): string {
   } catch {
     return 'Just now';
   }
-}
-
-// Enterprise-grade AI Decision normalizer
-interface NormalizedAiDecision {
-  id: string;
-  band: string;
-  modelName: string;
-  decision: string;
-  impact: string;
-  category: string;
-  status: string;
-  createdAt: string;
-}
-
-function normalizeAiDecision(raw: any): NormalizedAiDecision {
-  return {
-    id: raw.id || `decision-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-    band: raw.band || 'operational',
-    modelName: raw.modelName || raw.model || 'Unknown Model',
-    decision: raw.decision || 'AI Decision',
-    impact: raw.impact || 'medium',
-    category: raw.category || raw.decisionType || 'general',
-    status: raw.status || 'executed',
-    createdAt: raw.createdAt || raw.timestamp || new Date().toISOString()
-  };
 }
 
 export default function AIOrchestration() {
@@ -75,12 +50,6 @@ export default function AIOrchestration() {
     queryKey: ["/api/ai/decisions"],
     updateMode: "snapshot",
   });
-
-  // Enterprise-grade: Normalize AI decisions for consistent display
-  const normalizedDecisions = useMemo(() => {
-    if (!aiDecisions || !Array.isArray(aiDecisions)) return [];
-    return aiDecisions.map(normalizeAiDecision);
-  }, [aiDecisions]);
 
   const totalRequests = aiModels?.reduce((sum, m) => sum + m.requestCount, 0) || 0;
   const totalCost = aiModels?.reduce((sum, m) => sum + parseFloat(m.totalCost), 0) || 0;
@@ -461,7 +430,7 @@ export default function AIOrchestration() {
                   <Skeleton className="h-12 w-full" />
                   <Skeleton className="h-12 w-full" />
                 </div>
-              ) : normalizedDecisions.length > 0 ? (
+              ) : aiDecisions && aiDecisions.length > 0 ? (
                 <div className="rounded-md border">
                   <Table>
                     <TableHeader>
@@ -476,7 +445,7 @@ export default function AIOrchestration() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {normalizedDecisions.map((decision) => (
+                      {aiDecisions.map((decision) => (
                         <TableRow key={decision.id} className="hover-elevate" data-testid={`row-decision-${decision.id}`}>
                           <TableCell>
                             <Badge variant="outline" className={`capitalize ${
@@ -484,21 +453,21 @@ export default function AIOrchestration() {
                               decision.band === 'tactical' ? 'border-purple-500 text-purple-600 dark:text-purple-400' :
                               'border-green-500 text-green-600 dark:text-green-400'
                             }`}>
-                              {decision.band}
+                              {decision.band || 'operational'}
                             </Badge>
                           </TableCell>
-                          <TableCell className="font-medium">{decision.modelName}</TableCell>
-                          <TableCell className="max-w-md truncate" title={decision.decision}>
-                            {decision.decision}
+                          <TableCell className="font-medium">{decision.modelName || 'Unknown'}</TableCell>
+                          <TableCell className="max-w-md truncate" title={decision.decision || ''}>
+                            {decision.decision || 'AI Decision'}
                           </TableCell>
-                          <TableCell className="capitalize">{decision.category}</TableCell>
+                          <TableCell className="capitalize">{decision.category || 'general'}</TableCell>
                           <TableCell>
                             <Badge variant={
                               decision.impact === 'high' ? 'destructive' :
                               decision.impact === 'medium' ? 'secondary' :
                               'outline'
                             } className="capitalize">
-                              {decision.impact}
+                              {decision.impact || 'medium'}
                             </Badge>
                           </TableCell>
                           <TableCell>
@@ -507,7 +476,7 @@ export default function AIOrchestration() {
                               decision.status === 'pending' ? 'secondary' :
                               'destructive'
                             } className="capitalize">
-                              {decision.status}
+                              {decision.status || 'pending'}
                             </Badge>
                           </TableCell>
                           <TableCell className="text-muted-foreground text-sm tabular-nums">
@@ -532,25 +501,25 @@ export default function AIOrchestration() {
                   <Skeleton className="h-12 w-full" />
                   <Skeleton className="h-12 w-full" />
                 </div>
-              ) : normalizedDecisions.length > 0 ? (
+              ) : aiDecisions && aiDecisions.length > 0 ? (
                 <div className="space-y-3">
-                  {normalizedDecisions.slice(0, 10).map((decision) => (
-                    <Card key={decision.id} className={`hover-elevate ${getBandColor(decision.band)}`} data-testid={`card-live-decision-${decision.id}`}>
+                  {aiDecisions.slice(0, 10).map((decision) => (
+                    <Card key={decision.id} className={`hover-elevate ${getBandColor(decision.band || 'operational')}`} data-testid={`card-live-decision-${decision.id}`}>
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1 space-y-1">
                             <div className="flex items-center gap-2">
                               <Badge variant="outline" className="capitalize text-xs">
-                                {decision.band}
+                                {decision.band || 'operational'}
                               </Badge>
-                              <span className="text-xs text-muted-foreground">{decision.modelName}</span>
+                              <span className="text-xs text-muted-foreground">{decision.modelName || 'Unknown'}</span>
                               <Badge variant={decision.impact === 'high' ? 'destructive' : decision.impact === 'medium' ? 'secondary' : 'outline'} className="text-xs capitalize">
-                                {decision.impact} impact
+                                {decision.impact || 'medium'} impact
                               </Badge>
                             </div>
-                            <p className="font-medium">{decision.decision}</p>
+                            <p className="font-medium">{decision.decision || 'AI Decision'}</p>
                             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                              <span className="capitalize">{decision.category}</span>
+                              <span className="capitalize">{decision.category || 'general'}</span>
                               <span>•</span>
                               <span>{formatSafeDate(decision.createdAt)}</span>
                             </div>
@@ -560,13 +529,13 @@ export default function AIOrchestration() {
                             decision.status === 'pending' ? 'secondary' :
                             'destructive'
                           } className="capitalize shrink-0">
-                            {decision.status}
+                            {decision.status || 'pending'}
                           </Badge>
                         </div>
                       </CardContent>
                     </Card>
                   ))}
-                  {normalizedDecisions.length > 10 && (
+                  {aiDecisions.length > 10 && (
                     <p className="text-center text-sm text-muted-foreground">
                       Showing latest 10 decisions. View "Decision History" tab for all.
                     </p>
