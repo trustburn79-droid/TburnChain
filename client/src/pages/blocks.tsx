@@ -617,10 +617,8 @@ export default function Blocks() {
                       onClick={() => setLocation(`/blocks/${block.blockNumber}`)}
                     >
                       <TableCell>
-                        <Link href={`/blocks/${block.blockNumber}`}>
-                          <a className="font-mono text-primary hover:underline" data-testid={`link-block-${block.blockNumber}`}>
-                            #{block.blockNumber}
-                          </a>
+                        <Link href={`/blocks/${block.blockNumber}`} className="font-mono text-primary hover:underline" data-testid={`link-block-${block.blockNumber}`}>
+                          #{block.blockNumber}
                         </Link>
                       </TableCell>
                       <TableCell>
