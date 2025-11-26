@@ -23,6 +23,7 @@ import AIOrchestration from "@/pages/ai-orchestration";
 import Sharding from "@/pages/sharding";
 import CrossShard from "@/pages/cross-shard";
 import Wallets from "@/pages/wallets";
+import WalletDetail from "@/pages/wallet-detail";
 import SmartContracts from "@/pages/smart-contracts";
 import NodeHealth from "@/pages/node-health";
 import PerformanceMetrics from "@/pages/performance-metrics";
@@ -52,6 +53,7 @@ function Router() {
       <Route path="/sharding" component={Sharding} />
       <Route path="/cross-shard" component={CrossShard} />
       <Route path="/wallets" component={Wallets} />
+      <Route path="/wallets/:address" component={WalletDetail} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Wallet, Search, TrendingUp, Users, DollarSign, Award } from "lucide-react";
 import { formatAddress } from "@/lib/formatters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,6 +22,7 @@ import { walletBalancesSnapshotSchema } from "@shared/schema";
 import type { WalletBalance } from "@shared/schema";
 
 export default function Wallets() {
+  const [, setLocation] = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data: wallets, isLoading } = useQuery<WalletBalance[]>({
@@ -144,7 +146,12 @@ export default function Wallets() {
                 </TableHeader>
                 <TableBody>
                   {filteredWallets.map((wallet) => (
-                    <TableRow key={wallet.id} className="hover-elevate" data-testid={`row-wallet-${wallet.address}`}>
+                    <TableRow 
+                      key={wallet.id} 
+                      className="hover-elevate cursor-pointer" 
+                      onClick={() => setLocation(`/wallets/${wallet.address}`)}
+                      data-testid={`row-wallet-${wallet.address}`}
+                    >
                       <TableCell className="font-mono text-sm" title={wallet.address}>
                         {formatAddress(wallet.address)}
                       </TableCell>
