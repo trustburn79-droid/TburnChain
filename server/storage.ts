@@ -553,40 +553,68 @@ export class MemStorage implements IStorage {
 
     shards.forEach(shard => this.shards.set(shard.shardId, shard));
 
-    // Initialize Validators (basis points: 10000 = 100.00%)
-    const validatorNames = [
+    // Initialize Validators with Tiered System (basis points: 10000 = 100.00%)
+    // Tier 1: Active Committee (max 512, min stake 200K TBURN, ~8% APY)
+    // Tier 2: Standby Validators (max 4,488, min stake 50K TBURN, ~4% APY)
+    // Tier 3: Delegators (unlimited, min stake 100 TBURN, ~5% APY)
+    
+    const TIER_1_COUNT = 125; // Current active committee size
+    const TIER_1_MIN_STAKE = 200_000; // 200K TBURN minimum for Tier 1
+    const TIER_1_APY = 800; // 8.00% APY in basis points
+    
+    const tier1Names = [
       "Genesis Validator", "Quantum Node", "Stellar Forge", "Nebula Keeper",
       "Cosmic Guardian", "Alpha Prime", "Beta Nexus", "Gamma Core",
       "Delta Shield", "Epsilon Wave", "Zeta Prime", "Theta Node",
+      "Omega Sentinel", "Phoenix Rising", "Titan Guard", "Nova Cluster",
+      "Aurora Node", "Spectrum Keeper", "Infinity Forge", "Parallel Prime",
+      "Horizon Sentinel", "Eclipse Guard", "Vortex Core", "Prism Validator",
+      "Cipher Node", "Nexus Prime", "Catalyst Core", "Vertex Guard",
+      "Helix Forge", "Quantum Sentinel",
     ];
 
-    for (let i = 0; i < 12; i++) {
+    // Generate 125 Tier 1 validators (Active Committee)
+    for (let i = 0; i < TIER_1_COUNT; i++) {
+      // Stake distribution: 200K - 400K TBURN (with power-law distribution)
+      const stakeMultiplier = 1 + Math.pow(Math.random(), 2); // Higher stakes less common
+      const baseStake = TIER_1_MIN_STAKE + Math.floor(Math.random() * 200_000 * stakeMultiplier);
+      
+      // Delegated stake: 10-50% of main stake
+      const delegatedRatio = 0.1 + Math.random() * 0.4;
+      const delegatedStake = Math.floor(baseStake * delegatedRatio);
+      
+      // Calculate voting power (stake + delegated)
+      const votingPower = baseStake + delegatedStake;
+      
+      // APY varies slightly based on stake amount (higher stake = slightly lower APY due to dilution)
+      const apyAdjustment = Math.floor(Math.random() * 200) - 100; // ±1%
+      
       const validator: Validator = {
         id: randomUUID(),
-        address: `0x${Math.random().toString(16).substr(2, 40)}`,
-        name: validatorNames[i] || `Validator ${i + 1}`,
-        stake: (Math.random() * 5000000 + 1000000).toFixed(0),
-        delegatedStake: (Math.random() * 2000000).toFixed(0),
-        commission: Math.floor(Math.random() * 1000) + 500, // 5.00-14.99% in basis points
-        status: i < 10 ? "active" : Math.random() > 0.5 ? "inactive" : "jailed",
-        uptime: Math.floor(Math.random() * 1000) + 9000, // 90.00-99.99% in basis points
-        totalBlocks: Math.floor(Math.random() * 50000) + 10000,
-        missedBlocks: Math.floor(Math.random() * 100),
-        avgBlockTime: Math.floor(Math.random() * 50) + 80,
-        votingPower: (Math.random() * 1000000).toFixed(0),
-        apy: Math.floor(Math.random() * 1000) + 800, // 8.00-17.99% in basis points
-        delegators: Math.floor(Math.random() * 500) + 50,
-        rewardEarned: (Math.random() * 100000).toFixed(2),
-        slashCount: Math.floor(Math.random() * 5),
-        joinedAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000),
+        address: `0x${i.toString(16).padStart(4, '0')}${Math.random().toString(16).substr(2, 36)}`,
+        name: tier1Names[i % tier1Names.length] + (i >= tier1Names.length ? ` ${Math.floor(i / tier1Names.length) + 1}` : ''),
+        stake: baseStake.toString(),
+        delegatedStake: delegatedStake.toString(),
+        commission: Math.floor(Math.random() * 500) + 300, // 3.00-8.00% commission (lower for Tier 1)
+        status: i < 120 ? "active" : Math.random() > 0.7 ? "inactive" : "active",
+        uptime: Math.floor(Math.random() * 500) + 9500, // 95.00-99.99% uptime (higher for Tier 1)
+        totalBlocks: Math.floor(Math.random() * 100000) + 50000, // More blocks validated
+        missedBlocks: Math.floor(Math.random() * 50), // Fewer missed blocks
+        avgBlockTime: Math.floor(Math.random() * 20) + 90, // More consistent block times
+        votingPower: votingPower.toString(),
+        apy: TIER_1_APY + apyAdjustment, // ~8% APY with small variance
+        delegators: Math.floor(Math.random() * 1000) + 200, // More delegators for top validators
+        rewardEarned: (Math.random() * 500000 + 100000).toFixed(2), // Higher rewards
+        slashCount: Math.floor(Math.random() * 2), // Fewer slashes
+        joinedAt: new Date(Date.now() - Math.random() * 730 * 24 * 60 * 60 * 1000), // Up to 2 years
         lastActiveAt: new Date(),
         // TBURN v7.0: AI-Enhanced Committee BFT (Stake + Reputation + Performance)
-        reputationScore: Math.floor(Math.random() * 1500) + 8000, // 80.00-95.00% in basis points
-        performanceScore: Math.floor(Math.random() * 1000) + 8500, // 85.00-95.00% in basis points
-        committeeSelectionCount: Math.floor(Math.random() * 500) + 100,
-        aiTrustScore: Math.floor(Math.random() * 2000) + 7000, // 70.00-90.00% AI-assessed reliability
-        behaviorScore: Math.floor(Math.random() * 500) + 9000, // 90.00-95.00% network behavior quality
-        adaptiveWeight: Math.floor(Math.random() * 2000) + 9000, // 90.00-110.00% dynamic committee weight
+        reputationScore: Math.floor(Math.random() * 1000) + 8500, // 85.00-95.00% (higher for Tier 1)
+        performanceScore: Math.floor(Math.random() * 500) + 9000, // 90.00-95.00% (higher for Tier 1)
+        committeeSelectionCount: Math.floor(Math.random() * 1000) + 500, // More committee selections
+        aiTrustScore: Math.floor(Math.random() * 1500) + 8000, // 80.00-95.00% AI-assessed reliability
+        behaviorScore: Math.floor(Math.random() * 300) + 9200, // 92.00-95.00% network behavior quality
+        adaptiveWeight: Math.floor(Math.random() * 1500) + 9500, // 95.00-110.00% dynamic committee weight
       };
       this.validators.set(validator.address, validator);
     }
