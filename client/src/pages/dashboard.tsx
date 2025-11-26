@@ -9,16 +9,40 @@ import {
   Shield,
   Award,
   Zap,
+  Coins,
+  Flame,
+  Crown,
+  Layers,
+  ArrowUpRight,
 } from "lucide-react";
 import { StatCard } from "@/components/stat-card";
 import { LiveIndicator } from "@/components/live-indicator";
 import { SearchBar } from "@/components/search-bar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DataSourceBadge } from "@/components/data-source-badge";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
+
+interface TokenomicsData {
+  tiers: {
+    tier1: { name: string; currentValidators?: number; targetAPY: number; dailyRewardPool: number; rewardPoolShare: number };
+    tier2: { name: string; currentValidators?: number; targetAPY: number; dailyRewardPool: number; rewardPoolShare: number };
+    tier3: { name: string; currentDelegators?: number; targetAPY: number; dailyRewardPool: number; rewardPoolShare: number };
+  };
+  emission: {
+    dailyGrossEmission: number;
+    dailyBurn: number;
+    dailyNetEmission: number;
+    annualInflationRate: number;
+    burnRate: number;
+  };
+  stakedAmount: number;
+  stakedPercent: number;
+  totalSupply: number;
+  circulatingSupply: number;
+}
 
 interface MemberStats {
   totalMembers: number;
@@ -43,6 +67,10 @@ export default function Dashboard() {
 
   const { data: memberStats, isLoading: memberStatsLoading } = useQuery<MemberStats>({
     queryKey: ["/api/members/stats/summary"],
+  });
+
+  const { data: tokenomics, isLoading: tokenomicsLoading } = useQuery<TokenomicsData>({
+    queryKey: ["/api/tokenomics/tiers"],
   });
 
   return (
@@ -198,6 +226,172 @@ export default function Dashboard() {
             </Card>
           </>
         )}
+      </div>
+
+      {/* Tokenomics Overview */}
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Coins className="h-5 w-5" />
+          Tokenomics & Emission
+        </h2>
+        {tokenomicsLoading ? (
+          <div className="grid gap-4 md:grid-cols-4">
+            <Skeleton className="h-32" />
+            <Skeleton className="h-32" />
+            <Skeleton className="h-32" />
+            <Skeleton className="h-32" />
+          </div>
+        ) : tokenomics ? (
+          <>
+            <div className="grid gap-4 md:grid-cols-4 mb-4">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Daily Emission
+                  </CardTitle>
+                  <ArrowUpRight className="h-4 w-4 text-green-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums text-green-600" data-testid="stat-daily-emission">
+                    {formatNumber(tokenomics.emission.dailyGrossEmission)} TBURN
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Gross block rewards
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Daily Burn ({tokenomics.emission.burnRate}%)
+                  </CardTitle>
+                  <Flame className="h-4 w-4 text-orange-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums text-orange-500" data-testid="stat-daily-burn">
+                    {formatNumber(tokenomics.emission.dailyBurn)} TBURN
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Burned from fees
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Net Daily Emission
+                  </CardTitle>
+                  <TrendingUp className="h-4 w-4 text-blue-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums" data-testid="stat-net-emission">
+                    {formatNumber(tokenomics.emission.dailyNetEmission)} TBURN
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {tokenomics.emission.annualInflationRate.toFixed(2)}% annual inflation
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Staking Rate
+                  </CardTitle>
+                  <Award className="h-4 w-4 text-purple-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-semibold tabular-nums text-purple-500" data-testid="stat-staking-rate">
+                    {tokenomics.stakedPercent.toFixed(1)}%
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {formatNumber(tokenomics.stakedAmount / 1e6)}M of {formatNumber(tokenomics.totalSupply / 1e6)}M TBURN
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Tier Summary Cards */}
+            <div className="grid gap-4 md:grid-cols-3">
+              <Card className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 hover-elevate">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Crown className="h-4 w-4 text-amber-500" />
+                    Tier 1: Active Committee
+                  </CardTitle>
+                  <CardDescription>200K+ TBURN, max 512</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-lg font-bold text-amber-500" data-testid="tier1-validators">{tokenomics.tiers.tier1.currentValidators || 0}</p>
+                      <p className="text-xs text-muted-foreground">Validators</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier1.targetAPY}%</p>
+                      <p className="text-xs text-muted-foreground">APY</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier1.dailyRewardPool)}</p>
+                      <p className="text-xs text-muted-foreground">TBURN/day</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 hover-elevate">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Layers className="h-4 w-4 text-blue-500" />
+                    Tier 2: Standby Validators
+                  </CardTitle>
+                  <CardDescription>50K+ TBURN, max 4,488</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-lg font-bold text-blue-500" data-testid="tier2-validators">{tokenomics.tiers.tier2.currentValidators || 0}</p>
+                      <p className="text-xs text-muted-foreground">Validators</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier2.targetAPY}%</p>
+                      <p className="text-xs text-muted-foreground">APY</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier2.dailyRewardPool)}</p>
+                      <p className="text-xs text-muted-foreground">TBURN/day</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-gray-500/30 bg-gradient-to-br from-gray-500/5 to-slate-500/5 hover-elevate">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Users className="h-4 w-4 text-gray-500" />
+                    Tier 3: Delegators
+                  </CardTitle>
+                  <CardDescription>100+ TBURN, unlimited</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-lg font-bold text-gray-500" data-testid="tier3-delegators">{formatNumber(tokenomics.tiers.tier3.currentDelegators || 0)}</p>
+                      <p className="text-xs text-muted-foreground">Delegators</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier3.targetAPY}%</p>
+                      <p className="text-xs text-muted-foreground">APY</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier3.dailyRewardPool)}</p>
+                      <p className="text-xs text-muted-foreground">TBURN/day</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </>
+        ) : null}
       </div>
 
       {/* Member Statistics */}
