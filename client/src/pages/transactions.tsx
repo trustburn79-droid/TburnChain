@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Activity } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +16,7 @@ import { formatAddress, formatTimeAgo, formatTokenAmount, formatGasPriceEmber, c
 import type { Transaction } from "@shared/schema";
 
 export default function Transactions() {
+  const [, setLocation] = useLocation();
   const { data: transactions, isLoading } = useQuery<Transaction[]>({
     queryKey: ["/api/transactions"],
   });
@@ -77,6 +79,7 @@ export default function Transactions() {
                     <TableRow
                       key={tx.id}
                       className="hover-elevate cursor-pointer"
+                      onClick={() => tx.hash && setLocation(`/transactions/${tx.hash}`)}
                       data-testid={`row-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
                     >
                       <TableCell className="font-mono text-sm font-medium">

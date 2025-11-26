@@ -16,6 +16,7 @@ import Dashboard from "@/pages/dashboard";
 import Blocks from "@/pages/blocks";
 import BlockDetail from "@/pages/block-detail";
 import Transactions from "@/pages/transactions";
+import TransactionDetail from "@/pages/transaction-detail";
 import Validators from "@/pages/validators";
 import ValidatorDetail from "@/pages/validator-detail";
 import AIOrchestration from "@/pages/ai-orchestration";
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/blocks" component={Blocks} />
       <Route path="/blocks/:blockNumber" component={BlockDetail} />
       <Route path="/transactions" component={Transactions} />
+      <Route path="/transactions/:hash" component={TransactionDetail} />
       <Route path="/simulator" component={TransactionSimulator} />
       <Route path="/validators" component={Validators} />
       <Route path="/validator/:address" component={ValidatorDetail} />
