@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { DemoBanner } from "@/components/DemoBanner";
 import { WebSocketProvider } from "@/lib/websocket-context";
 import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
+import { AdminPasswordProvider } from "@/hooks/use-admin-password";
 
 // Pages
 import Dashboard from "@/pages/dashboard";
@@ -36,6 +37,13 @@ import MemberDetail from "@/pages/member-detail";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 
+// Operator Portal Pages
+import OperatorDashboard from "@/pages/operator/dashboard";
+import OperatorMembers from "@/pages/operator/members";
+import OperatorValidators from "@/pages/operator/validators";
+import OperatorSecurity from "@/pages/operator/security";
+import OperatorReports from "@/pages/operator/reports";
+
 function Router() {
   return (
     <Switch>
@@ -60,6 +68,12 @@ function Router() {
       <Route path="/consensus" component={Consensus} />
       <Route path="/api-keys" component={ApiKeys} />
       <Route path="/admin" component={AdminPage} />
+      {/* Operator Portal Routes */}
+      <Route path="/operator" component={OperatorDashboard} />
+      <Route path="/operator/members" component={OperatorMembers} />
+      <Route path="/operator/validators" component={OperatorValidators} />
+      <Route path="/operator/security" component={OperatorSecurity} />
+      <Route path="/operator/reports" component={OperatorReports} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -136,8 +150,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark">
-        <AuthenticatedApp />
-        <Toaster />
+        <AdminPasswordProvider>
+          <AuthenticatedApp />
+          <Toaster />
+        </AdminPasswordProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

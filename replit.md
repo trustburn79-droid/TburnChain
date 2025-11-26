@@ -4,6 +4,15 @@
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
 **Latest Updates (November 26, 2025):**
+- **Operator Portal**: Enterprise back-office for TBURN network management
+  - Dashboard: Overview with member stats, validator applications, security alerts, recent activity
+  - Member Management: CRUD operations with KYC/AML status, tier assignment, status changes
+  - Validator Operations: Application review, approval/rejection, validator slashing
+  - Security Audit: Security event logging, resolution tracking, admin audit logs
+  - Compliance Reports: Generate KYC summaries, AML reports, transaction reports
+  - Routes: `/operator`, `/operator/members`, `/operator/validators`, `/operator/security`, `/operator/reports`
+  - Authentication: Admin password via sessionStorage with `x-admin-password` header
+  - Context: `AdminPasswordProvider` in `client/src/hooks/use-admin-password.tsx`
 - **Tiered Validator System**: Implemented 3-tier validator structure for scalable tokenomics
   - Tier 1: Active Committee - Max 512 validators, 200K+ TBURN stake, 8% target APY
   - Tier 2: Standby Validators - Max 4,488 validators, 50K+ TBURN stake, 4% target APY

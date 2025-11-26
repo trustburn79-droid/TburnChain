@@ -1,0 +1,656 @@
+import { useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { 
+  ShieldCheck, CheckCircle2, XCircle, Clock, 
+  Eye, FileCheck, Slash, ChevronLeft, ChevronRight,
+  Server, Cpu, HardDrive, Wifi
+} from "lucide-react";
+import { useAdminPassword } from "@/hooks/use-admin-password";
+import { queryClient } from "@/lib/queryClient";
+
+interface ValidatorApplication {
+  id: string;
+  applicant_member_id: string;
+  applicant_address: string;
+  applicant_name: string;
+  application_type: string;
+  requested_tier: string;
+  proposed_commission: number;
+  proposed_stake: string;
+  stake_source: string;
+  hardware_specs: any;
+  network_endpoints: any;
+  geographic_location: any;
+  documents: any[];
+  status: string;
+  review_notes: string | null;
+  rejection_reason: string | null;
+  approval_conditions: any;
+  submitted_at: string;
+  review_started_at: string | null;
+  decided_at: string | null;
+}
+
+interface ApplicationsResponse {
+  applications: ValidatorApplication[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export default function OperatorValidators() {
+  const { toast } = useToast();
+  const { getAuthHeaders } = useAdminPassword();
+  const [page, setPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [selectedApp, setSelectedApp] = useState<ValidatorApplication | null>(null);
+  const [showReviewDialog, setShowReviewDialog] = useState(false);
+  const [showSlashDialog, setShowSlashDialog] = useState(false);
+  const [reviewNotes, setReviewNotes] = useState("");
+  const [rejectionReason, setRejectionReason] = useState("");
+  const [slashData, setSlashData] = useState({
+    address: "",
+    slashType: "downtime",
+    amount: "",
+    reason: "",
+  });
+
+  const buildQueryString = () => {
+    const params = new URLSearchParams();
+    params.set("page", page.toString());
+    params.set("limit", "20");
+    if (statusFilter !== "all") params.set("status", statusFilter);
+    return params.toString();
+  };
+
+  const { data, isLoading, error } = useQuery<ApplicationsResponse>({
+    queryKey: ["/api/operator/validator-applications", page, statusFilter],
+    queryFn: async () => {
+      const response = await fetch(`/api/operator/validator-applications?${buildQueryString()}`, {
+        headers: getAuthHeaders(),
+      });
+      if (!response.ok) throw new Error("Failed to fetch applications");
+      return response.json();
+    },
+  });
+
+  const reviewMutation = useMutation({
+    mutationFn: async ({ id, status, notes, reason }: { id: string; status: string; notes?: string; reason?: string }) => {
+      const response = await fetch(`/api/operator/validator-applications/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({
+          status,
+          reviewNotes: notes,
+          rejectionReason: reason,
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to update application");
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Application updated successfully" });
+      queryClient.invalidateQueries({ queryKey: ["/api/operator/validator-applications"] });
+      setShowReviewDialog(false);
+      setSelectedApp(null);
+      setReviewNotes("");
+      setRejectionReason("");
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to update application", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const slashMutation = useMutation({
+    mutationFn: async ({ address, slashType, amount, reason }: typeof slashData) => {
+      const response = await fetch(`/api/operator/validators/${address}/slash`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({ slashType, amount, reason }),
+      });
+      if (!response.ok) throw new Error("Failed to slash validator");
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Validator slashed successfully" });
+      setShowSlashDialog(false);
+      setSlashData({ address: "", slashType: "downtime", amount: "", reason: "" });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to slash validator", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "approved": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />Approved</Badge>;
+      case "rejected": return <Badge variant="destructive"><XCircle className="h-3 w-3 mr-1" />Rejected</Badge>;
+      case "pending": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"><Clock className="h-3 w-3 mr-1" />Pending</Badge>;
+      case "under_review": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20"><Eye className="h-3 w-3 mr-1" />Under Review</Badge>;
+      default: return <Badge variant="secondary">{status}</Badge>;
+    }
+  };
+
+  const getTierBadge = (tier: string) => {
+    switch (tier) {
+      case "tier_1": return <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/20">Tier 1</Badge>;
+      case "tier_2": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20">Tier 2</Badge>;
+      case "tier_3": return <Badge className="bg-gray-500/10 text-gray-500 border-gray-500/20">Tier 3</Badge>;
+      default: return <Badge variant="outline">{tier}</Badge>;
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="p-6 space-y-6">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-96" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Validator Operations</h1>
+          <p className="text-muted-foreground">
+            Review applications, manage validators, and enforce slashing
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="destructive" onClick={() => setShowSlashDialog(true)} data-testid="btn-slash-validator">
+            <Slash className="h-4 w-4 mr-2" />
+            Slash Validator
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm">Pending Applications</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {data?.applications?.filter(a => a.status === 'pending').length || 0}
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm">Under Review</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {data?.applications?.filter(a => a.status === 'under_review').length || 0}
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm">Approved This Month</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {data?.applications?.filter(a => a.status === 'approved').length || 0}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle>Validator Applications</CardTitle>
+            <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(1); }}>
+              <SelectTrigger className="w-40" data-testid="select-app-status">
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="under_review">Under Review</SelectItem>
+                <SelectItem value="approved">Approved</SelectItem>
+                <SelectItem value="rejected">Rejected</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Applicant</TableHead>
+                <TableHead>Requested Tier</TableHead>
+                <TableHead>Stake</TableHead>
+                <TableHead>Commission</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Submitted</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data?.applications?.map((app) => (
+                <TableRow key={app.id} data-testid={`row-app-${app.id}`}>
+                  <TableCell>
+                    <div>
+                      <p className="font-medium">{app.applicant_name}</p>
+                      <p className="text-xs text-muted-foreground font-mono">
+                        {app.applicant_address.slice(0, 8)}...{app.applicant_address.slice(-6)}
+                      </p>
+                    </div>
+                  </TableCell>
+                  <TableCell>{getTierBadge(app.requested_tier)}</TableCell>
+                  <TableCell className="font-mono">{app.proposed_stake} TBURN</TableCell>
+                  <TableCell>{app.proposed_commission / 100}%</TableCell>
+                  <TableCell>{getStatusBadge(app.status)}</TableCell>
+                  <TableCell className="text-sm">
+                    {new Date(app.submitted_at).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex gap-1">
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => {
+                          setSelectedApp(app);
+                          setReviewNotes(app.review_notes || "");
+                        }}
+                        data-testid={`btn-view-app-${app.id}`}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      {(app.status === "pending" || app.status === "under_review") && (
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => {
+                            setSelectedApp(app);
+                            setShowReviewDialog(true);
+                            setReviewNotes(app.review_notes || "");
+                          }}
+                          data-testid={`btn-review-app-${app.id}`}
+                        >
+                          <FileCheck className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {(!data?.applications || data.applications.length === 0) && (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+                    No applications found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+
+          {data?.pagination && data.pagination.totalPages > 1 && (
+            <div className="flex items-center justify-between mt-4">
+              <p className="text-sm text-muted-foreground">
+                Page {data.pagination.page} of {data.pagination.totalPages}
+              </p>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage(page - 1)}
+                  disabled={page === 1}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage(page + 1)}
+                  disabled={page === data.pagination.totalPages}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Application Detail Dialog */}
+      <Dialog open={!!selectedApp && !showReviewDialog} onOpenChange={() => setSelectedApp(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Application Details</DialogTitle>
+            <DialogDescription>
+              {selectedApp?.applicant_name} - {selectedApp?.applicant_address}
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedApp && (
+            <Tabs defaultValue="overview">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="hardware">Hardware</TabsTrigger>
+                <TabsTrigger value="network">Network</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="overview" className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Application Type</p>
+                    <p className="font-medium capitalize">{selectedApp.application_type}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Requested Tier</p>
+                    {getTierBadge(selectedApp.requested_tier)}
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Proposed Stake</p>
+                    <p className="font-medium font-mono">{selectedApp.proposed_stake} TBURN</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Commission Rate</p>
+                    <p className="font-medium">{selectedApp.proposed_commission / 100}%</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Stake Source</p>
+                    <p className="font-medium capitalize">{selectedApp.stake_source}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Status</p>
+                    {getStatusBadge(selectedApp.status)}
+                  </div>
+                </div>
+
+                {selectedApp.review_notes && (
+                  <div className="p-3 bg-muted rounded-md">
+                    <p className="text-sm text-muted-foreground mb-1">Review Notes</p>
+                    <p className="text-sm">{selectedApp.review_notes}</p>
+                  </div>
+                )}
+
+                {selectedApp.rejection_reason && (
+                  <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+                    <p className="text-sm text-destructive mb-1">Rejection Reason</p>
+                    <p className="text-sm">{selectedApp.rejection_reason}</p>
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="hardware" className="space-y-4">
+                {selectedApp.hardware_specs ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Cpu className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">
+                        CPU: {selectedApp.hardware_specs.cpu || "Not specified"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Server className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">
+                        RAM: {selectedApp.hardware_specs.ram || "Not specified"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <HardDrive className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">
+                        Storage: {selectedApp.hardware_specs.storage || "Not specified"}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-muted-foreground">No hardware specs provided</p>
+                )}
+              </TabsContent>
+
+              <TabsContent value="network" className="space-y-4">
+                {selectedApp.network_endpoints ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Wifi className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm font-mono">
+                        {selectedApp.network_endpoints.p2p || "No P2P endpoint"}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-muted-foreground">No network endpoints provided</p>
+                )}
+
+                {selectedApp.geographic_location && (
+                  <div className="mt-4">
+                    <p className="text-sm text-muted-foreground mb-1">Geographic Location</p>
+                    <p className="text-sm">
+                      {selectedApp.geographic_location.country || "Unknown"}, {selectedApp.geographic_location.region || ""}
+                    </p>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
+          )}
+
+          <DialogFooter>
+            {selectedApp && (selectedApp.status === "pending" || selectedApp.status === "under_review") && (
+              <Button onClick={() => setShowReviewDialog(true)} data-testid="btn-start-review">
+                <FileCheck className="h-4 w-4 mr-2" />
+                Review Application
+              </Button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Review Dialog */}
+      <Dialog open={showReviewDialog} onOpenChange={setShowReviewDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Review Application</DialogTitle>
+            <DialogDescription>
+              {selectedApp?.applicant_name}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium">Review Notes</label>
+              <Textarea
+                value={reviewNotes}
+                onChange={(e) => setReviewNotes(e.target.value)}
+                placeholder="Add notes about this application..."
+                className="mt-1"
+                data-testid="input-review-notes"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Rejection Reason (if rejecting)</label>
+              <Textarea
+                value={rejectionReason}
+                onChange={(e) => setRejectionReason(e.target.value)}
+                placeholder="Required if rejecting the application..."
+                className="mt-1"
+                data-testid="input-rejection-reason"
+              />
+            </div>
+          </div>
+
+          <DialogFooter className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (selectedApp) {
+                  reviewMutation.mutate({
+                    id: selectedApp.id,
+                    status: "under_review",
+                    notes: reviewNotes,
+                  });
+                }
+              }}
+              disabled={reviewMutation.isPending}
+              data-testid="btn-mark-reviewing"
+            >
+              Mark as Under Review
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (selectedApp && rejectionReason) {
+                  reviewMutation.mutate({
+                    id: selectedApp.id,
+                    status: "rejected",
+                    notes: reviewNotes,
+                    reason: rejectionReason,
+                  });
+                }
+              }}
+              disabled={reviewMutation.isPending || !rejectionReason}
+              data-testid="btn-reject"
+            >
+              Reject
+            </Button>
+            <Button
+              onClick={() => {
+                if (selectedApp) {
+                  reviewMutation.mutate({
+                    id: selectedApp.id,
+                    status: "approved",
+                    notes: reviewNotes,
+                  });
+                }
+              }}
+              disabled={reviewMutation.isPending}
+              data-testid="btn-approve"
+            >
+              <CheckCircle2 className="h-4 w-4 mr-2" />
+              Approve
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Slash Validator Dialog */}
+      <Dialog open={showSlashDialog} onOpenChange={setShowSlashDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-destructive">Slash Validator</DialogTitle>
+            <DialogDescription>
+              This action will penalize a validator and may affect their stake.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium">Validator Address</label>
+              <Input
+                value={slashData.address}
+                onChange={(e) => setSlashData({ ...slashData, address: e.target.value })}
+                placeholder="0x..."
+                className="mt-1 font-mono"
+                data-testid="input-slash-address"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Slash Type</label>
+              <Select
+                value={slashData.slashType}
+                onValueChange={(v) => setSlashData({ ...slashData, slashType: v })}
+              >
+                <SelectTrigger className="mt-1" data-testid="select-slash-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="downtime">Downtime</SelectItem>
+                  <SelectItem value="double_sign">Double Sign</SelectItem>
+                  <SelectItem value="invalid_block">Invalid Block</SelectItem>
+                  <SelectItem value="consensus_violation">Consensus Violation</SelectItem>
+                  <SelectItem value="security_breach">Security Breach</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Slash Amount (TBURN)</label>
+              <Input
+                type="number"
+                value={slashData.amount}
+                onChange={(e) => setSlashData({ ...slashData, amount: e.target.value })}
+                placeholder="1000"
+                className="mt-1"
+                data-testid="input-slash-amount"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Reason</label>
+              <Textarea
+                value={slashData.reason}
+                onChange={(e) => setSlashData({ ...slashData, reason: e.target.value })}
+                placeholder="Detailed reason for slashing..."
+                className="mt-1"
+                data-testid="input-slash-reason"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowSlashDialog(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => slashMutation.mutate(slashData)}
+              disabled={slashMutation.isPending || !slashData.address || !slashData.amount || !slashData.reason}
+              data-testid="btn-confirm-slash"
+            >
+              <Slash className="h-4 w-4 mr-2" />
+              Confirm Slash
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
