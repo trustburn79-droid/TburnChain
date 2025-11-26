@@ -3,7 +3,27 @@
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
-**Latest Updates (November 25, 2025):**
+**Latest Updates (November 26, 2025):**
+- **Tiered Validator System**: Implemented 3-tier validator structure for scalable tokenomics
+  - Tier 1: Active Committee - Max 512 validators, 200K+ TBURN stake, 8% target APY
+  - Tier 2: Standby Validators - Max 4,488 validators, 50K+ TBURN stake, 4% target APY
+  - Tier 3: Delegators - Unlimited, 100+ TBURN delegation, 5% target APY
+  - Configuration: `shared/tokenomics-config.ts`
+- **Dynamic Emission Model**: Sustainable tokenomics with burn mechanism
+  - Base Emission: 5,000 TBURN/day, 20% burn rate
+  - Net Emission: 4,000 TBURN/day (1.5% annual inflation)
+  - Formula: BaseEmission × min(1.15, sqrt(EffectiveStake / 32M))
+  - Pool allocation: 50% Tier 1, 30% Tier 2, 20% Tier 3
+- **Tokenomics API Endpoints**:
+  - `GET /api/tokenomics/tiers` - Returns tier configuration, emission, and staking data
+  - `GET /api/tokenomics/tier/:stakeTBURN` - Determines tier for given stake amount
+  - `GET /api/tokenomics/estimate-rewards` - Calculates estimated rewards for stake
+- **Enhanced Dashboard & Validators UI**:
+  - Dashboard: Tokenomics section with daily emission/burn stats and tier summaries
+  - Validators: Tier badges (Tier 1/2/3), detailed APY display, reward pool breakdown
+  - Visual tier indicators with gradient colors (amber=Tier1, blue=Tier2, gray=Tier3)
+
+**Previous Updates (November 25, 2025):**
 - **TBURN Gas Unit: Ember (EMB)**: Implemented TBURN's unique gas unit system throughout the chain
   - 1 TBURN = 1,000,000 Ember (EMB)
   - Standard Gas Price: 10 EMB (0.00001 TBURN)
