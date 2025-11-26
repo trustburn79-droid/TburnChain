@@ -1376,6 +1376,1029 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
+  // OPERATOR PORTAL - Admin Back-Office API
+  // Requires admin authentication for all endpoints
+  // ============================================
+
+  // Operator Portal Rate Limiter (stricter than general API)
+  const operatorLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 100, // 100 requests per window
+    message: { error: "Too many operator requests. Please slow down." },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // Helper function to log admin audit events
+  async function logAdminAudit(
+    operatorId: string,
+    actionType: string,
+    actionCategory: string,
+    resource: string,
+    resourceId: string | null,
+    previousState: any,
+    newState: any,
+    reason: string | null,
+    req: Request,
+    riskLevel: string = "low"
+  ) {
+    try {
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      await pool.query(`
+        INSERT INTO admin_audit_logs (
+          operator_id, operator_ip, operator_user_agent, session_id,
+          action_type, action_category, resource, resource_id,
+          previous_state, new_state, reason, risk_level, status, created_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, 'success', NOW())
+      `, [
+        operatorId,
+        req.ip || req.socket.remoteAddress || 'unknown',
+        req.headers['user-agent'] || 'unknown',
+        req.sessionID || null,
+        actionType,
+        actionCategory,
+        resource,
+        resourceId,
+        previousState ? JSON.stringify(previousState) : null,
+        newState ? JSON.stringify(newState) : null,
+        reason,
+        riskLevel
+      ]);
+      await pool.end();
+    } catch (error) {
+      console.error('[AdminAudit] Failed to log audit event:', error);
+    }
+  }
+
+  // ============================================
+  // Operator Portal: Dashboard & Overview
+  // ============================================
+  app.get("/api/operator/dashboard", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      
+      // Get dashboard statistics
+      const [
+        memberStats,
+        validatorApps,
+        securityAlerts,
+        recentAuditLogs
+      ] = await Promise.all([
+        pool.query(`
+          SELECT 
+            COUNT(*) as total_members,
+            COUNT(*) FILTER (WHERE member_status = 'pending') as pending_members,
+            COUNT(*) FILTER (WHERE member_status = 'active') as active_members,
+            COUNT(*) FILTER (WHERE member_status = 'suspended') as suspended_members,
+            COUNT(*) FILTER (WHERE kyc_level = 'none') as no_kyc,
+            COUNT(*) FILTER (WHERE kyc_level IN ('basic', 'enhanced', 'institutional')) as kyc_verified
+          FROM members
+        `),
+        pool.query(`
+          SELECT status, COUNT(*) as count 
+          FROM validator_applications 
+          GROUP BY status
+        `),
+        pool.query(`
+          SELECT severity, COUNT(*) as count 
+          FROM security_events 
+          WHERE status = 'open'
+          GROUP BY severity
+        `),
+        pool.query(`
+          SELECT action_type, action_category, resource, created_at 
+          FROM admin_audit_logs 
+          ORDER BY created_at DESC 
+          LIMIT 10
+        `)
+      ]);
+
+      await pool.end();
+
+      res.json({
+        members: memberStats.rows[0] || {},
+        validatorApplications: validatorApps.rows,
+        securityAlerts: securityAlerts.rows,
+        recentActivity: recentAuditLogs.rows
+      });
+    } catch (error) {
+      console.error('[Operator] Dashboard error:', error);
+      res.status(500).json({ error: "Failed to fetch operator dashboard" });
+    }
+  });
+
+  // ============================================
+  // Operator Portal: Member Management
+  // ============================================
+  
+  // Get all members with advanced filtering
+  app.get("/api/operator/members", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { 
+        status, tier, kycLevel, riskScore, search,
+        page = '1', limit = '50', sortBy = 'created_at', sortOrder = 'desc'
+      } = req.query;
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      
+      let whereConditions = [];
+      let params: any[] = [];
+      let paramIndex = 1;
+
+      if (status) {
+        whereConditions.push(`member_status = $${paramIndex++}`);
+        params.push(status);
+      }
+      if (tier) {
+        whereConditions.push(`member_tier = $${paramIndex++}`);
+        params.push(tier);
+      }
+      if (kycLevel) {
+        whereConditions.push(`kyc_level = $${paramIndex++}`);
+        params.push(kycLevel);
+      }
+      if (riskScore) {
+        whereConditions.push(`aml_risk_score >= $${paramIndex++}`);
+        params.push(parseInt(riskScore as string));
+      }
+      if (search) {
+        whereConditions.push(`(account_address ILIKE $${paramIndex} OR display_name ILIKE $${paramIndex} OR legal_name ILIKE $${paramIndex})`);
+        params.push(`%${search}%`);
+        paramIndex++;
+      }
+
+      const whereClause = whereConditions.length > 0 
+        ? `WHERE ${whereConditions.join(' AND ')}` 
+        : '';
+
+      const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+      
+      const [members, countResult] = await Promise.all([
+        pool.query(`
+          SELECT * FROM members 
+          ${whereClause}
+          ORDER BY ${sortBy === 'created_at' ? 'created_at' : sortBy} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}
+          LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+        `, [...params, parseInt(limit as string), offset]),
+        pool.query(`SELECT COUNT(*) as total FROM members ${whereClause}`, params)
+      ]);
+
+      await pool.end();
+
+      res.json({
+        members: members.rows,
+        pagination: {
+          page: parseInt(page as string),
+          limit: parseInt(limit as string),
+          total: parseInt(countResult.rows[0].total),
+          totalPages: Math.ceil(parseInt(countResult.rows[0].total) / parseInt(limit as string))
+        }
+      });
+    } catch (error) {
+      console.error('[Operator] Members list error:', error);
+      res.status(500).json({ error: "Failed to fetch members" });
+    }
+  });
+
+  // Get member detail with all profiles
+  app.get("/api/operator/members/:id", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      const [member, profile, governance, financial, security, stakingPositions, auditLogs, documents] = await Promise.all([
+        pool.query('SELECT * FROM members WHERE id = $1', [id]),
+        pool.query('SELECT * FROM member_profiles WHERE member_id = $1', [id]),
+        pool.query('SELECT * FROM member_governance_profiles WHERE member_id = $1', [id]),
+        pool.query('SELECT * FROM member_financial_profiles WHERE member_id = $1', [id]),
+        pool.query('SELECT * FROM member_security_profiles WHERE member_id = $1', [id]),
+        pool.query('SELECT * FROM member_staking_positions WHERE member_id = $1', [id]),
+        pool.query('SELECT * FROM member_audit_logs WHERE member_id = $1 ORDER BY created_at DESC LIMIT 20', [id]),
+        pool.query('SELECT id, document_type, document_name, verification_status, uploaded_at FROM member_documents WHERE member_id = $1', [id])
+      ]);
+
+      await pool.end();
+
+      if (member.rows.length === 0) {
+        return res.status(404).json({ error: "Member not found" });
+      }
+
+      res.json({
+        member: member.rows[0],
+        profile: profile.rows[0] || null,
+        governance: governance.rows[0] || null,
+        financial: financial.rows[0] || null,
+        security: security.rows[0] || null,
+        stakingPositions: stakingPositions.rows,
+        recentAuditLogs: auditLogs.rows,
+        documents: documents.rows
+      });
+    } catch (error) {
+      console.error('[Operator] Member detail error:', error);
+      res.status(500).json({ error: "Failed to fetch member details" });
+    }
+  });
+
+  // Update member status
+  app.patch("/api/operator/members/:id/status", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, reason } = req.body;
+      
+      const validStatuses = ['pending', 'active', 'inactive', 'suspended', 'terminated', 'blacklisted'];
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({ error: "Invalid status" });
+      }
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      
+      const currentMember = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
+      if (currentMember.rows.length === 0) {
+        await pool.end();
+        return res.status(404).json({ error: "Member not found" });
+      }
+
+      const previousStatus = currentMember.rows[0].member_status;
+      
+      await pool.query(
+        'UPDATE members SET member_status = $1, updated_at = NOW() WHERE id = $2',
+        [status, id]
+      );
+
+      // Log the action
+      await logAdminAudit(
+        'admin', 
+        'member_status_change', 
+        'member_management',
+        'members',
+        id,
+        { status: previousStatus },
+        { status },
+        reason || null,
+        req,
+        status === 'blacklisted' || status === 'terminated' ? 'high' : 'medium'
+      );
+
+      await pool.end();
+      
+      res.json({ success: true, previousStatus, newStatus: status });
+    } catch (error) {
+      console.error('[Operator] Member status update error:', error);
+      res.status(500).json({ error: "Failed to update member status" });
+    }
+  });
+
+  // Update member tier
+  app.patch("/api/operator/members/:id/tier", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { tier, reason } = req.body;
+      
+      const validTiers = [
+        'basic_user', 'delegated_staker', 'candidate_validator', 
+        'active_validator', 'inactive_validator', 'genesis_validator',
+        'enterprise_validator', 'governance_validator', 'probation_validator',
+        'suspended_validator', 'slashed_validator'
+      ];
+      
+      if (!validTiers.includes(tier)) {
+        return res.status(400).json({ error: "Invalid tier" });
+      }
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      
+      const currentMember = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
+      if (currentMember.rows.length === 0) {
+        await pool.end();
+        return res.status(404).json({ error: "Member not found" });
+      }
+
+      const previousTier = currentMember.rows[0].member_tier;
+      
+      await pool.query(
+        'UPDATE members SET member_tier = $1, updated_at = NOW() WHERE id = $2',
+        [tier, id]
+      );
+
+      await logAdminAudit(
+        'admin',
+        'member_tier_change',
+        'member_management',
+        'members',
+        id,
+        { tier: previousTier },
+        { tier },
+        reason || null,
+        req,
+        tier.includes('slashed') || tier.includes('suspended') ? 'high' : 'medium'
+      );
+
+      await pool.end();
+      
+      res.json({ success: true, previousTier, newTier: tier });
+    } catch (error) {
+      console.error('[Operator] Member tier update error:', error);
+      res.status(500).json({ error: "Failed to update member tier" });
+    }
+  });
+
+  // Update KYC status
+  app.patch("/api/operator/members/:id/kyc", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { kycLevel, amlRiskScore, sanctionsCheckPassed, pepStatus, reason } = req.body;
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      
+      const currentMember = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
+      if (currentMember.rows.length === 0) {
+        await pool.end();
+        return res.status(404).json({ error: "Member not found" });
+      }
+
+      const updates: string[] = [];
+      const values: any[] = [];
+      let valueIndex = 1;
+
+      if (kycLevel !== undefined) {
+        updates.push(`kyc_level = $${valueIndex++}`);
+        values.push(kycLevel);
+        updates.push(`kyc_verified_at = NOW()`);
+      }
+      if (amlRiskScore !== undefined) {
+        updates.push(`aml_risk_score = $${valueIndex++}`);
+        values.push(amlRiskScore);
+      }
+      if (sanctionsCheckPassed !== undefined) {
+        updates.push(`sanctions_check_passed = $${valueIndex++}`);
+        values.push(sanctionsCheckPassed);
+      }
+      if (pepStatus !== undefined) {
+        updates.push(`pep_status = $${valueIndex++}`);
+        values.push(pepStatus);
+      }
+
+      if (updates.length === 0) {
+        await pool.end();
+        return res.status(400).json({ error: "No updates provided" });
+      }
+
+      updates.push('updated_at = NOW()');
+      values.push(id);
+
+      await pool.query(
+        `UPDATE members SET ${updates.join(', ')} WHERE id = $${valueIndex}`,
+        values
+      );
+
+      await logAdminAudit(
+        'admin',
+        'kyc_update',
+        'member_management',
+        'members',
+        id,
+        { 
+          kycLevel: currentMember.rows[0].kyc_level,
+          amlRiskScore: currentMember.rows[0].aml_risk_score
+        },
+        { kycLevel, amlRiskScore, sanctionsCheckPassed, pepStatus },
+        reason || null,
+        req,
+        'medium'
+      );
+
+      await pool.end();
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[Operator] KYC update error:', error);
+      res.status(500).json({ error: "Failed to update KYC" });
+    }
+  });
+
+  // ============================================
+  // Operator Portal: Validator Operations
+  // ============================================
+
+  // Get validator applications
+  app.get("/api/operator/validator-applications", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { status, page = '1', limit = '20' } = req.query;
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      let whereClause = '';
+      let params: any[] = [];
+      
+      if (status) {
+        whereClause = 'WHERE status = $1';
+        params.push(status);
+      }
+
+      const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+      
+      const [applications, countResult] = await Promise.all([
+        pool.query(`
+          SELECT * FROM validator_applications 
+          ${whereClause}
+          ORDER BY submitted_at DESC
+          LIMIT $${params.length + 1} OFFSET $${params.length + 2}
+        `, [...params, parseInt(limit as string), offset]),
+        pool.query(`SELECT COUNT(*) as total FROM validator_applications ${whereClause}`, params)
+      ]);
+
+      await pool.end();
+
+      res.json({
+        applications: applications.rows,
+        pagination: {
+          page: parseInt(page as string),
+          limit: parseInt(limit as string),
+          total: parseInt(countResult.rows[0].total),
+          totalPages: Math.ceil(parseInt(countResult.rows[0].total) / parseInt(limit as string))
+        }
+      });
+    } catch (error) {
+      console.error('[Operator] Validator applications error:', error);
+      res.status(500).json({ error: "Failed to fetch validator applications" });
+    }
+  });
+
+  // Review validator application
+  app.patch("/api/operator/validator-applications/:id", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, reviewNotes, rejectionReason, approvalConditions } = req.body;
+
+      const validStatuses = ['pending', 'under_review', 'approved', 'rejected', 'withdrawn'];
+      if (status && !validStatuses.includes(status)) {
+        return res.status(400).json({ error: "Invalid status" });
+      }
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      const currentApp = await pool.query('SELECT * FROM validator_applications WHERE id = $1', [id]);
+      if (currentApp.rows.length === 0) {
+        await pool.end();
+        return res.status(404).json({ error: "Application not found" });
+      }
+
+      const updates: string[] = [];
+      const values: any[] = [];
+      let valueIndex = 1;
+
+      if (status) {
+        updates.push(`status = $${valueIndex++}`);
+        values.push(status);
+        
+        if (status === 'under_review' && !currentApp.rows[0].review_started_at) {
+          updates.push('review_started_at = NOW()');
+        }
+        if (status === 'approved' || status === 'rejected') {
+          updates.push('decided_at = NOW()');
+          updates.push(`decided_by = $${valueIndex++}`);
+          values.push('admin');
+        }
+      }
+      if (reviewNotes !== undefined) {
+        updates.push(`review_notes = $${valueIndex++}`);
+        values.push(reviewNotes);
+      }
+      if (rejectionReason !== undefined) {
+        updates.push(`rejection_reason = $${valueIndex++}`);
+        values.push(rejectionReason);
+      }
+      if (approvalConditions !== undefined) {
+        updates.push(`approval_conditions = $${valueIndex++}`);
+        values.push(JSON.stringify(approvalConditions));
+      }
+
+      if (updates.length === 0) {
+        await pool.end();
+        return res.status(400).json({ error: "No updates provided" });
+      }
+
+      values.push(id);
+      await pool.query(
+        `UPDATE validator_applications SET ${updates.join(', ')} WHERE id = $${valueIndex}`,
+        values
+      );
+
+      await logAdminAudit(
+        'admin',
+        'validator_application_review',
+        'validator_operations',
+        'validator_applications',
+        id,
+        { status: currentApp.rows[0].status },
+        { status, reviewNotes, rejectionReason },
+        reviewNotes || rejectionReason || null,
+        req,
+        status === 'approved' ? 'high' : 'medium'
+      );
+
+      await pool.end();
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[Operator] Application review error:', error);
+      res.status(500).json({ error: "Failed to update application" });
+    }
+  });
+
+  // Slash validator
+  app.post("/api/operator/validators/:address/slash", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { address } = req.params;
+      const { slashType, amount, reason, evidenceHash } = req.body;
+
+      const validSlashTypes = ['double_sign', 'downtime', 'invalid_block', 'consensus_violation', 'security_breach'];
+      if (!validSlashTypes.includes(slashType)) {
+        return res.status(400).json({ error: "Invalid slash type" });
+      }
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      // Find member by validator address
+      const member = await pool.query(
+        'SELECT id FROM members WHERE account_address = $1',
+        [address]
+      );
+
+      if (member.rows.length === 0) {
+        await pool.end();
+        return res.status(404).json({ error: "Validator member not found" });
+      }
+
+      const memberId = member.rows[0].id;
+
+      // Record slash event
+      await pool.query(`
+        INSERT INTO member_slash_events (
+          member_id, validator_address, slash_type, amount, reason, evidence_hash, occurred_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, NOW())
+      `, [memberId, address, slashType, amount, reason, evidenceHash || null]);
+
+      // Update member tier to slashed
+      await pool.query(
+        'UPDATE members SET member_tier = $1, updated_at = NOW() WHERE id = $2',
+        ['slashed_validator', memberId]
+      );
+
+      await logAdminAudit(
+        'admin',
+        'validator_slash',
+        'validator_operations',
+        'validators',
+        address,
+        null,
+        { slashType, amount, reason },
+        reason,
+        req,
+        'critical'
+      );
+
+      await pool.end();
+      
+      res.json({ success: true, memberId });
+    } catch (error) {
+      console.error('[Operator] Validator slash error:', error);
+      res.status(500).json({ error: "Failed to slash validator" });
+    }
+  });
+
+  // ============================================
+  // Operator Portal: Security Audit
+  // ============================================
+
+  // Get security events
+  app.get("/api/operator/security-events", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { severity, status, targetType, page = '1', limit = '50' } = req.query;
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      let whereConditions = [];
+      let params: any[] = [];
+      let paramIndex = 1;
+
+      if (severity) {
+        whereConditions.push(`severity = $${paramIndex++}`);
+        params.push(severity);
+      }
+      if (status) {
+        whereConditions.push(`status = $${paramIndex++}`);
+        params.push(status);
+      }
+      if (targetType) {
+        whereConditions.push(`target_type = $${paramIndex++}`);
+        params.push(targetType);
+      }
+
+      const whereClause = whereConditions.length > 0 
+        ? `WHERE ${whereConditions.join(' AND ')}` 
+        : '';
+
+      const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+      
+      const [events, countResult] = await Promise.all([
+        pool.query(`
+          SELECT * FROM security_events 
+          ${whereClause}
+          ORDER BY occurred_at DESC
+          LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+        `, [...params, parseInt(limit as string), offset]),
+        pool.query(`SELECT COUNT(*) as total FROM security_events ${whereClause}`, params)
+      ]);
+
+      await pool.end();
+
+      res.json({
+        events: events.rows,
+        pagination: {
+          page: parseInt(page as string),
+          limit: parseInt(limit as string),
+          total: parseInt(countResult.rows[0].total),
+          totalPages: Math.ceil(parseInt(countResult.rows[0].total) / parseInt(limit as string))
+        }
+      });
+    } catch (error) {
+      console.error('[Operator] Security events error:', error);
+      res.status(500).json({ error: "Failed to fetch security events" });
+    }
+  });
+
+  // Create security event
+  app.post("/api/operator/security-events", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { eventType, severity, targetType, targetId, targetAddress, description, evidence } = req.body;
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      const result = await pool.query(`
+        INSERT INTO security_events (
+          event_type, severity, target_type, target_id, target_address,
+          description, evidence, status, occurred_at, detected_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, 'open', NOW(), NOW())
+        RETURNING id
+      `, [eventType, severity, targetType, targetId || null, targetAddress || null, description, evidence ? JSON.stringify(evidence) : null]);
+
+      await logAdminAudit(
+        'admin',
+        'security_event_created',
+        'security',
+        'security_events',
+        result.rows[0].id,
+        null,
+        { eventType, severity, targetType, description },
+        null,
+        req,
+        severity === 'critical' ? 'critical' : 'high'
+      );
+
+      await pool.end();
+
+      res.json({ success: true, id: result.rows[0].id });
+    } catch (error) {
+      console.error('[Operator] Create security event error:', error);
+      res.status(500).json({ error: "Failed to create security event" });
+    }
+  });
+
+  // Resolve security event
+  app.patch("/api/operator/security-events/:id/resolve", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { resolution, status } = req.body;
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      await pool.query(`
+        UPDATE security_events 
+        SET status = $1, resolution = $2, resolved_by = 'admin', resolved_at = NOW()
+        WHERE id = $3
+      `, [status || 'resolved', resolution, id]);
+
+      await logAdminAudit(
+        'admin',
+        'security_event_resolved',
+        'security',
+        'security_events',
+        id,
+        null,
+        { status: status || 'resolved', resolution },
+        resolution,
+        req,
+        'medium'
+      );
+
+      await pool.end();
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[Operator] Resolve security event error:', error);
+      res.status(500).json({ error: "Failed to resolve security event" });
+    }
+  });
+
+  // Get admin audit logs
+  app.get("/api/operator/audit-logs", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { actionCategory, riskLevel, page = '1', limit = '100' } = req.query;
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      let whereConditions = [];
+      let params: any[] = [];
+      let paramIndex = 1;
+
+      if (actionCategory) {
+        whereConditions.push(`action_category = $${paramIndex++}`);
+        params.push(actionCategory);
+      }
+      if (riskLevel) {
+        whereConditions.push(`risk_level = $${paramIndex++}`);
+        params.push(riskLevel);
+      }
+
+      const whereClause = whereConditions.length > 0 
+        ? `WHERE ${whereConditions.join(' AND ')}` 
+        : '';
+
+      const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+      
+      const [logs, countResult] = await Promise.all([
+        pool.query(`
+          SELECT * FROM admin_audit_logs 
+          ${whereClause}
+          ORDER BY created_at DESC
+          LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+        `, [...params, parseInt(limit as string), offset]),
+        pool.query(`SELECT COUNT(*) as total FROM admin_audit_logs ${whereClause}`, params)
+      ]);
+
+      await pool.end();
+
+      res.json({
+        logs: logs.rows,
+        pagination: {
+          page: parseInt(page as string),
+          limit: parseInt(limit as string),
+          total: parseInt(countResult.rows[0].total),
+          totalPages: Math.ceil(parseInt(countResult.rows[0].total) / parseInt(limit as string))
+        }
+      });
+    } catch (error) {
+      console.error('[Operator] Audit logs error:', error);
+      res.status(500).json({ error: "Failed to fetch audit logs" });
+    }
+  });
+
+  // ============================================
+  // Operator Portal: Compliance Reports
+  // ============================================
+
+  // Get compliance reports
+  app.get("/api/operator/reports", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { reportType, status, jurisdiction, page = '1', limit = '20' } = req.query;
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      let whereConditions = [];
+      let params: any[] = [];
+      let paramIndex = 1;
+
+      if (reportType) {
+        whereConditions.push(`report_type = $${paramIndex++}`);
+        params.push(reportType);
+      }
+      if (status) {
+        whereConditions.push(`status = $${paramIndex++}`);
+        params.push(status);
+      }
+      if (jurisdiction) {
+        whereConditions.push(`jurisdiction = $${paramIndex++}`);
+        params.push(jurisdiction);
+      }
+
+      const whereClause = whereConditions.length > 0 
+        ? `WHERE ${whereConditions.join(' AND ')}` 
+        : '';
+
+      const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+      
+      const [reports, countResult] = await Promise.all([
+        pool.query(`
+          SELECT * FROM compliance_reports 
+          ${whereClause}
+          ORDER BY created_at DESC
+          LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+        `, [...params, parseInt(limit as string), offset]),
+        pool.query(`SELECT COUNT(*) as total FROM compliance_reports ${whereClause}`, params)
+      ]);
+
+      await pool.end();
+
+      res.json({
+        reports: reports.rows,
+        pagination: {
+          page: parseInt(page as string),
+          limit: parseInt(limit as string),
+          total: parseInt(countResult.rows[0].total),
+          totalPages: Math.ceil(parseInt(countResult.rows[0].total) / parseInt(limit as string))
+        }
+      });
+    } catch (error) {
+      console.error('[Operator] Compliance reports error:', error);
+      res.status(500).json({ error: "Failed to fetch compliance reports" });
+    }
+  });
+
+  // Generate compliance report
+  app.post("/api/operator/reports", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { reportType, reportPeriod, periodStart, periodEnd, jurisdiction, regulatoryBody } = req.body;
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      // Generate summary based on report type
+      let summary = {};
+      
+      if (reportType === 'kyc_summary') {
+        const kycStats = await pool.query(`
+          SELECT 
+            COUNT(*) as total_members,
+            COUNT(*) FILTER (WHERE kyc_level = 'none') as no_kyc,
+            COUNT(*) FILTER (WHERE kyc_level = 'basic') as basic_kyc,
+            COUNT(*) FILTER (WHERE kyc_level = 'enhanced') as enhanced_kyc,
+            COUNT(*) FILTER (WHERE kyc_level = 'institutional') as institutional_kyc,
+            AVG(aml_risk_score) as avg_risk_score,
+            COUNT(*) FILTER (WHERE pep_status = true) as pep_count
+          FROM members
+        `);
+        summary = kycStats.rows[0];
+      } else if (reportType === 'aml_report') {
+        const amlStats = await pool.query(`
+          SELECT 
+            COUNT(*) FILTER (WHERE aml_risk_score >= 70) as high_risk_count,
+            COUNT(*) FILTER (WHERE aml_risk_score >= 40 AND aml_risk_score < 70) as medium_risk_count,
+            COUNT(*) FILTER (WHERE aml_risk_score < 40) as low_risk_count,
+            COUNT(*) FILTER (WHERE sanctions_check_passed = false) as sanctions_failed
+          FROM members
+        `);
+        summary = amlStats.rows[0];
+      }
+
+      const result = await pool.query(`
+        INSERT INTO compliance_reports (
+          report_type, report_period, period_start, period_end, 
+          jurisdiction, regulatory_body, summary, status, generated_by,
+          created_at, updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, 'draft', 'admin', NOW(), NOW())
+        RETURNING id
+      `, [reportType, reportPeriod, periodStart, periodEnd, jurisdiction, regulatoryBody || null, JSON.stringify(summary)]);
+
+      await logAdminAudit(
+        'admin',
+        'compliance_report_generated',
+        'compliance',
+        'compliance_reports',
+        result.rows[0].id,
+        null,
+        { reportType, jurisdiction },
+        null,
+        req,
+        'low'
+      );
+
+      await pool.end();
+
+      res.json({ success: true, id: result.rows[0].id, summary });
+    } catch (error) {
+      console.error('[Operator] Generate report error:', error);
+      res.status(500).json({ error: "Failed to generate compliance report" });
+    }
+  });
+
+  // Update compliance report status
+  app.patch("/api/operator/reports/:id", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, reviewNotes } = req.body;
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      const updates: string[] = ['updated_at = NOW()'];
+      const values: any[] = [];
+      let valueIndex = 1;
+
+      if (status) {
+        updates.push(`status = $${valueIndex++}`);
+        values.push(status);
+        
+        if (status === 'approved') {
+          updates.push('approved_at = NOW()');
+          updates.push(`approved_by = $${valueIndex++}`);
+          values.push('admin');
+        }
+        if (status === 'submitted') {
+          updates.push('submitted_at = NOW()');
+        }
+      }
+      if (reviewNotes !== undefined) {
+        updates.push(`review_notes = $${valueIndex++}`);
+        values.push(reviewNotes);
+        updates.push('reviewed_at = NOW()');
+        updates.push(`reviewed_by = $${valueIndex++}`);
+        values.push('admin');
+      }
+
+      values.push(id);
+      await pool.query(
+        `UPDATE compliance_reports SET ${updates.join(', ')} WHERE id = $${valueIndex}`,
+        values
+      );
+
+      await pool.end();
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[Operator] Update report error:', error);
+      res.status(500).json({ error: "Failed to update compliance report" });
+    }
+  });
+
+  // ============================================
+  // Operator Portal: Member Documents
+  // ============================================
+
+  // Get member documents
+  app.get("/api/operator/members/:id/documents", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      const documents = await pool.query(`
+        SELECT id, document_type, document_name, mime_type, file_size,
+               verification_status, verified_by, verified_at, rejection_reason,
+               expiry_date, is_expired, uploaded_at, updated_at
+        FROM member_documents 
+        WHERE member_id = $1
+        ORDER BY uploaded_at DESC
+      `, [id]);
+
+      await pool.end();
+
+      res.json({ documents: documents.rows });
+    } catch (error) {
+      console.error('[Operator] Member documents error:', error);
+      res.status(500).json({ error: "Failed to fetch member documents" });
+    }
+  });
+
+  // Verify member document
+  app.patch("/api/operator/documents/:id/verify", requireAdmin, operatorLimiter, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { verificationStatus, rejectionReason } = req.body;
+
+      const validStatuses = ['pending', 'verified', 'rejected', 'expired'];
+      if (!validStatuses.includes(verificationStatus)) {
+        return res.status(400).json({ error: "Invalid verification status" });
+      }
+
+      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+      await pool.query(`
+        UPDATE member_documents 
+        SET verification_status = $1, verified_by = 'admin', verified_at = NOW(),
+            rejection_reason = $2, updated_at = NOW()
+        WHERE id = $3
+      `, [verificationStatus, verificationStatus === 'rejected' ? rejectionReason : null, id]);
+
+      // Get document info for audit log
+      const doc = await pool.query('SELECT member_id, document_type FROM member_documents WHERE id = $1', [id]);
+
+      await logAdminAudit(
+        'admin',
+        'document_verification',
+        'member_management',
+        'member_documents',
+        id,
+        null,
+        { verificationStatus, documentType: doc.rows[0]?.document_type },
+        rejectionReason || null,
+        req,
+        'medium'
+      );
+
+      await pool.end();
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[Operator] Document verification error:', error);
+      res.status(500).json({ error: "Failed to verify document" });
+    }
+  });
+
+  // ============================================
   // Smart Contracts
   // ============================================
   app.get("/api/contracts", async (_req, res) => {
