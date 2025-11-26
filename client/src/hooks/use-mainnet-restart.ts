@@ -48,9 +48,12 @@ export function useMainnetRestart() {
   }, []);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
+    let intervalId: NodeJS.Timeout | null = null;
+    let isMounted = true;
 
     const checkRestartStatus = async () => {
+      if (!isMounted) return;
+      
       try {
         const response = await fetch('/api/admin/restart-status');
         if (!response.ok) {
@@ -62,13 +65,15 @@ export function useMainnetRestart() {
             if (restartInitiatedAt) {
               const elapsedTime = Date.now() - restartInitiatedAt.getTime();
               if (elapsedTime < RESTART_TIMEOUT) {
-                setStatus({
-                  ...parsed,
-                  restartInitiatedAt,
-                  lastHealthCheck: parsed.lastHealthCheck ? new Date(parsed.lastHealthCheck) : null,
-                  elapsedTime
-                });
-                setError(null);
+                if (isMounted) {
+                  setStatus({
+                    ...parsed,
+                    restartInitiatedAt,
+                    lastHealthCheck: parsed.lastHealthCheck ? new Date(parsed.lastHealthCheck) : null,
+                    elapsedTime
+                  });
+                  setError(null);
+                }
                 return;
               }
             }
@@ -84,8 +89,10 @@ export function useMainnetRestart() {
           lastHealthCheck: data.lastHealthCheck ? new Date(data.lastHealthCheck) : null
         };
         
-        setStatus(newStatus);
-        setError(null);
+        if (isMounted) {
+          setStatus(newStatus);
+          setError(null);
+        }
         
         // Save to localStorage if restarting
         if (newStatus.isRestarting) {
@@ -96,21 +103,34 @@ export function useMainnetRestart() {
         }
       } catch (err) {
         // Don't overwrite status if we have a valid restart in progress
-        if (!status?.isRestarting) {
+        if (isMounted && !status?.isRestarting) {
           setError(err instanceof Error ? err.message : 'Failed to check restart status');
         }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
-    // Initial check
+    // Initial check only - no interval polling unless actively restarting
     checkRestartStatus();
 
-    // Set up interval - check more frequently if restarting
-    intervalId = setInterval(checkRestartStatus, 3000); // Check every 3 seconds
+    // Only set up polling interval if there's an active restart in localStorage
+    const savedStatus = localStorage.getItem(RESTART_STATUS_KEY);
+    if (savedStatus) {
+      try {
+        const parsed = JSON.parse(savedStatus);
+        if (parsed.isRestarting) {
+          intervalId = setInterval(checkRestartStatus, 3000);
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
 
     return () => {
+      isMounted = false;
       if (intervalId) {
         clearInterval(intervalId);
       }

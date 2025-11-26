@@ -45,6 +45,23 @@ import OperatorValidators from "@/pages/operator/validators";
 import OperatorSecurity from "@/pages/operator/security";
 import OperatorReports from "@/pages/operator/reports";
 
+// Wrapped Operator Portal Components to prevent re-mounting
+function ProtectedOperatorDashboard() {
+  return <OperatorAuthGuard><OperatorDashboard /></OperatorAuthGuard>;
+}
+function ProtectedOperatorMembers() {
+  return <OperatorAuthGuard><OperatorMembers /></OperatorAuthGuard>;
+}
+function ProtectedOperatorValidators() {
+  return <OperatorAuthGuard><OperatorValidators /></OperatorAuthGuard>;
+}
+function ProtectedOperatorSecurity() {
+  return <OperatorAuthGuard><OperatorSecurity /></OperatorAuthGuard>;
+}
+function ProtectedOperatorReports() {
+  return <OperatorAuthGuard><OperatorReports /></OperatorAuthGuard>;
+}
+
 function Router() {
   return (
     <Switch>
@@ -70,11 +87,11 @@ function Router() {
       <Route path="/api-keys" component={ApiKeys} />
       <Route path="/admin" component={AdminPage} />
       {/* Operator Portal Routes - Protected with admin auth */}
-      <Route path="/operator" component={() => <OperatorAuthGuard><OperatorDashboard /></OperatorAuthGuard>} />
-      <Route path="/operator/members" component={() => <OperatorAuthGuard><OperatorMembers /></OperatorAuthGuard>} />
-      <Route path="/operator/validators" component={() => <OperatorAuthGuard><OperatorValidators /></OperatorAuthGuard>} />
-      <Route path="/operator/security" component={() => <OperatorAuthGuard><OperatorSecurity /></OperatorAuthGuard>} />
-      <Route path="/operator/reports" component={() => <OperatorAuthGuard><OperatorReports /></OperatorAuthGuard>} />
+      <Route path="/operator" component={ProtectedOperatorDashboard} />
+      <Route path="/operator/members" component={ProtectedOperatorMembers} />
+      <Route path="/operator/validators" component={ProtectedOperatorValidators} />
+      <Route path="/operator/security" component={ProtectedOperatorSecurity} />
+      <Route path="/operator/reports" component={ProtectedOperatorReports} />
       <Route component={NotFound} />
     </Switch>
   );
