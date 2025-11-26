@@ -1098,19 +1098,20 @@ export class TBurnEnterpriseNode extends EventEmitter {
     this.rpcApp.get('/api/wallets/:address', (req: Request, res: Response) => {
       const address = req.params.address;
       
-      res.json({
-        id: `wallet-${address.substring(0, 8)}`,
-        address,
-        balance: (BigInt(Math.floor(Math.random() * 10000)) * BigInt('1000000000000000000')).toString(),
-        nonce: Math.floor(Math.random() * 10000),
-        transactionCount: Math.floor(Math.random() * 50000),
-        lastActivity: new Date(Date.now() - Math.floor(Math.random() * 3600000)).toISOString(),
-        createdAt: new Date(Date.now() - Math.floor(Math.random() * 86400000 * 365)).toISOString(),
-        tokenBalances: [
-          { token: 'TBURN', balance: (BigInt(Math.floor(Math.random() * 10000)) * BigInt('1000000000000000000')).toString() },
-          { token: 'TBURNX', balance: (BigInt(Math.floor(Math.random() * 5000)) * BigInt('1000000000000000000')).toString() }
-        ]
-      });
+      // Initialize wallet cache if needed
+      if (!this.walletsInitialized) {
+        this.initializeWalletCache();
+      }
+      
+      // Look up wallet in cache
+      const wallet = this.walletCache.get(address);
+      
+      if (wallet) {
+        res.json(wallet);
+      } else {
+        // Return 404 if wallet not found
+        res.status(404).json({ error: 'Wallet not found' });
+      }
     });
 
     // ============================================
