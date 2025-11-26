@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   Activity,
@@ -14,6 +15,13 @@ import {
   Crown,
   Layers,
   ArrowUpRight,
+  X,
+  Hash,
+  Cpu,
+  ArrowRight,
+  FileText,
+  CircleDollarSign,
+  Fuel,
 } from "lucide-react";
 import { StatCard } from "@/components/stat-card";
 import { LiveIndicator } from "@/components/live-indicator";
@@ -21,9 +29,17 @@ import { SearchBar } from "@/components/search-bar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DataSourceBadge } from "@/components/data-source-badge";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
+import { Link } from "wouter";
 
 interface TokenomicsData {
   tiers: {
@@ -53,6 +69,9 @@ interface MemberStats {
 }
 
 export default function Dashboard() {
+  const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
+  const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
+
   const { data: networkStats, isLoading: statsLoading } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
   });
@@ -84,7 +103,6 @@ export default function Dashboard() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <DataSourceBadge size="md" />
           <LiveIndicator />
         </div>
       </div>
@@ -111,14 +129,12 @@ export default function Dashboard() {
               icon={Zap}
               trend={{ value: 12.5, isPositive: true }}
               subtitle={`Peak: ${formatNumber(networkStats?.peakTps || 0)} TPS`}
-              showDataSource={true}
             />
             <StatCard
               title="Block Height"
               value={formatNumber(networkStats?.currentBlockHeight || 0)}
               icon={Blocks}
               subtitle="latest block"
-              showDataSource={true}
             />
             <StatCard
               title="Block Time"
@@ -126,14 +142,12 @@ export default function Dashboard() {
               icon={Clock}
               trend={{ value: 5.2, isPositive: false }}
               subtitle={`P99: ${networkStats?.blockTimeP99 || 0}ms`}
-              showDataSource={true}
             />
             <StatCard
               title="SLA Uptime"
               value={`${((networkStats?.slaUptime || 9990) / 100).toFixed(2)}%`}
               icon={Activity}
               subtitle="last 30 days"
-              showDataSource={true}
             />
           </>
         )}
@@ -506,12 +520,13 @@ export default function Dashboard() {
                 recentBlocks.slice(0, 10).map((block) => (
                   <div
                     key={block.id}
-                    className="flex items-center justify-between p-3 rounded-md hover-elevate border"
+                    className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
                     data-testid={`card-block-${block.blockNumber}`}
+                    onClick={() => setSelectedBlock(block)}
                   >
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-semibold text-sm">
+                        <span className="font-mono font-semibold text-sm text-primary">
                           #{formatNumber(block.blockNumber)}
                         </span>
                         <Badge variant="secondary" className="text-xs">
@@ -561,12 +576,13 @@ export default function Dashboard() {
                 recentTxs.slice(0, 10).map((tx) => (
                   <div
                     key={tx.id}
-                    className="flex items-center justify-between p-3 rounded-md hover-elevate border"
+                    className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
                     data-testid={`card-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
+                    onClick={() => setSelectedTx(tx)}
                   >
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-sm">
+                        <span className="font-mono text-sm text-primary">
                           {formatAddress(tx.hash, 8, 6)}
                         </span>
                         <Badge
@@ -608,6 +624,227 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Block Detail Modal */}
+      <Dialog open={!!selectedBlock} onOpenChange={(open) => !open && setSelectedBlock(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Blocks className="h-5 w-5 text-primary" />
+              Block #{selectedBlock?.blockNumber ? formatNumber(selectedBlock.blockNumber) : ''}
+            </DialogTitle>
+            <DialogDescription>
+              Block details and information
+            </DialogDescription>
+          </DialogHeader>
+          {selectedBlock && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Hash className="h-3 w-3" /> Block Number
+                  </p>
+                  <p className="font-mono font-semibold">{formatNumber(selectedBlock.blockNumber)}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Clock className="h-3 w-3" /> Timestamp
+                  </p>
+                  <p className="font-mono text-sm">{new Date(selectedBlock.timestamp * 1000).toLocaleString()}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-1">
+                <p className="text-sm text-muted-foreground flex items-center gap-1">
+                  <Hash className="h-3 w-3" /> Block Hash
+                </p>
+                <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedBlock.hash}</p>
+              </div>
+              
+              <div className="space-y-1">
+                <p className="text-sm text-muted-foreground flex items-center gap-1">
+                  <Hash className="h-3 w-3" /> Parent Hash
+                </p>
+                <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedBlock.parentHash}</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Cpu className="h-3 w-3" /> Validator
+                  </p>
+                  <p className="font-mono text-sm break-all">{selectedBlock.validatorAddress}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <FileText className="h-3 w-3" /> Transactions
+                  </p>
+                  <Badge variant="secondary" className="text-sm">{selectedBlock.transactionCount} transactions</Badge>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Fuel className="h-3 w-3" /> Gas Used
+                  </p>
+                  <p className="font-mono">{formatNumber(parseInt(String(selectedBlock.gasUsed || '0')))} EMB</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Fuel className="h-3 w-3" /> Gas Limit
+                  </p>
+                  <p className="font-mono">{formatNumber(parseInt(String(selectedBlock.gasLimit || '0')))} EMB</p>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-sm text-muted-foreground flex items-center gap-1">
+                  <Layers className="h-3 w-3" /> Shard ID
+                </p>
+                <Badge variant="outline">{selectedBlock.shardId || 'Main'}</Badge>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-4 border-t">
+                <Button variant="outline" onClick={() => setSelectedBlock(null)}>
+                  Close
+                </Button>
+                <Link href={`/blocks/${selectedBlock.blockNumber}`}>
+                  <Button data-testid="button-view-block-details">
+                    View Full Details
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Transaction Detail Modal */}
+      <Dialog open={!!selectedTx} onOpenChange={(open) => !open && setSelectedTx(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-primary" />
+              Transaction Details
+            </DialogTitle>
+            <DialogDescription>
+              Transaction information and status
+            </DialogDescription>
+          </DialogHeader>
+          {selectedTx && (
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Badge
+                  variant={
+                    selectedTx.status === "success"
+                      ? "default"
+                      : selectedTx.status === "failed"
+                      ? "destructive"
+                      : "secondary"
+                  }
+                >
+                  {selectedTx.status?.toUpperCase()}
+                </Badge>
+                <span className="text-sm text-muted-foreground">
+                  {formatTimeAgo(selectedTx.timestamp)}
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-sm text-muted-foreground flex items-center gap-1">
+                  <Hash className="h-3 w-3" /> Transaction Hash
+                </p>
+                <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedTx.hash}</p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Users className="h-3 w-3" /> From
+                  </p>
+                  <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedTx.from}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <ArrowRight className="h-3 w-3" /> To
+                  </p>
+                  <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedTx.to || 'Contract Creation'}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <CircleDollarSign className="h-3 w-3" /> Value
+                  </p>
+                  <p className="font-semibold text-lg text-green-600">{formatTokenAmount(selectedTx.value)}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Blocks className="h-3 w-3" /> Block Number
+                  </p>
+                  <p className="font-mono">{formatNumber(selectedTx.blockNumber)}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Fuel className="h-3 w-3" /> Gas Used
+                  </p>
+                  <p className="font-mono">{formatNumber(parseInt(String(selectedTx.gasUsed || '0')))} EMB</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Fuel className="h-3 w-3" /> Gas Price
+                  </p>
+                  <p className="font-mono">{formatNumber(parseInt(String(selectedTx.gasPrice || '0')))} EMB</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Hash className="h-3 w-3" /> Nonce
+                  </p>
+                  <p className="font-mono">{selectedTx.nonce}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Layers className="h-3 w-3" /> Shard
+                  </p>
+                  <Badge variant="outline">{selectedTx.shardId || 'Main'}</Badge>
+                </div>
+              </div>
+
+              {selectedTx.input && selectedTx.input !== '0x' && (
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <FileText className="h-3 w-3" /> Input Data
+                  </p>
+                  <p className="font-mono text-xs break-all bg-muted/50 p-2 rounded max-h-24 overflow-y-auto">
+                    {selectedTx.input}
+                  </p>
+                </div>
+              )}
+
+              <div className="flex justify-end gap-2 pt-4 border-t">
+                <Button variant="outline" onClick={() => setSelectedTx(null)}>
+                  Close
+                </Button>
+                <Link href={`/transactions/${selectedTx.hash}`}>
+                  <Button data-testid="button-view-tx-details">
+                    View Full Details
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

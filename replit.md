@@ -3,7 +3,24 @@
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
-**Latest Updates (November 26, 2025):**
+**Latest Updates (November 27, 2025):**
+- **Dashboard UI Improvements**:
+  - Removed "Simulated" badge indicators from Dashboard header and all stat cards
+  - Only "Live" indicator remains for connection status display
+  - Cleaner, more professional dashboard appearance
+- **Block Detail Modal**: Click any block in "Latest Blocks" list to view detailed information
+  - Shows: Block Number, Block Hash, Parent Hash, Validator Address, Transaction Count, Gas Used/Limit, Shard ID, Timestamp
+  - "View Full Details" button navigates to full block detail page (/blocks/{blockNumber})
+- **Transaction Detail Modal**: Click any transaction in "Latest Transactions" list to view detailed information
+  - Shows: Status, Transaction Hash, From/To Addresses, Value, Block Number, Gas Used/Price, Nonce, Shard ID, Input Data
+  - "View Full Details" button navigates to full transaction detail page (/transactions/{hash})
+- **Operator Portal Stability Fix**: Resolved auto-refresh issues on all Operator Portal pages
+  - Fixed inline arrow functions in routes causing component remounting
+  - Created stable wrapper components (ProtectedOperatorDashboard, etc.)
+  - Optimized useMainnetRestart hook to only poll during actual restart events
+  - All pages now remain stable for 10+ seconds without flickering
+
+**Previous Updates (November 26, 2025):**
 - **Operator Portal Enterprise Upgrade**: Complete back-office for TBURN network management
   - **Dashboard**: Real-time system health cards, KPI trend charts (Recharts), alert center with severity queue, Zod validation
   - **Member Management**: Bulk actions, CSV export, advanced date filters, activity timeline, notes CRUD with timestamps
