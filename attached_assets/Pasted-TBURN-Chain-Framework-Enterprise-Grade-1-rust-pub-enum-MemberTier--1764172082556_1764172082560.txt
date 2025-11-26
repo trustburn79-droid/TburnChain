@@ -1,0 +1,1818 @@
+TBURN Chain Framework - 회원 정보 관리 시스템 (Enterprise-Grade)
+1. 회원 등급 분류 체계
+rust
+pub enum MemberTier {
+    // 일반 사용자 (Non-Validator)
+    BasicUser,              // 기본 사용자 (트랜잭션만 수행)
+    DelegatedStaker,        // 위임 스테이커 (Validator에게 토큰 위임)
+    
+    // Validator 등급
+    CandidateValidator,     // 후보 검증자 (최소 스테이킹 완료, 활성화 대기)
+    ActiveValidator,        // 활성 검증자 (블록 검증 참여 중)
+    InactiveValidator,      // 비활성 검증자 (일시적 비활성)
+    
+    // 특수 등급
+    GenesisValidator,       // 제네시스 검증자 (초기 설립 멤버)
+    EnterpriseValidator,    // 엔터프라이즈 검증자 (기업 노드)
+    GovernanceValidator,    // 거버넌스 검증자 (투표권 강화)
+    
+    // 제한 상태
+    ProbationValidator,     // 경고 상태 (성능 미달 또는 경미한 위반)
+    SuspendedValidator,     // 정지 상태 (중대한 위반, 임시 권한 박탈)
+    SlashedValidator,       // 슬래싱 상태 (악의적 행위, 스테이킹 삭감됨)
+}
+
+pub enum MemberStatus {
+    Pending,                // 승인 대기
+    Active,                 // 활성
+    Inactive,               // 비활성
+    Suspended,              // 정지
+    Terminated,             // 종료
+    Blacklisted,            // 블랙리스트
+}
+2. 핵심 회원 정보 구조
+2.1 기본 신원 정보 (Identity Information)
+rust
+pub struct MemberIdentity {
+    // 고유 식별자
+    pub member_id: Uuid,                    // 시스템 고유 ID
+    pub account_address: AccountAddress,    // 블록체인 계정 주소
+    pub public_key: PublicKey,              // 공개키
+    
+    // 신원 정보
+    pub legal_name: Option<String>,         // 법적 이름 (KYC 완료 시)
+    pub entity_type: EntityType,            // 개인/법인/DAO
+    pub jurisdiction: String,               // 관할 지역 (ISO 3166-1)
+    pub registration_number: Option<String>, // 사업자/법인 등록번호
+    
+    // 연락 정보 (암호화 저장)
+    pub encrypted_email: Vec<u8>,
+    pub encrypted_phone: Option<Vec<u8>>,
+    
+    // KYC/AML 정보
+    pub kyc_level: KycLevel,                // None/Basic/Enhanced/Institutional
+    pub kyc_provider: Option<String>,       // KYC 제공자
+    pub kyc_verified_at: Option<DateTime<Utc>>,
+    pub kyc_expiry_date: Option<DateTime<Utc>>,
+    pub aml_risk_score: u8,                 // 0-100 (낮을수록 안전)
+    pub sanctions_check_passed: bool,
+    pub pep_status: bool,                   // Politically Exposed Person
+    
+    // 타임스탬프
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
+    pub last_activity_at: DateTime<Utc>,
+}
+
+pub enum EntityType {
+    Individual,             // 개인
+    Corporation,            // 법인
+    Partnership,            // 파트너십
+    DAO,                    // 탈중앙화 자율 조직
+    Foundation,             // 재단
+    GovernmentEntity,       // 정부 기관
+}
+
+pub enum KycLevel {
+    None,                   // KYC 미완료
+    Basic,                  // 기본 인증 (이메일, 전화)
+    Enhanced,               // 강화 인증 (신분증, 주소 증명)
+    Institutional,          // 기관 인증 (법인 서류, 임원 정보)
+}
+2.2 Validator 특화 정보
+rust
+pub struct ValidatorProfile {
+    // 기본 Validator 정보
+    pub validator_id: ValidatorId,
+    pub member_id: Uuid,                    // 회원 ID 참조
+    pub validator_name: String,             // Validator 표시 이름
+    pub tier: MemberTier,
+    pub status: ValidatorStatus,
+    
+    // 노드 정보
+    pub node_id: NodeId,
+    pub node_version: String,
+    pub hardware_specs: HardwareSpecs,
+    pub network_endpoints: Vec<NetworkEndpoint>,
+    pub geographic_location: GeoLocation,
+    
+    // 스테이킹 정보
+    pub self_stake: StakeAmount,            // 자체 스테이킹 금액
+    pub delegated_stake: StakeAmount,       // 위임받은 금액
+    pub total_stake: StakeAmount,           // 총 스테이킹 (자체 + 위임)
+    pub min_stake_requirement: StakeAmount, // 최소 스테이킹 요구량
+    pub staking_start_date: DateTime<Utc>,
+    pub staking_lock_period: Duration,      // 언스테이킹 대기 기간
+    
+    // 위임자 관리
+    pub total_delegators: u32,
+    pub max_delegators: u32,                // 최대 위임자 수
+    pub commission_rate: Decimal,           // 수수료율 (0-100%)
+    pub commission_change_delay: Duration,   // 수수료 변경 지연 시간
+    
+    // 검증 성능
+    pub uptime_percentage: Decimal,         // 가동률 (%)
+    pub blocks_proposed: u64,               // 제안한 블록 수
+    pub blocks_validated: u64,              // 검증한 블록 수
+    pub blocks_missed: u64,                 // 놓친 블록 수
+    pub average_block_time: Duration,       // 평균 블록 생성 시간
+    pub last_block_proposed_at: Option<DateTime<Utc>>,
+    
+    // 합의 참여
+    pub consensus_participation_rate: Decimal, // 합의 참여율
+    pub voting_power: VotingPower,          // 투표권
+    pub slash_events: Vec<SlashEvent>,      // 슬래싱 이력
+    pub penalty_points: u32,                // 누적 페널티 포인트
+    
+    // 보상 정보
+    pub total_rewards_earned: TokenAmount,
+    pub pending_rewards: TokenAmount,
+    pub last_reward_claimed_at: Option<DateTime<Utc>>,
+    
+    // 보안
+    pub multi_sig_addresses: Vec<AccountAddress>, // 멀티시그 주소
+    pub required_signatures: u8,            // 필요한 서명 수
+    pub backup_nodes: Vec<NodeId>,          // 백업 노드
+    
+    // 타임스탬프
+    pub validator_since: DateTime<Utc>,
+    pub last_status_change: DateTime<Utc>,
+    pub next_eligibility_check: DateTime<Utc>,
+}
+
+pub struct HardwareSpecs {
+    pub cpu_cores: u16,
+    pub ram_gb: u32,
+    pub storage_gb: u64,
+    pub storage_type: StorageType,          // SSD/NVMe/HDD
+    pub network_bandwidth_mbps: u32,
+    pub os: String,
+}
+
+pub struct NetworkEndpoint {
+    pub endpoint_type: EndpointType,        // P2P/RPC/REST/WebSocket
+    pub address: String,
+    pub port: u16,
+    pub protocol: Protocol,                 // HTTP/HTTPS/TCP/QUIC
+    pub is_public: bool,
+}
+
+pub struct GeoLocation {
+    pub country_code: String,               // ISO 3166-1
+    pub region: String,
+    pub city: String,
+    pub latitude: Option<f64>,
+    pub longitude: Option<f64>,
+    pub data_center: Option<String>,        // 데이터센터 정보
+}
+2.3 스테이킹 상세 정보
+rust
+pub struct StakingDetails {
+    pub member_id: Uuid,
+    pub staking_type: StakingType,
+    
+    // 스테이킹 포지션
+    pub positions: Vec<StakingPosition>,
+    pub total_staked: TokenAmount,
+    pub available_balance: TokenAmount,
+    
+    // 언스테이킹
+    pub unstaking_queue: Vec<UnstakingRequest>,
+    pub total_unstaking: TokenAmount,
+    
+    // 보상
+    pub accumulated_rewards: TokenAmount,
+    pub claimed_rewards: TokenAmount,
+    pub annual_percentage_rate: Decimal,    // APR
+    pub annual_percentage_yield: Decimal,   // APY
+    
+    // 이력
+    pub total_staking_history: Vec<StakingTransaction>,
+    pub first_stake_date: Option<DateTime<Utc>>,
+    pub last_stake_date: Option<DateTime<Utc>>,
+}
+
+pub enum StakingType {
+    SelfValidation,         // 자체 검증자 스테이킹
+    Delegation(ValidatorId), // 위임 스테이킹
+    LiquidStaking,          // 유동 스테이킹
+}
+
+pub struct StakingPosition {
+    pub position_id: Uuid,
+    pub amount: TokenAmount,
+    pub staked_at: DateTime<Utc>,
+    pub lock_period: Duration,
+    pub unlock_at: DateTime<Utc>,
+    pub auto_compound: bool,            // 자동 복리
+    pub tier_bonus: Decimal,            // 등급 보너스
+}
+
+pub struct UnstakingRequest {
+    pub request_id: Uuid,
+    pub amount: TokenAmount,
+    pub requested_at: DateTime<Utc>,
+    pub available_at: DateTime<Utc>,
+    pub status: UnstakingStatus,
+}
+2.4 거버넌스 참여 정보
+rust
+pub struct GovernanceProfile {
+    pub member_id: Uuid,
+    
+    // 투표권
+    pub voting_power: VotingPower,
+    pub voting_power_history: Vec<VotingPowerSnapshot>,
+    
+    // 제안 활동
+    pub proposals_created: u32,
+    pub proposals_passed: u32,
+    pub proposals_rejected: u32,
+    
+    // 투표 활동
+    pub total_votes_cast: u32,
+    pub votes_for: u32,
+    pub votes_against: u32,
+    pub votes_abstain: u32,
+    pub voting_participation_rate: Decimal,
+    
+    // 위임
+    pub delegated_to: Option<AccountAddress>, // 투표권 위임 대상
+    pub delegated_from: Vec<AccountAddress>,   // 투표권 위임 받은 대상
+    
+    // 제안 이력
+    pub proposal_history: Vec<ProposalParticipation>,
+    
+    // 평판
+    pub reputation_score: u32,              // 거버넌스 평판 점수
+    pub contribution_level: ContributionLevel,
+    
+    pub last_vote_at: Option<DateTime<Utc>>,
+    pub last_proposal_at: Option<DateTime<Utc>>,
+}
+
+pub struct ProposalParticipation {
+    pub proposal_id: Uuid,
+    pub participation_type: ParticipationType, // Creator/Voter/Delegate
+    pub vote: Option<Vote>,
+    pub timestamp: DateTime<Utc>,
+}
+
+pub enum ContributionLevel {
+    Observer,               // 관찰자 (투표만)
+    Participant,            // 참여자 (활발한 투표)
+    Contributor,            // 기여자 (제안 작성)
+    Leader,                 // 리더 (다수 제안 통과)
+}
+2.5 재무 및 트랜잭션 정보
+rust
+pub struct FinancialProfile {
+    pub member_id: Uuid,
+    
+    // 잔액 정보
+    pub total_balance: TokenAmount,
+    pub available_balance: TokenAmount,
+    pub locked_balance: TokenAmount,
+    pub staked_balance: TokenAmount,
+    
+    // 트랜잭션 통계
+    pub total_transactions: u64,
+    pub total_sent: TokenAmount,
+    pub total_received: TokenAmount,
+    pub total_fees_paid: TokenAmount,
+    
+    // 보상 통계
+    pub validator_rewards: TokenAmount,
+    pub staking_rewards: TokenAmount,
+    pub delegation_rewards: TokenAmount,
+    pub referral_rewards: TokenAmount,
+    
+    // 슬래싱
+    pub total_slashed: TokenAmount,
+    pub slash_history: Vec<SlashEvent>,
+    
+    // 세금 정보
+    pub tax_reporting_enabled: bool,
+    pub tax_jurisdiction: Option<String>,
+    pub annual_reports: Vec<AnnualTaxReport>,
+    
+    // 트랜잭션 이력 (최근)
+    pub recent_transactions: Vec<TransactionRecord>,
+    
+    pub first_transaction_at: Option<DateTime<Utc>>,
+    pub last_transaction_at: Option<DateTime<Utc>>,
+}
+
+pub struct SlashEvent {
+    pub event_id: Uuid,
+    pub slash_type: SlashType,
+    pub amount: TokenAmount,
+    pub reason: String,
+    pub evidence_hash: Hash,
+    pub occurred_at: DateTime<Utc>,
+    pub appeal_status: AppealStatus,
+}
+
+pub enum SlashType {
+    DoubleSign,             // 이중 서명
+    Downtime,               // 다운타임
+    InvalidBlock,           // 무효 블록 제안
+    ConsensusViolation,     // 합의 위반
+    SecurityBreach,         // 보안 위반
+}
+2.6 보안 및 감사 정보
+rust
+pub struct SecurityProfile {
+    pub member_id: Uuid,
+    
+    // 인증 정보
+    pub authentication_methods: Vec<AuthMethod>,
+    pub two_factor_enabled: bool,
+    pub multi_sig_enabled: bool,
+    pub required_confirmations: u8,
+    
+    // 접속 보안
+    pub ip_whitelist: Vec<IpAddress>,
+    pub allowed_regions: Vec<String>,
+    pub max_session_duration: Duration,
+    pub session_history: Vec<SessionRecord>,
+    
+    // 키 관리
+    pub active_public_keys: Vec<PublicKeyRecord>,
+    pub key_rotation_history: Vec<KeyRotationEvent>,
+    pub last_key_rotation: Option<DateTime<Utc>>,
+    pub next_key_rotation_due: Option<DateTime<Utc>>,
+    
+    // 보안 이벤트
+    pub security_alerts: Vec<SecurityAlert>,
+    pub suspicious_activities: Vec<SuspiciousActivity>,
+    pub failed_login_attempts: u32,
+    pub last_failed_login: Option<DateTime<Utc>>,
+    
+    // 감사 추적
+    pub audit_logs: Vec<AuditLogEntry>,
+    pub compliance_checks: Vec<ComplianceCheck>,
+    
+    // 위험 관리
+    pub risk_score: u8,                     // 0-100 (높을수록 위험)
+    pub risk_factors: Vec<RiskFactor>,
+    pub last_risk_assessment: DateTime<Utc>,
+}
+
+pub struct AuditLogEntry {
+    pub log_id: Uuid,
+    pub action_type: ActionType,
+    pub actor: AccountAddress,
+    pub target: Option<String>,
+    pub ip_address: IpAddress,
+    pub user_agent: String,
+    pub success: bool,
+    pub details: serde_json::Value,
+    pub timestamp: DateTime<Utc>,
+}
+
+pub enum ActionType {
+    Login,
+    Logout,
+    KeyRotation,
+    StakeToken,
+    UnstakeToken,
+    ProposeBlock,
+    CastVote,
+    UpdateProfile,
+    WithdrawRewards,
+    DelegateStake,
+    ChangePowerSettings,
+}
+2.7 성능 모니터링 정보
+rust
+pub struct PerformanceMetrics {
+    pub member_id: Uuid,
+    pub validator_id: Option<ValidatorId>,
+    
+    // 실시간 메트릭
+    pub current_uptime: Duration,
+    pub current_tps: f64,                   // Transactions Per Second
+    pub current_latency_ms: u64,
+    pub current_memory_usage_mb: u64,
+    pub current_cpu_usage_percent: f32,
+    pub current_network_usage_mbps: f32,
+    
+    // 히스토리컬 메트릭 (집계)
+    pub hourly_metrics: Vec<MetricSnapshot>,
+    pub daily_metrics: Vec<MetricSnapshot>,
+    pub weekly_metrics: Vec<MetricSnapshot>,
+    pub monthly_metrics: Vec<MetricSnapshot>,
+    
+    // SLA 준수
+    pub sla_compliance_rate: Decimal,       // 99.9% 등
+    pub sla_violations: Vec<SlaViolation>,
+    pub downtime_incidents: Vec<DowntimeIncident>,
+    
+    // 성능 등급
+    pub performance_grade: PerformanceGrade, // S/A/B/C/D/F
+    pub performance_score: u16,              // 0-1000
+    pub performance_rank: u32,               // 전체 순위
+    
+    // 알림 설정
+    pub alert_thresholds: AlertThresholds,
+    pub active_alerts: Vec<PerformanceAlert>,
+    
+    pub metrics_updated_at: DateTime<Utc>,
+}
+
+pub struct MetricSnapshot {
+    pub timestamp: DateTime<Utc>,
+    pub uptime_percent: Decimal,
+    pub avg_tps: f64,
+    pub avg_latency_ms: u64,
+    pub blocks_proposed: u32,
+    pub blocks_validated: u32,
+    pub blocks_missed: u32,
+}
+
+pub enum PerformanceGrade {
+    S,      // 99.99%+ uptime, top 5%
+    A,      // 99.9%+ uptime, top 20%
+    B,      // 99%+ uptime, top 50%
+    C,      // 98%+ uptime
+    D,      // 95%+ uptime
+    F,      // Below 95% uptime
+}
+2.8 메타데이터 및 확장 정보
+rust
+pub struct MemberMetadata {
+    pub member_id: Uuid,
+    
+    // 프로필 정보
+    pub display_name: String,
+    pub avatar_url: Option<String>,
+    pub bio: Option<String>,
+    pub website: Option<String>,
+    pub social_links: SocialLinks,
+    
+    // 태그 및 카테고리
+    pub tags: Vec<String>,
+    pub categories: Vec<MemberCategory>,
+    
+    // 선호도
+    pub preferred_language: String,         // ISO 639-1
+    pub preferred_currency: String,         // ISO 4217
+    pub timezone: String,                   // IANA Timezone
+    pub notification_preferences: NotificationPreferences,
+    
+    // API 접근
+    pub api_keys: Vec<ApiKeyRecord>,
+    pub api_rate_limit: RateLimit,
+    pub api_usage_stats: ApiUsageStats,
+    
+    // 커스텀 필드 (확장성)
+    pub custom_fields: HashMap<String, serde_json::Value>,
+    
+    // 레퍼럴
+    pub referral_code: String,
+    pub referred_by: Option<AccountAddress>,
+    pub referral_count: u32,
+    pub referral_rewards_earned: TokenAmount,
+    
+    pub metadata_version: u32,
+    pub last_updated: DateTime<Utc>,
+}
+
+pub struct SocialLinks {
+    pub twitter: Option<String>,
+    pub telegram: Option<String>,
+    pub discord: Option<String>,
+    pub github: Option<String>,
+    pub linkedin: Option<String>,
+}
+
+pub struct NotificationPreferences {
+    pub email_enabled: bool,
+    pub sms_enabled: bool,
+    pub push_enabled: bool,
+    pub notification_types: Vec<NotificationType>,
+    pub quiet_hours_start: Option<Time>,
+    pub quiet_hours_end: Option<Time>,
+}
+
+pub enum NotificationType {
+    ValidatorPerformance,
+    StakingRewards,
+    GovernanceProposals,
+    SecurityAlerts,
+    SystemMaintenance,
+    PriceAlerts,
+    NewsUpdates,
+}
+3. 데이터베이스 스키마 설계
+3.1 Primary Tables
+sql
+-- 회원 기본 테이블
+CREATE TABLE members (
+    member_id UUID PRIMARY KEY,
+    account_address VARCHAR(66) UNIQUE NOT NULL,
+    public_key BYTEA NOT NULL,
+    entity_type VARCHAR(50) NOT NULL,
+    member_tier VARCHAR(50) NOT NULL,
+    member_status VARCHAR(50) NOT NULL,
+    kyc_level VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    last_activity_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    
+    INDEX idx_account_address (account_address),
+    INDEX idx_member_tier (member_tier),
+    INDEX idx_member_status (member_status),
+    INDEX idx_created_at (created_at)
+);
+
+-- Validator 프로필 테이블
+CREATE TABLE validator_profiles (
+    validator_id VARCHAR(66) PRIMARY KEY,
+    member_id UUID NOT NULL REFERENCES members(member_id),
+    validator_name VARCHAR(255) NOT NULL,
+    node_id VARCHAR(66) NOT NULL,
+    self_stake DECIMAL(38, 18) NOT NULL,
+    delegated_stake DECIMAL(38, 18) NOT NULL,
+    total_stake DECIMAL(38, 18) NOT NULL,
+    commission_rate DECIMAL(5, 2) NOT NULL,
+    uptime_percentage DECIMAL(5, 2) NOT NULL,
+    blocks_proposed BIGINT NOT NULL DEFAULT 0,
+    blocks_validated BIGINT NOT NULL DEFAULT 0,
+    blocks_missed BIGINT NOT NULL DEFAULT 0,
+    validator_since TIMESTAMP WITH TIME ZONE NOT NULL,
+    last_block_proposed_at TIMESTAMP WITH TIME ZONE,
+    
+    INDEX idx_member_id (member_id),
+    INDEX idx_total_stake (total_stake DESC),
+    INDEX idx_uptime (uptime_percentage DESC)
+);
+
+-- 스테이킹 포지션 테이블
+CREATE TABLE staking_positions (
+    position_id UUID PRIMARY KEY,
+    member_id UUID NOT NULL REFERENCES members(member_id),
+    staking_type VARCHAR(50) NOT NULL,
+    validator_id VARCHAR(66) REFERENCES validator_profiles(validator_id),
+    amount DECIMAL(38, 18) NOT NULL,
+    staked_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    unlock_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    
+    INDEX idx_member_id (member_id),
+    INDEX idx_validator_id (validator_id),
+    INDEX idx_unlock_at (unlock_at)
+);
+
+-- 거버넌스 참여 테이블
+CREATE TABLE governance_profiles (
+    member_id UUID PRIMARY KEY REFERENCES members(member_id),
+    voting_power DECIMAL(38, 18) NOT NULL,
+    total_votes_cast INTEGER NOT NULL DEFAULT 0,
+    proposals_created INTEGER NOT NULL DEFAULT 0,
+    reputation_score INTEGER NOT NULL DEFAULT 0,
+    last_vote_at TIMESTAMP WITH TIME ZONE,
+    
+    INDEX idx_voting_power (voting_power DESC),
+    INDEX idx_reputation (reputation_score DESC)
+);
+
+-- 재무 프로필 테이블
+CREATE TABLE financial_profiles (
+    member_id UUID PRIMARY KEY REFERENCES members(member_id),
+    total_balance DECIMAL(38, 18) NOT NULL,
+    available_balance DECIMAL(38, 18) NOT NULL,
+    staked_balance DECIMAL(38, 18) NOT NULL,
+    total_rewards_earned DECIMAL(38, 18) NOT NULL DEFAULT 0,
+    total_slashed DECIMAL(38, 18) NOT NULL DEFAULT 0,
+    first_transaction_at TIMESTAMP WITH TIME ZONE,
+    last_transaction_at TIMESTAMP WITH TIME ZONE,
+    
+    INDEX idx_total_balance (total_balance DESC)
+);
+
+-- 감사 로그 테이블 (파티셔닝 권장)
+CREATE TABLE audit_logs (
+    log_id UUID PRIMARY KEY,
+    member_id UUID NOT NULL REFERENCES members(member_id),
+    action_type VARCHAR(100) NOT NULL,
+    ip_address INET NOT NULL,
+    success BOOLEAN NOT NULL,
+    details JSONB,
+    timestamp TIMESTAMP WITH TIME ZONE NOT NULL,
+    
+    INDEX idx_member_id (member_id),
+    INDEX idx_action_type (action_type),
+    INDEX idx_timestamp (timestamp DESC)
+) PARTITION BY RANGE (timestamp);
+
+-- 성능 메트릭 테이블 (시계열 데이터)
+CREATE TABLE performance_metrics (
+    metric_id UUID PRIMARY KEY,
+    validator_id VARCHAR(66) NOT NULL REFERENCES validator_profiles(validator_id),
+    timestamp TIMESTAMP WITH TIME ZONE NOT NULL,
+    uptime_percent DECIMAL(5, 2) NOT NULL,
+    avg_tps DECIMAL(10, 2) NOT NULL,
+    avg_latency_ms INTEGER NOT NULL,
+    blocks_proposed INTEGER NOT NULL,
+    blocks_validated INTEGER NOT NULL,
+    blocks_missed INTEGER NOT NULL,
+    
+    INDEX idx_validator_timestamp (validator_id, timestamp DESC)
+) PARTITION BY RANGE (timestamp);
+4. 회원 등급별 요구사항 매트릭스
+항목
+BasicUser
+DelegatedStaker
+CandidateValidator
+ActiveValidator
+EnterpriseValidator
+최소 스테이킹
+없음
+100 TBURN
+10,000 TBURN
+50,000 TBURN
+500,000 TBURN
+KYC 레벨
+None
+Basic
+Enhanced
+Enhanced
+Institutional
+최소 업타임
+-
+-
+95%
+99%
+99.9%
+거버넌스 투표
+❌
+✅
+✅
+✅
+✅ (가중치 1.5x)
+블록 제안
+❌
+❌
+❌
+✅
+✅
+위임 수락
+❌
+❌
+✅ (제한적)
+✅
+✅ (무제한)
+수수료율 범위
+-
+-
+5-15%
+3-10%
+1-8%
+SLA 보장
+❌
+❌
+❌
+✅ (99%)
+✅ (99.95%)
+
+5. 보안 및 규제 준수
+5.1 데이터 암호화
+rust
+pub struct EncryptionConfig {
+    // At Rest
+    pub database_encryption: EncryptionAlgorithm,  // AES-256-GCM
+    pub file_encryption: EncryptionAlgorithm,      // ChaCha20-Poly1305
+    
+    // In Transit
+    pub tls_version: String,                       // TLS 1.3
+    pub cipher_suites: Vec<String>,
+    
+    // PII 필드 암호화 (개인정보)
+    pub encrypted_fields: Vec<String>,
+    // email, phone, legal_name, registration_number 등
+}
+5.2 GDPR 준수
+rust
+pub struct GdprCompliance {
+    pub data_retention_days: u32,          // 데이터 보관 기간
+    pub anonymization_enabled: bool,
+    pub right_to_be_forgotten: bool,       // 삭제 요청 처리
+    pub data_portability: bool,            // 데이터 이동권
+    pub consent_management: ConsentRecord,
+}
+5.3 접근 제어
+rust
+pub enum AccessLevel {
+    Public,         // 공개 정보 (validator 이름, 업타임 등)
+    Member,         // 회원 본인만
+    Validator,      // Validator 전용
+    Admin,          // 관리자
+    Auditor,        // 감사자
+    System,         // 시스템 내부
+}
+
+이 구조는: ✅ 확장 가능: 새로운 필드 추가 용이
+ ✅ 규제 준수: KYC/AML, GDPR, 세금 보고
+ ✅ 감사 가능: 모든 작업 추적
+ ✅ 고성능: 인덱싱 및 파티셔닝 최적화
+ ✅ 보안 중심: 암호화, 멀티시그, 접근 제어
+ ✅ 실시간 모니터링: 성능 메트릭, 알림
+Retry
+KJ
+계속해줘.
+TBURN Chain 회원 시스템의 포괄적 구현 전략을 수립했습니다.
+사용자가 "계속해줘"라고 했으므로, TBURN Chain Framework의 회원 로직에 대한 추가적인 세부 사항을 계속 작성해야 합니다. 이미 기본적인 데이터 구조와 스키마를 작성했으므로, 이제 다음 내용들을 추가로 작성하겠습니다:
+회원 라이프사이클 관리
+등급 승급/강등 로직
+API 엔드포인트 설계
+이벤트 시스템
+알림 시스템
+리포팅 및 대시보드
+마이그레이션 및 백업 전략
+성능 최적화
+모니터링 및 알림
+비즈니스 로직 구현
+프로덕션 레벨의 엔터프라이즈급 시스템이므로, 실제 운영에 필요한 모든 측면을 다뤄야 합니다.
+TBURN Chain Framework - 회원 관리 시스템 (계속)
+6. 회원 라이프사이클 관리
+6.1 회원 가입 프로세스
+rust
+pub struct RegistrationWorkflow {
+    pub workflow_id: Uuid,
+    pub applicant_address: AccountAddress,
+    pub current_stage: RegistrationStage,
+    pub started_at: DateTime<Utc>,
+    pub completed_at: Option<DateTime<Utc>>,
+}
+
+pub enum RegistrationStage {
+    // 1단계: 기본 등록
+    AccountCreation {
+        public_key: PublicKey,
+        signature: Signature,
+    },
+    
+    // 2단계: 이메일 인증
+    EmailVerification {
+        email: String,
+        verification_code: String,
+        expires_at: DateTime<Utc>,
+        attempts: u8,
+    },
+    
+    // 3단계: KYC (선택적)
+    KycSubmission {
+        kyc_provider: String,
+        document_hashes: Vec<Hash>,
+        submitted_at: DateTime<Utc>,
+    },
+    
+    KycReview {
+        reviewer_id: Uuid,
+        review_started_at: DateTime<Utc>,
+        findings: Vec<KycFinding>,
+    },
+    
+    KycApproved {
+        approved_by: Uuid,
+        approved_at: DateTime<Utc>,
+        kyc_level: KycLevel,
+    },
+    
+    KycRejected {
+        rejection_reason: String,
+        rejected_at: DateTime<Utc>,
+        can_reapply: bool,
+        reapply_after: Option<DateTime<Utc>>,
+    },
+    
+    // 4단계: 회원 유형 선택
+    MemberTypeSelection {
+        selected_tier: MemberTier,
+        stake_amount: Option<TokenAmount>,
+    },
+    
+    // 5단계: 초기 스테이킹 (Validator의 경우)
+    InitialStaking {
+        stake_amount: TokenAmount,
+        transaction_hash: Hash,
+        confirmed_at: Option<DateTime<Utc>>,
+    },
+    
+    // 6단계: Validator 설정 (Validator의 경우)
+    ValidatorSetup {
+        node_id: NodeId,
+        network_endpoints: Vec<NetworkEndpoint>,
+        hardware_verified: bool,
+        network_tested: bool,
+    },
+    
+    // 7단계: 최종 승인
+    PendingApproval {
+        submitted_at: DateTime<Utc>,
+        approval_queue_position: u32,
+    },
+    
+    Approved {
+        approved_by: Option<Uuid>,  // None for auto-approval
+        approved_at: DateTime<Utc>,
+        member_id: Uuid,
+    },
+    
+    Rejected {
+        rejection_reason: String,
+        rejected_at: DateTime<Utc>,
+    },
+}
+
+// 등록 로직 구현
+impl MemberRegistrationService {
+    pub async fn initiate_registration(
+        &self,
+        public_key: PublicKey,
+        signature: Signature,
+        email: String,
+    ) -> Result<RegistrationWorkflow, RegistrationError> {
+        // 1. 서명 검증
+        self.verify_signature(&public_key, &signature)?;
+        
+        // 2. 중복 계정 확인
+        if self.account_exists(&public_key).await? {
+            return Err(RegistrationError::AccountAlreadyExists);
+        }
+        
+        // 3. 이메일 중복 확인
+        if self.email_exists(&email).await? {
+            return Err(RegistrationError::EmailAlreadyRegistered);
+        }
+        
+        // 4. 워크플로우 생성
+        let workflow = RegistrationWorkflow {
+            workflow_id: Uuid::new_v4(),
+            applicant_address: AccountAddress::from_public_key(&public_key),
+            current_stage: RegistrationStage::EmailVerification {
+                email: email.clone(),
+                verification_code: self.generate_verification_code(),
+                expires_at: Utc::now() + Duration::hours(24),
+                attempts: 0,
+            },
+            started_at: Utc::now(),
+            completed_at: None,
+        };
+        
+        // 5. 인증 이메일 발송
+        self.send_verification_email(&email, &workflow).await?;
+        
+        // 6. 워크플로우 저장
+        self.save_workflow(&workflow).await?;
+        
+        Ok(workflow)
+    }
+    
+    pub async fn complete_validator_registration(
+        &self,
+        workflow_id: Uuid,
+        validator_config: ValidatorConfiguration,
+    ) -> Result<ValidatorProfile, RegistrationError> {
+        // Validator 특화 등록 완료 로직
+        let workflow = self.get_workflow(workflow_id).await?;
+        
+        // 1. 최소 스테이킹 확인
+        self.verify_minimum_stake(&workflow, &validator_config).await?;
+        
+        // 2. 하드웨어 요구사항 검증
+        self.verify_hardware_requirements(&validator_config).await?;
+        
+        // 3. 네트워크 연결 테스트
+        self.test_network_connectivity(&validator_config).await?;
+        
+        // 4. Validator 프로필 생성
+        let validator_profile = self.create_validator_profile(&workflow, &validator_config).await?;
+        
+        // 5. 제네시스 또는 대기열 추가
+        self.add_to_validator_set(&validator_profile).await?;
+        
+        Ok(validator_profile)
+    }
+}
+6.2 회원 등급 승급/강등 시스템
+rust
+pub struct TierTransitionEngine {
+    pub evaluation_interval: Duration,  // 평가 주기 (예: 7일)
+    pub grace_period: Duration,         // 유예 기간 (예: 3일)
+}
+
+impl TierTransitionEngine {
+    pub async fn evaluate_member(&self, member_id: Uuid) -> Result<TierTransitionDecision, Error> {
+        let member = self.get_member(member_id).await?;
+        let current_tier = member.tier;
+        let metrics = self.get_member_metrics(member_id).await?;
+        
+        // 평가 기준
+        let evaluation = TierEvaluation {
+            stake_requirement: self.check_stake_requirement(&member, &metrics),
+            performance_requirement: self.check_performance(&member, &metrics),
+            uptime_requirement: self.check_uptime(&member, &metrics),
+            governance_participation: self.check_governance_participation(&member),
+            slash_history: self.check_slash_history(&member),
+            kyc_compliance: self.check_kyc_compliance(&member),
+        };
+        
+        // 승급 가능성 확인
+        if let Some(upgrade_tier) = self.check_upgrade_eligibility(&current_tier, &evaluation) {
+            return Ok(TierTransitionDecision::Upgrade {
+                from: current_tier,
+                to: upgrade_tier,
+                reason: evaluation.upgrade_reasons(),
+                effective_at: Utc::now() + self.grace_period,
+            });
+        }
+        
+        // 강등 필요성 확인
+        if let Some(downgrade_tier) = self.check_downgrade_necessity(&current_tier, &evaluation) {
+            return Ok(TierTransitionDecision::Downgrade {
+                from: current_tier,
+                to: downgrade_tier,
+                reason: evaluation.downgrade_reasons(),
+                grace_period_until: Utc::now() + self.grace_period,
+                corrective_actions: evaluation.required_actions(),
+            });
+        }
+        
+        Ok(TierTransitionDecision::Maintain {
+            current_tier,
+            next_evaluation: Utc::now() + self.evaluation_interval,
+        })
+    }
+}
+
+pub struct TierEvaluation {
+    pub stake_requirement: RequirementStatus,
+    pub performance_requirement: RequirementStatus,
+    pub uptime_requirement: RequirementStatus,
+    pub governance_participation: RequirementStatus,
+    pub slash_history: RequirementStatus,
+    pub kyc_compliance: RequirementStatus,
+}
+
+pub enum RequirementStatus {
+    Met,
+    NotMet { gap: String },
+    Exceeds { margin: String },
+}
+
+pub enum TierTransitionDecision {
+    Upgrade {
+        from: MemberTier,
+        to: MemberTier,
+        reason: Vec<String>,
+        effective_at: DateTime<Utc>,
+    },
+    Downgrade {
+        from: MemberTier,
+        to: MemberTier,
+        reason: Vec<String>,
+        grace_period_until: DateTime<Utc>,
+        corrective_actions: Vec<CorrectiveAction>,
+    },
+    Maintain {
+        current_tier,
+        next_evaluation: DateTime<Utc>,
+    },
+    Suspend {
+        reason: String,
+        suspension_period: Duration,
+        appeal_deadline: DateTime<Utc>,
+    },
+}
+
+pub struct CorrectiveAction {
+    pub action_type: ActionType,
+    pub description: String,
+    pub deadline: DateTime<Utc>,
+    pub priority: Priority,
+}
+
+pub enum ActionType {
+    IncreaseStake { required_amount: TokenAmount },
+    ImproveUptime { target_percentage: Decimal },
+    UpgradeHardware { specifications: HardwareSpecs },
+    CompleteKyc { required_level: KycLevel },
+    ResolveSlash { event_id: Uuid },
+}
+6.3 회원 정지 및 복원 프로세스
+rust
+pub struct SuspensionManager {
+    pub max_suspension_duration: Duration,
+    pub appeal_window: Duration,
+}
+
+impl SuspensionManager {
+    pub async fn suspend_member(
+        &self,
+        member_id: Uuid,
+        reason: SuspensionReason,
+        evidence: Vec<Evidence>,
+        suspended_by: Uuid,
+    ) -> Result<SuspensionRecord, Error> {
+        let member = self.get_member(member_id).await?;
+        
+        // 1. 정지 사유 검증
+        self.validate_suspension_reason(&reason, &evidence)?;
+        
+        // 2. 정지 기간 결정
+        let duration = self.calculate_suspension_duration(&reason, &member.suspension_history);
+        
+        // 3. 정지 실행
+        let suspension = SuspensionRecord {
+            suspension_id: Uuid::new_v4(),
+            member_id,
+            reason: reason.clone(),
+            evidence_hashes: evidence.iter().map(|e| e.hash()).collect(),
+            suspended_by,
+            suspended_at: Utc::now(),
+            suspension_ends_at: Utc::now() + duration,
+            appeal_deadline: Utc::now() + self.appeal_window,
+            status: SuspensionStatus::Active,
+        };
+        
+        // 4. 회원 상태 업데이트
+        self.update_member_status(member_id, MemberStatus::Suspended).await?;
+        
+        // 5. Validator 권한 일시 중지
+        if let Some(validator_id) = member.validator_id {
+            self.pause_validator(validator_id).await?;
+        }
+        
+        // 6. 위임자들에게 통지
+        self.notify_delegators(member_id, &suspension).await?;
+        
+        // 7. 감사 로그 기록
+        self.log_suspension_event(&suspension).await?;
+        
+        Ok(suspension)
+    }
+    
+    pub async fn appeal_suspension(
+        &self,
+        suspension_id: Uuid,
+        appeal: AppealSubmission,
+    ) -> Result<AppealDecision, Error> {
+        let suspension = self.get_suspension(suspension_id).await?;
+        
+        // 1. 기한 확인
+        if Utc::now() > suspension.appeal_deadline {
+            return Err(Error::AppealDeadlinePassed);
+        }
+        
+        // 2. 이의신청 심사
+        let review = self.review_appeal(&suspension, &appeal).await?;
+        
+        // 3. 결정
+        match review.decision {
+            Decision::Uphold => {
+                Ok(AppealDecision::Denied {
+                    reason: review.reasoning,
+                })
+            },
+            Decision::Overturn => {
+                // 정지 해제
+                self.restore_member(suspension.member_id).await?;
+                Ok(AppealDecision::Approved {
+                    compensated: true,
+                })
+            },
+            Decision::ReduceSentence => {
+                // 정지 기간 단축
+                let new_end = self.calculate_reduced_suspension(&suspension, &review);
+                self.update_suspension_end(suspension_id, new_end).await?;
+                Ok(AppealDecision::PartiallyApproved {
+                    new_suspension_end: new_end,
+                })
+            },
+        }
+    }
+    
+    pub async fn restore_member(
+        &self,
+        member_id: Uuid,
+    ) -> Result<RestorationRecord, Error> {
+        let member = self.get_member(member_id).await?;
+        
+        // 1. 상태 확인
+        if member.status != MemberStatus::Suspended {
+            return Err(Error::MemberNotSuspended);
+        }
+        
+        // 2. 복원 전 체크리스트
+        let checklist = self.get_restoration_checklist(member_id).await?;
+        if !checklist.all_passed() {
+            return Err(Error::RestorationRequirementsNotMet(checklist));
+        }
+        
+        // 3. 회원 상태 복원
+        self.update_member_status(member_id, MemberStatus::Active).await?;
+        
+        // 4. Validator 재활성화
+        if let Some(validator_id) = member.validator_id {
+            self.reactivate_validator(validator_id).await?;
+        }
+        
+        // 5. 복원 기록
+        let restoration = RestorationRecord {
+            restoration_id: Uuid::new_v4(),
+            member_id,
+            restored_at: Utc::now(),
+            restored_by: None,  // 자동 복원
+            notes: "Suspension period completed".to_string(),
+        };
+        
+        self.save_restoration_record(&restoration).await?;
+        
+        Ok(restoration)
+    }
+}
+
+pub enum SuspensionReason {
+    PoorPerformance {
+        uptime: Decimal,
+        threshold: Decimal,
+    },
+    SecurityViolation {
+        violation_type: String,
+        severity: Severity,
+    },
+    ConsensusAttack {
+        attack_type: String,
+        evidence_hash: Hash,
+    },
+    KycViolation {
+        details: String,
+    },
+    TermsOfServiceViolation {
+        violated_clauses: Vec<String>,
+    },
+    CourtOrder {
+        jurisdiction: String,
+        order_reference: String,
+    },
+}
+7. API 엔드포인트 설계
+7.1 RESTful API
+rust
+// Member Management Endpoints
+pub mod member_api {
+    use axum::{Router, routing::{get, post, put, delete}};
+    
+    pub fn routes() -> Router {
+        Router::new()
+            // 회원 조회
+            .route("/api/v1/members/:member_id", get(get_member))
+            .route("/api/v1/members/:member_id/profile", get(get_member_profile))
+            .route("/api/v1/members/search", post(search_members))
+            
+            // 회원 등록
+            .route("/api/v1/members/register", post(register_member))
+            .route("/api/v1/members/:member_id/verify-email", post(verify_email))
+            .route("/api/v1/members/:member_id/kyc", post(submit_kyc))
+            
+            // 회원 정보 수정
+            .route("/api/v1/members/:member_id", put(update_member))
+            .route("/api/v1/members/:member_id/metadata", put(update_metadata))
+            
+            // Validator 관리
+            .route("/api/v1/validators", get(list_validators))
+            .route("/api/v1/validators/:validator_id", get(get_validator))
+            .route("/api/v1/validators/register", post(register_validator))
+            .route("/api/v1/validators/:validator_id/performance", get(get_validator_performance))
+            .route("/api/v1/validators/:validator_id/delegators", get(get_delegators))
+            
+            // 스테이킹
+            .route("/api/v1/members/:member_id/stake", post(stake_tokens))
+            .route("/api/v1/members/:member_id/unstake", post(unstake_tokens))
+            .route("/api/v1/members/:member_id/delegate", post(delegate_stake))
+            .route("/api/v1/members/:member_id/staking-positions", get(get_staking_positions))
+            
+            // 보상
+            .route("/api/v1/members/:member_id/rewards", get(get_rewards))
+            .route("/api/v1/members/:member_id/claim-rewards", post(claim_rewards))
+            
+            // 거버넌스
+            .route("/api/v1/members/:member_id/governance", get(get_governance_profile))
+            .route("/api/v1/members/:member_id/vote", post(cast_vote))
+            .route("/api/v1/members/:member_id/proposals", get(get_member_proposals))
+            
+            // 재무
+            .route("/api/v1/members/:member_id/balance", get(get_balance))
+            .route("/api/v1/members/:member_id/transactions", get(get_transactions))
+            
+            // 보안
+            .route("/api/v1/members/:member_id/security", get(get_security_profile))
+            .route("/api/v1/members/:member_id/rotate-keys", post(rotate_keys))
+            .route("/api/v1/members/:member_id/audit-logs", get(get_audit_logs))
+            
+            // 정지/복원
+            .route("/api/v1/members/:member_id/suspend", post(suspend_member))
+            .route("/api/v1/members/:member_id/restore", post(restore_member))
+            .route("/api/v1/suspensions/:suspension_id/appeal", post(appeal_suspension))
+    }
+}
+
+// API 요청/응답 구조
+#[derive(Serialize, Deserialize)]
+pub struct GetMemberRequest {
+    pub include_sensitive: bool,
+    pub include_validator: bool,
+    pub include_staking: bool,
+    pub include_governance: bool,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct GetMemberResponse {
+    pub member: MemberProfile,
+    pub validator: Option<ValidatorProfile>,
+    pub staking: Option<StakingDetails>,
+    pub governance: Option<GovernanceProfile>,
+    pub metadata: MemberMetadata,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct RegisterValidatorRequest {
+    pub member_id: Uuid,
+    pub validator_name: String,
+    pub node_config: NodeConfiguration,
+    pub initial_stake: TokenAmount,
+    pub commission_rate: Decimal,
+    pub metadata: ValidatorMetadata,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SearchMembersRequest {
+    pub filters: MemberFilters,
+    pub sort_by: SortField,
+    pub sort_order: SortOrder,
+    pub page: u32,
+    pub page_size: u32,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct MemberFilters {
+    pub tier: Option<Vec<MemberTier>>,
+    pub status: Option<Vec<MemberStatus>>,
+    pub min_stake: Option<TokenAmount>,
+    pub max_stake: Option<TokenAmount>,
+    pub kyc_level: Option<Vec<KycLevel>>,
+    pub created_after: Option<DateTime<Utc>>,
+    pub created_before: Option<DateTime<Utc>>,
+}
+7.2 GraphQL API
+graphql
+type Query {
+  # 회원 조회
+  member(memberId: UUID!): Member
+  members(
+    filter: MemberFilter
+    sort: SortInput
+    pagination: PaginationInput
+  ): MemberConnection!
+  
+  # Validator 조회
+  validator(validatorId: String!): Validator
+  validators(
+    filter: ValidatorFilter
+    sort: SortInput
+    pagination: PaginationInput
+  ): ValidatorConnection!
+  
+  # 통계
+  networkStats: NetworkStats!
+  memberStats(memberId: UUID!): MemberStats!
+  validatorLeaderboard(limit: Int!): [ValidatorRanking!]!
+}
+
+type Mutation {
+  # 회원 등록
+  registerMember(input: RegisterMemberInput!): RegistrationWorkflow!
+  verifyEmail(workflowId: UUID!, code: String!): RegistrationWorkflow!
+  submitKyc(memberId: UUID!, documents: [KycDocument!]!): KycSubmission!
+  
+  # Validator 등록
+  registerValidator(input: RegisterValidatorInput!): ValidatorProfile!
+  updateValidatorConfig(validatorId: String!, config: ValidatorConfigInput!): Validator!
+  
+  # 스테이킹
+  stakeTokens(memberId: UUID!, amount: Decimal!): StakingPosition!
+  unstakeTokens(positionId: UUID!, amount: Decimal!): UnstakingRequest!
+  delegateStake(
+    memberId: UUID!
+    validatorId: String!
+    amount: Decimal!
+  ): StakingPosition!
+  
+  # 보상
+  claimRewards(memberId: UUID!): ClaimResult!
+  
+  # 거버넌스
+  createProposal(input: CreateProposalInput!): Proposal!
+  castVote(proposalId: UUID!, vote: VoteInput!): VoteResult!
+  
+  # 관리
+  suspendMember(memberId: UUID!, reason: SuspensionReasonInput!): Suspension!
+  appealSuspension(suspensionId: UUID!, appeal: AppealInput!): AppealResult!
+}
+
+type Subscription {
+  # 실시간 업데이트
+  memberUpdated(memberId: UUID!): Member!
+  validatorMetrics(validatorId: String!): ValidatorMetrics!
+  networkEvents: NetworkEvent!
+  rewardDistributed(memberId: UUID!): RewardEvent!
+}
+
+type Member {
+  memberId: UUID!
+  accountAddress: String!
+  tier: MemberTier!
+  status: MemberStatus!
+  kycLevel: KycLevel!
+  createdAt: DateTime!
+  lastActivityAt: DateTime!
+  
+  # Relations
+  validator: Validator
+  stakingPositions: [StakingPosition!]!
+  governance: GovernanceProfile!
+  financial: FinancialProfile!
+  metadata: MemberMetadata!
+}
+
+type Validator {
+  validatorId: String!
+  member: Member!
+  validatorName: String!
+  selfStake: Decimal!
+  delegatedStake: Decimal!
+  totalStake: Decimal!
+  commissionRate: Decimal!
+  uptimePercentage: Decimal!
+  blocksProposed: Int!
+  blocksValidated: Int!
+  blocksMissed: Int!
+  
+  # Performance
+  performance: ValidatorPerformance!
+  metrics(timeRange: TimeRangeInput!): [MetricSnapshot!]!
+  delegators(pagination: PaginationInput): DelegatorConnection!
+  
+  # Rankings
+  rank: Int!
+  performanceGrade: PerformanceGrade!
+}
+
+type ValidatorPerformance {
+  currentUptime: Duration!
+  avgTps: Float!
+  avgLatency: Int!
+  slaComplianceRate: Decimal!
+  performanceScore: Int!
+  performanceGrade: PerformanceGrade!
+}
+
+input MemberFilter {
+  tier: [MemberTier!]
+  status: [MemberStatus!]
+  kycLevel: [KycLevel!]
+  minStake: Decimal
+  maxStake: Decimal
+  createdAfter: DateTime
+  createdBefore: DateTime
+}
+
+input ValidatorFilter {
+  minStake: Decimal
+  minUptime: Decimal
+  performanceGrade: [PerformanceGrade!]
+  geographic: GeographicFilter
+}
+
+enum MemberTier {
+  BASIC_USER
+  DELEGATED_STAKER
+  CANDIDATE_VALIDATOR
+  ACTIVE_VALIDATOR
+  GENESIS_VALIDATOR
+  ENTERPRISE_VALIDATOR
+}
+
+enum PerformanceGrade {
+  S
+  A
+  B
+  C
+  D
+  F
+}
+8. 이벤트 시스템
+8.1 도메인 이벤트
+rust
+pub enum MemberEvent {
+    // 등록 이벤트
+    MemberRegistered {
+        member_id: Uuid,
+        account_address: AccountAddress,
+        tier: MemberTier,
+        timestamp: DateTime<Utc>,
+    },
+    
+    EmailVerified {
+        member_id: Uuid,
+        email: String,
+        timestamp: DateTime<Utc>,
+    },
+    
+    KycSubmitted {
+        member_id: Uuid,
+        kyc_level: KycLevel,
+        timestamp: DateTime<Utc>,
+    },
+    
+    KycApproved {
+        member_id: Uuid,
+        kyc_level: KycLevel,
+        approved_by: Uuid,
+        timestamp: DateTime<Utc>,
+    },
+    
+    // Validator 이벤트
+    ValidatorRegistered {
+        validator_id: ValidatorId,
+        member_id: Uuid,
+        initial_stake: TokenAmount,
+        timestamp: DateTime<Utc>,
+    },
+    
+    ValidatorActivated {
+        validator_id: ValidatorId,
+        timestamp: DateTime<Utc>,
+    },
+    
+    ValidatorDeactivated {
+        validator_id: ValidatorId,
+        reason: String,
+        timestamp: DateTime<Utc>,
+    },
+    
+    BlockProposed {
+        validator_id: ValidatorId,
+        block_height: u64,
+        block_hash: Hash,
+        timestamp: DateTime<Utc>,
+    },
+    
+    // 등급 변경 이벤트
+    TierUpgraded {
+        member_id: Uuid,
+        from_tier: MemberTier,
+        to_tier: MemberTier,
+        reason: Vec<String>,
+        timestamp: DateTime<Utc>,
+    },
+    
+    TierDowngraded {
+        member_id: Uuid,
+        from_tier: MemberTier,
+        to_tier: MemberTier,
+        reason: Vec<String>,
+        timestamp: DateTime<Utc>,
+    },
+    
+    // 스테이킹 이벤트
+    TokensStaked {
+        member_id: Uuid,
+        position_id: Uuid,
+        amount: TokenAmount,
+        timestamp: DateTime<Utc>,
+    },
+    
+    TokensUnstaked {
+        member_id: Uuid,
+        position_id: Uuid,
+        amount: TokenAmount,
+        available_at: DateTime<Utc>,
+        timestamp: DateTime<Utc>,
+    },
+    
+    StakeDelegated {
+        delegator_id: Uuid,
+        validator_id: ValidatorId,
+        amount: TokenAmount,
+        timestamp: DateTime<Utc>,
+    },
+    
+    // 보상 이벤트
+    RewardsEarned {
+        member_id: Uuid,
+        reward_type: RewardType,
+        amount: TokenAmount,
+        epoch: u64,
+        timestamp: DateTime<Utc>,
+    },
+    
+    RewardsClaimed {
+        member_id: Uuid,
+        amount: TokenAmount,
+        transaction_hash: Hash,
+        timestamp: DateTime<Utc>,
+    },
+    
+    // 슬래싱 이벤트
+    MemberSlashed {
+        member_id: Uuid,
+        validator_id: Option<ValidatorId>,
+        slash_type: SlashType,
+        amount: TokenAmount,
+        evidence_hash: Hash,
+        timestamp: DateTime<Utc>,
+    },
+    
+    // 정지/복원 이벤트
+    MemberSuspended {
+        member_id: Uuid,
+        suspension_id: Uuid,
+        reason: SuspensionReason,
+        duration: Duration,
+        timestamp: DateTime<Utc>,
+    },
+    
+    SuspensionAppealed {
+        suspension_id: Uuid,
+        member_id: Uuid,
+        appeal_id: Uuid,
+        timestamp: DateTime<Utc>,
+    },
+    
+    MemberRestored {
+        member_id: Uuid,
+        restoration_id: Uuid,
+        timestamp: DateTime<Utc>,
+    },
+    
+    // 거버넌스 이벤트
+    VoteCast {
+        member_id: Uuid,
+        proposal_id: Uuid,
+        vote: Vote,
+        voting_power: VotingPower,
+        timestamp: DateTime<Utc>,
+    },
+    
+    ProposalCreated {
+        member_id: Uuid,
+        proposal_id: Uuid,
+        title: String,
+        timestamp: DateTime<Utc>,
+    },
+}
+
+pub struct EventBus {
+    subscribers: HashMap<String, Vec<Box<dyn EventHandler>>>,
+}
+
+#[async_trait]
+pub trait EventHandler: Send + Sync {
+    async fn handle(&self, event: &MemberEvent) -> Result<(), Error>;
+}
+
+impl EventBus {
+    pub async fn publish(&self, event: MemberEvent) -> Result<(), Error> {
+        let event_type = event.event_type();
+        
+        // 1. 이벤트 저장 (Event Sourcing)
+        self.store_event(&event).await?;
+        
+        // 2. 구독자들에게 전파
+        if let Some(handlers) = self.subscribers.get(&event_type) {
+            for handler in handlers {
+                if let Err(e) = handler.handle(&event).await {
+                    error!("Event handler failed: {:?}", e);
+                    // Dead Letter Queue로 전송
+                    self.send_to_dlq(&event, e).await?;
+                }
+            }
+        }
+        
+        // 3. 외부 시스템에 웹훅 전송
+        self.trigger_webhooks(&event).await?;
+        
+        Ok(())
+    }
+}
+8.2 이벤트 핸들러 예시
+rust
+// 보상 계산 핸들러
+pub struct RewardCalculationHandler {
+    reward_service: Arc<RewardService>,
+}
+
+#[async_trait]
+impl EventHandler for RewardCalculationHandler {
+    async fn handle(&self, event: &MemberEvent) -> Result<(), Error> {
+        match event {
+            MemberEvent::BlockProposed { validator_id, block_height, .. } => {
+                // 블록 제안 보상 계산
+                self.reward_service
+                    .calculate_block_reward(*validator_id, *block_height)
+                    .await?;
+            },
+            MemberEvent::TokensStaked { member_id, amount, .. } => {
+                // 스테이킹 보상 시작
+                self.reward_service
+                    .start_staking_rewards(*member_id, *amount)
+                    .await?;
+            },
+            _ => {},
+        }
+        Ok(())
+    }
+}
+
+// 알림 핸들러
+pub struct NotificationHandler {
+    notification_service: Arc<NotificationService>,
+}
+
+#[async_trait]
+impl EventHandler for NotificationHandler {
+    async fn handle(&self, event: &MemberEvent) -> Result<(), Error> {
+        match event {
+            MemberEvent::RewardsEarned { member_id, amount, .. } => {
+                let member = self.get_member(*member_id).await?;
+                if member.notification_preferences.email_enabled {
+                    self.notification_service
+                        .send_email_notification(
+                            &member,
+                            NotificationType::RewardsEarned,
+                            serde_json::json!({ "amount": amount }),
+                        )
+                        .await?;
+                }
+            },
+            MemberEvent::MemberSlashed { member_id, amount, .. } => {
+                let member = self.get_member(*member_id).await?;
+                self.notification_service
+                    .send_critical_alert(
+                        &member,
+                        NotificationType::SecurityAlert,
+                        format!("Your account has been slashed {} tokens", amount),
+                    )
+                    .await?;
+            },
+            _ => {},
+        }
+        Ok(())
+    }
+}
+
+// 메트릭 수집 핸들러
+pub struct MetricsCollectionHandler {
+    metrics_service: Arc<MetricsService>,
+}
+
+#[async_trait]
+impl EventHandler for MetricsCollectionHandler {
+    async fn handle(&self, event: &MemberEvent) -> Result<(), Error> {
+        match event {
+            MemberEvent::ValidatorActivated { validator_id, .. } => {
+                self.metrics_service
+                    .increment_counter("validators_activated_total")
+                    .await?;
+            },
+            MemberEvent::BlockProposed { validator_id, .. } => {
+                self.metrics_service
+                    .increment_counter("blocks_proposed_total")
+                    .with_label("validator", validator_id.to_string())
+                    .await?;
+            },
+            _ => {},
+        }
+        Ok(())
+    }
+}
+9. 알림 시스템
+rust
+pub struct NotificationService {
+    email_provider: Arc<dyn EmailProvider>,
+    sms_provider: Arc<dyn SmsProvider>,
+    push_provider: Arc<dyn PushNotificationProvider>,
+    webhook_service: Arc<WebhookService>,
+}
+
+impl NotificationService {
+    pub async fn send_notification(
+        &self,
+        member_id: Uuid,
+        notification: Notification,
+    ) -> Result<NotificationResult, Error> {
+        let member = self.get_member(member_id).await?;
+        let prefs = &member.metadata.notification_preferences;
+        
+        let mut results = Vec::new();
+        
+        // 이메일 전송
+        if prefs.email_enabled && self.should_send_email(&notification, prefs) {
+            let email_result = self.send_email(&member, &notification).await;
+            results.push(("email", email_result));
+        }
+        
+        // SMS 전송
+        if prefs.sms_enabled && self.should_send_sms(&notification, prefs) {
+            let sms_result = self.send_sms(&member, &notification).await;
+            results.push(("sms", sms_result));
+        }
+        
+        // 푸시 알림
+        if prefs.push_enabled {
+            let push_result = self.send_push(&member, &notification).await;
+            results.push(("push", push_result));
+        }
+        
+        // 알림 기록 저장
+        self.save_notification_log(&member_id, &notification, &results).await?;
+        
+        Ok(NotificationResult { results })
+    }
+    
+    fn should_send_email(
+        &self,
+        notification: &Notification,
+        prefs: &NotificationPreferences,
+    ) -> bool {
+        // Quiet hours 체크
+        if let (Some(start), Some(end)) = (prefs.quiet_hours_start, prefs.quiet_hours_end) {
+            let now = Utc::now().time();
+            if now >= start && now <= end {
+                // Critical 알림만 전송
+                return notification.priority == Priority::Critical;
+            }
+        }
+        
+        // 알림 타입 체크
+        prefs.notification_types.contains(&notification.notification_type)
+    }
+}
+
+pub struct Notification {
+    pub notification_id: Uuid,
+    pub notification_type: NotificationType,
+    pub priority: Priority,
+    pub title: String,
+    pub body: String,
+    pub action_url: Option<String>,
+    pub metadata: serde_json::Value,
+    pub created_at: DateTime<Utc>,
+}
+
+pub enum Priority {
+    Low,
+    Normal,
+    High,
+    Critical,
+}
+
+// 알림 템플릿
+pub struct NotificationTemplate {
+    pub template_id: String,
+    pub subject: String,
+    pub body_html: String,
+    pub body_text: String,
+    pub variables: Vec<String>,
+}
+
+impl NotificationService {
+    pub fn render_template(
+        &self,
+        template_id: &str,
+        variables: HashMap<String, String>,
+    ) -> Result<RenderedNotification, Error> {
+        let template = self.get_template(template_id)?;
+        
+        let mut subject = template.subject.clone();
+        let mut body_html = template.body_html.clone();
+        let mut body_text = template.body_text.clone();
+        
+        for (key, value) in variables {
+            let placeholder = format!("{{{}}}", key);
+            subject = subject.replace(&placeholder, &value);
+            body_html = body_html.replace(&placeholder, &value);
+            body_text = body_text.replace(&placeholder, &value);
+        }
+        
+        Ok(RenderedNotification {
+            subject,
+            body_html,
+            body_text,
+        })
+    }
+}
