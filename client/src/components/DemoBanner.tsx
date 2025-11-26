@@ -1,11 +1,39 @@
-import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useQuery } from "@tanstack/react-query";
+
+interface DataSourceStatus {
+  dataSourceType: string;
+  isSimulated: boolean;
+  nodeUrl: string;
+  message: string;
+  connectionStatus: string;
+}
 
 export function DemoBanner() {
-  const nodeMode = import.meta.env.VITE_NODE_MODE || 'development';
-  const isProduction = nodeMode === 'production';
+  const { data: status, isLoading } = useQuery<DataSourceStatus>({
+    queryKey: ["/api/system/data-source"],
+    refetchInterval: 30000,
+    staleTime: 10000,
+  });
+  
+  if (isLoading) {
+    return (
+      <Alert 
+        className="rounded-none border-l-0 border-r-0 border-t-0 border-b-4 border-blue-500 bg-blue-50 dark:bg-blue-950 dark:border-blue-700"
+        data-testid="banner-loading-mode"
+      >
+        <Loader2 className="h-5 w-5 text-blue-600 dark:text-blue-500 animate-spin" />
+        <AlertDescription className="ml-2 text-blue-800 dark:text-blue-200 font-medium">
+          <span className="font-bold">CONNECTING</span> | Establishing connection to TBURN mainnet...
+        </AlertDescription>
+      </Alert>
+    );
+  }
 
-  if (isProduction) {
+  const isLiveMode = status?.connectionStatus === 'connected';
+
+  if (isLiveMode) {
     return (
       <Alert 
         className="rounded-none border-l-0 border-r-0 border-t-0 border-b-4 border-green-500 bg-green-50 dark:bg-green-950 dark:border-green-700"
