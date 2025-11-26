@@ -209,8 +209,8 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                 </div>
                 <div>
                   <DialogTitle className="text-xl font-bold">{validator.name}</DialogTitle>
-                  <DialogDescription className="font-mono text-xs">
-                    {formatAddress(validator.address)}
+                  <DialogDescription className="font-mono text-xs break-all">
+                    {validator.address}
                   </DialogDescription>
                 </div>
               </div>
