@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Progress } from "@/components/ui/progress";
+import { Slider } from "@/components/ui/slider";
 import {
   Table,
   TableBody,
@@ -34,10 +36,12 @@ import { useToast } from "@/hooks/use-toast";
 import { 
   ShieldCheck, CheckCircle2, XCircle, Clock, 
   Eye, FileCheck, Slash, ChevronLeft, ChevronRight,
-  Server, Cpu, HardDrive, Wifi
+  Server, Cpu, HardDrive, Wifi, TrendingUp, History,
+  Calculator, Award, Activity, AlertTriangle, BarChart3
 } from "lucide-react";
 import { useAdminPassword } from "@/hooks/use-admin-password";
 import { queryClient } from "@/lib/queryClient";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, BarChart, Bar } from "recharts";
 
 interface ValidatorApplication {
   id: string;
@@ -72,9 +76,45 @@ interface ApplicationsResponse {
   };
 }
 
+interface SlashingRecord {
+  id: string;
+  validator_address: string;
+  slash_type: string;
+  slash_amount: string;
+  reason: string;
+  evidence: any;
+  executed_by: string;
+  executed_at: string;
+  status: string;
+}
+
+interface ValidatorPerformance {
+  address: string;
+  name: string;
+  tier: string;
+  stake: string;
+  uptime: number;
+  blocksProduced: number;
+  missedBlocks: number;
+  averageBlockTime: number;
+  rewardsEarned: string;
+  performanceScore: number;
+}
+
+const TIER_CONFIG = {
+  tier_1: { name: "Tier 1 - Active Committee", maxValidators: 512, minStake: 200000, targetApy: 8, poolShare: 50 },
+  tier_2: { name: "Tier 2 - Standby", maxValidators: 4488, minStake: 50000, targetApy: 4, poolShare: 30 },
+  tier_3: { name: "Tier 3 - Delegators", maxValidators: 1000000, minStake: 100, targetApy: 5, poolShare: 20 },
+};
+
+const DAILY_EMISSION = 5000;
+const BURN_RATE = 0.20;
+const NET_DAILY_EMISSION = DAILY_EMISSION * (1 - BURN_RATE);
+
 export default function OperatorValidators() {
   const { toast } = useToast();
   const { getAuthHeaders } = useAdminPassword();
+  const [activeTab, setActiveTab] = useState("applications");
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedApp, setSelectedApp] = useState<ValidatorApplication | null>(null);
@@ -88,6 +128,9 @@ export default function OperatorValidators() {
     amount: "",
     reason: "",
   });
+
+  const [calcStake, setCalcStake] = useState<number>(100000);
+  const [calcTier, setCalcTier] = useState<string>("tier_1");
 
   const buildQueryString = () => {
     const params = new URLSearchParams();
@@ -155,11 +198,76 @@ export default function OperatorValidators() {
       toast({ title: "Validator slashed successfully" });
       setShowSlashDialog(false);
       setSlashData({ address: "", slashType: "downtime", amount: "", reason: "" });
+      queryClient.invalidateQueries({ queryKey: ["/api/operator/slashing-history"] });
     },
     onError: (error: Error) => {
       toast({ title: "Failed to slash validator", description: error.message, variant: "destructive" });
     },
   });
+
+  const { data: slashingHistory } = useQuery<SlashingRecord[]>({
+    queryKey: ["/api/operator/slashing-history"],
+    queryFn: async () => {
+      const response = await fetch("/api/operator/slashing-history", {
+        headers: getAuthHeaders(),
+      });
+      if (!response.ok) return [];
+      return response.json();
+    },
+    enabled: activeTab === "slashing",
+  });
+
+  const { data: validatorPerformance } = useQuery<ValidatorPerformance[]>({
+    queryKey: ["/api/operator/validator-performance"],
+    queryFn: async () => {
+      const response = await fetch("/api/operator/validator-performance", {
+        headers: getAuthHeaders(),
+      });
+      if (!response.ok) return [];
+      return response.json();
+    },
+    enabled: activeTab === "performance",
+  });
+
+  const performanceChartData = useMemo(() => {
+    if (!validatorPerformance) return [];
+    return validatorPerformance.slice(0, 20).map((v) => ({
+      name: v.name.slice(0, 8),
+      uptime: v.uptime,
+      score: v.performanceScore,
+      blocks: v.blocksProduced,
+    }));
+  }, [validatorPerformance]);
+
+  const rewardCalculation = useMemo(() => {
+    const tierConfig = TIER_CONFIG[calcTier as keyof typeof TIER_CONFIG];
+    if (!tierConfig) return null;
+
+    const tierPoolShare = tierConfig.poolShare / 100;
+    const dailyTierPool = NET_DAILY_EMISSION * tierPoolShare;
+    
+    const estimatedValidatorsInTier = calcTier === "tier_1" ? 400 : calcTier === "tier_2" ? 2000 : 50000;
+    const averageStakeInTier = calcTier === "tier_1" ? 300000 : calcTier === "tier_2" ? 80000 : 500;
+    const totalTierStake = estimatedValidatorsInTier * averageStakeInTier;
+    
+    const stakeShare = calcStake / (totalTierStake + calcStake);
+    const dailyReward = dailyTierPool * stakeShare;
+    const monthlyReward = dailyReward * 30;
+    const yearlyReward = dailyReward * 365;
+    const effectiveApy = (yearlyReward / calcStake) * 100;
+
+    return {
+      tierName: tierConfig.name,
+      minStake: tierConfig.minStake,
+      targetApy: tierConfig.targetApy,
+      dailyReward: dailyReward.toFixed(4),
+      monthlyReward: monthlyReward.toFixed(2),
+      yearlyReward: yearlyReward.toFixed(2),
+      effectiveApy: effectiveApy.toFixed(2),
+      dailyTierPool: dailyTierPool.toFixed(2),
+      stakeShare: (stakeShare * 100).toFixed(4),
+    };
+  }, [calcStake, calcTier]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -206,43 +314,64 @@ export default function OperatorValidators() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Pending Applications</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {data?.applications?.filter(a => a.status === 'pending').length || 0}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Under Review</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {data?.applications?.filter(a => a.status === 'under_review').length || 0}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Approved This Month</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {data?.applications?.filter(a => a.status === 'approved').length || 0}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full" data-testid="tabs-validators">
+        <TabsList className="grid w-full grid-cols-4" data-testid="tablist-validators">
+          <TabsTrigger value="applications" data-testid="tab-applications">
+            <FileCheck className="h-4 w-4 mr-2" />
+            Applications
+          </TabsTrigger>
+          <TabsTrigger value="performance" data-testid="tab-performance">
+            <Activity className="h-4 w-4 mr-2" />
+            Performance
+          </TabsTrigger>
+          <TabsTrigger value="slashing" data-testid="tab-slashing">
+            <History className="h-4 w-4 mr-2" />
+            Slashing History
+          </TabsTrigger>
+          <TabsTrigger value="calculator" data-testid="tab-calculator">
+            <Calculator className="h-4 w-4 mr-2" />
+            Reward Calculator
+          </TabsTrigger>
+        </TabsList>
 
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle>Validator Applications</CardTitle>
+        <TabsContent value="applications" className="space-y-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card data-testid="card-pending-apps">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Pending Applications</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {data?.applications?.filter(a => a.status === 'pending').length || 0}
+                </div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-under-review">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Under Review</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {data?.applications?.filter(a => a.status === 'under_review').length || 0}
+                </div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-approved-month">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Approved This Month</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {data?.applications?.filter(a => a.status === 'approved').length || 0}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between gap-2">
+                <CardTitle>Validator Applications</CardTitle>
             <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(1); }}>
               <SelectTrigger className="w-40" data-testid="select-app-status">
                 <SelectValue placeholder="Filter by status" />
@@ -356,6 +485,372 @@ export default function OperatorValidators() {
           )}
         </CardContent>
       </Card>
+        </TabsContent>
+
+        <TabsContent value="performance" className="space-y-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card data-testid="card-total-validators">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Total Validators</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{validatorPerformance?.length || 0}</div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-avg-uptime">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Avg Uptime</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-green-500">
+                  {validatorPerformance?.length 
+                    ? (validatorPerformance.reduce((sum, v) => sum + v.uptime, 0) / validatorPerformance.length).toFixed(1) 
+                    : '--'}%
+                </div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-total-blocks">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Total Blocks Produced</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {validatorPerformance?.reduce((sum, v) => sum + v.blocksProduced, 0)?.toLocaleString() || '--'}
+                </div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-total-rewards">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Total Rewards Earned</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-amber-500">
+                  {validatorPerformance?.reduce((sum, v) => sum + parseFloat(v.rewardsEarned), 0)?.toFixed(2) || '--'} TBURN
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card data-testid="card-performance-chart">
+            <CardHeader>
+              <CardTitle>Validator Performance Overview</CardTitle>
+              <CardDescription>Top 20 validators by performance score</CardDescription>
+            </CardHeader>
+            <CardContent className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={performanceChartData}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis dataKey="name" className="text-xs" />
+                  <YAxis className="text-xs" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }} 
+                  />
+                  <Bar dataKey="uptime" name="Uptime %" fill="hsl(var(--primary))" />
+                  <Bar dataKey="score" name="Score" fill="#22c55e" />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Performance Leaderboard</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Rank</TableHead>
+                    <TableHead>Validator</TableHead>
+                    <TableHead>Tier</TableHead>
+                    <TableHead>Stake</TableHead>
+                    <TableHead>Uptime</TableHead>
+                    <TableHead>Blocks</TableHead>
+                    <TableHead>Score</TableHead>
+                    <TableHead>Rewards</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {validatorPerformance?.slice(0, 20).map((v, idx) => (
+                    <TableRow key={v.address} data-testid={`row-perf-${idx}`}>
+                      <TableCell className="font-bold">#{idx + 1}</TableCell>
+                      <TableCell>
+                        <div>
+                          <p className="font-medium">{v.name}</p>
+                          <p className="text-xs text-muted-foreground font-mono">{v.address.slice(0, 8)}...</p>
+                        </div>
+                      </TableCell>
+                      <TableCell>{getTierBadge(v.tier)}</TableCell>
+                      <TableCell className="font-mono">{parseFloat(v.stake).toLocaleString()} TBURN</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Progress value={v.uptime} className="w-16 h-2" />
+                          <span className="text-sm">{v.uptime}%</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>{v.blocksProduced.toLocaleString()}</TableCell>
+                      <TableCell>
+                        <Badge variant={v.performanceScore >= 95 ? "default" : v.performanceScore >= 85 ? "secondary" : "outline"}>
+                          {v.performanceScore}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="font-mono text-amber-500">{parseFloat(v.rewardsEarned).toFixed(2)}</TableCell>
+                    </TableRow>
+                  ))}
+                  {(!validatorPerformance || validatorPerformance.length === 0) && (
+                    <TableRow>
+                      <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
+                        No performance data available
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="slashing" className="space-y-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card data-testid="card-total-slashes">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Total Slashing Events</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-red-500">{slashingHistory?.length || 0}</div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-total-slashed">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Total TBURN Slashed</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {slashingHistory?.reduce((sum, s) => sum + parseFloat(s.slash_amount || '0'), 0)?.toLocaleString() || '0'} TBURN
+                </div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-pending-slashes">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Pending Executions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-yellow-500">
+                  {slashingHistory?.filter(s => s.status === 'pending').length || 0}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Slashing History</CardTitle>
+              <CardDescription>Record of all validator slashing events</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Validator</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead>Reason</TableHead>
+                    <TableHead>Executed By</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {slashingHistory?.map((slash) => (
+                    <TableRow key={slash.id} data-testid={`row-slash-${slash.id}`}>
+                      <TableCell className="text-sm">
+                        {new Date(slash.executed_at).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell className="font-mono text-sm">
+                        {slash.validator_address.slice(0, 8)}...{slash.validator_address.slice(-6)}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="capitalize">
+                          {slash.slash_type.replace('_', ' ')}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="font-mono text-red-500">-{slash.slash_amount} TBURN</TableCell>
+                      <TableCell className="max-w-[200px] truncate">{slash.reason}</TableCell>
+                      <TableCell>{slash.executed_by}</TableCell>
+                      <TableCell>
+                        <Badge variant={slash.status === 'executed' ? 'default' : 'secondary'}>
+                          {slash.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                  {(!slashingHistory || slashingHistory.length === 0) && (
+                    <TableRow>
+                      <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+                        No slashing records found
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="calculator" className="space-y-4 mt-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card data-testid="card-reward-calculator">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calculator className="h-5 w-5" />
+                  Reward Calculator
+                </CardTitle>
+                <CardDescription>
+                  Estimate your validator rewards based on stake and tier
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Select Tier</label>
+                  <Select value={calcTier} onValueChange={setCalcTier}>
+                    <SelectTrigger data-testid="select-calc-tier">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="tier_1">Tier 1 - Active Committee (200K+ TBURN)</SelectItem>
+                      <SelectItem value="tier_2">Tier 2 - Standby (50K+ TBURN)</SelectItem>
+                      <SelectItem value="tier_3">Tier 3 - Delegators (100+ TBURN)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Stake Amount: {calcStake.toLocaleString()} TBURN</label>
+                  <Slider
+                    value={[calcStake]}
+                    onValueChange={([v]) => setCalcStake(v)}
+                    min={100}
+                    max={500000}
+                    step={1000}
+                    data-testid="slider-stake"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>100 TBURN</span>
+                    <span>500,000 TBURN</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t">
+                  <h4 className="text-sm font-medium mb-3">Tier Requirements</h4>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div className="text-muted-foreground">Min Stake:</div>
+                    <div className="font-mono">{rewardCalculation?.minStake.toLocaleString()} TBURN</div>
+                    <div className="text-muted-foreground">Target APY:</div>
+                    <div className="font-medium text-green-500">{rewardCalculation?.targetApy}%</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card data-testid="card-estimated-rewards">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Award className="h-5 w-5 text-amber-500" />
+                  Estimated Rewards
+                </CardTitle>
+                <CardDescription>
+                  Based on current network parameters
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-muted rounded-lg">
+                  <div className="text-sm text-muted-foreground mb-1">Daily Reward</div>
+                  <div className="text-3xl font-bold text-amber-500">{rewardCalculation?.dailyReward} TBURN</div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 bg-muted/50 rounded-lg">
+                    <div className="text-sm text-muted-foreground">Monthly</div>
+                    <div className="text-xl font-bold">{rewardCalculation?.monthlyReward} TBURN</div>
+                  </div>
+                  <div className="p-3 bg-muted/50 rounded-lg">
+                    <div className="text-sm text-muted-foreground">Yearly</div>
+                    <div className="text-xl font-bold">{rewardCalculation?.yearlyReward} TBURN</div>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                  <div className="text-sm text-green-600 dark:text-green-400 mb-1">Effective APY</div>
+                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">{rewardCalculation?.effectiveApy}%</div>
+                </div>
+
+                <div className="pt-4 border-t text-sm">
+                  <h4 className="font-medium mb-2">Calculation Details</h4>
+                  <div className="space-y-1 text-muted-foreground">
+                    <div className="flex justify-between">
+                      <span>Daily Tier Pool:</span>
+                      <span className="font-mono">{rewardCalculation?.dailyTierPool} TBURN</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Your Pool Share:</span>
+                      <span className="font-mono">{rewardCalculation?.stakeShare}%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Daily Emission:</span>
+                      <span className="font-mono">{DAILY_EMISSION.toLocaleString()} TBURN</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Burn Rate:</span>
+                      <span className="font-mono">{BURN_RATE * 100}%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Net Daily Emission:</span>
+                      <span className="font-mono">{NET_DAILY_EMISSION.toLocaleString()} TBURN</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Tier Comparison</CardTitle>
+              <CardDescription>Compare reward structures across all validator tiers</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Tier</TableHead>
+                    <TableHead>Max Validators</TableHead>
+                    <TableHead>Min Stake</TableHead>
+                    <TableHead>Target APY</TableHead>
+                    <TableHead>Pool Share</TableHead>
+                    <TableHead>Daily Pool</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {Object.entries(TIER_CONFIG).map(([key, config]) => (
+                    <TableRow key={key} data-testid={`row-tier-${key}`}>
+                      <TableCell>{getTierBadge(key)}</TableCell>
+                      <TableCell>{config.maxValidators.toLocaleString()}</TableCell>
+                      <TableCell className="font-mono">{config.minStake.toLocaleString()} TBURN</TableCell>
+                      <TableCell className="text-green-500 font-bold">{config.targetApy}%</TableCell>
+                      <TableCell>{config.poolShare}%</TableCell>
+                      <TableCell className="font-mono">{(NET_DAILY_EMISSION * config.poolShare / 100).toFixed(0)} TBURN</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
       {/* Application Detail Dialog */}
       <Dialog open={!!selectedApp && !showReviewDialog} onOpenChange={() => setSelectedApp(null)}>
