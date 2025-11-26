@@ -61,11 +61,25 @@ function Router() {
   );
 }
 
+interface DataSourceStatus {
+  dataSourceType: string;
+  isSimulated: boolean;
+  nodeUrl: string;
+  message: string;
+  connectionStatus: string;
+}
+
 function AuthenticatedApp() {
   const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
     refetchInterval: 60000, // Check every minute if session is still valid
     refetchOnWindowFocus: true, // Check when window regains focus
+  });
+  
+  const { data: dataSourceStatus } = useQuery<DataSourceStatus>({
+    queryKey: ["/api/system/data-source"],
+    refetchInterval: 30000,
+    staleTime: 10000,
   });
 
   const style = {
@@ -87,6 +101,8 @@ function AuthenticatedApp() {
   if (!isAuthenticated) {
     return <Login onLoginSuccess={() => refetch()} />;
   }
+  
+  const isLiveMode = dataSourceStatus?.connectionStatus === 'connected';
 
   return (
     <WebSocketProvider>
@@ -95,7 +111,7 @@ function AuthenticatedApp() {
           <div className="flex h-screen w-full">
             <AppSidebar />
             <div className="flex flex-col flex-1">
-              <DemoBanner />
+              <DemoBanner isLiveMode={isLiveMode} />
               <header className="flex items-center justify-between p-4 border-b">
                 <SidebarTrigger data-testid="button-sidebar-toggle" />
                 <ThemeToggle />
