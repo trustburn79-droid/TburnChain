@@ -4,15 +4,16 @@
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
 **Latest Updates (November 26, 2025):**
-- **Operator Portal**: Enterprise back-office for TBURN network management
-  - Dashboard: Overview with member stats, validator applications, security alerts, recent activity
-  - Member Management: CRUD operations with KYC/AML status, tier assignment, status changes
-  - Validator Operations: Application review, approval/rejection, validator slashing
-  - Security Audit: Security event logging, resolution tracking, admin audit logs
-  - Compliance Reports: Generate KYC summaries, AML reports, transaction reports
+- **Operator Portal Enterprise Upgrade**: Complete back-office for TBURN network management
+  - **Dashboard**: Real-time system health cards, KPI trend charts (Recharts), alert center with severity queue, Zod validation
+  - **Member Management**: Bulk actions, CSV export, advanced date filters, activity timeline, notes CRUD with timestamps
+  - **Validator Operations (4-tab)**: Applications, Performance metrics, Slashing history tracking, Reward calculator with tier comparison
+  - **Security Audit (4-tab)**: Events with filters, Threat Monitor (24h activity chart, severity pie chart, live feed, geo-location), IP Blocklist management, Audit Logs
+  - **Compliance Reports (4-tab)**: Reports list with CSV export, Templates (5 report types), Auto-scheduling with toggle controls, Compliance checklist with score and category breakdown
   - Routes: `/operator`, `/operator/members`, `/operator/validators`, `/operator/security`, `/operator/reports`
   - Authentication: Admin password via sessionStorage with `x-admin-password` header
   - Context: `AdminPasswordProvider` in `client/src/hooks/use-admin-password.tsx`
+  - E2E Tests: All pages verified with Playwright (21/21 steps passing)
 - **Tiered Validator System**: Implemented 3-tier validator structure for scalable tokenomics
   - Tier 1: Active Committee - Max 512 validators, 200K+ TBURN stake, 8% target APY
   - Tier 2: Standby Validators - Max 4,488 validators, 50K+ TBURN stake, 4% target APY
