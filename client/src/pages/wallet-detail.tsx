@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "wouter";
+import { useParams, useLocation } from "wouter";
 import { ArrowLeft, Wallet, Coins, Lock, Unlock, Award, Activity, Clock, Hash } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import { formatNumber } from "@/lib/format";
 import type { WalletBalance, Transaction } from "@shared/schema";
 
 export default function WalletDetail() {
+  const [, setLocation] = useLocation();
   const params = useParams<{ address: string }>();
   const walletAddress = params.address || "";
 
@@ -270,6 +271,7 @@ export default function WalletDetail() {
                 <div 
                   key={tx.id} 
                   className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover-elevate cursor-pointer"
+                  onClick={() => tx.hash && setLocation(`/transactions/${tx.hash}`)}
                   data-testid={`row-tx-${tx.hash?.slice(0, 10)}`}
                 >
                   <div className="flex items-center gap-3">
