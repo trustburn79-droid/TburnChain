@@ -87,14 +87,33 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private lastPriceUpdate = Date.now();
   private priceHistory: number[] = [28.91]; // Track price history for volatility
   
-  // Supply Dynamics
-  private readonly TOTAL_SUPPLY = 1_000_000_000; // 1 billion TBURN total
-  private stakedAmount = 150_000_000; // 150M staked by validators
-  private circulatingSupply = 850_000_000; // 850M circulating (1B - 150M staked)
+  // Supply Dynamics (Updated for 100M Total Supply)
+  private readonly TOTAL_SUPPLY = 100_000_000; // 100M TBURN total supply
+  private stakedAmount = 32_000_000; // 32M staked (32% target ratio)
+  private circulatingSupply = 70_000_000; // 70M circulating
   private burnedTokens = 0; // Burned tokens from transaction fees
   
+  // Tiered Validator System Parameters
+  private readonly TIER_1_MAX_VALIDATORS = 512;
+  private readonly TIER_2_MAX_VALIDATORS = 4488;
+  private readonly TIER_1_MIN_STAKE = 200_000; // 200K TBURN
+  private readonly TIER_2_MIN_STAKE = 50_000; // 50K TBURN
+  private readonly TIER_3_MIN_STAKE = 100; // 100 TBURN (delegators)
+  
+  // Daily Emission Configuration
+  private readonly BASE_DAILY_EMISSION = 5_000; // 5,000 TBURN/day
+  private readonly BURN_RATE = 0.20; // 20% burn rate
+  private readonly TIER_1_REWARD_SHARE = 0.60; // 60% to Tier 1
+  private readonly TIER_2_REWARD_SHARE = 0.25; // 25% to Tier 2
+  private readonly TIER_3_REWARD_SHARE = 0.15; // 15% to Tier 3
+  
+  // Dynamic Emission State
+  private currentDailyEmission = 5_000;
+  private dailyBurnAmount = 1_000;
+  private netDailyEmission = 4_000;
+  
   // Advanced Tokenomics Parameters (Demand-Supply Formula)
-  private readonly BASE_PRICE = 28.91; // Base equilibrium price
+  private readonly BASE_PRICE = 25.00; // Base equilibrium price (adjusted for 100M supply)
   private readonly TPS_MAX = 520000; // Maximum theoretical TPS
   private readonly PRICE_UPDATE_INTERVAL = 5000; // Update every 5 seconds
   private readonly MAX_PRICE_CHANGE = 0.05; // Max 5% change per update
@@ -1576,15 +1595,84 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return Math.min(1, stdDev / avg);
   }
   
-  // Update supply dynamics (staking/unstaking simulation)
+  // Update supply dynamics (staking/unstaking simulation) - Updated for 100M supply
   private updateSupplyDynamics(): void {
-    // Simulate small staking/unstaking activity
-    const stakingChange = Math.floor((Math.random() - 0.48) * 100000); // Slight bias toward staking
-    this.stakedAmount = Math.max(100_000_000, Math.min(200_000_000, this.stakedAmount + stakingChange));
+    // Simulate small staking/unstaking activity within 24M-45M range
+    const stakingChange = Math.floor((Math.random() - 0.48) * 10000); // Slight bias toward staking
+    this.stakedAmount = Math.max(24_000_000, Math.min(45_000_000, this.stakedAmount + stakingChange));
     this.circulatingSupply = this.TOTAL_SUPPLY - this.stakedAmount - this.burnedTokens;
     
-    // Simulate token burn from fees (small amount per block)
-    this.burnedTokens += Math.floor(Math.random() * 10);
+    // Update dynamic emission based on current stake ratio
+    this.updateDynamicEmission();
+    
+    // Simulate token burn from fees (daily ~1000 TBURN, per update ~0.2 TBURN)
+    this.burnedTokens += Math.floor(Math.random() * 1);
+  }
+  
+  // Calculate adaptive emission based on stake ratio
+  private updateDynamicEmission(): void {
+    const targetStake = 32_000_000; // 32M target stake
+    const stakeRatio = this.stakedAmount / targetStake;
+    
+    // Emission = BaseEmission × min(1.15, sqrt(EffStake/TargetStake))
+    let multiplier = Math.sqrt(stakeRatio);
+    multiplier = Math.max(0.85, Math.min(1.15, multiplier));
+    
+    this.currentDailyEmission = Math.floor(this.BASE_DAILY_EMISSION * multiplier);
+    this.dailyBurnAmount = Math.floor(this.currentDailyEmission * this.BURN_RATE);
+    this.netDailyEmission = this.currentDailyEmission - this.dailyBurnAmount;
+  }
+  
+  // Calculate tier-specific reward pools
+  private getTierRewardPools(): { tier1: number; tier2: number; tier3: number } {
+    return {
+      tier1: Math.floor(this.currentDailyEmission * this.TIER_1_REWARD_SHARE), // 60%
+      tier2: Math.floor(this.currentDailyEmission * this.TIER_2_REWARD_SHARE), // 25%
+      tier3: Math.floor(this.currentDailyEmission * this.TIER_3_REWARD_SHARE), // 15%
+    };
+  }
+  
+  // Calculate individual validator daily reward based on tier
+  calculateValidatorDailyReward(tier: 'tier_1' | 'tier_2' | 'tier_3', validatorCount: number): number {
+    const pools = this.getTierRewardPools();
+    
+    switch (tier) {
+      case 'tier_1':
+        return validatorCount > 0 ? pools.tier1 / Math.min(validatorCount, this.TIER_1_MAX_VALIDATORS) : 0;
+      case 'tier_2':
+        return validatorCount > 0 ? pools.tier2 / Math.min(validatorCount, this.TIER_2_MAX_VALIDATORS) : 0;
+      case 'tier_3':
+        return validatorCount > 0 ? pools.tier3 / validatorCount : 0;
+      default:
+        return 0;
+    }
+  }
+  
+  // Determine validator tier based on stake
+  determineValidatorTier(stakeTBURN: number): 'tier_1' | 'tier_2' | 'tier_3' {
+    if (stakeTBURN >= this.TIER_1_MIN_STAKE) return 'tier_1';
+    if (stakeTBURN >= this.TIER_2_MIN_STAKE) return 'tier_2';
+    return 'tier_3';
+  }
+  
+  // Calculate APY for a given stake and daily reward
+  calculateAPY(dailyRewardTBURN: number, stakeTBURN: number): number {
+    if (stakeTBURN <= 0) return 0;
+    const annualReward = dailyRewardTBURN * 365;
+    return (annualReward / stakeTBURN) * 100;
+  }
+  
+  // Calculate 33% attack cost (network security metric)
+  calculateAttackCost(): number {
+    return this.stakedAmount * 0.33 * this.tokenPrice;
+  }
+  
+  // Calculate network security score (0-100)
+  calculateSecurityScore(): number {
+    const stakeScore = Math.min((this.stakedAmount / 32_000_000) * 50, 50);
+    const validatorScore = Math.min((125 / 125) * 30, 30);
+    const decentralizationScore = 20; // 125 validators is well decentralized
+    return Math.floor(stakeScore + validatorScore + decentralizationScore);
   }
   
   // Calculate market cap dynamically
@@ -1592,13 +1680,27 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return Math.floor(this.tokenPrice * this.circulatingSupply).toString();
   }
   
-  // Get comprehensive token economics data with demand-supply analysis
+  // Get comprehensive token economics data with demand-supply analysis and tier system
   getTokenEconomics(): any {
     this.updateTokenPrice();
     this.updateSupplyDynamics();
     
     const stakedRatio = this.stakedAmount / this.TOTAL_SUPPLY;
     const tpsUtilization = this.emaTps / this.TPS_MAX;
+    const rewardPools = this.getTierRewardPools();
+    
+    // Calculate tier-specific APYs (assuming current validator distribution)
+    const tier1ValidatorCount = 125; // Current active committee
+    const tier2ValidatorCount = 0; // No standby yet
+    const tier3DelegatorCount = 5000; // Estimated delegators
+    
+    const tier1DailyReward = this.calculateValidatorDailyReward('tier_1', tier1ValidatorCount);
+    const tier2DailyReward = this.calculateValidatorDailyReward('tier_2', tier2ValidatorCount);
+    const tier3DailyReward = this.calculateValidatorDailyReward('tier_3', tier3DelegatorCount);
+    
+    const tier1AvgStake = 256_000; // Average stake for Tier 1
+    const tier2AvgStake = 75_000; // Average stake for Tier 2
+    const tier3AvgStake = 1_000; // Average delegation
     
     return {
       // Core Price Metrics
@@ -1607,12 +1709,66 @@ export class TBurnEnterpriseNode extends EventEmitter {
       marketCap: this.calculateMarketCap(),
       fullyDilutedValuation: Math.floor(this.tokenPrice * this.TOTAL_SUPPLY).toString(),
       
-      // Supply Metrics
+      // Supply Metrics (Updated for 100M)
       totalSupply: this.TOTAL_SUPPLY,
       circulatingSupply: this.circulatingSupply,
       stakedAmount: this.stakedAmount,
       stakedPercent: Math.round(stakedRatio * 10000) / 100,
       burnedTokens: this.burnedTokens,
+      
+      // Tiered Emission System
+      emission: {
+        dailyGrossEmission: this.currentDailyEmission,
+        dailyBurn: this.dailyBurnAmount,
+        dailyNetEmission: this.netDailyEmission,
+        annualInflationRate: Math.round((this.netDailyEmission * 365 / this.circulatingSupply) * 10000) / 100,
+        burnRate: this.BURN_RATE * 100,
+      },
+      
+      // Tiered Validator System
+      tiers: {
+        tier1: {
+          name: 'Active Committee',
+          maxValidators: this.TIER_1_MAX_VALIDATORS,
+          currentValidators: tier1ValidatorCount,
+          minStakeTBURN: this.TIER_1_MIN_STAKE,
+          rewardPoolShare: this.TIER_1_REWARD_SHARE * 100,
+          dailyRewardPool: rewardPools.tier1,
+          avgDailyReward: Math.round(tier1DailyReward * 100) / 100,
+          targetAPY: Math.round(this.calculateAPY(tier1DailyReward, tier1AvgStake) * 100) / 100,
+          apyRange: { min: 6.0, max: 10.0 },
+        },
+        tier2: {
+          name: 'Standby Validator',
+          maxValidators: this.TIER_2_MAX_VALIDATORS,
+          currentValidators: tier2ValidatorCount,
+          minStakeTBURN: this.TIER_2_MIN_STAKE,
+          rewardPoolShare: this.TIER_2_REWARD_SHARE * 100,
+          dailyRewardPool: rewardPools.tier2,
+          avgDailyReward: Math.round(tier2DailyReward * 100) / 100,
+          targetAPY: 4.0,
+          apyRange: { min: 3.0, max: 5.0 },
+        },
+        tier3: {
+          name: 'Delegator',
+          maxValidators: -1, // Unlimited
+          currentDelegators: tier3DelegatorCount,
+          minStakeTBURN: this.TIER_3_MIN_STAKE,
+          rewardPoolShare: this.TIER_3_REWARD_SHARE * 100,
+          dailyRewardPool: rewardPools.tier3,
+          avgDailyReward: Math.round(tier3DailyReward * 1000) / 1000,
+          targetAPY: 5.0,
+          apyRange: { min: 4.0, max: 6.0 },
+        },
+      },
+      
+      // Network Security Metrics
+      security: {
+        attackCostUSD: Math.floor(this.calculateAttackCost()),
+        securityScore: this.calculateSecurityScore(),
+        byzantineThreshold: 33,
+        minSecureStake: 30_000_000, // 30M minimum for enterprise security
+      },
       
       // Demand-Supply Equilibrium Indicators
       demandIndex: Math.round(this.demandIndex * 1000) / 1000,
@@ -1620,7 +1776,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       priceDriver: this.demandIndex > Math.abs(this.supplyPressure) ? 'demand' : 'supply',
       
       // TPS-Based Demand Metrics
-      tpsUtilization: Math.round(tpsUtilization * 10000) / 100, // as percentage
+      tpsUtilization: Math.round(tpsUtilization * 10000) / 100,
       emaTps: Math.round(this.emaTps),
       activityIndex: Math.round(this.emaActivityIndex * 100) / 100,
       confidenceScore: Math.round(this.confidenceScore * 1000) / 1000,
@@ -1629,7 +1785,6 @@ export class TBurnEnterpriseNode extends EventEmitter {
       stakingLockupIntensity: Math.round(Math.pow(stakedRatio, 0.8) * 1000) / 1000,
       validatorPerformanceIndex: Math.round(this.validatorPerformanceIndex * 1000) / 1000,
       emissionRate: this.emissionRate,
-      burnRate: this.burnRate,
       netEmissionRate: Math.round((this.emissionRate - this.burnRate) * 100000) / 100000,
       
       // Price Formula Components
