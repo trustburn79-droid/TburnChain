@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useCallback, useMemo } from "react";
 
 interface AdminPasswordContextType {
   adminPassword: string | null;
@@ -13,42 +13,37 @@ const AdminPasswordContext = createContext<AdminPasswordContextType | null>(null
 const ADMIN_PASSWORD_KEY = "tburn_admin_password";
 
 export function AdminPasswordProvider({ children }: { children: React.ReactNode }): React.ReactElement {
-  const [adminPassword, setAdminPasswordState] = useState<string | null>(null);
+  const [adminPassword, setAdminPasswordState] = useState<string | null>(() => {
+    return sessionStorage.getItem(ADMIN_PASSWORD_KEY);
+  });
 
-  useEffect(() => {
-    const stored = sessionStorage.getItem(ADMIN_PASSWORD_KEY);
-    if (stored) {
-      setAdminPasswordState(stored);
-    }
-  }, []);
-
-  const setAdminPassword = (password: string) => {
+  const setAdminPassword = useCallback((password: string) => {
     sessionStorage.setItem(ADMIN_PASSWORD_KEY, password);
     setAdminPasswordState(password);
-  };
+  }, []);
 
-  const clearAdminPassword = () => {
+  const clearAdminPassword = useCallback(() => {
     sessionStorage.removeItem(ADMIN_PASSWORD_KEY);
     setAdminPasswordState(null);
-  };
+  }, []);
 
-  const getAuthHeaders = (): Record<string, string> => {
+  const getAuthHeaders = useCallback((): Record<string, string> => {
     if (adminPassword) {
       return { "x-admin-password": adminPassword };
     }
     return {};
-  };
+  }, [adminPassword]);
+
+  const contextValue = useMemo(() => ({
+    adminPassword,
+    setAdminPassword,
+    clearAdminPassword,
+    isAdminAuthenticated: !!adminPassword,
+    getAuthHeaders,
+  }), [adminPassword, setAdminPassword, clearAdminPassword, getAuthHeaders]);
 
   return (
-    <AdminPasswordContext.Provider
-      value={{
-        adminPassword,
-        setAdminPassword,
-        clearAdminPassword,
-        isAdminAuthenticated: !!adminPassword,
-        getAuthHeaders,
-      }}
-    >
+    <AdminPasswordContext.Provider value={contextValue}>
       {children}
     </AdminPasswordContext.Provider>
   );

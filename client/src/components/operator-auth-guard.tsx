@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,21 +18,30 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isValidating, setIsValidating] = useState(true);
   const [isValidSession, setIsValidSession] = useState(false);
+  const hasValidated = useRef(false);
+  const lastValidatedPassword = useRef<string | null>(null);
 
   useEffect(() => {
+    if (hasValidated.current && lastValidatedPassword.current === adminPassword) {
+      return;
+    }
+
     const validateStoredSession = async () => {
       if (!adminPassword) {
         setIsValidating(false);
+        setIsValidSession(false);
         return;
       }
 
       try {
         const response = await fetch("/api/operator/dashboard", {
-          headers: getAuthHeaders(),
+          headers: { "x-admin-password": adminPassword },
         });
 
         if (response.ok) {
           setIsValidSession(true);
+          hasValidated.current = true;
+          lastValidatedPassword.current = adminPassword;
         } else {
           clearAdminPassword();
           setIsValidSession(false);
@@ -46,7 +55,7 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
     };
 
     validateStoredSession();
-  }, [adminPassword, getAuthHeaders, clearAdminPassword]);
+  }, [adminPassword, clearAdminPassword]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
