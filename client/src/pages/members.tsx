@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Link } from "wouter";
 import {
   Card,
   CardContent,
@@ -61,11 +60,21 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
-  ArrowUpRight,
   FilterIcon,
   UserPlus,
   Wallet,
+  Mail,
+  MapPin,
+  Calendar,
+  TrendingUp,
+  Vote,
+  FileText,
+  Activity,
+  Clock,
+  Target,
+  X,
 } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { formatDistanceToNow } from "date-fns";
 
@@ -152,6 +161,408 @@ const memberFormSchema = z.object({
   kycLevel: z.enum(["none", "basic", "advanced", "institutional"]),
 });
 
+// Helper functions for formatting
+const formatStakedAmountUtil = (amount: string | undefined) => {
+  if (!amount) return "0";
+  const value = parseFloat(amount) / 1e18;
+  if (value >= 1e6) return `${(value / 1e6).toFixed(2)}M`;
+  if (value >= 1e3) return `${(value / 1e3).toFixed(2)}K`;
+  return value.toFixed(2);
+};
+
+const getTierIconUtil = (tier: string) => {
+  if (tier.includes("validator")) return <Shield className="h-4 w-4" />;
+  if (tier === "staker") return <Coins className="h-4 w-4" />;
+  return <Users className="h-4 w-4" />;
+};
+
+const getStatusIconUtil = (status: string) => {
+  switch (status) {
+    case "active":
+      return <CheckCircle className="h-4 w-4" />;
+    case "inactive":
+      return <XCircle className="h-4 w-4" />;
+    case "suspended":
+      return <AlertCircle className="h-4 w-4" />;
+    default:
+      return <AlertCircle className="h-4 w-4" />;
+  }
+};
+
+// Member Detail Modal Component
+function MemberDetailModal({
+  member,
+  open,
+  onClose,
+}: {
+  member: Member | null;
+  open: boolean;
+  onClose: () => void;
+}) {
+  if (!member) return null;
+
+  const isValidator = member.memberTier.includes("validator");
+  const isActive = member.memberStatus === "active";
+
+  return (
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden" data-testid="modal-member-detail">
+        <div className="flex flex-col h-full">
+          <DialogHeader className="px-6 pt-6 pb-4 border-b">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className={`h-12 w-12 rounded-full flex items-center justify-center ${
+                  isValidator ? 'bg-gradient-to-br from-purple-500 to-blue-500' : 'bg-gradient-to-br from-blue-500 to-cyan-500'
+                }`}>
+                  {isValidator ? (
+                    <Shield className="h-6 w-6 text-white" />
+                  ) : (
+                    <Users className="h-6 w-6 text-white" />
+                  )}
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-bold">
+                    {member.profile?.displayName || "Anonymous Member"}
+                  </DialogTitle>
+                  <DialogDescription className="font-mono text-xs break-all">
+                    {member.accountAddress}
+                  </DialogDescription>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge className={`${tierColors[member.memberTier]} text-white`}>
+                  <span className="flex items-center gap-1">
+                    {getTierIconUtil(member.memberTier)}
+                    {member.memberTier.replace(/_/g, " ").toUpperCase()}
+                  </span>
+                </Badge>
+                <Badge className={`${statusColors[member.memberStatus]} text-white`}>
+                  <span className="flex items-center gap-1">
+                    {getStatusIconUtil(member.memberStatus)}
+                    {member.memberStatus.replace(/_/g, " ").toUpperCase()}
+                  </span>
+                </Badge>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <ScrollArea className="flex-1 px-6 py-4">
+            <Tabs defaultValue="overview" className="w-full">
+              <TabsList className="grid w-full grid-cols-4 mb-6">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="financial">Financial</TabsTrigger>
+                <TabsTrigger value="governance">Governance</TabsTrigger>
+                <TabsTrigger value="performance">Performance</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="overview" className="space-y-4">
+                {/* Basic Info Cards */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Award className="h-4 w-4 text-purple-500" />
+                        <span className="text-xs text-muted-foreground">KYC Level</span>
+                      </div>
+                      <Badge className={`${kycColors[member.kycLevel]} text-white mt-1`}>
+                        {member.kycLevel.toUpperCase()}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Coins className="h-4 w-4 text-yellow-500" />
+                        <span className="text-xs text-muted-foreground">Total Staked</span>
+                      </div>
+                      <p className="text-lg font-bold">
+                        {formatStakedAmountUtil(member.financial?.totalStaked)} TBURN
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Vote className="h-4 w-4 text-blue-500" />
+                        <span className="text-xs text-muted-foreground">Voting Power</span>
+                      </div>
+                      <p className="text-lg font-bold">{member.governance?.votingPower || "0"}</p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Calendar className="h-4 w-4 text-green-500" />
+                        <span className="text-xs text-muted-foreground">Member Since</span>
+                      </div>
+                      <p className="text-sm font-medium">
+                        {member.joinedAt && !isNaN(new Date(member.joinedAt).getTime())
+                          ? formatDistanceToNow(new Date(member.joinedAt), { addSuffix: true })
+                          : "Recently joined"}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Profile Details */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium">Profile Information</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {member.profile?.email && (
+                      <div className="flex items-center gap-3">
+                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm">{member.profile.email}</span>
+                      </div>
+                    )}
+                    {member.profile?.location && (
+                      <div className="flex items-center gap-3">
+                        <MapPin className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm">{member.profile.location}</span>
+                      </div>
+                    )}
+                    {member.profile?.bio && (
+                      <div className="pt-2">
+                        <p className="text-sm text-muted-foreground mb-1">Bio</p>
+                        <p className="text-sm">{member.profile.bio}</p>
+                      </div>
+                    )}
+                    {!member.profile?.email && !member.profile?.location && !member.profile?.bio && (
+                      <p className="text-sm text-muted-foreground">No additional profile information available.</p>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="financial" className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <Coins className="h-4 w-4" />
+                        Total Staked
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-yellow-500">
+                        {formatStakedAmountUtil(member.financial?.totalStaked)} TBURN
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <TrendingUp className="h-4 w-4" />
+                        Total Rewards
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-green-500">
+                        {formatStakedAmountUtil(member.financial?.totalRewards)} TBURN
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <Wallet className="h-4 w-4" />
+                        Total Withdrawn
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-blue-500">
+                        {formatStakedAmountUtil(member.financial?.totalWithdrawn)} TBURN
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium">Financial Summary</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Net Position</span>
+                        <span className="font-medium">
+                          {formatStakedAmountUtil(
+                            String(
+                              (parseFloat(member.financial?.totalStaked || "0") +
+                                parseFloat(member.financial?.totalRewards || "0") -
+                                parseFloat(member.financial?.totalWithdrawn || "0"))
+                            )
+                          )} TBURN
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">ROI (Rewards/Staked)</span>
+                        <span className="font-medium text-green-500">
+                          {member.financial?.totalStaked && parseFloat(member.financial.totalStaked) > 0
+                            ? ((parseFloat(member.financial?.totalRewards || "0") /
+                                parseFloat(member.financial.totalStaked)) *
+                                100).toFixed(2)
+                            : "0.00"}%
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="governance" className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <Vote className="h-4 w-4" />
+                        Voting Power
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-purple-500">
+                        {member.governance?.votingPower || "0"}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <FileText className="h-4 w-4" />
+                        Proposals Created
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-blue-500">
+                        {member.governance?.proposalsCreated || 0}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4" />
+                        Votes Participated
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-green-500">
+                        {member.governance?.votesParticipated || 0}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium">Governance Activity</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Participation Rate</span>
+                        <span className="font-medium">
+                          {member.governance?.votesParticipated 
+                            ? `${Math.min(100, member.governance.votesParticipated * 2)}%`
+                            : "0%"}
+                        </span>
+                      </div>
+                      <Progress 
+                        value={member.governance?.votesParticipated 
+                          ? Math.min(100, member.governance.votesParticipated * 2)
+                          : 0} 
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="performance" className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <Target className="h-4 w-4" />
+                        Reliability
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-green-500">
+                        {member.performance?.reliability?.toFixed(1) || "0.0"}%
+                      </p>
+                      <Progress value={member.performance?.reliability || 0} className="mt-2" />
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <Clock className="h-4 w-4" />
+                        Response Time
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-blue-500">
+                        {member.performance?.responseTime || 0}ms
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription className="flex items-center gap-2">
+                        <Activity className="h-4 w-4" />
+                        Success Rate
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-2xl font-bold text-purple-500">
+                        {member.performance?.successRate?.toFixed(1) || "0.0"}%
+                      </p>
+                      <Progress value={member.performance?.successRate || 0} className="mt-2" />
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium">Overall Performance Score</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1">
+                        <Progress 
+                          value={
+                            ((member.performance?.reliability || 0) +
+                              (member.performance?.successRate || 0)) /
+                            2
+                          } 
+                        />
+                      </div>
+                      <span className="text-2xl font-bold">
+                        {(
+                          ((member.performance?.reliability || 0) +
+                            (member.performance?.successRate || 0)) /
+                          2
+                        ).toFixed(1)}%
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </ScrollArea>
+
+          <DialogFooter className="px-6 py-4 border-t">
+            <Button variant="outline" onClick={onClose} data-testid="button-close-modal">
+              Close
+            </Button>
+          </DialogFooter>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function MembersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [tierFilter, setTierFilter] = useState<string>("all");
@@ -159,6 +570,7 @@ export default function MembersPage() {
   const [kycFilter, setKycFilter] = useState<string>("all");
   const [selectedTab, setSelectedTab] = useState("all");
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const { toast } = useToast();
 
   // Form for member creation
@@ -661,12 +1073,16 @@ export default function MembersPage() {
                       <TableHead>Staked</TableHead>
                       <TableHead>Voting Power</TableHead>
                       <TableHead>Joined</TableHead>
-                      <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredMembers.map((member) => (
-                      <TableRow key={member.id} data-testid={`row-member-${member.id}`}>
+                      <TableRow 
+                        key={member.id} 
+                        data-testid={`row-member-${member.id}`}
+                        className="cursor-pointer hover-elevate"
+                        onClick={() => setSelectedMember(member)}
+                      >
                         <TableCell>
                           <div>
                             <div className="font-medium">
@@ -717,16 +1133,6 @@ export default function MembersPage() {
                               : "Recently joined"}
                           </div>
                         </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Link href={`/members/${member.id}`}>
-                              <Button variant="outline" size="sm" data-testid={`button-view-${member.id}`}>
-                                View
-                                <ArrowUpRight className="ml-1 h-3 w-3" />
-                              </Button>
-                            </Link>
-                          </div>
-                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -743,6 +1149,13 @@ export default function MembersPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Member Detail Modal */}
+      <MemberDetailModal
+        member={selectedMember}
+        open={!!selectedMember}
+        onClose={() => setSelectedMember(null)}
+      />
     </div>
   );
 }
