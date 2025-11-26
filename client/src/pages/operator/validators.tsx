@@ -37,7 +37,7 @@ import {
   ShieldCheck, CheckCircle2, XCircle, Clock, 
   Eye, FileCheck, Slash, ChevronLeft, ChevronRight,
   Server, Cpu, HardDrive, Wifi, TrendingUp, History,
-  Calculator, Award, Activity, AlertTriangle, BarChart3
+  Calculator, Award, Activity, AlertTriangle, BarChart3, Coins
 } from "lucide-react";
 import { useAdminPassword } from "@/hooks/use-admin-password";
 import { queryClient } from "@/lib/queryClient";
@@ -131,6 +131,7 @@ export default function OperatorValidators() {
 
   const [calcStake, setCalcStake] = useState<number>(100000);
   const [calcTier, setCalcTier] = useState<string>("tier_1");
+  const [selectedValidator, setSelectedValidator] = useState<ValidatorPerformance | null>(null);
 
   const buildQueryString = () => {
     const params = new URLSearchParams();
@@ -576,7 +577,12 @@ export default function OperatorValidators() {
                 </TableHeader>
                 <TableBody>
                   {validatorPerformance?.slice(0, 20).map((v, idx) => (
-                    <TableRow key={v.address} data-testid={`row-perf-${idx}`}>
+                    <TableRow 
+                      key={v.address} 
+                      data-testid={`row-perf-${idx}`}
+                      className="cursor-pointer hover-elevate"
+                      onClick={() => setSelectedValidator(v)}
+                    >
                       <TableCell className="font-bold">#{idx + 1}</TableCell>
                       <TableCell>
                         <div>
@@ -1142,6 +1148,177 @@ export default function OperatorValidators() {
             >
               <Slash className="h-4 w-4 mr-2" />
               Confirm Slash
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Validator Performance Detail Modal */}
+      <Dialog open={!!selectedValidator} onOpenChange={() => setSelectedValidator(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Server className="h-5 w-5" />
+              Validator Details
+            </DialogTitle>
+            <DialogDescription>
+              Detailed performance metrics and statistics
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedValidator && (
+            <div className="space-y-6">
+              {/* Validator Identity */}
+              <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-lg">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Server className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold">{selectedValidator.name}</h3>
+                  <p className="text-sm font-mono text-muted-foreground">{selectedValidator.address}</p>
+                </div>
+                {getTierBadge(selectedValidator.tier)}
+              </div>
+
+              {/* Performance Score */}
+              <div className="text-center p-6 bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg border">
+                <p className="text-sm text-muted-foreground mb-2">Performance Score</p>
+                <div className="text-5xl font-bold text-primary">{selectedValidator.performanceScore}</div>
+                <Badge 
+                  className="mt-2"
+                  variant={selectedValidator.performanceScore >= 95 ? "default" : selectedValidator.performanceScore >= 85 ? "secondary" : "outline"}
+                >
+                  {selectedValidator.performanceScore >= 95 ? "Excellent" : selectedValidator.performanceScore >= 85 ? "Good" : "Needs Improvement"}
+                </Badge>
+              </div>
+
+              {/* Key Metrics Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Coins className="h-3 w-3" /> Stake
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg font-bold font-mono">{parseFloat(selectedValidator.stake).toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground">TBURN</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Activity className="h-3 w-3" /> Uptime
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg font-bold">{selectedValidator.uptime}%</p>
+                    <Progress value={selectedValidator.uptime} className="h-1 mt-1" />
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
+                      <BarChart3 className="h-3 w-3" /> Blocks
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg font-bold">{selectedValidator.blocksProduced.toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground">produced</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Award className="h-3 w-3" /> Rewards
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg font-bold text-amber-500">{parseFloat(selectedValidator.rewardsEarned).toFixed(2)}</p>
+                    <p className="text-xs text-muted-foreground">TBURN earned</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Additional Stats */}
+              <div className="space-y-3">
+                <h4 className="font-medium flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4" />
+                  Additional Statistics
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 bg-muted/30 rounded-lg">
+                    <p className="text-sm text-muted-foreground">Missed Blocks</p>
+                    <p className="text-xl font-bold text-red-500">{selectedValidator.missedBlocks.toLocaleString()}</p>
+                  </div>
+                  <div className="p-3 bg-muted/30 rounded-lg">
+                    <p className="text-sm text-muted-foreground">Average Block Time</p>
+                    <p className="text-xl font-bold">{selectedValidator.averageBlockTime.toFixed(2)}s</p>
+                  </div>
+                  <div className="p-3 bg-muted/30 rounded-lg">
+                    <p className="text-sm text-muted-foreground">Block Success Rate</p>
+                    <p className="text-xl font-bold text-green-500">
+                      {((selectedValidator.blocksProduced / (selectedValidator.blocksProduced + selectedValidator.missedBlocks)) * 100).toFixed(2)}%
+                    </p>
+                  </div>
+                  <div className="p-3 bg-muted/30 rounded-lg">
+                    <p className="text-sm text-muted-foreground">Tier</p>
+                    <p className="text-xl font-bold capitalize">{selectedValidator.tier.replace('_', ' ')}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tier Information */}
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-medium mb-3 flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4" />
+                  Tier Requirements
+                </h4>
+                {selectedValidator.tier === 'tier_1' && (
+                  <div className="space-y-2 text-sm">
+                    <p><span className="text-muted-foreground">Min Stake:</span> 200,000 TBURN</p>
+                    <p><span className="text-muted-foreground">Target APY:</span> 8%</p>
+                    <p><span className="text-muted-foreground">Pool Share:</span> 50%</p>
+                    <p><span className="text-muted-foreground">Max Validators:</span> 512</p>
+                  </div>
+                )}
+                {selectedValidator.tier === 'tier_2' && (
+                  <div className="space-y-2 text-sm">
+                    <p><span className="text-muted-foreground">Min Stake:</span> 50,000 TBURN</p>
+                    <p><span className="text-muted-foreground">Target APY:</span> 4%</p>
+                    <p><span className="text-muted-foreground">Pool Share:</span> 30%</p>
+                    <p><span className="text-muted-foreground">Max Validators:</span> 4,488</p>
+                  </div>
+                )}
+                {selectedValidator.tier === 'tier_3' && (
+                  <div className="space-y-2 text-sm">
+                    <p><span className="text-muted-foreground">Min Stake:</span> 100 TBURN</p>
+                    <p><span className="text-muted-foreground">Target APY:</span> 5%</p>
+                    <p><span className="text-muted-foreground">Pool Share:</span> 20%</p>
+                    <p><span className="text-muted-foreground">Max Validators:</span> Unlimited</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setSelectedValidator(null)} data-testid="btn-close-validator-detail">
+              Close
+            </Button>
+            <Button 
+              variant="destructive" 
+              onClick={() => {
+                if (selectedValidator) {
+                  setSlashData({ ...slashData, address: selectedValidator.address });
+                  setSelectedValidator(null);
+                  setShowSlashDialog(true);
+                }
+              }}
+              data-testid="btn-slash-from-detail"
+            >
+              <Slash className="h-4 w-4 mr-2" />
+              Slash Validator
             </Button>
           </DialogFooter>
         </DialogContent>
