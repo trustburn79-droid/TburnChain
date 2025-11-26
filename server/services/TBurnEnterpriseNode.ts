@@ -1435,15 +1435,28 @@ export class TBurnEnterpriseNode extends EventEmitter {
       throw new Error(`Block ${height} not found`);
     }
 
+    const blockHash = typeof heightOrHash === 'string' ? heightOrHash : `0x${crypto.randomBytes(32).toString('hex')}`;
+    const parentHash = `0x${crypto.randomBytes(32).toString('hex')}`;
+    const validatorIndex = Math.floor(Math.random() * 125);
+    const validatorAddress = `0x${crypto.createHash('sha256').update(`validator${validatorIndex}`).digest('hex').slice(0, 40)}`;
+    
     return {
-      height,
-      hash: typeof heightOrHash === 'string' ? heightOrHash : `0x${crypto.randomBytes(32).toString('hex')}`,
+      id: `block-${height}`,
+      blockNumber: height,
+      height, // Keep for backward compatibility
+      hash: blockHash,
+      parentHash,
       timestamp: Math.floor(Date.now() / 1000) - (this.currentBlockHeight - height) * 100,
       transactionCount: 400 + Math.floor(Math.random() * 200),
-      proposer: `tburn1validator${Math.floor(Math.random() * 125).toString().padStart(3, '0')}`,
+      validatorAddress,
+      proposer: `tburn1validator${validatorIndex.toString().padStart(3, '0')}`,
       size: 15000 + Math.floor(Math.random() * 10000),
-      gasUsed: (BigInt(15000000) + BigInt(Math.floor(Math.random() * 5000000))).toString(),
-      gasLimit: '30000000'
+      gasUsed: 15000000 + Math.floor(Math.random() * 5000000),
+      gasLimit: 30000000,
+      shardId: Math.floor(Math.random() * 4),
+      stateRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
+      receiptsRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
+      hashAlgorithm: ['BLAKE3', 'SHA3-512', 'SHA-256'][Math.floor(Math.random() * 3)]
     };
   }
 

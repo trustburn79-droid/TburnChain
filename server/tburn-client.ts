@@ -8,14 +8,22 @@ export interface TBurnNodeConfig {
 }
 
 export interface BlockData {
-  height: number;
+  id?: string;
+  blockNumber: number;
+  height?: number; // backward compatibility
   hash: string;
+  parentHash?: string;
   timestamp: number;
   transactionCount: number;
-  proposer: string;
+  validatorAddress?: string;
+  proposer?: string;
   size: number;
-  gasUsed: string;
-  gasLimit: string;
+  gasUsed: string | number;
+  gasLimit: string | number;
+  shardId?: number;
+  stateRoot?: string;
+  receiptsRoot?: string;
+  hashAlgorithm?: string;
 }
 
 export interface TransactionData {
