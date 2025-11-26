@@ -840,6 +840,286 @@ export const restartSessions = pgTable("restart_sessions", {
 });
 
 // ============================================
+// Enterprise Operator Portal Tables
+// ============================================
+
+// Member Notes - Notes/memos for members by operators
+export const memberNotes = pgTable("member_notes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull(),
+  operatorId: varchar("operator_id").notNull(),
+  
+  // Note content
+  noteType: text("note_type").notNull().default("general"), // general, kyc_review, compliance, risk, support, internal
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  priority: text("priority").notNull().default("normal"), // low, normal, high, urgent
+  
+  // Visibility
+  isPrivate: boolean("is_private").notNull().default(false), // Only visible to creator
+  isPinned: boolean("is_pinned").notNull().default(false),
+  
+  // Follow-up
+  requiresFollowUp: boolean("requires_follow_up").notNull().default(false),
+  followUpDate: timestamp("follow_up_date"),
+  followUpCompleted: boolean("follow_up_completed").notNull().default(false),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// IP Blocklist - Blocked IP addresses
+export const ipBlocklist = pgTable("ip_blocklist", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  ipAddress: text("ip_address").notNull(),
+  ipRange: text("ip_range"), // CIDR notation for range blocks
+  
+  // Block info
+  reason: text("reason").notNull(),
+  blockType: text("block_type").notNull().default("permanent"), // temporary, permanent, rate_limit
+  severity: text("severity").notNull().default("medium"), // low, medium, high, critical
+  
+  // Related incident
+  relatedSecurityEventId: varchar("related_security_event_id"),
+  relatedMemberId: varchar("related_member_id"),
+  
+  // Expiry for temporary blocks
+  expiresAt: timestamp("expires_at"),
+  isActive: boolean("is_active").notNull().default(true),
+  
+  // Audit
+  blockedBy: varchar("blocked_by").notNull(),
+  unblockedBy: varchar("unblocked_by"),
+  unblockedAt: timestamp("unblocked_at"),
+  unblockReason: text("unblock_reason"),
+  
+  // Stats
+  hitCount: integer("hit_count").notNull().default(0),
+  lastHitAt: timestamp("last_hit_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// System Health Snapshots - Historical system health metrics
+export const systemHealthSnapshots = pgTable("system_health_snapshots", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Core metrics
+  tps: integer("tps").notNull().default(0),
+  blockHeight: bigint("block_height", { mode: "number" }).notNull().default(0),
+  avgBlockTime: integer("avg_block_time").notNull().default(0), // ms
+  latency: integer("latency").notNull().default(0), // ms
+  
+  // Validator metrics
+  activeValidators: integer("active_validators").notNull().default(0),
+  totalValidators: integer("total_validators").notNull().default(0),
+  validatorUptime: integer("validator_uptime").notNull().default(10000), // basis points
+  
+  // System resources
+  cpuUsage: integer("cpu_usage").notNull().default(0), // percentage
+  memoryUsage: integer("memory_usage").notNull().default(0), // percentage
+  diskUsage: integer("disk_usage").notNull().default(0), // percentage
+  networkBandwidth: integer("network_bandwidth").notNull().default(0), // Mbps
+  
+  // Network status
+  peerCount: integer("peer_count").notNull().default(0),
+  pendingTxCount: integer("pending_tx_count").notNull().default(0),
+  mempoolSize: integer("mempool_size").notNull().default(0), // bytes
+  
+  // Health scores
+  overallHealthScore: integer("overall_health_score").notNull().default(10000), // basis points
+  networkHealthScore: integer("network_health_score").notNull().default(10000),
+  consensusHealthScore: integer("consensus_health_score").notNull().default(10000),
+  storageHealthScore: integer("storage_health_score").notNull().default(10000),
+  
+  // Status
+  status: text("status").notNull().default("healthy"), // healthy, degraded, critical, maintenance
+  alerts: jsonb("alerts").notNull().default([]), // Array of active alerts
+  
+  snapshotAt: timestamp("snapshot_at").notNull().defaultNow(),
+});
+
+// Alert Queue - Priority queue for operator alerts
+export const alertQueue = pgTable("alert_queue", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Alert info
+  alertType: text("alert_type").notNull(), // security, validator, member, system, compliance
+  severity: text("severity").notNull().default("medium"), // info, low, medium, high, critical
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  
+  // Source
+  sourceType: text("source_type").notNull(), // security_event, validator, member, system
+  sourceId: varchar("source_id"),
+  
+  // Target
+  targetType: text("target_type"), // member, validator, shard, system
+  targetId: varchar("target_id"),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, acknowledged, resolved, dismissed
+  acknowledgedBy: varchar("acknowledged_by"),
+  acknowledgedAt: timestamp("acknowledged_at"),
+  resolvedBy: varchar("resolved_by"),
+  resolvedAt: timestamp("resolved_at"),
+  resolution: text("resolution"),
+  
+  // Priority
+  priority: integer("priority").notNull().default(50), // 1-100, higher = more urgent
+  requiresImmediateAction: boolean("requires_immediate_action").notNull().default(false),
+  
+  // Auto-escalation
+  escalationLevel: integer("escalation_level").notNull().default(0),
+  escalatedAt: timestamp("escalated_at"),
+  autoEscalateAfter: timestamp("auto_escalate_after"),
+  
+  // Metadata
+  metadata: jsonb("metadata").notNull().default({}),
+  actionsTaken: jsonb("actions_taken").notNull().default([]),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Validator Performance History - Historical performance metrics for validators
+export const validatorPerformanceHistory = pgTable("validator_performance_history", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Performance metrics
+  uptime: integer("uptime").notNull().default(10000), // basis points
+  blocksProduced: integer("blocks_produced").notNull().default(0),
+  blocksMissed: integer("blocks_missed").notNull().default(0),
+  avgBlockTime: integer("avg_block_time").notNull().default(0), // ms
+  
+  // Staking metrics
+  totalStake: text("total_stake").notNull().default("0"),
+  delegatedStake: text("delegated_stake").notNull().default("0"),
+  delegatorCount: integer("delegator_count").notNull().default(0),
+  
+  // Rewards
+  rewardsEarned: text("rewards_earned").notNull().default("0"),
+  commissionsEarned: text("commissions_earned").notNull().default("0"),
+  
+  // Network metrics
+  latency: integer("latency").notNull().default(0), // ms
+  peerCount: integer("peer_count").notNull().default(0),
+  
+  // AI scores
+  aiTrustScore: integer("ai_trust_score").notNull().default(7500),
+  behaviorScore: integer("behavior_score").notNull().default(9500),
+  reputationScore: integer("reputation_score").notNull().default(8500),
+  
+  // Slashing
+  slashEvents: integer("slash_events").notNull().default(0),
+  totalSlashed: text("total_slashed").notNull().default("0"),
+  
+  // Period
+  periodStart: timestamp("period_start").notNull(),
+  periodEnd: timestamp("period_end").notNull(),
+  periodType: text("period_type").notNull().default("hourly"), // hourly, daily, weekly, monthly
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Report Schedules - Automated report scheduling
+export const reportSchedules = pgTable("report_schedules", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Report configuration
+  name: text("name").notNull(),
+  description: text("description"),
+  reportType: text("report_type").notNull(), // kyc_summary, aml_report, transaction_report, validator_report, etc.
+  
+  // Schedule
+  scheduleType: text("schedule_type").notNull().default("manual"), // manual, daily, weekly, monthly, quarterly
+  cronExpression: text("cron_expression"), // For custom schedules
+  timezone: text("timezone").notNull().default("UTC"),
+  
+  // Parameters
+  parameters: jsonb("parameters").notNull().default({}), // Report-specific parameters
+  jurisdiction: text("jurisdiction").notNull().default("global"),
+  
+  // Output
+  outputFormat: text("output_format").notNull().default("pdf"), // pdf, csv, xlsx, json
+  deliveryMethod: text("delivery_method").notNull().default("download"), // download, email, storage
+  deliveryConfig: jsonb("delivery_config").notNull().default({}),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  lastRunAt: timestamp("last_run_at"),
+  lastRunStatus: text("last_run_status"), // success, failed, partial
+  lastRunReportId: varchar("last_run_report_id"),
+  nextRunAt: timestamp("next_run_at"),
+  
+  // Stats
+  totalRuns: integer("total_runs").notNull().default(0),
+  successfulRuns: integer("successful_runs").notNull().default(0),
+  failedRuns: integer("failed_runs").notNull().default(0),
+  
+  // Ownership
+  createdBy: varchar("created_by").notNull(),
+  updatedBy: varchar("updated_by"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Hardware Verification Checklist - Validator hardware verification
+export const hardwareVerificationChecklists = pgTable("hardware_verification_checklists", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  validatorApplicationId: varchar("validator_application_id").notNull(),
+  validatorAddress: text("validator_address"),
+  
+  // CPU Requirements
+  cpuSpecsVerified: boolean("cpu_specs_verified").notNull().default(false),
+  cpuNotes: text("cpu_notes"),
+  
+  // Memory Requirements
+  memorySpecsVerified: boolean("memory_specs_verified").notNull().default(false),
+  memoryNotes: text("memory_notes"),
+  
+  // Storage Requirements
+  storageSpecsVerified: boolean("storage_specs_verified").notNull().default(false),
+  storageNotes: text("storage_notes"),
+  
+  // Network Requirements
+  networkSpecsVerified: boolean("network_specs_verified").notNull().default(false),
+  networkNotes: text("network_notes"),
+  bandwidthTestResult: integer("bandwidth_test_result"), // Mbps
+  latencyTestResult: integer("latency_test_result"), // ms
+  
+  // Security Requirements
+  securityConfigVerified: boolean("security_config_verified").notNull().default(false),
+  securityNotes: text("security_notes"),
+  firewallConfigured: boolean("firewall_configured").notNull().default(false),
+  sslCertificateValid: boolean("ssl_certificate_valid").notNull().default(false),
+  
+  // Uptime Requirements
+  uptimeGuaranteeVerified: boolean("uptime_guarantee_verified").notNull().default(false),
+  uptimeNotes: text("uptime_notes"),
+  redundancyConfigured: boolean("redundancy_configured").notNull().default(false),
+  
+  // Geographic requirements
+  geographicLocationVerified: boolean("geographic_location_verified").notNull().default(false),
+  geographicNotes: text("geographic_notes"),
+  
+  // Overall status
+  overallStatus: text("overall_status").notNull().default("pending"), // pending, passed, failed, requires_review
+  overallScore: integer("overall_score"), // 0-100
+  
+  // Review
+  reviewedBy: varchar("reviewed_by"),
+  reviewedAt: timestamp("reviewed_at"),
+  reviewNotes: text("review_notes"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
 // Insert Schemas and Types
 // ============================================
 
@@ -879,6 +1159,15 @@ export const insertComplianceReportSchema = createInsertSchema(complianceReports
 export const insertValidatorApplicationSchema = createInsertSchema(validatorApplications).omit({ id: true, submittedAt: true, reviewStartedAt: true, decidedAt: true, activatedAt: true });
 export const insertOperatorSessionSchema = createInsertSchema(operatorSessions).omit({ id: true, createdAt: true, lastActivityAt: true, terminatedAt: true });
 export const insertMemberDocumentSchema = createInsertSchema(memberDocuments).omit({ id: true, uploadedAt: true, updatedAt: true, verifiedAt: true });
+
+// Enterprise Operator Portal Insert Schemas
+export const insertMemberNoteSchema = createInsertSchema(memberNotes).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertIpBlocklistSchema = createInsertSchema(ipBlocklist).omit({ id: true, createdAt: true, updatedAt: true, lastHitAt: true, unblockedAt: true });
+export const insertSystemHealthSnapshotSchema = createInsertSchema(systemHealthSnapshots).omit({ id: true, snapshotAt: true });
+export const insertAlertQueueSchema = createInsertSchema(alertQueue).omit({ id: true, createdAt: true, updatedAt: true, acknowledgedAt: true, resolvedAt: true, escalatedAt: true });
+export const insertValidatorPerformanceHistorySchema = createInsertSchema(validatorPerformanceHistory).omit({ id: true, createdAt: true });
+export const insertReportScheduleSchema = createInsertSchema(reportSchedules).omit({ id: true, createdAt: true, updatedAt: true, lastRunAt: true, nextRunAt: true });
+export const insertHardwareVerificationChecklistSchema = createInsertSchema(hardwareVerificationChecklists).omit({ id: true, createdAt: true, updatedAt: true, reviewedAt: true });
 
 // Infer the types for the new tables
 export type Delegation = typeof delegations.$inferSelect;
@@ -1021,6 +1310,28 @@ export type InsertOperatorSession = z.infer<typeof insertOperatorSessionSchema>;
 
 export type MemberDocument = typeof memberDocuments.$inferSelect;
 export type InsertMemberDocument = z.infer<typeof insertMemberDocumentSchema>;
+
+// Enterprise Operator Portal Types
+export type MemberNote = typeof memberNotes.$inferSelect;
+export type InsertMemberNote = z.infer<typeof insertMemberNoteSchema>;
+
+export type IpBlocklistEntry = typeof ipBlocklist.$inferSelect;
+export type InsertIpBlocklistEntry = z.infer<typeof insertIpBlocklistSchema>;
+
+export type SystemHealthSnapshot = typeof systemHealthSnapshots.$inferSelect;
+export type InsertSystemHealthSnapshot = z.infer<typeof insertSystemHealthSnapshotSchema>;
+
+export type AlertQueueItem = typeof alertQueue.$inferSelect;
+export type InsertAlertQueueItem = z.infer<typeof insertAlertQueueSchema>;
+
+export type ValidatorPerformanceHistoryEntry = typeof validatorPerformanceHistory.$inferSelect;
+export type InsertValidatorPerformanceHistoryEntry = z.infer<typeof insertValidatorPerformanceHistorySchema>;
+
+export type ReportSchedule = typeof reportSchedules.$inferSelect;
+export type InsertReportSchedule = z.infer<typeof insertReportScheduleSchema>;
+
+export type HardwareVerificationChecklist = typeof hardwareVerificationChecklists.$inferSelect;
+export type InsertHardwareVerificationChecklist = z.infer<typeof insertHardwareVerificationChecklistSchema>;
 
 // ============================================
 // Additional Types for Frontend
