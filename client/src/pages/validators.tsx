@@ -1,12 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
-import { queryClient } from "@/lib/queryClient";
-import { Link } from "wouter";
-import { Server, Award, Users, TrendingUp, Shield, Target, Brain, Vote, Coins, Crown, Layers, Flame, ArrowUpRight } from "lucide-react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { queryClient, apiRequest } from "@/lib/queryClient";
+import { Server, Award, Users, TrendingUp, Shield, Target, Brain, Vote, Coins, Crown, Layers, Flame, ArrowUpRight, X, Activity, Power, Ban, DollarSign } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 import { StatCard } from "@/components/stat-card";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -19,6 +33,13 @@ import { formatAddress, formatTokenAmount, formatPercentage, formatNumber } from
 import type { Validator } from "@shared/schema";
 import { useEffect, useState } from "react";
 import { useWebSocket } from "@/lib/websocket-context";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
 interface TierInfo {
   name: string;
@@ -98,7 +119,402 @@ function getTierBadge(tier: 'tier_1' | 'tier_2' | 'tier_3', isCommitteeMember: b
   );
 }
 
+interface ValidatorWithPower extends Validator {
+  votingPower: string;
+  votingPowerNumber: number;
+  stakeInTBURN: number;
+  tier: 'tier_1' | 'tier_2' | 'tier_3';
+}
+
+interface ValidatorDetailModalProps {
+  validator: ValidatorWithPower | null;
+  isCommitteeMember: boolean;
+  open: boolean;
+  onClose: () => void;
+}
+
+function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: ValidatorDetailModalProps) {
+  const { toast } = useToast();
+  const [delegateAmount, setDelegateAmount] = useState("");
+  const [showDelegateForm, setShowDelegateForm] = useState(false);
+
+  const delegateMutation = useMutation({
+    mutationFn: async (amount: string) => {
+      const res = await apiRequest('POST', `/api/validators/${validator?.address}/delegate`, { amount });
+      return res.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Delegation Successful",
+        description: `${delegateAmount} TBURN has been delegated.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/validators'] });
+      setShowDelegateForm(false);
+      setDelegateAmount("");
+    },
+    onError: () => {
+      toast({
+        title: "Delegation Failed",
+        description: "Unable to delegate tokens.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const claimRewardsMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest('POST', `/api/validators/${validator?.address}/claim-rewards`);
+      return res.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: "Rewards Claimed",
+        description: `${formatTokenAmount(data.amount)} TBURN claimed.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/validators'] });
+    },
+    onError: () => {
+      toast({
+        title: "Claim Failed",
+        description: "Unable to claim rewards.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  if (!validator) return null;
+
+  const votingPower = BigInt(validator.stake) + BigInt(validator.delegatedStake || 0);
+  const votingPowerTBURN = Number(votingPower / BigInt(1e18));
+  const isActive = validator.status === 'active';
+  const isJailed = validator.status === 'jailed';
+  const directStake = parseFloat(validator.stake) / 1e18;
+  const delegatedAmount = parseFloat(validator.delegatedStake || "0") / 1e18;
+
+  const pieData = [
+    { name: 'Direct Stake', value: directStake },
+    { name: 'Delegated', value: delegatedAmount }
+  ];
+  const COLORS = ['#8b5cf6', '#22c55e'];
+
+  return (
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden" data-testid="modal-validator-detail">
+        <div className="flex flex-col h-full">
+          <DialogHeader className="px-6 pt-6 pb-4 border-b">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                  <Shield className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-bold">{validator.name}</DialogTitle>
+                  <DialogDescription className="font-mono text-xs">
+                    {formatAddress(validator.address)}
+                  </DialogDescription>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {getTierBadge(validator.tier, isCommitteeMember)}
+                {isActive ? (
+                  <Badge className="bg-green-600">Active</Badge>
+                ) : isJailed ? (
+                  <Badge variant="destructive">Jailed</Badge>
+                ) : (
+                  <Badge variant="secondary">Inactive</Badge>
+                )}
+              </div>
+            </div>
+          </DialogHeader>
+
+          <ScrollArea className="flex-1 px-6 py-4">
+            {isJailed && (
+              <Card className="border-destructive bg-destructive/10 mb-4">
+                <CardContent className="pt-4 flex items-center gap-2">
+                  <Ban className="h-5 w-5 text-destructive" />
+                  <span className="text-sm text-destructive">This validator is currently jailed for network rule violations.</span>
+                </CardContent>
+              </Card>
+            )}
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <Card>
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Vote className="h-4 w-4 text-purple-500" />
+                    <span className="text-xs text-muted-foreground">Voting Power</span>
+                  </div>
+                  <p className="text-lg font-bold">{formatNumber(votingPowerTBURN)}</p>
+                  <p className="text-xs text-muted-foreground">TBURN</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Users className="h-4 w-4 text-blue-500" />
+                    <span className="text-xs text-muted-foreground">Delegators</span>
+                  </div>
+                  <p className="text-lg font-bold">{formatNumber(validator.delegators)}</p>
+                  <p className="text-xs text-muted-foreground">total</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <TrendingUp className="h-4 w-4 text-green-500" />
+                    <span className="text-xs text-muted-foreground">APY</span>
+                  </div>
+                  <p className="text-lg font-bold text-green-500">{(validator.apy / 100).toFixed(2)}%</p>
+                  <p className="text-xs text-muted-foreground">annual</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Activity className="h-4 w-4 text-orange-500" />
+                    <span className="text-xs text-muted-foreground">Uptime</span>
+                  </div>
+                  <p className="text-lg font-bold">{(validator.uptime / 100).toFixed(2)}%</p>
+                  <Progress value={validator.uptime / 100} className="mt-1" />
+                </CardContent>
+              </Card>
+            </div>
+
+            <Tabs defaultValue="overview" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 mb-4">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="performance">Performance</TabsTrigger>
+                <TabsTrigger value="staking">Staking</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="overview" className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Direct Stake</span>
+                      <span className="text-sm font-medium">{formatNumber(directStake)} TBURN</span>
+                    </div>
+                    <Separator />
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Delegated Stake</span>
+                      <span className="text-sm font-medium">{formatNumber(delegatedAmount)} TBURN</span>
+                    </div>
+                    <Separator />
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Commission</span>
+                      <span className="text-sm font-medium">{(validator.commission / 100).toFixed(2)}%</span>
+                    </div>
+                    <Separator />
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Total Blocks</span>
+                      <span className="text-sm font-medium">{formatNumber(validator.totalBlocks)}</span>
+                    </div>
+                    <Separator />
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">Committee Member</span>
+                      <span className="text-sm font-medium">
+                        {isCommitteeMember ? (
+                          <Badge className="bg-purple-600 text-xs">Yes</Badge>
+                        ) : (
+                          <span>No</span>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium mb-2">Voting Power Distribution</p>
+                    <ResponsiveContainer width="100%" height={150}>
+                      <PieChart>
+                        <Pie
+                          data={pieData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={40}
+                          outerRadius={60}
+                          paddingAngle={2}
+                          dataKey="value"
+                        >
+                          {pieData.map((_, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(value: number) => `${formatNumber(value)} TBURN`} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div className="flex justify-center gap-4 text-xs">
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded-full bg-purple-500" />
+                        <span>Direct</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded-full bg-green-500" />
+                        <span>Delegated</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="performance" className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Brain className="h-4 w-4 text-purple-500" />
+                        <span className="text-sm font-medium">AI Trust Score</span>
+                      </div>
+                      <p className="text-2xl font-bold">{(validator.aiTrustScore / 100).toFixed(1)}%</p>
+                      <Progress value={validator.aiTrustScore / 100} className="mt-2" />
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Target className="h-4 w-4 text-blue-500" />
+                        <span className="text-sm font-medium">Reputation Score</span>
+                      </div>
+                      <p className="text-2xl font-bold">{validator.reputationScore || 0}/100</p>
+                      <Progress value={validator.reputationScore || 0} className="mt-2" />
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Activity className="h-4 w-4 text-green-500" />
+                        <span className="text-sm font-medium">Performance Score</span>
+                      </div>
+                      <p className="text-2xl font-bold">{validator.performanceScore || 0}/100</p>
+                      <Progress value={validator.performanceScore || 0} className="mt-2" />
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Shield className="h-4 w-4 text-orange-500" />
+                        <span className="text-sm font-medium">Behavior Score</span>
+                      </div>
+                      <p className="text-2xl font-bold">{validator.behaviorScore || 0}/100</p>
+                      <Progress value={validator.behaviorScore || 0} className="mt-2" />
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <p className="text-xs text-muted-foreground">Participation Rate</p>
+                    <p className="text-lg font-semibold">{((validator.uptime || 0) / 100).toFixed(1)}%</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Avg Block Time</p>
+                    <p className="text-lg font-semibold">{validator.avgBlockTime || 0}ms</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Missed Blocks</p>
+                    <p className="text-lg font-semibold">{validator.missedBlocks || 0}</p>
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="staking" className="space-y-4">
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <p className="text-sm font-medium">Delegate to this Validator</p>
+                        <p className="text-xs text-muted-foreground">Earn {(validator.apy / 100).toFixed(2)}% APY by delegating</p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowDelegateForm(!showDelegateForm)}
+                        disabled={!isActive}
+                        data-testid="button-delegate-modal"
+                      >
+                        <Coins className="h-4 w-4 mr-1" />
+                        Delegate
+                      </Button>
+                    </div>
+                    {showDelegateForm && (
+                      <div className="space-y-3 pt-3 border-t">
+                        <div>
+                          <Label htmlFor="delegate-amount">Amount (TBURN)</Label>
+                          <Input
+                            id="delegate-amount"
+                            type="number"
+                            value={delegateAmount}
+                            onChange={(e) => setDelegateAmount(e.target.value)}
+                            placeholder="Enter amount to delegate"
+                            data-testid="input-delegate-amount-modal"
+                          />
+                        </div>
+                        {delegateAmount && (
+                          <p className="text-xs text-muted-foreground">
+                            Estimated daily reward: {formatNumber(parseFloat(delegateAmount) * validator.apy / 36500)} TBURN
+                          </p>
+                        )}
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => delegateMutation.mutate(delegateAmount)}
+                            disabled={!delegateAmount || delegateMutation.isPending}
+                            data-testid="button-confirm-delegate-modal"
+                          >
+                            Confirm
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setShowDelegateForm(false);
+                              setDelegateAmount("");
+                            }}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {isActive && (
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium">Claim Rewards</p>
+                          <p className="text-xs text-muted-foreground">Claim your accumulated staking rewards</p>
+                        </div>
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={() => claimRewardsMutation.mutate()}
+                          disabled={claimRewardsMutation.isPending}
+                          data-testid="button-claim-rewards-modal"
+                        >
+                          <DollarSign className="h-4 w-4 mr-1" />
+                          Claim
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </TabsContent>
+            </Tabs>
+          </ScrollArea>
+
+          <DialogFooter className="px-6 py-4 border-t">
+            <Button variant="outline" onClick={onClose} data-testid="button-close-modal">
+              Close
+            </Button>
+          </DialogFooter>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function Validators() {
+  const { toast } = useToast();
   const { data: validators, isLoading } = useQuery<Validator[]>({
     queryKey: ["/api/validators"],
   });
@@ -109,6 +525,8 @@ export default function Validators() {
 
   const [votingActivity, setVotingActivity] = useState<any[]>([]);
   const [validatorUpdates, setValidatorUpdates] = useState<any>(null);
+  const [selectedValidator, setSelectedValidator] = useState<ValidatorWithPower | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { lastMessage } = useWebSocket();
   
@@ -411,16 +829,17 @@ export default function Validators() {
                         key={validator.id}
                         className="hover-elevate cursor-pointer"
                         data-testid={`row-validator-${validator.address?.slice(0, 10) || 'unknown'}`}
-                        onClick={() => window.location.href = `/validator/${validator.address}`}
+                        onClick={() => {
+                          setSelectedValidator(validator);
+                          setIsModalOpen(true);
+                        }}
                       >
                         <TableCell className="font-mono text-sm">
                           #{index + 1}
                         </TableCell>
                         <TableCell>
                           <div className="flex flex-col gap-1">
-                            <Link href={`/validator/${validator.address}`}>
-                              <span className="font-semibold text-primary hover:underline">{validator.name}</span>
-                            </Link>
+                            <span className="font-semibold text-primary">{validator.name}</span>
                             <span className="font-mono text-xs text-muted-foreground">
                               {formatAddress(validator.address)}
                             </span>
@@ -485,6 +904,17 @@ export default function Validators() {
           )}
         </CardContent>
       </Card>
+
+      {/* Validator Detail Modal */}
+      <ValidatorDetailModal
+        validator={selectedValidator}
+        isCommitteeMember={selectedValidator ? committeeMembers.has(selectedValidator.address) : false}
+        open={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedValidator(null);
+        }}
+      />
     </div>
   );
 }
