@@ -493,6 +493,109 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================
+  // Tokenomics Tiers API - Tiered Validator System
+  // ============================================
+  app.get("/api/tokenomics/tiers", async (_req, res) => {
+    try {
+      const { getEnterpriseNode } = await import('./services/TBurnEnterpriseNode');
+      const node = getEnterpriseNode();
+      const economics = node.getTokenEconomics();
+      
+      // Return tier-specific information
+      res.json({
+        tiers: economics.tiers,
+        emission: economics.emission,
+        security: economics.security,
+        stakedAmount: economics.stakedAmount,
+        stakedPercent: economics.stakedPercent,
+        totalSupply: economics.totalSupply,
+        circulatingSupply: economics.circulatingSupply,
+        lastUpdated: economics.lastUpdated
+      });
+    } catch (error) {
+      console.error("Error fetching tokenomics tiers:", error);
+      res.status(500).json({ error: "Failed to fetch tokenomics tier data" });
+    }
+  });
+
+  // Get validator tier based on stake amount
+  app.get("/api/tokenomics/tier/:stakeTBURN", async (req, res) => {
+    try {
+      const stakeTBURN = parseInt(req.params.stakeTBURN);
+      if (isNaN(stakeTBURN) || stakeTBURN < 0) {
+        return res.status(400).json({ error: "Invalid stake amount" });
+      }
+      
+      const { getEnterpriseNode } = await import('./services/TBurnEnterpriseNode');
+      const node = getEnterpriseNode();
+      const tier = node.determineValidatorTier(stakeTBURN);
+      const economics = node.getTokenEconomics();
+      
+      // Determine which tier config to return
+      const tierKey = tier === 'tier_1' ? 'tier1' : tier === 'tier_2' ? 'tier2' : 'tier3';
+      const tierData = economics.tiers[tierKey];
+      
+      res.json({
+        stakeTBURN,
+        assignedTier: tier,
+        tierDetails: tierData,
+        meetsMinimum: true // If we got here, stake meets minimum for some tier
+      });
+    } catch (error) {
+      console.error("Error determining validator tier:", error);
+      res.status(500).json({ error: "Failed to determine validator tier" });
+    }
+  });
+
+  // Calculate estimated rewards for a given stake
+  app.get("/api/tokenomics/estimate-rewards", async (req, res) => {
+    try {
+      const stakeTBURN = parseInt(req.query.stake as string);
+      const tier = req.query.tier as string || 'auto';
+      
+      if (isNaN(stakeTBURN) || stakeTBURN < 0) {
+        return res.status(400).json({ error: "Invalid stake amount" });
+      }
+      
+      const { getEnterpriseNode } = await import('./services/TBurnEnterpriseNode');
+      const node = getEnterpriseNode();
+      const economics = node.getTokenEconomics();
+      
+      // Determine tier if auto
+      const assignedTier = tier === 'auto' 
+        ? node.determineValidatorTier(stakeTBURN) 
+        : tier as 'tier_1' | 'tier_2' | 'tier_3';
+      
+      const tierKey = assignedTier === 'tier_1' ? 'tier1' : assignedTier === 'tier_2' ? 'tier2' : 'tier3';
+      const tierData = economics.tiers[tierKey];
+      
+      // Estimate daily reward based on tier pool and participant count
+      const validatorCount = tierKey === 'tier3' ? tierData.currentDelegators : tierData.currentValidators;
+      const poolShare = 1 / Math.max(validatorCount, 1);
+      const estimatedDailyReward = tierData.dailyRewardPool * poolShare;
+      
+      // Calculate APY
+      const estimatedAPY = node.calculateAPY(estimatedDailyReward, stakeTBURN);
+      
+      res.json({
+        stakeTBURN,
+        assignedTier,
+        tierName: tierData.name,
+        dailyRewardPool: tierData.dailyRewardPool,
+        estimatedDailyReward: Math.round(estimatedDailyReward * 100) / 100,
+        estimatedMonthlyReward: Math.round(estimatedDailyReward * 30 * 100) / 100,
+        estimatedAnnualReward: Math.round(estimatedDailyReward * 365 * 100) / 100,
+        estimatedAPY: Math.round(estimatedAPY * 100) / 100,
+        targetAPY: tierData.targetAPY,
+        apyRange: tierData.apyRange
+      });
+    } catch (error) {
+      console.error("Error estimating rewards:", error);
+      res.status(500).json({ error: "Failed to estimate rewards" });
+    }
+  });
+
   app.get("/api/consensus/current", async (_req, res) => {
     try {
       const state = await storage.getConsensusState();
