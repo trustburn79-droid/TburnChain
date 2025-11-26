@@ -585,6 +585,229 @@ export const memberAuditLogs = pgTable("member_audit_logs", {
 });
 
 // ============================================
+// ADMIN PORTAL - OPERATOR BACK-OFFICE SYSTEM
+// ============================================
+
+// Admin Audit Logs - Tracks all operator actions
+export const adminAuditLogs = pgTable("admin_audit_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Operator Info
+  operatorId: varchar("operator_id").notNull(), // Who performed the action
+  operatorIp: text("operator_ip"),
+  operatorUserAgent: text("operator_user_agent"),
+  sessionId: varchar("session_id"),
+  
+  // Action Details
+  actionType: text("action_type").notNull(), // member_status_change, kyc_approval, validator_slash, etc.
+  actionCategory: text("action_category").notNull(), // member_management, validator_operations, security, compliance
+  resource: text("resource").notNull(), // What was affected
+  resourceId: text("resource_id"), // ID of the affected resource
+  
+  // State Changes
+  previousState: jsonb("previous_state"),
+  newState: jsonb("new_state"),
+  
+  // Additional Context
+  reason: text("reason"), // Why was this action taken
+  metadata: jsonb("metadata"), // Additional context
+  
+  // Status
+  status: text("status").notNull().default("success"), // success, failed, pending
+  errorMessage: text("error_message"),
+  
+  // Risk Level
+  riskLevel: text("risk_level").notNull().default("low"), // low, medium, high, critical
+  requiresReview: boolean("requires_review").notNull().default(false),
+  reviewedBy: varchar("reviewed_by"),
+  reviewedAt: timestamp("reviewed_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Security Events - Tracks security-related events
+export const securityEvents = pgTable("security_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Event Info
+  eventType: text("event_type").notNull(), // login_failure, suspicious_activity, ip_blocked, key_rotation, etc.
+  severity: text("severity").notNull().default("info"), // info, warning, error, critical
+  
+  // Target
+  targetType: text("target_type").notNull(), // member, validator, operator, system
+  targetId: varchar("target_id"),
+  targetAddress: text("target_address"),
+  
+  // Source
+  sourceIp: text("source_ip"),
+  sourceUserAgent: text("source_user_agent"),
+  sourceGeo: jsonb("source_geo"), // country, region, city
+  
+  // Details
+  description: text("description").notNull(),
+  evidence: jsonb("evidence"), // Any supporting evidence
+  metadata: jsonb("metadata"),
+  
+  // Resolution
+  status: text("status").notNull().default("open"), // open, investigating, resolved, dismissed
+  resolvedBy: varchar("resolved_by"),
+  resolvedAt: timestamp("resolved_at"),
+  resolution: text("resolution"),
+  
+  // Timestamps
+  occurredAt: timestamp("occurred_at").notNull().defaultNow(),
+  detectedAt: timestamp("detected_at").notNull().defaultNow(),
+});
+
+// Compliance Reports - Regulatory compliance reports
+export const complianceReports = pgTable("compliance_reports", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Report Info
+  reportType: text("report_type").notNull(), // kyc_summary, aml_report, tax_report, regulatory_filing
+  reportPeriod: text("report_period").notNull(), // daily, weekly, monthly, quarterly, annual
+  periodStart: timestamp("period_start").notNull(),
+  periodEnd: timestamp("period_end").notNull(),
+  
+  // Jurisdiction
+  jurisdiction: text("jurisdiction").notNull(), // ISO 3166-1 country code or "global"
+  regulatoryBody: text("regulatory_body"), // SEC, FCA, FSA, etc.
+  
+  // Content
+  summary: jsonb("summary").notNull(), // Key metrics and findings
+  details: jsonb("details"), // Detailed breakdown
+  attachments: jsonb("attachments").notNull().default([]), // File references
+  
+  // Status
+  status: text("status").notNull().default("draft"), // draft, pending_review, approved, submitted, rejected
+  
+  // Workflow
+  generatedBy: varchar("generated_by").notNull(), // system or operator ID
+  reviewedBy: varchar("reviewed_by"),
+  reviewedAt: timestamp("reviewed_at"),
+  approvedBy: varchar("approved_by"),
+  approvedAt: timestamp("approved_at"),
+  submittedAt: timestamp("submitted_at"),
+  
+  // Notes
+  reviewNotes: text("review_notes"),
+  rejectionReason: text("rejection_reason"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Validator Applications - Validator approval workflow
+export const validatorApplications = pgTable("validator_applications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Applicant Info
+  applicantMemberId: varchar("applicant_member_id").notNull(),
+  applicantAddress: text("applicant_address").notNull(),
+  applicantName: text("applicant_name").notNull(),
+  
+  // Application Details
+  applicationType: text("application_type").notNull(), // new_validator, tier_upgrade, reinstatement
+  requestedTier: text("requested_tier").notNull(), // active_validator, enterprise_validator, governance_validator
+  proposedCommission: integer("proposed_commission").notNull().default(500), // basis points
+  
+  // Staking Info
+  proposedStake: text("proposed_stake").notNull(),
+  stakeSource: text("stake_source").notNull(), // self, delegation, institutional
+  
+  // Hardware & Network
+  hardwareSpecs: jsonb("hardware_specs").notNull(), // cpu, ram, storage, network
+  networkEndpoints: jsonb("network_endpoints").notNull(), // p2p, rpc, websocket
+  geographicLocation: jsonb("geographic_location").notNull(), // country, region, datacenter
+  
+  // Documents
+  documents: jsonb("documents").notNull().default([]), // KYC docs, hardware proofs, etc.
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, under_review, approved, rejected, withdrawn
+  
+  // Review Workflow
+  assignedTo: varchar("assigned_to"), // Operator ID
+  reviewNotes: text("review_notes"),
+  rejectionReason: text("rejection_reason"),
+  
+  // Conditions (if approved with conditions)
+  approvalConditions: jsonb("approval_conditions"),
+  conditionsMet: boolean("conditions_met").notNull().default(false),
+  
+  // Timestamps
+  submittedAt: timestamp("submitted_at").notNull().defaultNow(),
+  reviewStartedAt: timestamp("review_started_at"),
+  decidedAt: timestamp("decided_at"),
+  decidedBy: varchar("decided_by"),
+  
+  // Activation (if approved)
+  activatedAt: timestamp("activated_at"),
+  validatorId: varchar("validator_id"),
+});
+
+// Operator Sessions - Admin session management
+export const operatorSessions = pgTable("operator_sessions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Session Info
+  operatorId: varchar("operator_id").notNull(),
+  sessionToken: text("session_token").notNull().unique(), // Hashed session token
+  
+  // Security
+  ipAddress: text("ip_address").notNull(),
+  userAgent: text("user_agent"),
+  geoLocation: jsonb("geo_location"), // country, region, city
+  
+  // 2FA
+  twoFactorVerified: boolean("two_factor_verified").notNull().default(false),
+  twoFactorMethod: text("two_factor_method"), // totp, webauthn, sms
+  
+  // Session Status
+  isActive: boolean("is_active").notNull().default(true),
+  lastActivityAt: timestamp("last_activity_at").notNull().defaultNow(),
+  expiresAt: timestamp("expires_at").notNull(),
+  
+  // Termination
+  terminatedAt: timestamp("terminated_at"),
+  terminationReason: text("termination_reason"), // logout, timeout, forced, suspicious
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// KYC Documents - Member KYC document storage
+export const memberDocuments = pgTable("member_documents", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull(),
+  
+  // Document Info
+  documentType: text("document_type").notNull(), // id_front, id_back, passport, address_proof, selfie, corporate_registration, etc.
+  documentName: text("document_name").notNull(),
+  
+  // Storage (encrypted references)
+  encryptedFileHash: text("encrypted_file_hash").notNull(),
+  encryptedStoragePath: text("encrypted_storage_path").notNull(),
+  mimeType: text("mime_type").notNull(),
+  fileSize: integer("file_size").notNull(), // bytes
+  
+  // Verification
+  verificationStatus: text("verification_status").notNull().default("pending"), // pending, verified, rejected, expired
+  verifiedBy: varchar("verified_by"),
+  verifiedAt: timestamp("verified_at"),
+  rejectionReason: text("rejection_reason"),
+  
+  // Expiry
+  expiryDate: timestamp("expiry_date"),
+  isExpired: boolean("is_expired").notNull().default(false),
+  
+  // Audit
+  accessLog: jsonb("access_log").notNull().default([]), // Who accessed this document
+  
+  uploadedAt: timestamp("uploaded_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
 // Restart Sessions table for tracking server restarts
 // ============================================
 export const restartSessions = pgTable("restart_sessions", {
@@ -646,8 +869,16 @@ export const insertMemberFinancialProfileSchema = createInsertSchema(memberFinan
 export const insertMemberSecurityProfileSchema = createInsertSchema(memberSecurityProfiles).omit({ id: true, updatedAt: true, lastFailedLogin: true, lastKeyRotation: true, nextKeyRotationDue: true, lastRiskAssessment: true });
 export const insertMemberPerformanceMetricsSchema = createInsertSchema(memberPerformanceMetrics).omit({ id: true, metricsUpdatedAt: true });
 export const insertMemberSlashEventSchema = createInsertSchema(memberSlashEvents).omit({ id: true, occurredAt: true });
-export const insertMemberAuditLogSchema = createInsertSchema(memberAuditLogs).omit({ id: true, timestamp: true });
+export const insertMemberAuditLogSchema = createInsertSchema(memberAuditLogs).omit({ id: true, createdAt: true });
 export const insertRestartSessionSchema = createInsertSchema(restartSessions).omit({ updatedAt: true });
+
+// Admin Portal Insert Schemas
+export const insertAdminAuditLogSchema = createInsertSchema(adminAuditLogs).omit({ id: true, createdAt: true, reviewedAt: true });
+export const insertSecurityEventSchema = createInsertSchema(securityEvents).omit({ id: true, occurredAt: true, detectedAt: true, resolvedAt: true });
+export const insertComplianceReportSchema = createInsertSchema(complianceReports).omit({ id: true, createdAt: true, updatedAt: true, reviewedAt: true, approvedAt: true, submittedAt: true });
+export const insertValidatorApplicationSchema = createInsertSchema(validatorApplications).omit({ id: true, submittedAt: true, reviewStartedAt: true, decidedAt: true, activatedAt: true });
+export const insertOperatorSessionSchema = createInsertSchema(operatorSessions).omit({ id: true, createdAt: true, lastActivityAt: true, terminatedAt: true });
+export const insertMemberDocumentSchema = createInsertSchema(memberDocuments).omit({ id: true, uploadedAt: true, updatedAt: true, verifiedAt: true });
 
 // Infer the types for the new tables
 export type Delegation = typeof delegations.$inferSelect;
@@ -771,6 +1002,25 @@ export type InsertMemberAuditLog = z.infer<typeof insertMemberAuditLogSchema>;
 
 export type RestartSession = typeof restartSessions.$inferSelect;
 export type InsertRestartSession = z.infer<typeof insertRestartSessionSchema>;
+
+// Admin Portal Types
+export type AdminAuditLog = typeof adminAuditLogs.$inferSelect;
+export type InsertAdminAuditLog = z.infer<typeof insertAdminAuditLogSchema>;
+
+export type SecurityEvent = typeof securityEvents.$inferSelect;
+export type InsertSecurityEvent = z.infer<typeof insertSecurityEventSchema>;
+
+export type ComplianceReport = typeof complianceReports.$inferSelect;
+export type InsertComplianceReport = z.infer<typeof insertComplianceReportSchema>;
+
+export type ValidatorApplication = typeof validatorApplications.$inferSelect;
+export type InsertValidatorApplication = z.infer<typeof insertValidatorApplicationSchema>;
+
+export type OperatorSession = typeof operatorSessions.$inferSelect;
+export type InsertOperatorSession = z.infer<typeof insertOperatorSessionSchema>;
+
+export type MemberDocument = typeof memberDocuments.$inferSelect;
+export type InsertMemberDocument = z.infer<typeof insertMemberDocumentSchema>;
 
 // ============================================
 // Additional Types for Frontend
