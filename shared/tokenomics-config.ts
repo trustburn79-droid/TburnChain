@@ -52,7 +52,7 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     maxParticipants: 512,
     minStakeTBURN: 200_000,
     minStakeWei: (BigInt(200_000) * BigInt(10 ** 18)).toString(),
-    rewardPoolShare: 0.60,           // 60% of daily emission
+    rewardPoolShare: 0.50,           // 50% of daily emission (2,500 TBURN/day)
     targetAPY: 8.0,
     apyRange: { min: 6.0, max: 10.0 },
     description: 'Elite validators participating in block production and consensus',
@@ -70,7 +70,7 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     maxParticipants: 4_488,
     minStakeTBURN: 50_000,
     minStakeWei: (BigInt(50_000) * BigInt(10 ** 18)).toString(),
-    rewardPoolShare: 0.25,           // 25% of daily emission
+    rewardPoolShare: 0.30,           // 30% of daily emission (1,500 TBURN/day)
     targetAPY: 4.0,
     apyRange: { min: 3.0, max: 5.0 },
     description: 'Backup validators ready for committee rotation',
@@ -88,7 +88,7 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     maxParticipants: -1,             // Unlimited
     minStakeTBURN: 100,
     minStakeWei: (BigInt(100) * BigInt(10 ** 18)).toString(),
-    rewardPoolShare: 0.15,           // 15% of daily emission
+    rewardPoolShare: 0.20,           // 20% of daily emission (1,000 TBURN/day)
     targetAPY: 5.0,
     apyRange: { min: 4.0, max: 6.0 },
     description: 'Token holders delegating stake to validators',
@@ -143,9 +143,9 @@ export interface RewardDistribution {
 }
 
 export const REWARD_DISTRIBUTION: RewardDistribution = {
-  tier1ValidatorShare: 0.60,         // 60% to Tier 1 (3,000 TBURN/day)
-  tier2StandbyShare: 0.25,           // 25% to Tier 2 (1,250 TBURN/day)
-  tier3DelegatorShare: 0.15,         // 15% to Tier 3 (750 TBURN/day)
+  tier1ValidatorShare: 0.50,         // 50% to Tier 1 (2,500 TBURN/day)
+  tier2StandbyShare: 0.30,           // 30% to Tier 2 (1,500 TBURN/day)
+  tier3DelegatorShare: 0.20,         // 20% to Tier 3 (1,000 TBURN/day)
   securityReserveShare: 0.00,        // Included in above distributions
 };
 

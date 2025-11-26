@@ -103,9 +103,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Daily Emission Configuration
   private readonly BASE_DAILY_EMISSION = 5_000; // 5,000 TBURN/day
   private readonly BURN_RATE = 0.20; // 20% burn rate
-  private readonly TIER_1_REWARD_SHARE = 0.60; // 60% to Tier 1
-  private readonly TIER_2_REWARD_SHARE = 0.25; // 25% to Tier 2
-  private readonly TIER_3_REWARD_SHARE = 0.15; // 15% to Tier 3
+  private readonly TIER_1_REWARD_SHARE = 0.50; // 50% to Tier 1 (2,500 TBURN/day)
+  private readonly TIER_2_REWARD_SHARE = 0.30; // 30% to Tier 2 (1,500 TBURN/day)
+  private readonly TIER_3_REWARD_SHARE = 0.20; // 20% to Tier 3 (1,000 TBURN/day)
   
   // Dynamic Emission State
   private currentDailyEmission = 5_000;
@@ -1640,9 +1640,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Calculate tier-specific reward pools
   private getTierRewardPools(): { tier1: number; tier2: number; tier3: number } {
     return {
-      tier1: Math.floor(this.currentDailyEmission * this.TIER_1_REWARD_SHARE), // 60%
-      tier2: Math.floor(this.currentDailyEmission * this.TIER_2_REWARD_SHARE), // 25%
-      tier3: Math.floor(this.currentDailyEmission * this.TIER_3_REWARD_SHARE), // 15%
+      tier1: Math.floor(this.currentDailyEmission * this.TIER_1_REWARD_SHARE), // 50%
+      tier2: Math.floor(this.currentDailyEmission * this.TIER_2_REWARD_SHARE), // 30%
+      tier3: Math.floor(this.currentDailyEmission * this.TIER_3_REWARD_SHARE), // 20%
     };
   }
   
