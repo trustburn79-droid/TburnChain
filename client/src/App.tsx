@@ -11,6 +11,7 @@ import { DemoBanner } from "@/components/DemoBanner";
 import { WebSocketProvider } from "@/lib/websocket-context";
 import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
 import { AdminPasswordProvider } from "@/hooks/use-admin-password";
+import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 
 // Pages
 import Dashboard from "@/pages/dashboard";
@@ -68,12 +69,12 @@ function Router() {
       <Route path="/consensus" component={Consensus} />
       <Route path="/api-keys" component={ApiKeys} />
       <Route path="/admin" component={AdminPage} />
-      {/* Operator Portal Routes */}
-      <Route path="/operator" component={OperatorDashboard} />
-      <Route path="/operator/members" component={OperatorMembers} />
-      <Route path="/operator/validators" component={OperatorValidators} />
-      <Route path="/operator/security" component={OperatorSecurity} />
-      <Route path="/operator/reports" component={OperatorReports} />
+      {/* Operator Portal Routes - Protected with admin auth */}
+      <Route path="/operator" component={() => <OperatorAuthGuard><OperatorDashboard /></OperatorAuthGuard>} />
+      <Route path="/operator/members" component={() => <OperatorAuthGuard><OperatorMembers /></OperatorAuthGuard>} />
+      <Route path="/operator/validators" component={() => <OperatorAuthGuard><OperatorValidators /></OperatorAuthGuard>} />
+      <Route path="/operator/security" component={() => <OperatorAuthGuard><OperatorSecurity /></OperatorAuthGuard>} />
+      <Route path="/operator/reports" component={() => <OperatorAuthGuard><OperatorReports /></OperatorAuthGuard>} />
       <Route component={NotFound} />
     </Switch>
   );

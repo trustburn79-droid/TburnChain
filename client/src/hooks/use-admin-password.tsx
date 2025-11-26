@@ -12,7 +12,7 @@ const AdminPasswordContext = createContext<AdminPasswordContextType | null>(null
 
 const ADMIN_PASSWORD_KEY = "tburn_admin_password";
 
-export function AdminPasswordProvider({ children }: { children: React.ReactNode }) {
+export function AdminPasswordProvider({ children }: { children: React.ReactNode }): React.ReactElement {
   const [adminPassword, setAdminPasswordState] = useState<string | null>(null);
 
   useEffect(() => {
