@@ -142,6 +142,23 @@ import {
   type InsertRebaseHistory,
   type LstProtocolStats,
   type InsertLstProtocolStats,
+  // NFT Marketplace Types
+  type NftCollection,
+  type InsertNftCollection,
+  type NftItem,
+  type InsertNftItem,
+  type MarketplaceListing,
+  type InsertMarketplaceListing,
+  type MarketplaceBid,
+  type InsertMarketplaceBid,
+  type MarketplaceSale,
+  type InsertMarketplaceSale,
+  type NftOffer,
+  type InsertNftOffer,
+  type NftActivityLog,
+  type InsertNftActivityLog,
+  type NftMarketplaceStats,
+  type InsertNftMarketplaceStats,
   blocks,
   transactions,
   accounts,
@@ -214,6 +231,15 @@ import {
   lstTransactions,
   rebaseHistory,
   lstProtocolStats,
+  // NFT Marketplace Tables
+  nftCollections,
+  nftItems,
+  marketplaceListings,
+  marketplaceBids,
+  marketplaceSales,
+  nftOffers,
+  nftActivityLog,
+  nftMarketplaceStats,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -4195,6 +4221,249 @@ export class DbStorage implements IStorage {
       totalLstMinted: totalLstMinted.toString(),
       mints24h: mints24h.toString(),
       redeems24h: redeems24h.toString(),
+    };
+  }
+
+  // ============================================
+  // NFT MARKETPLACE STORAGE
+  // ============================================
+
+  // NFT Collections
+  async getAllNftCollections(): Promise<NftCollection[]> {
+    return await db.select().from(nftCollections).orderBy(desc(nftCollections.volumeTotal));
+  }
+
+  async getNftCollectionById(id: string): Promise<NftCollection | undefined> {
+    const [collection] = await db.select().from(nftCollections).where(eq(nftCollections.id, id));
+    return collection;
+  }
+
+  async getNftCollectionByAddress(contractAddress: string): Promise<NftCollection | undefined> {
+    const [collection] = await db.select().from(nftCollections).where(eq(nftCollections.contractAddress, contractAddress));
+    return collection;
+  }
+
+  async getFeaturedNftCollections(limit: number = 10): Promise<NftCollection[]> {
+    return await db.select().from(nftCollections).where(eq(nftCollections.featured, true)).orderBy(desc(nftCollections.volumeTotal)).limit(limit);
+  }
+
+  async getTrendingNftCollections(limit: number = 10): Promise<NftCollection[]> {
+    return await db.select().from(nftCollections).where(eq(nftCollections.status, "active")).orderBy(desc(nftCollections.volume24h)).limit(limit);
+  }
+
+  async createNftCollection(data: InsertNftCollection): Promise<NftCollection> {
+    const [collection] = await db.insert(nftCollections).values(data).returning();
+    return collection;
+  }
+
+  async updateNftCollection(id: string, data: Partial<NftCollection>): Promise<void> {
+    await db.update(nftCollections).set({ ...data, updatedAt: new Date() }).where(eq(nftCollections.id, id));
+  }
+
+  // NFT Items
+  async getNftItemById(id: string): Promise<NftItem | undefined> {
+    const [item] = await db.select().from(nftItems).where(eq(nftItems.id, id));
+    return item;
+  }
+
+  async getNftItemsByCollection(collectionId: string, limit: number = 50): Promise<NftItem[]> {
+    return await db.select().from(nftItems).where(eq(nftItems.collectionId, collectionId)).orderBy(desc(nftItems.createdAt)).limit(limit);
+  }
+
+  async getNftItemsByOwner(ownerAddress: string, limit: number = 50): Promise<NftItem[]> {
+    return await db.select().from(nftItems).where(eq(nftItems.ownerAddress, ownerAddress)).orderBy(desc(nftItems.createdAt)).limit(limit);
+  }
+
+  async getListedNftItems(limit: number = 50): Promise<NftItem[]> {
+    return await db.select().from(nftItems).where(eq(nftItems.isListed, true)).orderBy(desc(nftItems.createdAt)).limit(limit);
+  }
+
+  async createNftItem(data: InsertNftItem): Promise<NftItem> {
+    const [item] = await db.insert(nftItems).values(data).returning();
+    return item;
+  }
+
+  async updateNftItem(id: string, data: Partial<NftItem>): Promise<void> {
+    await db.update(nftItems).set({ ...data, updatedAt: new Date() }).where(eq(nftItems.id, id));
+  }
+
+  // Marketplace Listings
+  async getActiveListings(limit: number = 50): Promise<MarketplaceListing[]> {
+    return await db.select().from(marketplaceListings).where(eq(marketplaceListings.status, "active")).orderBy(desc(marketplaceListings.createdAt)).limit(limit);
+  }
+
+  async getListingById(id: string): Promise<MarketplaceListing | undefined> {
+    const [listing] = await db.select().from(marketplaceListings).where(eq(marketplaceListings.id, id));
+    return listing;
+  }
+
+  async getListingsByCollection(collectionId: string, limit: number = 50): Promise<MarketplaceListing[]> {
+    return await db.select().from(marketplaceListings).where(and(eq(marketplaceListings.collectionId, collectionId), eq(marketplaceListings.status, "active"))).orderBy(desc(marketplaceListings.createdAt)).limit(limit);
+  }
+
+  async getListingsBySeller(sellerAddress: string, limit: number = 50): Promise<MarketplaceListing[]> {
+    return await db.select().from(marketplaceListings).where(eq(marketplaceListings.sellerAddress, sellerAddress)).orderBy(desc(marketplaceListings.createdAt)).limit(limit);
+  }
+
+  async getAuctionListings(limit: number = 50): Promise<MarketplaceListing[]> {
+    return await db.select().from(marketplaceListings).where(and(eq(marketplaceListings.listingType, "auction"), eq(marketplaceListings.status, "active"))).orderBy(desc(marketplaceListings.createdAt)).limit(limit);
+  }
+
+  async createListing(data: InsertMarketplaceListing): Promise<MarketplaceListing> {
+    const [listing] = await db.insert(marketplaceListings).values(data).returning();
+    return listing;
+  }
+
+  async updateListing(id: string, data: Partial<MarketplaceListing>): Promise<void> {
+    await db.update(marketplaceListings).set({ ...data, updatedAt: new Date() }).where(eq(marketplaceListings.id, id));
+  }
+
+  // Marketplace Bids
+  async getBidsByListing(listingId: string): Promise<MarketplaceBid[]> {
+    return await db.select().from(marketplaceBids).where(eq(marketplaceBids.listingId, listingId)).orderBy(desc(marketplaceBids.bidAmount));
+  }
+
+  async getBidsByBidder(bidderAddress: string, limit: number = 50): Promise<MarketplaceBid[]> {
+    return await db.select().from(marketplaceBids).where(eq(marketplaceBids.bidderAddress, bidderAddress)).orderBy(desc(marketplaceBids.createdAt)).limit(limit);
+  }
+
+  async getActiveBids(limit: number = 50): Promise<MarketplaceBid[]> {
+    return await db.select().from(marketplaceBids).where(eq(marketplaceBids.status, "active")).orderBy(desc(marketplaceBids.createdAt)).limit(limit);
+  }
+
+  async createBid(data: InsertMarketplaceBid): Promise<MarketplaceBid> {
+    const [bid] = await db.insert(marketplaceBids).values(data).returning();
+    return bid;
+  }
+
+  async updateBid(id: string, data: Partial<MarketplaceBid>): Promise<void> {
+    await db.update(marketplaceBids).set({ ...data, updatedAt: new Date() }).where(eq(marketplaceBids.id, id));
+  }
+
+  // Marketplace Sales
+  async getRecentSales(limit: number = 50): Promise<MarketplaceSale[]> {
+    return await db.select().from(marketplaceSales).orderBy(desc(marketplaceSales.soldAt)).limit(limit);
+  }
+
+  async getSalesByCollection(collectionId: string, limit: number = 50): Promise<MarketplaceSale[]> {
+    return await db.select().from(marketplaceSales).where(eq(marketplaceSales.collectionId, collectionId)).orderBy(desc(marketplaceSales.soldAt)).limit(limit);
+  }
+
+  async getSalesByBuyer(buyerAddress: string, limit: number = 50): Promise<MarketplaceSale[]> {
+    return await db.select().from(marketplaceSales).where(eq(marketplaceSales.buyerAddress, buyerAddress)).orderBy(desc(marketplaceSales.soldAt)).limit(limit);
+  }
+
+  async getSalesBySeller(sellerAddress: string, limit: number = 50): Promise<MarketplaceSale[]> {
+    return await db.select().from(marketplaceSales).where(eq(marketplaceSales.sellerAddress, sellerAddress)).orderBy(desc(marketplaceSales.soldAt)).limit(limit);
+  }
+
+  async createSale(data: InsertMarketplaceSale): Promise<MarketplaceSale> {
+    const [sale] = await db.insert(marketplaceSales).values(data).returning();
+    return sale;
+  }
+
+  // NFT Offers
+  async getOffersByItem(itemId: string): Promise<NftOffer[]> {
+    return await db.select().from(nftOffers).where(and(eq(nftOffers.itemId, itemId), eq(nftOffers.status, "active"))).orderBy(desc(nftOffers.offerAmount));
+  }
+
+  async getOffersByCollection(collectionId: string, limit: number = 50): Promise<NftOffer[]> {
+    return await db.select().from(nftOffers).where(and(eq(nftOffers.collectionId, collectionId), eq(nftOffers.status, "active"))).orderBy(desc(nftOffers.offerAmount)).limit(limit);
+  }
+
+  async getOffersByOfferer(offererAddress: string, limit: number = 50): Promise<NftOffer[]> {
+    return await db.select().from(nftOffers).where(eq(nftOffers.offererAddress, offererAddress)).orderBy(desc(nftOffers.createdAt)).limit(limit);
+  }
+
+  async createOffer(data: InsertNftOffer): Promise<NftOffer> {
+    const [offer] = await db.insert(nftOffers).values(data).returning();
+    return offer;
+  }
+
+  async updateOffer(id: string, data: Partial<NftOffer>): Promise<void> {
+    await db.update(nftOffers).set({ ...data, updatedAt: new Date() }).where(eq(nftOffers.id, id));
+  }
+
+  // NFT Activity Log
+  async getActivityByCollection(collectionId: string, limit: number = 50): Promise<NftActivityLog[]> {
+    return await db.select().from(nftActivityLog).where(eq(nftActivityLog.collectionId, collectionId)).orderBy(desc(nftActivityLog.createdAt)).limit(limit);
+  }
+
+  async getActivityByItem(itemId: string, limit: number = 50): Promise<NftActivityLog[]> {
+    return await db.select().from(nftActivityLog).where(eq(nftActivityLog.itemId, itemId)).orderBy(desc(nftActivityLog.createdAt)).limit(limit);
+  }
+
+  async getRecentActivity(limit: number = 50): Promise<NftActivityLog[]> {
+    return await db.select().from(nftActivityLog).orderBy(desc(nftActivityLog.createdAt)).limit(limit);
+  }
+
+  async createActivityLog(data: InsertNftActivityLog): Promise<NftActivityLog> {
+    const [activity] = await db.insert(nftActivityLog).values(data).returning();
+    return activity;
+  }
+
+  // NFT Marketplace Stats
+  async getNftMarketplaceStats(): Promise<NftMarketplaceStats | undefined> {
+    const [stats] = await db.select().from(nftMarketplaceStats).orderBy(desc(nftMarketplaceStats.snapshotAt)).limit(1);
+    return stats;
+  }
+
+  async createNftMarketplaceStats(data: InsertNftMarketplaceStats): Promise<NftMarketplaceStats> {
+    const [stats] = await db.insert(nftMarketplaceStats).values(data).returning();
+    return stats;
+  }
+
+  async updateNftMarketplaceStats(id: string, data: Partial<NftMarketplaceStats>): Promise<void> {
+    await db.update(nftMarketplaceStats).set(data).where(eq(nftMarketplaceStats.id, id));
+  }
+
+  // NFT Marketplace Aggregated Stats
+  async getNftMarketplaceOverview(): Promise<{
+    totalVolume24h: string;
+    totalVolume24hUsd: string;
+    salesCount24h: number;
+    activeListings: number;
+    auctionListings: number;
+    totalCollections: number;
+    verifiedCollections: number;
+    totalItems: number;
+    activeTraders: number;
+    avgFloorPrice: string;
+  }> {
+    const collections = await db.select().from(nftCollections);
+    const activeCollections = collections.filter(c => c.status === "active");
+    const verifiedCollections = collections.filter(c => c.verified);
+    
+    const listings = await db.select().from(marketplaceListings).where(eq(marketplaceListings.status, "active"));
+    const auctionListings = listings.filter(l => l.listingType === "auction");
+    
+    let totalVolume24h = BigInt(0);
+    let totalFloorPrice = BigInt(0);
+    let salesCount24h = 0;
+    let totalItems = 0;
+    
+    for (const collection of activeCollections) {
+      totalVolume24h += BigInt(collection.volume24h.replace(/\./g, '') || "0");
+      totalFloorPrice += BigInt(collection.floorPrice.replace(/\./g, '') || "0");
+      salesCount24h += collection.salesCount24h;
+      totalItems += collection.totalItems;
+    }
+    
+    const avgFloorPrice = activeCollections.length > 0 
+      ? (totalFloorPrice / BigInt(activeCollections.length)).toString()
+      : "0";
+    
+    return {
+      totalVolume24h: totalVolume24h.toString(),
+      totalVolume24hUsd: "0",
+      salesCount24h,
+      activeListings: listings.length,
+      auctionListings: auctionListings.length,
+      totalCollections: collections.length,
+      verifiedCollections: verifiedCollections.length,
+      totalItems,
+      activeTraders: 0,
+      avgFloorPrice,
     };
   }
 }

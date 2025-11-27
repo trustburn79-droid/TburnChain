@@ -16,6 +16,7 @@ import {
   Gift,
   Grid3x3,
   Home,
+  Image,
   Key,
   Landmark,
   Layers,
@@ -140,6 +141,12 @@ const menuItems = [
     title: "Liquid Staking",
     url: "/liquid-staking",
     icon: Droplets,
+    group: "DeFi",
+  },
+  {
+    title: "NFT Marketplace",
+    url: "/nft-marketplace",
+    icon: Image,
     group: "DeFi",
   },
   {

@@ -3995,3 +3995,504 @@ export interface LstUserPosition {
   profit: string;
   profitPercent: number;
 }
+
+// ============================================
+// PHASE 5: NFT MARKETPLACE
+// ============================================
+
+// NFT Collections - Collection metadata and royalty config
+export const nftCollections = pgTable("nft_collections", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Collection Info
+  name: varchar("name", { length: 100 }).notNull(),
+  symbol: varchar("symbol", { length: 20 }).notNull(),
+  description: text("description"),
+  
+  // Contract
+  contractAddress: varchar("contract_address", { length: 66 }).notNull().unique(),
+  tokenStandard: varchar("token_standard", { length: 20 }).notNull().default("TBC-721"), // TBC-721, TBC-1155
+  
+  // Creator
+  creatorAddress: varchar("creator_address", { length: 66 }).notNull(),
+  creatorName: varchar("creator_name", { length: 100 }),
+  verified: boolean("verified").notNull().default(false),
+  
+  // Images
+  imageUrl: text("image_url"),
+  bannerUrl: text("banner_url"),
+  
+  // Social
+  website: text("website"),
+  twitter: text("twitter"),
+  discord: text("discord"),
+  
+  // Royalties (basis points, 250 = 2.5%)
+  royaltyFee: integer("royalty_fee").notNull().default(250),
+  royaltyRecipient: varchar("royalty_recipient", { length: 66 }),
+  
+  // Stats
+  totalItems: integer("total_items").notNull().default(0),
+  listedItems: integer("listed_items").notNull().default(0),
+  owners: integer("owners").notNull().default(0),
+  floorPrice: text("floor_price").notNull().default("0"),
+  floorPriceUsd: text("floor_price_usd").notNull().default("0"),
+  volume24h: text("volume_24h").notNull().default("0"),
+  volume24hUsd: text("volume_24h_usd").notNull().default("0"),
+  volumeTotal: text("volume_total").notNull().default("0"),
+  volumeTotalUsd: text("volume_total_usd").notNull().default("0"),
+  avgPrice24h: text("avg_price_24h").notNull().default("0"),
+  salesCount24h: integer("sales_count_24h").notNull().default(0),
+  salesCountTotal: integer("sales_count_total").notNull().default(0),
+  
+  // Market Cap
+  marketCap: text("market_cap").notNull().default("0"),
+  marketCapUsd: text("market_cap_usd").notNull().default("0"),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, paused, delisted
+  featured: boolean("featured").notNull().default(false),
+  
+  // AI Enhancement
+  aiRarityScore: integer("ai_rarity_score"),
+  aiTrendScore: integer("ai_trend_score"),
+  
+  // Metadata
+  category: varchar("category", { length: 50 }),
+  tags: text("tags").array(),
+  externalUrl: text("external_url"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// NFT Items - Individual NFTs within collections
+export const nftItems = pgTable("nft_items", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  collectionId: varchar("collection_id").notNull().references(() => nftCollections.id),
+  
+  // Token Info
+  tokenId: text("token_id").notNull(),
+  tokenUri: text("token_uri"),
+  
+  // Metadata
+  name: varchar("name", { length: 200 }),
+  description: text("description"),
+  imageUrl: text("image_url"),
+  animationUrl: text("animation_url"),
+  externalUrl: text("external_url"),
+  
+  // Attributes (stored as JSON)
+  attributes: jsonb("attributes"),
+  
+  // Ownership
+  ownerAddress: varchar("owner_address", { length: 66 }).notNull(),
+  creatorAddress: varchar("creator_address", { length: 66 }),
+  
+  // For TBC-1155
+  totalSupply: integer("total_supply").notNull().default(1),
+  availableSupply: integer("available_supply").notNull().default(1),
+  
+  // Rarity (AI-computed)
+  rarityRank: integer("rarity_rank"),
+  rarityScore: integer("rarity_score"), // basis points
+  rarityTier: varchar("rarity_tier", { length: 20 }), // common, uncommon, rare, epic, legendary, mythic
+  
+  // Pricing
+  lastSalePrice: text("last_sale_price"),
+  lastSalePriceUsd: text("last_sale_price_usd"),
+  lastSaleAt: timestamp("last_sale_at"),
+  estimatedValue: text("estimated_value"),
+  estimatedValueUsd: text("estimated_value_usd"),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, burned, frozen
+  isListed: boolean("is_listed").notNull().default(false),
+  
+  // Minting
+  mintTxHash: varchar("mint_tx_hash", { length: 66 }),
+  mintedAt: timestamp("minted_at"),
+  mintPrice: text("mint_price"),
+  
+  // AI Analysis
+  aiAnalyzed: boolean("ai_analyzed").notNull().default(false),
+  aiContentScore: integer("ai_content_score"),
+  aiAuthenticityScore: integer("ai_authenticity_score"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Marketplace Listings - Active sale listings
+export const marketplaceListings = pgTable("marketplace_listings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  collectionId: varchar("collection_id").notNull().references(() => nftCollections.id),
+  itemId: varchar("item_id").notNull().references(() => nftItems.id),
+  
+  // Seller
+  sellerAddress: varchar("seller_address", { length: 66 }).notNull(),
+  
+  // Listing Type
+  listingType: varchar("listing_type", { length: 20 }).notNull().default("fixed"), // fixed, auction, dutch_auction
+  
+  // Pricing
+  price: text("price").notNull(),
+  priceUsd: text("price_usd").notNull().default("0"),
+  currency: varchar("currency", { length: 20 }).notNull().default("TBURN"),
+  
+  // Auction fields
+  startingPrice: text("starting_price"),
+  reservePrice: text("reserve_price"),
+  buyNowPrice: text("buy_now_price"),
+  currentBid: text("current_bid"),
+  currentBidder: varchar("current_bidder", { length: 66 }),
+  bidCount: integer("bid_count").notNull().default(0),
+  
+  // Dutch auction fields
+  endingPrice: text("ending_price"),
+  priceDropInterval: integer("price_drop_interval"), // seconds
+  
+  // For TBC-1155
+  quantity: integer("quantity").notNull().default(1),
+  remainingQuantity: integer("remaining_quantity").notNull().default(1),
+  
+  // Timing
+  startsAt: timestamp("starts_at").notNull(),
+  expiresAt: timestamp("expires_at"),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, sold, cancelled, expired
+  
+  // Transaction
+  txHash: varchar("tx_hash", { length: 66 }),
+  
+  // AI Features
+  aiRecommendedPrice: text("ai_recommended_price"),
+  aiPriceConfidence: integer("ai_price_confidence"),
+  
+  // Metadata
+  signature: text("signature"),
+  nonce: integer("nonce"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Marketplace Bids - Bids on listings
+export const marketplaceBids = pgTable("marketplace_bids", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  listingId: varchar("listing_id").notNull().references(() => marketplaceListings.id),
+  collectionId: varchar("collection_id").notNull().references(() => nftCollections.id),
+  itemId: varchar("item_id").notNull().references(() => nftItems.id),
+  
+  // Bidder
+  bidderAddress: varchar("bidder_address", { length: 66 }).notNull(),
+  
+  // Bid Details
+  bidAmount: text("bid_amount").notNull(),
+  bidAmountUsd: text("bid_amount_usd").notNull().default("0"),
+  currency: varchar("currency", { length: 20 }).notNull().default("TBURN"),
+  
+  // For TBC-1155
+  quantity: integer("quantity").notNull().default(1),
+  
+  // Timing
+  expiresAt: timestamp("expires_at"),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, accepted, outbid, cancelled, expired
+  
+  // Transaction
+  txHash: varchar("tx_hash", { length: 66 }),
+  
+  // Escrow
+  escrowAmount: text("escrow_amount").notNull().default("0"),
+  escrowReleased: boolean("escrow_released").notNull().default(false),
+  
+  // Signature
+  signature: text("signature"),
+  nonce: integer("nonce"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Marketplace Sales - Completed sales history
+export const marketplaceSales = pgTable("marketplace_sales", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  listingId: varchar("listing_id").references(() => marketplaceListings.id),
+  bidId: varchar("bid_id").references(() => marketplaceBids.id),
+  collectionId: varchar("collection_id").notNull().references(() => nftCollections.id),
+  itemId: varchar("item_id").notNull().references(() => nftItems.id),
+  
+  // Parties
+  sellerAddress: varchar("seller_address", { length: 66 }).notNull(),
+  buyerAddress: varchar("buyer_address", { length: 66 }).notNull(),
+  
+  // Sale Type
+  saleType: varchar("sale_type", { length: 20 }).notNull(), // fixed, auction, offer
+  
+  // Pricing
+  salePrice: text("sale_price").notNull(),
+  salePriceUsd: text("sale_price_usd").notNull().default("0"),
+  currency: varchar("currency", { length: 20 }).notNull().default("TBURN"),
+  
+  // For TBC-1155
+  quantity: integer("quantity").notNull().default(1),
+  
+  // Fees
+  platformFee: text("platform_fee").notNull().default("0"),
+  platformFeePercent: integer("platform_fee_percent").notNull().default(250), // basis points
+  royaltyFee: text("royalty_fee").notNull().default("0"),
+  royaltyFeePercent: integer("royalty_fee_percent").notNull().default(0),
+  royaltyRecipient: varchar("royalty_recipient", { length: 66 }),
+  
+  // Net amounts
+  sellerProceeds: text("seller_proceeds").notNull(),
+  
+  // Transaction
+  txHash: varchar("tx_hash", { length: 66 }).notNull(),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Timestamps
+  soldAt: timestamp("sold_at").defaultNow().notNull(),
+  settledAt: timestamp("settled_at"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// NFT Offers - Collection-wide or item-specific offers
+export const nftOffers = pgTable("nft_offers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Scope
+  offerType: varchar("offer_type", { length: 20 }).notNull(), // item, collection
+  
+  // References
+  collectionId: varchar("collection_id").notNull().references(() => nftCollections.id),
+  itemId: varchar("item_id").references(() => nftItems.id),
+  
+  // Offerer
+  offererAddress: varchar("offerer_address", { length: 66 }).notNull(),
+  
+  // Offer Details
+  offerAmount: text("offer_amount").notNull(),
+  offerAmountUsd: text("offer_amount_usd").notNull().default("0"),
+  currency: varchar("currency", { length: 20 }).notNull().default("TBURN"),
+  
+  // For TBC-1155 or collection offers
+  quantity: integer("quantity").notNull().default(1),
+  
+  // Timing
+  expiresAt: timestamp("expires_at"),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, accepted, cancelled, expired
+  
+  // Escrow
+  escrowAmount: text("escrow_amount").notNull().default("0"),
+  escrowTxHash: varchar("escrow_tx_hash", { length: 66 }),
+  
+  // Signature
+  signature: text("signature"),
+  nonce: integer("nonce"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// NFT Activity Log - Track all NFT-related events
+export const nftActivityLog = pgTable("nft_activity_log", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  collectionId: varchar("collection_id").notNull().references(() => nftCollections.id),
+  itemId: varchar("item_id").references(() => nftItems.id),
+  
+  // Event Details
+  eventType: varchar("event_type", { length: 30 }).notNull(), // mint, list, delist, sale, bid, offer, transfer, burn
+  
+  // Parties
+  fromAddress: varchar("from_address", { length: 66 }),
+  toAddress: varchar("to_address", { length: 66 }),
+  
+  // Value
+  price: text("price"),
+  priceUsd: text("price_usd"),
+  currency: varchar("currency", { length: 20 }),
+  quantity: integer("quantity").notNull().default(1),
+  
+  // Transaction
+  txHash: varchar("tx_hash", { length: 66 }),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Related
+  listingId: varchar("listing_id"),
+  bidId: varchar("bid_id"),
+  saleId: varchar("sale_id"),
+  offerId: varchar("offer_id"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// NFT Marketplace Protocol Stats
+export const nftMarketplaceStats = pgTable("nft_marketplace_stats", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Volume
+  volume24h: text("volume_24h").notNull().default("0"),
+  volume24hUsd: text("volume_24h_usd").notNull().default("0"),
+  volume7d: text("volume_7d").notNull().default("0"),
+  volume7dUsd: text("volume_7d_usd").notNull().default("0"),
+  volumeTotal: text("volume_total").notNull().default("0"),
+  volumeTotalUsd: text("volume_total_usd").notNull().default("0"),
+  
+  // Sales
+  salesCount24h: integer("sales_count_24h").notNull().default(0),
+  salesCount7d: integer("sales_count_7d").notNull().default(0),
+  salesCountTotal: integer("sales_count_total").notNull().default(0),
+  
+  // Collections
+  totalCollections: integer("total_collections").notNull().default(0),
+  activeCollections: integer("active_collections").notNull().default(0),
+  verifiedCollections: integer("verified_collections").notNull().default(0),
+  
+  // Items
+  totalItems: integer("total_items").notNull().default(0),
+  listedItems: integer("listed_items").notNull().default(0),
+  
+  // Listings
+  activeListings: integer("active_listings").notNull().default(0),
+  auctionListings: integer("auction_listings").notNull().default(0),
+  
+  // Users
+  totalUsers: integer("total_users").notNull().default(0),
+  activeTraders24h: integer("active_traders_24h").notNull().default(0),
+  
+  // Fees
+  totalPlatformFees: text("total_platform_fees").notNull().default("0"),
+  platformFees24h: text("platform_fees_24h").notNull().default("0"),
+  totalRoyalties: text("total_royalties").notNull().default("0"),
+  royalties24h: text("royalties_24h").notNull().default("0"),
+  
+  // Floor Prices
+  avgFloorPrice: text("avg_floor_price").notNull().default("0"),
+  avgFloorPriceUsd: text("avg_floor_price_usd").notNull().default("0"),
+  
+  snapshotAt: timestamp("snapshot_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Insert Schemas for NFT Marketplace
+export const insertNftCollectionSchema = createInsertSchema(nftCollections).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertNftItemSchema = createInsertSchema(nftItems).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMarketplaceListingSchema = createInsertSchema(marketplaceListings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMarketplaceBidSchema = createInsertSchema(marketplaceBids).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMarketplaceSaleSchema = createInsertSchema(marketplaceSales).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertNftOfferSchema = createInsertSchema(nftOffers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertNftActivityLogSchema = createInsertSchema(nftActivityLog).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertNftMarketplaceStatsSchema = createInsertSchema(nftMarketplaceStats).omit({
+  id: true,
+  snapshotAt: true,
+  createdAt: true,
+});
+
+// NFT Marketplace Types
+export type NftCollection = typeof nftCollections.$inferSelect;
+export type InsertNftCollection = z.infer<typeof insertNftCollectionSchema>;
+
+export type NftItem = typeof nftItems.$inferSelect;
+export type InsertNftItem = z.infer<typeof insertNftItemSchema>;
+
+export type MarketplaceListing = typeof marketplaceListings.$inferSelect;
+export type InsertMarketplaceListing = z.infer<typeof insertMarketplaceListingSchema>;
+
+export type MarketplaceBid = typeof marketplaceBids.$inferSelect;
+export type InsertMarketplaceBid = z.infer<typeof insertMarketplaceBidSchema>;
+
+export type MarketplaceSale = typeof marketplaceSales.$inferSelect;
+export type InsertMarketplaceSale = z.infer<typeof insertMarketplaceSaleSchema>;
+
+export type NftOffer = typeof nftOffers.$inferSelect;
+export type InsertNftOffer = z.infer<typeof insertNftOfferSchema>;
+
+export type NftActivityLog = typeof nftActivityLog.$inferSelect;
+export type InsertNftActivityLog = z.infer<typeof insertNftActivityLogSchema>;
+
+export type NftMarketplaceStats = typeof nftMarketplaceStats.$inferSelect;
+export type InsertNftMarketplaceStats = z.infer<typeof insertNftMarketplaceStatsSchema>;
+
+// NFT Marketplace Frontend Types
+export type NftListingType = "fixed" | "auction" | "dutch_auction";
+export type NftSaleType = "fixed" | "auction" | "offer";
+export type NftActivityType = "mint" | "list" | "delist" | "sale" | "bid" | "offer" | "transfer" | "burn";
+export type NftRarityTier = "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythic";
+
+export interface NftCollectionSummary {
+  id: string;
+  name: string;
+  symbol: string;
+  imageUrl: string | null;
+  verified: boolean;
+  floorPrice: string;
+  floorPriceUsd: string;
+  volume24h: string;
+  volume24hUsd: string;
+  owners: number;
+  totalItems: number;
+  listedItems: number;
+}
+
+export interface NftItemWithListing {
+  item: NftItem;
+  listing: MarketplaceListing | null;
+  collection: NftCollection;
+}
+
+export interface NftMarketOverview {
+  totalVolume24h: string;
+  totalSales24h: number;
+  activeListings: number;
+  topCollections: NftCollectionSummary[];
+}

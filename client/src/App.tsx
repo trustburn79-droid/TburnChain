@@ -62,6 +62,9 @@ import YieldFarmingPage from "@/pages/yield-farming";
 // Liquid Staking Pages
 import LiquidStakingPage from "@/pages/liquid-staking";
 
+// NFT Marketplace Pages
+import NftMarketplacePage from "@/pages/nft-marketplace";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -124,6 +127,8 @@ function Router() {
       <Route path="/lending" component={LendingPage} />
       <Route path="/yield-farming" component={YieldFarmingPage} />
       <Route path="/liquid-staking" component={LiquidStakingPage} />
+      {/* NFT Marketplace Routes */}
+      <Route path="/nft-marketplace" component={NftMarketplacePage} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

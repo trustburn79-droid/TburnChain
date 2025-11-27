@@ -26,6 +26,8 @@ import { registerDexRoutes } from "./routes/dex-routes";
 import { registerLendingRoutes } from "./routes/lending-routes";
 import { registerYieldRoutes } from "./routes/yield-routes";
 import { registerLiquidStakingRoutes } from "./routes/liquid-staking-routes";
+import nftMarketplaceRoutes from "./routes/nft-marketplace-routes";
+import { nftMarketplaceService } from "./services/NftMarketplaceService";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -367,6 +369,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   registerLendingRoutes(app, requireAuth);
   registerYieldRoutes(app);
   registerLiquidStakingRoutes(app);
+
+  // ============================================
+  // NFT MARKETPLACE INFRASTRUCTURE
+  // ============================================
+  app.use("/api/nft", nftMarketplaceRoutes);
+  nftMarketplaceService.initialize().catch(err => console.error("[NFT Marketplace] Init error:", err));
 
   // ============================================
   // Network Stats
@@ -9183,6 +9191,88 @@ Provide JSON portfolio analysis:
       console.error('[WebSocket] LST transactions broadcast error:', error);
     }
   }, 5000, 'lst_transactions_broadcast');
+
+  // ============================================
+  // NFT MARKETPLACE WEBSOCKET BROADCASTS (Phase 5)
+  // ============================================
+
+  // NFT Collections - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const collections = await storage.getTrendingNftCollections(10);
+      const featured = await storage.getFeaturedNftCollections(5);
+      
+      broadcastUpdate('nft_collections', {
+        trending: collections,
+        featured,
+        timestamp: Date.now(),
+      }, z.object({
+        trending: z.array(z.any()),
+        featured: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] NFT collections broadcast error:', error);
+    }
+  }, 10000, 'nft_collections_broadcast');
+
+  // NFT Listings - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const listings = await storage.getActiveListings(20);
+      const auctions = await storage.getAuctionListings(10);
+      
+      broadcastUpdate('nft_listings', {
+        listings,
+        auctions,
+        timestamp: Date.now(),
+      }, z.object({
+        listings: z.array(z.any()),
+        auctions: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] NFT listings broadcast error:', error);
+    }
+  }, 5000, 'nft_listings_broadcast');
+
+  // NFT Sales - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const sales = await storage.getRecentSales(20);
+      
+      broadcastUpdate('nft_sales', {
+        sales,
+        timestamp: Date.now(),
+      }, z.object({
+        sales: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] NFT sales broadcast error:', error);
+    }
+  }, 5000, 'nft_sales_broadcast');
+
+  // NFT Activity - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const activity = await storage.getRecentActivity(30);
+      
+      broadcastUpdate('nft_activity', {
+        activity,
+        timestamp: Date.now(),
+      }, z.object({
+        activity: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] NFT activity broadcast error:', error);
+    }
+  }, 5000, 'nft_activity_broadcast');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)
