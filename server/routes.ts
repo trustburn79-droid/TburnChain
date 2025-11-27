@@ -596,6 +596,414 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================
+  // Token System v4.0 - AI-Enhanced Enterprise Token Standards
+  // ============================================
+  
+  // Token System Stats
+  app.get("/api/token-system/stats", async (_req, res) => {
+    try {
+      const stats = {
+        totalTokens: 156,
+        tbc20Count: 89,
+        tbc721Count: 42,
+        tbc1155Count: 25,
+        totalBurned: "245000000000000000000000000",
+        dailyBurnRate: 0.15,
+        aiOptimizationRate: 94.5,
+        quantumSecuredTokens: 112
+      };
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching token system stats:", error);
+      res.status(500).json({ error: "Failed to fetch token system stats" });
+    }
+  });
+
+  // Token List by Standard
+  app.get("/api/token-system/tokens", async (_req, res) => {
+    try {
+      const tokens = [
+        {
+          id: "tbc20-tburn-native",
+          name: "TBURN Token",
+          symbol: "TBURN",
+          standard: "TBC-20",
+          totalSupply: "1000000000000000000000000000",
+          holders: 45892,
+          transactions24h: 125840,
+          burnRate: 100,
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          features: ["AI Burn Optimization", "Quantum Signatures", "MEV Protection", "Self-Adjusting Gas"]
+        },
+        {
+          id: "tbc20-usdt-wrapped",
+          name: "Wrapped USDT",
+          symbol: "wUSDT",
+          standard: "TBC-20",
+          totalSupply: "500000000000000000000000",
+          holders: 12456,
+          transactions24h: 45672,
+          burnRate: 0,
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          features: ["Cross-Chain Bridge", "AI Price Oracle"]
+        },
+        {
+          id: "tbc721-genesis-validators",
+          name: "Genesis Validators NFT",
+          symbol: "GVAL",
+          standard: "TBC-721",
+          totalSupply: "512",
+          holders: 512,
+          transactions24h: 28,
+          burnRate: 0,
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          features: ["AI Rarity Scoring", "Authenticity Verification", "Dynamic Metadata"]
+        },
+        {
+          id: "tbc721-ai-art",
+          name: "TBURN AI Art Collection",
+          symbol: "TART",
+          standard: "TBC-721",
+          totalSupply: "10000",
+          holders: 3256,
+          transactions24h: 156,
+          burnRate: 0,
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          features: ["AI Generation", "Provenance Tracking", "Royalty Enforcement"]
+        },
+        {
+          id: "tbc1155-game-assets",
+          name: "TBURN Game Assets",
+          symbol: "TGAME",
+          standard: "TBC-1155",
+          totalSupply: "1000000",
+          holders: 8954,
+          transactions24h: 34521,
+          burnRate: 50,
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          features: ["Batch Transfers", "Semi-Fungible", "AI Supply Management"]
+        }
+      ];
+      res.json(tokens);
+    } catch (error) {
+      console.error("Error fetching tokens:", error);
+      res.status(500).json({ error: "Failed to fetch tokens" });
+    }
+  });
+
+  // Cross-Chain Bridge Stats
+  app.get("/api/bridge/stats", async (_req, res) => {
+    try {
+      const stats = {
+        totalTransfers: 125847,
+        totalVolume: "8500000000000000000000000000",
+        pendingTransfers: 23,
+        avgTransferTime: 180,
+        successRate: 99.7,
+        aiRiskAssessments: 125847,
+        highRiskBlocked: 342
+      };
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching bridge stats:", error);
+      res.status(500).json({ error: "Failed to fetch bridge stats" });
+    }
+  });
+
+  // Supported Chains
+  app.get("/api/bridge/chains", async (_req, res) => {
+    try {
+      const chains = [
+        { id: "TBURNMainnet", name: "TBURN Mainnet", icon: "T", status: "active", avgBlockTime: 100, confirmations: 1, liquidity: "1000000000000000000000000000", volume24h: "50000000000000000000000" },
+        { id: "Ethereum", name: "Ethereum", icon: "E", status: "active", avgBlockTime: 12000, confirmations: 12, liquidity: "250000000000000000000000", volume24h: "12500000000000000000000" },
+        { id: "BinanceSmartChain", name: "BSC", icon: "B", status: "active", avgBlockTime: 3000, confirmations: 15, liquidity: "180000000000000000000000", volume24h: "9000000000000000000000" },
+        { id: "Polygon", name: "Polygon", icon: "P", status: "active", avgBlockTime: 2000, confirmations: 128, liquidity: "120000000000000000000000", volume24h: "6000000000000000000000" },
+        { id: "Avalanche", name: "Avalanche", icon: "A", status: "active", avgBlockTime: 2000, confirmations: 1, liquidity: "90000000000000000000000", volume24h: "4500000000000000000000" },
+        { id: "Arbitrum", name: "Arbitrum", icon: "AR", status: "active", avgBlockTime: 250, confirmations: 1, liquidity: "150000000000000000000000", volume24h: "7500000000000000000000" },
+        { id: "Optimism", name: "Optimism", icon: "OP", status: "active", avgBlockTime: 2000, confirmations: 1, liquidity: "75000000000000000000000", volume24h: "3750000000000000000000" },
+        { id: "Base", name: "Base", icon: "BA", status: "active", avgBlockTime: 2000, confirmations: 1, liquidity: "60000000000000000000000", volume24h: "3000000000000000000000" }
+      ];
+      res.json(chains);
+    } catch (error) {
+      console.error("Error fetching chains:", error);
+      res.status(500).json({ error: "Failed to fetch chains" });
+    }
+  });
+
+  // Bridge Transfers
+  app.get("/api/bridge/transfers", async (_req, res) => {
+    try {
+      const now = Date.now();
+      const transfers = [
+        { id: "tx-001", sourceChain: "Ethereum", targetChain: "TBURNMainnet", amount: "100000000000000000000000", token: "TBURN", from: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", to: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", status: "pending", signaturesCollected: 2, signaturesRequired: 3, riskScore: 0.12, aiApproved: true, createdAt: new Date(now - 120000).toISOString(), estimatedCompletion: "3 minutes" },
+        { id: "tx-002", sourceChain: "BinanceSmartChain", targetChain: "TBURNMainnet", amount: "50000000000000000000000", token: "TBURN", from: "0x123d35Cc6634C0532925a3b844Bc454e4438f123", to: "0x456f109551bD432803012645Ac136ddd64DBA456", status: "locked", signaturesCollected: 3, signaturesRequired: 3, riskScore: 0.08, aiApproved: true, createdAt: new Date(now - 60000).toISOString(), estimatedCompletion: "1 minute" },
+        { id: "tx-003", sourceChain: "TBURNMainnet", targetChain: "Polygon", amount: "25000000000000000000000", token: "TBURN", from: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", to: "0xabcf109551bD432803012645Ac136ddd64DBAabc", status: "released", signaturesCollected: 3, signaturesRequired: 3, riskScore: 0.05, aiApproved: true, createdAt: new Date(now - 300000).toISOString(), estimatedCompletion: "Completed" },
+        { id: "tx-004", sourceChain: "Arbitrum", targetChain: "TBURNMainnet", amount: "200000000000000000000000", token: "TBURN", from: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", to: "0x012f109551bD432803012645Ac136ddd64DBA012", status: "released", signaturesCollected: 3, signaturesRequired: 3, riskScore: 0.03, aiApproved: true, createdAt: new Date(now - 600000).toISOString(), estimatedCompletion: "Completed" }
+      ];
+      res.json(transfers);
+    } catch (error) {
+      console.error("Error fetching transfers:", error);
+      res.status(500).json({ error: "Failed to fetch transfers" });
+    }
+  });
+
+  // Governance Stats
+  app.get("/api/governance/stats", async (_req, res) => {
+    try {
+      const stats = {
+        totalProposals: 47,
+        activeProposals: 5,
+        passedProposals: 35,
+        rejectedProposals: 7,
+        totalVoters: 12589,
+        avgParticipation: 68.4,
+        aiAnalyzedProposals: 47,
+        aiPredictionAccuracy: 91.2
+      };
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching governance stats:", error);
+      res.status(500).json({ error: "Failed to fetch governance stats" });
+    }
+  });
+
+  // Governance Proposals
+  app.get("/api/governance/proposals", async (_req, res) => {
+    try {
+      const now = Date.now();
+      const proposals = [
+        {
+          id: "prop-001",
+          proposer: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+          title: "Increase Burn Rate from 20% to 25%",
+          description: "This proposal aims to increase the daily emission burn rate from 20% to 25% to accelerate deflation and support long-term price stability.",
+          status: "active",
+          votesFor: "15000000000000000000000000",
+          votesAgainst: "3500000000000000000000000",
+          votesAbstain: "1500000000000000000000000",
+          totalVoters: 1250,
+          quorumReached: true,
+          votingEnds: new Date(now + 86400000 * 3).toISOString(),
+          createdAt: new Date(now - 86400000 * 4).toISOString(),
+          riskScore: 0.35,
+          aiAnalysis: {
+            model: "GPT-5 Turbo",
+            confidence: 0.89,
+            economicImpact: 15,
+            securityImpact: 85,
+            recommendation: "This proposal has moderate economic risk but strong community support. Consider phased implementation over 30 days.",
+            risks: ["Short-term price volatility", "Reduced liquidity incentives"]
+          },
+          predictedOutcome: {
+            result: "for",
+            confidence: 0.78,
+            keyFactors: ["Strong validator support", "Previous similar proposal passed", "Community sentiment positive"]
+          }
+        },
+        {
+          id: "prop-002",
+          proposer: "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+          title: "Add Support for zkSync Bridge",
+          description: "Proposal to integrate zkSync Era as a supported chain in the TBURN cross-chain bridge with AI risk assessment.",
+          status: "active",
+          votesFor: "12000000000000000000000000",
+          votesAgainst: "8000000000000000000000000",
+          votesAbstain: "2000000000000000000000000",
+          totalVoters: 980,
+          quorumReached: true,
+          votingEnds: new Date(now + 86400000 * 5).toISOString(),
+          createdAt: new Date(now - 86400000 * 2).toISOString(),
+          riskScore: 0.25,
+          aiAnalysis: {
+            model: "Claude Sonnet 4.5",
+            confidence: 0.92,
+            economicImpact: 25,
+            securityImpact: 70,
+            recommendation: "zkSync integration is technically feasible with moderate complexity. Recommend security audit before deployment.",
+            risks: ["New technology risk", "Integration complexity", "Liquidity fragmentation"]
+          },
+          predictedOutcome: {
+            result: "for",
+            confidence: 0.62,
+            keyFactors: ["Technical complexity concerns", "Strong zkSync ecosystem growth", "Developer community interest"]
+          }
+        },
+        {
+          id: "prop-003",
+          proposer: "0x456d35Cc6634C0532925a3b844Bc454e4438f456",
+          title: "Reduce Tier 1 Validator Minimum Stake",
+          description: "Lower the Tier 1 validator minimum stake from 200,000 TBURN to 150,000 TBURN to increase validator decentralization.",
+          status: "succeeded",
+          votesFor: "25000000000000000000000000",
+          votesAgainst: "5000000000000000000000000",
+          votesAbstain: "3000000000000000000000000",
+          totalVoters: 2156,
+          quorumReached: true,
+          votingEnds: new Date(now - 86400000 * 2).toISOString(),
+          createdAt: new Date(now - 86400000 * 9).toISOString(),
+          riskScore: 0.15,
+          aiAnalysis: {
+            model: "GPT-5 Turbo",
+            confidence: 0.95,
+            economicImpact: 10,
+            securityImpact: 90,
+            recommendation: "Lower stake requirements increase decentralization with minimal security impact given AI reputation system.",
+            risks: ["Slight increase in validator count", "Minor reward dilution"]
+          }
+        },
+        {
+          id: "prop-004",
+          proposer: "0x789d35Cc6634C0532925a3b844Bc454e4438f789",
+          title: "Implement AI-Driven Gas Fee Optimization",
+          description: "Deploy AI model to dynamically adjust gas fees based on network congestion, reducing costs during low-traffic periods.",
+          status: "executed",
+          votesFor: "30000000000000000000000000",
+          votesAgainst: "2000000000000000000000000",
+          votesAbstain: "1000000000000000000000000",
+          totalVoters: 3450,
+          quorumReached: true,
+          votingEnds: new Date(now - 86400000 * 14).toISOString(),
+          createdAt: new Date(now - 86400000 * 21).toISOString(),
+          riskScore: 0.08
+        },
+        {
+          id: "prop-005",
+          proposer: "0xabcd35Cc6634C0532925a3b844Bc454e4438fabc",
+          title: "Quantum-Resistant Signature Upgrade",
+          description: "Mandatory upgrade to CRYSTALS-Dilithium + ED25519 hybrid signatures for all validator operations.",
+          status: "active",
+          votesFor: "18000000000000000000000000",
+          votesAgainst: "2000000000000000000000000",
+          votesAbstain: "500000000000000000000000",
+          totalVoters: 1890,
+          quorumReached: true,
+          votingEnds: new Date(now + 86400000 * 7).toISOString(),
+          createdAt: new Date(now - 86400000 * 1).toISOString(),
+          riskScore: 0.12,
+          aiAnalysis: {
+            model: "GPT-5 Turbo",
+            confidence: 0.97,
+            economicImpact: 5,
+            securityImpact: 98,
+            recommendation: "Critical security upgrade with minimal economic impact. Strongly recommended for post-quantum protection.",
+            risks: ["Transition period complexity", "Slight performance overhead"]
+          },
+          predictedOutcome: {
+            result: "for",
+            confidence: 0.95,
+            keyFactors: ["Security-focused community", "Minimal downside", "Clear technical benefits"]
+          }
+        }
+      ];
+      res.json(proposals);
+    } catch (error) {
+      console.error("Error fetching proposals:", error);
+      res.status(500).json({ error: "Failed to fetch proposals" });
+    }
+  });
+
+  // Burn Stats
+  app.get("/api/burn/stats", async (_req, res) => {
+    try {
+      const { getEnterpriseNode } = await import('./services/TBurnEnterpriseNode');
+      const node = getEnterpriseNode();
+      const economics = node.getTokenEconomics();
+      
+      const stats = {
+        totalBurned: String(economics.totalBurned * 1e18),
+        burnedToday: String(economics.dailyBurn * 1e18),
+        burned7d: String(economics.dailyBurn * 7 * 1e18),
+        burned30d: String(economics.dailyBurn * 30 * 1e18),
+        transactionBurns: String(economics.dailyBurn * 0.4 * 1e18),
+        timedBurns: String(economics.dailyBurn * 0.3 * 1e18),
+        volumeBurns: String(economics.dailyBurn * 0.15 * 1e18),
+        aiBurns: String(economics.dailyBurn * 0.15 * 1e18),
+        currentBurnRate: 20.0,
+        targetSupply: String(economics.maxSupply * 0.6 * 1e18),
+        currentSupply: String(economics.totalSupply * 1e18),
+        burnProgress: ((1 - economics.totalSupply / economics.maxSupply) * 100)
+      };
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching burn stats:", error);
+      res.status(500).json({ error: "Failed to fetch burn stats" });
+    }
+  });
+
+  // Burn Events
+  app.get("/api/burn/events", async (_req, res) => {
+    try {
+      const now = Date.now();
+      const events = [
+        { id: "burn-001", burnType: "transaction", amount: "125000000000000000000", reason: "Transaction burn: 100 bps", aiRecommended: true, txHash: "0x7a2b3c4d5e6f7890abcdef1234567890abcdef12", timestamp: new Date(now - 60000).toISOString() },
+        { id: "burn-002", burnType: "ai_optimized", amount: "500000000000000000000", reason: "AI-optimized burn: Market conditions favorable", aiRecommended: true, txHash: "0x8b3c4d5e6f7890abcdef1234567890abcdef13", timestamp: new Date(now - 120000).toISOString() },
+        { id: "burn-003", burnType: "timed", amount: "1000000000000000000000", reason: "Scheduled burn: 0.1% of supply", aiRecommended: false, txHash: "0x9c4d5e6f7890abcdef1234567890abcdef14", timestamp: new Date(now - 3600000).toISOString() },
+        { id: "burn-004", burnType: "volume", amount: "2500000000000000000000", reason: "Volume threshold exceeded: 10M > 5M", aiRecommended: false, txHash: "0xad5e6f7890abcdef1234567890abcdef15", timestamp: new Date(now - 7200000).toISOString() },
+        { id: "burn-005", burnType: "transaction", amount: "85000000000000000000", reason: "Transaction burn: 100 bps", aiRecommended: true, txHash: "0xbe6f7890abcdef1234567890abcdef16", timestamp: new Date(now - 180000).toISOString() },
+        { id: "burn-006", burnType: "ai_optimized", amount: "750000000000000000000", reason: "AI-optimized burn: High network congestion", aiRecommended: true, txHash: "0xcf7890abcdef1234567890abcdef17", timestamp: new Date(now - 3660000).toISOString() },
+        { id: "burn-007", burnType: "manual", amount: "5000000000000000000000", reason: "Governance-approved community burn", aiRecommended: false, txHash: "0xd0890abcdef1234567890abcdef18", timestamp: new Date(now - 86400000).toISOString() }
+      ];
+      res.json(events);
+    } catch (error) {
+      console.error("Error fetching burn events:", error);
+      res.status(500).json({ error: "Failed to fetch burn events" });
+    }
+  });
+
+  // Burn Config
+  app.get("/api/burn/config", async (_req, res) => {
+    try {
+      const config = {
+        txBurnRate: 100,
+        txBurnEnabled: true,
+        timeBurnInterval: "24h",
+        timeBurnPercentage: 0.1,
+        timeBurnEnabled: true,
+        volumeThreshold: "5000000000000000000000000",
+        volumeBurnRate: 50,
+        volumeBurnEnabled: true,
+        aiOptimization: true,
+        minBurnRate: 50,
+        maxBurnRate: 200
+      };
+      res.json(config);
+    } catch (error) {
+      console.error("Error fetching burn config:", error);
+      res.status(500).json({ error: "Failed to fetch burn config" });
+    }
+  });
+
+  // Burn History (for chart)
+  app.get("/api/burn/history", async (_req, res) => {
+    try {
+      const history = [];
+      const now = Date.now();
+      for (let i = 29; i >= 0; i--) {
+        const date = new Date(now - i * 86400000);
+        const baseAmount = 1000 + Math.random() * 500;
+        history.push({
+          date: date.toISOString().split('T')[0],
+          amount: Math.round(baseAmount * (1 + Math.sin(i / 5) * 0.2))
+        });
+      }
+      res.json(history);
+    } catch (error) {
+      console.error("Error fetching burn history:", error);
+      res.status(500).json({ error: "Failed to fetch burn history" });
+    }
+  });
+
   app.get("/api/consensus/current", async (_req, res) => {
     try {
       const state = await storage.getConsensusState();

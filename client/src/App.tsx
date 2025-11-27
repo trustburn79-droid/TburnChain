@@ -38,6 +38,12 @@ import MemberDetail from "@/pages/member-detail";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 
+// Token System v4.0 Pages
+import TokenSystem from "@/pages/token-system";
+import Bridge from "@/pages/bridge";
+import Governance from "@/pages/governance";
+import BurnDashboard from "@/pages/burn";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -80,6 +86,11 @@ function Router() {
       <Route path="/cross-shard" component={CrossShard} />
       <Route path="/wallets" component={Wallets} />
       <Route path="/wallets/:address" component={WalletDetail} />
+      {/* Token System v4.0 Routes */}
+      <Route path="/token-system" component={TokenSystem} />
+      <Route path="/bridge" component={Bridge} />
+      <Route path="/governance" component={Governance} />
+      <Route path="/burn" component={BurnDashboard} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

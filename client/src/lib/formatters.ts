@@ -60,3 +60,24 @@ export const formatShortNumber = (num: number | undefined | null): string => {
   if (num >= 1e3) return (num / 1e3).toFixed(2) + "K";
   return num.toString();
 };
+
+export const formatTokenAmount = (amount: string | number | bigint | undefined | null, decimals: number = 18, symbol: string = "TBURN"): string => {
+  if (!amount && amount !== 0) return `0 ${symbol}`;
+  
+  let value: number;
+  if (typeof amount === "bigint") {
+    value = Number(amount) / Math.pow(10, decimals);
+  } else if (typeof amount === "string") {
+    const parsed = parseFloat(amount);
+    if (isNaN(parsed)) return `0 ${symbol}`;
+    value = parsed / Math.pow(10, decimals);
+  } else {
+    value = amount / Math.pow(10, decimals);
+  }
+  
+  if (value >= 1e9) return `${(value / 1e9).toFixed(2)}B ${symbol}`;
+  if (value >= 1e6) return `${(value / 1e6).toFixed(2)}M ${symbol}`;
+  if (value >= 1e3) return `${(value / 1e3).toFixed(2)}K ${symbol}`;
+  if (value < 0.0001 && value > 0) return `<0.0001 ${symbol}`;
+  return `${value.toFixed(4).replace(/\.?0+$/, "")} ${symbol}`;
+};
