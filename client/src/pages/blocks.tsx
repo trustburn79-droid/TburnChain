@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation, Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { useWebSocket } from "@/lib/websocket-context";
 import { queryClient } from "@/lib/queryClient";
 import { formatDistanceToNow } from "date-fns";
@@ -121,6 +122,7 @@ const SHARD_OPTIONS = [
 ];
 
 export default function Blocks() {
+  const { t } = useTranslation();
   const [location, setLocation] = useLocation();
   const { toast } = useToast();
   const { subscribeToEvent, isConnected } = useWebSocket();
@@ -309,10 +311,10 @@ export default function Blocks() {
           <div className="flex items-center gap-3">
             <Box className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="text-3xl font-bold">Blocks</h1>
+              <h1 className="text-3xl font-bold" data-testid="text-blocks-title">{t('blocks.title')}</h1>
               <p className="text-muted-foreground">
-                {blocksData?.pagination.totalItems || 0} total blocks • 
-                Page {blocksData?.pagination.page || 1} of {blocksData?.pagination.totalPages || 1}
+                {blocksData?.pagination.totalItems || 0} {t('blocks.totalBlocks')} • 
+                {t('common.page')} {blocksData?.pagination.page || 1} / {blocksData?.pagination.totalPages || 1}
               </p>
             </div>
           </div>
@@ -326,7 +328,7 @@ export default function Blocks() {
               className="gap-2"
             >
               <RefreshCw className={`h-4 w-4 ${isAutoRefresh ? "animate-spin" : ""}`} />
-              {isAutoRefresh ? "Live" : "Paused"}
+              {isAutoRefresh ? t('blocks.live') : t('blocks.paused')}
             </Button>
             
             {/* Manual refresh */}
@@ -344,11 +346,11 @@ export default function Blocks() {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">
                   <Download className="h-4 w-4 mr-2" />
-                  Export
+                  {t('common.download')}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuLabel>Export Format</DropdownMenuLabel>
+                <DropdownMenuLabel>{t('blocks.exportFormat')}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>CSV</DropdownMenuItem>
                 <DropdownMenuItem>JSON</DropdownMenuItem>
@@ -364,7 +366,7 @@ export default function Blocks() {
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by block number, hash, or validator..."
+              placeholder={t('blocks.searchPlaceholder')}
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSearch()}
@@ -381,7 +383,7 @@ export default function Blocks() {
             <SheetTrigger asChild>
               <Button variant="outline" className="gap-2">
                 <Filter className="h-4 w-4" />
-                Filters
+                {t('common.filter')}
                 {hasActiveFilters && (
                   <Badge variant="secondary" className="ml-1">
                     {[selectedValidator, selectedShard, selectedHashAlgorithm].filter(Boolean).length}
@@ -391,9 +393,9 @@ export default function Blocks() {
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>Filter Blocks</SheetTitle>
+                <SheetTitle>{t('blocks.filterBlocks')}</SheetTitle>
                 <SheetDescription>
-                  Narrow down blocks based on specific criteria
+                  {t('blocks.filterDescription')}
                 </SheetDescription>
               </SheetHeader>
               
@@ -516,12 +518,12 @@ export default function Blocks() {
               {isConnected ? (
                 <>
                   <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span className="text-sm text-green-600">Connected</span>
+                  <span className="text-sm text-green-600">{t('common.connected')}</span>
                 </>
               ) : (
                 <>
                   <XCircle className="h-4 w-4 text-red-500" />
-                  <span className="text-sm text-red-600">Disconnected</span>
+                  <span className="text-sm text-red-600">{t('common.disconnected')}</span>
                 </>
               )}
             </div>
@@ -529,11 +531,11 @@ export default function Blocks() {
           
           {blocksData && (
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>Avg Block Time: 3s</span>
+              <span>{t('blocks.avgBlockTime')}: 3s</span>
               <span>•</span>
-              <span>Network TPS: 521,482</span>
+              <span>{t('blocks.networkTps')}: 521,482</span>
               <span>•</span>
-              <span>Gas Price: 10 EMB</span>
+              <span>{t('blocks.gasPrice')}: 10 EMB</span>
             </div>
           )}
         </div>
@@ -542,9 +544,9 @@ export default function Blocks() {
       {/* Blocks Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Recent Blocks</CardTitle>
+          <CardTitle>{t('blocks.recentBlocks')}</CardTitle>
           <CardDescription>
-            Real-time block production from TBURN mainnet validators
+            {t('blocks.recentBlocksDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -571,43 +573,43 @@ export default function Blocks() {
                       onClick={() => toggleSort("number")}
                     >
                       <div className="flex items-center">
-                        Block
+                        {t('common.block')}
                         {renderSortIcon("number")}
                       </div>
                     </TableHead>
-                    <TableHead>Hash</TableHead>
+                    <TableHead>{t('common.hash')}</TableHead>
                     <TableHead 
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => toggleSort("timestamp")}
                     >
                       <div className="flex items-center">
-                        Age
+                        {t('common.time')}
                         {renderSortIcon("timestamp")}
                       </div>
                     </TableHead>
-                    <TableHead>Validator</TableHead>
+                    <TableHead>{t('blocks.validator')}</TableHead>
                     <TableHead 
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => toggleSort("transactionCount")}
                     >
                       <div className="flex items-center">
-                        Txns
+                        {t('blocks.txns')}
                         {renderSortIcon("transactionCount")}
                       </div>
                     </TableHead>
-                    <TableHead>Shard</TableHead>
-                    <TableHead>Gas Used</TableHead>
+                    <TableHead>{t('blocks.shard')}</TableHead>
+                    <TableHead>{t('blocks.gasUsed')}</TableHead>
                     <TableHead 
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => toggleSort("size")}
                     >
                       <div className="flex items-center">
-                        Size
+                        {t('blocks.size')}
                         {renderSortIcon("size")}
                       </div>
                     </TableHead>
-                    <TableHead>Hash Algo</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead>{t('blocks.hashAlgo')}</TableHead>
+                    <TableHead className="text-right">{t('common.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -684,20 +686,20 @@ export default function Blocks() {
                               }}
                             >
                               <ExternalLink className="h-4 w-4 mr-2" />
-                              View Details
+                              {t('blocks.viewDetails')}
                             </DropdownMenuItem>
                             <DropdownMenuItem 
                               onClick={(e) => {
                                 e.stopPropagation();
                                 navigator.clipboard.writeText(block.hash);
                                 toast({
-                                  title: "Copied to clipboard",
-                                  description: "Block hash copied successfully",
+                                  title: t('common.copiedToClipboard'),
+                                  description: t('blocks.hashCopied'),
                                 });
                               }}
                             >
                               <Hash className="h-4 w-4 mr-2" />
-                              Copy Hash
+                              {t('blocks.copyHash')}
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               onClick={(e) => {
@@ -706,7 +708,7 @@ export default function Blocks() {
                               }}
                             >
                               <User className="h-4 w-4 mr-2" />
-                              View Validator
+                              {t('blocks.viewValidator')}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -722,7 +724,7 @@ export default function Blocks() {
           {blocksData && blocksData.pagination.totalPages > 1 && (
             <div className="flex items-center justify-between mt-6">
               <div className="text-sm text-muted-foreground">
-                Showing {((page - 1) * 20) + 1} to {Math.min(page * 20, blocksData.pagination.totalItems)} of {blocksData.pagination.totalItems} blocks
+                {t('common.showing')} {((page - 1) * 20) + 1} - {Math.min(page * 20, blocksData.pagination.totalItems)} / {blocksData.pagination.totalItems} {t('blocks.blocks')}
               </div>
               
               <div className="flex items-center gap-2">
@@ -743,7 +745,7 @@ export default function Blocks() {
                   data-testid="button-prev-page"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  Previous
+                  {t('common.previous')}
                 </Button>
                 
                 <div className="flex items-center gap-1">
@@ -771,7 +773,7 @@ export default function Blocks() {
                   disabled={!blocksData.pagination.hasNext}
                   data-testid="button-next-page"
                 >
-                  Next
+                  {t('common.next')}
                   <ChevronRight className="h-4 w-4" />
                 </Button>
                 <Button

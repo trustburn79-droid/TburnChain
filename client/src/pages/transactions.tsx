@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 import { Activity } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +17,7 @@ import { formatAddress, formatTimeAgo, formatTokenAmount, formatGasPriceEmber, c
 import type { Transaction } from "@shared/schema";
 
 export default function Transactions() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const { data: transactions, isLoading } = useQuery<Transaction[]>({
     queryKey: ["/api/transactions"],
@@ -24,11 +26,11 @@ export default function Transactions() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "success":
-        return <Badge variant="default" className="bg-green-600">Success</Badge>;
+        return <Badge variant="default" className="bg-green-600">{t('transactions.success')}</Badge>;
       case "failed":
-        return <Badge variant="destructive">Failed</Badge>;
+        return <Badge variant="destructive">{t('transactions.failed')}</Badge>;
       case "pending":
-        return <Badge variant="secondary">Pending</Badge>;
+        return <Badge variant="secondary">{t('transactions.pending')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -37,18 +39,18 @@ export default function Transactions() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div>
-        <h1 className="text-3xl font-semibold flex items-center gap-2">
+        <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-transactions-title">
           <Activity className="h-8 w-8" />
-          Transactions
+          {t('transactions.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Browse all transactions on the TBURN blockchain
+          {t('transactions.subtitle')}
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>All Transactions</CardTitle>
+          <CardTitle>{t('common.all')} {t('common.transactions')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -62,16 +64,16 @@ export default function Transactions() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Tx Hash</TableHead>
-                    <TableHead>Block</TableHead>
-                    <TableHead>Age</TableHead>
-                    <TableHead>From</TableHead>
-                    <TableHead>To</TableHead>
-                    <TableHead>Value</TableHead>
-                    <TableHead>Gas Used</TableHead>
-                    <TableHead>Gas Price (EMB)</TableHead>
-                    <TableHead>Fee (EMB)</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>{t('transactions.txHash')}</TableHead>
+                    <TableHead>{t('common.block')}</TableHead>
+                    <TableHead>{t('common.time')}</TableHead>
+                    <TableHead>{t('common.from')}</TableHead>
+                    <TableHead>{t('common.to')}</TableHead>
+                    <TableHead>{t('common.value')}</TableHead>
+                    <TableHead>{t('transactions.gasUsed')}</TableHead>
+                    <TableHead>{t('transactions.gasPrice')}</TableHead>
+                    <TableHead>{t('common.fee')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -96,7 +98,7 @@ export default function Transactions() {
                       </TableCell>
                       <TableCell className="font-mono text-sm">
                         {tx.to ? formatAddress(tx.to) : (
-                          <span className="text-muted-foreground italic">Contract Creation</span>
+                          <span className="text-muted-foreground italic">{t('transactions.contractCreation')}</span>
                         )}
                       </TableCell>
                       <TableCell className="tabular-nums text-sm">
@@ -112,7 +114,7 @@ export default function Transactions() {
                       </TableCell>
                       <TableCell className="tabular-nums text-sm font-medium">
                         {tx.gasUsed != null ? calculateTransactionFeeEmber(tx.gasPrice, tx.gasUsed) : (
-                          <span className="text-muted-foreground">Pending</span>
+                          <span className="text-muted-foreground">{t('common.pending')}</span>
                         )}
                       </TableCell>
                       <TableCell>
@@ -125,7 +127,7 @@ export default function Transactions() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No transactions found</p>
+              <p className="text-muted-foreground">{t('errors.notFound')}</p>
             </div>
           )}
         </CardContent>

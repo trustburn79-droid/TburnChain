@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { Server, Award, Users, TrendingUp, Shield, Target, Brain, Vote, Coins, Crown, Layers, Flame, ArrowUpRight, X, Activity, Power, Ban, DollarSign } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -86,12 +87,12 @@ function getTierFromStake(stakeTBURN: number): 'tier_1' | 'tier_2' | 'tier_3' {
   return 'tier_3';
 }
 
-function getTierBadge(tier: 'tier_1' | 'tier_2' | 'tier_3', isCommitteeMember: boolean) {
+function getTierBadge(tier: 'tier_1' | 'tier_2' | 'tier_3', isCommitteeMember: boolean, t: (key: string) => string) {
   if (tier === 'tier_1' && isCommitteeMember) {
     return (
       <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white" data-testid="badge-tier-1">
         <Crown className="h-3 w-3 mr-1" />
-        Tier 1
+        {t('validators.tier1')}
       </Badge>
     );
   }
@@ -99,7 +100,7 @@ function getTierBadge(tier: 'tier_1' | 'tier_2' | 'tier_3', isCommitteeMember: b
     return (
       <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white" data-testid="badge-tier-1">
         <Shield className="h-3 w-3 mr-1" />
-        Tier 1
+        {t('validators.tier1')}
       </Badge>
     );
   }
@@ -107,14 +108,14 @@ function getTierBadge(tier: 'tier_1' | 'tier_2' | 'tier_3', isCommitteeMember: b
     return (
       <Badge className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white" data-testid="badge-tier-2">
         <Layers className="h-3 w-3 mr-1" />
-        Tier 2
+        {t('validators.tier2')}
       </Badge>
     );
   }
   return (
     <Badge variant="secondary" data-testid="badge-tier-3">
       <Users className="h-3 w-3 mr-1" />
-      Tier 3
+      {t('validators.tier3')}
     </Badge>
   );
 }
@@ -134,6 +135,7 @@ interface ValidatorDetailModalProps {
 }
 
 function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: ValidatorDetailModalProps) {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [delegateAmount, setDelegateAmount] = useState("");
   const [showDelegateForm, setShowDelegateForm] = useState(false);
@@ -145,8 +147,8 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
     },
     onSuccess: () => {
       toast({
-        title: "Delegation Successful",
-        description: `${delegateAmount} TBURN has been delegated.`,
+        title: t('validators.delegationSuccessful'),
+        description: t('validators.delegationSuccessDesc', { amount: delegateAmount }),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/validators'] });
       setShowDelegateForm(false);
@@ -154,8 +156,8 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
     },
     onError: () => {
       toast({
-        title: "Delegation Failed",
-        description: "Unable to delegate tokens.",
+        title: t('validators.delegationFailed'),
+        description: t('validators.delegationFailedDesc'),
         variant: "destructive",
       });
     },
@@ -168,15 +170,15 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
     },
     onSuccess: (data: any) => {
       toast({
-        title: "Rewards Claimed",
-        description: `${formatTokenAmount(data.amount)} TBURN claimed.`,
+        title: t('validators.rewardsClaimed'),
+        description: t('validators.rewardsClaimedDesc', { amount: formatTokenAmount(data.amount) }),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/validators'] });
     },
     onError: () => {
       toast({
-        title: "Claim Failed",
-        description: "Unable to claim rewards.",
+        title: t('validators.claimFailed'),
+        description: t('validators.claimFailedDesc'),
         variant: "destructive",
       });
     },
@@ -192,8 +194,8 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
   const delegatedAmount = parseFloat(validator.delegatedStake || "0") / 1e18;
 
   const pieData = [
-    { name: 'Direct Stake', value: directStake },
-    { name: 'Delegated', value: delegatedAmount }
+    { name: t('validators.directStake'), value: directStake },
+    { name: t('validators.delegated'), value: delegatedAmount }
   ];
   const COLORS = ['#8b5cf6', '#22c55e'];
 
@@ -215,13 +217,13 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                {getTierBadge(validator.tier, isCommitteeMember)}
+                {getTierBadge(validator.tier, isCommitteeMember, t)}
                 {isActive ? (
-                  <Badge className="bg-green-600">Active</Badge>
+                  <Badge className="bg-green-600">{t('validators.active')}</Badge>
                 ) : isJailed ? (
-                  <Badge variant="destructive">Jailed</Badge>
+                  <Badge variant="destructive">{t('validators.jailed')}</Badge>
                 ) : (
-                  <Badge variant="secondary">Inactive</Badge>
+                  <Badge variant="secondary">{t('validators.inactive')}</Badge>
                 )}
               </div>
             </div>
@@ -232,7 +234,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
               <Card className="border-destructive bg-destructive/10 mb-4">
                 <CardContent className="pt-4 flex items-center gap-2">
                   <Ban className="h-5 w-5 text-destructive" />
-                  <span className="text-sm text-destructive">This validator is currently jailed for network rule violations.</span>
+                  <span className="text-sm text-destructive">{t('validators.jailedWarning')}</span>
                 </CardContent>
               </Card>
             )}
@@ -242,7 +244,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                 <CardContent className="pt-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Vote className="h-4 w-4 text-purple-500" />
-                    <span className="text-xs text-muted-foreground">Voting Power</span>
+                    <span className="text-xs text-muted-foreground">{t('validators.votingPower')}</span>
                   </div>
                   <p className="text-lg font-bold">{formatNumber(votingPowerTBURN)}</p>
                   <p className="text-xs text-muted-foreground">TBURN</p>
@@ -252,27 +254,27 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                 <CardContent className="pt-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Users className="h-4 w-4 text-blue-500" />
-                    <span className="text-xs text-muted-foreground">Delegators</span>
+                    <span className="text-xs text-muted-foreground">{t('validators.delegators')}</span>
                   </div>
                   <p className="text-lg font-bold">{formatNumber(validator.delegators)}</p>
-                  <p className="text-xs text-muted-foreground">total</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.totalText')}</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-4">
                   <div className="flex items-center gap-2 mb-1">
                     <TrendingUp className="h-4 w-4 text-green-500" />
-                    <span className="text-xs text-muted-foreground">APY</span>
+                    <span className="text-xs text-muted-foreground">{t('validators.apy')}</span>
                   </div>
                   <p className="text-lg font-bold text-green-500">{(validator.apy / 100).toFixed(2)}%</p>
-                  <p className="text-xs text-muted-foreground">annual</p>
+                  <p className="text-xs text-muted-foreground">{t('staking.annual')}</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Activity className="h-4 w-4 text-orange-500" />
-                    <span className="text-xs text-muted-foreground">Uptime</span>
+                    <span className="text-xs text-muted-foreground">{t('validators.uptime')}</span>
                   </div>
                   <p className="text-lg font-bold">{(validator.uptime / 100).toFixed(2)}%</p>
                   <Progress value={validator.uptime / 100} className="mt-1" />
@@ -514,6 +516,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
 }
 
 export default function Validators() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { data: validators, isLoading } = useQuery<Validator[]>({
     queryKey: ["/api/validators"],
@@ -571,11 +574,11 @@ export default function Validators() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-green-600">Active</Badge>;
+        return <Badge className="bg-green-600">{t('common.active')}</Badge>;
       case "inactive":
-        return <Badge variant="secondary">Inactive</Badge>;
+        return <Badge variant="secondary">{t('common.inactive')}</Badge>;
       case "jailed":
-        return <Badge variant="destructive">Jailed</Badge>;
+        return <Badge variant="destructive">{t('validators.jailed')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -584,12 +587,12 @@ export default function Validators() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div>
-        <h1 className="text-3xl font-semibold flex items-center gap-2">
+        <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-validators-title">
           <Server className="h-8 w-8" />
-          Validators
+          {t('validators.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Tiered Validator System with AI-Enhanced Committee BFT
+          {t('validators.subtitle')}
         </p>
       </div>
 
@@ -751,34 +754,34 @@ export default function Validators() {
         ) : (
           <>
             <StatCard
-              title="Active Validators"
+              title={t('validators.activeValidators')}
               value={activeValidators}
               icon={Server}
-              subtitle={`of ${validators?.length || 0} total`}
+              subtitle={`${validators?.length || 0} ${t('common.total')}`}
             />
             <StatCard
-              title="Total Stake"
+              title={t('validators.totalStake')}
               value={`${formatNumber(totalStake / 1e18)} TBURN`}
               icon={Award}
-              subtitle="direct staked"
+              subtitle={t('validators.directStaked')}
             />
             <StatCard
-              title="Delegated Stake"
+              title={t('validators.delegatedStake')}
               value={`${formatNumber(totalDelegated / 1e18)} TBURN`}
               icon={Coins}
-              subtitle="delegated tokens"
+              subtitle={t('validators.delegatedTokens')}
             />
             <StatCard
-              title="Committee Size"
+              title={t('validators.committeeSize')}
               value="21"
               icon={Crown}
-              subtitle="top validators"
+              subtitle={t('validators.topValidators')}
             />
             <StatCard
-              title="Total Delegators"
+              title={t('validators.totalDelegators')}
               value={formatNumber(validators?.reduce((sum, v) => sum + v.delegators, 0) || 0)}
               icon={Users}
-              subtitle="unique delegators"
+              subtitle={t('validators.uniqueDelegators')}
             />
           </>
         )}
@@ -787,9 +790,9 @@ export default function Validators() {
       {/* Validators Table */}
       <Card>
         <CardHeader>
-          <CardTitle>All Validators</CardTitle>
+          <CardTitle>{t('validators.allValidators')}</CardTitle>
           <CardDescription>
-            Tiered system: Tier 1 (200K+), Tier 2 (50K+), Tier 3 (Delegators)
+            {t('validators.tieredSystemDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -804,18 +807,18 @@ export default function Validators() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Rank</TableHead>
-                    <TableHead>Validator</TableHead>
-                    <TableHead>Tier</TableHead>
-                    <TableHead>Voting Power</TableHead>
-                    <TableHead>Direct Stake</TableHead>
-                    <TableHead>Delegated</TableHead>
-                    <TableHead>Commission</TableHead>
-                    <TableHead>APY</TableHead>
-                    <TableHead>Uptime</TableHead>
-                    <TableHead>AI Trust</TableHead>
-                    <TableHead>Blocks</TableHead>
-                    <TableHead>Delegators</TableHead>
+                    <TableHead>{t('validators.rank')}</TableHead>
+                    <TableHead>{t('validators.validator')}</TableHead>
+                    <TableHead>{t('validators.tier')}</TableHead>
+                    <TableHead>{t('validators.votingPower')}</TableHead>
+                    <TableHead>{t('validators.directStake')}</TableHead>
+                    <TableHead>{t('validators.delegated')}</TableHead>
+                    <TableHead>{t('validators.commission')}</TableHead>
+                    <TableHead>{t('validators.apy')}</TableHead>
+                    <TableHead>{t('validators.uptime')}</TableHead>
+                    <TableHead>{t('validators.aiTrust')}</TableHead>
+                    <TableHead>{t('validators.blocks')}</TableHead>
+                    <TableHead>{t('validators.delegators')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

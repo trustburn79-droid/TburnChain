@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 import { Wallet, Search, TrendingUp, Users, DollarSign, Award } from "lucide-react";
 import { formatAddress } from "@/lib/formatters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,6 +23,7 @@ import { walletBalancesSnapshotSchema } from "@shared/schema";
 import type { WalletBalance } from "@shared/schema";
 
 export default function Wallets() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -57,12 +59,12 @@ export default function Wallets() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div>
-        <h1 className="text-3xl font-semibold flex items-center gap-2">
+        <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-wallets-title">
           <Wallet className="h-8 w-8" />
-          Wallet Explorer
+          {t('wallets.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Track wallet balances, stakes, and rewards
+          {t('wallets.subtitle')}
         </p>
       </div>
 
@@ -78,29 +80,29 @@ export default function Wallets() {
         ) : (
           <>
             <StatCard
-              title="Total Wallets"
+              title={t('wallets.totalWallets')}
               value={formatNumber(totalWallets)}
               icon={Users}
-              subtitle="registered addresses"
+              subtitle={t('wallets.registeredAddresses')}
             />
             <StatCard
-              title="Total Balance"
+              title={t('wallets.totalBalance')}
               value={`${formatBalance(totalBalance.toString())} TBURN`}
               icon={DollarSign}
-              subtitle="across all wallets"
+              subtitle={t('wallets.acrossAllWallets')}
             />
             <StatCard
-              title="Total Rewards"
+              title={t('wallets.totalRewards')}
               value={`${formatBalance(totalRewards.toString())} TBURN`}
               icon={Award}
               trend={{ value: 18.3, isPositive: true }}
-              subtitle="distributed"
+              subtitle={t('wallets.distributed')}
             />
             <StatCard
-              title="Active Wallets"
+              title={t('wallets.activeWallets')}
               value={formatNumber(activeWallets)}
               icon={TrendingUp}
-              subtitle="with transactions"
+              subtitle={t('wallets.withTransactions')}
             />
           </>
         )}
@@ -110,11 +112,11 @@ export default function Wallets() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between gap-4">
-            <CardTitle>Wallet Addresses</CardTitle>
+            <CardTitle>{t('wallets.walletAddresses')}</CardTitle>
             <div className="relative w-full max-w-sm">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search by address..."
+                placeholder={t('wallets.searchByAddress')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-9"
@@ -135,13 +137,13 @@ export default function Wallets() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Address</TableHead>
-                    <TableHead>Balance</TableHead>
-                    <TableHead>Staked</TableHead>
-                    <TableHead>Unstaked</TableHead>
-                    <TableHead>Rewards</TableHead>
-                    <TableHead>Transactions</TableHead>
-                    <TableHead>Last Activity</TableHead>
+                    <TableHead>{t('common.address')}</TableHead>
+                    <TableHead>{t('common.balance')}</TableHead>
+                    <TableHead>{t('wallets.staked')}</TableHead>
+                    <TableHead>{t('wallets.unstaked')}</TableHead>
+                    <TableHead>{t('wallets.rewards')}</TableHead>
+                    <TableHead>{t('common.transactions')}</TableHead>
+                    <TableHead>{t('wallets.lastActivity')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -171,7 +173,7 @@ export default function Wallets() {
                         <Badge variant="outline">{formatNumber(wallet.transactionCount)} txs</Badge>
                       </TableCell>
                       <TableCell className="text-muted-foreground text-sm tabular-nums">
-                        {wallet.lastTransactionAt ? new Date(wallet.lastTransactionAt).toLocaleString() : 'Never'}
+                        {wallet.lastTransactionAt ? new Date(wallet.lastTransactionAt).toLocaleString() : t('wallets.never')}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -181,7 +183,7 @@ export default function Wallets() {
           ) : (
             <div className="text-center py-12">
               <p className="text-muted-foreground">
-                {searchTerm ? `No wallets found matching "${searchTerm}"` : 'No wallets found'}
+                {searchTerm ? t('wallets.noWalletsMatching', { term: searchTerm }) : t('wallets.noWalletsFound')}
               </p>
             </div>
           )}

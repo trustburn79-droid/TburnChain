@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import {
   Card,
   CardContent,
@@ -564,6 +565,7 @@ function MemberDetailModal({
 }
 
 export default function MembersPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [tierFilter, setTierFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -726,9 +728,9 @@ export default function MembersPage() {
   return (
     <div className="container mx-auto p-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Member Management</h1>
+        <h1 className="text-4xl font-bold mb-2" data-testid="text-members-title">{t('members.title')}</h1>
         <p className="text-muted-foreground">
-          Comprehensive member, staker, and validator management system
+          {t('members.subtitle')}
         </p>
       </div>
 
@@ -736,7 +738,7 @@ export default function MembersPage() {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
         <Card data-testid="card-total-members">
           <CardHeader className="pb-3">
-            <CardDescription>Total Members</CardDescription>
+            <CardDescription>{t('members.totalMembers')}</CardDescription>
             <CardTitle className="text-2xl">
               {stats?.totalMembers || 0}
             </CardTitle>
@@ -744,7 +746,7 @@ export default function MembersPage() {
         </Card>
         <Card data-testid="card-active-members">
           <CardHeader className="pb-3">
-            <CardDescription>Active Members</CardDescription>
+            <CardDescription>{t('members.activeMembers')}</CardDescription>
             <CardTitle className="text-2xl text-green-500">
               {stats?.activeMembers || 0}
             </CardTitle>
@@ -752,7 +754,7 @@ export default function MembersPage() {
         </Card>
         <Card data-testid="card-total-validators">
           <CardHeader className="pb-3">
-            <CardDescription>Total Validators</CardDescription>
+            <CardDescription>{t('members.totalValidators')}</CardDescription>
             <CardTitle className="text-2xl text-blue-500">
               {stats?.totalValidators || 0}
             </CardTitle>
@@ -760,7 +762,7 @@ export default function MembersPage() {
         </Card>
         <Card data-testid="card-total-stakers">
           <CardHeader className="pb-3">
-            <CardDescription>Total Stakers</CardDescription>
+            <CardDescription>{t('members.totalStakers')}</CardDescription>
             <CardTitle className="text-2xl text-purple-500">
               {stats?.totalStakers || 0}
             </CardTitle>
@@ -768,7 +770,7 @@ export default function MembersPage() {
         </Card>
         <Card data-testid="card-kyc-verified">
           <CardHeader className="pb-3">
-            <CardDescription>KYC Verified</CardDescription>
+            <CardDescription>{t('members.kycVerified')}</CardDescription>
             <CardTitle className="text-2xl text-indigo-500">
               {stats?.kycVerified || 0}
             </CardTitle>
@@ -781,7 +783,7 @@ export default function MembersPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FilterIcon className="h-5 w-5" />
-            Filters & Search
+            {t('members.filtersSearch')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -789,7 +791,7 @@ export default function MembersPage() {
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search by address, name, or email..."
+                placeholder={t('members.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -798,41 +800,41 @@ export default function MembersPage() {
             </div>
             <Select value={tierFilter} onValueChange={setTierFilter}>
               <SelectTrigger data-testid="select-tier-filter">
-                <SelectValue placeholder="Filter by tier" />
+                <SelectValue placeholder={t('members.filterByTier')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Tiers</SelectItem>
-                <SelectItem value="basic_user">Basic User</SelectItem>
-                <SelectItem value="staker">Staker</SelectItem>
-                <SelectItem value="active_validator">Active Validator</SelectItem>
-                <SelectItem value="inactive_validator">Inactive Validator</SelectItem>
-                <SelectItem value="genesis_validator">Genesis Validator</SelectItem>
-                <SelectItem value="enterprise_validator">Enterprise Validator</SelectItem>
-                <SelectItem value="governance_validator">Governance Validator</SelectItem>
+                <SelectItem value="all">{t('members.allTiers')}</SelectItem>
+                <SelectItem value="basic_user">{t('members.basicUser')}</SelectItem>
+                <SelectItem value="staker">{t('members.staker')}</SelectItem>
+                <SelectItem value="active_validator">{t('members.activeValidator')}</SelectItem>
+                <SelectItem value="inactive_validator">{t('members.inactiveValidator')}</SelectItem>
+                <SelectItem value="genesis_validator">{t('members.genesisValidator')}</SelectItem>
+                <SelectItem value="enterprise_validator">{t('members.enterpriseValidator')}</SelectItem>
+                <SelectItem value="governance_validator">{t('members.governanceValidator')}</SelectItem>
               </SelectContent>
             </Select>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger data-testid="select-status-filter">
-                <SelectValue placeholder="Filter by status" />
+                <SelectValue placeholder={t('members.filterByStatus')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Statuses</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
-                <SelectItem value="suspended">Suspended</SelectItem>
-                <SelectItem value="pending_kyc">Pending KYC</SelectItem>
+                <SelectItem value="all">{t('members.allStatuses')}</SelectItem>
+                <SelectItem value="active">{t('common.active')}</SelectItem>
+                <SelectItem value="inactive">{t('common.inactive')}</SelectItem>
+                <SelectItem value="suspended">{t('members.suspended')}</SelectItem>
+                <SelectItem value="pending_kyc">{t('members.pendingKyc')}</SelectItem>
               </SelectContent>
             </Select>
             <Select value={kycFilter} onValueChange={setKycFilter}>
               <SelectTrigger data-testid="select-kyc-filter">
-                <SelectValue placeholder="Filter by KYC level" />
+                <SelectValue placeholder={t('members.filterByKyc')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All KYC Levels</SelectItem>
-                <SelectItem value="none">None</SelectItem>
-                <SelectItem value="basic">Basic</SelectItem>
-                <SelectItem value="advanced">Advanced</SelectItem>
-                <SelectItem value="institutional">Institutional</SelectItem>
+                <SelectItem value="all">{t('members.allKycLevels')}</SelectItem>
+                <SelectItem value="none">{t('common.none')}</SelectItem>
+                <SelectItem value="basic">{t('members.basicKyc')}</SelectItem>
+                <SelectItem value="advanced">{t('members.advancedKyc')}</SelectItem>
+                <SelectItem value="institutional">{t('members.institutionalKyc')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -843,16 +845,16 @@ export default function MembersPage() {
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList className="mb-4">
           <TabsTrigger value="all" data-testid="tab-all">
-            All Members ({members.length})
+            {t('members.allMembers')} ({members.length})
           </TabsTrigger>
           <TabsTrigger value="validators" data-testid="tab-validators">
-            Validators ({members.filter(m => m.memberTier.includes("validator")).length})
+            {t('members.validators')} ({members.filter(m => m.memberTier.includes("validator")).length})
           </TabsTrigger>
           <TabsTrigger value="stakers" data-testid="tab-stakers">
-            Stakers ({members.filter(m => m.memberTier === "staker" || m.memberTier.includes("validator")).length})
+            {t('members.stakers')} ({members.filter(m => m.memberTier === "staker" || m.memberTier.includes("validator")).length})
           </TabsTrigger>
           <TabsTrigger value="pending" data-testid="tab-pending">
-            Pending KYC ({members.filter(m => m.memberStatus === "pending_kyc").length})
+            {t('members.pendingKyc')} ({members.filter(m => m.memberStatus === "pending_kyc").length})
           </TabsTrigger>
         </TabsList>
 
@@ -860,9 +862,9 @@ export default function MembersPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
               <div>
-                <CardTitle>Members List</CardTitle>
+                <CardTitle>{t('members.membersList')}</CardTitle>
                 <CardDescription>
-                  {filteredMembers.length} members found
+                  {filteredMembers.length} {t('members.membersFound')}
                 </CardDescription>
               </div>
               <div className="flex gap-2">
@@ -873,20 +875,20 @@ export default function MembersPage() {
                   data-testid="button-sync-validators"
                 >
                   <Shield className="h-4 w-4 mr-2" />
-                  {syncValidatorsMutation.isPending ? "Syncing..." : "Sync Validators"}
+                  {syncValidatorsMutation.isPending ? t('members.syncing') : t('members.syncValidators')}
                 </Button>
                 <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
                   <DialogTrigger asChild>
                     <Button data-testid="button-create-member">
                       <UserPlus className="h-4 w-4 mr-2" />
-                      Create Member
+                      {t('members.createMember')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl">
                   <DialogHeader>
-                    <DialogTitle>Create New Member</DialogTitle>
+                    <DialogTitle>{t('members.createNewMember')}</DialogTitle>
                     <DialogDescription>
-                      Add a new member to the TBURN blockchain network
+                      {t('members.createMemberDescription')}
                     </DialogDescription>
                   </DialogHeader>
                   <Form {...form}>
