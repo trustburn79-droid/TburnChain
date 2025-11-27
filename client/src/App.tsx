@@ -12,6 +12,8 @@ import { WebSocketProvider } from "@/lib/websocket-context";
 import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
 import { AdminPasswordProvider } from "@/hooks/use-admin-password";
 import { OperatorAuthGuard } from "@/components/operator-auth-guard";
+import { LanguageSelector } from "@/components/language-selector";
+import '@/lib/i18n';
 
 // Pages
 import Dashboard from "@/pages/dashboard";
@@ -210,7 +212,10 @@ function AuthenticatedApp() {
               <DemoBanner isLiveMode={isLiveMode} />
               <header className="flex items-center justify-between p-4 border-b">
                 <SidebarTrigger data-testid="button-sidebar-toggle" />
-                <ThemeToggle />
+                <div className="flex items-center gap-2">
+                  <LanguageSelector />
+                  <ThemeToggle />
+                </div>
               </header>
               <main className="flex-1 overflow-auto">
                 <Router />
