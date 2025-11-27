@@ -44,6 +44,12 @@ import Bridge from "@/pages/bridge";
 import Governance from "@/pages/governance";
 import BurnDashboard from "@/pages/burn";
 
+// Staking Infrastructure Pages
+import StakingDashboard from "@/pages/staking";
+import StakingPoolDetail from "@/pages/staking-pool-detail";
+import StakingRewards from "@/pages/staking-rewards";
+import StakingSDK from "@/pages/staking-sdk";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -91,6 +97,11 @@ function Router() {
       <Route path="/bridge" component={Bridge} />
       <Route path="/governance" component={Governance} />
       <Route path="/burn" component={BurnDashboard} />
+      {/* Staking Infrastructure Routes */}
+      <Route path="/staking" component={StakingDashboard} />
+      <Route path="/staking/pool/:id" component={StakingPoolDetail} />
+      <Route path="/staking/rewards" component={StakingRewards} />
+      <Route path="/staking/sdk" component={StakingSDK} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

@@ -1405,6 +1405,378 @@ export type DeployedToken = typeof deployedTokens.$inferSelect;
 export type InsertDeployedToken = z.infer<typeof insertDeployedTokenSchema>;
 
 // ============================================
+// TBURN Staking Infrastructure v1.0
+// ============================================
+
+// Staking Pool Types Enum
+export const STAKING_POOL_TYPES = ["public", "private", "validator", "institutional", "liquid"] as const;
+export type StakingPoolType = typeof STAKING_POOL_TYPES[number];
+
+// Staking Pool Status Enum
+export const STAKING_POOL_STATUS = ["active", "paused", "full", "closing", "closed", "emergency"] as const;
+export type StakingPoolStatus = typeof STAKING_POOL_STATUS[number];
+
+// Staking Tier Enum (Bronze, Silver, Gold, Platinum, Diamond)
+export const STAKING_TIERS = ["bronze", "silver", "gold", "platinum", "diamond"] as const;
+export type StakingTier = typeof STAKING_TIERS[number];
+
+// Lock Period Enum
+export const LOCK_PERIODS = ["none", "7days", "30days", "90days", "180days", "365days"] as const;
+export type LockPeriod = typeof LOCK_PERIODS[number];
+
+// Reward Type Enum
+export const REWARD_TYPES = ["fixed", "dynamic", "performance", "tiered"] as const;
+export type RewardType = typeof REWARD_TYPES[number];
+
+// Delegation Status Enum
+export const DELEGATION_STATUS = ["active", "unbonding", "redelegating", "completed", "cancelled", "slashed"] as const;
+export type DelegationStatus = typeof DELEGATION_STATUS[number];
+
+// Staking Pools Table
+export const stakingPools = pgTable("staking_pools", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  symbol: text("symbol").notNull(),
+  poolType: text("pool_type").notNull().default("public"), // public, private, validator, institutional, liquid
+  tier: text("tier").notNull().default("bronze"), // bronze, silver, gold, platinum, diamond
+  status: text("status").notNull().default("active"), // active, paused, full, closing, closed, emergency
+  
+  // Pool Configuration
+  minStake: text("min_stake").notNull().default("1000000000000000000"), // 1 TBURN in wei
+  maxStake: text("max_stake"), // per-user max
+  maxTotalStake: text("max_total_stake"), // pool capacity
+  
+  // Validator Association
+  validatorId: varchar("validator_id"), // references validators table
+  validatorAddress: text("validator_address"),
+  validatorName: text("validator_name"),
+  
+  // Lock & Reward Settings
+  lockPeriod: text("lock_period").notNull().default("30days"), // none, 7days, 30days, 90days, 180days, 365days
+  lockPeriodDays: integer("lock_period_days").notNull().default(30), // lock period in days
+  rewardType: text("reward_type").notNull().default("fixed"), // fixed, dynamic, performance, tiered
+  rewardFrequency: text("reward_frequency").notNull().default("daily"), // hourly, daily, weekly, monthly
+  baseApy: integer("base_apy").notNull().default(1200), // basis points (1200 = 12%)
+  maxApy: integer("max_apy").notNull().default(2500), // basis points (2500 = 25%)
+  apyBoost: integer("apy_boost").notNull().default(0), // additional APY boost in basis points
+  
+  // Fee Structure
+  entryFee: integer("entry_fee").notNull().default(0), // basis points
+  exitFee: integer("exit_fee").notNull().default(50), // basis points (0.5%)
+  performanceFee: integer("performance_fee").notNull().default(1000), // basis points (10%)
+  earlyWithdrawalPenalty: integer("early_withdrawal_penalty").notNull().default(500), // basis points (5%)
+  
+  // Compound Settings
+  autoCompoundEnabled: boolean("auto_compound_enabled").notNull().default(true),
+  compoundFrequencyHours: integer("compound_frequency_hours").notNull().default(24),
+  
+  // Pool Metrics
+  totalStaked: text("total_staked").notNull().default("0"),
+  totalRewards: text("total_rewards").notNull().default("0"),
+  totalStakers: integer("total_stakers").notNull().default(0),
+  totalValidators: integer("total_validators").notNull().default(0),
+  currentApy: integer("current_apy").notNull().default(1200), // basis points
+  
+  // Metadata
+  description: text("description"),
+  logoUrl: text("logo_url"),
+  websiteUrl: text("website_url"),
+  termsUrl: text("terms_url"),
+  auditReportUrl: text("audit_report_url"),
+  
+  // Whitelist settings
+  whitelistEnabled: boolean("whitelist_enabled").notNull().default(false),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  lastRewardUpdate: timestamp("last_reward_update"),
+});
+
+// Staking Positions (User stakes in pools)
+export const stakingPositions = pgTable("staking_positions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(), // references staking_pools
+  stakerAddress: text("staker_address").notNull(),
+  
+  // Position Details
+  stakedAmount: text("staked_amount").notNull(),
+  tier: text("tier").notNull().default("bronze"), // bronze, silver, gold, platinum, diamond
+  
+  // Reward Tracking
+  rewardsEarned: text("rewards_earned").notNull().default("0"),
+  rewardsClaimed: text("rewards_claimed").notNull().default("0"),
+  pendingRewards: text("pending_rewards").notNull().default("0"),
+  
+  // Compound Settings
+  autoCompound: boolean("auto_compound").notNull().default(false),
+  lastCompoundAt: timestamp("last_compound_at"),
+  
+  // Lock Settings
+  lockPeriod: text("lock_period").notNull(),
+  unlockAt: timestamp("unlock_at"),
+  
+  // Delegation (optional - if delegated to a validator)
+  delegatedValidatorId: varchar("delegated_validator_id"),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, unbonding, completed
+  
+  // Timestamps
+  stakedAt: timestamp("staked_at").notNull().defaultNow(),
+  lastActionAt: timestamp("last_action_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Staking Delegations (Enhanced delegations with pool support - extends base delegations)
+export const stakingDelegations = pgTable("staking_delegations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  delegatorAddress: text("delegator_address").notNull(),
+  validatorId: varchar("validator_id").notNull(), // references validators table
+  poolId: varchar("pool_id"), // optional - if through a pool
+  
+  // Delegation Details
+  amount: text("amount").notNull(),
+  shares: text("shares").notNull().default("0"), // proportional share for rewards
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, unbonding, redelegating, completed, cancelled, slashed
+  
+  // Unbonding
+  unbondingStartAt: timestamp("unbonding_start_at"),
+  unbondingEndAt: timestamp("unbonding_end_at"),
+  
+  // Redelegation
+  redelegatingToValidatorId: varchar("redelegating_to_validator_id"),
+  redelegationCompleteAt: timestamp("redelegation_complete_at"),
+  
+  // Reward Tracking
+  rewardsEarned: text("rewards_earned").notNull().default("0"),
+  rewardsClaimed: text("rewards_claimed").notNull().default("0"),
+  pendingRewards: text("pending_rewards").notNull().default("0"),
+  
+  // Slashing Protection
+  slashedAmount: text("slashed_amount").notNull().default("0"),
+  slashCount: integer("slash_count").notNull().default(0),
+  
+  // Timestamps
+  delegatedAt: timestamp("delegated_at").notNull().defaultNow(),
+  lastActionAt: timestamp("last_action_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Unbonding Requests
+export const unbondingRequests = pgTable("unbonding_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  delegationId: varchar("delegation_id").notNull(), // references delegations
+  delegatorAddress: text("delegator_address").notNull(),
+  validatorId: varchar("validator_id").notNull(),
+  
+  // Unbonding Details
+  amount: text("amount").notNull(),
+  startedAt: timestamp("started_at").notNull().defaultNow(),
+  completesAt: timestamp("completes_at").notNull(), // 21 days from start
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, completed, cancelled
+  completedAt: timestamp("completed_at"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Reward Cycles (Epoch-based reward distribution)
+export const rewardCycles = pgTable("reward_cycles", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  cycleNumber: integer("cycle_number").notNull().unique(),
+  poolId: varchar("pool_id"), // null for global rewards
+  
+  // Cycle Details
+  startedAt: timestamp("started_at").notNull(),
+  endedAt: timestamp("ended_at"),
+  durationHours: integer("duration_hours").notNull().default(24),
+  
+  // Reward Amounts
+  totalRewards: text("total_rewards").notNull().default("0"),
+  distributedRewards: text("distributed_rewards").notNull().default("0"),
+  treasurySplit: text("treasury_split").notNull().default("0"), // Amount sent to treasury
+  validatorFees: text("validator_fees").notNull().default("0"),
+  
+  // Metrics
+  totalStakersRewarded: integer("total_stakers_rewarded").notNull().default(0),
+  averageRewardPerStaker: text("average_reward_per_staker").notNull().default("0"),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, completed, pending
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Reward Events (Individual reward distributions)
+export const rewardEvents = pgTable("reward_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  cycleId: varchar("cycle_id").notNull(), // references reward_cycles
+  recipientAddress: text("recipient_address").notNull(),
+  poolId: varchar("pool_id"),
+  validatorId: varchar("validator_id"),
+  
+  // Reward Details
+  rewardType: text("reward_type").notNull(), // staking, delegation, commission, bonus, penalty
+  amount: text("amount").notNull(),
+  tierMultiplier: integer("tier_multiplier").notNull().default(10000), // basis points (10000 = 1x)
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, distributed, claimed, failed
+  distributedAt: timestamp("distributed_at"),
+  claimedAt: timestamp("claimed_at"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Slashing Events
+export const slashingEvents = pgTable("slashing_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  validatorId: varchar("validator_id").notNull(),
+  
+  // Slashing Details
+  reason: text("reason").notNull(), // double_sign, downtime, malicious_behavior
+  severity: text("severity").notNull(), // minor, major, critical
+  slashPercentage: integer("slash_percentage").notNull(), // basis points
+  totalSlashed: text("total_slashed").notNull(),
+  affectedDelegators: integer("affected_delegators").notNull().default(0),
+  
+  // Evidence
+  evidence: jsonb("evidence"),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Status
+  status: text("status").notNull().default("executed"), // proposed, executed, reverted
+  
+  // Timestamps
+  occurredAt: timestamp("occurred_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Pool Whitelist
+export const poolWhitelist = pgTable("pool_whitelist", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(),
+  address: text("address").notNull(),
+  addedBy: text("added_by").notNull(),
+  addedAt: timestamp("added_at").notNull().defaultNow(),
+});
+
+// Staking Statistics (Aggregated metrics)
+export const stakingStats = pgTable("staking_stats", {
+  id: varchar("id").primaryKey().default("singleton"),
+  
+  // Global Metrics
+  totalValueLocked: text("total_value_locked").notNull().default("0"),
+  totalRewardsDistributed: text("total_rewards_distributed").notNull().default("0"),
+  totalStakers: integer("total_stakers").notNull().default(0),
+  totalPools: integer("total_pools").notNull().default(0),
+  
+  // APY Metrics
+  averageApy: integer("average_apy").notNull().default(0), // basis points
+  highestApy: integer("highest_apy").notNull().default(0),
+  lowestApy: integer("lowest_apy").notNull().default(0),
+  
+  // Tier Distribution
+  bronzeStakers: integer("bronze_stakers").notNull().default(0),
+  silverStakers: integer("silver_stakers").notNull().default(0),
+  goldStakers: integer("gold_stakers").notNull().default(0),
+  platinumStakers: integer("platinum_stakers").notNull().default(0),
+  diamondStakers: integer("diamond_stakers").notNull().default(0),
+  
+  // Current Epoch/Cycle
+  currentRewardCycle: integer("current_reward_cycle").notNull().default(0),
+  lastRewardDistribution: timestamp("last_reward_distribution"),
+  
+  // Timestamps
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Insert Schemas for Staking Infrastructure
+export const insertStakingPoolSchema = createInsertSchema(stakingPools).omit({ 
+  id: true, 
+  createdAt: true, 
+  updatedAt: true 
+});
+
+export const insertStakingPositionSchema = createInsertSchema(stakingPositions).omit({ 
+  id: true, 
+  createdAt: true, 
+  updatedAt: true 
+});
+
+export const insertStakingDelegationSchema = createInsertSchema(stakingDelegations).omit({ 
+  id: true, 
+  createdAt: true, 
+  updatedAt: true 
+});
+
+export const insertUnbondingRequestSchema = createInsertSchema(unbondingRequests).omit({ 
+  id: true, 
+  createdAt: true 
+});
+
+export const insertRewardCycleSchema = createInsertSchema(rewardCycles).omit({ 
+  id: true, 
+  createdAt: true 
+});
+
+export const insertRewardEventSchema = createInsertSchema(rewardEvents).omit({ 
+  id: true, 
+  createdAt: true 
+});
+
+export const insertSlashingEventSchema = createInsertSchema(slashingEvents).omit({ 
+  id: true, 
+  createdAt: true 
+});
+
+export const insertPoolWhitelistSchema = createInsertSchema(poolWhitelist).omit({ 
+  id: true, 
+  addedAt: true 
+});
+
+export const insertStakingStatsSchema = createInsertSchema(stakingStats).omit({ 
+  updatedAt: true 
+});
+
+// Staking Infrastructure Types
+export type StakingPool = typeof stakingPools.$inferSelect;
+export type InsertStakingPool = z.infer<typeof insertStakingPoolSchema>;
+
+export type StakingPosition = typeof stakingPositions.$inferSelect;
+export type InsertStakingPosition = z.infer<typeof insertStakingPositionSchema>;
+
+export type StakingDelegation = typeof stakingDelegations.$inferSelect;
+export type InsertStakingDelegation = z.infer<typeof insertStakingDelegationSchema>;
+
+export type UnbondingRequest = typeof unbondingRequests.$inferSelect;
+export type InsertUnbondingRequest = z.infer<typeof insertUnbondingRequestSchema>;
+
+export type RewardCycle = typeof rewardCycles.$inferSelect;
+export type InsertRewardCycle = z.infer<typeof insertRewardCycleSchema>;
+
+export type RewardEvent = typeof rewardEvents.$inferSelect;
+export type InsertRewardEvent = z.infer<typeof insertRewardEventSchema>;
+
+export type SlashingEvent = typeof slashingEvents.$inferSelect;
+export type InsertSlashingEvent = z.infer<typeof insertSlashingEventSchema>;
+
+export type PoolWhitelist = typeof poolWhitelist.$inferSelect;
+export type InsertPoolWhitelist = z.infer<typeof insertPoolWhitelistSchema>;
+
+export type StakingStats = typeof stakingStats.$inferSelect;
+export type InsertStakingStats = z.infer<typeof insertStakingStatsSchema>;
+
+// ============================================
 // Additional Types for Frontend
 // ============================================
 

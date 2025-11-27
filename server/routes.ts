@@ -5713,6 +5713,309 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ============================================
+  // STAKING INFRASTRUCTURE API
+  // ============================================
+
+  // Staking Statistics (Overview)
+  app.get("/api/staking/stats", requireAuth, async (_req, res) => {
+    try {
+      const stats = await storage.getStakingStats();
+      if (!stats) {
+        return res.json({
+          totalValueLocked: "0",
+          totalRewardsDistributed: "0",
+          totalStakers: 0,
+          totalPools: 0,
+          averageApy: 0,
+          highestApy: 0,
+          lowestApy: 0,
+          currentRewardCycle: 0,
+        });
+      }
+      res.json(stats);
+    } catch (error: any) {
+      console.error('Error fetching staking stats:', error);
+      res.status(500).json({ error: "Failed to fetch staking statistics" });
+    }
+  });
+
+  // Transform pool data to frontend format
+  function transformPoolForFrontend(pool: any) {
+    return {
+      id: pool.id,
+      name: pool.name,
+      poolType: pool.poolType || "public",
+      tier: pool.tier || "bronze",
+      validatorId: pool.validatorId,
+      validatorAddress: pool.validatorAddress || `0x${Math.random().toString(16).slice(2, 42)}`,
+      validatorName: pool.validatorName || `TBURN Validator ${pool.id?.slice(0, 4)}`,
+      minStake: pool.minStake || "1000000000000000000",
+      maxStake: pool.maxStake,
+      apy: (pool.baseApy || 1200) / 100, // Convert basis points to percentage
+      apyBoost: (pool.apyBoost || pool.maxApy - pool.baseApy || 0) / 100,
+      totalStaked: pool.totalStaked || "0",
+      stakersCount: pool.totalStakers || 0,
+      lockPeriodDays: pool.lockPeriodDays || parseInt(pool.lockPeriod?.replace(/\D/g, '') || '30'),
+      earlyWithdrawalPenalty: (pool.earlyWithdrawalPenalty || 500) / 100, // Convert basis points to percentage
+      status: pool.status || "active",
+      isCompoundingEnabled: pool.autoCompoundEnabled !== false,
+      rewardFrequency: pool.rewardFrequency || (pool.compoundFrequencyHours === 24 ? "daily" : pool.compoundFrequencyHours === 168 ? "weekly" : "daily"),
+      description: pool.description || "High-yield staking pool with advanced features",
+      createdAt: pool.createdAt,
+    };
+  }
+
+  // Staking Pools
+  app.get("/api/staking/pools", requireAuth, async (req, res) => {
+    try {
+      const poolType = req.query.type as string;
+      let pools;
+      
+      if (poolType) {
+        pools = await storage.getStakingPoolsByType(poolType);
+      } else {
+        pools = await storage.getAllStakingPools();
+      }
+      
+      // Transform to frontend format
+      const transformedPools = pools.map(transformPoolForFrontend);
+      res.json(transformedPools);
+    } catch (error: any) {
+      console.error('Error fetching staking pools:', error);
+      res.status(500).json({ error: "Failed to fetch staking pools" });
+    }
+  });
+
+  app.get("/api/staking/pools/:id", requireAuth, async (req, res) => {
+    try {
+      const pool = await storage.getStakingPoolById(req.params.id);
+      if (!pool) {
+        return res.status(404).json({ error: "Staking pool not found" });
+      }
+      res.json(transformPoolForFrontend(pool));
+    } catch (error: any) {
+      console.error('Error fetching staking pool:', error);
+      res.status(500).json({ error: "Failed to fetch staking pool" });
+    }
+  });
+
+  // Staking Positions
+  app.get("/api/staking/positions", requireAuth, async (req, res) => {
+    try {
+      const address = req.query.address as string;
+      const poolId = req.query.poolId as string;
+      
+      let positions;
+      if (address) {
+        positions = await storage.getStakingPositionsByAddress(address);
+      } else if (poolId) {
+        positions = await storage.getStakingPositionsByPool(poolId);
+      } else {
+        positions = await storage.getAllStakingPositions();
+      }
+      
+      res.json(positions);
+    } catch (error: any) {
+      console.error('Error fetching staking positions:', error);
+      res.status(500).json({ error: "Failed to fetch staking positions" });
+    }
+  });
+
+  app.get("/api/staking/positions/:id", requireAuth, async (req, res) => {
+    try {
+      const position = await storage.getStakingPositionById(req.params.id);
+      if (!position) {
+        return res.status(404).json({ error: "Staking position not found" });
+      }
+      res.json(position);
+    } catch (error: any) {
+      console.error('Error fetching staking position:', error);
+      res.status(500).json({ error: "Failed to fetch staking position" });
+    }
+  });
+
+  // Staking Delegations
+  app.get("/api/staking/delegations", requireAuth, async (req, res) => {
+    try {
+      const address = req.query.address as string;
+      const validatorId = req.query.validatorId as string;
+      
+      let delegations;
+      if (address) {
+        delegations = await storage.getStakingDelegationsByAddress(address);
+      } else if (validatorId) {
+        delegations = await storage.getStakingDelegationsByValidator(validatorId);
+      } else {
+        delegations = await storage.getAllStakingDelegations();
+      }
+      
+      res.json(delegations);
+    } catch (error: any) {
+      console.error('Error fetching staking delegations:', error);
+      res.status(500).json({ error: "Failed to fetch staking delegations" });
+    }
+  });
+
+  app.get("/api/staking/delegations/:id", requireAuth, async (req, res) => {
+    try {
+      const delegation = await storage.getStakingDelegationById(req.params.id);
+      if (!delegation) {
+        return res.status(404).json({ error: "Staking delegation not found" });
+      }
+      res.json(delegation);
+    } catch (error: any) {
+      console.error('Error fetching staking delegation:', error);
+      res.status(500).json({ error: "Failed to fetch staking delegation" });
+    }
+  });
+
+  // Unbonding Requests
+  app.get("/api/staking/unbonding", requireAuth, async (req, res) => {
+    try {
+      const address = req.query.address as string;
+      
+      let requests;
+      if (address) {
+        requests = await storage.getUnbondingRequestsByAddress(address);
+      } else {
+        requests = await storage.getAllUnbondingRequests();
+      }
+      
+      res.json(requests);
+    } catch (error: any) {
+      console.error('Error fetching unbonding requests:', error);
+      res.status(500).json({ error: "Failed to fetch unbonding requests" });
+    }
+  });
+
+  // Reward Cycles
+  app.get("/api/staking/rewards/cycles", requireAuth, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const cycles = await storage.getAllRewardCycles(limit);
+      res.json(cycles);
+    } catch (error: any) {
+      console.error('Error fetching reward cycles:', error);
+      res.status(500).json({ error: "Failed to fetch reward cycles" });
+    }
+  });
+
+  app.get("/api/staking/rewards/current", requireAuth, async (_req, res) => {
+    try {
+      const cycle = await storage.getCurrentRewardCycle();
+      if (!cycle) {
+        return res.status(404).json({ error: "No active reward cycle" });
+      }
+      res.json(cycle);
+    } catch (error: any) {
+      console.error('Error fetching current reward cycle:', error);
+      res.status(500).json({ error: "Failed to fetch current reward cycle" });
+    }
+  });
+
+  // Reward Events (User's rewards)
+  app.get("/api/staking/rewards/events", requireAuth, async (req, res) => {
+    try {
+      const address = req.query.address as string;
+      const cycleId = req.query.cycleId as string;
+      const limit = parseInt(req.query.limit as string) || 100;
+      
+      let events;
+      if (cycleId) {
+        events = await storage.getRewardEventsByCycle(cycleId);
+      } else if (address) {
+        events = await storage.getRewardEventsByAddress(address, limit);
+      } else {
+        return res.status(400).json({ error: "Address or cycleId required" });
+      }
+      
+      res.json(events);
+    } catch (error: any) {
+      console.error('Error fetching reward events:', error);
+      res.status(500).json({ error: "Failed to fetch reward events" });
+    }
+  });
+
+  // Slashing Events
+  app.get("/api/staking/slashing", requireAuth, async (req, res) => {
+    try {
+      const validatorId = req.query.validatorId as string;
+      const limit = parseInt(req.query.limit as string) || 50;
+      
+      let events;
+      if (validatorId) {
+        events = await storage.getSlashingEventsByValidator(validatorId);
+      } else {
+        events = await storage.getAllSlashingEvents(limit);
+      }
+      
+      res.json(events);
+    } catch (error: any) {
+      console.error('Error fetching slashing events:', error);
+      res.status(500).json({ error: "Failed to fetch slashing events" });
+    }
+  });
+
+  // Tier configuration (static data)
+  app.get("/api/staking/tiers", requireAuth, async (_req, res) => {
+    try {
+      // TBURN Staking Tiers configuration
+      const tiers = [
+        {
+          id: "bronze",
+          name: "Bronze",
+          minStake: "100000000000000000000", // 100 TBURN
+          maxStake: "9999999999999999999999", // 9,999 TBURN
+          apyMultiplier: 10000, // 1x (basis points)
+          lockPeriod: "none",
+          benefits: ["Basic staking rewards", "Standard withdrawal times"]
+        },
+        {
+          id: "silver",
+          name: "Silver", 
+          minStake: "10000000000000000000000", // 10,000 TBURN
+          maxStake: "49999999999999999999999", // 49,999 TBURN
+          apyMultiplier: 11000, // 1.1x
+          lockPeriod: "7days",
+          benefits: ["10% APY boost", "Priority support", "Governance voting"]
+        },
+        {
+          id: "gold",
+          name: "Gold",
+          minStake: "50000000000000000000000", // 50,000 TBURN
+          maxStake: "249999999999999999999999", // 249,999 TBURN
+          apyMultiplier: 12500, // 1.25x
+          lockPeriod: "30days",
+          benefits: ["25% APY boost", "Early access to new pools", "Enhanced governance rights"]
+        },
+        {
+          id: "platinum",
+          name: "Platinum",
+          minStake: "250000000000000000000000", // 250,000 TBURN
+          maxStake: "999999999999999999999999", // 999,999 TBURN
+          apyMultiplier: 15000, // 1.5x
+          lockPeriod: "90days",
+          benefits: ["50% APY boost", "Validator nomination rights", "Exclusive pool access"]
+        },
+        {
+          id: "diamond",
+          name: "Diamond",
+          minStake: "1000000000000000000000000", // 1,000,000 TBURN
+          maxStake: null, // No limit
+          apyMultiplier: 20000, // 2x
+          lockPeriod: "365days",
+          benefits: ["100% APY boost", "Validator committee eligibility", "Maximum governance power", "Direct chain contribution"]
+        }
+      ];
+      
+      res.json(tiers);
+    } catch (error: any) {
+      console.error('Error fetching tier configuration:', error);
+      res.status(500).json({ error: "Failed to fetch tier configuration" });
+    }
+  });
+
+  // ============================================
   // WebSocket Server
   // ============================================
   const httpServer = createServer(app);

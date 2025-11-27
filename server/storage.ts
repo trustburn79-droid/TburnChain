@@ -51,6 +51,22 @@ import {
   type InsertMemberAuditLog,
   type RestartSession,
   type InsertRestartSession,
+  type StakingPool,
+  type InsertStakingPool,
+  type StakingPosition,
+  type InsertStakingPosition,
+  type StakingDelegation,
+  type InsertStakingDelegation,
+  type UnbondingRequest,
+  type InsertUnbondingRequest,
+  type RewardCycle,
+  type InsertRewardCycle,
+  type RewardEvent,
+  type InsertRewardEvent,
+  type SlashingEvent,
+  type InsertSlashingEvent,
+  type StakingStats,
+  type InsertStakingStats,
   blocks,
   transactions,
   accounts,
@@ -77,6 +93,14 @@ import {
   memberSlashEvents,
   memberAuditLogs,
   restartSessions,
+  stakingPools,
+  stakingPositions,
+  stakingDelegations,
+  unbondingRequests,
+  rewardCycles,
+  rewardEvents,
+  slashingEvents,
+  stakingStats as stakingStatsTable,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -226,6 +250,61 @@ export interface IStorage {
   getRestartSession(): Promise<RestartSession | undefined>;
   createOrUpdateRestartSession(data: InsertRestartSession): Promise<RestartSession>;
   clearRestartSession(): Promise<void>;
+
+  // ============================================
+  // STAKING INFRASTRUCTURE
+  // ============================================
+  
+  // Staking Pools
+  getAllStakingPools(): Promise<StakingPool[]>;
+  getStakingPoolById(id: string): Promise<StakingPool | undefined>;
+  getStakingPoolsByType(poolType: string): Promise<StakingPool[]>;
+  createStakingPool(data: InsertStakingPool): Promise<StakingPool>;
+  updateStakingPool(id: string, data: Partial<StakingPool>): Promise<void>;
+  
+  // Staking Positions
+  getAllStakingPositions(limit?: number): Promise<StakingPosition[]>;
+  getStakingPositionById(id: string): Promise<StakingPosition | undefined>;
+  getStakingPositionsByAddress(address: string): Promise<StakingPosition[]>;
+  getStakingPositionsByPool(poolId: string): Promise<StakingPosition[]>;
+  createStakingPosition(data: InsertStakingPosition): Promise<StakingPosition>;
+  updateStakingPosition(id: string, data: Partial<StakingPosition>): Promise<void>;
+  
+  // Staking Delegations
+  getAllStakingDelegations(limit?: number): Promise<StakingDelegation[]>;
+  getStakingDelegationById(id: string): Promise<StakingDelegation | undefined>;
+  getStakingDelegationsByAddress(address: string): Promise<StakingDelegation[]>;
+  getStakingDelegationsByValidator(validatorId: string): Promise<StakingDelegation[]>;
+  createStakingDelegation(data: InsertStakingDelegation): Promise<StakingDelegation>;
+  updateStakingDelegation(id: string, data: Partial<StakingDelegation>): Promise<void>;
+  
+  // Unbonding Requests
+  getAllUnbondingRequests(limit?: number): Promise<UnbondingRequest[]>;
+  getUnbondingRequestsByAddress(address: string): Promise<UnbondingRequest[]>;
+  createUnbondingRequest(data: InsertUnbondingRequest): Promise<UnbondingRequest>;
+  updateUnbondingRequest(id: string, data: Partial<UnbondingRequest>): Promise<void>;
+  
+  // Reward Cycles
+  getAllRewardCycles(limit?: number): Promise<RewardCycle[]>;
+  getCurrentRewardCycle(): Promise<RewardCycle | undefined>;
+  getRewardCycleById(id: string): Promise<RewardCycle | undefined>;
+  createRewardCycle(data: InsertRewardCycle): Promise<RewardCycle>;
+  updateRewardCycle(id: string, data: Partial<RewardCycle>): Promise<void>;
+  
+  // Reward Events
+  getRewardEventsByAddress(address: string, limit?: number): Promise<RewardEvent[]>;
+  getRewardEventsByCycle(cycleId: string): Promise<RewardEvent[]>;
+  createRewardEvent(data: InsertRewardEvent): Promise<RewardEvent>;
+  updateRewardEvent(id: string, data: Partial<RewardEvent>): Promise<void>;
+  
+  // Slashing Events
+  getAllSlashingEvents(limit?: number): Promise<SlashingEvent[]>;
+  getSlashingEventsByValidator(validatorId: string): Promise<SlashingEvent[]>;
+  createSlashingEvent(data: InsertSlashingEvent): Promise<SlashingEvent>;
+  
+  // Staking Stats
+  getStakingStats(): Promise<StakingStats | undefined>;
+  updateStakingStats(data: Partial<StakingStats>): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -2175,6 +2254,185 @@ export class DbStorage implements IStorage {
 
   async clearRestartSession(): Promise<void> {
     await db.delete(restartSessions).where(eq(restartSessions.id, "singleton"));
+  }
+
+  // ============================================
+  // STAKING INFRASTRUCTURE IMPLEMENTATION
+  // ============================================
+
+  // Staking Pools
+  async getAllStakingPools(): Promise<StakingPool[]> {
+    return db.select().from(stakingPools).orderBy(desc(stakingPools.createdAt));
+  }
+
+  async getStakingPoolById(id: string): Promise<StakingPool | undefined> {
+    const result = await db.select().from(stakingPools).where(eq(stakingPools.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getStakingPoolsByType(poolType: string): Promise<StakingPool[]> {
+    return db.select().from(stakingPools).where(eq(stakingPools.poolType, poolType));
+  }
+
+  async createStakingPool(data: InsertStakingPool): Promise<StakingPool> {
+    const result = await db.insert(stakingPools).values(data).returning();
+    return result[0];
+  }
+
+  async updateStakingPool(id: string, data: Partial<StakingPool>): Promise<void> {
+    await db.update(stakingPools).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(stakingPools.id, id));
+  }
+
+  // Staking Positions
+  async getAllStakingPositions(limit: number = 100): Promise<StakingPosition[]> {
+    return db.select().from(stakingPositions).orderBy(desc(stakingPositions.createdAt)).limit(limit);
+  }
+
+  async getStakingPositionById(id: string): Promise<StakingPosition | undefined> {
+    const result = await db.select().from(stakingPositions).where(eq(stakingPositions.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getStakingPositionsByAddress(address: string): Promise<StakingPosition[]> {
+    return db.select().from(stakingPositions).where(eq(stakingPositions.stakerAddress, address));
+  }
+
+  async getStakingPositionsByPool(poolId: string): Promise<StakingPosition[]> {
+    return db.select().from(stakingPositions).where(eq(stakingPositions.poolId, poolId));
+  }
+
+  async createStakingPosition(data: InsertStakingPosition): Promise<StakingPosition> {
+    const result = await db.insert(stakingPositions).values(data).returning();
+    return result[0];
+  }
+
+  async updateStakingPosition(id: string, data: Partial<StakingPosition>): Promise<void> {
+    await db.update(stakingPositions).set({
+      ...data,
+      updatedAt: new Date(),
+      lastActionAt: new Date(),
+    }).where(eq(stakingPositions.id, id));
+  }
+
+  // Staking Delegations
+  async getAllStakingDelegations(limit: number = 100): Promise<StakingDelegation[]> {
+    return db.select().from(stakingDelegations).orderBy(desc(stakingDelegations.createdAt)).limit(limit);
+  }
+
+  async getStakingDelegationById(id: string): Promise<StakingDelegation | undefined> {
+    const result = await db.select().from(stakingDelegations).where(eq(stakingDelegations.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getStakingDelegationsByAddress(address: string): Promise<StakingDelegation[]> {
+    return db.select().from(stakingDelegations).where(eq(stakingDelegations.delegatorAddress, address));
+  }
+
+  async getStakingDelegationsByValidator(validatorId: string): Promise<StakingDelegation[]> {
+    return db.select().from(stakingDelegations).where(eq(stakingDelegations.validatorId, validatorId));
+  }
+
+  async createStakingDelegation(data: InsertStakingDelegation): Promise<StakingDelegation> {
+    const result = await db.insert(stakingDelegations).values(data).returning();
+    return result[0];
+  }
+
+  async updateStakingDelegation(id: string, data: Partial<StakingDelegation>): Promise<void> {
+    await db.update(stakingDelegations).set({
+      ...data,
+      updatedAt: new Date(),
+      lastActionAt: new Date(),
+    }).where(eq(stakingDelegations.id, id));
+  }
+
+  // Unbonding Requests
+  async getAllUnbondingRequests(limit: number = 100): Promise<UnbondingRequest[]> {
+    return db.select().from(unbondingRequests).orderBy(desc(unbondingRequests.createdAt)).limit(limit);
+  }
+
+  async getUnbondingRequestsByAddress(address: string): Promise<UnbondingRequest[]> {
+    return db.select().from(unbondingRequests).where(eq(unbondingRequests.delegatorAddress, address));
+  }
+
+  async createUnbondingRequest(data: InsertUnbondingRequest): Promise<UnbondingRequest> {
+    const result = await db.insert(unbondingRequests).values(data).returning();
+    return result[0];
+  }
+
+  async updateUnbondingRequest(id: string, data: Partial<UnbondingRequest>): Promise<void> {
+    await db.update(unbondingRequests).set(data).where(eq(unbondingRequests.id, id));
+  }
+
+  // Reward Cycles
+  async getAllRewardCycles(limit: number = 50): Promise<RewardCycle[]> {
+    return db.select().from(rewardCycles).orderBy(desc(rewardCycles.cycleNumber)).limit(limit);
+  }
+
+  async getCurrentRewardCycle(): Promise<RewardCycle | undefined> {
+    const result = await db.select().from(rewardCycles).where(eq(rewardCycles.status, "active")).limit(1);
+    return result[0];
+  }
+
+  async getRewardCycleById(id: string): Promise<RewardCycle | undefined> {
+    const result = await db.select().from(rewardCycles).where(eq(rewardCycles.id, id)).limit(1);
+    return result[0];
+  }
+
+  async createRewardCycle(data: InsertRewardCycle): Promise<RewardCycle> {
+    const result = await db.insert(rewardCycles).values(data).returning();
+    return result[0];
+  }
+
+  async updateRewardCycle(id: string, data: Partial<RewardCycle>): Promise<void> {
+    await db.update(rewardCycles).set(data).where(eq(rewardCycles.id, id));
+  }
+
+  // Reward Events
+  async getRewardEventsByAddress(address: string, limit: number = 100): Promise<RewardEvent[]> {
+    return db.select().from(rewardEvents).where(eq(rewardEvents.recipientAddress, address)).orderBy(desc(rewardEvents.createdAt)).limit(limit);
+  }
+
+  async getRewardEventsByCycle(cycleId: string): Promise<RewardEvent[]> {
+    return db.select().from(rewardEvents).where(eq(rewardEvents.cycleId, cycleId));
+  }
+
+  async createRewardEvent(data: InsertRewardEvent): Promise<RewardEvent> {
+    const result = await db.insert(rewardEvents).values(data).returning();
+    return result[0];
+  }
+
+  async updateRewardEvent(id: string, data: Partial<RewardEvent>): Promise<void> {
+    await db.update(rewardEvents).set(data).where(eq(rewardEvents.id, id));
+  }
+
+  // Slashing Events
+  async getAllSlashingEvents(limit: number = 50): Promise<SlashingEvent[]> {
+    return db.select().from(slashingEvents).orderBy(desc(slashingEvents.createdAt)).limit(limit);
+  }
+
+  async getSlashingEventsByValidator(validatorId: string): Promise<SlashingEvent[]> {
+    return db.select().from(slashingEvents).where(eq(slashingEvents.validatorId, validatorId));
+  }
+
+  async createSlashingEvent(data: InsertSlashingEvent): Promise<SlashingEvent> {
+    const result = await db.insert(slashingEvents).values(data).returning();
+    return result[0];
+  }
+
+  // Staking Stats
+  async getStakingStats(): Promise<StakingStats | undefined> {
+    const result = await db.select().from(stakingStatsTable).where(eq(stakingStatsTable.id, "singleton")).limit(1);
+    return result[0];
+  }
+
+  async updateStakingStats(data: Partial<StakingStats>): Promise<void> {
+    await db.update(stakingStatsTable).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(stakingStatsTable.id, "singleton"));
   }
 }
 
