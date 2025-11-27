@@ -23,6 +23,7 @@ import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
 import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
 import { getRestartSupervisor, type RestartState } from "./services/RestartSupervisor";
 import { registerDexRoutes } from "./routes/dex-routes";
+import { registerLendingRoutes } from "./routes/lending-routes";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -357,6 +358,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // DEX INFRASTRUCTURE (Modular Routes)
   // ============================================
   registerDexRoutes(app, requireAuth);
+
+  // ============================================
+  // LENDING INFRASTRUCTURE (Modular Routes)
+  // ============================================
+  registerLendingRoutes(app, requireAuth);
 
   // ============================================
   // Network Stats
