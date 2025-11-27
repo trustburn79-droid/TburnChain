@@ -67,6 +67,16 @@ import {
   type InsertSlashingEvent,
   type StakingStats,
   type InsertStakingStats,
+  type StakingTierConfig,
+  type InsertStakingTierConfig,
+  type PoolValidatorAssignment,
+  type InsertPoolValidatorAssignment,
+  type StakingAuditLog,
+  type InsertStakingAuditLog,
+  type StakingSnapshot,
+  type InsertStakingSnapshot,
+  type StakingAiAssessment,
+  type InsertStakingAiAssessment,
   blocks,
   transactions,
   accounts,
@@ -101,6 +111,11 @@ import {
   rewardEvents,
   slashingEvents,
   stakingStats as stakingStatsTable,
+  stakingTierConfig,
+  poolValidatorAssignments,
+  stakingAuditLogs,
+  stakingSnapshots,
+  stakingAiAssessments,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -305,6 +320,38 @@ export interface IStorage {
   // Staking Stats
   getStakingStats(): Promise<StakingStats | undefined>;
   updateStakingStats(data: Partial<StakingStats>): Promise<void>;
+  
+  // ============================================
+  // ENTERPRISE STAKING v2.0
+  // ============================================
+  
+  // Tier Configuration
+  getAllStakingTierConfigs(): Promise<StakingTierConfig[]>;
+  getStakingTierConfig(tier: string): Promise<StakingTierConfig | undefined>;
+  updateStakingTierConfig(id: string, data: Partial<StakingTierConfig>): Promise<void>;
+  
+  // Pool Validator Assignments
+  getPoolValidatorAssignments(poolId: string): Promise<PoolValidatorAssignment[]>;
+  getValidatorPoolAssignments(validatorId: string): Promise<PoolValidatorAssignment[]>;
+  createPoolValidatorAssignment(data: InsertPoolValidatorAssignment): Promise<PoolValidatorAssignment>;
+  updatePoolValidatorAssignment(id: string, data: Partial<PoolValidatorAssignment>): Promise<void>;
+  
+  // Audit Logs
+  getStakingAuditLogs(filters: { targetType?: string; targetId?: string; action?: string; limit?: number }): Promise<StakingAuditLog[]>;
+  createStakingAuditLog(data: InsertStakingAuditLog): Promise<StakingAuditLog>;
+  
+  // Snapshots
+  getStakingSnapshots(type?: string, limit?: number): Promise<StakingSnapshot[]>;
+  createStakingSnapshot(data: InsertStakingSnapshot): Promise<StakingSnapshot>;
+  
+  // AI Risk Assessments
+  getActiveStakingAiAssessments(targetType: string, targetId: string): Promise<StakingAiAssessment[]>;
+  createStakingAiAssessment(data: InsertStakingAiAssessment): Promise<StakingAiAssessment>;
+  deactivateStakingAiAssessments(targetType: string, targetId: string): Promise<void>;
+  
+  // Validator Integration
+  getValidatorWithStakingMetrics(validatorId: string): Promise<Validator & { stakingMetrics: any } | undefined>;
+  getTopValidatorsForStaking(limit?: number): Promise<Validator[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -2433,6 +2480,145 @@ export class DbStorage implements IStorage {
       ...data,
       updatedAt: new Date(),
     }).where(eq(stakingStatsTable.id, "singleton"));
+  }
+
+  // ============================================
+  // ENTERPRISE STAKING v2.0 IMPLEMENTATIONS
+  // ============================================
+
+  // Tier Configuration
+  async getAllStakingTierConfigs(): Promise<StakingTierConfig[]> {
+    return await db.select().from(stakingTierConfig).orderBy(stakingTierConfig.minLockDays);
+  }
+
+  async getStakingTierConfig(tier: string): Promise<StakingTierConfig | undefined> {
+    const [config] = await db.select().from(stakingTierConfig).where(eq(stakingTierConfig.tier, tier));
+    return config;
+  }
+
+  async updateStakingTierConfig(id: string, data: Partial<StakingTierConfig>): Promise<void> {
+    await db.update(stakingTierConfig).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(stakingTierConfig.id, id));
+  }
+
+  // Pool Validator Assignments
+  async getPoolValidatorAssignments(poolId: string): Promise<PoolValidatorAssignment[]> {
+    return await db.select().from(poolValidatorAssignments).where(eq(poolValidatorAssignments.poolId, poolId));
+  }
+
+  async getValidatorPoolAssignments(validatorId: string): Promise<PoolValidatorAssignment[]> {
+    return await db.select().from(poolValidatorAssignments).where(eq(poolValidatorAssignments.validatorId, validatorId));
+  }
+
+  async createPoolValidatorAssignment(data: InsertPoolValidatorAssignment): Promise<PoolValidatorAssignment> {
+    const [result] = await db.insert(poolValidatorAssignments).values({
+      ...data,
+      id: `pva-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updatePoolValidatorAssignment(id: string, data: Partial<PoolValidatorAssignment>): Promise<void> {
+    await db.update(poolValidatorAssignments).set(data).where(eq(poolValidatorAssignments.id, id));
+  }
+
+  // Audit Logs
+  async getStakingAuditLogs(filters: { targetType?: string; targetId?: string; action?: string; limit?: number }): Promise<StakingAuditLog[]> {
+    let query = db.select().from(stakingAuditLogs);
+    
+    if (filters.targetType && filters.targetId) {
+      query = query.where(eq(stakingAuditLogs.targetType, filters.targetType));
+    }
+    
+    if (filters.action) {
+      query = query.where(eq(stakingAuditLogs.action, filters.action));
+    }
+    
+    return await query.orderBy(desc(stakingAuditLogs.createdAt)).limit(filters.limit || 100);
+  }
+
+  async createStakingAuditLog(data: InsertStakingAuditLog): Promise<StakingAuditLog> {
+    const [result] = await db.insert(stakingAuditLogs).values({
+      ...data,
+      id: `audit-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  // Snapshots
+  async getStakingSnapshots(type?: string, limit?: number): Promise<StakingSnapshot[]> {
+    let query = db.select().from(stakingSnapshots);
+    
+    if (type) {
+      query = query.where(eq(stakingSnapshots.snapshotType, type));
+    }
+    
+    return await query.orderBy(desc(stakingSnapshots.snapshotAt)).limit(limit || 50);
+  }
+
+  async createStakingSnapshot(data: InsertStakingSnapshot): Promise<StakingSnapshot> {
+    const [result] = await db.insert(stakingSnapshots).values({
+      ...data,
+      id: `snap-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  // AI Risk Assessments
+  async getActiveStakingAiAssessments(targetType: string, targetId: string): Promise<StakingAiAssessment[]> {
+    return await db.select().from(stakingAiAssessments)
+      .where(eq(stakingAiAssessments.targetType, targetType))
+      .where(eq(stakingAiAssessments.targetId, targetId))
+      .where(eq(stakingAiAssessments.isActive, true))
+      .orderBy(desc(stakingAiAssessments.assessedAt));
+  }
+
+  async createStakingAiAssessment(data: InsertStakingAiAssessment): Promise<StakingAiAssessment> {
+    const [result] = await db.insert(stakingAiAssessments).values({
+      ...data,
+      id: `ai-assess-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async deactivateStakingAiAssessments(targetType: string, targetId: string): Promise<void> {
+    await db.update(stakingAiAssessments)
+      .set({ isActive: false })
+      .where(eq(stakingAiAssessments.targetType, targetType))
+      .where(eq(stakingAiAssessments.targetId, targetId));
+  }
+
+  // Validator Integration
+  async getValidatorWithStakingMetrics(validatorId: string): Promise<Validator & { stakingMetrics: any } | undefined> {
+    const [validator] = await db.select().from(validators).where(eq(validators.id, validatorId));
+    if (!validator) return undefined;
+
+    const delegationsList = await db.select().from(stakingDelegations)
+      .where(eq(stakingDelegations.validatorId, validatorId))
+      .where(eq(stakingDelegations.status, "active"));
+    
+    const poolAssignments = await this.getValidatorPoolAssignments(validatorId);
+    
+    return {
+      ...validator,
+      stakingMetrics: {
+        activeDelegations: delegationsList.length,
+        totalDelegated: delegationsList.reduce((sum, d) => sum + BigInt(d.amount), BigInt(0)).toString(),
+        poolsAssigned: poolAssignments.length,
+        averageCommission: validator.commission,
+        uptimeScore: validator.uptime,
+        aiTrustScore: validator.aiTrustScore,
+      },
+    };
+  }
+
+  async getTopValidatorsForStaking(limit?: number): Promise<Validator[]> {
+    return await db.select().from(validators)
+      .where(eq(validators.status, "active"))
+      .orderBy(desc(validators.aiTrustScore), desc(validators.uptime), desc(validators.apy))
+      .limit(limit || 10);
   }
 }
 

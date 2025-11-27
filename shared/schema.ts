@@ -1777,6 +1777,227 @@ export type StakingStats = typeof stakingStats.$inferSelect;
 export type InsertStakingStats = z.infer<typeof insertStakingStatsSchema>;
 
 // ============================================
+// TBURN Staking Infrastructure v2.0 - Enterprise Extensions
+// ============================================
+
+// Staking Tier Configuration (Normalized tier settings)
+export const stakingTierConfig = pgTable("staking_tier_config", {
+  id: varchar("id").primaryKey(),
+  tier: text("tier").notNull().unique(), // bronze, silver, gold, platinum, diamond
+  displayName: text("display_name").notNull(),
+  
+  // APY Configuration
+  minApy: integer("min_apy").notNull(), // basis points
+  maxApy: integer("max_apy").notNull(), // basis points
+  apyMultiplier: integer("apy_multiplier").notNull().default(10000), // basis points (10000 = 1x)
+  
+  // Lock Requirements
+  minLockDays: integer("min_lock_days").notNull(),
+  maxLockDays: integer("max_lock_days").notNull(),
+  
+  // Stake Requirements
+  minStakeWei: text("min_stake_wei").notNull(), // in Wei
+  maxStakeWei: text("max_stake_wei"), // optional cap
+  
+  // Bonus Configuration
+  earlyAdopterBonus: integer("early_adopter_bonus").notNull().default(0), // basis points
+  loyaltyBonus: integer("loyalty_bonus").notNull().default(0), // basis points per month
+  
+  // Fee Discounts
+  feeDiscount: integer("fee_discount").notNull().default(0), // basis points
+  
+  // Privileges
+  priorityRewards: boolean("priority_rewards").notNull().default(false),
+  governanceWeight: integer("governance_weight").notNull().default(1),
+  
+  // Visual
+  color: text("color").notNull().default("#CD7F32"),
+  iconUrl: text("icon_url"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Pool Validator Assignments (Many-to-Many for multi-validator pools)
+export const poolValidatorAssignments = pgTable("pool_validator_assignments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(),
+  validatorId: varchar("validator_id").notNull(),
+  
+  // Weight Distribution
+  allocationWeight: integer("allocation_weight").notNull().default(10000), // basis points
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, paused, removed
+  
+  // Performance Tracking
+  totalDelegated: text("total_delegated").notNull().default("0"),
+  rewardsGenerated: text("rewards_generated").notNull().default("0"),
+  
+  // Timestamps
+  assignedAt: timestamp("assigned_at").notNull().defaultNow(),
+  lastRewardAt: timestamp("last_reward_at"),
+});
+
+// Staking Audit Logs (Enterprise audit trail)
+export const STAKING_AUDIT_ACTIONS = [
+  "stake", "unstake", "delegate", "undelegate", "redelegate",
+  "claim_rewards", "compound", "create_pool", "update_pool", "pause_pool",
+  "whitelist_add", "whitelist_remove", "slash", "emergency_withdraw",
+  "tier_upgrade", "tier_downgrade", "fee_change", "apy_adjustment"
+] as const;
+export type StakingAuditAction = typeof STAKING_AUDIT_ACTIONS[number];
+
+export const stakingAuditLogs = pgTable("staking_audit_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Action Context
+  action: text("action").notNull(), // StakingAuditAction
+  actorAddress: text("actor_address").notNull(),
+  actorType: text("actor_type").notNull().default("user"), // user, admin, system, validator
+  
+  // Target Reference
+  targetType: text("target_type").notNull(), // pool, position, delegation, validator
+  targetId: varchar("target_id").notNull(),
+  
+  // Action Details
+  previousValue: jsonb("previous_value"),
+  newValue: jsonb("new_value"),
+  amount: text("amount"), // Wei amount if applicable
+  
+  // Transaction Context
+  txHash: text("tx_hash"),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Request Metadata
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  requestId: text("request_id"), // trace ID for request correlation
+  
+  // Status
+  status: text("status").notNull().default("success"), // success, failed, pending, reverted
+  errorMessage: text("error_message"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Staking Snapshots (For historical analytics and APY calculations)
+export const stakingSnapshots = pgTable("staking_snapshots", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  snapshotType: text("snapshot_type").notNull(), // hourly, daily, weekly, monthly, epoch
+  
+  // Time Reference
+  snapshotAt: timestamp("snapshot_at").notNull(),
+  epochNumber: integer("epoch_number"),
+  
+  // Global Metrics
+  totalValueLocked: text("total_value_locked").notNull(),
+  totalStakers: integer("total_stakers").notNull(),
+  totalPools: integer("total_pools").notNull(),
+  totalValidators: integer("total_validators").notNull(),
+  
+  // APY Metrics
+  averageApy: integer("average_apy").notNull(), // basis points
+  weightedApy: integer("weighted_apy").notNull(), // stake-weighted average
+  
+  // Reward Metrics
+  rewardsDistributed: text("rewards_distributed").notNull(),
+  newStakes: text("new_stakes").notNull(),
+  withdrawals: text("withdrawals").notNull(),
+  
+  // Pool Distribution
+  poolMetrics: jsonb("pool_metrics"), // { poolId: { tvl, stakers, apy } }
+  
+  // Tier Distribution
+  tierDistribution: jsonb("tier_distribution"), // { bronze: count, silver: count, ... }
+  
+  // Validator Distribution
+  validatorMetrics: jsonb("validator_metrics"), // { validatorId: { delegated, rewards } }
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// AI Risk Assessments for Staking (Integration with Triple-Band AI)
+export const stakingAiAssessments = pgTable("staking_ai_assessments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Assessment Target
+  assessmentType: text("assessment_type").notNull(), // pool_risk, validator_risk, delegation_risk, apy_prediction
+  targetType: text("target_type").notNull(), // pool, validator, position
+  targetId: varchar("target_id").notNull(),
+  
+  // AI Model Info
+  aiModel: text("ai_model").notNull(), // gemini, claude, gpt-5
+  modelVersion: text("model_version"),
+  
+  // Risk Assessment
+  riskScore: integer("risk_score").notNull(), // 0-10000 (basis points, 10000 = 100% risk)
+  riskLevel: text("risk_level").notNull(), // low, medium, high, critical
+  confidenceScore: integer("confidence_score").notNull(), // basis points
+  
+  // Predictions
+  predictedApy: integer("predicted_apy"), // basis points, for APY predictions
+  predictedRisk: jsonb("predicted_risk"), // { slashing: 0.02, downtime: 0.05, ... }
+  
+  // Analysis
+  analysisFactors: jsonb("analysis_factors"), // Contributing factors
+  recommendations: jsonb("recommendations"), // AI recommendations
+  
+  // Validity
+  validUntil: timestamp("valid_until").notNull(),
+  isActive: boolean("is_active").notNull().default(true),
+  
+  // Timestamps
+  assessedAt: timestamp("assessed_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Insert Schemas for Enterprise Extensions
+export const insertStakingTierConfigSchema = createInsertSchema(stakingTierConfig).omit({
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPoolValidatorAssignmentSchema = createInsertSchema(poolValidatorAssignments).omit({
+  id: true,
+  assignedAt: true,
+});
+
+export const insertStakingAuditLogSchema = createInsertSchema(stakingAuditLogs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertStakingSnapshotSchema = createInsertSchema(stakingSnapshots).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertStakingAiAssessmentSchema = createInsertSchema(stakingAiAssessments).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Enterprise Extension Types
+export type StakingTierConfig = typeof stakingTierConfig.$inferSelect;
+export type InsertStakingTierConfig = z.infer<typeof insertStakingTierConfigSchema>;
+
+export type PoolValidatorAssignment = typeof poolValidatorAssignments.$inferSelect;
+export type InsertPoolValidatorAssignment = z.infer<typeof insertPoolValidatorAssignmentSchema>;
+
+export type StakingAuditLog = typeof stakingAuditLogs.$inferSelect;
+export type InsertStakingAuditLog = z.infer<typeof insertStakingAuditLogSchema>;
+
+export type StakingSnapshot = typeof stakingSnapshots.$inferSelect;
+export type InsertStakingSnapshot = z.infer<typeof insertStakingSnapshotSchema>;
+
+export type StakingAiAssessment = typeof stakingAiAssessments.$inferSelect;
+export type InsertStakingAiAssessment = z.infer<typeof insertStakingAiAssessmentSchema>;
+
+// ============================================
 // Additional Types for Frontend
 // ============================================
 
