@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -59,7 +59,10 @@ import {
   Gamepad2,
   Building2,
   Landmark,
-  ShoppingBag
+  ShoppingBag,
+  Upload,
+  X,
+  ImageIcon
 } from "lucide-react";
 import { formatNumber, formatTokenAmount } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
@@ -850,7 +853,69 @@ function EnterpriseTokenCreationWizard() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [logoInputMode, setLogoInputMode] = useState<"upload" | "url">("upload");
+  const logoFileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  const handleLogoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Logo file must be less than 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        toast({
+          title: "Invalid file type",
+          description: "Please upload an image file (PNG, JPG, SVG, etc.)",
+          variant: "destructive",
+        });
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setLogoPreview(result);
+        setFormData(prev => ({ ...prev, logo: result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleLogoDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Logo file must be less than 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setLogoPreview(result);
+        setFormData(prev => ({ ...prev, logo: result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const clearLogo = () => {
+    setLogoPreview(null);
+    setFormData(prev => ({ ...prev, logo: "" }));
+    if (logoFileInputRef.current) {
+      logoFileInputRef.current.value = "";
+    }
+  };
   
   const initialFormData: TokenFormData = {
     name: "",
@@ -1349,13 +1414,84 @@ function EnterpriseTokenCreationWizard() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="logo">Logo URL</Label>
-                  <Input
-                    id="logo"
-                    placeholder="https://example.com/logo.png"
-                    value={formData.logo}
-                    onChange={(e) => setFormData({ ...formData, logo: e.target.value })}
-                  />
+                  <Label>Symbol Logo</Label>
+                  <div className="flex gap-2 mb-2">
+                    <Button 
+                      type="button" 
+                      variant={logoInputMode === "upload" ? "default" : "outline"} 
+                      size="sm"
+                      onClick={() => setLogoInputMode("upload")}
+                    >
+                      <Upload className="h-3 w-3 mr-1" />
+                      Upload
+                    </Button>
+                    <Button 
+                      type="button" 
+                      variant={logoInputMode === "url" ? "default" : "outline"} 
+                      size="sm"
+                      onClick={() => setLogoInputMode("url")}
+                    >
+                      <Globe className="h-3 w-3 mr-1" />
+                      URL
+                    </Button>
+                  </div>
+                  
+                  {logoInputMode === "upload" ? (
+                    <div className="space-y-2">
+                      <input
+                        ref={logoFileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleLogoFileChange}
+                        className="hidden"
+                        id="logo-upload"
+                        data-testid="input-logo-upload"
+                      />
+                      {logoPreview || formData.logo ? (
+                        <div className="relative inline-block">
+                          <div className="w-20 h-20 rounded-lg border-2 border-dashed border-border overflow-hidden bg-muted flex items-center justify-center">
+                            <img 
+                              src={logoPreview || formData.logo} 
+                              alt="Token Logo" 
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <Button 
+                            type="button"
+                            size="icon" 
+                            variant="destructive" 
+                            className="absolute -top-2 -right-2 h-6 w-6"
+                            onClick={clearLogo}
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div 
+                          className="w-full h-24 rounded-lg border-2 border-dashed border-border bg-muted/30 flex flex-col items-center justify-center cursor-pointer hover-elevate transition-colors"
+                          onClick={() => logoFileInputRef.current?.click()}
+                          onDragOver={(e) => e.preventDefault()}
+                          onDrop={handleLogoDrop}
+                          data-testid="dropzone-logo"
+                        >
+                          <Upload className="h-6 w-6 text-muted-foreground mb-1" />
+                          <p className="text-xs text-muted-foreground">Click or drag to upload</p>
+                          <p className="text-xs text-muted-foreground">PNG, JPG, SVG (max 5MB)</p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Input
+                      id="logo"
+                      placeholder="https://example.com/logo.png"
+                      value={formData.logo}
+                      onChange={(e) => {
+                        setFormData({ ...formData, logo: e.target.value });
+                        setLogoPreview(null);
+                      }}
+                      data-testid="input-logo-url"
+                    />
+                  )}
                 </div>
               </div>
             </div>
