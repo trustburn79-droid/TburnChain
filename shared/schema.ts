@@ -2724,3 +2724,524 @@ export interface DexStats {
   totalSwaps24h: number;
   topPools: DexPoolSummary[];
 }
+
+// ============================================
+// LENDING/BORROWING SYSTEM
+// ============================================
+
+// Lending Market Status
+export const LendingMarketStatus = {
+  ACTIVE: "active",
+  PAUSED: "paused",
+  FROZEN: "frozen",
+  DEPRECATED: "deprecated",
+} as const;
+export type LendingMarketStatus = typeof LendingMarketStatus[keyof typeof LendingMarketStatus];
+
+// Interest Rate Model Type
+export const InterestRateModel = {
+  LINEAR: "linear",
+  JUMP_RATE: "jump_rate",
+  DYNAMIC: "dynamic",
+  STABLE: "stable",
+} as const;
+export type InterestRateModel = typeof InterestRateModel[keyof typeof InterestRateModel];
+
+// Borrow Rate Mode
+export const BorrowRateMode = {
+  VARIABLE: "variable",
+  STABLE: "stable",
+} as const;
+export type BorrowRateMode = typeof BorrowRateMode[keyof typeof BorrowRateMode];
+
+// Position Health Status
+export const HealthStatus = {
+  HEALTHY: "healthy",
+  WARNING: "warning",
+  AT_RISK: "at_risk",
+  LIQUIDATABLE: "liquidatable",
+} as const;
+export type HealthStatus = typeof HealthStatus[keyof typeof HealthStatus];
+
+// Liquidation Status
+export const LiquidationStatus = {
+  PENDING: "pending",
+  EXECUTING: "executing",
+  COMPLETED: "completed",
+  FAILED: "failed",
+  PARTIAL: "partial",
+} as const;
+export type LiquidationStatus = typeof LiquidationStatus[keyof typeof LiquidationStatus];
+
+// ============================================
+// Lending Markets (Asset Pools)
+// ============================================
+
+export const lendingMarkets = pgTable("lending_markets", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Asset Info
+  assetAddress: text("asset_address").notNull().unique(),
+  assetSymbol: text("asset_symbol").notNull(),
+  assetName: text("asset_name").notNull(),
+  assetDecimals: integer("asset_decimals").notNull().default(18),
+  priceFeedId: text("price_feed_id").notNull(),
+  
+  // Pool State
+  totalSupply: text("total_supply").notNull().default("0"),
+  totalBorrowed: text("total_borrowed").notNull().default("0"),
+  totalReserves: text("total_reserves").notNull().default("0"),
+  availableLiquidity: text("available_liquidity").notNull().default("0"),
+  
+  // Interest Rates (in basis points, e.g., 500 = 5.00%)
+  supplyRate: integer("supply_rate").notNull().default(0),
+  borrowRateVariable: integer("borrow_rate_variable").notNull().default(0),
+  borrowRateStable: integer("borrow_rate_stable").notNull().default(0),
+  utilizationRate: integer("utilization_rate").notNull().default(0), // basis points
+  
+  // Exchange Rate (for internal shares accounting)
+  exchangeRate: text("exchange_rate").notNull().default("1000000000000000000"), // 1e18
+  
+  // Risk Parameters (in basis points)
+  collateralFactor: integer("collateral_factor").notNull().default(7500), // 75% LTV
+  liquidationThreshold: integer("liquidation_threshold").notNull().default(8000), // 80%
+  liquidationPenalty: integer("liquidation_penalty").notNull().default(500), // 5% bonus
+  reserveFactor: integer("reserve_factor").notNull().default(1000), // 10%
+  
+  // Caps
+  supplyCap: text("supply_cap"), // null = unlimited
+  borrowCap: text("borrow_cap"), // null = unlimited
+  
+  // Interest Rate Model Config
+  interestRateModel: text("interest_rate_model").notNull().default("jump_rate"),
+  baseRate: integer("base_rate").notNull().default(200), // 2%
+  optimalUtilization: integer("optimal_utilization").notNull().default(8000), // 80%
+  slope1: integer("slope_1").notNull().default(400), // 4%
+  slope2: integer("slope_2").notNull().default(6000), // 60%
+  
+  // Permissions
+  canBeCollateral: boolean("can_be_collateral").notNull().default(true),
+  canBeBorrowed: boolean("can_be_borrowed").notNull().default(true),
+  
+  // Status
+  status: text("status").notNull().default("active"),
+  
+  // Stats
+  totalSuppliers: integer("total_suppliers").notNull().default(0),
+  totalBorrowers: integer("total_borrowers").notNull().default(0),
+  
+  // Timestamps
+  lastInterestUpdate: timestamp("last_interest_update").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending User Positions (Aggregate per user)
+// ============================================
+
+export const lendingPositions = pgTable("lending_positions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userAddress: text("user_address").notNull().unique(),
+  
+  // Aggregate Values (in USD, as strings for precision)
+  totalCollateralValueUsd: text("total_collateral_value_usd").notNull().default("0"),
+  totalBorrowedValueUsd: text("total_borrowed_value_usd").notNull().default("0"),
+  availableBorrowUsd: text("available_borrow_usd").notNull().default("0"),
+  liquidationThresholdUsd: text("liquidation_threshold_usd").notNull().default("0"),
+  
+  // Health Factor (scaled by 10000, e.g., 15000 = 1.5)
+  healthFactor: integer("health_factor").notNull().default(1000000), // very high = no borrows
+  healthStatus: text("health_status").notNull().default("healthy"),
+  
+  // Net APY (basis points, can be negative if borrowing cost > supply yield)
+  netApy: integer("net_apy").notNull().default(0),
+  
+  // Earned/Owed
+  totalInterestEarned: text("total_interest_earned").notNull().default("0"),
+  totalInterestOwed: text("total_interest_owed").notNull().default("0"),
+  
+  // Counts
+  suppliedAssetCount: integer("supplied_asset_count").notNull().default(0),
+  borrowedAssetCount: integer("borrowed_asset_count").notNull().default(0),
+  
+  // Activity
+  lastActivityAt: timestamp("last_activity_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending Supplies (User supply per market)
+// ============================================
+
+export const lendingSupplies = pgTable("lending_supplies", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  positionId: varchar("position_id").notNull(),
+  marketId: varchar("market_id").notNull(),
+  userAddress: text("user_address").notNull(),
+  assetAddress: text("asset_address").notNull(),
+  
+  // Amount (Wei-unit strings)
+  suppliedAmount: text("supplied_amount").notNull().default("0"),
+  suppliedShares: text("supplied_shares").notNull().default("0"), // Internal accounting
+  
+  // Value
+  suppliedValueUsd: text("supplied_value_usd").notNull().default("0"),
+  
+  // Collateral Flag
+  isCollateral: boolean("is_collateral").notNull().default(true),
+  
+  // Interest
+  supplyApy: integer("supply_apy").notNull().default(0), // basis points
+  interestEarned: text("interest_earned").notNull().default("0"),
+  
+  // Timestamps
+  lastUpdateAt: timestamp("last_update_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending Borrows (User borrows per market)
+// ============================================
+
+export const lendingBorrows = pgTable("lending_borrows", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  positionId: varchar("position_id").notNull(),
+  marketId: varchar("market_id").notNull(),
+  userAddress: text("user_address").notNull(),
+  assetAddress: text("asset_address").notNull(),
+  
+  // Principal Amount (Wei-unit strings)
+  borrowedAmount: text("borrowed_amount").notNull().default("0"),
+  borrowedShares: text("borrowed_shares").notNull().default("0"), // Internal accounting
+  
+  // Value
+  borrowedValueUsd: text("borrowed_value_usd").notNull().default("0"),
+  
+  // Rate Mode
+  rateMode: text("rate_mode").notNull().default("variable"),
+  
+  // Interest Rates (basis points)
+  borrowApy: integer("borrow_apy").notNull().default(0),
+  stableRate: integer("stable_rate"), // Only if stable mode
+  
+  // Accrued Interest
+  accruedInterest: text("accrued_interest").notNull().default("0"),
+  
+  // Timestamps
+  lastUpdateAt: timestamp("last_update_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending Liquidations
+// ============================================
+
+export const lendingLiquidations = pgTable("lending_liquidations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Participants
+  liquidatorAddress: text("liquidator_address").notNull(),
+  borrowerAddress: text("borrower_address").notNull(),
+  positionId: varchar("position_id").notNull(),
+  
+  // Assets
+  collateralAsset: text("collateral_asset").notNull(),
+  collateralSymbol: text("collateral_symbol").notNull(),
+  debtAsset: text("debt_asset").notNull(),
+  debtSymbol: text("debt_symbol").notNull(),
+  
+  // Amounts (Wei-unit strings)
+  debtRepaid: text("debt_repaid").notNull(),
+  collateralSeized: text("collateral_seized").notNull(),
+  liquidationBonus: text("liquidation_bonus").notNull(),
+  protocolFee: text("protocol_fee").notNull().default("0"),
+  
+  // Values in USD
+  debtRepaidUsd: text("debt_repaid_usd").notNull(),
+  collateralSeizedUsd: text("collateral_seized_usd").notNull(),
+  
+  // Health Factor (before and after)
+  healthFactorBefore: integer("health_factor_before").notNull(),
+  healthFactorAfter: integer("health_factor_after").notNull(),
+  
+  // Close Factor Used (basis points, max 5000 = 50%)
+  closeFactorUsed: integer("close_factor_used").notNull(),
+  
+  // Status
+  status: text("status").notNull().default("completed"),
+  txHash: text("tx_hash"),
+  
+  // AI Analysis
+  aiRiskAssessment: text("ai_risk_assessment"),
+  aiRecommendation: text("ai_recommendation"),
+  
+  // Timestamps
+  executedAt: timestamp("executed_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending Interest Rate History
+// ============================================
+
+export const lendingRateHistory = pgTable("lending_rate_history", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  marketId: varchar("market_id").notNull(),
+  assetSymbol: text("asset_symbol").notNull(),
+  
+  // Rates (basis points)
+  supplyRate: integer("supply_rate").notNull(),
+  borrowRateVariable: integer("borrow_rate_variable").notNull(),
+  borrowRateStable: integer("borrow_rate_stable").notNull(),
+  utilizationRate: integer("utilization_rate").notNull(),
+  
+  // Pool State at Snapshot
+  totalSupply: text("total_supply").notNull(),
+  totalBorrowed: text("total_borrowed").notNull(),
+  
+  // Block Info
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Timestamp
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending Transactions (Supply/Withdraw/Borrow/Repay)
+// ============================================
+
+export const lendingTransactions = pgTable("lending_transactions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Type
+  txType: text("tx_type").notNull(), // supply, withdraw, borrow, repay, liquidation, collateral_toggle
+  
+  // User
+  userAddress: text("user_address").notNull(),
+  positionId: varchar("position_id"),
+  
+  // Asset
+  marketId: varchar("market_id").notNull(),
+  assetAddress: text("asset_address").notNull(),
+  assetSymbol: text("asset_symbol").notNull(),
+  
+  // Amounts
+  amount: text("amount").notNull(),
+  shares: text("shares").notNull().default("0"),
+  amountUsd: text("amount_usd").notNull(),
+  
+  // Rate Info (for borrows)
+  rateMode: text("rate_mode"),
+  interestRate: integer("interest_rate"), // basis points
+  
+  // Receipt Data
+  exchangeRate: text("exchange_rate"),
+  
+  // Health Factor (after transaction)
+  healthFactorAfter: integer("health_factor_after"),
+  
+  // Status
+  status: text("status").notNull().default("completed"),
+  txHash: text("tx_hash"),
+  
+  // Block Info
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending Protocol Stats
+// ============================================
+
+export const lendingProtocolStats = pgTable("lending_protocol_stats", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Aggregate Stats
+  totalValueLockedUsd: text("total_value_locked_usd").notNull().default("0"),
+  totalBorrowedUsd: text("total_borrowed_usd").notNull().default("0"),
+  totalReservesUsd: text("total_reserves_usd").notNull().default("0"),
+  
+  // Market Stats
+  activeMarkets: integer("active_markets").notNull().default(0),
+  totalMarkets: integer("total_markets").notNull().default(0),
+  
+  // User Stats
+  totalSuppliers: integer("total_suppliers").notNull().default(0),
+  totalBorrowers: integer("total_borrowers").notNull().default(0),
+  uniqueUsers: integer("unique_users").notNull().default(0),
+  
+  // Activity Stats (24h)
+  volume24hSupply: text("volume_24h_supply").notNull().default("0"),
+  volume24hBorrow: text("volume_24h_borrow").notNull().default("0"),
+  volume24hRepay: text("volume_24h_repay").notNull().default("0"),
+  liquidations24h: integer("liquidations_24h").notNull().default(0),
+  liquidationVolume24hUsd: text("liquidation_volume_24h_usd").notNull().default("0"),
+  
+  // Protocol Revenue
+  protocolRevenueUsd: text("protocol_revenue_usd").notNull().default("0"),
+  
+  // Average Rates (basis points)
+  avgSupplyRate: integer("avg_supply_rate").notNull().default(0),
+  avgBorrowRate: integer("avg_borrow_rate").notNull().default(0),
+  avgUtilization: integer("avg_utilization").notNull().default(0),
+  
+  // Risk Metrics
+  atRiskPositions: integer("at_risk_positions").notNull().default(0),
+  liquidatablePositions: integer("liquidatable_positions").notNull().default(0),
+  
+  // Snapshot Time
+  snapshotAt: timestamp("snapshot_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Lending Insert Schemas
+// ============================================
+
+export const insertLendingMarketSchema = createInsertSchema(lendingMarkets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastInterestUpdate: true,
+});
+
+export const insertLendingPositionSchema = createInsertSchema(lendingPositions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastActivityAt: true,
+});
+
+export const insertLendingSupplySchema = createInsertSchema(lendingSupplies).omit({
+  id: true,
+  createdAt: true,
+  lastUpdateAt: true,
+});
+
+export const insertLendingBorrowSchema = createInsertSchema(lendingBorrows).omit({
+  id: true,
+  createdAt: true,
+  lastUpdateAt: true,
+});
+
+export const insertLendingLiquidationSchema = createInsertSchema(lendingLiquidations).omit({
+  id: true,
+  createdAt: true,
+  executedAt: true,
+});
+
+export const insertLendingRateHistorySchema = createInsertSchema(lendingRateHistory).omit({
+  id: true,
+  recordedAt: true,
+});
+
+export const insertLendingTransactionSchema = createInsertSchema(lendingTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertLendingProtocolStatsSchema = createInsertSchema(lendingProtocolStats).omit({
+  id: true,
+  createdAt: true,
+  snapshotAt: true,
+});
+
+// ============================================
+// Lending Types
+// ============================================
+
+export type LendingMarket = typeof lendingMarkets.$inferSelect;
+export type InsertLendingMarket = z.infer<typeof insertLendingMarketSchema>;
+
+export type LendingPosition = typeof lendingPositions.$inferSelect;
+export type InsertLendingPosition = z.infer<typeof insertLendingPositionSchema>;
+
+export type LendingSupply = typeof lendingSupplies.$inferSelect;
+export type InsertLendingSupply = z.infer<typeof insertLendingSupplySchema>;
+
+export type LendingBorrow = typeof lendingBorrows.$inferSelect;
+export type InsertLendingBorrow = z.infer<typeof insertLendingBorrowSchema>;
+
+export type LendingLiquidation = typeof lendingLiquidations.$inferSelect;
+export type InsertLendingLiquidation = z.infer<typeof insertLendingLiquidationSchema>;
+
+export type LendingRateHistory = typeof lendingRateHistory.$inferSelect;
+export type InsertLendingRateHistory = z.infer<typeof insertLendingRateHistorySchema>;
+
+export type LendingTransaction = typeof lendingTransactions.$inferSelect;
+export type InsertLendingTransaction = z.infer<typeof insertLendingTransactionSchema>;
+
+export type LendingProtocolStats = typeof lendingProtocolStats.$inferSelect;
+export type InsertLendingProtocolStats = z.infer<typeof insertLendingProtocolStatsSchema>;
+
+// ============================================
+// Lending Frontend Types
+// ============================================
+
+export interface LendingMarketSummary {
+  id: string;
+  assetSymbol: string;
+  assetName: string;
+  assetAddress: string;
+  totalSupply: string;
+  totalBorrowed: string;
+  availableLiquidity: string;
+  supplyApy: number; // percentage
+  borrowApyVariable: number; // percentage
+  borrowApyStable: number; // percentage
+  utilizationRate: number; // percentage
+  collateralFactor: number; // percentage
+  liquidationThreshold: number; // percentage
+  status: LendingMarketStatus;
+}
+
+export interface LendingUserPosition {
+  userAddress: string;
+  totalCollateralUsd: string;
+  totalBorrowedUsd: string;
+  availableBorrowUsd: string;
+  healthFactor: number; // decimal (1.5 = 150% healthy)
+  healthStatus: HealthStatus;
+  netApy: number; // percentage, can be negative
+  supplies: LendingSupplyDetail[];
+  borrows: LendingBorrowDetail[];
+}
+
+export interface LendingSupplyDetail {
+  marketId: string;
+  assetSymbol: string;
+  suppliedAmount: string;
+  suppliedValueUsd: string;
+  supplyApy: number;
+  isCollateral: boolean;
+  interestEarned: string;
+}
+
+export interface LendingBorrowDetail {
+  marketId: string;
+  assetSymbol: string;
+  borrowedAmount: string;
+  borrowedValueUsd: string;
+  borrowApy: number;
+  rateMode: BorrowRateMode;
+  accruedInterest: string;
+}
+
+export interface LendingStats {
+  totalValueLockedUsd: string;
+  totalBorrowedUsd: string;
+  totalMarkets: number;
+  totalUsers: number;
+  avgSupplyApy: number;
+  avgBorrowApy: number;
+  avgUtilization: number;
+  liquidations24h: number;
+}

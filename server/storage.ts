@@ -99,6 +99,22 @@ import {
   type InsertDexLiquidityReward,
   type DexUserAnalytics,
   type InsertDexUserAnalytics,
+  type LendingMarket,
+  type InsertLendingMarket,
+  type LendingPosition,
+  type InsertLendingPosition,
+  type LendingSupply,
+  type InsertLendingSupply,
+  type LendingBorrow,
+  type InsertLendingBorrow,
+  type LendingLiquidation,
+  type InsertLendingLiquidation,
+  type LendingRateHistory,
+  type InsertLendingRateHistory,
+  type LendingTransaction,
+  type InsertLendingTransaction,
+  type LendingProtocolStats,
+  type InsertLendingProtocolStats,
   blocks,
   transactions,
   accounts,
@@ -149,6 +165,14 @@ import {
   dexMevEvents,
   dexLiquidityRewards,
   dexUserAnalytics,
+  lendingMarkets,
+  lendingPositions,
+  lendingSupplies,
+  lendingBorrows,
+  lendingLiquidations,
+  lendingRateHistory,
+  lendingTransactions,
+  lendingProtocolStats,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -479,6 +503,81 @@ export interface IStorage {
     totalFees24h: string;
     totalSwaps24h: number;
     totalLiquidityProviders: number;
+  }>;
+
+  // ============================================
+  // LENDING/BORROWING INFRASTRUCTURE v1.0
+  // ============================================
+  
+  // Lending Markets
+  getAllLendingMarkets(): Promise<LendingMarket[]>;
+  getActiveLendingMarkets(): Promise<LendingMarket[]>;
+  getLendingMarketById(id: string): Promise<LendingMarket | undefined>;
+  getLendingMarketByAsset(assetAddress: string): Promise<LendingMarket | undefined>;
+  createLendingMarket(data: InsertLendingMarket): Promise<LendingMarket>;
+  updateLendingMarket(id: string, data: Partial<LendingMarket>): Promise<void>;
+  
+  // Lending Positions
+  getAllLendingPositions(): Promise<LendingPosition[]>;
+  getLendingPositionByUser(userAddress: string): Promise<LendingPosition | undefined>;
+  getLendingPositionById(id: string): Promise<LendingPosition | undefined>;
+  getLiquidatablePositions(): Promise<LendingPosition[]>;
+  getAtRiskPositions(): Promise<LendingPosition[]>;
+  createLendingPosition(data: InsertLendingPosition): Promise<LendingPosition>;
+  updateLendingPosition(userAddress: string, data: Partial<LendingPosition>): Promise<void>;
+  
+  // Lending Supplies
+  getLendingSuppliesByUser(userAddress: string): Promise<LendingSupply[]>;
+  getLendingSuppliesByMarket(marketId: string): Promise<LendingSupply[]>;
+  getLendingSupply(userAddress: string, marketId: string): Promise<LendingSupply | undefined>;
+  createLendingSupply(data: InsertLendingSupply): Promise<LendingSupply>;
+  updateLendingSupply(id: string, data: Partial<LendingSupply>): Promise<void>;
+  deleteLendingSupply(id: string): Promise<void>;
+  
+  // Lending Borrows
+  getLendingBorrowsByUser(userAddress: string): Promise<LendingBorrow[]>;
+  getLendingBorrowsByMarket(marketId: string): Promise<LendingBorrow[]>;
+  getLendingBorrow(userAddress: string, marketId: string): Promise<LendingBorrow | undefined>;
+  createLendingBorrow(data: InsertLendingBorrow): Promise<LendingBorrow>;
+  updateLendingBorrow(id: string, data: Partial<LendingBorrow>): Promise<void>;
+  deleteLendingBorrow(id: string): Promise<void>;
+  
+  // Lending Liquidations
+  getAllLendingLiquidations(limit?: number): Promise<LendingLiquidation[]>;
+  getLendingLiquidationsByBorrower(borrowerAddress: string): Promise<LendingLiquidation[]>;
+  getLendingLiquidationsByLiquidator(liquidatorAddress: string): Promise<LendingLiquidation[]>;
+  getRecentLendingLiquidations(limit?: number): Promise<LendingLiquidation[]>;
+  createLendingLiquidation(data: InsertLendingLiquidation): Promise<LendingLiquidation>;
+  
+  // Lending Rate History
+  getLendingRateHistory(marketId: string, limit?: number): Promise<LendingRateHistory[]>;
+  createLendingRateHistory(data: InsertLendingRateHistory): Promise<LendingRateHistory>;
+  
+  // Lending Transactions
+  getAllLendingTransactions(limit?: number): Promise<LendingTransaction[]>;
+  getLendingTransactionsByUser(userAddress: string, limit?: number): Promise<LendingTransaction[]>;
+  getLendingTransactionsByMarket(marketId: string, limit?: number): Promise<LendingTransaction[]>;
+  getRecentLendingTransactions(limit?: number): Promise<LendingTransaction[]>;
+  createLendingTransaction(data: InsertLendingTransaction): Promise<LendingTransaction>;
+  
+  // Lending Protocol Stats
+  getLendingProtocolStats(): Promise<LendingProtocolStats | undefined>;
+  createLendingProtocolStats(data: InsertLendingProtocolStats): Promise<LendingProtocolStats>;
+  updateLendingProtocolStats(id: string, data: Partial<LendingProtocolStats>): Promise<void>;
+  
+  // Lending Aggregated Stats
+  getLendingStats(): Promise<{
+    totalValueLockedUsd: string;
+    totalBorrowedUsd: string;
+    totalMarkets: number;
+    activeMarkets: number;
+    totalUsers: number;
+    avgSupplyRate: number;
+    avgBorrowRate: number;
+    avgUtilization: number;
+    liquidations24h: number;
+    atRiskPositions: number;
+    liquidatablePositions: number;
   }>;
 }
 
@@ -3186,6 +3285,331 @@ export class DbStorage implements IStorage {
       totalFees24h: totalFees.toString(),
       totalSwaps24h: totalSwaps,
       totalLiquidityProviders: lpAddresses.size,
+    };
+  }
+
+  // ============================================
+  // LENDING/BORROWING INFRASTRUCTURE v1.0 IMPLEMENTATIONS
+  // ============================================
+
+  // Lending Markets
+  async getAllLendingMarkets(): Promise<LendingMarket[]> {
+    return await db.select().from(lendingMarkets).orderBy(desc(lendingMarkets.totalSupply));
+  }
+
+  async getActiveLendingMarkets(): Promise<LendingMarket[]> {
+    return await db.select().from(lendingMarkets)
+      .where(eq(lendingMarkets.status, "active"))
+      .orderBy(desc(lendingMarkets.totalSupply));
+  }
+
+  async getLendingMarketById(id: string): Promise<LendingMarket | undefined> {
+    const [market] = await db.select().from(lendingMarkets).where(eq(lendingMarkets.id, id));
+    return market;
+  }
+
+  async getLendingMarketByAsset(assetAddress: string): Promise<LendingMarket | undefined> {
+    const [market] = await db.select().from(lendingMarkets)
+      .where(eq(lendingMarkets.assetAddress, assetAddress));
+    return market;
+  }
+
+  async createLendingMarket(data: InsertLendingMarket): Promise<LendingMarket> {
+    const [result] = await db.insert(lendingMarkets).values({
+      ...data,
+      id: `market-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateLendingMarket(id: string, data: Partial<LendingMarket>): Promise<void> {
+    await db.update(lendingMarkets).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(lendingMarkets.id, id));
+  }
+
+  // Lending Positions
+  async getAllLendingPositions(): Promise<LendingPosition[]> {
+    return await db.select().from(lendingPositions).orderBy(desc(lendingPositions.totalCollateralValueUsd));
+  }
+
+  async getLendingPositionByUser(userAddress: string): Promise<LendingPosition | undefined> {
+    const [position] = await db.select().from(lendingPositions)
+      .where(eq(lendingPositions.userAddress, userAddress));
+    return position;
+  }
+
+  async getLendingPositionById(id: string): Promise<LendingPosition | undefined> {
+    const [position] = await db.select().from(lendingPositions).where(eq(lendingPositions.id, id));
+    return position;
+  }
+
+  async getLiquidatablePositions(): Promise<LendingPosition[]> {
+    return await db.select().from(lendingPositions)
+      .where(eq(lendingPositions.healthStatus, "liquidatable"))
+      .orderBy(lendingPositions.healthFactor);
+  }
+
+  async getAtRiskPositions(): Promise<LendingPosition[]> {
+    return await db.select().from(lendingPositions)
+      .where(eq(lendingPositions.healthStatus, "at_risk"))
+      .orderBy(lendingPositions.healthFactor);
+  }
+
+  async createLendingPosition(data: InsertLendingPosition): Promise<LendingPosition> {
+    const [result] = await db.insert(lendingPositions).values({
+      ...data,
+      id: `pos-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateLendingPosition(userAddress: string, data: Partial<LendingPosition>): Promise<void> {
+    await db.update(lendingPositions).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(lendingPositions.userAddress, userAddress));
+  }
+
+  // Lending Supplies
+  async getLendingSuppliesByUser(userAddress: string): Promise<LendingSupply[]> {
+    return await db.select().from(lendingSupplies)
+      .where(eq(lendingSupplies.userAddress, userAddress));
+  }
+
+  async getLendingSuppliesByMarket(marketId: string): Promise<LendingSupply[]> {
+    return await db.select().from(lendingSupplies)
+      .where(eq(lendingSupplies.marketId, marketId));
+  }
+
+  async getLendingSupply(userAddress: string, marketId: string): Promise<LendingSupply | undefined> {
+    const [supply] = await db.select().from(lendingSupplies)
+      .where(and(
+        eq(lendingSupplies.userAddress, userAddress),
+        eq(lendingSupplies.marketId, marketId)
+      ));
+    return supply;
+  }
+
+  async createLendingSupply(data: InsertLendingSupply): Promise<LendingSupply> {
+    const [result] = await db.insert(lendingSupplies).values({
+      ...data,
+      id: `supply-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateLendingSupply(id: string, data: Partial<LendingSupply>): Promise<void> {
+    await db.update(lendingSupplies).set({
+      ...data,
+      lastUpdateAt: new Date(),
+    }).where(eq(lendingSupplies.id, id));
+  }
+
+  async deleteLendingSupply(id: string): Promise<void> {
+    await db.delete(lendingSupplies).where(eq(lendingSupplies.id, id));
+  }
+
+  // Lending Borrows
+  async getLendingBorrowsByUser(userAddress: string): Promise<LendingBorrow[]> {
+    return await db.select().from(lendingBorrows)
+      .where(eq(lendingBorrows.userAddress, userAddress));
+  }
+
+  async getLendingBorrowsByMarket(marketId: string): Promise<LendingBorrow[]> {
+    return await db.select().from(lendingBorrows)
+      .where(eq(lendingBorrows.marketId, marketId));
+  }
+
+  async getLendingBorrow(userAddress: string, marketId: string): Promise<LendingBorrow | undefined> {
+    const [borrow] = await db.select().from(lendingBorrows)
+      .where(and(
+        eq(lendingBorrows.userAddress, userAddress),
+        eq(lendingBorrows.marketId, marketId)
+      ));
+    return borrow;
+  }
+
+  async createLendingBorrow(data: InsertLendingBorrow): Promise<LendingBorrow> {
+    const [result] = await db.insert(lendingBorrows).values({
+      ...data,
+      id: `borrow-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateLendingBorrow(id: string, data: Partial<LendingBorrow>): Promise<void> {
+    await db.update(lendingBorrows).set({
+      ...data,
+      lastUpdateAt: new Date(),
+    }).where(eq(lendingBorrows.id, id));
+  }
+
+  async deleteLendingBorrow(id: string): Promise<void> {
+    await db.delete(lendingBorrows).where(eq(lendingBorrows.id, id));
+  }
+
+  // Lending Liquidations
+  async getAllLendingLiquidations(limit: number = 100): Promise<LendingLiquidation[]> {
+    return await db.select().from(lendingLiquidations)
+      .orderBy(desc(lendingLiquidations.executedAt))
+      .limit(limit);
+  }
+
+  async getLendingLiquidationsByBorrower(borrowerAddress: string): Promise<LendingLiquidation[]> {
+    return await db.select().from(lendingLiquidations)
+      .where(eq(lendingLiquidations.borrowerAddress, borrowerAddress))
+      .orderBy(desc(lendingLiquidations.executedAt));
+  }
+
+  async getLendingLiquidationsByLiquidator(liquidatorAddress: string): Promise<LendingLiquidation[]> {
+    return await db.select().from(lendingLiquidations)
+      .where(eq(lendingLiquidations.liquidatorAddress, liquidatorAddress))
+      .orderBy(desc(lendingLiquidations.executedAt));
+  }
+
+  async getRecentLendingLiquidations(limit: number = 20): Promise<LendingLiquidation[]> {
+    return await db.select().from(lendingLiquidations)
+      .orderBy(desc(lendingLiquidations.executedAt))
+      .limit(limit);
+  }
+
+  async createLendingLiquidation(data: InsertLendingLiquidation): Promise<LendingLiquidation> {
+    const [result] = await db.insert(lendingLiquidations).values({
+      ...data,
+      id: `liq-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  // Lending Rate History
+  async getLendingRateHistory(marketId: string, limit: number = 100): Promise<LendingRateHistory[]> {
+    return await db.select().from(lendingRateHistory)
+      .where(eq(lendingRateHistory.marketId, marketId))
+      .orderBy(desc(lendingRateHistory.recordedAt))
+      .limit(limit);
+  }
+
+  async createLendingRateHistory(data: InsertLendingRateHistory): Promise<LendingRateHistory> {
+    const [result] = await db.insert(lendingRateHistory).values({
+      ...data,
+      id: `rate-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  // Lending Transactions
+  async getAllLendingTransactions(limit: number = 100): Promise<LendingTransaction[]> {
+    return await db.select().from(lendingTransactions)
+      .orderBy(desc(lendingTransactions.createdAt))
+      .limit(limit);
+  }
+
+  async getLendingTransactionsByUser(userAddress: string, limit: number = 50): Promise<LendingTransaction[]> {
+    return await db.select().from(lendingTransactions)
+      .where(eq(lendingTransactions.userAddress, userAddress))
+      .orderBy(desc(lendingTransactions.createdAt))
+      .limit(limit);
+  }
+
+  async getLendingTransactionsByMarket(marketId: string, limit: number = 50): Promise<LendingTransaction[]> {
+    return await db.select().from(lendingTransactions)
+      .where(eq(lendingTransactions.marketId, marketId))
+      .orderBy(desc(lendingTransactions.createdAt))
+      .limit(limit);
+  }
+
+  async getRecentLendingTransactions(limit: number = 20): Promise<LendingTransaction[]> {
+    return await db.select().from(lendingTransactions)
+      .orderBy(desc(lendingTransactions.createdAt))
+      .limit(limit);
+  }
+
+  async createLendingTransaction(data: InsertLendingTransaction): Promise<LendingTransaction> {
+    const [result] = await db.insert(lendingTransactions).values({
+      ...data,
+      id: `tx-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  // Lending Protocol Stats
+  async getLendingProtocolStats(): Promise<LendingProtocolStats | undefined> {
+    const [stats] = await db.select().from(lendingProtocolStats)
+      .orderBy(desc(lendingProtocolStats.snapshotAt))
+      .limit(1);
+    return stats;
+  }
+
+  async createLendingProtocolStats(data: InsertLendingProtocolStats): Promise<LendingProtocolStats> {
+    const [result] = await db.insert(lendingProtocolStats).values({
+      ...data,
+      id: `stats-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateLendingProtocolStats(id: string, data: Partial<LendingProtocolStats>): Promise<void> {
+    await db.update(lendingProtocolStats).set(data).where(eq(lendingProtocolStats.id, id));
+  }
+
+  // Lending Aggregated Stats
+  async getLendingStats(): Promise<{
+    totalValueLockedUsd: string;
+    totalBorrowedUsd: string;
+    totalMarkets: number;
+    activeMarkets: number;
+    totalUsers: number;
+    avgSupplyRate: number;
+    avgBorrowRate: number;
+    avgUtilization: number;
+    liquidations24h: number;
+    atRiskPositions: number;
+    liquidatablePositions: number;
+  }> {
+    const markets = await db.select().from(lendingMarkets);
+    const activeMarkets = markets.filter(m => m.status === "active");
+    const positions = await db.select().from(lendingPositions);
+    
+    let totalTvl = BigInt(0);
+    let totalBorrowed = BigInt(0);
+    let totalSupplyRate = 0;
+    let totalBorrowRate = 0;
+    let totalUtilization = 0;
+    
+    for (const market of activeMarkets) {
+      totalTvl += BigInt(market.totalSupply.replace(/\./g, '') || "0");
+      totalBorrowed += BigInt(market.totalBorrowed.replace(/\./g, '') || "0");
+      totalSupplyRate += market.supplyRate;
+      totalBorrowRate += market.borrowRateVariable;
+      totalUtilization += market.utilizationRate;
+    }
+    
+    const avgSupplyRate = activeMarkets.length > 0 ? Math.floor(totalSupplyRate / activeMarkets.length) : 0;
+    const avgBorrowRate = activeMarkets.length > 0 ? Math.floor(totalBorrowRate / activeMarkets.length) : 0;
+    const avgUtilization = activeMarkets.length > 0 ? Math.floor(totalUtilization / activeMarkets.length) : 0;
+    
+    const atRiskPositions = positions.filter(p => p.healthStatus === "at_risk").length;
+    const liquidatablePositions = positions.filter(p => p.healthStatus === "liquidatable").length;
+    
+    // Get 24h liquidations count
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const recentLiquidations = await db.select().from(lendingLiquidations);
+    const liquidations24h = recentLiquidations.filter(l => new Date(l.executedAt) >= oneDayAgo).length;
+    
+    return {
+      totalValueLockedUsd: totalTvl.toString(),
+      totalBorrowedUsd: totalBorrowed.toString(),
+      totalMarkets: markets.length,
+      activeMarkets: activeMarkets.length,
+      totalUsers: positions.length,
+      avgSupplyRate,
+      avgBorrowRate,
+      avgUtilization,
+      liquidations24h,
+      atRiskPositions,
+      liquidatablePositions,
     };
   }
 }
