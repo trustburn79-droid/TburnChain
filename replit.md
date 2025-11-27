@@ -4,6 +4,11 @@
 The TBURN Blockchain Mainnet Explorer is a professional-grade tool for comprehensive insights into the TBURN blockchain. It offers real-time network monitoring, AI orchestration management, validator tracking, a smart contract interface, sharding system monitoring, and detailed node health dashboards. The project aims to provide a robust and user-friendly platform for observing and interacting with the TBURN mainnet for developers and blockchain enthusiasts. The explorer fully visualizes all 7 core patent technologies of TBURN v7.0, providing comprehensive monitoring and insights into the blockchain's advanced features.
 
 **Latest Updates (November 27, 2025):**
+- **Comprehensive User Guide**: Created `TBURN_EXPLORER_GUIDE.md` - complete documentation for all menu items and features
+  - Covers all 13 explorer pages with detailed feature descriptions
+  - Operator Portal documentation for all 5 management modules
+  - Includes gas unit system (Ember), tokenomics, and cryptographic hash algorithm explanations
+  - Step-by-step guides for each feature
 - **Dashboard UI Improvements**:
   - Removed "Simulated" badge indicators from Dashboard header and all stat cards
   - Only "Live" indicator remains for connection status display
