@@ -1120,6 +1120,70 @@ export const hardwareVerificationChecklists = pgTable("hardware_verification_che
 });
 
 // ============================================
+// TOKEN SYSTEM v4.0 - DEPLOYED TOKENS
+// ============================================
+
+// Deployed Tokens - Tracks all tokens deployed on TBURN Chain
+export const deployedTokens = pgTable("deployed_tokens", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Token Identity
+  name: text("name").notNull(),
+  symbol: text("symbol").notNull(),
+  contractAddress: text("contract_address").notNull().unique(),
+  
+  // Token Standard
+  standard: text("standard").notNull(), // TBC-20, TBC-721, TBC-1155
+  
+  // Token Configuration
+  totalSupply: text("total_supply").notNull(),
+  decimals: integer("decimals").notNull().default(18),
+  
+  // TBC-20 Specific
+  initialSupply: text("initial_supply"),
+  maxSupply: text("max_supply"),
+  mintable: boolean("mintable").notNull().default(false),
+  burnable: boolean("burnable").notNull().default(true),
+  pausable: boolean("pausable").notNull().default(false),
+  
+  // TBC-721 Specific (NFT)
+  baseUri: text("base_uri"),
+  maxTokens: integer("max_tokens"),
+  royaltyPercentage: integer("royalty_percentage").default(0), // basis points
+  royaltyRecipient: text("royalty_recipient"),
+  
+  // TBC-1155 Specific (Multi-Token)
+  tokenTypes: jsonb("token_types"), // Array of token type configurations
+  
+  // AI Features
+  aiOptimizationEnabled: boolean("ai_optimization_enabled").notNull().default(true),
+  aiBurnOptimization: boolean("ai_burn_optimization").notNull().default(false),
+  aiPriceOracle: boolean("ai_price_oracle").notNull().default(false),
+  aiSupplyManagement: boolean("ai_supply_management").notNull().default(false),
+  
+  // Security Features
+  quantumResistant: boolean("quantum_resistant").notNull().default(true),
+  mevProtection: boolean("mev_protection").notNull().default(true),
+  zkPrivacy: boolean("zk_privacy").notNull().default(false),
+  
+  // Deployment Info
+  deployerAddress: text("deployer_address").notNull(),
+  deploymentTxHash: text("deployment_tx_hash").notNull(),
+  deployedAt: timestamp("deployed_at").notNull().defaultNow(),
+  
+  // Statistics
+  holders: integer("holders").notNull().default(0),
+  transactionCount: integer("transaction_count").notNull().default(0),
+  volume24h: text("volume_24h").notNull().default("0"),
+  
+  // Status
+  verified: boolean("verified").notNull().default(false),
+  status: text("status").notNull().default("active"), // active, paused, deprecated
+  
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
 // Insert Schemas and Types
 // ============================================
 
@@ -1168,6 +1232,9 @@ export const insertAlertQueueSchema = createInsertSchema(alertQueue).omit({ id: 
 export const insertValidatorPerformanceHistorySchema = createInsertSchema(validatorPerformanceHistory).omit({ id: true, createdAt: true });
 export const insertReportScheduleSchema = createInsertSchema(reportSchedules).omit({ id: true, createdAt: true, updatedAt: true, lastRunAt: true, nextRunAt: true });
 export const insertHardwareVerificationChecklistSchema = createInsertSchema(hardwareVerificationChecklists).omit({ id: true, createdAt: true, updatedAt: true, reviewedAt: true });
+
+// Token System v4.0 Insert Schemas
+export const insertDeployedTokenSchema = createInsertSchema(deployedTokens).omit({ id: true, deployedAt: true, updatedAt: true });
 
 // Infer the types for the new tables
 export type Delegation = typeof delegations.$inferSelect;
@@ -1332,6 +1399,10 @@ export type InsertReportSchedule = z.infer<typeof insertReportScheduleSchema>;
 
 export type HardwareVerificationChecklist = typeof hardwareVerificationChecklists.$inferSelect;
 export type InsertHardwareVerificationChecklist = z.infer<typeof insertHardwareVerificationChecklistSchema>;
+
+// Token System v4.0 Types
+export type DeployedToken = typeof deployedTokens.$inferSelect;
+export type InsertDeployedToken = z.infer<typeof insertDeployedTokenSchema>;
 
 // ============================================
 // Additional Types for Frontend

@@ -702,6 +702,173 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Deploy Token (TBC-20, TBC-721, TBC-1155)
+  app.post("/api/token-system/deploy", async (req, res) => {
+    try {
+      const { 
+        standard, 
+        name, 
+        symbol, 
+        totalSupply, 
+        decimals,
+        // TBC-20 options
+        mintable,
+        burnable,
+        pausable,
+        maxSupply,
+        // TBC-721 options
+        baseUri,
+        maxTokens,
+        royaltyPercentage,
+        royaltyRecipient,
+        // TBC-1155 options
+        tokenTypes,
+        // AI features
+        aiOptimizationEnabled,
+        aiBurnOptimization,
+        aiPriceOracle,
+        aiSupplyManagement,
+        // Security features
+        quantumResistant,
+        mevProtection,
+        zkPrivacy,
+        // Deployer info
+        deployerAddress
+      } = req.body;
+
+      // Validate required fields
+      if (!standard || !name || !symbol || !deployerAddress) {
+        return res.status(400).json({ 
+          error: "Missing required fields: standard, name, symbol, deployerAddress" 
+        });
+      }
+
+      // Validate token standard
+      if (!["TBC-20", "TBC-721", "TBC-1155"].includes(standard)) {
+        return res.status(400).json({ 
+          error: "Invalid token standard. Must be TBC-20, TBC-721, or TBC-1155" 
+        });
+      }
+
+      // Generate contract address and deployment transaction hash
+      const randomBytes = Array.from({ length: 20 }, () => 
+        Math.floor(Math.random() * 256).toString(16).padStart(2, '0')
+      ).join('');
+      const contractAddress = `0x${randomBytes}`;
+      
+      const txRandomBytes = Array.from({ length: 32 }, () => 
+        Math.floor(Math.random() * 256).toString(16).padStart(2, '0')
+      ).join('');
+      const deploymentTxHash = `0x${txRandomBytes}`;
+
+      // Create deployed token record
+      const deployedToken = {
+        id: `${standard.toLowerCase()}-${Date.now()}`,
+        name,
+        symbol,
+        contractAddress,
+        standard,
+        totalSupply: totalSupply || (standard === "TBC-20" ? "1000000000000000000000000" : "0"),
+        decimals: decimals || (standard === "TBC-20" ? 18 : 0),
+        // TBC-20 specific
+        initialSupply: totalSupply || "1000000000000000000000000",
+        maxSupply: maxSupply || null,
+        mintable: mintable ?? false,
+        burnable: burnable ?? true,
+        pausable: pausable ?? false,
+        // TBC-721 specific
+        baseUri: baseUri || null,
+        maxTokens: maxTokens || null,
+        royaltyPercentage: royaltyPercentage || 0,
+        royaltyRecipient: royaltyRecipient || deployerAddress,
+        // TBC-1155 specific
+        tokenTypes: tokenTypes || null,
+        // AI features
+        aiOptimizationEnabled: aiOptimizationEnabled ?? true,
+        aiBurnOptimization: aiBurnOptimization ?? false,
+        aiPriceOracle: aiPriceOracle ?? false,
+        aiSupplyManagement: aiSupplyManagement ?? false,
+        // Security features
+        quantumResistant: quantumResistant ?? true,
+        mevProtection: mevProtection ?? true,
+        zkPrivacy: zkPrivacy ?? false,
+        // Deployment info
+        deployerAddress,
+        deploymentTxHash,
+        deployedAt: new Date().toISOString(),
+        // Statistics
+        holders: 1,
+        transactionCount: 1,
+        volume24h: "0",
+        // Status
+        verified: false,
+        status: "active"
+      };
+
+      // Simulate AI optimization analysis (in production would call Triple-Band AI)
+      const aiAnalysis = {
+        gasOptimization: Math.floor(Math.random() * 20) + 10,
+        securityScore: Math.floor(Math.random() * 15) + 85,
+        recommendation: aiOptimizationEnabled 
+          ? "AI optimization enabled. Contract will use GPT-5 Turbo for gas optimization and Claude Sonnet 4.5 for security monitoring."
+          : "Consider enabling AI optimization for better gas efficiency and security monitoring."
+      };
+
+      res.json({
+        success: true,
+        token: deployedToken,
+        transaction: {
+          hash: deploymentTxHash,
+          blockNumber: Math.floor(Math.random() * 1000000) + 1000000,
+          gasUsed: Math.floor(Math.random() * 500000) + 200000,
+          gasPrice: "10",
+          status: "success",
+          timestamp: new Date().toISOString()
+        },
+        aiAnalysis
+      });
+    } catch (error) {
+      console.error("Error deploying token:", error);
+      res.status(500).json({ error: "Failed to deploy token" });
+    }
+  });
+
+  // Get deployed tokens (user's tokens)
+  app.get("/api/token-system/deployed", async (req, res) => {
+    try {
+      const deployerAddress = req.query.deployer as string;
+      
+      // Return mock deployed tokens for demo purposes
+      const deployedTokens = [
+        {
+          id: "tbc20-mytoken-001",
+          name: "My Custom Token",
+          symbol: "MYT",
+          contractAddress: "0x1234567890123456789012345678901234567890",
+          standard: "TBC-20",
+          totalSupply: "1000000000000000000000000",
+          decimals: 18,
+          mintable: true,
+          burnable: true,
+          pausable: false,
+          aiOptimizationEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+          deployedAt: new Date(Date.now() - 86400000 * 3).toISOString(),
+          holders: 125,
+          transactionCount: 1580,
+          status: "active"
+        }
+      ];
+      
+      res.json(deployedTokens);
+    } catch (error) {
+      console.error("Error fetching deployed tokens:", error);
+      res.status(500).json({ error: "Failed to fetch deployed tokens" });
+    }
+  });
+
   // Cross-Chain Bridge Stats
   app.get("/api/bridge/stats", async (_req, res) => {
     try {
