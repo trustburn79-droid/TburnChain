@@ -22,6 +22,7 @@ import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
 import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
 import { getRestartSupervisor, type RestartState } from "./services/RestartSupervisor";
+import { registerDexRoutes } from "./routes/dex-routes";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -351,6 +352,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     requireAuth(req, res, next);
   });
+
+  // ============================================
+  // DEX INFRASTRUCTURE (Modular Routes)
+  // ============================================
+  registerDexRoutes(app, requireAuth);
+
   // ============================================
   // Network Stats
   // ============================================
