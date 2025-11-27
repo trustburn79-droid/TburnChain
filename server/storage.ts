@@ -145,6 +145,7 @@ export interface IStorage {
   // Validators
   getAllValidators(): Promise<Validator[]>;
   getValidatorByAddress(address: string): Promise<Validator | undefined>;
+  getValidatorById(id: string): Promise<Validator | undefined>;
   createValidator(validator: InsertValidator): Promise<Validator>;
   updateValidator(address: string, data: Partial<Validator>): Promise<Validator>;
   getValidatorDetails(address: string): Promise<any>;
@@ -295,6 +296,7 @@ export interface IStorage {
   
   // Unbonding Requests
   getAllUnbondingRequests(limit?: number): Promise<UnbondingRequest[]>;
+  getUnbondingRequestById(id: string): Promise<UnbondingRequest | undefined>;
   getUnbondingRequestsByAddress(address: string): Promise<UnbondingRequest[]>;
   createUnbondingRequest(data: InsertUnbondingRequest): Promise<UnbondingRequest>;
   updateUnbondingRequest(id: string, data: Partial<UnbondingRequest>): Promise<void>;
@@ -975,6 +977,10 @@ export class MemStorage implements IStorage {
     return this.validators.get(address);
   }
 
+  async getValidatorById(id: string): Promise<Validator | undefined> {
+    return Array.from(this.validators.values()).find(v => v.id === id);
+  }
+
   async createValidator(insertValidator: InsertValidator): Promise<Validator> {
     const id = randomUUID();
     const now = new Date();
@@ -1645,6 +1651,11 @@ export class DbStorage implements IStorage {
 
   async getValidatorByAddress(address: string): Promise<Validator | undefined> {
     const result = await db.select().from(validators).where(eq(validators.address, address)).limit(1);
+    return result[0];
+  }
+
+  async getValidatorById(id: string): Promise<Validator | undefined> {
+    const result = await db.select().from(validators).where(eq(validators.id, id)).limit(1);
     return result[0];
   }
 
@@ -2398,6 +2409,11 @@ export class DbStorage implements IStorage {
   // Unbonding Requests
   async getAllUnbondingRequests(limit: number = 100): Promise<UnbondingRequest[]> {
     return db.select().from(unbondingRequests).orderBy(desc(unbondingRequests.createdAt)).limit(limit);
+  }
+
+  async getUnbondingRequestById(id: string): Promise<UnbondingRequest | undefined> {
+    const result = await db.select().from(unbondingRequests).where(eq(unbondingRequests.id, id)).limit(1);
+    return result[0];
   }
 
   async getUnbondingRequestsByAddress(address: string): Promise<UnbondingRequest[]> {

@@ -6183,6 +6183,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const data = validationResult.data;
       
+      // Validate validator exists and is active
+      const validator = await storage.getValidatorById(data.validatorId);
+      if (!validator) {
+        return res.status(404).json({ error: "Validator not found" });
+      }
+      if (validator.status !== "active") {
+        return res.status(400).json({ error: "Validator is not active for delegations" });
+      }
+      
       // Create the delegation
       const delegation = await storage.createStakingDelegation({
         delegatorAddress: data.delegatorAddress,
@@ -6192,13 +6201,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: "active",
       });
       
+      // Update validator's delegated stake
+      const currentDelegated = BigInt(validator.delegatedStake || "0");
+      const newDelegated = (currentDelegated + BigInt(data.amount)).toString();
+      await storage.updateValidator(validator.address, {
+        delegatedStake: newDelegated,
+        delegators: (validator.delegators || 0) + 1,
+      });
+      
+      // If pool is specified, update pool's total staked
+      if (data.poolId) {
+        const pool = await storage.getStakingPoolById(data.poolId);
+        if (pool) {
+          const currentPoolStake = BigInt(pool.totalStaked || "0");
+          await storage.updateStakingPool(data.poolId, {
+            totalStaked: (currentPoolStake + BigInt(data.amount)).toString(),
+            stakersCount: (pool.stakersCount || 0) + 1,
+          });
+        }
+      }
+      
       // Log audit event
       await storage.createStakingAuditLog({
         actorAddress: data.delegatorAddress,
         action: "delegation_created",
         targetType: "delegation",
         targetId: delegation.id,
-        newValue: { amount: data.amount, validatorId: data.validatorId },
+        newValue: { amount: data.amount, validatorId: data.validatorId, poolId: data.poolId },
       });
       
       res.status(201).json(delegation);
@@ -6358,6 +6387,230 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error('Error claiming rewards:', error);
       res.status(500).json({ error: "Failed to claim rewards" });
+    }
+  });
+
+  // ============================================
+  // Validator-Staking Integration Endpoints
+  // ============================================
+
+  // Get all active validators with staking info (public endpoint)
+  app.get("/api/staking/validators", async (req, res) => {
+    try {
+      const allValidators = await storage.getAllValidators();
+      const activeValidators = allValidators.filter(v => v.status === "active");
+      
+      const validatorsWithStakingInfo = activeValidators.map(v => ({
+        id: v.id,
+        name: v.name,
+        address: v.address,
+        status: v.status,
+        stake: v.stake,
+        delegatedStake: v.delegatedStake,
+        votingPower: v.votingPower,
+        commission: v.commission / 100, // Convert basis points to percentage
+        apy: v.apy / 100,
+        uptime: v.uptime / 100,
+        aiTrustScore: v.aiTrustScore / 100,
+        behaviorScore: v.behaviorScore / 100,
+        performanceScore: v.performanceScore / 100,
+        reputationScore: v.reputationScore / 100,
+        delegators: v.delegators,
+        missedBlocks: v.missedBlocks,
+        slashCount: v.slashCount,
+        joinedAt: v.joinedAt,
+        lastActiveAt: v.lastActiveAt,
+      }));
+      
+      res.json(validatorsWithStakingInfo);
+    } catch (error: any) {
+      console.error('Error fetching validators for staking:', error);
+      res.status(500).json({ error: "Failed to fetch validators" });
+    }
+  });
+
+  // Get delegations for a specific staker address
+  app.get("/api/staking/delegations/address/:address", requireAuth, async (req, res) => {
+    try {
+      const delegations = await storage.getStakingDelegationsByAddress(req.params.address);
+      res.json(delegations);
+    } catch (error: any) {
+      console.error('Error fetching delegations by address:', error);
+      res.status(500).json({ error: "Failed to fetch delegations" });
+    }
+  });
+
+  // Get delegations for a specific validator
+  app.get("/api/staking/validators/:validatorId/delegations", requireAuth, async (req, res) => {
+    try {
+      const delegations = await storage.getStakingDelegationsByValidator(req.params.validatorId);
+      res.json(delegations);
+    } catch (error: any) {
+      console.error('Error fetching validator delegations:', error);
+      res.status(500).json({ error: "Failed to fetch validator delegations" });
+    }
+  });
+
+  // Redelegate from one validator to another
+  app.post("/api/staking/delegations/:delegationId/redelegate", requireAuth, async (req, res) => {
+    try {
+      const { z } = await import("zod");
+      
+      const redelegateSchema = z.object({
+        toValidatorId: z.string().min(1, "Target validator ID is required"),
+      });
+      
+      const validationResult = redelegateSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validationResult.error.flatten().fieldErrors 
+        });
+      }
+      
+      const delegation = await storage.getStakingDelegationById(req.params.delegationId);
+      if (!delegation) {
+        return res.status(404).json({ error: "Delegation not found" });
+      }
+      
+      if (delegation.status !== "active") {
+        return res.status(400).json({ error: "Cannot redelegate inactive delegation" });
+      }
+      
+      const toValidator = await storage.getValidatorById(validationResult.data.toValidatorId);
+      if (!toValidator) {
+        return res.status(404).json({ error: "Target validator not found" });
+      }
+      
+      if (toValidator.status !== "active") {
+        return res.status(400).json({ error: "Target validator is not active" });
+      }
+      
+      // Calculate redelegation completion time (7 days)
+      const completesAt = new Date();
+      completesAt.setDate(completesAt.getDate() + 7);
+      
+      // Update delegation status
+      await storage.updateStakingDelegation(req.params.delegationId, {
+        status: "redelegating",
+        redelegatingToValidatorId: validationResult.data.toValidatorId,
+        redelegationCompleteAt: completesAt,
+      });
+      
+      // Log audit event
+      await storage.createStakingAuditLog({
+        actorAddress: delegation.delegatorAddress,
+        action: "delegation_redelegated",
+        targetType: "delegation",
+        targetId: req.params.delegationId,
+        previousValue: { validatorId: delegation.validatorId },
+        newValue: { toValidatorId: validationResult.data.toValidatorId, completesAt: completesAt.toISOString() },
+      });
+      
+      res.json({ 
+        message: "Redelegation initiated",
+        completesAt: completesAt.toISOString(),
+      });
+    } catch (error: any) {
+      console.error('Error redelegating:', error);
+      res.status(500).json({ error: "Failed to redelegate" });
+    }
+  });
+
+  // Cancel unbonding request (if within cooldown period)
+  app.post("/api/staking/unbonding/:requestId/cancel", requireAuth, async (req, res) => {
+    try {
+      const request = await storage.getUnbondingRequestById(req.params.requestId);
+      if (!request) {
+        return res.status(404).json({ error: "Unbonding request not found" });
+      }
+      
+      if (request.status !== "pending") {
+        return res.status(400).json({ error: "Cannot cancel non-pending unbonding request" });
+      }
+      
+      // Check if within cooldown period (first 24 hours)
+      const hoursSinceCreation = (Date.now() - new Date(request.createdAt).getTime()) / (1000 * 60 * 60);
+      if (hoursSinceCreation > 24) {
+        return res.status(400).json({ error: "Cannot cancel unbonding after 24-hour cooldown period" });
+      }
+      
+      // Cancel the unbonding
+      await storage.updateUnbondingRequest(req.params.requestId, {
+        status: "cancelled",
+      });
+      
+      // Restore the delegation
+      const delegation = await storage.getStakingDelegationById(request.delegationId);
+      if (delegation) {
+        await storage.updateStakingDelegation(request.delegationId, {
+          status: "active",
+          unbondingStartAt: null,
+          unbondingEndAt: null,
+        });
+      }
+      
+      // Log audit event
+      await storage.createStakingAuditLog({
+        actorAddress: request.delegatorAddress,
+        action: "unbonding_cancelled",
+        targetType: "unbonding",
+        targetId: req.params.requestId,
+        previousValue: { status: "pending" },
+        newValue: { status: "cancelled" },
+      });
+      
+      res.json({ message: "Unbonding request cancelled" });
+    } catch (error: any) {
+      console.error('Error cancelling unbonding:', error);
+      res.status(500).json({ error: "Failed to cancel unbonding request" });
+    }
+  });
+
+  // Get staking summary for a wallet address
+  app.get("/api/staking/wallet/:address/summary", requireAuth, async (req, res) => {
+    try {
+      const address = req.params.address;
+      
+      // Get all positions and delegations for this address
+      const positions = await storage.getStakingPositionsByAddress(address);
+      const delegations = await storage.getStakingDelegationsByAddress(address);
+      const unbondingRequests = await storage.getUnbondingRequestsByAddress(address);
+      
+      // Calculate totals
+      const totalStaked = positions
+        .filter(p => p.status === "active")
+        .reduce((sum, p) => sum + BigInt(p.stakedAmount), BigInt(0));
+      
+      const totalDelegated = delegations
+        .filter(d => d.status === "active")
+        .reduce((sum, d) => sum + BigInt(d.amount), BigInt(0));
+      
+      const pendingRewards = positions
+        .filter(p => p.status === "active")
+        .reduce((sum, p) => sum + (BigInt(p.rewardsEarned || "0") - BigInt(p.rewardsClaimed || "0")), BigInt(0));
+      
+      const totalClaimed = positions
+        .reduce((sum, p) => sum + BigInt(p.rewardsClaimed || "0"), BigInt(0));
+      
+      const unbondingTotal = unbondingRequests
+        .filter(r => r.status === "pending")
+        .reduce((sum, r) => sum + BigInt(r.amount), BigInt(0));
+      
+      res.json({
+        address,
+        totalStaked: totalStaked.toString(),
+        totalDelegated: totalDelegated.toString(),
+        pendingRewards: pendingRewards.toString(),
+        totalClaimed: totalClaimed.toString(),
+        unbondingTotal: unbondingTotal.toString(),
+        activePositions: positions.filter(p => p.status === "active").length,
+        activeDelegations: delegations.filter(d => d.status === "active").length,
+        pendingUnbondings: unbondingRequests.filter(r => r.status === "pending").length,
+      });
+    } catch (error: any) {
+      console.error('Error fetching wallet summary:', error);
+      res.status(500).json({ error: "Failed to fetch wallet summary" });
     }
   });
 
