@@ -59,6 +59,9 @@ import LendingPage from "@/pages/lending";
 // Yield Farming Pages
 import YieldFarmingPage from "@/pages/yield-farming";
 
+// Liquid Staking Pages
+import LiquidStakingPage from "@/pages/liquid-staking";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -120,6 +123,7 @@ function Router() {
       {/* Lending Infrastructure Routes */}
       <Route path="/lending" component={LendingPage} />
       <Route path="/yield-farming" component={YieldFarmingPage} />
+      <Route path="/liquid-staking" component={LiquidStakingPage} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

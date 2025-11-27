@@ -137,6 +137,12 @@ const menuItems = [
     group: "DeFi",
   },
   {
+    title: "Liquid Staking",
+    url: "/liquid-staking",
+    icon: Droplets,
+    group: "DeFi",
+  },
+  {
     title: "Validators",
     url: "/validators",
     icon: Server,

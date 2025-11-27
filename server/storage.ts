@@ -129,6 +129,19 @@ import {
   type InsertYieldTransaction,
   type YieldProtocolStats,
   type InsertYieldProtocolStats,
+  // Liquid Staking Types
+  type LiquidStakingPool,
+  type InsertLiquidStakingPool,
+  type ValidatorBasket,
+  type InsertValidatorBasket,
+  type LstPosition,
+  type InsertLstPosition,
+  type LstTransaction,
+  type InsertLstTransaction,
+  type RebaseHistory,
+  type InsertRebaseHistory,
+  type LstProtocolStats,
+  type InsertLstProtocolStats,
   blocks,
   transactions,
   accounts,
@@ -194,6 +207,13 @@ import {
   yieldRewards,
   yieldTransactions,
   yieldProtocolStats,
+  // Liquid Staking Tables
+  liquidStakingPools,
+  validatorBaskets,
+  lstPositions,
+  lstTransactions,
+  rebaseHistory,
+  lstProtocolStats,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -586,6 +606,10 @@ export interface IStorage {
   createLendingProtocolStats(data: InsertLendingProtocolStats): Promise<LendingProtocolStats>;
   updateLendingProtocolStats(id: string, data: Partial<LendingProtocolStats>): Promise<void>;
   
+  // Lending Risk Methods
+  getAtRiskLendingPositions(healthThreshold: number): Promise<LendingPosition[]>;
+  getLiquidatableLendingPositions(healthThreshold: number): Promise<LendingPosition[]>;
+  
   // Lending Aggregated Stats
   getLendingStats(): Promise<{
     totalValueLockedUsd: string;
@@ -665,6 +689,64 @@ export interface IStorage {
     totalProfitGenerated: string;
     deposits24h: string;
     withdrawals24h: string;
+  }>;
+
+  // ============================================
+  // LIQUID STAKING INTERFACE (Phase 4)
+  // ============================================
+
+  // Liquid Staking Pools
+  getAllLiquidStakingPools(): Promise<LiquidStakingPool[]>;
+  getActiveLiquidStakingPools(): Promise<LiquidStakingPool[]>;
+  getLiquidStakingPoolById(id: string): Promise<LiquidStakingPool | undefined>;
+  getLiquidStakingPoolByAddress(contractAddress: string): Promise<LiquidStakingPool | undefined>;
+  createLiquidStakingPool(data: InsertLiquidStakingPool): Promise<LiquidStakingPool>;
+  updateLiquidStakingPool(id: string, data: Partial<LiquidStakingPool>): Promise<void>;
+
+  // Validator Baskets
+  getValidatorBasketsByPool(poolId: string): Promise<ValidatorBasket[]>;
+  getActiveValidatorBaskets(): Promise<ValidatorBasket[]>;
+  getValidatorBasketById(id: string): Promise<ValidatorBasket | undefined>;
+  createValidatorBasket(data: InsertValidatorBasket): Promise<ValidatorBasket>;
+  updateValidatorBasket(id: string, data: Partial<ValidatorBasket>): Promise<void>;
+
+  // LST Positions
+  getAllLstPositions(): Promise<LstPosition[]>;
+  getLstPositionsByUser(userAddress: string): Promise<LstPosition[]>;
+  getLstPositionsByPool(poolId: string): Promise<LstPosition[]>;
+  getLstPosition(userAddress: string, poolId: string): Promise<LstPosition | undefined>;
+  getLstPositionById(id: string): Promise<LstPosition | undefined>;
+  createLstPosition(data: InsertLstPosition): Promise<LstPosition>;
+  updateLstPosition(id: string, data: Partial<LstPosition>): Promise<void>;
+
+  // LST Transactions
+  getAllLstTransactions(limit?: number): Promise<LstTransaction[]>;
+  getLstTransactionsByUser(userAddress: string, limit?: number): Promise<LstTransaction[]>;
+  getLstTransactionsByPool(poolId: string, limit?: number): Promise<LstTransaction[]>;
+  getRecentLstTransactions(limit?: number): Promise<LstTransaction[]>;
+  createLstTransaction(data: InsertLstTransaction): Promise<LstTransaction>;
+
+  // Rebase History
+  getRebaseHistoryByPool(poolId: string, limit?: number): Promise<RebaseHistory[]>;
+  getRecentRebaseHistory(limit?: number): Promise<RebaseHistory[]>;
+  createRebaseHistory(data: InsertRebaseHistory): Promise<RebaseHistory>;
+
+  // LST Protocol Stats
+  getLstProtocolStats(): Promise<LstProtocolStats | undefined>;
+  createLstProtocolStats(data: InsertLstProtocolStats): Promise<LstProtocolStats>;
+  updateLstProtocolStats(id: string, data: Partial<LstProtocolStats>): Promise<void>;
+
+  // LST Aggregated Stats
+  getLiquidStakingStats(): Promise<{
+    totalStakedUsd: string;
+    totalPools: number;
+    activePools: number;
+    totalStakers: number;
+    avgPoolApy: number;
+    topPoolApy: number;
+    totalLstMinted: string;
+    mints24h: string;
+    redeems24h: string;
   }>;
 }
 
@@ -3641,6 +3723,17 @@ export class DbStorage implements IStorage {
     await db.update(lendingProtocolStats).set(data).where(eq(lendingProtocolStats.id, id));
   }
 
+  // Lending Risk Methods
+  async getAtRiskLendingPositions(healthThreshold: number): Promise<LendingPosition[]> {
+    const positions = await db.select().from(lendingPositions).where(eq(lendingPositions.status, "active"));
+    return positions.filter(p => p.healthFactor < healthThreshold && p.healthFactor > 10000);
+  }
+
+  async getLiquidatableLendingPositions(healthThreshold: number): Promise<LendingPosition[]> {
+    const positions = await db.select().from(lendingPositions).where(eq(lendingPositions.status, "active"));
+    return positions.filter(p => p.healthFactor <= healthThreshold);
+  }
+
   // Lending Aggregated Stats
   async getLendingStats(): Promise<{
     totalValueLockedUsd: string;
@@ -3914,6 +4007,194 @@ export class DbStorage implements IStorage {
       totalProfitGenerated: totalProfit.toString(),
       deposits24h: deposits24h.toString(),
       withdrawals24h: withdrawals24h.toString(),
+    };
+  }
+
+  // ============================================
+  // LIQUID STAKING STORAGE IMPLEMENTATION (Phase 4)
+  // ============================================
+
+  // Liquid Staking Pools
+  async getAllLiquidStakingPools(): Promise<LiquidStakingPool[]> {
+    return await db.select().from(liquidStakingPools).orderBy(desc(liquidStakingPools.totalStakedUsd));
+  }
+
+  async getActiveLiquidStakingPools(): Promise<LiquidStakingPool[]> {
+    return await db.select().from(liquidStakingPools).where(eq(liquidStakingPools.status, "active")).orderBy(desc(liquidStakingPools.totalStakedUsd));
+  }
+
+  async getLiquidStakingPoolById(id: string): Promise<LiquidStakingPool | undefined> {
+    const [pool] = await db.select().from(liquidStakingPools).where(eq(liquidStakingPools.id, id));
+    return pool;
+  }
+
+  async getLiquidStakingPoolByAddress(contractAddress: string): Promise<LiquidStakingPool | undefined> {
+    const [pool] = await db.select().from(liquidStakingPools).where(eq(liquidStakingPools.contractAddress, contractAddress));
+    return pool;
+  }
+
+  async createLiquidStakingPool(data: InsertLiquidStakingPool): Promise<LiquidStakingPool> {
+    const [pool] = await db.insert(liquidStakingPools).values(data).returning();
+    return pool;
+  }
+
+  async updateLiquidStakingPool(id: string, data: Partial<LiquidStakingPool>): Promise<void> {
+    await db.update(liquidStakingPools).set({ ...data, updatedAt: new Date() }).where(eq(liquidStakingPools.id, id));
+  }
+
+  // Validator Baskets
+  async getValidatorBasketsByPool(poolId: string): Promise<ValidatorBasket[]> {
+    return await db.select().from(validatorBaskets).where(eq(validatorBaskets.poolId, poolId));
+  }
+
+  async getActiveValidatorBaskets(): Promise<ValidatorBasket[]> {
+    return await db.select().from(validatorBaskets).where(eq(validatorBaskets.isActive, true));
+  }
+
+  async getValidatorBasketById(id: string): Promise<ValidatorBasket | undefined> {
+    const [basket] = await db.select().from(validatorBaskets).where(eq(validatorBaskets.id, id));
+    return basket;
+  }
+
+  async createValidatorBasket(data: InsertValidatorBasket): Promise<ValidatorBasket> {
+    const [basket] = await db.insert(validatorBaskets).values(data).returning();
+    return basket;
+  }
+
+  async updateValidatorBasket(id: string, data: Partial<ValidatorBasket>): Promise<void> {
+    await db.update(validatorBaskets).set({ ...data, updatedAt: new Date() }).where(eq(validatorBaskets.id, id));
+  }
+
+  // LST Positions
+  async getAllLstPositions(): Promise<LstPosition[]> {
+    return await db.select().from(lstPositions);
+  }
+
+  async getLstPositionsByUser(userAddress: string): Promise<LstPosition[]> {
+    return await db.select().from(lstPositions).where(eq(lstPositions.userAddress, userAddress));
+  }
+
+  async getLstPositionsByPool(poolId: string): Promise<LstPosition[]> {
+    return await db.select().from(lstPositions).where(eq(lstPositions.poolId, poolId));
+  }
+
+  async getLstPosition(userAddress: string, poolId: string): Promise<LstPosition | undefined> {
+    const [position] = await db.select().from(lstPositions).where(
+      and(eq(lstPositions.userAddress, userAddress), eq(lstPositions.poolId, poolId))
+    );
+    return position;
+  }
+
+  async getLstPositionById(id: string): Promise<LstPosition | undefined> {
+    const [position] = await db.select().from(lstPositions).where(eq(lstPositions.id, id));
+    return position;
+  }
+
+  async createLstPosition(data: InsertLstPosition): Promise<LstPosition> {
+    const [position] = await db.insert(lstPositions).values(data).returning();
+    return position;
+  }
+
+  async updateLstPosition(id: string, data: Partial<LstPosition>): Promise<void> {
+    await db.update(lstPositions).set({ ...data, updatedAt: new Date() }).where(eq(lstPositions.id, id));
+  }
+
+  // LST Transactions
+  async getAllLstTransactions(limit: number = 100): Promise<LstTransaction[]> {
+    return await db.select().from(lstTransactions).orderBy(desc(lstTransactions.createdAt)).limit(limit);
+  }
+
+  async getLstTransactionsByUser(userAddress: string, limit: number = 50): Promise<LstTransaction[]> {
+    return await db.select().from(lstTransactions).where(eq(lstTransactions.userAddress, userAddress)).orderBy(desc(lstTransactions.createdAt)).limit(limit);
+  }
+
+  async getLstTransactionsByPool(poolId: string, limit: number = 50): Promise<LstTransaction[]> {
+    return await db.select().from(lstTransactions).where(eq(lstTransactions.poolId, poolId)).orderBy(desc(lstTransactions.createdAt)).limit(limit);
+  }
+
+  async getRecentLstTransactions(limit: number = 50): Promise<LstTransaction[]> {
+    return await db.select().from(lstTransactions).orderBy(desc(lstTransactions.createdAt)).limit(limit);
+  }
+
+  async createLstTransaction(data: InsertLstTransaction): Promise<LstTransaction> {
+    const [tx] = await db.insert(lstTransactions).values(data).returning();
+    return tx;
+  }
+
+  // Rebase History
+  async getRebaseHistoryByPool(poolId: string, limit: number = 50): Promise<RebaseHistory[]> {
+    return await db.select().from(rebaseHistory).where(eq(rebaseHistory.poolId, poolId)).orderBy(desc(rebaseHistory.executedAt)).limit(limit);
+  }
+
+  async getRecentRebaseHistory(limit: number = 50): Promise<RebaseHistory[]> {
+    return await db.select().from(rebaseHistory).orderBy(desc(rebaseHistory.executedAt)).limit(limit);
+  }
+
+  async createRebaseHistory(data: InsertRebaseHistory): Promise<RebaseHistory> {
+    const [history] = await db.insert(rebaseHistory).values(data).returning();
+    return history;
+  }
+
+  // LST Protocol Stats
+  async getLstProtocolStats(): Promise<LstProtocolStats | undefined> {
+    const [stats] = await db.select().from(lstProtocolStats).orderBy(desc(lstProtocolStats.snapshotAt)).limit(1);
+    return stats;
+  }
+
+  async createLstProtocolStats(data: InsertLstProtocolStats): Promise<LstProtocolStats> {
+    const [stats] = await db.insert(lstProtocolStats).values(data).returning();
+    return stats;
+  }
+
+  async updateLstProtocolStats(id: string, data: Partial<LstProtocolStats>): Promise<void> {
+    await db.update(lstProtocolStats).set(data).where(eq(lstProtocolStats.id, id));
+  }
+
+  // Liquid Staking Aggregated Stats
+  async getLiquidStakingStats(): Promise<{
+    totalStakedUsd: string;
+    totalPools: number;
+    activePools: number;
+    totalStakers: number;
+    avgPoolApy: number;
+    topPoolApy: number;
+    totalLstMinted: string;
+    mints24h: string;
+    redeems24h: string;
+  }> {
+    const pools = await db.select().from(liquidStakingPools);
+    const activePools = pools.filter(p => p.status === "active");
+    const positions = await db.select().from(lstPositions);
+    
+    let totalStaked = BigInt(0);
+    let totalLstMinted = BigInt(0);
+    let totalApy = 0;
+    let topApy = 0;
+    let mints24h = BigInt(0);
+    let redeems24h = BigInt(0);
+    
+    for (const pool of activePools) {
+      totalStaked += BigInt(pool.totalStakedUsd.replace(/\./g, '') || "0");
+      totalLstMinted += BigInt(pool.totalLstMinted.replace(/\./g, '') || "0");
+      totalApy += pool.currentApy;
+      if (pool.currentApy > topApy) topApy = pool.currentApy;
+      mints24h += BigInt(pool.mints24h.replace(/\./g, '') || "0");
+      redeems24h += BigInt(pool.redeems24h.replace(/\./g, '') || "0");
+    }
+    
+    const avgApy = activePools.length > 0 ? Math.floor(totalApy / activePools.length) : 0;
+    const uniqueStakers = new Set(positions.map(p => p.userAddress)).size;
+    
+    return {
+      totalStakedUsd: totalStaked.toString(),
+      totalPools: pools.length,
+      activePools: activePools.length,
+      totalStakers: uniqueStakers,
+      avgPoolApy: avgApy,
+      topPoolApy: topApy,
+      totalLstMinted: totalLstMinted.toString(),
+      mints24h: mints24h.toString(),
+      redeems24h: redeems24h.toString(),
     };
   }
 }

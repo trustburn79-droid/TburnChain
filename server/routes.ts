@@ -25,6 +25,7 @@ import { getRestartSupervisor, type RestartState } from "./services/RestartSuper
 import { registerDexRoutes } from "./routes/dex-routes";
 import { registerLendingRoutes } from "./routes/lending-routes";
 import { registerYieldRoutes } from "./routes/yield-routes";
+import { registerLiquidStakingRoutes } from "./routes/liquid-staking-routes";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -365,6 +366,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   registerLendingRoutes(app, requireAuth);
   registerYieldRoutes(app);
+  registerLiquidStakingRoutes(app);
 
   // ============================================
   // Network Stats
@@ -9099,6 +9101,88 @@ Provide JSON portfolio analysis:
       console.error('[WebSocket] Yield transactions broadcast error:', error);
     }
   }, 5000, 'yield_transactions_broadcast');
+
+  // ============================================
+  // LIQUID STAKING WEBSOCKET BROADCASTS (Phase 4)
+  // ============================================
+
+  // LST Pools Stats - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const stats = await storage.getLiquidStakingStats();
+      const pools = await storage.getActiveLiquidStakingPools();
+      
+      broadcastUpdate('lst_pools', {
+        stats,
+        pools: pools.slice(0, 20),
+        timestamp: Date.now(),
+      }, z.object({
+        stats: z.any(),
+        pools: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] LST pools broadcast error:', error);
+    }
+  }, 10000, 'lst_pools_broadcast');
+
+  // LST Positions Update - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const positions = await storage.getAllLstPositions();
+      const activePositions = positions.filter(p => p.status === 'active').slice(0, 50);
+      
+      broadcastUpdate('lst_positions', {
+        positions: activePositions,
+        totalActive: positions.filter(p => p.status === 'active').length,
+        timestamp: Date.now(),
+      }, z.object({
+        positions: z.array(z.any()),
+        totalActive: z.number(),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] LST positions broadcast error:', error);
+    }
+  }, 5000, 'lst_positions_broadcast');
+
+  // LST Rebase History - Every 15 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const rebases = await storage.getRecentRebaseHistory(10);
+      
+      broadcastUpdate('lst_rebases', {
+        rebases,
+        timestamp: Date.now(),
+      }, z.object({
+        rebases: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] LST rebases broadcast error:', error);
+    }
+  }, 15000, 'lst_rebases_broadcast');
+
+  // LST Transactions - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const transactions = await storage.getRecentLstTransactions(20);
+      
+      broadcastUpdate('lst_transactions', {
+        transactions,
+        timestamp: Date.now(),
+      }, z.object({
+        transactions: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] LST transactions broadcast error:', error);
+    }
+  }, 5000, 'lst_transactions_broadcast');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)

@@ -3668,3 +3668,330 @@ export interface YieldFarmingStats {
   deposits24h: string;
   withdrawals24h: string;
 }
+
+// ============================================
+// LIQUID STAKING INFRASTRUCTURE (Phase 4)
+// ============================================
+
+// Liquid Staking Pools - Main staking pool for LST token generation
+export const liquidStakingPools = pgTable("liquid_staking_pools", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Pool Identity
+  name: varchar("name", { length: 100 }).notNull(),
+  symbol: varchar("symbol", { length: 20 }).notNull(),
+  description: text("description"),
+  contractAddress: varchar("contract_address", { length: 66 }).notNull().unique(),
+  
+  // LST Token Info
+  lstTokenAddress: varchar("lst_token_address", { length: 66 }).notNull(),
+  lstTokenSymbol: varchar("lst_token_symbol", { length: 20 }).notNull(),
+  lstTokenDecimals: integer("lst_token_decimals").notNull().default(18),
+  
+  // Underlying Asset
+  underlyingAsset: varchar("underlying_asset", { length: 66 }).notNull(),
+  underlyingSymbol: varchar("underlying_symbol", { length: 20 }).notNull(),
+  underlyingDecimals: integer("underlying_decimals").notNull().default(18),
+  
+  // Exchange Rate & Pricing
+  exchangeRate: text("exchange_rate").notNull().default("1000000000000000000"),
+  exchangeRatePrevious: text("exchange_rate_previous").notNull().default("1000000000000000000"),
+  lastRebaseAt: timestamp("last_rebase_at").defaultNow(),
+  rebaseIntervalSeconds: integer("rebase_interval_seconds").notNull().default(86400),
+  
+  // Pool Metrics
+  totalStaked: text("total_staked").notNull().default("0"),
+  totalStakedUsd: text("total_staked_usd").notNull().default("0"),
+  totalLstMinted: text("total_lst_minted").notNull().default("0"),
+  totalRewardsGenerated: text("total_rewards_generated").notNull().default("0"),
+  
+  // Validator Distribution
+  validatorCount: integer("validator_count").notNull().default(0),
+  minValidatorsPerBasket: integer("min_validators_per_basket").notNull().default(5),
+  maxValidatorAllocation: integer("max_validator_allocation").notNull().default(2000),
+  
+  // APY & Performance
+  currentApy: integer("current_apy").notNull().default(0),
+  avgApy7d: integer("avg_apy_7d").notNull().default(0),
+  avgApy30d: integer("avg_apy_30d").notNull().default(0),
+  
+  // Fees (basis points)
+  mintFee: integer("mint_fee").notNull().default(10),
+  redeemFee: integer("redeem_fee").notNull().default(10),
+  performanceFee: integer("performance_fee").notNull().default(1000),
+  protocolFee: integer("protocol_fee").notNull().default(100),
+  
+  // Limits
+  minMintAmount: text("min_mint_amount").notNull().default("1000000000000000000"),
+  maxMintAmount: text("max_mint_amount"),
+  stakingCap: text("staking_cap"),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"),
+  isPaused: boolean("is_paused").notNull().default(false),
+  aiOptimized: boolean("ai_optimized").notNull().default(false),
+  
+  // Stats
+  totalStakers: integer("total_stakers").notNull().default(0),
+  mints24h: text("mints_24h").notNull().default("0"),
+  redeems24h: text("redeems_24h").notNull().default("0"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Validator Baskets - Groups of validators for LST pool
+export const validatorBaskets = pgTable("validator_baskets", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Pool Reference
+  poolId: varchar("pool_id").notNull().references(() => liquidStakingPools.id),
+  
+  // Basket Identity
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  
+  // Composition
+  validatorAddresses: text("validator_addresses").array().notNull(),
+  validatorWeights: integer("validator_weights").array().notNull(),
+  totalValidators: integer("total_validators").notNull().default(0),
+  
+  // Allocation
+  totalAllocated: text("total_allocated").notNull().default("0"),
+  allocationPercentage: integer("allocation_percentage").notNull().default(0),
+  
+  // Performance
+  avgValidatorScore: integer("avg_validator_score").notNull().default(0),
+  avgUptime: integer("avg_uptime").notNull().default(10000),
+  avgCommission: integer("avg_commission").notNull().default(500),
+  
+  // Risk
+  riskScore: integer("risk_score").notNull().default(5000),
+  diversificationScore: integer("diversification_score").notNull().default(0),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  lastRebalanceAt: timestamp("last_rebalance_at"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// LST Positions - User holdings of LST tokens
+export const lstPositions = pgTable("lst_positions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  poolId: varchar("pool_id").notNull().references(() => liquidStakingPools.id),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  
+  // Position Details
+  lstBalance: text("lst_balance").notNull().default("0"),
+  lstBalanceUsd: text("lst_balance_usd").notNull().default("0"),
+  underlyingValue: text("underlying_value").notNull().default("0"),
+  underlyingValueUsd: text("underlying_value_usd").notNull().default("0"),
+  
+  // Cost Basis
+  totalMinted: text("total_minted").notNull().default("0"),
+  totalRedeemed: text("total_redeemed").notNull().default("0"),
+  avgMintPrice: text("avg_mint_price").notNull().default("1000000000000000000"),
+  
+  // Rewards
+  accumulatedRewards: text("accumulated_rewards").notNull().default("0"),
+  claimedRewards: text("claimed_rewards").notNull().default("0"),
+  pendingRewards: text("pending_rewards").notNull().default("0"),
+  
+  // Activity
+  mintCount: integer("mint_count").notNull().default(0),
+  redeemCount: integer("redeem_count").notNull().default(0),
+  lastMintAt: timestamp("last_mint_at"),
+  lastRedeemAt: timestamp("last_redeem_at"),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// LST Transactions - Mint and redeem history
+export const lstTransactions = pgTable("lst_transactions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  poolId: varchar("pool_id").notNull().references(() => liquidStakingPools.id),
+  positionId: varchar("position_id").references(() => lstPositions.id),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  
+  // Transaction Details
+  txType: varchar("tx_type", { length: 20 }).notNull(),
+  txHash: varchar("tx_hash", { length: 66 }),
+  
+  // Amounts
+  underlyingAmount: text("underlying_amount").notNull(),
+  lstAmount: text("lst_amount").notNull(),
+  exchangeRateAtTx: text("exchange_rate_at_tx").notNull(),
+  valueUsd: text("value_usd").notNull().default("0"),
+  
+  // Fees
+  feeAmount: text("fee_amount").notNull().default("0"),
+  feeType: varchar("fee_type", { length: 20 }),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("pending"),
+  failureReason: text("failure_reason"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  completedAt: timestamp("completed_at"),
+});
+
+// Rebase History - Exchange rate changes over time
+export const rebaseHistory = pgTable("rebase_history", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  poolId: varchar("pool_id").notNull().references(() => liquidStakingPools.id),
+  
+  // Before/After
+  previousRate: text("previous_rate").notNull(),
+  newRate: text("new_rate").notNull(),
+  rateChange: text("rate_change").notNull(),
+  rateChangePercent: integer("rate_change_percent").notNull(),
+  
+  // Rewards
+  rewardsDistributed: text("rewards_distributed").notNull().default("0"),
+  rewardsFromValidators: text("rewards_from_validators").notNull().default("0"),
+  rewardsFromMev: text("rewards_from_mev").notNull().default("0"),
+  
+  // Slashing
+  slashingPenalty: text("slashing_penalty").notNull().default("0"),
+  slashedValidators: integer("slashed_validators").notNull().default(0),
+  
+  // Pool State
+  totalStakedAtRebase: text("total_staked_at_rebase").notNull(),
+  totalLstAtRebase: text("total_lst_at_rebase").notNull(),
+  
+  // AI Optimization
+  aiOptimized: boolean("ai_optimized").notNull().default(false),
+  aiOptimizationScore: integer("ai_optimization_score"),
+  
+  executedAt: timestamp("executed_at").defaultNow().notNull(),
+});
+
+// LST Protocol Stats
+export const lstProtocolStats = pgTable("lst_protocol_stats", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Total Metrics
+  totalStakedAcrossPools: text("total_staked_across_pools").notNull().default("0"),
+  totalStakedUsd: text("total_staked_usd").notNull().default("0"),
+  totalLstMinted: text("total_lst_minted").notNull().default("0"),
+  
+  // Pool Stats
+  totalPools: integer("total_pools").notNull().default(0),
+  activePools: integer("active_pools").notNull().default(0),
+  
+  // User Stats
+  totalStakers: integer("total_stakers").notNull().default(0),
+  activeStakers24h: integer("active_stakers_24h").notNull().default(0),
+  
+  // Volume
+  totalMinted24h: text("total_minted_24h").notNull().default("0"),
+  totalRedeemed24h: text("total_redeemed_24h").notNull().default("0"),
+  
+  // Rewards
+  totalRewardsDistributed: text("total_rewards_distributed").notNull().default("0"),
+  rewardsDistributed24h: text("rewards_distributed_24h").notNull().default("0"),
+  
+  // Performance
+  avgPoolApy: integer("avg_pool_apy").notNull().default(0),
+  topPoolApy: integer("top_pool_apy").notNull().default(0),
+  
+  // Validators
+  totalValidatorsUsed: integer("total_validators_used").notNull().default(0),
+  avgValidatorScore: integer("avg_validator_score").notNull().default(0),
+  
+  snapshotAt: timestamp("snapshot_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Insert Schemas
+export const insertLiquidStakingPoolSchema = createInsertSchema(liquidStakingPools).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertValidatorBasketSchema = createInsertSchema(validatorBaskets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLstPositionSchema = createInsertSchema(lstPositions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLstTransactionSchema = createInsertSchema(lstTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertRebaseHistorySchema = createInsertSchema(rebaseHistory).omit({
+  id: true,
+  executedAt: true,
+});
+
+export const insertLstProtocolStatsSchema = createInsertSchema(lstProtocolStats).omit({
+  id: true,
+  snapshotAt: true,
+  createdAt: true,
+});
+
+// Liquid Staking Types
+export type LiquidStakingPool = typeof liquidStakingPools.$inferSelect;
+export type InsertLiquidStakingPool = z.infer<typeof insertLiquidStakingPoolSchema>;
+
+export type ValidatorBasket = typeof validatorBaskets.$inferSelect;
+export type InsertValidatorBasket = z.infer<typeof insertValidatorBasketSchema>;
+
+export type LstPosition = typeof lstPositions.$inferSelect;
+export type InsertLstPosition = z.infer<typeof insertLstPositionSchema>;
+
+export type LstTransaction = typeof lstTransactions.$inferSelect;
+export type InsertLstTransaction = z.infer<typeof insertLstTransactionSchema>;
+
+export type RebaseHistory = typeof rebaseHistory.$inferSelect;
+export type InsertRebaseHistory = z.infer<typeof insertRebaseHistorySchema>;
+
+export type LstProtocolStats = typeof lstProtocolStats.$inferSelect;
+export type InsertLstProtocolStats = z.infer<typeof insertLstProtocolStatsSchema>;
+
+// Liquid Staking Frontend Types
+export type LstTxType = "mint" | "redeem" | "claim_rewards" | "restake";
+
+export interface LstPoolSummary {
+  id: string;
+  name: string;
+  symbol: string;
+  lstTokenSymbol: string;
+  exchangeRate: string;
+  currentApy: number;
+  totalStaked: string;
+  totalStakedUsd: string;
+  validatorCount: number;
+  status: string;
+}
+
+export interface LstUserPosition {
+  poolId: string;
+  poolName: string;
+  lstBalance: string;
+  lstBalanceUsd: string;
+  underlyingValue: string;
+  pendingRewards: string;
+  profit: string;
+  profitPercent: number;
+}
