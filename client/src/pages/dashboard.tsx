@@ -22,6 +22,14 @@ import {
   FileText,
   CircleDollarSign,
   Fuel,
+  ArrowRightLeft,
+  Landmark,
+  Sprout,
+  Droplets,
+  Image,
+  Rocket,
+  Gamepad2,
+  Link2,
 } from "lucide-react";
 import { StatCard } from "@/components/stat-card";
 import { LiveIndicator } from "@/components/live-indicator";
@@ -68,6 +76,105 @@ interface MemberStats {
   kycVerified: number;
 }
 
+interface DexStats {
+  totalPools: number;
+  totalTvlUsd: string;
+  totalVolume24h: string;
+  totalFees24h: string;
+  totalSwaps24h: number;
+  totalLiquidityProviders: number;
+}
+
+interface LendingStats {
+  totalValueLockedUsd: string;
+  totalBorrowedUsd: string;
+  totalMarkets: number;
+  activeMarkets: number;
+  totalUsers: number;
+  avgSupplyRate: number;
+  avgBorrowRate: number;
+  avgUtilization: number;
+  liquidations24h: number;
+  atRiskPositions: number;
+  liquidatablePositions: number;
+}
+
+interface YieldStats {
+  totalTvlUsd: string;
+  totalVaults: number;
+  activeVaults: number;
+  totalUsers: number;
+  avgVaultApy: number;
+  topVaultApy: number;
+  totalProfitGenerated: string;
+  deposits24h: string;
+  withdrawals24h: string;
+}
+
+interface LstStats {
+  totalStakedUsd: string;
+  totalPools: number;
+  activePools: number;
+  totalStakers: number;
+  avgPoolApy: number;
+  topPoolApy: number;
+  totalLstMinted: string;
+  mints24h: string;
+  redeems24h: string;
+}
+
+interface NftStats {
+  totalVolume24h: string;
+  totalVolume24hUsd: string;
+  salesCount24h: number;
+  activeListings: number;
+  auctionListings: number;
+  totalCollections: number;
+  verifiedCollections: number;
+  totalItems: number;
+  activeTraders: number;
+  avgFloorPrice: string;
+}
+
+interface LaunchpadStats {
+  totalProjects: number;
+  activeProjects: number;
+  upcomingProjects: number;
+  completedProjects: number;
+  totalRaised: string;
+  totalMinted: number;
+  uniqueParticipants: number;
+  featuredCount: number;
+}
+
+interface GameFiStats {
+  totalProjects: number;
+  activeProjects: number;
+  totalPlayers: number;
+  activePlayers24h: number;
+  totalVolume: string;
+  dailyVolume: string;
+  totalRewardsDistributed: string;
+  activeTournaments: number;
+}
+
+interface BridgeStats {
+  totalChains: number;
+  activeChains: number;
+  totalRoutes: number;
+  activeRoutes: number;
+  totalValidators: number;
+  activeValidators: number;
+  totalLiquidity: string;
+  totalVolume: string;
+  volume24h: string;
+  transferCount24h: number;
+  avgTransferTime: number;
+  successRate: number;
+  fees24h: string;
+  securityEventsCount: number;
+}
+
 export default function Dashboard() {
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
@@ -91,6 +198,49 @@ export default function Dashboard() {
   const { data: tokenomics, isLoading: tokenomicsLoading } = useQuery<TokenomicsData>({
     queryKey: ["/api/tokenomics/tiers"],
   });
+
+  const { data: dexStats, isLoading: dexStatsLoading } = useQuery<DexStats>({
+    queryKey: ["/api/dex/stats"],
+    refetchInterval: 30000,
+  });
+
+  const { data: lendingStats, isLoading: lendingStatsLoading } = useQuery<LendingStats>({
+    queryKey: ["/api/lending/stats"],
+    refetchInterval: 30000,
+  });
+
+  const { data: yieldStats, isLoading: yieldStatsLoading } = useQuery<YieldStats>({
+    queryKey: ["/api/yield/stats"],
+    refetchInterval: 30000,
+  });
+
+  const { data: lstStats, isLoading: lstStatsLoading } = useQuery<LstStats>({
+    queryKey: ["/api/liquid-staking/stats"],
+    refetchInterval: 30000,
+  });
+
+  const { data: nftStats, isLoading: nftStatsLoading } = useQuery<NftStats>({
+    queryKey: ["/api/nft/stats"],
+    refetchInterval: 30000,
+  });
+
+  const { data: launchpadStats, isLoading: launchpadStatsLoading } = useQuery<LaunchpadStats>({
+    queryKey: ["/api/launchpad/stats"],
+    refetchInterval: 30000,
+  });
+
+  const { data: gameFiStats, isLoading: gameFiStatsLoading } = useQuery<GameFiStats>({
+    queryKey: ["/api/gamefi/stats"],
+    refetchInterval: 30000,
+  });
+
+  const { data: bridgeStats, isLoading: bridgeStatsLoading } = useQuery<BridgeStats>({
+    queryKey: ["/api/bridge/stats"],
+    refetchInterval: 30000,
+  });
+
+  const defiLoading = dexStatsLoading || lendingStatsLoading || yieldStatsLoading || lstStatsLoading || 
+                      nftStatsLoading || launchpadStatsLoading || gameFiStatsLoading || bridgeStatsLoading;
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -493,6 +643,206 @@ export default function Dashboard() {
                   </p>
                 </CardContent>
               </Card>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* DeFi Ecosystem Overview */}
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <TrendingUp className="h-5 w-5" />
+          DeFi Ecosystem
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {defiLoading ? (
+            <>
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+              <Skeleton className="h-32" />
+            </>
+          ) : (
+            <>
+              <Link href="/dex">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-dex-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      DEX/AMM
+                    </CardTitle>
+                    <ArrowRightLeft className="h-4 w-4 text-blue-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {dexStats?.totalPools || 0} Pools
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      ${formatNumber(Number(dexStats?.totalTvlUsd || 0) / 1e18)} TVL
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      {dexStats?.totalSwaps24h?.toLocaleString() || 0} swaps 24h
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/lending">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-lending-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Lending
+                    </CardTitle>
+                    <Landmark className="h-4 w-4 text-green-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {lendingStats?.totalMarkets || 0} Markets
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      ${formatNumber(Number(lendingStats?.totalValueLockedUsd || 0) / 1e18)} Supplied
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      ~{((lendingStats?.avgSupplyRate || 0) / 100).toFixed(2)}% Avg APY
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/yield">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-yield-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Yield Farming
+                    </CardTitle>
+                    <Sprout className="h-4 w-4 text-lime-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {yieldStats?.totalVaults || 0} Vaults
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      ${formatNumber(Number(yieldStats?.totalTvlUsd || 0) / 1e18)} TVL
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      ~{((yieldStats?.avgVaultApy || 0) / 100).toFixed(2)}% Avg APY
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/liquid-staking">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-lst-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Liquid Staking
+                    </CardTitle>
+                    <Droplets className="h-4 w-4 text-cyan-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {lstStats?.totalPools || 0} Pools
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      ${formatNumber(Number(lstStats?.totalStakedUsd || 0) / 1e18)} Staked
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      ~{((lstStats?.avgPoolApy || 0) / 100).toFixed(2)}% Avg APY
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/nft">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-nft-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      NFT Marketplace
+                    </CardTitle>
+                    <Image className="h-4 w-4 text-purple-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {nftStats?.totalCollections || 0} Collections
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {formatNumber(nftStats?.totalItems || 0)} Items
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      {nftStats?.salesCount24h?.toLocaleString() || 0} sales 24h
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/launchpad">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-launchpad-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Launchpad
+                    </CardTitle>
+                    <Rocket className="h-4 w-4 text-orange-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {launchpadStats?.totalProjects || 0} Projects
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {launchpadStats?.activeProjects || 0} Active
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      ${formatNumber(Number(launchpadStats?.totalRaised || 0) / 1e18)} Raised
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/gamefi">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-gamefi-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      GameFi
+                    </CardTitle>
+                    <Gamepad2 className="h-4 w-4 text-pink-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {gameFiStats?.totalProjects || 0} Games
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {gameFiStats?.activeTournaments || 0} Tournaments
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      ${formatNumber(Number(gameFiStats?.totalRewardsDistributed || 0) / 1e18)} Rewards
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/bridge">
+                <Card className="hover-elevate cursor-pointer" data-testid="card-bridge-stats">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-muted-foreground">
+                      Cross-Chain Bridge
+                    </CardTitle>
+                    <Link2 className="h-4 w-4 text-indigo-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-semibold tabular-nums">
+                      {bridgeStats?.activeChains || 0} Chains
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      ${formatNumber(Number(bridgeStats?.totalLiquidity || 0) / 1e18)} Liquidity
+                    </p>
+                    <p className="text-xs text-green-500 mt-0.5">
+                      {bridgeStats?.transferCount24h?.toLocaleString() || 0} transfers 24h
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
             </>
           )}
         </div>
