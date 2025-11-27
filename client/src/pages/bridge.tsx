@@ -223,20 +223,24 @@ function getStatusIcon(status: string) {
 }
 
 function ChainCard({ chain }: { chain: BridgeChain }) {
+  if (!chain || !chain.symbol || !chain.name) {
+    return null;
+  }
+  
   return (
     <Card className="hover-elevate" data-testid={`card-chain-${chain.chainId}`}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-lg text-primary">
-              {chain.symbol.charAt(0)}
+              {chain.symbol?.charAt(0) || '?'}
             </div>
             <div>
-              <div className="font-semibold">{chain.name}</div>
-              <div className="text-sm text-muted-foreground">Chain ID: {chain.chainId}</div>
+              <div className="font-semibold">{chain.name || 'Unknown'}</div>
+              <div className="text-sm text-muted-foreground">Chain ID: {chain.chainId ?? 'N/A'}</div>
             </div>
           </div>
-          <Badge className={getStatusColor(chain.status)}>{chain.status}</Badge>
+          <Badge className={getStatusColor(chain.status || 'inactive')}>{chain.status || 'inactive'}</Badge>
         </div>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div>
@@ -257,8 +261,8 @@ function ChainCard({ chain }: { chain: BridgeChain }) {
           </div>
         </div>
         <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
-          <span>{chain.txCount24h.toLocaleString()} transfers 24h</span>
-          {chain.aiRiskScore <= 200 && (
+          <span>{(chain.txCount24h ?? 0).toLocaleString()} transfers 24h</span>
+          {(chain.aiRiskScore ?? 1000) <= 200 && (
             <Badge variant="outline" className="text-green-500 border-green-500/30">
               <Sparkles className="w-3 h-3 mr-1" />
               Low Risk
@@ -819,7 +823,7 @@ export default function Bridge() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {activeChains.slice(0, 8).map(chain => (
+                {activeChains.filter(c => c && c.symbol && c.name).slice(0, 8).map(chain => (
                   <ChainCard key={chain.id} chain={chain} />
                 ))}
               </div>
@@ -842,7 +846,7 @@ export default function Bridge() {
                       <SelectValue placeholder="Select source chain" />
                     </SelectTrigger>
                     <SelectContent>
-                      {activeChains.filter(c => c.chainId != null).map(chain => (
+                      {activeChains.filter(c => c.chainId != null && c.symbol && c.name).map(chain => (
                         <SelectItem key={chain.chainId} value={chain.chainId.toString()}>
                           {chain.name} ({chain.symbol})
                         </SelectItem>
@@ -868,7 +872,7 @@ export default function Bridge() {
                       <SelectValue placeholder="Select destination chain" />
                     </SelectTrigger>
                     <SelectContent>
-                      {activeChains.filter(c => c.chainId != null && c.chainId.toString() !== sourceChain).map(chain => (
+                      {activeChains.filter(c => c.chainId != null && c.symbol && c.name && c.chainId.toString() !== sourceChain).map(chain => (
                         <SelectItem key={chain.chainId} value={chain.chainId.toString()}>
                           {chain.name} ({chain.symbol})
                         </SelectItem>
@@ -962,7 +966,7 @@ export default function Bridge() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {chains?.map(chain => (
+                {chains?.filter(c => c && c.symbol && c.name).map(chain => (
                   <ChainCard key={chain.id} chain={chain} />
                 ))}
               </div>
