@@ -56,6 +56,7 @@ import OperatorMembers from "@/pages/operator/members";
 import OperatorValidators from "@/pages/operator/validators";
 import OperatorSecurity from "@/pages/operator/security";
 import OperatorReports from "@/pages/operator/reports";
+import OperatorStaking from "@/pages/operator/staking";
 
 // Wrapped Operator Portal Components to prevent re-mounting
 function ProtectedOperatorDashboard() {
@@ -72,6 +73,9 @@ function ProtectedOperatorSecurity() {
 }
 function ProtectedOperatorReports() {
   return <OperatorAuthGuard><OperatorReports /></OperatorAuthGuard>;
+}
+function ProtectedOperatorStaking() {
+  return <OperatorAuthGuard><OperatorStaking /></OperatorAuthGuard>;
 }
 
 function Router() {
@@ -114,6 +118,7 @@ function Router() {
       <Route path="/operator/validators" component={ProtectedOperatorValidators} />
       <Route path="/operator/security" component={ProtectedOperatorSecurity} />
       <Route path="/operator/reports" component={ProtectedOperatorReports} />
+      <Route path="/operator/staking" component={ProtectedOperatorStaking} />
       <Route component={NotFound} />
     </Switch>
   );

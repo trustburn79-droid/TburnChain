@@ -8356,18 +8356,21 @@ Provide JSON portfolio analysis:
         sum + (p.activeStakers || 0), 0
       );
       
+      const averageApyCalc = tierConfigs.length > 0 
+        ? tierConfigs.reduce((sum, t) => sum + (t.minApy || 0), 0) / tierConfigs.length / 100
+        : 0;
+      const maxApyCalc = tierConfigs.length > 0
+        ? Math.max(...tierConfigs.map(t => (t.maxApy || 0) / 100))
+        : 0;
+      
       const stakingStatsData = {
         totalStaked: totalStaked.toString(),
         totalPools: pools.length,
         activePools: pools.filter(p => p.isActive).length,
         totalStakers,
         totalTiers: tierConfigs.length,
-        averageApy: tierConfigs.length > 0 
-          ? Math.round(tierConfigs.reduce((sum, t) => sum + Number(t.baseApy), 0) / tierConfigs.length * 100) / 100
-          : 0,
-        maxApy: tierConfigs.length > 0
-          ? Math.max(...tierConfigs.map(t => Number(t.maxApy)))
-          : 0,
+        averageApy: isNaN(averageApyCalc) ? 0 : Math.round(averageApyCalc * 100) / 100,
+        maxApy: isNaN(maxApyCalc) ? 0 : Math.round(maxApyCalc * 100) / 100,
         currentRewardCycle: stats?.currentRewardCycle || 0,
         timestamp: Date.now(),
       };
@@ -8549,6 +8552,10 @@ Provide JSON portfolio analysis:
       const tierConfigs = await storage.getAllStakingTierConfigs();
       const pools = await storage.getAllStakingPools();
       
+      if (tierConfigs.length === 0) {
+        return;
+      }
+      
       const tierPerformance = tierConfigs.map(tier => {
         const tierPools = pools.filter(p => p.poolType?.toLowerCase() === tier.tier.toLowerCase());
         const tierTotalStaked = tierPools.reduce((sum, p) => 
@@ -8560,14 +8567,14 @@ Provide JSON portfolio analysis:
         
         return {
           tier: tier.tier,
-          tierName: tier.tierName,
-          baseApy: tier.baseApy,
-          maxApy: tier.maxApy,
-          lockPeriodDays: tier.lockPeriodDays,
+          tierName: tier.displayName || tier.tier,
+          baseApy: String(tier.minApy / 100),
+          maxApy: String(tier.maxApy / 100),
+          lockPeriodDays: tier.minLockDays,
           totalStaked: tierTotalStaked.toString(),
           totalStakers: tierTotalStakers,
           poolCount: tierPools.length,
-          slashingProtection: tier.slashingProtection,
+          slashingProtection: tier.slashingProtection ?? false,
         };
       });
 
