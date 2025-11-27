@@ -7308,9 +7308,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Handle different message types
         if (data.type === 'subscribe') {
           // Subscribe to specific updates
+          const supportedChannels = [
+            'network_stats',
+            'blocks',
+            'transactions',
+            'validators',
+            'ai_decisions',
+            'consensus',
+            // Staking channels
+            'staking_stats',
+            'staking_pools',
+            'staking_activity',
+            'staking_rewards',
+            'staking_tiers',
+          ];
+          
+          if (supportedChannels.includes(data.channel)) {
+            ws.send(JSON.stringify({
+              type: 'subscribed',
+              channel: data.channel,
+              message: `Successfully subscribed to ${data.channel} updates`,
+            }));
+            
+            // Send initial staking data on subscription
+            if (data.channel.startsWith('staking')) {
+              (async () => {
+                try {
+                  if (data.channel === 'staking_stats') {
+                    const stats = await storage.getStakingStats();
+                    const pools = await storage.getAllStakingPools();
+                    const tierConfigs = await storage.getAllStakingTierConfigs();
+                    
+                    const totalStaked = pools.reduce((sum, p) => 
+                      sum + BigInt(p.totalStaked || "0"), BigInt(0)
+                    );
+                    
+                    ws.send(JSON.stringify({
+                      type: 'staking_stats_update',
+                      data: {
+                        totalStaked: totalStaked.toString(),
+                        totalPools: pools.length,
+                        activePools: pools.filter(p => p.isActive).length,
+                        totalStakers: pools.reduce((sum, p) => sum + (p.activeStakers || 0), 0),
+                        totalTiers: tierConfigs.length,
+                        currentRewardCycle: stats?.currentRewardCycle || 0,
+                      },
+                      timestamp: Date.now(),
+                    }));
+                  } else if (data.channel === 'staking_pools') {
+                    const pools = await storage.getAllStakingPools();
+                    ws.send(JSON.stringify({
+                      type: 'staking_pools_update',
+                      data: pools.map(p => ({
+                        id: p.id,
+                        name: p.name,
+                        poolType: p.poolType,
+                        totalStaked: p.totalStaked,
+                        apy: p.apy,
+                        isActive: p.isActive,
+                      })),
+                      timestamp: Date.now(),
+                    }));
+                  } else if (data.channel === 'staking_tiers') {
+                    const tierConfigs = await storage.getAllStakingTierConfigs();
+                    ws.send(JSON.stringify({
+                      type: 'staking_tier_performance',
+                      data: tierConfigs.map(t => ({
+                        tier: t.tier,
+                        tierName: t.tierName,
+                        baseApy: t.baseApy,
+                        maxApy: t.maxApy,
+                        lockPeriodDays: t.lockPeriodDays,
+                      })),
+                      timestamp: Date.now(),
+                    }));
+                  }
+                } catch (error) {
+                  console.error('Error sending initial staking data:', error);
+                }
+              })();
+            }
+          } else {
+            ws.send(JSON.stringify({
+              type: 'error',
+              message: `Unknown channel: ${data.channel}. Supported: ${supportedChannels.join(', ')}`,
+            }));
+          }
+        } else if (data.type === 'unsubscribe') {
           ws.send(JSON.stringify({
-            type: 'subscribed',
+            type: 'unsubscribed',
             channel: data.channel,
+          }));
+        } else if (data.type === 'ping') {
+          ws.send(JSON.stringify({
+            type: 'pong',
+            timestamp: Date.now(),
           }));
         }
       } catch (error) {
@@ -7589,6 +7681,257 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error('Error broadcasting voting activity:', error);
     }
   }, 3000, 'voting_activity');
+
+  // ============================================
+  // STAKING REAL-TIME BROADCASTS
+  // Enterprise staking events, positions, rewards
+  // ============================================
+
+  // Staking Stats broadcast every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const stats = await storage.getStakingStats();
+      const pools = await storage.getAllStakingPools();
+      const tierConfigs = await storage.getAllStakingTierConfigs();
+      
+      const totalStaked = pools.reduce((sum, p) => 
+        sum + BigInt(p.totalStaked || "0"), BigInt(0)
+      );
+      const totalStakers = pools.reduce((sum, p) => 
+        sum + (p.activeStakers || 0), 0
+      );
+      
+      const stakingStatsData = {
+        totalStaked: totalStaked.toString(),
+        totalPools: pools.length,
+        activePools: pools.filter(p => p.isActive).length,
+        totalStakers,
+        totalTiers: tierConfigs.length,
+        averageApy: tierConfigs.length > 0 
+          ? Math.round(tierConfigs.reduce((sum, t) => sum + Number(t.baseApy), 0) / tierConfigs.length * 100) / 100
+          : 0,
+        maxApy: tierConfigs.length > 0
+          ? Math.max(...tierConfigs.map(t => Number(t.maxApy)))
+          : 0,
+        currentRewardCycle: stats?.currentRewardCycle || 0,
+        timestamp: Date.now(),
+      };
+
+      broadcastUpdate('staking_stats_update', stakingStatsData, z.object({
+        totalStaked: z.string(),
+        totalPools: z.number(),
+        activePools: z.number(),
+        totalStakers: z.number(),
+        totalTiers: z.number(),
+        averageApy: z.number(),
+        maxApy: z.number(),
+        currentRewardCycle: z.number(),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('Error broadcasting staking stats:', error);
+    }
+  }, 10000, 'staking_stats_broadcast');
+
+  // Staking Pool Updates every 15 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const pools = await storage.getAllStakingPools();
+      const poolsData = pools.map(pool => ({
+        id: pool.id,
+        name: pool.name,
+        poolType: pool.poolType,
+        totalStaked: pool.totalStaked,
+        activeStakers: pool.activeStakers,
+        apy: pool.apy,
+        minStake: pool.minStake,
+        maxStake: pool.maxStake,
+        lockPeriodDays: pool.lockPeriodDays,
+        isActive: pool.isActive,
+        slashingProtection: pool.slashingProtection,
+      }));
+
+      broadcastUpdate('staking_pools_update', poolsData, z.array(z.object({
+        id: z.string(),
+        name: z.string(),
+        poolType: z.string(),
+        totalStaked: z.string().nullable(),
+        activeStakers: z.number().nullable(),
+        apy: z.string().nullable(),
+        minStake: z.string().nullable(),
+        maxStake: z.string().nullable(),
+        lockPeriodDays: z.number().nullable(),
+        isActive: z.boolean().nullable(),
+        slashingProtection: z.boolean().nullable(),
+      })));
+    } catch (error) {
+      console.error('Error broadcasting staking pools:', error);
+    }
+  }, 15000, 'staking_pools_broadcast');
+
+  // Recent Staking Activity (positions, delegations, unbonding) every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const positions = await storage.getAllStakingPositions(10);
+      const delegations = await storage.getAllStakingDelegations(10);
+      const unbonding = await storage.getAllUnbondingRequests(10);
+      
+      const recentActivity = {
+        recentPositions: positions.map(p => ({
+          id: p.id,
+          delegatorAddress: p.delegatorAddress,
+          poolId: p.poolId,
+          stakedAmount: p.stakedAmount,
+          apy: p.apy,
+          status: p.status,
+          createdAt: p.createdAt,
+        })),
+        recentDelegations: delegations.map(d => ({
+          id: d.id,
+          delegatorAddress: d.delegatorAddress,
+          validatorId: d.validatorId,
+          amount: d.amount,
+          status: d.status,
+          createdAt: d.createdAt,
+        })),
+        pendingUnbonding: unbonding.filter(u => u.status === "pending").map(u => ({
+          id: u.id,
+          delegatorAddress: u.delegatorAddress,
+          amount: u.amount,
+          completionTime: u.completionTime,
+          status: u.status,
+        })),
+        timestamp: Date.now(),
+      };
+
+      broadcastUpdate('staking_activity_update', recentActivity, z.object({
+        recentPositions: z.array(z.object({
+          id: z.string(),
+          delegatorAddress: z.string(),
+          poolId: z.string(),
+          stakedAmount: z.string(),
+          apy: z.string().nullable(),
+          status: z.string(),
+          createdAt: z.date().nullable(),
+        })),
+        recentDelegations: z.array(z.object({
+          id: z.string(),
+          delegatorAddress: z.string(),
+          validatorId: z.string(),
+          amount: z.string(),
+          status: z.string(),
+          createdAt: z.date().nullable(),
+        })),
+        pendingUnbonding: z.array(z.object({
+          id: z.string(),
+          delegatorAddress: z.string(),
+          amount: z.string(),
+          completionTime: z.date().nullable(),
+          status: z.string(),
+        })),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('Error broadcasting staking activity:', error);
+    }
+  }, 5000, 'staking_activity_broadcast');
+
+  // Reward Cycle Updates every 30 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const currentCycle = await storage.getCurrentRewardCycle();
+      const recentCycles = await storage.getAllRewardCycles(5);
+      
+      const rewardCycleData = {
+        currentCycle: currentCycle ? {
+          id: currentCycle.id,
+          cycleNumber: currentCycle.cycleNumber,
+          startTime: currentCycle.startTime,
+          endTime: currentCycle.endTime,
+          totalRewardsDistributed: currentCycle.totalRewardsDistributed,
+          totalParticipants: currentCycle.totalParticipants,
+          status: currentCycle.status,
+        } : null,
+        recentCycles: recentCycles.map(c => ({
+          cycleNumber: c.cycleNumber,
+          totalRewardsDistributed: c.totalRewardsDistributed,
+          totalParticipants: c.totalParticipants,
+          status: c.status,
+        })),
+        timestamp: Date.now(),
+      };
+
+      broadcastUpdate('reward_cycle_update', rewardCycleData, z.object({
+        currentCycle: z.object({
+          id: z.string(),
+          cycleNumber: z.number(),
+          startTime: z.date().nullable(),
+          endTime: z.date().nullable(),
+          totalRewardsDistributed: z.string().nullable(),
+          totalParticipants: z.number().nullable(),
+          status: z.string(),
+        }).nullable(),
+        recentCycles: z.array(z.object({
+          cycleNumber: z.number(),
+          totalRewardsDistributed: z.string().nullable(),
+          totalParticipants: z.number().nullable(),
+          status: z.string(),
+        })),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('Error broadcasting reward cycles:', error);
+    }
+  }, 30000, 'reward_cycle_broadcast');
+
+  // Staking Tier Performance every 20 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const tierConfigs = await storage.getAllStakingTierConfigs();
+      const pools = await storage.getAllStakingPools();
+      
+      const tierPerformance = tierConfigs.map(tier => {
+        const tierPools = pools.filter(p => p.poolType?.toLowerCase() === tier.tier.toLowerCase());
+        const tierTotalStaked = tierPools.reduce((sum, p) => 
+          sum + BigInt(p.totalStaked || "0"), BigInt(0)
+        );
+        const tierTotalStakers = tierPools.reduce((sum, p) => 
+          sum + (p.activeStakers || 0), 0
+        );
+        
+        return {
+          tier: tier.tier,
+          tierName: tier.tierName,
+          baseApy: tier.baseApy,
+          maxApy: tier.maxApy,
+          lockPeriodDays: tier.lockPeriodDays,
+          totalStaked: tierTotalStaked.toString(),
+          totalStakers: tierTotalStakers,
+          poolCount: tierPools.length,
+          slashingProtection: tier.slashingProtection,
+        };
+      });
+
+      broadcastUpdate('staking_tier_performance', tierPerformance, z.array(z.object({
+        tier: z.string(),
+        tierName: z.string(),
+        baseApy: z.string(),
+        maxApy: z.string(),
+        lockPeriodDays: z.number(),
+        totalStaked: z.string(),
+        totalStakers: z.number(),
+        poolCount: z.number(),
+        slashingProtection: z.boolean(),
+      })));
+    } catch (error) {
+      console.error('Error broadcasting tier performance:', error);
+    }
+  }, 20000, 'staking_tier_broadcast');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)
