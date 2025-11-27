@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -66,6 +67,7 @@ interface GovernanceStats {
 }
 
 export default function Governance() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("active");
 
   const { data: stats, isLoading: statsLoading } = useQuery<GovernanceStats>({

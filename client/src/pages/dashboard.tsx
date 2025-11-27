@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import {
   Activity,
   Blocks,
@@ -176,6 +177,7 @@ interface BridgeStats {
 }
 
 export default function Dashboard() {
+  const { t } = useTranslation();
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -78,6 +79,7 @@ const burnTypeLabels = {
 };
 
 export default function BurnDashboard() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
 
   const { data: stats, isLoading: statsLoading } = useQuery<BurnStats>({

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -375,6 +376,7 @@ function ActivityRow({ activity }: { activity: LaunchpadActivity }) {
 }
 
 export default function NftLaunchpadPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
   const { toast } = useToast();
 
