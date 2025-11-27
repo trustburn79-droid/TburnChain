@@ -333,4 +333,40 @@ router.post("/analytics/snapshot", async (_req: Request, res: Response) => {
   }
 });
 
+const initiateTransferSchema = z.object({
+  sourceChainId: z.number(),
+  destinationChainId: z.number(),
+  amount: z.string(),
+  tokenSymbol: z.string().optional(),
+  recipientAddress: z.string().optional(),
+});
+
+router.post("/transfers/initiate", async (req: Request, res: Response) => {
+  try {
+    const validatedData = initiateTransferSchema.parse(req.body);
+    const transfer = await bridgeService.initiateTransfer(validatedData);
+    res.status(201).json(transfer);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: "Invalid transfer data", details: error.errors });
+    }
+    console.error("[Bridge] Error initiating transfer:", error);
+    res.status(500).json({ error: "Failed to initiate transfer" });
+  }
+});
+
+router.post("/transfers/:id/claim", async (req: Request, res: Response) => {
+  try {
+    const transfer = await bridgeService.claimTransfer(req.params.id);
+    if (!transfer) {
+      return res.status(404).json({ error: "Transfer not found" });
+    }
+    res.json(transfer);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to claim transfer";
+    console.error("[Bridge] Error claiming transfer:", error);
+    res.status(400).json({ error: message });
+  }
+});
+
 export default router;

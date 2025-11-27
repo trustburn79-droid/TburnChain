@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
   Rocket, 
   Clock, 
@@ -21,7 +23,12 @@ import {
   Timer,
   AlertCircle,
   ChevronRight,
+  Loader2,
+  Gift,
+  UserPlus,
 } from "lucide-react";
+
+const ENTERPRISE_WALLET = "0xTBURNEnterprise00000000000000000000000001";
 
 interface LaunchpadProject {
   id: string;
@@ -139,13 +146,33 @@ function formatTimeRemaining(dateStr: string): string {
   return `${minutes}m`;
 }
 
-function ProjectCard({ project }: { project: LaunchpadProject }) {
+function ProjectCard({ 
+  project, 
+  onMint, 
+  onWhitelist, 
+  onClaim,
+  mintLoading,
+  whitelistLoading,
+  claimLoading 
+}: { 
+  project: LaunchpadProject; 
+  onMint?: (projectId: string) => void;
+  onWhitelist?: (projectId: string) => void;
+  onClaim?: (projectId: string) => void;
+  mintLoading?: boolean;
+  whitelistLoading?: boolean;
+  claimLoading?: boolean;
+}) {
   const progress = parseInt(project.totalSupply) > 0 
     ? (project.totalMinted / parseInt(project.totalSupply)) * 100 
     : 0;
+
+  const canMint = project.status === "active";
+  const canWhitelist = project.status === "pending";
+  const canClaim = project.status === "active" || project.status === "completed";
     
   return (
-    <Card className="hover-elevate cursor-pointer" data-testid={`card-project-${project.id}`}>
+    <Card className="hover-elevate" data-testid={`card-project-${project.id}`}>
       <CardContent className="p-4">
         <div className="flex gap-4">
           <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted flex-shrink-0">
@@ -199,6 +226,55 @@ function ProjectCard({ project }: { project: LaunchpadProject }) {
                   <Sparkles className="w-3 h-3 text-purple-500" />
                   <span className="font-medium">{project.aiScore.toFixed(1)}</span>
                 </div>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-3 flex-wrap">
+              {canMint && onMint && (
+                <Button 
+                  size="sm" 
+                  onClick={(e) => { e.stopPropagation(); onMint(project.id); }}
+                  disabled={mintLoading}
+                  data-testid={`button-mint-${project.id}`}
+                >
+                  {mintLoading ? (
+                    <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                  ) : (
+                    <Rocket className="w-4 h-4 mr-1" />
+                  )}
+                  Mint
+                </Button>
+              )}
+              {canWhitelist && onWhitelist && (
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={(e) => { e.stopPropagation(); onWhitelist(project.id); }}
+                  disabled={whitelistLoading}
+                  data-testid={`button-whitelist-${project.id}`}
+                >
+                  {whitelistLoading ? (
+                    <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                  ) : (
+                    <UserPlus className="w-4 h-4 mr-1" />
+                  )}
+                  Join Whitelist
+                </Button>
+              )}
+              {canClaim && onClaim && (
+                <Button 
+                  size="sm" 
+                  variant="secondary"
+                  onClick={(e) => { e.stopPropagation(); onClaim(project.id); }}
+                  disabled={claimLoading}
+                  data-testid={`button-claim-${project.id}`}
+                >
+                  {claimLoading ? (
+                    <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                  ) : (
+                    <Gift className="w-4 h-4 mr-1" />
+                  )}
+                  Claim NFT
+                </Button>
               )}
             </div>
           </div>
@@ -300,6 +376,7 @@ function ActivityRow({ activity }: { activity: LaunchpadActivity }) {
 
 export default function NftLaunchpadPage() {
   const [activeTab, setActiveTab] = useState("overview");
+  const { toast } = useToast();
 
   const { data: overview, isLoading: overviewLoading } = useQuery<LaunchpadOverview>({
     queryKey: ["/api/launchpad/stats"],
@@ -325,6 +402,93 @@ export default function NftLaunchpadPage() {
     queryKey: ["/api/launchpad/activity"],
     refetchInterval: 5000,
   });
+
+  const mintMutation = useMutation({
+    mutationFn: async ({ projectId, quantity }: { projectId: string; quantity: number }) => {
+      const res = await apiRequest("POST", "/api/launchpad/mint", {
+        projectId,
+        walletAddress: ENTERPRISE_WALLET,
+        quantity,
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "NFT Minted Successfully",
+        description: `Minted ${data.quantity} NFT(s) from ${data.projectName}. TX: ${data.txHash.slice(0, 10)}...`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/launchpad/projects"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/launchpad/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/launchpad/activity"] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Mint Failed",
+        description: error.message || "Failed to mint NFT",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const whitelistMutation = useMutation({
+    mutationFn: async (projectId: string) => {
+      const res = await apiRequest("POST", "/api/launchpad/whitelist/join", {
+        projectId,
+        walletAddress: ENTERPRISE_WALLET,
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Whitelist Joined",
+        description: `Successfully joined whitelist for ${data.projectName}. Allocation: ${data.allocation}`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/launchpad/activity"] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Whitelist Join Failed",
+        description: error.message || "Failed to join whitelist",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const claimMutation = useMutation({
+    mutationFn: async (projectId: string) => {
+      const res = await apiRequest("POST", "/api/launchpad/claim", {
+        projectId,
+        walletAddress: ENTERPRISE_WALLET,
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "NFT Claimed",
+        description: `Claimed ${data.claimed} NFT(s) from ${data.projectName}. TX: ${data.txHash.slice(0, 10)}...`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/launchpad/activity"] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Claim Failed",
+        description: error.message || "Failed to claim NFT",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleMint = (projectId: string) => {
+    mintMutation.mutate({ projectId, quantity: 1 });
+  };
+
+  const handleWhitelist = (projectId: string) => {
+    whitelistMutation.mutate(projectId);
+  };
+
+  const handleClaim = (projectId: string) => {
+    claimMutation.mutate(projectId);
+  };
 
   const activeProjects = projects?.filter(p => p.status === "active") || [];
   const upcomingProjects = projects?.filter(p => p.status === "pending") || [];
@@ -478,7 +642,16 @@ export default function NftLaunchpadPage() {
                       ))
                     ) : (
                       featuredProjects?.map(project => (
-                        <ProjectCard key={project.id} project={project} />
+                        <ProjectCard 
+                          key={project.id} 
+                          project={project} 
+                          onMint={handleMint}
+                          onWhitelist={handleWhitelist}
+                          onClaim={handleClaim}
+                          mintLoading={mintMutation.isPending}
+                          whitelistLoading={whitelistMutation.isPending}
+                          claimLoading={claimMutation.isPending}
+                        />
                       ))
                     )}
                     {!projectsLoading && (!featuredProjects || featuredProjects.length === 0) && (
@@ -558,7 +731,16 @@ export default function NftLaunchpadPage() {
                   ))
                 ) : (
                   activeProjects.map(project => (
-                    <ProjectCard key={project.id} project={project} />
+                    <ProjectCard 
+                      key={project.id} 
+                      project={project}
+                      onMint={handleMint}
+                      onWhitelist={handleWhitelist}
+                      onClaim={handleClaim}
+                      mintLoading={mintMutation.isPending}
+                      whitelistLoading={whitelistMutation.isPending}
+                      claimLoading={claimMutation.isPending}
+                    />
                   ))
                 )}
               </div>
@@ -585,7 +767,16 @@ export default function NftLaunchpadPage() {
                   ))
                 ) : (
                   upcomingProjects.map(project => (
-                    <ProjectCard key={project.id} project={project} />
+                    <ProjectCard 
+                      key={project.id} 
+                      project={project}
+                      onMint={handleMint}
+                      onWhitelist={handleWhitelist}
+                      onClaim={handleClaim}
+                      mintLoading={mintMutation.isPending}
+                      whitelistLoading={whitelistMutation.isPending}
+                      claimLoading={claimMutation.isPending}
+                    />
                   ))
                 )}
               </div>
@@ -612,7 +803,16 @@ export default function NftLaunchpadPage() {
                   ))
                 ) : (
                   completedProjects.map(project => (
-                    <ProjectCard key={project.id} project={project} />
+                    <ProjectCard 
+                      key={project.id} 
+                      project={project}
+                      onMint={handleMint}
+                      onWhitelist={handleWhitelist}
+                      onClaim={handleClaim}
+                      mintLoading={mintMutation.isPending}
+                      whitelistLoading={whitelistMutation.isPending}
+                      claimLoading={claimMutation.isPending}
+                    />
                   ))
                 )}
               </div>

@@ -1,9 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,37 +10,37 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { 
   ArrowDownUp,
   TrendingUp,
-  TrendingDown,
   Activity,
-  Wallet,
   Droplets,
   BarChart3,
   RefreshCw,
-  ChevronRight,
   ArrowUpRight,
-  ArrowDownRight,
   Zap,
   AlertCircle,
   CheckCircle,
   Clock,
-  Shield,
   Coins,
-  Target,
   Layers,
   DollarSign,
-  Percent,
   Plus,
   Minus,
   Settings,
-  Info,
-  ExternalLink
+  Loader2
 } from "lucide-react";
 import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Tooltip,
@@ -49,6 +48,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+const ENTERPRISE_WALLET_ADDRESS = "0xTBURN1234567890abcdef1234567890abcdef12";
 
 interface DexPool {
   id: string;
@@ -64,7 +65,7 @@ interface DexPool {
   tvlUsd: string;
   volume24h: string;
   fees24h: string;
-  totalApy: number; // in basis points
+  totalApy: number;
   price0: string;
   price1: string;
   status: string;
@@ -127,14 +128,18 @@ const poolTypeColors: Record<string, string> = {
   "constant-product": "bg-blue-500 text-white",
   "stable": "bg-green-500 text-white",
   "concentrated": "bg-purple-500 text-white",
-  "multi-asset": "bg-orange-500 text-white"
+  "multi-asset": "bg-orange-500 text-white",
+  "standard": "bg-blue-500 text-white",
+  "weighted": "bg-indigo-500 text-white"
 };
 
 const poolTypeLabels: Record<string, string> = {
   "constant-product": "AMM",
   "stable": "Stable",
   "concentrated": "CL",
-  "multi-asset": "Multi"
+  "multi-asset": "Multi",
+  "standard": "AMM",
+  "weighted": "Weighted"
 };
 
 function bigIntPow(base: bigint, exp: number): bigint {
@@ -188,6 +193,17 @@ function truncateAddress(addr: string): string {
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 }
 
+function toWei(amount: string, decimals: number = 18): string {
+  try {
+    const value = parseFloat(amount);
+    if (isNaN(value) || value <= 0) return "0";
+    const multiplier = Math.pow(10, decimals);
+    return Math.floor(value * multiplier).toString();
+  } catch {
+    return "0";
+  }
+}
+
 export default function DexPage() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("swap");
@@ -199,6 +215,30 @@ export default function DexPage() {
     slippage: "0.5"
   });
   const [selectedPool, setSelectedPool] = useState<string | null>(null);
+
+  const [createPoolOpen, setCreatePoolOpen] = useState(false);
+  const [createPoolForm, setCreatePoolForm] = useState({
+    name: "",
+    symbol: "",
+    poolType: "standard" as "standard" | "stable" | "concentrated" | "multi_asset" | "weighted",
+    feeTier: 300,
+    token0Address: "",
+    token0Symbol: "",
+    token1Address: "",
+    token1Symbol: ""
+  });
+
+  const [addLiquidityOpen, setAddLiquidityOpen] = useState(false);
+  const [addLiquidityPool, setAddLiquidityPool] = useState<DexPool | null>(null);
+  const [addLiquidityForm, setAddLiquidityForm] = useState({
+    token0Amount: "",
+    token1Amount: "",
+    minLpTokens: "0"
+  });
+
+  const [removeLiquidityOpen, setRemoveLiquidityOpen] = useState(false);
+  const [removeLiquidityPosition, setRemoveLiquidityPosition] = useState<DexPosition | null>(null);
+  const [removePercentage, setRemovePercentage] = useState([50]);
 
   const { data: stats, isLoading: statsLoading } = useQuery<DexStatsResponse>({
     queryKey: ["/api/dex/stats"]
@@ -232,6 +272,84 @@ export default function DexPage() {
     },
     onError: (error: Error) => {
       toast({ title: "Swap Failed", description: error.message, variant: "destructive" });
+    }
+  });
+
+  const createPoolMutation = useMutation({
+    mutationFn: async (data: typeof createPoolForm) => {
+      return apiRequest("POST", "/api/dex/pools", {
+        ...data,
+        token0Decimals: 18,
+        token1Decimals: 18,
+        creatorAddress: ENTERPRISE_WALLET_ADDRESS
+      });
+    },
+    onSuccess: () => {
+      toast({ title: "Pool Created", description: "Your liquidity pool has been created successfully." });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/pools"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/stats"] });
+      setCreatePoolOpen(false);
+      setCreatePoolForm({
+        name: "",
+        symbol: "",
+        poolType: "standard",
+        feeTier: 300,
+        token0Address: "",
+        token0Symbol: "",
+        token1Address: "",
+        token1Symbol: ""
+      });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to Create Pool", description: error.message, variant: "destructive" });
+    }
+  });
+
+  const addLiquidityMutation = useMutation({
+    mutationFn: async (data: { poolId: string; token0Address: string; token1Address: string; token0Amount: string; token1Amount: string }) => {
+      return apiRequest("POST", "/api/dex/liquidity/add", {
+        poolId: data.poolId,
+        ownerAddress: ENTERPRISE_WALLET_ADDRESS,
+        amounts: [
+          { token: data.token0Address, amount: toWei(data.token0Amount) },
+          { token: data.token1Address, amount: toWei(data.token1Amount) }
+        ],
+        minLpTokens: "0"
+      });
+    },
+    onSuccess: () => {
+      toast({ title: "Liquidity Added", description: "Your liquidity has been added to the pool." });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/pools"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/positions"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/stats"] });
+      setAddLiquidityOpen(false);
+      setAddLiquidityPool(null);
+      setAddLiquidityForm({ token0Amount: "", token1Amount: "", minLpTokens: "0" });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to Add Liquidity", description: error.message, variant: "destructive" });
+    }
+  });
+
+  const removeLiquidityMutation = useMutation({
+    mutationFn: async (data: { positionId: string; percentageToRemove: number }) => {
+      return apiRequest("POST", "/api/dex/liquidity/remove", {
+        positionId: data.positionId,
+        percentageToRemove: data.percentageToRemove,
+        minAmountsOut: []
+      });
+    },
+    onSuccess: () => {
+      toast({ title: "Liquidity Removed", description: "Your liquidity has been removed from the pool." });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/pools"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/positions"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/dex/stats"] });
+      setRemoveLiquidityOpen(false);
+      setRemoveLiquidityPosition(null);
+      setRemovePercentage([50]);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Failed to Remove Liquidity", description: error.message, variant: "destructive" });
     }
   });
 
@@ -270,6 +388,50 @@ export default function DexPage() {
       minAmountOut: minAmountOut.toString(),
       deadline: Math.floor(Date.now() / 1000) + 1200
     });
+  };
+
+  const handleCreatePool = () => {
+    if (!createPoolForm.name || !createPoolForm.symbol || !createPoolForm.token0Address || !createPoolForm.token1Address) {
+      toast({ title: "Validation Error", description: "Please fill in all required fields.", variant: "destructive" });
+      return;
+    }
+    createPoolMutation.mutate(createPoolForm);
+  };
+
+  const handleAddLiquidity = () => {
+    if (!addLiquidityPool) return;
+    if (!addLiquidityForm.token0Amount || !addLiquidityForm.token1Amount) {
+      toast({ title: "Validation Error", description: "Please enter amounts for both tokens.", variant: "destructive" });
+      return;
+    }
+    addLiquidityMutation.mutate({
+      poolId: addLiquidityPool.id,
+      token0Address: addLiquidityPool.token0Address,
+      token1Address: addLiquidityPool.token1Address,
+      token0Amount: addLiquidityForm.token0Amount,
+      token1Amount: addLiquidityForm.token1Amount
+    });
+  };
+
+  const handleRemoveLiquidity = () => {
+    if (!removeLiquidityPosition) return;
+    removeLiquidityMutation.mutate({
+      positionId: removeLiquidityPosition.id,
+      percentageToRemove: removePercentage[0]
+    });
+  };
+
+  const openAddLiquidityDialog = (pool: DexPool, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setAddLiquidityPool(pool);
+    setAddLiquidityForm({ token0Amount: "", token1Amount: "", minLpTokens: "0" });
+    setAddLiquidityOpen(true);
+  };
+
+  const openRemoveLiquidityDialog = (position: DexPosition) => {
+    setRemoveLiquidityPosition(position);
+    setRemovePercentage([50]);
+    setRemoveLiquidityOpen(true);
   };
 
   return (
@@ -537,7 +699,7 @@ export default function DexPage() {
                   data-testid="button-execute-swap"
                 >
                   {swapMutation.isPending ? (
-                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   ) : (
                     <ArrowDownUp className="h-4 w-4 mr-2" />
                   )}
@@ -622,7 +784,7 @@ export default function DexPage() {
               </Select>
               <Badge variant="outline">{filteredPools.length} pools</Badge>
             </div>
-            <Button data-testid="button-create-pool">
+            <Button data-testid="button-create-pool" onClick={() => setCreatePoolOpen(true)}>
               <Plus className="h-4 w-4 mr-2" />
               Create Pool
             </Button>
@@ -691,8 +853,18 @@ export default function DexPage() {
                             {(pool.feeTier / 100).toFixed(2)}%
                           </div>
                         </div>
-                        <Button variant="outline" size="sm" data-testid={`button-add-liquidity-${pool.id}`}>
-                          <Plus className="h-4 w-4 mr-1" />
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          data-testid={`button-add-liquidity-${pool.id}`}
+                          onClick={(e) => openAddLiquidityDialog(pool, e)}
+                          disabled={addLiquidityMutation.isPending}
+                        >
+                          {addLiquidityMutation.isPending && addLiquidityPool?.id === pool.id ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <Plus className="h-4 w-4 mr-1" />
+                          )}
                           Add Liquidity
                         </Button>
                       </div>
@@ -777,8 +949,18 @@ export default function DexPage() {
                             <Coins className="h-4 w-4 mr-1" />
                             Claim
                           </Button>
-                          <Button variant="outline" size="sm" data-testid={`button-remove-liquidity-${position.id}`}>
-                            <Minus className="h-4 w-4 mr-1" />
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            data-testid={`button-remove-liquidity-${position.id}`}
+                            onClick={() => openRemoveLiquidityDialog(position)}
+                            disabled={removeLiquidityMutation.isPending}
+                          >
+                            {removeLiquidityMutation.isPending && removeLiquidityPosition?.id === position.id ? (
+                              <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                            ) : (
+                              <Minus className="h-4 w-4 mr-1" />
+                            )}
                             Remove
                           </Button>
                         </div>
@@ -874,6 +1056,351 @@ export default function DexPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Dialog open={createPoolOpen} onOpenChange={setCreatePoolOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Plus className="h-5 w-5" />
+              Create Liquidity Pool
+            </DialogTitle>
+            <DialogDescription>
+              Create a new liquidity pool for token pairs. Fill in all required fields.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="pool-name">Pool Name</Label>
+                <Input
+                  id="pool-name"
+                  placeholder="e.g., TBURN-ETH Pool"
+                  value={createPoolForm.name}
+                  onChange={(e) => setCreatePoolForm(prev => ({ ...prev, name: e.target.value }))}
+                  data-testid="input-pool-name"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="pool-symbol">Symbol</Label>
+                <Input
+                  id="pool-symbol"
+                  placeholder="e.g., TBURN-ETH-LP"
+                  value={createPoolForm.symbol}
+                  onChange={(e) => setCreatePoolForm(prev => ({ ...prev, symbol: e.target.value }))}
+                  data-testid="input-pool-symbol"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="pool-type">Pool Type</Label>
+                <Select 
+                  value={createPoolForm.poolType} 
+                  onValueChange={(v) => setCreatePoolForm(prev => ({ ...prev, poolType: v as any }))}
+                >
+                  <SelectTrigger data-testid="select-pool-type">
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="standard">Standard (AMM)</SelectItem>
+                    <SelectItem value="stable">Stable Swap</SelectItem>
+                    <SelectItem value="concentrated">Concentrated Liquidity</SelectItem>
+                    <SelectItem value="multi_asset">Multi-Asset</SelectItem>
+                    <SelectItem value="weighted">Weighted Pool</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="fee-tier">Fee Tier (bps)</Label>
+                <Select 
+                  value={createPoolForm.feeTier.toString()} 
+                  onValueChange={(v) => setCreatePoolForm(prev => ({ ...prev, feeTier: parseInt(v) }))}
+                >
+                  <SelectTrigger data-testid="select-fee-tier">
+                    <SelectValue placeholder="Select fee" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="100">0.01% (100 bps)</SelectItem>
+                    <SelectItem value="300">0.03% (300 bps)</SelectItem>
+                    <SelectItem value="500">0.05% (500 bps)</SelectItem>
+                    <SelectItem value="3000">0.30% (3000 bps)</SelectItem>
+                    <SelectItem value="10000">1.00% (10000 bps)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <Separator />
+            <div className="space-y-2">
+              <Label>Token 0</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  placeholder="Token Address (0x...)"
+                  value={createPoolForm.token0Address}
+                  onChange={(e) => setCreatePoolForm(prev => ({ ...prev, token0Address: e.target.value }))}
+                  className="font-mono text-sm"
+                  data-testid="input-token0-address"
+                />
+                <Input
+                  placeholder="Symbol (e.g., TBURN)"
+                  value={createPoolForm.token0Symbol}
+                  onChange={(e) => setCreatePoolForm(prev => ({ ...prev, token0Symbol: e.target.value }))}
+                  data-testid="input-token0-symbol"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Token 1</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  placeholder="Token Address (0x...)"
+                  value={createPoolForm.token1Address}
+                  onChange={(e) => setCreatePoolForm(prev => ({ ...prev, token1Address: e.target.value }))}
+                  className="font-mono text-sm"
+                  data-testid="input-token1-address"
+                />
+                <Input
+                  placeholder="Symbol (e.g., ETH)"
+                  value={createPoolForm.token1Symbol}
+                  onChange={(e) => setCreatePoolForm(prev => ({ ...prev, token1Symbol: e.target.value }))}
+                  data-testid="input-token1-symbol"
+                />
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setCreatePoolOpen(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleCreatePool} 
+              disabled={createPoolMutation.isPending}
+              data-testid="button-submit-create-pool"
+            >
+              {createPoolMutation.isPending ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                <>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Create Pool
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={addLiquidityOpen} onOpenChange={setAddLiquidityOpen}>
+        <DialogContent className="sm:max-w-[450px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Droplets className="h-5 w-5" />
+              Add Liquidity
+            </DialogTitle>
+            <DialogDescription>
+              Add liquidity to {addLiquidityPool?.name || "this pool"} ({addLiquidityPool?.token0Symbol}/{addLiquidityPool?.token1Symbol})
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="token0-amount" className="flex items-center justify-between">
+                <span>{addLiquidityPool?.token0Symbol || "Token 0"} Amount</span>
+                <span className="text-xs text-muted-foreground font-mono">
+                  {truncateAddress(addLiquidityPool?.token0Address || "")}
+                </span>
+              </Label>
+              <Input
+                id="token0-amount"
+                type="number"
+                placeholder="0.0"
+                value={addLiquidityForm.token0Amount}
+                onChange={(e) => setAddLiquidityForm(prev => ({ ...prev, token0Amount: e.target.value }))}
+                className="font-mono"
+                data-testid="input-liquidity-token0"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="token1-amount" className="flex items-center justify-between">
+                <span>{addLiquidityPool?.token1Symbol || "Token 1"} Amount</span>
+                <span className="text-xs text-muted-foreground font-mono">
+                  {truncateAddress(addLiquidityPool?.token1Address || "")}
+                </span>
+              </Label>
+              <Input
+                id="token1-amount"
+                type="number"
+                placeholder="0.0"
+                value={addLiquidityForm.token1Amount}
+                onChange={(e) => setAddLiquidityForm(prev => ({ ...prev, token1Amount: e.target.value }))}
+                className="font-mono"
+                data-testid="input-liquidity-token1"
+              />
+            </div>
+            <div className="rounded-lg bg-muted p-3 text-sm space-y-1">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Pool Type</span>
+                <Badge className={poolTypeColors[addLiquidityPool?.poolType || ""] || "bg-gray-500"}>
+                  {poolTypeLabels[addLiquidityPool?.poolType || ""] || addLiquidityPool?.poolType}
+                </Badge>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Fee Tier</span>
+                <span>{addLiquidityPool ? (addLiquidityPool.feeTier / 100).toFixed(2) : "0"}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Current TVL</span>
+                <span>{formatUSD(addLiquidityPool?.tvlUsd)}</span>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAddLiquidityOpen(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleAddLiquidity} 
+              disabled={addLiquidityMutation.isPending}
+              data-testid="button-submit-add-liquidity"
+            >
+              {addLiquidityMutation.isPending ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Adding...
+                </>
+              ) : (
+                <>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Liquidity
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={removeLiquidityOpen} onOpenChange={setRemoveLiquidityOpen}>
+        <DialogContent className="sm:max-w-[450px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Minus className="h-5 w-5" />
+              Remove Liquidity
+            </DialogTitle>
+            <DialogDescription>
+              Remove liquidity from position #{truncateAddress(removeLiquidityPosition?.id || "")}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label>Amount to Remove</Label>
+                <span className="text-2xl font-bold">{removePercentage[0]}%</span>
+              </div>
+              <Slider
+                value={removePercentage}
+                onValueChange={setRemovePercentage}
+                max={100}
+                min={1}
+                step={1}
+                className="w-full"
+                data-testid="slider-remove-percentage"
+              />
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setRemovePercentage([25])}
+                >
+                  25%
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setRemovePercentage([50])}
+                >
+                  50%
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setRemovePercentage([75])}
+                >
+                  75%
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setRemovePercentage([100])}
+                >
+                  Max
+                </Button>
+              </div>
+            </div>
+            <Separator />
+            <div className="rounded-lg bg-muted p-3 text-sm space-y-2">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">LP Token Balance</span>
+                <span className="font-mono">{formatWeiToToken(removeLiquidityPosition?.lpTokenBalance)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Amount to Remove</span>
+                <span className="font-mono">
+                  {removeLiquidityPosition ? 
+                    formatWeiToToken(
+                      (BigInt(removeLiquidityPosition.lpTokenBalance || "0") * BigInt(removePercentage[0]) / BigInt(100)).toString()
+                    ) : "0"
+                  }
+                </span>
+              </div>
+              <Separator />
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Est. Token0 Return</span>
+                <span className="font-mono">
+                  {removeLiquidityPosition ? 
+                    formatWeiToToken(
+                      (BigInt(removeLiquidityPosition.token0Deposited || "0") * BigInt(removePercentage[0]) / BigInt(100)).toString()
+                    ) : "0"
+                  }
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Est. Token1 Return</span>
+                <span className="font-mono">
+                  {removeLiquidityPosition ? 
+                    formatWeiToToken(
+                      (BigInt(removeLiquidityPosition.token1Deposited || "0") * BigInt(removePercentage[0]) / BigInt(100)).toString()
+                    ) : "0"
+                  }
+                </span>
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setRemoveLiquidityOpen(false)}>
+              Cancel
+            </Button>
+            <Button 
+              variant="destructive"
+              onClick={handleRemoveLiquidity} 
+              disabled={removeLiquidityMutation.isPending}
+              data-testid="button-submit-remove-liquidity"
+            >
+              {removeLiquidityMutation.isPending ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Removing...
+                </>
+              ) : (
+                <>
+                  <Minus className="h-4 w-4 mr-2" />
+                  Remove Liquidity
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

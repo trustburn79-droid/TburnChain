@@ -228,4 +228,84 @@ router.get("/activity", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/tournaments/:id/join", async (req: Request, res: Response) => {
+  try {
+    const { walletAddress, playerName } = req.body;
+    
+    if (!walletAddress) {
+      return res.status(400).json({ error: "Wallet address is required" });
+    }
+    
+    const participant = await gameFiService.joinTournament(
+      req.params.id,
+      walletAddress,
+      playerName
+    );
+    
+    res.json({
+      success: true,
+      message: "Successfully joined tournament",
+      participant,
+    });
+  } catch (error: any) {
+    console.error("[GameFi API] Error joining tournament:", error);
+    res.status(400).json({ error: error.message || "Failed to join tournament" });
+  }
+});
+
+router.post("/rewards/claim", async (req: Request, res: Response) => {
+  try {
+    const { walletAddress } = req.body;
+    
+    if (!walletAddress) {
+      return res.status(400).json({ error: "Wallet address is required" });
+    }
+    
+    const result = await gameFiService.claimRewards(walletAddress);
+    
+    res.json({
+      success: true,
+      message: `Successfully claimed ${result.claimedCount} rewards`,
+      ...result,
+    });
+  } catch (error: any) {
+    console.error("[GameFi API] Error claiming rewards:", error);
+    res.status(400).json({ error: error.message || "Failed to claim rewards" });
+  }
+});
+
+router.post("/assets/:id/equip", async (req: Request, res: Response) => {
+  try {
+    const { walletAddress } = req.body;
+    
+    if (!walletAddress) {
+      return res.status(400).json({ error: "Wallet address is required" });
+    }
+    
+    const asset = await gameFiService.equipAsset(req.params.id, walletAddress);
+    
+    res.json({
+      success: true,
+      message: asset.isEquipped ? "Asset equipped successfully" : "Asset unequipped successfully",
+      asset,
+    });
+  } catch (error: any) {
+    console.error("[GameFi API] Error equipping asset:", error);
+    res.status(400).json({ error: error.message || "Failed to equip asset" });
+  }
+});
+
+router.get("/assets/:id", async (req: Request, res: Response) => {
+  try {
+    const asset = await gameFiService.getAssetById(req.params.id);
+    if (!asset) {
+      return res.status(404).json({ error: "Asset not found" });
+    }
+    res.json(asset);
+  } catch (error: any) {
+    console.error("[GameFi API] Error fetching asset:", error);
+    res.status(500).json({ error: "Failed to fetch asset" });
+  }
+});
+
 export default router;

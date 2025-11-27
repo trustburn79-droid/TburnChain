@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -10,7 +10,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { 
   TrendingUp,
   TrendingDown,
@@ -36,7 +45,9 @@ import {
   Heart,
   Target,
   Timer,
-  CircleDollarSign
+  CircleDollarSign,
+  X,
+  User
 } from "lucide-react";
 import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
@@ -47,6 +58,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+const ENTERPRISE_WALLET = "0xTBURNEnterprise742d35Cc6634C0532925a3b8";
 
 interface LendingMarket {
   id: string;
@@ -157,6 +170,8 @@ interface LendingLiquidation {
   createdAt: string | null;
 }
 
+type DialogAction = "supply" | "withdraw" | "borrow" | "repay" | "liquidate" | null;
+
 const healthStatusColors: Record<string, string> = {
   healthy: "bg-green-500 text-white",
   at_risk: "bg-yellow-500 text-white",
@@ -252,12 +267,36 @@ function getHealthColor(hf: number): string {
   return "text-green-500";
 }
 
+function toWei(amount: string, decimals: number = 18): string {
+  try {
+    const parsed = parseFloat(amount);
+    if (isNaN(parsed) || parsed <= 0) return "0";
+    const multiplier = Math.pow(10, decimals);
+    return BigInt(Math.floor(parsed * multiplier)).toString();
+  } catch {
+    return "0";
+  }
+}
+
 export default function LendingPage() {
   const { toast } = useToast();
   const [selectedTab, setSelectedTab] = useState("overview");
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
   const [actionTab, setActionTab] = useState<"supply" | "borrow">("supply");
   const [amount, setAmount] = useState("");
+  
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogAction, setDialogAction] = useState<DialogAction>(null);
+  const [dialogMarket, setDialogMarket] = useState<LendingMarket | null>(null);
+  const [dialogAmount, setDialogAmount] = useState("");
+  const [useAsCollateral, setUseAsCollateral] = useState(true);
+  const [rateMode, setRateMode] = useState<"variable" | "stable">("variable");
+  
+  const [liquidateDialogOpen, setLiquidateDialogOpen] = useState(false);
+  const [liquidateBorrower, setLiquidateBorrower] = useState("");
+  const [liquidateDebtMarket, setLiquidateDebtMarket] = useState("");
+  const [liquidateCollateralMarket, setLiquidateCollateralMarket] = useState("");
+  const [liquidateAmount, setLiquidateAmount] = useState("");
   
   const [lendingStats, setLendingStats] = useState<LendingStats | null>(null);
   const [recentTransactions, setRecentTransactions] = useState<LendingTransaction[]>([]);
@@ -283,6 +322,11 @@ export default function LendingPage() {
   }>({
     queryKey: ['/api/lending/stats'],
     staleTime: 10000,
+  });
+
+  const { data: userPosition, refetch: refetchPosition } = useQuery<LendingPosition>({
+    queryKey: ['/api/lending/positions', ENTERPRISE_WALLET],
+    staleTime: 15000,
   });
 
   const selectedMarketData = useMemo(() => {
@@ -319,12 +363,12 @@ export default function LendingPage() {
   }, []);
 
   const supplyMutation = useMutation({
-    mutationFn: async (data: { marketId: string; amount: string }) => {
+    mutationFn: async (data: { marketId: string; amount: string; useAsCollateral: boolean }) => {
       return apiRequest('POST', '/api/lending/supply', {
-        userAddress: '0x742d35Cc6634C0532925a3b844Bc9e7595f1e1E1',
+        userAddress: ENTERPRISE_WALLET,
         marketId: data.marketId,
         amount: data.amount,
-        useAsCollateral: true,
+        useAsCollateral: data.useAsCollateral,
       });
     },
     onSuccess: () => {
@@ -333,7 +377,9 @@ export default function LendingPage() {
         description: "Your assets have been supplied to the lending pool.",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
-      setAmount("");
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
+      closeDialog();
     },
     onError: (error: Error) => {
       toast({
@@ -344,13 +390,40 @@ export default function LendingPage() {
     },
   });
 
+  const withdrawMutation = useMutation({
+    mutationFn: async (data: { marketId: string; shares: string }) => {
+      return apiRequest('POST', '/api/lending/withdraw', {
+        userAddress: ENTERPRISE_WALLET,
+        marketId: data.marketId,
+        amount: data.shares,
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Withdraw Successful",
+        description: "Your assets have been withdrawn from the lending pool.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
+      closeDialog();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Withdraw Failed",
+        description: error.message || "Failed to withdraw assets",
+        variant: "destructive",
+      });
+    },
+  });
+
   const borrowMutation = useMutation({
-    mutationFn: async (data: { marketId: string; amount: string }) => {
+    mutationFn: async (data: { marketId: string; amount: string; rateMode: "variable" | "stable" }) => {
       return apiRequest('POST', '/api/lending/borrow', {
-        userAddress: '0x742d35Cc6634C0532925a3b844Bc9e7595f1e1E1',
+        userAddress: ENTERPRISE_WALLET,
         marketId: data.marketId,
         amount: data.amount,
-        rateMode: 'variable',
+        rateMode: data.rateMode,
       });
     },
     onSuccess: () => {
@@ -359,7 +432,9 @@ export default function LendingPage() {
         description: "Assets have been borrowed from the lending pool.",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
-      setAmount("");
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
+      closeDialog();
     },
     onError: (error: Error) => {
       toast({
@@ -369,6 +444,189 @@ export default function LendingPage() {
       });
     },
   });
+
+  const repayMutation = useMutation({
+    mutationFn: async (data: { marketId: string; amount: string }) => {
+      return apiRequest('POST', '/api/lending/repay', {
+        userAddress: ENTERPRISE_WALLET,
+        marketId: data.marketId,
+        amount: data.amount,
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Repay Successful",
+        description: "Your debt has been repaid.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
+      closeDialog();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Repay Failed",
+        description: error.message || "Failed to repay debt",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const liquidateMutation = useMutation({
+    mutationFn: async (data: { 
+      borrowerAddress: string; 
+      debtMarketId: string; 
+      collateralMarketId: string;
+      debtToCover: string;
+    }) => {
+      return apiRequest('POST', '/api/lending/liquidate', {
+        liquidatorAddress: ENTERPRISE_WALLET,
+        borrowerAddress: data.borrowerAddress,
+        debtMarketId: data.debtMarketId,
+        collateralMarketId: data.collateralMarketId,
+        debtToCover: data.debtToCover,
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Liquidation Successful",
+        description: "Position has been liquidated successfully.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
+      setLiquidateDialogOpen(false);
+      resetLiquidateForm();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Liquidation Failed",
+        description: error.message || "Failed to liquidate position",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const openDialog = (action: DialogAction, market: LendingMarket) => {
+    setDialogAction(action);
+    setDialogMarket(market);
+    setDialogAmount("");
+    setUseAsCollateral(true);
+    setRateMode("variable");
+    setDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+    setDialogAction(null);
+    setDialogMarket(null);
+    setDialogAmount("");
+  };
+
+  const resetLiquidateForm = () => {
+    setLiquidateBorrower("");
+    setLiquidateDebtMarket("");
+    setLiquidateCollateralMarket("");
+    setLiquidateAmount("");
+  };
+
+  const handleDialogSubmit = () => {
+    if (!dialogMarket || !dialogAmount) return;
+    
+    const weiAmount = toWei(dialogAmount, dialogMarket.assetDecimals);
+    if (weiAmount === "0") {
+      toast({
+        title: "Invalid Amount",
+        description: "Please enter a valid amount greater than 0",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    switch (dialogAction) {
+      case "supply":
+        supplyMutation.mutate({ 
+          marketId: dialogMarket.id, 
+          amount: weiAmount,
+          useAsCollateral 
+        });
+        break;
+      case "withdraw":
+        withdrawMutation.mutate({ 
+          marketId: dialogMarket.id, 
+          shares: weiAmount 
+        });
+        break;
+      case "borrow":
+        borrowMutation.mutate({ 
+          marketId: dialogMarket.id, 
+          amount: weiAmount,
+          rateMode 
+        });
+        break;
+      case "repay":
+        repayMutation.mutate({ 
+          marketId: dialogMarket.id, 
+          amount: weiAmount 
+        });
+        break;
+    }
+  };
+
+  const handleLiquidateSubmit = () => {
+    if (!liquidateBorrower || !liquidateDebtMarket || !liquidateCollateralMarket || !liquidateAmount) {
+      toast({
+        title: "Invalid Input",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const debtMarket = markets?.find(m => m.id === liquidateDebtMarket);
+    const weiAmount = toWei(liquidateAmount, debtMarket?.assetDecimals || 18);
+    
+    liquidateMutation.mutate({
+      borrowerAddress: liquidateBorrower,
+      debtMarketId: liquidateDebtMarket,
+      collateralMarketId: liquidateCollateralMarket,
+      debtToCover: weiAmount,
+    });
+  };
+
+  const isDialogPending = supplyMutation.isPending || withdrawMutation.isPending || 
+                          borrowMutation.isPending || repayMutation.isPending;
+
+  const getDialogTitle = () => {
+    switch (dialogAction) {
+      case "supply": return "Supply Assets";
+      case "withdraw": return "Withdraw Assets";
+      case "borrow": return "Borrow Assets";
+      case "repay": return "Repay Debt";
+      default: return "";
+    }
+  };
+
+  const getDialogDescription = () => {
+    switch (dialogAction) {
+      case "supply": return `Supply ${dialogMarket?.assetSymbol} to earn yield`;
+      case "withdraw": return `Withdraw ${dialogMarket?.assetSymbol} from the lending pool`;
+      case "borrow": return `Borrow ${dialogMarket?.assetSymbol} against your collateral`;
+      case "repay": return `Repay your ${dialogMarket?.assetSymbol} debt`;
+      default: return "";
+    }
+  };
+
+  const getActionButtonText = () => {
+    if (isDialogPending) return "Processing...";
+    switch (dialogAction) {
+      case "supply": return `Supply ${dialogMarket?.assetSymbol}`;
+      case "withdraw": return `Withdraw ${dialogMarket?.assetSymbol}`;
+      case "borrow": return `Borrow ${dialogMarket?.assetSymbol}`;
+      case "repay": return `Repay ${dialogMarket?.assetSymbol}`;
+      default: return "Confirm";
+    }
+  };
 
   if (marketsLoading || statsLoading) {
     return (
@@ -402,14 +660,23 @@ export default function LendingPage() {
               Supply assets to earn yield or borrow against your collateral
             </p>
           </div>
-          <Button 
-            variant="outline" 
-            onClick={() => refetchMarkets()}
-            data-testid="button-refresh-markets"
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
-          </Button>
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="font-mono text-xs">
+              <User className="h-3 w-3 mr-1" />
+              {ENTERPRISE_WALLET.slice(0, 12)}...
+            </Badge>
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                refetchMarkets();
+                refetchPosition();
+              }}
+              data-testid="button-refresh-markets"
+            >
+              <RefreshCw className="h-4 w-4 mr-2" />
+              Refresh
+            </Button>
+          </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
@@ -477,6 +744,7 @@ export default function LendingPage() {
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview" data-testid="tab-overview">Markets Overview</TabsTrigger>
+            <TabsTrigger value="positions" data-testid="tab-positions">My Positions</TabsTrigger>
             <TabsTrigger value="supply" data-testid="tab-supply">Supply</TabsTrigger>
             <TabsTrigger value="borrow" data-testid="tab-borrow">Borrow</TabsTrigger>
             <TabsTrigger value="activity" data-testid="tab-activity">Activity</TabsTrigger>
@@ -497,11 +765,10 @@ export default function LendingPage() {
                     {markets && markets.length > 0 ? markets.map((market) => (
                       <div 
                         key={market.id} 
-                        className="p-4 rounded-lg border hover-elevate cursor-pointer transition-colors"
-                        onClick={() => setSelectedMarket(market.id)}
+                        className="p-4 rounded-lg border hover-elevate transition-colors"
                         data-testid={`market-card-${market.id}`}
                       >
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between flex-wrap gap-4">
                           <div className="flex items-center gap-3">
                             <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
                               <Coins className="h-5 w-5 text-primary" />
@@ -515,11 +782,15 @@ export default function LendingPage() {
                                     Collateral
                                   </Badge>
                                 )}
+                                {!market.isActive && (
+                                  <Badge variant="secondary" className="text-xs">Inactive</Badge>
+                                )}
                               </div>
                               <div className="text-sm text-muted-foreground">{market.assetName}</div>
                             </div>
                           </div>
-                          <div className="flex items-center gap-6">
+                          
+                          <div className="flex items-center gap-6 flex-wrap">
                             <div className="text-right">
                               <div className="text-sm text-muted-foreground">Total Supply</div>
                               <div className="font-medium">{formatUSD(market.totalSupply)}</div>
@@ -541,7 +812,28 @@ export default function LendingPage() {
                               <Progress value={market.utilizationRate / 100} className="h-2" />
                               <div className="text-xs text-muted-foreground mt-1">{formatBps(market.utilizationRate)}</div>
                             </div>
-                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                          
+                          <div className="flex items-center gap-2">
+                            <Button 
+                              size="sm"
+                              onClick={() => openDialog("supply", market)}
+                              disabled={!market.isActive}
+                              data-testid={`button-supply-${market.id}`}
+                            >
+                              <Plus className="h-4 w-4 mr-1" />
+                              Supply
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => openDialog("borrow", market)}
+                              disabled={!market.isActive || !market.canBeBorrowed}
+                              data-testid={`button-borrow-${market.id}`}
+                            >
+                              <ArrowDownRight className="h-4 w-4 mr-1" />
+                              Borrow
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -556,6 +848,250 @@ export default function LendingPage() {
                 </ScrollArea>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="positions" className="space-y-4">
+            {userPosition ? (
+              <>
+                <div className="grid gap-4 md:grid-cols-4">
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Total Collateral</CardTitle>
+                      <Shield className="h-4 w-4 text-green-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold" data-testid="text-user-collateral">
+                        {formatUSD(userPosition.totalCollateralValueUsd)}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {userPosition.suppliedAssetCount} assets supplied
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Total Borrowed</CardTitle>
+                      <CircleDollarSign className="h-4 w-4 text-blue-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold" data-testid="text-user-borrowed">
+                        {formatUSD(userPosition.totalBorrowedValueUsd)}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {userPosition.borrowedAssetCount} assets borrowed
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Health Factor</CardTitle>
+                      <Heart className="h-4 w-4" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className={`text-2xl font-bold ${getHealthColor(userPosition.healthFactor)}`} data-testid="text-health-factor">
+                        {formatHealthFactor(userPosition.healthFactor)}
+                      </div>
+                      <Badge className={healthStatusColors[userPosition.healthStatus] || "bg-muted"}>
+                        {healthStatusLabels[userPosition.healthStatus] || userPosition.healthStatus}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Net APY</CardTitle>
+                      <TrendingUp className="h-4 w-4 text-primary" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className={`text-2xl font-bold ${userPosition.netApy >= 0 ? 'text-green-500' : 'text-red-500'}`} data-testid="text-net-apy">
+                        {formatBps(userPosition.netApy)}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Borrow capacity: {formatUSD(userPosition.borrowCapacityRemaining)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <PiggyBank className="h-5 w-5 text-green-500" />
+                        Supplied Assets
+                      </CardTitle>
+                      <CardDescription>Assets you've supplied as collateral</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ScrollArea className="h-[300px]">
+                        <div className="space-y-3">
+                          {userPosition.supplyDetails.length > 0 ? userPosition.supplyDetails.map((supply) => {
+                            const market = markets?.find(m => m.id === supply.marketId);
+                            return (
+                              <div 
+                                key={supply.marketId}
+                                className="p-3 rounded-lg border"
+                                data-testid={`supply-position-${supply.marketId}`}
+                              >
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-3">
+                                    <div className="h-8 w-8 rounded-full bg-green-500/10 flex items-center justify-center">
+                                      <Coins className="h-4 w-4 text-green-500" />
+                                    </div>
+                                    <div>
+                                      <div className="font-medium flex items-center gap-2">
+                                        {supply.assetSymbol}
+                                        {supply.isCollateral && (
+                                          <Badge variant="outline" className="text-xs">
+                                            <Shield className="h-3 w-3" />
+                                          </Badge>
+                                        )}
+                                      </div>
+                                      <div className="text-sm text-muted-foreground">
+                                        {formatWeiToToken(supply.suppliedAmount)} supplied
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="text-right">
+                                    <div className="font-medium">{formatUSD(supply.valueUsd)}</div>
+                                    <div className="text-xs text-green-500">+{formatBps(supply.supplyRate)} APY</div>
+                                  </div>
+                                </div>
+                                {market && (
+                                  <div className="flex items-center gap-2 mt-3">
+                                    <Button 
+                                      size="sm" 
+                                      variant="outline"
+                                      onClick={() => openDialog("withdraw", market)}
+                                      data-testid={`button-withdraw-position-${supply.marketId}`}
+                                    >
+                                      <Minus className="h-4 w-4 mr-1" />
+                                      Withdraw
+                                    </Button>
+                                    <Button 
+                                      size="sm"
+                                      onClick={() => openDialog("supply", market)}
+                                      data-testid={`button-add-supply-${supply.marketId}`}
+                                    >
+                                      <Plus className="h-4 w-4 mr-1" />
+                                      Add More
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }) : (
+                            <div className="text-center py-8 text-muted-foreground">
+                              <PiggyBank className="h-10 w-10 mx-auto mb-3 opacity-50" />
+                              <p>No assets supplied</p>
+                              <p className="text-sm mt-1">Supply assets to start earning yield</p>
+                            </div>
+                          )}
+                        </div>
+                      </ScrollArea>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <CircleDollarSign className="h-5 w-5 text-blue-500" />
+                        Borrowed Assets
+                      </CardTitle>
+                      <CardDescription>Assets you've borrowed</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ScrollArea className="h-[300px]">
+                        <div className="space-y-3">
+                          {userPosition.borrowDetails.length > 0 ? userPosition.borrowDetails.map((borrow) => {
+                            const market = markets?.find(m => m.id === borrow.marketId);
+                            return (
+                              <div 
+                                key={borrow.marketId}
+                                className="p-3 rounded-lg border"
+                                data-testid={`borrow-position-${borrow.marketId}`}
+                              >
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-3">
+                                    <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center">
+                                      <CircleDollarSign className="h-4 w-4 text-blue-500" />
+                                    </div>
+                                    <div>
+                                      <div className="font-medium flex items-center gap-2">
+                                        {borrow.assetSymbol}
+                                        <Badge variant="outline" className="text-xs capitalize">
+                                          {borrow.rateMode}
+                                        </Badge>
+                                      </div>
+                                      <div className="text-sm text-muted-foreground">
+                                        {formatWeiToToken(borrow.borrowedAmount)} borrowed
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="text-right">
+                                    <div className="font-medium">{formatUSD(borrow.valueUsd)}</div>
+                                    <div className="text-xs text-blue-500">-{formatBps(borrow.borrowRate)} APR</div>
+                                  </div>
+                                </div>
+                                <div className="text-xs text-muted-foreground mt-2">
+                                  Accrued Interest: {formatWeiToToken(borrow.accruedInterest)} {borrow.assetSymbol}
+                                </div>
+                                {market && (
+                                  <div className="flex items-center gap-2 mt-3">
+                                    <Button 
+                                      size="sm"
+                                      onClick={() => openDialog("repay", market)}
+                                      data-testid={`button-repay-position-${borrow.marketId}`}
+                                    >
+                                      <ArrowUpRight className="h-4 w-4 mr-1" />
+                                      Repay
+                                    </Button>
+                                    <Button 
+                                      size="sm" 
+                                      variant="outline"
+                                      onClick={() => openDialog("borrow", market)}
+                                      data-testid={`button-borrow-more-${borrow.marketId}`}
+                                    >
+                                      <ArrowDownRight className="h-4 w-4 mr-1" />
+                                      Borrow More
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }) : (
+                            <div className="text-center py-8 text-muted-foreground">
+                              <CircleDollarSign className="h-10 w-10 mx-auto mb-3 opacity-50" />
+                              <p>No active borrows</p>
+                              <p className="text-sm mt-1">Borrow assets against your collateral</p>
+                            </div>
+                          )}
+                        </div>
+                      </ScrollArea>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            ) : (
+              <Card>
+                <CardContent className="py-12">
+                  <div className="text-center text-muted-foreground">
+                    <Wallet className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p className="text-lg font-medium">No Position Found</p>
+                    <p className="text-sm mt-2">Supply assets to start earning yield or borrow against your collateral</p>
+                    <Button 
+                      className="mt-4"
+                      onClick={() => setSelectedTab("overview")}
+                      data-testid="button-go-to-markets"
+                    >
+                      View Markets
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
 
           <TabsContent value="supply" className="space-y-4">
@@ -606,6 +1142,17 @@ export default function LendingPage() {
                         </div>
                       </div>
 
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="use-as-collateral">Use as Collateral</Label>
+                        <Switch 
+                          id="use-as-collateral"
+                          checked={useAsCollateral}
+                          onCheckedChange={setUseAsCollateral}
+                          disabled={!selectedMarketData.canBeCollateral}
+                          data-testid="switch-collateral"
+                        />
+                      </div>
+
                       <div className="p-4 rounded-lg bg-muted/50 space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Supply APY</span>
@@ -626,8 +1173,12 @@ export default function LendingPage() {
                         disabled={!amount || supplyMutation.isPending}
                         onClick={() => {
                           if (selectedMarket && amount) {
-                            const weiAmount = BigInt(parseFloat(amount) * 1e18).toString();
-                            supplyMutation.mutate({ marketId: selectedMarket, amount: weiAmount });
+                            const weiAmount = toWei(amount, selectedMarketData.assetDecimals);
+                            supplyMutation.mutate({ 
+                              marketId: selectedMarket, 
+                              amount: weiAmount,
+                              useAsCollateral 
+                            });
                           }
                         }}
                         data-testid="button-supply"
@@ -733,10 +1284,29 @@ export default function LendingPage() {
                         </div>
                       </div>
 
+                      <div className="space-y-2">
+                        <Label>Rate Mode</Label>
+                        <Select value={rateMode} onValueChange={(v) => setRateMode(v as "variable" | "stable")}>
+                          <SelectTrigger data-testid="select-rate-mode">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="variable">
+                              Variable ({formatBps(selectedMarketData.borrowRateVariable)})
+                            </SelectItem>
+                            <SelectItem value="stable">
+                              Stable ({formatBps(selectedMarketData.borrowRateStable)})
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
                       <div className="p-4 rounded-lg bg-muted/50 space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Borrow APR (Variable)</span>
-                          <span className="text-blue-500 font-medium">{formatBps(selectedMarketData.borrowRateVariable)}</span>
+                          <span className="text-muted-foreground">Borrow APR ({rateMode})</span>
+                          <span className="text-blue-500 font-medium">
+                            {formatBps(rateMode === "variable" ? selectedMarketData.borrowRateVariable : selectedMarketData.borrowRateStable)}
+                          </span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Liquidation Threshold</span>
@@ -764,8 +1334,12 @@ export default function LendingPage() {
                         disabled={!amount || borrowMutation.isPending}
                         onClick={() => {
                           if (selectedMarket && amount) {
-                            const weiAmount = BigInt(parseFloat(amount) * 1e18).toString();
-                            borrowMutation.mutate({ marketId: selectedMarket, amount: weiAmount });
+                            const weiAmount = toWei(amount, selectedMarketData.assetDecimals);
+                            borrowMutation.mutate({ 
+                              marketId: selectedMarket, 
+                              amount: weiAmount,
+                              rateMode 
+                            });
                           }
                         }}
                         data-testid="button-borrow"
@@ -841,7 +1415,7 @@ export default function LendingPage() {
                       return (
                         <div 
                           key={tx.id}
-                          className="flex items-center justify-between p-3 rounded-lg border"
+                          className="flex items-center justify-between gap-4 p-3 rounded-lg border flex-wrap"
                           data-testid={`tx-${tx.id}`}
                         >
                           <div className="flex items-center gap-3">
@@ -868,7 +1442,6 @@ export default function LendingPage() {
                           </div>
                           <Badge 
                             variant={tx.status === 'completed' ? 'default' : 'secondary'}
-                            className="ml-4"
                           >
                             {tx.status === 'completed' ? (
                               <CheckCircle className="h-3 w-3 mr-1" />
@@ -941,6 +1514,22 @@ export default function LendingPage() {
             </div>
 
             <Card>
+              <CardHeader className="flex flex-row items-center justify-between gap-2">
+                <div>
+                  <CardTitle>Liquidation</CardTitle>
+                  <CardDescription>Liquidate unhealthy positions to earn bonus rewards</CardDescription>
+                </div>
+                <Button
+                  onClick={() => setLiquidateDialogOpen(true)}
+                  data-testid="button-open-liquidate"
+                >
+                  <Zap className="h-4 w-4 mr-2" />
+                  Liquidate Position
+                </Button>
+              </CardHeader>
+            </Card>
+
+            <Card>
               <CardHeader>
                 <CardTitle>Liquidation History</CardTitle>
                 <CardDescription>Recent liquidation events</CardDescription>
@@ -954,7 +1543,7 @@ export default function LendingPage() {
                         className="p-4 rounded-lg border border-red-500/20 bg-red-500/5"
                         data-testid={`liquidation-${liq.id}`}
                       >
-                        <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
                           <div className="flex items-center gap-2">
                             <AlertTriangle className="h-5 w-5 text-red-500" />
                             <span className="font-medium">Liquidation Event</span>
@@ -981,7 +1570,7 @@ export default function LendingPage() {
                             <div className="font-medium">{formatWeiToToken(liq.collateralSeized)} {liq.collateralSymbol}</div>
                           </div>
                         </div>
-                        <div className="mt-3 pt-3 border-t border-red-500/20 flex items-center justify-between text-sm">
+                        <div className="mt-3 pt-3 border-t border-red-500/20 flex items-center justify-between text-sm gap-2 flex-wrap">
                           <div className="text-muted-foreground">
                             Bonus: {formatWeiToToken(liq.liquidationBonus)} {liq.collateralSymbol}
                           </div>
@@ -1003,6 +1592,252 @@ export default function LendingPage() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                {dialogAction === "supply" && <Plus className="h-5 w-5 text-green-500" />}
+                {dialogAction === "withdraw" && <Minus className="h-5 w-5 text-orange-500" />}
+                {dialogAction === "borrow" && <ArrowDownRight className="h-5 w-5 text-blue-500" />}
+                {dialogAction === "repay" && <ArrowUpRight className="h-5 w-5 text-purple-500" />}
+                {getDialogTitle()}
+              </DialogTitle>
+              <DialogDescription>{getDialogDescription()}</DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-4 py-4">
+              {dialogMarket && (
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Coins className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold">{dialogMarket.assetSymbol}</div>
+                    <div className="text-sm text-muted-foreground">{dialogMarket.assetName}</div>
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <Label>Amount</Label>
+                <div className="relative">
+                  <Input
+                    type="text"
+                    placeholder="0.0"
+                    value={dialogAmount}
+                    onChange={(e) => setDialogAmount(e.target.value)}
+                    data-testid="input-dialog-amount"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                    {dialogMarket?.assetSymbol}
+                  </div>
+                </div>
+              </div>
+
+              {dialogAction === "supply" && dialogMarket?.canBeCollateral && (
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="dialog-collateral">Use as Collateral</Label>
+                  <Switch 
+                    id="dialog-collateral"
+                    checked={useAsCollateral}
+                    onCheckedChange={setUseAsCollateral}
+                    data-testid="switch-dialog-collateral"
+                  />
+                </div>
+              )}
+
+              {dialogAction === "borrow" && (
+                <div className="space-y-2">
+                  <Label>Rate Mode</Label>
+                  <Select value={rateMode} onValueChange={(v) => setRateMode(v as "variable" | "stable")}>
+                    <SelectTrigger data-testid="select-dialog-rate-mode">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="variable">
+                        Variable ({formatBps(dialogMarket?.borrowRateVariable || 0)})
+                      </SelectItem>
+                      <SelectItem value="stable">
+                        Stable ({formatBps(dialogMarket?.borrowRateStable || 0)})
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              <div className="p-3 rounded-lg bg-muted/50 space-y-2 text-sm">
+                {dialogAction === "supply" && (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Supply APY</span>
+                      <span className="text-green-500 font-medium">{formatBps(dialogMarket?.supplyRate || 0)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Collateral Factor</span>
+                      <span>{formatBps(dialogMarket?.collateralFactor || 0)}</span>
+                    </div>
+                  </>
+                )}
+                {dialogAction === "withdraw" && (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Available to Withdraw</span>
+                      <span>{formatWeiToToken(dialogMarket?.availableLiquidity)}</span>
+                    </div>
+                  </>
+                )}
+                {dialogAction === "borrow" && (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Borrow APR</span>
+                      <span className="text-blue-500 font-medium">
+                        {formatBps(rateMode === "variable" ? (dialogMarket?.borrowRateVariable || 0) : (dialogMarket?.borrowRateStable || 0))}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Liquidation Penalty</span>
+                      <span>{formatBps(dialogMarket?.liquidationPenalty || 0)}</span>
+                    </div>
+                  </>
+                )}
+                {dialogAction === "repay" && (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Current Borrow APR</span>
+                      <span className="text-blue-500">{formatBps(dialogMarket?.borrowRateVariable || 0)}</span>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {(dialogAction === "borrow" || dialogAction === "withdraw") && (
+                <div className="p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-start gap-2">
+                  <AlertTriangle className="h-4 w-4 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-muted-foreground">
+                    {dialogAction === "borrow" 
+                      ? "Ensure you have sufficient collateral to avoid liquidation."
+                      : "Withdrawing collateral may affect your health factor."}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <DialogFooter className="gap-2">
+              <Button variant="outline" onClick={closeDialog} data-testid="button-dialog-cancel">
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleDialogSubmit}
+                disabled={!dialogAmount || isDialogPending}
+                data-testid="button-dialog-confirm"
+              >
+                {isDialogPending && <RefreshCw className="h-4 w-4 mr-2 animate-spin" />}
+                {getActionButtonText()}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={liquidateDialogOpen} onOpenChange={setLiquidateDialogOpen}>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Zap className="h-5 w-5 text-red-500" />
+                Liquidate Position
+              </DialogTitle>
+              <DialogDescription>
+                Liquidate an unhealthy position to earn bonus rewards
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label>Borrower Address</Label>
+                <Input
+                  placeholder="0x..."
+                  value={liquidateBorrower}
+                  onChange={(e) => setLiquidateBorrower(e.target.value)}
+                  className="font-mono"
+                  data-testid="input-liquidate-borrower"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Debt Asset (to repay)</Label>
+                <Select value={liquidateDebtMarket} onValueChange={setLiquidateDebtMarket}>
+                  <SelectTrigger data-testid="select-liquidate-debt">
+                    <SelectValue placeholder="Select debt asset" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {markets?.filter(m => m.isActive).map((market) => (
+                      <SelectItem key={market.id} value={market.id}>
+                        {market.assetSymbol} - {market.assetName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Collateral Asset (to seize)</Label>
+                <Select value={liquidateCollateralMarket} onValueChange={setLiquidateCollateralMarket}>
+                  <SelectTrigger data-testid="select-liquidate-collateral">
+                    <SelectValue placeholder="Select collateral asset" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {markets?.filter(m => m.isActive && m.canBeCollateral).map((market) => (
+                      <SelectItem key={market.id} value={market.id}>
+                        {market.assetSymbol} - {market.assetName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Debt Amount to Cover</Label>
+                <Input
+                  type="text"
+                  placeholder="0.0"
+                  value={liquidateAmount}
+                  onChange={(e) => setLiquidateAmount(e.target.value)}
+                  data-testid="input-liquidate-amount"
+                />
+              </div>
+
+              <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-2">
+                <AlertTriangle className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <div className="text-sm text-muted-foreground">
+                  <p className="font-medium text-red-500">Liquidation Warning</p>
+                  <p>Only positions with health factor below 1.0 can be liquidated. You will receive a bonus for performing liquidations.</p>
+                </div>
+              </div>
+            </div>
+
+            <DialogFooter className="gap-2">
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setLiquidateDialogOpen(false);
+                  resetLiquidateForm();
+                }}
+                data-testid="button-liquidate-cancel"
+              >
+                Cancel
+              </Button>
+              <Button 
+                variant="destructive"
+                onClick={handleLiquidateSubmit}
+                disabled={liquidateMutation.isPending || !liquidateBorrower || !liquidateDebtMarket || !liquidateCollateralMarket || !liquidateAmount}
+                data-testid="button-liquidate-confirm"
+              >
+                {liquidateMutation.isPending && <RefreshCw className="h-4 w-4 mr-2 animate-spin" />}
+                {liquidateMutation.isPending ? "Processing..." : "Execute Liquidation"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </TooltipProvider>
   );

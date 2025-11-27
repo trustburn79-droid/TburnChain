@@ -141,4 +141,53 @@ router.get("/activity", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/mint", async (req: Request, res: Response) => {
+  try {
+    const { projectId, walletAddress, quantity } = req.body;
+
+    if (!projectId || !walletAddress) {
+      return res.status(400).json({ error: "Missing projectId or walletAddress" });
+    }
+
+    const mintQuantity = parseInt(quantity) || 1;
+    const result = await launchpadService.mintNft(projectId, walletAddress, mintQuantity);
+    res.json(result);
+  } catch (error: any) {
+    console.error("[Launchpad API] Mint error:", error);
+    res.status(400).json({ error: error.message || "Failed to mint NFT" });
+  }
+});
+
+router.post("/whitelist/join", async (req: Request, res: Response) => {
+  try {
+    const { projectId, walletAddress } = req.body;
+
+    if (!projectId || !walletAddress) {
+      return res.status(400).json({ error: "Missing projectId or walletAddress" });
+    }
+
+    const result = await launchpadService.joinWhitelist(projectId, walletAddress);
+    res.json(result);
+  } catch (error: any) {
+    console.error("[Launchpad API] Whitelist join error:", error);
+    res.status(400).json({ error: error.message || "Failed to join whitelist" });
+  }
+});
+
+router.post("/claim", async (req: Request, res: Response) => {
+  try {
+    const { projectId, walletAddress } = req.body;
+
+    if (!projectId || !walletAddress) {
+      return res.status(400).json({ error: "Missing projectId or walletAddress" });
+    }
+
+    const result = await launchpadService.claimNft(projectId, walletAddress);
+    res.json(result);
+  } catch (error: any) {
+    console.error("[Launchpad API] Claim error:", error);
+    res.status(400).json({ error: error.message || "Failed to claim NFT" });
+  }
+});
+
 export default router;

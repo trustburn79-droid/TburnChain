@@ -427,6 +427,123 @@ export class GameFiService {
   async getProjectActivity(projectId: string, limit: number = 50) {
     return await storage.getGamefiActivityByProject(projectId, limit);
   }
+  
+  async joinTournament(tournamentId: string, walletAddress: string, playerName?: string) {
+    const tournament = await storage.getTournamentById(tournamentId);
+    if (!tournament) {
+      throw new Error("Tournament not found");
+    }
+    
+    if (tournament.status !== "upcoming" && tournament.status !== "registration") {
+      throw new Error("Tournament registration is closed");
+    }
+    
+    if (tournament.currentParticipants >= tournament.maxParticipants) {
+      throw new Error("Tournament is full");
+    }
+    
+    const participants = await storage.getTournamentParticipants(tournamentId);
+    const alreadyJoined = participants.find((p: any) => p.walletAddress === walletAddress);
+    if (alreadyJoined) {
+      throw new Error("Already registered for this tournament");
+    }
+    
+    const participant = await storage.joinTournament({
+      tournamentId,
+      walletAddress,
+      playerName: playerName || `Player${Math.floor(Math.random() * 10000)}`,
+      status: "registered",
+      seed: tournament.currentParticipants + 1,
+      wins: 0,
+      losses: 0,
+      score: "0",
+      entryPaid: true,
+    });
+    
+    await storage.updateTournament(tournamentId, {
+      currentParticipants: tournament.currentParticipants + 1,
+    });
+    
+    await storage.createGamefiActivity({
+      projectId: tournament.projectId,
+      walletAddress,
+      eventType: "tournament_joined",
+      amount: tournament.entryFee || null,
+      txHash: generateRandomHash(),
+      metadata: { tournamentId, tournamentName: tournament.name },
+    });
+    
+    return participant;
+  }
+  
+  async claimRewards(walletAddress: string) {
+    const pendingRewards = await storage.getPendingGameRewards(walletAddress);
+    
+    if (!pendingRewards || pendingRewards.length === 0) {
+      throw new Error("No pending rewards to claim");
+    }
+    
+    let totalAmount = BigInt(0);
+    const claimedRewards = [];
+    const txHash = generateRandomHash();
+    
+    for (const reward of pendingRewards) {
+      await storage.claimGameReward(reward.id, txHash);
+      totalAmount += BigInt(reward.amount || 0);
+      claimedRewards.push(reward.id);
+      
+      await storage.createGamefiActivity({
+        projectId: reward.projectId,
+        walletAddress,
+        eventType: "reward_earned",
+        amount: reward.amount,
+        txHash,
+        metadata: { rewardType: reward.rewardType, rewardId: reward.id },
+      });
+    }
+    
+    return {
+      claimedCount: claimedRewards.length,
+      totalAmount: totalAmount.toString(),
+      txHash,
+      claimedRewardIds: claimedRewards,
+    };
+  }
+  
+  async equipAsset(assetId: string, walletAddress: string) {
+    const asset = await storage.getGameAssetById(assetId);
+    
+    if (!asset) {
+      throw new Error("Asset not found");
+    }
+    
+    if (asset.ownerAddress !== walletAddress) {
+      throw new Error("You don't own this asset");
+    }
+    
+    const currentAttributes = asset.attributes || {};
+    const isCurrentlyEquipped = currentAttributes.equipped === true;
+    const newEquipStatus = !isCurrentlyEquipped;
+    
+    const updatedAsset = await storage.updateGameAsset(assetId, {
+      attributes: { ...currentAttributes, equipped: newEquipStatus },
+    });
+    
+    await storage.createGamefiActivity({
+      projectId: asset.projectId,
+      walletAddress,
+      eventType: newEquipStatus ? "asset_equipped" : "asset_unequipped",
+      amount: null,
+      txHash: generateRandomHash(),
+      metadata: { assetId, assetName: asset.name, assetType: asset.assetType },
+    });
+    
+    return { ...updatedAsset, isEquipped: newEquipStatus };
+  }
+  
+  async getAssetById(assetId: string) {
+    return await storage.getGameAssetById(assetId);
+  }
 }
 
 export const gameFiService = new GameFiService();

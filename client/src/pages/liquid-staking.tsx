@@ -10,6 +10,14 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { 
   TrendingUp,
   Activity,
@@ -147,8 +155,11 @@ export default function LiquidStaking() {
   const [selectedPool, setSelectedPool] = useState<LiquidStakingPool | null>(null);
   const [mintAmount, setMintAmount] = useState("");
   const [redeemAmount, setRedeemAmount] = useState("");
+  const [mintDialogOpen, setMintDialogOpen] = useState(false);
+  const [redeemDialogOpen, setRedeemDialogOpen] = useState(false);
+  const [dialogPool, setDialogPool] = useState<LiquidStakingPool | null>(null);
 
-  const userAddress = "0x742d35Cc6634C0532925a3b844Bc9e7595f87461";
+  const userAddress = "0xTBURNEnterprise7f3a9c4d2e1b8f6a0c3d5e9b4a2f8c1d7e0b3a6f";
 
   const { data: stats, isLoading: statsLoading } = useQuery<LstStats>({
     queryKey: ["/api/liquid-staking/stats"],
@@ -164,21 +175,21 @@ export default function LiquidStaking() {
 
   const mintMutation = useMutation({
     mutationFn: async (data: { poolId: string; underlyingAmount: string }) => {
-      return apiRequest("/api/liquid-staking/mint", {
-        method: "POST",
-        body: JSON.stringify({
-          userAddress,
-          poolId: data.poolId,
-          underlyingAmount: data.underlyingAmount,
-        }),
+      return apiRequest("POST", "/api/liquid-staking/mint", {
+        userAddress,
+        poolId: data.poolId,
+        underlyingAmount: data.underlyingAmount,
       });
     },
     onSuccess: () => {
       toast({ title: "Success", description: "LST tokens minted successfully!" });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/pools/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/positions", userAddress] });
+      queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/stats"] });
       setMintAmount("");
       setSelectedPool(null);
+      setMintDialogOpen(false);
+      setDialogPool(null);
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -187,20 +198,20 @@ export default function LiquidStaking() {
 
   const redeemMutation = useMutation({
     mutationFn: async (data: { poolId: string; lstAmount: string }) => {
-      return apiRequest("/api/liquid-staking/redeem", {
-        method: "POST",
-        body: JSON.stringify({
-          userAddress,
-          poolId: data.poolId,
-          lstAmount: data.lstAmount,
-        }),
+      return apiRequest("POST", "/api/liquid-staking/redeem", {
+        userAddress,
+        poolId: data.poolId,
+        lstAmount: data.lstAmount,
       });
     },
     onSuccess: () => {
       toast({ title: "Success", description: "LST tokens redeemed successfully!" });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/pools/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/positions", userAddress] });
+      queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/stats"] });
       setRedeemAmount("");
+      setRedeemDialogOpen(false);
+      setDialogPool(null);
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -209,9 +220,9 @@ export default function LiquidStaking() {
 
   const claimMutation = useMutation({
     mutationFn: async (poolId: string) => {
-      return apiRequest("/api/liquid-staking/claim-rewards", {
-        method: "POST",
-        body: JSON.stringify({ userAddress, poolId }),
+      return apiRequest("POST", "/api/liquid-staking/claim-rewards", {
+        userAddress,
+        poolId,
       });
     },
     onSuccess: () => {
@@ -232,6 +243,36 @@ export default function LiquidStaking() {
     if (!positions) return BigInt(0);
     return positions.reduce((sum, p) => sum + BigInt(p.pendingRewards || "0"), BigInt(0));
   }, [positions]);
+
+  const openMintDialog = (pool: LiquidStakingPool) => {
+    setDialogPool(pool);
+    setMintAmount("");
+    setMintDialogOpen(true);
+  };
+
+  const openRedeemDialog = (pool: LiquidStakingPool, defaultAmount?: string) => {
+    setDialogPool(pool);
+    setRedeemAmount(defaultAmount || "");
+    setRedeemDialogOpen(true);
+  };
+
+  const handleMintSubmit = () => {
+    if (dialogPool && mintAmount) {
+      mintMutation.mutate({
+        poolId: dialogPool.id,
+        underlyingAmount: mintAmount,
+      });
+    }
+  };
+
+  const handleRedeemSubmit = () => {
+    if (dialogPool && redeemAmount) {
+      redeemMutation.mutate({
+        poolId: dialogPool.id,
+        lstAmount: redeemAmount,
+      });
+    }
+  };
 
   return (
     <div className="container mx-auto p-6 space-y-6">
@@ -372,10 +413,7 @@ export default function LiquidStaking() {
                         <div
                           key={pool.id}
                           className="flex items-center justify-between p-3 rounded-lg bg-muted/50 hover-elevate cursor-pointer"
-                          onClick={() => {
-                            setSelectedPool(pool);
-                            setActiveTab("stake");
-                          }}
+                          onClick={() => openMintDialog(pool)}
                           data-testid={`pool-card-${pool.id}`}
                         >
                           <div className="flex items-center gap-3">
@@ -461,10 +499,7 @@ export default function LiquidStaking() {
                     <div
                       key={pool.id}
                       className="p-4 rounded-lg border hover-elevate cursor-pointer"
-                      onClick={() => {
-                        setSelectedPool(pool);
-                        setActiveTab("stake");
-                      }}
+                      onClick={() => openMintDialog(pool)}
                       data-testid={`pool-row-${pool.id}`}
                     >
                       <div className="flex items-center justify-between">
@@ -516,7 +551,14 @@ export default function LiquidStaking() {
                             <p className="font-medium">{formatNumber(pool.totalStakers)}</p>
                           </div>
                           <div>
-                            <Button size="sm" data-testid={`button-stake-${pool.id}`}>
+                            <Button 
+                              size="sm" 
+                              data-testid={`button-stake-${pool.id}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openMintDialog(pool);
+                              }}
+                            >
                               Stake
                             </Button>
                           </div>
@@ -771,9 +813,9 @@ export default function LiquidStaking() {
                             variant="outline"
                             size="sm"
                             onClick={() => {
-                              setSelectedPool(pool || null);
-                              setRedeemAmount(position.lstBalance);
-                              setActiveTab("stake");
+                              if (pool) {
+                                openRedeemDialog(pool, position.lstBalance);
+                              }
                             }}
                             data-testid={`button-unstake-${position.id}`}
                           >
@@ -803,6 +845,194 @@ export default function LiquidStaking() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Dialog open={mintDialogOpen} onOpenChange={setMintDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Droplets className="h-5 w-5 text-blue-500" />
+              Stake & Mint LST
+            </DialogTitle>
+            <DialogDescription>
+              Stake your tokens and receive liquid staking tokens in return
+            </DialogDescription>
+          </DialogHeader>
+          
+          {dialogPool && (
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-muted/50 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Pool</span>
+                  <span className="font-medium">{dialogPool.name}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">LST Token</span>
+                  <Badge variant="outline">{dialogPool.lstTokenSymbol}</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Exchange Rate</span>
+                  <span>1 {dialogPool.underlyingSymbol} = {formatExchangeRate(dialogPool.exchangeRate)} {dialogPool.lstTokenSymbol}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Current APY</span>
+                  <span className="text-green-500 font-bold">{formatApy(dialogPool.currentApy)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Mint Fee</span>
+                  <span>{formatApy(dialogPool.mintFee)}</span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="mint-amount">Amount to Stake ({dialogPool.underlyingSymbol})</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="mint-amount"
+                    type="text"
+                    placeholder="Enter amount in wei"
+                    value={mintAmount}
+                    onChange={(e) => setMintAmount(e.target.value)}
+                    data-testid="input-dialog-mint-amount"
+                  />
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setMintAmount("1000000000000000000000")}
+                    data-testid="button-max-mint"
+                  >
+                    Max
+                  </Button>
+                </div>
+                {mintAmount && (
+                  <p className="text-sm text-muted-foreground">
+                    You will receive approximately {formatWeiToToken(
+                      (BigInt(mintAmount || "0") * BigInt(10**18) / BigInt(dialogPool.exchangeRate || "1000000000000000000")).toString()
+                    )} {dialogPool.lstTokenSymbol}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setMintDialogOpen(false)}
+              data-testid="button-cancel-mint"
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={!dialogPool || !mintAmount || mintMutation.isPending}
+              onClick={handleMintSubmit}
+              data-testid="button-submit-mint"
+            >
+              {mintMutation.isPending ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Minting...
+                </>
+              ) : (
+                <>
+                  <ArrowUpRight className="h-4 w-4 mr-2" />
+                  Stake & Mint
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={redeemDialogOpen} onOpenChange={setRedeemDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ArrowDownRight className="h-5 w-5 text-orange-500" />
+              Unstake & Redeem
+            </DialogTitle>
+            <DialogDescription>
+              Redeem your LST tokens back to the underlying asset
+            </DialogDescription>
+          </DialogHeader>
+          
+          {dialogPool && (
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-muted/50 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Pool</span>
+                  <span className="font-medium">{dialogPool.name}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">LST Token</span>
+                  <Badge variant="outline">{dialogPool.lstTokenSymbol}</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Exchange Rate</span>
+                  <span>1 {dialogPool.lstTokenSymbol} = {formatExchangeRate(dialogPool.exchangeRate)} {dialogPool.underlyingSymbol}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Redeem Fee</span>
+                  <span>{formatApy(dialogPool.redeemFee)}</span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="redeem-amount">Amount to Redeem ({dialogPool.lstTokenSymbol})</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="redeem-amount"
+                    type="text"
+                    placeholder="Enter amount in wei"
+                    value={redeemAmount}
+                    onChange={(e) => setRedeemAmount(e.target.value)}
+                    data-testid="input-dialog-redeem-amount"
+                  />
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setRedeemAmount("1000000000000000000000")}
+                    data-testid="button-max-redeem"
+                  >
+                    Max
+                  </Button>
+                </div>
+                {redeemAmount && (
+                  <p className="text-sm text-muted-foreground">
+                    You will receive approximately {formatWeiToToken(
+                      (BigInt(redeemAmount || "0") * BigInt(dialogPool.exchangeRate || "1000000000000000000") / BigInt(10**18)).toString()
+                    )} {dialogPool.underlyingSymbol}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setRedeemDialogOpen(false)}
+              data-testid="button-cancel-redeem"
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={!dialogPool || !redeemAmount || redeemMutation.isPending}
+              onClick={handleRedeemSubmit}
+              data-testid="button-submit-redeem"
+            >
+              {redeemMutation.isPending ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Redeeming...
+                </>
+              ) : (
+                <>
+                  <ArrowDownRight className="h-4 w-4 mr-2" />
+                  Unstake & Redeem
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

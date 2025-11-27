@@ -330,6 +330,153 @@ export class LaunchpadService {
   async getProjectActivity(projectId: string, limit: number = 50) {
     return storage.getLaunchpadActivityByProject(projectId, limit);
   }
+
+  async mintNft(projectId: string, walletAddress: string, quantity: number) {
+    await this.initialize();
+    
+    const project = await storage.getLaunchpadProjectById(projectId);
+    if (!project) {
+      throw new Error("Project not found");
+    }
+
+    if (project.status !== "active") {
+      throw new Error("Project is not active for minting");
+    }
+
+    const remaining = parseInt(project.totalSupply) - project.totalMinted;
+    if (quantity > remaining) {
+      throw new Error(`Only ${remaining} NFTs remaining`);
+    }
+
+    if (quantity > project.maxPerWallet) {
+      throw new Error(`Maximum ${project.maxPerWallet} per wallet`);
+    }
+
+    const totalCost = BigInt(project.mintPrice) * BigInt(quantity);
+    const txHash = generateTxHash();
+
+    await storage.updateLaunchpadProject(projectId, {
+      totalMinted: project.totalMinted + quantity,
+      totalRaised: (BigInt(project.totalRaised || "0") + totalCost).toString(),
+      uniqueMinters: project.uniqueMinters + 1,
+    });
+
+    const rounds = await storage.getLaunchRoundsByProject(projectId);
+    const activeRound = rounds.find(r => r.status === "active") || rounds[0];
+    
+    await storage.createLaunchAllocation({
+      projectId,
+      roundId: activeRound?.id || projectId,
+      walletAddress,
+      quantity,
+      pricePerUnit: project.mintPrice,
+      totalPaid: totalCost.toString(),
+      txHash,
+      status: "confirmed",
+      mintedAt: new Date(),
+    } as any);
+
+    await storage.createLaunchpadActivity({
+      projectId,
+      eventType: "mint",
+      walletAddress,
+      quantity,
+      amount: totalCost.toString(),
+      txHash,
+    } as any);
+
+    return {
+      success: true,
+      txHash,
+      quantity,
+      totalCost: totalCost.toString(),
+      projectName: project.name,
+    };
+  }
+
+  async joinWhitelist(projectId: string, walletAddress: string) {
+    await this.initialize();
+
+    const project = await storage.getLaunchpadProjectById(projectId);
+    if (!project) {
+      throw new Error("Project not found");
+    }
+
+    const existing = await storage.getWhitelistEntry(projectId, walletAddress);
+    if (existing) {
+      throw new Error("Already whitelisted for this project");
+    }
+
+    const defaultAllocation = Math.min(3, project.maxPerWallet);
+
+    await storage.createWhitelistEntry({
+      projectId,
+      walletAddress,
+      allocation: defaultAllocation,
+      used: 0,
+      tier: "standard",
+      status: "active",
+    } as any);
+
+    await storage.createLaunchpadActivity({
+      projectId,
+      eventType: "whitelist_added",
+      walletAddress,
+      metadata: { allocation: defaultAllocation },
+    } as any);
+
+    return {
+      success: true,
+      allocation: defaultAllocation,
+      projectName: project.name,
+    };
+  }
+
+  async claimNft(projectId: string, walletAddress: string) {
+    await this.initialize();
+
+    const project = await storage.getLaunchpadProjectById(projectId);
+    if (!project) {
+      throw new Error("Project not found");
+    }
+
+    const allocations = await storage.getAllocationsByWallet(walletAddress);
+    const projectAllocation = allocations.find(a => a.projectId === projectId);
+
+    if (!projectAllocation) {
+      throw new Error("No allocation found for this project");
+    }
+
+    if (projectAllocation.status === "claimed") {
+      throw new Error("NFTs already claimed");
+    }
+
+    const claimable = projectAllocation.quantity;
+    if (claimable <= 0) {
+      throw new Error("No NFTs available to claim");
+    }
+
+    const txHash = generateTxHash();
+
+    await storage.updateLaunchAllocation(projectAllocation.id, {
+      status: "claimed",
+    });
+
+    await storage.createLaunchpadActivity({
+      projectId,
+      eventType: "claim",
+      walletAddress,
+      quantity: claimable,
+      txHash,
+    } as any);
+
+    return {
+      success: true,
+      txHash,
+      claimed: claimable,
+      projectName: project.name,
+    };
+  }
 }
 
 export const launchpadService = new LaunchpadService();

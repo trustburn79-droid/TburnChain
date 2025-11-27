@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -267,10 +269,11 @@ function ChainCard({ chain }: { chain: BridgeChain }) {
   );
 }
 
-function TransferRow({ transfer, chains }: { transfer: BridgeTransfer; chains: BridgeChain[] }) {
+function TransferRow({ transfer, chains, onClaim }: { transfer: BridgeTransfer; chains: BridgeChain[]; onClaim?: (id: string) => void }) {
   const sourceChain = chains.find(c => c.chainId === transfer.sourceChainId);
   const destChain = chains.find(c => c.chainId === transfer.destinationChainId);
   const StatusIcon = getStatusIcon(transfer.status);
+  const canClaim = ["relaying", "bridging", "confirming", "pending"].includes(transfer.status);
   
   return (
     <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-transfer-${transfer.id}`}>
@@ -287,12 +290,25 @@ function TransferRow({ transfer, chains }: { transfer: BridgeTransfer; chains: B
           {formatAmount(transfer.amount)} {transfer.tokenSymbol}
         </div>
       </div>
-      <div className="text-right">
-        <div className="text-sm font-medium">{transfer.confirmations}/{transfer.requiredConfirmations}</div>
-        <div className="text-xs text-muted-foreground">
-          {transfer.aiVerified && <Sparkles className="w-3 h-3 inline mr-1 text-purple-500" />}
-          {shortenHash(transfer.sourceTxHash)}
+      <div className="text-right flex items-center gap-2">
+        <div>
+          <div className="text-sm font-medium">{transfer.confirmations}/{transfer.requiredConfirmations}</div>
+          <div className="text-xs text-muted-foreground">
+            {transfer.aiVerified && <Sparkles className="w-3 h-3 inline mr-1 text-purple-500" />}
+            {shortenHash(transfer.sourceTxHash)}
+          </div>
         </div>
+        {canClaim && onClaim && (
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={() => onClaim(transfer.id)}
+            data-testid={`button-claim-${transfer.id}`}
+          >
+            <Unlock className="w-3 h-3 mr-1" />
+            Claim
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -412,11 +428,76 @@ export default function Bridge() {
   const [sourceChain, setSourceChain] = useState<string>("");
   const [destChain, setDestChain] = useState<string>("");
   const [bridgeAmount, setBridgeAmount] = useState<string>("");
+  const { toast } = useToast();
 
   const { data: overview, isLoading: overviewLoading } = useQuery<BridgeOverview>({
     queryKey: ["/api/bridge/stats"],
     refetchInterval: 10000,
   });
+
+  const initiateTransferMutation = useMutation({
+    mutationFn: async (data: { sourceChainId: number; destinationChainId: number; amount: string; tokenSymbol?: string }) => {
+      const res = await apiRequest("POST", "/api/bridge/transfers/initiate", data);
+      return res.json();
+    },
+    onSuccess: (transfer) => {
+      toast({
+        title: "Transfer Initiated",
+        description: `Transfer of ${formatAmount(transfer.amount)} ${transfer.tokenSymbol} from ${transfer.sourceChainId} to ${transfer.destinationChainId} has been initiated.`,
+      });
+      setBridgeAmount("");
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/transfers"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/activity"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Transfer Failed",
+        description: error.message || "Failed to initiate transfer",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const claimTransferMutation = useMutation({
+    mutationFn: async (transferId: string) => {
+      const res = await apiRequest("POST", `/api/bridge/transfers/${transferId}/claim`);
+      return res.json();
+    },
+    onSuccess: (transfer) => {
+      toast({
+        title: "Transfer Claimed",
+        description: `Successfully claimed ${formatAmount(transfer.amountReceived)} ${transfer.tokenSymbol} on destination chain.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/transfers"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bridge/activity"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Claim Failed",
+        description: error.message || "Failed to claim transfer",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleBridgeAssets = () => {
+    if (!sourceChain || !destChain || !bridgeAmount) return;
+    
+    const amountInWei = (BigInt(Math.floor(parseFloat(bridgeAmount) * 1e18))).toString();
+    
+    initiateTransferMutation.mutate({
+      sourceChainId: parseInt(sourceChain),
+      destinationChainId: parseInt(destChain),
+      amount: amountInWei,
+      tokenSymbol: "TBURN",
+    });
+  };
+
+  const handleClaimTransfer = (transferId: string) => {
+    claimTransferMutation.mutate(transferId);
+  };
 
   const { data: chains } = useQuery<BridgeChain[]>({
     queryKey: ["/api/bridge/chains"],
@@ -687,7 +768,12 @@ export default function Bridge() {
               <CardContent>
                 <ScrollArea className="h-[350px]">
                   {transfers?.slice(0, 15).map(transfer => (
-                    <TransferRow key={transfer.id} transfer={transfer} chains={chains || []} />
+                    <TransferRow 
+                      key={transfer.id} 
+                      transfer={transfer} 
+                      chains={chains || []} 
+                      onClaim={handleClaimTransfer}
+                    />
                   ))}
                   {(!transfers || transfers.length === 0) && (
                     <div className="py-8 text-center text-muted-foreground">
@@ -800,9 +886,23 @@ export default function Bridge() {
                   />
                 </div>
 
-                <Button className="w-full" disabled={!sourceChain || !destChain || !bridgeAmount} data-testid="button-bridge">
-                  <ArrowRightLeft className="w-4 h-4 mr-2" />
-                  Bridge Assets
+                <Button 
+                  className="w-full" 
+                  disabled={!sourceChain || !destChain || !bridgeAmount || initiateTransferMutation.isPending} 
+                  onClick={handleBridgeAssets}
+                  data-testid="button-bridge"
+                >
+                  {initiateTransferMutation.isPending ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                      Initiating...
+                    </>
+                  ) : (
+                    <>
+                      <ArrowRightLeft className="w-4 h-4 mr-2" />
+                      Bridge Assets
+                    </>
+                  )}
                 </Button>
 
                 <div className="text-xs text-muted-foreground text-center">

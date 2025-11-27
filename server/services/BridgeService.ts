@@ -603,6 +603,114 @@ export class BridgeService {
     const result = await db.insert(bridgeAnalytics).values(snapshot).returning();
     return result[0];
   }
+
+  async initiateTransfer(data: {
+    sourceChainId: number;
+    destinationChainId: number;
+    amount: string;
+    tokenSymbol?: string;
+    recipientAddress?: string;
+  }): Promise<BridgeTransfer> {
+    const senderAddress = "0xTBURNEnterprise" + Array.from({ length: 32 }, () => 
+      Math.floor(Math.random() * 16).toString(16)
+    ).join("");
+    
+    const recipientAddress = data.recipientAddress || "0xTBURNEnterprise" + Array.from({ length: 32 }, () => 
+      Math.floor(Math.random() * 16).toString(16)
+    ).join("");
+
+    const route = await this.getOptimalRoute(
+      data.sourceChainId,
+      data.destinationChainId,
+      data.tokenSymbol || "TBURN"
+    );
+
+    const destChain = await this.getChainById(data.destinationChainId);
+    const confirmationsRequired = destChain?.confirmationsRequired || 12;
+
+    const { feeAmount } = await this.calculateFee(
+      route?.id || "",
+      data.amount
+    );
+
+    const transferData: InsertBridgeTransfer = {
+      routeId: route?.id || null,
+      sourceChainId: data.sourceChainId,
+      destinationChainId: data.destinationChainId,
+      senderAddress,
+      recipientAddress,
+      tokenAddress: route?.tokenAddress || "0x0000000000000000000000000000000000000001",
+      tokenSymbol: data.tokenSymbol || "TBURN",
+      amount: data.amount,
+      feeAmount: feeAmount,
+      feeToken: data.tokenSymbol || "TBURN",
+      status: "pending",
+      sourceTxHash: generateTxHash(),
+      sourceBlockNumber: Math.floor(Math.random() * 1000000) + 100000,
+      confirmations: 0,
+      requiredConfirmations: confirmationsRequired,
+      estimatedArrival: new Date(Date.now() + (route?.estimatedTime || 180000)),
+      aiVerified: true,
+      aiRiskScore: Math.floor(Math.random() * 100),
+    };
+
+    const transfer = await this.createTransfer(transferData);
+
+    setTimeout(async () => {
+      try {
+        await this.updateTransferStatus(transfer.id, "confirming", { confirmations: Math.floor(confirmationsRequired / 3) });
+        
+        setTimeout(async () => {
+          try {
+            await this.updateTransferStatus(transfer.id, "bridging", { confirmations: Math.floor(confirmationsRequired * 2 / 3) });
+            
+            setTimeout(async () => {
+              try {
+                await this.updateTransferStatus(transfer.id, "relaying", { confirmations: confirmationsRequired - 1 });
+              } catch (err) {
+                console.error("[Bridge] Error updating to relaying:", err);
+              }
+            }, 5000);
+          } catch (err) {
+            console.error("[Bridge] Error updating to bridging:", err);
+          }
+        }, 5000);
+      } catch (err) {
+        console.error("[Bridge] Error updating to confirming:", err);
+      }
+    }, 3000);
+
+    return transfer;
+  }
+
+  async claimTransfer(id: string): Promise<BridgeTransfer | null> {
+    const transfer = await this.getTransferById(id);
+    if (!transfer) {
+      return null;
+    }
+
+    if (transfer.status === "completed") {
+      return transfer;
+    }
+
+    if (!["relaying", "bridging", "confirming", "pending"].includes(transfer.status)) {
+      throw new Error(`Cannot claim transfer with status: ${transfer.status}`);
+    }
+
+    const amountBigInt = BigInt(transfer.amount);
+    const feeBigInt = BigInt(transfer.feeAmount || "0");
+    const amountReceived = (amountBigInt - feeBigInt).toString();
+
+    const updatedTransfer = await this.updateTransferStatus(id, "completed", {
+      destinationTxHash: generateTxHash(),
+      destinationBlockNumber: Math.floor(Math.random() * 1000000) + 100000,
+      confirmations: transfer.requiredConfirmations,
+      amountReceived,
+      actualArrival: new Date(),
+    });
+
+    return updatedTransfer;
+  }
 }
 
 export const bridgeService = BridgeService.getInstance();

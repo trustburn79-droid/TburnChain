@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
   Gamepad2, 
   Trophy, 
@@ -24,7 +26,12 @@ import {
   Medal,
   Zap,
   Gift,
+  Package,
+  Shield,
+  Loader2,
 } from "lucide-react";
+
+const ENTERPRISE_WALLET = "0xTBURNEnterprise7890abcdef1234567890abcdef";
 
 interface GamefiProject {
   id: string;
@@ -113,6 +120,31 @@ interface AchievementBadge {
   points: number;
   totalUnlocks: number;
   rewardAmount: string | null;
+}
+
+interface GameAsset {
+  id: string;
+  projectId: string;
+  tokenId: string;
+  name: string;
+  description: string | null;
+  imageUrl: string | null;
+  assetType: string;
+  rarity: string;
+  ownerAddress: string | null;
+  price: string | null;
+  isListed: boolean;
+  isStaked: boolean;
+  attributes: Record<string, any> | null;
+}
+
+interface PendingReward {
+  id: string;
+  projectId: string;
+  walletAddress: string;
+  rewardType: string;
+  amount: string;
+  status: string;
 }
 
 function formatAmount(wei: string | null | undefined, decimals: number = 18): string {
@@ -274,10 +306,23 @@ function ProjectCard({ project }: { project: GamefiProject }) {
   );
 }
 
-function TournamentCard({ tournament, project }: { tournament: GameTournament; project?: GamefiProject }) {
+function TournamentCard({ 
+  tournament, 
+  project,
+  onJoin,
+  isJoining,
+}: { 
+  tournament: GameTournament; 
+  project?: GamefiProject;
+  onJoin?: (tournamentId: string) => void;
+  isJoining?: boolean;
+}) {
   const progress = tournament.maxParticipants > 0 
     ? (tournament.currentParticipants / tournament.maxParticipants) * 100 
     : 0;
+  
+  const canJoin = (tournament.status === "upcoming" || tournament.status === "registration") 
+    && tournament.currentParticipants < tournament.maxParticipants;
     
   return (
     <Card className="hover-elevate" data-testid={`card-tournament-${tournament.id}`}>
@@ -335,6 +380,114 @@ function TournamentCard({ tournament, project }: { tournament: GameTournament; p
             <Sparkles className="w-3 h-3" />
             <span>NFT required</span>
           </div>
+        )}
+        {onJoin && canJoin && (
+          <Button 
+            className="w-full mt-3" 
+            size="sm"
+            onClick={() => onJoin(tournament.id)}
+            disabled={isJoining}
+            data-testid={`button-join-tournament-${tournament.id}`}
+          >
+            {isJoining ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Joining...
+              </>
+            ) : (
+              <>
+                <Swords className="w-4 h-4 mr-2" />
+                Join Tournament
+              </>
+            )}
+          </Button>
+        )}
+        {tournament.status === "completed" && (
+          <div className="mt-3 text-center text-sm text-muted-foreground">
+            Tournament completed
+          </div>
+        )}
+        {tournament.status === "active" && (
+          <div className="mt-3 text-center text-sm text-green-500 font-medium">
+            Tournament in progress
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+function AssetCard({ 
+  asset, 
+  onEquip,
+  isEquipping,
+}: { 
+  asset: GameAsset;
+  onEquip?: (assetId: string) => void;
+  isEquipping?: boolean;
+}) {
+  const isEquipped = asset.attributes?.equipped === true;
+  
+  return (
+    <Card className="hover-elevate" data-testid={`card-asset-${asset.id}`}>
+      <CardContent className="p-4">
+        <div className="flex gap-4">
+          <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+            {asset.imageUrl ? (
+              <img 
+                src={asset.imageUrl} 
+                alt={asset.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <Package className="w-6 h-6 text-muted-foreground" />
+              </div>
+            )}
+            {isEquipped && (
+              <div className="absolute top-1 right-1 bg-green-500 rounded-full p-0.5">
+                <Shield className="w-2 h-2 text-white" />
+              </div>
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-medium truncate">{asset.name}</span>
+              <Badge className={getRarityColor(asset.rarity)}>
+                {asset.rarity}
+              </Badge>
+            </div>
+            <div className="text-sm text-muted-foreground capitalize">
+              {asset.assetType}
+            </div>
+            {asset.attributes?.level && (
+              <div className="text-xs text-muted-foreground mt-1">
+                Level {asset.attributes.level}
+              </div>
+            )}
+          </div>
+        </div>
+        {onEquip && (
+          <Button 
+            className="w-full mt-3" 
+            size="sm"
+            variant={isEquipped ? "outline" : "default"}
+            onClick={() => onEquip(asset.id)}
+            disabled={isEquipping}
+            data-testid={`button-equip-asset-${asset.id}`}
+          >
+            {isEquipping ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                {isEquipped ? "Unequipping..." : "Equipping..."}
+              </>
+            ) : (
+              <>
+                <Shield className="w-4 h-4 mr-2" />
+                {isEquipped ? "Unequip" : "Equip"}
+              </>
+            )}
+          </Button>
         )}
       </CardContent>
     </Card>
@@ -429,6 +582,9 @@ function ActivityRow({ activity }: { activity: GamefiActivity }) {
 
 export default function GameFiPage() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [joiningTournamentId, setJoiningTournamentId] = useState<string | null>(null);
+  const [equippingAssetId, setEquippingAssetId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const { data: overview, isLoading: overviewLoading } = useQuery<GamefiOverview>({
     queryKey: ["/api/gamefi/stats"],
@@ -465,7 +621,116 @@ export default function GameFiPage() {
     refetchInterval: 5000,
   });
 
+  const { data: myAssets, isLoading: assetsLoading } = useQuery<GameAsset[]>({
+    queryKey: ["/api/gamefi/assets/owner", ENTERPRISE_WALLET],
+    refetchInterval: 15000,
+  });
+
+  const { data: pendingRewards, isLoading: rewardsLoading } = useQuery<PendingReward[]>({
+    queryKey: ["/api/gamefi/player", ENTERPRISE_WALLET, "pending-rewards"],
+    refetchInterval: 10000,
+  });
+
+  const joinTournamentMutation = useMutation({
+    mutationFn: async (tournamentId: string) => {
+      const response = await apiRequest("POST", `/api/gamefi/tournaments/${tournamentId}/join`, {
+        walletAddress: ENTERPRISE_WALLET,
+        playerName: "Enterprise Player",
+      });
+      return response.json();
+    },
+    onMutate: (tournamentId) => {
+      setJoiningTournamentId(tournamentId);
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Joined Tournament",
+        description: data.message || "Successfully joined the tournament!",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/gamefi/tournaments"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/gamefi/tournaments/active"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/gamefi/activity"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to Join",
+        description: error.message || "Could not join the tournament",
+        variant: "destructive",
+      });
+    },
+    onSettled: () => {
+      setJoiningTournamentId(null);
+    },
+  });
+
+  const claimRewardsMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/gamefi/rewards/claim", {
+        walletAddress: ENTERPRISE_WALLET,
+      });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Rewards Claimed",
+        description: data.message || `Successfully claimed ${data.claimedCount} rewards!`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/gamefi/player", ENTERPRISE_WALLET, "pending-rewards"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/gamefi/activity"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to Claim",
+        description: error.message || "Could not claim rewards",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const equipAssetMutation = useMutation({
+    mutationFn: async (assetId: string) => {
+      const response = await apiRequest("POST", `/api/gamefi/assets/${assetId}/equip`, {
+        walletAddress: ENTERPRISE_WALLET,
+      });
+      return response.json();
+    },
+    onMutate: (assetId) => {
+      setEquippingAssetId(assetId);
+    },
+    onSuccess: (data) => {
+      toast({
+        title: data.asset?.isEquipped ? "Asset Equipped" : "Asset Unequipped",
+        description: data.message || "Successfully updated asset!",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/gamefi/assets/owner", ENTERPRISE_WALLET] });
+      queryClient.invalidateQueries({ queryKey: ["/api/gamefi/activity"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to Update Asset",
+        description: error.message || "Could not update asset",
+        variant: "destructive",
+      });
+    },
+    onSettled: () => {
+      setEquippingAssetId(null);
+    },
+  });
+
+  const handleJoinTournament = (tournamentId: string) => {
+    joinTournamentMutation.mutate(tournamentId);
+  };
+
+  const handleClaimRewards = () => {
+    claimRewardsMutation.mutate();
+  };
+
+  const handleEquipAsset = (assetId: string) => {
+    equipAssetMutation.mutate(assetId);
+  };
+
   const activeProjects = projects?.filter(p => p.status === "active") || [];
+  const totalPendingRewards = pendingRewards?.reduce((acc, r) => acc + BigInt(r.amount || 0), BigInt(0)) || BigInt(0);
 
   return (
     <div className="p-6 space-y-6">
@@ -609,7 +874,7 @@ export default function GameFiPage() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList>
+        <TabsList className="flex-wrap">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Gamepad2 className="w-4 h-4 mr-2" />
             Overview
@@ -621,6 +886,14 @@ export default function GameFiPage() {
           <TabsTrigger value="tournaments" data-testid="tab-tournaments">
             <Trophy className="w-4 h-4 mr-2" />
             Tournaments
+          </TabsTrigger>
+          <TabsTrigger value="my-assets" data-testid="tab-my-assets">
+            <Package className="w-4 h-4 mr-2" />
+            My Assets
+          </TabsTrigger>
+          <TabsTrigger value="rewards" data-testid="tab-rewards">
+            <Gift className="w-4 h-4 mr-2" />
+            Rewards {pendingRewards?.length ? `(${pendingRewards.length})` : ""}
           </TabsTrigger>
           <TabsTrigger value="achievements" data-testid="tab-achievements">
             <Award className="w-4 h-4 mr-2" />
@@ -674,7 +947,13 @@ export default function GameFiPage() {
                     {activeTournaments?.map(tournament => {
                       const project = projects?.find(p => p.id === tournament.projectId);
                       return (
-                        <TournamentCard key={tournament.id} tournament={tournament} project={project} />
+                        <TournamentCard 
+                          key={tournament.id} 
+                          tournament={tournament} 
+                          project={project}
+                          onJoin={handleJoinTournament}
+                          isJoining={joiningTournamentId === tournament.id}
+                        />
                       );
                     })}
                     {(!activeTournaments || activeTournaments.length === 0) && (
@@ -751,13 +1030,151 @@ export default function GameFiPage() {
                 {tournaments?.map(tournament => {
                   const project = projects?.find(p => p.id === tournament.projectId);
                   return (
-                    <TournamentCard key={tournament.id} tournament={tournament} project={project} />
+                    <TournamentCard 
+                      key={tournament.id} 
+                      tournament={tournament} 
+                      project={project}
+                      onJoin={handleJoinTournament}
+                      isJoining={joiningTournamentId === tournament.id}
+                    />
                   );
                 })}
               </div>
               {(!tournaments || tournaments.length === 0) && (
                 <div className="py-12 text-center text-muted-foreground">
                   No tournaments available
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="my-assets" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Package className="w-5 h-5" />
+                My Game Assets
+              </CardTitle>
+              <CardDescription>
+                Manage your in-game assets - Wallet: {shortenAddress(ENTERPRISE_WALLET)}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {assetsLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <Skeleton key={i} className="h-32 w-full" />
+                  ))}
+                </div>
+              ) : myAssets && myAssets.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {myAssets.map(asset => (
+                    <AssetCard 
+                      key={asset.id} 
+                      asset={asset}
+                      onEquip={handleEquipAsset}
+                      isEquipping={equippingAssetId === asset.id}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <Package className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>No assets owned yet</p>
+                  <p className="text-sm mt-2">Play games to earn or purchase assets</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="rewards" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Gift className="w-5 h-5 text-green-500" />
+                    Pending Rewards
+                  </CardTitle>
+                  <CardDescription>
+                    Claim your earned rewards - Wallet: {shortenAddress(ENTERPRISE_WALLET)}
+                  </CardDescription>
+                </div>
+                {pendingRewards && pendingRewards.length > 0 && (
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <div className="text-sm text-muted-foreground">Total Claimable</div>
+                      <div className="text-xl font-bold text-green-500">
+                        {formatAmount(totalPendingRewards.toString())} TBURN
+                      </div>
+                    </div>
+                    <Button 
+                      onClick={handleClaimRewards}
+                      disabled={claimRewardsMutation.isPending}
+                      data-testid="button-claim-all-rewards"
+                    >
+                      {claimRewardsMutation.isPending ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Claiming...
+                        </>
+                      ) : (
+                        <>
+                          <Gift className="w-4 h-4 mr-2" />
+                          Claim All Rewards
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardHeader>
+            <CardContent>
+              {rewardsLoading ? (
+                <div className="space-y-3">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <Skeleton key={i} className="h-16 w-full" />
+                  ))}
+                </div>
+              ) : pendingRewards && pendingRewards.length > 0 ? (
+                <div className="space-y-3">
+                  {pendingRewards.map(reward => (
+                    <div 
+                      key={reward.id} 
+                      className="flex items-center justify-between p-4 rounded-lg border"
+                      data-testid={`row-reward-${reward.id}`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="p-2 rounded-lg bg-green-500/10">
+                          <Coins className="w-5 h-5 text-green-500" />
+                        </div>
+                        <div>
+                          <div className="font-medium capitalize">
+                            {reward.rewardType.replace(/_/g, ' ')} Reward
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            {shortenAddress(reward.walletAddress)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-green-500">
+                          {formatAmount(reward.amount)} TBURN
+                        </div>
+                        <Badge variant="outline" className="text-xs">
+                          {reward.status}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <Gift className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>No pending rewards</p>
+                  <p className="text-sm mt-2">Play games and join tournaments to earn rewards</p>
                 </div>
               )}
             </CardContent>

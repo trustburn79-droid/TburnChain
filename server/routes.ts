@@ -9429,45 +9429,80 @@ Provide JSON portfolio analysis:
   bridgeService.initialize().catch(err => console.error("[Bridge] Init error:", err));
 
   createTrackedInterval(async () => {
+    if (clients.size === 0) return;
     try {
       const chains = await bridgeService.getChains("active");
-      broadcastToAll(wss, 'bridge_chains', chains);
+      broadcastUpdate('bridge_chains', {
+        chains,
+        timestamp: Date.now(),
+      }, z.object({
+        chains: z.array(z.any()),
+        timestamp: z.number(),
+      }));
     } catch (error) {
       console.error('[WebSocket] Bridge chains broadcast error:', error);
     }
   }, 10000, 'bridge_chains_broadcast');
 
   createTrackedInterval(async () => {
+    if (clients.size === 0) return;
     try {
       const transfers = await bridgeService.getTransfers(undefined, undefined, 20);
-      broadcastToAll(wss, 'bridge_transfers', transfers);
+      broadcastUpdate('bridge_transfers', {
+        transfers,
+        timestamp: Date.now(),
+      }, z.object({
+        transfers: z.array(z.any()),
+        timestamp: z.number(),
+      }));
     } catch (error) {
       console.error('[WebSocket] Bridge transfers broadcast error:', error);
     }
   }, 5000, 'bridge_transfers_broadcast');
 
   createTrackedInterval(async () => {
+    if (clients.size === 0) return;
     try {
       const validators = await bridgeService.getValidators("active");
-      broadcastToAll(wss, 'bridge_validators', validators);
+      broadcastUpdate('bridge_validators', {
+        validators,
+        timestamp: Date.now(),
+      }, z.object({
+        validators: z.array(z.any()),
+        timestamp: z.number(),
+      }));
     } catch (error) {
       console.error('[WebSocket] Bridge validators broadcast error:', error);
     }
   }, 15000, 'bridge_validators_broadcast');
 
   createTrackedInterval(async () => {
+    if (clients.size === 0) return;
     try {
       const activity = await bridgeService.getActivity(50);
-      broadcastToAll(wss, 'bridge_activity', activity);
+      broadcastUpdate('bridge_activity', {
+        activity,
+        timestamp: Date.now(),
+      }, z.object({
+        activity: z.array(z.any()),
+        timestamp: z.number(),
+      }));
     } catch (error) {
       console.error('[WebSocket] Bridge activity broadcast error:', error);
     }
   }, 5000, 'bridge_activity_broadcast');
 
   createTrackedInterval(async () => {
+    if (clients.size === 0) return;
     try {
       const liquidity = await bridgeService.getLiquidityPools();
-      broadcastToAll(wss, 'bridge_liquidity', liquidity);
+      broadcastUpdate('bridge_liquidity', {
+        liquidity,
+        timestamp: Date.now(),
+      }, z.object({
+        liquidity: z.array(z.any()),
+        timestamp: z.number(),
+      }));
     } catch (error) {
       console.error('[WebSocket] Bridge liquidity broadcast error:', error);
     }

@@ -11,6 +11,14 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { 
   TrendingUp,
   TrendingDown,
@@ -170,8 +178,11 @@ export default function YieldFarming() {
   const [depositAmount, setDepositAmount] = useState("");
   const [withdrawShares, setWithdrawShares] = useState("");
   const [lockDays, setLockDays] = useState("0");
+  const [depositDialogOpen, setDepositDialogOpen] = useState(false);
+  const [withdrawDialogOpen, setWithdrawDialogOpen] = useState(false);
+  const [selectedPosition, setSelectedPosition] = useState<YieldPosition | null>(null);
 
-  const userAddress = "0x742d35Cc6634C0532925a3b844Bc9e7595f87461";
+  const userAddress = "0xTBURNEnterprise0001234567890abcdef";
 
   const { data: stats, isLoading: statsLoading } = useQuery<YieldStats>({
     queryKey: ["/api/yield/stats"],
@@ -201,8 +212,11 @@ export default function YieldFarming() {
       toast({ title: "Success", description: "Deposit successful!" });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/vaults/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
       setDepositAmount("");
       setSelectedVault(null);
+      setLockDays("0");
+      setDepositDialogOpen(false);
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -224,7 +238,10 @@ export default function YieldFarming() {
       toast({ title: "Success", description: "Withdrawal successful!" });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/vaults/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
       setWithdrawShares("");
+      setSelectedPosition(null);
+      setWithdrawDialogOpen(false);
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -241,11 +258,25 @@ export default function YieldFarming() {
     onSuccess: () => {
       toast({ title: "Success", description: "Rewards claimed!" });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     },
   });
+
+  const openDepositDialog = (vault: YieldVault) => {
+    setSelectedVault(vault);
+    setDepositAmount("");
+    setLockDays("0");
+    setDepositDialogOpen(true);
+  };
+
+  const openWithdrawDialog = (position: YieldPosition) => {
+    setSelectedPosition(position);
+    setWithdrawShares(position.shares);
+    setWithdrawDialogOpen(true);
+  };
 
   const totalUserValue = useMemo(() => {
     if (!positions) return BigInt(0);
@@ -396,10 +427,7 @@ export default function YieldFarming() {
                         <div
                           key={vault.id}
                           className="flex items-center justify-between p-3 rounded-lg bg-muted/50 hover-elevate cursor-pointer"
-                          onClick={() => {
-                            setSelectedVault(vault);
-                            setActiveTab("deposit");
-                          }}
+                          onClick={() => openDepositDialog(vault)}
                           data-testid={`vault-card-${vault.id}`}
                         >
                           <div className="flex items-center gap-3">
@@ -485,10 +513,7 @@ export default function YieldFarming() {
                     <div
                       key={vault.id}
                       className="p-4 rounded-lg border hover-elevate cursor-pointer"
-                      onClick={() => {
-                        setSelectedVault(vault);
-                        setActiveTab("deposit");
-                      }}
+                      onClick={() => openDepositDialog(vault)}
                       data-testid={`vault-row-${vault.id}`}
                     >
                       <div className="flex items-center justify-between">
@@ -537,7 +562,14 @@ export default function YieldFarming() {
                             <p className="font-medium">{formatNumber(vault.totalDepositors)}</p>
                           </div>
                           <div>
-                            <Button size="sm" data-testid={`button-deposit-${vault.id}`}>
+                            <Button 
+                              size="sm" 
+                              data-testid={`button-deposit-${vault.id}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openDepositDialog(vault);
+                              }}
+                            >
                               Deposit
                             </Button>
                           </div>
@@ -778,28 +810,26 @@ export default function YieldFarming() {
                           <Button
                             variant="outline"
                             size="sm"
-                            disabled={position.isLocked || claimMutation.isPending}
+                            disabled={position.isLocked || claimMutation.isPending || BigInt(position.pendingRewards || "0") <= 0}
                             onClick={() => claimMutation.mutate(position.vaultId)}
                             data-testid={`button-claim-${position.id}`}
                           >
-                            <DollarSign className="h-4 w-4 mr-1" />
+                            {claimMutation.isPending ? (
+                              <RefreshCw className="h-4 w-4 mr-1 animate-spin" />
+                            ) : (
+                              <DollarSign className="h-4 w-4 mr-1" />
+                            )}
                             Claim Rewards
                           </Button>
                           <Button
                             variant="outline"
                             size="sm"
-                            disabled={position.isLocked || withdrawMutation.isPending}
-                            onClick={() => {
-                              setWithdrawShares(position.shares);
-                              withdrawMutation.mutate({
-                                vaultId: position.vaultId,
-                                shares: position.shares,
-                              });
-                            }}
+                            disabled={position.isLocked}
+                            onClick={() => openWithdrawDialog(position)}
                             data-testid={`button-withdraw-${position.id}`}
                           >
                             <Minus className="h-4 w-4 mr-1" />
-                            Withdraw All
+                            Withdraw
                           </Button>
                         </div>
                       </div>
@@ -824,6 +854,254 @@ export default function YieldFarming() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Dialog open={depositDialogOpen} onOpenChange={setDepositDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Plus className="h-5 w-5 text-green-500" />
+              Deposit to Vault
+            </DialogTitle>
+            <DialogDescription>
+              {selectedVault ? `Deposit ${selectedVault.underlyingSymbol} to ${selectedVault.name}` : "Select a vault to deposit"}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedVault && (
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg bg-muted/50 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Vault</span>
+                  <span className="font-medium">{selectedVault.name}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Total APY</span>
+                  <span className="text-green-500 font-bold">{formatApy(selectedVault.totalApy)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Risk Level</span>
+                  <Badge className={`text-xs ${riskColors[selectedVault.riskLevel]}`}>
+                    {selectedVault.riskLevel}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Deposit Amount (Wei)</Label>
+                <div className="flex gap-2">
+                  <Input
+                    type="text"
+                    placeholder="Enter amount in Wei (e.g., 1000000000000000000)"
+                    value={depositAmount}
+                    onChange={(e) => setDepositAmount(e.target.value)}
+                    data-testid="input-dialog-deposit-amount"
+                  />
+                  <Button variant="outline" onClick={() => setDepositAmount("1000000000000000000000")}>
+                    Max
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {depositAmount ? `≈ ${formatWeiToToken(depositAmount)} ${selectedVault.underlyingSymbol}` : "Enter amount"}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Lock Duration (Optional Boost)</Label>
+                <Select value={lockDays} onValueChange={setLockDays}>
+                  <SelectTrigger data-testid="select-dialog-lock-days">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0">No Lock (1x multiplier)</SelectItem>
+                    <SelectItem value="7">7 Days (1.05x multiplier)</SelectItem>
+                    <SelectItem value="30">30 Days (1.15x multiplier)</SelectItem>
+                    <SelectItem value="90">90 Days (1.30x multiplier)</SelectItem>
+                    <SelectItem value="180">180 Days (1.50x multiplier)</SelectItem>
+                    <SelectItem value="365">365 Days (1.75x multiplier)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                <div className="flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-blue-500" />
+                  <span className="text-sm font-medium">Fee Summary</span>
+                </div>
+                <div className="mt-2 space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Deposit Fee</span>
+                    <span>{formatApy(selectedVault.depositFee)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Performance Fee</span>
+                    <span>{formatApy(selectedVault.performanceFee)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setDepositDialogOpen(false)}
+              data-testid="button-cancel-deposit"
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={!selectedVault || !depositAmount || depositMutation.isPending}
+              onClick={() => {
+                if (selectedVault && depositAmount) {
+                  depositMutation.mutate({
+                    vaultId: selectedVault.id,
+                    amount: depositAmount,
+                    lockDays: parseInt(lockDays),
+                  });
+                }
+              }}
+              data-testid="button-dialog-confirm-deposit"
+            >
+              {depositMutation.isPending ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Confirm Deposit
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={withdrawDialogOpen} onOpenChange={setWithdrawDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Minus className="h-5 w-5 text-orange-500" />
+              Withdraw from Vault
+            </DialogTitle>
+            <DialogDescription>
+              {selectedPosition ? `Withdraw your position from the vault` : "Select a position to withdraw"}
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedPosition && (
+            <div className="space-y-4">
+              {(() => {
+                const vault = vaults?.find(v => v.id === selectedPosition.vaultId);
+                return (
+                  <>
+                    <div className="p-4 rounded-lg bg-muted/50 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Vault</span>
+                        <span className="font-medium">{vault?.name || "Unknown"}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Current Value</span>
+                        <span className="font-bold">{formatWeiToToken(selectedPosition.currentValue)} TBURN</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Total Shares</span>
+                        <span>{formatWeiToToken(selectedPosition.shares)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Pending Rewards</span>
+                        <span className="text-green-500">{formatWeiToToken(selectedPosition.pendingRewards)} TBURN</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Shares to Withdraw</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="text"
+                          placeholder="Enter shares to withdraw"
+                          value={withdrawShares}
+                          onChange={(e) => setWithdrawShares(e.target.value)}
+                          data-testid="input-dialog-withdraw-shares"
+                        />
+                        <Button 
+                          variant="outline" 
+                          onClick={() => setWithdrawShares(selectedPosition.shares)}
+                        >
+                          Max
+                        </Button>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        {withdrawShares ? `≈ ${formatWeiToToken(withdrawShares)} shares` : "Enter shares"}
+                      </p>
+                    </div>
+
+                    {vault && (
+                      <div className="p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                        <div className="flex items-center gap-2">
+                          <AlertCircle className="h-4 w-4 text-orange-500" />
+                          <span className="text-sm font-medium">Withdrawal Fee</span>
+                        </div>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          A {formatApy(vault.withdrawalFee)} fee will be applied to your withdrawal
+                        </p>
+                      </div>
+                    )}
+
+                    {selectedPosition.isLocked && (
+                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+                        <div className="flex items-center gap-2">
+                          <Lock className="h-4 w-4 text-red-500" />
+                          <span className="text-sm font-medium">Position Locked</span>
+                        </div>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          This position is locked until {selectedPosition.lockEndTime ? new Date(selectedPosition.lockEndTime).toLocaleDateString() : "Unknown"}
+                        </p>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setWithdrawDialogOpen(false)}
+              data-testid="button-cancel-withdraw"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              disabled={!selectedPosition || !withdrawShares || withdrawMutation.isPending || selectedPosition.isLocked}
+              onClick={() => {
+                if (selectedPosition && withdrawShares) {
+                  withdrawMutation.mutate({
+                    vaultId: selectedPosition.vaultId,
+                    shares: withdrawShares,
+                  });
+                }
+              }}
+              data-testid="button-dialog-confirm-withdraw"
+            >
+              {withdrawMutation.isPending ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <Minus className="h-4 w-4 mr-2" />
+                  Confirm Withdraw
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
