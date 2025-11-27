@@ -50,6 +50,9 @@ import StakingPoolDetail from "@/pages/staking-pool-detail";
 import StakingRewards from "@/pages/staking-rewards";
 import StakingSDK from "@/pages/staking-sdk";
 
+// DEX Infrastructure Pages
+import DexPage from "@/pages/dex";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -106,6 +109,8 @@ function Router() {
       <Route path="/staking/pool/:id" component={StakingPoolDetail} />
       <Route path="/staking/rewards" component={StakingRewards} />
       <Route path="/staking/sdk" component={StakingSDK} />
+      {/* DEX Infrastructure Routes */}
+      <Route path="/dex" component={DexPage} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

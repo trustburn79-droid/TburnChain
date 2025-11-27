@@ -1,5 +1,6 @@
 import {
   Activity,
+  ArrowDownUp,
   ArrowRightLeft,
   BarChart3,
   Blocks,
@@ -8,6 +9,7 @@ import {
   ClipboardList,
   Code2,
   Coins,
+  Droplets,
   FileCode,
   FileText,
   Flame,
@@ -107,6 +109,18 @@ const menuItems = [
     url: "/staking/sdk",
     icon: Code2,
     group: "Staking",
+  },
+  {
+    title: "DEX",
+    url: "/dex",
+    icon: ArrowDownUp,
+    group: "DeFi",
+  },
+  {
+    title: "Liquidity Pools",
+    url: "/dex#pools",
+    icon: Droplets,
+    group: "DeFi",
   },
   {
     title: "Validators",
