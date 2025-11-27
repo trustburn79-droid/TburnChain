@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -104,6 +105,7 @@ function formatWeiToTBURN(weiStr: string): string {
 }
 
 export default function StakingPoolDetail() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const [stakeAmount, setStakeAmount] = useState("");
@@ -121,24 +123,24 @@ export default function StakingPoolDetail() {
   const copyAddress = (address: string) => {
     navigator.clipboard.writeText(address);
     toast({
-      title: "Copied",
-      description: "Address copied to clipboard"
+      title: t('common.copied'),
+      description: t('stakingPoolDetail.addressCopied')
     });
   };
 
   const handleStake = () => {
     if (!stakeAmount || parseFloat(stakeAmount) <= 0) {
       toast({
-        title: "Invalid Amount",
-        description: "Please enter a valid stake amount",
+        title: t('common.error'),
+        description: t('stakingPoolDetail.enterStakeAmount'),
         variant: "destructive"
       });
       return;
     }
 
     toast({
-      title: "Staking Request Submitted",
-      description: `Your stake of ${stakeAmount} TBURN is being processed`
+      title: t('staking.stakeSuccessful'),
+      description: `${stakeAmount} TBURN`
     });
     setStakeDialogOpen(false);
     setStakeAmount("");
@@ -170,12 +172,12 @@ export default function StakingPoolDetail() {
         <Card>
           <CardContent className="py-12 text-center">
             <AlertCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg font-medium">Pool Not Found</h3>
-            <p className="text-muted-foreground">The staking pool you're looking for doesn't exist.</p>
+            <h3 className="text-lg font-medium">{t('stakingPoolDetail.poolNotFound')}</h3>
+            <p className="text-muted-foreground">{t('stakingPoolDetail.poolNotFoundDesc')}</p>
             <Link href="/staking">
               <Button className="mt-4">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Staking
+                {t('common.back')}
               </Button>
             </Link>
           </CardContent>
@@ -190,7 +192,7 @@ export default function StakingPoolDetail() {
         <Link href="/staking">
           <Button variant="ghost" size="sm" data-testid="button-back">
             <ArrowLeft className="h-4 w-4 mr-1" />
-            Back
+            {t('common.back')}
           </Button>
         </Link>
         <div className="flex-1">
@@ -209,29 +211,29 @@ export default function StakingPoolDetail() {
               {pool.status}
             </Badge>
           </div>
-          <p className="text-muted-foreground mt-1">{pool.description || "High-yield staking pool with advanced features"}</p>
+          <p className="text-muted-foreground mt-1">{pool.description || t('stakingPoolDetail.poolOverview')}</p>
         </div>
         <Dialog open={stakeDialogOpen} onOpenChange={setStakeDialogOpen}>
           <DialogTrigger asChild>
             <Button size="lg" data-testid="button-stake-now">
               <Coins className="h-4 w-4 mr-2" />
-              Stake TBURN
+              {t('stakingPoolDetail.stakeInPool')}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Stake to {pool.name}</DialogTitle>
+              <DialogTitle>{t('stakingPoolDetail.stakeInPool')} - {pool.name}</DialogTitle>
               <DialogDescription>
-                Enter the amount of TBURN you want to stake in this pool.
+                {t('stakingPoolDetail.enterStakeAmount')}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label>Amount (TBURN)</Label>
+                <Label>{t('common.amount')} (TBURN)</Label>
                 <div className="flex gap-2">
                   <Input
                     type="number"
-                    placeholder="Enter stake amount..."
+                    placeholder={t('stakingPoolDetail.enterStakeAmount')}
                     value={stakeAmount}
                     onChange={(e) => setStakeAmount(e.target.value)}
                     data-testid="input-stake-dialog"
@@ -239,15 +241,15 @@ export default function StakingPoolDetail() {
                   <Button variant="outline" size="sm">MAX</Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Minimum: {formatWeiToTBURN(pool.minStake)} TBURN
+                  {t('stakingPoolDetail.minimumStake')}: {formatWeiToTBURN(pool.minStake)} TBURN
                 </p>
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label>Auto-Compound</Label>
+                  <Label>{t('stakingPoolDetail.autoCompound')}</Label>
                   <p className="text-xs text-muted-foreground">
-                    Automatically reinvest your rewards
+                    {t('stakingPoolDetail.autoCompoundDesc')}
                   </p>
                 </div>
                 <Switch
@@ -259,24 +261,24 @@ export default function StakingPoolDetail() {
 
               <div className="p-3 bg-muted rounded-lg space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Current APY</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.estimatedApy')}</span>
                   <span className="font-medium text-green-500">{pool.apy}%</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Lock Period</span>
-                  <span className="font-medium">{pool.lockPeriodDays} days</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.lockPeriod')}</span>
+                  <span className="font-medium">{pool.lockPeriodDays} {t('staking.days')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Early Withdrawal Fee</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.earlyWithdrawalPenalty')}</span>
                   <span className="font-medium">{pool.earlyWithdrawalPenalty}%</span>
                 </div>
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setStakeDialogOpen(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setStakeDialogOpen(false)}>{t('common.cancel')}</Button>
               <Button onClick={handleStake} data-testid="button-confirm-stake">
                 <CheckCircle className="h-4 w-4 mr-2" />
-                Confirm Stake
+                {t('stakingPoolDetail.confirmStake')}
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -286,7 +288,7 @@ export default function StakingPoolDetail() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card data-testid="card-total-staked">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Staked</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('stakingPoolDetail.totalValueLocked')}</CardTitle>
             <Coins className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -297,39 +299,39 @@ export default function StakingPoolDetail() {
 
         <Card data-testid="card-current-apy">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current APY</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('staking.averageApy')}</CardTitle>
             <Percent className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-500">{pool.apy}%</div>
             <p className="text-xs text-muted-foreground">
-              +{pool.apyBoost}% boost available
+              +{pool.apyBoost}% {t('staking.tierBoost')}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-active-stakers">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Stakers</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('stakingPoolDetail.currentStakers')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatNumber(pool.stakersCount)}</div>
             <p className="text-xs text-muted-foreground">
-              {pool.rewardFrequency} rewards
+              {pool.rewardFrequency} {t('wallets.rewards')}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-lock-period">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Lock Period</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('stakingPoolDetail.lockPeriod')}</CardTitle>
             <Lock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{pool.lockPeriodDays} Days</div>
+            <div className="text-2xl font-bold">{pool.lockPeriodDays} {t('staking.days')}</div>
             <p className="text-xs text-muted-foreground">
-              {pool.earlyWithdrawalPenalty}% early withdrawal fee
+              {pool.earlyWithdrawalPenalty}% {t('stakingPoolDetail.earlyWithdrawalPenalty')}
             </p>
           </CardContent>
         </Card>
@@ -338,46 +340,46 @@ export default function StakingPoolDetail() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="md:col-span-2" data-testid="card-pool-info">
           <CardHeader>
-            <CardTitle>Pool Information</CardTitle>
+            <CardTitle>{t('stakingPoolDetail.poolOverview')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Pool Type</span>
+                  <span className="text-muted-foreground">{t('staking.poolType')}</span>
                   <span className="font-medium capitalize">{pool.poolType}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Tier Level</span>
+                  <span className="text-muted-foreground">{t('staking.tier')}</span>
                   <Badge className={tierColors[pool.tier.toLowerCase()]}>
                     {tierIcons[pool.tier.toLowerCase()]}
                     <span className="ml-1 capitalize">{pool.tier}</span>
                   </Badge>
                 </div>
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Minimum Stake</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.minimumStake')}</span>
                   <span className="font-medium">{formatWeiToTBURN(pool.minStake)} TBURN</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Maximum Stake</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.maximumStake')}</span>
                   <span className="font-medium">
-                    {pool.maxStake ? formatWeiToTBURN(pool.maxStake) + " TBURN" : "No Limit"}
+                    {pool.maxStake ? formatWeiToTBURN(pool.maxStake) + " TBURN" : t('common.none')}
                   </span>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Compounding</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.compoundingEnabled')}</span>
                   <Badge variant={pool.isCompoundingEnabled ? "default" : "outline"}>
-                    {pool.isCompoundingEnabled ? "Enabled" : "Disabled"}
+                    {pool.isCompoundingEnabled ? t('members.enabled') : t('members.disabled')}
                   </Badge>
                 </div>
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Reward Frequency</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.rewardFrequency')}</span>
                   <span className="font-medium capitalize">{pool.rewardFrequency}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Created</span>
+                  <span className="text-muted-foreground">{t('common.date')}</span>
                   <span className="font-medium">
                     {new Date(pool.createdAt).toLocaleDateString()}
                   </span>
@@ -398,7 +400,7 @@ export default function StakingPoolDetail() {
 
         <Card data-testid="card-validator-info">
           <CardHeader>
-            <CardTitle>Validator</CardTitle>
+            <CardTitle>{t('validators.validator')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
@@ -415,22 +417,22 @@ export default function StakingPoolDetail() {
 
             <div className="space-y-2">
               <div className="flex justify-between py-2 border-b">
-                <span className="text-muted-foreground">Status</span>
-                <Badge variant="default">Active</Badge>
+                <span className="text-muted-foreground">{t('common.status')}</span>
+                <Badge variant="default">{t('common.active')}</Badge>
               </div>
               <div className="flex justify-between py-2 border-b">
-                <span className="text-muted-foreground">Commission</span>
+                <span className="text-muted-foreground">{t('validators.commission')}</span>
                 <span className="font-medium">5%</span>
               </div>
               <div className="flex justify-between py-2 border-b">
-                <span className="text-muted-foreground">Uptime</span>
+                <span className="text-muted-foreground">{t('validators.uptime')}</span>
                 <span className="font-medium text-green-500">99.98%</span>
               </div>
             </div>
 
             <Link href={`/validator/${pool.validatorAddress}`}>
               <Button variant="outline" className="w-full" data-testid="button-view-validator">
-                View Validator Details
+                {t('stakingPoolDetail.viewValidator')}
                 <ExternalLink className="h-4 w-4 ml-2" />
               </Button>
             </Link>
@@ -442,10 +444,10 @@ export default function StakingPoolDetail() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Users className="h-5 w-5" />
-            Top Stakers
+            {t('stakingPoolDetail.topStakers')}
           </CardTitle>
           <CardDescription>
-            Addresses with the largest stakes in this pool
+            {t('stakingPoolDetail.topStakers')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -467,14 +469,14 @@ export default function StakingPoolDetail() {
                           {position.stakerAddress.slice(0, 10)}...{position.stakerAddress.slice(-8)}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {position.autoCompound ? "Auto-compound" : "Manual"} | {position.tier}
+                          {position.autoCompound ? t('stakingPoolDetail.autoCompound') : t('common.none')} | {position.tier}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="font-medium">{formatWeiToTBURN(position.stakedAmount)} TBURN</p>
                       <p className="text-xs text-green-500">
-                        +{formatWeiToTBURN(position.pendingRewards)} pending
+                        +{formatWeiToTBURN(position.pendingRewards)} {t('common.pending')}
                       </p>
                     </div>
                   </div>
@@ -483,9 +485,9 @@ export default function StakingPoolDetail() {
             ) : (
               <div className="text-center py-8">
                 <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <p className="text-muted-foreground">No stakers in this pool yet</p>
+                <p className="text-muted-foreground">{t('stakingPoolDetail.noPositionDesc')}</p>
                 <Button className="mt-4" onClick={() => setStakeDialogOpen(true)}>
-                  Be the first to stake
+                  {t('stakingPoolDetail.stakeNow')}
                 </Button>
               </div>
             )}

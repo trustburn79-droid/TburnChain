@@ -2,6 +2,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { apiRequest } from "@/lib/queryClient";
 import { useParams, Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   ArrowLeft, User, Shield, Award, Coins, Activity, Clock, 
   AlertCircle, TrendingUp, Users, Ban, Power, DollarSign,
@@ -56,7 +57,6 @@ import {
 } from 'recharts';
 
 interface ValidatorDetails {
-  // Base validator fields
   id: string;
   name: string;
   address: string;
@@ -82,7 +82,6 @@ interface ValidatorDetails {
   rank?: number;
   isCommittee?: boolean;
   
-  // Extended fields for detail page
   delegators: Array<{
     address: string;
     amount: string;
@@ -109,6 +108,7 @@ interface ValidatorDetails {
 }
 
 export default function ValidatorDetail() {
+  const { t } = useTranslation();
   const { address } = useParams();
   const { toast } = useToast();
   const [delegateAmount, setDelegateAmount] = useState("");
@@ -122,7 +122,6 @@ export default function ValidatorDetail() {
     enabled: !!address
   });
 
-  // WebSocket updates
   useEffect(() => {
     if (lastMessage?.data) {
       try {
@@ -131,12 +130,10 @@ export default function ValidatorDetail() {
           queryClient.invalidateQueries({ queryKey: [`/api/validators/${address}`] });
         }
       } catch (error) {
-        // Ignore parse errors
       }
     }
   }, [lastMessage, address]);
 
-  // Activation/Deactivation mutation
   const toggleStatusMutation = useMutation({
     mutationFn: async (action: 'activate' | 'deactivate') => {
       const res = await apiRequest('POST', `/api/validators/${address}/${action}`);
@@ -144,8 +141,8 @@ export default function ValidatorDetail() {
     },
     onSuccess: (_, action) => {
       toast({
-        title: "상태 변경 성공",
-        description: `검증자가 ${action === 'activate' ? '활성화' : '비활성화'}되었습니다.`,
+        title: t('common.success'),
+        description: action === 'activate' ? t('validators.active') : t('validators.inactive'),
       });
       queryClient.invalidateQueries({ queryKey: [`/api/validators/${address}`] });
       queryClient.invalidateQueries({ queryKey: ['/api/validators'] });
@@ -153,14 +150,13 @@ export default function ValidatorDetail() {
     },
     onError: () => {
       toast({
-        title: "상태 변경 실패",
-        description: "검증자 상태를 변경할 수 없습니다.",
+        title: t('common.error'),
+        description: t('validators.delegationFailedDesc'),
         variant: "destructive",
       });
     },
   });
 
-  // Delegation mutation
   const delegateMutation = useMutation({
     mutationFn: async (amount: string) => {
       const res = await apiRequest('POST', `/api/validators/${address}/delegate`, { amount });
@@ -168,8 +164,8 @@ export default function ValidatorDetail() {
     },
     onSuccess: () => {
       toast({
-        title: "위임 성공",
-        description: `${delegateAmount} TBURN이 위임되었습니다.`,
+        title: t('validators.delegationSuccessful'),
+        description: t('validators.delegationSuccessDesc', { amount: delegateAmount }),
       });
       queryClient.invalidateQueries({ queryKey: [`/api/validators/${address}`] });
       setShowDelegateDialog(false);
@@ -177,14 +173,13 @@ export default function ValidatorDetail() {
     },
     onError: () => {
       toast({
-        title: "위임 실패",
-        description: "토큰을 위임할 수 없습니다.",
+        title: t('validators.delegationFailed'),
+        description: t('validators.delegationFailedDesc'),
         variant: "destructive",
       });
     },
   });
 
-  // Claim rewards mutation
   const claimRewardsMutation = useMutation({
     mutationFn: async () => {
       const res = await apiRequest('POST', `/api/validators/${address}/claim-rewards`);
@@ -192,21 +187,20 @@ export default function ValidatorDetail() {
     },
     onSuccess: (data: any) => {
       toast({
-        title: "보상 청구 성공",
-        description: `${formatTokenAmount(data.amount)} TBURN을 받았습니다.`,
+        title: t('validators.rewardsClaimed'),
+        description: t('validators.rewardsClaimedDesc', { amount: formatTokenAmount(data.amount) }),
       });
       queryClient.invalidateQueries({ queryKey: [`/api/validators/${address}`] });
     },
     onError: () => {
       toast({
-        title: "보상 청구 실패",
-        description: "보상을 청구할 수 없습니다.",
+        title: t('validators.claimFailed'),
+        description: t('validators.claimFailedDesc'),
         variant: "destructive",
       });
     },
   });
 
-  // Update commission mutation
   const updateCommissionMutation = useMutation({
     mutationFn: async (commission: number) => {
       const res = await apiRequest('POST', `/api/validators/${address}/commission`, { commission });
@@ -214,16 +208,16 @@ export default function ValidatorDetail() {
     },
     onSuccess: () => {
       toast({
-        title: "수수료 변경 성공",
-        description: `수수료가 ${newCommission}%로 변경되었습니다.`,
+        title: t('common.success'),
+        description: `${t('validators.commission')}: ${newCommission}%`,
       });
       queryClient.invalidateQueries({ queryKey: [`/api/validators/${address}`] });
       setNewCommission("");
     },
     onError: () => {
       toast({
-        title: "수수료 변경 실패",
-        description: "수수료를 변경할 수 없습니다.",
+        title: t('common.error'),
+        description: t('common.failed'),
         variant: "destructive",
       });
     },
@@ -242,12 +236,12 @@ export default function ValidatorDetail() {
       <div className="container mx-auto px-4 py-8">
         <Card className="p-8 text-center">
           <AlertCircle className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-          <h2 className="text-xl font-semibold mb-2">검증자를 찾을 수 없습니다</h2>
-          <p className="text-muted-foreground mb-4">주소: {address}</p>
+          <h2 className="text-xl font-semibold mb-2">{t('validators.title')} - {t('common.error')}</h2>
+          <p className="text-muted-foreground mb-4">{t('common.address')}: {address}</p>
           <Link href="/validators">
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              검증자 목록으로
+              {t('common.back')}
             </Button>
           </Link>
         </Card>
@@ -260,20 +254,18 @@ export default function ValidatorDetail() {
   const isActive = validator.status === 'active';
   const isJailed = validator.status === 'jailed';
 
-  // Performance metrics for charts
   const performanceData = validator.performanceHistory?.slice(-24) || [];
   const rewardData = validator.rewardHistory?.slice(-30) || [];
 
   const pieData = [
-    { name: 'Stake', value: Number(BigInt(validator.stake) / BigInt(1e18)) },
-    { name: 'Delegated', value: Number(BigInt(validator.delegatedStake || 0) / BigInt(1e18)) }
+    { name: t('validators.stake'), value: Number(BigInt(validator.stake) / BigInt(1e18)) },
+    { name: t('validators.delegated'), value: Number(BigInt(validator.delegatedStake || 0) / BigInt(1e18)) }
   ];
 
   const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042'];
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-6">
-      {/* Header with back button */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/validators">
@@ -295,26 +287,26 @@ export default function ValidatorDetail() {
               data-testid="button-claim-rewards"
             >
               <Coins className="h-4 w-4 mr-2" />
-              보상 청구
+              {t('validators.claimRewards')}
             </Button>
           )}
           <Dialog open={showDelegateDialog} onOpenChange={setShowDelegateDialog}>
             <DialogTrigger asChild>
               <Button variant="default" disabled={!isActive} data-testid="button-delegate">
                 <Users className="h-4 w-4 mr-2" />
-                위임하기
+                {t('validators.delegateNow')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>토큰 위임</DialogTitle>
+                <DialogTitle>{t('validators.delegate')}</DialogTitle>
                 <DialogDescription>
-                  이 검증자에게 TBURN 토큰을 위임합니다.
+                  {t('validators.enterTBURNAmount')}
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="amount">위임 수량 (TBURN)</Label>
+                  <Label htmlFor="amount">{t('common.amount')} (TBURN)</Label>
                   <Input
                     id="amount"
                     type="number"
@@ -325,20 +317,20 @@ export default function ValidatorDetail() {
                   />
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  <p>현재 APY: {formatPercentage(validator.apy / 100)}</p>
-                  <p>예상 일일 수익: {delegateAmount ? formatNumber(parseFloat(delegateAmount) * validator.apy / 36500) : '0'} TBURN</p>
+                  <p>{t('validators.apy')}: {formatPercentage(validator.apy / 100)}</p>
+                  <p>{t('staking.estimatedRewards')}: {delegateAmount ? formatNumber(parseFloat(delegateAmount) * validator.apy / 36500) : '0'} TBURN</p>
                 </div>
               </div>
               <DialogFooter>
                 <Button variant="outline" onClick={() => setShowDelegateDialog(false)}>
-                  취소
+                  {t('common.cancel')}
                 </Button>
                 <Button 
                   onClick={() => delegateMutation.mutate(delegateAmount)}
                   disabled={!delegateAmount || delegateMutation.isPending}
                   data-testid="button-confirm-delegate"
                 >
-                  위임 확인
+                  {t('common.confirm')}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -351,20 +343,19 @@ export default function ValidatorDetail() {
                 data-testid="button-toggle-status"
               >
                 <Power className="h-4 w-4 mr-2" />
-                {isActive ? '비활성화' : '활성화'}
+                {isActive ? t('common.disable') : t('common.enable')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>검증자 상태 변경</DialogTitle>
+                <DialogTitle>{t('common.status')}</DialogTitle>
                 <DialogDescription>
-                  검증자를 {isActive ? '비활성화' : '활성화'}하시겠습니까?
-                  {isActive && ' 비활성화하면 더 이상 블록 생성에 참여하지 않습니다.'}
+                  {isActive ? t('validators.inactive') : t('validators.active')}
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
                 <Button variant="outline" onClick={() => setShowStatusDialog(false)}>
-                  취소
+                  {t('common.cancel')}
                 </Button>
                 <Button 
                   variant={isActive ? "destructive" : "default"}
@@ -372,7 +363,7 @@ export default function ValidatorDetail() {
                   disabled={toggleStatusMutation.isPending}
                   data-testid="button-confirm-status"
                 >
-                  {isActive ? '비활성화 확인' : '활성화 확인'}
+                  {t('common.confirm')}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -380,66 +371,64 @@ export default function ValidatorDetail() {
         </div>
       </div>
 
-      {/* Status Alert */}
       {isJailed && (
         <Card className="border-destructive bg-destructive/10">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Ban className="h-5 w-5 text-destructive" />
-              <CardTitle className="text-destructive">검증자 제재 중</CardTitle>
+              <CardTitle className="text-destructive">{t('validators.jailed')}</CardTitle>
             </div>
             <CardDescription>
-              이 검증자는 네트워크 규칙 위반으로 제재를 받았습니다. 제재 기간이 끝날 때까지 블록 생성에 참여할 수 없습니다.
+              {t('validators.jailedWarning')}
             </CardDescription>
           </CardHeader>
         </Card>
       )}
 
-      {/* Main Info Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">투표 권한</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('validators.votingPower')}</CardTitle>
             <Target className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatNumber(votingPowerTBURN)} TBURN</div>
             <Progress value={Math.min(votingPowerTBURN / 1000000 * 100, 100)} className="mt-2" />
             <p className="text-xs text-muted-foreground mt-1">
-              전체 네트워크의 {formatPercentage(votingPowerTBURN / 1250000)}
+              {t('common.total')}: {formatPercentage(votingPowerTBURN / 1250000)}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">위임자 수</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('validators.delegators')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{validator.delegators?.length || 0}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              총 위임: {formatTokenAmount(validator.delegatedStake || "0")}
+              {t('validators.totalDelegated')}: {formatTokenAmount(validator.delegatedStake || "0")}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">총 보상</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('wallets.totalRewards')}</CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatTokenAmount(validator.rewardEarned || "0")}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              수수료: {validator.commission / 100}%
+              {t('validators.commission')}: {validator.commission / 100}%
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">가동 시간</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('validators.uptime')}</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -449,31 +438,30 @@ export default function ValidatorDetail() {
               className={`mt-2 ${validator.uptime < 95 ? '[&>div]:bg-yellow-500' : ''} ${validator.uptime < 90 ? '[&>div]:bg-destructive' : ''}`}
             />
             <p className="text-xs text-muted-foreground mt-1">
-              놓친 블록: {validator.missedBlocks || 0}
+              {t('validators.missedBlocks')}: {validator.missedBlocks || 0}
             </p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Detailed Tabs */}
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="overview">개요</TabsTrigger>
-          <TabsTrigger value="delegators">위임자</TabsTrigger>
-          <TabsTrigger value="performance">성능</TabsTrigger>
-          <TabsTrigger value="rewards">보상</TabsTrigger>
-          <TabsTrigger value="events">이벤트</TabsTrigger>
+          <TabsTrigger value="overview">{t('members.overview')}</TabsTrigger>
+          <TabsTrigger value="delegators">{t('validators.delegators')}</TabsTrigger>
+          <TabsTrigger value="performance">{t('members.performance')}</TabsTrigger>
+          <TabsTrigger value="rewards">{t('wallets.rewards')}</TabsTrigger>
+          <TabsTrigger value="events">{t('members.recentActivity')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>검증자 정보</CardTitle>
+              <CardTitle>{t('validators.title')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">상태</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('common.status')}</p>
                   <div className="mt-1">
                     <Badge 
                       className={
@@ -482,61 +470,61 @@ export default function ValidatorDetail() {
                         "bg-secondary"
                       }
                     >
-                      {isActive ? '활성' : isJailed ? '제재 중' : '비활성'}
+                      {isActive ? t('validators.active') : isJailed ? t('validators.jailed') : t('validators.inactive')}
                     </Badge>
                   </div>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">위원회 멤버</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('validators.committeeSize')}</p>
                   <div className="mt-1">
                     {validator.isCommittee ? (
                       <Badge className="bg-purple-600">
                         <Shield className="h-3 w-3 mr-1" />
-                        위원회
+                        {t('validators.committeeSize')}
                       </Badge>
                     ) : (
-                      <span className="text-sm">아니오</span>
+                      <span className="text-sm">{t('common.no')}</span>
                     )}
                   </div>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">자체 스테이킹</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('validators.selfDelegated')}</p>
                   <p className="mt-1 text-lg font-semibold">{formatTokenAmount(validator.stake)}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">위임받은 스테이킹</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('validators.delegatedStake')}</p>
                   <p className="mt-1 text-lg font-semibold">{formatTokenAmount(validator.delegatedStake || "0")}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">평균 블록 시간</p>
-                  <p className="mt-1 text-lg font-semibold">{validator.avgBlockTime?.toFixed(2) || '0'} 초</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('blocks.avgBlockTime')}</p>
+                  <p className="mt-1 text-lg font-semibold">{validator.avgBlockTime?.toFixed(2) || '0'}s</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">제재 횟수</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('validators.slashingEvents')}</p>
                   <p className="mt-1 text-lg font-semibold">{validator.slashCount || 0}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">APY</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('validators.apy')}</p>
                   <p className="mt-1 text-lg font-semibold">{formatPercentage(validator.apy / 100)}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">수수료</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('validators.commission')}</p>
                   <div className="mt-1 flex items-center gap-2">
                     <span className="text-lg font-semibold">{validator.commission / 100}%</span>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant="outline" size="sm">변경</Button>
+                        <Button variant="outline" size="sm">{t('common.edit')}</Button>
                       </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
-                          <DialogTitle>수수료 변경</DialogTitle>
+                          <DialogTitle>{t('validators.commission')}</DialogTitle>
                           <DialogDescription>
-                            새로운 수수료율을 입력하세요 (0-20%)
+                            {t('validators.enterAmount')} (0-20%)
                           </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4">
                           <div>
-                            <Label htmlFor="commission">수수료율 (%)</Label>
+                            <Label htmlFor="commission">{t('validators.commission')} (%)</Label>
                             <Input
                               id="commission"
                               type="number"
@@ -556,7 +544,7 @@ export default function ValidatorDetail() {
                             disabled={!newCommission || updateCommissionMutation.isPending}
                             data-testid="button-update-commission"
                           >
-                            변경 확인
+                            {t('common.confirm')}
                           </Button>
                         </DialogFooter>
                       </DialogContent>
@@ -568,7 +556,7 @@ export default function ValidatorDetail() {
               <Separator />
 
               <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">투표 권한 분포</h4>
+                <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('validators.stakeDistribution')}</h4>
                 <ResponsiveContainer width="100%" height={200}>
                   <PieChart>
                     <Pie
@@ -591,12 +579,12 @@ export default function ValidatorDetail() {
               </div>
 
               <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">AI 신뢰도 점수</h4>
+                <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('validators.aiTrust')}</h4>
                 <div className="flex items-center gap-4">
                   <Brain className="h-5 w-5 text-purple-500" />
                   <div className="flex-1">
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm">평판 점수</span>
+                      <span className="text-sm">{t('members.reputationScore')}</span>
                       <span className="text-sm font-semibold">{validator.reputationScore}/100</span>
                     </div>
                     <Progress value={validator.reputationScore} />
@@ -606,7 +594,7 @@ export default function ValidatorDetail() {
                   <Zap className="h-5 w-5 text-yellow-500" />
                   <div className="flex-1">
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm">성능 점수</span>
+                      <span className="text-sm">{t('validators.performanceScore')}</span>
                       <span className="text-sm font-semibold">{validator.performanceScore}/100</span>
                     </div>
                     <Progress value={validator.performanceScore} />
@@ -616,7 +604,7 @@ export default function ValidatorDetail() {
                   <Shield className="h-5 w-5 text-green-500" />
                   <div className="flex-1">
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm">AI 신뢰도</span>
+                      <span className="text-sm">{t('validators.trustScore')}</span>
                       <span className="text-sm font-semibold">{validator.aiTrustScore}/100</span>
                     </div>
                     <Progress value={validator.aiTrustScore} />
@@ -630,9 +618,9 @@ export default function ValidatorDetail() {
         <TabsContent value="delegators" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>위임자 목록</CardTitle>
+              <CardTitle>{t('validators.delegators')}</CardTitle>
               <CardDescription>
-                총 {validator.delegators?.length || 0}명이 {formatTokenAmount(validator.delegatedStake || "0")}을 위임했습니다.
+                {t('common.total')}: {validator.delegators?.length || 0} - {formatTokenAmount(validator.delegatedStake || "0")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -640,10 +628,10 @@ export default function ValidatorDetail() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>주소</TableHead>
-                      <TableHead className="text-right">위임량</TableHead>
-                      <TableHead className="text-right">위임 시간</TableHead>
-                      <TableHead className="text-center">작업</TableHead>
+                      <TableHead>{t('common.address')}</TableHead>
+                      <TableHead className="text-right">{t('common.amount')}</TableHead>
+                      <TableHead className="text-right">{t('common.time')}</TableHead>
+                      <TableHead className="text-center">{t('common.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -652,10 +640,10 @@ export default function ValidatorDetail() {
                         <TableCell className="font-mono">{formatAddress(delegator.address)}</TableCell>
                         <TableCell className="text-right">{formatTokenAmount(delegator.amount)}</TableCell>
                         <TableCell className="text-right">
-                          {new Date(delegator.timestamp * 1000).toLocaleString('ko-KR')}
+                          {new Date(delegator.timestamp * 1000).toLocaleString()}
                         </TableCell>
                         <TableCell className="text-center">
-                          <Button variant="outline" size="sm">위임 취소</Button>
+                          <Button variant="outline" size="sm">{t('validators.undelegate')}</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -663,7 +651,7 @@ export default function ValidatorDetail() {
                 </Table>
               ) : (
                 <div className="text-center py-8 text-muted-foreground">
-                  아직 위임자가 없습니다.
+                  {t('validators.totalDelegators')}: 0
                 </div>
               )}
             </CardContent>
@@ -673,8 +661,8 @@ export default function ValidatorDetail() {
         <TabsContent value="performance" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>성능 메트릭</CardTitle>
-              <CardDescription>최근 24시간 성능 지표</CardDescription>
+              <CardTitle>{t('members.performanceMetrics')}</CardTitle>
+              <CardDescription>{t('validators.validatorMetrics')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -682,12 +670,12 @@ export default function ValidatorDetail() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="timestamp" 
-                    tickFormatter={(t) => new Date(t * 1000).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}
+                    tickFormatter={(t) => new Date(t * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   />
                   <YAxis yAxisId="left" />
                   <YAxis yAxisId="right" orientation="right" />
                   <Tooltip 
-                    labelFormatter={(t) => new Date(t * 1000).toLocaleString('ko-KR')}
+                    labelFormatter={(t) => new Date(t * 1000).toLocaleString()}
                   />
                   <Legend />
                   <Line 
@@ -695,29 +683,29 @@ export default function ValidatorDetail() {
                     type="monotone" 
                     dataKey="blockTime" 
                     stroke="#8884d8" 
-                    name="블록 시간 (초)"
+                    name={t('blocks.avgBlockTime')}
                   />
                   <Line 
                     yAxisId="right"
                     type="monotone" 
                     dataKey="uptime" 
                     stroke="#82ca9d" 
-                    name="가동률 (%)"
+                    name={t('validators.uptime')}
                   />
                 </LineChart>
               </ResponsiveContainer>
 
               <div className="grid grid-cols-3 gap-4 mt-6">
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground">평균 블록 시간</p>
-                  <p className="text-2xl font-bold">{validator.avgBlockTime?.toFixed(2) || '0'} 초</p>
+                  <p className="text-sm text-muted-foreground">{t('blocks.avgBlockTime')}</p>
+                  <p className="text-2xl font-bold">{validator.avgBlockTime?.toFixed(2) || '0'}s</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground">제안된 블록</p>
+                  <p className="text-sm text-muted-foreground">{t('validators.blocksProposed')}</p>
                   <p className="text-2xl font-bold">{formatNumber(validator.totalBlocks || 0)}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground">놓친 블록</p>
+                  <p className="text-sm text-muted-foreground">{t('validators.missedBlocks')}</p>
                   <p className="text-2xl font-bold">{formatNumber(validator.missedBlocks || 0)}</p>
                 </div>
               </div>
@@ -728,8 +716,8 @@ export default function ValidatorDetail() {
         <TabsContent value="rewards" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>보상 내역</CardTitle>
-              <CardDescription>최근 30일 보상 기록</CardDescription>
+              <CardTitle>{t('wallets.rewards')}</CardTitle>
+              <CardDescription>{t('staking.totalRewardsDistributed')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -737,11 +725,11 @@ export default function ValidatorDetail() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="timestamp" 
-                    tickFormatter={(t) => new Date(t * 1000).toLocaleDateString('ko-KR')}
+                    tickFormatter={(t) => new Date(t * 1000).toLocaleDateString()}
                   />
                   <YAxis />
                   <Tooltip 
-                    labelFormatter={(t) => new Date(t * 1000).toLocaleDateString('ko-KR')}
+                    labelFormatter={(t) => new Date(t * 1000).toLocaleDateString()}
                     formatter={(value: any) => formatTokenAmount(value.toString())}
                   />
                   <Area 
@@ -750,25 +738,25 @@ export default function ValidatorDetail() {
                     stroke="#8884d8" 
                     fill="#8884d8" 
                     fillOpacity={0.6}
-                    name="보상 (TBURN)"
+                    name={t('wallets.rewards')}
                   />
                 </AreaChart>
               </ResponsiveContainer>
 
               <div className="mt-6">
-                <h4 className="text-sm font-medium mb-3">최근 보상</h4>
+                <h4 className="text-sm font-medium mb-3">{t('wallets.rewards')}</h4>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>시간</TableHead>
-                      <TableHead>유형</TableHead>
-                      <TableHead className="text-right">금액</TableHead>
+                      <TableHead>{t('common.time')}</TableHead>
+                      <TableHead>{t('common.type')}</TableHead>
+                      <TableHead className="text-right">{t('common.amount')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {validator.rewardHistory?.slice(0, 5).map((reward, idx) => (
                       <TableRow key={idx}>
-                        <TableCell>{new Date(reward.timestamp * 1000).toLocaleString('ko-KR')}</TableCell>
+                        <TableCell>{new Date(reward.timestamp * 1000).toLocaleString()}</TableCell>
                         <TableCell>
                           <Badge variant="outline">{reward.type}</Badge>
                         </TableCell>
@@ -779,7 +767,7 @@ export default function ValidatorDetail() {
                     )) || (
                       <TableRow>
                         <TableCell colSpan={3} className="text-center text-muted-foreground">
-                          보상 내역이 없습니다
+                          {t('members.noRecentActivity')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -793,24 +781,24 @@ export default function ValidatorDetail() {
         <TabsContent value="events" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>이벤트 로그</CardTitle>
-              <CardDescription>검증자 활동 및 상태 변경 기록</CardDescription>
+              <CardTitle>{t('members.recentActivity')}</CardTitle>
+              <CardDescription>{t('validators.validatorMetrics')}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[180px]">시간</TableHead>
-                    <TableHead>이벤트</TableHead>
-                    <TableHead>설명</TableHead>
-                    <TableHead>트랜잭션</TableHead>
+                    <TableHead className="w-[180px]">{t('common.time')}</TableHead>
+                    <TableHead>{t('common.type')}</TableHead>
+                    <TableHead>{t('common.description')}</TableHead>
+                    <TableHead>{t('common.transaction')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {validator.events?.map((event) => (
                     <TableRow key={event.id}>
                       <TableCell className="text-sm">
-                        {new Date(event.timestamp * 1000).toLocaleString('ko-KR')}
+                        {new Date(event.timestamp * 1000).toLocaleString()}
                       </TableCell>
                       <TableCell>
                         <Badge 
@@ -845,7 +833,7 @@ export default function ValidatorDetail() {
                   )) || (
                     <TableRow>
                       <TableCell colSpan={4} className="text-center text-muted-foreground py-8">
-                        이벤트 로그가 없습니다
+                        {t('members.noRecentActivity')}
                       </TableCell>
                     </TableRow>
                   )}

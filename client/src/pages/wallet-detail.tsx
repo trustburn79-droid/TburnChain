@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 import { ArrowLeft, Wallet, Coins, Lock, Unlock, Award, Activity, Clock, Hash } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +11,7 @@ import { formatNumber } from "@/lib/format";
 import type { WalletBalance, Transaction } from "@shared/schema";
 
 export default function WalletDetail() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const params = useParams<{ address: string }>();
   const walletAddress = params.address || "";
@@ -74,12 +76,12 @@ export default function WalletDetail() {
           data-testid="button-back"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back
+          {t('common.back')}
         </Button>
         <div>
-          <h1 className="text-3xl font-semibold text-destructive">Wallet Not Found</h1>
+          <h1 className="text-3xl font-semibold text-destructive">{t('wallets.walletNotFound')}</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Wallet {formatAddress(walletAddress)} does not exist or could not be loaded
+            {t('wallets.walletNotFoundDesc', { address: formatAddress(walletAddress) })}
           </p>
         </div>
       </div>
@@ -102,19 +104,19 @@ export default function WalletDetail() {
           data-testid="button-back"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back
+          {t('common.back')}
         </Button>
         <div className="flex-1">
           <div className="flex items-center gap-3">
             <Wallet className="h-8 w-8" />
-            <h1 className="text-3xl font-semibold">Wallet Details</h1>
+            <h1 className="text-3xl font-semibold">{t('wallets.walletDetails')}</h1>
           </div>
           <p className="text-sm text-muted-foreground mt-1 font-mono" data-testid="text-wallet-address">
             {wallet.address}
           </p>
         </div>
         <Badge variant="outline" className="text-sm">
-          {formatNumber(wallet.transactionCount)} transactions
+          {formatNumber(wallet.transactionCount)} {t('common.transactions')}
         </Badge>
       </div>
 
@@ -123,12 +125,12 @@ export default function WalletDetail() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Coins className="h-5 w-5" />
-              Balance Overview
+              {t('wallets.balanceOverview')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <p className="text-sm text-muted-foreground">Total Balance</p>
+              <p className="text-sm text-muted-foreground">{t('wallets.totalBalance')}</p>
               <p className="text-3xl font-bold" data-testid="text-total-balance">
                 {formatBalance(wallet.balance)} <span className="text-lg text-muted-foreground">TBURN</span>
               </p>
@@ -140,25 +142,25 @@ export default function WalletDetail() {
               <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Lock className="h-4 w-4 text-green-500" />
-                  <p className="text-sm text-muted-foreground">Staked</p>
+                  <p className="text-sm text-muted-foreground">{t('wallets.staked')}</p>
                 </div>
                 <p className="text-xl font-bold text-green-600 dark:text-green-400" data-testid="text-staked-balance">
                   {formatBalance(wallet.stakedBalance)} TBURN
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {stakingPercentage}% of total
+                  {stakingPercentage}% {t('common.total')}
                 </p>
               </div>
               <div className="p-4 rounded-lg bg-muted/50 border">
                 <div className="flex items-center gap-2 mb-2">
                   <Unlock className="h-4 w-4" />
-                  <p className="text-sm text-muted-foreground">Available</p>
+                  <p className="text-sm text-muted-foreground">{t('wallets.available')}</p>
                 </div>
                 <p className="text-xl font-bold" data-testid="text-unstaked-balance">
                   {formatBalance(wallet.unstakedBalance)} TBURN
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Liquid balance
+                  {t('common.balance')}
                 </p>
               </div>
             </div>
@@ -169,14 +171,14 @@ export default function WalletDetail() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Award className="h-5 w-5" />
-              Rewards & Activity
+              {t('wallets.rewards')} & {t('members.activity')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
               <div className="flex items-center gap-2 mb-2">
                 <Award className="h-4 w-4 text-blue-500" />
-                <p className="text-sm text-muted-foreground">Total Rewards Earned</p>
+                <p className="text-sm text-muted-foreground">{t('wallets.totalRewards')}</p>
               </div>
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400" data-testid="text-rewards-earned">
                 {formatBalance(wallet.rewardsEarned)} TBURN
@@ -189,7 +191,7 @@ export default function WalletDetail() {
               <div>
                 <div className="flex items-center gap-2">
                   <Activity className="h-4 w-4 text-muted-foreground" />
-                  <p className="text-sm text-muted-foreground">Transaction Count</p>
+                  <p className="text-sm text-muted-foreground">{t('blocks.transactionCount')}</p>
                 </div>
                 <p className="text-lg font-semibold mt-1" data-testid="text-tx-count">
                   {formatNumber(wallet.transactionCount)}
@@ -198,12 +200,12 @@ export default function WalletDetail() {
               <div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
-                  <p className="text-sm text-muted-foreground">Last Activity</p>
+                  <p className="text-sm text-muted-foreground">{t('wallets.lastActivity')}</p>
                 </div>
                 <p className="text-sm mt-1" data-testid="text-last-activity">
                   {wallet.lastTransactionAt 
                     ? new Date(wallet.lastTransactionAt).toLocaleString() 
-                    : "No activity"}
+                    : t('wallets.never')}
                 </p>
               </div>
             </div>
@@ -215,19 +217,19 @@ export default function WalletDetail() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Hash className="h-5 w-5" />
-            Wallet Information
+            {t('wallets.walletDetails')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <p className="text-sm text-muted-foreground">Full Address</p>
+              <p className="text-sm text-muted-foreground">{t('common.address')}</p>
               <p className="font-mono text-sm break-all" data-testid="text-full-address">
                 {wallet.address}
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Wallet ID</p>
+              <p className="text-sm text-muted-foreground">{t('common.wallet')} ID</p>
               <p className="font-mono text-sm" data-testid="text-wallet-id">
                 {wallet.id}
               </p>
@@ -239,19 +241,19 @@ export default function WalletDetail() {
           <div className="grid gap-4 md:grid-cols-4">
             <div className="text-center p-3 rounded-lg bg-muted/30">
               <p className="text-2xl font-bold">{formatBalance(wallet.balance)}</p>
-              <p className="text-xs text-muted-foreground">Total TBURN</p>
+              <p className="text-xs text-muted-foreground">{t('common.total')} TBURN</p>
             </div>
             <div className="text-center p-3 rounded-lg bg-green-500/10">
               <p className="text-2xl font-bold text-green-600 dark:text-green-400">{stakingPercentage}%</p>
-              <p className="text-xs text-muted-foreground">Staking Rate</p>
+              <p className="text-xs text-muted-foreground">{t('wallets.stakingOverview')}</p>
             </div>
             <div className="text-center p-3 rounded-lg bg-blue-500/10">
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{formatBalance(wallet.rewardsEarned)}</p>
-              <p className="text-xs text-muted-foreground">Rewards</p>
+              <p className="text-xs text-muted-foreground">{t('wallets.rewards')}</p>
             </div>
             <div className="text-center p-3 rounded-lg bg-muted/30">
               <p className="text-2xl font-bold">{formatNumber(wallet.transactionCount)}</p>
-              <p className="text-xs text-muted-foreground">Transactions</p>
+              <p className="text-xs text-muted-foreground">{t('common.transactions')}</p>
             </div>
           </div>
         </CardContent>
@@ -262,7 +264,7 @@ export default function WalletDetail() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5" />
-              Recent Transactions
+              {t('wallets.recentTransactions')}
             </CardTitle>
           </CardHeader>
           <CardContent>

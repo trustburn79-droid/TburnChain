@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
+import { useTranslation } from "react-i18next";
 import { ArrowLeft, Blocks, Clock, Database, User, Hash } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +18,7 @@ import { formatAddress, formatTimeAgo, formatNumber, formatGasEmber } from "@/li
 import type { Block, Transaction } from "@shared/schema";
 
 export default function BlockDetail() {
+  const { t } = useTranslation();
   const params = useParams<{ blockNumber: string }>();
   const blockNumber = parseInt(params.blockNumber || "0");
 
@@ -52,9 +54,9 @@ export default function BlockDetail() {
     return (
       <div className="flex flex-col gap-6 p-6">
         <div>
-          <h1 className="text-3xl font-semibold">Block #{blockNumber}</h1>
+          <h1 className="text-3xl font-semibold">{t('common.block')} #{blockNumber}</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Block is currently being generated.
+            {t('blocks.blockBeingGenerated')}
           </p>
         </div>
       </div>
@@ -71,15 +73,15 @@ export default function BlockDetail() {
           data-testid="button-back"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back
+          {t('common.back')}
         </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-semibold flex items-center gap-2">
             <Blocks className="h-8 w-8" />
-            Block #{formatNumber(block.blockNumber)}
+            {t('common.block')} #{formatNumber(block.blockNumber)}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Block details and transactions
+            {t('blocks.blockDetailsAndTx')}
           </p>
         </div>
       </div>
@@ -87,40 +89,40 @@ export default function BlockDetail() {
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Block Information</CardTitle>
+            <CardTitle>{t('blocks.blockInformation')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">Block Height</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.blockHeight')}</p>
                 <p className="font-mono font-semibold">
                   {formatNumber(block.blockNumber)}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Timestamp</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.timestamp')}</p>
                 <p className="text-sm">{formatTimeAgo(block.timestamp)}</p>
               </div>
             </div>
 
             <div>
-              <p className="text-sm text-muted-foreground">Block Hash</p>
+              <p className="text-sm text-muted-foreground">{t('blocks.blockHash')}</p>
               <p className="font-mono text-sm break-all">{block.hash}</p>
             </div>
 
             <div>
-              <p className="text-sm text-muted-foreground">Parent Hash</p>
+              <p className="text-sm text-muted-foreground">{t('blocks.parentHash')}</p>
               <p className="font-mono text-sm break-all">{block.parentHash}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">Shard ID</p>
-                <Badge variant="outline">Shard {block.shardId}</Badge>
+                <p className="text-sm text-muted-foreground">{t('blocks.shard')}</p>
+                <Badge variant="outline">{t('blocks.shard')} {block.shardId}</Badge>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Transactions</p>
-                <Badge variant="secondary">{block.transactionCount} txs</Badge>
+                <p className="text-sm text-muted-foreground">{t('common.transactions')}</p>
+                <Badge variant="secondary">{block.transactionCount} {t('blocks.txns')}</Badge>
               </div>
             </div>
           </CardContent>
@@ -128,37 +130,37 @@ export default function BlockDetail() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Technical Details</CardTitle>
+            <CardTitle>{t('dashboard.technicalDetails')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-sm text-muted-foreground">Validator</p>
+              <p className="text-sm text-muted-foreground">{t('blocks.validator')}</p>
               <p className="font-mono text-sm">{formatAddress(block.validatorAddress)}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">Gas Used</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.gasUsed')}</p>
                 <p className="tabular-nums text-sm">{formatGasEmber(block.gasUsed)}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Gas Limit</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.gasLimit')}</p>
                 <p className="tabular-nums text-sm">{formatGasEmber(block.gasLimit)}</p>
               </div>
             </div>
 
             <div>
-              <p className="text-sm text-muted-foreground">State Root</p>
+              <p className="text-sm text-muted-foreground">{t('blocks.stateRoot')}</p>
               <p className="font-mono text-sm break-all">{block.stateRoot}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">Size</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.size')}</p>
                 <p className="tabular-nums text-sm">{formatNumber(block.size)} bytes</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Hash Algorithm</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.hashAlgo')}</p>
                 <Badge variant="outline">{block.hashAlgorithm}</Badge>
               </div>
             </div>
@@ -168,7 +170,7 @@ export default function BlockDetail() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Transactions in Block</CardTitle>
+          <CardTitle>{t('blocks.transactionsInBlock')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoadingTxs ? (
@@ -182,12 +184,12 @@ export default function BlockDetail() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Hash</TableHead>
-                    <TableHead>From</TableHead>
-                    <TableHead>To</TableHead>
-                    <TableHead>Value</TableHead>
-                    <TableHead>Gas Used</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>{t('common.hash')}</TableHead>
+                    <TableHead>{t('common.from')}</TableHead>
+                    <TableHead>{t('common.to')}</TableHead>
+                    <TableHead>{t('common.value')}</TableHead>
+                    <TableHead>{t('blocks.gasUsed')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -200,7 +202,7 @@ export default function BlockDetail() {
                         {formatAddress(tx.from)}
                       </TableCell>
                       <TableCell className="font-mono text-sm">
-                        {tx.to ? formatAddress(tx.to) : "Contract Creation"}
+                        {tx.to ? formatAddress(tx.to) : t('transactions.contractCreation')}
                       </TableCell>
                       <TableCell className="tabular-nums text-sm">
                         {formatNumber(parseInt(tx.value) / 1e18)} TBURN
@@ -211,12 +213,12 @@ export default function BlockDetail() {
                       <TableCell>
                         {tx.status === "success" ? (
                           <Badge variant="outline" className="text-green-600">
-                            Success
+                            {t('transactions.success')}
                           </Badge>
                         ) : tx.status === "pending" ? (
-                          <Badge variant="secondary">Pending</Badge>
+                          <Badge variant="secondary">{t('transactions.pending')}</Badge>
                         ) : (
-                          <Badge variant="destructive">Failed</Badge>
+                          <Badge variant="destructive">{t('transactions.failed')}</Badge>
                         )}
                       </TableCell>
                     </TableRow>
@@ -226,7 +228,7 @@ export default function BlockDetail() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-muted-foreground">No transactions in this block</p>
+              <p className="text-muted-foreground">{t('blocks.noTransactions')}</p>
             </div>
           )}
         </CardContent>

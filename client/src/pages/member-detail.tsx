@@ -1,5 +1,6 @@
 import { useParams, Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import {
   Card,
   CardContent,
@@ -49,14 +50,12 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 
-// Helper function to safely validate and format dates
 const isValidDate = (date: any): boolean => {
   if (!date) return false;
   const d = new Date(date);
   return d instanceof Date && !isNaN(d.getTime()) && d.getTime() > 0;
 };
 
-// Safe date formatting helper
 const formatDateSafe = (date: any, options?: any): string => {
   if (!isValidDate(date)) return "N/A";
   try {
@@ -74,6 +73,8 @@ interface MemberDetail {
   kycLevel: string;
   joinedAt: string;
   updatedAt: string;
+  displayName?: string;
+  legalName?: string;
   profile?: {
     displayName: string;
     email?: string;
@@ -164,22 +165,25 @@ const kycColors: Record<string, string> = {
 };
 
 export default function MemberDetailPage() {
+  const { t } = useTranslation();
   const params = useParams();
   const memberId = params.id;
 
-  // Fetch member details
   const { data: member, isLoading } = useQuery<MemberDetail>({
     queryKey: [`/api/members/${memberId}`],
     refetchInterval: 10000,
   });
 
-  // Fetch audit logs
   const { data: auditLogs } = useQuery<Array<{
     id: string;
     action: string;
     details: string;
     timestamp: string;
     performedBy?: string;
+    createdAt?: string;
+    resource?: string;
+    resourceId?: string;
+    actor?: string;
   }>>({
     queryKey: [`/api/members/${memberId}/audit-logs`],
     refetchInterval: 30000,
@@ -229,14 +233,14 @@ export default function MemberDetailPage() {
       <div className="container mx-auto p-8">
         <div className="text-center py-12">
           <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Member Not Found</h2>
+          <h2 className="text-2xl font-bold mb-2">{t('members.notFound')}</h2>
           <p className="text-muted-foreground mb-4">
-            The member you're looking for doesn't exist.
+            {t('members.notFoundDesc')}
           </p>
           <Link href="/members">
             <Button variant="outline">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Members
+              {t('common.back')}
             </Button>
           </Link>
         </div>
@@ -246,18 +250,17 @@ export default function MemberDetailPage() {
 
   return (
     <div className="container mx-auto p-8">
-      {/* Header */}
       <div className="mb-8">
         <Link href="/members">
           <Button variant="outline" size="sm" className="mb-4">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Members
+            {t('common.back')}
           </Button>
         </Link>
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-4xl font-bold mb-2">
-              {member.displayName || member.profile?.displayName || "Anonymous Member"}
+              {member.displayName || member.profile?.displayName || t('members.anonymousMember')}
             </h1>
             <div className="flex items-center gap-4">
               <code className="text-sm bg-muted px-2 py-1 rounded">
@@ -283,13 +286,12 @@ export default function MemberDetailPage() {
         </div>
       </div>
 
-      {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <Card data-testid="card-voting-power">
           <CardHeader className="pb-3">
             <CardDescription className="flex items-center gap-2">
               <Vote className="h-4 w-4" />
-              Voting Power
+              {t('members.votingPower')}
             </CardDescription>
             <CardTitle className="text-2xl">
               {member.governance?.votingPower || "0"}
@@ -300,7 +302,7 @@ export default function MemberDetailPage() {
           <CardHeader className="pb-3">
             <CardDescription className="flex items-center gap-2">
               <Lock className="h-4 w-4" />
-              Total Staked
+              {t('members.totalStaked')}
             </CardDescription>
             <CardTitle className="text-2xl">
               {formatAmount(member.financial?.totalStaked)} TBURN
@@ -311,7 +313,7 @@ export default function MemberDetailPage() {
           <CardHeader className="pb-3">
             <CardDescription className="flex items-center gap-2">
               <DollarSign className="h-4 w-4" />
-              Total Rewards
+              {t('members.totalRewards')}
             </CardDescription>
             <CardTitle className="text-2xl">
               {formatAmount(member.financial?.totalRewards)} TBURN
@@ -322,7 +324,7 @@ export default function MemberDetailPage() {
           <CardHeader className="pb-3">
             <CardDescription className="flex items-center gap-2">
               <Award className="h-4 w-4" />
-              Reputation Score
+              {t('members.reputationScore')}
             </CardDescription>
             <CardTitle className="text-2xl">
               {member.performance?.reputationScore || 0}/100
@@ -331,67 +333,65 @@ export default function MemberDetailPage() {
         </Card>
       </div>
 
-      {/* Detailed Information Tabs */}
       <Tabs defaultValue="profile" className="space-y-4">
         <TabsList>
           <TabsTrigger value="profile" data-testid="tab-profile">
-            Profile
+            {t('members.profile')}
           </TabsTrigger>
           <TabsTrigger value="staking" data-testid="tab-staking">
-            Staking ({member.stakingPositions?.length || 0})
+            {t('nav.staking')} ({member.stakingPositions?.length || 0})
           </TabsTrigger>
           <TabsTrigger value="governance" data-testid="tab-governance">
-            Governance
+            {t('members.governance')}
           </TabsTrigger>
           <TabsTrigger value="financial" data-testid="tab-financial">
-            Financial
+            {t('members.financialSummary')}
           </TabsTrigger>
           <TabsTrigger value="performance" data-testid="tab-performance">
-            Performance
+            {t('members.performance')}
           </TabsTrigger>
           <TabsTrigger value="security" data-testid="tab-security">
-            Security
+            {t('members.security')}
           </TabsTrigger>
           <TabsTrigger value="audit" data-testid="tab-audit">
-            Audit Logs
+            {t('members.recentActivity')}
           </TabsTrigger>
         </TabsList>
 
-        {/* Profile Tab */}
         <TabsContent value="profile">
           <Card>
             <CardHeader>
-              <CardTitle>Profile Information</CardTitle>
+              <CardTitle>{t('members.profile')}</CardTitle>
               <CardDescription>
-                Member profile and contact details
+                {t('members.memberDetails')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-sm text-muted-foreground">Display Name</div>
-                  <div className="font-medium">{member.displayName || "Not set"}</div>
+                  <div className="text-sm text-muted-foreground">{t('common.name')}</div>
+                  <div className="font-medium">{member.displayName || t('common.none')}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Account Address</div>
+                  <div className="text-sm text-muted-foreground">{t('common.address')}</div>
                   <div className="font-medium font-mono text-sm">{member.accountAddress}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Legal Name</div>
-                  <div className="font-medium">{member.legalName || "Not set"}</div>
+                  <div className="text-sm text-muted-foreground">{t('members.legalName')}</div>
+                  <div className="font-medium">{member.legalName || t('common.none')}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Website</div>
-                  <div className="font-medium">{member.profile?.website || "Not set"}</div>
+                  <div className="text-sm text-muted-foreground">{t('members.website')}</div>
+                  <div className="font-medium">{member.profile?.website || t('common.none')}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Member Since</div>
+                  <div className="text-sm text-muted-foreground">{t('members.joinedNetwork')}</div>
                   <div className="font-medium">
                     {formatDateSafe(member.joinedAt, { addSuffix: true })}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Last Updated</div>
+                  <div className="text-sm text-muted-foreground">{t('members.lastUpdated')}</div>
                   <div className="font-medium">
                     {formatDateSafe(member.updatedAt, { addSuffix: true })}
                   </div>
@@ -399,7 +399,7 @@ export default function MemberDetailPage() {
               </div>
               {member.profile?.bio && (
                 <div>
-                  <div className="text-sm text-muted-foreground mb-2">Bio</div>
+                  <div className="text-sm text-muted-foreground mb-2">{t('members.bio')}</div>
                   <div className="p-3 bg-muted rounded-md">{member.profile.bio}</div>
                 </div>
               )}
@@ -407,13 +407,12 @@ export default function MemberDetailPage() {
           </Card>
         </TabsContent>
 
-        {/* Staking Tab */}
         <TabsContent value="staking">
           <Card>
             <CardHeader>
-              <CardTitle>Staking Positions</CardTitle>
+              <CardTitle>{t('members.stakingPositions')}</CardTitle>
               <CardDescription>
-                Active and historical staking positions
+                {t('members.stakingPositions')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -421,12 +420,12 @@ export default function MemberDetailPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Validator</TableHead>
-                      <TableHead>Amount Staked</TableHead>
-                      <TableHead>Rewards</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Staked At</TableHead>
-                      <TableHead>Last Claim</TableHead>
+                      <TableHead>{t('validators.validator')}</TableHead>
+                      <TableHead>{t('members.stakedAmount')}</TableHead>
+                      <TableHead>{t('wallets.rewards')}</TableHead>
+                      <TableHead>{t('common.status')}</TableHead>
+                      <TableHead>{t('members.startedAt')}</TableHead>
+                      <TableHead>{t('validators.lastVoted')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -463,7 +462,7 @@ export default function MemberDetailPage() {
                         <TableCell>
                           {position.lastClaimAt
                             ? formatDateSafe(position.lastClaimAt, { addSuffix: true })
-                            : "Never"}
+                            : t('common.none')}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -472,48 +471,47 @@ export default function MemberDetailPage() {
               ) : (
                 <div className="text-center py-8">
                   <Coins className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">No staking positions found</p>
+                  <p className="text-muted-foreground">{t('members.noStakingPositions')}</p>
                 </div>
               )}
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* Governance Tab */}
         <TabsContent value="governance">
           <Card>
             <CardHeader>
-              <CardTitle>Governance Participation</CardTitle>
+              <CardTitle>{t('members.governanceParticipation')}</CardTitle>
               <CardDescription>
-                Voting power and participation metrics
+                {t('members.votingPower')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div>
-                  <div className="text-sm text-muted-foreground">Voting Power</div>
+                  <div className="text-sm text-muted-foreground">{t('members.votingPower')}</div>
                   <div className="text-2xl font-bold">{member.governance?.votingPower || "0"}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Proposals Created</div>
+                  <div className="text-sm text-muted-foreground">{t('members.proposalsCreated')}</div>
                   <div className="text-2xl font-bold">
                     {member.governance?.proposalsCreated || 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Votes Participated</div>
+                  <div className="text-sm text-muted-foreground">{t('members.votesParticipated')}</div>
                   <div className="text-2xl font-bold">
                     {member.governance?.votesParticipated || 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Current Delegations</div>
+                  <div className="text-sm text-muted-foreground">{t('members.delegations')}</div>
                   <div className="text-2xl font-bold">
                     {member.governance?.currentDelegations || 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Delegated Voting Power</div>
+                  <div className="text-sm text-muted-foreground">{t('members.delegatedVotingPower')}</div>
                   <div className="text-2xl font-bold">
                     {member.governance?.delegatedVotingPower || "0"}
                   </div>
@@ -523,49 +521,48 @@ export default function MemberDetailPage() {
           </Card>
         </TabsContent>
 
-        {/* Financial Tab */}
         <TabsContent value="financial">
           <Card>
             <CardHeader>
-              <CardTitle>Financial Overview</CardTitle>
+              <CardTitle>{t('members.financialSummary')}</CardTitle>
               <CardDescription>
-                Balances, rewards, and financial metrics
+                {t('members.financialSummary')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div>
-                  <div className="text-sm text-muted-foreground">Total Staked</div>
+                  <div className="text-sm text-muted-foreground">{t('members.totalStaked')}</div>
                   <div className="text-2xl font-bold">
                     {formatAmount(member.financial?.totalStaked)} TBURN
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Total Rewards</div>
+                  <div className="text-sm text-muted-foreground">{t('members.totalRewards')}</div>
                   <div className="text-2xl font-bold text-green-500">
                     {formatAmount(member.financial?.totalRewards)} TBURN
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Total Withdrawn</div>
+                  <div className="text-sm text-muted-foreground">{t('members.totalWithdrawn')}</div>
                   <div className="text-2xl font-bold">
                     {formatAmount(member.financial?.totalWithdrawn)} TBURN
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Pending Rewards</div>
+                  <div className="text-sm text-muted-foreground">{t('members.pendingRewards')}</div>
                   <div className="text-2xl font-bold text-yellow-500">
                     {formatAmount(member.financial?.pendingRewards)} TBURN
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Locked Balance</div>
+                  <div className="text-sm text-muted-foreground">{t('members.lockedBalance')}</div>
                   <div className="text-2xl font-bold">
                     {formatAmount(member.financial?.lockedBalance)} TBURN
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Available Balance</div>
+                  <div className="text-sm text-muted-foreground">{t('members.availableBalance')}</div>
                   <div className="text-2xl font-bold text-blue-500">
                     {formatAmount(member.financial?.availableBalance)} TBURN
                   </div>
@@ -575,39 +572,38 @@ export default function MemberDetailPage() {
           </Card>
         </TabsContent>
 
-        {/* Performance Tab */}
         <TabsContent value="performance">
           <Card>
             <CardHeader>
-              <CardTitle>Performance Metrics</CardTitle>
+              <CardTitle>{t('members.performanceMetrics')}</CardTitle>
               <CardDescription>
-                Transaction history and performance indicators
+                {t('members.performanceMetrics')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
-                    <div className="text-sm text-muted-foreground">Total Transactions</div>
+                    <div className="text-sm text-muted-foreground">{t('members.totalTransactions')}</div>
                     <div className="text-2xl font-bold">
                       {member.performance?.totalTransactions || 0}
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground">Success Rate</div>
+                    <div className="text-sm text-muted-foreground">{t('members.successfulTx')}</div>
                     <div className="text-2xl font-bold text-green-500">
                       {((member.performance?.successfulTransactions || 0) /
                         (member.performance?.totalTransactions || 1) * 100).toFixed(1)}%
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground">Avg Response Time</div>
+                    <div className="text-sm text-muted-foreground">{t('members.avgResponseTime')}</div>
                     <div className="text-2xl font-bold">
                       {member.performance?.averageResponseTime || 0}ms
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground">Slash Events</div>
+                    <div className="text-sm text-muted-foreground">{t('members.slashEvents')}</div>
                     <div className="text-2xl font-bold text-red-500">
                       {member.performance?.slashEvents || 0}
                     </div>
@@ -617,7 +613,7 @@ export default function MemberDetailPage() {
                 <div className="space-y-3">
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-sm">Reliability</span>
+                      <span className="text-sm">{t('members.reliability')}</span>
                       <span className="text-sm font-medium">
                         {member.performance?.reliability || 0}%
                       </span>
@@ -626,7 +622,7 @@ export default function MemberDetailPage() {
                   </div>
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-sm">Uptime</span>
+                      <span className="text-sm">{t('members.uptimeScore')}</span>
                       <span className="text-sm font-medium">
                         {member.performance?.uptime || 0}%
                       </span>
@@ -635,7 +631,7 @@ export default function MemberDetailPage() {
                   </div>
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-sm">Reputation Score</span>
+                      <span className="text-sm">{t('members.reputationScore')}</span>
                       <span className="text-sm font-medium">
                         {member.performance?.reputationScore || 0}/100
                       </span>
@@ -648,65 +644,64 @@ export default function MemberDetailPage() {
           </Card>
         </TabsContent>
 
-        {/* Security Tab */}
         <TabsContent value="security">
           <Card>
             <CardHeader>
-              <CardTitle>Security Settings</CardTitle>
+              <CardTitle>{t('members.securitySettings')}</CardTitle>
               <CardDescription>
-                Account security and access control
+                {t('members.securitySettings')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <div className="text-sm text-muted-foreground">Two-Factor Authentication</div>
+                  <div className="text-sm text-muted-foreground">{t('members.twoFactorAuth')}</div>
                   <div className="flex items-center gap-2 mt-1">
                     {member.security?.twoFactorEnabled ? (
                       <>
                         <CheckCircle className="h-5 w-5 text-green-500" />
-                        <span className="font-medium">Enabled</span>
+                        <span className="font-medium">{t('members.enabled')}</span>
                       </>
                     ) : (
                       <>
                         <XCircle className="h-5 w-5 text-red-500" />
-                        <span className="font-medium">Disabled</span>
+                        <span className="font-medium">{t('members.disabled')}</span>
                       </>
                     )}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">API Keys Active</div>
+                  <div className="text-sm text-muted-foreground">{t('members.activeApiKeys')}</div>
                   <div className="text-2xl font-bold">{member.security?.apiKeysActive || 0}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Failed Login Attempts</div>
+                  <div className="text-sm text-muted-foreground">{t('members.failedLoginAttempts')}</div>
                   <div className="text-2xl font-bold text-red-500">
                     {member.security?.failedLoginAttempts || 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Last Password Change</div>
+                  <div className="text-sm text-muted-foreground">{t('members.lastPasswordChange')}</div>
                   <div className="font-medium">
                     {member.security?.lastPasswordChange
                       ? formatDateSafe(member.security.lastPasswordChange, {
                           addSuffix: true,
                         })
-                      : "Never"}
+                      : t('common.none')}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Last Failed Login</div>
+                  <div className="text-sm text-muted-foreground">{t('members.lastFailedLogin')}</div>
                   <div className="font-medium">
                     {member.security?.lastFailedLogin
                       ? formatDateSafe(member.security.lastFailedLogin, {
                           addSuffix: true,
                         })
-                      : "Never"}
+                      : t('common.none')}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">IP Whitelist</div>
+                  <div className="text-sm text-muted-foreground">{t('members.ipWhitelist')}</div>
                   <div className="font-medium">
                     {member.security?.ipWhitelist?.length || 0} IPs
                   </div>
@@ -716,13 +711,12 @@ export default function MemberDetailPage() {
           </Card>
         </TabsContent>
 
-        {/* Audit Logs Tab */}
         <TabsContent value="audit">
           <Card>
             <CardHeader>
-              <CardTitle>Audit Logs</CardTitle>
+              <CardTitle>{t('members.recentActivity')}</CardTitle>
               <CardDescription>
-                Recent activity and changes
+                {t('members.recentActivity')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -730,10 +724,10 @@ export default function MemberDetailPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Timestamp</TableHead>
-                      <TableHead>Action</TableHead>
-                      <TableHead>Details</TableHead>
-                      <TableHead>Performed By</TableHead>
+                      <TableHead>{t('common.time')}</TableHead>
+                      <TableHead>{t('common.action')}</TableHead>
+                      <TableHead>{t('common.details')}</TableHead>
+                      <TableHead>{t('common.from')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -756,30 +750,29 @@ export default function MemberDetailPage() {
               ) : (
                 <div className="text-center py-8">
                   <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">No audit logs available</p>
+                  <p className="text-muted-foreground">{t('members.noRecentActivity')}</p>
                 </div>
               )}
             </CardContent>
           </Card>
 
-          {/* Slash Events */}
           {member.slashEvents && member.slashEvents.length > 0 && (
             <Card className="mt-4">
               <CardHeader>
-                <CardTitle>Slash Events</CardTitle>
+                <CardTitle>{t('members.slashEvents')}</CardTitle>
                 <CardDescription>
-                  Penalties and slashing history
+                  {t('members.slashEvents')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Reason</TableHead>
-                      <TableHead>Status</TableHead>
+                      <TableHead>{t('common.date')}</TableHead>
+                      <TableHead>{t('common.type')}</TableHead>
+                      <TableHead>{t('common.amount')}</TableHead>
+                      <TableHead>{t('common.description')}</TableHead>
+                      <TableHead>{t('common.status')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -797,9 +790,9 @@ export default function MemberDetailPage() {
                         <TableCell>{event.reason}</TableCell>
                         <TableCell>
                           {event.reversedAt ? (
-                            <Badge variant="outline">Reversed</Badge>
+                            <Badge variant="outline">{t('common.completed')}</Badge>
                           ) : (
-                            <Badge variant="destructive">Active</Badge>
+                            <Badge variant="destructive">{t('common.active')}</Badge>
                           )}
                         </TableCell>
                       </TableRow>
