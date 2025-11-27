@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,6 +7,9 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { 
   Coins, 
   TrendingUp,
@@ -30,12 +33,13 @@ import {
   PiggyBank,
   BarChart3,
   Calculator,
-  Gift
+  Gift,
+  Loader2
 } from "lucide-react";
 import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import type { StakingPool } from "@shared/schema";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 
 interface StakingStatsResponse {
   totalValueLocked: string;
@@ -46,6 +50,30 @@ interface StakingStatsResponse {
   highestApy: number;
   lowestApy: number;
   currentRewardCycle: number;
+}
+
+interface PoolResponse {
+  id: string;
+  name: string;
+  poolType: string;
+  tier: string;
+  validatorId: string | null;
+  validatorAddress: string;
+  validatorName: string;
+  minStake: string;
+  maxStake: string | null;
+  apy: number;
+  apyBoost: number;
+  totalStaked: string;
+  stakersCount: number;
+  totalStakers?: number;
+  lockPeriodDays: number;
+  earlyWithdrawalPenalty: number;
+  status: string;
+  isCompoundingEnabled: boolean;
+  rewardFrequency: string;
+  description: string;
+  createdAt: string;
 }
 
 interface TierResponse {
@@ -107,18 +135,71 @@ function formatWeiToTBURN(weiStr: string | null | undefined): string {
 export default function StakingDashboard() {
   const { toast } = useToast();
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
+  const [stakeDialogOpen, setStakeDialogOpen] = useState(false);
+  const [selectedPool, setSelectedPool] = useState<PoolResponse | null>(null);
+  const [stakeAmount, setStakeAmount] = useState("");
 
   const { data: stats, isLoading: statsLoading } = useQuery<StakingStatsResponse>({
     queryKey: ["/api/staking/stats"]
   });
 
-  const { data: pools, isLoading: poolsLoading } = useQuery<StakingPool[]>({
+  const { data: pools, isLoading: poolsLoading } = useQuery<PoolResponse[]>({
     queryKey: ["/api/staking/pools"]
   });
 
   const { data: tiers, isLoading: tiersLoading } = useQuery<TierResponse[]>({
     queryKey: ["/api/staking/tiers"]
   });
+
+  const stakeMutation = useMutation({
+    mutationFn: async (data: { poolId: string; amount: string }) => {
+      const weiAmount = (parseFloat(data.amount) * 1e18).toString();
+      return apiRequest("/api/staking/stake", {
+        method: "POST",
+        body: JSON.stringify({
+          poolId: data.poolId,
+          amount: weiAmount,
+          stakerAddress: `0xTBURN${Math.random().toString(16).slice(2, 42)}`,
+          lockPeriodDays: selectedPool?.lockPeriodDays || 30
+        })
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Stake Successful",
+        description: `Successfully staked ${stakeAmount} TBURN in ${selectedPool?.name}`,
+      });
+      setStakeDialogOpen(false);
+      setStakeAmount("");
+      setSelectedPool(null);
+      queryClient.invalidateQueries({ queryKey: ["/api/staking/pools"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/staking/stats"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Stake Failed",
+        description: error.message || "Failed to stake TBURN",
+        variant: "destructive"
+      });
+    }
+  });
+
+  const handleStake = (pool: PoolResponse) => {
+    setSelectedPool(pool);
+    setStakeDialogOpen(true);
+  };
+
+  const submitStake = () => {
+    if (!selectedPool || !stakeAmount || parseFloat(stakeAmount) <= 0) {
+      toast({
+        title: "Invalid Amount",
+        description: "Please enter a valid stake amount",
+        variant: "destructive"
+      });
+      return;
+    }
+    stakeMutation.mutate({ poolId: selectedPool.id, amount: stakeAmount });
+  };
 
   const filteredPools = selectedTier 
     ? pools?.filter(p => p.tier.toLowerCase() === selectedTier)
@@ -309,11 +390,11 @@ export default function StakingDashboard() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-xs text-muted-foreground">Base APY</p>
-                        <p className="text-xl font-bold text-green-500">{(pool.baseApy / 100).toFixed(1)}%</p>
+                        <p className="text-xl font-bold text-green-500">{pool.apy?.toFixed(1) || "0.0"}%</p>
                       </div>
                       <div>
                         <p className="text-xs text-muted-foreground">With Boost</p>
-                        <p className="text-xl font-bold text-emerald-500">{((pool.baseApy + pool.apyBoost) / 100).toFixed(1)}%</p>
+                        <p className="text-xl font-bold text-emerald-500">{((pool.apy || 0) + (pool.apyBoost || 0)).toFixed(1)}%</p>
                       </div>
                     </div>
 
@@ -322,7 +403,7 @@ export default function StakingDashboard() {
                         <span className="text-muted-foreground">Total Staked</span>
                         <span>{formatWeiToTBURN(pool.totalStaked)} TBURN</span>
                       </div>
-                      <Progress value={Math.min(100, (parseInt(pool.totalStaked) / 1e21) * 100)} />
+                      <Progress value={Math.min(100, (parseInt(pool.totalStaked || "0") / 1e21) * 100)} />
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-sm">
@@ -332,12 +413,17 @@ export default function StakingDashboard() {
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="h-3 w-3 text-muted-foreground" />
-                        <span>{pool.totalStakers} stakers</span>
+                        <span>{pool.stakersCount || pool.totalStakers || 0} stakers</span>
                       </div>
                     </div>
 
                     <div className="flex gap-2">
-                      <Button className="flex-1" size="sm" data-testid={`button-stake-${pool.id}`}>
+                      <Button 
+                        className="flex-1" 
+                        size="sm" 
+                        onClick={() => handleStake(pool)}
+                        data-testid={`button-stake-${pool.id}`}
+                      >
                         <Coins className="h-4 w-4 mr-1" />
                         Stake
                       </Button>
@@ -558,7 +644,7 @@ export default function StakingDashboard() {
                         <span className="text-sm font-medium">{pool.name}</span>
                       </div>
                       <div className="text-right">
-                        <span className="text-sm font-bold text-green-500">{(pool.baseApy / 100).toFixed(1)}%</span>
+                        <span className="text-sm font-bold text-green-500">{pool.apy?.toFixed(1) || "0.0"}%</span>
                         <p className="text-xs text-muted-foreground">APY</p>
                       </div>
                     </div>
@@ -657,7 +743,7 @@ export default function StakingDashboard() {
                       <option value="">Select a pool...</option>
                       {pools?.map(pool => (
                         <option key={pool.id} value={pool.id}>
-                          {pool.name} - {(pool.baseApy / 100).toFixed(1)}% APY ({pool.tier})
+                          {pool.name} - {pool.apy?.toFixed(1) || "0.0"}% APY ({pool.tier})
                         </option>
                       ))}
                     </select>
@@ -808,6 +894,126 @@ export default function StakingDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      <Dialog open={stakeDialogOpen} onOpenChange={setStakeDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Coins className="h-5 w-5 text-primary" />
+              Stake TBURN
+            </DialogTitle>
+            <DialogDescription>
+              Stake your TBURN tokens in {selectedPool?.name} to earn rewards
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedPool && (
+            <div className="space-y-4 py-4">
+              <div className="p-4 rounded-lg bg-muted/50">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-muted-foreground">Pool</span>
+                  <Badge className={tierColors[selectedPool.tier.toLowerCase()]}>
+                    {selectedPool.tier}
+                  </Badge>
+                </div>
+                <p className="font-medium">{selectedPool.name}</p>
+                <div className="grid grid-cols-2 gap-2 mt-3 text-sm">
+                  <div>
+                    <span className="text-muted-foreground">Base APY:</span>
+                    <span className="ml-2 font-medium text-green-500">
+                      {selectedPool.apy?.toFixed(1) || "0.0"}%
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Lock Period:</span>
+                    <span className="ml-2 font-medium">{selectedPool.lockPeriodDays} days</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="stakeAmount">Amount to Stake (TBURN)</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="stakeAmount"
+                    type="number"
+                    placeholder="Enter amount..."
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(e.target.value)}
+                    min="0"
+                    step="0.01"
+                    data-testid="input-stake-dialog-amount"
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setStakeAmount("1000")}
+                    data-testid="button-stake-preset-1k"
+                  >
+                    1K
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setStakeAmount("10000")}
+                    data-testid="button-stake-preset-10k"
+                  >
+                    10K
+                  </Button>
+                </div>
+              </div>
+
+              {stakeAmount && parseFloat(stakeAmount) > 0 && (
+                <div className="p-3 rounded-md border bg-green-500/10 border-green-500/20">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Estimated Daily Rewards:</span>
+                    <span className="font-medium text-green-500">
+                      ~ {((parseFloat(stakeAmount) * (selectedPool.apy || 12) / 100) / 365).toFixed(4)} TBURN
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm mt-1">
+                    <span className="text-muted-foreground">Estimated Yearly Rewards:</span>
+                    <span className="font-medium text-green-500">
+                      ~ {(parseFloat(stakeAmount) * (selectedPool.apy || 12) / 100).toFixed(2)} TBURN
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setStakeDialogOpen(false);
+                setStakeAmount("");
+                setSelectedPool(null);
+              }}
+              data-testid="button-stake-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={submitStake}
+              disabled={stakeMutation.isPending || !stakeAmount || parseFloat(stakeAmount) <= 0}
+              data-testid="button-stake-confirm"
+            >
+              {stakeMutation.isPending ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Staking...
+                </>
+              ) : (
+                <>
+                  <Coins className="h-4 w-4 mr-2" />
+                  Stake TBURN
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
