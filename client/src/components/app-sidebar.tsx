@@ -25,6 +25,7 @@ import {
   Settings,
   Shield,
   ShieldCheck,
+  Sprout,
   TrendingUp,
   UserCog,
   Users,
@@ -127,6 +128,12 @@ const menuItems = [
     title: "Lending",
     url: "/lending",
     icon: Landmark,
+    group: "DeFi",
+  },
+  {
+    title: "Yield Farming",
+    url: "/yield-farming",
+    icon: Sprout,
     group: "DeFi",
   },
   {

@@ -24,6 +24,7 @@ import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
 import { getRestartSupervisor, type RestartState } from "./services/RestartSupervisor";
 import { registerDexRoutes } from "./routes/dex-routes";
 import { registerLendingRoutes } from "./routes/lending-routes";
+import { registerYieldRoutes } from "./routes/yield-routes";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -363,6 +364,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // LENDING INFRASTRUCTURE (Modular Routes)
   // ============================================
   registerLendingRoutes(app, requireAuth);
+  registerYieldRoutes(app);
 
   // ============================================
   // Network Stats
@@ -9015,6 +9017,88 @@ Provide JSON portfolio analysis:
       console.error('[Lending WS] Error broadcasting liquidations:', error);
     }
   }, 20000, 'lending_liquidations_broadcast');
+
+  // ============================================
+  // YIELD FARMING WEBSOCKET BROADCASTS (Phase 3)
+  // ============================================
+
+  // Yield Vaults Stats - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const stats = await storage.getYieldFarmingStats();
+      const vaults = await storage.getActiveYieldVaults();
+      
+      broadcastUpdate('yield_vaults', {
+        stats,
+        vaults: vaults.slice(0, 20),
+        timestamp: Date.now(),
+      }, z.object({
+        stats: z.any(),
+        vaults: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] Yield vaults broadcast error:', error);
+    }
+  }, 10000, 'yield_vaults_broadcast');
+
+  // Yield Positions Update - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const positions = await storage.getAllYieldPositions();
+      const activePositions = positions.filter(p => p.status === 'active').slice(0, 50);
+      
+      broadcastUpdate('yield_positions', {
+        positions: activePositions,
+        totalActive: positions.filter(p => p.status === 'active').length,
+        timestamp: Date.now(),
+      }, z.object({
+        positions: z.array(z.any()),
+        totalActive: z.number(),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] Yield positions broadcast error:', error);
+    }
+  }, 5000, 'yield_positions_broadcast');
+
+  // Yield Harvests - Every 15 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const harvests = await storage.getRecentYieldHarvests(10);
+      
+      broadcastUpdate('yield_harvests', {
+        harvests,
+        timestamp: Date.now(),
+      }, z.object({
+        harvests: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] Yield harvests broadcast error:', error);
+    }
+  }, 15000, 'yield_harvests_broadcast');
+
+  // Yield Transactions - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const transactions = await storage.getRecentYieldTransactions(20);
+      
+      broadcastUpdate('yield_transactions', {
+        transactions,
+        timestamp: Date.now(),
+      }, z.object({
+        transactions: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] Yield transactions broadcast error:', error);
+    }
+  }, 5000, 'yield_transactions_broadcast');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)

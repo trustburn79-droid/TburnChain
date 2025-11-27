@@ -56,6 +56,9 @@ import DexPage from "@/pages/dex";
 // Lending Infrastructure Pages
 import LendingPage from "@/pages/lending";
 
+// Yield Farming Pages
+import YieldFarmingPage from "@/pages/yield-farming";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -116,6 +119,7 @@ function Router() {
       <Route path="/dex" component={DexPage} />
       {/* Lending Infrastructure Routes */}
       <Route path="/lending" component={LendingPage} />
+      <Route path="/yield-farming" component={YieldFarmingPage} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

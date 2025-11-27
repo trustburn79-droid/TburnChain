@@ -115,6 +115,20 @@ import {
   type InsertLendingTransaction,
   type LendingProtocolStats,
   type InsertLendingProtocolStats,
+  type YieldVault,
+  type InsertYieldVault,
+  type YieldStrategy,
+  type InsertYieldStrategy,
+  type YieldPosition,
+  type InsertYieldPosition,
+  type YieldHarvest,
+  type InsertYieldHarvest,
+  type YieldReward,
+  type InsertYieldReward,
+  type YieldTransaction,
+  type InsertYieldTransaction,
+  type YieldProtocolStats,
+  type InsertYieldProtocolStats,
   blocks,
   transactions,
   accounts,
@@ -173,6 +187,13 @@ import {
   lendingRateHistory,
   lendingTransactions,
   lendingProtocolStats,
+  yieldVaults,
+  yieldStrategies,
+  yieldPositions,
+  yieldHarvests,
+  yieldRewards,
+  yieldTransactions,
+  yieldProtocolStats,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -578,6 +599,72 @@ export interface IStorage {
     liquidations24h: number;
     atRiskPositions: number;
     liquidatablePositions: number;
+  }>;
+
+  // ============================================
+  // YIELD FARMING STORAGE (Phase 3)
+  // ============================================
+  
+  // Yield Vaults
+  getAllYieldVaults(): Promise<YieldVault[]>;
+  getActiveYieldVaults(): Promise<YieldVault[]>;
+  getYieldVaultById(id: string): Promise<YieldVault | undefined>;
+  getYieldVaultByAddress(contractAddress: string): Promise<YieldVault | undefined>;
+  getYieldVaultsByType(vaultType: string): Promise<YieldVault[]>;
+  createYieldVault(data: InsertYieldVault): Promise<YieldVault>;
+  updateYieldVault(id: string, data: Partial<YieldVault>): Promise<void>;
+  
+  // Yield Strategies
+  getYieldStrategiesByVault(vaultId: string): Promise<YieldStrategy[]>;
+  getActiveYieldStrategies(): Promise<YieldStrategy[]>;
+  getYieldStrategyById(id: string): Promise<YieldStrategy | undefined>;
+  createYieldStrategy(data: InsertYieldStrategy): Promise<YieldStrategy>;
+  updateYieldStrategy(id: string, data: Partial<YieldStrategy>): Promise<void>;
+  
+  // Yield Positions
+  getAllYieldPositions(): Promise<YieldPosition[]>;
+  getYieldPositionsByUser(userAddress: string): Promise<YieldPosition[]>;
+  getYieldPositionsByVault(vaultId: string): Promise<YieldPosition[]>;
+  getYieldPosition(userAddress: string, vaultId: string): Promise<YieldPosition | undefined>;
+  getYieldPositionById(id: string): Promise<YieldPosition | undefined>;
+  createYieldPosition(data: InsertYieldPosition): Promise<YieldPosition>;
+  updateYieldPosition(id: string, data: Partial<YieldPosition>): Promise<void>;
+  deleteYieldPosition(id: string): Promise<void>;
+  
+  // Yield Harvests
+  getYieldHarvestsByVault(vaultId: string, limit?: number): Promise<YieldHarvest[]>;
+  getRecentYieldHarvests(limit?: number): Promise<YieldHarvest[]>;
+  createYieldHarvest(data: InsertYieldHarvest): Promise<YieldHarvest>;
+  
+  // Yield Rewards
+  getYieldRewardsByVault(vaultId: string): Promise<YieldReward[]>;
+  getActiveYieldRewards(): Promise<YieldReward[]>;
+  createYieldReward(data: InsertYieldReward): Promise<YieldReward>;
+  updateYieldReward(id: string, data: Partial<YieldReward>): Promise<void>;
+  
+  // Yield Transactions
+  getAllYieldTransactions(limit?: number): Promise<YieldTransaction[]>;
+  getYieldTransactionsByUser(userAddress: string, limit?: number): Promise<YieldTransaction[]>;
+  getYieldTransactionsByVault(vaultId: string, limit?: number): Promise<YieldTransaction[]>;
+  getRecentYieldTransactions(limit?: number): Promise<YieldTransaction[]>;
+  createYieldTransaction(data: InsertYieldTransaction): Promise<YieldTransaction>;
+  
+  // Yield Protocol Stats
+  getYieldProtocolStats(): Promise<YieldProtocolStats | undefined>;
+  createYieldProtocolStats(data: InsertYieldProtocolStats): Promise<YieldProtocolStats>;
+  updateYieldProtocolStats(id: string, data: Partial<YieldProtocolStats>): Promise<void>;
+  
+  // Yield Aggregated Stats
+  getYieldFarmingStats(): Promise<{
+    totalTvlUsd: string;
+    totalVaults: number;
+    activeVaults: number;
+    totalUsers: number;
+    avgVaultApy: number;
+    topVaultApy: number;
+    totalProfitGenerated: string;
+    deposits24h: string;
+    withdrawals24h: string;
   }>;
 }
 
@@ -3610,6 +3697,223 @@ export class DbStorage implements IStorage {
       liquidations24h,
       atRiskPositions,
       liquidatablePositions,
+    };
+  }
+
+  // ============================================
+  // YIELD FARMING STORAGE IMPLEMENTATION (Phase 3)
+  // ============================================
+
+  // Yield Vaults
+  async getAllYieldVaults(): Promise<YieldVault[]> {
+    return await db.select().from(yieldVaults).orderBy(desc(yieldVaults.tvlUsd));
+  }
+
+  async getActiveYieldVaults(): Promise<YieldVault[]> {
+    return await db.select().from(yieldVaults).where(eq(yieldVaults.status, "active")).orderBy(desc(yieldVaults.tvlUsd));
+  }
+
+  async getYieldVaultById(id: string): Promise<YieldVault | undefined> {
+    const [vault] = await db.select().from(yieldVaults).where(eq(yieldVaults.id, id));
+    return vault;
+  }
+
+  async getYieldVaultByAddress(contractAddress: string): Promise<YieldVault | undefined> {
+    const [vault] = await db.select().from(yieldVaults).where(eq(yieldVaults.contractAddress, contractAddress));
+    return vault;
+  }
+
+  async getYieldVaultsByType(vaultType: string): Promise<YieldVault[]> {
+    return await db.select().from(yieldVaults).where(eq(yieldVaults.vaultType, vaultType)).orderBy(desc(yieldVaults.tvlUsd));
+  }
+
+  async createYieldVault(data: InsertYieldVault): Promise<YieldVault> {
+    const [vault] = await db.insert(yieldVaults).values(data).returning();
+    return vault;
+  }
+
+  async updateYieldVault(id: string, data: Partial<YieldVault>): Promise<void> {
+    await db.update(yieldVaults).set({ ...data, updatedAt: new Date() }).where(eq(yieldVaults.id, id));
+  }
+
+  // Yield Strategies
+  async getYieldStrategiesByVault(vaultId: string): Promise<YieldStrategy[]> {
+    return await db.select().from(yieldStrategies).where(eq(yieldStrategies.vaultId, vaultId));
+  }
+
+  async getActiveYieldStrategies(): Promise<YieldStrategy[]> {
+    return await db.select().from(yieldStrategies).where(eq(yieldStrategies.isActive, true));
+  }
+
+  async getYieldStrategyById(id: string): Promise<YieldStrategy | undefined> {
+    const [strategy] = await db.select().from(yieldStrategies).where(eq(yieldStrategies.id, id));
+    return strategy;
+  }
+
+  async createYieldStrategy(data: InsertYieldStrategy): Promise<YieldStrategy> {
+    const [strategy] = await db.insert(yieldStrategies).values(data).returning();
+    return strategy;
+  }
+
+  async updateYieldStrategy(id: string, data: Partial<YieldStrategy>): Promise<void> {
+    await db.update(yieldStrategies).set({ ...data, updatedAt: new Date() }).where(eq(yieldStrategies.id, id));
+  }
+
+  // Yield Positions
+  async getAllYieldPositions(): Promise<YieldPosition[]> {
+    return await db.select().from(yieldPositions);
+  }
+
+  async getYieldPositionsByUser(userAddress: string): Promise<YieldPosition[]> {
+    return await db.select().from(yieldPositions).where(eq(yieldPositions.userAddress, userAddress));
+  }
+
+  async getYieldPositionsByVault(vaultId: string): Promise<YieldPosition[]> {
+    return await db.select().from(yieldPositions).where(eq(yieldPositions.vaultId, vaultId));
+  }
+
+  async getYieldPosition(userAddress: string, vaultId: string): Promise<YieldPosition | undefined> {
+    const [position] = await db.select().from(yieldPositions).where(
+      and(eq(yieldPositions.userAddress, userAddress), eq(yieldPositions.vaultId, vaultId))
+    );
+    return position;
+  }
+
+  async getYieldPositionById(id: string): Promise<YieldPosition | undefined> {
+    const [position] = await db.select().from(yieldPositions).where(eq(yieldPositions.id, id));
+    return position;
+  }
+
+  async createYieldPosition(data: InsertYieldPosition): Promise<YieldPosition> {
+    const [position] = await db.insert(yieldPositions).values(data).returning();
+    return position;
+  }
+
+  async updateYieldPosition(id: string, data: Partial<YieldPosition>): Promise<void> {
+    await db.update(yieldPositions).set({ ...data, updatedAt: new Date() }).where(eq(yieldPositions.id, id));
+  }
+
+  async deleteYieldPosition(id: string): Promise<void> {
+    await db.delete(yieldPositions).where(eq(yieldPositions.id, id));
+  }
+
+  // Yield Harvests
+  async getYieldHarvestsByVault(vaultId: string, limit: number = 50): Promise<YieldHarvest[]> {
+    return await db.select().from(yieldHarvests).where(eq(yieldHarvests.vaultId, vaultId)).orderBy(desc(yieldHarvests.executedAt)).limit(limit);
+  }
+
+  async getRecentYieldHarvests(limit: number = 50): Promise<YieldHarvest[]> {
+    return await db.select().from(yieldHarvests).orderBy(desc(yieldHarvests.executedAt)).limit(limit);
+  }
+
+  async createYieldHarvest(data: InsertYieldHarvest): Promise<YieldHarvest> {
+    const [harvest] = await db.insert(yieldHarvests).values(data).returning();
+    return harvest;
+  }
+
+  // Yield Rewards
+  async getYieldRewardsByVault(vaultId: string): Promise<YieldReward[]> {
+    return await db.select().from(yieldRewards).where(eq(yieldRewards.vaultId, vaultId));
+  }
+
+  async getActiveYieldRewards(): Promise<YieldReward[]> {
+    return await db.select().from(yieldRewards).where(eq(yieldRewards.isActive, true));
+  }
+
+  async createYieldReward(data: InsertYieldReward): Promise<YieldReward> {
+    const [reward] = await db.insert(yieldRewards).values(data).returning();
+    return reward;
+  }
+
+  async updateYieldReward(id: string, data: Partial<YieldReward>): Promise<void> {
+    await db.update(yieldRewards).set(data).where(eq(yieldRewards.id, id));
+  }
+
+  // Yield Transactions
+  async getAllYieldTransactions(limit: number = 100): Promise<YieldTransaction[]> {
+    return await db.select().from(yieldTransactions).orderBy(desc(yieldTransactions.createdAt)).limit(limit);
+  }
+
+  async getYieldTransactionsByUser(userAddress: string, limit: number = 50): Promise<YieldTransaction[]> {
+    return await db.select().from(yieldTransactions).where(eq(yieldTransactions.userAddress, userAddress)).orderBy(desc(yieldTransactions.createdAt)).limit(limit);
+  }
+
+  async getYieldTransactionsByVault(vaultId: string, limit: number = 50): Promise<YieldTransaction[]> {
+    return await db.select().from(yieldTransactions).where(eq(yieldTransactions.vaultId, vaultId)).orderBy(desc(yieldTransactions.createdAt)).limit(limit);
+  }
+
+  async getRecentYieldTransactions(limit: number = 50): Promise<YieldTransaction[]> {
+    return await db.select().from(yieldTransactions).orderBy(desc(yieldTransactions.createdAt)).limit(limit);
+  }
+
+  async createYieldTransaction(data: InsertYieldTransaction): Promise<YieldTransaction> {
+    const [tx] = await db.insert(yieldTransactions).values(data).returning();
+    return tx;
+  }
+
+  // Yield Protocol Stats
+  async getYieldProtocolStats(): Promise<YieldProtocolStats | undefined> {
+    const [stats] = await db.select().from(yieldProtocolStats).orderBy(desc(yieldProtocolStats.snapshotAt)).limit(1);
+    return stats;
+  }
+
+  async createYieldProtocolStats(data: InsertYieldProtocolStats): Promise<YieldProtocolStats> {
+    const [stats] = await db.insert(yieldProtocolStats).values(data).returning();
+    return stats;
+  }
+
+  async updateYieldProtocolStats(id: string, data: Partial<YieldProtocolStats>): Promise<void> {
+    await db.update(yieldProtocolStats).set(data).where(eq(yieldProtocolStats.id, id));
+  }
+
+  // Yield Farming Aggregated Stats
+  async getYieldFarmingStats(): Promise<{
+    totalTvlUsd: string;
+    totalVaults: number;
+    activeVaults: number;
+    totalUsers: number;
+    avgVaultApy: number;
+    topVaultApy: number;
+    totalProfitGenerated: string;
+    deposits24h: string;
+    withdrawals24h: string;
+  }> {
+    const vaults = await db.select().from(yieldVaults);
+    const activeVaults = vaults.filter(v => v.status === "active");
+    const positions = await db.select().from(yieldPositions);
+    
+    let totalTvl = BigInt(0);
+    let totalApy = 0;
+    let topApy = 0;
+    let totalProfit = BigInt(0);
+    let deposits24h = BigInt(0);
+    let withdrawals24h = BigInt(0);
+    
+    for (const vault of activeVaults) {
+      totalTvl += BigInt(vault.tvlUsd.replace(/\./g, '') || "0");
+      totalApy += vault.totalApy;
+      if (vault.totalApy > topApy) topApy = vault.totalApy;
+      deposits24h += BigInt(vault.deposits24h.replace(/\./g, '') || "0");
+      withdrawals24h += BigInt(vault.withdrawals24h.replace(/\./g, '') || "0");
+    }
+    
+    for (const position of positions) {
+      totalProfit += BigInt(position.totalProfit.replace(/\./g, '') || "0");
+    }
+    
+    const avgApy = activeVaults.length > 0 ? Math.floor(totalApy / activeVaults.length) : 0;
+    const uniqueUsers = new Set(positions.map(p => p.userAddress)).size;
+    
+    return {
+      totalTvlUsd: totalTvl.toString(),
+      totalVaults: vaults.length,
+      activeVaults: activeVaults.length,
+      totalUsers: uniqueUsers,
+      avgVaultApy: avgApy,
+      topVaultApy: topApy,
+      totalProfitGenerated: totalProfit.toString(),
+      deposits24h: deposits24h.toString(),
+      withdrawals24h: withdrawals24h.toString(),
     };
   }
 }

@@ -3245,3 +3245,426 @@ export interface LendingStats {
   avgUtilization: number;
   liquidations24h: number;
 }
+
+// ============================================
+// YIELD FARMING INFRASTRUCTURE (Phase 3)
+// Enterprise-grade yield aggregation with DEX/Lending integration
+// ============================================
+
+// Yield Vaults - Core vault infrastructure for yield strategies
+export const yieldVaults = pgTable("yield_vaults", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Vault Identity
+  name: text("name").notNull(),
+  symbol: text("symbol").notNull(), // Vault token symbol (e.g., "yvTBURN")
+  description: text("description"),
+  contractAddress: text("contract_address").notNull().unique(),
+  
+  // Underlying Asset
+  underlyingAsset: text("underlying_asset").notNull(), // Asset address
+  underlyingSymbol: text("underlying_symbol").notNull(),
+  underlyingDecimals: integer("underlying_decimals").notNull().default(18),
+  
+  // Vault Type
+  vaultType: text("vault_type").notNull().default("auto_compound"), // auto_compound, single_asset, lp_farm, leverage, delta_neutral
+  strategyType: text("strategy_type").notNull().default("yield_aggregator"), // yield_aggregator, liquidity_mining, lending_optimizer, arbitrage
+  riskLevel: text("risk_level").notNull().default("medium"), // low, medium, high, degen
+  
+  // Vault State
+  totalDeposited: text("total_deposited").notNull().default("0"), // Wei
+  totalShares: text("total_shares").notNull().default("0"), // Vault shares
+  sharePrice: text("share_price").notNull().default("1000000000000000000"), // 1e18 initial
+  
+  // Value Tracking
+  tvlUsd: text("tvl_usd").notNull().default("0"),
+  allTimeHighTvl: text("all_time_high_tvl").notNull().default("0"),
+  
+  // APY/APR (basis points, e.g., 1500 = 15%)
+  baseApy: integer("base_apy").notNull().default(0),
+  boostApy: integer("boost_apy").notNull().default(0), // From boost multipliers
+  rewardApy: integer("reward_apy").notNull().default(0), // From token rewards
+  totalApy: integer("total_apy").notNull().default(0), // Combined APY
+  apySource: text("apy_source").notNull().default("combined"), // dex_fees, lending_interest, liquidity_mining, combined
+  
+  // Performance Metrics
+  dailyApy: integer("daily_apy").notNull().default(0),
+  weeklyApy: integer("weekly_apy").notNull().default(0),
+  monthlyApy: integer("monthly_apy").notNull().default(0),
+  
+  // Fees (basis points)
+  depositFee: integer("deposit_fee").notNull().default(0), // Usually 0
+  withdrawalFee: integer("withdrawal_fee").notNull().default(10), // 0.1%
+  performanceFee: integer("performance_fee").notNull().default(1000), // 10% of profits
+  managementFee: integer("management_fee").notNull().default(200), // 2% annual
+  
+  // Limits
+  depositCap: text("deposit_cap"), // null = unlimited
+  minDeposit: text("min_deposit").notNull().default("0"),
+  maxDeposit: text("max_deposit"), // null = unlimited per user
+  
+  // Integration Links
+  dexPoolId: varchar("dex_pool_id"), // Linked DEX pool for LP vaults
+  lendingMarketId: varchar("lending_market_id"), // Linked lending market
+  
+  // AI Integration
+  aiOptimized: boolean("ai_optimized").notNull().default(true),
+  aiStrategyScore: integer("ai_strategy_score").notNull().default(8000), // AI confidence
+  aiRiskScore: integer("ai_risk_score").notNull().default(5000), // Risk assessment
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, paused, deprecated, emergency
+  isEmergencyWithdrawEnabled: boolean("is_emergency_withdraw_enabled").notNull().default(false),
+  
+  // Stats
+  totalDepositors: integer("total_depositors").notNull().default(0),
+  deposits24h: text("deposits_24h").notNull().default("0"),
+  withdrawals24h: text("withdrawals_24h").notNull().default("0"),
+  harvestCount: integer("harvest_count").notNull().default(0),
+  lastHarvestAt: timestamp("last_harvest_at"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Yield Strategies - Specific strategies for vaults
+export const yieldStrategies = pgTable("yield_strategies", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Strategy Identity
+  vaultId: varchar("vault_id").notNull(),
+  name: text("name").notNull(),
+  description: text("description"),
+  contractAddress: text("contract_address").notNull(),
+  
+  // Strategy Type
+  strategyType: text("strategy_type").notNull(), // compound_lending, lp_stake, leverage_yield, flash_loan_arb
+  protocol: text("protocol").notNull(), // Protocol name (e.g., "TBURN DEX", "TBURN Lending")
+  
+  // Allocation
+  allocationPercent: integer("allocation_percent").notNull().default(10000), // basis points (10000 = 100%)
+  currentValue: text("current_value").notNull().default("0"),
+  
+  // Performance
+  currentApy: integer("current_apy").notNull().default(0), // basis points
+  historicalApy: integer("historical_apy").notNull().default(0),
+  profitGenerated: text("profit_generated").notNull().default("0"),
+  lossIncurred: text("loss_incurred").notNull().default("0"),
+  
+  // Risk Parameters
+  maxLeverage: integer("max_leverage").notNull().default(10000), // basis points (10000 = 1x)
+  liquidationThreshold: integer("liquidation_threshold").notNull().default(8000), // 80%
+  stopLossThreshold: integer("stop_loss_threshold").notNull().default(500), // 5% loss triggers exit
+  
+  // Strategy State
+  isActive: boolean("is_active").notNull().default(true),
+  lastExecutionAt: timestamp("last_execution_at"),
+  executionCount: integer("execution_count").notNull().default(0),
+  failureCount: integer("failure_count").notNull().default(0),
+  
+  // AI Optimization
+  aiOptimized: boolean("ai_optimized").notNull().default(true),
+  aiConfidenceScore: integer("ai_confidence_score").notNull().default(8000),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Yield Positions - User positions in vaults
+export const yieldPositions = pgTable("yield_positions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Position Identity
+  vaultId: varchar("vault_id").notNull(),
+  userAddress: text("user_address").notNull(),
+  
+  // Position State
+  depositedAmount: text("deposited_amount").notNull().default("0"), // Original deposit
+  shares: text("shares").notNull().default("0"), // Vault shares owned
+  currentValue: text("current_value").notNull().default("0"), // Current value in underlying
+  currentValueUsd: text("current_value_usd").notNull().default("0"),
+  
+  // Profit/Loss
+  totalProfit: text("total_profit").notNull().default("0"),
+  totalProfitUsd: text("total_profit_usd").notNull().default("0"),
+  unrealizedProfit: text("unrealized_profit").notNull().default("0"),
+  realizedProfit: text("realized_profit").notNull().default("0"),
+  
+  // Rewards
+  pendingRewards: text("pending_rewards").notNull().default("0"),
+  claimedRewards: text("claimed_rewards").notNull().default("0"),
+  
+  // Boost Multiplier
+  boostMultiplier: integer("boost_multiplier").notNull().default(10000), // 10000 = 1x
+  boostEndTime: timestamp("boost_end_time"),
+  
+  // Lock Status
+  isLocked: boolean("is_locked").notNull().default(false),
+  lockEndTime: timestamp("lock_end_time"),
+  lockDurationDays: integer("lock_duration_days").notNull().default(0),
+  
+  // Activity
+  depositCount: integer("deposit_count").notNull().default(0),
+  withdrawCount: integer("withdraw_count").notNull().default(0),
+  lastDepositAt: timestamp("last_deposit_at"),
+  lastWithdrawAt: timestamp("last_withdraw_at"),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, withdrawn, liquidated
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Yield Harvests - Harvest/compound events
+export const yieldHarvests = pgTable("yield_harvests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  vaultId: varchar("vault_id").notNull(),
+  strategyId: varchar("strategy_id"),
+  
+  // Harvest Details
+  harvestType: text("harvest_type").notNull(), // auto_compound, manual_harvest, reward_claim
+  harvestedAmount: text("harvested_amount").notNull().default("0"),
+  harvestedValueUsd: text("harvested_value_usd").notNull().default("0"),
+  
+  // Compounding
+  compoundedAmount: text("compounded_amount").notNull().default("0"),
+  newSharePrice: text("new_share_price").notNull(),
+  oldSharePrice: text("old_share_price").notNull(),
+  
+  // Fees
+  performanceFeeAmount: text("performance_fee_amount").notNull().default("0"),
+  callerReward: text("caller_reward").notNull().default("0"),
+  
+  // Execution
+  txHash: text("tx_hash"),
+  gasUsed: bigint("gas_used", { mode: "number" }).notNull().default(0),
+  executorAddress: text("executor_address"),
+  
+  // AI Optimization
+  aiTriggered: boolean("ai_triggered").notNull().default(false),
+  aiOptimalityScore: integer("ai_optimality_score"),
+  
+  executedAt: timestamp("executed_at").notNull().defaultNow(),
+});
+
+// Yield Rewards - Reward token emissions
+export const yieldRewards = pgTable("yield_rewards", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  vaultId: varchar("vault_id").notNull(),
+  
+  // Reward Token
+  rewardToken: text("reward_token").notNull(),
+  rewardSymbol: text("reward_symbol").notNull(),
+  rewardDecimals: integer("reward_decimals").notNull().default(18),
+  
+  // Emission Schedule
+  rewardPerSecond: text("reward_per_second").notNull().default("0"),
+  rewardPerBlock: text("reward_per_block").notNull().default("0"),
+  totalAllocated: text("total_allocated").notNull().default("0"),
+  totalDistributed: text("total_distributed").notNull().default("0"),
+  
+  // Time Range
+  startTime: timestamp("start_time").notNull(),
+  endTime: timestamp("end_time"),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Yield Transactions - All farming transactions
+export const yieldTransactions = pgTable("yield_transactions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  vaultId: varchar("vault_id").notNull(),
+  positionId: varchar("position_id"),
+  userAddress: text("user_address").notNull(),
+  
+  // Transaction Type
+  txType: text("tx_type").notNull(), // deposit, withdraw, harvest, claim_rewards, emergency_withdraw
+  
+  // Amounts
+  amount: text("amount").notNull().default("0"),
+  shares: text("shares").notNull().default("0"),
+  valueUsd: text("value_usd").notNull().default("0"),
+  
+  // Share Price at Transaction
+  sharePriceAtTx: text("share_price_at_tx").notNull(),
+  
+  // Fees
+  feeAmount: text("fee_amount").notNull().default("0"),
+  feeType: text("fee_type"), // deposit, withdrawal, performance
+  
+  // Execution
+  txHash: text("tx_hash"),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  status: text("status").notNull().default("pending"), // pending, completed, failed
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Yield Protocol Stats - Overall protocol analytics
+export const yieldProtocolStats = pgTable("yield_protocol_stats", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // TVL
+  totalTvlUsd: text("total_tvl_usd").notNull().default("0"),
+  tvlChange24h: text("tvl_change_24h").notNull().default("0"),
+  tvlChange7d: text("tvl_change_7d").notNull().default("0"),
+  
+  // Vault Stats
+  totalVaults: integer("total_vaults").notNull().default(0),
+  activeVaults: integer("active_vaults").notNull().default(0),
+  
+  // User Stats
+  totalUsers: integer("total_users").notNull().default(0),
+  activeUsers24h: integer("active_users_24h").notNull().default(0),
+  
+  // Volume
+  totalDeposits24h: text("total_deposits_24h").notNull().default("0"),
+  totalWithdrawals24h: text("total_withdrawals_24h").notNull().default("0"),
+  
+  // Performance
+  avgVaultApy: integer("avg_vault_apy").notNull().default(0),
+  topVaultApy: integer("top_vault_apy").notNull().default(0),
+  totalProfitGenerated: text("total_profit_generated").notNull().default("0"),
+  
+  // Protocol Revenue
+  totalFeesCollected: text("total_fees_collected").notNull().default("0"),
+  feesCollected24h: text("fees_collected_24h").notNull().default("0"),
+  
+  // Harvest Stats
+  totalHarvests24h: integer("total_harvests_24h").notNull().default(0),
+  avgHarvestAmount: text("avg_harvest_amount").notNull().default("0"),
+  
+  // AI Stats
+  aiOptimizedVaults: integer("ai_optimized_vaults").notNull().default(0),
+  aiSuggestedRebalances: integer("ai_suggested_rebalances").notNull().default(0),
+  
+  snapshotAt: timestamp("snapshot_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Yield Farming Insert Schemas
+// ============================================
+
+export const insertYieldVaultSchema = createInsertSchema(yieldVaults).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertYieldStrategySchema = createInsertSchema(yieldStrategies).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertYieldPositionSchema = createInsertSchema(yieldPositions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertYieldHarvestSchema = createInsertSchema(yieldHarvests).omit({
+  id: true,
+  executedAt: true,
+});
+
+export const insertYieldRewardSchema = createInsertSchema(yieldRewards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertYieldTransactionSchema = createInsertSchema(yieldTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertYieldProtocolStatsSchema = createInsertSchema(yieldProtocolStats).omit({
+  id: true,
+  createdAt: true,
+  snapshotAt: true,
+});
+
+// ============================================
+// Yield Farming Types
+// ============================================
+
+export type YieldVault = typeof yieldVaults.$inferSelect;
+export type InsertYieldVault = z.infer<typeof insertYieldVaultSchema>;
+
+export type YieldStrategy = typeof yieldStrategies.$inferSelect;
+export type InsertYieldStrategy = z.infer<typeof insertYieldStrategySchema>;
+
+export type YieldPosition = typeof yieldPositions.$inferSelect;
+export type InsertYieldPosition = z.infer<typeof insertYieldPositionSchema>;
+
+export type YieldHarvest = typeof yieldHarvests.$inferSelect;
+export type InsertYieldHarvest = z.infer<typeof insertYieldHarvestSchema>;
+
+export type YieldReward = typeof yieldRewards.$inferSelect;
+export type InsertYieldReward = z.infer<typeof insertYieldRewardSchema>;
+
+export type YieldTransaction = typeof yieldTransactions.$inferSelect;
+export type InsertYieldTransaction = z.infer<typeof insertYieldTransactionSchema>;
+
+export type YieldProtocolStats = typeof yieldProtocolStats.$inferSelect;
+export type InsertYieldProtocolStats = z.infer<typeof insertYieldProtocolStatsSchema>;
+
+// Yield Farming Frontend Types
+export type YieldVaultType = "auto_compound" | "single_asset" | "lp_farm" | "leverage" | "delta_neutral";
+export type YieldStrategyType = "yield_aggregator" | "liquidity_mining" | "lending_optimizer" | "arbitrage";
+export type YieldRiskLevel = "low" | "medium" | "high" | "degen";
+export type YieldTxType = "deposit" | "withdraw" | "harvest" | "claim_rewards" | "emergency_withdraw";
+
+export interface YieldVaultSummary {
+  id: string;
+  name: string;
+  symbol: string;
+  underlyingSymbol: string;
+  vaultType: YieldVaultType;
+  riskLevel: YieldRiskLevel;
+  tvlUsd: string;
+  totalApy: number;
+  baseApy: number;
+  boostApy: number;
+  rewardApy: number;
+  totalDepositors: number;
+  status: string;
+  aiOptimized: boolean;
+}
+
+export interface YieldUserPosition {
+  vaultId: string;
+  vaultName: string;
+  vaultSymbol: string;
+  depositedAmount: string;
+  currentValue: string;
+  currentValueUsd: string;
+  shares: string;
+  profit: string;
+  profitPercent: number;
+  pendingRewards: string;
+  boostMultiplier: number;
+  isLocked: boolean;
+  lockEndTime?: string;
+}
+
+export interface YieldFarmingStats {
+  totalTvlUsd: string;
+  totalVaults: number;
+  activeVaults: number;
+  totalUsers: number;
+  avgVaultApy: number;
+  topVaultApy: number;
+  totalProfitGenerated: string;
+  deposits24h: string;
+  withdrawals24h: string;
+}
