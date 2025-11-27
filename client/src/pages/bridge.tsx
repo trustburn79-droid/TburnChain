@@ -842,7 +842,7 @@ export default function Bridge() {
                       <SelectValue placeholder="Select source chain" />
                     </SelectTrigger>
                     <SelectContent>
-                      {activeChains.map(chain => (
+                      {activeChains.filter(c => c.chainId != null).map(chain => (
                         <SelectItem key={chain.chainId} value={chain.chainId.toString()}>
                           {chain.name} ({chain.symbol})
                         </SelectItem>
@@ -868,7 +868,7 @@ export default function Bridge() {
                       <SelectValue placeholder="Select destination chain" />
                     </SelectTrigger>
                     <SelectContent>
-                      {activeChains.filter(c => c.chainId.toString() !== sourceChain).map(chain => (
+                      {activeChains.filter(c => c.chainId != null && c.chainId.toString() !== sourceChain).map(chain => (
                         <SelectItem key={chain.chainId} value={chain.chainId.toString()}>
                           {chain.name} ({chain.symbol})
                         </SelectItem>
