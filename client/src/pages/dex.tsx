@@ -52,22 +52,32 @@ import {
 
 interface DexPool {
   id: string;
-  poolName: string | null;
+  name: string;
+  symbol: string;
   poolType: string;
   token0Address: string;
   token1Address: string;
-  reserve0: string | null;
-  reserve1: string | null;
-  totalValueLocked: string | null;
-  volume24h: string | null;
-  fees24h: string | null;
-  apy: string | null;
-  currentPrice: string | null;
-  priceChange24h: string | null;
-  isActive: boolean | null;
-  lastTradeAt: string | null;
-  feeTier: string | null;
-  lpTokenSupply: string | null;
+  token0Symbol: string;
+  token1Symbol: string;
+  reserve0: string;
+  reserve1: string;
+  tvlUsd: string;
+  volume24h: string;
+  fees24h: string;
+  totalApy: number; // in basis points
+  price0: string;
+  price1: string;
+  status: string;
+  lastSwapAt: string | null;
+  feeTier: number;
+  lpTokenSupply: string;
+  lpCount: number;
+  swapCount24h: number;
+  aiPriceOracle: boolean;
+  aiRouteOptimization: boolean;
+  aiMevProtection: boolean;
+  mevProtectionEnabled: boolean;
+  circuitBreakerEnabled: boolean;
 }
 
 interface DexSwap {
@@ -98,18 +108,18 @@ interface DexPosition {
 
 interface DexStatsResponse {
   totalPools: number;
-  activePools: number;
-  totalValueLocked: string;
-  volume24h: string;
-  fees24h: string;
-  totalSwaps: number;
+  totalTvlUsd: string;
+  totalVolume24h: string;
+  totalFees24h: string;
+  totalSwaps24h: number;
+  totalLiquidityProviders: number;
 }
 
 interface SwapQuote {
   amountOut: string;
   priceImpact: string;
   fee: string;
-  route: { poolId: string; poolName: string }[];
+  route: { poolId: string; name: string }[];
   estimatedGas: string;
 }
 
@@ -232,7 +242,7 @@ export default function DexPage() {
   }, [pools, poolTypeFilter]);
 
   const activePools = useMemo(() => {
-    return pools?.filter(p => p.isActive) || [];
+    return pools?.filter(p => p.status === 'active') || [];
   }, [pools]);
 
   const tokenList = useMemo(() => {
@@ -274,7 +284,7 @@ export default function DexPage() {
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="flex items-center gap-1">
             <Activity className="h-3 w-3" />
-            {stats?.activePools || 0} Active Pools
+            {activePools.length} Active Pools
           </Badge>
           <Button variant="outline" size="sm" data-testid="button-refresh-dex" onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/dex"] })}>
             <RefreshCw className="h-4 w-4 mr-1" />
@@ -295,7 +305,7 @@ export default function DexPage() {
             ) : (
               <>
                 <div className="text-2xl font-bold" data-testid="text-dex-tvl-value">
-                  {formatUSD(stats?.totalValueLocked || "0")}
+                  {formatUSD(stats?.totalTvlUsd || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
@@ -317,7 +327,7 @@ export default function DexPage() {
             ) : (
               <>
                 <div className="text-2xl font-bold" data-testid="text-dex-volume-value">
-                  {formatUSD(stats?.volume24h || "0")}
+                  {formatUSD(stats?.totalVolume24h || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
@@ -339,7 +349,7 @@ export default function DexPage() {
             ) : (
               <>
                 <div className="text-2xl font-bold" data-testid="text-dex-fees-value">
-                  {formatUSD(stats?.fees24h || "0")}
+                  {formatUSD(stats?.totalFees24h || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <Droplets className="h-3 w-3 text-blue-500 mr-1" />
@@ -361,7 +371,7 @@ export default function DexPage() {
             ) : (
               <>
                 <div className="text-2xl font-bold" data-testid="text-dex-swaps-value">
-                  {formatNumber(stats?.totalSwaps || 0)}
+                  {formatNumber(stats?.totalSwaps24h || 0)}
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <Zap className="h-3 w-3 text-yellow-500 mr-1" />
@@ -496,7 +506,7 @@ export default function DexPage() {
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Route</span>
                       <span className="text-right">
-                        {quote.route?.map(r => r.poolName || truncateAddress(r.poolId)).join(" → ")}
+                        {quote.route?.map(r => r.name || truncateAddress(r.poolId)).join(" → ")}
                       </span>
                     </div>
                   </div>
@@ -646,16 +656,16 @@ export default function DexPage() {
                         </div>
                         <div>
                           <div className="font-semibold flex items-center gap-2">
-                            {pool.poolName || `Pool ${truncateAddress(pool.id)}`}
+                            {pool.name || `Pool ${truncateAddress(pool.id)}`}
                             <Badge className={poolTypeColors[pool.poolType] || "bg-gray-500"}>
                               {poolTypeLabels[pool.poolType] || pool.poolType}
                             </Badge>
-                            {pool.isActive === false && (
-                              <Badge variant="destructive">Inactive</Badge>
+                            {pool.status !== 'active' && (
+                              <Badge variant="destructive">{pool.status}</Badge>
                             )}
                           </div>
                           <div className="text-sm text-muted-foreground font-mono">
-                            {truncateAddress(pool.token0Address)} / {truncateAddress(pool.token1Address)}
+                            {pool.token0Symbol} / {pool.token1Symbol}
                           </div>
                         </div>
                       </div>
@@ -663,7 +673,7 @@ export default function DexPage() {
                       <div className="flex items-center gap-8">
                         <div className="text-right">
                           <div className="text-sm text-muted-foreground">TVL</div>
-                          <div className="font-semibold">{formatUSD(pool.totalValueLocked)}</div>
+                          <div className="font-semibold">{formatUSD(pool.tvlUsd)}</div>
                         </div>
                         <div className="text-right">
                           <div className="text-sm text-muted-foreground">24h Volume</div>
@@ -672,20 +682,13 @@ export default function DexPage() {
                         <div className="text-right">
                           <div className="text-sm text-muted-foreground">APY</div>
                           <div className="font-semibold text-green-500">
-                            {pool.apy ? `${parseFloat(pool.apy).toFixed(2)}%` : "N/A"}
+                            {pool.totalApy > 0 ? `${(pool.totalApy / 100).toFixed(2)}%` : "N/A"}
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-sm text-muted-foreground">24h Change</div>
-                          <div className={`font-semibold flex items-center justify-end ${
-                            pool.priceChange24h && parseFloat(pool.priceChange24h) >= 0 ? "text-green-500" : "text-red-500"
-                          }`}>
-                            {pool.priceChange24h && parseFloat(pool.priceChange24h) >= 0 ? (
-                              <ArrowUpRight className="h-4 w-4" />
-                            ) : (
-                              <ArrowDownRight className="h-4 w-4" />
-                            )}
-                            {pool.priceChange24h ? `${Math.abs(parseFloat(pool.priceChange24h)).toFixed(2)}%` : "N/A"}
+                          <div className="text-sm text-muted-foreground">Fee Tier</div>
+                          <div className="font-semibold">
+                            {(pool.feeTier / 100).toFixed(2)}%
                           </div>
                         </div>
                         <Button variant="outline" size="sm" data-testid={`button-add-liquidity-${pool.id}`}>

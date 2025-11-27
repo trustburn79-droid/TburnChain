@@ -8609,11 +8609,11 @@ Provide JSON portfolio analysis:
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
-      const pools = await storage.getAllDexLiquidityPools(50);
+      const pools = await storage.getAllDexPools(50);
       
       // Calculate aggregated DEX stats
-      const activePoolCount = pools.filter(p => p.isActive).length;
-      const totalTvl = pools.reduce((sum, p) => sum + BigInt(p.totalValueLocked || '0'), BigInt(0));
+      const activePoolCount = pools.filter(p => p.status === 'active').length;
+      const totalTvl = pools.reduce((sum, p) => sum + BigInt(p.tvlUsd || '0'), BigInt(0));
       const total24hVolume = pools.reduce((sum, p) => sum + BigInt(p.volume24h || '0'), BigInt(0));
       const total24hFees = pools.reduce((sum, p) => sum + BigInt(p.fees24h || '0'), BigInt(0));
       
@@ -8625,12 +8625,12 @@ Provide JSON portfolio analysis:
         fees24h: total24hFees.toString(),
         topPools: pools.slice(0, 10).map(p => ({
           id: p.id,
-          poolName: p.poolName,
+          poolName: p.name,
           poolType: p.poolType,
-          tvl: p.totalValueLocked,
+          tvl: p.tvlUsd,
           volume24h: p.volume24h,
-          apy: p.apy,
-          isActive: p.isActive,
+          apy: (p.totalApy / 100).toFixed(2), // Convert basis points to percentage
+          isActive: p.status === 'active',
         })),
         timestamp: Date.now(),
       };
@@ -8708,8 +8708,8 @@ Provide JSON portfolio analysis:
     if (clients.size === 0) return;
     try {
       // Get latest prices from all active pools
-      const pools = await storage.getAllDexLiquidityPools(100);
-      const activePools = pools.filter(p => p.isActive);
+      const pools = await storage.getAllDexPools(100);
+      const activePools = pools.filter(p => p.status === 'active');
       
       const priceFeeds: Array<{
         poolId: string;
@@ -8720,11 +8720,11 @@ Provide JSON portfolio analysis:
         lastUpdated: Date | null;
       }> = activePools.map(pool => ({
         poolId: pool.id,
-        poolName: pool.poolName,
-        price: pool.currentPrice,
-        priceChange24h: pool.priceChange24h,
+        poolName: pool.name,
+        price: pool.price0,
+        priceChange24h: null, // Calculate if needed from price history
         volume24h: pool.volume24h,
-        lastUpdated: pool.lastTradeAt,
+        lastUpdated: pool.lastSwapAt,
       }));
 
       broadcastUpdate('dex_price_feed', {

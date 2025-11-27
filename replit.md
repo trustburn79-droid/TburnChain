@@ -27,6 +27,34 @@ The frontend is built with React 18, TypeScript, Vite, Wouter for routing, and T
 - **API Key Management**: Provides a secure admin interface for generating, managing, and revoking API keys.
 - **Admin Control Panel**: A production-only mainnet management interface for real-time health monitoring, mainnet pause detection, remote restart, and comprehensive health checks.
 
+### DeFi Ecosystem (Phase 1: DEX/AMM)
+The TBURN DeFi Ecosystem implements enterprise-grade decentralized finance infrastructure:
+
+- **DEX/AMM Engine**: Full-featured decentralized exchange with multiple AMM curve types:
+  - Constant-Product AMM (x*y=k) for standard token pairs
+  - Stable Swap AMM (StableSwap curve) for pegged asset pairs
+  - Concentrated Liquidity for capital-efficient positions
+  - Multi-Asset/Weighted Pools for index-style baskets
+  - AI-Optimized Routing for optimal swap paths
+
+- **Liquidity Management**: 
+  - LP token minting/burning with position tracking
+  - Concentrated liquidity positions with tick ranges
+  - Real-time APY calculations and fee accrual
+
+- **Security Features**:
+  - MEV Protection (sandwich/frontrunning detection)
+  - Circuit Breakers (price deviation, volume surge, liquidity drain)
+  - TWAP Oracle for manipulation resistance
+  - Flashloan Guards
+
+- **Real-Time Data**:
+  - WebSocket broadcasts: pool stats (10s), recent swaps (5s), price feeds (2s), circuit breakers (30s)
+  - Price history with OHLC data
+  - Volume and fee analytics
+
+- **DEX Schema**: 11 tables (dex_pools, dex_pool_assets, dex_pool_ticks, dex_positions, dex_swaps, dex_price_history, dex_twap_observations, dex_circuit_breakers, dex_mev_events, dex_pool_analytics, dex_route_cache)
+
 ### System Design Choices
 The project adopts a monorepo structure, separating `client/`, `server/`, and `shared/` components. Drizzle ORM is used for type-safe database interactions. Critical data is persisted in PostgreSQL, and session-based authentication secures API routes and WebSocket connections.
 
