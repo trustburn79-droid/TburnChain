@@ -5956,62 +5956,408 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Tier configuration (static data)
+  // Tier configuration (from database)
   app.get("/api/staking/tiers", requireAuth, async (_req, res) => {
     try {
-      // TBURN Staking Tiers configuration
-      const tiers = [
-        {
-          id: "bronze",
-          name: "Bronze",
-          minStake: "100000000000000000000", // 100 TBURN
-          maxStake: "9999999999999999999999", // 9,999 TBURN
-          apyMultiplier: 10000, // 1x (basis points)
-          lockPeriod: "none",
-          benefits: ["Basic staking rewards", "Standard withdrawal times"]
-        },
-        {
-          id: "silver",
-          name: "Silver", 
-          minStake: "10000000000000000000000", // 10,000 TBURN
-          maxStake: "49999999999999999999999", // 49,999 TBURN
-          apyMultiplier: 11000, // 1.1x
-          lockPeriod: "7days",
-          benefits: ["10% APY boost", "Priority support", "Governance voting"]
-        },
-        {
-          id: "gold",
-          name: "Gold",
-          minStake: "50000000000000000000000", // 50,000 TBURN
-          maxStake: "249999999999999999999999", // 249,999 TBURN
-          apyMultiplier: 12500, // 1.25x
-          lockPeriod: "30days",
-          benefits: ["25% APY boost", "Early access to new pools", "Enhanced governance rights"]
-        },
-        {
-          id: "platinum",
-          name: "Platinum",
-          minStake: "250000000000000000000000", // 250,000 TBURN
-          maxStake: "999999999999999999999999", // 999,999 TBURN
-          apyMultiplier: 15000, // 1.5x
-          lockPeriod: "90days",
-          benefits: ["50% APY boost", "Validator nomination rights", "Exclusive pool access"]
-        },
-        {
-          id: "diamond",
-          name: "Diamond",
-          minStake: "1000000000000000000000000", // 1,000,000 TBURN
-          maxStake: null, // No limit
-          apyMultiplier: 20000, // 2x
-          lockPeriod: "365days",
-          benefits: ["100% APY boost", "Validator committee eligibility", "Maximum governance power", "Direct chain contribution"]
-        }
-      ];
+      const tiers = await storage.getAllStakingTierConfigs();
       
-      res.json(tiers);
+      // Transform to frontend format with benefits
+      const tierBenefits: Record<string, string[]> = {
+        bronze: ["Basic staking rewards", "Standard withdrawal times"],
+        silver: ["10% APY boost", "Priority support", "Governance voting"],
+        gold: ["25% APY boost", "Early access to new pools", "Enhanced governance rights"],
+        platinum: ["50% APY boost", "Validator nomination rights", "Exclusive pool access"],
+        diamond: ["100% APY boost", "Validator committee eligibility", "Maximum governance power", "Direct chain contribution"]
+      };
+      
+      const transformedTiers = tiers.map(tier => ({
+        id: tier.tier,
+        name: tier.displayName,
+        minStake: tier.minStakeWei,
+        maxStake: tier.maxStakeWei,
+        apyMultiplier: tier.apyMultiplier,
+        minApy: tier.minApy / 100, // Convert basis points to percentage
+        maxApy: tier.maxApy / 100,
+        lockPeriodDays: tier.minLockDays,
+        maxLockPeriodDays: tier.maxLockDays,
+        earlyAdopterBonus: tier.earlyAdopterBonus / 100,
+        loyaltyBonus: tier.loyaltyBonus / 100,
+        feeDiscount: tier.feeDiscount / 100,
+        priorityRewards: tier.priorityRewards,
+        governanceWeight: tier.governanceWeight,
+        color: tier.color,
+        benefits: tierBenefits[tier.tier] || []
+      }));
+      
+      res.json(transformedTiers);
     } catch (error: any) {
       console.error('Error fetching tier configuration:', error);
       res.status(500).json({ error: "Failed to fetch tier configuration" });
+    }
+  });
+
+  // ============================================
+  // ENTERPRISE STAKING API v2.0
+  // ============================================
+
+  // Staking Audit Logs
+  app.get("/api/staking/audit", requireAuth, async (req, res) => {
+    try {
+      const targetType = req.query.targetType as string;
+      const targetId = req.query.targetId as string;
+      const action = req.query.action as string;
+      const limit = parseInt(req.query.limit as string) || 100;
+      
+      const logs = await storage.getStakingAuditLogs({
+        targetType,
+        targetId,
+        action,
+        limit
+      });
+      
+      res.json(logs);
+    } catch (error: any) {
+      console.error('Error fetching audit logs:', error);
+      res.status(500).json({ error: "Failed to fetch audit logs" });
+    }
+  });
+
+  // Staking Snapshots
+  app.get("/api/staking/snapshots", requireAuth, async (req, res) => {
+    try {
+      const type = req.query.type as string;
+      const limit = parseInt(req.query.limit as string) || 50;
+      
+      const snapshots = await storage.getStakingSnapshots(type, limit);
+      res.json(snapshots);
+    } catch (error: any) {
+      console.error('Error fetching snapshots:', error);
+      res.status(500).json({ error: "Failed to fetch snapshots" });
+    }
+  });
+
+  // AI Risk Assessments
+  app.get("/api/staking/ai-assessments", requireAuth, async (req, res) => {
+    try {
+      const targetType = req.query.targetType as string;
+      const targetId = req.query.targetId as string;
+      
+      if (!targetType || !targetId) {
+        return res.status(400).json({ error: "targetType and targetId are required" });
+      }
+      
+      const assessments = await storage.getActiveStakingAiAssessments(targetType, targetId);
+      res.json(assessments);
+    } catch (error: any) {
+      console.error('Error fetching AI assessments:', error);
+      res.status(500).json({ error: "Failed to fetch AI assessments" });
+    }
+  });
+
+  // Top Validators for Staking
+  app.get("/api/staking/validators/top", requireAuth, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 10;
+      const validatorsList = await storage.getTopValidatorsForStaking(limit);
+      
+      res.json(validatorsList.map(v => ({
+        id: v.id,
+        name: v.name,
+        address: v.address,
+        status: v.status,
+        stake: v.stake,
+        commission: v.commission / 100, // Convert basis points
+        apy: v.apy / 100,
+        uptime: v.uptime / 100,
+        aiTrustScore: v.aiTrustScore / 100,
+        behaviorScore: v.behaviorScore / 100,
+        delegatorsCount: v.delegators,
+        totalDelegated: v.delegatedStake,
+      })));
+    } catch (error: any) {
+      console.error('Error fetching top validators:', error);
+      res.status(500).json({ error: "Failed to fetch top validators" });
+    }
+  });
+
+  // Validator with Staking Metrics
+  app.get("/api/staking/validators/:validatorId/metrics", requireAuth, async (req, res) => {
+    try {
+      const result = await storage.getValidatorWithStakingMetrics(req.params.validatorId);
+      if (!result) {
+        return res.status(404).json({ error: "Validator not found" });
+      }
+      res.json(result);
+    } catch (error: any) {
+      console.error('Error fetching validator metrics:', error);
+      res.status(500).json({ error: "Failed to fetch validator metrics" });
+    }
+  });
+
+  // Pool Validator Assignments
+  app.get("/api/staking/pools/:poolId/validators", requireAuth, async (req, res) => {
+    try {
+      const assignments = await storage.getPoolValidatorAssignments(req.params.poolId);
+      res.json(assignments);
+    } catch (error: any) {
+      console.error('Error fetching pool validators:', error);
+      res.status(500).json({ error: "Failed to fetch pool validators" });
+    }
+  });
+
+  // Create Staking Position (with Zod validation)
+  app.post("/api/staking/positions", requireAuth, async (req, res) => {
+    try {
+      const { z } = await import("zod");
+      
+      const createPositionSchema = z.object({
+        poolId: z.string().min(1, "Pool ID is required"),
+        stakerAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid staker address"),
+        stakedAmount: z.string().regex(/^\d+$/, "Amount must be a numeric string in Wei"),
+        tier: z.enum(["bronze", "silver", "gold", "platinum", "diamond"]),
+        lockPeriod: z.number().int().min(0).max(1095).optional().default(30),
+        autoCompound: z.boolean().optional().default(true),
+      });
+      
+      const validationResult = createPositionSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validationResult.error.flatten().fieldErrors 
+        });
+      }
+      
+      const data = validationResult.data;
+      
+      // Verify pool exists
+      const pool = await storage.getStakingPoolById(data.poolId);
+      if (!pool) {
+        return res.status(404).json({ error: "Staking pool not found" });
+      }
+      
+      // Create the position
+      const position = await storage.createStakingPosition({
+        poolId: data.poolId,
+        stakerAddress: data.stakerAddress,
+        stakedAmount: data.stakedAmount,
+        tier: data.tier,
+        lockPeriod: `${data.lockPeriod} days`,
+        autoCompound: data.autoCompound,
+      });
+      
+      // Log audit event
+      await storage.createStakingAuditLog({
+        actorAddress: data.stakerAddress,
+        action: "position_created",
+        targetType: "position",
+        targetId: position.id,
+        newValue: { stakedAmount: data.stakedAmount, tier: data.tier, poolId: data.poolId },
+      });
+      
+      res.status(201).json(position);
+    } catch (error: any) {
+      console.error('Error creating staking position:', error);
+      res.status(500).json({ error: "Failed to create staking position" });
+    }
+  });
+
+  // Create Delegation (with Zod validation)
+  app.post("/api/staking/delegations", requireAuth, async (req, res) => {
+    try {
+      const { z } = await import("zod");
+      
+      const createDelegationSchema = z.object({
+        delegatorAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid delegator address"),
+        validatorId: z.string().min(1, "Validator ID is required"),
+        poolId: z.string().optional(),
+        amount: z.string().regex(/^\d+$/, "Amount must be a numeric string in Wei"),
+      });
+      
+      const validationResult = createDelegationSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validationResult.error.flatten().fieldErrors 
+        });
+      }
+      
+      const data = validationResult.data;
+      
+      // Create the delegation
+      const delegation = await storage.createStakingDelegation({
+        delegatorAddress: data.delegatorAddress,
+        validatorId: data.validatorId,
+        poolId: data.poolId,
+        amount: data.amount,
+        status: "active",
+      });
+      
+      // Log audit event
+      await storage.createStakingAuditLog({
+        actorAddress: data.delegatorAddress,
+        action: "delegation_created",
+        targetType: "delegation",
+        targetId: delegation.id,
+        newValue: { amount: data.amount, validatorId: data.validatorId },
+      });
+      
+      res.status(201).json(delegation);
+    } catch (error: any) {
+      console.error('Error creating delegation:', error);
+      res.status(500).json({ error: "Failed to create delegation" });
+    }
+  });
+
+  // Create Unbonding Request (with Zod validation)
+  app.post("/api/staking/unbonding", requireAuth, async (req, res) => {
+    try {
+      const { z } = await import("zod");
+      
+      const createUnbondingSchema = z.object({
+        delegatorAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid delegator address"),
+        validatorId: z.string().min(1, "Validator ID is required"),
+        delegationId: z.string().min(1, "Delegation ID is required"),
+        amount: z.string().regex(/^\d+$/, "Amount must be a numeric string in Wei"),
+      });
+      
+      const validationResult = createUnbondingSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: "Validation failed", 
+          details: validationResult.error.flatten().fieldErrors 
+        });
+      }
+      
+      const data = validationResult.data;
+      
+      // Calculate completion time (21 days unbonding period)
+      const completesAt = new Date();
+      completesAt.setDate(completesAt.getDate() + 21);
+      
+      // Create the unbonding request
+      const request = await storage.createUnbondingRequest({
+        delegatorAddress: data.delegatorAddress,
+        validatorId: data.validatorId,
+        delegationId: data.delegationId,
+        amount: data.amount,
+        completesAt,
+        status: "pending",
+      });
+      
+      // Log audit event
+      await storage.createStakingAuditLog({
+        actorAddress: data.delegatorAddress,
+        action: "unbonding_requested",
+        targetType: "unbonding",
+        targetId: request.id,
+        newValue: { amount: data.amount, completesAt: completesAt.toISOString() },
+      });
+      
+      res.status(201).json(request);
+    } catch (error: any) {
+      console.error('Error creating unbonding request:', error);
+      res.status(500).json({ error: "Failed to create unbonding request" });
+    }
+  });
+
+  // Compound Rewards
+  app.post("/api/staking/positions/:id/compound", requireAuth, async (req, res) => {
+    try {
+      const positionId = req.params.id;
+      const position = await storage.getStakingPositionById(positionId);
+      
+      if (!position) {
+        return res.status(404).json({ error: "Staking position not found" });
+      }
+      
+      if (position.status !== "active") {
+        return res.status(400).json({ error: "Cannot compound inactive position" });
+      }
+      
+      // Calculate compounded rewards (simplified calculation)
+      const pendingRewards = BigInt(position.rewardsEarned || "0") - BigInt(position.rewardsClaimed || "0");
+      if (pendingRewards <= 0) {
+        return res.status(400).json({ error: "No rewards to compound" });
+      }
+      
+      const currentAmount = BigInt(position.stakedAmount);
+      const newAmount = (currentAmount + pendingRewards).toString();
+      const newClaimed = (BigInt(position.rewardsClaimed || "0") + pendingRewards).toString();
+      
+      // Update position
+      await storage.updateStakingPosition(positionId, {
+        stakedAmount: newAmount,
+        rewardsClaimed: newClaimed,
+        lastActionAt: new Date(),
+      });
+      
+      // Log audit event
+      await storage.createStakingAuditLog({
+        actorAddress: position.stakerAddress,
+        action: "rewards_compounded",
+        targetType: "position",
+        targetId: positionId,
+        previousValue: { stakedAmount: position.stakedAmount, rewardsEarned: position.rewardsEarned },
+        newValue: { stakedAmount: newAmount, rewardsClaimed: newClaimed },
+      });
+      
+      const updatedPosition = await storage.getStakingPositionById(positionId);
+      res.json(updatedPosition);
+    } catch (error: any) {
+      console.error('Error compounding rewards:', error);
+      res.status(500).json({ error: "Failed to compound rewards" });
+    }
+  });
+
+  // Claim Rewards
+  app.post("/api/staking/positions/:id/claim", requireAuth, async (req, res) => {
+    try {
+      const positionId = req.params.id;
+      const position = await storage.getStakingPositionById(positionId);
+      
+      if (!position) {
+        return res.status(404).json({ error: "Staking position not found" });
+      }
+      
+      const pendingRewards = BigInt(position.rewardsEarned || "0") - BigInt(position.rewardsClaimed || "0");
+      if (pendingRewards <= 0) {
+        return res.status(400).json({ error: "No rewards to claim" });
+      }
+      
+      const pendingRewardsStr = pendingRewards.toString();
+      
+      // Update position
+      const totalClaimed = (BigInt(position.rewardsClaimed || "0") + pendingRewards).toString();
+      await storage.updateStakingPosition(positionId, {
+        rewardsClaimed: totalClaimed,
+        lastActionAt: new Date(),
+      });
+      
+      // Create reward event
+      const currentCycle = await storage.getCurrentRewardCycle();
+      await storage.createRewardEvent({
+        cycleId: currentCycle?.id || "cycle-manual",
+        recipientAddress: position.stakerAddress,
+        poolId: position.poolId,
+        amount: pendingRewardsStr,
+        rewardType: "staking_rewards",
+        status: "claimed",
+      });
+      
+      // Log audit event
+      await storage.createStakingAuditLog({
+        actorAddress: position.stakerAddress,
+        action: "rewards_claimed",
+        targetType: "position",
+        targetId: positionId,
+        previousValue: { rewardsEarned: position.rewardsEarned, rewardsClaimed: position.rewardsClaimed },
+        newValue: { rewardsClaimed: totalClaimed },
+      });
+      
+      res.json({ claimed: pendingRewardsStr, totalClaimed });
+    } catch (error: any) {
+      console.error('Error claiming rewards:', error);
+      res.status(500).json({ error: "Failed to claim rewards" });
     }
   });
 
