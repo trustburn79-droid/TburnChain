@@ -77,6 +77,28 @@ import {
   type InsertStakingSnapshot,
   type StakingAiAssessment,
   type InsertStakingAiAssessment,
+  type DexPool,
+  type InsertDexPool,
+  type DexPoolAsset,
+  type InsertDexPoolAsset,
+  type DexPoolTick,
+  type InsertDexPoolTick,
+  type DexPosition,
+  type InsertDexPosition,
+  type DexSwap,
+  type InsertDexSwap,
+  type DexPriceHistory,
+  type InsertDexPriceHistory,
+  type DexTwapOracle,
+  type InsertDexTwapOracle,
+  type DexCircuitBreaker,
+  type InsertDexCircuitBreaker,
+  type DexMevEvent,
+  type InsertDexMevEvent,
+  type DexLiquidityReward,
+  type InsertDexLiquidityReward,
+  type DexUserAnalytics,
+  type InsertDexUserAnalytics,
   blocks,
   transactions,
   accounts,
@@ -116,10 +138,21 @@ import {
   stakingAuditLogs,
   stakingSnapshots,
   stakingAiAssessments,
+  dexPools,
+  dexPoolAssets,
+  dexPoolTicks,
+  dexPositions,
+  dexSwaps,
+  dexPriceHistory,
+  dexTwapOracle,
+  dexCircuitBreakers,
+  dexMevEvents,
+  dexLiquidityRewards,
+  dexUserAnalytics,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, desc, isNull } from "drizzle-orm";
+import { eq, desc, isNull, and } from "drizzle-orm";
 
 export interface IStorage {
   // Network Stats
@@ -354,6 +387,99 @@ export interface IStorage {
   // Validator Integration
   getValidatorWithStakingMetrics(validatorId: string): Promise<Validator & { stakingMetrics: any } | undefined>;
   getTopValidatorsForStaking(limit?: number): Promise<Validator[]>;
+
+  // ============================================
+  // DEX/AMM INFRASTRUCTURE v1.0
+  // ============================================
+  
+  // DEX Pools
+  getAllDexPools(limit?: number): Promise<DexPool[]>;
+  getDexPoolById(id: string): Promise<DexPool | undefined>;
+  getDexPoolByAddress(contractAddress: string): Promise<DexPool | undefined>;
+  getDexPoolsByType(poolType: string): Promise<DexPool[]>;
+  getDexPoolsByStatus(status: string): Promise<DexPool[]>;
+  createDexPool(data: InsertDexPool): Promise<DexPool>;
+  updateDexPool(id: string, data: Partial<DexPool>): Promise<void>;
+  getTopDexPoolsByTvl(limit?: number): Promise<DexPool[]>;
+  getTopDexPoolsByVolume(limit?: number): Promise<DexPool[]>;
+  
+  // DEX Pool Assets (for multi-asset pools)
+  getDexPoolAssets(poolId: string): Promise<DexPoolAsset[]>;
+  createDexPoolAsset(data: InsertDexPoolAsset): Promise<DexPoolAsset>;
+  updateDexPoolAsset(id: string, data: Partial<DexPoolAsset>): Promise<void>;
+  
+  // DEX Pool Ticks (for concentrated liquidity)
+  getDexPoolTicks(poolId: string): Promise<DexPoolTick[]>;
+  getDexPoolTickByIndex(poolId: string, tickIndex: number): Promise<DexPoolTick | undefined>;
+  createDexPoolTick(data: InsertDexPoolTick): Promise<DexPoolTick>;
+  updateDexPoolTick(id: string, data: Partial<DexPoolTick>): Promise<void>;
+  
+  // DEX Positions
+  getAllDexPositions(limit?: number): Promise<DexPosition[]>;
+  getDexPositionById(id: string): Promise<DexPosition | undefined>;
+  getDexPositionsByOwner(ownerAddress: string): Promise<DexPosition[]>;
+  getDexPositionsByPool(poolId: string): Promise<DexPosition[]>;
+  getActiveDexPositions(ownerAddress: string): Promise<DexPosition[]>;
+  createDexPosition(data: InsertDexPosition): Promise<DexPosition>;
+  updateDexPosition(id: string, data: Partial<DexPosition>): Promise<void>;
+  closeDexPosition(id: string): Promise<void>;
+  
+  // DEX Swaps
+  getAllDexSwaps(limit?: number): Promise<DexSwap[]>;
+  getDexSwapById(id: string): Promise<DexSwap | undefined>;
+  getDexSwapByTxHash(txHash: string): Promise<DexSwap | undefined>;
+  getDexSwapsByPool(poolId: string, limit?: number): Promise<DexSwap[]>;
+  getDexSwapsByTrader(traderAddress: string, limit?: number): Promise<DexSwap[]>;
+  getRecentDexSwaps(limit?: number): Promise<DexSwap[]>;
+  createDexSwap(data: InsertDexSwap): Promise<DexSwap>;
+  updateDexSwap(id: string, data: Partial<DexSwap>): Promise<void>;
+  
+  // DEX Price History
+  getDexPriceHistory(poolId: string, interval: string, limit?: number): Promise<DexPriceHistory[]>;
+  getLatestDexPrice(poolId: string): Promise<DexPriceHistory | undefined>;
+  createDexPriceHistory(data: InsertDexPriceHistory): Promise<DexPriceHistory>;
+  
+  // DEX TWAP Oracle
+  getDexTwapObservations(poolId: string, limit?: number): Promise<DexTwapOracle[]>;
+  getLatestDexTwapObservation(poolId: string): Promise<DexTwapOracle | undefined>;
+  createDexTwapObservation(data: InsertDexTwapOracle): Promise<DexTwapOracle>;
+  
+  // DEX Circuit Breakers
+  getDexCircuitBreaker(poolId: string): Promise<DexCircuitBreaker | undefined>;
+  getAllDexCircuitBreakers(): Promise<DexCircuitBreaker[]>;
+  getTriggeredDexCircuitBreakers(): Promise<DexCircuitBreaker[]>;
+  createDexCircuitBreaker(data: InsertDexCircuitBreaker): Promise<DexCircuitBreaker>;
+  updateDexCircuitBreaker(poolId: string, data: Partial<DexCircuitBreaker>): Promise<void>;
+  
+  // DEX MEV Events
+  getAllDexMevEvents(limit?: number): Promise<DexMevEvent[]>;
+  getDexMevEventsByPool(poolId: string, limit?: number): Promise<DexMevEvent[]>;
+  getRecentDexMevEvents(limit?: number): Promise<DexMevEvent[]>;
+  createDexMevEvent(data: InsertDexMevEvent): Promise<DexMevEvent>;
+  updateDexMevEvent(id: string, data: Partial<DexMevEvent>): Promise<void>;
+  
+  // DEX Liquidity Rewards
+  getDexLiquidityRewards(poolId: string): Promise<DexLiquidityReward[]>;
+  getActiveDexLiquidityRewards(poolId: string): Promise<DexLiquidityReward[]>;
+  createDexLiquidityReward(data: InsertDexLiquidityReward): Promise<DexLiquidityReward>;
+  updateDexLiquidityReward(id: string, data: Partial<DexLiquidityReward>): Promise<void>;
+  
+  // DEX User Analytics
+  getDexUserAnalytics(userAddress: string): Promise<DexUserAnalytics | undefined>;
+  getTopDexTraders(limit?: number): Promise<DexUserAnalytics[]>;
+  getTopDexLiquidityProviders(limit?: number): Promise<DexUserAnalytics[]>;
+  createDexUserAnalytics(data: InsertDexUserAnalytics): Promise<DexUserAnalytics>;
+  updateDexUserAnalytics(userAddress: string, data: Partial<DexUserAnalytics>): Promise<void>;
+  
+  // DEX Aggregated Stats
+  getDexStats(): Promise<{
+    totalPools: number;
+    totalTvlUsd: string;
+    totalVolume24h: string;
+    totalFees24h: string;
+    totalSwaps24h: number;
+    totalLiquidityProviders: number;
+  }>;
 }
 
 export class MemStorage implements IStorage {
@@ -2585,9 +2711,11 @@ export class DbStorage implements IStorage {
   // AI Risk Assessments
   async getActiveStakingAiAssessments(targetType: string, targetId: string): Promise<StakingAiAssessment[]> {
     return await db.select().from(stakingAiAssessments)
-      .where(eq(stakingAiAssessments.targetType, targetType))
-      .where(eq(stakingAiAssessments.targetId, targetId))
-      .where(eq(stakingAiAssessments.isActive, true))
+      .where(and(
+        eq(stakingAiAssessments.targetType, targetType),
+        eq(stakingAiAssessments.targetId, targetId),
+        eq(stakingAiAssessments.isActive, true)
+      ))
       .orderBy(desc(stakingAiAssessments.assessedAt));
   }
 
@@ -2602,8 +2730,10 @@ export class DbStorage implements IStorage {
   async deactivateStakingAiAssessments(targetType: string, targetId: string): Promise<void> {
     await db.update(stakingAiAssessments)
       .set({ isActive: false })
-      .where(eq(stakingAiAssessments.targetType, targetType))
-      .where(eq(stakingAiAssessments.targetId, targetId));
+      .where(and(
+        eq(stakingAiAssessments.targetType, targetType),
+        eq(stakingAiAssessments.targetId, targetId)
+      ));
   }
 
   // Validator Integration
@@ -2612,8 +2742,10 @@ export class DbStorage implements IStorage {
     if (!validator) return undefined;
 
     const delegationsList = await db.select().from(stakingDelegations)
-      .where(eq(stakingDelegations.validatorId, validatorId))
-      .where(eq(stakingDelegations.status, "active"));
+      .where(and(
+        eq(stakingDelegations.validatorId, validatorId),
+        eq(stakingDelegations.status, "active")
+      ));
     
     const poolAssignments = await this.getValidatorPoolAssignments(validatorId);
     
@@ -2621,7 +2753,7 @@ export class DbStorage implements IStorage {
       ...validator,
       stakingMetrics: {
         activeDelegations: delegationsList.length,
-        totalDelegated: delegationsList.reduce((sum, d) => sum + BigInt(d.amount), BigInt(0)).toString(),
+        totalDelegated: delegationsList.reduce((sum: bigint, d: StakingDelegation) => sum + BigInt(d.amount), BigInt(0)).toString(),
         poolsAssigned: poolAssignments.length,
         averageCommission: validator.commission,
         uptimeScore: validator.uptime,
@@ -2635,6 +2767,426 @@ export class DbStorage implements IStorage {
       .where(eq(validators.status, "active"))
       .orderBy(desc(validators.aiTrustScore), desc(validators.uptime), desc(validators.apy))
       .limit(limit || 10);
+  }
+
+  // ============================================
+  // DEX/AMM INFRASTRUCTURE v1.0 IMPLEMENTATIONS
+  // ============================================
+
+  // DEX Pools
+  async getAllDexPools(limit: number = 100): Promise<DexPool[]> {
+    return await db.select().from(dexPools).orderBy(desc(dexPools.tvlUsd)).limit(limit);
+  }
+
+  async getDexPoolById(id: string): Promise<DexPool | undefined> {
+    const [pool] = await db.select().from(dexPools).where(eq(dexPools.id, id));
+    return pool;
+  }
+
+  async getDexPoolByAddress(contractAddress: string): Promise<DexPool | undefined> {
+    const [pool] = await db.select().from(dexPools).where(eq(dexPools.contractAddress, contractAddress));
+    return pool;
+  }
+
+  async getDexPoolsByType(poolType: string): Promise<DexPool[]> {
+    return await db.select().from(dexPools).where(eq(dexPools.poolType, poolType)).orderBy(desc(dexPools.tvlUsd));
+  }
+
+  async getDexPoolsByStatus(status: string): Promise<DexPool[]> {
+    return await db.select().from(dexPools).where(eq(dexPools.status, status)).orderBy(desc(dexPools.tvlUsd));
+  }
+
+  async createDexPool(data: InsertDexPool): Promise<DexPool> {
+    const [result] = await db.insert(dexPools).values({
+      ...data,
+      id: `pool-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexPool(id: string, data: Partial<DexPool>): Promise<void> {
+    await db.update(dexPools).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(dexPools.id, id));
+  }
+
+  async getTopDexPoolsByTvl(limit: number = 10): Promise<DexPool[]> {
+    return await db.select().from(dexPools)
+      .where(eq(dexPools.status, "active"))
+      .orderBy(desc(dexPools.tvlUsd))
+      .limit(limit);
+  }
+
+  async getTopDexPoolsByVolume(limit: number = 10): Promise<DexPool[]> {
+    return await db.select().from(dexPools)
+      .where(eq(dexPools.status, "active"))
+      .orderBy(desc(dexPools.volume24h))
+      .limit(limit);
+  }
+
+  // DEX Pool Assets
+  async getDexPoolAssets(poolId: string): Promise<DexPoolAsset[]> {
+    return await db.select().from(dexPoolAssets)
+      .where(eq(dexPoolAssets.poolId, poolId))
+      .orderBy(dexPoolAssets.assetIndex);
+  }
+
+  async createDexPoolAsset(data: InsertDexPoolAsset): Promise<DexPoolAsset> {
+    const [result] = await db.insert(dexPoolAssets).values({
+      ...data,
+      id: `asset-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexPoolAsset(id: string, data: Partial<DexPoolAsset>): Promise<void> {
+    await db.update(dexPoolAssets).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(dexPoolAssets.id, id));
+  }
+
+  // DEX Pool Ticks
+  async getDexPoolTicks(poolId: string): Promise<DexPoolTick[]> {
+    return await db.select().from(dexPoolTicks)
+      .where(eq(dexPoolTicks.poolId, poolId))
+      .orderBy(dexPoolTicks.tickIndex);
+  }
+
+  async getDexPoolTickByIndex(poolId: string, tickIndex: number): Promise<DexPoolTick | undefined> {
+    const [tick] = await db.select().from(dexPoolTicks)
+      .where(eq(dexPoolTicks.poolId, poolId));
+    if (tick && tick.tickIndex === tickIndex) return tick;
+    return undefined;
+  }
+
+  async createDexPoolTick(data: InsertDexPoolTick): Promise<DexPoolTick> {
+    const [result] = await db.insert(dexPoolTicks).values({
+      ...data,
+      id: `tick-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexPoolTick(id: string, data: Partial<DexPoolTick>): Promise<void> {
+    await db.update(dexPoolTicks).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(dexPoolTicks.id, id));
+  }
+
+  // DEX Positions
+  async getAllDexPositions(limit: number = 100): Promise<DexPosition[]> {
+    return await db.select().from(dexPositions).orderBy(desc(dexPositions.createdAt)).limit(limit);
+  }
+
+  async getDexPositionById(id: string): Promise<DexPosition | undefined> {
+    const [position] = await db.select().from(dexPositions).where(eq(dexPositions.id, id));
+    return position;
+  }
+
+  async getDexPositionsByOwner(ownerAddress: string): Promise<DexPosition[]> {
+    return await db.select().from(dexPositions)
+      .where(eq(dexPositions.ownerAddress, ownerAddress))
+      .orderBy(desc(dexPositions.createdAt));
+  }
+
+  async getDexPositionsByPool(poolId: string): Promise<DexPosition[]> {
+    return await db.select().from(dexPositions)
+      .where(eq(dexPositions.poolId, poolId))
+      .orderBy(desc(dexPositions.valueUsd));
+  }
+
+  async getActiveDexPositions(ownerAddress: string): Promise<DexPosition[]> {
+    return await db.select().from(dexPositions)
+      .where(and(
+        eq(dexPositions.ownerAddress, ownerAddress),
+        eq(dexPositions.status, "active")
+      ))
+      .orderBy(desc(dexPositions.valueUsd));
+  }
+
+  async createDexPosition(data: InsertDexPosition): Promise<DexPosition> {
+    const [result] = await db.insert(dexPositions).values({
+      ...data,
+      id: `pos-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexPosition(id: string, data: Partial<DexPosition>): Promise<void> {
+    await db.update(dexPositions).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(dexPositions.id, id));
+  }
+
+  async closeDexPosition(id: string): Promise<void> {
+    await db.update(dexPositions).set({
+      status: "closed",
+      closedAt: new Date(),
+      updatedAt: new Date(),
+    }).where(eq(dexPositions.id, id));
+  }
+
+  // DEX Swaps
+  async getAllDexSwaps(limit: number = 100): Promise<DexSwap[]> {
+    return await db.select().from(dexSwaps).orderBy(desc(dexSwaps.createdAt)).limit(limit);
+  }
+
+  async getDexSwapById(id: string): Promise<DexSwap | undefined> {
+    const [swap] = await db.select().from(dexSwaps).where(eq(dexSwaps.id, id));
+    return swap;
+  }
+
+  async getDexSwapByTxHash(txHash: string): Promise<DexSwap | undefined> {
+    const [swap] = await db.select().from(dexSwaps).where(eq(dexSwaps.txHash, txHash));
+    return swap;
+  }
+
+  async getDexSwapsByPool(poolId: string, limit: number = 100): Promise<DexSwap[]> {
+    return await db.select().from(dexSwaps)
+      .where(eq(dexSwaps.poolId, poolId))
+      .orderBy(desc(dexSwaps.createdAt))
+      .limit(limit);
+  }
+
+  async getDexSwapsByTrader(traderAddress: string, limit: number = 100): Promise<DexSwap[]> {
+    return await db.select().from(dexSwaps)
+      .where(eq(dexSwaps.traderAddress, traderAddress))
+      .orderBy(desc(dexSwaps.createdAt))
+      .limit(limit);
+  }
+
+  async getRecentDexSwaps(limit: number = 50): Promise<DexSwap[]> {
+    return await db.select().from(dexSwaps)
+      .where(eq(dexSwaps.status, "completed"))
+      .orderBy(desc(dexSwaps.completedAt))
+      .limit(limit);
+  }
+
+  async createDexSwap(data: InsertDexSwap): Promise<DexSwap> {
+    const [result] = await db.insert(dexSwaps).values({
+      ...data,
+      id: `swap-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexSwap(id: string, data: Partial<DexSwap>): Promise<void> {
+    await db.update(dexSwaps).set(data).where(eq(dexSwaps.id, id));
+  }
+
+  // DEX Price History
+  async getDexPriceHistory(poolId: string, interval: string, limit: number = 100): Promise<DexPriceHistory[]> {
+    return await db.select().from(dexPriceHistory)
+      .where(and(
+        eq(dexPriceHistory.poolId, poolId),
+        eq(dexPriceHistory.interval, interval)
+      ))
+      .orderBy(desc(dexPriceHistory.periodStart))
+      .limit(limit);
+  }
+
+  async getLatestDexPrice(poolId: string): Promise<DexPriceHistory | undefined> {
+    const [price] = await db.select().from(dexPriceHistory)
+      .where(eq(dexPriceHistory.poolId, poolId))
+      .orderBy(desc(dexPriceHistory.periodEnd))
+      .limit(1);
+    return price;
+  }
+
+  async createDexPriceHistory(data: InsertDexPriceHistory): Promise<DexPriceHistory> {
+    const [result] = await db.insert(dexPriceHistory).values({
+      ...data,
+      id: `price-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  // DEX TWAP Oracle
+  async getDexTwapObservations(poolId: string, limit: number = 100): Promise<DexTwapOracle[]> {
+    return await db.select().from(dexTwapOracle)
+      .where(eq(dexTwapOracle.poolId, poolId))
+      .orderBy(desc(dexTwapOracle.blockTimestamp))
+      .limit(limit);
+  }
+
+  async getLatestDexTwapObservation(poolId: string): Promise<DexTwapOracle | undefined> {
+    const [observation] = await db.select().from(dexTwapOracle)
+      .where(eq(dexTwapOracle.poolId, poolId))
+      .orderBy(desc(dexTwapOracle.blockTimestamp))
+      .limit(1);
+    return observation;
+  }
+
+  async createDexTwapObservation(data: InsertDexTwapOracle): Promise<DexTwapOracle> {
+    const [result] = await db.insert(dexTwapOracle).values({
+      ...data,
+      id: `twap-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  // DEX Circuit Breakers
+  async getDexCircuitBreaker(poolId: string): Promise<DexCircuitBreaker | undefined> {
+    const [breaker] = await db.select().from(dexCircuitBreakers).where(eq(dexCircuitBreakers.poolId, poolId));
+    return breaker;
+  }
+
+  async getAllDexCircuitBreakers(): Promise<DexCircuitBreaker[]> {
+    return await db.select().from(dexCircuitBreakers).orderBy(desc(dexCircuitBreakers.updatedAt));
+  }
+
+  async getTriggeredDexCircuitBreakers(): Promise<DexCircuitBreaker[]> {
+    return await db.select().from(dexCircuitBreakers).where(eq(dexCircuitBreakers.status, "triggered"));
+  }
+
+  async createDexCircuitBreaker(data: InsertDexCircuitBreaker): Promise<DexCircuitBreaker> {
+    const [result] = await db.insert(dexCircuitBreakers).values({
+      ...data,
+      id: `cb-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexCircuitBreaker(poolId: string, data: Partial<DexCircuitBreaker>): Promise<void> {
+    await db.update(dexCircuitBreakers).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(dexCircuitBreakers.poolId, poolId));
+  }
+
+  // DEX MEV Events
+  async getAllDexMevEvents(limit: number = 100): Promise<DexMevEvent[]> {
+    return await db.select().from(dexMevEvents).orderBy(desc(dexMevEvents.createdAt)).limit(limit);
+  }
+
+  async getDexMevEventsByPool(poolId: string, limit: number = 50): Promise<DexMevEvent[]> {
+    return await db.select().from(dexMevEvents)
+      .where(eq(dexMevEvents.poolId, poolId))
+      .orderBy(desc(dexMevEvents.createdAt))
+      .limit(limit);
+  }
+
+  async getRecentDexMevEvents(limit: number = 20): Promise<DexMevEvent[]> {
+    return await db.select().from(dexMevEvents)
+      .orderBy(desc(dexMevEvents.createdAt))
+      .limit(limit);
+  }
+
+  async createDexMevEvent(data: InsertDexMevEvent): Promise<DexMevEvent> {
+    const [result] = await db.insert(dexMevEvents).values({
+      ...data,
+      id: `mev-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexMevEvent(id: string, data: Partial<DexMevEvent>): Promise<void> {
+    await db.update(dexMevEvents).set(data).where(eq(dexMevEvents.id, id));
+  }
+
+  // DEX Liquidity Rewards
+  async getDexLiquidityRewards(poolId: string): Promise<DexLiquidityReward[]> {
+    return await db.select().from(dexLiquidityRewards)
+      .where(eq(dexLiquidityRewards.poolId, poolId))
+      .orderBy(desc(dexLiquidityRewards.startTime));
+  }
+
+  async getActiveDexLiquidityRewards(poolId: string): Promise<DexLiquidityReward[]> {
+    return await db.select().from(dexLiquidityRewards)
+      .where(and(
+        eq(dexLiquidityRewards.poolId, poolId),
+        eq(dexLiquidityRewards.isActive, true)
+      ));
+  }
+
+  async createDexLiquidityReward(data: InsertDexLiquidityReward): Promise<DexLiquidityReward> {
+    const [result] = await db.insert(dexLiquidityRewards).values({
+      ...data,
+      id: `reward-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexLiquidityReward(id: string, data: Partial<DexLiquidityReward>): Promise<void> {
+    await db.update(dexLiquidityRewards).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(dexLiquidityRewards.id, id));
+  }
+
+  // DEX User Analytics
+  async getDexUserAnalytics(userAddress: string): Promise<DexUserAnalytics | undefined> {
+    const [analytics] = await db.select().from(dexUserAnalytics)
+      .where(eq(dexUserAnalytics.userAddress, userAddress));
+    return analytics;
+  }
+
+  async getTopDexTraders(limit: number = 20): Promise<DexUserAnalytics[]> {
+    return await db.select().from(dexUserAnalytics)
+      .orderBy(desc(dexUserAnalytics.totalVolumeUsd))
+      .limit(limit);
+  }
+
+  async getTopDexLiquidityProviders(limit: number = 20): Promise<DexUserAnalytics[]> {
+    return await db.select().from(dexUserAnalytics)
+      .orderBy(desc(dexUserAnalytics.totalLiquidityProvidedUsd))
+      .limit(limit);
+  }
+
+  async createDexUserAnalytics(data: InsertDexUserAnalytics): Promise<DexUserAnalytics> {
+    const [result] = await db.insert(dexUserAnalytics).values({
+      ...data,
+      id: `user-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateDexUserAnalytics(userAddress: string, data: Partial<DexUserAnalytics>): Promise<void> {
+    await db.update(dexUserAnalytics).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(dexUserAnalytics.userAddress, userAddress));
+  }
+
+  // DEX Aggregated Stats
+  async getDexStats(): Promise<{
+    totalPools: number;
+    totalTvlUsd: string;
+    totalVolume24h: string;
+    totalFees24h: string;
+    totalSwaps24h: number;
+    totalLiquidityProviders: number;
+  }> {
+    const pools = await db.select().from(dexPools).where(eq(dexPools.status, "active"));
+    
+    let totalTvl = BigInt(0);
+    let totalVolume = BigInt(0);
+    let totalFees = BigInt(0);
+    let totalSwaps = 0;
+    const lpAddresses = new Set<string>();
+    
+    for (const pool of pools) {
+      totalTvl += BigInt(pool.tvlUsd.replace(/\./g, '') || "0");
+      totalVolume += BigInt(pool.volume24h.replace(/\./g, '') || "0");
+      totalFees += BigInt(pool.fees24h.replace(/\./g, '') || "0");
+      totalSwaps += pool.swapCount24h;
+    }
+    
+    const positions = await db.select().from(dexPositions).where(eq(dexPositions.status, "active"));
+    positions.forEach((pos: DexPosition) => lpAddresses.add(pos.ownerAddress));
+    
+    return {
+      totalPools: pools.length,
+      totalTvlUsd: totalTvl.toString(),
+      totalVolume24h: totalVolume.toString(),
+      totalFees24h: totalFees.toString(),
+      totalSwaps24h: totalSwaps,
+      totalLiquidityProviders: lpAddresses.size,
+    };
   }
 }
 
