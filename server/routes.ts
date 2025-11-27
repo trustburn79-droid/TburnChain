@@ -8789,6 +8789,234 @@ Provide JSON portfolio analysis:
   }, 30000, 'dex_circuit_breakers_broadcast');
 
   // ============================================
+  // LENDING PROTOCOL BROADCASTS
+  // ============================================
+
+  // Lending Markets Overview - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const markets = await storage.getAllLendingMarkets(50);
+      const activeMarkets = markets.filter(m => m.isActive);
+      
+      const totalSupply = markets.reduce((sum, m) => sum + BigInt(m.totalSupply || '0'), BigInt(0));
+      const totalBorrow = markets.reduce((sum, m) => sum + BigInt(m.totalBorrowed || '0'), BigInt(0));
+      
+      const lendingStats = {
+        totalMarkets: markets.length,
+        activeMarkets: activeMarkets.length,
+        totalSupplyUsd: totalSupply.toString(),
+        totalBorrowUsd: totalBorrow.toString(),
+        avgUtilization: activeMarkets.length > 0 
+          ? Math.round(activeMarkets.reduce((sum, m) => sum + m.utilizationRate, 0) / activeMarkets.length)
+          : 0,
+        markets: activeMarkets.slice(0, 10).map(m => ({
+          id: m.id,
+          assetSymbol: m.assetSymbol,
+          assetName: m.assetName,
+          totalSupply: m.totalSupply,
+          totalBorrowed: m.totalBorrowed,
+          supplyRate: m.supplyRate,
+          borrowRateVariable: m.borrowRateVariable,
+          utilizationRate: m.utilizationRate,
+          collateralFactor: m.collateralFactor,
+          isActive: m.isActive,
+        })),
+        timestamp: Date.now(),
+      };
+
+      broadcastUpdate('lending_markets', lendingStats, z.object({
+        totalMarkets: z.number(),
+        activeMarkets: z.number(),
+        totalSupplyUsd: z.string(),
+        totalBorrowUsd: z.string(),
+        avgUtilization: z.number(),
+        markets: z.array(z.object({
+          id: z.string(),
+          assetSymbol: z.string(),
+          assetName: z.string(),
+          totalSupply: z.string().nullable(),
+          totalBorrowed: z.string().nullable(),
+          supplyRate: z.number(),
+          borrowRateVariable: z.number(),
+          utilizationRate: z.number(),
+          collateralFactor: z.number(),
+          isActive: z.boolean(),
+        })),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[Lending WS] Error broadcasting markets:', error);
+    }
+  }, 10000, 'lending_markets_broadcast');
+
+  // Lending Positions At Risk - Every 15 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const atRiskPositions = await storage.getAtRiskLendingPositions(1000);
+      const liquidatablePositions = await storage.getLiquidatableLendingPositions(100);
+      
+      broadcastUpdate('lending_risk_monitor', {
+        atRiskCount: atRiskPositions.length,
+        liquidatableCount: liquidatablePositions.length,
+        atRiskPositions: atRiskPositions.slice(0, 20).map(p => ({
+          userAddress: p.userAddress,
+          healthFactor: p.healthFactor,
+          healthStatus: p.healthStatus,
+          totalCollateralValueUsd: p.totalCollateralValueUsd,
+          totalBorrowedValueUsd: p.totalBorrowedValueUsd,
+        })),
+        liquidatablePositions: liquidatablePositions.slice(0, 10).map(p => ({
+          userAddress: p.userAddress,
+          healthFactor: p.healthFactor,
+          totalCollateralValueUsd: p.totalCollateralValueUsd,
+          totalBorrowedValueUsd: p.totalBorrowedValueUsd,
+        })),
+        timestamp: Date.now(),
+      }, z.object({
+        atRiskCount: z.number(),
+        liquidatableCount: z.number(),
+        atRiskPositions: z.array(z.object({
+          userAddress: z.string(),
+          healthFactor: z.number(),
+          healthStatus: z.string(),
+          totalCollateralValueUsd: z.string(),
+          totalBorrowedValueUsd: z.string(),
+        })),
+        liquidatablePositions: z.array(z.object({
+          userAddress: z.string(),
+          healthFactor: z.number(),
+          totalCollateralValueUsd: z.string(),
+          totalBorrowedValueUsd: z.string(),
+        })),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[Lending WS] Error broadcasting risk monitor:', error);
+    }
+  }, 15000, 'lending_risk_broadcast');
+
+  // Lending Recent Transactions - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const recentTxs = await storage.getRecentLendingTransactions(20);
+      
+      broadcastUpdate('lending_transactions', {
+        transactions: recentTxs.map(tx => ({
+          id: tx.id,
+          txHash: tx.txHash,
+          userAddress: tx.userAddress,
+          assetSymbol: tx.assetSymbol,
+          txType: tx.txType,
+          amount: tx.amount,
+          amountUsd: tx.amountUsd,
+          status: tx.status,
+          createdAt: tx.createdAt,
+        })),
+        count: recentTxs.length,
+        timestamp: Date.now(),
+      }, z.object({
+        transactions: z.array(z.object({
+          id: z.string(),
+          txHash: z.string(),
+          userAddress: z.string(),
+          assetSymbol: z.string(),
+          txType: z.string(),
+          amount: z.string(),
+          amountUsd: z.string().nullable(),
+          status: z.string(),
+          createdAt: z.date().nullable(),
+        })),
+        count: z.number(),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[Lending WS] Error broadcasting transactions:', error);
+    }
+  }, 5000, 'lending_transactions_broadcast');
+
+  // Lending Rate History - Every 30 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const markets = await storage.getAllLendingMarkets(10);
+      const rateData: Array<{
+        marketId: string;
+        assetSymbol: string;
+        supplyRate: number;
+        borrowRate: number;
+        utilizationRate: number;
+      }> = markets.map(m => ({
+        marketId: m.id,
+        assetSymbol: m.assetSymbol,
+        supplyRate: m.supplyRate,
+        borrowRate: m.borrowRateVariable,
+        utilizationRate: m.utilizationRate,
+      }));
+
+      broadcastUpdate('lending_rates', {
+        rates: rateData,
+        timestamp: Date.now(),
+      }, z.object({
+        rates: z.array(z.object({
+          marketId: z.string(),
+          assetSymbol: z.string(),
+          supplyRate: z.number(),
+          borrowRate: z.number(),
+          utilizationRate: z.number(),
+        })),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[Lending WS] Error broadcasting rates:', error);
+    }
+  }, 30000, 'lending_rates_broadcast');
+
+  // Lending Recent Liquidations - Every 20 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const recentLiquidations = await storage.getRecentLendingLiquidations(10);
+      
+      broadcastUpdate('lending_liquidations', {
+        liquidations: recentLiquidations.map(liq => ({
+          id: liq.id,
+          borrowerAddress: liq.borrowerAddress,
+          liquidatorAddress: liq.liquidatorAddress,
+          collateralSymbol: liq.collateralSymbol,
+          debtSymbol: liq.debtSymbol,
+          debtRepaid: liq.debtRepaid,
+          collateralSeized: liq.collateralSeized,
+          liquidationBonus: liq.liquidationBonus,
+          txHash: liq.txHash,
+          createdAt: liq.createdAt,
+        })),
+        count: recentLiquidations.length,
+        timestamp: Date.now(),
+      }, z.object({
+        liquidations: z.array(z.object({
+          id: z.string(),
+          borrowerAddress: z.string(),
+          liquidatorAddress: z.string(),
+          collateralSymbol: z.string(),
+          debtSymbol: z.string(),
+          debtRepaid: z.string(),
+          collateralSeized: z.string(),
+          liquidationBonus: z.string(),
+          txHash: z.string(),
+          createdAt: z.date().nullable(),
+        })),
+        count: z.number(),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[Lending WS] Error broadcasting liquidations:', error);
+    }
+  }, 20000, 'lending_liquidations_broadcast');
+
+  // ============================================
   // Production Mode Polling (TBurnClient-based)
   // ============================================
   if (isProductionMode()) {
