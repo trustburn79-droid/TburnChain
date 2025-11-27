@@ -13,6 +13,7 @@ import {
   FileCode,
   FileText,
   Flame,
+  Gamepad2,
   Gift,
   Grid3x3,
   Home,
@@ -154,6 +155,12 @@ const menuItems = [
     title: "NFT Launchpad",
     url: "/nft-launchpad",
     icon: Rocket,
+    group: "DeFi",
+  },
+  {
+    title: "GameFi Hub",
+    url: "/gamefi",
+    icon: Gamepad2,
     group: "DeFi",
   },
   {

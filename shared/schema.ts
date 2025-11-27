@@ -4724,3 +4724,348 @@ export interface LaunchpadOverview {
   upcomingLaunches: LaunchpadProjectSummary[];
   recentActivity: LaunchpadActivity[];
 }
+
+// ============================================
+// GAMEFI INFRASTRUCTURE SCHEMA (Phase 7)
+// ============================================
+
+// GameFi Projects - Game projects integrated with TBURN blockchain
+export const gamefiProjects = pgTable("gamefi_projects", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  name: varchar("name", { length: 100 }).notNull(),
+  slug: varchar("slug", { length: 100 }).notNull().unique(),
+  description: text("description"),
+  shortDescription: varchar("short_description", { length: 256 }),
+  imageUrl: varchar("image_url", { length: 512 }),
+  bannerUrl: varchar("banner_url", { length: 512 }),
+  website: varchar("website", { length: 256 }),
+  developer: varchar("developer", { length: 100 }),
+  developerAddress: varchar("developer_address", { length: 66 }),
+  category: varchar("category", { length: 50 }).notNull().default("arcade"), // arcade, rpg, strategy, action, puzzle, card, racing, sports, casual
+  genre: varchar("genre", { length: 50 }),
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, beta, coming_soon, maintenance, deprecated
+  featured: boolean("featured").default(false),
+  verified: boolean("verified").default(false),
+  contractAddress: varchar("contract_address", { length: 66 }),
+  chainId: integer("chain_id").default(1),
+  tokenSymbol: varchar("token_symbol", { length: 20 }),
+  nftContractAddress: varchar("nft_contract_address", { length: 66 }),
+  totalPlayers: integer("total_players").default(0),
+  activePlayers24h: integer("active_players_24h").default(0),
+  totalVolume: numeric("total_volume", { precision: 40, scale: 0 }).default("0"),
+  dailyVolume: numeric("daily_volume", { precision: 40, scale: 0 }).default("0"),
+  totalRewardsDistributed: numeric("total_rewards_distributed", { precision: 40, scale: 0 }).default("0"),
+  aiScore: real("ai_score"), // AI-assessed game quality and potential
+  socialScore: integer("social_score").default(0), // Community engagement score
+  rating: real("rating").default(0), // User rating (0-5)
+  ratingCount: integer("rating_count").default(0),
+  playToEarnEnabled: boolean("play_to_earn_enabled").default(true),
+  stakingEnabled: boolean("staking_enabled").default(false),
+  tournamentEnabled: boolean("tournament_enabled").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Game Assets - In-game NFT assets
+export const gameAssets = pgTable("game_assets", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id", { length: 64 }).notNull(),
+  tokenId: varchar("token_id", { length: 100 }).notNull(),
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  imageUrl: varchar("image_url", { length: 512 }),
+  assetType: varchar("asset_type", { length: 50 }).notNull().default("item"), // character, weapon, armor, item, land, vehicle, pet, card, skin
+  rarity: varchar("rarity", { length: 20 }).notNull().default("common"), // common, uncommon, rare, epic, legendary, mythic
+  ownerAddress: varchar("owner_address", { length: 66 }),
+  mintedAt: timestamp("minted_at"),
+  lastTransferAt: timestamp("last_transfer_at"),
+  price: numeric("price", { precision: 40, scale: 0 }),
+  isListed: boolean("is_listed").default(false),
+  isStaked: boolean("is_staked").default(false),
+  stakingRewards: numeric("staking_rewards", { precision: 40, scale: 0 }).default("0"),
+  attributes: jsonb("attributes"), // Game-specific attributes (level, power, stats, etc.)
+  boosts: jsonb("boosts"), // In-game boosts and effects
+  usageCount: integer("usage_count").default(0),
+  winRate: real("win_rate"), // For competitive assets
+  earnedRewards: numeric("earned_rewards", { precision: 40, scale: 0 }).default("0"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Game Rewards - Reward distribution tracking
+export const gameRewards = pgTable("game_rewards", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id", { length: 64 }).notNull(),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  rewardType: varchar("reward_type", { length: 50 }).notNull().default("gameplay"), // gameplay, tournament, staking, referral, achievement, daily, weekly
+  amount: numeric("amount", { precision: 40, scale: 0 }).notNull(),
+  tokenSymbol: varchar("token_symbol", { length: 20 }).default("TBURN"),
+  reason: varchar("reason", { length: 256 }),
+  txHash: varchar("tx_hash", { length: 130 }),
+  status: varchar("status", { length: 20 }).notNull().default("pending"), // pending, claimed, expired
+  metadata: jsonb("metadata"),
+  expiresAt: timestamp("expires_at"),
+  claimedAt: timestamp("claimed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Leaderboards - Game rankings
+export const gameLeaderboards = pgTable("game_leaderboards", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id", { length: 64 }).notNull(),
+  leaderboardType: varchar("leaderboard_type", { length: 50 }).notNull().default("global"), // global, daily, weekly, monthly, seasonal, tournament
+  periodStart: timestamp("period_start"),
+  periodEnd: timestamp("period_end"),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  playerName: varchar("player_name", { length: 50 }),
+  rank: integer("rank").notNull(),
+  score: numeric("score", { precision: 40, scale: 0 }).notNull(),
+  wins: integer("wins").default(0),
+  losses: integer("losses").default(0),
+  gamesPlayed: integer("games_played").default(0),
+  winStreak: integer("win_streak").default(0),
+  bestWinStreak: integer("best_win_streak").default(0),
+  totalEarned: numeric("total_earned", { precision: 40, scale: 0 }).default("0"),
+  rewardClaimed: boolean("reward_claimed").default(false),
+  rewardAmount: numeric("reward_amount", { precision: 40, scale: 0 }),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Tournaments - Competitive events
+export const gameTournaments = pgTable("game_tournaments", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id", { length: 64 }).notNull(),
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  imageUrl: varchar("image_url", { length: 512 }),
+  tournamentType: varchar("tournament_type", { length: 50 }).notNull().default("single_elimination"), // single_elimination, double_elimination, round_robin, swiss, battle_royale, league
+  status: varchar("status", { length: 20 }).notNull().default("upcoming"), // upcoming, registration, active, completed, cancelled
+  entryFee: numeric("entry_fee", { precision: 40, scale: 0 }).default("0"),
+  prizePool: numeric("prize_pool", { precision: 40, scale: 0 }).notNull(),
+  prizeDistribution: jsonb("prize_distribution"), // {"1st": "50%", "2nd": "30%", "3rd": "20%"}
+  maxParticipants: integer("max_participants").default(64),
+  currentParticipants: integer("current_participants").default(0),
+  minParticipants: integer("min_participants").default(2),
+  requiresNft: boolean("requires_nft").default(false),
+  requiredNftContract: varchar("required_nft_contract", { length: 66 }),
+  registrationStart: timestamp("registration_start"),
+  registrationEnd: timestamp("registration_end"),
+  startTime: timestamp("start_time"),
+  endTime: timestamp("end_time"),
+  rules: text("rules"),
+  metadata: jsonb("metadata"),
+  winnerId: varchar("winner_id", { length: 66 }),
+  runnerUpId: varchar("runner_up_id", { length: 66 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Tournament Participants
+export const tournamentParticipants = pgTable("tournament_participants", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  tournamentId: varchar("tournament_id", { length: 64 }).notNull(),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  playerName: varchar("player_name", { length: 50 }),
+  teamName: varchar("team_name", { length: 100 }),
+  status: varchar("status", { length: 20 }).notNull().default("registered"), // registered, checked_in, active, eliminated, winner, disqualified
+  seed: integer("seed"),
+  bracket: varchar("bracket", { length: 50 }),
+  round: integer("round").default(0),
+  wins: integer("wins").default(0),
+  losses: integer("losses").default(0),
+  score: numeric("score", { precision: 40, scale: 0 }).default("0"),
+  placement: integer("placement"),
+  prizeWon: numeric("prize_won", { precision: 40, scale: 0 }),
+  prizeClaimed: boolean("prize_claimed").default(false),
+  entryPaid: boolean("entry_paid").default(false),
+  entryTxHash: varchar("entry_tx_hash", { length: 130 }),
+  registeredAt: timestamp("registered_at").defaultNow().notNull(),
+  checkInAt: timestamp("check_in_at"),
+  eliminatedAt: timestamp("eliminated_at"),
+});
+
+// Achievement Badges
+export const achievementBadges = pgTable("achievement_badges", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id", { length: 64 }),
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  imageUrl: varchar("image_url", { length: 512 }),
+  category: varchar("category", { length: 50 }).notNull().default("gameplay"), // gameplay, social, collection, tournament, special, seasonal
+  rarity: varchar("rarity", { length: 20 }).notNull().default("common"), // common, uncommon, rare, epic, legendary
+  points: integer("points").default(10),
+  requirement: jsonb("requirement"), // Conditions to earn the badge
+  isGlobal: boolean("is_global").default(false), // Platform-wide vs game-specific
+  isHidden: boolean("is_hidden").default(false), // Secret achievements
+  totalUnlocks: integer("total_unlocks").default(0),
+  rewardAmount: numeric("reward_amount", { precision: 40, scale: 0 }),
+  rewardTokenSymbol: varchar("reward_token_symbol", { length: 20 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Player Achievements
+export const playerAchievements = pgTable("player_achievements", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  badgeId: varchar("badge_id", { length: 64 }).notNull(),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  projectId: varchar("project_id", { length: 64 }),
+  progress: integer("progress").default(0), // 0-100
+  isCompleted: boolean("is_completed").default(false),
+  rewardClaimed: boolean("reward_claimed").default(false),
+  claimTxHash: varchar("claim_tx_hash", { length: 130 }),
+  unlockedAt: timestamp("unlocked_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// GameFi Activity Stream
+export const gamefiActivity = pgTable("gamefi_activity", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id", { length: 64 }),
+  walletAddress: varchar("wallet_address", { length: 66 }),
+  eventType: varchar("event_type", { length: 50 }).notNull(), // game_started, game_ended, reward_earned, asset_minted, asset_transferred, tournament_joined, tournament_won, achievement_unlocked, level_up
+  amount: numeric("amount", { precision: 40, scale: 0 }),
+  assetId: varchar("asset_id", { length: 64 }),
+  tournamentId: varchar("tournament_id", { length: 64 }),
+  badgeId: varchar("badge_id", { length: 64 }),
+  txHash: varchar("tx_hash", { length: 130 }),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// GameFi Stats Snapshots
+export const gamefiStats = pgTable("gamefi_stats", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  snapshotAt: timestamp("snapshot_at").defaultNow().notNull(),
+  totalProjects: integer("total_projects").default(0),
+  activeProjects: integer("active_projects").default(0),
+  totalPlayers: integer("total_players").default(0),
+  activePlayers24h: integer("active_players_24h").default(0),
+  totalVolume: numeric("total_volume", { precision: 40, scale: 0 }).default("0"),
+  dailyVolume: numeric("daily_volume", { precision: 40, scale: 0 }).default("0"),
+  totalRewardsDistributed: numeric("total_rewards_distributed", { precision: 40, scale: 0 }).default("0"),
+  dailyRewards: numeric("daily_rewards", { precision: 40, scale: 0 }).default("0"),
+  activeTournaments: integer("active_tournaments").default(0),
+  totalTournamentPrize: numeric("total_tournament_prize", { precision: 40, scale: 0 }).default("0"),
+  totalAssets: integer("total_assets").default(0),
+  totalAchievements: integer("total_achievements").default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// GameFi Insert Schemas
+export const insertGamefiProjectSchema = createInsertSchema(gamefiProjects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGameAssetSchema = createInsertSchema(gameAssets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGameRewardSchema = createInsertSchema(gameRewards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertGameLeaderboardSchema = createInsertSchema(gameLeaderboards).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGameTournamentSchema = createInsertSchema(gameTournaments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertTournamentParticipantSchema = createInsertSchema(tournamentParticipants).omit({
+  id: true,
+  registeredAt: true,
+});
+
+export const insertAchievementBadgeSchema = createInsertSchema(achievementBadges).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPlayerAchievementSchema = createInsertSchema(playerAchievements).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGamefiActivitySchema = createInsertSchema(gamefiActivity).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertGamefiStatsSchema = createInsertSchema(gamefiStats).omit({
+  id: true,
+  snapshotAt: true,
+  createdAt: true,
+});
+
+// GameFi Types
+export type GamefiProject = typeof gamefiProjects.$inferSelect;
+export type InsertGamefiProject = z.infer<typeof insertGamefiProjectSchema>;
+
+export type GameAsset = typeof gameAssets.$inferSelect;
+export type InsertGameAsset = z.infer<typeof insertGameAssetSchema>;
+
+export type GameReward = typeof gameRewards.$inferSelect;
+export type InsertGameReward = z.infer<typeof insertGameRewardSchema>;
+
+export type GameLeaderboard = typeof gameLeaderboards.$inferSelect;
+export type InsertGameLeaderboard = z.infer<typeof insertGameLeaderboardSchema>;
+
+export type GameTournament = typeof gameTournaments.$inferSelect;
+export type InsertGameTournament = z.infer<typeof insertGameTournamentSchema>;
+
+export type TournamentParticipant = typeof tournamentParticipants.$inferSelect;
+export type InsertTournamentParticipant = z.infer<typeof insertTournamentParticipantSchema>;
+
+export type AchievementBadge = typeof achievementBadges.$inferSelect;
+export type InsertAchievementBadge = z.infer<typeof insertAchievementBadgeSchema>;
+
+export type PlayerAchievement = typeof playerAchievements.$inferSelect;
+export type InsertPlayerAchievement = z.infer<typeof insertPlayerAchievementSchema>;
+
+export type GamefiActivity = typeof gamefiActivity.$inferSelect;
+export type InsertGamefiActivity = z.infer<typeof insertGamefiActivitySchema>;
+
+export type GamefiStats = typeof gamefiStats.$inferSelect;
+export type InsertGamefiStats = z.infer<typeof insertGamefiStatsSchema>;
+
+// GameFi Frontend Types
+export type GameCategory = "arcade" | "rpg" | "strategy" | "action" | "puzzle" | "card" | "racing" | "sports" | "casual";
+export type GameStatus = "active" | "beta" | "coming_soon" | "maintenance" | "deprecated";
+export type AssetType = "character" | "weapon" | "armor" | "item" | "land" | "vehicle" | "pet" | "card" | "skin";
+export type AssetRarity = "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythic";
+export type RewardType = "gameplay" | "tournament" | "staking" | "referral" | "achievement" | "daily" | "weekly";
+export type TournamentType = "single_elimination" | "double_elimination" | "round_robin" | "swiss" | "battle_royale" | "league";
+export type TournamentStatus = "upcoming" | "registration" | "active" | "completed" | "cancelled";
+export type LeaderboardType = "global" | "daily" | "weekly" | "monthly" | "seasonal" | "tournament";
+export type AchievementCategory = "gameplay" | "social" | "collection" | "tournament" | "special" | "seasonal";
+export type GamefiEventType = "game_started" | "game_ended" | "reward_earned" | "asset_minted" | "asset_transferred" | "tournament_joined" | "tournament_won" | "achievement_unlocked" | "level_up";
+
+export interface GamefiOverview {
+  totalProjects: number;
+  activeProjects: number;
+  totalPlayers: number;
+  activePlayers24h: number;
+  totalVolume: string;
+  dailyVolume: string;
+  totalRewardsDistributed: string;
+  activeTournaments: number;
+  featuredProjects: GamefiProject[];
+  topGames: GamefiProject[];
+  recentActivity: GamefiActivity[];
+}

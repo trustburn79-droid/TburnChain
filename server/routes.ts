@@ -28,8 +28,10 @@ import { registerYieldRoutes } from "./routes/yield-routes";
 import { registerLiquidStakingRoutes } from "./routes/liquid-staking-routes";
 import nftMarketplaceRoutes from "./routes/nft-marketplace-routes";
 import launchpadRoutes from "./routes/launchpad-routes";
+import gamefiRoutes from "./routes/gamefi-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
+import { gameFiService } from "./services/GameFiService";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -380,6 +382,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   console.log("[Launchpad] Routes registered successfully");
   nftMarketplaceService.initialize().catch(err => console.error("[NFT Marketplace] Init error:", err));
   launchpadService.initialize().catch(err => console.error("[Launchpad] Init error:", err));
+
+  // ============================================
+  // GAMEFI INFRASTRUCTURE (Phase 7)
+  // ============================================
+  app.use("/api/gamefi", gamefiRoutes);
+  console.log("[GameFi] Routes registered successfully");
+  gameFiService.initialize().catch(err => console.error("[GameFi] Init error:", err));
 
   // ============================================
   // Network Stats
@@ -9342,6 +9351,73 @@ Provide JSON portfolio analysis:
       console.error('[WebSocket] Launchpad activity broadcast error:', error);
     }
   }, 5000, 'launchpad_activity_broadcast');
+
+  // ============================================
+  // GAMEFI WEBSOCKET BROADCASTS (Phase 7)
+  // ============================================
+
+  // GameFi Projects - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const overview = await storage.getGamefiOverview();
+      const featured = await storage.getFeaturedGamefiProjects(5);
+      const active = await storage.getActiveGamefiProjects();
+      
+      broadcastUpdate('gamefi_projects', {
+        overview,
+        featured,
+        active,
+        timestamp: Date.now(),
+      }, z.object({
+        overview: z.any(),
+        featured: z.array(z.any()),
+        active: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] GameFi projects broadcast error:', error);
+    }
+  }, 10000, 'gamefi_projects_broadcast');
+
+  // GameFi Tournaments - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const active = await storage.getActiveTournaments();
+      const upcoming = await storage.getUpcomingTournaments();
+      
+      broadcastUpdate('gamefi_tournaments', {
+        active,
+        upcoming,
+        timestamp: Date.now(),
+      }, z.object({
+        active: z.array(z.any()),
+        upcoming: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] GameFi tournaments broadcast error:', error);
+    }
+  }, 10000, 'gamefi_tournaments_broadcast');
+
+  // GameFi Activity - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const activity = await storage.getRecentGamefiActivity(30);
+      
+      broadcastUpdate('gamefi_activity', {
+        activity,
+        timestamp: Date.now(),
+      }, z.object({
+        activity: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] GameFi activity broadcast error:', error);
+    }
+  }, 5000, 'gamefi_activity_broadcast');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)

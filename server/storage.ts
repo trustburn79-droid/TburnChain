@@ -263,6 +263,17 @@ import {
   vestingSchedules,
   launchpadStats,
   launchpadActivity,
+  // GameFi Infrastructure Tables
+  gamefiProjects,
+  gameAssets,
+  gameRewards,
+  gameLeaderboards,
+  gameTournaments,
+  tournamentParticipants,
+  achievementBadges,
+  playerAchievements,
+  gamefiActivity,
+  gamefiStats,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -4693,6 +4704,346 @@ export class DbStorage implements IStorage {
       uniqueParticipants: Array.from(uniqueMintersSet).reduce((a, b) => a + b, 0),
       featuredCount: featuredProjects.length,
     };
+  }
+
+  // ============================================
+  // GAMEFI INFRASTRUCTURE STORAGE METHODS (Phase 7)
+  // ============================================
+
+  async getAllGamefiProjects(): Promise<any[]> {
+    return await db.select().from(gamefiProjects).orderBy(desc(gamefiProjects.createdAt));
+  }
+
+  async getActiveGamefiProjects(): Promise<any[]> {
+    return await db.select().from(gamefiProjects)
+      .where(eq(gamefiProjects.status, 'active'))
+      .orderBy(desc(gamefiProjects.totalPlayers));
+  }
+
+  async getFeaturedGamefiProjects(limit: number = 5): Promise<any[]> {
+    return await db.select().from(gamefiProjects)
+      .where(eq(gamefiProjects.featured, true))
+      .orderBy(desc(gamefiProjects.totalPlayers))
+      .limit(limit);
+  }
+
+  async getGamefiProjectById(id: string): Promise<any | undefined> {
+    const [project] = await db.select().from(gamefiProjects).where(eq(gamefiProjects.id, id));
+    return project;
+  }
+
+  async getGamefiProjectBySlug(slug: string): Promise<any | undefined> {
+    const [project] = await db.select().from(gamefiProjects).where(eq(gamefiProjects.slug, slug));
+    return project;
+  }
+
+  async createGamefiProject(data: any): Promise<any> {
+    const [project] = await db.insert(gamefiProjects).values(data).returning();
+    return project;
+  }
+
+  async updateGamefiProject(id: string, data: any): Promise<any> {
+    const [project] = await db.update(gamefiProjects)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(gamefiProjects.id, id))
+      .returning();
+    return project;
+  }
+
+  async getGameAssetsByProject(projectId: string): Promise<any[]> {
+    return await db.select().from(gameAssets)
+      .where(eq(gameAssets.projectId, projectId))
+      .orderBy(desc(gameAssets.createdAt));
+  }
+
+  async getGameAssetsByOwner(walletAddress: string): Promise<any[]> {
+    return await db.select().from(gameAssets)
+      .where(eq(gameAssets.ownerAddress, walletAddress))
+      .orderBy(desc(gameAssets.createdAt));
+  }
+
+  async getGameAssetById(id: string): Promise<any | undefined> {
+    const [asset] = await db.select().from(gameAssets).where(eq(gameAssets.id, id));
+    return asset;
+  }
+
+  async createGameAsset(data: any): Promise<any> {
+    const [asset] = await db.insert(gameAssets).values(data).returning();
+    return asset;
+  }
+
+  async updateGameAsset(id: string, data: any): Promise<any> {
+    const [asset] = await db.update(gameAssets)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(gameAssets.id, id))
+      .returning();
+    return asset;
+  }
+
+  async getGameRewardsByWallet(walletAddress: string): Promise<any[]> {
+    return await db.select().from(gameRewards)
+      .where(eq(gameRewards.walletAddress, walletAddress))
+      .orderBy(desc(gameRewards.createdAt));
+  }
+
+  async getGameRewardsByProject(projectId: string): Promise<any[]> {
+    return await db.select().from(gameRewards)
+      .where(eq(gameRewards.projectId, projectId))
+      .orderBy(desc(gameRewards.createdAt));
+  }
+
+  async getPendingGameRewards(walletAddress: string): Promise<any[]> {
+    return await db.select().from(gameRewards)
+      .where(and(
+        eq(gameRewards.walletAddress, walletAddress),
+        eq(gameRewards.status, 'pending')
+      ))
+      .orderBy(desc(gameRewards.createdAt));
+  }
+
+  async createGameReward(data: any): Promise<any> {
+    const [reward] = await db.insert(gameRewards).values(data).returning();
+    return reward;
+  }
+
+  async claimGameReward(id: string, txHash: string): Promise<any> {
+    const [reward] = await db.update(gameRewards)
+      .set({ status: 'claimed', txHash, claimedAt: new Date() })
+      .where(eq(gameRewards.id, id))
+      .returning();
+    return reward;
+  }
+
+  async getGameLeaderboard(projectId: string, leaderboardType: string = 'global', limit: number = 100): Promise<any[]> {
+    return await db.select().from(gameLeaderboards)
+      .where(and(
+        eq(gameLeaderboards.projectId, projectId),
+        eq(gameLeaderboards.leaderboardType, leaderboardType)
+      ))
+      .orderBy(gameLeaderboards.rank)
+      .limit(limit);
+  }
+
+  async getPlayerLeaderboardEntry(projectId: string, walletAddress: string, leaderboardType: string = 'global'): Promise<any | undefined> {
+    const [entry] = await db.select().from(gameLeaderboards)
+      .where(and(
+        eq(gameLeaderboards.projectId, projectId),
+        eq(gameLeaderboards.walletAddress, walletAddress),
+        eq(gameLeaderboards.leaderboardType, leaderboardType)
+      ));
+    return entry;
+  }
+
+  async createOrUpdateLeaderboardEntry(data: any): Promise<any> {
+    const [entry] = await db.insert(gameLeaderboards).values(data).returning();
+    return entry;
+  }
+
+  async getAllTournaments(): Promise<any[]> {
+    return await db.select().from(gameTournaments).orderBy(desc(gameTournaments.startTime));
+  }
+
+  async getActiveTournaments(): Promise<any[]> {
+    return await db.select().from(gameTournaments)
+      .where(eq(gameTournaments.status, 'active'))
+      .orderBy(gameTournaments.startTime);
+  }
+
+  async getUpcomingTournaments(): Promise<any[]> {
+    return await db.select().from(gameTournaments)
+      .where(eq(gameTournaments.status, 'upcoming'))
+      .orderBy(gameTournaments.startTime);
+  }
+
+  async getTournamentById(id: string): Promise<any | undefined> {
+    const [tournament] = await db.select().from(gameTournaments).where(eq(gameTournaments.id, id));
+    return tournament;
+  }
+
+  async getTournamentsByProject(projectId: string): Promise<any[]> {
+    return await db.select().from(gameTournaments)
+      .where(eq(gameTournaments.projectId, projectId))
+      .orderBy(desc(gameTournaments.startTime));
+  }
+
+  async createTournament(data: any): Promise<any> {
+    const [tournament] = await db.insert(gameTournaments).values(data).returning();
+    return tournament;
+  }
+
+  async updateTournament(id: string, data: any): Promise<any> {
+    const [tournament] = await db.update(gameTournaments)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(gameTournaments.id, id))
+      .returning();
+    return tournament;
+  }
+
+  async getTournamentParticipants(tournamentId: string): Promise<any[]> {
+    return await db.select().from(tournamentParticipants)
+      .where(eq(tournamentParticipants.tournamentId, tournamentId))
+      .orderBy(tournamentParticipants.seed);
+  }
+
+  async getTournamentParticipant(tournamentId: string, walletAddress: string): Promise<any | undefined> {
+    const [participant] = await db.select().from(tournamentParticipants)
+      .where(and(
+        eq(tournamentParticipants.tournamentId, tournamentId),
+        eq(tournamentParticipants.walletAddress, walletAddress)
+      ));
+    return participant;
+  }
+
+  async joinTournament(data: any): Promise<any> {
+    const [participant] = await db.insert(tournamentParticipants).values(data).returning();
+    return participant;
+  }
+
+  async updateTournamentParticipant(id: string, data: any): Promise<any> {
+    const [participant] = await db.update(tournamentParticipants)
+      .set(data)
+      .where(eq(tournamentParticipants.id, id))
+      .returning();
+    return participant;
+  }
+
+  async getAllAchievementBadges(projectId?: string): Promise<any[]> {
+    if (projectId) {
+      return await db.select().from(achievementBadges)
+        .where(eq(achievementBadges.projectId, projectId))
+        .orderBy(achievementBadges.points);
+    }
+    return await db.select().from(achievementBadges).orderBy(achievementBadges.points);
+  }
+
+  async getGlobalAchievementBadges(): Promise<any[]> {
+    return await db.select().from(achievementBadges)
+      .where(eq(achievementBadges.isGlobal, true))
+      .orderBy(achievementBadges.points);
+  }
+
+  async getAchievementBadgeById(id: string): Promise<any | undefined> {
+    const [badge] = await db.select().from(achievementBadges).where(eq(achievementBadges.id, id));
+    return badge;
+  }
+
+  async createAchievementBadge(data: any): Promise<any> {
+    const [badge] = await db.insert(achievementBadges).values(data).returning();
+    return badge;
+  }
+
+  async getPlayerAchievements(walletAddress: string): Promise<any[]> {
+    return await db.select().from(playerAchievements)
+      .where(eq(playerAchievements.walletAddress, walletAddress))
+      .orderBy(desc(playerAchievements.unlockedAt));
+  }
+
+  async getPlayerAchievementsByProject(walletAddress: string, projectId: string): Promise<any[]> {
+    return await db.select().from(playerAchievements)
+      .where(and(
+        eq(playerAchievements.walletAddress, walletAddress),
+        eq(playerAchievements.projectId, projectId)
+      ))
+      .orderBy(desc(playerAchievements.unlockedAt));
+  }
+
+  async getPlayerAchievementByBadge(walletAddress: string, badgeId: string): Promise<any | undefined> {
+    const [achievement] = await db.select().from(playerAchievements)
+      .where(and(
+        eq(playerAchievements.walletAddress, walletAddress),
+        eq(playerAchievements.badgeId, badgeId)
+      ));
+    return achievement;
+  }
+
+  async createPlayerAchievement(data: any): Promise<any> {
+    const [achievement] = await db.insert(playerAchievements).values(data).returning();
+    return achievement;
+  }
+
+  async updatePlayerAchievement(id: string, data: any): Promise<any> {
+    const [achievement] = await db.update(playerAchievements)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(playerAchievements.id, id))
+      .returning();
+    return achievement;
+  }
+
+  async getRecentGamefiActivity(limit: number = 50): Promise<any[]> {
+    return await db.select().from(gamefiActivity)
+      .orderBy(desc(gamefiActivity.createdAt))
+      .limit(limit);
+  }
+
+  async getGamefiActivityByProject(projectId: string, limit: number = 50): Promise<any[]> {
+    return await db.select().from(gamefiActivity)
+      .where(eq(gamefiActivity.projectId, projectId))
+      .orderBy(desc(gamefiActivity.createdAt))
+      .limit(limit);
+  }
+
+  async getGamefiActivityByWallet(walletAddress: string, limit: number = 50): Promise<any[]> {
+    return await db.select().from(gamefiActivity)
+      .where(eq(gamefiActivity.walletAddress, walletAddress))
+      .orderBy(desc(gamefiActivity.createdAt))
+      .limit(limit);
+  }
+
+  async createGamefiActivity(data: any): Promise<any> {
+    const [activity] = await db.insert(gamefiActivity).values(data).returning();
+    return activity;
+  }
+
+  async getGamefiOverview(): Promise<{
+    totalProjects: number;
+    activeProjects: number;
+    totalPlayers: number;
+    activePlayers24h: number;
+    totalVolume: string;
+    dailyVolume: string;
+    totalRewardsDistributed: string;
+    activeTournaments: number;
+  }> {
+    const allProjects = await db.select().from(gamefiProjects);
+    const activeProjectsList = allProjects.filter(p => p.status === 'active');
+    const activeTournamentsList = await this.getActiveTournaments();
+    
+    let totalPlayers = 0;
+    let activePlayers24h = 0;
+    let totalVolume = BigInt(0);
+    let dailyVolume = BigInt(0);
+    let totalRewards = BigInt(0);
+    
+    for (const project of allProjects) {
+      totalPlayers += project.totalPlayers || 0;
+      activePlayers24h += project.activePlayers24h || 0;
+      totalVolume += BigInt(project.totalVolume || "0");
+      dailyVolume += BigInt(project.dailyVolume || "0");
+      totalRewards += BigInt(project.totalRewardsDistributed || "0");
+    }
+    
+    return {
+      totalProjects: allProjects.length,
+      activeProjects: activeProjectsList.length,
+      totalPlayers,
+      activePlayers24h,
+      totalVolume: totalVolume.toString(),
+      dailyVolume: dailyVolume.toString(),
+      totalRewardsDistributed: totalRewards.toString(),
+      activeTournaments: activeTournamentsList.length,
+    };
+  }
+
+  async createGamefiStats(data: any): Promise<any> {
+    const [stats] = await db.insert(gamefiStats).values(data).returning();
+    return stats;
+  }
+
+  async getLatestGamefiStats(): Promise<any | undefined> {
+    const [stats] = await db.select().from(gamefiStats)
+      .orderBy(desc(gamefiStats.snapshotAt))
+      .limit(1);
+    return stats;
   }
 }
 
