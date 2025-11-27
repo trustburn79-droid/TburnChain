@@ -5,98 +5,460 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { 
   ArrowRightLeft, 
   Clock, 
-  CheckCircle, 
+  CheckCircle2, 
   AlertTriangle,
   Lock,
+  Unlock,
   Brain,
   Shield,
   TrendingUp,
   Activity,
-  ExternalLink,
-  Pause,
-  Play
+  Link2,
+  Droplets,
+  Zap,
+  Server,
+  Sparkles,
+  XCircle,
+  RefreshCw,
+  Users,
+  Coins,
 } from "lucide-react";
-import { formatTokenAmount, formatNumber } from "@/lib/formatters";
 
-interface ChainInfo {
+interface BridgeChain {
   id: string;
+  chainId: number;
   name: string;
-  icon: string;
-  status: "active" | "maintenance" | "paused";
+  symbol: string;
+  nativeCurrency: string;
+  status: string;
   avgBlockTime: number;
-  confirmations: number;
-  liquidity: string;
+  confirmationsRequired: number;
+  totalLiquidity: string;
   volume24h: string;
+  txCount24h: number;
+  avgTransferTime: number;
+  successRate: number;
+  aiRiskScore: number;
+  isEvm: boolean;
+}
+
+interface BridgeRoute {
+  id: string;
+  sourceChainId: number;
+  destinationChainId: number;
+  tokenSymbol: string;
+  routeType: string;
+  status: string;
+  minAmount: string;
+  maxAmount: string;
+  feePercent: number;
+  estimatedTime: number;
+  successRate: number;
+  volume24h: string;
+  liquidityAvailable: string;
+  aiOptimized: boolean;
+  aiPriority: number;
 }
 
 interface BridgeTransfer {
   id: string;
-  sourceChain: string;
-  targetChain: string;
+  sourceChainId: number;
+  destinationChainId: number;
+  senderAddress: string;
+  recipientAddress: string;
+  tokenSymbol: string;
   amount: string;
-  token: string;
-  from: string;
-  to: string;
-  status: "pending" | "locked" | "released" | "failed";
-  signaturesCollected: number;
-  signaturesRequired: number;
-  riskScore: number;
-  aiApproved: boolean;
+  amountReceived: string | null;
+  feeAmount: string;
+  status: string;
+  sourceTxHash: string;
+  destinationTxHash: string | null;
+  confirmations: number;
+  requiredConfirmations: number;
+  estimatedArrival: string | null;
+  aiVerified: boolean;
+  aiRiskScore: number | null;
   createdAt: string;
-  estimatedCompletion: string;
 }
 
-interface BridgeStats {
-  totalTransfers: number;
+interface BridgeLiquidityPool {
+  id: string;
+  chainId: number;
+  tokenSymbol: string;
+  totalLiquidity: string;
+  availableLiquidity: string;
+  utilizationRate: number;
+  lpApy: number;
+  providerCount: number;
+  status: string;
+  volume24h: string;
+  fees24h: string;
+}
+
+interface BridgeValidator {
+  id: string;
+  address: string;
+  name: string | null;
+  status: string;
+  stake: string;
+  commission: number;
+  uptime: number;
+  attestationsProcessed: number;
+  attestationsValid: number;
+  rewardsEarned: string;
+  avgResponseTime: number;
+  aiTrustScore: number;
+  reputationScore: number;
+}
+
+interface BridgeActivity {
+  id: string;
+  eventType: string;
+  chainId: number | null;
+  walletAddress: string | null;
+  amount: string | null;
+  tokenSymbol: string | null;
+  txHash: string | null;
+  createdAt: string;
+}
+
+interface BridgeOverview {
+  totalChains: number;
+  activeChains: number;
+  totalRoutes: number;
+  activeRoutes: number;
+  totalValidators: number;
+  activeValidators: number;
+  totalLiquidity: string;
   totalVolume: string;
-  pendingTransfers: number;
+  volume24h: string;
+  transferCount24h: number;
   avgTransferTime: number;
   successRate: number;
-  aiRiskAssessments: number;
-  highRiskBlocked: number;
+  fees24h: string;
+  securityEventsCount: number;
+  topChains: BridgeChain[];
+  recentTransfers: BridgeTransfer[];
+  recentActivity: BridgeActivity[];
 }
 
-const chainColors: Record<string, string> = {
-  TBURNMainnet: "bg-primary",
-  Ethereum: "bg-blue-500",
-  BinanceSmartChain: "bg-yellow-500",
-  Polygon: "bg-purple-500",
-  Avalanche: "bg-red-500",
-  Arbitrum: "bg-blue-600",
-  Optimism: "bg-red-600",
-  Base: "bg-blue-400",
-};
+function formatAmount(wei: string | null | undefined, decimals: number = 18): string {
+  if (!wei || wei === "0") return "0";
+  try {
+    const value = BigInt(wei);
+    const divisor = BigInt(10 ** decimals);
+    const integerPart = value / divisor;
+    const remainder = value % divisor;
+    const decimalStr = remainder.toString().padStart(decimals, '0').slice(0, 2);
+    return `${integerPart.toLocaleString()}.${decimalStr}`;
+  } catch {
+    return "0";
+  }
+}
+
+function shortenAddress(address: string): string {
+  if (!address) return "";
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
+function shortenHash(hash: string): string {
+  if (!hash) return "";
+  return `${hash.slice(0, 10)}...${hash.slice(-6)}`;
+}
+
+function formatTime(ms: number): string {
+  if (ms < 60000) return `${Math.floor(ms / 1000)}s`;
+  if (ms < 3600000) return `${Math.floor(ms / 60000)}m`;
+  return `${Math.floor(ms / 3600000)}h ${Math.floor((ms % 3600000) / 60000)}m`;
+}
+
+function formatBasisPoints(bp: number): string {
+  return `${(bp / 100).toFixed(2)}%`;
+}
+
+function getStatusColor(status: string): string {
+  const colors: Record<string, string> = {
+    active: "bg-green-500/10 text-green-500",
+    completed: "bg-green-500/10 text-green-500",
+    pending: "bg-yellow-500/10 text-yellow-500",
+    confirming: "bg-blue-500/10 text-blue-500",
+    bridging: "bg-purple-500/10 text-purple-500",
+    relaying: "bg-indigo-500/10 text-indigo-500",
+    failed: "bg-red-500/10 text-red-500",
+    refunded: "bg-orange-500/10 text-orange-500",
+    paused: "bg-gray-500/10 text-gray-500",
+    maintenance: "bg-orange-500/10 text-orange-500",
+    rebalancing: "bg-blue-500/10 text-blue-500",
+    inactive: "bg-gray-500/10 text-gray-500",
+    slashed: "bg-red-500/10 text-red-500",
+  };
+  return colors[status] || colors.active;
+}
+
+function getStatusIcon(status: string) {
+  switch (status) {
+    case "completed": return CheckCircle2;
+    case "pending": return Clock;
+    case "failed": return XCircle;
+    case "refunded": return RefreshCw;
+    default: return Activity;
+  }
+}
+
+function ChainCard({ chain }: { chain: BridgeChain }) {
+  return (
+    <Card className="hover-elevate" data-testid={`card-chain-${chain.chainId}`}>
+      <CardContent className="p-4">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-lg text-primary">
+              {chain.symbol.charAt(0)}
+            </div>
+            <div>
+              <div className="font-semibold">{chain.name}</div>
+              <div className="text-sm text-muted-foreground">Chain ID: {chain.chainId}</div>
+            </div>
+          </div>
+          <Badge className={getStatusColor(chain.status)}>{chain.status}</Badge>
+        </div>
+        <div className="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <div className="text-muted-foreground">Liquidity</div>
+            <div className="font-medium">{formatAmount(chain.totalLiquidity)}</div>
+          </div>
+          <div>
+            <div className="text-muted-foreground">24h Volume</div>
+            <div className="font-medium">{formatAmount(chain.volume24h)}</div>
+          </div>
+          <div>
+            <div className="text-muted-foreground">Avg Time</div>
+            <div className="font-medium">{formatTime(chain.avgTransferTime)}</div>
+          </div>
+          <div>
+            <div className="text-muted-foreground">Success Rate</div>
+            <div className="font-medium text-green-500">{formatBasisPoints(chain.successRate)}</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
+          <span>{chain.txCount24h.toLocaleString()} transfers 24h</span>
+          {chain.aiRiskScore <= 200 && (
+            <Badge variant="outline" className="text-green-500 border-green-500/30">
+              <Sparkles className="w-3 h-3 mr-1" />
+              Low Risk
+            </Badge>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function TransferRow({ transfer, chains }: { transfer: BridgeTransfer; chains: BridgeChain[] }) {
+  const sourceChain = chains.find(c => c.chainId === transfer.sourceChainId);
+  const destChain = chains.find(c => c.chainId === transfer.destinationChainId);
+  const StatusIcon = getStatusIcon(transfer.status);
+  
+  return (
+    <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-transfer-${transfer.id}`}>
+      <div className={`p-2 rounded-lg ${getStatusColor(transfer.status)}`}>
+        <StatusIcon className="w-4 h-4" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 text-sm">
+          <span className="font-medium">{sourceChain?.symbol || transfer.sourceChainId}</span>
+          <ArrowRightLeft className="w-3 h-3 text-muted-foreground" />
+          <span className="font-medium">{destChain?.symbol || transfer.destinationChainId}</span>
+        </div>
+        <div className="text-sm text-muted-foreground">
+          {formatAmount(transfer.amount)} {transfer.tokenSymbol}
+        </div>
+      </div>
+      <div className="text-right">
+        <div className="text-sm font-medium">{transfer.confirmations}/{transfer.requiredConfirmations}</div>
+        <div className="text-xs text-muted-foreground">
+          {transfer.aiVerified && <Sparkles className="w-3 h-3 inline mr-1 text-purple-500" />}
+          {shortenHash(transfer.sourceTxHash)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ValidatorCard({ validator }: { validator: BridgeValidator }) {
+  const successRate = validator.attestationsProcessed > 0 
+    ? (validator.attestationsValid / validator.attestationsProcessed) * 10000
+    : 10000;
+    
+  return (
+    <Card className="hover-elevate" data-testid={`card-validator-${validator.id}`}>
+      <CardContent className="p-4">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <div className="font-semibold">{validator.name || shortenAddress(validator.address)}</div>
+            <div className="text-sm text-muted-foreground">{shortenAddress(validator.address)}</div>
+          </div>
+          <Badge className={getStatusColor(validator.status)}>{validator.status}</Badge>
+        </div>
+        <div className="grid grid-cols-2 gap-3 text-sm mb-3">
+          <div>
+            <div className="text-muted-foreground">Stake</div>
+            <div className="font-medium">{formatAmount(validator.stake)} TBURN</div>
+          </div>
+          <div>
+            <div className="text-muted-foreground">Commission</div>
+            <div className="font-medium">{formatBasisPoints(validator.commission)}</div>
+          </div>
+          <div>
+            <div className="text-muted-foreground">Uptime</div>
+            <div className="font-medium text-green-500">{formatBasisPoints(validator.uptime)}</div>
+          </div>
+          <div>
+            <div className="text-muted-foreground">Response</div>
+            <div className="font-medium">{validator.avgResponseTime}ms</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+          <span>{validator.attestationsProcessed.toLocaleString()} attestations</span>
+          <span className="text-green-500">{formatBasisPoints(successRate)} success</span>
+          <div className="flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-purple-500" />
+            <span>AI: {formatBasisPoints(validator.aiTrustScore)}</span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function LiquidityPoolRow({ pool, chain }: { pool: BridgeLiquidityPool; chain?: BridgeChain }) {
+  return (
+    <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-pool-${pool.id}`}>
+      <div className="p-2 rounded-lg bg-muted">
+        <Droplets className="w-4 h-4" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="font-medium">{pool.tokenSymbol}</span>
+          <span className="text-sm text-muted-foreground">on {chain?.name || `Chain ${pool.chainId}`}</span>
+        </div>
+        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <span>{pool.providerCount} providers</span>
+          <span className="text-green-500">APY: {formatBasisPoints(pool.lpApy)}</span>
+        </div>
+      </div>
+      <div className="text-right">
+        <div className="font-medium">{formatAmount(pool.totalLiquidity)}</div>
+        <Progress value={pool.utilizationRate / 100} className="w-20 h-1.5 mt-1" />
+      </div>
+    </div>
+  );
+}
+
+function ActivityRow({ activity, chains }: { activity: BridgeActivity; chains: BridgeChain[] }) {
+  const chain = activity.chainId ? chains.find(c => c.chainId === activity.chainId) : null;
+  
+  const getEventIcon = (type: string) => {
+    switch (type) {
+      case "transfer_initiated": return ArrowRightLeft;
+      case "transfer_completed": return CheckCircle2;
+      case "transfer_failed": return XCircle;
+      case "liquidity_added": return Lock;
+      case "liquidity_removed": return Unlock;
+      case "validator_joined": return Server;
+      case "security_alert": return AlertTriangle;
+      default: return Activity;
+    }
+  };
+  
+  const EventIcon = getEventIcon(activity.eventType);
+  
+  return (
+    <div className="flex items-center gap-4 py-2 border-b last:border-0" data-testid={`row-activity-${activity.id}`}>
+      <div className="p-1.5 rounded bg-muted">
+        <EventIcon className="w-3.5 h-3.5" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="text-sm font-medium capitalize">{activity.eventType.replace(/_/g, ' ')}</div>
+        <div className="text-xs text-muted-foreground">
+          {chain?.name || (activity.chainId ? `Chain ${activity.chainId}` : '')}
+          {activity.walletAddress && ` • ${shortenAddress(activity.walletAddress)}`}
+        </div>
+      </div>
+      {activity.amount && activity.tokenSymbol && (
+        <div className="text-sm font-medium">
+          {formatAmount(activity.amount)} {activity.tokenSymbol}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Bridge() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [sourceChain, setSourceChain] = useState<string>("");
+  const [destChain, setDestChain] = useState<string>("");
+  const [bridgeAmount, setBridgeAmount] = useState<string>("");
 
-  const { data: stats, isLoading: statsLoading } = useQuery<BridgeStats>({
+  const { data: overview, isLoading: overviewLoading } = useQuery<BridgeOverview>({
     queryKey: ["/api/bridge/stats"],
+    refetchInterval: 10000,
   });
 
-  const { data: chains, isLoading: chainsLoading } = useQuery<ChainInfo[]>({
+  const { data: chains } = useQuery<BridgeChain[]>({
     queryKey: ["/api/bridge/chains"],
+    refetchInterval: 15000,
   });
 
-  const { data: transfers, isLoading: transfersLoading } = useQuery<BridgeTransfer[]>({
+  const { data: routes } = useQuery<BridgeRoute[]>({
+    queryKey: ["/api/bridge/routes"],
+    refetchInterval: 30000,
+  });
+
+  const { data: transfers } = useQuery<BridgeTransfer[]>({
     queryKey: ["/api/bridge/transfers"],
+    refetchInterval: 5000,
   });
 
-  const pendingTransfers = transfers?.filter(t => t.status === "pending" || t.status === "locked") || [];
-  const completedTransfers = transfers?.filter(t => t.status === "released") || [];
+  const { data: validators } = useQuery<BridgeValidator[]>({
+    queryKey: ["/api/bridge/validators"],
+    refetchInterval: 15000,
+  });
+
+  const { data: liquidityPools } = useQuery<BridgeLiquidityPool[]>({
+    queryKey: ["/api/bridge/liquidity"],
+    refetchInterval: 10000,
+  });
+
+  const { data: activity } = useQuery<BridgeActivity[]>({
+    queryKey: ["/api/bridge/activity"],
+    refetchInterval: 5000,
+  });
+
+  const activeChains = chains?.filter(c => c.status === "active") || [];
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-bridge-title">
             Cross-Chain Bridge
           </h1>
           <p className="text-muted-foreground">
-            AI-Enhanced Bridge with Quantum Security & Multi-Chain Support
+            AI-powered multi-chain asset transfers with enterprise security
           </p>
         </div>
         <Badge variant="outline" className="text-lg px-4 py-2">
@@ -105,173 +467,161 @@ export default function Bridge() {
         </Badge>
       </div>
 
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {statsLoading ? (
-          Array.from({ length: 4 }).map((_, i) => (
-            <Card key={i}>
-              <CardHeader className="pb-2">
-                <Skeleton className="h-4 w-24" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-8 w-16" />
-              </CardContent>
-            </Card>
-          ))
-        ) : (
-          <>
-            <Card className="hover-elevate" data-testid="card-total-transfers">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Transfers
-                </CardTitle>
-                <ArrowRightLeft className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
-                  {formatNumber(stats?.totalTransfers || 0)}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {stats?.pendingTransfers || 0} pending
-                </p>
-              </CardContent>
-            </Card>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Link2 className="w-4 h-4" />
+              <span className="text-sm">Chains</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-12" />
+            ) : (
+              <div className="text-xl font-bold" data-testid="text-total-chains">
+                {overview?.activeChains || 0}/{overview?.totalChains || 0}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
-            <Card className="hover-elevate" data-testid="card-total-volume">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Volume
-                </CardTitle>
-                <TrendingUp className="h-4 w-4 text-green-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
-                  {formatTokenAmount(stats?.totalVolume || "0")}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  TBURN bridged
-                </p>
-              </CardContent>
-            </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <ArrowRightLeft className="w-4 h-4" />
+              <span className="text-sm">Routes</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-12" />
+            ) : (
+              <div className="text-xl font-bold" data-testid="text-total-routes">
+                {overview?.activeRoutes || 0}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
-            <Card className="hover-elevate" data-testid="card-success-rate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Success Rate
-                </CardTitle>
-                <CheckCircle className="h-4 w-4 text-green-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
-                  {(stats?.successRate || 0).toFixed(1)}%
-                </div>
-                <Progress value={stats?.successRate || 0} className="h-2 mt-2" />
-              </CardContent>
-            </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Shield className="w-4 h-4" />
+              <span className="text-sm">Validators</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-12" />
+            ) : (
+              <div className="text-xl font-bold text-green-500" data-testid="text-validators">
+                {overview?.activeValidators || 0}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
-            <Card className="hover-elevate" data-testid="card-ai-risk">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  AI Risk Blocked
-                </CardTitle>
-                <Brain className="h-4 w-4 text-purple-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
-                  {formatNumber(stats?.highRiskBlocked || 0)}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {formatNumber(stats?.aiRiskAssessments || 0)} assessments
-                </p>
-              </CardContent>
-            </Card>
-          </>
-        )}
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Droplets className="w-4 h-4" />
+              <span className="text-sm">Liquidity</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-24" />
+            ) : (
+              <div className="text-xl font-bold" data-testid="text-liquidity">
+                ${formatAmount(overview?.totalLiquidity || "0")}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <TrendingUp className="w-4 h-4" />
+              <span className="text-sm">24h Volume</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-20" />
+            ) : (
+              <div className="text-xl font-bold" data-testid="text-volume">
+                ${formatAmount(overview?.volume24h || "0")}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Zap className="w-4 h-4" />
+              <span className="text-sm">Transfers</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-16" />
+            ) : (
+              <div className="text-xl font-bold" data-testid="text-transfers">
+                {overview?.transferCount24h?.toLocaleString() || 0}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Clock className="w-4 h-4" />
+              <span className="text-sm">Avg Time</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-16" />
+            ) : (
+              <div className="text-xl font-bold" data-testid="text-avg-time">
+                {formatTime(overview?.avgTransferTime || 0)}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <CheckCircle2 className="w-4 h-4" />
+              <span className="text-sm">Success</span>
+            </div>
+            {overviewLoading ? (
+              <Skeleton className="h-7 w-16" />
+            ) : (
+              <div className="text-xl font-bold text-green-500" data-testid="text-success-rate">
+                {formatBasisPoints(overview?.successRate || 9900)}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList>
           <TabsTrigger value="overview" data-testid="tab-overview">
-            <Activity className="h-4 w-4 mr-2" />
+            <Activity className="w-4 h-4 mr-2" />
             Overview
           </TabsTrigger>
-          <TabsTrigger value="pending" data-testid="tab-pending">
-            <Clock className="h-4 w-4 mr-2" />
-            Pending ({pendingTransfers.length})
+          <TabsTrigger value="bridge" data-testid="tab-bridge">
+            <ArrowRightLeft className="w-4 h-4 mr-2" />
+            Bridge
           </TabsTrigger>
-          <TabsTrigger value="completed" data-testid="tab-completed">
-            <CheckCircle className="h-4 w-4 mr-2" />
-            Completed
+          <TabsTrigger value="chains" data-testid="tab-chains">
+            <Link2 className="w-4 h-4 mr-2" />
+            Chains ({activeChains.length})
+          </TabsTrigger>
+          <TabsTrigger value="validators" data-testid="tab-validators">
+            <Shield className="w-4 h-4 mr-2" />
+            Validators
+          </TabsTrigger>
+          <TabsTrigger value="liquidity" data-testid="tab-liquidity">
+            <Droplets className="w-4 h-4 mr-2" />
+            Liquidity
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-4">
-          {/* Supported Chains */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <ArrowRightLeft className="h-5 w-5" />
-                Supported Chains
-              </CardTitle>
-              <CardDescription>
-                Cross-chain bridging with AI-optimized routing and quantum security
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {chainsLoading ? (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <Skeleton key={i} className="h-24 rounded-lg" />
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {chains?.map((chain) => (
-                    <div
-                      key={chain.id}
-                      className="p-4 rounded-lg border hover-elevate cursor-pointer"
-                      data-testid={`card-chain-${chain.id}`}
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className={`h-8 w-8 rounded-full ${chainColors[chain.id] || 'bg-gray-500'} flex items-center justify-center`}>
-                          <span className="text-white text-xs font-bold">
-                            {chain.name.substring(0, 2).toUpperCase()}
-                          </span>
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-medium text-sm">{chain.name}</h4>
-                          <Badge 
-                            variant={chain.status === "active" ? "default" : "secondary"}
-                            className="text-xs"
-                          >
-                            {chain.status === "active" && <Play className="h-3 w-3 mr-1" />}
-                            {chain.status === "paused" && <Pause className="h-3 w-3 mr-1" />}
-                            {chain.status}
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="space-y-1 text-xs text-muted-foreground">
-                        <div className="flex justify-between">
-                          <span>Block Time:</span>
-                          <span>{chain.avgBlockTime}ms</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Confirmations:</span>
-                          <span>{chain.confirmations}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Liquidity:</span>
-                          <span>{formatTokenAmount(chain.liquidity)}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* AI Features */}
+        <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="hover-elevate">
               <CardHeader className="pb-2">
@@ -282,7 +632,7 @@ export default function Bridge() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Claude Sonnet 4.5 analyzes transfers for fraud, large amounts, suspicious patterns, and recent exploits.
+                  Claude Sonnet 4.5 analyzes transfers for fraud, suspicious patterns, and security threats.
                 </p>
                 <div className="mt-2 flex items-center gap-2">
                   <Badge variant="outline">99.3% Accuracy</Badge>
@@ -299,7 +649,7 @@ export default function Bridge() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  GPT-5 Turbo optimizes cross-chain routes for gas costs, liquidity, transfer time, and reliability.
+                  AI-optimized routes minimize gas costs, maximize liquidity, and ensure fast transfers.
                 </p>
                 <div className="mt-2 flex items-center gap-2">
                   <Badge variant="outline">35% Gas Savings</Badge>
@@ -316,7 +666,7 @@ export default function Bridge() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  CRYSTALS-Dilithium + ED25519 hybrid signatures protect all bridge operations from quantum attacks.
+                  CRYSTALS-Dilithium + ED25519 hybrid signatures protect all bridge operations.
                 </p>
                 <div className="mt-2 flex items-center gap-2">
                   <Badge variant="outline">Post-Quantum</Badge>
@@ -324,115 +674,240 @@ export default function Bridge() {
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
 
-        <TabsContent value="pending" className="space-y-4">
-          <TransferList transfers={pendingTransfers} isLoading={transfersLoading} type="pending" />
-        </TabsContent>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ArrowRightLeft className="w-5 h-5 text-blue-500" />
+                  Recent Transfers
+                </CardTitle>
+                <CardDescription>Latest cross-chain transfers</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[350px]">
+                  {transfers?.slice(0, 15).map(transfer => (
+                    <TransferRow key={transfer.id} transfer={transfer} chains={chains || []} />
+                  ))}
+                  {(!transfers || transfers.length === 0) && (
+                    <div className="py-8 text-center text-muted-foreground">
+                      No recent transfers
+                    </div>
+                  )}
+                </ScrollArea>
+              </CardContent>
+            </Card>
 
-        <TabsContent value="completed" className="space-y-4">
-          <TransferList transfers={completedTransfers} isLoading={transfersLoading} type="completed" />
-        </TabsContent>
-      </Tabs>
-    </div>
-  );
-}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-purple-500" />
+                  Bridge Activity
+                </CardTitle>
+                <CardDescription>Live bridge events</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[350px]">
+                  {activity?.slice(0, 20).map(act => (
+                    <ActivityRow key={act.id} activity={act} chains={chains || []} />
+                  ))}
+                  {(!activity || activity.length === 0) && (
+                    <div className="py-8 text-center text-muted-foreground">
+                      No recent activity
+                    </div>
+                  )}
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
 
-function TransferList({ transfers, isLoading, type }: { transfers: BridgeTransfer[], isLoading: boolean, type: string }) {
-  if (isLoading) {
-    return (
-      <div className="space-y-4">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <Card key={i}>
-            <CardContent className="p-6">
-              <Skeleton className="h-16 w-full" />
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Link2 className="w-5 h-5 text-green-500" />
+                Connected Chains
+              </CardTitle>
+              <CardDescription>Supported blockchain networks</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {activeChains.slice(0, 8).map(chain => (
+                  <ChainCard key={chain.id} chain={chain} />
+                ))}
+              </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
-    );
-  }
+        </TabsContent>
 
-  if (transfers.length === 0) {
-    return (
-      <Card>
-        <CardContent className="p-12 text-center">
-          <ArrowRightLeft className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <p className="text-muted-foreground">No {type} transfers</p>
-        </CardContent>
-      </Card>
-    );
-  }
+        <TabsContent value="bridge" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="lg:col-span-1">
+              <CardHeader>
+                <CardTitle>Transfer Assets</CardTitle>
+                <CardDescription>Bridge tokens across chains</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>From Chain</Label>
+                  <Select value={sourceChain} onValueChange={setSourceChain}>
+                    <SelectTrigger data-testid="select-source-chain">
+                      <SelectValue placeholder="Select source chain" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {activeChains.map(chain => (
+                        <SelectItem key={chain.chainId} value={chain.chainId.toString()}>
+                          {chain.name} ({chain.symbol})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-  return (
-    <div className="space-y-4">
-      {transfers.map((transfer) => (
-        <Card key={transfer.id} className="hover-elevate" data-testid={`card-transfer-${transfer.id}`}>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <div className={`h-10 w-10 rounded-full ${chainColors[transfer.sourceChain] || 'bg-gray-500'} flex items-center justify-center`}>
-                    <span className="text-white text-xs font-bold">
-                      {transfer.sourceChain.substring(0, 2).toUpperCase()}
-                    </span>
-                  </div>
-                  <ArrowRightLeft className="h-4 w-4 text-muted-foreground" />
-                  <div className={`h-10 w-10 rounded-full ${chainColors[transfer.targetChain] || 'bg-gray-500'} flex items-center justify-center`}>
-                    <span className="text-white text-xs font-bold">
-                      {transfer.targetChain.substring(0, 2).toUpperCase()}
-                    </span>
-                  </div>
+                <div className="flex justify-center">
+                  <Button variant="ghost" size="icon" onClick={() => {
+                    const temp = sourceChain;
+                    setSourceChain(destChain);
+                    setDestChain(temp);
+                  }}>
+                    <ArrowRightLeft className="w-4 h-4" />
+                  </Button>
                 </div>
-                <div>
-                  <p className="font-semibold">
-                    {formatTokenAmount(transfer.amount)} {transfer.token}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {transfer.sourceChain} → {transfer.targetChain}
-                  </p>
+
+                <div className="space-y-2">
+                  <Label>To Chain</Label>
+                  <Select value={destChain} onValueChange={setDestChain}>
+                    <SelectTrigger data-testid="select-dest-chain">
+                      <SelectValue placeholder="Select destination chain" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {activeChains.filter(c => c.chainId.toString() !== sourceChain).map(chain => (
+                        <SelectItem key={chain.chainId} value={chain.chainId.toString()}>
+                          {chain.name} ({chain.symbol})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="text-right">
-                  <p className="text-sm font-medium">Signatures</p>
-                  <p className="text-sm text-muted-foreground">
-                    {transfer.signaturesCollected}/{transfer.signaturesRequired}
-                  </p>
-                  <Progress 
-                    value={(transfer.signaturesCollected / transfer.signaturesRequired) * 100} 
-                    className="h-1 w-20 mt-1" 
+
+                <div className="space-y-2">
+                  <Label>Amount</Label>
+                  <Input
+                    type="number"
+                    placeholder="0.0"
+                    value={bridgeAmount}
+                    onChange={(e) => setBridgeAmount(e.target.value)}
+                    data-testid="input-bridge-amount"
                   />
                 </div>
-                <div className="flex gap-2">
-                  <Badge
-                    variant={transfer.status === "released" ? "default" : 
-                             transfer.status === "pending" ? "secondary" : 
-                             transfer.status === "locked" ? "outline" : "destructive"}
-                  >
-                    {transfer.status === "pending" && <Clock className="h-3 w-3 mr-1" />}
-                    {transfer.status === "locked" && <Lock className="h-3 w-3 mr-1" />}
-                    {transfer.status === "released" && <CheckCircle className="h-3 w-3 mr-1" />}
-                    {transfer.status === "failed" && <AlertTriangle className="h-3 w-3 mr-1" />}
-                    {transfer.status}
-                  </Badge>
-                  {transfer.aiApproved && (
-                    <Badge variant="outline" className="text-green-500">
-                      <Brain className="h-3 w-3 mr-1" />
-                      AI OK
-                    </Badge>
-                  )}
-                  {transfer.riskScore > 0.5 && (
-                    <Badge variant="destructive">
-                      Risk: {(transfer.riskScore * 100).toFixed(0)}%
-                    </Badge>
-                  )}
+
+                <Button className="w-full" disabled={!sourceChain || !destChain || !bridgeAmount} data-testid="button-bridge">
+                  <ArrowRightLeft className="w-4 h-4 mr-2" />
+                  Bridge Assets
+                </Button>
+
+                <div className="text-xs text-muted-foreground text-center">
+                  AI-verified transfers with MEV protection
                 </div>
+              </CardContent>
+            </Card>
+
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <CardTitle>Available Routes</CardTitle>
+                <CardDescription>Optimized transfer paths</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-3">
+                    {routes?.filter(r => r.status === "active").slice(0, 20).map(route => {
+                      const source = chains?.find(c => c.chainId === route.sourceChainId);
+                      const dest = chains?.find(c => c.chainId === route.destinationChainId);
+                      return (
+                        <div key={route.id} className="flex items-center gap-4 p-3 rounded-lg border" data-testid={`row-route-${route.id}`}>
+                          <div className="flex items-center gap-2 flex-1">
+                            <Badge variant="outline">{source?.symbol || route.sourceChainId}</Badge>
+                            <ArrowRightLeft className="w-4 h-4 text-muted-foreground" />
+                            <Badge variant="outline">{dest?.symbol || route.destinationChainId}</Badge>
+                            <span className="font-medium">{route.tokenSymbol}</span>
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            Fee: {formatBasisPoints(route.feePercent)}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            ~{formatTime(route.estimatedTime)}
+                          </div>
+                          {route.aiOptimized && (
+                            <Badge variant="secondary">
+                              <Sparkles className="w-3 h-3 mr-1" />
+                              AI
+                            </Badge>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="chains" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>All Chains</CardTitle>
+              <CardDescription>Browse all connected blockchain networks</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {chains?.map(chain => (
+                  <ChainCard key={chain.id} chain={chain} />
+                ))}
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="validators" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Bridge Validators</CardTitle>
+              <CardDescription>Decentralized relayer network</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {validators?.map(validator => (
+                  <ValidatorCard key={validator.id} validator={validator} />
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="liquidity" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Liquidity Pools</CardTitle>
+              <CardDescription>Bridge liquidity across chains</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-[500px]">
+                {liquidityPools?.map(pool => {
+                  const chain = chains?.find(c => c.chainId === pool.chainId);
+                  return (
+                    <LiquidityPoolRow key={pool.id} pool={pool} chain={chain} />
+                  );
+                })}
+                {(!liquidityPools || liquidityPools.length === 0) && (
+                  <div className="py-12 text-center text-muted-foreground">
+                    No liquidity pools available
+                  </div>
+                )}
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

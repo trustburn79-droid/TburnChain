@@ -5069,3 +5069,392 @@ export interface GamefiOverview {
   topGames: GamefiProject[];
   recentActivity: GamefiActivity[];
 }
+
+// ============================================
+// Phase 8: Cross-Chain Bridge Infrastructure
+// Enterprise-Grade Multi-Chain Bridge with AI Security
+// ============================================
+
+// Bridge Chains - Supported blockchain networks
+export const bridgeChains = pgTable("bridge_chains", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  chainId: integer("chain_id").notNull().unique(),
+  name: varchar("name", { length: 100 }).notNull(),
+  symbol: varchar("symbol", { length: 20 }).notNull(),
+  networkType: varchar("network_type", { length: 30 }).notNull().default("mainnet"), // mainnet, testnet, devnet
+  rpcUrl: varchar("rpc_url", { length: 512 }),
+  explorerUrl: varchar("explorer_url", { length: 512 }),
+  iconUrl: varchar("icon_url", { length: 512 }),
+  nativeCurrency: varchar("native_currency", { length: 20 }).notNull(),
+  nativeDecimals: integer("native_decimals").default(18),
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, maintenance, deprecated, pending
+  avgBlockTime: integer("avg_block_time").default(12000), // milliseconds
+  confirmationsRequired: integer("confirmations_required").default(12),
+  maxGasPrice: numeric("max_gas_price", { precision: 40, scale: 0 }),
+  bridgeContractAddress: varchar("bridge_contract_address", { length: 66 }),
+  tokenFactoryAddress: varchar("token_factory_address", { length: 66 }),
+  totalLiquidity: numeric("total_liquidity", { precision: 40, scale: 0 }).default("0"),
+  volume24h: numeric("volume_24h", { precision: 40, scale: 0 }).default("0"),
+  volumeTotal: numeric("volume_total", { precision: 40, scale: 0 }).default("0"),
+  txCount24h: integer("tx_count_24h").default(0),
+  txCountTotal: integer("tx_count_total").default(0),
+  avgTransferTime: integer("avg_transfer_time").default(60000), // milliseconds
+  successRate: integer("success_rate").default(9900), // basis points (9900 = 99%)
+  aiRiskScore: integer("ai_risk_score").default(100), // 0-1000, lower is safer
+  isEvm: boolean("is_evm").default(true),
+  supportsEip1559: boolean("supports_eip1559").default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Bridge Routes - Optimized transfer routes between chains
+export const bridgeRoutes = pgTable("bridge_routes", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  sourceChainId: integer("source_chain_id").notNull(),
+  destinationChainId: integer("destination_chain_id").notNull(),
+  tokenAddress: varchar("token_address", { length: 66 }).notNull(),
+  tokenSymbol: varchar("token_symbol", { length: 20 }).notNull(),
+  tokenDecimals: integer("token_decimals").default(18),
+  wrappedTokenAddress: varchar("wrapped_token_address", { length: 66 }),
+  routeType: varchar("route_type", { length: 30 }).notNull().default("lock_mint"), // lock_mint, burn_mint, liquidity_pool, atomic_swap
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, paused, deprecated
+  minAmount: numeric("min_amount", { precision: 40, scale: 0 }).notNull().default("1000000000000000000"), // 1 token
+  maxAmount: numeric("max_amount", { precision: 40, scale: 0 }).notNull().default("1000000000000000000000000"), // 1M tokens
+  dailyLimit: numeric("daily_limit", { precision: 40, scale: 0 }).default("10000000000000000000000000"), // 10M tokens
+  dailyUsed: numeric("daily_used", { precision: 40, scale: 0 }).default("0"),
+  baseFee: numeric("base_fee", { precision: 40, scale: 0 }).default("0"), // Fixed fee in wei
+  feePercent: integer("fee_percent").default(30), // basis points (30 = 0.3%)
+  estimatedTime: integer("estimated_time").default(180000), // milliseconds
+  avgTime: integer("avg_time").default(120000),
+  successRate: integer("success_rate").default(9950), // basis points
+  volume24h: numeric("volume_24h", { precision: 40, scale: 0 }).default("0"),
+  volumeTotal: numeric("volume_total", { precision: 40, scale: 0 }).default("0"),
+  txCount24h: integer("tx_count_24h").default(0),
+  txCountTotal: integer("tx_count_total").default(0),
+  liquidityAvailable: numeric("liquidity_available", { precision: 40, scale: 0 }).default("0"),
+  aiOptimized: boolean("ai_optimized").default(true),
+  aiPriority: integer("ai_priority").default(50), // 0-100, higher = more preferred
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Bridge Transfers - Cross-chain transfer records
+export const bridgeTransfers = pgTable("bridge_transfers", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  routeId: varchar("route_id", { length: 64 }),
+  sourceChainId: integer("source_chain_id").notNull(),
+  destinationChainId: integer("destination_chain_id").notNull(),
+  senderAddress: varchar("sender_address", { length: 66 }).notNull(),
+  recipientAddress: varchar("recipient_address", { length: 66 }).notNull(),
+  tokenAddress: varchar("token_address", { length: 66 }).notNull(),
+  tokenSymbol: varchar("token_symbol", { length: 20 }).notNull(),
+  amount: numeric("amount", { precision: 40, scale: 0 }).notNull(),
+  amountReceived: numeric("amount_received", { precision: 40, scale: 0 }),
+  feeAmount: numeric("fee_amount", { precision: 40, scale: 0 }).default("0"),
+  feeToken: varchar("fee_token", { length: 20 }),
+  status: varchar("status", { length: 30 }).notNull().default("pending"), // pending, confirming, bridging, relaying, completed, failed, refunded
+  sourceTxHash: varchar("source_tx_hash", { length: 130 }),
+  destinationTxHash: varchar("destination_tx_hash", { length: 130 }),
+  sourceBlockNumber: bigint("source_block_number", { mode: "number" }),
+  destinationBlockNumber: bigint("destination_block_number", { mode: "number" }),
+  confirmations: integer("confirmations").default(0),
+  requiredConfirmations: integer("required_confirmations").default(12),
+  estimatedArrival: timestamp("estimated_arrival"),
+  actualArrival: timestamp("actual_arrival"),
+  errorMessage: text("error_message"),
+  retryCount: integer("retry_count").default(0),
+  aiVerified: boolean("ai_verified").default(false),
+  aiRiskScore: integer("ai_risk_score"), // 0-1000
+  aiRiskFactors: jsonb("ai_risk_factors"),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Bridge Liquidity Pools - Per-chain liquidity management
+export const bridgeLiquidityPools = pgTable("bridge_liquidity_pools", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  chainId: integer("chain_id").notNull(),
+  tokenAddress: varchar("token_address", { length: 66 }).notNull(),
+  tokenSymbol: varchar("token_symbol", { length: 20 }).notNull(),
+  tokenDecimals: integer("token_decimals").default(18),
+  poolAddress: varchar("pool_address", { length: 66 }),
+  totalLiquidity: numeric("total_liquidity", { precision: 40, scale: 0 }).notNull().default("0"),
+  availableLiquidity: numeric("available_liquidity", { precision: 40, scale: 0 }).notNull().default("0"),
+  lockedLiquidity: numeric("locked_liquidity", { precision: 40, scale: 0 }).default("0"),
+  utilizationRate: integer("utilization_rate").default(0), // basis points
+  minLiquidity: numeric("min_liquidity", { precision: 40, scale: 0 }).default("0"),
+  targetLiquidity: numeric("target_liquidity", { precision: 40, scale: 0 }).default("0"),
+  lpTokenAddress: varchar("lp_token_address", { length: 66 }),
+  lpTokenSupply: numeric("lp_token_supply", { precision: 40, scale: 0 }).default("0"),
+  lpApy: integer("lp_apy").default(0), // basis points
+  totalFeesEarned: numeric("total_fees_earned", { precision: 40, scale: 0 }).default("0"),
+  fees24h: numeric("fees_24h", { precision: 40, scale: 0 }).default("0"),
+  volume24h: numeric("volume_24h", { precision: 40, scale: 0 }).default("0"),
+  txCount24h: integer("tx_count_24h").default(0),
+  providerCount: integer("provider_count").default(0),
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, paused, depleted, rebalancing
+  rebalanceThreshold: integer("rebalance_threshold").default(8000), // basis points (80%)
+  lastRebalanceAt: timestamp("last_rebalance_at"),
+  aiManagedRebalance: boolean("ai_managed_rebalance").default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Bridge Liquidity Providers
+export const bridgeLiquidityProviders = pgTable("bridge_liquidity_providers", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id", { length: 64 }).notNull(),
+  providerAddress: varchar("provider_address", { length: 66 }).notNull(),
+  depositedAmount: numeric("deposited_amount", { precision: 40, scale: 0 }).notNull().default("0"),
+  lpTokenBalance: numeric("lp_token_balance", { precision: 40, scale: 0 }).notNull().default("0"),
+  sharePercent: integer("share_percent").default(0), // basis points
+  pendingRewards: numeric("pending_rewards", { precision: 40, scale: 0 }).default("0"),
+  claimedRewards: numeric("claimed_rewards", { precision: 40, scale: 0 }).default("0"),
+  totalEarned: numeric("total_earned", { precision: 40, scale: 0 }).default("0"),
+  depositTxHash: varchar("deposit_tx_hash", { length: 130 }),
+  lastClaimAt: timestamp("last_claim_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Bridge Validators/Relayers
+export const bridgeValidators = pgTable("bridge_validators", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  address: varchar("address", { length: 66 }).notNull().unique(),
+  name: varchar("name", { length: 100 }),
+  operatorAddress: varchar("operator_address", { length: 66 }),
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, inactive, slashed, pending
+  stake: numeric("stake", { precision: 40, scale: 0 }).notNull().default("0"),
+  minStake: numeric("min_stake", { precision: 40, scale: 0 }).default("100000000000000000000000"), // 100k TBURN
+  commission: integer("commission").default(500), // basis points
+  uptime: integer("uptime").default(10000), // basis points
+  attestationsProcessed: integer("attestations_processed").default(0),
+  attestationsValid: integer("attestations_valid").default(0),
+  attestationsFailed: integer("attestations_failed").default(0),
+  slashCount: integer("slash_count").default(0),
+  slashedAmount: numeric("slashed_amount", { precision: 40, scale: 0 }).default("0"),
+  rewardsEarned: numeric("rewards_earned", { precision: 40, scale: 0 }).default("0"),
+  rewardsClaimed: numeric("rewards_claimed", { precision: 40, scale: 0 }).default("0"),
+  supportedChains: jsonb("supported_chains"), // Array of chain IDs
+  avgResponseTime: integer("avg_response_time").default(0), // milliseconds
+  lastActiveAt: timestamp("last_active_at"),
+  aiTrustScore: integer("ai_trust_score").default(8000), // basis points
+  reputationScore: integer("reputation_score").default(8500), // basis points
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Bridge Fee Configurations
+export const bridgeFeeConfigs = pgTable("bridge_fee_configs", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  routeId: varchar("route_id", { length: 64 }),
+  sourceChainId: integer("source_chain_id"),
+  destinationChainId: integer("destination_chain_id"),
+  tokenSymbol: varchar("token_symbol", { length: 20 }),
+  feeType: varchar("fee_type", { length: 30 }).notNull().default("dynamic"), // fixed, dynamic, tiered, ai_optimized
+  baseFee: numeric("base_fee", { precision: 40, scale: 0 }).default("0"),
+  percentFee: integer("percent_fee").default(30), // basis points
+  minFee: numeric("min_fee", { precision: 40, scale: 0 }).default("0"),
+  maxFee: numeric("max_fee", { precision: 40, scale: 0 }),
+  gasMultiplier: integer("gas_multiplier").default(150), // percent (150 = 1.5x)
+  tierThresholds: jsonb("tier_thresholds"), // Amount tiers for fee discounts
+  tierDiscounts: jsonb("tier_discounts"), // Discount percentages per tier
+  aiAdjustment: integer("ai_adjustment").default(0), // basis points adjustment
+  isActive: boolean("is_active").default(true),
+  validFrom: timestamp("valid_from"),
+  validTo: timestamp("valid_to"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Bridge Security Events
+export const bridgeSecurityEvents = pgTable("bridge_security_events", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  eventType: varchar("event_type", { length: 50 }).notNull(), // suspicious_transfer, rate_limit_hit, validator_misbehavior, liquidity_attack, front_running, replay_attempt
+  severity: varchar("severity", { length: 20 }).notNull().default("medium"), // low, medium, high, critical
+  sourceChainId: integer("source_chain_id"),
+  destinationChainId: integer("destination_chain_id"),
+  transferId: varchar("transfer_id", { length: 64 }),
+  validatorId: varchar("validator_id", { length: 64 }),
+  walletAddress: varchar("wallet_address", { length: 66 }),
+  txHash: varchar("tx_hash", { length: 130 }),
+  amount: numeric("amount", { precision: 40, scale: 0 }),
+  description: text("description"),
+  aiDetected: boolean("ai_detected").default(false),
+  aiConfidence: integer("ai_confidence"), // 0-1000
+  aiRecommendation: text("ai_recommendation"),
+  status: varchar("status", { length: 20 }).notNull().default("active"), // active, investigating, resolved, false_positive
+  resolvedAt: timestamp("resolved_at"),
+  resolvedBy: varchar("resolved_by", { length: 66 }),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Bridge Analytics Snapshots
+export const bridgeAnalytics = pgTable("bridge_analytics", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  snapshotAt: timestamp("snapshot_at").defaultNow().notNull(),
+  totalChains: integer("total_chains").default(0),
+  activeChains: integer("active_chains").default(0),
+  totalRoutes: integer("total_routes").default(0),
+  activeRoutes: integer("active_routes").default(0),
+  totalValidators: integer("total_validators").default(0),
+  activeValidators: integer("active_validators").default(0),
+  totalLiquidity: numeric("total_liquidity", { precision: 40, scale: 0 }).default("0"),
+  totalVolume: numeric("total_volume", { precision: 40, scale: 0 }).default("0"),
+  volume24h: numeric("volume_24h", { precision: 40, scale: 0 }).default("0"),
+  volume7d: numeric("volume_7d", { precision: 40, scale: 0 }).default("0"),
+  transferCount24h: integer("transfer_count_24h").default(0),
+  transferCountTotal: integer("transfer_count_total").default(0),
+  uniqueUsers24h: integer("unique_users_24h").default(0),
+  uniqueUsersTotal: integer("unique_users_total").default(0),
+  avgTransferTime: integer("avg_transfer_time").default(0), // milliseconds
+  successRate: integer("success_rate").default(9900), // basis points
+  totalFees: numeric("total_fees", { precision: 40, scale: 0 }).default("0"),
+  fees24h: numeric("fees_24h", { precision: 40, scale: 0 }).default("0"),
+  securityEventsCount: integer("security_events_count").default(0),
+  aiInterventions: integer("ai_interventions").default(0),
+  topSourceChain: integer("top_source_chain"),
+  topDestinationChain: integer("top_destination_chain"),
+  topToken: varchar("top_token", { length: 20 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Bridge Activity Stream
+export const bridgeActivity = pgTable("bridge_activity", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  eventType: varchar("event_type", { length: 50 }).notNull(), // transfer_initiated, transfer_completed, transfer_failed, liquidity_added, liquidity_removed, validator_joined, validator_slashed, route_updated, security_alert
+  chainId: integer("chain_id"),
+  transferId: varchar("transfer_id", { length: 64 }),
+  validatorId: varchar("validator_id", { length: 64 }),
+  poolId: varchar("pool_id", { length: 64 }),
+  walletAddress: varchar("wallet_address", { length: 66 }),
+  amount: numeric("amount", { precision: 40, scale: 0 }),
+  tokenSymbol: varchar("token_symbol", { length: 20 }),
+  txHash: varchar("tx_hash", { length: 130 }),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Bridge Insert Schemas
+export const insertBridgeChainSchema = createInsertSchema(bridgeChains).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBridgeRouteSchema = createInsertSchema(bridgeRoutes).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBridgeTransferSchema = createInsertSchema(bridgeTransfers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBridgeLiquidityPoolSchema = createInsertSchema(bridgeLiquidityPools).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBridgeLiquidityProviderSchema = createInsertSchema(bridgeLiquidityProviders).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBridgeValidatorSchema = createInsertSchema(bridgeValidators).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBridgeFeeConfigSchema = createInsertSchema(bridgeFeeConfigs).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBridgeSecurityEventSchema = createInsertSchema(bridgeSecurityEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertBridgeAnalyticsSchema = createInsertSchema(bridgeAnalytics).omit({
+  id: true,
+  snapshotAt: true,
+  createdAt: true,
+});
+
+export const insertBridgeActivitySchema = createInsertSchema(bridgeActivity).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Bridge Types
+export type BridgeChain = typeof bridgeChains.$inferSelect;
+export type InsertBridgeChain = z.infer<typeof insertBridgeChainSchema>;
+
+export type BridgeRoute = typeof bridgeRoutes.$inferSelect;
+export type InsertBridgeRoute = z.infer<typeof insertBridgeRouteSchema>;
+
+export type BridgeTransfer = typeof bridgeTransfers.$inferSelect;
+export type InsertBridgeTransfer = z.infer<typeof insertBridgeTransferSchema>;
+
+export type BridgeLiquidityPool = typeof bridgeLiquidityPools.$inferSelect;
+export type InsertBridgeLiquidityPool = z.infer<typeof insertBridgeLiquidityPoolSchema>;
+
+export type BridgeLiquidityProvider = typeof bridgeLiquidityProviders.$inferSelect;
+export type InsertBridgeLiquidityProvider = z.infer<typeof insertBridgeLiquidityProviderSchema>;
+
+export type BridgeValidator = typeof bridgeValidators.$inferSelect;
+export type InsertBridgeValidator = z.infer<typeof insertBridgeValidatorSchema>;
+
+export type BridgeFeeConfig = typeof bridgeFeeConfigs.$inferSelect;
+export type InsertBridgeFeeConfig = z.infer<typeof insertBridgeFeeConfigSchema>;
+
+export type BridgeSecurityEvent = typeof bridgeSecurityEvents.$inferSelect;
+export type InsertBridgeSecurityEvent = z.infer<typeof insertBridgeSecurityEventSchema>;
+
+export type BridgeAnalytics = typeof bridgeAnalytics.$inferSelect;
+export type InsertBridgeAnalytics = z.infer<typeof insertBridgeAnalyticsSchema>;
+
+export type BridgeActivity = typeof bridgeActivity.$inferSelect;
+export type InsertBridgeActivity = z.infer<typeof insertBridgeActivitySchema>;
+
+// Bridge Frontend Types
+export type ChainStatus = "active" | "maintenance" | "deprecated" | "pending";
+export type RouteType = "lock_mint" | "burn_mint" | "liquidity_pool" | "atomic_swap";
+export type RouteStatus = "active" | "paused" | "deprecated";
+export type TransferStatus = "pending" | "confirming" | "bridging" | "relaying" | "completed" | "failed" | "refunded";
+export type PoolStatus = "active" | "paused" | "depleted" | "rebalancing";
+export type ValidatorStatus = "active" | "inactive" | "slashed" | "pending";
+export type FeeType = "fixed" | "dynamic" | "tiered" | "ai_optimized";
+export type SecurityEventType = "suspicious_transfer" | "rate_limit_hit" | "validator_misbehavior" | "liquidity_attack" | "front_running" | "replay_attempt";
+export type SecuritySeverity = "low" | "medium" | "high" | "critical";
+export type BridgeEventType = "transfer_initiated" | "transfer_completed" | "transfer_failed" | "liquidity_added" | "liquidity_removed" | "validator_joined" | "validator_slashed" | "route_updated" | "security_alert";
+
+export interface BridgeOverview {
+  totalChains: number;
+  activeChains: number;
+  totalRoutes: number;
+  activeRoutes: number;
+  totalValidators: number;
+  activeValidators: number;
+  totalLiquidity: string;
+  totalVolume: string;
+  volume24h: string;
+  transferCount24h: number;
+  avgTransferTime: number;
+  successRate: number;
+  fees24h: string;
+  securityEventsCount: number;
+  topChains: BridgeChain[];
+  recentTransfers: BridgeTransfer[];
+  recentActivity: BridgeActivity[];
+}

@@ -29,9 +29,11 @@ import { registerLiquidStakingRoutes } from "./routes/liquid-staking-routes";
 import nftMarketplaceRoutes from "./routes/nft-marketplace-routes";
 import launchpadRoutes from "./routes/launchpad-routes";
 import gamefiRoutes from "./routes/gamefi-routes";
+import bridgeRoutes from "./routes/bridge-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
+import { bridgeService } from "./services/BridgeService";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -9418,6 +9420,58 @@ Provide JSON portfolio analysis:
       console.error('[WebSocket] GameFi activity broadcast error:', error);
     }
   }, 5000, 'gamefi_activity_broadcast');
+
+  // ============================================
+  // CROSS-CHAIN BRIDGE (Phase 8)
+  // ============================================
+  app.use("/api/bridge", bridgeRoutes);
+  console.log("[Bridge] Routes registered successfully");
+  bridgeService.initialize().catch(err => console.error("[Bridge] Init error:", err));
+
+  createTrackedInterval(async () => {
+    try {
+      const chains = await bridgeService.getChains("active");
+      broadcastToAll(wss, 'bridge_chains', chains);
+    } catch (error) {
+      console.error('[WebSocket] Bridge chains broadcast error:', error);
+    }
+  }, 10000, 'bridge_chains_broadcast');
+
+  createTrackedInterval(async () => {
+    try {
+      const transfers = await bridgeService.getTransfers(undefined, undefined, 20);
+      broadcastToAll(wss, 'bridge_transfers', transfers);
+    } catch (error) {
+      console.error('[WebSocket] Bridge transfers broadcast error:', error);
+    }
+  }, 5000, 'bridge_transfers_broadcast');
+
+  createTrackedInterval(async () => {
+    try {
+      const validators = await bridgeService.getValidators("active");
+      broadcastToAll(wss, 'bridge_validators', validators);
+    } catch (error) {
+      console.error('[WebSocket] Bridge validators broadcast error:', error);
+    }
+  }, 15000, 'bridge_validators_broadcast');
+
+  createTrackedInterval(async () => {
+    try {
+      const activity = await bridgeService.getActivity(50);
+      broadcastToAll(wss, 'bridge_activity', activity);
+    } catch (error) {
+      console.error('[WebSocket] Bridge activity broadcast error:', error);
+    }
+  }, 5000, 'bridge_activity_broadcast');
+
+  createTrackedInterval(async () => {
+    try {
+      const liquidity = await bridgeService.getLiquidityPools();
+      broadcastToAll(wss, 'bridge_liquidity', liquidity);
+    } catch (error) {
+      console.error('[WebSocket] Bridge liquidity broadcast error:', error);
+    }
+  }, 10000, 'bridge_liquidity_broadcast');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)
