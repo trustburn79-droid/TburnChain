@@ -27,7 +27,9 @@ import { registerLendingRoutes } from "./routes/lending-routes";
 import { registerYieldRoutes } from "./routes/yield-routes";
 import { registerLiquidStakingRoutes } from "./routes/liquid-staking-routes";
 import nftMarketplaceRoutes from "./routes/nft-marketplace-routes";
+import launchpadRoutes from "./routes/launchpad-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
+import { launchpadService } from "./services/LaunchpadService";
 
 const SITE_PASSWORD = "tburn7979";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
@@ -374,7 +376,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // NFT MARKETPLACE INFRASTRUCTURE
   // ============================================
   app.use("/api/nft", nftMarketplaceRoutes);
+  app.use("/api/launchpad", launchpadRoutes);
+  console.log("[Launchpad] Routes registered successfully");
   nftMarketplaceService.initialize().catch(err => console.error("[NFT Marketplace] Init error:", err));
+  launchpadService.initialize().catch(err => console.error("[Launchpad] Init error:", err));
 
   // ============================================
   // Network Stats
@@ -9273,6 +9278,70 @@ Provide JSON portfolio analysis:
       console.error('[WebSocket] NFT activity broadcast error:', error);
     }
   }, 5000, 'nft_activity_broadcast');
+
+  // ============================================
+  // NFT LAUNCHPAD WEBSOCKET BROADCASTS (Phase 6)
+  // ============================================
+
+  // Launchpad Projects - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const overview = await storage.getLaunchpadOverview();
+      const featured = await storage.getFeaturedLaunchpadProjects(5);
+      const active = await storage.getActiveLaunchpadProjects();
+      
+      broadcastUpdate('launchpad_projects', {
+        overview,
+        featured,
+        active,
+        timestamp: Date.now(),
+      }, z.object({
+        overview: z.any(),
+        featured: z.array(z.any()),
+        active: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] Launchpad projects broadcast error:', error);
+    }
+  }, 10000, 'launchpad_projects_broadcast');
+
+  // Launchpad Rounds - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const activeRounds = await storage.getActiveLaunchRounds();
+      
+      broadcastUpdate('launchpad_rounds', {
+        activeRounds,
+        timestamp: Date.now(),
+      }, z.object({
+        activeRounds: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] Launchpad rounds broadcast error:', error);
+    }
+  }, 5000, 'launchpad_rounds_broadcast');
+
+  // Launchpad Activity - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const activity = await storage.getRecentLaunchpadActivity(30);
+      
+      broadcastUpdate('launchpad_activity', {
+        activity,
+        timestamp: Date.now(),
+      }, z.object({
+        activity: z.array(z.any()),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[WebSocket] Launchpad activity broadcast error:', error);
+    }
+  }, 5000, 'launchpad_activity_broadcast');
 
   // ============================================
   // Production Mode Polling (TBurnClient-based)

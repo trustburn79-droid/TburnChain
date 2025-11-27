@@ -159,6 +159,21 @@ import {
   type InsertNftActivityLog,
   type NftMarketplaceStats,
   type InsertNftMarketplaceStats,
+  // NFT Launchpad Types
+  type LaunchpadProject,
+  type InsertLaunchpadProject,
+  type LaunchRound,
+  type InsertLaunchRound,
+  type WhitelistEntry,
+  type InsertWhitelistEntry,
+  type LaunchAllocation,
+  type InsertLaunchAllocation,
+  type VestingSchedule,
+  type InsertVestingSchedule,
+  type LaunchpadStats,
+  type InsertLaunchpadStats,
+  type LaunchpadActivity,
+  type InsertLaunchpadActivity,
   blocks,
   transactions,
   accounts,
@@ -240,6 +255,14 @@ import {
   nftOffers,
   nftActivityLog,
   nftMarketplaceStats,
+  // NFT Launchpad Tables
+  launchpadProjects,
+  launchRounds,
+  whitelistEntries,
+  launchAllocations,
+  vestingSchedules,
+  launchpadStats,
+  launchpadActivity,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -4464,6 +4487,211 @@ export class DbStorage implements IStorage {
       totalItems,
       activeTraders: 0,
       avgFloorPrice,
+    };
+  }
+
+  // ============================================
+  // NFT LAUNCHPAD STORAGE METHODS (Phase 6)
+  // ============================================
+
+  // Launchpad Projects
+  async getAllLaunchpadProjects(): Promise<LaunchpadProject[]> {
+    return await db.select().from(launchpadProjects).orderBy(desc(launchpadProjects.createdAt));
+  }
+
+  async getActiveLaunchpadProjects(): Promise<LaunchpadProject[]> {
+    return await db.select().from(launchpadProjects).where(eq(launchpadProjects.status, "active")).orderBy(desc(launchpadProjects.launchDate));
+  }
+
+  async getUpcomingLaunchpadProjects(): Promise<LaunchpadProject[]> {
+    return await db.select().from(launchpadProjects).where(eq(launchpadProjects.status, "pending")).orderBy(launchpadProjects.launchDate);
+  }
+
+  async getCompletedLaunchpadProjects(): Promise<LaunchpadProject[]> {
+    return await db.select().from(launchpadProjects).where(eq(launchpadProjects.status, "completed")).orderBy(desc(launchpadProjects.endDate));
+  }
+
+  async getFeaturedLaunchpadProjects(limit: number = 5): Promise<LaunchpadProject[]> {
+    return await db.select().from(launchpadProjects).where(eq(launchpadProjects.featured, true)).orderBy(desc(launchpadProjects.createdAt)).limit(limit);
+  }
+
+  async getLaunchpadProjectById(id: string): Promise<LaunchpadProject | undefined> {
+    const [project] = await db.select().from(launchpadProjects).where(eq(launchpadProjects.id, id));
+    return project;
+  }
+
+  async getLaunchpadProjectByContract(contractAddress: string): Promise<LaunchpadProject | undefined> {
+    const [project] = await db.select().from(launchpadProjects).where(eq(launchpadProjects.contractAddress, contractAddress));
+    return project;
+  }
+
+  async createLaunchpadProject(data: InsertLaunchpadProject): Promise<LaunchpadProject> {
+    const id = `lp_${randomUUID().replace(/-/g, '').slice(0, 40)}`;
+    const [project] = await db.insert(launchpadProjects).values({ ...data, id }).returning();
+    return project;
+  }
+
+  async updateLaunchpadProject(id: string, data: Partial<LaunchpadProject>): Promise<void> {
+    await db.update(launchpadProjects).set({ ...data, updatedAt: new Date() }).where(eq(launchpadProjects.id, id));
+  }
+
+  // Launch Rounds
+  async getLaunchRoundsByProject(projectId: string): Promise<LaunchRound[]> {
+    return await db.select().from(launchRounds).where(eq(launchRounds.projectId, projectId)).orderBy(launchRounds.roundNumber);
+  }
+
+  async getActiveLaunchRounds(): Promise<LaunchRound[]> {
+    return await db.select().from(launchRounds).where(eq(launchRounds.status, "active")).orderBy(launchRounds.startTime);
+  }
+
+  async getLaunchRoundById(id: string): Promise<LaunchRound | undefined> {
+    const [round] = await db.select().from(launchRounds).where(eq(launchRounds.id, id));
+    return round;
+  }
+
+  async createLaunchRound(data: InsertLaunchRound): Promise<LaunchRound> {
+    const id = `lr_${randomUUID().replace(/-/g, '').slice(0, 40)}`;
+    const [round] = await db.insert(launchRounds).values({ ...data, id }).returning();
+    return round;
+  }
+
+  async updateLaunchRound(id: string, data: Partial<LaunchRound>): Promise<void> {
+    await db.update(launchRounds).set({ ...data, updatedAt: new Date() }).where(eq(launchRounds.id, id));
+  }
+
+  // Whitelist Entries
+  async getWhitelistByProject(projectId: string): Promise<WhitelistEntry[]> {
+    return await db.select().from(whitelistEntries).where(eq(whitelistEntries.projectId, projectId)).orderBy(desc(whitelistEntries.addedAt));
+  }
+
+  async getWhitelistByRound(roundId: string): Promise<WhitelistEntry[]> {
+    return await db.select().from(whitelistEntries).where(eq(whitelistEntries.roundId, roundId)).orderBy(desc(whitelistEntries.addedAt));
+  }
+
+  async getWhitelistEntry(projectId: string, walletAddress: string): Promise<WhitelistEntry | undefined> {
+    const [entry] = await db.select().from(whitelistEntries).where(and(eq(whitelistEntries.projectId, projectId), eq(whitelistEntries.walletAddress, walletAddress)));
+    return entry;
+  }
+
+  async createWhitelistEntry(data: InsertWhitelistEntry): Promise<WhitelistEntry> {
+    const id = `wl_${randomUUID().replace(/-/g, '').slice(0, 40)}`;
+    const [entry] = await db.insert(whitelistEntries).values({ ...data, id }).returning();
+    return entry;
+  }
+
+  async updateWhitelistEntry(id: string, data: Partial<WhitelistEntry>): Promise<void> {
+    await db.update(whitelistEntries).set(data).where(eq(whitelistEntries.id, id));
+  }
+
+  // Launch Allocations
+  async getAllocationsByProject(projectId: string): Promise<LaunchAllocation[]> {
+    return await db.select().from(launchAllocations).where(eq(launchAllocations.projectId, projectId)).orderBy(desc(launchAllocations.createdAt));
+  }
+
+  async getAllocationsByRound(roundId: string): Promise<LaunchAllocation[]> {
+    return await db.select().from(launchAllocations).where(eq(launchAllocations.roundId, roundId)).orderBy(desc(launchAllocations.createdAt));
+  }
+
+  async getAllocationsByWallet(walletAddress: string): Promise<LaunchAllocation[]> {
+    return await db.select().from(launchAllocations).where(eq(launchAllocations.walletAddress, walletAddress)).orderBy(desc(launchAllocations.createdAt));
+  }
+
+  async createLaunchAllocation(data: InsertLaunchAllocation): Promise<LaunchAllocation> {
+    const id = `la_${randomUUID().replace(/-/g, '').slice(0, 40)}`;
+    const [allocation] = await db.insert(launchAllocations).values({ ...data, id }).returning();
+    return allocation;
+  }
+
+  async updateLaunchAllocation(id: string, data: Partial<LaunchAllocation>): Promise<void> {
+    await db.update(launchAllocations).set(data).where(eq(launchAllocations.id, id));
+  }
+
+  // Vesting Schedules
+  async getVestingSchedulesByProject(projectId: string): Promise<VestingSchedule[]> {
+    return await db.select().from(vestingSchedules).where(eq(vestingSchedules.projectId, projectId)).orderBy(desc(vestingSchedules.createdAt));
+  }
+
+  async getVestingSchedulesByWallet(walletAddress: string): Promise<VestingSchedule[]> {
+    return await db.select().from(vestingSchedules).where(eq(vestingSchedules.walletAddress, walletAddress)).orderBy(desc(vestingSchedules.createdAt));
+  }
+
+  async getActiveVestingSchedules(): Promise<VestingSchedule[]> {
+    return await db.select().from(vestingSchedules).where(eq(vestingSchedules.status, "active")).orderBy(vestingSchedules.nextClaimTime);
+  }
+
+  async createVestingSchedule(data: InsertVestingSchedule): Promise<VestingSchedule> {
+    const id = `vs_${randomUUID().replace(/-/g, '').slice(0, 40)}`;
+    const [schedule] = await db.insert(vestingSchedules).values({ ...data, id }).returning();
+    return schedule;
+  }
+
+  async updateVestingSchedule(id: string, data: Partial<VestingSchedule>): Promise<void> {
+    await db.update(vestingSchedules).set({ ...data, updatedAt: new Date() }).where(eq(vestingSchedules.id, id));
+  }
+
+  // Launchpad Stats
+  async getLaunchpadStats(): Promise<LaunchpadStats | undefined> {
+    const [stats] = await db.select().from(launchpadStats).orderBy(desc(launchpadStats.snapshotAt)).limit(1);
+    return stats;
+  }
+
+  async createLaunchpadStats(data: InsertLaunchpadStats): Promise<LaunchpadStats> {
+    const id = `lps_${randomUUID().replace(/-/g, '').slice(0, 40)}`;
+    const [stats] = await db.insert(launchpadStats).values({ ...data, id }).returning();
+    return stats;
+  }
+
+  // Launchpad Activity
+  async getLaunchpadActivityByProject(projectId: string, limit: number = 50): Promise<LaunchpadActivity[]> {
+    return await db.select().from(launchpadActivity).where(eq(launchpadActivity.projectId, projectId)).orderBy(desc(launchpadActivity.createdAt)).limit(limit);
+  }
+
+  async getRecentLaunchpadActivity(limit: number = 50): Promise<LaunchpadActivity[]> {
+    return await db.select().from(launchpadActivity).orderBy(desc(launchpadActivity.createdAt)).limit(limit);
+  }
+
+  async createLaunchpadActivity(data: InsertLaunchpadActivity): Promise<LaunchpadActivity> {
+    const id = `lpa_${randomUUID().replace(/-/g, '').slice(0, 40)}`;
+    const [activity] = await db.insert(launchpadActivity).values({ ...data, id }).returning();
+    return activity;
+  }
+
+  // Launchpad Overview
+  async getLaunchpadOverview(): Promise<{
+    totalProjects: number;
+    activeProjects: number;
+    upcomingProjects: number;
+    completedProjects: number;
+    totalRaised: string;
+    totalMinted: number;
+    uniqueParticipants: number;
+    featuredCount: number;
+  }> {
+    const projects = await db.select().from(launchpadProjects);
+    const activeProjects = projects.filter(p => p.status === "active");
+    const upcomingProjects = projects.filter(p => p.status === "pending");
+    const completedProjects = projects.filter(p => p.status === "completed");
+    const featuredProjects = projects.filter(p => p.featured);
+    
+    let totalRaised = BigInt(0);
+    let totalMinted = 0;
+    let uniqueMintersSet = new Set<number>();
+    
+    for (const project of projects) {
+      totalRaised += BigInt(project.totalRaised || "0");
+      totalMinted += project.totalMinted;
+      uniqueMintersSet.add(project.uniqueMinters);
+    }
+    
+    return {
+      totalProjects: projects.length,
+      activeProjects: activeProjects.length,
+      upcomingProjects: upcomingProjects.length,
+      completedProjects: completedProjects.length,
+      totalRaised: totalRaised.toString(),
+      totalMinted,
+      uniqueParticipants: Array.from(uniqueMintersSet).reduce((a, b) => a + b, 0),
+      featuredCount: featuredProjects.length,
     };
   }
 }

@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, bigint, boolean, jsonb, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, bigint, boolean, jsonb, timestamp, numeric, real } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -4495,4 +4495,232 @@ export interface NftMarketOverview {
   totalSales24h: number;
   activeListings: number;
   topCollections: NftCollectionSummary[];
+}
+
+// ============================================
+// NFT LAUNCHPAD SCHEMA (Phase 6)
+// ============================================
+
+export const launchpadProjects = pgTable("launchpad_projects", {
+  id: varchar("id", { length: 66 }).primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  symbol: varchar("symbol", { length: 20 }).notNull(),
+  description: text("description"),
+  imageUrl: text("image_url"),
+  bannerUrl: text("banner_url"),
+  websiteUrl: text("website_url"),
+  twitterUrl: text("twitter_url"),
+  discordUrl: text("discord_url"),
+  creatorAddress: varchar("creator_address", { length: 66 }).notNull(),
+  totalSupply: numeric("total_supply", { precision: 40, scale: 0 }).notNull().default("10000"),
+  mintPrice: numeric("mint_price", { precision: 40, scale: 0 }).notNull().default("0"),
+  maxPerWallet: integer("max_per_wallet").notNull().default(10),
+  royaltyBps: integer("royalty_bps").notNull().default(500),
+  status: varchar("status", { length: 20 }).notNull().default("draft"),
+  featured: boolean("featured").notNull().default(false),
+  verified: boolean("verified").notNull().default(false),
+  aiScore: real("ai_score"),
+  aiAnalysis: jsonb("ai_analysis"),
+  contractAddress: varchar("contract_address", { length: 66 }),
+  category: varchar("category", { length: 50 }),
+  tags: text("tags").array(),
+  totalRaised: numeric("total_raised", { precision: 40, scale: 0 }).notNull().default("0"),
+  totalMinted: integer("total_minted").notNull().default(0),
+  uniqueMinters: integer("unique_minters").notNull().default(0),
+  launchDate: timestamp("launch_date"),
+  endDate: timestamp("end_date"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const launchRounds = pgTable("launch_rounds", {
+  id: varchar("id", { length: 66 }).primaryKey(),
+  projectId: varchar("project_id", { length: 66 }).notNull().references(() => launchpadProjects.id),
+  roundNumber: integer("round_number").notNull().default(1),
+  name: varchar("name", { length: 100 }).notNull(),
+  roundType: varchar("round_type", { length: 30 }).notNull().default("public"),
+  startTime: timestamp("start_time").notNull(),
+  endTime: timestamp("end_time").notNull(),
+  price: numeric("price", { precision: 40, scale: 0 }).notNull(),
+  allocation: integer("allocation").notNull(),
+  maxPerWallet: integer("max_per_wallet").notNull().default(5),
+  minPerWallet: integer("min_per_wallet").notNull().default(1),
+  totalMinted: integer("total_minted").notNull().default(0),
+  uniqueParticipants: integer("unique_participants").notNull().default(0),
+  totalRaised: numeric("total_raised", { precision: 40, scale: 0 }).notNull().default("0"),
+  whitelistRequired: boolean("whitelist_required").notNull().default(false),
+  status: varchar("status", { length: 20 }).notNull().default("pending"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const whitelistEntries = pgTable("whitelist_entries", {
+  id: varchar("id", { length: 66 }).primaryKey(),
+  projectId: varchar("project_id", { length: 66 }).notNull().references(() => launchpadProjects.id),
+  roundId: varchar("round_id", { length: 66 }).references(() => launchRounds.id),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  allocation: integer("allocation").notNull().default(1),
+  used: integer("used").notNull().default(0),
+  tier: varchar("tier", { length: 30 }),
+  proofData: jsonb("proof_data"),
+  addedBy: varchar("added_by", { length: 66 }),
+  addedAt: timestamp("added_at").defaultNow().notNull(),
+  expiresAt: timestamp("expires_at"),
+});
+
+export const launchAllocations = pgTable("launch_allocations", {
+  id: varchar("id", { length: 66 }).primaryKey(),
+  projectId: varchar("project_id", { length: 66 }).notNull().references(() => launchpadProjects.id),
+  roundId: varchar("round_id", { length: 66 }).notNull().references(() => launchRounds.id),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  quantity: integer("quantity").notNull(),
+  pricePerUnit: numeric("price_per_unit", { precision: 40, scale: 0 }).notNull(),
+  totalPaid: numeric("total_paid", { precision: 40, scale: 0 }).notNull(),
+  txHash: varchar("tx_hash", { length: 130 }),
+  tokenIds: text("token_ids").array(),
+  status: varchar("status", { length: 20 }).notNull().default("pending"),
+  mintedAt: timestamp("minted_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const vestingSchedules = pgTable("vesting_schedules", {
+  id: varchar("id", { length: 66 }).primaryKey(),
+  projectId: varchar("project_id", { length: 66 }).notNull().references(() => launchpadProjects.id),
+  walletAddress: varchar("wallet_address", { length: 66 }).notNull(),
+  totalAmount: numeric("total_amount", { precision: 40, scale: 0 }).notNull(),
+  releasedAmount: numeric("released_amount", { precision: 40, scale: 0 }).notNull().default("0"),
+  vestingType: varchar("vesting_type", { length: 30 }).notNull().default("linear"),
+  startTime: timestamp("start_time").notNull(),
+  cliffDuration: integer("cliff_duration").notNull().default(0),
+  vestingDuration: integer("vesting_duration").notNull(),
+  releaseInterval: integer("release_interval").notNull().default(86400),
+  lastClaimTime: timestamp("last_claim_time"),
+  nextClaimTime: timestamp("next_claim_time"),
+  status: varchar("status", { length: 20 }).notNull().default("active"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const launchpadStats = pgTable("launchpad_stats", {
+  id: varchar("id", { length: 66 }).primaryKey(),
+  totalProjects: integer("total_projects").notNull().default(0),
+  activeProjects: integer("active_projects").notNull().default(0),
+  completedProjects: integer("completed_projects").notNull().default(0),
+  totalRaised: numeric("total_raised", { precision: 40, scale: 0 }).notNull().default("0"),
+  totalRaisedUsd: numeric("total_raised_usd", { precision: 40, scale: 2 }).notNull().default("0"),
+  totalMinted: integer("total_minted").notNull().default(0),
+  uniqueParticipants: integer("unique_participants").notNull().default(0),
+  avgFundingRate: real("avg_funding_rate").default(0),
+  featuredCount: integer("featured_count").notNull().default(0),
+  snapshotAt: timestamp("snapshot_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const launchpadActivity = pgTable("launchpad_activity", {
+  id: varchar("id", { length: 66 }).primaryKey(),
+  projectId: varchar("project_id", { length: 66 }).notNull().references(() => launchpadProjects.id),
+  roundId: varchar("round_id", { length: 66 }),
+  walletAddress: varchar("wallet_address", { length: 66 }),
+  eventType: varchar("event_type", { length: 30 }).notNull(),
+  quantity: integer("quantity"),
+  amount: numeric("amount", { precision: 40, scale: 0 }),
+  txHash: varchar("tx_hash", { length: 130 }),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// NFT Launchpad Insert Schemas
+export const insertLaunchpadProjectSchema = createInsertSchema(launchpadProjects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLaunchRoundSchema = createInsertSchema(launchRounds).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertWhitelistEntrySchema = createInsertSchema(whitelistEntries).omit({
+  id: true,
+  addedAt: true,
+});
+
+export const insertLaunchAllocationSchema = createInsertSchema(launchAllocations).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertVestingScheduleSchema = createInsertSchema(vestingSchedules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLaunchpadStatsSchema = createInsertSchema(launchpadStats).omit({
+  id: true,
+  snapshotAt: true,
+  createdAt: true,
+});
+
+export const insertLaunchpadActivitySchema = createInsertSchema(launchpadActivity).omit({
+  id: true,
+  createdAt: true,
+});
+
+// NFT Launchpad Types
+export type LaunchpadProject = typeof launchpadProjects.$inferSelect;
+export type InsertLaunchpadProject = z.infer<typeof insertLaunchpadProjectSchema>;
+
+export type LaunchRound = typeof launchRounds.$inferSelect;
+export type InsertLaunchRound = z.infer<typeof insertLaunchRoundSchema>;
+
+export type WhitelistEntry = typeof whitelistEntries.$inferSelect;
+export type InsertWhitelistEntry = z.infer<typeof insertWhitelistEntrySchema>;
+
+export type LaunchAllocation = typeof launchAllocations.$inferSelect;
+export type InsertLaunchAllocation = z.infer<typeof insertLaunchAllocationSchema>;
+
+export type VestingSchedule = typeof vestingSchedules.$inferSelect;
+export type InsertVestingSchedule = z.infer<typeof insertVestingScheduleSchema>;
+
+export type LaunchpadStats = typeof launchpadStats.$inferSelect;
+export type InsertLaunchpadStats = z.infer<typeof insertLaunchpadStatsSchema>;
+
+export type LaunchpadActivity = typeof launchpadActivity.$inferSelect;
+export type InsertLaunchpadActivity = z.infer<typeof insertLaunchpadActivitySchema>;
+
+// NFT Launchpad Frontend Types
+export type LaunchpadProjectStatus = "draft" | "pending" | "active" | "completed" | "cancelled";
+export type LaunchRoundType = "whitelist" | "public" | "guaranteed" | "fcfs" | "raffle";
+export type LaunchRoundStatus = "pending" | "active" | "completed" | "cancelled";
+export type VestingType = "linear" | "cliff" | "stepped" | "instant";
+export type LaunchpadEventType = "project_created" | "round_started" | "round_ended" | "mint" | "claim" | "whitelist_added";
+
+export interface LaunchpadProjectSummary {
+  id: string;
+  name: string;
+  symbol: string;
+  imageUrl: string | null;
+  status: string;
+  totalSupply: string;
+  totalMinted: number;
+  mintPrice: string;
+  launchDate: Date | null;
+  verified: boolean;
+  featured: boolean;
+  progress: number;
+}
+
+export interface LaunchpadOverview {
+  totalProjects: number;
+  activeProjects: number;
+  upcomingProjects: number;
+  totalRaised: string;
+  totalRaisedUsd: string;
+  totalMinted: number;
+  featuredProjects: LaunchpadProjectSummary[];
+  upcomingLaunches: LaunchpadProjectSummary[];
+  recentActivity: LaunchpadActivity[];
 }

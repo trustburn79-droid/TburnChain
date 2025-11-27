@@ -22,6 +22,7 @@ import {
   Layers,
   Link2,
   PiggyBank,
+  Rocket,
   Server,
   Settings,
   Shield,
@@ -147,6 +148,12 @@ const menuItems = [
     title: "NFT Marketplace",
     url: "/nft-marketplace",
     icon: Image,
+    group: "DeFi",
+  },
+  {
+    title: "NFT Launchpad",
+    url: "/nft-launchpad",
+    icon: Rocket,
     group: "DeFi",
   },
   {
