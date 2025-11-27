@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -206,8 +206,38 @@ function toWei(amount: string, decimals: number = 18): string {
 
 export default function DexPage() {
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState("swap");
+  
+  // Read initial tab from URL hash
+  const getInitialTab = () => {
+    const hash = window.location.hash.replace("#", "");
+    const validTabs = ["swap", "pools", "positions", "activity"];
+    return validTabs.includes(hash) ? hash : "swap";
+  };
+  
+  const [activeTab, setActiveTab] = useState(getInitialTab);
   const [poolTypeFilter, setPoolTypeFilter] = useState<string>("all");
+  
+  // Sync tab with URL hash
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      const validTabs = ["swap", "pools", "positions", "activity"];
+      if (validTabs.includes(hash)) {
+        setActiveTab(hash);
+      }
+    };
+    
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+  
+  // Update URL hash when tab changes
+  useEffect(() => {
+    const currentHash = window.location.hash.replace("#", "");
+    if (currentHash !== activeTab) {
+      window.history.replaceState(null, "", `#${activeTab}`);
+    }
+  }, [activeTab]);
   const [swapInput, setSwapInput] = useState({
     tokenIn: "",
     tokenOut: "",

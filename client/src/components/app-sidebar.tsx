@@ -46,7 +46,38 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { Link, useLocation } from "wouter";
+import { Link, useLocation, useRoute } from "wouter";
+
+// Custom link component for handling hash navigation
+function NavLink({ href, children, ...props }: { href: string; children: React.ReactNode; [key: string]: any }) {
+  const hasHash = href.includes("#");
+  const basePath = hasHash ? href.split("#")[0] : href;
+  const hash = hasHash ? href.split("#")[1] : "";
+  
+  const handleClick = (e: React.MouseEvent) => {
+    if (hasHash) {
+      e.preventDefault();
+      // Navigate to base path first
+      if (window.location.pathname !== basePath) {
+        window.location.href = href;
+      } else {
+        // Same page, just update hash
+        window.location.hash = hash;
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+      }
+    }
+  };
+  
+  if (hasHash) {
+    return (
+      <a href={href} onClick={handleClick} {...props}>
+        {children}
+      </a>
+    );
+  }
+  
+  return <Link href={href} {...props}>{children}</Link>;
+}
 
 const menuItems = [
   {
@@ -277,6 +308,17 @@ const groupedItems = menuItems.reduce((acc, item) => {
 
 export function AppSidebar() {
   const [location] = useLocation();
+  
+  // Check if a menu item is active (handles hash-based URLs)
+  const isItemActive = (itemUrl: string) => {
+    const hasHash = itemUrl.includes("#");
+    if (hasHash) {
+      const basePath = itemUrl.split("#")[0];
+      const hash = itemUrl.split("#")[1];
+      return location === basePath && window.location.hash === `#${hash}`;
+    }
+    return location === itemUrl;
+  };
 
   return (
     <Sidebar>
@@ -301,13 +343,13 @@ export function AppSidebar() {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       asChild
-                      isActive={location === item.url}
+                      isActive={isItemActive(item.url)}
                       data-testid={`link-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
                     >
-                      <Link href={item.url}>
+                      <NavLink href={item.url}>
                         <item.icon className="h-4 w-4" />
                         <span>{item.title}</span>
-                      </Link>
+                      </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
