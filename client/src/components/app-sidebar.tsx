@@ -17,6 +17,7 @@ import {
   Grid3x3,
   Home,
   Key,
+  Landmark,
   Layers,
   Link2,
   PiggyBank,
@@ -120,6 +121,12 @@ const menuItems = [
     title: "Liquidity Pools",
     url: "/dex#pools",
     icon: Droplets,
+    group: "DeFi",
+  },
+  {
+    title: "Lending",
+    url: "/lending",
+    icon: Landmark,
     group: "DeFi",
   },
   {

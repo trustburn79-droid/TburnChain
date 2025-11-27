@@ -53,6 +53,9 @@ import StakingSDK from "@/pages/staking-sdk";
 // DEX Infrastructure Pages
 import DexPage from "@/pages/dex";
 
+// Lending Infrastructure Pages
+import LendingPage from "@/pages/lending";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -111,6 +114,8 @@ function Router() {
       <Route path="/staking/sdk" component={StakingSDK} />
       {/* DEX Infrastructure Routes */}
       <Route path="/dex" component={DexPage} />
+      {/* Lending Infrastructure Routes */}
+      <Route path="/lending" component={LendingPage} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />
