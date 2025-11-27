@@ -8602,6 +8602,187 @@ Provide JSON portfolio analysis:
   }, 20000, 'staking_tier_broadcast');
 
   // ============================================
+  // DEX WEBSOCKET BROADCASTS
+  // ============================================
+
+  // DEX Pool Stats Broadcast - Every 10 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const pools = await storage.getAllDexLiquidityPools(50);
+      
+      // Calculate aggregated DEX stats
+      const activePoolCount = pools.filter(p => p.isActive).length;
+      const totalTvl = pools.reduce((sum, p) => sum + BigInt(p.totalValueLocked || '0'), BigInt(0));
+      const total24hVolume = pools.reduce((sum, p) => sum + BigInt(p.volume24h || '0'), BigInt(0));
+      const total24hFees = pools.reduce((sum, p) => sum + BigInt(p.fees24h || '0'), BigInt(0));
+      
+      const dexStats = {
+        totalPools: pools.length,
+        activePools: activePoolCount,
+        totalValueLocked: totalTvl.toString(),
+        volume24h: total24hVolume.toString(),
+        fees24h: total24hFees.toString(),
+        topPools: pools.slice(0, 10).map(p => ({
+          id: p.id,
+          poolName: p.poolName,
+          poolType: p.poolType,
+          tvl: p.totalValueLocked,
+          volume24h: p.volume24h,
+          apy: p.apy,
+          isActive: p.isActive,
+        })),
+        timestamp: Date.now(),
+      };
+
+      broadcastUpdate('dex_stats', dexStats, z.object({
+        totalPools: z.number(),
+        activePools: z.number(),
+        totalValueLocked: z.string(),
+        volume24h: z.string(),
+        fees24h: z.string(),
+        topPools: z.array(z.object({
+          id: z.string(),
+          poolName: z.string().nullable(),
+          poolType: z.string(),
+          tvl: z.string().nullable(),
+          volume24h: z.string().nullable(),
+          apy: z.string().nullable(),
+          isActive: z.boolean().nullable(),
+        })),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[DEX WS] Error broadcasting pool stats:', error);
+    }
+  }, 10000, 'dex_pool_stats_broadcast');
+
+  // DEX Recent Swaps Broadcast - Every 5 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const recentSwaps = await storage.getRecentDexSwaps(20);
+      
+      const swapsData = recentSwaps.map(swap => ({
+        id: swap.id,
+        poolId: swap.poolId,
+        traderAddress: swap.traderAddress,
+        tokenInAddress: swap.tokenInAddress,
+        tokenOutAddress: swap.tokenOutAddress,
+        amountIn: swap.amountIn,
+        amountOut: swap.amountOut,
+        effectivePrice: swap.effectivePrice,
+        swapType: swap.swapType,
+        status: swap.status,
+        executedAt: swap.executedAt,
+      }));
+
+      broadcastUpdate('dex_recent_swaps', {
+        swaps: swapsData,
+        count: swapsData.length,
+        timestamp: Date.now(),
+      }, z.object({
+        swaps: z.array(z.object({
+          id: z.string(),
+          poolId: z.string(),
+          traderAddress: z.string(),
+          tokenInAddress: z.string(),
+          tokenOutAddress: z.string(),
+          amountIn: z.string(),
+          amountOut: z.string(),
+          effectivePrice: z.string().nullable(),
+          swapType: z.string(),
+          status: z.string(),
+          executedAt: z.date().nullable(),
+        })),
+        count: z.number(),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[DEX WS] Error broadcasting recent swaps:', error);
+    }
+  }, 5000, 'dex_swaps_broadcast');
+
+  // DEX Price Feed Broadcast - Every 2 seconds (high frequency for trading)
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      // Get latest prices from all active pools
+      const pools = await storage.getAllDexLiquidityPools(100);
+      const activePools = pools.filter(p => p.isActive);
+      
+      const priceFeeds: Array<{
+        poolId: string;
+        poolName: string | null;
+        price: string | null;
+        priceChange24h: string | null;
+        volume24h: string | null;
+        lastUpdated: Date | null;
+      }> = activePools.map(pool => ({
+        poolId: pool.id,
+        poolName: pool.poolName,
+        price: pool.currentPrice,
+        priceChange24h: pool.priceChange24h,
+        volume24h: pool.volume24h,
+        lastUpdated: pool.lastTradeAt,
+      }));
+
+      broadcastUpdate('dex_price_feed', {
+        prices: priceFeeds,
+        timestamp: Date.now(),
+      }, z.object({
+        prices: z.array(z.object({
+          poolId: z.string(),
+          poolName: z.string().nullable(),
+          price: z.string().nullable(),
+          priceChange24h: z.string().nullable(),
+          volume24h: z.string().nullable(),
+          lastUpdated: z.date().nullable(),
+        })),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[DEX WS] Error broadcasting price feed:', error);
+    }
+  }, 2000, 'dex_price_feed_broadcast');
+
+  // DEX Circuit Breaker Status Broadcast - Every 30 seconds
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const activeBreakers = await storage.getActiveDexCircuitBreakers();
+      
+      broadcastUpdate('dex_circuit_breakers', {
+        activeBreakers: activeBreakers.map(cb => ({
+          id: cb.id,
+          poolId: cb.poolId,
+          breakerType: cb.breakerType,
+          triggerValue: cb.triggerValue,
+          thresholdValue: cb.thresholdValue,
+          triggeredAt: cb.triggeredAt,
+          reason: cb.reason,
+        })),
+        count: activeBreakers.length,
+        timestamp: Date.now(),
+      }, z.object({
+        activeBreakers: z.array(z.object({
+          id: z.string(),
+          poolId: z.string(),
+          breakerType: z.string(),
+          triggerValue: z.string().nullable(),
+          thresholdValue: z.string().nullable(),
+          triggeredAt: z.date().nullable(),
+          reason: z.string().nullable(),
+        })),
+        count: z.number(),
+        timestamp: z.number(),
+      }));
+    } catch (error) {
+      console.error('[DEX WS] Error broadcasting circuit breakers:', error);
+    }
+  }, 30000, 'dex_circuit_breakers_broadcast');
+
+  // ============================================
   // Production Mode Polling (TBurnClient-based)
   // ============================================
   if (isProductionMode()) {
