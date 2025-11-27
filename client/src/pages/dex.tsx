@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -215,6 +216,7 @@ function toWei(amount: string, decimals: number = 18): string {
 }
 
 export default function DexPage() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   
   // Read initial tab from URL hash
@@ -500,19 +502,19 @@ export default function DexPage() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-dex-title">TBURN DEX</h1>
+          <h1 className="text-3xl font-bold" data-testid="text-dex-title">{t('dex.title')}</h1>
           <p className="text-muted-foreground mt-1">
-            Decentralized Exchange with AI-Powered Routing and Multi-Pool Support
+            {t('dex.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="flex items-center gap-1">
             <Activity className="h-3 w-3" />
-            {activePools.length} Active Pools
+            {activePools.length} {t('dex.liquidityPools')}
           </Badge>
           <Button variant="outline" size="sm" data-testid="button-refresh-dex" onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/dex"] })}>
             <RefreshCw className="h-4 w-4 mr-1" />
-            Refresh
+            {t('common.refresh')}
           </Button>
         </div>
       </div>
@@ -520,7 +522,7 @@ export default function DexPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card data-testid="card-dex-tvl">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Value Locked</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dex.tvl')}</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -542,7 +544,7 @@ export default function DexPage() {
 
         <Card data-testid="card-dex-volume">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">24h Volume</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dex.volume24h')}</CardTitle>
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -564,7 +566,7 @@ export default function DexPage() {
 
         <Card data-testid="card-dex-fees">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">24h Fees</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dex.fees24h')}</CardTitle>
             <Coins className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -611,19 +613,19 @@ export default function DexPage() {
         <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
           <TabsTrigger value="swap" data-testid="tab-swap" className="flex items-center gap-2">
             <ArrowDownUp className="h-4 w-4" />
-            Swap
+            {t('dex.swap')}
           </TabsTrigger>
           <TabsTrigger value="pools" data-testid="tab-pools" className="flex items-center gap-2">
             <Droplets className="h-4 w-4" />
-            Pools
+            {t('dex.liquidityPools')}
           </TabsTrigger>
           <TabsTrigger value="positions" data-testid="tab-positions" className="flex items-center gap-2">
             <Layers className="h-4 w-4" />
-            My Positions
+            {t('dex.myPositions')}
           </TabsTrigger>
           <TabsTrigger value="activity" data-testid="tab-activity" className="flex items-center gap-2">
             <Activity className="h-4 w-4" />
-            Activity
+            {t('dex.analytics')}
           </TabsTrigger>
         </TabsList>
 
@@ -634,7 +636,7 @@ export default function DexPage() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-2">
                     <ArrowDownUp className="h-5 w-5" />
-                    Swap Tokens
+                    {t('dex.swapTokens')}
                   </CardTitle>
                   <TooltipProvider>
                     <Tooltip>
@@ -653,7 +655,7 @@ export default function DexPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>You Pay</Label>
+                  <Label>{t('dex.youPay')}</Label>
                   <div className="flex gap-2">
                     <Select value={swapInput.tokenIn} onValueChange={(v) => setSwapInput(prev => ({ ...prev, tokenIn: v }))}>
                       <SelectTrigger className="w-[140px]" data-testid="select-token-in">
@@ -692,7 +694,7 @@ export default function DexPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>You Receive</Label>
+                  <Label>{t('dex.youReceive')}</Label>
                   <div className="flex gap-2">
                     <Select value={swapInput.tokenOut} onValueChange={(v) => setSwapInput(prev => ({ ...prev, tokenOut: v }))}>
                       <SelectTrigger className="w-[140px]" data-testid="select-token-out">
@@ -722,17 +724,17 @@ export default function DexPage() {
                 {quote && (
                   <div className="rounded-lg bg-muted p-3 space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Price Impact</span>
+                      <span className="text-muted-foreground">{t('dex.priceImpact')}</span>
                       <span className={parseFloat(quote.priceImpact) > 5 ? "text-red-500" : "text-foreground"}>
                         {quote.priceImpact}%
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Swap Fee</span>
+                      <span className="text-muted-foreground">{t('dex.swapFee')}</span>
                       <span>{formatWeiToToken(quote.fee)} TBURN</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Route</span>
+                      <span className="text-muted-foreground">{t('dex.route')}</span>
                       <span className="text-right">
                         {quote.route?.map(r => r.name || truncateAddress(r.poolId)).join(" → ")}
                       </span>
@@ -741,7 +743,7 @@ export default function DexPage() {
                 )}
 
                 <div className="space-y-2">
-                  <Label className="text-xs text-muted-foreground">Slippage Tolerance</Label>
+                  <Label className="text-xs text-muted-foreground">{t('dex.slippageTolerance')}</Label>
                   <div className="flex gap-2">
                     {["0.1", "0.5", "1.0", "3.0"].map((s) => (
                       <Button
@@ -769,7 +771,7 @@ export default function DexPage() {
                   ) : (
                     <ArrowDownUp className="h-4 w-4 mr-2" />
                   )}
-                  {swapMutation.isPending ? "Processing..." : "Swap"}
+                  {swapMutation.isPending ? t('common.loading') : t('dex.swap')}
                 </Button>
               </CardContent>
             </Card>
@@ -778,7 +780,7 @@ export default function DexPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Activity className="h-5 w-5" />
-                  Recent Swaps
+                  {t('dex.recentSwaps')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -852,7 +854,7 @@ export default function DexPage() {
             </div>
             <Button data-testid="button-create-pool" onClick={() => setCreatePoolOpen(true)}>
               <Plus className="h-4 w-4 mr-2" />
-              Create Pool
+              {t('dex.createPool')}
             </Button>
           </div>
 
@@ -900,21 +902,21 @@ export default function DexPage() {
 
                       <div className="flex items-center gap-8">
                         <div className="text-right">
-                          <div className="text-sm text-muted-foreground">TVL</div>
+                          <div className="text-sm text-muted-foreground">{t('dex.tvl')}</div>
                           <div className="font-semibold">{formatUSD(pool.tvlUsd)}</div>
                         </div>
                         <div className="text-right">
-                          <div className="text-sm text-muted-foreground">24h Volume</div>
+                          <div className="text-sm text-muted-foreground">{t('dex.volume24h')}</div>
                           <div className="font-semibold">{formatUSD(pool.volume24h)}</div>
                         </div>
                         <div className="text-right">
-                          <div className="text-sm text-muted-foreground">APY</div>
+                          <div className="text-sm text-muted-foreground">{t('dex.apy')}</div>
                           <div className="font-semibold text-green-500">
                             {pool.totalApy > 0 ? `${(pool.totalApy / 100).toFixed(2)}%` : "N/A"}
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-sm text-muted-foreground">Fee Tier</div>
+                          <div className="text-sm text-muted-foreground">{t('dex.poolType')}</div>
                           <div className="font-semibold">
                             {(pool.feeTier / 100).toFixed(2)}%
                           </div>
@@ -931,7 +933,7 @@ export default function DexPage() {
                           ) : (
                             <Plus className="h-4 w-4 mr-1" />
                           )}
-                          Add Liquidity
+                          {t('dex.addLiquidity')}
                         </Button>
                       </div>
                     </div>
