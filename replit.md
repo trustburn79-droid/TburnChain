@@ -55,6 +55,37 @@ The TBURN DeFi Ecosystem implements enterprise-grade decentralized finance infra
 
 - **DEX Schema**: 11 tables (dex_pools, dex_pool_assets, dex_pool_ticks, dex_positions, dex_swaps, dex_price_history, dex_twap_observations, dex_circuit_breakers, dex_mev_events, dex_pool_analytics, dex_route_cache)
 
+### DeFi Ecosystem (Phase 2: Lending/Borrowing)
+The TBURN Lending/Borrowing protocol provides enterprise-grade decentralized lending infrastructure:
+
+- **Interest Rate Model**: Jump Rate model with configurable parameters:
+  - Base Rate: 2% APY
+  - Optimal Utilization: 80%
+  - Slope 1: 4% (below optimal)
+  - Slope 2: 60% (above optimal - kink rate)
+  - Real-time rate calculations based on utilization
+
+- **Collateral Management**:
+  - Collateral Factor: 75% (max borrow value vs collateral)
+  - Liquidation Threshold: 80%
+  - Liquidation Penalty: 5%
+  - Health Factor monitoring (liquidation at HF < 1.0)
+  - Multi-asset collateral support
+
+- **Core Operations**:
+  - Supply: Deposit assets to earn interest
+  - Withdraw: Remove supplied assets with accrued interest
+  - Borrow: Take collateralized loans
+  - Repay: Pay back borrowed amounts
+  - Liquidate: Close unhealthy positions with bonus
+
+- **Real-Time Data**:
+  - WebSocket broadcasts: markets (10s), risk monitor (15s), transactions (5s), rates (30s), liquidations (20s)
+  - Live APY calculations and position updates
+  - Risk metrics and health factor monitoring
+
+- **Lending Schema**: 8 tables (lending_markets, lending_supplies, lending_borrows, lending_positions, lending_liquidations, lending_rate_history, lending_config, lending_interest_snapshots)
+
 ### System Design Choices
 The project adopts a monorepo structure, separating `client/`, `server/`, and `shared/` components. Drizzle ORM is used for type-safe database interactions. Critical data is persisted in PostgreSQL, and session-based authentication secures API routes and WebSocket connections.
 
