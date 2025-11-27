@@ -833,20 +833,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get deployed tokens (user's tokens)
+  // Get deployed tokens (user's tokens) - Enterprise Dashboard
   app.get("/api/token-system/deployed", async (req, res) => {
     try {
       const deployerAddress = req.query.deployer as string;
       
-      // Return mock deployed tokens for demo purposes
+      // Return comprehensive mock deployed tokens for enterprise demo
       const deployedTokens = [
         {
-          id: "tbc20-mytoken-001",
-          name: "My Custom Token",
-          symbol: "MYT",
-          contractAddress: "0x1234567890123456789012345678901234567890",
+          id: "tbc20-enterprise-001",
+          name: "Enterprise Governance Token",
+          symbol: "EGT",
+          contractAddress: "0xa5a34b9ca789012345678901234567890867de020",
           standard: "TBC-20",
-          totalSupply: "1000000000000000000000000",
+          totalSupply: "100000000000000000000000000",
+          decimals: 18,
+          mintable: false,
+          burnable: true,
+          pausable: true,
+          aiOptimizationEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+          deployedAt: new Date(Date.now() - 86400000 * 30).toISOString(),
+          holders: 15847,
+          transactionCount: 289456,
+          volume24h: "5420000000000000000000000",
+          stakingEnabled: true,
+          stakingAPY: 12.5,
+          securityScore: 98,
+          auditStatus: "verified",
+          status: "active"
+        },
+        {
+          id: "tbc20-defi-002",
+          name: "DeFi Utility Token",
+          symbol: "DUT",
+          contractAddress: "0xb6b45c0db890123456789012345678901234567890",
+          standard: "TBC-20",
+          totalSupply: "500000000000000000000000000",
           decimals: 18,
           mintable: true,
           burnable: true,
@@ -855,9 +880,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
           quantumResistant: true,
           mevProtection: true,
           deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
-          deployedAt: new Date(Date.now() - 86400000 * 3).toISOString(),
-          holders: 125,
-          transactionCount: 1580,
+          deployedAt: new Date(Date.now() - 86400000 * 15).toISOString(),
+          holders: 8932,
+          transactionCount: 156234,
+          volume24h: "2180000000000000000000000",
+          stakingEnabled: false,
+          securityScore: 95,
+          auditStatus: "verified",
+          status: "active"
+        },
+        {
+          id: "tbc721-nft-003",
+          name: "Premium NFT Collection",
+          symbol: "PNFT",
+          contractAddress: "0xc7c56d1ec901234567890123456789012345678901",
+          standard: "TBC-721",
+          totalSupply: "10000",
+          decimals: 0,
+          mintable: true,
+          burnable: false,
+          pausable: true,
+          aiOptimizationEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+          deployedAt: new Date(Date.now() - 86400000 * 7).toISOString(),
+          holders: 2345,
+          transactionCount: 45678,
+          volume24h: "890000000000000000000000",
+          royaltyPercentage: 5,
+          securityScore: 92,
+          auditStatus: "verified",
+          status: "active"
+        },
+        {
+          id: "tbc1155-gamefi-004",
+          name: "GameFi Asset Collection",
+          symbol: "GFA",
+          contractAddress: "0xd8d67e2fd012345678901234567890123456789012",
+          standard: "TBC-1155",
+          totalSupply: "1000000",
+          decimals: 0,
+          mintable: true,
+          burnable: true,
+          pausable: false,
+          aiOptimizationEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+          deployedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+          holders: 12456,
+          transactionCount: 234567,
+          volume24h: "1560000000000000000000000",
+          tokenTypes: 50,
+          securityScore: 97,
+          auditStatus: "verified",
           status: "active"
         }
       ];
