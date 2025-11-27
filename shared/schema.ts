@@ -2089,3 +2089,638 @@ export const consensusStateSchema = z.object({
   avgBlockTimeMs: z.number(),
   startTime: z.number(),
 });
+
+// ============================================
+// TBURN DEX/AMM INFRASTRUCTURE v1.0
+// ============================================
+
+// Pool Types Enum
+export const DEX_POOL_TYPES = ["standard", "stable", "concentrated", "multi_asset", "weighted"] as const;
+export type DexPoolType = typeof DEX_POOL_TYPES[number];
+
+// Pool Status Enum
+export const DEX_POOL_STATUS = ["active", "paused", "deprecated", "emergency", "migrating"] as const;
+export type DexPoolStatus = typeof DEX_POOL_STATUS[number];
+
+// Swap Status Enum
+export const SWAP_STATUS = ["pending", "completed", "failed", "cancelled", "reverted"] as const;
+export type SwapStatus = typeof SWAP_STATUS[number];
+
+// Position Status Enum
+export const LP_POSITION_STATUS = ["active", "closed", "migrating", "emergency_withdrawn"] as const;
+export type LpPositionStatus = typeof LP_POSITION_STATUS[number];
+
+// Fee Tier Enum (basis points)
+export const FEE_TIERS = [100, 300, 500, 1000, 3000, 10000] as const; // 0.01%, 0.03%, 0.05%, 0.1%, 0.3%, 1%
+export type FeeTier = typeof FEE_TIERS[number];
+
+// Circuit Breaker Status Enum
+export const CIRCUIT_BREAKER_STATUS = ["normal", "warning", "triggered", "cooldown", "disabled"] as const;
+export type CircuitBreakerStatus = typeof CIRCUIT_BREAKER_STATUS[number];
+
+// ============================================
+// DEX Liquidity Pools
+// ============================================
+
+export const dexPools = pgTable("dex_pools", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Pool Identity
+  name: text("name").notNull(),
+  symbol: text("symbol").notNull(), // LP token symbol (e.g., "TBURN-ETH-LP")
+  contractAddress: text("contract_address").notNull().unique(),
+  
+  // Pool Configuration
+  poolType: text("pool_type").notNull().default("standard"), // standard, stable, concentrated, multi_asset, weighted
+  feeTier: integer("fee_tier").notNull().default(300), // basis points (300 = 0.3%)
+  status: text("status").notNull().default("active"), // active, paused, deprecated, emergency
+  
+  // Token Pair (for standard/stable/concentrated pools)
+  token0Address: text("token0_address").notNull(),
+  token0Symbol: text("token0_symbol").notNull(),
+  token0Decimals: integer("token0_decimals").notNull().default(18),
+  token1Address: text("token1_address").notNull(),
+  token1Symbol: text("token1_symbol").notNull(),
+  token1Decimals: integer("token1_decimals").notNull().default(18),
+  
+  // Reserves (Wei as string)
+  reserve0: text("reserve0").notNull().default("0"),
+  reserve1: text("reserve1").notNull().default("0"),
+  
+  // Concentrated Liquidity (for concentrated pools)
+  tickSpacing: integer("tick_spacing"), // Price granularity for concentrated liquidity
+  currentTick: integer("current_tick"), // Current price tick
+  sqrtPriceX96: text("sqrt_price_x96"), // sqrt(price) * 2^96 for precision
+  
+  // Stable Swap Parameters (for stable pools)
+  amplificationParameter: integer("amplification_parameter"), // A parameter for stableswap curve
+  
+  // Weighted Pool Parameters (for weighted pools)
+  token0Weight: integer("token0_weight"), // Weight in basis points (5000 = 50%)
+  token1Weight: integer("token1_weight"),
+  
+  // Pricing
+  price0: text("price0").notNull().default("0"), // Price of token0 in token1
+  price1: text("price1").notNull().default("0"), // Price of token1 in token0
+  priceUsd0: text("price_usd_0").notNull().default("0"),
+  priceUsd1: text("price_usd_1").notNull().default("0"),
+  
+  // LP Token
+  lpTokenSupply: text("lp_token_supply").notNull().default("0"),
+  lpTokenDecimals: integer("lp_token_decimals").notNull().default(18),
+  
+  // Volume & Fees
+  volume24h: text("volume_24h").notNull().default("0"),
+  volume7d: text("volume_7d").notNull().default("0"),
+  volumeAllTime: text("volume_all_time").notNull().default("0"),
+  fees24h: text("fees_24h").notNull().default("0"),
+  fees7d: text("fees_7d").notNull().default("0"),
+  feesAllTime: text("fees_all_time").notNull().default("0"),
+  
+  // TVL
+  tvlUsd: text("tvl_usd").notNull().default("0"),
+  
+  // Statistics
+  swapCount24h: integer("swap_count_24h").notNull().default(0),
+  swapCountAllTime: integer("swap_count_all_time").notNull().default(0),
+  lpCount: integer("lp_count").notNull().default(0), // Number of liquidity providers
+  
+  // APY/APR
+  feeApy: integer("fee_apy").notNull().default(0), // basis points (1500 = 15.00%)
+  rewardApy: integer("reward_apy").notNull().default(0), // Additional incentive APY
+  totalApy: integer("total_apy").notNull().default(0),
+  
+  // AI Features
+  aiPriceOracle: boolean("ai_price_oracle").notNull().default(true),
+  aiRouteOptimization: boolean("ai_route_optimization").notNull().default(true),
+  aiMevProtection: boolean("ai_mev_protection").notNull().default(true),
+  aiRiskScore: integer("ai_risk_score").notNull().default(0), // 0-100
+  
+  // Security
+  mevProtectionEnabled: boolean("mev_protection_enabled").notNull().default(true),
+  flashloanGuardEnabled: boolean("flashloan_guard_enabled").notNull().default(true),
+  circuitBreakerEnabled: boolean("circuit_breaker_enabled").notNull().default(true),
+  
+  // Deployment Info
+  creatorAddress: text("creator_address").notNull(),
+  deploymentTxHash: text("deployment_tx_hash"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  lastSwapAt: timestamp("last_swap_at"),
+});
+
+// ============================================
+// DEX Pool Assets (for multi-asset pools)
+// ============================================
+
+export const dexPoolAssets = pgTable("dex_pool_assets", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(),
+  
+  // Asset Info
+  tokenAddress: text("token_address").notNull(),
+  tokenSymbol: text("token_symbol").notNull(),
+  tokenDecimals: integer("token_decimals").notNull().default(18),
+  
+  // Reserve & Weight
+  reserve: text("reserve").notNull().default("0"),
+  weight: integer("weight").notNull().default(0), // basis points for weighted pools
+  
+  // Pricing
+  priceUsd: text("price_usd").notNull().default("0"),
+  
+  // Index in pool
+  assetIndex: integer("asset_index").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// DEX Concentrated Liquidity Ticks
+// ============================================
+
+export const dexPoolTicks = pgTable("dex_pool_ticks", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(),
+  
+  // Tick Data
+  tickIndex: integer("tick_index").notNull(),
+  liquidityGross: text("liquidity_gross").notNull().default("0"), // Total liquidity referencing this tick
+  liquidityNet: text("liquidity_net").notNull().default("0"), // Net liquidity change when crossing
+  
+  // Fee Growth
+  feeGrowthOutside0: text("fee_growth_outside_0").notNull().default("0"),
+  feeGrowthOutside1: text("fee_growth_outside_1").notNull().default("0"),
+  
+  // Seconds tracking
+  secondsOutside: bigint("seconds_outside", { mode: "number" }).notNull().default(0),
+  
+  // Initialization
+  initialized: boolean("initialized").notNull().default(false),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// DEX LP Positions
+// ============================================
+
+export const dexPositions = pgTable("dex_positions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Position Identity
+  positionNftId: text("position_nft_id"), // For concentrated liquidity NFT positions
+  poolId: varchar("pool_id").notNull(),
+  ownerAddress: text("owner_address").notNull(),
+  
+  // Position Type
+  isConcentrated: boolean("is_concentrated").notNull().default(false),
+  
+  // Standard LP Position
+  lpTokenAmount: text("lp_token_amount").notNull().default("0"),
+  
+  // Concentrated Liquidity Range
+  tickLower: integer("tick_lower"), // Lower price tick
+  tickUpper: integer("tick_upper"), // Upper price tick
+  liquidity: text("liquidity").notNull().default("0"), // Liquidity amount for concentrated
+  
+  // Token Amounts (cached for display)
+  amount0: text("amount0").notNull().default("0"),
+  amount1: text("amount1").notNull().default("0"),
+  
+  // Value
+  valueUsd: text("value_usd").notNull().default("0"),
+  
+  // Fees
+  unclaimedFees0: text("unclaimed_fees_0").notNull().default("0"),
+  unclaimedFees1: text("unclaimed_fees_1").notNull().default("0"),
+  totalFeesEarned0: text("total_fees_earned_0").notNull().default("0"),
+  totalFeesEarned1: text("total_fees_earned_1").notNull().default("0"),
+  
+  // Fee Growth Tracking (for concentrated)
+  feeGrowthInside0LastX128: text("fee_growth_inside_0_last_x128"),
+  feeGrowthInside1LastX128: text("fee_growth_inside_1_last_x128"),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, closed, migrating
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  closedAt: timestamp("closed_at"),
+});
+
+// ============================================
+// DEX Swaps
+// ============================================
+
+export const dexSwaps = pgTable("dex_swaps", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Swap Identity
+  txHash: text("tx_hash").notNull(),
+  poolId: varchar("pool_id").notNull(),
+  
+  // Trader
+  traderAddress: text("trader_address").notNull(),
+  
+  // Swap Details
+  tokenInAddress: text("token_in_address").notNull(),
+  tokenInSymbol: text("token_in_symbol").notNull(),
+  tokenOutAddress: text("token_out_address").notNull(),
+  tokenOutSymbol: text("token_out_symbol").notNull(),
+  
+  amountIn: text("amount_in").notNull(),
+  amountOut: text("amount_out").notNull(),
+  amountInUsd: text("amount_in_usd").notNull().default("0"),
+  amountOutUsd: text("amount_out_usd").notNull().default("0"),
+  
+  // Pricing
+  priceImpact: integer("price_impact").notNull().default(0), // basis points
+  effectivePrice: text("effective_price").notNull(),
+  
+  // Fees
+  feeAmount: text("fee_amount").notNull().default("0"),
+  feeUsd: text("fee_usd").notNull().default("0"),
+  
+  // Slippage
+  slippageTolerance: integer("slippage_tolerance").notNull().default(50), // basis points
+  actualSlippage: integer("actual_slippage").notNull().default(0),
+  
+  // MEV Protection
+  mevProtected: boolean("mev_protected").notNull().default(false),
+  isPrivate: boolean("is_private").notNull().default(false), // Private mempool
+  
+  // Route (for multi-hop swaps)
+  routePath: jsonb("route_path"), // Array of pool addresses
+  isMultiHop: boolean("is_multi_hop").notNull().default(false),
+  
+  // AI Features
+  aiOptimizedRoute: boolean("ai_optimized_route").notNull().default(false),
+  aiPredictedPrice: text("ai_predicted_price"),
+  aiConfidence: integer("ai_confidence"), // 0-100
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, completed, failed, cancelled
+  failureReason: text("failure_reason"),
+  
+  // Block Info
+  blockNumber: bigint("block_number", { mode: "number" }),
+  blockTimestamp: bigint("block_timestamp", { mode: "number" }),
+  
+  // Gas
+  gasUsed: bigint("gas_used", { mode: "number" }),
+  gasPrice: text("gas_price"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  completedAt: timestamp("completed_at"),
+});
+
+// ============================================
+// DEX Price History (OHLCV Candles)
+// ============================================
+
+export const dexPriceHistory = pgTable("dex_price_history", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(),
+  
+  // Time Period
+  interval: text("interval").notNull(), // 1m, 5m, 15m, 1h, 4h, 1d, 1w
+  periodStart: timestamp("period_start").notNull(),
+  periodEnd: timestamp("period_end").notNull(),
+  
+  // OHLCV Data
+  open: text("open").notNull(),
+  high: text("high").notNull(),
+  low: text("low").notNull(),
+  close: text("close").notNull(),
+  volume: text("volume").notNull().default("0"),
+  volumeUsd: text("volume_usd").notNull().default("0"),
+  
+  // Trade Count
+  tradeCount: integer("trade_count").notNull().default(0),
+  
+  // TWAP
+  twap: text("twap").notNull(), // Time-weighted average price
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// DEX TWAP Oracle
+// ============================================
+
+export const dexTwapOracle = pgTable("dex_twap_oracle", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(),
+  
+  // Observation Data
+  observationIndex: integer("observation_index").notNull(),
+  blockTimestamp: bigint("block_timestamp", { mode: "number" }).notNull(),
+  
+  // Cumulative Values
+  tickCumulative: text("tick_cumulative").notNull(), // For concentrated liquidity
+  secondsPerLiquidityCumulativeX128: text("seconds_per_liquidity_cumulative_x128").notNull(),
+  
+  // Price Accumulators
+  price0CumulativeX128: text("price0_cumulative_x128").notNull(),
+  price1CumulativeX128: text("price1_cumulative_x128").notNull(),
+  
+  // Cardinality
+  initialized: boolean("initialized").notNull().default(false),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// DEX Circuit Breakers
+// ============================================
+
+export const dexCircuitBreakers = pgTable("dex_circuit_breakers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull().unique(),
+  
+  // Status
+  status: text("status").notNull().default("normal"), // normal, warning, triggered, cooldown
+  
+  // Thresholds
+  priceDeviationThreshold: integer("price_deviation_threshold").notNull().default(1000), // 10% in basis points
+  volumeSpikeThreshold: integer("volume_spike_threshold").notNull().default(50000), // 500% in basis points
+  liquidityDropThreshold: integer("liquidity_drop_threshold").notNull().default(3000), // 30% in basis points
+  
+  // Current Metrics
+  currentPriceDeviation: integer("current_price_deviation").notNull().default(0),
+  currentVolumeSpike: integer("current_volume_spike").notNull().default(0),
+  currentLiquidityDrop: integer("current_liquidity_drop").notNull().default(0),
+  
+  // Trigger History
+  lastTriggeredAt: timestamp("last_triggered_at"),
+  triggerCount24h: integer("trigger_count_24h").notNull().default(0),
+  triggerCountAllTime: integer("trigger_count_all_time").notNull().default(0),
+  
+  // Cooldown
+  cooldownEndsAt: timestamp("cooldown_ends_at"),
+  cooldownDurationMinutes: integer("cooldown_duration_minutes").notNull().default(15),
+  
+  // AI Assessment
+  aiRiskLevel: text("ai_risk_level").notNull().default("low"), // low, medium, high, critical
+  aiRecommendation: text("ai_recommendation"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// DEX MEV Protection Events
+// ============================================
+
+export const dexMevEvents = pgTable("dex_mev_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Event Details
+  eventType: text("event_type").notNull(), // frontrun_detected, sandwich_detected, backrun_detected, flashloan_detected
+  severity: text("severity").notNull().default("low"), // low, medium, high, critical
+  
+  // Related Transaction
+  victimTxHash: text("victim_tx_hash"),
+  attackerTxHash: text("attacker_tx_hash"),
+  poolId: varchar("pool_id"),
+  
+  // Addresses
+  victimAddress: text("victim_address"),
+  attackerAddress: text("attacker_address"),
+  
+  // Financial Impact
+  estimatedLossUsd: text("estimated_loss_usd").notNull().default("0"),
+  preventedLossUsd: text("prevented_loss_usd").notNull().default("0"),
+  
+  // Detection
+  detectionMethod: text("detection_method").notNull(), // ai_pattern, mempool_analysis, on_chain
+  aiConfidence: integer("ai_confidence").notNull().default(0), // 0-100
+  
+  // Status
+  status: text("status").notNull().default("detected"), // detected, mitigated, reported, resolved
+  mitigationAction: text("mitigation_action"),
+  
+  // Block Info
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  resolvedAt: timestamp("resolved_at"),
+});
+
+// ============================================
+// DEX Liquidity Mining Rewards
+// ============================================
+
+export const dexLiquidityRewards = pgTable("dex_liquidity_rewards", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  poolId: varchar("pool_id").notNull(),
+  
+  // Reward Token
+  rewardTokenAddress: text("reward_token_address").notNull(),
+  rewardTokenSymbol: text("reward_token_symbol").notNull(),
+  
+  // Reward Rate
+  rewardRate: text("reward_rate").notNull(), // Tokens per second
+  totalRewards: text("total_rewards").notNull(),
+  distributedRewards: text("distributed_rewards").notNull().default("0"),
+  
+  // Duration
+  startTime: timestamp("start_time").notNull(),
+  endTime: timestamp("end_time").notNull(),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  
+  // Boosters
+  boostMultiplier: integer("boost_multiplier").notNull().default(10000), // 10000 = 1x, 15000 = 1.5x
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// DEX User Analytics
+// ============================================
+
+export const dexUserAnalytics = pgTable("dex_user_analytics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userAddress: text("user_address").notNull().unique(),
+  
+  // Trading Stats
+  totalSwaps: integer("total_swaps").notNull().default(0),
+  totalVolumeUsd: text("total_volume_usd").notNull().default("0"),
+  totalFeePaid: text("total_fee_paid").notNull().default("0"),
+  
+  // LP Stats
+  totalPositions: integer("total_positions").notNull().default(0),
+  activePositions: integer("active_positions").notNull().default(0),
+  totalLiquidityProvidedUsd: text("total_liquidity_provided_usd").notNull().default("0"),
+  totalFeesEarnedUsd: text("total_fees_earned_usd").notNull().default("0"),
+  
+  // PnL
+  realizedPnlUsd: text("realized_pnl_usd").notNull().default("0"),
+  unrealizedPnlUsd: text("unrealized_pnl_usd").notNull().default("0"),
+  
+  // Activity
+  firstTradeAt: timestamp("first_trade_at"),
+  lastTradeAt: timestamp("last_trade_at"),
+  
+  // Tier/Level
+  traderTier: text("trader_tier").notNull().default("bronze"), // bronze, silver, gold, platinum, diamond
+  feeDiscount: integer("fee_discount").notNull().default(0), // basis points discount
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// DEX Insert Schemas
+// ============================================
+
+export const insertDexPoolSchema = createInsertSchema(dexPools).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastSwapAt: true,
+});
+
+export const insertDexPoolAssetSchema = createInsertSchema(dexPoolAssets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDexPoolTickSchema = createInsertSchema(dexPoolTicks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDexPositionSchema = createInsertSchema(dexPositions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  closedAt: true,
+});
+
+export const insertDexSwapSchema = createInsertSchema(dexSwaps).omit({
+  id: true,
+  createdAt: true,
+  completedAt: true,
+});
+
+export const insertDexPriceHistorySchema = createInsertSchema(dexPriceHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertDexTwapOracleSchema = createInsertSchema(dexTwapOracle).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertDexCircuitBreakerSchema = createInsertSchema(dexCircuitBreakers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDexMevEventSchema = createInsertSchema(dexMevEvents).omit({
+  id: true,
+  createdAt: true,
+  resolvedAt: true,
+});
+
+export const insertDexLiquidityRewardSchema = createInsertSchema(dexLiquidityRewards).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDexUserAnalyticsSchema = createInsertSchema(dexUserAnalytics).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// ============================================
+// DEX Types
+// ============================================
+
+export type DexPool = typeof dexPools.$inferSelect;
+export type InsertDexPool = z.infer<typeof insertDexPoolSchema>;
+
+export type DexPoolAsset = typeof dexPoolAssets.$inferSelect;
+export type InsertDexPoolAsset = z.infer<typeof insertDexPoolAssetSchema>;
+
+export type DexPoolTick = typeof dexPoolTicks.$inferSelect;
+export type InsertDexPoolTick = z.infer<typeof insertDexPoolTickSchema>;
+
+export type DexPosition = typeof dexPositions.$inferSelect;
+export type InsertDexPosition = z.infer<typeof insertDexPositionSchema>;
+
+export type DexSwap = typeof dexSwaps.$inferSelect;
+export type InsertDexSwap = z.infer<typeof insertDexSwapSchema>;
+
+export type DexPriceHistory = typeof dexPriceHistory.$inferSelect;
+export type InsertDexPriceHistory = z.infer<typeof insertDexPriceHistorySchema>;
+
+export type DexTwapOracle = typeof dexTwapOracle.$inferSelect;
+export type InsertDexTwapOracle = z.infer<typeof insertDexTwapOracleSchema>;
+
+export type DexCircuitBreaker = typeof dexCircuitBreakers.$inferSelect;
+export type InsertDexCircuitBreaker = z.infer<typeof insertDexCircuitBreakerSchema>;
+
+export type DexMevEvent = typeof dexMevEvents.$inferSelect;
+export type InsertDexMevEvent = z.infer<typeof insertDexMevEventSchema>;
+
+export type DexLiquidityReward = typeof dexLiquidityRewards.$inferSelect;
+export type InsertDexLiquidityReward = z.infer<typeof insertDexLiquidityRewardSchema>;
+
+export type DexUserAnalytics = typeof dexUserAnalytics.$inferSelect;
+export type InsertDexUserAnalytics = z.infer<typeof insertDexUserAnalyticsSchema>;
+
+// ============================================
+// DEX Frontend Types
+// ============================================
+
+export interface DexPoolSummary {
+  id: string;
+  name: string;
+  symbol: string;
+  poolType: DexPoolType;
+  token0Symbol: string;
+  token1Symbol: string;
+  tvlUsd: string;
+  volume24h: string;
+  feeApy: number;
+  status: DexPoolStatus;
+}
+
+export interface SwapQuote {
+  tokenIn: string;
+  tokenOut: string;
+  amountIn: string;
+  amountOut: string;
+  priceImpact: number;
+  route: string[];
+  fees: string;
+  minimumReceived: string;
+  slippage: number;
+  expiresAt: number;
+}
+
+export interface DexStats {
+  totalPools: number;
+  totalTvlUsd: string;
+  totalVolume24h: string;
+  totalFees24h: string;
+  totalSwaps24h: number;
+  topPools: DexPoolSummary[];
+}
