@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -151,6 +152,7 @@ interface CalculatorResults {
 }
 
 export default function StakingDashboard() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
   const [stakeDialogOpen, setStakeDialogOpen] = useState(false);
@@ -332,19 +334,19 @@ export default function StakingDashboard() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-staking-title">Staking Dashboard</h1>
+          <h1 className="text-3xl font-bold" data-testid="text-staking-title">{t('staking.title')}</h1>
           <p className="text-muted-foreground mt-1">
-            Stake TBURN to earn rewards and participate in network governance
+            {t('staking.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="flex items-center gap-1">
             <Activity className="h-3 w-3" />
-            Cycle #{stats?.currentRewardCycle || 0}
+            {t('staking.rewardCycle')} #{stats?.currentRewardCycle || 0}
           </Badge>
           <Button variant="outline" size="sm" data-testid="button-refresh-staking">
             <RefreshCw className="h-4 w-4 mr-1" />
-            Refresh
+            {t('common.refresh')}
           </Button>
         </div>
       </div>
@@ -352,7 +354,7 @@ export default function StakingDashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card data-testid="card-tvl">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Value Locked</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('staking.tvl')}</CardTitle>
             <PiggyBank className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -374,7 +376,7 @@ export default function StakingDashboard() {
 
         <Card data-testid="card-rewards-distributed">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Rewards Distributed</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('staking.totalRewards')}</CardTitle>
             <Gift className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -396,7 +398,7 @@ export default function StakingDashboard() {
 
         <Card data-testid="card-stakers">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Stakers</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('staking.activeStakers')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -417,7 +419,7 @@ export default function StakingDashboard() {
 
         <Card data-testid="card-apy-range">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">APY Range</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('staking.apyRange')}</CardTitle>
             <Percent className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -439,22 +441,22 @@ export default function StakingDashboard() {
 
       <Tabs defaultValue="pools" className="space-y-4">
         <TabsList data-testid="tabs-staking">
-          <TabsTrigger value="pools" data-testid="tab-pools">Staking Pools</TabsTrigger>
-          <TabsTrigger value="tiers" data-testid="tab-tiers">Tier System</TabsTrigger>
-          <TabsTrigger value="ai-insights" data-testid="tab-ai-insights">AI Insights</TabsTrigger>
-          <TabsTrigger value="calculator" data-testid="tab-calculator">Rewards Calculator</TabsTrigger>
+          <TabsTrigger value="pools" data-testid="tab-pools">{t('staking.pools')}</TabsTrigger>
+          <TabsTrigger value="tiers" data-testid="tab-tiers">{t('staking.tierSystem')}</TabsTrigger>
+          <TabsTrigger value="ai-insights" data-testid="tab-ai-insights">{t('staking.aiInsights')}</TabsTrigger>
+          <TabsTrigger value="calculator" data-testid="tab-calculator">{t('staking.rewardsCalculator')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="pools" className="space-y-4">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm font-medium">Filter by Tier:</span>
+            <span className="text-sm font-medium">{t('staking.filterByTier')}:</span>
             <Button 
               variant={selectedTier === null ? "default" : "outline"} 
               size="sm"
               onClick={() => setSelectedTier(null)}
               data-testid="button-filter-all"
             >
-              All Pools
+              {t('staking.allPools')}
             </Button>
             {["bronze", "silver", "gold", "platinum", "diamond"].map(tier => (
               <Button
@@ -523,7 +525,7 @@ export default function StakingDashboard() {
 
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Total Staked</span>
+                        <span className="text-muted-foreground">{t('staking.totalStaked')}</span>
                         <span>{formatWeiToTBURN(pool.totalStaked)} TBURN</span>
                       </div>
                       <Progress value={Math.min(100, (parseInt(pool.totalStaked || "0") / 1e21) * 100)} />
@@ -548,11 +550,11 @@ export default function StakingDashboard() {
                         data-testid={`button-stake-${pool.id}`}
                       >
                         <Coins className="h-4 w-4 mr-1" />
-                        Stake
+                        {t('staking.stake')}
                       </Button>
                       <Link href={`/staking/pool/${pool.id}`}>
                         <Button variant="outline" size="sm" data-testid={`button-details-${pool.id}`}>
-                          Details
+                          {t('common.details')}
                         </Button>
                       </Link>
                     </div>
@@ -562,8 +564,8 @@ export default function StakingDashboard() {
             ) : (
               <div className="col-span-3 text-center py-12">
                 <Layers className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium">No pools found</h3>
-                <p className="text-muted-foreground">No staking pools match your current filter.</p>
+                <h3 className="text-lg font-medium">{t('staking.noPools')}</h3>
+                <p className="text-muted-foreground">{t('staking.noPoolsDescription')}</p>
               </div>
             )}
           </div>
