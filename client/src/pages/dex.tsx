@@ -51,6 +51,16 @@ import {
 
 const ENTERPRISE_WALLET_ADDRESS = "0xTBURN1234567890abcdef1234567890abcdef12";
 
+// Default tokens available for swapping
+const DEFAULT_TOKENS = [
+  { address: "0xTBURN0000000000000000000000000000000001", symbol: "TBURN", name: "TBURN Native Token" },
+  { address: "0xUSDT00000000000000000000000000000000001", symbol: "USDT", name: "Tether USD" },
+  { address: "0xUSDC00000000000000000000000000000000001", symbol: "USDC", name: "USD Coin" },
+  { address: "0xWETH00000000000000000000000000000000001", symbol: "WETH", name: "Wrapped Ether" },
+  { address: "0xWBTC00000000000000000000000000000000001", symbol: "WBTC", name: "Wrapped Bitcoin" },
+  { address: "0xDAI000000000000000000000000000000000001", symbol: "DAI", name: "Dai Stablecoin" },
+];
+
 interface DexPool {
   id: string;
   name: string;
@@ -286,9 +296,18 @@ export default function DexPage() {
     queryKey: ["/api/dex/positions"]
   });
 
+  // Build quote URL with query parameters
+  const quoteUrl = useMemo(() => {
+    if (!swapInput.tokenIn || !swapInput.tokenOut || !swapInput.amountIn) return null;
+    const amountValue = parseFloat(swapInput.amountIn);
+    if (isNaN(amountValue) || amountValue <= 0) return null;
+    const amountInWei = toWei(swapInput.amountIn);
+    return `/api/dex/quote?tokenIn=${encodeURIComponent(swapInput.tokenIn)}&tokenOut=${encodeURIComponent(swapInput.tokenOut)}&amountIn=${amountInWei}`;
+  }, [swapInput.tokenIn, swapInput.tokenOut, swapInput.amountIn]);
+  
   const { data: quote, isLoading: quoteLoading } = useQuery<SwapQuote>({
-    queryKey: ["/api/dex/quote", swapInput.tokenIn, swapInput.tokenOut, swapInput.amountIn],
-    enabled: !!(swapInput.tokenIn && swapInput.tokenOut && swapInput.amountIn && parseFloat(swapInput.amountIn) > 0)
+    queryKey: [quoteUrl],
+    enabled: !!quoteUrl
   });
 
   const swapMutation = useMutation({
@@ -394,13 +413,26 @@ export default function DexPage() {
   }, [pools]);
 
   const tokenList = useMemo(() => {
-    if (!pools) return [];
-    const tokens = new Set<string>();
-    pools.forEach(p => {
-      if (p.token0Address) tokens.add(p.token0Address);
-      if (p.token1Address) tokens.add(p.token1Address);
+    const tokens = new Map<string, { address: string; symbol: string; name: string }>();
+    
+    // Add default tokens first
+    DEFAULT_TOKENS.forEach(token => {
+      tokens.set(token.address, token);
     });
-    return Array.from(tokens);
+    
+    // Add tokens from pools
+    if (pools) {
+      pools.forEach(p => {
+        if (p.token0Address && !tokens.has(p.token0Address)) {
+          tokens.set(p.token0Address, { address: p.token0Address, symbol: p.token0Symbol || truncateAddress(p.token0Address), name: p.token0Symbol || "Unknown" });
+        }
+        if (p.token1Address && !tokens.has(p.token1Address)) {
+          tokens.set(p.token1Address, { address: p.token1Address, symbol: p.token1Symbol || truncateAddress(p.token1Address), name: p.token1Symbol || "Unknown" });
+        }
+      });
+    }
+    
+    return Array.from(tokens.values());
   }, [pools]);
 
   const handleSwap = () => {
@@ -625,12 +657,14 @@ export default function DexPage() {
                   <div className="flex gap-2">
                     <Select value={swapInput.tokenIn} onValueChange={(v) => setSwapInput(prev => ({ ...prev, tokenIn: v }))}>
                       <SelectTrigger className="w-[140px]" data-testid="select-token-in">
-                        <SelectValue placeholder="Token" />
+                        <SelectValue placeholder="Select Token">
+                          {swapInput.tokenIn && tokenList.find(t => t.address === swapInput.tokenIn)?.symbol}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent>
                         {tokenList.map((token) => (
-                          <SelectItem key={token} value={token}>
-                            {truncateAddress(token)}
+                          <SelectItem key={token.address} value={token.address}>
+                            {token.symbol}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -662,12 +696,14 @@ export default function DexPage() {
                   <div className="flex gap-2">
                     <Select value={swapInput.tokenOut} onValueChange={(v) => setSwapInput(prev => ({ ...prev, tokenOut: v }))}>
                       <SelectTrigger className="w-[140px]" data-testid="select-token-out">
-                        <SelectValue placeholder="Token" />
+                        <SelectValue placeholder="Select Token">
+                          {swapInput.tokenOut && tokenList.find(t => t.address === swapInput.tokenOut)?.symbol}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent>
                         {tokenList.map((token) => (
-                          <SelectItem key={token} value={token}>
-                            {truncateAddress(token)}
+                          <SelectItem key={token.address} value={token.address}>
+                            {token.symbol}
                           </SelectItem>
                         ))}
                       </SelectContent>
