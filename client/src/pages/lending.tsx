@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -279,6 +280,7 @@ function toWei(amount: string, decimals: number = 18): string {
 }
 
 export default function LendingPage() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [selectedTab, setSelectedTab] = useState("overview");
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
@@ -654,10 +656,10 @@ export default function LendingPage() {
           <div>
             <h1 className="text-3xl font-bold flex items-center gap-3">
               <Landmark className="h-8 w-8 text-primary" />
-              Lending Protocol
+              {t('lending.title')}
             </h1>
             <p className="text-muted-foreground mt-1">
-              Supply assets to earn yield or borrow against your collateral
+              {t('lending.subtitle')}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -674,7 +676,7 @@ export default function LendingPage() {
               data-testid="button-refresh-markets"
             >
               <RefreshCw className="h-4 w-4 mr-2" />
-              Refresh
+              {t('common.refresh')}
             </Button>
           </div>
         </div>
@@ -682,7 +684,7 @@ export default function LendingPage() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Supply</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('lending.totalSupply')}</CardTitle>
               <PiggyBank className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
@@ -697,7 +699,7 @@ export default function LendingPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Borrowed</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('lending.totalBorrowed')}</CardTitle>
               <CircleDollarSign className="h-4 w-4 text-blue-500" />
             </CardHeader>
             <CardContent>
@@ -712,7 +714,7 @@ export default function LendingPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Positions at Risk</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('lending.positionsAtRisk')}</CardTitle>
               <AlertTriangle className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
@@ -727,7 +729,7 @@ export default function LendingPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg Supply APY</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('lending.avgSupplyApy')}</CardTitle>
               <TrendingUp className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
@@ -743,12 +745,12 @@ export default function LendingPage() {
 
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-4">
           <TabsList>
-            <TabsTrigger value="overview" data-testid="tab-overview">Markets Overview</TabsTrigger>
-            <TabsTrigger value="positions" data-testid="tab-positions">My Positions</TabsTrigger>
-            <TabsTrigger value="supply" data-testid="tab-supply">Supply</TabsTrigger>
-            <TabsTrigger value="borrow" data-testid="tab-borrow">Borrow</TabsTrigger>
-            <TabsTrigger value="activity" data-testid="tab-activity">Activity</TabsTrigger>
-            <TabsTrigger value="liquidations" data-testid="tab-liquidations">Liquidations</TabsTrigger>
+            <TabsTrigger value="overview" data-testid="tab-overview">{t('lending.marketsOverview')}</TabsTrigger>
+            <TabsTrigger value="positions" data-testid="tab-positions">{t('lending.myPositions')}</TabsTrigger>
+            <TabsTrigger value="supply" data-testid="tab-supply">{t('lending.supply')}</TabsTrigger>
+            <TabsTrigger value="borrow" data-testid="tab-borrow">{t('lending.borrow')}</TabsTrigger>
+            <TabsTrigger value="activity" data-testid="tab-activity">{t('lending.activity')}</TabsTrigger>
+            <TabsTrigger value="liquidations" data-testid="tab-liquidations">{t('lending.liquidations')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">

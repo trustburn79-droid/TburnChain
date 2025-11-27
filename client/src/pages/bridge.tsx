@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -424,6 +425,7 @@ function ActivityRow({ activity, chains }: { activity: BridgeActivity; chains: B
 }
 
 export default function Bridge() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
   const [sourceChain, setSourceChain] = useState<string>("");
   const [destChain, setDestChain] = useState<string>("");

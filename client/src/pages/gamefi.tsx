@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -581,6 +582,7 @@ function ActivityRow({ activity }: { activity: GamefiActivity }) {
 }
 
 export default function GameFiPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
   const [joiningTournamentId, setJoiningTournamentId] = useState<string | null>(null);
   const [equippingAssetId, setEquippingAssetId] = useState<string | null>(null);
