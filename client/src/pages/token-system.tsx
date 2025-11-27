@@ -459,14 +459,18 @@ export default function TokenSystem() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Activity className="h-4 w-4 mr-2" />
             Overview
           </TabsTrigger>
+          <TabsTrigger value="search" data-testid="tab-search">
+            <Target className="h-4 w-4 mr-2" />
+            Search
+          </TabsTrigger>
           <TabsTrigger value="create" data-testid="tab-create">
             <Plus className="h-4 w-4 mr-2" />
-            Create Token
+            Create
           </TabsTrigger>
           <TabsTrigger value="deployed" data-testid="tab-deployed">
             <Database className="h-4 w-4 mr-2" />
@@ -495,6 +499,10 @@ export default function TokenSystem() {
           />
           <TripleBandAISection />
           <TokenTemplatesPreview onSelectTemplate={() => setActiveTab("create")} />
+        </TabsContent>
+
+        <TabsContent value="search" className="space-y-4">
+          <EnterpriseTokenSearch />
         </TabsContent>
 
         <TabsContent value="create" className="space-y-4">
@@ -2308,6 +2316,888 @@ function DeployedTokensDashboard() {
           </CardContent>
         </Card>
       ))}
+    </div>
+  );
+}
+
+interface SearchToken {
+  id: string;
+  name: string;
+  symbol: string;
+  contractAddress: string;
+  standard: string;
+  totalSupply: string;
+  decimals: number;
+  holders: number;
+  transactions24h: number;
+  volume24h: string;
+  marketCap: string;
+  price: string;
+  priceChange24h: number;
+  burnRate: number;
+  burnedTotal: string;
+  aiEnabled: boolean;
+  quantumResistant: boolean;
+  mevProtection: boolean;
+  verified: boolean;
+  securityScore: number;
+  deployerAddress: string;
+  deployedAt: string;
+  lastActivity: string;
+  features: string[];
+  category: string;
+  website: string;
+  telegram: string;
+  twitter: string;
+}
+
+interface SearchResult {
+  tokens: SearchToken[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+}
+
+interface TokenDetail {
+  id: string;
+  name: string;
+  symbol: string;
+  contractAddress: string;
+  standard: string;
+  totalSupply: string;
+  circulatingSupply: string;
+  decimals: number;
+  price: string;
+  priceChange1h: number;
+  priceChange24h: number;
+  priceChange7d: number;
+  priceChange30d: number;
+  volume24h: string;
+  volumeChange24h: number;
+  marketCap: string;
+  marketCapRank: number;
+  fullyDilutedValuation: string;
+  holders: number;
+  holdersChange24h: number;
+  holdersChange7d: number;
+  topHoldersConcentration: number;
+  averageHoldingAmount: string;
+  medianHoldingAmount: string;
+  transactions24h: number;
+  transactionsChange24h: number;
+  totalTransactions: number;
+  averageTransactionSize: string;
+  uniqueAddresses24h: number;
+  burnRate: number;
+  burnedTotal: string;
+  burnedLast24h: string;
+  burnedLast7d: string;
+  projectedMonthlyBurn: string;
+  aiEnabled: boolean;
+  quantumResistant: boolean;
+  mevProtection: boolean;
+  mintable: boolean;
+  burnable: boolean;
+  pausable: boolean;
+  stakingEnabled: boolean;
+  stakingAPY: number;
+  verified: boolean;
+  securityScore: number;
+  lastAuditDate: string;
+  auditor: string;
+  vulnerabilities: number;
+  deployerAddress: string;
+  deployedAt: string;
+  deploymentBlock: number;
+  deploymentTxHash: string;
+  website: string;
+  telegram: string;
+  twitter: string;
+  discord: string;
+  github: string;
+  whitepaper: string;
+  aiAnalysis: {
+    sentiment: string;
+    sentimentScore: number;
+    riskLevel: string;
+    riskScore: number;
+    recommendation: string;
+    lastAnalyzed: string;
+  };
+  features: string[];
+  category: string;
+  lastActivity: string;
+}
+
+function EnterpriseTokenSearch() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStandard, setSelectedStandard] = useState<string>("all");
+  const [sortBy, setSortBy] = useState("holders");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [aiEnabled, setAiEnabled] = useState<boolean | undefined>(undefined);
+  const [quantumSecured, setQuantumSecured] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [page, setPage] = useState(1);
+  const [selectedToken, setSelectedToken] = useState<SearchToken | null>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const { toast } = useToast();
+
+  const buildSearchUrl = () => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("q", searchQuery);
+    if (selectedStandard !== "all") params.set("standard", selectedStandard);
+    params.set("sortBy", sortBy);
+    params.set("sortOrder", sortOrder);
+    params.set("page", page.toString());
+    params.set("limit", "10");
+    if (aiEnabled !== undefined) params.set("aiEnabled", aiEnabled.toString());
+    if (quantumSecured) params.set("quantumSecured", "true");
+    if (verified) params.set("verified", "true");
+    return `/api/token-system/search?${params.toString()}`;
+  };
+
+  const { data: searchResult, isLoading } = useQuery<SearchResult>({
+    queryKey: [buildSearchUrl()],
+  });
+
+  const { data: tokenDetail, isLoading: detailLoading } = useQuery<TokenDetail>({
+    queryKey: [`/api/token-system/token/${selectedToken?.contractAddress || ''}`],
+    enabled: !!selectedToken,
+  });
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Copied",
+      description: "Address copied to clipboard",
+    });
+  };
+
+  const handleTokenClick = (token: SearchToken) => {
+    setSelectedToken(token);
+    setShowDetailModal(true);
+  };
+
+  const formatPrice = (price: string) => {
+    const num = parseFloat(price);
+    if (num >= 1) return `$${num.toFixed(2)}`;
+    if (num >= 0.01) return `$${num.toFixed(4)}`;
+    return `$${num.toFixed(6)}`;
+  };
+
+  const formatVolume = (volume: string) => {
+    const num = parseFloat(volume) / 1e18;
+    if (num >= 1e9) return `$${(num / 1e9).toFixed(2)}B`;
+    if (num >= 1e6) return `$${(num / 1e6).toFixed(2)}M`;
+    if (num >= 1e3) return `$${(num / 1e3).toFixed(2)}K`;
+    return `$${num.toFixed(2)}`;
+  };
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="h-5 w-5 text-primary" />
+            Enterprise Token Search & Tracking
+          </CardTitle>
+          <CardDescription>
+            Search, filter, and track tokens deployed on TBURN Chain with real-time analytics
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Target className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search by name, symbol, or contract address..."
+                  value={searchQuery}
+                  onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
+                  className="pl-10"
+                  data-testid="input-search-token"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              <Select value={selectedStandard} onValueChange={(v) => { setSelectedStandard(v); setPage(1); }}>
+                <SelectTrigger className="w-32" data-testid="select-standard-filter">
+                  <SelectValue placeholder="Standard" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Standards</SelectItem>
+                  <SelectItem value="TBC-20">TBC-20</SelectItem>
+                  <SelectItem value="TBC-721">TBC-721</SelectItem>
+                  <SelectItem value="TBC-1155">TBC-1155</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-36" data-testid="select-sort-by">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="holders">Holders</SelectItem>
+                  <SelectItem value="volume">Volume 24h</SelectItem>
+                  <SelectItem value="marketCap">Market Cap</SelectItem>
+                  <SelectItem value="transactions">Transactions</SelectItem>
+                  <SelectItem value="securityScore">Security Score</SelectItem>
+                  <SelectItem value="priceChange">Price Change</SelectItem>
+                  <SelectItem value="name">Name</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
+              >
+                {sortOrder === "desc" ? <TrendingUp className="h-4 w-4" /> : <ArrowLeft className="h-4 w-4 rotate-90" />}
+              </Button>
+            </div>
+          </div>
+          
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2">
+              <Switch 
+                id="aiFilter" 
+                checked={aiEnabled === true}
+                onCheckedChange={(checked) => setAiEnabled(checked ? true : undefined)}
+              />
+              <Label htmlFor="aiFilter" className="text-sm">AI Enabled</Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Switch 
+                id="quantumFilter" 
+                checked={quantumSecured}
+                onCheckedChange={setQuantumSecured}
+              />
+              <Label htmlFor="quantumFilter" className="text-sm">Quantum Secured</Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Switch 
+                id="verifiedFilter" 
+                checked={verified}
+                onCheckedChange={setVerified}
+              />
+              <Label htmlFor="verifiedFilter" className="text-sm">Verified Only</Label>
+            </div>
+            {searchResult && (
+              <Badge variant="outline" className="ml-auto">
+                {searchResult.pagination.total} tokens found
+              </Badge>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {isLoading ? (
+        <div className="space-y-4">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Card key={i}>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  <Skeleton className="h-10 w-10 rounded-full" />
+                  <div className="space-y-2 flex-1">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-3 w-48" />
+                  </div>
+                  <Skeleton className="h-8 w-24" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : searchResult?.tokens && searchResult.tokens.length > 0 ? (
+        <div className="space-y-3">
+          {searchResult.tokens.map((token) => (
+            <Card 
+              key={token.id} 
+              className="hover-elevate cursor-pointer"
+              onClick={() => handleTokenClick(token)}
+              data-testid={`card-search-result-${token.symbol}`}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between gap-4 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                      {token.standard === "TBC-20" && <Coins className="h-5 w-5 text-primary" />}
+                      {token.standard === "TBC-721" && <Image className="h-5 w-5 text-purple-500" />}
+                      {token.standard === "TBC-1155" && <Layers className="h-5 w-5 text-amber-500" />}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold">{token.name}</h3>
+                        <Badge variant="outline" className="text-xs">{token.symbol}</Badge>
+                        {token.verified && (
+                          <Badge className="bg-green-500/10 text-green-500 text-xs">
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                            Verified
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Badge variant="secondary" className="text-xs">{token.standard}</Badge>
+                        <Badge variant="outline" className="text-xs">{token.category}</Badge>
+                        <code className="bg-muted px-1 rounded">
+                          {token.contractAddress.slice(0, 6)}...{token.contractAddress.slice(-4)}
+                        </code>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-5 w-5"
+                          onClick={(e) => { e.stopPropagation(); copyToClipboard(token.contractAddress); }}
+                        >
+                          <Copy className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-6 flex-wrap">
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground">Price</p>
+                      <p className="font-medium tabular-nums">{formatPrice(token.price)}</p>
+                      <p className={`text-xs ${token.priceChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                        {token.priceChange24h >= 0 ? '+' : ''}{token.priceChange24h.toFixed(2)}%
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground">Volume 24h</p>
+                      <p className="font-medium tabular-nums">{formatVolume(token.volume24h)}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground">Holders</p>
+                      <p className="font-medium tabular-nums">{formatNumber(token.holders)}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground">Security</p>
+                      <div className="flex items-center gap-1">
+                        <div className={`h-2 w-2 rounded-full ${token.securityScore >= 90 ? 'bg-green-500' : token.securityScore >= 70 ? 'bg-yellow-500' : 'bg-red-500'}`} />
+                        <p className="font-medium tabular-nums">{token.securityScore}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1">
+                      {token.aiEnabled && (
+                        <Badge variant="secondary" className="text-xs">
+                          <Brain className="h-3 w-3" />
+                        </Badge>
+                      )}
+                      {token.quantumResistant && (
+                        <Badge variant="outline" className="text-xs">
+                          <Lock className="h-3 w-3" />
+                        </Badge>
+                      )}
+                      {token.mevProtection && (
+                        <Badge className="bg-green-500/10 text-green-500 text-xs">
+                          <Shield className="h-3 w-3" />
+                        </Badge>
+                      )}
+                    </div>
+                    <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); handleTokenClick(token); }}>
+                      <Eye className="h-3 w-3 mr-1" />
+                      View
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+          
+          {searchResult.pagination.totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 pt-4">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                disabled={!searchResult.pagination.hasPrev}
+                onClick={() => setPage(page - 1)}
+              >
+                <ArrowLeft className="h-4 w-4 mr-1" />
+                Previous
+              </Button>
+              <span className="text-sm text-muted-foreground px-4">
+                Page {searchResult.pagination.page} of {searchResult.pagination.totalPages}
+              </span>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                disabled={!searchResult.pagination.hasNext}
+                onClick={() => setPage(page + 1)}
+              >
+                Next
+                <ArrowRight className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <Card>
+          <CardContent className="p-12 text-center">
+            <Target className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+            <h3 className="font-semibold text-lg mb-2">No Tokens Found</h3>
+            <p className="text-muted-foreground">Try adjusting your search filters or search terms</p>
+          </CardContent>
+        </Card>
+      )}
+
+      {showDetailModal && selectedToken && (
+        <TokenDetailView 
+          token={selectedToken}
+          tokenDetail={tokenDetail || null}
+          isLoading={detailLoading}
+          onClose={() => { setShowDetailModal(false); setSelectedToken(null); }}
+        />
+      )}
+    </div>
+  );
+}
+
+function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
+  token: SearchToken;
+  tokenDetail: TokenDetail | null;
+  isLoading: boolean;
+  onClose: () => void;
+}) {
+  const { toast } = useToast();
+  const [activeDetailTab, setActiveDetailTab] = useState("overview");
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({ title: "Copied", description: "Address copied to clipboard" });
+  };
+
+  const formatPrice = (price: string) => {
+    const num = parseFloat(price);
+    if (num >= 1) return `$${num.toFixed(2)}`;
+    if (num >= 0.01) return `$${num.toFixed(4)}`;
+    return `$${num.toFixed(6)}`;
+  };
+
+  const formatVolume = (volume: string) => {
+    const num = parseFloat(volume) / 1e18;
+    if (num >= 1e9) return `$${(num / 1e9).toFixed(2)}B`;
+    if (num >= 1e6) return `$${(num / 1e6).toFixed(2)}M`;
+    if (num >= 1e3) return `$${(num / 1e3).toFixed(2)}K`;
+    return `$${num.toFixed(2)}`;
+  };
+
+  return (
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <Card className="w-full max-w-4xl max-h-[90vh] overflow-hidden">
+        <CardHeader className="flex flex-row items-center justify-between gap-4 border-b">
+          <div className="flex items-center gap-4">
+            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+              {token.standard === "TBC-20" && <Coins className="h-6 w-6 text-primary" />}
+              {token.standard === "TBC-721" && <Image className="h-6 w-6 text-purple-500" />}
+              {token.standard === "TBC-1155" && <Layers className="h-6 w-6 text-amber-500" />}
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <CardTitle>{token.name}</CardTitle>
+                <Badge>{token.symbol}</Badge>
+                {token.verified && (
+                  <Badge className="bg-green-500/10 text-green-500">
+                    <CheckCircle className="h-3 w-3 mr-1" />
+                    Verified
+                  </Badge>
+                )}
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <code className="bg-muted px-1 rounded text-xs">
+                  {token.contractAddress}
+                </code>
+                <Button size="icon" variant="ghost" className="h-5 w-5" onClick={() => copyToClipboard(token.contractAddress)}>
+                  <Copy className="h-3 w-3" />
+                </Button>
+              </div>
+            </div>
+          </div>
+          <Button size="icon" variant="ghost" onClick={onClose}>
+            <AlertCircle className="h-5 w-5 rotate-45" />
+          </Button>
+        </CardHeader>
+        
+        <ScrollArea className="h-[calc(90vh-200px)]">
+          <CardContent className="p-6">
+            {isLoading ? (
+              <div className="space-y-4">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={i} className="h-24 w-full" />
+                ))}
+              </div>
+            ) : tokenDetail ? (
+              <Tabs value={activeDetailTab} onValueChange={setActiveDetailTab} className="space-y-4">
+                <TabsList className="grid w-full grid-cols-5">
+                  <TabsTrigger value="overview">Overview</TabsTrigger>
+                  <TabsTrigger value="holders">Holders</TabsTrigger>
+                  <TabsTrigger value="transactions">Transactions</TabsTrigger>
+                  <TabsTrigger value="security">Security</TabsTrigger>
+                  <TabsTrigger value="ai">AI Analysis</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="overview" className="space-y-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Price</p>
+                        <p className="text-2xl font-bold">{formatPrice(tokenDetail.price)}</p>
+                        <p className={`text-sm ${tokenDetail.priceChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                          {tokenDetail.priceChange24h >= 0 ? '+' : ''}{tokenDetail.priceChange24h.toFixed(2)}% (24h)
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Market Cap</p>
+                        <p className="text-2xl font-bold">{formatVolume(tokenDetail.marketCap)}</p>
+                        <p className="text-sm text-muted-foreground">Rank #{tokenDetail.marketCapRank}</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Volume (24h)</p>
+                        <p className="text-2xl font-bold">{formatVolume(tokenDetail.volume24h)}</p>
+                        <p className={`text-sm ${tokenDetail.volumeChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                          {tokenDetail.volumeChange24h >= 0 ? '+' : ''}{tokenDetail.volumeChange24h.toFixed(2)}%
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Holders</p>
+                        <p className="text-2xl font-bold">{formatNumber(tokenDetail.holders)}</p>
+                        <p className="text-sm text-green-500">+{tokenDetail.holdersChange24h} (24h)</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Token Info</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Standard</span>
+                          <Badge>{tokenDetail.standard}</Badge>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Total Supply</span>
+                          <span className="font-medium">{formatTokenAmount(tokenDetail.totalSupply)}</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Circulating Supply</span>
+                          <span className="font-medium">{formatTokenAmount(tokenDetail.circulatingSupply)}</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Decimals</span>
+                          <span className="font-medium">{tokenDetail.decimals}</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Deployer</span>
+                          <code className="text-xs">{tokenDetail.deployerAddress.slice(0, 8)}...{tokenDetail.deployerAddress.slice(-6)}</code>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Deployed</span>
+                          <span className="font-medium">{new Date(tokenDetail.deployedAt).toLocaleDateString()}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Features & Security</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="flex flex-wrap gap-2">
+                          {tokenDetail.aiEnabled && <Badge variant="secondary"><Brain className="h-3 w-3 mr-1" /> AI Enabled</Badge>}
+                          {tokenDetail.quantumResistant && <Badge variant="outline"><Lock className="h-3 w-3 mr-1" /> Quantum</Badge>}
+                          {tokenDetail.mevProtection && <Badge className="bg-green-500/10 text-green-500"><Shield className="h-3 w-3 mr-1" /> MEV</Badge>}
+                          {tokenDetail.mintable && <Badge variant="secondary">Mintable</Badge>}
+                          {tokenDetail.burnable && <Badge variant="secondary">Burnable</Badge>}
+                          {tokenDetail.pausable && <Badge variant="secondary">Pausable</Badge>}
+                          {tokenDetail.stakingEnabled && <Badge variant="outline">Staking {tokenDetail.stakingAPY}% APY</Badge>}
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Security Score</span>
+                          <div className="flex items-center gap-2">
+                            <Progress value={tokenDetail.securityScore} className="w-20 h-2" />
+                            <span className="font-medium">{tokenDetail.securityScore}/100</span>
+                          </div>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Auditor</span>
+                          <Badge variant="outline">{tokenDetail.auditor}</Badge>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Last Audit</span>
+                          <span className="font-medium">{new Date(tokenDetail.lastAuditDate).toLocaleDateString()}</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Vulnerabilities</span>
+                          <Badge variant={tokenDetail.vulnerabilities === 0 ? "default" : "destructive"}>
+                            {tokenDetail.vulnerabilities} Found
+                          </Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {tokenDetail.burnRate > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm flex items-center gap-2">
+                          <Flame className="h-4 w-4 text-orange-500" />
+                          Burn Analytics
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                          <div>
+                            <p className="text-xs text-muted-foreground">Burn Rate</p>
+                            <p className="text-xl font-semibold">{tokenDetail.burnRate} BPS</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Total Burned</p>
+                            <p className="text-xl font-semibold">{formatTokenAmount(tokenDetail.burnedTotal)}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Burned (24h)</p>
+                            <p className="text-xl font-semibold">{formatTokenAmount(tokenDetail.burnedLast24h)}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Projected (30d)</p>
+                            <p className="text-xl font-semibold">{formatTokenAmount(tokenDetail.projectedMonthlyBurn)}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </TabsContent>
+
+                <TabsContent value="holders" className="space-y-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Total Holders</p>
+                        <p className="text-2xl font-bold">{formatNumber(tokenDetail.holders)}</p>
+                        <p className="text-sm text-green-500">+{tokenDetail.holdersChange7d} (7d)</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Top 10 Concentration</p>
+                        <p className="text-2xl font-bold">{tokenDetail.topHoldersConcentration}%</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Avg Holding</p>
+                        <p className="text-2xl font-bold">{formatTokenAmount(tokenDetail.averageHoldingAmount)}</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Unique Addresses (24h)</p>
+                        <p className="text-2xl font-bold">{formatNumber(tokenDetail.uniqueAddresses24h)}</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <Card>
+                    <CardContent className="p-6 text-center text-muted-foreground">
+                      <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                      <p>Detailed holder list available in production</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="transactions" className="space-y-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">24h Transactions</p>
+                        <p className="text-2xl font-bold">{formatNumber(tokenDetail.transactions24h)}</p>
+                        <p className={`text-sm ${tokenDetail.transactionsChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                          {tokenDetail.transactionsChange24h >= 0 ? '+' : ''}{tokenDetail.transactionsChange24h.toFixed(1)}%
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Total Transactions</p>
+                        <p className="text-2xl font-bold">{formatNumber(tokenDetail.totalTransactions)}</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Avg Transaction</p>
+                        <p className="text-2xl font-bold">{formatTokenAmount(tokenDetail.averageTransactionSize)}</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <p className="text-xs text-muted-foreground">Last Activity</p>
+                        <p className="text-lg font-bold">{new Date(tokenDetail.lastActivity).toLocaleTimeString()}</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <Card>
+                    <CardContent className="p-6 text-center text-muted-foreground">
+                      <History className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                      <p>Transaction history available in production</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="security" className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card className={tokenDetail.securityScore >= 90 ? "border-green-500/50" : tokenDetail.securityScore >= 70 ? "border-yellow-500/50" : "border-red-500/50"}>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <ShieldCheck className="h-5 w-5" />
+                          Security Score
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center gap-6">
+                          <div className="relative h-24 w-24">
+                            <svg className="h-24 w-24 transform -rotate-90">
+                              <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="8" fill="none" className="text-muted" />
+                              <circle
+                                cx="48" cy="48" r="40"
+                                stroke="currentColor" strokeWidth="8" fill="none"
+                                strokeDasharray={`${tokenDetail.securityScore * 2.51} 251`}
+                                className={tokenDetail.securityScore >= 90 ? "text-green-500" : tokenDetail.securityScore >= 70 ? "text-yellow-500" : "text-red-500"}
+                              />
+                            </svg>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="text-2xl font-bold">{tokenDetail.securityScore}</span>
+                            </div>
+                          </div>
+                          <div className="flex-1 space-y-2">
+                            <p className={`font-medium ${tokenDetail.securityScore >= 90 ? "text-green-500" : tokenDetail.securityScore >= 70 ? "text-yellow-500" : "text-red-500"}`}>
+                              {tokenDetail.securityScore >= 90 ? "Excellent" : tokenDetail.securityScore >= 70 ? "Good" : "Needs Review"}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              Audited by {tokenDetail.auditor} on {new Date(tokenDetail.lastAuditDate).toLocaleDateString()}
+                            </p>
+                            <p className="text-sm">
+                              {tokenDetail.vulnerabilities} vulnerabilities found
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Security Features</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">Quantum Resistant</span>
+                          {tokenDetail.quantumResistant ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
+                        </div>
+                        <Separator />
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">MEV Protection</span>
+                          {tokenDetail.mevProtection ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
+                        </div>
+                        <Separator />
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">AI Optimization</span>
+                          {tokenDetail.aiEnabled ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
+                        </div>
+                        <Separator />
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">Contract Verified</span>
+                          {tokenDetail.verified ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="ai" className="space-y-4">
+                  <Card className="bg-purple-500/5 border-purple-500/20">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Brain className="h-5 w-5 text-purple-500" />
+                        AI Analysis by Triple-Band AI
+                      </CardTitle>
+                      <CardDescription>
+                        Last analyzed: {new Date(tokenDetail.aiAnalysis.lastAnalyzed).toLocaleString()}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="text-center p-4 rounded-lg bg-background">
+                          <p className="text-xs text-muted-foreground">Sentiment</p>
+                          <p className={`text-xl font-bold capitalize ${tokenDetail.aiAnalysis.sentiment === 'bullish' ? 'text-green-500' : tokenDetail.aiAnalysis.sentiment === 'bearish' ? 'text-red-500' : 'text-yellow-500'}`}>
+                            {tokenDetail.aiAnalysis.sentiment}
+                          </p>
+                        </div>
+                        <div className="text-center p-4 rounded-lg bg-background">
+                          <p className="text-xs text-muted-foreground">Sentiment Score</p>
+                          <p className="text-xl font-bold">{tokenDetail.aiAnalysis.sentimentScore}/100</p>
+                        </div>
+                        <div className="text-center p-4 rounded-lg bg-background">
+                          <p className="text-xs text-muted-foreground">Risk Level</p>
+                          <p className={`text-xl font-bold capitalize ${tokenDetail.aiAnalysis.riskLevel === 'low' ? 'text-green-500' : tokenDetail.aiAnalysis.riskLevel === 'medium' ? 'text-yellow-500' : 'text-red-500'}`}>
+                            {tokenDetail.aiAnalysis.riskLevel}
+                          </p>
+                        </div>
+                        <div className="text-center p-4 rounded-lg bg-background">
+                          <p className="text-xs text-muted-foreground">Risk Score</p>
+                          <p className="text-xl font-bold">{tokenDetail.aiAnalysis.riskScore}/100</p>
+                        </div>
+                      </div>
+                      
+                      <div className="p-4 rounded-lg bg-background">
+                        <p className="text-sm font-medium mb-2">AI Recommendation</p>
+                        <p className="text-sm text-muted-foreground">{tokenDetail.aiAnalysis.recommendation}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+            ) : (
+              <div className="text-center p-12 text-muted-foreground">
+                <AlertTriangle className="h-12 w-12 mx-auto mb-4" />
+                <p>Failed to load token details</p>
+              </div>
+            )}
+          </CardContent>
+        </ScrollArea>
+        
+        <CardFooter className="border-t flex justify-between gap-4">
+          <div className="flex gap-2">
+            {token.website && (
+              <Button variant="outline" size="sm" onClick={() => window.open(token.website, "_blank")}>
+                <Globe className="h-4 w-4 mr-1" />
+                Website
+              </Button>
+            )}
+            <Button variant="outline" size="sm">
+              <BarChart3 className="h-4 w-4 mr-1" />
+              Analytics
+            </Button>
+          </div>
+          <Button onClick={onClose}>Close</Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

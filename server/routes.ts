@@ -600,6 +600,639 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Token System v4.0 - AI-Enhanced Enterprise Token Standards
   // ============================================
   
+  // Enterprise Token Search & Tracking API
+  app.get("/api/token-system/search", async (req, res) => {
+    try {
+      const query = (req.query.q as string || "").toLowerCase();
+      const standard = req.query.standard as string;
+      const sortBy = req.query.sortBy as string || "holders";
+      const sortOrder = req.query.sortOrder as string || "desc";
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 10;
+      const aiEnabled = req.query.aiEnabled === "true" ? true : req.query.aiEnabled === "false" ? false : undefined;
+      const quantumSecured = req.query.quantumSecured === "true" ? true : undefined;
+      const verified = req.query.verified === "true" ? true : undefined;
+
+      // Comprehensive token database for search
+      const allTokens = [
+        {
+          id: "tbc20-tburn-native",
+          name: "TBURN Token",
+          symbol: "TBURN",
+          contractAddress: "0x0000000000000000000000000000000000000001",
+          standard: "TBC-20",
+          totalSupply: "1000000000000000000000000000",
+          decimals: 18,
+          holders: 45892,
+          transactions24h: 125840,
+          volume24h: "892450000000000000000000000",
+          marketCap: "4580000000000000000000000000",
+          price: "4.58",
+          priceChange24h: 3.45,
+          burnRate: 100,
+          burnedTotal: "125000000000000000000000000",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          verified: true,
+          securityScore: 99,
+          deployerAddress: "0x0000000000000000000000000000000000000000",
+          deployedAt: "2024-01-15T00:00:00Z",
+          lastActivity: new Date(Date.now() - 60000).toISOString(),
+          features: ["AI Burn Optimization", "Quantum Signatures", "MEV Protection", "Self-Adjusting Gas"],
+          category: "Native",
+          website: "https://tburn.network",
+          telegram: "@tburnofficial",
+          twitter: "@tburn_chain"
+        },
+        {
+          id: "tbc20-usdt-wrapped",
+          name: "Wrapped USDT",
+          symbol: "wUSDT",
+          contractAddress: "0xa5f4b9c789012345678901234567890123456789",
+          standard: "TBC-20",
+          totalSupply: "500000000000000000000000",
+          decimals: 18,
+          holders: 12456,
+          transactions24h: 45672,
+          volume24h: "125890000000000000000000",
+          marketCap: "500000000000000000000000",
+          price: "1.00",
+          priceChange24h: 0.01,
+          burnRate: 0,
+          burnedTotal: "0",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          verified: true,
+          securityScore: 98,
+          deployerAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+          deployedAt: "2024-02-10T00:00:00Z",
+          lastActivity: new Date(Date.now() - 180000).toISOString(),
+          features: ["Cross-Chain Bridge", "AI Price Oracle"],
+          category: "Stablecoin",
+          website: "https://tether.to",
+          telegram: "",
+          twitter: "@Tether_to"
+        },
+        {
+          id: "tbc20-defi-gov",
+          name: "DeFi Governance Protocol",
+          symbol: "DGP",
+          contractAddress: "0xb6c567890123456789012345678901234567890a",
+          standard: "TBC-20",
+          totalSupply: "100000000000000000000000000",
+          decimals: 18,
+          holders: 8934,
+          transactions24h: 23456,
+          volume24h: "45670000000000000000000",
+          marketCap: "234500000000000000000000",
+          price: "2.345",
+          priceChange24h: -1.23,
+          burnRate: 50,
+          burnedTotal: "5000000000000000000000000",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          verified: true,
+          securityScore: 96,
+          deployerAddress: "0x123d35Cc6634C0532925a3b844Bc454e4438f123",
+          deployedAt: "2024-03-05T00:00:00Z",
+          lastActivity: new Date(Date.now() - 300000).toISOString(),
+          features: ["Governance Voting", "Staking", "Auto-Burn", "AI Optimization"],
+          category: "DeFi",
+          website: "https://dgp.finance",
+          telegram: "@dgpfinance",
+          twitter: "@dgp_finance"
+        },
+        {
+          id: "tbc20-gaming-token",
+          name: "GameFi Rewards Token",
+          symbol: "GRT",
+          contractAddress: "0xc7d678901234567890123456789012345678901b",
+          standard: "TBC-20",
+          totalSupply: "10000000000000000000000000000",
+          decimals: 18,
+          holders: 34567,
+          transactions24h: 89234,
+          volume24h: "23450000000000000000000",
+          marketCap: "123400000000000000000000",
+          price: "0.01234",
+          priceChange24h: 8.92,
+          burnRate: 25,
+          burnedTotal: "250000000000000000000000000",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          verified: true,
+          securityScore: 94,
+          deployerAddress: "0x456d35Cc6634C0532925a3b844Bc454e4438f456",
+          deployedAt: "2024-04-20T00:00:00Z",
+          lastActivity: new Date(Date.now() - 120000).toISOString(),
+          features: ["Play-to-Earn", "NFT Integration", "Cross-Game Assets"],
+          category: "GameFi",
+          website: "https://grt.game",
+          telegram: "@grtgaming",
+          twitter: "@grt_gaming"
+        },
+        {
+          id: "tbc20-enterprise-sec",
+          name: "Enterprise Security Token",
+          symbol: "EST",
+          contractAddress: "0xd8e789012345678901234567890123456789012c",
+          standard: "TBC-20",
+          totalSupply: "50000000000000000000000000",
+          decimals: 18,
+          holders: 2345,
+          transactions24h: 1234,
+          volume24h: "89000000000000000000000",
+          marketCap: "567000000000000000000000",
+          price: "11.34",
+          priceChange24h: 0.56,
+          burnRate: 0,
+          burnedTotal: "0",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          verified: true,
+          securityScore: 100,
+          deployerAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789",
+          deployedAt: "2024-05-15T00:00:00Z",
+          lastActivity: new Date(Date.now() - 600000).toISOString(),
+          features: ["Multi-Signature", "KYC/AML", "Compliance", "Audit Trail"],
+          category: "Enterprise",
+          website: "https://est.enterprise",
+          telegram: "",
+          twitter: "@est_official"
+        },
+        {
+          id: "tbc721-genesis-validators",
+          name: "Genesis Validators NFT",
+          symbol: "GVAL",
+          contractAddress: "0xe9f890123456789012345678901234567890123d",
+          standard: "TBC-721",
+          totalSupply: "512",
+          decimals: 0,
+          holders: 512,
+          transactions24h: 28,
+          volume24h: "12340000000000000000000",
+          marketCap: "51200000000000000000000",
+          price: "100.00",
+          priceChange24h: 2.34,
+          burnRate: 0,
+          burnedTotal: "0",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          verified: true,
+          securityScore: 97,
+          deployerAddress: "0x0000000000000000000000000000000000000000",
+          deployedAt: "2024-01-01T00:00:00Z",
+          lastActivity: new Date(Date.now() - 3600000).toISOString(),
+          features: ["AI Rarity Scoring", "Authenticity Verification", "Dynamic Metadata"],
+          category: "NFT",
+          website: "https://tburn.network/validators",
+          telegram: "",
+          twitter: "@tburn_chain"
+        },
+        {
+          id: "tbc721-ai-art",
+          name: "TBURN AI Art Collection",
+          symbol: "TART",
+          contractAddress: "0xf0a901234567890123456789012345678901234e",
+          standard: "TBC-721",
+          totalSupply: "10000",
+          decimals: 0,
+          holders: 3256,
+          transactions24h: 156,
+          volume24h: "5670000000000000000000",
+          marketCap: "25600000000000000000000",
+          price: "2.56",
+          priceChange24h: -0.89,
+          burnRate: 0,
+          burnedTotal: "0",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          verified: true,
+          securityScore: 95,
+          deployerAddress: "0xabc35Cc6634C0532925a3b844Bc454e4438fabc",
+          deployedAt: "2024-06-10T00:00:00Z",
+          lastActivity: new Date(Date.now() - 1800000).toISOString(),
+          features: ["AI Generation", "Provenance Tracking", "Royalty Enforcement"],
+          category: "NFT",
+          website: "https://tart.gallery",
+          telegram: "@tartgallery",
+          twitter: "@tart_nft"
+        },
+        {
+          id: "tbc721-metaverse-land",
+          name: "TBURN Metaverse Land",
+          symbol: "TMLAND",
+          contractAddress: "0x01b012345678901234567890123456789012345f",
+          standard: "TBC-721",
+          totalSupply: "50000",
+          decimals: 0,
+          holders: 8234,
+          transactions24h: 234,
+          volume24h: "34560000000000000000000",
+          marketCap: "125000000000000000000000",
+          price: "2.50",
+          priceChange24h: 5.67,
+          burnRate: 0,
+          burnedTotal: "0",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          verified: true,
+          securityScore: 93,
+          deployerAddress: "0xdef35Cc6634C0532925a3b844Bc454e4438fdef",
+          deployedAt: "2024-07-01T00:00:00Z",
+          lastActivity: new Date(Date.now() - 900000).toISOString(),
+          features: ["Virtual Real Estate", "3D Rendering", "Staking Rewards"],
+          category: "Metaverse",
+          website: "https://tmland.world",
+          telegram: "@tmlandworld",
+          twitter: "@tmland_world"
+        },
+        {
+          id: "tbc1155-game-assets",
+          name: "TBURN Game Assets",
+          symbol: "TGAME",
+          contractAddress: "0x12c123456789012345678901234567890123456a",
+          standard: "TBC-1155",
+          totalSupply: "1000000",
+          decimals: 0,
+          holders: 8954,
+          transactions24h: 34521,
+          volume24h: "12340000000000000000000",
+          marketCap: "45600000000000000000000",
+          price: "0.0456",
+          priceChange24h: 12.34,
+          burnRate: 50,
+          burnedTotal: "50000",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: true,
+          verified: true,
+          securityScore: 96,
+          deployerAddress: "0x012d35Cc6634C0532925a3b844Bc454e4438f012",
+          deployedAt: "2024-08-05T00:00:00Z",
+          lastActivity: new Date(Date.now() - 30000).toISOString(),
+          features: ["Batch Transfers", "Semi-Fungible", "AI Supply Management"],
+          category: "GameFi",
+          website: "https://tgame.io",
+          telegram: "@tgameio",
+          twitter: "@tgame_io"
+        },
+        {
+          id: "tbc1155-music-royalties",
+          name: "Music Royalty Tokens",
+          symbol: "MRT",
+          contractAddress: "0x23d234567890123456789012345678901234567b",
+          standard: "TBC-1155",
+          totalSupply: "500000",
+          decimals: 0,
+          holders: 5678,
+          transactions24h: 2345,
+          volume24h: "8900000000000000000000",
+          marketCap: "28000000000000000000000",
+          price: "0.056",
+          priceChange24h: -2.34,
+          burnRate: 0,
+          burnedTotal: "0",
+          aiEnabled: true,
+          quantumResistant: true,
+          mevProtection: false,
+          verified: true,
+          securityScore: 94,
+          deployerAddress: "0x345d35Cc6634C0532925a3b844Bc454e4438f345",
+          deployedAt: "2024-09-10T00:00:00Z",
+          lastActivity: new Date(Date.now() - 7200000).toISOString(),
+          features: ["Royalty Distribution", "Artist Verification", "Streaming Integration"],
+          category: "Entertainment",
+          website: "https://mrt.music",
+          telegram: "@mrtmusic",
+          twitter: "@mrt_music"
+        }
+      ];
+
+      // Apply filters
+      let filteredTokens = allTokens.filter(token => {
+        if (query && !token.name.toLowerCase().includes(query) && 
+            !token.symbol.toLowerCase().includes(query) &&
+            !token.contractAddress.toLowerCase().includes(query)) {
+          return false;
+        }
+        if (standard && token.standard !== standard) return false;
+        if (aiEnabled !== undefined && token.aiEnabled !== aiEnabled) return false;
+        if (quantumSecured && !token.quantumResistant) return false;
+        if (verified && !token.verified) return false;
+        return true;
+      });
+
+      // Apply sorting
+      filteredTokens.sort((a, b) => {
+        let comparison = 0;
+        switch (sortBy) {
+          case "holders":
+            comparison = b.holders - a.holders;
+            break;
+          case "volume":
+            comparison = parseFloat(b.volume24h) - parseFloat(a.volume24h);
+            break;
+          case "marketCap":
+            comparison = parseFloat(b.marketCap) - parseFloat(a.marketCap);
+            break;
+          case "transactions":
+            comparison = b.transactions24h - a.transactions24h;
+            break;
+          case "securityScore":
+            comparison = b.securityScore - a.securityScore;
+            break;
+          case "priceChange":
+            comparison = b.priceChange24h - a.priceChange24h;
+            break;
+          case "name":
+            comparison = a.name.localeCompare(b.name);
+            break;
+          default:
+            comparison = b.holders - a.holders;
+        }
+        return sortOrder === "asc" ? -comparison : comparison;
+      });
+
+      // Apply pagination
+      const total = filteredTokens.length;
+      const totalPages = Math.ceil(total / limit);
+      const offset = (page - 1) * limit;
+      const paginatedTokens = filteredTokens.slice(offset, offset + limit);
+
+      res.json({
+        tokens: paginatedTokens,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages,
+          hasNext: page < totalPages,
+          hasPrev: page > 1
+        },
+        filters: {
+          query,
+          standard,
+          aiEnabled,
+          quantumSecured,
+          verified,
+          sortBy,
+          sortOrder
+        }
+      });
+    } catch (error) {
+      console.error("Error searching tokens:", error);
+      res.status(500).json({ error: "Failed to search tokens" });
+    }
+  });
+
+  // Token Detail by Contract Address or ID
+  app.get("/api/token-system/token/:addressOrId", async (req, res) => {
+    try {
+      const { addressOrId } = req.params;
+      
+      // Mock detailed token data
+      const tokenDetails = {
+        id: "tbc20-tburn-native",
+        name: "TBURN Token",
+        symbol: "TBURN",
+        contractAddress: addressOrId.startsWith("0x") ? addressOrId : "0x0000000000000000000000000000000000000001",
+        standard: "TBC-20",
+        totalSupply: "1000000000000000000000000000",
+        circulatingSupply: "875000000000000000000000000",
+        decimals: 18,
+        
+        // Market Data
+        price: "4.58",
+        priceChange1h: 0.23,
+        priceChange24h: 3.45,
+        priceChange7d: 12.34,
+        priceChange30d: 28.56,
+        volume24h: "892450000000000000000000000",
+        volumeChange24h: 15.67,
+        marketCap: "4580000000000000000000000000",
+        marketCapRank: 1,
+        fullyDilutedValuation: "4580000000000000000000000000",
+        
+        // Holder Analytics
+        holders: 45892,
+        holdersChange24h: 234,
+        holdersChange7d: 1567,
+        topHoldersConcentration: 35.6,
+        averageHoldingAmount: "21800000000000000000000",
+        medianHoldingAmount: "5000000000000000000000",
+        
+        // Transaction Analytics
+        transactions24h: 125840,
+        transactionsChange24h: 8.9,
+        totalTransactions: 15678234,
+        averageTransactionSize: "7089000000000000000000",
+        uniqueAddresses24h: 12456,
+        
+        // Burn Analytics
+        burnRate: 100,
+        burnedTotal: "125000000000000000000000000",
+        burnedLast24h: "450000000000000000000000",
+        burnedLast7d: "3150000000000000000000000",
+        projectedMonthlyBurn: "13500000000000000000000000",
+        
+        // Features
+        aiEnabled: true,
+        quantumResistant: true,
+        mevProtection: true,
+        mintable: false,
+        burnable: true,
+        pausable: true,
+        stakingEnabled: true,
+        stakingAPY: 12.5,
+        
+        // Security
+        verified: true,
+        securityScore: 99,
+        lastAuditDate: "2024-10-15T00:00:00Z",
+        auditor: "CertiK",
+        vulnerabilities: 0,
+        
+        // Deployment Info
+        deployerAddress: "0x0000000000000000000000000000000000000000",
+        deployedAt: "2024-01-15T00:00:00Z",
+        deploymentBlock: 1,
+        deploymentTxHash: "0x0000000000000000000000000000000000000000000000000000000000000001",
+        
+        // Social & Links
+        website: "https://tburn.network",
+        telegram: "@tburnofficial",
+        twitter: "@tburn_chain",
+        discord: "tburn.network",
+        github: "github.com/tburn-chain",
+        whitepaper: "https://tburn.network/whitepaper.pdf",
+        
+        // AI Analysis
+        aiAnalysis: {
+          sentiment: "bullish",
+          sentimentScore: 78,
+          riskLevel: "low",
+          riskScore: 12,
+          recommendation: "Strong fundamentals with consistent growth. AI optimization is performing well.",
+          lastAnalyzed: new Date().toISOString()
+        },
+        
+        features: ["AI Burn Optimization", "Quantum Signatures", "MEV Protection", "Self-Adjusting Gas"],
+        category: "Native",
+        lastActivity: new Date(Date.now() - 60000).toISOString()
+      };
+
+      res.json(tokenDetails);
+    } catch (error) {
+      console.error("Error fetching token details:", error);
+      res.status(500).json({ error: "Failed to fetch token details" });
+    }
+  });
+
+  // Token Transaction History
+  app.get("/api/token-system/token/:addressOrId/transactions", async (req, res) => {
+    try {
+      const { addressOrId } = req.params;
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 20;
+      const type = req.query.type as string; // transfer, mint, burn, swap
+
+      const now = Date.now();
+      const transactions = Array.from({ length: 50 }, (_, i) => ({
+        hash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+        blockNumber: 1000000 - i * 10,
+        timestamp: new Date(now - i * 60000 * (Math.random() * 10 + 1)).toISOString(),
+        type: ["transfer", "transfer", "transfer", "swap", "burn", "mint"][Math.floor(Math.random() * 6)] as string,
+        from: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+        to: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+        value: `${Math.floor(Math.random() * 100000)}000000000000000000`,
+        gasUsed: Math.floor(Math.random() * 100000) + 21000,
+        gasPrice: "10",
+        status: "success"
+      }));
+
+      const filteredTx = type ? transactions.filter(tx => tx.type === type) : transactions;
+      const total = filteredTx.length;
+      const offset = (page - 1) * limit;
+      const paginatedTx = filteredTx.slice(offset, offset + limit);
+
+      res.json({
+        transactions: paginatedTx,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit)
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching token transactions:", error);
+      res.status(500).json({ error: "Failed to fetch token transactions" });
+    }
+  });
+
+  // Token Holder Analytics
+  app.get("/api/token-system/token/:addressOrId/holders", async (req, res) => {
+    try {
+      const { addressOrId } = req.params;
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 20;
+
+      const holders = Array.from({ length: 100 }, (_, i) => ({
+        rank: i + 1,
+        address: `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+        balance: `${Math.floor(10000000 / (i + 1))}000000000000000000`,
+        percentage: Math.max(0.01, 15 / (i + 1)),
+        valueUsd: `${Math.floor(45800000 / (i + 1))}`,
+        firstAcquired: new Date(Date.now() - Math.random() * 365 * 86400000).toISOString(),
+        lastActive: new Date(Date.now() - Math.random() * 7 * 86400000).toISOString(),
+        transactionCount: Math.floor(Math.random() * 1000) + 1,
+        label: i === 0 ? "Contract Deployer" : i < 5 ? "Whale" : i < 20 ? "Large Holder" : ""
+      }));
+
+      const offset = (page - 1) * limit;
+      const paginatedHolders = holders.slice(offset, offset + limit);
+
+      res.json({
+        holders: paginatedHolders,
+        analytics: {
+          totalHolders: 45892,
+          holdersChange24h: 234,
+          top10Concentration: 45.6,
+          top50Concentration: 72.3,
+          averageBalance: "21800000000000000000000",
+          medianBalance: "5000000000000000000000",
+          giniCoefficient: 0.68
+        },
+        pagination: {
+          page,
+          limit,
+          total: 100,
+          totalPages: 5
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching token holders:", error);
+      res.status(500).json({ error: "Failed to fetch token holders" });
+    }
+  });
+
+  // Token Price History
+  app.get("/api/token-system/token/:addressOrId/price-history", async (req, res) => {
+    try {
+      const { addressOrId } = req.params;
+      const period = req.query.period as string || "7d";
+
+      let dataPoints = 0;
+      let interval = 0;
+      
+      switch (period) {
+        case "1h": dataPoints = 60; interval = 60000; break;
+        case "24h": dataPoints = 288; interval = 300000; break;
+        case "7d": dataPoints = 168; interval = 3600000; break;
+        case "30d": dataPoints = 720; interval = 3600000; break;
+        case "1y": dataPoints = 365; interval = 86400000; break;
+        default: dataPoints = 168; interval = 3600000;
+      }
+
+      const now = Date.now();
+      let basePrice = 4.58;
+      
+      const priceHistory = Array.from({ length: dataPoints }, (_, i) => {
+        const variation = (Math.random() - 0.5) * 0.1;
+        basePrice = Math.max(0.01, basePrice * (1 + variation));
+        return {
+          timestamp: new Date(now - (dataPoints - i) * interval).toISOString(),
+          price: basePrice.toFixed(4),
+          volume: `${Math.floor(Math.random() * 10000000)}000000000000000000`,
+          marketCap: `${Math.floor(basePrice * 1000000000)}000000000000000000`
+        };
+      });
+
+      res.json({
+        period,
+        dataPoints: priceHistory,
+        summary: {
+          high: Math.max(...priceHistory.map(p => parseFloat(p.price))).toFixed(4),
+          low: Math.min(...priceHistory.map(p => parseFloat(p.price))).toFixed(4),
+          average: (priceHistory.reduce((sum, p) => sum + parseFloat(p.price), 0) / priceHistory.length).toFixed(4),
+          change: ((parseFloat(priceHistory[priceHistory.length - 1].price) - parseFloat(priceHistory[0].price)) / parseFloat(priceHistory[0].price) * 100).toFixed(2)
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching price history:", error);
+      res.status(500).json({ error: "Failed to fetch price history" });
+    }
+  });
+
   // Token System Stats
   app.get("/api/token-system/stats", async (_req, res) => {
     try {
