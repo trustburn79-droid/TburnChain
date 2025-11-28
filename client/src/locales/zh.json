@@ -2676,6 +2676,9 @@
       "tier1Active": "Tier 1 - 活跃委员会",
       "tier2Standby": "Tier 2 - 待命",
       "tier3Delegators": "Tier 3 - 委托者",
+      "tier1Name": "Tier 1 - 活跃委员会",
+      "tier2Name": "Tier 2 - 待命",
+      "tier3Name": "Tier 3 - 委托者",
       "slashingRecords": "罚没记录",
       "noSlashingRecords": "未找到罚没记录",
       "slashType": "罚没类型",
@@ -3053,7 +3056,48 @@
           "totalBurned": "总销毁",
           "netInflation": "净通胀"
         }
-      }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "每周 KYC 摘要",
+        "monthlyAmlReport": "每月 AML 报告",
+        "dailyTransactionSummary": "每日交易摘要",
+        "quarterlyValidatorReport": "季度验证者报告"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "数据保护",
+          "financialReporting": "财务报告",
+          "networkSecurity": "网络安全",
+          "operational": "运营"
+        },
+        "requirements": {
+          "identityVerification": "所有成员必须在30天内完成身份验证",
+          "sarFiling": "可疑活动报告(SAR)必须在72小时内提交",
+          "gdprCompliance": "欧盟成员数据处理的GDPR合规",
+          "encryptionAtRest": "所有敏感数据的静态加密",
+          "quarterlyStatements": "季度财务报表提交给监管机构",
+          "annualAudit": "由认证第三方进行的年度审计",
+          "multiSig": "财库交易的多重签名要求",
+          "validatorKyc": "委员会成员资格的验证者KYC",
+          "disasterRecovery": "季度灾难恢复计划测试",
+          "incidentResponse": "1小时内安全事件响应"
+        },
+        "notes": {
+          "complianceRate": "98.5% 合规率",
+          "sarFiledOnTime": "所有SAR按时提交",
+          "annualAuditPassed": "年度审计通过",
+          "aesEncryption": "AES-256加密已验证",
+          "q4ReportPreparation": "2025年第四季度报告准备中",
+          "auditCleanOpinion": "2024年审计完成 - 无保留意见",
+          "multiSigActive": "3/5多重签名已激活",
+          "validatorsVerified": "所有125名验证者已验证",
+          "nextTestScheduled": "下次测试安排在12月",
+          "monitoringActive": "24/7监控已激活"
+        }
+      },
+      "weeklyReports": "每周报告",
+      "automatedReportDesc": "自动化报告生成计划"
     },
     "staking": {
       "title": "质押管理",

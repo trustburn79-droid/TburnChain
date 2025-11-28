@@ -2727,6 +2727,9 @@
       "tier1Active": "Nivel 1 - Comité Activo",
       "tier2Standby": "Nivel 2 - En Espera",
       "tier3Delegators": "Nivel 3 - Delegadores",
+      "tier1Name": "Nivel 1 - Comité Activo",
+      "tier2Name": "Nivel 2 - En Espera",
+      "tier3Name": "Nivel 3 - Delegadores",
       "slashingRecords": "Registros de Slashing",
       "noSlashingRecords": "No se encontraron registros de slashing",
       "slashType": "Tipo de Penalización",
@@ -2967,11 +2970,51 @@
           "treasuryBalance": "Treasury Saldo",
           "dailyEmission": "Diario Emission",
           "totalBurned": "Total Quemado",
-          "netInflation": "Net Inflation"
+          "netInflation": "Inflación Neta"
         }
       },
-      "schedules": "Schedules",
-      "compliance": "Compliance",
+      "scheduled": {
+        "weeklyKycSummary": "Resumen KYC Semanal",
+        "monthlyAmlReport": "Informe AML Mensual",
+        "dailyTransactionSummary": "Resumen de Transacciones Diario",
+        "quarterlyValidatorReport": "Informe de Validadores Trimestral"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Protección de Datos",
+          "financialReporting": "Informes Financieros",
+          "networkSecurity": "Seguridad de Red",
+          "operational": "Operacional"
+        },
+        "requirements": {
+          "identityVerification": "Todos los miembros deben completar la verificación de identidad dentro de 30 días",
+          "sarFiling": "Informes de Actividad Sospechosa (SARs) presentados dentro de 72 horas",
+          "gdprCompliance": "Cumplimiento GDPR para manejo de datos de miembros de la UE",
+          "encryptionAtRest": "Cifrado en reposo para todos los datos sensibles",
+          "quarterlyStatements": "Estados financieros trimestrales enviados a reguladores",
+          "annualAudit": "Auditoría anual por tercero certificado",
+          "multiSig": "Requisito de firma múltiple para transacciones de tesorería",
+          "validatorKyc": "KYC de validador para membresía del comité",
+          "disasterRecovery": "Plan de recuperación ante desastres probado trimestralmente",
+          "incidentResponse": "Respuesta a incidentes de seguridad dentro de 1 hora"
+        },
+        "notes": {
+          "complianceRate": "98.5% tasa de cumplimiento",
+          "sarFiledOnTime": "Todos los SARs presentados a tiempo",
+          "annualAuditPassed": "Auditoría anual aprobada",
+          "aesEncryption": "Cifrado AES-256 verificado",
+          "q4ReportPreparation": "Informe Q4 2025 en preparación",
+          "auditCleanOpinion": "Auditoría 2024 completada - opinión limpia",
+          "multiSigActive": "Multisig 3-de-5 activo",
+          "validatorsVerified": "Los 125 validadores verificados",
+          "nextTestScheduled": "Próxima prueba programada para diciembre",
+          "monitoringActive": "Monitoreo 24/7 activo"
+        }
+      },
+      "weeklyReports": "Informes Semanales",
+      "automatedReportDesc": "Programaciones de generación automática de informes",
+      "schedules": "Programaciones",
       "totalReports": "Total Informes",
       "draft": "Draft",
       "pendingReview": "Pendiente Review",

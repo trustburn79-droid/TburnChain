@@ -1947,6 +1947,9 @@
       "tier1Active": "टियर 1 - सक्रिय समिति",
       "tier2Standby": "टियर 2 - स्टैंडबाय",
       "tier3Delegators": "टियर 3 - डेलीगेटर्स",
+      "tier1Name": "टियर 1 - सक्रिय समिति",
+      "tier2Name": "टियर 2 - स्टैंडबाय",
+      "tier3Name": "टियर 3 - डेलीगेटर्स",
       "slashingRecords": "स्लैशिंग रिकॉर्ड्स",
       "noSlashingRecords": "कोई स्लैशिंग रिकॉर्ड नहीं मिला",
       "slashType": "स्लैश प्रकार",
@@ -2111,7 +2114,93 @@
       "validatorPerformanceReport": "वैलिडेटर परफॉर्मेंस रिपोर्ट",
       "stakingReport": "स्टेकिंग रिपोर्ट",
       "securityAuditReport": "सुरक्षा ऑडिट रिपोर्ट",
-      "kycAmlReport": "KYC/AML कम्प्लायंस रिपोर्ट"
+      "kycAmlReport": "KYC/AML कम्प्लायंस रिपोर्ट",
+      "templates": {
+        "kycSummary": {
+          "name": "KYC सारांश",
+          "description": "सदस्यता सत्यापन स्थिति का अवलोकन"
+        },
+        "amlReport": {
+          "name": "AML रिपोर्ट",
+          "description": "मनी लॉन्ड्रिंग विरोधी गतिविधि निगरानी और संदिग्ध लेनदेन विश्लेषण"
+        },
+        "transactionReport": {
+          "name": "लेनदेन गतिविधि रिपोर्ट",
+          "description": "नेटवर्क लेनदेन गतिविधि और मात्रा का विस्तृत विश्लेषण"
+        },
+        "validatorReport": {
+          "name": "वैलिडेटर प्रदर्शन रिपोर्ट",
+          "description": "वैलिडेटर अपटाइम, रिवॉर्ड्स और स्लैशिंग इवेंट सारांश"
+        },
+        "financialStatement": {
+          "name": "वित्तीय विवरण",
+          "description": "ट्रेजरी बैलेंस, टोकन उत्सर्जन और बर्न आंकड़े"
+        },
+        "fields": {
+          "totalMembers": "कुल सदस्य",
+          "verified": "सत्यापित",
+          "pending": "लंबित",
+          "rejected": "अस्वीकृत",
+          "tierDistribution": "टियर वितरण",
+          "flaggedTransactions": "चिह्नित लेनदेन",
+          "sarFiled": "SAR दाखिल",
+          "riskAssessment": "जोखिम मूल्यांकन",
+          "countryBreakdown": "देश वार विश्लेषण",
+          "totalVolume": "कुल मात्रा",
+          "uniqueAddresses": "अद्वितीय पते",
+          "averageTxSize": "औसत TX आकार",
+          "feeRevenue": "शुल्क राजस्व",
+          "activeValidators": "सक्रिय वैलिडेटर्स",
+          "avgUptime": "औसत अपटाइम",
+          "totalRewards": "कुल रिवॉर्ड्स",
+          "slashingEvents": "स्लैशिंग इवेंट्स",
+          "treasuryBalance": "ट्रेजरी बैलेंस",
+          "dailyEmission": "दैनिक उत्सर्जन",
+          "totalBurned": "कुल जला हुआ",
+          "netInflation": "शुद्ध मुद्रास्फीति"
+        }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "साप्ताहिक KYC सारांश",
+        "monthlyAmlReport": "मासिक AML रिपोर्ट",
+        "dailyTransactionSummary": "दैनिक लेनदेन सारांश",
+        "quarterlyValidatorReport": "तिमाही वैलिडेटर रिपोर्ट"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "डेटा संरक्षण",
+          "financialReporting": "वित्तीय रिपोर्टिंग",
+          "networkSecurity": "नेटवर्क सुरक्षा",
+          "operational": "परिचालन"
+        },
+        "requirements": {
+          "identityVerification": "सभी सदस्यों को 30 दिनों के भीतर पहचान सत्यापन पूरा करना होगा",
+          "sarFiling": "संदिग्ध गतिविधि रिपोर्ट (SARs) 72 घंटों के भीतर दाखिल",
+          "gdprCompliance": "EU सदस्य डेटा हैंडलिंग के लिए GDPR अनुपालन",
+          "encryptionAtRest": "सभी संवेदनशील डेटा के लिए रेस्ट एन्क्रिप्शन",
+          "quarterlyStatements": "तिमाही वित्तीय विवरण नियामकों को प्रस्तुत",
+          "annualAudit": "प्रमाणित तृतीय पक्ष द्वारा वार्षिक ऑडिट",
+          "multiSig": "ट्रेजरी लेनदेन के लिए मल्टी-सिग्नेचर आवश्यकता",
+          "validatorKyc": "समिति सदस्यता के लिए वैलिडेटर KYC",
+          "disasterRecovery": "आपदा रिकवरी प्लान तिमाही में परीक्षित",
+          "incidentResponse": "1 घंटे के भीतर सुरक्षा घटना प्रतिक्रिया"
+        },
+        "notes": {
+          "complianceRate": "98.5% अनुपालन दर",
+          "sarFiledOnTime": "सभी SARs समय पर दाखिल",
+          "annualAuditPassed": "वार्षिक ऑडिट उत्तीर्ण",
+          "aesEncryption": "AES-256 एन्क्रिप्शन सत्यापित",
+          "q4ReportPreparation": "Q4 2025 रिपोर्ट तैयारी में",
+          "auditCleanOpinion": "2024 ऑडिट पूर्ण - स्वच्छ राय",
+          "multiSigActive": "3-में-से-5 मल्टीसिग सक्रिय",
+          "validatorsVerified": "सभी 125 वैलिडेटर्स सत्यापित",
+          "nextTestScheduled": "अगला परीक्षण दिसंबर में निर्धारित",
+          "monitoringActive": "24/7 मॉनिटरिंग सक्रिय"
+        }
+      },
+      "weeklyReports": "साप्ताहिक रिपोर्ट्स",
+      "automatedReportDesc": "स्वचालित रिपोर्ट जनरेशन शेड्यूल"
     },
     "staking": {
       "title": "स्टेकिंग मैनेजमेंट",

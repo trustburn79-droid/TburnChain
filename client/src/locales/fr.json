@@ -2096,6 +2096,9 @@
       "tier1Active": "Tier 1 - Comité actif",
       "tier2Standby": "Tier 2 - En attente",
       "tier3Delegators": "Tier 3 - Délégateurs",
+      "tier1Name": "Tier 1 - Comité actif",
+      "tier2Name": "Tier 2 - En attente",
+      "tier3Name": "Tier 3 - Délégateurs",
       "slashingRecords": "Enregistrements de slashing",
       "noSlashingRecords": "Aucun enregistrement de slashing trouvé",
       "slashType": "Type de slashing",
@@ -2291,7 +2294,93 @@
       "securityReport": "Rapport de sécurité",
       "generating": "Génération...",
       "completed": "Terminé",
-      "failed": "Échoué"
+      "failed": "Échoué",
+      "templates": {
+        "kycSummary": {
+          "name": "Résumé KYC",
+          "description": "Aperçu du statut de vérification des membres"
+        },
+        "amlReport": {
+          "name": "Rapport AML",
+          "description": "Surveillance anti-blanchiment et analyse des transactions suspectes"
+        },
+        "transactionReport": {
+          "name": "Rapport d'activité des transactions",
+          "description": "Détail de l'activité des transactions réseau et du volume"
+        },
+        "validatorReport": {
+          "name": "Rapport de performance des validateurs",
+          "description": "Résumé de la disponibilité, des récompenses et des événements de slashing"
+        },
+        "financialStatement": {
+          "name": "État financier",
+          "description": "Solde de trésorerie, émission de tokens et statistiques de burn"
+        },
+        "fields": {
+          "totalMembers": "Total des membres",
+          "verified": "Vérifié",
+          "pending": "En attente",
+          "rejected": "Rejeté",
+          "tierDistribution": "Distribution par niveau",
+          "flaggedTransactions": "Transactions signalées",
+          "sarFiled": "SAR déposé",
+          "riskAssessment": "Évaluation des risques",
+          "countryBreakdown": "Répartition par pays",
+          "totalVolume": "Volume total",
+          "uniqueAddresses": "Adresses uniques",
+          "averageTxSize": "Taille moyenne TX",
+          "feeRevenue": "Revenus des frais",
+          "activeValidators": "Validateurs actifs",
+          "avgUptime": "Disponibilité moyenne",
+          "totalRewards": "Total des récompenses",
+          "slashingEvents": "Événements de slashing",
+          "treasuryBalance": "Solde de trésorerie",
+          "dailyEmission": "Émission quotidienne",
+          "totalBurned": "Total brûlé",
+          "netInflation": "Inflation nette"
+        }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "Résumé KYC hebdomadaire",
+        "monthlyAmlReport": "Rapport AML mensuel",
+        "dailyTransactionSummary": "Résumé des transactions quotidien",
+        "quarterlyValidatorReport": "Rapport des validateurs trimestriel"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Protection des données",
+          "financialReporting": "Rapports financiers",
+          "networkSecurity": "Sécurité réseau",
+          "operational": "Opérationnel"
+        },
+        "requirements": {
+          "identityVerification": "Tous les membres doivent compléter la vérification d'identité sous 30 jours",
+          "sarFiling": "Déclarations d'activités suspectes (SARs) déposées sous 72 heures",
+          "gdprCompliance": "Conformité RGPD pour le traitement des données des membres UE",
+          "encryptionAtRest": "Chiffrement au repos pour toutes les données sensibles",
+          "quarterlyStatements": "États financiers trimestriels soumis aux régulateurs",
+          "annualAudit": "Audit annuel par un tiers certifié",
+          "multiSig": "Exigence de multi-signature pour les transactions de trésorerie",
+          "validatorKyc": "KYC validateur pour l'adhésion au comité",
+          "disasterRecovery": "Plan de reprise après sinistre testé trimestriellement",
+          "incidentResponse": "Réponse aux incidents de sécurité sous 1 heure"
+        },
+        "notes": {
+          "complianceRate": "Taux de conformité de 98,5%",
+          "sarFiledOnTime": "Tous les SARs déposés à temps",
+          "annualAuditPassed": "Audit annuel réussi",
+          "aesEncryption": "Chiffrement AES-256 vérifié",
+          "q4ReportPreparation": "Rapport Q4 2025 en préparation",
+          "auditCleanOpinion": "Audit 2024 terminé - opinion favorable",
+          "multiSigActive": "Multisig 3-sur-5 actif",
+          "validatorsVerified": "Les 125 validateurs vérifiés",
+          "nextTestScheduled": "Prochain test prévu en décembre",
+          "monitoringActive": "Surveillance 24h/24 active"
+        }
+      },
+      "weeklyReports": "Rapports hebdomadaires",
+      "automatedReportDesc": "Planifications de génération automatique de rapports"
     },
     "staking": {
       "title": "Gestion du staking",

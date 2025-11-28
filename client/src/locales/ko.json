@@ -2728,6 +2728,9 @@
       "tier1Active": "Tier 1 - 활성 위원회",
       "tier2Standby": "Tier 2 - 대기",
       "tier3Delegators": "Tier 3 - 위임자",
+      "tier1Name": "Tier 1 - 활성 위원회",
+      "tier2Name": "Tier 2 - 대기",
+      "tier3Name": "Tier 3 - 위임자",
       "slashingRecords": "슬래싱 기록",
       "noSlashingRecords": "슬래싱 기록을 찾을 수 없음",
       "slashType": "슬래시 유형",
@@ -2981,6 +2984,47 @@
           "netInflation": "순 인플레이션"
         }
       },
+      "scheduled": {
+        "weeklyKycSummary": "주간 KYC 요약",
+        "monthlyAmlReport": "월간 AML 보고서",
+        "dailyTransactionSummary": "일일 트랜잭션 요약",
+        "quarterlyValidatorReport": "분기별 검증자 보고서"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "데이터 보호",
+          "financialReporting": "재무 보고",
+          "networkSecurity": "네트워크 보안",
+          "operational": "운영"
+        },
+        "requirements": {
+          "identityVerification": "모든 멤버는 30일 이내에 신원 확인을 완료해야 합니다",
+          "sarFiling": "의심 활동 보고서(SAR)는 72시간 이내에 제출해야 합니다",
+          "gdprCompliance": "EU 멤버 데이터 처리에 대한 GDPR 준수",
+          "encryptionAtRest": "모든 민감한 데이터에 대한 저장 시 암호화",
+          "quarterlyStatements": "분기별 재무제표를 규제 기관에 제출",
+          "annualAudit": "인증된 제3자에 의한 연간 감사",
+          "multiSig": "트레저리 거래에 대한 다중 서명 요구",
+          "validatorKyc": "위원회 멤버십을 위한 검증자 KYC",
+          "disasterRecovery": "분기별 재해 복구 계획 테스트",
+          "incidentResponse": "1시간 이내 보안 사고 대응"
+        },
+        "notes": {
+          "complianceRate": "98.5% 준수율",
+          "sarFiledOnTime": "모든 SAR이 정시에 제출됨",
+          "annualAuditPassed": "연간 감사 통과",
+          "aesEncryption": "AES-256 암호화 확인됨",
+          "q4ReportPreparation": "2025년 4분기 보고서 준비 중",
+          "auditCleanOpinion": "2024년 감사 완료 - 적정 의견",
+          "multiSigActive": "3/5 다중서명 활성화",
+          "validatorsVerified": "125명의 검증자 모두 확인됨",
+          "nextTestScheduled": "12월에 다음 테스트 예정",
+          "monitoringActive": "24/7 모니터링 활성화"
+        }
+      },
+      "weeklyReports": "주간 보고서",
+      "automatedReportDesc": "자동화된 보고서 생성 일정",
       "schedules": "일정",
       "compliance": "규정 준수",
       "totalReports": "총 보고서",

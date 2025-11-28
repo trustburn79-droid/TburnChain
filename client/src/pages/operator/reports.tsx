@@ -89,7 +89,7 @@ interface ReportTemplate {
 interface ScheduledReport {
   id: string;
   templateId: string;
-  name: string;
+  nameKey: string;
   frequency: string;
   nextRun: string;
   lastRun: string | null;
@@ -99,11 +99,11 @@ interface ScheduledReport {
 
 interface ComplianceItem {
   id: string;
-  category: string;
-  requirement: string;
+  categoryKey: string;
+  requirementKey: string;
   status: "compliant" | "non_compliant" | "pending" | "not_applicable";
   lastChecked: string;
-  notes: string;
+  notesKey: string;
 }
 
 const REPORT_TEMPLATES: ReportTemplate[] = [
@@ -153,7 +153,7 @@ const SCHEDULED_REPORTS: ScheduledReport[] = [
   {
     id: "sched_1",
     templateId: "kyc_summary",
-    name: "Weekly KYC Summary",
+    nameKey: "operator.reports.scheduled.weeklyKycSummary",
     frequency: "weekly",
     nextRun: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
     lastRun: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
@@ -163,7 +163,7 @@ const SCHEDULED_REPORTS: ScheduledReport[] = [
   {
     id: "sched_2",
     templateId: "aml_report",
-    name: "Monthly AML Report",
+    nameKey: "operator.reports.scheduled.monthlyAmlReport",
     frequency: "monthly",
     nextRun: new Date(Date.now() + 12 * 24 * 60 * 60 * 1000).toISOString(),
     lastRun: new Date(Date.now() - 18 * 24 * 60 * 60 * 1000).toISOString(),
@@ -173,7 +173,7 @@ const SCHEDULED_REPORTS: ScheduledReport[] = [
   {
     id: "sched_3",
     templateId: "transaction_report",
-    name: "Daily Transaction Summary",
+    nameKey: "operator.reports.scheduled.dailyTransactionSummary",
     frequency: "daily",
     nextRun: new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString(),
     lastRun: new Date(Date.now() - 16 * 60 * 60 * 1000).toISOString(),
@@ -183,7 +183,7 @@ const SCHEDULED_REPORTS: ScheduledReport[] = [
   {
     id: "sched_4",
     templateId: "validator_report",
-    name: "Quarterly Validator Report",
+    nameKey: "operator.reports.scheduled.quarterlyValidatorReport",
     frequency: "quarterly",
     nextRun: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000).toISOString(),
     lastRun: null,
@@ -195,83 +195,83 @@ const SCHEDULED_REPORTS: ScheduledReport[] = [
 const COMPLIANCE_ITEMS: ComplianceItem[] = [
   {
     id: "comp_1",
-    category: "KYC/AML",
-    requirement: "All members must complete identity verification within 30 days",
+    categoryKey: "operator.reports.compliance.categories.kycAml",
+    requirementKey: "operator.reports.compliance.requirements.identityVerification",
     status: "compliant",
     lastChecked: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "98.5% compliance rate",
+    notesKey: "operator.reports.compliance.notes.complianceRate",
   },
   {
     id: "comp_2",
-    category: "KYC/AML",
-    requirement: "Suspicious Activity Reports (SARs) filed within 72 hours",
+    categoryKey: "operator.reports.compliance.categories.kycAml",
+    requirementKey: "operator.reports.compliance.requirements.sarFiling",
     status: "compliant",
     lastChecked: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "All SARs filed on time",
+    notesKey: "operator.reports.compliance.notes.sarFiledOnTime",
   },
   {
     id: "comp_3",
-    category: "Data Protection",
-    requirement: "GDPR compliance for EU member data handling",
+    categoryKey: "operator.reports.compliance.categories.dataProtection",
+    requirementKey: "operator.reports.compliance.requirements.gdprCompliance",
     status: "compliant",
     lastChecked: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "Annual audit passed",
+    notesKey: "operator.reports.compliance.notes.annualAuditPassed",
   },
   {
     id: "comp_4",
-    category: "Data Protection",
-    requirement: "Encryption at rest for all sensitive data",
+    categoryKey: "operator.reports.compliance.categories.dataProtection",
+    requirementKey: "operator.reports.compliance.requirements.encryptionAtRest",
     status: "compliant",
     lastChecked: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "AES-256 encryption verified",
+    notesKey: "operator.reports.compliance.notes.aesEncryption",
   },
   {
     id: "comp_5",
-    category: "Financial Reporting",
-    requirement: "Quarterly financial statements submitted to regulators",
+    categoryKey: "operator.reports.compliance.categories.financialReporting",
+    requirementKey: "operator.reports.compliance.requirements.quarterlyStatements",
     status: "pending",
     lastChecked: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "Q4 2025 report in preparation",
+    notesKey: "operator.reports.compliance.notes.q4ReportPreparation",
   },
   {
     id: "comp_6",
-    category: "Financial Reporting",
-    requirement: "Annual audit by certified third party",
+    categoryKey: "operator.reports.compliance.categories.financialReporting",
+    requirementKey: "operator.reports.compliance.requirements.annualAudit",
     status: "compliant",
     lastChecked: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "2024 audit completed - clean opinion",
+    notesKey: "operator.reports.compliance.notes.auditCleanOpinion",
   },
   {
     id: "comp_7",
-    category: "Network Security",
-    requirement: "Multi-signature requirement for treasury transactions",
+    categoryKey: "operator.reports.compliance.categories.networkSecurity",
+    requirementKey: "operator.reports.compliance.requirements.multiSig",
     status: "compliant",
     lastChecked: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "3-of-5 multisig active",
+    notesKey: "operator.reports.compliance.notes.multiSigActive",
   },
   {
     id: "comp_8",
-    category: "Network Security",
-    requirement: "Validator KYC for committee membership",
+    categoryKey: "operator.reports.compliance.categories.networkSecurity",
+    requirementKey: "operator.reports.compliance.requirements.validatorKyc",
     status: "compliant",
     lastChecked: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "All 125 validators verified",
+    notesKey: "operator.reports.compliance.notes.validatorsVerified",
   },
   {
     id: "comp_9",
-    category: "Operational",
-    requirement: "Disaster recovery plan tested quarterly",
+    categoryKey: "operator.reports.compliance.categories.operational",
+    requirementKey: "operator.reports.compliance.requirements.disasterRecovery",
     status: "pending",
     lastChecked: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "Next test scheduled for December",
+    notesKey: "operator.reports.compliance.notes.nextTestScheduled",
   },
   {
     id: "comp_10",
-    category: "Operational",
-    requirement: "Security incident response within 1 hour",
+    categoryKey: "operator.reports.compliance.categories.operational",
+    requirementKey: "operator.reports.compliance.requirements.incidentResponse",
     status: "compliant",
     lastChecked: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-    notes: "24/7 monitoring active",
+    notesKey: "operator.reports.compliance.notes.monitoringActive",
   },
 ];
 
@@ -503,13 +503,13 @@ export default function OperatorReports() {
   }, [complianceItems]);
 
   const complianceByCategory = useMemo(() => {
-    const categories = [...new Set(complianceItems.map(i => i.category))];
-    return categories.map(cat => {
-      const items = complianceItems.filter(i => i.category === cat);
+    const categories = [...new Set(complianceItems.map(i => i.categoryKey))];
+    return categories.map(catKey => {
+      const items = complianceItems.filter(i => i.categoryKey === catKey);
       const compliant = items.filter(i => i.status === "compliant").length;
-      return { name: cat, value: compliant, total: items.length };
+      return { name: t(catKey), value: compliant, total: items.length };
     });
-  }, [complianceItems]);
+  }, [complianceItems, t]);
 
   const reportTypeDistribution = useMemo(() => {
     if (!data?.reports) return [];
@@ -906,7 +906,7 @@ export default function OperatorReports() {
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {getTemplateIcon(schedule.templateId)}
-                          <span className="font-medium">{schedule.name}</span>
+                          <span className="font-medium">{t(schedule.nameKey)}</span>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -1024,13 +1024,13 @@ export default function OperatorReports() {
                     {complianceItems.map((item) => (
                       <TableRow key={item.id} data-testid={`row-compliance-${item.id}`}>
                         <TableCell>
-                          <Badge variant="outline">{item.category}</Badge>
+                          <Badge variant="outline">{t(item.categoryKey)}</Badge>
                         </TableCell>
                         <TableCell>
                           <div>
-                            <p className="text-sm">{item.requirement}</p>
-                            {item.notes && (
-                              <p className="text-xs text-muted-foreground mt-1">{item.notes}</p>
+                            <p className="text-sm">{t(item.requirementKey)}</p>
+                            {item.notesKey && (
+                              <p className="text-xs text-muted-foreground mt-1">{t(item.notesKey)}</p>
                             )}
                           </div>
                         </TableCell>
@@ -1082,7 +1082,7 @@ export default function OperatorReports() {
                       }}
                       formatter={(value: number, name: string, props: any) => [
                         `${value}/${props.payload.total}`,
-                        "Compliant"
+                        t('operator.reports.compliant')
                       ]}
                     />
                     <Bar dataKey="value" fill="#10b981" radius={[0, 4, 4, 0]} />

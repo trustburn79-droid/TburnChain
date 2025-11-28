@@ -1966,6 +1966,9 @@
       "tier1Active": "المستوى 1 - اللجنة النشطة",
       "tier2Standby": "المستوى 2 - الاحتياطي",
       "tier3Delegators": "المستوى 3 - المفوضون",
+      "tier1Name": "المستوى 1 - اللجنة النشطة",
+      "tier2Name": "المستوى 2 - الاحتياطي",
+      "tier3Name": "المستوى 3 - المفوضون",
       "slashingRecords": "سجلات العقوبات",
       "noSlashingRecords": "لم يتم العثور على سجلات عقوبات",
       "slashType": "نوع العقوبة",
@@ -2289,7 +2292,93 @@
       "reportTemplate": "قالب التقرير",
       "recipientsCommaSeparated": "المستلمون (مفصولون بفواصل)",
       "recipientsPlaceholder": "email1@example.com، email2@example.com",
-      "createSchedule": "إنشاء الجدول"
+      "createSchedule": "إنشاء الجدول",
+      "templates": {
+        "kycSummary": {
+          "name": "ملخص KYC",
+          "description": "نظرة عامة على حالة التحقق من العضوية"
+        },
+        "amlReport": {
+          "name": "تقرير AML",
+          "description": "مراقبة نشاط مكافحة غسيل الأموال وتحليل المعاملات المشبوهة"
+        },
+        "transactionReport": {
+          "name": "تقرير نشاط المعاملات",
+          "description": "تفاصيل نشاط معاملات الشبكة وحجمها"
+        },
+        "validatorReport": {
+          "name": "تقرير أداء المدققين",
+          "description": "ملخص وقت التشغيل والمكافآت وأحداث العقوبات للمدققين"
+        },
+        "financialStatement": {
+          "name": "البيان المالي",
+          "description": "رصيد الخزينة وإصدار الرموز وإحصائيات الحرق"
+        },
+        "fields": {
+          "totalMembers": "إجمالي الأعضاء",
+          "verified": "تم التحقق",
+          "pending": "قيد الانتظار",
+          "rejected": "مرفوض",
+          "tierDistribution": "توزيع المستويات",
+          "flaggedTransactions": "المعاملات المشبوهة",
+          "sarFiled": "SAR مقدم",
+          "riskAssessment": "تقييم المخاطر",
+          "countryBreakdown": "توزيع حسب الدولة",
+          "totalVolume": "إجمالي الحجم",
+          "uniqueAddresses": "العناوين الفريدة",
+          "averageTxSize": "متوسط حجم المعاملة",
+          "feeRevenue": "إيرادات الرسوم",
+          "activeValidators": "المدققون النشطون",
+          "avgUptime": "متوسط وقت التشغيل",
+          "totalRewards": "إجمالي المكافآت",
+          "slashingEvents": "أحداث العقوبات",
+          "treasuryBalance": "رصيد الخزينة",
+          "dailyEmission": "الإصدار اليومي",
+          "totalBurned": "إجمالي المحروق",
+          "netInflation": "صافي التضخم"
+        }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "ملخص KYC الأسبوعي",
+        "monthlyAmlReport": "تقرير AML الشهري",
+        "dailyTransactionSummary": "ملخص المعاملات اليومي",
+        "quarterlyValidatorReport": "تقرير المدققين ربع السنوي"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "حماية البيانات",
+          "financialReporting": "التقارير المالية",
+          "networkSecurity": "أمن الشبكة",
+          "operational": "تشغيلي"
+        },
+        "requirements": {
+          "identityVerification": "يجب على جميع الأعضاء إكمال التحقق من الهوية خلال 30 يومًا",
+          "sarFiling": "تقارير النشاط المشبوه (SARs) تُقدم خلال 72 ساعة",
+          "gdprCompliance": "الامتثال لـ GDPR للتعامل مع بيانات أعضاء الاتحاد الأوروبي",
+          "encryptionAtRest": "التشفير أثناء الراحة لجميع البيانات الحساسة",
+          "quarterlyStatements": "البيانات المالية ربع السنوية تُقدم للجهات التنظيمية",
+          "annualAudit": "تدقيق سنوي من طرف ثالث معتمد",
+          "multiSig": "متطلب التوقيع المتعدد لمعاملات الخزينة",
+          "validatorKyc": "KYC المدقق لعضوية اللجنة",
+          "disasterRecovery": "اختبار خطة التعافي من الكوارث ربع سنويًا",
+          "incidentResponse": "الاستجابة لحوادث الأمن خلال ساعة واحدة"
+        },
+        "notes": {
+          "complianceRate": "معدل الامتثال 98.5%",
+          "sarFiledOnTime": "جميع تقارير SAR قُدمت في الوقت المحدد",
+          "annualAuditPassed": "اجتاز التدقيق السنوي",
+          "aesEncryption": "تم التحقق من تشفير AES-256",
+          "q4ReportPreparation": "تقرير الربع الرابع 2025 قيد الإعداد",
+          "auditCleanOpinion": "اكتمل تدقيق 2024 - رأي نظيف",
+          "multiSigActive": "توقيع متعدد 3 من 5 نشط",
+          "validatorsVerified": "تم التحقق من جميع المدققين الـ 125",
+          "nextTestScheduled": "الاختبار التالي مجدول في ديسمبر",
+          "monitoringActive": "المراقبة نشطة على مدار الساعة"
+        }
+      },
+      "weeklyReports": "التقارير الأسبوعية",
+      "automatedReportDesc": "جداول إنشاء التقارير الآلية"
     },
     "staking": {
       "title": "عمليات الستاكينغ",

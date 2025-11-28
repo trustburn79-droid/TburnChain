@@ -103,9 +103,9 @@ interface ValidatorPerformance {
 }
 
 const TIER_CONFIG = {
-  tier_1: { name: "Tier 1 - Active Committee", maxValidators: 512, minStake: 200000, targetApy: 8, poolShare: 50 },
-  tier_2: { name: "Tier 2 - Standby", maxValidators: 4488, minStake: 50000, targetApy: 4, poolShare: 30 },
-  tier_3: { name: "Tier 3 - Delegators", maxValidators: 1000000, minStake: 100, targetApy: 5, poolShare: 20 },
+  tier_1: { nameKey: "operator.validators.tier1Name", maxValidators: 512, minStake: 200000, targetApy: 8, poolShare: 50 },
+  tier_2: { nameKey: "operator.validators.tier2Name", maxValidators: 4488, minStake: 50000, targetApy: 4, poolShare: 30 },
+  tier_3: { nameKey: "operator.validators.tier3Name", maxValidators: 1000000, minStake: 100, targetApy: 5, poolShare: 20 },
 };
 
 const DAILY_EMISSION = 5000;
@@ -260,7 +260,7 @@ export default function OperatorValidators() {
     const effectiveApy = (yearlyReward / calcStake) * 100;
 
     return {
-      tierName: tierConfig.name,
+      tierNameKey: tierConfig.nameKey,
       minStake: tierConfig.minStake,
       targetApy: tierConfig.targetApy,
       dailyReward: dailyReward.toFixed(4),

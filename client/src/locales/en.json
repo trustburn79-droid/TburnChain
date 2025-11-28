@@ -2597,6 +2597,9 @@
       "tier1Active": "Tier 1 - Active Committee",
       "tier2Standby": "Tier 2 - Standby",
       "tier3Delegators": "Tier 3 - Delegators",
+      "tier1Name": "Tier 1 - Active Committee",
+      "tier2Name": "Tier 2 - Standby",
+      "tier3Name": "Tier 3 - Delegators",
       "slashingRecords": "Slashing Records",
       "noSlashingRecords": "No slashing records found",
       "slashType": "Slash Type",
@@ -2991,7 +2994,48 @@
           "totalBurned": "Total Burned",
           "netInflation": "Net Inflation"
         }
-      }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "Weekly KYC Summary",
+        "monthlyAmlReport": "Monthly AML Report",
+        "dailyTransactionSummary": "Daily Transaction Summary",
+        "quarterlyValidatorReport": "Quarterly Validator Report"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Data Protection",
+          "financialReporting": "Financial Reporting",
+          "networkSecurity": "Network Security",
+          "operational": "Operational"
+        },
+        "requirements": {
+          "identityVerification": "All members must complete identity verification within 30 days",
+          "sarFiling": "Suspicious Activity Reports (SARs) filed within 72 hours",
+          "gdprCompliance": "GDPR compliance for EU member data handling",
+          "encryptionAtRest": "Encryption at rest for all sensitive data",
+          "quarterlyStatements": "Quarterly financial statements submitted to regulators",
+          "annualAudit": "Annual audit by certified third party",
+          "multiSig": "Multi-signature requirement for treasury transactions",
+          "validatorKyc": "Validator KYC for committee membership",
+          "disasterRecovery": "Disaster recovery plan tested quarterly",
+          "incidentResponse": "Security incident response within 1 hour"
+        },
+        "notes": {
+          "complianceRate": "98.5% compliance rate",
+          "sarFiledOnTime": "All SARs filed on time",
+          "annualAuditPassed": "Annual audit passed",
+          "aesEncryption": "AES-256 encryption verified",
+          "q4ReportPreparation": "Q4 2025 report in preparation",
+          "auditCleanOpinion": "2024 audit completed - clean opinion",
+          "multiSigActive": "3-of-5 multisig active",
+          "validatorsVerified": "All 125 validators verified",
+          "nextTestScheduled": "Next test scheduled for December",
+          "monitoringActive": "24/7 monitoring active"
+        }
+      },
+      "weeklyReports": "Weekly Reports",
+      "automatedReportDesc": "Automated report generation schedules"
     },
 
     "staking": {

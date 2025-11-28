@@ -2202,7 +2202,13 @@
       "validatorUnjailed": "バリデーターが解放されました",
       "validatorStatusUpdated": "バリデーターステータスが更新されました",
       "actionFailed": "アクション失敗",
-      "failedToUpdateValidator": "バリデーターステータスの更新に失敗しました"
+      "failedToUpdateValidator": "バリデーターステータスの更新に失敗しました",
+      "tier1Active": "Tier 1 - アクティブ委員会",
+      "tier2Standby": "Tier 2 - スタンバイ",
+      "tier3Delegators": "Tier 3 - デリゲーター",
+      "tier1Name": "Tier 1 - アクティブ委員会",
+      "tier2Name": "Tier 2 - スタンバイ",
+      "tier3Name": "Tier 3 - デリゲーター"
     },
     "security": {
       "title": "セキュリティ監査",
@@ -2513,7 +2519,48 @@
           "totalBurned": "総バーン量",
           "netInflation": "純インフレ"
         }
-      }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "週次KYCサマリー",
+        "monthlyAmlReport": "月次AMLレポート",
+        "dailyTransactionSummary": "日次トランザクションサマリー",
+        "quarterlyValidatorReport": "四半期バリデーターレポート"
+      },
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "データ保護",
+          "financialReporting": "財務報告",
+          "networkSecurity": "ネットワークセキュリティ",
+          "operational": "運用"
+        },
+        "requirements": {
+          "identityVerification": "すべてのメンバーは30日以内に本人確認を完了する必要があります",
+          "sarFiling": "疑わしい活動報告（SAR）は72時間以内に提出する必要があります",
+          "gdprCompliance": "EUメンバーデータ処理のGDPRコンプライアンス",
+          "encryptionAtRest": "すべての機密データの静止時暗号化",
+          "quarterlyStatements": "四半期財務諸表を規制当局に提出",
+          "annualAudit": "認定第三者による年次監査",
+          "multiSig": "トレジャリー取引のマルチシグ要件",
+          "validatorKyc": "委員会メンバーシップのためのバリデーターKYC",
+          "disasterRecovery": "四半期災害復旧計画テスト",
+          "incidentResponse": "1時間以内のセキュリティインシデント対応"
+        },
+        "notes": {
+          "complianceRate": "98.5%のコンプライアンス率",
+          "sarFiledOnTime": "すべてのSARが期限内に提出",
+          "annualAuditPassed": "年次監査合格",
+          "aesEncryption": "AES-256暗号化確認済み",
+          "q4ReportPreparation": "2025年Q4レポート準備中",
+          "auditCleanOpinion": "2024年監査完了 - 無限定意見",
+          "multiSigActive": "3/5マルチシグ有効",
+          "validatorsVerified": "125名のバリデーター全員確認済み",
+          "nextTestScheduled": "次回テストは12月に予定",
+          "monitoringActive": "24/7モニタリング有効"
+        }
+      },
+      "weeklyReports": "週次レポート",
+      "automatedReportDesc": "自動レポート生成スケジュール"
     },
     "staking": {
       "title": "ステーキング運用",

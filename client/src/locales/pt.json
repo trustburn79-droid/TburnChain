@@ -871,7 +871,13 @@
       "totalValidators": "Total de Validadores",
       "avgUptime": "Uptime Médio",
       "totalBlocksProduced": "Total de Blocos Produzidos",
-      "totalRewardsEarned": "Total de Recompensas Ganhas"
+      "totalRewardsEarned": "Total de Recompensas Ganhas",
+      "tier1Active": "Tier 1 - Comitê Ativo",
+      "tier2Standby": "Tier 2 - Standby",
+      "tier3Delegators": "Tier 3 - Delegadores",
+      "tier1Name": "Tier 1 - Comitê Ativo",
+      "tier2Name": "Tier 2 - Standby",
+      "tier3Name": "Tier 3 - Delegadores"
     },
     "security": {
       "title": "Auditoria de Segurança",
@@ -913,7 +919,93 @@
       "draft": "Rascunho",
       "pendingReview": "Revisão Pendente",
       "approved": "Aprovado",
-      "submitted": "Enviado"
+      "submitted": "Enviado",
+      "templatesData": {
+        "kycSummary": {
+          "name": "Resumo KYC",
+          "description": "Visão geral do status de verificação de membros"
+        },
+        "amlReport": {
+          "name": "Relatório AML",
+          "description": "Monitoramento anti-lavagem de dinheiro e análise de transações suspeitas"
+        },
+        "transactionReport": {
+          "name": "Relatório de Atividade de Transações",
+          "description": "Detalhes da atividade de transações da rede e volume"
+        },
+        "validatorReport": {
+          "name": "Relatório de Desempenho de Validadores",
+          "description": "Resumo de uptime, recompensas e eventos de slashing dos validadores"
+        },
+        "financialStatement": {
+          "name": "Demonstração Financeira",
+          "description": "Saldo do tesouro, emissão de tokens e estatísticas de queima"
+        },
+        "fields": {
+          "totalMembers": "Total de Membros",
+          "verified": "Verificado",
+          "pending": "Pendente",
+          "rejected": "Rejeitado",
+          "tierDistribution": "Distribuição por Tier",
+          "flaggedTransactions": "Transações Sinalizadas",
+          "sarFiled": "SAR Arquivado",
+          "riskAssessment": "Avaliação de Risco",
+          "countryBreakdown": "Distribuição por País",
+          "totalVolume": "Volume Total",
+          "uniqueAddresses": "Endereços Únicos",
+          "averageTxSize": "Tamanho Médio TX",
+          "feeRevenue": "Receita de Taxas",
+          "activeValidators": "Validadores Ativos",
+          "avgUptime": "Uptime Médio",
+          "totalRewards": "Total de Recompensas",
+          "slashingEvents": "Eventos de Slashing",
+          "treasuryBalance": "Saldo do Tesouro",
+          "dailyEmission": "Emissão Diária",
+          "totalBurned": "Total Queimado",
+          "netInflation": "Inflação Líquida"
+        }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "Resumo KYC Semanal",
+        "monthlyAmlReport": "Relatório AML Mensal",
+        "dailyTransactionSummary": "Resumo de Transações Diário",
+        "quarterlyValidatorReport": "Relatório de Validadores Trimestral"
+      },
+      "complianceData": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Proteção de Dados",
+          "financialReporting": "Relatórios Financeiros",
+          "networkSecurity": "Segurança de Rede",
+          "operational": "Operacional"
+        },
+        "requirements": {
+          "identityVerification": "Todos os membros devem completar a verificação de identidade em 30 dias",
+          "sarFiling": "Relatórios de Atividade Suspeita (SARs) arquivados em 72 horas",
+          "gdprCompliance": "Conformidade GDPR para tratamento de dados de membros da UE",
+          "encryptionAtRest": "Criptografia em repouso para todos os dados sensíveis",
+          "quarterlyStatements": "Demonstrações financeiras trimestrais enviadas aos reguladores",
+          "annualAudit": "Auditoria anual por terceiro certificado",
+          "multiSig": "Requisito de multi-assinatura para transações do tesouro",
+          "validatorKyc": "KYC de validador para participação no comitê",
+          "disasterRecovery": "Plano de recuperação de desastres testado trimestralmente",
+          "incidentResponse": "Resposta a incidentes de segurança em 1 hora"
+        },
+        "notes": {
+          "complianceRate": "Taxa de conformidade de 98,5%",
+          "sarFiledOnTime": "Todos os SARs arquivados no prazo",
+          "annualAuditPassed": "Auditoria anual aprovada",
+          "aesEncryption": "Criptografia AES-256 verificada",
+          "q4ReportPreparation": "Relatório Q4 2025 em preparação",
+          "auditCleanOpinion": "Auditoria 2024 concluída - parecer limpo",
+          "multiSigActive": "Multisig 3-de-5 ativo",
+          "validatorsVerified": "Todos os 125 validadores verificados",
+          "nextTestScheduled": "Próximo teste agendado para dezembro",
+          "monitoringActive": "Monitoramento 24/7 ativo"
+        }
+      },
+      "weeklyReports": "Relatórios Semanais",
+      "automatedReportDesc": "Agendamentos de geração automática de relatórios"
     },
     "staking": {
       "title": "Operações de Staking",

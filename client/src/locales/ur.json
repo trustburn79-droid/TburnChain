@@ -871,7 +871,13 @@
       "totalValidators": "کل ویلیڈیٹرز",
       "avgUptime": "اوسط اپ ٹائم",
       "totalBlocksProduced": "کل بلاکس تیار کیے گئے",
-      "totalRewardsEarned": "کل انعامات حاصل کیے گئے"
+      "totalRewardsEarned": "کل انعامات حاصل کیے گئے",
+      "tier1Active": "ٹیئر 1 - فعال کمیٹی",
+      "tier2Standby": "ٹیئر 2 - اسٹینڈبائی",
+      "tier3Delegators": "ٹیئر 3 - ڈیلیگیٹرز",
+      "tier1Name": "ٹیئر 1 - فعال کمیٹی",
+      "tier2Name": "ٹیئر 2 - اسٹینڈبائی",
+      "tier3Name": "ٹیئر 3 - ڈیلیگیٹرز"
     },
     "security": {
       "title": "سیکورٹی آڈٹ",
@@ -913,7 +919,93 @@
       "draft": "مسودہ",
       "pendingReview": "جائزہ زیر التوا",
       "approved": "منظور شدہ",
-      "submitted": "جمع کرایا گیا"
+      "submitted": "جمع کرایا گیا",
+      "templatesData": {
+        "kycSummary": {
+          "name": "KYC خلاصہ",
+          "description": "اراکین کی تصدیق کی حیثیت کا جائزہ"
+        },
+        "amlReport": {
+          "name": "AML رپورٹ",
+          "description": "منی لانڈرنگ مخالف سرگرمی کی نگرانی اور مشکوک لین دین کا تجزیہ"
+        },
+        "transactionReport": {
+          "name": "لین دین کی سرگرمی رپورٹ",
+          "description": "نیٹ ورک لین دین کی سرگرمی اور حجم کی تفصیلات"
+        },
+        "validatorReport": {
+          "name": "ویلیڈیٹر کارکردگی رپورٹ",
+          "description": "ویلیڈیٹر اپ ٹائم، انعامات اور سلیشنگ ایونٹس کا خلاصہ"
+        },
+        "financialStatement": {
+          "name": "مالی بیان",
+          "description": "خزانے کا بیلنس، ٹوکن کا اجرا اور جلانے کے اعدادوشمار"
+        },
+        "fields": {
+          "totalMembers": "کل اراکین",
+          "verified": "تصدیق شدہ",
+          "pending": "زیر التوا",
+          "rejected": "مسترد",
+          "tierDistribution": "ٹیئر تقسیم",
+          "flaggedTransactions": "نشان زد لین دین",
+          "sarFiled": "SAR دائر",
+          "riskAssessment": "خطرے کی تشخیص",
+          "countryBreakdown": "ملک کے لحاظ سے تقسیم",
+          "totalVolume": "کل حجم",
+          "uniqueAddresses": "منفرد پتے",
+          "averageTxSize": "اوسط TX سائز",
+          "feeRevenue": "فیس آمدنی",
+          "activeValidators": "فعال ویلیڈیٹرز",
+          "avgUptime": "اوسط اپ ٹائم",
+          "totalRewards": "کل انعامات",
+          "slashingEvents": "سلیشنگ ایونٹس",
+          "treasuryBalance": "خزانے کا بیلنس",
+          "dailyEmission": "روزانہ اجرا",
+          "totalBurned": "کل جلایا گیا",
+          "netInflation": "خالص افراط زر"
+        }
+      },
+      "scheduled": {
+        "weeklyKycSummary": "ہفتہ وار KYC خلاصہ",
+        "monthlyAmlReport": "ماہانہ AML رپورٹ",
+        "dailyTransactionSummary": "روزانہ لین دین خلاصہ",
+        "quarterlyValidatorReport": "سہ ماہی ویلیڈیٹر رپورٹ"
+      },
+      "complianceData": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "ڈیٹا تحفظ",
+          "financialReporting": "مالی رپورٹنگ",
+          "networkSecurity": "نیٹ ورک سیکورٹی",
+          "operational": "آپریشنل"
+        },
+        "requirements": {
+          "identityVerification": "تمام اراکین کو 30 دنوں کے اندر شناخت کی تصدیق مکمل کرنی ہوگی",
+          "sarFiling": "مشکوک سرگرمی کی رپورٹس (SARs) 72 گھنٹوں کے اندر دائر",
+          "gdprCompliance": "EU اراکین کے ڈیٹا ہینڈلنگ کے لیے GDPR تعمیل",
+          "encryptionAtRest": "تمام حساس ڈیٹا کے لیے ریسٹ انکرپشن",
+          "quarterlyStatements": "سہ ماہی مالی بیانات ریگولیٹرز کو جمع کرائے گئے",
+          "annualAudit": "مصدقہ تیسرے فریق کی جانب سے سالانہ آڈٹ",
+          "multiSig": "خزانے کے لین دین کے لیے ملٹی سگنیچر کی ضرورت",
+          "validatorKyc": "کمیٹی رکنیت کے لیے ویلیڈیٹر KYC",
+          "disasterRecovery": "آفات سے بحالی کا منصوبہ سہ ماہی ٹیسٹ شدہ",
+          "incidentResponse": "1 گھنٹے کے اندر سیکورٹی واقعہ کا جواب"
+        },
+        "notes": {
+          "complianceRate": "98.5% تعمیل کی شرح",
+          "sarFiledOnTime": "تمام SARs وقت پر دائر",
+          "annualAuditPassed": "سالانہ آڈٹ پاس",
+          "aesEncryption": "AES-256 انکرپشن تصدیق شدہ",
+          "q4ReportPreparation": "Q4 2025 رپورٹ تیاری میں",
+          "auditCleanOpinion": "2024 آڈٹ مکمل - صاف رائے",
+          "multiSigActive": "3 میں سے 5 ملٹی سگ فعال",
+          "validatorsVerified": "تمام 125 ویلیڈیٹرز تصدیق شدہ",
+          "nextTestScheduled": "اگلا ٹیسٹ دسمبر میں طے شدہ",
+          "monitoringActive": "24/7 نگرانی فعال"
+        }
+      },
+      "weeklyReports": "ہفتہ وار رپورٹس",
+      "automatedReportDesc": "خودکار رپورٹ جنریشن شیڈولز"
     },
     "staking": {
       "title": "اسٹیکنگ آپریشنز",
