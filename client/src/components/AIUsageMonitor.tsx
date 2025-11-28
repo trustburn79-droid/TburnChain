@@ -8,6 +8,7 @@ import { useWebSocket } from "@/lib/websocket-context";
 import { Activity, AlertCircle, Bot, RefreshCw } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 interface AIProviderStats {
   provider: string;
@@ -43,6 +44,7 @@ export function AIUsageMonitor() {
   const [isSwitchingProvider, setIsSwitchingProvider] = useState(false);
   const { subscribeToEvent } = useWebSocket();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   // Fetch health status
   const fetchHealthStatus = async () => {
@@ -91,8 +93,8 @@ export function AIUsageMonitor() {
       await apiRequest('POST', '/api/admin/ai-usage/switch-provider', { provider });
       
       toast({
-        title: "Provider switched",
-        description: `Successfully switched to ${provider}`,
+        title: t('admin.ai.providerSwitched'),
+        description: t('admin.ai.providerSwitchedDesc', { provider }),
       });
       
       // Refresh stats
@@ -102,8 +104,8 @@ export function AIUsageMonitor() {
     } catch (error) {
       console.error('Error switching provider:', error);
       toast({
-        title: "Error",
-        description: "Failed to switch provider",
+        title: t('common.error'),
+        description: t('admin.ai.switchProviderFailed'),
         variant: "destructive",
       });
     } finally {
@@ -116,8 +118,8 @@ export function AIUsageMonitor() {
       await apiRequest('POST', '/api/admin/ai-usage/reset-limits', {});
       
       toast({
-        title: "Limits reset",
-        description: "Daily limits have been reset for all providers",
+        title: t('admin.ai.limitsReset'),
+        description: t('admin.ai.limitsResetDesc'),
       });
       
       // Refresh stats
@@ -127,8 +129,8 @@ export function AIUsageMonitor() {
     } catch (error) {
       console.error('Error resetting limits:', error);
       toast({
-        title: "Error",
-        description: "Failed to reset limits",
+        title: t('common.error'),
+        description: t('admin.ai.resetLimitsFailed'),
         variant: "destructive",
       });
     }
@@ -163,12 +165,12 @@ export function AIUsageMonitor() {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Bot className="h-5 w-5" />
-            AI Provider Usage & Status
+            {t('admin.ai.title')}
           </CardTitle>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="gap-1">
               <Activity className="h-3 w-3" />
-              Live Updates
+              {t('admin.ai.liveUpdates')}
             </Badge>
             <Button 
               size="sm" 
@@ -177,7 +179,7 @@ export function AIUsageMonitor() {
               data-testid="button-reset-limits"
             >
               <RefreshCw className="h-4 w-4 mr-1" />
-              Reset Limits
+              {t('admin.ai.resetLimits')}
             </Button>
           </div>
         </div>
@@ -185,7 +187,7 @@ export function AIUsageMonitor() {
       <CardContent className="space-y-4">
         {aiStats.length === 0 ? (
           <div className="text-center text-muted-foreground py-8">
-            Loading AI provider statistics...
+            {t('admin.ai.loading')}
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-3">
@@ -213,18 +215,18 @@ export function AIUsageMonitor() {
                               data-testid={`status-indicator-${provider.provider.toLowerCase()}`}
                               aria-label={
                                 healthStatus.get(provider.provider)?.isConnected 
-                                  ? 'API Connected' 
-                                  : 'API Disconnected'
+                                  ? t('admin.ai.apiConnected')
+                                  : t('admin.ai.apiDisconnected')
                               }
                             />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>
                               {healthStatus.get(provider.provider)?.isConnected 
-                                ? `Connected${healthStatus.get(provider.provider)?.averageResponseTime 
+                                ? `${t('admin.ai.connected')}${healthStatus.get(provider.provider)?.averageResponseTime 
                                     ? ` (${Math.round(healthStatus.get(provider.provider)!.averageResponseTime!)}ms)` 
                                     : ''}`
-                                : 'Disconnected'}
+                                : t('admin.ai.disconnected')}
                             </p>
                           </TooltipContent>
                         </Tooltip>
@@ -233,7 +235,7 @@ export function AIUsageMonitor() {
                     {provider.isRateLimited && (
                       <Badge variant="destructive" className="gap-1">
                         <AlertCircle className="h-3 w-3" />
-                        Rate Limited
+                        {t('admin.ai.rateLimited')}
                       </Badge>
                     )}
                   </div>
@@ -242,14 +244,14 @@ export function AIUsageMonitor() {
                   {/* Request Stats */}
                   <div className="space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Requests</span>
+                      <span className="text-muted-foreground">{t('admin.ai.requests')}</span>
                       <span className="font-mono">
                         {formatNumber(provider.successfulRequests)}/{formatNumber(provider.totalRequests)}
                       </span>
                     </div>
                     {provider.failedRequests > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Failed</span>
+                        <span className="text-muted-foreground">{t('admin.ai.failed')}</span>
                         <span className="font-mono text-destructive">
                           {formatNumber(provider.failedRequests)}
                         </span>
@@ -257,7 +259,7 @@ export function AIUsageMonitor() {
                     )}
                     {provider.rateLimitHits > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Rate Limit Hits</span>
+                        <span className="text-muted-foreground">{t('admin.ai.rateLimitHits')}</span>
                         <span className="font-mono text-yellow-500">
                           {formatNumber(provider.rateLimitHits)}
                         </span>
@@ -269,7 +271,7 @@ export function AIUsageMonitor() {
                   {provider.dailyLimit && provider.dailyUsage !== undefined && (
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Daily Usage</span>
+                        <span className="text-muted-foreground">{t('admin.ai.dailyUsage')}</span>
                         <span className="font-mono">
                           {formatNumber(provider.dailyUsage)}/{formatNumber(provider.dailyLimit)}
                         </span>
@@ -284,11 +286,11 @@ export function AIUsageMonitor() {
                   {/* Token & Cost */}
                   <div className="space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Tokens Used</span>
+                      <span className="text-muted-foreground">{t('admin.ai.tokensUsed')}</span>
                       <span className="font-mono">{formatNumber(provider.totalTokensUsed)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Total Cost</span>
+                      <span className="text-muted-foreground">{t('admin.ai.totalCost')}</span>
                       <span className="font-mono font-semibold">{formatCost(provider.totalCost)}</span>
                     </div>
                   </div>
@@ -303,14 +305,14 @@ export function AIUsageMonitor() {
                       disabled={isSwitchingProvider}
                       data-testid={`button-switch-${provider.provider.toLowerCase()}`}
                     >
-                      Use This Provider
+                      {t('admin.ai.useThisProvider')}
                     </Button>
                   )}
 
                   {/* Rate Limit Reset Time */}
                   {provider.isRateLimited && provider.rateLimitResetTime && (
                     <div className="text-xs text-center text-muted-foreground">
-                      Resets at: {new Date(provider.rateLimitResetTime).toLocaleTimeString()}
+                      {t('admin.ai.resetsAt', { time: new Date(provider.rateLimitResetTime).toLocaleTimeString() })}
                     </div>
                   )}
                 </CardContent>
@@ -328,25 +330,25 @@ export function AIUsageMonitor() {
                   <div className="text-2xl font-bold">
                     {formatNumber(aiStats.reduce((acc, p) => acc + p.totalRequests, 0))}
                   </div>
-                  <div className="text-xs text-muted-foreground">Total Requests</div>
+                  <div className="text-xs text-muted-foreground">{t('admin.ai.totalRequests')}</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold">
                     {formatNumber(aiStats.reduce((acc, p) => acc + p.totalTokensUsed, 0))}
                   </div>
-                  <div className="text-xs text-muted-foreground">Total Tokens</div>
+                  <div className="text-xs text-muted-foreground">{t('admin.ai.totalTokens')}</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold">
                     {formatCost(aiStats.reduce((acc, p) => acc + p.totalCost, 0))}
                   </div>
-                  <div className="text-xs text-muted-foreground">Total Cost</div>
+                  <div className="text-xs text-muted-foreground">{t('admin.ai.totalCostLabel')}</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold">
                     {aiStats.filter(p => !p.isRateLimited).length}/{aiStats.length}
                   </div>
-                  <div className="text-xs text-muted-foreground">Available Providers</div>
+                  <div className="text-xs text-muted-foreground">{t('admin.ai.availableProviders')}</div>
                 </div>
               </div>
             </CardContent>

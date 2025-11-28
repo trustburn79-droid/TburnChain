@@ -45,6 +45,7 @@ import {
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatDistanceToNow } from "date-fns";
+import { ko, zhCN, ja, enUS, hi, es, fr, ar, bn, ru, pt } from "date-fns/locale";
 import { useWebSocket } from "@/lib/websocket-context";
 import { AIUsageMonitor } from "@/components/AIUsageMonitor";
 
@@ -228,9 +229,42 @@ function useRestartMonitor() {
   };
 }
 
+// Map i18n language codes to date-fns locales
+const getDateLocale = (lang: string) => {
+  const localeMap: Record<string, typeof enUS> = {
+    en: enUS,
+    ko: ko,
+    zh: zhCN,
+    ja: ja,
+    hi: hi,
+    es: es,
+    fr: fr,
+    ar: ar,
+    bn: bn,
+    ru: ru,
+    pt: pt
+    // Note: 'ur' (Urdu) not available in date-fns, falls back to enUS
+  };
+  return localeMap[lang] || enUS;
+};
+
+// Map status to translation key
+const getStatusTranslationKey = (status: string): string => {
+  const statusMap: Record<string, string> = {
+    'active': 'admin.statusActive',
+    'paused': 'admin.statusPaused',
+    'degraded': 'admin.statusDegraded',
+    'restarting': 'admin.statusRestarting',
+    'offline': 'admin.statusOffline',
+    'rate-limited': 'admin.statusRateLimited'
+  };
+  return statusMap[status] || 'admin.statusUnknown';
+};
+
 export default function AdminPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
+  const dateLocale = getDateLocale(i18n.language);
   const [showRestartDialog, setShowRestartDialog] = useState(false);
   const [showHealthCheckDialog, setShowHealthCheckDialog] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
@@ -526,7 +560,7 @@ export default function AdminPage() {
                   ) : stats.source === "cached" || blocks.source === "cached" ? (
                     <span className="flex items-center gap-1">
                       <Database className="h-3 w-3 text-yellow-500" />
-                      {t('admin.usingCachedData', { time: lastLiveUpdate > 0 ? formatDistanceToNow(new Date(lastLiveUpdate)) : "Unknown" })}
+                      {t('admin.usingCachedData', { time: lastLiveUpdate > 0 ? formatDistanceToNow(new Date(lastLiveUpdate), { locale: dateLocale }) : t('common.unknown') })}
                     </span>
                   ) : isLive ? (
                     <span className="flex items-center gap-1">
@@ -543,7 +577,7 @@ export default function AdminPage() {
               </div>
             </div>
             <Badge className={statusBadge.className} data-testid="badge-status">
-              {health.status.toUpperCase()}
+              {t(getStatusTranslationKey(health.status))}
             </Badge>
           </div>
         </CardHeader>
@@ -559,7 +593,7 @@ export default function AdminPage() {
                     </p>
                     <p className="text-xs text-muted-foreground">
                       {!blocks.data || blocks.source === "failed" ? t('admin.noData') : 
-                       health.lastBlockTime > 0 ? formatDistanceToNow(new Date(health.lastBlockTime * 1000), { addSuffix: true }) : "N/A"}
+                       health.lastBlockTime > 0 ? formatDistanceToNow(new Date(health.lastBlockTime * 1000), { addSuffix: true, locale: dateLocale }) : t('common.na')}
                     </p>
                   </div>
                   <Database className="h-8 w-8 text-muted-foreground" />
@@ -653,7 +687,7 @@ export default function AdminPage() {
                         {t('admin.failureCount', { count: failureHistory.length })}
                       </span>
                       {stats.source === "cached" || blocks.source === "cached" ? 
-                        ` - ${t('admin.usingCachedFromAgo', { time: formatDistanceToNow(new Date(lastLiveUpdate)) })}` :
+                        ` - ${t('admin.usingCachedFromAgo', { time: formatDistanceToNow(new Date(lastLiveUpdate), { locale: dateLocale }) })}` :
                         ` - ${t('admin.noCachedData')}`}
                     </p>
                   )}
