@@ -852,6 +852,7 @@ function TokenTemplatesPreview({ onSelectTemplate }: { onSelectTemplate: () => v
 }
 
 function EnterpriseTokenCreationWizard() {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [selectedStandard, setSelectedStandard] = useState<TokenStandardType | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<TokenTemplate | null>(null);
