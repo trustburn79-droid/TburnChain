@@ -3009,6 +3009,8 @@
       "geographicAnalysis": "Análisis Geográfico",
       "threatSourcesByCountry": "Fuentes de amenazas por país",
       "percentOfTotal": "% del Total",
+      "country": "País",
+      "riskLevel": "Nivel de Riesgo",
       "adminAuditLogs": "Logs de Auditoría de Admin",
       "action": "Acción",
       "risk": "Riesgo",

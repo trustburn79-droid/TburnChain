@@ -2275,6 +2275,8 @@
       "geographicAnalysis": "التحليل الجغرافي",
       "threatSourcesByCountry": "مصادر التهديدات حسب البلد",
       "percentOfTotal": "% من الإجمالي",
+      "country": "البلد",
+      "riskLevel": "مستوى المخاطر",
       "adminAuditLogs": "سجلات تدقيق المسؤول",
       "action": "الإجراء",
       "risk": "المخاطر",
