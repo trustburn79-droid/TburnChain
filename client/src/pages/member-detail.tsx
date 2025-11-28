@@ -269,17 +269,17 @@ export default function MemberDetailPage() {
               <Badge className={`${tierColors[member.memberTier]} text-white`}>
                 <span className="flex items-center gap-1">
                   {getTierIcon(member.memberTier)}
-                  {member.memberTier.replace(/_/g, " ").toUpperCase()}
+                  {t(`members.tiers.${member.memberTier}`)}
                 </span>
               </Badge>
               <Badge className={`${statusColors[member.memberStatus]} text-white`}>
                 <span className="flex items-center gap-1">
                   {getStatusIcon(member.memberStatus)}
-                  {member.memberStatus.replace(/_/g, " ").toUpperCase()}
+                  {t(`members.statuses.${member.memberStatus}`)}
                 </span>
               </Badge>
               <Badge className={`${kycColors[member.kycLevel]} text-white`}>
-                KYC: {member.kycLevel.toUpperCase()}
+                {t('members.kycLabel')}: {t(`members.kycLevels.${member.kycLevel}`)}
               </Badge>
             </div>
           </div>

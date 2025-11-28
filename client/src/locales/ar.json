@@ -199,7 +199,33 @@
     "blockBeingGenerated": "الكتلة قيد الإنشاء حالياً.",
     "transactionsInBlock": "المعاملات في الكتلة",
     "transactionsDescription": "جميع المعاملات المضمنة في هذه الكتلة",
-    "noTransactions": "لا توجد معاملات في هذه الكتلة"
+    "noTransactions": "لا توجد معاملات في هذه الكتلة",
+    "shard0Primary": "الجزء 0 - الرئيسي",
+    "shard1Secondary": "الجزء 1 - الثانوي",
+    "shard2Tertiary": "الجزء 2 - الثالثي",
+    "shard3Quaternary": "الجزء 3 - الرباعي",
+    "shardWithId": "الجزء {{id}}",
+    "noResultsFound": "لم يتم العثور على نتائج",
+    "tryDifferentSearchTerm": "جرب مصطلح بحث مختلف",
+    "foundBlocks": "تم العثور على {{count}} كتل",
+    "resultsFiltered": "تمت تصفية النتائج بناءً على بحثك",
+    "searchFailed": "فشل البحث",
+    "failedToSearchBlocks": "فشل البحث عن الكتل",
+    "noBlocksFound": "لم يتم العثور على كتل",
+    "noBlocksMatchFilters": "لا توجد كتل تطابق الفلاتر الحالية. حاول تعديل المعايير.",
+    "waitingForBlockProduction": "لم يتم إنشاء أي كتل بعد. في انتظار إنتاج الكتل...",
+    "clearFilters": "مسح الفلاتر",
+    "validatorLabel": "المدقق",
+    "allValidators": "جميع المدققين",
+    "shardLabel": "الجزء",
+    "allShards": "جميع الأجزاء",
+    "hashAlgorithmLabel": "خوارزمية الهاش",
+    "allAlgorithms": "جميع الخوارزميات",
+    "clearAll": "مسح الكل",
+    "applyFilters": "تطبيق الفلاتر",
+    "activeFilters": "الفلاتر النشطة:",
+    "lastUpdate": "آخر تحديث:",
+    "failedToLoadBlocks": "فشل تحميل الكتل:"
   },
   "transactions": {
     "title": "مستكشف المعاملات",
@@ -445,7 +471,30 @@
     "refreshMember": "تحديث العضو",
     "editMember": "تحرير العضو",
     "suspendMember": "تعليق العضو",
-    "activateMember": "تفعيل العضو"
+    "activateMember": "تفعيل العضو",
+    "kycLabel": "KYC",
+    "tiers": {
+      "basic_user": "مستخدم أساسي",
+      "staker": "مراهن",
+      "active_validator": "مدقق نشط",
+      "inactive_validator": "مدقق غير نشط",
+      "genesis_validator": "مدقق التكوين",
+      "enterprise_validator": "مدقق المؤسسات",
+      "governance_validator": "مدقق الحوكمة"
+    },
+    "statuses": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "suspended": "معلق",
+      "pending_kyc": "KYC قيد الانتظار"
+    },
+    "kycLevels": {
+      "none": "لا شيء",
+      "basic": "أساسي",
+      "advanced": "متقدم",
+      "institutional": "مؤسسي"
+    },
+    "profile": "الملف الشخصي"
   },
   "staking": {
     "title": "لوحة الستاكينغ",
@@ -502,7 +551,14 @@
     "days": "أيام",
     "stakeSuccessful": "تم الستاكينغ بنجاح",
     "stakeFailed": "فشل الستاكينغ",
-    "rewardsCalculated": "تم حساب المكافآت"
+    "rewardsCalculated": "تم حساب المكافآت",
+    "preset1k": "1K",
+    "preset10k": "10K",
+    "validatorTburnGenesis": "TBURN جينيسيس",
+    "validatorEnterpriseNode": "عقدة المؤسسة",
+    "validatorMainnetAlpha": "ماينت ألفا",
+    "validatorCoreValidator": "المدقق الأساسي",
+    "poolId": "معرف المجمع"
   },
   "stakingRewards": {
     "title": "مركز المكافآت",
@@ -553,7 +609,10 @@
     "validator": "المدقق",
     "slashed": "معاقب",
     "noSlashingEvents": "لا توجد أحداث عقوبات",
-    "noSlashingEventsDesc": "حافظ مدققوك على سلوك ممتاز."
+    "noSlashingEventsDesc": "حافظ مدققوك على سلوك ممتاز.",
+    "ready": "جاهز",
+    "daysHours": "{{days}}ي {{hours}}س",
+    "hoursRemaining": "{{hours}}س"
   },
   "stakingSdk": {
     "title": "SDK المحفظة وأدوات التطوير",
@@ -591,7 +650,21 @@
     "executeRequest": "تنفيذ الطلب",
     "response": "الاستجابة",
     "copied": "تم النسخ",
-    "codeCopied": "تم نسخ الكود إلى الحافظة"
+    "codeCopied": "تم نسخ الكود إلى الحافظة",
+    "version": "v2.1.0",
+    "npm": "NPM",
+    "github": "GitHub",
+    "apiGetAllPools": "الحصول على جميع مجمعات الستاكينغ",
+    "apiGetPoolById": "الحصول على مجمع ستاكينغ محدد بالمعرف",
+    "apiGetPositions": "الحصول على مراكز الستاكينغ",
+    "apiGetDelegations": "الحصول على تفويضات الستاكينغ",
+    "apiGetUnbonding": "الحصول على طلبات فك الربط",
+    "apiGetRewardsCurrent": "الحصول على دورة المكافآت الحالية",
+    "apiGetRewardsCycles": "الحصول على تاريخ دورات المكافآت",
+    "apiGetRewardsEvents": "الحصول على أحداث المكافآت",
+    "apiGetSlashing": "الحصول على أحداث العقوبات",
+    "apiGetTiers": "الحصول على تكوين المستويات",
+    "apiGetStats": "الحصول على إحصائيات الستاكينغ"
   },
   "stakingPoolDetail": {
     "title": "تفاصيل مجمع الستاكينغ",
@@ -625,7 +698,12 @@
     "recentPositions": "المراكز الأخيرة",
     "topStakers": "أفضل المراهنين",
     "poolHistory": "سجل المجمع",
-    "addressCopied": "تم نسخ العنوان إلى الحافظة"
+    "addressCopied": "تم نسخ العنوان إلى الحافظة",
+    "defaultValidator": "مدقق TBURN",
+    "poolIdLabel": "معرف المجمع",
+    "max": "الحد الأقصى",
+    "noPositions": "لا يوجد مراهنون بعد",
+    "firstStaker": "كن أول مراهن في هذا المجمع"
   },
   "tokenSystem": {
     "title": "نظام الرموز v4.0",

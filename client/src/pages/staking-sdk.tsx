@@ -205,67 +205,67 @@ const apiEndpoints = [
   {
     method: "GET",
     endpoint: "/api/staking/pools",
-    description: "Get all staking pools",
+    descriptionKey: "apiGetAllPools",
     params: "?type=public|private&tier=bronze|silver|gold|platinum|diamond"
   },
   {
     method: "GET",
     endpoint: "/api/staking/pools/:id",
-    description: "Get a specific staking pool by ID",
+    descriptionKey: "apiGetPoolById",
     params: ""
   },
   {
     method: "GET",
     endpoint: "/api/staking/positions",
-    description: "Get staking positions",
+    descriptionKey: "apiGetPositions",
     params: "?address=0x...&poolId=..."
   },
   {
     method: "GET",
     endpoint: "/api/staking/delegations",
-    description: "Get staking delegations",
+    descriptionKey: "apiGetDelegations",
     params: "?address=0x...&validatorId=..."
   },
   {
     method: "GET",
     endpoint: "/api/staking/unbonding",
-    description: "Get unbonding requests",
+    descriptionKey: "apiGetUnbonding",
     params: "?address=0x..."
   },
   {
     method: "GET",
     endpoint: "/api/staking/rewards/current",
-    description: "Get current reward cycle",
+    descriptionKey: "apiGetRewardsCurrent",
     params: ""
   },
   {
     method: "GET",
     endpoint: "/api/staking/rewards/cycles",
-    description: "Get reward cycle history",
+    descriptionKey: "apiGetRewardsCycles",
     params: "?limit=50"
   },
   {
     method: "GET",
     endpoint: "/api/staking/rewards/events",
-    description: "Get reward events",
+    descriptionKey: "apiGetRewardsEvents",
     params: "?address=0x...&cycleId=...&limit=100"
   },
   {
     method: "GET",
     endpoint: "/api/staking/slashing",
-    description: "Get slashing events",
+    descriptionKey: "apiGetSlashing",
     params: "?validatorId=...&limit=50"
   },
   {
     method: "GET",
     endpoint: "/api/staking/tiers",
-    description: "Get tier configuration",
+    descriptionKey: "apiGetTiers",
     params: ""
   },
   {
     method: "GET",
     endpoint: "/api/staking/stats",
-    description: "Get staking statistics",
+    descriptionKey: "apiGetStats",
     params: ""
   }
 ];
@@ -297,15 +297,15 @@ export default function StakingSDK() {
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="flex items-center gap-1">
             <Package className="h-3 w-3" />
-            v2.1.0
+            {t('stakingSdk.version')}
           </Badge>
           <Button variant="outline" size="sm" data-testid="button-npm">
             <ExternalLink className="h-4 w-4 mr-1" />
-            NPM
+            {t('stakingSdk.npm')}
           </Button>
           <Button variant="outline" size="sm" data-testid="button-github">
             <GitBranch className="h-4 w-4 mr-1" />
-            GitHub
+            {t('stakingSdk.github')}
           </Button>
         </div>
       </div>
@@ -655,7 +655,7 @@ export default function StakingSDK() {
                         {endpoint.params && (
                           <code className="text-xs text-muted-foreground ml-1">{endpoint.params}</code>
                         )}
-                        <p className="text-sm text-muted-foreground mt-1">{endpoint.description}</p>
+                        <p className="text-sm text-muted-foreground mt-1">{t(`stakingSdk.${endpoint.descriptionKey}`)}</p>
                       </div>
                       <Button variant="ghost" size="sm">
                         <Copy className="h-4 w-4" />

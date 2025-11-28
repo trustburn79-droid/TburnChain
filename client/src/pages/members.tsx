@@ -236,13 +236,13 @@ function MemberDetailModal({
                 <Badge className={`${tierColors[member.memberTier]} text-white`}>
                   <span className="flex items-center gap-1">
                     {getTierIconUtil(member.memberTier)}
-                    {member.memberTier.replace(/_/g, " ").toUpperCase()}
+                    {t(`members.tiers.${member.memberTier}`)}
                   </span>
                 </Badge>
                 <Badge className={`${statusColors[member.memberStatus]} text-white`}>
                   <span className="flex items-center gap-1">
                     {getStatusIconUtil(member.memberStatus)}
-                    {member.memberStatus.replace(/_/g, " ").toUpperCase()}
+                    {t(`members.statuses.${member.memberStatus}`)}
                   </span>
                 </Badge>
               </div>
@@ -268,7 +268,7 @@ function MemberDetailModal({
                         <span className="text-xs text-muted-foreground">{t('members.kycLevel')}</span>
                       </div>
                       <Badge className={`${kycColors[member.kycLevel]} text-white mt-1`}>
-                        {member.kycLevel.toUpperCase()}
+                        {t(`members.kycLevels.${member.kycLevel}`)}
                       </Badge>
                     </CardContent>
                   </Card>
@@ -1104,7 +1104,7 @@ export default function MembersPage() {
                           <Badge className={`${tierColors[member.memberTier]} text-white`}>
                             <span className="flex items-center gap-1">
                               {getTierIcon(member.memberTier)}
-                              {member.memberTier.replace(/_/g, " ").toUpperCase()}
+                              {t(`members.tiers.${member.memberTier}`)}
                             </span>
                           </Badge>
                         </TableCell>
@@ -1112,13 +1112,13 @@ export default function MembersPage() {
                           <Badge className={`${statusColors[member.memberStatus]} text-white`}>
                             <span className="flex items-center gap-1">
                               {getStatusIcon(member.memberStatus)}
-                              {member.memberStatus.replace(/_/g, " ").toUpperCase()}
+                              {t(`members.statuses.${member.memberStatus}`)}
                             </span>
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <Badge className={`${kycColors[member.kycLevel]} text-white`}>
-                            {member.kycLevel.toUpperCase()}
+                            {t(`members.kycLevels.${member.kycLevel}`)}
                           </Badge>
                         </TableCell>
                         <TableCell>

@@ -299,7 +299,33 @@
     "blockBeingGenerated": "Le bloc est en cours de génération.",
     "transactionsInBlock": "Transactions dans le bloc",
     "transactionsDescription": "Toutes les transactions incluses dans ce bloc",
-    "noTransactions": "Aucune transaction dans ce bloc"
+    "noTransactions": "Aucune transaction dans ce bloc",
+    "shard0Primary": "Shard 0 - Principal",
+    "shard1Secondary": "Shard 1 - Secondaire",
+    "shard2Tertiary": "Shard 2 - Tertiaire",
+    "shard3Quaternary": "Shard 3 - Quaternaire",
+    "shardWithId": "Shard {{id}}",
+    "noResultsFound": "Aucun résultat trouvé",
+    "tryDifferentSearchTerm": "Essayez un autre terme de recherche",
+    "foundBlocks": "{{count}} blocs trouvés",
+    "resultsFiltered": "Résultats filtrés selon votre recherche",
+    "searchFailed": "Échec de la recherche",
+    "failedToSearchBlocks": "Échec de la recherche de blocs",
+    "noBlocksFound": "Aucun bloc trouvé",
+    "noBlocksMatchFilters": "Aucun bloc ne correspond aux filtres actuels. Essayez d'ajuster vos critères.",
+    "waitingForBlockProduction": "Aucun bloc n'a encore été créé. En attente de production de blocs...",
+    "clearFilters": "Effacer les filtres",
+    "validatorLabel": "Validateur",
+    "allValidators": "Tous les validateurs",
+    "shardLabel": "Shard",
+    "allShards": "Tous les shards",
+    "hashAlgorithmLabel": "Algorithme de hash",
+    "allAlgorithms": "Tous les algorithmes",
+    "clearAll": "Tout effacer",
+    "applyFilters": "Appliquer les filtres",
+    "activeFilters": "Filtres actifs :",
+    "lastUpdate": "Dernière mise à jour :",
+    "failedToLoadBlocks": "Échec du chargement des blocs :"
   },
   "transactions": {
     "title": "Explorateur de transactions",
@@ -629,7 +655,30 @@
     "stakingRewardsCalculator": "Calculateur de récompenses de staking",
     "calculatorDesc": "Estimez vos gains potentiels selon le montant staké et la sélection du pool",
     "max": "MAX",
-    "recentStakingActivity": "Activité de staking récente"
+    "recentStakingActivity": "Activité de staking récente",
+    "stakePool": "{{action}} - Pool {{pool}}",
+    "minAgo": "il y a {{min}} min",
+    "rewardCycles": "Cycles de récompenses",
+    "active": "Actif",
+    "completed": "Terminé",
+    "cycle": "Cycle #{{number}}",
+    "totalDistributed": "Total distribué",
+    "participants": "Participants",
+    "stakeTburn": "Staker TBURN",
+    "stakeDialogDesc": "Stakez vos tokens TBURN dans {{pool}} pour gagner des récompenses",
+    "pool": "Pool",
+    "baseApyLabel": "APY de base :",
+    "lockPeriodLabel": "Période de verrouillage :",
+    "daysText": "{{days}} jours",
+    "staking": "Staking en cours...",
+    "apy": "APY",
+    "preset1k": "1K",
+    "preset10k": "10K",
+    "validatorTburnGenesis": "TBURN Genèse",
+    "validatorEnterpriseNode": "Nœud Entreprise",
+    "validatorMainnetAlpha": "Mainnet Alpha",
+    "validatorCoreValidator": "Validateur Core",
+    "poolId": "ID du Pool"
   },
   "stakingRewards": {
     "title": "Centre de récompenses",
@@ -680,7 +729,10 @@
     "validator": "Validateur",
     "slashed": "Slashé",
     "noSlashingEvents": "Aucun événement de slashing",
-    "noSlashingEventsDesc": "Vos validateurs maintiennent un excellent comportement."
+    "noSlashingEventsDesc": "Vos validateurs maintiennent un excellent comportement.",
+    "ready": "Prêt",
+    "daysHours": "{{days}}j {{hours}}h",
+    "hoursRemaining": "{{hours}}h"
   },
   "stakingSdk": {
     "title": "SDK Portefeuille & Outils de développement",
@@ -718,7 +770,21 @@
     "executeRequest": "Exécuter la requête",
     "response": "Réponse",
     "copied": "Copié",
-    "codeCopied": "Code copié dans le presse-papiers"
+    "codeCopied": "Code copié dans le presse-papiers",
+    "version": "v2.1.0",
+    "npm": "NPM",
+    "github": "GitHub",
+    "apiGetAllPools": "Obtenir tous les pools de staking",
+    "apiGetPoolById": "Obtenir un pool de staking spécifique par ID",
+    "apiGetPositions": "Obtenir les positions de staking",
+    "apiGetDelegations": "Obtenir les délégations de staking",
+    "apiGetUnbonding": "Obtenir les demandes de débondage",
+    "apiGetRewardsCurrent": "Obtenir le cycle de récompenses actuel",
+    "apiGetRewardsCycles": "Obtenir l'historique des cycles de récompenses",
+    "apiGetRewardsEvents": "Obtenir les événements de récompenses",
+    "apiGetSlashing": "Obtenir les événements de slashing",
+    "apiGetTiers": "Obtenir la configuration des niveaux",
+    "apiGetStats": "Obtenir les statistiques de staking"
   },
   "tokenSystem": {
     "title": "Système de tokens v4.0",
@@ -2855,7 +2921,30 @@
     "tableHeaderJoined": "Inscrit",
     "invalidAccountAddress": "Adresse de compte invalide",
     "displayNameMinLength": "Le nom d'affichage doit avoir au moins 2 caractères",
-    "invalidEmailAddress": "Adresse email invalide"
+    "invalidEmailAddress": "Adresse email invalide",
+    "kycLabel": "KYC",
+    "tiers": {
+      "basic_user": "UTILISATEUR BASIQUE",
+      "staker": "STAKER",
+      "active_validator": "VALIDATEUR ACTIF",
+      "inactive_validator": "VALIDATEUR INACTIF",
+      "genesis_validator": "VALIDATEUR GENÈSE",
+      "enterprise_validator": "VALIDATEUR ENTREPRISE",
+      "governance_validator": "VALIDATEUR GOUVERNANCE"
+    },
+    "statuses": {
+      "active": "ACTIF",
+      "inactive": "INACTIF",
+      "suspended": "SUSPENDU",
+      "pending_kyc": "KYC EN ATTENTE"
+    },
+    "kycLevels": {
+      "none": "AUCUN",
+      "basic": "BASIQUE",
+      "advanced": "AVANCÉ",
+      "institutional": "INSTITUTIONNEL"
+    },
+    "profile": "Profil"
   },
   "stakingPoolDetail": {
     "title": "Détails du pool de staking",
@@ -2889,7 +2978,12 @@
     "recentPositions": "Positions récentes",
     "topStakers": "Top stakers",
     "poolHistory": "Historique du pool",
-    "addressCopied": "Adresse copiée dans le presse-papiers"
+    "addressCopied": "Adresse copiée dans le presse-papiers",
+    "defaultValidator": "Validateur TBURN",
+    "poolIdLabel": "ID du Pool",
+    "max": "MAX",
+    "noPositions": "Pas encore de stakers",
+    "firstStaker": "Soyez le premier à staker dans ce pool"
   },
   "apiKeys": {
     "title": "Clés API",

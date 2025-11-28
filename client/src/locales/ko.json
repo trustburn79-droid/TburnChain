@@ -301,7 +301,33 @@
     "blockBeingGenerated": "블록이 현재 생성 중입니다.",
     "transactionsInBlock": "블록의 트랜잭션",
     "transactionsDescription": "이 블록에 포함된 모든 트랜잭션",
-    "noTransactions": "이 블록에 트랜잭션이 없습니다"
+    "noTransactions": "이 블록에 트랜잭션이 없습니다",
+    "shard0Primary": "샤드 0 - 프라이머리",
+    "shard1Secondary": "샤드 1 - 세컨더리",
+    "shard2Tertiary": "샤드 2 - 터셔리",
+    "shard3Quaternary": "샤드 3 - 쿼터너리",
+    "shardWithId": "샤드 {{id}}",
+    "noResultsFound": "결과를 찾을 수 없습니다",
+    "tryDifferentSearchTerm": "다른 검색어를 시도해 보세요",
+    "foundBlocks": "{{count}}개의 블록을 찾았습니다",
+    "resultsFiltered": "검색에 따라 결과가 필터링되었습니다",
+    "searchFailed": "검색 실패",
+    "failedToSearchBlocks": "블록 검색에 실패했습니다",
+    "noBlocksFound": "블록을 찾을 수 없음",
+    "noBlocksMatchFilters": "현재 필터와 일치하는 블록이 없습니다. 조건을 조정해 보세요.",
+    "waitingForBlockProduction": "아직 생성된 블록이 없습니다. 블록 생성을 기다리는 중...",
+    "clearFilters": "필터 지우기",
+    "validatorLabel": "검증자",
+    "allValidators": "모든 검증자",
+    "shardLabel": "샤드",
+    "allShards": "모든 샤드",
+    "hashAlgorithmLabel": "해시 알고리즘",
+    "allAlgorithms": "모든 알고리즘",
+    "clearAll": "모두 지우기",
+    "applyFilters": "필터 적용",
+    "activeFilters": "활성 필터:",
+    "lastUpdate": "마지막 업데이트:",
+    "failedToLoadBlocks": "블록 로드 실패:"
   },
   "transactions": {
     "title": "트랜잭션 익스플로러",
@@ -647,7 +673,14 @@
     "lockPeriodLabel": "잠금 기간:",
     "daysText": "{{days}}일",
     "staking": "스테이킹 중...",
-    "apy": "APY"
+    "apy": "APY",
+    "preset1k": "1K",
+    "preset10k": "10K",
+    "validatorTburnGenesis": "TBURN 제네시스",
+    "validatorEnterpriseNode": "엔터프라이즈 노드",
+    "validatorMainnetAlpha": "메인넷 알파",
+    "validatorCoreValidator": "코어 검증자",
+    "poolId": "풀 ID"
   },
   "stakingRewards": {
     "title": "리워드 센터",
@@ -698,7 +731,10 @@
     "validator": "검증자",
     "slashed": "슬래싱됨",
     "noSlashingEvents": "슬래싱 이벤트 없음",
-    "noSlashingEventsDesc": "검증자들이 우수한 행동을 유지하고 있습니다."
+    "noSlashingEventsDesc": "검증자들이 우수한 행동을 유지하고 있습니다.",
+    "ready": "준비됨",
+    "daysHours": "{{days}}일 {{hours}}시간",
+    "hoursRemaining": "{{hours}}시간"
   },
   "stakingSdk": {
     "title": "지갑 SDK & 개발 도구",
@@ -736,7 +772,21 @@
     "executeRequest": "요청 실행",
     "response": "응답",
     "copied": "복사됨",
-    "codeCopied": "코드가 클립보드에 복사되었습니다"
+    "codeCopied": "코드가 클립보드에 복사되었습니다",
+    "version": "v2.1.0",
+    "npm": "NPM",
+    "github": "GitHub",
+    "apiGetAllPools": "모든 스테이킹 풀 조회",
+    "apiGetPoolById": "ID로 특정 스테이킹 풀 조회",
+    "apiGetPositions": "스테이킹 포지션 조회",
+    "apiGetDelegations": "스테이킹 위임 조회",
+    "apiGetUnbonding": "언본딩 요청 조회",
+    "apiGetRewardsCurrent": "현재 보상 사이클 조회",
+    "apiGetRewardsCycles": "보상 사이클 이력 조회",
+    "apiGetRewardsEvents": "보상 이벤트 조회",
+    "apiGetSlashing": "슬래싱 이벤트 조회",
+    "apiGetTiers": "티어 구성 조회",
+    "apiGetStats": "스테이킹 통계 조회"
   },
   "tokenSystem": {
     "title": "토큰 시스템 v4.0",
@@ -3631,7 +3681,30 @@
     "member": "멤버",
     "tier": "티어",
     "status": "상태",
-    "staked": "스테이킹됨"
+    "staked": "스테이킹됨",
+    "kycLabel": "KYC",
+    "tiers": {
+      "basic_user": "기본 사용자",
+      "staker": "스테이커",
+      "active_validator": "활성 검증자",
+      "inactive_validator": "비활성 검증자",
+      "genesis_validator": "제네시스 검증자",
+      "enterprise_validator": "기업 검증자",
+      "governance_validator": "거버넌스 검증자"
+    },
+    "statuses": {
+      "active": "활성",
+      "inactive": "비활성",
+      "suspended": "정지됨",
+      "pending_kyc": "KYC 대기중"
+    },
+    "kycLevels": {
+      "none": "없음",
+      "basic": "기본",
+      "advanced": "고급",
+      "institutional": "기관"
+    },
+    "profile": "프로필"
   },
   "stakingPoolDetail": {
     "title": "스테이킹 풀 상세",
@@ -3665,7 +3738,12 @@
     "recentPositions": "최근 포지션",
     "topStakers": "상위 스테이커",
     "poolHistory": "풀 이력",
-    "addressCopied": "주소가 클립보드에 복사되었습니다"
+    "addressCopied": "주소가 클립보드에 복사되었습니다",
+    "defaultValidator": "TBURN 검증자",
+    "poolIdLabel": "풀 ID",
+    "max": "최대",
+    "noPositions": "아직 스테이커 없음",
+    "firstStaker": "이 풀의 첫 번째 스테이커가 되세요"
   },
   "apiKeys": {
     "title": "API 키",

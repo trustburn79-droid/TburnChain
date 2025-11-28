@@ -100,18 +100,18 @@ function formatWeiToTBURN(weiStr: string): string {
   }
 }
 
-function formatTimeRemaining(dateStr: string): string {
+function formatTimeRemaining(dateStr: string, t: (key: string, options?: Record<string, unknown>) => string): string {
   const target = new Date(dateStr).getTime();
   const now = Date.now();
   const diff = target - now;
   
-  if (diff <= 0) return "Ready";
+  if (diff <= 0) return t('stakingRewards.ready');
   
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   
-  if (days > 0) return `${days}d ${hours}h`;
-  return `${hours}h`;
+  if (days > 0) return t('stakingRewards.daysHours', { days, hours });
+  return t('stakingRewards.hoursRemaining', { hours });
 }
 
 export default function StakingRewards() {
@@ -222,7 +222,7 @@ export default function StakingRewards() {
             ) : (
               <>
                 <div className="text-2xl font-bold">
-                  {currentCycle?.endTimestamp ? formatTimeRemaining(currentCycle.endTimestamp) : "N/A"}
+                  {currentCycle?.endTimestamp ? formatTimeRemaining(currentCycle.endTimestamp, t) : "N/A"}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {t('stakingRewards.baseApy')}: {currentCycle?.baseApy || 0}%
@@ -449,7 +449,7 @@ export default function StakingRewards() {
                           {request.status === "pending" ? (
                             <>
                               <p className="font-medium text-yellow-500">
-                                {formatTimeRemaining(request.completesAt)} {t('stakingRewards.remaining')}
+                                {formatTimeRemaining(request.completesAt, t)} {t('stakingRewards.remaining')}
                               </p>
                               <Progress 
                                 value={Math.max(0, 100 - (new Date(request.completesAt).getTime() - Date.now()) / (21 * 24 * 60 * 60 * 10))} 

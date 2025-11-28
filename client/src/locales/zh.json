@@ -301,7 +301,33 @@
     "blockBeingGenerated": "区块正在生成中。",
     "transactionsInBlock": "区块内交易",
     "transactionsDescription": "该区块包含的所有交易",
-    "noTransactions": "该区块没有交易"
+    "noTransactions": "该区块没有交易",
+    "shard0Primary": "分片 0 - 主分片",
+    "shard1Secondary": "分片 1 - 副分片",
+    "shard2Tertiary": "分片 2 - 三级分片",
+    "shard3Quaternary": "分片 3 - 四级分片",
+    "shardWithId": "分片 {{id}}",
+    "noResultsFound": "未找到结果",
+    "tryDifferentSearchTerm": "尝试使用不同的搜索词",
+    "foundBlocks": "找到 {{count}} 个区块",
+    "resultsFiltered": "结果已根据您的搜索进行筛选",
+    "searchFailed": "搜索失败",
+    "failedToSearchBlocks": "搜索区块失败",
+    "noBlocksFound": "未找到区块",
+    "noBlocksMatchFilters": "没有符合当前筛选条件的区块。请尝试调整条件。",
+    "waitingForBlockProduction": "尚未创建任何区块。正在等待区块生成...",
+    "clearFilters": "清除筛选",
+    "validatorLabel": "验证者",
+    "allValidators": "所有验证者",
+    "shardLabel": "分片",
+    "allShards": "所有分片",
+    "hashAlgorithmLabel": "哈希算法",
+    "allAlgorithms": "所有算法",
+    "clearAll": "全部清除",
+    "applyFilters": "应用筛选",
+    "activeFilters": "活跃筛选:",
+    "lastUpdate": "最后更新:",
+    "failedToLoadBlocks": "加载区块失败:"
   },
   "transactions": {
     "title": "交易浏览器",
@@ -647,7 +673,14 @@
     "lockPeriodLabel": "锁定期:",
     "daysText": "{{days}} 天",
     "staking": "质押中...",
-    "apy": "年化"
+    "apy": "年化",
+    "preset1k": "1K",
+    "preset10k": "10K",
+    "validatorTburnGenesis": "TBURN 创世",
+    "validatorEnterpriseNode": "企业节点",
+    "validatorMainnetAlpha": "主网 Alpha",
+    "validatorCoreValidator": "核心验证者",
+    "poolId": "池 ID"
   },
   "stakingRewards": {
     "title": "奖励中心",
@@ -698,7 +731,10 @@
     "validator": "验证者",
     "slashed": "已罚没",
     "noSlashingEvents": "没有罚没事件",
-    "noSlashingEventsDesc": "您的验证者保持着良好的行为。"
+    "noSlashingEventsDesc": "您的验证者保持着良好的行为。",
+    "ready": "就绪",
+    "daysHours": "{{days}}天 {{hours}}小时",
+    "hoursRemaining": "{{hours}}小时"
   },
   "stakingSdk": {
     "title": "钱包 SDK 和开发工具",
@@ -736,7 +772,21 @@
     "executeRequest": "执行请求",
     "response": "响应",
     "copied": "已复制",
-    "codeCopied": "代码已复制到剪贴板"
+    "codeCopied": "代码已复制到剪贴板",
+    "version": "v2.1.0",
+    "npm": "NPM",
+    "github": "GitHub",
+    "apiGetAllPools": "获取所有质押池",
+    "apiGetPoolById": "按 ID 获取特定质押池",
+    "apiGetPositions": "获取质押仓位",
+    "apiGetDelegations": "获取质押委托",
+    "apiGetUnbonding": "获取解绑请求",
+    "apiGetRewardsCurrent": "获取当前奖励周期",
+    "apiGetRewardsCycles": "获取奖励周期历史",
+    "apiGetRewardsEvents": "获取奖励事件",
+    "apiGetSlashing": "获取罚没事件",
+    "apiGetTiers": "获取等级配置",
+    "apiGetStats": "获取质押统计"
   },
   "tokenSystem": {
     "title": "代币系统 v4.0",
@@ -3573,7 +3623,30 @@
     "kycLevel": "KYC 级别",
     "anonymousMember": "匿名成员",
     "anonymous": "匿名",
-    "memberSince": "成员自"
+    "memberSince": "成员自",
+    "kycLabel": "KYC",
+    "tiers": {
+      "basic_user": "基础用户",
+      "staker": "质押者",
+      "active_validator": "活跃验证者",
+      "inactive_validator": "非活跃验证者",
+      "genesis_validator": "创世验证者",
+      "enterprise_validator": "企业验证者",
+      "governance_validator": "治理验证者"
+    },
+    "statuses": {
+      "active": "活跃",
+      "inactive": "非活跃",
+      "suspended": "已暂停",
+      "pending_kyc": "KYC待审核"
+    },
+    "kycLevels": {
+      "none": "无",
+      "basic": "基础",
+      "advanced": "高级",
+      "institutional": "机构"
+    },
+    "profile": "个人资料"
   },
   "stakingPoolDetail": {
     "title": "质押池详情",
@@ -3607,7 +3680,12 @@
     "recentPositions": "最近仓位",
     "topStakers": "顶级质押者",
     "poolHistory": "池历史",
-    "addressCopied": "地址已复制到剪贴板"
+    "addressCopied": "地址已复制到剪贴板",
+    "defaultValidator": "TBURN 验证者",
+    "poolIdLabel": "池 ID",
+    "max": "最大",
+    "noPositions": "暂无质押者",
+    "firstStaker": "成为此池的第一个质押者"
   },
   "apiKeys": {
     "title": "API 密钥",

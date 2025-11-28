@@ -238,7 +238,7 @@ export default function StakingPoolDetail() {
                     onChange={(e) => setStakeAmount(e.target.value)}
                     data-testid="input-stake-dialog"
                   />
-                  <Button variant="outline" size="sm">MAX</Button>
+                  <Button variant="outline" size="sm">{t('stakingPoolDetail.max')}</Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {t('stakingPoolDetail.minimumStake')}: {formatWeiToTBURN(pool.minStake)} TBURN
@@ -385,7 +385,7 @@ export default function StakingPoolDetail() {
                   </span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Pool ID</span>
+                  <span className="text-muted-foreground">{t('stakingPoolDetail.poolIdLabel')}</span>
                   <div className="flex items-center gap-1">
                     <span className="font-mono text-xs">{pool.id.slice(0, 8)}...</span>
                     <Button variant="ghost" size="sm" onClick={() => copyAddress(pool.id)}>
@@ -408,7 +408,7 @@ export default function StakingPoolDetail() {
                 <Shield className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="font-medium">{pool.validatorName || "TBURN Validator"}</p>
+                <p className="font-medium">{pool.validatorName || t('stakingPoolDetail.defaultValidator')}</p>
                 <p className="text-xs text-muted-foreground">
                   {pool.validatorAddress?.slice(0, 10)}...{pool.validatorAddress?.slice(-8)}
                 </p>

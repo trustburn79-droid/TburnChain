@@ -299,7 +299,33 @@
     "blockBeingGenerated": "ब्लॉक वर्तमान में जनरेट हो रहा है।",
     "transactionsInBlock": "ब्लॉक में लेनदेन",
     "transactionsDescription": "इस ब्लॉक में शामिल सभी लेनदेन",
-    "noTransactions": "इस ब्लॉक में कोई लेनदेन नहीं"
+    "noTransactions": "इस ब्लॉक में कोई लेनदेन नहीं",
+    "shard0Primary": "शार्ड 0 - प्राइमरी",
+    "shard1Secondary": "शार्ड 1 - सेकेंडरी",
+    "shard2Tertiary": "शार्ड 2 - टर्शियरी",
+    "shard3Quaternary": "शार्ड 3 - क्वाटरनरी",
+    "shardWithId": "शार्ड {{id}}",
+    "noResultsFound": "कोई परिणाम नहीं मिला",
+    "tryDifferentSearchTerm": "कोई अलग खोज शब्द आज़माएं",
+    "foundBlocks": "{{count}} ब्लॉक्स मिले",
+    "resultsFiltered": "आपकी खोज के आधार पर परिणाम फ़िल्टर किए गए",
+    "searchFailed": "खोज विफल",
+    "failedToSearchBlocks": "ब्लॉक्स खोजने में विफल",
+    "noBlocksFound": "कोई ब्लॉक नहीं मिला",
+    "noBlocksMatchFilters": "वर्तमान फ़िल्टर से कोई ब्लॉक मेल नहीं खाता। अपने मानदंड समायोजित करें।",
+    "waitingForBlockProduction": "अभी तक कोई ब्लॉक नहीं बना है। ब्लॉक उत्पादन की प्रतीक्षा में...",
+    "clearFilters": "फ़िल्टर साफ़ करें",
+    "validatorLabel": "वैलिडेटर",
+    "allValidators": "सभी वैलिडेटर्स",
+    "shardLabel": "शार्ड",
+    "allShards": "सभी शार्ड्स",
+    "hashAlgorithmLabel": "हैश एल्गोरिथम",
+    "allAlgorithms": "सभी एल्गोरिथम",
+    "clearAll": "सब साफ़ करें",
+    "applyFilters": "फ़िल्टर लागू करें",
+    "activeFilters": "सक्रिय फ़िल्टर:",
+    "lastUpdate": "अंतिम अपडेट:",
+    "failedToLoadBlocks": "ब्लॉक्स लोड करने में विफल:"
   },
   "transactions": {
     "title": "लेनदेन एक्सप्लोरर",
@@ -642,7 +668,14 @@
     "stakingRewardsCalculator": "स्टेकिंग रिवॉर्ड्स कैलकुलेटर",
     "calculatorDesc": "स्टेक राशि और पूल चयन के आधार पर अपनी संभावित कमाई का अनुमान लगाएं",
     "max": "अधिकतम",
-    "recentStakingActivity": "हाल की स्टेकिंग गतिविधि"
+    "recentStakingActivity": "हाल की स्टेकिंग गतिविधि",
+    "preset1k": "1K",
+    "preset10k": "10K",
+    "validatorTburnGenesis": "TBURN जेनेसिस",
+    "validatorEnterpriseNode": "एंटरप्राइज़ नोड",
+    "validatorMainnetAlpha": "मेननेट अल्फ़ा",
+    "validatorCoreValidator": "कोर वैलिडेटर",
+    "poolId": "पूल ID"
   },
   "tokenSystem": {
     "title": "टोकन सिस्टम v4.0",
@@ -2422,7 +2455,30 @@
     "tableHeaderJoined": "शामिल हुए",
     "invalidAccountAddress": "अमान्य अकाउंट एड्रेस",
     "displayNameMinLength": "डिस्प्ले नाम कम से कम 2 कैरेक्टर्स का होना चाहिए",
-    "invalidEmailAddress": "अमान्य ईमेल एड्रेस"
+    "invalidEmailAddress": "अमान्य ईमेल एड्रेस",
+    "kycLabel": "KYC",
+    "tiers": {
+      "basic_user": "बेसिक यूज़र",
+      "staker": "स्टेकर",
+      "active_validator": "सक्रिय वैलिडेटर",
+      "inactive_validator": "निष्क्रिय वैलिडेटर",
+      "genesis_validator": "जेनेसिस वैलिडेटर",
+      "enterprise_validator": "एंटरप्राइज़ वैलिडेटर",
+      "governance_validator": "गवर्नेंस वैलिडेटर"
+    },
+    "statuses": {
+      "active": "सक्रिय",
+      "inactive": "निष्क्रिय",
+      "suspended": "निलंबित",
+      "pending_kyc": "KYC लंबित"
+    },
+    "kycLevels": {
+      "none": "कोई नहीं",
+      "basic": "बेसिक",
+      "advanced": "एडवांस्ड",
+      "institutional": "संस्थागत"
+    },
+    "profile": "प्रोफ़ाइल"
   },
   "stakingPoolDetail": {
     "title": "स्टेकिंग पूल विवरण",
@@ -2472,7 +2528,12 @@
     "stake": "स्टेक",
     "unstake": "अनस्टेक",
     "claim": "क्लेम",
-    "backToPools": "पूल्स पर वापस जाएं"
+    "backToPools": "पूल्स पर वापस जाएं",
+    "defaultValidator": "TBURN वैलिडेटर",
+    "poolIdLabel": "पूल ID",
+    "max": "अधिकतम",
+    "noPositions": "अभी तक कोई स्टेकर नहीं",
+    "firstStaker": "इस पूल में पहले स्टेकर बनें"
   },
   "stakingRewards": {
     "title": "रिवॉर्ड सेंटर",
@@ -2492,7 +2553,10 @@
     "lifetimeRewards": "आजीवन रिवॉर्ड्स",
     "last30Days": "पिछले 30 दिन",
     "last7Days": "पिछले 7 दिन",
-    "today": "आज"
+    "today": "आज",
+    "ready": "तैयार",
+    "daysHours": "{{days}}दि {{hours}}घं",
+    "hoursRemaining": "{{hours}}घं"
   },
   "stakingSdk": {
     "title": "वॉलेट SDK और डेवलपमेंट टूल्स",
@@ -2517,7 +2581,21 @@
     "endpoints": "एंडपॉइंट्स",
     "sdkVersion": "SDK वर्शन",
     "supportedWallets": "समर्थित वॉलेट्स",
-    "integration": "इंटीग्रेशन गाइड"
+    "integration": "इंटीग्रेशन गाइड",
+    "version": "v2.1.0",
+    "npm": "NPM",
+    "github": "GitHub",
+    "apiGetAllPools": "सभी स्टेकिंग पूल प्राप्त करें",
+    "apiGetPoolById": "ID द्वारा विशिष्ट स्टेकिंग पूल प्राप्त करें",
+    "apiGetPositions": "स्टेकिंग पोजीशन प्राप्त करें",
+    "apiGetDelegations": "स्टेकिंग डेलीगेशन प्राप्त करें",
+    "apiGetUnbonding": "अनबॉन्डिंग रिक्वेस्ट प्राप्त करें",
+    "apiGetRewardsCurrent": "वर्तमान रिवॉर्ड साइकल प्राप्त करें",
+    "apiGetRewardsCycles": "रिवॉर्ड साइकल इतिहास प्राप्त करें",
+    "apiGetRewardsEvents": "रिवॉर्ड इवेंट्स प्राप्त करें",
+    "apiGetSlashing": "स्लैशिंग इवेंट्स प्राप्त करें",
+    "apiGetTiers": "टियर कॉन्फ़िगरेशन प्राप्त करें",
+    "apiGetStats": "स्टेकिंग स्टैटिस्टिक्स प्राप्त करें"
   },
   "txSimulator": {
     "title": "ट्रांजैक्शन सिम्युलेटर",

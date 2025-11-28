@@ -299,7 +299,33 @@
     "blockBeingGenerated": "El bloque está siendo generado actualmente.",
     "transactionsInBlock": "Transacciones en el Bloque",
     "transactionsDescription": "Todas las transacciones incluidas en este bloque",
-    "noTransactions": "No hay transacciones en este bloque"
+    "noTransactions": "No hay transacciones en este bloque",
+    "shard0Primary": "Shard 0 - Primario",
+    "shard1Secondary": "Shard 1 - Secundario",
+    "shard2Tertiary": "Shard 2 - Terciario",
+    "shard3Quaternary": "Shard 3 - Cuaternario",
+    "shardWithId": "Shard {{id}}",
+    "noResultsFound": "No se encontraron resultados",
+    "tryDifferentSearchTerm": "Intente con un término de búsqueda diferente",
+    "foundBlocks": "Se encontraron {{count}} bloques",
+    "resultsFiltered": "Resultados filtrados según su búsqueda",
+    "searchFailed": "Error en la búsqueda",
+    "failedToSearchBlocks": "Error al buscar bloques",
+    "noBlocksFound": "No se encontraron bloques",
+    "noBlocksMatchFilters": "Ningún bloque coincide con los filtros actuales. Intente ajustar sus criterios.",
+    "waitingForBlockProduction": "Aún no se han creado bloques. Esperando producción de bloques...",
+    "clearFilters": "Limpiar Filtros",
+    "validatorLabel": "Validador",
+    "allValidators": "Todos los validadores",
+    "shardLabel": "Shard",
+    "allShards": "Todos los shards",
+    "hashAlgorithmLabel": "Algoritmo Hash",
+    "allAlgorithms": "Todos los algoritmos",
+    "clearAll": "Limpiar Todo",
+    "applyFilters": "Aplicar Filtros",
+    "activeFilters": "Filtros activos:",
+    "lastUpdate": "Última actualización:",
+    "failedToLoadBlocks": "Error al cargar bloques:"
   },
   "transactions": {
     "title": "Explorador de Transacciones",
@@ -656,7 +682,14 @@
     "lockPeriodLabel": "Período de Bloqueo:",
     "daysText": "{{days}} días",
     "apy": "APY",
-    "staking": "Staking..."
+    "staking": "Staking...",
+    "preset1k": "1K",
+    "preset10k": "10K",
+    "validatorTburnGenesis": "TBURN Génesis",
+    "validatorEnterpriseNode": "Nodo Empresarial",
+    "validatorMainnetAlpha": "Mainnet Alpha",
+    "validatorCoreValidator": "Validador Core",
+    "poolId": "ID del Pool"
   },
   "stakingRewards": {
     "title": "Centro de Recompensas",
@@ -720,7 +753,10 @@
     "validator": "Validador",
     "slashed": "penalizado",
     "noSlashingEvents": "Sin Eventos de Slashing",
-    "noSlashingEventsDesc": "Tus validadores han mantenido un comportamiento excelente."
+    "noSlashingEventsDesc": "Tus validadores han mantenido un comportamiento excelente.",
+    "ready": "Listo",
+    "daysHours": "{{days}}d {{hours}}h",
+    "hoursRemaining": "{{hours}}h"
   },
   "stakingSdk": {
     "title": "SDK de Cartera y Herramientas de Desarrollo",
@@ -770,7 +806,22 @@
     "parametersJson": "Parámetros (JSON)",
     "executeRequest": "Ejecutar Solicitud",
     "response": "Respuesta",
-    "codeCopied": "Código copiado al portapapeles"
+    "codeCopied": "Código copiado al portapapeles",
+    "copied": "Copiado",
+    "version": "v2.1.0",
+    "npm": "NPM",
+    "github": "GitHub",
+    "apiGetAllPools": "Obtener todos los pools de staking",
+    "apiGetPoolById": "Obtener un pool de staking específico por ID",
+    "apiGetPositions": "Obtener posiciones de staking",
+    "apiGetDelegations": "Obtener delegaciones de staking",
+    "apiGetUnbonding": "Obtener solicitudes de desvinculación",
+    "apiGetRewardsCurrent": "Obtener ciclo de recompensas actual",
+    "apiGetRewardsCycles": "Obtener historial de ciclos de recompensas",
+    "apiGetRewardsEvents": "Obtener eventos de recompensas",
+    "apiGetSlashing": "Obtener eventos de slashing",
+    "apiGetTiers": "Obtener configuración de niveles",
+    "apiGetStats": "Obtener estadísticas de staking"
   },
   "tokenSystem": {
     "title": "Sistema de Tokens v4.0",
@@ -3456,7 +3507,30 @@
     "tableHeaderJoined": "Se Unió",
     "invalidAccountAddress": "Dirección de cuenta inválida",
     "displayNameMinLength": "El nombre para mostrar debe tener al menos 2 caracteres",
-    "invalidEmailAddress": "Dirección de email inválida"
+    "invalidEmailAddress": "Dirección de email inválida",
+    "kycLabel": "KYC",
+    "tiers": {
+      "basic_user": "USUARIO BÁSICO",
+      "staker": "STAKER",
+      "active_validator": "VALIDADOR ACTIVO",
+      "inactive_validator": "VALIDADOR INACTIVO",
+      "genesis_validator": "VALIDADOR GÉNESIS",
+      "enterprise_validator": "VALIDADOR EMPRESARIAL",
+      "governance_validator": "VALIDADOR DE GOBERNANZA"
+    },
+    "statuses": {
+      "active": "ACTIVO",
+      "inactive": "INACTIVO",
+      "suspended": "SUSPENDIDO",
+      "pending_kyc": "KYC PENDIENTE"
+    },
+    "kycLevels": {
+      "none": "NINGUNO",
+      "basic": "BÁSICO",
+      "advanced": "AVANZADO",
+      "institutional": "INSTITUCIONAL"
+    },
+    "profile": "Perfil"
   },
   "stakingPoolDetail": {
     "title": "Detalles del Pool de Staking",
@@ -3506,7 +3580,12 @@
     "stake": "Stake",
     "unstake": "Unstake",
     "claim": "Reclamar",
-    "backToPools": "Volver a Pools"
+    "backToPools": "Volver a Pools",
+    "defaultValidator": "Validador TBURN",
+    "poolIdLabel": "ID del Pool",
+    "max": "MÁX",
+    "noPositions": "Sin Stakers Aún",
+    "firstStaker": "Sé el primero en hacer stake en este pool"
   },
   "apiKeys": {
     "title": "Claves API",

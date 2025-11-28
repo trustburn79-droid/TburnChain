@@ -837,10 +837,10 @@ export default function StakingDashboard() {
             <CardContent>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 {[
-                  { name: "TBURN Genesis", score: 95, uptime: "99.98%", apy: "15.2%" },
-                  { name: "Enterprise Node", score: 92, uptime: "99.95%", apy: "14.8%" },
-                  { name: "Mainnet Alpha", score: 89, uptime: "99.87%", apy: "14.5%" },
-                  { name: "Core Validator", score: 87, uptime: "99.82%", apy: "14.2%" },
+                  { name: t('staking.validatorTburnGenesis'), score: 95, uptime: "99.98%", apy: "15.2%" },
+                  { name: t('staking.validatorEnterpriseNode'), score: 92, uptime: "99.95%", apy: "14.8%" },
+                  { name: t('staking.validatorMainnetAlpha'), score: 89, uptime: "99.87%", apy: "14.5%" },
+                  { name: t('staking.validatorCoreValidator'), score: 87, uptime: "99.82%", apy: "14.2%" },
                 ].map((validator, i) => (
                   <div key={i} className="p-4 rounded-lg border hover-elevate">
                     <div className="flex items-center justify-between mb-3">
@@ -1134,7 +1134,7 @@ export default function StakingDashboard() {
                     onClick={() => setStakeAmount("1000")}
                     data-testid="button-stake-preset-1k"
                   >
-                    1K
+                    {t('staking.preset1k')}
                   </Button>
                   <Button
                     variant="outline"
@@ -1142,7 +1142,7 @@ export default function StakingDashboard() {
                     onClick={() => setStakeAmount("10000")}
                     data-testid="button-stake-preset-10k"
                   >
-                    10K
+                    {t('staking.preset10k')}
                   </Button>
                 </div>
               </div>

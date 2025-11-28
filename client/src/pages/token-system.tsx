@@ -225,6 +225,22 @@ interface VestingSchedule {
 
 type TokenStandardType = "TBC-20" | "TBC-721" | "TBC-1155";
 
+const getTemplateTranslationKey = (templateId: string, field: 'name' | 'description' | 'category' | 'features'): string => {
+  const keyMap: Record<string, string> = {
+    'defi-governance': 'DefiGovernance',
+    'utility-token': 'Utility',
+    'gamefi-asset': 'Gamefi',
+    'nft-collection': 'Nft',
+    'enterprise-token': 'Enterprise',
+    'marketplace-token': 'Marketplace'
+  };
+  const templateKey = keyMap[templateId] || templateId;
+  if (field === 'features') {
+    return `tokenSystem.template${templateKey}Feature`;
+  }
+  return `tokenSystem.template${templateKey}${field.charAt(0).toUpperCase() + field.slice(1)}`;
+};
+
 const TOKEN_TEMPLATES: TokenTemplate[] = [
   {
     id: "defi-governance",
@@ -406,7 +422,7 @@ export default function TokenSystem() {
                   {formatNumber(stats?.totalTokens || 0)}
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  TBC-20: {stats?.tbc20Count} | TBC-721: {stats?.tbc721Count} | TBC-1155: {stats?.tbc1155Count}
+                  {t('tokenSystem.tokenStatsBreakdown', { tbc20: stats?.tbc20Count, tbc721: stats?.tbc721Count, tbc1155: stats?.tbc1155Count })}
                 </p>
               </CardContent>
             </Card>
@@ -740,7 +756,7 @@ function TripleBandAISection() {
               </div>
               <div>
                 <h4 className="font-semibold">{t('tokenSystem.strategicLayer')}</h4>
-                <p className="text-xs text-muted-foreground">GPT-5 Turbo</p>
+                <p className="text-xs text-muted-foreground">{t('tokenSystem.aiModelGpt5')}</p>
               </div>
             </div>
             <ul className="text-sm space-y-1 text-muted-foreground">
@@ -757,7 +773,7 @@ function TripleBandAISection() {
               </div>
               <div>
                 <h4 className="font-semibold">{t('tokenSystem.tacticalLayer')}</h4>
-                <p className="text-xs text-muted-foreground">Claude Sonnet 4.5</p>
+                <p className="text-xs text-muted-foreground">{t('tokenSystem.aiModelClaude')}</p>
               </div>
             </div>
             <ul className="text-sm space-y-1 text-muted-foreground">
@@ -774,7 +790,7 @@ function TripleBandAISection() {
               </div>
               <div>
                 <h4 className="font-semibold">{t('tokenSystem.operationalLayer')}</h4>
-                <p className="text-xs text-muted-foreground">Llama 3.3 70B</p>
+                <p className="text-xs text-muted-foreground">{t('tokenSystem.aiModelLlama')}</p>
               </div>
             </div>
             <ul className="text-sm space-y-1 text-muted-foreground">
@@ -823,7 +839,7 @@ function TokenTemplatesPreview({ onSelectTemplate }: { onSelectTemplate: () => v
                   <template.icon className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-medium">{template.name}</h4>
+                  <h4 className="font-medium">{t(getTemplateTranslationKey(template.id, 'name'))}</h4>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline" className="text-xs">{template.standard}</Badge>
                     {template.aiRecommended && (
@@ -835,11 +851,11 @@ function TokenTemplatesPreview({ onSelectTemplate }: { onSelectTemplate: () => v
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">{template.description}</p>
+              <p className="text-sm text-muted-foreground mb-3">{t(getTemplateTranslationKey(template.id, 'description'))}</p>
               <div className="flex flex-wrap gap-1">
-                {template.features.slice(0, 3).map((feature) => (
+                {template.features.slice(0, 3).map((feature, idx) => (
                   <Badge key={feature} variant="secondary" className="text-xs">
-                    {feature}
+                    {t(`${getTemplateTranslationKey(template.id, 'features')}${idx + 1}`)}
                   </Badge>
                 ))}
               </div>
@@ -1025,10 +1041,10 @@ function EnterpriseTokenCreationWizard() {
       vulnerabilities.push({
         id: "qr-001",
         severity: "medium",
-        title: "Quantum Vulnerability",
-        description: "Contract uses classical cryptography vulnerable to quantum attacks",
-        location: "Signature verification",
-        recommendation: "Enable quantum-resistant signatures (CRYSTALS-Dilithium)"
+        title: t('tokenSystem.vulnQuantumTitle'),
+        description: t('tokenSystem.vulnQuantumDesc'),
+        location: t('tokenSystem.vulnQuantumLocation'),
+        recommendation: t('tokenSystem.vulnQuantumRecommendation')
       });
       score -= 10;
     }
@@ -1037,10 +1053,10 @@ function EnterpriseTokenCreationWizard() {
       vulnerabilities.push({
         id: "mev-001",
         severity: "high",
-        title: "MEV Vulnerability",
-        description: "Contract susceptible to front-running and sandwich attacks",
-        location: "Transaction ordering",
-        recommendation: "Enable MEV protection with commit-reveal scheme"
+        title: t('tokenSystem.vulnMevTitle'),
+        description: t('tokenSystem.vulnMevDesc'),
+        location: t('tokenSystem.vulnMevLocation'),
+        recommendation: t('tokenSystem.vulnMevRecommendation')
       });
       score -= 15;
     }
@@ -1049,10 +1065,10 @@ function EnterpriseTokenCreationWizard() {
       vulnerabilities.push({
         id: "inf-001",
         severity: "medium",
-        title: "Uncapped Supply",
-        description: "Mintable token without maximum supply cap",
-        location: "Mint function",
-        recommendation: "Consider adding a maximum supply cap"
+        title: t('tokenSystem.vulnUncappedTitle'),
+        description: t('tokenSystem.vulnUncappedDesc'),
+        location: t('tokenSystem.vulnUncappedLocation'),
+        recommendation: t('tokenSystem.vulnUncappedRecommendation')
       });
       score -= 5;
     }
@@ -1061,23 +1077,23 @@ function EnterpriseTokenCreationWizard() {
       vulnerabilities.push({
         id: "bot-001",
         severity: "low",
-        title: "Bot Vulnerability",
-        description: "No anti-bot measures for launch protection",
-        location: "Transfer function",
-        recommendation: "Enable AI anti-bot protection"
+        title: t('tokenSystem.vulnBotTitle'),
+        description: t('tokenSystem.vulnBotDesc'),
+        location: t('tokenSystem.vulnBotLocation'),
+        recommendation: t('tokenSystem.vulnBotRecommendation')
       });
       score -= 5;
     }
 
     const recommendations = [];
     if (formData.aiOptimizationEnabled) {
-      recommendations.push("Triple-Band AI will optimize gas usage by approximately 15-25%");
+      recommendations.push(t('tokenSystem.recommendationAiGas'));
     }
     if (formData.stakingEnabled) {
-      recommendations.push(`Staking APY of ${formData.stakingRewardRate}% is within sustainable range`);
+      recommendations.push(t('tokenSystem.recommendationStakingApy', { rate: formData.stakingRewardRate }));
     }
     if (formData.vestingEnabled) {
-      recommendations.push("Vesting schedules detected - ensure cliff periods are reasonable");
+      recommendations.push(t('tokenSystem.recommendationVesting'));
     }
 
     setSecurityAnalysis({
@@ -1180,32 +1196,32 @@ function EnterpriseTokenCreationWizard() {
                           <template.icon className="h-5 w-5 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <CardTitle className="text-base">{template.name}</CardTitle>
+                          <CardTitle className="text-base">{t(getTemplateTranslationKey(template.id, 'name'))}</CardTitle>
                           <div className="flex items-center gap-2 mt-1">
                             <Badge variant="outline" className="text-xs">{template.standard}</Badge>
-                            <Badge variant="secondary" className="text-xs">{template.category}</Badge>
+                            <Badge variant="secondary" className="text-xs">{t(getTemplateTranslationKey(template.id, 'category'))}</Badge>
                           </div>
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <p className="text-sm text-muted-foreground mb-3">{template.description}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{t(getTemplateTranslationKey(template.id, 'description'))}</p>
                       <div className="flex flex-wrap gap-1 mb-3">
-                        {template.features.map((feature) => (
+                        {template.features.map((feature, idx) => (
                           <Badge key={feature} variant="secondary" className="text-xs">
-                            {feature}
+                            {t(`${getTemplateTranslationKey(template.id, 'features')}${idx + 1}`)}
                           </Badge>
                         ))}
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-xs text-muted-foreground">
                           <Users className="h-3 w-3" />
-                          {template.popularity}% popular
+                          {t('tokenSystem.percentPopular', { percent: template.popularity })}
                         </div>
                         {template.aiRecommended && (
                           <Badge className="text-xs bg-purple-500/10 text-purple-500 border-purple-500/20">
                             <Brain className="h-3 w-3 mr-1" />
-                            AI Pick
+                            {t('tokenSystem.aiPick')}
                           </Badge>
                         )}
                       </div>
@@ -1239,7 +1255,7 @@ function EnterpriseTokenCreationWizard() {
                       </div>
                     </div>
                     <Button className="w-full" variant="outline">
-                      Select
+                      {t('tokenSystem.select')}
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Button>
                   </CardContent>
@@ -1261,7 +1277,7 @@ function EnterpriseTokenCreationWizard() {
                       </div>
                     </div>
                     <Button className="w-full" variant="outline">
-                      Select
+                      {t('tokenSystem.select')}
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Button>
                   </CardContent>
@@ -1748,10 +1764,10 @@ function EnterpriseTokenCreationWizard() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="2">2 of N</SelectItem>
-                          <SelectItem value="3">3 of N</SelectItem>
-                          <SelectItem value="4">4 of N</SelectItem>
-                          <SelectItem value="5">5 of N</SelectItem>
+                          <SelectItem value="2">{t('tokenSystem.multisig2ofN')}</SelectItem>
+                          <SelectItem value="3">{t('tokenSystem.multisig3ofN')}</SelectItem>
+                          <SelectItem value="4">{t('tokenSystem.multisig4ofN')}</SelectItem>
+                          <SelectItem value="5">{t('tokenSystem.multisig5ofN')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

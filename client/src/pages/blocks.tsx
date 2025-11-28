@@ -113,16 +113,16 @@ interface Validator {
 // Hash algorithm options
 const HASH_ALGORITHMS = ["BLAKE3", "SHA3-512", "SHA-256"];
 
-// Shard options
-const SHARD_OPTIONS = [
-  { value: "0", label: "Shard 0 - Primary" },
-  { value: "1", label: "Shard 1 - Secondary" },
-  { value: "2", label: "Shard 2 - Tertiary" },
-  { value: "3", label: "Shard 3 - Quaternary" },
-];
-
 export default function Blocks() {
   const { t } = useTranslation();
+  
+  // Shard options with translated labels
+  const SHARD_OPTIONS = useMemo(() => [
+    { value: "0", label: t('blocks.shard0Primary') },
+    { value: "1", label: t('blocks.shard1Secondary') },
+    { value: "2", label: t('blocks.shard2Tertiary') },
+    { value: "3", label: t('blocks.shard3Quaternary') },
+  ], [t]);
   const [location, setLocation] = useLocation();
   const { toast } = useToast();
   const { subscribeToEvent, isConnected } = useWebSocket();
@@ -194,8 +194,8 @@ export default function Blocks() {
       setIsSearching(false);
       if (data.length === 0) {
         toast({
-          title: "No results found",
-          description: "Try a different search term",
+          title: t('blocks.noResultsFound'),
+          description: t('blocks.tryDifferentSearchTerm'),
           variant: "default",
         });
       } else if (data.length === 1) {
@@ -204,16 +204,16 @@ export default function Blocks() {
       } else {
         // Show search results
         toast({
-          title: `Found ${data.length} blocks`,
-          description: "Results filtered based on your search",
+          title: t('blocks.foundBlocks', { count: data.length }),
+          description: t('blocks.resultsFiltered'),
         });
       }
     },
     onError: () => {
       setIsSearching(false);
       toast({
-        title: "Search failed",
-        description: "Failed to search blocks",
+        title: t('blocks.searchFailed'),
+        description: t('blocks.failedToSearchBlocks'),
         variant: "destructive",
       });
     },
@@ -270,15 +270,15 @@ export default function Blocks() {
   const renderEmptyState = () => (
     <div className="flex flex-col items-center justify-center py-12 text-center">
       <Box className="h-12 w-12 text-muted-foreground mb-4" />
-      <h3 className="text-lg font-semibold mb-2">No Blocks Found</h3>
+      <h3 className="text-lg font-semibold mb-2">{t('blocks.noBlocksFound')}</h3>
       <p className="text-muted-foreground mb-4">
         {hasActiveFilters 
-          ? "No blocks match your current filters. Try adjusting your criteria."
-          : "No blocks have been created yet. Waiting for block production..."}
+          ? t('blocks.noBlocksMatchFilters')
+          : t('blocks.waitingForBlockProduction')}
       </p>
       {hasActiveFilters && (
         <Button onClick={clearFilters} variant="outline">
-          Clear Filters
+          {t('blocks.clearFilters')}
         </Button>
       )}
     </div>
@@ -402,13 +402,13 @@ export default function Blocks() {
               <div className="space-y-6 mt-6">
                 {/* Validator filter */}
                 <div className="space-y-2">
-                  <Label>Validator</Label>
+                  <Label>{t('blocks.validatorLabel')}</Label>
                   <Select value={selectedValidator} onValueChange={setSelectedValidator}>
                     <SelectTrigger>
-                      <SelectValue placeholder="All validators" />
+                      <SelectValue placeholder={t('blocks.allValidators')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All validators</SelectItem>
+                      <SelectItem value="all">{t('blocks.allValidators')}</SelectItem>
                       {validators.slice(0, 21).map(v => (
                         <SelectItem key={v.id} value={v.address}>
                           {v.name}
@@ -420,13 +420,13 @@ export default function Blocks() {
                 
                 {/* Shard filter */}
                 <div className="space-y-2">
-                  <Label>Shard</Label>
+                  <Label>{t('blocks.shardLabel')}</Label>
                   <Select value={selectedShard} onValueChange={setSelectedShard}>
                     <SelectTrigger>
-                      <SelectValue placeholder="All shards" />
+                      <SelectValue placeholder={t('blocks.allShards')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All shards</SelectItem>
+                      <SelectItem value="all">{t('blocks.allShards')}</SelectItem>
                       {SHARD_OPTIONS.map(s => (
                         <SelectItem key={s.value} value={s.value}>
                           {s.label}
@@ -438,13 +438,13 @@ export default function Blocks() {
                 
                 {/* Hash Algorithm filter */}
                 <div className="space-y-2">
-                  <Label>Hash Algorithm</Label>
+                  <Label>{t('blocks.hashAlgorithmLabel')}</Label>
                   <Select value={selectedHashAlgorithm} onValueChange={setSelectedHashAlgorithm}>
                     <SelectTrigger>
-                      <SelectValue placeholder="All algorithms" />
+                      <SelectValue placeholder={t('blocks.allAlgorithms')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All algorithms</SelectItem>
+                      <SelectItem value="all">{t('blocks.allAlgorithms')}</SelectItem>
                       {HASH_ALGORITHMS.map(algo => (
                         <SelectItem key={algo} value={algo}>
                           {algo}
@@ -457,10 +457,10 @@ export default function Blocks() {
                 {/* Actions */}
                 <div className="flex gap-2 pt-4">
                   <Button onClick={clearFilters} variant="outline" className="flex-1">
-                    Clear All
+                    {t('blocks.clearAll')}
                   </Button>
                   <Button onClick={() => setIsFilterOpen(false)} className="flex-1">
-                    Apply Filters
+                    {t('blocks.applyFilters')}
                   </Button>
                 </div>
               </div>
@@ -471,7 +471,7 @@ export default function Blocks() {
         {/* Active filters display */}
         {hasActiveFilters && (
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm text-muted-foreground">Active filters:</span>
+            <span className="text-sm text-muted-foreground">{t('blocks.activeFilters')}</span>
             {selectedValidator && (
               <Badge variant="secondary" className="gap-1">
                 <User className="h-3 w-3" />
@@ -484,7 +484,7 @@ export default function Blocks() {
             {selectedShard && (
               <Badge variant="secondary" className="gap-1">
                 <Layers className="h-3 w-3" />
-                Shard {selectedShard}
+                {t('blocks.shardWithId', { id: selectedShard })}
                 <button onClick={() => setSelectedShard("")} className="ml-1">
                   <XCircle className="h-3 w-3" />
                 </button>
@@ -510,7 +510,7 @@ export default function Blocks() {
             <div className="flex items-center gap-2">
               <Activity className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">
-                Last Update: {formatDistanceToNow(lastUpdate, { addSuffix: true })}
+                {t('blocks.lastUpdate')} {formatDistanceToNow(lastUpdate, { addSuffix: true })}
               </span>
             </div>
             <Separator orientation="vertical" className="h-4" />
@@ -554,7 +554,7 @@ export default function Blocks() {
             <Alert variant="destructive" className="mb-4">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Failed to load blocks: {error.message}
+                {t('blocks.failedToLoadBlocks')} {error.message}
               </AlertDescription>
             </Alert>
           )}
@@ -653,7 +653,7 @@ export default function Blocks() {
                       </TableCell>
                       <TableCell>
                         <Badge variant="secondary">
-                          Shard {block.shardId}
+                          {t('blocks.shardWithId', { id: block.shardId })}
                         </Badge>
                       </TableCell>
                       <TableCell>
