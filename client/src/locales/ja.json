@@ -2764,6 +2764,21 @@
         "system": "システム",
         "api": "API",
         "network": "ネットワーク"
+      },
+      "resourceTypes": {
+        "members": "メンバー",
+        "validators": "バリデーター",
+        "config": "設定",
+        "security": "セキュリティ",
+        "network": "ネットワーク",
+        "contracts": "コントラクト",
+        "transactions": "トランザクション",
+        "system": "システム"
+      },
+      "operators": {
+        "admin": "管理者",
+        "system": "システム",
+        "api": "API"
       }
     },
     "reports": {

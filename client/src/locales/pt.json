@@ -1178,6 +1178,21 @@
         "system": "Sistema",
         "api": "API",
         "network": "Rede"
+      },
+      "resourceTypes": {
+        "members": "Membros",
+        "validators": "Validadores",
+        "config": "Configuração",
+        "security": "Segurança",
+        "network": "Rede",
+        "contracts": "Contratos",
+        "transactions": "Transações",
+        "system": "Sistema"
+      },
+      "operators": {
+        "admin": "Administrador",
+        "system": "Sistema",
+        "api": "API"
       }
     },
     "reports": {

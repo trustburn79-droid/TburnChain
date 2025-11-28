@@ -3212,6 +3212,21 @@
         "system": "시스템",
         "api": "API",
         "network": "네트워크"
+      },
+      "resourceTypes": {
+        "members": "멤버",
+        "validators": "검증자",
+        "config": "설정",
+        "security": "보안",
+        "network": "네트워크",
+        "contracts": "컨트랙트",
+        "transactions": "트랜잭션",
+        "system": "시스템"
+      },
+      "operators": {
+        "admin": "관리자",
+        "system": "시스템",
+        "api": "API"
       }
     },
     "reports": {

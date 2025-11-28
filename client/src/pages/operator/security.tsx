@@ -172,6 +172,23 @@ const AUDIT_CATEGORY_KEYS: Record<string, string> = {
   network: "operator.security.auditCategories.network",
 };
 
+const RESOURCE_TYPE_KEYS: Record<string, string> = {
+  members: "operator.security.resourceTypes.members",
+  validators: "operator.security.resourceTypes.validators",
+  config: "operator.security.resourceTypes.config",
+  security: "operator.security.resourceTypes.security",
+  network: "operator.security.resourceTypes.network",
+  contracts: "operator.security.resourceTypes.contracts",
+  transactions: "operator.security.resourceTypes.transactions",
+  system: "operator.security.resourceTypes.system",
+};
+
+const OPERATOR_KEYS: Record<string, string> = {
+  admin: "operator.security.operators.admin",
+  system: "operator.security.operators.system",
+  api: "operator.security.operators.api",
+};
+
 const MOCK_GEO_DATA = [
   { country: 'US', count: 45, risk: 'medium' },
   { country: 'CN', count: 32, risk: 'high' },
@@ -983,7 +1000,9 @@ export default function OperatorSecurity() {
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <span className="text-sm">{log.resource}</span>
+                          <span className="text-sm">
+                            {t(RESOURCE_TYPE_KEYS[log.resource] || `operator.security.resourceTypes.${log.resource}`, { defaultValue: log.resource })}
+                          </span>
                           {log.resource_id && (
                             <span className="text-xs text-muted-foreground ml-1">
                               ({log.resource_id.slice(0, 8)}...)
@@ -991,7 +1010,9 @@ export default function OperatorSecurity() {
                           )}
                         </TableCell>
                         <TableCell>{getRiskBadge(log.risk_level)}</TableCell>
-                        <TableCell className="text-sm">{log.operator_id}</TableCell>
+                        <TableCell className="text-sm">
+                          {t(OPERATOR_KEYS[log.operator_id] || `operator.security.operators.${log.operator_id}`, { defaultValue: log.operator_id })}
+                        </TableCell>
                         <TableCell className="text-sm">
                           {new Date(log.created_at).toLocaleString()}
                         </TableCell>

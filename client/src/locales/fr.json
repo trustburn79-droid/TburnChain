@@ -2580,6 +2580,21 @@
         "system": "Système",
         "api": "API",
         "network": "Réseau"
+      },
+      "resourceTypes": {
+        "members": "Membres",
+        "validators": "Validateurs",
+        "config": "Configuration",
+        "security": "Sécurité",
+        "network": "Réseau",
+        "contracts": "Contrats",
+        "transactions": "Transactions",
+        "system": "Système"
+      },
+      "operators": {
+        "admin": "Administrateur",
+        "system": "Système",
+        "api": "API"
       }
     },
     "reports": {

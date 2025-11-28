@@ -1178,6 +1178,21 @@
         "system": "Система",
         "api": "API",
         "network": "Сеть"
+      },
+      "resourceTypes": {
+        "members": "Участники",
+        "validators": "Валидаторы",
+        "config": "Конфигурация",
+        "security": "Безопасность",
+        "network": "Сеть",
+        "contracts": "Контракты",
+        "transactions": "Транзакции",
+        "system": "Система"
+      },
+      "operators": {
+        "admin": "Администратор",
+        "system": "Система",
+        "api": "API"
       }
     },
     "reports": {

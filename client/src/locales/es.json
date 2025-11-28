@@ -3207,6 +3207,21 @@
         "system": "Sistema",
         "api": "API",
         "network": "Red"
+      },
+      "resourceTypes": {
+        "members": "Miembros",
+        "validators": "Validadores",
+        "config": "Configuración",
+        "security": "Seguridad",
+        "network": "Red",
+        "contracts": "Contratos",
+        "transactions": "Transacciones",
+        "system": "Sistema"
+      },
+      "operators": {
+        "admin": "Administrador",
+        "system": "Sistema",
+        "api": "API"
       }
     },
     "reports": {

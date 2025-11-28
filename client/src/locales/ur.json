@@ -1178,6 +1178,21 @@
         "system": "نظام",
         "api": "API",
         "network": "نیٹ ورک"
+      },
+      "resourceTypes": {
+        "members": "ارکان",
+        "validators": "توثیق کار",
+        "config": "ترتیب",
+        "security": "سیکیورٹی",
+        "network": "نیٹ ورک",
+        "contracts": "معاہدات",
+        "transactions": "لین دین",
+        "system": "نظام"
+      },
+      "operators": {
+        "admin": "منتظم",
+        "system": "نظام",
+        "api": "API"
       }
     },
     "reports": {

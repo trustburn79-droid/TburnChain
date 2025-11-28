@@ -1178,6 +1178,21 @@
         "system": "সিস্টেম",
         "api": "API",
         "network": "নেটওয়ার্ক"
+      },
+      "resourceTypes": {
+        "members": "সদস্য",
+        "validators": "ভ্যালিডেটর",
+        "config": "কনফিগারেশন",
+        "security": "নিরাপত্তা",
+        "network": "নেটওয়ার্ক",
+        "contracts": "চুক্তি",
+        "transactions": "লেনদেন",
+        "system": "সিস্টেম"
+      },
+      "operators": {
+        "admin": "প্রশাসক",
+        "system": "সিস্টেম",
+        "api": "API"
       }
     },
     "reports": {

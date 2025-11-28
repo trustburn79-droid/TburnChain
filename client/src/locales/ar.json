@@ -2489,6 +2489,21 @@
         "system": "نظام",
         "api": "API",
         "network": "شبكة"
+      },
+      "resourceTypes": {
+        "members": "الأعضاء",
+        "validators": "المدققون",
+        "config": "التكوين",
+        "security": "الأمان",
+        "network": "الشبكة",
+        "contracts": "العقود",
+        "transactions": "المعاملات",
+        "system": "النظام"
+      },
+      "operators": {
+        "admin": "المسؤول",
+        "system": "النظام",
+        "api": "API"
       }
     },
     "reports": {

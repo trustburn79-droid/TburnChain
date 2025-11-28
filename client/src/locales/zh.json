@@ -3153,6 +3153,21 @@
         "system": "系统",
         "api": "API",
         "network": "网络"
+      },
+      "resourceTypes": {
+        "members": "成员",
+        "validators": "验证者",
+        "config": "配置",
+        "security": "安全",
+        "network": "网络",
+        "contracts": "合约",
+        "transactions": "交易",
+        "system": "系统"
+      },
+      "operators": {
+        "admin": "管理员",
+        "system": "系统",
+        "api": "API"
       }
     },
     "reports": {

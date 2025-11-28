@@ -2405,6 +2405,21 @@
         "system": "सिस्टम",
         "api": "API",
         "network": "नेटवर्क"
+      },
+      "resourceTypes": {
+        "members": "सदस्य",
+        "validators": "वैलिडेटर",
+        "config": "कॉन्फ़िगरेशन",
+        "security": "सुरक्षा",
+        "network": "नेटवर्क",
+        "contracts": "अनुबंध",
+        "transactions": "लेनदेन",
+        "system": "सिस्टम"
+      },
+      "operators": {
+        "admin": "व्यवस्थापक",
+        "system": "सिस्टम",
+        "api": "API"
       }
     },
     "reports": {

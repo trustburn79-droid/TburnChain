@@ -3125,6 +3125,21 @@
         "system": "System",
         "api": "API",
         "network": "Network"
+      },
+      "resourceTypes": {
+        "members": "Members",
+        "validators": "Validators",
+        "config": "Configuration",
+        "security": "Security",
+        "network": "Network",
+        "contracts": "Contracts",
+        "transactions": "Transactions",
+        "system": "System"
+      },
+      "operators": {
+        "admin": "Administrator",
+        "system": "System",
+        "api": "API"
       }
     },
 
