@@ -1,11 +1,14 @@
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useTranslation } from "react-i18next";
 
 interface DemoBannerProps {
   isLiveMode?: boolean;
 }
 
 export function DemoBanner({ isLiveMode = true }: DemoBannerProps) {
+  const { t } = useTranslation();
+  
   if (isLiveMode) {
     return (
       <Alert 
@@ -14,7 +17,7 @@ export function DemoBanner({ isLiveMode = true }: DemoBannerProps) {
       >
         <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-500" />
         <AlertDescription className="ml-2 text-green-800 dark:text-green-200 font-medium">
-          <span className="font-bold">LIVE MODE</span> | Connected to TBURN mainnet node
+          <span className="font-bold">{t('common.liveMode')}</span> | {t('common.connectedToMainnet')}
         </AlertDescription>
       </Alert>
     );
@@ -27,7 +30,7 @@ export function DemoBanner({ isLiveMode = true }: DemoBannerProps) {
     >
       <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-500" />
       <AlertDescription className="ml-2 text-yellow-800 dark:text-yellow-200 font-medium">
-        <span className="font-bold">DEMO MODE</span> | This explorer uses simulated data for demonstration purposes. For production deployment, connect to a real TBURN blockchain node.
+        <span className="font-bold">{t('common.demoMode')}</span> | {t('common.demoModeDescription')}
       </AlertDescription>
     </Alert>
   );

@@ -10,7 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 export function LanguageSelector() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
@@ -31,7 +31,7 @@ export function LanguageSelector() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" data-testid="button-language-selector">
           <Globe className="h-4 w-4" />
-          <span className="sr-only">Select language</span>
+          <span className="sr-only">{t('common.selectLanguage')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="max-h-80 overflow-y-auto">
