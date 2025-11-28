@@ -2258,7 +2258,6 @@
     "validatorOperations": "バリデーター運用",
     "securityAudit": "セキュリティ監査",
     "complianceReports": "コンプライアンスレポート",
-    "members": "メンバー",
     "addMember": "メンバー追加",
     "removeMember": "メンバー削除",
     "memberRole": "メンバー役割",

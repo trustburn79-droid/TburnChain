@@ -617,7 +617,7 @@ export default function OperatorDashboard() {
             <Link href="/operator/members">
               <Button variant="outline" className="w-full justify-start" data-testid="btn-manage-members">
                 <Users className="w-4 h-4 mr-2" />
-                {t('operator.members')}
+                {t('operator.memberManagement')}
               </Button>
             </Link>
             <Link href="/operator/validators">
