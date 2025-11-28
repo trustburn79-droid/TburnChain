@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,7 @@ interface OperatorAuthGuardProps {
 }
 
 export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
+  const { t } = useTranslation();
   const { isAdminAuthenticated, setAdminPassword, clearAdminPassword, getAuthHeaders, adminPassword } = useAdminPassword();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -74,11 +76,10 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
         setIsValidSession(true);
         setPassword("");
       } else {
-        const data = await response.json();
-        setError(data.message || "Invalid admin password");
+        setError(t('operator.auth.invalidPassword'));
       }
     } catch (err) {
-      setError("Failed to verify password. Please try again.");
+      setError(t('operator.auth.verificationFailed'));
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +95,7 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
       <div className="flex items-center justify-center min-h-[80vh] p-6">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Validating session...</p>
+          <p className="text-muted-foreground">{t('operator.auth.validatingSession')}</p>
         </div>
       </div>
     );
@@ -108,9 +109,9 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
             <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
               <Shield className="h-6 w-6 text-primary" />
             </div>
-            <CardTitle>Operator Portal Access</CardTitle>
+            <CardTitle>{t('operator.auth.portalAccess')}</CardTitle>
             <CardDescription>
-              Enter the admin password to access the operator back-office
+              {t('operator.auth.enterPassword')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -123,7 +124,7 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
               )}
               
               <div className="space-y-2">
-                <Label htmlFor="admin-password">Admin Password</Label>
+                <Label htmlFor="admin-password">{t('operator.auth.adminPassword')}</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -131,7 +132,7 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter admin password"
+                    placeholder={t('operator.auth.passwordPlaceholder')}
                     className="pl-10"
                     autoFocus
                     data-testid="input-admin-password"
@@ -148,10 +149,10 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
                 {isLoading ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Verifying...
+                    {t('operator.auth.verifying')}
                   </>
                 ) : (
-                  "Access Operator Portal"
+                  t('operator.auth.accessPortal')
                 )}
               </Button>
             </form>
@@ -172,7 +173,7 @@ export function OperatorAuthGuard({ children }: OperatorAuthGuardProps) {
           data-testid="btn-admin-logout"
         >
           <LogOut className="h-4 w-4 mr-2" />
-          Logout
+          {t('operator.logout')}
         </Button>
       </div>
       {children}

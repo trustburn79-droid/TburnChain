@@ -1790,6 +1790,18 @@
     "subtitle": "व्यापक नेटवर्क ऑपरेशंस मैनेजमेंट",
     "enterpriseBackoffice": "TBURN नेटवर्क मैनेजमेंट के लिए एंटरप्राइज़ बैक-ऑफिस",
     "adminAccess": "एडमिन एक्सेस",
+    "logout": "लॉग आउट",
+    "auth": {
+      "validatingSession": "सत्र सत्यापित हो रहा है...",
+      "portalAccess": "ऑपरेटर पोर्टल एक्सेस",
+      "enterPassword": "ऑपरेटर बैक-ऑफिस एक्सेस करने के लिए एडमिन पासवर्ड दर्ज करें",
+      "adminPassword": "एडमिन पासवर्ड",
+      "passwordPlaceholder": "एडमिन पासवर्ड दर्ज करें",
+      "verifying": "सत्यापित हो रहा है...",
+      "accessPortal": "ऑपरेटर पोर्टल एक्सेस करें",
+      "invalidPassword": "अमान्य एडमिन पासवर्ड",
+      "verificationFailed": "पासवर्ड सत्यापित करने में विफल। कृपया पुनः प्रयास करें।"
+    },
     "operatorDashboard": "ऑपरेटर डैशबोर्ड",
     "memberManagement": "सदस्य प्रबंधन",
     "validatorOperations": "वैलिडेटर ऑपरेशंस",

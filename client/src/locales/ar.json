@@ -1859,6 +1859,18 @@
     "subtitle": "إدارة شاملة لعمليات الشبكة",
     "enterpriseBackoffice": "المكتب الخلفي للمؤسسات لإدارة شبكة TBURN",
     "adminAccess": "الوصول الإداري",
+    "logout": "تسجيل الخروج",
+    "auth": {
+      "validatingSession": "جاري التحقق من الجلسة...",
+      "portalAccess": "الوصول إلى بوابة المشغل",
+      "enterPassword": "أدخل كلمة مرور المسؤول للوصول إلى المكتب الخلفي",
+      "adminPassword": "كلمة مرور المسؤول",
+      "passwordPlaceholder": "أدخل كلمة مرور المسؤول",
+      "verifying": "جاري التحقق...",
+      "accessPortal": "الوصول إلى بوابة المشغل",
+      "invalidPassword": "كلمة مرور المسؤول غير صالحة",
+      "verificationFailed": "فشل التحقق من كلمة المرور. يرجى المحاولة مرة أخرى."
+    },
     "operatorDashboard": "لوحة تحكم المشغل",
     "memberManagement": "إدارة الأعضاء",
     "validatorOperations": "عمليات المدققين",

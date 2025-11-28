@@ -801,6 +801,18 @@
     "subtitle": "Gerenciamento abrangente de operações de rede",
     "enterpriseBackoffice": "Back-office empresarial para gerenciamento de rede TBURN",
     "adminAccess": "Acesso de Administrador",
+    "logout": "Sair",
+    "auth": {
+      "validatingSession": "Validando sessão...",
+      "portalAccess": "Acesso ao Portal do Operador",
+      "enterPassword": "Digite a senha de administrador para acessar o back-office",
+      "adminPassword": "Senha de Administrador",
+      "passwordPlaceholder": "Digite a senha de administrador",
+      "verifying": "Verificando...",
+      "accessPortal": "Acessar Portal do Operador",
+      "invalidPassword": "Senha de administrador inválida",
+      "verificationFailed": "Falha ao verificar a senha. Por favor, tente novamente."
+    },
     "operatorDashboard": "Painel do Operador",
     "memberManagement": "Gerenciamento de Membros",
     "validatorOperations": "Operações de Validadores",

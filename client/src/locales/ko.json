@@ -2529,6 +2529,18 @@
     "subtitle": "종합 네트워크 운영 관리",
     "enterpriseBackoffice": "TBURN 네트워크 관리를 위한 엔터프라이즈 백오피스",
     "adminAccess": "관리자 액세스",
+    "logout": "로그아웃",
+    "auth": {
+      "validatingSession": "세션 검증 중...",
+      "portalAccess": "운영자 포털 액세스",
+      "enterPassword": "운영자 백오피스에 접근하려면 관리자 비밀번호를 입력하세요",
+      "adminPassword": "관리자 비밀번호",
+      "passwordPlaceholder": "관리자 비밀번호 입력",
+      "verifying": "확인 중...",
+      "accessPortal": "운영자 포털 액세스",
+      "invalidPassword": "잘못된 관리자 비밀번호입니다",
+      "verificationFailed": "비밀번호 확인에 실패했습니다. 다시 시도해 주세요."
+    },
     "operatorDashboard": "운영자 대시보드",
     "memberManagement": "멤버 관리",
     "validatorOperations": "검증자 운영",

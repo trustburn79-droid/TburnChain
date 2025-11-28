@@ -801,6 +801,18 @@
     "subtitle": "Комплексное управление операциями сети",
     "enterpriseBackoffice": "Корпоративный бэк-офис для управления сетью TBURN",
     "adminAccess": "Доступ администратора",
+    "logout": "Выйти",
+    "auth": {
+      "validatingSession": "Проверка сессии...",
+      "portalAccess": "Доступ к порталу оператора",
+      "enterPassword": "Введите пароль администратора для доступа к бэк-офису",
+      "adminPassword": "Пароль администратора",
+      "passwordPlaceholder": "Введите пароль администратора",
+      "verifying": "Проверка...",
+      "accessPortal": "Войти в портал оператора",
+      "invalidPassword": "Неверный пароль администратора",
+      "verificationFailed": "Не удалось проверить пароль. Пожалуйста, попробуйте снова."
+    },
     "operatorDashboard": "Панель оператора",
     "memberManagement": "Управление участниками",
     "validatorOperations": "Операции валидаторов",

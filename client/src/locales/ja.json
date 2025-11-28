@@ -2248,6 +2248,18 @@
     }
   },
   "operator": {
+    "logout": "ログアウト",
+    "auth": {
+      "validatingSession": "セッション検証中...",
+      "portalAccess": "オペレーターポータルアクセス",
+      "enterPassword": "オペレーターバックオフィスにアクセスするには管理者パスワードを入力してください",
+      "adminPassword": "管理者パスワード",
+      "passwordPlaceholder": "管理者パスワードを入力",
+      "verifying": "検証中...",
+      "accessPortal": "オペレーターポータルにアクセス",
+      "invalidPassword": "管理者パスワードが無効です",
+      "verificationFailed": "パスワードの検証に失敗しました。もう一度お試しください。"
+    },
     "dashboard": {
       "title": "オペレーターダッシュボード",
       "subtitle": "メインネットインフラストラクチャのエンタープライズグレード監視",

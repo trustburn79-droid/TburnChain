@@ -801,6 +801,18 @@
     "subtitle": "ব্যাপক নেটওয়ার্ক অপারেশন ম্যানেজমেন্ট",
     "enterpriseBackoffice": "TBURN নেটওয়ার্ক ম্যানেজমেন্টের জন্য এন্টারপ্রাইজ ব্যাক-অফিস",
     "adminAccess": "অ্যাডমিন অ্যাক্সেস",
+    "logout": "লগ আউট",
+    "auth": {
+      "validatingSession": "সেশন যাচাই করা হচ্ছে...",
+      "portalAccess": "অপারেটর পোর্টাল অ্যাক্সেস",
+      "enterPassword": "অপারেটর ব্যাক-অফিস অ্যাক্সেস করতে অ্যাডমিন পাসওয়ার্ড দিন",
+      "adminPassword": "অ্যাডমিন পাসওয়ার্ড",
+      "passwordPlaceholder": "অ্যাডমিন পাসওয়ার্ড দিন",
+      "verifying": "যাচাই করা হচ্ছে...",
+      "accessPortal": "অপারেটর পোর্টাল অ্যাক্সেস করুন",
+      "invalidPassword": "অবৈধ অ্যাডমিন পাসওয়ার্ড",
+      "verificationFailed": "পাসওয়ার্ড যাচাই করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।"
+    },
     "operatorDashboard": "অপারেটর ড্যাশবোর্ড",
     "memberManagement": "সদস্য ব্যবস্থাপনা",
     "validatorOperations": "ভ্যালিডেটর অপারেশন",

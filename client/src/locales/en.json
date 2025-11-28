@@ -2487,6 +2487,18 @@
     "subtitle": "Comprehensive network operations management",
     "enterpriseBackoffice": "Enterprise back-office for TBURN network management",
     "adminAccess": "Admin Access",
+    "logout": "Logout",
+    "auth": {
+      "validatingSession": "Validating session...",
+      "portalAccess": "Operator Portal Access",
+      "enterPassword": "Enter the admin password to access the operator back-office",
+      "adminPassword": "Admin Password",
+      "passwordPlaceholder": "Enter admin password",
+      "verifying": "Verifying...",
+      "accessPortal": "Access Operator Portal",
+      "invalidPassword": "Invalid admin password",
+      "verificationFailed": "Failed to verify password. Please try again."
+    },
     "operatorDashboard": "Operator Dashboard",
     "memberManagement": "Member Management",
     "validatorOperations": "Validator Operations",

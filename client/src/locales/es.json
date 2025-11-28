@@ -2594,6 +2594,18 @@
     "subtitle": "Gestión integral de operaciones de red",
     "enterpriseBackoffice": "Back-office empresarial para gestión de red TBURN",
     "adminAccess": "Acceso de Admin",
+    "logout": "Cerrar Sesión",
+    "auth": {
+      "validatingSession": "Validando sesión...",
+      "portalAccess": "Acceso al Portal del Operador",
+      "enterPassword": "Ingrese la contraseña de administrador para acceder al back-office",
+      "adminPassword": "Contraseña de Administrador",
+      "passwordPlaceholder": "Ingrese la contraseña de administrador",
+      "verifying": "Verificando...",
+      "accessPortal": "Acceder al Portal del Operador",
+      "invalidPassword": "Contraseña de administrador inválida",
+      "verificationFailed": "Error al verificar la contraseña. Por favor, intente de nuevo."
+    },
     "operatorDashboard": "Panel del Operador",
     "memberManagement": "Gestión de Miembros",
     "validatorOperations": "Operaciones de Validadores",

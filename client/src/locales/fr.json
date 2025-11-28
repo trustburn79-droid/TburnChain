@@ -1977,6 +1977,18 @@
     "subtitle": "Gestion complète des opérations réseau",
     "enterpriseBackoffice": "Back-office d'entreprise pour la gestion du réseau TBURN",
     "adminAccess": "Accès administrateur",
+    "logout": "Déconnexion",
+    "auth": {
+      "validatingSession": "Validation de la session...",
+      "portalAccess": "Accès au Portail Opérateur",
+      "enterPassword": "Entrez le mot de passe administrateur pour accéder au back-office",
+      "adminPassword": "Mot de passe administrateur",
+      "passwordPlaceholder": "Entrez le mot de passe administrateur",
+      "verifying": "Vérification...",
+      "accessPortal": "Accéder au Portail Opérateur",
+      "invalidPassword": "Mot de passe administrateur invalide",
+      "verificationFailed": "Échec de la vérification du mot de passe. Veuillez réessayer."
+    },
     "operatorDashboard": "Tableau de bord opérateur",
     "memberManagement": "Gestion des membres",
     "validatorOperations": "Opérations validateurs",

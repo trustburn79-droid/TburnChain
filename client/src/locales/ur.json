@@ -801,6 +801,18 @@
     "subtitle": "جامع نیٹ ورک آپریشنز مینجمنٹ",
     "enterpriseBackoffice": "TBURN نیٹ ورک مینجمنٹ کے لیے انٹرپرائز بیک آفس",
     "adminAccess": "ایڈمن رسائی",
+    "logout": "لاگ آؤٹ",
+    "auth": {
+      "validatingSession": "سیشن کی تصدیق ہو رہی ہے...",
+      "portalAccess": "آپریٹر پورٹل تک رسائی",
+      "enterPassword": "بیک آفس تک رسائی کے لیے ایڈمن پاس ورڈ درج کریں",
+      "adminPassword": "ایڈمن پاس ورڈ",
+      "passwordPlaceholder": "ایڈمن پاس ورڈ درج کریں",
+      "verifying": "تصدیق ہو رہی ہے...",
+      "accessPortal": "آپریٹر پورٹل تک رسائی حاصل کریں",
+      "invalidPassword": "غلط ایڈمن پاس ورڈ",
+      "verificationFailed": "پاس ورڈ کی تصدیق میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+    },
     "operatorDashboard": "آپریٹر ڈیش بورڈ",
     "memberManagement": "ممبر مینجمنٹ",
     "validatorOperations": "ویلیڈیٹر آپریشنز",

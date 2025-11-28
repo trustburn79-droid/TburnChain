@@ -2485,6 +2485,18 @@
     "subtitle": "综合网络运营管理",
     "enterpriseBackoffice": "TBURN 网络管理企业后台",
     "adminAccess": "管理员访问",
+    "logout": "退出登录",
+    "auth": {
+      "validatingSession": "正在验证会话...",
+      "portalAccess": "运营门户访问",
+      "enterPassword": "请输入管理员密码以访问运营后台",
+      "adminPassword": "管理员密码",
+      "passwordPlaceholder": "输入管理员密码",
+      "verifying": "验证中...",
+      "accessPortal": "访问运营门户",
+      "invalidPassword": "管理员密码无效",
+      "verificationFailed": "密码验证失败，请重试。"
+    },
     "operatorDashboard": "运营仪表板",
     "memberManagement": "成员管理",
     "validatorOperations": "验证者运营",
