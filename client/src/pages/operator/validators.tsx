@@ -112,6 +112,20 @@ const DAILY_EMISSION = 5000;
 const BURN_RATE = 0.20;
 const NET_DAILY_EMISSION = DAILY_EMISSION * (1 - BURN_RATE);
 
+const SLASH_TYPE_KEYS: Record<string, string> = {
+  downtime: "operator.validators.slashTypes.downtime",
+  double_sign: "operator.validators.slashTypes.doubleSigning",
+  double_signing: "operator.validators.slashTypes.doubleSigning",
+  malicious_behavior: "operator.validators.slashTypes.maliciousBehavior",
+  protocol_violation: "operator.validators.slashTypes.protocolViolation",
+};
+
+const SLASH_STATUS_KEYS: Record<string, string> = {
+  executed: "operator.validators.slashStatuses.executed",
+  pending: "operator.validators.slashStatuses.pending",
+  cancelled: "operator.validators.slashStatuses.cancelled",
+};
+
 export default function OperatorValidators() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -683,7 +697,7 @@ export default function OperatorValidators() {
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline" className="capitalize">
-                          {slash.slash_type.replace('_', ' ')}
+                          {t(SLASH_TYPE_KEYS[slash.slash_type] || `operator.validators.slashTypes.${slash.slash_type}`)}
                         </Badge>
                       </TableCell>
                       <TableCell className="font-mono text-red-500">-{slash.slash_amount} TBURN</TableCell>
@@ -691,7 +705,7 @@ export default function OperatorValidators() {
                       <TableCell>{slash.executed_by}</TableCell>
                       <TableCell>
                         <Badge variant={slash.status === 'executed' ? 'default' : 'secondary'}>
-                          {slash.status}
+                          {t(SLASH_STATUS_KEYS[slash.status] || `operator.validators.slashStatuses.${slash.status}`)}
                         </Badge>
                       </TableCell>
                     </TableRow>
