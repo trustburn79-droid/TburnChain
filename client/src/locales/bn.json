@@ -68,7 +68,8 @@
     "theme": "থিম",
     "dark": "ডার্ক",
     "light": "লাইট",
-    "system": "সিস্টেম"
+    "system": "সিস্টেম",
+    "unknown": "অজানা"
   },
   "nav": {
     "brand": "TBURN চেইন মেইননেট",
@@ -202,7 +203,9 @@
     "validatorEnterpriseNode": "এন্টারপ্রাইজ নোড",
     "validatorMainnetAlpha": "মেইননেট আলফা",
     "validatorCoreValidator": "কোর ভ্যালিডেটর",
-    "poolId": "পুল ID"
+    "poolId": "পুল ID",
+    "aiAnalysisCompleted": "এআই বিশ্লেষণ সফলভাবে সম্পন্ন হয়েছে",
+    "simulatedPredictionMarket": "বর্তমান বাজার পরিস্থিতির উপর ভিত্তি করে সিমুলেটেড পূর্বাভাস"
   },
   "dex": {
     "title": "বিকেন্দ্রীভূত এক্সচেঞ্জ",
@@ -1266,7 +1269,13 @@
     "today": "আজ",
     "ready": "প্রস্তুত",
     "daysHours": "{{days}}দ {{hours}}ঘ",
-    "hoursRemaining": "{{hours}}ঘ"
+    "hoursRemaining": "{{hours}}ঘ",
+    "hoursAgo": "ঘন্টা আগে",
+    "tierBronze": "ব্রোঞ্জ",
+    "tierSilver": "সিলভার",
+    "tierGold": "গোল্ড",
+    "tierPlatinum": "প্লাটিনাম",
+    "tierDiamond": "ডায়মন্ড"
   },
   "stakingSdk": {
     "title": "ওয়ালেট SDK এবং ডেভেলপমেন্ট টুলস",

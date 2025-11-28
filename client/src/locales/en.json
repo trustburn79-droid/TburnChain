@@ -77,7 +77,8 @@
     "showing": "Showing",
     "page": "Page",
     "noDataAvailable": "No data available",
-    "id": "ID"
+    "id": "ID",
+    "unknown": "Unknown"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",
@@ -680,7 +681,9 @@
     "validatorEnterpriseNode": "Enterprise Node",
     "validatorMainnetAlpha": "Mainnet Alpha",
     "validatorCoreValidator": "Core Validator",
-    "poolId": "Pool ID"
+    "poolId": "Pool ID",
+    "aiAnalysisCompleted": "AI analysis completed successfully",
+    "simulatedPredictionMarket": "Simulated prediction based on current market conditions"
   },
   "stakingRewards": {
     "title": "Rewards Center",
@@ -715,6 +718,11 @@
     "rewardDistributed": "Reward Distributed",
     "pool": "Pool",
     "hoursAgo": "hours ago",
+    "tierBronze": "Bronze",
+    "tierSilver": "Silver",
+    "tierGold": "Gold",
+    "tierPlatinum": "Platinum",
+    "tierDiamond": "Diamond",
     "noRewardCycles": "No Reward Cycles",
     "rewardCyclesAppear": "Reward cycles will appear here once staking is active.",
     "totalDistributed": "Total Distributed",

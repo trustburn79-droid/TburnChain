@@ -228,8 +228,8 @@ export default function StakingDashboard() {
         predictedApy: data.predictedApy || stats?.averageApy || 14.5,
         confidence: data.confidence || 87,
         trend: data.trend || "bullish",
-        aiProvider: data.aiProvider || "Claude 4.5 Sonnet",
-        analysis: data.analysis || "AI analysis completed successfully"
+        aiProvider: data.aiProvider || t('common.claudeSonnet'),
+        analysis: data.analysis || t('staking.aiAnalysisCompleted')
       });
       toast({
         title: t('staking.apyPredictionUpdated'),
@@ -241,8 +241,8 @@ export default function StakingDashboard() {
         predictedApy: stats?.averageApy || 14.5,
         confidence: 85,
         trend: "bullish",
-        aiProvider: "Claude 4.5 Sonnet",
-        analysis: "Simulated prediction based on current market conditions"
+        aiProvider: t('common.claudeSonnet'),
+        analysis: t('staking.simulatedPredictionMarket')
       });
       toast({
         title: t('staking.predictionGenerated'),
@@ -702,7 +702,7 @@ export default function StakingDashboard() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">{t('staking.aiProvider')}</span>
-                    <Badge variant="secondary">{apyPrediction?.aiProvider || "Claude 4.5 Sonnet"}</Badge>
+                    <Badge variant="secondary">{apyPrediction?.aiProvider || t('common.claudeSonnet')}</Badge>
                   </div>
                 </div>
                 <Button 

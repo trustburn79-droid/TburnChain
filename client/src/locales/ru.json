@@ -68,7 +68,8 @@
     "theme": "Тема",
     "dark": "Темная",
     "light": "Светлая",
-    "system": "Системная"
+    "system": "Системная",
+    "unknown": "Неизвестно"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",
@@ -202,7 +203,9 @@
     "validatorEnterpriseNode": "Корпоративный Узел",
     "validatorMainnetAlpha": "Mainnet Альфа",
     "validatorCoreValidator": "Основной Валидатор",
-    "poolId": "ID пула"
+    "poolId": "ID пула",
+    "aiAnalysisCompleted": "Анализ ИИ успешно завершен",
+    "simulatedPredictionMarket": "Симулированный прогноз на основе текущих рыночных условий"
   },
   "dex": {
     "title": "Децентрализованная биржа",
@@ -1266,7 +1269,13 @@
     "today": "Сегодня",
     "ready": "Готово",
     "daysHours": "{{days}}д {{hours}}ч",
-    "hoursRemaining": "{{hours}}ч"
+    "hoursRemaining": "{{hours}}ч",
+    "hoursAgo": "часов назад",
+    "tierBronze": "Бронза",
+    "tierSilver": "Серебро",
+    "tierGold": "Золото",
+    "tierPlatinum": "Платина",
+    "tierDiamond": "Алмаз"
   },
   "stakingSdk": {
     "title": "SDK кошелька и инструменты разработки",

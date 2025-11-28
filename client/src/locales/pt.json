@@ -68,7 +68,8 @@
     "theme": "Tema",
     "dark": "Escuro",
     "light": "Claro",
-    "system": "Sistema"
+    "system": "Sistema",
+    "unknown": "Desconhecido"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",
@@ -202,7 +203,9 @@
     "validatorEnterpriseNode": "Nó Empresarial",
     "validatorMainnetAlpha": "Mainnet Alpha",
     "validatorCoreValidator": "Validador Core",
-    "poolId": "ID do Pool"
+    "poolId": "ID do Pool",
+    "aiAnalysisCompleted": "Análise de IA concluída com sucesso",
+    "simulatedPredictionMarket": "Previsão simulada com base nas condições atuais de mercado"
   },
   "dex": {
     "title": "Exchange Descentralizada",
@@ -1266,7 +1269,13 @@
     "today": "Hoje",
     "ready": "Pronto",
     "daysHours": "{{days}}d {{hours}}h",
-    "hoursRemaining": "{{hours}}h"
+    "hoursRemaining": "{{hours}}h",
+    "hoursAgo": "horas atrás",
+    "tierBronze": "Bronze",
+    "tierSilver": "Prata",
+    "tierGold": "Ouro",
+    "tierPlatinum": "Platina",
+    "tierDiamond": "Diamante"
   },
   "stakingSdk": {
     "title": "SDK de Carteira e Ferramentas de Desenvolvimento",

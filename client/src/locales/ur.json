@@ -68,7 +68,8 @@
     "theme": "تھیم",
     "dark": "ڈارک",
     "light": "لائٹ",
-    "system": "سسٹم"
+    "system": "سسٹم",
+    "unknown": "نامعلوم"
   },
   "nav": {
     "brand": "TBURN چین مین نیٹ",
@@ -202,7 +203,9 @@
     "validatorEnterpriseNode": "انٹرپرائز نوڈ",
     "validatorMainnetAlpha": "مین نیٹ الفا",
     "validatorCoreValidator": "کور ویلیڈیٹر",
-    "poolId": "پول ID"
+    "poolId": "پول ID",
+    "aiAnalysisCompleted": "AI تجزیہ کامیابی سے مکمل",
+    "simulatedPredictionMarket": "موجودہ مارکیٹ حالات پر مبنی نقلی پیش گوئی"
   },
   "dex": {
     "title": "غیر مرکزی ایکسچینج",
@@ -1266,7 +1269,13 @@
     "today": "آج",
     "ready": "تیار",
     "daysHours": "{{days}}د {{hours}}گ",
-    "hoursRemaining": "{{hours}}گ"
+    "hoursRemaining": "{{hours}}گ",
+    "hoursAgo": "گھنٹے پہلے",
+    "tierBronze": "کانسی",
+    "tierSilver": "چاندی",
+    "tierGold": "سونا",
+    "tierPlatinum": "پلاٹینم",
+    "tierDiamond": "ہیرا"
   },
   "stakingSdk": {
     "title": "والیٹ SDK اور ڈیولپمنٹ ٹولز",

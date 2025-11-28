@@ -309,7 +309,8 @@ export default function StakingRewards() {
                 <div className="space-y-3">
                   {Array.from({ length: 10 }).map((_, i) => {
                     const isCompounded = Math.random() > 0.5;
-                    const tier = ["Bronze", "Silver", "Gold", "Platinum", "Diamond"][Math.floor(Math.random() * 5)];
+                    const tierKeys = ['tierBronze', 'tierSilver', 'tierGold', 'tierPlatinum', 'tierDiamond'] as const;
+                    const tier = t(`stakingRewards.${tierKeys[Math.floor(Math.random() * 5)]}`);
                     return (
                       <div key={i} className="flex items-center justify-between p-3 rounded-md border">
                         <div className="flex items-center gap-3">

@@ -426,10 +426,10 @@ export default function DexPage() {
     if (pools) {
       pools.forEach(p => {
         if (p.token0Address && !tokens.has(p.token0Address)) {
-          tokens.set(p.token0Address, { address: p.token0Address, symbol: p.token0Symbol || truncateAddress(p.token0Address), name: p.token0Symbol || "Unknown" });
+          tokens.set(p.token0Address, { address: p.token0Address, symbol: p.token0Symbol || truncateAddress(p.token0Address), name: p.token0Symbol || t('common.unknown') });
         }
         if (p.token1Address && !tokens.has(p.token1Address)) {
-          tokens.set(p.token1Address, { address: p.token1Address, symbol: p.token1Symbol || truncateAddress(p.token1Address), name: p.token1Symbol || "Unknown" });
+          tokens.set(p.token1Address, { address: p.token1Address, symbol: p.token1Symbol || truncateAddress(p.token1Address), name: p.token1Symbol || t('common.unknown') });
         }
       });
     }
@@ -659,7 +659,7 @@ export default function DexPage() {
                   <div className="flex gap-2">
                     <Select value={swapInput.tokenIn} onValueChange={(v) => setSwapInput(prev => ({ ...prev, tokenIn: v }))}>
                       <SelectTrigger className="w-[140px]" data-testid="select-token-in">
-                        <SelectValue placeholder="Select Token">
+                        <SelectValue placeholder={t('dex.selectToken')}>
                           {swapInput.tokenIn && tokenList.find(t => t.address === swapInput.tokenIn)?.symbol}
                         </SelectValue>
                       </SelectTrigger>
@@ -698,7 +698,7 @@ export default function DexPage() {
                   <div className="flex gap-2">
                     <Select value={swapInput.tokenOut} onValueChange={(v) => setSwapInput(prev => ({ ...prev, tokenOut: v }))}>
                       <SelectTrigger className="w-[140px]" data-testid="select-token-out">
-                        <SelectValue placeholder="Select Token">
+                        <SelectValue placeholder={t('dex.selectToken')}>
                           {swapInput.tokenOut && tokenList.find(t => t.address === swapInput.tokenOut)?.symbol}
                         </SelectValue>
                       </SelectTrigger>

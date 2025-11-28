@@ -8455,14 +8455,14 @@ Provide JSON portfolio analysis:
         id: z.string(),
         name: z.string(),
         poolType: z.string(),
-        totalStaked: z.string().nullable(),
-        activeStakers: z.number().nullable(),
-        apy: z.string().nullable(),
-        minStake: z.string().nullable(),
-        maxStake: z.string().nullable(),
-        lockPeriodDays: z.number().nullable(),
-        isActive: z.boolean().nullable(),
-        slashingProtection: z.boolean().nullable(),
+        totalStaked: z.string().nullish(),
+        activeStakers: z.number().nullish(),
+        apy: z.string().nullish(),
+        minStake: z.string().nullish(),
+        maxStake: z.string().nullish(),
+        lockPeriodDays: z.number().nullish(),
+        isActive: z.boolean().nullish(),
+        slashingProtection: z.boolean().nullish(),
       })));
     } catch (error) {
       console.error('Error broadcasting staking pools:', error);
@@ -8567,16 +8567,16 @@ Provide JSON portfolio analysis:
         currentCycle: z.object({
           id: z.string(),
           cycleNumber: z.number(),
-          startTime: z.date().nullable(),
-          endTime: z.date().nullable(),
-          totalRewardsDistributed: z.string().nullable(),
-          totalParticipants: z.number().nullable(),
+          startTime: z.any().nullish(),
+          endTime: z.any().nullish(),
+          totalRewardsDistributed: z.string().nullish(),
+          totalParticipants: z.number().nullish(),
           status: z.string(),
-        }).nullable(),
+        }).nullish(),
         recentCycles: z.array(z.object({
           cycleNumber: z.number(),
-          totalRewardsDistributed: z.string().nullable(),
-          totalParticipants: z.number().nullable(),
+          totalRewardsDistributed: z.string().nullish(),
+          totalParticipants: z.number().nullish(),
           status: z.string(),
         })),
         timestamp: z.number(),
@@ -8784,7 +8784,7 @@ Provide JSON portfolio analysis:
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
-      const activeBreakers = await storage.getActiveDexCircuitBreakers();
+      const activeBreakers = await storage.getTriggeredDexCircuitBreakers();
       
       broadcastUpdate('dex_circuit_breakers', {
         activeBreakers: activeBreakers.map(cb => ({

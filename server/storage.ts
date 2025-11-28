@@ -3785,13 +3785,13 @@ export class DbStorage implements IStorage {
 
   // Lending Risk Methods
   async getAtRiskLendingPositions(healthThreshold: number): Promise<LendingPosition[]> {
-    const positions = await db.select().from(lendingPositions).where(eq(lendingPositions.status, "active"));
-    return positions.filter(p => p.healthFactor < healthThreshold && p.healthFactor > 10000);
+    const positions = await db.select().from(lendingPositions);
+    return positions.filter(p => p.healthStatus === "at_risk" || (p.healthFactor !== null && p.healthFactor < healthThreshold && p.healthFactor > 10000));
   }
 
   async getLiquidatableLendingPositions(healthThreshold: number): Promise<LendingPosition[]> {
-    const positions = await db.select().from(lendingPositions).where(eq(lendingPositions.status, "active"));
-    return positions.filter(p => p.healthFactor <= healthThreshold);
+    const positions = await db.select().from(lendingPositions);
+    return positions.filter(p => p.healthStatus === "liquidatable" || (p.healthFactor !== null && p.healthFactor <= healthThreshold));
   }
 
   // Lending Aggregated Stats
