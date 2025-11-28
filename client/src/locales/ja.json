@@ -78,7 +78,8 @@
     "page": "ページ",
     "noDataAvailable": "データがありません",
     "id": "ID",
-    "unknown": "不明"
+    "unknown": "不明",
+    "na": "該当なし"
   },
   "nav": {
     "brand": "TBURN チェーン メインネット",
@@ -2246,11 +2247,6 @@
       "availableProviders": "利用可能なプロバイダー"
     }
   },
-  "common": {
-    "error": "エラー",
-    "unknown": "不明",
-    "na": "該当なし"
-  },
   "operator": {
     "dashboard": {
       "title": "オペレーターダッシュボード",
@@ -2540,6 +2536,14 @@
     "security": {
       "title": "セキュリティ監査",
       "subtitle": "セキュリティイベント、IP管理、監査ログを監視",
+      "logSecurityEvent": "セキュリティイベントを記録",
+      "criticalEvents": "重大イベント",
+      "highPriority": "高優先度",
+      "resolvedToday": "今日解決",
+      "events": "イベント",
+      "threatMonitor": "脅威モニター",
+      "ipBlocklist": "IPブロックリスト",
+      "info": "情報",
       "openEvents": "未解決イベント",
       "requiresAttention": "注意が必要",
       "blockedIps": "ブロックIP",
@@ -2642,6 +2646,7 @@
       "ipUnblocked": "IPのブロックが解除されました",
       "failedUnblockIp": "IPのブロック解除に失敗しました",
       "noEventsFound": "セキュリティイベントが見つかりません",
+      "occurred": "発生日時",
       "threatActivity24h": "脅威アクティビティ（24時間）",
       "liveSecurityFeed": "ライブセキュリティ脅威インテリジェンスフィード",
       "threatDetection": "脅威検出",

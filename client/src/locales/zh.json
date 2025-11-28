@@ -2480,11 +2480,6 @@
       "availableProviders": "可用提供者"
     }
   },
-  "common": {
-    "error": "错误",
-    "unknown": "未知",
-    "na": "不适用"
-  },
   "operator": {
     "title": "运营门户",
     "subtitle": "综合网络运营管理",
