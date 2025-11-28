@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { FileCode, CheckCircle, XCircle, Code2, List } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,7 @@ import { SmartContractEditor } from "@/components/SmartContractEditor";
 import type { SmartContract } from "@shared/schema";
 
 export default function SmartContracts() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("editor");
   const { data: contracts, isLoading } = useQuery<SmartContract[]>({
     queryKey: ["/api/contracts"],
@@ -33,35 +35,31 @@ export default function SmartContracts() {
         <div>
           <h1 className="text-3xl font-semibold flex items-center gap-2">
             <FileCode className="h-8 w-8" />
-            Smart Contracts
+            {t('smartContracts.title')}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Build, deploy, and interact with smart contracts
+            {t('smartContracts.subtitle')}
           </p>
         </div>
       </div>
 
-      {/* Tabs for Editor and Contract List */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full max-w-md grid-cols-2">
           <TabsTrigger value="editor" className="flex items-center gap-2" data-testid="tab-contract-editor">
             <Code2 className="h-4 w-4" />
-            Contract IDE
+            {t('smartContracts.contractIde')}
           </TabsTrigger>
           <TabsTrigger value="list" className="flex items-center gap-2" data-testid="tab-contract-list">
             <List className="h-4 w-4" />
-            Deployed Contracts
+            {t('smartContracts.deployedContracts')}
           </TabsTrigger>
         </TabsList>
 
-        {/* Contract Editor Tab */}
         <TabsContent value="editor" className="mt-6">
           <SmartContractEditor />
         </TabsContent>
 
-        {/* Deployed Contracts Tab */}
         <TabsContent value="list" className="mt-6 space-y-6">
-          {/* Contract Stats */}
           <div className="grid gap-4 md:grid-cols-3">
             {isLoading ? (
               <>
@@ -74,7 +72,7 @@ export default function SmartContracts() {
                 <Card className="hover-elevate">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Total Contracts
+                      {t('smartContracts.totalContracts')}
                     </CardTitle>
                     <FileCode className="h-4 w-4 text-primary" />
                   </CardHeader>
@@ -87,7 +85,7 @@ export default function SmartContracts() {
                 <Card className="hover-elevate">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Verified Contracts
+                      {t('smartContracts.verifiedContracts')}
                     </CardTitle>
                     <CheckCircle className="h-4 w-4 text-green-600" />
                   </CardHeader>
@@ -103,7 +101,7 @@ export default function SmartContracts() {
                 <Card className="hover-elevate">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Total Interactions
+                      {t('smartContracts.totalInteractions')}
                     </CardTitle>
                     <XCircle className="h-4 w-4 text-primary" />
                   </CardHeader>
@@ -117,10 +115,9 @@ export default function SmartContracts() {
             )}
           </div>
 
-          {/* Contracts Table */}
           <Card>
             <CardHeader>
-              <CardTitle>All Smart Contracts</CardTitle>
+              <CardTitle>{t('smartContracts.allSmartContracts')}</CardTitle>
             </CardHeader>
             <CardContent>
           {isLoading ? (
@@ -134,13 +131,13 @@ export default function SmartContracts() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Contract</TableHead>
-                    <TableHead>Address</TableHead>
-                    <TableHead>Creator</TableHead>
-                    <TableHead>Balance</TableHead>
-                    <TableHead>Transactions</TableHead>
-                    <TableHead>Deployed</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>{t('smartContracts.contract')}</TableHead>
+                    <TableHead>{t('common.address')}</TableHead>
+                    <TableHead>{t('smartContracts.creator')}</TableHead>
+                    <TableHead>{t('common.balance')}</TableHead>
+                    <TableHead>{t('common.transactions')}</TableHead>
+                    <TableHead>{t('smartContracts.deployed')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -170,11 +167,11 @@ export default function SmartContracts() {
                         {contract.verified ? (
                           <Badge className="bg-green-600">
                             <CheckCircle className="h-3 w-3 mr-1" />
-                            Verified
+                            {t('smartContracts.verified')}
                           </Badge>
                         ) : (
                           <Badge variant="secondary">
-                            Unverified
+                            {t('smartContracts.unverified')}
                           </Badge>
                         )}
                       </TableCell>
@@ -186,7 +183,7 @@ export default function SmartContracts() {
           ) : (
             <div className="text-center py-12">
               <FileCode className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No smart contracts deployed yet</p>
+              <p className="text-muted-foreground">{t('smartContracts.noContractsDeployed')}</p>
               <Button 
                 className="mt-4" 
                 variant="outline" 
@@ -194,7 +191,7 @@ export default function SmartContracts() {
                 data-testid="button-deploy-first-contract"
               >
                 <Code2 className="h-4 w-4 mr-2" />
-                Go to Contract IDE
+                {t('smartContracts.goToContractIde')}
               </Button>
             </div>
           )}

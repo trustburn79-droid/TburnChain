@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Bot, Cpu, DollarSign, Zap, Activity, TrendingUp, Brain, Network, Scale, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -20,7 +21,6 @@ import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
 import { aiDecisionsSnapshotSchema } from "@shared/schema";
 import type { AiModel, AiDecision } from "@shared/schema";
 
-// Safe date formatting - handles null/invalid dates gracefully
 function formatSafeDate(dateValue: string | Date | null | undefined): string {
   if (!dateValue) return 'Just now';
   try {
@@ -33,6 +33,7 @@ function formatSafeDate(dateValue: string | Date | null | undefined): string {
 }
 
 export default function AIOrchestration() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("history");
 
   const { data: aiModels, isLoading } = useQuery<AiModel[]>({
@@ -43,7 +44,6 @@ export default function AIOrchestration() {
     queryKey: ["/api/ai/decisions"],
   });
 
-  // WebSocket integration for real-time AI decisions
   useWebSocketChannel({
     channel: "ai_decisions_snapshot",
     schema: aiDecisionsSnapshotSchema,
@@ -54,16 +54,16 @@ export default function AIOrchestration() {
   const totalRequests = aiModels?.reduce((sum, m) => sum + m.requestCount, 0) || 0;
   const totalCost = aiModels?.reduce((sum, m) => sum + parseFloat(m.totalCost), 0) || 0;
   const avgResponseTime = (aiModels?.reduce((sum, m) => sum + m.avgResponseTime, 0) || 0) / (aiModels?.length || 1);
-  const avgCacheHitRate = (aiModels?.reduce((sum, m) => sum + m.cacheHitRate, 0) || 0) / (aiModels?.length || 1) / 100; // Convert basis points to percentage
+  const avgCacheHitRate = (aiModels?.reduce((sum, m) => sum + m.cacheHitRate, 0) || 0) / (aiModels?.length || 1) / 100;
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-green-600">Active</Badge>;
+        return <Badge className="bg-green-600">{t('common.active')}</Badge>;
       case "inactive":
-        return <Badge variant="secondary">Inactive</Badge>;
+        return <Badge variant="secondary">{t('common.inactive')}</Badge>;
       case "error":
-        return <Badge variant="destructive">Error</Badge>;
+        return <Badge variant="destructive">{t('common.error')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -79,11 +79,11 @@ export default function AIOrchestration() {
   const getBandLabel = (band: string) => {
     switch (band) {
       case "strategic":
-        return "Strategic AI • Long-term Planning";
+        return `${t('aiOrchestration.strategicAi')} • ${t('aiOrchestration.longTermPlanning')}`;
       case "tactical":
-        return "Tactical AI • Mid-term Optimization";
+        return `${t('aiOrchestration.tacticalAi')} • ${t('aiOrchestration.midTermOptimization')}`;
       case "operational":
-        return "Operational AI • Real-time Control";
+        return `${t('aiOrchestration.operationalAi')} • ${t('aiOrchestration.realTimeControl')}`;
       default:
         return band;
     }
@@ -107,14 +107,13 @@ export default function AIOrchestration() {
       <div>
         <h1 className="text-3xl font-semibold flex items-center gap-2">
           <Bot className="h-8 w-8" />
-          AI Orchestration
+          {t('aiOrchestration.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Triple-Band AI System: Strategic • Tactical • Operational
+          {t('aiOrchestration.subtitle')}
         </p>
       </div>
 
-      {/* AI Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {isLoading ? (
           <>
@@ -126,44 +125,43 @@ export default function AIOrchestration() {
         ) : (
           <>
             <StatCard
-              title="Total Requests"
+              title={t('aiOrchestration.totalRequests')}
               value={formatNumber(totalRequests)}
               icon={Zap}
-              subtitle="all models"
+              subtitle={t('aiOrchestration.allModels')}
             />
             <StatCard
-              title="Avg Response Time"
+              title={t('aiOrchestration.avgResponseTime')}
               value={`${avgResponseTime.toFixed(0)}ms`}
               icon={Cpu}
               trend={{ value: 8.5, isPositive: false }}
-              subtitle="across models"
+              subtitle={t('aiOrchestration.acrossModels')}
             />
             <StatCard
-              title="Cache Hit Rate"
+              title={t('aiOrchestration.cacheHitRate')}
               value={`${avgCacheHitRate.toFixed(1)}%`}
               icon={Zap}
               trend={{ value: 15.2, isPositive: true }}
-              subtitle="cost savings"
+              subtitle={t('aiOrchestration.costSavings')}
             />
             <StatCard
-              title="Total Cost"
+              title={t('aiOrchestration.totalCost')}
               value={`$${totalCost.toFixed(2)}`}
               icon={DollarSign}
-              subtitle="API usage"
+              subtitle={t('aiOrchestration.apiUsage')}
             />
           </>
         )}
       </div>
 
-      {/* TBURN v7.0: Triple-Band Decision Breakdown */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5" />
-            Triple-Band Decision Breakdown
+            {t('aiOrchestration.tripleBandDecisionBreakdown')}
           </CardTitle>
           <CardDescription>
-            Real-time decision distribution across strategic, tactical, and operational AI layers
+            {t('aiOrchestration.realTimeDecisionDistribution')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -180,36 +178,36 @@ export default function AIOrchestration() {
                 return (
                   <div key={model.id} className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium capitalize">{model.band} AI</span>
+                      <span className="text-sm font-medium capitalize">{model.band} {t('aiOrchestration.ai')}</span>
                       <Badge variant="outline" className="text-xs">
-                        {formatNumber(totalDecisions)} total
+                        {formatNumber(totalDecisions)} {t('common.total')}
                       </Badge>
                     </div>
                     <div className="space-y-2">
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-muted-foreground">Strategic</span>
+                          <span className="text-muted-foreground">{t('aiOrchestration.strategic')}</span>
                           <span className="font-semibold">{formatNumber(model.strategicDecisions)} ({strategicPct.toFixed(1)}%)</span>
                         </div>
                         <Progress value={strategicPct} className="h-1.5" />
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-muted-foreground">Tactical</span>
+                          <span className="text-muted-foreground">{t('aiOrchestration.tactical')}</span>
                           <span className="font-semibold">{formatNumber(model.tacticalDecisions)} ({tacticalPct.toFixed(1)}%)</span>
                         </div>
                         <Progress value={tacticalPct} className="h-1.5" />
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-muted-foreground">Operational</span>
+                          <span className="text-muted-foreground">{t('aiOrchestration.operational')}</span>
                           <span className="font-semibold">{formatNumber(model.operationalDecisions)} ({operationalPct.toFixed(1)}%)</span>
                         </div>
                         <Progress value={operationalPct} className="h-1.5" />
                       </div>
                     </div>
                     <div className="pt-2 border-t text-xs text-muted-foreground flex items-center justify-between">
-                      <span>Consensus Contribution:</span>
+                      <span>{t('aiOrchestration.consensusContribution')}:</span>
                       <span className="font-semibold text-foreground">{formatNumber(model.consensusContribution)}</span>
                     </div>
                   </div>
@@ -218,13 +216,12 @@ export default function AIOrchestration() {
             </div>
           ) : (
             <div className="text-center py-6">
-              <p className="text-muted-foreground text-sm">No decision data available</p>
+              <p className="text-muted-foreground text-sm">{t('aiOrchestration.noDecisionDataAvailable')}</p>
             </div>
           )}
         </CardContent>
       </Card>
 
-      {/* Model Status Grid */}
       <div className="grid gap-4 md:grid-cols-3">
         {isLoading ? (
           <>
@@ -253,9 +250,9 @@ export default function AIOrchestration() {
                     <div className="flex items-center gap-2">
                       <div className="text-primary">{getModelIcon(model.name)}</div>
                       <div>
-                        <CardTitle className="text-lg font-bold capitalize">{model.band} AI</CardTitle>
+                        <CardTitle className="text-lg font-bold capitalize">{model.band} {t('aiOrchestration.ai')}</CardTitle>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                          {model.name} • {getBandLabel(model.band)?.split(' • ')[1] || 'AI Processing'}
+                          {model.name} • {getBandLabel(model.band)?.split(' • ')[1] || t('aiOrchestration.aiProcessing')}
                         </p>
                       </div>
                     </div>
@@ -265,52 +262,51 @@ export default function AIOrchestration() {
                 <CardContent className="space-y-3">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Uptime:</span>
+                      <span className="text-muted-foreground">{t('aiOrchestration.uptime')}:</span>
                       <span className="font-semibold tabular-nums">{uptime.toFixed(2)}%</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">
-                        {model.band === 'strategic' ? 'Decisions' : model.band === 'tactical' ? 'Actions' : 'Operations'}:
+                        {model.band === 'strategic' ? t('aiOrchestration.decisions') : model.band === 'tactical' ? t('aiOrchestration.actions') : t('aiOrchestration.operations')}:
                       </span>
                       <span className="font-semibold tabular-nums">{formatNumber(model.requestCount)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Accuracy:</span>
+                      <span className="text-muted-foreground">{t('aiOrchestration.accuracy')}:</span>
                       <span className="font-semibold tabular-nums">{accuracy.toFixed(2)}%</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Cache Hit:</span>
+                      <span className="text-muted-foreground">{t('aiOrchestration.cacheHit')}:</span>
                       <span className="font-semibold tabular-nums">{cacheHit.toFixed(1)}%</span>
                     </div>
                   </div>
                   
-                  {/* TBURN v7.0: Triple-Band Feedback Learning Metrics */}
                   <div className="pt-3 border-t space-y-2">
                     <div className="flex items-center justify-between text-sm" data-testid={`metric-learning-${model.name}`}>
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Brain className="h-3 w-3" />
-                        Learning:
+                        {t('aiOrchestration.learning')}:
                       </span>
                       <span className="font-semibold tabular-nums">{(model.feedbackLearningScore / 100).toFixed(1)}%</span>
                     </div>
                     <div className="flex items-center justify-between text-sm" data-testid={`metric-crossband-${model.name}`}>
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Network className="h-3 w-3" />
-                        Cross-Band:
+                        {t('aiOrchestration.crossBand')}:
                       </span>
                       <span className="font-semibold tabular-nums">{formatNumber(model.crossBandInteractions)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm" data-testid={`metric-weight-${model.name}`}>
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Scale className="h-3 w-3" />
-                        Weight:
+                        {t('aiOrchestration.weight')}:
                       </span>
                       <span className="font-semibold tabular-nums">{(model.modelWeight / 100).toFixed(1)}%</span>
                     </div>
                   </div>
                   
                   <div className="pt-3 border-t text-xs text-muted-foreground">
-                    <strong>Last Used:</strong> {model.lastUsed ? new Date(model.lastUsed).toLocaleTimeString() : 'Active'}
+                    <strong>{t('aiOrchestration.lastUsed')}:</strong> {model.lastUsed ? new Date(model.lastUsed).toLocaleTimeString() : t('common.active')}
                   </div>
                 </CardContent>
               </Card>
@@ -318,15 +314,14 @@ export default function AIOrchestration() {
           })
         ) : (
           <div className="col-span-3 text-center py-12">
-            <p className="text-muted-foreground">No AI models configured</p>
+            <p className="text-muted-foreground">{t('aiOrchestration.noAiModelsConfigured')}</p>
           </div>
         )}
       </div>
 
-      {/* Detailed Model Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Model Performance Details</CardTitle>
+          <CardTitle>{t('aiOrchestration.modelPerformanceDetails')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -339,17 +334,17 @@ export default function AIOrchestration() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Model</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Requests</TableHead>
-                    <TableHead>Success</TableHead>
-                    <TableHead>Failed</TableHead>
-                    <TableHead>Avg Time</TableHead>
-                    <TableHead>Cache Hit</TableHead>
-                    <TableHead>Learning</TableHead>
-                    <TableHead>Cross-Band</TableHead>
-                    <TableHead>Weight</TableHead>
-                    <TableHead className="text-right">Cost</TableHead>
+                    <TableHead>{t('aiOrchestration.model')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
+                    <TableHead>{t('aiOrchestration.requests')}</TableHead>
+                    <TableHead>{t('common.success')}</TableHead>
+                    <TableHead>{t('common.failed')}</TableHead>
+                    <TableHead>{t('aiOrchestration.avgTime')}</TableHead>
+                    <TableHead>{t('aiOrchestration.cacheHit')}</TableHead>
+                    <TableHead>{t('aiOrchestration.learning')}</TableHead>
+                    <TableHead>{t('aiOrchestration.crossBand')}</TableHead>
+                    <TableHead>{t('aiOrchestration.weight')}</TableHead>
+                    <TableHead className="text-right">{t('aiOrchestration.cost')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -385,29 +380,28 @@ export default function AIOrchestration() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No model data available</p>
+              <p className="text-muted-foreground">{t('aiOrchestration.noModelDataAvailable')}</p>
             </div>
           )}
         </CardContent>
       </Card>
 
-      {/* AI Decision Stream */}
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="h-5 w-5" />
-                AI Decision Stream
+                {t('aiOrchestration.decisionStream')}
               </CardTitle>
               <CardDescription className="mt-1">
-                Real-time AI decisions across all bands
+                {t('aiOrchestration.realTimeAiDecisions')}
               </CardDescription>
             </div>
             {aiDecisions && aiDecisions.length > 0 && (
               <Badge variant="outline" className="gap-1">
                 <TrendingUp className="h-3 w-3" />
-                {aiDecisions.length} decisions
+                {aiDecisions.length} {t('aiOrchestration.decisions')}
               </Badge>
             )}
           </div>
@@ -416,10 +410,10 @@ export default function AIOrchestration() {
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-2 mb-4">
               <TabsTrigger value="history" data-testid="tab-decisions-history">
-                Decision History
+                {t('aiOrchestration.decisionHistory')}
               </TabsTrigger>
               <TabsTrigger value="live" data-testid="tab-decisions-live">
-                Live Feed
+                {t('aiOrchestration.liveFeed')}
               </TabsTrigger>
             </TabsList>
 
@@ -435,13 +429,13 @@ export default function AIOrchestration() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Band</TableHead>
-                        <TableHead>Model</TableHead>
-                        <TableHead>Decision</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead>Impact</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Timestamp</TableHead>
+                        <TableHead>{t('aiOrchestration.band')}</TableHead>
+                        <TableHead>{t('aiOrchestration.model')}</TableHead>
+                        <TableHead>{t('aiOrchestration.decision')}</TableHead>
+                        <TableHead>{t('aiOrchestration.category')}</TableHead>
+                        <TableHead>{t('aiOrchestration.impact')}</TableHead>
+                        <TableHead>{t('common.status')}</TableHead>
+                        <TableHead>{t('aiOrchestration.timestamp')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -456,11 +450,11 @@ export default function AIOrchestration() {
                               {decision.band || 'operational'}
                             </Badge>
                           </TableCell>
-                          <TableCell className="font-medium">{decision.modelName || 'Unknown'}</TableCell>
+                          <TableCell className="font-medium">{decision.modelName || t('aiOrchestration.unknown')}</TableCell>
                           <TableCell className="max-w-md truncate" title={decision.decision || ''}>
-                            {decision.decision || 'AI Decision'}
+                            {decision.decision || t('aiOrchestration.aiDecision')}
                           </TableCell>
-                          <TableCell className="capitalize">{decision.category || 'general'}</TableCell>
+                          <TableCell className="capitalize">{decision.category || t('aiOrchestration.general')}</TableCell>
                           <TableCell>
                             <Badge variant={
                               decision.impact === 'high' ? 'destructive' :
@@ -476,7 +470,7 @@ export default function AIOrchestration() {
                               decision.status === 'pending' ? 'secondary' :
                               'destructive'
                             } className="capitalize">
-                              {decision.status || 'pending'}
+                              {decision.status || t('common.pending')}
                             </Badge>
                           </TableCell>
                           <TableCell className="text-muted-foreground text-sm tabular-nums">
@@ -489,7 +483,7 @@ export default function AIOrchestration() {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">No AI decisions recorded yet</p>
+                  <p className="text-muted-foreground">{t('aiOrchestration.noAiDecisionsRecorded')}</p>
                 </div>
               )}
             </TabsContent>
@@ -512,38 +506,26 @@ export default function AIOrchestration() {
                               <Badge variant="outline" className="capitalize text-xs">
                                 {decision.band || 'operational'}
                               </Badge>
-                              <span className="text-xs text-muted-foreground">{decision.modelName || 'Unknown'}</span>
-                              <Badge variant={decision.impact === 'high' ? 'destructive' : decision.impact === 'medium' ? 'secondary' : 'outline'} className="text-xs capitalize">
-                                {decision.impact || 'medium'} impact
-                              </Badge>
+                              <span className="text-xs text-muted-foreground">{decision.modelName || t('aiOrchestration.unknown')}</span>
                             </div>
-                            <p className="font-medium">{decision.decision || 'AI Decision'}</p>
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                              <span className="capitalize">{decision.category || 'general'}</span>
-                              <span>•</span>
-                              <span>{formatSafeDate(decision.createdAt)}</span>
-                            </div>
+                            <p className="text-sm font-medium">{decision.decision || t('aiOrchestration.aiDecision')}</p>
+                            <p className="text-xs text-muted-foreground">{formatSafeDate(decision.createdAt)}</p>
                           </div>
                           <Badge variant={
                             decision.status === 'executed' ? 'default' :
                             decision.status === 'pending' ? 'secondary' :
                             'destructive'
-                          } className="capitalize shrink-0">
-                            {decision.status || 'pending'}
+                          } className="capitalize">
+                            {decision.status || t('common.pending')}
                           </Badge>
                         </div>
                       </CardContent>
                     </Card>
                   ))}
-                  {aiDecisions.length > 10 && (
-                    <p className="text-center text-sm text-muted-foreground">
-                      Showing latest 10 decisions. View "Decision History" tab for all.
-                    </p>
-                  )}
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">No live decisions yet. Waiting for AI activity...</p>
+                  <p className="text-muted-foreground">{t('aiOrchestration.noAiDecisionsRecorded')}</p>
                 </div>
               )}
             </TabsContent>

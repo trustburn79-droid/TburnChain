@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +18,7 @@ interface LoginProps {
 }
 
 export default function Login({ onLoginSuccess }: LoginProps) {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -36,28 +38,26 @@ export default function Login({ onLoginSuccess }: LoginProps) {
       });
 
       if (response.ok) {
-        // Invalidate auth check query to trigger re-fetch
         await queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
         
         toast({
-          title: "Login Successful",
-          description: "Welcome to TBURN Blockchain Explorer",
+          title: t('login.loginSuccessful'),
+          description: t('login.welcomeMessage'),
         });
         
-        // Call onLoginSuccess after invalidating queries
         onLoginSuccess();
       } else {
         toast({
-          title: "Login Failed",
-          description: "Invalid password. Please try again.",
+          title: t('login.loginFailed'),
+          description: t('login.invalidPassword'),
           variant: "destructive",
         });
         form.reset();
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to login. Please try again.",
+        title: t('common.error'),
+        description: t('login.loginError'),
         variant: "destructive",
       });
     } finally {
@@ -75,9 +75,9 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             </div>
           </div>
           <div className="text-center space-y-2">
-            <CardTitle className="text-2xl font-bold">TBURN Chain</CardTitle>
+            <CardTitle className="text-2xl font-bold">{t('login.title')}</CardTitle>
             <CardDescription className="text-base">
-              Mainnet Blockchain Explorer
+              {t('login.subtitle')}
             </CardDescription>
           </div>
         </CardHeader>
@@ -89,12 +89,12 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t('login.password')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         type="password"
-                        placeholder="Enter password"
+                        placeholder={t('login.enterPassword')}
                         disabled={isLoading}
                         data-testid="input-password"
                         autoFocus
@@ -110,7 +110,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                 disabled={isLoading}
                 data-testid="button-login"
               >
-                {isLoading ? "Logging in..." : "Access Explorer"}
+                {isLoading ? t('login.loggingIn') : t('login.accessExplorer')}
               </Button>
             </form>
           </Form>

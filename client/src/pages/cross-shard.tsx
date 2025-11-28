@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Network, ArrowRightLeft, Clock, CheckCircle, XCircle, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -18,6 +19,7 @@ import { crossShardMessagesSnapshotSchema } from "@shared/schema";
 import type { CrossShardMessage, Shard } from "@shared/schema";
 
 export default function CrossShard() {
+  const { t } = useTranslation();
   const { data: messages, isLoading: messagesLoading } = useQuery<CrossShardMessage[]>({
     queryKey: ["/api/cross-shard/messages"],
   });
@@ -26,7 +28,6 @@ export default function CrossShard() {
     queryKey: ["/api/shards"],
   });
 
-  // WebSocket integration for real-time cross-shard messages
   useWebSocketChannel({
     channel: "cross_shard_snapshot",
     schema: crossShardMessagesSnapshotSchema,
@@ -42,11 +43,11 @@ export default function CrossShard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "confirmed":
-        return <Badge className="bg-green-600"><CheckCircle className="h-3 w-3 mr-1" />Confirmed</Badge>;
+        return <Badge className="bg-green-600"><CheckCircle className="h-3 w-3 mr-1" />{t('crossShard.confirmed')}</Badge>;
       case "pending":
-        return <Badge variant="secondary"><Clock className="h-3 w-3 mr-1" />Pending</Badge>;
+        return <Badge variant="secondary"><Clock className="h-3 w-3 mr-1" />{t('common.pending')}</Badge>;
       case "failed":
-        return <Badge variant="destructive"><XCircle className="h-3 w-3 mr-1" />Failed</Badge>;
+        return <Badge variant="destructive"><XCircle className="h-3 w-3 mr-1" />{t('common.failed')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -70,14 +71,13 @@ export default function CrossShard() {
       <div>
         <h1 className="text-3xl font-semibold flex items-center gap-2">
           <Network className="h-8 w-8" />
-          Cross-Shard Communication
+          {t('crossShard.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Inter-shard message routing and synchronization
+          {t('crossShard.subtitle')}
         </p>
       </div>
 
-      {/* Cross-Shard Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {messagesLoading ? (
           <>
@@ -89,39 +89,38 @@ export default function CrossShard() {
         ) : (
           <>
             <StatCard
-              title="Pending Messages"
+              title={t('crossShard.pendingMessages')}
               value={formatNumber(pendingMessages)}
               icon={Clock}
-              subtitle="awaiting confirmation"
+              subtitle={t('crossShard.awaitingConfirmation')}
             />
             <StatCard
-              title="Confirmed"
+              title={t('crossShard.confirmed')}
               value={formatNumber(confirmedMessages)}
               icon={CheckCircle}
               trend={{ value: 12.5, isPositive: true }}
-              subtitle="successful transfers"
+              subtitle={t('crossShard.successfulTransfers')}
             />
             <StatCard
-              title="Failed"
+              title={t('common.failed')}
               value={formatNumber(failedMessages)}
               icon={XCircle}
-              subtitle="retry or investigate"
+              subtitle={t('crossShard.retryOrInvestigate')}
             />
             <StatCard
-              title="Total Gas Used"
+              title={t('crossShard.totalGasUsed')}
               value={formatNumber(totalGasUsed)}
               icon={ArrowRightLeft}
-              subtitle="cross-shard operations"
+              subtitle={t('crossShard.crossShardOperations')}
             />
           </>
         )}
       </div>
 
-      {/* Shard Topology Overview */}
       <Card>
         <CardHeader>
-          <CardTitle>Shard Topology</CardTitle>
-          <CardDescription>5-shard network architecture</CardDescription>
+          <CardTitle>{t('crossShard.shardTopology')}</CardTitle>
+          <CardDescription>{t('crossShard.shardNetworkArchitecture', { count: 5 })}</CardDescription>
         </CardHeader>
         <CardContent>
           {shardsLoading ? (
@@ -142,18 +141,18 @@ export default function CrossShard() {
                       </Badge>
                     </div>
                     <div className="text-2xl font-bold tabular-nums">{formatNumber(shard.tps)}</div>
-                    <div className="text-xs text-muted-foreground">TPS</div>
+                    <div className="text-xs text-muted-foreground">{t('sharding.tps')}</div>
                     <div className="space-y-1 pt-2 border-t">
                       <div className="flex justify-between text-xs">
-                        <span className="text-muted-foreground">Block Height:</span>
+                        <span className="text-muted-foreground">{t('sharding.blockHeight')}:</span>
                         <span className="font-semibold tabular-nums">{formatNumber(shard.blockHeight)}</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-muted-foreground">Validators:</span>
+                        <span className="text-muted-foreground">{t('sharding.validators')}:</span>
                         <span className="font-semibold tabular-nums">{shard.validatorCount}</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-muted-foreground">Load:</span>
+                        <span className="text-muted-foreground">{t('sharding.load')}:</span>
                         <span className="font-semibold tabular-nums">{shard.load}%</span>
                       </div>
                     </div>
@@ -163,21 +162,20 @@ export default function CrossShard() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No shard data available</p>
+              <p className="text-muted-foreground">{t('sharding.noShardDataAvailable')}</p>
             </div>
           )}
         </CardContent>
       </Card>
 
-      {/* Message Queue Table */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ArrowRightLeft className="h-5 w-5" />
-            Message Queue
+            {t('crossShard.messageQueue')}
           </CardTitle>
           <CardDescription>
-            Cross-shard message routing and status
+            {t('crossShard.messageRoutingStatus')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -192,13 +190,13 @@ export default function CrossShard() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>From → To</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Transaction Hash</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Retry Count</TableHead>
-                    <TableHead>Gas Used</TableHead>
-                    <TableHead>Timestamp</TableHead>
+                    <TableHead>{t('crossShard.fromTo')}</TableHead>
+                    <TableHead>{t('common.type')}</TableHead>
+                    <TableHead>{t('crossShard.transactionHash')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
+                    <TableHead>{t('crossShard.retryCount')}</TableHead>
+                    <TableHead>{t('common.gasUsed')}</TableHead>
+                    <TableHead>{t('crossShard.timestamp')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -206,9 +204,9 @@ export default function CrossShard() {
                     <TableRow key={message.id} className="hover-elevate" data-testid={`row-message-${message.id}`}>
                       <TableCell>
                         <div className="flex items-center gap-2 font-medium">
-                          <Badge variant="outline" className="text-xs">Shard {message.fromShardId}</Badge>
+                          <Badge variant="outline" className="text-xs">{t('crossShard.shard')} {message.fromShardId}</Badge>
                           <ArrowRightLeft className="h-3 w-3 text-muted-foreground" />
-                          <Badge variant="outline" className="text-xs">Shard {message.toShardId}</Badge>
+                          <Badge variant="outline" className="text-xs">{t('crossShard.shard')} {message.toShardId}</Badge>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -222,7 +220,7 @@ export default function CrossShard() {
                       <TableCell>{getStatusBadge(message.status)}</TableCell>
                       <TableCell className="tabular-nums">
                         {message.retryCount > 0 ? (
-                          <Badge variant="secondary">{message.retryCount} retries</Badge>
+                          <Badge variant="secondary">{message.retryCount} {t('crossShard.retries')}</Badge>
                         ) : (
                           <span className="text-muted-foreground">-</span>
                         )}
@@ -238,7 +236,7 @@ export default function CrossShard() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No cross-shard messages</p>
+              <p className="text-muted-foreground">{t('crossShard.noCrossShardMessages')}</p>
             </div>
           )}
         </CardContent>

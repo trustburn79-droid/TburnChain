@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -22,13 +23,14 @@ const LATENCY_COLORS = [
   "from-gray-700 to-gray-800",
 ];
 
-function SLACard({ title, value, unit, target, targetMet, detail }: {
+function SLACard({ title, value, unit, target, targetMet, detail, t }: {
   title: string;
   value: string;
   unit?: string;
   target: string;
   targetMet: boolean;
   detail: string;
+  t: (key: string) => string;
 }) {
   return (
     <Card className="hover-elevate">
@@ -45,9 +47,9 @@ function SLACard({ title, value, unit, target, targetMet, detail }: {
             {unit && <span className="text-2xl ml-1">{unit}</span>}
           </div>
           <div className="text-sm mb-3">
-            Target: {target}{" "}
+            {t('performanceMetrics.target')}: {target}{" "}
             <Badge className={targetMet ? "bg-green-600" : "bg-red-600"}>
-              {targetMet ? "Achieved" : "Missed"}
+              {targetMet ? t('performanceMetrics.achieved') : t('performanceMetrics.missed')}
             </Badge>
           </div>
           <div className="text-xs text-muted-foreground">{detail}</div>
@@ -58,6 +60,8 @@ function SLACard({ title, value, unit, target, targetMet, detail }: {
 }
 
 export default function PerformanceMetrics() {
+  const { t } = useTranslation();
+
   const { data: stats, isLoading: isStatsLoading } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
     refetchInterval: 5000,
@@ -73,7 +77,6 @@ export default function PerformanceMetrics() {
     refetchInterval: 5000,
   });
 
-  // Use actual backend data
   const currentTPS = stats?.tps || 0;
   const peakTPS = stats?.peakTps || 0;
   const blockTime = stats?.avgBlockTime || 0;
@@ -82,13 +85,11 @@ export default function PerformanceMetrics() {
   const slaUptime = stats?.slaUptime || 0;
   const successRate = stats?.successRate || 0;
   
-  // Add colors to latency distribution
   const latencyDistribution: LatencyBucketWithColor[] = (latencyData || []).map((bucket, idx) => ({
     ...bucket,
     color: LATENCY_COLORS[idx] || "from-gray-700 to-gray-800",
   }));
   
-  // Format TPS history for chart
   const tpsChartData = (tpsHistory || []).map((point, idx) => ({
     time: `${Math.floor((tpsHistory?.length || 60) - idx)}m`,
     tps: point.tps,
@@ -101,14 +102,13 @@ export default function PerformanceMetrics() {
       <div>
         <h1 className="text-3xl font-semibold flex items-center gap-2">
           <TrendingUp className="h-8 w-8" />
-          Performance Metrics
+          {t('performanceMetrics.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Real-time network performance analytics and SLA monitoring
+          {t('performanceMetrics.subtitle')}
         </p>
       </div>
 
-      {/* Top Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {isLoading || !stats ? (
           <>
@@ -122,7 +122,7 @@ export default function PerformanceMetrics() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Current TPS
+                  {t('performanceMetrics.currentTps')}
                 </CardTitle>
                 <Zap className="h-5 w-5 text-green-600" />
               </CardHeader>
@@ -131,7 +131,7 @@ export default function PerformanceMetrics() {
                   {formatNumber(currentTPS)}
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  {((currentTPS / (peakTPS || 1)) * 100).toFixed(1)}% of peak
+                  {((currentTPS / (peakTPS || 1)) * 100).toFixed(1)}% {t('performanceMetrics.ofPeak')}
                 </p>
               </CardContent>
             </Card>
@@ -139,7 +139,7 @@ export default function PerformanceMetrics() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Peak TPS
+                  {t('performanceMetrics.peakTps')}
                 </CardTitle>
                 <Trophy className="h-5 w-5 text-blue-600" />
               </CardHeader>
@@ -148,7 +148,7 @@ export default function PerformanceMetrics() {
                   {formatNumber(peakTPS)}
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  last 24 hours
+                  {t('performanceMetrics.last24Hours')}
                 </p>
               </CardContent>
             </Card>
@@ -156,7 +156,7 @@ export default function PerformanceMetrics() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Block Time
+                  {t('performanceMetrics.blockTime')}
                 </CardTitle>
                 <Clock className="h-5 w-5 text-yellow-600" />
               </CardHeader>
@@ -165,7 +165,7 @@ export default function PerformanceMetrics() {
                   {blockTime} <span className="text-lg">ms</span>
                 </div>
                 <p className="text-xs text-green-600 font-semibold mt-2">
-                  ✓ Target: 100ms
+                  ✓ {t('performanceMetrics.target')}: 100ms
                 </p>
               </CardContent>
             </Card>
@@ -173,7 +173,7 @@ export default function PerformanceMetrics() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Latency
+                  {t('performanceMetrics.latency')}
                 </CardTitle>
                 <Radio className="h-5 w-5 text-purple-600" />
               </CardHeader>
@@ -182,7 +182,7 @@ export default function PerformanceMetrics() {
                   {latency} <span className="text-lg">ms</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  P99: {latencyP99}ms
+                  {t('performanceMetrics.p99')}: {latencyP99}ms
                 </p>
               </CardContent>
             </Card>
@@ -190,40 +190,41 @@ export default function PerformanceMetrics() {
         )}
       </div>
 
-      {/* SLA Cards */}
       {!isLoading && stats && (
         <div className="grid gap-4 md:grid-cols-3">
           <SLACard
-            title="Network Uptime"
+            title={t('performanceMetrics.networkUptime')}
             value={(slaUptime / 100).toFixed(2)}
             unit="%"
             target="99.5%"
             targetMet={slaUptime >= 9950}
-            detail={`SLA: ${(slaUptime / 100).toFixed(2)}% uptime`}
+            detail={t('performanceMetrics.slaUptime', { value: (slaUptime / 100).toFixed(2) })}
+            t={t}
           />
           <SLACard
-            title="Avg Block Time"
+            title={t('performanceMetrics.avgBlockTime')}
             value={blockTime.toString()}
             unit="ms"
             target="100ms"
             targetMet={blockTime <= 100}
-            detail={`P99: ${stats.blockTimeP99 || 0}ms`}
+            detail={`${t('performanceMetrics.p99')}: ${stats.blockTimeP99 || 0}ms`}
+            t={t}
           />
           <SLACard
-            title="TX Success Rate"
+            title={t('performanceMetrics.txSuccessRate')}
             value={(successRate / 100).toFixed(1)}
             unit="%"
             target="99%"
             targetMet={successRate >= 9900}
-            detail={`Failed TX: ${(10000 - successRate) / 100}%`}
+            detail={`${t('performanceMetrics.failedTx')}: ${(10000 - successRate) / 100}%`}
+            t={t}
           />
         </div>
       )}
 
-      {/* Latency Distribution */}
       <Card>
         <CardHeader>
-          <CardTitle>Latency Distribution (Last 24 Hours)</CardTitle>
+          <CardTitle>{t('performanceMetrics.latencyDistribution')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {latencyDistribution.map((bucket) => (
@@ -231,7 +232,7 @@ export default function PerformanceMetrics() {
               <div className="flex justify-between mb-2 text-sm">
                 <span className="text-muted-foreground">{bucket.range}</span>
                 <span className="font-semibold">
-                  {formatNumber(bucket.count)} txs ({bucket.percentage}%)
+                  {formatNumber(bucket.count)} {t('performanceMetrics.txs')} ({bucket.percentage}%)
                 </span>
               </div>
               <div className="h-6 bg-muted rounded-md overflow-hidden">
@@ -248,18 +249,17 @@ export default function PerformanceMetrics() {
           <Alert className="bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800 mt-4">
             <CheckCircle className="h-4 w-4 text-green-600" />
             <AlertDescription className="text-green-800 dark:text-green-200">
-              <div className="font-semibold">✓ Performance Target Achieved</div>
-              <div className="text-sm mt-1">90% of transactions &lt; 20ms (Target: 90%)</div>
-              <div className="text-sm">99% of transactions &lt; 50ms (Target: 99%)</div>
+              <div className="font-semibold">✓ {t('performanceMetrics.performanceTargetAchieved')}</div>
+              <div className="text-sm mt-1">{t('performanceMetrics.performanceTarget90')}</div>
+              <div className="text-sm">{t('performanceMetrics.performanceTarget99')}</div>
             </AlertDescription>
           </Alert>
         </CardContent>
       </Card>
 
-      {/* TPS Chart */}
       <Card>
         <CardHeader>
-          <CardTitle>TPS Performance (Last Hour)</CardTitle>
+          <CardTitle>{t('performanceMetrics.tpsPerformance')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading || !stats ? (
@@ -300,12 +300,11 @@ export default function PerformanceMetrics() {
         </CardContent>
       </Card>
 
-      {/* System Resources */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="hover-elevate">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              CPU Usage
+              {t('performanceMetrics.cpuUsage')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -317,7 +316,7 @@ export default function PerformanceMetrics() {
         <Card className="hover-elevate">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Memory
+              {t('performanceMetrics.memory')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -329,7 +328,7 @@ export default function PerformanceMetrics() {
         <Card className="hover-elevate">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Disk
+              {t('performanceMetrics.disk')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -341,7 +340,7 @@ export default function PerformanceMetrics() {
         <Card className="hover-elevate">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Network
+              {t('performanceMetrics.network')}
             </CardTitle>
           </CardHeader>
           <CardContent>

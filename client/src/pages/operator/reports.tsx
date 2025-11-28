@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -277,6 +278,7 @@ const COMPLIANCE_ITEMS: ComplianceItem[] = [
 const REPORT_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
 
 export default function OperatorReports() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { getAuthHeaders } = useAdminPassword();
   const [activeTab, setActiveTab] = useState("reports");
@@ -404,24 +406,24 @@ export default function OperatorReports() {
     link.click();
     URL.revokeObjectURL(link.href);
     
-    toast({ title: "Reports exported to CSV" });
+    toast({ title: t('operator.reports.reportsExported') });
   };
 
   const toggleSchedule = (id: string) => {
     setScheduledReports(prev => prev.map(s => 
       s.id === id ? { ...s, enabled: !s.enabled } : s
     ));
-    toast({ title: "Schedule updated" });
+    toast({ title: t('operator.reports.scheduleUpdated') });
   };
 
   const deleteSchedule = (id: string) => {
     setScheduledReports(prev => prev.filter(s => s.id !== id));
-    toast({ title: "Schedule deleted" });
+    toast({ title: t('operator.reports.scheduleDeleted') });
   };
 
   const createSchedule = () => {
     if (!newSchedule.templateId || !newSchedule.name) {
-      toast({ title: "Please fill in all required fields", variant: "destructive" });
+      toast({ title: t('operator.reports.fillRequiredFields'), variant: "destructive" });
       return;
     }
     
@@ -439,44 +441,44 @@ export default function OperatorReports() {
     setScheduledReports(prev => [...prev, newSched]);
     setShowScheduleDialog(false);
     setNewSchedule({ templateId: "", name: "", frequency: "weekly", recipients: "" });
-    toast({ title: "Schedule created successfully" });
+    toast({ title: t('operator.reports.scheduleCreated') });
   };
 
   const updateComplianceStatus = (id: string, status: ComplianceItem["status"]) => {
     setComplianceItems(prev => prev.map(item => 
       item.id === id ? { ...item, status, lastChecked: new Date().toISOString() } : item
     ));
-    toast({ title: "Compliance status updated" });
+    toast({ title: t('operator.reports.complianceUpdated') });
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "approved": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />Approved</Badge>;
-      case "submitted": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20"><Send className="h-3 w-3 mr-1" />Submitted</Badge>;
-      case "draft": return <Badge variant="secondary">Draft</Badge>;
-      case "pending_review": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Pending Review</Badge>;
-      case "rejected": return <Badge variant="destructive">Rejected</Badge>;
+      case "approved": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />{t('operator.reports.approved')}</Badge>;
+      case "submitted": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20"><Send className="h-3 w-3 mr-1" />{t('operator.reports.submitted')}</Badge>;
+      case "draft": return <Badge variant="secondary">{t('operator.reports.draft')}</Badge>;
+      case "pending_review": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">{t('operator.reports.pendingReview')}</Badge>;
+      case "rejected": return <Badge variant="destructive">{t('operator.reports.rejected')}</Badge>;
       default: return <Badge variant="outline">{status}</Badge>;
     }
   };
 
   const getComplianceStatusBadge = (status: ComplianceItem["status"]) => {
     switch (status) {
-      case "compliant": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />Compliant</Badge>;
-      case "non_compliant": return <Badge variant="destructive"><AlertTriangle className="h-3 w-3 mr-1" />Non-Compliant</Badge>;
-      case "pending": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"><Clock className="h-3 w-3 mr-1" />Pending</Badge>;
-      case "not_applicable": return <Badge variant="outline">N/A</Badge>;
+      case "compliant": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />{t('operator.reports.compliant')}</Badge>;
+      case "non_compliant": return <Badge variant="destructive"><AlertTriangle className="h-3 w-3 mr-1" />{t('operator.reports.nonCompliant')}</Badge>;
+      case "pending": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"><Clock className="h-3 w-3 mr-1" />{t('operator.members.pending')}</Badge>;
+      case "not_applicable": return <Badge variant="outline">{t('operator.reports.notApplicable')}</Badge>;
       default: return <Badge variant="outline">{status}</Badge>;
     }
   };
 
   const getReportTypeName = (type: string) => {
     switch (type) {
-      case "kyc_summary": return "KYC Summary";
-      case "aml_report": return "AML Report";
-      case "transaction_report": return "Transaction Report";
-      case "validator_report": return "Validator Report";
-      case "financial_statement": return "Financial Statement";
+      case "kyc_summary": return t('operator.reports.kycSummary');
+      case "aml_report": return t('operator.reports.amlReport');
+      case "transaction_report": return t('operator.reports.transactionReport');
+      case "validator_report": return t('operator.reports.validatorReport');
+      case "financial_statement": return t('operator.reports.financialStatement');
       default: return type.replace(/_/g, " ");
     }
   };
@@ -522,28 +524,28 @@ export default function OperatorReports() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Compliance Reports</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t('operator.reports.title')}</h1>
           <p className="text-muted-foreground">
-            Generate, schedule, and manage regulatory compliance reports
+            {t('operator.reports.subtitle')}
           </p>
         </div>
         <div className="flex gap-2">
           {activeTab === "reports" && data?.reports && data.reports.length > 0 && (
             <Button variant="outline" onClick={() => exportToCSV(data.reports)} data-testid="btn-export-csv">
               <Download className="h-4 w-4 mr-2" />
-              Export CSV
+              {t('operator.reports.exportCsv')}
             </Button>
           )}
           {activeTab === "schedules" && (
             <Button onClick={() => setShowScheduleDialog(true)} data-testid="btn-create-schedule">
               <Clock className="h-4 w-4 mr-2" />
-              New Schedule
+              {t('operator.reports.newSchedule')}
             </Button>
           )}
           {activeTab === "reports" && (
             <Button onClick={() => setShowGenerateDialog(true)} data-testid="btn-generate-report">
               <Plus className="h-4 w-4 mr-2" />
-              Generate Report
+              {t('operator.reports.generateReport')}
             </Button>
           )}
         </div>
@@ -553,19 +555,19 @@ export default function OperatorReports() {
         <TabsList className="grid w-full grid-cols-4 max-w-2xl">
           <TabsTrigger value="reports" className="flex items-center gap-2" data-testid="tab-reports">
             <FileText className="h-4 w-4" />
-            Reports
+            {t('operator.reports.reports')}
           </TabsTrigger>
           <TabsTrigger value="templates" className="flex items-center gap-2" data-testid="tab-templates">
             <FileSpreadsheet className="h-4 w-4" />
-            Templates
+            {t('operator.reports.templates')}
           </TabsTrigger>
           <TabsTrigger value="schedules" className="flex items-center gap-2" data-testid="tab-schedules">
             <Clock className="h-4 w-4" />
-            Schedules
+            {t('operator.reports.schedules')}
           </TabsTrigger>
           <TabsTrigger value="compliance" className="flex items-center gap-2" data-testid="tab-compliance">
             <ClipboardCheck className="h-4 w-4" />
-            Compliance
+            {t('operator.reports.compliance')}
           </TabsTrigger>
         </TabsList>
 
@@ -573,7 +575,7 @@ export default function OperatorReports() {
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <Card data-testid="card-total-reports">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Total Reports</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.totalReports')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{data?.pagination?.total || 0}</div>
@@ -581,7 +583,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-draft-reports">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Draft</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.draft')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-muted-foreground">
@@ -591,7 +593,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-pending-reports">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Pending Review</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.pendingReview')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-yellow-500">
@@ -601,7 +603,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-approved-reports">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Approved</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.approved')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-500">
@@ -611,7 +613,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-submitted-reports">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Submitted</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.submitted')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-blue-500">
@@ -625,30 +627,30 @@ export default function OperatorReports() {
             <Card className="lg:col-span-2" data-testid="card-reports-table">
               <CardHeader>
                 <div className="flex items-center justify-between gap-4 flex-wrap">
-                  <CardTitle>Reports List</CardTitle>
+                  <CardTitle>{t('operator.reports.reportsList')}</CardTitle>
                   <div className="flex gap-2">
                     <Select value={typeFilter} onValueChange={(v) => { setTypeFilter(v); setPage(1); }}>
                       <SelectTrigger className="w-40" data-testid="select-report-type">
-                        <SelectValue placeholder="Report Type" />
+                        <SelectValue placeholder={t('operator.reports.reportType')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Types</SelectItem>
-                        <SelectItem value="kyc_summary">KYC Summary</SelectItem>
-                        <SelectItem value="aml_report">AML Report</SelectItem>
-                        <SelectItem value="transaction_report">Transaction Report</SelectItem>
-                        <SelectItem value="validator_report">Validator Report</SelectItem>
+                        <SelectItem value="all">{t('operator.reports.allTypes')}</SelectItem>
+                        <SelectItem value="kyc_summary">{t('operator.reports.kycSummary')}</SelectItem>
+                        <SelectItem value="aml_report">{t('operator.reports.amlReport')}</SelectItem>
+                        <SelectItem value="transaction_report">{t('operator.reports.transactionReport')}</SelectItem>
+                        <SelectItem value="validator_report">{t('operator.reports.validatorReport')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(1); }}>
                       <SelectTrigger className="w-32" data-testid="select-report-status">
-                        <SelectValue placeholder="Status" />
+                        <SelectValue placeholder={t('common.status')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Status</SelectItem>
-                        <SelectItem value="draft">Draft</SelectItem>
-                        <SelectItem value="pending_review">Pending Review</SelectItem>
-                        <SelectItem value="approved">Approved</SelectItem>
-                        <SelectItem value="submitted">Submitted</SelectItem>
+                        <SelectItem value="all">{t('operator.reports.allStatus')}</SelectItem>
+                        <SelectItem value="draft">{t('operator.reports.draft')}</SelectItem>
+                        <SelectItem value="pending_review">{t('operator.reports.pendingReview')}</SelectItem>
+                        <SelectItem value="approved">{t('operator.reports.approved')}</SelectItem>
+                        <SelectItem value="submitted">{t('operator.reports.submitted')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -661,11 +663,11 @@ export default function OperatorReports() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Report Type</TableHead>
-                        <TableHead>Period</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Generated</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead>{t('operator.reports.reportType')}</TableHead>
+                        <TableHead>{t('operator.reports.period')}</TableHead>
+                        <TableHead>{t('common.status')}</TableHead>
+                        <TableHead>{t('operator.reports.generated')}</TableHead>
+                        <TableHead>{t('common.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -713,7 +715,7 @@ export default function OperatorReports() {
                       {(!data?.reports || data.reports.length === 0) && (
                         <TableRow>
                           <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
-                            No reports found
+                            {t('operator.reports.noReportsFound')}
                           </TableCell>
                         </TableRow>
                       )}
@@ -724,8 +726,8 @@ export default function OperatorReports() {
                 {data?.pagination && data.pagination.totalPages > 1 && (
                   <div className="flex items-center justify-between mt-4">
                     <p className="text-sm text-muted-foreground">
-                      Page {page} of {data.pagination.totalPages}
-                      {isLoading && <span className="ml-2 text-xs">(loading...)</span>}
+                      {t('common.pageOf', { page, totalPages: data.pagination.totalPages })}
+                      {isLoading && <span className="ml-2 text-xs">({t('common.loading')}...)</span>}
                     </p>
                     <div className="flex gap-2">
                       <Button
@@ -756,7 +758,7 @@ export default function OperatorReports() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <PieChart className="h-5 w-5" />
-                  Report Distribution
+                  {t('operator.reports.reportDistribution')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="h-[300px]">
@@ -788,7 +790,7 @@ export default function OperatorReports() {
                   </ResponsiveContainer>
                 ) : (
                   <div className="flex items-center justify-center h-full text-muted-foreground">
-                    No data available
+                    {t('common.noDataAvailable')}
                   </div>
                 )}
               </CardContent>
@@ -806,7 +808,7 @@ export default function OperatorReports() {
                       {getTemplateIcon(template.type)}
                       <div>
                         <CardTitle className="text-base">{template.name}</CardTitle>
-                        {template.isDefault && <Badge variant="secondary" className="text-xs mt-1">Default</Badge>}
+                        {template.isDefault && <Badge variant="secondary" className="text-xs mt-1">{t('operator.reports.default')}</Badge>}
                       </div>
                     </div>
                     <Button
@@ -819,7 +821,7 @@ export default function OperatorReports() {
                       data-testid={`btn-use-template-${template.id}`}
                     >
                       <Play className="h-3 w-3 mr-1" />
-                      Use
+                      {t('operator.reports.use')}
                     </Button>
                   </div>
                 </CardHeader>
@@ -840,7 +842,7 @@ export default function OperatorReports() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card data-testid="card-active-schedules">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Active Schedules</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.activeSchedules')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-500">
@@ -850,7 +852,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-paused-schedules">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Paused</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.paused')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-muted-foreground">
@@ -860,7 +862,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-daily-schedules">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Daily Reports</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.dailyReports')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -870,7 +872,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-weekly-schedules">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Weekly Reports</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.weeklyReports')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -882,20 +884,20 @@ export default function OperatorReports() {
 
           <Card data-testid="card-schedules-table">
             <CardHeader>
-              <CardTitle>Scheduled Reports</CardTitle>
-              <CardDescription>Automated report generation schedules</CardDescription>
+              <CardTitle>{t('operator.reports.scheduledReports')}</CardTitle>
+              <CardDescription>{t('operator.reports.automatedReportDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Report Name</TableHead>
-                    <TableHead>Frequency</TableHead>
-                    <TableHead>Next Run</TableHead>
-                    <TableHead>Last Run</TableHead>
-                    <TableHead>Recipients</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t('operator.reports.reportName')}</TableHead>
+                    <TableHead>{t('operator.reports.frequency')}</TableHead>
+                    <TableHead>{t('operator.reports.nextRun')}</TableHead>
+                    <TableHead>{t('operator.reports.lastRun')}</TableHead>
+                    <TableHead>{t('operator.reports.recipients')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
+                    <TableHead>{t('common.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -914,7 +916,7 @@ export default function OperatorReports() {
                         {new Date(schedule.nextRun).toLocaleString()}
                       </TableCell>
                       <TableCell className="text-sm text-muted-foreground">
-                        {schedule.lastRun ? new Date(schedule.lastRun).toLocaleString() : "Never"}
+                        {schedule.lastRun ? new Date(schedule.lastRun).toLocaleString() : t('operator.security.never')}
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-wrap gap-1">
@@ -950,7 +952,7 @@ export default function OperatorReports() {
                   {scheduledReports.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                        No scheduled reports
+                        {t('operator.reports.noScheduledReports')}
                       </TableCell>
                     </TableRow>
                   )}
@@ -964,7 +966,7 @@ export default function OperatorReports() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card data-testid="card-compliance-score">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Compliance Score</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.complianceScore')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-green-500">{complianceStats.percentage}%</div>
@@ -973,16 +975,16 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-compliant-items">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Compliant</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.compliant')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-500">{complianceStats.compliant}</div>
-                <p className="text-xs text-muted-foreground">of {complianceStats.total} requirements</p>
+                <p className="text-xs text-muted-foreground">{t('operator.reports.ofRequirements', { count: complianceStats.total })}</p>
               </CardContent>
             </Card>
             <Card data-testid="card-pending-items">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Pending</CardTitle>
+                <CardTitle className="text-sm">{t('operator.members.pending')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-yellow-500">{complianceStats.pending}</div>
@@ -990,7 +992,7 @@ export default function OperatorReports() {
             </Card>
             <Card data-testid="card-noncompliant-items">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Non-Compliant</CardTitle>
+                <CardTitle className="text-sm">{t('operator.reports.nonCompliant')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-red-500">{complianceStats.nonCompliant}</div>
@@ -1003,19 +1005,19 @@ export default function OperatorReports() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ClipboardCheck className="h-5 w-5" />
-                  Compliance Checklist
+                  {t('operator.reports.complianceChecklist')}
                 </CardTitle>
-                <CardDescription>Regulatory requirements and their compliance status</CardDescription>
+                <CardDescription>{t('operator.reports.regulatoryRequirementsDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Requirement</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Last Checked</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>{t('operator.security.category')}</TableHead>
+                      <TableHead>{t('operator.reports.requirement')}</TableHead>
+                      <TableHead>{t('common.status')}</TableHead>
+                      <TableHead>{t('operator.reports.lastChecked')}</TableHead>
+                      <TableHead>{t('common.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1045,10 +1047,10 @@ export default function OperatorReports() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="compliant">Compliant</SelectItem>
-                              <SelectItem value="pending">Pending</SelectItem>
-                              <SelectItem value="non_compliant">Non-Compliant</SelectItem>
-                              <SelectItem value="not_applicable">N/A</SelectItem>
+                              <SelectItem value="compliant">{t('operator.reports.compliant')}</SelectItem>
+                              <SelectItem value="pending">{t('operator.members.pending')}</SelectItem>
+                              <SelectItem value="non_compliant">{t('operator.reports.nonCompliant')}</SelectItem>
+                              <SelectItem value="not_applicable">{t('operator.reports.notApplicable')}</SelectItem>
                             </SelectContent>
                           </Select>
                         </TableCell>
@@ -1063,7 +1065,7 @@ export default function OperatorReports() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5" />
-                  By Category
+                  {t('operator.reports.byCategory')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="h-[300px]">
@@ -1106,36 +1108,36 @@ export default function OperatorReports() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">Status</p>
+                  <p className="text-sm text-muted-foreground">{t('common.status')}</p>
                   {getStatusBadge(selectedReport.status)}
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Jurisdiction</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.reports.jurisdiction')}</p>
                   <Badge variant="outline" className="capitalize">{selectedReport.jurisdiction}</Badge>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Period Start</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.reports.periodStart')}</p>
                   <p className="font-medium">{new Date(selectedReport.period_start).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Period End</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.reports.periodEnd')}</p>
                   <p className="font-medium">{new Date(selectedReport.period_end).toLocaleDateString()}</p>
                 </div>
                 {selectedReport.regulatory_body && (
                   <div>
-                    <p className="text-sm text-muted-foreground">Regulatory Body</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.reports.regulatoryBody')}</p>
                     <p className="font-medium">{selectedReport.regulatory_body}</p>
                   </div>
                 )}
                 <div>
-                  <p className="text-sm text-muted-foreground">Generated By</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.reports.generatedBy')}</p>
                   <p className="font-medium">{selectedReport.generated_by}</p>
                 </div>
               </div>
 
               {selectedReport.summary && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-2">Report Summary</p>
+                  <p className="text-sm text-muted-foreground mb-2">{t('operator.reports.reportSummary')}</p>
                   <div className="bg-muted p-4 rounded-md">
                     <pre className="text-sm whitespace-pre-wrap">
                       {JSON.stringify(selectedReport.summary, null, 2)}
@@ -1147,7 +1149,7 @@ export default function OperatorReports() {
               {selectedReport.approved_at && (
                 <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-md">
                   <p className="text-sm text-green-500">
-                    Approved by {selectedReport.approved_by} on {new Date(selectedReport.approved_at).toLocaleString()}
+                    {t('operator.reports.approvedByOn', { name: selectedReport.approved_by, date: new Date(selectedReport.approved_at).toLocaleString() })}
                   </p>
                 </div>
               )}
@@ -1155,7 +1157,7 @@ export default function OperatorReports() {
               {selectedReport.submitted_at && (
                 <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-md">
                   <p className="text-sm text-blue-500">
-                    Submitted on {new Date(selectedReport.submitted_at).toLocaleString()}
+                    {t('operator.reports.submittedOn', { date: new Date(selectedReport.submitted_at).toLocaleString() })}
                   </p>
                 </div>
               )}
@@ -1170,7 +1172,7 @@ export default function OperatorReports() {
                 disabled={updateStatusMutation.isPending}
                 data-testid="btn-submit-review"
               >
-                Submit for Review
+                {t('operator.reports.submitForReview')}
               </Button>
             )}
             {selectedReport?.status === "pending_review" && (
@@ -1180,7 +1182,7 @@ export default function OperatorReports() {
                 data-testid="btn-approve-report"
               >
                 <CheckCircle2 className="h-4 w-4 mr-2" />
-                Approve
+                {t('operator.reports.approve')}
               </Button>
             )}
             {selectedReport?.status === "approved" && (
@@ -1190,7 +1192,7 @@ export default function OperatorReports() {
                 data-testid="btn-submit-report"
               >
                 <Send className="h-4 w-4 mr-2" />
-                Mark as Submitted
+                {t('operator.reports.markAsSubmitted')}
               </Button>
             )}
           </DialogFooter>
@@ -1201,15 +1203,15 @@ export default function OperatorReports() {
       <Dialog open={showGenerateDialog} onOpenChange={setShowGenerateDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Generate Compliance Report</DialogTitle>
+            <DialogTitle>{t('operator.reports.generateComplianceReport')}</DialogTitle>
             <DialogDescription>
-              Create a new compliance report for the specified period
+              {t('operator.reports.createNewReportDesc')}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium">Report Type</label>
+              <label className="text-sm font-medium">{t('operator.reports.reportType')}</label>
               <Select
                 value={newReport.reportType}
                 onValueChange={(v) => setNewReport({ ...newReport, reportType: v })}
@@ -1218,18 +1220,18 @@ export default function OperatorReports() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="kyc_summary">KYC Summary</SelectItem>
-                  <SelectItem value="aml_report">AML Report</SelectItem>
-                  <SelectItem value="transaction_report">Transaction Report</SelectItem>
-                  <SelectItem value="validator_report">Validator Report</SelectItem>
-                  <SelectItem value="financial_statement">Financial Statement</SelectItem>
+                  <SelectItem value="kyc_summary">{t('operator.reports.kycSummary')}</SelectItem>
+                  <SelectItem value="aml_report">{t('operator.reports.amlReport')}</SelectItem>
+                  <SelectItem value="transaction_report">{t('operator.reports.transactionReport')}</SelectItem>
+                  <SelectItem value="validator_report">{t('operator.reports.validatorReport')}</SelectItem>
+                  <SelectItem value="financial_statement">{t('operator.reports.financialStatement')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">Report Period</label>
+                <label className="text-sm font-medium">{t('operator.reports.reportPeriod')}</label>
                 <Select
                   value={newReport.reportPeriod}
                   onValueChange={(v) => setNewReport({ ...newReport, reportPeriod: v })}
@@ -1238,17 +1240,17 @@ export default function OperatorReports() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
-                    <SelectItem value="monthly">Monthly</SelectItem>
-                    <SelectItem value="quarterly">Quarterly</SelectItem>
-                    <SelectItem value="annual">Annual</SelectItem>
+                    <SelectItem value="daily">{t('operator.reports.daily')}</SelectItem>
+                    <SelectItem value="weekly">{t('operator.reports.weekly')}</SelectItem>
+                    <SelectItem value="monthly">{t('operator.reports.monthly')}</SelectItem>
+                    <SelectItem value="quarterly">{t('operator.reports.quarterly')}</SelectItem>
+                    <SelectItem value="annual">{t('operator.reports.annual')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
-                <label className="text-sm font-medium">Jurisdiction</label>
+                <label className="text-sm font-medium">{t('operator.reports.jurisdiction')}</label>
                 <Select
                   value={newReport.jurisdiction}
                   onValueChange={(v) => setNewReport({ ...newReport, jurisdiction: v })}
@@ -1257,12 +1259,12 @@ export default function OperatorReports() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="global">Global</SelectItem>
-                    <SelectItem value="us">United States</SelectItem>
-                    <SelectItem value="eu">European Union</SelectItem>
-                    <SelectItem value="uk">United Kingdom</SelectItem>
-                    <SelectItem value="sg">Singapore</SelectItem>
-                    <SelectItem value="jp">Japan</SelectItem>
+                    <SelectItem value="global">{t('operator.reports.global')}</SelectItem>
+                    <SelectItem value="us">{t('operator.reports.unitedStates')}</SelectItem>
+                    <SelectItem value="eu">{t('operator.reports.europeanUnion')}</SelectItem>
+                    <SelectItem value="uk">{t('operator.reports.unitedKingdom')}</SelectItem>
+                    <SelectItem value="sg">{t('operator.reports.singapore')}</SelectItem>
+                    <SelectItem value="jp">{t('operator.reports.japan')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -1271,7 +1273,7 @@ export default function OperatorReports() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium flex items-center gap-1">
-                  <Calendar className="h-3 w-3" /> Period Start
+                  <Calendar className="h-3 w-3" /> {t('operator.reports.periodStart')}
                 </label>
                 <Input
                   type="date"
@@ -1283,7 +1285,7 @@ export default function OperatorReports() {
               </div>
               <div>
                 <label className="text-sm font-medium flex items-center gap-1">
-                  <Calendar className="h-3 w-3" /> Period End
+                  <Calendar className="h-3 w-3" /> {t('operator.reports.periodEnd')}
                 </label>
                 <Input
                   type="date"
@@ -1297,12 +1299,12 @@ export default function OperatorReports() {
 
             <div>
               <label className="text-sm font-medium flex items-center gap-1">
-                <Building2 className="h-3 w-3" /> Regulatory Body (optional)
+                <Building2 className="h-3 w-3" /> {t('operator.reports.regulatoryBodyOptional')}
               </label>
               <Input
                 value={newReport.regulatoryBody}
                 onChange={(e) => setNewReport({ ...newReport, regulatoryBody: e.target.value })}
-                placeholder="e.g., SEC, FCA, MAS"
+                placeholder={t('operator.reports.regulatoryBodyPlaceholder')}
                 className="mt-1"
                 data-testid="input-regulatory-body"
               />
@@ -1311,14 +1313,14 @@ export default function OperatorReports() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowGenerateDialog(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={() => generateMutation.mutate(newReport)}
               disabled={generateMutation.isPending || !newReport.periodStart || !newReport.periodEnd}
               data-testid="btn-confirm-generate"
             >
-              {generateMutation.isPending ? "Generating..." : "Generate Report"}
+              {generateMutation.isPending ? t('operator.reports.generating') : t('operator.reports.generateReport')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1328,43 +1330,43 @@ export default function OperatorReports() {
       <Dialog open={showScheduleDialog} onOpenChange={setShowScheduleDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Create Report Schedule</DialogTitle>
+            <DialogTitle>{t('operator.reports.createReportSchedule')}</DialogTitle>
             <DialogDescription>
-              Set up automated report generation
+              {t('operator.reports.setupAutomatedReport')}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium">Schedule Name</label>
+              <label className="text-sm font-medium">{t('operator.reports.scheduleName')}</label>
               <Input
                 value={newSchedule.name}
                 onChange={(e) => setNewSchedule({ ...newSchedule, name: e.target.value })}
-                placeholder="e.g., Weekly Compliance Summary"
+                placeholder={t('operator.reports.scheduleNamePlaceholder')}
                 className="mt-1"
                 data-testid="input-schedule-name"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium">Report Template</label>
+              <label className="text-sm font-medium">{t('operator.reports.reportTemplate')}</label>
               <Select
                 value={newSchedule.templateId}
                 onValueChange={(v) => setNewSchedule({ ...newSchedule, templateId: v })}
               >
                 <SelectTrigger className="mt-1" data-testid="select-schedule-template">
-                  <SelectValue placeholder="Select a template" />
+                  <SelectValue placeholder={t('operator.reports.selectTemplate')} />
                 </SelectTrigger>
                 <SelectContent>
-                  {REPORT_TEMPLATES.map((t) => (
-                    <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>
+                  {REPORT_TEMPLATES.map((template) => (
+                    <SelectItem key={template.id} value={template.id}>{template.name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
             <div>
-              <label className="text-sm font-medium">Frequency</label>
+              <label className="text-sm font-medium">{t('operator.reports.frequency')}</label>
               <Select
                 value={newSchedule.frequency}
                 onValueChange={(v) => setNewSchedule({ ...newSchedule, frequency: v })}
@@ -1373,20 +1375,20 @@ export default function OperatorReports() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="daily">Daily</SelectItem>
-                  <SelectItem value="weekly">Weekly</SelectItem>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="quarterly">Quarterly</SelectItem>
+                  <SelectItem value="daily">{t('operator.reports.daily')}</SelectItem>
+                  <SelectItem value="weekly">{t('operator.reports.weekly')}</SelectItem>
+                  <SelectItem value="monthly">{t('operator.reports.monthly')}</SelectItem>
+                  <SelectItem value="quarterly">{t('operator.reports.quarterly')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div>
-              <label className="text-sm font-medium">Recipients (comma-separated)</label>
+              <label className="text-sm font-medium">{t('operator.reports.recipientsCommaSeparated')}</label>
               <Input
                 value={newSchedule.recipients}
                 onChange={(e) => setNewSchedule({ ...newSchedule, recipients: e.target.value })}
-                placeholder="email1@example.com, email2@example.com"
+                placeholder={t('operator.reports.recipientsPlaceholder')}
                 className="mt-1"
                 data-testid="input-schedule-recipients"
               />
@@ -1395,14 +1397,14 @@ export default function OperatorReports() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowScheduleDialog(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={createSchedule}
               disabled={!newSchedule.templateId || !newSchedule.name}
               data-testid="btn-confirm-schedule"
             >
-              Create Schedule
+              {t('operator.reports.createSchedule')}
             </Button>
           </DialogFooter>
         </DialogContent>

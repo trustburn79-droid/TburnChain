@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -89,6 +90,7 @@ interface AlertItem {
 }
 
 export default function OperatorDashboard() {
+  const { t } = useTranslation();
   const { getAuthHeaders } = useAdminPassword();
   const queryClient = useQueryClient();
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -181,9 +183,9 @@ export default function OperatorDashboard() {
       <div className="p-6">
         <Alert variant="destructive">
           <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Access Denied</AlertTitle>
+          <AlertTitle>{t('operator.dashboard.accessDenied')}</AlertTitle>
           <AlertDescription>
-            {error instanceof Error ? error.message : "You need admin privileges to access this portal."}
+            {error instanceof Error ? error.message : t('operator.dashboard.adminPrivilegesRequired')}
           </AlertDescription>
         </Alert>
       </div>
@@ -204,11 +206,11 @@ export default function OperatorDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'healthy':
-        return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Healthy</Badge>;
+        return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">{t('operator.dashboard.healthy')}</Badge>;
       case 'degraded':
-        return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Degraded</Badge>;
+        return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">{t('operator.dashboard.degraded')}</Badge>;
       case 'critical':
-        return <Badge className="bg-red-500/10 text-red-500 border-red-500/20">Critical</Badge>;
+        return <Badge className="bg-red-500/10 text-red-500 border-red-500/20">{t('operator.security.critical')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -217,15 +219,15 @@ export default function OperatorDashboard() {
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return <Badge variant="destructive">Critical</Badge>;
+        return <Badge variant="destructive">{t('operator.security.critical')}</Badge>;
       case 'high':
-        return <Badge className="bg-orange-500/10 text-orange-500 border-orange-500/20">High</Badge>;
+        return <Badge className="bg-orange-500/10 text-orange-500 border-orange-500/20">{t('operator.security.high')}</Badge>;
       case 'medium':
-        return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Medium</Badge>;
+        return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">{t('operator.security.medium')}</Badge>;
       case 'low':
-        return <Badge variant="secondary">Low</Badge>;
+        return <Badge variant="secondary">{t('operator.security.low')}</Badge>;
       default:
-        return <Badge variant="outline">Info</Badge>;
+        return <Badge variant="outline">{t('operator.security.info')}</Badge>;
     }
   };
 
@@ -243,9 +245,9 @@ export default function OperatorDashboard() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Operator Portal</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t('operator.dashboard.title')}</h1>
           <p className="text-muted-foreground">
-            Enterprise back-office for TBURN network management
+            {t('operator.dashboard.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -256,12 +258,12 @@ export default function OperatorDashboard() {
             data-testid="btn-toggle-refresh"
           >
             {autoRefresh ? <RefreshCw className="h-4 w-4 mr-1 animate-spin" /> : <RefreshCw className="h-4 w-4 mr-1" />}
-            {autoRefresh ? "Auto" : "Paused"}
+            {autoRefresh ? t('operator.dashboard.autoRefresh') : t('operator.dashboard.paused')}
           </Button>
           {systemHealth && getStatusBadge(systemHealth.status)}
           <Badge variant="outline" className="text-sm">
             <Activity className="w-3 h-3 mr-1" />
-            Admin Access
+            {t('operator.adminAccess')}
           </Badge>
         </div>
       </div>
@@ -269,13 +271,13 @@ export default function OperatorDashboard() {
       {(parseInt(criticalAlerts) > 0 || parseInt(highAlerts) > 0) && (
         <Alert variant="destructive">
           <ShieldAlert className="h-4 w-4" />
-          <AlertTitle>Security Alerts Require Attention</AlertTitle>
+          <AlertTitle>{t('operator.dashboard.securityAlertsAttention')}</AlertTitle>
           <AlertDescription>
-            {parseInt(criticalAlerts) > 0 && `${criticalAlerts} critical`}
+            {parseInt(criticalAlerts) > 0 && `${criticalAlerts} ${t('operator.dashboard.criticalAlerts')}`}
             {parseInt(criticalAlerts) > 0 && parseInt(highAlerts) > 0 && ' and '}
-            {parseInt(highAlerts) > 0 && `${highAlerts} high priority`} 
-            {' '}security events need review.
-            <Link href="/operator/security" className="ml-2 underline">View now</Link>
+            {parseInt(highAlerts) > 0 && `${highAlerts} ${t('operator.dashboard.highPriorityAlerts')}`} 
+            {' '}{t('operator.dashboard.securityEventsNeedReview')}
+            <Link href="/operator/security" className="ml-2 underline">{t('operator.dashboard.viewNow')}</Link>
           </AlertDescription>
         </Alert>
       )}
@@ -283,34 +285,34 @@ export default function OperatorDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card data-testid="card-tps">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">TPS</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.tps')}</CardTitle>
             <Zap className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{systemHealth?.tps?.toLocaleString() || '---'}</div>
             <div className="flex items-center text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              Target: 50,000 TPS
+              {t('operator.dashboard.targetTps')}
             </div>
           </CardContent>
         </Card>
 
         <Card data-testid="card-block-height">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Block Height</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.blockHeight')}</CardTitle>
             <BarChart3 className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{systemHealth?.blockHeight?.toLocaleString() || '---'}</div>
             <div className="text-xs text-muted-foreground">
-              Avg Block Time: {systemHealth?.avgBlockTime || '--'}ms
+              {t('operator.dashboard.avgBlockTime')}: {systemHealth?.avgBlockTime || '--'}ms
             </div>
           </CardContent>
         </Card>
 
         <Card data-testid="card-validators">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Validators</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.validators')}</CardTitle>
             <Server className="h-4 w-4 text-purple-500" />
           </CardHeader>
           <CardContent>
@@ -318,14 +320,14 @@ export default function OperatorDashboard() {
               {systemHealth?.activeValidators || '---'}/{systemHealth?.totalValidators || '---'}
             </div>
             <div className="text-xs text-muted-foreground">
-              Uptime: {systemHealth?.validatorUptime ? (systemHealth.validatorUptime / 100).toFixed(2) : '--'}%
+              {t('operator.dashboard.uptime')}: {systemHealth?.validatorUptime ? (systemHealth.validatorUptime / 100).toFixed(2) : '--'}%
             </div>
           </CardContent>
         </Card>
 
         <Card data-testid="card-health-score">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Health Score</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.healthScore')}</CardTitle>
             <Activity className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
@@ -343,7 +345,7 @@ export default function OperatorDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card data-testid="card-cpu">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">CPU Usage</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.cpuUsage')}</CardTitle>
             <Cpu className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -354,7 +356,7 @@ export default function OperatorDashboard() {
 
         <Card data-testid="card-memory">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Memory</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.memory')}</CardTitle>
             <Server className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -365,7 +367,7 @@ export default function OperatorDashboard() {
 
         <Card data-testid="card-disk">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Disk</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.disk')}</CardTitle>
             <HardDrive className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -376,11 +378,11 @@ export default function OperatorDashboard() {
 
         <Card data-testid="card-network">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Network</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.network')}</CardTitle>
             <Wifi className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-xl font-bold">{systemHealth?.peerCount || '--'} peers</div>
+            <div className="text-xl font-bold">{systemHealth?.peerCount || '--'} {t('operator.dashboard.peers')}</div>
             <div className="text-xs text-muted-foreground">
               {systemHealth?.networkBandwidth || '--'} Mbps
             </div>
@@ -391,16 +393,16 @@ export default function OperatorDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2" data-testid="card-performance-chart">
           <CardHeader>
-            <CardTitle>Performance Metrics (24h)</CardTitle>
-            <CardDescription>Real-time system performance monitoring</CardDescription>
+            <CardTitle>{t('operator.dashboard.performanceMetrics')}</CardTitle>
+            <CardDescription>{t('operator.dashboard.realTimePerformance')}</CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="tps" className="w-full" data-testid="tabs-performance">
               <TabsList className="grid w-full grid-cols-4" data-testid="tablist-performance">
-                <TabsTrigger value="tps" data-testid="tab-tps">TPS</TabsTrigger>
-                <TabsTrigger value="latency" data-testid="tab-latency">Latency</TabsTrigger>
-                <TabsTrigger value="resources" data-testid="tab-resources">Resources</TabsTrigger>
-                <TabsTrigger value="health" data-testid="tab-health">Health</TabsTrigger>
+                <TabsTrigger value="tps" data-testid="tab-tps">{t('operator.dashboard.tps')}</TabsTrigger>
+                <TabsTrigger value="latency" data-testid="tab-latency">{t('operator.dashboard.latency')}</TabsTrigger>
+                <TabsTrigger value="resources" data-testid="tab-resources">{t('operator.dashboard.resources')}</TabsTrigger>
+                <TabsTrigger value="health" data-testid="tab-health">{t('operator.dashboard.health')}</TabsTrigger>
               </TabsList>
               <TabsContent value="tps" className="h-[250px] mt-4">
                 <ResponsiveContainer width="100%" height="100%">
@@ -450,8 +452,8 @@ export default function OperatorDashboard() {
                       }} 
                     />
                     <Legend />
-                    <Line type="monotone" dataKey="cpu" name="CPU" stroke="#ef4444" strokeWidth={2} dot={false} />
-                    <Line type="monotone" dataKey="memory" name="Memory" stroke="#3b82f6" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="cpu" name={t('operator.dashboard.cpuUsage')} stroke="#ef4444" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="memory" name={t('operator.dashboard.memory')} stroke="#3b82f6" strokeWidth={2} dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
               </TabsContent>
@@ -481,9 +483,9 @@ export default function OperatorDashboard() {
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Bell className="h-4 w-4" />
-                Alert Center
+                {t('operator.dashboard.alertCenter')}
               </CardTitle>
-              <CardDescription>Active notifications</CardDescription>
+              <CardDescription>{t('operator.dashboard.activeNotifications')}</CardDescription>
             </div>
             <Badge variant="outline">{alerts?.length || 0}</Badge>
           </CardHeader>
@@ -535,7 +537,7 @@ export default function OperatorDashboard() {
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   <CheckCircle2 className="h-8 w-8 text-green-500 mb-2" />
-                  <p className="text-sm text-muted-foreground">No active alerts</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.dashboard.noActiveAlerts')}</p>
                 </div>
               )}
             </ScrollArea>
@@ -546,50 +548,50 @@ export default function OperatorDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card data-testid="card-total-members">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Members</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.totalMembers')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{data?.members?.total_members || '0'}</div>
             <p className="text-xs text-muted-foreground">
-              <span className="text-green-500">{data?.members?.active_members || '0'} active</span>
+              <span className="text-green-500">{data?.members?.active_members || '0'} {t('operator.dashboard.active')}</span>
               {' • '}
-              <span className="text-yellow-500">{data?.members?.pending_members || '0'} pending</span>
+              <span className="text-yellow-500">{data?.members?.pending_members || '0'} {t('operator.dashboard.pending')}</span>
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-kyc-status">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">KYC Status</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.kycStatus')}</CardTitle>
             <FileCheck className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{data?.members?.kyc_verified || '0'}</div>
             <p className="text-xs text-muted-foreground">
-              <span className="text-green-500">Verified</span>
+              <span className="text-green-500">{t('operator.dashboard.verified')}</span>
               {' • '}
-              <span className="text-red-500">{data?.members?.no_kyc || '0'} unverified</span>
+              <span className="text-red-500">{data?.members?.no_kyc || '0'} {t('operator.dashboard.unverified')}</span>
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-validator-apps">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Validator Apps</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.validatorApps')}</CardTitle>
             <ClipboardList className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{pendingApps}</div>
             <p className="text-xs text-muted-foreground">
-              Pending review
+              {t('operator.dashboard.pendingReview')}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-security-alerts">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Security Alerts</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.dashboard.securityAlerts')}</CardTitle>
             <ShieldAlert className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -597,9 +599,9 @@ export default function OperatorDashboard() {
               {parseInt(criticalAlerts) + parseInt(highAlerts)}
             </div>
             <p className="text-xs text-muted-foreground">
-              <span className="text-red-500">{criticalAlerts} critical</span>
+              <span className="text-red-500">{criticalAlerts} {t('operator.dashboard.critical')}</span>
               {' • '}
-              <span className="text-orange-500">{highAlerts} high</span>
+              <span className="text-orange-500">{highAlerts} {t('operator.dashboard.high')}</span>
             </p>
           </CardContent>
         </Card>
@@ -608,32 +610,32 @@ export default function OperatorDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card data-testid="card-quick-actions">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Common operator tasks</CardDescription>
+            <CardTitle>{t('operator.dashboard.quickActions')}</CardTitle>
+            <CardDescription>{t('operator.dashboard.commonOperatorTasks')}</CardDescription>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-2">
             <Link href="/operator/members">
               <Button variant="outline" className="w-full justify-start" data-testid="btn-manage-members">
                 <Users className="w-4 h-4 mr-2" />
-                Members
+                {t('operator.members')}
               </Button>
             </Link>
             <Link href="/operator/validators">
               <Button variant="outline" className="w-full justify-start" data-testid="btn-review-apps">
                 <ClipboardList className="w-4 h-4 mr-2" />
-                Validators
+                {t('operator.dashboard.validators')}
               </Button>
             </Link>
             <Link href="/operator/security">
               <Button variant="outline" className="w-full justify-start" data-testid="btn-security-audit">
                 <ShieldAlert className="w-4 h-4 mr-2" />
-                Security
+                {t('operator.securityAudit')}
               </Button>
             </Link>
             <Link href="/operator/reports">
               <Button variant="outline" className="w-full justify-start" data-testid="btn-compliance">
                 <FileCheck className="w-4 h-4 mr-2" />
-                Reports
+                {t('operator.complianceReports')}
               </Button>
             </Link>
           </CardContent>
@@ -641,8 +643,8 @@ export default function OperatorDashboard() {
 
         <Card data-testid="card-recent-activity">
           <CardHeader>
-            <CardTitle>Recent Admin Activity</CardTitle>
-            <CardDescription>Latest operator actions</CardDescription>
+            <CardTitle>{t('operator.dashboard.recentAdminActivity')}</CardTitle>
+            <CardDescription>{t('operator.dashboard.latestOperatorActions')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[160px]">
@@ -670,7 +672,7 @@ export default function OperatorDashboard() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">No recent activity</p>
+                <p className="text-sm text-muted-foreground">{t('operator.dashboard.noRecentActivity')}</p>
               )}
             </ScrollArea>
           </CardContent>
@@ -680,28 +682,28 @@ export default function OperatorDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <Card data-testid="card-member-status">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Member Status Distribution</CardTitle>
+            <CardTitle className="text-sm">{t('operator.dashboard.memberStatusDistribution')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-3 w-3 text-green-500" />
-                  <span className="text-sm">Active</span>
+                  <span className="text-sm">{t('operator.members.active')}</span>
                 </div>
                 <span className="text-sm font-medium">{data?.members?.active_members || '0'}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Clock className="h-3 w-3 text-yellow-500" />
-                  <span className="text-sm">Pending</span>
+                  <span className="text-sm">{t('operator.members.pending')}</span>
                 </div>
                 <span className="text-sm font-medium">{data?.members?.pending_members || '0'}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <XCircle className="h-3 w-3 text-red-500" />
-                  <span className="text-sm">Suspended</span>
+                  <span className="text-sm">{t('operator.dashboard.suspended')}</span>
                 </div>
                 <span className="text-sm font-medium">{data?.members?.suspended_members || '0'}</span>
               </div>
@@ -711,7 +713,7 @@ export default function OperatorDashboard() {
 
         <Card data-testid="card-validator-apps-status">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Validator Applications</CardTitle>
+            <CardTitle className="text-sm">{t('operator.dashboard.validatorApplications')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -729,7 +731,7 @@ export default function OperatorDashboard() {
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-muted-foreground">No applications</p>
+                <p className="text-sm text-muted-foreground">{t('operator.dashboard.noApplications')}</p>
               )}
             </div>
           </CardContent>
@@ -737,7 +739,7 @@ export default function OperatorDashboard() {
 
         <Card data-testid="card-security-summary">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Open Security Events</CardTitle>
+            <CardTitle className="text-sm">{t('operator.dashboard.openSecurityEvents')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -757,7 +759,7 @@ export default function OperatorDashboard() {
               ) : (
                 <div className="flex items-center gap-2 text-green-500">
                   <CheckCircle2 className="h-4 w-4" />
-                  <span className="text-sm">No open alerts</span>
+                  <span className="text-sm">{t('operator.dashboard.noOpenAlerts')}</span>
                 </div>
               )}
             </div>

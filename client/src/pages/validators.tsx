@@ -849,7 +849,7 @@ export default function Validators() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          {getTierBadge(validator.tier, isCommitteeMember)}
+                          {getTierBadge(validator.tier, isCommitteeMember, t)}
                         </TableCell>
                         <TableCell className="tabular-nums font-medium">
                           <div className="flex items-center gap-1">

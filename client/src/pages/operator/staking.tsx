@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -80,6 +81,7 @@ function formatWei(wei: string): string {
 }
 
 export default function OperatorStaking() {
+  const { t } = useTranslation();
   const { getAuthHeaders } = useAdminPassword();
   const queryClient = useQueryClient();
   const { toast } = useToast();
@@ -163,12 +165,12 @@ export default function OperatorStaking() {
       queryClient.invalidateQueries({ queryKey: ["/api/staking/reward-cycles"] });
       queryClient.invalidateQueries({ queryKey: ["/api/staking/stats"] });
       toast({ 
-        title: "Reward Distribution Started", 
-        description: `Cycle #${data.cycleNumber} distribution initiated.` 
+        title: t('operator.staking.rewardDistributionStarted'), 
+        description: t('operator.staking.cycleInitiated', { number: data.cycleNumber }) 
       });
     },
     onError: (error: any) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t('common.error'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -193,10 +195,10 @@ export default function OperatorStaking() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Coins className="h-8 w-8 text-primary" />
-            Staking Operations
+            {t('operator.staking.title')}
           </h1>
           <p className="text-muted-foreground mt-1">
-            Manage staking pools, tiers, and reward distribution
+            {t('operator.staking.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -206,14 +208,14 @@ export default function OperatorStaking() {
             data-testid="button-refresh-staking"
           >
             <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
+            {t('common.refresh')}
           </Button>
           <Button 
             onClick={() => setIsCreatingPool(true)}
             data-testid="button-create-pool"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Create Pool
+            {t('operator.staking.createPool')}
           </Button>
         </div>
       </div>
@@ -221,7 +223,7 @@ export default function OperatorStaking() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card data-testid="card-total-staked">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Staked</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.staking.totalStaked')}</CardTitle>
             <Coins className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -232,7 +234,7 @@ export default function OperatorStaking() {
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
-                  +12.5% from last week
+                  {t('operator.staking.fromLastWeek', { percent: '+12.5%' })}
                 </p>
               </>
             )}
@@ -241,7 +243,7 @@ export default function OperatorStaking() {
 
         <Card data-testid="card-active-pools">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Pools</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.staking.activePools')}</CardTitle>
             <Layers className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -261,7 +263,7 @@ export default function OperatorStaking() {
 
         <Card data-testid="card-total-stakers">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Stakers</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.staking.totalStakers')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -272,7 +274,7 @@ export default function OperatorStaking() {
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <Activity className="h-3 w-3 text-blue-500 mr-1" />
-                  Across {stats?.totalTiers || 0} tiers
+                  {t('operator.staking.acrossTiers', { count: stats?.totalTiers || 0 })}
                 </p>
               </>
             )}
@@ -281,7 +283,7 @@ export default function OperatorStaking() {
 
         <Card data-testid="card-reward-cycle">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current Reward Cycle</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('operator.staking.currentRewardCycle')}</CardTitle>
             <Gift className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -289,7 +291,7 @@ export default function OperatorStaking() {
               <>
                 <div className="text-2xl font-bold flex items-center gap-2">
                   #{stats?.currentRewardCycle || 0}
-                  <Badge variant="outline" className="text-green-500 border-green-500">Active</Badge>
+                  <Badge variant="outline" className="text-green-500 border-green-500">{t('operator.members.active')}</Badge>
                 </div>
                 <Button 
                   size="sm" 
@@ -300,7 +302,7 @@ export default function OperatorStaking() {
                   data-testid="button-distribute-rewards"
                 >
                   <Zap className="h-3 w-3 mr-1" />
-                  Trigger Distribution
+                  {t('operator.staking.triggerDistribution')}
                 </Button>
               </>
             )}
@@ -310,10 +312,10 @@ export default function OperatorStaking() {
 
       <Tabs defaultValue="pools" className="space-y-4">
         <TabsList data-testid="tabs-operator-staking">
-          <TabsTrigger value="pools" data-testid="tab-pools">Pool Management</TabsTrigger>
-          <TabsTrigger value="tiers" data-testid="tab-tiers">Tier Configuration</TabsTrigger>
-          <TabsTrigger value="rewards" data-testid="tab-rewards">Reward Cycles</TabsTrigger>
-          <TabsTrigger value="analytics" data-testid="tab-analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="pools" data-testid="tab-pools">{t('operator.staking.poolManagement')}</TabsTrigger>
+          <TabsTrigger value="tiers" data-testid="tab-tiers">{t('operator.staking.tierConfiguration')}</TabsTrigger>
+          <TabsTrigger value="rewards" data-testid="tab-rewards">{t('operator.staking.rewardCycles')}</TabsTrigger>
+          <TabsTrigger value="analytics" data-testid="tab-analytics">{t('operator.staking.analytics')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="pools" className="space-y-4">
@@ -357,19 +359,19 @@ export default function OperatorStaking() {
                       <div className="flex items-center gap-6">
                         <div className="text-center">
                           <p className="text-2xl font-bold text-green-500">{apy}%</p>
-                          <p className="text-xs text-muted-foreground">APY</p>
+                          <p className="text-xs text-muted-foreground">{t('staking.apy')}</p>
                         </div>
                         <div className="text-center">
                           <p className="text-lg font-semibold">{formatWei(pool.totalStaked || "0")}</p>
-                          <p className="text-xs text-muted-foreground">Total Staked</p>
+                          <p className="text-xs text-muted-foreground">{t('operator.staking.totalStaked')}</p>
                         </div>
                         <div className="text-center">
                           <p className="text-lg font-semibold">{pool.totalStakers || 0}</p>
-                          <p className="text-xs text-muted-foreground">Stakers</p>
+                          <p className="text-xs text-muted-foreground">{t('operator.staking.stakers')}</p>
                         </div>
                         <div className="text-center">
                           <p className="text-lg font-semibold">{pool.lockPeriodDays || 0}d</p>
-                          <p className="text-xs text-muted-foreground">Lock Period</p>
+                          <p className="text-xs text-muted-foreground">{t('staking.lockPeriod')}</p>
                         </div>
                         <div className="flex items-center gap-2">
                           <Button
@@ -401,7 +403,7 @@ export default function OperatorStaking() {
                           </Button>
                           <Link href={`/staking/pool/${pool.id}`}>
                             <Button variant="outline" size="sm" data-testid={`button-view-pool-${pool.id}`}>
-                              View Details
+                              {t('operator.staking.viewDetails')}
                             </Button>
                           </Link>
                         </div>
@@ -409,22 +411,22 @@ export default function OperatorStaking() {
                     </div>
                     <div className="mt-4 pt-4 border-t grid grid-cols-4 gap-4 text-sm">
                       <div>
-                        <span className="text-muted-foreground">Min Stake:</span>
+                        <span className="text-muted-foreground">{t('operator.staking.minStake')}:</span>
                         <span className="ml-2 font-medium">{formatWei(pool.minStake || "0")} TBURN</span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Max Stake:</span>
-                        <span className="ml-2 font-medium">{pool.maxStake ? formatWei(pool.maxStake) : "Unlimited"} TBURN</span>
+                        <span className="text-muted-foreground">{t('operator.staking.maxStake')}:</span>
+                        <span className="ml-2 font-medium">{pool.maxStake ? formatWei(pool.maxStake) : t('operator.staking.unlimited')} TBURN</span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Auto Compound:</span>
+                        <span className="text-muted-foreground">{t('operator.staking.autoCompound')}:</span>
                         <Badge variant={pool.autoCompoundEnabled ? "default" : "outline"} className="ml-2">
                           {pool.autoCompoundEnabled ? <CheckCircle className="h-3 w-3 mr-1" /> : null}
-                          {pool.autoCompoundEnabled ? "Enabled" : "Disabled"}
+                          {pool.autoCompoundEnabled ? t('operator.staking.enabled') : t('operator.staking.disabled')}
                         </Badge>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Exit Fee:</span>
+                        <span className="text-muted-foreground">{t('operator.staking.exitFee')}:</span>
                         <span className="ml-2 font-medium">{(pool.exitFee || 0) / 100}%</span>
                       </div>
                     </div>
@@ -435,13 +437,13 @@ export default function OperatorStaking() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <Layers className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No Staking Pools</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t('operator.staking.noStakingPools')}</h3>
                   <p className="text-muted-foreground mb-4">
-                    Create your first staking pool to enable staking functionality.
+                    {t('operator.staking.createFirstPoolDesc')}
                   </p>
                   <Button onClick={() => setIsCreatingPool(true)}>
                     <Plus className="h-4 w-4 mr-2" />
-                    Create Pool
+                    {t('operator.staking.createPool')}
                   </Button>
                 </CardContent>
               </Card>
@@ -493,41 +495,41 @@ export default function OperatorStaking() {
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-2 gap-3 text-sm">
                       <div>
-                        <p className="text-muted-foreground">APY Range</p>
+                        <p className="text-muted-foreground">{t('operator.staking.apyRange')}</p>
                         <p className="font-semibold text-green-500">
                           {tier.minApy / 100}% - {tier.maxApy / 100}%
                         </p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Lock Period</p>
+                        <p className="text-muted-foreground">{t('operator.staking.lockPeriod')}</p>
                         <p className="font-semibold">
-                          {tier.minLockDays} - {tier.maxLockDays} days
+                          {tier.minLockDays} - {tier.maxLockDays} {t('operator.staking.days')}
                         </p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Min Stake</p>
+                        <p className="text-muted-foreground">{t('operator.staking.minStake')}</p>
                         <p className="font-semibold">{formatWei(tier.minStakeWei)} TBURN</p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Fee Discount</p>
+                        <p className="text-muted-foreground">{t('operator.staking.feeDiscount')}</p>
                         <p className="font-semibold">{tier.feeDiscount / 100}%</p>
                       </div>
                     </div>
                     <div className="pt-3 border-t space-y-2">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Early Adopter Bonus</span>
+                        <span className="text-muted-foreground">{t('operator.staking.earlyAdopterBonus')}</span>
                         <Badge variant={tier.earlyAdopterBonus > 0 ? "default" : "outline"}>
                           {tier.earlyAdopterBonus / 100}%
                         </Badge>
                       </div>
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Priority Rewards</span>
+                        <span className="text-muted-foreground">{t('operator.staking.priorityRewards')}</span>
                         <Badge variant={tier.priorityRewards ? "default" : "outline"}>
-                          {tier.priorityRewards ? "Yes" : "No"}
+                          {tier.priorityRewards ? t('common.yes') : t('common.no')}
                         </Badge>
                       </div>
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Governance Weight</span>
+                        <span className="text-muted-foreground">{t('operator.staking.governanceWeight')}</span>
                         <span className="font-medium">{tier.governanceWeight}x</span>
                       </div>
                     </div>
@@ -538,9 +540,9 @@ export default function OperatorStaking() {
               <Card className="col-span-full">
                 <CardContent className="p-12 text-center">
                   <Target className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No Tier Configurations</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t('operator.staking.noTierConfigs')}</h3>
                   <p className="text-muted-foreground">
-                    Tier configurations need to be set up in the database.
+                    {t('operator.staking.tierConfigsNeeded')}
                   </p>
                 </CardContent>
               </Card>
@@ -555,10 +557,10 @@ export default function OperatorStaking() {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <Gift className="h-5 w-5" />
-                    Reward Distribution Cycles
+                    {t('operator.staking.rewardDistributionCycles')}
                   </CardTitle>
                   <CardDescription>
-                    Manage and monitor reward distribution across all staking pools
+                    {t('operator.staking.manageRewardDistribution')}
                   </CardDescription>
                 </div>
                 <Button 
@@ -567,7 +569,7 @@ export default function OperatorStaking() {
                   data-testid="button-trigger-cycle"
                 >
                   <Zap className="h-4 w-4 mr-2" />
-                  {triggerRewardDistribution.isPending ? "Processing..." : "New Cycle"}
+                  {triggerRewardDistribution.isPending ? t('operator.staking.processing') : t('operator.staking.newCycle')}
                 </Button>
               </div>
             </CardHeader>
@@ -601,7 +603,7 @@ export default function OperatorStaking() {
                             </div>
                             <div>
                               <p className="font-semibold flex items-center gap-2">
-                                Cycle #{cycle.cycleNumber}
+                                {t('operator.staking.cycle')} #{cycle.cycleNumber}
                                 <Badge variant={
                                   cycle.status === "active" ? "default" :
                                   cycle.status === "completed" ? "outline" : "secondary"
@@ -610,7 +612,7 @@ export default function OperatorStaking() {
                                 </Badge>
                               </p>
                               <p className="text-sm text-muted-foreground">
-                                {cycle.startTime ? new Date(cycle.startTime).toLocaleString() : "Pending"} 
+                                {cycle.startTime ? new Date(cycle.startTime).toLocaleString() : t('operator.members.pending')} 
                                 {cycle.endTime ? ` - ${new Date(cycle.endTime).toLocaleString()}` : ""}
                               </p>
                             </div>
@@ -620,7 +622,7 @@ export default function OperatorStaking() {
                               {cycle.totalRewardsDistributed ? formatWei(cycle.totalRewardsDistributed) : "0"} TBURN
                             </p>
                             <p className="text-sm text-muted-foreground">
-                              {cycle.totalParticipants || 0} participants
+                              {cycle.totalParticipants || 0} {t('operator.staking.participants')}
                             </p>
                           </div>
                         </div>
@@ -629,13 +631,13 @@ export default function OperatorStaking() {
                   ) : (
                     <div className="text-center py-8 text-muted-foreground">
                       <Gift className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>No reward cycles found.</p>
+                      <p>{t('operator.staking.noRewardCycles')}</p>
                       <Button 
                         variant="outline" 
                         className="mt-4"
                         onClick={() => triggerRewardDistribution.mutate()}
                       >
-                        Start First Cycle
+                        {t('operator.staking.startFirstCycle')}
                       </Button>
                     </div>
                   )}
@@ -651,7 +653,7 @@ export default function OperatorStaking() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="h-5 w-5" />
-                  Staking Growth Trend
+                  {t('operator.staking.stakingGrowthTrend')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -679,7 +681,7 @@ export default function OperatorStaking() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Layers className="h-5 w-5" />
-                  Pool Distribution by Tier
+                  {t('operator.staking.poolDistributionByTier')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -712,7 +714,7 @@ export default function OperatorStaking() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="h-5 w-5" />
-                  Staker Growth
+                  {t('operator.staking.stakerGrowth')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -740,33 +742,33 @@ export default function OperatorStaking() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5" />
-                  APY Overview
+                  {t('operator.staking.apyOverview')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center p-4 rounded-lg bg-muted/50">
                     <p className="text-3xl font-bold text-green-500">{stats?.highestApy || 0}%</p>
-                    <p className="text-sm text-muted-foreground">Highest APY</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.staking.highestApy')}</p>
                   </div>
                   <div className="text-center p-4 rounded-lg bg-muted/50">
                     <p className="text-3xl font-bold">{stats?.averageApy?.toFixed(1) || 0}%</p>
-                    <p className="text-sm text-muted-foreground">Average APY</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.staking.averageApy')}</p>
                   </div>
                   <div className="text-center p-4 rounded-lg bg-muted/50">
                     <p className="text-3xl font-bold text-amber-500">{stats?.lowestApy || 0}%</p>
-                    <p className="text-sm text-muted-foreground">Lowest APY</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.staking.lowestApy')}</p>
                   </div>
                 </div>
                 <div className="pt-4 border-t space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Total Rewards Distributed</span>
+                    <span className="text-muted-foreground">{t('operator.staking.totalRewardsDistributed')}</span>
                     <span className="font-bold text-lg">
                       {formatWei(stats?.totalRewardsDistributedWei || "0")} TBURN
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Average Stake per User</span>
+                    <span className="text-muted-foreground">{t('operator.staking.averageStakePerUser')}</span>
                     <span className="font-medium">
                       {stats && stats.totalStakers > 0 
                         ? (Number(BigInt(stats.totalStakedWei || "0")) / 1e18 / stats.totalStakers).toLocaleString(undefined, { maximumFractionDigits: 2 })
@@ -784,15 +786,15 @@ export default function OperatorStaking() {
       <Dialog open={isEditingPool} onOpenChange={setIsEditingPool}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Edit Staking Pool</DialogTitle>
+            <DialogTitle>{t('operator.staking.editStakingPool')}</DialogTitle>
             <DialogDescription>
-              Update pool settings. Changes will take effect immediately.
+              {t('operator.staking.updatePoolSettingsDesc')}
             </DialogDescription>
           </DialogHeader>
           {selectedPool && (
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>Pool Name</Label>
+                <Label>{t('operator.staking.poolName')}</Label>
                 <Input 
                   defaultValue={selectedPool.name} 
                   onChange={(e) => setSelectedPool({ ...selectedPool, name: e.target.value })}
@@ -801,7 +803,7 @@ export default function OperatorStaking() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Base APY (basis points)</Label>
+                  <Label>{t('operator.staking.baseApyBasisPoints')}</Label>
                   <Input 
                     type="number" 
                     defaultValue={selectedPool.baseApy || 0}
@@ -810,7 +812,7 @@ export default function OperatorStaking() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Lock Period (days)</Label>
+                  <Label>{t('operator.staking.lockPeriodDays')}</Label>
                   <Input 
                     type="number" 
                     defaultValue={selectedPool.lockPeriodDays || 0}
@@ -820,7 +822,7 @@ export default function OperatorStaking() {
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <Label>Auto Compound</Label>
+                <Label>{t('operator.staking.autoCompound')}</Label>
                 <Switch 
                   checked={selectedPool.autoCompoundEnabled || false}
                   onCheckedChange={(checked) => setSelectedPool({ ...selectedPool, autoCompoundEnabled: checked })}
@@ -830,13 +832,13 @@ export default function OperatorStaking() {
             </div>
           )}
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditingPool(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setIsEditingPool(false)}>{t('common.cancel')}</Button>
             <Button 
               onClick={() => selectedPool && updatePoolMutation.mutate(selectedPool)}
               disabled={updatePoolMutation.isPending}
               data-testid="button-save-pool"
             >
-              {updatePoolMutation.isPending ? "Saving..." : "Save Changes"}
+              {updatePoolMutation.isPending ? t('operator.staking.saving') : t('operator.staking.saveChanges')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -845,61 +847,61 @@ export default function OperatorStaking() {
       <Dialog open={isCreatingPool} onOpenChange={setIsCreatingPool}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Create Staking Pool</DialogTitle>
+            <DialogTitle>{t('operator.staking.createStakingPool')}</DialogTitle>
             <DialogDescription>
-              Set up a new staking pool with custom parameters.
+              {t('operator.staking.setupNewPoolDesc')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label>Pool Name</Label>
-              <Input placeholder="Enterprise Gold Pool" data-testid="input-new-pool-name" />
+              <Label>{t('operator.staking.poolName')}</Label>
+              <Input placeholder={t('operator.staking.poolNamePlaceholder')} data-testid="input-new-pool-name" />
             </div>
             <div className="space-y-2">
-              <Label>Tier</Label>
+              <Label>{t('operator.staking.tier')}</Label>
               <Select>
                 <SelectTrigger data-testid="select-new-pool-tier">
-                  <SelectValue placeholder="Select tier..." />
+                  <SelectValue placeholder={t('operator.staking.selectTier')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="bronze">Bronze</SelectItem>
-                  <SelectItem value="silver">Silver</SelectItem>
-                  <SelectItem value="gold">Gold</SelectItem>
-                  <SelectItem value="platinum">Platinum</SelectItem>
-                  <SelectItem value="diamond">Diamond</SelectItem>
+                  <SelectItem value="bronze">{t('operator.staking.bronze')}</SelectItem>
+                  <SelectItem value="silver">{t('operator.staking.silver')}</SelectItem>
+                  <SelectItem value="gold">{t('operator.staking.gold')}</SelectItem>
+                  <SelectItem value="platinum">{t('operator.staking.platinum')}</SelectItem>
+                  <SelectItem value="diamond">{t('operator.staking.diamond')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>APY (%)</Label>
+                <Label>{t('operator.staking.apyPercent')}</Label>
                 <Input type="number" placeholder="12.5" data-testid="input-new-pool-apy" />
               </div>
               <div className="space-y-2">
-                <Label>Lock Period (days)</Label>
+                <Label>{t('operator.staking.lockPeriodDays')}</Label>
                 <Input type="number" placeholder="90" data-testid="input-new-pool-lock" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>Min Stake (TBURN)</Label>
+                <Label>{t('operator.staking.minStakeTburn')}</Label>
                 <Input type="number" placeholder="1000" data-testid="input-new-pool-min" />
               </div>
               <div className="space-y-2">
-                <Label>Max Stake (TBURN)</Label>
+                <Label>{t('operator.staking.maxStakeTburn')}</Label>
                 <Input type="number" placeholder="100000" data-testid="input-new-pool-max" />
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <Label>Enable Slashing Protection</Label>
+              <Label>{t('operator.staking.enableSlashingProtection')}</Label>
               <Switch data-testid="switch-new-slashing" />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsCreatingPool(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setIsCreatingPool(false)}>{t('common.cancel')}</Button>
             <Button data-testid="button-create-pool-submit">
               <Plus className="h-4 w-4 mr-2" />
-              Create Pool
+              {t('operator.staking.createPool')}
             </Button>
           </DialogFooter>
         </DialogContent>

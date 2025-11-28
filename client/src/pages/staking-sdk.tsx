@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -270,6 +271,7 @@ const apiEndpoints = [
 ];
 
 export default function StakingSDK() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
@@ -277,8 +279,8 @@ export default function StakingSDK() {
     navigator.clipboard.writeText(code);
     setCopiedCode(key);
     toast({
-      title: "Copied",
-      description: "Code copied to clipboard"
+      title: t('stakingSdk.copied'),
+      description: t('stakingSdk.codeCopied')
     });
     setTimeout(() => setCopiedCode(null), 2000);
   };
@@ -287,9 +289,9 @@ export default function StakingSDK() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-sdk-title">Wallet SDK & Development Tools</h1>
+          <h1 className="text-3xl font-bold" data-testid="text-sdk-title">{t('stakingSdk.title')}</h1>
           <p className="text-muted-foreground mt-1">
-            Integrate TBURN staking into your application with our SDK
+            {t('stakingSdk.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -311,48 +313,48 @@ export default function StakingSDK() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card data-testid="card-quick-start">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Quick Start</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('stakingSdk.quickStart')}</CardTitle>
             <Rocket className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Get started in minutes with our step-by-step guide
+              {t('stakingSdk.quickStartDesc')}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-api-docs">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">API Reference</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('stakingSdk.apiReference')}</CardTitle>
             <Book className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Complete API documentation with examples
+              {t('stakingSdk.apiReferenceDesc')}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-examples">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Code Examples</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('stakingSdk.codeExamples')}</CardTitle>
             <Code2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Ready-to-use code snippets for common operations
+              {t('stakingSdk.codeExamplesDesc')}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-support">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Support</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('stakingSdk.support')}</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              24/7 developer support and community
+              {t('stakingSdk.supportDesc')}
             </p>
           </CardContent>
         </Card>
@@ -360,9 +362,9 @@ export default function StakingSDK() {
 
       <Tabs defaultValue="sdk" className="space-y-4">
         <TabsList data-testid="tabs-sdk">
-          <TabsTrigger value="sdk" data-testid="tab-sdk">SDK Guide</TabsTrigger>
-          <TabsTrigger value="api" data-testid="tab-api">REST API</TabsTrigger>
-          <TabsTrigger value="playground" data-testid="tab-playground">Playground</TabsTrigger>
+          <TabsTrigger value="sdk" data-testid="tab-sdk">{t('stakingSdk.sdkGuide')}</TabsTrigger>
+          <TabsTrigger value="api" data-testid="tab-api">{t('stakingSdk.restApi')}</TabsTrigger>
+          <TabsTrigger value="playground" data-testid="tab-playground">{t('stakingSdk.playground')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="sdk" className="space-y-6">
@@ -371,7 +373,7 @@ export default function StakingSDK() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Download className="h-5 w-5" />
-                  <CardTitle>Installation</CardTitle>
+                  <CardTitle>{t('stakingSdk.installation')}</CardTitle>
                 </div>
                 <Button 
                   variant="ghost" 
@@ -398,7 +400,7 @@ export default function StakingSDK() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Settings className="h-5 w-5" />
-                  <CardTitle>Initialization</CardTitle>
+                  <CardTitle>{t('stakingSdk.initialization')}</CardTitle>
                 </div>
                 <Button 
                   variant="ghost" 
@@ -426,7 +428,7 @@ export default function StakingSDK() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Layers className="h-5 w-5" />
-                    <CardTitle className="text-base">Get Staking Pools</CardTitle>
+                    <CardTitle className="text-base">{t('stakingSdk.getStakingPools')}</CardTitle>
                   </div>
                   <Button 
                     variant="ghost" 
@@ -455,7 +457,7 @@ export default function StakingSDK() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Coins className="h-5 w-5" />
-                    <CardTitle className="text-base">Stake TBURN</CardTitle>
+                    <CardTitle className="text-base">{t('stakingSdk.stakeTburn')}</CardTitle>
                   </div>
                   <Button 
                     variant="ghost" 
@@ -484,7 +486,7 @@ export default function StakingSDK() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Shield className="h-5 w-5" />
-                    <CardTitle className="text-base">Unstake & Unbonding</CardTitle>
+                    <CardTitle className="text-base">{t('stakingSdk.unstakeUnbonding')}</CardTitle>
                   </div>
                   <Button 
                     variant="ghost" 
@@ -513,7 +515,7 @@ export default function StakingSDK() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Wallet className="h-5 w-5" />
-                    <CardTitle className="text-base">Rewards Management</CardTitle>
+                    <CardTitle className="text-base">{t('stakingSdk.rewardsManagement')}</CardTitle>
                   </div>
                   <Button 
                     variant="ghost" 
@@ -543,7 +545,7 @@ export default function StakingSDK() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Globe className="h-5 w-5" />
-                  <CardTitle>Delegation Management</CardTitle>
+                  <CardTitle>{t('stakingSdk.delegationManagement')}</CardTitle>
                 </div>
                 <Button 
                   variant="ghost" 
@@ -571,7 +573,7 @@ export default function StakingSDK() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Activity className="h-5 w-5" />
-                    <CardTitle className="text-base">Event Subscriptions</CardTitle>
+                    <CardTitle className="text-base">{t('stakingSdk.eventSubscriptions')}</CardTitle>
                   </div>
                   <Button 
                     variant="ghost" 
@@ -600,7 +602,7 @@ export default function StakingSDK() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Cpu className="h-5 w-5" />
-                    <CardTitle className="text-base">Utility Functions</CardTitle>
+                    <CardTitle className="text-base">{t('stakingSdk.utilityFunctions')}</CardTitle>
                   </div>
                   <Button 
                     variant="ghost" 
@@ -631,10 +633,10 @@ export default function StakingSDK() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Braces className="h-5 w-5" />
-                REST API Endpoints
+                {t('stakingSdk.restApiEndpoints')}
               </CardTitle>
               <CardDescription>
-                Direct API access for staking operations
+                {t('stakingSdk.directApiAccess')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -669,26 +671,24 @@ export default function StakingSDK() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Key className="h-5 w-5" />
-                Authentication
+                {t('stakingSdk.authentication')}
               </CardTitle>
+              <CardDescription>
+                {t('stakingSdk.authDescription')}
+              </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Include your API key in the request header for authenticated endpoints:
-              </p>
+            <CardContent>
               <pre className="p-4 rounded-lg bg-muted overflow-x-auto">
-                <code className="text-sm font-mono">{`curl -X GET "https://api.tburn.network/api/staking/pools" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json"`}</code>
+                <code className="text-sm font-mono">{`Authorization: Bearer YOUR_API_KEY`}</code>
               </pre>
-              <div className="flex gap-2">
+              <div className="mt-4 flex gap-2">
                 <Button variant="outline" data-testid="button-get-api-key">
                   <Key className="h-4 w-4 mr-2" />
-                  Get API Key
+                  {t('stakingSdk.getApiKey')}
                 </Button>
-                <Button variant="outline" data-testid="button-view-docs">
+                <Button variant="ghost" data-testid="button-full-docs">
                   <Book className="h-4 w-4 mr-2" />
-                  Full Documentation
+                  {t('stakingSdk.fullDocumentation')}
                 </Button>
               </div>
             </CardContent>
@@ -700,60 +700,42 @@ export default function StakingSDK() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Terminal className="h-5 w-5" />
-                Interactive Playground
+                {t('stakingSdk.interactivePlayground')}
               </CardTitle>
               <CardDescription>
-                Test API calls directly from your browser
+                {t('stakingSdk.playgroundDesc')}
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium">Endpoint</label>
-                    <select className="w-full mt-2 px-3 py-2 border rounded-md bg-background" data-testid="select-endpoint">
-                      {apiEndpoints.map((endpoint, i) => (
-                        <option key={i} value={endpoint.endpoint}>
-                          {endpoint.method} {endpoint.endpoint}
-                        </option>
-                      ))}
+                    <label className="text-sm font-medium">{t('stakingSdk.endpoint')}</label>
+                    <select className="w-full mt-1 p-2 rounded-md border bg-background">
+                      <option value="/api/staking/pools">GET /api/staking/pools</option>
+                      <option value="/api/staking/stats">GET /api/staking/stats</option>
+                      <option value="/api/staking/tiers">GET /api/staking/tiers</option>
                     </select>
                   </div>
-                  
                   <div>
-                    <label className="text-sm font-medium">Parameters (JSON)</label>
+                    <label className="text-sm font-medium">{t('stakingSdk.parametersJson')}</label>
                     <textarea 
-                      className="w-full mt-2 px-3 py-2 border rounded-md bg-background font-mono text-sm h-32"
-                      placeholder='{ "address": "0x..." }'
-                      data-testid="textarea-params"
+                      className="w-full mt-1 p-2 rounded-md border bg-background font-mono text-sm h-32"
+                      placeholder='{"address": "0x..."}'
                     />
                   </div>
-
                   <Button className="w-full" data-testid="button-execute">
                     <Rocket className="h-4 w-4 mr-2" />
-                    Execute Request
+                    {t('stakingSdk.executeRequest')}
                   </Button>
                 </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Response</label>
-                  <div className="p-4 rounded-lg bg-muted h-64 overflow-auto font-mono text-sm" data-testid="response-area">
-                    <pre>{`{
-  "status": "success",
-  "data": {
-    "pools": [
-      {
-        "id": "pool-gold-001",
-        "name": "Gold Tier Pool",
-        "tier": "gold",
-        "apy": 15.5,
-        "totalStaked": "1000000000000000000000000",
-        "status": "active"
-      }
-    ]
-  }
-}`}</pre>
-                  </div>
+                <div>
+                  <label className="text-sm font-medium">{t('stakingSdk.response')}</label>
+                  <pre className="mt-1 p-4 rounded-lg bg-muted h-64 overflow-auto">
+                    <code className="text-sm font-mono text-muted-foreground">
+                      {`// ${t('stakingSdk.response')} will appear here...`}
+                    </code>
+                  </pre>
                 </div>
               </div>
             </CardContent>

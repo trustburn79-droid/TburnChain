@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -51,6 +52,7 @@ interface NewApiKeyResponse {
 }
 
 export default function ApiKeys() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [label, setLabel] = useState("");
   const [newKey, setNewKey] = useState<NewApiKeyResponse | null>(null);
@@ -64,7 +66,7 @@ export default function ApiKeys() {
   const createMutation = useMutation({
     mutationFn: async () => {
       if (!label.trim()) {
-        throw new Error("Label is required");
+        throw new Error(t('apiKeys.keyLabel'));
       }
       const res = await apiRequest("POST", "/api/keys", { label: label.trim() });
       return await res.json() as NewApiKeyResponse;
@@ -75,14 +77,14 @@ export default function ApiKeys() {
       setLabel("");
       queryClient.invalidateQueries({ queryKey: ["/api/keys"] });
       toast({
-        title: "API Key Created",
-        description: "Your new API key has been generated. Make sure to copy it now!",
+        title: t('apiKeys.keyCreated'),
+        description: t('apiKeys.keyCreatedToast'),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: "Error",
-        description: error.message || "Failed to create API key",
+        title: t('common.error'),
+        description: error.message || t('apiKeys.createFailed'),
         variant: "destructive",
       });
     },
@@ -95,15 +97,15 @@ export default function ApiKeys() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/keys"] });
       toast({
-        title: "API Key Revoked",
-        description: "The API key has been successfully revoked.",
+        title: t('apiKeys.keyRevoked'),
+        description: t('apiKeys.keyRevokedDesc'),
       });
       setDeleteKeyId(null);
     },
     onError: (error: Error) => {
       toast({
-        title: "Error",
-        description: error.message || "Failed to revoke API key",
+        title: t('common.error'),
+        description: error.message || t('apiKeys.revokeFailed'),
         variant: "destructive",
       });
       setDeleteKeyId(null);
@@ -113,8 +115,8 @@ export default function ApiKeys() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: "Copied!",
-      description: "API key copied to clipboard",
+      title: t('common.copied'),
+      description: t('apiKeys.apiKeyCopied'),
     });
   };
 
@@ -129,10 +131,10 @@ export default function ApiKeys() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Shield className="h-8 w-8" />
-            API Keys
+            {t('apiKeys.title')}
           </h1>
           <p className="text-muted-foreground mt-2">
-            Manage API keys for secure access to TBURN blockchain data
+            {t('apiKeys.subtitle')}
           </p>
         </div>
       </div>
@@ -141,10 +143,10 @@ export default function ApiKeys() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Plus className="h-5 w-5" />
-            Create New API Key
+            {t('apiKeys.createNewKey')}
           </CardTitle>
           <CardDescription>
-            Generate a new API key for programmatic access. The key will only be shown once.
+            {t('apiKeys.createDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -156,11 +158,11 @@ export default function ApiKeys() {
             className="flex gap-4 items-end"
           >
             <div className="flex-1 max-w-md">
-              <Label htmlFor="key-label">API Key Label</Label>
+              <Label htmlFor="key-label">{t('apiKeys.keyLabel')}</Label>
               <Input
                 id="key-label"
                 data-testid="input-api-key-label"
-                placeholder="e.g., Production Server, Development, Mobile App"
+                placeholder={t('apiKeys.labelPlaceholder')}
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
                 className="mt-2"
@@ -172,7 +174,7 @@ export default function ApiKeys() {
               data-testid="button-create-api-key"
             >
               <Key className="mr-2 h-4 w-4" />
-              {createMutation.isPending ? "Creating..." : "Create API Key"}
+              {createMutation.isPending ? t('apiKeys.creating') : t('apiKeys.createButton')}
             </Button>
           </form>
         </CardContent>
@@ -180,29 +182,29 @@ export default function ApiKeys() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Active API Keys</CardTitle>
+          <CardTitle>{t('apiKeys.activeKeys')}</CardTitle>
           <CardDescription>
             {keys.length === 0
-              ? "No API keys created yet"
-              : `You have ${keys.length} active API key${keys.length === 1 ? "" : "s"}`}
+              ? t('apiKeys.noKeysYet')
+              : t('apiKeys.keysCount', { count: keys.length })}
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <div className="text-center py-8 text-muted-foreground">Loading API keys...</div>
+            <div className="text-center py-8 text-muted-foreground">{t('apiKeys.loadingKeys')}</div>
           ) : keys.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
-              No API keys yet. Create your first one above.
+              {t('apiKeys.noKeysMessage')}
             </div>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Label</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Created</TableHead>
-                  <TableHead>Last Used</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>{t('apiKeys.label')}</TableHead>
+                  <TableHead>{t('common.status')}</TableHead>
+                  <TableHead>{t('apiKeys.created')}</TableHead>
+                  <TableHead>{t('apiKeys.lastUsed')}</TableHead>
+                  <TableHead className="text-right">{t('common.actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -211,14 +213,14 @@ export default function ApiKeys() {
                     <TableCell className="font-medium">{key.label}</TableCell>
                     <TableCell>
                       <Badge variant="default" data-testid={`badge-status-${key.id}`}>
-                        Active
+                        {t('common.active')}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-muted-foreground">
                       {formatDate(key.createdAt)}
                     </TableCell>
                     <TableCell className="text-muted-foreground">
-                      {key.lastUsedAt ? formatDate(key.lastUsedAt) : "Never"}
+                      {key.lastUsedAt ? formatDate(key.lastUsedAt) : t('apiKeys.never')}
                     </TableCell>
                     <TableCell className="text-right">
                       <Button
@@ -243,20 +245,20 @@ export default function ApiKeys() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
-              API Key Created Successfully
+              {t('apiKeys.keyCreatedTitle')}
             </DialogTitle>
             <DialogDescription>
-              This is the only time you'll see this API key. Copy it now and store it securely.
+              {t('apiKeys.keyCreatedDescription')}
             </DialogDescription>
           </DialogHeader>
           {newKey && (
             <div className="space-y-4">
               <div>
-                <Label>Label</Label>
+                <Label>{t('apiKeys.label')}</Label>
                 <div className="text-sm font-medium mt-1">{newKey.label}</div>
               </div>
               <div>
-                <Label>API Key</Label>
+                <Label>{t('apiKeys.apiKey')}</Label>
                 <div className="flex gap-2 mt-2">
                   <Input
                     readOnly
@@ -269,11 +271,11 @@ export default function ApiKeys() {
                     data-testid="button-copy-api-key"
                   >
                     <Copy className="mr-2 h-4 w-4" />
-                    Copy
+                    {t('common.copy')}
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Store this key securely. You won't be able to see it again.
+                  {t('apiKeys.storeSecurely')}
                 </p>
               </div>
             </div>
@@ -284,20 +286,19 @@ export default function ApiKeys() {
       <AlertDialog open={!!deleteKeyId} onOpenChange={() => setDeleteKeyId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Revoke API Key?</AlertDialogTitle>
+            <AlertDialogTitle>{t('apiKeys.revokeTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. Any applications using this key will no longer be able
-              to authenticate.
+              {t('apiKeys.revokeDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel data-testid="button-cancel-revoke">Cancel</AlertDialogCancel>
+            <AlertDialogCancel data-testid="button-cancel-revoke">{t('common.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => deleteKeyId && deleteMutation.mutate(deleteKeyId)}
               className="bg-destructive hover:bg-destructive/90"
               data-testid="button-confirm-revoke"
             >
-              Revoke Key
+              {t('apiKeys.revokeKey')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

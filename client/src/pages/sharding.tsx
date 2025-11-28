@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Grid3x3, Layers, ArrowLeftRight, Brain, TrendingUp, Activity, Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +18,7 @@ import { formatNumber } from "@/lib/format";
 import type { Shard } from "@shared/schema";
 
 export default function Sharding() {
+  const { t } = useTranslation();
   const { data: shards, isLoading } = useQuery<Shard[]>({
     queryKey: ["/api/shards"],
   });
@@ -29,11 +31,11 @@ export default function Sharding() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-green-600">Active</Badge>;
+        return <Badge className="bg-green-600">{t('common.active')}</Badge>;
       case "syncing":
-        return <Badge variant="secondary">Syncing</Badge>;
+        return <Badge variant="secondary">{t('sharding.syncing')}</Badge>;
       case "error":
-        return <Badge variant="destructive">Error</Badge>;
+        return <Badge variant="destructive">{t('common.error')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -50,14 +52,13 @@ export default function Sharding() {
       <div>
         <h1 className="text-3xl font-semibold flex items-center gap-2">
           <Grid3x3 className="h-8 w-8" />
-          Sharding System
+          {t('sharding.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Dynamic AI-Driven Sharding with ML-Based Optimization
+          {t('sharding.subtitle')}
         </p>
       </div>
 
-      {/* Sharding Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {isLoading ? (
           <>
@@ -69,35 +70,34 @@ export default function Sharding() {
         ) : (
           <>
             <StatCard
-              title="Active Shards"
+              title={t('sharding.activeShards')}
               value={activeShards}
               icon={Layers}
-              subtitle={`of ${shards?.length || 0} total`}
+              subtitle={t('sharding.ofTotal', { total: shards?.length || 0 })}
             />
             <StatCard
-              title="Combined TPS"
+              title={t('sharding.combinedTps')}
               value={formatNumber(totalTps)}
               icon={ArrowLeftRight}
               trend={{ value: 18.3, isPositive: true }}
-              subtitle="transactions/sec"
+              subtitle={t('sharding.transactionsPerSec')}
             />
             <StatCard
-              title="Avg Load"
+              title={t('sharding.avgLoad')}
               value={`${avgLoad.toFixed(1)}%`}
               icon={Grid3x3}
-              subtitle="across shards"
+              subtitle={t('sharding.acrossShards')}
             />
             <StatCard
-              title="Total Validators"
+              title={t('sharding.totalValidators')}
               value={totalValidators}
               icon={Grid3x3}
-              subtitle="distributed"
+              subtitle={t('sharding.distributed')}
             />
           </>
         )}
       </div>
 
-      {/* Shard Status Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {isLoading ? (
           <>
@@ -117,25 +117,25 @@ export default function Sharding() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Block Height</span>
+                    <span className="text-muted-foreground">{t('sharding.blockHeight')}</span>
                     <span className="font-semibold font-mono tabular-nums">
                       #{formatNumber(shard.blockHeight)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Transactions</span>
+                    <span className="text-muted-foreground">{t('common.transactions')}</span>
                     <span className="font-semibold tabular-nums">
                       {formatNumber(shard.transactionCount)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Validators</span>
+                    <span className="text-muted-foreground">{t('sharding.validators')}</span>
                     <span className="font-semibold tabular-nums">
                       {shard.validatorCount}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">TPS</span>
+                    <span className="text-muted-foreground">{t('sharding.tps')}</span>
                     <span className={`font-semibold tabular-nums ${getLoadColor(shard.load)}`}>
                       {formatNumber(shard.tps)}
                     </span>
@@ -144,7 +144,7 @@ export default function Sharding() {
 
                 <div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-                    <span>Shard Load</span>
+                    <span>{t('sharding.shardLoad')}</span>
                     <span className={`font-semibold ${getLoadColor(shard.load)}`}>
                       {shard.load}%
                     </span>
@@ -155,33 +155,32 @@ export default function Sharding() {
                   />
                 </div>
 
-                {/* TBURN v7.0: Dynamic AI-Driven Sharding with ML Optimization */}
                 <div className="pt-3 border-t space-y-2">
                   <div className="flex items-center justify-between text-xs" data-testid={`metric-mlopt-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <Brain className="h-3 w-3" />
-                      ML Optimization:
+                      {t('sharding.mlOptimization')}:
                     </span>
                     <span className="font-semibold">{(shard.mlOptimizationScore / 100).toFixed(1)}%</span>
                   </div>
                   <div className="flex items-center justify-between text-xs" data-testid={`metric-predicted-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <TrendingUp className="h-3 w-3" />
-                      Predicted Load:
+                      {t('sharding.predictedLoad')}:
                     </span>
                     <span className="font-semibold">{shard.predictedLoad}%</span>
                   </div>
                   <div className="flex items-center justify-between text-xs" data-testid={`metric-profiling-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <Activity className="h-3 w-3" />
-                      Profiling:
+                      {t('sharding.profiling')}:
                     </span>
                     <span className="font-semibold">{(shard.profilingScore / 100).toFixed(1)}%</span>
                   </div>
                   <div className="flex items-center justify-between text-xs" data-testid={`metric-capacity-${shard.shardId}`}>
                     <span className="text-muted-foreground flex items-center gap-1">
                       <Zap className="h-3 w-3" />
-                      Capacity:
+                      {t('sharding.capacity')}:
                     </span>
                     <span className="font-semibold">{(shard.capacityUtilization / 100).toFixed(1)}%</span>
                   </div>
@@ -189,7 +188,7 @@ export default function Sharding() {
 
                 <div className="pt-2 border-t flex items-center justify-between gap-2">
                   <Badge variant="outline" className="text-xs">
-                    ID: {shard.shardId}
+                    {t('sharding.shardId')}: {shard.shardId}
                   </Badge>
                   <Badge 
                     variant={shard.aiRecommendation === "stable" ? "outline" : "secondary"}
@@ -203,15 +202,14 @@ export default function Sharding() {
           ))
         ) : (
           <div className="col-span-3 text-center py-12">
-            <p className="text-muted-foreground">No shards configured</p>
+            <p className="text-muted-foreground">{t('sharding.noShardsConfigured')}</p>
           </div>
         )}
       </div>
 
-      {/* Detailed Shard Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Shard Performance Details</CardTitle>
+          <CardTitle>{t('sharding.shardPerformanceDetails')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -224,16 +222,16 @@ export default function Sharding() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Shard</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Block Height</TableHead>
-                    <TableHead>Transactions</TableHead>
-                    <TableHead>Validators</TableHead>
-                    <TableHead>TPS</TableHead>
-                    <TableHead>Load</TableHead>
-                    <TableHead>ML Optimization</TableHead>
-                    <TableHead>Predicted Load</TableHead>
-                    <TableHead>AI Recommendation</TableHead>
+                    <TableHead>{t('sharding.shard')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
+                    <TableHead>{t('sharding.blockHeight')}</TableHead>
+                    <TableHead>{t('common.transactions')}</TableHead>
+                    <TableHead>{t('sharding.validators')}</TableHead>
+                    <TableHead>{t('sharding.tps')}</TableHead>
+                    <TableHead>{t('sharding.load')}</TableHead>
+                    <TableHead>{t('sharding.mlOptimization')}</TableHead>
+                    <TableHead>{t('sharding.predictedLoad')}</TableHead>
+                    <TableHead>{t('sharding.aiRecommendation')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -259,7 +257,6 @@ export default function Sharding() {
                           </span>
                         </div>
                       </TableCell>
-                      {/* TBURN v7.0: Dynamic AI-Driven Sharding - ML Optimization */}
                       <TableCell data-testid={`metric-mlopt-table-${shard.shardId}`}>
                         <div className="flex items-center gap-2">
                           <Brain className="h-3 w-3 text-purple-500" />
@@ -287,7 +284,7 @@ export default function Sharding() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No shard data available</p>
+              <p className="text-muted-foreground">{t('sharding.noShardDataAvailable')}</p>
             </div>
           )}
         </CardContent>

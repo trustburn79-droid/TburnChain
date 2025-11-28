@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -112,6 +113,7 @@ const BURN_RATE = 0.20;
 const NET_DAILY_EMISSION = DAILY_EMISSION * (1 - BURN_RATE);
 
 export default function OperatorValidators() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { getAuthHeaders } = useAdminPassword();
   const [activeTab, setActiveTab] = useState("applications");
@@ -170,7 +172,7 @@ export default function OperatorValidators() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Application updated successfully" });
+      toast({ title: t('operator.validators.applicationUpdated') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/validator-applications"] });
       setShowReviewDialog(false);
       setSelectedApp(null);
@@ -178,7 +180,7 @@ export default function OperatorValidators() {
       setRejectionReason("");
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update application", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.validators.failedUpdateApplication'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -196,13 +198,13 @@ export default function OperatorValidators() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Validator slashed successfully" });
+      toast({ title: t('operator.validators.validatorSlashed') });
       setShowSlashDialog(false);
       setSlashData({ address: "", slashType: "downtime", amount: "", reason: "" });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/slashing-history"] });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to slash validator", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.validators.failedSlashValidator'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -272,10 +274,10 @@ export default function OperatorValidators() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "approved": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />Approved</Badge>;
-      case "rejected": return <Badge variant="destructive"><XCircle className="h-3 w-3 mr-1" />Rejected</Badge>;
-      case "pending": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"><Clock className="h-3 w-3 mr-1" />Pending</Badge>;
-      case "under_review": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20"><Eye className="h-3 w-3 mr-1" />Under Review</Badge>;
+      case "approved": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />{t('operator.validators.approved')}</Badge>;
+      case "rejected": return <Badge variant="destructive"><XCircle className="h-3 w-3 mr-1" />{t('operator.validators.rejected')}</Badge>;
+      case "pending": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"><Clock className="h-3 w-3 mr-1" />{t('operator.members.pending')}</Badge>;
+      case "under_review": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20"><Eye className="h-3 w-3 mr-1" />{t('operator.validators.underReview')}</Badge>;
       default: return <Badge variant="secondary">{status}</Badge>;
     }
   };
@@ -302,15 +304,15 @@ export default function OperatorValidators() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Validator Operations</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t('operator.validators.title')}</h1>
           <p className="text-muted-foreground">
-            Review applications, manage validators, and enforce slashing
+            {t('operator.validators.subtitle')}
           </p>
         </div>
         <div className="flex gap-2">
           <Button variant="destructive" onClick={() => setShowSlashDialog(true)} data-testid="btn-slash-validator">
             <Slash className="h-4 w-4 mr-2" />
-            Slash Validator
+            {t('operator.validators.slashValidator')}
           </Button>
         </div>
       </div>
@@ -319,19 +321,19 @@ export default function OperatorValidators() {
         <TabsList className="grid w-full grid-cols-4" data-testid="tablist-validators">
           <TabsTrigger value="applications" data-testid="tab-applications">
             <FileCheck className="h-4 w-4 mr-2" />
-            Applications
+            {t('operator.validators.applications')}
           </TabsTrigger>
           <TabsTrigger value="performance" data-testid="tab-performance">
             <Activity className="h-4 w-4 mr-2" />
-            Performance
+            {t('operator.validators.performance')}
           </TabsTrigger>
           <TabsTrigger value="slashing" data-testid="tab-slashing">
             <History className="h-4 w-4 mr-2" />
-            Slashing History
+            {t('operator.validators.slashingHistory')}
           </TabsTrigger>
           <TabsTrigger value="calculator" data-testid="tab-calculator">
             <Calculator className="h-4 w-4 mr-2" />
-            Reward Calculator
+            {t('operator.validators.rewardCalculator')}
           </TabsTrigger>
         </TabsList>
 
@@ -339,7 +341,7 @@ export default function OperatorValidators() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card data-testid="card-pending-apps">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Pending Applications</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.pendingApplications')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -349,7 +351,7 @@ export default function OperatorValidators() {
             </Card>
             <Card data-testid="card-under-review">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Under Review</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.underReview')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -359,7 +361,7 @@ export default function OperatorValidators() {
             </Card>
             <Card data-testid="card-approved-month">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Approved This Month</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.approvedThisMonth')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -372,17 +374,17 @@ export default function OperatorValidators() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
-                <CardTitle>Validator Applications</CardTitle>
+                <CardTitle>{t('operator.validators.validatorApplications')}</CardTitle>
             <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(1); }}>
               <SelectTrigger className="w-40" data-testid="select-app-status">
-                <SelectValue placeholder="Filter by status" />
+                <SelectValue placeholder={t('operator.validators.filterByStatus')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="under_review">Under Review</SelectItem>
-                <SelectItem value="approved">Approved</SelectItem>
-                <SelectItem value="rejected">Rejected</SelectItem>
+                <SelectItem value="all">{t('operator.validators.allStatus')}</SelectItem>
+                <SelectItem value="pending">{t('operator.members.pending')}</SelectItem>
+                <SelectItem value="under_review">{t('operator.validators.underReview')}</SelectItem>
+                <SelectItem value="approved">{t('operator.validators.approved')}</SelectItem>
+                <SelectItem value="rejected">{t('operator.validators.rejected')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -391,13 +393,13 @@ export default function OperatorValidators() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Applicant</TableHead>
-                <TableHead>Requested Tier</TableHead>
-                <TableHead>Stake</TableHead>
-                <TableHead>Commission</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Submitted</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t('operator.validators.applicant')}</TableHead>
+                <TableHead>{t('operator.validators.requestedTier')}</TableHead>
+                <TableHead>{t('operator.validators.stake')}</TableHead>
+                <TableHead>{t('operator.validators.commission')}</TableHead>
+                <TableHead>{t('operator.members.status')}</TableHead>
+                <TableHead>{t('operator.validators.submitted')}</TableHead>
+                <TableHead>{t('operator.members.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -452,7 +454,7 @@ export default function OperatorValidators() {
               {(!data?.applications || data.applications.length === 0) && (
                 <TableRow>
                   <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                    No applications found
+                    {t('operator.validators.noApplicationsFound')}
                   </TableCell>
                 </TableRow>
               )}
@@ -462,7 +464,7 @@ export default function OperatorValidators() {
           {data?.pagination && data.pagination.totalPages > 1 && (
             <div className="flex items-center justify-between mt-4">
               <p className="text-sm text-muted-foreground">
-                Page {data.pagination.page} of {data.pagination.totalPages}
+                {t('operator.members.pageOf', { page: data.pagination.page, total: data.pagination.totalPages })}
               </p>
               <div className="flex gap-2">
                 <Button
@@ -492,7 +494,7 @@ export default function OperatorValidators() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card data-testid="card-total-validators">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Total Validators</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.totalValidators')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{validatorPerformance?.length || 0}</div>
@@ -500,7 +502,7 @@ export default function OperatorValidators() {
             </Card>
             <Card data-testid="card-avg-uptime">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Avg Uptime</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.avgUptime')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-500">
@@ -512,7 +514,7 @@ export default function OperatorValidators() {
             </Card>
             <Card data-testid="card-total-blocks">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Total Blocks Produced</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.totalBlocksProduced')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -522,7 +524,7 @@ export default function OperatorValidators() {
             </Card>
             <Card data-testid="card-total-rewards">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Total Rewards Earned</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.totalRewardsEarned')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-amber-500">
@@ -534,8 +536,8 @@ export default function OperatorValidators() {
 
           <Card data-testid="card-performance-chart">
             <CardHeader>
-              <CardTitle>Validator Performance Overview</CardTitle>
-              <CardDescription>Top 20 validators by performance score</CardDescription>
+              <CardTitle>{t('operator.validators.performanceOverview')}</CardTitle>
+              <CardDescription>{t('operator.validators.top20Validators')}</CardDescription>
             </CardHeader>
             <CardContent className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -550,8 +552,8 @@ export default function OperatorValidators() {
                       borderRadius: '8px'
                     }} 
                   />
-                  <Bar dataKey="uptime" name="Uptime %" fill="hsl(var(--primary))" />
-                  <Bar dataKey="score" name="Score" fill="#22c55e" />
+                  <Bar dataKey="uptime" name={t('operator.validators.uptimePercent')} fill="hsl(var(--primary))" />
+                  <Bar dataKey="score" name={t('operator.validators.score')} fill="#22c55e" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -559,20 +561,20 @@ export default function OperatorValidators() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Performance Leaderboard</CardTitle>
+              <CardTitle>{t('operator.validators.performanceLeaderboard')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Rank</TableHead>
-                    <TableHead>Validator</TableHead>
-                    <TableHead>Tier</TableHead>
-                    <TableHead>Stake</TableHead>
-                    <TableHead>Uptime</TableHead>
-                    <TableHead>Blocks</TableHead>
-                    <TableHead>Score</TableHead>
-                    <TableHead>Rewards</TableHead>
+                    <TableHead>{t('operator.validators.rank')}</TableHead>
+                    <TableHead>{t('operator.validators.validator')}</TableHead>
+                    <TableHead>{t('operator.members.tier')}</TableHead>
+                    <TableHead>{t('operator.validators.stake')}</TableHead>
+                    <TableHead>{t('operator.validators.uptime')}</TableHead>
+                    <TableHead>{t('operator.validators.blocks')}</TableHead>
+                    <TableHead>{t('operator.validators.score')}</TableHead>
+                    <TableHead>{t('operator.validators.rewards')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -610,7 +612,7 @@ export default function OperatorValidators() {
                   {(!validatorPerformance || validatorPerformance.length === 0) && (
                     <TableRow>
                       <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
-                        No performance data available
+                        {t('operator.validators.noPerformanceData')}
                       </TableCell>
                     </TableRow>
                   )}
@@ -624,7 +626,7 @@ export default function OperatorValidators() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card data-testid="card-total-slashes">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Total Slashing Events</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.totalSlashingEvents')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-red-500">{slashingHistory?.length || 0}</div>
@@ -632,7 +634,7 @@ export default function OperatorValidators() {
             </Card>
             <Card data-testid="card-total-slashed">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Total TBURN Slashed</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.totalTburnSlashed')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -642,7 +644,7 @@ export default function OperatorValidators() {
             </Card>
             <Card data-testid="card-pending-slashes">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Pending Executions</CardTitle>
+                <CardTitle className="text-sm">{t('operator.validators.pendingExecutions')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-yellow-500">
@@ -654,20 +656,20 @@ export default function OperatorValidators() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Slashing History</CardTitle>
-              <CardDescription>Record of all validator slashing events</CardDescription>
+              <CardTitle>{t('operator.validators.slashingHistory')}</CardTitle>
+              <CardDescription>{t('operator.validators.slashingHistoryDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Validator</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Reason</TableHead>
-                    <TableHead>Executed By</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>{t('operator.validators.date')}</TableHead>
+                    <TableHead>{t('operator.validators.validator')}</TableHead>
+                    <TableHead>{t('operator.validators.type')}</TableHead>
+                    <TableHead>{t('operator.validators.amount')}</TableHead>
+                    <TableHead>{t('operator.validators.reason')}</TableHead>
+                    <TableHead>{t('operator.validators.executedBy')}</TableHead>
+                    <TableHead>{t('operator.members.status')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -697,7 +699,7 @@ export default function OperatorValidators() {
                   {(!slashingHistory || slashingHistory.length === 0) && (
                     <TableRow>
                       <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                        No slashing records found
+                        {t('operator.validators.noSlashingRecords')}
                       </TableCell>
                     </TableRow>
                   )}
@@ -713,29 +715,29 @@ export default function OperatorValidators() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calculator className="h-5 w-5" />
-                  Reward Calculator
+                  {t('operator.validators.rewardCalculator')}
                 </CardTitle>
                 <CardDescription>
-                  Estimate your validator rewards based on stake and tier
+                  {t('operator.validators.rewardCalculatorDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-3">
-                  <label className="text-sm font-medium">Select Tier</label>
+                  <label className="text-sm font-medium">{t('operator.validators.selectTier')}</label>
                   <Select value={calcTier} onValueChange={setCalcTier}>
                     <SelectTrigger data-testid="select-calc-tier">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="tier_1">Tier 1 - Active Committee (200K+ TBURN)</SelectItem>
-                      <SelectItem value="tier_2">Tier 2 - Standby (50K+ TBURN)</SelectItem>
-                      <SelectItem value="tier_3">Tier 3 - Delegators (100+ TBURN)</SelectItem>
+                      <SelectItem value="tier_1">{t('operator.validators.tier1Option')}</SelectItem>
+                      <SelectItem value="tier_2">{t('operator.validators.tier2Option')}</SelectItem>
+                      <SelectItem value="tier_3">{t('operator.validators.tier3Option')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-sm font-medium">Stake Amount: {calcStake.toLocaleString()} TBURN</label>
+                  <label className="text-sm font-medium">{t('operator.validators.stakeAmount')}: {calcStake.toLocaleString()} TBURN</label>
                   <Slider
                     value={[calcStake]}
                     onValueChange={([v]) => setCalcStake(v)}
@@ -751,11 +753,11 @@ export default function OperatorValidators() {
                 </div>
 
                 <div className="pt-4 border-t">
-                  <h4 className="text-sm font-medium mb-3">Tier Requirements</h4>
+                  <h4 className="text-sm font-medium mb-3">{t('operator.validators.tierRequirements')}</h4>
                   <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="text-muted-foreground">Min Stake:</div>
+                    <div className="text-muted-foreground">{t('operator.validators.minStake')}:</div>
                     <div className="font-mono">{rewardCalculation?.minStake.toLocaleString()} TBURN</div>
-                    <div className="text-muted-foreground">Target APY:</div>
+                    <div className="text-muted-foreground">{t('operator.validators.targetApy')}:</div>
                     <div className="font-medium text-green-500">{rewardCalculation?.targetApy}%</div>
                   </div>
                 </div>
@@ -766,55 +768,55 @@ export default function OperatorValidators() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Award className="h-5 w-5 text-amber-500" />
-                  Estimated Rewards
+                  {t('operator.validators.estimatedRewards')}
                 </CardTitle>
                 <CardDescription>
-                  Based on current network parameters
+                  {t('operator.validators.basedOnNetwork')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <div className="text-sm text-muted-foreground mb-1">Daily Reward</div>
+                  <div className="text-sm text-muted-foreground mb-1">{t('operator.validators.dailyReward')}</div>
                   <div className="text-3xl font-bold text-amber-500">{rewardCalculation?.dailyReward} TBURN</div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 bg-muted/50 rounded-lg">
-                    <div className="text-sm text-muted-foreground">Monthly</div>
+                    <div className="text-sm text-muted-foreground">{t('operator.validators.monthly')}</div>
                     <div className="text-xl font-bold">{rewardCalculation?.monthlyReward} TBURN</div>
                   </div>
                   <div className="p-3 bg-muted/50 rounded-lg">
-                    <div className="text-sm text-muted-foreground">Yearly</div>
+                    <div className="text-sm text-muted-foreground">{t('operator.validators.yearly')}</div>
                     <div className="text-xl font-bold">{rewardCalculation?.yearlyReward} TBURN</div>
                   </div>
                 </div>
 
                 <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-                  <div className="text-sm text-green-600 dark:text-green-400 mb-1">Effective APY</div>
+                  <div className="text-sm text-green-600 dark:text-green-400 mb-1">{t('operator.validators.effectiveApy')}</div>
                   <div className="text-2xl font-bold text-green-600 dark:text-green-400">{rewardCalculation?.effectiveApy}%</div>
                 </div>
 
                 <div className="pt-4 border-t text-sm">
-                  <h4 className="font-medium mb-2">Calculation Details</h4>
+                  <h4 className="font-medium mb-2">{t('operator.validators.calculationDetails')}</h4>
                   <div className="space-y-1 text-muted-foreground">
                     <div className="flex justify-between">
-                      <span>Daily Tier Pool:</span>
+                      <span>{t('operator.validators.dailyTierPool')}:</span>
                       <span className="font-mono">{rewardCalculation?.dailyTierPool} TBURN</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Your Pool Share:</span>
+                      <span>{t('operator.validators.yourPoolShare')}:</span>
                       <span className="font-mono">{rewardCalculation?.stakeShare}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Daily Emission:</span>
+                      <span>{t('operator.validators.dailyEmission')}:</span>
                       <span className="font-mono">{DAILY_EMISSION.toLocaleString()} TBURN</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Burn Rate:</span>
+                      <span>{t('operator.validators.burnRate')}:</span>
                       <span className="font-mono">{BURN_RATE * 100}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Net Daily Emission:</span>
+                      <span>{t('operator.validators.netDailyEmission')}:</span>
                       <span className="font-mono">{NET_DAILY_EMISSION.toLocaleString()} TBURN</span>
                     </div>
                   </div>
@@ -825,19 +827,19 @@ export default function OperatorValidators() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Tier Comparison</CardTitle>
-              <CardDescription>Compare reward structures across all validator tiers</CardDescription>
+              <CardTitle>{t('operator.validators.tierComparison')}</CardTitle>
+              <CardDescription>{t('operator.validators.tierComparisonDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Tier</TableHead>
-                    <TableHead>Max Validators</TableHead>
-                    <TableHead>Min Stake</TableHead>
-                    <TableHead>Target APY</TableHead>
-                    <TableHead>Pool Share</TableHead>
-                    <TableHead>Daily Pool</TableHead>
+                    <TableHead>{t('operator.members.tier')}</TableHead>
+                    <TableHead>{t('operator.validators.maxValidators')}</TableHead>
+                    <TableHead>{t('operator.validators.minStake')}</TableHead>
+                    <TableHead>{t('operator.validators.targetApy')}</TableHead>
+                    <TableHead>{t('operator.validators.poolShare')}</TableHead>
+                    <TableHead>{t('operator.validators.dailyPool')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -862,7 +864,7 @@ export default function OperatorValidators() {
       <Dialog open={!!selectedApp && !showReviewDialog} onOpenChange={() => setSelectedApp(null)}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Application Details</DialogTitle>
+            <DialogTitle>{t('operator.validators.applicationDetails')}</DialogTitle>
             <DialogDescription>
               {selectedApp?.applicant_name} - {selectedApp?.applicant_address}
             </DialogDescription>
@@ -871,49 +873,49 @@ export default function OperatorValidators() {
           {selectedApp && (
             <Tabs defaultValue="overview">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="hardware">Hardware</TabsTrigger>
-                <TabsTrigger value="network">Network</TabsTrigger>
+                <TabsTrigger value="overview">{t('operator.members.overview')}</TabsTrigger>
+                <TabsTrigger value="hardware">{t('operator.validators.hardware')}</TabsTrigger>
+                <TabsTrigger value="network">{t('operator.validators.network')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-muted-foreground">Application Type</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.applicationType')}</p>
                     <p className="font-medium capitalize">{selectedApp.application_type}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Requested Tier</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.requestedTier')}</p>
                     {getTierBadge(selectedApp.requested_tier)}
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Proposed Stake</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.proposedStake')}</p>
                     <p className="font-medium font-mono">{selectedApp.proposed_stake} TBURN</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Commission Rate</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.commissionRate')}</p>
                     <p className="font-medium">{selectedApp.proposed_commission / 100}%</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Stake Source</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.stakeSource')}</p>
                     <p className="font-medium capitalize">{selectedApp.stake_source}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Status</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.status')}</p>
                     {getStatusBadge(selectedApp.status)}
                   </div>
                 </div>
 
                 {selectedApp.review_notes && (
                   <div className="p-3 bg-muted rounded-md">
-                    <p className="text-sm text-muted-foreground mb-1">Review Notes</p>
+                    <p className="text-sm text-muted-foreground mb-1">{t('operator.validators.reviewNotes')}</p>
                     <p className="text-sm">{selectedApp.review_notes}</p>
                   </div>
                 )}
 
                 {selectedApp.rejection_reason && (
                   <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
-                    <p className="text-sm text-destructive mb-1">Rejection Reason</p>
+                    <p className="text-sm text-destructive mb-1">{t('operator.validators.rejectionReason')}</p>
                     <p className="text-sm">{selectedApp.rejection_reason}</p>
                   </div>
                 )}
@@ -925,24 +927,24 @@ export default function OperatorValidators() {
                     <div className="flex items-center gap-2">
                       <Cpu className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm">
-                        CPU: {selectedApp.hardware_specs.cpu || "Not specified"}
+                        CPU: {selectedApp.hardware_specs.cpu || t('operator.validators.notSpecified')}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Server className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm">
-                        RAM: {selectedApp.hardware_specs.ram || "Not specified"}
+                        RAM: {selectedApp.hardware_specs.ram || t('operator.validators.notSpecified')}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <HardDrive className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm">
-                        Storage: {selectedApp.hardware_specs.storage || "Not specified"}
+                        Storage: {selectedApp.hardware_specs.storage || t('operator.validators.notSpecified')}
                       </span>
                     </div>
                   </div>
                 ) : (
-                  <p className="text-muted-foreground">No hardware specs provided</p>
+                  <p className="text-muted-foreground">{t('operator.validators.noHardwareSpecs')}</p>
                 )}
               </TabsContent>
 
@@ -952,19 +954,19 @@ export default function OperatorValidators() {
                     <div className="flex items-center gap-2">
                       <Wifi className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm font-mono">
-                        {selectedApp.network_endpoints.p2p || "No P2P endpoint"}
+                        {selectedApp.network_endpoints.p2p || t('operator.validators.noP2pEndpoint')}
                       </span>
                     </div>
                   </div>
                 ) : (
-                  <p className="text-muted-foreground">No network endpoints provided</p>
+                  <p className="text-muted-foreground">{t('operator.validators.noNetworkEndpoints')}</p>
                 )}
 
                 {selectedApp.geographic_location && (
                   <div className="mt-4">
-                    <p className="text-sm text-muted-foreground mb-1">Geographic Location</p>
+                    <p className="text-sm text-muted-foreground mb-1">{t('operator.validators.geographicLocation')}</p>
                     <p className="text-sm">
-                      {selectedApp.geographic_location.country || "Unknown"}, {selectedApp.geographic_location.region || ""}
+                      {selectedApp.geographic_location.country || t('operator.validators.unknown')}, {selectedApp.geographic_location.region || ""}
                     </p>
                   </div>
                 )}
@@ -976,7 +978,7 @@ export default function OperatorValidators() {
             {selectedApp && (selectedApp.status === "pending" || selectedApp.status === "under_review") && (
               <Button onClick={() => setShowReviewDialog(true)} data-testid="btn-start-review">
                 <FileCheck className="h-4 w-4 mr-2" />
-                Review Application
+                {t('operator.validators.reviewApplication')}
               </Button>
             )}
           </DialogFooter>
@@ -987,7 +989,7 @@ export default function OperatorValidators() {
       <Dialog open={showReviewDialog} onOpenChange={setShowReviewDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Review Application</DialogTitle>
+            <DialogTitle>{t('operator.validators.reviewApplication')}</DialogTitle>
             <DialogDescription>
               {selectedApp?.applicant_name}
             </DialogDescription>
@@ -995,22 +997,22 @@ export default function OperatorValidators() {
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium">Review Notes</label>
+              <label className="text-sm font-medium">{t('operator.validators.reviewNotes')}</label>
               <Textarea
                 value={reviewNotes}
                 onChange={(e) => setReviewNotes(e.target.value)}
-                placeholder="Add notes about this application..."
+                placeholder={t('operator.validators.reviewNotesPlaceholder')}
                 className="mt-1"
                 data-testid="input-review-notes"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium">Rejection Reason (if rejecting)</label>
+              <label className="text-sm font-medium">{t('operator.validators.rejectionReasonLabel')}</label>
               <Textarea
                 value={rejectionReason}
                 onChange={(e) => setRejectionReason(e.target.value)}
-                placeholder="Required if rejecting the application..."
+                placeholder={t('operator.validators.rejectionReasonPlaceholder')}
                 className="mt-1"
                 data-testid="input-rejection-reason"
               />
@@ -1032,7 +1034,7 @@ export default function OperatorValidators() {
               disabled={reviewMutation.isPending}
               data-testid="btn-mark-reviewing"
             >
-              Mark as Under Review
+              {t('operator.validators.markAsUnderReview')}
             </Button>
             <Button
               variant="destructive"
@@ -1049,7 +1051,7 @@ export default function OperatorValidators() {
               disabled={reviewMutation.isPending || !rejectionReason}
               data-testid="btn-reject"
             >
-              Reject
+              {t('operator.validators.reject')}
             </Button>
             <Button
               onClick={() => {
@@ -1065,7 +1067,7 @@ export default function OperatorValidators() {
               data-testid="btn-approve"
             >
               <CheckCircle2 className="h-4 w-4 mr-2" />
-              Approve
+              {t('operator.validators.approve')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1075,15 +1077,15 @@ export default function OperatorValidators() {
       <Dialog open={showSlashDialog} onOpenChange={setShowSlashDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="text-destructive">Slash Validator</DialogTitle>
+            <DialogTitle className="text-destructive">{t('operator.validators.slashValidator')}</DialogTitle>
             <DialogDescription>
-              This action will penalize a validator and may affect their stake.
+              {t('operator.validators.slashValidatorDesc')}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium">Validator Address</label>
+              <label className="text-sm font-medium">{t('operator.validators.validatorAddress')}</label>
               <Input
                 value={slashData.address}
                 onChange={(e) => setSlashData({ ...slashData, address: e.target.value })}
@@ -1094,7 +1096,7 @@ export default function OperatorValidators() {
             </div>
 
             <div>
-              <label className="text-sm font-medium">Slash Type</label>
+              <label className="text-sm font-medium">{t('operator.validators.slashType')}</label>
               <Select
                 value={slashData.slashType}
                 onValueChange={(v) => setSlashData({ ...slashData, slashType: v })}
@@ -1103,17 +1105,17 @@ export default function OperatorValidators() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="downtime">Downtime</SelectItem>
-                  <SelectItem value="double_sign">Double Sign</SelectItem>
-                  <SelectItem value="invalid_block">Invalid Block</SelectItem>
-                  <SelectItem value="consensus_violation">Consensus Violation</SelectItem>
-                  <SelectItem value="security_breach">Security Breach</SelectItem>
+                  <SelectItem value="downtime">{t('operator.validators.downtime')}</SelectItem>
+                  <SelectItem value="double_sign">{t('operator.validators.doubleSign')}</SelectItem>
+                  <SelectItem value="invalid_block">{t('operator.validators.invalidBlock')}</SelectItem>
+                  <SelectItem value="consensus_violation">{t('operator.validators.consensusViolation')}</SelectItem>
+                  <SelectItem value="security_breach">{t('operator.validators.securityBreach')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div>
-              <label className="text-sm font-medium">Slash Amount (TBURN)</label>
+              <label className="text-sm font-medium">{t('operator.validators.slashAmountLabel')}</label>
               <Input
                 type="number"
                 value={slashData.amount}
@@ -1125,11 +1127,11 @@ export default function OperatorValidators() {
             </div>
 
             <div>
-              <label className="text-sm font-medium">Reason</label>
+              <label className="text-sm font-medium">{t('operator.validators.reason')}</label>
               <Textarea
                 value={slashData.reason}
                 onChange={(e) => setSlashData({ ...slashData, reason: e.target.value })}
-                placeholder="Detailed reason for slashing..."
+                placeholder={t('operator.validators.slashReasonPlaceholder')}
                 className="mt-1"
                 data-testid="input-slash-reason"
               />
@@ -1138,7 +1140,7 @@ export default function OperatorValidators() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowSlashDialog(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               variant="destructive"
@@ -1147,7 +1149,7 @@ export default function OperatorValidators() {
               data-testid="btn-confirm-slash"
             >
               <Slash className="h-4 w-4 mr-2" />
-              Confirm Slash
+              {t('operator.validators.confirmSlash')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1159,10 +1161,10 @@ export default function OperatorValidators() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Server className="h-5 w-5" />
-              Validator Details
+              {t('operator.validators.validatorDetails')}
             </DialogTitle>
             <DialogDescription>
-              Detailed performance metrics and statistics
+              {t('operator.validators.detailedPerformanceMetrics')}
             </DialogDescription>
           </DialogHeader>
 
@@ -1182,13 +1184,13 @@ export default function OperatorValidators() {
 
               {/* Performance Score */}
               <div className="text-center p-6 bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg border">
-                <p className="text-sm text-muted-foreground mb-2">Performance Score</p>
+                <p className="text-sm text-muted-foreground mb-2">{t('operator.validators.performanceScore')}</p>
                 <div className="text-5xl font-bold text-primary">{selectedValidator.performanceScore}</div>
                 <Badge 
                   className="mt-2"
                   variant={selectedValidator.performanceScore >= 95 ? "default" : selectedValidator.performanceScore >= 85 ? "secondary" : "outline"}
                 >
-                  {selectedValidator.performanceScore >= 95 ? "Excellent" : selectedValidator.performanceScore >= 85 ? "Good" : "Needs Improvement"}
+                  {selectedValidator.performanceScore >= 95 ? t('operator.validators.excellent') : selectedValidator.performanceScore >= 85 ? t('operator.validators.good') : t('operator.validators.needsImprovement')}
                 </Badge>
               </div>
 
@@ -1197,7 +1199,7 @@ export default function OperatorValidators() {
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
-                      <Coins className="h-3 w-3" /> Stake
+                      <Coins className="h-3 w-3" /> {t('operator.validators.stake')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -1208,7 +1210,7 @@ export default function OperatorValidators() {
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
-                      <Activity className="h-3 w-3" /> Uptime
+                      <Activity className="h-3 w-3" /> {t('operator.validators.uptime')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -1219,23 +1221,23 @@ export default function OperatorValidators() {
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
-                      <BarChart3 className="h-3 w-3" /> Blocks
+                      <BarChart3 className="h-3 w-3" /> {t('operator.validators.blocks')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-lg font-bold">{selectedValidator.blocksProduced.toLocaleString()}</p>
-                    <p className="text-xs text-muted-foreground">produced</p>
+                    <p className="text-xs text-muted-foreground">{t('operator.validators.produced')}</p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-xs text-muted-foreground flex items-center gap-1">
-                      <Award className="h-3 w-3" /> Rewards
+                      <Award className="h-3 w-3" /> {t('operator.validators.rewards')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-lg font-bold text-amber-500">{parseFloat(selectedValidator.rewardsEarned).toFixed(2)}</p>
-                    <p className="text-xs text-muted-foreground">TBURN earned</p>
+                    <p className="text-xs text-muted-foreground">{t('operator.validators.tburnEarned')}</p>
                   </CardContent>
                 </Card>
               </div>
@@ -1244,25 +1246,25 @@ export default function OperatorValidators() {
               <div className="space-y-3">
                 <h4 className="font-medium flex items-center gap-2">
                   <TrendingUp className="h-4 w-4" />
-                  Additional Statistics
+                  {t('operator.validators.additionalStatistics')}
                 </h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Missed Blocks</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.missedBlocks')}</p>
                     <p className="text-xl font-bold text-red-500">{selectedValidator.missedBlocks.toLocaleString()}</p>
                   </div>
                   <div className="p-3 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Average Block Time</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.averageBlockTime')}</p>
                     <p className="text-xl font-bold">{selectedValidator.averageBlockTime.toFixed(2)}s</p>
                   </div>
                   <div className="p-3 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Block Success Rate</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.validators.blockSuccessRate')}</p>
                     <p className="text-xl font-bold text-green-500">
                       {((selectedValidator.blocksProduced / (selectedValidator.blocksProduced + selectedValidator.missedBlocks)) * 100).toFixed(2)}%
                     </p>
                   </div>
                   <div className="p-3 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Tier</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.tier')}</p>
                     <p className="text-xl font-bold capitalize">{selectedValidator.tier.replace('_', ' ')}</p>
                   </div>
                 </div>
@@ -1272,30 +1274,30 @@ export default function OperatorValidators() {
               <div className="p-4 border rounded-lg">
                 <h4 className="font-medium mb-3 flex items-center gap-2">
                   <ShieldCheck className="h-4 w-4" />
-                  Tier Requirements
+                  {t('operator.validators.tierRequirements')}
                 </h4>
                 {selectedValidator.tier === 'tier_1' && (
                   <div className="space-y-2 text-sm">
-                    <p><span className="text-muted-foreground">Min Stake:</span> 200,000 TBURN</p>
-                    <p><span className="text-muted-foreground">Target APY:</span> 8%</p>
-                    <p><span className="text-muted-foreground">Pool Share:</span> 50%</p>
-                    <p><span className="text-muted-foreground">Max Validators:</span> 512</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.minStake')}:</span> 200,000 TBURN</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.targetApy')}:</span> 8%</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.poolShare')}:</span> 50%</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.maxValidators')}:</span> 512</p>
                   </div>
                 )}
                 {selectedValidator.tier === 'tier_2' && (
                   <div className="space-y-2 text-sm">
-                    <p><span className="text-muted-foreground">Min Stake:</span> 50,000 TBURN</p>
-                    <p><span className="text-muted-foreground">Target APY:</span> 4%</p>
-                    <p><span className="text-muted-foreground">Pool Share:</span> 30%</p>
-                    <p><span className="text-muted-foreground">Max Validators:</span> 4,488</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.minStake')}:</span> 50,000 TBURN</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.targetApy')}:</span> 4%</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.poolShare')}:</span> 30%</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.maxValidators')}:</span> 4,488</p>
                   </div>
                 )}
                 {selectedValidator.tier === 'tier_3' && (
                   <div className="space-y-2 text-sm">
-                    <p><span className="text-muted-foreground">Min Stake:</span> 100 TBURN</p>
-                    <p><span className="text-muted-foreground">Target APY:</span> 5%</p>
-                    <p><span className="text-muted-foreground">Pool Share:</span> 20%</p>
-                    <p><span className="text-muted-foreground">Max Validators:</span> Unlimited</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.minStake')}:</span> 100 TBURN</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.targetApy')}:</span> 5%</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.poolShare')}:</span> 20%</p>
+                    <p><span className="text-muted-foreground">{t('operator.validators.maxValidators')}:</span> {t('operator.validators.unlimited')}</p>
                   </div>
                 )}
               </div>
@@ -1304,7 +1306,7 @@ export default function OperatorValidators() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setSelectedValidator(null)} data-testid="btn-close-validator-detail">
-              Close
+              {t('common.close')}
             </Button>
             <Button 
               variant="destructive" 
@@ -1318,7 +1320,7 @@ export default function OperatorValidators() {
               data-testid="btn-slash-from-detail"
             >
               <Slash className="h-4 w-4 mr-2" />
-              Slash Validator
+              {t('operator.validators.slashValidator')}
             </Button>
           </DialogFooter>
         </DialogContent>

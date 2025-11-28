@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useMainnetSnapshots } from "@/hooks/use-mainnet-snapshots";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -80,16 +81,16 @@ interface AdminOperationStatus {
   completedAt?: number;
 }
 
-// Phase configurations
+// Phase configurations - labels will be translated in component
 const RESTART_PHASES = {
-  idle: { icon: Activity, color: "text-muted-foreground", label: "Ready", animate: false },
-  initiating: { icon: Loader2, color: "text-yellow-500", label: "Initiating", animate: true },
-  shutting_down: { icon: Power, color: "text-orange-500", label: "Shutting Down", animate: true },
-  restarting: { icon: RefreshCw, color: "text-blue-500", label: "Restarting Server", animate: true },
-  reconnecting: { icon: Wifi, color: "text-purple-500", label: "Reconnecting", animate: true },
-  validating: { icon: CheckCircle2, color: "text-cyan-500", label: "Validating", animate: true },
-  completed: { icon: CheckCircle, color: "text-green-500", label: "Completed", animate: false },
-  failed: { icon: XCircle, color: "text-red-500", label: "Failed", animate: false }
+  idle: { icon: Activity, color: "text-muted-foreground", labelKey: "phaseReady", animate: false },
+  initiating: { icon: Loader2, color: "text-yellow-500", labelKey: "phaseInitiating", animate: true },
+  shutting_down: { icon: Power, color: "text-orange-500", labelKey: "phaseShuttingDown", animate: true },
+  restarting: { icon: RefreshCw, color: "text-blue-500", labelKey: "phaseRestarting", animate: true },
+  reconnecting: { icon: Wifi, color: "text-purple-500", labelKey: "phaseReconnecting", animate: true },
+  validating: { icon: CheckCircle2, color: "text-cyan-500", labelKey: "phaseValidating", animate: true },
+  completed: { icon: CheckCircle, color: "text-green-500", labelKey: "phaseCompleted", animate: false },
+  failed: { icon: XCircle, color: "text-red-500", labelKey: "phaseFailed", animate: false }
 };
 
 // Custom hooks
@@ -228,6 +229,7 @@ function useRestartMonitor() {
 }
 
 export default function AdminPage() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [showRestartDialog, setShowRestartDialog] = useState(false);
   const [showHealthCheckDialog, setShowHealthCheckDialog] = useState(false);
@@ -382,8 +384,8 @@ export default function AdminPage() {
       console.log('[Admin] Restart initiated:', data);
       startRestart(); // Start the progress monitoring
       toast({
-        title: "🚀 Mainnet Restart Initiated",
-        description: "Server is restarting. Progress will be tracked automatically.",
+        title: t('admin.restartInitiated'),
+        description: t('admin.restartInitiatedDesc'),
         duration: 10000,
       });
       setShowRestartDialog(false);
@@ -401,8 +403,8 @@ export default function AdminPage() {
         console.log('[Admin] Connection lost during restart (expected behavior)');
         startRestart(); // Start the progress monitoring anyway
         toast({
-          title: "🚀 Mainnet Restart Initiated",
-          description: "Server is restarting. Connection lost as expected.",
+          title: t('admin.restartInitiated'),
+          description: t('admin.restartInitiatedDesc'),
           duration: 10000,
         });
         setShowRestartDialog(false);
@@ -412,8 +414,8 @@ export default function AdminPage() {
       
       console.error('[Admin] Restart failed:', error);
       toast({
-        title: "❌ Restart Failed",
-        description: error.message || "Failed to restart mainnet. Check server logs.",
+        title: t('admin.restartFailed'),
+        description: error.message || t('admin.restartFailedDesc'),
         variant: "destructive",
         duration: 10000,
       });
@@ -451,11 +453,10 @@ export default function AdminPage() {
       return response.json();
     },
     onSuccess: (data) => {
-      const healthIcon = data.healthy ? "✅" : "⚠️";
-      const healthStatus = data.healthy ? "Healthy" : "Degraded";
+      const healthTitle = data.healthy ? t('admin.healthCheckHealthy') : t('admin.healthCheckDegraded');
       
       toast({
-        title: `${healthIcon} Health Check: ${healthStatus}`,
+        title: healthTitle,
         description: `TPS: ${data.details?.tps || 0} | Peak: ${data.details?.peakTps || 0} | Last Block: ${data.details?.timeSinceLastBlock?.toFixed(0)}s ago`,
         variant: data.healthy ? "default" : "destructive",
         duration: 8000,
@@ -470,8 +471,8 @@ export default function AdminPage() {
     },
     onError: (error: any) => {
       toast({
-        title: "❌ Health Check Failed",
-        description: error.message || "Failed to perform health check.",
+        title: t('admin.healthCheckFailed'),
+        description: error.message || t('admin.healthCheckFailedDesc'),
         variant: "destructive",
         duration: 10000,
       });
@@ -499,8 +500,8 @@ export default function AdminPage() {
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold">Mainnet Administration</h1>
-        <p className="text-muted-foreground">Control and monitor TBURN mainnet infrastructure</p>
+        <h1 className="text-3xl font-bold">{t('admin.title')}</h1>
+        <p className="text-muted-foreground">{t('admin.subtitle')}</p>
       </div>
 
       {/* Live Status Bar */}
@@ -510,32 +511,32 @@ export default function AdminPage() {
             <div className="flex items-center gap-3">
               <StatusIcon className={`h-6 w-6 ${statusBadge.className.includes('animate') ? 'animate-spin' : ''} ${statusBadge.className.includes('green') ? 'text-green-500' : statusBadge.className.includes('blue') ? 'text-blue-500' : statusBadge.className.includes('yellow') ? 'text-yellow-500' : statusBadge.className.includes('orange') ? 'text-orange-500' : 'text-red-500'}`} />
               <div>
-                <h2 className="text-2xl font-bold">Mainnet Status</h2>
+                <h2 className="text-2xl font-bold">{t('admin.mainnetStatus')}</h2>
                 <p className="text-sm text-muted-foreground">
                   {health.status === "rate-limited" ? (
                     <span className="flex items-center gap-1">
                       <Clock className="h-3 w-3 text-orange-500" />
-                      Rate Limited by TBURN Mainnet API - Retrying connections
+                      {t('admin.rateLimitedMessage')}
                     </span>
                   ) : stats.source === "failed" || blocks.source === "failed" ? (
                     <span className="flex items-center gap-1">
                       <XCircle className="h-3 w-3 text-red-500" />
-                      API Connection Failed - {hasFailures ? `${failureHistory.length} failures recorded` : "No data available"}
+                      {t('admin.apiConnectionFailed')} - {hasFailures ? t('admin.failuresRecorded', { count: failureHistory.length }) : t('admin.noData')}
                     </span>
                   ) : stats.source === "cached" || blocks.source === "cached" ? (
                     <span className="flex items-center gap-1">
                       <Database className="h-3 w-3 text-yellow-500" />
-                      Using cached data (Last update: {lastLiveUpdate > 0 ? formatDistanceToNow(new Date(lastLiveUpdate)) + " ago" : "Unknown"})
+                      {t('admin.usingCachedData', { time: lastLiveUpdate > 0 ? formatDistanceToNow(new Date(lastLiveUpdate)) : "Unknown" })}
                     </span>
                   ) : isLive ? (
                     <span className="flex items-center gap-1">
                       <Zap className="h-3 w-3 text-green-500" />
-                      Real-time health monitoring
+                      {t('admin.realtimeHealthMonitoring')}
                     </span>
                   ) : (
                     <span className="flex items-center gap-1">
                       <WifiOff className="h-3 w-3 text-orange-500" />
-                      Connecting to mainnet...
+                      {t('admin.connectingToMainnet')}
                     </span>
                   )}
                 </p>
@@ -552,12 +553,12 @@ export default function AdminPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">Last Block</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.lastBlock')}</p>
                     <p className="text-2xl font-bold" data-testid="text-last-block">
                       {!blocks.data || blocks.source === "failed" ? "---" : `#${health.lastBlockNumber || 0}`}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!blocks.data || blocks.source === "failed" ? "No data" : 
+                      {!blocks.data || blocks.source === "failed" ? t('admin.noData') : 
                        health.lastBlockTime > 0 ? formatDistanceToNow(new Date(health.lastBlockTime * 1000), { addSuffix: true }) : "N/A"}
                     </p>
                   </div>
@@ -570,12 +571,12 @@ export default function AdminPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">Current TPS</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.currentTps')}</p>
                     <p className="text-2xl font-bold" data-testid="text-current-tps">
                       {!stats.data || stats.source === "failed" ? "---" : health.tps.toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!stats.data || stats.source === "failed" ? "No data" : "Transactions per second"}
+                      {!stats.data || stats.source === "failed" ? t('admin.noData') : t('admin.transactionsPerSecond')}
                     </p>
                   </div>
                   <Activity className="h-8 w-8 text-muted-foreground" />
@@ -587,12 +588,12 @@ export default function AdminPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">Peak TPS</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.peakTps')}</p>
                     <p className="text-2xl font-bold" data-testid="text-peak-tps">
                       {!stats.data || stats.source === "failed" ? "---" : health.peakTps.toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!stats.data || stats.source === "failed" ? "No data" : "All-time high"}
+                      {!stats.data || stats.source === "failed" ? t('admin.noData') : t('admin.allTimeHigh')}
                     </p>
                   </div>
                   <TrendingUp className="h-8 w-8 text-muted-foreground" />
@@ -604,7 +605,7 @@ export default function AdminPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">Time Since Block</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.timeSinceBlock')}</p>
                     <p className="text-2xl font-bold" data-testid="text-time-since-block">
                       {!blocks.data || blocks.source === "failed" ? "---" : 
                        health.timeSinceLastBlock > 0 ? 
@@ -613,8 +614,8 @@ export default function AdminPage() {
                       }
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {!blocks.data || blocks.source === "failed" ? "No data" :
-                       health.timeSinceLastBlock > 3600 ? "⚠️ Stalled" : "Normal"}
+                      {!blocks.data || blocks.source === "failed" ? t('admin.noData') :
+                       health.timeSinceLastBlock > 3600 ? `⚠️ ${t('admin.stalled')}` : t('admin.normal')}
                     </p>
                   </div>
                   <Clock className="h-8 w-8 text-muted-foreground" />
@@ -628,42 +629,42 @@ export default function AdminPage() {
             <Alert className="mt-4" variant="destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>
-                {health.errorType === "api-rate-limit" ? "API Rate Limit - Service Unavailable" : 
-                 health.errorType === "api-error" ? "API Error - Service Failed" : 
-                 health.errorType === "network-error" ? "Network Error - Connection Failed" :
-                 "Mainnet Offline"}
+                {health.errorType === "api-rate-limit" ? t('admin.apiRateLimitTitle') : 
+                 health.errorType === "api-error" ? t('admin.apiErrorTitle') : 
+                 health.errorType === "network-error" ? t('admin.networkErrorTitle') :
+                 t('admin.mainnetOffline')}
               </AlertTitle>
               <AlertDescription>
                 <div className="space-y-2">
                   <p className="font-medium">
                     {health.errorType === "api-rate-limit" ? 
-                      "The TBURN API is rejecting requests due to rate limiting (HTTP 429)." :
+                      t('admin.rateLimitDescription') :
                      health.errorType === "api-error" ? 
-                      "The TBURN API returned an error response (HTTP 500/502)." :
+                      t('admin.apiErrorDescription') :
                      health.errorType === "network-error" ?
-                      "Failed to establish connection to TBURN mainnet API." :
-                      "The mainnet appears to be offline or unresponsive."}
+                      t('admin.networkErrorDescription') :
+                      t('admin.offlineDescription')}
                   </p>
                   
                   {/* Show failure count */}
                   {hasFailures && (
                     <p className="text-sm">
                       <span className="font-semibold text-red-500">
-                        {failureHistory.length} failure{failureHistory.length !== 1 ? 's' : ''} recorded
+                        {t('admin.failureCount', { count: failureHistory.length })}
                       </span>
                       {stats.source === "cached" || blocks.source === "cached" ? 
-                        ` - Using cached data from ${formatDistanceToNow(new Date(lastLiveUpdate))} ago` :
-                        " - No cached data available"}
+                        ` - ${t('admin.usingCachedFromAgo', { time: formatDistanceToNow(new Date(lastLiveUpdate)) })}` :
+                        ` - ${t('admin.noCachedData')}`}
                     </p>
                   )}
                   
                   {/* Show current state */}
                   <p className="text-sm font-medium">
-                    Current State: {stats.source === "failed" && blocks.source === "failed" ? 
-                      "❌ Complete failure - no data available" :
+                    {t('admin.currentState')}: {stats.source === "failed" && blocks.source === "failed" ? 
+                      `❌ ${t('admin.completeFailure')}` :
                       stats.source === "cached" || blocks.source === "cached" ?
-                      "⚠️ Partial failure - showing stale cached data" :
-                      "🔄 Attempting to reconnect..."}
+                      `⚠️ ${t('admin.partialFailure')}` :
+                      `🔄 ${t('admin.attemptingReconnect')}`}
                   </p>
                 </div>
               </AlertDescription>
@@ -677,7 +678,7 @@ export default function AdminPage() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4 text-orange-500" />
-                    Failure History (Past 24h)
+                    {t('admin.failureHistory')}
                   </CardTitle>
                   <Button 
                     size="sm" 
@@ -688,11 +689,11 @@ export default function AdminPage() {
                     }}
                     className="h-6 text-xs px-2"
                   >
-                    Clear History
+                    {t('admin.clearHistory')}
                   </Button>
                 </div>
                 <CardDescription className="text-xs mt-1">
-                  Historical API failures stored locally - Not current errors
+                  {t('admin.historicalFailures')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -735,14 +736,14 @@ export default function AdminPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <RefreshCw className="h-5 w-5 animate-spin" />
-              Restart in Progress
+              {t('admin.restartInProgress')}
             </CardTitle>
             <CardDescription>
               {restartStatus.message}
               {/* Show warning if taking too long */}
               {restartStatus.startTime && (Date.now() - restartStatus.startTime) > 120000 && (
                 <div className="text-yellow-500 mt-1 text-xs">
-                  ⚠️ Taking longer than expected - External API may be rate-limiting
+                  ⚠️ {t('admin.takingLongerThanExpected')}
                 </div>
               )}
             </CardDescription>
@@ -751,10 +752,10 @@ export default function AdminPage() {
             <Progress value={restartStatus.progress} className="h-3" />
             
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span>Progress: {restartStatus.progress}%</span>
+              <span>{t('admin.progress')}: {restartStatus.progress}%</span>
               {restartStatus.estimatedDuration && (
                 <span>
-                  Est. remaining: {Math.max(0, Math.floor((restartStatus.estimatedDuration - (Date.now() - (restartStatus.startTime || 0))) / 1000))}s
+                  {t('admin.estRemaining')}: {Math.max(0, Math.floor((restartStatus.estimatedDuration - (Date.now() - (restartStatus.startTime || 0))) / 1000))}s
                 </span>
               )}
             </div>
@@ -764,10 +765,10 @@ export default function AdminPage() {
               <div className="bg-orange-50 dark:bg-orange-950/20 p-3 rounded-md">
                 <div className="flex items-center gap-2 text-sm text-orange-600 dark:text-orange-400">
                   <AlertCircle className="h-4 w-4" />
-                  <span>Rate Limited - Waiting for cooldown</span>
+                  <span>{t('admin.rateLimitedWaiting')}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Retry after: {new Date(restartStatus.rateLimitedUntil).toLocaleTimeString()}
+                  {t('admin.retryAfter')}: {new Date(restartStatus.rateLimitedUntil).toLocaleTimeString()}
                 </p>
               </div>
             )}
@@ -776,7 +777,7 @@ export default function AdminPage() {
             {restartStatus.retryCount && restartStatus.retryCount > 0 && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <RefreshCw className="h-4 w-4" />
-                <span>Retry attempt: {restartStatus.retryCount}/3</span>
+                <span>{t('admin.retryAttempt')}: {restartStatus.retryCount}/3</span>
               </div>
             )}
 
@@ -795,7 +796,7 @@ export default function AdminPage() {
                       <Icon className={`h-4 w-4 ${isActive && config.animate ? 'animate-spin' : ''} ${isActive ? config.color : isCompleted ? 'text-green-500' : 'text-muted-foreground'}`} />
                     </div>
                     <span className={`text-xs ${isActive ? 'font-bold' : ''} ${isCompleted ? 'text-green-500' : 'text-muted-foreground'}`}>
-                      {config.label}
+                      {t(`admin.${config.labelKey}`)}
                     </span>
                   </div>
                 );
@@ -813,17 +814,17 @@ export default function AdminPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Server className="h-5 w-5" />
-            Mainnet Control Panel
+            {t('admin.mainnetControlPanel')}
           </CardTitle>
           <CardDescription>
-            Administrative actions for TBURN mainnet infrastructure
+            {t('admin.controlPanelDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Critical Actions */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-sm">Critical Actions</h3>
+              <h3 className="font-semibold text-sm">{t('admin.criticalActions')}</h3>
               <Button 
                 className="w-full"
                 variant={isRestartInProgress ? "secondary" : "destructive"}
@@ -835,23 +836,23 @@ export default function AdminPage() {
                 {restartMainnetMutation.isPending || isRestartInProgress ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    {isRestartInProgress ? "Restart in Progress..." : "Initiating..."}
+                    {isRestartInProgress ? t('admin.restartInProgressButton') : t('admin.initiating')}
                   </>
                 ) : (
                   <>
                     <Power className="h-4 w-4 mr-2" />
-                    Restart Mainnet
+                    {t('admin.restartMainnet')}
                   </>
                 )}
               </Button>
               <p className="text-xs text-muted-foreground">
-                Triggers a clean server restart via process.exit(0). Replit will automatically restart the service within 5-10 seconds.
+                {t('admin.restartDescription')}
               </p>
             </div>
 
             {/* Diagnostics */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-sm">Diagnostics</h3>
+              <h3 className="font-semibold text-sm">{t('admin.diagnostics')}</h3>
               <Button 
                 className="w-full"
                 variant={isHealthChecking ? "secondary" : "outline"}
@@ -863,17 +864,17 @@ export default function AdminPage() {
                 {checkHealthMutation.isPending || isHealthChecking ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Checking Health...
+                    {t('admin.checkingHealth')}
                   </>
                 ) : (
                   <>
                     <Activity className="h-4 w-4 mr-2" />
-                    Run Health Check
+                    {t('admin.runHealthCheck')}
                   </>
                 )}
               </Button>
               <p className="text-xs text-muted-foreground">
-                Performs a comprehensive health check on the mainnet infrastructure and reports status.
+                {t('admin.healthCheckDescription')}
               </p>
             </div>
           </div>
@@ -882,14 +883,14 @@ export default function AdminPage() {
 
           {/* Detailed Status */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-sm">Detailed Status</h3>
+            <h3 className="font-semibold text-sm">{t('admin.detailedStatus')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Mainnet URL</span>
+                <span className="text-muted-foreground">{t('admin.mainnetUrl')}</span>
                 <span className="font-mono">https://tburn1.replit.app</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Last Block Timestamp</span>
+                <span className="text-muted-foreground">{t('admin.lastBlockTimestamp')}</span>
                 <span className="font-mono" data-testid="text-last-block-timestamp">
                   {health.lastBlockTime > 0 
                     ? new Date(health.lastBlockTime * 1000).toLocaleString()
@@ -897,13 +898,13 @@ export default function AdminPage() {
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Block Production</span>
+                <span className="text-muted-foreground">{t('admin.blockProduction')}</span>
                 <span className={health.timeSinceLastBlock > 3600 ? "text-destructive" : ""}>
-                  {health.timeSinceLastBlock > 3600 ? "⛔ Stopped" : "✅ Active"}
+                  {health.timeSinceLastBlock > 3600 ? `⛔ ${t('admin.stopped')}` : `✅ ${t('common.active')}`}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Peak TPS</span>
+                <span className="text-muted-foreground">{t('admin.peakTps')}</span>
                 <span>{health.peakTps.toLocaleString()}</span>
               </div>
             </div>
@@ -914,29 +915,27 @@ export default function AdminPage() {
       {/* Information Cards */}
       <Card>
         <CardHeader>
-          <CardTitle>What Happens During Restart</CardTitle>
+          <CardTitle>{t('admin.whatHappensTitle')}</CardTitle>
           <CardDescription>
-            Understanding the mainnet restart process
+            {t('admin.whatHappensDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
           <div className="space-y-2">
-            <h4 className="font-semibold">Expected Behavior:</h4>
+            <h4 className="font-semibold">{t('admin.expectedBehavior')}</h4>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-              <li>Server receives restart command and shuts down cleanly</li>
-              <li>Replit automatically restarts the application (5-10s)</li>
-              <li>Service reconnects to production mainnet at tburn1.replit.app</li>
-              <li>Fresh data polling begins, block production resumes</li>
-              <li>Status changes from PAUSED → ACTIVE, TPS returns to normal</li>
+              <li>{t('admin.behavior1')}</li>
+              <li>{t('admin.behavior2')}</li>
+              <li>{t('admin.behavior3')}</li>
+              <li>{t('admin.behavior4')}</li>
+              <li>{t('admin.behavior5')}</li>
             </ul>
           </div>
           <Separator />
           <div className="space-y-2">
-            <h4 className="font-semibold">Recovery Time:</h4>
+            <h4 className="font-semibold">{t('admin.recoveryTime')}</h4>
             <p className="text-muted-foreground">
-              Service restart: 5-10 seconds (automatic) | Data sync: 10-20 seconds | 
-              Full recovery: 30-60 seconds total. Monitor "Last Block" and "Current TPS" 
-              metrics above to confirm successful restart.
+              {t('admin.recoveryDescription')}
             </p>
           </div>
         </CardContent>
@@ -948,41 +947,41 @@ export default function AdminPage() {
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
               <Power className="h-5 w-5 text-destructive" />
-              Confirm Mainnet Restart
+              {t('admin.confirmRestartTitle')}
             </AlertDialogTitle>
             <AlertDialogDescription asChild>
               <div className="space-y-4">
                 <div className="text-sm">
-                  <p className="font-semibold text-foreground mb-2">This action will:</p>
+                  <p className="font-semibold text-foreground mb-2">{t('admin.thisActionWill')}</p>
                   <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-                    <li>Trigger clean shutdown via process.exit(0)</li>
-                    <li>Replit auto-restarts the service (5-10s)</li>
-                    <li>Reconnect to mainnet and resume data polling</li>
-                    <li>Full recovery in 30-60 seconds</li>
+                    <li>{t('admin.restartAction1')}</li>
+                    <li>{t('admin.restartAction2')}</li>
+                    <li>{t('admin.restartAction3')}</li>
+                    <li>{t('admin.restartAction4')}</li>
                   </ul>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="admin-password-restart" className="flex items-center gap-2">
                     <Shield className="h-4 w-4" />
-                    Admin Password Required
+                    {t('admin.adminPasswordRequired')}
                   </Label>
                   <Input
                     id="admin-password-restart"
                     type="password"
-                    placeholder="Enter admin password"
+                    placeholder={t('admin.enterAdminPassword')}
                     value={adminPassword}
                     onChange={(e) => setAdminPassword(e.target.value)}
                     data-testid="input-admin-password-restart"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Enter your admin password to authorize this operation.
+                    {t('admin.passwordAuthHint')}
                   </p>
                 </div>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setAdminPassword("")}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => setAdminPassword("")}>{t('common.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => restartMainnetMutation.mutate(adminPassword)}
               disabled={!adminPassword || restartMainnetMutation.isPending}
@@ -991,12 +990,12 @@ export default function AdminPage() {
               {restartMainnetMutation.isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Restarting...
+                  {t('admin.restarting')}
                 </>
               ) : (
                 <>
                   <Power className="h-4 w-4 mr-2" />
-                  Restart Mainnet
+                  {t('admin.restartMainnet')}
                 </>
               )}
             </AlertDialogAction>
@@ -1010,35 +1009,35 @@ export default function AdminPage() {
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-primary" />
-              Confirm Health Check
+              {t('admin.confirmHealthCheckTitle')}
             </AlertDialogTitle>
             <AlertDialogDescription asChild>
               <div className="space-y-4">
                 <p className="text-sm">
-                  This will perform a comprehensive health check on the TBURN mainnet infrastructure.
+                  {t('admin.healthCheckIntro')}
                 </p>
                 <div className="space-y-2">
                   <Label htmlFor="admin-password-health" className="flex items-center gap-2">
                     <Shield className="h-4 w-4" />
-                    Admin Password Required
+                    {t('admin.adminPasswordRequired')}
                   </Label>
                   <Input
                     id="admin-password-health"
                     type="password"
-                    placeholder="Enter admin password"
+                    placeholder={t('admin.enterAdminPassword')}
                     value={adminPassword}
                     onChange={(e) => setAdminPassword(e.target.value)}
                     data-testid="input-admin-password-health"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Enter your admin password to authorize this operation.
+                    {t('admin.passwordAuthHint')}
                   </p>
                 </div>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setAdminPassword("")}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => setAdminPassword("")}>{t('common.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => checkHealthMutation.mutate(adminPassword)}
               disabled={!adminPassword || checkHealthMutation.isPending}
@@ -1047,12 +1046,12 @@ export default function AdminPage() {
               {checkHealthMutation.isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Checking...
+                  {t('admin.checking')}
                 </>
               ) : (
                 <>
                   <Activity className="h-4 w-4 mr-2" />
-                  Check Health
+                  {t('admin.checkHealth')}
                 </>
               )}
             </AlertDialogAction>

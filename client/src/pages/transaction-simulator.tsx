@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Send, Zap, RefreshCw } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { apiRequest } from "@/lib/queryClient";
 import type { InsertTransaction } from "@shared/schema";
 
 export default function TransactionSimulator() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
@@ -19,7 +21,7 @@ export default function TransactionSimulator() {
     to: "",
     value: "",
     gas: "21000",
-    gasPrice: "10", // Default: 10 EMB (standard gas price)
+    gasPrice: "10",
     shardId: "0",
     data: "",
   });
@@ -38,13 +40,12 @@ export default function TransactionSimulator() {
   };
 
   const generateRandomTx = () => {
-    // Gas price in EMB: 5-50 EMB range
     setFormData({
       from: generateRandomAddress(),
       to: generateRandomAddress(),
       value: (Math.random() * 10).toFixed(4),
       gas: String(Math.floor(Math.random() * 100000) + 21000),
-      gasPrice: String(Math.floor(Math.random() * 45) + 5), // 5-50 EMB
+      gasPrice: String(Math.floor(Math.random() * 45) + 5),
       shardId: String(Math.floor(Math.random() * 5)),
       data: Math.random() > 0.7 ? `0x${Math.random().toString(16).substr(2, 64)}` : "",
     });
@@ -52,7 +53,6 @@ export default function TransactionSimulator() {
 
   const createTransaction = useMutation({
     mutationFn: async (data: typeof formData) => {
-      // Parse and validate numeric values
       const valueNum = parseFloat(data.value || "0");
       const gasPriceNum = parseFloat(data.gasPrice);
       
@@ -60,10 +60,7 @@ export default function TransactionSimulator() {
         throw new Error("Invalid numeric input");
       }
       
-      // Convert to wei for value (18 decimals)
       const valueInWei = (BigInt(Math.floor(valueNum * 1e18))).toString();
-      
-      // Convert gas price from EMB to wei (1 EMB = 1e-6 TBURN = 1e12 wei)
       const gasPriceInWei = (BigInt(Math.floor(gasPriceNum * 1e12))).toString();
       
       const tx = {
@@ -89,16 +86,16 @@ export default function TransactionSimulator() {
     },
     onSuccess: () => {
       toast({
-        title: "Transaction Created",
-        description: "Test transaction has been broadcast to the network",
+        title: t('txSimulator.transactionCreated'),
+        description: t('txSimulator.transactionBroadcast'),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/transactions"] });
       queryClient.invalidateQueries({ queryKey: ["/api/transactions/recent"] });
     },
     onError: () => {
       toast({
-        title: "Error",
-        description: "Failed to create transaction",
+        title: t('common.error'),
+        description: t('txSimulator.failedToCreate'),
         variant: "destructive",
       });
     },
@@ -107,27 +104,24 @@ export default function TransactionSimulator() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate from address
     if (!formData.from || !isValidAddress(formData.from)) {
       toast({
-        title: "Validation Error",
-        description: "From address must be a valid 0x-prefixed 40-character hex address",
+        title: t('txSimulator.validationError'),
+        description: t('txSimulator.invalidFromAddress'),
         variant: "destructive",
       });
       return;
     }
 
-    // Validate to address (if provided)
     if (formData.to && !isValidAddress(formData.to)) {
       toast({
-        title: "Validation Error",
-        description: "To address must be a valid 0x-prefixed 40-character hex address",
+        title: t('txSimulator.validationError'),
+        description: t('txSimulator.invalidToAddress'),
         variant: "destructive",
       });
       return;
     }
 
-    // Validate numeric fields
     const value = parseFloat(formData.value || "0");
     const gas = parseInt(formData.gas);
     const gasPrice = parseFloat(formData.gasPrice);
@@ -135,8 +129,8 @@ export default function TransactionSimulator() {
 
     if (isNaN(value) || value < 0) {
       toast({
-        title: "Validation Error",
-        description: "Please enter a valid value amount",
+        title: t('txSimulator.validationError'),
+        description: t('txSimulator.invalidValue'),
         variant: "destructive",
       });
       return;
@@ -144,8 +138,8 @@ export default function TransactionSimulator() {
 
     if (isNaN(gas) || gas < 21000) {
       toast({
-        title: "Validation Error",
-        description: "Gas limit must be at least 21000",
+        title: t('txSimulator.validationError'),
+        description: t('txSimulator.invalidGasLimit'),
         variant: "destructive",
       });
       return;
@@ -153,8 +147,8 @@ export default function TransactionSimulator() {
 
     if (isNaN(gasPrice) || gasPrice <= 0) {
       toast({
-        title: "Validation Error",
-        description: "Please enter a valid gas price (must be > 0)",
+        title: t('txSimulator.validationError'),
+        description: t('txSimulator.invalidGasPrice'),
         variant: "destructive",
       });
       return;
@@ -162,8 +156,8 @@ export default function TransactionSimulator() {
 
     if (isNaN(shardId) || shardId < 0 || shardId > 4) {
       toast({
-        title: "Validation Error",
-        description: "Shard ID must be between 0 and 4",
+        title: t('txSimulator.validationError'),
+        description: t('txSimulator.invalidShardId'),
         variant: "destructive",
       });
       return;
@@ -177,26 +171,25 @@ export default function TransactionSimulator() {
       <div>
         <h1 className="text-3xl font-semibold flex items-center gap-2">
           <Zap className="h-8 w-8" />
-          Transaction Simulator
+          {t('txSimulator.title')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Create and broadcast test transactions to the network
+          {t('txSimulator.subtitle')}
         </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Transaction Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Create Test Transaction</CardTitle>
+            <CardTitle>{t('txSimulator.createTestTransaction')}</CardTitle>
             <CardDescription>
-              Generate a simulated transaction for testing purposes
+              {t('txSimulator.generateSimulated')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="from">From Address</Label>
+                <Label htmlFor="from">{t('txSimulator.fromAddress')}</Label>
                 <div className="flex gap-2">
                   <Input
                     id="from"
@@ -219,12 +212,12 @@ export default function TransactionSimulator() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="to">To Address</Label>
+                <Label htmlFor="to">{t('txSimulator.toAddress')}</Label>
                 <div className="flex gap-2">
                   <Input
                     id="to"
                     data-testid="input-to-address"
-                    placeholder="0x... (leave empty for contract creation)"
+                    placeholder={t('txSimulator.toAddressPlaceholder')}
                     value={formData.to}
                     onChange={(e) => setFormData({ ...formData, to: e.target.value })}
                     className="font-mono text-sm"
@@ -243,7 +236,7 @@ export default function TransactionSimulator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="value">Value (TBURN)</Label>
+                  <Label htmlFor="value">{t('txSimulator.valueTburn')}</Label>
                   <Input
                     id="value"
                     data-testid="input-value"
@@ -256,7 +249,7 @@ export default function TransactionSimulator() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="gas">Gas Limit</Label>
+                  <Label htmlFor="gas">{t('txSimulator.gasLimit')}</Label>
                   <Input
                     id="gas"
                     data-testid="input-gas"
@@ -270,7 +263,7 @@ export default function TransactionSimulator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="gasPrice">Gas Price (EMB)</Label>
+                  <Label htmlFor="gasPrice">{t('txSimulator.gasPriceEmb')}</Label>
                   <Input
                     id="gasPrice"
                     data-testid="input-gas-price"
@@ -283,28 +276,28 @@ export default function TransactionSimulator() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="shard">Shard ID</Label>
+                  <Label htmlFor="shard">{t('txSimulator.shardId')}</Label>
                   <Select value={formData.shardId} onValueChange={(value) => setFormData({ ...formData, shardId: value })}>
                     <SelectTrigger id="shard" data-testid="select-shard">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="0">Shard 0 (Alpha)</SelectItem>
-                      <SelectItem value="1">Shard 1 (Beta)</SelectItem>
-                      <SelectItem value="2">Shard 2 (Gamma)</SelectItem>
-                      <SelectItem value="3">Shard 3 (Delta)</SelectItem>
-                      <SelectItem value="4">Shard 4 (Epsilon)</SelectItem>
+                      <SelectItem value="0">{t('txSimulator.shardAlpha')}</SelectItem>
+                      <SelectItem value="1">{t('txSimulator.shardBeta')}</SelectItem>
+                      <SelectItem value="2">{t('txSimulator.shardGamma')}</SelectItem>
+                      <SelectItem value="3">{t('txSimulator.shardDelta')}</SelectItem>
+                      <SelectItem value="4">{t('txSimulator.shardEpsilon')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="data">Input Data (Optional)</Label>
+                <Label htmlFor="data">{t('txSimulator.inputDataOptional')}</Label>
                 <Input
                   id="data"
                   data-testid="input-data"
-                  placeholder="0x... (contract call data)"
+                  placeholder={t('txSimulator.contractCallDataPlaceholder')}
                   value={formData.data}
                   onChange={(e) => setFormData({ ...formData, data: e.target.value })}
                   className="font-mono text-sm"
@@ -319,7 +312,7 @@ export default function TransactionSimulator() {
                   disabled={createTransaction.isPending}
                 >
                   <Send className="h-4 w-4 mr-2" />
-                  {createTransaction.isPending ? "Broadcasting..." : "Send Transaction"}
+                  {createTransaction.isPending ? t('txSimulator.broadcasting') : t('txSimulator.sendTransaction')}
                 </Button>
                 <Button
                   type="button"
@@ -328,58 +321,57 @@ export default function TransactionSimulator() {
                   onClick={generateRandomTx}
                 >
                   <RefreshCw className="h-4 w-4 mr-2" />
-                  Random
+                  {t('txSimulator.random')}
                 </Button>
               </div>
             </form>
           </CardContent>
         </Card>
 
-        {/* Info Panel */}
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Transaction Details</CardTitle>
+              <CardTitle>{t('txSimulator.transactionDetails')}</CardTitle>
               <CardDescription>
-                Preview of transaction before broadcasting
+                {t('txSimulator.previewBeforeBroadcast')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <div className="text-sm font-medium text-muted-foreground">Transaction Type</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('txSimulator.transactionType')}</div>
                 <div className="text-sm font-mono">
-                  {formData.to ? "Transfer" : "Contract Creation"}
+                  {formData.to ? t('txSimulator.transfer') : t('txSimulator.contractCreation')}
                 </div>
               </div>
 
               <div>
-                <div className="text-sm font-medium text-muted-foreground">Estimated Fee</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('txSimulator.estimatedFee')}</div>
                 <div className="text-sm font-mono">
                   {formData.gas && formData.gasPrice
                     ? (() => {
                         const gasUsed = parseInt(formData.gas);
                         const gasPriceEmb = parseFloat(formData.gasPrice);
                         const feeEmb = gasUsed * gasPriceEmb;
-                        const feeTburn = feeEmb / 1e6; // 1M EMB = 1 TBURN
+                        const feeTburn = feeEmb / 1e6;
                         if (feeEmb >= 1e6) return `${(feeEmb / 1e6).toFixed(2)}M EMB (${feeTburn.toFixed(4)} TBURN)`;
                         if (feeEmb >= 1e3) return `${(feeEmb / 1e3).toFixed(1)}K EMB`;
                         return `${feeEmb.toLocaleString()} EMB`;
                       })()
-                    : "N/A"}
+                    : t('txSimulator.na')}
                 </div>
               </div>
 
               <div>
-                <div className="text-sm font-medium text-muted-foreground">Target Shard</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('txSimulator.targetShard')}</div>
                 <div className="text-sm">
-                  Shard {formData.shardId} ({["Alpha", "Beta", "Gamma", "Delta", "Epsilon"][parseInt(formData.shardId)]})
+                  {t(`txSimulator.shard${["Alpha", "Beta", "Gamma", "Delta", "Epsilon"][parseInt(formData.shardId)]}`)}
                 </div>
               </div>
 
               <div>
-                <div className="text-sm font-medium text-muted-foreground">Has Input Data</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('txSimulator.hasInputData')}</div>
                 <div className="text-sm">
-                  {formData.data ? "Yes (Contract Interaction)" : "No (Simple Transfer)"}
+                  {formData.data ? t('txSimulator.yesContractInteraction') : t('txSimulator.noSimpleTransfer')}
                 </div>
               </div>
             </CardContent>
@@ -387,7 +379,7 @@ export default function TransactionSimulator() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
+              <CardTitle>{t('txSimulator.quickActions')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button
@@ -400,14 +392,14 @@ export default function TransactionSimulator() {
                     to: generateRandomAddress(),
                     value: "1.5",
                     gas: "21000",
-                    gasPrice: "10", // 10 EMB (standard)
+                    gasPrice: "10",
                     shardId: "0",
                     data: "",
                   });
                 }}
               >
                 <Send className="h-4 w-4 mr-2" />
-                Simple Transfer (1.5 TBURN, 10 EMB)
+                {t('txSimulator.simpleTransferPreset')}
               </Button>
               
               <Button
@@ -420,14 +412,14 @@ export default function TransactionSimulator() {
                     to: "",
                     value: "0",
                     gas: "500000",
-                    gasPrice: "25", // 25 EMB (express)
+                    gasPrice: "25",
                     shardId: "0",
                     data: `0x${Math.random().toString(16).substr(2, 256)}`,
                   });
                 }}
               >
                 <Zap className="h-4 w-4 mr-2" />
-                Contract Creation (25 EMB)
+                {t('txSimulator.contractCreationPreset')}
               </Button>
               
               <Button
@@ -440,14 +432,14 @@ export default function TransactionSimulator() {
                     to: generateRandomAddress(),
                     value: "100",
                     gas: "50000",
-                    gasPrice: "50", // 50 EMB (instant)
+                    gasPrice: "50",
                     shardId: String(Math.floor(Math.random() * 5)),
                     data: "",
                   });
                 }}
               >
                 <Send className="h-4 w-4 mr-2" />
-                Large Transfer (100 TBURN, 50 EMB)
+                {t('txSimulator.largeTransferPreset')}
               </Button>
             </CardContent>
           </Card>

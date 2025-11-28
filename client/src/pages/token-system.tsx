@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -337,6 +338,7 @@ const TOKEN_TEMPLATES: TokenTemplate[] = [
 ];
 
 export default function TokenSystem() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
 
   const { data: stats, isLoading: statsLoading } = useQuery<TokenSystemStats>({
@@ -356,24 +358,24 @@ export default function TokenSystem() {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-token-system-title">
-            Token System v4.0
+            {t('tokenSystem.title')}
           </h1>
           <p className="text-muted-foreground">
-            AI-Enhanced Enterprise Token Standards with Quantum Security
+            {t('tokenSystem.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <Badge variant="outline" className="px-3 py-1">
             <Cpu className="h-3 w-3 mr-1" />
-            Triple-Band AI
+            {t('tokenSystem.tripleBandAi')}
           </Badge>
           <Badge variant="outline" className="px-3 py-1">
             <Shield className="h-3 w-3 mr-1" />
-            Quantum-Resistant
+            {t('tokenSystem.quantumResistant')}
           </Badge>
           <Badge variant="outline" className="px-3 py-1">
             <ShieldCheck className="h-3 w-3 mr-1" />
-            Audited
+            {t('tokenSystem.audited')}
           </Badge>
         </div>
       </div>
@@ -395,7 +397,7 @@ export default function TokenSystem() {
             <Card className="hover-elevate" data-testid="card-total-tokens">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Tokens
+                  {t('tokenSystem.totalTokens')}
                 </CardTitle>
                 <Coins className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -412,7 +414,7 @@ export default function TokenSystem() {
             <Card className="hover-elevate" data-testid="card-total-burned">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Burned
+                  {t('tokenSystem.totalBurned')}
                 </CardTitle>
                 <Flame className="h-4 w-4 text-orange-500" />
               </CardHeader>
@@ -421,7 +423,7 @@ export default function TokenSystem() {
                   {formatTokenAmount(stats?.totalBurned || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {stats?.dailyBurnRate || 0}% daily burn rate
+                  {stats?.dailyBurnRate || 0}% {t('tokenSystem.dailyBurnRate')}
                 </p>
               </CardContent>
             </Card>
@@ -429,7 +431,7 @@ export default function TokenSystem() {
             <Card className="hover-elevate" data-testid="card-ai-optimization">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  AI Optimization
+                  {t('tokenSystem.aiOptimization')}
                 </CardTitle>
                 <Brain className="h-4 w-4 text-purple-500" />
               </CardHeader>
@@ -444,7 +446,7 @@ export default function TokenSystem() {
             <Card className="hover-elevate" data-testid="card-quantum-secured">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Quantum Secured
+                  {t('tokenSystem.quantumSecured')}
                 </CardTitle>
                 <Lock className="h-4 w-4 text-green-500" />
               </CardHeader>
@@ -465,31 +467,31 @@ export default function TokenSystem() {
         <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Activity className="h-4 w-4 mr-2" />
-            Overview
+            {t('tokenSystem.overview')}
           </TabsTrigger>
           <TabsTrigger value="search" data-testid="tab-search">
             <Target className="h-4 w-4 mr-2" />
-            Search
+            {t('tokenSystem.search')}
           </TabsTrigger>
           <TabsTrigger value="create" data-testid="tab-create">
             <Plus className="h-4 w-4 mr-2" />
-            Create
+            {t('tokenSystem.create')}
           </TabsTrigger>
           <TabsTrigger value="deployed" data-testid="tab-deployed">
             <Database className="h-4 w-4 mr-2" />
-            My Tokens
+            {t('tokenSystem.myTokens')}
           </TabsTrigger>
           <TabsTrigger value="tbc20" data-testid="tab-tbc20">
             <Coins className="h-4 w-4 mr-2" />
-            TBC-20
+            {t('tokenSystem.tbc20')}
           </TabsTrigger>
           <TabsTrigger value="tbc721" data-testid="tab-tbc721">
             <Image className="h-4 w-4 mr-2" />
-            TBC-721
+            {t('tokenSystem.tbc721')}
           </TabsTrigger>
           <TabsTrigger value="tbc1155" data-testid="tab-tbc1155">
             <Layers className="h-4 w-4 mr-2" />
-            TBC-1155
+            {t('tokenSystem.tbc1155')}
           </TabsTrigger>
         </TabsList>
 
@@ -543,6 +545,7 @@ function TokenStandardsOverview({
   tbc1155Count: number;
   onCreateToken: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <Card className="hover-elevate">
@@ -555,35 +558,35 @@ function TokenStandardsOverview({
             <Badge>ERC-20 Compatible</Badge>
           </div>
           <CardDescription>
-            Enhanced fungible token standard with AI optimization
+            {t('tokenSystem.tbc20Description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              AI-driven burn optimization
+              {t('tokenSystem.aiBurnOptimization')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Quantum-resistant signatures
+              {t('tokenSystem.quantumSignatures')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Self-adjusting gas fees
+              {t('tokenSystem.selfAdjustingGas')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              MEV protection
+              {t('tokenSystem.mevProtection')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Zero-knowledge privacy (optional)
+              {t('tokenSystem.zkPrivacy')}
             </div>
           </div>
           <div className="pt-4 border-t">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Active Tokens:</span>
+              <span className="text-muted-foreground">{t('tokenSystem.activeTokens')}:</span>
               <span className="font-medium">{tbc20Count}</span>
             </div>
           </div>
@@ -595,7 +598,7 @@ function TokenStandardsOverview({
             data-testid="button-create-tbc20"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Create TBC-20 Token
+            {t('tokenSystem.createTbc20')}
           </Button>
         </CardFooter>
       </Card>
@@ -607,38 +610,38 @@ function TokenStandardsOverview({
               <Image className="h-5 w-5 text-purple-500" />
               TBC-721
             </CardTitle>
-            <Badge variant="secondary">NFT Standard</Badge>
+            <Badge variant="secondary">{t('tokenSystem.nftStandard')}</Badge>
           </div>
           <CardDescription>
-            AI-Enhanced NFT with authenticity & rarity scoring
+            {t('tokenSystem.tbc721Description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              AI authenticity verification
+              {t('tokenSystem.aiAuthenticity')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Dynamic rarity scoring
+              {t('tokenSystem.dynamicRarity')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Quantum-resistant ownership
+              {t('tokenSystem.quantumOwnership')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              AI valuation engine
+              {t('tokenSystem.aiValuation')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Cross-chain bridging
+              {t('tokenSystem.crossChainBridging')}
             </div>
           </div>
           <div className="pt-4 border-t">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Active Collections:</span>
+              <span className="text-muted-foreground">{t('tokenSystem.activeCollections')}:</span>
               <span className="font-medium">{tbc721Count}</span>
             </div>
           </div>
@@ -651,7 +654,7 @@ function TokenStandardsOverview({
             data-testid="button-create-tbc721"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Create TBC-721 NFT
+            {t('tokenSystem.createTbc721')}
           </Button>
         </CardFooter>
       </Card>
@@ -663,38 +666,38 @@ function TokenStandardsOverview({
               <Layers className="h-5 w-5 text-amber-500" />
               TBC-1155
             </CardTitle>
-            <Badge variant="outline">Multi-Token</Badge>
+            <Badge variant="outline">{t('tokenSystem.multiToken')}</Badge>
           </div>
           <CardDescription>
-            Multi-token standard with batch optimization
+            {t('tokenSystem.tbc1155Description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Fungible + Non-fungible
+              {t('tokenSystem.fungibleNonFungible')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              AI batch optimization
+              {t('tokenSystem.aiBatchOptimization')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Semi-fungible support
+              {t('tokenSystem.semiFungible')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Gas-efficient transfers
+              {t('tokenSystem.gasEfficientTransfers')}
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              AI supply management
+              {t('tokenSystem.aiSupplyManagement')}
             </div>
           </div>
           <div className="pt-4 border-t">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Active Contracts:</span>
+              <span className="text-muted-foreground">{t('tokenSystem.activeContracts')}:</span>
               <span className="font-medium">{tbc1155Count}</span>
             </div>
           </div>
@@ -707,7 +710,7 @@ function TokenStandardsOverview({
             data-testid="button-create-tbc1155"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Create TBC-1155
+            {t('tokenSystem.createTbc1155')}
           </Button>
         </CardFooter>
       </Card>
@@ -2571,6 +2574,7 @@ interface TokenDetail {
 }
 
 function EnterpriseTokenSearch() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStandard, setSelectedStandard] = useState<string>("all");
   const [sortBy, setSortBy] = useState("holders");
@@ -2640,10 +2644,10 @@ function EnterpriseTokenSearch() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5 text-primary" />
-            Enterprise Token Search & Tracking
+            {t('tokenSystem.enterpriseTokenSearch')}
           </CardTitle>
           <CardDescription>
-            Search, filter, and track tokens deployed on TBURN Chain with real-time analytics
+            {t('tokenSystem.searchDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -2652,7 +2656,7 @@ function EnterpriseTokenSearch() {
               <div className="relative">
                 <Target className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search by name, symbol, or contract address..."
+                  placeholder={t('tokenSystem.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
                   className="pl-10"
@@ -2666,7 +2670,7 @@ function EnterpriseTokenSearch() {
                   <SelectValue placeholder="Standard" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Standards</SelectItem>
+                  <SelectItem value="all">{t('tokenSystem.allStandards')}</SelectItem>
                   <SelectItem value="TBC-20">TBC-20</SelectItem>
                   <SelectItem value="TBC-721">TBC-721</SelectItem>
                   <SelectItem value="TBC-1155">TBC-1155</SelectItem>
@@ -2677,13 +2681,13 @@ function EnterpriseTokenSearch() {
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="holders">Holders</SelectItem>
-                  <SelectItem value="volume">Volume 24h</SelectItem>
-                  <SelectItem value="marketCap">Market Cap</SelectItem>
-                  <SelectItem value="transactions">Transactions</SelectItem>
-                  <SelectItem value="securityScore">Security Score</SelectItem>
-                  <SelectItem value="priceChange">Price Change</SelectItem>
-                  <SelectItem value="name">Name</SelectItem>
+                  <SelectItem value="holders">{t('tokenSystem.holders')}</SelectItem>
+                  <SelectItem value="volume">{t('tokenSystem.volume24h')}</SelectItem>
+                  <SelectItem value="marketCap">{t('tokenSystem.marketCap')}</SelectItem>
+                  <SelectItem value="transactions">{t('tokenSystem.transactions')}</SelectItem>
+                  <SelectItem value="securityScore">{t('tokenSystem.securityScore')}</SelectItem>
+                  <SelectItem value="priceChange">{t('tokenSystem.priceChange')}</SelectItem>
+                  <SelectItem value="name">{t('tokenSystem.name')}</SelectItem>
                 </SelectContent>
               </Select>
               <Button 
@@ -2703,7 +2707,7 @@ function EnterpriseTokenSearch() {
                 checked={aiEnabled === true}
                 onCheckedChange={(checked) => setAiEnabled(checked ? true : undefined)}
               />
-              <Label htmlFor="aiFilter" className="text-sm">AI Enabled</Label>
+              <Label htmlFor="aiFilter" className="text-sm">{t('tokenSystem.aiEnabled')}</Label>
             </div>
             <div className="flex items-center gap-2">
               <Switch 
@@ -2711,7 +2715,7 @@ function EnterpriseTokenSearch() {
                 checked={quantumSecured}
                 onCheckedChange={setQuantumSecured}
               />
-              <Label htmlFor="quantumFilter" className="text-sm">Quantum Secured</Label>
+              <Label htmlFor="quantumFilter" className="text-sm">{t('tokenSystem.quantumSecured')}</Label>
             </div>
             <div className="flex items-center gap-2">
               <Switch 
@@ -2719,11 +2723,11 @@ function EnterpriseTokenSearch() {
                 checked={verified}
                 onCheckedChange={setVerified}
               />
-              <Label htmlFor="verifiedFilter" className="text-sm">Verified Only</Label>
+              <Label htmlFor="verifiedFilter" className="text-sm">{t('tokenSystem.verifiedOnly')}</Label>
             </div>
             {searchResult && (
               <Badge variant="outline" className="ml-auto">
-                {searchResult.pagination.total} tokens found
+                {searchResult.pagination.total} {t('tokenSystem.tokensFound')}
               </Badge>
             )}
           </div>
@@ -2771,7 +2775,7 @@ function EnterpriseTokenSearch() {
                         {token.verified && (
                           <Badge className="bg-green-500/10 text-green-500 text-xs">
                             <CheckCircle className="h-3 w-3 mr-1" />
-                            Verified
+                            {t('tokenSystem.verified')}
                           </Badge>
                         )}
                       </div>
@@ -2795,22 +2799,22 @@ function EnterpriseTokenSearch() {
                   
                   <div className="flex items-center gap-6 flex-wrap">
                     <div className="text-right">
-                      <p className="text-xs text-muted-foreground">Price</p>
+                      <p className="text-xs text-muted-foreground">{t('tokenSystem.price')}</p>
                       <p className="font-medium tabular-nums">{formatPrice(token.price)}</p>
                       <p className={`text-xs ${token.priceChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                         {token.priceChange24h >= 0 ? '+' : ''}{token.priceChange24h.toFixed(2)}%
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-muted-foreground">Volume 24h</p>
+                      <p className="text-xs text-muted-foreground">{t('tokenSystem.volume24h')}</p>
                       <p className="font-medium tabular-nums">{formatVolume(token.volume24h)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-muted-foreground">Holders</p>
+                      <p className="text-xs text-muted-foreground">{t('tokenSystem.holders')}</p>
                       <p className="font-medium tabular-nums">{formatNumber(token.holders)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-muted-foreground">Security</p>
+                      <p className="text-xs text-muted-foreground">{t('tokenSystem.security')}</p>
                       <div className="flex items-center gap-1">
                         <div className={`h-2 w-2 rounded-full ${token.securityScore >= 90 ? 'bg-green-500' : token.securityScore >= 70 ? 'bg-yellow-500' : 'bg-red-500'}`} />
                         <p className="font-medium tabular-nums">{token.securityScore}</p>
@@ -2835,7 +2839,7 @@ function EnterpriseTokenSearch() {
                     </div>
                     <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); handleTokenClick(token); }}>
                       <Eye className="h-3 w-3 mr-1" />
-                      View
+                      {t('common.view')}
                     </Button>
                   </div>
                 </div>
@@ -2852,10 +2856,10 @@ function EnterpriseTokenSearch() {
                 onClick={() => setPage(page - 1)}
               >
                 <ArrowLeft className="h-4 w-4 mr-1" />
-                Previous
+                {t('common.previous')}
               </Button>
               <span className="text-sm text-muted-foreground px-4">
-                Page {searchResult.pagination.page} of {searchResult.pagination.totalPages}
+                {t('tokenSystem.pageOf', { page: searchResult.pagination.page, total: searchResult.pagination.totalPages })}
               </span>
               <Button 
                 variant="outline" 
@@ -2863,7 +2867,7 @@ function EnterpriseTokenSearch() {
                 disabled={!searchResult.pagination.hasNext}
                 onClick={() => setPage(page + 1)}
               >
-                Next
+                {t('common.next')}
                 <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
@@ -2873,8 +2877,8 @@ function EnterpriseTokenSearch() {
         <Card>
           <CardContent className="p-12 text-center">
             <Target className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h3 className="font-semibold text-lg mb-2">No Tokens Found</h3>
-            <p className="text-muted-foreground">Try adjusting your search filters or search terms</p>
+            <h3 className="font-semibold text-lg mb-2">{t('tokenSystem.noTokensFound')}</h3>
+            <p className="text-muted-foreground">{t('tokenSystem.adjustFilters')}</p>
           </CardContent>
         </Card>
       )}
@@ -2897,6 +2901,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
   isLoading: boolean;
   onClose: () => void;
 }) {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [activeDetailTab, setActiveDetailTab] = useState("overview");
 
@@ -2967,18 +2972,18 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
             ) : tokenDetail ? (
               <Tabs value={activeDetailTab} onValueChange={setActiveDetailTab} className="space-y-4">
                 <TabsList className="grid w-full grid-cols-5">
-                  <TabsTrigger value="overview">Overview</TabsTrigger>
-                  <TabsTrigger value="holders">Holders</TabsTrigger>
-                  <TabsTrigger value="transactions">Transactions</TabsTrigger>
-                  <TabsTrigger value="security">Security</TabsTrigger>
-                  <TabsTrigger value="ai">AI Analysis</TabsTrigger>
+                  <TabsTrigger value="overview">{t('tokenSystem.overview')}</TabsTrigger>
+                  <TabsTrigger value="holders">{t('tokenSystem.holders')}</TabsTrigger>
+                  <TabsTrigger value="transactions">{t('tokenSystem.transactions')}</TabsTrigger>
+                  <TabsTrigger value="security">{t('tokenSystem.security')}</TabsTrigger>
+                  <TabsTrigger value="ai">{t('tokenSystem.aiAnalysis')}</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="overview" className="space-y-6">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Price</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.price')}</p>
                         <p className="text-2xl font-bold">{formatPrice(tokenDetail.price)}</p>
                         <p className={`text-sm ${tokenDetail.priceChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                           {tokenDetail.priceChange24h >= 0 ? '+' : ''}{tokenDetail.priceChange24h.toFixed(2)}% (24h)
@@ -2987,14 +2992,14 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Market Cap</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.marketCap')}</p>
                         <p className="text-2xl font-bold">{formatVolume(tokenDetail.marketCap)}</p>
-                        <p className="text-sm text-muted-foreground">Rank #{tokenDetail.marketCapRank}</p>
+                        <p className="text-sm text-muted-foreground">{t('tokenSystem.rank')} #{tokenDetail.marketCapRank}</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Volume (24h)</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.volume24h')}</p>
                         <p className="text-2xl font-bold">{formatVolume(tokenDetail.volume24h)}</p>
                         <p className={`text-sm ${tokenDetail.volumeChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                           {tokenDetail.volumeChange24h >= 0 ? '+' : ''}{tokenDetail.volumeChange24h.toFixed(2)}%
@@ -3003,7 +3008,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Holders</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.holders')}</p>
                         <p className="text-2xl font-bold">{formatNumber(tokenDetail.holders)}</p>
                         <p className="text-sm text-green-500">+{tokenDetail.holdersChange24h} (24h)</p>
                       </CardContent>
@@ -3013,36 +3018,36 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Card>
                       <CardHeader>
-                        <CardTitle className="text-sm">Token Info</CardTitle>
+                        <CardTitle className="text-sm">{t('tokenSystem.tokenInfo')}</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3">
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Standard</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.standard')}</span>
                           <Badge>{tokenDetail.standard}</Badge>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Total Supply</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.totalSupply')}</span>
                           <span className="font-medium">{formatTokenAmount(tokenDetail.totalSupply)}</span>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Circulating Supply</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.circulatingSupply')}</span>
                           <span className="font-medium">{formatTokenAmount(tokenDetail.circulatingSupply)}</span>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Decimals</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.decimals')}</span>
                           <span className="font-medium">{tokenDetail.decimals}</span>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Deployer</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.deployer')}</span>
                           <code className="text-xs">{tokenDetail.deployerAddress.slice(0, 8)}...{tokenDetail.deployerAddress.slice(-6)}</code>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Deployed</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.deployed')}</span>
                           <span className="font-medium">{new Date(tokenDetail.deployedAt).toLocaleDateString()}</span>
                         </div>
                       </CardContent>
@@ -3050,21 +3055,21 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
 
                     <Card>
                       <CardHeader>
-                        <CardTitle className="text-sm">Features & Security</CardTitle>
+                        <CardTitle className="text-sm">{t('tokenSystem.featuresAndSecurity')}</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3">
                         <div className="flex flex-wrap gap-2">
-                          {tokenDetail.aiEnabled && <Badge variant="secondary"><Brain className="h-3 w-3 mr-1" /> AI Enabled</Badge>}
-                          {tokenDetail.quantumResistant && <Badge variant="outline"><Lock className="h-3 w-3 mr-1" /> Quantum</Badge>}
-                          {tokenDetail.mevProtection && <Badge className="bg-green-500/10 text-green-500"><Shield className="h-3 w-3 mr-1" /> MEV</Badge>}
-                          {tokenDetail.mintable && <Badge variant="secondary">Mintable</Badge>}
-                          {tokenDetail.burnable && <Badge variant="secondary">Burnable</Badge>}
-                          {tokenDetail.pausable && <Badge variant="secondary">Pausable</Badge>}
-                          {tokenDetail.stakingEnabled && <Badge variant="outline">Staking {tokenDetail.stakingAPY}% APY</Badge>}
+                          {tokenDetail.aiEnabled && <Badge variant="secondary"><Brain className="h-3 w-3 mr-1" /> {t('tokenSystem.aiEnabled')}</Badge>}
+                          {tokenDetail.quantumResistant && <Badge variant="outline"><Lock className="h-3 w-3 mr-1" /> {t('tokenSystem.quantum')}</Badge>}
+                          {tokenDetail.mevProtection && <Badge className="bg-green-500/10 text-green-500"><Shield className="h-3 w-3 mr-1" /> {t('tokenSystem.mev')}</Badge>}
+                          {tokenDetail.mintable && <Badge variant="secondary">{t('tokenSystem.mintable')}</Badge>}
+                          {tokenDetail.burnable && <Badge variant="secondary">{t('tokenSystem.burnable')}</Badge>}
+                          {tokenDetail.pausable && <Badge variant="secondary">{t('tokenSystem.pausable')}</Badge>}
+                          {tokenDetail.stakingEnabled && <Badge variant="outline">{t('staking.staking')} {tokenDetail.stakingAPY}% APY</Badge>}
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Security Score</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.securityScore')}</span>
                           <div className="flex items-center gap-2">
                             <Progress value={tokenDetail.securityScore} className="w-20 h-2" />
                             <span className="font-medium">{tokenDetail.securityScore}/100</span>
@@ -3072,19 +3077,19 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Auditor</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.auditor')}</span>
                           <Badge variant="outline">{tokenDetail.auditor}</Badge>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Last Audit</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.lastAudit')}</span>
                           <span className="font-medium">{new Date(tokenDetail.lastAuditDate).toLocaleDateString()}</span>
                         </div>
                         <Separator />
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Vulnerabilities</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.vulnerabilities')}</span>
                           <Badge variant={tokenDetail.vulnerabilities === 0 ? "default" : "destructive"}>
-                            {tokenDetail.vulnerabilities} Found
+                            {tokenDetail.vulnerabilities} {t('tokenSystem.found')}
                           </Badge>
                         </div>
                       </CardContent>
@@ -3096,25 +3101,25 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                       <CardHeader>
                         <CardTitle className="text-sm flex items-center gap-2">
                           <Flame className="h-4 w-4 text-orange-500" />
-                          Burn Analytics
+                          {t('tokenSystem.burnAnalytics')}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           <div>
-                            <p className="text-xs text-muted-foreground">Burn Rate</p>
+                            <p className="text-xs text-muted-foreground">{t('tokenSystem.burnRate')}</p>
                             <p className="text-xl font-semibold">{tokenDetail.burnRate} BPS</p>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground">Total Burned</p>
+                            <p className="text-xs text-muted-foreground">{t('tokenSystem.totalBurned')}</p>
                             <p className="text-xl font-semibold">{formatTokenAmount(tokenDetail.burnedTotal)}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground">Burned (24h)</p>
+                            <p className="text-xs text-muted-foreground">{t('tokenSystem.burned24h')}</p>
                             <p className="text-xl font-semibold">{formatTokenAmount(tokenDetail.burnedLast24h)}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground">Projected (30d)</p>
+                            <p className="text-xs text-muted-foreground">{t('tokenSystem.projected30d')}</p>
                             <p className="text-xl font-semibold">{formatTokenAmount(tokenDetail.projectedMonthlyBurn)}</p>
                           </div>
                         </div>
@@ -3127,26 +3132,26 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Total Holders</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.totalHolders')}</p>
                         <p className="text-2xl font-bold">{formatNumber(tokenDetail.holders)}</p>
                         <p className="text-sm text-green-500">+{tokenDetail.holdersChange7d} (7d)</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Top 10 Concentration</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.top10Concentration')}</p>
                         <p className="text-2xl font-bold">{tokenDetail.topHoldersConcentration}%</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Avg Holding</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.avgHolding')}</p>
                         <p className="text-2xl font-bold">{formatTokenAmount(tokenDetail.averageHoldingAmount)}</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Unique Addresses (24h)</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.uniqueAddresses24h')}</p>
                         <p className="text-2xl font-bold">{formatNumber(tokenDetail.uniqueAddresses24h)}</p>
                       </CardContent>
                     </Card>
@@ -3154,7 +3159,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                   <Card>
                     <CardContent className="p-6 text-center text-muted-foreground">
                       <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>Detailed holder list available in production</p>
+                      <p>{t('tokenSystem.holderListProduction')}</p>
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -3163,7 +3168,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">24h Transactions</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.transactions24h')}</p>
                         <p className="text-2xl font-bold">{formatNumber(tokenDetail.transactions24h)}</p>
                         <p className={`text-sm ${tokenDetail.transactionsChange24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                           {tokenDetail.transactionsChange24h >= 0 ? '+' : ''}{tokenDetail.transactionsChange24h.toFixed(1)}%
@@ -3172,19 +3177,19 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Total Transactions</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.totalTransactions')}</p>
                         <p className="text-2xl font-bold">{formatNumber(tokenDetail.totalTransactions)}</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Avg Transaction</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.avgTransaction')}</p>
                         <p className="text-2xl font-bold">{formatTokenAmount(tokenDetail.averageTransactionSize)}</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="pt-6">
-                        <p className="text-xs text-muted-foreground">Last Activity</p>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.lastActivity')}</p>
                         <p className="text-lg font-bold">{new Date(tokenDetail.lastActivity).toLocaleTimeString()}</p>
                       </CardContent>
                     </Card>
@@ -3192,7 +3197,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                   <Card>
                     <CardContent className="p-6 text-center text-muted-foreground">
                       <History className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>Transaction history available in production</p>
+                      <p>{t('tokenSystem.transactionHistoryProduction')}</p>
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -3203,7 +3208,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <ShieldCheck className="h-5 w-5" />
-                          Security Score
+                          {t('tokenSystem.securityScore')}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -3224,13 +3229,13 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                           </div>
                           <div className="flex-1 space-y-2">
                             <p className={`font-medium ${tokenDetail.securityScore >= 90 ? "text-green-500" : tokenDetail.securityScore >= 70 ? "text-yellow-500" : "text-red-500"}`}>
-                              {tokenDetail.securityScore >= 90 ? "Excellent" : tokenDetail.securityScore >= 70 ? "Good" : "Needs Review"}
+                              {tokenDetail.securityScore >= 90 ? t('tokenSystem.excellent') : tokenDetail.securityScore >= 70 ? t('tokenSystem.good') : t('tokenSystem.needsReview')}
                             </p>
                             <p className="text-sm text-muted-foreground">
-                              Audited by {tokenDetail.auditor} on {new Date(tokenDetail.lastAuditDate).toLocaleDateString()}
+                              {t('tokenSystem.auditedBy', { auditor: tokenDetail.auditor, date: new Date(tokenDetail.lastAuditDate).toLocaleDateString() })}
                             </p>
                             <p className="text-sm">
-                              {tokenDetail.vulnerabilities} vulnerabilities found
+                              {tokenDetail.vulnerabilities} {t('tokenSystem.vulnerabilitiesFound')}
                             </p>
                           </div>
                         </div>
@@ -3239,26 +3244,26 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
 
                     <Card>
                       <CardHeader>
-                        <CardTitle className="text-sm">Security Features</CardTitle>
+                        <CardTitle className="text-sm">{t('tokenSystem.securityFeatures')}</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm">Quantum Resistant</span>
+                          <span className="text-sm">{t('tokenSystem.quantumResistant')}</span>
                           {tokenDetail.quantumResistant ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
                         </div>
                         <Separator />
                         <div className="flex items-center justify-between">
-                          <span className="text-sm">MEV Protection</span>
+                          <span className="text-sm">{t('tokenSystem.mevProtection')}</span>
                           {tokenDetail.mevProtection ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
                         </div>
                         <Separator />
                         <div className="flex items-center justify-between">
-                          <span className="text-sm">AI Optimization</span>
+                          <span className="text-sm">{t('tokenSystem.aiOptimization')}</span>
                           {tokenDetail.aiEnabled ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
                         </div>
                         <Separator />
                         <div className="flex items-center justify-between">
-                          <span className="text-sm">Contract Verified</span>
+                          <span className="text-sm">{t('tokenSystem.contractVerified')}</span>
                           {tokenDetail.verified ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-muted-foreground" />}
                         </div>
                       </CardContent>
@@ -3271,38 +3276,38 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Brain className="h-5 w-5 text-purple-500" />
-                        AI Analysis by Triple-Band AI
+                        {t('tokenSystem.aiAnalysisByTripleBand')}
                       </CardTitle>
                       <CardDescription>
-                        Last analyzed: {new Date(tokenDetail.aiAnalysis.lastAnalyzed).toLocaleString()}
+                        {t('tokenSystem.lastAnalyzed')}: {new Date(tokenDetail.aiAnalysis.lastAnalyzed).toLocaleString()}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="text-center p-4 rounded-lg bg-background">
-                          <p className="text-xs text-muted-foreground">Sentiment</p>
+                          <p className="text-xs text-muted-foreground">{t('tokenSystem.sentiment')}</p>
                           <p className={`text-xl font-bold capitalize ${tokenDetail.aiAnalysis.sentiment === 'bullish' ? 'text-green-500' : tokenDetail.aiAnalysis.sentiment === 'bearish' ? 'text-red-500' : 'text-yellow-500'}`}>
                             {tokenDetail.aiAnalysis.sentiment}
                           </p>
                         </div>
                         <div className="text-center p-4 rounded-lg bg-background">
-                          <p className="text-xs text-muted-foreground">Sentiment Score</p>
+                          <p className="text-xs text-muted-foreground">{t('tokenSystem.sentimentScore')}</p>
                           <p className="text-xl font-bold">{tokenDetail.aiAnalysis.sentimentScore}/100</p>
                         </div>
                         <div className="text-center p-4 rounded-lg bg-background">
-                          <p className="text-xs text-muted-foreground">Risk Level</p>
+                          <p className="text-xs text-muted-foreground">{t('tokenSystem.riskLevel')}</p>
                           <p className={`text-xl font-bold capitalize ${tokenDetail.aiAnalysis.riskLevel === 'low' ? 'text-green-500' : tokenDetail.aiAnalysis.riskLevel === 'medium' ? 'text-yellow-500' : 'text-red-500'}`}>
                             {tokenDetail.aiAnalysis.riskLevel}
                           </p>
                         </div>
                         <div className="text-center p-4 rounded-lg bg-background">
-                          <p className="text-xs text-muted-foreground">Risk Score</p>
+                          <p className="text-xs text-muted-foreground">{t('tokenSystem.riskScore')}</p>
                           <p className="text-xl font-bold">{tokenDetail.aiAnalysis.riskScore}/100</p>
                         </div>
                       </div>
                       
                       <div className="p-4 rounded-lg bg-background">
-                        <p className="text-sm font-medium mb-2">AI Recommendation</p>
+                        <p className="text-sm font-medium mb-2">{t('tokenSystem.aiRecommendation')}</p>
                         <p className="text-sm text-muted-foreground">{tokenDetail.aiAnalysis.recommendation}</p>
                       </div>
                     </CardContent>
@@ -3312,7 +3317,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
             ) : (
               <div className="text-center p-12 text-muted-foreground">
                 <AlertTriangle className="h-12 w-12 mx-auto mb-4" />
-                <p>Failed to load token details</p>
+                <p>{t('tokenSystem.failedToLoadDetails')}</p>
               </div>
             )}
           </CardContent>
@@ -3323,15 +3328,15 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
             {token.website && (
               <Button variant="outline" size="sm" onClick={() => window.open(token.website, "_blank")}>
                 <Globe className="h-4 w-4 mr-1" />
-                Website
+                {t('tokenSystem.website')}
               </Button>
             )}
             <Button variant="outline" size="sm">
               <BarChart3 className="h-4 w-4 mr-1" />
-              Analytics
+              {t('tokenSystem.analytics')}
             </Button>
           </div>
-          <Button onClick={onClose}>Close</Button>
+          <Button onClick={onClose}>{t('common.close')}</Button>
         </CardFooter>
       </Card>
     </div>
@@ -3339,6 +3344,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
 }
 
 function TokenList({ tokens, isLoading, standard }: { tokens: TokenStandard[], isLoading: boolean, standard: string }) {
+  const { t } = useTranslation();
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -3364,7 +3370,7 @@ function TokenList({ tokens, isLoading, standard }: { tokens: TokenStandard[], i
       <Card>
         <CardContent className="p-12 text-center">
           <AlertTriangle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <p className="text-muted-foreground">No {standard} tokens deployed yet</p>
+          <p className="text-muted-foreground">{t('tokenSystem.noTokensDeployed', { standard })}</p>
         </CardContent>
       </Card>
     );
@@ -3389,15 +3395,15 @@ function TokenList({ tokens, isLoading, standard }: { tokens: TokenStandard[], i
               </div>
               <div className="flex items-center gap-4 flex-wrap">
                 <div className="text-right">
-                  <p className="text-sm font-medium">Supply</p>
+                  <p className="text-sm font-medium">{t('tokenSystem.supply')}</p>
                   <p className="text-sm text-muted-foreground tabular-nums">{formatTokenAmount(token.totalSupply)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium">Holders</p>
+                  <p className="text-sm font-medium">{t('tokenSystem.holders')}</p>
                   <p className="text-sm text-muted-foreground tabular-nums">{formatNumber(token.holders)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium">24h TX</p>
+                  <p className="text-sm font-medium">{t('tokenSystem.tx24h')}</p>
                   <p className="text-sm text-muted-foreground tabular-nums">{formatNumber(token.transactions24h)}</p>
                 </div>
                 <div className="flex gap-1">

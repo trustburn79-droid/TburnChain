@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -130,6 +131,7 @@ const MOCK_GEO_DATA = [
 ];
 
 export default function OperatorSecurity() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { getAuthHeaders } = useAdminPassword();
   const [activeTab, setActiveTab] = useState("events");
@@ -316,13 +318,13 @@ export default function OperatorSecurity() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "IP blocked successfully" });
+      toast({ title: t('operator.security.ipBlocked') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/ip-blocklist"] });
       setShowBlockIPDialog(false);
       setNewBlockedIP({ ip: "", reason: "", duration: "permanent" });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to block IP", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.security.failedBlockIp'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -336,11 +338,11 @@ export default function OperatorSecurity() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "IP unblocked successfully" });
+      toast({ title: t('operator.security.ipUnblocked') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/ip-blocklist"] });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to unblock IP", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.security.failedUnblockIp'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -367,30 +369,30 @@ export default function OperatorSecurity() {
 
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
-      case "critical": return <Badge variant="destructive"><AlertTriangle className="h-3 w-3 mr-1" />Critical</Badge>;
-      case "high": return <Badge className="bg-orange-500/10 text-orange-500 border-orange-500/20">High</Badge>;
-      case "medium": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Medium</Badge>;
-      case "low": return <Badge variant="secondary">Low</Badge>;
-      case "info": return <Badge variant="outline">Info</Badge>;
+      case "critical": return <Badge variant="destructive"><AlertTriangle className="h-3 w-3 mr-1" />{t('operator.security.critical')}</Badge>;
+      case "high": return <Badge className="bg-orange-500/10 text-orange-500 border-orange-500/20">{t('operator.security.high')}</Badge>;
+      case "medium": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">{t('operator.security.medium')}</Badge>;
+      case "low": return <Badge variant="secondary">{t('operator.security.low')}</Badge>;
+      case "info": return <Badge variant="outline">{t('operator.security.info')}</Badge>;
       default: return <Badge variant="secondary">{severity}</Badge>;
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "open": return <Badge className="bg-red-500/10 text-red-500 border-red-500/20"><Clock className="h-3 w-3 mr-1" />Open</Badge>;
-      case "investigating": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"><Eye className="h-3 w-3 mr-1" />Investigating</Badge>;
-      case "resolved": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />Resolved</Badge>;
+      case "open": return <Badge className="bg-red-500/10 text-red-500 border-red-500/20"><Clock className="h-3 w-3 mr-1" />{t('operator.security.open')}</Badge>;
+      case "investigating": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"><Eye className="h-3 w-3 mr-1" />{t('operator.security.investigating')}</Badge>;
+      case "resolved": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />{t('operator.security.resolved')}</Badge>;
       default: return <Badge variant="secondary">{status}</Badge>;
     }
   };
 
   const getRiskBadge = (risk: string) => {
     switch (risk) {
-      case "critical": return <Badge variant="destructive">Critical</Badge>;
-      case "high": return <Badge className="bg-orange-500/10 text-orange-500 border-orange-500/20">High</Badge>;
-      case "medium": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Medium</Badge>;
-      case "low": return <Badge variant="secondary">Low</Badge>;
+      case "critical": return <Badge variant="destructive">{t('operator.security.critical')}</Badge>;
+      case "high": return <Badge className="bg-orange-500/10 text-orange-500 border-orange-500/20">{t('operator.security.high')}</Badge>;
+      case "medium": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">{t('operator.security.medium')}</Badge>;
+      case "low": return <Badge variant="secondary">{t('operator.security.low')}</Badge>;
       default: return <Badge variant="outline">{risk}</Badge>;
     }
   };
@@ -399,14 +401,14 @@ export default function OperatorSecurity() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Security Audit</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t('operator.security.title')}</h1>
           <p className="text-muted-foreground">
-            Monitor security events, review audit logs, and manage compliance
+            {t('operator.security.subtitle')}
           </p>
         </div>
         <Button onClick={() => setShowCreateDialog(true)} data-testid="btn-create-event">
           <Plus className="h-4 w-4 mr-2" />
-          Log Security Event
+          {t('operator.security.logSecurityEvent')}
         </Button>
       </div>
 
@@ -415,7 +417,7 @@ export default function OperatorSecurity() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <ShieldAlert className="h-4 w-4 text-red-500" />
-              Critical Events
+              {t('operator.security.criticalEvents')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -428,7 +430,7 @@ export default function OperatorSecurity() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 text-orange-500" />
-              High Priority
+              {t('operator.security.highPriority')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -441,7 +443,7 @@ export default function OperatorSecurity() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Clock className="h-4 w-4 text-yellow-500" />
-              Open Events
+              {t('operator.security.openEvents')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -454,7 +456,7 @@ export default function OperatorSecurity() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-green-500" />
-              Resolved Today
+              {t('operator.security.resolvedToday')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -469,19 +471,19 @@ export default function OperatorSecurity() {
         <TabsList className="grid w-full grid-cols-4" data-testid="tablist-security">
           <TabsTrigger value="events" data-testid="tab-events">
             <Shield className="h-4 w-4 mr-2" />
-            Events
+            {t('operator.security.events')}
           </TabsTrigger>
           <TabsTrigger value="threats" data-testid="tab-threats">
             <Radio className="h-4 w-4 mr-2" />
-            Threat Monitor
+            {t('operator.security.threatMonitor')}
           </TabsTrigger>
           <TabsTrigger value="blocklist" data-testid="tab-blocklist">
             <Ban className="h-4 w-4 mr-2" />
-            IP Blocklist
+            {t('operator.security.ipBlocklist')}
           </TabsTrigger>
           <TabsTrigger value="audit" data-testid="tab-audit">
             <Activity className="h-4 w-4 mr-2" />
-            Audit Logs
+            {t('operator.security.auditLogs')}
           </TabsTrigger>
         </TabsList>
 
@@ -489,29 +491,29 @@ export default function OperatorSecurity() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Security Events</CardTitle>
+                <CardTitle>{t('operator.security.securityEvents')}</CardTitle>
                 <div className="flex gap-2">
                   <Select value={severityFilter} onValueChange={(v) => { setSeverityFilter(v); setEventsPage(1); }}>
                     <SelectTrigger className="w-32" data-testid="select-severity">
-                      <SelectValue placeholder="Severity" />
+                      <SelectValue placeholder={t('operator.security.severity')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="critical">Critical</SelectItem>
-                      <SelectItem value="high">High</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="all">{t('common.all')}</SelectItem>
+                      <SelectItem value="critical">{t('operator.security.critical')}</SelectItem>
+                      <SelectItem value="high">{t('operator.security.high')}</SelectItem>
+                      <SelectItem value="medium">{t('operator.security.medium')}</SelectItem>
+                      <SelectItem value="low">{t('operator.security.low')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setEventsPage(1); }}>
                     <SelectTrigger className="w-32" data-testid="select-event-status">
-                      <SelectValue placeholder="Status" />
+                      <SelectValue placeholder={t('common.status')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="open">Open</SelectItem>
-                      <SelectItem value="investigating">Investigating</SelectItem>
-                      <SelectItem value="resolved">Resolved</SelectItem>
+                      <SelectItem value="all">{t('common.all')}</SelectItem>
+                      <SelectItem value="open">{t('operator.security.open')}</SelectItem>
+                      <SelectItem value="investigating">{t('operator.security.investigating')}</SelectItem>
+                      <SelectItem value="resolved">{t('operator.security.resolved')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -524,12 +526,12 @@ export default function OperatorSecurity() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Event Type</TableHead>
-                      <TableHead>Target</TableHead>
-                      <TableHead>Severity</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Occurred</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>{t('operator.security.eventType')}</TableHead>
+                      <TableHead>{t('operator.security.target')}</TableHead>
+                      <TableHead>{t('operator.security.severity')}</TableHead>
+                      <TableHead>{t('common.status')}</TableHead>
+                      <TableHead>{t('operator.security.occurred')}</TableHead>
+                      <TableHead>{t('common.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -583,7 +585,7 @@ export default function OperatorSecurity() {
                     {(!eventsData?.events || eventsData.events.length === 0) && (
                       <TableRow>
                         <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
-                          No security events found
+                          {t('operator.security.noEventsFound')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -594,8 +596,8 @@ export default function OperatorSecurity() {
               {eventsData?.pagination && eventsData.pagination.totalPages > 1 && (
                 <div className="flex items-center justify-between mt-4">
                   <p className="text-sm text-muted-foreground">
-                    Page {eventsPage} of {eventsData.pagination.totalPages}
-                    {eventsLoading && <span className="ml-2 text-xs">(loading...)</span>}
+                    {t('common.pageOf', { page: eventsPage, totalPages: eventsData.pagination.totalPages })}
+                    {eventsLoading && <span className="ml-2 text-xs">({t('common.loading')}...)</span>}
                   </p>
                   <div className="flex gap-2">
                     <Button
@@ -629,9 +631,9 @@ export default function OperatorSecurity() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="h-5 w-5" />
-                  Threat Activity (24h)
+                  {t('operator.security.threatActivity24h')}
                 </CardTitle>
-                <CardDescription>Security events by severity over time</CardDescription>
+                <CardDescription>{t('operator.security.eventsBySeverity')}</CardDescription>
               </CardHeader>
               <CardContent className="h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
@@ -659,7 +661,7 @@ export default function OperatorSecurity() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5" />
-                  Severity Distribution
+                  {t('operator.security.severityDistribution')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="h-[300px]">
@@ -698,9 +700,9 @@ export default function OperatorSecurity() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Zap className="h-5 w-5 text-yellow-500 animate-pulse" />
-                  Live Threat Feed
+                  {t('operator.security.liveThreatFeed')}
                 </CardTitle>
-                <CardDescription>Real-time security events</CardDescription>
+                <CardDescription>{t('operator.security.realTimeEvents')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[350px]">
@@ -746,18 +748,18 @@ export default function OperatorSecurity() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="h-5 w-5" />
-                  Geographic Analysis
+                  {t('operator.security.geographicAnalysis')}
                 </CardTitle>
-                <CardDescription>Threat sources by country</CardDescription>
+                <CardDescription>{t('operator.security.threatSourcesByCountry')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Country</TableHead>
-                      <TableHead>Events</TableHead>
-                      <TableHead>Risk Level</TableHead>
-                      <TableHead>% of Total</TableHead>
+                      <TableHead>{t('operator.security.country')}</TableHead>
+                      <TableHead>{t('operator.security.events')}</TableHead>
+                      <TableHead>{t('operator.security.riskLevel')}</TableHead>
+                      <TableHead>{t('operator.security.percentOfTotal')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -788,19 +790,19 @@ export default function OperatorSecurity() {
         <TabsContent value="blocklist" className="space-y-4 mt-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold">IP Blocklist Management</h3>
-              <p className="text-sm text-muted-foreground">Manage blocked IP addresses</p>
+              <h3 className="text-lg font-semibold">{t('operator.security.ipBlocklistManagement')}</h3>
+              <p className="text-sm text-muted-foreground">{t('operator.security.manageBlockedIPs')}</p>
             </div>
             <Button onClick={() => setShowBlockIPDialog(true)} data-testid="btn-block-ip">
               <Ban className="h-4 w-4 mr-2" />
-              Block IP Address
+              {t('operator.security.blockIpAddress')}
             </Button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card data-testid="card-total-blocked">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Total Blocked IPs</CardTitle>
+                <CardTitle className="text-sm">{t('operator.security.totalBlockedIPs')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-red-500">{ipBlocklist?.length || 0}</div>
@@ -808,7 +810,7 @@ export default function OperatorSecurity() {
             </Card>
             <Card data-testid="card-active-blocks">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Active Blocks</CardTitle>
+                <CardTitle className="text-sm">{t('operator.security.activeBlocks')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{ipBlocklist?.filter(ip => ip.is_active).length || 0}</div>
@@ -816,7 +818,7 @@ export default function OperatorSecurity() {
             </Card>
             <Card data-testid="card-permanent-blocks">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Permanent Blocks</CardTitle>
+                <CardTitle className="text-sm">{t('operator.security.permanentBlocks')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{ipBlocklist?.filter(ip => !ip.expires_at).length || 0}</div>
@@ -826,19 +828,19 @@ export default function OperatorSecurity() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Blocked IP Addresses</CardTitle>
+              <CardTitle>{t('operator.security.blockedIpAddresses')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>IP Address</TableHead>
-                    <TableHead>Reason</TableHead>
-                    <TableHead>Blocked By</TableHead>
-                    <TableHead>Blocked At</TableHead>
-                    <TableHead>Expires</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t('operator.security.ipAddress')}</TableHead>
+                    <TableHead>{t('operator.security.reason')}</TableHead>
+                    <TableHead>{t('operator.security.blockedBy')}</TableHead>
+                    <TableHead>{t('operator.security.blockedAt')}</TableHead>
+                    <TableHead>{t('operator.security.expires')}</TableHead>
+                    <TableHead>{t('common.status')}</TableHead>
+                    <TableHead>{t('common.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -849,11 +851,11 @@ export default function OperatorSecurity() {
                       <TableCell>{entry.blocked_by}</TableCell>
                       <TableCell className="text-sm">{new Date(entry.blocked_at).toLocaleDateString()}</TableCell>
                       <TableCell className="text-sm">
-                        {entry.expires_at ? new Date(entry.expires_at).toLocaleDateString() : 'Never'}
+                        {entry.expires_at ? new Date(entry.expires_at).toLocaleDateString() : t('operator.security.never')}
                       </TableCell>
                       <TableCell>
                         <Badge variant={entry.is_active ? 'destructive' : 'secondary'}>
-                          {entry.is_active ? 'Active' : 'Expired'}
+                          {entry.is_active ? t('operator.members.active') : t('operator.security.expired')}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -872,7 +874,7 @@ export default function OperatorSecurity() {
                   {(!ipBlocklist || ipBlocklist.length === 0) && (
                     <TableRow>
                       <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                        No blocked IPs found
+                        {t('operator.security.noBlockedIPsFound')}
                       </TableCell>
                     </TableRow>
                   )}
@@ -886,17 +888,17 @@ export default function OperatorSecurity() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
-                <CardTitle>Admin Audit Logs</CardTitle>
+                <CardTitle>{t('operator.security.adminAuditLogs')}</CardTitle>
                 <Select value={riskFilter} onValueChange={(v) => { setRiskFilter(v); setAuditPage(1); }}>
                   <SelectTrigger className="w-32" data-testid="select-risk">
-                    <SelectValue placeholder="Risk Level" />
+                    <SelectValue placeholder={t('operator.security.riskLevel')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All</SelectItem>
-                    <SelectItem value="critical">Critical</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="all">{t('common.all')}</SelectItem>
+                    <SelectItem value="critical">{t('operator.security.critical')}</SelectItem>
+                    <SelectItem value="high">{t('operator.security.high')}</SelectItem>
+                    <SelectItem value="medium">{t('operator.security.medium')}</SelectItem>
+                    <SelectItem value="low">{t('operator.security.low')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -908,12 +910,12 @@ export default function OperatorSecurity() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Action</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Resource</TableHead>
-                      <TableHead>Risk</TableHead>
-                      <TableHead>Operator</TableHead>
-                      <TableHead>Timestamp</TableHead>
+                      <TableHead>{t('operator.security.action')}</TableHead>
+                      <TableHead>{t('operator.security.category')}</TableHead>
+                      <TableHead>{t('operator.security.resource')}</TableHead>
+                      <TableHead>{t('operator.security.risk')}</TableHead>
+                      <TableHead>{t('operator.security.operator')}</TableHead>
+                      <TableHead>{t('operator.security.timestamp')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -945,7 +947,7 @@ export default function OperatorSecurity() {
                     {(!auditData?.logs || auditData.logs.length === 0) && (
                       <TableRow>
                         <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
-                          No audit logs found
+                          {t('operator.security.noAuditLogsFound')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -956,8 +958,8 @@ export default function OperatorSecurity() {
               {auditData?.pagination && auditData.pagination.totalPages > 1 && (
                 <div className="flex items-center justify-between mt-4">
                   <p className="text-sm text-muted-foreground">
-                    Page {auditPage} of {auditData.pagination.totalPages}
-                    {auditLoading && <span className="ml-2 text-xs">(loading...)</span>}
+                    {t('common.page')} {auditPage} {t('common.of')} {auditData.pagination.totalPages}
+                    {auditLoading && <span className="ml-2 text-xs">({t('common.loading')})</span>}
                   </p>
                   <div className="flex gap-2">
                     <Button
@@ -990,7 +992,7 @@ export default function OperatorSecurity() {
       <Dialog open={!!selectedEvent && !showResolveDialog} onOpenChange={() => setSelectedEvent(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Security Event Details</DialogTitle>
+            <DialogTitle>{t('operator.security.securityEventDetails')}</DialogTitle>
             <DialogDescription className="capitalize">
               {selectedEvent?.event_type.replace(/_/g, " ")}
             </DialogDescription>
@@ -1000,51 +1002,51 @@ export default function OperatorSecurity() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">Severity</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.security.severity')}</p>
                   {getSeverityBadge(selectedEvent.severity)}
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Status</p>
+                  <p className="text-sm text-muted-foreground">{t('common.status')}</p>
                   {getStatusBadge(selectedEvent.status)}
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Target Type</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.security.targetType')}</p>
                   <Badge variant="outline" className="capitalize">{selectedEvent.target_type}</Badge>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Source IP</p>
-                  <p className="font-mono text-sm">{selectedEvent.source_ip || "Unknown"}</p>
+                  <p className="text-sm text-muted-foreground">{t('operator.security.sourceIp')}</p>
+                  <p className="font-mono text-sm">{selectedEvent.source_ip || t('operator.validators.unknown')}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Description</p>
+                <p className="text-sm text-muted-foreground mb-1">{t('common.description')}</p>
                 <p className="text-sm bg-muted p-3 rounded-md">{selectedEvent.description}</p>
               </div>
 
               {selectedEvent.target_address && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Target Address</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t('operator.security.targetAddress')}</p>
                   <p className="font-mono text-sm">{selectedEvent.target_address}</p>
                 </div>
               )}
 
               {selectedEvent.resolution && (
                 <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-md">
-                  <p className="text-sm text-green-500 mb-1">Resolution</p>
+                  <p className="text-sm text-green-500 mb-1">{t('operator.security.resolution')}</p>
                   <p className="text-sm">{selectedEvent.resolution}</p>
                   <p className="text-xs text-muted-foreground mt-2">
-                    Resolved by {selectedEvent.resolved_by} at {new Date(selectedEvent.resolved_at!).toLocaleString()}
+                    {t('operator.security.resolvedBy')} {selectedEvent.resolved_by} {t('operator.security.at')} {new Date(selectedEvent.resolved_at!).toLocaleString()}
                   </p>
                 </div>
               )}
 
               <div className="flex gap-4 text-sm text-muted-foreground">
                 <div>
-                  <span className="font-medium">Occurred:</span> {new Date(selectedEvent.occurred_at).toLocaleString()}
+                  <span className="font-medium">{t('operator.security.occurred')}:</span> {new Date(selectedEvent.occurred_at).toLocaleString()}
                 </div>
                 <div>
-                  <span className="font-medium">Detected:</span> {new Date(selectedEvent.detected_at).toLocaleString()}
+                  <span className="font-medium">{t('operator.security.detected')}:</span> {new Date(selectedEvent.detected_at).toLocaleString()}
                 </div>
               </div>
             </div>
@@ -1054,7 +1056,7 @@ export default function OperatorSecurity() {
             {selectedEvent && selectedEvent.status !== "resolved" && (
               <Button onClick={() => setShowResolveDialog(true)} data-testid="btn-resolve-event">
                 <CheckCircle2 className="h-4 w-4 mr-2" />
-                Resolve Event
+                {t('operator.security.resolveEvent')}
               </Button>
             )}
           </DialogFooter>
@@ -1065,19 +1067,19 @@ export default function OperatorSecurity() {
       <Dialog open={showResolveDialog} onOpenChange={setShowResolveDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Resolve Security Event</DialogTitle>
+            <DialogTitle>{t('operator.security.resolveSecurityEvent')}</DialogTitle>
             <DialogDescription>
-              Provide details about how this event was resolved
+              {t('operator.security.resolveEventDesc')}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium">Resolution Details</label>
+              <label className="text-sm font-medium">{t('operator.security.resolutionDetails')}</label>
               <Textarea
                 value={resolution}
                 onChange={(e) => setResolution(e.target.value)}
-                placeholder="Describe the resolution..."
+                placeholder={t('operator.security.describeResolution')}
                 className="mt-1"
                 rows={4}
                 data-testid="input-resolution"
@@ -1087,7 +1089,7 @@ export default function OperatorSecurity() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowResolveDialog(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={() => {
@@ -1099,7 +1101,7 @@ export default function OperatorSecurity() {
               data-testid="btn-confirm-resolve"
             >
               <CheckCircle2 className="h-4 w-4 mr-2" />
-              Resolve
+              {t('operator.security.resolve')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1109,19 +1111,19 @@ export default function OperatorSecurity() {
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Log Security Event</DialogTitle>
+            <DialogTitle>{t('operator.security.logSecurityEvent')}</DialogTitle>
             <DialogDescription>
-              Manually log a security event for tracking
+              {t('operator.security.logSecurityEventDesc')}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium">Event Type</label>
+              <label className="text-sm font-medium">{t('operator.security.eventType')}</label>
               <Input
                 value={newEvent.eventType}
                 onChange={(e) => setNewEvent({ ...newEvent, eventType: e.target.value })}
-                placeholder="e.g., unauthorized_access, suspicious_activity"
+                placeholder={t('operator.security.eventTypePlaceholder')}
                 className="mt-1"
                 data-testid="input-event-type"
               />
@@ -1129,7 +1131,7 @@ export default function OperatorSecurity() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">Severity</label>
+                <label className="text-sm font-medium">{t('operator.security.severity')}</label>
                 <Select
                   value={newEvent.severity}
                   onValueChange={(v) => setNewEvent({ ...newEvent, severity: v })}
@@ -1138,17 +1140,17 @@ export default function OperatorSecurity() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="critical">Critical</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="info">Info</SelectItem>
+                    <SelectItem value="critical">{t('operator.security.critical')}</SelectItem>
+                    <SelectItem value="high">{t('operator.security.high')}</SelectItem>
+                    <SelectItem value="medium">{t('operator.security.medium')}</SelectItem>
+                    <SelectItem value="low">{t('operator.security.low')}</SelectItem>
+                    <SelectItem value="info">{t('operator.security.info')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
-                <label className="text-sm font-medium">Target Type</label>
+                <label className="text-sm font-medium">{t('operator.security.targetType')}</label>
                 <Select
                   value={newEvent.targetType}
                   onValueChange={(v) => setNewEvent({ ...newEvent, targetType: v })}
@@ -1157,18 +1159,18 @@ export default function OperatorSecurity() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="member">Member</SelectItem>
-                    <SelectItem value="validator">Validator</SelectItem>
-                    <SelectItem value="transaction">Transaction</SelectItem>
-                    <SelectItem value="contract">Contract</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
+                    <SelectItem value="member">{t('operator.security.member')}</SelectItem>
+                    <SelectItem value="validator">{t('operator.security.validator')}</SelectItem>
+                    <SelectItem value="transaction">{t('operator.security.transaction')}</SelectItem>
+                    <SelectItem value="contract">{t('operator.security.contract')}</SelectItem>
+                    <SelectItem value="system">{t('operator.security.system')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             <div>
-              <label className="text-sm font-medium">Target Address (optional)</label>
+              <label className="text-sm font-medium">{t('operator.security.targetAddressOptional')}</label>
               <Input
                 value={newEvent.targetAddress}
                 onChange={(e) => setNewEvent({ ...newEvent, targetAddress: e.target.value })}
@@ -1179,11 +1181,11 @@ export default function OperatorSecurity() {
             </div>
 
             <div>
-              <label className="text-sm font-medium">Description</label>
+              <label className="text-sm font-medium">{t('common.description')}</label>
               <Textarea
                 value={newEvent.description}
                 onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
-                placeholder="Detailed description of the security event..."
+                placeholder={t('operator.security.eventDescriptionPlaceholder')}
                 className="mt-1"
                 rows={3}
                 data-testid="input-event-description"
@@ -1193,7 +1195,7 @@ export default function OperatorSecurity() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={() => createEventMutation.mutate(newEvent)}
@@ -1201,7 +1203,7 @@ export default function OperatorSecurity() {
               data-testid="btn-create-security-event"
             >
               <FileWarning className="h-4 w-4 mr-2" />
-              Log Event
+              {t('operator.security.logEvent')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1211,15 +1213,15 @@ export default function OperatorSecurity() {
       <Dialog open={showBlockIPDialog} onOpenChange={setShowBlockIPDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Block IP Address</DialogTitle>
+            <DialogTitle>{t('operator.security.blockIpAddress')}</DialogTitle>
             <DialogDescription>
-              Add an IP address to the blocklist
+              {t('operator.security.blockIpDesc')}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium">IP Address</label>
+              <label className="text-sm font-medium">{t('operator.security.ipAddress')}</label>
               <Input
                 value={newBlockedIP.ip}
                 onChange={(e) => setNewBlockedIP({ ...newBlockedIP, ip: e.target.value })}
@@ -1230,11 +1232,11 @@ export default function OperatorSecurity() {
             </div>
 
             <div>
-              <label className="text-sm font-medium">Reason</label>
+              <label className="text-sm font-medium">{t('operator.security.reason')}</label>
               <Textarea
                 value={newBlockedIP.reason}
                 onChange={(e) => setNewBlockedIP({ ...newBlockedIP, reason: e.target.value })}
-                placeholder="Reason for blocking..."
+                placeholder={t('operator.security.reasonPlaceholder')}
                 className="mt-1"
                 rows={2}
                 data-testid="input-block-reason"
@@ -1242,7 +1244,7 @@ export default function OperatorSecurity() {
             </div>
 
             <div>
-              <label className="text-sm font-medium">Duration</label>
+              <label className="text-sm font-medium">{t('operator.security.duration')}</label>
               <Select
                 value={newBlockedIP.duration}
                 onValueChange={(v) => setNewBlockedIP({ ...newBlockedIP, duration: v })}
@@ -1251,11 +1253,11 @@ export default function OperatorSecurity() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1h">1 Hour</SelectItem>
-                  <SelectItem value="24h">24 Hours</SelectItem>
-                  <SelectItem value="7d">7 Days</SelectItem>
-                  <SelectItem value="30d">30 Days</SelectItem>
-                  <SelectItem value="permanent">Permanent</SelectItem>
+                  <SelectItem value="1h">{t('operator.security.oneHour')}</SelectItem>
+                  <SelectItem value="24h">{t('operator.security.twentyFourHours')}</SelectItem>
+                  <SelectItem value="7d">{t('operator.security.sevenDays')}</SelectItem>
+                  <SelectItem value="30d">{t('operator.security.thirtyDays')}</SelectItem>
+                  <SelectItem value="permanent">{t('operator.security.permanent')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -1263,7 +1265,7 @@ export default function OperatorSecurity() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowBlockIPDialog(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={() => blockIPMutation.mutate({
@@ -1275,7 +1277,7 @@ export default function OperatorSecurity() {
               data-testid="btn-confirm-block-ip"
             >
               <Ban className="h-4 w-4 mr-2" />
-              Block IP
+              {t('operator.security.blockIp')}
             </Button>
           </DialogFooter>
         </DialogContent>

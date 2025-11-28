@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -103,6 +104,7 @@ interface MemberNote {
 }
 
 export default function OperatorMembers() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { getAuthHeaders } = useAdminPassword();
   const queryClient = useQueryClient();
@@ -191,13 +193,13 @@ export default function OperatorMembers() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Status updated successfully" });
+      toast({ title: t('operator.members.statusUpdated') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/members"] });
       setShowEditDialog(false);
       setEditReason("");
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update status", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.members.failedUpdateStatus'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -212,13 +214,13 @@ export default function OperatorMembers() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Tier updated successfully" });
+      toast({ title: t('operator.members.tierUpdated') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/members"] });
       setShowEditDialog(false);
       setEditReason("");
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update tier", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.members.failedUpdateTier'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -236,14 +238,14 @@ export default function OperatorMembers() {
       return Promise.all(promises);
     },
     onSuccess: () => {
-      toast({ title: `Bulk ${bulkAction} update completed`, description: `${selectedMembers.size} members updated` });
+      toast({ title: t('operator.members.bulkUpdateCompleted', { action: bulkAction }), description: t('operator.members.membersUpdated', { count: selectedMembers.size }) });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/members"] });
       setShowBulkActionDialog(false);
       setSelectedMembers(new Set());
       setBulkReason("");
     },
     onError: () => {
-      toast({ title: "Bulk update failed", variant: "destructive" });
+      toast({ title: t('operator.members.bulkUpdateFailed'), variant: "destructive" });
     },
   });
 
@@ -258,14 +260,14 @@ export default function OperatorMembers() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Note created successfully" });
+      toast({ title: t('operator.members.noteCreated') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/members", selectedMember, "notes"] });
       setShowNoteDialog(false);
       setNoteTitle("");
       setNoteContent("");
     },
     onError: () => {
-      toast({ title: "Failed to create note", variant: "destructive" });
+      toast({ title: t('operator.members.failedCreateNote'), variant: "destructive" });
     },
   });
 
@@ -279,7 +281,7 @@ export default function OperatorMembers() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Note deleted" });
+      toast({ title: t('operator.members.noteDeleted') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/members", selectedMember, "notes"] });
     },
   });
@@ -323,7 +325,7 @@ export default function OperatorMembers() {
     a.click();
     URL.revokeObjectURL(url);
     
-    toast({ title: "Export complete", description: `${data.members.length} members exported` });
+    toast({ title: t('operator.members.exportComplete'), description: t('operator.members.membersExported', { count: data.members.length }) });
   };
 
   const handleEdit = (member: Member, type: "status" | "tier" | "kyc") => {
@@ -387,10 +389,10 @@ export default function OperatorMembers() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "active": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Active</Badge>;
-      case "pending": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Pending</Badge>;
-      case "suspended": return <Badge className="bg-red-500/10 text-red-500 border-red-500/20">Suspended</Badge>;
-      case "blacklisted": return <Badge variant="destructive">Blacklisted</Badge>;
+      case "active": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">{t('operator.members.active')}</Badge>;
+      case "pending": return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">{t('operator.members.pending')}</Badge>;
+      case "suspended": return <Badge className="bg-red-500/10 text-red-500 border-red-500/20">{t('operator.members.suspended')}</Badge>;
+      case "blacklisted": return <Badge variant="destructive">{t('operator.members.blacklisted')}</Badge>;
       default: return <Badge variant="secondary">{status}</Badge>;
     }
   };
@@ -404,20 +406,20 @@ export default function OperatorMembers() {
 
   const getKycBadge = (level: string) => {
     switch (level) {
-      case "institutional": return <Badge className="bg-purple-500/10 text-purple-500 border-purple-500/20">Institutional</Badge>;
-      case "enhanced": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Enhanced</Badge>;
-      case "basic": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20">Basic</Badge>;
-      case "none": return <Badge variant="outline">None</Badge>;
+      case "institutional": return <Badge className="bg-purple-500/10 text-purple-500 border-purple-500/20">{t('operator.members.institutional')}</Badge>;
+      case "enhanced": return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">{t('operator.members.enhanced')}</Badge>;
+      case "basic": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20">{t('operator.members.basic')}</Badge>;
+      case "none": return <Badge variant="outline">{t('operator.members.noKyc')}</Badge>;
       default: return <Badge variant="secondary">{level}</Badge>;
     }
   };
 
   const getNotePriorityBadge = (priority: string) => {
     switch (priority) {
-      case "urgent": return <Badge variant="destructive">Urgent</Badge>;
-      case "high": return <Badge className="bg-orange-500/10 text-orange-500">High</Badge>;
-      case "normal": return <Badge variant="secondary">Normal</Badge>;
-      case "low": return <Badge variant="outline">Low</Badge>;
+      case "urgent": return <Badge variant="destructive">{t('operator.members.urgent')}</Badge>;
+      case "high": return <Badge className="bg-orange-500/10 text-orange-500">{t('operator.security.high')}</Badge>;
+      case "normal": return <Badge variant="secondary">{t('operator.members.normal')}</Badge>;
+      case "low": return <Badge variant="outline">{t('operator.members.low')}</Badge>;
       default: return <Badge variant="secondary">{priority}</Badge>;
     }
   };
@@ -435,18 +437,18 @@ export default function OperatorMembers() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Member Management</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t('operator.members.title')}</h1>
           <p className="text-muted-foreground">
-            Manage network members, KYC/AML status, and tier assignments
+            {t('operator.members.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={exportToCSV} data-testid="btn-export-csv">
             <Download className="h-4 w-4 mr-2" />
-            Export CSV
+            {t('operator.members.exportCsv')}
           </Button>
           <Badge variant="outline">
-            {data?.pagination?.total || 0} Total Members
+            {data?.pagination?.total || 0} {t('operator.members.totalMembers')}
           </Badge>
         </div>
       </div>
@@ -457,7 +459,7 @@ export default function OperatorMembers() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <UserCheck className="h-4 w-4" />
-                <span className="font-medium">{selectedMembers.size} members selected</span>
+                <span className="font-medium">{selectedMembers.size} {t('operator.members.membersSelected')}</span>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -466,7 +468,7 @@ export default function OperatorMembers() {
                   onClick={() => { setBulkAction("status"); setShowBulkActionDialog(true); }}
                   data-testid="btn-bulk-status"
                 >
-                  Change Status
+                  {t('operator.members.changeStatus')}
                 </Button>
                 <Button
                   size="sm"
@@ -474,7 +476,7 @@ export default function OperatorMembers() {
                   onClick={() => { setBulkAction("tier"); setShowBulkActionDialog(true); }}
                   data-testid="btn-bulk-tier"
                 >
-                  Change Tier
+                  {t('operator.members.changeTier')}
                 </Button>
                 <Button
                   size="sm"
@@ -482,7 +484,7 @@ export default function OperatorMembers() {
                   onClick={() => setSelectedMembers(new Set())}
                   data-testid="btn-clear-selection"
                 >
-                  Clear Selection
+                  {t('operator.members.clearSelection')}
                 </Button>
               </div>
             </div>
@@ -497,7 +499,7 @@ export default function OperatorMembers() {
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search by address, name..."
+                  placeholder={t('operator.members.searchPlaceholder')}
                   className="pl-9"
                   value={search}
                   onChange={(e) => { setSearch(e.target.value); setPage(1); }}
@@ -507,38 +509,38 @@ export default function OperatorMembers() {
               <div className="flex gap-2 flex-wrap">
                 <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(1); }}>
                   <SelectTrigger className="w-32" data-testid="select-status-filter">
-                    <SelectValue placeholder="Status" />
+                    <SelectValue placeholder={t('operator.members.status')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="suspended">Suspended</SelectItem>
-                    <SelectItem value="blacklisted">Blacklisted</SelectItem>
+                    <SelectItem value="all">{t('operator.members.allStatus')}</SelectItem>
+                    <SelectItem value="active">{t('operator.members.active')}</SelectItem>
+                    <SelectItem value="pending">{t('operator.members.pending')}</SelectItem>
+                    <SelectItem value="suspended">{t('operator.members.suspended')}</SelectItem>
+                    <SelectItem value="blacklisted">{t('operator.members.blacklisted')}</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={tierFilter} onValueChange={(v) => { setTierFilter(v); setPage(1); }}>
                   <SelectTrigger className="w-40" data-testid="select-tier-filter">
-                    <SelectValue placeholder="Tier" />
+                    <SelectValue placeholder={t('operator.members.tier')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Tiers</SelectItem>
-                    <SelectItem value="basic_user">Basic User</SelectItem>
-                    <SelectItem value="delegated_staker">Delegated Staker</SelectItem>
-                    <SelectItem value="active_validator">Active Validator</SelectItem>
-                    <SelectItem value="enterprise_validator">Enterprise Validator</SelectItem>
+                    <SelectItem value="all">{t('operator.members.allTiers')}</SelectItem>
+                    <SelectItem value="basic_user">{t('operator.members.basicUser')}</SelectItem>
+                    <SelectItem value="delegated_staker">{t('operator.members.delegatedStaker')}</SelectItem>
+                    <SelectItem value="active_validator">{t('operator.members.activeValidator')}</SelectItem>
+                    <SelectItem value="enterprise_validator">{t('operator.members.enterpriseValidator')}</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={kycFilter} onValueChange={(v) => { setKycFilter(v); setPage(1); }}>
                   <SelectTrigger className="w-32" data-testid="select-kyc-filter">
-                    <SelectValue placeholder="KYC" />
+                    <SelectValue placeholder={t('operator.members.kyc')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All KYC</SelectItem>
-                    <SelectItem value="none">No KYC</SelectItem>
-                    <SelectItem value="basic">Basic</SelectItem>
-                    <SelectItem value="enhanced">Enhanced</SelectItem>
-                    <SelectItem value="institutional">Institutional</SelectItem>
+                    <SelectItem value="all">{t('operator.members.allKyc')}</SelectItem>
+                    <SelectItem value="none">{t('operator.members.noKyc')}</SelectItem>
+                    <SelectItem value="basic">{t('operator.members.basic')}</SelectItem>
+                    <SelectItem value="enhanced">{t('operator.members.enhanced')}</SelectItem>
+                    <SelectItem value="institutional">{t('operator.members.institutional')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -553,7 +555,7 @@ export default function OperatorMembers() {
                 className="w-40"
                 data-testid="input-date-from"
               />
-              <span className="text-muted-foreground">to</span>
+              <span className="text-muted-foreground">{t('operator.members.to')}</span>
               <Input
                 type="date"
                 placeholder="To"
@@ -564,7 +566,7 @@ export default function OperatorMembers() {
               />
               {(dateFrom || dateTo) && (
                 <Button variant="ghost" size="sm" onClick={() => { setDateFrom(""); setDateTo(""); }}>
-                  Clear dates
+                  {t('operator.members.clearDates')}
                 </Button>
               )}
             </div>
@@ -581,13 +583,13 @@ export default function OperatorMembers() {
                     data-testid="checkbox-select-all"
                   />
                 </TableHead>
-                <TableHead>Address</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Tier</TableHead>
-                <TableHead>KYC</TableHead>
-                <TableHead>Risk</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t('operator.members.address')}</TableHead>
+                <TableHead>{t('operator.members.name')}</TableHead>
+                <TableHead>{t('operator.members.status')}</TableHead>
+                <TableHead>{t('operator.members.tier')}</TableHead>
+                <TableHead>{t('operator.members.kyc')}</TableHead>
+                <TableHead>{t('operator.members.risk')}</TableHead>
+                <TableHead>{t('operator.members.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -637,14 +639,14 @@ export default function OperatorMembers() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem onClick={() => handleEdit(member, "status")}>
-                            <Edit className="h-4 w-4 mr-2" /> Change Status
+                            <Edit className="h-4 w-4 mr-2" /> {t('operator.members.changeStatus')}
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => handleEdit(member, "tier")}>
-                            <Shield className="h-4 w-4 mr-2" /> Change Tier
+                            <Shield className="h-4 w-4 mr-2" /> {t('operator.members.changeTier')}
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem onClick={() => { setSelectedMember(member.id); setShowNoteDialog(true); }}>
-                            <StickyNote className="h-4 w-4 mr-2" /> Add Note
+                            <StickyNote className="h-4 w-4 mr-2" /> {t('operator.members.addNote')}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -655,7 +657,7 @@ export default function OperatorMembers() {
               {(!data?.members || data.members.length === 0) && (
                 <TableRow>
                   <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
-                    No members found
+                    {t('operator.members.noMembersFound')}
                   </TableCell>
                 </TableRow>
               )}
@@ -665,7 +667,7 @@ export default function OperatorMembers() {
           {data?.pagination && data.pagination.totalPages > 1 && (
             <div className="flex items-center justify-between mt-4">
               <p className="text-sm text-muted-foreground">
-                Page {data.pagination.page} of {data.pagination.totalPages}
+                {t('operator.members.pageOf', { page: data.pagination.page, total: data.pagination.totalPages })}
               </p>
               <div className="flex gap-2">
                 <Button
@@ -695,7 +697,7 @@ export default function OperatorMembers() {
       <Dialog open={!!selectedMember && !showEditDialog && !showNoteDialog} onOpenChange={() => setSelectedMember(null)}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Member Details</DialogTitle>
+            <DialogTitle>{t('operator.members.memberDetails')}</DialogTitle>
             <DialogDescription>
               {memberDetail?.member?.account_address}
             </DialogDescription>
@@ -709,50 +711,50 @@ export default function OperatorMembers() {
           ) : memberDetail ? (
             <Tabs defaultValue="overview">
               <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="kyc">KYC/AML</TabsTrigger>
-                <TabsTrigger value="staking">Staking</TabsTrigger>
-                <TabsTrigger value="notes">Notes</TabsTrigger>
-                <TabsTrigger value="activity">Activity</TabsTrigger>
+                <TabsTrigger value="overview">{t('operator.members.overview')}</TabsTrigger>
+                <TabsTrigger value="kyc">{t('operator.members.kycAml')}</TabsTrigger>
+                <TabsTrigger value="staking">{t('operator.members.staking')}</TabsTrigger>
+                <TabsTrigger value="notes">{t('operator.members.notes')}</TabsTrigger>
+                <TabsTrigger value="activity">{t('operator.members.activity')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-muted-foreground">Display Name</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.displayName')}</p>
                     <p className="font-medium">{memberDetail.member.display_name || "-"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Legal Name</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.legalName')}</p>
                     <p className="font-medium">{memberDetail.member.legal_name || "-"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Status</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.status')}</p>
                     {getStatusBadge(memberDetail.member.member_status)}
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Tier</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.tier')}</p>
                     {getTierBadge(memberDetail.member.member_tier)}
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Created</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.created')}</p>
                     <p className="font-medium">{new Date(memberDetail.member.created_at).toLocaleDateString()}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Last Updated</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.lastUpdated')}</p>
                     <p className="font-medium">{new Date(memberDetail.member.updated_at).toLocaleDateString()}</p>
                   </div>
                 </div>
 
                 <div className="flex gap-2 pt-4">
                   <Button variant="outline" onClick={() => handleEdit(memberDetail.member, "status")}>
-                    <Edit className="h-4 w-4 mr-2" /> Change Status
+                    <Edit className="h-4 w-4 mr-2" /> {t('operator.members.changeStatus')}
                   </Button>
                   <Button variant="outline" onClick={() => handleEdit(memberDetail.member, "tier")}>
-                    <Shield className="h-4 w-4 mr-2" /> Change Tier
+                    <Shield className="h-4 w-4 mr-2" /> {t('operator.members.changeTier')}
                   </Button>
                   <Button variant="outline" onClick={() => setShowNoteDialog(true)}>
-                    <Plus className="h-4 w-4 mr-2" /> Add Note
+                    <Plus className="h-4 w-4 mr-2" /> {t('operator.members.addNote')}
                   </Button>
                 </div>
               </TabsContent>
@@ -760,11 +762,11 @@ export default function OperatorMembers() {
               <TabsContent value="kyc" className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-muted-foreground">KYC Level</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.kycLevel')}</p>
                     {getKycBadge(memberDetail.member.kyc_level)}
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">AML Risk Score</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.amlRiskScore')}</p>
                     <Badge variant={
                       (memberDetail.member.aml_risk_score || 0) >= 70 ? "destructive" :
                       (memberDetail.member.aml_risk_score || 0) >= 40 ? "default" : "secondary"
@@ -773,34 +775,34 @@ export default function OperatorMembers() {
                     </Badge>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Sanctions Check</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.sanctionsCheck')}</p>
                     {memberDetail.member.sanctions_check_passed === true ? (
                       <Badge className="bg-green-500/10 text-green-500">
-                        <CheckCircle2 className="h-3 w-3 mr-1" /> Passed
+                        <CheckCircle2 className="h-3 w-3 mr-1" /> {t('operator.members.passed')}
                       </Badge>
                     ) : memberDetail.member.sanctions_check_passed === false ? (
                       <Badge variant="destructive">
-                        <AlertTriangle className="h-3 w-3 mr-1" /> Failed
+                        <AlertTriangle className="h-3 w-3 mr-1" /> {t('operator.members.failed')}
                       </Badge>
                     ) : (
-                      <Badge variant="secondary">Not Checked</Badge>
+                      <Badge variant="secondary">{t('operator.members.notChecked')}</Badge>
                     )}
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">PEP Status</p>
+                    <p className="text-sm text-muted-foreground">{t('operator.members.pepStatus')}</p>
                     {memberDetail.member.pep_status ? (
                       <Badge variant="destructive">
-                        <AlertTriangle className="h-3 w-3 mr-1" /> PEP Identified
+                        <AlertTriangle className="h-3 w-3 mr-1" /> {t('operator.members.pepIdentified')}
                       </Badge>
                     ) : (
-                      <Badge variant="secondary">Not PEP</Badge>
+                      <Badge variant="secondary">{t('operator.members.notPep')}</Badge>
                     )}
                   </div>
                 </div>
 
                 {memberDetail.documents && memberDetail.documents.length > 0 && (
                   <div className="pt-4">
-                    <h4 className="font-medium mb-2">Documents</h4>
+                    <h4 className="font-medium mb-2">{t('operator.members.documents')}</h4>
                     <div className="space-y-2">
                       {memberDetail.documents.map((doc: any) => (
                         <div key={doc.id} className="flex items-center justify-between p-2 border rounded">
@@ -825,18 +827,18 @@ export default function OperatorMembers() {
                 {memberDetail.financial && (
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-muted-foreground">Staked Balance</p>
+                      <p className="text-sm text-muted-foreground">{t('operator.members.stakedBalance')}</p>
                       <p className="font-medium font-mono">{memberDetail.financial.staked_balance || "0"} TBURN</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Validator Rewards</p>
+                      <p className="text-sm text-muted-foreground">{t('operator.members.validatorRewards')}</p>
                       <p className="font-medium font-mono">{memberDetail.financial.validator_rewards || "0"} TBURN</p>
                     </div>
                   </div>
                 )}
                 {memberDetail.stakingPositions && memberDetail.stakingPositions.length > 0 ? (
                   <div className="space-y-2">
-                    <h4 className="font-medium">Staking Positions</h4>
+                    <h4 className="font-medium">{t('operator.members.stakingPositions')}</h4>
                     {memberDetail.stakingPositions.map((pos: any, i: number) => (
                       <div key={i} className="p-3 border rounded">
                         <div className="flex justify-between">
@@ -847,15 +849,15 @@ export default function OperatorMembers() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-muted-foreground">No staking positions</p>
+                  <p className="text-muted-foreground">{t('operator.members.noStakingPositions')}</p>
                 )}
               </TabsContent>
 
               <TabsContent value="notes" className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <h4 className="font-medium">Member Notes</h4>
+                  <h4 className="font-medium">{t('operator.members.memberNotes')}</h4>
                   <Button size="sm" onClick={() => setShowNoteDialog(true)} data-testid="btn-add-note">
-                    <Plus className="h-4 w-4 mr-2" /> Add Note
+                    <Plus className="h-4 w-4 mr-2" /> {t('operator.members.addNote')}
                   </Button>
                 </div>
                 <ScrollArea className="h-[300px]">
@@ -880,10 +882,10 @@ export default function OperatorMembers() {
                                   </DropdownMenuTrigger>
                                   <DropdownMenuContent align="end">
                                     <DropdownMenuItem onClick={() => togglePinNoteMutation.mutate({ noteId: note.id, isPinned: !note.is_pinned })}>
-                                      <Pin className="h-4 w-4 mr-2" /> {note.is_pinned ? "Unpin" : "Pin"}
+                                      <Pin className="h-4 w-4 mr-2" /> {note.is_pinned ? t('operator.members.unpin') : t('operator.members.pin')}
                                     </DropdownMenuItem>
                                     <DropdownMenuItem className="text-red-500" onClick={() => deleteNoteMutation.mutate(note.id)}>
-                                      <Trash2 className="h-4 w-4 mr-2" /> Delete
+                                      <Trash2 className="h-4 w-4 mr-2" /> {t('operator.members.delete')}
                                     </DropdownMenuItem>
                                   </DropdownMenuContent>
                                 </DropdownMenu>
@@ -902,7 +904,7 @@ export default function OperatorMembers() {
                   ) : (
                     <div className="flex flex-col items-center justify-center h-32 text-muted-foreground">
                       <StickyNote className="h-8 w-8 mb-2" />
-                      <p className="text-sm">No notes yet</p>
+                      <p className="text-sm">{t('operator.members.noNotesYet')}</p>
                     </div>
                   )}
                 </ScrollArea>
@@ -935,7 +937,7 @@ export default function OperatorMembers() {
                   ) : (
                     <div className="flex flex-col items-center justify-center h-32 text-muted-foreground">
                       <Clock className="h-8 w-8 mb-2" />
-                      <p className="text-sm">No activity recorded</p>
+                      <p className="text-sm">{t('operator.members.noActivityRecorded')}</p>
                     </div>
                   )}
                 </ScrollArea>
@@ -949,13 +951,13 @@ export default function OperatorMembers() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {editType === "status" ? "Change Member Status" : 
-               editType === "tier" ? "Change Member Tier" : "Update KYC Level"}
+              {editType === "status" ? t('operator.members.changeMemberStatus') : 
+               editType === "tier" ? t('operator.members.changeMemberTier') : t('operator.members.updateKycLevel')}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label>New {editType === "status" ? "Status" : editType === "tier" ? "Tier" : "KYC Level"}</Label>
+              <Label>{t('operator.members.new')} {editType === "status" ? t('operator.members.status') : editType === "tier" ? t('operator.members.tier') : t('operator.members.kycLevel')}</Label>
               <Select value={editValue} onValueChange={setEditValue}>
                 <SelectTrigger data-testid="select-edit-value">
                   <SelectValue />
@@ -963,43 +965,43 @@ export default function OperatorMembers() {
                 <SelectContent>
                   {editType === "status" ? (
                     <>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="suspended">Suspended</SelectItem>
-                      <SelectItem value="blacklisted">Blacklisted</SelectItem>
+                      <SelectItem value="active">{t('operator.members.active')}</SelectItem>
+                      <SelectItem value="pending">{t('operator.members.pending')}</SelectItem>
+                      <SelectItem value="suspended">{t('operator.members.suspended')}</SelectItem>
+                      <SelectItem value="blacklisted">{t('operator.members.blacklisted')}</SelectItem>
                     </>
                   ) : editType === "tier" ? (
                     <>
-                      <SelectItem value="basic_user">Basic User</SelectItem>
-                      <SelectItem value="delegated_staker">Delegated Staker</SelectItem>
-                      <SelectItem value="active_validator">Active Validator</SelectItem>
-                      <SelectItem value="enterprise_validator">Enterprise Validator</SelectItem>
+                      <SelectItem value="basic_user">{t('operator.members.basicUser')}</SelectItem>
+                      <SelectItem value="delegated_staker">{t('operator.members.delegatedStaker')}</SelectItem>
+                      <SelectItem value="active_validator">{t('operator.members.activeValidator')}</SelectItem>
+                      <SelectItem value="enterprise_validator">{t('operator.members.enterpriseValidator')}</SelectItem>
                     </>
                   ) : (
                     <>
-                      <SelectItem value="none">None</SelectItem>
-                      <SelectItem value="basic">Basic</SelectItem>
-                      <SelectItem value="enhanced">Enhanced</SelectItem>
-                      <SelectItem value="institutional">Institutional</SelectItem>
+                      <SelectItem value="none">{t('operator.members.none')}</SelectItem>
+                      <SelectItem value="basic">{t('operator.members.basic')}</SelectItem>
+                      <SelectItem value="enhanced">{t('operator.members.enhanced')}</SelectItem>
+                      <SelectItem value="institutional">{t('operator.members.institutional')}</SelectItem>
                     </>
                   )}
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Label>Reason for change</Label>
+              <Label>{t('operator.members.reasonForChange')}</Label>
               <Textarea
                 value={editReason}
                 onChange={(e) => setEditReason(e.target.value)}
-                placeholder="Enter reason for this change..."
+                placeholder={t('operator.members.enterReasonPlaceholder')}
                 data-testid="textarea-edit-reason"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowEditDialog(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setShowEditDialog(false)}>{t('common.cancel')}</Button>
             <Button onClick={handleSaveEdit} disabled={!editReason} data-testid="btn-save-edit">
-              Save Changes
+              {t('common.saveChanges')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1008,53 +1010,53 @@ export default function OperatorMembers() {
       <Dialog open={showBulkActionDialog} onOpenChange={() => { setShowBulkActionDialog(false); setBulkReason(""); }}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Bulk {bulkAction === "status" ? "Status" : "Tier"} Update</DialogTitle>
+            <DialogTitle>{t('operator.members.bulk')} {bulkAction === "status" ? t('operator.members.status') : t('operator.members.tier')} {t('operator.members.update')}</DialogTitle>
             <DialogDescription>
-              This will update {selectedMembers.size} selected members
+              {t('operator.members.thisWillUpdate')} {selectedMembers.size} {t('operator.members.selectedMembers')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label>New {bulkAction === "status" ? "Status" : "Tier"}</Label>
+              <Label>{t('operator.members.new')} {bulkAction === "status" ? t('operator.members.status') : t('operator.members.tier')}</Label>
               <Select value={bulkValue} onValueChange={setBulkValue}>
                 <SelectTrigger data-testid="select-bulk-value">
-                  <SelectValue placeholder={`Select ${bulkAction}`} />
+                  <SelectValue placeholder={t('common.select')} />
                 </SelectTrigger>
                 <SelectContent>
                   {bulkAction === "status" ? (
                     <>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="suspended">Suspended</SelectItem>
+                      <SelectItem value="active">{t('operator.members.active')}</SelectItem>
+                      <SelectItem value="pending">{t('operator.members.pending')}</SelectItem>
+                      <SelectItem value="suspended">{t('operator.members.suspended')}</SelectItem>
                     </>
                   ) : (
                     <>
-                      <SelectItem value="basic_user">Basic User</SelectItem>
-                      <SelectItem value="delegated_staker">Delegated Staker</SelectItem>
-                      <SelectItem value="active_validator">Active Validator</SelectItem>
+                      <SelectItem value="basic_user">{t('operator.members.basicUser')}</SelectItem>
+                      <SelectItem value="delegated_staker">{t('operator.members.delegatedStaker')}</SelectItem>
+                      <SelectItem value="active_validator">{t('operator.members.activeValidator')}</SelectItem>
                     </>
                   )}
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Label>Reason</Label>
+              <Label>{t('operator.members.reason')}</Label>
               <Textarea
                 value={bulkReason}
                 onChange={(e) => setBulkReason(e.target.value)}
-                placeholder="Enter reason for bulk update..."
+                placeholder={t('operator.members.enterReasonForBulkUpdate')}
                 data-testid="textarea-bulk-reason"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowBulkActionDialog(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setShowBulkActionDialog(false)}>{t('common.cancel')}</Button>
             <Button 
               onClick={handleBulkAction} 
               disabled={!bulkValue || !bulkReason || bulkUpdateMutation.isPending}
               data-testid="btn-confirm-bulk"
             >
-              {bulkUpdateMutation.isPending ? "Updating..." : `Update ${selectedMembers.size} Members`}
+              {bulkUpdateMutation.isPending ? t('common.updating') : t('operator.members.updateMembers', { count: selectedMembers.size })}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1063,55 +1065,55 @@ export default function OperatorMembers() {
       <Dialog open={showNoteDialog} onOpenChange={() => { setShowNoteDialog(false); setNoteTitle(""); setNoteContent(""); }}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add Member Note</DialogTitle>
+            <DialogTitle>{t('operator.members.addMemberNote')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label>Title</Label>
+              <Label>{t('operator.members.title')}</Label>
               <Input
                 value={noteTitle}
                 onChange={(e) => setNoteTitle(e.target.value)}
-                placeholder="Note title..."
+                placeholder={t('operator.members.noteTitlePlaceholder')}
                 data-testid="input-note-title"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Type</Label>
+                <Label>{t('operator.members.type')}</Label>
                 <Select value={noteType} onValueChange={setNoteType}>
                   <SelectTrigger data-testid="select-note-type">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="general">General</SelectItem>
-                    <SelectItem value="kyc_review">KYC Review</SelectItem>
-                    <SelectItem value="compliance">Compliance</SelectItem>
-                    <SelectItem value="risk">Risk</SelectItem>
-                    <SelectItem value="support">Support</SelectItem>
+                    <SelectItem value="general">{t('operator.members.general')}</SelectItem>
+                    <SelectItem value="kyc_review">{t('operator.members.kycReview')}</SelectItem>
+                    <SelectItem value="compliance">{t('operator.members.compliance')}</SelectItem>
+                    <SelectItem value="risk">{t('operator.members.risk')}</SelectItem>
+                    <SelectItem value="support">{t('operator.members.support')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label>Priority</Label>
+                <Label>{t('operator.members.priority')}</Label>
                 <Select value={notePriority} onValueChange={setNotePriority}>
                   <SelectTrigger data-testid="select-note-priority">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="normal">Normal</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="urgent">Urgent</SelectItem>
+                    <SelectItem value="low">{t('operator.members.low')}</SelectItem>
+                    <SelectItem value="normal">{t('operator.members.normal')}</SelectItem>
+                    <SelectItem value="high">{t('operator.members.high')}</SelectItem>
+                    <SelectItem value="urgent">{t('operator.members.urgent')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <div>
-              <Label>Content</Label>
+              <Label>{t('operator.members.content')}</Label>
               <Textarea
                 value={noteContent}
                 onChange={(e) => setNoteContent(e.target.value)}
-                placeholder="Note content..."
+                placeholder={t('operator.members.noteContentPlaceholder')}
                 rows={4}
                 data-testid="textarea-note-content"
               />
@@ -1122,17 +1124,17 @@ export default function OperatorMembers() {
                 checked={notePinned}
                 onCheckedChange={(checked) => setNotePinned(!!checked)}
               />
-              <Label htmlFor="pinNote">Pin this note</Label>
+              <Label htmlFor="pinNote">{t('operator.members.pinThisNote')}</Label>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowNoteDialog(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setShowNoteDialog(false)}>{t('common.cancel')}</Button>
             <Button 
               onClick={handleCreateNote} 
               disabled={!noteTitle || !noteContent || createNoteMutation.isPending}
               data-testid="btn-save-note"
             >
-              {createNoteMutation.isPending ? "Saving..." : "Save Note"}
+              {createNoteMutation.isPending ? t('common.saving') : t('operator.members.saveNote')}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { BarChart3, Server, Wifi, HardDrive, Cpu, Activity, Shield, TrendingUp, AlertTriangle, Network, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,6 +30,7 @@ interface NetworkStats {
 }
 
 export default function NodeHealth() {
+  const { t } = useTranslation();
   const { data: health, isLoading } = useQuery<NodeHealth>({
     queryKey: ["/api/node/health"],
   });
@@ -40,11 +42,11 @@ export default function NodeHealth() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "healthy":
-        return <Badge className="bg-green-600">Healthy</Badge>;
+        return <Badge className="bg-green-600">{t('nodeHealth.healthy')}</Badge>;
       case "degraded":
-        return <Badge variant="secondary" className="bg-yellow-600">Degraded</Badge>;
+        return <Badge variant="secondary" className="bg-yellow-600">{t('nodeHealth.degraded')}</Badge>;
       case "unhealthy":
-        return <Badge variant="destructive">Unhealthy</Badge>;
+        return <Badge variant="destructive">{t('nodeHealth.unhealthy')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -69,22 +71,21 @@ export default function NodeHealth() {
         <div>
           <h1 className="text-3xl font-semibold flex items-center gap-2">
             <BarChart3 className="h-8 w-8" />
-            Node Health
+            {t('nodeHealth.title')}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Predictive Self-Healing with 4 AI-Powered Algorithms
+            {t('nodeHealth.subtitle')}
           </p>
         </div>
-        <LiveIndicator label="Monitoring" />
+        <LiveIndicator label={t('nodeHealth.monitoring')} />
       </div>
 
-      {/* Node Status */}
       <Card className="border-2">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Server className="h-5 w-5" />
-              Node Status
+              {t('nodeHealth.nodeStatus')}
             </CardTitle>
             {!isLoading && health && getStatusBadge(health.status)}
           </div>
@@ -99,21 +100,21 @@ export default function NodeHealth() {
             <>
               <div className="grid gap-4 md:grid-cols-3">
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Uptime</div>
+                  <div className="text-sm text-muted-foreground mb-1">{t('nodeHealth.uptime')}</div>
                   <div className="text-xl font-semibold tabular-nums">
                     {formatUptime(health.uptime)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Sync Status</div>
+                  <div className="text-sm text-muted-foreground mb-1">{t('nodeHealth.syncStatus')}</div>
                   <div className="text-xl font-semibold">
                     {health.syncStatus}
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">Last Block</div>
+                  <div className="text-sm text-muted-foreground mb-1">{t('nodeHealth.lastBlock')}</div>
                   <div className="text-xl font-semibold tabular-nums">
-                    {health.lastBlockTime}s ago
+                    {health.lastBlockTime}s {t('nodeHealth.ago')}
                   </div>
                 </div>
               </div>
@@ -122,7 +123,6 @@ export default function NodeHealth() {
         </CardContent>
       </Card>
 
-      {/* Resource Usage */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {isLoading ? (
           <>
@@ -136,7 +136,7 @@ export default function NodeHealth() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  CPU Usage
+                  {t('nodeHealth.cpuUsage')}
                 </CardTitle>
                 <Cpu className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -151,7 +151,7 @@ export default function NodeHealth() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Memory Usage
+                  {t('nodeHealth.memoryUsage')}
                 </CardTitle>
                 <Activity className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -166,7 +166,7 @@ export default function NodeHealth() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Disk Usage
+                  {t('nodeHealth.diskUsage')}
                 </CardTitle>
                 <HardDrive className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -181,7 +181,7 @@ export default function NodeHealth() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Network Latency
+                  {t('nodeHealth.networkLatency')}
                 </CardTitle>
                 <Wifi className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -189,14 +189,13 @@ export default function NodeHealth() {
                 <div className="text-3xl font-semibold tabular-nums">
                   {health.networkLatency}ms
                 </div>
-                <div className="text-xs text-muted-foreground">Avg response time</div>
+                <div className="text-xs text-muted-foreground">{t('nodeHealth.avgResponseTime')}</div>
               </CardContent>
             </Card>
           </>
         ) : null}
       </div>
 
-      {/* Connection Stats */}
       <div className="grid gap-4 md:grid-cols-3">
         {isLoading ? (
           <>
@@ -207,36 +206,35 @@ export default function NodeHealth() {
         ) : health ? (
           <>
             <StatCard
-              title="RPC Connections"
+              title={t('nodeHealth.rpcConnections')}
               value={health.rpcConnections}
               icon={Server}
               subtitle="HTTP/JSON-RPC"
             />
             <StatCard
-              title="WebSocket Connections"
+              title={t('nodeHealth.wsConnections')}
               value={health.wsConnections}
               icon={Wifi}
-              subtitle="Active streams"
+              subtitle={t('nodeHealth.activeStreams')}
             />
             <StatCard
-              title="Connected Peers"
+              title={t('nodeHealth.connectedPeers')}
               value={health.peersConnected}
               icon={Server}
-              subtitle="P2P network"
+              subtitle={t('nodeHealth.p2pNetwork')}
             />
           </>
         ) : null}
       </div>
 
-      {/* TBURN v7.0: Predictive Self-Healing System */}
       <Card className="border-2 border-purple-500/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5 text-purple-500" />
-            Self-Healing Prediction Algorithms
+            {t('nodeHealth.selfHealingAlgorithms')}
           </CardTitle>
           <p className="text-sm text-muted-foreground">
-            AI-powered anomaly detection and predictive maintenance
+            {t('nodeHealth.aiPoweredAnomalyDetection')}
           </p>
         </CardHeader>
         <CardContent>
@@ -249,11 +247,10 @@ export default function NodeHealth() {
             </div>
           ) : networkStats ? (
             <div className="grid gap-4 md:grid-cols-2">
-              {/* Trend Analysis */}
               <Card className="hover-elevate" data-testid="card-selfhealing-trend">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Trend Analysis
+                    {t('nodeHealth.trendAnalysis')}
                   </CardTitle>
                   <TrendingUp className="h-4 w-4 text-blue-500" />
                 </CardHeader>
@@ -263,16 +260,15 @@ export default function NodeHealth() {
                   </div>
                   <Progress value={networkStats.trendAnalysisScore / 100} className="h-2" />
                   <div className="text-xs text-muted-foreground">
-                    Historical pattern recognition
+                    {t('nodeHealth.historicalPatternRecognition')}
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Anomaly Detection */}
               <Card className="hover-elevate" data-testid="card-selfhealing-anomaly">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Anomaly Detection
+                    {t('nodeHealth.anomalyDetection')}
                   </CardTitle>
                   <AlertTriangle className="h-4 w-4 text-yellow-500" />
                 </CardHeader>
@@ -282,16 +278,15 @@ export default function NodeHealth() {
                   </div>
                   <Progress value={networkStats.anomalyDetectionScore / 100} className="h-2" />
                   <div className="text-xs text-muted-foreground">
-                    Real-time outlier identification
+                    {t('nodeHealth.realtimeOutlierIdentification')}
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Pattern Matching */}
               <Card className="hover-elevate" data-testid="card-selfhealing-pattern">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Pattern Matching
+                    {t('nodeHealth.patternMatching')}
                   </CardTitle>
                   <Network className="h-4 w-4 text-green-500" />
                 </CardHeader>
@@ -301,16 +296,15 @@ export default function NodeHealth() {
                   </div>
                   <Progress value={networkStats.patternMatchingScore / 100} className="h-2" />
                   <div className="text-xs text-muted-foreground">
-                    Behavioral signature analysis
+                    {t('nodeHealth.behavioralSignatureAnalysis')}
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Timeseries Analysis */}
               <Card className="hover-elevate" data-testid="card-selfhealing-timeseries">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Timeseries Forecast
+                    {t('nodeHealth.timeseriesForecast')}
                   </CardTitle>
                   <Clock className="h-4 w-4 text-purple-500" />
                 </CardHeader>
@@ -320,23 +314,22 @@ export default function NodeHealth() {
                   </div>
                   <Progress value={networkStats.timeseriesScore / 100} className="h-2" />
                   <div className="text-xs text-muted-foreground">
-                    Predictive failure prevention
+                    {t('nodeHealth.predictiveFailurePrevention')}
                   </div>
                 </CardContent>
               </Card>
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No prediction data available</p>
+              <p className="text-muted-foreground">{t('nodeHealth.noPredictionDataAvailable')}</p>
             </div>
           )}
         </CardContent>
       </Card>
 
-      {/* System Metrics */}
       <Card>
         <CardHeader>
-          <CardTitle>System Metrics</CardTitle>
+          <CardTitle>{t('nodeHealth.systemMetrics')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -351,9 +344,9 @@ export default function NodeHealth() {
                 <div className="flex items-center gap-3">
                   <Cpu className="h-5 w-5 text-muted-foreground" />
                   <div>
-                    <div className="font-medium">CPU Usage</div>
+                    <div className="font-medium">{t('nodeHealth.cpuUsage')}</div>
                     <div className="text-sm text-muted-foreground">
-                      {health.cpuUsage < 70 ? "Normal operation" : health.cpuUsage < 90 ? "High load" : "Critical"}
+                      {health.cpuUsage < 70 ? t('nodeHealth.normalOperation') : health.cpuUsage < 90 ? t('nodeHealth.highLoad') : t('nodeHealth.critical')}
                     </div>
                   </div>
                 </div>
@@ -369,9 +362,9 @@ export default function NodeHealth() {
                 <div className="flex items-center gap-3">
                   <Activity className="h-5 w-5 text-muted-foreground" />
                   <div>
-                    <div className="font-medium">Memory Usage</div>
+                    <div className="font-medium">{t('nodeHealth.memoryUsage')}</div>
                     <div className="text-sm text-muted-foreground">
-                      {health.memoryUsage < 70 ? "Normal operation" : health.memoryUsage < 90 ? "High usage" : "Critical"}
+                      {health.memoryUsage < 70 ? t('nodeHealth.normalOperation') : health.memoryUsage < 90 ? t('nodeHealth.highUsage') : t('nodeHealth.critical')}
                     </div>
                   </div>
                 </div>
@@ -387,9 +380,9 @@ export default function NodeHealth() {
                 <div className="flex items-center gap-3">
                   <HardDrive className="h-5 w-5 text-muted-foreground" />
                   <div>
-                    <div className="font-medium">Disk Usage</div>
+                    <div className="font-medium">{t('nodeHealth.diskUsage')}</div>
                     <div className="text-sm text-muted-foreground">
-                      {health.diskUsage < 70 ? "Sufficient space" : health.diskUsage < 90 ? "Low space" : "Critical"}
+                      {health.diskUsage < 70 ? t('nodeHealth.sufficientSpace') : health.diskUsage < 90 ? t('nodeHealth.lowSpace') : t('nodeHealth.critical')}
                     </div>
                   </div>
                 </div>
@@ -403,7 +396,7 @@ export default function NodeHealth() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No health data available</p>
+              <p className="text-muted-foreground">{t('nodeHealth.noHealthDataAvailable')}</p>
             </div>
           )}
         </CardContent>
