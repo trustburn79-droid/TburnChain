@@ -924,7 +924,25 @@
         "executed": "সম্পাদিত",
         "pending": "মুলতুবি",
         "cancelled": "বাতিল"
-      }
+      },
+      "tier1": "টায়ার ১",
+      "tier2": "টায়ার ২",
+      "tier3": "টায়ার ৩",
+      "applicationTypes": {
+        "new": "নতুন আবেদন",
+        "renewal": "নবায়ন",
+        "upgrade": "টায়ার আপগ্রেড",
+        "downgrade": "টায়ার ডাউনগ্রেড",
+        "transfer": "স্থানান্তর"
+      },
+      "stakeSources": {
+        "self_funded": "স্ব-অর্থায়িত",
+        "delegated": "প্রত্যায়িত",
+        "pool": "স্টেকিং পুল",
+        "institutional": "প্রাতিষ্ঠানিক",
+        "mixed": "মিশ্র উৎস"
+      },
+      "unknown": "অজানা"
     },
     "security": {
       "title": "নিরাপত্তা অডিট",
@@ -984,6 +1002,31 @@
         "members": "সদস্য",
         "config": "কনফিগারেশন",
         "access": "অ্যাক্সেস নিয়ন্ত্রণ",
+        "network": "নেটওয়ার্ক"
+      },
+      "eventTypes": {
+        "login_attempt": "লগইন প্রচেষ্টা",
+        "suspicious_tx": "সন্দেহজনক লেনদেন",
+        "rate_limit": "হার সীমা অতিক্রম",
+        "api_abuse": "API অপব্যবহার",
+        "brute_force": "ব্রুট ফোর্স আক্রমণ",
+        "unauthorized_access": "অননুমোদিত প্রবেশ",
+        "ddos": "DDoS আক্রমণ",
+        "sql_injection": "SQL ইনজেকশন",
+        "xss": "XSS আক্রমণ",
+        "replay_attack": "রিপ্লে আক্রমণ",
+        "invalid_signature": "অবৈধ স্বাক্ষর",
+        "double_spend": "ডাবল খরচ প্রচেষ্টা",
+        "network_anomaly": "নেটওয়ার্ক অসামঞ্জস্য",
+        "consensus_violation": "সম্মতি লঙ্ঘন"
+      },
+      "targetTypes": {
+        "member": "সদস্য",
+        "validator": "ভ্যালিডেটর",
+        "transaction": "লেনদেন",
+        "contract": "চুক্তি",
+        "system": "সিস্টেম",
+        "api": "API",
         "network": "নেটওয়ার্ক"
       }
     },

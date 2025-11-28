@@ -2424,7 +2424,25 @@
         "executed": "実行済み",
         "pending": "保留中",
         "cancelled": "キャンセル"
-      }
+      },
+      "tier1": "ティア1",
+      "tier2": "ティア2",
+      "tier3": "ティア3",
+      "applicationTypes": {
+        "new": "新規申請",
+        "renewal": "更新",
+        "upgrade": "ティアアップグレード",
+        "downgrade": "ティアダウングレード",
+        "transfer": "譲渡"
+      },
+      "stakeSources": {
+        "self_funded": "自己資金",
+        "delegated": "委任",
+        "pool": "ステーキングプール",
+        "institutional": "機関投資家",
+        "mixed": "混合ソース"
+      },
+      "unknown": "不明"
     },
     "security": {
       "title": "セキュリティ監査",
@@ -2584,6 +2602,31 @@
         "members": "メンバー",
         "config": "設定",
         "access": "アクセス制御",
+        "network": "ネットワーク"
+      },
+      "eventTypes": {
+        "login_attempt": "ログイン試行",
+        "suspicious_tx": "疑わしいトランザクション",
+        "rate_limit": "レート制限超過",
+        "api_abuse": "API悪用",
+        "brute_force": "ブルートフォース攻撃",
+        "unauthorized_access": "不正アクセス",
+        "ddos": "DDoS攻撃",
+        "sql_injection": "SQLインジェクション",
+        "xss": "XSS攻撃",
+        "replay_attack": "リプレイ攻撃",
+        "invalid_signature": "無効な署名",
+        "double_spend": "二重支払い試行",
+        "network_anomaly": "ネットワーク異常",
+        "consensus_violation": "コンセンサス違反"
+      },
+      "targetTypes": {
+        "member": "メンバー",
+        "validator": "バリデーター",
+        "transaction": "トランザクション",
+        "contract": "コントラクト",
+        "system": "システム",
+        "api": "API",
         "network": "ネットワーク"
       }
     },

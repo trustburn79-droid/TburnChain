@@ -2829,7 +2829,25 @@
         "executed": "已执行",
         "pending": "待处理",
         "cancelled": "已取消"
-      }
+      },
+      "tier1": "一级",
+      "tier2": "二级",
+      "tier3": "三级",
+      "applicationTypes": {
+        "new": "新申请",
+        "renewal": "续期",
+        "upgrade": "等级升级",
+        "downgrade": "等级降级",
+        "transfer": "转让"
+      },
+      "stakeSources": {
+        "self_funded": "自有资金",
+        "delegated": "委托",
+        "pool": "质押池",
+        "institutional": "机构",
+        "mixed": "混合来源"
+      },
+      "unknown": "未知"
     },
     "security": {
       "title": "安全审计",
@@ -3016,6 +3034,31 @@
         "members": "成员",
         "config": "配置",
         "access": "访问控制",
+        "network": "网络"
+      },
+      "eventTypes": {
+        "login_attempt": "登录尝试",
+        "suspicious_tx": "可疑交易",
+        "rate_limit": "超过速率限制",
+        "api_abuse": "API滥用",
+        "brute_force": "暴力攻击",
+        "unauthorized_access": "未授权访问",
+        "ddos": "DDoS攻击",
+        "sql_injection": "SQL注入",
+        "xss": "XSS攻击",
+        "replay_attack": "重放攻击",
+        "invalid_signature": "无效签名",
+        "double_spend": "双花尝试",
+        "network_anomaly": "网络异常",
+        "consensus_violation": "共识违规"
+      },
+      "targetTypes": {
+        "member": "成员",
+        "validator": "验证者",
+        "transaction": "交易",
+        "contract": "合约",
+        "system": "系统",
+        "api": "API",
         "network": "网络"
       }
     },

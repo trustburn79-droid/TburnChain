@@ -924,7 +924,25 @@
         "executed": "Выполнено",
         "pending": "Ожидание",
         "cancelled": "Отменено"
-      }
+      },
+      "tier1": "Уровень 1",
+      "tier2": "Уровень 2",
+      "tier3": "Уровень 3",
+      "applicationTypes": {
+        "new": "Новая заявка",
+        "renewal": "Продление",
+        "upgrade": "Повышение уровня",
+        "downgrade": "Понижение уровня",
+        "transfer": "Перевод"
+      },
+      "stakeSources": {
+        "self_funded": "Собственные средства",
+        "delegated": "Делегировано",
+        "pool": "Стейкинг-пул",
+        "institutional": "Институциональный",
+        "mixed": "Смешанные источники"
+      },
+      "unknown": "Неизвестно"
     },
     "security": {
       "title": "Аудит безопасности",
@@ -984,6 +1002,31 @@
         "members": "Участники",
         "config": "Конфигурация",
         "access": "Контроль доступа",
+        "network": "Сеть"
+      },
+      "eventTypes": {
+        "login_attempt": "Попытка входа",
+        "suspicious_tx": "Подозрительная транзакция",
+        "rate_limit": "Превышение лимита",
+        "api_abuse": "Злоупотребление API",
+        "brute_force": "Атака перебором",
+        "unauthorized_access": "Несанкционированный доступ",
+        "ddos": "DDoS-атака",
+        "sql_injection": "SQL-инъекция",
+        "xss": "XSS-атака",
+        "replay_attack": "Атака повторения",
+        "invalid_signature": "Недействительная подпись",
+        "double_spend": "Попытка двойной траты",
+        "network_anomaly": "Сетевая аномалия",
+        "consensus_violation": "Нарушение консенсуса"
+      },
+      "targetTypes": {
+        "member": "Участник",
+        "validator": "Валидатор",
+        "transaction": "Транзакция",
+        "contract": "Контракт",
+        "system": "Система",
+        "api": "API",
         "network": "Сеть"
       }
     },

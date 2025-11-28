@@ -2084,7 +2084,25 @@
         "executed": "निष्पादित",
         "pending": "लंबित",
         "cancelled": "रद्द"
-      }
+      },
+      "tier1": "टियर 1",
+      "tier2": "टियर 2",
+      "tier3": "टियर 3",
+      "applicationTypes": {
+        "new": "नया आवेदन",
+        "renewal": "नवीनीकरण",
+        "upgrade": "टियर अपग्रेड",
+        "downgrade": "टियर डाउनग्रेड",
+        "transfer": "स्थानांतरण"
+      },
+      "stakeSources": {
+        "self_funded": "स्व-वित्त पोषित",
+        "delegated": "प्रत्यायोजित",
+        "pool": "स्टेकिंग पूल",
+        "institutional": "संस्थागत",
+        "mixed": "मिश्रित स्रोत"
+      },
+      "unknown": "अज्ञात"
     },
     "security": {
       "title": "सुरक्षा ऑडिट",
@@ -2217,6 +2235,31 @@
         "members": "सदस्य",
         "config": "कॉन्फ़िगरेशन",
         "access": "एक्सेस नियंत्रण",
+        "network": "नेटवर्क"
+      },
+      "eventTypes": {
+        "login_attempt": "लॉगिन प्रयास",
+        "suspicious_tx": "संदिग्ध लेनदेन",
+        "rate_limit": "दर सीमा पार",
+        "api_abuse": "API दुरुपयोग",
+        "brute_force": "ब्रूट फोर्स हमला",
+        "unauthorized_access": "अनधिकृत पहुंच",
+        "ddos": "DDoS हमला",
+        "sql_injection": "SQL इंजेक्शन",
+        "xss": "XSS हमला",
+        "replay_attack": "रिप्ले हमला",
+        "invalid_signature": "अमान्य हस्ताक्षर",
+        "double_spend": "डबल खर्च प्रयास",
+        "network_anomaly": "नेटवर्क विसंगति",
+        "consensus_violation": "सहमति उल्लंघन"
+      },
+      "targetTypes": {
+        "member": "सदस्य",
+        "validator": "वैलिडेटर",
+        "transaction": "लेनदेन",
+        "contract": "अनुबंध",
+        "system": "सिस्टम",
+        "api": "API",
         "network": "नेटवर्क"
       }
     },

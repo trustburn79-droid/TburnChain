@@ -2884,7 +2884,25 @@
         "executed": "실행됨",
         "pending": "대기 중",
         "cancelled": "취소됨"
-      }
+      },
+      "tier1": "1등급",
+      "tier2": "2등급",
+      "tier3": "3등급",
+      "applicationTypes": {
+        "new": "신규 신청",
+        "renewal": "갱신",
+        "upgrade": "등급 업그레이드",
+        "downgrade": "등급 다운그레이드",
+        "transfer": "이전"
+      },
+      "stakeSources": {
+        "self_funded": "자체 자금",
+        "delegated": "위임",
+        "pool": "스테이킹 풀",
+        "institutional": "기관",
+        "mixed": "혼합 출처"
+      },
+      "unknown": "알 수 없음"
     },
     "security": {
       "title": "보안 감사",
@@ -3074,6 +3092,31 @@
         "members": "멤버",
         "config": "설정",
         "access": "접근 제어",
+        "network": "네트워크"
+      },
+      "eventTypes": {
+        "login_attempt": "로그인 시도",
+        "suspicious_tx": "의심스러운 트랜잭션",
+        "rate_limit": "속도 제한 초과",
+        "api_abuse": "API 남용",
+        "brute_force": "무차별 대입 공격",
+        "unauthorized_access": "무단 접근",
+        "ddos": "DDoS 공격",
+        "sql_injection": "SQL 인젝션",
+        "xss": "XSS 공격",
+        "replay_attack": "재전송 공격",
+        "invalid_signature": "유효하지 않은 서명",
+        "double_spend": "이중 지불 시도",
+        "network_anomaly": "네트워크 이상",
+        "consensus_violation": "합의 위반"
+      },
+      "targetTypes": {
+        "member": "멤버",
+        "validator": "검증자",
+        "transaction": "트랜잭션",
+        "contract": "컨트랙트",
+        "system": "시스템",
+        "api": "API",
         "network": "네트워크"
       }
     },

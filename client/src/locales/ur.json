@@ -924,7 +924,25 @@
         "executed": "مکمل",
         "pending": "زیر التواء",
         "cancelled": "منسوخ"
-      }
+      },
+      "tier1": "ٹیئر 1",
+      "tier2": "ٹیئر 2",
+      "tier3": "ٹیئر 3",
+      "applicationTypes": {
+        "new": "نئی درخواست",
+        "renewal": "تجدید",
+        "upgrade": "ٹیئر اپ گریڈ",
+        "downgrade": "ٹیئر ڈاؤن گریڈ",
+        "transfer": "منتقلی"
+      },
+      "stakeSources": {
+        "self_funded": "خود سے فنڈ",
+        "delegated": "تفویض کردہ",
+        "pool": "اسٹیکنگ پول",
+        "institutional": "ادارہ جاتی",
+        "mixed": "مخلوط ذرائع"
+      },
+      "unknown": "نامعلوم"
     },
     "security": {
       "title": "سیکورٹی آڈٹ",
@@ -984,6 +1002,31 @@
         "members": "ارکان",
         "config": "ترتیب",
         "access": "رسائی کنٹرول",
+        "network": "نیٹ ورک"
+      },
+      "eventTypes": {
+        "login_attempt": "لاگ ان کی کوشش",
+        "suspicious_tx": "مشکوک لین دین",
+        "rate_limit": "حد سے تجاوز",
+        "api_abuse": "API کا غلط استعمال",
+        "brute_force": "بروٹ فورس حملہ",
+        "unauthorized_access": "غیر مجاز رسائی",
+        "ddos": "DDoS حملہ",
+        "sql_injection": "SQL انجیکشن",
+        "xss": "XSS حملہ",
+        "replay_attack": "ری پلے حملہ",
+        "invalid_signature": "غلط دستخط",
+        "double_spend": "دوہرے خرچ کی کوشش",
+        "network_anomaly": "نیٹ ورک خرابی",
+        "consensus_violation": "اتفاق رائے کی خلاف ورزی"
+      },
+      "targetTypes": {
+        "member": "رکن",
+        "validator": "توثیق کار",
+        "transaction": "لین دین",
+        "contract": "معاہدہ",
+        "system": "نظام",
+        "api": "API",
         "network": "نیٹ ورک"
       }
     },

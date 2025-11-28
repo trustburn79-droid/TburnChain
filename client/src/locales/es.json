@@ -2887,7 +2887,25 @@
         "executed": "Ejecutado",
         "pending": "Pendiente",
         "cancelled": "Cancelado"
-      }
+      },
+      "tier1": "Nivel 1",
+      "tier2": "Nivel 2",
+      "tier3": "Nivel 3",
+      "applicationTypes": {
+        "new": "Nueva Solicitud",
+        "renewal": "Renovación",
+        "upgrade": "Mejora de Nivel",
+        "downgrade": "Reducción de Nivel",
+        "transfer": "Transferencia"
+      },
+      "stakeSources": {
+        "self_funded": "Fondos Propios",
+        "delegated": "Delegado",
+        "pool": "Pool de Staking",
+        "institutional": "Institucional",
+        "mixed": "Fuentes Mixtas"
+      },
+      "unknown": "Desconocido"
     },
     "security": {
       "title": "Auditoría de Seguridad",
@@ -3065,6 +3083,31 @@
         "members": "Miembros",
         "config": "Configuración",
         "access": "Control de acceso",
+        "network": "Red"
+      },
+      "eventTypes": {
+        "login_attempt": "Intento de inicio de sesión",
+        "suspicious_tx": "Transacción sospechosa",
+        "rate_limit": "Límite de velocidad excedido",
+        "api_abuse": "Abuso de API",
+        "brute_force": "Ataque de fuerza bruta",
+        "unauthorized_access": "Acceso no autorizado",
+        "ddos": "Ataque DDoS",
+        "sql_injection": "Inyección SQL",
+        "xss": "Ataque XSS",
+        "replay_attack": "Ataque de repetición",
+        "invalid_signature": "Firma inválida",
+        "double_spend": "Intento de doble gasto",
+        "network_anomaly": "Anomalía de red",
+        "consensus_violation": "Violación de consenso"
+      },
+      "targetTypes": {
+        "member": "Miembro",
+        "validator": "Validador",
+        "transaction": "Transacción",
+        "contract": "Contrato",
+        "system": "Sistema",
+        "api": "API",
         "network": "Red"
       }
     },

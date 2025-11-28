@@ -2153,7 +2153,25 @@
         "executed": "منفذ",
         "pending": "معلق",
         "cancelled": "ملغى"
-      }
+      },
+      "tier1": "المستوى 1",
+      "tier2": "المستوى 2",
+      "tier3": "المستوى 3",
+      "applicationTypes": {
+        "new": "طلب جديد",
+        "renewal": "تجديد",
+        "upgrade": "ترقية المستوى",
+        "downgrade": "خفض المستوى",
+        "transfer": "نقل"
+      },
+      "stakeSources": {
+        "self_funded": "تمويل ذاتي",
+        "delegated": "مفوض",
+        "pool": "مجمع الرهان",
+        "institutional": "مؤسسي",
+        "mixed": "مصادر مختلطة"
+      },
+      "unknown": "غير معروف"
     },
     "security": {
       "title": "تدقيق الأمان",
@@ -2332,6 +2350,31 @@
         "config": "التكوين",
         "access": "التحكم في الوصول",
         "network": "الشبكة"
+      },
+      "eventTypes": {
+        "login_attempt": "محاولة تسجيل الدخول",
+        "suspicious_tx": "معاملة مشبوهة",
+        "rate_limit": "تجاوز حد السرعة",
+        "api_abuse": "إساءة استخدام API",
+        "brute_force": "هجوم القوة الغاشمة",
+        "unauthorized_access": "وصول غير مصرح به",
+        "ddos": "هجوم DDoS",
+        "sql_injection": "حقن SQL",
+        "xss": "هجوم XSS",
+        "replay_attack": "هجوم إعادة التشغيل",
+        "invalid_signature": "توقيع غير صالح",
+        "double_spend": "محاولة إنفاق مزدوج",
+        "network_anomaly": "شذوذ في الشبكة",
+        "consensus_violation": "انتهاك الإجماع"
+      },
+      "targetTypes": {
+        "member": "عضو",
+        "validator": "مدقق",
+        "transaction": "معاملة",
+        "contract": "عقد",
+        "system": "نظام",
+        "api": "API",
+        "network": "شبكة"
       }
     },
     "reports": {
