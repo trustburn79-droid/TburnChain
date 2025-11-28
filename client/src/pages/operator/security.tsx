@@ -119,6 +119,59 @@ interface ThreatFeedItem {
 
 const CHART_COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6'];
 
+const SEVERITY_KEYS: Record<string, string> = {
+  critical: "operator.security.critical",
+  high: "operator.security.high",
+  medium: "operator.security.medium",
+  low: "operator.security.low",
+  info: "operator.security.info",
+};
+
+const THREAT_TYPE_KEYS: Record<string, string> = {
+  login_attempt: "operator.security.threatTypes.loginAttempt",
+  suspicious_tx: "operator.security.threatTypes.suspiciousTx",
+  rate_limit: "operator.security.threatTypes.rateLimit",
+  api_abuse: "operator.security.threatTypes.apiAbuse",
+  brute_force: "operator.security.threatTypes.bruteForce",
+  unauthorized_access: "operator.security.threatTypes.unauthorizedAccess",
+  ddos: "operator.security.threatTypes.ddos",
+  sql_injection: "operator.security.threatTypes.sqlInjection",
+  xss: "operator.security.threatTypes.xss",
+  replay_attack: "operator.security.threatTypes.replayAttack",
+};
+
+const RISK_LEVEL_KEYS: Record<string, string> = {
+  critical: "operator.security.critical",
+  high: "operator.security.high",
+  medium: "operator.security.medium",
+  low: "operator.security.low",
+};
+
+const AUDIT_ACTION_TYPE_KEYS: Record<string, string> = {
+  config_change: "operator.security.auditActions.configChange",
+  member_add: "operator.security.auditActions.memberAdd",
+  member_remove: "operator.security.auditActions.memberRemove",
+  member_update: "operator.security.auditActions.memberUpdate",
+  validator_slash: "operator.security.auditActions.validatorSlash",
+  validator_approve: "operator.security.auditActions.validatorApprove",
+  validator_reject: "operator.security.auditActions.validatorReject",
+  security_event: "operator.security.auditActions.securityEvent",
+  ip_block: "operator.security.auditActions.ipBlock",
+  ip_unblock: "operator.security.auditActions.ipUnblock",
+  permission_change: "operator.security.auditActions.permissionChange",
+  login: "operator.security.auditActions.login",
+  logout: "operator.security.auditActions.logout",
+};
+
+const AUDIT_CATEGORY_KEYS: Record<string, string> = {
+  security: "operator.security.auditCategories.security",
+  validators: "operator.security.auditCategories.validators",
+  members: "operator.security.auditCategories.members",
+  config: "operator.security.auditCategories.config",
+  access: "operator.security.auditCategories.access",
+  network: "operator.security.auditCategories.network",
+};
+
 const MOCK_GEO_DATA = [
   { country: 'US', count: 45, risk: 'medium' },
   { country: 'CN', count: 32, risk: 'high' },
@@ -720,7 +773,7 @@ export default function OperatorSecurity() {
                       >
                         <div className="flex items-center justify-between mb-1">
                           <Badge variant={threat.severity === 'critical' ? 'destructive' : 'outline'} className="capitalize">
-                            {threat.severity}
+                            {t(SEVERITY_KEYS[threat.severity] || `operator.security.${threat.severity}`)}
                           </Badge>
                           <span className="text-xs text-muted-foreground">
                             {threat.timestamp.toLocaleTimeString()}
@@ -735,7 +788,7 @@ export default function OperatorSecurity() {
                               {threat.country}
                             </span>
                           )}
-                          <Badge variant="outline" className="capitalize text-xs">{threat.type.replace('_', ' ')}</Badge>
+                          <Badge variant="outline" className="capitalize text-xs">{t(THREAT_TYPE_KEYS[threat.type] || `operator.security.threatTypes.${threat.type}`)}</Badge>
                         </div>
                       </div>
                     ))}
@@ -769,7 +822,7 @@ export default function OperatorSecurity() {
                         <TableCell>{geo.count}</TableCell>
                         <TableCell>
                           <Badge variant={geo.risk === 'high' ? 'destructive' : geo.risk === 'medium' ? 'secondary' : 'outline'}>
-                            {geo.risk}
+                            {t(RISK_LEVEL_KEYS[geo.risk] || `operator.security.${geo.risk}`)}
                           </Badge>
                         </TableCell>
                         <TableCell>
@@ -922,11 +975,11 @@ export default function OperatorSecurity() {
                     {auditData?.logs?.map((log) => (
                       <TableRow key={log.id} data-testid={`row-audit-${log.id}`}>
                         <TableCell className="capitalize">
-                          {log.action_type.replace(/_/g, " ")}
+                          {t(AUDIT_ACTION_TYPE_KEYS[log.action_type] || `operator.security.auditActions.${log.action_type}`)}
                         </TableCell>
                         <TableCell>
                           <Badge variant="outline" className="capitalize">
-                            {log.action_category.replace(/_/g, " ")}
+                            {t(AUDIT_CATEGORY_KEYS[log.action_category] || `operator.security.auditCategories.${log.action_category}`)}
                           </Badge>
                         </TableCell>
                         <TableCell>
