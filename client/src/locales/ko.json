@@ -75,7 +75,9 @@
     "disconnected": "연결 해제됨",
     "copiedToClipboard": "클립보드에 복사됨",
     "showing": "표시",
-    "page": "페이지"
+    "page": "페이지",
+    "noDataAvailable": "데이터가 없습니다",
+    "id": "ID"
   },
   "nav": {
     "brand": "TBURN 체인 메인넷",
@@ -2789,6 +2791,7 @@
       "newSchedule": "새 일정",
       "generateReport": "보고서 생성",
       "reports": "보고서",
+      "templatesTab": "템플릿",
       "templates": {
         "kycSummary": {
           "name": "KYC 요약 보고서",
@@ -2859,6 +2862,8 @@
       "generatedBy": "생성자",
       "createdAt": "생성일",
       "actions": "작업",
+      "generated": "생성됨",
+      "reportDistribution": "보고서 분포",
       "noReportsFound": "보고서를 찾을 수 없음",
       "pageOf": "{{page}} / {{total}} 페이지",
       "viewReport": "보고서 보기",
@@ -2876,6 +2881,10 @@
       "availableTemplates": "사용 가능한 템플릿",
       "selectTemplateToGenerate": "새 보고서를 생성할 템플릿 선택",
       "useTemplate": "템플릿 사용",
+      "use": "사용",
+      "default": "기본",
+      "activeSchedules": "활성 일정",
+      "paused": "일시 중지",
       "scheduledReports": "예약된 보고서",
       "automatedReportGeneration": "자동화된 보고서 생성 일정",
       "scheduleName": "일정 이름",

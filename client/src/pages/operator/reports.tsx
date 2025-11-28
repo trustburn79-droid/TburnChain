@@ -559,7 +559,7 @@ export default function OperatorReports() {
           </TabsTrigger>
           <TabsTrigger value="templates" className="flex items-center gap-2" data-testid="tab-templates">
             <FileSpreadsheet className="h-4 w-4" />
-            {t('operator.reports.templates')}
+            {t('operator.reports.templatesTab')}
           </TabsTrigger>
           <TabsTrigger value="schedules" className="flex items-center gap-2" data-testid="tab-schedules">
             <Clock className="h-4 w-4" />
