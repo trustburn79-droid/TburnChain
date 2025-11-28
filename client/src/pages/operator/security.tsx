@@ -250,7 +250,7 @@ export default function OperatorSecurity() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Security event created" });
+      toast({ title: t('operator.security.eventCreated') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/security-events"] });
       setShowCreateDialog(false);
       setNewEvent({
@@ -263,7 +263,7 @@ export default function OperatorSecurity() {
       });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to create event", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.security.failedCreateEvent'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -281,14 +281,14 @@ export default function OperatorSecurity() {
       return response.json();
     },
     onSuccess: () => {
-      toast({ title: "Event resolved" });
+      toast({ title: t('operator.security.eventResolved') });
       queryClient.invalidateQueries({ queryKey: ["/api/operator/security-events"] });
       setShowResolveDialog(false);
       setSelectedEvent(null);
       setResolution("");
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to resolve event", description: error.message, variant: "destructive" });
+      toast({ title: t('operator.security.failedResolveEvent'), description: error.message, variant: "destructive" });
     },
   });
 

@@ -124,10 +124,10 @@ export default function OperatorStaking() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/staking/pools"] });
       queryClient.invalidateQueries({ queryKey: ["/api/staking/stats"] });
-      toast({ title: "Pool Updated", description: "Pool status has been updated successfully." });
+      toast({ title: t('operator.staking.poolUpdated'), description: t('operator.staking.poolStatusUpdated') });
     },
     onError: (error: any) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t('common.error'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -145,10 +145,10 @@ export default function OperatorStaking() {
       queryClient.invalidateQueries({ queryKey: ["/api/staking/pools"] });
       setIsEditingPool(false);
       setSelectedPool(null);
-      toast({ title: "Pool Updated", description: "Pool settings have been saved." });
+      toast({ title: t('operator.staking.poolUpdated'), description: t('operator.staking.poolSettingsSaved') });
     },
     onError: (error: any) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t('common.error'), description: error.message, variant: "destructive" });
     },
   });
 
@@ -166,7 +166,7 @@ export default function OperatorStaking() {
       queryClient.invalidateQueries({ queryKey: ["/api/staking/stats"] });
       toast({ 
         title: t('operator.staking.rewardDistributionStarted'), 
-        description: t('operator.staking.cycleInitiated', { number: data.cycleNumber }) 
+        description: t('operator.staking.cycleDistributionInitiated', { cycle: data.cycleNumber }) 
       });
     },
     onError: (error: any) => {
@@ -663,7 +663,7 @@ export default function OperatorStaking() {
                     <XAxis dataKey="date" className="text-xs" />
                     <YAxis className="text-xs" tickFormatter={(v) => `${(v/1000000).toFixed(0)}M`} />
                     <Tooltip 
-                      formatter={(value: number) => [`${(value/1000000).toFixed(2)}M TBURN`, "Total Staked"]}
+                      formatter={(value: number) => [`${(value/1000000).toFixed(2)}M TBURN`, t('operator.staking.totalStaked')]}
                       contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }}
                     />
                     <Area 

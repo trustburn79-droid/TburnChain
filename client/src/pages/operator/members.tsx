@@ -304,7 +304,7 @@ export default function OperatorMembers() {
   const exportToCSV = () => {
     if (!data?.members) return;
     
-    const headers = ["Address", "Display Name", "Legal Name", "Status", "Tier", "KYC Level", "AML Risk Score", "Created At"];
+    const headers = [t('operator.members.address'), t('operator.members.displayName'), t('operator.members.legalName'), t('operator.members.status'), t('operator.members.tier'), t('operator.members.kycLevel'), t('operator.members.amlRiskScore'), t('operator.members.created')];
     const rows = data.members.map(m => [
       m.account_address,
       m.display_name || "",
@@ -549,7 +549,7 @@ export default function OperatorMembers() {
               <Calendar className="h-4 w-4 text-muted-foreground" />
               <Input
                 type="date"
-                placeholder="From"
+                placeholder={t('common.from')}
                 value={dateFrom}
                 onChange={(e) => { setDateFrom(e.target.value); setPage(1); }}
                 className="w-40"
@@ -558,7 +558,7 @@ export default function OperatorMembers() {
               <span className="text-muted-foreground">{t('operator.members.to')}</span>
               <Input
                 type="date"
-                placeholder="To"
+                placeholder={t('common.to')}
                 value={dateTo}
                 onChange={(e) => { setDateTo(e.target.value); setPage(1); }}
                 className="w-40"

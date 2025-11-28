@@ -1,5 +1,6 @@
 {
   "common": {
+    "id": "ID",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
@@ -1991,7 +1992,44 @@
     "contract": "Contract",
     "deployed": "Deployed",
     "noContractsDeployed": "No smart contracts deployed yet",
-    "goToContractIde": "Go to Contract IDE"
+    "goToContractIde": "Go to Contract IDE",
+    "contractTemplates": "Contract Templates",
+    "contractEditor": "Contract Editor",
+    "compilationResults": "Compilation Results",
+    "deployContract": "Deploy Contract",
+    "save": "Save",
+    "compile": "Compile",
+    "compiling": "Compiling...",
+    "templateLoaded": "Template loaded",
+    "templateLoadedDesc": "{{template}} template loaded successfully",
+    "compilationSuccessful": "Compilation successful!",
+    "compilationSuccessfulDesc": "Contract compiled without errors",
+    "contractDeployed": "Contract deployed!",
+    "contractDeployedDesc": "Your smart contract has been deployed to the blockchain",
+    "gasEstimate": "Gas estimate:",
+    "contractSize": "Contract size:",
+    "optimization": "Optimization:",
+    "enabled": "Enabled",
+    "constructorArguments": "Constructor Arguments",
+    "constructorArgsPlaceholder": "_initialSupply: 1000000",
+    "shardSelection": "Shard Selection",
+    "autoSelectAi": "Auto-select (AI Optimized)",
+    "shardWithLoad": "Shard {{shard}} (Load: {{load}}%)",
+    "gasLimit": "Gas Limit:",
+    "gasPrice": "Gas Price:",
+    "estimatedCost": "Estimated Cost:",
+    "erc20Token": "ERC-20 Token",
+    "erc20Desc": "Standard fungible token",
+    "erc721Nft": "ERC-721 NFT",
+    "erc721Desc": "Non-fungible token",
+    "staking": "Staking",
+    "stakingDesc": "Token staking with rewards",
+    "marketplace": "Marketplace",
+    "marketplaceDesc": "NFT trading marketplace",
+    "daoGovernance": "DAO Governance",
+    "daoDesc": "Decentralized governance",
+    "multisigWallet": "Multisig Wallet",
+    "multisigDesc": "Multi-signature wallet"
   },
   "nodeHealth": {
     "title": "Node Health",
@@ -2661,7 +2699,52 @@
       "reportTemplate": "Report Template",
       "recipientsCommaSeparated": "Recipients (comma-separated)",
       "recipientsPlaceholder": "email1@example.com, email2@example.com",
-      "createSchedule": "Create Schedule"
+      "createSchedule": "Create Schedule",
+      "templates": {
+        "kycSummary": {
+          "name": "KYC Summary Report",
+          "description": "Comprehensive overview of KYC verification status across all members"
+        },
+        "amlReport": {
+          "name": "AML Compliance Report",
+          "description": "Anti-money laundering activity monitoring and suspicious transaction analysis"
+        },
+        "transactionReport": {
+          "name": "Transaction Activity Report",
+          "description": "Detailed breakdown of network transaction activity and volume"
+        },
+        "validatorReport": {
+          "name": "Validator Performance Report",
+          "description": "Validator uptime, rewards, and slashing event summary"
+        },
+        "financialStatement": {
+          "name": "Financial Statement",
+          "description": "Treasury balance, token emission, and burn statistics"
+        },
+        "fields": {
+          "totalMembers": "Total Members",
+          "verified": "Verified",
+          "pending": "Pending",
+          "rejected": "Rejected",
+          "tierDistribution": "Tier Distribution",
+          "flaggedTransactions": "Flagged Transactions",
+          "sarFiled": "SAR Filed",
+          "riskAssessment": "Risk Assessment",
+          "countryBreakdown": "Country Breakdown",
+          "totalVolume": "Total Volume",
+          "uniqueAddresses": "Unique Addresses",
+          "averageTxSize": "Average TX Size",
+          "feeRevenue": "Fee Revenue",
+          "activeValidators": "Active Validators",
+          "avgUptime": "Avg Uptime",
+          "totalRewards": "Total Rewards",
+          "slashingEvents": "Slashing Events",
+          "treasuryBalance": "Treasury Balance",
+          "dailyEmission": "Daily Emission",
+          "totalBurned": "Total Burned",
+          "netInflation": "Net Inflation"
+        }
+      }
     },
 
     "staking": {

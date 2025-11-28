@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Editor from '@monaco-editor/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -317,6 +318,7 @@ interface CompileResult {
 }
 
 export function SmartContractEditor() {
+  const { t } = useTranslation();
   const [code, setCode] = useState(TEMPLATES.erc20);
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateKey>('erc20');
   const [isCompiling, setIsCompiling] = useState(false);
@@ -327,12 +329,12 @@ export function SmartContractEditor() {
   const { toast } = useToast();
 
   const templateOptions = [
-    { key: 'erc20' as TemplateKey, Icon: Coins, title: 'ERC-20 Token', desc: 'Standard fungible token' },
-    { key: 'erc721' as TemplateKey, Icon: Palette, title: 'ERC-721 NFT', desc: 'Non-fungible token' },
-    { key: 'staking' as TemplateKey, Icon: Lock, title: 'Staking', desc: 'Token staking with rewards' },
-    { key: 'marketplace' as TemplateKey, Icon: Store, title: 'Marketplace', desc: 'NFT trading marketplace' },
-    { key: 'dao' as TemplateKey, Icon: Vote, title: 'DAO Governance', desc: 'Decentralized governance' },
-    { key: 'multisig' as TemplateKey, Icon: LockKeyhole, title: 'Multisig Wallet', desc: 'Multi-signature wallet' },
+    { key: 'erc20' as TemplateKey, Icon: Coins, titleKey: 'smartContracts.erc20Token', descKey: 'smartContracts.erc20Desc' },
+    { key: 'erc721' as TemplateKey, Icon: Palette, titleKey: 'smartContracts.erc721Nft', descKey: 'smartContracts.erc721Desc' },
+    { key: 'staking' as TemplateKey, Icon: Lock, titleKey: 'smartContracts.staking', descKey: 'smartContracts.stakingDesc' },
+    { key: 'marketplace' as TemplateKey, Icon: Store, titleKey: 'smartContracts.marketplace', descKey: 'smartContracts.marketplaceDesc' },
+    { key: 'dao' as TemplateKey, Icon: Vote, titleKey: 'smartContracts.daoGovernance', descKey: 'smartContracts.daoDesc' },
+    { key: 'multisig' as TemplateKey, Icon: LockKeyhole, titleKey: 'smartContracts.multisigWallet', descKey: 'smartContracts.multisigDesc' },
   ];
 
   const loadTemplate = (templateKey: TemplateKey) => {
@@ -340,16 +342,16 @@ export function SmartContractEditor() {
     setSelectedTemplate(templateKey);
     setCompileResult(null);
     setShowDeploy(false);
+    const template = templateOptions.find(tpl => tpl.key === templateKey);
     toast({
-      title: "Template loaded",
-      description: `${templateOptions.find(t => t.key === templateKey)?.title} template loaded successfully`,
+      title: t('smartContracts.templateLoaded'),
+      description: t('smartContracts.templateLoadedDesc', { template: template ? t(template.titleKey) : '' }),
     });
   };
 
   const handleCompile = async () => {
     setIsCompiling(true);
     
-    // Simulate compilation
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     const result: CompileResult = {
@@ -363,15 +365,15 @@ export function SmartContractEditor() {
     setIsCompiling(false);
     
     toast({
-      title: "Compilation successful!",
-      description: "Contract compiled without errors",
+      title: t('smartContracts.compilationSuccessful'),
+      description: t('smartContracts.compilationSuccessfulDesc'),
     });
   };
 
   const handleDeploy = () => {
     toast({
-      title: "Contract deployed!",
-      description: "Your smart contract has been deployed to the blockchain",
+      title: t('smartContracts.contractDeployed'),
+      description: t('smartContracts.contractDeployedDesc'),
     });
     setShowDeploy(false);
     setCompileResult(null);
@@ -379,12 +381,11 @@ export function SmartContractEditor() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Template Selection */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileCode className="h-5 w-5" />
-            Contract Templates
+            {t('smartContracts.contractTemplates')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -403,8 +404,8 @@ export function SmartContractEditor() {
                 <div className="flex items-start gap-3">
                   <template.Icon className="h-6 w-6 mt-1" />
                   <div>
-                    <div className="font-semibold">{template.title}</div>
-                    <div className="text-sm text-muted-foreground">{template.desc}</div>
+                    <div className="font-semibold">{t(template.titleKey)}</div>
+                    <div className="text-sm text-muted-foreground">{t(template.descKey)}</div>
                   </div>
                 </div>
               </button>
@@ -413,18 +414,17 @@ export function SmartContractEditor() {
         </CardContent>
       </Card>
 
-      {/* Code Editor */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span className="flex items-center gap-2">
               <Code2 className="h-5 w-5" />
-              Contract Editor
+              {t('smartContracts.contractEditor')}
             </span>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" data-testid="button-save-contract">
                 <Save className="h-4 w-4 mr-2" />
-                Save
+                {t('smartContracts.save')}
               </Button>
               <Button 
                 onClick={handleCompile} 
@@ -437,7 +437,7 @@ export function SmartContractEditor() {
                 ) : (
                   <Code2 className="h-4 w-4 mr-2" />
                 )}
-                {isCompiling ? 'Compiling...' : 'Compile'}
+                {isCompiling ? t('smartContracts.compiling') : t('smartContracts.compile')}
               </Button>
             </div>
           </CardTitle>
@@ -463,32 +463,31 @@ export function SmartContractEditor() {
         </CardContent>
       </Card>
 
-      {/* Compile Results */}
       {compileResult && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CheckCircle className="h-5 w-5 text-green-600" />
-              Compilation Results
+              {t('smartContracts.compilationResults')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Alert className="bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800">
               <CheckCircle className="h-4 w-4 text-green-600" />
               <AlertDescription>
-                <div className="font-semibold mb-2">Compilation successful!</div>
+                <div className="font-semibold mb-2">{t('smartContracts.compilationSuccessful')}</div>
                 <div className="grid gap-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Gas estimate:</span>
+                    <span>{t('smartContracts.gasEstimate')}</span>
                     <span className="font-mono font-semibold">{compileResult.gasEstimate.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Contract size:</span>
+                    <span>{t('smartContracts.contractSize')}</span>
                     <span className="font-mono font-semibold">{compileResult.contractSize} KB</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Optimization:</span>
-                    <Badge className="bg-green-600">Enabled</Badge>
+                    <span>{t('smartContracts.optimization')}</span>
+                    <Badge className="bg-green-600">{t('smartContracts.enabled')}</Badge>
                   </div>
                 </div>
               </AlertDescription>
@@ -497,21 +496,20 @@ export function SmartContractEditor() {
         </Card>
       )}
 
-      {/* Deploy Form */}
       {showDeploy && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Rocket className="h-5 w-5" />
-              Deploy Contract
+              {t('smartContracts.deployContract')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="constructor-args">Constructor Arguments</Label>
+              <Label htmlFor="constructor-args">{t('smartContracts.constructorArguments')}</Label>
               <Input
                 id="constructor-args"
-                placeholder="_initialSupply: 1000000"
+                placeholder={t('smartContracts.constructorArgsPlaceholder')}
                 value={constructorArgs}
                 onChange={(e) => setConstructorArgs(e.target.value)}
                 data-testid="input-constructor-args"
@@ -519,16 +517,16 @@ export function SmartContractEditor() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="shard-select">Shard Selection</Label>
+              <Label htmlFor="shard-select">{t('smartContracts.shardSelection')}</Label>
               <Select value={selectedShard} onValueChange={setSelectedShard}>
                 <SelectTrigger id="shard-select" data-testid="select-shard">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="auto">Auto-select (AI Optimized)</SelectItem>
-                  <SelectItem value="shard-7">Shard 7 (Load: 45%)</SelectItem>
-                  <SelectItem value="shard-12">Shard 12 (Load: 58%)</SelectItem>
-                  <SelectItem value="shard-23">Shard 23 (Load: 39%)</SelectItem>
+                  <SelectItem value="auto">{t('smartContracts.autoSelectAi')}</SelectItem>
+                  <SelectItem value="shard-7">{t('smartContracts.shardWithLoad', { shard: 7, load: 45 })}</SelectItem>
+                  <SelectItem value="shard-12">{t('smartContracts.shardWithLoad', { shard: 12, load: 58 })}</SelectItem>
+                  <SelectItem value="shard-23">{t('smartContracts.shardWithLoad', { shard: 23, load: 39 })}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -537,15 +535,15 @@ export function SmartContractEditor() {
               <AlertDescription>
                 <div className="grid gap-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Gas Limit:</span>
+                    <span>{t('smartContracts.gasLimit')}</span>
                     <span className="font-mono font-semibold">2,000,000</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Gas Price:</span>
+                    <span>{t('smartContracts.gasPrice')}</span>
                     <span className="font-mono font-semibold">10 EMB</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Estimated Cost:</span>
+                    <span>{t('smartContracts.estimatedCost')}</span>
                     <span className="font-mono font-semibold">20M EMB (20 TBURN)</span>
                   </div>
                 </div>
@@ -558,7 +556,7 @@ export function SmartContractEditor() {
               data-testid="button-deploy-execute"
             >
               <Rocket className="h-4 w-4 mr-2" />
-              Deploy Contract
+              {t('smartContracts.deployContract')}
             </Button>
           </CardContent>
         </Card>
