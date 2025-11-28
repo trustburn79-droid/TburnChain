@@ -284,47 +284,47 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
 
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="grid w-full grid-cols-3 mb-4">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="performance">Performance</TabsTrigger>
-                <TabsTrigger value="staking">Staking</TabsTrigger>
+                <TabsTrigger value="overview">{t('validators.overview')}</TabsTrigger>
+                <TabsTrigger value="performance">{t('validators.performance')}</TabsTrigger>
+                <TabsTrigger value="staking">{t('validators.staking')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Direct Stake</span>
+                      <span className="text-sm text-muted-foreground">{t('validators.directStake')}</span>
                       <span className="text-sm font-medium">{formatNumber(directStake)} TBURN</span>
                     </div>
                     <Separator />
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Delegated Stake</span>
+                      <span className="text-sm text-muted-foreground">{t('validators.delegatedStake')}</span>
                       <span className="text-sm font-medium">{formatNumber(delegatedAmount)} TBURN</span>
                     </div>
                     <Separator />
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Commission</span>
+                      <span className="text-sm text-muted-foreground">{t('validators.commission')}</span>
                       <span className="text-sm font-medium">{(validator.commission / 100).toFixed(2)}%</span>
                     </div>
                     <Separator />
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Total Blocks</span>
+                      <span className="text-sm text-muted-foreground">{t('validators.totalBlocks')}</span>
                       <span className="text-sm font-medium">{formatNumber(validator.totalBlocks)}</span>
                     </div>
                     <Separator />
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Committee Member</span>
+                      <span className="text-sm text-muted-foreground">{t('validators.committeeMember')}</span>
                       <span className="text-sm font-medium">
                         {isCommitteeMember ? (
-                          <Badge className="bg-purple-600 text-xs">Yes</Badge>
+                          <Badge className="bg-purple-600 text-xs">{t('validators.yes')}</Badge>
                         ) : (
-                          <span>No</span>
+                          <span>{t('validators.no')}</span>
                         )}
                       </span>
                     </div>
                   </div>
                   <div>
-                    <p className="text-sm font-medium mb-2">Voting Power Distribution</p>
+                    <p className="text-sm font-medium mb-2">{t('validators.votingPowerDistribution')}</p>
                     <ResponsiveContainer width="100%" height={150}>
                       <PieChart>
                         <Pie
@@ -346,11 +346,11 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                     <div className="flex justify-center gap-4 text-xs">
                       <div className="flex items-center gap-1">
                         <div className="w-3 h-3 rounded-full bg-purple-500" />
-                        <span>Direct</span>
+                        <span>{t('validators.direct')}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <div className="w-3 h-3 rounded-full bg-green-500" />
-                        <span>Delegated</span>
+                        <span>{t('validators.delegated')}</span>
                       </div>
                     </div>
                   </div>
@@ -363,7 +363,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Brain className="h-4 w-4 text-purple-500" />
-                        <span className="text-sm font-medium">AI Trust Score</span>
+                        <span className="text-sm font-medium">{t('validators.aiTrustScore')}</span>
                       </div>
                       <p className="text-2xl font-bold">{(validator.aiTrustScore / 100).toFixed(1)}%</p>
                       <Progress value={validator.aiTrustScore / 100} className="mt-2" />
@@ -373,7 +373,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Target className="h-4 w-4 text-blue-500" />
-                        <span className="text-sm font-medium">Reputation Score</span>
+                        <span className="text-sm font-medium">{t('validators.reputationScore')}</span>
                       </div>
                       <p className="text-2xl font-bold">{validator.reputationScore || 0}/100</p>
                       <Progress value={validator.reputationScore || 0} className="mt-2" />
@@ -383,7 +383,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Activity className="h-4 w-4 text-green-500" />
-                        <span className="text-sm font-medium">Performance Score</span>
+                        <span className="text-sm font-medium">{t('validators.performanceScore')}</span>
                       </div>
                       <p className="text-2xl font-bold">{validator.performanceScore || 0}/100</p>
                       <Progress value={validator.performanceScore || 0} className="mt-2" />
@@ -393,7 +393,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Shield className="h-4 w-4 text-orange-500" />
-                        <span className="text-sm font-medium">Behavior Score</span>
+                        <span className="text-sm font-medium">{t('validators.behaviorScore')}</span>
                       </div>
                       <p className="text-2xl font-bold">{validator.behaviorScore || 0}/100</p>
                       <Progress value={validator.behaviorScore || 0} className="mt-2" />
@@ -402,15 +402,15 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                 </div>
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <p className="text-xs text-muted-foreground">Participation Rate</p>
+                    <p className="text-xs text-muted-foreground">{t('validators.participationRate')}</p>
                     <p className="text-lg font-semibold">{((validator.uptime || 0) / 100).toFixed(1)}%</p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">Avg Block Time</p>
+                    <p className="text-xs text-muted-foreground">{t('validators.avgBlockTime')}</p>
                     <p className="text-lg font-semibold">{validator.avgBlockTime || 0}ms</p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">Missed Blocks</p>
+                    <p className="text-xs text-muted-foreground">{t('validators.missedBlocks')}</p>
                     <p className="text-lg font-semibold">{validator.missedBlocks || 0}</p>
                   </div>
                 </div>
@@ -421,8 +421,8 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                   <CardContent className="pt-4">
                     <div className="flex items-center justify-between mb-4">
                       <div>
-                        <p className="text-sm font-medium">Delegate to this Validator</p>
-                        <p className="text-xs text-muted-foreground">Earn {(validator.apy / 100).toFixed(2)}% APY by delegating</p>
+                        <p className="text-sm font-medium">{t('validators.delegateToValidator')}</p>
+                        <p className="text-xs text-muted-foreground">{t('validators.earnApyByDelegating', { apy: (validator.apy / 100).toFixed(2) })}</p>
                       </div>
                       <Button
                         variant="outline"
@@ -432,25 +432,25 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                         data-testid="button-delegate-modal"
                       >
                         <Coins className="h-4 w-4 mr-1" />
-                        Delegate
+                        {t('validators.delegate')}
                       </Button>
                     </div>
                     {showDelegateForm && (
                       <div className="space-y-3 pt-3 border-t">
                         <div>
-                          <Label htmlFor="delegate-amount">Amount (TBURN)</Label>
+                          <Label htmlFor="delegate-amount">{t('validators.amountTburn')}</Label>
                           <Input
                             id="delegate-amount"
                             type="number"
                             value={delegateAmount}
                             onChange={(e) => setDelegateAmount(e.target.value)}
-                            placeholder="Enter amount to delegate"
+                            placeholder={t('validators.enterAmountToDelegate')}
                             data-testid="input-delegate-amount-modal"
                           />
                         </div>
                         {delegateAmount && (
                           <p className="text-xs text-muted-foreground">
-                            Estimated daily reward: {formatNumber(parseFloat(delegateAmount) * validator.apy / 36500)} TBURN
+                            {t('validators.estimatedDailyReward', { amount: formatNumber(parseFloat(delegateAmount) * validator.apy / 36500) })}
                           </p>
                         )}
                         <div className="flex gap-2">
@@ -460,7 +460,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                             disabled={!delegateAmount || delegateMutation.isPending}
                             data-testid="button-confirm-delegate-modal"
                           >
-                            Confirm
+                            {t('validators.confirm')}
                           </Button>
                           <Button
                             variant="outline"
@@ -470,7 +470,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                               setDelegateAmount("");
                             }}
                           >
-                            Cancel
+                            {t('validators.cancel')}
                           </Button>
                         </div>
                       </div>
@@ -483,8 +483,8 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                     <CardContent className="pt-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm font-medium">Claim Rewards</p>
-                          <p className="text-xs text-muted-foreground">Claim your accumulated staking rewards</p>
+                          <p className="text-sm font-medium">{t('validators.claimRewardsTitle')}</p>
+                          <p className="text-xs text-muted-foreground">{t('validators.claimRewardsDesc')}</p>
                         </div>
                         <Button
                           variant="default"
@@ -494,7 +494,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
                           data-testid="button-claim-rewards-modal"
                         >
                           <DollarSign className="h-4 w-4 mr-1" />
-                          Claim
+                          {t('validators.claim')}
                         </Button>
                       </div>
                     </CardContent>
@@ -506,7 +506,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
 
           <DialogFooter className="px-6 py-4 border-t">
             <Button variant="outline" onClick={onClose} data-testid="button-close-modal">
-              Close
+              {t('validators.close')}
             </Button>
           </DialogFooter>
         </div>
@@ -603,27 +603,27 @@ export default function Validators() {
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
                 <Crown className="h-4 w-4 text-amber-500" />
-                Tier 1: Active Committee
+                {t('validators.tier1ActiveCommittee')}
               </CardTitle>
-              <CardDescription>Max 512 validators, 200K+ TBURN stake</CardDescription>
+              <CardDescription>{t('validators.tier1Desc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-2xl font-bold text-amber-500" data-testid="tier1-count">{tier1Count}</p>
-                  <p className="text-xs text-muted-foreground">Active</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.activeCount')}</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-green-500" data-testid="tier1-apy">{tierData.tiers.tier1.targetAPY}%</p>
-                  <p className="text-xs text-muted-foreground">Target APY</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.targetApy')}</p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{formatNumber(tierData.tiers.tier1.dailyRewardPool)}</p>
-                  <p className="text-xs text-muted-foreground">TBURN/day</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.tburnPerDay')}</p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{tierData.tiers.tier1.rewardPoolShare}%</p>
-                  <p className="text-xs text-muted-foreground">Pool Share</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.poolShare')}</p>
                 </div>
               </div>
             </CardContent>
@@ -633,27 +633,27 @@ export default function Validators() {
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
                 <Layers className="h-4 w-4 text-blue-500" />
-                Tier 2: Standby Validators
+                {t('validators.tier2StandbyValidators')}
               </CardTitle>
-              <CardDescription>Max 4,488 validators, 50K+ TBURN stake</CardDescription>
+              <CardDescription>{t('validators.tier2Desc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-2xl font-bold text-blue-500" data-testid="tier2-count">{tier2Count}</p>
-                  <p className="text-xs text-muted-foreground">Standby</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.standby')}</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-green-500" data-testid="tier2-apy">{tierData.tiers.tier2.targetAPY}%</p>
-                  <p className="text-xs text-muted-foreground">Target APY</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.targetApy')}</p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{formatNumber(tierData.tiers.tier2.dailyRewardPool)}</p>
-                  <p className="text-xs text-muted-foreground">TBURN/day</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.tburnPerDay')}</p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{tierData.tiers.tier2.rewardPoolShare}%</p>
-                  <p className="text-xs text-muted-foreground">Pool Share</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.poolShare')}</p>
                 </div>
               </div>
             </CardContent>
@@ -663,27 +663,27 @@ export default function Validators() {
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
                 <Users className="h-4 w-4 text-gray-500" />
-                Tier 3: Delegators
+                {t('validators.tier3Delegators')}
               </CardTitle>
-              <CardDescription>Unlimited, 100+ TBURN delegation</CardDescription>
+              <CardDescription>{t('validators.tier3Desc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-2xl font-bold text-gray-500" data-testid="tier3-count">{formatNumber(tierData.tiers.tier3.currentDelegators || 0)}</p>
-                  <p className="text-xs text-muted-foreground">Delegators</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.delegatorsLabel')}</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-green-500" data-testid="tier3-apy">{tierData.tiers.tier3.targetAPY}%</p>
-                  <p className="text-xs text-muted-foreground">Target APY</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.targetApy')}</p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{formatNumber(tierData.tiers.tier3.dailyRewardPool)}</p>
-                  <p className="text-xs text-muted-foreground">TBURN/day</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.tburnPerDay')}</p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{tierData.tiers.tier3.rewardPoolShare}%</p>
-                  <p className="text-xs text-muted-foreground">Pool Share</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.poolShare')}</p>
                 </div>
               </div>
             </CardContent>
@@ -699,7 +699,7 @@ export default function Validators() {
               <div className="flex items-center gap-2">
                 <ArrowUpRight className="h-5 w-5 text-green-500" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Daily Emission</p>
+                  <p className="text-sm text-muted-foreground">{t('validators.dailyEmission')}</p>
                   <p className="text-xl font-bold" data-testid="daily-emission">{formatNumber(tierData.emission.dailyGrossEmission)} TBURN</p>
                 </div>
               </div>
@@ -710,7 +710,7 @@ export default function Validators() {
               <div className="flex items-center gap-2">
                 <Flame className="h-5 w-5 text-orange-500" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Daily Burn ({tierData.emission.burnRate}%)</p>
+                  <p className="text-sm text-muted-foreground">{t('validators.dailyBurn', { rate: tierData.emission.burnRate })}</p>
                   <p className="text-xl font-bold" data-testid="daily-burn">{formatNumber(tierData.emission.dailyBurn)} TBURN</p>
                 </div>
               </div>
@@ -721,7 +721,7 @@ export default function Validators() {
               <div className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-blue-500" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Net Daily Emission</p>
+                  <p className="text-sm text-muted-foreground">{t('validators.netDailyEmission')}</p>
                   <p className="text-xl font-bold" data-testid="net-emission">{formatNumber(tierData.emission.dailyNetEmission)} TBURN</p>
                 </div>
               </div>
@@ -732,7 +732,7 @@ export default function Validators() {
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-purple-500" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Security Score</p>
+                  <p className="text-sm text-muted-foreground">{t('validators.securityScore')}</p>
                   <p className="text-xl font-bold" data-testid="security-score">{tierData.security.securityScore}/100</p>
                 </div>
               </div>
@@ -902,7 +902,7 @@ export default function Validators() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No validators found</p>
+              <p className="text-muted-foreground">{t('validators.noValidatorsFound')}</p>
             </div>
           )}
         </CardContent>

@@ -1057,7 +1057,9 @@
     "strategic": "戦略的",
     "tactical": "戦術的",
     "operational": "運用的",
-    "consensusContribution": "コンセンサス貢献"
+    "consensusContribution": "コンセンサス貢献",
+    "justNow": "たった今",
+    "noModelDataAvailable": "利用可能なモデルデータがありません"
   },
   "crossShard": {
     "title": "クロスシャード通信",

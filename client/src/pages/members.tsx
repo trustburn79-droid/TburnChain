@@ -143,11 +143,11 @@ const kycColors: Record<string, string> = {
   institutional: "bg-purple-500",
 };
 
-// Form schema for member creation
-const memberFormSchema = z.object({
-  accountAddress: z.string().min(42, "Invalid account address"),
-  displayName: z.string().min(2, "Display name must be at least 2 characters"),
-  email: z.string().email("Invalid email address").optional(),
+// Form schema for member creation - function to support i18n
+const createMemberFormSchema = (t: (key: string) => string) => z.object({
+  accountAddress: z.string().min(42, t('members.invalidAccountAddress')),
+  displayName: z.string().min(2, t('members.displayNameMinLength')),
+  email: z.string().email(t('members.invalidEmailAddress')).optional(),
   bio: z.string().optional(),
   location: z.string().optional(),
   memberTier: z.enum([
@@ -200,6 +200,8 @@ function MemberDetailModal({
   open: boolean;
   onClose: () => void;
 }) {
+  const { t } = useTranslation();
+  
   if (!member) return null;
 
   const isValidator = member.memberTier.includes("validator");
@@ -223,7 +225,7 @@ function MemberDetailModal({
                 </div>
                 <div>
                   <DialogTitle className="text-xl font-bold">
-                    {member.profile?.displayName || "Anonymous Member"}
+                    {member.profile?.displayName || t('members.anonymousMember')}
                   </DialogTitle>
                   <DialogDescription className="font-mono text-xs break-all">
                     {member.accountAddress}
@@ -250,10 +252,10 @@ function MemberDetailModal({
           <ScrollArea className="flex-1 px-6 py-4">
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-6">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="financial">Financial</TabsTrigger>
-                <TabsTrigger value="governance">Governance</TabsTrigger>
-                <TabsTrigger value="performance">Performance</TabsTrigger>
+                <TabsTrigger value="overview">{t('members.overview')}</TabsTrigger>
+                <TabsTrigger value="financial">{t('members.financial')}</TabsTrigger>
+                <TabsTrigger value="governance">{t('members.governance')}</TabsTrigger>
+                <TabsTrigger value="performance">{t('members.performance')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-4">
@@ -263,7 +265,7 @@ function MemberDetailModal({
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-1">
                         <Award className="h-4 w-4 text-purple-500" />
-                        <span className="text-xs text-muted-foreground">KYC Level</span>
+                        <span className="text-xs text-muted-foreground">{t('members.kycLevel')}</span>
                       </div>
                       <Badge className={`${kycColors[member.kycLevel]} text-white mt-1`}>
                         {member.kycLevel.toUpperCase()}
@@ -274,7 +276,7 @@ function MemberDetailModal({
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-1">
                         <Coins className="h-4 w-4 text-yellow-500" />
-                        <span className="text-xs text-muted-foreground">Total Staked</span>
+                        <span className="text-xs text-muted-foreground">{t('members.totalStaked')}</span>
                       </div>
                       <p className="text-lg font-bold">
                         {formatStakedAmountUtil(member.financial?.totalStaked)} TBURN
@@ -285,7 +287,7 @@ function MemberDetailModal({
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-1">
                         <Vote className="h-4 w-4 text-blue-500" />
-                        <span className="text-xs text-muted-foreground">Voting Power</span>
+                        <span className="text-xs text-muted-foreground">{t('members.votingPower')}</span>
                       </div>
                       <p className="text-lg font-bold">{member.governance?.votingPower || "0"}</p>
                     </CardContent>
@@ -294,12 +296,12 @@ function MemberDetailModal({
                     <CardContent className="pt-4">
                       <div className="flex items-center gap-2 mb-1">
                         <Calendar className="h-4 w-4 text-green-500" />
-                        <span className="text-xs text-muted-foreground">Member Since</span>
+                        <span className="text-xs text-muted-foreground">{t('members.memberSince')}</span>
                       </div>
                       <p className="text-sm font-medium">
                         {member.joinedAt && !isNaN(new Date(member.joinedAt).getTime())
                           ? formatDistanceToNow(new Date(member.joinedAt), { addSuffix: true })
-                          : "Recently joined"}
+                          : t('members.recentlyJoined')}
                       </p>
                     </CardContent>
                   </Card>
@@ -308,7 +310,7 @@ function MemberDetailModal({
                 {/* Profile Details */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm font-medium">Profile Information</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('members.profileInformation')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {member.profile?.email && (
@@ -325,12 +327,12 @@ function MemberDetailModal({
                     )}
                     {member.profile?.bio && (
                       <div className="pt-2">
-                        <p className="text-sm text-muted-foreground mb-1">Bio</p>
+                        <p className="text-sm text-muted-foreground mb-1">{t('members.bio')}</p>
                         <p className="text-sm">{member.profile.bio}</p>
                       </div>
                     )}
                     {!member.profile?.email && !member.profile?.location && !member.profile?.bio && (
-                      <p className="text-sm text-muted-foreground">No additional profile information available.</p>
+                      <p className="text-sm text-muted-foreground">{t('members.noProfileInfo')}</p>
                     )}
                   </CardContent>
                 </Card>
@@ -342,7 +344,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <Coins className="h-4 w-4" />
-                        Total Staked
+                        {t('members.totalStaked')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -355,7 +357,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <TrendingUp className="h-4 w-4" />
-                        Total Rewards
+                        {t('members.totalRewards')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -368,7 +370,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <Wallet className="h-4 w-4" />
-                        Total Withdrawn
+                        {t('members.totalWithdrawn')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -381,12 +383,12 @@ function MemberDetailModal({
 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm font-medium">Financial Summary</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('members.financialSummary')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-muted-foreground">Net Position</span>
+                        <span className="text-muted-foreground">{t('members.netPosition')}</span>
                         <span className="font-medium">
                           {formatStakedAmountUtil(
                             String(
@@ -398,7 +400,7 @@ function MemberDetailModal({
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-muted-foreground">ROI (Rewards/Staked)</span>
+                        <span className="text-muted-foreground">{t('members.roiRewardsStaked')}</span>
                         <span className="font-medium text-green-500">
                           {member.financial?.totalStaked && parseFloat(member.financial.totalStaked) > 0
                             ? ((parseFloat(member.financial?.totalRewards || "0") /
@@ -418,7 +420,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <Vote className="h-4 w-4" />
-                        Voting Power
+                        {t('members.votingPower')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -431,7 +433,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <FileText className="h-4 w-4" />
-                        Proposals Created
+                        {t('members.proposalsCreated')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -444,7 +446,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        Votes Participated
+                        {t('members.votesParticipated')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -457,12 +459,12 @@ function MemberDetailModal({
 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm font-medium">Governance Activity</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('members.governanceActivity')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-muted-foreground">Participation Rate</span>
+                        <span className="text-muted-foreground">{t('members.participationRate')}</span>
                         <span className="font-medium">
                           {member.governance?.votesParticipated 
                             ? `${Math.min(100, member.governance.votesParticipated * 2)}%`
@@ -485,7 +487,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <Target className="h-4 w-4" />
-                        Reliability
+                        {t('members.reliability')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -499,7 +501,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <Clock className="h-4 w-4" />
-                        Response Time
+                        {t('members.responseTime')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -512,7 +514,7 @@ function MemberDetailModal({
                     <CardHeader className="pb-2">
                       <CardDescription className="flex items-center gap-2">
                         <Activity className="h-4 w-4" />
-                        Success Rate
+                        {t('members.successRate')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -526,7 +528,7 @@ function MemberDetailModal({
 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm font-medium">Overall Performance Score</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('members.overallPerformanceScore')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center gap-4">
@@ -555,7 +557,7 @@ function MemberDetailModal({
 
           <DialogFooter className="px-6 py-4 border-t">
             <Button variant="outline" onClick={onClose} data-testid="button-close-modal">
-              Close
+              {t('members.close')}
             </Button>
           </DialogFooter>
         </div>
@@ -574,6 +576,9 @@ export default function MembersPage() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const { toast } = useToast();
+
+  // Create schema with translations
+  const memberFormSchema = createMemberFormSchema(t);
 
   // Form for member creation
   const form = useForm<z.infer<typeof memberFormSchema>>({
@@ -655,16 +660,16 @@ export default function MembersPage() {
       queryClient.invalidateQueries({ queryKey: ["/api/members"] });
       queryClient.invalidateQueries({ queryKey: ["/api/members/stats/summary"] });
       toast({
-        title: "Member Created",
-        description: "New member has been created successfully.",
+        title: t('members.memberCreated'),
+        description: t('members.memberCreatedDesc'),
       });
       setCreateDialogOpen(false);
       form.reset();
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to create member. Please try again.",
+        title: t('members.error'),
+        description: t('members.createMemberError'),
         variant: "destructive",
       });
     },
@@ -685,14 +690,14 @@ export default function MembersPage() {
       queryClient.invalidateQueries({ queryKey: ["/api/members"] });
       queryClient.invalidateQueries({ queryKey: ["/api/members/stats/summary"] });
       toast({
-        title: "Validators Synced",
-        description: "All validators have been synced to the members system.",
+        title: t('members.validatorsSynced'),
+        description: t('members.validatorsSyncedDesc'),
       });
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to sync validators. Please try again.",
+        title: t('members.error'),
+        description: t('members.syncValidatorsError'),
         variant: "destructive",
       });
     },
@@ -898,16 +903,16 @@ export default function MembersPage() {
                         name="accountAddress"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Account Address</FormLabel>
+                            <FormLabel>{t('members.accountAddress')}</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="0x..."
+                                placeholder={t('members.accountAddressPlaceholder')}
                                 {...field}
                                 data-testid="input-account-address"
                               />
                             </FormControl>
                             <FormDescription>
-                              The blockchain wallet address (42 characters)
+                              {t('members.accountAddressDescription')}
                             </FormDescription>
                             <FormMessage />
                           </FormItem>
@@ -918,10 +923,10 @@ export default function MembersPage() {
                         name="displayName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Display Name</FormLabel>
+                            <FormLabel>{t('members.displayName')}</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="John Doe"
+                                placeholder={t('members.displayNamePlaceholder')}
                                 {...field}
                                 data-testid="input-display-name"
                               />
@@ -935,11 +940,11 @@ export default function MembersPage() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Email (Optional)</FormLabel>
+                            <FormLabel>{t('members.emailOptional')}</FormLabel>
                             <FormControl>
                               <Input
                                 type="email"
-                                placeholder="john@example.com"
+                                placeholder={t('members.emailPlaceholder')}
                                 {...field}
                                 data-testid="input-email"
                               />
@@ -953,10 +958,10 @@ export default function MembersPage() {
                         name="location"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Location (Optional)</FormLabel>
+                            <FormLabel>{t('members.locationOptional')}</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="New York, USA"
+                                placeholder={t('members.locationPlaceholder')}
                                 {...field}
                                 data-testid="input-location"
                               />
@@ -970,10 +975,10 @@ export default function MembersPage() {
                         name="bio"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Bio (Optional)</FormLabel>
+                            <FormLabel>{t('members.bioOptional')}</FormLabel>
                             <FormControl>
                               <Textarea
-                                placeholder="Tell us about yourself..."
+                                placeholder={t('members.bioPlaceholder')}
                                 className="resize-none"
                                 {...field}
                                 data-testid="textarea-bio"
@@ -989,21 +994,21 @@ export default function MembersPage() {
                           name="memberTier"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Member Tier</FormLabel>
+                              <FormLabel>{t('members.memberTier')}</FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                   <SelectTrigger data-testid="select-member-tier">
-                                    <SelectValue placeholder="Select a tier" />
+                                    <SelectValue placeholder={t('members.selectTier')} />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  <SelectItem value="basic_user">Basic User</SelectItem>
-                                  <SelectItem value="staker">Staker</SelectItem>
-                                  <SelectItem value="active_validator">Active Validator</SelectItem>
-                                  <SelectItem value="inactive_validator">Inactive Validator</SelectItem>
-                                  <SelectItem value="genesis_validator">Genesis Validator</SelectItem>
-                                  <SelectItem value="enterprise_validator">Enterprise Validator</SelectItem>
-                                  <SelectItem value="governance_validator">Governance Validator</SelectItem>
+                                  <SelectItem value="basic_user">{t('members.basicUser')}</SelectItem>
+                                  <SelectItem value="staker">{t('members.staker')}</SelectItem>
+                                  <SelectItem value="active_validator">{t('members.activeValidator')}</SelectItem>
+                                  <SelectItem value="inactive_validator">{t('members.inactiveValidator')}</SelectItem>
+                                  <SelectItem value="genesis_validator">{t('members.genesisValidator')}</SelectItem>
+                                  <SelectItem value="enterprise_validator">{t('members.enterpriseValidator')}</SelectItem>
+                                  <SelectItem value="governance_validator">{t('members.governanceValidator')}</SelectItem>
                                 </SelectContent>
                               </Select>
                               <FormMessage />
@@ -1015,18 +1020,18 @@ export default function MembersPage() {
                           name="kycLevel"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>KYC Level</FormLabel>
+                              <FormLabel>{t('members.kycLevel')}</FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                   <SelectTrigger data-testid="select-kyc-level">
-                                    <SelectValue placeholder="Select KYC level" />
+                                    <SelectValue placeholder={t('members.selectKycLevel')} />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  <SelectItem value="none">None</SelectItem>
-                                  <SelectItem value="basic">Basic</SelectItem>
-                                  <SelectItem value="advanced">Advanced</SelectItem>
-                                  <SelectItem value="institutional">Institutional</SelectItem>
+                                  <SelectItem value="none">{t('members.noneKyc')}</SelectItem>
+                                  <SelectItem value="basic">{t('members.basicKyc')}</SelectItem>
+                                  <SelectItem value="advanced">{t('members.advancedKyc')}</SelectItem>
+                                  <SelectItem value="institutional">{t('members.institutionalKyc')}</SelectItem>
                                 </SelectContent>
                               </Select>
                               <FormMessage />
@@ -1041,14 +1046,14 @@ export default function MembersPage() {
                           onClick={() => setCreateDialogOpen(false)}
                           data-testid="button-cancel"
                         >
-                          Cancel
+                          {t('members.cancel')}
                         </Button>
                         <Button
                           type="submit"
                           disabled={createMemberMutation.isPending}
                           data-testid="button-submit-member"
                         >
-                          {createMemberMutation.isPending ? "Creating..." : "Create Member"}
+                          {createMemberMutation.isPending ? t('members.creating') : t('members.createMember')}
                         </Button>
                       </DialogFooter>
                     </form>
@@ -1068,13 +1073,13 @@ export default function MembersPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Member</TableHead>
-                      <TableHead>Tier</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>KYC Level</TableHead>
-                      <TableHead>Staked</TableHead>
-                      <TableHead>Voting Power</TableHead>
-                      <TableHead>Joined</TableHead>
+                      <TableHead>{t('members.tableHeaderMember')}</TableHead>
+                      <TableHead>{t('members.tableHeaderTier')}</TableHead>
+                      <TableHead>{t('members.tableHeaderStatus')}</TableHead>
+                      <TableHead>{t('members.tableHeaderKycLevel')}</TableHead>
+                      <TableHead>{t('members.tableHeaderStaked')}</TableHead>
+                      <TableHead>{t('members.tableHeaderVotingPower')}</TableHead>
+                      <TableHead>{t('members.tableHeaderJoined')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1088,7 +1093,7 @@ export default function MembersPage() {
                         <TableCell>
                           <div>
                             <div className="font-medium">
-                              {member.profile?.displayName || "Anonymous"}
+                              {member.profile?.displayName || t('members.anonymous')}
                             </div>
                             <div className="text-sm text-muted-foreground font-mono">
                               {member.accountAddress.slice(0, 6)}...{member.accountAddress.slice(-4)}
@@ -1132,7 +1137,7 @@ export default function MembersPage() {
                           <div className="text-sm text-muted-foreground">
                             {member.joinedAt && !isNaN(new Date(member.joinedAt).getTime())
                               ? formatDistanceToNow(new Date(member.joinedAt), { addSuffix: true })
-                              : "Recently joined"}
+                              : t('members.recentlyJoined')}
                           </div>
                         </TableCell>
                       </TableRow>
@@ -1144,7 +1149,7 @@ export default function MembersPage() {
               {!isLoading && filteredMembers.length === 0 && (
                 <div className="text-center py-8">
                   <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">No members found matching your criteria</p>
+                  <p className="text-muted-foreground">{t('members.noMembersMatchingCriteria')}</p>
                 </div>
               )}
             </CardContent>

@@ -21,14 +21,14 @@ import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
 import { aiDecisionsSnapshotSchema } from "@shared/schema";
 import type { AiModel, AiDecision } from "@shared/schema";
 
-function formatSafeDate(dateValue: string | Date | null | undefined): string {
-  if (!dateValue) return 'Just now';
+function formatSafeDate(dateValue: string | Date | null | undefined, justNowText: string): string {
+  if (!dateValue) return justNowText;
   try {
     const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
-    if (isNaN(date.getTime())) return 'Just now';
+    if (isNaN(date.getTime())) return justNowText;
     return date.toLocaleString();
   } catch {
-    return 'Just now';
+    return justNowText;
   }
 }
 
@@ -474,7 +474,7 @@ export default function AIOrchestration() {
                             </Badge>
                           </TableCell>
                           <TableCell className="text-muted-foreground text-sm tabular-nums">
-                            {formatSafeDate(decision.createdAt)}
+                            {formatSafeDate(decision.createdAt, t('aiOrchestration.justNow'))}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -509,7 +509,7 @@ export default function AIOrchestration() {
                               <span className="text-xs text-muted-foreground">{decision.modelName || t('aiOrchestration.unknown')}</span>
                             </div>
                             <p className="text-sm font-medium">{decision.decision || t('aiOrchestration.aiDecision')}</p>
-                            <p className="text-xs text-muted-foreground">{formatSafeDate(decision.createdAt)}</p>
+                            <p className="text-xs text-muted-foreground">{formatSafeDate(decision.createdAt, t('aiOrchestration.justNow'))}</p>
                           </div>
                           <Badge variant={
                             decision.status === 'executed' ? 'default' :

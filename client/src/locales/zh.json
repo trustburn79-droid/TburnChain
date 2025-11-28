@@ -1082,7 +1082,9 @@
     "strategic": "战略",
     "tactical": "战术",
     "operational": "运营",
-    "consensusContribution": "共识贡献"
+    "consensusContribution": "共识贡献",
+    "justNow": "刚刚",
+    "noModelDataAvailable": "没有可用的模型数据"
   },
   "consensus": {
     "title": "共识",

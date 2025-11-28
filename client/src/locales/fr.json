@@ -1057,7 +1057,9 @@
     "strategic": "Stratégique",
     "tactical": "Tactique",
     "operational": "Opérationnel",
-    "consensusContribution": "Contribution au consensus"
+    "consensusContribution": "Contribution au consensus",
+    "justNow": "À l'instant",
+    "noModelDataAvailable": "Aucune donnée de modèle disponible"
   },
   "crossShard": {
     "title": "Communication Cross-Shard",
