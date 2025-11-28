@@ -272,6 +272,52 @@ function getAssetTypeTranslationKey(type: string): string {
   return typeMap[type] || "gamefi.assetTypeOther";
 }
 
+function getCategoryTranslationKey(category: string): string {
+  const categoryMap: Record<string, string> = {
+    card: "gamefi.categoryCard",
+    racing: "gamefi.categoryRacing",
+    rpg: "gamefi.categoryRpg",
+    action: "gamefi.categoryAction",
+    strategy: "gamefi.categoryStrategy",
+    puzzle: "gamefi.categoryPuzzle",
+    sports: "gamefi.categorySports",
+    adventure: "gamefi.categoryAdventure",
+    simulation: "gamefi.categorySimulation",
+    casual: "gamefi.categoryCasual",
+  };
+  return categoryMap[category?.toLowerCase()] || category;
+}
+
+function getGenreTranslationKey(genre: string): string {
+  const genreMap: Record<string, string> = {
+    "Trading Card": "gamefi.genreTradingCard",
+    "trading card": "gamefi.genreTradingCard",
+    "Racing": "gamefi.genreRacing",
+    "racing": "gamefi.genreRacing",
+    "Adventure": "gamefi.genreAdventure",
+    "adventure": "gamefi.genreAdventure",
+    "RPG": "gamefi.genreRpg",
+    "rpg": "gamefi.genreRpg",
+    "Action": "gamefi.genreAction",
+    "action": "gamefi.genreAction",
+    "Strategy": "gamefi.genreStrategy",
+    "strategy": "gamefi.genreStrategy",
+    "Puzzle": "gamefi.genrePuzzle",
+    "puzzle": "gamefi.genrePuzzle",
+    "Sports": "gamefi.genreSports",
+    "sports": "gamefi.genreSports",
+    "Simulation": "gamefi.genreSimulation",
+    "simulation": "gamefi.genreSimulation",
+    "Casual": "gamefi.genreCasual",
+    "casual": "gamefi.genreCasual",
+    "MMORPG": "gamefi.genreMmorpg",
+    "mmorpg": "gamefi.genreMmorpg",
+    "Battle Royale": "gamefi.genreBattleRoyale",
+    "battle royale": "gamefi.genreBattleRoyale",
+  };
+  return genreMap[genre] || genre;
+}
+
 function formatTimeRemaining(dateStr: string, startedLabel: string = "Started"): string {
   const date = new Date(dateStr);
   const now = new Date();
@@ -320,9 +366,9 @@ function ProjectCard({ project }: { project: GamefiProject }) {
               </Badge>
             </div>
             <div className="text-sm text-muted-foreground mb-2">
-              {project.category}
+              {t(getCategoryTranslationKey(project.category))}
               {project.genre && (
-                <span className="ml-2 text-xs">#{project.genre}</span>
+                <span className="ml-2 text-xs">#{t(getGenreTranslationKey(project.genre))}</span>
               )}
             </div>
             <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
