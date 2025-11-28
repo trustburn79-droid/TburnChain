@@ -2208,7 +2208,18 @@
       "tier3Delegators": "Tier 3 - デリゲーター",
       "tier1Name": "Tier 1 - アクティブ委員会",
       "tier2Name": "Tier 2 - スタンバイ",
-      "tier3Name": "Tier 3 - デリゲーター"
+      "tier3Name": "Tier 3 - デリゲーター",
+      "slashTypes": {
+        "downtime": "ダウンタイム",
+        "doubleSigning": "二重署名",
+        "maliciousBehavior": "悪意のある行為",
+        "protocolViolation": "プロトコル違反"
+      },
+      "slashStatuses": {
+        "executed": "実行済み",
+        "pending": "保留中",
+        "cancelled": "キャンセル"
+      }
     },
     "security": {
       "title": "セキュリティ監査",
@@ -2334,7 +2345,42 @@
       "blockIpDesc": "IPアドレスのネットワークアクセスをブロック",
       "ipAddressToBlock": "IPアドレス",
       "enterIpPlaceholder": "例: 192.168.1.1",
-      "enterBlockReasonPlaceholder": "このIPをブロックする理由..."
+      "enterBlockReasonPlaceholder": "このIPをブロックする理由...",
+      "threatTypes": {
+        "loginAttempt": "ログイン試行",
+        "suspiciousTx": "疑わしいトランザクション",
+        "rateLimit": "レート制限超過",
+        "apiAbuse": "API悪用",
+        "bruteForce": "ブルートフォース攻撃",
+        "unauthorizedAccess": "不正アクセス",
+        "ddos": "DDoS攻撃",
+        "sqlInjection": "SQLインジェクション",
+        "xss": "XSS攻撃",
+        "replayAttack": "リプレイ攻撃"
+      },
+      "auditActions": {
+        "configChange": "設定変更",
+        "memberAdd": "メンバー追加",
+        "memberRemove": "メンバー削除",
+        "memberUpdate": "メンバー更新",
+        "validatorSlash": "バリデーター処罰",
+        "validatorApprove": "バリデーター承認",
+        "validatorReject": "バリデーター拒否",
+        "securityEvent": "セキュリティイベント",
+        "ipBlock": "IPブロック",
+        "ipUnblock": "IPブロック解除",
+        "permissionChange": "権限変更",
+        "login": "ログイン",
+        "logout": "ログアウト"
+      },
+      "auditCategories": {
+        "security": "セキュリティ",
+        "validators": "バリデーター",
+        "members": "メンバー",
+        "config": "設定",
+        "access": "アクセス制御",
+        "network": "ネットワーク"
+      }
     },
     "reports": {
       "title": "コンプライアンスレポート",

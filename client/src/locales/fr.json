@@ -2144,7 +2144,18 @@
       "applicationUpdated": "Candidature mise à jour avec succès",
       "failedUpdateApplication": "Échec de la mise à jour de la candidature",
       "validatorSlashed": "Validateur slashé avec succès",
-      "failedSlashValidator": "Échec du slashing du validateur"
+      "failedSlashValidator": "Échec du slashing du validateur",
+      "slashTypes": {
+        "downtime": "Temps d'arrêt",
+        "doubleSigning": "Double signature",
+        "maliciousBehavior": "Comportement malveillant",
+        "protocolViolation": "Violation de protocole"
+      },
+      "slashStatuses": {
+        "executed": "Exécuté",
+        "pending": "En attente",
+        "cancelled": "Annulé"
+      }
     },
     "security": {
       "title": "Audit de sécurité",
@@ -2276,7 +2287,42 @@
       "validator": "Validateur",
       "transaction": "Transaction",
       "contract": "Contrat",
-      "targetAddressOptional": "Adresse de la cible (optionnel)"
+      "targetAddressOptional": "Adresse de la cible (optionnel)",
+      "threatTypes": {
+        "loginAttempt": "Tentative de connexion",
+        "suspiciousTx": "Transaction suspecte",
+        "rateLimit": "Limite de débit dépassée",
+        "apiAbuse": "Abus d'API",
+        "bruteForce": "Attaque par force brute",
+        "unauthorizedAccess": "Accès non autorisé",
+        "ddos": "Attaque DDoS",
+        "sqlInjection": "Injection SQL",
+        "xss": "Attaque XSS",
+        "replayAttack": "Attaque de rejeu"
+      },
+      "auditActions": {
+        "configChange": "Changement de configuration",
+        "memberAdd": "Membre ajouté",
+        "memberRemove": "Membre supprimé",
+        "memberUpdate": "Membre mis à jour",
+        "validatorSlash": "Validateur sanctionné",
+        "validatorApprove": "Validateur approuvé",
+        "validatorReject": "Validateur rejeté",
+        "securityEvent": "Événement de sécurité",
+        "ipBlock": "IP bloquée",
+        "ipUnblock": "IP débloquée",
+        "permissionChange": "Changement de permissions",
+        "login": "Connexion",
+        "logout": "Déconnexion"
+      },
+      "auditCategories": {
+        "security": "Sécurité",
+        "validators": "Validateurs",
+        "members": "Membres",
+        "config": "Configuration",
+        "access": "Contrôle d'accès",
+        "network": "Réseau"
+      }
     },
     "reports": {
       "title": "Rapports de conformité",

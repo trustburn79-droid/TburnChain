@@ -1995,7 +1995,18 @@
       "applicationUpdated": "आवेदन सफलतापूर्वक अपडेट हो गया",
       "failedUpdateApplication": "आवेदन अपडेट करने में विफल",
       "validatorSlashed": "वैलिडेटर सफलतापूर्वक स्लैश हो गया",
-      "failedSlashValidator": "वैलिडेटर स्लैश करने में विफल"
+      "failedSlashValidator": "वैलिडेटर स्लैश करने में विफल",
+      "slashTypes": {
+        "downtime": "डाउनटाइम",
+        "doubleSigning": "डबल साइनिंग",
+        "maliciousBehavior": "दुर्भावनापूर्ण व्यवहार",
+        "protocolViolation": "प्रोटोकॉल उल्लंघन"
+      },
+      "slashStatuses": {
+        "executed": "निष्पादित",
+        "pending": "लंबित",
+        "cancelled": "रद्द"
+      }
     },
     "security": {
       "title": "सुरक्षा ऑडिट",
@@ -2094,7 +2105,42 @@
       "failedBlockIp": "IP ब्लॉक करने में विफल",
       "ipUnblocked": "IP सफलतापूर्वक अनब्लॉक हो गया",
       "failedUnblockIp": "IP अनब्लॉक करने में विफल",
-      "noEventsFound": "कोई सुरक्षा इवेंट नहीं मिला"
+      "noEventsFound": "कोई सुरक्षा इवेंट नहीं मिला",
+      "threatTypes": {
+        "loginAttempt": "लॉगिन प्रयास",
+        "suspiciousTx": "संदिग्ध लेनदेन",
+        "rateLimit": "दर सीमा पार",
+        "apiAbuse": "API दुरुपयोग",
+        "bruteForce": "ब्रूट फोर्स हमला",
+        "unauthorizedAccess": "अनधिकृत पहुंच",
+        "ddos": "DDoS हमला",
+        "sqlInjection": "SQL इंजेक्शन",
+        "xss": "XSS हमला",
+        "replayAttack": "रिप्ले हमला"
+      },
+      "auditActions": {
+        "configChange": "कॉन्फ़िगरेशन परिवर्तन",
+        "memberAdd": "सदस्य जोड़ा गया",
+        "memberRemove": "सदस्य हटाया गया",
+        "memberUpdate": "सदस्य अपडेट",
+        "validatorSlash": "वैलिडेटर स्लैश",
+        "validatorApprove": "वैलिडेटर स्वीकृत",
+        "validatorReject": "वैलिडेटर अस्वीकृत",
+        "securityEvent": "सुरक्षा घटना",
+        "ipBlock": "IP ब्लॉक",
+        "ipUnblock": "IP अनब्लॉक",
+        "permissionChange": "अनुमति परिवर्तन",
+        "login": "लॉगिन",
+        "logout": "लॉगआउट"
+      },
+      "auditCategories": {
+        "security": "सुरक्षा",
+        "validators": "वैलिडेटर",
+        "members": "सदस्य",
+        "config": "कॉन्फ़िगरेशन",
+        "access": "एक्सेस नियंत्रण",
+        "network": "नेटवर्क"
+      }
     },
     "reports": {
       "title": "कम्प्लायंस रिपोर्ट्स",

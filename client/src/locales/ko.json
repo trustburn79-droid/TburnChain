@@ -2773,7 +2773,18 @@
       "applicationUpdated": "신청서가 성공적으로 업데이트됨",
       "failedUpdateApplication": "신청서 업데이트 실패",
       "validatorSlashed": "검증자가 성공적으로 슬래시됨",
-      "failedSlashValidator": "검증자 슬래시 실패"
+      "failedSlashValidator": "검증자 슬래시 실패",
+      "slashTypes": {
+        "downtime": "다운타임",
+        "doubleSigning": "이중 서명",
+        "maliciousBehavior": "악의적 행위",
+        "protocolViolation": "프로토콜 위반"
+      },
+      "slashStatuses": {
+        "executed": "실행됨",
+        "pending": "대기 중",
+        "cancelled": "취소됨"
+      }
     },
     "security": {
       "title": "보안 감사",
@@ -2929,7 +2940,42 @@
       "noBlockedIps": "차단된 IP 없음",
       "ipAddress": "IP 주소",
       "blockedBy": "차단자",
-      "blockedAt": "차단 시간"
+      "blockedAt": "차단 시간",
+      "threatTypes": {
+        "loginAttempt": "로그인 시도",
+        "suspiciousTx": "의심스러운 트랜잭션",
+        "rateLimit": "속도 제한 초과",
+        "apiAbuse": "API 남용",
+        "bruteForce": "무차별 대입 공격",
+        "unauthorizedAccess": "무단 액세스",
+        "ddos": "DDoS 공격",
+        "sqlInjection": "SQL 인젝션",
+        "xss": "XSS 공격",
+        "replayAttack": "재전송 공격"
+      },
+      "auditActions": {
+        "configChange": "설정 변경",
+        "memberAdd": "멤버 추가",
+        "memberRemove": "멤버 제거",
+        "memberUpdate": "멤버 업데이트",
+        "validatorSlash": "검증자 슬래시",
+        "validatorApprove": "검증자 승인",
+        "validatorReject": "검증자 거부",
+        "securityEvent": "보안 이벤트",
+        "ipBlock": "IP 차단",
+        "ipUnblock": "IP 차단 해제",
+        "permissionChange": "권한 변경",
+        "login": "로그인",
+        "logout": "로그아웃"
+      },
+      "auditCategories": {
+        "security": "보안",
+        "validators": "검증자",
+        "members": "멤버",
+        "config": "설정",
+        "access": "접근 제어",
+        "network": "네트워크"
+      }
     },
     "reports": {
       "title": "규정 준수 보고서",

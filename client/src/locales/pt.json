@@ -877,7 +877,18 @@
       "tier3Delegators": "Tier 3 - Delegadores",
       "tier1Name": "Tier 1 - Comitê Ativo",
       "tier2Name": "Tier 2 - Standby",
-      "tier3Name": "Tier 3 - Delegadores"
+      "tier3Name": "Tier 3 - Delegadores",
+      "slashTypes": {
+        "downtime": "Tempo de inatividade",
+        "doubleSigning": "Dupla assinatura",
+        "maliciousBehavior": "Comportamento malicioso",
+        "protocolViolation": "Violação de protocolo"
+      },
+      "slashStatuses": {
+        "executed": "Executado",
+        "pending": "Pendente",
+        "cancelled": "Cancelado"
+      }
     },
     "security": {
       "title": "Auditoria de Segurança",
@@ -903,7 +914,42 @@
       "target": "Alvo",
       "occurred": "Ocorreu",
       "actions": "Ações",
-      "noSecurityEvents": "Nenhum evento de segurança encontrado"
+      "noSecurityEvents": "Nenhum evento de segurança encontrado",
+      "threatTypes": {
+        "loginAttempt": "Tentativa de login",
+        "suspiciousTx": "Transação suspeita",
+        "rateLimit": "Limite de taxa excedido",
+        "apiAbuse": "Abuso de API",
+        "bruteForce": "Ataque de força bruta",
+        "unauthorizedAccess": "Acesso não autorizado",
+        "ddos": "Ataque DDoS",
+        "sqlInjection": "Injeção SQL",
+        "xss": "Ataque XSS",
+        "replayAttack": "Ataque de replay"
+      },
+      "auditActions": {
+        "configChange": "Alteração de configuração",
+        "memberAdd": "Membro adicionado",
+        "memberRemove": "Membro removido",
+        "memberUpdate": "Membro atualizado",
+        "validatorSlash": "Validador penalizado",
+        "validatorApprove": "Validador aprovado",
+        "validatorReject": "Validador rejeitado",
+        "securityEvent": "Evento de segurança",
+        "ipBlock": "IP bloqueado",
+        "ipUnblock": "IP desbloqueado",
+        "permissionChange": "Alteração de permissões",
+        "login": "Login",
+        "logout": "Logout"
+      },
+      "auditCategories": {
+        "security": "Segurança",
+        "validators": "Validadores",
+        "members": "Membros",
+        "config": "Configuração",
+        "access": "Controle de acesso",
+        "network": "Rede"
+      }
     },
     "reports": {
       "title": "Relatórios de Conformidade",

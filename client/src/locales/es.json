@@ -2775,7 +2775,18 @@
       "applicationUpdated": "Aplicación actualizada exitosamente",
       "failedUpdateApplication": "Error al actualizar aplicación",
       "validatorSlashed": "Validador penalizado exitosamente",
-      "failedSlashValidator": "Error al penalizar validador"
+      "failedSlashValidator": "Error al penalizar validador",
+      "slashTypes": {
+        "downtime": "Tiempo de inactividad",
+        "doubleSigning": "Doble firma",
+        "maliciousBehavior": "Comportamiento malicioso",
+        "protocolViolation": "Violación de protocolo"
+      },
+      "slashStatuses": {
+        "executed": "Ejecutado",
+        "pending": "Pendiente",
+        "cancelled": "Cancelado"
+      }
     },
     "security": {
       "title": "Auditoría de Seguridad",
@@ -2919,7 +2930,42 @@
       "blockIpDesc": "Bloque an IP address from accessing the network",
       "ipAddressToBlock": "IP Dirección",
       "enterIpPlaceholder": "e.g., 192.168.1.1",
-      "enterBlockReasonPlaceholder": "Reason for blocking this IP..."
+      "enterBlockReasonPlaceholder": "Reason for blocking this IP...",
+      "threatTypes": {
+        "loginAttempt": "Intento de inicio de sesión",
+        "suspiciousTx": "Transacción sospechosa",
+        "rateLimit": "Límite de velocidad excedido",
+        "apiAbuse": "Abuso de API",
+        "bruteForce": "Ataque de fuerza bruta",
+        "unauthorizedAccess": "Acceso no autorizado",
+        "ddos": "Ataque DDoS",
+        "sqlInjection": "Inyección SQL",
+        "xss": "Ataque XSS",
+        "replayAttack": "Ataque de repetición"
+      },
+      "auditActions": {
+        "configChange": "Cambio de configuración",
+        "memberAdd": "Miembro añadido",
+        "memberRemove": "Miembro eliminado",
+        "memberUpdate": "Miembro actualizado",
+        "validatorSlash": "Validador penalizado",
+        "validatorApprove": "Validador aprobado",
+        "validatorReject": "Validador rechazado",
+        "securityEvent": "Evento de seguridad",
+        "ipBlock": "IP bloqueada",
+        "ipUnblock": "IP desbloqueada",
+        "permissionChange": "Cambio de permisos",
+        "login": "Inicio de sesión",
+        "logout": "Cierre de sesión"
+      },
+      "auditCategories": {
+        "security": "Seguridad",
+        "validators": "Validadores",
+        "members": "Miembros",
+        "config": "Configuración",
+        "access": "Control de acceso",
+        "network": "Red"
+      }
     },
     "reports": {
       "title": "Informes de Cumplimiento",

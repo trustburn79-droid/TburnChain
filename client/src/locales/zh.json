@@ -2718,7 +2718,18 @@
       "protocolViolation": "协议违规",
       "applicationUpdated": "申请更新成功",
       "failedUpdateApplication": "申请更新失败",
-      "failedSlashValidator": "验证者罚没失败"
+      "failedSlashValidator": "验证者罚没失败",
+      "slashTypes": {
+        "downtime": "停机",
+        "doubleSigning": "双重签名",
+        "maliciousBehavior": "恶意行为",
+        "protocolViolation": "协议违规"
+      },
+      "slashStatuses": {
+        "executed": "已执行",
+        "pending": "待处理",
+        "cancelled": "已取消"
+      }
     },
     "security": {
       "title": "安全审计",
@@ -2871,7 +2882,42 @@
       "blockIp": "封禁 IP",
       "noBlockedIps": "没有封禁的 IP",
       "blockedBy": "封禁者",
-      "validator": "验证者"
+      "validator": "验证者",
+      "threatTypes": {
+        "loginAttempt": "登录尝试",
+        "suspiciousTx": "可疑交易",
+        "rateLimit": "超过速率限制",
+        "apiAbuse": "API滥用",
+        "bruteForce": "暴力攻击",
+        "unauthorizedAccess": "未授权访问",
+        "ddos": "DDoS攻击",
+        "sqlInjection": "SQL注入",
+        "xss": "XSS攻击",
+        "replayAttack": "重放攻击"
+      },
+      "auditActions": {
+        "configChange": "配置更改",
+        "memberAdd": "添加成员",
+        "memberRemove": "移除成员",
+        "memberUpdate": "更新成员",
+        "validatorSlash": "验证者惩罚",
+        "validatorApprove": "验证者批准",
+        "validatorReject": "验证者拒绝",
+        "securityEvent": "安全事件",
+        "ipBlock": "IP封锁",
+        "ipUnblock": "IP解封",
+        "permissionChange": "权限更改",
+        "login": "登录",
+        "logout": "登出"
+      },
+      "auditCategories": {
+        "security": "安全",
+        "validators": "验证者",
+        "members": "成员",
+        "config": "配置",
+        "access": "访问控制",
+        "network": "网络"
+      }
     },
     "reports": {
       "title": "合规报告",

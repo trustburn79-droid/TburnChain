@@ -877,7 +877,18 @@
       "tier3Delegators": "ٹیئر 3 - ڈیلیگیٹرز",
       "tier1Name": "ٹیئر 1 - فعال کمیٹی",
       "tier2Name": "ٹیئر 2 - اسٹینڈبائی",
-      "tier3Name": "ٹیئر 3 - ڈیلیگیٹرز"
+      "tier3Name": "ٹیئر 3 - ڈیلیگیٹرز",
+      "slashTypes": {
+        "downtime": "ڈاؤن ٹائم",
+        "doubleSigning": "دوہری دستخط",
+        "maliciousBehavior": "بدنیتی پر مبنی رویہ",
+        "protocolViolation": "پروٹوکول کی خلاف ورزی"
+      },
+      "slashStatuses": {
+        "executed": "مکمل",
+        "pending": "زیر التواء",
+        "cancelled": "منسوخ"
+      }
     },
     "security": {
       "title": "سیکورٹی آڈٹ",
@@ -903,7 +914,42 @@
       "target": "ہدف",
       "occurred": "واقع ہوا",
       "actions": "اقدامات",
-      "noSecurityEvents": "کوئی سیکورٹی ایونٹس نہیں ملے"
+      "noSecurityEvents": "کوئی سیکورٹی ایونٹس نہیں ملے",
+      "threatTypes": {
+        "loginAttempt": "لاگ ان کی کوشش",
+        "suspiciousTx": "مشکوک لین دین",
+        "rateLimit": "حد سے تجاوز",
+        "apiAbuse": "API کا غلط استعمال",
+        "bruteForce": "بروٹ فورس حملہ",
+        "unauthorizedAccess": "غیر مجاز رسائی",
+        "ddos": "DDoS حملہ",
+        "sqlInjection": "SQL انجیکشن",
+        "xss": "XSS حملہ",
+        "replayAttack": "ری پلے حملہ"
+      },
+      "auditActions": {
+        "configChange": "ترتیب میں تبدیلی",
+        "memberAdd": "رکن شامل کیا گیا",
+        "memberRemove": "رکن ہٹایا گیا",
+        "memberUpdate": "رکن اپڈیٹ",
+        "validatorSlash": "توثیق کار سزا",
+        "validatorApprove": "توثیق کار منظور",
+        "validatorReject": "توثیق کار مسترد",
+        "securityEvent": "سیکیورٹی واقعہ",
+        "ipBlock": "IP بلاک",
+        "ipUnblock": "IP ان بلاک",
+        "permissionChange": "اجازت کی تبدیلی",
+        "login": "لاگ ان",
+        "logout": "لاگ آؤٹ"
+      },
+      "auditCategories": {
+        "security": "سیکیورٹی",
+        "validators": "توثیق کار",
+        "members": "ارکان",
+        "config": "ترتیب",
+        "access": "رسائی کنٹرول",
+        "network": "نیٹ ورک"
+      }
     },
     "reports": {
       "title": "تعمیل رپورٹس",

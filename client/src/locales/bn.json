@@ -877,7 +877,18 @@
       "tier3Delegators": "টায়ার ৩ - ডেলিগেটর",
       "tier1Name": "টায়ার ১ - সক্রিয় কমিটি",
       "tier2Name": "টায়ার ২ - স্ট্যান্ডবাই",
-      "tier3Name": "টায়ার ৩ - ডেলিগেটর"
+      "tier3Name": "টায়ার ৩ - ডেলিগেটর",
+      "slashTypes": {
+        "downtime": "ডাউনটাইম",
+        "doubleSigning": "ডাবল সাইনিং",
+        "maliciousBehavior": "দূষিত আচরণ",
+        "protocolViolation": "প্রোটোকল লঙ্ঘন"
+      },
+      "slashStatuses": {
+        "executed": "সম্পাদিত",
+        "pending": "মুলতুবি",
+        "cancelled": "বাতিল"
+      }
     },
     "security": {
       "title": "নিরাপত্তা অডিট",
@@ -903,7 +914,42 @@
       "target": "লক্ষ্য",
       "occurred": "ঘটেছে",
       "actions": "কার্যক্রম",
-      "noSecurityEvents": "কোন নিরাপত্তা ইভেন্ট পাওয়া যায়নি"
+      "noSecurityEvents": "কোন নিরাপত্তা ইভেন্ট পাওয়া যায়নি",
+      "threatTypes": {
+        "loginAttempt": "লগইন প্রচেষ্টা",
+        "suspiciousTx": "সন্দেহজনক লেনদেন",
+        "rateLimit": "হার সীমা অতিক্রম",
+        "apiAbuse": "API অপব্যবহার",
+        "bruteForce": "ব্রুট ফোর্স আক্রমণ",
+        "unauthorizedAccess": "অননুমোদিত প্রবেশ",
+        "ddos": "DDoS আক্রমণ",
+        "sqlInjection": "SQL ইনজেকশন",
+        "xss": "XSS আক্রমণ",
+        "replayAttack": "রিপ্লে আক্রমণ"
+      },
+      "auditActions": {
+        "configChange": "কনফিগারেশন পরিবর্তন",
+        "memberAdd": "সদস্য যোগ করা হয়েছে",
+        "memberRemove": "সদস্য সরানো হয়েছে",
+        "memberUpdate": "সদস্য আপডেট",
+        "validatorSlash": "ভ্যালিডেটর শাস্তি",
+        "validatorApprove": "ভ্যালিডেটর অনুমোদিত",
+        "validatorReject": "ভ্যালিডেটর প্রত্যাখ্যান",
+        "securityEvent": "নিরাপত্তা ইভেন্ট",
+        "ipBlock": "IP ব্লক",
+        "ipUnblock": "IP আনব্লক",
+        "permissionChange": "অনুমতি পরিবর্তন",
+        "login": "লগইন",
+        "logout": "লগআউট"
+      },
+      "auditCategories": {
+        "security": "নিরাপত্তা",
+        "validators": "ভ্যালিডেটর",
+        "members": "সদস্য",
+        "config": "কনফিগারেশন",
+        "access": "অ্যাক্সেস নিয়ন্ত্রণ",
+        "network": "নেটওয়ার্ক"
+      }
     },
     "reports": {
       "title": "কমপ্লায়েন্স রিপোর্ট",

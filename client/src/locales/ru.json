@@ -877,7 +877,18 @@
       "tier3Delegators": "Уровень 3 - Делегаторы",
       "tier1Name": "Уровень 1 - Активный комитет",
       "tier2Name": "Уровень 2 - Резерв",
-      "tier3Name": "Уровень 3 - Делегаторы"
+      "tier3Name": "Уровень 3 - Делегаторы",
+      "slashTypes": {
+        "downtime": "Простой",
+        "doubleSigning": "Двойная подпись",
+        "maliciousBehavior": "Злонамеренное поведение",
+        "protocolViolation": "Нарушение протокола"
+      },
+      "slashStatuses": {
+        "executed": "Выполнено",
+        "pending": "Ожидание",
+        "cancelled": "Отменено"
+      }
     },
     "security": {
       "title": "Аудит безопасности",
@@ -903,7 +914,42 @@
       "target": "Цель",
       "occurred": "Произошло",
       "actions": "Действия",
-      "noSecurityEvents": "События безопасности не найдены"
+      "noSecurityEvents": "События безопасности не найдены",
+      "threatTypes": {
+        "loginAttempt": "Попытка входа",
+        "suspiciousTx": "Подозрительная транзакция",
+        "rateLimit": "Превышение лимита",
+        "apiAbuse": "Злоупотребление API",
+        "bruteForce": "Атака перебором",
+        "unauthorizedAccess": "Несанкционированный доступ",
+        "ddos": "DDoS-атака",
+        "sqlInjection": "SQL-инъекция",
+        "xss": "XSS-атака",
+        "replayAttack": "Атака повторения"
+      },
+      "auditActions": {
+        "configChange": "Изменение конфигурации",
+        "memberAdd": "Добавлен участник",
+        "memberRemove": "Удален участник",
+        "memberUpdate": "Обновлен участник",
+        "validatorSlash": "Штраф валидатора",
+        "validatorApprove": "Валидатор одобрен",
+        "validatorReject": "Валидатор отклонен",
+        "securityEvent": "Событие безопасности",
+        "ipBlock": "IP заблокирован",
+        "ipUnblock": "IP разблокирован",
+        "permissionChange": "Изменение разрешений",
+        "login": "Вход",
+        "logout": "Выход"
+      },
+      "auditCategories": {
+        "security": "Безопасность",
+        "validators": "Валидаторы",
+        "members": "Участники",
+        "config": "Конфигурация",
+        "access": "Контроль доступа",
+        "network": "Сеть"
+      }
     },
     "reports": {
       "title": "Отчеты о соответствии",

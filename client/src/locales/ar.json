@@ -2014,7 +2014,18 @@
       "applicationUpdated": "تم تحديث الطلب بنجاح",
       "failedUpdateApplication": "فشل تحديث الطلب",
       "validatorSlashed": "تمت معاقبة المدقق بنجاح",
-      "failedSlashValidator": "فشل معاقبة المدقق"
+      "failedSlashValidator": "فشل معاقبة المدقق",
+      "slashTypes": {
+        "downtime": "توقف عن العمل",
+        "doubleSigning": "توقيع مزدوج",
+        "maliciousBehavior": "سلوك ضار",
+        "protocolViolation": "انتهاك البروتوكول"
+      },
+      "slashStatuses": {
+        "executed": "منفذ",
+        "pending": "معلق",
+        "cancelled": "ملغى"
+      }
     },
     "security": {
       "title": "تدقيق الأمان",
@@ -2158,7 +2169,42 @@
       "blockIpDesc": "حظر عنوان IP من الوصول إلى الشبكة",
       "ipAddressToBlock": "عنوان IP",
       "enterIpPlaceholder": "مثال: 192.168.1.1",
-      "enterBlockReasonPlaceholder": "سبب حظر هذا IP..."
+      "enterBlockReasonPlaceholder": "سبب حظر هذا IP...",
+      "threatTypes": {
+        "loginAttempt": "محاولة تسجيل الدخول",
+        "suspiciousTx": "معاملة مشبوهة",
+        "rateLimit": "تجاوز حد السرعة",
+        "apiAbuse": "إساءة استخدام API",
+        "bruteForce": "هجوم القوة الغاشمة",
+        "unauthorizedAccess": "وصول غير مصرح به",
+        "ddos": "هجوم DDoS",
+        "sqlInjection": "حقن SQL",
+        "xss": "هجوم XSS",
+        "replayAttack": "هجوم إعادة التشغيل"
+      },
+      "auditActions": {
+        "configChange": "تغيير التكوين",
+        "memberAdd": "إضافة عضو",
+        "memberRemove": "إزالة عضو",
+        "memberUpdate": "تحديث العضو",
+        "validatorSlash": "معاقبة المدقق",
+        "validatorApprove": "الموافقة على المدقق",
+        "validatorReject": "رفض المدقق",
+        "securityEvent": "حدث أمني",
+        "ipBlock": "حظر IP",
+        "ipUnblock": "إلغاء حظر IP",
+        "permissionChange": "تغيير الصلاحيات",
+        "login": "تسجيل الدخول",
+        "logout": "تسجيل الخروج"
+      },
+      "auditCategories": {
+        "security": "الأمان",
+        "validators": "المدققون",
+        "members": "الأعضاء",
+        "config": "التكوين",
+        "access": "التحكم في الوصول",
+        "network": "الشبكة"
+      }
     },
     "reports": {
       "title": "تقارير الامتثال",
