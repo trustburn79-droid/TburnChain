@@ -1136,7 +1136,13 @@
         "ipUnblock": "IP ان بلاک",
         "permissionChange": "اجازت کی تبدیلی",
         "login": "لاگ ان",
-        "logout": "لاگ آؤٹ"
+        "logout": "لاگ آؤٹ",
+        "Member_status_change": "رکن کی حیثیت میں تبدیلی",
+        "member_status_change": "رکن کی حیثیت میں تبدیلی",
+        "Member_tier_change": "رکن کے درجے میں تبدیلی",
+        "member_tier_change": "رکن کے درجے میں تبدیلی",
+        "Member_note_add": "رکن کا نوٹ شامل کیا گیا",
+        "member_note_add": "رکن کا نوٹ شامل کیا گیا"
       },
       "auditCategories": {
         "security": "سیکیورٹی",
@@ -1144,7 +1150,9 @@
         "members": "ارکان",
         "config": "ترتیب",
         "access": "رسائی کنٹرول",
-        "network": "نیٹ ورک"
+        "network": "نیٹ ورک",
+        "Member_management": "ارکان کا انتظام",
+        "member_management": "ارکان کا انتظام"
       },
       "eventTypes": {
         "login_attempt": "لاگ ان کی کوشش",

@@ -2363,7 +2363,13 @@
         "ipUnblock": "IP अनब्लॉक",
         "permissionChange": "अनुमति परिवर्तन",
         "login": "लॉगिन",
-        "logout": "लॉगआउट"
+        "logout": "लॉगआउट",
+        "Member_status_change": "सदस्य स्थिति परिवर्तन",
+        "member_status_change": "सदस्य स्थिति परिवर्तन",
+        "Member_tier_change": "सदस्य स्तर परिवर्तन",
+        "member_tier_change": "सदस्य स्तर परिवर्तन",
+        "Member_note_add": "सदस्य नोट जोड़ा गया",
+        "member_note_add": "सदस्य नोट जोड़ा गया"
       },
       "auditCategories": {
         "security": "सुरक्षा",
@@ -2371,7 +2377,9 @@
         "members": "सदस्य",
         "config": "कॉन्फ़िगरेशन",
         "access": "एक्सेस नियंत्रण",
-        "network": "नेटवर्क"
+        "network": "नेटवर्क",
+        "Member_management": "सदस्य प्रबंधन",
+        "member_management": "सदस्य प्रबंधन"
       },
       "eventTypes": {
         "login_attempt": "लॉगिन प्रयास",

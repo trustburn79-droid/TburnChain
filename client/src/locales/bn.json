@@ -1136,7 +1136,13 @@
         "ipUnblock": "IP আনব্লক",
         "permissionChange": "অনুমতি পরিবর্তন",
         "login": "লগইন",
-        "logout": "লগআউট"
+        "logout": "লগআউট",
+        "Member_status_change": "সদস্য স্থিতি পরিবর্তন",
+        "member_status_change": "সদস্য স্থিতি পরিবর্তন",
+        "Member_tier_change": "সদস্য স্তর পরিবর্তন",
+        "member_tier_change": "সদস্য স্তর পরিবর্তন",
+        "Member_note_add": "সদস্য নোট যোগ করা হয়েছে",
+        "member_note_add": "সদস্য নোট যোগ করা হয়েছে"
       },
       "auditCategories": {
         "security": "নিরাপত্তা",
@@ -1144,7 +1150,9 @@
         "members": "সদস্য",
         "config": "কনফিগারেশন",
         "access": "অ্যাক্সেস নিয়ন্ত্রণ",
-        "network": "নেটওয়ার্ক"
+        "network": "নেটওয়ার্ক",
+        "Member_management": "সদস্য ব্যবস্থাপনা",
+        "member_management": "সদস্য ব্যবস্থাপনা"
       },
       "eventTypes": {
         "login_attempt": "লগইন প্রচেষ্টা",

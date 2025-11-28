@@ -2538,7 +2538,13 @@
         "ipUnblock": "IP débloquée",
         "permissionChange": "Changement de permissions",
         "login": "Connexion",
-        "logout": "Déconnexion"
+        "logout": "Déconnexion",
+        "Member_status_change": "Changement de statut du membre",
+        "member_status_change": "Changement de statut du membre",
+        "Member_tier_change": "Changement de niveau du membre",
+        "member_tier_change": "Changement de niveau du membre",
+        "Member_note_add": "Note de membre ajoutée",
+        "member_note_add": "Note de membre ajoutée"
       },
       "auditCategories": {
         "security": "Sécurité",
@@ -2546,7 +2552,9 @@
         "members": "Membres",
         "config": "Configuration",
         "access": "Contrôle d'accès",
-        "network": "Réseau"
+        "network": "Réseau",
+        "Member_management": "Gestion des membres",
+        "member_management": "Gestion des membres"
       },
       "eventTypes": {
         "login_attempt": "Tentative de connexion",

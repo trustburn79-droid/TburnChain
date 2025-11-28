@@ -3083,7 +3083,13 @@
         "ipUnblock": "IP Unblocked",
         "permissionChange": "Permission Changed",
         "login": "Login",
-        "logout": "Logout"
+        "logout": "Logout",
+        "Member_status_change": "Member Status Change",
+        "member_status_change": "Member Status Change",
+        "Member_tier_change": "Member Tier Change",
+        "member_tier_change": "Member Tier Change",
+        "Member_note_add": "Member Note Added",
+        "member_note_add": "Member Note Added"
       },
       "auditCategories": {
         "security": "Security",
@@ -3091,7 +3097,9 @@
         "members": "Members",
         "config": "Configuration",
         "access": "Access Control",
-        "network": "Network"
+        "network": "Network",
+        "Member_management": "Member Management",
+        "member_management": "Member Management"
       },
       "eventTypes": {
         "login_attempt": "Login Attempt",

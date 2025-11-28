@@ -2447,7 +2447,13 @@
         "ipUnblock": "إلغاء حظر IP",
         "permissionChange": "تغيير الصلاحيات",
         "login": "تسجيل الدخول",
-        "logout": "تسجيل الخروج"
+        "logout": "تسجيل الخروج",
+        "Member_status_change": "تغيير حالة العضو",
+        "member_status_change": "تغيير حالة العضو",
+        "Member_tier_change": "تغيير مستوى العضو",
+        "member_tier_change": "تغيير مستوى العضو",
+        "Member_note_add": "إضافة ملاحظة العضو",
+        "member_note_add": "إضافة ملاحظة العضو"
       },
       "auditCategories": {
         "security": "الأمان",
@@ -2455,7 +2461,9 @@
         "members": "الأعضاء",
         "config": "التكوين",
         "access": "التحكم في الوصول",
-        "network": "الشبكة"
+        "network": "الشبكة",
+        "Member_management": "إدارة الأعضاء",
+        "member_management": "إدارة الأعضاء"
       },
       "eventTypes": {
         "login_attempt": "محاولة تسجيل الدخول",

@@ -1136,7 +1136,13 @@
         "ipUnblock": "IP разблокирован",
         "permissionChange": "Изменение разрешений",
         "login": "Вход",
-        "logout": "Выход"
+        "logout": "Выход",
+        "Member_status_change": "Изменение статуса участника",
+        "member_status_change": "Изменение статуса участника",
+        "Member_tier_change": "Изменение уровня участника",
+        "member_tier_change": "Изменение уровня участника",
+        "Member_note_add": "Добавлена заметка участника",
+        "member_note_add": "Добавлена заметка участника"
       },
       "auditCategories": {
         "security": "Безопасность",
@@ -1144,7 +1150,9 @@
         "members": "Участники",
         "config": "Конфигурация",
         "access": "Контроль доступа",
-        "network": "Сеть"
+        "network": "Сеть",
+        "Member_management": "Управление участниками",
+        "member_management": "Управление участниками"
       },
       "eventTypes": {
         "login_attempt": "Попытка входа",

@@ -3170,7 +3170,13 @@
         "ipUnblock": "IP 차단 해제",
         "permissionChange": "권한 변경",
         "login": "로그인",
-        "logout": "로그아웃"
+        "logout": "로그아웃",
+        "Member_status_change": "멤버 상태 변경",
+        "member_status_change": "멤버 상태 변경",
+        "Member_tier_change": "멤버 티어 변경",
+        "member_tier_change": "멤버 티어 변경",
+        "Member_note_add": "멤버 노트 추가",
+        "member_note_add": "멤버 노트 추가"
       },
       "auditCategories": {
         "security": "보안",
@@ -3178,7 +3184,9 @@
         "members": "멤버",
         "config": "설정",
         "access": "접근 제어",
-        "network": "네트워크"
+        "network": "네트워크",
+        "Member_management": "멤버 관리",
+        "member_management": "멤버 관리"
       },
       "eventTypes": {
         "login_attempt": "로그인 시도",

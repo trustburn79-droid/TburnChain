@@ -3111,7 +3111,13 @@
         "ipUnblock": "IP解封",
         "permissionChange": "权限更改",
         "login": "登录",
-        "logout": "登出"
+        "logout": "登出",
+        "Member_status_change": "成员状态变更",
+        "member_status_change": "成员状态变更",
+        "Member_tier_change": "成员等级变更",
+        "member_tier_change": "成员等级变更",
+        "Member_note_add": "成员备注添加",
+        "member_note_add": "成员备注添加"
       },
       "auditCategories": {
         "security": "安全",
@@ -3119,7 +3125,9 @@
         "members": "成员",
         "config": "配置",
         "access": "访问控制",
-        "network": "网络"
+        "network": "网络",
+        "Member_management": "成员管理",
+        "member_management": "成员管理"
       },
       "eventTypes": {
         "login_attempt": "登录尝试",

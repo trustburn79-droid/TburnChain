@@ -2722,7 +2722,13 @@
         "ipUnblock": "IPブロック解除",
         "permissionChange": "権限変更",
         "login": "ログイン",
-        "logout": "ログアウト"
+        "logout": "ログアウト",
+        "Member_status_change": "メンバーステータス変更",
+        "member_status_change": "メンバーステータス変更",
+        "Member_tier_change": "メンバーティア変更",
+        "member_tier_change": "メンバーティア変更",
+        "Member_note_add": "メンバーノート追加",
+        "member_note_add": "メンバーノート追加"
       },
       "auditCategories": {
         "security": "セキュリティ",
@@ -2730,7 +2736,9 @@
         "members": "メンバー",
         "config": "設定",
         "access": "アクセス制御",
-        "network": "ネットワーク"
+        "network": "ネットワーク",
+        "Member_management": "メンバー管理",
+        "member_management": "メンバー管理"
       },
       "eventTypes": {
         "login_attempt": "ログイン試行",

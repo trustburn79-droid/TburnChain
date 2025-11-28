@@ -3165,7 +3165,13 @@
         "ipUnblock": "IP desbloqueada",
         "permissionChange": "Cambio de permisos",
         "login": "Inicio de sesión",
-        "logout": "Cierre de sesión"
+        "logout": "Cierre de sesión",
+        "Member_status_change": "Cambio de estado de miembro",
+        "member_status_change": "Cambio de estado de miembro",
+        "Member_tier_change": "Cambio de nivel de miembro",
+        "member_tier_change": "Cambio de nivel de miembro",
+        "Member_note_add": "Nota de miembro añadida",
+        "member_note_add": "Nota de miembro añadida"
       },
       "auditCategories": {
         "security": "Seguridad",
@@ -3173,7 +3179,9 @@
         "members": "Miembros",
         "config": "Configuración",
         "access": "Control de acceso",
-        "network": "Red"
+        "network": "Red",
+        "Member_management": "Gestión de miembros",
+        "member_management": "Gestión de miembros"
       },
       "eventTypes": {
         "login_attempt": "Intento de inicio de sesión",
