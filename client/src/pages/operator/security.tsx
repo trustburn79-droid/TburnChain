@@ -592,15 +592,15 @@ export default function OperatorSecurity() {
                       <TableRow key={event.id} data-testid={`row-event-${event.id}`}>
                         <TableCell>
                           <div>
-                            <p className="font-medium capitalize">{event.event_type.replace(/_/g, " ")}</p>
+                            <p className="font-medium">{t(`operator.security.eventTypes.${event.event_type}`, { defaultValue: event.event_type.replace(/_/g, " ") })}</p>
                             <p className="text-xs text-muted-foreground truncate max-w-[200px]">
                               {event.description}
                             </p>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="outline" className="capitalize">
-                            {event.target_type}
+                          <Badge variant="outline">
+                            {t(`operator.security.targetTypes.${event.target_type}`, { defaultValue: event.target_type })}
                           </Badge>
                         </TableCell>
                         <TableCell>{getSeverityBadge(event.severity)}</TableCell>
@@ -1046,8 +1046,8 @@ export default function OperatorSecurity() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{t('operator.security.securityEventDetails')}</DialogTitle>
-            <DialogDescription className="capitalize">
-              {selectedEvent?.event_type.replace(/_/g, " ")}
+            <DialogDescription>
+              {selectedEvent && t(`operator.security.eventTypes.${selectedEvent.event_type}`, { defaultValue: selectedEvent.event_type.replace(/_/g, " ") })}
             </DialogDescription>
           </DialogHeader>
 
@@ -1064,7 +1064,7 @@ export default function OperatorSecurity() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{t('operator.security.targetType')}</p>
-                  <Badge variant="outline" className="capitalize">{selectedEvent.target_type}</Badge>
+                  <Badge variant="outline">{t(`operator.security.targetTypes.${selectedEvent.target_type}`, { defaultValue: selectedEvent.target_type })}</Badge>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{t('operator.security.sourceIp')}</p>

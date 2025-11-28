@@ -2784,7 +2784,25 @@
         "executed": "Executed",
         "pending": "Pending",
         "cancelled": "Cancelled"
-      }
+      },
+      "tier1": "Tier 1",
+      "tier2": "Tier 2",
+      "tier3": "Tier 3",
+      "applicationTypes": {
+        "new": "New Application",
+        "renewal": "Renewal",
+        "upgrade": "Tier Upgrade",
+        "downgrade": "Tier Downgrade",
+        "transfer": "Transfer"
+      },
+      "stakeSources": {
+        "self_funded": "Self Funded",
+        "delegated": "Delegated",
+        "pool": "Staking Pool",
+        "institutional": "Institutional",
+        "mixed": "Mixed Sources"
+      },
+      "unknown": "Unknown"
     },
 
     "security": {
@@ -2980,6 +2998,31 @@
         "members": "Members",
         "config": "Configuration",
         "access": "Access Control",
+        "network": "Network"
+      },
+      "eventTypes": {
+        "login_attempt": "Login Attempt",
+        "suspicious_tx": "Suspicious Transaction",
+        "rate_limit": "Rate Limit Exceeded",
+        "api_abuse": "API Abuse",
+        "brute_force": "Brute Force Attack",
+        "unauthorized_access": "Unauthorized Access",
+        "ddos": "DDoS Attack",
+        "sql_injection": "SQL Injection",
+        "xss": "XSS Attack",
+        "replay_attack": "Replay Attack",
+        "invalid_signature": "Invalid Signature",
+        "double_spend": "Double Spend Attempt",
+        "network_anomaly": "Network Anomaly",
+        "consensus_violation": "Consensus Violation"
+      },
+      "targetTypes": {
+        "member": "Member",
+        "validator": "Validator",
+        "transaction": "Transaction",
+        "contract": "Contract",
+        "system": "System",
+        "api": "API",
         "network": "Network"
       }
     },

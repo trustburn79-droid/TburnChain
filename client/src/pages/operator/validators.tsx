@@ -298,9 +298,9 @@ export default function OperatorValidators() {
 
   const getTierBadge = (tier: string) => {
     switch (tier) {
-      case "tier_1": return <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/20">Tier 1</Badge>;
-      case "tier_2": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20">Tier 2</Badge>;
-      case "tier_3": return <Badge className="bg-gray-500/10 text-gray-500 border-gray-500/20">Tier 3</Badge>;
+      case "tier_1": return <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/20">{t('operator.validators.tier1')}</Badge>;
+      case "tier_2": return <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20">{t('operator.validators.tier2')}</Badge>;
+      case "tier_3": return <Badge className="bg-gray-500/10 text-gray-500 border-gray-500/20">{t('operator.validators.tier3')}</Badge>;
       default: return <Badge variant="outline">{tier}</Badge>;
     }
   };
@@ -896,7 +896,7 @@ export default function OperatorValidators() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-muted-foreground">{t('operator.validators.applicationType')}</p>
-                    <p className="font-medium capitalize">{selectedApp.application_type}</p>
+                    <p className="font-medium">{t(`operator.validators.applicationTypes.${selectedApp.application_type}`, { defaultValue: selectedApp.application_type })}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{t('operator.validators.requestedTier')}</p>
@@ -912,7 +912,7 @@ export default function OperatorValidators() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{t('operator.validators.stakeSource')}</p>
-                    <p className="font-medium capitalize">{selectedApp.stake_source}</p>
+                    <p className="font-medium">{t(`operator.validators.stakeSources.${selectedApp.stake_source}`, { defaultValue: selectedApp.stake_source })}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{t('operator.members.status')}</p>
