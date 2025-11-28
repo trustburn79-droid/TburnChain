@@ -1196,5 +1196,54 @@
   "notFound": {
     "title": "404 Страница не найдена",
     "message": "Вы забыли добавить страницу в роутер?"
+  },
+  "governance": {
+    "title": "ИИ Управление",
+    "subtitle": "DAO с ИИ - Анализ предложений и прогнозирование результатов",
+    "aiPowered": "На базе ИИ",
+    "totalProposals": "Всего предложений",
+    "activeCount": "{{count}} активных",
+    "passRate": "Процент одобрения",
+    "avgParticipation": "Средняя участие",
+    "totalVoters": "Всего {{count}} голосующих",
+    "aiPredictionAccuracy": "Точность прогнозов ИИ",
+    "analyzed": "{{count}} проанализировано",
+    "gpt5TurboAnalysis": "Анализ GPT-5 Turbo",
+    "gpt5TurboDesc": "Стратегический слой анализирует экономическое воздействие, последствия для безопасности и предоставляет оценку рисков для каждого предложения.",
+    "claudeSonnetPrediction": "Прогноз Claude Sonnet 4.5",
+    "claudeSonnetDesc": "Тактический слой прогнозирует результаты голосования на основе настроений сообщества, исторических паттернов и содержания предложения.",
+    "llamaRecommendations": "Рекомендации Llama 3.3 70B",
+    "llamaDesc": "Операционный слой предоставляет персонализированные рекомендации по голосованию на основе истории голосования и распределения стейка.",
+    "activeTab": "Активные ({{count}})",
+    "completedTab": "Завершённые",
+    "allProposalsTab": "Все предложения",
+    "noProposalsFound": "Предложения не найдены",
+    "highRisk": "Высокий риск",
+    "quorumReached": "Кворум достигнут",
+    "forLabel": "За:",
+    "againstLabel": "Против:",
+    "abstainLabel": "Воздержался:",
+    "voters": "{{count}} голосующих",
+    "total": "Итого:",
+    "aiAnalysis": "Анализ ИИ",
+    "confidence": "{{percent}}% уверенность",
+    "economic": "Экономика:",
+    "security": "Безопасность:",
+    "predictedOutcome": "Прогноз результата:",
+    "keyFactors": "Ключевые факторы:",
+    "vote": "Голосовать",
+    "status": {
+      "draft": "черновик",
+      "active": "активно",
+      "succeeded": "одобрено",
+      "defeated": "отклонено",
+      "queued": "в очереди",
+      "executed": "исполнено",
+      "cancelled": "отменено"
+    },
+    "prediction": {
+      "for": "ЗА",
+      "against": "ПРОТИВ"
+    }
   }
 }

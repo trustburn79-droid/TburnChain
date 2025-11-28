@@ -1196,5 +1196,54 @@
   "notFound": {
     "title": "৪০৪ পেজ পাওয়া যায়নি",
     "message": "রাউটারে পেজ যোগ করতে ভুলে গেছেন?"
+  },
+  "governance": {
+    "title": "AI গভর্নেন্স",
+    "subtitle": "AI-উন্নত DAO - প্রস্তাব বিশ্লেষণ ও ফলাফল পূর্বাভাস",
+    "aiPowered": "AI চালিত",
+    "totalProposals": "মোট প্রস্তাব",
+    "activeCount": "{{count}} সক্রিয়",
+    "passRate": "পাস রেট",
+    "avgParticipation": "গড় অংশগ্রহণ",
+    "totalVoters": "মোট {{count}} ভোটার",
+    "aiPredictionAccuracy": "AI পূর্বাভাস নির্ভুলতা",
+    "analyzed": "{{count}} বিশ্লেষিত",
+    "gpt5TurboAnalysis": "GPT-5 Turbo বিশ্লেষণ",
+    "gpt5TurboDesc": "কৌশলগত স্তর অর্থনৈতিক প্রভাব, নিরাপত্তা জড়িত বিষয়গুলি বিশ্লেষণ করে এবং প্রতিটি প্রস্তাবের জন্য ঝুঁকি মূল্যায়ন প্রদান করে।",
+    "claudeSonnetPrediction": "Claude Sonnet 4.5 পূর্বাভাস",
+    "claudeSonnetDesc": "কৌশলগত স্তর সম্প্রদায়ের মনোভাব, ঐতিহাসিক প্যাটার্ন এবং প্রস্তাব বিষয়বস্তুর উপর ভিত্তি করে ভোটের ফলাফল পূর্বাভাস দেয়।",
+    "llamaRecommendations": "Llama 3.3 70B সুপারিশ",
+    "llamaDesc": "অপারেশনাল স্তর ভোটারের ইতিহাস এবং স্টেক সারিবদ্ধতার উপর ভিত্তি করে ব্যক্তিগতকৃত ভোটের সুপারিশ প্রদান করে।",
+    "activeTab": "সক্রিয় ({{count}})",
+    "completedTab": "সম্পন্ন",
+    "allProposalsTab": "সমস্ত প্রস্তাব",
+    "noProposalsFound": "কোন প্রস্তাব পাওয়া যায়নি",
+    "highRisk": "উচ্চ ঝুঁকি",
+    "quorumReached": "কোরাম পৌঁছেছে",
+    "forLabel": "পক্ষে:",
+    "againstLabel": "বিপক্ষে:",
+    "abstainLabel": "বিরত:",
+    "voters": "{{count}} ভোটার",
+    "total": "মোট:",
+    "aiAnalysis": "AI বিশ্লেষণ",
+    "confidence": "{{percent}}% আত্মবিশ্বাস",
+    "economic": "অর্থনৈতিক:",
+    "security": "নিরাপত্তা:",
+    "predictedOutcome": "পূর্বাভাসিত ফলাফল:",
+    "keyFactors": "মূল কারণ:",
+    "vote": "ভোট",
+    "status": {
+      "draft": "খসড়া",
+      "active": "সক্রিয়",
+      "succeeded": "সফল",
+      "defeated": "প্রত্যাখ্যাত",
+      "queued": "সারিতে",
+      "executed": "সম্পাদিত",
+      "cancelled": "বাতিল"
+    },
+    "prediction": {
+      "for": "পক্ষে",
+      "against": "বিপক্ষে"
+    }
   }
 }

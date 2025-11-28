@@ -1196,5 +1196,54 @@
   "notFound": {
     "title": "404 Página Não Encontrada",
     "message": "Esqueceu de adicionar a página ao roteador?"
+  },
+  "governance": {
+    "title": "Governança IA",
+    "subtitle": "DAO aprimorada por IA - Análise de propostas e previsão de resultados",
+    "aiPowered": "Impulsionado por IA",
+    "totalProposals": "Total de Propostas",
+    "activeCount": "{{count}} ativas",
+    "passRate": "Taxa de Aprovação",
+    "avgParticipation": "Participação Média",
+    "totalVoters": "{{count}} votantes no total",
+    "aiPredictionAccuracy": "Precisão de Previsão IA",
+    "analyzed": "{{count}} analisadas",
+    "gpt5TurboAnalysis": "Análise GPT-5 Turbo",
+    "gpt5TurboDesc": "A camada estratégica analisa impacto econômico, implicações de segurança e fornece avaliação de risco para cada proposta.",
+    "claudeSonnetPrediction": "Previsão Claude Sonnet 4.5",
+    "claudeSonnetDesc": "A camada tática prevê resultados de votação com base no sentimento da comunidade, padrões históricos e conteúdo da proposta.",
+    "llamaRecommendations": "Recomendações Llama 3.3 70B",
+    "llamaDesc": "A camada operacional fornece recomendações de voto personalizadas com base no histórico do votante e alinhamento de stake.",
+    "activeTab": "Ativas ({{count}})",
+    "completedTab": "Concluídas",
+    "allProposalsTab": "Todas as Propostas",
+    "noProposalsFound": "Nenhuma proposta encontrada",
+    "highRisk": "Alto Risco",
+    "quorumReached": "Quórum Atingido",
+    "forLabel": "A Favor:",
+    "againstLabel": "Contra:",
+    "abstainLabel": "Abstenção:",
+    "voters": "{{count}} votantes",
+    "total": "Total:",
+    "aiAnalysis": "Análise IA",
+    "confidence": "{{percent}}% confiança",
+    "economic": "Econômico:",
+    "security": "Segurança:",
+    "predictedOutcome": "Resultado Previsto:",
+    "keyFactors": "Fatores Chave:",
+    "vote": "Votar",
+    "status": {
+      "draft": "rascunho",
+      "active": "ativa",
+      "succeeded": "aprovada",
+      "defeated": "rejeitada",
+      "queued": "em fila",
+      "executed": "executada",
+      "cancelled": "cancelada"
+    },
+    "prediction": {
+      "for": "A FAVOR",
+      "against": "CONTRA"
+    }
   }
 }

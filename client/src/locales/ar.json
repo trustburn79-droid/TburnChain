@@ -2409,5 +2409,54 @@
       "compliant": "ممتثل",
       "nonCompliant": "غير ممتثل"
     }
+  },
+  "governance": {
+    "title": "حوكمة الذكاء الاصطناعي",
+    "subtitle": "DAO معززة بالذكاء الاصطناعي - تحليل المقترحات والتنبؤ بالنتائج",
+    "aiPowered": "مدعوم بالذكاء الاصطناعي",
+    "totalProposals": "إجمالي المقترحات",
+    "activeCount": "{{count}} نشطة",
+    "passRate": "معدل القبول",
+    "avgParticipation": "متوسط المشاركة",
+    "totalVoters": "{{count}} ناخب إجمالي",
+    "aiPredictionAccuracy": "دقة تنبؤ الذكاء الاصطناعي",
+    "analyzed": "{{count}} تم تحليلها",
+    "gpt5TurboAnalysis": "تحليل GPT-5 Turbo",
+    "gpt5TurboDesc": "تحلل الطبقة الاستراتيجية التأثير الاقتصادي والآثار الأمنية وتوفر تقييم المخاطر لكل مقترح.",
+    "claudeSonnetPrediction": "توقعات Claude Sonnet 4.5",
+    "claudeSonnetDesc": "تتنبأ الطبقة التكتيكية بنتائج التصويت بناءً على مشاعر المجتمع والأنماط التاريخية ومحتوى المقترح.",
+    "llamaRecommendations": "توصيات Llama 3.3 70B",
+    "llamaDesc": "توفر الطبقة التشغيلية توصيات تصويت مخصصة بناءً على تاريخ الناخب ومحاذاة الحصة.",
+    "activeTab": "نشطة ({{count}})",
+    "completedTab": "مكتملة",
+    "allProposalsTab": "جميع المقترحات",
+    "noProposalsFound": "لم يتم العثور على مقترحات",
+    "highRisk": "مخاطر عالية",
+    "quorumReached": "تم بلوغ النصاب",
+    "forLabel": "مع:",
+    "againstLabel": "ضد:",
+    "abstainLabel": "امتناع:",
+    "voters": "{{count}} ناخب",
+    "total": "المجموع:",
+    "aiAnalysis": "تحليل الذكاء الاصطناعي",
+    "confidence": "{{percent}}% ثقة",
+    "economic": "اقتصادي:",
+    "security": "أمني:",
+    "predictedOutcome": "النتيجة المتوقعة:",
+    "keyFactors": "العوامل الرئيسية:",
+    "vote": "تصويت",
+    "status": {
+      "draft": "مسودة",
+      "active": "نشط",
+      "succeeded": "نجح",
+      "defeated": "مرفوض",
+      "queued": "في الانتظار",
+      "executed": "تم تنفيذه",
+      "cancelled": "ملغى"
+    },
+    "prediction": {
+      "for": "مع",
+      "against": "ضد"
+    }
   }
 }

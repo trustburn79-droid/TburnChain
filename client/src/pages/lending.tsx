@@ -179,10 +179,13 @@ const healthStatusColors: Record<string, string> = {
   liquidatable: "bg-red-500 text-white",
 };
 
-const healthStatusLabels: Record<string, string> = {
-  healthy: "Healthy",
-  at_risk: "At Risk",
-  liquidatable: "Liquidatable",
+const getHealthStatusLabel = (t: (key: string) => string, status: string): string => {
+  const labels: Record<string, string> = {
+    healthy: t('lending.healthStatusHealthy'),
+    at_risk: t('lending.healthStatusAtRisk'),
+    liquidatable: t('lending.healthStatusLiquidatable'),
+  };
+  return labels[status] || status;
 };
 
 const txTypeIcons: Record<string, typeof Plus> = {
@@ -375,8 +378,8 @@ export default function LendingPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Supply Successful",
-        description: "Your assets have been supplied to the lending pool.",
+        title: t('lending.supplySuccessful'),
+        description: t('lending.supplySuccessDesc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
@@ -385,8 +388,8 @@ export default function LendingPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Supply Failed",
-        description: error.message || "Failed to supply assets",
+        title: t('lending.supplyFailed'),
+        description: error.message || t('lending.supplyFailedDesc'),
         variant: "destructive",
       });
     },
@@ -402,8 +405,8 @@ export default function LendingPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Withdraw Successful",
-        description: "Your assets have been withdrawn from the lending pool.",
+        title: t('lending.withdrawSuccessful'),
+        description: t('lending.withdrawSuccessDesc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
@@ -412,8 +415,8 @@ export default function LendingPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Withdraw Failed",
-        description: error.message || "Failed to withdraw assets",
+        title: t('lending.withdrawFailed'),
+        description: error.message || t('lending.withdrawFailedDesc'),
         variant: "destructive",
       });
     },
@@ -430,8 +433,8 @@ export default function LendingPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Borrow Successful",
-        description: "Assets have been borrowed from the lending pool.",
+        title: t('lending.borrowSuccessful'),
+        description: t('lending.borrowSuccessDesc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
@@ -440,8 +443,8 @@ export default function LendingPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Borrow Failed",
-        description: error.message || "Failed to borrow assets",
+        title: t('lending.borrowFailed'),
+        description: error.message || t('lending.borrowFailedDesc'),
         variant: "destructive",
       });
     },
@@ -457,8 +460,8 @@ export default function LendingPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Repay Successful",
-        description: "Your debt has been repaid.",
+        title: t('lending.repaySuccessful'),
+        description: t('lending.repaySuccessDesc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
@@ -467,8 +470,8 @@ export default function LendingPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Repay Failed",
-        description: error.message || "Failed to repay debt",
+        title: t('lending.repayFailed'),
+        description: error.message || t('lending.repayFailedDesc'),
         variant: "destructive",
       });
     },
@@ -491,8 +494,8 @@ export default function LendingPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Liquidation Successful",
-        description: "Position has been liquidated successfully.",
+        title: t('lending.liquidationSuccessful'),
+        description: t('lending.liquidationSuccessDesc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
@@ -502,8 +505,8 @@ export default function LendingPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Liquidation Failed",
-        description: error.message || "Failed to liquidate position",
+        title: t('lending.liquidationFailed'),
+        description: error.message || t('lending.liquidationFailedDesc'),
         variant: "destructive",
       });
     },
@@ -538,8 +541,8 @@ export default function LendingPage() {
     const weiAmount = toWei(dialogAmount, dialogMarket.assetDecimals);
     if (weiAmount === "0") {
       toast({
-        title: "Invalid Amount",
-        description: "Please enter a valid amount greater than 0",
+        title: t('lending.invalidAmount'),
+        description: t('lending.invalidAmountDesc'),
         variant: "destructive",
       });
       return;
@@ -578,8 +581,8 @@ export default function LendingPage() {
   const handleLiquidateSubmit = () => {
     if (!liquidateBorrower || !liquidateDebtMarket || !liquidateCollateralMarket || !liquidateAmount) {
       toast({
-        title: "Invalid Input",
-        description: "Please fill in all fields",
+        title: t('lending.invalidInput'),
+        description: t('lending.invalidInputDesc'),
         variant: "destructive",
       });
       return;
@@ -601,32 +604,34 @@ export default function LendingPage() {
 
   const getDialogTitle = () => {
     switch (dialogAction) {
-      case "supply": return "Supply Assets";
-      case "withdraw": return "Withdraw Assets";
-      case "borrow": return "Borrow Assets";
-      case "repay": return "Repay Debt";
+      case "supply": return t('lending.supplyAssets');
+      case "withdraw": return t('lending.withdrawAssets');
+      case "borrow": return t('lending.borrowAssets');
+      case "repay": return t('lending.repayDebt');
       default: return "";
     }
   };
 
   const getDialogDescription = () => {
+    const symbol = dialogMarket?.assetSymbol || '';
     switch (dialogAction) {
-      case "supply": return `Supply ${dialogMarket?.assetSymbol} to earn yield`;
-      case "withdraw": return `Withdraw ${dialogMarket?.assetSymbol} from the lending pool`;
-      case "borrow": return `Borrow ${dialogMarket?.assetSymbol} against your collateral`;
-      case "repay": return `Repay your ${dialogMarket?.assetSymbol} debt`;
+      case "supply": return t('lending.supplyToEarn', { symbol });
+      case "withdraw": return t('lending.withdrawFromPool', { symbol });
+      case "borrow": return t('lending.borrowAgainst', { symbol });
+      case "repay": return t('lending.repayYourDebt', { symbol });
       default: return "";
     }
   };
 
   const getActionButtonText = () => {
-    if (isDialogPending) return "Processing...";
+    if (isDialogPending) return t('lending.processing');
+    const symbol = dialogMarket?.assetSymbol || '';
     switch (dialogAction) {
-      case "supply": return `Supply ${dialogMarket?.assetSymbol}`;
-      case "withdraw": return `Withdraw ${dialogMarket?.assetSymbol}`;
-      case "borrow": return `Borrow ${dialogMarket?.assetSymbol}`;
-      case "repay": return `Repay ${dialogMarket?.assetSymbol}`;
-      default: return "Confirm";
+      case "supply": return t('lending.supplySymbol', { symbol });
+      case "withdraw": return t('lending.withdrawSymbol', { symbol });
+      case "borrow": return t('lending.borrowSymbol', { symbol });
+      case "repay": return t('lending.repaySymbol', { symbol });
+      default: return t('lending.confirm');
     }
   };
 
@@ -692,7 +697,7 @@ export default function LendingPage() {
                 {formatUSD(stats?.totalSupplyUsd || lendingStats?.totalSupplyUsd)}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                {stats?.activeMarkets || lendingStats?.activeMarkets || 0} active markets
+                {t('lending.activeMarkets', { count: stats?.activeMarkets || lendingStats?.activeMarkets || 0 })}
               </p>
             </CardContent>
           </Card>
@@ -707,7 +712,7 @@ export default function LendingPage() {
                 {formatUSD(stats?.totalBorrowUsd || lendingStats?.totalBorrowUsd)}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                Avg utilization: {stats?.avgUtilization || lendingStats?.avgUtilization || 0}%
+                {t('lending.avgUtilization', { rate: stats?.avgUtilization || lendingStats?.avgUtilization || 0 })}
               </p>
             </CardContent>
           </Card>
@@ -722,7 +727,7 @@ export default function LendingPage() {
                 {riskData?.atRiskCount || 0}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                {riskData?.liquidatableCount || 0} liquidatable
+                {t('lending.liquidatable', { count: riskData?.liquidatableCount || 0 })}
               </p>
             </CardContent>
           </Card>
@@ -737,7 +742,7 @@ export default function LendingPage() {
                 {formatBps(stats?.avgSupplyRate || 0)}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                Borrow APR: {formatBps(stats?.avgBorrowRate || 0)}
+                {t('lending.borrowAprLabel', { rate: formatBps(stats?.avgBorrowRate || 0) })}
               </p>
             </CardContent>
           </Card>
@@ -756,9 +761,9 @@ export default function LendingPage() {
           <TabsContent value="overview" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Lending Markets</CardTitle>
+                <CardTitle>{t('lending.lendingMarkets')}</CardTitle>
                 <CardDescription>
-                  Overview of all available lending markets and their current rates
+                  {t('lending.lendingMarketsDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -781,11 +786,11 @@ export default function LendingPage() {
                                 {market.canBeCollateral && (
                                   <Badge variant="outline" className="text-xs">
                                     <Shield className="h-3 w-3 mr-1" />
-                                    Collateral
+                                    {t('lending.collateral')}
                                   </Badge>
                                 )}
                                 {!market.isActive && (
-                                  <Badge variant="secondary" className="text-xs">Inactive</Badge>
+                                  <Badge variant="secondary" className="text-xs">{t('lending.inactive')}</Badge>
                                 )}
                               </div>
                               <div className="text-sm text-muted-foreground">{market.assetName}</div>
@@ -794,23 +799,23 @@ export default function LendingPage() {
                           
                           <div className="flex items-center gap-6 flex-wrap">
                             <div className="text-right">
-                              <div className="text-sm text-muted-foreground">Total Supply</div>
+                              <div className="text-sm text-muted-foreground">{t('lending.totalSupply')}</div>
                               <div className="font-medium">{formatUSD(market.totalSupply)}</div>
                             </div>
                             <div className="text-right">
-                              <div className="text-sm text-muted-foreground">Total Borrowed</div>
+                              <div className="text-sm text-muted-foreground">{t('lending.totalBorrowed')}</div>
                               <div className="font-medium">{formatUSD(market.totalBorrowed)}</div>
                             </div>
                             <div className="text-right">
-                              <div className="text-sm text-muted-foreground">Supply APY</div>
+                              <div className="text-sm text-muted-foreground">{t('lending.supplyApy')}</div>
                               <div className="font-medium text-green-500">{formatBps(market.supplyRate)}</div>
                             </div>
                             <div className="text-right">
-                              <div className="text-sm text-muted-foreground">Borrow APR</div>
+                              <div className="text-sm text-muted-foreground">{t('lending.borrowApr')}</div>
                               <div className="font-medium text-blue-500">{formatBps(market.borrowRateVariable)}</div>
                             </div>
                             <div className="text-right w-24">
-                              <div className="text-sm text-muted-foreground mb-1">Utilization</div>
+                              <div className="text-sm text-muted-foreground mb-1">{t('lending.utilization')}</div>
                               <Progress value={market.utilizationRate / 100} className="h-2" />
                               <div className="text-xs text-muted-foreground mt-1">{formatBps(market.utilizationRate)}</div>
                             </div>
@@ -824,7 +829,7 @@ export default function LendingPage() {
                               data-testid={`button-supply-${market.id}`}
                             >
                               <Plus className="h-4 w-4 mr-1" />
-                              Supply
+                              {t('lending.supply')}
                             </Button>
                             <Button 
                               size="sm" 
@@ -834,7 +839,7 @@ export default function LendingPage() {
                               data-testid={`button-borrow-${market.id}`}
                             >
                               <ArrowDownRight className="h-4 w-4 mr-1" />
-                              Borrow
+                              {t('lending.borrow')}
                             </Button>
                           </div>
                         </div>
@@ -842,8 +847,8 @@ export default function LendingPage() {
                     )) : (
                       <div className="text-center py-8 text-muted-foreground">
                         <Landmark className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                        <p>No lending markets available</p>
-                        <p className="text-sm mt-2">Markets will appear once they are created</p>
+                        <p>{t('lending.noMarketsAvailable')}</p>
+                        <p className="text-sm mt-2">{t('lending.marketsWillAppear')}</p>
                       </div>
                     )}
                   </div>
@@ -858,7 +863,7 @@ export default function LendingPage() {
                 <div className="grid gap-4 md:grid-cols-4">
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Total Collateral</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('lending.totalCollateral')}</CardTitle>
                       <Shield className="h-4 w-4 text-green-500" />
                     </CardHeader>
                     <CardContent>
@@ -866,14 +871,14 @@ export default function LendingPage() {
                         {formatUSD(userPosition.totalCollateralValueUsd)}
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">
-                        {userPosition.suppliedAssetCount} assets supplied
+                        {t('lending.assetsSupplied', { count: userPosition.suppliedAssetCount })}
                       </p>
                     </CardContent>
                   </Card>
 
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Total Borrowed</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('lending.totalBorrowed')}</CardTitle>
                       <CircleDollarSign className="h-4 w-4 text-blue-500" />
                     </CardHeader>
                     <CardContent>
@@ -881,14 +886,14 @@ export default function LendingPage() {
                         {formatUSD(userPosition.totalBorrowedValueUsd)}
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">
-                        {userPosition.borrowedAssetCount} assets borrowed
+                        {t('lending.assetsBorrowed', { count: userPosition.borrowedAssetCount })}
                       </p>
                     </CardContent>
                   </Card>
 
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Health Factor</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('lending.healthFactor')}</CardTitle>
                       <Heart className="h-4 w-4" />
                     </CardHeader>
                     <CardContent>
@@ -896,14 +901,14 @@ export default function LendingPage() {
                         {formatHealthFactor(userPosition.healthFactor)}
                       </div>
                       <Badge className={healthStatusColors[userPosition.healthStatus] || "bg-muted"}>
-                        {healthStatusLabels[userPosition.healthStatus] || userPosition.healthStatus}
+                        {getHealthStatusLabel(t, userPosition.healthStatus)}
                       </Badge>
                     </CardContent>
                   </Card>
 
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Net APY</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('lending.netApy')}</CardTitle>
                       <TrendingUp className="h-4 w-4 text-primary" />
                     </CardHeader>
                     <CardContent>
@@ -911,7 +916,7 @@ export default function LendingPage() {
                         {formatBps(userPosition.netApy)}
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Borrow capacity: {formatUSD(userPosition.borrowCapacityRemaining)}
+                        {t('lending.borrowCapacity', { amount: formatUSD(userPosition.borrowCapacityRemaining) })}
                       </p>
                     </CardContent>
                   </Card>
@@ -922,9 +927,9 @@ export default function LendingPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <PiggyBank className="h-5 w-5 text-green-500" />
-                        Supplied Assets
+                        {t('lending.suppliedAssets')}
                       </CardTitle>
-                      <CardDescription>Assets you've supplied as collateral</CardDescription>
+                      <CardDescription>{t('lending.suppliedAssetsDesc')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <ScrollArea className="h-[300px]">
@@ -952,7 +957,7 @@ export default function LendingPage() {
                                         )}
                                       </div>
                                       <div className="text-sm text-muted-foreground">
-                                        {formatWeiToToken(supply.suppliedAmount)} supplied
+                                        {t('lending.supplied', { amount: formatWeiToToken(supply.suppliedAmount) })}
                                       </div>
                                     </div>
                                   </div>
@@ -970,7 +975,7 @@ export default function LendingPage() {
                                       data-testid={`button-withdraw-position-${supply.marketId}`}
                                     >
                                       <Minus className="h-4 w-4 mr-1" />
-                                      Withdraw
+                                      {t('lending.withdraw')}
                                     </Button>
                                     <Button 
                                       size="sm"
@@ -978,7 +983,7 @@ export default function LendingPage() {
                                       data-testid={`button-add-supply-${supply.marketId}`}
                                     >
                                       <Plus className="h-4 w-4 mr-1" />
-                                      Add More
+                                      {t('lending.addMore')}
                                     </Button>
                                   </div>
                                 )}
@@ -987,8 +992,8 @@ export default function LendingPage() {
                           }) : (
                             <div className="text-center py-8 text-muted-foreground">
                               <PiggyBank className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                              <p>No assets supplied</p>
-                              <p className="text-sm mt-1">Supply assets to start earning yield</p>
+                              <p>{t('lending.noAssetsSupplied')}</p>
+                              <p className="text-sm mt-1">{t('lending.supplyToEarnYield')}</p>
                             </div>
                           )}
                         </div>
@@ -1000,9 +1005,9 @@ export default function LendingPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <CircleDollarSign className="h-5 w-5 text-blue-500" />
-                        Borrowed Assets
+                        {t('lending.borrowedAssets')}
                       </CardTitle>
-                      <CardDescription>Assets you've borrowed</CardDescription>
+                      <CardDescription>{t('lending.borrowedAssetsDesc')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <ScrollArea className="h-[300px]">
@@ -1028,7 +1033,7 @@ export default function LendingPage() {
                                         </Badge>
                                       </div>
                                       <div className="text-sm text-muted-foreground">
-                                        {formatWeiToToken(borrow.borrowedAmount)} borrowed
+                                        {t('lending.borrowed', { amount: formatWeiToToken(borrow.borrowedAmount) })}
                                       </div>
                                     </div>
                                   </div>
@@ -1038,7 +1043,7 @@ export default function LendingPage() {
                                   </div>
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-2">
-                                  Accrued Interest: {formatWeiToToken(borrow.accruedInterest)} {borrow.assetSymbol}
+                                  {t('lending.accruedInterest', { amount: formatWeiToToken(borrow.accruedInterest), symbol: borrow.assetSymbol })}
                                 </div>
                                 {market && (
                                   <div className="flex items-center gap-2 mt-3">
@@ -1048,7 +1053,7 @@ export default function LendingPage() {
                                       data-testid={`button-repay-position-${borrow.marketId}`}
                                     >
                                       <ArrowUpRight className="h-4 w-4 mr-1" />
-                                      Repay
+                                      {t('lending.repay')}
                                     </Button>
                                     <Button 
                                       size="sm" 
@@ -1057,7 +1062,7 @@ export default function LendingPage() {
                                       data-testid={`button-borrow-more-${borrow.marketId}`}
                                     >
                                       <ArrowDownRight className="h-4 w-4 mr-1" />
-                                      Borrow More
+                                      {t('lending.borrowMore')}
                                     </Button>
                                   </div>
                                 )}
@@ -1066,8 +1071,8 @@ export default function LendingPage() {
                           }) : (
                             <div className="text-center py-8 text-muted-foreground">
                               <CircleDollarSign className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                              <p>No active borrows</p>
-                              <p className="text-sm mt-1">Borrow assets against your collateral</p>
+                              <p>{t('lending.noActiveBorrows')}</p>
+                              <p className="text-sm mt-1">{t('lending.borrowAgainstCollateral')}</p>
                             </div>
                           )}
                         </div>
@@ -1081,14 +1086,14 @@ export default function LendingPage() {
                 <CardContent className="py-12">
                   <div className="text-center text-muted-foreground">
                     <Wallet className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <p className="text-lg font-medium">No Position Found</p>
-                    <p className="text-sm mt-2">Supply assets to start earning yield or borrow against your collateral</p>
+                    <p className="text-lg font-medium">{t('lending.noPositionFound')}</p>
+                    <p className="text-sm mt-2">{t('lending.noPositionDesc')}</p>
                     <Button 
                       className="mt-4"
                       onClick={() => setSelectedTab("overview")}
                       data-testid="button-go-to-markets"
                     >
-                      View Markets
+                      {t('lending.viewMarkets')}
                     </Button>
                   </div>
                 </CardContent>
@@ -1100,17 +1105,17 @@ export default function LendingPage() {
             <div className="grid gap-6 md:grid-cols-2">
               <Card>
                 <CardHeader>
-                  <CardTitle>Supply Assets</CardTitle>
+                  <CardTitle>{t('lending.supplyAssets')}</CardTitle>
                   <CardDescription>
-                    Supply assets to earn yield from borrowers
+                    {t('lending.supplyAssetsDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Select Market</Label>
+                    <Label>{t('lending.selectMarket')}</Label>
                     <Select value={selectedMarket || ""} onValueChange={setSelectedMarket}>
                       <SelectTrigger data-testid="select-supply-market">
-                        <SelectValue placeholder="Choose an asset to supply" />
+                        <SelectValue placeholder={t('lending.chooseAssetToSupply')} />
                       </SelectTrigger>
                       <SelectContent>
                         {markets?.filter(m => m.isActive).map((market) => (
@@ -1129,7 +1134,7 @@ export default function LendingPage() {
                   {selectedMarketData && (
                     <>
                       <div className="space-y-2">
-                        <Label>Amount to Supply</Label>
+                        <Label>{t('lending.amountToSupply')}</Label>
                         <div className="relative">
                           <Input
                             type="text"
@@ -1145,7 +1150,7 @@ export default function LendingPage() {
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <Label htmlFor="use-as-collateral">Use as Collateral</Label>
+                        <Label htmlFor="use-as-collateral">{t('lending.useAsCollateral')}</Label>
                         <Switch 
                           id="use-as-collateral"
                           checked={useAsCollateral}
@@ -1157,15 +1162,15 @@ export default function LendingPage() {
 
                       <div className="p-4 rounded-lg bg-muted/50 space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Supply APY</span>
+                          <span className="text-muted-foreground">{t('lending.supplyApy')}</span>
                           <span className="text-green-500 font-medium">{formatBps(selectedMarketData.supplyRate)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Collateral Factor</span>
+                          <span className="text-muted-foreground">{t('lending.collateralFactor')}</span>
                           <span>{formatBps(selectedMarketData.collateralFactor)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Available Liquidity</span>
+                          <span className="text-muted-foreground">{t('lending.availableLiquidity')}</span>
                           <span>{formatWeiToToken(selectedMarketData.availableLiquidity)}</span>
                         </div>
                       </div>
@@ -1190,7 +1195,7 @@ export default function LendingPage() {
                         ) : (
                           <Plus className="h-4 w-4 mr-2" />
                         )}
-                        Supply {selectedMarketData.assetSymbol}
+                        {t('lending.supplySymbol', { symbol: selectedMarketData.assetSymbol })}
                       </Button>
                     </>
                   )}
@@ -1199,8 +1204,8 @@ export default function LendingPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Supply Markets</CardTitle>
-                  <CardDescription>Assets available for supplying</CardDescription>
+                  <CardTitle>{t('lending.supplyMarkets')}</CardTitle>
+                  <CardDescription>{t('lending.supplyMarketsDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ScrollArea className="h-[400px]">
@@ -1226,7 +1231,7 @@ export default function LendingPage() {
                             </div>
                             <div className="text-right">
                               <div className="text-green-500 font-medium">{formatBps(market.supplyRate)}</div>
-                              <div className="text-xs text-muted-foreground">APY</div>
+                              <div className="text-xs text-muted-foreground">{t('lending.apy')}</div>
                             </div>
                           </div>
                         </div>
@@ -1242,17 +1247,17 @@ export default function LendingPage() {
             <div className="grid gap-6 md:grid-cols-2">
               <Card>
                 <CardHeader>
-                  <CardTitle>Borrow Assets</CardTitle>
+                  <CardTitle>{t('lending.borrowAssets')}</CardTitle>
                   <CardDescription>
-                    Borrow assets against your collateral
+                    {t('lending.borrowAssetsDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Select Market</Label>
+                    <Label>{t('lending.selectMarket')}</Label>
                     <Select value={selectedMarket || ""} onValueChange={setSelectedMarket}>
                       <SelectTrigger data-testid="select-borrow-market">
-                        <SelectValue placeholder="Choose an asset to borrow" />
+                        <SelectValue placeholder={t('lending.chooseAssetToBorrow')} />
                       </SelectTrigger>
                       <SelectContent>
                         {markets?.filter(m => m.isActive && m.canBeBorrowed).map((market) => (
@@ -1271,7 +1276,7 @@ export default function LendingPage() {
                   {selectedMarketData && selectedMarketData.canBeBorrowed && (
                     <>
                       <div className="space-y-2">
-                        <Label>Amount to Borrow</Label>
+                        <Label>{t('lending.amountToBorrow')}</Label>
                         <div className="relative">
                           <Input
                             type="text"
@@ -1287,17 +1292,17 @@ export default function LendingPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label>Rate Mode</Label>
+                        <Label>{t('lending.rateMode')}</Label>
                         <Select value={rateMode} onValueChange={(v) => setRateMode(v as "variable" | "stable")}>
                           <SelectTrigger data-testid="select-rate-mode">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="variable">
-                              Variable ({formatBps(selectedMarketData.borrowRateVariable)})
+                              {t('lending.variableRate', { rate: formatBps(selectedMarketData.borrowRateVariable) })}
                             </SelectItem>
                             <SelectItem value="stable">
-                              Stable ({formatBps(selectedMarketData.borrowRateStable)})
+                              {t('lending.stableRate', { rate: formatBps(selectedMarketData.borrowRateStable) })}
                             </SelectItem>
                           </SelectContent>
                         </Select>
@@ -1305,17 +1310,17 @@ export default function LendingPage() {
 
                       <div className="p-4 rounded-lg bg-muted/50 space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Borrow APR ({rateMode})</span>
+                          <span className="text-muted-foreground">{t('lending.borrowAprMode', { mode: rateMode })}</span>
                           <span className="text-blue-500 font-medium">
                             {formatBps(rateMode === "variable" ? selectedMarketData.borrowRateVariable : selectedMarketData.borrowRateStable)}
                           </span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Liquidation Threshold</span>
+                          <span className="text-muted-foreground">{t('lending.liquidationThreshold')}</span>
                           <span>{formatBps(selectedMarketData.liquidationThreshold)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Available to Borrow</span>
+                          <span className="text-muted-foreground">{t('lending.availableToBorrow')}</span>
                           <span>{formatWeiToToken(selectedMarketData.availableLiquidity)}</span>
                         </div>
                       </div>
@@ -1323,10 +1328,9 @@ export default function LendingPage() {
                       <div className="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-start gap-3">
                         <AlertTriangle className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
                         <div className="text-sm">
-                          <p className="font-medium text-yellow-500">Borrowing Risk</p>
+                          <p className="font-medium text-yellow-500">{t('lending.borrowingRisk')}</p>
                           <p className="text-muted-foreground">
-                            Ensure you maintain a healthy position to avoid liquidation.
-                            Liquidation penalty is {formatBps(selectedMarketData.liquidationPenalty)}.
+                            {t('lending.borrowingRiskWarning', { penalty: formatBps(selectedMarketData.liquidationPenalty) })}
                           </p>
                         </div>
                       </div>
@@ -1351,7 +1355,7 @@ export default function LendingPage() {
                         ) : (
                           <ArrowDownRight className="h-4 w-4 mr-2" />
                         )}
-                        Borrow {selectedMarketData.assetSymbol}
+                        {t('lending.borrowSymbol', { symbol: selectedMarketData.assetSymbol })}
                       </Button>
                     </>
                   )}
@@ -1360,8 +1364,8 @@ export default function LendingPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Borrow Markets</CardTitle>
-                  <CardDescription>Assets available for borrowing</CardDescription>
+                  <CardTitle>{t('lending.borrowMarkets')}</CardTitle>
+                  <CardDescription>{t('lending.borrowMarketsDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ScrollArea className="h-[400px]">
@@ -1383,13 +1387,13 @@ export default function LendingPage() {
                               <div>
                                 <div className="font-medium">{market.assetSymbol}</div>
                                 <div className="text-xs text-muted-foreground">
-                                  Available: {formatWeiToToken(market.availableLiquidity)}
+                                  {t('lending.available', { amount: formatWeiToToken(market.availableLiquidity) })}
                                 </div>
                               </div>
                             </div>
                             <div className="text-right">
                               <div className="text-blue-500 font-medium">{formatBps(market.borrowRateVariable)}</div>
-                              <div className="text-xs text-muted-foreground">APR</div>
+                              <div className="text-xs text-muted-foreground">{t('lending.apr')}</div>
                             </div>
                           </div>
                         </div>
@@ -1404,8 +1408,8 @@ export default function LendingPage() {
           <TabsContent value="activity" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Recent Transactions</CardTitle>
-                <CardDescription>Latest lending protocol activity</CardDescription>
+                <CardTitle>{t('lending.recentTransactions')}</CardTitle>
+                <CardDescription>{t('lending.recentTransactionsDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[500px]">
@@ -1457,8 +1461,8 @@ export default function LendingPage() {
                     }) : (
                       <div className="text-center py-8 text-muted-foreground">
                         <Activity className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                        <p>No recent transactions</p>
-                        <p className="text-sm mt-2">Transactions will appear here in real-time</p>
+                        <p>{t('lending.noRecentTransactions')}</p>
+                        <p className="text-sm mt-2">{t('lending.transactionsWillAppear')}</p>
                       </div>
                     )}
                   </div>
@@ -1471,7 +1475,7 @@ export default function LendingPage() {
             <div className="grid gap-4 md:grid-cols-3 mb-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">At Risk Positions</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t('lending.atRiskPositions')}</CardTitle>
                   <AlertTriangle className="h-4 w-4 text-yellow-500" />
                 </CardHeader>
                 <CardContent>
@@ -1479,14 +1483,14 @@ export default function LendingPage() {
                     {riskData?.atRiskCount || 0}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Health factor between 1.0 and 1.5
+                    {t('lending.healthFactorBetween')}
                   </p>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Liquidatable</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t('lending.liquidatablePositions')}</CardTitle>
                   <AlertCircle className="h-4 w-4 text-red-500" />
                 </CardHeader>
                 <CardContent>
@@ -1494,14 +1498,14 @@ export default function LendingPage() {
                     {riskData?.liquidatableCount || 0}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Health factor below 1.0
+                    {t('lending.healthFactorBelow')}
                   </p>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Recent Liquidations</CardTitle>
+                  <CardTitle className="text-sm font-medium">{t('lending.recentLiquidations')}</CardTitle>
                   <Zap className="h-4 w-4 text-orange-500" />
                 </CardHeader>
                 <CardContent>
@@ -1509,7 +1513,7 @@ export default function LendingPage() {
                     {recentLiquidations.length}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    In the last 24 hours
+                    {t('lending.inLast24Hours')}
                   </p>
                 </CardContent>
               </Card>
@@ -1518,23 +1522,23 @@ export default function LendingPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Liquidation</CardTitle>
-                  <CardDescription>Liquidate unhealthy positions to earn bonus rewards</CardDescription>
+                  <CardTitle>{t('lending.liquidation')}</CardTitle>
+                  <CardDescription>{t('lending.liquidationDesc')}</CardDescription>
                 </div>
                 <Button
                   onClick={() => setLiquidateDialogOpen(true)}
                   data-testid="button-open-liquidate"
                 >
                   <Zap className="h-4 w-4 mr-2" />
-                  Liquidate Position
+                  {t('lending.liquidatePosition')}
                 </Button>
               </CardHeader>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Liquidation History</CardTitle>
-                <CardDescription>Recent liquidation events</CardDescription>
+                <CardTitle>{t('lending.liquidationHistory')}</CardTitle>
+                <CardDescription>{t('lending.liquidationHistoryDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -1548,7 +1552,7 @@ export default function LendingPage() {
                         <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
                           <div className="flex items-center gap-2">
                             <AlertTriangle className="h-5 w-5 text-red-500" />
-                            <span className="font-medium">Liquidation Event</span>
+                            <span className="font-medium">{t('lending.liquidationEvent')}</span>
                           </div>
                           <Badge variant="destructive">
                             {liq.debtSymbol} / {liq.collateralSymbol}
@@ -1556,25 +1560,25 @@ export default function LendingPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
-                            <div className="text-muted-foreground">Borrower</div>
+                            <div className="text-muted-foreground">{t('lending.borrower')}</div>
                             <div className="font-mono">{liq.borrowerAddress.slice(0, 10)}...</div>
                           </div>
                           <div>
-                            <div className="text-muted-foreground">Liquidator</div>
+                            <div className="text-muted-foreground">{t('lending.liquidator')}</div>
                             <div className="font-mono">{liq.liquidatorAddress.slice(0, 10)}...</div>
                           </div>
                           <div>
-                            <div className="text-muted-foreground">Debt Repaid</div>
+                            <div className="text-muted-foreground">{t('lending.debtRepaid')}</div>
                             <div className="font-medium">{formatWeiToToken(liq.debtRepaid)} {liq.debtSymbol}</div>
                           </div>
                           <div>
-                            <div className="text-muted-foreground">Collateral Seized</div>
+                            <div className="text-muted-foreground">{t('lending.collateralSeized')}</div>
                             <div className="font-medium">{formatWeiToToken(liq.collateralSeized)} {liq.collateralSymbol}</div>
                           </div>
                         </div>
                         <div className="mt-3 pt-3 border-t border-red-500/20 flex items-center justify-between text-sm gap-2 flex-wrap">
                           <div className="text-muted-foreground">
-                            Bonus: {formatWeiToToken(liq.liquidationBonus)} {liq.collateralSymbol}
+                            {t('lending.bonus', { amount: formatWeiToToken(liq.liquidationBonus), symbol: liq.collateralSymbol })}
                           </div>
                           <div className="font-mono text-xs text-muted-foreground">
                             {liq.txHash.slice(0, 18)}...
@@ -1584,8 +1588,8 @@ export default function LendingPage() {
                     )) : (
                       <div className="text-center py-8 text-muted-foreground">
                         <Shield className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                        <p>No recent liquidations</p>
-                        <p className="text-sm mt-2">The protocol is operating healthily</p>
+                        <p>{t('lending.noRecentLiquidations')}</p>
+                        <p className="text-sm mt-2">{t('lending.protocolOperatingHealthily')}</p>
                       </div>
                     )}
                   </div>
@@ -1622,7 +1626,7 @@ export default function LendingPage() {
               )}
 
               <div className="space-y-2">
-                <Label>Amount</Label>
+                <Label>{t('lending.amount')}</Label>
                 <div className="relative">
                   <Input
                     type="text"
@@ -1639,7 +1643,7 @@ export default function LendingPage() {
 
               {dialogAction === "supply" && dialogMarket?.canBeCollateral && (
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="dialog-collateral">Use as Collateral</Label>
+                  <Label htmlFor="dialog-collateral">{t('lending.useAsCollateral')}</Label>
                   <Switch 
                     id="dialog-collateral"
                     checked={useAsCollateral}
@@ -1651,17 +1655,17 @@ export default function LendingPage() {
 
               {dialogAction === "borrow" && (
                 <div className="space-y-2">
-                  <Label>Rate Mode</Label>
+                  <Label>{t('lending.rateMode')}</Label>
                   <Select value={rateMode} onValueChange={(v) => setRateMode(v as "variable" | "stable")}>
                     <SelectTrigger data-testid="select-dialog-rate-mode">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="variable">
-                        Variable ({formatBps(dialogMarket?.borrowRateVariable || 0)})
+                        {t('lending.variableRate', { rate: formatBps(dialogMarket?.borrowRateVariable || 0) })}
                       </SelectItem>
                       <SelectItem value="stable">
-                        Stable ({formatBps(dialogMarket?.borrowRateStable || 0)})
+                        {t('lending.stableRate', { rate: formatBps(dialogMarket?.borrowRateStable || 0) })}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -1672,11 +1676,11 @@ export default function LendingPage() {
                 {dialogAction === "supply" && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Supply APY</span>
+                      <span className="text-muted-foreground">{t('lending.supplyApy')}</span>
                       <span className="text-green-500 font-medium">{formatBps(dialogMarket?.supplyRate || 0)}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Collateral Factor</span>
+                      <span className="text-muted-foreground">{t('lending.collateralFactor')}</span>
                       <span>{formatBps(dialogMarket?.collateralFactor || 0)}</span>
                     </div>
                   </>
@@ -1684,7 +1688,7 @@ export default function LendingPage() {
                 {dialogAction === "withdraw" && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Available to Withdraw</span>
+                      <span className="text-muted-foreground">{t('lending.availableToWithdraw')}</span>
                       <span>{formatWeiToToken(dialogMarket?.availableLiquidity)}</span>
                     </div>
                   </>
@@ -1692,13 +1696,13 @@ export default function LendingPage() {
                 {dialogAction === "borrow" && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Borrow APR</span>
+                      <span className="text-muted-foreground">{t('lending.borrowApr')}</span>
                       <span className="text-blue-500 font-medium">
                         {formatBps(rateMode === "variable" ? (dialogMarket?.borrowRateVariable || 0) : (dialogMarket?.borrowRateStable || 0))}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Liquidation Penalty</span>
+                      <span className="text-muted-foreground">{t('lending.liquidationPenalty')}</span>
                       <span>{formatBps(dialogMarket?.liquidationPenalty || 0)}</span>
                     </div>
                   </>
@@ -1706,7 +1710,7 @@ export default function LendingPage() {
                 {dialogAction === "repay" && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Current Borrow APR</span>
+                      <span className="text-muted-foreground">{t('lending.currentBorrowApr')}</span>
                       <span className="text-blue-500">{formatBps(dialogMarket?.borrowRateVariable || 0)}</span>
                     </div>
                   </>
@@ -1718,8 +1722,8 @@ export default function LendingPage() {
                   <AlertTriangle className="h-4 w-4 text-yellow-500 flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-muted-foreground">
                     {dialogAction === "borrow" 
-                      ? "Ensure you have sufficient collateral to avoid liquidation."
-                      : "Withdrawing collateral may affect your health factor."}
+                      ? t('lending.ensureSufficientCollateral')
+                      : t('lending.withdrawMayAffectHealth')}
                   </p>
                 </div>
               )}
@@ -1727,7 +1731,7 @@ export default function LendingPage() {
 
             <DialogFooter className="gap-2">
               <Button variant="outline" onClick={closeDialog} data-testid="button-dialog-cancel">
-                Cancel
+                {t('common.cancel')}
               </Button>
               <Button 
                 onClick={handleDialogSubmit}
@@ -1746,16 +1750,16 @@ export default function LendingPage() {
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <Zap className="h-5 w-5 text-red-500" />
-                Liquidate Position
+                {t('lending.liquidatePosition')}
               </DialogTitle>
               <DialogDescription>
-                Liquidate an unhealthy position to earn bonus rewards
+                {t('lending.liquidateUnhealthyPosition')}
               </DialogDescription>
             </DialogHeader>
             
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label>Borrower Address</Label>
+                <Label>{t('lending.borrowerAddress')}</Label>
                 <Input
                   placeholder="0x..."
                   value={liquidateBorrower}
@@ -1766,10 +1770,10 @@ export default function LendingPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Debt Asset (to repay)</Label>
+                <Label>{t('lending.debtAsset')}</Label>
                 <Select value={liquidateDebtMarket} onValueChange={setLiquidateDebtMarket}>
                   <SelectTrigger data-testid="select-liquidate-debt">
-                    <SelectValue placeholder="Select debt asset" />
+                    <SelectValue placeholder={t('lending.selectDebtAsset')} />
                   </SelectTrigger>
                   <SelectContent>
                     {markets?.filter(m => m.isActive).map((market) => (
@@ -1782,10 +1786,10 @@ export default function LendingPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Collateral Asset (to seize)</Label>
+                <Label>{t('lending.collateralAsset')}</Label>
                 <Select value={liquidateCollateralMarket} onValueChange={setLiquidateCollateralMarket}>
                   <SelectTrigger data-testid="select-liquidate-collateral">
-                    <SelectValue placeholder="Select collateral asset" />
+                    <SelectValue placeholder={t('lending.selectCollateralAsset')} />
                   </SelectTrigger>
                   <SelectContent>
                     {markets?.filter(m => m.isActive && m.canBeCollateral).map((market) => (
@@ -1798,7 +1802,7 @@ export default function LendingPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Debt Amount to Cover</Label>
+                <Label>{t('lending.debtAmountToCover')}</Label>
                 <Input
                   type="text"
                   placeholder="0.0"
@@ -1811,8 +1815,8 @@ export default function LendingPage() {
               <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
                 <div className="text-sm text-muted-foreground">
-                  <p className="font-medium text-red-500">Liquidation Warning</p>
-                  <p>Only positions with health factor below 1.0 can be liquidated. You will receive a bonus for performing liquidations.</p>
+                  <p className="font-medium text-red-500">{t('lending.liquidationWarning')}</p>
+                  <p>{t('lending.liquidationWarningDesc')}</p>
                 </div>
               </div>
             </div>
@@ -1826,7 +1830,7 @@ export default function LendingPage() {
                 }}
                 data-testid="button-liquidate-cancel"
               >
-                Cancel
+                {t('common.cancel')}
               </Button>
               <Button 
                 variant="destructive"
@@ -1835,7 +1839,7 @@ export default function LendingPage() {
                 data-testid="button-liquidate-confirm"
               >
                 {liquidateMutation.isPending && <RefreshCw className="h-4 w-4 mr-2 animate-spin" />}
-                {liquidateMutation.isPending ? "Processing..." : "Execute Liquidation"}
+                {liquidateMutation.isPending ? t('lending.processing') : t('lending.executeLiquidation')}
               </Button>
             </DialogFooter>
           </DialogContent>

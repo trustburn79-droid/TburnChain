@@ -194,8 +194,8 @@ export default function StakingDashboard() {
     },
     onSuccess: () => {
       toast({
-        title: "Stake Successful",
-        description: `Successfully staked ${stakeAmount} TBURN in ${selectedPool?.name}`,
+        title: t('staking.stakeSuccessful'),
+        description: t('staking.stakeSuccessDesc', { amount: stakeAmount, pool: selectedPool?.name }),
       });
       setStakeDialogOpen(false);
       setStakeAmount("");
@@ -205,8 +205,8 @@ export default function StakingDashboard() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Stake Failed",
-        description: error.message || "Failed to stake TBURN",
+        title: t('staking.stakeFailed'),
+        description: error.message || t('staking.stakeFailedDesc'),
         variant: "destructive"
       });
     }
@@ -232,8 +232,8 @@ export default function StakingDashboard() {
         analysis: data.analysis || "AI analysis completed successfully"
       });
       toast({
-        title: "APY Prediction Updated",
-        description: "Fresh AI-powered prediction has been generated",
+        title: t('staking.apyPredictionUpdated'),
+        description: t('staking.freshPredictionGenerated'),
       });
     },
     onError: () => {
@@ -245,8 +245,8 @@ export default function StakingDashboard() {
         analysis: "Simulated prediction based on current market conditions"
       });
       toast({
-        title: "Prediction Generated",
-        description: "APY prediction updated with simulated data",
+        title: t('staking.predictionGenerated'),
+        description: t('staking.simulatedPrediction'),
       });
     }
   });
@@ -265,15 +265,15 @@ export default function StakingDashboard() {
     },
     onSuccess: () => {
       toast({
-        title: "Recommendations Updated",
-        description: "Personalized pool picks have been refreshed",
+        title: t('staking.recommendationsUpdated'),
+        description: t('staking.personalizedPicksRefreshed'),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/staking/pools"] });
     },
     onError: () => {
       toast({
-        title: "Recommendations Updated",
-        description: "Pool recommendations refreshed based on current data",
+        title: t('staking.recommendationsUpdated'),
+        description: t('staking.poolRecsRefreshed'),
       });
     }
   });
@@ -286,8 +286,8 @@ export default function StakingDashboard() {
   const submitStake = () => {
     if (!selectedPool || !stakeAmount || parseFloat(stakeAmount) <= 0) {
       toast({
-        title: "Invalid Amount",
-        description: "Please enter a valid stake amount",
+        title: t('staking.invalidAmount'),
+        description: t('staking.invalidAmountDesc'),
         variant: "destructive"
       });
       return;
@@ -321,8 +321,8 @@ export default function StakingDashboard() {
     });
     
     toast({
-      title: "Rewards Calculated",
-      description: `Estimated ${durationRewards.toFixed(2)} TBURN over ${duration} days`,
+      title: t('staking.rewardsCalculated'),
+      description: t('staking.rewardsCalculatedDesc', { amount: durationRewards.toFixed(2), days: duration }),
     });
   };
 
@@ -367,7 +367,7 @@ export default function StakingDashboard() {
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
-                  +5.2% from last epoch
+                  {t('staking.fromLastEpoch', { percent: '5.2' })}
                 </p>
               </>
             )}
@@ -389,7 +389,7 @@ export default function StakingDashboard() {
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center">
                   <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
-                  Lifetime distribution
+                  {t('staking.lifetimeDistribution')}
                 </p>
               </>
             )}
@@ -410,7 +410,7 @@ export default function StakingDashboard() {
                   {formatNumber(stats?.totalStakers || 0)}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Across {stats?.totalPools || 0} pools
+                  {t('staking.acrossPools', { count: stats?.totalPools || 0 })}
                 </p>
               </>
             )}
@@ -431,7 +431,7 @@ export default function StakingDashboard() {
                   {stats?.lowestApy || 0}% - {stats?.highestApy || 0}%
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Avg: {stats?.averageApy?.toFixed(1) || 0}% APY
+                  {t('staking.avgApy', { apy: stats?.averageApy?.toFixed(1) || 0 })}
                 </p>
               </>
             )}
@@ -468,7 +468,7 @@ export default function StakingDashboard() {
                 data-testid={`button-filter-${tier}`}
               >
                 {tierIcons[tier]}
-                <span className="ml-1">{tier}</span>
+                <span className="ml-1">{t(`staking.${tier}`)}</span>
               </Button>
             ))}
           </div>
@@ -508,17 +508,17 @@ export default function StakingDashboard() {
                       </Badge>
                     </div>
                     <CardDescription className="text-sm">
-                      Validator: {pool.validatorName || pool.validatorAddress?.slice(0, 10) + "..."}
+                      {t('staking.validator')}: {pool.validatorName || pool.validatorAddress?.slice(0, 10) + "..."}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-xs text-muted-foreground">Base APY</p>
+                        <p className="text-xs text-muted-foreground">{t('staking.baseApy')}</p>
                         <p className="text-xl font-bold text-green-500">{pool.apy?.toFixed(1) || "0.0"}%</p>
                       </div>
                       <div>
-                        <p className="text-xs text-muted-foreground">With Boost</p>
+                        <p className="text-xs text-muted-foreground">{t('staking.withBoost')}</p>
                         <p className="text-xl font-bold text-emerald-500">{((pool.apy || 0) + (pool.apyBoost || 0)).toFixed(1)}%</p>
                       </div>
                     </div>
@@ -534,11 +534,11 @@ export default function StakingDashboard() {
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div className="flex items-center gap-1">
                         <Lock className="h-3 w-3 text-muted-foreground" />
-                        <span>{pool.lockPeriodDays} days lock</span>
+                        <span>{t('staking.daysLock', { days: pool.lockPeriodDays })}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="h-3 w-3 text-muted-foreground" />
-                        <span>{pool.stakersCount || pool.totalStakers || 0} stakers</span>
+                        <span>{t('staking.stakersCount', { count: pool.stakersCount || pool.totalStakers || 0 })}</span>
                       </div>
                     </div>
 
@@ -593,31 +593,31 @@ export default function StakingDashboard() {
                     <CardTitle className="text-lg">{tier.name}</CardTitle>
                   </div>
                   <CardDescription>
-                    {tier.minApy.toFixed(1)}% - {tier.maxApy.toFixed(1)}% APY Range
+                    {t('staking.apyRangeValue', { min: tier.minApy.toFixed(1), max: tier.maxApy.toFixed(1) })}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Min Stake</span>
+                      <span className="text-muted-foreground">{t('staking.minStakeLabel')}</span>
                       <span className="font-medium">{formatWeiToTBURN(tier.minStake)} TBURN</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Lock Period</span>
-                      <span className="font-medium">{tier.lockPeriodDays === 0 ? "No Lock" : `${tier.lockPeriodDays}-${tier.maxLockPeriodDays} days`}</span>
+                      <span className="text-muted-foreground">{t('staking.lockPeriod')}</span>
+                      <span className="font-medium">{tier.lockPeriodDays === 0 ? t('staking.noLock') : t('staking.daysRange', { min: tier.lockPeriodDays, max: tier.maxLockPeriodDays })}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Governance</span>
-                      <span className="font-medium">{tier.governanceWeight}x weight</span>
+                      <span className="text-muted-foreground">{t('staking.governance')}</span>
+                      <span className="font-medium">{t('staking.governanceWeightX', { weight: tier.governanceWeight })}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">APY Multiplier</span>
-                      <span className="font-medium">{(tier.apyMultiplier / 10000).toFixed(2)}x</span>
+                      <span className="text-muted-foreground">{t('staking.apyMultiplier')}</span>
+                      <span className="font-medium">{t('staking.apyMultiplierX', { value: (tier.apyMultiplier / 10000).toFixed(2) })}</span>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <p className="text-xs font-medium text-muted-foreground">Benefits:</p>
+                    <p className="text-xs font-medium text-muted-foreground">{t('staking.benefits')}</p>
                     <ul className="text-sm space-y-1">
                       {tier.benefits.map((benefit, idx) => (
                         <li key={idx} className="flex items-start gap-2">
@@ -628,31 +628,31 @@ export default function StakingDashboard() {
                       {tier.earlyAdopterBonus > 0 && (
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-3 w-3 mt-1 text-green-500 flex-shrink-0" />
-                          <span>{tier.earlyAdopterBonus.toFixed(1)}% early adopter bonus</span>
+                          <span>{t('staking.earlyAdopterBonus', { bonus: tier.earlyAdopterBonus.toFixed(1) })}</span>
                         </li>
                       )}
                       {tier.loyaltyBonus > 0 && (
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-3 w-3 mt-1 text-green-500 flex-shrink-0" />
-                          <span>{tier.loyaltyBonus.toFixed(1)}% monthly loyalty bonus</span>
+                          <span>{t('staking.loyaltyBonus', { bonus: tier.loyaltyBonus.toFixed(1) })}</span>
                         </li>
                       )}
                       {tier.feeDiscount > 0 && (
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-3 w-3 mt-1 text-green-500 flex-shrink-0" />
-                          <span>{tier.feeDiscount.toFixed(1)}% fee discount</span>
+                          <span>{t('staking.feeDiscount', { discount: tier.feeDiscount.toFixed(1) })}</span>
                         </li>
                       )}
                       {tier.priorityRewards && (
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-3 w-3 mt-1 text-green-500 flex-shrink-0" />
-                          <span>Priority reward distribution</span>
+                          <span>{t('staking.priorityRewardDistribution')}</span>
                         </li>
                       )}
                       {tier.governanceWeight > 1 && (
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-3 w-3 mt-1 text-green-500 flex-shrink-0" />
-                          <span>Enhanced governance voting power</span>
+                          <span>{t('staking.enhancedGovernanceVoting')}</span>
                         </li>
                       )}
                     </ul>
@@ -669,10 +669,10 @@ export default function StakingDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <TrendingUp className="h-5 w-5 text-blue-500" />
-                  APY Prediction
+                  {t('staking.apyPrediction')}
                 </CardTitle>
                 <CardDescription>
-                  AI-powered APY forecasting using Triple-Band analysis
+                  {t('staking.aiApyForecasting')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -681,27 +681,27 @@ export default function StakingDashboard() {
                     {apyPrediction?.predictedApy?.toFixed(1) || stats?.averageApy?.toFixed(1) || "14.5"}%
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    30-day predicted APY
+                    {t('staking.predictedApy30Day')}
                   </p>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Trend</span>
+                    <span className="text-muted-foreground">{t('staking.trend')}</span>
                     <Badge variant="outline" className="text-green-500 border-green-500">
                       {apyPrediction?.trend === "bearish" ? (
                         <ArrowDownRight className="h-3 w-3 mr-1" />
                       ) : (
                         <ArrowUpRight className="h-3 w-3 mr-1" />
                       )}
-                      {apyPrediction?.trend || "Bullish"}
+                      {apyPrediction?.trend === "bearish" ? t('staking.bearish') : t('staking.bullish')}
                     </Badge>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Confidence</span>
+                    <span className="text-muted-foreground">{t('staking.confidence')}</span>
                     <span className="font-medium">{apyPrediction?.confidence || 87}%</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">AI Provider</span>
+                    <span className="text-muted-foreground">{t('staking.aiProvider')}</span>
                     <Badge variant="secondary">{apyPrediction?.aiProvider || "Claude 4.5 Sonnet"}</Badge>
                   </div>
                 </div>
@@ -717,7 +717,7 @@ export default function StakingDashboard() {
                   ) : (
                     <RefreshCw className="h-4 w-4 mr-2" />
                   )}
-                  Get Fresh Prediction
+                  {t('staking.getFreshPrediction')}
                 </Button>
               </CardContent>
             </Card>
@@ -726,34 +726,34 @@ export default function StakingDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Shield className="h-5 w-5 text-amber-500" />
-                  Risk Analysis
+                  {t('staking.riskAnalysis')}
                 </CardTitle>
                 <CardDescription>
-                  Smart contract and market risk assessment
+                  {t('staking.riskAssessment')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="p-4 rounded-lg bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
                   <div className="flex items-center gap-3">
-                    <div className="text-3xl font-bold text-amber-500">Low</div>
+                    <div className="text-3xl font-bold text-amber-500">{t('staking.low')}</div>
                     <Progress value={25} className="flex-1 h-2" />
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Overall risk score: 25/100
+                    {t('staking.overallRiskScore', { score: 25 })}
                   </p>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Smart contracts audited</span>
+                    <span>{t('staking.smartContractsAudited')}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Slashing protection available</span>
+                    <span>{t('staking.slashingProtection')}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <AlertCircle className="h-4 w-4 text-amber-500" />
-                    <span>Standard crypto volatility</span>
+                    <span>{t('staking.standardVolatility')}</span>
                   </div>
                 </div>
                 <Button 
@@ -762,13 +762,13 @@ export default function StakingDashboard() {
                   onClick={() => {
                     setRiskDialogOpen(true);
                     toast({
-                      title: "Risk Analysis",
-                      description: "Smart contract audited. Overall risk: Low (25/100). Slashing protection enabled.",
+                      title: t('staking.riskAnalysis'),
+                      description: t('staking.riskAnalysisToast'),
                     });
                   }}
                   data-testid="button-full-risk-analysis"
                 >
-                  View Full Analysis
+                  {t('staking.viewFullAnalysis')}
                 </Button>
               </CardContent>
             </Card>
@@ -777,10 +777,10 @@ export default function StakingDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Target className="h-5 w-5 text-purple-500" />
-                  Pool Recommendations
+                  {t('staking.poolRecommendations')}
                 </CardTitle>
                 <CardDescription>
-                  Personalized staking suggestions
+                  {t('staking.personalizedSuggestions')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -795,7 +795,7 @@ export default function StakingDashboard() {
                       </div>
                       <div className="text-right">
                         <span className="text-sm font-bold text-green-500">{pool.apy?.toFixed(1) || "0.0"}%</span>
-                        <p className="text-xs text-muted-foreground">APY</p>
+                        <p className="text-xs text-muted-foreground">{t('staking.apy')}</p>
                       </div>
                     </div>
                   )) || (
@@ -818,7 +818,7 @@ export default function StakingDashboard() {
                   ) : (
                     <Zap className="h-4 w-4 mr-2" />
                   )}
-                  Get Personalized Picks
+                  {t('staking.getPersonalizedPicks')}
                 </Button>
               </CardContent>
             </Card>
@@ -828,10 +828,10 @@ export default function StakingDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5" />
-                Top Validator Insights
+                {t('staking.topValidatorInsights')}
               </CardTitle>
               <CardDescription>
-                AI-analyzed validator performance and delegation recommendations
+                {t('staking.validatorInsightsDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -846,16 +846,16 @@ export default function StakingDashboard() {
                     <div className="flex items-center justify-between mb-3">
                       <span className="font-medium">{validator.name}</span>
                       <Badge variant={validator.score >= 90 ? "default" : "outline"}>
-                        Score: {validator.score}
+                        {t('staking.score')}: {validator.score}
                       </Badge>
                     </div>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Uptime</span>
+                        <span className="text-muted-foreground">{t('staking.uptime')}</span>
                         <span className="text-green-500">{validator.uptime}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">APY</span>
+                        <span className="text-muted-foreground">{t('staking.apy')}</span>
                         <span className="font-medium">{validator.apy}</span>
                       </div>
                     </div>
@@ -871,22 +871,22 @@ export default function StakingDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calculator className="h-5 w-5" />
-                Staking Rewards Calculator
+                {t('staking.stakingRewardsCalculator')}
               </CardTitle>
               <CardDescription>
-                Estimate your potential earnings based on stake amount and pool selection
+                {t('staking.calculatorDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium">Stake Amount (TBURN)</label>
+                    <label className="text-sm font-medium">{t('staking.stakeAmountTburn')}</label>
                     <div className="flex gap-2 mt-2">
                       <input
                         type="number"
                         className="flex-1 px-3 py-2 border rounded-md bg-background"
-                        placeholder="Enter amount..."
+                        placeholder={t('staking.enterAmount')}
                         value={calcAmount}
                         onChange={(e) => setCalcAmount(e.target.value)}
                         data-testid="input-calc-amount"
@@ -897,40 +897,40 @@ export default function StakingDashboard() {
                         onClick={() => setCalcAmount("100000")}
                         data-testid="button-max-stake"
                       >
-                        MAX
+                        {t('staking.max')}
                       </Button>
                     </div>
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium">Select Pool</label>
+                    <label className="text-sm font-medium">{t('staking.selectPool')}</label>
                     <select 
                       className="w-full mt-2 px-3 py-2 border rounded-md bg-background"
                       value={calcPoolId}
                       onChange={(e) => setCalcPoolId(e.target.value)}
                       data-testid="select-calc-pool"
                     >
-                      <option value="">Select a pool...</option>
+                      <option value="">{t('staking.selectPoolPlaceholder')}</option>
                       {pools?.map(pool => (
                         <option key={pool.id} value={pool.id}>
-                          {pool.name} - {pool.apy?.toFixed(1) || "0.0"}% APY ({pool.tier})
+                          {pool.name} - {pool.apy?.toFixed(1) || "0.0"}% {t('staking.apy')} ({pool.tier})
                         </option>
                       ))}
                     </select>
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium">Staking Duration</label>
+                    <label className="text-sm font-medium">{t('staking.stakingDuration')}</label>
                     <select 
                       className="w-full mt-2 px-3 py-2 border rounded-md bg-background"
                       value={calcDuration}
                       onChange={(e) => setCalcDuration(e.target.value)}
                       data-testid="select-calc-duration"
                     >
-                      <option value="30">30 days</option>
-                      <option value="90">90 days</option>
-                      <option value="180">180 days</option>
-                      <option value="365">1 year</option>
+                      <option value="30">{t('staking.days30')}</option>
+                      <option value="90">{t('staking.days90')}</option>
+                      <option value="180">{t('staking.days180')}</option>
+                      <option value="365">{t('staking.year1')}</option>
                     </select>
                   </div>
 
@@ -940,34 +940,34 @@ export default function StakingDashboard() {
                     data-testid="button-calculate"
                   >
                     <BarChart3 className="h-4 w-4 mr-2" />
-                    Calculate Rewards
+                    {t('staking.calculateRewards')}
                   </Button>
                 </div>
 
                 <div className="space-y-4 p-6 bg-muted/50 rounded-lg">
-                  <h3 className="font-semibold">Estimated Returns</h3>
+                  <h3 className="font-semibold">{t('staking.estimatedReturns')}</h3>
                   
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Daily Rewards</span>
+                      <span className="text-muted-foreground">{t('staking.dailyRewards')}</span>
                       <span className="font-medium text-green-500">
                         ~ {calcResults?.dailyRewards?.toFixed(2) || "2.74"} TBURN
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Weekly Rewards</span>
+                      <span className="text-muted-foreground">{t('staking.weeklyRewards')}</span>
                       <span className="font-medium text-green-500">
                         ~ {calcResults?.weeklyRewards?.toFixed(2) || "19.18"} TBURN
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Monthly Rewards</span>
+                      <span className="text-muted-foreground">{t('staking.monthlyRewards')}</span>
                       <span className="font-medium text-green-500">
                         ~ {calcResults?.monthlyRewards?.toFixed(2) || "82.19"} TBURN
                       </span>
                     </div>
                     <div className="flex justify-between pt-2 border-t">
-                      <span className="text-muted-foreground">Period Rewards</span>
+                      <span className="text-muted-foreground">{t('staking.periodRewards')}</span>
                       <span className="font-bold text-green-500 text-lg">
                         ~ {calcResults?.yearlyRewards?.toFixed(2) || "1,000"} TBURN
                       </span>
@@ -976,15 +976,15 @@ export default function StakingDashboard() {
 
                   <div className="pt-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Effective APY</span>
+                      <span className="text-muted-foreground">{t('staking.effectiveApy')}</span>
                       <span className="font-medium">{calcResults?.effectiveApy?.toFixed(2) || "10.00"}%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Tier Boost</span>
+                      <span className="text-muted-foreground">{t('staking.tierBoost')}</span>
                       <span className="font-medium">+{calcResults?.tierBoost?.toFixed(1) || "1.5"}%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Compound Effect</span>
+                      <span className="text-muted-foreground">{t('staking.compoundEffect')}</span>
                       <span className="font-medium text-emerald-500">+{calcResults?.compoundEffect?.toFixed(2) || "0.47"}%</span>
                     </div>
                   </div>
@@ -1000,7 +1000,7 @@ export default function StakingDashboard() {
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <Activity className="h-4 w-4" />
-              Recent Staking Activity
+              {t('staking.recentStakingActivity')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -1018,7 +1018,7 @@ export default function StakingDashboard() {
                       </div>
                       <div>
                         <p className="text-sm font-medium">
-                          {i % 2 === 0 ? "Stake" : "Unstake"} - {["Gold", "Silver", "Bronze", "Platinum", "Diamond"][i]} Pool
+                          {t('staking.stakePool', { action: i % 2 === 0 ? t('staking.stake') : t('staking.unstake'), pool: [t('staking.gold'), t('staking.silver'), t('staking.bronze'), t('staking.platinum'), t('staking.diamond')][i] })}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           0x{Math.random().toString(16).slice(2, 10)}...
@@ -1030,7 +1030,7 @@ export default function StakingDashboard() {
                         {i % 2 === 0 ? "+" : "-"}{(Math.random() * 10000 + 1000).toFixed(2)} TBURN
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {Math.floor(Math.random() * 60)} min ago
+                        {t('staking.minAgo', { min: Math.floor(Math.random() * 60) })}
                       </p>
                     </div>
                   </div>
@@ -1044,7 +1044,7 @@ export default function StakingDashboard() {
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <Clock className="h-4 w-4" />
-              Reward Cycles
+              {t('staking.rewardCycles')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -1054,17 +1054,17 @@ export default function StakingDashboard() {
                   <div key={i} className="p-3 rounded-md border">
                     <div className="flex items-center justify-between mb-2">
                       <Badge variant={i === 0 ? "default" : "outline"}>
-                        {i === 0 ? "Active" : "Completed"}
+                        {i === 0 ? t('staking.active') : t('staking.completed')}
                       </Badge>
-                      <span className="text-sm font-medium">Cycle #{(stats?.currentRewardCycle || 100) - i}</span>
+                      <span className="text-sm font-medium">{t('staking.cycle', { number: (stats?.currentRewardCycle || 100) - i })}</span>
                     </div>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Total Distributed</span>
+                        <span className="text-muted-foreground">{t('staking.totalDistributed')}</span>
                         <span>{(Math.random() * 50000 + 10000).toFixed(0)} TBURN</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Participants</span>
+                        <span className="text-muted-foreground">{t('staking.participants')}</span>
                         <span>{Math.floor(Math.random() * 1000 + 500)}</span>
                       </div>
                       {i === 0 && (
@@ -1084,10 +1084,10 @@ export default function StakingDashboard() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Coins className="h-5 w-5 text-primary" />
-              Stake TBURN
+              {t('staking.stakeTburn')}
             </DialogTitle>
             <DialogDescription>
-              Stake your TBURN tokens in {selectedPool?.name} to earn rewards
+              {t('staking.stakeDialogDesc', { pool: selectedPool?.name })}
             </DialogDescription>
           </DialogHeader>
           
@@ -1095,7 +1095,7 @@ export default function StakingDashboard() {
             <div className="space-y-4 py-4">
               <div className="p-4 rounded-lg bg-muted/50">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Pool</span>
+                  <span className="text-sm text-muted-foreground">{t('staking.pool')}</span>
                   <Badge className={tierColors[selectedPool.tier.toLowerCase()]}>
                     {selectedPool.tier}
                   </Badge>
@@ -1103,25 +1103,25 @@ export default function StakingDashboard() {
                 <p className="font-medium">{selectedPool.name}</p>
                 <div className="grid grid-cols-2 gap-2 mt-3 text-sm">
                   <div>
-                    <span className="text-muted-foreground">Base APY:</span>
+                    <span className="text-muted-foreground">{t('staking.baseApyLabel')}</span>
                     <span className="ml-2 font-medium text-green-500">
                       {selectedPool.apy?.toFixed(1) || "0.0"}%
                     </span>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Lock Period:</span>
-                    <span className="ml-2 font-medium">{selectedPool.lockPeriodDays} days</span>
+                    <span className="text-muted-foreground">{t('staking.lockPeriodLabel')}</span>
+                    <span className="ml-2 font-medium">{t('staking.daysText', { days: selectedPool.lockPeriodDays })}</span>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="stakeAmount">Amount to Stake (TBURN)</Label>
+                <Label htmlFor="stakeAmount">{t('staking.amountToStake')}</Label>
                 <div className="flex gap-2">
                   <Input
                     id="stakeAmount"
                     type="number"
-                    placeholder="Enter amount..."
+                    placeholder={t('staking.enterAmount')}
                     value={stakeAmount}
                     onChange={(e) => setStakeAmount(e.target.value)}
                     min="0"
@@ -1150,13 +1150,13 @@ export default function StakingDashboard() {
               {stakeAmount && parseFloat(stakeAmount) > 0 && (
                 <div className="p-3 rounded-md border bg-green-500/10 border-green-500/20">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Estimated Daily Rewards:</span>
+                    <span className="text-muted-foreground">{t('staking.estimatedDailyRewards')}</span>
                     <span className="font-medium text-green-500">
                       ~ {((parseFloat(stakeAmount) * (selectedPool.apy || 12) / 100) / 365).toFixed(4)} TBURN
                     </span>
                   </div>
                   <div className="flex justify-between text-sm mt-1">
-                    <span className="text-muted-foreground">Estimated Yearly Rewards:</span>
+                    <span className="text-muted-foreground">{t('staking.estimatedYearlyRewards')}</span>
                     <span className="font-medium text-green-500">
                       ~ {(parseFloat(stakeAmount) * (selectedPool.apy || 12) / 100).toFixed(2)} TBURN
                     </span>
@@ -1176,7 +1176,7 @@ export default function StakingDashboard() {
               }}
               data-testid="button-stake-cancel"
             >
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={submitStake}
@@ -1186,12 +1186,12 @@ export default function StakingDashboard() {
               {stakeMutation.isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Staking...
+                  {t('staking.staking')}
                 </>
               ) : (
                 <>
                   <Coins className="h-4 w-4 mr-2" />
-                  Stake TBURN
+                  {t('staking.stakeTburn')}
                 </>
               )}
             </Button>

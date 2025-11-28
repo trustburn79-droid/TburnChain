@@ -2440,5 +2440,54 @@
   "notFound": {
     "title": "404 页面未找到",
     "message": "您忘记将页面添加到路由器了吗？"
+  },
+  "governance": {
+    "title": "AI 治理",
+    "subtitle": "AI 增强的 DAO - 提案分析与结果预测",
+    "aiPowered": "AI 驱动",
+    "totalProposals": "总提案数",
+    "activeCount": "{{count}} 个活跃",
+    "passRate": "通过率",
+    "avgParticipation": "平均参与率",
+    "totalVoters": "共 {{count}} 位投票者",
+    "aiPredictionAccuracy": "AI 预测准确率",
+    "analyzed": "{{count}} 个已分析",
+    "gpt5TurboAnalysis": "GPT-5 Turbo 分析",
+    "gpt5TurboDesc": "战略层分析经济影响、安全隐患，并为每个提案提供风险评估。",
+    "claudeSonnetPrediction": "Claude Sonnet 4.5 预测",
+    "claudeSonnetDesc": "战术层基于社区情绪、历史模式和提案内容预测投票结果。",
+    "llamaRecommendations": "Llama 3.3 70B 推荐",
+    "llamaDesc": "运营层基于投票者历史和质押配置提供个性化投票建议。",
+    "activeTab": "活跃 ({{count}})",
+    "completedTab": "已完成",
+    "allProposalsTab": "全部提案",
+    "noProposalsFound": "未找到提案",
+    "highRisk": "高风险",
+    "quorumReached": "达到法定人数",
+    "forLabel": "赞成:",
+    "againstLabel": "反对:",
+    "abstainLabel": "弃权:",
+    "voters": "{{count}} 位投票者",
+    "total": "合计:",
+    "aiAnalysis": "AI 分析",
+    "confidence": "{{percent}}% 置信度",
+    "economic": "经济:",
+    "security": "安全:",
+    "predictedOutcome": "预测结果:",
+    "keyFactors": "关键因素:",
+    "vote": "投票",
+    "status": {
+      "draft": "草案",
+      "active": "活跃",
+      "succeeded": "通过",
+      "defeated": "未通过",
+      "queued": "排队中",
+      "executed": "已执行",
+      "cancelled": "已取消"
+    },
+    "prediction": {
+      "for": "赞成",
+      "against": "反对"
+    }
   }
 }

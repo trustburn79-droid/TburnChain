@@ -2408,5 +2408,54 @@
   "notFound": {
     "title": "404 Page introuvable",
     "message": "Avez-vous oublié d'ajouter la page au routeur ?"
+  },
+  "governance": {
+    "title": "Gouvernance IA",
+    "subtitle": "DAO améliorée par IA - Analyse des propositions et prédiction des résultats",
+    "aiPowered": "Propulsé par IA",
+    "totalProposals": "Total des Propositions",
+    "activeCount": "{{count}} actives",
+    "passRate": "Taux d'Approbation",
+    "avgParticipation": "Participation Moyenne",
+    "totalVoters": "{{count}} votants au total",
+    "aiPredictionAccuracy": "Précision des Prédictions IA",
+    "analyzed": "{{count}} analysées",
+    "gpt5TurboAnalysis": "Analyse GPT-5 Turbo",
+    "gpt5TurboDesc": "La couche stratégique analyse l'impact économique, les implications de sécurité et fournit une évaluation des risques pour chaque proposition.",
+    "claudeSonnetPrediction": "Prédiction Claude Sonnet 4.5",
+    "claudeSonnetDesc": "La couche tactique prédit les résultats de vote basés sur le sentiment de la communauté, les modèles historiques et le contenu de la proposition.",
+    "llamaRecommendations": "Recommandations Llama 3.3 70B",
+    "llamaDesc": "La couche opérationnelle fournit des recommandations de vote personnalisées basées sur l'historique du votant et l'alignement du stake.",
+    "activeTab": "Actives ({{count}})",
+    "completedTab": "Terminées",
+    "allProposalsTab": "Toutes les Propositions",
+    "noProposalsFound": "Aucune proposition trouvée",
+    "highRisk": "Risque Élevé",
+    "quorumReached": "Quorum Atteint",
+    "forLabel": "Pour:",
+    "againstLabel": "Contre:",
+    "abstainLabel": "Abstention:",
+    "voters": "{{count}} votants",
+    "total": "Total:",
+    "aiAnalysis": "Analyse IA",
+    "confidence": "{{percent}}% confiance",
+    "economic": "Économique:",
+    "security": "Sécurité:",
+    "predictedOutcome": "Résultat Prédit:",
+    "keyFactors": "Facteurs Clés:",
+    "vote": "Voter",
+    "status": {
+      "draft": "brouillon",
+      "active": "active",
+      "succeeded": "adoptée",
+      "defeated": "rejetée",
+      "queued": "en attente",
+      "executed": "exécutée",
+      "cancelled": "annulée"
+    },
+    "prediction": {
+      "for": "POUR",
+      "against": "CONTRE"
+    }
   }
 }

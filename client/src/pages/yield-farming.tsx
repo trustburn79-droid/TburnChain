@@ -164,12 +164,15 @@ const riskColors: Record<string, string> = {
   degen: "bg-red-600",
 };
 
-const vaultTypeLabels: Record<string, string> = {
-  auto_compound: "Auto-Compound",
-  single_asset: "Single Asset",
-  lp_farm: "LP Farm",
-  leverage: "Leverage",
-  delta_neutral: "Delta Neutral",
+const getVaultTypeLabel = (t: (key: string) => string, vaultType: string): string => {
+  const labels: Record<string, string> = {
+    auto_compound: t("yieldFarming.vaultTypes.autoCompound"),
+    single_asset: t("yieldFarming.vaultTypes.singleAsset"),
+    lp_farm: t("yieldFarming.vaultTypes.lpFarm"),
+    leverage: t("yieldFarming.vaultTypes.leverage"),
+    delta_neutral: t("yieldFarming.vaultTypes.deltaNeutral"),
+  };
+  return labels[vaultType] || vaultType;
 };
 
 export default function YieldFarming() {
@@ -211,7 +214,7 @@ export default function YieldFarming() {
       });
     },
     onSuccess: () => {
-      toast({ title: "Success", description: "Deposit successful!" });
+      toast({ title: t("yieldFarming.success"), description: t("yieldFarming.depositSuccessful") });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/vaults/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
@@ -221,7 +224,7 @@ export default function YieldFarming() {
       setDepositDialogOpen(false);
     },
     onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t("yieldFarming.error"), description: error.message, variant: "destructive" });
     },
   });
 
@@ -237,7 +240,7 @@ export default function YieldFarming() {
       });
     },
     onSuccess: () => {
-      toast({ title: "Success", description: "Withdrawal successful!" });
+      toast({ title: t("yieldFarming.success"), description: t("yieldFarming.withdrawalSuccessful") });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/vaults/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
@@ -246,7 +249,7 @@ export default function YieldFarming() {
       setWithdrawDialogOpen(false);
     },
     onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t("yieldFarming.error"), description: error.message, variant: "destructive" });
     },
   });
 
@@ -258,12 +261,12 @@ export default function YieldFarming() {
       });
     },
     onSuccess: () => {
-      toast({ title: "Success", description: "Rewards claimed!" });
+      toast({ title: t("yieldFarming.success"), description: t("yieldFarming.rewardsClaimed") });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
     },
     onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t("yieldFarming.error"), description: error.message, variant: "destructive" });
     },
   });
 
@@ -296,15 +299,15 @@ export default function YieldFarming() {
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-yield-title">
             <Sprout className="h-8 w-8 text-green-500" />
-            Yield Farming
+            {t("yieldFarming.title")}
           </h1>
           <p className="text-muted-foreground mt-1">
-            Maximize your yields with AI-optimized farming strategies
+            {t("yieldFarming.subtitle")}
           </p>
         </div>
         <Badge variant="outline" className="text-lg px-4 py-2">
           <Bot className="h-4 w-4 mr-2" />
-          AI-Enhanced
+          {t("yieldFarming.aiEnhanced")}
         </Badge>
       </div>
 
@@ -324,7 +327,7 @@ export default function YieldFarming() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Value Locked</p>
+                  <p className="text-sm text-muted-foreground">{t("yieldFarming.totalValueLocked")}</p>
                   <p className="text-2xl font-bold" data-testid="text-total-tvl">
                     {formatUsd(stats.totalTvlUsd)}
                   </p>
@@ -340,7 +343,7 @@ export default function YieldFarming() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Active Vaults</p>
+                  <p className="text-sm text-muted-foreground">{t("yieldFarming.activeVaults")}</p>
                   <p className="text-2xl font-bold" data-testid="text-active-vaults">
                     {stats.activeVaults} / {stats.totalVaults}
                   </p>
@@ -356,7 +359,7 @@ export default function YieldFarming() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Top Vault APY</p>
+                  <p className="text-sm text-muted-foreground">{t("yieldFarming.topVaultApy")}</p>
                   <p className="text-2xl font-bold text-green-500" data-testid="text-top-apy">
                     {formatApy(stats.topVaultApy)}
                   </p>
@@ -372,7 +375,7 @@ export default function YieldFarming() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Users</p>
+                  <p className="text-sm text-muted-foreground">{t("yieldFarming.totalUsers")}</p>
                   <p className="text-2xl font-bold" data-testid="text-total-users">
                     {formatNumber(stats.totalUsers)}
                   </p>
@@ -390,19 +393,19 @@ export default function YieldFarming() {
         <TabsList className="grid w-full max-w-2xl grid-cols-4">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <BarChart3 className="h-4 w-4 mr-2" />
-            Overview
+            {t("yieldFarming.overview")}
           </TabsTrigger>
           <TabsTrigger value="vaults" data-testid="tab-vaults">
             <Layers className="h-4 w-4 mr-2" />
-            Vaults
+            {t("yieldFarming.vaults")}
           </TabsTrigger>
           <TabsTrigger value="deposit" data-testid="tab-deposit">
             <Plus className="h-4 w-4 mr-2" />
-            Deposit
+            {t("yieldFarming.deposit")}
           </TabsTrigger>
           <TabsTrigger value="positions" data-testid="tab-positions">
             <Wallet className="h-4 w-4 mr-2" />
-            My Positions
+            {t("yieldFarming.myPositions")}
           </TabsTrigger>
         </TabsList>
 
@@ -412,7 +415,7 @@ export default function YieldFarming() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-yellow-500" />
-                  Top Performing Vaults
+                  {t("yieldFarming.topPerformingVaults")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -440,17 +443,17 @@ export default function YieldFarming() {
                               <p className="font-medium">{vault.name}</p>
                               <div className="flex items-center gap-2">
                                 <Badge variant="outline" className="text-xs">
-                                  {vaultTypeLabels[vault.vaultType] || vault.vaultType}
+                                  {getVaultTypeLabel(t, vault.vaultType)}
                                 </Badge>
                                 <Badge className={`text-xs ${riskColors[vault.riskLevel]}`}>
-                                  {vault.riskLevel}
+                                  {t(`yieldFarming.riskLevels.${vault.riskLevel}`)}
                                 </Badge>
                               </div>
                             </div>
                           </div>
                           <div className="text-right">
                             <p className="font-bold text-green-500">{formatApy(vault.totalApy)}</p>
-                            <p className="text-sm text-muted-foreground">TVL: {formatUsd(vault.tvlUsd)}</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.tvlLabel", { value: formatUsd(vault.tvlUsd) })}</p>
                           </div>
                         </div>
                       ))}
@@ -458,7 +461,7 @@ export default function YieldFarming() {
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
                       <Sprout className="h-12 w-12 mb-2" />
-                      <p>No vaults available</p>
+                      <p>{t("yieldFarming.noVaultsAvailable")}</p>
                     </div>
                   )}
                 </ScrollArea>
@@ -469,23 +472,23 @@ export default function YieldFarming() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Wallet className="h-5 w-5 text-blue-500" />
-                  Your Portfolio
+                  {t("yieldFarming.yourPortfolio")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="p-4 rounded-lg bg-muted/50">
-                    <p className="text-sm text-muted-foreground">Total Value</p>
+                    <p className="text-sm text-muted-foreground">{t("yieldFarming.totalValue")}</p>
                     <p className="text-3xl font-bold">{formatWeiToToken(totalUserValue.toString())} TBURN</p>
                   </div>
                   <div className="p-4 rounded-lg bg-muted/50">
-                    <p className="text-sm text-muted-foreground">Pending Rewards</p>
+                    <p className="text-sm text-muted-foreground">{t("yieldFarming.pendingRewards")}</p>
                     <p className="text-2xl font-bold text-green-500">
                       {formatWeiToToken(totalPendingRewards.toString())} TBURN
                     </p>
                   </div>
                   <div className="p-4 rounded-lg bg-muted/50">
-                    <p className="text-sm text-muted-foreground">Active Positions</p>
+                    <p className="text-sm text-muted-foreground">{t("yieldFarming.activePositions")}</p>
                     <p className="text-2xl font-bold">
                       {positions?.filter(p => p.status === "active").length || 0}
                     </p>
@@ -499,8 +502,8 @@ export default function YieldFarming() {
         <TabsContent value="vaults" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All Vaults</CardTitle>
-              <CardDescription>Browse and compare yield farming opportunities</CardDescription>
+              <CardTitle>{t("yieldFarming.allVaults")}</CardTitle>
+              <CardDescription>{t("yieldFarming.browseAndCompareVaults")}</CardDescription>
             </CardHeader>
             <CardContent>
               {vaultsLoading ? (
@@ -533,7 +536,7 @@ export default function YieldFarming() {
                                       <Bot className="h-4 w-4 text-blue-500" />
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                      AI-Optimized Strategy (Score: {vault.aiStrategyScore / 100}%)
+                                      {t("yieldFarming.aiOptimizedTooltip", { score: vault.aiStrategyScore / 100 })}
                                     </TooltipContent>
                                   </Tooltip>
                                 </TooltipProvider>
@@ -542,25 +545,25 @@ export default function YieldFarming() {
                             <p className="text-sm text-muted-foreground">{vault.underlyingSymbol}</p>
                             <div className="flex items-center gap-2 mt-1">
                               <Badge variant="outline" className="text-xs">
-                                {vaultTypeLabels[vault.vaultType] || vault.vaultType}
+                                {getVaultTypeLabel(t, vault.vaultType)}
                               </Badge>
                               <Badge className={`text-xs ${riskColors[vault.riskLevel]}`}>
-                                {vault.riskLevel}
+                                {t(`yieldFarming.riskLevels.${vault.riskLevel}`)}
                               </Badge>
                             </div>
                           </div>
                         </div>
                         <div className="grid grid-cols-4 gap-8 text-right">
                           <div>
-                            <p className="text-sm text-muted-foreground">Total APY</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.totalApy")}</p>
                             <p className="font-bold text-green-500 text-lg">{formatApy(vault.totalApy)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">TVL</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.tvl")}</p>
                             <p className="font-medium">{formatUsd(vault.tvlUsd)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Depositors</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.depositors")}</p>
                             <p className="font-medium">{formatNumber(vault.totalDepositors)}</p>
                           </div>
                           <div>
@@ -572,7 +575,7 @@ export default function YieldFarming() {
                                 openDepositDialog(vault);
                               }}
                             >
-                              Deposit
+                              {t("yieldFarming.deposit")}
                             </Button>
                           </div>
                         </div>
@@ -583,8 +586,8 @@ export default function YieldFarming() {
               ) : (
                 <div className="text-center py-12 text-muted-foreground">
                   <Sprout className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">No vaults available</p>
-                  <p className="text-sm">Check back later for new farming opportunities</p>
+                  <p className="text-lg font-medium">{t("yieldFarming.noVaultsAvailable")}</p>
+                  <p className="text-sm">{t("yieldFarming.checkBackLater")}</p>
                 </div>
               )}
             </CardContent>
@@ -595,8 +598,8 @@ export default function YieldFarming() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Select Vault</CardTitle>
-                <CardDescription>Choose a vault to deposit into</CardDescription>
+                <CardTitle>{t("yieldFarming.selectVault")}</CardTitle>
+                <CardDescription>{t("yieldFarming.chooseVaultToDeposit")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Select
@@ -607,12 +610,12 @@ export default function YieldFarming() {
                   }}
                 >
                   <SelectTrigger data-testid="select-vault">
-                    <SelectValue placeholder="Select a vault" />
+                    <SelectValue placeholder={t("yieldFarming.selectAVault")} />
                   </SelectTrigger>
                   <SelectContent>
                     {vaults?.map((vault) => (
                       <SelectItem key={vault.id} value={vault.id}>
-                        {vault.name} - {formatApy(vault.totalApy)} APY
+                        {t("yieldFarming.vaultApyLabel", { name: vault.name, apy: formatApy(vault.totalApy) })}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -621,41 +624,41 @@ export default function YieldFarming() {
                 {selectedVault && (
                   <div className="mt-4 p-4 rounded-lg bg-muted/50 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Vault</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.vault")}</span>
                       <span className="font-medium">{selectedVault.name}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Asset</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.asset")}</span>
                       <span>{selectedVault.underlyingSymbol}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Total APY</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.totalApy")}</span>
                       <span className="text-green-500 font-bold">{formatApy(selectedVault.totalApy)}</span>
                     </div>
                     <Separator />
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Base APY</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.baseApy")}</span>
                       <span>{formatApy(selectedVault.baseApy)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Boost APY</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.boostApy")}</span>
                       <span className="text-blue-500">{formatApy(selectedVault.boostApy)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Reward APY</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.rewardApy")}</span>
                       <span className="text-purple-500">{formatApy(selectedVault.rewardApy)}</span>
                     </div>
                     <Separator />
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Deposit Fee</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.depositFee")}</span>
                       <span>{formatApy(selectedVault.depositFee)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Withdrawal Fee</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.withdrawalFee")}</span>
                       <span>{formatApy(selectedVault.withdrawalFee)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Performance Fee</span>
+                      <span className="text-muted-foreground">{t("yieldFarming.performanceFee")}</span>
                       <span>{formatApy(selectedVault.performanceFee)}</span>
                     </div>
                   </div>
@@ -665,12 +668,12 @@ export default function YieldFarming() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Deposit Amount</CardTitle>
-                <CardDescription>Enter the amount you want to deposit</CardDescription>
+                <CardTitle>{t("yieldFarming.depositAmount")}</CardTitle>
+                <CardDescription>{t("yieldFarming.enterAmountToDeposit")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Amount</Label>
+                  <Label>{t("yieldFarming.amount")}</Label>
                   <div className="flex gap-2">
                     <Input
                       type="text"
@@ -680,24 +683,24 @@ export default function YieldFarming() {
                       data-testid="input-deposit-amount"
                     />
                     <Button variant="outline" onClick={() => setDepositAmount("1000000000000000000000")}>
-                      Max
+                      {t("yieldFarming.max")}
                     </Button>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Lock Duration (Optional Boost)</Label>
+                  <Label>{t("yieldFarming.lockDurationOptionalBoost")}</Label>
                   <Select value={lockDays} onValueChange={setLockDays}>
                     <SelectTrigger data-testid="select-lock-days">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="0">No Lock (1x)</SelectItem>
-                      <SelectItem value="7">7 Days (1.05x)</SelectItem>
-                      <SelectItem value="30">30 Days (1.15x)</SelectItem>
-                      <SelectItem value="90">90 Days (1.30x)</SelectItem>
-                      <SelectItem value="180">180 Days (1.50x)</SelectItem>
-                      <SelectItem value="365">365 Days (1.75x)</SelectItem>
+                      <SelectItem value="0">{t("yieldFarming.noLock")}</SelectItem>
+                      <SelectItem value="7">{t("yieldFarming.days7")}</SelectItem>
+                      <SelectItem value="30">{t("yieldFarming.days30")}</SelectItem>
+                      <SelectItem value="90">{t("yieldFarming.days90")}</SelectItem>
+                      <SelectItem value="180">{t("yieldFarming.days180")}</SelectItem>
+                      <SelectItem value="365">{t("yieldFarming.days365")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -720,12 +723,12 @@ export default function YieldFarming() {
                   {depositMutation.isPending ? (
                     <>
                       <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                      Processing...
+                      {t("yieldFarming.processing")}
                     </>
                   ) : (
                     <>
                       <Plus className="h-4 w-4 mr-2" />
-                      Deposit
+                      {t("yieldFarming.deposit")}
                     </>
                   )}
                 </Button>
@@ -737,8 +740,8 @@ export default function YieldFarming() {
         <TabsContent value="positions" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>My Positions</CardTitle>
-              <CardDescription>Manage your active farming positions</CardDescription>
+              <CardTitle>{t("yieldFarming.myPositions")}</CardTitle>
+              <CardDescription>{t("yieldFarming.manageActivePositions")}</CardDescription>
             </CardHeader>
             <CardContent>
               {positionsLoading ? (
@@ -763,17 +766,17 @@ export default function YieldFarming() {
                               <Coins className="h-5 w-5 text-primary" />
                             </div>
                             <div>
-                              <p className="font-semibold">{vault?.name || "Unknown Vault"}</p>
+                              <p className="font-semibold">{vault?.name || t("yieldFarming.unknownVault")}</p>
                               <div className="flex items-center gap-2">
                                 {position.isLocked && (
                                   <Badge variant="outline" className="text-xs">
                                     <Lock className="h-3 w-3 mr-1" />
-                                    Locked
+                                    {t("yieldFarming.locked")}
                                   </Badge>
                                 )}
                                 {position.boostMultiplier > 10000 && (
                                   <Badge className="text-xs bg-blue-600">
-                                    {(position.boostMultiplier / 100).toFixed(0)}% Boost
+                                    {t("yieldFarming.boostBadge", { percent: (position.boostMultiplier / 100).toFixed(0) })}
                                   </Badge>
                                 )}
                               </div>
@@ -782,28 +785,28 @@ export default function YieldFarming() {
                           <div className="text-right">
                             <p className="font-bold text-lg">{formatWeiToToken(position.currentValue)}</p>
                             <p className="text-sm text-muted-foreground">
-                              Deposited: {formatWeiToToken(position.depositedAmount)}
+                              {t("yieldFarming.deposited", { amount: formatWeiToToken(position.depositedAmount) })}
                             </p>
                           </div>
                         </div>
 
                         <div className="grid grid-cols-4 gap-4 mb-4">
                           <div>
-                            <p className="text-sm text-muted-foreground">Unrealized P/L</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.unrealizedPL")}</p>
                             <p className={`font-medium ${BigInt(position.unrealizedProfit) >= 0 ? "text-green-500" : "text-red-500"}`}>
                               {formatWeiToToken(position.unrealizedProfit)}
                             </p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Pending Rewards</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.pendingRewards")}</p>
                             <p className="font-medium text-green-500">{formatWeiToToken(position.pendingRewards)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Shares</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.shares")}</p>
                             <p className="font-medium">{formatWeiToToken(position.shares)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Boost</p>
+                            <p className="text-sm text-muted-foreground">{t("yieldFarming.boost")}</p>
                             <p className="font-medium">{(position.boostMultiplier / 100).toFixed(0)}%</p>
                           </div>
                         </div>
@@ -821,7 +824,7 @@ export default function YieldFarming() {
                             ) : (
                               <DollarSign className="h-4 w-4 mr-1" />
                             )}
-                            Claim Rewards
+                            {t("yieldFarming.claimRewards")}
                           </Button>
                           <Button
                             variant="outline"
@@ -831,7 +834,7 @@ export default function YieldFarming() {
                             data-testid={`button-withdraw-${position.id}`}
                           >
                             <Minus className="h-4 w-4 mr-1" />
-                            Withdraw
+                            {t("yieldFarming.withdraw")}
                           </Button>
                         </div>
                       </div>
@@ -841,14 +844,14 @@ export default function YieldFarming() {
               ) : (
                 <div className="text-center py-12 text-muted-foreground">
                   <Wallet className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">No active positions</p>
-                  <p className="text-sm">Start farming by depositing into a vault</p>
+                  <p className="text-lg font-medium">{t("yieldFarming.noActivePositions")}</p>
+                  <p className="text-sm">{t("yieldFarming.startFarmingByDepositing")}</p>
                   <Button
                     className="mt-4"
                     onClick={() => setActiveTab("vaults")}
                     data-testid="button-browse-vaults"
                   >
-                    Browse Vaults
+                    {t("yieldFarming.browseVaults")}
                   </Button>
                 </div>
               )}
@@ -862,10 +865,10 @@ export default function YieldFarming() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Plus className="h-5 w-5 text-green-500" />
-              Deposit to Vault
+              {t("yieldFarming.depositToVault")}
             </DialogTitle>
             <DialogDescription>
-              {selectedVault ? `Deposit ${selectedVault.underlyingSymbol} to ${selectedVault.name}` : "Select a vault to deposit"}
+              {selectedVault ? t("yieldFarming.depositToVaultDesc", { symbol: selectedVault.underlyingSymbol, name: selectedVault.name }) : t("yieldFarming.selectVaultToDeposit")}
             </DialogDescription>
           </DialogHeader>
           
@@ -873,53 +876,53 @@ export default function YieldFarming() {
             <div className="space-y-4">
               <div className="p-4 rounded-lg bg-muted/50 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Vault</span>
+                  <span className="text-muted-foreground">{t("yieldFarming.vault")}</span>
                   <span className="font-medium">{selectedVault.name}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Total APY</span>
+                  <span className="text-muted-foreground">{t("yieldFarming.totalApy")}</span>
                   <span className="text-green-500 font-bold">{formatApy(selectedVault.totalApy)}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Risk Level</span>
+                  <span className="text-muted-foreground">{t("yieldFarming.riskLevel")}</span>
                   <Badge className={`text-xs ${riskColors[selectedVault.riskLevel]}`}>
-                    {selectedVault.riskLevel}
+                    {t(`yieldFarming.riskLevels.${selectedVault.riskLevel}`)}
                   </Badge>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label>Deposit Amount (Wei)</Label>
+                <Label>{t("yieldFarming.depositAmountWei")}</Label>
                 <div className="flex gap-2">
                   <Input
                     type="text"
-                    placeholder="Enter amount in Wei (e.g., 1000000000000000000)"
+                    placeholder={t("yieldFarming.enterAmountInWei")}
                     value={depositAmount}
                     onChange={(e) => setDepositAmount(e.target.value)}
                     data-testid="input-dialog-deposit-amount"
                   />
                   <Button variant="outline" onClick={() => setDepositAmount("1000000000000000000000")}>
-                    Max
+                    {t("yieldFarming.max")}
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {depositAmount ? `≈ ${formatWeiToToken(depositAmount)} ${selectedVault.underlyingSymbol}` : "Enter amount"}
+                  {depositAmount ? t("yieldFarming.approximateAmount", { amount: formatWeiToToken(depositAmount), symbol: selectedVault.underlyingSymbol }) : t("yieldFarming.enterAmount")}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label>Lock Duration (Optional Boost)</Label>
+                <Label>{t("yieldFarming.lockDurationOptionalBoost")}</Label>
                 <Select value={lockDays} onValueChange={setLockDays}>
                   <SelectTrigger data-testid="select-dialog-lock-days">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="0">No Lock (1x multiplier)</SelectItem>
-                    <SelectItem value="7">7 Days (1.05x multiplier)</SelectItem>
-                    <SelectItem value="30">30 Days (1.15x multiplier)</SelectItem>
-                    <SelectItem value="90">90 Days (1.30x multiplier)</SelectItem>
-                    <SelectItem value="180">180 Days (1.50x multiplier)</SelectItem>
-                    <SelectItem value="365">365 Days (1.75x multiplier)</SelectItem>
+                    <SelectItem value="0">{t("yieldFarming.noLockMultiplier")}</SelectItem>
+                    <SelectItem value="7">{t("yieldFarming.days7Multiplier")}</SelectItem>
+                    <SelectItem value="30">{t("yieldFarming.days30Multiplier")}</SelectItem>
+                    <SelectItem value="90">{t("yieldFarming.days90Multiplier")}</SelectItem>
+                    <SelectItem value="180">{t("yieldFarming.days180Multiplier")}</SelectItem>
+                    <SelectItem value="365">{t("yieldFarming.days365Multiplier")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -927,15 +930,15 @@ export default function YieldFarming() {
               <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
                 <div className="flex items-center gap-2">
                   <Shield className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm font-medium">Fee Summary</span>
+                  <span className="text-sm font-medium">{t("yieldFarming.feeSummary")}</span>
                 </div>
                 <div className="mt-2 space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Deposit Fee</span>
+                    <span className="text-muted-foreground">{t("yieldFarming.depositFee")}</span>
                     <span>{formatApy(selectedVault.depositFee)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Performance Fee</span>
+                    <span className="text-muted-foreground">{t("yieldFarming.performanceFee")}</span>
                     <span>{formatApy(selectedVault.performanceFee)}</span>
                   </div>
                 </div>
@@ -949,7 +952,7 @@ export default function YieldFarming() {
               onClick={() => setDepositDialogOpen(false)}
               data-testid="button-cancel-deposit"
             >
-              Cancel
+              {t("yieldFarming.cancel")}
             </Button>
             <Button
               disabled={!selectedVault || !depositAmount || depositMutation.isPending}
@@ -967,12 +970,12 @@ export default function YieldFarming() {
               {depositMutation.isPending ? (
                 <>
                   <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                  Processing...
+                  {t("yieldFarming.processing")}
                 </>
               ) : (
                 <>
                   <Plus className="h-4 w-4 mr-2" />
-                  Confirm Deposit
+                  {t("yieldFarming.confirmDeposit")}
                 </>
               )}
             </Button>
@@ -985,10 +988,10 @@ export default function YieldFarming() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Minus className="h-5 w-5 text-orange-500" />
-              Withdraw from Vault
+              {t("yieldFarming.withdrawFromVault")}
             </DialogTitle>
             <DialogDescription>
-              {selectedPosition ? `Withdraw your position from the vault` : "Select a position to withdraw"}
+              {selectedPosition ? t("yieldFarming.withdrawYourPosition") : t("yieldFarming.selectPositionToWithdraw")}
             </DialogDescription>
           </DialogHeader>
 
@@ -1000,29 +1003,29 @@ export default function YieldFarming() {
                   <>
                     <div className="p-4 rounded-lg bg-muted/50 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Vault</span>
-                        <span className="font-medium">{vault?.name || "Unknown"}</span>
+                        <span className="text-muted-foreground">{t("yieldFarming.vault")}</span>
+                        <span className="font-medium">{vault?.name || t("yieldFarming.unknown")}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Current Value</span>
+                        <span className="text-muted-foreground">{t("yieldFarming.currentValue")}</span>
                         <span className="font-bold">{formatWeiToToken(selectedPosition.currentValue)} TBURN</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Total Shares</span>
+                        <span className="text-muted-foreground">{t("yieldFarming.totalShares")}</span>
                         <span>{formatWeiToToken(selectedPosition.shares)}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Pending Rewards</span>
+                        <span className="text-muted-foreground">{t("yieldFarming.pendingRewards")}</span>
                         <span className="text-green-500">{formatWeiToToken(selectedPosition.pendingRewards)} TBURN</span>
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label>Shares to Withdraw</Label>
+                      <Label>{t("yieldFarming.sharesToWithdraw")}</Label>
                       <div className="flex gap-2">
                         <Input
                           type="text"
-                          placeholder="Enter shares to withdraw"
+                          placeholder={t("yieldFarming.enterSharesToWithdraw")}
                           value={withdrawShares}
                           onChange={(e) => setWithdrawShares(e.target.value)}
                           data-testid="input-dialog-withdraw-shares"
@@ -1031,11 +1034,11 @@ export default function YieldFarming() {
                           variant="outline" 
                           onClick={() => setWithdrawShares(selectedPosition.shares)}
                         >
-                          Max
+                          {t("yieldFarming.max")}
                         </Button>
                       </div>
                       <p className="text-xs text-muted-foreground">
-                        {withdrawShares ? `≈ ${formatWeiToToken(withdrawShares)} shares` : "Enter shares"}
+                        {withdrawShares ? t("yieldFarming.approximateShares", { amount: formatWeiToToken(withdrawShares) }) : t("yieldFarming.enterShares")}
                       </p>
                     </div>
 
@@ -1043,10 +1046,10 @@ export default function YieldFarming() {
                       <div className="p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
                         <div className="flex items-center gap-2">
                           <AlertCircle className="h-4 w-4 text-orange-500" />
-                          <span className="text-sm font-medium">Withdrawal Fee</span>
+                          <span className="text-sm font-medium">{t("yieldFarming.withdrawalFee")}</span>
                         </div>
                         <p className="mt-1 text-sm text-muted-foreground">
-                          A {formatApy(vault.withdrawalFee)} fee will be applied to your withdrawal
+                          {t("yieldFarming.withdrawalFeeWarning", { fee: formatApy(vault.withdrawalFee) })}
                         </p>
                       </div>
                     )}
@@ -1055,10 +1058,10 @@ export default function YieldFarming() {
                       <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20">
                         <div className="flex items-center gap-2">
                           <Lock className="h-4 w-4 text-red-500" />
-                          <span className="text-sm font-medium">Position Locked</span>
+                          <span className="text-sm font-medium">{t("yieldFarming.positionLocked")}</span>
                         </div>
                         <p className="mt-1 text-sm text-muted-foreground">
-                          This position is locked until {selectedPosition.lockEndTime ? new Date(selectedPosition.lockEndTime).toLocaleDateString() : "Unknown"}
+                          {t("yieldFarming.positionLockedUntil", { date: selectedPosition.lockEndTime ? new Date(selectedPosition.lockEndTime).toLocaleDateString() : t("yieldFarming.unknown") })}
                         </p>
                       </div>
                     )}
@@ -1074,7 +1077,7 @@ export default function YieldFarming() {
               onClick={() => setWithdrawDialogOpen(false)}
               data-testid="button-cancel-withdraw"
             >
-              Cancel
+              {t("yieldFarming.cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -1092,12 +1095,12 @@ export default function YieldFarming() {
               {withdrawMutation.isPending ? (
                 <>
                   <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                  Processing...
+                  {t("yieldFarming.processing")}
                 </>
               ) : (
                 <>
                   <Minus className="h-4 w-4 mr-2" />
-                  Confirm Withdraw
+                  {t("yieldFarming.confirmWithdraw")}
                 </>
               )}
             </Button>

@@ -2408,5 +2408,54 @@
   "notFound": {
     "title": "404 ページが見つかりません",
     "message": "ページをルーターに追加するのを忘れましたか？"
+  },
+  "governance": {
+    "title": "AIガバナンス",
+    "subtitle": "AI強化DAO - 提案分析と結果予測",
+    "aiPowered": "AI搭載",
+    "totalProposals": "総提案数",
+    "activeCount": "{{count}}件アクティブ",
+    "passRate": "可決率",
+    "avgParticipation": "平均参加率",
+    "totalVoters": "総{{count}}人の投票者",
+    "aiPredictionAccuracy": "AI予測精度",
+    "analyzed": "{{count}}件分析済み",
+    "gpt5TurboAnalysis": "GPT-5 Turbo分析",
+    "gpt5TurboDesc": "戦略レイヤーが各提案の経済的影響、セキュリティへの影響を分析し、リスク評価を提供します。",
+    "claudeSonnetPrediction": "Claude Sonnet 4.5予測",
+    "claudeSonnetDesc": "戦術レイヤーがコミュニティの感情、過去のパターン、提案内容に基づいて投票結果を予測します。",
+    "llamaRecommendations": "Llama 3.3 70B推奨",
+    "llamaDesc": "運用レイヤーが投票者の履歴とステーク配置に基づいてパーソナライズされた投票推奨を提供します。",
+    "activeTab": "アクティブ ({{count}})",
+    "completedTab": "完了",
+    "allProposalsTab": "全ての提案",
+    "noProposalsFound": "提案が見つかりません",
+    "highRisk": "高リスク",
+    "quorumReached": "定足数達成",
+    "forLabel": "賛成:",
+    "againstLabel": "反対:",
+    "abstainLabel": "棄権:",
+    "voters": "{{count}}人の投票者",
+    "total": "合計:",
+    "aiAnalysis": "AI分析",
+    "confidence": "{{percent}}%信頼度",
+    "economic": "経済:",
+    "security": "セキュリティ:",
+    "predictedOutcome": "予測結果:",
+    "keyFactors": "重要な要因:",
+    "vote": "投票",
+    "status": {
+      "draft": "下書き",
+      "active": "アクティブ",
+      "succeeded": "可決",
+      "defeated": "否決",
+      "queued": "キュー中",
+      "executed": "実行済み",
+      "cancelled": "キャンセル"
+    },
+    "prediction": {
+      "for": "賛成",
+      "against": "反対"
+    }
   }
 }

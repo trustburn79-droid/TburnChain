@@ -131,12 +131,12 @@ function getEventTypeColor(type: string): string {
   return colors[type] || "text-gray-500";
 }
 
-function formatTimeRemaining(dateStr: string): string {
+function formatTimeRemaining(dateStr: string, endedText: string): string {
   const date = new Date(dateStr);
   const now = new Date();
   const diff = date.getTime() - now.getTime();
   
-  if (diff < 0) return "Ended";
+  if (diff < 0) return endedText;
   
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -164,6 +164,7 @@ function ProjectCard({
   whitelistLoading?: boolean;
   claimLoading?: boolean;
 }) {
+  const { t } = useTranslation();
   const progress = parseInt(project.totalSupply) > 0 
     ? (project.totalMinted / parseInt(project.totalSupply)) * 100 
     : 0;
@@ -201,7 +202,7 @@ function ProjectCard({
                 <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0" />
               )}
               <Badge className={getStatusColor(project.status)}>
-                {project.status}
+                {t(`nftLaunchpad.status.${project.status}`, { defaultValue: project.status })}
               </Badge>
             </div>
             <div className="text-sm text-muted-foreground mb-2">
@@ -212,14 +213,14 @@ function ProjectCard({
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Progress</span>
+                <span className="text-muted-foreground">{t("nftLaunchpad.projectCard.progress")}</span>
                 <span className="font-medium">{project.totalMinted.toLocaleString()} / {parseInt(project.totalSupply).toLocaleString()}</span>
               </div>
               <Progress value={progress} className="h-2" />
             </div>
             <div className="flex items-center gap-4 mt-2 text-sm">
               <div>
-                <span className="text-muted-foreground">Price: </span>
+                <span className="text-muted-foreground">{t("nftLaunchpad.projectCard.price")} </span>
                 <span className="font-medium">{formatAmount(project.mintPrice)} TBURN</span>
               </div>
               {project.aiScore && (
@@ -242,7 +243,7 @@ function ProjectCard({
                   ) : (
                     <Rocket className="w-4 h-4 mr-1" />
                   )}
-                  Mint
+                  {t("nftLaunchpad.projectCard.mint")}
                 </Button>
               )}
               {canWhitelist && onWhitelist && (
@@ -258,7 +259,7 @@ function ProjectCard({
                   ) : (
                     <UserPlus className="w-4 h-4 mr-1" />
                   )}
-                  Join Whitelist
+                  {t("nftLaunchpad.projectCard.joinWhitelist")}
                 </Button>
               )}
               {canClaim && onClaim && (
@@ -274,7 +275,7 @@ function ProjectCard({
                   ) : (
                     <Gift className="w-4 h-4 mr-1" />
                   )}
-                  Claim NFT
+                  {t("nftLaunchpad.projectCard.claimNft")}
                 </Button>
               )}
             </div>
@@ -286,6 +287,7 @@ function ProjectCard({
 }
 
 function RoundCard({ round, project }: { round: LaunchRound; project?: LaunchpadProject }) {
+  const { t } = useTranslation();
   const progress = round.allocation > 0 
     ? (round.totalMinted / round.allocation) * 100 
     : 0;
@@ -301,37 +303,37 @@ function RoundCard({ round, project }: { round: LaunchRound; project?: Launchpad
             )}
           </div>
           <Badge className={getStatusColor(round.status)}>
-            {round.status}
+            {t(`nftLaunchpad.status.${round.status}`, { defaultValue: round.status })}
           </Badge>
         </div>
         <div className="grid grid-cols-2 gap-4 text-sm mb-3">
           <div>
-            <div className="text-muted-foreground">Price</div>
+            <div className="text-muted-foreground">{t("nftLaunchpad.roundCard.price")}</div>
             <div className="font-medium">{formatAmount(round.price)} TBURN</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Allocation</div>
+            <div className="text-muted-foreground">{t("nftLaunchpad.roundCard.allocation")}</div>
             <div className="font-medium">{round.allocation.toLocaleString()}</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Type</div>
-            <div className="font-medium capitalize">{round.roundType}</div>
+            <div className="text-muted-foreground">{t("nftLaunchpad.roundCard.type")}</div>
+            <div className="font-medium capitalize">{t(`nftLaunchpad.roundTypes.${round.roundType}`, { defaultValue: round.roundType })}</div>
           </div>
           <div>
             <div className="text-muted-foreground">
-              {round.status === "active" ? "Ends In" : "Status"}
+              {round.status === "active" ? t("nftLaunchpad.roundCard.endsIn") : t("nftLaunchpad.roundCard.status")}
             </div>
             <div className="font-medium">
               {round.status === "active" 
-                ? formatTimeRemaining(round.endTime)
-                : round.status
+                ? formatTimeRemaining(round.endTime, t("nftLaunchpad.timeRemaining.ended"))
+                : t(`nftLaunchpad.status.${round.status}`, { defaultValue: round.status })
               }
             </div>
           </div>
         </div>
         <div className="space-y-1">
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Minted</span>
+            <span className="text-muted-foreground">{t("nftLaunchpad.roundCard.minted")}</span>
             <span>{round.totalMinted.toLocaleString()} / {round.allocation.toLocaleString()}</span>
           </div>
           <Progress value={progress} className="h-2" />
@@ -339,7 +341,7 @@ function RoundCard({ round, project }: { round: LaunchRound; project?: Launchpad
         {round.whitelistRequired && (
           <div className="flex items-center gap-1 mt-2 text-sm text-yellow-500">
             <AlertCircle className="w-3 h-3" />
-            <span>Whitelist required</span>
+            <span>{t("nftLaunchpad.roundCard.whitelistRequired")}</span>
           </div>
         )}
       </CardContent>
@@ -348,6 +350,10 @@ function RoundCard({ round, project }: { round: LaunchRound; project?: Launchpad
 }
 
 function ActivityRow({ activity }: { activity: LaunchpadActivity }) {
+  const { t } = useTranslation();
+  const eventTypeKey = `nftLaunchpad.eventTypes.${activity.eventType}` as const;
+  const eventTypeText = t(eventTypeKey, { defaultValue: activity.eventType.replace(/_/g, ' ') });
+  
   return (
     <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-activity-${activity.id}`}>
       <div className={`p-2 rounded-lg bg-muted ${getEventTypeColor(activity.eventType)}`}>
@@ -355,14 +361,14 @@ function ActivityRow({ activity }: { activity: LaunchpadActivity }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="font-medium capitalize">{activity.eventType.replace(/_/g, ' ')}</span>
+          <span className="font-medium capitalize">{eventTypeText}</span>
         </div>
         <div className="text-sm text-muted-foreground flex items-center gap-2">
           {activity.walletAddress && (
             <span>{shortenAddress(activity.walletAddress)}</span>
           )}
           {activity.quantity && (
-            <span>Qty: {activity.quantity}</span>
+            <span>{t("nftLaunchpad.activity.quantity")} {activity.quantity}</span>
           )}
         </div>
       </div>
@@ -416,8 +422,12 @@ export default function NftLaunchpadPage() {
     },
     onSuccess: (data) => {
       toast({
-        title: "NFT Minted Successfully",
-        description: `Minted ${data.quantity} NFT(s) from ${data.projectName}. TX: ${data.txHash.slice(0, 10)}...`,
+        title: t("nftLaunchpad.toast.mintSuccess"),
+        description: t("nftLaunchpad.toast.mintSuccessDesc", { 
+          quantity: data.quantity, 
+          projectName: data.projectName, 
+          txHash: data.txHash.slice(0, 10) 
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/launchpad/projects"] });
       queryClient.invalidateQueries({ queryKey: ["/api/launchpad/stats"] });
@@ -425,8 +435,8 @@ export default function NftLaunchpadPage() {
     },
     onError: (error: any) => {
       toast({
-        title: "Mint Failed",
-        description: error.message || "Failed to mint NFT",
+        title: t("nftLaunchpad.toast.mintFailed"),
+        description: error.message || t("nftLaunchpad.toast.mintFailedDesc"),
         variant: "destructive",
       });
     },
@@ -442,15 +452,18 @@ export default function NftLaunchpadPage() {
     },
     onSuccess: (data) => {
       toast({
-        title: "Whitelist Joined",
-        description: `Successfully joined whitelist for ${data.projectName}. Allocation: ${data.allocation}`,
+        title: t("nftLaunchpad.toast.whitelistJoined"),
+        description: t("nftLaunchpad.toast.whitelistJoinedDesc", { 
+          projectName: data.projectName, 
+          allocation: data.allocation 
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/launchpad/activity"] });
     },
     onError: (error: any) => {
       toast({
-        title: "Whitelist Join Failed",
-        description: error.message || "Failed to join whitelist",
+        title: t("nftLaunchpad.toast.whitelistFailed"),
+        description: error.message || t("nftLaunchpad.toast.whitelistFailedDesc"),
         variant: "destructive",
       });
     },
@@ -466,15 +479,19 @@ export default function NftLaunchpadPage() {
     },
     onSuccess: (data) => {
       toast({
-        title: "NFT Claimed",
-        description: `Claimed ${data.claimed} NFT(s) from ${data.projectName}. TX: ${data.txHash.slice(0, 10)}...`,
+        title: t("nftLaunchpad.toast.claimSuccess"),
+        description: t("nftLaunchpad.toast.claimSuccessDesc", { 
+          claimed: data.claimed, 
+          projectName: data.projectName, 
+          txHash: data.txHash.slice(0, 10) 
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/launchpad/activity"] });
     },
     onError: (error: any) => {
       toast({
-        title: "Claim Failed",
-        description: error.message || "Failed to claim NFT",
+        title: t("nftLaunchpad.toast.claimFailed"),
+        description: error.message || t("nftLaunchpad.toast.claimFailedDesc"),
         variant: "destructive",
       });
     },
@@ -500,9 +517,9 @@ export default function NftLaunchpadPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-page-title">NFT Launchpad</h1>
+          <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("nftLaunchpad.title")}</h1>
           <p className="text-muted-foreground">
-            Discover and participate in the latest NFT launches on TBURN blockchain
+            {t("nftLaunchpad.subtitle")}
           </p>
         </div>
       </div>
@@ -512,7 +529,7 @@ export default function NftLaunchpadPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Rocket className="w-4 h-4" />
-              <span className="text-sm">Total Projects</span>
+              <span className="text-sm">{t("nftLaunchpad.stats.totalProjects")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -528,7 +545,7 @@ export default function NftLaunchpadPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <TrendingUp className="w-4 h-4" />
-              <span className="text-sm">Active</span>
+              <span className="text-sm">{t("nftLaunchpad.stats.active")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -544,7 +561,7 @@ export default function NftLaunchpadPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Clock className="w-4 h-4" />
-              <span className="text-sm">Upcoming</span>
+              <span className="text-sm">{t("nftLaunchpad.stats.upcoming")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -560,7 +577,7 @@ export default function NftLaunchpadPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Coins className="w-4 h-4" />
-              <span className="text-sm">Total Raised</span>
+              <span className="text-sm">{t("nftLaunchpad.stats.totalRaised")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-24" />
@@ -576,7 +593,7 @@ export default function NftLaunchpadPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Sparkles className="w-4 h-4" />
-              <span className="text-sm">Total Minted</span>
+              <span className="text-sm">{t("nftLaunchpad.stats.totalMinted")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-20" />
@@ -592,7 +609,7 @@ export default function NftLaunchpadPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Users className="w-4 h-4" />
-              <span className="text-sm">Participants</span>
+              <span className="text-sm">{t("nftLaunchpad.stats.participants")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -609,19 +626,19 @@ export default function NftLaunchpadPage() {
         <TabsList>
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Rocket className="w-4 h-4 mr-2" />
-            Overview
+            {t("nftLaunchpad.tabs.overview")}
           </TabsTrigger>
           <TabsTrigger value="active" data-testid="tab-active">
             <TrendingUp className="w-4 h-4 mr-2" />
-            Active ({activeProjects.length})
+            {t("nftLaunchpad.tabs.active")} ({activeProjects.length})
           </TabsTrigger>
           <TabsTrigger value="upcoming" data-testid="tab-upcoming">
             <Clock className="w-4 h-4 mr-2" />
-            Upcoming ({upcomingProjects.length})
+            {t("nftLaunchpad.tabs.upcoming")} ({upcomingProjects.length})
           </TabsTrigger>
           <TabsTrigger value="completed" data-testid="tab-completed">
             <CheckCircle2 className="w-4 h-4 mr-2" />
-            Completed ({completedProjects.length})
+            {t("nftLaunchpad.tabs.completed")} ({completedProjects.length})
           </TabsTrigger>
         </TabsList>
 
@@ -631,9 +648,9 @@ export default function NftLaunchpadPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Star className="w-5 h-5 text-yellow-500" />
-                  Featured Launches
+                  {t("nftLaunchpad.sections.featuredLaunches")}
                 </CardTitle>
-                <CardDescription>Top-rated projects selected by our team</CardDescription>
+                <CardDescription>{t("nftLaunchpad.sections.featuredLaunchesDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -658,7 +675,7 @@ export default function NftLaunchpadPage() {
                     )}
                     {!projectsLoading && (!featuredProjects || featuredProjects.length === 0) && (
                       <div className="py-8 text-center text-muted-foreground">
-                        No featured projects
+                        {t("nftLaunchpad.sections.noFeaturedProjects")}
                       </div>
                     )}
                   </div>
@@ -670,9 +687,9 @@ export default function NftLaunchpadPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Timer className="w-5 h-5 text-green-500" />
-                  Active Rounds
+                  {t("nftLaunchpad.sections.activeRounds")}
                 </CardTitle>
-                <CardDescription>Currently live minting rounds</CardDescription>
+                <CardDescription>{t("nftLaunchpad.sections.activeRoundsDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -685,7 +702,7 @@ export default function NftLaunchpadPage() {
                     })}
                     {(!activeRounds || activeRounds.length === 0) && (
                       <div className="py-8 text-center text-muted-foreground">
-                        No active rounds
+                        {t("nftLaunchpad.sections.noActiveRounds")}
                       </div>
                     )}
                   </div>
@@ -698,9 +715,9 @@ export default function NftLaunchpadPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="w-5 h-5 text-blue-500" />
-                Recent Activity
+                {t("nftLaunchpad.sections.recentActivity")}
               </CardTitle>
-              <CardDescription>Latest launchpad events</CardDescription>
+              <CardDescription>{t("nftLaunchpad.sections.recentActivityDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[300px]">
@@ -710,7 +727,7 @@ export default function NftLaunchpadPage() {
                   ))}
                   {!activity?.length && (
                     <div className="py-8 text-center text-muted-foreground">
-                      No recent activity
+                      {t("nftLaunchpad.sections.noRecentActivity")}
                     </div>
                   )}
                 </div>
@@ -722,8 +739,8 @@ export default function NftLaunchpadPage() {
         <TabsContent value="active" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Active Launches</CardTitle>
-              <CardDescription>Projects currently accepting mints</CardDescription>
+              <CardTitle>{t("nftLaunchpad.sections.activeLaunches")}</CardTitle>
+              <CardDescription>{t("nftLaunchpad.sections.activeLaunchesDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -748,7 +765,7 @@ export default function NftLaunchpadPage() {
               </div>
               {!projectsLoading && activeProjects.length === 0 && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No active launches at the moment
+                  {t("nftLaunchpad.sections.noActiveLaunches")}
                 </div>
               )}
             </CardContent>
@@ -758,8 +775,8 @@ export default function NftLaunchpadPage() {
         <TabsContent value="upcoming" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Upcoming Launches</CardTitle>
-              <CardDescription>Projects launching soon</CardDescription>
+              <CardTitle>{t("nftLaunchpad.sections.upcomingLaunches")}</CardTitle>
+              <CardDescription>{t("nftLaunchpad.sections.upcomingLaunchesDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -784,7 +801,7 @@ export default function NftLaunchpadPage() {
               </div>
               {!projectsLoading && upcomingProjects.length === 0 && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No upcoming launches scheduled
+                  {t("nftLaunchpad.sections.noUpcomingLaunches")}
                 </div>
               )}
             </CardContent>
@@ -794,8 +811,8 @@ export default function NftLaunchpadPage() {
         <TabsContent value="completed" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Completed Launches</CardTitle>
-              <CardDescription>Successfully completed projects</CardDescription>
+              <CardTitle>{t("nftLaunchpad.sections.completedLaunches")}</CardTitle>
+              <CardDescription>{t("nftLaunchpad.sections.completedLaunchesDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -820,7 +837,7 @@ export default function NftLaunchpadPage() {
               </div>
               {!projectsLoading && completedProjects.length === 0 && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No completed launches yet
+                  {t("nftLaunchpad.sections.noCompletedLaunches")}
                 </div>
               )}
             </CardContent>

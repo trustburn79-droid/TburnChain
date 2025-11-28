@@ -184,7 +184,7 @@ export default function LiquidStaking() {
       });
     },
     onSuccess: () => {
-      toast({ title: "Success", description: "LST tokens minted successfully!" });
+      toast({ title: t("liquidStaking.successTitle"), description: t("liquidStaking.lstMintedSuccess") });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/pools/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/stats"] });
@@ -194,7 +194,7 @@ export default function LiquidStaking() {
       setDialogPool(null);
     },
     onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t("liquidStaking.errorTitle"), description: error.message, variant: "destructive" });
     },
   });
 
@@ -207,7 +207,7 @@ export default function LiquidStaking() {
       });
     },
     onSuccess: () => {
-      toast({ title: "Success", description: "LST tokens redeemed successfully!" });
+      toast({ title: t("liquidStaking.successTitle"), description: t("liquidStaking.lstRedeemedSuccess") });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/pools/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/stats"] });
@@ -216,7 +216,7 @@ export default function LiquidStaking() {
       setDialogPool(null);
     },
     onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t("liquidStaking.errorTitle"), description: error.message, variant: "destructive" });
     },
   });
 
@@ -228,11 +228,11 @@ export default function LiquidStaking() {
       });
     },
     onSuccess: () => {
-      toast({ title: "Success", description: "Rewards claimed!" });
+      toast({ title: t("liquidStaking.successTitle"), description: t("liquidStaking.rewardsClaimed") });
       queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/positions", userAddress] });
     },
     onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      toast({ title: t("liquidStaking.errorTitle"), description: error.message, variant: "destructive" });
     },
   });
 
@@ -282,15 +282,15 @@ export default function LiquidStaking() {
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-lst-title">
             <Droplets className="h-8 w-8 text-blue-500" />
-            Liquid Staking
+            {t("liquidStaking.title")}
           </h1>
           <p className="text-muted-foreground mt-1">
-            Stake assets and receive liquid staking tokens with automatic yield
+            {t("liquidStaking.subtitle")}
           </p>
         </div>
         <Badge variant="outline" className="text-lg px-4 py-2">
           <Bot className="h-4 w-4 mr-2" />
-          AI-Optimized
+          {t("liquidStaking.aiOptimized")}
         </Badge>
       </div>
 
@@ -310,7 +310,7 @@ export default function LiquidStaking() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Value Staked</p>
+                  <p className="text-sm text-muted-foreground">{t("liquidStaking.totalValueStaked")}</p>
                   <p className="text-2xl font-bold" data-testid="text-total-staked">
                     {formatUsd(stats.totalStakedUsd)}
                   </p>
@@ -326,7 +326,7 @@ export default function LiquidStaking() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Active Pools</p>
+                  <p className="text-sm text-muted-foreground">{t("liquidStaking.activePools")}</p>
                   <p className="text-2xl font-bold" data-testid="text-active-pools">
                     {stats.activePools} / {stats.totalPools}
                   </p>
@@ -342,7 +342,7 @@ export default function LiquidStaking() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Top Pool APY</p>
+                  <p className="text-sm text-muted-foreground">{t("liquidStaking.topPoolApy")}</p>
                   <p className="text-2xl font-bold text-green-500" data-testid="text-top-apy">
                     {formatApy(stats.topPoolApy)}
                   </p>
@@ -358,7 +358,7 @@ export default function LiquidStaking() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Stakers</p>
+                  <p className="text-sm text-muted-foreground">{t("liquidStaking.totalStakers")}</p>
                   <p className="text-2xl font-bold" data-testid="text-total-stakers">
                     {formatNumber(stats.totalStakers)}
                   </p>
@@ -376,19 +376,19 @@ export default function LiquidStaking() {
         <TabsList className="grid w-full max-w-2xl grid-cols-4">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <BarChart3 className="h-4 w-4 mr-2" />
-            Overview
+            {t("liquidStaking.overview")}
           </TabsTrigger>
           <TabsTrigger value="pools" data-testid="tab-pools">
             <Layers className="h-4 w-4 mr-2" />
-            Pools
+            {t("liquidStaking.pools")}
           </TabsTrigger>
           <TabsTrigger value="stake" data-testid="tab-stake">
             <ArrowRightLeft className="h-4 w-4 mr-2" />
-            Stake/Unstake
+            {t("liquidStaking.stakeUnstake")}
           </TabsTrigger>
           <TabsTrigger value="positions" data-testid="tab-positions">
             <Wallet className="h-4 w-4 mr-2" />
-            My Positions
+            {t("liquidStaking.myPositions")}
           </TabsTrigger>
         </TabsList>
 
@@ -398,7 +398,7 @@ export default function LiquidStaking() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Droplets className="h-5 w-5 text-blue-500" />
-                  Top LST Pools
+                  {t("liquidStaking.topLstPools")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -429,14 +429,14 @@ export default function LiquidStaking() {
                                   {pool.lstTokenSymbol}
                                 </Badge>
                                 <span className="text-xs text-muted-foreground">
-                                  {pool.validatorCount} validators
+                                  {t("liquidStaking.validatorsCount", { count: pool.validatorCount })}
                                 </span>
                               </div>
                             </div>
                           </div>
                           <div className="text-right">
                             <p className="font-bold text-green-500">{formatApy(pool.currentApy)}</p>
-                            <p className="text-sm text-muted-foreground">TVL: {formatUsd(pool.totalStakedUsd)}</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.tvlLabel", { value: formatUsd(pool.totalStakedUsd) })}</p>
                           </div>
                         </div>
                       ))}
@@ -444,7 +444,7 @@ export default function LiquidStaking() {
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
                       <Droplets className="h-12 w-12 mb-2" />
-                      <p>No pools available</p>
+                      <p>{t("liquidStaking.noPoolsAvailable")}</p>
                     </div>
                   )}
                 </ScrollArea>
@@ -455,23 +455,23 @@ export default function LiquidStaking() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Wallet className="h-5 w-5 text-blue-500" />
-                  Your Portfolio
+                  {t("liquidStaking.yourPortfolio")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="p-4 rounded-lg bg-muted/50">
-                    <p className="text-sm text-muted-foreground">Total Underlying Value</p>
+                    <p className="text-sm text-muted-foreground">{t("liquidStaking.totalUnderlyingValue")}</p>
                     <p className="text-3xl font-bold">{formatWeiToToken(totalUserValue.toString())} TBURN</p>
                   </div>
                   <div className="p-4 rounded-lg bg-muted/50">
-                    <p className="text-sm text-muted-foreground">Pending Rewards</p>
+                    <p className="text-sm text-muted-foreground">{t("liquidStaking.pendingRewards")}</p>
                     <p className="text-2xl font-bold text-green-500">
                       {formatWeiToToken(totalPendingRewards.toString())} TBURN
                     </p>
                   </div>
                   <div className="p-4 rounded-lg bg-muted/50">
-                    <p className="text-sm text-muted-foreground">Active Positions</p>
+                    <p className="text-sm text-muted-foreground">{t("liquidStaking.activePositions")}</p>
                     <p className="text-2xl font-bold">
                       {positions?.filter(p => p.status === "active").length || 0}
                     </p>
@@ -485,8 +485,8 @@ export default function LiquidStaking() {
         <TabsContent value="pools" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All LST Pools</CardTitle>
-              <CardDescription>Browse and compare liquid staking opportunities</CardDescription>
+              <CardTitle>{t("liquidStaking.allLstPools")}</CardTitle>
+              <CardDescription>{t("liquidStaking.browseAndComparePools")}</CardDescription>
             </CardHeader>
             <CardContent>
               {poolsLoading ? (
@@ -519,7 +519,7 @@ export default function LiquidStaking() {
                                       <Bot className="h-4 w-4 text-blue-500" />
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                      AI-Optimized Validator Selection
+                                      {t("liquidStaking.aiOptimizedValidatorSelection")}
                                     </TooltipContent>
                                   </Tooltip>
                                 </TooltipProvider>
@@ -531,25 +531,25 @@ export default function LiquidStaking() {
                             <div className="flex items-center gap-2 mt-1">
                               <Badge variant="outline" className="text-xs">
                                 <Shield className="h-3 w-3 mr-1" />
-                                {pool.validatorCount} validators
+                                {t("liquidStaking.validatorsCount", { count: pool.validatorCount })}
                               </Badge>
                               <Badge variant="outline" className="text-xs">
-                                Rate: {formatExchangeRate(pool.exchangeRate)}
+                                {t("liquidStaking.rateLabel", { rate: formatExchangeRate(pool.exchangeRate) })}
                               </Badge>
                             </div>
                           </div>
                         </div>
                         <div className="grid grid-cols-4 gap-8 text-right">
                           <div>
-                            <p className="text-sm text-muted-foreground">APY</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.apy")}</p>
                             <p className="font-bold text-green-500 text-lg">{formatApy(pool.currentApy)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">TVL</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.tvl")}</p>
                             <p className="font-medium">{formatUsd(pool.totalStakedUsd)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Stakers</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.stakers")}</p>
                             <p className="font-medium">{formatNumber(pool.totalStakers)}</p>
                           </div>
                           <div>
@@ -561,7 +561,7 @@ export default function LiquidStaking() {
                                 openMintDialog(pool);
                               }}
                             >
-                              Stake
+                              {t("liquidStaking.stake")}
                             </Button>
                           </div>
                         </div>
@@ -572,8 +572,8 @@ export default function LiquidStaking() {
               ) : (
                 <div className="text-center py-12 text-muted-foreground">
                   <Droplets className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">No pools available</p>
-                  <p className="text-sm">Check back later for new liquid staking opportunities</p>
+                  <p className="text-lg font-medium">{t("liquidStaking.noPoolsAvailable")}</p>
+                  <p className="text-sm">{t("liquidStaking.checkBackLater")}</p>
                 </div>
               )}
             </CardContent>
@@ -584,8 +584,8 @@ export default function LiquidStaking() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Select Pool</CardTitle>
-                <CardDescription>Choose a pool to stake into</CardDescription>
+                <CardTitle>{t("liquidStaking.selectPool")}</CardTitle>
+                <CardDescription>{t("liquidStaking.choosePoolToStake")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Select
@@ -596,12 +596,12 @@ export default function LiquidStaking() {
                   }}
                 >
                   <SelectTrigger data-testid="select-pool">
-                    <SelectValue placeholder="Select a pool" />
+                    <SelectValue placeholder={t("liquidStaking.selectAPool")} />
                   </SelectTrigger>
                   <SelectContent>
                     {pools?.map((pool) => (
                       <SelectItem key={pool.id} value={pool.id}>
-                        {pool.name} - {formatApy(pool.currentApy)} APY
+                        {pool.name} - {t("liquidStaking.apyWithValue", { apy: formatApy(pool.currentApy) })}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -610,32 +610,32 @@ export default function LiquidStaking() {
                 {selectedPool && (
                   <div className="mt-4 p-4 rounded-lg bg-muted/50 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Pool</span>
+                      <span className="text-muted-foreground">{t("liquidStaking.pool")}</span>
                       <span className="font-medium">{selectedPool.name}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">LST Token</span>
+                      <span className="text-muted-foreground">{t("liquidStaking.lstToken")}</span>
                       <span>{selectedPool.lstTokenSymbol}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Exchange Rate</span>
+                      <span className="text-muted-foreground">{t("liquidStaking.exchangeRate")}</span>
                       <span>{formatExchangeRate(selectedPool.exchangeRate)}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Current APY</span>
+                      <span className="text-muted-foreground">{t("liquidStaking.currentApy")}</span>
                       <span className="text-green-500 font-bold">{formatApy(selectedPool.currentApy)}</span>
                     </div>
                     <Separator />
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Mint Fee</span>
+                      <span className="text-muted-foreground">{t("liquidStaking.mintFee")}</span>
                       <span>{formatApy(selectedPool.mintFee)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Redeem Fee</span>
+                      <span className="text-muted-foreground">{t("liquidStaking.redeemFee")}</span>
                       <span>{formatApy(selectedPool.redeemFee)}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Performance Fee</span>
+                      <span className="text-muted-foreground">{t("liquidStaking.performanceFee")}</span>
                       <span>{formatApy(selectedPool.performanceFee)}</span>
                     </div>
                   </div>
@@ -645,12 +645,12 @@ export default function LiquidStaking() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Stake / Unstake</CardTitle>
-                <CardDescription>Mint or redeem LST tokens</CardDescription>
+                <CardTitle>{t("liquidStaking.stakeUnstakeTitle")}</CardTitle>
+                <CardDescription>{t("liquidStaking.mintOrRedeemLst")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Stake Amount (Mint LST)</Label>
+                  <Label>{t("liquidStaking.stakeAmountMintLst")}</Label>
                   <div className="flex gap-2">
                     <Input
                       type="text"
@@ -660,7 +660,7 @@ export default function LiquidStaking() {
                       data-testid="input-mint-amount"
                     />
                     <Button variant="outline" onClick={() => setMintAmount("1000000000000000000000")}>
-                      Max
+                      {t("liquidStaking.max")}
                     </Button>
                   </div>
                   <Button
@@ -679,12 +679,12 @@ export default function LiquidStaking() {
                     {mintMutation.isPending ? (
                       <>
                         <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                        Minting...
+                        {t("liquidStaking.minting")}
                       </>
                     ) : (
                       <>
                         <ArrowUpRight className="h-4 w-4 mr-2" />
-                        Stake & Mint LST
+                        {t("liquidStaking.stakeAndMintLst")}
                       </>
                     )}
                   </Button>
@@ -693,7 +693,7 @@ export default function LiquidStaking() {
                 <Separator />
 
                 <div className="space-y-2">
-                  <Label>Unstake Amount (Redeem LST)</Label>
+                  <Label>{t("liquidStaking.unstakeAmountRedeemLst")}</Label>
                   <div className="flex gap-2">
                     <Input
                       type="text"
@@ -703,7 +703,7 @@ export default function LiquidStaking() {
                       data-testid="input-redeem-amount"
                     />
                     <Button variant="outline" onClick={() => setRedeemAmount("1000000000000000000000")}>
-                      Max
+                      {t("liquidStaking.max")}
                     </Button>
                   </div>
                   <Button
@@ -723,12 +723,12 @@ export default function LiquidStaking() {
                     {redeemMutation.isPending ? (
                       <>
                         <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                        Redeeming...
+                        {t("liquidStaking.redeeming")}
                       </>
                     ) : (
                       <>
                         <ArrowDownRight className="h-4 w-4 mr-2" />
-                        Unstake & Redeem
+                        {t("liquidStaking.unstakeAndRedeem")}
                       </>
                     )}
                   </Button>
@@ -741,8 +741,8 @@ export default function LiquidStaking() {
         <TabsContent value="positions" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>My Positions</CardTitle>
-              <CardDescription>Manage your liquid staking positions</CardDescription>
+              <CardTitle>{t("liquidStaking.myPositionsTitle")}</CardTitle>
+              <CardDescription>{t("liquidStaking.managePositions")}</CardDescription>
             </CardHeader>
             <CardContent>
               {positionsLoading ? (
@@ -767,7 +767,7 @@ export default function LiquidStaking() {
                               <Droplets className="h-5 w-5 text-blue-500" />
                             </div>
                             <div>
-                              <p className="font-semibold">{pool?.name || "Unknown Pool"}</p>
+                              <p className="font-semibold">{pool?.name || t("liquidStaking.unknownPool")}</p>
                               <Badge variant="outline" className="text-xs">
                                 {pool?.lstTokenSymbol || "LST"}
                               </Badge>
@@ -783,19 +783,19 @@ export default function LiquidStaking() {
 
                         <div className="grid grid-cols-4 gap-4 mb-4">
                           <div>
-                            <p className="text-sm text-muted-foreground">Total Minted</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.totalMinted")}</p>
                             <p className="font-medium">{formatWeiToToken(position.totalMinted)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Pending Rewards</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.pendingRewards")}</p>
                             <p className="font-medium text-green-500">{formatWeiToToken(position.pendingRewards)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Claimed Rewards</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.claimedRewards")}</p>
                             <p className="font-medium">{formatWeiToToken(position.claimedRewards)}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-muted-foreground">Mint Count</p>
+                            <p className="text-sm text-muted-foreground">{t("liquidStaking.mintCount")}</p>
                             <p className="font-medium">{position.mintCount}</p>
                           </div>
                         </div>
@@ -809,7 +809,7 @@ export default function LiquidStaking() {
                             data-testid={`button-claim-${position.id}`}
                           >
                             <DollarSign className="h-4 w-4 mr-1" />
-                            Claim Rewards
+                            {t("liquidStaking.claimRewards")}
                           </Button>
                           <Button
                             variant="outline"
@@ -822,7 +822,7 @@ export default function LiquidStaking() {
                             data-testid={`button-unstake-${position.id}`}
                           >
                             <Minus className="h-4 w-4 mr-1" />
-                            Unstake
+                            {t("liquidStaking.unstake")}
                           </Button>
                         </div>
                       </div>
@@ -832,14 +832,14 @@ export default function LiquidStaking() {
               ) : (
                 <div className="text-center py-12 text-muted-foreground">
                   <Wallet className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">No active positions</p>
-                  <p className="text-sm">Stake assets to receive liquid staking tokens</p>
+                  <p className="text-lg font-medium">{t("liquidStaking.noActivePositions")}</p>
+                  <p className="text-sm">{t("liquidStaking.stakeAssetsToReceiveLst")}</p>
                   <Button
                     className="mt-4"
                     onClick={() => setActiveTab("pools")}
                     data-testid="button-browse-pools"
                   >
-                    Browse Pools
+                    {t("liquidStaking.browsePools")}
                   </Button>
                 </div>
               )}
@@ -853,10 +853,10 @@ export default function LiquidStaking() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Droplets className="h-5 w-5 text-blue-500" />
-              Stake & Mint LST
+              {t("liquidStaking.stakeMintLstTitle")}
             </DialogTitle>
             <DialogDescription>
-              Stake your tokens and receive liquid staking tokens in return
+              {t("liquidStaking.stakeMintLstDesc")}
             </DialogDescription>
           </DialogHeader>
           
@@ -864,34 +864,34 @@ export default function LiquidStaking() {
             <div className="space-y-4">
               <div className="p-3 rounded-lg bg-muted/50 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Pool</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.pool")}</span>
                   <span className="font-medium">{dialogPool.name}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">LST Token</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.lstToken")}</span>
                   <Badge variant="outline">{dialogPool.lstTokenSymbol}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Exchange Rate</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.exchangeRate")}</span>
                   <span>1 {dialogPool.underlyingSymbol} = {formatExchangeRate(dialogPool.exchangeRate)} {dialogPool.lstTokenSymbol}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Current APY</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.currentApy")}</span>
                   <span className="text-green-500 font-bold">{formatApy(dialogPool.currentApy)}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Mint Fee</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.mintFee")}</span>
                   <span>{formatApy(dialogPool.mintFee)}</span>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="mint-amount">Amount to Stake ({dialogPool.underlyingSymbol})</Label>
+                <Label htmlFor="mint-amount">{t("liquidStaking.amountToStake", { symbol: dialogPool.underlyingSymbol })}</Label>
                 <div className="flex gap-2">
                   <Input
                     id="mint-amount"
                     type="text"
-                    placeholder="Enter amount in wei"
+                    placeholder={t("liquidStaking.enterAmountInWei")}
                     value={mintAmount}
                     onChange={(e) => setMintAmount(e.target.value)}
                     data-testid="input-dialog-mint-amount"
@@ -901,14 +901,17 @@ export default function LiquidStaking() {
                     onClick={() => setMintAmount("1000000000000000000000")}
                     data-testid="button-max-mint"
                   >
-                    Max
+                    {t("liquidStaking.max")}
                   </Button>
                 </div>
                 {mintAmount && (
                   <p className="text-sm text-muted-foreground">
-                    You will receive approximately {formatWeiToToken(
-                      (BigInt(mintAmount || "0") * BigInt(10**18) / BigInt(dialogPool.exchangeRate || "1000000000000000000")).toString()
-                    )} {dialogPool.lstTokenSymbol}
+                    {t("liquidStaking.youWillReceiveApprox", { 
+                      amount: formatWeiToToken(
+                        (BigInt(mintAmount || "0") * BigInt(10**18) / BigInt(dialogPool.exchangeRate || "1000000000000000000")).toString()
+                      ),
+                      symbol: dialogPool.lstTokenSymbol 
+                    })}
                   </p>
                 )}
               </div>
@@ -921,7 +924,7 @@ export default function LiquidStaking() {
               onClick={() => setMintDialogOpen(false)}
               data-testid="button-cancel-mint"
             >
-              Cancel
+              {t("liquidStaking.cancel")}
             </Button>
             <Button
               disabled={!dialogPool || !mintAmount || mintMutation.isPending}
@@ -931,12 +934,12 @@ export default function LiquidStaking() {
               {mintMutation.isPending ? (
                 <>
                   <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                  Minting...
+                  {t("liquidStaking.minting")}
                 </>
               ) : (
                 <>
                   <ArrowUpRight className="h-4 w-4 mr-2" />
-                  Stake & Mint
+                  {t("liquidStaking.stakeAndMint")}
                 </>
               )}
             </Button>
@@ -949,10 +952,10 @@ export default function LiquidStaking() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <ArrowDownRight className="h-5 w-5 text-orange-500" />
-              Unstake & Redeem
+              {t("liquidStaking.unstakeRedeemTitle")}
             </DialogTitle>
             <DialogDescription>
-              Redeem your LST tokens back to the underlying asset
+              {t("liquidStaking.unstakeRedeemDesc")}
             </DialogDescription>
           </DialogHeader>
           
@@ -960,30 +963,30 @@ export default function LiquidStaking() {
             <div className="space-y-4">
               <div className="p-3 rounded-lg bg-muted/50 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Pool</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.pool")}</span>
                   <span className="font-medium">{dialogPool.name}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">LST Token</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.lstToken")}</span>
                   <Badge variant="outline">{dialogPool.lstTokenSymbol}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Exchange Rate</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.exchangeRate")}</span>
                   <span>1 {dialogPool.lstTokenSymbol} = {formatExchangeRate(dialogPool.exchangeRate)} {dialogPool.underlyingSymbol}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Redeem Fee</span>
+                  <span className="text-sm text-muted-foreground">{t("liquidStaking.redeemFee")}</span>
                   <span>{formatApy(dialogPool.redeemFee)}</span>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="redeem-amount">Amount to Redeem ({dialogPool.lstTokenSymbol})</Label>
+                <Label htmlFor="redeem-amount">{t("liquidStaking.amountToRedeem", { symbol: dialogPool.lstTokenSymbol })}</Label>
                 <div className="flex gap-2">
                   <Input
                     id="redeem-amount"
                     type="text"
-                    placeholder="Enter amount in wei"
+                    placeholder={t("liquidStaking.enterAmountInWei")}
                     value={redeemAmount}
                     onChange={(e) => setRedeemAmount(e.target.value)}
                     data-testid="input-dialog-redeem-amount"
@@ -993,14 +996,17 @@ export default function LiquidStaking() {
                     onClick={() => setRedeemAmount("1000000000000000000000")}
                     data-testid="button-max-redeem"
                   >
-                    Max
+                    {t("liquidStaking.max")}
                   </Button>
                 </div>
                 {redeemAmount && (
                   <p className="text-sm text-muted-foreground">
-                    You will receive approximately {formatWeiToToken(
-                      (BigInt(redeemAmount || "0") * BigInt(dialogPool.exchangeRate || "1000000000000000000") / BigInt(10**18)).toString()
-                    )} {dialogPool.underlyingSymbol}
+                    {t("liquidStaking.youWillReceiveApprox", {
+                      amount: formatWeiToToken(
+                        (BigInt(redeemAmount || "0") * BigInt(dialogPool.exchangeRate || "1000000000000000000") / BigInt(10**18)).toString()
+                      ),
+                      symbol: dialogPool.underlyingSymbol
+                    })}
                   </p>
                 )}
               </div>
@@ -1013,7 +1019,7 @@ export default function LiquidStaking() {
               onClick={() => setRedeemDialogOpen(false)}
               data-testid="button-cancel-redeem"
             >
-              Cancel
+              {t("liquidStaking.cancel")}
             </Button>
             <Button
               disabled={!dialogPool || !redeemAmount || redeemMutation.isPending}
@@ -1023,12 +1029,12 @@ export default function LiquidStaking() {
               {redeemMutation.isPending ? (
                 <>
                   <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                  Redeeming...
+                  {t("liquidStaking.redeeming")}
                 </>
               ) : (
                 <>
                   <ArrowDownRight className="h-4 w-4 mr-2" />
-                  Unstake & Redeem
+                  {t("liquidStaking.unstakeAndRedeem")}
                 </>
               )}
             </Button>

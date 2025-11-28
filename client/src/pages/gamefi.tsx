@@ -219,12 +219,65 @@ function getEventTypeIcon(type: string) {
   return icons[type] || Activity;
 }
 
-function formatTimeRemaining(dateStr: string): string {
+function getStatusTranslationKey(status: string): string {
+  const statusMap: Record<string, string> = {
+    active: "gamefi.statusActive",
+    beta: "gamefi.statusBeta",
+    coming_soon: "gamefi.statusComingSoon",
+    maintenance: "gamefi.statusMaintenance",
+    deprecated: "gamefi.statusDeprecated",
+    upcoming: "gamefi.statusUpcoming",
+    registration: "gamefi.statusRegistration",
+    completed: "gamefi.statusCompleted",
+    cancelled: "gamefi.statusCancelled",
+  };
+  return statusMap[status] || "gamefi.statusActive";
+}
+
+function getRarityTranslationKey(rarity: string): string {
+  const rarityMap: Record<string, string> = {
+    common: "gamefi.rarityCommon",
+    uncommon: "gamefi.rarityUncommon",
+    rare: "gamefi.rarityRare",
+    epic: "gamefi.rarityEpic",
+    legendary: "gamefi.rarityLegendary",
+    mythic: "gamefi.rarityMythic",
+  };
+  return rarityMap[rarity] || "gamefi.rarityCommon";
+}
+
+function getTournamentTypeTranslationKey(type: string): string {
+  const typeMap: Record<string, string> = {
+    single_elimination: "gamefi.tournamentTypeSingleElimination",
+    double_elimination: "gamefi.tournamentTypeDoubleElimination",
+    round_robin: "gamefi.tournamentTypeRoundRobin",
+    swiss: "gamefi.tournamentTypeSwiss",
+    battle_royale: "gamefi.tournamentTypeBattleRoyale",
+    ladder: "gamefi.tournamentTypeLadder",
+  };
+  return typeMap[type] || "gamefi.tournamentTypeOther";
+}
+
+function getAssetTypeTranslationKey(type: string): string {
+  const typeMap: Record<string, string> = {
+    weapon: "gamefi.assetTypeWeapon",
+    armor: "gamefi.assetTypeArmor",
+    accessory: "gamefi.assetTypeAccessory",
+    consumable: "gamefi.assetTypeConsumable",
+    pet: "gamefi.assetTypePet",
+    mount: "gamefi.assetTypeMount",
+    skin: "gamefi.assetTypeSkin",
+    character: "gamefi.assetTypeCharacter",
+  };
+  return typeMap[type] || "gamefi.assetTypeOther";
+}
+
+function formatTimeRemaining(dateStr: string, startedLabel: string = "Started"): string {
   const date = new Date(dateStr);
   const now = new Date();
   const diff = date.getTime() - now.getTime();
   
-  if (diff < 0) return "Started";
+  if (diff < 0) return startedLabel;
   
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -236,6 +289,7 @@ function formatTimeRemaining(dateStr: string): string {
 }
 
 function ProjectCard({ project }: { project: GamefiProject }) {
+  const { t } = useTranslation();
   return (
     <Card className="hover-elevate cursor-pointer" data-testid={`card-project-${project.id}`}>
       <CardContent className="p-4">
@@ -262,7 +316,7 @@ function ProjectCard({ project }: { project: GamefiProject }) {
             <div className="flex items-center gap-2 mb-1">
               <span className="font-semibold truncate">{project.name}</span>
               <Badge className={getStatusColor(project.status)}>
-                {project.status}
+                {t(getStatusTranslationKey(project.status))}
               </Badge>
             </div>
             <div className="text-sm text-muted-foreground mb-2">
@@ -274,7 +328,7 @@ function ProjectCard({ project }: { project: GamefiProject }) {
             <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Users className="w-3 h-3" />
-                <span>{project.activePlayers24h.toLocaleString()} active</span>
+                <span>{project.activePlayers24h.toLocaleString()} {t("gamefi.active")}</span>
               </div>
               {project.aiScore && (
                 <div className="flex items-center gap-1">
@@ -291,13 +345,13 @@ function ProjectCard({ project }: { project: GamefiProject }) {
             </div>
             <div className="flex flex-wrap gap-1 mt-2">
               {project.playToEarnEnabled && (
-                <Badge variant="outline" className="text-xs py-0">P2E</Badge>
+                <Badge variant="outline" className="text-xs py-0">{t("gamefi.p2e")}</Badge>
               )}
               {project.stakingEnabled && (
-                <Badge variant="outline" className="text-xs py-0">Staking</Badge>
+                <Badge variant="outline" className="text-xs py-0">{t("gamefi.staking")}</Badge>
               )}
               {project.tournamentEnabled && (
-                <Badge variant="outline" className="text-xs py-0">Tournaments</Badge>
+                <Badge variant="outline" className="text-xs py-0">{t("gamefi.tournaments")}</Badge>
               )}
             </div>
           </div>
@@ -318,6 +372,7 @@ function TournamentCard({
   onJoin?: (tournamentId: string) => void;
   isJoining?: boolean;
 }) {
+  const { t } = useTranslation();
   const progress = tournament.maxParticipants > 0 
     ? (tournament.currentParticipants / tournament.maxParticipants) * 100 
     : 0;
@@ -336,42 +391,42 @@ function TournamentCard({
             )}
           </div>
           <Badge className={getTournamentStatusColor(tournament.status)}>
-            {tournament.status}
+            {t(getStatusTranslationKey(tournament.status))}
           </Badge>
         </div>
         <div className="grid grid-cols-2 gap-4 text-sm mb-3">
           <div>
-            <div className="text-muted-foreground">Prize Pool</div>
+            <div className="text-muted-foreground">{t("gamefi.prizePool")}</div>
             <div className="font-medium">{formatAmount(tournament.prizePool)} TBURN</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Entry Fee</div>
+            <div className="text-muted-foreground">{t("gamefi.entryFee")}</div>
             <div className="font-medium">
               {tournament.entryFee && tournament.entryFee !== "0" 
                 ? `${formatAmount(tournament.entryFee)} TBURN` 
-                : "Free"
+                : t("gamefi.free")
               }
             </div>
           </div>
           <div>
-            <div className="text-muted-foreground">Type</div>
-            <div className="font-medium capitalize">{tournament.tournamentType.replace(/_/g, ' ')}</div>
+            <div className="text-muted-foreground">{t("gamefi.type")}</div>
+            <div className="font-medium capitalize">{t(getTournamentTypeTranslationKey(tournament.tournamentType))}</div>
           </div>
           <div>
             <div className="text-muted-foreground">
-              {tournament.status === "upcoming" ? "Starts In" : "Status"}
+              {tournament.status === "upcoming" ? t("gamefi.startsIn") : t("gamefi.status")}
             </div>
             <div className="font-medium">
               {tournament.startTime && tournament.status === "upcoming"
-                ? formatTimeRemaining(tournament.startTime)
-                : tournament.status
+                ? formatTimeRemaining(tournament.startTime, t("gamefi.started"))
+                : t(getStatusTranslationKey(tournament.status))
               }
             </div>
           </div>
         </div>
         <div className="space-y-1">
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Participants</span>
+            <span className="text-muted-foreground">{t("gamefi.participants")}</span>
             <span>{tournament.currentParticipants} / {tournament.maxParticipants}</span>
           </div>
           <Progress value={progress} className="h-2" />
@@ -379,7 +434,7 @@ function TournamentCard({
         {tournament.requiresNft && (
           <div className="flex items-center gap-1 mt-2 text-sm text-purple-500">
             <Sparkles className="w-3 h-3" />
-            <span>NFT required</span>
+            <span>{t("gamefi.nftRequired")}</span>
           </div>
         )}
         {onJoin && canJoin && (
@@ -393,24 +448,24 @@ function TournamentCard({
             {isJoining ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Joining...
+                {t("gamefi.joining")}
               </>
             ) : (
               <>
                 <Swords className="w-4 h-4 mr-2" />
-                Join Tournament
+                {t("gamefi.joinTournament")}
               </>
             )}
           </Button>
         )}
         {tournament.status === "completed" && (
           <div className="mt-3 text-center text-sm text-muted-foreground">
-            Tournament completed
+            {t("gamefi.tournamentCompleted")}
           </div>
         )}
         {tournament.status === "active" && (
           <div className="mt-3 text-center text-sm text-green-500 font-medium">
-            Tournament in progress
+            {t("gamefi.tournamentInProgress")}
           </div>
         )}
       </CardContent>
@@ -427,6 +482,7 @@ function AssetCard({
   onEquip?: (assetId: string) => void;
   isEquipping?: boolean;
 }) {
+  const { t } = useTranslation();
   const isEquipped = asset.attributes?.equipped === true;
   
   return (
@@ -455,15 +511,15 @@ function AssetCard({
             <div className="flex items-center gap-2 mb-1">
               <span className="font-medium truncate">{asset.name}</span>
               <Badge className={getRarityColor(asset.rarity)}>
-                {asset.rarity}
+                {t(getRarityTranslationKey(asset.rarity))}
               </Badge>
             </div>
             <div className="text-sm text-muted-foreground capitalize">
-              {asset.assetType}
+              {t(getAssetTypeTranslationKey(asset.assetType))}
             </div>
             {asset.attributes?.level && (
               <div className="text-xs text-muted-foreground mt-1">
-                Level {asset.attributes.level}
+                {t("gamefi.levelLabel", { level: asset.attributes.level })}
               </div>
             )}
           </div>
@@ -480,12 +536,12 @@ function AssetCard({
             {isEquipping ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                {isEquipped ? "Unequipping..." : "Equipping..."}
+                {isEquipped ? t("gamefi.unequipping") : t("gamefi.equipping")}
               </>
             ) : (
               <>
                 <Shield className="w-4 h-4 mr-2" />
-                {isEquipped ? "Unequip" : "Equip"}
+                {isEquipped ? t("gamefi.unequip") : t("gamefi.equip")}
               </>
             )}
           </Button>
@@ -496,6 +552,7 @@ function AssetCard({
 }
 
 function LeaderboardRow({ entry, rank }: { entry: GameLeaderboard; rank: number }) {
+  const { t } = useTranslation();
   const rankIcon = rank === 1 ? Crown : rank === 2 ? Medal : rank === 3 ? Award : null;
   const RankIcon = rankIcon;
   
@@ -512,18 +569,19 @@ function LeaderboardRow({ entry, rank }: { entry: GameLeaderboard; rank: number 
       <div className="flex-1 min-w-0">
         <div className="font-medium truncate">{entry.playerName || shortenAddress(entry.walletAddress)}</div>
         <div className="text-sm text-muted-foreground">
-          {entry.wins}W / {entry.losses}L ({entry.gamesPlayed} games)
+          {t("gamefi.winsLosses", { wins: entry.wins, losses: entry.losses, games: entry.gamesPlayed })}
         </div>
       </div>
       <div className="text-right">
         <div className="font-medium">{parseInt(entry.score).toLocaleString()}</div>
-        <div className="text-sm text-muted-foreground">{formatAmount(entry.totalEarned)} earned</div>
+        <div className="text-sm text-muted-foreground">{formatAmount(entry.totalEarned)} {t("gamefi.earned")}</div>
       </div>
     </div>
   );
 }
 
 function BadgeCard({ badge }: { badge: AchievementBadge }) {
+  const { t } = useTranslation();
   return (
     <Card className="hover-elevate" data-testid={`card-badge-${badge.id}`}>
       <CardContent className="p-4">
@@ -540,13 +598,13 @@ function BadgeCard({ badge }: { badge: AchievementBadge }) {
             <div className="flex items-center gap-2 mb-1">
               <span className="font-medium truncate">{badge.name}</span>
               <Badge className={getRarityColor(badge.rarity)}>
-                {badge.rarity}
+                {t(getRarityTranslationKey(badge.rarity))}
               </Badge>
             </div>
             <p className="text-sm text-muted-foreground line-clamp-2">{badge.description}</p>
             <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
-              <span>{badge.points} pts</span>
-              <span>{badge.totalUnlocks?.toLocaleString() || 0} unlocks</span>
+              <span>{badge.points} {t("gamefi.points")}</span>
+              <span>{badge.totalUnlocks?.toLocaleString() || 0} {t("gamefi.unlocks")}</span>
               {badge.rewardAmount && (
                 <span className="text-green-500">{formatAmount(badge.rewardAmount)} TBURN</span>
               )}
@@ -559,7 +617,23 @@ function BadgeCard({ badge }: { badge: AchievementBadge }) {
 }
 
 function ActivityRow({ activity }: { activity: GamefiActivity }) {
+  const { t } = useTranslation();
   const IconComponent = getEventTypeIcon(activity.eventType);
+  
+  const getEventTypeLabel = (eventType: string) => {
+    const eventLabels: Record<string, string> = {
+      game_started: t("gamefi.eventGameStarted"),
+      game_ended: t("gamefi.eventGameEnded"),
+      reward_earned: t("gamefi.eventRewardEarned"),
+      asset_minted: t("gamefi.eventAssetMinted"),
+      asset_transferred: t("gamefi.eventAssetTransferred"),
+      tournament_joined: t("gamefi.eventTournamentJoined"),
+      tournament_won: t("gamefi.eventTournamentWon"),
+      achievement_unlocked: t("gamefi.eventAchievementUnlocked"),
+      level_up: t("gamefi.eventLevelUp"),
+    };
+    return eventLabels[eventType] || eventType.replace(/_/g, ' ');
+  };
   
   return (
     <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-activity-${activity.id}`}>
@@ -567,7 +641,7 @@ function ActivityRow({ activity }: { activity: GamefiActivity }) {
         <IconComponent className="w-4 h-4" />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="font-medium capitalize">{activity.eventType.replace(/_/g, ' ')}</div>
+        <div className="font-medium capitalize">{getEventTypeLabel(activity.eventType)}</div>
         <div className="text-sm text-muted-foreground">
           {activity.walletAddress && shortenAddress(activity.walletAddress)}
         </div>
@@ -637,7 +711,7 @@ export default function GameFiPage() {
     mutationFn: async (tournamentId: string) => {
       const response = await apiRequest("POST", `/api/gamefi/tournaments/${tournamentId}/join`, {
         walletAddress: ENTERPRISE_WALLET,
-        playerName: "Enterprise Player",
+        playerName: t("gamefi.enterprisePlayer"),
       });
       return response.json();
     },
@@ -646,8 +720,8 @@ export default function GameFiPage() {
     },
     onSuccess: (data) => {
       toast({
-        title: "Joined Tournament",
-        description: data.message || "Successfully joined the tournament!",
+        title: t("gamefi.joinedTournament"),
+        description: data.message || t("gamefi.successfullyJoined"),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/gamefi/tournaments"] });
       queryClient.invalidateQueries({ queryKey: ["/api/gamefi/tournaments/active"] });
@@ -655,8 +729,8 @@ export default function GameFiPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to Join",
-        description: error.message || "Could not join the tournament",
+        title: t("gamefi.failedToJoin"),
+        description: error.message || t("gamefi.couldNotJoin"),
         variant: "destructive",
       });
     },
@@ -674,16 +748,16 @@ export default function GameFiPage() {
     },
     onSuccess: (data) => {
       toast({
-        title: "Rewards Claimed",
-        description: data.message || `Successfully claimed ${data.claimedCount} rewards!`,
+        title: t("gamefi.rewardsClaimed"),
+        description: data.message || t("gamefi.successfullyClaimed", { count: data.claimedCount }),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/gamefi/player", ENTERPRISE_WALLET, "pending-rewards"] });
       queryClient.invalidateQueries({ queryKey: ["/api/gamefi/activity"] });
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to Claim",
-        description: error.message || "Could not claim rewards",
+        title: t("gamefi.failedToClaim"),
+        description: error.message || t("gamefi.couldNotClaim"),
         variant: "destructive",
       });
     },
@@ -701,16 +775,16 @@ export default function GameFiPage() {
     },
     onSuccess: (data) => {
       toast({
-        title: data.asset?.isEquipped ? "Asset Equipped" : "Asset Unequipped",
-        description: data.message || "Successfully updated asset!",
+        title: data.asset?.isEquipped ? t("gamefi.assetEquipped") : t("gamefi.assetUnequipped"),
+        description: data.message || t("gamefi.successfullyUpdatedAsset"),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/gamefi/assets/owner", ENTERPRISE_WALLET] });
       queryClient.invalidateQueries({ queryKey: ["/api/gamefi/activity"] });
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to Update Asset",
-        description: error.message || "Could not update asset",
+        title: t("gamefi.failedToUpdateAsset"),
+        description: error.message || t("gamefi.couldNotUpdateAsset"),
         variant: "destructive",
       });
     },
@@ -738,9 +812,9 @@ export default function GameFiPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-page-title">GameFi Hub</h1>
+          <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("gamefi.title")}</h1>
           <p className="text-muted-foreground">
-            Play-to-earn games, tournaments, and achievements on TBURN blockchain
+            {t("gamefi.pageDescription")}
           </p>
         </div>
       </div>
@@ -750,7 +824,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Gamepad2 className="w-4 h-4" />
-              <span className="text-sm">Games</span>
+              <span className="text-sm">{t("gamefi.games")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -766,7 +840,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <TrendingUp className="w-4 h-4" />
-              <span className="text-sm">Active</span>
+              <span className="text-sm">{t("gamefi.active")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -782,7 +856,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Users className="w-4 h-4" />
-              <span className="text-sm">Players</span>
+              <span className="text-sm">{t("gamefi.players")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-20" />
@@ -798,7 +872,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Zap className="w-4 h-4" />
-              <span className="text-sm">Active 24h</span>
+              <span className="text-sm">{t("gamefi.active24h")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -814,7 +888,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Coins className="w-4 h-4" />
-              <span className="text-sm">Volume</span>
+              <span className="text-sm">{t("gamefi.volume")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-24" />
@@ -830,7 +904,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Activity className="w-4 h-4" />
-              <span className="text-sm">24h Vol</span>
+              <span className="text-sm">{t("gamefi.volume24h")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-20" />
@@ -846,7 +920,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Gift className="w-4 h-4" />
-              <span className="text-sm">Rewards</span>
+              <span className="text-sm">{t("gamefi.rewards")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-24" />
@@ -862,7 +936,7 @@ export default function GameFiPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Trophy className="w-4 h-4" />
-              <span className="text-sm">Tournaments</span>
+              <span className="text-sm">{t("gamefi.tournaments")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-12" />
@@ -879,27 +953,27 @@ export default function GameFiPage() {
         <TabsList className="flex-wrap">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Gamepad2 className="w-4 h-4 mr-2" />
-            Overview
+            {t("gamefi.overview")}
           </TabsTrigger>
           <TabsTrigger value="games" data-testid="tab-games">
             <Sparkles className="w-4 h-4 mr-2" />
-            Games ({activeProjects.length})
+            {t("gamefi.gamesCount", { count: activeProjects.length })}
           </TabsTrigger>
           <TabsTrigger value="tournaments" data-testid="tab-tournaments">
             <Trophy className="w-4 h-4 mr-2" />
-            Tournaments
+            {t("gamefi.tournaments")}
           </TabsTrigger>
           <TabsTrigger value="my-assets" data-testid="tab-my-assets">
             <Package className="w-4 h-4 mr-2" />
-            My Assets
+            {t("gamefi.myAssets")}
           </TabsTrigger>
           <TabsTrigger value="rewards" data-testid="tab-rewards">
             <Gift className="w-4 h-4 mr-2" />
-            Rewards {pendingRewards?.length ? `(${pendingRewards.length})` : ""}
+            {t("gamefi.rewards")} {pendingRewards?.length ? `(${pendingRewards.length})` : ""}
           </TabsTrigger>
           <TabsTrigger value="achievements" data-testid="tab-achievements">
             <Award className="w-4 h-4 mr-2" />
-            Achievements
+            {t("gamefi.achievements")}
           </TabsTrigger>
         </TabsList>
 
@@ -909,9 +983,9 @@ export default function GameFiPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Star className="w-5 h-5 text-yellow-500" />
-                  Featured Games
+                  {t("gamefi.featuredGames")}
                 </CardTitle>
-                <CardDescription>Top-rated games on TBURN blockchain</CardDescription>
+                <CardDescription>{t("gamefi.topRatedGames")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -927,7 +1001,7 @@ export default function GameFiPage() {
                     )}
                     {!projectsLoading && (!featuredProjects || featuredProjects.length === 0) && (
                       <div className="py-8 text-center text-muted-foreground">
-                        No featured games
+                        {t("gamefi.noFeaturedGames")}
                       </div>
                     )}
                   </div>
@@ -939,9 +1013,9 @@ export default function GameFiPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Trophy className="w-5 h-5 text-purple-500" />
-                  Live Tournaments
+                  {t("gamefi.liveTournaments")}
                 </CardTitle>
-                <CardDescription>Active and upcoming competitions</CardDescription>
+                <CardDescription>{t("gamefi.activeAndUpcoming")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -960,7 +1034,7 @@ export default function GameFiPage() {
                     })}
                     {(!activeTournaments || activeTournaments.length === 0) && (
                       <div className="py-8 text-center text-muted-foreground">
-                        No active tournaments
+                        {t("gamefi.noActiveTournaments")}
                       </div>
                     )}
                   </div>
@@ -973,9 +1047,9 @@ export default function GameFiPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="w-5 h-5 text-blue-500" />
-                Recent Activity
+                {t("gamefi.recentActivity")}
               </CardTitle>
-              <CardDescription>Latest GameFi events</CardDescription>
+              <CardDescription>{t("gamefi.latestGamefiEvents")}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[300px]">
@@ -985,7 +1059,7 @@ export default function GameFiPage() {
                   ))}
                   {!activity?.length && (
                     <div className="py-8 text-center text-muted-foreground">
-                      No recent activity
+                      {t("gamefi.noRecentActivity")}
                     </div>
                   )}
                 </div>
@@ -997,8 +1071,8 @@ export default function GameFiPage() {
         <TabsContent value="games" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All Games</CardTitle>
-              <CardDescription>Browse all games on TBURN blockchain</CardDescription>
+              <CardTitle>{t("gamefi.allGames")}</CardTitle>
+              <CardDescription>{t("gamefi.browseAllGames")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1014,7 +1088,7 @@ export default function GameFiPage() {
               </div>
               {!projectsLoading && (!projects || projects.length === 0) && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No games available
+                  {t("gamefi.noGamesAvailable")}
                 </div>
               )}
             </CardContent>
@@ -1024,8 +1098,8 @@ export default function GameFiPage() {
         <TabsContent value="tournaments" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All Tournaments</CardTitle>
-              <CardDescription>Browse all tournaments and competitions</CardDescription>
+              <CardTitle>{t("gamefi.allTournaments")}</CardTitle>
+              <CardDescription>{t("gamefi.browseAllTournaments")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1044,7 +1118,7 @@ export default function GameFiPage() {
               </div>
               {(!tournaments || tournaments.length === 0) && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No tournaments available
+                  {t("gamefi.noTournamentsAvailable")}
                 </div>
               )}
             </CardContent>
@@ -1056,10 +1130,10 @@ export default function GameFiPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Package className="w-5 h-5" />
-                My Game Assets
+                {t("gamefi.myGameAssets")}
               </CardTitle>
               <CardDescription>
-                Manage your in-game assets - Wallet: {shortenAddress(ENTERPRISE_WALLET)}
+                {t("gamefi.manageAssets")} - {t("gamefi.wallet")}: {shortenAddress(ENTERPRISE_WALLET)}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -1083,8 +1157,8 @@ export default function GameFiPage() {
               ) : (
                 <div className="py-12 text-center text-muted-foreground">
                   <Package className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>No assets owned yet</p>
-                  <p className="text-sm mt-2">Play games to earn or purchase assets</p>
+                  <p>{t("gamefi.noAssetsOwned")}</p>
+                  <p className="text-sm mt-2">{t("gamefi.playToEarn")}</p>
                 </div>
               )}
             </CardContent>
@@ -1098,16 +1172,16 @@ export default function GameFiPage() {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <Gift className="w-5 h-5 text-green-500" />
-                    Pending Rewards
+                    {t("gamefi.pendingRewards")}
                   </CardTitle>
                   <CardDescription>
-                    Claim your earned rewards - Wallet: {shortenAddress(ENTERPRISE_WALLET)}
+                    {t("gamefi.claimEarnedRewards")} - {t("gamefi.wallet")}: {shortenAddress(ENTERPRISE_WALLET)}
                   </CardDescription>
                 </div>
                 {pendingRewards && pendingRewards.length > 0 && (
                   <div className="flex items-center gap-4">
                     <div className="text-right">
-                      <div className="text-sm text-muted-foreground">Total Claimable</div>
+                      <div className="text-sm text-muted-foreground">{t("gamefi.totalClaimable")}</div>
                       <div className="text-xl font-bold text-green-500">
                         {formatAmount(totalPendingRewards.toString())} TBURN
                       </div>
@@ -1120,12 +1194,12 @@ export default function GameFiPage() {
                       {claimRewardsMutation.isPending ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Claiming...
+                          {t("gamefi.claiming")}
                         </>
                       ) : (
                         <>
                           <Gift className="w-4 h-4 mr-2" />
-                          Claim All Rewards
+                          {t("gamefi.claimAllRewards")}
                         </>
                       )}
                     </Button>
@@ -1154,7 +1228,7 @@ export default function GameFiPage() {
                         </div>
                         <div>
                           <div className="font-medium capitalize">
-                            {reward.rewardType.replace(/_/g, ' ')} Reward
+                            {reward.rewardType.replace(/_/g, ' ')} {t("gamefi.reward")}
                           </div>
                           <div className="text-sm text-muted-foreground">
                             {shortenAddress(reward.walletAddress)}
@@ -1175,8 +1249,8 @@ export default function GameFiPage() {
               ) : (
                 <div className="py-12 text-center text-muted-foreground">
                   <Gift className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>No pending rewards</p>
-                  <p className="text-sm mt-2">Play games and join tournaments to earn rewards</p>
+                  <p>{t("gamefi.noPendingRewards")}</p>
+                  <p className="text-sm mt-2">{t("gamefi.earnRewardsHint")}</p>
                 </div>
               )}
             </CardContent>
@@ -1186,8 +1260,8 @@ export default function GameFiPage() {
         <TabsContent value="achievements" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Global Achievements</CardTitle>
-              <CardDescription>Unlock badges across all games</CardDescription>
+              <CardTitle>{t("gamefi.globalAchievements")}</CardTitle>
+              <CardDescription>{t("gamefi.unlockBadges")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1197,7 +1271,7 @@ export default function GameFiPage() {
               </div>
               {(!badges || badges.length === 0) && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No achievements available
+                  {t("gamefi.noAchievementsAvailable")}
                 </div>
               )}
             </CardContent>

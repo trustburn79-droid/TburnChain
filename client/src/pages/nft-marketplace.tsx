@@ -176,6 +176,7 @@ function getEventTypeColor(type: string): string {
 }
 
 function CollectionCard({ collection }: { collection: NftCollection }) {
+  const { t } = useTranslation();
   return (
     <Card className="hover-elevate cursor-pointer" data-testid={`card-collection-${collection.id}`}>
       <CardContent className="p-4">
@@ -210,11 +211,11 @@ function CollectionCard({ collection }: { collection: NftCollection }) {
             </div>
             <div className="flex items-center gap-4 mt-2 text-sm">
               <div>
-                <span className="text-muted-foreground">Floor: </span>
+                <span className="text-muted-foreground">{t("nftMarketplace.floor")}: </span>
                 <span className="font-medium">{formatAmount(collection.floorPrice)} TBURN</span>
               </div>
               <div>
-                <span className="text-muted-foreground">24h Vol: </span>
+                <span className="text-muted-foreground">{t("nftMarketplace.vol24h")}: </span>
                 <span className="font-medium">{formatAmount(collection.volume24h)} TBURN</span>
               </div>
             </div>
@@ -235,6 +236,7 @@ interface ListingCardProps {
 }
 
 function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCancelListing }: ListingCardProps) {
+  const { t } = useTranslation();
   const collection = collections.find(c => c.id === listing.collectionId);
   const item = items.find(i => i.id === listing.itemId);
   const isOwner = listing.sellerAddress === ENTERPRISE_WALLET;
@@ -246,7 +248,7 @@ function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCanc
           {item?.imageUrl ? (
             <img 
               src={item.imageUrl} 
-              alt={item.name || "NFT"}
+              alt={item.name || t("nftMarketplace.nft")}
               className="w-full h-full object-cover"
             />
           ) : (
@@ -260,7 +262,7 @@ function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCanc
             <span className="font-medium truncate">{item?.name || `#${item?.tokenId}`}</span>
             {item?.rarityTier && (
               <Badge className={getRarityColor(item.rarityTier)}>
-                {item.rarityTier}
+                {t(`nftMarketplace.rarityTiers.${item.rarityTier}`)}
               </Badge>
             )}
           </div>
@@ -273,9 +275,9 @@ function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCanc
             </div>
             <Badge variant={listing.listingType === "auction" ? "default" : "secondary"}>
               {listing.listingType === "auction" ? (
-                <><Gavel className="w-3 h-3 mr-1" /> Auction</>
+                <><Gavel className="w-3 h-3 mr-1" /> {t("nftMarketplace.auction")}</>
               ) : (
-                "Buy Now"
+                t("nftMarketplace.buyNow")
               )}
             </Badge>
           </div>
@@ -289,7 +291,7 @@ function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCanc
                 data-testid={`button-cancel-${listing.id}`}
               >
                 <X className="w-3 h-3 mr-1" />
-                Cancel
+                {t("nftMarketplace.cancel")}
               </Button>
             ) : listing.listingType === "auction" ? (
               <Button 
@@ -299,7 +301,7 @@ function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCanc
                 data-testid={`button-bid-${listing.id}`}
               >
                 <Gavel className="w-3 h-3 mr-1" />
-                Place Bid
+                {t("nftMarketplace.placeBid")}
               </Button>
             ) : (
               <Button 
@@ -309,7 +311,7 @@ function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCanc
                 data-testid={`button-buy-${listing.id}`}
               >
                 <ShoppingCart className="w-3 h-3 mr-1" />
-                Buy Now
+                {t("nftMarketplace.buyNow")}
               </Button>
             )}
           </div>
@@ -320,6 +322,7 @@ function ListingCard({ listing, collections, items, onBuyNow, onPlaceBid, onCanc
 }
 
 function ActivityRow({ activity, collections }: { activity: NftActivity; collections: NftCollection[] }) {
+  const { t } = useTranslation();
   const collection = collections.find(c => c.id === activity.collectionId);
   
   return (
@@ -329,7 +332,7 @@ function ActivityRow({ activity, collections }: { activity: NftActivity; collect
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="font-medium capitalize">{activity.eventType}</span>
+          <span className="font-medium capitalize">{t(`nftMarketplace.eventTypes.${activity.eventType}`)}</span>
           {collection && (
             <span className="text-sm text-muted-foreground truncate">
               {collection.name}
@@ -365,6 +368,7 @@ interface ListNftDialogProps {
 }
 
 function ListNftDialog({ open, onOpenChange, items, collections, onSubmit, isPending }: ListNftDialogProps) {
+  const { t } = useTranslation();
   const [selectedItem, setSelectedItem] = useState("");
   const [price, setPrice] = useState("");
   const [listingType, setListingType] = useState("fixed");
@@ -375,7 +379,7 @@ function ListNftDialog({ open, onOpenChange, items, collections, onSubmit, isPen
   const handleSubmit = () => {
     if (!selectedItem) return;
     if (!price || parseFloat(price) <= 0) {
-      setPriceError("Price must be greater than 0");
+      setPriceError(t("nftMarketplace.priceGreaterThanZero"));
       return;
     }
     setPriceError("");
@@ -398,27 +402,27 @@ function ListNftDialog({ open, onOpenChange, items, collections, onSubmit, isPen
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>List NFT for Sale</DialogTitle>
+          <DialogTitle>{t("nftMarketplace.listNftForSale")}</DialogTitle>
           <DialogDescription>
-            Create a new listing on the marketplace
+            {t("nftMarketplace.createNewListing")}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="item">Select NFT</Label>
+            <Label htmlFor="item">{t("nftMarketplace.selectNft")}</Label>
             <Select value={selectedItem} onValueChange={setSelectedItem}>
               <SelectTrigger data-testid="select-item">
-                <SelectValue placeholder="Choose an NFT to list" />
+                <SelectValue placeholder={t("nftMarketplace.chooseNftToList")} />
               </SelectTrigger>
               <SelectContent>
                 {availableItems.length === 0 ? (
-                  <div className="p-2 text-sm text-muted-foreground">No NFTs available to list</div>
+                  <div className="p-2 text-sm text-muted-foreground">{t("nftMarketplace.noNftsAvailable")}</div>
                 ) : (
                   availableItems.map(item => {
                     const coll = collections.find(c => c.id === item.collectionId);
                     return (
                       <SelectItem key={item.id} value={item.id}>
-                        {item.name || `#${item.tokenId}`} - {coll?.name || "Unknown Collection"}
+                        {item.name || `#${item.tokenId}`} - {coll?.name || t("nftMarketplace.unknownCollection")}
                       </SelectItem>
                     );
                   })
@@ -427,7 +431,7 @@ function ListNftDialog({ open, onOpenChange, items, collections, onSubmit, isPen
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="price">Price (TBURN)</Label>
+            <Label htmlFor="price">{t("nftMarketplace.priceTburn")}</Label>
             <Input
               id="price"
               type="number"
@@ -446,21 +450,21 @@ function ListNftDialog({ open, onOpenChange, items, collections, onSubmit, isPen
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="listingType">Listing Type</Label>
+            <Label htmlFor="listingType">{t("nftMarketplace.listingType")}</Label>
             <Select value={listingType} onValueChange={setListingType}>
               <SelectTrigger data-testid="select-listing-type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="fixed">Fixed Price</SelectItem>
-                <SelectItem value="auction">Auction</SelectItem>
+                <SelectItem value="fixed">{t("nftMarketplace.fixedPrice")}</SelectItem>
+                <SelectItem value="auction">{t("nftMarketplace.auction")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={isPending}>
-            Cancel
+            {t("nftMarketplace.cancel")}
           </Button>
           <Button 
             onClick={handleSubmit} 
@@ -468,9 +472,9 @@ function ListNftDialog({ open, onOpenChange, items, collections, onSubmit, isPen
             data-testid="button-submit-listing"
           >
             {isPending ? (
-              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Creating...</>
+              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("nftMarketplace.creating")}</>
             ) : (
-              <><Plus className="w-4 h-4 mr-2" /> Create Listing</>
+              <><Plus className="w-4 h-4 mr-2" /> {t("nftMarketplace.createListing")}</>
             )}
           </Button>
         </DialogFooter>
@@ -490,6 +494,7 @@ interface BuyNowDialogProps {
 }
 
 function BuyNowDialog({ open, onOpenChange, listing, items, collections, onConfirm, isPending }: BuyNowDialogProps) {
+  const { t } = useTranslation();
   if (!listing) return null;
   
   const item = items.find(i => i.id === listing.itemId);
@@ -499,9 +504,9 @@ function BuyNowDialog({ open, onOpenChange, listing, items, collections, onConfi
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Confirm Purchase</DialogTitle>
+          <DialogTitle>{t("nftMarketplace.confirmPurchase")}</DialogTitle>
           <DialogDescription>
-            You are about to purchase this NFT
+            {t("nftMarketplace.aboutToPurchase")}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -510,7 +515,7 @@ function BuyNowDialog({ open, onOpenChange, listing, items, collections, onConfi
               {item?.imageUrl ? (
                 <img 
                   src={item.imageUrl} 
-                  alt={item.name || "NFT"}
+                  alt={item.name || t("nftMarketplace.nft")}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -524,29 +529,29 @@ function BuyNowDialog({ open, onOpenChange, listing, items, collections, onConfi
               <div className="text-sm text-muted-foreground">{collection?.name}</div>
               {item?.rarityTier && (
                 <Badge className={`mt-1 ${getRarityColor(item.rarityTier)}`}>
-                  {item.rarityTier}
+                  {t(`nftMarketplace.rarityTiers.${item.rarityTier}`)}
                 </Badge>
               )}
             </div>
           </div>
           <div className="mt-4 space-y-2">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Price</span>
+              <span className="text-muted-foreground">{t("nftMarketplace.price")}</span>
               <span className="font-semibold">{formatAmount(listing.price)} TBURN</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Seller</span>
+              <span className="text-muted-foreground">{t("nftMarketplace.seller")}</span>
               <span className="font-mono text-sm">{shortenAddress(listing.sellerAddress)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Buyer</span>
+              <span className="text-muted-foreground">{t("nftMarketplace.buyer")}</span>
               <span className="font-mono text-sm">{shortenAddress(ENTERPRISE_WALLET)}</span>
             </div>
           </div>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isPending}>
-            Cancel
+            {t("nftMarketplace.cancel")}
           </Button>
           <Button 
             onClick={onConfirm}
@@ -554,9 +559,9 @@ function BuyNowDialog({ open, onOpenChange, listing, items, collections, onConfi
             data-testid="button-confirm-buy"
           >
             {isPending ? (
-              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
+              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("nftMarketplace.processing")}</>
             ) : (
-              <><ShoppingCart className="w-4 h-4 mr-2" /> Confirm Purchase</>
+              <><ShoppingCart className="w-4 h-4 mr-2" /> {t("nftMarketplace.confirmPurchaseBtn")}</>
             )}
           </Button>
         </DialogFooter>
@@ -576,6 +581,7 @@ interface PlaceBidDialogProps {
 }
 
 function PlaceBidDialog({ open, onOpenChange, listing, items, collections, onSubmit, isPending }: PlaceBidDialogProps) {
+  const { t } = useTranslation();
   const [bidAmount, setBidAmount] = useState("");
   const [bidError, setBidError] = useState("");
 
@@ -588,11 +594,11 @@ function PlaceBidDialog({ open, onOpenChange, listing, items, collections, onSub
   const handleSubmit = () => {
     const amount = parseFloat(bidAmount);
     if (!amount || amount <= 0) {
-      setBidError("Bid amount must be greater than 0");
+      setBidError(t("nftMarketplace.bidGreaterThanZero"));
       return;
     }
     if (amount < minBid) {
-      setBidError(`Bid must be at least ${minBid.toFixed(4)} TBURN`);
+      setBidError(t("nftMarketplace.bidMustBeAtLeast", { min: minBid.toFixed(4) }));
       return;
     }
     setBidError("");
@@ -609,9 +615,9 @@ function PlaceBidDialog({ open, onOpenChange, listing, items, collections, onSub
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Place a Bid</DialogTitle>
+          <DialogTitle>{t("nftMarketplace.placeABid")}</DialogTitle>
           <DialogDescription>
-            Enter your bid amount for this auction
+            {t("nftMarketplace.enterBidAmount")}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -620,7 +626,7 @@ function PlaceBidDialog({ open, onOpenChange, listing, items, collections, onSub
               {item?.imageUrl ? (
                 <img 
                   src={item.imageUrl} 
-                  alt={item.name || "NFT"}
+                  alt={item.name || t("nftMarketplace.nft")}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -633,19 +639,19 @@ function PlaceBidDialog({ open, onOpenChange, listing, items, collections, onSub
               <div className="font-semibold">{item?.name || `#${item?.tokenId}`}</div>
               <div className="text-sm text-muted-foreground">{collection?.name}</div>
               <div className="mt-2 text-sm">
-                <span className="text-muted-foreground">Current Price: </span>
+                <span className="text-muted-foreground">{t("nftMarketplace.currentPrice")}: </span>
                 <span className="font-semibold">{formatAmount(listing.price)} TBURN</span>
               </div>
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="bidAmount">Your Bid (TBURN)</Label>
+            <Label htmlFor="bidAmount">{t("nftMarketplace.yourBidTburn")}</Label>
             <Input
               id="bidAmount"
               type="number"
               step="0.0001"
               min="0"
-              placeholder={`Minimum: ${minBid.toFixed(4)}`}
+              placeholder={`${t("nftMarketplace.bidMinimum")}: ${minBid.toFixed(4)}`}
               value={bidAmount}
               onChange={(e) => {
                 setBidAmount(e.target.value);
@@ -657,13 +663,13 @@ function PlaceBidDialog({ open, onOpenChange, listing, items, collections, onSub
               <p className="text-sm text-destructive">{bidError}</p>
             )}
             <p className="text-xs text-muted-foreground">
-              Minimum bid: {minBid.toFixed(4)} TBURN (5% above current price)
+              {t("nftMarketplace.minimumBidInfo", { min: minBid.toFixed(4) })}
             </p>
           </div>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={isPending}>
-            Cancel
+            {t("nftMarketplace.cancel")}
           </Button>
           <Button 
             onClick={handleSubmit}
@@ -671,9 +677,9 @@ function PlaceBidDialog({ open, onOpenChange, listing, items, collections, onSub
             data-testid="button-submit-bid"
           >
             {isPending ? (
-              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Placing Bid...</>
+              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("nftMarketplace.placingBid")}</>
             ) : (
-              <><Gavel className="w-4 h-4 mr-2" /> Place Bid</>
+              <><Gavel className="w-4 h-4 mr-2" /> {t("nftMarketplace.placeBid")}</>
             )}
           </Button>
         </DialogFooter>
@@ -693,6 +699,7 @@ interface CancelListingDialogProps {
 }
 
 function CancelListingDialog({ open, onOpenChange, listing, items, collections, onConfirm, isPending }: CancelListingDialogProps) {
+  const { t } = useTranslation();
   if (!listing) return null;
   
   const item = items.find(i => i.id === listing.itemId);
@@ -702,9 +709,9 @@ function CancelListingDialog({ open, onOpenChange, listing, items, collections, 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Cancel Listing</DialogTitle>
+          <DialogTitle>{t("nftMarketplace.cancelListing")}</DialogTitle>
           <DialogDescription>
-            Are you sure you want to cancel this listing?
+            {t("nftMarketplace.cancelListingConfirm")}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -713,7 +720,7 @@ function CancelListingDialog({ open, onOpenChange, listing, items, collections, 
               {item?.imageUrl ? (
                 <img 
                   src={item.imageUrl} 
-                  alt={item.name || "NFT"}
+                  alt={item.name || t("nftMarketplace.nft")}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -726,18 +733,18 @@ function CancelListingDialog({ open, onOpenChange, listing, items, collections, 
               <div className="font-semibold">{item?.name || `#${item?.tokenId}`}</div>
               <div className="text-sm text-muted-foreground">{collection?.name}</div>
               <div className="mt-2 text-sm">
-                <span className="text-muted-foreground">Listed Price: </span>
+                <span className="text-muted-foreground">{t("nftMarketplace.listedPrice")}: </span>
                 <span className="font-semibold">{formatAmount(listing.price)} TBURN</span>
               </div>
             </div>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">
-            Canceling this listing will remove it from the marketplace. You can relist it at any time.
+            {t("nftMarketplace.cancelListingInfo")}
           </p>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isPending}>
-            Keep Listed
+            {t("nftMarketplace.keepListed")}
           </Button>
           <Button 
             variant="destructive"
@@ -746,9 +753,9 @@ function CancelListingDialog({ open, onOpenChange, listing, items, collections, 
             data-testid="button-confirm-cancel"
           >
             {isPending ? (
-              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Canceling...</>
+              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("nftMarketplace.canceling")}</>
             ) : (
-              <><X className="w-4 h-4 mr-2" /> Cancel Listing</>
+              <><X className="w-4 h-4 mr-2" /> {t("nftMarketplace.cancelListing")}</>
             )}
           </Button>
         </DialogFooter>
@@ -811,13 +818,13 @@ export default function NftMarketplacePage() {
       queryClient.invalidateQueries({ queryKey: ["/api/nft/stats"] });
       setListDialogOpen(false);
       toast({
-        title: "NFT Listed Successfully",
-        description: "Your NFT has been listed on the marketplace.",
+        title: t("nftMarketplace.nftListedSuccess"),
+        description: t("nftMarketplace.nftListedSuccessDesc"),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to List NFT",
+        title: t("nftMarketplace.failedToListNft"),
         description: error.message,
         variant: "destructive",
       });
@@ -841,13 +848,13 @@ export default function NftMarketplacePage() {
       setBuyDialogOpen(false);
       setSelectedListing(null);
       toast({
-        title: "Purchase Successful",
-        description: "You have successfully purchased the NFT!",
+        title: t("nftMarketplace.purchaseSuccessful"),
+        description: t("nftMarketplace.purchaseSuccessfulDesc"),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: "Purchase Failed",
+        title: t("nftMarketplace.purchaseFailed"),
         description: error.message,
         variant: "destructive",
       });
@@ -872,13 +879,13 @@ export default function NftMarketplacePage() {
       setBidDialogOpen(false);
       setSelectedListing(null);
       toast({
-        title: "Bid Placed Successfully",
-        description: "Your bid has been placed on the auction.",
+        title: t("nftMarketplace.bidPlacedSuccess"),
+        description: t("nftMarketplace.bidPlacedSuccessDesc"),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to Place Bid",
+        title: t("nftMarketplace.failedToPlaceBid"),
         description: error.message,
         variant: "destructive",
       });
@@ -900,13 +907,13 @@ export default function NftMarketplacePage() {
       setCancelDialogOpen(false);
       setSelectedListing(null);
       toast({
-        title: "Listing Canceled",
-        description: "Your listing has been removed from the marketplace.",
+        title: t("nftMarketplace.listingCanceled"),
+        description: t("nftMarketplace.listingCanceledDesc"),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to Cancel Listing",
+        title: t("nftMarketplace.failedToCancelListing"),
         description: error.message,
         variant: "destructive",
       });
@@ -937,16 +944,16 @@ export default function NftMarketplacePage() {
     <div className="p-6 space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold" data-testid="text-page-title">NFT Marketplace</h1>
+          <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("nftMarketplace.title")}</h1>
           <p className="text-muted-foreground">
-            Discover, collect, and trade unique digital assets on TBURN blockchain
+            {t("nftMarketplace.subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search collections..."
+              placeholder={t("nftMarketplace.searchCollections")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9 w-64"
@@ -958,7 +965,7 @@ export default function NftMarketplacePage() {
           </Button>
           <Button onClick={() => setListDialogOpen(true)} data-testid="button-list-nft">
             <Plus className="w-4 h-4 mr-2" />
-            List NFT
+            {t("nftMarketplace.listNft")}
           </Button>
         </div>
       </div>
@@ -968,7 +975,7 @@ export default function NftMarketplacePage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <DollarSign className="w-4 h-4" />
-              <span className="text-sm">24h Volume</span>
+              <span className="text-sm">{t("nftMarketplace.volume24h")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-24" />
@@ -984,7 +991,7 @@ export default function NftMarketplacePage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <TrendingUp className="w-4 h-4" />
-              <span className="text-sm">24h Sales</span>
+              <span className="text-sm">{t("nftMarketplace.sales24h")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -1000,7 +1007,7 @@ export default function NftMarketplacePage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Grid3X3 className="w-4 h-4" />
-              <span className="text-sm">Collections</span>
+              <span className="text-sm">{t("nftMarketplace.collections")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -1016,7 +1023,7 @@ export default function NftMarketplacePage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Package className="w-4 h-4" />
-              <span className="text-sm">Total Items</span>
+              <span className="text-sm">{t("nftMarketplace.totalItems")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-20" />
@@ -1032,7 +1039,7 @@ export default function NftMarketplacePage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Clock className="w-4 h-4" />
-              <span className="text-sm">Active Listings</span>
+              <span className="text-sm">{t("nftMarketplace.activeListings")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -1048,7 +1055,7 @@ export default function NftMarketplacePage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Gavel className="w-4 h-4" />
-              <span className="text-sm">Auctions</span>
+              <span className="text-sm">{t("nftMarketplace.auctions")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -1065,19 +1072,19 @@ export default function NftMarketplacePage() {
         <TabsList>
           <TabsTrigger value="overview" data-testid="tab-overview">
             <TrendingUp className="w-4 h-4 mr-2" />
-            Overview
+            {t("nftMarketplace.overview")}
           </TabsTrigger>
           <TabsTrigger value="collections" data-testid="tab-collections">
             <Grid3X3 className="w-4 h-4 mr-2" />
-            Collections
+            {t("nftMarketplace.collections")}
           </TabsTrigger>
           <TabsTrigger value="listings" data-testid="tab-listings">
             <Package className="w-4 h-4 mr-2" />
-            Listings
+            {t("nftMarketplace.listings")}
           </TabsTrigger>
           <TabsTrigger value="activity" data-testid="tab-activity">
             <Activity className="w-4 h-4 mr-2" />
-            Activity
+            {t("nftMarketplace.activity")}
           </TabsTrigger>
         </TabsList>
 
@@ -1087,9 +1094,9 @@ export default function NftMarketplacePage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Star className="w-5 h-5 text-yellow-500" />
-                  Featured Collections
+                  {t("nftMarketplace.featuredCollections")}
                 </CardTitle>
-                <CardDescription>Top performing collections on the marketplace</CardDescription>
+                <CardDescription>{t("nftMarketplace.featuredCollectionsDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -1112,9 +1119,9 @@ export default function NftMarketplacePage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Activity className="w-5 h-5 text-blue-500" />
-                  Recent Activity
+                  {t("nftMarketplace.recentActivity")}
                 </CardTitle>
-                <CardDescription>Latest marketplace events</CardDescription>
+                <CardDescription>{t("nftMarketplace.recentActivityDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -1128,7 +1135,7 @@ export default function NftMarketplacePage() {
                     ))}
                     {!activity?.length && (
                       <div className="py-8 text-center text-muted-foreground">
-                        No recent activity
+                        {t("nftMarketplace.noRecentActivity")}
                       </div>
                     )}
                   </div>
@@ -1141,9 +1148,9 @@ export default function NftMarketplacePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-green-500" />
-                Trending Collections
+                {t("nftMarketplace.trendingCollections")}
               </CardTitle>
-              <CardDescription>Collections with the most activity in the last 24 hours</CardDescription>
+              <CardDescription>{t("nftMarketplace.trendingCollectionsDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1164,8 +1171,8 @@ export default function NftMarketplacePage() {
         <TabsContent value="collections" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All Collections</CardTitle>
-              <CardDescription>Browse all NFT collections on TBURN blockchain</CardDescription>
+              <CardTitle>{t("nftMarketplace.allCollections")}</CardTitle>
+              <CardDescription>{t("nftMarketplace.allCollectionsDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1181,7 +1188,7 @@ export default function NftMarketplacePage() {
               </div>
               {!collectionsLoading && filteredCollections.length === 0 && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No collections found
+                  {t("nftMarketplace.noCollectionsFound")}
                 </div>
               )}
             </CardContent>
@@ -1192,12 +1199,12 @@ export default function NftMarketplacePage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between gap-4">
               <div>
-                <CardTitle>Active Listings</CardTitle>
-                <CardDescription>NFTs currently available for purchase</CardDescription>
+                <CardTitle>{t("nftMarketplace.activeListingsTitle")}</CardTitle>
+                <CardDescription>{t("nftMarketplace.activeListingsDesc")}</CardDescription>
               </div>
               <Button onClick={() => setListDialogOpen(true)} data-testid="button-list-nft-tab">
                 <Plus className="w-4 h-4 mr-2" />
-                List NFT
+                {t("nftMarketplace.listNft")}
               </Button>
             </CardHeader>
             <CardContent>
@@ -1222,7 +1229,7 @@ export default function NftMarketplacePage() {
               </div>
               {!listingsLoading && (!listings || listings.length === 0) && (
                 <div className="py-12 text-center text-muted-foreground">
-                  No active listings
+                  {t("nftMarketplace.noActiveListings")}
                 </div>
               )}
             </CardContent>
@@ -1232,8 +1239,8 @@ export default function NftMarketplacePage() {
         <TabsContent value="activity" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Activity Feed</CardTitle>
-              <CardDescription>All marketplace events in real-time</CardDescription>
+              <CardTitle>{t("nftMarketplace.activityFeed")}</CardTitle>
+              <CardDescription>{t("nftMarketplace.activityFeedDesc")}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[600px]">
@@ -1247,7 +1254,7 @@ export default function NftMarketplacePage() {
                   ))}
                   {!activity?.length && (
                     <div className="py-12 text-center text-muted-foreground">
-                      No activity recorded yet
+                      {t("nftMarketplace.noActivityRecorded")}
                     </div>
                   )}
                 </div>

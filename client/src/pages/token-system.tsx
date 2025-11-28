@@ -719,15 +719,16 @@ function TokenStandardsOverview({
 }
 
 function TripleBandAISection() {
+  const { t } = useTranslation();
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="h-5 w-5 text-purple-500" />
-          Triple-Band AI Orchestration
+          {t('tokenSystem.tripleBandAiTitle')}
         </CardTitle>
         <CardDescription>
-          AI-first token management with strategic, tactical, and operational layers
+          {t('tokenSystem.tripleBandAiDesc')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -738,14 +739,14 @@ function TripleBandAISection() {
                 <TrendingUp className="h-4 w-4 text-blue-500" />
               </div>
               <div>
-                <h4 className="font-semibold">Strategic Layer</h4>
+                <h4 className="font-semibold">{t('tokenSystem.strategicLayer')}</h4>
                 <p className="text-xs text-muted-foreground">GPT-5 Turbo</p>
               </div>
             </div>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>Token economics strategy</li>
-              <li>Governance analysis</li>
-              <li>Burn mechanism optimization</li>
+              <li>{t('tokenSystem.tokenEconomicsStrategy')}</li>
+              <li>{t('tokenSystem.governanceAnalysis')}</li>
+              <li>{t('tokenSystem.burnMechanismOptimization')}</li>
             </ul>
           </div>
 
@@ -755,14 +756,14 @@ function TripleBandAISection() {
                 <Shield className="h-4 w-4 text-purple-500" />
               </div>
               <div>
-                <h4 className="font-semibold">Tactical Layer</h4>
+                <h4 className="font-semibold">{t('tokenSystem.tacticalLayer')}</h4>
                 <p className="text-xs text-muted-foreground">Claude Sonnet 4.5</p>
               </div>
             </div>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>Real-time optimization</li>
-              <li>Security analysis</li>
-              <li>MEV protection</li>
+              <li>{t('tokenSystem.realTimeOptimization')}</li>
+              <li>{t('tokenSystem.securityAnalysisAi')}</li>
+              <li>{t('tokenSystem.mevProtection')}</li>
             </ul>
           </div>
 
@@ -772,14 +773,14 @@ function TripleBandAISection() {
                 <Zap className="h-4 w-4 text-amber-500" />
               </div>
               <div>
-                <h4 className="font-semibold">Operational Layer</h4>
+                <h4 className="font-semibold">{t('tokenSystem.operationalLayer')}</h4>
                 <p className="text-xs text-muted-foreground">Llama 3.3 70B</p>
               </div>
             </div>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>Transaction routing</li>
-              <li>Cache optimization</li>
-              <li>Resource allocation</li>
+              <li>{t('tokenSystem.transactionRouting')}</li>
+              <li>{t('tokenSystem.cacheOptimization')}</li>
+              <li>{t('tokenSystem.resourceAllocation')}</li>
             </ul>
           </div>
         </div>
@@ -789,6 +790,7 @@ function TripleBandAISection() {
 }
 
 function TokenTemplatesPreview({ onSelectTemplate }: { onSelectTemplate: () => void }) {
+  const { t } = useTranslation();
   return (
     <Card>
       <CardHeader>
@@ -796,14 +798,14 @@ function TokenTemplatesPreview({ onSelectTemplate }: { onSelectTemplate: () => v
           <div>
             <CardTitle className="flex items-center gap-2">
               <FileCode className="h-5 w-5 text-primary" />
-              Enterprise Token Templates
+              {t('tokenSystem.enterpriseTokenTemplates')}
             </CardTitle>
             <CardDescription>
-              Pre-configured templates for common use cases
+              {t('tokenSystem.templatesDescription')}
             </CardDescription>
           </div>
           <Button variant="outline" size="sm" onClick={onSelectTemplate}>
-            View All Templates
+            {t('tokenSystem.viewAllTemplates')}
             <ArrowRight className="h-4 w-4 ml-2" />
           </Button>
         </div>
@@ -827,7 +829,7 @@ function TokenTemplatesPreview({ onSelectTemplate }: { onSelectTemplate: () => v
                     {template.aiRecommended && (
                       <Badge className="text-xs bg-purple-500/10 text-purple-500">
                         <Sparkles className="h-3 w-3 mr-1" />
-                        AI Recommended
+                        {t('tokenSystem.aiRecommended')}
                       </Badge>
                     )}
                   </div>
@@ -866,16 +868,16 @@ function EnterpriseTokenCreationWizard() {
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
         toast({
-          title: "File too large",
-          description: "Logo file must be less than 5MB",
+          title: t('tokenSystem.fileTooLarge'),
+          description: t('tokenSystem.fileTooLargeDesc'),
           variant: "destructive",
         });
         return;
       }
       if (!file.type.startsWith("image/")) {
         toast({
-          title: "Invalid file type",
-          description: "Please upload an image file (PNG, JPG, SVG, etc.)",
+          title: t('tokenSystem.invalidFileType'),
+          description: t('tokenSystem.invalidFileTypeDesc'),
           variant: "destructive",
         });
         return;
@@ -896,8 +898,8 @@ function EnterpriseTokenCreationWizard() {
     if (file && file.type.startsWith("image/")) {
       if (file.size > 5 * 1024 * 1024) {
         toast({
-          title: "File too large",
-          description: "Logo file must be less than 5MB",
+          title: t('tokenSystem.fileTooLarge'),
+          description: t('tokenSystem.fileTooLargeDesc'),
           variant: "destructive",
         });
         return;
@@ -978,8 +980,8 @@ function EnterpriseTokenCreationWizard() {
       setDeploymentResult(data);
       setStep(6);
       toast({
-        title: "Token Deployed Successfully",
-        description: `${formData.name} (${formData.symbol}) has been deployed to TBURN Chain.`,
+        title: t('tokenSystem.tokenDeployed'),
+        description: t('tokenSystem.tokenDeployedDesc', { name: formData.name, symbol: formData.symbol }),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/token-system/tokens"] });
       queryClient.invalidateQueries({ queryKey: ["/api/token-system/stats"] });
@@ -987,7 +989,7 @@ function EnterpriseTokenCreationWizard() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Deployment Failed",
+        title: t('tokenSystem.deploymentFailed'),
         description: error.message,
         variant: "destructive",
       });
@@ -1117,14 +1119,21 @@ function EnterpriseTokenCreationWizard() {
   };
 
   const totalSteps = 6;
-  const stepLabels = ["Template", "Basic Info", "Features", "AI & Security", "Review", "Success"];
+  const stepLabels = [
+    t('tokenSystem.templateStep'),
+    t('tokenSystem.basicInfo'),
+    t('tokenSystem.features'),
+    t('tokenSystem.aiSecurity'),
+    t('tokenSystem.review'),
+    t('tokenSystem.successStep')
+  ];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Create Enterprise Token</h2>
-          <p className="text-muted-foreground">Deploy a production-grade token on TBURN Chain</p>
+          <h2 className="text-2xl font-bold">{t('tokenSystem.createEnterpriseToken')}</h2>
+          <p className="text-muted-foreground">{t('tokenSystem.deployProductionGrade')}</p>
         </div>
         <div className="flex items-center gap-2">
           {stepLabels.map((label, i) => (
@@ -1149,10 +1158,10 @@ function EnterpriseTokenCreationWizard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-purple-500" />
-                Choose a Template or Start from Scratch
+                {t('tokenSystem.chooseTemplate')}
               </CardTitle>
               <CardDescription>
-                Templates provide pre-configured settings optimized for specific use cases
+                {t('tokenSystem.templateDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -1208,8 +1217,8 @@ function EnterpriseTokenCreationWizard() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Or Select Token Standard</CardTitle>
-              <CardDescription>Start with a blank token and configure everything manually</CardDescription>
+              <CardTitle>{t('tokenSystem.selectTokenStandard')}</CardTitle>
+              <CardDescription>{t('tokenSystem.startBlank')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1225,7 +1234,7 @@ function EnterpriseTokenCreationWizard() {
                       </div>
                       <div>
                         <h3 className="font-semibold">TBC-20</h3>
-                        <p className="text-sm text-muted-foreground">Fungible Token</p>
+                        <p className="text-sm text-muted-foreground">{t('tokenSystem.fungibleToken')}</p>
                       </div>
                     </div>
                     <Button className="w-full" variant="outline">
@@ -1247,7 +1256,7 @@ function EnterpriseTokenCreationWizard() {
                       </div>
                       <div>
                         <h3 className="font-semibold">TBC-721</h3>
-                        <p className="text-sm text-muted-foreground">NFT Collection</p>
+                        <p className="text-sm text-muted-foreground">{t('tokenSystem.nftCollection')}</p>
                       </div>
                     </div>
                     <Button className="w-full" variant="outline">
@@ -1269,11 +1278,11 @@ function EnterpriseTokenCreationWizard() {
                       </div>
                       <div>
                         <h3 className="font-semibold">TBC-1155</h3>
-                        <p className="text-sm text-muted-foreground">Multi-Token</p>
+                        <p className="text-sm text-muted-foreground">{t('tokenSystem.multiToken')}</p>
                       </div>
                     </div>
                     <Button className="w-full" variant="outline">
-                      Select
+                      {t('tokenSystem.select')}
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Button>
                   </CardContent>
@@ -1290,9 +1299,9 @@ function EnterpriseTokenCreationWizard() {
             <div className="flex items-center gap-2">
               <Settings className="h-5 w-5" />
               <div>
-                <CardTitle>Token Configuration - {selectedStandard}</CardTitle>
+                <CardTitle>{t('tokenSystem.tokenConfiguration')} - {selectedStandard}</CardTitle>
                 <CardDescription>
-                  {selectedTemplate ? `Using "${selectedTemplate.name}" template` : "Configure your token's basic parameters"}
+                  {selectedTemplate ? t('tokenSystem.usingTemplate', { name: selectedTemplate.name }) : t('tokenSystem.configureBasic')}
                 </CardDescription>
               </div>
             </div>
@@ -1301,20 +1310,20 @@ function EnterpriseTokenCreationWizard() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Token Name *</Label>
+                  <Label htmlFor="name">{t('tokenSystem.tokenName')} *</Label>
                   <Input
                     id="name"
-                    placeholder="My Token"
+                    placeholder={t('tokenSystem.tokenNamePlaceholder')}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     data-testid="input-token-name"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="symbol">Token Symbol *</Label>
+                  <Label htmlFor="symbol">{t('tokenSystem.tokenSymbol')} *</Label>
                   <Input
                     id="symbol"
-                    placeholder="MTK"
+                    placeholder={t('tokenSystem.tokenSymbolPlaceholder')}
                     value={formData.symbol}
                     onChange={(e) => setFormData({ ...formData, symbol: e.target.value.toUpperCase() })}
                     maxLength={10}
@@ -1324,18 +1333,18 @@ function EnterpriseTokenCreationWizard() {
                 {selectedStandard === "TBC-20" && (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="totalSupply">Initial Supply *</Label>
+                      <Label htmlFor="totalSupply">{t('tokenSystem.initialSupply')} *</Label>
                       <Input
                         id="totalSupply"
                         type="number"
-                        placeholder="1000000"
+                        placeholder={t('tokenSystem.initialSupplyPlaceholder')}
                         value={formData.totalSupply}
                         onChange={(e) => setFormData({ ...formData, totalSupply: e.target.value })}
                         data-testid="input-total-supply"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="decimals">Decimals</Label>
+                      <Label htmlFor="decimals">{t('tokenSystem.decimals')}</Label>
                       <Select
                         value={formData.decimals.toString()}
                         onValueChange={(value) => setFormData({ ...formData, decimals: parseInt(value) })}
@@ -1344,10 +1353,10 @@ function EnterpriseTokenCreationWizard() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="18">18 (Standard)</SelectItem>
-                          <SelectItem value="8">8 (Bitcoin-style)</SelectItem>
-                          <SelectItem value="6">6 (USDC-style)</SelectItem>
-                          <SelectItem value="0">0 (No decimals)</SelectItem>
+                          <SelectItem value="18">18 ({t('tokenSystem.standard')})</SelectItem>
+                          <SelectItem value="8">8 ({t('tokenSystem.bitcoinStyle')})</SelectItem>
+                          <SelectItem value="6">6 ({t('tokenSystem.usdcStyle')})</SelectItem>
+                          <SelectItem value="0">0 ({t('tokenSystem.noDecimals')})</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -1356,28 +1365,28 @@ function EnterpriseTokenCreationWizard() {
                 {selectedStandard === "TBC-721" && (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="baseUri">Base URI (Metadata)</Label>
+                      <Label htmlFor="baseUri">{t('tokenSystem.baseUri')}</Label>
                       <Input
                         id="baseUri"
-                        placeholder="https://api.example.com/metadata/"
+                        placeholder={t('tokenSystem.baseUriPlaceholder')}
                         value={formData.baseUri}
                         onChange={(e) => setFormData({ ...formData, baseUri: e.target.value })}
                         data-testid="input-base-uri"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="maxTokens">Max Tokens (0 = unlimited)</Label>
+                      <Label htmlFor="maxTokens">{t('tokenSystem.maxTokens')}</Label>
                       <Input
                         id="maxTokens"
                         type="number"
-                        placeholder="10000"
+                        placeholder={t('tokenSystem.maxTokensPlaceholder')}
                         value={formData.maxTokens}
                         onChange={(e) => setFormData({ ...formData, maxTokens: e.target.value })}
                         data-testid="input-max-tokens"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="royaltyPercentage">Royalty Percentage</Label>
+                      <Label htmlFor="royaltyPercentage">{t('tokenSystem.royaltyPercentage')}</Label>
                       <div className="flex items-center gap-2">
                         <Input
                           id="royaltyPercentage"
@@ -1398,26 +1407,26 @@ function EnterpriseTokenCreationWizard() {
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description">{t('tokenSystem.description')}</Label>
                   <Textarea
                     id="description"
-                    placeholder="Describe your token..."
+                    placeholder={t('tokenSystem.describeToken')}
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     rows={3}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="website">Website</Label>
+                  <Label htmlFor="website">{t('tokenSystem.website')}</Label>
                   <Input
                     id="website"
-                    placeholder="https://example.com"
+                    placeholder={t('tokenSystem.websitePlaceholder')}
                     value={formData.website}
                     onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Symbol Logo</Label>
+                  <Label>{t('tokenSystem.symbolLogo')}</Label>
                   <div className="flex gap-2 mb-2">
                     <Button 
                       type="button" 
@@ -1426,7 +1435,7 @@ function EnterpriseTokenCreationWizard() {
                       onClick={() => setLogoInputMode("upload")}
                     >
                       <Upload className="h-3 w-3 mr-1" />
-                      Upload
+                      {t('tokenSystem.upload')}
                     </Button>
                     <Button 
                       type="button" 
@@ -1435,7 +1444,7 @@ function EnterpriseTokenCreationWizard() {
                       onClick={() => setLogoInputMode("url")}
                     >
                       <Globe className="h-3 w-3 mr-1" />
-                      URL
+                      {t('tokenSystem.url')}
                     </Button>
                   </div>
                   
@@ -1455,7 +1464,7 @@ function EnterpriseTokenCreationWizard() {
                           <div className="w-20 h-20 rounded-lg border-2 border-dashed border-border overflow-hidden bg-muted flex items-center justify-center">
                             <img 
                               src={logoPreview || formData.logo} 
-                              alt="Token Logo" 
+                              alt={t('tokenSystem.tokenLogoAlt')} 
                               className="w-full h-full object-cover"
                             />
                           </div>
@@ -1478,15 +1487,15 @@ function EnterpriseTokenCreationWizard() {
                           data-testid="dropzone-logo"
                         >
                           <Upload className="h-6 w-6 text-muted-foreground mb-1" />
-                          <p className="text-xs text-muted-foreground">Click or drag to upload</p>
-                          <p className="text-xs text-muted-foreground">PNG, JPG, SVG (max 5MB)</p>
+                          <p className="text-xs text-muted-foreground">{t('tokenSystem.clickDragUpload')}</p>
+                          <p className="text-xs text-muted-foreground">{t('tokenSystem.imageFormats')}</p>
                         </div>
                       )}
                     </div>
                   ) : (
                     <Input
                       id="logo"
-                      placeholder="https://example.com/logo.png"
+                      placeholder={t('tokenSystem.logoUrlPlaceholder')}
                       value={formData.logo}
                       onChange={(e) => {
                         setFormData({ ...formData, logo: e.target.value });
@@ -1502,14 +1511,14 @@ function EnterpriseTokenCreationWizard() {
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => setStep(1)}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('common.back')}
             </Button>
             <Button 
               onClick={() => setStep(3)} 
               disabled={!formData.name || !formData.symbol}
               data-testid="button-next-step"
             >
-              Next: Features
+              {t('tokenSystem.nextFeatures')}
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </CardFooter>
@@ -1521,23 +1530,23 @@ function EnterpriseTokenCreationWizard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Zap className="h-5 w-5 text-amber-500" />
-              Token Features & Tokenomics
+              {t('tokenSystem.tokenFeatures')}
             </CardTitle>
-            <CardDescription>Configure advanced features and tokenomics settings</CardDescription>
+            <CardDescription>{t('tokenSystem.configureAdvanced')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <h4 className="font-medium flex items-center gap-2">
                   <Settings className="h-4 w-4" />
-                  Core Features
+                  {t('tokenSystem.coreFeatures')}
                 </h4>
                 
                 {selectedStandard === "TBC-20" && (
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label htmlFor="mintable">Mintable</Label>
-                      <p className="text-xs text-muted-foreground">Allow minting new tokens</p>
+                      <Label htmlFor="mintable">{t('tokenSystem.mintable')}</Label>
+                      <p className="text-xs text-muted-foreground">{t('tokenSystem.mintableDesc')}</p>
                     </div>
                     <Switch
                       id="mintable"
@@ -1552,8 +1561,8 @@ function EnterpriseTokenCreationWizard() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="burnable">Burnable</Label>
-                    <p className="text-xs text-muted-foreground">Allow burning tokens</p>
+                    <Label htmlFor="burnable">{t('tokenSystem.burnable')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.burnableDesc')}</p>
                   </div>
                   <Switch
                     id="burnable"
@@ -1567,8 +1576,8 @@ function EnterpriseTokenCreationWizard() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="pausable">Pausable</Label>
-                    <p className="text-xs text-muted-foreground">Emergency pause capability</p>
+                    <Label htmlFor="pausable">{t('tokenSystem.pausable')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.pausableDesc')}</p>
                   </div>
                   <Switch
                     id="pausable"
@@ -1583,8 +1592,8 @@ function EnterpriseTokenCreationWizard() {
                     <Separator />
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label htmlFor="capped">Capped Supply</Label>
-                        <p className="text-xs text-muted-foreground">Set maximum token supply</p>
+                        <Label htmlFor="capped">{t('tokenSystem.cappedSupply')}</Label>
+                        <p className="text-xs text-muted-foreground">{t('tokenSystem.cappedSupplyDesc')}</p>
                       </div>
                       <Switch
                         id="capped"
@@ -1594,11 +1603,11 @@ function EnterpriseTokenCreationWizard() {
                     </div>
                     {formData.capped && (
                       <div className="space-y-2">
-                        <Label htmlFor="maxSupply">Maximum Supply</Label>
+                        <Label htmlFor="maxSupply">{t('tokenSystem.maxSupply')}</Label>
                         <Input
                           id="maxSupply"
                           type="number"
-                          placeholder="100000000"
+                          placeholder={t('tokenSystem.maxSupplyPlaceholder')}
                           value={formData.maxSupply}
                           onChange={(e) => setFormData({ ...formData, maxSupply: e.target.value })}
                         />
@@ -1611,13 +1620,13 @@ function EnterpriseTokenCreationWizard() {
               <div className="space-y-4">
                 <h4 className="font-medium flex items-center gap-2">
                   <CircleDollarSign className="h-4 w-4" />
-                  Tokenomics
+                  {t('tokenSystem.tokenomics')}
                 </h4>
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="stakingEnabled">Staking</Label>
-                    <p className="text-xs text-muted-foreground">Enable staking rewards</p>
+                    <Label htmlFor="stakingEnabled">{t('tokenSystem.staking')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.stakingRewardsDesc')}</p>
                   </div>
                   <Switch
                     id="stakingEnabled"
@@ -1628,13 +1637,13 @@ function EnterpriseTokenCreationWizard() {
                 
                 {formData.stakingEnabled && (
                   <div className="space-y-2">
-                    <Label htmlFor="stakingRewardRate">Staking APY (%)</Label>
+                    <Label htmlFor="stakingRewardRate">{t('tokenSystem.stakingApy')}</Label>
                     <Input
                       id="stakingRewardRate"
                       type="number"
                       min={0}
                       max={100}
-                      placeholder="12"
+                      placeholder={t('tokenSystem.stakingApyPlaceholder')}
                       value={formData.stakingRewardRate}
                       onChange={(e) => setFormData({ ...formData, stakingRewardRate: parseInt(e.target.value) || 0 })}
                     />
@@ -1645,8 +1654,8 @@ function EnterpriseTokenCreationWizard() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="vestingEnabled">Vesting</Label>
-                    <p className="text-xs text-muted-foreground">Token vesting schedules</p>
+                    <Label htmlFor="vestingEnabled">{t('tokenSystem.vesting')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.vestingSchedulesDesc')}</p>
                   </div>
                   <Switch
                     id="vestingEnabled"
@@ -1659,8 +1668,8 @@ function EnterpriseTokenCreationWizard() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="airdropEnabled">Airdrop</Label>
-                    <p className="text-xs text-muted-foreground">Initial token distribution</p>
+                    <Label htmlFor="airdropEnabled">{t('tokenSystem.airdrop')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.airdropDesc')}</p>
                   </div>
                   <Switch
                     id="airdropEnabled"
@@ -1676,12 +1685,12 @@ function EnterpriseTokenCreationWizard() {
             <div className="space-y-4">
               <h4 className="font-medium flex items-center gap-2">
                 <Key className="h-4 w-4" />
-                Access Control & Upgradeability
+                {t('tokenSystem.accessControlUpgradeability')}
               </h4>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Access Control Model</Label>
+                  <Label>{t('tokenSystem.accessControlModel')}</Label>
                   <Select
                     value={formData.accessControl}
                     onValueChange={(value: "ownable" | "roles" | "multisig") => 
@@ -1692,15 +1701,15 @@ function EnterpriseTokenCreationWizard() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ownable">Single Owner</SelectItem>
-                      <SelectItem value="roles">Role-Based (Recommended)</SelectItem>
-                      <SelectItem value="multisig">Multi-Signature</SelectItem>
+                      <SelectItem value="ownable">{t('tokenSystem.singleOwner')}</SelectItem>
+                      <SelectItem value="roles">{t('tokenSystem.roleBasedRecommended')}</SelectItem>
+                      <SelectItem value="multisig">{t('tokenSystem.multiSignature')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Upgradeability Pattern</Label>
+                  <Label>{t('tokenSystem.upgradeabilityPattern')}</Label>
                   <Select
                     value={formData.upgradeability}
                     onValueChange={(value: "none" | "transparent" | "uups") => 
@@ -1711,9 +1720,9 @@ function EnterpriseTokenCreationWizard() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="none">Not Upgradeable</SelectItem>
-                      <SelectItem value="transparent">Transparent Proxy</SelectItem>
-                      <SelectItem value="uups">UUPS Proxy</SelectItem>
+                      <SelectItem value="none">{t('tokenSystem.notUpgradeable')}</SelectItem>
+                      <SelectItem value="transparent">{t('tokenSystem.transparent')}</SelectItem>
+                      <SelectItem value="uups">{t('tokenSystem.uups')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -1723,13 +1732,13 @@ function EnterpriseTokenCreationWizard() {
                 <div className="space-y-4 p-4 rounded-lg bg-muted/50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Multi-Signature Settings</Label>
-                      <p className="text-xs text-muted-foreground">Configure multi-sig requirements</p>
+                      <Label>{t('tokenSystem.multiSignatureSettings')}</Label>
+                      <p className="text-xs text-muted-foreground">{t('tokenSystem.configureMultisig')}</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="multisigThreshold">Required Signatures</Label>
+                      <Label htmlFor="multisigThreshold">{t('tokenSystem.requiredSignatures')}</Label>
                       <Select
                         value={formData.multisigThreshold.toString()}
                         onValueChange={(value) => setFormData({ ...formData, multisigThreshold: parseInt(value) })}
@@ -1753,10 +1762,10 @@ function EnterpriseTokenCreationWizard() {
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => setStep(2)}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('common.back')}
             </Button>
             <Button onClick={() => setStep(4)}>
-              Next: AI & Security
+              {t('tokenSystem.nextAiSecurity')}
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </CardFooter>
@@ -1768,22 +1777,22 @@ function EnterpriseTokenCreationWizard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Brain className="h-5 w-5 text-purple-500" />
-              AI & Security Configuration
+              {t('tokenSystem.aiSecurityConfiguration')}
             </CardTitle>
-            <CardDescription>Configure AI optimization and quantum security features</CardDescription>
+            <CardDescription>{t('tokenSystem.enterpriseFeatures')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <h4 className="font-medium flex items-center gap-2">
                   <Brain className="h-4 w-4 text-purple-500" />
-                  Triple-Band AI Features
+                  {t('tokenSystem.tripleBandAiFeatures')}
                 </h4>
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="aiOptimization">AI Optimization</Label>
-                    <p className="text-xs text-muted-foreground">Enable Triple-Band AI engine</p>
+                    <Label htmlFor="aiOptimization">{t('tokenSystem.aiOptimization')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.aiOptimizationDesc')}</p>
                   </div>
                   <Switch
                     id="aiOptimization"
@@ -1796,8 +1805,8 @@ function EnterpriseTokenCreationWizard() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="aiBurn">AI Burn Optimization</Label>
-                    <p className="text-xs text-muted-foreground">GPT-5 optimized burning</p>
+                    <Label htmlFor="aiBurn">{t('tokenSystem.aiBurnOptimizationSetting')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.aiBurnOptimizationDesc')}</p>
                   </div>
                   <Switch
                     id="aiBurn"
@@ -1810,8 +1819,8 @@ function EnterpriseTokenCreationWizard() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="aiOracle">AI Price Oracle</Label>
-                    <p className="text-xs text-muted-foreground">Real-time price feeds</p>
+                    <Label htmlFor="aiOracle">{t('tokenSystem.aiPriceOracle')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.aiPriceOracleDesc')}</p>
                   </div>
                   <Switch
                     id="aiOracle"
@@ -1824,8 +1833,8 @@ function EnterpriseTokenCreationWizard() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="aiSupply">AI Supply Management</Label>
-                    <p className="text-xs text-muted-foreground">Llama 3.3 supply optimization</p>
+                    <Label htmlFor="aiSupply">{t('tokenSystem.aiSupplyManagement')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.aiSupplyManagementDesc')}</p>
                   </div>
                   <Switch
                     id="aiSupply"
@@ -1838,8 +1847,8 @@ function EnterpriseTokenCreationWizard() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="aiAntiBot">AI Anti-Bot Protection</Label>
-                    <p className="text-xs text-muted-foreground">Launch protection from bots</p>
+                    <Label htmlFor="aiAntiBot">{t('tokenSystem.aiAntiBot')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.aiAntiBotDesc')}</p>
                   </div>
                   <Switch
                     id="aiAntiBot"
@@ -1851,8 +1860,8 @@ function EnterpriseTokenCreationWizard() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="aiLiquidity">AI Liquidity Management</Label>
-                    <p className="text-xs text-muted-foreground">Automated liquidity optimization</p>
+                    <Label htmlFor="aiLiquidity">{t('tokenSystem.aiLiquidityManagement')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.aiLiquidityDesc')}</p>
                   </div>
                   <Switch
                     id="aiLiquidity"
@@ -1865,13 +1874,13 @@ function EnterpriseTokenCreationWizard() {
               <div className="space-y-4">
                 <h4 className="font-medium flex items-center gap-2">
                   <Shield className="h-4 w-4 text-green-500" />
-                  Security Features
+                  {t('tokenSystem.securityFeatures')}
                 </h4>
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="quantum">Quantum-Resistant</Label>
-                    <p className="text-xs text-muted-foreground">CRYSTALS-Dilithium signatures</p>
+                    <Label htmlFor="quantum">{t('tokenSystem.quantumResistantSig')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.quantumResistantDesc')}</p>
                   </div>
                   <Switch
                     id="quantum"
@@ -1884,8 +1893,8 @@ function EnterpriseTokenCreationWizard() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="mev">MEV Protection</Label>
-                    <p className="text-xs text-muted-foreground">Front-running protection</p>
+                    <Label htmlFor="mev">{t('tokenSystem.mevProtectionSetting')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.mevProtectionDesc')}</p>
                   </div>
                   <Switch
                     id="mev"
@@ -1898,8 +1907,8 @@ function EnterpriseTokenCreationWizard() {
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label htmlFor="zk">ZK Privacy</Label>
-                    <p className="text-xs text-muted-foreground">Zero-knowledge transfers</p>
+                    <Label htmlFor="zk">{t('tokenSystem.zkPrivacySetting')}</Label>
+                    <p className="text-xs text-muted-foreground">{t('tokenSystem.zkPrivacyDesc')}</p>
                   </div>
                   <Switch
                     id="zk"
@@ -1912,7 +1921,7 @@ function EnterpriseTokenCreationWizard() {
                 <div className="mt-6 p-4 rounded-lg bg-purple-500/10 border border-purple-500/20">
                   <div className="flex items-center gap-2 mb-2">
                     <Fingerprint className="h-4 w-4 text-purple-500" />
-                    <span className="font-medium text-sm">Security Summary</span>
+                    <span className="font-medium text-sm">{t('tokenSystem.securitySummary')}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="flex items-center gap-1">
@@ -1921,7 +1930,7 @@ function EnterpriseTokenCreationWizard() {
                       ) : (
                         <AlertCircle className="h-3 w-3 text-yellow-500" />
                       )}
-                      <span>Quantum Resistance</span>
+                      <span>{t('tokenSystem.quantumResistance')}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       {formData.mevProtection ? (
@@ -1929,7 +1938,7 @@ function EnterpriseTokenCreationWizard() {
                       ) : (
                         <AlertCircle className="h-3 w-3 text-yellow-500" />
                       )}
-                      <span>MEV Protection</span>
+                      <span>{t('tokenSystem.mevProtection')}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       {formData.aiAntiBot ? (
@@ -1937,7 +1946,7 @@ function EnterpriseTokenCreationWizard() {
                       ) : (
                         <AlertCircle className="h-3 w-3 text-yellow-500" />
                       )}
-                      <span>Anti-Bot</span>
+                      <span>{t('tokenSystem.antiBot')}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       {formData.zkPrivacy ? (
@@ -1945,7 +1954,7 @@ function EnterpriseTokenCreationWizard() {
                       ) : (
                         <AlertCircle className="h-3 w-3 text-muted-foreground" />
                       )}
-                      <span>ZK Privacy</span>
+                      <span>{t('tokenSystem.zkPrivacy')}</span>
                     </div>
                   </div>
                 </div>
@@ -1955,10 +1964,10 @@ function EnterpriseTokenCreationWizard() {
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => setStep(3)}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('common.back')}
             </Button>
             <Button onClick={() => { setStep(5); runSecurityAnalysis(); }}>
-              Next: Review & Deploy
+              {t('tokenSystem.nextReview')}
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </CardFooter>
@@ -1971,35 +1980,35 @@ function EnterpriseTokenCreationWizard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Eye className="h-5 w-5" />
-                Deployment Review
+                {t('tokenSystem.deploymentReview')}
               </CardTitle>
-              <CardDescription>Review your token configuration before deployment</CardDescription>
+              <CardDescription>{t('tokenSystem.verifySettings')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-4">
-                  <h4 className="font-medium text-sm text-muted-foreground">Token Details</h4>
+                  <h4 className="font-medium text-sm text-muted-foreground">{t('tokenSystem.tokenDetails')}</h4>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Name:</span>
+                      <span className="text-muted-foreground">{t('tokenSystem.name')}:</span>
                       <span className="font-medium">{formData.name}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Symbol:</span>
+                      <span className="text-muted-foreground">{t('tokenSystem.tokenSymbol')}:</span>
                       <span className="font-medium">{formData.symbol}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Standard:</span>
+                      <span className="text-muted-foreground">{t('tokenSystem.standard')}:</span>
                       <Badge>{selectedStandard}</Badge>
                     </div>
                     {selectedStandard === "TBC-20" && (
                       <>
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">Supply:</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.supply')}:</span>
                           <span className="font-medium">{formatNumber(parseInt(formData.totalSupply))}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">Decimals:</span>
+                          <span className="text-muted-foreground">{t('tokenSystem.decimals')}:</span>
                           <span className="font-medium">{formData.decimals}</span>
                         </div>
                       </>
@@ -2008,13 +2017,13 @@ function EnterpriseTokenCreationWizard() {
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="font-medium text-sm text-muted-foreground">Features</h4>
+                  <h4 className="font-medium text-sm text-muted-foreground">{t('tokenSystem.features')}</h4>
                   <div className="flex flex-wrap gap-2">
-                    {formData.mintable && <Badge variant="secondary">Mintable</Badge>}
-                    {formData.burnable && <Badge variant="secondary">Burnable</Badge>}
-                    {formData.pausable && <Badge variant="secondary">Pausable</Badge>}
-                    {formData.stakingEnabled && <Badge variant="secondary">Staking</Badge>}
-                    {formData.vestingEnabled && <Badge variant="secondary">Vesting</Badge>}
+                    {formData.mintable && <Badge variant="secondary">{t('tokenSystem.mintable')}</Badge>}
+                    {formData.burnable && <Badge variant="secondary">{t('tokenSystem.burnable')}</Badge>}
+                    {formData.pausable && <Badge variant="secondary">{t('tokenSystem.pausable')}</Badge>}
+                    {formData.stakingEnabled && <Badge variant="secondary">{t('tokenSystem.staking')}</Badge>}
+                    {formData.vestingEnabled && <Badge variant="secondary">{t('tokenSystem.vesting')}</Badge>}
                     <Badge variant="outline">{formData.accessControl}</Badge>
                     {formData.upgradeability !== "none" && (
                       <Badge variant="outline">{formData.upgradeability}</Badge>
@@ -2023,24 +2032,24 @@ function EnterpriseTokenCreationWizard() {
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="font-medium text-sm text-muted-foreground">AI & Security</h4>
+                  <h4 className="font-medium text-sm text-muted-foreground">{t('tokenSystem.aiSecurity')}</h4>
                   <div className="flex flex-wrap gap-2">
                     {formData.aiOptimizationEnabled && (
                       <Badge className="bg-purple-500/10 text-purple-500">
                         <Brain className="h-3 w-3 mr-1" />
-                        AI Enabled
+                        {t('tokenSystem.aiEnabled')}
                       </Badge>
                     )}
                     {formData.quantumResistant && (
                       <Badge className="bg-green-500/10 text-green-500">
                         <Lock className="h-3 w-3 mr-1" />
-                        Quantum
+                        {t('tokenSystem.quantum')}
                       </Badge>
                     )}
                     {formData.mevProtection && (
                       <Badge className="bg-blue-500/10 text-blue-500">
                         <Shield className="h-3 w-3 mr-1" />
-                        MEV
+                        {t('tokenSystem.mev')}
                       </Badge>
                     )}
                   </div>
@@ -2053,13 +2062,13 @@ function EnterpriseTokenCreationWizard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <ShieldCheck className="h-5 w-5 text-green-500" />
-                AI Security Analysis
+                {t('tokenSystem.aiSecurityAnalysis')}
                 {isAnalyzing && <RefreshCw className="h-4 w-4 animate-spin ml-2" />}
               </CardTitle>
               <CardDescription>
                 {isAnalyzing 
-                  ? "Analyzing contract security with Triple-Band AI..." 
-                  : "Security scan completed by Triple-Band AI"
+                  ? t('tokenSystem.analyzingContract')
+                  : t('tokenSystem.securityScanCompleted')
                 }
               </CardDescription>
             </CardHeader>
@@ -2100,25 +2109,25 @@ function EnterpriseTokenCreationWizard() {
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium mb-2">Security Score</h4>
+                      <h4 className="font-medium mb-2">{t('tokenSystem.securityScore')}</h4>
                       <p className="text-sm text-muted-foreground mb-2">
                         {securityAnalysis.score >= 90 
-                          ? "Excellent security posture. Ready for production deployment."
+                          ? t('tokenSystem.excellentSecurity')
                           : securityAnalysis.score >= 70 
-                          ? "Good security with some recommendations."
-                          : "Security improvements recommended before deployment."
+                          ? t('tokenSystem.goodSecurity')
+                          : t('tokenSystem.securityImprovements')
                         }
                       </p>
                       <div className="flex items-center gap-2 text-sm">
                         <Zap className="h-4 w-4 text-amber-500" />
-                        <span>Estimated Gas: {formatNumber(securityAnalysis.gasEstimate)} EMB</span>
+                        <span>{t('tokenSystem.estimatedGas')}: {formatNumber(securityAnalysis.gasEstimate)} EMB</span>
                       </div>
                     </div>
                   </div>
 
                   {securityAnalysis.vulnerabilities.length > 0 && (
                     <div className="space-y-3">
-                      <h4 className="font-medium text-sm">Findings</h4>
+                      <h4 className="font-medium text-sm">{t('tokenSystem.findings')}</h4>
                       {securityAnalysis.vulnerabilities.map((vuln) => (
                         <div 
                           key={vuln.id} 
@@ -2141,7 +2150,7 @@ function EnterpriseTokenCreationWizard() {
                           </div>
                           <p className="text-xs text-muted-foreground">{vuln.description}</p>
                           <p className="text-xs mt-1">
-                            <span className="text-muted-foreground">Recommendation:</span> {vuln.recommendation}
+                            <span className="text-muted-foreground">{t('tokenSystem.recommendation')}:</span> {vuln.recommendation}
                           </p>
                         </div>
                       ))}
@@ -2150,7 +2159,7 @@ function EnterpriseTokenCreationWizard() {
 
                   {securityAnalysis.recommendations.length > 0 && (
                     <div className="space-y-2">
-                      <h4 className="font-medium text-sm">AI Recommendations</h4>
+                      <h4 className="font-medium text-sm">{t('tokenSystem.aiRecommendations')}</h4>
                       {securityAnalysis.recommendations.map((rec, i) => (
                         <div key={i} className="flex items-start gap-2 text-sm">
                           <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
@@ -2168,7 +2177,7 @@ function EnterpriseTokenCreationWizard() {
             <CardFooter className="flex justify-between pt-6">
               <Button variant="outline" onClick={() => setStep(4)}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
+                {t('common.back')}
               </Button>
               <Button 
                 onClick={handleDeploy} 
@@ -2179,12 +2188,12 @@ function EnterpriseTokenCreationWizard() {
                 {deployMutation.isPending ? (
                   <>
                     <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                    Deploying...
+                    {t('tokenSystem.deploying')}
                   </>
                 ) : (
                   <>
                     <Rocket className="h-4 w-4 mr-2" />
-                    Deploy to TBURN Chain
+                    {t('tokenSystem.deployToTburn')}
                   </>
                 )}
               </Button>
@@ -2201,9 +2210,9 @@ function EnterpriseTokenCreationWizard() {
                 <CheckCircle className="h-8 w-8 text-green-500" />
               </div>
               <div>
-                <CardTitle className="text-2xl">Token Deployed Successfully</CardTitle>
+                <CardTitle className="text-2xl">{t('tokenSystem.tokenDeployed')}</CardTitle>
                 <CardDescription>
-                  Your {selectedStandard} token is now live on TBURN Chain
+                  {t('tokenSystem.tokenDeployedDesc', { standard: selectedStandard })}
                 </CardDescription>
               </div>
             </div>
@@ -2211,22 +2220,22 @@ function EnterpriseTokenCreationWizard() {
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <h4 className="font-medium">Token Details</h4>
+                <h4 className="font-medium">{t('tokenSystem.tokenDetails')}</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Name:</span>
+                    <span className="text-muted-foreground">{t('tokenSystem.name')}:</span>
                     <span className="font-medium">{deploymentResult.token.name}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Symbol:</span>
+                    <span className="text-muted-foreground">{t('tokenSystem.tokenSymbol')}:</span>
                     <span className="font-medium">{deploymentResult.token.symbol}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Standard:</span>
+                    <span className="text-muted-foreground">{t('tokenSystem.standard')}:</span>
                     <Badge>{deploymentResult.token.standard}</Badge>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Contract:</span>
+                    <span className="text-muted-foreground">{t('tokenSystem.contract')}:</span>
                     <div className="flex items-center gap-2">
                       <code className="text-xs bg-muted px-2 py-1 rounded font-mono">
                         {deploymentResult.token.contractAddress.slice(0, 10)}...
@@ -2246,28 +2255,28 @@ function EnterpriseTokenCreationWizard() {
               </div>
 
               <div className="space-y-4">
-                <h4 className="font-medium">Transaction Details</h4>
+                <h4 className="font-medium">{t('tokenSystem.transactionDetails')}</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Block:</span>
+                    <span className="text-muted-foreground">{t('tokenSystem.block')}:</span>
                     <span className="font-medium tabular-nums">{formatNumber(deploymentResult.transaction.blockNumber)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Gas Used:</span>
+                    <span className="text-muted-foreground">{t('tokenSystem.gasUsedDeploy')}:</span>
                     <span className="font-medium tabular-nums">{formatNumber(deploymentResult.transaction.gasUsed)} EMB</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Status:</span>
+                    <span className="text-muted-foreground">{t('common.status')}:</span>
                     <Badge variant="outline" className="text-green-500 border-green-500">
                       <CheckCircle className="h-3 w-3 mr-1" />
                       {deploymentResult.transaction.status}
                     </Badge>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Verification:</span>
+                    <span className="text-muted-foreground">{t('tokenSystem.verification')}:</span>
                     <Badge variant="outline" className="text-blue-500 border-blue-500">
                       <ShieldCheck className="h-3 w-3 mr-1" />
-                      Verified
+                      {t('tokenSystem.verified')}
                     </Badge>
                   </div>
                 </div>
@@ -2278,29 +2287,29 @@ function EnterpriseTokenCreationWizard() {
               <CardContent className="pt-6">
                 <h4 className="font-medium flex items-center gap-2 mb-4">
                   <Brain className="h-4 w-4 text-purple-500" />
-                  AI Deployment Analysis
+                  {t('tokenSystem.aiDeploymentAnalysis')}
                 </h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div className="text-center">
-                    <p className="text-sm text-muted-foreground">Gas Optimization</p>
+                    <p className="text-sm text-muted-foreground">{t('tokenSystem.gasOptimization')}</p>
                     <p className="text-2xl font-semibold text-green-500">
                       +{deploymentResult.aiAnalysis.gasOptimization}%
                     </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-muted-foreground">Security Score</p>
+                    <p className="text-sm text-muted-foreground">{t('tokenSystem.securityScore')}</p>
                     <p className="text-2xl font-semibold text-green-500">
                       {deploymentResult.aiAnalysis.securityScore}/100
                     </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-muted-foreground">Code Quality</p>
+                    <p className="text-sm text-muted-foreground">{t('tokenSystem.codeQuality')}</p>
                     <p className="text-2xl font-semibold text-blue-500">
                       A+
                     </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-muted-foreground">Audit Status</p>
+                    <p className="text-sm text-muted-foreground">{t('tokenSystem.auditStatus')}</p>
                     <p className="text-2xl font-semibold text-green-500">
                       <CheckCircle className="h-6 w-6 inline" />
                     </p>
@@ -2315,30 +2324,30 @@ function EnterpriseTokenCreationWizard() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <Button variant="outline" className="w-full">
                 <FileText className="h-4 w-4 mr-2" />
-                View Contract
+                {t('tokenSystem.viewContract')}
               </Button>
               <Button variant="outline" className="w-full">
                 <Code2 className="h-4 w-4 mr-2" />
-                Source Code
+                {t('tokenSystem.sourceCode')}
               </Button>
               <Button variant="outline" className="w-full">
                 <BarChart3 className="h-4 w-4 mr-2" />
-                Analytics
+                {t('tokenSystem.analytics')}
               </Button>
               <Button variant="outline" className="w-full">
                 <Globe className="h-4 w-4 mr-2" />
-                Add to Bridge
+                {t('tokenSystem.addToBridge')}
               </Button>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={resetWizard}>
               <Plus className="h-4 w-4 mr-2" />
-              Create Another Token
+              {t('tokenSystem.createAnother')}
             </Button>
             <Button>
               <ExternalLink className="h-4 w-4 mr-2" />
-              View on Explorer
+              {t('tokenSystem.viewOnExplorer')}
             </Button>
           </CardFooter>
         </Card>
@@ -2348,6 +2357,7 @@ function EnterpriseTokenCreationWizard() {
 }
 
 function DeployedTokensDashboard() {
+  const { t } = useTranslation();
   const { data: deployedTokens, isLoading } = useQuery<DeployedToken[]>({
     queryKey: ["/api/token-system/deployed"],
   });
@@ -2377,11 +2387,11 @@ function DeployedTokensDashboard() {
       <Card>
         <CardContent className="p-12 text-center">
           <Database className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <h3 className="font-semibold text-lg mb-2">No Deployed Tokens</h3>
-          <p className="text-muted-foreground mb-4">You haven't deployed any tokens yet.</p>
+          <h3 className="font-semibold text-lg mb-2">{t('tokenSystem.noDeployedTokens')}</h3>
+          <p className="text-muted-foreground mb-4">{t('tokenSystem.noDeployedTokensDesc')}</p>
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            Create Your First Token
+            {t('tokenSystem.createFirstToken')}
           </Button>
         </CardContent>
       </Card>
@@ -2391,8 +2401,8 @@ function DeployedTokensDashboard() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Your Deployed Tokens</h3>
-        <Badge variant="outline">{deployedTokens.length} tokens</Badge>
+        <h3 className="text-lg font-semibold">{t('tokenSystem.yourDeployedTokens')}</h3>
+        <Badge variant="outline">{deployedTokens.length} {t('common.tokens')}</Badge>
       </div>
       
       {deployedTokens.map((token) => (
@@ -2419,36 +2429,36 @@ function DeployedTokensDashboard() {
               
               <div className="flex items-center gap-6 flex-wrap">
                 <div className="text-right">
-                  <p className="text-xs text-muted-foreground">Holders</p>
+                  <p className="text-xs text-muted-foreground">{t('tokenSystem.holders')}</p>
                   <p className="font-medium tabular-nums">{formatNumber(token.holders)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-muted-foreground">Transactions</p>
+                  <p className="text-xs text-muted-foreground">{t('tokenSystem.transactions')}</p>
                   <p className="font-medium tabular-nums">{formatNumber(token.transactionCount)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-muted-foreground">Status</p>
+                  <p className="text-xs text-muted-foreground">{t('common.status')}</p>
                   <Badge variant={token.status === "active" ? "default" : "secondary"}>
-                    {token.status}
+                    {token.status === "active" ? t('common.active') : token.status}
                   </Badge>
                 </div>
                 <div className="flex gap-1">
                   {token.aiOptimizationEnabled && (
                     <Badge variant="secondary" className="text-xs">
                       <Brain className="h-3 w-3 mr-1" />
-                      AI
+                      {t('tokenSystem.ai')}
                     </Badge>
                   )}
                   {token.quantumResistant && (
                     <Badge variant="outline" className="text-xs">
                       <Lock className="h-3 w-3 mr-1" />
-                      QR
+                      {t('tokenSystem.qr')}
                     </Badge>
                   )}
                 </div>
                 <Button size="sm" variant="outline">
                   <Settings className="h-3 w-3 mr-1" />
-                  Manage
+                  {t('tokenSystem.manage')}
                 </Button>
               </div>
             </div>
@@ -2613,8 +2623,8 @@ function EnterpriseTokenSearch() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: "Copied",
-      description: "Address copied to clipboard",
+      title: t('common.copied'),
+      description: t('tokenSystem.addressCopied'),
     });
   };
 
@@ -2678,7 +2688,7 @@ function EnterpriseTokenSearch() {
               </Select>
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-36" data-testid="select-sort-by">
-                  <SelectValue placeholder="Sort by" />
+                  <SelectValue placeholder={t('tokenSystem.sortBy')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="holders">{t('tokenSystem.holders')}</SelectItem>
@@ -2907,7 +2917,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast({ title: "Copied", description: "Address copied to clipboard" });
+    toast({ title: t('common.copied'), description: t('tokenSystem.addressCopied') });
   };
 
   const formatPrice = (price: string) => {
@@ -2942,7 +2952,7 @@ function TokenDetailView({ token, tokenDetail, isLoading, onClose }: {
                 {token.verified && (
                   <Badge className="bg-green-500/10 text-green-500">
                     <CheckCircle className="h-3 w-3 mr-1" />
-                    Verified
+                    {t('tokenSystem.verified')}
                   </Badge>
                 )}
               </div>

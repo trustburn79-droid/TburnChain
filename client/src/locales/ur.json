@@ -1196,5 +1196,54 @@
   "notFound": {
     "title": "404 صفحہ نہیں ملا",
     "message": "کیا آپ راؤٹر میں صفحہ شامل کرنا بھول گئے؟"
+  },
+  "governance": {
+    "title": "AI گورننس",
+    "subtitle": "AI-بہتر DAO - تجویز تجزیہ اور نتائج کی پیش گوئی",
+    "aiPowered": "AI سے چلنے والا",
+    "totalProposals": "کل تجاویز",
+    "activeCount": "{{count}} فعال",
+    "passRate": "پاس ریٹ",
+    "avgParticipation": "اوسط شرکت",
+    "totalVoters": "کل {{count}} ووٹر",
+    "aiPredictionAccuracy": "AI پیش گوئی کی درستگی",
+    "analyzed": "{{count}} تجزیہ شدہ",
+    "gpt5TurboAnalysis": "GPT-5 Turbo تجزیہ",
+    "gpt5TurboDesc": "اسٹریٹجک پرت معاشی اثرات، حفاظتی مضمرات کا تجزیہ کرتی ہے اور ہر تجویز کے لیے خطرے کی تشخیص فراہم کرتی ہے۔",
+    "claudeSonnetPrediction": "Claude Sonnet 4.5 پیش گوئی",
+    "claudeSonnetDesc": "ٹیکٹیکل پرت کمیونٹی کے جذبات، تاریخی نمونوں اور تجویز کے مواد کی بنیاد پر ووٹنگ کے نتائج کی پیش گوئی کرتی ہے۔",
+    "llamaRecommendations": "Llama 3.3 70B سفارشات",
+    "llamaDesc": "آپریشنل پرت ووٹر کی تاریخ اور اسٹیک ترتیب کی بنیاد پر ذاتی نوعیت کی ووٹنگ سفارشات فراہم کرتی ہے۔",
+    "activeTab": "فعال ({{count}})",
+    "completedTab": "مکمل",
+    "allProposalsTab": "تمام تجاویز",
+    "noProposalsFound": "کوئی تجویز نہیں ملی",
+    "highRisk": "زیادہ خطرہ",
+    "quorumReached": "کورم پہنچ گیا",
+    "forLabel": "حق میں:",
+    "againstLabel": "خلاف:",
+    "abstainLabel": "غیر حاضر:",
+    "voters": "{{count}} ووٹر",
+    "total": "کل:",
+    "aiAnalysis": "AI تجزیہ",
+    "confidence": "{{percent}}% اعتماد",
+    "economic": "معاشی:",
+    "security": "سیکیورٹی:",
+    "predictedOutcome": "متوقع نتیجہ:",
+    "keyFactors": "کلیدی عوامل:",
+    "vote": "ووٹ",
+    "status": {
+      "draft": "مسودہ",
+      "active": "فعال",
+      "succeeded": "کامیاب",
+      "defeated": "ناکام",
+      "queued": "قطار میں",
+      "executed": "نافذ",
+      "cancelled": "منسوخ"
+    },
+    "prediction": {
+      "for": "حق میں",
+      "against": "خلاف"
+    }
   }
 }

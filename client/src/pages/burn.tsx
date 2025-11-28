@@ -69,13 +69,16 @@ const burnTypeColors = {
   manual: "#6b7280",
 };
 
-const burnTypeLabels = {
-  transaction: "Transaction",
-  timed: "Timed",
-  volume: "Volume",
-  community: "Community",
-  ai_optimized: "AI Optimized",
-  manual: "Manual",
+const getBurnTypeLabel = (t: (key: string) => string, type: string) => {
+  const labels: Record<string, string> = {
+    transaction: t("burn:burnTypes.transaction"),
+    timed: t("burn:burnTypes.timed"),
+    volume: t("burn:burnTypes.volume"),
+    community: t("burn:burnTypes.community"),
+    ai_optimized: t("burn:burnTypes.aiOptimized"),
+    manual: t("burn:burnTypes.manual"),
+  };
+  return labels[type] || type;
 };
 
 export default function BurnDashboard() {
@@ -100,10 +103,10 @@ export default function BurnDashboard() {
 
   // Calculate pie chart data
   const pieData = stats ? [
-    { name: "Transaction", value: parseFloat(stats.transactionBurns) || 0, color: burnTypeColors.transaction },
-    { name: "Timed", value: parseFloat(stats.timedBurns) || 0, color: burnTypeColors.timed },
-    { name: "Volume", value: parseFloat(stats.volumeBurns) || 0, color: burnTypeColors.volume },
-    { name: "AI Optimized", value: parseFloat(stats.aiBurns) || 0, color: burnTypeColors.ai_optimized },
+    { name: t("burn:burnTypes.transaction"), value: parseFloat(stats.transactionBurns) || 0, color: burnTypeColors.transaction },
+    { name: t("burn:burnTypes.timed"), value: parseFloat(stats.timedBurns) || 0, color: burnTypeColors.timed },
+    { name: t("burn:burnTypes.volume"), value: parseFloat(stats.volumeBurns) || 0, color: burnTypeColors.volume },
+    { name: t("burn:burnTypes.aiOptimized"), value: parseFloat(stats.aiBurns) || 0, color: burnTypeColors.ai_optimized },
   ].filter(d => d.value > 0) : [];
 
   return (
@@ -111,15 +114,15 @@ export default function BurnDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-burn-title">
-            Auto-Burn Dashboard
+            {t("burn:title")}
           </h1>
           <p className="text-muted-foreground">
-            AI-Enhanced Autonomous Burn System with Multi-Trigger Mechanisms
+            {t("burn:subtitle")}
           </p>
         </div>
         <Badge variant="outline" className="text-lg px-4 py-2">
           <Flame className="h-4 w-4 mr-2 text-orange-500" />
-          Deflationary
+          {t("burn:deflationary")}
         </Badge>
       </div>
 
@@ -141,7 +144,7 @@ export default function BurnDashboard() {
             <Card className="hover-elevate" data-testid="card-total-burned">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Burned
+                  {t("burn:totalBurned")}
                 </CardTitle>
                 <Flame className="h-4 w-4 text-orange-500" />
               </CardHeader>
@@ -150,7 +153,7 @@ export default function BurnDashboard() {
                   {formatTokenAmount(stats?.totalBurned || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  TBURN permanently removed
+                  {t("burn:tburnPermanentlyRemoved")}
                 </p>
               </CardContent>
             </Card>
@@ -158,7 +161,7 @@ export default function BurnDashboard() {
             <Card className="hover-elevate" data-testid="card-burned-today">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Burned Today
+                  {t("burn:burnedToday")}
                 </CardTitle>
                 <TrendingDown className="h-4 w-4 text-green-500" />
               </CardHeader>
@@ -167,7 +170,7 @@ export default function BurnDashboard() {
                   {formatTokenAmount(stats?.burnedToday || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  24h burn volume
+                  {t("burn:burn24hVolume")}
                 </p>
               </CardContent>
             </Card>
@@ -175,7 +178,7 @@ export default function BurnDashboard() {
             <Card className="hover-elevate" data-testid="card-burn-rate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Current Burn Rate
+                  {t("burn:currentBurnRate")}
                 </CardTitle>
                 <Activity className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -184,7 +187,7 @@ export default function BurnDashboard() {
                   {(stats?.currentBurnRate || 0).toFixed(2)}%
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  of transaction fees
+                  {t("burn:ofTransactionFees")}
                 </p>
               </CardContent>
             </Card>
@@ -192,7 +195,7 @@ export default function BurnDashboard() {
             <Card className="hover-elevate" data-testid="card-burn-progress">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Target Progress
+                  {t("burn:targetProgress")}
                 </CardTitle>
                 <Target className="h-4 w-4 text-purple-500" />
               </CardHeader>
@@ -211,19 +214,19 @@ export default function BurnDashboard() {
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <BarChart3 className="h-4 w-4 mr-2" />
-            Overview
+            {t("burn:tabs.overview")}
           </TabsTrigger>
           <TabsTrigger value="events" data-testid="tab-events">
             <Flame className="h-4 w-4 mr-2" />
-            Burn Events
+            {t("burn:tabs.events")}
           </TabsTrigger>
           <TabsTrigger value="config" data-testid="tab-config">
             <Zap className="h-4 w-4 mr-2" />
-            Configuration
+            {t("burn:tabs.configuration")}
           </TabsTrigger>
           <TabsTrigger value="ai" data-testid="tab-ai">
             <Brain className="h-4 w-4 mr-2" />
-            AI Optimization
+            {t("burn:tabs.aiOptimization")}
           </TabsTrigger>
         </TabsList>
 
@@ -234,7 +237,7 @@ export default function BurnDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingDown className="h-5 w-5" />
-                  Burn History (30 Days)
+                  {t("burn:charts.burnHistory30Days")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -263,7 +266,7 @@ export default function BurnDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Flame className="h-5 w-5" />
-                  Burn Distribution by Type
+                  {t("burn:charts.burnDistributionByType")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -297,7 +300,7 @@ export default function BurnDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Activity className="h-4 w-4 text-blue-500" />
-                  Transaction Burns
+                  {t("burn:burnTypeCards.transactionBurns")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -305,7 +308,7 @@ export default function BurnDashboard() {
                   {formatTokenAmount(stats?.transactionBurns || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  1% per transaction (AI-optimized)
+                  {t("burn:burnTypeCards.transactionBurnsDesc")}
                 </p>
               </CardContent>
             </Card>
@@ -314,7 +317,7 @@ export default function BurnDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Clock className="h-4 w-4 text-purple-500" />
-                  Timed Burns
+                  {t("burn:burnTypeCards.timedBurns")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -322,7 +325,7 @@ export default function BurnDashboard() {
                   {formatTokenAmount(stats?.timedBurns || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  0.1% daily scheduled
+                  {t("burn:burnTypeCards.timedBurnsDesc")}
                 </p>
               </CardContent>
             </Card>
@@ -331,7 +334,7 @@ export default function BurnDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <TrendingDown className="h-4 w-4 text-amber-500" />
-                  Volume Burns
+                  {t("burn:burnTypeCards.volumeBurns")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -339,7 +342,7 @@ export default function BurnDashboard() {
                   {formatTokenAmount(stats?.volumeBurns || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Triggered at thresholds
+                  {t("burn:burnTypeCards.volumeBurnsDesc")}
                 </p>
               </CardContent>
             </Card>
@@ -348,7 +351,7 @@ export default function BurnDashboard() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Brain className="h-4 w-4 text-pink-500" />
-                  AI Burns
+                  {t("burn:burnTypeCards.aiBurns")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -356,7 +359,7 @@ export default function BurnDashboard() {
                   {formatTokenAmount(stats?.aiBurns || "0")}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  AI-recommended optimal burns
+                  {t("burn:burnTypeCards.aiBurnsDesc")}
                 </p>
               </CardContent>
             </Card>
@@ -380,6 +383,8 @@ export default function BurnDashboard() {
 }
 
 function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: boolean }) {
+  const { t } = useTranslation();
+  
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -399,7 +404,7 @@ function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: 
       <Card>
         <CardContent className="p-12 text-center">
           <Flame className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <p className="text-muted-foreground">No burn events recorded</p>
+          <p className="text-muted-foreground">{t("burn:events.noBurnEventsRecorded")}</p>
         </CardContent>
       </Card>
     );
@@ -427,12 +432,12 @@ function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: 
                       {formatTokenAmount(event.amount)} TBURN
                     </span>
                     <Badge variant="outline" style={{ borderColor: burnTypeColors[event.burnType] }}>
-                      {burnTypeLabels[event.burnType]}
+                      {getBurnTypeLabel(t, event.burnType)}
                     </Badge>
                     {event.aiRecommended && (
                       <Badge className="bg-pink-500/10 text-pink-500">
                         <Brain className="h-3 w-3 mr-1" />
-                        AI
+                        {t("burn:events.ai")}
                       </Badge>
                     )}
                   </div>
@@ -458,6 +463,8 @@ function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: 
 }
 
 function BurnConfiguration({ config, isLoading }: { config?: BurnConfig, isLoading: boolean }) {
+  const { t } = useTranslation();
+  
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -478,22 +485,22 @@ function BurnConfiguration({ config, isLoading }: { config?: BurnConfig, isLoadi
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Activity className="h-5 w-5 text-blue-500" />
-            Transaction Burn
+            {t("burn:config.transactionBurn")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm">Status</span>
+            <span className="text-sm">{t("burn:config.status")}</span>
             <Badge variant={config?.txBurnEnabled ? "default" : "secondary"}>
-              {config?.txBurnEnabled ? "Enabled" : "Disabled"}
+              {config?.txBurnEnabled ? t("burn:config.enabled") : t("burn:config.disabled")}
             </Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm">Burn Rate</span>
-            <span className="font-mono">{config?.txBurnRate || 0} bps</span>
+            <span className="text-sm">{t("burn:config.burnRate")}</span>
+            <span className="font-mono">{config?.txBurnRate || 0} {t("burn:config.bps")}</span>
           </div>
           <p className="text-xs text-muted-foreground">
-            Tokens burned from each transaction as a percentage of the transfer amount.
+            {t("burn:config.transactionBurnDesc")}
           </p>
         </CardContent>
       </Card>
@@ -502,22 +509,22 @@ function BurnConfiguration({ config, isLoading }: { config?: BurnConfig, isLoadi
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5 text-purple-500" />
-            Timed Burn
+            {t("burn:config.timedBurn")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm">Status</span>
+            <span className="text-sm">{t("burn:config.status")}</span>
             <Badge variant={config?.timeBurnEnabled ? "default" : "secondary"}>
-              {config?.timeBurnEnabled ? "Enabled" : "Disabled"}
+              {config?.timeBurnEnabled ? t("burn:config.enabled") : t("burn:config.disabled")}
             </Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm">Interval</span>
+            <span className="text-sm">{t("burn:config.interval")}</span>
             <span className="font-mono">{config?.timeBurnInterval || "24h"}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm">Percentage</span>
+            <span className="text-sm">{t("burn:config.percentage")}</span>
             <span className="font-mono">{config?.timeBurnPercentage || 0}%</span>
           </div>
         </CardContent>
@@ -527,23 +534,23 @@ function BurnConfiguration({ config, isLoading }: { config?: BurnConfig, isLoadi
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingDown className="h-5 w-5 text-amber-500" />
-            Volume Burn
+            {t("burn:config.volumeBurn")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm">Status</span>
+            <span className="text-sm">{t("burn:config.status")}</span>
             <Badge variant={config?.volumeBurnEnabled ? "default" : "secondary"}>
-              {config?.volumeBurnEnabled ? "Enabled" : "Disabled"}
+              {config?.volumeBurnEnabled ? t("burn:config.enabled") : t("burn:config.disabled")}
             </Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm">Threshold</span>
+            <span className="text-sm">{t("burn:config.threshold")}</span>
             <span className="font-mono">{formatTokenAmount(config?.volumeThreshold || "0")}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm">Burn Rate</span>
-            <span className="font-mono">{config?.volumeBurnRate || 0} bps</span>
+            <span className="text-sm">{t("burn:config.burnRate")}</span>
+            <span className="font-mono">{config?.volumeBurnRate || 0} {t("burn:config.bps")}</span>
           </div>
         </CardContent>
       </Card>
@@ -552,23 +559,23 @@ function BurnConfiguration({ config, isLoading }: { config?: BurnConfig, isLoadi
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Brain className="h-5 w-5 text-pink-500" />
-            AI Optimization
+            {t("burn:config.aiOptimization")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm">Status</span>
+            <span className="text-sm">{t("burn:config.status")}</span>
             <Badge variant={config?.aiOptimization ? "default" : "secondary"}>
-              {config?.aiOptimization ? "Enabled" : "Disabled"}
+              {config?.aiOptimization ? t("burn:config.enabled") : t("burn:config.disabled")}
             </Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm">Min Rate</span>
-            <span className="font-mono">{config?.minBurnRate || 0} bps</span>
+            <span className="text-sm">{t("burn:config.minRate")}</span>
+            <span className="font-mono">{config?.minBurnRate || 0} {t("burn:config.bps")}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm">Max Rate</span>
-            <span className="font-mono">{config?.maxBurnRate || 0} bps</span>
+            <span className="text-sm">{t("burn:config.maxRate")}</span>
+            <span className="font-mono">{config?.maxBurnRate || 0} {t("burn:config.bps")}</span>
           </div>
         </CardContent>
       </Card>
@@ -577,36 +584,38 @@ function BurnConfiguration({ config, isLoading }: { config?: BurnConfig, isLoadi
 }
 
 function AIOptimization({ stats }: { stats?: BurnStats }) {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Brain className="h-5 w-5 text-purple-500" />
-            AI Burn Optimization Engine
+            {t("burn:aiOptimization.title")}
           </CardTitle>
           <CardDescription>
-            Uses Triple-Band AI to optimize burn rates based on market conditions and tokenomics goals
+            {t("burn:aiOptimization.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-lg bg-blue-500/5 border border-blue-500/20">
-              <h4 className="font-semibold mb-2">Strategic Analysis</h4>
+              <h4 className="font-semibold mb-2">{t("burn:aiOptimization.strategicAnalysis")}</h4>
               <p className="text-sm text-muted-foreground">
-                GPT-5 Turbo analyzes long-term supply goals, market conditions, and economic impact to set optimal burn targets.
+                {t("burn:aiOptimization.strategicAnalysisDesc")}
               </p>
             </div>
             <div className="p-4 rounded-lg bg-purple-500/5 border border-purple-500/20">
-              <h4 className="font-semibold mb-2">Tactical Adjustment</h4>
+              <h4 className="font-semibold mb-2">{t("burn:aiOptimization.tacticalAdjustment")}</h4>
               <p className="text-sm text-muted-foreground">
-                Claude Sonnet 4.5 makes real-time adjustments based on network congestion, transaction volume, and price volatility.
+                {t("burn:aiOptimization.tacticalAdjustmentDesc")}
               </p>
             </div>
             <div className="p-4 rounded-lg bg-amber-500/5 border border-amber-500/20">
-              <h4 className="font-semibold mb-2">Operational Execution</h4>
+              <h4 className="font-semibold mb-2">{t("burn:aiOptimization.operationalExecution")}</h4>
               <p className="text-sm text-muted-foreground">
-                Llama 3.3 70B executes burns at optimal times, considering gas costs and network conditions.
+                {t("burn:aiOptimization.operationalExecutionDesc")}
               </p>
             </div>
           </div>
@@ -615,44 +624,44 @@ function AIOptimization({ stats }: { stats?: BurnStats }) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Burn Optimization Factors</CardTitle>
+          <CardTitle>{t("burn:aiOptimization.burnOptimizationFactors")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                <span>Current Supply vs Target</span>
+                <span>{t("burn:aiOptimization.currentSupplyVsTarget")}</span>
               </div>
-              <Badge variant="outline">Active</Badge>
+              <Badge variant="outline">{t("burn:aiOptimization.active")}</Badge>
             </div>
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                <span>Market Price Analysis</span>
+                <span>{t("burn:aiOptimization.marketPriceAnalysis")}</span>
               </div>
-              <Badge variant="outline">Active</Badge>
+              <Badge variant="outline">{t("burn:aiOptimization.active")}</Badge>
             </div>
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                <span>Network Congestion</span>
+                <span>{t("burn:aiOptimization.networkCongestion")}</span>
               </div>
-              <Badge variant="outline">Active</Badge>
+              <Badge variant="outline">{t("burn:aiOptimization.active")}</Badge>
             </div>
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                <span>Historical Burn Data</span>
+                <span>{t("burn:aiOptimization.historicalBurnData")}</span>
               </div>
-              <Badge variant="outline">Active</Badge>
+              <Badge variant="outline">{t("burn:aiOptimization.active")}</Badge>
             </div>
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                <span>Staking Ratio Impact</span>
+                <span>{t("burn:aiOptimization.stakingRatioImpact")}</span>
               </div>
-              <Badge variant="outline">Active</Badge>
+              <Badge variant="outline">{t("burn:aiOptimization.active")}</Badge>
             </div>
           </div>
         </CardContent>

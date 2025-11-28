@@ -249,9 +249,9 @@ export default function Dashboard() {
       {/* Header with Live Indicator */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold">TBURN Explorer</h1>
+          <h1 className="text-3xl font-semibold">{t("dashboard.explorerTitle")}</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Real-time blockchain data and network statistics
+            {t("dashboard.explorerSubtitle")}
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -276,30 +276,30 @@ export default function Dashboard() {
         ) : (
           <>
             <StatCard
-              title="Current TPS"
+              title={t("dashboard.currentTps")}
               value={formatNumber(networkStats?.tps || 0)}
               icon={Zap}
               trend={{ value: 12.5, isPositive: true }}
-              subtitle={`Peak: ${formatNumber(networkStats?.peakTps || 0)} TPS`}
+              subtitle={`${t("dashboard.peak")}: ${formatNumber(networkStats?.peakTps || 0)} TPS`}
             />
             <StatCard
-              title="Block Height"
+              title={t("dashboard.blockHeight")}
               value={formatNumber(networkStats?.currentBlockHeight || 0)}
               icon={Blocks}
-              subtitle="latest block"
+              subtitle={t("dashboard.latestBlock")}
             />
             <StatCard
-              title="Block Time"
+              title={t("dashboard.blockTime")}
               value={`${networkStats?.avgBlockTime || 0}ms`}
               icon={Clock}
               trend={{ value: 5.2, isPositive: false }}
               subtitle={`P99: ${networkStats?.blockTimeP99 || 0}ms`}
             />
             <StatCard
-              title="SLA Uptime"
+              title={t("dashboard.slaUptime")}
               value={`${((networkStats?.slaUptime || 9990) / 100).toFixed(2)}%`}
               icon={Activity}
-              subtitle="last 30 days"
+              subtitle={t("dashboard.last30Days")}
             />
           </>
         )}
@@ -319,7 +319,7 @@ export default function Dashboard() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Transactions
+                  {t("dashboard.totalTransactions")}
                 </CardTitle>
                 <Activity className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -332,7 +332,7 @@ export default function Dashboard() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Accounts
+                  {t("dashboard.totalAccounts")}
                 </CardTitle>
                 <TrendingUp className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -345,7 +345,7 @@ export default function Dashboard() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  TBURN Price
+                  {t("dashboard.tburnPrice")}
                 </CardTitle>
                 <TrendingUp className={`h-4 w-4 ${((networkStats as any)?.priceChangePercent || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`} />
               </CardHeader>
@@ -361,7 +361,7 @@ export default function Dashboard() {
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Market Cap
+                  {t("dashboard.marketCap")}
                 </CardTitle>
                 <TrendingUp className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -370,14 +370,14 @@ export default function Dashboard() {
                   ${formatNumber(networkStats?.marketCap || 0)}
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  = Price × Circulating Supply
+                  {t("dashboard.priceFormula")}
                 </p>
               </CardContent>
             </Card>
             <Card className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Active Validators
+                  {t("dashboard.activeValidators")}
                 </CardTitle>
                 <Server className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -386,7 +386,7 @@ export default function Dashboard() {
                   {networkStats?.activeValidators || 0} / {networkStats?.totalValidators || 0}
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {((networkStats?.activeValidators || 0) / (networkStats?.totalValidators || 1) * 100).toFixed(1)}% online
+                  {t("dashboard.percentOnline", { percent: ((networkStats?.activeValidators || 0) / (networkStats?.totalValidators || 1) * 100).toFixed(1) })}
                 </p>
               </CardContent>
             </Card>
@@ -398,7 +398,7 @@ export default function Dashboard() {
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <Coins className="h-5 w-5" />
-          Tokenomics & Emission
+          {t("dashboard.tokenomicsEmission")}
         </h2>
         {tokenomicsLoading ? (
           <div className="grid gap-4 md:grid-cols-4">
@@ -413,7 +413,7 @@ export default function Dashboard() {
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Daily Emission
+                    {t("dashboard.dailyEmission")}
                   </CardTitle>
                   <ArrowUpRight className="h-4 w-4 text-green-500" />
                 </CardHeader>
@@ -422,14 +422,14 @@ export default function Dashboard() {
                     {formatNumber(tokenomics.emission.dailyGrossEmission)} TBURN
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Gross block rewards
+                    {t("dashboard.grossBlockRewards")}
                   </p>
                 </CardContent>
               </Card>
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Daily Burn ({tokenomics.emission.burnRate}%)
+                    {t("dashboard.dailyBurn", { rate: tokenomics.emission.burnRate })}
                   </CardTitle>
                   <Flame className="h-4 w-4 text-orange-500" />
                 </CardHeader>
@@ -438,14 +438,14 @@ export default function Dashboard() {
                     {formatNumber(tokenomics.emission.dailyBurn)} TBURN
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Burned from fees
+                    {t("dashboard.burnedFromFees")}
                   </p>
                 </CardContent>
               </Card>
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Net Daily Emission
+                    {t("dashboard.netDailyEmission")}
                   </CardTitle>
                   <TrendingUp className="h-4 w-4 text-blue-500" />
                 </CardHeader>
@@ -454,14 +454,14 @@ export default function Dashboard() {
                     {formatNumber(tokenomics.emission.dailyNetEmission)} TBURN
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {tokenomics.emission.annualInflationRate.toFixed(2)}% annual inflation
+                    {t("dashboard.annualInflation", { rate: tokenomics.emission.annualInflationRate.toFixed(2) })}
                   </p>
                 </CardContent>
               </Card>
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Staking Rate
+                    {t("dashboard.stakingRate")}
                   </CardTitle>
                   <Award className="h-4 w-4 text-purple-500" />
                 </CardHeader>
@@ -470,7 +470,7 @@ export default function Dashboard() {
                     {tokenomics.stakedPercent.toFixed(1)}%
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {formatNumber(tokenomics.stakedAmount / 1e6)}M of {formatNumber(tokenomics.totalSupply / 1e6)}M TBURN
+                    {t("dashboard.stakedOfTotal", { staked: formatNumber(tokenomics.stakedAmount / 1e6), total: formatNumber(tokenomics.totalSupply / 1e6) })}
                   </p>
                 </CardContent>
               </Card>
@@ -482,23 +482,23 @@ export default function Dashboard() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Crown className="h-4 w-4 text-amber-500" />
-                    Tier 1: Active Committee
+                    {t("dashboard.tier1ActiveCommittee")}
                   </CardTitle>
-                  <CardDescription>200K+ TBURN, max 512</CardDescription>
+                  <CardDescription>{t("dashboard.tier1Desc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-lg font-bold text-amber-500" data-testid="tier1-validators">{tokenomics.tiers.tier1.currentValidators || 0}</p>
-                      <p className="text-xs text-muted-foreground">Validators</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.validators")}</p>
                     </div>
                     <div>
                       <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier1.targetAPY}%</p>
-                      <p className="text-xs text-muted-foreground">APY</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.apy")}</p>
                     </div>
                     <div>
                       <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier1.dailyRewardPool)}</p>
-                      <p className="text-xs text-muted-foreground">TBURN/day</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.tburnPerDay")}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -508,23 +508,23 @@ export default function Dashboard() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Layers className="h-4 w-4 text-blue-500" />
-                    Tier 2: Standby Validators
+                    {t("dashboard.tier2StandbyValidators")}
                   </CardTitle>
-                  <CardDescription>50K+ TBURN, max 4,488</CardDescription>
+                  <CardDescription>{t("dashboard.tier2Desc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-lg font-bold text-blue-500" data-testid="tier2-validators">{tokenomics.tiers.tier2.currentValidators || 0}</p>
-                      <p className="text-xs text-muted-foreground">Validators</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.validators")}</p>
                     </div>
                     <div>
                       <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier2.targetAPY}%</p>
-                      <p className="text-xs text-muted-foreground">APY</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.apy")}</p>
                     </div>
                     <div>
                       <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier2.dailyRewardPool)}</p>
-                      <p className="text-xs text-muted-foreground">TBURN/day</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.tburnPerDay")}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -534,23 +534,23 @@ export default function Dashboard() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Users className="h-4 w-4 text-gray-500" />
-                    Tier 3: Delegators
+                    {t("dashboard.tier3Delegators")}
                   </CardTitle>
-                  <CardDescription>100+ TBURN, unlimited</CardDescription>
+                  <CardDescription>{t("dashboard.tier3Desc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-lg font-bold text-gray-500" data-testid="tier3-delegators">{formatNumber(tokenomics.tiers.tier3.currentDelegators || 0)}</p>
-                      <p className="text-xs text-muted-foreground">Delegators</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.delegators")}</p>
                     </div>
                     <div>
                       <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier3.targetAPY}%</p>
-                      <p className="text-xs text-muted-foreground">APY</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.apy")}</p>
                     </div>
                     <div>
                       <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier3.dailyRewardPool)}</p>
-                      <p className="text-xs text-muted-foreground">TBURN/day</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.tburnPerDay")}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -564,7 +564,7 @@ export default function Dashboard() {
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <Users className="h-5 w-5" />
-          Member Management
+          {t("dashboard.memberManagement")}
         </h2>
         <div className="grid gap-4 md:grid-cols-5">
           {memberStatsLoading ? (
@@ -580,7 +580,7 @@ export default function Dashboard() {
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Total Members
+                    {t("dashboard.totalMembers")}
                   </CardTitle>
                   <Users className="h-4 w-4 text-primary" />
                 </CardHeader>
@@ -593,7 +593,7 @@ export default function Dashboard() {
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Active Members
+                    {t("dashboard.activeMembers")}
                   </CardTitle>
                   <Activity className="h-4 w-4 text-green-500" />
                 </CardHeader>
@@ -606,7 +606,7 @@ export default function Dashboard() {
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Total Validators
+                    {t("dashboard.totalValidatorsLabel")}
                   </CardTitle>
                   <Shield className="h-4 w-4 text-blue-500" />
                 </CardHeader>
@@ -619,7 +619,7 @@ export default function Dashboard() {
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Total Stakers
+                    {t("dashboard.totalStakers")}
                   </CardTitle>
                   <Award className="h-4 w-4 text-purple-500" />
                 </CardHeader>
@@ -632,7 +632,7 @@ export default function Dashboard() {
               <Card className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
-                    KYC Verified
+                    {t("dashboard.kycVerified")}
                   </CardTitle>
                   <Shield className="h-4 w-4 text-indigo-500" />
                 </CardHeader>
@@ -641,7 +641,7 @@ export default function Dashboard() {
                     {formatNumber(memberStats?.kycVerified || 0)}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {((memberStats?.kycVerified || 0) / (memberStats?.totalMembers || 1) * 100).toFixed(1)}% verified
+                    {t("dashboard.percentVerified", { percent: ((memberStats?.kycVerified || 0) / (memberStats?.totalMembers || 1) * 100).toFixed(1) })}
                   </p>
                 </CardContent>
               </Card>
@@ -654,7 +654,7 @@ export default function Dashboard() {
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <TrendingUp className="h-5 w-5" />
-          DeFi Ecosystem
+          {t("dashboard.defiEcosystem")}
         </h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {defiLoading ? (
@@ -674,19 +674,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-dex-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      DEX/AMM
+                      {t("dashboard.dexAmm")}
                     </CardTitle>
                     <ArrowRightLeft className="h-4 w-4 text-blue-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {dexStats?.totalPools || 0} Pools
+                      {dexStats?.totalPools || 0} {t("dashboard.pools")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(dexStats?.totalTvlUsd || 0) / 1e18)} TVL
+                      ${formatNumber(Number(dexStats?.totalTvlUsd || 0) / 1e18)} {t("dashboard.tvl")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      {dexStats?.totalSwaps24h?.toLocaleString() || 0} swaps 24h
+                      {t("dashboard.swaps24h", { count: dexStats?.totalSwaps24h?.toLocaleString() || 0 })}
                     </p>
                   </CardContent>
                 </Card>
@@ -696,19 +696,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-lending-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Lending
+                      {t("dashboard.lending")}
                     </CardTitle>
                     <Landmark className="h-4 w-4 text-green-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {lendingStats?.totalMarkets || 0} Markets
+                      {lendingStats?.totalMarkets || 0} {t("dashboard.markets")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(lendingStats?.totalValueLockedUsd || 0) / 1e18)} Supplied
+                      ${formatNumber(Number(lendingStats?.totalValueLockedUsd || 0) / 1e18)} {t("dashboard.supplied")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      ~{((lendingStats?.avgSupplyRate || 0) / 100).toFixed(2)}% Avg APY
+                      {t("dashboard.avgApy", { rate: ((lendingStats?.avgSupplyRate || 0) / 100).toFixed(2) })}
                     </p>
                   </CardContent>
                 </Card>
@@ -718,19 +718,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-yield-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Yield Farming
+                      {t("dashboard.yieldFarming")}
                     </CardTitle>
                     <Sprout className="h-4 w-4 text-lime-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {yieldStats?.totalVaults || 0} Vaults
+                      {yieldStats?.totalVaults || 0} {t("dashboard.vaults")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(yieldStats?.totalTvlUsd || 0) / 1e18)} TVL
+                      ${formatNumber(Number(yieldStats?.totalTvlUsd || 0) / 1e18)} {t("dashboard.tvl")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      ~{((yieldStats?.avgVaultApy || 0) / 100).toFixed(2)}% Avg APY
+                      {t("dashboard.avgApy", { rate: ((yieldStats?.avgVaultApy || 0) / 100).toFixed(2) })}
                     </p>
                   </CardContent>
                 </Card>
@@ -740,19 +740,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-lst-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Liquid Staking
+                      {t("dashboard.liquidStaking")}
                     </CardTitle>
                     <Droplets className="h-4 w-4 text-cyan-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {lstStats?.totalPools || 0} Pools
+                      {lstStats?.totalPools || 0} {t("dashboard.pools")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(lstStats?.totalStakedUsd || 0) / 1e18)} Staked
+                      ${formatNumber(Number(lstStats?.totalStakedUsd || 0) / 1e18)} {t("dashboard.staked")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      ~{((lstStats?.avgPoolApy || 0) / 100).toFixed(2)}% Avg APY
+                      {t("dashboard.avgApy", { rate: ((lstStats?.avgPoolApy || 0) / 100).toFixed(2) })}
                     </p>
                   </CardContent>
                 </Card>
@@ -762,19 +762,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-nft-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      NFT Marketplace
+                      {t("dashboard.nftMarketplace")}
                     </CardTitle>
                     <Image className="h-4 w-4 text-purple-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {nftStats?.totalCollections || 0} Collections
+                      {nftStats?.totalCollections || 0} {t("dashboard.collections")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      {formatNumber(nftStats?.totalItems || 0)} Items
+                      {formatNumber(nftStats?.totalItems || 0)} {t("dashboard.items")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      {nftStats?.salesCount24h?.toLocaleString() || 0} sales 24h
+                      {t("dashboard.sales24h", { count: nftStats?.salesCount24h?.toLocaleString() || 0 })}
                     </p>
                   </CardContent>
                 </Card>
@@ -784,19 +784,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-launchpad-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Launchpad
+                      {t("dashboard.launchpad")}
                     </CardTitle>
                     <Rocket className="h-4 w-4 text-orange-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {launchpadStats?.totalProjects || 0} Projects
+                      {launchpadStats?.totalProjects || 0} {t("dashboard.projects")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      {launchpadStats?.activeProjects || 0} Active
+                      {launchpadStats?.activeProjects || 0} {t("dashboard.active")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      ${formatNumber(Number(launchpadStats?.totalRaised || 0) / 1e18)} Raised
+                      ${formatNumber(Number(launchpadStats?.totalRaised || 0) / 1e18)} {t("dashboard.raised")}
                     </p>
                   </CardContent>
                 </Card>
@@ -806,19 +806,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-gamefi-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      GameFi
+                      {t("dashboard.gamefi")}
                     </CardTitle>
                     <Gamepad2 className="h-4 w-4 text-pink-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {gameFiStats?.totalProjects || 0} Games
+                      {gameFiStats?.totalProjects || 0} {t("dashboard.games")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      {gameFiStats?.activeTournaments || 0} Tournaments
+                      {gameFiStats?.activeTournaments || 0} {t("dashboard.tournaments")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      ${formatNumber(Number(gameFiStats?.totalRewardsDistributed || 0) / 1e18)} Rewards
+                      ${formatNumber(Number(gameFiStats?.totalRewardsDistributed || 0) / 1e18)} {t("dashboard.rewards")}
                     </p>
                   </CardContent>
                 </Card>
@@ -828,19 +828,19 @@ export default function Dashboard() {
                 <Card className="hover-elevate cursor-pointer" data-testid="card-bridge-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-                      Cross-Chain Bridge
+                      {t("dashboard.crossChainBridge")}
                     </CardTitle>
                     <Link2 className="h-4 w-4 text-indigo-500" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-semibold tabular-nums">
-                      {bridgeStats?.activeChains || 0} Chains
+                      {bridgeStats?.activeChains || 0} {t("dashboard.chains")}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(bridgeStats?.totalLiquidity || 0) / 1e18)} Liquidity
+                      ${formatNumber(Number(bridgeStats?.totalLiquidity || 0) / 1e18)} {t("dashboard.liquidity")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      {bridgeStats?.transferCount24h?.toLocaleString() || 0} transfers 24h
+                      {t("dashboard.transfers24h", { count: bridgeStats?.transferCount24h?.toLocaleString() || 0 })}
                     </p>
                   </CardContent>
                 </Card>
@@ -857,7 +857,7 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Blocks className="h-5 w-5" />
-              Latest Blocks
+              {t("dashboard.latestBlocks")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -882,11 +882,11 @@ export default function Dashboard() {
                           #{formatNumber(block.blockNumber)}
                         </span>
                         <Badge variant="secondary" className="text-xs">
-                          {block.transactionCount} txs
+                          {block.transactionCount} {t("dashboard.txs")}
                         </Badge>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>Validator:</span>
+                        <span>{t("dashboard.validator")}:</span>
                         <span className="font-mono">
                           {formatAddress(block.validatorAddress)}
                         </span>
@@ -901,7 +901,7 @@ export default function Dashboard() {
                 ))
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-8">
-                  No blocks found
+                  {t("dashboard.noBlocksFound")}
                 </p>
               )}
             </div>
@@ -913,7 +913,7 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5" />
-              Latest Transactions
+              {t("dashboard.latestTransactions")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -951,10 +951,10 @@ export default function Dashboard() {
                         </Badge>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>From:</span>
+                        <span>{t("dashboard.fromLabel")}:</span>
                         <span className="font-mono">{formatAddress(tx.from)}</span>
                         <span>→</span>
-                        <span className="font-mono">{formatAddress(tx.to || "Contract")}</span>
+                        <span className="font-mono">{formatAddress(tx.to || t("dashboard.contract"))}</span>
                       </div>
                     </div>
                     <div className="text-right">
@@ -969,7 +969,7 @@ export default function Dashboard() {
                 ))
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-8">
-                  No transactions found
+                  {t("dashboard.noTransactionsFound")}
                 </p>
               )}
             </div>
@@ -983,10 +983,10 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Blocks className="h-5 w-5 text-primary" />
-              Block #{selectedBlock?.blockNumber ? formatNumber(selectedBlock.blockNumber) : ''}
+              {t("common.block")} #{selectedBlock?.blockNumber ? formatNumber(selectedBlock.blockNumber) : ''}
             </DialogTitle>
             <DialogDescription>
-              Block details and information
+              {t("dashboard.blockDetails")}
             </DialogDescription>
           </DialogHeader>
           {selectedBlock && (
@@ -994,13 +994,13 @@ export default function Dashboard() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Hash className="h-3 w-3" /> Block Number
+                    <Hash className="h-3 w-3" /> {t("dashboard.blockNumber")}
                   </p>
                   <p className="font-mono font-semibold">{formatNumber(selectedBlock.blockNumber)}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Clock className="h-3 w-3" /> Timestamp
+                    <Clock className="h-3 w-3" /> {t("dashboard.timestamp")}
                   </p>
                   <p className="font-mono text-sm">{new Date(selectedBlock.timestamp * 1000).toLocaleString()}</p>
                 </div>
@@ -1008,14 +1008,14 @@ export default function Dashboard() {
               
               <div className="space-y-1">
                 <p className="text-sm text-muted-foreground flex items-center gap-1">
-                  <Hash className="h-3 w-3" /> Block Hash
+                  <Hash className="h-3 w-3" /> {t("dashboard.blockHash")}
                 </p>
                 <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedBlock.hash}</p>
               </div>
               
               <div className="space-y-1">
                 <p className="text-sm text-muted-foreground flex items-center gap-1">
-                  <Hash className="h-3 w-3" /> Parent Hash
+                  <Hash className="h-3 w-3" /> {t("dashboard.parentHash")}
                 </p>
                 <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedBlock.parentHash}</p>
               </div>
@@ -1023,28 +1023,28 @@ export default function Dashboard() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Cpu className="h-3 w-3" /> Validator
+                    <Cpu className="h-3 w-3" /> {t("dashboard.validator")}
                   </p>
                   <p className="font-mono text-sm break-all">{selectedBlock.validatorAddress}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <FileText className="h-3 w-3" /> Transactions
+                    <FileText className="h-3 w-3" /> {t("dashboard.transactions")}
                   </p>
-                  <Badge variant="secondary" className="text-sm">{selectedBlock.transactionCount} transactions</Badge>
+                  <Badge variant="secondary" className="text-sm">{t("dashboard.nTransactions", { count: selectedBlock.transactionCount })}</Badge>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Fuel className="h-3 w-3" /> Gas Used
+                    <Fuel className="h-3 w-3" /> {t("dashboard.gasUsed")}
                   </p>
                   <p className="font-mono">{formatNumber(parseInt(String(selectedBlock.gasUsed || '0')))} EMB</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Fuel className="h-3 w-3" /> Gas Limit
+                    <Fuel className="h-3 w-3" /> {t("dashboard.gasLimit")}
                   </p>
                   <p className="font-mono">{formatNumber(parseInt(String(selectedBlock.gasLimit || '0')))} EMB</p>
                 </div>
@@ -1052,18 +1052,18 @@ export default function Dashboard() {
 
               <div className="space-y-1">
                 <p className="text-sm text-muted-foreground flex items-center gap-1">
-                  <Layers className="h-3 w-3" /> Shard ID
+                  <Layers className="h-3 w-3" /> {t("dashboard.shardId")}
                 </p>
-                <Badge variant="outline">{selectedBlock.shardId || 'Main'}</Badge>
+                <Badge variant="outline">{selectedBlock.shardId || t("dashboard.main")}</Badge>
               </div>
 
               <div className="flex justify-end gap-2 pt-4 border-t">
                 <Button variant="outline" onClick={() => setSelectedBlock(null)}>
-                  Close
+                  {t("dashboard.close")}
                 </Button>
                 <Link href={`/blocks/${selectedBlock.blockNumber}`}>
                   <Button data-testid="button-view-block-details">
-                    View Full Details
+                    {t("dashboard.viewFullDetails")}
                     <ArrowRight className="h-4 w-4 ml-1" />
                   </Button>
                 </Link>
@@ -1079,10 +1079,10 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-primary" />
-              Transaction Details
+              {t("dashboard.transactionDetails")}
             </DialogTitle>
             <DialogDescription>
-              Transaction information and status
+              {t("dashboard.transactionInfo")}
             </DialogDescription>
           </DialogHeader>
           {selectedTx && (
@@ -1106,7 +1106,7 @@ export default function Dashboard() {
 
               <div className="space-y-1">
                 <p className="text-sm text-muted-foreground flex items-center gap-1">
-                  <Hash className="h-3 w-3" /> Transaction Hash
+                  <Hash className="h-3 w-3" /> {t("dashboard.transactionHash")}
                 </p>
                 <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedTx.hash}</p>
               </div>
@@ -1114,28 +1114,28 @@ export default function Dashboard() {
               <div className="grid grid-cols-1 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Users className="h-3 w-3" /> From
+                    <Users className="h-3 w-3" /> {t("dashboard.from")}
                   </p>
                   <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedTx.from}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <ArrowRight className="h-3 w-3" /> To
+                    <ArrowRight className="h-3 w-3" /> {t("dashboard.to")}
                   </p>
-                  <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedTx.to || 'Contract Creation'}</p>
+                  <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">{selectedTx.to || t("dashboard.contractCreation")}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <CircleDollarSign className="h-3 w-3" /> Value
+                    <CircleDollarSign className="h-3 w-3" /> {t("dashboard.value")}
                   </p>
                   <p className="font-semibold text-lg text-green-600">{formatTokenAmount(selectedTx.value)}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Blocks className="h-3 w-3" /> Block Number
+                    <Blocks className="h-3 w-3" /> {t("dashboard.blockNumber")}
                   </p>
                   <p className="font-mono">{formatNumber(selectedTx.blockNumber)}</p>
                 </div>
@@ -1144,13 +1144,13 @@ export default function Dashboard() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Fuel className="h-3 w-3" /> Gas Used
+                    <Fuel className="h-3 w-3" /> {t("dashboard.gasUsed")}
                   </p>
                   <p className="font-mono">{formatNumber(parseInt(String(selectedTx.gasUsed || '0')))} EMB</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Fuel className="h-3 w-3" /> Gas Price
+                    <Fuel className="h-3 w-3" /> {t("dashboard.gasPrice")}
                   </p>
                   <p className="font-mono">{formatNumber(parseInt(String(selectedTx.gasPrice || '0')))} EMB</p>
                 </div>
@@ -1159,22 +1159,22 @@ export default function Dashboard() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Hash className="h-3 w-3" /> Nonce
+                    <Hash className="h-3 w-3" /> {t("dashboard.nonce")}
                   </p>
                   <p className="font-mono">{selectedTx.nonce}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Layers className="h-3 w-3" /> Shard
+                    <Layers className="h-3 w-3" /> {t("dashboard.shard")}
                   </p>
-                  <Badge variant="outline">{selectedTx.shardId || 'Main'}</Badge>
+                  <Badge variant="outline">{selectedTx.shardId || t("dashboard.main")}</Badge>
                 </div>
               </div>
 
               {selectedTx.input && selectedTx.input !== '0x' && (
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <FileText className="h-3 w-3" /> Input Data
+                    <FileText className="h-3 w-3" /> {t("dashboard.inputData")}
                   </p>
                   <p className="font-mono text-xs break-all bg-muted/50 p-2 rounded max-h-24 overflow-y-auto">
                     {selectedTx.input}
@@ -1184,11 +1184,11 @@ export default function Dashboard() {
 
               <div className="flex justify-end gap-2 pt-4 border-t">
                 <Button variant="outline" onClick={() => setSelectedTx(null)}>
-                  Close
+                  {t("dashboard.close")}
                 </Button>
                 <Link href={`/transactions/${selectedTx.hash}`}>
                   <Button data-testid="button-view-tx-details">
-                    View Full Details
+                    {t("dashboard.viewFullDetails")}
                     <ArrowRight className="h-4 w-4 ml-1" />
                   </Button>
                 </Link>

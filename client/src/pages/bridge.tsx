@@ -223,6 +223,8 @@ function getStatusIcon(status: string) {
 }
 
 function ChainCard({ chain }: { chain: BridgeChain }) {
+  const { t } = useTranslation();
+  
   if (!chain || !chain.symbol || !chain.name) {
     return null;
   }
@@ -237,35 +239,35 @@ function ChainCard({ chain }: { chain: BridgeChain }) {
             </div>
             <div>
               <div className="font-semibold">{chain.name || 'Unknown'}</div>
-              <div className="text-sm text-muted-foreground">Chain ID: {chain.chainId ?? 'N/A'}</div>
+              <div className="text-sm text-muted-foreground">{t("bridge.chainId")} {chain.chainId ?? 'N/A'}</div>
             </div>
           </div>
           <Badge className={getStatusColor(chain.status || 'inactive')}>{chain.status || 'inactive'}</Badge>
         </div>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div>
-            <div className="text-muted-foreground">Liquidity</div>
+            <div className="text-muted-foreground">{t("bridge.liquidity")}</div>
             <div className="font-medium">{formatAmount(chain.totalLiquidity)}</div>
           </div>
           <div>
-            <div className="text-muted-foreground">24h Volume</div>
+            <div className="text-muted-foreground">{t("bridge.volume24h")}</div>
             <div className="font-medium">{formatAmount(chain.volume24h)}</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Avg Time</div>
+            <div className="text-muted-foreground">{t("bridge.avgTime")}</div>
             <div className="font-medium">{formatTime(chain.avgTransferTime)}</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Success Rate</div>
+            <div className="text-muted-foreground">{t("bridge.successRate")}</div>
             <div className="font-medium text-green-500">{formatBasisPoints(chain.successRate)}</div>
           </div>
         </div>
         <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
-          <span>{(chain.txCount24h ?? 0).toLocaleString()} transfers 24h</span>
+          <span>{t("bridge.transfers24h", { count: (chain.txCount24h ?? 0).toLocaleString() })}</span>
           {(chain.aiRiskScore ?? 1000) <= 200 && (
             <Badge variant="outline" className="text-green-500 border-green-500/30">
               <Sparkles className="w-3 h-3 mr-1" />
-              Low Risk
+              {t("bridge.lowRisk")}
             </Badge>
           )}
         </div>
@@ -275,6 +277,7 @@ function ChainCard({ chain }: { chain: BridgeChain }) {
 }
 
 function TransferRow({ transfer, chains, onClaim }: { transfer: BridgeTransfer; chains: BridgeChain[]; onClaim?: (id: string) => void }) {
+  const { t } = useTranslation();
   const sourceChain = chains.find(c => c.chainId === transfer.sourceChainId);
   const destChain = chains.find(c => c.chainId === transfer.destinationChainId);
   const StatusIcon = getStatusIcon(transfer.status);
@@ -311,7 +314,7 @@ function TransferRow({ transfer, chains, onClaim }: { transfer: BridgeTransfer; 
             data-testid={`button-claim-${transfer.id}`}
           >
             <Unlock className="w-3 h-3 mr-1" />
-            Claim
+            {t("bridge.claim")}
           </Button>
         )}
       </div>
@@ -320,6 +323,7 @@ function TransferRow({ transfer, chains, onClaim }: { transfer: BridgeTransfer; 
 }
 
 function ValidatorCard({ validator }: { validator: BridgeValidator }) {
+  const { t } = useTranslation();
   const successRate = validator.attestationsProcessed > 0 
     ? (validator.attestationsValid / validator.attestationsProcessed) * 10000
     : 10000;
@@ -336,28 +340,28 @@ function ValidatorCard({ validator }: { validator: BridgeValidator }) {
         </div>
         <div className="grid grid-cols-2 gap-3 text-sm mb-3">
           <div>
-            <div className="text-muted-foreground">Stake</div>
+            <div className="text-muted-foreground">{t("bridge.stake")}</div>
             <div className="font-medium">{formatAmount(validator.stake)} TBURN</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Commission</div>
+            <div className="text-muted-foreground">{t("bridge.commission")}</div>
             <div className="font-medium">{formatBasisPoints(validator.commission)}</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Uptime</div>
+            <div className="text-muted-foreground">{t("bridge.uptime")}</div>
             <div className="font-medium text-green-500">{formatBasisPoints(validator.uptime)}</div>
           </div>
           <div>
-            <div className="text-muted-foreground">Response</div>
+            <div className="text-muted-foreground">{t("bridge.response")}</div>
             <div className="font-medium">{validator.avgResponseTime}ms</div>
           </div>
         </div>
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
-          <span>{validator.attestationsProcessed.toLocaleString()} attestations</span>
-          <span className="text-green-500">{formatBasisPoints(successRate)} success</span>
+          <span>{t("bridge.attestations", { count: validator.attestationsProcessed.toLocaleString() })}</span>
+          <span className="text-green-500">{t("bridge.successLabel", { rate: formatBasisPoints(successRate) })}</span>
           <div className="flex items-center gap-1">
             <Sparkles className="w-3 h-3 text-purple-500" />
-            <span>AI: {formatBasisPoints(validator.aiTrustScore)}</span>
+            <span>{t("bridge.aiScore", { score: formatBasisPoints(validator.aiTrustScore) })}</span>
           </div>
         </div>
       </CardContent>
@@ -366,6 +370,7 @@ function ValidatorCard({ validator }: { validator: BridgeValidator }) {
 }
 
 function LiquidityPoolRow({ pool, chain }: { pool: BridgeLiquidityPool; chain?: BridgeChain }) {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-pool-${pool.id}`}>
       <div className="p-2 rounded-lg bg-muted">
@@ -374,11 +379,11 @@ function LiquidityPoolRow({ pool, chain }: { pool: BridgeLiquidityPool; chain?: 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="font-medium">{pool.tokenSymbol}</span>
-          <span className="text-sm text-muted-foreground">on {chain?.name || `Chain ${pool.chainId}`}</span>
+          <span className="text-sm text-muted-foreground">{t("bridge.on")} {chain?.name || `Chain ${pool.chainId}`}</span>
         </div>
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <span>{pool.providerCount} providers</span>
-          <span className="text-green-500">APY: {formatBasisPoints(pool.lpApy)}</span>
+          <span>{t("bridge.providers", { count: pool.providerCount })}</span>
+          <span className="text-green-500">{t("bridge.apy", { rate: formatBasisPoints(pool.lpApy) })}</span>
         </div>
       </div>
       <div className="text-right">
@@ -448,8 +453,13 @@ export default function Bridge() {
     },
     onSuccess: (transfer) => {
       toast({
-        title: "Transfer Initiated",
-        description: `Transfer of ${formatAmount(transfer.amount)} ${transfer.tokenSymbol} from ${transfer.sourceChainId} to ${transfer.destinationChainId} has been initiated.`,
+        title: t("bridge.transferInitiated"),
+        description: t("bridge.transferInitiatedDesc", { 
+          amount: formatAmount(transfer.amount), 
+          token: transfer.tokenSymbol, 
+          source: transfer.sourceChainId, 
+          dest: transfer.destinationChainId 
+        }),
       });
       setBridgeAmount("");
       queryClient.invalidateQueries({ queryKey: ["/api/bridge/transfers"] });
@@ -458,8 +468,8 @@ export default function Bridge() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Transfer Failed",
-        description: error.message || "Failed to initiate transfer",
+        title: t("bridge.transferFailed"),
+        description: error.message || t("bridge.transferFailedDesc"),
         variant: "destructive",
       });
     },
@@ -472,8 +482,11 @@ export default function Bridge() {
     },
     onSuccess: (transfer) => {
       toast({
-        title: "Transfer Claimed",
-        description: `Successfully claimed ${formatAmount(transfer.amountReceived)} ${transfer.tokenSymbol} on destination chain.`,
+        title: t("bridge.transferClaimed"),
+        description: t("bridge.transferClaimedDesc", { 
+          amount: formatAmount(transfer.amountReceived), 
+          token: transfer.tokenSymbol 
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/bridge/transfers"] });
       queryClient.invalidateQueries({ queryKey: ["/api/bridge/stats"] });
@@ -481,8 +494,8 @@ export default function Bridge() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Claim Failed",
-        description: error.message || "Failed to claim transfer",
+        title: t("bridge.claimFailed"),
+        description: error.message || t("bridge.claimFailedDesc"),
         variant: "destructive",
       });
     },
@@ -542,15 +555,15 @@ export default function Bridge() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-bridge-title">
-            Cross-Chain Bridge
+            {t("bridge.title")}
           </h1>
           <p className="text-muted-foreground">
-            AI-powered multi-chain asset transfers with enterprise security
+            {t("bridge.subtitle")}
           </p>
         </div>
         <Badge variant="outline" className="text-lg px-4 py-2">
           <Shield className="h-4 w-4 mr-2" />
-          Multi-Sig Protected
+          {t("bridge.multiSigProtected")}
         </Badge>
       </div>
 
@@ -559,7 +572,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Link2 className="w-4 h-4" />
-              <span className="text-sm">Chains</span>
+              <span className="text-sm">{t("bridge.chains")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-12" />
@@ -575,7 +588,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <ArrowRightLeft className="w-4 h-4" />
-              <span className="text-sm">Routes</span>
+              <span className="text-sm">{t("bridge.routes")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-12" />
@@ -591,7 +604,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Shield className="w-4 h-4" />
-              <span className="text-sm">Validators</span>
+              <span className="text-sm">{t("bridge.validatorsTab")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-12" />
@@ -607,7 +620,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Droplets className="w-4 h-4" />
-              <span className="text-sm">Liquidity</span>
+              <span className="text-sm">{t("bridge.liquidity")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-24" />
@@ -623,7 +636,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <TrendingUp className="w-4 h-4" />
-              <span className="text-sm">24h Volume</span>
+              <span className="text-sm">{t("bridge.volume24h")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-20" />
@@ -639,7 +652,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Zap className="w-4 h-4" />
-              <span className="text-sm">Transfers</span>
+              <span className="text-sm">{t("bridge.transfers")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -655,7 +668,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Clock className="w-4 h-4" />
-              <span className="text-sm">Avg Time</span>
+              <span className="text-sm">{t("bridge.avgTime")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -671,7 +684,7 @@ export default function Bridge() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <CheckCircle2 className="w-4 h-4" />
-              <span className="text-sm">Success</span>
+              <span className="text-sm">{t("bridge.success")}</span>
             </div>
             {overviewLoading ? (
               <Skeleton className="h-7 w-16" />
@@ -688,23 +701,23 @@ export default function Bridge() {
         <TabsList>
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Activity className="w-4 h-4 mr-2" />
-            Overview
+            {t("bridge.overview")}
           </TabsTrigger>
           <TabsTrigger value="bridge" data-testid="tab-bridge">
             <ArrowRightLeft className="w-4 h-4 mr-2" />
-            Bridge
+            {t("bridge.bridge")}
           </TabsTrigger>
           <TabsTrigger value="chains" data-testid="tab-chains">
             <Link2 className="w-4 h-4 mr-2" />
-            Chains ({activeChains.length})
+            {t("bridge.chainsTab")} ({activeChains.length})
           </TabsTrigger>
           <TabsTrigger value="validators" data-testid="tab-validators">
             <Shield className="w-4 h-4 mr-2" />
-            Validators
+            {t("bridge.validatorsTab")}
           </TabsTrigger>
           <TabsTrigger value="liquidity" data-testid="tab-liquidity">
             <Droplets className="w-4 h-4 mr-2" />
-            Liquidity
+            {t("bridge.liquidityTab")}
           </TabsTrigger>
         </TabsList>
 
@@ -714,15 +727,15 @@ export default function Bridge() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Brain className="h-4 w-4 text-purple-500" />
-                  AI Risk Assessment
+                  {t("bridge.aiRiskAssessment")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Claude Sonnet 4.5 analyzes transfers for fraud, suspicious patterns, and security threats.
+                  {t("bridge.aiRiskAssessmentDesc")}
                 </p>
                 <div className="mt-2 flex items-center gap-2">
-                  <Badge variant="outline">99.3% Accuracy</Badge>
+                  <Badge variant="outline">{t("bridge.accuracy", { percent: 99.3 })}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -731,15 +744,15 @@ export default function Bridge() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-blue-500" />
-                  Route Optimization
+                  {t("bridge.routeOptimization")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  AI-optimized routes minimize gas costs, maximize liquidity, and ensure fast transfers.
+                  {t("bridge.routeOptimizationDesc")}
                 </p>
                 <div className="mt-2 flex items-center gap-2">
-                  <Badge variant="outline">35% Gas Savings</Badge>
+                  <Badge variant="outline">{t("bridge.gasSavings", { percent: 35 })}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -748,15 +761,15 @@ export default function Bridge() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Lock className="h-4 w-4 text-green-500" />
-                  Quantum Security
+                  {t("bridge.quantumSecurity")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  CRYSTALS-Dilithium + ED25519 hybrid signatures protect all bridge operations.
+                  {t("bridge.quantumSecurityDesc")}
                 </p>
                 <div className="mt-2 flex items-center gap-2">
-                  <Badge variant="outline">Post-Quantum</Badge>
+                  <Badge variant="outline">{t("bridge.postQuantum")}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -767,9 +780,9 @@ export default function Bridge() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ArrowRightLeft className="w-5 h-5 text-blue-500" />
-                  Recent Transfers
+                  {t("bridge.recentTransfers")}
                 </CardTitle>
-                <CardDescription>Latest cross-chain transfers</CardDescription>
+                <CardDescription>{t("bridge.latestCrossChainTransfers")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[350px]">
@@ -783,7 +796,7 @@ export default function Bridge() {
                   ))}
                   {(!transfers || transfers.length === 0) && (
                     <div className="py-8 text-center text-muted-foreground">
-                      No recent transfers
+                      {t("bridge.noRecentTransfers")}
                     </div>
                   )}
                 </ScrollArea>
@@ -794,9 +807,9 @@ export default function Bridge() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Activity className="w-5 h-5 text-purple-500" />
-                  Bridge Activity
+                  {t("bridge.bridgeActivity")}
                 </CardTitle>
-                <CardDescription>Live bridge events</CardDescription>
+                <CardDescription>{t("bridge.liveBridgeEvents")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[350px]">
@@ -805,7 +818,7 @@ export default function Bridge() {
                   ))}
                   {(!activity || activity.length === 0) && (
                     <div className="py-8 text-center text-muted-foreground">
-                      No recent activity
+                      {t("bridge.noRecentActivity")}
                     </div>
                   )}
                 </ScrollArea>
@@ -817,9 +830,9 @@ export default function Bridge() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Link2 className="w-5 h-5 text-green-500" />
-                Connected Chains
+                {t("bridge.connectedChains")}
               </CardTitle>
-              <CardDescription>Supported blockchain networks</CardDescription>
+              <CardDescription>{t("bridge.supportedBlockchainNetworks")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -835,15 +848,15 @@ export default function Bridge() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card className="lg:col-span-1">
               <CardHeader>
-                <CardTitle>Transfer Assets</CardTitle>
-                <CardDescription>Bridge tokens across chains</CardDescription>
+                <CardTitle>{t("bridge.transferAssets")}</CardTitle>
+                <CardDescription>{t("bridge.bridgeTokensAcrossChains")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>From Chain</Label>
+                  <Label>{t("bridge.fromChain")}</Label>
                   <Select value={sourceChain} onValueChange={setSourceChain}>
                     <SelectTrigger data-testid="select-source-chain">
-                      <SelectValue placeholder="Select source chain" />
+                      <SelectValue placeholder={t("bridge.selectSourceChain")} />
                     </SelectTrigger>
                     <SelectContent>
                       {activeChains.filter(c => c.chainId != null && c.symbol && c.name).map(chain => (
@@ -866,10 +879,10 @@ export default function Bridge() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>To Chain</Label>
+                  <Label>{t("bridge.toChain")}</Label>
                   <Select value={destChain} onValueChange={setDestChain}>
                     <SelectTrigger data-testid="select-dest-chain">
-                      <SelectValue placeholder="Select destination chain" />
+                      <SelectValue placeholder={t("bridge.selectDestinationChain")} />
                     </SelectTrigger>
                     <SelectContent>
                       {activeChains.filter(c => c.chainId != null && c.symbol && c.name && c.chainId.toString() !== sourceChain).map(chain => (
@@ -882,7 +895,7 @@ export default function Bridge() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Amount</Label>
+                  <Label>{t("bridge.amount")}</Label>
                   <Input
                     type="number"
                     placeholder="0.0"
@@ -901,26 +914,26 @@ export default function Bridge() {
                   {initiateTransferMutation.isPending ? (
                     <>
                       <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                      Initiating...
+                      {t("bridge.initiating")}
                     </>
                   ) : (
                     <>
                       <ArrowRightLeft className="w-4 h-4 mr-2" />
-                      Bridge Assets
+                      {t("bridge.bridgeAssets")}
                     </>
                   )}
                 </Button>
 
                 <div className="text-xs text-muted-foreground text-center">
-                  AI-verified transfers with MEV protection
+                  {t("bridge.aiVerifiedTransfers")}
                 </div>
               </CardContent>
             </Card>
 
             <Card className="lg:col-span-2">
               <CardHeader>
-                <CardTitle>Available Routes</CardTitle>
-                <CardDescription>Optimized transfer paths</CardDescription>
+                <CardTitle>{t("bridge.availableRoutes")}</CardTitle>
+                <CardDescription>{t("bridge.optimizedTransferPaths")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[400px]">
@@ -937,7 +950,7 @@ export default function Bridge() {
                             <span className="font-medium">{route.tokenSymbol}</span>
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            Fee: {formatBasisPoints(route.feePercent)}
+                            {t("bridge.feeLabel")} {formatBasisPoints(route.feePercent)}
                           </div>
                           <div className="text-sm text-muted-foreground">
                             ~{formatTime(route.estimatedTime)}
@@ -945,7 +958,7 @@ export default function Bridge() {
                           {route.aiOptimized && (
                             <Badge variant="secondary">
                               <Sparkles className="w-3 h-3 mr-1" />
-                              AI
+                              {t("bridge.aiOptimized")}
                             </Badge>
                           )}
                         </div>
@@ -961,8 +974,8 @@ export default function Bridge() {
         <TabsContent value="chains" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All Chains</CardTitle>
-              <CardDescription>Browse all connected blockchain networks</CardDescription>
+              <CardTitle>{t("bridge.allChains")}</CardTitle>
+              <CardDescription>{t("bridge.browseAllConnectedNetworks")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -977,8 +990,8 @@ export default function Bridge() {
         <TabsContent value="validators" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Bridge Validators</CardTitle>
-              <CardDescription>Decentralized relayer network</CardDescription>
+              <CardTitle>{t("bridge.bridgeValidators")}</CardTitle>
+              <CardDescription>{t("bridge.decentralizedRelayerNetwork")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -993,8 +1006,8 @@ export default function Bridge() {
         <TabsContent value="liquidity" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Liquidity Pools</CardTitle>
-              <CardDescription>Bridge liquidity across chains</CardDescription>
+              <CardTitle>{t("bridge.liquidityPools")}</CardTitle>
+              <CardDescription>{t("bridge.bridgeLiquidityAcrossChains")}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[500px]">
@@ -1006,7 +1019,7 @@ export default function Bridge() {
                 })}
                 {(!liquidityPools || liquidityPools.length === 0) && (
                   <div className="py-12 text-center text-muted-foreground">
-                    No liquidity pools available
+                    {t("bridge.noLiquidityPools")}
                   </div>
                 )}
               </ScrollArea>

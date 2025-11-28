@@ -86,19 +86,18 @@ export default function Governance() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-governance-title">
-            AI Governance
+            {t("governance.title")}
           </h1>
           <p className="text-muted-foreground">
-            AI-Enhanced DAO with Proposal Analysis & Outcome Prediction
+            {t("governance.subtitle")}
           </p>
         </div>
         <Badge variant="outline" className="text-lg px-4 py-2">
           <Brain className="h-4 w-4 mr-2" />
-          AI-Powered
+          {t("governance.aiPowered")}
         </Badge>
       </div>
 
-      {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {statsLoading ? (
           Array.from({ length: 4 }).map((_, i) => (
@@ -116,7 +115,7 @@ export default function Governance() {
             <Card className="hover-elevate" data-testid="card-total-proposals">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Proposals
+                  {t("governance.totalProposals")}
                 </CardTitle>
                 <FileText className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -125,7 +124,7 @@ export default function Governance() {
                   {formatNumber(stats?.totalProposals || 0)}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {stats?.activeProposals || 0} active
+                  {t("governance.activeCount", { count: stats?.activeProposals || 0 })}
                 </p>
               </CardContent>
             </Card>
@@ -133,7 +132,7 @@ export default function Governance() {
             <Card className="hover-elevate" data-testid="card-pass-rate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Pass Rate
+                  {t("governance.passRate")}
                 </CardTitle>
                 <CheckCircle className="h-4 w-4 text-green-500" />
               </CardHeader>
@@ -151,7 +150,7 @@ export default function Governance() {
             <Card className="hover-elevate" data-testid="card-participation">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Avg Participation
+                  {t("governance.avgParticipation")}
                 </CardTitle>
                 <Users className="h-4 w-4 text-blue-500" />
               </CardHeader>
@@ -160,7 +159,7 @@ export default function Governance() {
                   {(stats?.avgParticipation || 0).toFixed(1)}%
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {formatNumber(stats?.totalVoters || 0)} total voters
+                  {t("governance.totalVoters", { count: formatNumber(stats?.totalVoters || 0) })}
                 </p>
               </CardContent>
             </Card>
@@ -168,7 +167,7 @@ export default function Governance() {
             <Card className="hover-elevate" data-testid="card-ai-accuracy">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  AI Prediction Accuracy
+                  {t("governance.aiPredictionAccuracy")}
                 </CardTitle>
                 <Brain className="h-4 w-4 text-purple-500" />
               </CardHeader>
@@ -177,7 +176,7 @@ export default function Governance() {
                   {(stats?.aiPredictionAccuracy || 0).toFixed(1)}%
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {formatNumber(stats?.aiAnalyzedProposals || 0)} analyzed
+                  {t("governance.analyzed", { count: formatNumber(stats?.aiAnalyzedProposals || 0) })}
                 </p>
               </CardContent>
             </Card>
@@ -185,18 +184,17 @@ export default function Governance() {
         )}
       </div>
 
-      {/* AI Governance Features */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="hover-elevate">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-blue-500" />
-              GPT-5 Turbo Analysis
+              {t("governance.gpt5TurboAnalysis")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Strategic layer analyzes economic impact, security implications, and provides risk assessment for each proposal.
+              {t("governance.gpt5TurboDesc")}
             </p>
           </CardContent>
         </Card>
@@ -205,12 +203,12 @@ export default function Governance() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Brain className="h-4 w-4 text-purple-500" />
-              Claude Sonnet 4.5 Prediction
+              {t("governance.claudeSonnetPrediction")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Tactical layer predicts voting outcomes based on community sentiment, historical patterns, and proposal content.
+              {t("governance.claudeSonnetDesc")}
             </p>
           </CardContent>
         </Card>
@@ -219,12 +217,12 @@ export default function Governance() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-amber-500" />
-              Llama 3.3 70B Recommendations
+              {t("governance.llamaRecommendations")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Operational layer provides personalized voting recommendations based on voter history and stake alignment.
+              {t("governance.llamaDesc")}
             </p>
           </CardContent>
         </Card>
@@ -234,15 +232,15 @@ export default function Governance() {
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="active" data-testid="tab-active">
             <Activity className="h-4 w-4 mr-2" />
-            Active ({activeProposals.length})
+            {t("governance.activeTab", { count: activeProposals.length })}
           </TabsTrigger>
           <TabsTrigger value="completed" data-testid="tab-completed">
             <CheckCircle className="h-4 w-4 mr-2" />
-            Completed
+            {t("governance.completedTab")}
           </TabsTrigger>
           <TabsTrigger value="all" data-testid="tab-all">
             <FileText className="h-4 w-4 mr-2" />
-            All Proposals
+            {t("governance.allProposalsTab")}
           </TabsTrigger>
         </TabsList>
 
@@ -263,6 +261,8 @@ export default function Governance() {
 }
 
 function ProposalList({ proposals, isLoading }: { proposals: Proposal[], isLoading: boolean }) {
+  const { t } = useTranslation();
+  
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -282,7 +282,7 @@ function ProposalList({ proposals, isLoading }: { proposals: Proposal[], isLoadi
       <Card>
         <CardContent className="p-12 text-center">
           <Vote className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <p className="text-muted-foreground">No proposals found</p>
+          <p className="text-muted-foreground">{t("governance.noProposalsFound")}</p>
         </CardContent>
       </Card>
     );
@@ -298,6 +298,7 @@ function ProposalList({ proposals, isLoading }: { proposals: Proposal[], isLoadi
 }
 
 function ProposalCard({ proposal }: { proposal: Proposal }) {
+  const { t } = useTranslation();
   const totalVotes = BigInt(proposal.votesFor) + BigInt(proposal.votesAgainst) + BigInt(proposal.votesAbstain);
   const forPercentage = totalVotes > BigInt(0) ? Number((BigInt(proposal.votesFor) * BigInt(100)) / totalVotes) : 0;
   const againstPercentage = totalVotes > BigInt(0) ? Number((BigInt(proposal.votesAgainst) * BigInt(100)) / totalVotes) : 0;
@@ -328,14 +329,13 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
     <Card className="hover-elevate" data-testid={`card-proposal-${proposal.id}`}>
       <CardContent className="p-6">
         <div className="space-y-4">
-          {/* Header */}
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h3 className="font-semibold text-lg">{proposal.title}</h3>
                 <Badge variant={statusColors[proposal.status]}>
                   <StatusIcon className="h-3 w-3 mr-1" />
-                  {proposal.status}
+                  {t(`governance.status.${proposal.status}`)}
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground line-clamp-2">
@@ -346,31 +346,30 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
               {proposal.riskScore > 0.5 && (
                 <Badge variant="destructive">
                   <AlertTriangle className="h-3 w-3 mr-1" />
-                  High Risk
+                  {t("governance.highRisk")}
                 </Badge>
               )}
               {proposal.quorumReached && (
                 <Badge className="bg-green-500/10 text-green-500">
-                  Quorum Reached
+                  {t("governance.quorumReached")}
                 </Badge>
               )}
             </div>
           </div>
 
-          {/* Voting Progress */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <div className="flex items-center gap-1">
                 <ThumbsUp className="h-4 w-4 text-green-500" />
-                <span>For: {forPercentage}%</span>
+                <span>{t("governance.forLabel")} {forPercentage}%</span>
               </div>
               <div className="flex items-center gap-1">
                 <ThumbsDown className="h-4 w-4 text-red-500" />
-                <span>Against: {againstPercentage}%</span>
+                <span>{t("governance.againstLabel")} {againstPercentage}%</span>
               </div>
               <div className="flex items-center gap-1">
                 <MinusCircle className="h-4 w-4 text-muted-foreground" />
-                <span>Abstain: {100 - forPercentage - againstPercentage}%</span>
+                <span>{t("governance.abstainLabel")} {100 - forPercentage - againstPercentage}%</span>
               </div>
             </div>
             <div className="flex h-2 rounded-full overflow-hidden bg-muted">
@@ -384,19 +383,18 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
               />
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{formatNumber(proposal.totalVoters)} voters</span>
-              <span>Total: {formatTokenAmount(totalVotes.toString())}</span>
+              <span>{t("governance.voters", { count: formatNumber(proposal.totalVoters) })}</span>
+              <span>{t("governance.total")} {formatTokenAmount(totalVotes.toString())}</span>
             </div>
           </div>
 
-          {/* AI Analysis */}
           {proposal.aiAnalysis && (
             <div className="p-4 rounded-lg bg-purple-500/5 border border-purple-500/20">
               <div className="flex items-center gap-2 mb-2">
                 <Brain className="h-4 w-4 text-purple-500" />
-                <span className="font-medium text-sm">AI Analysis</span>
+                <span className="font-medium text-sm">{t("governance.aiAnalysis")}</span>
                 <Badge variant="outline" className="text-xs">
-                  {proposal.aiAnalysis.model} • {(proposal.aiAnalysis.confidence * 100).toFixed(0)}% confidence
+                  {proposal.aiAnalysis.model} • {t("governance.confidence", { percent: (proposal.aiAnalysis.confidence * 100).toFixed(0) })}
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground mb-2">
@@ -405,33 +403,32 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
               <div className="flex gap-4 text-xs">
                 <div className="flex items-center gap-1">
                   <TrendingUp className="h-3 w-3" />
-                  Economic: {proposal.aiAnalysis.economicImpact > 0 ? '+' : ''}{proposal.aiAnalysis.economicImpact}
+                  {t("governance.economic")} {proposal.aiAnalysis.economicImpact > 0 ? '+' : ''}{proposal.aiAnalysis.economicImpact}
                 </div>
                 <div className="flex items-center gap-1">
                   <Shield className="h-3 w-3" />
-                  Security: {proposal.aiAnalysis.securityImpact}/100
+                  {t("governance.security")} {proposal.aiAnalysis.securityImpact}/100
                 </div>
               </div>
             </div>
           )}
 
-          {/* Predicted Outcome */}
           {proposal.predictedOutcome && (
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
               <div className="flex items-center gap-2">
                 <Activity className="h-4 w-4 text-blue-500" />
-                <span className="text-sm">Predicted Outcome:</span>
+                <span className="text-sm">{t("governance.predictedOutcome")}</span>
                 <Badge variant={proposal.predictedOutcome.result === "for" ? "default" : "destructive"}>
                   {proposal.predictedOutcome.result === "for" ? (
                     <ThumbsUp className="h-3 w-3 mr-1" />
                   ) : (
                     <ThumbsDown className="h-3 w-3 mr-1" />
                   )}
-                  {proposal.predictedOutcome.result.toUpperCase()}
+                  {t(`governance.prediction.${proposal.predictedOutcome.result}`)}
                 </Badge>
               </div>
               <span className="text-sm text-muted-foreground">
-                {(proposal.predictedOutcome.confidence * 100).toFixed(0)}% confidence
+                {t("governance.confidence", { percent: (proposal.predictedOutcome.confidence * 100).toFixed(0) })}
               </span>
             </div>
           )}
