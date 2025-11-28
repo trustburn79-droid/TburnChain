@@ -2645,7 +2645,18 @@
       "applicationUpdated": "Application updated successfully",
       "failedUpdateApplication": "Failed to update application",
       "validatorSlashed": "Validator slashed successfully",
-      "failedSlashValidator": "Failed to slash validator"
+      "failedSlashValidator": "Failed to slash validator",
+      "slashTypes": {
+        "downtime": "Downtime",
+        "doubleSigning": "Double Signing",
+        "maliciousBehavior": "Malicious Behavior",
+        "protocolViolation": "Protocol Violation"
+      },
+      "slashStatuses": {
+        "executed": "Executed",
+        "pending": "Pending",
+        "cancelled": "Cancelled"
+      }
     },
 
     "security": {
@@ -2807,7 +2818,42 @@
       "days7": "7 Days",
       "days30": "30 Days",
       "confirmBlock": "Confirm Block",
-      "category": "Category"
+      "category": "Category",
+      "threatTypes": {
+        "loginAttempt": "Login Attempt",
+        "suspiciousTx": "Suspicious Transaction",
+        "rateLimit": "Rate Limit Exceeded",
+        "apiAbuse": "API Abuse",
+        "bruteForce": "Brute Force Attack",
+        "unauthorizedAccess": "Unauthorized Access",
+        "ddos": "DDoS Attack",
+        "sqlInjection": "SQL Injection",
+        "xss": "XSS Attack",
+        "replayAttack": "Replay Attack"
+      },
+      "auditActions": {
+        "configChange": "Configuration Change",
+        "memberAdd": "Member Added",
+        "memberRemove": "Member Removed",
+        "memberUpdate": "Member Updated",
+        "validatorSlash": "Validator Slashed",
+        "validatorApprove": "Validator Approved",
+        "validatorReject": "Validator Rejected",
+        "securityEvent": "Security Event",
+        "ipBlock": "IP Blocked",
+        "ipUnblock": "IP Unblocked",
+        "permissionChange": "Permission Changed",
+        "login": "Login",
+        "logout": "Logout"
+      },
+      "auditCategories": {
+        "security": "Security",
+        "validators": "Validators",
+        "members": "Members",
+        "config": "Configuration",
+        "access": "Access Control",
+        "network": "Network"
+      }
     },
 
     "reports": {
