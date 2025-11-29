@@ -2174,6 +2174,9 @@
     "consensusContribution": "합의 기여",
     "justNow": "방금 전",
     "noModelDataAvailable": "사용 가능한 모델 데이터가 없습니다",
+    "decisionsLabel": "결정",
+    "actionsLabel": "작업",
+    "operationsLabel": "운영",
     "bands": {
       "strategic": "전략",
       "tactical": "전술",

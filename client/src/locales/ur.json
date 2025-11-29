@@ -756,6 +756,9 @@
     "consensusContribution": "اتفاق رائے میں شراکت",
     "justNow": "ابھی",
     "noModelDataAvailable": "ماڈل ڈیٹا دستیاب نہیں",
+    "decisionsLabel": "فیصلے",
+    "actionsLabel": "اقدامات",
+    "operationsLabel": "آپریشنز",
     "bands": {
       "strategic": "اسٹریٹجک",
       "tactical": "تاکتیکی",

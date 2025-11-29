@@ -2130,6 +2130,9 @@
     "consensusContribution": "共识贡献",
     "justNow": "刚刚",
     "noModelDataAvailable": "没有可用的模型数据",
+    "decisionsLabel": "决策",
+    "actionsLabel": "操作",
+    "operationsLabel": "运营",
     "bands": {
       "strategic": "战略",
       "tactical": "战术",

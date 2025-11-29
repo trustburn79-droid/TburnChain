@@ -2263,6 +2263,9 @@
     "consensusContribution": "Contribución al Consenso",
     "justNow": "Ahora mismo",
     "noModelDataAvailable": "No hay datos de modelo disponibles",
+    "decisionsLabel": "Decisiones",
+    "actionsLabel": "Acciones",
+    "operationsLabel": "Operaciones",
     "bands": {
       "strategic": "Estratégico",
       "tactical": "Táctico",

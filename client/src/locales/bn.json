@@ -756,6 +756,9 @@
     "consensusContribution": "কনসেনসাস অবদান",
     "justNow": "এইমাত্র",
     "noModelDataAvailable": "মডেল ডেটা উপলব্ধ নেই",
+    "decisionsLabel": "সিদ্ধান্ত",
+    "actionsLabel": "অ্যাকশন",
+    "operationsLabel": "অপারেশন",
     "bands": {
       "strategic": "কৌশলগত",
       "tactical": "কৌশলী",

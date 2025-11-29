@@ -1443,6 +1443,9 @@
     "consensusContribution": "مساهمة الإجماع",
     "justNow": "الآن",
     "noModelDataAvailable": "لا توجد بيانات نموذج متاحة",
+    "decisionsLabel": "القرارات",
+    "actionsLabel": "الإجراءات",
+    "operationsLabel": "العمليات",
     "bands": {
       "strategic": "استراتيجي",
       "tactical": "تكتيكي",

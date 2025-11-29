@@ -2186,6 +2186,9 @@
     "consensusContribution": "コンセンサス貢献",
     "justNow": "たった今",
     "noModelDataAvailable": "利用可能なモデルデータがありません",
+    "decisionsLabel": "決定",
+    "actionsLabel": "アクション",
+    "operationsLabel": "オペレーション",
     "bands": {
       "strategic": "戦略",
       "tactical": "戦術",

@@ -349,7 +349,7 @@ export default function AIOrchestration() {
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">
-                        {model.band === 'strategic' ? t('aiOrchestration.decisions') : model.band === 'tactical' ? t('aiOrchestration.actions') : t('aiOrchestration.operations')}:
+                        {model.band === 'strategic' ? t('aiOrchestration.decisionsLabel') : model.band === 'tactical' ? t('aiOrchestration.actionsLabel') : t('aiOrchestration.operationsLabel')}:
                       </span>
                       <span className="font-semibold tabular-nums">{formatNumber(model.requestCount)}</span>
                     </div>
@@ -483,7 +483,7 @@ export default function AIOrchestration() {
             {aiDecisions && aiDecisions.length > 0 && (
               <Badge variant="outline" className="gap-1">
                 <TrendingUp className="h-3 w-3" />
-                {aiDecisions.length} {t('aiOrchestration.decisions')}
+                {aiDecisions.length} {t('aiOrchestration.decisionsLabel')}
               </Badge>
             )}
           </div>

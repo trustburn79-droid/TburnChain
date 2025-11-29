@@ -756,6 +756,9 @@
     "consensusContribution": "Вклад в консенсус",
     "justNow": "Только что",
     "noModelDataAvailable": "Данные модели недоступны",
+    "decisionsLabel": "Решения",
+    "actionsLabel": "Действия",
+    "operationsLabel": "Операции",
     "bands": {
       "strategic": "Стратегический",
       "tactical": "Тактический",

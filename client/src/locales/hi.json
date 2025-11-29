@@ -1611,6 +1611,9 @@
     "operational": "परिचालन",
     "justNow": "अभी",
     "noModelDataAvailable": "कोई मॉडल डेटा उपलब्ध नहीं",
+    "decisionsLabel": "निर्णय",
+    "actionsLabel": "कार्य",
+    "operationsLabel": "संचालन",
     "bands": {
       "strategic": "रणनीतिक",
       "tactical": "सामरिक",
