@@ -4008,6 +4008,43 @@
     "prediction": {
       "for": "A FAVOR",
       "against": "EN CONTRA"
+    },
+    "proposals": {
+      "prop-001": {
+        "title": "Aumentar la tasa de quema del 20% al 25%",
+        "description": "Esta propuesta busca aumentar la tasa de quema de emisiones diarias del 20% al 25% para acelerar la deflación y apoyar la estabilidad de precios a largo plazo.",
+        "aiRecommendation": "Esta propuesta tiene un riesgo económico moderado pero un fuerte apoyo comunitario. Considere una implementación gradual durante 30 días.",
+        "risks": ["Volatilidad de precios a corto plazo", "Reducción de incentivos de liquidez"],
+        "keyFactors": ["Fuerte apoyo de validadores", "Propuestas similares han pasado antes", "Sentimiento comunitario positivo"]
+      },
+      "prop-002": {
+        "title": "Agregar soporte para puente zkSync",
+        "description": "Propuesta para integrar zkSync Era como una cadena soportada en el puente cross-chain de TBURN con evaluación de riesgo por IA.",
+        "aiRecommendation": "La integración de zkSync es técnicamente factible con complejidad media. Se recomienda auditoría de seguridad antes del despliegue.",
+        "risks": ["Riesgos de nueva tecnología", "Complejidad de integración", "Fragmentación de liquidez"],
+        "keyFactors": ["Preocupaciones de complejidad técnica", "Fuerte crecimiento del ecosistema zkSync", "Interés de la comunidad de desarrolladores"]
+      },
+      "prop-003": {
+        "title": "Reducir el stake mínimo para validadores Tier-1",
+        "description": "Reducir el stake mínimo para validadores Tier-1 de 200,000 TBURN a 150,000 TBURN para promover la descentralización de validadores.",
+        "aiRecommendation": "La reducción del requisito de stake promueve la descentralización con un impacto mínimo en la seguridad dado el sistema de reputación de IA.",
+        "risks": ["Ligero aumento del número de validadores", "Dilución menor de recompensas"],
+        "keyFactors": []
+      },
+      "prop-004": {
+        "title": "Implementar optimización de gas impulsada por IA",
+        "description": "Desplegar modelos de IA para ajustar dinámicamente las tarifas de gas según la congestión de la red, reduciendo costos durante períodos de bajo tráfico.",
+        "aiRecommendation": "",
+        "risks": [],
+        "keyFactors": []
+      },
+      "prop-005": {
+        "title": "Actualización de firma resistente a quantum",
+        "description": "Actualización obligatoria a firmas híbridas CRYSTALS-Dilithium + ED25519 para todas las operaciones de validadores.",
+        "aiRecommendation": "Actualización de seguridad crítica con impacto económico mínimo. Altamente recomendada para protección post-cuántica.",
+        "risks": ["Complejidad del período de transición", "Ligera sobrecarga de rendimiento"],
+        "keyFactors": ["Comunidad enfocada en seguridad", "Mínimas desventajas", "Claras ventajas técnicas"]
+      }
     }
   },
   "burn": {

@@ -303,6 +303,35 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
   const forPercentage = totalVotes > BigInt(0) ? Number((BigInt(proposal.votesFor) * BigInt(100)) / totalVotes) : 0;
   const againstPercentage = totalVotes > BigInt(0) ? Number((BigInt(proposal.votesAgainst) * BigInt(100)) / totalVotes) : 0;
 
+  const getProposalTitle = () => {
+    const translationKey = `governance.proposals.${proposal.id}.title`;
+    const translated = t(translationKey);
+    return translated !== translationKey ? translated : proposal.title;
+  };
+
+  const getProposalDescription = () => {
+    const translationKey = `governance.proposals.${proposal.id}.description`;
+    const translated = t(translationKey);
+    return translated !== translationKey ? translated : proposal.description;
+  };
+
+  const getAiRecommendation = () => {
+    if (!proposal.aiAnalysis?.recommendation) return "";
+    const translationKey = `governance.proposals.${proposal.id}.aiRecommendation`;
+    const translated = t(translationKey);
+    return translated !== translationKey && translated ? translated : proposal.aiAnalysis.recommendation;
+  };
+
+  const getKeyFactors = (): string[] => {
+    if (!proposal.predictedOutcome?.keyFactors) return [];
+    const translationKey = `governance.proposals.${proposal.id}.keyFactors`;
+    const translated = t(translationKey, { returnObjects: true }) as string[] | string;
+    if (Array.isArray(translated) && translated.length > 0 && typeof translated[0] === 'string') {
+      return translated as string[];
+    }
+    return proposal.predictedOutcome.keyFactors;
+  };
+
   const statusColors = {
     draft: "secondary",
     active: "default",
@@ -332,14 +361,14 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-semibold text-lg">{proposal.title}</h3>
+                <h3 className="font-semibold text-lg">{getProposalTitle()}</h3>
                 <Badge variant={statusColors[proposal.status]}>
                   <StatusIcon className="h-3 w-3 mr-1" />
                   {t(`governance.status.${proposal.status}`)}
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground line-clamp-2">
-                {proposal.description}
+                {getProposalDescription()}
               </p>
             </div>
             <div className="flex gap-2">
@@ -398,7 +427,7 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground mb-2">
-                {proposal.aiAnalysis.recommendation}
+                {getAiRecommendation()}
               </p>
               <div className="flex gap-4 text-xs">
                 <div className="flex items-center gap-1">
