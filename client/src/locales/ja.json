@@ -531,6 +531,7 @@
     "no": "いいえ"
   },
   "staking": {
+    "details": "Details",
     "title": "ステーキングダッシュボード",
     "subtitle": "TBURNをステークして報酬を獲得し、ネットワークガバナンスに参加",
     "stakingPools": "ステーキングプール",
@@ -3689,6 +3690,7 @@
       }
     },
     "staking": {
+    "details": "Details",
       "title": "ステーキング運用",
       "subtitle": "ステーキングプール、ティア、報酬配布の管理",
       "refresh": "更新",

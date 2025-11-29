@@ -580,7 +580,7 @@ export default function StakingDashboard() {
                       </Button>
                       <Link href={`/staking/pool/${pool.id}`}>
                         <Button variant="outline" size="sm" data-testid={`button-details-${pool.id}`}>
-                          {t('common.details')}
+                          {t('staking.details')}
                         </Button>
                       </Link>
                     </div>

@@ -542,6 +542,7 @@
     "no": "No"
   },
   "staking": {
+    "details": "Details",
     "title": "Panel de Staking",
     "subtitle": "Stakea TBURN para ganar recompensas y participar en la gobernanza de la red",
     "stakingPools": "Pools de Staking",
@@ -3651,6 +3652,7 @@
       "createSchedule": "Crear Programar"
     },
     "staking": {
+    "details": "Details",
       "title": "Gestión de Staking",
       "subtitle": "Supervisar y gestionar operaciones de staking de la red",
       "refresh": "Actualizar",

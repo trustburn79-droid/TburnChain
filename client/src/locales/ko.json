@@ -533,6 +533,7 @@
     "no": "아니오"
   },
   "staking": {
+    "details": "상세보기",
     "title": "스테이킹 대시보드",
     "subtitle": "TBURN을 스테이킹하여 보상을 받고 네트워크 거버넌스에 참여하세요",
     "stakingPools": "스테이킹 풀",

@@ -530,6 +530,7 @@
     "no": "No"
   },
   "staking": {
+    "details": "Details",
     "title": "Staking Dashboard",
     "subtitle": "Stake TBURN to earn rewards and participate in network governance",
     "stakingPools": "Staking Pools",

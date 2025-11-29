@@ -533,6 +533,7 @@
     "no": "否"
   },
   "staking": {
+    "details": "Details",
     "title": "质押仪表板",
     "subtitle": "质押 TBURN 以获得奖励并参与网络治理",
     "stakingPools": "质押池",
@@ -3604,6 +3605,7 @@
       }
     },
     "staking": {
+    "details": "Details",
       "title": "质押管理",
       "subtitle": "管理质押池、等级系统和奖励分配",
       "refresh": "刷新",

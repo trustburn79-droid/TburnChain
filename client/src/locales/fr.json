@@ -531,6 +531,7 @@
     "no": "Non"
   },
   "staking": {
+    "details": "Details",
     "title": "Tableau de bord du staking",
     "subtitle": "Stakez des TBURN pour gagner des récompenses et participer à la gouvernance du réseau",
     "stakingPools": "Pools de staking",
@@ -2916,6 +2917,7 @@
       }
     },
     "staking": {
+    "details": "Details",
       "title": "Gestion du staking",
       "subtitle": "Surveiller et gérer les pools de staking et les distributions de récompenses",
       "totalValueLocked": "Valeur totale verrouillée",

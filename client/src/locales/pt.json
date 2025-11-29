@@ -156,6 +156,7 @@
     "throughput": "Throughput"
   },
   "staking": {
+    "details": "Details",
     "title": "Painel de Staking",
     "subtitle": "Faça staking de TBURN para ganhar recompensas e participar da governança da rede",
     "stakingPools": "Pools de Staking",
@@ -1572,6 +1573,7 @@
       }
     },
     "staking": {
+    "details": "Details",
       "title": "Operações de Staking",
       "subtitle": "Gerenciar pools de staking, níveis e distribuição de recompensas",
       "refresh": "Atualizar",
