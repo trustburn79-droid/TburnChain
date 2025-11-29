@@ -19,7 +19,7 @@ import { crossShardMessagesSnapshotSchema } from "@shared/schema";
 import type { CrossShardMessage, Shard } from "@shared/schema";
 
 export default function CrossShard() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: messages, isLoading: messagesLoading } = useQuery<CrossShardMessage[]>({
     queryKey: ["/api/cross-shard/messages"],
   });
@@ -64,6 +64,30 @@ export default function CrossShard() {
       default:
         return "text-gray-600 dark:text-gray-400";
     }
+  };
+
+  const getMessageTypeLabel = (type: string) => {
+    const typeMap: Record<string, string> = {
+      transfer: t('crossShard.messageTypes.transfer'),
+      contract_call: t('crossShard.messageTypes.contractCall'),
+      state_sync: t('crossShard.messageTypes.stateSync'),
+    };
+    return typeMap[type] || type;
+  };
+
+  const getShardStatusLabel = (status: string) => {
+    const statusMap: Record<string, string> = {
+      active: t('common.active'),
+      syncing: t('crossShard.syncing'),
+      inactive: t('common.inactive'),
+    };
+    return statusMap[status] || status;
+  };
+
+  const formatDateTime = (dateValue: string | Date) => {
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+    const locale = i18n.language || 'en';
+    return date.toLocaleString(locale);
   };
 
   return (
@@ -136,8 +160,8 @@ export default function CrossShard() {
                   <CardContent className="p-4 space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="font-semibold">{shard.name}</div>
-                      <Badge variant={shard.status === 'active' ? 'default' : shard.status === 'syncing' ? 'secondary' : 'destructive'} className="text-xs capitalize">
-                        {shard.status}
+                      <Badge variant={shard.status === 'active' ? 'default' : shard.status === 'syncing' ? 'secondary' : 'destructive'} className="text-xs">
+                        {getShardStatusLabel(shard.status)}
                       </Badge>
                     </div>
                     <div className="text-2xl font-bold tabular-nums">{formatNumber(shard.tps)}</div>
@@ -210,8 +234,8 @@ export default function CrossShard() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <span className={`capitalize font-medium ${getMessageTypeColor(message.messageType)}`}>
-                          {message.messageType.replace('_', ' ')}
+                        <span className={`font-medium ${getMessageTypeColor(message.messageType)}`}>
+                          {getMessageTypeLabel(message.messageType)}
                         </span>
                       </TableCell>
                       <TableCell className="font-mono text-xs" title={message.transactionHash}>
@@ -227,7 +251,7 @@ export default function CrossShard() {
                       </TableCell>
                       <TableCell className="tabular-nums">{formatNumber(Number(message.gasUsed))}</TableCell>
                       <TableCell className="text-muted-foreground text-sm tabular-nums">
-                        {new Date(message.sentAt).toLocaleString()}
+                        {formatDateTime(message.sentAt)}
                       </TableCell>
                     </TableRow>
                   ))}

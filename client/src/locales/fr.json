@@ -1686,7 +1686,13 @@
     "retries": "Tentatives",
     "timestamp": "Horodatage",
     "shard": "Shard",
-    "noCrossShardMessages": "Aucun message cross-shard trouvé"
+    "noCrossShardMessages": "Aucun message cross-shard trouvé",
+    "syncing": "Synchronisation",
+    "messageTypes": {
+      "transfer": "Transfert",
+      "contractCall": "Appel de contrat",
+      "stateSync": "Synchronisation d'état"
+    }
   },
   "aiOrchestration": {
     "title": "Orchestration IA",

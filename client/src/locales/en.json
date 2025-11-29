@@ -2203,7 +2203,13 @@
     "retries": "retries",
     "timestamp": "Timestamp",
     "shard": "Shard",
-    "noCrossShardMessages": "No cross-shard messages found"
+    "noCrossShardMessages": "No cross-shard messages found",
+    "syncing": "Syncing",
+    "messageTypes": {
+      "transfer": "Transfer",
+      "contractCall": "Contract Call",
+      "stateSync": "State Sync"
+    }
   },
   "consensus": {
     "title": "Consensus",

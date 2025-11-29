@@ -2262,7 +2262,13 @@
     "retries": "リトライ",
     "timestamp": "タイムスタンプ",
     "shard": "シャード",
-    "noCrossShardMessages": "クロスシャードメッセージが見つかりません"
+    "noCrossShardMessages": "クロスシャードメッセージが見つかりません",
+    "syncing": "同期中",
+    "messageTypes": {
+      "transfer": "転送",
+      "contractCall": "コントラクト呼び出し",
+      "stateSync": "状態同期"
+    }
   },
   "consensus": {
     "title": "コンセンサス",

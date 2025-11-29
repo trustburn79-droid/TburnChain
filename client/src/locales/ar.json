@@ -1373,7 +1373,13 @@
     "retries": "محاولات",
     "timestamp": "الطابع الزمني",
     "shard": "الجزء",
-    "noCrossShardMessages": "لم يتم العثور على رسائل عبر الأجزاء"
+    "noCrossShardMessages": "لم يتم العثور على رسائل عبر الأجزاء",
+    "syncing": "مزامنة",
+    "messageTypes": {
+      "transfer": "تحويل",
+      "contractCall": "استدعاء عقد",
+      "stateSync": "مزامنة الحالة"
+    }
   },
   "aiOrchestration": {
     "title": "تنسيق الذكاء الاصطناعي",

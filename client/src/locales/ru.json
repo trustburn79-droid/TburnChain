@@ -1888,7 +1888,13 @@
     "retryCount": "Количество повторов",
     "timestamp": "Временная метка",
     "shard": "Шард",
-    "noCrossShardMessages": "Кросс-шардовые сообщения не найдены"
+    "noCrossShardMessages": "Кросс-шардовые сообщения не найдены",
+    "syncing": "Синхронизация",
+    "messageTypes": {
+      "transfer": "Перевод",
+      "contractCall": "Вызов контракта",
+      "stateSync": "Синхронизация состояния"
+    }
   },
   "stakingPoolDetail": {
     "title": "Детали пула стейкинга",

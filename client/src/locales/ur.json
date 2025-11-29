@@ -1888,7 +1888,13 @@
     "retryCount": "دوبارہ کوشش کی تعداد",
     "timestamp": "ٹائم سٹیمپ",
     "shard": "شارڈ",
-    "noCrossShardMessages": "کوئی کراس شارڈ پیغامات نہیں ملے"
+    "noCrossShardMessages": "کوئی کراس شارڈ پیغامات نہیں ملے",
+    "syncing": "ہم آہنگ ہو رہا ہے",
+    "messageTypes": {
+      "transfer": "منتقلی",
+      "contractCall": "کنٹریکٹ کال",
+      "stateSync": "اسٹیٹ ہم آہنگی"
+    }
   },
   "stakingPoolDetail": {
     "title": "سٹیکنگ پول تفصیلات",

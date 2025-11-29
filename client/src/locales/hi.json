@@ -1564,7 +1564,13 @@
     "retryCount": "पुनः प्रयास संख्या",
     "timestamp": "टाइमस्टैम्प",
     "shard": "शार्ड",
-    "noCrossShardMessages": "कोई क्रॉस-शार्ड मैसेज नहीं मिला"
+    "noCrossShardMessages": "कोई क्रॉस-शार्ड मैसेज नहीं मिला",
+    "syncing": "सिंक हो रहा है",
+    "messageTypes": {
+      "transfer": "ट्रांसफर",
+      "contractCall": "कॉन्ट्रैक्ट कॉल",
+      "stateSync": "स्टेट सिंक"
+    }
   },
   "aiOrchestration": {
     "title": "AI ऑर्केस्ट्रेशन",

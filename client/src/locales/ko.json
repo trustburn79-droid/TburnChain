@@ -2250,7 +2250,13 @@
     "retries": "재시도",
     "timestamp": "타임스탬프",
     "shard": "샤드",
-    "noCrossShardMessages": "크로스샤드 메시지를 찾을 수 없음"
+    "noCrossShardMessages": "크로스샤드 메시지를 찾을 수 없음",
+    "syncing": "동기화 중",
+    "messageTypes": {
+      "transfer": "전송",
+      "contractCall": "컨트랙트 호출",
+      "stateSync": "상태 동기화"
+    }
   },
   "consensus": {
     "title": "합의",

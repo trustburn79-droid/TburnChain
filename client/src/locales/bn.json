@@ -1888,7 +1888,13 @@
     "retryCount": "পুনরায় চেষ্টা সংখ্যা",
     "timestamp": "টাইমস্ট্যাম্প",
     "shard": "শার্ড",
-    "noCrossShardMessages": "কোন ক্রস-শার্ড মেসেজ পাওয়া যায়নি"
+    "noCrossShardMessages": "কোন ক্রস-শার্ড মেসেজ পাওয়া যায়নি",
+    "syncing": "সিঙ্ক হচ্ছে",
+    "messageTypes": {
+      "transfer": "ট্রান্সফার",
+      "contractCall": "কন্ট্র্যাক্ট কল",
+      "stateSync": "স্টেট সিঙ্ক"
+    }
   },
   "stakingPoolDetail": {
     "title": "স্টেকিং পুল বিবরণ",

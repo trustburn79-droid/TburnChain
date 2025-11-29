@@ -2420,7 +2420,13 @@
     "timestamp": "Marca de Tiempo",
     "shard": "Shard",
     "noCrossShardMessages": "No se encontraron mensajes cross-shard",
-    "retries": "retries"
+    "retries": "reintentos",
+    "syncing": "Sincronizando",
+    "messageTypes": {
+      "transfer": "Transferencia",
+      "contractCall": "Llamada de Contrato",
+      "stateSync": "Sincronización de Estado"
+    }
   },
   "smartContracts": {
     "title": "Contratos Inteligentes",

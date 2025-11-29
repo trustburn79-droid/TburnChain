@@ -2206,7 +2206,13 @@
     "retries": "次重试",
     "timestamp": "时间戳",
     "shard": "分片",
-    "noCrossShardMessages": "未找到跨分片消息"
+    "noCrossShardMessages": "未找到跨分片消息",
+    "syncing": "同步中",
+    "messageTypes": {
+      "transfer": "转账",
+      "contractCall": "合约调用",
+      "stateSync": "状态同步"
+    }
   },
   "consensus": {
     "title": "共识",

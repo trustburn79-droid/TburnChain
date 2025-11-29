@@ -1888,7 +1888,13 @@
     "retryCount": "Contagem de Tentativas",
     "timestamp": "Carimbo de Tempo",
     "shard": "Shard",
-    "noCrossShardMessages": "Nenhuma mensagem cross-shard encontrada"
+    "noCrossShardMessages": "Nenhuma mensagem cross-shard encontrada",
+    "syncing": "Sincronizando",
+    "messageTypes": {
+      "transfer": "Transferência",
+      "contractCall": "Chamada de Contrato",
+      "stateSync": "Sincronização de Estado"
+    }
   },
   "stakingPoolDetail": {
     "title": "Detalhe do Pool de Staking",
