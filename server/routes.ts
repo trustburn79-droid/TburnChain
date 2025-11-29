@@ -2126,12 +2126,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blocks/:blockNumber", async (req, res) => {
     try {
       const blockNumber = parseInt(req.params.blockNumber);
-      const block = await storage.getBlockByNumber(blockNumber);
-      if (!block) {
-        return res.status(404).json({ error: "Block not found" });
+      
+      if (isProductionMode()) {
+        try {
+          // Fetch from TBURN mainnet in production mode
+          const client = getTBurnClient();
+          const block = await client.getBlock(blockNumber);
+          
+          if (block) {
+            res.json(block);
+          } else {
+            res.status(404).json({ error: "Block not found on mainnet" });
+          }
+        } catch (mainnetError: any) {
+          console.log(`[API] Mainnet API error for block ${blockNumber}:`, mainnetError.message);
+          // Try fallback to local storage
+          const block = await storage.getBlockByNumber(blockNumber);
+          if (block) {
+            res.json(block);
+          } else {
+            res.status(404).json({ error: "Block not found" });
+          }
+        }
+      } else {
+        // Demo mode - use local storage
+        const block = await storage.getBlockByNumber(blockNumber);
+        if (!block) {
+          return res.status(404).json({ error: "Block not found" });
+        }
+        res.json(block);
       }
-      res.json(block);
     } catch (error) {
+      console.error("Error fetching block:", error);
       res.status(500).json({ error: "Failed to fetch block" });
     }
   });
