@@ -1857,7 +1857,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "События сжигания не зарегистрированы",
-      "ai": "ИИ"
+      "ai": "ИИ",
+      "reasons": {
+        "transactionBurn": "Сжигание транзакции: {{bps}} б.п.",
+        "aiMarketConditions": "ИИ-оптимизированное сжигание: Благоприятные рыночные условия",
+        "aiNetworkCongestion": "ИИ-оптимизированное сжигание: Высокая загруженность сети",
+        "scheduledBurn": "Плановое сжигание: {{percentage}} от предложения",
+        "volumeThreshold": "Порог объёма превышен: {{current}} > {{threshold}}",
+        "governanceBurn": "Общественное сжигание, одобренное управлением"
+      }
     },
     "config": {
       "transactionBurn": "Сжигание транзакций",

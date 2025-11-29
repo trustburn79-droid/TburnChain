@@ -1857,7 +1857,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "Nenhum evento de queima registrado",
-      "ai": "IA"
+      "ai": "IA",
+      "reasons": {
+        "transactionBurn": "Queima de transação: {{bps}} bps",
+        "aiMarketConditions": "Queima otimizada por IA: Condições de mercado favoráveis",
+        "aiNetworkCongestion": "Queima otimizada por IA: Alto congestionamento de rede",
+        "scheduledBurn": "Queima programada: {{percentage}} do fornecimento",
+        "volumeThreshold": "Limite de volume excedido: {{current}} > {{threshold}}",
+        "governanceBurn": "Queima comunitária aprovada pela governança"
+      }
     },
     "config": {
       "transactionBurn": "Queima de Transação",

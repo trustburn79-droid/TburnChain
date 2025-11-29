@@ -4076,7 +4076,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "没有记录的销毁事件",
-      "ai": "AI"
+      "ai": "AI",
+      "reasons": {
+        "transactionBurn": "交易销毁：{{bps}} bps",
+        "aiMarketConditions": "AI优化销毁：市场条件有利",
+        "aiNetworkCongestion": "AI优化销毁：网络拥堵严重",
+        "scheduledBurn": "定时销毁：供应量的 {{percentage}}",
+        "volumeThreshold": "交易量阈值超过：{{current}} > {{threshold}}",
+        "governanceBurn": "治理批准的社区销毁"
+      }
     },
     "config": {
       "transactionBurn": "交易销毁",

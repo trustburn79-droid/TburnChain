@@ -3846,7 +3846,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "バーンイベントが記録されていません",
-      "ai": "AI"
+      "ai": "AI",
+      "reasons": {
+        "transactionBurn": "トランザクションバーン：{{bps}} bps",
+        "aiMarketConditions": "AI最適化バーン：市場条件が有利",
+        "aiNetworkCongestion": "AI最適化バーン：ネットワーク混雑が高い",
+        "scheduledBurn": "スケジュールバーン：供給量の{{percentage}}",
+        "volumeThreshold": "取引量閾値超過：{{current}} > {{threshold}}",
+        "governanceBurn": "ガバナンス承認コミュニティバーン"
+      }
     },
     "config": {
       "transactionBurn": "トランザクションバーン",

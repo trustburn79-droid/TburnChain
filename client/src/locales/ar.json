@@ -2956,7 +2956,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "لم يتم تسجيل أحداث حرق",
-      "ai": "ذكاء اصطناعي"
+      "ai": "ذكاء اصطناعي",
+      "reasons": {
+        "transactionBurn": "حرق المعاملة: {{bps}} نقطة أساس",
+        "aiMarketConditions": "حرق محسن بالذكاء الاصطناعي: ظروف السوق مواتية",
+        "aiNetworkCongestion": "حرق محسن بالذكاء الاصطناعي: ازدحام شبكة عالي",
+        "scheduledBurn": "حرق مجدول: {{percentage}} من العرض",
+        "volumeThreshold": "تجاوز عتبة الحجم: {{current}} > {{threshold}}",
+        "governanceBurn": "حرق مجتمعي معتمد من الحوكمة"
+      }
     },
     "config": {
       "transactionBurn": "حرق المعاملات",

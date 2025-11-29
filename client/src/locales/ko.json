@@ -4233,7 +4233,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "소각 이벤트 기록 없음",
-      "ai": "AI"
+      "ai": "AI",
+      "reasons": {
+        "transactionBurn": "트랜잭션 소각: {{bps}} bps",
+        "aiMarketConditions": "AI 최적화 소각: 시장 상황 유리",
+        "aiNetworkCongestion": "AI 최적화 소각: 높은 네트워크 혼잡",
+        "scheduledBurn": "정기 소각: 공급량의 {{percentage}}",
+        "volumeThreshold": "거래량 임계값 초과: {{current}} > {{threshold}}",
+        "governanceBurn": "거버넌스 승인 커뮤니티 소각"
+      }
     },
     "config": {
       "transactionBurn": "트랜잭션 소각",

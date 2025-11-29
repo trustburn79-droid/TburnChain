@@ -1857,7 +1857,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "کوئی برن ایونٹ ریکارڈ نہیں ہوا",
-      "ai": "AI"
+      "ai": "AI",
+      "reasons": {
+        "transactionBurn": "ٹرانزیکشن برن: {{bps}} bps",
+        "aiMarketConditions": "AI آپٹیمائزڈ برن: مارکیٹ کے حالات سازگار",
+        "aiNetworkCongestion": "AI آپٹیمائزڈ برن: زیادہ نیٹ ورک کی بھیڑ",
+        "scheduledBurn": "شیڈول برن: سپلائی کا {{percentage}}",
+        "volumeThreshold": "حجم کی حد سے تجاوز: {{current}} > {{threshold}}",
+        "governanceBurn": "گورننس منظور شدہ کمیونٹی برن"
+      }
     },
     "config": {
       "transactionBurn": "ٹرانزیکشن برن",

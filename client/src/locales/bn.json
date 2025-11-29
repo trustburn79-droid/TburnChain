@@ -1857,7 +1857,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "কোন বার্ন ইভেন্ট রেকর্ড করা হয়নি",
-      "ai": "AI"
+      "ai": "AI",
+      "reasons": {
+        "transactionBurn": "লেনদেন বার্ন: {{bps}} bps",
+        "aiMarketConditions": "AI-অপ্টিমাইজড বার্ন: বাজার পরিস্থিতি অনুকূল",
+        "aiNetworkCongestion": "AI-অপ্টিমাইজড বার্ন: উচ্চ নেটওয়ার্ক জ্যাম",
+        "scheduledBurn": "নির্ধারিত বার্ন: সরবরাহের {{percentage}}",
+        "volumeThreshold": "ভলিউম থ্রেশহোল্ড অতিক্রম: {{current}} > {{threshold}}",
+        "governanceBurn": "গভর্ন্যান্স অনুমোদিত কমিউনিটি বার্ন"
+      }
     },
     "config": {
       "transactionBurn": "লেনদেন বার্ন",

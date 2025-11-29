@@ -4153,7 +4153,15 @@
     },
     "events": {
       "noBurnEventsRecorded": "No burn events recorded",
-      "ai": "AI"
+      "ai": "AI",
+      "reasons": {
+        "transactionBurn": "Transaction burn: {{bps}} bps",
+        "aiMarketConditions": "AI-optimized burn: Market conditions favorable",
+        "aiNetworkCongestion": "AI-optimized burn: High network congestion",
+        "scheduledBurn": "Scheduled burn: {{percentage}} of supply",
+        "volumeThreshold": "Volume threshold exceeded: {{current}} > {{threshold}}",
+        "governanceBurn": "Governance-approved community burn"
+      }
     },
     "config": {
       "transactionBurn": "Transaction Burn",

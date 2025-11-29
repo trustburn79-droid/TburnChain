@@ -81,6 +81,33 @@ const getBurnTypeLabel = (t: (key: string) => string, type: string) => {
   return labels[type] || type;
 };
 
+const getBurnReasonTranslation = (t: (key: string, options?: Record<string, unknown>) => string, reason: string) => {
+  if (reason.startsWith("Transaction burn:")) {
+    const bps = reason.match(/(\d+)\s*bps/)?.[1] || "100";
+    return t("burn.events.reasons.transactionBurn", { bps });
+  }
+  if (reason.startsWith("AI-optimized burn: Market conditions")) {
+    return t("burn.events.reasons.aiMarketConditions");
+  }
+  if (reason.startsWith("AI-optimized burn: High network")) {
+    return t("burn.events.reasons.aiNetworkCongestion");
+  }
+  if (reason.startsWith("Scheduled burn:")) {
+    const percentage = reason.match(/(\d+\.?\d*%)/)?.[1] || "0.1%";
+    return t("burn.events.reasons.scheduledBurn", { percentage });
+  }
+  if (reason.startsWith("Volume threshold exceeded:")) {
+    const match = reason.match(/(\d+M)\s*>\s*(\d+M)/);
+    const current = match?.[1] || "10M";
+    const threshold = match?.[2] || "5M";
+    return t("burn.events.reasons.volumeThreshold", { current, threshold });
+  }
+  if (reason.includes("Governance-approved") || reason.includes("community burn")) {
+    return t("burn.events.reasons.governanceBurn");
+  }
+  return reason;
+};
+
 export default function BurnDashboard() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
@@ -429,7 +456,7 @@ function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: 
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-semibold">
-                      {formatTokenAmount(event.amount)} TBURN
+                      {formatTokenAmount(event.amount)}
                     </span>
                     <Badge variant="outline" style={{ borderColor: burnTypeColors[event.burnType] }}>
                       {getBurnTypeLabel(t, event.burnType)}
@@ -441,7 +468,7 @@ function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: 
                       </Badge>
                     )}
                   </div>
-                  <p className="text-sm text-muted-foreground">{event.reason}</p>
+                  <p className="text-sm text-muted-foreground">{getBurnReasonTranslation(t, event.reason)}</p>
                 </div>
               </div>
               <div className="text-right">
