@@ -12,6 +12,38 @@ import type {
 
 const router = Router();
 
+// In-memory state for community features
+const eventRegistrations = new Map<string, Set<string>>();
+const postLikes = new Map<string, Set<string>>();
+const postDislikes = new Map<string, Set<string>>();
+const userPosts: ForumPostResponse[] = [];
+const activityLog: ActivityResponse[] = [];
+
+// Initialize event registrations with base participants
+const initEventRegistrations = () => {
+  const baseEvents = ["1", "2", "3", "4", "5", "6", "7", "8"];
+  baseEvents.forEach(eventId => {
+    if (!eventRegistrations.has(eventId)) {
+      eventRegistrations.set(eventId, new Set());
+    }
+  });
+};
+initEventRegistrations();
+
+// Helper to add activity log entry
+const addActivityLog = (entry: Omit<ActivityResponse, 'id' | 'timestamp'>) => {
+  const activity: ActivityResponse = {
+    ...entry,
+    id: `activity-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    timestamp: Math.floor(Date.now() / 1000),
+  };
+  activityLog.unshift(activity);
+  if (activityLog.length > 100) {
+    activityLog.pop();
+  }
+  return activity;
+};
+
 interface ForumPostResponse {
   id: string;
   title: string;
@@ -285,19 +317,22 @@ router.get("/badges", async (req: Request, res: Response) => {
 
 router.post("/posts", async (req: Request, res: Response) => {
   try {
-    const { title, content, category, tags } = req.body;
+    const { title, content, category, tags, author } = req.body;
     
     if (!title || !content) {
       return res.status(400).json({ error: "Title and content are required" });
     }
     
+    const postId = `post-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const authorName = author || "Anonymous";
+    
     const newPost: ForumPostResponse = {
-      id: `post-${Date.now()}`,
+      id: postId,
       title,
       content,
-      author: "CurrentUser",
+      author: authorName,
       category: category || "general",
-      tags: tags || [],
+      tags: Array.isArray(tags) ? tags : (tags ? tags.split(",").map((t: string) => t.trim()) : []),
       likes: 0,
       comments: 0,
       views: 1,
@@ -306,7 +341,19 @@ router.post("/posts", async (req: Request, res: Response) => {
       createdAt: Math.floor(Date.now() / 1000),
     };
     
-    res.status(201).json(newPost);
+    userPosts.unshift(newPost);
+    postLikes.set(postId, new Set());
+    postDislikes.set(postId, new Set());
+    
+    addActivityLog({
+      type: "post",
+      user: authorName,
+      action: "created a new post",
+      target: title,
+    });
+    
+    console.log(`[Community] New post created: ${postId} - ${title}`);
+    res.status(201).json({ success: true, post: newPost });
   } catch (error) {
     console.error("[Community] Error creating post:", error);
     res.status(500).json({ error: "Failed to create post" });
@@ -316,20 +363,241 @@ router.post("/posts", async (req: Request, res: Response) => {
 router.post("/posts/:postId/like", async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
-    res.json({ success: true, postId, liked: true });
+    const userId = req.body.userId || `user-${Date.now()}`;
+    
+    if (!postLikes.has(postId)) {
+      postLikes.set(postId, new Set());
+    }
+    if (!postDislikes.has(postId)) {
+      postDislikes.set(postId, new Set());
+    }
+    
+    const likes = postLikes.get(postId)!;
+    const dislikes = postDislikes.get(postId)!;
+    
+    const wasLiked = likes.has(userId);
+    
+    if (wasLiked) {
+      likes.delete(userId);
+    } else {
+      likes.add(userId);
+      dislikes.delete(userId);
+    }
+    
+    console.log(`[Community] Post ${postId} ${wasLiked ? 'unliked' : 'liked'} by ${userId}`);
+    res.json({ 
+      success: true, 
+      postId, 
+      liked: !wasLiked,
+      likeCount: likes.size,
+      dislikeCount: dislikes.size 
+    });
   } catch (error) {
     console.error("[Community] Error liking post:", error);
     res.status(500).json({ error: "Failed to like post" });
   }
 });
 
+router.post("/posts/:postId/dislike", async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+    const userId = req.body.userId || `user-${Date.now()}`;
+    
+    if (!postLikes.has(postId)) {
+      postLikes.set(postId, new Set());
+    }
+    if (!postDislikes.has(postId)) {
+      postDislikes.set(postId, new Set());
+    }
+    
+    const likes = postLikes.get(postId)!;
+    const dislikes = postDislikes.get(postId)!;
+    
+    const wasDisliked = dislikes.has(userId);
+    
+    if (wasDisliked) {
+      dislikes.delete(userId);
+    } else {
+      dislikes.add(userId);
+      likes.delete(userId);
+    }
+    
+    console.log(`[Community] Post ${postId} ${wasDisliked ? 'un-disliked' : 'disliked'} by ${userId}`);
+    res.json({ 
+      success: true, 
+      postId, 
+      disliked: !wasDisliked,
+      likeCount: likes.size,
+      dislikeCount: dislikes.size 
+    });
+  } catch (error) {
+    console.error("[Community] Error disliking post:", error);
+    res.status(500).json({ error: "Failed to dislike post" });
+  }
+});
+
+router.get("/posts/:postId", async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+    const post = userPosts.find(p => p.id === postId);
+    
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+    
+    const likeCount = postLikes.get(postId)?.size || 0;
+    const dislikeCount = postDislikes.get(postId)?.size || 0;
+    
+    res.json({ 
+      ...post, 
+      likes: post.likes + likeCount,
+      dislikes: dislikeCount 
+    });
+  } catch (error) {
+    console.error("[Community] Error fetching post:", error);
+    res.status(500).json({ error: "Failed to fetch post" });
+  }
+});
+
+router.post("/events/:eventId/register", async (req: Request, res: Response) => {
+  try {
+    const { eventId } = req.params;
+    const { userId, userName, email, walletAddress } = req.body;
+    const registrantId = userId || `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    
+    if (!eventRegistrations.has(eventId)) {
+      eventRegistrations.set(eventId, new Set());
+    }
+    
+    const registrations = eventRegistrations.get(eventId)!;
+    const wasRegistered = registrations.has(registrantId);
+    
+    if (wasRegistered) {
+      return res.json({
+        success: false,
+        eventId,
+        registered: true,
+        message: "Already registered for this event",
+        participantCount: registrations.size,
+      });
+    }
+    
+    registrations.add(registrantId);
+    
+    addActivityLog({
+      type: "badge",
+      user: userName || registrantId.slice(0, 10),
+      action: "registered for event",
+      target: `Event #${eventId}`,
+    });
+    
+    console.log(`[Community] User ${registrantId} registered for event ${eventId}. Total: ${registrations.size}`);
+    
+    res.json({
+      success: true,
+      eventId,
+      registered: true,
+      registrationId: `reg-${eventId}-${registrantId}`,
+      participantCount: registrations.size,
+      message: "Successfully registered for the event",
+    });
+  } catch (error) {
+    console.error("[Community] Error registering for event:", error);
+    res.status(500).json({ error: "Failed to register for event" });
+  }
+});
+
+router.post("/events/:eventId/unregister", async (req: Request, res: Response) => {
+  try {
+    const { eventId } = req.params;
+    const { userId } = req.body;
+    const registrantId = userId || `user-${Date.now()}`;
+    
+    if (!eventRegistrations.has(eventId)) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+    
+    const registrations = eventRegistrations.get(eventId)!;
+    const wasRegistered = registrations.has(registrantId);
+    
+    if (wasRegistered) {
+      registrations.delete(registrantId);
+    }
+    
+    console.log(`[Community] User ${registrantId} unregistered from event ${eventId}. Total: ${registrations.size}`);
+    
+    res.json({
+      success: true,
+      eventId,
+      unregistered: wasRegistered,
+      participantCount: registrations.size,
+      message: wasRegistered ? "Successfully unregistered from the event" : "Was not registered",
+    });
+  } catch (error) {
+    console.error("[Community] Error unregistering from event:", error);
+    res.status(500).json({ error: "Failed to unregister from event" });
+  }
+});
+
+router.get("/events/:eventId/status", async (req: Request, res: Response) => {
+  try {
+    const { eventId } = req.params;
+    const { userId } = req.query;
+    
+    const registrations = eventRegistrations.get(eventId) || new Set();
+    const isRegistered = userId ? registrations.has(userId as string) : false;
+    
+    res.json({
+      eventId,
+      participantCount: registrations.size,
+      isRegistered,
+    });
+  } catch (error) {
+    console.error("[Community] Error fetching event status:", error);
+    res.status(500).json({ error: "Failed to fetch event status" });
+  }
+});
+
 router.post("/events/:eventId/join", async (req: Request, res: Response) => {
   try {
     const { eventId } = req.params;
-    res.json({ success: true, eventId, joined: true });
+    const { userName } = req.body;
+    
+    addActivityLog({
+      type: "badge",
+      user: userName || "Anonymous",
+      action: "joined live event",
+      target: `Event #${eventId}`,
+    });
+    
+    console.log(`[Community] User joined live event ${eventId}`);
+    res.json({ success: true, eventId, joined: true, message: "Joined the live event" });
   } catch (error) {
     console.error("[Community] Error joining event:", error);
     res.status(500).json({ error: "Failed to join event" });
+  }
+});
+
+router.get("/user-posts", async (req: Request, res: Response) => {
+  try {
+    const postsWithCounts = userPosts.map(post => ({
+      ...post,
+      likes: post.likes + (postLikes.get(post.id)?.size || 0),
+    }));
+    res.json(postsWithCounts);
+  } catch (error) {
+    console.error("[Community] Error fetching user posts:", error);
+    res.status(500).json({ error: "Failed to fetch user posts" });
+  }
+});
+
+router.get("/activity-log", async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string) || 20;
+    res.json(activityLog.slice(0, limit));
+  } catch (error) {
+    console.error("[Community] Error fetching activity log:", error);
+    res.status(500).json({ error: "Failed to fetch activity log" });
   }
 });
 

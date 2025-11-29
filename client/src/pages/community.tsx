@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useCallback } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,8 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 import { 
   Users, 
   MessageSquare, 
@@ -50,7 +53,12 @@ import {
   Activity,
   BarChart3,
   Coins,
-  Vote
+  Vote,
+  Loader2,
+  CheckCircle2,
+  XCircle,
+  Mail,
+  Wallet
 } from "lucide-react";
 import { useWebSocket } from "@/lib/websocket-context";
 
@@ -197,56 +205,305 @@ const badgeIcons: Record<string, JSX.Element> = {
   community: <Users className="h-4 w-4 text-pink-400" />,
 };
 
+// Generate a persistent user ID for this session
+const getUserId = () => {
+  let userId = localStorage.getItem('tburn_community_user_id');
+  if (!userId) {
+    userId = `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('tburn_community_user_id', userId);
+  }
+  return userId;
+};
+
 export default function Community() {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [newPostDialogOpen, setNewPostDialogOpen] = useState(false);
+  const [eventRegisterDialogOpen, setEventRegisterDialogOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<CommunityEvent | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [likedPosts, setLikedPosts] = useState<Set<string>>(new Set());
+  const [dislikedPosts, setDislikedPosts] = useState<Set<string>>(new Set());
+  const [registeredEvents, setRegisteredEvents] = useState<Set<string>>(new Set());
+  
+  // Form states
+  const [postTitle, setPostTitle] = useState("");
+  const [postContent, setPostContent] = useState("");
+  const [postCategory, setPostCategory] = useState("general");
+  const [postTags, setPostTags] = useState("");
+  const [regEmail, setRegEmail] = useState("");
+  const [regWallet, setRegWallet] = useState("");
+  const [regName, setRegName] = useState("");
 
   // WebSocket for real-time updates
   const { lastMessage } = useWebSocket();
+  
+  const userId = getUserId();
 
   // Community Stats Query
-  const { data: stats, isLoading: statsLoading } = useQuery<CommunityStats>({
+  const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<CommunityStats>({
     queryKey: ['/api/community/stats'],
     refetchInterval: 30000,
   });
 
   // Leaderboard Query
-  const { data: leaderboard, isLoading: leaderboardLoading } = useQuery<LeaderboardMember[]>({
+  const { data: leaderboard, isLoading: leaderboardLoading, refetch: refetchLeaderboard } = useQuery<LeaderboardMember[]>({
     queryKey: ['/api/community/leaderboard'],
     refetchInterval: 60000,
   });
 
   // Forum Posts Query
-  const { data: posts, isLoading: postsLoading } = useQuery<ForumPost[]>({
+  const { data: posts, isLoading: postsLoading, refetch: refetchPosts } = useQuery<ForumPost[]>({
     queryKey: ['/api/community/posts', selectedCategory],
     refetchInterval: 30000,
   });
 
   // Events Query
-  const { data: events, isLoading: eventsLoading } = useQuery<CommunityEvent[]>({
+  const { data: events, isLoading: eventsLoading, refetch: refetchEvents } = useQuery<CommunityEvent[]>({
     queryKey: ['/api/community/events'],
     refetchInterval: 60000,
   });
 
   // Announcements Query
-  const { data: announcements, isLoading: announcementsLoading } = useQuery<Announcement[]>({
+  const { data: announcements, isLoading: announcementsLoading, refetch: refetchAnnouncements } = useQuery<Announcement[]>({
     queryKey: ['/api/community/announcements'],
     refetchInterval: 60000,
   });
 
   // Activity Feed Query
-  const { data: activities, isLoading: activitiesLoading } = useQuery<ActivityItem[]>({
+  const { data: activities, isLoading: activitiesLoading, refetch: refetchActivities } = useQuery<ActivityItem[]>({
     queryKey: ['/api/community/activity'],
     refetchInterval: 10000,
   });
 
   // Badges Query
-  const { data: badges, isLoading: badgesLoading } = useQuery<UserBadge[]>({
+  const { data: badges, isLoading: badgesLoading, refetch: refetchBadges } = useQuery<UserBadge[]>({
     queryKey: ['/api/community/badges'],
   });
+
+  // Create Post Mutation
+  const createPostMutation = useMutation({
+    mutationFn: async (data: { title: string; content: string; category: string; tags: string; author: string }) => {
+      const response = await apiRequest('/api/community/posts', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      return response;
+    },
+    onSuccess: () => {
+      toast({
+        title: "Post Created",
+        description: "Your post has been published successfully!",
+      });
+      setNewPostDialogOpen(false);
+      setPostTitle("");
+      setPostContent("");
+      setPostCategory("general");
+      setPostTags("");
+      queryClient.invalidateQueries({ queryKey: ['/api/community/posts'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/community/activity'] });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to create post. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Like Post Mutation
+  const likePostMutation = useMutation({
+    mutationFn: async (postId: string) => {
+      const response = await apiRequest(`/api/community/posts/${postId}/like`, {
+        method: 'POST',
+        body: JSON.stringify({ userId }),
+      });
+      return response;
+    },
+    onSuccess: (data, postId) => {
+      if (data.liked) {
+        setLikedPosts(prev => new Set([...prev, postId]));
+        setDislikedPosts(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(postId);
+          return newSet;
+        });
+      } else {
+        setLikedPosts(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(postId);
+          return newSet;
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: ['/api/community/posts'] });
+    },
+  });
+
+  // Dislike Post Mutation
+  const dislikePostMutation = useMutation({
+    mutationFn: async (postId: string) => {
+      const response = await apiRequest(`/api/community/posts/${postId}/dislike`, {
+        method: 'POST',
+        body: JSON.stringify({ userId }),
+      });
+      return response;
+    },
+    onSuccess: (data, postId) => {
+      if (data.disliked) {
+        setDislikedPosts(prev => new Set([...prev, postId]));
+        setLikedPosts(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(postId);
+          return newSet;
+        });
+      } else {
+        setDislikedPosts(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(postId);
+          return newSet;
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: ['/api/community/posts'] });
+    },
+  });
+
+  // Register for Event Mutation
+  const registerEventMutation = useMutation({
+    mutationFn: async (data: { eventId: string; userName: string; email: string; walletAddress: string }) => {
+      const response = await apiRequest(`/api/community/events/${data.eventId}/register`, {
+        method: 'POST',
+        body: JSON.stringify({
+          userId,
+          userName: data.userName,
+          email: data.email,
+          walletAddress: data.walletAddress,
+        }),
+      });
+      return response;
+    },
+    onSuccess: (data, variables) => {
+      if (data.success) {
+        setRegisteredEvents(prev => new Set([...prev, variables.eventId]));
+        toast({
+          title: "Registration Successful!",
+          description: data.message || "You have been registered for the event.",
+        });
+        setEventRegisterDialogOpen(false);
+        setSelectedEvent(null);
+        setRegEmail("");
+        setRegWallet("");
+        setRegName("");
+        queryClient.invalidateQueries({ queryKey: ['/api/community/events'] });
+        queryClient.invalidateQueries({ queryKey: ['/api/community/activity'] });
+      } else {
+        toast({
+          title: "Already Registered",
+          description: data.message || "You are already registered for this event.",
+        });
+      }
+    },
+    onError: (error) => {
+      toast({
+        title: "Registration Failed",
+        description: "Unable to register for the event. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Join Live Event Mutation
+  const joinEventMutation = useMutation({
+    mutationFn: async (eventId: string) => {
+      const response = await apiRequest(`/api/community/events/${eventId}/join`, {
+        method: 'POST',
+        body: JSON.stringify({ userId, userName: regName || "Anonymous" }),
+      });
+      return response;
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Joined Event",
+        description: "You have joined the live event!",
+      });
+    },
+  });
+
+  // Refresh all data
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        refetchStats(),
+        refetchLeaderboard(),
+        refetchPosts(),
+        refetchEvents(),
+        refetchAnnouncements(),
+        refetchActivities(),
+        refetchBadges(),
+      ]);
+      toast({
+        title: "Refreshed",
+        description: "All community data has been updated.",
+      });
+    } catch (error) {
+      toast({
+        title: "Refresh Failed",
+        description: "Unable to refresh data. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetchStats, refetchLeaderboard, refetchPosts, refetchEvents, refetchAnnouncements, refetchActivities, refetchBadges, toast]);
+
+  // Handle post submission
+  const handleSubmitPost = () => {
+    if (!postTitle.trim() || !postContent.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in both title and content.",
+        variant: "destructive",
+      });
+      return;
+    }
+    createPostMutation.mutate({
+      title: postTitle,
+      content: postContent,
+      category: postCategory,
+      tags: postTags,
+      author: regName || "Anonymous",
+    });
+  };
+
+  // Handle event registration
+  const handleEventRegister = () => {
+    if (!selectedEvent) return;
+    if (!regEmail.trim()) {
+      toast({
+        title: "Email Required",
+        description: "Please enter your email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+    registerEventMutation.mutate({
+      eventId: selectedEvent.id,
+      userName: regName || "Anonymous",
+      email: regEmail,
+      walletAddress: regWallet,
+    });
+  };
+
+  // Open event registration dialog
+  const openEventRegistration = (event: CommunityEvent) => {
+    setSelectedEvent(event);
+    setEventRegisterDialogOpen(true);
+  };
 
   // Mock data for demo
   const mockStats: CommunityStats = {
@@ -284,17 +541,19 @@ export default function Community() {
   ];
 
   const mockEvents: CommunityEvent[] = [
-    { id: "1", title: "TBURN v7.0 Launch AMA", description: "Join the core team for a live Q&A session about the mainnet launch", type: "ama", startDate: Math.floor(Date.now() / 1000) + 86400, endDate: Math.floor(Date.now() / 1000) + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true },
-    { id: "2", title: "DeFi Workshop: Liquidity Mining", description: "Learn advanced liquidity mining strategies with hands-on exercises", type: "workshop", startDate: Math.floor(Date.now() / 1000) + 172800, endDate: Math.floor(Date.now() / 1000) + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true },
-    { id: "3", title: "TBURN Hackathon 2025", description: "48-hour hackathon to build innovative dApps on TBURN", type: "hackathon", startDate: Math.floor(Date.now() / 1000) + 604800, endDate: Math.floor(Date.now() / 1000) + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea" },
-    { id: "4", title: "Community Meetup - Tokyo", description: "Network with fellow TBURN enthusiasts in Tokyo", type: "meetup", startDate: Math.floor(Date.now() / 1000) + 259200, endDate: Math.floor(Date.now() / 1000) + 273600, participants: 78, maxParticipants: 100, status: "upcoming", isOnline: false, location: "Tokyo, Japan" },
-    { id: "5", title: "Staking Competition", description: "Compete for the highest staking rewards this month", type: "competition", startDate: Math.floor(Date.now() / 1000) - 86400, endDate: Math.floor(Date.now() / 1000) + 1209600, participants: 5670, rewards: "50,000 TBURN", status: "live", isOnline: true },
+    { id: "1", title: "TBURN v7.0 Launch AMA", description: "Join the core team for a live Q&A session about the mainnet launch and upcoming features", type: "ama", startDate: Math.floor(Date.now() / 1000) + 86400, endDate: Math.floor(Date.now() / 1000) + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true },
+    { id: "2", title: "DeFi Workshop: Liquidity Mining", description: "Learn advanced liquidity mining strategies with hands-on exercises and expert guidance", type: "workshop", startDate: Math.floor(Date.now() / 1000) + 172800, endDate: Math.floor(Date.now() / 1000) + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true },
+    { id: "3", title: "TBURN Hackathon 2025", description: "48-hour hackathon to build innovative dApps on TBURN. Join developers worldwide!", type: "hackathon", startDate: Math.floor(Date.now() / 1000) + 604800, endDate: Math.floor(Date.now() / 1000) + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea" },
+    { id: "4", title: "Community Meetup - Tokyo", description: "Network with fellow TBURN enthusiasts in Tokyo. Food and drinks provided!", type: "meetup", startDate: Math.floor(Date.now() / 1000) + 259200, endDate: Math.floor(Date.now() / 1000) + 273600, participants: 78, maxParticipants: 100, status: "upcoming", isOnline: false, location: "Tokyo, Japan" },
+    { id: "5", title: "Staking Competition", description: "Compete for the highest staking rewards this month. Top stakers win bonus rewards!", type: "competition", startDate: Math.floor(Date.now() / 1000) - 86400, endDate: Math.floor(Date.now() / 1000) + 1209600, participants: 5670, rewards: "50,000 TBURN", status: "live", isOnline: true },
+    { id: "6", title: "NFT Art Contest", description: "Create TBURN-themed NFT artwork and win prizes. Submissions open now!", type: "competition", startDate: Math.floor(Date.now() / 1000) - 172800, endDate: Math.floor(Date.now() / 1000) + 604800, participants: 234, rewards: "25,000 TBURN", status: "live", isOnline: true },
   ];
 
   const mockAnnouncements: Announcement[] = [
-    { id: "1", title: "Mainnet Launch Date Confirmed: December 1st", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 1st, 2025.", type: "news", createdAt: Math.floor(Date.now() / 1000) - 3600, isImportant: true },
-    { id: "2", title: "New Staking Tiers Available", content: "Diamond tier staking is now available with up to 25% APY boost.", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 86400, isImportant: false },
-    { id: "3", title: "Security Audit Completed", content: "Our smart contracts have passed comprehensive security audits by CertiK.", type: "update", createdAt: Math.floor(Date.now() / 1000) - 172800, isImportant: true },
+    { id: "1", title: "Mainnet Launch Date Confirmed: December 1st", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 1st, 2025. All systems are go for the biggest upgrade in our history!", type: "news", createdAt: Math.floor(Date.now() / 1000) - 3600, isImportant: true },
+    { id: "2", title: "New Staking Tiers Available", content: "Diamond tier staking is now available with up to 25% APY boost. Check out the new staking dashboard for more details.", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 86400, isImportant: false },
+    { id: "3", title: "Security Audit Completed", content: "Our smart contracts have passed comprehensive security audits by CertiK and Trail of Bits. Full reports available on GitHub.", type: "update", createdAt: Math.floor(Date.now() / 1000) - 172800, isImportant: true },
+    { id: "4", title: "Bridge Integration: Ethereum & BSC Live", content: "Cross-chain bridge is now live for Ethereum and Binance Smart Chain. Transfer your assets seamlessly!", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 259200, isImportant: false },
   ];
 
   const mockActivities: ActivityItem[] = [
@@ -362,8 +621,18 @@ export default function Community() {
             <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
             {formatNumber(displayStats.activeMembers)} {t('community.online', 'Online')}
           </Badge>
-          <Button variant="outline" size="sm" data-testid="button-refresh-community">
-            <RefreshCw className="h-4 w-4 mr-1" />
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            data-testid="button-refresh-community"
+          >
+            {isRefreshing ? (
+              <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+            ) : (
+              <RefreshCw className="h-4 w-4 mr-1" />
+            )}
             {t('common.refresh', 'Refresh')}
           </Button>
         </div>
@@ -689,37 +958,75 @@ export default function Community() {
                   {t('community.newPost', 'New Post')}
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="sm:max-w-[525px]">
                 <DialogHeader>
                   <DialogTitle>{t('community.createPost', 'Create New Post')}</DialogTitle>
+                  <DialogDescription>
+                    Share your thoughts with the TBURN community. Your post will be visible to all members.
+                  </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
-                  <Input placeholder={t('community.postTitle', 'Post title')} data-testid="input-post-title" />
-                  <Select>
-                    <SelectTrigger data-testid="select-post-category">
-                      <SelectValue placeholder={t('community.selectCategory', 'Select category')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="general">{t('community.general', 'General')}</SelectItem>
-                      <SelectItem value="technical">{t('community.technical', 'Technical')}</SelectItem>
-                      <SelectItem value="governance">{t('community.governance', 'Governance')}</SelectItem>
-                      <SelectItem value="trading">{t('community.trading', 'Trading')}</SelectItem>
-                      <SelectItem value="support">{t('community.support', 'Support')}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Textarea 
-                    placeholder={t('community.postContent', 'Write your post content...')} 
-                    className="min-h-[150px]"
-                    data-testid="textarea-post-content"
-                  />
-                  <Input placeholder={t('community.tags', 'Tags (comma separated)')} data-testid="input-post-tags" />
+                  <div className="space-y-2">
+                    <Label htmlFor="post-title">Title</Label>
+                    <Input 
+                      id="post-title"
+                      placeholder={t('community.postTitle', 'Post title')} 
+                      value={postTitle}
+                      onChange={(e) => setPostTitle(e.target.value)}
+                      data-testid="input-post-title" 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="post-category">Category</Label>
+                    <Select value={postCategory} onValueChange={setPostCategory}>
+                      <SelectTrigger data-testid="select-post-category">
+                        <SelectValue placeholder={t('community.selectCategory', 'Select category')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="general">{t('community.general', 'General')}</SelectItem>
+                        <SelectItem value="technical">{t('community.technical', 'Technical')}</SelectItem>
+                        <SelectItem value="governance">{t('community.governance', 'Governance')}</SelectItem>
+                        <SelectItem value="trading">{t('community.trading', 'Trading')}</SelectItem>
+                        <SelectItem value="support">{t('community.support', 'Support')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="post-content">Content</Label>
+                    <Textarea 
+                      id="post-content"
+                      placeholder={t('community.postContent', 'Write your post content...')} 
+                      className="min-h-[150px]"
+                      value={postContent}
+                      onChange={(e) => setPostContent(e.target.value)}
+                      data-testid="textarea-post-content"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="post-tags">Tags (comma separated)</Label>
+                    <Input 
+                      id="post-tags"
+                      placeholder={t('community.tags', 'e.g. staking, defi, governance')} 
+                      value={postTags}
+                      onChange={(e) => setPostTags(e.target.value)}
+                      data-testid="input-post-tags" 
+                    />
+                  </div>
                 </div>
                 <DialogFooter>
                   <Button variant="outline" onClick={() => setNewPostDialogOpen(false)}>
                     {t('common.cancel', 'Cancel')}
                   </Button>
-                  <Button data-testid="button-submit-post">
-                    <Send className="h-4 w-4 mr-1" />
+                  <Button 
+                    onClick={handleSubmitPost}
+                    disabled={createPostMutation.isPending}
+                    data-testid="button-submit-post"
+                  >
+                    {createPostMutation.isPending ? (
+                      <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                    ) : (
+                      <Send className="h-4 w-4 mr-1" />
+                    )}
                     {t('community.publish', 'Publish')}
                   </Button>
                 </DialogFooter>
@@ -729,15 +1036,29 @@ export default function Community() {
 
           <div className="space-y-4">
             {filteredPosts.map((post) => (
-              <Card key={post.id} className="hover:border-primary/50 transition-colors cursor-pointer" data-testid={`post-${post.id}`}>
+              <Card key={post.id} className="hover:border-primary/50 transition-colors" data-testid={`post-${post.id}`}>
                 <CardContent className="pt-6">
                   <div className="flex gap-4">
                     <div className="hidden md:flex flex-col items-center gap-2 text-center min-w-[60px]">
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className={`h-8 w-8 p-0 ${likedPosts.has(post.id) ? 'text-green-500 bg-green-500/10' : ''}`}
+                        onClick={() => likePostMutation.mutate(post.id)}
+                        disabled={likePostMutation.isPending}
+                        data-testid={`button-like-${post.id}`}
+                      >
                         <ArrowUp className="h-4 w-4" />
                       </Button>
-                      <span className="font-bold text-lg">{post.likes}</span>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <span className="font-bold text-lg">{post.likes + (likedPosts.has(post.id) ? 1 : 0)}</span>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className={`h-8 w-8 p-0 ${dislikedPosts.has(post.id) ? 'text-red-500 bg-red-500/10' : ''}`}
+                        onClick={() => dislikePostMutation.mutate(post.id)}
+                        disabled={dislikePostMutation.isPending}
+                        data-testid={`button-dislike-${post.id}`}
+                      >
                         <ArrowDown className="h-4 w-4" />
                       </Button>
                     </div>
@@ -759,7 +1080,7 @@ export default function Community() {
                           {post.category}
                         </Badge>
                       </div>
-                      <h3 className="text-lg font-semibold hover:text-primary transition-colors">
+                      <h3 className="text-lg font-semibold hover:text-primary transition-colors cursor-pointer">
                         {post.title}
                       </h3>
                       <p className="text-sm text-muted-foreground line-clamp-2">{post.content}</p>
@@ -785,7 +1106,7 @@ export default function Community() {
                       </div>
                       <div className="flex flex-wrap gap-1">
                         {post.tags.map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">
+                          <Badge key={tag} variant="outline" className="text-xs cursor-pointer hover:bg-primary/10">
                             #{tag}
                           </Badge>
                         ))}
@@ -919,11 +1240,52 @@ export default function Community() {
                   )}
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full" variant={event.status === 'ended' ? 'outline' : 'default'} disabled={event.status === 'ended'} data-testid={`button-join-event-${event.id}`}>
-                    {event.status === 'live' ? t('community.joinNow', 'Join Now') : 
-                     event.status === 'upcoming' ? t('community.register', 'Register') : 
-                     t('community.ended', 'Ended')}
-                  </Button>
+                  {event.status === 'live' ? (
+                    <Button 
+                      className="w-full bg-green-600 hover:bg-green-700" 
+                      onClick={() => joinEventMutation.mutate(event.id)}
+                      disabled={joinEventMutation.isPending}
+                      data-testid={`button-join-event-${event.id}`}
+                    >
+                      {joinEventMutation.isPending ? (
+                        <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                      ) : (
+                        <Zap className="h-4 w-4 mr-1" />
+                      )}
+                      {t('community.joinNow', 'Join Now')}
+                    </Button>
+                  ) : event.status === 'upcoming' ? (
+                    registeredEvents.has(event.id) ? (
+                      <Button 
+                        className="w-full" 
+                        variant="outline"
+                        disabled
+                        data-testid={`button-registered-event-${event.id}`}
+                      >
+                        <CheckCircle2 className="h-4 w-4 mr-1 text-green-500" />
+                        {t('community.registered', 'Registered')}
+                      </Button>
+                    ) : (
+                      <Button 
+                        className="w-full" 
+                        onClick={() => openEventRegistration(event)}
+                        data-testid={`button-register-event-${event.id}`}
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        {t('community.register', 'Register')}
+                      </Button>
+                    )
+                  ) : (
+                    <Button 
+                      className="w-full" 
+                      variant="outline" 
+                      disabled
+                      data-testid={`button-ended-event-${event.id}`}
+                    >
+                      <XCircle className="h-4 w-4 mr-1" />
+                      {t('community.ended', 'Ended')}
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             ))}
@@ -972,6 +1334,109 @@ export default function Community() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Event Registration Dialog */}
+      <Dialog open={eventRegisterDialogOpen} onOpenChange={setEventRegisterDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-primary" />
+              Register for Event
+            </DialogTitle>
+            <DialogDescription>
+              {selectedEvent?.title}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            {selectedEvent && (
+              <div className="p-3 rounded-lg bg-muted/50 space-y-2">
+                <div className="flex items-center gap-2">
+                  <Badge className={eventTypeColors[selectedEvent.type]}>
+                    {selectedEvent.type.toUpperCase()}
+                  </Badge>
+                  {selectedEvent.rewards && (
+                    <Badge variant="outline" className="text-yellow-400 border-yellow-400/30">
+                      <Gift className="h-3 w-3 mr-1" />
+                      {selectedEvent.rewards}
+                    </Badge>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground">{selectedEvent.description}</p>
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {new Date(selectedEvent.startDate * 1000).toLocaleDateString()}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Users className="h-3 w-3" />
+                    {formatNumber(selectedEvent.participants)} registered
+                  </span>
+                </div>
+              </div>
+            )}
+            <div className="space-y-2">
+              <Label htmlFor="reg-name">Name (Optional)</Label>
+              <Input 
+                id="reg-name"
+                placeholder="Your display name"
+                value={regName}
+                onChange={(e) => setRegName(e.target.value)}
+                data-testid="input-reg-name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="reg-email">Email Address *</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  id="reg-email"
+                  type="email"
+                  placeholder="your@email.com"
+                  className="pl-10"
+                  value={regEmail}
+                  onChange={(e) => setRegEmail(e.target.value)}
+                  data-testid="input-reg-email"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="reg-wallet">Wallet Address (Optional)</Label>
+              <div className="relative">
+                <Wallet className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  id="reg-wallet"
+                  placeholder="0x..."
+                  className="pl-10"
+                  value={regWallet}
+                  onChange={(e) => setRegWallet(e.target.value)}
+                  data-testid="input-reg-wallet"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">Required for receiving rewards</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => {
+              setEventRegisterDialogOpen(false);
+              setSelectedEvent(null);
+            }}>
+              {t('common.cancel', 'Cancel')}
+            </Button>
+            <Button 
+              onClick={handleEventRegister}
+              disabled={registerEventMutation.isPending || !regEmail.trim()}
+              data-testid="button-confirm-register"
+            >
+              {registerEventMutation.isPending ? (
+                <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+              ) : (
+                <CheckCircle2 className="h-4 w-4 mr-1" />
+              )}
+              Confirm Registration
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
