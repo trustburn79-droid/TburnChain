@@ -773,7 +773,17 @@
       "gas_fee_optimization_applied": "গ্যাস ফি অপ্টিমাইজেশন প্রয়োগ করা হয়েছে",
       "shard_rebalancing_complete": "শার্ড রিব্যালেন্সিং সম্পূর্ণ",
       "cross_chain_transfer_validated": "ক্রস-চেইন স্থানান্তর যাচাই করা হয়েছে",
-      "stake_distribution_optimized": "স্টেক বিতরণ অপ্টিমাইজ করা হয়েছে"
+      "stake_distribution_optimized": "স্টেক বিতরণ অপ্টিমাইজ করা হয়েছে",
+      "shard_load_balanced": "শার্ড লোড ব্যালেন্স করা হয়েছে",
+      "gas_fee_optimized": "গ্যাস ফি অপ্টিমাইজ করা হয়েছে",
+      "load_balancing_complete": "লোড ব্যালেন্সিং সম্পূর্ণ",
+      "consensus_achieved": "কনসেনসাস অর্জিত",
+      "validator_rotation_complete": "ভ্যালিডেটর রোটেশন সম্পূর্ণ",
+      "block_finalized": "ব্লক চূড়ান্ত করা হয়েছে",
+      "transaction_batch_processed": "লেনদেন ব্যাচ প্রক্রিয়াকৃত",
+      "network_optimization_applied": "নেটওয়ার্ক অপ্টিমাইজেশন প্রয়োগ করা হয়েছে",
+      "security_check_passed": "নিরাপত্তা পরীক্ষা পাস",
+      "resource_allocation_optimized": "রিসোর্স বরাদ্দ অপ্টিমাইজ করা হয়েছে"
     },
     "categories": {
       "security": "সুরক্ষা",

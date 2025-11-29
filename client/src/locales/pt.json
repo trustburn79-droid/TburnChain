@@ -773,7 +773,17 @@
       "gas_fee_optimization_applied": "Otimização de taxa de gas aplicada",
       "shard_rebalancing_complete": "Rebalanceamento de shards concluído",
       "cross_chain_transfer_validated": "Transferência cross-chain validada",
-      "stake_distribution_optimized": "Distribuição de stake otimizada"
+      "stake_distribution_optimized": "Distribuição de stake otimizada",
+      "shard_load_balanced": "Carga de shards balanceada",
+      "gas_fee_optimized": "Taxa de gas otimizada",
+      "load_balancing_complete": "Balanceamento de carga completo",
+      "consensus_achieved": "Consenso alcançado",
+      "validator_rotation_complete": "Rotação de validadores completa",
+      "block_finalized": "Bloco finalizado",
+      "transaction_batch_processed": "Lote de transações processado",
+      "network_optimization_applied": "Otimização de rede aplicada",
+      "security_check_passed": "Verificação de segurança aprovada",
+      "resource_allocation_optimized": "Alocação de recursos otimizada"
     },
     "categories": {
       "security": "Segurança",

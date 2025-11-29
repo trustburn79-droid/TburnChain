@@ -1460,7 +1460,17 @@
       "gas_fee_optimization_applied": "تم تطبيق تحسين رسوم الغاز",
       "shard_rebalancing_complete": "اكتمل إعادة توازن الشظايا",
       "cross_chain_transfer_validated": "تم التحقق من النقل عبر السلاسل",
-      "stake_distribution_optimized": "تم تحسين توزيع الرهان"
+      "stake_distribution_optimized": "تم تحسين توزيع الرهان",
+      "shard_load_balanced": "تم توازن حمل الشظايا",
+      "gas_fee_optimized": "تم تحسين رسوم الغاز",
+      "load_balancing_complete": "اكتمل توازن الحمل",
+      "consensus_achieved": "تم تحقيق الإجماع",
+      "validator_rotation_complete": "اكتمل تدوير المصادقين",
+      "block_finalized": "تم إتمام الكتلة",
+      "transaction_batch_processed": "تمت معالجة دفعة المعاملات",
+      "network_optimization_applied": "تم تطبيق تحسين الشبكة",
+      "security_check_passed": "تم اجتياز فحص الأمان",
+      "resource_allocation_optimized": "تم تحسين تخصيص الموارد"
     },
     "categories": {
       "security": "الأمان",

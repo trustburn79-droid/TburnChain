@@ -2191,7 +2191,17 @@
       "gas_fee_optimization_applied": "가스비 최적화 적용됨",
       "shard_rebalancing_complete": "샤드 리밸런싱 완료",
       "cross_chain_transfer_validated": "크로스체인 전송 검증됨",
-      "stake_distribution_optimized": "스테이크 분배 최적화됨"
+      "stake_distribution_optimized": "스테이크 분배 최적화됨",
+      "shard_load_balanced": "샤드 부하 분산됨",
+      "gas_fee_optimized": "가스비 최적화됨",
+      "load_balancing_complete": "부하 분산 완료",
+      "consensus_achieved": "합의 달성",
+      "validator_rotation_complete": "검증자 로테이션 완료",
+      "block_finalized": "블록 최종 확정됨",
+      "transaction_batch_processed": "트랜잭션 배치 처리됨",
+      "network_optimization_applied": "네트워크 최적화 적용됨",
+      "security_check_passed": "보안 검사 통과",
+      "resource_allocation_optimized": "리소스 할당 최적화됨"
     },
     "categories": {
       "security": "보안",

@@ -773,7 +773,17 @@
       "gas_fee_optimization_applied": "گیس فیس کی اصلاح لاگو کی گئی",
       "shard_rebalancing_complete": "شارڈ ری بیلنسنگ مکمل",
       "cross_chain_transfer_validated": "کراس چین ٹرانسفر تصدیق شدہ",
-      "stake_distribution_optimized": "اسٹیک تقسیم بہتر بنائی گئی"
+      "stake_distribution_optimized": "اسٹیک تقسیم بہتر بنائی گئی",
+      "shard_load_balanced": "شارڈ لوڈ متوازن",
+      "gas_fee_optimized": "گیس فیس بہتر بنائی گئی",
+      "load_balancing_complete": "لوڈ بیلنسنگ مکمل",
+      "consensus_achieved": "اتفاق رائے حاصل",
+      "validator_rotation_complete": "ویلیڈیٹر روٹیشن مکمل",
+      "block_finalized": "بلاک حتمی کر دیا گیا",
+      "transaction_batch_processed": "لین دین بیچ پروسیس",
+      "network_optimization_applied": "نیٹ ورک آپٹیمائزیشن لاگو",
+      "security_check_passed": "سیکیورٹی چیک پاس",
+      "resource_allocation_optimized": "وسائل کی تقسیم بہتر بنائی گئی"
     },
     "categories": {
       "security": "سیکیورٹی",

@@ -2203,7 +2203,17 @@
       "gas_fee_optimization_applied": "ガス料金の最適化を適用しました",
       "shard_rebalancing_complete": "シャードの再バランシングが完了しました",
       "cross_chain_transfer_validated": "クロスチェーン転送を検証しました",
-      "stake_distribution_optimized": "ステーク配分を最適化しました"
+      "stake_distribution_optimized": "ステーク配分を最適化しました",
+      "shard_load_balanced": "シャード負荷をバランシングしました",
+      "gas_fee_optimized": "ガス料金を最適化しました",
+      "load_balancing_complete": "負荷バランシングが完了しました",
+      "consensus_achieved": "コンセンサスを達成しました",
+      "validator_rotation_complete": "バリデーターローテーションが完了しました",
+      "block_finalized": "ブロックがファイナライズされました",
+      "transaction_batch_processed": "トランザクションバッチを処理しました",
+      "network_optimization_applied": "ネットワーク最適化を適用しました",
+      "security_check_passed": "セキュリティチェックに合格しました",
+      "resource_allocation_optimized": "リソース配分を最適化しました"
     },
     "categories": {
       "security": "セキュリティ",

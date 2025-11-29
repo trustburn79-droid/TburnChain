@@ -773,7 +773,17 @@
       "gas_fee_optimization_applied": "Оптимизация комиссии за газ применена",
       "shard_rebalancing_complete": "Ребалансировка шардов завершена",
       "cross_chain_transfer_validated": "Кросс-чейн перевод валидирован",
-      "stake_distribution_optimized": "Распределение стейка оптимизировано"
+      "stake_distribution_optimized": "Распределение стейка оптимизировано",
+      "shard_load_balanced": "Нагрузка шардов сбалансирована",
+      "gas_fee_optimized": "Комиссия за газ оптимизирована",
+      "load_balancing_complete": "Балансировка нагрузки завершена",
+      "consensus_achieved": "Консенсус достигнут",
+      "validator_rotation_complete": "Ротация валидаторов завершена",
+      "block_finalized": "Блок финализирован",
+      "transaction_batch_processed": "Пакет транзакций обработан",
+      "network_optimization_applied": "Оптимизация сети применена",
+      "security_check_passed": "Проверка безопасности пройдена",
+      "resource_allocation_optimized": "Распределение ресурсов оптимизировано"
     },
     "categories": {
       "security": "Безопасность",
