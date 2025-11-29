@@ -1,6 +1,57 @@
 import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+
+const localeMap: Record<string, string> = {
+  en: 'en-US',
+  zh: 'zh-CN',
+  ja: 'ja-JP',
+  hi: 'hi-IN',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  ar: 'ar-SA',
+  bn: 'bn-BD',
+  ru: 'ru-RU',
+  pt: 'pt-BR',
+  ur: 'ur-PK',
+  ko: 'ko-KR',
+};
+
+function formatSafeDate(dateValue: string | Date | null | undefined, fallbackText: string, locale: string): string {
+  if (!dateValue) return fallbackText;
+  try {
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+    if (isNaN(date.getTime())) return fallbackText;
+    const localeCode = localeMap[locale] || locale || 'en-US';
+    return date.toLocaleString(localeCode, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  } catch {
+    return fallbackText;
+  }
+}
+
+function formatSafeDateOnly(dateValue: string | Date | null | undefined, fallbackText: string, locale: string): string {
+  if (!dateValue) return fallbackText;
+  try {
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+    if (isNaN(date.getTime())) return fallbackText;
+    const localeCode = localeMap[locale] || locale || 'en-US';
+    return date.toLocaleDateString(localeCode, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  } catch {
+    return fallbackText;
+  }
+}
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -683,13 +734,13 @@ export default function OperatorReports() {
                             <div className="text-sm">
                               <div className="capitalize">{report.report_period}</div>
                               <div className="text-muted-foreground text-xs">
-                                {new Date(report.period_start).toLocaleDateString()}
+                                {formatSafeDateOnly(report.period_start, '-', i18n.language)}
                               </div>
                             </div>
                           </TableCell>
                           <TableCell>{getStatusBadge(report.status)}</TableCell>
                           <TableCell className="text-sm text-muted-foreground">
-                            {new Date(report.created_at).toLocaleDateString()}
+                            {formatSafeDateOnly(report.created_at, '-', i18n.language)}
                           </TableCell>
                           <TableCell>
                             <div className="flex gap-1">
@@ -913,10 +964,10 @@ export default function OperatorReports() {
                         <Badge variant="outline">{t(`operator.reports.frequencies.${schedule.frequency}`, { returnObjects: false }) as string}</Badge>
                       </TableCell>
                       <TableCell className="text-sm">
-                        {new Date(schedule.nextRun).toLocaleString()}
+                        {formatSafeDate(schedule.nextRun, '-', i18n.language)}
                       </TableCell>
                       <TableCell className="text-sm text-muted-foreground">
-                        {schedule.lastRun ? new Date(schedule.lastRun).toLocaleString() : t('operator.security.never')}
+                        {formatSafeDate(schedule.lastRun, t('operator.security.never'), i18n.language)}
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-wrap gap-1">
@@ -1036,7 +1087,7 @@ export default function OperatorReports() {
                         </TableCell>
                         <TableCell>{getComplianceStatusBadge(item.status)}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">
-                          {new Date(item.lastChecked).toLocaleDateString()}
+                          {formatSafeDateOnly(item.lastChecked, '-', i18n.language)}
                         </TableCell>
                         <TableCell>
                           <Select
@@ -1117,11 +1168,11 @@ export default function OperatorReports() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{t('operator.reports.periodStart')}</p>
-                  <p className="font-medium">{new Date(selectedReport.period_start).toLocaleDateString()}</p>
+                  <p className="font-medium">{formatSafeDateOnly(selectedReport.period_start, '-', i18n.language)}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{t('operator.reports.periodEnd')}</p>
-                  <p className="font-medium">{new Date(selectedReport.period_end).toLocaleDateString()}</p>
+                  <p className="font-medium">{formatSafeDateOnly(selectedReport.period_end, '-', i18n.language)}</p>
                 </div>
                 {selectedReport.regulatory_body && (
                   <div>
@@ -1149,7 +1200,7 @@ export default function OperatorReports() {
               {selectedReport.approved_at && (
                 <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-md">
                   <p className="text-sm text-green-500">
-                    {t('operator.reports.approvedByOn', { name: selectedReport.approved_by, date: new Date(selectedReport.approved_at).toLocaleString() })}
+                    {t('operator.reports.approvedByOn', { name: selectedReport.approved_by, date: formatSafeDate(selectedReport.approved_at, '-', i18n.language) })}
                   </p>
                 </div>
               )}
@@ -1157,7 +1208,7 @@ export default function OperatorReports() {
               {selectedReport.submitted_at && (
                 <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-md">
                   <p className="text-sm text-blue-500">
-                    {t('operator.reports.submittedOn', { date: new Date(selectedReport.submitted_at).toLocaleString() })}
+                    {t('operator.reports.submittedOn', { date: formatSafeDate(selectedReport.submitted_at, '-', i18n.language) })}
                   </p>
                 </div>
               )}
