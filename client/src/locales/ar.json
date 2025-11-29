@@ -2824,7 +2824,14 @@
         }
       },
       "weeklyReports": "التقارير الأسبوعية",
-      "automatedReportDesc": "جداول إنشاء التقارير الآلية"
+      "dailyReports": "التقارير اليومية",
+      "automatedReportDesc": "جداول إنشاء التقارير الآلية",
+      "frequencies": {
+        "daily": "يومي",
+        "weekly": "أسبوعي",
+        "monthly": "شهري",
+        "quarterly": "ربع سنوي"
+      }
     },
     "staking": {
       "title": "عمليات الستاكينغ",

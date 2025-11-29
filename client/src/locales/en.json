@@ -3457,7 +3457,14 @@
         }
       },
       "weeklyReports": "Weekly Reports",
-      "automatedReportDesc": "Automated report generation schedules"
+      "dailyReports": "Daily Reports",
+      "automatedReportDesc": "Automated report generation schedules",
+      "frequencies": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly"
+      }
     },
 
     "staking": {

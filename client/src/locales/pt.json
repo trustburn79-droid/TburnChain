@@ -1428,7 +1428,14 @@
         }
       },
       "weeklyReports": "Relatórios Semanais",
-      "automatedReportDesc": "Agendamentos de geração automática de relatórios"
+      "dailyReports": "Relatórios Diários",
+      "automatedReportDesc": "Agendamentos de geração automática de relatórios",
+      "frequencies": {
+        "daily": "Diário",
+        "weekly": "Semanal",
+        "monthly": "Mensal",
+        "quarterly": "Trimestral"
+      }
     },
     "staking": {
       "title": "Operações de Staking",

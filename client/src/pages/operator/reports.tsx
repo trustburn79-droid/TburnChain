@@ -910,7 +910,7 @@ export default function OperatorReports() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="capitalize">{schedule.frequency}</Badge>
+                        <Badge variant="outline">{t(`operator.reports.frequencies.${schedule.frequency}`, { returnObjects: false }) as string}</Badge>
                       </TableCell>
                       <TableCell className="text-sm">
                         {new Date(schedule.nextRun).toLocaleString()}

@@ -2664,7 +2664,14 @@
         }
       },
       "weeklyReports": "साप्ताहिक रिपोर्ट्स",
-      "automatedReportDesc": "स्वचालित रिपोर्ट जनरेशन शेड्यूल"
+      "dailyReports": "दैनिक रिपोर्ट्स",
+      "automatedReportDesc": "स्वचालित रिपोर्ट जनरेशन शेड्यूल",
+      "frequencies": {
+        "daily": "दैनिक",
+        "weekly": "साप्ताहिक",
+        "monthly": "मासिक",
+        "quarterly": "तिमाही"
+      }
     },
     "staking": {
       "title": "स्टेकिंग मैनेजमेंट",

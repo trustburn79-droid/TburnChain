@@ -3412,7 +3412,14 @@
         }
       },
       "weeklyReports": "주간 보고서",
+      "dailyReports": "일간 보고서",
       "automatedReportDesc": "자동화된 보고서 생성 일정",
+      "frequencies": {
+        "daily": "일간",
+        "weekly": "주간",
+        "monthly": "월간",
+        "quarterly": "분기별"
+      },
       "schedules": "일정",
       "compliance": "규정 준수",
       "totalReports": "총 보고서",

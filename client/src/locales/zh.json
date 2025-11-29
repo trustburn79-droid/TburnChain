@@ -3483,7 +3483,14 @@
         }
       },
       "weeklyReports": "每周报告",
-      "automatedReportDesc": "自动化报告生成计划"
+      "dailyReports": "每日报告",
+      "automatedReportDesc": "自动化报告生成计划",
+      "frequencies": {
+        "daily": "每日",
+        "weekly": "每周",
+        "monthly": "每月",
+        "quarterly": "每季度"
+      }
     },
     "staking": {
       "title": "质押管理",

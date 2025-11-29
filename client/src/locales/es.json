@@ -3406,7 +3406,14 @@
         }
       },
       "weeklyReports": "Informes Semanales",
+      "dailyReports": "Informes Diarios",
       "automatedReportDesc": "Programaciones de generación automática de informes",
+      "frequencies": {
+        "daily": "Diario",
+        "weekly": "Semanal",
+        "monthly": "Mensual",
+        "quarterly": "Trimestral"
+      },
       "schedules": "Programaciones",
       "totalReports": "Total Informes",
       "draft": "Draft",

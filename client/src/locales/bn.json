@@ -1428,7 +1428,14 @@
         }
       },
       "weeklyReports": "সাপ্তাহিক রিপোর্ট",
-      "automatedReportDesc": "স্বয়ংক্রিয় রিপোর্ট জেনারেশন শিডিউল"
+      "dailyReports": "দৈনিক রিপোর্ট",
+      "automatedReportDesc": "স্বয়ংক্রিয় রিপোর্ট জেনারেশন শিডিউল",
+      "frequencies": {
+        "daily": "দৈনিক",
+        "weekly": "সাপ্তাহিক",
+        "monthly": "মাসিক",
+        "quarterly": "ত্রৈমাসিক"
+      }
     },
     "staking": {
       "title": "স্টেকিং অপারেশন",

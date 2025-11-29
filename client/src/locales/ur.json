@@ -1428,7 +1428,14 @@
         }
       },
       "weeklyReports": "ہفتہ وار رپورٹس",
-      "automatedReportDesc": "خودکار رپورٹ جنریشن شیڈولز"
+      "dailyReports": "روزانہ رپورٹس",
+      "automatedReportDesc": "خودکار رپورٹ جنریشن شیڈولز",
+      "frequencies": {
+        "daily": "روزانہ",
+        "weekly": "ہفتہ وار",
+        "monthly": "ماہانہ",
+        "quarterly": "سہ ماہی"
+      }
     },
     "staking": {
       "title": "اسٹیکنگ آپریشنز",
