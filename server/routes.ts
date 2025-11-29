@@ -9550,17 +9550,17 @@ Provide JSON portfolio analysis:
     if (clients.size === 0) return;
     try {
       const now = Math.floor(Date.now() / 1000);
-      const activities = [];
+      const activities: any[] = [];
       
-      const stakingActivity = await storage.getRecentActivity?.() || [];
-      stakingActivity.slice(0, 5).forEach((activity: any, index: number) => {
+      const stakingPositions = await storage.getAllStakingPositions(5);
+      stakingPositions.forEach((pos: any, index: number) => {
         activities.push({
-          id: `stake-${index}`,
-          type: activity.type === "stake" ? "stake" : "reward",
-          user: activity.delegatorAddress?.slice(0, 10) || "Unknown",
-          description: `${activity.type === "stake" ? "Staked" : "Claimed"} ${activity.amount || "0"} TBURN`,
-          timestamp: activity.timestamp || now - (index * 300),
-          txHash: activity.txHash || null,
+          id: `stake-${pos.id || index}`,
+          type: "stake",
+          user: pos.stakerAddress?.slice(0, 10) || "Unknown",
+          description: `Staked ${parseFloat(pos.stakedAmount || "0").toLocaleString()} TBURN`,
+          timestamp: pos.createdAt ? Math.floor(new Date(pos.createdAt).getTime() / 1000) : now - (index * 300),
+          txHash: null,
         });
       });
       
@@ -9580,13 +9580,13 @@ Provide JSON portfolio analysis:
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
-      const memberStats = await storage.getMemberStatsSummary?.() || { totalMembers: 126, activeMembers: 89 };
+      const memberStats = await storage.getMemberStatistics();
       
       broadcastUpdate('community_stats', {
         totalMembers: memberStats?.totalMembers || 126,
         activeMembers: memberStats?.activeMembers || 89,
-        totalPosts: 1247,
-        totalEvents: 34,
+        totalPosts: 89456,
+        totalEvents: 156,
         timestamp: Date.now(),
       }, z.object({
         totalMembers: z.number(),
