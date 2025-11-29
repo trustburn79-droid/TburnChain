@@ -48,6 +48,8 @@
     "none": "None",
     "yes": "Yes",
     "no": "No",
+    "optional": "Optional",
+    "required": "Required",
     "amount": "Amount",
     "balance": "Balance",
     "total": "Total",

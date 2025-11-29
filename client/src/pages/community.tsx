@@ -296,8 +296,8 @@ export default function Community() {
     },
     onSuccess: () => {
       toast({
-        title: "Post Created",
-        description: "Your post has been published successfully!",
+        title: t('community.toastPostCreated', 'Post Created'),
+        description: t('community.toastPostCreatedDesc', 'Your post has been published successfully!'),
       });
       setNewPostDialogOpen(false);
       setPostTitle("");
@@ -309,8 +309,8 @@ export default function Community() {
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to create post. Please try again.",
+        title: t('common.error', 'Error'),
+        description: t('community.toastPostError', 'Failed to create post. Please try again.'),
         variant: "destructive",
       });
     },
@@ -390,8 +390,8 @@ export default function Community() {
       if (data.success) {
         setRegisteredEvents(prev => new Set([...prev, variables.eventId]));
         toast({
-          title: "Registration Successful!",
-          description: data.message || "You have been registered for the event.",
+          title: t('community.toastRegistrationSuccess', 'Registration Successful!'),
+          description: data.message || t('community.toastRegistrationSuccessDesc', 'You have been registered for the event.'),
         });
         setEventRegisterDialogOpen(false);
         setSelectedEvent(null);
@@ -402,15 +402,15 @@ export default function Community() {
         queryClient.invalidateQueries({ queryKey: ['/api/community/activity'] });
       } else {
         toast({
-          title: "Already Registered",
-          description: data.message || "You are already registered for this event.",
+          title: t('community.toastAlreadyRegistered', 'Already Registered'),
+          description: data.message || t('community.toastAlreadyRegisteredDesc', 'You are already registered for this event.'),
         });
       }
     },
     onError: (error) => {
       toast({
-        title: "Registration Failed",
-        description: "Unable to register for the event. Please try again.",
+        title: t('community.toastRegistrationFailed', 'Registration Failed'),
+        description: t('community.toastRegistrationFailedDesc', 'Unable to register for the event. Please try again.'),
         variant: "destructive",
       });
     },
@@ -427,8 +427,8 @@ export default function Community() {
     },
     onSuccess: (data) => {
       toast({
-        title: "Joined Event",
-        description: "You have joined the live event!",
+        title: t('community.toastJoinedEvent', 'Joined Event'),
+        description: t('community.toastJoinedEventDesc', 'You have joined the live event!'),
       });
     },
   });
@@ -447,13 +447,13 @@ export default function Community() {
         refetchBadges(),
       ]);
       toast({
-        title: "Refreshed",
-        description: "All community data has been updated.",
+        title: t('community.toastRefreshed', 'Refreshed'),
+        description: t('community.toastRefreshedDesc', 'All community data has been updated.'),
       });
     } catch (error) {
       toast({
-        title: "Refresh Failed",
-        description: "Unable to refresh data. Please try again.",
+        title: t('community.toastRefreshFailed', 'Refresh Failed'),
+        description: t('community.toastRefreshFailedDesc', 'Unable to refresh data. Please try again.'),
         variant: "destructive",
       });
     } finally {
@@ -465,8 +465,8 @@ export default function Community() {
   const handleSubmitPost = () => {
     if (!postTitle.trim() || !postContent.trim()) {
       toast({
-        title: "Validation Error",
-        description: "Please fill in both title and content.",
+        title: t('community.toastValidationError', 'Validation Error'),
+        description: t('community.toastValidationErrorDesc', 'Please fill in both title and content.'),
         variant: "destructive",
       });
       return;
@@ -485,8 +485,8 @@ export default function Community() {
     if (!selectedEvent) return;
     if (!regEmail.trim()) {
       toast({
-        title: "Email Required",
-        description: "Please enter your email address.",
+        title: t('community.toastEmailRequired', 'Email Required'),
+        description: t('community.toastEmailRequiredDesc', 'Please enter your email address.'),
         variant: "destructive",
       });
       return;
@@ -962,12 +962,12 @@ export default function Community() {
                 <DialogHeader>
                   <DialogTitle>{t('community.createPost', 'Create New Post')}</DialogTitle>
                   <DialogDescription>
-                    Share your thoughts with the TBURN community. Your post will be visible to all members.
+                    {t('community.createPostDesc', 'Share your thoughts with the TBURN community. Your post will be visible to all members.')}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
                   <div className="space-y-2">
-                    <Label htmlFor="post-title">Title</Label>
+                    <Label htmlFor="post-title">{t('community.title', 'Title')}</Label>
                     <Input 
                       id="post-title"
                       placeholder={t('community.postTitle', 'Post title')} 
@@ -977,7 +977,7 @@ export default function Community() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="post-category">Category</Label>
+                    <Label htmlFor="post-category">{t('community.category', 'Category')}</Label>
                     <Select value={postCategory} onValueChange={setPostCategory}>
                       <SelectTrigger data-testid="select-post-category">
                         <SelectValue placeholder={t('community.selectCategory', 'Select category')} />
@@ -992,7 +992,7 @@ export default function Community() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="post-content">Content</Label>
+                    <Label htmlFor="post-content">{t('community.content', 'Content')}</Label>
                     <Textarea 
                       id="post-content"
                       placeholder={t('community.postContent', 'Write your post content...')} 
@@ -1003,10 +1003,10 @@ export default function Community() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="post-tags">Tags (comma separated)</Label>
+                    <Label htmlFor="post-tags">{t('community.tags', 'Tags (comma separated)')}</Label>
                     <Input 
                       id="post-tags"
-                      placeholder={t('community.tags', 'e.g. staking, defi, governance')} 
+                      placeholder={t('community.tagsPlaceholder', 'e.g. staking, defi, governance')} 
                       value={postTags}
                       onChange={(e) => setPostTags(e.target.value)}
                       data-testid="input-post-tags" 
@@ -1172,7 +1172,7 @@ export default function Community() {
                         <Star className="h-4 w-4 text-yellow-400" />
                         <span className="font-bold">{formatNumber(member.reputation)}</span>
                       </div>
-                      <p className="text-xs text-muted-foreground">{formatNumber(member.contributions)} contributions</p>
+                      <p className="text-xs text-muted-foreground">{formatNumber(member.contributions)} {t('community.contributions', 'contributions')}</p>
                     </div>
                     <div className="text-right hidden lg:block">
                       <p className="text-sm font-medium">{formatNumber(parseInt(member.tburnStaked))} TBURN</p>
@@ -1198,7 +1198,7 @@ export default function Community() {
                     </Badge>
                     <Badge variant={event.status === 'live' ? 'default' : 'outline'} className={event.status === 'live' ? 'bg-green-500' : ''}>
                       {event.status === 'live' && <span className="w-2 h-2 bg-white rounded-full mr-1 animate-pulse" />}
-                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                      {event.status === 'live' ? t('community.live', 'LIVE') : event.status === 'upcoming' ? t('community.upcoming', 'Upcoming') : t('community.ended', 'Ended')}
                     </Badge>
                   </div>
                   <CardTitle className="text-lg">{event.title}</CardTitle>
@@ -1213,7 +1213,7 @@ export default function Community() {
                     {event.isOnline ? (
                       <>
                         <Globe className="h-4 w-4 text-muted-foreground" />
-                        <span>{t('community.online', 'Online Event')}</span>
+                        <span>{t('community.onlineEvent', 'Online Event')}</span>
                       </>
                     ) : (
                       <>
@@ -1341,7 +1341,7 @@ export default function Community() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Calendar className="h-5 w-5 text-primary" />
-              Register for Event
+              {t('community.registerForEvent', 'Register for Event')}
             </DialogTitle>
             <DialogDescription>
               {selectedEvent?.title}
@@ -1369,29 +1369,29 @@ export default function Community() {
                   </span>
                   <span className="flex items-center gap-1">
                     <Users className="h-3 w-3" />
-                    {formatNumber(selectedEvent.participants)} registered
+                    {formatNumber(selectedEvent.participants)} {t('community.registered', 'registered')}
                   </span>
                 </div>
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="reg-name">Name (Optional)</Label>
+              <Label htmlFor="reg-name">{t('community.yourName', 'Your Name')} ({t('common.optional', 'Optional')})</Label>
               <Input 
                 id="reg-name"
-                placeholder="Your display name"
+                placeholder={t('community.enterYourName', 'Enter your name')}
                 value={regName}
                 onChange={(e) => setRegName(e.target.value)}
                 data-testid="input-reg-name"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="reg-email">Email Address *</Label>
+              <Label htmlFor="reg-email">{t('community.emailAddress', 'Email Address')} *</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input 
                   id="reg-email"
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder={t('community.enterEmail', 'Enter your email')}
                   className="pl-10"
                   value={regEmail}
                   onChange={(e) => setRegEmail(e.target.value)}
@@ -1400,7 +1400,7 @@ export default function Community() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="reg-wallet">Wallet Address (Optional)</Label>
+              <Label htmlFor="reg-wallet">{t('community.walletAddressOptional', 'Wallet Address (Optional)')}</Label>
               <div className="relative">
                 <Wallet className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input 
@@ -1412,7 +1412,7 @@ export default function Community() {
                   data-testid="input-reg-wallet"
                 />
               </div>
-              <p className="text-xs text-muted-foreground">Required for receiving rewards</p>
+              <p className="text-xs text-muted-foreground">{t('community.rewards', 'Required for receiving rewards')}</p>
             </div>
           </div>
           <DialogFooter>
@@ -1432,7 +1432,7 @@ export default function Community() {
               ) : (
                 <CheckCircle2 className="h-4 w-4 mr-1" />
               )}
-              Confirm Registration
+              {t('community.confirmRegistration', 'Confirm Registration')}
             </Button>
           </DialogFooter>
         </DialogContent>
