@@ -2249,7 +2249,8 @@
     "roundsCompleted": "已完成轮次",
     "failedRounds": "失败轮次",
     "timeoutRate": "超时率",
-    "earlyTerminations": "提前终止"
+    "earlyTerminations": "提前终止",
+    "validators": "验证者"
   },
   "sharding": {
     "title": "分片",

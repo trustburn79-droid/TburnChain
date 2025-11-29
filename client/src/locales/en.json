@@ -2246,7 +2246,8 @@
     "roundsCompleted": "Rounds Completed",
     "failedRounds": "Failed Rounds",
     "timeoutRate": "Timeout Rate",
-    "earlyTerminations": "Early Terminations"
+    "earlyTerminations": "Early Terminations",
+    "validators": "Validators"
   },
   "sharding": {
     "title": "Sharding",

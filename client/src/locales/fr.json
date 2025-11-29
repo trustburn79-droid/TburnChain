@@ -1632,7 +1632,8 @@
     "roundsCompleted": "Rounds terminés",
     "failedRounds": "Rounds échoués",
     "timeoutRate": "Taux de timeout",
-    "earlyTerminations": "Terminaisons anticipées"
+    "earlyTerminations": "Terminaisons anticipées",
+    "validators": "Validateurs"
   },
   "sharding": {
     "title": "Sharding",

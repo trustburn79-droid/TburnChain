@@ -2360,8 +2360,9 @@
     "avgTime": "Avg Hora",
     "roundsCompleted": "Rounds Completado",
     "failedRounds": "Fallido Rounds",
-    "timeoutRate": "Timeout Tasa",
-    "earlyTerminations": "Early Terminations"
+    "timeoutRate": "Tasa de Timeout",
+    "earlyTerminations": "Terminaciones Anticipadas",
+    "validators": "Validadores"
   },
   "sharding": {
     "title": "Gestión de Shards",

@@ -2305,7 +2305,8 @@
     "roundsCompleted": "完了ラウンド",
     "failedRounds": "失敗ラウンド",
     "timeoutRate": "タイムアウト率",
-    "earlyTerminations": "早期終了"
+    "earlyTerminations": "早期終了",
+    "validators": "バリデーター"
   },
   "sharding": {
     "title": "シャーディング",

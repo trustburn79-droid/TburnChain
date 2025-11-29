@@ -2293,7 +2293,8 @@
     "roundsCompleted": "완료된 라운드",
     "failedRounds": "실패한 라운드",
     "timeoutRate": "타임아웃율",
-    "earlyTerminations": "조기 종료"
+    "earlyTerminations": "조기 종료",
+    "validators": "검증자"
   },
   "sharding": {
     "title": "샤딩",

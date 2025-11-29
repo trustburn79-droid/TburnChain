@@ -1319,7 +1319,8 @@
     "roundsCompleted": "الجولات المكتملة",
     "failedRounds": "الجولات الفاشلة",
     "timeoutRate": "معدل انتهاء المهلة",
-    "earlyTerminations": "الإنهاءات المبكرة"
+    "earlyTerminations": "الإنهاءات المبكرة",
+    "validators": "المدققون"
   },
   "sharding": {
     "title": "التجزئة",

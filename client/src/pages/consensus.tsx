@@ -165,7 +165,7 @@ export default function Consensus() {
                   </div>
                   <div>
                     <div className="text-muted-foreground mb-1">{t('consensus.totalValidators')}</div>
-                    <div className="font-bold text-lg">{prevoteCount.total} {t('validators.validators')}</div>
+                    <div className="font-bold text-lg">{prevoteCount.total} {t('consensus.validators')}</div>
                   </div>
                   <div>
                     <div className="text-muted-foreground mb-1">{t('consensus.quorum')} (2f+1)</div>
