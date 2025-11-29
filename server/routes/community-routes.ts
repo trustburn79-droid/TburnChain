@@ -201,9 +201,37 @@ router.get("/posts", async (req: Request, res: Response) => {
       { id: "8", title: "Node Setup Guide for Beginners", author: "TechSupport", category: "support", content: "Step-by-step guide on setting up your TBURN node with troubleshooting tips.", likes: 234, comments: 45, views: 1560, isPinned: false, isHot: false, createdAt: now - 172800, tags: ["node", "guide", "setup"] },
     ];
     
+    const samplePostsWithDynamicCounts = samplePosts.map(post => {
+      const likeCount = postLikes.get(post.id)?.size || 0;
+      const dislikeCount = postDislikes.get(post.id)?.size || 0;
+      return {
+        ...post,
+        likes: post.likes + likeCount,
+        dislikes: dislikeCount,
+      };
+    });
+    
+    const userPostsWithDynamicCounts = userPosts.map(post => {
+      const likeCount = postLikes.get(post.id)?.size || 0;
+      const dislikeCount = postDislikes.get(post.id)?.size || 0;
+      return {
+        ...post,
+        likes: likeCount,
+        dislikes: dislikeCount,
+      };
+    });
+    
+    const allPosts = [...userPostsWithDynamicCounts, ...samplePostsWithDynamicCounts];
+    
     const filteredPosts = category === "all" 
-      ? samplePosts 
-      : samplePosts.filter(p => p.category === category);
+      ? allPosts 
+      : allPosts.filter(p => p.category === category);
+    
+    filteredPosts.sort((a, b) => {
+      if (a.isPinned && !b.isPinned) return -1;
+      if (!a.isPinned && b.isPinned) return 1;
+      return b.createdAt - a.createdAt;
+    });
     
     res.json(filteredPosts);
   } catch (error) {
@@ -216,7 +244,7 @@ router.get("/events", async (req: Request, res: Response) => {
   try {
     const now = Math.floor(Date.now() / 1000);
     
-    const events: EventResponse[] = [
+    const baseEvents: EventResponse[] = [
       { id: "1", title: "TBURN v7.0 Launch AMA", description: "Join the core team for a live Q&A session about the mainnet launch and upcoming features", type: "ama", startDate: now + 86400, endDate: now + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true },
       { id: "2", title: "DeFi Workshop: Liquidity Mining", description: "Learn advanced liquidity mining strategies with hands-on exercises and expert guidance", type: "workshop", startDate: now + 172800, endDate: now + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true },
       { id: "3", title: "TBURN Hackathon 2025", description: "48-hour hackathon to build innovative dApps on TBURN. Join developers worldwide!", type: "hackathon", startDate: now + 604800, endDate: now + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea" },
@@ -227,7 +255,15 @@ router.get("/events", async (req: Request, res: Response) => {
       { id: "8", title: "Community Airdrop Event", description: "Exclusive airdrop for active community members. Complete tasks to earn rewards!", type: "airdrop", startDate: now + 518400, endDate: now + 604800, participants: 3450, rewards: "200,000 TBURN", status: "upcoming", isOnline: true },
     ];
     
-    res.json(events);
+    const eventsWithDynamicCounts = baseEvents.map(event => {
+      const registeredCount = eventRegistrations.get(event.id)?.size || 0;
+      return {
+        ...event,
+        participants: event.participants + registeredCount,
+      };
+    });
+    
+    res.json(eventsWithDynamicCounts);
   } catch (error) {
     console.error("[Community] Error fetching events:", error);
     res.status(500).json({ error: "Failed to fetch events" });
