@@ -1470,7 +1470,8 @@
       "transaction_batch_processed": "تمت معالجة دفعة المعاملات",
       "network_optimization_applied": "تم تطبيق تحسين الشبكة",
       "security_check_passed": "تم اجتياز فحص الأمان",
-      "resource_allocation_optimized": "تم تحسين تخصيص الموارد"
+      "resource_allocation_optimized": "تم تحسين تخصيص الموارد",
+      "crossshard_message_routed": "تم توجيه رسالة عبر الشظايا"
     },
     "categories": {
       "security": "الأمان",
@@ -1481,7 +1482,8 @@
       "performance": "الأداء",
       "verification": "التحقق",
       "optimization": "التحسين",
-      "governance": "الحوكمة"
+      "governance": "الحوكمة",
+      "routing": "التوجيه"
     },
     "impactLevels": {
       "high": "عالي",

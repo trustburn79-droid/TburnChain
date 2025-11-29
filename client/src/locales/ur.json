@@ -783,7 +783,8 @@
       "transaction_batch_processed": "لین دین بیچ پروسیس",
       "network_optimization_applied": "نیٹ ورک آپٹیمائزیشن لاگو",
       "security_check_passed": "سیکیورٹی چیک پاس",
-      "resource_allocation_optimized": "وسائل کی تقسیم بہتر بنائی گئی"
+      "resource_allocation_optimized": "وسائل کی تقسیم بہتر بنائی گئی",
+      "crossshard_message_routed": "کراس شارڈ پیغام روٹ کیا گیا"
     },
     "categories": {
       "security": "سیکیورٹی",
@@ -794,7 +795,8 @@
       "performance": "کارکردگی",
       "verification": "تصدیق",
       "optimization": "اصلاح",
-      "governance": "گورننس"
+      "governance": "گورننس",
+      "routing": "روٹنگ"
     },
     "impactLevels": {
       "high": "اعلیٰ",

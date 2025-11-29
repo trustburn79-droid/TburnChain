@@ -2201,7 +2201,8 @@
       "transaction_batch_processed": "트랜잭션 배치 처리됨",
       "network_optimization_applied": "네트워크 최적화 적용됨",
       "security_check_passed": "보안 검사 통과",
-      "resource_allocation_optimized": "리소스 할당 최적화됨"
+      "resource_allocation_optimized": "리소스 할당 최적화됨",
+      "crossshard_message_routed": "크로스샤드 메시지 라우팅됨"
     },
     "categories": {
       "security": "보안",
@@ -2212,7 +2213,8 @@
       "performance": "성능",
       "verification": "확인",
       "optimization": "최적화",
-      "governance": "거버넌스"
+      "governance": "거버넌스",
+      "routing": "라우팅"
     },
     "impactLevels": {
       "high": "높음",

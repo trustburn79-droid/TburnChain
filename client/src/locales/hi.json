@@ -1638,7 +1638,8 @@
       "transaction_batch_processed": "लेनदेन बैच संसाधित",
       "network_optimization_applied": "नेटवर्क अनुकूलन लागू",
       "security_check_passed": "सुरक्षा जांच पास",
-      "resource_allocation_optimized": "संसाधन आवंटन अनुकूलित"
+      "resource_allocation_optimized": "संसाधन आवंटन अनुकूलित",
+      "crossshard_message_routed": "क्रॉस-शार्ड संदेश रूट किया"
     },
     "categories": {
       "security": "सुरक्षा",
@@ -1649,7 +1650,8 @@
       "performance": "प्रदर्शन",
       "verification": "पुष्टि",
       "optimization": "अनुकूलन",
-      "governance": "शासन"
+      "governance": "शासन",
+      "routing": "रूटिंग"
     },
     "impactLevels": {
       "high": "उच्च",

@@ -1783,7 +1783,8 @@
       "transaction_batch_processed": "Lot de transactions traité",
       "network_optimization_applied": "Optimisation réseau appliquée",
       "security_check_passed": "Vérification de sécurité réussie",
-      "resource_allocation_optimized": "Allocation des ressources optimisée"
+      "resource_allocation_optimized": "Allocation des ressources optimisée",
+      "crossshard_message_routed": "Message cross-shard routé"
     },
     "categories": {
       "security": "Sécurité",
@@ -1794,7 +1795,8 @@
       "performance": "Performance",
       "verification": "Vérification",
       "optimization": "Optimisation",
-      "governance": "Gouvernance"
+      "governance": "Gouvernance",
+      "routing": "Routage"
     },
     "impactLevels": {
       "high": "Élevé",

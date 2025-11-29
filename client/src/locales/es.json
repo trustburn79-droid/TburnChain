@@ -2290,7 +2290,8 @@
       "transaction_batch_processed": "Lote de transacciones procesado",
       "network_optimization_applied": "Optimización de red aplicada",
       "security_check_passed": "Verificación de seguridad aprobada",
-      "resource_allocation_optimized": "Asignación de recursos optimizada"
+      "resource_allocation_optimized": "Asignación de recursos optimizada",
+      "crossshard_message_routed": "Mensaje cross-shard enrutado"
     },
     "categories": {
       "security": "Seguridad",
@@ -2301,7 +2302,8 @@
       "performance": "Rendimiento",
       "verification": "Verificación",
       "optimization": "Optimización",
-      "governance": "Gobernanza"
+      "governance": "Gobernanza",
+      "routing": "Enrutamiento"
     },
     "impactLevels": {
       "high": "Alto",

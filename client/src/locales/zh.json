@@ -2157,7 +2157,8 @@
       "transaction_batch_processed": "交易批次已处理",
       "network_optimization_applied": "网络优化已应用",
       "security_check_passed": "安全检查通过",
-      "resource_allocation_optimized": "资源分配已优化"
+      "resource_allocation_optimized": "资源分配已优化",
+      "crossshard_message_routed": "跨分片消息已路由"
     },
     "categories": {
       "security": "安全",
@@ -2168,7 +2169,8 @@
       "performance": "性能",
       "verification": "确认",
       "optimization": "优化",
-      "governance": "治理"
+      "governance": "治理",
+      "routing": "路由"
     },
     "impactLevels": {
       "high": "高",

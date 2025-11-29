@@ -783,7 +783,8 @@
       "transaction_batch_processed": "Пакет транзакций обработан",
       "network_optimization_applied": "Оптимизация сети применена",
       "security_check_passed": "Проверка безопасности пройдена",
-      "resource_allocation_optimized": "Распределение ресурсов оптимизировано"
+      "resource_allocation_optimized": "Распределение ресурсов оптимизировано",
+      "crossshard_message_routed": "Кросс-шард сообщение маршрутизировано"
     },
     "categories": {
       "security": "Безопасность",
@@ -794,7 +795,8 @@
       "performance": "Производительность",
       "verification": "Верификация",
       "optimization": "Оптимизация",
-      "governance": "Управление"
+      "governance": "Управление",
+      "routing": "Маршрутизация"
     },
     "impactLevels": {
       "high": "Высокий",

@@ -2213,7 +2213,8 @@
       "transaction_batch_processed": "トランザクションバッチを処理しました",
       "network_optimization_applied": "ネットワーク最適化を適用しました",
       "security_check_passed": "セキュリティチェックに合格しました",
-      "resource_allocation_optimized": "リソース配分を最適化しました"
+      "resource_allocation_optimized": "リソース配分を最適化しました",
+      "crossshard_message_routed": "クロスシャードメッセージをルーティングしました"
     },
     "categories": {
       "security": "セキュリティ",
@@ -2224,7 +2225,8 @@
       "performance": "パフォーマンス",
       "verification": "確認",
       "optimization": "最適化",
-      "governance": "ガバナンス"
+      "governance": "ガバナンス",
+      "routing": "ルーティング"
     },
     "impactLevels": {
       "high": "高",

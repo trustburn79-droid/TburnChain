@@ -783,7 +783,8 @@
       "transaction_batch_processed": "লেনদেন ব্যাচ প্রক্রিয়াকৃত",
       "network_optimization_applied": "নেটওয়ার্ক অপ্টিমাইজেশন প্রয়োগ করা হয়েছে",
       "security_check_passed": "নিরাপত্তা পরীক্ষা পাস",
-      "resource_allocation_optimized": "রিসোর্স বরাদ্দ অপ্টিমাইজ করা হয়েছে"
+      "resource_allocation_optimized": "রিসোর্স বরাদ্দ অপ্টিমাইজ করা হয়েছে",
+      "crossshard_message_routed": "ক্রস-শার্ড মেসেজ রাউট করা হয়েছে"
     },
     "categories": {
       "security": "সুরক্ষা",
@@ -794,7 +795,8 @@
       "performance": "পারফরম্যান্স",
       "verification": "যাচাই",
       "optimization": "অপ্টিমাইজেশন",
-      "governance": "শাসন"
+      "governance": "শাসন",
+      "routing": "রাউটিং"
     },
     "impactLevels": {
       "high": "উচ্চ",
