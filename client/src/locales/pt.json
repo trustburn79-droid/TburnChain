@@ -1814,5 +1814,84 @@
       "for": "A FAVOR",
       "against": "CONTRA"
     }
+  },
+  "burn": {
+    "title": "Painel de Queima Automática",
+    "subtitle": "Sistema de Queima Autônomo Aprimorado por IA com Mecanismos Multi-Gatilho",
+    "deflationary": "Deflacionário",
+    "totalBurned": "Total Queimado",
+    "tburnPermanentlyRemoved": "TBURN permanentemente removido",
+    "burnedToday": "Queimado Hoje",
+    "burn24hVolume": "Volume de queima 24h",
+    "currentBurnRate": "Taxa de Queima Atual",
+    "ofTransactionFees": "das taxas de transação",
+    "supplyProgress": "Progresso do Fornecimento",
+    "targetProgress": "Progresso da Meta",
+    "tabs": {
+      "overview": "Visão Geral",
+      "events": "Eventos de Queima",
+      "configuration": "Configuração",
+      "aiOptimization": "Otimização IA"
+    },
+    "burnTypes": {
+      "transaction": "Transação",
+      "timed": "Programado",
+      "volume": "Volume",
+      "community": "Comunidade",
+      "aiOptimized": "Otimizado por IA",
+      "manual": "Manual"
+    },
+    "charts": {
+      "burnHistory30Days": "Histórico de Queima (30 Dias)",
+      "burnDistributionByType": "Distribuição de Queima por Tipo"
+    },
+    "burnTypeCards": {
+      "transactionBurns": "Queimas de Transação",
+      "transactionBurnsDesc": "1% por transação (otimizado por IA)",
+      "timedBurns": "Queimas Programadas",
+      "timedBurnsDesc": "0,1% programado diariamente",
+      "volumeBurns": "Queimas por Volume",
+      "volumeBurnsDesc": "Acionado em limites",
+      "aiBurns": "Queimas IA",
+      "aiBurnsDesc": "Queimas ótimas recomendadas por IA"
+    },
+    "events": {
+      "noBurnEventsRecorded": "Nenhum evento de queima registrado",
+      "ai": "IA"
+    },
+    "config": {
+      "transactionBurn": "Queima de Transação",
+      "status": "Status",
+      "enabled": "Ativado",
+      "disabled": "Desativado",
+      "burnRate": "Taxa de Queima",
+      "bps": "bps",
+      "transactionBurnDesc": "Tokens queimados de cada transação como porcentagem do valor transferido.",
+      "timedBurn": "Queima Programada",
+      "interval": "Intervalo",
+      "percentage": "Porcentagem",
+      "volumeBurn": "Queima por Volume",
+      "threshold": "Limite",
+      "aiOptimization": "Otimização IA",
+      "minRate": "Taxa Mínima",
+      "maxRate": "Taxa Máxima"
+    },
+    "aiOptimization": {
+      "title": "Motor de Otimização de Queima IA",
+      "description": "Usa IA Triple-Band para otimizar taxas de queima com base nas condições de mercado e metas de tokenomics",
+      "strategicAnalysis": "Análise Estratégica",
+      "strategicAnalysisDesc": "GPT-5 Turbo analisa metas de fornecimento de longo prazo, condições de mercado e impacto econômico para definir metas de queima ótimas.",
+      "tacticalAdjustment": "Ajuste Tático",
+      "tacticalAdjustmentDesc": "Claude Sonnet 4.5 faz ajustes em tempo real com base no congestionamento da rede, volume de transações e volatilidade de preços.",
+      "operationalExecution": "Execução Operacional",
+      "operationalExecutionDesc": "Llama 3.3 70B executa queimas em momentos ótimos, considerando custos de gás e condições da rede.",
+      "burnOptimizationFactors": "Fatores de Otimização de Queima",
+      "currentSupplyVsTarget": "Fornecimento Atual vs Meta",
+      "marketPriceAnalysis": "Análise de Preço de Mercado",
+      "networkCongestion": "Congestionamento de Rede",
+      "historicalBurnData": "Dados Históricos de Queima",
+      "stakingRatioImpact": "Impacto da Taxa de Staking",
+      "active": "Ativo"
+    }
   }
 }

@@ -2913,5 +2913,84 @@
       "for": "مع",
       "against": "ضد"
     }
+  },
+  "burn": {
+    "title": "لوحة الحرق التلقائي",
+    "subtitle": "نظام حرق ذاتي معزز بالذكاء الاصطناعي مع آليات إطلاق متعددة",
+    "deflationary": "انكماشي",
+    "totalBurned": "إجمالي المحروق",
+    "tburnPermanentlyRemoved": "TBURN تمت إزالته نهائياً",
+    "burnedToday": "المحروق اليوم",
+    "burn24hVolume": "حجم الحرق خلال 24 ساعة",
+    "currentBurnRate": "معدل الحرق الحالي",
+    "ofTransactionFees": "من رسوم المعاملات",
+    "supplyProgress": "تقدم العرض",
+    "targetProgress": "تقدم الهدف",
+    "tabs": {
+      "overview": "نظرة عامة",
+      "events": "أحداث الحرق",
+      "configuration": "التكوين",
+      "aiOptimization": "تحسين الذكاء الاصطناعي"
+    },
+    "burnTypes": {
+      "transaction": "معاملة",
+      "timed": "مجدول",
+      "volume": "حجم",
+      "community": "مجتمع",
+      "aiOptimized": "محسن بالذكاء الاصطناعي",
+      "manual": "يدوي"
+    },
+    "charts": {
+      "burnHistory30Days": "سجل الحرق (30 يوماً)",
+      "burnDistributionByType": "توزيع الحرق حسب النوع"
+    },
+    "burnTypeCards": {
+      "transactionBurns": "حرق المعاملات",
+      "transactionBurnsDesc": "1% لكل معاملة (محسن بالذكاء الاصطناعي)",
+      "timedBurns": "الحرق المجدول",
+      "timedBurnsDesc": "0.1% يومياً مجدول",
+      "volumeBurns": "حرق الحجم",
+      "volumeBurnsDesc": "يتم تشغيله عند العتبات",
+      "aiBurns": "حرق الذكاء الاصطناعي",
+      "aiBurnsDesc": "حرق مثالي موصى به من الذكاء الاصطناعي"
+    },
+    "events": {
+      "noBurnEventsRecorded": "لم يتم تسجيل أحداث حرق",
+      "ai": "ذكاء اصطناعي"
+    },
+    "config": {
+      "transactionBurn": "حرق المعاملات",
+      "status": "الحالة",
+      "enabled": "مفعل",
+      "disabled": "معطل",
+      "burnRate": "معدل الحرق",
+      "bps": "نقطة أساس",
+      "transactionBurnDesc": "الرموز المحروقة من كل معاملة كنسبة مئوية من مبلغ التحويل.",
+      "timedBurn": "الحرق المجدول",
+      "interval": "الفاصل الزمني",
+      "percentage": "النسبة المئوية",
+      "volumeBurn": "حرق الحجم",
+      "threshold": "العتبة",
+      "aiOptimization": "تحسين الذكاء الاصطناعي",
+      "minRate": "الحد الأدنى للمعدل",
+      "maxRate": "الحد الأقصى للمعدل"
+    },
+    "aiOptimization": {
+      "title": "محرك تحسين حرق الذكاء الاصطناعي",
+      "description": "يستخدم الذكاء الاصطناعي ثلاثي النطاق لتحسين معدلات الحرق بناءً على ظروف السوق وأهداف الاقتصاد الرمزي",
+      "strategicAnalysis": "التحليل الاستراتيجي",
+      "strategicAnalysisDesc": "يحلل GPT-5 Turbo أهداف العرض طويلة المدى وظروف السوق والتأثير الاقتصادي لتحديد أهداف الحرق المثلى.",
+      "tacticalAdjustment": "التعديل التكتيكي",
+      "tacticalAdjustmentDesc": "يجري Claude Sonnet 4.5 تعديلات في الوقت الفعلي بناءً على ازدحام الشبكة وحجم المعاملات وتقلب الأسعار.",
+      "operationalExecution": "التنفيذ التشغيلي",
+      "operationalExecutionDesc": "ينفذ Llama 3.3 70B عمليات الحرق في الأوقات المثلى، مع مراعاة تكاليف الغاز وظروف الشبكة.",
+      "burnOptimizationFactors": "عوامل تحسين الحرق",
+      "currentSupplyVsTarget": "العرض الحالي مقابل الهدف",
+      "marketPriceAnalysis": "تحليل سعر السوق",
+      "networkCongestion": "ازدحام الشبكة",
+      "historicalBurnData": "بيانات الحرق التاريخية",
+      "stakingRatioImpact": "تأثير نسبة التخزين",
+      "active": "نشط"
+    }
   }
 }

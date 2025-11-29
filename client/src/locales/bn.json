@@ -1814,5 +1814,84 @@
       "for": "পক্ষে",
       "against": "বিপক্ষে"
     }
+  },
+  "burn": {
+    "title": "অটো-বার্ন ড্যাশবোর্ড",
+    "subtitle": "মাল্টি-ট্রিগার মেকানিজম সহ AI-উন্নত স্বায়ত্তশাসিত বার্ন সিস্টেম",
+    "deflationary": "ডিফ্লেশনারি",
+    "totalBurned": "মোট পোড়ানো",
+    "tburnPermanentlyRemoved": "TBURN স্থায়ীভাবে সরানো হয়েছে",
+    "burnedToday": "আজ পোড়ানো",
+    "burn24hVolume": "24 ঘণ্টার বার্ন ভলিউম",
+    "currentBurnRate": "বর্তমান বার্ন রেট",
+    "ofTransactionFees": "লেনদেন ফি এর",
+    "supplyProgress": "সরবরাহ অগ্রগতি",
+    "targetProgress": "লক্ষ্য অগ্রগতি",
+    "tabs": {
+      "overview": "ওভারভিউ",
+      "events": "বার্ন ইভেন্ট",
+      "configuration": "কনফিগারেশন",
+      "aiOptimization": "AI অপ্টিমাইজেশন"
+    },
+    "burnTypes": {
+      "transaction": "লেনদেন",
+      "timed": "সময়োচিত",
+      "volume": "ভলিউম",
+      "community": "কমিউনিটি",
+      "aiOptimized": "AI অপ্টিমাইজড",
+      "manual": "ম্যানুয়াল"
+    },
+    "charts": {
+      "burnHistory30Days": "বার্ন ইতিহাস (30 দিন)",
+      "burnDistributionByType": "প্রকার অনুসারে বার্ন বিতরণ"
+    },
+    "burnTypeCards": {
+      "transactionBurns": "লেনদেন বার্ন",
+      "transactionBurnsDesc": "প্রতি লেনদেনে 1% (AI-অপ্টিমাইজড)",
+      "timedBurns": "সময়োচিত বার্ন",
+      "timedBurnsDesc": "0.1% দৈনিক নির্ধারিত",
+      "volumeBurns": "ভলিউম বার্ন",
+      "volumeBurnsDesc": "থ্রেশহোল্ডে ট্রিগার হয়",
+      "aiBurns": "AI বার্ন",
+      "aiBurnsDesc": "AI-প্রস্তাবিত সর্বোত্তম বার্ন"
+    },
+    "events": {
+      "noBurnEventsRecorded": "কোন বার্ন ইভেন্ট রেকর্ড করা হয়নি",
+      "ai": "AI"
+    },
+    "config": {
+      "transactionBurn": "লেনদেন বার্ন",
+      "status": "স্থিতি",
+      "enabled": "সক্রিয়",
+      "disabled": "নিষ্ক্রিয়",
+      "burnRate": "বার্ন রেট",
+      "bps": "bps",
+      "transactionBurnDesc": "স্থানান্তর পরিমাণের শতাংশ হিসাবে প্রতিটি লেনদেন থেকে পোড়ানো টোকেন।",
+      "timedBurn": "সময়োচিত বার্ন",
+      "interval": "ব্যবধান",
+      "percentage": "শতাংশ",
+      "volumeBurn": "ভলিউম বার্ন",
+      "threshold": "থ্রেশহোল্ড",
+      "aiOptimization": "AI অপ্টিমাইজেশন",
+      "minRate": "ন্যূনতম রেট",
+      "maxRate": "সর্বোচ্চ রেট"
+    },
+    "aiOptimization": {
+      "title": "AI বার্ন অপ্টিমাইজেশন ইঞ্জিন",
+      "description": "বাজারের অবস্থা এবং টোকেনোমিক্স লক্ষ্যের উপর ভিত্তি করে বার্ন রেট অপ্টিমাইজ করতে ট্রিপল-ব্যান্ড AI ব্যবহার করে",
+      "strategicAnalysis": "কৌশলগত বিশ্লেষণ",
+      "strategicAnalysisDesc": "GPT-5 Turbo দীর্ঘমেয়াদী সরবরাহ লক্ষ্য, বাজার পরিস্থিতি এবং অর্থনৈতিক প্রভাব বিশ্লেষণ করে সর্বোত্তম বার্ন লক্ষ্য নির্ধারণ করে।",
+      "tacticalAdjustment": "কৌশলগত সমন্বয়",
+      "tacticalAdjustmentDesc": "Claude Sonnet 4.5 নেটওয়ার্ক জ্যাম, লেনদেন ভলিউম এবং মূল্য অস্থিরতার উপর ভিত্তি করে রিয়েল-টাইম সমন্বয় করে।",
+      "operationalExecution": "অপারেশনাল এক্সিকিউশন",
+      "operationalExecutionDesc": "Llama 3.3 70B গ্যাস খরচ এবং নেটওয়ার্ক পরিস্থিতি বিবেচনা করে সর্বোত্তম সময়ে বার্ন এক্সিকিউট করে।",
+      "burnOptimizationFactors": "বার্ন অপ্টিমাইজেশন ফ্যাক্টর",
+      "currentSupplyVsTarget": "বর্তমান সরবরাহ বনাম লক্ষ্য",
+      "marketPriceAnalysis": "বাজার মূল্য বিশ্লেষণ",
+      "networkCongestion": "নেটওয়ার্ক কনজেশন",
+      "historicalBurnData": "ঐতিহাসিক বার্ন ডেটা",
+      "stakingRatioImpact": "স্টেকিং রেশিও প্রভাব",
+      "active": "সক্রিয়"
+    }
   }
 }

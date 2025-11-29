@@ -1814,5 +1814,84 @@
       "for": "ЗА",
       "against": "ПРОТИВ"
     }
+  },
+  "burn": {
+    "title": "Панель автоматического сжигания",
+    "subtitle": "Автономная система сжигания на основе ИИ с многотриггерными механизмами",
+    "deflationary": "Дефляционный",
+    "totalBurned": "Всего сожжено",
+    "tburnPermanentlyRemoved": "TBURN безвозвратно удалён",
+    "burnedToday": "Сожжено сегодня",
+    "burn24hVolume": "Объём сжигания за 24ч",
+    "currentBurnRate": "Текущий уровень сжигания",
+    "ofTransactionFees": "от комиссий транзакций",
+    "supplyProgress": "Прогресс предложения",
+    "targetProgress": "Прогресс цели",
+    "tabs": {
+      "overview": "Обзор",
+      "events": "События сжигания",
+      "configuration": "Конфигурация",
+      "aiOptimization": "Оптимизация ИИ"
+    },
+    "burnTypes": {
+      "transaction": "Транзакция",
+      "timed": "По расписанию",
+      "volume": "Объём",
+      "community": "Сообщество",
+      "aiOptimized": "Оптимизировано ИИ",
+      "manual": "Ручной"
+    },
+    "charts": {
+      "burnHistory30Days": "История сжигания (30 дней)",
+      "burnDistributionByType": "Распределение сжигания по типу"
+    },
+    "burnTypeCards": {
+      "transactionBurns": "Сжигания транзакций",
+      "transactionBurnsDesc": "1% за транзакцию (оптимизировано ИИ)",
+      "timedBurns": "Плановые сжигания",
+      "timedBurnsDesc": "0,1% ежедневно по расписанию",
+      "volumeBurns": "Объёмные сжигания",
+      "volumeBurnsDesc": "Срабатывает при достижении порогов",
+      "aiBurns": "ИИ сжигания",
+      "aiBurnsDesc": "Оптимальные сжигания, рекомендованные ИИ"
+    },
+    "events": {
+      "noBurnEventsRecorded": "События сжигания не зарегистрированы",
+      "ai": "ИИ"
+    },
+    "config": {
+      "transactionBurn": "Сжигание транзакций",
+      "status": "Статус",
+      "enabled": "Включено",
+      "disabled": "Отключено",
+      "burnRate": "Уровень сжигания",
+      "bps": "б.п.",
+      "transactionBurnDesc": "Токены, сжигаемые с каждой транзакции в процентах от суммы перевода.",
+      "timedBurn": "Плановое сжигание",
+      "interval": "Интервал",
+      "percentage": "Процент",
+      "volumeBurn": "Объёмное сжигание",
+      "threshold": "Порог",
+      "aiOptimization": "Оптимизация ИИ",
+      "minRate": "Мин. уровень",
+      "maxRate": "Макс. уровень"
+    },
+    "aiOptimization": {
+      "title": "Движок оптимизации сжигания ИИ",
+      "description": "Использует Triple-Band ИИ для оптимизации уровней сжигания на основе рыночных условий и целей токеномики",
+      "strategicAnalysis": "Стратегический анализ",
+      "strategicAnalysisDesc": "GPT-5 Turbo анализирует долгосрочные цели предложения, рыночные условия и экономическое влияние для установления оптимальных целей сжигания.",
+      "tacticalAdjustment": "Тактическая корректировка",
+      "tacticalAdjustmentDesc": "Claude Sonnet 4.5 выполняет корректировки в реальном времени на основе загруженности сети, объёма транзакций и волатильности цен.",
+      "operationalExecution": "Операционное выполнение",
+      "operationalExecutionDesc": "Llama 3.3 70B выполняет сжигания в оптимальное время с учётом стоимости газа и условий сети.",
+      "burnOptimizationFactors": "Факторы оптимизации сжигания",
+      "currentSupplyVsTarget": "Текущее предложение vs Цель",
+      "marketPriceAnalysis": "Анализ рыночной цены",
+      "networkCongestion": "Загруженность сети",
+      "historicalBurnData": "Исторические данные сжигания",
+      "stakingRatioImpact": "Влияние коэффициента стейкинга",
+      "active": "Активно"
+    }
   }
 }
