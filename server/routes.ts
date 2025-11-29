@@ -30,6 +30,7 @@ import nftMarketplaceRoutes from "./routes/nft-marketplace-routes";
 import launchpadRoutes from "./routes/launchpad-routes";
 import gamefiRoutes from "./routes/gamefi-routes";
 import bridgeRoutes from "./routes/bridge-routes";
+import { registerCommunityRoutes } from "./routes/community-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -9453,6 +9454,12 @@ Provide JSON portfolio analysis:
   app.use("/api/bridge", bridgeRoutes);
   console.log("[Bridge] Routes registered successfully");
   bridgeService.initialize().catch(err => console.error("[Bridge] Init error:", err));
+
+  // ============================================
+  // COMMUNITY SYSTEM (Phase 9)
+  // ============================================
+  registerCommunityRoutes(app);
+  console.log("[Community] Routes registered successfully");
 
   createTrackedInterval(async () => {
     if (clients.size === 0) return;

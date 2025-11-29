@@ -5458,3 +5458,272 @@ export interface BridgeOverview {
   recentTransfers: BridgeTransfer[];
   recentActivity: BridgeActivity[];
 }
+
+// ============================================
+// Phase 9: Community System Infrastructure
+// Enterprise-Grade Community Platform with Real-time Engagement
+// ============================================
+
+// Community Posts - Forum discussions
+export const communityPosts = pgTable("community_posts", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  authorId: integer("author_id").notNull(),
+  authorAddress: varchar("author_address", { length: 66 }).notNull(),
+  authorUsername: varchar("author_username", { length: 100 }),
+  title: varchar("title", { length: 256 }).notNull(),
+  content: text("content").notNull(),
+  category: varchar("category", { length: 50 }).notNull().default("general"),
+  tags: text("tags").array().default([]),
+  status: varchar("status", { length: 20 }).notNull().default("active"),
+  isPinned: boolean("is_pinned").default(false),
+  isHot: boolean("is_hot").default(false),
+  isLocked: boolean("is_locked").default(false),
+  likes: integer("likes").default(0),
+  views: integer("views").default(0),
+  commentCount: integer("comment_count").default(0),
+  lastActivityAt: timestamp("last_activity_at").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Community Comments - Post replies
+export const communityComments = pgTable("community_comments", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  postId: varchar("post_id", { length: 64 }).notNull(),
+  authorId: integer("author_id").notNull(),
+  authorAddress: varchar("author_address", { length: 66 }).notNull(),
+  authorUsername: varchar("author_username", { length: 100 }),
+  content: text("content").notNull(),
+  parentCommentId: varchar("parent_comment_id", { length: 64 }),
+  likes: integer("likes").default(0),
+  isEdited: boolean("is_edited").default(false),
+  status: varchar("status", { length: 20 }).notNull().default("active"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Community Events - Scheduled events
+export const communityEvents = pgTable("community_events", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  title: varchar("title", { length: 256 }).notNull(),
+  description: text("description").notNull(),
+  eventType: varchar("event_type", { length: 30 }).notNull().default("meetup"),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  location: varchar("location", { length: 256 }),
+  isOnline: boolean("is_online").default(true),
+  meetingUrl: varchar("meeting_url", { length: 512 }),
+  participants: integer("participants").default(0),
+  maxParticipants: integer("max_participants"),
+  rewards: varchar("rewards", { length: 100 }),
+  status: varchar("status", { length: 20 }).notNull().default("upcoming"),
+  organizerId: integer("organizer_id"),
+  coverImage: varchar("cover_image", { length: 512 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Community Announcements - Official announcements
+export const communityAnnouncements = pgTable("community_announcements", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  title: varchar("title", { length: 256 }).notNull(),
+  content: text("content").notNull(),
+  announcementType: varchar("announcement_type", { length: 30 }).notNull().default("news"),
+  isImportant: boolean("is_important").default(false),
+  isPinned: boolean("is_pinned").default(false),
+  expiresAt: timestamp("expires_at"),
+  authorId: integer("author_id"),
+  views: integer("views").default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Community Badges - Badge definitions
+export const communityBadges = pgTable("community_badges", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description").notNull(),
+  icon: varchar("icon", { length: 50 }).notNull(),
+  rarity: varchar("rarity", { length: 20 }).notNull().default("common"),
+  category: varchar("category", { length: 50 }).notNull().default("general"),
+  requirement: text("requirement"),
+  requirementValue: integer("requirement_value"),
+  isAutoAwarded: boolean("is_auto_awarded").default(false),
+  pointsValue: integer("points_value").default(10),
+  totalAwarded: integer("total_awarded").default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Community User Badges - Badges earned by users
+export const communityUserBadges = pgTable("community_user_badges", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  userId: integer("user_id").notNull(),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  badgeId: varchar("badge_id", { length: 64 }).notNull(),
+  progress: integer("progress").default(0),
+  isCompleted: boolean("is_completed").default(false),
+  earnedAt: timestamp("earned_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Community Activity Feed - Real-time activity stream
+export const communityActivity = pgTable("community_activity", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  userId: integer("user_id").notNull(),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  username: varchar("username", { length: 100 }),
+  activityType: varchar("activity_type", { length: 30 }).notNull(),
+  action: varchar("action", { length: 100 }).notNull(),
+  targetId: varchar("target_id", { length: 64 }),
+  targetTitle: varchar("target_title", { length: 256 }),
+  amount: varchar("amount", { length: 100 }),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Community Reputation - User reputation tracking
+export const communityReputation = pgTable("community_reputation", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  userId: integer("user_id").notNull().unique(),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  reputation: integer("reputation").default(0),
+  level: integer("level").default(1),
+  contributions: integer("contributions").default(0),
+  postsCount: integer("posts_count").default(0),
+  commentsCount: integer("comments_count").default(0),
+  likesReceived: integer("likes_received").default(0),
+  likesGiven: integer("likes_given").default(0),
+  proposalsCreated: integer("proposals_created").default(0),
+  proposalsVoted: integer("proposals_voted").default(0),
+  eventsAttended: integer("events_attended").default(0),
+  badgesEarned: integer("badges_earned").default(0),
+  lastActivityAt: timestamp("last_activity_at").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Insert schemas for community tables
+export const insertCommunityPostSchema = createInsertSchema(communityPosts).omit({
+  id: true,
+  likes: true,
+  views: true,
+  commentCount: true,
+  lastActivityAt: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCommunityCommentSchema = createInsertSchema(communityComments).omit({
+  id: true,
+  likes: true,
+  isEdited: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCommunityEventSchema = createInsertSchema(communityEvents).omit({
+  id: true,
+  participants: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCommunityAnnouncementSchema = createInsertSchema(communityAnnouncements).omit({
+  id: true,
+  views: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCommunityBadgeSchema = createInsertSchema(communityBadges).omit({
+  id: true,
+  totalAwarded: true,
+  createdAt: true,
+});
+
+export const insertCommunityUserBadgeSchema = createInsertSchema(communityUserBadges).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCommunityActivitySchema = createInsertSchema(communityActivity).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCommunityReputationSchema = createInsertSchema(communityReputation).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Community Types
+export type CommunityPost = typeof communityPosts.$inferSelect;
+export type InsertCommunityPost = z.infer<typeof insertCommunityPostSchema>;
+
+export type CommunityComment = typeof communityComments.$inferSelect;
+export type InsertCommunityComment = z.infer<typeof insertCommunityCommentSchema>;
+
+export type CommunityEvent = typeof communityEvents.$inferSelect;
+export type InsertCommunityEvent = z.infer<typeof insertCommunityEventSchema>;
+
+export type CommunityAnnouncement = typeof communityAnnouncements.$inferSelect;
+export type InsertCommunityAnnouncement = z.infer<typeof insertCommunityAnnouncementSchema>;
+
+export type CommunityBadge = typeof communityBadges.$inferSelect;
+export type InsertCommunityBadge = z.infer<typeof insertCommunityBadgeSchema>;
+
+export type CommunityUserBadge = typeof communityUserBadges.$inferSelect;
+export type InsertCommunityUserBadge = z.infer<typeof insertCommunityUserBadgeSchema>;
+
+export type CommunityActivityType = typeof communityActivity.$inferSelect;
+export type InsertCommunityActivity = z.infer<typeof insertCommunityActivitySchema>;
+
+export type CommunityReputationType = typeof communityReputation.$inferSelect;
+export type InsertCommunityReputation = z.infer<typeof insertCommunityReputationSchema>;
+
+// Community Frontend Types
+export type PostCategory = "general" | "technical" | "governance" | "trading" | "support" | "announcements";
+export type PostStatus = "active" | "hidden" | "deleted" | "pending";
+export type EventType = "ama" | "workshop" | "hackathon" | "meetup" | "airdrop" | "competition";
+export type EventStatus = "upcoming" | "live" | "ended" | "cancelled";
+export type AnnouncementType = "update" | "news" | "alert" | "feature";
+export type BadgeRarity = "common" | "rare" | "epic" | "legendary";
+export type CommunityActivityEventType = "post" | "comment" | "stake" | "vote" | "proposal" | "badge" | "reward" | "event";
+
+export interface CommunityStats {
+  totalMembers: number;
+  activeMembers: number;
+  totalPosts: number;
+  totalComments: number;
+  totalProposals: number;
+  activeProposals: number;
+  totalEvents: number;
+  upcomingEvents: number;
+  totalRewards: string;
+  weeklyGrowth: number;
+}
+
+export interface CommunityLeaderboardMember {
+  id: string;
+  rank: number;
+  address: string;
+  username: string;
+  avatar?: string;
+  reputation: number;
+  contributions: number;
+  badges: string[];
+  level: number;
+  tburnStaked: string;
+  joinedDate: number;
+  isOnline: boolean;
+}
+
+export interface CommunityOverview {
+  stats: CommunityStats;
+  leaderboard: CommunityLeaderboardMember[];
+  recentPosts: CommunityPost[];
+  upcomingEvents: CommunityEvent[];
+  announcements: CommunityAnnouncement[];
+  recentActivity: CommunityActivityType[];
+}
