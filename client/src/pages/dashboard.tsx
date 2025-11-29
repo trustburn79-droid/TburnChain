@@ -686,7 +686,7 @@ export default function Dashboard() {
                       ${formatNumber(Number(dexStats?.totalTvlUsd || 0) / 1e18)} {t("dashboard.tvl")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.swaps24h", { count: dexStats?.totalSwaps24h?.toLocaleString() || 0 })}
+                      {t("dashboard.swaps24h", { count: dexStats?.totalSwaps24h || 0 })}
                     </p>
                   </CardContent>
                 </Card>
@@ -774,7 +774,7 @@ export default function Dashboard() {
                       {formatNumber(nftStats?.totalItems || 0)} {t("dashboard.items")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.sales24h", { count: nftStats?.salesCount24h?.toLocaleString() || 0 })}
+                      {t("dashboard.sales24h", { count: nftStats?.salesCount24h || 0 })}
                     </p>
                   </CardContent>
                 </Card>
@@ -840,7 +840,7 @@ export default function Dashboard() {
                       ${formatNumber(Number(bridgeStats?.totalLiquidity || 0) / 1e18)} {t("dashboard.liquidity")}
                     </p>
                     <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.transfers24h", { count: bridgeStats?.transferCount24h?.toLocaleString() || 0 })}
+                      {t("dashboard.transfers24h", { count: bridgeStats?.transferCount24h || 0 })}
                     </p>
                   </CardContent>
                 </Card>

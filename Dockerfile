@@ -1,0 +1,28 @@
+FROM node:20-alpine
+
+ENV PORT=5000
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+EXPOSE 5000
+EXPOSE 8546
+EXPOSE 5173
+EXPOSE 3000
+EXPOSE 3001
+EXPOSE 3002
+EXPOSE 6000
+EXPOSE 6800
+EXPOSE 8008
+EXPOSE 8000
+EXPOSE 4200
+EXPOSE 3003
+
+CMD [ "npm", "run", "start" ]

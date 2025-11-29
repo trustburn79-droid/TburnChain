@@ -1,0 +1,977 @@
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { 
+  Users, 
+  MessageSquare, 
+  Trophy, 
+  Star, 
+  TrendingUp, 
+  Calendar,
+  Bell,
+  Award,
+  Target,
+  Zap,
+  Heart,
+  Share2,
+  BookOpen,
+  Flame,
+  Crown,
+  Shield,
+  Gift,
+  CheckCircle,
+  Clock,
+  ArrowUp,
+  ArrowDown,
+  Eye,
+  ThumbsUp,
+  MessageCircle,
+  Send,
+  Plus,
+  Search,
+  Filter,
+  RefreshCw,
+  ExternalLink,
+  Globe,
+  Sparkles,
+  Activity,
+  BarChart3,
+  Coins,
+  Vote
+} from "lucide-react";
+import { useWebSocket } from "@/lib/websocket-context";
+
+interface CommunityStats {
+  totalMembers: number;
+  activeMembers: number;
+  totalPosts: number;
+  totalComments: number;
+  totalProposals: number;
+  activeProposals: number;
+  totalEvents: number;
+  upcomingEvents: number;
+  totalRewards: string;
+  weeklyGrowth: number;
+}
+
+interface LeaderboardMember {
+  id: string;
+  rank: number;
+  address: string;
+  username: string;
+  avatar?: string;
+  reputation: number;
+  contributions: number;
+  badges: string[];
+  level: number;
+  tburnStaked: string;
+  joinedDate: number;
+  isOnline: boolean;
+}
+
+interface ForumPost {
+  id: string;
+  title: string;
+  author: string;
+  authorAvatar?: string;
+  category: string;
+  content: string;
+  likes: number;
+  comments: number;
+  views: number;
+  isPinned: boolean;
+  isHot: boolean;
+  createdAt: number;
+  tags: string[];
+}
+
+interface CommunityEvent {
+  id: string;
+  title: string;
+  description: string;
+  type: 'ama' | 'workshop' | 'hackathon' | 'meetup' | 'airdrop' | 'competition';
+  startDate: number;
+  endDate: number;
+  participants: number;
+  maxParticipants?: number;
+  rewards?: string;
+  status: 'upcoming' | 'live' | 'ended';
+  location?: string;
+  isOnline: boolean;
+}
+
+interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  type: 'update' | 'news' | 'alert' | 'feature';
+  createdAt: number;
+  isImportant: boolean;
+}
+
+interface UserBadge {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  earnedAt?: number;
+  progress?: number;
+}
+
+interface ActivityItem {
+  id: string;
+  type: 'post' | 'comment' | 'stake' | 'vote' | 'proposal' | 'badge' | 'reward';
+  user: string;
+  userAvatar?: string;
+  action: string;
+  target?: string;
+  amount?: string;
+  timestamp: number;
+}
+
+const formatNumber = (num: number): string => {
+  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return num.toLocaleString();
+};
+
+const formatTimeAgo = (timestamp: number): string => {
+  const now = Date.now();
+  const diff = now - timestamp * 1000;
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+  
+  if (minutes < 1) return 'Just now';
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days < 7) return `${days}d ago`;
+  return new Date(timestamp * 1000).toLocaleDateString();
+};
+
+const categoryColors: Record<string, string> = {
+  general: "bg-blue-500/20 text-blue-400",
+  technical: "bg-purple-500/20 text-purple-400",
+  governance: "bg-green-500/20 text-green-400",
+  trading: "bg-yellow-500/20 text-yellow-400",
+  support: "bg-red-500/20 text-red-400",
+  announcements: "bg-orange-500/20 text-orange-400",
+};
+
+const eventTypeColors: Record<string, string> = {
+  ama: "bg-purple-500/20 text-purple-400",
+  workshop: "bg-blue-500/20 text-blue-400",
+  hackathon: "bg-green-500/20 text-green-400",
+  meetup: "bg-yellow-500/20 text-yellow-400",
+  airdrop: "bg-pink-500/20 text-pink-400",
+  competition: "bg-orange-500/20 text-orange-400",
+};
+
+const rarityColors: Record<string, string> = {
+  common: "border-gray-500 bg-gray-500/10",
+  rare: "border-blue-500 bg-blue-500/10",
+  epic: "border-purple-500 bg-purple-500/10",
+  legendary: "border-yellow-500 bg-yellow-500/10",
+};
+
+const badgeIcons: Record<string, JSX.Element> = {
+  early_adopter: <Star className="h-4 w-4 text-yellow-400" />,
+  validator: <Shield className="h-4 w-4 text-blue-400" />,
+  contributor: <Award className="h-4 w-4 text-green-400" />,
+  whale: <Coins className="h-4 w-4 text-purple-400" />,
+  governance: <Vote className="h-4 w-4 text-orange-400" />,
+  community: <Users className="h-4 w-4 text-pink-400" />,
+};
+
+export default function Community() {
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState("overview");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [newPostDialogOpen, setNewPostDialogOpen] = useState(false);
+
+  // WebSocket for real-time updates
+  const { lastMessage } = useWebSocket();
+
+  // Community Stats Query
+  const { data: stats, isLoading: statsLoading } = useQuery<CommunityStats>({
+    queryKey: ['/api/community/stats'],
+    refetchInterval: 30000,
+  });
+
+  // Leaderboard Query
+  const { data: leaderboard, isLoading: leaderboardLoading } = useQuery<LeaderboardMember[]>({
+    queryKey: ['/api/community/leaderboard'],
+    refetchInterval: 60000,
+  });
+
+  // Forum Posts Query
+  const { data: posts, isLoading: postsLoading } = useQuery<ForumPost[]>({
+    queryKey: ['/api/community/posts', selectedCategory],
+    refetchInterval: 30000,
+  });
+
+  // Events Query
+  const { data: events, isLoading: eventsLoading } = useQuery<CommunityEvent[]>({
+    queryKey: ['/api/community/events'],
+    refetchInterval: 60000,
+  });
+
+  // Announcements Query
+  const { data: announcements, isLoading: announcementsLoading } = useQuery<Announcement[]>({
+    queryKey: ['/api/community/announcements'],
+    refetchInterval: 60000,
+  });
+
+  // Activity Feed Query
+  const { data: activities, isLoading: activitiesLoading } = useQuery<ActivityItem[]>({
+    queryKey: ['/api/community/activity'],
+    refetchInterval: 10000,
+  });
+
+  // Badges Query
+  const { data: badges, isLoading: badgesLoading } = useQuery<UserBadge[]>({
+    queryKey: ['/api/community/badges'],
+  });
+
+  // Mock data for demo
+  const mockStats: CommunityStats = {
+    totalMembers: 125847,
+    activeMembers: 45623,
+    totalPosts: 89456,
+    totalComments: 456789,
+    totalProposals: 234,
+    activeProposals: 12,
+    totalEvents: 156,
+    upcomingEvents: 8,
+    totalRewards: "2,450,000",
+    weeklyGrowth: 12.5,
+  };
+
+  const mockLeaderboard: LeaderboardMember[] = [
+    { id: "1", rank: 1, address: "0x1234...5678", username: "CryptoWhale", reputation: 98500, contributions: 1250, badges: ["early_adopter", "whale", "governance"], level: 45, tburnStaked: "500000", joinedDate: 1672531200, isOnline: true },
+    { id: "2", rank: 2, address: "0x2345...6789", username: "ValidatorKing", reputation: 87200, contributions: 980, badges: ["validator", "contributor"], level: 42, tburnStaked: "350000", joinedDate: 1675209600, isOnline: true },
+    { id: "3", rank: 3, address: "0x3456...7890", username: "TBURNMaster", reputation: 76800, contributions: 850, badges: ["early_adopter", "community"], level: 39, tburnStaked: "280000", joinedDate: 1677628800, isOnline: false },
+    { id: "4", rank: 4, address: "0x4567...8901", username: "DeFiExpert", reputation: 65400, contributions: 720, badges: ["contributor", "governance"], level: 36, tburnStaked: "220000", joinedDate: 1680307200, isOnline: true },
+    { id: "5", rank: 5, address: "0x5678...9012", username: "BlockchainDev", reputation: 54200, contributions: 650, badges: ["contributor"], level: 33, tburnStaked: "180000", joinedDate: 1682899200, isOnline: false },
+    { id: "6", rank: 6, address: "0x6789...0123", username: "StakingPro", reputation: 48900, contributions: 580, badges: ["validator", "community"], level: 31, tburnStaked: "150000", joinedDate: 1685577600, isOnline: true },
+    { id: "7", rank: 7, address: "0x7890...1234", username: "TokenHolder", reputation: 42500, contributions: 510, badges: ["whale"], level: 28, tburnStaked: "120000", joinedDate: 1688169600, isOnline: false },
+    { id: "8", rank: 8, address: "0x8901...2345", username: "GovernanceGuru", reputation: 38700, contributions: 460, badges: ["governance", "early_adopter"], level: 26, tburnStaked: "95000", joinedDate: 1690848000, isOnline: true },
+    { id: "9", rank: 9, address: "0x9012...3456", username: "CommunityBuilder", reputation: 34200, contributions: 420, badges: ["community", "contributor"], level: 24, tburnStaked: "75000", joinedDate: 1693526400, isOnline: false },
+    { id: "10", rank: 10, address: "0x0123...4567", username: "TBURNEnthusiast", reputation: 31500, contributions: 380, badges: ["early_adopter"], level: 22, tburnStaked: "60000", joinedDate: 1696118400, isOnline: true },
+  ];
+
+  const mockPosts: ForumPost[] = [
+    { id: "1", title: "TBURN v7.0 Mainnet Launch Discussion", author: "CryptoWhale", category: "announcements", content: "Exciting times ahead! Let's discuss the upcoming mainnet launch...", likes: 456, comments: 89, views: 2450, isPinned: true, isHot: true, createdAt: Math.floor(Date.now() / 1000) - 3600, tags: ["mainnet", "v7.0", "launch"] },
+    { id: "2", title: "Best Staking Strategies for Maximum APY", author: "StakingPro", category: "trading", content: "Here are my top strategies for maximizing your staking rewards...", likes: 234, comments: 56, views: 1890, isPinned: false, isHot: true, createdAt: Math.floor(Date.now() / 1000) - 7200, tags: ["staking", "apy", "rewards"] },
+    { id: "3", title: "Technical Deep Dive: AI Orchestration System", author: "BlockchainDev", category: "technical", content: "Let's explore how the Triple-Band AI system works under the hood...", likes: 189, comments: 42, views: 1567, isPinned: false, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 14400, tags: ["ai", "technical", "orchestration"] },
+    { id: "4", title: "Governance Proposal #42: Treasury Allocation", author: "GovernanceGuru", category: "governance", content: "Proposal to allocate 5% of treasury for ecosystem development...", likes: 312, comments: 78, views: 2100, isPinned: true, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 28800, tags: ["governance", "proposal", "treasury"] },
+    { id: "5", title: "New to TBURN? Start Here!", author: "CommunityBuilder", category: "general", content: "Welcome to the TBURN community! This guide will help you get started...", likes: 567, comments: 123, views: 4500, isPinned: true, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 86400, tags: ["beginner", "guide", "welcome"] },
+  ];
+
+  const mockEvents: CommunityEvent[] = [
+    { id: "1", title: "TBURN v7.0 Launch AMA", description: "Join the core team for a live Q&A session about the mainnet launch", type: "ama", startDate: Math.floor(Date.now() / 1000) + 86400, endDate: Math.floor(Date.now() / 1000) + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true },
+    { id: "2", title: "DeFi Workshop: Liquidity Mining", description: "Learn advanced liquidity mining strategies with hands-on exercises", type: "workshop", startDate: Math.floor(Date.now() / 1000) + 172800, endDate: Math.floor(Date.now() / 1000) + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true },
+    { id: "3", title: "TBURN Hackathon 2025", description: "48-hour hackathon to build innovative dApps on TBURN", type: "hackathon", startDate: Math.floor(Date.now() / 1000) + 604800, endDate: Math.floor(Date.now() / 1000) + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea" },
+    { id: "4", title: "Community Meetup - Tokyo", description: "Network with fellow TBURN enthusiasts in Tokyo", type: "meetup", startDate: Math.floor(Date.now() / 1000) + 259200, endDate: Math.floor(Date.now() / 1000) + 273600, participants: 78, maxParticipants: 100, status: "upcoming", isOnline: false, location: "Tokyo, Japan" },
+    { id: "5", title: "Staking Competition", description: "Compete for the highest staking rewards this month", type: "competition", startDate: Math.floor(Date.now() / 1000) - 86400, endDate: Math.floor(Date.now() / 1000) + 1209600, participants: 5670, rewards: "50,000 TBURN", status: "live", isOnline: true },
+  ];
+
+  const mockAnnouncements: Announcement[] = [
+    { id: "1", title: "Mainnet Launch Date Confirmed: December 1st", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 1st, 2025.", type: "news", createdAt: Math.floor(Date.now() / 1000) - 3600, isImportant: true },
+    { id: "2", title: "New Staking Tiers Available", content: "Diamond tier staking is now available with up to 25% APY boost.", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 86400, isImportant: false },
+    { id: "3", title: "Security Audit Completed", content: "Our smart contracts have passed comprehensive security audits by CertiK.", type: "update", createdAt: Math.floor(Date.now() / 1000) - 172800, isImportant: true },
+  ];
+
+  const mockActivities: ActivityItem[] = [
+    { id: "1", type: "stake", user: "CryptoWhale", action: "staked", amount: "50,000 TBURN", timestamp: Math.floor(Date.now() / 1000) - 120 },
+    { id: "2", type: "post", user: "ValidatorKing", action: "created a new post", target: "Best Practices for Validators", timestamp: Math.floor(Date.now() / 1000) - 300 },
+    { id: "3", type: "vote", user: "GovernanceGuru", action: "voted on proposal", target: "#42", timestamp: Math.floor(Date.now() / 1000) - 600 },
+    { id: "4", type: "badge", user: "TBURNMaster", action: "earned badge", target: "Diamond Staker", timestamp: Math.floor(Date.now() / 1000) - 900 },
+    { id: "5", type: "comment", user: "DeFiExpert", action: "commented on", target: "Staking Strategies", timestamp: Math.floor(Date.now() / 1000) - 1200 },
+    { id: "6", type: "reward", user: "StakingPro", action: "claimed rewards", amount: "1,250 TBURN", timestamp: Math.floor(Date.now() / 1000) - 1500 },
+    { id: "7", type: "proposal", user: "CommunityBuilder", action: "submitted proposal", target: "#45", timestamp: Math.floor(Date.now() / 1000) - 1800 },
+    { id: "8", type: "stake", user: "BlockchainDev", action: "unstaked", amount: "10,000 TBURN", timestamp: Math.floor(Date.now() / 1000) - 2100 },
+  ];
+
+  const mockBadges: UserBadge[] = [
+    { id: "1", name: "Early Adopter", description: "Joined during the genesis period", icon: "star", rarity: "legendary", earnedAt: 1672531200 },
+    { id: "2", name: "Diamond Hands", description: "Held TBURN for over 1 year", icon: "diamond", rarity: "epic", earnedAt: 1704067200 },
+    { id: "3", name: "Governance Participant", description: "Voted on 10+ proposals", icon: "vote", rarity: "rare", progress: 80 },
+    { id: "4", name: "Community Helper", description: "Helped 100+ community members", icon: "users", rarity: "rare", earnedAt: 1709251200 },
+    { id: "5", name: "Whale Status", description: "Staked 100,000+ TBURN", icon: "coins", rarity: "epic", progress: 65 },
+    { id: "6", name: "Content Creator", description: "Created 50+ forum posts", icon: "book", rarity: "common", progress: 40 },
+  ];
+
+  const displayStats = stats || mockStats;
+  const displayLeaderboard = leaderboard || mockLeaderboard;
+  const displayPosts = posts || mockPosts;
+  const displayEvents = events || mockEvents;
+  const displayAnnouncements = announcements || mockAnnouncements;
+  const displayActivities = activities || mockActivities;
+  const displayBadges = badges || mockBadges;
+
+  const filteredPosts = displayPosts.filter(post => {
+    if (selectedCategory !== "all" && post.category !== selectedCategory) return false;
+    if (searchQuery && !post.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    return true;
+  });
+
+  const getActivityIcon = (type: string) => {
+    switch (type) {
+      case 'stake': return <Coins className="h-4 w-4 text-green-400" />;
+      case 'post': return <MessageSquare className="h-4 w-4 text-blue-400" />;
+      case 'vote': return <Vote className="h-4 w-4 text-purple-400" />;
+      case 'badge': return <Award className="h-4 w-4 text-yellow-400" />;
+      case 'comment': return <MessageCircle className="h-4 w-4 text-cyan-400" />;
+      case 'reward': return <Gift className="h-4 w-4 text-pink-400" />;
+      case 'proposal': return <Target className="h-4 w-4 text-orange-400" />;
+      default: return <Activity className="h-4 w-4 text-muted-foreground" />;
+    }
+  };
+
+  return (
+    <div className="container mx-auto p-6 space-y-6" data-testid="community-page">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-community-title">
+            <Users className="h-8 w-8 text-primary" />
+            {t('community.title', 'TBURN Community')}
+          </h1>
+          <p className="text-muted-foreground mt-1">
+            {t('community.subtitle', 'Connect, collaborate, and grow with the TBURN ecosystem')}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="bg-green-500/10 text-green-400 border-green-500/30">
+            <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
+            {formatNumber(displayStats.activeMembers)} {t('community.online', 'Online')}
+          </Badge>
+          <Button variant="outline" size="sm" data-testid="button-refresh-community">
+            <RefreshCw className="h-4 w-4 mr-1" />
+            {t('common.refresh', 'Refresh')}
+          </Button>
+        </div>
+      </div>
+
+      {/* Stats Overview */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <Card data-testid="card-total-members">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">{t('community.totalMembers', 'Total Members')}</p>
+                <p className="text-2xl font-bold">{formatNumber(displayStats.totalMembers)}</p>
+                <p className="text-xs text-green-400 flex items-center gap-1 mt-1">
+                  <TrendingUp className="h-3 w-3" />
+                  +{displayStats.weeklyGrowth}% {t('community.thisWeek', 'this week')}
+                </p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-total-posts">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">{t('community.totalPosts', 'Forum Posts')}</p>
+                <p className="text-2xl font-bold">{formatNumber(displayStats.totalPosts)}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {formatNumber(displayStats.totalComments)} {t('community.comments', 'comments')}
+                </p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center">
+                <MessageSquare className="h-6 w-6 text-blue-400" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-proposals">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">{t('community.proposals', 'Proposals')}</p>
+                <p className="text-2xl font-bold">{displayStats.totalProposals}</p>
+                <p className="text-xs text-orange-400 mt-1">
+                  {displayStats.activeProposals} {t('community.active', 'active')}
+                </p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-orange-500/10 flex items-center justify-center">
+                <Vote className="h-6 w-6 text-orange-400" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-events">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">{t('community.events', 'Events')}</p>
+                <p className="text-2xl font-bold">{displayStats.totalEvents}</p>
+                <p className="text-xs text-purple-400 mt-1">
+                  {displayStats.upcomingEvents} {t('community.upcoming', 'upcoming')}
+                </p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-purple-500/10 flex items-center justify-center">
+                <Calendar className="h-6 w-6 text-purple-400" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-rewards">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">{t('community.totalRewards', 'Rewards Distributed')}</p>
+                <p className="text-2xl font-bold">{displayStats.totalRewards}</p>
+                <p className="text-xs text-muted-foreground mt-1">TBURN</p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-yellow-500/10 flex items-center justify-center">
+                <Trophy className="h-6 w-6 text-yellow-400" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Main Content Tabs */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+        <TabsList className="grid grid-cols-5 lg:w-[600px]">
+          <TabsTrigger value="overview" data-testid="tab-overview">
+            <BarChart3 className="h-4 w-4 mr-1" />
+            {t('community.overview', 'Overview')}
+          </TabsTrigger>
+          <TabsTrigger value="forum" data-testid="tab-forum">
+            <MessageSquare className="h-4 w-4 mr-1" />
+            {t('community.forum', 'Forum')}
+          </TabsTrigger>
+          <TabsTrigger value="leaderboard" data-testid="tab-leaderboard">
+            <Trophy className="h-4 w-4 mr-1" />
+            {t('community.leaderboard', 'Leaderboard')}
+          </TabsTrigger>
+          <TabsTrigger value="events" data-testid="tab-events">
+            <Calendar className="h-4 w-4 mr-1" />
+            {t('community.events', 'Events')}
+          </TabsTrigger>
+          <TabsTrigger value="badges" data-testid="tab-badges">
+            <Award className="h-4 w-4 mr-1" />
+            {t('community.badges', 'Badges')}
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Overview Tab */}
+        <TabsContent value="overview" className="space-y-4">
+          <div className="grid gap-4 lg:grid-cols-3">
+            {/* Announcements */}
+            <Card className="lg:col-span-2" data-testid="card-announcements">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bell className="h-5 w-5 text-primary" />
+                  {t('community.announcements', 'Announcements')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[300px]">
+                  <div className="space-y-4">
+                    {displayAnnouncements.map((announcement) => (
+                      <div key={announcement.id} className="p-4 rounded-lg bg-muted/50 space-y-2" data-testid={`announcement-${announcement.id}`}>
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center gap-2">
+                            {announcement.isImportant && (
+                              <Badge variant="destructive" className="text-xs">
+                                {t('community.important', 'Important')}
+                              </Badge>
+                            )}
+                            <Badge variant="outline" className="text-xs capitalize">
+                              {announcement.type}
+                            </Badge>
+                          </div>
+                          <span className="text-xs text-muted-foreground">
+                            {formatTimeAgo(announcement.createdAt)}
+                          </span>
+                        </div>
+                        <h4 className="font-semibold">{announcement.title}</h4>
+                        <p className="text-sm text-muted-foreground">{announcement.content}</p>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+
+            {/* Activity Feed */}
+            <Card data-testid="card-activity-feed">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-primary" />
+                  {t('community.activityFeed', 'Live Activity')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[300px]">
+                  <div className="space-y-3">
+                    {displayActivities.map((activity) => (
+                      <div key={activity.id} className="flex items-start gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors" data-testid={`activity-${activity.id}`}>
+                        <div className="mt-1">
+                          {getActivityIcon(activity.type)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm">
+                            <span className="font-medium">{activity.user}</span>
+                            <span className="text-muted-foreground"> {activity.action} </span>
+                            {activity.target && <span className="text-primary">{activity.target}</span>}
+                            {activity.amount && <span className="font-medium text-green-400"> {activity.amount}</span>}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{formatTimeAgo(activity.timestamp)}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Quick Stats Row */}
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {/* Top Contributors */}
+            <Card data-testid="card-top-contributors">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Crown className="h-4 w-4 text-yellow-400" />
+                  {t('community.topContributors', 'Top Contributors')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {displayLeaderboard.slice(0, 5).map((member, index) => (
+                    <div key={member.id} className="flex items-center gap-2">
+                      <span className="w-5 text-xs text-muted-foreground">#{index + 1}</span>
+                      <Avatar className="h-6 w-6">
+                        <AvatarFallback className="text-xs">{member.username.substring(0, 2)}</AvatarFallback>
+                      </Avatar>
+                      <span className="text-sm font-medium truncate flex-1">{member.username}</span>
+                      <Badge variant="outline" className="text-xs">{formatNumber(member.reputation)}</Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Trending Topics */}
+            <Card data-testid="card-trending">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Flame className="h-4 w-4 text-orange-400" />
+                  {t('community.trending', 'Trending Topics')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {displayPosts.filter(p => p.isHot).slice(0, 4).map((post) => (
+                    <div key={post.id} className="flex items-center gap-2">
+                      <span className="text-sm truncate flex-1">{post.title}</span>
+                      <Badge variant="outline" className="text-xs">{post.likes}</Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Upcoming Events */}
+            <Card data-testid="card-upcoming-events">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-purple-400" />
+                  {t('community.upcomingEvents', 'Upcoming Events')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {displayEvents.filter(e => e.status === 'upcoming').slice(0, 3).map((event) => (
+                    <div key={event.id} className="space-y-1">
+                      <p className="text-sm font-medium truncate">{event.title}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(event.startDate * 1000).toLocaleDateString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* My Progress */}
+            <Card data-testid="card-my-progress">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Target className="h-4 w-4 text-green-400" />
+                  {t('community.myProgress', 'My Progress')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex justify-between text-xs mb-1">
+                      <span>{t('community.level', 'Level')} 15</span>
+                      <span>2,450 / 3,000 XP</span>
+                    </div>
+                    <Progress value={82} className="h-2" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">{t('community.reputation', 'Reputation')}</span>
+                    <span className="font-medium">12,450</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">{t('community.badgesEarned', 'Badges')}</span>
+                    <span className="font-medium">8/24</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Forum Tab */}
+        <TabsContent value="forum" className="space-y-4">
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+            <div className="flex items-center gap-2 w-full md:w-auto">
+              <div className="relative flex-1 md:w-[300px]">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder={t('community.searchPosts', 'Search posts...')}
+                  className="pl-10"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  data-testid="input-search-posts"
+                />
+              </div>
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-[150px]" data-testid="select-category">
+                  <SelectValue placeholder={t('community.category', 'Category')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t('common.all', 'All')}</SelectItem>
+                  <SelectItem value="general">{t('community.general', 'General')}</SelectItem>
+                  <SelectItem value="technical">{t('community.technical', 'Technical')}</SelectItem>
+                  <SelectItem value="governance">{t('community.governance', 'Governance')}</SelectItem>
+                  <SelectItem value="trading">{t('community.trading', 'Trading')}</SelectItem>
+                  <SelectItem value="support">{t('community.support', 'Support')}</SelectItem>
+                  <SelectItem value="announcements">{t('community.announcements', 'Announcements')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Dialog open={newPostDialogOpen} onOpenChange={setNewPostDialogOpen}>
+              <DialogTrigger asChild>
+                <Button data-testid="button-new-post">
+                  <Plus className="h-4 w-4 mr-1" />
+                  {t('community.newPost', 'New Post')}
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{t('community.createPost', 'Create New Post')}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <Input placeholder={t('community.postTitle', 'Post title')} data-testid="input-post-title" />
+                  <Select>
+                    <SelectTrigger data-testid="select-post-category">
+                      <SelectValue placeholder={t('community.selectCategory', 'Select category')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="general">{t('community.general', 'General')}</SelectItem>
+                      <SelectItem value="technical">{t('community.technical', 'Technical')}</SelectItem>
+                      <SelectItem value="governance">{t('community.governance', 'Governance')}</SelectItem>
+                      <SelectItem value="trading">{t('community.trading', 'Trading')}</SelectItem>
+                      <SelectItem value="support">{t('community.support', 'Support')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Textarea 
+                    placeholder={t('community.postContent', 'Write your post content...')} 
+                    className="min-h-[150px]"
+                    data-testid="textarea-post-content"
+                  />
+                  <Input placeholder={t('community.tags', 'Tags (comma separated)')} data-testid="input-post-tags" />
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setNewPostDialogOpen(false)}>
+                    {t('common.cancel', 'Cancel')}
+                  </Button>
+                  <Button data-testid="button-submit-post">
+                    <Send className="h-4 w-4 mr-1" />
+                    {t('community.publish', 'Publish')}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <div className="space-y-4">
+            {filteredPosts.map((post) => (
+              <Card key={post.id} className="hover:border-primary/50 transition-colors cursor-pointer" data-testid={`post-${post.id}`}>
+                <CardContent className="pt-6">
+                  <div className="flex gap-4">
+                    <div className="hidden md:flex flex-col items-center gap-2 text-center min-w-[60px]">
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <ArrowUp className="h-4 w-4" />
+                      </Button>
+                      <span className="font-bold text-lg">{post.likes}</span>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <ArrowDown className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        {post.isPinned && (
+                          <Badge className="bg-primary/20 text-primary">
+                            <Sparkles className="h-3 w-3 mr-1" />
+                            {t('community.pinned', 'Pinned')}
+                          </Badge>
+                        )}
+                        {post.isHot && (
+                          <Badge className="bg-orange-500/20 text-orange-400">
+                            <Flame className="h-3 w-3 mr-1" />
+                            {t('community.hot', 'Hot')}
+                          </Badge>
+                        )}
+                        <Badge className={categoryColors[post.category]}>
+                          {post.category}
+                        </Badge>
+                      </div>
+                      <h3 className="text-lg font-semibold hover:text-primary transition-colors">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{post.content}</p>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <Avatar className="h-5 w-5">
+                            <AvatarFallback className="text-xs">{post.author.substring(0, 2)}</AvatarFallback>
+                          </Avatar>
+                          <span>{post.author}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {formatTimeAgo(post.createdAt)}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MessageCircle className="h-3 w-3" />
+                          {post.comments} {t('community.comments', 'comments')}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Eye className="h-3 w-3" />
+                          {formatNumber(post.views)} {t('community.views', 'views')}
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {post.tags.map((tag) => (
+                          <Badge key={tag} variant="outline" className="text-xs">
+                            #{tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Leaderboard Tab */}
+        <TabsContent value="leaderboard" className="space-y-4">
+          <Card data-testid="card-leaderboard">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Trophy className="h-5 w-5 text-yellow-400" />
+                {t('community.communityLeaderboard', 'Community Leaderboard')}
+              </CardTitle>
+              <CardDescription>
+                {t('community.leaderboardDesc', 'Top contributors ranked by reputation and engagement')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {displayLeaderboard.map((member, index) => (
+                  <div 
+                    key={member.id} 
+                    className={`flex items-center gap-4 p-4 rounded-lg transition-colors ${
+                      index < 3 ? 'bg-gradient-to-r from-yellow-500/10 to-transparent' : 'bg-muted/30 hover:bg-muted/50'
+                    }`}
+                    data-testid={`leaderboard-member-${member.id}`}
+                  >
+                    <div className="flex items-center justify-center w-10">
+                      {index === 0 && <Crown className="h-6 w-6 text-yellow-400" />}
+                      {index === 1 && <Crown className="h-5 w-5 text-gray-400" />}
+                      {index === 2 && <Crown className="h-5 w-5 text-amber-600" />}
+                      {index > 2 && <span className="text-lg font-bold text-muted-foreground">#{member.rank}</span>}
+                    </div>
+                    <Avatar className="h-12 w-12 border-2 border-primary/30">
+                      <AvatarFallback className="bg-primary/10">{member.username.substring(0, 2)}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold">{member.username}</span>
+                        {member.isOnline && (
+                          <span className="w-2 h-2 bg-green-500 rounded-full" />
+                        )}
+                        <Badge variant="outline" className="text-xs">Lv.{member.level}</Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{member.address}</p>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {member.badges.map((badge) => (
+                          <span key={badge} className="inline-flex">
+                            {badgeIcons[badge]}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-right hidden md:block">
+                      <div className="flex items-center gap-1 text-sm">
+                        <Star className="h-4 w-4 text-yellow-400" />
+                        <span className="font-bold">{formatNumber(member.reputation)}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{formatNumber(member.contributions)} contributions</p>
+                    </div>
+                    <div className="text-right hidden lg:block">
+                      <p className="text-sm font-medium">{formatNumber(parseInt(member.tburnStaked))} TBURN</p>
+                      <p className="text-xs text-muted-foreground">{t('community.staked', 'staked')}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Events Tab */}
+        <TabsContent value="events" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {displayEvents.map((event) => (
+              <Card key={event.id} className="overflow-hidden" data-testid={`event-${event.id}`}>
+                <div className={`h-2 ${event.status === 'live' ? 'bg-green-500 animate-pulse' : event.status === 'upcoming' ? 'bg-blue-500' : 'bg-gray-500'}`} />
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <Badge className={eventTypeColors[event.type]}>
+                      {event.type.toUpperCase()}
+                    </Badge>
+                    <Badge variant={event.status === 'live' ? 'default' : 'outline'} className={event.status === 'live' ? 'bg-green-500' : ''}>
+                      {event.status === 'live' && <span className="w-2 h-2 bg-white rounded-full mr-1 animate-pulse" />}
+                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                    </Badge>
+                  </div>
+                  <CardTitle className="text-lg">{event.title}</CardTitle>
+                  <CardDescription>{event.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span>{new Date(event.startDate * 1000).toLocaleDateString()} - {new Date(event.endDate * 1000).toLocaleDateString()}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    {event.isOnline ? (
+                      <>
+                        <Globe className="h-4 w-4 text-muted-foreground" />
+                        <span>{t('community.online', 'Online Event')}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Target className="h-4 w-4 text-muted-foreground" />
+                        <span>{event.location}</span>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                    <span>{formatNumber(event.participants)} {t('community.participants', 'participants')}</span>
+                    {event.maxParticipants && (
+                      <span className="text-muted-foreground">/ {formatNumber(event.maxParticipants)}</span>
+                    )}
+                  </div>
+                  {event.rewards && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <Gift className="h-4 w-4 text-yellow-400" />
+                      <span className="text-yellow-400 font-medium">{event.rewards}</span>
+                    </div>
+                  )}
+                  {event.maxParticipants && (
+                    <Progress value={(event.participants / event.maxParticipants) * 100} className="h-2" />
+                  )}
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" variant={event.status === 'ended' ? 'outline' : 'default'} disabled={event.status === 'ended'} data-testid={`button-join-event-${event.id}`}>
+                    {event.status === 'live' ? t('community.joinNow', 'Join Now') : 
+                     event.status === 'upcoming' ? t('community.register', 'Register') : 
+                     t('community.ended', 'Ended')}
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Badges Tab */}
+        <TabsContent value="badges" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {displayBadges.map((badge) => (
+              <Card key={badge.id} className={`border-2 ${rarityColors[badge.rarity]}`} data-testid={`badge-${badge.id}`}>
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className={`h-16 w-16 rounded-full flex items-center justify-center ${rarityColors[badge.rarity]}`}>
+                      <Award className={`h-8 w-8 ${
+                        badge.rarity === 'legendary' ? 'text-yellow-400' :
+                        badge.rarity === 'epic' ? 'text-purple-400' :
+                        badge.rarity === 'rare' ? 'text-blue-400' : 'text-gray-400'
+                      }`} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-semibold">{badge.name}</h4>
+                        <Badge variant="outline" className="text-xs capitalize">{badge.rarity}</Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">{badge.description}</p>
+                      {badge.earnedAt ? (
+                        <div className="flex items-center gap-1 mt-2 text-xs text-green-400">
+                          <CheckCircle className="h-3 w-3" />
+                          {t('community.earnedOn', 'Earned')} {new Date(badge.earnedAt * 1000).toLocaleDateString()}
+                        </div>
+                      ) : badge.progress !== undefined ? (
+                        <div className="mt-2">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span>{t('community.progress', 'Progress')}</span>
+                            <span>{badge.progress}%</span>
+                          </div>
+                          <Progress value={badge.progress} className="h-2" />
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}

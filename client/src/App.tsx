@@ -73,6 +73,9 @@ import NftLaunchpadPage from "@/pages/nft-launchpad";
 // GameFi Pages
 import GameFiPage from "@/pages/gamefi";
 
+// Community Pages
+import CommunityPage from "@/pages/community";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -141,6 +144,8 @@ function Router() {
       <Route path="/nft-launchpad" component={NftLaunchpadPage} />
       {/* GameFi Routes */}
       <Route path="/gamefi" component={GameFiPage} />
+      {/* Community Routes */}
+      <Route path="/community" component={CommunityPage} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />
