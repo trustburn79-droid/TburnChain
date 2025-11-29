@@ -1,6 +1,32 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
+import { useTranslation, TFunction } from "react-i18next";
+
+const benefitKeyMap: Record<string, string> = {
+  "Basic staking rewards": "staking.benefitBasicRewards",
+  "Standard withdrawal times": "staking.benefitStandardWithdrawal",
+  "10% APY boost": "staking.benefitApyBoost10",
+  "Priority support": "staking.benefitPrioritySupport",
+  "Governance voting": "staking.benefitGovernanceVoting",
+  "25% APY boost": "staking.benefitApyBoost25",
+  "Early access to new pools": "staking.benefitEarlyAccess",
+  "Enhanced governance rights": "staking.benefitEnhancedGovernance",
+  "50% APY boost": "staking.benefitApyBoost50",
+  "Validator nomination rights": "staking.benefitValidatorNomination",
+  "Exclusive pool access": "staking.benefitExclusivePool",
+  "100% APY boost": "staking.benefitApyBoost100",
+  "Validator committee eligibility": "staking.benefitValidatorCommittee",
+  "Maximum governance power": "staking.benefitMaxGovernance",
+  "Direct chain contribution": "staking.benefitDirectChain"
+};
+
+function translateBenefit(t: TFunction, benefit: string): string {
+  const key = benefitKeyMap[benefit];
+  if (key) {
+    return t(key);
+  }
+  return benefit;
+}
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -622,7 +648,7 @@ export default function StakingDashboard() {
                       {tier.benefits.map((benefit, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <CheckCircle className="h-3 w-3 mt-1 text-green-500 flex-shrink-0" />
-                          <span>{benefit}</span>
+                          <span>{translateBenefit(t, benefit)}</span>
                         </li>
                       ))}
                       {tier.earlyAdopterBonus > 0 && (
