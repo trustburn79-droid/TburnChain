@@ -1,6 +1,57 @@
 import { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+
+const localeMap: Record<string, string> = {
+  en: 'en-US',
+  zh: 'zh-CN',
+  ja: 'ja-JP',
+  hi: 'hi-IN',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  ar: 'ar-SA',
+  bn: 'bn-BD',
+  ru: 'ru-RU',
+  pt: 'pt-BR',
+  ur: 'ur-PK',
+  ko: 'ko-KR',
+};
+
+function formatSafeDate(dateValue: string | Date | null | undefined, fallbackText: string, locale: string): string {
+  if (!dateValue) return fallbackText;
+  try {
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+    if (isNaN(date.getTime())) return fallbackText;
+    const localeCode = localeMap[locale] || locale || 'en-US';
+    return date.toLocaleString(localeCode, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  } catch {
+    return fallbackText;
+  }
+}
+
+function formatSafeDateOnly(dateValue: string | Date | null | undefined, fallbackText: string, locale: string): string {
+  if (!dateValue) return fallbackText;
+  try {
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+    if (isNaN(date.getTime())) return fallbackText;
+    const localeCode = localeMap[locale] || locale || 'en-US';
+    return date.toLocaleDateString(localeCode, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  } catch {
+    return fallbackText;
+  }
+}
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -623,7 +674,7 @@ export default function OperatorSecurity() {
                         <TableCell>{getSeverityBadge(event.severity)}</TableCell>
                         <TableCell>{getStatusBadge(event.status)}</TableCell>
                         <TableCell className="text-sm">
-                          {new Date(event.occurred_at).toLocaleString()}
+                          {formatSafeDate(event.occurred_at, '-', i18n.language)}
                         </TableCell>
                         <TableCell>
                           <div className="flex gap-1">
@@ -919,9 +970,9 @@ export default function OperatorSecurity() {
                       <TableCell className="font-mono">{entry.ip_address}</TableCell>
                       <TableCell className="max-w-[200px] truncate">{entry.reason}</TableCell>
                       <TableCell>{entry.blocked_by}</TableCell>
-                      <TableCell className="text-sm">{new Date(entry.blocked_at).toLocaleDateString()}</TableCell>
+                      <TableCell className="text-sm">{formatSafeDateOnly(entry.blocked_at, '-', i18n.language)}</TableCell>
                       <TableCell className="text-sm">
-                        {entry.expires_at ? new Date(entry.expires_at).toLocaleDateString() : t('operator.security.never')}
+                        {formatSafeDateOnly(entry.expires_at, t('operator.security.never'), i18n.language)}
                       </TableCell>
                       <TableCell>
                         <Badge variant={entry.is_active ? 'destructive' : 'secondary'}>
@@ -1014,7 +1065,7 @@ export default function OperatorSecurity() {
                           {t(OPERATOR_KEYS[log.operator_id] || `operator.security.operators.${log.operator_id}`, { defaultValue: log.operator_id })}
                         </TableCell>
                         <TableCell className="text-sm">
-                          {new Date(log.created_at).toLocaleString()}
+                          {formatSafeDate(log.created_at, '-', i18n.language)}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -1110,17 +1161,17 @@ export default function OperatorSecurity() {
                   <p className="text-sm text-green-500 mb-1">{t('operator.security.resolution')}</p>
                   <p className="text-sm">{selectedEvent.resolution}</p>
                   <p className="text-xs text-muted-foreground mt-2">
-                    {t('operator.security.resolvedBy')} {selectedEvent.resolved_by} {t('operator.security.at')} {new Date(selectedEvent.resolved_at!).toLocaleString()}
+                    {t('operator.security.resolvedBy')} {selectedEvent.resolved_by} {t('operator.security.at')} {formatSafeDate(selectedEvent.resolved_at, '-', i18n.language)}
                   </p>
                 </div>
               )}
 
               <div className="flex gap-4 text-sm text-muted-foreground">
                 <div>
-                  <span className="font-medium">{t('operator.security.occurred')}:</span> {new Date(selectedEvent.occurred_at).toLocaleString()}
+                  <span className="font-medium">{t('operator.security.occurred')}:</span> {formatSafeDate(selectedEvent.occurred_at, '-', i18n.language)}
                 </div>
                 <div>
-                  <span className="font-medium">{t('operator.security.detected')}:</span> {new Date(selectedEvent.detected_at).toLocaleString()}
+                  <span className="font-medium">{t('operator.security.detected')}:</span> {formatSafeDate(selectedEvent.detected_at, '-', i18n.language)}
                 </div>
               </div>
             </div>
