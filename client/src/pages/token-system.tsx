@@ -2700,7 +2700,7 @@ function EnterpriseTokenSearch() {
             <div className="flex gap-2 flex-wrap">
               <Select value={selectedStandard} onValueChange={(v) => { setSelectedStandard(v); setPage(1); }}>
                 <SelectTrigger className="w-32" data-testid="select-standard-filter">
-                  <SelectValue placeholder="Standard" />
+                  <SelectValue placeholder={t('tokenSystem.standard')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t('tokenSystem.allStandards')}</SelectItem>
