@@ -52,7 +52,7 @@ interface NewApiKeyResponse {
 }
 
 export default function ApiKeys() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [label, setLabel] = useState("");
   const [newKey, setNewKey] = useState<NewApiKeyResponse | null>(null);
@@ -122,7 +122,8 @@ export default function ApiKeys() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+    const locale = i18n.language || 'en';
+    return date.toLocaleDateString(locale) + " " + date.toLocaleTimeString(locale);
   };
 
   return (
