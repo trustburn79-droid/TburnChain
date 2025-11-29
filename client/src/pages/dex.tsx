@@ -646,7 +646,7 @@ export default function DexPage() {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Slippage: {swapInput.slippage}%</p>
+                        <p>{t('dex.slippage')}: {swapInput.slippage}%</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>

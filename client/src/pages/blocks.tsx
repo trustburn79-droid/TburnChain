@@ -352,9 +352,9 @@ export default function Blocks() {
               <DropdownMenuContent>
                 <DropdownMenuLabel>{t('blocks.exportFormat')}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>CSV</DropdownMenuItem>
-                <DropdownMenuItem>JSON</DropdownMenuItem>
-                <DropdownMenuItem>Excel</DropdownMenuItem>
+                <DropdownMenuItem>{t('common.exportCsv')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('common.exportJson')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('common.exportExcel')}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
