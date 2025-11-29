@@ -2185,7 +2185,47 @@
     "operational": "運用的",
     "consensusContribution": "コンセンサス貢献",
     "justNow": "たった今",
-    "noModelDataAvailable": "利用可能なモデルデータがありません"
+    "noModelDataAvailable": "利用可能なモデルデータがありません",
+    "bands": {
+      "strategic": "戦略",
+      "tactical": "戦術",
+      "operational": "運用"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "異常パターンを検出し解決しました",
+      "consensus_threshold_achieved": "コンセンサス閾値に到達しました",
+      "smart_contract_execution_approved": "スマートコントラクトの実行が承認されました",
+      "block_validation_complete": "ブロック検証が完了しました",
+      "validator_performance_analyzed": "バリデーターのパフォーマンスを分析しました",
+      "network_latency_adjusted": "ネットワーク遅延を調整しました",
+      "transaction_verified_successfully": "トランザクションの検証が正常に完了しました",
+      "security_protocol_updated": "セキュリティプロトコルを更新しました",
+      "gas_fee_optimization_applied": "ガス料金の最適化を適用しました",
+      "shard_rebalancing_complete": "シャードの再バランシングが完了しました",
+      "cross_chain_transfer_validated": "クロスチェーン転送を検証しました",
+      "stake_distribution_optimized": "ステーク配分を最適化しました"
+    },
+    "categories": {
+      "security": "セキュリティ",
+      "consensus": "コンセンサス",
+      "execution": "実行",
+      "validation": "検証",
+      "monitoring": "監視",
+      "performance": "パフォーマンス",
+      "verification": "確認",
+      "optimization": "最適化",
+      "governance": "ガバナンス"
+    },
+    "impactLevels": {
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "statuses": {
+      "executed": "実行済み",
+      "pending": "保留中",
+      "failed": "失敗"
+    }
   },
   "crossShard": {
     "title": "クロスシャード通信",

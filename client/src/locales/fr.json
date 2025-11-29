@@ -1755,7 +1755,47 @@
     "operational": "Opérationnel",
     "consensusContribution": "Contribution au consensus",
     "justNow": "À l'instant",
-    "noModelDataAvailable": "Aucune donnée de modèle disponible"
+    "noModelDataAvailable": "Aucune donnée de modèle disponible",
+    "bands": {
+      "strategic": "Stratégique",
+      "tactical": "Tactique",
+      "operational": "Opérationnel"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Anomalie détectée et résolue",
+      "consensus_threshold_achieved": "Seuil de consensus atteint",
+      "smart_contract_execution_approved": "Exécution du contrat intelligent approuvée",
+      "block_validation_complete": "Validation du bloc terminée",
+      "validator_performance_analyzed": "Performance du validateur analysée",
+      "network_latency_adjusted": "Latence réseau ajustée",
+      "transaction_verified_successfully": "Transaction vérifiée avec succès",
+      "security_protocol_updated": "Protocole de sécurité mis à jour",
+      "gas_fee_optimization_applied": "Optimisation des frais de gas appliquée",
+      "shard_rebalancing_complete": "Rééquilibrage des shards terminé",
+      "cross_chain_transfer_validated": "Transfert cross-chain validé",
+      "stake_distribution_optimized": "Distribution de stake optimisée"
+    },
+    "categories": {
+      "security": "Sécurité",
+      "consensus": "Consensus",
+      "execution": "Exécution",
+      "validation": "Validation",
+      "monitoring": "Surveillance",
+      "performance": "Performance",
+      "verification": "Vérification",
+      "optimization": "Optimisation",
+      "governance": "Gouvernance"
+    },
+    "impactLevels": {
+      "high": "Élevé",
+      "medium": "Moyen",
+      "low": "Faible"
+    },
+    "statuses": {
+      "executed": "Exécuté",
+      "pending": "En attente",
+      "failed": "Échoué"
+    }
   },
   "smartContracts": {
     "title": "Contrats intelligents",

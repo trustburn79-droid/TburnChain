@@ -755,7 +755,47 @@
     "operational": "অপারেশনাল",
     "consensusContribution": "কনসেনসাস অবদান",
     "justNow": "এইমাত্র",
-    "noModelDataAvailable": "মডেল ডেটা উপলব্ধ নেই"
+    "noModelDataAvailable": "মডেল ডেটা উপলব্ধ নেই",
+    "bands": {
+      "strategic": "কৌশলগত",
+      "tactical": "কৌশলী",
+      "operational": "অপারেশনাল"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "অস্বাভাবিক প্যাটার্ন সনাক্ত এবং সমাধান করা হয়েছে",
+      "consensus_threshold_achieved": "সম্মতি সীমায় পৌঁছানো হয়েছে",
+      "smart_contract_execution_approved": "স্মার্ট কন্ট্রাক্ট কার্যকর অনুমোদিত",
+      "block_validation_complete": "ব্লক যাচাইকরণ সম্পূর্ণ",
+      "validator_performance_analyzed": "যাচাইকারী পারফরম্যান্স বিশ্লেষণ করা হয়েছে",
+      "network_latency_adjusted": "নেটওয়ার্ক বিলম্ব সামঞ্জস্য করা হয়েছে",
+      "transaction_verified_successfully": "লেনদেন সফলভাবে যাচাই করা হয়েছে",
+      "security_protocol_updated": "সুরক্ষা প্রোটোকল আপডেট করা হয়েছে",
+      "gas_fee_optimization_applied": "গ্যাস ফি অপ্টিমাইজেশন প্রয়োগ করা হয়েছে",
+      "shard_rebalancing_complete": "শার্ড রিব্যালেন্সিং সম্পূর্ণ",
+      "cross_chain_transfer_validated": "ক্রস-চেইন স্থানান্তর যাচাই করা হয়েছে",
+      "stake_distribution_optimized": "স্টেক বিতরণ অপ্টিমাইজ করা হয়েছে"
+    },
+    "categories": {
+      "security": "সুরক্ষা",
+      "consensus": "সম্মতি",
+      "execution": "কার্যকরকরণ",
+      "validation": "যাচাইকরণ",
+      "monitoring": "পর্যবেক্ষণ",
+      "performance": "পারফরম্যান্স",
+      "verification": "যাচাই",
+      "optimization": "অপ্টিমাইজেশন",
+      "governance": "শাসন"
+    },
+    "impactLevels": {
+      "high": "উচ্চ",
+      "medium": "মাঝারি",
+      "low": "নিম্ন"
+    },
+    "statuses": {
+      "executed": "সম্পাদিত",
+      "pending": "মুলতুবি",
+      "failed": "ব্যর্থ"
+    }
   },
   "consensus": {
     "title": "কনসেনসাস",

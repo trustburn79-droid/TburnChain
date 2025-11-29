@@ -755,7 +755,47 @@
     "operational": "آپریشنل",
     "consensusContribution": "اتفاق رائے میں شراکت",
     "justNow": "ابھی",
-    "noModelDataAvailable": "ماڈل ڈیٹا دستیاب نہیں"
+    "noModelDataAvailable": "ماڈل ڈیٹا دستیاب نہیں",
+    "bands": {
+      "strategic": "اسٹریٹجک",
+      "tactical": "تاکتیکی",
+      "operational": "آپریشنل"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "غیر معمولی پیٹرن کا پتہ لگا کر حل کر دیا گیا",
+      "consensus_threshold_achieved": "اتفاق رائے کی حد حاصل",
+      "smart_contract_execution_approved": "سمارٹ کنٹریکٹ کی عملداری منظور",
+      "block_validation_complete": "بلاک توثیق مکمل",
+      "validator_performance_analyzed": "توثیق کار کی کارکردگی کا تجزیہ",
+      "network_latency_adjusted": "نیٹ ورک تاخیر ایڈجسٹ کی گئی",
+      "transaction_verified_successfully": "لین دین کامیابی سے تصدیق شدہ",
+      "security_protocol_updated": "سیکیورٹی پروٹوکول اپڈیٹ کیا گیا",
+      "gas_fee_optimization_applied": "گیس فیس کی اصلاح لاگو کی گئی",
+      "shard_rebalancing_complete": "شارڈ ری بیلنسنگ مکمل",
+      "cross_chain_transfer_validated": "کراس چین ٹرانسفر تصدیق شدہ",
+      "stake_distribution_optimized": "اسٹیک تقسیم بہتر بنائی گئی"
+    },
+    "categories": {
+      "security": "سیکیورٹی",
+      "consensus": "اتفاق رائے",
+      "execution": "عملداری",
+      "validation": "توثیق",
+      "monitoring": "نگرانی",
+      "performance": "کارکردگی",
+      "verification": "تصدیق",
+      "optimization": "اصلاح",
+      "governance": "گورننس"
+    },
+    "impactLevels": {
+      "high": "اعلیٰ",
+      "medium": "درمیانی",
+      "low": "کم"
+    },
+    "statuses": {
+      "executed": "عمل میں لایا گیا",
+      "pending": "زیر التواء",
+      "failed": "ناکام"
+    }
   },
   "consensus": {
     "title": "اتفاق رائے",

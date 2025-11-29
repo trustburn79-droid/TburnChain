@@ -2129,7 +2129,47 @@
     "operational": "运营",
     "consensusContribution": "共识贡献",
     "justNow": "刚刚",
-    "noModelDataAvailable": "没有可用的模型数据"
+    "noModelDataAvailable": "没有可用的模型数据",
+    "bands": {
+      "strategic": "战略",
+      "tactical": "战术",
+      "operational": "运营"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "检测到异常模式并已解决",
+      "consensus_threshold_achieved": "达到共识阈值",
+      "smart_contract_execution_approved": "智能合约执行已批准",
+      "block_validation_complete": "区块验证完成",
+      "validator_performance_analyzed": "验证者性能已分析",
+      "network_latency_adjusted": "网络延迟已调整",
+      "transaction_verified_successfully": "交易验证成功",
+      "security_protocol_updated": "安全协议已更新",
+      "gas_fee_optimization_applied": "Gas费优化已应用",
+      "shard_rebalancing_complete": "分片重新平衡完成",
+      "cross_chain_transfer_validated": "跨链转账已验证",
+      "stake_distribution_optimized": "质押分配已优化"
+    },
+    "categories": {
+      "security": "安全",
+      "consensus": "共识",
+      "execution": "执行",
+      "validation": "验证",
+      "monitoring": "监控",
+      "performance": "性能",
+      "verification": "确认",
+      "optimization": "优化",
+      "governance": "治理"
+    },
+    "impactLevels": {
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "statuses": {
+      "executed": "已执行",
+      "pending": "待处理",
+      "failed": "失败"
+    }
   },
   "crossShard": {
     "title": "跨分片通信",

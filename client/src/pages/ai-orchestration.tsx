@@ -32,6 +32,50 @@ function formatSafeDate(dateValue: string | Date | null | undefined, justNowText
   }
 }
 
+type TranslationFn = (key: string) => string;
+
+function getTranslatedDecision(decision: string | null | undefined, t: TranslationFn): string {
+  if (!decision) return t('aiOrchestration.aiDecision');
+  const decisionKey = decision.toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_]/g, '');
+  const translationKey = `aiOrchestration.decisions.${decisionKey}`;
+  const translated = t(translationKey);
+  return translated === translationKey ? decision : translated;
+}
+
+function getTranslatedCategory(category: string | null | undefined, t: TranslationFn): string {
+  if (!category) return t('aiOrchestration.general');
+  const categoryKey = category.toLowerCase();
+  const translationKey = `aiOrchestration.categories.${categoryKey}`;
+  const translated = t(translationKey);
+  return translated === translationKey ? category : translated;
+}
+
+function getTranslatedImpact(impact: string | null | undefined, t: TranslationFn): string {
+  if (!impact) return t('aiOrchestration.impactLevels.medium');
+  const impactKey = impact.toLowerCase();
+  const translationKey = `aiOrchestration.impactLevels.${impactKey}`;
+  const translated = t(translationKey);
+  return translated === translationKey ? impact : translated;
+}
+
+function getTranslatedStatus(status: string | null | undefined, t: TranslationFn): string {
+  if (!status) return t('common.pending');
+  const statusKey = status.toLowerCase();
+  const translationKey = `aiOrchestration.statuses.${statusKey}`;
+  const translated = t(translationKey);
+  return translated === translationKey ? status : translated;
+}
+
+function getTranslatedBand(band: string | null | undefined, t: TranslationFn): string {
+  if (!band) return t('aiOrchestration.operational');
+  const bandKey = band.toLowerCase();
+  const translationKey = `aiOrchestration.bands.${bandKey}`;
+  const translated = t(translationKey);
+  return translated === translationKey ? band : translated;
+}
+
 export default function AIOrchestration() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("history");
@@ -442,26 +486,26 @@ export default function AIOrchestration() {
                       {aiDecisions.map((decision) => (
                         <TableRow key={decision.id} className="hover-elevate" data-testid={`row-decision-${decision.id}`}>
                           <TableCell>
-                            <Badge variant="outline" className={`capitalize ${
+                            <Badge variant="outline" className={`${
                               decision.band === 'strategic' ? 'border-blue-500 text-blue-600 dark:text-blue-400' :
                               decision.band === 'tactical' ? 'border-purple-500 text-purple-600 dark:text-purple-400' :
                               'border-green-500 text-green-600 dark:text-green-400'
                             }`}>
-                              {decision.band || 'operational'}
+                              {getTranslatedBand(decision.band, t)}
                             </Badge>
                           </TableCell>
                           <TableCell className="font-medium">{decision.modelName || t('aiOrchestration.unknown')}</TableCell>
-                          <TableCell className="max-w-md truncate" title={decision.decision || ''}>
-                            {decision.decision || t('aiOrchestration.aiDecision')}
+                          <TableCell className="max-w-md truncate" title={getTranslatedDecision(decision.decision, t)}>
+                            {getTranslatedDecision(decision.decision, t)}
                           </TableCell>
-                          <TableCell className="capitalize">{decision.category || t('aiOrchestration.general')}</TableCell>
+                          <TableCell>{getTranslatedCategory(decision.category, t)}</TableCell>
                           <TableCell>
                             <Badge variant={
                               decision.impact === 'high' ? 'destructive' :
                               decision.impact === 'medium' ? 'secondary' :
                               'outline'
-                            } className="capitalize">
-                              {decision.impact || 'medium'}
+                            }>
+                              {getTranslatedImpact(decision.impact, t)}
                             </Badge>
                           </TableCell>
                           <TableCell>
@@ -469,8 +513,8 @@ export default function AIOrchestration() {
                               decision.status === 'executed' ? 'default' :
                               decision.status === 'pending' ? 'secondary' :
                               'destructive'
-                            } className="capitalize">
-                              {decision.status || t('common.pending')}
+                            }>
+                              {getTranslatedStatus(decision.status, t)}
                             </Badge>
                           </TableCell>
                           <TableCell className="text-muted-foreground text-sm tabular-nums">
@@ -503,20 +547,20 @@ export default function AIOrchestration() {
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1 space-y-1">
                             <div className="flex items-center gap-2">
-                              <Badge variant="outline" className="capitalize text-xs">
-                                {decision.band || 'operational'}
+                              <Badge variant="outline" className="text-xs">
+                                {getTranslatedBand(decision.band, t)}
                               </Badge>
                               <span className="text-xs text-muted-foreground">{decision.modelName || t('aiOrchestration.unknown')}</span>
                             </div>
-                            <p className="text-sm font-medium">{decision.decision || t('aiOrchestration.aiDecision')}</p>
+                            <p className="text-sm font-medium">{getTranslatedDecision(decision.decision, t)}</p>
                             <p className="text-xs text-muted-foreground">{formatSafeDate(decision.createdAt, t('aiOrchestration.justNow'))}</p>
                           </div>
                           <Badge variant={
                             decision.status === 'executed' ? 'default' :
                             decision.status === 'pending' ? 'secondary' :
                             'destructive'
-                          } className="capitalize">
-                            {decision.status || t('common.pending')}
+                          }>
+                            {getTranslatedStatus(decision.status, t)}
                           </Badge>
                         </div>
                       </CardContent>

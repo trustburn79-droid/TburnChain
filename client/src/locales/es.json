@@ -2257,12 +2257,52 @@
     "unknown": "Unknown",
     "aiDecision": "AI Decision",
     "general": "General",
-    "strategic": "Strategic",
-    "tactical": "Tactical",
-    "operational": "Operational",
-    "consensusContribution": "Consenso Contribution",
-    "justNow": "Just now",
-    "noModelDataAvailable": "No model data available"
+    "strategic": "Estratégico",
+    "tactical": "Táctico",
+    "operational": "Operacional",
+    "consensusContribution": "Contribución al Consenso",
+    "justNow": "Ahora mismo",
+    "noModelDataAvailable": "No hay datos de modelo disponibles",
+    "bands": {
+      "strategic": "Estratégico",
+      "tactical": "Táctico",
+      "operational": "Operacional"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Patrón de anomalía detectado y resuelto",
+      "consensus_threshold_achieved": "Umbral de consenso alcanzado",
+      "smart_contract_execution_approved": "Ejecución de contrato inteligente aprobada",
+      "block_validation_complete": "Validación de bloque completada",
+      "validator_performance_analyzed": "Rendimiento del validador analizado",
+      "network_latency_adjusted": "Latencia de red ajustada",
+      "transaction_verified_successfully": "Transacción verificada exitosamente",
+      "security_protocol_updated": "Protocolo de seguridad actualizado",
+      "gas_fee_optimization_applied": "Optimización de tarifa de gas aplicada",
+      "shard_rebalancing_complete": "Reequilibrio de fragmentos completado",
+      "cross_chain_transfer_validated": "Transferencia cross-chain validada",
+      "stake_distribution_optimized": "Distribución de stake optimizada"
+    },
+    "categories": {
+      "security": "Seguridad",
+      "consensus": "Consenso",
+      "execution": "Ejecución",
+      "validation": "Validación",
+      "monitoring": "Monitoreo",
+      "performance": "Rendimiento",
+      "verification": "Verificación",
+      "optimization": "Optimización",
+      "governance": "Gobernanza"
+    },
+    "impactLevels": {
+      "high": "Alto",
+      "medium": "Medio",
+      "low": "Bajo"
+    },
+    "statuses": {
+      "executed": "Ejecutado",
+      "pending": "Pendiente",
+      "failed": "Fallido"
+    }
   },
   "consensus": {
     "title": "Mecanismo de Consenso",

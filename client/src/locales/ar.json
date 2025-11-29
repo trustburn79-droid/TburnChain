@@ -1442,7 +1442,47 @@
     "operational": "تشغيلي",
     "consensusContribution": "مساهمة الإجماع",
     "justNow": "الآن",
-    "noModelDataAvailable": "لا توجد بيانات نموذج متاحة"
+    "noModelDataAvailable": "لا توجد بيانات نموذج متاحة",
+    "bands": {
+      "strategic": "استراتيجي",
+      "tactical": "تكتيكي",
+      "operational": "تشغيلي"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "تم اكتشاف نمط غير طبيعي وحله",
+      "consensus_threshold_achieved": "تم الوصول إلى عتبة الإجماع",
+      "smart_contract_execution_approved": "تمت الموافقة على تنفيذ العقد الذكي",
+      "block_validation_complete": "اكتمل التحقق من الكتلة",
+      "validator_performance_analyzed": "تم تحليل أداء المصادق",
+      "network_latency_adjusted": "تم تعديل زمن استجابة الشبكة",
+      "transaction_verified_successfully": "تم التحقق من المعاملة بنجاح",
+      "security_protocol_updated": "تم تحديث بروتوكول الأمان",
+      "gas_fee_optimization_applied": "تم تطبيق تحسين رسوم الغاز",
+      "shard_rebalancing_complete": "اكتمل إعادة توازن الشظايا",
+      "cross_chain_transfer_validated": "تم التحقق من النقل عبر السلاسل",
+      "stake_distribution_optimized": "تم تحسين توزيع الرهان"
+    },
+    "categories": {
+      "security": "الأمان",
+      "consensus": "الإجماع",
+      "execution": "التنفيذ",
+      "validation": "التحقق",
+      "monitoring": "المراقبة",
+      "performance": "الأداء",
+      "verification": "التحقق",
+      "optimization": "التحسين",
+      "governance": "الحوكمة"
+    },
+    "impactLevels": {
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    },
+    "statuses": {
+      "executed": "تم التنفيذ",
+      "pending": "قيد الانتظار",
+      "failed": "فشل"
+    }
   },
   "smartContracts": {
     "title": "العقود الذكية",

@@ -1592,7 +1592,65 @@
     "cacheManagement": "कैश मैनेजमेंट",
     "costOptimization": "लागत ऑप्टिमाइज़ेशन",
     "recentRequests": "हाल के अनुरोध",
-    "modelPerformance": "मॉडल परफॉर्मेंस"
+    "modelPerformance": "मॉडल परफॉर्मेंस",
+    "decisionStream": "AI निर्णय स्ट्रीम",
+    "decisionHistory": "निर्णय इतिहास",
+    "liveFeed": "लाइव फीड",
+    "decision": "निर्णय",
+    "category": "श्रेणी",
+    "band": "बैंड",
+    "impact": "प्रभाव",
+    "timestamp": "टाइमस्टैम्प",
+    "realTimeAiDecisions": "ट्रिपल-बैंड सिस्टम से रियल-टाइम AI निर्णय",
+    "noAiDecisionsRecorded": "अभी तक कोई AI निर्णय दर्ज नहीं",
+    "unknown": "अज्ञात",
+    "aiDecision": "AI निर्णय",
+    "general": "सामान्य",
+    "strategic": "रणनीतिक",
+    "tactical": "सामरिक",
+    "operational": "परिचालन",
+    "justNow": "अभी",
+    "noModelDataAvailable": "कोई मॉडल डेटा उपलब्ध नहीं",
+    "bands": {
+      "strategic": "रणनीतिक",
+      "tactical": "सामरिक",
+      "operational": "परिचालन"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "असामान्य पैटर्न का पता लगाया और समाधान किया",
+      "consensus_threshold_achieved": "सहमति सीमा प्राप्त",
+      "smart_contract_execution_approved": "स्मार्ट कॉन्ट्रैक्ट निष्पादन स्वीकृत",
+      "block_validation_complete": "ब्लॉक सत्यापन पूर्ण",
+      "validator_performance_analyzed": "वैलिडेटर प्रदर्शन का विश्लेषण किया",
+      "network_latency_adjusted": "नेटवर्क विलंबता समायोजित",
+      "transaction_verified_successfully": "लेनदेन सफलतापूर्वक सत्यापित",
+      "security_protocol_updated": "सुरक्षा प्रोटोकॉल अपडेट किया",
+      "gas_fee_optimization_applied": "गैस शुल्क अनुकूलन लागू",
+      "shard_rebalancing_complete": "शार्ड पुनर्संतुलन पूर्ण",
+      "cross_chain_transfer_validated": "क्रॉस-चेन ट्रांसफर सत्यापित",
+      "stake_distribution_optimized": "स्टेक वितरण अनुकूलित"
+    },
+    "categories": {
+      "security": "सुरक्षा",
+      "consensus": "सहमति",
+      "execution": "निष्पादन",
+      "validation": "सत्यापन",
+      "monitoring": "निगरानी",
+      "performance": "प्रदर्शन",
+      "verification": "पुष्टि",
+      "optimization": "अनुकूलन",
+      "governance": "शासन"
+    },
+    "impactLevels": {
+      "high": "उच्च",
+      "medium": "मध्यम",
+      "low": "निम्न"
+    },
+    "statuses": {
+      "executed": "निष्पादित",
+      "pending": "लंबित",
+      "failed": "विफल"
+    }
   },
   "smartContracts": {
     "title": "स्मार्ट कॉन्ट्रैक्ट्स",

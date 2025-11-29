@@ -2173,7 +2173,47 @@
     "operational": "운영적",
     "consensusContribution": "합의 기여",
     "justNow": "방금 전",
-    "noModelDataAvailable": "사용 가능한 모델 데이터가 없습니다"
+    "noModelDataAvailable": "사용 가능한 모델 데이터가 없습니다",
+    "bands": {
+      "strategic": "전략",
+      "tactical": "전술",
+      "operational": "운영"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "이상 패턴이 감지되어 해결됨",
+      "consensus_threshold_achieved": "합의 임계값에 도달",
+      "smart_contract_execution_approved": "스마트 컨트랙트 실행 승인",
+      "block_validation_complete": "블록 검증 완료",
+      "validator_performance_analyzed": "검증자 성능 분석 완료",
+      "network_latency_adjusted": "네트워크 지연 시간 조정됨",
+      "transaction_verified_successfully": "트랜잭션 검증 성공",
+      "security_protocol_updated": "보안 프로토콜 업데이트됨",
+      "gas_fee_optimization_applied": "가스비 최적화 적용됨",
+      "shard_rebalancing_complete": "샤드 리밸런싱 완료",
+      "cross_chain_transfer_validated": "크로스체인 전송 검증됨",
+      "stake_distribution_optimized": "스테이크 분배 최적화됨"
+    },
+    "categories": {
+      "security": "보안",
+      "consensus": "합의",
+      "execution": "실행",
+      "validation": "검증",
+      "monitoring": "모니터링",
+      "performance": "성능",
+      "verification": "확인",
+      "optimization": "최적화",
+      "governance": "거버넌스"
+    },
+    "impactLevels": {
+      "high": "높음",
+      "medium": "보통",
+      "low": "낮음"
+    },
+    "statuses": {
+      "executed": "실행됨",
+      "pending": "대기 중",
+      "failed": "실패"
+    }
   },
   "crossShard": {
     "title": "크로스샤드 통신",

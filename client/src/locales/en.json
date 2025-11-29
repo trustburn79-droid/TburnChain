@@ -2126,7 +2126,47 @@
     "operational": "Operational",
     "consensusContribution": "Consensus Contribution",
     "justNow": "Just now",
-    "noModelDataAvailable": "No model data available"
+    "noModelDataAvailable": "No model data available",
+    "bands": {
+      "strategic": "Strategic",
+      "tactical": "Tactical",
+      "operational": "Operational"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Anomaly Pattern Detected and Resolved",
+      "consensus_threshold_achieved": "Consensus Threshold Achieved",
+      "smart_contract_execution_approved": "Smart Contract Execution Approved",
+      "block_validation_complete": "Block Validation Complete",
+      "validator_performance_analyzed": "Validator Performance Analyzed",
+      "network_latency_adjusted": "Network Latency Adjusted",
+      "transaction_verified_successfully": "Transaction Verified Successfully",
+      "security_protocol_updated": "Security Protocol Updated",
+      "gas_fee_optimization_applied": "Gas Fee Optimization Applied",
+      "shard_rebalancing_complete": "Shard Rebalancing Complete",
+      "cross_chain_transfer_validated": "Cross-Chain Transfer Validated",
+      "stake_distribution_optimized": "Stake Distribution Optimized"
+    },
+    "categories": {
+      "security": "Security",
+      "consensus": "Consensus",
+      "execution": "Execution",
+      "validation": "Validation",
+      "monitoring": "Monitoring",
+      "performance": "Performance",
+      "verification": "Verification",
+      "optimization": "Optimization",
+      "governance": "Governance"
+    },
+    "impactLevels": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "statuses": {
+      "executed": "Executed",
+      "pending": "Pending",
+      "failed": "Failed"
+    }
   },
   "crossShard": {
     "title": "Cross-Shard Communication",

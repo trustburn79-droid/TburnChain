@@ -755,7 +755,47 @@
     "operational": "Операционный",
     "consensusContribution": "Вклад в консенсус",
     "justNow": "Только что",
-    "noModelDataAvailable": "Данные модели недоступны"
+    "noModelDataAvailable": "Данные модели недоступны",
+    "bands": {
+      "strategic": "Стратегический",
+      "tactical": "Тактический",
+      "operational": "Операционный"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Аномальный паттерн обнаружен и устранён",
+      "consensus_threshold_achieved": "Порог консенсуса достигнут",
+      "smart_contract_execution_approved": "Выполнение смарт-контракта одобрено",
+      "block_validation_complete": "Валидация блока завершена",
+      "validator_performance_analyzed": "Производительность валидатора проанализирована",
+      "network_latency_adjusted": "Сетевая задержка скорректирована",
+      "transaction_verified_successfully": "Транзакция успешно верифицирована",
+      "security_protocol_updated": "Протокол безопасности обновлён",
+      "gas_fee_optimization_applied": "Оптимизация комиссии за газ применена",
+      "shard_rebalancing_complete": "Ребалансировка шардов завершена",
+      "cross_chain_transfer_validated": "Кросс-чейн перевод валидирован",
+      "stake_distribution_optimized": "Распределение стейка оптимизировано"
+    },
+    "categories": {
+      "security": "Безопасность",
+      "consensus": "Консенсус",
+      "execution": "Выполнение",
+      "validation": "Валидация",
+      "monitoring": "Мониторинг",
+      "performance": "Производительность",
+      "verification": "Верификация",
+      "optimization": "Оптимизация",
+      "governance": "Управление"
+    },
+    "impactLevels": {
+      "high": "Высокий",
+      "medium": "Средний",
+      "low": "Низкий"
+    },
+    "statuses": {
+      "executed": "Выполнено",
+      "pending": "В ожидании",
+      "failed": "Ошибка"
+    }
   },
   "consensus": {
     "title": "Консенсус",

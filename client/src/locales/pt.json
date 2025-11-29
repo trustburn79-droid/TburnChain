@@ -755,7 +755,47 @@
     "operational": "Operacional",
     "consensusContribution": "Contribuição ao Consenso",
     "justNow": "Agora mesmo",
-    "noModelDataAvailable": "Dados do modelo não disponíveis"
+    "noModelDataAvailable": "Dados do modelo não disponíveis",
+    "bands": {
+      "strategic": "Estratégico",
+      "tactical": "Tático",
+      "operational": "Operacional"
+    },
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Padrão de anomalia detectado e resolvido",
+      "consensus_threshold_achieved": "Limiar de consenso alcançado",
+      "smart_contract_execution_approved": "Execução de contrato inteligente aprovada",
+      "block_validation_complete": "Validação de bloco concluída",
+      "validator_performance_analyzed": "Desempenho do validador analisado",
+      "network_latency_adjusted": "Latência de rede ajustada",
+      "transaction_verified_successfully": "Transação verificada com sucesso",
+      "security_protocol_updated": "Protocolo de segurança atualizado",
+      "gas_fee_optimization_applied": "Otimização de taxa de gas aplicada",
+      "shard_rebalancing_complete": "Rebalanceamento de shards concluído",
+      "cross_chain_transfer_validated": "Transferência cross-chain validada",
+      "stake_distribution_optimized": "Distribuição de stake otimizada"
+    },
+    "categories": {
+      "security": "Segurança",
+      "consensus": "Consenso",
+      "execution": "Execução",
+      "validation": "Validação",
+      "monitoring": "Monitoramento",
+      "performance": "Desempenho",
+      "verification": "Verificação",
+      "optimization": "Otimização",
+      "governance": "Governança"
+    },
+    "impactLevels": {
+      "high": "Alto",
+      "medium": "Médio",
+      "low": "Baixo"
+    },
+    "statuses": {
+      "executed": "Executado",
+      "pending": "Pendente",
+      "failed": "Falhou"
+    }
   },
   "consensus": {
     "title": "Consenso",
