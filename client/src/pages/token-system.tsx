@@ -234,11 +234,17 @@ const getTemplateTranslationKey = (templateId: string, field: 'name' | 'descript
     'enterprise-token': 'Enterprise',
     'marketplace-token': 'Marketplace'
   };
+  const fieldKeyMap: Record<string, string> = {
+    'name': 'Name',
+    'description': 'Desc',
+    'category': 'Category',
+    'features': 'Feature'
+  };
   const templateKey = keyMap[templateId] || templateId;
   if (field === 'features') {
     return `tokenSystem.template${templateKey}Feature`;
   }
-  return `tokenSystem.template${templateKey}${field.charAt(0).toUpperCase() + field.slice(1)}`;
+  return `tokenSystem.template${templateKey}${fieldKeyMap[field] || field}`;
 };
 
 const TOKEN_TEMPLATES: TokenTemplate[] = [
@@ -571,7 +577,7 @@ function TokenStandardsOverview({
               <Coins className="h-5 w-5 text-blue-500" />
               TBC-20
             </CardTitle>
-            <Badge>ERC-20 Compatible</Badge>
+            <Badge>{t('tokenSystem.erc20Compatible')}</Badge>
           </div>
           <CardDescription>
             {t('tokenSystem.tbc20Description')}
