@@ -2821,7 +2821,70 @@
       "noOpenAlerts": "열린 알림 없음",
       "suspended": "정지됨",
       "healthy": "정상",
-      "degraded": "저하됨"
+      "degraded": "저하됨",
+      "actionTypes": {
+        "member_status_change": "멤버 상태 변경",
+        "member_tier_change": "멤버 티어 변경",
+        "kyc_status_update": "KYC 상태 업데이트",
+        "validator_application_review": "검증자 신청 검토",
+        "security_alert_acknowledge": "보안 알림 확인",
+        "security_alert_dismiss": "보안 알림 해제",
+        "login": "로그인",
+        "logout": "로그아웃",
+        "settings_change": "설정 변경",
+        "report_generated": "보고서 생성됨",
+        "member_suspended": "멤버 정지됨",
+        "member_activated": "멤버 활성화됨",
+        "validator_approved": "검증자 승인됨",
+        "validator_rejected": "검증자 거부됨",
+        "slashing_executed": "슬래싱 실행됨"
+      },
+      "resourceTypes": {
+        "members": "멤버",
+        "validators": "검증자",
+        "security": "보안",
+        "settings": "설정",
+        "reports": "보고서",
+        "kyc": "KYC",
+        "staking": "스테이킹"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "시스템 상태 모니터링 활성화",
+        "High CPU Usage Detected": "높은 CPU 사용량 감지",
+        "Memory Usage Warning": "메모리 사용량 경고",
+        "Disk Space Low": "디스크 공간 부족",
+        "Network Latency High": "네트워크 지연 높음",
+        "Validator Down": "검증자 다운",
+        "Consensus Delay": "합의 지연",
+        "Security Threat Detected": "보안 위협 감지",
+        "Unusual Activity": "비정상적인 활동",
+        "Block Production Slow": "블록 생성 지연"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "엔터프라이즈 모니터링 시스템이 작동 중이며 모든 네트워크 지표를 추적하고 있습니다.",
+        "CPU usage has exceeded the warning threshold.": "CPU 사용량이 경고 임계값을 초과했습니다.",
+        "Memory usage is approaching critical levels.": "메모리 사용량이 위험 수준에 가까워지고 있습니다.",
+        "Disk space is running low on the primary storage.": "기본 저장소의 디스크 공간이 부족합니다.",
+        "Network latency has increased significantly.": "네트워크 지연이 크게 증가했습니다.",
+        "One or more validators are not responding.": "하나 이상의 검증자가 응답하지 않습니다.",
+        "Consensus mechanism is experiencing delays.": "합의 메커니즘에 지연이 발생하고 있습니다.",
+        "Potential security threat has been identified.": "잠재적 보안 위협이 식별되었습니다.",
+        "Unusual network activity has been detected.": "비정상적인 네트워크 활동이 감지되었습니다.",
+        "Block production rate is below expected levels.": "블록 생성 속도가 예상 수준 이하입니다."
+      },
+      "appStatuses": {
+        "pending": "대기 중",
+        "approved": "승인됨",
+        "rejected": "거부됨",
+        "under_review": "검토 중"
+      },
+      "severityLevels": {
+        "critical": "심각",
+        "high": "높음",
+        "medium": "중간",
+        "low": "낮음",
+        "info": "정보"
+      }
     },
     "validators": {
       "title": "검증자 운영",

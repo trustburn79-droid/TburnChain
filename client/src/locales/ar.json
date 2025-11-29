@@ -2033,7 +2033,70 @@
       "noOpenAlerts": "لا توجد تنبيهات مفتوحة",
       "suspended": "معلق",
       "healthy": "صحي",
-      "degraded": "متدهور"
+      "degraded": "متدهور",
+      "actionTypes": {
+        "member_status_change": "تغيير حالة العضو",
+        "member_tier_change": "تغيير مستوى العضو",
+        "kyc_status_update": "تحديث حالة KYC",
+        "validator_application_review": "مراجعة طلب المدقق",
+        "security_alert_acknowledge": "الإقرار بتنبيه الأمان",
+        "security_alert_dismiss": "رفض تنبيه الأمان",
+        "login": "تسجيل الدخول",
+        "logout": "تسجيل الخروج",
+        "settings_change": "تغيير الإعدادات",
+        "report_generated": "تم إنشاء التقرير",
+        "member_suspended": "تم تعليق العضو",
+        "member_activated": "تم تفعيل العضو",
+        "validator_approved": "تمت الموافقة على المدقق",
+        "validator_rejected": "تم رفض المدقق",
+        "slashing_executed": "تم تنفيذ العقوبة"
+      },
+      "resourceTypes": {
+        "members": "الأعضاء",
+        "validators": "المدققون",
+        "security": "الأمان",
+        "settings": "الإعدادات",
+        "reports": "التقارير",
+        "kyc": "KYC",
+        "staking": "الستاكينغ"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "مراقبة صحة النظام نشطة",
+        "High CPU Usage Detected": "اكتشاف استخدام عالي للمعالج",
+        "Memory Usage Warning": "تحذير استخدام الذاكرة",
+        "Disk Space Low": "مساحة القرص منخفضة",
+        "Network Latency High": "تأخير الشبكة مرتفع",
+        "Validator Down": "المدقق معطل",
+        "Consensus Delay": "تأخير الإجماع",
+        "Security Threat Detected": "اكتشاف تهديد أمني",
+        "Unusual Activity": "نشاط غير عادي",
+        "Block Production Slow": "إنتاج الكتل بطيء"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "نظام المراقبة المؤسسي يعمل ويتتبع جميع مقاييس الشبكة.",
+        "CPU usage has exceeded the warning threshold.": "تجاوز استخدام المعالج عتبة التحذير.",
+        "Memory usage is approaching critical levels.": "استخدام الذاكرة يقترب من المستويات الحرجة.",
+        "Disk space is running low on the primary storage.": "مساحة القرص منخفضة في التخزين الأساسي.",
+        "Network latency has increased significantly.": "زاد تأخير الشبكة بشكل ملحوظ.",
+        "One or more validators are not responding.": "واحد أو أكثر من المدققين لا يستجيبون.",
+        "Consensus mechanism is experiencing delays.": "آلية الإجماع تعاني من تأخيرات.",
+        "Potential security threat has been identified.": "تم تحديد تهديد أمني محتمل.",
+        "Unusual network activity has been detected.": "تم اكتشاف نشاط شبكة غير عادي.",
+        "Block production rate is below expected levels.": "معدل إنتاج الكتل أقل من المستويات المتوقعة."
+      },
+      "appStatuses": {
+        "pending": "قيد الانتظار",
+        "approved": "موافق عليه",
+        "rejected": "مرفوض",
+        "under_review": "قيد المراجعة"
+      },
+      "severityLevels": {
+        "critical": "حرج",
+        "high": "عالي",
+        "medium": "متوسط",
+        "low": "منخفض",
+        "info": "معلومات"
+      }
     },
     "members": {
       "title": "إدارة الأعضاء",

@@ -975,7 +975,70 @@
       "noOpenAlerts": "কোন খোলা সতর্কতা নেই",
       "suspended": "স্থগিত",
       "healthy": "সুস্থ",
-      "degraded": "অবনতি"
+      "degraded": "অবনতি",
+      "actionTypes": {
+        "member_status_change": "সদস্য অবস্থা পরিবর্তন",
+        "member_tier_change": "সদস্য টায়ার পরিবর্তন",
+        "kyc_status_update": "KYC অবস্থা আপডেট",
+        "validator_application_review": "ভ্যালিডেটর আবেদন পর্যালোচনা",
+        "security_alert_acknowledge": "নিরাপত্তা সতর্কতা স্বীকৃতি",
+        "security_alert_dismiss": "নিরাপত্তা সতর্কতা বাতিল",
+        "login": "লগইন",
+        "logout": "লগআউট",
+        "settings_change": "সেটিংস পরিবর্তন",
+        "report_generated": "রিপোর্ট তৈরি",
+        "member_suspended": "সদস্য স্থগিত",
+        "member_activated": "সদস্য সক্রিয়",
+        "validator_approved": "ভ্যালিডেটর অনুমোদিত",
+        "validator_rejected": "ভ্যালিডেটর প্রত্যাখ্যাত",
+        "slashing_executed": "স্ল্যাশিং সম্পাদিত"
+      },
+      "resourceTypes": {
+        "members": "সদস্য",
+        "validators": "ভ্যালিডেটর",
+        "security": "নিরাপত্তা",
+        "settings": "সেটিংস",
+        "reports": "রিপোর্ট",
+        "kyc": "KYC",
+        "staking": "স্টেকিং"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "সিস্টেম স্বাস্থ্য পর্যবেক্ষণ সক্রিয়",
+        "High CPU Usage Detected": "উচ্চ CPU ব্যবহার সনাক্ত",
+        "Memory Usage Warning": "মেমরি ব্যবহার সতর্কতা",
+        "Disk Space Low": "ডিস্ক স্পেস কম",
+        "Network Latency High": "নেটওয়ার্ক বিলম্ব উচ্চ",
+        "Validator Down": "ভ্যালিডেটর অফলাইন",
+        "Consensus Delay": "কনসেনসাস বিলম্ব",
+        "Security Threat Detected": "নিরাপত্তা হুমকি সনাক্ত",
+        "Unusual Activity": "অস্বাভাবিক কার্যকলাপ",
+        "Block Production Slow": "ব্লক উৎপাদন ধীর"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "এন্টারপ্রাইজ মনিটরিং সিস্টেম চালু এবং সমস্ত নেটওয়ার্ক মেট্রিক্স ট্র্যাক করছে।",
+        "CPU usage has exceeded the warning threshold.": "CPU ব্যবহার সতর্কতা সীমা অতিক্রম করেছে।",
+        "Memory usage is approaching critical levels.": "মেমরি ব্যবহার সংকটজনক স্তরে পৌঁছাচ্ছে।",
+        "Disk space is running low on the primary storage.": "প্রাথমিক স্টোরেজে ডিস্ক স্পেস কম চলছে।",
+        "Network latency has increased significantly.": "নেটওয়ার্ক বিলম্ব উল্লেখযোগ্যভাবে বেড়েছে।",
+        "One or more validators are not responding.": "এক বা একাধিক ভ্যালিডেটর সাড়া দিচ্ছে না।",
+        "Consensus mechanism is experiencing delays.": "কনসেনসাস মেকানিজম বিলম্ব অনুভব করছে।",
+        "Potential security threat has been identified.": "সম্ভাব্য নিরাপত্তা হুমকি চিহ্নিত করা হয়েছে।",
+        "Unusual network activity has been detected.": "অস্বাভাবিক নেটওয়ার্ক কার্যকলাপ সনাক্ত করা হয়েছে।",
+        "Block production rate is below expected levels.": "ব্লক উৎপাদন হার প্রত্যাশিত স্তরের নীচে।"
+      },
+      "appStatuses": {
+        "pending": "মুলতুবি",
+        "approved": "অনুমোদিত",
+        "rejected": "প্রত্যাখ্যাত",
+        "under_review": "পর্যালোচনাধীন"
+      },
+      "severityLevels": {
+        "critical": "গুরুতর",
+        "high": "উচ্চ",
+        "medium": "মাঝারি",
+        "low": "নিম্ন",
+        "info": "তথ্য"
+      }
     },
     "validators": {
       "title": "ভ্যালিডেটর অপারেশন",

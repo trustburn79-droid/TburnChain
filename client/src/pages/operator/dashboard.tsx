@@ -18,7 +18,22 @@ import {
 import { Link } from "wouter";
 import { useAdminPassword } from "@/hooks/use-admin-password";
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+
+const localeMap: Record<string, string> = {
+  en: 'en-US',
+  ja: 'ja-JP',
+  ko: 'ko-KR',
+  zh: 'zh-CN',
+  hi: 'hi-IN',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  ar: 'ar-SA',
+  bn: 'bn-BD',
+  ru: 'ru-RU',
+  pt: 'pt-BR',
+  ur: 'ur-PK'
+};
 
 interface DashboardData {
   members: {
@@ -90,8 +105,72 @@ interface AlertItem {
 }
 
 export default function OperatorDashboard() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { getAuthHeaders } = useAdminPassword();
+  const currentLocale = localeMap[i18n.language] || 'en-US';
+
+  const formatTimeForLocale = (dateValue: string | Date) => {
+    try {
+      const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+      return date.toLocaleTimeString(currentLocale, { hour: '2-digit', minute: '2-digit' });
+    } catch {
+      return '--:--';
+    }
+  };
+
+  const translateActionType = (actionType: string): string => {
+    const key = `operator.dashboard.actionTypes.${actionType}`;
+    const translated = t(key, { returnObjects: false });
+    if (translated !== key && typeof translated === 'string') {
+      return translated;
+    }
+    return actionType.replace(/_/g, ' ');
+  };
+
+  const translateResource = (resource: string): string => {
+    const key = `operator.dashboard.resourceTypes.${resource.toLowerCase()}`;
+    const translated = t(key, { returnObjects: false });
+    if (translated !== key && typeof translated === 'string') {
+      return translated;
+    }
+    return resource;
+  };
+
+  const translateAlertTitle = (title: string): string => {
+    const key = `operator.dashboard.alertTitles.${title}`;
+    const translated = t(key, { returnObjects: false });
+    if (translated !== key && typeof translated === 'string') {
+      return translated;
+    }
+    return title;
+  };
+
+  const translateAlertMessage = (message: string): string => {
+    const key = `operator.dashboard.alertMessages.${message}`;
+    const translated = t(key, { returnObjects: false });
+    if (translated !== key && typeof translated === 'string') {
+      return translated;
+    }
+    return message;
+  };
+
+  const translateAppStatus = (status: string): string => {
+    const key = `operator.dashboard.appStatuses.${status}`;
+    const translated = t(key, { returnObjects: false });
+    if (translated !== key && typeof translated === 'string') {
+      return translated;
+    }
+    return status;
+  };
+
+  const translateSeverity = (severity: string): string => {
+    const key = `operator.dashboard.severityLevels.${severity}`;
+    const translated = t(key, { returnObjects: false });
+    if (translated !== key && typeof translated === 'string') {
+      return translated;
+    }
+    return severity;
+  };
   const queryClient = useQueryClient();
   const [autoRefresh, setAutoRefresh] = useState(true);
 
@@ -159,6 +238,18 @@ export default function OperatorDashboard() {
       queryClient.invalidateQueries({ queryKey: ["/api/operator/alerts"] });
     },
   });
+
+  const chartData = useMemo(() => {
+    return healthHistory?.map(h => ({
+      time: formatTimeForLocale(h.snapshot_at),
+      tps: h.tps,
+      latency: h.latency,
+      cpu: h.cpu_usage,
+      memory: h.memory_usage,
+      validators: h.active_validators,
+      health: h.overall_health_score / 100,
+    })) || [];
+  }, [healthHistory, currentLocale]);
 
   if (isLoading) {
     return (
@@ -230,16 +321,6 @@ export default function OperatorDashboard() {
         return <Badge variant="outline">{t('operator.security.info')}</Badge>;
     }
   };
-
-  const chartData = healthHistory?.map(h => ({
-    time: new Date(h.snapshot_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    tps: h.tps,
-    latency: h.latency,
-    cpu: h.cpu_usage,
-    memory: h.memory_usage,
-    validators: h.active_validators,
-    health: h.overall_health_score / 100,
-  })) || [];
 
   return (
     <div className="p-6 space-y-6">
@@ -504,11 +585,11 @@ export default function OperatorDashboard() {
                           <div className="flex items-center gap-2 mb-1">
                             {getSeverityBadge(alert.severity)}
                             <span className="text-xs text-muted-foreground">
-                              {new Date(alert.created_at).toLocaleTimeString()}
+                              {formatTimeForLocale(alert.created_at)}
                             </span>
                           </div>
-                          <p className="text-sm font-medium truncate">{alert.title}</p>
-                          <p className="text-xs text-muted-foreground line-clamp-2">{alert.message}</p>
+                          <p className="text-sm font-medium truncate">{translateAlertTitle(alert.title)}</p>
+                          <p className="text-xs text-muted-foreground line-clamp-2">{translateAlertMessage(alert.message)}</p>
                         </div>
                         <div className="flex gap-1">
                           <Button 
@@ -662,11 +743,11 @@ export default function OperatorDashboard() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="truncate font-medium">{activity.action_type.replace(/_/g, ' ')}</p>
-                        <p className="text-xs text-muted-foreground truncate">{activity.resource}</p>
+                        <p className="truncate font-medium">{translateActionType(activity.action_type)}</p>
+                        <p className="text-xs text-muted-foreground truncate">{translateResource(activity.resource)}</p>
                       </div>
                       <div className="text-xs text-muted-foreground whitespace-nowrap">
-                        {new Date(activity.created_at).toLocaleTimeString()}
+                        {formatTimeForLocale(activity.created_at)}
                       </div>
                     </div>
                   ))}
@@ -725,7 +806,7 @@ export default function OperatorDashboard() {
                       app.status === 'approved' ? 'default' :
                       app.status === 'rejected' ? 'destructive' : 'secondary'
                     } className="capitalize">
-                      {app.status}
+                      {translateAppStatus(app.status)}
                     </Badge>
                     <span className="text-sm font-medium">{app.count}</span>
                   </div>
@@ -751,7 +832,7 @@ export default function OperatorDashboard() {
                       alert.severity === 'high' ? 'default' :
                       alert.severity === 'medium' ? 'secondary' : 'outline'
                     } className="capitalize">
-                      {alert.severity}
+                      {translateSeverity(alert.severity)}
                     </Badge>
                     <span className="text-sm font-medium">{alert.count}</span>
                   </div>

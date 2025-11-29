@@ -2648,7 +2648,70 @@
       "noOpenAlerts": "没有开放警报",
       "suspended": "暂停",
       "healthy": "健康",
-      "degraded": "降级"
+      "degraded": "降级",
+      "actionTypes": {
+        "member_status_change": "成员状态变更",
+        "member_tier_change": "成员等级变更",
+        "kyc_status_update": "KYC状态更新",
+        "validator_application_review": "验证者申请审核",
+        "security_alert_acknowledge": "安全警报确认",
+        "security_alert_dismiss": "安全警报解除",
+        "login": "登录",
+        "logout": "登出",
+        "settings_change": "设置变更",
+        "report_generated": "报告生成",
+        "member_suspended": "成员暂停",
+        "member_activated": "成员激活",
+        "validator_approved": "验证者批准",
+        "validator_rejected": "验证者拒绝",
+        "slashing_executed": "罚没执行"
+      },
+      "resourceTypes": {
+        "members": "成员",
+        "validators": "验证者",
+        "security": "安全",
+        "settings": "设置",
+        "reports": "报告",
+        "kyc": "KYC",
+        "staking": "质押"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "系统健康监控已启用",
+        "High CPU Usage Detected": "检测到高CPU使用率",
+        "Memory Usage Warning": "内存使用警告",
+        "Disk Space Low": "磁盘空间不足",
+        "Network Latency High": "网络延迟高",
+        "Validator Down": "验证者离线",
+        "Consensus Delay": "共识延迟",
+        "Security Threat Detected": "检测到安全威胁",
+        "Unusual Activity": "异常活动",
+        "Block Production Slow": "区块生成缓慢"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "企业监控系统正在运行并跟踪所有网络指标。",
+        "CPU usage has exceeded the warning threshold.": "CPU使用率已超过警告阈值。",
+        "Memory usage is approaching critical levels.": "内存使用接近临界水平。",
+        "Disk space is running low on the primary storage.": "主存储磁盘空间不足。",
+        "Network latency has increased significantly.": "网络延迟显著增加。",
+        "One or more validators are not responding.": "一个或多个验证者无响应。",
+        "Consensus mechanism is experiencing delays.": "共识机制出现延迟。",
+        "Potential security threat has been identified.": "已识别潜在安全威胁。",
+        "Unusual network activity has been detected.": "检测到异常网络活动。",
+        "Block production rate is below expected levels.": "区块生成率低于预期水平。"
+      },
+      "appStatuses": {
+        "pending": "待处理",
+        "approved": "已批准",
+        "rejected": "已拒绝",
+        "under_review": "审核中"
+      },
+      "severityLevels": {
+        "critical": "严重",
+        "high": "高",
+        "medium": "中",
+        "low": "低",
+        "info": "信息"
+      }
     },
     "members": {
       "title": "成员管理",

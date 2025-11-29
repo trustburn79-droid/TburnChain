@@ -2147,7 +2147,70 @@
       "noOpenAlerts": "Aucune alerte ouverte",
       "suspended": "Suspendu",
       "healthy": "Sain",
-      "degraded": "Dégradé"
+      "degraded": "Dégradé",
+      "actionTypes": {
+        "member_status_change": "Changement de Statut du Membre",
+        "member_tier_change": "Changement de Niveau du Membre",
+        "kyc_status_update": "Mise à Jour du Statut KYC",
+        "validator_application_review": "Examen de Candidature Validateur",
+        "security_alert_acknowledge": "Accusé de Réception d'Alerte de Sécurité",
+        "security_alert_dismiss": "Rejet d'Alerte de Sécurité",
+        "login": "Connexion",
+        "logout": "Déconnexion",
+        "settings_change": "Modification des Paramètres",
+        "report_generated": "Rapport Généré",
+        "member_suspended": "Membre Suspendu",
+        "member_activated": "Membre Activé",
+        "validator_approved": "Validateur Approuvé",
+        "validator_rejected": "Validateur Rejeté",
+        "slashing_executed": "Slashing Exécuté"
+      },
+      "resourceTypes": {
+        "members": "Membres",
+        "validators": "Validateurs",
+        "security": "Sécurité",
+        "settings": "Paramètres",
+        "reports": "Rapports",
+        "kyc": "KYC",
+        "staking": "Staking"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "Surveillance de la Santé du Système Active",
+        "High CPU Usage Detected": "Utilisation CPU Élevée Détectée",
+        "Memory Usage Warning": "Avertissement d'Utilisation Mémoire",
+        "Disk Space Low": "Espace Disque Faible",
+        "Network Latency High": "Latence Réseau Élevée",
+        "Validator Down": "Validateur Hors Ligne",
+        "Consensus Delay": "Retard de Consensus",
+        "Security Threat Detected": "Menace de Sécurité Détectée",
+        "Unusual Activity": "Activité Inhabituelle",
+        "Block Production Slow": "Production de Blocs Lente"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "Le système de surveillance d'entreprise est opérationnel et suit toutes les métriques réseau.",
+        "CPU usage has exceeded the warning threshold.": "L'utilisation du CPU a dépassé le seuil d'avertissement.",
+        "Memory usage is approaching critical levels.": "L'utilisation de la mémoire approche des niveaux critiques.",
+        "Disk space is running low on the primary storage.": "L'espace disque est faible sur le stockage principal.",
+        "Network latency has increased significantly.": "La latence réseau a augmenté significativement.",
+        "One or more validators are not responding.": "Un ou plusieurs validateurs ne répondent pas.",
+        "Consensus mechanism is experiencing delays.": "Le mécanisme de consensus connaît des retards.",
+        "Potential security threat has been identified.": "Une menace de sécurité potentielle a été identifiée.",
+        "Unusual network activity has been detected.": "Une activité réseau inhabituelle a été détectée.",
+        "Block production rate is below expected levels.": "Le taux de production de blocs est inférieur aux niveaux attendus."
+      },
+      "appStatuses": {
+        "pending": "En Attente",
+        "approved": "Approuvé",
+        "rejected": "Rejeté",
+        "under_review": "En Cours de Révision"
+      },
+      "severityLevels": {
+        "critical": "Critique",
+        "high": "Élevé",
+        "medium": "Moyen",
+        "low": "Faible",
+        "info": "Information"
+      }
     },
     "members": {
       "title": "Gestion des membres",

@@ -975,7 +975,70 @@
       "noOpenAlerts": "کوئی کھلے الرٹس نہیں",
       "suspended": "معطل",
       "healthy": "صحت مند",
-      "degraded": "کمزور"
+      "degraded": "کمزور",
+      "actionTypes": {
+        "member_status_change": "ممبر حیثیت تبدیلی",
+        "member_tier_change": "ممبر ٹیئر تبدیلی",
+        "kyc_status_update": "KYC حیثیت اپڈیٹ",
+        "validator_application_review": "ویلیڈیٹر درخواست جائزہ",
+        "security_alert_acknowledge": "سیکورٹی الرٹ اعتراف",
+        "security_alert_dismiss": "سیکورٹی الرٹ خارج",
+        "login": "لاگ ان",
+        "logout": "لاگ آؤٹ",
+        "settings_change": "سیٹنگز تبدیلی",
+        "report_generated": "رپورٹ تیار",
+        "member_suspended": "ممبر معطل",
+        "member_activated": "ممبر فعال",
+        "validator_approved": "ویلیڈیٹر منظور",
+        "validator_rejected": "ویلیڈیٹر مسترد",
+        "slashing_executed": "سلیشنگ مکمل"
+      },
+      "resourceTypes": {
+        "members": "اراکین",
+        "validators": "ویلیڈیٹرز",
+        "security": "سیکورٹی",
+        "settings": "سیٹنگز",
+        "reports": "رپورٹس",
+        "kyc": "KYC",
+        "staking": "اسٹیکنگ"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "سسٹم ہیلتھ مانیٹرنگ فعال",
+        "High CPU Usage Detected": "زیادہ CPU استعمال کا پتہ چلا",
+        "Memory Usage Warning": "میموری استعمال انتباہ",
+        "Disk Space Low": "ڈسک سپیس کم",
+        "Network Latency High": "نیٹ ورک تاخیر زیادہ",
+        "Validator Down": "ویلیڈیٹر آف لائن",
+        "Consensus Delay": "اتفاق رائے تاخیر",
+        "Security Threat Detected": "سیکورٹی خطرہ پایا گیا",
+        "Unusual Activity": "غیر معمولی سرگرمی",
+        "Block Production Slow": "بلاک پروڈکشن سست"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "انٹرپرائز مانیٹرنگ سسٹم فعال ہے اور تمام نیٹ ورک میٹرکس کی نگرانی کر رہا ہے۔",
+        "CPU usage has exceeded the warning threshold.": "CPU استعمال انتباہی حد سے تجاوز کر گیا ہے۔",
+        "Memory usage is approaching critical levels.": "میموری استعمال نازک سطح کے قریب پہنچ رہا ہے۔",
+        "Disk space is running low on the primary storage.": "پرائمری اسٹوریج پر ڈسک سپیس کم ہو رہی ہے۔",
+        "Network latency has increased significantly.": "نیٹ ورک تاخیر نمایاں طور پر بڑھ گئی ہے۔",
+        "One or more validators are not responding.": "ایک یا زیادہ ویلیڈیٹرز جواب نہیں دے رہے۔",
+        "Consensus mechanism is experiencing delays.": "اتفاق رائے کا طریقہ کار تاخیر کا سامنا کر رہا ہے۔",
+        "Potential security threat has been identified.": "ممکنہ سیکورٹی خطرہ کی شناخت ہوئی ہے۔",
+        "Unusual network activity has been detected.": "غیر معمولی نیٹ ورک سرگرمی کا پتہ چلا ہے۔",
+        "Block production rate is below expected levels.": "بلاک پروڈکشن کی شرح متوقع سطح سے نیچے ہے۔"
+      },
+      "appStatuses": {
+        "pending": "زیر التوا",
+        "approved": "منظور شدہ",
+        "rejected": "مسترد",
+        "under_review": "جائزے میں"
+      },
+      "severityLevels": {
+        "critical": "نازک",
+        "high": "اعلیٰ",
+        "medium": "درمیانہ",
+        "low": "کم",
+        "info": "معلومات"
+      }
     },
     "validators": {
       "title": "ویلیڈیٹر آپریشنز",

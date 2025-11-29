@@ -975,7 +975,70 @@
       "noOpenAlerts": "Нет открытых оповещений",
       "suspended": "Приостановлен",
       "healthy": "Здоровый",
-      "degraded": "Ухудшенный"
+      "degraded": "Ухудшенный",
+      "actionTypes": {
+        "member_status_change": "Изменение статуса участника",
+        "member_tier_change": "Изменение уровня участника",
+        "kyc_status_update": "Обновление статуса KYC",
+        "validator_application_review": "Проверка заявки валидатора",
+        "security_alert_acknowledge": "Подтверждение оповещения безопасности",
+        "security_alert_dismiss": "Отклонение оповещения безопасности",
+        "login": "Вход",
+        "logout": "Выход",
+        "settings_change": "Изменение настроек",
+        "report_generated": "Отчет создан",
+        "member_suspended": "Участник приостановлен",
+        "member_activated": "Участник активирован",
+        "validator_approved": "Валидатор одобрен",
+        "validator_rejected": "Валидатор отклонен",
+        "slashing_executed": "Штраф выполнен"
+      },
+      "resourceTypes": {
+        "members": "Участники",
+        "validators": "Валидаторы",
+        "security": "Безопасность",
+        "settings": "Настройки",
+        "reports": "Отчеты",
+        "kyc": "KYC",
+        "staking": "Стейкинг"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "Мониторинг здоровья системы активен",
+        "High CPU Usage Detected": "Обнаружена высокая загрузка CPU",
+        "Memory Usage Warning": "Предупреждение об использовании памяти",
+        "Disk Space Low": "Мало места на диске",
+        "Network Latency High": "Высокая задержка сети",
+        "Validator Down": "Валидатор недоступен",
+        "Consensus Delay": "Задержка консенсуса",
+        "Security Threat Detected": "Обнаружена угроза безопасности",
+        "Unusual Activity": "Необычная активность",
+        "Block Production Slow": "Медленное производство блоков"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "Корпоративная система мониторинга работает и отслеживает все сетевые метрики.",
+        "CPU usage has exceeded the warning threshold.": "Использование CPU превысило порог предупреждения.",
+        "Memory usage is approaching critical levels.": "Использование памяти приближается к критическому уровню.",
+        "Disk space is running low on the primary storage.": "На основном хранилище заканчивается место на диске.",
+        "Network latency has increased significantly.": "Задержка сети значительно увеличилась.",
+        "One or more validators are not responding.": "Один или несколько валидаторов не отвечают.",
+        "Consensus mechanism is experiencing delays.": "Механизм консенсуса испытывает задержки.",
+        "Potential security threat has been identified.": "Обнаружена потенциальная угроза безопасности.",
+        "Unusual network activity has been detected.": "Обнаружена необычная сетевая активность.",
+        "Block production rate is below expected levels.": "Скорость производства блоков ниже ожидаемого уровня."
+      },
+      "appStatuses": {
+        "pending": "Ожидание",
+        "approved": "Одобрено",
+        "rejected": "Отклонено",
+        "under_review": "На рассмотрении"
+      },
+      "severityLevels": {
+        "critical": "Критический",
+        "high": "Высокий",
+        "medium": "Средний",
+        "low": "Низкий",
+        "info": "Информация"
+      }
     },
     "validators": {
       "title": "Операции валидаторов",

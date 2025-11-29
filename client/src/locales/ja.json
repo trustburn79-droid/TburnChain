@@ -2738,7 +2738,70 @@
       "viewReports": "レポートを表示",
       "systemMetrics": "システムメトリクス",
       "resourceUtilization": "リソース使用率",
-      "cpu": "CPU"
+      "cpu": "CPU",
+      "actionTypes": {
+        "member_status_change": "メンバーステータス変更",
+        "member_tier_change": "メンバーティア変更",
+        "kyc_status_update": "KYCステータス更新",
+        "validator_application_review": "バリデーター申請レビュー",
+        "security_alert_acknowledge": "セキュリティアラート確認",
+        "security_alert_dismiss": "セキュリティアラート却下",
+        "login": "ログイン",
+        "logout": "ログアウト",
+        "settings_change": "設定変更",
+        "report_generated": "レポート生成",
+        "member_suspended": "メンバー停止",
+        "member_activated": "メンバー有効化",
+        "validator_approved": "バリデーター承認",
+        "validator_rejected": "バリデーター拒否",
+        "slashing_executed": "スラッシング実行"
+      },
+      "resourceTypes": {
+        "members": "メンバー",
+        "validators": "バリデーター",
+        "security": "セキュリティ",
+        "settings": "設定",
+        "reports": "レポート",
+        "kyc": "KYC",
+        "staking": "ステーキング"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "システム健全性モニタリング有効",
+        "High CPU Usage Detected": "高CPU使用率検出",
+        "Memory Usage Warning": "メモリ使用率警告",
+        "Disk Space Low": "ディスク空き容量不足",
+        "Network Latency High": "ネットワーク遅延高",
+        "Validator Down": "バリデーターダウン",
+        "Consensus Delay": "コンセンサス遅延",
+        "Security Threat Detected": "セキュリティ脅威検出",
+        "Unusual Activity": "異常なアクティビティ",
+        "Block Production Slow": "ブロック生成遅延"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "エンタープライズ監視システムが稼働中で、すべてのネットワークメトリクスを追跡しています。",
+        "CPU usage has exceeded the warning threshold.": "CPU使用率が警告しきい値を超えました。",
+        "Memory usage is approaching critical levels.": "メモリ使用率が危険レベルに近づいています。",
+        "Disk space is running low on the primary storage.": "プライマリストレージのディスク容量が不足しています。",
+        "Network latency has increased significantly.": "ネットワーク遅延が大幅に増加しました。",
+        "One or more validators are not responding.": "1つ以上のバリデーターが応答していません。",
+        "Consensus mechanism is experiencing delays.": "コンセンサスメカニズムに遅延が発生しています。",
+        "Potential security threat has been identified.": "潜在的なセキュリティ脅威が特定されました。",
+        "Unusual network activity has been detected.": "異常なネットワークアクティビティが検出されました。",
+        "Block production rate is below expected levels.": "ブロック生成レートが予想を下回っています。"
+      },
+      "appStatuses": {
+        "pending": "保留中",
+        "approved": "承認済み",
+        "rejected": "拒否",
+        "under_review": "審査中"
+      },
+      "severityLevels": {
+        "critical": "重大",
+        "high": "高",
+        "medium": "中",
+        "low": "低",
+        "info": "情報"
+      }
     },
     "members": {
       "title": "メンバー管理",

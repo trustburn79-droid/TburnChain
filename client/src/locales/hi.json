@@ -2002,7 +2002,70 @@
       "noOpenAlerts": "कोई खुले अलर्ट नहीं",
       "suspended": "निलंबित",
       "healthy": "स्वस्थ",
-      "degraded": "कमजोर"
+      "degraded": "कमजोर",
+      "actionTypes": {
+        "member_status_change": "सदस्य स्थिति परिवर्तन",
+        "member_tier_change": "सदस्य टियर परिवर्तन",
+        "kyc_status_update": "KYC स्थिति अपडेट",
+        "validator_application_review": "वैलिडेटर आवेदन समीक्षा",
+        "security_alert_acknowledge": "सुरक्षा अलर्ट स्वीकृति",
+        "security_alert_dismiss": "सुरक्षा अलर्ट खारिज",
+        "login": "लॉगिन",
+        "logout": "लॉगआउट",
+        "settings_change": "सेटिंग्स परिवर्तन",
+        "report_generated": "रिपोर्ट जनरेट",
+        "member_suspended": "सदस्य निलंबित",
+        "member_activated": "सदस्य सक्रिय",
+        "validator_approved": "वैलिडेटर स्वीकृत",
+        "validator_rejected": "वैलिडेटर अस्वीकृत",
+        "slashing_executed": "स्लैशिंग निष्पादित"
+      },
+      "resourceTypes": {
+        "members": "सदस्य",
+        "validators": "वैलिडेटर्स",
+        "security": "सुरक्षा",
+        "settings": "सेटिंग्स",
+        "reports": "रिपोर्ट्स",
+        "kyc": "KYC",
+        "staking": "स्टेकिंग"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "सिस्टम स्वास्थ्य मॉनिटरिंग सक्रिय",
+        "High CPU Usage Detected": "उच्च CPU उपयोग पाया गया",
+        "Memory Usage Warning": "मेमोरी उपयोग चेतावनी",
+        "Disk Space Low": "डिस्क स्पेस कम",
+        "Network Latency High": "नेटवर्क विलंबता उच्च",
+        "Validator Down": "वैलिडेटर डाउन",
+        "Consensus Delay": "सहमति विलंब",
+        "Security Threat Detected": "सुरक्षा खतरा पाया गया",
+        "Unusual Activity": "असामान्य गतिविधि",
+        "Block Production Slow": "ब्लॉक उत्पादन धीमा"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "एंटरप्राइज मॉनिटरिंग सिस्टम चालू है और सभी नेटवर्क मेट्रिक्स ट्रैक कर रहा है।",
+        "CPU usage has exceeded the warning threshold.": "CPU उपयोग चेतावनी सीमा से अधिक हो गया है।",
+        "Memory usage is approaching critical levels.": "मेमोरी उपयोग गंभीर स्तर के करीब पहुंच रहा है।",
+        "Disk space is running low on the primary storage.": "प्राथमिक स्टोरेज पर डिस्क स्पेस कम हो रहा है।",
+        "Network latency has increased significantly.": "नेटवर्क विलंबता काफी बढ़ गई है।",
+        "One or more validators are not responding.": "एक या अधिक वैलिडेटर प्रतिक्रिया नहीं दे रहे।",
+        "Consensus mechanism is experiencing delays.": "सहमति तंत्र में विलंब हो रहा है।",
+        "Potential security threat has been identified.": "संभावित सुरक्षा खतरा पहचाना गया है।",
+        "Unusual network activity has been detected.": "असामान्य नेटवर्क गतिविधि का पता चला है।",
+        "Block production rate is below expected levels.": "ब्लॉक उत्पादन दर अपेक्षित स्तर से नीचे है।"
+      },
+      "appStatuses": {
+        "pending": "लंबित",
+        "approved": "स्वीकृत",
+        "rejected": "अस्वीकृत",
+        "under_review": "समीक्षाधीन"
+      },
+      "severityLevels": {
+        "critical": "गंभीर",
+        "high": "उच्च",
+        "medium": "मध्यम",
+        "low": "निम्न",
+        "info": "सूचना"
+      }
     },
     "members": {
       "title": "सदस्य प्रबंधन",

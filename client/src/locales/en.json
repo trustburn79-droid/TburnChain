@@ -2651,7 +2651,70 @@
       "noOpenAlerts": "No open alerts",
       "suspended": "Suspended",
       "healthy": "Healthy",
-      "degraded": "Degraded"
+      "degraded": "Degraded",
+      "actionTypes": {
+        "member_status_change": "Member Status Change",
+        "member_tier_change": "Member Tier Change",
+        "kyc_status_update": "KYC Status Update",
+        "validator_application_review": "Validator Application Review",
+        "security_alert_acknowledge": "Security Alert Acknowledged",
+        "security_alert_dismiss": "Security Alert Dismissed",
+        "login": "Login",
+        "logout": "Logout",
+        "settings_change": "Settings Change",
+        "report_generated": "Report Generated",
+        "member_suspended": "Member Suspended",
+        "member_activated": "Member Activated",
+        "validator_approved": "Validator Approved",
+        "validator_rejected": "Validator Rejected",
+        "slashing_executed": "Slashing Executed"
+      },
+      "resourceTypes": {
+        "members": "Members",
+        "validators": "Validators",
+        "security": "Security",
+        "settings": "Settings",
+        "reports": "Reports",
+        "kyc": "KYC",
+        "staking": "Staking"
+      },
+      "alertTitles": {
+        "System Health Monitoring Active": "System Health Monitoring Active",
+        "High CPU Usage Detected": "High CPU Usage Detected",
+        "Memory Usage Warning": "Memory Usage Warning",
+        "Disk Space Low": "Disk Space Low",
+        "Network Latency High": "Network Latency High",
+        "Validator Down": "Validator Down",
+        "Consensus Delay": "Consensus Delay",
+        "Security Threat Detected": "Security Threat Detected",
+        "Unusual Activity": "Unusual Activity",
+        "Block Production Slow": "Block Production Slow"
+      },
+      "alertMessages": {
+        "Enterprise monitoring system is operational and tracking all network metrics.": "Enterprise monitoring system is operational and tracking all network metrics.",
+        "CPU usage has exceeded the warning threshold.": "CPU usage has exceeded the warning threshold.",
+        "Memory usage is approaching critical levels.": "Memory usage is approaching critical levels.",
+        "Disk space is running low on the primary storage.": "Disk space is running low on the primary storage.",
+        "Network latency has increased significantly.": "Network latency has increased significantly.",
+        "One or more validators are not responding.": "One or more validators are not responding.",
+        "Consensus mechanism is experiencing delays.": "Consensus mechanism is experiencing delays.",
+        "Potential security threat has been identified.": "Potential security threat has been identified.",
+        "Unusual network activity has been detected.": "Unusual network activity has been detected.",
+        "Block production rate is below expected levels.": "Block production rate is below expected levels."
+      },
+      "appStatuses": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "under_review": "Under Review"
+      },
+      "severityLevels": {
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low",
+        "info": "Info"
+      }
     },
 
     "members": {
