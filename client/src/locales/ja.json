@@ -3529,6 +3529,7 @@
         "dailyTransactionSummary": "日次トランザクションサマリー",
         "quarterlyValidatorReport": "四半期バリデーターレポート"
       },
+      "complianceTab": "コンプライアンス",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

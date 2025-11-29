@@ -3377,6 +3377,7 @@
         "dailyTransactionSummary": "일일 트랜잭션 요약",
         "quarterlyValidatorReport": "분기별 검증자 보고서"
       },
+      "complianceTab": "컴플라이언스",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

@@ -3448,6 +3448,7 @@
         "dailyTransactionSummary": "每日交易摘要",
         "quarterlyValidatorReport": "季度验证者报告"
       },
+      "complianceTab": "合规",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

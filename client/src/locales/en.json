@@ -3422,6 +3422,7 @@
         "dailyTransactionSummary": "Daily Transaction Summary",
         "quarterlyValidatorReport": "Quarterly Validator Report"
       },
+      "complianceTab": "Compliance",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

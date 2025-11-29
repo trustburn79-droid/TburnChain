@@ -1360,6 +1360,40 @@
         "dailyTransactionSummary": "Resumo de Transações Diário",
         "quarterlyValidatorReport": "Relatório de Validadores Trimestral"
       },
+      "complianceTab": "Conformidade",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Proteção de Dados",
+          "financialReporting": "Relatórios Financeiros",
+          "networkSecurity": "Segurança de Rede",
+          "operational": "Operacional"
+        },
+        "requirements": {
+          "identityVerification": "Todos os membros devem completar a verificação de identidade em 30 dias",
+          "sarFiling": "Relatórios de Atividade Suspeita (SARs) arquivados em 72 horas",
+          "gdprCompliance": "Conformidade GDPR para tratamento de dados de membros da UE",
+          "encryptionAtRest": "Criptografia em repouso para todos os dados sensíveis",
+          "quarterlyStatements": "Demonstrações financeiras trimestrais enviadas aos reguladores",
+          "annualAudit": "Auditoria anual por terceiro certificado",
+          "multiSig": "Requisito de multi-assinatura para transações do tesouro",
+          "validatorKyc": "KYC de validador para participação no comitê",
+          "disasterRecovery": "Plano de recuperação de desastres testado trimestralmente",
+          "incidentResponse": "Resposta a incidentes de segurança em 1 hora"
+        },
+        "notes": {
+          "complianceRate": "Taxa de conformidade de 98,5%",
+          "sarFiledOnTime": "Todos os SARs arquivados no prazo",
+          "annualAuditPassed": "Auditoria anual aprovada",
+          "aesEncryption": "Criptografia AES-256 verificada",
+          "q4ReportPreparation": "Relatório Q4 2025 em preparação",
+          "auditCleanOpinion": "Auditoria 2024 concluída - parecer limpo",
+          "multiSigActive": "Multisig 3-de-5 ativo",
+          "validatorsVerified": "Todos os 125 validadores verificados",
+          "nextTestScheduled": "Próximo teste agendado para dezembro",
+          "monitoringActive": "Monitoramento 24/7 ativo"
+        }
+      },
       "complianceData": {
         "categories": {
           "kycAml": "KYC/AML",

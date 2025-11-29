@@ -2760,6 +2760,7 @@
         "dailyTransactionSummary": "Résumé des transactions quotidien",
         "quarterlyValidatorReport": "Rapport des validateurs trimestriel"
       },
+      "complianceTab": "Conformité",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

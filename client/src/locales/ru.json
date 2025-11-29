@@ -1360,6 +1360,40 @@
         "dailyTransactionSummary": "Ежедневная сводка транзакций",
         "quarterlyValidatorReport": "Квартальный отчет о валидаторах"
       },
+      "complianceTab": "Соответствие",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Защита данных",
+          "financialReporting": "Финансовая отчетность",
+          "networkSecurity": "Сетевая безопасность",
+          "operational": "Операционный"
+        },
+        "requirements": {
+          "identityVerification": "Все участники должны пройти верификацию личности в течение 30 дней",
+          "sarFiling": "Отчеты о подозрительной деятельности (SARs) подаются в течение 72 часов",
+          "gdprCompliance": "Соответствие GDPR при обработке данных участников из ЕС",
+          "encryptionAtRest": "Шифрование в состоянии покоя для всех конфиденциальных данных",
+          "quarterlyStatements": "Квартальная финансовая отчетность представляется регуляторам",
+          "annualAudit": "Ежегодный аудит сертифицированной третьей стороной",
+          "multiSig": "Требование мультиподписи для казначейских транзакций",
+          "validatorKyc": "KYC валидатора для членства в комитете",
+          "disasterRecovery": "План восстановления после сбоев тестируется ежеквартально",
+          "incidentResponse": "Реагирование на инциденты безопасности в течение 1 часа"
+        },
+        "notes": {
+          "complianceRate": "Уровень соответствия 98,5%",
+          "sarFiledOnTime": "Все SAR поданы вовремя",
+          "annualAuditPassed": "Годовой аудит пройден",
+          "aesEncryption": "Шифрование AES-256 проверено",
+          "q4ReportPreparation": "Отчет Q4 2025 в подготовке",
+          "auditCleanOpinion": "Аудит 2024 завершен - чистое заключение",
+          "multiSigActive": "Мультиподпись 3-из-5 активна",
+          "validatorsVerified": "Все 125 валидаторов верифицированы",
+          "nextTestScheduled": "Следующий тест запланирован на декабрь",
+          "monitoringActive": "Мониторинг 24/7 активен"
+        }
+      },
       "complianceData": {
         "categories": {
           "kycAml": "KYC/AML",

@@ -567,7 +567,7 @@ export default function OperatorReports() {
           </TabsTrigger>
           <TabsTrigger value="compliance" className="flex items-center gap-2" data-testid="tab-compliance">
             <ClipboardCheck className="h-4 w-4" />
-            {t('operator.reports.compliance')}
+            {t('operator.reports.complianceTab')}
           </TabsTrigger>
         </TabsList>
 

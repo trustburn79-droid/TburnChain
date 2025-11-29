@@ -3371,6 +3371,7 @@
         "dailyTransactionSummary": "Resumen de Transacciones Diario",
         "quarterlyValidatorReport": "Informe de Validadores Trimestral"
       },
+      "complianceTab": "Cumplimiento",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

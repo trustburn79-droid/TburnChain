@@ -2789,6 +2789,7 @@
         "dailyTransactionSummary": "ملخص المعاملات اليومي",
         "quarterlyValidatorReport": "تقرير المدققين ربع السنوي"
       },
+      "complianceTab": "الامتثال",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

@@ -2629,6 +2629,7 @@
         "dailyTransactionSummary": "दैनिक लेनदेन सारांश",
         "quarterlyValidatorReport": "तिमाही वैलिडेटर रिपोर्ट"
       },
+      "complianceTab": "अनुपालन",
       "compliance": {
         "categories": {
           "kycAml": "KYC/AML",

@@ -1360,6 +1360,40 @@
         "dailyTransactionSummary": "روزانہ لین دین خلاصہ",
         "quarterlyValidatorReport": "سہ ماہی ویلیڈیٹر رپورٹ"
       },
+      "complianceTab": "تعمیل",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "ڈیٹا تحفظ",
+          "financialReporting": "مالی رپورٹنگ",
+          "networkSecurity": "نیٹ ورک سیکورٹی",
+          "operational": "آپریشنل"
+        },
+        "requirements": {
+          "identityVerification": "تمام اراکین کو 30 دنوں کے اندر شناخت کی تصدیق مکمل کرنی ہوگی",
+          "sarFiling": "مشکوک سرگرمی کی رپورٹس (SARs) 72 گھنٹوں کے اندر دائر",
+          "gdprCompliance": "EU اراکین کے ڈیٹا ہینڈلنگ کے لیے GDPR تعمیل",
+          "encryptionAtRest": "تمام حساس ڈیٹا کے لیے ریسٹ انکرپشن",
+          "quarterlyStatements": "سہ ماہی مالی بیانات ریگولیٹرز کو جمع کرائے گئے",
+          "annualAudit": "مصدقہ تیسرے فریق کی جانب سے سالانہ آڈٹ",
+          "multiSig": "خزانے کے لین دین کے لیے ملٹی سگنیچر کی ضرورت",
+          "validatorKyc": "کمیٹی رکنیت کے لیے ویلیڈیٹر KYC",
+          "disasterRecovery": "آفات سے بحالی کا منصوبہ سہ ماہی ٹیسٹ شدہ",
+          "incidentResponse": "1 گھنٹے کے اندر سیکورٹی واقعہ کا جواب"
+        },
+        "notes": {
+          "complianceRate": "98.5% تعمیل کی شرح",
+          "sarFiledOnTime": "تمام SARs وقت پر دائر",
+          "annualAuditPassed": "سالانہ آڈٹ پاس",
+          "aesEncryption": "AES-256 انکرپشن تصدیق شدہ",
+          "q4ReportPreparation": "Q4 2025 رپورٹ تیاری میں",
+          "auditCleanOpinion": "2024 آڈٹ مکمل - صاف رائے",
+          "multiSigActive": "3 میں سے 5 ملٹی سگ فعال",
+          "validatorsVerified": "تمام 125 ویلیڈیٹرز تصدیق شدہ",
+          "nextTestScheduled": "اگلا ٹیسٹ دسمبر میں طے شدہ",
+          "monitoringActive": "24/7 نگرانی فعال"
+        }
+      },
       "complianceData": {
         "categories": {
           "kycAml": "KYC/AML",
