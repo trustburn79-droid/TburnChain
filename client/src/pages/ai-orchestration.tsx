@@ -21,63 +21,101 @@ import { useWebSocketChannel } from "@/hooks/use-websocket-channel";
 import { aiDecisionsSnapshotSchema } from "@shared/schema";
 import type { AiModel, AiDecision } from "@shared/schema";
 
-function formatSafeDate(dateValue: string | Date | null | undefined, justNowText: string): string {
+const localeMap: Record<string, string> = {
+  en: 'en-US',
+  zh: 'zh-CN',
+  ja: 'ja-JP',
+  hi: 'hi-IN',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  ar: 'ar-SA',
+  bn: 'bn-BD',
+  ru: 'ru-RU',
+  pt: 'pt-BR',
+  ur: 'ur-PK',
+  ko: 'ko-KR',
+};
+
+function formatSafeDate(dateValue: string | Date | null | undefined, justNowText: string, locale: string): string {
   if (!dateValue) return justNowText;
   try {
     const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
     if (isNaN(date.getTime())) return justNowText;
-    return date.toLocaleString();
+    const localeCode = localeMap[locale] || locale || 'en-US';
+    return date.toLocaleString(localeCode, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
   } catch {
     return justNowText;
   }
 }
 
-type TranslationFn = (key: string) => string;
+type TranslationFn = (key: string, options?: { defaultValue?: string; returnObjects?: boolean }) => string;
 
 function getTranslatedDecision(decision: string | null | undefined, t: TranslationFn): string {
   if (!decision) return t('aiOrchestration.aiDecision');
   const decisionKey = decision.toLowerCase()
     .replace(/\s+/g, '_')
     .replace(/[^a-z0-9_]/g, '');
+  if (!decisionKey || decisionKey.trim() === '') {
+    return decision;
+  }
   const translationKey = `aiOrchestration.decisions.${decisionKey}`;
-  const translated = t(translationKey);
-  return translated === translationKey ? decision : translated;
+  const translated = t(translationKey, { defaultValue: decision, returnObjects: false });
+  return (typeof translated === 'string' && translated !== translationKey) ? translated : decision;
 }
 
 function getTranslatedCategory(category: string | null | undefined, t: TranslationFn): string {
   if (!category) return t('aiOrchestration.general');
-  const categoryKey = category.toLowerCase();
+  const categoryKey = category.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (!categoryKey || categoryKey.trim() === '') {
+    return category;
+  }
   const translationKey = `aiOrchestration.categories.${categoryKey}`;
-  const translated = t(translationKey);
-  return translated === translationKey ? category : translated;
+  const translated = t(translationKey, { defaultValue: category, returnObjects: false });
+  return (typeof translated === 'string' && translated !== translationKey) ? translated : category;
 }
 
 function getTranslatedImpact(impact: string | null | undefined, t: TranslationFn): string {
   if (!impact) return t('aiOrchestration.impactLevels.medium');
-  const impactKey = impact.toLowerCase();
+  const impactKey = impact.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (!impactKey || impactKey.trim() === '') {
+    return impact;
+  }
   const translationKey = `aiOrchestration.impactLevels.${impactKey}`;
-  const translated = t(translationKey);
-  return translated === translationKey ? impact : translated;
+  const translated = t(translationKey, { defaultValue: impact, returnObjects: false });
+  return (typeof translated === 'string' && translated !== translationKey) ? translated : impact;
 }
 
 function getTranslatedStatus(status: string | null | undefined, t: TranslationFn): string {
   if (!status) return t('common.pending');
-  const statusKey = status.toLowerCase();
+  const statusKey = status.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (!statusKey || statusKey.trim() === '') {
+    return status;
+  }
   const translationKey = `aiOrchestration.statuses.${statusKey}`;
-  const translated = t(translationKey);
-  return translated === translationKey ? status : translated;
+  const translated = t(translationKey, { defaultValue: status, returnObjects: false });
+  return (typeof translated === 'string' && translated !== translationKey) ? translated : status;
 }
 
 function getTranslatedBand(band: string | null | undefined, t: TranslationFn): string {
   if (!band) return t('aiOrchestration.operational');
-  const bandKey = band.toLowerCase();
+  const bandKey = band.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (!bandKey || bandKey.trim() === '') {
+    return band;
+  }
   const translationKey = `aiOrchestration.bands.${bandKey}`;
-  const translated = t(translationKey);
-  return translated === translationKey ? band : translated;
+  const translated = t(translationKey, { defaultValue: band, returnObjects: false });
+  return (typeof translated === 'string' && translated !== translationKey) ? translated : band;
 }
 
 export default function AIOrchestration() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState("history");
 
   const { data: aiModels, isLoading } = useQuery<AiModel[]>({
@@ -518,7 +556,7 @@ export default function AIOrchestration() {
                             </Badge>
                           </TableCell>
                           <TableCell className="text-muted-foreground text-sm tabular-nums">
-                            {formatSafeDate(decision.createdAt, t('aiOrchestration.justNow'))}
+                            {formatSafeDate(decision.createdAt, t('aiOrchestration.justNow'), i18n.language)}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -553,7 +591,7 @@ export default function AIOrchestration() {
                               <span className="text-xs text-muted-foreground">{decision.modelName || t('aiOrchestration.unknown')}</span>
                             </div>
                             <p className="text-sm font-medium">{getTranslatedDecision(decision.decision, t)}</p>
-                            <p className="text-xs text-muted-foreground">{formatSafeDate(decision.createdAt, t('aiOrchestration.justNow'))}</p>
+                            <p className="text-xs text-muted-foreground">{formatSafeDate(decision.createdAt, t('aiOrchestration.justNow'), i18n.language)}</p>
                           </div>
                           <Badge variant={
                             decision.status === 'executed' ? 'default' :
