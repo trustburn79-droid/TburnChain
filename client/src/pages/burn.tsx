@@ -1,6 +1,26 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
+
+const localeMap: Record<string, string> = {
+  en: "en-US",
+  ko: "ko-KR",
+  ja: "ja-JP",
+  zh: "zh-CN",
+  hi: "hi-IN",
+  es: "es-ES",
+  fr: "fr-FR",
+  ar: "ar-SA",
+  bn: "bn-BD",
+  ru: "ru-RU",
+  pt: "pt-BR",
+  ur: "ur-PK"
+};
+
+function getDateLocale(): string {
+  return localeMap[i18n.language] || "en-US";
+}
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -473,7 +493,7 @@ function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: 
               </div>
               <div className="text-right">
                 <p className="text-sm text-muted-foreground">
-                  {new Date(event.timestamp).toLocaleString()}
+                  {new Date(event.timestamp).toLocaleString(getDateLocale())}
                 </p>
                 {event.txHash && (
                   <p className="text-xs font-mono text-muted-foreground">
