@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -164,11 +165,11 @@ const formatTimeAgo = (timestamp: number): string => {
   const hours = Math.floor(diff / 3600000);
   const days = Math.floor(diff / 86400000);
   
-  if (minutes < 1) return 'Just now';
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  if (days < 7) return `${days}d ago`;
-  return new Date(timestamp * 1000).toLocaleDateString();
+  if (minutes < 1) return i18n.t('community.time.justNow', 'Just now');
+  if (minutes < 60) return i18n.t('community.time.minutesAgo', '{{count}}m ago', { count: minutes });
+  if (hours < 24) return i18n.t('community.time.hoursAgo', '{{count}}h ago', { count: hours });
+  if (days < 7) return i18n.t('community.time.daysAgo', '{{count}}d ago', { count: days });
+  return new Date(timestamp * 1000).toLocaleDateString(i18n.language);
 };
 
 const categoryColors: Record<string, string> = {

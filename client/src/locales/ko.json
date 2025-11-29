@@ -1935,7 +1935,13 @@
     "endTime": "종료 시간",
     "title": "제목",
     "content": "내용",
-    "contributions": "기여"
+    "contributions": "기여",
+    "time": {
+      "justNow": "방금 전",
+      "minutesAgo": "{{count}}분 전",
+      "hoursAgo": "{{count}}시간 전",
+      "daysAgo": "{{count}}일 전"
+    }
   },
   "gamefi": {
     "title": "GameFi 허브",
