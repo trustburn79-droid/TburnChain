@@ -2016,7 +2016,41 @@
     "genreSimulation": "シミュレーション",
     "genreCasual": "カジュアル",
     "genreMmorpg": "MMORPG",
-    "genreBattleRoyale": "バトルロイヤル"
+    "genreBattleRoyale": "バトルロイヤル",
+    "badges": {
+      "firstVictory": {
+        "name": "初勝利",
+        "desc": "初めてのゲームに勝利する"
+      },
+      "chainMaster": {
+        "name": "チェーンマスター",
+        "desc": "TBURNブロックチェーンで100ゲームを完了する"
+      },
+      "tournamentChampion": {
+        "name": "トーナメントチャンピオン",
+        "desc": "トーナメントで優勝する"
+      },
+      "nftCollector": {
+        "name": "NFTコレクター",
+        "desc": "ゲームアセットを10個所有する"
+      },
+      "legendaryHolder": {
+        "name": "レジェンダリーホルダー",
+        "desc": "レジェンダリーレアリティのアセットを所有する"
+      },
+      "socialButterfly": {
+        "name": "ソーシャルバタフライ",
+        "desc": "5人の友達を紹介する"
+      },
+      "dailyWarrior": {
+        "name": "デイリーウォリアー",
+        "desc": "30日連続でプレイする"
+      },
+      "seasonPioneer": {
+        "name": "シーズンパイオニア",
+        "desc": "シーズナルイベントを完了する"
+      }
+    }
   },
   "bridge": {
     "title": "クロスチェーンブリッジ",

@@ -1960,7 +1960,41 @@
     "genreSimulation": "模拟",
     "genreCasual": "休闲",
     "genreMmorpg": "大型多人在线角色扮演",
-    "genreBattleRoyale": "大逃杀"
+    "genreBattleRoyale": "大逃杀",
+    "badges": {
+      "firstVictory": {
+        "name": "首胜",
+        "desc": "赢得你的第一场游戏"
+      },
+      "chainMaster": {
+        "name": "链上大师",
+        "desc": "在TBURN区块链上完成100场游戏"
+      },
+      "tournamentChampion": {
+        "name": "锦标赛冠军",
+        "desc": "赢得一场锦标赛"
+      },
+      "nftCollector": {
+        "name": "NFT收藏家",
+        "desc": "拥有10个游戏资产"
+      },
+      "legendaryHolder": {
+        "name": "传奇持有者",
+        "desc": "拥有传奇稀有度资产"
+      },
+      "socialButterfly": {
+        "name": "社交达人",
+        "desc": "推荐5位好友"
+      },
+      "dailyWarrior": {
+        "name": "每日战士",
+        "desc": "连续玩30天"
+      },
+      "seasonPioneer": {
+        "name": "赛季先驱",
+        "desc": "完成赛季活动"
+      }
+    }
   },
   "bridge": {
     "title": "跨链桥",

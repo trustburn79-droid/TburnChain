@@ -1484,7 +1484,41 @@
     "losses": "हार",
     "winRate": "जीत दर",
     "claimRewards": "रिवॉर्ड्स क्लेम करें",
-    "pendingRewards": "लंबित रिवॉर्ड्स"
+    "pendingRewards": "लंबित रिवॉर्ड्स",
+    "badges": {
+      "firstVictory": {
+        "name": "पहली जीत",
+        "desc": "अपना पहला गेम जीतें"
+      },
+      "chainMaster": {
+        "name": "चेन मास्टर",
+        "desc": "TBURN ब्लॉकचेन पर 100 गेम पूरे करें"
+      },
+      "tournamentChampion": {
+        "name": "टूर्नामेंट चैंपियन",
+        "desc": "एक टूर्नामेंट जीतें"
+      },
+      "nftCollector": {
+        "name": "NFT कलेक्टर",
+        "desc": "10 गेम एसेट्स रखें"
+      },
+      "legendaryHolder": {
+        "name": "लीजेंड्री होल्डर",
+        "desc": "एक लीजेंड्री रेयरिटी एसेट रखें"
+      },
+      "socialButterfly": {
+        "name": "सोशल बटरफ्लाई",
+        "desc": "5 दोस्तों को रेफर करें"
+      },
+      "dailyWarrior": {
+        "name": "डेली वॉरियर",
+        "desc": "30 दिन लगातार खेलें"
+      },
+      "seasonPioneer": {
+        "name": "सीज़न पायनियर",
+        "desc": "एक सीज़नल इवेंट पूरा करें"
+      }
+    }
   },
   "consensus": {
     "title": "सहमति एक्सप्लोरर",

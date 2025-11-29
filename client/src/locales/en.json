@@ -1957,7 +1957,41 @@
     "genreSimulation": "Simulation",
     "genreCasual": "Casual",
     "genreMmorpg": "MMORPG",
-    "genreBattleRoyale": "Battle Royale"
+    "genreBattleRoyale": "Battle Royale",
+    "badges": {
+      "firstVictory": {
+        "name": "First Victory",
+        "desc": "Win your first game"
+      },
+      "chainMaster": {
+        "name": "Chain Master",
+        "desc": "Complete 100 games on TBURN blockchain"
+      },
+      "tournamentChampion": {
+        "name": "Tournament Champion",
+        "desc": "Win a tournament"
+      },
+      "nftCollector": {
+        "name": "NFT Collector",
+        "desc": "Own 10 game assets"
+      },
+      "legendaryHolder": {
+        "name": "Legendary Holder",
+        "desc": "Own a legendary rarity asset"
+      },
+      "socialButterfly": {
+        "name": "Social Butterfly",
+        "desc": "Refer 5 friends"
+      },
+      "dailyWarrior": {
+        "name": "Daily Warrior",
+        "desc": "Play 30 consecutive days"
+      },
+      "seasonPioneer": {
+        "name": "Season Pioneer",
+        "desc": "Complete a seasonal event"
+      }
+    }
   },
   "bridge": {
     "title": "Cross-Chain Bridge",

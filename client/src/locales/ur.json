@@ -686,7 +686,41 @@
     "equip": "لگائیں",
     "unequip": "ہٹائیں",
     "upgrade": "اپ گریڈ کریں",
-    "claimRewards": "انعامات کا دعویٰ کریں"
+    "claimRewards": "انعامات کا دعویٰ کریں",
+    "badges": {
+      "firstVictory": {
+        "name": "پہلی فتح",
+        "desc": "اپنا پہلا گیم جیتیں"
+      },
+      "chainMaster": {
+        "name": "چین ماسٹر",
+        "desc": "TBURN بلاکچین پر 100 گیمز مکمل کریں"
+      },
+      "tournamentChampion": {
+        "name": "ٹورنامنٹ چیمپئن",
+        "desc": "ایک ٹورنامنٹ جیتیں"
+      },
+      "nftCollector": {
+        "name": "NFT کلیکٹر",
+        "desc": "10 گیم اثاثے رکھیں"
+      },
+      "legendaryHolder": {
+        "name": "لیجنڈری ہولڈر",
+        "desc": "ایک لیجنڈری نایابیت کا اثاثہ رکھیں"
+      },
+      "socialButterfly": {
+        "name": "سوشل بٹرفلائی",
+        "desc": "5 دوستوں کو ریفر کریں"
+      },
+      "dailyWarrior": {
+        "name": "روزانہ جنگجو",
+        "desc": "30 دن مسلسل کھیلیں"
+      },
+      "seasonPioneer": {
+        "name": "سیزن پائنیر",
+        "desc": "موسمی ایونٹ مکمل کریں"
+      }
+    }
   },
   "aiOrchestration": {
     "title": "AI آرکیسٹریشن",

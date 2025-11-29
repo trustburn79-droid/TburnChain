@@ -1595,7 +1595,41 @@
     "rank": "Rang",
     "player": "Joueur",
     "score": "Score",
-    "prize": "Prix"
+    "prize": "Prix",
+    "badges": {
+      "firstVictory": {
+        "name": "Première Victoire",
+        "desc": "Gagnez votre première partie"
+      },
+      "chainMaster": {
+        "name": "Maître de la Chaîne",
+        "desc": "Complétez 100 parties sur la blockchain TBURN"
+      },
+      "tournamentChampion": {
+        "name": "Champion de Tournoi",
+        "desc": "Gagnez un tournoi"
+      },
+      "nftCollector": {
+        "name": "Collectionneur NFT",
+        "desc": "Possédez 10 actifs de jeu"
+      },
+      "legendaryHolder": {
+        "name": "Détenteur Légendaire",
+        "desc": "Possédez un actif de rareté légendaire"
+      },
+      "socialButterfly": {
+        "name": "Papillon Social",
+        "desc": "Parrainez 5 amis"
+      },
+      "dailyWarrior": {
+        "name": "Guerrier Quotidien",
+        "desc": "Jouez 30 jours consécutifs"
+      },
+      "seasonPioneer": {
+        "name": "Pionnier de Saison",
+        "desc": "Complétez un événement saisonnier"
+      }
+    }
   },
   "consensus": {
     "title": "Consensus",

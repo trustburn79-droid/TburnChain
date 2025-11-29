@@ -1252,7 +1252,41 @@
     "equip": "تجهيز",
     "unequip": "إزالة التجهيز",
     "upgrade": "ترقية",
-    "claimRewards": "المطالبة بالمكافآت"
+    "claimRewards": "المطالبة بالمكافآت",
+    "badges": {
+      "firstVictory": {
+        "name": "الفوز الأول",
+        "desc": "اربح أول لعبة لك"
+      },
+      "chainMaster": {
+        "name": "سيد السلسلة",
+        "desc": "أكمل 100 لعبة على بلوكتشين TBURN"
+      },
+      "tournamentChampion": {
+        "name": "بطل البطولة",
+        "desc": "اربح بطولة"
+      },
+      "nftCollector": {
+        "name": "جامع NFT",
+        "desc": "امتلك 10 أصول لعبة"
+      },
+      "legendaryHolder": {
+        "name": "حامل الأسطورة",
+        "desc": "امتلك أصلاً من الندرة الأسطورية"
+      },
+      "socialButterfly": {
+        "name": "الفراشة الاجتماعية",
+        "desc": "قم بإحالة 5 أصدقاء"
+      },
+      "dailyWarrior": {
+        "name": "المحارب اليومي",
+        "desc": "العب 30 يوماً متتالياً"
+      },
+      "seasonPioneer": {
+        "name": "رائد الموسم",
+        "desc": "أكمل حدث موسمي"
+      }
+    }
   },
   "bridge": {
     "title": "جسر السلاسل المتقاطعة",

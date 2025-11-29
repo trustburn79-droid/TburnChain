@@ -628,6 +628,38 @@ function LeaderboardRow({ entry, rank }: { entry: GameLeaderboard; rank: number 
 
 function BadgeCard({ badge }: { badge: AchievementBadge }) {
   const { t } = useTranslation();
+  
+  const getBadgeNameKey = (name: string): string => {
+    const nameMap: Record<string, string> = {
+      "First Victory": "gamefi.badges.firstVictory.name",
+      "Chain Master": "gamefi.badges.chainMaster.name",
+      "Tournament Champion": "gamefi.badges.tournamentChampion.name",
+      "NFT Collector": "gamefi.badges.nftCollector.name",
+      "Legendary Holder": "gamefi.badges.legendaryHolder.name",
+      "Social Butterfly": "gamefi.badges.socialButterfly.name",
+      "Daily Warrior": "gamefi.badges.dailyWarrior.name",
+      "Season Pioneer": "gamefi.badges.seasonPioneer.name",
+    };
+    return nameMap[name] || name;
+  };
+
+  const getBadgeDescKey = (name: string): string => {
+    const descMap: Record<string, string> = {
+      "First Victory": "gamefi.badges.firstVictory.desc",
+      "Chain Master": "gamefi.badges.chainMaster.desc",
+      "Tournament Champion": "gamefi.badges.tournamentChampion.desc",
+      "NFT Collector": "gamefi.badges.nftCollector.desc",
+      "Legendary Holder": "gamefi.badges.legendaryHolder.desc",
+      "Social Butterfly": "gamefi.badges.socialButterfly.desc",
+      "Daily Warrior": "gamefi.badges.dailyWarrior.desc",
+      "Season Pioneer": "gamefi.badges.seasonPioneer.desc",
+    };
+    return descMap[name] || name;
+  };
+
+  const badgeName = t(getBadgeNameKey(badge.name), { defaultValue: badge.name });
+  const badgeDesc = t(getBadgeDescKey(badge.name), { defaultValue: badge.description || "" });
+
   return (
     <Card className="hover-elevate" data-testid={`card-badge-${badge.id}`}>
       <CardContent className="p-4">
@@ -642,12 +674,12 @@ function BadgeCard({ badge }: { badge: AchievementBadge }) {
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-medium truncate">{badge.name}</span>
+              <span className="font-medium truncate">{badgeName}</span>
               <Badge className={getRarityColor(badge.rarity)}>
                 {t(getRarityTranslationKey(badge.rarity))}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground line-clamp-2">{badge.description}</p>
+            <p className="text-sm text-muted-foreground line-clamp-2">{badgeDesc}</p>
             <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
               <span>{badge.points} {t("gamefi.points")}</span>
               <span>{badge.totalUnlocks?.toLocaleString() || 0} {t("gamefi.unlocks")}</span>

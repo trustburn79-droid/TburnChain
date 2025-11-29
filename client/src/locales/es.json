@@ -2193,7 +2193,41 @@
     "assetTypeSkin": "Skin",
     "assetTypeCharacter": "Character",
     "assetTypeOther": "Elemento",
-    "enterprisePlayer": "Empresarial Jugador"
+    "enterprisePlayer": "Empresarial Jugador",
+    "badges": {
+      "firstVictory": {
+        "name": "Primera Victoria",
+        "desc": "Gana tu primer juego"
+      },
+      "chainMaster": {
+        "name": "Maestro de la Cadena",
+        "desc": "Completa 100 juegos en la blockchain TBURN"
+      },
+      "tournamentChampion": {
+        "name": "Campeón del Torneo",
+        "desc": "Gana un torneo"
+      },
+      "nftCollector": {
+        "name": "Coleccionista NFT",
+        "desc": "Posee 10 activos de juego"
+      },
+      "legendaryHolder": {
+        "name": "Portador Legendario",
+        "desc": "Posee un activo de rareza legendaria"
+      },
+      "socialButterfly": {
+        "name": "Mariposa Social",
+        "desc": "Recomienda a 5 amigos"
+      },
+      "dailyWarrior": {
+        "name": "Guerrero Diario",
+        "desc": "Juega 30 días consecutivos"
+      },
+      "seasonPioneer": {
+        "name": "Pionero de Temporada",
+        "desc": "Completa un evento de temporada"
+      }
+    }
   },
   "aiOrchestration": {
     "title": "Orquestación AI",

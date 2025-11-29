@@ -2004,7 +2004,41 @@
     "genreSimulation": "시뮬레이션",
     "genreCasual": "캐주얼",
     "genreMmorpg": "MMORPG",
-    "genreBattleRoyale": "배틀로얄"
+    "genreBattleRoyale": "배틀로얄",
+    "badges": {
+      "firstVictory": {
+        "name": "첫 승리",
+        "desc": "첫 번째 게임에서 승리하기"
+      },
+      "chainMaster": {
+        "name": "체인 마스터",
+        "desc": "TBURN 블록체인에서 100개의 게임 완료"
+      },
+      "tournamentChampion": {
+        "name": "토너먼트 챔피언",
+        "desc": "토너먼트에서 우승하기"
+      },
+      "nftCollector": {
+        "name": "NFT 수집가",
+        "desc": "게임 자산 10개 보유"
+      },
+      "legendaryHolder": {
+        "name": "전설 보유자",
+        "desc": "전설 등급 자산 보유"
+      },
+      "socialButterfly": {
+        "name": "소셜 버터플라이",
+        "desc": "친구 5명 추천하기"
+      },
+      "dailyWarrior": {
+        "name": "일일 전사",
+        "desc": "30일 연속 플레이"
+      },
+      "seasonPioneer": {
+        "name": "시즌 개척자",
+        "desc": "시즌 이벤트 완료"
+      }
+    }
   },
   "bridge": {
     "title": "크로스체인 브릿지",

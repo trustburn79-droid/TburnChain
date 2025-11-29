@@ -686,7 +686,41 @@
     "equip": "Equipar",
     "unequip": "Desequipar",
     "upgrade": "Melhorar",
-    "claimRewards": "Reivindicar Recompensas"
+    "claimRewards": "Reivindicar Recompensas",
+    "badges": {
+      "firstVictory": {
+        "name": "Primeira Vitória",
+        "desc": "Vença seu primeiro jogo"
+      },
+      "chainMaster": {
+        "name": "Mestre da Cadeia",
+        "desc": "Complete 100 jogos na blockchain TBURN"
+      },
+      "tournamentChampion": {
+        "name": "Campeão de Torneio",
+        "desc": "Vença um torneio"
+      },
+      "nftCollector": {
+        "name": "Colecionador NFT",
+        "desc": "Possua 10 ativos de jogo"
+      },
+      "legendaryHolder": {
+        "name": "Detentor Lendário",
+        "desc": "Possua um ativo de raridade lendária"
+      },
+      "socialButterfly": {
+        "name": "Borboleta Social",
+        "desc": "Indique 5 amigos"
+      },
+      "dailyWarrior": {
+        "name": "Guerreiro Diário",
+        "desc": "Jogue 30 dias consecutivos"
+      },
+      "seasonPioneer": {
+        "name": "Pioneiro de Temporada",
+        "desc": "Complete um evento sazonal"
+      }
+    }
   },
   "aiOrchestration": {
     "title": "Orquestração IA",
