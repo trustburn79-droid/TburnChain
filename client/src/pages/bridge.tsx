@@ -13,6 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -39,6 +46,11 @@ import {
   RefreshCw,
   Users,
   Coins,
+  ExternalLink,
+  Copy,
+  Calendar,
+  Hash,
+  Wallet,
 } from "lucide-react";
 
 interface BridgeChain {
@@ -276,7 +288,7 @@ function ChainCard({ chain }: { chain: BridgeChain }) {
   );
 }
 
-function TransferRow({ transfer, chains, onClaim }: { transfer: BridgeTransfer; chains: BridgeChain[]; onClaim?: (id: string) => void }) {
+function TransferRow({ transfer, chains, onClaim, onClick }: { transfer: BridgeTransfer; chains: BridgeChain[]; onClaim?: (id: string) => void; onClick?: () => void }) {
   const { t } = useTranslation();
   const sourceChain = chains.find(c => c.chainId === transfer.sourceChainId);
   const destChain = chains.find(c => c.chainId === transfer.destinationChainId);
@@ -284,7 +296,11 @@ function TransferRow({ transfer, chains, onClaim }: { transfer: BridgeTransfer; 
   const canClaim = ["relaying", "bridging", "confirming", "pending"].includes(transfer.status);
   
   return (
-    <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-transfer-${transfer.id}`}>
+    <div 
+      className="flex items-center gap-4 py-3 border-b last:border-0 cursor-pointer hover-elevate rounded-lg px-2 -mx-2" 
+      data-testid={`row-transfer-${transfer.id}`}
+      onClick={onClick}
+    >
       <div className={`p-2 rounded-lg ${getStatusColor(transfer.status)}`}>
         <StatusIcon className="w-4 h-4" />
       </div>
@@ -310,7 +326,7 @@ function TransferRow({ transfer, chains, onClaim }: { transfer: BridgeTransfer; 
           <Button 
             size="sm" 
             variant="outline"
-            onClick={() => onClaim(transfer.id)}
+            onClick={(e) => { e.stopPropagation(); onClaim(transfer.id); }}
             data-testid={`button-claim-${transfer.id}`}
           >
             <Unlock className="w-3 h-3 mr-1" />
@@ -394,7 +410,7 @@ function LiquidityPoolRow({ pool, chain }: { pool: BridgeLiquidityPool; chain?: 
   );
 }
 
-function ActivityRow({ activity, chains }: { activity: BridgeActivity; chains: BridgeChain[] }) {
+function ActivityRow({ activity, chains, onClick }: { activity: BridgeActivity; chains: BridgeChain[]; onClick?: () => void }) {
   const chain = activity.chainId ? chains.find(c => c.chainId === activity.chainId) : null;
   
   const getEventIcon = (type: string) => {
@@ -413,7 +429,11 @@ function ActivityRow({ activity, chains }: { activity: BridgeActivity; chains: B
   const EventIcon = getEventIcon(activity.eventType);
   
   return (
-    <div className="flex items-center gap-4 py-2 border-b last:border-0" data-testid={`row-activity-${activity.id}`}>
+    <div 
+      className="flex items-center gap-4 py-2 border-b last:border-0 cursor-pointer hover-elevate rounded-lg px-2 -mx-2" 
+      data-testid={`row-activity-${activity.id}`}
+      onClick={onClick}
+    >
       <div className="p-1.5 rounded bg-muted">
         <EventIcon className="w-3.5 h-3.5" />
       </div>
@@ -439,6 +459,8 @@ export default function Bridge() {
   const [sourceChain, setSourceChain] = useState<string>("");
   const [destChain, setDestChain] = useState<string>("");
   const [bridgeAmount, setBridgeAmount] = useState<string>("");
+  const [selectedTransfer, setSelectedTransfer] = useState<BridgeTransfer | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<BridgeActivity | null>(null);
   const { toast } = useToast();
 
   const { data: overview, isLoading: overviewLoading } = useQuery<BridgeOverview>({
@@ -792,6 +814,7 @@ export default function Bridge() {
                       transfer={transfer} 
                       chains={chains || []} 
                       onClaim={handleClaimTransfer}
+                      onClick={() => setSelectedTransfer(transfer)}
                     />
                   ))}
                   {(!transfers || transfers.length === 0) && (
@@ -814,7 +837,12 @@ export default function Bridge() {
               <CardContent>
                 <ScrollArea className="h-[350px]">
                   {activity?.slice(0, 20).map(act => (
-                    <ActivityRow key={act.id} activity={act} chains={chains || []} />
+                    <ActivityRow 
+                      key={act.id} 
+                      activity={act} 
+                      chains={chains || []} 
+                      onClick={() => setSelectedActivity(act)}
+                    />
                   ))}
                   {(!activity || activity.length === 0) && (
                     <div className="py-8 text-center text-muted-foreground">
@@ -1027,6 +1055,196 @@ export default function Bridge() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Dialog open={!!selectedTransfer} onOpenChange={(open) => !open && setSelectedTransfer(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ArrowRightLeft className="w-5 h-5" />
+              {t("bridge.transferDetails")}
+            </DialogTitle>
+            <DialogDescription>
+              {t("bridge.crossChainTransferInfo")}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedTransfer && (() => {
+            const sourceChainInfo = chains?.find(c => c.chainId === selectedTransfer.sourceChainId);
+            const destChainInfo = chains?.find(c => c.chainId === selectedTransfer.destinationChainId);
+            const StatusIcon = getStatusIcon(selectedTransfer.status);
+            return (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3 rounded-lg bg-muted">
+                  <div className="text-center">
+                    <div className="text-xs text-muted-foreground mb-1">{t("bridge.from")}</div>
+                    <Badge variant="outline" className="text-sm">{sourceChainInfo?.name || `Chain ${selectedTransfer.sourceChainId}`}</Badge>
+                  </div>
+                  <ArrowRightLeft className="w-4 h-4 text-muted-foreground" />
+                  <div className="text-center">
+                    <div className="text-xs text-muted-foreground mb-1">{t("bridge.to")}</div>
+                    <Badge variant="outline" className="text-sm">{destChainInfo?.name || `Chain ${selectedTransfer.destinationChainId}`}</Badge>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <div className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Coins className="w-3 h-3" />
+                      {t("bridge.amount")}
+                    </div>
+                    <div className="font-semibold">{formatAmount(selectedTransfer.amount)} {selectedTransfer.tokenSymbol}</div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-xs text-muted-foreground flex items-center gap-1">
+                      <StatusIcon className="w-3 h-3" />
+                      {t("bridge.status")}
+                    </div>
+                    <Badge className={getStatusColor(selectedTransfer.status)}>{selectedTransfer.status}</Badge>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Shield className="w-3 h-3" />
+                      {t("bridge.confirmations")}
+                    </div>
+                    <div className="font-semibold">{selectedTransfer.confirmations}/{selectedTransfer.requiredConfirmations}</div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Zap className="w-3 h-3" />
+                      {t("bridge.fee")}
+                    </div>
+                    <div className="font-semibold">{formatAmount(selectedTransfer.feeAmount)} {selectedTransfer.tokenSymbol}</div>
+                  </div>
+                </div>
+
+                <div className="space-y-2 pt-2 border-t">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Wallet className="w-3 h-3" />
+                      {t("bridge.sender")}
+                    </span>
+                    <span className="font-mono text-xs">{shortenAddress(selectedTransfer.senderAddress)}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Wallet className="w-3 h-3" />
+                      {t("bridge.recipient")}
+                    </span>
+                    <span className="font-mono text-xs">{shortenAddress(selectedTransfer.recipientAddress)}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Hash className="w-3 h-3" />
+                      {t("bridge.sourceTxHash")}
+                    </span>
+                    <span className="font-mono text-xs flex items-center gap-1">
+                      {shortenHash(selectedTransfer.sourceTxHash)}
+                      <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </div>
+                  {selectedTransfer.destinationTxHash && (
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <Hash className="w-3 h-3" />
+                        {t("bridge.destTxHash")}
+                      </span>
+                      <span className="font-mono text-xs flex items-center gap-1">
+                        {shortenHash(selectedTransfer.destinationTxHash)}
+                        <ExternalLink className="w-3 h-3" />
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      {t("bridge.createdAt")}
+                    </span>
+                    <span className="text-xs">{new Date(selectedTransfer.createdAt).toLocaleString()}</span>
+                  </div>
+                </div>
+
+                {selectedTransfer.aiVerified && (
+                  <div className="flex items-center gap-2 p-2 rounded bg-purple-500/10 text-purple-500 text-sm">
+                    <Sparkles className="w-4 h-4" />
+                    <span>{t("bridge.aiVerifiedTransfer")}</span>
+                    {selectedTransfer.aiRiskScore !== null && (
+                      <Badge variant="secondary" className="ml-auto">{t("bridge.riskScore", { score: selectedTransfer.aiRiskScore })}</Badge>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!selectedActivity} onOpenChange={(open) => !open && setSelectedActivity(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Activity className="w-5 h-5" />
+              {t("bridge.activityDetails")}
+            </DialogTitle>
+            <DialogDescription>
+              {t("bridge.bridgeEventInfo")}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedActivity && (() => {
+            const chainInfo = selectedActivity.chainId ? chains?.find(c => c.chainId === selectedActivity.chainId) : null;
+            return (
+              <div className="space-y-4">
+                <div className="p-3 rounded-lg bg-muted">
+                  <div className="text-lg font-semibold capitalize">
+                    {selectedActivity.eventType.replace(/_/g, ' ')}
+                  </div>
+                  {chainInfo && (
+                    <Badge variant="outline" className="mt-2">{chainInfo.name}</Badge>
+                  )}
+                </div>
+
+                <div className="space-y-3">
+                  {selectedActivity.amount && selectedActivity.tokenSymbol && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <Coins className="w-3 h-3" />
+                        {t("bridge.amount")}
+                      </span>
+                      <span className="font-semibold">{formatAmount(selectedActivity.amount)} {selectedActivity.tokenSymbol}</span>
+                    </div>
+                  )}
+                  {selectedActivity.walletAddress && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <Wallet className="w-3 h-3" />
+                        {t("bridge.wallet")}
+                      </span>
+                      <span className="font-mono text-xs">{shortenAddress(selectedActivity.walletAddress)}</span>
+                    </div>
+                  )}
+                  {selectedActivity.txHash && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <Hash className="w-3 h-3" />
+                        {t("bridge.txHash")}
+                      </span>
+                      <span className="font-mono text-xs flex items-center gap-1">
+                        {shortenHash(selectedActivity.txHash)}
+                        <ExternalLink className="w-3 h-3" />
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      {t("bridge.timestamp")}
+                    </span>
+                    <span className="text-xs">{new Date(selectedActivity.createdAt).toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
