@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useTranslation, TFunction } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const benefitKeyMap: Record<string, string> = {
   "Basic staking rewards": "staking.benefitBasicRewards",
@@ -20,7 +20,7 @@ const benefitKeyMap: Record<string, string> = {
   "Direct chain contribution": "staking.benefitDirectChain"
 };
 
-function translateBenefit(t: TFunction, benefit: string): string {
+function translateBenefit(t: (key: string) => string, benefit: string): string {
   const key = benefitKeyMap[benefit];
   if (key) {
     return t(key);
@@ -142,8 +142,7 @@ function formatWeiToTBURN(weiStr: string | null | undefined): string {
   if (!weiStr) return "0";
   try {
     const wei = BigInt(weiStr);
-    const DECIMALS = 18n;
-    const ONE_TBURN = 10n ** DECIMALS;
+    const ONE_TBURN = BigInt("1000000000000000000");
     
     const wholeTburn = wei / ONE_TBURN;
     const fractionalWei = wei % ONE_TBURN;
@@ -208,14 +207,11 @@ export default function StakingDashboard() {
   const stakeMutation = useMutation({
     mutationFn: async (data: { poolId: string; amount: string }) => {
       const weiAmount = (parseFloat(data.amount) * 1e18).toString();
-      return apiRequest("/api/staking/stake", {
-        method: "POST",
-        body: JSON.stringify({
-          poolId: data.poolId,
-          amount: weiAmount,
-          stakerAddress: `0xTBURN${Math.random().toString(16).slice(2, 42)}`,
-          lockPeriodDays: selectedPool?.lockPeriodDays || 30
-        })
+      return apiRequest("POST", "/api/staking/stake", {
+        poolId: data.poolId,
+        amount: weiAmount,
+        stakerAddress: `0xTBURN${Math.random().toString(16).slice(2, 42)}`,
+        lockPeriodDays: selectedPool?.lockPeriodDays || 30
       });
     },
     onSuccess: () => {
@@ -240,13 +236,10 @@ export default function StakingDashboard() {
 
   const apyPredictionMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("/api/staking/ai/predict-apy", {
-        method: "POST",
-        body: JSON.stringify({
-          stakeAmount: "10000000000000000000000",
-          lockPeriodDays: 90,
-          tier: "silver"
-        })
+      return apiRequest("POST", "/api/staking/ai/predict-apy", {
+        stakeAmount: "10000000000000000000000",
+        lockPeriodDays: 90,
+        tier: "silver"
       });
     },
     onSuccess: (data: any) => {
@@ -279,14 +272,11 @@ export default function StakingDashboard() {
 
   const recommendationsMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("/api/staking/ai/recommend-pools", {
-        method: "POST",
-        body: JSON.stringify({
-          walletAddress: `0xTBURN${Math.random().toString(16).slice(2, 42)}`,
-          availableBalance: "50000000000000000000000",
-          riskTolerance: "medium",
-          preferredLockPeriod: 90
-        })
+      return apiRequest("POST", "/api/staking/ai/recommend-pools", {
+        walletAddress: `0xTBURN${Math.random().toString(16).slice(2, 42)}`,
+        availableBalance: "50000000000000000000000",
+        riskTolerance: "medium",
+        preferredLockPeriod: 90
       });
     },
     onSuccess: () => {
