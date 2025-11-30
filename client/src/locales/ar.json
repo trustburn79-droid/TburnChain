@@ -3,6 +3,7 @@
     "loading": "جاري التحميل...",
     "error": "خطأ",
     "success": "نجاح",
+    "live": "مباشر",
     "liveMode": "الوضع المباشر",
     "connectedToMainnet": "متصل بعقدة TBURN الرئيسية",
     "demoMode": "الوضع التجريبي",

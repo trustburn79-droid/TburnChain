@@ -4,6 +4,7 @@
     "loading": "加载中...",
     "error": "错误",
     "success": "成功",
+    "live": "实时",
     "liveMode": "实时模式",
     "connectedToMainnet": "已连接到TBURN主网节点",
     "demoMode": "演示模式",

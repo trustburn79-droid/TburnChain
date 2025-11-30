@@ -3,6 +3,7 @@
     "loading": "Carregando...",
     "error": "Erro",
     "success": "Sucesso",
+    "live": "Ao Vivo",
     "liveMode": "MODO AO VIVO",
     "connectedToMainnet": "Conectado ao nó principal TBURN",
     "demoMode": "MODO DEMO",

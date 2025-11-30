@@ -4,6 +4,7 @@
     "loading": "लोड हो रहा है...",
     "error": "त्रुटि",
     "success": "सफलता",
+    "live": "लाइव",
     "liveMode": "लाइव मोड",
     "connectedToMainnet": "TBURN मेननेट नोड से कनेक्टेड",
     "demoMode": "डेमो मोड",

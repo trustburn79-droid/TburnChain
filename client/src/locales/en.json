@@ -4,6 +4,7 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
+    "live": "Live",
     "liveMode": "LIVE MODE",
     "connectedToMainnet": "Connected to TBURN mainnet node",
     "demoMode": "DEMO MODE",

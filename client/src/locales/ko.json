@@ -4,6 +4,7 @@
     "loading": "로딩 중...",
     "error": "오류",
     "success": "성공",
+    "live": "라이브",
     "liveMode": "라이브 모드",
     "connectedToMainnet": "TBURN 메인넷 노드에 연결됨",
     "demoMode": "데모 모드",

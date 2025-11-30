@@ -3,6 +3,7 @@
     "loading": "Загрузка...",
     "error": "Ошибка",
     "success": "Успешно",
+    "live": "Онлайн",
     "liveMode": "РЕЖИМ РАБОТЫ",
     "connectedToMainnet": "Подключено к основной сети TBURN",
     "demoMode": "ДЕМО РЕЖИМ",
