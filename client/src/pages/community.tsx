@@ -155,6 +155,17 @@ interface ActivityItem {
   timestamp: number;
 }
 
+interface Comment {
+  id: string;
+  postId: string;
+  author: string;
+  content: string;
+  likes: number;
+  createdAt: number;
+  isEdited?: boolean;
+  replies?: Comment[];
+}
+
 const formatNumber = (num: number): string => {
   if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
   if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
@@ -233,6 +244,12 @@ export default function Community() {
   const [likedPosts, setLikedPosts] = useState<Set<string>>(new Set());
   const [dislikedPosts, setDislikedPosts] = useState<Set<string>>(new Set());
   const [registeredEvents, setRegisteredEvents] = useState<Set<string>>(new Set());
+  const [selectedPost, setSelectedPost] = useState<ForumPost | null>(null);
+  const [postDetailOpen, setPostDetailOpen] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState("");
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const [replyContent, setReplyContent] = useState("");
   
   // Form states
   const [postTitle, setPostTitle] = useState("");
@@ -436,6 +453,97 @@ export default function Community() {
       });
     },
   });
+
+  // Comment Mutation
+  const createCommentMutation = useMutation({
+    mutationFn: async ({ postId, content, parentCommentId }: { postId: string; content: string; parentCommentId?: string }) => {
+      const response = await apiRequest(`/api/community/posts/${postId}/comments`, {
+        method: 'POST',
+        body: JSON.stringify({
+          content,
+          author: regName || "Anonymous",
+          authorId: userId,
+          authorAddress: regWallet || "",
+          parentCommentId,
+        }),
+      });
+      return response;
+    },
+    onSuccess: (data) => {
+      toast({
+        title: t('community.toastCommentPosted', 'Comment Posted'),
+        description: t('community.toastCommentPostedDesc', 'Your comment has been added.'),
+      });
+      setNewComment("");
+      setReplyContent("");
+      setReplyingTo(null);
+      if (selectedPost) {
+        fetchComments(selectedPost.id);
+      }
+    },
+    onError: () => {
+      toast({
+        title: t('community.toastCommentFailed', 'Failed'),
+        description: t('community.toastCommentFailedDesc', 'Unable to post comment. Please try again.'),
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Like Comment Mutation
+  const likeCommentMutation = useMutation({
+    mutationFn: async (commentId: string) => {
+      const response = await apiRequest(`/api/community/comments/${commentId}/like`, {
+        method: 'POST',
+        body: JSON.stringify({ userId, userAddress: regWallet || "" }),
+      });
+      return response;
+    },
+    onSuccess: (data) => {
+      if (selectedPost) {
+        fetchComments(selectedPost.id);
+      }
+    },
+  });
+
+  // Fetch comments for a post
+  const fetchComments = useCallback(async (postId: string) => {
+    try {
+      const response = await fetch(`/api/community/posts/${postId}/comments`);
+      if (response.ok) {
+        const data = await response.json();
+        setComments(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch comments:", error);
+    }
+  }, []);
+
+  // Open post detail
+  const openPostDetail = useCallback((post: ForumPost) => {
+    setSelectedPost(post);
+    setPostDetailOpen(true);
+    fetchComments(post.id);
+  }, [fetchComments]);
+
+  // Handle comment submission
+  const handleSubmitComment = () => {
+    if (!selectedPost || !newComment.trim()) return;
+    createCommentMutation.mutate({
+      postId: selectedPost.id,
+      content: newComment,
+    });
+  };
+
+  // Handle reply submission
+  const handleSubmitReply = (parentCommentId: string) => {
+    if (!selectedPost || !replyContent.trim()) return;
+    createCommentMutation.mutate({
+      postId: selectedPost.id,
+      content: replyContent,
+      parentCommentId,
+    });
+  };
 
   // Refresh all data
   const handleRefresh = useCallback(async () => {
@@ -1088,7 +1196,11 @@ export default function Community() {
                           {t(`community.categories.${post.category}`, post.category)}
                         </Badge>
                       </div>
-                      <h3 className="text-lg font-semibold hover:text-primary transition-colors cursor-pointer">
+                      <h3 
+                        className="text-lg font-semibold hover:text-primary transition-colors cursor-pointer"
+                        onClick={() => openPostDetail(post)}
+                        data-testid={`post-title-${post.id}`}
+                      >
                         {post.title.startsWith('posts.') ? t(`community.${post.title}`, post.title) : post.title}
                       </h3>
                       <p className="text-sm text-muted-foreground line-clamp-2">{post.content.startsWith('posts.') ? t(`community.${post.content}`, post.content) : post.content}</p>
@@ -1441,6 +1553,237 @@ export default function Community() {
                 <CheckCircle2 className="h-4 w-4 mr-1" />
               )}
               {t('community.confirmRegistration', 'Confirm Registration')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Post Detail Dialog */}
+      <Dialog open={postDetailOpen} onOpenChange={setPostDetailOpen}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle className="text-xl">
+              {selectedPost?.title.startsWith('posts.') 
+                ? t(`community.${selectedPost.title}`, selectedPost?.title) 
+                : selectedPost?.title}
+            </DialogTitle>
+            <DialogDescription className="flex items-center gap-4 text-sm">
+              <span className="flex items-center gap-1">
+                <Avatar className="h-5 w-5">
+                  <AvatarFallback className="text-xs">{selectedPost?.author.substring(0, 2)}</AvatarFallback>
+                </Avatar>
+                {selectedPost?.author}
+              </span>
+              {selectedPost && (
+                <>
+                  <span>{formatTimeAgo(selectedPost.createdAt)}</span>
+                  <Badge className={categoryColors[selectedPost.category]}>
+                    {t(`community.categories.${selectedPost.category}`, selectedPost.category)}
+                  </Badge>
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <ScrollArea className="flex-1 pr-4">
+            <div className="space-y-6">
+              {/* Post content */}
+              <div className="p-4 bg-muted/30 rounded-lg">
+                <p className="whitespace-pre-wrap">
+                  {selectedPost?.content.startsWith('posts.') 
+                    ? t(`community.${selectedPost.content}`, selectedPost?.content) 
+                    : selectedPost?.content}
+                </p>
+                {selectedPost?.tags && (
+                  <div className="flex flex-wrap gap-1 mt-4">
+                    {selectedPost.tags.map((tag) => (
+                      <Badge key={tag} variant="outline" className="text-xs">
+                        #{tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Post stats */}
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <ThumbsUp className="h-4 w-4" />
+                  {selectedPost?.likes || 0} {t('community.likes', 'likes')}
+                </span>
+                <span className="flex items-center gap-1">
+                  <MessageCircle className="h-4 w-4" />
+                  {comments.length} {t('community.comments', 'comments')}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Eye className="h-4 w-4" />
+                  {formatNumber(selectedPost?.views || 0)} {t('community.views', 'views')}
+                </span>
+              </div>
+
+              <Separator />
+
+              {/* Comments section */}
+              <div className="space-y-4">
+                <h4 className="font-semibold flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4" />
+                  {t('community.commentsSection', 'Comments')} ({comments.length})
+                </h4>
+
+                {/* New comment input */}
+                <div className="flex gap-2">
+                  <Textarea
+                    placeholder={t('community.writeComment', 'Write a comment...')}
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    className="flex-1 min-h-[80px]"
+                    data-testid="textarea-new-comment"
+                  />
+                  <Button 
+                    onClick={handleSubmitComment}
+                    disabled={createCommentMutation.isPending || !newComment.trim()}
+                    size="sm"
+                    className="self-end"
+                    data-testid="button-submit-comment"
+                  >
+                    {createCommentMutation.isPending ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+
+                {/* Comments list */}
+                <div className="space-y-4">
+                  {comments.length === 0 ? (
+                    <p className="text-center text-muted-foreground py-8">
+                      {t('community.noComments', 'No comments yet. Be the first to comment!')}
+                    </p>
+                  ) : (
+                    comments.map((comment) => (
+                      <div key={comment.id} className="space-y-3" data-testid={`comment-${comment.id}`}>
+                        <div className="bg-muted/20 rounded-lg p-4">
+                          <div className="flex items-start justify-between">
+                            <div className="flex items-center gap-2">
+                              <Avatar className="h-8 w-8">
+                                <AvatarFallback className="text-xs">{comment.author.substring(0, 2)}</AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <span className="font-medium text-sm">{comment.author}</span>
+                                <span className="text-xs text-muted-foreground ml-2">
+                                  {formatTimeAgo(comment.createdAt)}
+                                </span>
+                                {comment.isEdited && (
+                                  <span className="text-xs text-muted-foreground ml-1">(edited)</span>
+                                )}
+                              </div>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-8 px-2"
+                              onClick={() => likeCommentMutation.mutate(comment.id)}
+                              data-testid={`button-like-comment-${comment.id}`}
+                            >
+                              <ThumbsUp className="h-3 w-3 mr-1" />
+                              {comment.likes}
+                            </Button>
+                          </div>
+                          <p className="mt-2 text-sm whitespace-pre-wrap">{comment.content}</p>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 px-2 mt-2 text-xs"
+                            onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+                            data-testid={`button-reply-${comment.id}`}
+                          >
+                            <MessageCircle className="h-3 w-3 mr-1" />
+                            {t('community.reply', 'Reply')}
+                          </Button>
+
+                          {/* Reply input */}
+                          {replyingTo === comment.id && (
+                            <div className="flex gap-2 mt-3 pl-4 border-l-2 border-primary/30">
+                              <Textarea
+                                placeholder={t('community.writeReply', 'Write a reply...')}
+                                value={replyContent}
+                                onChange={(e) => setReplyContent(e.target.value)}
+                                className="flex-1 min-h-[60px] text-sm"
+                                data-testid={`textarea-reply-${comment.id}`}
+                              />
+                              <div className="flex flex-col gap-1">
+                                <Button 
+                                  onClick={() => handleSubmitReply(comment.id)}
+                                  disabled={createCommentMutation.isPending || !replyContent.trim()}
+                                  size="sm"
+                                  data-testid={`button-submit-reply-${comment.id}`}
+                                >
+                                  <Send className="h-3 w-3" />
+                                </Button>
+                                <Button 
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setReplyingTo(null);
+                                    setReplyContent("");
+                                  }}
+                                >
+                                  <XCircle className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Nested replies */}
+                        {comment.replies && comment.replies.length > 0 && (
+                          <div className="ml-8 space-y-2">
+                            {comment.replies.map((reply) => (
+                              <div 
+                                key={reply.id} 
+                                className="bg-muted/10 rounded-lg p-3 border-l-2 border-primary/30"
+                                data-testid={`reply-${reply.id}`}
+                              >
+                                <div className="flex items-start justify-between">
+                                  <div className="flex items-center gap-2">
+                                    <Avatar className="h-6 w-6">
+                                      <AvatarFallback className="text-xs">{reply.author.substring(0, 2)}</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                      <span className="font-medium text-sm">{reply.author}</span>
+                                      <span className="text-xs text-muted-foreground ml-2">
+                                        {formatTimeAgo(reply.createdAt)}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-6 px-2"
+                                    onClick={() => likeCommentMutation.mutate(reply.id)}
+                                    data-testid={`button-like-reply-${reply.id}`}
+                                  >
+                                    <ThumbsUp className="h-3 w-3 mr-1" />
+                                    {reply.likes}
+                                  </Button>
+                                </div>
+                                <p className="mt-2 text-sm whitespace-pre-wrap">{reply.content}</p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+          </ScrollArea>
+
+          <DialogFooter className="mt-4">
+            <Button variant="outline" onClick={() => setPostDetailOpen(false)}>
+              {t('common.close', 'Close')}
             </Button>
           </DialogFooter>
         </DialogContent>
