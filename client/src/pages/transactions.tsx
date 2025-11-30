@@ -213,7 +213,11 @@ function TransactionRow({
   };
 
   return (
-    <TableRow 
+    <motion.tr 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
       className="cursor-pointer hover:bg-muted/50 border-b"
       onClick={onClick}
       data-testid={`row-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
@@ -328,7 +332,7 @@ function TransactionRow({
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
-    </TableRow>
+    </motion.tr>
   );
 }
 
