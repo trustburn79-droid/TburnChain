@@ -367,6 +367,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/community/")) {
       return next();
     }
+    // Skip auth check for node health (public monitoring)
+    if (req.path.startsWith("/node/health")) {
+      return next();
+    }
+    // Skip auth check for network stats (public data)
+    if (req.path.startsWith("/network/")) {
+      return next();
+    }
+    // Skip auth check for validators stats (public data)
+    if (req.path.startsWith("/validators/stats")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
 
