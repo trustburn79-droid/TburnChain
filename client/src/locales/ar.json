@@ -2457,7 +2457,131 @@
     "created": "تم الإنشاء",
     "lastUsed": "آخر استخدام",
     "expiresAt": "تنتهي في",
-    "rateLimit": "حد المعدل"
+    "rateLimit": "حد المعدل",
+    "statusActive": "نشط",
+    "statusPaused": "متوقف مؤقتاً",
+    "statusDegraded": "متدهور",
+    "statusRestarting": "قيد إعادة التشغيل",
+    "statusOffline": "غير متصل",
+    "statusRateLimited": "محدود المعدل",
+    "statusUnknown": "غير معروف",
+    "tabs": {
+      "overview": "نظرة عامة",
+      "system": "النظام",
+      "security": "الأمان",
+      "analytics": "التحليلات",
+      "liveFeed": "البث المباشر"
+    },
+    "overview": {
+      "uptimeSla": "اتفاقية مستوى الخدمة للتشغيل",
+      "last30Days": "آخر 30 يوماً",
+      "incidents": "الحوادث",
+      "thisMonth": "هذا الشهر",
+      "activeSessions": "الجلسات النشطة",
+      "adminUsers": "المسؤولون المتصلون",
+      "restartMttr": "MTTR إعادة التشغيل",
+      "avgRecoveryTime": "متوسط وقت الاستعادة"
+    },
+    "system": {
+      "memory": "الذاكرة",
+      "disk": "القرص",
+      "network": "الشبكة",
+      "resourceHistory": "سجل استخدام الموارد",
+      "serviceStatus": "حالة الخدمات",
+      "serviceStatusDesc": "مراقبة صحة جميع الخدمات في الوقت الفعلي",
+      "healthy": "صحي",
+      "degraded": "متدهور",
+      "offline": "غير متصل",
+      "unknown": "غير معروف",
+      "slow": "بطيء",
+      "error": "خطأ",
+      "latency": "التأخير",
+      "uptime": "وقت التشغيل",
+      "databaseHealth": "صحة قاعدة البيانات",
+      "connected": "متصل",
+      "connections": "الاتصالات",
+      "waiting": "في الانتظار",
+      "poolUsage": "استخدام المجمع",
+      "systemInfo": "معلومات النظام",
+      "nodeVersion": "إصدار Node",
+      "platform": "المنصة",
+      "processUptime": "وقت تشغيل العملية",
+      "loadAverage": "متوسط التحميل",
+      "apiEndpoints": "نقاط نهاية API",
+      "apiEndpointsDesc": "مقاييس أداء جميع نقاط نهاية API",
+      "endpoint": "نقطة النهاية",
+      "method": "الطريقة",
+      "status": "الحالة",
+      "avgLatency": "متوسط التأخير",
+      "p95": "P95",
+      "requests": "الطلبات",
+      "errorRate": "معدل الأخطاء",
+      "sortLatency": "حسب التأخير",
+      "sortRequests": "حسب الطلبات",
+      "sortErrors": "حسب الأخطاء"
+    },
+    "security": {
+      "events": "أحداث الأمان",
+      "eventsDesc": "مراقبة أحداث الأمان والتنبيهات في الوقت الفعلي",
+      "all": "الكل",
+      "critical": "حرج",
+      "warning": "تحذير",
+      "info": "معلومات",
+      "noEvents": "لم يتم العثور على أحداث أمنية",
+      "totalEvents": "إجمالي الأحداث",
+      "last24Hours": "آخر 24 ساعة",
+      "criticalEvents": "الأحداث الحرجة",
+      "requiresAttention": "يتطلب اهتماماً فورياً",
+      "blockedIps": "عناوين IP المحظورة",
+      "last30Days": "آخر 30 يوماً",
+      "activeSessions": "الجلسات النشطة",
+      "activeSessionsDesc": "جلسات المسؤولين النشطة حالياً",
+      "user": "المستخدم",
+      "ip": "عنوان IP",
+      "device": "الجهاز",
+      "created": "تم الإنشاء",
+      "lastActivity": "آخر نشاط",
+      "status": "الحالة",
+      "active": "نشط",
+      "idle": "خامل"
+    },
+    "analytics": {
+      "uptimeHistory": "سجل وقت التشغيل",
+      "last30Days": "أداء SLA لآخر 30 يوماً",
+      "tpsHistory": "أداء TPS",
+      "last24Hours": "الإنتاجية لآخر 24 ساعة",
+      "avgTps": "متوسط TPS",
+      "peakTps": "ذروة TPS",
+      "incidentHistory": "سجل الحوادث",
+      "last12Months": "تتبع الحوادث لآخر 12 شهراً",
+      "incidents": "الحوادث",
+      "resolved": "تم الحل",
+      "latencyDistribution": "توزيع التأخير",
+      "apiResponseTimes": "تحليل أوقات استجابة API"
+    },
+    "liveFeed": {
+      "title": "بث النشاط المباشر",
+      "description": "أحداث النظام والإجراءات الإدارية في الوقت الفعلي",
+      "noActivity": "لا يوجد نشاط حديث"
+    },
+    "dialogs": {
+      "uptime": {
+        "title": "تحليلات SLA لوقت التشغيل",
+        "description": "سجل أداء وقت التشغيل لـ 30 يوماً"
+      },
+      "incidents": {
+        "title": "تحليلات الحوادث",
+        "description": "تتبع الحوادث التاريخية وحلها"
+      },
+      "sessions": {
+        "title": "الجلسات النشطة",
+        "description": "جلسات المسؤولين النشطة حالياً"
+      },
+      "mttr": {
+        "title": "متوسط وقت الاستعادة",
+        "description": "سجل أوقات استعادة إعادة التشغيل"
+      }
+    }
   },
   "apiKeys": {
     "title": "مفاتيح API",

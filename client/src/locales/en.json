@@ -3634,6 +3634,123 @@
       "totalTokens": "Total Tokens",
       "totalCostLabel": "Total Cost",
       "availableProviders": "Available Providers"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "system": "System",
+      "security": "Security",
+      "analytics": "Analytics",
+      "liveFeed": "Live Feed"
+    },
+    "overview": {
+      "uptimeSla": "Uptime SLA",
+      "last30Days": "Last 30 days",
+      "incidents": "Incidents",
+      "thisMonth": "This month",
+      "activeSessions": "Active Sessions",
+      "adminUsers": "Admin users online",
+      "restartMttr": "Restart MTTR",
+      "avgRecoveryTime": "Average recovery time"
+    },
+    "system": {
+      "memory": "Memory",
+      "disk": "Disk",
+      "network": "Network",
+      "resourceHistory": "Resource Usage History",
+      "serviceStatus": "Service Status",
+      "serviceStatusDesc": "Real-time health monitoring of all services",
+      "healthy": "Healthy",
+      "degraded": "Degraded",
+      "offline": "Offline",
+      "unknown": "Unknown",
+      "slow": "Slow",
+      "error": "Error",
+      "latency": "Latency",
+      "uptime": "Uptime",
+      "databaseHealth": "Database Health",
+      "connected": "Connected",
+      "connections": "Connections",
+      "waiting": "Waiting",
+      "poolUsage": "Pool Usage",
+      "systemInfo": "System Information",
+      "nodeVersion": "Node Version",
+      "platform": "Platform",
+      "processUptime": "Process Uptime",
+      "loadAverage": "Load Average",
+      "apiEndpoints": "API Endpoints",
+      "apiEndpointsDesc": "Performance metrics for all API endpoints",
+      "endpoint": "Endpoint",
+      "method": "Method",
+      "status": "Status",
+      "avgLatency": "Avg Latency",
+      "p95": "P95",
+      "requests": "Requests",
+      "errorRate": "Error Rate",
+      "sortLatency": "By Latency",
+      "sortRequests": "By Requests",
+      "sortErrors": "By Errors"
+    },
+    "security": {
+      "events": "Security Events",
+      "eventsDesc": "Real-time security event monitoring and alerts",
+      "all": "All",
+      "critical": "Critical",
+      "warning": "Warning",
+      "info": "Info",
+      "noEvents": "No security events found",
+      "totalEvents": "Total Events",
+      "last24Hours": "Last 24 hours",
+      "criticalEvents": "Critical Events",
+      "requiresAttention": "Requires immediate attention",
+      "blockedIps": "Blocked IPs",
+      "last30Days": "Last 30 days",
+      "activeSessions": "Active Sessions",
+      "activeSessionsDesc": "Currently active administrator sessions",
+      "user": "User",
+      "ip": "IP Address",
+      "device": "Device",
+      "created": "Created",
+      "lastActivity": "Last Activity",
+      "status": "Status",
+      "active": "Active",
+      "idle": "Idle"
+    },
+    "analytics": {
+      "uptimeHistory": "Uptime History",
+      "last30Days": "Last 30 days SLA performance",
+      "tpsHistory": "TPS Performance",
+      "last24Hours": "Last 24 hours throughput",
+      "avgTps": "Average TPS",
+      "peakTps": "Peak TPS",
+      "incidentHistory": "Incident History",
+      "last12Months": "Last 12 months incident tracking",
+      "incidents": "Incidents",
+      "resolved": "Resolved",
+      "latencyDistribution": "Latency Distribution",
+      "apiResponseTimes": "API response time breakdown"
+    },
+    "liveFeed": {
+      "title": "Live Activity Feed",
+      "description": "Real-time system events and administrative actions",
+      "noActivity": "No recent activity"
+    },
+    "dialogs": {
+      "uptime": {
+        "title": "Uptime SLA Analytics",
+        "description": "30-day uptime performance history"
+      },
+      "incidents": {
+        "title": "Incident Analytics",
+        "description": "Historical incident tracking and resolution"
+      },
+      "sessions": {
+        "title": "Active Sessions",
+        "description": "Currently active administrator sessions"
+      },
+      "mttr": {
+        "title": "Mean Time To Recovery",
+        "description": "Historical restart recovery times"
+      }
     }
   },
   "operator": {

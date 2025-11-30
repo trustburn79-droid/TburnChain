@@ -2411,7 +2411,131 @@
     "phaseReconnecting": "पुनः कनेक्ट हो रहा है",
     "phaseValidating": "वैलिडेट हो रहा है",
     "phaseCompleted": "पूर्ण",
-    "phaseFailed": "विफल"
+    "phaseFailed": "विफल",
+    "statusActive": "सक्रिय",
+    "statusPaused": "रोका गया",
+    "statusDegraded": "कमज़ोर",
+    "statusRestarting": "रीस्टार्ट हो रहा है",
+    "statusOffline": "ऑफ़लाइन",
+    "statusRateLimited": "दर सीमित",
+    "statusUnknown": "अज्ञात",
+    "tabs": {
+      "overview": "अवलोकन",
+      "system": "सिस्टम",
+      "security": "सुरक्षा",
+      "analytics": "विश्लेषण",
+      "liveFeed": "लाइव फीड"
+    },
+    "overview": {
+      "uptimeSla": "अपटाइम SLA",
+      "last30Days": "पिछले 30 दिन",
+      "incidents": "घटनाएं",
+      "thisMonth": "इस महीने",
+      "activeSessions": "सक्रिय सत्र",
+      "adminUsers": "ऑनलाइन एडमिन",
+      "restartMttr": "रीस्टार्ट MTTR",
+      "avgRecoveryTime": "औसत पुनर्प्राप्ति समय"
+    },
+    "system": {
+      "memory": "मेमोरी",
+      "disk": "डिस्क",
+      "network": "नेटवर्क",
+      "resourceHistory": "संसाधन उपयोग इतिहास",
+      "serviceStatus": "सेवा स्थिति",
+      "serviceStatusDesc": "सभी सेवाओं की रियल-टाइम स्वास्थ्य निगरानी",
+      "healthy": "स्वस्थ",
+      "degraded": "कमज़ोर",
+      "offline": "ऑफ़लाइन",
+      "unknown": "अज्ञात",
+      "slow": "धीमा",
+      "error": "त्रुटि",
+      "latency": "विलंबता",
+      "uptime": "अपटाइम",
+      "databaseHealth": "डेटाबेस स्वास्थ्य",
+      "connected": "कनेक्टेड",
+      "connections": "कनेक्शन",
+      "waiting": "प्रतीक्षा में",
+      "poolUsage": "पूल उपयोग",
+      "systemInfo": "सिस्टम जानकारी",
+      "nodeVersion": "Node वर्शन",
+      "platform": "प्लेटफॉर्म",
+      "processUptime": "प्रोसेस अपटाइम",
+      "loadAverage": "लोड औसत",
+      "apiEndpoints": "API एंडपॉइंट",
+      "apiEndpointsDesc": "सभी API एंडपॉइंट्स के प्रदर्शन मेट्रिक्स",
+      "endpoint": "एंडपॉइंट",
+      "method": "मेथड",
+      "status": "स्थिति",
+      "avgLatency": "औसत विलंबता",
+      "p95": "P95",
+      "requests": "अनुरोध",
+      "errorRate": "त्रुटि दर",
+      "sortLatency": "विलंबता द्वारा",
+      "sortRequests": "अनुरोधों द्वारा",
+      "sortErrors": "त्रुटियों द्वारा"
+    },
+    "security": {
+      "events": "सुरक्षा इवेंट्स",
+      "eventsDesc": "रियल-टाइम सुरक्षा इवेंट निगरानी और अलर्ट",
+      "all": "सभी",
+      "critical": "गंभीर",
+      "warning": "चेतावनी",
+      "info": "जानकारी",
+      "noEvents": "कोई सुरक्षा इवेंट नहीं मिला",
+      "totalEvents": "कुल इवेंट्स",
+      "last24Hours": "पिछले 24 घंटे",
+      "criticalEvents": "गंभीर इवेंट्स",
+      "requiresAttention": "तत्काल ध्यान आवश्यक",
+      "blockedIps": "ब्लॉक किए गए IP",
+      "last30Days": "पिछले 30 दिन",
+      "activeSessions": "सक्रिय सत्र",
+      "activeSessionsDesc": "वर्तमान में सक्रिय एडमिनिस्ट्रेटर सत्र",
+      "user": "उपयोगकर्ता",
+      "ip": "IP पता",
+      "device": "डिवाइस",
+      "created": "बनाया गया",
+      "lastActivity": "अंतिम गतिविधि",
+      "status": "स्थिति",
+      "active": "सक्रिय",
+      "idle": "निष्क्रिय"
+    },
+    "analytics": {
+      "uptimeHistory": "अपटाइम इतिहास",
+      "last30Days": "पिछले 30 दिनों का SLA प्रदर्शन",
+      "tpsHistory": "TPS प्रदर्शन",
+      "last24Hours": "पिछले 24 घंटों का थ्रूपुट",
+      "avgTps": "औसत TPS",
+      "peakTps": "पीक TPS",
+      "incidentHistory": "घटना इतिहास",
+      "last12Months": "पिछले 12 महीनों की घटना ट्रैकिंग",
+      "incidents": "घटनाएं",
+      "resolved": "हल हुई",
+      "latencyDistribution": "विलंबता वितरण",
+      "apiResponseTimes": "API प्रतिक्रिया समय विश्लेषण"
+    },
+    "liveFeed": {
+      "title": "लाइव गतिविधि फीड",
+      "description": "रियल-टाइम सिस्टम इवेंट्स और प्रशासनिक कार्य",
+      "noActivity": "कोई हालिया गतिविधि नहीं"
+    },
+    "dialogs": {
+      "uptime": {
+        "title": "अपटाइम SLA विश्लेषण",
+        "description": "30-दिन अपटाइम प्रदर्शन इतिहास"
+      },
+      "incidents": {
+        "title": "घटना विश्लेषण",
+        "description": "ऐतिहासिक घटना ट्रैकिंग और समाधान"
+      },
+      "sessions": {
+        "title": "सक्रिय सत्र",
+        "description": "वर्तमान में सक्रिय एडमिनिस्ट्रेटर सत्र"
+      },
+      "mttr": {
+        "title": "औसत पुनर्प्राप्ति समय",
+        "description": "रीस्टार्ट पुनर्प्राप्ति समय इतिहास"
+      }
+    }
   },
   "operator": {
     "title": "ऑपरेटर पोर्टल",

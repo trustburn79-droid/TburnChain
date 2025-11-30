@@ -3352,6 +3352,123 @@
       "totalTokens": "总令牌数",
       "totalCostLabel": "总成本",
       "availableProviders": "可用提供者"
+    },
+    "tabs": {
+      "overview": "概览",
+      "system": "系统",
+      "security": "安全",
+      "analytics": "分析",
+      "liveFeed": "实时动态"
+    },
+    "overview": {
+      "uptimeSla": "运行时间 SLA",
+      "last30Days": "最近30天",
+      "incidents": "事件",
+      "thisMonth": "本月",
+      "activeSessions": "活跃会话",
+      "adminUsers": "在线管理员",
+      "restartMttr": "重启 MTTR",
+      "avgRecoveryTime": "平均恢复时间"
+    },
+    "system": {
+      "memory": "内存",
+      "disk": "磁盘",
+      "network": "网络",
+      "resourceHistory": "资源使用历史",
+      "serviceStatus": "服务状态",
+      "serviceStatusDesc": "所有服务的实时健康监控",
+      "healthy": "健康",
+      "degraded": "降级",
+      "offline": "离线",
+      "unknown": "未知",
+      "slow": "缓慢",
+      "error": "错误",
+      "latency": "延迟",
+      "uptime": "运行时间",
+      "databaseHealth": "数据库健康",
+      "connected": "已连接",
+      "connections": "连接数",
+      "waiting": "等待中",
+      "poolUsage": "池使用率",
+      "systemInfo": "系统信息",
+      "nodeVersion": "Node 版本",
+      "platform": "平台",
+      "processUptime": "进程运行时间",
+      "loadAverage": "负载平均值",
+      "apiEndpoints": "API 端点",
+      "apiEndpointsDesc": "所有 API 端点的性能指标",
+      "endpoint": "端点",
+      "method": "方法",
+      "status": "状态",
+      "avgLatency": "平均延迟",
+      "p95": "P95",
+      "requests": "请求数",
+      "errorRate": "错误率",
+      "sortLatency": "按延迟",
+      "sortRequests": "按请求",
+      "sortErrors": "按错误"
+    },
+    "security": {
+      "events": "安全事件",
+      "eventsDesc": "实时安全事件监控和警报",
+      "all": "全部",
+      "critical": "严重",
+      "warning": "警告",
+      "info": "信息",
+      "noEvents": "未发现安全事件",
+      "totalEvents": "总事件数",
+      "last24Hours": "最近24小时",
+      "criticalEvents": "严重事件",
+      "requiresAttention": "需要立即关注",
+      "blockedIps": "已封锁 IP",
+      "last30Days": "最近30天",
+      "activeSessions": "活跃会话",
+      "activeSessionsDesc": "当前活跃的管理员会话",
+      "user": "用户",
+      "ip": "IP 地址",
+      "device": "设备",
+      "created": "创建时间",
+      "lastActivity": "最后活动",
+      "status": "状态",
+      "active": "活跃",
+      "idle": "空闲"
+    },
+    "analytics": {
+      "uptimeHistory": "运行时间历史",
+      "last30Days": "最近30天 SLA 表现",
+      "tpsHistory": "TPS 性能",
+      "last24Hours": "最近24小时吞吐量",
+      "avgTps": "平均 TPS",
+      "peakTps": "峰值 TPS",
+      "incidentHistory": "事件历史",
+      "last12Months": "最近12个月事件跟踪",
+      "incidents": "事件",
+      "resolved": "已解决",
+      "latencyDistribution": "延迟分布",
+      "apiResponseTimes": "API 响应时间分析"
+    },
+    "liveFeed": {
+      "title": "实时活动动态",
+      "description": "实时系统事件和管理操作",
+      "noActivity": "暂无最近活动"
+    },
+    "dialogs": {
+      "uptime": {
+        "title": "运行时间 SLA 分析",
+        "description": "30天运行时间性能历史"
+      },
+      "incidents": {
+        "title": "事件分析",
+        "description": "历史事件跟踪和解决"
+      },
+      "sessions": {
+        "title": "活跃会话",
+        "description": "当前活跃的管理员会话"
+      },
+      "mttr": {
+        "title": "平均恢复时间",
+        "description": "重启恢复时间历史"
+      }
     }
   },
   "operator": {

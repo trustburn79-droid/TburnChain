@@ -3408,6 +3408,123 @@
       "totalTokens": "総トークン",
       "totalCostLabel": "総コスト",
       "availableProviders": "利用可能なプロバイダー"
+    },
+    "tabs": {
+      "overview": "概要",
+      "system": "システム",
+      "security": "セキュリティ",
+      "analytics": "分析",
+      "liveFeed": "ライブフィード"
+    },
+    "overview": {
+      "uptimeSla": "稼働時間 SLA",
+      "last30Days": "過去30日間",
+      "incidents": "インシデント",
+      "thisMonth": "今月",
+      "activeSessions": "アクティブセッション",
+      "adminUsers": "オンライン管理者",
+      "restartMttr": "再起動 MTTR",
+      "avgRecoveryTime": "平均復旧時間"
+    },
+    "system": {
+      "memory": "メモリ",
+      "disk": "ディスク",
+      "network": "ネットワーク",
+      "resourceHistory": "リソース使用履歴",
+      "serviceStatus": "サービス状態",
+      "serviceStatusDesc": "全サービスのリアルタイム健全性監視",
+      "healthy": "正常",
+      "degraded": "低下",
+      "offline": "オフライン",
+      "unknown": "不明",
+      "slow": "遅延",
+      "error": "エラー",
+      "latency": "レイテンシー",
+      "uptime": "稼働時間",
+      "databaseHealth": "データベース健全性",
+      "connected": "接続済み",
+      "connections": "接続数",
+      "waiting": "待機中",
+      "poolUsage": "プール使用率",
+      "systemInfo": "システム情報",
+      "nodeVersion": "Node バージョン",
+      "platform": "プラットフォーム",
+      "processUptime": "プロセス稼働時間",
+      "loadAverage": "負荷平均",
+      "apiEndpoints": "API エンドポイント",
+      "apiEndpointsDesc": "全APIエンドポイントのパフォーマンス指標",
+      "endpoint": "エンドポイント",
+      "method": "メソッド",
+      "status": "ステータス",
+      "avgLatency": "平均レイテンシー",
+      "p95": "P95",
+      "requests": "リクエスト",
+      "errorRate": "エラー率",
+      "sortLatency": "レイテンシー順",
+      "sortRequests": "リクエスト順",
+      "sortErrors": "エラー順"
+    },
+    "security": {
+      "events": "セキュリティイベント",
+      "eventsDesc": "リアルタイムセキュリティイベント監視とアラート",
+      "all": "すべて",
+      "critical": "重大",
+      "warning": "警告",
+      "info": "情報",
+      "noEvents": "セキュリティイベントはありません",
+      "totalEvents": "総イベント数",
+      "last24Hours": "過去24時間",
+      "criticalEvents": "重大イベント",
+      "requiresAttention": "即時対応が必要",
+      "blockedIps": "ブロック済みIP",
+      "last30Days": "過去30日間",
+      "activeSessions": "アクティブセッション",
+      "activeSessionsDesc": "現在アクティブな管理者セッション",
+      "user": "ユーザー",
+      "ip": "IPアドレス",
+      "device": "デバイス",
+      "created": "作成日時",
+      "lastActivity": "最終アクティビティ",
+      "status": "ステータス",
+      "active": "アクティブ",
+      "idle": "アイドル"
+    },
+    "analytics": {
+      "uptimeHistory": "稼働時間履歴",
+      "last30Days": "過去30日間のSLAパフォーマンス",
+      "tpsHistory": "TPSパフォーマンス",
+      "last24Hours": "過去24時間のスループット",
+      "avgTps": "平均TPS",
+      "peakTps": "ピークTPS",
+      "incidentHistory": "インシデント履歴",
+      "last12Months": "過去12ヶ月のインシデント追跡",
+      "incidents": "インシデント",
+      "resolved": "解決済み",
+      "latencyDistribution": "レイテンシー分布",
+      "apiResponseTimes": "API応答時間の内訳"
+    },
+    "liveFeed": {
+      "title": "ライブアクティビティフィード",
+      "description": "リアルタイムシステムイベントと管理操作",
+      "noActivity": "最近のアクティビティはありません"
+    },
+    "dialogs": {
+      "uptime": {
+        "title": "稼働時間 SLA 分析",
+        "description": "30日間の稼働時間パフォーマンス履歴"
+      },
+      "incidents": {
+        "title": "インシデント分析",
+        "description": "過去のインシデント追跡と解決"
+      },
+      "sessions": {
+        "title": "アクティブセッション",
+        "description": "現在アクティブな管理者セッション"
+      },
+      "mttr": {
+        "title": "平均復旧時間",
+        "description": "再起動復旧時間の履歴"
+      }
     }
   },
   "operator": {

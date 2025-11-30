@@ -3680,6 +3680,123 @@
       "totalTokens": "총 토큰",
       "totalCostLabel": "총 비용",
       "availableProviders": "사용 가능한 제공자"
+    },
+    "tabs": {
+      "overview": "개요",
+      "system": "시스템",
+      "security": "보안",
+      "analytics": "분석",
+      "liveFeed": "실시간 피드"
+    },
+    "overview": {
+      "uptimeSla": "가동 시간 SLA",
+      "last30Days": "최근 30일",
+      "incidents": "인시던트",
+      "thisMonth": "이번 달",
+      "activeSessions": "활성 세션",
+      "adminUsers": "온라인 관리자",
+      "restartMttr": "재시작 MTTR",
+      "avgRecoveryTime": "평균 복구 시간"
+    },
+    "system": {
+      "memory": "메모리",
+      "disk": "디스크",
+      "network": "네트워크",
+      "resourceHistory": "리소스 사용 기록",
+      "serviceStatus": "서비스 상태",
+      "serviceStatusDesc": "모든 서비스의 실시간 상태 모니터링",
+      "healthy": "정상",
+      "degraded": "저하",
+      "offline": "오프라인",
+      "unknown": "알 수 없음",
+      "slow": "느림",
+      "error": "오류",
+      "latency": "지연 시간",
+      "uptime": "가동 시간",
+      "databaseHealth": "데이터베이스 상태",
+      "connected": "연결됨",
+      "connections": "연결",
+      "waiting": "대기 중",
+      "poolUsage": "풀 사용량",
+      "systemInfo": "시스템 정보",
+      "nodeVersion": "Node 버전",
+      "platform": "플랫폼",
+      "processUptime": "프로세스 가동 시간",
+      "loadAverage": "부하 평균",
+      "apiEndpoints": "API 엔드포인트",
+      "apiEndpointsDesc": "모든 API 엔드포인트 성능 지표",
+      "endpoint": "엔드포인트",
+      "method": "메서드",
+      "status": "상태",
+      "avgLatency": "평균 지연",
+      "p95": "P95",
+      "requests": "요청",
+      "errorRate": "오류율",
+      "sortLatency": "지연별",
+      "sortRequests": "요청별",
+      "sortErrors": "오류별"
+    },
+    "security": {
+      "events": "보안 이벤트",
+      "eventsDesc": "실시간 보안 이벤트 모니터링 및 알림",
+      "all": "전체",
+      "critical": "심각",
+      "warning": "경고",
+      "info": "정보",
+      "noEvents": "보안 이벤트가 없습니다",
+      "totalEvents": "총 이벤트",
+      "last24Hours": "최근 24시간",
+      "criticalEvents": "심각한 이벤트",
+      "requiresAttention": "즉각적인 주의 필요",
+      "blockedIps": "차단된 IP",
+      "last30Days": "최근 30일",
+      "activeSessions": "활성 세션",
+      "activeSessionsDesc": "현재 활성화된 관리자 세션",
+      "user": "사용자",
+      "ip": "IP 주소",
+      "device": "장치",
+      "created": "생성됨",
+      "lastActivity": "최근 활동",
+      "status": "상태",
+      "active": "활성",
+      "idle": "유휴"
+    },
+    "analytics": {
+      "uptimeHistory": "가동 시간 기록",
+      "last30Days": "최근 30일 SLA 성능",
+      "tpsHistory": "TPS 성능",
+      "last24Hours": "최근 24시간 처리량",
+      "avgTps": "평균 TPS",
+      "peakTps": "최고 TPS",
+      "incidentHistory": "인시던트 기록",
+      "last12Months": "최근 12개월 인시던트 추적",
+      "incidents": "인시던트",
+      "resolved": "해결됨",
+      "latencyDistribution": "지연 시간 분포",
+      "apiResponseTimes": "API 응답 시간 분석"
+    },
+    "liveFeed": {
+      "title": "실시간 활동 피드",
+      "description": "실시간 시스템 이벤트 및 관리 작업",
+      "noActivity": "최근 활동 없음"
+    },
+    "dialogs": {
+      "uptime": {
+        "title": "가동 시간 SLA 분석",
+        "description": "30일 가동 시간 성능 기록"
+      },
+      "incidents": {
+        "title": "인시던트 분석",
+        "description": "역사적 인시던트 추적 및 해결"
+      },
+      "sessions": {
+        "title": "활성 세션",
+        "description": "현재 활성화된 관리자 세션"
+      },
+      "mttr": {
+        "title": "평균 복구 시간",
+        "description": "재시작 복구 시간 기록"
+      }
     }
   },
   "operator": {
