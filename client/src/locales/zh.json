@@ -579,7 +579,11 @@
       "pool-liquid": "发行stTBURN代币的流动性质押池。无锁定期，可交易质押头寸。"
     },
     "validatorNames": {
-      "TBURN Core Validator": "TBURN核心验证者"
+      "TBURN Core Validator": "TBURN核心验证者",
+      "tburn-foundation": "TBURN基金会",
+      "quantum-stake": "量子质押",
+      "enterprise-pool": "企业池",
+      "liquid-protocol": "流动协议"
     },
     "tier": "等级",
     "bronze": "青铜",

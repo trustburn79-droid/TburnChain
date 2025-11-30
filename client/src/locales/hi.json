@@ -590,7 +590,11 @@
       "pool-liquid": "stTBURN टोकन जारी करने वाला लिक्विड स्टेकिंग पूल। ट्रेड करने योग्य स्टेक्ड पोजीशन के साथ कोई लॉक पीरियड नहीं।"
     },
     "validatorNames": {
-      "TBURN Core Validator": "TBURN कोर वैलिडेटर"
+      "TBURN Core Validator": "TBURN कोर वैलिडेटर",
+      "tburn-foundation": "TBURN फाउंडेशन",
+      "quantum-stake": "क्वांटम स्टेक",
+      "enterprise-pool": "एंटरप्राइज़ पूल",
+      "liquid-protocol": "लिक्विड प्रोटोकॉल"
     },
     "tier": "टियर",
     "bronze": "ब्रॉन्ज़",

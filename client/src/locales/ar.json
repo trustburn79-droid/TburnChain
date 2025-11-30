@@ -550,7 +550,11 @@
       "pool-liquid": "مجمع ستاكينغ سائل يصدر توكنات stTBURN. بدون فترة قفل مع مراكز قابلة للتداول."
     },
     "validatorNames": {
-      "TBURN Core Validator": "مصادق TBURN الأساسي"
+      "TBURN Core Validator": "مصادق TBURN الأساسي",
+      "tburn-foundation": "مؤسسة TBURN",
+      "quantum-stake": "ستاكينغ كوانتوم",
+      "enterprise-pool": "مجمع المؤسسات",
+      "liquid-protocol": "بروتوكول السيولة"
     },
     "tier": "المستوى",
     "bronze": "برونزي",

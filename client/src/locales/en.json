@@ -580,7 +580,11 @@
       "pool-liquid": "Liquid staking pool that issues stTBURN tokens. No lock period with tradeable staked positions."
     },
     "validatorNames": {
-      "TBURN Core Validator": "TBURN Core Validator"
+      "TBURN Core Validator": "TBURN Core Validator",
+      "tburn-foundation": "TBURN Foundation",
+      "quantum-stake": "Quantum Stake",
+      "enterprise-pool": "Enterprise Pool",
+      "liquid-protocol": "Liquid Protocol"
     },
     "tier": "Tier",
     "bronze": "Bronze",

@@ -580,7 +580,11 @@
       "pool-liquid": "stTBURNトークンを発行するリキッドステーキングプール。ロック期間なしで取引可能なステークポジション。"
     },
     "validatorNames": {
-      "TBURN Core Validator": "TBURNコアバリデーター"
+      "TBURN Core Validator": "TBURNコアバリデーター",
+      "tburn-foundation": "TBURN財団",
+      "quantum-stake": "クォンタムステーク",
+      "enterprise-pool": "エンタープライズプール",
+      "liquid-protocol": "リキッドプロトコル"
     },
     "tier": "ティア",
     "bronze": "ブロンズ",

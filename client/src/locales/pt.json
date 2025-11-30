@@ -195,7 +195,11 @@
       "pool-liquid": "Pool de staking líquido que emite tokens stTBURN. Sem período de bloqueio com posições negociáveis."
     },
     "validatorNames": {
-      "TBURN Core Validator": "Validador Principal TBURN"
+      "TBURN Core Validator": "Validador Principal TBURN",
+      "tburn-foundation": "Fundação TBURN",
+      "quantum-stake": "Quantum Stake",
+      "enterprise-pool": "Pool Empresarial",
+      "liquid-protocol": "Protocolo Líquido"
     },
     "tier": "Nível",
     "bronze": "Bronze",

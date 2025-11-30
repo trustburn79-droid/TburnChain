@@ -195,7 +195,11 @@
       "pool-liquid": "Ликвидный пул стейкинга, выпускающий токены stTBURN. Без периода блокировки с торгуемыми позициями."
     },
     "validatorNames": {
-      "TBURN Core Validator": "Основной валидатор TBURN"
+      "TBURN Core Validator": "Основной валидатор TBURN",
+      "tburn-foundation": "Фонд TBURN",
+      "quantum-stake": "Квантовый Стейк",
+      "enterprise-pool": "Корпоративный Пул",
+      "liquid-protocol": "Ликвидный Протокол"
     },
     "tier": "Уровень",
     "bronze": "Бронза",

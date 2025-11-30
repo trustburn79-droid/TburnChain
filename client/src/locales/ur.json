@@ -195,7 +195,11 @@
       "pool-liquid": "stTBURN ٹوکنز جاری کرنے والا لیکویڈ اسٹیکنگ پول۔ تجارتی قابل اسٹیک پوزیشنز کے ساتھ کوئی لاک مدت نہیں۔"
     },
     "validatorNames": {
-      "TBURN Core Validator": "TBURN کور ویلیڈیٹر"
+      "TBURN Core Validator": "TBURN کور ویلیڈیٹر",
+      "tburn-foundation": "TBURN فاؤنڈیشن",
+      "quantum-stake": "کوانٹم اسٹیک",
+      "enterprise-pool": "انٹرپرائز پول",
+      "liquid-protocol": "لیکویڈ پروٹوکول"
     },
     "tier": "ٹیئر",
     "bronze": "کانسی",

@@ -580,7 +580,11 @@
       "pool-liquid": "stTBURN 토큰을 발행하는 리퀴드 스테이킹 풀. 거래 가능한 스테이크 포지션으로 락업 기간 없음."
     },
     "validatorNames": {
-      "TBURN Core Validator": "TBURN 코어 밸리데이터"
+      "TBURN Core Validator": "TBURN 코어 밸리데이터",
+      "tburn-foundation": "TBURN 재단",
+      "quantum-stake": "퀀텀 스테이크",
+      "enterprise-pool": "엔터프라이즈 풀",
+      "liquid-protocol": "리퀴드 프로토콜"
     },
     "tier": "티어",
     "bronze": "브론즈",

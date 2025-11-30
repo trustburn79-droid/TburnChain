@@ -59,6 +59,22 @@ function translatePoolDesc(t: (key: string) => string, poolId: string, defaultDe
   }
   return defaultDesc;
 }
+
+const validatorNameKeyMap: Record<string, string> = {
+  "TBURN Foundation": "staking.validatorNames.tburn-foundation",
+  "Quantum Stake": "staking.validatorNames.quantum-stake",
+  "Enterprise Pool": "staking.validatorNames.enterprise-pool",
+  "Liquid Protocol": "staking.validatorNames.liquid-protocol"
+};
+
+function translateValidatorName(t: (key: string) => string, validatorName: string): string {
+  const key = validatorNameKeyMap[validatorName];
+  if (key) {
+    const translated = t(key);
+    if (translated !== key) return translated;
+  }
+  return validatorName;
+}
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -558,7 +574,7 @@ export default function StakingDashboard() {
                       </Badge>
                     </div>
                     <CardDescription className="text-sm">
-                      {t('staking.validator')}: {pool.validatorName || pool.validatorAddress?.slice(0, 10) + "..."}
+                      {t('staking.validator')}: {translateValidatorName(t, pool.validatorName) || pool.validatorAddress?.slice(0, 10) + "..."}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -963,7 +979,7 @@ export default function StakingDashboard() {
                       <option value="">{t('staking.selectPoolPlaceholder')}</option>
                       {pools?.map(pool => (
                         <option key={pool.id} value={pool.id}>
-                          {pool.name} - {pool.apy?.toFixed(1) || "0.0"}% {t('staking.apy')} ({pool.tier})
+                          {translatePoolName(t, pool.id, pool.name)} - {pool.apy?.toFixed(1) || "0.0"}% {t('staking.apy')} ({t(`staking.${pool.tier.toLowerCase()}`)})
                         </option>
                       ))}
                     </select>

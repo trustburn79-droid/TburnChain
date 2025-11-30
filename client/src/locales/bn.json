@@ -195,7 +195,11 @@
       "pool-liquid": "stTBURN টোকেন ইস্যু করা লিকুইড স্টেকিং পুল। ট্রেডযোগ্য স্টেকড পজিশন সহ কোনো লক পিরিয়ড নেই।"
     },
     "validatorNames": {
-      "TBURN Core Validator": "TBURN কোর ভ্যালিডেটর"
+      "TBURN Core Validator": "TBURN কোর ভ্যালিডেটর",
+      "tburn-foundation": "TBURN ফাউন্ডেশন",
+      "quantum-stake": "কোয়ান্টাম স্টেক",
+      "enterprise-pool": "এন্টারপ্রাইজ পুল",
+      "liquid-protocol": "লিকুইড প্রোটোকল"
     },
     "tier": "টিয়ার",
     "bronze": "ব্রোঞ্জ",
