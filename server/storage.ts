@@ -21,6 +21,8 @@ import {
   type InsertConsensusRound,
   type ApiKey,
   type InsertApiKey,
+  type ApiKeyLog,
+  type InsertApiKeyLog,
   type CrossShardMessage,
   type InsertCrossShardMessage,
   type WalletBalance,
@@ -185,6 +187,7 @@ import {
   networkStats as networkStatsTable,
   consensusRounds,
   apiKeys,
+  apiKeyLogs,
   crossShardMessages,
   walletBalances,
   delegations,
@@ -381,13 +384,23 @@ export interface IStorage {
   getLatestConsensusRound(): Promise<ConsensusRound | null>;
   updateConsensusRound(blockHeight: number, data: Partial<ConsensusRound>): Promise<void>;
 
-  // API Keys
+  // API Keys (Enterprise Grade)
   getAllApiKeys(): Promise<ApiKey[]>;
   getApiKeyById(id: string): Promise<ApiKey | undefined>;
   getApiKeyByHash(hashedKey: string): Promise<ApiKey | undefined>;
   createApiKey(data: InsertApiKey): Promise<ApiKey>;
-  revokeApiKey(id: string): Promise<void>;
+  updateApiKey(id: string, data: Partial<ApiKey>): Promise<ApiKey | undefined>;
+  revokeApiKey(id: string, revokedBy?: string, reason?: string): Promise<void>;
   updateApiKeyLastUsed(id: string): Promise<void>;
+  incrementApiKeyUsage(id: string): Promise<void>;
+  resetDailyApiKeyUsage(): Promise<void>;
+  resetMonthlyApiKeyUsage(): Promise<void>;
+  getApiKeyStats(id: string): Promise<{ totalRequests: number; requestsToday: number; requestsThisMonth: number; errorCount: number } | undefined>;
+  
+  // API Key Activity Logs
+  createApiKeyLog(data: InsertApiKeyLog): Promise<ApiKeyLog>;
+  getApiKeyLogs(apiKeyId: string, limit?: number): Promise<ApiKeyLog[]>;
+  getRecentApiKeyLogs(limit?: number): Promise<ApiKeyLog[]>;
 
   // Cross-Shard Messages
   getAllCrossShardMessages(limit?: number): Promise<CrossShardMessage[]>;
@@ -2045,12 +2058,44 @@ export class MemStorage implements IStorage {
     throw new Error("API Keys not supported in MemStorage");
   }
 
-  async revokeApiKey(id: string): Promise<void> {
+  async updateApiKey(id: string, data: Partial<ApiKey>): Promise<ApiKey | undefined> {
+    throw new Error("API Keys not supported in MemStorage");
+  }
+
+  async revokeApiKey(id: string, revokedBy?: string, reason?: string): Promise<void> {
     throw new Error("API Keys not supported in MemStorage");
   }
 
   async updateApiKeyLastUsed(id: string): Promise<void> {
     throw new Error("API Keys not supported in MemStorage");
+  }
+
+  async incrementApiKeyUsage(id: string): Promise<void> {
+    throw new Error("API Keys not supported in MemStorage");
+  }
+
+  async resetDailyApiKeyUsage(): Promise<void> {
+    throw new Error("API Keys not supported in MemStorage");
+  }
+
+  async resetMonthlyApiKeyUsage(): Promise<void> {
+    throw new Error("API Keys not supported in MemStorage");
+  }
+
+  async getApiKeyStats(id: string): Promise<{ totalRequests: number; requestsToday: number; requestsThisMonth: number; errorCount: number } | undefined> {
+    return undefined;
+  }
+
+  async createApiKeyLog(data: InsertApiKeyLog): Promise<ApiKeyLog> {
+    throw new Error("API Key Logs not supported in MemStorage");
+  }
+
+  async getApiKeyLogs(apiKeyId: string, limit?: number): Promise<ApiKeyLog[]> {
+    return [];
+  }
+
+  async getRecentApiKeyLogs(limit?: number): Promise<ApiKeyLog[]> {
+    return [];
   }
 
   // Cross-Shard Messages (basic implementation for MemStorage)
@@ -2640,12 +2685,71 @@ export class DbStorage implements IStorage {
     return result[0];
   }
 
-  async revokeApiKey(id: string): Promise<void> {
-    await db.update(apiKeys).set({ revokedAt: new Date() }).where(eq(apiKeys.id, id));
+  async updateApiKey(id: string, data: Partial<ApiKey>): Promise<ApiKey | undefined> {
+    const result = await db.update(apiKeys)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(apiKeys.id, id))
+      .returning();
+    return result[0];
+  }
+
+  async revokeApiKey(id: string, revokedBy?: string, reason?: string): Promise<void> {
+    await db.update(apiKeys).set({ 
+      revokedAt: new Date(),
+      revokedBy: revokedBy || null,
+      revokeReason: reason || null,
+      isActive: false,
+    }).where(eq(apiKeys.id, id));
   }
 
   async updateApiKeyLastUsed(id: string): Promise<void> {
     await db.update(apiKeys).set({ lastUsedAt: new Date() }).where(eq(apiKeys.id, id));
+  }
+
+  async incrementApiKeyUsage(id: string): Promise<void> {
+    await db.update(apiKeys).set({ 
+      totalRequests: sql`${apiKeys.totalRequests} + 1`,
+      requestsToday: sql`${apiKeys.requestsToday} + 1`,
+      requestsThisMonth: sql`${apiKeys.requestsThisMonth} + 1`,
+      lastUsedAt: new Date(),
+    }).where(eq(apiKeys.id, id));
+  }
+
+  async resetDailyApiKeyUsage(): Promise<void> {
+    await db.update(apiKeys).set({ requestsToday: 0 }).where(isNull(apiKeys.revokedAt));
+  }
+
+  async resetMonthlyApiKeyUsage(): Promise<void> {
+    await db.update(apiKeys).set({ requestsThisMonth: 0 }).where(isNull(apiKeys.revokedAt));
+  }
+
+  async getApiKeyStats(id: string): Promise<{ totalRequests: number; requestsToday: number; requestsThisMonth: number; errorCount: number } | undefined> {
+    const result = await db.select({
+      totalRequests: apiKeys.totalRequests,
+      requestsToday: apiKeys.requestsToday,
+      requestsThisMonth: apiKeys.requestsThisMonth,
+      errorCount: apiKeys.errorCount,
+    }).from(apiKeys).where(eq(apiKeys.id, id)).limit(1);
+    return result[0];
+  }
+
+  // API Key Activity Logs
+  async createApiKeyLog(data: InsertApiKeyLog): Promise<ApiKeyLog> {
+    const result = await db.insert(apiKeyLogs).values(data).returning();
+    return result[0];
+  }
+
+  async getApiKeyLogs(apiKeyId: string, limit: number = 100): Promise<ApiKeyLog[]> {
+    return db.select().from(apiKeyLogs)
+      .where(eq(apiKeyLogs.apiKeyId, apiKeyId))
+      .orderBy(desc(apiKeyLogs.createdAt))
+      .limit(limit);
+  }
+
+  async getRecentApiKeyLogs(limit: number = 100): Promise<ApiKeyLog[]> {
+    return db.select().from(apiKeyLogs)
+      .orderBy(desc(apiKeyLogs.createdAt))
+      .limit(limit);
   }
 
   // Cross-Shard Messages

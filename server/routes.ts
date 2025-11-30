@@ -5546,14 +5546,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
 
   // ============================================
-  // API Keys (Secure Management)
+  // API Keys (Enterprise Secure Management)
   // ============================================
-  // Get all active API keys (excluding revoked ones)
+  
+  // Get all active API keys (excluding revoked ones) with sanitized data
   app.get("/api/keys", async (_req, res) => {
     try {
       const keys = await storage.getAllApiKeys();
       // Never return the hashed key to the client
-      const sanitized = keys.map(({ hashedKey, ...key }) => key);
+      const sanitized = keys.map(({ hashedKey, ...key }) => ({
+        ...key,
+        // Mask the key prefix for display
+        keyPrefix: key.keyPrefix || null,
+        // Calculate status based on expiration
+        status: key.revokedAt ? 'revoked' : 
+                (key.expiresAt && new Date(key.expiresAt) < new Date()) ? 'expired' : 
+                key.isActive ? 'active' : 'inactive',
+      }));
       res.json(sanitized);
     } catch (error) {
       console.error("Error fetching API keys:", error);
@@ -5561,33 +5570,174 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create a new API key
+  // Get single API key details
+  app.get("/api/keys/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const key = await storage.getApiKeyById(id);
+      
+      if (!key) {
+        return res.status(404).json({ error: "API key not found" });
+      }
+
+      // Never return the hashed key
+      const { hashedKey, ...sanitized } = key;
+      res.json({
+        ...sanitized,
+        status: key.revokedAt ? 'revoked' : 
+                (key.expiresAt && new Date(key.expiresAt) < new Date()) ? 'expired' : 
+                key.isActive ? 'active' : 'inactive',
+      });
+    } catch (error) {
+      console.error("Error fetching API key:", error);
+      res.status(500).json({ error: "Failed to fetch API key" });
+    }
+  });
+
+  // Get API key usage statistics
+  app.get("/api/keys/:id/stats", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const stats = await storage.getApiKeyStats(id);
+      
+      if (!stats) {
+        return res.status(404).json({ error: "API key not found" });
+      }
+
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching API key stats:", error);
+      res.status(500).json({ error: "Failed to fetch API key statistics" });
+    }
+  });
+
+  // Get API key activity logs
+  app.get("/api/keys/:id/logs", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
+      
+      const key = await storage.getApiKeyById(id);
+      if (!key) {
+        return res.status(404).json({ error: "API key not found" });
+      }
+
+      const logs = await storage.getApiKeyLogs(id, limit);
+      res.json(logs);
+    } catch (error) {
+      console.error("Error fetching API key logs:", error);
+      res.status(500).json({ error: "Failed to fetch API key activity logs" });
+    }
+  });
+
+  // Get recent API key logs across all keys
+  app.get("/api/keys-logs/recent", async (req, res) => {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
+      const logs = await storage.getRecentApiKeyLogs(limit);
+      res.json(logs);
+    } catch (error) {
+      console.error("Error fetching recent API key logs:", error);
+      res.status(500).json({ error: "Failed to fetch recent API key logs" });
+    }
+  });
+
+  // Create a new API key with enterprise features
   app.post("/api/keys", async (req, res) => {
     try {
-      const { label } = req.body;
+      const { 
+        label, 
+        description,
+        scopes = ['read'],
+        environment = 'development',
+        expiresAt,
+        rateLimitPerMinute = 60,
+        rateLimitPerHour = 1000,
+        rateLimitPerDay = 10000,
+        ipWhitelist = [],
+      } = req.body;
       
       if (!label || typeof label !== "string" || label.trim().length === 0) {
         return res.status(400).json({ error: "Label is required" });
       }
 
+      // Validate scopes
+      const validScopes = ['read', 'write', 'admin', 'defi', 'staking', 'governance', 'analytics'];
+      const scopeArray = Array.isArray(scopes) ? scopes : [scopes];
+      const invalidScopes = scopeArray.filter((s: string) => !validScopes.includes(s));
+      if (invalidScopes.length > 0) {
+        return res.status(400).json({ 
+          error: "Invalid scopes", 
+          details: `Invalid scopes: ${invalidScopes.join(', ')}. Valid scopes are: ${validScopes.join(', ')}` 
+        });
+      }
+
+      // Validate environment
+      const validEnvironments = ['production', 'development', 'staging', 'test'];
+      if (!validEnvironments.includes(environment)) {
+        return res.status(400).json({ 
+          error: "Invalid environment",
+          details: `Valid environments are: ${validEnvironments.join(', ')}`
+        });
+      }
+
       // Generate a random API key (32 bytes = 64 hex characters)
       const rawKey = randomBytes(32).toString("hex");
+      
+      // Store the first 8 characters as a prefix for identification
+      const keyPrefix = rawKey.substring(0, 8);
       
       // Hash the API key using bcrypt
       const hashedKey = await bcrypt.hash(rawKey, 10);
 
-      // Store in database
+      // Parse expiration date if provided
+      let parsedExpiresAt = null;
+      if (expiresAt) {
+        parsedExpiresAt = new Date(expiresAt);
+        if (isNaN(parsedExpiresAt.getTime())) {
+          return res.status(400).json({ error: "Invalid expiration date format" });
+        }
+      }
+
+      // Store in database with enterprise features
       const apiKey = await storage.createApiKey({
         label: label.trim(),
+        description: description?.trim() || null,
         hashedKey,
+        keyPrefix,
         userId: null, // Future: link to user account
+        scopes: scopeArray,
+        environment,
+        expiresAt: parsedExpiresAt,
+        rateLimitPerMinute,
+        rateLimitPerHour,
+        rateLimitPerDay,
+        ipWhitelist: ipWhitelist.length > 0 ? ipWhitelist : null,
+        isActive: true,
+      });
+
+      // Log the creation
+      await storage.createApiKeyLog({
+        apiKeyId: apiKey.id,
+        action: 'created',
+        details: { label, scopes: scopeArray, environment },
+        ipAddress: req.ip || null,
+        userAgent: req.get('User-Agent') || null,
       });
 
       // Return the raw key ONLY ONCE (client must save it)
       res.json({
         id: apiKey.id,
         label: apiKey.label,
+        description: apiKey.description,
         key: rawKey, // IMPORTANT: This is the only time we return the raw key
+        keyPrefix: apiKey.keyPrefix,
+        scopes: apiKey.scopes,
+        environment: apiKey.environment,
+        expiresAt: apiKey.expiresAt,
+        rateLimitPerMinute: apiKey.rateLimitPerMinute,
+        rateLimitPerHour: apiKey.rateLimitPerHour,
+        rateLimitPerDay: apiKey.rateLimitPerDay,
         createdAt: apiKey.createdAt,
       });
     } catch (error) {
@@ -5596,10 +5746,105 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Revoke (delete) an API key
+  // Update an API key (except the key itself)
+  app.patch("/api/keys/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { 
+        label, 
+        description,
+        scopes,
+        environment,
+        expiresAt,
+        rateLimitPerMinute,
+        rateLimitPerHour,
+        rateLimitPerDay,
+        ipWhitelist,
+        isActive,
+      } = req.body;
+
+      const existing = await storage.getApiKeyById(id);
+      if (!existing) {
+        return res.status(404).json({ error: "API key not found" });
+      }
+
+      if (existing.revokedAt) {
+        return res.status(400).json({ error: "Cannot update a revoked API key" });
+      }
+
+      // Build update object
+      const updates: Record<string, any> = {};
+      
+      if (label !== undefined) updates.label = label.trim();
+      if (description !== undefined) updates.description = description?.trim() || null;
+      if (scopes !== undefined) {
+        const validScopes = ['read', 'write', 'admin', 'defi', 'staking', 'governance', 'analytics'];
+        const scopeArray = Array.isArray(scopes) ? scopes : [scopes];
+        const invalidScopes = scopeArray.filter((s: string) => !validScopes.includes(s));
+        if (invalidScopes.length > 0) {
+          return res.status(400).json({ 
+            error: "Invalid scopes", 
+            details: `Invalid scopes: ${invalidScopes.join(', ')}` 
+          });
+        }
+        updates.scopes = scopeArray;
+      }
+      if (environment !== undefined) {
+        const validEnvironments = ['production', 'development', 'staging', 'test'];
+        if (!validEnvironments.includes(environment)) {
+          return res.status(400).json({ error: "Invalid environment" });
+        }
+        updates.environment = environment;
+      }
+      if (expiresAt !== undefined) {
+        if (expiresAt === null) {
+          updates.expiresAt = null;
+        } else {
+          const parsedDate = new Date(expiresAt);
+          if (isNaN(parsedDate.getTime())) {
+            return res.status(400).json({ error: "Invalid expiration date format" });
+          }
+          updates.expiresAt = parsedDate;
+        }
+      }
+      if (rateLimitPerMinute !== undefined) updates.rateLimitPerMinute = rateLimitPerMinute;
+      if (rateLimitPerHour !== undefined) updates.rateLimitPerHour = rateLimitPerHour;
+      if (rateLimitPerDay !== undefined) updates.rateLimitPerDay = rateLimitPerDay;
+      if (ipWhitelist !== undefined) updates.ipWhitelist = ipWhitelist.length > 0 ? ipWhitelist : null;
+      if (isActive !== undefined) updates.isActive = isActive;
+
+      const updated = await storage.updateApiKey(id, updates);
+      
+      if (!updated) {
+        return res.status(500).json({ error: "Failed to update API key" });
+      }
+
+      // Log the update
+      await storage.createApiKeyLog({
+        apiKeyId: id,
+        action: 'updated',
+        details: { updates },
+        ipAddress: req.ip || null,
+        userAgent: req.get('User-Agent') || null,
+      });
+
+      // Return sanitized key
+      const { hashedKey, ...sanitized } = updated;
+      res.json({
+        ...sanitized,
+        status: updated.isActive ? 'active' : 'inactive',
+      });
+    } catch (error) {
+      console.error("Error updating API key:", error);
+      res.status(500).json({ error: "Failed to update API key" });
+    }
+  });
+
+  // Revoke (delete) an API key with reason
   app.delete("/api/keys/:id", async (req, res) => {
     try {
       const { id } = req.params;
+      const { reason } = req.body || {};
       
       const existing = await storage.getApiKeyById(id);
       if (!existing) {
@@ -5610,11 +5855,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "API key already revoked" });
       }
 
-      await storage.revokeApiKey(id);
-      res.json({ success: true });
+      await storage.revokeApiKey(id, undefined, reason);
+
+      // Log the revocation
+      await storage.createApiKeyLog({
+        apiKeyId: id,
+        action: 'revoked',
+        details: { reason: reason || 'No reason provided' },
+        ipAddress: req.ip || null,
+        userAgent: req.get('User-Agent') || null,
+      });
+
+      res.json({ success: true, message: "API key revoked successfully" });
     } catch (error) {
       console.error("Error revoking API key:", error);
       res.status(500).json({ error: "Failed to revoke API key" });
+    }
+  });
+
+  // Rotate an API key (generate new key while preserving settings)
+  app.post("/api/keys/:id/rotate", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existing = await storage.getApiKeyById(id);
+      if (!existing) {
+        return res.status(404).json({ error: "API key not found" });
+      }
+
+      if (existing.revokedAt) {
+        return res.status(400).json({ error: "Cannot rotate a revoked API key" });
+      }
+
+      // Generate new key
+      const rawKey = randomBytes(32).toString("hex");
+      const keyPrefix = rawKey.substring(0, 8);
+      const hashedKey = await bcrypt.hash(rawKey, 10);
+
+      // Update with new key
+      const updated = await storage.updateApiKey(id, {
+        hashedKey,
+        keyPrefix,
+        lastRotatedAt: new Date(),
+        rotationCount: (existing.rotationCount || 0) + 1,
+      });
+
+      if (!updated) {
+        return res.status(500).json({ error: "Failed to rotate API key" });
+      }
+
+      // Log the rotation
+      await storage.createApiKeyLog({
+        apiKeyId: id,
+        action: 'rotated',
+        details: { previousPrefix: existing.keyPrefix, newPrefix: keyPrefix },
+        ipAddress: req.ip || null,
+        userAgent: req.get('User-Agent') || null,
+      });
+
+      res.json({
+        id: updated.id,
+        label: updated.label,
+        key: rawKey, // IMPORTANT: This is the only time we return the raw key
+        keyPrefix,
+        message: "API key rotated successfully. Please save the new key immediately.",
+      });
+    } catch (error) {
+      console.error("Error rotating API key:", error);
+      res.status(500).json({ error: "Failed to rotate API key" });
     }
   });
 

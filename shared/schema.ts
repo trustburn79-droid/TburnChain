@@ -237,15 +237,78 @@ export const consensusRounds = pgTable("consensus_rounds", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-// API Keys (for secure API access management)
+// API Keys (for secure API access management - Enterprise Grade)
 export const apiKeys = pgTable("api_keys", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   label: text("label").notNull(), // user-friendly name for the key
+  description: text("description"), // detailed description of key purpose
   hashedKey: text("hashed_key").notNull().unique(), // bcrypt hashed API key
+  keyPrefix: text("key_prefix").notNull().default(""), // first 8 chars for identification
   userId: varchar("user_id"), // nullable - for future multi-user support
+  
+  // Enterprise Features
+  environment: text("environment").notNull().default("production"), // production, development, test
+  scopes: text("scopes").array().notNull().default(sql`ARRAY['read']::text[]`), // read, write, admin, staking, trading, etc.
+  expiresAt: timestamp("expires_at"), // null = never expires
+  
+  // Rate Limiting
+  rateLimitPerMinute: integer("rate_limit_per_minute").notNull().default(60), // requests per minute
+  rateLimitPerHour: integer("rate_limit_per_hour").notNull().default(1000), // requests per hour
+  rateLimitPerDay: integer("rate_limit_per_day").notNull().default(10000), // requests per day
+  
+  // IP Restrictions
+  ipWhitelist: text("ip_whitelist").array().default(sql`ARRAY[]::text[]`), // empty = all IPs allowed
+  allowedOrigins: text("allowed_origins").array().default(sql`ARRAY[]::text[]`), // CORS origins
+  
+  // Usage Statistics
+  totalRequests: bigint("total_requests", { mode: "number" }).notNull().default(0),
+  requestsToday: integer("requests_today").notNull().default(0),
+  requestsThisMonth: integer("requests_this_month").notNull().default(0),
+  lastErrorAt: timestamp("last_error_at"),
+  errorCount: integer("error_count").notNull().default(0),
+  
+  // Security & Audit
+  isActive: boolean("is_active").notNull().default(true),
+  requiresMfa: boolean("requires_mfa").notNull().default(false),
+  lastRotatedAt: timestamp("last_rotated_at"),
+  rotationCount: integer("rotation_count").notNull().default(0),
+  rotationScheduleDays: integer("rotation_schedule_days"), // null = no auto-rotation
+  
+  // Timestamps
   createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
   lastUsedAt: timestamp("last_used_at"),
   revokedAt: timestamp("revoked_at"), // null if active, timestamp if revoked
+  revokedBy: varchar("revoked_by"), // who revoked the key
+  revokeReason: text("revoke_reason"), // why the key was revoked
+});
+
+// API Key Activity Logs (for audit trail and analytics)
+export const apiKeyLogs = pgTable("api_key_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  apiKeyId: varchar("api_key_id").notNull(), // reference to api_keys.id
+  
+  // Action Type (created, updated, rotated, revoked, used)
+  action: text("action").notNull().default("used"),
+  
+  // Request Details (for API usage logs)
+  endpoint: text("endpoint"), // API endpoint accessed
+  method: text("method"), // HTTP method (GET, POST, etc.)
+  statusCode: integer("status_code"), // HTTP response status
+  responseTimeMs: integer("response_time_ms").default(0),
+  
+  // Client Information
+  ipAddress: text("ip_address"), // client IP
+  userAgent: text("user_agent"), // client user agent
+  origin: text("origin"), // request origin
+  
+  // Additional Context
+  details: jsonb("details"), // action-specific details (for created, updated, etc.)
+  requestBody: jsonb("request_body"), // sanitized request body (no sensitive data)
+  errorMessage: text("error_message"), // error message if failed
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 // Cross-Shard Messages (for cross-shard transaction tracking)
@@ -1199,7 +1262,22 @@ export const insertAiDecisionSchema = createInsertSchema(aiDecisions).omit({ id:
 export const insertShardSchema = createInsertSchema(shards).omit({ id: true, lastSyncedAt: true });
 export const insertNetworkStatsSchema = createInsertSchema(networkStats).omit({ id: true, updatedAt: true });
 export const insertConsensusRoundSchema = createInsertSchema(consensusRounds).omit({ id: true, createdAt: true });
-export const insertApiKeySchema = createInsertSchema(apiKeys).omit({ id: true, createdAt: true, lastUsedAt: true, revokedAt: true });
+export const insertApiKeySchema = createInsertSchema(apiKeys).omit({ 
+  id: true, 
+  createdAt: true, 
+  updatedAt: true,
+  lastUsedAt: true, 
+  revokedAt: true,
+  revokedBy: true,
+  revokeReason: true,
+  lastRotatedAt: true,
+  lastErrorAt: true,
+  totalRequests: true,
+  requestsToday: true,
+  requestsThisMonth: true,
+  errorCount: true,
+});
+export const insertApiKeyLogSchema = createInsertSchema(apiKeyLogs).omit({ id: true, createdAt: true });
 export const insertCrossShardMessageSchema = createInsertSchema(crossShardMessages).omit({ id: true, sentAt: true, confirmedAt: true, failedAt: true });
 export const insertWalletBalanceSchema = createInsertSchema(walletBalances).omit({ id: true, firstSeenAt: true, updatedAt: true, lastTransactionAt: true });
 export const insertDelegationSchema = createInsertSchema(delegations).omit({ id: true, delegatedAt: true });
@@ -1330,6 +1408,8 @@ export type InsertConsensusRound = z.infer<typeof insertConsensusRoundSchema>;
 
 export type ApiKey = typeof apiKeys.$inferSelect;
 export type InsertApiKey = z.infer<typeof insertApiKeySchema>;
+export type ApiKeyLog = typeof apiKeyLogs.$inferSelect;
+export type InsertApiKeyLog = z.infer<typeof insertApiKeyLogSchema>;
 
 export type CrossShardMessage = typeof crossShardMessages.$inferSelect;
 export type InsertCrossShardMessage = z.infer<typeof insertCrossShardMessageSchema>;
