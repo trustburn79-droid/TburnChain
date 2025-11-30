@@ -2533,6 +2533,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Validators
   // ============================================
+  app.get("/api/validators/stats", async (_req, res) => {
+    try {
+      const validators = await storage.getAllValidators();
+      const totalValidators = validators.length;
+      const activeValidators = validators.filter(v => v.status === "active").length;
+      const avgUptime = validators.length > 0 
+        ? validators.reduce((sum, v) => sum + (Number(v.uptime) || 99.5), 0) / validators.length
+        : 99.5;
+      
+      res.json({
+        totalValidators,
+        activeValidators,
+        avgUptime: Math.min(avgUptime, 100),
+      });
+    } catch (error) {
+      console.error("Error fetching validator stats:", error);
+      res.status(500).json({ error: "Failed to fetch validator stats" });
+    }
+  });
+
   app.get("/api/validators", async (_req, res) => {
     try {
       // Always use local database validators (we have simulation generating them)
