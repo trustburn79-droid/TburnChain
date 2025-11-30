@@ -557,6 +557,12 @@
     "rewardCycle": "報酬サイクル",
     "poolName": "プール名",
     "poolType": "プールタイプ",
+    "poolTypes": {
+      "public": "パブリック",
+      "private": "プライベート",
+      "enterprise": "エンタープライズ",
+      "institutional": "機関投資家向け"
+    },
     "tier": "ティア",
     "bronze": "ブロンズ",
     "silver": "シルバー",

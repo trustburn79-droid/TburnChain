@@ -527,6 +527,12 @@
     "currentRewardCycle": "دورة المكافأة الحالية",
     "poolName": "اسم المجمع",
     "poolType": "نوع المجمع",
+    "poolTypes": {
+      "public": "عام",
+      "private": "خاص",
+      "enterprise": "مؤسسي",
+      "institutional": "مؤسساتي"
+    },
     "tier": "المستوى",
     "bronze": "برونزي",
     "silver": "فضي",

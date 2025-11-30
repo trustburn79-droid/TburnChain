@@ -172,6 +172,12 @@
     "currentRewardCycle": "Ciclo de Recompensa Atual",
     "poolName": "Nome do Pool",
     "poolType": "Tipo de Pool",
+    "poolTypes": {
+      "public": "Público",
+      "private": "Privado",
+      "enterprise": "Empresarial",
+      "institutional": "Institucional"
+    },
     "tier": "Nível",
     "bronze": "Bronze",
     "silver": "Prata",

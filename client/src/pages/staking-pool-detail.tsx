@@ -104,6 +104,28 @@ function formatWeiToTBURN(weiStr: string): string {
   }
 }
 
+const statusTranslationKeys: Record<string, string> = {
+  active: 'common.active',
+  inactive: 'common.inactive',
+  pending: 'common.pending',
+  paused: 'staking.paused',
+  closed: 'staking.closed'
+};
+
+const frequencyTranslationKeys: Record<string, string> = {
+  daily: 'staking.daily',
+  weekly: 'staking.weekly',
+  monthly: 'staking.monthly',
+  hourly: 'staking.hourly'
+};
+
+const poolTypeTranslationKeys: Record<string, string> = {
+  public: 'staking.poolTypes.public',
+  private: 'staking.poolTypes.private',
+  enterprise: 'staking.poolTypes.enterprise',
+  institutional: 'staking.poolTypes.institutional'
+};
+
 export default function StakingPoolDetail() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
@@ -208,7 +230,7 @@ export default function StakingPoolDetail() {
               ) : (
                 <AlertCircle className="h-3 w-3 mr-1" />
               )}
-              {pool.status}
+              {t(statusTranslationKeys[pool.status.toLowerCase()] || 'common.unknown')}
             </Badge>
           </div>
           <p className="text-muted-foreground mt-1">{pool.description || t('stakingPoolDetail.poolOverview')}</p>
@@ -318,7 +340,7 @@ export default function StakingPoolDetail() {
           <CardContent>
             <div className="text-2xl font-bold">{formatNumber(pool.stakersCount)}</div>
             <p className="text-xs text-muted-foreground">
-              {pool.rewardFrequency} {t('wallets.rewards')}
+              {t(frequencyTranslationKeys[pool.rewardFrequency.toLowerCase()] || 'common.unknown')} {t('wallets.rewards')}
             </p>
           </CardContent>
         </Card>
@@ -347,7 +369,7 @@ export default function StakingPoolDetail() {
               <div className="space-y-2">
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-muted-foreground">{t('staking.poolType')}</span>
-                  <span className="font-medium capitalize">{pool.poolType}</span>
+                  <span className="font-medium capitalize">{t(poolTypeTranslationKeys[pool.poolType.toLowerCase()] || 'common.unknown')}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-muted-foreground">{t('staking.tier')}</span>
@@ -376,7 +398,7 @@ export default function StakingPoolDetail() {
                 </div>
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-muted-foreground">{t('stakingPoolDetail.rewardFrequency')}</span>
-                  <span className="font-medium capitalize">{pool.rewardFrequency}</span>
+                  <span className="font-medium capitalize">{t(frequencyTranslationKeys[pool.rewardFrequency.toLowerCase()] || 'common.unknown')}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-muted-foreground">{t('common.date')}</span>

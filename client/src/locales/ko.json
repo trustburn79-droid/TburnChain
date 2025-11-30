@@ -557,6 +557,12 @@
     "rewardCycle": "보상 사이클",
     "poolName": "풀 이름",
     "poolType": "풀 유형",
+    "poolTypes": {
+      "public": "퍼블릭",
+      "private": "프라이빗",
+      "enterprise": "엔터프라이즈",
+      "institutional": "기관"
+    },
     "tier": "티어",
     "bronze": "브론즈",
     "silver": "실버",

@@ -556,6 +556,12 @@
     "rewardCycle": "奖励周期",
     "poolName": "池名称",
     "poolType": "池类型",
+    "poolTypes": {
+      "public": "公开",
+      "private": "私有",
+      "enterprise": "企业",
+      "institutional": "机构"
+    },
     "tier": "等级",
     "bronze": "青铜",
     "silver": "白银",

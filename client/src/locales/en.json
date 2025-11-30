@@ -557,6 +557,12 @@
     "rewardCycle": "Reward Cycle",
     "poolName": "Pool Name",
     "poolType": "Pool Type",
+    "poolTypes": {
+      "public": "Public",
+      "private": "Private",
+      "enterprise": "Enterprise",
+      "institutional": "Institutional"
+    },
     "tier": "Tier",
     "bronze": "Bronze",
     "silver": "Silver",

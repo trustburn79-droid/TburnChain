@@ -172,6 +172,12 @@
     "currentRewardCycle": "Текущий цикл наград",
     "poolName": "Название пула",
     "poolType": "Тип пула",
+    "poolTypes": {
+      "public": "Публичный",
+      "private": "Частный",
+      "enterprise": "Корпоративный",
+      "institutional": "Институциональный"
+    },
     "tier": "Уровень",
     "bronze": "Бронза",
     "silver": "Серебро",

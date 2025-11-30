@@ -172,6 +172,12 @@
     "currentRewardCycle": "বর্তমান রিওয়ার্ড সাইকেল",
     "poolName": "পুলের নাম",
     "poolType": "পুলের ধরন",
+    "poolTypes": {
+      "public": "পাবলিক",
+      "private": "প্রাইভেট",
+      "enterprise": "এন্টারপ্রাইজ",
+      "institutional": "প্রাতিষ্ঠানিক"
+    },
     "tier": "টিয়ার",
     "bronze": "ব্রোঞ্জ",
     "silver": "সিলভার",

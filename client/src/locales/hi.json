@@ -567,6 +567,12 @@
     "rewardCycle": "रिवॉर्ड साइकल",
     "poolName": "पूल नाम",
     "poolType": "पूल प्रकार",
+    "poolTypes": {
+      "public": "सार्वजनिक",
+      "private": "निजी",
+      "enterprise": "उद्यम",
+      "institutional": "संस्थागत"
+    },
     "tier": "टियर",
     "bronze": "ब्रॉन्ज़",
     "silver": "सिल्वर",

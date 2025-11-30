@@ -172,6 +172,12 @@
     "currentRewardCycle": "موجودہ انعام سائیکل",
     "poolName": "پول کا نام",
     "poolType": "پول کی قسم",
+    "poolTypes": {
+      "public": "عوامی",
+      "private": "نجی",
+      "enterprise": "کاروباری",
+      "institutional": "ادارہ جاتی"
+    },
     "tier": "ٹیئر",
     "bronze": "کانسی",
     "silver": "چاندی",
