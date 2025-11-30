@@ -316,13 +316,12 @@ function SearchSkeleton() {
 
 function EmptyQueryState() {
   const { t } = useTranslation();
-  const [, setLocation] = useLocation();
   const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchInput.trim()) {
-      setLocation(`/search?q=${encodeURIComponent(searchInput.trim())}`);
+      window.location.href = `/search?q=${encodeURIComponent(searchInput.trim())}`;
     }
   };
 
@@ -399,7 +398,7 @@ function EmptyQueryState() {
                     variant="outline"
                     size="sm"
                     className="text-xs"
-                    onClick={() => setLocation(`/search?q=${encodeURIComponent(example.query)}`)}
+                    onClick={() => window.location.href = `/search?q=${encodeURIComponent(example.query)}`}
                     data-testid={`button-example-${example.type}`}
                   >
                     {example.label}
@@ -435,18 +434,37 @@ function EmptyQueryState() {
 
 export default function SearchResults() {
   const { t } = useTranslation();
-  const [location, setLocation] = useLocation();
+  const [, setLocation] = useLocation();
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchInput, setSearchInput] = useState("");
+  const [currentQuery, setCurrentQuery] = useState("");
   
-  const searchParams = new URLSearchParams(location.split('?')[1] || '');
-  const query = searchParams.get('q') || '';
-  const typeFilter = searchParams.get('type') || 'all';
-
+  // Use window.location.search to properly get query parameters
   useEffect(() => {
-    setActiveFilter(typeFilter);
-    setSearchInput(query);
-  }, [typeFilter, query]);
+    const searchParams = new URLSearchParams(window.location.search);
+    const q = searchParams.get('q') || '';
+    const type = searchParams.get('type') || 'all';
+    setCurrentQuery(q);
+    setSearchInput(q);
+    setActiveFilter(type);
+  }, []);
+
+  // Listen for URL changes
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const q = searchParams.get('q') || '';
+      const type = searchParams.get('type') || 'all';
+      setCurrentQuery(q);
+      setSearchInput(q);
+      setActiveFilter(type);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
+
+  const query = currentQuery;
 
   const buildSearchUrl = () => {
     const params = new URLSearchParams();
