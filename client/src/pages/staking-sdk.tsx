@@ -6,6 +6,22 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { 
   Code2, 
   Terminal,
@@ -27,7 +43,40 @@ import {
   Layers,
   Settings,
   Cpu,
-  Globe
+  Globe,
+  MessageCircle,
+  Users,
+  HelpCircle,
+  Zap,
+  ArrowRight,
+  Play,
+  RefreshCw,
+  Search,
+  ChevronRight,
+  Star,
+  Clock,
+  Check,
+  AlertCircle,
+  BookOpen,
+  Video,
+  FileText,
+  Send,
+  Github,
+  Twitter,
+  Slack,
+  Mail,
+  Headphones,
+  Bug,
+  Lightbulb,
+  MessageSquare,
+  TrendingUp,
+  Lock,
+  Unlock,
+  Database,
+  Server,
+  Network,
+  Award,
+  Target
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -198,7 +247,125 @@ const expectedRewards = utils.calculateRewards({
 const formatted = utils.formatAmount('10000000000000000000000', {
   decimals: 2,
   symbol: 'TBURN',
-}); // '10,000.00 TBURN'`
+}); // '10,000.00 TBURN'`,
+
+  errorHandling: `// Error handling patterns
+import { TBurnError, ErrorCodes } from '@tburn/staking-sdk';
+
+try {
+  await sdk.staking.stake({
+    poolId: 'pool-001',
+    amount: '1000000000000000000000'
+  });
+} catch (error) {
+  if (error instanceof TBurnError) {
+    switch (error.code) {
+      case ErrorCodes.INSUFFICIENT_BALANCE:
+        console.log('Not enough TBURN');
+        break;
+      case ErrorCodes.POOL_FULL:
+        console.log('Pool capacity reached');
+        break;
+      case ErrorCodes.BELOW_MINIMUM:
+        console.log('Amount below minimum stake');
+        break;
+      default:
+        console.error('Unknown error:', error.message);
+    }
+  }
+}`,
+
+  typescript: `// TypeScript types
+import {
+  StakingPool,
+  StakingPosition,
+  Delegation,
+  RewardEvent,
+  UnbondingRequest,
+  TransactionResult
+} from '@tburn/staking-sdk';
+
+// Typed pool retrieval
+const pools: StakingPool[] = await sdk.staking.getPools();
+
+// Typed position
+const position: StakingPosition = await sdk.staking.getPosition('pos-123');
+
+// Transaction result
+const result: TransactionResult = await sdk.staking.stake({
+  poolId: 'pool-001',
+  amount: '10000000000000000000000'
+});
+
+// Type-safe event handler
+sdk.events.on('reward', (event: RewardEvent) => {
+  console.log(event.amount, event.positionId);
+});`,
+
+  react: `// React Hook Integration
+import { useStaking, useRewards } from '@tburn/staking-sdk/react';
+
+function StakingDashboard() {
+  const { pools, positions, isLoading } = useStaking();
+  const { pendingRewards, claim } = useRewards();
+
+  const handleClaim = async () => {
+    const tx = await claim({ all: true });
+    console.log('Claimed:', tx.hash);
+  };
+
+  if (isLoading) return <Loading />;
+
+  return (
+    <div>
+      <h2>Your Positions</h2>
+      {positions.map(pos => (
+        <div key={pos.id}>
+          {pos.amount} TBURN @ {pos.apy}% APY
+        </div>
+      ))}
+      <button onClick={handleClaim}>
+        Claim {pendingRewards} TBURN
+      </button>
+    </div>
+  );
+}`,
+
+  nodejs: `// Node.js Backend Integration
+const { TBurnStakingSDK } = require('@tburn/staking-sdk');
+
+const sdk = new TBurnStakingSDK({
+  network: 'mainnet',
+  apiKey: process.env.TBURN_API_KEY,
+  rpcUrl: process.env.TBURN_RPC_URL,
+});
+
+// Backend service
+async function processStakingRewards() {
+  const allPositions = await sdk.staking.getAllPositions();
+  
+  for (const position of allPositions) {
+    const rewards = await sdk.staking.getPendingRewards(position.address);
+    
+    if (BigInt(rewards.totalPending) > BigInt('1000000000000000000000')) {
+      await notifyUser(position.address, rewards);
+    }
+  }
+}
+
+// Express endpoint
+app.post('/api/stake', async (req, res) => {
+  const { poolId, amount, signature } = req.body;
+  
+  // Verify signature and process
+  const result = await sdk.staking.stake({
+    poolId,
+    amount,
+    signature
+  });
+  
+  res.json(result);
+});`
 };
 
 const apiEndpoints = [
@@ -206,67 +373,118 @@ const apiEndpoints = [
     method: "GET",
     endpoint: "/api/staking/pools",
     descriptionKey: "apiGetAllPools",
-    params: "?type=public|private&tier=bronze|silver|gold|platinum|diamond"
+    params: "?type=public|private&tier=bronze|silver|gold|platinum|diamond",
+    category: "pools"
   },
   {
     method: "GET",
     endpoint: "/api/staking/pools/:id",
     descriptionKey: "apiGetPoolById",
-    params: ""
+    params: "",
+    category: "pools"
   },
   {
     method: "GET",
     endpoint: "/api/staking/positions",
     descriptionKey: "apiGetPositions",
-    params: "?address=0x...&poolId=..."
+    params: "?address=0x...&poolId=...",
+    category: "positions"
   },
   {
     method: "GET",
     endpoint: "/api/staking/delegations",
     descriptionKey: "apiGetDelegations",
-    params: "?address=0x...&validatorId=..."
+    params: "?address=0x...&validatorId=...",
+    category: "delegation"
   },
   {
     method: "GET",
     endpoint: "/api/staking/unbonding",
     descriptionKey: "apiGetUnbonding",
-    params: "?address=0x..."
+    params: "?address=0x...",
+    category: "positions"
   },
   {
     method: "GET",
     endpoint: "/api/staking/rewards/current",
     descriptionKey: "apiGetRewardsCurrent",
-    params: ""
+    params: "",
+    category: "rewards"
   },
   {
     method: "GET",
     endpoint: "/api/staking/rewards/cycles",
     descriptionKey: "apiGetRewardsCycles",
-    params: "?limit=50"
+    params: "?limit=50",
+    category: "rewards"
   },
   {
     method: "GET",
     endpoint: "/api/staking/rewards/events",
     descriptionKey: "apiGetRewardsEvents",
-    params: "?address=0x...&cycleId=...&limit=100"
+    params: "?address=0x...&cycleId=...&limit=100",
+    category: "rewards"
   },
   {
     method: "GET",
     endpoint: "/api/staking/slashing",
     descriptionKey: "apiGetSlashing",
-    params: "?validatorId=...&limit=50"
+    params: "?validatorId=...&limit=50",
+    category: "validators"
   },
   {
     method: "GET",
     endpoint: "/api/staking/tiers",
     descriptionKey: "apiGetTiers",
-    params: ""
+    params: "",
+    category: "pools"
   },
   {
     method: "GET",
     endpoint: "/api/staking/stats",
     descriptionKey: "apiGetStats",
-    params: ""
+    params: "",
+    category: "stats"
+  },
+  {
+    method: "POST",
+    endpoint: "/api/staking/stake",
+    descriptionKey: "apiPostStake",
+    params: "",
+    category: "staking",
+    body: '{ "poolId": "string", "amount": "string", "autoCompound": boolean }'
+  },
+  {
+    method: "POST",
+    endpoint: "/api/staking/unstake",
+    descriptionKey: "apiPostUnstake",
+    params: "",
+    category: "staking",
+    body: '{ "positionId": "string", "amount": "string" }'
+  },
+  {
+    method: "POST",
+    endpoint: "/api/staking/claim",
+    descriptionKey: "apiPostClaim",
+    params: "",
+    category: "rewards",
+    body: '{ "positionIds": ["string"] }'
+  },
+  {
+    method: "POST",
+    endpoint: "/api/delegation/delegate",
+    descriptionKey: "apiPostDelegate",
+    params: "",
+    category: "delegation",
+    body: '{ "validatorAddress": "string", "amount": "string" }'
+  },
+  {
+    method: "POST",
+    endpoint: "/api/delegation/redelegate",
+    descriptionKey: "apiPostRedelegate",
+    params: "",
+    category: "delegation",
+    body: '{ "fromValidator": "string", "toValidator": "string", "amount": "string" }'
   }
 ];
 
@@ -283,6 +501,657 @@ const playgroundEndpoints = [
   { value: "/api/transactions", label: "GET /api/transactions", method: "GET" },
 ];
 
+const quickStartSteps = [
+  {
+    id: 1,
+    icon: Download,
+    titleKey: "quickStartStep1Title",
+    descKey: "quickStartStep1Desc",
+    code: "npm install @tburn/staking-sdk"
+  },
+  {
+    id: 2,
+    icon: Settings,
+    titleKey: "quickStartStep2Title",
+    descKey: "quickStartStep2Desc",
+    code: `import { TBurnStakingSDK } from '@tburn/staking-sdk';
+
+const sdk = new TBurnStakingSDK({
+  network: 'mainnet',
+  apiKey: 'YOUR_API_KEY'
+});`
+  },
+  {
+    id: 3,
+    icon: Wallet,
+    titleKey: "quickStartStep3Title",
+    descKey: "quickStartStep3Desc",
+    code: `// Browser
+await sdk.connect();
+
+// Node.js
+sdk.setPrivateKey(process.env.PRIVATE_KEY);`
+  },
+  {
+    id: 4,
+    icon: Coins,
+    titleKey: "quickStartStep4Title",
+    descKey: "quickStartStep4Desc",
+    code: `const pools = await sdk.staking.getPools();
+const result = await sdk.staking.stake({
+  poolId: 'pool-gold-001',
+  amount: '10000000000000000000000'
+});`
+  }
+];
+
+const codeCategories = [
+  { id: "basic", labelKey: "codeBasic", icon: Zap },
+  { id: "staking", labelKey: "codeStaking", icon: Coins },
+  { id: "rewards", labelKey: "codeRewards", icon: Award },
+  { id: "advanced", labelKey: "codeAdvanced", icon: Cpu },
+  { id: "integration", labelKey: "codeIntegration", icon: Layers }
+];
+
+const codeCategoryExamples: Record<string, { key: string; titleKey: string; descKey: string }[]> = {
+  basic: [
+    { key: "install", titleKey: "exInstall", descKey: "exInstallDesc" },
+    { key: "initialize", titleKey: "exInitialize", descKey: "exInitializeDesc" }
+  ],
+  staking: [
+    { key: "getPools", titleKey: "exGetPools", descKey: "exGetPoolsDesc" },
+    { key: "stake", titleKey: "exStake", descKey: "exStakeDesc" },
+    { key: "unstake", titleKey: "exUnstake", descKey: "exUnstakeDesc" }
+  ],
+  rewards: [
+    { key: "rewards", titleKey: "exRewards", descKey: "exRewardsDesc" },
+    { key: "delegation", titleKey: "exDelegation", descKey: "exDelegationDesc" }
+  ],
+  advanced: [
+    { key: "events", titleKey: "exEvents", descKey: "exEventsDesc" },
+    { key: "utils", titleKey: "exUtils", descKey: "exUtilsDesc" },
+    { key: "errorHandling", titleKey: "exErrorHandling", descKey: "exErrorHandlingDesc" },
+    { key: "typescript", titleKey: "exTypescript", descKey: "exTypescriptDesc" }
+  ],
+  integration: [
+    { key: "react", titleKey: "exReact", descKey: "exReactDesc" },
+    { key: "nodejs", titleKey: "exNodejs", descKey: "exNodejsDesc" }
+  ]
+};
+
+const faqItems = [
+  { questionKey: "faq1Question", answerKey: "faq1Answer" },
+  { questionKey: "faq2Question", answerKey: "faq2Answer" },
+  { questionKey: "faq3Question", answerKey: "faq3Answer" },
+  { questionKey: "faq4Question", answerKey: "faq4Answer" },
+  { questionKey: "faq5Question", answerKey: "faq5Answer" },
+  { questionKey: "faq6Question", answerKey: "faq6Answer" }
+];
+
+const supportChannels = [
+  { id: "discord", icon: MessageCircle, labelKey: "discord", descKey: "discordDesc", url: "https://discord.gg/tburn" },
+  { id: "telegram", icon: Send, labelKey: "telegram", descKey: "telegramDesc", url: "https://t.me/tburnnetwork" },
+  { id: "github", icon: Github, labelKey: "githubIssues", descKey: "githubIssuesDesc", url: "https://github.com/tburn-network/staking-sdk/issues" },
+  { id: "email", icon: Mail, labelKey: "emailSupport", descKey: "emailSupportDesc", url: "mailto:sdk-support@tburn.network" }
+];
+
+function QuickStartDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [activeStep, setActiveStep] = useState(0);
+  const [copiedStep, setCopiedStep] = useState<number | null>(null);
+
+  const copyCode = (code: string, stepId: number) => {
+    navigator.clipboard.writeText(code);
+    setCopiedStep(stepId);
+    toast({ title: t('stakingSdk.copied'), description: t('stakingSdk.codeCopied') });
+    setTimeout(() => setCopiedStep(null), 2000);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <Rocket className="h-5 w-5 text-primary" />
+            {t('stakingSdk.quickStartGuide')}
+          </DialogTitle>
+          <DialogDescription>
+            {t('stakingSdk.quickStartGuideDesc')}
+          </DialogDescription>
+        </DialogHeader>
+        
+        <div className="flex gap-4 mt-4">
+          <div className="w-48 space-y-2">
+            {quickStartSteps.map((step, index) => (
+              <button
+                key={step.id}
+                onClick={() => setActiveStep(index)}
+                className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-colors ${
+                  activeStep === index
+                    ? 'bg-primary text-primary-foreground'
+                    : 'hover-elevate'
+                }`}
+                data-testid={`button-step-${step.id}`}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                  activeStep === index ? 'bg-primary-foreground/20' : 'bg-muted'
+                }`}>
+                  {index < activeStep ? <Check className="h-4 w-4" /> : step.id}
+                </div>
+                <span className="text-sm font-medium truncate">
+                  {t(`stakingSdk.${step.titleKey}`)}
+                </span>
+              </button>
+            ))}
+          </div>
+          
+          <Separator orientation="vertical" />
+          
+          <ScrollArea className="flex-1 h-[50vh]">
+            <div className="pr-4 space-y-4">
+              {quickStartSteps.map((step, index) => {
+                const StepIcon = step.icon;
+                if (index !== activeStep) return null;
+                
+                return (
+                  <div key={step.id} className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <StepIcon className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold">{t(`stakingSdk.${step.titleKey}`)}</h3>
+                        <p className="text-sm text-muted-foreground">{t(`stakingSdk.${step.descKey}`)}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="relative">
+                      <pre className="p-4 rounded-lg bg-muted overflow-x-auto">
+                        <code className="text-sm font-mono">{step.code}</code>
+                      </pre>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="absolute top-2 right-2"
+                        onClick={() => copyCode(step.code, step.id)}
+                        data-testid={`button-copy-step-${step.id}`}
+                      >
+                        {copiedStep === step.id ? (
+                          <CheckCircle className="h-4 w-4 text-green-500" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </div>
+                    
+                    <div className="flex justify-between pt-4">
+                      <Button
+                        variant="outline"
+                        onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
+                        disabled={activeStep === 0}
+                        data-testid="button-prev-step"
+                      >
+                        {t('stakingSdk.previousStep')}
+                      </Button>
+                      {activeStep < quickStartSteps.length - 1 ? (
+                        <Button
+                          onClick={() => setActiveStep(activeStep + 1)}
+                          data-testid="button-next-step"
+                        >
+                          {t('stakingSdk.nextStep')}
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      ) : (
+                        <Button onClick={() => onOpenChange(false)} data-testid="button-finish">
+                          <Check className="h-4 w-4 mr-2" />
+                          {t('stakingSdk.finish')}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </ScrollArea>
+        </div>
+        
+        <div className="mt-4 pt-4 border-t">
+          <Progress value={(activeStep + 1) / quickStartSteps.length * 100} className="h-2" />
+          <p className="text-sm text-muted-foreground text-center mt-2">
+            {t('stakingSdk.stepProgress', { current: activeStep + 1, total: quickStartSteps.length })}
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function ApiReferenceDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const categories = ["all", "pools", "positions", "rewards", "delegation", "validators", "staking", "stats"];
+
+  const filteredEndpoints = apiEndpoints.filter(ep => {
+    const matchesCategory = selectedCategory === "all" || ep.category === selectedCategory;
+    const matchesSearch = ep.endpoint.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t(`stakingSdk.${ep.descriptionKey}`).toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const copyEndpoint = (endpoint: string) => {
+    navigator.clipboard.writeText(`${window.location.origin}${endpoint}`);
+    toast({ title: t('stakingSdk.copied'), description: t('stakingSdk.endpointCopied') });
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-5xl max-h-[85vh] overflow-hidden flex flex-col">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <Book className="h-5 w-5 text-primary" />
+            {t('stakingSdk.apiReferenceTitle')}
+          </DialogTitle>
+          <DialogDescription>
+            {t('stakingSdk.apiReferenceDesc')}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex gap-3 mt-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder={t('stakingSdk.searchEndpoints')}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+              data-testid="input-search-endpoints"
+            />
+          </div>
+          <select
+            className="px-3 py-2 rounded-md border bg-background"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            data-testid="select-api-category"
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat}>
+                {cat === "all" ? t('stakingSdk.allEndpoints') : t(`stakingSdk.category${cat.charAt(0).toUpperCase() + cat.slice(1)}`)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <ScrollArea className="flex-1 mt-4">
+          <div className="space-y-3 pr-4">
+            {filteredEndpoints.map((ep, i) => (
+              <div
+                key={i}
+                className="p-4 rounded-lg border hover-elevate cursor-pointer"
+                onClick={() => copyEndpoint(ep.endpoint)}
+                data-testid={`card-endpoint-${i}`}
+              >
+                <div className="flex items-start gap-3">
+                  <Badge
+                    variant={ep.method === "GET" ? "default" : ep.method === "POST" ? "secondary" : "outline"}
+                    className="font-mono mt-0.5"
+                  >
+                    {ep.method}
+                  </Badge>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <code className="text-sm font-mono font-semibold">{ep.endpoint}</code>
+                      {ep.params && (
+                        <code className="text-xs text-muted-foreground">{ep.params}</code>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {t(`stakingSdk.${ep.descriptionKey}`)}
+                    </p>
+                    {(ep as any).body && (
+                      <div className="mt-2">
+                        <span className="text-xs text-muted-foreground">Body:</span>
+                        <code className="text-xs font-mono ml-2 text-primary">{(ep as any).body}</code>
+                      </div>
+                    )}
+                  </div>
+                  <Button variant="ghost" size="icon">
+                    <Copy className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+
+        <DialogFooter className="mt-4 pt-4 border-t">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <AlertCircle className="h-4 w-4" />
+            {t('stakingSdk.endpointsCount', { count: filteredEndpoints.length })}
+          </div>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            {t('common.close')}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function CodeExamplesDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [selectedCategory, setSelectedCategory] = useState("basic");
+  const [selectedExample, setSelectedExample] = useState<string | null>("install");
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const copyCode = (key: string) => {
+    const code = codeExamples[key as keyof typeof codeExamples];
+    if (code) {
+      navigator.clipboard.writeText(code);
+      setCopiedCode(key);
+      toast({ title: t('stakingSdk.copied'), description: t('stakingSdk.codeCopied') });
+      setTimeout(() => setCopiedCode(null), 2000);
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-6xl max-h-[85vh] overflow-hidden flex flex-col">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <Code2 className="h-5 w-5 text-primary" />
+            {t('stakingSdk.codeExamplesTitle')}
+          </DialogTitle>
+          <DialogDescription>
+            {t('stakingSdk.codeExamplesDialogDesc')}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex gap-4 mt-4 flex-1 overflow-hidden">
+          <div className="w-64 space-y-4">
+            <div className="space-y-1">
+              {codeCategories.map((cat) => {
+                const CatIcon = cat.icon;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => {
+                      setSelectedCategory(cat.id);
+                      setSelectedExample(codeCategoryExamples[cat.id]?.[0]?.key || null);
+                    }}
+                    className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-colors ${
+                      selectedCategory === cat.id
+                        ? 'bg-primary text-primary-foreground'
+                        : 'hover-elevate'
+                    }`}
+                    data-testid={`button-category-${cat.id}`}
+                  >
+                    <CatIcon className="h-4 w-4" />
+                    <span className="text-sm font-medium">{t(`stakingSdk.${cat.labelKey}`)}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <Separator />
+
+            <div className="space-y-1">
+              {codeCategoryExamples[selectedCategory]?.map((ex) => (
+                <button
+                  key={ex.key}
+                  onClick={() => setSelectedExample(ex.key)}
+                  className={`w-full flex items-center gap-2 p-2 rounded-md text-left text-sm ${
+                    selectedExample === ex.key
+                      ? 'bg-muted font-medium'
+                      : 'hover-elevate'
+                  }`}
+                  data-testid={`button-example-${ex.key}`}
+                >
+                  <ChevronRight className={`h-3 w-3 transition-transform ${selectedExample === ex.key ? 'rotate-90' : ''}`} />
+                  {t(`stakingSdk.${ex.titleKey}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <Separator orientation="vertical" />
+
+          <ScrollArea className="flex-1">
+            <div className="pr-4 space-y-4">
+              {selectedExample && codeCategoryExamples[selectedCategory]?.find(ex => ex.key === selectedExample) && (
+                <>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        {t(`stakingSdk.${codeCategoryExamples[selectedCategory].find(ex => ex.key === selectedExample)?.titleKey}`)}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {t(`stakingSdk.${codeCategoryExamples[selectedCategory].find(ex => ex.key === selectedExample)?.descKey}`)}
+                      </p>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copyCode(selectedExample)}
+                      data-testid={`button-copy-${selectedExample}`}
+                    >
+                      {copiedCode === selectedExample ? (
+                        <>
+                          <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
+                          {t('stakingSdk.copied')}
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-4 w-4 mr-2" />
+                          {t('stakingSdk.copyCode')}
+                        </>
+                      )}
+                    </Button>
+                  </div>
+
+                  <pre className="p-4 rounded-lg bg-muted overflow-x-auto">
+                    <code className="text-sm font-mono">
+                      {codeExamples[selectedExample as keyof typeof codeExamples]}
+                    </code>
+                  </pre>
+                </>
+              )}
+            </div>
+          </ScrollArea>
+        </div>
+
+        <DialogFooter className="mt-4 pt-4 border-t">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            {t('common.close')}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function SupportDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState("channels");
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <Headphones className="h-5 w-5 text-primary" />
+            {t('stakingSdk.supportCenter')}
+          </DialogTitle>
+          <DialogDescription>
+            {t('stakingSdk.supportCenterDesc')}
+          </DialogDescription>
+        </DialogHeader>
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-4 flex-1 flex flex-col overflow-hidden">
+          <TabsList className="w-full justify-start">
+            <TabsTrigger value="channels" data-testid="tab-channels">
+              <MessageCircle className="h-4 w-4 mr-2" />
+              {t('stakingSdk.supportChannels')}
+            </TabsTrigger>
+            <TabsTrigger value="faq" data-testid="tab-faq">
+              <HelpCircle className="h-4 w-4 mr-2" />
+              {t('stakingSdk.faq')}
+            </TabsTrigger>
+            <TabsTrigger value="resources" data-testid="tab-resources">
+              <BookOpen className="h-4 w-4 mr-2" />
+              {t('stakingSdk.resources')}
+            </TabsTrigger>
+          </TabsList>
+
+          <ScrollArea className="flex-1 mt-4">
+            <TabsContent value="channels" className="mt-0 space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                {supportChannels.map((channel) => {
+                  const ChannelIcon = channel.icon;
+                  return (
+                    <Card
+                      key={channel.id}
+                      className="hover-elevate cursor-pointer"
+                      onClick={() => window.open(channel.url, '_blank')}
+                      data-testid={`card-channel-${channel.id}`}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                            <ChannelIcon className="h-6 w-6 text-primary" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold">{t(`stakingSdk.${channel.labelKey}`)}</h4>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {t(`stakingSdk.${channel.descKey}`)}
+                            </p>
+                          </div>
+                          <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    {t('stakingSdk.responseTime')}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
+                      <div className="flex items-center gap-2 text-green-600">
+                        <Zap className="h-4 w-4" />
+                        <span className="font-medium">{t('stakingSdk.discordResponse')}</span>
+                      </div>
+                      <p className="text-2xl font-bold mt-1">&lt; 1h</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                      <div className="flex items-center gap-2 text-blue-600">
+                        <MessageSquare className="h-4 w-4" />
+                        <span className="font-medium">{t('stakingSdk.emailResponse')}</span>
+                      </div>
+                      <p className="text-2xl font-bold mt-1">24h</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                      <div className="flex items-center gap-2 text-purple-600">
+                        <Bug className="h-4 w-4" />
+                        <span className="font-medium">{t('stakingSdk.githubResponse')}</span>
+                      </div>
+                      <p className="text-2xl font-bold mt-1">48h</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="faq" className="mt-0">
+              <Accordion type="single" collapsible className="w-full">
+                {faqItems.map((item, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} data-testid={`accordion-faq-${index}`}>
+                    <AccordionTrigger className="text-left">
+                      {t(`stakingSdk.${item.questionKey}`)}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {t(`stakingSdk.${item.answerKey}`)}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </TabsContent>
+
+            <TabsContent value="resources" className="mt-0 space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <Card className="hover-elevate cursor-pointer" onClick={() => window.open('https://docs.tburn.network/sdk', '_blank')}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                      <FileText className="h-6 w-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">{t('stakingSdk.documentation')}</h4>
+                      <p className="text-sm text-muted-foreground">{t('stakingSdk.documentationDesc')}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="hover-elevate cursor-pointer" onClick={() => window.open('https://youtube.com/tburnnetwork', '_blank')}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+                      <Video className="h-6 w-6 text-red-500" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">{t('stakingSdk.videoTutorials')}</h4>
+                      <p className="text-sm text-muted-foreground">{t('stakingSdk.videoTutorialsDesc')}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="hover-elevate cursor-pointer" onClick={() => window.open('https://github.com/tburn-network/staking-sdk/tree/main/examples', '_blank')}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gray-500/10 flex items-center justify-center">
+                      <Github className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">{t('stakingSdk.sampleProjects')}</h4>
+                      <p className="text-sm text-muted-foreground">{t('stakingSdk.sampleProjectsDesc')}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="hover-elevate cursor-pointer" onClick={() => window.open('https://blog.tburn.network/category/sdk', '_blank')}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center">
+                      <Lightbulb className="h-6 w-6 text-orange-500" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">{t('stakingSdk.blogArticles')}</h4>
+                      <p className="text-sm text-muted-foreground">{t('stakingSdk.blogArticlesDesc')}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </ScrollArea>
+        </Tabs>
+
+        <DialogFooter className="mt-4 pt-4 border-t">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            {t('common.close')}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function StakingSDK() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -293,6 +1162,11 @@ export default function StakingSDK() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [responseTime, setResponseTime] = useState<number | null>(null);
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
+
+  const [quickStartOpen, setQuickStartOpen] = useState(false);
+  const [apiReferenceOpen, setApiReferenceOpen] = useState(false);
+  const [codeExamplesOpen, setCodeExamplesOpen] = useState(false);
+  const [supportOpen, setSupportOpen] = useState(false);
 
   const copyCode = (code: string, key: string) => {
     navigator.clipboard.writeText(code);
@@ -424,14 +1298,14 @@ export default function StakingSDK() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-sdk-title">{t('stakingSdk.title')}</h1>
           <p className="text-muted-foreground mt-1">
             {t('stakingSdk.subtitle')}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <Badge variant="outline" className="flex items-center gap-1">
             <Package className="h-3 w-3" />
             {t('stakingSdk.version')}
@@ -458,51 +1332,83 @@ export default function StakingSDK() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card data-testid="card-quick-start">
+        <Card 
+          className="hover-elevate cursor-pointer transition-all"
+          onClick={() => setQuickStartOpen(true)}
+          data-testid="card-quick-start"
+        >
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t('stakingSdk.quickStart')}</CardTitle>
-            <Rocket className="h-4 w-4 text-muted-foreground" />
+            <Rocket className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
               {t('stakingSdk.quickStartDesc')}
             </p>
+            <div className="flex items-center gap-1 mt-3 text-primary text-sm font-medium">
+              {t('stakingSdk.viewDetails')}
+              <ArrowRight className="h-3 w-3" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card data-testid="card-api-docs">
+        <Card 
+          className="hover-elevate cursor-pointer transition-all"
+          onClick={() => setApiReferenceOpen(true)}
+          data-testid="card-api-docs"
+        >
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t('stakingSdk.apiReference')}</CardTitle>
-            <Book className="h-4 w-4 text-muted-foreground" />
+            <Book className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
               {t('stakingSdk.apiReferenceDesc')}
             </p>
+            <div className="flex items-center gap-1 mt-3 text-primary text-sm font-medium">
+              {t('stakingSdk.viewDetails')}
+              <ArrowRight className="h-3 w-3" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card data-testid="card-examples">
+        <Card 
+          className="hover-elevate cursor-pointer transition-all"
+          onClick={() => setCodeExamplesOpen(true)}
+          data-testid="card-examples"
+        >
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t('stakingSdk.codeExamples')}</CardTitle>
-            <Code2 className="h-4 w-4 text-muted-foreground" />
+            <Code2 className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
               {t('stakingSdk.codeExamplesDesc')}
             </p>
+            <div className="flex items-center gap-1 mt-3 text-primary text-sm font-medium">
+              {t('stakingSdk.viewDetails')}
+              <ArrowRight className="h-3 w-3" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card data-testid="card-support">
+        <Card 
+          className="hover-elevate cursor-pointer transition-all"
+          onClick={() => setSupportOpen(true)}
+          data-testid="card-support"
+        >
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t('stakingSdk.support')}</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
+            <Headphones className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
               {t('stakingSdk.supportDesc')}
             </p>
+            <div className="flex items-center gap-1 mt-3 text-primary text-sm font-medium">
+              {t('stakingSdk.viewDetails')}
+              <ArrowRight className="h-3 w-3" />
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -526,6 +1432,7 @@ export default function StakingSDK() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => copyCode(codeExamples.install, "install")}
+                  data-testid="button-copy-install"
                 >
                   {copiedCode === "install" ? (
                     <CheckCircle className="h-4 w-4" />
@@ -553,6 +1460,7 @@ export default function StakingSDK() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => copyCode(codeExamples.initialize, "initialize")}
+                  data-testid="button-copy-init"
                 >
                   {copiedCode === "initialize" ? (
                     <CheckCircle className="h-4 w-4" />
@@ -581,6 +1489,7 @@ export default function StakingSDK() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => copyCode(codeExamples.getPools, "getPools")}
+                    data-testid="button-copy-pools"
                   >
                     {copiedCode === "getPools" ? (
                       <CheckCircle className="h-4 w-4" />
@@ -610,6 +1519,7 @@ export default function StakingSDK() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => copyCode(codeExamples.stake, "stake")}
+                    data-testid="button-copy-stake"
                   >
                     {copiedCode === "stake" ? (
                       <CheckCircle className="h-4 w-4" />
@@ -639,6 +1549,7 @@ export default function StakingSDK() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => copyCode(codeExamples.unstake, "unstake")}
+                    data-testid="button-copy-unstake"
                   >
                     {copiedCode === "unstake" ? (
                       <CheckCircle className="h-4 w-4" />
@@ -668,6 +1579,7 @@ export default function StakingSDK() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => copyCode(codeExamples.rewards, "rewards")}
+                    data-testid="button-copy-rewards"
                   >
                     {copiedCode === "rewards" ? (
                       <CheckCircle className="h-4 w-4" />
@@ -698,6 +1610,7 @@ export default function StakingSDK() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => copyCode(codeExamples.delegation, "delegation")}
+                  data-testid="button-copy-delegation"
                 >
                   {copiedCode === "delegation" ? (
                     <CheckCircle className="h-4 w-4" />
@@ -726,6 +1639,7 @@ export default function StakingSDK() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => copyCode(codeExamples.events, "events")}
+                    data-testid="button-copy-events"
                   >
                     {copiedCode === "events" ? (
                       <CheckCircle className="h-4 w-4" />
@@ -755,6 +1669,7 @@ export default function StakingSDK() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => copyCode(codeExamples.utils, "utils")}
+                    data-testid="button-copy-utils"
                   >
                     {copiedCode === "utils" ? (
                       <CheckCircle className="h-4 w-4" />
@@ -789,7 +1704,7 @@ export default function StakingSDK() {
             <CardContent>
               <ScrollArea className="h-96">
                 <div className="space-y-2">
-                  {apiEndpoints.map((endpoint, i) => (
+                  {apiEndpoints.slice(0, 11).map((endpoint, i) => (
                     <div key={i} className="flex items-start gap-3 p-3 rounded-md border">
                       <Badge 
                         variant={endpoint.method === "GET" ? "default" : "secondary"}
@@ -808,6 +1723,7 @@ export default function StakingSDK() {
                         variant="ghost" 
                         size="sm"
                         onClick={() => handleCopyEndpoint(endpoint.endpoint, endpoint.params)}
+                        data-testid={`button-copy-endpoint-${i}`}
                       >
                         <Copy className="h-4 w-4" />
                       </Button>
@@ -832,7 +1748,7 @@ export default function StakingSDK() {
               <pre className="p-4 rounded-lg bg-muted overflow-x-auto">
                 <code className="text-sm font-mono">{`Authorization: Bearer YOUR_API_KEY`}</code>
               </pre>
-              <div className="mt-4 flex gap-2">
+              <div className="mt-4 flex gap-2 flex-wrap">
                 <Button variant="outline" data-testid="button-get-api-key" onClick={handleGetApiKey}>
                   <Key className="h-4 w-4 mr-2" />
                   {t('stakingSdk.getApiKey')}
@@ -891,12 +1807,12 @@ export default function StakingSDK() {
                   >
                     {isExecuting ? (
                       <>
-                        <Activity className="h-4 w-4 mr-2 animate-spin" />
+                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                         {t('stakingSdk.executing')}
                       </>
                     ) : (
                       <>
-                        <Rocket className="h-4 w-4 mr-2" />
+                        <Play className="h-4 w-4 mr-2" />
                         {t('stakingSdk.executeRequest')}
                       </>
                     )}
@@ -917,7 +1833,7 @@ export default function StakingSDK() {
                         </Badge>
                       )}
                       {response && (
-                        <Button variant="ghost" size="sm" onClick={handleCopyResponse}>
+                        <Button variant="ghost" size="sm" onClick={handleCopyResponse} data-testid="button-copy-response">
                           <Copy className="h-3 w-3" />
                         </Button>
                       )}
@@ -936,6 +1852,11 @@ export default function StakingSDK() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <QuickStartDialog open={quickStartOpen} onOpenChange={setQuickStartOpen} />
+      <ApiReferenceDialog open={apiReferenceOpen} onOpenChange={setApiReferenceOpen} />
+      <CodeExamplesDialog open={codeExamplesOpen} onOpenChange={setCodeExamplesOpen} />
+      <SupportDialog open={supportOpen} onOpenChange={setSupportOpen} />
     </div>
   );
 }
