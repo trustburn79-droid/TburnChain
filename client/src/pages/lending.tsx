@@ -302,6 +302,7 @@ export default function LendingPage() {
   const [liquidateDebtMarket, setLiquidateDebtMarket] = useState("");
   const [liquidateCollateralMarket, setLiquidateCollateralMarket] = useState("");
   const [liquidateAmount, setLiquidateAmount] = useState("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
   
   const [lendingStats, setLendingStats] = useState<LendingStats | null>(null);
   const [recentTransactions, setRecentTransactions] = useState<LendingTransaction[]>([]);
@@ -316,7 +317,7 @@ export default function LendingPage() {
     staleTime: 30000,
   });
 
-  const { data: stats, isLoading: statsLoading } = useQuery<{
+  const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<{
     totalMarkets: number;
     activeMarkets: number;
     totalSupplyUsd: string;
@@ -369,22 +370,31 @@ export default function LendingPage() {
 
   const supplyMutation = useMutation({
     mutationFn: async (data: { marketId: string; amount: string; useAsCollateral: boolean }) => {
-      return apiRequest('POST', '/api/lending/supply', {
+      const response = await apiRequest('POST', '/api/lending/supply', {
         userAddress: ENTERPRISE_WALLET,
         marketId: data.marketId,
         amount: data.amount,
         useAsCollateral: data.useAsCollateral,
       });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || t('lending.supplyFailedDesc'));
+      }
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: t('lending.supplySuccessful'),
-        description: t('lending.supplySuccessDesc'),
+        description: t('lending.supplySuccessDescAmount', { 
+          amount: formatWeiToToken(data?.supply?.suppliedAmount || '0'),
+          symbol: data?.supply?.assetSymbol || 'Token'
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
       closeDialog();
+      setAmount("");
     },
     onError: (error: Error) => {
       toast({
@@ -397,21 +407,30 @@ export default function LendingPage() {
 
   const withdrawMutation = useMutation({
     mutationFn: async (data: { marketId: string; shares: string }) => {
-      return apiRequest('POST', '/api/lending/withdraw', {
+      const response = await apiRequest('POST', '/api/lending/withdraw', {
         userAddress: ENTERPRISE_WALLET,
         marketId: data.marketId,
         amount: data.shares,
       });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || t('lending.withdrawFailedDesc'));
+      }
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: t('lending.withdrawSuccessful'),
-        description: t('lending.withdrawSuccessDesc'),
+        description: t('lending.withdrawSuccessDescAmount', {
+          amount: formatWeiToToken(data?.withdraw?.withdrawnAmount || '0'),
+          symbol: data?.withdraw?.assetSymbol || 'Token'
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
       closeDialog();
+      setAmount("");
     },
     onError: (error: Error) => {
       toast({
@@ -424,22 +443,32 @@ export default function LendingPage() {
 
   const borrowMutation = useMutation({
     mutationFn: async (data: { marketId: string; amount: string; rateMode: "variable" | "stable" }) => {
-      return apiRequest('POST', '/api/lending/borrow', {
+      const response = await apiRequest('POST', '/api/lending/borrow', {
         userAddress: ENTERPRISE_WALLET,
         marketId: data.marketId,
         amount: data.amount,
         rateMode: data.rateMode,
       });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || t('lending.borrowFailedDesc'));
+      }
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: t('lending.borrowSuccessful'),
-        description: t('lending.borrowSuccessDesc'),
+        description: t('lending.borrowSuccessDescAmount', {
+          amount: formatWeiToToken(data?.borrow?.borrowedAmount || '0'),
+          symbol: data?.borrow?.assetSymbol || 'Token',
+          mode: data?.borrow?.rateMode || 'variable'
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
       closeDialog();
+      setAmount("");
     },
     onError: (error: Error) => {
       toast({
@@ -452,21 +481,30 @@ export default function LendingPage() {
 
   const repayMutation = useMutation({
     mutationFn: async (data: { marketId: string; amount: string }) => {
-      return apiRequest('POST', '/api/lending/repay', {
+      const response = await apiRequest('POST', '/api/lending/repay', {
         userAddress: ENTERPRISE_WALLET,
         marketId: data.marketId,
         amount: data.amount,
       });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || t('lending.repayFailedDesc'));
+      }
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: t('lending.repaySuccessful'),
-        description: t('lending.repaySuccessDesc'),
+        description: t('lending.repaySuccessDescAmount', {
+          amount: formatWeiToToken(data?.repay?.repaidAmount || '0'),
+          symbol: data?.repay?.assetSymbol || 'Token'
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/stats'] });
       closeDialog();
+      setAmount("");
     },
     onError: (error: Error) => {
       toast({
@@ -484,18 +522,28 @@ export default function LendingPage() {
       collateralMarketId: string;
       debtToCover: string;
     }) => {
-      return apiRequest('POST', '/api/lending/liquidate', {
+      const response = await apiRequest('POST', '/api/lending/liquidate', {
         liquidatorAddress: ENTERPRISE_WALLET,
         borrowerAddress: data.borrowerAddress,
         debtMarketId: data.debtMarketId,
         collateralMarketId: data.collateralMarketId,
         debtToCover: data.debtToCover,
       });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || t('lending.liquidationFailedDesc'));
+      }
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: t('lending.liquidationSuccessful'),
-        description: t('lending.liquidationSuccessDesc'),
+        description: t('lending.liquidationSuccessDescAmount', {
+          debtAmount: formatWeiToToken(data?.liquidation?.debtRepaid || '0'),
+          debtSymbol: data?.liquidation?.debtSymbol || 'Debt',
+          collateralAmount: formatWeiToToken(data?.liquidation?.collateralSeized || '0'),
+          collateralSymbol: data?.liquidation?.collateralSymbol || 'Collateral'
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/markets'] });
       queryClient.invalidateQueries({ queryKey: ['/api/lending/positions'] });
@@ -674,13 +722,32 @@ export default function LendingPage() {
             </Badge>
             <Button 
               variant="outline" 
-              onClick={() => {
-                refetchMarkets();
-                refetchPosition();
+              onClick={async () => {
+                setIsRefreshing(true);
+                try {
+                  await Promise.all([
+                    refetchMarkets(),
+                    refetchStats(),
+                    refetchPosition()
+                  ]);
+                  toast({
+                    title: t('lending.refreshSuccess'),
+                    description: t('lending.refreshSuccessDesc'),
+                  });
+                } catch (error) {
+                  toast({
+                    title: t('lending.refreshError'),
+                    description: t('lending.refreshErrorDesc'),
+                    variant: "destructive",
+                  });
+                } finally {
+                  setIsRefreshing(false);
+                }
               }}
+              disabled={isRefreshing}
               data-testid="button-refresh-markets"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
               {t('common.refresh')}
             </Button>
           </div>

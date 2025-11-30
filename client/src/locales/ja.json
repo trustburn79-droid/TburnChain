@@ -1662,7 +1662,16 @@
     "withdrawSymbol": "{{symbol}}を引き出し",
     "borrowSymbol": "{{symbol}}を借入",
     "repaySymbol": "{{symbol}}を返済",
-    "confirm": "確認"
+    "confirm": "確認",
+    "refreshSuccess": "データ更新完了",
+    "refreshSuccessDesc": "すべてのレンディングデータが更新されました。",
+    "refreshError": "更新失敗",
+    "refreshErrorDesc": "レンディングデータを更新できません。もう一度お試しください。",
+    "supplySuccessDescAmount": "{{amount}} {{symbol}}をレンディングプールに正常に供給しました。",
+    "withdrawSuccessDescAmount": "{{amount}} {{symbol}}をレンディングプールから正常に引き出しました。",
+    "borrowSuccessDescAmount": "{{mode}}レートで{{amount}} {{symbol}}を正常に借入しました。",
+    "repaySuccessDescAmount": "{{amount}} {{symbol}}の債務を正常に返済しました。",
+    "liquidationSuccessDescAmount": "{{debtAmount}} {{debtSymbol}}の債務を清算し、{{collateralAmount}} {{collateralSymbol}}の担保を獲得しました。"
   },
   "yieldFarming": {
     "title": "イールドファーミング",

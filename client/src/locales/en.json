@@ -1604,7 +1604,16 @@
     "withdrawSymbol": "Withdraw {{symbol}}",
     "borrowSymbol": "Borrow {{symbol}}",
     "repaySymbol": "Repay {{symbol}}",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "refreshSuccess": "Data Refreshed",
+    "refreshSuccessDesc": "All lending data has been updated.",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Unable to refresh lending data. Please try again.",
+    "supplySuccessDescAmount": "Successfully supplied {{amount}} {{symbol}} to the lending pool.",
+    "withdrawSuccessDescAmount": "Successfully withdrew {{amount}} {{symbol}} from the lending pool.",
+    "borrowSuccessDescAmount": "Successfully borrowed {{amount}} {{symbol}} at {{mode}} rate.",
+    "repaySuccessDescAmount": "Successfully repaid {{amount}} {{symbol}} debt.",
+    "liquidationSuccessDescAmount": "Liquidated {{debtAmount}} {{debtSymbol}} debt and seized {{collateralAmount}} {{collateralSymbol}} collateral."
   },
   "yieldFarming": {
     "title": "Yield Farming",

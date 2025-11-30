@@ -1649,7 +1649,16 @@
     "withdrawSymbol": "{{symbol}} 출금",
     "borrowSymbol": "{{symbol}} 대출",
     "repaySymbol": "{{symbol}} 상환",
-    "confirm": "확인"
+    "confirm": "확인",
+    "refreshSuccess": "데이터 새로고침 완료",
+    "refreshSuccessDesc": "모든 대출 데이터가 업데이트되었습니다.",
+    "refreshError": "새로고침 실패",
+    "refreshErrorDesc": "대출 데이터를 새로고침할 수 없습니다. 다시 시도해 주세요.",
+    "supplySuccessDescAmount": "{{amount}} {{symbol}}을(를) 대출 풀에 성공적으로 공급했습니다.",
+    "withdrawSuccessDescAmount": "{{amount}} {{symbol}}을(를) 대출 풀에서 성공적으로 출금했습니다.",
+    "borrowSuccessDescAmount": "{{mode}} 금리로 {{amount}} {{symbol}}을(를) 성공적으로 대출했습니다.",
+    "repaySuccessDescAmount": "{{amount}} {{symbol}} 부채를 성공적으로 상환했습니다.",
+    "liquidationSuccessDescAmount": "{{debtAmount}} {{debtSymbol}} 부채를 청산하고 {{collateralAmount}} {{collateralSymbol}} 담보를 획득했습니다."
   },
   "yieldFarming": {
     "title": "이자 농사",

@@ -1606,7 +1606,16 @@
     "withdrawSymbol": "提取 {{symbol}}",
     "borrowSymbol": "借入 {{symbol}}",
     "repaySymbol": "偿还 {{symbol}}",
-    "confirm": "确认"
+    "confirm": "确认",
+    "refreshSuccess": "数据已刷新",
+    "refreshSuccessDesc": "所有借贷数据已更新。",
+    "refreshError": "刷新失败",
+    "refreshErrorDesc": "无法刷新借贷数据。请重试。",
+    "supplySuccessDescAmount": "成功向借贷池供应 {{amount}} {{symbol}}。",
+    "withdrawSuccessDescAmount": "成功从借贷池提取 {{amount}} {{symbol}}。",
+    "borrowSuccessDescAmount": "成功以 {{mode}} 利率借入 {{amount}} {{symbol}}。",
+    "repaySuccessDescAmount": "成功偿还 {{amount}} {{symbol}} 债务。",
+    "liquidationSuccessDescAmount": "清算了 {{debtAmount}} {{debtSymbol}} 债务并获得 {{collateralAmount}} {{collateralSymbol}} 抵押品。"
   },
   "yieldFarming": {
     "title": "收益农场",
