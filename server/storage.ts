@@ -1146,7 +1146,7 @@ export class MemStorage implements IStorage {
         impact: "medium",
         category: "optimization",
         status: "executed",
-        metadata: { confidence: 94, details: "Adjusted base gas price to 15 Gwei based on network congestion analysis." },
+        metadata: { confidence: 94, details: "Adjusted base gas price to 15 EMB based on network congestion analysis." },
       },
     ];
 
@@ -1379,9 +1379,9 @@ export class MemStorage implements IStorage {
       const valueInEth = Math.floor(Math.random() * 100);
       const valueInWei = (BigInt(valueInEth) * BigInt(10 ** 18)).toString();
       
-      // Generate gas price in wei (9 decimals for Gwei)
-      const gasPriceInGwei = Math.floor(Math.random() * 50 + 10);
-      const gasPriceInWei = (BigInt(gasPriceInGwei) * BigInt(10 ** 9)).toString();
+      // Generate gas price in wei (12 decimals for EMB, since 1 TBURN = 1e18 wei = 1e6 EMB)
+      const gasPriceInEmb = Math.floor(Math.random() * 50 + 10);
+      const gasPriceInWei = (BigInt(gasPriceInEmb) * BigInt(10 ** 12)).toString();
       
       const tx: Transaction = {
         id: randomUUID(),

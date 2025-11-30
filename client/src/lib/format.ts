@@ -156,10 +156,14 @@ export function formatPercentage(value: number): string {
 export function formatGasPrice(gasPriceWei: string | number): string {
   try {
     const wei = BigInt(gasPriceWei.toString());
-    const gwei = Number(wei) / 1e9;
-    return `${gwei.toFixed(2)} Gwei`;
+    // Convert wei to EMB: wei / 1e12 (since 1e18 wei = 1 TBURN = 1e6 EMB)
+    const ember = Number(wei) / 1e12;
+    if (ember >= 1000) {
+      return `${(ember / 1000).toFixed(1)}K EMB`;
+    }
+    return `${ember.toFixed(ember < 1 ? 4 : 2)} EMB`;
   } catch {
-    return '0 Gwei';
+    return '0 EMB';
   }
 }
 

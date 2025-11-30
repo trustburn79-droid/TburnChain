@@ -61,5 +61,5 @@ VALUES
 
 INSERT INTO transactions (hash, block_number, from_addr, to_addr, value, gas_price, status, tx_type, timestamp)
 VALUES
-('0x7a8f...3d2e', 1234567, '0x7a8f...3d2e', '0x9b4c...8a1f', '100 BURN', '0.8 Gwei', 'Success', 'Transfer', strftime('%s', 'now') - 2),
-('0x2c5d...4b9a', 1234566, '0x2c5d...4b9a', 'Contract', '0.8 BURN', '1.0 Gwei', 'Success', 'Contract Call', strftime('%s', 'now') - 5);
+('0x7a8f...3d2e', 1234567, '0x7a8f...3d2e', '0x9b4c...8a1f', '100 BURN', '0.8 EMB', 'Success', 'Transfer', strftime('%s', 'now') - 2),
+('0x2c5d...4b9a', 1234566, '0x2c5d...4b9a', 'Contract', '0.8 BURN', '1.0 EMB', 'Success', 'Contract Call', strftime('%s', 'now') - 5);

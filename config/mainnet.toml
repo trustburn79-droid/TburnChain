@@ -64,7 +64,7 @@ evm_compatible = true
 solidity_version = "^0.8.20"
 max_contract_size_kb = 24
 gas_limit_per_block = 30000000
-base_gas_price_gwei = 0.8
+base_gas_price_emb = 0.8
 
 [smart_contracts.verification]
 enabled = true

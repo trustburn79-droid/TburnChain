@@ -140,7 +140,7 @@ interface YieldHarvest {
   distributedAmount: string;
   performanceFeeTaken: string;
   gasUsed: string;
-  gasPriceGwei: number;
+  gasPriceEmb: number;
   txHash: string;
   harvestingBot: string;
   strategyProfit: string;
@@ -1208,7 +1208,7 @@ export default function YieldFarming() {
                             </div>
                             <div>
                               <p className="text-muted-foreground">{t("yieldFarming.gasCost")}</p>
-                              <p className="font-medium">{harvest.gasPriceGwei} Gwei</p>
+                              <p className="font-medium">{harvest.gasPriceEmb} EMB</p>
                             </div>
                           </div>
                           
