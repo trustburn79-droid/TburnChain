@@ -137,6 +137,7 @@
     "badges": "ব্যাজ"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "ড্যাশবোর্ড",
     "subtitle": "রিয়েল-টাইম ব্লকচেইন নেটওয়ার্ক ওভারভিউ",
     "networkStats": "নেটওয়ার্ক পরিসংখ্যান",
@@ -1272,6 +1273,7 @@
     "generateReport": "রিপোর্ট জেনারেট করুন",
     "downloadReport": "রিপোর্ট ডাউনলোড করুন",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "অপারেটর পোর্টাল",
       "subtitle": "TBURN নেটওয়ার্ক ম্যানেজমেন্টের জন্য এন্টারপ্রাইজ ব্যাক-অফিস",
       "autoRefresh": "অটো",

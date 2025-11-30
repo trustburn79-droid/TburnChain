@@ -137,6 +137,7 @@
     "badges": "بیجز"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "ڈیش بورڈ",
     "subtitle": "ریئل ٹائم بلاک چین نیٹ ورک کا جائزہ",
     "networkStats": "نیٹ ورک اعدادوشمار",
@@ -990,6 +991,7 @@
     "generateReport": "رپورٹ بنائیں",
     "downloadReport": "رپورٹ ڈاؤن لوڈ کریں",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "آپریٹر پورٹل",
       "subtitle": "TBURN نیٹ ورک مینجمنٹ کے لیے انٹرپرائز بیک آفس",
       "autoRefresh": "خودکار",

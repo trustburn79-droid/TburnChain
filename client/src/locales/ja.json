@@ -144,6 +144,7 @@
     "badges": "バッジ"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "ダッシュボード",
     "subtitle": "リアルタイムブロックチェーンネットワーク概要",
     "explorerTitle": "TBURNエクスプローラー",
@@ -2700,6 +2701,7 @@
       "verificationFailed": "パスワードの検証に失敗しました。もう一度お試しください。"
     },
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "オペレーターポータル",
       "subtitle": "TBURNネットワーク管理のためのエンタープライズバックオフィス",
       "autoRefresh": "自動",

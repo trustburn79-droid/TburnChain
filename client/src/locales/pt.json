@@ -137,6 +137,7 @@
     "badges": "Distintivos"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "Painel",
     "subtitle": "Visão geral da rede blockchain em tempo real",
     "networkStats": "Estatísticas da Rede",
@@ -990,6 +991,7 @@
     "generateReport": "Gerar Relatório",
     "downloadReport": "Baixar Relatório",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "Portal do Operador",
       "subtitle": "Back-office empresarial para gerenciamento de rede TBURN",
       "autoRefresh": "Auto",

@@ -143,6 +143,7 @@
     "badges": "الشارات"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "لوحة التحكم",
     "subtitle": "نظرة عامة على شبكة البلوكتشين في الوقت الفعلي",
     "networkStats": "إحصائيات الشبكة",
@@ -2314,6 +2315,7 @@
     "generateReport": "إنشاء تقرير",
     "downloadReport": "تحميل التقرير",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "بوابة المشغل",
       "subtitle": "المكتب الخلفي للمؤسسات لإدارة شبكة TBURN",
       "autoRefresh": "تلقائي",

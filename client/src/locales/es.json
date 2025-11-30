@@ -144,6 +144,7 @@
     "badges": "Insignias"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "Panel de Control",
     "subtitle": "Vista general de la red blockchain en tiempo real",
     "explorerTitle": "Explorador TBURN",
@@ -3149,6 +3150,7 @@
     "generateReport": "Generar Informe",
     "downloadReport": "Descargar Informe",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "Portal del Operador",
       "subtitle": "Back-office empresarial para gestión de red TBURN",
       "autoRefresh": "Auto",

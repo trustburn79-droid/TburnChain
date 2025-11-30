@@ -146,6 +146,7 @@
     "badges": "徽章"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "仪表板",
     "subtitle": "实时区块链网络概览",
     "explorerTitle": "TBURN 浏览器",
@@ -2647,6 +2648,7 @@
     "generateReport": "生成报告",
     "downloadReport": "下载报告",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "运营门户",
       "subtitle": "TBURN 网络管理企业后台",
       "autoRefresh": "自动",

@@ -50,6 +50,8 @@ i18n
       ur: { translation: ur },
       ko: { translation: ko },
     },
+    supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
+    load: 'languageOnly',
     fallbackLng: 'en',
     debug: false,
     interpolation: {

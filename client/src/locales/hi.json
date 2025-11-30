@@ -144,6 +144,7 @@
     "badges": "बैज"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "डैशबोर्ड",
     "subtitle": "रियल-टाइम ब्लॉकचेन नेटवर्क अवलोकन",
     "explorerTitle": "TBURN एक्सप्लोरर",
@@ -2032,6 +2033,7 @@
     "generateReport": "रिपोर्ट जनरेट करें",
     "downloadReport": "रिपोर्ट डाउनलोड करें",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "ऑपरेटर पोर्टल",
       "subtitle": "TBURN नेटवर्क मैनेजमेंट के लिए एंटरप्राइज़ बैक-ऑफिस",
       "autoRefresh": "ऑटो",

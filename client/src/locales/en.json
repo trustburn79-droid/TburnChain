@@ -147,6 +147,7 @@
   "dashboard": {
     "title": "Dashboard",
     "subtitle": "Real-time blockchain network overview",
+    "technicalDetails": "Technical Details",
     "explorerTitle": "TBURN Explorer",
     "explorerSubtitle": "Real-time blockchain data and network statistics",
     "networkStats": "Network Statistics",

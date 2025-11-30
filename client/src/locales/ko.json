@@ -148,6 +148,7 @@
     "badges": "뱃지"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "대시보드",
     "subtitle": "실시간 블록체인 네트워크 개요",
     "explorerTitle": "TBURN 익스플로러",
@@ -3104,6 +3105,7 @@
     "generateReport": "보고서 생성",
     "downloadReport": "보고서 다운로드",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "운영자 포털",
       "subtitle": "TBURN 네트워크 관리를 위한 엔터프라이즈 백오피스",
       "autoRefresh": "자동",

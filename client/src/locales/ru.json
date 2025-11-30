@@ -137,6 +137,7 @@
     "badges": "Значки"
   },
   "dashboard": {
+    "technicalDetails": "Technical Details",
     "title": "Панель управления",
     "subtitle": "Обзор сети блокчейна в реальном времени",
     "networkStats": "Статистика сети",
@@ -990,6 +991,7 @@
     "generateReport": "Создать отчет",
     "downloadReport": "Скачать отчет",
     "dashboard": {
+    "technicalDetails": "Technical Details",
       "title": "Портал оператора",
       "subtitle": "Корпоративный бэк-офис для управления сетью TBURN",
       "autoRefresh": "Авто",
