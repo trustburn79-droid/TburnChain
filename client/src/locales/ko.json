@@ -1877,6 +1877,7 @@
     "newPost": "새 게시글",
     "createPost": "새 게시글 작성",
     "createPostDesc": "TBURN 커뮤니티와 생각을 공유하세요. 작성하신 글은 모든 회원에게 공개됩니다.",
+    "postTitleLabel": "Title",
     "postTitle": "게시글 제목",
     "selectCategory": "카테고리 선택",
     "postContent": "게시글 내용을 작성하세요...",

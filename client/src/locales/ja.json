@@ -4793,6 +4793,7 @@
     "newPost": "新規投稿",
     "createPost": "新規投稿を作成",
     "createPostDesc": "TBURNコミュニティであなたの考えを共有しましょう。投稿はすべてのメンバーに公開されます。",
+    "postTitleLabel": "Title",
     "postTitle": "投稿タイトル",
     "selectCategory": "カテゴリーを選択",
     "postContent": "投稿内容を入力...",

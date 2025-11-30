@@ -1829,6 +1829,7 @@
     "newPost": "New Post",
     "createPost": "Create New Post",
     "createPostDesc": "Share your thoughts with the TBURN community. Your post will be visible to all members.",
+    "postTitleLabel": "Title",
     "postTitle": "Post title",
     "selectCategory": "Select category",
     "postContent": "Write your post content...",

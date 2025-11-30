@@ -1269,6 +1269,7 @@
     "newPost": "منشور جديد",
     "createPost": "إنشاء منشور جديد",
     "createPostDesc": "شارك أفكارك مع مجتمع TBURN. سيكون منشورك مرئياً لجميع الأعضاء.",
+    "postTitleLabel": "Title",
     "postTitle": "عنوان المنشور",
     "selectCategory": "اختر الفئة",
     "postContent": "اكتب محتوى منشورك...",

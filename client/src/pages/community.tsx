@@ -1083,7 +1083,7 @@ export default function Community() {
                 </DialogHeader>
                 <div className="space-y-4 py-4">
                   <div className="space-y-2">
-                    <Label htmlFor="post-title">{t('community.title', 'Title')}</Label>
+                    <Label htmlFor="post-title">{t('community.postTitleLabel', 'Title')}</Label>
                     <Input 
                       id="post-title"
                       placeholder={t('community.postTitle', 'Post title')} 

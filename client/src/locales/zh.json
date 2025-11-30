@@ -4592,6 +4592,7 @@
     "newPost": "发新帖",
     "createPost": "创建新帖子",
     "createPostDesc": "与TBURN社区分享你的想法。你的帖子将对所有成员可见。",
+    "postTitleLabel": "Title",
     "postTitle": "帖子标题",
     "selectCategory": "选择分类",
     "postContent": "写下帖子内容...",

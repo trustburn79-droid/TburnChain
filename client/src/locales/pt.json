@@ -2297,6 +2297,7 @@
     "newPost": "Nova publicação",
     "createPost": "Criar nova publicação",
     "createPostDesc": "Compartilhe seus pensamentos com a comunidade TBURN. Sua publicação será visível para todos os membros.",
+    "postTitleLabel": "Title",
     "postTitle": "Título da publicação",
     "selectCategory": "Selecionar categoria",
     "postContent": "Escreva o conteúdo da sua publicação...",
