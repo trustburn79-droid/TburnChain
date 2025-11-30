@@ -2692,16 +2692,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/transactions", async (req, res) => {
     try {
-      const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
+      const page = req.query.page ? parseInt(req.query.page as string) : 1;
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 20;
+      const status = req.query.status as string | undefined;
+      const type = req.query.type as string | undefined;
+      const search = req.query.search as string | undefined;
+      
       if (isProductionMode()) {
         try {
           // Try to fetch from TBURN mainnet node
           const client = getTBurnClient();
-          const transactions = await client.getRecentTransactions(limit);
+          const transactions = await client.getRecentTransactions(500); // Fetch more for filtering
           
           // Check if we got valid data
           if (transactions && transactions.length > 0) {
-            res.json(transactions);
+            // Apply filters
+            let filtered = transactions;
+            if (status && status !== 'all') {
+              filtered = filtered.filter(tx => tx.status === status);
+            }
+            if (search) {
+              const searchLower = search.toLowerCase();
+              filtered = filtered.filter(tx => 
+                tx.hash.toLowerCase().includes(searchLower) ||
+                tx.from?.toLowerCase().includes(searchLower) ||
+                tx.to?.toLowerCase().includes(searchLower)
+              );
+            }
+            
+            const totalItems = filtered.length;
+            const totalPages = Math.ceil(totalItems / limit);
+            const offset = (page - 1) * limit;
+            const paginatedTxs = filtered.slice(offset, offset + limit);
+            
+            res.json({
+              transactions: paginatedTxs,
+              pagination: {
+                page,
+                limit,
+                totalPages,
+                totalItems,
+                hasNext: page < totalPages,
+                hasPrev: page > 1
+              }
+            });
           } else {
             // No data from mainnet, fall back to simulated
             throw new Error('No transactions returned from mainnet');
@@ -2709,13 +2743,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
         } catch (mainnetError: any) {
           // NO FALLBACK - Return error when mainnet API fails
           console.log(`[API] Mainnet API error (${mainnetError.statusCode || 'no data'}) for /api/transactions - NO FALLBACK TO SIMULATION`);
-          res.json([]); // Return empty array instead of simulated data
+          res.json({
+            transactions: [],
+            pagination: { page: 1, limit, totalPages: 1, totalItems: 0, hasNext: false, hasPrev: false }
+          });
         }
       } else {
-        // Fetch from local database (demo mode)
-        // PERFORMANCE FIX: Use getRecentTransactions with limit for demo mode too
-        const transactions = await storage.getRecentTransactions(limit);
-        res.json(transactions);
+        // Fetch from local database (demo mode) with pagination
+        const allTransactions = await storage.getRecentTransactions(1000); // Get more for pagination
+        
+        // Apply filters
+        let filtered = allTransactions;
+        if (status && status !== 'all') {
+          filtered = filtered.filter(tx => tx.status === status);
+        }
+        if (search) {
+          const searchLower = search.toLowerCase();
+          filtered = filtered.filter(tx => 
+            tx.hash.toLowerCase().includes(searchLower) ||
+            tx.from?.toLowerCase().includes(searchLower) ||
+            tx.to?.toLowerCase().includes(searchLower)
+          );
+        }
+        
+        const totalItems = filtered.length;
+        const totalPages = Math.ceil(totalItems / limit);
+        const offset = (page - 1) * limit;
+        const paginatedTxs = filtered.slice(offset, offset + limit);
+        
+        res.json({
+          transactions: paginatedTxs,
+          pagination: {
+            page,
+            limit,
+            totalPages,
+            totalItems,
+            hasNext: page < totalPages,
+            hasPrev: page > 1
+          }
+        });
       }
     } catch (error) {
       console.error("Error fetching transactions:", error);
