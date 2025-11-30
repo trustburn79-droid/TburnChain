@@ -268,14 +268,15 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {statsLoading ? (
           <>
-            <Skeleton className="h-32" />
-            <Skeleton className="h-32" />
-            <Skeleton className="h-32" />
-            <Skeleton className="h-32" />
+            <Skeleton key="stats-sk-1" className="h-32" />
+            <Skeleton key="stats-sk-2" className="h-32" />
+            <Skeleton key="stats-sk-3" className="h-32" />
+            <Skeleton key="stats-sk-4" className="h-32" />
           </>
         ) : (
           <>
             <StatCard
+              key="stat-tps"
               title={t("dashboard.currentTps")}
               value={formatNumber(networkStats?.tps || 0)}
               icon={Zap}
@@ -283,12 +284,14 @@ export default function Dashboard() {
               subtitle={`${t("dashboard.peak")}: ${formatNumber(networkStats?.peakTps || 0)} TPS`}
             />
             <StatCard
+              key="stat-height"
               title={t("dashboard.blockHeight")}
               value={formatNumber(networkStats?.currentBlockHeight || 0)}
               icon={Blocks}
               subtitle={t("dashboard.latestBlock")}
             />
             <StatCard
+              key="stat-time"
               title={t("dashboard.blockTime")}
               value={`${networkStats?.avgBlockTime || 0}ms`}
               icon={Clock}
@@ -296,6 +299,7 @@ export default function Dashboard() {
               subtitle={`P99: ${networkStats?.blockTimeP99 || 0}ms`}
             />
             <StatCard
+              key="stat-uptime"
               title={t("dashboard.slaUptime")}
               value={`${((networkStats?.slaUptime || 9990) / 100).toFixed(2)}%`}
               icon={Activity}
@@ -309,14 +313,14 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-5">
         {statsLoading ? (
           <>
-            <Skeleton className="h-24" />
-            <Skeleton className="h-24" />
-            <Skeleton className="h-24" />
-            <Skeleton className="h-24" />
+            <Skeleton key="sec-sk-1" className="h-24" />
+            <Skeleton key="sec-sk-2" className="h-24" />
+            <Skeleton key="sec-sk-3" className="h-24" />
+            <Skeleton key="sec-sk-4" className="h-24" />
           </>
         ) : (
           <>
-            <Card className="hover-elevate">
+            <Card key="card-total-tx" className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.totalTransactions")}
@@ -329,7 +333,7 @@ export default function Dashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="hover-elevate">
+            <Card key="card-total-accounts" className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.totalAccounts")}
@@ -342,7 +346,7 @@ export default function Dashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="hover-elevate">
+            <Card key="card-tburn-price" className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.tburnPrice")}
@@ -358,7 +362,7 @@ export default function Dashboard() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="hover-elevate">
+            <Card key="card-market-cap" className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.marketCap")}
@@ -374,7 +378,7 @@ export default function Dashboard() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="hover-elevate">
+            <Card key="card-active-validators" className="hover-elevate">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.activeValidators")}
@@ -402,15 +406,15 @@ export default function Dashboard() {
         </h2>
         {tokenomicsLoading ? (
           <div className="grid gap-4 md:grid-cols-4">
-            <Skeleton className="h-32" />
-            <Skeleton className="h-32" />
-            <Skeleton className="h-32" />
-            <Skeleton className="h-32" />
+            <Skeleton key="token-sk-1" className="h-32" />
+            <Skeleton key="token-sk-2" className="h-32" />
+            <Skeleton key="token-sk-3" className="h-32" />
+            <Skeleton key="token-sk-4" className="h-32" />
           </div>
         ) : tokenomics ? (
           <>
-            <div className="grid gap-4 md:grid-cols-4 mb-4">
-              <Card className="hover-elevate">
+            <div key="tokenomics-emission-grid" className="grid gap-4 md:grid-cols-4 mb-4">
+              <Card key="card-daily-emission" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.dailyEmission")}
@@ -426,7 +430,7 @@ export default function Dashboard() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate">
+              <Card key="card-daily-burn" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.dailyBurn", { rate: tokenomics.emission.burnRate })}
@@ -442,7 +446,7 @@ export default function Dashboard() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate">
+              <Card key="card-net-emission" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.netDailyEmission")}
@@ -458,7 +462,7 @@ export default function Dashboard() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate">
+              <Card key="card-staking-rate" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.stakingRate")}
@@ -477,8 +481,8 @@ export default function Dashboard() {
             </div>
 
             {/* Tier Summary Cards */}
-            <div className="grid gap-4 md:grid-cols-3">
-              <Card className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 hover-elevate">
+            <div key="tokenomics-tier-grid" className="grid gap-4 md:grid-cols-3">
+              <Card key="card-tier1" className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 hover-elevate">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Crown className="h-4 w-4 text-amber-500" />
@@ -504,7 +508,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 hover-elevate">
+              <Card key="card-tier2" className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 hover-elevate">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Layers className="h-4 w-4 text-blue-500" />
@@ -530,7 +534,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-gray-500/30 bg-gradient-to-br from-gray-500/5 to-slate-500/5 hover-elevate">
+              <Card key="card-tier3" className="border-gray-500/30 bg-gradient-to-br from-gray-500/5 to-slate-500/5 hover-elevate">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Users className="h-4 w-4 text-gray-500" />
@@ -569,15 +573,15 @@ export default function Dashboard() {
         <div className="grid gap-4 md:grid-cols-5">
           {memberStatsLoading ? (
             <>
-              <Skeleton className="h-24" />
-              <Skeleton className="h-24" />
-              <Skeleton className="h-24" />
-              <Skeleton className="h-24" />
-              <Skeleton className="h-24" />
+              <Skeleton key="member-sk-1" className="h-24" />
+              <Skeleton key="member-sk-2" className="h-24" />
+              <Skeleton key="member-sk-3" className="h-24" />
+              <Skeleton key="member-sk-4" className="h-24" />
+              <Skeleton key="member-sk-5" className="h-24" />
             </>
           ) : (
             <>
-              <Card className="hover-elevate">
+              <Card key="card-total-members" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.totalMembers")}
@@ -590,7 +594,7 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate">
+              <Card key="card-active-members" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.activeMembers")}
@@ -603,7 +607,7 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate">
+              <Card key="card-total-validators-label" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.totalValidatorsLabel")}
@@ -616,7 +620,7 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate">
+              <Card key="card-total-stakers" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.totalStakers")}
@@ -629,7 +633,7 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate">
+              <Card key="card-kyc-verified" className="hover-elevate">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.kycVerified")}
@@ -659,18 +663,18 @@ export default function Dashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {defiLoading ? (
             <>
-              <Skeleton className="h-32" />
-              <Skeleton className="h-32" />
-              <Skeleton className="h-32" />
-              <Skeleton className="h-32" />
-              <Skeleton className="h-32" />
-              <Skeleton className="h-32" />
-              <Skeleton className="h-32" />
-              <Skeleton className="h-32" />
+              <Skeleton key="defi-sk-1" className="h-32" />
+              <Skeleton key="defi-sk-2" className="h-32" />
+              <Skeleton key="defi-sk-3" className="h-32" />
+              <Skeleton key="defi-sk-4" className="h-32" />
+              <Skeleton key="defi-sk-5" className="h-32" />
+              <Skeleton key="defi-sk-6" className="h-32" />
+              <Skeleton key="defi-sk-7" className="h-32" />
+              <Skeleton key="defi-sk-8" className="h-32" />
             </>
           ) : (
             <>
-              <Link href="/dex">
+              <Link key="link-dex" href="/dex">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-dex-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -692,7 +696,7 @@ export default function Dashboard() {
                 </Card>
               </Link>
 
-              <Link href="/lending">
+              <Link key="link-lending" href="/lending">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-lending-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -714,7 +718,7 @@ export default function Dashboard() {
                 </Card>
               </Link>
 
-              <Link href="/yield">
+              <Link key="link-yield" href="/yield">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-yield-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -736,7 +740,7 @@ export default function Dashboard() {
                 </Card>
               </Link>
 
-              <Link href="/liquid-staking">
+              <Link key="link-liquid-staking" href="/liquid-staking">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-lst-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -758,7 +762,7 @@ export default function Dashboard() {
                 </Card>
               </Link>
 
-              <Link href="/nft">
+              <Link key="link-nft" href="/nft">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-nft-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -780,7 +784,7 @@ export default function Dashboard() {
                 </Card>
               </Link>
 
-              <Link href="/launchpad">
+              <Link key="link-launchpad" href="/launchpad">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-launchpad-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -802,7 +806,7 @@ export default function Dashboard() {
                 </Card>
               </Link>
 
-              <Link href="/gamefi">
+              <Link key="link-gamefi" href="/gamefi">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-gamefi-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -824,7 +828,7 @@ export default function Dashboard() {
                 </Card>
               </Link>
 
-              <Link href="/bridge">
+              <Link key="link-bridge" href="/bridge">
                 <Card className="hover-elevate cursor-pointer" data-testid="card-bridge-stats">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -864,9 +868,9 @@ export default function Dashboard() {
             <div className="space-y-3">
               {blocksLoading ? (
                 <>
-                  <Skeleton className="h-16" />
-                  <Skeleton className="h-16" />
-                  <Skeleton className="h-16" />
+                  <Skeleton key="block-sk-1" className="h-16" />
+                  <Skeleton key="block-sk-2" className="h-16" />
+                  <Skeleton key="block-sk-3" className="h-16" />
                 </>
               ) : recentBlocks && recentBlocks.length > 0 ? (
                 recentBlocks.slice(0, 10).map((block) => (
@@ -920,9 +924,9 @@ export default function Dashboard() {
             <div className="space-y-3">
               {txsLoading ? (
                 <>
-                  <Skeleton className="h-16" />
-                  <Skeleton className="h-16" />
-                  <Skeleton className="h-16" />
+                  <Skeleton key="tx-sk-1" className="h-16" />
+                  <Skeleton key="tx-sk-2" className="h-16" />
+                  <Skeleton key="tx-sk-3" className="h-16" />
                 </>
               ) : recentTxs && recentTxs.length > 0 ? (
                 recentTxs.slice(0, 10).map((tx) => (
