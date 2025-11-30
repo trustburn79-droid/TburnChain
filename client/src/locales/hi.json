@@ -86,7 +86,11 @@
     "copiedToClipboard": "क्लिपबोर्ड पर कॉपी हो गया",
     "showing": "दिखा रहा है",
     "page": "पेज",
-    "unknown": "अज्ञात"
+    "unknown": "अज्ञात",
+    "claudeSonnet": "Claude Sonnet 4.5",
+    "gpt5": "GPT-5",
+    "llama4": "Llama 4",
+    "gemini": "Gemini 2.0"
   },
   "nav": {
     "brand": "TBURN चेन मेननेट",

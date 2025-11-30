@@ -89,7 +89,11 @@
     "noDataAvailable": "データがありません",
     "id": "ID",
     "unknown": "不明",
-    "na": "該当なし"
+    "na": "該当なし",
+    "claudeSonnet": "Claude Sonnet 4.5",
+    "gpt5": "GPT-5",
+    "llama4": "Llama 4",
+    "gemini": "Gemini 2.0"
   },
   "nav": {
     "brand": "TBURN チェーン メインネット",

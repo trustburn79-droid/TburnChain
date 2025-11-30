@@ -89,7 +89,11 @@
     "showing": "Showing",
     "page": "Page",
     "noDataAvailable": "No data available",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "claudeSonnet": "Claude Sonnet 4.5",
+    "gpt5": "GPT-5",
+    "llama4": "Llama 4",
+    "gemini": "Gemini 2.0"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",

@@ -86,7 +86,11 @@
     "copiedToClipboard": "Copié dans le presse-papiers",
     "showing": "Affichage",
     "page": "Page",
-    "unknown": "Inconnu"
+    "unknown": "Inconnu",
+    "claudeSonnet": "Claude Sonnet 4.5",
+    "gpt5": "GPT-5",
+    "llama4": "Llama 4",
+    "gemini": "Gemini 2.0"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",

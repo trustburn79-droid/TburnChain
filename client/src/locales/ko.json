@@ -89,7 +89,11 @@
     "showing": "표시",
     "page": "페이지",
     "noDataAvailable": "데이터가 없습니다",
-    "unknown": "알 수 없음"
+    "unknown": "알 수 없음",
+    "claudeSonnet": "Claude Sonnet 4.5",
+    "gpt5": "GPT-5",
+    "llama4": "Llama 4",
+    "gemini": "Gemini 2.0"
   },
   "nav": {
     "brand": "TBURN 체인 메인넷",
