@@ -1681,6 +1681,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Claim Bridge Transfer
+  app.post("/api/bridge/transfers/:id/claim", async (req, res) => {
+    try {
+      const transferId = req.params.id;
+      
+      // Sample transfers data (same as GET endpoint)
+      const now = Date.now();
+      const transfers = [
+        { id: "tx-001", sourceChain: "Ethereum", targetChain: "TBURNMainnet", amount: "100000000000000000000000", token: "TBURN", from: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", to: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", status: "pending", signaturesCollected: 2, signaturesRequired: 3, riskScore: 0.12, aiApproved: true, createdAt: new Date(now - 120000).toISOString(), estimatedCompletion: "3 minutes" },
+        { id: "tx-002", sourceChain: "BinanceSmartChain", targetChain: "TBURNMainnet", amount: "50000000000000000000000", token: "TBURN", from: "0x123d35Cc6634C0532925a3b844Bc454e4438f123", to: "0x456f109551bD432803012645Ac136ddd64DBA456", status: "locked", signaturesCollected: 3, signaturesRequired: 3, riskScore: 0.08, aiApproved: true, createdAt: new Date(now - 60000).toISOString(), estimatedCompletion: "1 minute" },
+        { id: "tx-003", sourceChain: "TBURNMainnet", targetChain: "Polygon", amount: "25000000000000000000000", token: "TBURN", from: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", to: "0xabcf109551bD432803012645Ac136ddd64DBAabc", status: "released", signaturesCollected: 3, signaturesRequired: 3, riskScore: 0.05, aiApproved: true, createdAt: new Date(now - 300000).toISOString(), estimatedCompletion: "Completed" },
+        { id: "tx-004", sourceChain: "Arbitrum", targetChain: "TBURNMainnet", amount: "200000000000000000000000", token: "TBURN", from: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", to: "0x012f109551bD432803012645Ac136ddd64DBA012", status: "released", signaturesCollected: 3, signaturesRequired: 3, riskScore: 0.03, aiApproved: true, createdAt: new Date(now - 600000).toISOString(), estimatedCompletion: "Completed" }
+      ];
+      
+      const transfer = transfers.find(t => t.id === transferId);
+      
+      if (!transfer) {
+        return res.status(404).json({ error: "Transfer not found" });
+      }
+      
+      // Check if transfer is claimable
+      const claimableStatuses = ["relaying", "bridging", "confirming", "pending", "locked"];
+      if (!claimableStatuses.includes(transfer.status)) {
+        return res.status(400).json({ error: `Transfer cannot be claimed. Current status: ${transfer.status}` });
+      }
+      
+      // Simulate claim success
+      const claimedTransfer = {
+        ...transfer,
+        status: "completed",
+        claimedAt: new Date().toISOString(),
+        transactionHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`
+      };
+      
+      res.json({
+        success: true,
+        message: "Transfer claimed successfully",
+        transfer: claimedTransfer
+      });
+    } catch (error) {
+      console.error("Error claiming transfer:", error);
+      res.status(500).json({ error: "Failed to claim transfer" });
+    }
+  });
+
   // Governance Stats
   app.get("/api/governance/stats", async (_req, res) => {
     try {
