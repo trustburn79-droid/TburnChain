@@ -225,6 +225,25 @@ router.post("/claim-rewards", async (req: Request, res: Response) => {
   }
 });
 
+const compoundSchema = z.object({
+  userAddress: z.string().min(1),
+  vaultId: z.string().uuid(),
+});
+
+router.post("/compound", async (req: Request, res: Response) => {
+  try {
+    const data = compoundSchema.parse(req.body);
+    const result = await farmingService.compoundRewards(data.userAddress, data.vaultId);
+    res.json(result);
+  } catch (error) {
+    console.error("[Yield] Error compounding:", error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: "Invalid request", details: error.errors });
+    }
+    res.status(500).json({ error: error instanceof Error ? error.message : "Compound failed" });
+  }
+});
+
 // ============================================
 // HARVEST OPERATIONS
 // ============================================

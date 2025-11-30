@@ -312,6 +312,57 @@ export class FarmingService {
     return { amount: pendingRewards.toString(), txId: tx.id };
   }
 
+  async compoundRewards(userAddress: string, vaultId: string): Promise<{ compoundedAmount: string; newShares: string; txId: string }> {
+    const position = await storage.getYieldPosition(userAddress, vaultId);
+    if (!position) {
+      throw new Error("Position not found");
+    }
+
+    const pendingRewards = BigInt(position.pendingRewards);
+    if (pendingRewards === BigInt(0)) {
+      throw new Error("No rewards to compound");
+    }
+
+    const vault = await storage.getYieldVaultById(vaultId);
+    if (!vault) {
+      throw new Error("Vault not found");
+    }
+
+    const sharePrice = BigInt(vault.sharePrice);
+    const newShares = (pendingRewards * PRECISION) / sharePrice;
+
+    await storage.updateYieldPosition(position.id, {
+      pendingRewards: "0",
+      shares: (BigInt(position.shares) + newShares).toString(),
+      depositedAmount: (BigInt(position.depositedAmount) + pendingRewards).toString(),
+      currentValue: (BigInt(position.currentValue) + pendingRewards).toString(),
+    });
+
+    await storage.updateYieldVault(vaultId, {
+      totalDeposited: (BigInt(vault.totalDeposited) + pendingRewards).toString(),
+      totalShares: (BigInt(vault.totalShares) + newShares).toString(),
+    });
+
+    const tx = await storage.createYieldTransaction({
+      vaultId,
+      positionId: position.id,
+      userAddress,
+      txType: "compound",
+      amount: pendingRewards.toString(),
+      shares: newShares.toString(),
+      valueUsd: "0",
+      sharePriceAtTx: sharePrice.toString(),
+      feeAmount: "0",
+      status: "completed",
+    });
+
+    return { 
+      compoundedAmount: pendingRewards.toString(), 
+      newShares: newShares.toString(), 
+      txId: tx.id 
+    };
+  }
+
   // ============================================
   // HARVEST OPERATIONS
   // ============================================

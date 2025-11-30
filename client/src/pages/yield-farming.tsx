@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -46,7 +46,10 @@ import {
   Target,
   Layers,
   Bot,
-  Sparkles
+  Sparkles,
+  History,
+  Gift,
+  Loader2
 } from "lucide-react";
 import { formatNumber } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
@@ -128,6 +131,38 @@ interface YieldStats {
   withdrawals24h: string;
 }
 
+interface YieldHarvest {
+  id: string;
+  vaultId: string;
+  harvestType: string;
+  harvestedAmount: string;
+  compoundedAmount: string;
+  distributedAmount: string;
+  performanceFeeTaken: string;
+  gasUsed: string;
+  gasPriceGwei: number;
+  txHash: string;
+  harvestingBot: string;
+  strategyProfit: string;
+  status: string;
+  timestamp: string;
+}
+
+interface YieldTransaction {
+  id: string;
+  vaultId: string;
+  userAddress: string;
+  type: string;
+  amount: string;
+  shares: string;
+  sharePrice: string;
+  valueUsd: string;
+  fee: string;
+  txHash: string;
+  status: string;
+  timestamp: string;
+}
+
 function formatWeiToToken(weiStr: string, decimals: number = 18): string {
   try {
     const wei = BigInt(weiStr || "0");
@@ -186,87 +221,184 @@ export default function YieldFarming() {
   const [depositDialogOpen, setDepositDialogOpen] = useState(false);
   const [withdrawDialogOpen, setWithdrawDialogOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<YieldPosition | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const userAddress = "0xTBURNEnterprise0001234567890abcdef";
 
-  const { data: stats, isLoading: statsLoading } = useQuery<YieldStats>({
+  const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<YieldStats>({
     queryKey: ["/api/yield/stats"],
   });
 
-  const { data: vaults, isLoading: vaultsLoading } = useQuery<YieldVault[]>({
+  const { data: vaults, isLoading: vaultsLoading, refetch: refetchVaults } = useQuery<YieldVault[]>({
     queryKey: ["/api/yield/vaults/active"],
   });
 
-  const { data: positions, isLoading: positionsLoading } = useQuery<YieldPosition[]>({
+  const { data: positions, isLoading: positionsLoading, refetch: refetchPositions } = useQuery<YieldPosition[]>({
     queryKey: ["/api/yield/positions", userAddress],
   });
 
+  const { data: harvests, isLoading: harvestsLoading, refetch: refetchHarvests } = useQuery<YieldHarvest[]>({
+    queryKey: ["/api/yield/harvests/recent"],
+  });
+
+  const { data: transactions, isLoading: transactionsLoading, refetch: refetchTransactions } = useQuery<YieldTransaction[]>({
+    queryKey: ["/api/yield/transactions/recent"],
+  });
+
+  const handleRefreshAll = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        refetchStats(),
+        refetchVaults(),
+        refetchPositions(),
+        refetchHarvests(),
+        refetchTransactions(),
+      ]);
+      toast({
+        title: t("yieldFarming.refreshSuccess"),
+        description: t("yieldFarming.refreshSuccessDesc"),
+      });
+    } catch (error) {
+      toast({
+        title: t("yieldFarming.refreshError"),
+        description: t("yieldFarming.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetchStats, refetchVaults, refetchPositions, refetchHarvests, refetchTransactions, toast, t]);
+
   const depositMutation = useMutation({
     mutationFn: async (data: { vaultId: string; amount: string; lockDays: number }) => {
-      return apiRequest("/api/yield/deposit", {
-        method: "POST",
-        body: JSON.stringify({
-          userAddress,
-          vaultId: data.vaultId,
-          amount: data.amount,
-          lockDays: data.lockDays,
-        }),
+      const response = await apiRequest("POST", "/api/yield/deposit", {
+        userAddress,
+        vaultId: data.vaultId,
+        amount: data.amount,
+        lockDays: data.lockDays,
       });
+      return response.json();
     },
-    onSuccess: () => {
-      toast({ title: t("yieldFarming.success"), description: t("yieldFarming.depositSuccessful") });
+    onSuccess: (data, variables) => {
+      const vault = vaults?.find(v => v.id === variables.vaultId);
+      toast({ 
+        title: t("yieldFarming.depositSuccessful"), 
+        description: t("yieldFarming.depositSuccessDesc", { 
+          amount: formatWeiToToken(variables.amount), 
+          symbol: vault?.underlyingSymbol || "TBURN",
+          vault: vault?.name || "Vault"
+        }) 
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/vaults/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/transactions/recent"] });
       setDepositAmount("");
       setSelectedVault(null);
       setLockDays("0");
       setDepositDialogOpen(false);
     },
     onError: (error: Error) => {
-      toast({ title: t("yieldFarming.error"), description: error.message, variant: "destructive" });
+      toast({ 
+        title: t("yieldFarming.depositFailed"), 
+        description: error.message, 
+        variant: "destructive" 
+      });
     },
   });
 
   const withdrawMutation = useMutation({
     mutationFn: async (data: { vaultId: string; shares: string }) => {
-      return apiRequest("/api/yield/withdraw", {
-        method: "POST",
-        body: JSON.stringify({
-          userAddress,
-          vaultId: data.vaultId,
-          shares: data.shares,
-        }),
+      const response = await apiRequest("POST", "/api/yield/withdraw", {
+        userAddress,
+        vaultId: data.vaultId,
+        shares: data.shares,
       });
+      return response.json();
     },
-    onSuccess: () => {
-      toast({ title: t("yieldFarming.success"), description: t("yieldFarming.withdrawalSuccessful") });
+    onSuccess: (data, variables) => {
+      const vault = vaults?.find(v => v.id === variables.vaultId);
+      toast({ 
+        title: t("yieldFarming.withdrawSuccessful"), 
+        description: t("yieldFarming.withdrawSuccessDesc", { 
+          shares: formatWeiToToken(variables.shares),
+          vault: vault?.name || "Vault"
+        }) 
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/vaults/active"] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/transactions/recent"] });
       setWithdrawShares("");
       setSelectedPosition(null);
       setWithdrawDialogOpen(false);
     },
     onError: (error: Error) => {
-      toast({ title: t("yieldFarming.error"), description: error.message, variant: "destructive" });
+      toast({ 
+        title: t("yieldFarming.withdrawFailed"), 
+        description: error.message, 
+        variant: "destructive" 
+      });
     },
   });
 
   const claimMutation = useMutation({
-    mutationFn: async (vaultId: string) => {
-      return apiRequest("/api/yield/claim-rewards", {
-        method: "POST",
-        body: JSON.stringify({ userAddress, vaultId }),
+    mutationFn: async (data: { vaultId: string; positionId: string }) => {
+      const response = await apiRequest("POST", "/api/yield/claim-rewards", { 
+        userAddress, 
+        vaultId: data.vaultId 
+      });
+      return response.json();
+    },
+    onSuccess: (data, variables) => {
+      const position = positions?.find(p => p.vaultId === variables.vaultId);
+      const vault = vaults?.find(v => v.id === variables.vaultId);
+      toast({ 
+        title: t("yieldFarming.claimSuccessful"), 
+        description: t("yieldFarming.claimSuccessDesc", { 
+          amount: formatWeiToToken(position?.pendingRewards || "0"),
+          vault: vault?.name || "Vault"
+        }) 
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/yield/transactions/recent"] });
+    },
+    onError: (error: Error) => {
+      toast({ 
+        title: t("yieldFarming.claimFailed"), 
+        description: error.message, 
+        variant: "destructive" 
       });
     },
-    onSuccess: () => {
-      toast({ title: t("yieldFarming.success"), description: t("yieldFarming.rewardsClaimed") });
+  });
+
+  const compoundMutation = useMutation({
+    mutationFn: async (data: { vaultId: string }) => {
+      const response = await apiRequest("POST", "/api/yield/compound", { 
+        userAddress, 
+        vaultId: data.vaultId 
+      });
+      return response.json();
+    },
+    onSuccess: (data, variables) => {
+      const vault = vaults?.find(v => v.id === variables.vaultId);
+      toast({ 
+        title: t("yieldFarming.compoundSuccessful"), 
+        description: t("yieldFarming.compoundSuccessDesc", { 
+          vault: vault?.name || "Vault"
+        }) 
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/positions", userAddress] });
       queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] });
     },
     onError: (error: Error) => {
-      toast({ title: t("yieldFarming.error"), description: error.message, variant: "destructive" });
+      toast({ 
+        title: t("yieldFarming.compoundFailed"), 
+        description: error.message, 
+        variant: "destructive" 
+      });
     },
   });
 
@@ -295,7 +427,7 @@ export default function YieldFarming() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-yield-title">
             <Sprout className="h-8 w-8 text-green-500" />
@@ -305,10 +437,31 @@ export default function YieldFarming() {
             {t("yieldFarming.subtitle")}
           </p>
         </div>
-        <Badge variant="outline" className="text-lg px-4 py-2">
-          <Bot className="h-4 w-4 mr-2" />
-          {t("yieldFarming.aiEnhanced")}
-        </Badge>
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleRefreshAll}
+            disabled={isRefreshing}
+            data-testid="button-refresh-yield"
+          >
+            {isRefreshing ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                {t("yieldFarming.refreshing")}
+              </>
+            ) : (
+              <>
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {t("yieldFarming.refresh")}
+              </>
+            )}
+          </Button>
+          <Badge variant="outline" className="text-lg px-4 py-2">
+            <Bot className="h-4 w-4 mr-2" />
+            {t("yieldFarming.aiEnhanced")}
+          </Badge>
+        </div>
       </div>
 
       {statsLoading ? (
@@ -390,7 +543,7 @@ export default function YieldFarming() {
       )}
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid w-full max-w-2xl grid-cols-4">
+        <TabsList className="grid w-full max-w-4xl grid-cols-6">
           <TabsTrigger value="overview" data-testid="tab-overview">
             <BarChart3 className="h-4 w-4 mr-2" />
             {t("yieldFarming.overview")}
@@ -406,6 +559,14 @@ export default function YieldFarming() {
           <TabsTrigger value="positions" data-testid="tab-positions">
             <Wallet className="h-4 w-4 mr-2" />
             {t("yieldFarming.myPositions")}
+          </TabsTrigger>
+          <TabsTrigger value="activity" data-testid="tab-activity">
+            <History className="h-4 w-4 mr-2" />
+            {t("yieldFarming.activity")}
+          </TabsTrigger>
+          <TabsTrigger value="harvests" data-testid="tab-harvests">
+            <Gift className="h-4 w-4 mr-2" />
+            {t("yieldFarming.harvests")}
           </TabsTrigger>
         </TabsList>
 
@@ -811,20 +972,34 @@ export default function YieldFarming() {
                           </div>
                         </div>
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                           <Button
                             variant="outline"
                             size="sm"
                             disabled={position.isLocked || claimMutation.isPending || BigInt(position.pendingRewards || "0") <= 0}
-                            onClick={() => claimMutation.mutate(position.vaultId)}
+                            onClick={() => claimMutation.mutate({ vaultId: position.vaultId, positionId: position.id })}
                             data-testid={`button-claim-${position.id}`}
                           >
                             {claimMutation.isPending ? (
-                              <RefreshCw className="h-4 w-4 mr-1 animate-spin" />
+                              <Loader2 className="h-4 w-4 mr-1 animate-spin" />
                             ) : (
                               <DollarSign className="h-4 w-4 mr-1" />
                             )}
                             {t("yieldFarming.claimRewards")}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled={position.isLocked || compoundMutation.isPending}
+                            onClick={() => compoundMutation.mutate({ vaultId: position.vaultId })}
+                            data-testid={`button-compound-${position.id}`}
+                          >
+                            {compoundMutation.isPending ? (
+                              <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                            ) : (
+                              <RefreshCw className="h-4 w-4 mr-1" />
+                            )}
+                            {t("yieldFarming.compound")}
                           </Button>
                           <Button
                             variant="outline"
@@ -853,6 +1028,211 @@ export default function YieldFarming() {
                   >
                     {t("yieldFarming.browseVaults")}
                   </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="activity" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <History className="h-5 w-5 text-blue-500" />
+                {t("yieldFarming.recentActivity")}
+              </CardTitle>
+              <CardDescription>{t("yieldFarming.recentActivityDesc")}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {transactionsLoading ? (
+                <div className="space-y-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Skeleton key={i} className="h-16 w-full" />
+                  ))}
+                </div>
+              ) : transactions && transactions.length > 0 ? (
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-3">
+                    {transactions.map((tx) => {
+                      const vault = vaults?.find(v => v.id === tx.vaultId);
+                      const isDeposit = tx.type === "deposit";
+                      const isWithdraw = tx.type === "withdraw";
+                      const isClaim = tx.type === "claim";
+                      
+                      return (
+                        <div
+                          key={tx.id}
+                          className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+                          data-testid={`activity-${tx.id}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className={`p-2 rounded-full ${
+                              isDeposit ? "bg-green-500/10" : 
+                              isWithdraw ? "bg-orange-500/10" : 
+                              isClaim ? "bg-purple-500/10" : "bg-blue-500/10"
+                            }`}>
+                              {isDeposit ? (
+                                <Plus className={`h-4 w-4 text-green-500`} />
+                              ) : isWithdraw ? (
+                                <Minus className={`h-4 w-4 text-orange-500`} />
+                              ) : isClaim ? (
+                                <Gift className={`h-4 w-4 text-purple-500`} />
+                              ) : (
+                                <RefreshCw className={`h-4 w-4 text-blue-500`} />
+                              )}
+                            </div>
+                            <div>
+                              <p className="font-medium capitalize">
+                                {t(`yieldFarming.txType.${tx.type}`) || tx.type}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {vault?.name || t("yieldFarming.unknownVault")}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className={`font-medium ${isDeposit ? "text-green-500" : isWithdraw ? "text-orange-500" : "text-blue-500"}`}>
+                              {isDeposit ? "+" : isWithdraw ? "-" : ""}{formatWeiToToken(tx.amount)}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {new Date(tx.timestamp).toLocaleString()}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Badge variant={tx.status === "confirmed" ? "default" : tx.status === "pending" ? "secondary" : "destructive"}>
+                              {t(`yieldFarming.txStatus.${tx.status}`) || tx.status}
+                            </Badge>
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(tx.txHash);
+                                      toast({
+                                        title: t("yieldFarming.copied"),
+                                        description: t("yieldFarming.txHashCopied"),
+                                      });
+                                    }}
+                                    data-testid={`button-copy-tx-${tx.id}`}
+                                  >
+                                    <ChevronRight className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{tx.txHash.slice(0, 10)}...{tx.txHash.slice(-8)}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
+              ) : (
+                <div className="text-center py-12 text-muted-foreground">
+                  <History className="h-16 w-16 mx-auto mb-4" />
+                  <p className="text-lg font-medium">{t("yieldFarming.noActivity")}</p>
+                  <p className="text-sm">{t("yieldFarming.noActivityDesc")}</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="harvests" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Gift className="h-5 w-5 text-purple-500" />
+                {t("yieldFarming.recentHarvests")}
+              </CardTitle>
+              <CardDescription>{t("yieldFarming.recentHarvestsDesc")}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {harvestsLoading ? (
+                <div className="space-y-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Skeleton key={i} className="h-20 w-full" />
+                  ))}
+                </div>
+              ) : harvests && harvests.length > 0 ? (
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-4">
+                    {harvests.map((harvest) => {
+                      const vault = vaults?.find(v => v.id === harvest.vaultId);
+                      
+                      return (
+                        <div
+                          key={harvest.id}
+                          className="p-4 rounded-lg border"
+                          data-testid={`harvest-${harvest.id}`}
+                        >
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 rounded-full bg-purple-500/10">
+                                <Gift className="h-5 w-5 text-purple-500" />
+                              </div>
+                              <div>
+                                <p className="font-semibold">{vault?.name || t("yieldFarming.unknownVault")}</p>
+                                <p className="text-sm text-muted-foreground capitalize">
+                                  {t(`yieldFarming.harvestType.${harvest.harvestType}`) || harvest.harvestType}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <Badge variant={harvest.status === "completed" ? "default" : "secondary"}>
+                                {t(`yieldFarming.harvestStatus.${harvest.status}`) || harvest.status}
+                              </Badge>
+                              <p className="text-xs text-muted-foreground mt-1">
+                                {new Date(harvest.timestamp).toLocaleString()}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="grid grid-cols-4 gap-4 text-sm">
+                            <div>
+                              <p className="text-muted-foreground">{t("yieldFarming.harvested")}</p>
+                              <p className="font-medium text-green-500">+{formatWeiToToken(harvest.harvestedAmount)}</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground">{t("yieldFarming.compounded")}</p>
+                              <p className="font-medium text-blue-500">+{formatWeiToToken(harvest.compoundedAmount)}</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground">{t("yieldFarming.distributed")}</p>
+                              <p className="font-medium">{formatWeiToToken(harvest.distributedAmount)}</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground">{t("yieldFarming.gasCost")}</p>
+                              <p className="font-medium">{harvest.gasPriceGwei} Gwei</p>
+                            </div>
+                          </div>
+                          
+                          {harvest.strategyProfit && BigInt(harvest.strategyProfit) > 0 && (
+                            <div className="mt-3 p-2 rounded bg-green-500/10 flex items-center gap-2">
+                              <TrendingUp className="h-4 w-4 text-green-500" />
+                              <span className="text-sm">
+                                {t("yieldFarming.strategyProfit")}: 
+                                <span className="font-medium text-green-500 ml-1">
+                                  +{formatWeiToToken(harvest.strategyProfit)} TBURN
+                                </span>
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
+              ) : (
+                <div className="text-center py-12 text-muted-foreground">
+                  <Gift className="h-16 w-16 mx-auto mb-4" />
+                  <p className="text-lg font-medium">{t("yieldFarming.noHarvests")}</p>
+                  <p className="text-sm">{t("yieldFarming.noHarvestsDesc")}</p>
                 </div>
               )}
             </CardContent>
