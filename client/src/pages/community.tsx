@@ -704,7 +704,7 @@ export default function Community() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">{t('community.events', 'Events')}</p>
+                <p className="text-sm text-muted-foreground">{t('nav.events', 'Events')}</p>
                 <p className="text-2xl font-bold">{displayStats.totalEvents}</p>
                 <p className="text-xs text-purple-400 mt-1">
                   {displayStats.upcomingEvents} {t('community.upcoming', 'upcoming')}
@@ -750,7 +750,7 @@ export default function Community() {
           </TabsTrigger>
           <TabsTrigger value="events" data-testid="tab-events">
             <Calendar className="h-4 w-4 mr-1" />
-            {t('community.events', 'Events')}
+            {t('nav.events', 'Events')}
           </TabsTrigger>
           <TabsTrigger value="badges" data-testid="tab-badges">
             <Award className="h-4 w-4 mr-1" />
@@ -818,7 +818,7 @@ export default function Community() {
                           <p className="text-sm">
                             <span className="font-medium">{activity.user}</span>
                             <span className="text-muted-foreground"> {t(`community.${activity.action}`, activity.action)} </span>
-                            {activity.target && <span className="text-primary">{activity.target.startsWith('posts.') || activity.target.startsWith('badges.') ? t(`community.${activity.target}`, activity.target) : activity.target}</span>}
+                            {activity.target && <span className="text-primary">{activity.target.startsWith('posts.') || activity.target.startsWith('badges.') || activity.target.startsWith('targets.') ? t(`community.${activity.target}`, activity.target) : activity.target}</span>}
                             {activity.amount && <span className="font-medium text-green-400"> {activity.amount}</span>}
                           </p>
                           <p className="text-xs text-muted-foreground">{formatTimeAgo(activity.timestamp)}</p>
@@ -1089,9 +1089,9 @@ export default function Community() {
                         </Badge>
                       </div>
                       <h3 className="text-lg font-semibold hover:text-primary transition-colors cursor-pointer">
-                        {post.title}
+                        {post.title.startsWith('posts.') ? t(`community.${post.title}`, post.title) : post.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{post.content}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{post.content.startsWith('posts.') ? t(`community.${post.content}`, post.content) : post.content}</p>
                       <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Avatar className="h-5 w-5">

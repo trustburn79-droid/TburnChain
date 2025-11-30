@@ -138,7 +138,9 @@
     "validatorOps": "バリデーター運用",
     "securityAudit": "セキュリティ監査",
     "reports": "レポート",
-    "announcements": "お知らせ"
+    "announcements": "お知らせ",
+    "events": "イベント",
+    "badges": "バッジ"
   },
   "dashboard": {
     "title": "ダッシュボード",
@@ -4985,14 +4987,18 @@
       "legendary": "レジェンダリー"
     },
     "activities": {
-      "staked": "ステーキングしました",
-      "createdPost": "新しい投稿を作成しました",
-      "votedOn": "投票しました",
-      "earnedBadge": "バッジを獲得しました",
-      "commentedOn": "コメントしました",
-      "claimedRewards": "ステーキング報酬を請求しました",
-      "submittedProposal": "ガバナンス提案を提出しました",
-      "unstaked": "アンステーキングしました"
+      "staked": "ステーキング",
+      "createdPost": "新しい投稿を作成",
+      "votedOn": "提案に投票",
+      "earnedBadge": "バッジ獲得",
+      "commentedOn": "コメント",
+      "claimedRewards": "ステーキング報酬を請求",
+      "submittedProposal": "ガバナンス提案を提出",
+      "unstaked": "アンステーキング"
+    },
+    "targets": {
+      "validatorBestPractices": "バリデーターのベストプラクティス",
+      "stakingStrategies": "ステーキング戦略"
     },
     "posts": {
       "mainnetDiscussion": {

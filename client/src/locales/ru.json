@@ -131,7 +131,9 @@
     "validatorOps": "Операции валидаторов",
     "securityAudit": "Аудит безопасности",
     "reports": "Отчеты",
-    "announcements": "Объявления"
+    "announcements": "Объявления",
+    "events": "Мероприятия",
+    "badges": "Значки"
   },
   "dashboard": {
     "title": "Панель управления",
@@ -2491,12 +2493,16 @@
     "activities": {
       "staked": "застейкал",
       "createdPost": "создал новый пост",
-      "votedOn": "проголосовал за",
+      "votedOn": "проголосовал за предложение",
       "earnedBadge": "получил значок",
       "commentedOn": "прокомментировал",
-      "claimedRewards": "получил награды стейкинга в размере",
-      "submittedProposal": "подал предложение по управлению",
+      "claimedRewards": "получил награды за стейкинг",
+      "submittedProposal": "отправил предложение по управлению",
       "unstaked": "вывел из стейкинга"
+    },
+    "targets": {
+      "validatorBestPractices": "Лучшие практики для валидаторов",
+      "stakingStrategies": "Стратегии стейкинга"
     },
     "posts": {
       "mainnetDiscussion": {

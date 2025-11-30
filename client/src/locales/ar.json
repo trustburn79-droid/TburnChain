@@ -137,7 +137,9 @@
     "validatorOps": "عمليات المدققين",
     "securityAudit": "تدقيق الأمان",
     "reports": "التقارير",
-    "announcements": "الإعلانات"
+    "announcements": "الإعلانات",
+    "events": "الفعاليات",
+    "badges": "الشارات"
   },
   "dashboard": {
     "title": "لوحة التحكم",
@@ -1461,14 +1463,18 @@
       "legendary": "أسطوري"
     },
     "activities": {
-      "staked": "قام بالستاكينغ",
-      "createdPost": "أنشأ منشورًا جديدًا",
-      "votedOn": "صوّت على",
-      "earnedBadge": "حصل على الشارة",
-      "commentedOn": "علّق على",
-      "claimedRewards": "طالب بمكافآت الستاكينغ بقيمة",
-      "submittedProposal": "قدّم اقتراح حوكمة",
-      "unstaked": "أزال الستاكينغ"
+      "staked": "تم الرهن",
+      "createdPost": "أنشأ منشور جديد",
+      "votedOn": "صوت على اقتراح",
+      "earnedBadge": "حصل على شارة",
+      "commentedOn": "علق على",
+      "claimedRewards": "طالب بمكافآت الرهن",
+      "submittedProposal": "قدم اقتراح حوكمة",
+      "unstaked": "تم إلغاء الرهن"
+    },
+    "targets": {
+      "validatorBestPractices": "أفضل ممارسات المصادقين",
+      "stakingStrategies": "استراتيجيات الرهن"
     },
     "posts": {
       "mainnetDiscussion": {

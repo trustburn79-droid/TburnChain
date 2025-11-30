@@ -303,20 +303,20 @@ router.get("/activity", async (req: Request, res: Response) => {
         id: `stake-${pos.id || index}`,
         type: "stake",
         user: pos.stakerAddress ? `${pos.stakerAddress.slice(0, 6)}...${pos.stakerAddress.slice(-4)}` : "Anonymous",
-        action: "staked",
+        action: "activities.staked",
         amount: `${parseFloat(pos.stakedAmount || "0").toLocaleString()} TBURN`,
         timestamp: pos.createdAt ? Math.floor(new Date(pos.createdAt).getTime() / 1000) : now - (index * 300),
       });
     });
     
     const additionalActivities: ActivityResponse[] = [
-      { id: "post-1", type: "post", user: "ValidatorKing", action: "created a new post", target: "Best Practices for Validators", timestamp: now - 300 },
-      { id: "vote-1", type: "vote", user: "GovernanceGuru", action: "voted on proposal", target: "#42", timestamp: now - 600 },
-      { id: "badge-1", type: "badge", user: "TBURNMaster", action: "earned badge", target: "Diamond Staker", timestamp: now - 900 },
-      { id: "comment-1", type: "comment", user: "DeFiExpert", action: "commented on", target: "Staking Strategies", timestamp: now - 1200 },
-      { id: "proposal-1", type: "proposal", user: "CommunityBuilder", action: "submitted proposal", target: "#45", timestamp: now - 1800 },
-      { id: "stake-live-1", type: "stake", user: "CryptoWhale", action: "staked", amount: "50,000 TBURN", timestamp: now - 120 },
-      { id: "reward-live-1", type: "reward", user: "StakingPro", action: "claimed rewards", amount: "1,250 TBURN", timestamp: now - 1500 },
+      { id: "post-1", type: "post", user: "ValidatorKing", action: "activities.createdPost", target: "targets.validatorBestPractices", timestamp: now - 300 },
+      { id: "vote-1", type: "vote", user: "GovernanceGuru", action: "activities.votedOn", target: "#42", timestamp: now - 600 },
+      { id: "badge-1", type: "badge", user: "TBURNMaster", action: "activities.earnedBadge", target: "badges.diamondStaker.name", timestamp: now - 900 },
+      { id: "comment-1", type: "comment", user: "DeFiExpert", action: "activities.commentedOn", target: "targets.stakingStrategies", timestamp: now - 1200 },
+      { id: "proposal-1", type: "proposal", user: "CommunityBuilder", action: "activities.submittedProposal", target: "#45", timestamp: now - 1800 },
+      { id: "stake-live-1", type: "stake", user: "CryptoWhale", action: "activities.staked", amount: "50,000 TBURN", timestamp: now - 120 },
+      { id: "reward-live-1", type: "reward", user: "StakingPro", action: "activities.claimedRewards", amount: "1,250 TBURN", timestamp: now - 1500 },
     ];
     
     const allActivities = [...activities, ...additionalActivities]
@@ -387,7 +387,7 @@ router.post("/posts", async (req: Request, res: Response) => {
     addActivityLog({
       type: "post",
       user: authorName,
-      action: "created a new post",
+      action: "activities.createdPost",
       target: title,
     });
     

@@ -140,7 +140,9 @@
     "validatorOps": "验证者运营",
     "securityAudit": "安全审计",
     "reports": "报告",
-    "announcements": "公告"
+    "announcements": "公告",
+    "events": "活动",
+    "badges": "徽章"
   },
   "dashboard": {
     "title": "仪表板",
@@ -4784,14 +4786,18 @@
       "legendary": "传奇"
     },
     "activities": {
-      "staked": "质押了",
-      "createdPost": "创建了新帖子",
-      "votedOn": "投票了",
-      "earnedBadge": "获得了徽章",
-      "commentedOn": "评论了",
-      "claimedRewards": "领取了质押奖励",
-      "submittedProposal": "提交了治理提案",
-      "unstaked": "解除质押了"
+      "staked": "质押",
+      "createdPost": "创建新帖子",
+      "votedOn": "投票提案",
+      "earnedBadge": "获得徽章",
+      "commentedOn": "评论",
+      "claimedRewards": "领取质押奖励",
+      "submittedProposal": "提交治理提案",
+      "unstaked": "解除质押"
+    },
+    "targets": {
+      "validatorBestPractices": "验证者最佳实践",
+      "stakingStrategies": "质押策略"
     },
     "posts": {
       "mainnetDiscussion": {

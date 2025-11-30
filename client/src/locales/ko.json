@@ -143,7 +143,9 @@
     "validatorOps": "검증자 운영",
     "securityAudit": "보안 감사",
     "reports": "리포트",
-    "announcements": "공지사항"
+    "announcements": "공지사항",
+    "events": "이벤트",
+    "badges": "뱃지"
   },
   "dashboard": {
     "title": "대시보드",
@@ -2070,14 +2072,18 @@
       "legendary": "전설"
     },
     "activities": {
-      "staked": "스테이킹했습니다",
-      "createdPost": "새 게시글을 작성했습니다",
-      "votedOn": "투표했습니다",
-      "earnedBadge": "배지를 획득했습니다",
-      "commentedOn": "댓글을 달았습니다",
-      "claimedRewards": "스테이킹 보상을 청구했습니다",
-      "submittedProposal": "거버넌스 제안을 제출했습니다",
-      "unstaked": "언스테이킹했습니다"
+      "staked": "스테이킹",
+      "createdPost": "새 게시물 작성",
+      "votedOn": "제안에 투표",
+      "earnedBadge": "뱃지 획득",
+      "commentedOn": "댓글 작성",
+      "claimedRewards": "스테이킹 보상 청구",
+      "submittedProposal": "거버넌스 제안 제출",
+      "unstaked": "언스테이킹"
+    },
+    "targets": {
+      "validatorBestPractices": "검증자 모범 사례",
+      "stakingStrategies": "스테이킹 전략"
     },
     "posts": {
       "mainnetDiscussion": {

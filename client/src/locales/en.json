@@ -140,7 +140,9 @@
     "validatorOps": "Validator Ops",
     "securityAudit": "Security Audit",
     "reports": "Reports",
-    "announcements": "Announcements"
+    "announcements": "Announcements",
+    "events": "Events",
+    "badges": "Badges"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -2024,12 +2026,16 @@
     "activities": {
       "staked": "staked",
       "createdPost": "created a new post",
-      "votedOn": "voted on",
-      "earnedBadge": "earned the badge",
+      "votedOn": "voted on proposal",
+      "earnedBadge": "earned badge",
       "commentedOn": "commented on",
       "claimedRewards": "claimed staking rewards of",
       "submittedProposal": "submitted governance proposal",
       "unstaked": "unstaked"
+    },
+    "targets": {
+      "validatorBestPractices": "Best Practices for Validators",
+      "stakingStrategies": "Staking Strategies"
     },
     "posts": {
       "mainnetDiscussion": {

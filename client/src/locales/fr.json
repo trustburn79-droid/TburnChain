@@ -138,7 +138,9 @@
     "validatorOps": "Opérations validateurs",
     "securityAudit": "Audit de sécurité",
     "reports": "Rapports",
-    "announcements": "Annonces"
+    "announcements": "Annonces",
+    "events": "Événements",
+    "badges": "Badges"
   },
   "dashboard": {
     "title": "Tableau de bord",
@@ -3956,14 +3958,18 @@
       "legendary": "Légendaire"
     },
     "activities": {
-      "staked": "a staké",
+      "staked": "a mis en stake",
       "createdPost": "a créé un nouveau post",
-      "votedOn": "a voté sur",
-      "earnedBadge": "a gagné le badge",
-      "commentedOn": "a commenté sur",
-      "claimedRewards": "a réclamé des récompenses de staking de",
+      "votedOn": "a voté sur la proposition",
+      "earnedBadge": "a obtenu le badge",
+      "commentedOn": "a commenté",
+      "claimedRewards": "a réclamé des récompenses de staking",
       "submittedProposal": "a soumis une proposition de gouvernance",
-      "unstaked": "a retiré le staking de"
+      "unstaked": "a retiré du stake"
+    },
+    "targets": {
+      "validatorBestPractices": "Meilleures Pratiques pour Validateurs",
+      "stakingStrategies": "Stratégies de Staking"
     },
     "posts": {
       "mainnetDiscussion": {

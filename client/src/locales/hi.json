@@ -138,7 +138,9 @@
     "validatorOps": "वैलिडेटर ऑप्स",
     "securityAudit": "सुरक्षा ऑडिट",
     "reports": "रिपोर्ट्स",
-    "announcements": "घोषणाएं"
+    "announcements": "घोषणाएं",
+    "events": "कार्यक्रम",
+    "badges": "बैज"
   },
   "dashboard": {
     "title": "डैशबोर्ड",
@@ -3944,13 +3946,17 @@
     },
     "activities": {
       "staked": "स्टेक किया",
-      "createdPost": "एक नई पोस्ट बनाई",
-      "votedOn": "वोट किया",
+      "createdPost": "नई पोस्ट बनाई",
+      "votedOn": "प्रस्ताव पर वोट किया",
       "earnedBadge": "बैज अर्जित किया",
       "commentedOn": "टिप्पणी की",
-      "claimedRewards": "स्टेकिंग रिवॉर्ड क्लेम किया",
-      "submittedProposal": "गवर्नेंस प्रस्ताव सबमिट किया",
+      "claimedRewards": "स्टेकिंग पुरस्कार का दावा किया",
+      "submittedProposal": "गवर्नेंस प्रस्ताव प्रस्तुत किया",
       "unstaked": "अनस्टेक किया"
+    },
+    "targets": {
+      "validatorBestPractices": "वैलिडेटर सर्वोत्तम अभ्यास",
+      "stakingStrategies": "स्टेकिंग रणनीतियां"
     },
     "posts": {
       "mainnetDiscussion": {

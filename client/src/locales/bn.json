@@ -131,7 +131,9 @@
     "validatorOps": "ভ্যালিডেটর অপস",
     "securityAudit": "নিরাপত্তা অডিট",
     "reports": "রিপোর্ট",
-    "announcements": "ঘোষণা"
+    "announcements": "ঘোষণা",
+    "events": "ইভেন্ট",
+    "badges": "ব্যাজ"
   },
   "dashboard": {
     "title": "ড্যাশবোর্ড",
@@ -895,14 +897,18 @@
       "legendary": "কিংবদন্তি"
     },
     "activities": {
-      "staked": "স্টেক করেছেন",
-      "createdPost": "একটি নতুন পোস্ট তৈরি করেছেন",
-      "votedOn": "ভোট দিয়েছেন",
-      "earnedBadge": "ব্যাজ অর্জন করেছেন",
-      "commentedOn": "মন্তব্য করেছেন",
-      "claimedRewards": "স্টেকিং রিওয়ার্ড ক্লেইম করেছেন",
-      "submittedProposal": "গভার্ন্যান্স প্রস্তাব জমা দিয়েছেন",
-      "unstaked": "আনস্টেক করেছেন"
+      "staked": "স্টেক করেছে",
+      "createdPost": "নতুন পোস্ট তৈরি করেছে",
+      "votedOn": "প্রস্তাবে ভোট দিয়েছে",
+      "earnedBadge": "ব্যাজ অর্জন করেছে",
+      "commentedOn": "মন্তব্য করেছে",
+      "claimedRewards": "স্টেকিং পুরস্কার দাবি করেছে",
+      "submittedProposal": "গভর্নেন্স প্রস্তাব জমা দিয়েছে",
+      "unstaked": "আনস্টেক করেছে"
+    },
+    "targets": {
+      "validatorBestPractices": "ভ্যালিডেটর সেরা অনুশীলন",
+      "stakingStrategies": "স্টেকিং কৌশল"
     },
     "posts": {
       "mainnetDiscussion": {

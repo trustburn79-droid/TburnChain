@@ -131,7 +131,9 @@
     "validatorOps": "ویلیڈیٹر آپس",
     "securityAudit": "سیکورٹی آڈٹ",
     "reports": "رپورٹس",
-    "announcements": "اعلانات"
+    "announcements": "اعلانات",
+    "events": "تقریبات",
+    "badges": "بیجز"
   },
   "dashboard": {
     "title": "ڈیش بورڈ",
@@ -2490,13 +2492,17 @@
     },
     "activities": {
       "staked": "اسٹیک کیا",
-      "createdPost": "ایک نئی پوسٹ بنائی",
-      "votedOn": "ووٹ دیا",
+      "createdPost": "نئی پوسٹ بنائی",
+      "votedOn": "تجویز پر ووٹ دیا",
       "earnedBadge": "بیج حاصل کیا",
       "commentedOn": "تبصرہ کیا",
-      "claimedRewards": "اسٹیکنگ ریوارڈز کلیم کیے",
+      "claimedRewards": "اسٹیکنگ انعامات کا دعویٰ کیا",
       "submittedProposal": "گورننس تجویز جمع کرائی",
       "unstaked": "ان اسٹیک کیا"
+    },
+    "targets": {
+      "validatorBestPractices": "توثیق کار بہترین طریقے",
+      "stakingStrategies": "اسٹیکنگ حکمت عملی"
     },
     "posts": {
       "mainnetDiscussion": {
