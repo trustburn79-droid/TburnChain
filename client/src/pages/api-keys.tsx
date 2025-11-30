@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -157,7 +162,7 @@ export default function ApiKeys() {
   const [description, setDescription] = useState("");
   const [selectedScopes, setSelectedScopes] = useState<string[]>(['read']);
   const [environment, setEnvironment] = useState("development");
-  const [expiresAt, setExpiresAt] = useState("");
+  const [expiresAt, setExpiresAt] = useState<Date | undefined>(undefined);
   const [rateLimitPerMinute, setRateLimitPerMinute] = useState(60);
   const [rateLimitPerHour, setRateLimitPerHour] = useState(1000);
   const [rateLimitPerDay, setRateLimitPerDay] = useState(10000);
@@ -192,7 +197,7 @@ export default function ApiKeys() {
         description: description.trim() || null,
         scopes: selectedScopes,
         environment,
-        expiresAt: expiresAt || null,
+        expiresAt: expiresAt ? expiresAt.toISOString() : null,
         rateLimitPerMinute,
         rateLimitPerHour,
         rateLimitPerDay,
@@ -272,7 +277,7 @@ export default function ApiKeys() {
     setDescription("");
     setSelectedScopes(['read']);
     setEnvironment("development");
-    setExpiresAt("");
+    setExpiresAt(undefined);
     setRateLimitPerMinute(60);
     setRateLimitPerHour(1000);
     setRateLimitPerDay(10000);
@@ -683,17 +688,47 @@ export default function ApiKeys() {
             <Separator />
 
             <div className="space-y-2">
-              <Label htmlFor="expires-at" className="flex items-center gap-2">
+              <Label className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 Expiration Date (Optional)
               </Label>
-              <Input
-                id="expires-at"
-                type="datetime-local"
-                data-testid="input-expires-at"
-                value={expiresAt}
-                onChange={(e) => setExpiresAt(e.target.value)}
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    data-testid="button-expires-at"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !expiresAt && "text-muted-foreground"
+                    )}
+                  >
+                    <Calendar className="mr-2 h-4 w-4" />
+                    {expiresAt ? format(expiresAt, "PPP", { locale: enUS }) : "Select expiration date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarComponent
+                    mode="single"
+                    selected={expiresAt}
+                    onSelect={setExpiresAt}
+                    locale={enUS}
+                    disabled={(date) => date < new Date()}
+                    initialFocus
+                  />
+                  {expiresAt && (
+                    <div className="p-3 border-t">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => setExpiresAt(undefined)}
+                      >
+                        Clear date
+                      </Button>
+                    </div>
+                  )}
+                </PopoverContent>
+              </Popover>
               <p className="text-xs text-muted-foreground">Leave empty for no expiration</p>
             </div>
 
