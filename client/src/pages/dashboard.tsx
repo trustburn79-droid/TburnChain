@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
   Activity,
@@ -16,7 +16,6 @@ import {
   Crown,
   Layers,
   ArrowUpRight,
-  X,
   Hash,
   Cpu,
   ArrowRight,
@@ -31,6 +30,11 @@ import {
   Rocket,
   Gamepad2,
   Link2,
+  RefreshCw,
+  AlertCircle,
+  CheckCircle2,
+  Wifi,
+  WifiOff,
 } from "lucide-react";
 import { StatCard } from "@/components/stat-card";
 import { LiveIndicator } from "@/components/live-indicator";
@@ -39,6 +43,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import {
   Dialog,
   DialogContent,
@@ -46,9 +51,16 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
 import { Link } from "wouter";
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, BarChart, Bar, LineChart, Line } from "recharts";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TokenomicsData {
   tiers: {
@@ -176,29 +188,259 @@ interface BridgeStats {
   securityEventsCount: number;
 }
 
+interface TpsDataPoint {
+  time: string;
+  tps: number;
+  timestamp: number;
+}
+
+function NetworkHealthIndicator({ stats }: { stats: NetworkStats | undefined }) {
+  const { t } = useTranslation();
+  
+  const healthScore = useMemo(() => {
+    if (!stats) return 0;
+    let score = 100;
+    if ((stats.slaUptime || 9990) < 9900) score -= 20;
+    if ((stats.activeValidators || 0) / (stats.totalValidators || 1) < 0.9) score -= 15;
+    if ((stats.avgBlockTime || 0) > 500) score -= 10;
+    return Math.max(0, score);
+  }, [stats]);
+
+  const healthStatus = useMemo(() => {
+    if (healthScore >= 90) return { label: t("dashboard.healthy"), color: "text-green-500", bg: "bg-green-500" };
+    if (healthScore >= 70) return { label: t("dashboard.warning"), color: "text-yellow-500", bg: "bg-yellow-500" };
+    return { label: t("dashboard.critical"), color: "text-red-500", bg: "bg-red-500" };
+  }, [healthScore, t]);
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 cursor-pointer" data-testid="network-health-indicator">
+          <div className={`h-2 w-2 rounded-full ${healthStatus.bg} animate-pulse`} />
+          <span className={`text-xs font-medium ${healthStatus.color}`}>{healthStatus.label}</span>
+          <span className="text-xs text-muted-foreground">{healthScore}%</span>
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{t("dashboard.networkHealthScore")}: {healthScore}%</p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+function TpsChart({ data }: { data: TpsDataPoint[] }) {
+  return (
+    <ResponsiveContainer width="100%" height={80}>
+      <AreaChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+        <defs>
+          <linearGradient id="tpsGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <Area
+          type="monotone"
+          dataKey="tps"
+          stroke="hsl(var(--primary))"
+          strokeWidth={2}
+          fill="url(#tpsGradient)"
+          dot={false}
+        />
+        <RechartsTooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--card))',
+            border: '1px solid hsl(var(--border))',
+            borderRadius: '6px',
+            fontSize: '12px',
+          }}
+          formatter={(value: number) => [`${formatNumber(value)} TPS`, 'TPS']}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+  );
+}
+
+function BlockProductionChart({ blocks }: { blocks: Block[] | undefined }) {
+  const chartData = useMemo(() => {
+    if (!blocks || blocks.length === 0) return [];
+    return blocks.slice(0, 20).reverse().map((block, idx) => ({
+      name: `#${block.blockNumber}`,
+      txs: block.transactionCount,
+      gasUsed: parseInt(String(block.gasUsed || '0')) / 1e6,
+    }));
+  }, [blocks]);
+
+  if (chartData.length === 0) return null;
+
+  return (
+    <ResponsiveContainer width="100%" height={120}>
+      <BarChart data={chartData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+        <Bar dataKey="txs" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+        <RechartsTooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--card))',
+            border: '1px solid hsl(var(--border))',
+            borderRadius: '6px',
+            fontSize: '12px',
+          }}
+          formatter={(value: number) => [`${value} txs`, 'Transactions']}
+        />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function DataSourceBadge() {
+  const { t } = useTranslation();
+  const { data: dataSource } = useQuery<{ dataSourceType: string; status: string }>({
+    queryKey: ["/api/system/data-source"],
+    refetchInterval: 30000,
+  });
+
+  const isLive = dataSource?.status === 'connected' || dataSource?.dataSourceType === 'local-simulated';
+
+  return (
+    <Badge 
+      variant={isLive ? "default" : "secondary"} 
+      className="gap-1"
+      data-testid="data-source-badge"
+    >
+      {isLive ? (
+        <Wifi className="h-3 w-3" />
+      ) : (
+        <WifiOff className="h-3 w-3" />
+      )}
+      {isLive ? t("dashboard.liveData") : t("dashboard.cached")}
+    </Badge>
+  );
+}
+
+function RefreshButton({ onRefresh, isRefreshing }: { onRefresh: () => void; isRefreshing: boolean }) {
+  const { t } = useTranslation();
+  
+  return (
+    <Button 
+      variant="outline" 
+      size="sm" 
+      onClick={onRefresh}
+      disabled={isRefreshing}
+      data-testid="button-refresh-dashboard"
+    >
+      <RefreshCw className={`h-4 w-4 mr-1 ${isRefreshing ? 'animate-spin' : ''}`} />
+      {t("dashboard.refresh")}
+    </Button>
+  );
+}
+
+function ErrorCard({ title, message, onRetry }: { title: string; message: string; onRetry?: () => void }) {
+  const { t } = useTranslation();
+  
+  return (
+    <Card className="border-destructive/50 bg-destructive/5">
+      <CardContent className="flex items-center gap-4 p-4">
+        <AlertCircle className="h-8 w-8 text-destructive" />
+        <div className="flex-1">
+          <h4 className="font-medium text-destructive">{title}</h4>
+          <p className="text-sm text-muted-foreground">{message}</p>
+        </div>
+        {onRetry && (
+          <Button variant="outline" size="sm" onClick={onRetry}>
+            {t("dashboard.retry")}
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+function DeFiStatCard({ 
+  href, 
+  icon: Icon, 
+  title, 
+  value, 
+  subtitle, 
+  trend, 
+  color,
+  testId 
+}: { 
+  href: string;
+  icon: React.ElementType;
+  title: string;
+  value: string | number;
+  subtitle: string;
+  trend?: string;
+  color: string;
+  testId: string;
+}) {
+  return (
+    <Link href={href}>
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      >
+        <Card className="hover-elevate cursor-pointer h-full" data-testid={testId}>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {title}
+            </CardTitle>
+            <Icon className={`h-4 w-4 ${color}`} />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-semibold tabular-nums">
+              {value}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {subtitle}
+            </p>
+            {trend && (
+              <p className="text-xs text-green-500 mt-0.5">
+                {trend}
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      </motion.div>
+    </Link>
+  );
+}
+
 export default function Dashboard() {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [tpsHistory, setTpsHistory] = useState<TpsDataPoint[]>([]);
+  const [wsConnected, setWsConnected] = useState(false);
 
-  const { data: networkStats, isLoading: statsLoading } = useQuery<NetworkStats>({
+  const { data: networkStats, isLoading: statsLoading, error: statsError, refetch: refetchStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
+    refetchInterval: 5000,
+    retry: 3,
+    retryDelay: 1000,
   });
 
-  const { data: recentBlocks, isLoading: blocksLoading } = useQuery<Block[]>({
+  const { data: recentBlocks, isLoading: blocksLoading, error: blocksError, refetch: refetchBlocks } = useQuery<Block[]>({
     queryKey: ["/api/blocks/recent"],
+    refetchInterval: 3000,
+    retry: 3,
   });
 
-  const { data: recentTxs, isLoading: txsLoading } = useQuery<Transaction[]>({
+  const { data: recentTxs, isLoading: txsLoading, error: txsError, refetch: refetchTxs } = useQuery<Transaction[]>({
     queryKey: ["/api/transactions/recent"],
+    refetchInterval: 3000,
+    retry: 3,
   });
 
   const { data: memberStats, isLoading: memberStatsLoading } = useQuery<MemberStats>({
     queryKey: ["/api/members/stats/summary"],
+    refetchInterval: 60000,
   });
 
   const { data: tokenomics, isLoading: tokenomicsLoading } = useQuery<TokenomicsData>({
     queryKey: ["/api/tokenomics/tiers"],
+    refetchInterval: 60000,
   });
 
   const { data: dexStats, isLoading: dexStatsLoading } = useQuery<DexStats>({
@@ -241,57 +483,162 @@ export default function Dashboard() {
     refetchInterval: 30000,
   });
 
+  useEffect(() => {
+    if (networkStats?.tps) {
+      setTpsHistory(prev => {
+        const newPoint: TpsDataPoint = {
+          time: new Date().toLocaleTimeString(),
+          tps: networkStats.tps,
+          timestamp: Date.now(),
+        };
+        const updated = [...prev, newPoint].slice(-30);
+        return updated;
+      });
+    }
+  }, [networkStats?.tps]);
+
+  useEffect(() => {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    
+    let ws: WebSocket | null = null;
+    let reconnectTimer: NodeJS.Timeout | null = null;
+
+    const connect = () => {
+      try {
+        ws = new WebSocket(wsUrl);
+        
+        ws.onopen = () => {
+          setWsConnected(true);
+          ws?.send(JSON.stringify({ type: 'subscribe', channels: ['network_stats', 'blocks', 'transactions'] }));
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === 'network_stats') {
+              queryClient.setQueryData(["/api/network/stats"], data.payload);
+            } else if (data.type === 'new_block') {
+              queryClient.invalidateQueries({ queryKey: ["/api/blocks/recent"] });
+            } else if (data.type === 'new_transaction') {
+              queryClient.invalidateQueries({ queryKey: ["/api/transactions/recent"] });
+            }
+          } catch {
+          }
+        };
+
+        ws.onclose = () => {
+          setWsConnected(false);
+          reconnectTimer = setTimeout(connect, 3000);
+        };
+
+        ws.onerror = () => {
+          setWsConnected(false);
+        };
+      } catch {
+        setWsConnected(false);
+      }
+    };
+
+    connect();
+
+    return () => {
+      if (reconnectTimer) clearTimeout(reconnectTimer);
+      if (ws) ws.close();
+    };
+  }, [queryClient]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        refetchStats(),
+        refetchBlocks(),
+        refetchTxs(),
+        queryClient.invalidateQueries({ queryKey: ["/api/members/stats/summary"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/tokenomics/tiers"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/dex/stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/lending/stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/yield/stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/liquid-staking/stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/nft/stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/launchpad/stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/gamefi/stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["/api/bridge/stats"] }),
+      ]);
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetchStats, refetchBlocks, refetchTxs, queryClient]);
+
   const defiLoading = dexStatsLoading || lendingStatsLoading || yieldStatsLoading || lstStatsLoading || 
                       nftStatsLoading || launchpadStatsLoading || gameFiStatsLoading || bridgeStatsLoading;
 
+  const validatorOnlinePercent = useMemo(() => {
+    if (!networkStats?.activeValidators || !networkStats?.totalValidators) return 0;
+    return (networkStats.activeValidators / networkStats.totalValidators * 100);
+  }, [networkStats]);
+
   return (
     <div className="flex flex-col gap-6 p-6">
-      {/* Header with Live Indicator */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-semibold">{t("dashboard.explorerTitle")}</h1>
           <p className="text-sm text-muted-foreground mt-1">
             {t("dashboard.explorerSubtitle")}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          <NetworkHealthIndicator stats={networkStats} />
+          <DataSourceBadge />
           <LiveIndicator />
+          <RefreshButton onRefresh={handleRefresh} isRefreshing={isRefreshing} />
         </div>
       </div>
 
-      {/* Search Bar */}
       <div className="flex justify-center">
         <SearchBar />
       </div>
 
-      {/* Network Stats Cards */}
+      {statsError && (
+        <ErrorCard 
+          title={t("dashboard.networkError")} 
+          message={t("dashboard.failedToLoadStats")}
+          onRetry={() => refetchStats()}
+        />
+      )}
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {statsLoading ? (
-          <>
-            <Skeleton key="stats-sk-1" className="h-32" />
-            <Skeleton key="stats-sk-2" className="h-32" />
-            <Skeleton key="stats-sk-3" className="h-32" />
-            <Skeleton key="stats-sk-4" className="h-32" />
-          </>
+          Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={`stats-sk-${i}`} className="h-32" />
+          ))
         ) : (
           <>
+            <Card className="overflow-hidden">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  {t("dashboard.currentTps")}
+                </CardTitle>
+                <Zap className="h-4 w-4 text-yellow-500" />
+              </CardHeader>
+              <CardContent className="pb-0">
+                <div className="text-2xl font-semibold tabular-nums">
+                  {formatNumber(networkStats?.tps || 0)} <span className="text-sm text-muted-foreground">TPS</span>
+                </div>
+                <p className="text-xs text-muted-foreground mb-2">
+                  {t("dashboard.peak")}: {formatNumber(networkStats?.peakTps || 0)} TPS
+                </p>
+                <TpsChart data={tpsHistory} />
+              </CardContent>
+            </Card>
             <StatCard
-              key="stat-tps"
-              title={t("dashboard.currentTps")}
-              value={formatNumber(networkStats?.tps || 0)}
-              icon={Zap}
-              trend={{ value: 12.5, isPositive: true }}
-              subtitle={`${t("dashboard.peak")}: ${formatNumber(networkStats?.peakTps || 0)} TPS`}
-            />
-            <StatCard
-              key="stat-height"
               title={t("dashboard.blockHeight")}
               value={formatNumber(networkStats?.currentBlockHeight || 0)}
               icon={Blocks}
               subtitle={t("dashboard.latestBlock")}
             />
             <StatCard
-              key="stat-time"
               title={t("dashboard.blockTime")}
               value={`${networkStats?.avgBlockTime || 0}ms`}
               icon={Clock}
@@ -299,7 +646,6 @@ export default function Dashboard() {
               subtitle={`P99: ${networkStats?.blockTimeP99 || 0}ms`}
             />
             <StatCard
-              key="stat-uptime"
               title={t("dashboard.slaUptime")}
               value={`${((networkStats?.slaUptime || 9990) / 100).toFixed(2)}%`}
               icon={Activity}
@@ -309,52 +655,48 @@ export default function Dashboard() {
         )}
       </div>
 
-      {/* Secondary Stats */}
       <div className="grid gap-4 md:grid-cols-5">
         {statsLoading ? (
-          <>
-            <Skeleton key="sec-sk-1" className="h-24" />
-            <Skeleton key="sec-sk-2" className="h-24" />
-            <Skeleton key="sec-sk-3" className="h-24" />
-            <Skeleton key="sec-sk-4" className="h-24" />
-          </>
+          Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={`sec-sk-${i}`} className="h-24" />
+          ))
         ) : (
           <>
-            <Card key="card-total-tx" className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.totalTransactions")}
                 </CardTitle>
                 <Activity className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
+                <div className="text-2xl font-semibold tabular-nums" data-testid="stat-total-transactions">
                   {formatNumber(networkStats?.totalTransactions || 0)}
                 </div>
               </CardContent>
             </Card>
-            <Card key="card-total-accounts" className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.totalAccounts")}
                 </CardTitle>
                 <TrendingUp className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
+                <div className="text-2xl font-semibold tabular-nums" data-testid="stat-total-accounts">
                   {formatNumber(networkStats?.totalAccounts || 0)}
                 </div>
               </CardContent>
             </Card>
-            <Card key="card-tburn-price" className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.tburnPrice")}
                 </CardTitle>
                 <TrendingUp className={`h-4 w-4 ${((networkStats as any)?.priceChangePercent || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`} />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
+                <div className="text-2xl font-semibold tabular-nums" data-testid="stat-tburn-price">
                   ${((networkStats as any)?.tokenPrice || 28.91).toFixed(2)}
                 </div>
                 <p className={`text-xs mt-1 ${((networkStats as any)?.priceChangePercent || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`}>
@@ -362,15 +704,15 @@ export default function Dashboard() {
                 </p>
               </CardContent>
             </Card>
-            <Card key="card-market-cap" className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.marketCap")}
                 </CardTitle>
                 <TrendingUp className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
+                <div className="text-2xl font-semibold tabular-nums" data-testid="stat-market-cap">
                   ${formatNumber(networkStats?.marketCap || 0)}
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -378,19 +720,20 @@ export default function Dashboard() {
                 </p>
               </CardContent>
             </Card>
-            <Card key="card-active-validators" className="hover-elevate">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.activeValidators")}
                 </CardTitle>
                 <Server className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-semibold tabular-nums">
+                <div className="text-2xl font-semibold tabular-nums" data-testid="stat-active-validators">
                   {networkStats?.activeValidators || 0} / {networkStats?.totalValidators || 0}
                 </div>
+                <Progress value={validatorOnlinePercent} className="h-1 mt-2" />
                 <p className="text-xs text-muted-foreground mt-1">
-                  {t("dashboard.percentOnline", { percent: ((networkStats?.activeValidators || 0) / (networkStats?.totalValidators || 1) * 100).toFixed(1) })}
+                  {t("dashboard.percentOnline", { percent: validatorOnlinePercent.toFixed(1) })}
                 </p>
               </CardContent>
             </Card>
@@ -398,7 +741,6 @@ export default function Dashboard() {
         )}
       </div>
 
-      {/* Tokenomics Overview */}
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <Coins className="h-5 w-5" />
@@ -406,16 +748,15 @@ export default function Dashboard() {
         </h2>
         {tokenomicsLoading ? (
           <div className="grid gap-4 md:grid-cols-4">
-            <Skeleton key="token-sk-1" className="h-32" />
-            <Skeleton key="token-sk-2" className="h-32" />
-            <Skeleton key="token-sk-3" className="h-32" />
-            <Skeleton key="token-sk-4" className="h-32" />
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={`token-sk-${i}`} className="h-32" />
+            ))}
           </div>
         ) : tokenomics ? (
           <>
-            <div key="tokenomics-emission-grid" className="grid gap-4 md:grid-cols-4 mb-4">
-              <Card key="card-daily-emission" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="grid gap-4 md:grid-cols-4 mb-4">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.dailyEmission")}
                   </CardTitle>
@@ -430,8 +771,8 @@ export default function Dashboard() {
                   </p>
                 </CardContent>
               </Card>
-              <Card key="card-daily-burn" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.dailyBurn", { rate: tokenomics.emission.burnRate })}
                   </CardTitle>
@@ -446,8 +787,8 @@ export default function Dashboard() {
                   </p>
                 </CardContent>
               </Card>
-              <Card key="card-net-emission" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.netDailyEmission")}
                   </CardTitle>
@@ -462,8 +803,8 @@ export default function Dashboard() {
                   </p>
                 </CardContent>
               </Card>
-              <Card key="card-staking-rate" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.stakingRate")}
                   </CardTitle>
@@ -473,6 +814,7 @@ export default function Dashboard() {
                   <div className="text-2xl font-semibold tabular-nums text-purple-500" data-testid="stat-staking-rate">
                     {tokenomics.stakedPercent.toFixed(1)}%
                   </div>
+                  <Progress value={tokenomics.stakedPercent} className="h-1 mt-2" />
                   <p className="text-xs text-muted-foreground mt-1">
                     {t("dashboard.stakedOfTotal", { staked: formatNumber(tokenomics.stakedAmount / 1e6), total: formatNumber(tokenomics.totalSupply / 1e6) })}
                   </p>
@@ -480,9 +822,8 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            {/* Tier Summary Cards */}
-            <div key="tokenomics-tier-grid" className="grid gap-4 md:grid-cols-3">
-              <Card key="card-tier1" className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 hover-elevate">
+            <div className="grid gap-4 md:grid-cols-3">
+              <Card className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 hover-elevate">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Crown className="h-4 w-4 text-amber-500" />
@@ -508,7 +849,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card key="card-tier2" className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 hover-elevate">
+              <Card className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 hover-elevate">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Layers className="h-4 w-4 text-blue-500" />
@@ -534,7 +875,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card key="card-tier3" className="border-gray-500/30 bg-gradient-to-br from-gray-500/5 to-slate-500/5 hover-elevate">
+              <Card className="border-gray-500/30 bg-gradient-to-br from-gray-500/5 to-slate-500/5 hover-elevate">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Users className="h-4 w-4 text-gray-500" />
@@ -564,7 +905,6 @@ export default function Dashboard() {
         ) : null}
       </div>
 
-      {/* Member Statistics */}
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <Users className="h-5 w-5" />
@@ -572,76 +912,72 @@ export default function Dashboard() {
         </h2>
         <div className="grid gap-4 md:grid-cols-5">
           {memberStatsLoading ? (
-            <>
-              <Skeleton key="member-sk-1" className="h-24" />
-              <Skeleton key="member-sk-2" className="h-24" />
-              <Skeleton key="member-sk-3" className="h-24" />
-              <Skeleton key="member-sk-4" className="h-24" />
-              <Skeleton key="member-sk-5" className="h-24" />
-            </>
+            Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={`member-sk-${i}`} className="h-24" />
+            ))
           ) : (
             <>
-              <Card key="card-total-members" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.totalMembers")}
                   </CardTitle>
                   <Users className="h-4 w-4 text-primary" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-semibold tabular-nums">
+                  <div className="text-2xl font-semibold tabular-nums" data-testid="stat-total-members">
                     {formatNumber(memberStats?.totalMembers || 0)}
                   </div>
                 </CardContent>
               </Card>
-              <Card key="card-active-members" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.activeMembers")}
                   </CardTitle>
                   <Activity className="h-4 w-4 text-green-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-semibold tabular-nums">
+                  <div className="text-2xl font-semibold tabular-nums" data-testid="stat-active-members">
                     {formatNumber(memberStats?.activeMembers || 0)}
                   </div>
                 </CardContent>
               </Card>
-              <Card key="card-total-validators-label" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.totalValidatorsLabel")}
                   </CardTitle>
                   <Shield className="h-4 w-4 text-blue-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-semibold tabular-nums">
+                  <div className="text-2xl font-semibold tabular-nums" data-testid="stat-member-validators">
                     {formatNumber(memberStats?.totalValidators || 0)}
                   </div>
                 </CardContent>
               </Card>
-              <Card key="card-total-stakers" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.totalStakers")}
                   </CardTitle>
                   <Award className="h-4 w-4 text-purple-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-semibold tabular-nums">
+                  <div className="text-2xl font-semibold tabular-nums" data-testid="stat-total-stakers">
                     {formatNumber(memberStats?.totalStakers || 0)}
                   </div>
                 </CardContent>
               </Card>
-              <Card key="card-kyc-verified" className="hover-elevate">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <Card className="hover-elevate">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {t("dashboard.kycVerified")}
                   </CardTitle>
-                  <Shield className="h-4 w-4 text-indigo-500" />
+                  <CheckCircle2 className="h-4 w-4 text-green-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-semibold tabular-nums">
+                  <div className="text-2xl font-semibold tabular-nums" data-testid="stat-kyc-verified">
                     {formatNumber(memberStats?.kycVerified || 0)}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -654,7 +990,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* DeFi Ecosystem Overview */}
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <TrendingUp className="h-5 w-5" />
@@ -662,257 +997,175 @@ export default function Dashboard() {
         </h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {defiLoading ? (
-            <>
-              <Skeleton key="defi-sk-1" className="h-32" />
-              <Skeleton key="defi-sk-2" className="h-32" />
-              <Skeleton key="defi-sk-3" className="h-32" />
-              <Skeleton key="defi-sk-4" className="h-32" />
-              <Skeleton key="defi-sk-5" className="h-32" />
-              <Skeleton key="defi-sk-6" className="h-32" />
-              <Skeleton key="defi-sk-7" className="h-32" />
-              <Skeleton key="defi-sk-8" className="h-32" />
-            </>
+            Array.from({ length: 8 }).map((_, i) => (
+              <Skeleton key={`defi-sk-${i}`} className="h-32" />
+            ))
           ) : (
             <>
-              <Link key="link-dex" href="/dex">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-dex-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.dexAmm")}
-                    </CardTitle>
-                    <ArrowRightLeft className="h-4 w-4 text-blue-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {dexStats?.totalPools || 0} {t("dashboard.pools")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(dexStats?.totalTvlUsd || 0) / 1e18)} {t("dashboard.tvl")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.swaps24h", { count: dexStats?.totalSwaps24h || 0 })}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link key="link-lending" href="/lending">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-lending-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.lending")}
-                    </CardTitle>
-                    <Landmark className="h-4 w-4 text-green-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {lendingStats?.totalMarkets || 0} {t("dashboard.markets")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(lendingStats?.totalValueLockedUsd || 0) / 1e18)} {t("dashboard.supplied")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.avgApy", { rate: ((lendingStats?.avgSupplyRate || 0) / 100).toFixed(2) })}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link key="link-yield" href="/yield">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-yield-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.yieldFarming")}
-                    </CardTitle>
-                    <Sprout className="h-4 w-4 text-lime-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {yieldStats?.totalVaults || 0} {t("dashboard.vaults")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(yieldStats?.totalTvlUsd || 0) / 1e18)} {t("dashboard.tvl")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.avgApy", { rate: ((yieldStats?.avgVaultApy || 0) / 100).toFixed(2) })}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link key="link-liquid-staking" href="/liquid-staking">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-lst-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.liquidStaking")}
-                    </CardTitle>
-                    <Droplets className="h-4 w-4 text-cyan-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {lstStats?.totalPools || 0} {t("dashboard.pools")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(lstStats?.totalStakedUsd || 0) / 1e18)} {t("dashboard.staked")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.avgApy", { rate: ((lstStats?.avgPoolApy || 0) / 100).toFixed(2) })}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link key="link-nft" href="/nft">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-nft-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.nftMarketplace")}
-                    </CardTitle>
-                    <Image className="h-4 w-4 text-purple-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {nftStats?.totalCollections || 0} {t("dashboard.collections")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {formatNumber(nftStats?.totalItems || 0)} {t("dashboard.items")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.sales24h", { count: nftStats?.salesCount24h || 0 })}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link key="link-launchpad" href="/launchpad">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-launchpad-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.launchpad")}
-                    </CardTitle>
-                    <Rocket className="h-4 w-4 text-orange-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {launchpadStats?.totalProjects || 0} {t("dashboard.projects")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {launchpadStats?.activeProjects || 0} {t("dashboard.active")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      ${formatNumber(Number(launchpadStats?.totalRaised || 0) / 1e18)} {t("dashboard.raised")}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link key="link-gamefi" href="/gamefi">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-gamefi-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.gamefi")}
-                    </CardTitle>
-                    <Gamepad2 className="h-4 w-4 text-pink-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {gameFiStats?.totalProjects || 0} {t("dashboard.games")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {gameFiStats?.activeTournaments || 0} {t("dashboard.tournaments")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      ${formatNumber(Number(gameFiStats?.totalRewardsDistributed || 0) / 1e18)} {t("dashboard.rewards")}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link key="link-bridge" href="/bridge">
-                <Card className="hover-elevate cursor-pointer" data-testid="card-bridge-stats">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                      {t("dashboard.crossChainBridge")}
-                    </CardTitle>
-                    <Link2 className="h-4 w-4 text-indigo-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">
-                      {bridgeStats?.activeChains || 0} {t("dashboard.chains")}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ${formatNumber(Number(bridgeStats?.totalLiquidity || 0) / 1e18)} {t("dashboard.liquidity")}
-                    </p>
-                    <p className="text-xs text-green-500 mt-0.5">
-                      {t("dashboard.transfers24h", { count: bridgeStats?.transferCount24h || 0 })}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
+              <DeFiStatCard
+                href="/dex"
+                icon={ArrowRightLeft}
+                title={t("dashboard.dexAmm")}
+                value={`${dexStats?.totalPools || 0} ${t("dashboard.pools")}`}
+                subtitle={`$${formatNumber(Number(dexStats?.totalTvlUsd || 0) / 1e18)} ${t("dashboard.tvl")}`}
+                trend={t("dashboard.swaps24h", { count: dexStats?.totalSwaps24h || 0 })}
+                color="text-blue-500"
+                testId="card-dex-stats"
+              />
+              <DeFiStatCard
+                href="/lending"
+                icon={Landmark}
+                title={t("dashboard.lending")}
+                value={`${lendingStats?.totalMarkets || 0} ${t("dashboard.markets")}`}
+                subtitle={`$${formatNumber(Number(lendingStats?.totalValueLockedUsd || 0) / 1e18)} ${t("dashboard.supplied")}`}
+                trend={t("dashboard.avgApy", { rate: ((lendingStats?.avgSupplyRate || 0) / 100).toFixed(2) })}
+                color="text-green-500"
+                testId="card-lending-stats"
+              />
+              <DeFiStatCard
+                href="/yield"
+                icon={Sprout}
+                title={t("dashboard.yieldFarming")}
+                value={`${yieldStats?.totalVaults || 0} ${t("dashboard.vaults")}`}
+                subtitle={`$${formatNumber(Number(yieldStats?.totalTvlUsd || 0) / 1e18)} ${t("dashboard.tvl")}`}
+                trend={t("dashboard.avgApy", { rate: ((yieldStats?.avgVaultApy || 0) / 100).toFixed(2) })}
+                color="text-lime-500"
+                testId="card-yield-stats"
+              />
+              <DeFiStatCard
+                href="/liquid-staking"
+                icon={Droplets}
+                title={t("dashboard.liquidStaking")}
+                value={`${lstStats?.totalPools || 0} ${t("dashboard.pools")}`}
+                subtitle={`$${formatNumber(Number(lstStats?.totalStakedUsd || 0) / 1e18)} ${t("dashboard.staked")}`}
+                trend={t("dashboard.avgApy", { rate: ((lstStats?.avgPoolApy || 0) / 100).toFixed(2) })}
+                color="text-cyan-500"
+                testId="card-lst-stats"
+              />
+              <DeFiStatCard
+                href="/nft"
+                icon={Image}
+                title={t("dashboard.nftMarketplace")}
+                value={`${nftStats?.totalCollections || 0} ${t("dashboard.collections")}`}
+                subtitle={`${formatNumber(nftStats?.totalItems || 0)} ${t("dashboard.items")}`}
+                trend={t("dashboard.sales24h", { count: nftStats?.salesCount24h || 0 })}
+                color="text-purple-500"
+                testId="card-nft-stats"
+              />
+              <DeFiStatCard
+                href="/launchpad"
+                icon={Rocket}
+                title={t("dashboard.launchpad")}
+                value={`${launchpadStats?.totalProjects || 0} ${t("dashboard.projects")}`}
+                subtitle={`${launchpadStats?.activeProjects || 0} ${t("dashboard.active")}`}
+                trend={`$${formatNumber(Number(launchpadStats?.totalRaised || 0) / 1e18)} ${t("dashboard.raised")}`}
+                color="text-orange-500"
+                testId="card-launchpad-stats"
+              />
+              <DeFiStatCard
+                href="/gamefi"
+                icon={Gamepad2}
+                title={t("dashboard.gamefi")}
+                value={`${gameFiStats?.totalProjects || 0} ${t("dashboard.games")}`}
+                subtitle={`${gameFiStats?.activeTournaments || 0} ${t("dashboard.tournaments")}`}
+                trend={`$${formatNumber(Number(gameFiStats?.totalRewardsDistributed || 0) / 1e18)} ${t("dashboard.rewards")}`}
+                color="text-pink-500"
+                testId="card-gamefi-stats"
+              />
+              <DeFiStatCard
+                href="/bridge"
+                icon={Link2}
+                title={t("dashboard.crossChainBridge")}
+                value={`${bridgeStats?.activeChains || 0} ${t("dashboard.chains")}`}
+                subtitle={`$${formatNumber(Number(bridgeStats?.totalLiquidity || 0) / 1e18)} ${t("dashboard.liquidity")}`}
+                trend={t("dashboard.transfers24h", { count: bridgeStats?.transferCount24h || 0 })}
+                color="text-indigo-500"
+                testId="card-bridge-stats"
+              />
             </>
           )}
         </div>
       </div>
 
-      {/* Blocks and Transactions Grid */}
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Latest Blocks */}
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between gap-2">
             <CardTitle className="flex items-center gap-2">
               <Blocks className="h-5 w-5" />
               {t("dashboard.latestBlocks")}
             </CardTitle>
+            {recentBlocks && recentBlocks.length > 0 && (
+              <BlockProductionChart blocks={recentBlocks} />
+            )}
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {blocksLoading ? (
-                <>
-                  <Skeleton key="block-sk-1" className="h-16" />
-                  <Skeleton key="block-sk-2" className="h-16" />
-                  <Skeleton key="block-sk-3" className="h-16" />
-                </>
-              ) : recentBlocks && recentBlocks.length > 0 ? (
-                recentBlocks.slice(0, 10).map((block) => (
-                  <div
-                    key={block.id}
-                    className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
-                    data-testid={`card-block-${block.blockNumber}`}
-                    onClick={() => setSelectedBlock(block)}
-                  >
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono font-semibold text-sm text-primary">
-                          #{formatNumber(block.blockNumber)}
-                        </span>
-                        <Badge variant="secondary" className="text-xs">
-                          {block.transactionCount} {t("dashboard.txs")}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{t("dashboard.validator")}:</span>
-                        <span className="font-mono">
-                          {formatAddress(block.validatorAddress)}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs text-muted-foreground">
-                        {formatTimeAgo(block.timestamp)}
-                      </div>
-                    </div>
-                  </div>
+                Array.from({ length: 5 }).map((_, i) => (
+                  <Skeleton key={`block-sk-${i}`} className="h-16" />
                 ))
+              ) : blocksError ? (
+                <ErrorCard 
+                  title={t("dashboard.blockError")} 
+                  message={t("dashboard.failedToLoadBlocks")}
+                  onRetry={() => refetchBlocks()}
+                />
+              ) : recentBlocks && recentBlocks.length > 0 ? (
+                <AnimatePresence mode="popLayout">
+                  {recentBlocks.slice(0, 10).map((block, index) => (
+                    <motion.div
+                      key={`block-item-${index}-${block.blockNumber || 'pending'}-${block.hash?.slice(0, 8) || 'no-hash'}`}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
+                      data-testid={`card-block-${block.blockNumber}`}
+                      onClick={() => setSelectedBlock(block)}
+                    >
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-semibold text-sm text-primary">
+                            #{formatNumber(block.blockNumber)}
+                          </span>
+                          <Badge variant="secondary" className="text-xs">
+                            {block.transactionCount} {t("dashboard.txs")}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <span>{t("dashboard.validator")}:</span>
+                          <span className="font-mono">
+                            {formatAddress(block.validatorAddress)}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs text-muted-foreground">
+                          {formatTimeAgo(block.timestamp)}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-8">
                   {t("dashboard.noBlocksFound")}
                 </p>
               )}
             </div>
+            {recentBlocks && recentBlocks.length > 0 && (
+              <div className="mt-4 pt-4 border-t">
+                <Link href="/blocks">
+                  <Button variant="outline" className="w-full" data-testid="button-view-all-blocks">
+                    {t("dashboard.viewAllBlocks")}
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        {/* Latest Transactions */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -923,65 +1176,84 @@ export default function Dashboard() {
           <CardContent>
             <div className="space-y-3">
               {txsLoading ? (
-                <>
-                  <Skeleton key="tx-sk-1" className="h-16" />
-                  <Skeleton key="tx-sk-2" className="h-16" />
-                  <Skeleton key="tx-sk-3" className="h-16" />
-                </>
-              ) : recentTxs && recentTxs.length > 0 ? (
-                recentTxs.slice(0, 10).map((tx) => (
-                  <div
-                    key={tx.id}
-                    className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
-                    data-testid={`card-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
-                    onClick={() => setSelectedTx(tx)}
-                  >
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-sm text-primary">
-                          {formatAddress(tx.hash, 8, 6)}
-                        </span>
-                        <Badge
-                          variant={
-                            tx.status === "success"
-                              ? "default"
-                              : tx.status === "failed"
-                              ? "destructive"
-                              : "secondary"
-                          }
-                          className="text-xs"
-                        >
-                          {tx.status}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{t("dashboard.fromLabel")}:</span>
-                        <span className="font-mono">{formatAddress(tx.from)}</span>
-                        <span>→</span>
-                        <span className="font-mono">{formatAddress(tx.to || t("dashboard.contract"))}</span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-medium">
-                        {formatTokenAmount(tx.value)}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {formatTimeAgo(tx.timestamp)}
-                      </div>
-                    </div>
-                  </div>
+                Array.from({ length: 5 }).map((_, i) => (
+                  <Skeleton key={`tx-sk-${i}`} className="h-16" />
                 ))
+              ) : txsError ? (
+                <ErrorCard 
+                  title={t("dashboard.txError")} 
+                  message={t("dashboard.failedToLoadTxs")}
+                  onRetry={() => refetchTxs()}
+                />
+              ) : recentTxs && recentTxs.length > 0 ? (
+                <AnimatePresence mode="popLayout">
+                  {recentTxs.slice(0, 10).map((tx, index) => (
+                    <motion.div
+                      key={`tx-item-${index}-${tx.hash?.slice(0, 12) || 'pending'}`}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
+                      data-testid={`card-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
+                      onClick={() => setSelectedTx(tx)}
+                    >
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-sm text-primary">
+                            {formatAddress(tx.hash, 8, 6)}
+                          </span>
+                          <Badge
+                            variant={
+                              tx.status === "success"
+                                ? "default"
+                                : tx.status === "failed"
+                                ? "destructive"
+                                : "secondary"
+                            }
+                            className="text-xs"
+                          >
+                            {tx.status}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <span>{t("dashboard.fromLabel")}:</span>
+                          <span className="font-mono">{formatAddress(tx.from)}</span>
+                          <span>→</span>
+                          <span className="font-mono">{formatAddress(tx.to || t("dashboard.contract"))}</span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-medium">
+                          {formatTokenAmount(tx.value)}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {formatTimeAgo(tx.timestamp)}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-8">
                   {t("dashboard.noTransactionsFound")}
                 </p>
               )}
             </div>
+            {recentTxs && recentTxs.length > 0 && (
+              <div className="mt-4 pt-4 border-t">
+                <Link href="/transactions">
+                  <Button variant="outline" className="w-full" data-testid="button-view-all-transactions">
+                    {t("dashboard.viewAllTransactions")}
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
 
-      {/* Block Detail Modal */}
       <Dialog open={!!selectedBlock} onOpenChange={(open) => !open && setSelectedBlock(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
@@ -1077,7 +1349,6 @@ export default function Dashboard() {
         </DialogContent>
       </Dialog>
 
-      {/* Transaction Detail Modal */}
       <Dialog open={!!selectedTx} onOpenChange={(open) => !open && setSelectedTx(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>

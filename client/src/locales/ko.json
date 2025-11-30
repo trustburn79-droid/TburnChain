@@ -271,7 +271,21 @@
     "nonce": "논스",
     "shard": "샤드",
     "inputData": "입력 데이터",
-    "contract": "컨트랙트"
+    "contract": "컨트랙트",
+    "warning": "경고",
+    "networkHealthScore": "네트워크 상태 점수",
+    "liveData": "실시간 데이터",
+    "cached": "캐시됨",
+    "refresh": "새로고침",
+    "retry": "재시도",
+    "networkError": "네트워크 오류",
+    "failedToLoadStats": "네트워크 통계를 불러오지 못했습니다. 다시 시도해 주세요.",
+    "blockError": "블록 로딩 오류",
+    "failedToLoadBlocks": "최근 블록을 불러오지 못했습니다. 다시 시도해 주세요.",
+    "txError": "트랜잭션 로딩 오류",
+    "failedToLoadTxs": "최근 트랜잭션을 불러오지 못했습니다. 다시 시도해 주세요.",
+    "viewAllBlocks": "모든 블록 보기",
+    "viewAllTransactions": "모든 트랜잭션 보기"
   },
   "blocks": {
     "title": "블록",

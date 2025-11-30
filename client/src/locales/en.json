@@ -271,7 +271,21 @@
     "nonce": "Nonce",
     "shard": "Shard",
     "inputData": "Input Data",
-    "contract": "Contract"
+    "contract": "Contract",
+    "warning": "Warning",
+    "networkHealthScore": "Network Health Score",
+    "liveData": "Live Data",
+    "cached": "Cached",
+    "refresh": "Refresh",
+    "retry": "Retry",
+    "networkError": "Network Error",
+    "failedToLoadStats": "Failed to load network statistics. Please try again.",
+    "blockError": "Block Loading Error",
+    "failedToLoadBlocks": "Failed to load recent blocks. Please try again.",
+    "txError": "Transaction Loading Error",
+    "failedToLoadTxs": "Failed to load recent transactions. Please try again.",
+    "viewAllBlocks": "View All Blocks",
+    "viewAllTransactions": "View All Transactions"
   },
   "blocks": {
     "title": "Blocks",
