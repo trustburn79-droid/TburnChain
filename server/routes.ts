@@ -568,22 +568,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const isAddress = /^0x[a-fA-F0-9]{40}$/.test(query) || /^tburn[a-z0-9]{38,42}$/i.test(query);
       const isPartialHash = /^0x[a-fA-F0-9]+$/.test(query) && query.length >= 10;
       
-      // Search blocks (optimized: use recent blocks instead of all)
+      // Search blocks (optimized: use direct lookup for block numbers)
       if (!type || type === 'all' || type === 'block') {
         if (isBlockNumber) {
           const blockNumber = parseInt(query);
-          // Use recent blocks for faster search
-          const recentBlocks = await storage.getRecentBlocks(1000);
-          const block = recentBlocks.find(b => b.blockNumber === blockNumber);
-          if (block) {
+          
+          // Always search for blocks containing this number pattern first
+          const recentBlocks = await storage.getRecentBlocks(500);
+          const matchingBlocks = recentBlocks.filter(b => 
+            b.blockNumber.toString().includes(query)
+          ).slice(0, 10);
+          
+          matchingBlocks.forEach((b, i) => {
             results.push({
               type: 'block',
-              id: block.id,
-              title: `Block #${block.blockNumber.toLocaleString()}`,
-              subtitle: `Hash: ${block.hash.slice(0, 20)}...`,
-              data: block,
-              relevance: 100
+              id: b.id,
+              title: `Block #${b.blockNumber.toLocaleString()}`,
+              subtitle: `Hash: ${b.hash.slice(0, 20)}...`,
+              data: b,
+              relevance: 90 - i
             });
+          });
+          
+          // Also try direct lookup by block number if no pattern matches found
+          if (matchingBlocks.length === 0) {
+            const block = await storage.getBlockByNumber(blockNumber);
+            if (block) {
+              results.push({
+                type: 'block',
+                id: block.id,
+                title: `Block #${block.blockNumber.toLocaleString()}`,
+                subtitle: `Hash: ${block.hash.slice(0, 20)}...`,
+                data: block,
+                relevance: 100
+              });
+            }
           }
         } else if (isPartialHash) {
           const recentBlocks = await storage.getRecentBlocks(500);
