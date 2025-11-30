@@ -113,23 +113,33 @@ function ConsensusStatsDetailDialog({
   rounds: ConsensusRound[];
 }) {
   const getDialogContent = () => {
+    const hasRoundsData = rounds.length > 0;
+    
     switch (statType) {
       case 'successRate': {
         const completedRounds = rounds.filter(r => r.status === 'completed').length;
         const failedRounds = rounds.filter(r => r.status === 'failed').length;
+        const inProgressRounds = rounds.filter(r => r.status === 'in_progress').length;
         const totalRounds = rounds.length;
-        const successRate = totalRounds > 0 ? (completedRounds / totalRounds) * 100 : 99.8;
+        const successRate = totalRounds > 0 ? (completedRounds / totalRounds) * 100 : 0;
+        const uptimeRate = totalRounds > 0 ? ((completedRounds + inProgressRounds) / totalRounds) * 100 : 0;
         
-        const distributionData = [
-          { name: t('consensus.completed'), value: completedRounds || 9980, color: '#10B981' },
-          { name: t('consensus.failed'), value: failedRounds || 20, color: '#EF4444' },
-        ];
+        const distributionData = hasRoundsData ? [
+          { name: t('consensus.completed'), value: completedRounds, color: '#10B981' },
+          { name: t('consensus.failed'), value: failedRounds, color: '#EF4444' },
+        ].filter(d => d.value > 0) : [];
         
-        const trendData = Array.from({ length: 7 }, (_, i) => ({
-          day: t(`consensus.day${i + 1}`),
-          successRate: 99.5 + Math.random() * 0.5,
-          failed: Math.floor(Math.random() * 5),
-        }));
+        const sortedRounds = [...rounds].sort((a, b) => b.blockHeight - a.blockHeight);
+        const trendData = sortedRounds.slice(0, 7).reverse().map((round, i) => {
+          const voteProgress = round.totalValidators > 0 
+            ? (round.prevoteCount / round.totalValidators) * 100 
+            : 0;
+          return {
+            day: t(`consensus.day${i + 1}`),
+            successRate: round.status === 'completed' ? 100 : round.status === 'failed' ? 0 : voteProgress,
+            blockHeight: round.blockHeight,
+          };
+        });
 
         return (
           <>
@@ -140,90 +150,116 @@ function ConsensusStatsDetailDialog({
               </DialogTitle>
               <DialogDescription>{t('consensus.successRateAnalyticsDesc')}</DialogDescription>
             </DialogHeader>
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.roundDistribution')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <PieChart>
-                      <Pie
-                        data={distributionData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={50}
-                        outerRadius={80}
-                        dataKey="value"
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
-                      >
-                        {distributionData.map((entry, index) => (
-                          <Cell key={index} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.weeklyTrend')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart data={trendData}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="day" className="text-xs" />
-                      <YAxis domain={[99, 100]} className="text-xs" />
-                      <Tooltip />
-                      <Area type="monotone" dataKey="successRate" stroke="#10B981" fill="#10B981" fillOpacity={0.3} />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
-            <Card className="mt-4 bg-muted">
-              <CardContent className="pt-4">
-                <div className="grid grid-cols-4 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">{successRate.toFixed(2)}%</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.overallRate')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">{(completedRounds || 9980).toLocaleString()}</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.successfulRounds')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-red-600">{(failedRounds || 20).toLocaleString()}</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.failedRoundsCount')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">99.99%</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.uptimeRate')}</div>
-                  </div>
+            {!hasRoundsData ? (
+              <div className="py-12 text-center text-muted-foreground">
+                <AlertCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>{t('consensus.noRoundsFound')}</p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.roundDistribution')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {distributionData.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={200}>
+                          <PieChart>
+                            <Pie
+                              data={distributionData}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={50}
+                              outerRadius={80}
+                              dataKey="value"
+                              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                            >
+                              {distributionData.map((entry, index) => (
+                                <Cell key={index} fill={entry.color} />
+                              ))}
+                            </Pie>
+                            <Tooltip />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="h-[200px] flex items-center justify-center text-muted-foreground">
+                          {t('consensus.noRoundsFound')}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.weeklyTrend')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {trendData.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={200}>
+                          <AreaChart data={trendData}>
+                            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                            <XAxis dataKey="day" className="text-xs" />
+                            <YAxis domain={[0, 100]} className="text-xs" />
+                            <Tooltip formatter={(value, name) => [name === 'successRate' ? `${value}%` : value, name === 'successRate' ? t('consensus.successRate') : name]} />
+                            <Area type="monotone" dataKey="successRate" stroke="#10B981" fill="#10B981" fillOpacity={0.3} />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="h-[200px] flex items-center justify-center text-muted-foreground">
+                          {t('consensus.noRoundsFound')}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 </div>
-              </CardContent>
-            </Card>
+                <Card className="mt-4 bg-muted">
+                  <CardContent className="pt-4">
+                    <div className="grid grid-cols-4 gap-4 text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-green-600">{successRate.toFixed(2)}%</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.overallRate')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold">{completedRounds.toLocaleString()}</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.successfulRounds')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-red-600">{failedRounds.toLocaleString()}</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.failedRoundsCount')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-blue-600">{uptimeRate.toFixed(2)}%</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.uptimeRate')}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </>
         );
       }
       
       case 'blockTime': {
-        const avgBlockTime = consensusState?.avgBlockTimeMs || 98;
-        const trendData = Array.from({ length: 24 }, (_, i) => ({
-          hour: `${i}:00`,
-          blockTime: 95 + Math.random() * 10,
+        const avgBlockTime = consensusState?.avgBlockTimeMs ?? 0;
+        const blockTimes = rounds.map(r => r.avgBlockTimeMs).filter(t => t > 0);
+        const minBlockTime = blockTimes.length > 0 ? Math.min(...blockTimes) : 0;
+        const maxBlockTime = blockTimes.length > 0 ? Math.max(...blockTimes) : 0;
+        
+        const sortedRounds = [...rounds].sort((a, b) => b.blockHeight - a.blockHeight);
+        const trendData = sortedRounds.slice(0, 24).reverse().map((round, i) => ({
+          hour: `#${round.blockHeight}`,
+          blockTime: round.avgBlockTimeMs,
           target: 100,
         }));
         
-        const distributionData = [
-          { range: '<80ms', count: 50 },
-          { range: '80-90ms', count: 150 },
-          { range: '90-100ms', count: 500 },
-          { range: '100-110ms', count: 200 },
-          { range: '>110ms', count: 100 },
-        ];
+        const distributionData = hasRoundsData ? [
+          { range: '<80ms', count: rounds.filter(r => r.avgBlockTimeMs < 80).length },
+          { range: '80-90ms', count: rounds.filter(r => r.avgBlockTimeMs >= 80 && r.avgBlockTimeMs < 90).length },
+          { range: '90-100ms', count: rounds.filter(r => r.avgBlockTimeMs >= 90 && r.avgBlockTimeMs < 100).length },
+          { range: '100-110ms', count: rounds.filter(r => r.avgBlockTimeMs >= 100 && r.avgBlockTimeMs < 110).length },
+          { range: '>110ms', count: rounds.filter(r => r.avgBlockTimeMs >= 110).length },
+        ] : [];
 
         return (
           <>
@@ -234,83 +270,104 @@ function ConsensusStatsDetailDialog({
               </DialogTitle>
               <DialogDescription>{t('consensus.blockTimeAnalyticsDesc')}</DialogDescription>
             </DialogHeader>
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.hourlyTrend')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={trendData}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="hour" className="text-xs" interval={5} />
-                      <YAxis domain={[80, 120]} className="text-xs" />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="blockTime" stroke="#3B82F6" strokeWidth={2} dot={false} />
-                      <Line type="monotone" dataKey="target" stroke="#EF4444" strokeDasharray="5 5" dot={false} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.timeDistribution')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={distributionData}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="range" className="text-xs" />
-                      <YAxis className="text-xs" />
-                      <Tooltip />
-                      <Bar dataKey="count" fill="#3B82F6" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
-            <Card className="mt-4 bg-muted">
-              <CardContent className="pt-4">
-                <div className="grid grid-cols-4 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">{avgBlockTime}ms</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.currentAvg')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">85ms</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.fastestBlock')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-yellow-600">125ms</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.slowestBlock')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">100ms</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.targetTime')}</div>
-                  </div>
+            {!hasRoundsData ? (
+              <div className="py-12 text-center text-muted-foreground">
+                <AlertCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>{t('consensus.noRoundsFound')}</p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.hourlyTrend')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <LineChart data={trendData}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="hour" className="text-xs" interval={5} />
+                          <YAxis domain={[Math.max(0, minBlockTime - 20), maxBlockTime + 20]} className="text-xs" />
+                          <Tooltip />
+                          <Line type="monotone" dataKey="blockTime" stroke="#3B82F6" strokeWidth={2} dot={false} name={t('consensus.blockTime')} />
+                          <Line type="monotone" dataKey="target" stroke="#EF4444" strokeDasharray="5 5" dot={false} name={t('consensus.target')} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.timeDistribution')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <BarChart data={distributionData}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="range" className="text-xs" />
+                          <YAxis className="text-xs" />
+                          <Tooltip />
+                          <Bar dataKey="count" fill="#3B82F6" radius={[4, 4, 0, 0]} name={t('consensus.roundsCompleted')} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
                 </div>
-              </CardContent>
-            </Card>
+                <Card className="mt-4 bg-muted">
+                  <CardContent className="pt-4">
+                    <div className="grid grid-cols-4 gap-4 text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-blue-600">{avgBlockTime}ms</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.currentAvg')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-green-600">{minBlockTime}ms</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.fastestBlock')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-yellow-600">{maxBlockTime}ms</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.slowestBlock')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold">100ms</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.targetTime')}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </>
         );
       }
       
       case 'participation': {
-        const totalValidators = consensusState?.totalValidators || 127;
-        const activeVoters = consensusState?.prevoteCount || 125;
-        const participationRate = totalValidators > 0 ? (activeVoters / totalValidators) * 100 : 98.4;
+        const totalValidators = consensusState?.totalValidators ?? 0;
+        const activeVoters = consensusState?.prevoteCount ?? 0;
+        const participationRate = totalValidators > 0 ? (activeVoters / totalValidators) * 100 : 0;
+        const missedVotes = Math.max(0, totalValidators - activeVoters);
         
-        const tierData = [
-          { name: t('consensus.tier1Validators'), count: 21, participation: 100 },
-          { name: t('consensus.tier2Validators'), count: 56, participation: 98.2 },
-          { name: t('consensus.tier3Validators'), count: 50, participation: 96.0 },
-        ];
-
-        const historyData = Array.from({ length: 7 }, (_, i) => ({
-          day: t(`consensus.day${i + 1}`),
-          tier1: 100,
-          tier2: 97 + Math.random() * 3,
-          tier3: 94 + Math.random() * 4,
+        const avgParticipation = hasRoundsData 
+          ? rounds.reduce((sum, r) => sum + (r.prevoteCount / Math.max(1, r.totalValidators) * 100), 0) / rounds.length
+          : 0;
+        
+        const requiredQuorum = consensusState?.requiredQuorum ?? 0;
+        const committeeSize = requiredQuorum > 0 ? Math.ceil(requiredQuorum * 3 / 2) : 0;
+        
+        const sortedRounds = [...rounds].sort((a, b) => b.blockHeight - a.blockHeight);
+        const historyData = sortedRounds.slice(0, 7).reverse().map((round, i) => {
+          const rate = round.totalValidators > 0 ? (round.prevoteCount / round.totalValidators) * 100 : 0;
+          return {
+            day: t(`consensus.day${i + 1}`),
+            participation: rate,
+            blockHeight: round.blockHeight,
+          };
+        });
+        
+        const roundParticipationData = sortedRounds.slice(0, 10).map((round) => ({
+          block: `#${round.blockHeight}`,
+          prevotes: round.prevoteCount,
+          precommits: round.precommitCount,
+          total: round.totalValidators,
         }));
 
         return (
@@ -322,80 +379,102 @@ function ConsensusStatsDetailDialog({
               </DialogTitle>
               <DialogDescription>{t('consensus.participationAnalyticsDesc')}</DialogDescription>
             </DialogHeader>
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.tierBreakdown')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {tierData.map((tier, index) => (
-                      <div key={index}>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm">{tier.name}</span>
-                          <span className="text-sm font-semibold">{tier.participation}%</span>
+            {!hasRoundsData && totalValidators === 0 ? (
+              <div className="py-12 text-center text-muted-foreground">
+                <AlertCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>{t('consensus.noRoundsFound')}</p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.votingDetails')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {roundParticipationData.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={200}>
+                          <BarChart data={roundParticipationData}>
+                            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                            <XAxis dataKey="block" className="text-xs" />
+                            <YAxis domain={[0, Math.max(totalValidators, 100) + 10]} className="text-xs" />
+                            <Tooltip />
+                            <Bar dataKey="prevotes" fill="#10B981" name={t('consensus.preVotes')} radius={[4, 4, 0, 0]} />
+                            <Bar dataKey="precommits" fill="#3B82F6" name={t('consensus.preCommits')} radius={[4, 4, 0, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="h-[200px] flex items-center justify-center text-muted-foreground">
+                          {t('consensus.noRoundsFound')}
                         </div>
-                        <Progress value={tier.participation} className="h-2" />
-                        <div className="text-xs text-muted-foreground mt-1">
-                          {tier.count} {t('consensus.validators')}
+                      )}
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.participationHistory')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {historyData.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={200}>
+                          <LineChart data={historyData}>
+                            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                            <XAxis dataKey="day" className="text-xs" />
+                            <YAxis domain={[0, 100]} className="text-xs" />
+                            <Tooltip formatter={(value) => [`${Number(value).toFixed(1)}%`, t('consensus.participation')]} />
+                            <Line type="monotone" dataKey="participation" name={t('consensus.participation')} stroke="#8B5CF6" strokeWidth={2} />
+                          </LineChart>
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="h-[200px] flex items-center justify-center text-muted-foreground">
+                          {t('consensus.noRoundsFound')}
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.participationHistory')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={historyData}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="day" className="text-xs" />
-                      <YAxis domain={[90, 100]} className="text-xs" />
-                      <Tooltip />
-                      <Legend />
-                      <Line type="monotone" dataKey="tier1" name="Tier 1" stroke="#F59E0B" strokeWidth={2} />
-                      <Line type="monotone" dataKey="tier2" name="Tier 2" stroke="#3B82F6" strokeWidth={2} />
-                      <Line type="monotone" dataKey="tier3" name="Tier 3" stroke="#10B981" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
-            <Card className="mt-4 bg-muted">
-              <CardContent className="pt-4">
-                <div className="grid grid-cols-4 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-purple-600">{participationRate.toFixed(1)}%</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.overallParticipation')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">{activeVoters}/{totalValidators}</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.activeVoters')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">21</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.committeeMembers')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-yellow-600">{totalValidators - activeVoters}</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.missedVotes')}</div>
-                  </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 </div>
-              </CardContent>
-            </Card>
+                <Card className="mt-4 bg-muted">
+                  <CardContent className="pt-4">
+                    <div className="grid grid-cols-4 gap-4 text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-purple-600">{participationRate.toFixed(1)}%</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.overallParticipation')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold">{activeVoters}/{totalValidators}</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.activeVoters')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-green-600">{avgParticipation.toFixed(1)}%</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.avgTime')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-yellow-600">{missedVotes}</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.missedVotes')}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </>
         );
       }
       
       case 'finality': {
-        const avgFinality = 150;
-        const trendData = Array.from({ length: 12 }, (_, i) => ({
-          hour: `${i * 2}:00`,
-          finality: 140 + Math.random() * 30,
-          target: 200,
+        const completedRounds = rounds.filter(r => r.status === 'completed' && r.completedTime);
+        const finalityTimes = completedRounds.map(r => r.completedTime! - r.startTime);
+        const avgFinality = finalityTimes.length > 0 
+          ? Math.round(finalityTimes.reduce((sum, t) => sum + t, 0) / finalityTimes.length)
+          : 0;
+        const bestFinality = finalityTimes.length > 0 ? Math.min(...finalityTimes) : 0;
+        const targetFinality = 200;
+        
+        const sortedRounds = [...completedRounds].sort((a, b) => b.blockHeight - a.blockHeight);
+        const trendData = sortedRounds.slice(0, 12).reverse().map((round) => ({
+          hour: `#${round.blockHeight}`,
+          finality: round.completedTime! - round.startTime,
+          target: targetFinality,
         }));
 
         return (
@@ -407,60 +486,73 @@ function ConsensusStatsDetailDialog({
               </DialogTitle>
               <DialogDescription>{t('consensus.finalityAnalyticsDesc')}</DialogDescription>
             </DialogHeader>
-            <div className="mt-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.finalityTrend')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={250}>
-                    <AreaChart data={trendData}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="hour" className="text-xs" />
-                      <YAxis domain={[100, 250]} className="text-xs" />
-                      <Tooltip />
-                      <Area type="monotone" dataKey="finality" stroke="#10B981" fill="#10B981" fillOpacity={0.3} />
-                      <Line type="monotone" dataKey="target" stroke="#EF4444" strokeDasharray="5 5" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
-            <Card className="mt-4 bg-muted">
-              <CardContent className="pt-4">
-                <div className="grid grid-cols-4 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-emerald-600">{avgFinality}ms</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.avgFinality')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">120ms</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.bestFinality')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-yellow-600">200ms</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.targetFinality')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">1</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.blocksToFinality')}</div>
-                  </div>
+            {!hasRoundsData || completedRounds.length === 0 ? (
+              <div className="py-12 text-center text-muted-foreground">
+                <AlertCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>{t('consensus.noRoundsFound')}</p>
+              </div>
+            ) : (
+              <>
+                <div className="mt-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.finalityTrend')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={250}>
+                        <AreaChart data={trendData}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="hour" className="text-xs" />
+                          <YAxis domain={[0, Math.max(targetFinality, ...finalityTimes) + 50]} className="text-xs" />
+                          <Tooltip formatter={(value) => [`${value}ms`, t('consensus.finality')]} />
+                          <Area type="monotone" dataKey="finality" stroke="#10B981" fill="#10B981" fillOpacity={0.3} name={t('consensus.finality')} />
+                          <Line type="monotone" dataKey="target" stroke="#EF4444" strokeDasharray="5 5" name={t('consensus.target')} />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
                 </div>
-              </CardContent>
-            </Card>
+                <Card className="mt-4 bg-muted">
+                  <CardContent className="pt-4">
+                    <div className="grid grid-cols-4 gap-4 text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-emerald-600">{avgFinality}ms</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.avgFinality')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-green-600">{bestFinality}ms</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.bestFinality')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-yellow-600">{targetFinality}ms</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.targetFinality')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-blue-600">1</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.blocksToFinality')}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </>
         );
       }
       
       case 'quorum': {
-        const requiredQuorum = consensusState?.requiredQuorum || 85;
-        const totalValidators = consensusState?.totalValidators || 127;
-        const quorumPercent = totalValidators > 0 ? (requiredQuorum / totalValidators) * 100 : 66.9;
+        const requiredQuorum = consensusState?.requiredQuorum ?? 0;
+        const totalValidators = consensusState?.totalValidators ?? 0;
+        const quorumPercent = totalValidators > 0 ? (requiredQuorum / totalValidators) * 100 : 0;
         
-        const quorumHistory = Array.from({ length: 10 }, (_, i) => ({
-          round: `#${11324760 + i}`,
-          votes: 85 + Math.floor(Math.random() * 42),
-          required: requiredQuorum,
+        const quorumMetCount = rounds.filter(r => r.prevoteCount >= r.requiredQuorum).length;
+        const quorumReachRate = rounds.length > 0 ? (quorumMetCount / rounds.length) * 100 : 0;
+        
+        const sortedRounds = [...rounds].sort((a, b) => b.blockHeight - a.blockHeight);
+        const quorumHistory = sortedRounds.slice(0, 10).reverse().map((round) => ({
+          round: `#${round.blockHeight}`,
+          votes: round.prevoteCount,
+          required: round.requiredQuorum,
         }));
 
         return (
@@ -472,47 +564,56 @@ function ConsensusStatsDetailDialog({
               </DialogTitle>
               <DialogDescription>{t('consensus.quorumAnalyticsDesc')}</DialogDescription>
             </DialogHeader>
-            <div className="mt-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">{t('consensus.recentQuorumStatus')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={250}>
-                    <BarChart data={quorumHistory}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="round" className="text-xs" />
-                      <YAxis domain={[0, 130]} className="text-xs" />
-                      <Tooltip />
-                      <Bar dataKey="votes" fill="#10B981" radius={[4, 4, 0, 0]} name={t('consensus.votesReceived')} />
-                      <Bar dataKey="required" fill="#F59E0B" radius={[4, 4, 0, 0]} name={t('consensus.required')} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
-            <Card className="mt-4 bg-muted">
-              <CardContent className="pt-4">
-                <div className="grid grid-cols-4 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-amber-600">{requiredQuorum}</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.requiredQuorum')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">{quorumPercent.toFixed(1)}%</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.quorumThreshold')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">100%</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.quorumReached')}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">2f+1</div>
-                    <div className="text-xs text-muted-foreground">{t('consensus.bftFormula')}</div>
-                  </div>
+            {!hasRoundsData ? (
+              <div className="py-12 text-center text-muted-foreground">
+                <AlertCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>{t('consensus.noRoundsFound')}</p>
+              </div>
+            ) : (
+              <>
+                <div className="mt-4">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{t('consensus.recentQuorumStatus')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={250}>
+                        <BarChart data={quorumHistory}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="round" className="text-xs" />
+                          <YAxis domain={[0, Math.max(totalValidators, ...quorumHistory.map(q => q.votes)) + 10]} className="text-xs" />
+                          <Tooltip />
+                          <Bar dataKey="votes" fill="#10B981" radius={[4, 4, 0, 0]} name={t('consensus.votesReceived')} />
+                          <Bar dataKey="required" fill="#F59E0B" radius={[4, 4, 0, 0]} name={t('consensus.required')} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
                 </div>
-              </CardContent>
-            </Card>
+                <Card className="mt-4 bg-muted">
+                  <CardContent className="pt-4">
+                    <div className="grid grid-cols-4 gap-4 text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-amber-600">{requiredQuorum}</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.requiredQuorum')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold">{quorumPercent.toFixed(1)}%</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.quorumThreshold')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-green-600">{quorumReachRate.toFixed(1)}%</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.quorumReached')}</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-blue-600">2f+1</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.bftFormula')}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </>
         );
       }
