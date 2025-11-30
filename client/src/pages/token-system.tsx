@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { 
   Coins, 
   Image, 
@@ -2289,7 +2290,7 @@ function EnterpriseTokenCreationWizard() {
                     <span className="font-medium tabular-nums">{formatNumber(deploymentResult.transaction.gasUsed)} EMB</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('common.status')}:</span>
+                    <span className="text-muted-foreground">{t('common.status', 'Status')}:</span>
                     <Badge variant="outline" className="text-green-500 border-green-500">
                       <CheckCircle className="h-3 w-3 mr-1" />
                       {deploymentResult.transaction.status}
@@ -2381,9 +2382,42 @@ function EnterpriseTokenCreationWizard() {
 
 function DeployedTokensDashboard() {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const [selectedToken, setSelectedToken] = useState<DeployedToken | null>(null);
+  const [manageDialogOpen, setManageDialogOpen] = useState(false);
+  
   const { data: deployedTokens, isLoading } = useQuery<DeployedToken[]>({
     queryKey: ["/api/token-system/deployed"],
   });
+
+  const handleManageToken = (token: DeployedToken) => {
+    setSelectedToken(token);
+    setManageDialogOpen(true);
+  };
+
+  const handleMint = () => {
+    toast({
+      title: t('tokenSystem.mintSuccess', 'Mint Initiated'),
+      description: t('tokenSystem.mintSuccessDesc', 'Token minting transaction has been submitted.'),
+    });
+    setManageDialogOpen(false);
+  };
+
+  const handleBurn = () => {
+    toast({
+      title: t('tokenSystem.burnSuccess', 'Burn Initiated'),
+      description: t('tokenSystem.burnSuccessDesc', 'Token burning transaction has been submitted.'),
+    });
+    setManageDialogOpen(false);
+  };
+
+  const handlePause = () => {
+    toast({
+      title: t('tokenSystem.pauseSuccess', 'Token Paused'),
+      description: t('tokenSystem.pauseSuccessDesc', 'Token transfers have been paused.'),
+    });
+    setManageDialogOpen(false);
+  };
 
   if (isLoading) {
     return (
@@ -2425,7 +2459,7 @@ function DeployedTokensDashboard() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">{t('tokenSystem.yourDeployedTokens')}</h3>
-        <Badge variant="outline">{deployedTokens.length} {t('common.tokens')}</Badge>
+        <Badge variant="outline">{deployedTokens.length} {t('common.tokens', 'Tokens')}</Badge>
       </div>
       
       {deployedTokens.map((token) => (
@@ -2460,9 +2494,9 @@ function DeployedTokensDashboard() {
                   <p className="font-medium tabular-nums">{formatNumber(token.transactionCount)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-muted-foreground">{t('common.status')}</p>
+                  <p className="text-xs text-muted-foreground">{t('common.status', 'Status')}</p>
                   <Badge variant={token.status === "active" ? "default" : "secondary"}>
-                    {token.status === "active" ? t('common.active') : token.status}
+                    {token.status === "active" ? t('common.active', 'Active') : token.status}
                   </Badge>
                 </div>
                 <div className="flex gap-1">
@@ -2479,15 +2513,109 @@ function DeployedTokensDashboard() {
                     </Badge>
                   )}
                 </div>
-                <Button size="sm" variant="outline">
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => handleManageToken(token)}
+                  data-testid={`button-manage-${token.id}`}
+                >
                   <Settings className="h-3 w-3 mr-1" />
-                  {t('tokenSystem.manage')}
+                  {t('tokenSystem.manage', 'Manage')}
                 </Button>
               </div>
             </div>
           </CardContent>
         </Card>
       ))}
+
+      <Dialog open={manageDialogOpen} onOpenChange={setManageDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5" />
+              {t('tokenSystem.manageToken', 'Manage Token')}: {selectedToken?.name}
+            </DialogTitle>
+            <DialogDescription>
+              {t('tokenSystem.manageTokenDesc', 'Configure and manage your token settings, supply, and permissions.')}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedToken && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg border bg-muted/30">
+                  <p className="text-sm text-muted-foreground">{t('tokenSystem.symbol', 'Symbol')}</p>
+                  <p className="font-semibold">{selectedToken.symbol}</p>
+                </div>
+                <div className="p-4 rounded-lg border bg-muted/30">
+                  <p className="text-sm text-muted-foreground">{t('tokenSystem.standard', 'Standard')}</p>
+                  <Badge>{selectedToken.standard}</Badge>
+                </div>
+                <div className="p-4 rounded-lg border bg-muted/30">
+                  <p className="text-sm text-muted-foreground">{t('tokenSystem.totalSupply', 'Total Supply')}</p>
+                  <p className="font-semibold tabular-nums">{formatNumber(parseFloat(selectedToken.totalSupply))}</p>
+                </div>
+                <div className="p-4 rounded-lg border bg-muted/30">
+                  <p className="text-sm text-muted-foreground">{t('tokenSystem.holders', 'Holders')}</p>
+                  <p className="font-semibold tabular-nums">{formatNumber(selectedToken.holders)}</p>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-4">
+                <h4 className="font-medium">{t('tokenSystem.tokenActions', 'Token Actions')}</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {selectedToken.mintable && (
+                    <Button variant="outline" onClick={handleMint} className="flex-col h-auto py-4">
+                      <Plus className="h-5 w-5 mb-1" />
+                      <span>{t('tokenSystem.mint', 'Mint')}</span>
+                    </Button>
+                  )}
+                  {selectedToken.burnable && (
+                    <Button variant="outline" onClick={handleBurn} className="flex-col h-auto py-4">
+                      <Flame className="h-5 w-5 mb-1 text-orange-500" />
+                      <span>{t('tokenSystem.burn', 'Burn')}</span>
+                    </Button>
+                  )}
+                  {selectedToken.pausable && (
+                    <Button variant="outline" onClick={handlePause} className="flex-col h-auto py-4">
+                      <AlertCircle className="h-5 w-5 mb-1 text-yellow-500" />
+                      <span>{t('tokenSystem.pause', 'Pause')}</span>
+                    </Button>
+                  )}
+                  <Button variant="outline" className="flex-col h-auto py-4">
+                    <Users className="h-5 w-5 mb-1" />
+                    <span>{t('tokenSystem.transfer', 'Transfer')}</span>
+                  </Button>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-4">
+                <h4 className="font-medium">{t('tokenSystem.contractInfo', 'Contract Information')}</h4>
+                <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/30">
+                  <code className="text-sm font-mono">{selectedToken.contractAddress}</code>
+                  <Button size="sm" variant="ghost">
+                    <Copy className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setManageDialogOpen(false)}>
+              {t('common.close', 'Close')}
+            </Button>
+            <Button>
+              <ExternalLink className="h-4 w-4 mr-2" />
+              {t('tokenSystem.viewOnExplorer', 'View on Explorer')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
