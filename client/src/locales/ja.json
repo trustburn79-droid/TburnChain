@@ -2194,7 +2194,27 @@
     "bridgeEventInfo": "ブリッジイベント情報",
     "wallet": "ウォレット",
     "txHash": "TXハッシュ",
-    "timestamp": "タイムスタンプ"
+    "timestamp": "タイムスタンプ",
+    "statuses": {
+      "pending": "保留中",
+      "completed": "完了",
+      "failed": "失敗",
+      "processing": "処理中",
+      "confirming": "確認中",
+      "refunded": "返金済み"
+    },
+    "eventTypes": {
+      "transfer_completed": "転送完了",
+      "transfer_initiated": "転送開始",
+      "transfer_failed": "転送失敗",
+      "validator_joined": "バリデーター参加",
+      "validator_left": "バリデーター離脱",
+      "liquidity_added": "流動性追加",
+      "liquidity_removed": "流動性削除",
+      "route_optimized": "ルート最適化",
+      "chain_connected": "チェーン接続",
+      "chain_disconnected": "チェーン切断"
+    }
   },
   "aiOrchestration": {
     "title": "AIオーケストレーション",

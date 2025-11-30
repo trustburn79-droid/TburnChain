@@ -1098,7 +1098,7 @@ export default function Bridge() {
                       <StatusIcon className="w-3 h-3" />
                       {t("bridge.status")}
                     </div>
-                    <Badge className={getStatusColor(selectedTransfer.status)}>{selectedTransfer.status}</Badge>
+                    <Badge className={getStatusColor(selectedTransfer.status)}>{t(`bridge.statuses.${selectedTransfer.status}`)}</Badge>
                   </div>
                   <div className="space-y-1">
                     <div className="text-xs text-muted-foreground flex items-center gap-1">
@@ -1194,7 +1194,7 @@ export default function Bridge() {
               <div className="space-y-4">
                 <div className="p-3 rounded-lg bg-muted">
                   <div className="text-lg font-semibold capitalize">
-                    {selectedActivity.eventType.replace(/_/g, ' ')}
+                    {t(`bridge.eventTypes.${selectedActivity.eventType}`)}
                   </div>
                   {chainInfo && (
                     <Badge variant="outline" className="mt-2">{chainInfo.name}</Badge>

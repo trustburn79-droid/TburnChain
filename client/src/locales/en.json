@@ -2419,7 +2419,27 @@
     "bridgeEventInfo": "Bridge event information",
     "wallet": "Wallet",
     "txHash": "Tx Hash",
-    "timestamp": "Timestamp"
+    "timestamp": "Timestamp",
+    "statuses": {
+      "pending": "Pending",
+      "completed": "Completed",
+      "failed": "Failed",
+      "processing": "Processing",
+      "confirming": "Confirming",
+      "refunded": "Refunded"
+    },
+    "eventTypes": {
+      "transfer_completed": "Transfer Completed",
+      "transfer_initiated": "Transfer Initiated",
+      "transfer_failed": "Transfer Failed",
+      "validator_joined": "Validator Joined",
+      "validator_left": "Validator Left",
+      "liquidity_added": "Liquidity Added",
+      "liquidity_removed": "Liquidity Removed",
+      "route_optimized": "Route Optimized",
+      "chain_connected": "Chain Connected",
+      "chain_disconnected": "Chain Disconnected"
+    }
   },
   "aiOrchestration": {
     "title": "AI Orchestration",
