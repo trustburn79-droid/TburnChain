@@ -274,6 +274,42 @@ import {
   playerAchievements,
   gamefiActivity,
   gamefiStats,
+  // Community Infrastructure Tables
+  communityPosts,
+  communityComments,
+  communityEvents,
+  communityAnnouncements,
+  communityBadges,
+  communityUserBadges,
+  communityActivity,
+  communityReputation,
+  communityPostReactions,
+  communityCommentReactions,
+  communityEventRegistrations,
+  // Community Types
+  type CommunityPost,
+  type InsertCommunityPost,
+  type CommunityComment,
+  type InsertCommunityComment,
+  type CommunityEvent,
+  type InsertCommunityEvent,
+  type CommunityAnnouncement,
+  type InsertCommunityAnnouncement,
+  type CommunityBadge,
+  type InsertCommunityBadge,
+  type CommunityUserBadge,
+  type InsertCommunityUserBadge,
+  type CommunityActivityType,
+  type InsertCommunityActivity,
+  type CommunityReputationType,
+  type InsertCommunityReputation,
+  type CommunityPostReaction,
+  type InsertCommunityPostReaction,
+  type CommunityCommentReaction,
+  type InsertCommunityCommentReaction,
+  type CommunityEventRegistration,
+  type InsertCommunityEventRegistration,
+  type CommunityStats,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -808,6 +844,100 @@ export interface IStorage {
     mints24h: string;
     redeems24h: string;
   }>;
+
+  // ============================================
+  // COMMUNITY SYSTEM INFRASTRUCTURE
+  // Enterprise-Grade Community Platform
+  // ============================================
+
+  // Community Posts
+  getAllCommunityPosts(limit?: number, offset?: number, category?: string): Promise<CommunityPost[]>;
+  getCommunityPostById(id: string): Promise<CommunityPost | undefined>;
+  getCommunityPostsByAuthor(authorId: number): Promise<CommunityPost[]>;
+  createCommunityPost(data: InsertCommunityPost): Promise<CommunityPost>;
+  updateCommunityPost(id: string, data: Partial<CommunityPost>): Promise<void>;
+  deleteCommunityPost(id: string): Promise<void>;
+  incrementPostViews(id: string): Promise<void>;
+  incrementPostLikes(id: string): Promise<void>;
+  decrementPostLikes(id: string): Promise<void>;
+  incrementPostCommentCount(id: string): Promise<void>;
+  decrementPostCommentCount(id: string): Promise<void>;
+
+  // Community Comments
+  getCommentsByPostId(postId: string, limit?: number): Promise<CommunityComment[]>;
+  getCommentById(id: string): Promise<CommunityComment | undefined>;
+  getCommentReplies(parentCommentId: string): Promise<CommunityComment[]>;
+  createCommunityComment(data: InsertCommunityComment): Promise<CommunityComment>;
+  updateCommunityComment(id: string, data: Partial<CommunityComment>): Promise<void>;
+  deleteCommunityComment(id: string): Promise<void>;
+  incrementCommentLikes(id: string): Promise<void>;
+  decrementCommentLikes(id: string): Promise<void>;
+
+  // Community Post Reactions
+  getPostReactionByUser(postId: string, userId: number): Promise<CommunityPostReaction | undefined>;
+  getPostReactions(postId: string): Promise<CommunityPostReaction[]>;
+  createPostReaction(data: InsertCommunityPostReaction): Promise<CommunityPostReaction>;
+  deletePostReaction(postId: string, userId: number): Promise<void>;
+  getPostReactionCounts(postId: string): Promise<{ likes: number; dislikes: number }>;
+
+  // Community Comment Reactions
+  getCommentReactionByUser(commentId: string, userId: number): Promise<CommunityCommentReaction | undefined>;
+  createCommentReaction(data: InsertCommunityCommentReaction): Promise<CommunityCommentReaction>;
+  deleteCommentReaction(commentId: string, userId: number): Promise<void>;
+
+  // Community Events
+  getAllCommunityEvents(limit?: number): Promise<CommunityEvent[]>;
+  getCommunityEventById(id: string): Promise<CommunityEvent | undefined>;
+  getCommunityEventsByStatus(status: string): Promise<CommunityEvent[]>;
+  createCommunityEvent(data: InsertCommunityEvent): Promise<CommunityEvent>;
+  updateCommunityEvent(id: string, data: Partial<CommunityEvent>): Promise<void>;
+  deleteCommunityEvent(id: string): Promise<void>;
+  incrementEventParticipants(id: string): Promise<void>;
+  decrementEventParticipants(id: string): Promise<void>;
+
+  // Community Event Registrations
+  getEventRegistrationsByEvent(eventId: string): Promise<CommunityEventRegistration[]>;
+  getEventRegistrationsByUser(userId: number): Promise<CommunityEventRegistration[]>;
+  getEventRegistration(eventId: string, userId: number): Promise<CommunityEventRegistration | undefined>;
+  createEventRegistration(data: InsertCommunityEventRegistration): Promise<CommunityEventRegistration>;
+  updateEventRegistration(id: string, data: Partial<CommunityEventRegistration>): Promise<void>;
+  deleteEventRegistration(eventId: string, userId: number): Promise<void>;
+
+  // Community Announcements
+  getAllCommunityAnnouncements(limit?: number): Promise<CommunityAnnouncement[]>;
+  getCommunityAnnouncementById(id: string): Promise<CommunityAnnouncement | undefined>;
+  createCommunityAnnouncement(data: InsertCommunityAnnouncement): Promise<CommunityAnnouncement>;
+  updateCommunityAnnouncement(id: string, data: Partial<CommunityAnnouncement>): Promise<void>;
+  deleteCommunityAnnouncement(id: string): Promise<void>;
+
+  // Community Badges
+  getAllCommunityBadges(): Promise<CommunityBadge[]>;
+  getCommunityBadgeById(id: string): Promise<CommunityBadge | undefined>;
+  getCommunityBadgesByRarity(rarity: string): Promise<CommunityBadge[]>;
+  createCommunityBadge(data: InsertCommunityBadge): Promise<CommunityBadge>;
+  updateCommunityBadge(id: string, data: Partial<CommunityBadge>): Promise<void>;
+
+  // Community User Badges
+  getUserBadges(userId: number): Promise<CommunityUserBadge[]>;
+  getUserBadge(userId: number, badgeId: string): Promise<CommunityUserBadge | undefined>;
+  createUserBadge(data: InsertCommunityUserBadge): Promise<CommunityUserBadge>;
+  updateUserBadge(id: string, data: Partial<CommunityUserBadge>): Promise<void>;
+  awardBadgeToUser(userId: number, badgeId: string): Promise<CommunityUserBadge>;
+
+  // Community Activity
+  getRecentCommunityActivity(limit?: number): Promise<CommunityActivityType[]>;
+  getCommunityActivityByUser(userId: number, limit?: number): Promise<CommunityActivityType[]>;
+  createCommunityActivity(data: InsertCommunityActivity): Promise<CommunityActivityType>;
+
+  // Community Reputation
+  getUserReputation(userId: number): Promise<CommunityReputationType | undefined>;
+  createUserReputation(data: InsertCommunityReputation): Promise<CommunityReputationType>;
+  updateUserReputation(userId: number, data: Partial<CommunityReputationType>): Promise<void>;
+  incrementUserReputation(userId: number, points: number): Promise<void>;
+  getLeaderboard(limit?: number): Promise<CommunityReputationType[]>;
+
+  // Community Stats
+  getCommunityStats(): Promise<CommunityStats>;
 }
 
 export class MemStorage implements IStorage {
@@ -5044,6 +5174,523 @@ export class DbStorage implements IStorage {
       .orderBy(desc(gamefiStats.snapshotAt))
       .limit(1);
     return stats;
+  }
+
+  // ============================================
+  // COMMUNITY SYSTEM IMPLEMENTATION
+  // Enterprise-Grade Community Platform
+  // ============================================
+
+  // Community Posts
+  async getAllCommunityPosts(limit: number = 50, offset: number = 0, category?: string): Promise<CommunityPost[]> {
+    if (category && category !== 'all') {
+      return db.select().from(communityPosts)
+        .where(and(
+          eq(communityPosts.category, category),
+          eq(communityPosts.status, 'active')
+        ))
+        .orderBy(desc(communityPosts.isPinned), desc(communityPosts.createdAt))
+        .limit(limit)
+        .offset(offset);
+    }
+    return db.select().from(communityPosts)
+      .where(eq(communityPosts.status, 'active'))
+      .orderBy(desc(communityPosts.isPinned), desc(communityPosts.createdAt))
+      .limit(limit)
+      .offset(offset);
+  }
+
+  async getCommunityPostById(id: string): Promise<CommunityPost | undefined> {
+    const [post] = await db.select().from(communityPosts).where(eq(communityPosts.id, id)).limit(1);
+    return post;
+  }
+
+  async getCommunityPostsByAuthor(authorId: number): Promise<CommunityPost[]> {
+    return db.select().from(communityPosts)
+      .where(eq(communityPosts.authorId, authorId))
+      .orderBy(desc(communityPosts.createdAt));
+  }
+
+  async createCommunityPost(data: InsertCommunityPost): Promise<CommunityPost> {
+    const [post] = await db.insert(communityPosts).values(data).returning();
+    return post;
+  }
+
+  async updateCommunityPost(id: string, data: Partial<CommunityPost>): Promise<void> {
+    await db.update(communityPosts)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(communityPosts.id, id));
+  }
+
+  async deleteCommunityPost(id: string): Promise<void> {
+    await db.update(communityPosts)
+      .set({ status: 'deleted', updatedAt: new Date() })
+      .where(eq(communityPosts.id, id));
+  }
+
+  async incrementPostViews(id: string): Promise<void> {
+    const post = await this.getCommunityPostById(id);
+    if (post) {
+      await db.update(communityPosts)
+        .set({ views: (post.views || 0) + 1 })
+        .where(eq(communityPosts.id, id));
+    }
+  }
+
+  async incrementPostLikes(id: string): Promise<void> {
+    const post = await this.getCommunityPostById(id);
+    if (post) {
+      await db.update(communityPosts)
+        .set({ likes: (post.likes || 0) + 1 })
+        .where(eq(communityPosts.id, id));
+    }
+  }
+
+  async decrementPostLikes(id: string): Promise<void> {
+    const post = await this.getCommunityPostById(id);
+    if (post && (post.likes || 0) > 0) {
+      await db.update(communityPosts)
+        .set({ likes: (post.likes || 0) - 1 })
+        .where(eq(communityPosts.id, id));
+    }
+  }
+
+  async incrementPostCommentCount(id: string): Promise<void> {
+    const post = await this.getCommunityPostById(id);
+    if (post) {
+      await db.update(communityPosts)
+        .set({ 
+          commentCount: (post.commentCount || 0) + 1,
+          lastActivityAt: new Date()
+        })
+        .where(eq(communityPosts.id, id));
+    }
+  }
+
+  async decrementPostCommentCount(id: string): Promise<void> {
+    const post = await this.getCommunityPostById(id);
+    if (post && (post.commentCount || 0) > 0) {
+      await db.update(communityPosts)
+        .set({ commentCount: (post.commentCount || 0) - 1 })
+        .where(eq(communityPosts.id, id));
+    }
+  }
+
+  // Community Comments
+  async getCommentsByPostId(postId: string, limit: number = 100): Promise<CommunityComment[]> {
+    return db.select().from(communityComments)
+      .where(and(
+        eq(communityComments.postId, postId),
+        eq(communityComments.status, 'active'),
+        isNull(communityComments.parentCommentId)
+      ))
+      .orderBy(desc(communityComments.createdAt))
+      .limit(limit);
+  }
+
+  async getCommentById(id: string): Promise<CommunityComment | undefined> {
+    const [comment] = await db.select().from(communityComments).where(eq(communityComments.id, id)).limit(1);
+    return comment;
+  }
+
+  async getCommentReplies(parentCommentId: string): Promise<CommunityComment[]> {
+    return db.select().from(communityComments)
+      .where(and(
+        eq(communityComments.parentCommentId, parentCommentId),
+        eq(communityComments.status, 'active')
+      ))
+      .orderBy(communityComments.createdAt);
+  }
+
+  async createCommunityComment(data: InsertCommunityComment): Promise<CommunityComment> {
+    const [comment] = await db.insert(communityComments).values(data).returning();
+    return comment;
+  }
+
+  async updateCommunityComment(id: string, data: Partial<CommunityComment>): Promise<void> {
+    await db.update(communityComments)
+      .set({ ...data, isEdited: true, updatedAt: new Date() })
+      .where(eq(communityComments.id, id));
+  }
+
+  async deleteCommunityComment(id: string): Promise<void> {
+    await db.update(communityComments)
+      .set({ status: 'deleted', updatedAt: new Date() })
+      .where(eq(communityComments.id, id));
+  }
+
+  async incrementCommentLikes(id: string): Promise<void> {
+    const comment = await this.getCommentById(id);
+    if (comment) {
+      await db.update(communityComments)
+        .set({ likes: (comment.likes || 0) + 1 })
+        .where(eq(communityComments.id, id));
+    }
+  }
+
+  async decrementCommentLikes(id: string): Promise<void> {
+    const comment = await this.getCommentById(id);
+    if (comment && (comment.likes || 0) > 0) {
+      await db.update(communityComments)
+        .set({ likes: (comment.likes || 0) - 1 })
+        .where(eq(communityComments.id, id));
+    }
+  }
+
+  // Community Post Reactions
+  async getPostReactionByUser(postId: string, userId: number): Promise<CommunityPostReaction | undefined> {
+    const [reaction] = await db.select().from(communityPostReactions)
+      .where(and(
+        eq(communityPostReactions.postId, postId),
+        eq(communityPostReactions.userId, userId)
+      ))
+      .limit(1);
+    return reaction;
+  }
+
+  async getPostReactions(postId: string): Promise<CommunityPostReaction[]> {
+    return db.select().from(communityPostReactions)
+      .where(eq(communityPostReactions.postId, postId));
+  }
+
+  async createPostReaction(data: InsertCommunityPostReaction): Promise<CommunityPostReaction> {
+    const [reaction] = await db.insert(communityPostReactions).values(data).returning();
+    return reaction;
+  }
+
+  async deletePostReaction(postId: string, userId: number): Promise<void> {
+    await db.delete(communityPostReactions)
+      .where(and(
+        eq(communityPostReactions.postId, postId),
+        eq(communityPostReactions.userId, userId)
+      ));
+  }
+
+  async getPostReactionCounts(postId: string): Promise<{ likes: number; dislikes: number }> {
+    const reactions = await this.getPostReactions(postId);
+    return {
+      likes: reactions.filter(r => r.reactionType === 'like').length,
+      dislikes: reactions.filter(r => r.reactionType === 'dislike').length,
+    };
+  }
+
+  // Community Comment Reactions
+  async getCommentReactionByUser(commentId: string, userId: number): Promise<CommunityCommentReaction | undefined> {
+    const [reaction] = await db.select().from(communityCommentReactions)
+      .where(and(
+        eq(communityCommentReactions.commentId, commentId),
+        eq(communityCommentReactions.userId, userId)
+      ))
+      .limit(1);
+    return reaction;
+  }
+
+  async createCommentReaction(data: InsertCommunityCommentReaction): Promise<CommunityCommentReaction> {
+    const [reaction] = await db.insert(communityCommentReactions).values(data).returning();
+    return reaction;
+  }
+
+  async deleteCommentReaction(commentId: string, userId: number): Promise<void> {
+    await db.delete(communityCommentReactions)
+      .where(and(
+        eq(communityCommentReactions.commentId, commentId),
+        eq(communityCommentReactions.userId, userId)
+      ));
+  }
+
+  // Community Events
+  async getAllCommunityEvents(limit: number = 50): Promise<CommunityEvent[]> {
+    return db.select().from(communityEvents)
+      .orderBy(communityEvents.startDate)
+      .limit(limit);
+  }
+
+  async getCommunityEventById(id: string): Promise<CommunityEvent | undefined> {
+    const [event] = await db.select().from(communityEvents).where(eq(communityEvents.id, id)).limit(1);
+    return event;
+  }
+
+  async getCommunityEventsByStatus(status: string): Promise<CommunityEvent[]> {
+    return db.select().from(communityEvents)
+      .where(eq(communityEvents.status, status))
+      .orderBy(communityEvents.startDate);
+  }
+
+  async createCommunityEvent(data: InsertCommunityEvent): Promise<CommunityEvent> {
+    const [event] = await db.insert(communityEvents).values(data).returning();
+    return event;
+  }
+
+  async updateCommunityEvent(id: string, data: Partial<CommunityEvent>): Promise<void> {
+    await db.update(communityEvents)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(communityEvents.id, id));
+  }
+
+  async deleteCommunityEvent(id: string): Promise<void> {
+    await db.delete(communityEvents).where(eq(communityEvents.id, id));
+  }
+
+  async incrementEventParticipants(id: string): Promise<void> {
+    const event = await this.getCommunityEventById(id);
+    if (event) {
+      await db.update(communityEvents)
+        .set({ participants: (event.participants || 0) + 1 })
+        .where(eq(communityEvents.id, id));
+    }
+  }
+
+  async decrementEventParticipants(id: string): Promise<void> {
+    const event = await this.getCommunityEventById(id);
+    if (event && (event.participants || 0) > 0) {
+      await db.update(communityEvents)
+        .set({ participants: (event.participants || 0) - 1 })
+        .where(eq(communityEvents.id, id));
+    }
+  }
+
+  // Community Event Registrations
+  async getEventRegistrationsByEvent(eventId: string): Promise<CommunityEventRegistration[]> {
+    return db.select().from(communityEventRegistrations)
+      .where(eq(communityEventRegistrations.eventId, eventId));
+  }
+
+  async getEventRegistrationsByUser(userId: number): Promise<CommunityEventRegistration[]> {
+    return db.select().from(communityEventRegistrations)
+      .where(eq(communityEventRegistrations.userId, userId));
+  }
+
+  async getEventRegistration(eventId: string, userId: number): Promise<CommunityEventRegistration | undefined> {
+    const [reg] = await db.select().from(communityEventRegistrations)
+      .where(and(
+        eq(communityEventRegistrations.eventId, eventId),
+        eq(communityEventRegistrations.userId, userId)
+      ))
+      .limit(1);
+    return reg;
+  }
+
+  async createEventRegistration(data: InsertCommunityEventRegistration): Promise<CommunityEventRegistration> {
+    const [reg] = await db.insert(communityEventRegistrations).values(data).returning();
+    return reg;
+  }
+
+  async updateEventRegistration(id: string, data: Partial<CommunityEventRegistration>): Promise<void> {
+    await db.update(communityEventRegistrations)
+      .set(data)
+      .where(eq(communityEventRegistrations.id, id));
+  }
+
+  async deleteEventRegistration(eventId: string, userId: number): Promise<void> {
+    await db.delete(communityEventRegistrations)
+      .where(and(
+        eq(communityEventRegistrations.eventId, eventId),
+        eq(communityEventRegistrations.userId, userId)
+      ));
+  }
+
+  // Community Announcements
+  async getAllCommunityAnnouncements(limit: number = 20): Promise<CommunityAnnouncement[]> {
+    return db.select().from(communityAnnouncements)
+      .orderBy(desc(communityAnnouncements.isPinned), desc(communityAnnouncements.createdAt))
+      .limit(limit);
+  }
+
+  async getCommunityAnnouncementById(id: string): Promise<CommunityAnnouncement | undefined> {
+    const [announcement] = await db.select().from(communityAnnouncements).where(eq(communityAnnouncements.id, id)).limit(1);
+    return announcement;
+  }
+
+  async createCommunityAnnouncement(data: InsertCommunityAnnouncement): Promise<CommunityAnnouncement> {
+    const [announcement] = await db.insert(communityAnnouncements).values(data).returning();
+    return announcement;
+  }
+
+  async updateCommunityAnnouncement(id: string, data: Partial<CommunityAnnouncement>): Promise<void> {
+    await db.update(communityAnnouncements)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(communityAnnouncements.id, id));
+  }
+
+  async deleteCommunityAnnouncement(id: string): Promise<void> {
+    await db.delete(communityAnnouncements).where(eq(communityAnnouncements.id, id));
+  }
+
+  // Community Badges
+  async getAllCommunityBadges(): Promise<CommunityBadge[]> {
+    return db.select().from(communityBadges).orderBy(communityBadges.rarity);
+  }
+
+  async getCommunityBadgeById(id: string): Promise<CommunityBadge | undefined> {
+    const [badge] = await db.select().from(communityBadges).where(eq(communityBadges.id, id)).limit(1);
+    return badge;
+  }
+
+  async getCommunityBadgesByRarity(rarity: string): Promise<CommunityBadge[]> {
+    return db.select().from(communityBadges)
+      .where(eq(communityBadges.rarity, rarity));
+  }
+
+  async createCommunityBadge(data: InsertCommunityBadge): Promise<CommunityBadge> {
+    const [badge] = await db.insert(communityBadges).values(data).returning();
+    return badge;
+  }
+
+  async updateCommunityBadge(id: string, data: Partial<CommunityBadge>): Promise<void> {
+    await db.update(communityBadges)
+      .set(data)
+      .where(eq(communityBadges.id, id));
+  }
+
+  // Community User Badges
+  async getUserBadges(userId: number): Promise<CommunityUserBadge[]> {
+    return db.select().from(communityUserBadges)
+      .where(eq(communityUserBadges.userId, userId));
+  }
+
+  async getUserBadge(userId: number, badgeId: string): Promise<CommunityUserBadge | undefined> {
+    const [badge] = await db.select().from(communityUserBadges)
+      .where(and(
+        eq(communityUserBadges.userId, userId),
+        eq(communityUserBadges.badgeId, badgeId)
+      ))
+      .limit(1);
+    return badge;
+  }
+
+  async createUserBadge(data: InsertCommunityUserBadge): Promise<CommunityUserBadge> {
+    const [badge] = await db.insert(communityUserBadges).values(data).returning();
+    return badge;
+  }
+
+  async updateUserBadge(id: string, data: Partial<CommunityUserBadge>): Promise<void> {
+    await db.update(communityUserBadges)
+      .set(data)
+      .where(eq(communityUserBadges.id, id));
+  }
+
+  async awardBadgeToUser(userId: number, badgeId: string): Promise<CommunityUserBadge> {
+    const existingBadge = await this.getUserBadge(userId, badgeId);
+    if (existingBadge) {
+      return existingBadge;
+    }
+    
+    const badge = await this.getCommunityBadgeById(badgeId);
+    const [userBadge] = await db.insert(communityUserBadges).values({
+      userId,
+      userAddress: '',
+      badgeId,
+      isCompleted: true,
+      earnedAt: new Date(),
+      progress: 100,
+    }).returning();
+    
+    if (badge) {
+      await db.update(communityBadges)
+        .set({ totalAwarded: (badge.totalAwarded || 0) + 1 })
+        .where(eq(communityBadges.id, badgeId));
+    }
+    
+    return userBadge;
+  }
+
+  // Community Activity
+  async getRecentCommunityActivity(limit: number = 50): Promise<CommunityActivityType[]> {
+    return db.select().from(communityActivity)
+      .orderBy(desc(communityActivity.createdAt))
+      .limit(limit);
+  }
+
+  async getCommunityActivityByUser(userId: number, limit: number = 50): Promise<CommunityActivityType[]> {
+    return db.select().from(communityActivity)
+      .where(eq(communityActivity.userId, userId))
+      .orderBy(desc(communityActivity.createdAt))
+      .limit(limit);
+  }
+
+  async createCommunityActivity(data: InsertCommunityActivity): Promise<CommunityActivityType> {
+    const [activity] = await db.insert(communityActivity).values(data).returning();
+    return activity;
+  }
+
+  // Community Reputation
+  async getUserReputation(userId: number): Promise<CommunityReputationType | undefined> {
+    const [rep] = await db.select().from(communityReputation)
+      .where(eq(communityReputation.userId, userId))
+      .limit(1);
+    return rep;
+  }
+
+  async createUserReputation(data: InsertCommunityReputation): Promise<CommunityReputationType> {
+    const [rep] = await db.insert(communityReputation).values(data).returning();
+    return rep;
+  }
+
+  async updateUserReputation(userId: number, data: Partial<CommunityReputationType>): Promise<void> {
+    await db.update(communityReputation)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(communityReputation.userId, userId));
+  }
+
+  async incrementUserReputation(userId: number, points: number): Promise<void> {
+    const rep = await this.getUserReputation(userId);
+    if (rep) {
+      const newReputation = (rep.reputation || 0) + points;
+      const newLevel = Math.floor(newReputation / 1000) + 1;
+      await db.update(communityReputation)
+        .set({ 
+          reputation: newReputation,
+          level: Math.min(newLevel, 100),
+          lastActivityAt: new Date(),
+          updatedAt: new Date()
+        })
+        .where(eq(communityReputation.userId, userId));
+    }
+  }
+
+  async getLeaderboard(limit: number = 100): Promise<CommunityReputationType[]> {
+    return db.select().from(communityReputation)
+      .orderBy(desc(communityReputation.reputation))
+      .limit(limit);
+  }
+
+  // Community Stats
+  async getCommunityStats(): Promise<CommunityStats> {
+    const allMembers = await db.select().from(members);
+    const allPosts = await db.select().from(communityPosts).where(eq(communityPosts.status, 'active'));
+    const allEvents = await db.select().from(communityEvents);
+    const allAnnouncements = await db.select().from(communityAnnouncements);
+    
+    const now = new Date();
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    
+    const activeMembers = allMembers.filter(m => {
+      const lastActivity = m.lastActivityAt ? new Date(m.lastActivityAt) : null;
+      return lastActivity && lastActivity > weekAgo;
+    });
+    
+    const upcomingEvents = allEvents.filter(e => {
+      const startDate = new Date(e.startDate);
+      return startDate > now;
+    });
+    
+    let totalComments = 0;
+    for (const post of allPosts) {
+      totalComments += post.commentCount || 0;
+    }
+    
+    return {
+      totalMembers: allMembers.length,
+      activeMembers: activeMembers.length,
+      totalPosts: allPosts.length,
+      totalComments,
+      totalProposals: 0,
+      activeProposals: 0,
+      totalEvents: allEvents.length,
+      upcomingEvents: upcomingEvents.length,
+      totalRewards: "0",
+      weeklyGrowth: 0,
+    };
   }
 }
 

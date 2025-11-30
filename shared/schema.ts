@@ -5727,3 +5727,67 @@ export interface CommunityOverview {
   announcements: CommunityAnnouncement[];
   recentActivity: CommunityActivityType[];
 }
+
+// Community Post Reactions - Like/Dislike system with persistence
+export const communityPostReactions = pgTable("community_post_reactions", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  postId: varchar("post_id", { length: 64 }).notNull(),
+  userId: integer("user_id").notNull(),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  reactionType: varchar("reaction_type", { length: 10 }).notNull(), // 'like' or 'dislike'
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Community Comment Reactions - Like/Dislike for comments
+export const communityCommentReactions = pgTable("community_comment_reactions", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  commentId: varchar("comment_id", { length: 64 }).notNull(),
+  userId: integer("user_id").notNull(),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  reactionType: varchar("reaction_type", { length: 10 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Community Event Registrations - Track event participants
+export const communityEventRegistrations = pgTable("community_event_registrations", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  eventId: varchar("event_id", { length: 64 }).notNull(),
+  userId: integer("user_id").notNull(),
+  userAddress: varchar("user_address", { length: 66 }).notNull(),
+  username: varchar("username", { length: 100 }),
+  status: varchar("status", { length: 20 }).notNull().default("registered"), // registered, attended, cancelled
+  registeredAt: timestamp("registered_at").defaultNow().notNull(),
+  attendedAt: timestamp("attended_at"),
+  cancelledAt: timestamp("cancelled_at"),
+});
+
+// Insert schemas for new community tables
+export const insertCommunityPostReactionSchema = createInsertSchema(communityPostReactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCommunityCommentReactionSchema = createInsertSchema(communityCommentReactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCommunityEventRegistrationSchema = createInsertSchema(communityEventRegistrations).omit({
+  id: true,
+  registeredAt: true,
+  attendedAt: true,
+  cancelledAt: true,
+});
+
+// New Community Types
+export type CommunityPostReaction = typeof communityPostReactions.$inferSelect;
+export type InsertCommunityPostReaction = z.infer<typeof insertCommunityPostReactionSchema>;
+
+export type CommunityCommentReaction = typeof communityCommentReactions.$inferSelect;
+export type InsertCommunityCommentReaction = z.infer<typeof insertCommunityCommentReactionSchema>;
+
+export type CommunityEventRegistration = typeof communityEventRegistrations.$inferSelect;
+export type InsertCommunityEventRegistration = z.infer<typeof insertCommunityEventRegistrationSchema>;
+
+export type ReactionType = "like" | "dislike";
+export type RegistrationStatus = "registered" | "attended" | "cancelled";
