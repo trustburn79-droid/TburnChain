@@ -311,10 +311,10 @@ export default function Blocks() {
           <div className="flex items-center gap-3">
             <Box className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="text-3xl font-bold" data-testid="text-blocks-title">{t('blocks.title')}</h1>
+              <h1 className="text-3xl font-bold" data-testid="text-blocks-title">{t('blocks.title', 'Blocks')}</h1>
               <p className="text-muted-foreground">
-                {blocksData?.pagination.totalItems || 0} {t('blocks.totalBlocks')} • 
-                {t('common.page')} {blocksData?.pagination.page || 1} / {blocksData?.pagination.totalPages || 1}
+                {blocksData?.pagination.totalItems || 0} {t('blocks.totalBlocks', 'total blocks')} • 
+                {t('common.page', 'Page')} {blocksData?.pagination.page || 1} / {blocksData?.pagination.totalPages || 1}
               </p>
             </div>
           </div>
@@ -328,7 +328,7 @@ export default function Blocks() {
               className="gap-2"
             >
               <RefreshCw className={`h-4 w-4 ${isAutoRefresh ? "animate-spin" : ""}`} />
-              {isAutoRefresh ? t('blocks.live') : t('blocks.paused')}
+              {isAutoRefresh ? t('blocks.live', 'Live') : t('blocks.paused', 'Paused')}
             </Button>
             
             {/* Manual refresh */}
@@ -346,15 +346,15 @@ export default function Blocks() {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">
                   <Download className="h-4 w-4 mr-2" />
-                  {t('common.download')}
+                  {t('common.download', 'Download')}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuLabel>{t('blocks.exportFormat')}</DropdownMenuLabel>
+                <DropdownMenuLabel>{t('blocks.exportFormat', 'Export Format')}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>{t('common.exportCsv')}</DropdownMenuItem>
-                <DropdownMenuItem>{t('common.exportJson')}</DropdownMenuItem>
-                <DropdownMenuItem>{t('common.exportExcel')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('common.exportCsv', 'CSV')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('common.exportJson', 'JSON')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('common.exportExcel', 'Excel')}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -366,7 +366,7 @@ export default function Blocks() {
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={t('blocks.searchPlaceholder')}
+              placeholder={t('blocks.searchPlaceholder', 'Search by block number, hash, or validator...')}
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSearch()}
@@ -383,7 +383,7 @@ export default function Blocks() {
             <SheetTrigger asChild>
               <Button variant="outline" className="gap-2">
                 <Filter className="h-4 w-4" />
-                {t('common.filter')}
+                {t('common.filter', 'Filter')}
                 {hasActiveFilters && (
                   <Badge variant="secondary" className="ml-1">
                     {[selectedValidator, selectedShard, selectedHashAlgorithm].filter(Boolean).length}
@@ -510,7 +510,7 @@ export default function Blocks() {
             <div className="flex items-center gap-2">
               <Activity className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">
-                {t('blocks.lastUpdate')} {formatDistanceToNow(lastUpdate, { addSuffix: true })}
+                {t('blocks.lastUpdate', 'Last Update:')} {formatDistanceToNow(lastUpdate, { addSuffix: true })}
               </span>
             </div>
             <Separator orientation="vertical" className="h-4" />
@@ -518,12 +518,12 @@ export default function Blocks() {
               {isConnected ? (
                 <>
                   <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span className="text-sm text-green-600">{t('common.connected')}</span>
+                  <span className="text-sm text-green-600">{t('common.connected', 'Connected')}</span>
                 </>
               ) : (
                 <>
                   <XCircle className="h-4 w-4 text-red-500" />
-                  <span className="text-sm text-red-600">{t('common.disconnected')}</span>
+                  <span className="text-sm text-red-600">{t('common.disconnected', 'Disconnected')}</span>
                 </>
               )}
             </div>
@@ -531,11 +531,11 @@ export default function Blocks() {
           
           {blocksData && (
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>{t('blocks.avgBlockTime')}: 3s</span>
+              <span>{t('blocks.avgBlockTime', 'Avg Block Time')}: 3s</span>
               <span>•</span>
-              <span>{t('blocks.networkTps')}: 521,482</span>
+              <span>{t('blocks.networkTps', 'Network TPS')}: 521,482</span>
               <span>•</span>
-              <span>{t('blocks.gasPrice')}: 10 EMB</span>
+              <span>{t('blocks.gasPrice', 'Gas Price')}: 10 EMB</span>
             </div>
           )}
         </div>
@@ -544,9 +544,9 @@ export default function Blocks() {
       {/* Blocks Table */}
       <Card>
         <CardHeader>
-          <CardTitle>{t('blocks.recentBlocks')}</CardTitle>
+          <CardTitle>{t('blocks.recentBlocks', 'Recent Blocks')}</CardTitle>
           <CardDescription>
-            {t('blocks.recentBlocksDescription')}
+            {t('blocks.recentBlocksDescription', 'Real-time block production from TBURN mainnet validators')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -573,43 +573,43 @@ export default function Blocks() {
                       onClick={() => toggleSort("number")}
                     >
                       <div className="flex items-center">
-                        {t('common.block')}
+                        {t('common.block', 'Block')}
                         {renderSortIcon("number")}
                       </div>
                     </TableHead>
-                    <TableHead>{t('common.hash')}</TableHead>
+                    <TableHead>{t('common.hash', 'Hash')}</TableHead>
                     <TableHead 
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => toggleSort("timestamp")}
                     >
                       <div className="flex items-center">
-                        {t('common.time')}
+                        {t('common.time', 'Time')}
                         {renderSortIcon("timestamp")}
                       </div>
                     </TableHead>
-                    <TableHead>{t('blocks.validator')}</TableHead>
+                    <TableHead>{t('blocks.validator', 'Validator')}</TableHead>
                     <TableHead 
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => toggleSort("transactionCount")}
                     >
                       <div className="flex items-center">
-                        {t('blocks.txns')}
+                        {t('blocks.txns', 'Txns')}
                         {renderSortIcon("transactionCount")}
                       </div>
                     </TableHead>
-                    <TableHead>{t('blocks.shard')}</TableHead>
-                    <TableHead>{t('blocks.gasUsed')}</TableHead>
+                    <TableHead>{t('blocks.shard', 'Shard')}</TableHead>
+                    <TableHead>{t('blocks.gasUsed', 'Gas Used')}</TableHead>
                     <TableHead 
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => toggleSort("size")}
                     >
                       <div className="flex items-center">
-                        {t('blocks.size')}
+                        {t('blocks.size', 'Size')}
                         {renderSortIcon("size")}
                       </div>
                     </TableHead>
-                    <TableHead>{t('blocks.hashAlgo')}</TableHead>
-                    <TableHead className="text-right">{t('common.actions')}</TableHead>
+                    <TableHead>{t('blocks.hashAlgo', 'Hash Algo')}</TableHead>
+                    <TableHead className="text-right">{t('common.actions', 'Actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -686,7 +686,7 @@ export default function Blocks() {
                               }}
                             >
                               <ExternalLink className="h-4 w-4 mr-2" />
-                              {t('blocks.viewDetails')}
+                              {t('blocks.viewDetails', 'View Details')}
                             </DropdownMenuItem>
                             <DropdownMenuItem 
                               onClick={(e) => {
@@ -699,7 +699,7 @@ export default function Blocks() {
                               }}
                             >
                               <Hash className="h-4 w-4 mr-2" />
-                              {t('blocks.copyHash')}
+                              {t('blocks.copyHash', 'Copy Hash')}
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               onClick={(e) => {
@@ -708,7 +708,7 @@ export default function Blocks() {
                               }}
                             >
                               <User className="h-4 w-4 mr-2" />
-                              {t('blocks.viewValidator')}
+                              {t('blocks.viewValidator', 'View Validator')}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -724,7 +724,7 @@ export default function Blocks() {
           {blocksData && blocksData.pagination.totalPages > 1 && (
             <div className="flex items-center justify-between mt-6">
               <div className="text-sm text-muted-foreground">
-                {t('common.showing')} {((page - 1) * 20) + 1} - {Math.min(page * 20, blocksData.pagination.totalItems)} / {blocksData.pagination.totalItems} {t('blocks.blocks')}
+                {t('common.showing', 'Showing')} {((page - 1) * 20) + 1} - {Math.min(page * 20, blocksData.pagination.totalItems)} / {blocksData.pagination.totalItems} {t('blocks.blocks', 'blocks')}
               </div>
               
               <div className="flex items-center gap-2">
@@ -745,7 +745,7 @@ export default function Blocks() {
                   data-testid="button-prev-page"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  {t('common.previous')}
+                  {t('common.previous', 'Previous')}
                 </Button>
                 
                 <div className="flex items-center gap-1">
@@ -773,7 +773,7 @@ export default function Blocks() {
                   disabled={!blocksData.pagination.hasNext}
                   data-testid="button-next-page"
                 >
-                  {t('common.next')}
+                  {t('common.next', 'Next')}
                   <ChevronRight className="h-4 w-4" />
                 </Button>
                 <Button
