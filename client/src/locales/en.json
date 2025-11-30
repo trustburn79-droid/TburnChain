@@ -89,7 +89,6 @@
     "showing": "Showing",
     "page": "Page",
     "noDataAvailable": "No data available",
-    "id": "ID",
     "unknown": "Unknown"
   },
   "nav": {
@@ -2942,11 +2941,6 @@
       "totalCostLabel": "Total Cost",
       "availableProviders": "Available Providers"
     }
-  },
-  "common": {
-    "error": "Error",
-    "unknown": "Unknown",
-    "na": "N/A"
   },
   "operator": {
     "title": "Operator Portal",
