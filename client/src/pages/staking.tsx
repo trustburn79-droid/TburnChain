@@ -27,6 +27,38 @@ function translateBenefit(t: (key: string) => string, benefit: string): string {
   }
   return benefit;
 }
+
+const poolNameKeyMap: Record<string, string> = {
+  "pool-public-main": "staking.poolNames.pool-public-main",
+  "pool-validator-1": "staking.poolNames.pool-validator-1",
+  "pool-institutional": "staking.poolNames.pool-institutional",
+  "pool-liquid": "staking.poolNames.pool-liquid"
+};
+
+const poolDescKeyMap: Record<string, string> = {
+  "pool-public-main": "staking.poolDescriptions.pool-public-main",
+  "pool-validator-1": "staking.poolDescriptions.pool-validator-1",
+  "pool-institutional": "staking.poolDescriptions.pool-institutional",
+  "pool-liquid": "staking.poolDescriptions.pool-liquid"
+};
+
+function translatePoolName(t: (key: string) => string, poolId: string, defaultName: string): string {
+  const key = poolNameKeyMap[poolId];
+  if (key) {
+    const translated = t(key);
+    if (translated !== key) return translated;
+  }
+  return defaultName;
+}
+
+function translatePoolDesc(t: (key: string) => string, poolId: string, defaultDesc: string): string {
+  const key = poolDescKeyMap[poolId];
+  if (key) {
+    const translated = t(key);
+    if (translated !== key) return translated;
+  }
+  return defaultDesc;
+}
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -236,13 +268,14 @@ export default function StakingDashboard() {
 
   const apyPredictionMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("POST", "/api/staking/ai/predict-apy", {
+      const response = await apiRequest("POST", "/api/staking/ai/predict-apy", {
         stakeAmount: "10000000000000000000000",
         lockPeriodDays: 90,
         tier: "silver"
       });
+      return response.json();
     },
-    onSuccess: (data: any) => {
+    onSuccess: (data: ApyPrediction) => {
       setApyPrediction({
         predictedApy: data.predictedApy || stats?.averageApy || 14.5,
         confidence: data.confidence || 87,
@@ -272,12 +305,13 @@ export default function StakingDashboard() {
 
   const recommendationsMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest("POST", "/api/staking/ai/recommend-pools", {
+      const response = await apiRequest("POST", "/api/staking/ai/recommend-pools", {
         walletAddress: `0xTBURN${Math.random().toString(16).slice(2, 42)}`,
         availableBalance: "50000000000000000000000",
         riskTolerance: "medium",
         preferredLockPeriod: 90
       });
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -508,10 +542,10 @@ export default function StakingDashboard() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg flex items-center gap-2">
-                        {pool.name}
+                        {translatePoolName(t, pool.id, pool.name)}
                         <Badge className={tierColors[pool.tier.toLowerCase()] || "bg-gray-500"}>
                           {tierIcons[pool.tier.toLowerCase()]}
-                          <span className="ml-1 capitalize">{pool.tier}</span>
+                          <span className="ml-1 capitalize">{t(`staking.${pool.tier.toLowerCase()}`)}</span>
                         </Badge>
                       </CardTitle>
                       <Badge variant={pool.status === "active" ? "default" : "secondary"}>
@@ -807,7 +841,7 @@ export default function StakingDashboard() {
                         <Badge variant="outline" className={`${tierColors[pool.tier.toLowerCase()]} text-xs`}>
                           {i + 1}
                         </Badge>
-                        <span className="text-sm font-medium">{pool.name}</span>
+                        <span className="text-sm font-medium">{translatePoolName(t, pool.id, pool.name)}</span>
                       </div>
                       <div className="text-right">
                         <span className="text-sm font-bold text-green-500">{pool.apy?.toFixed(1) || "0.0"}%</span>
