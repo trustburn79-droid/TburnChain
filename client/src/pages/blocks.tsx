@@ -321,13 +321,13 @@ function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
         </Badge>
       </TableCell>
       <TableCell>
-        <div className="space-y-1">
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-mono">{formatGasEmber(block.gasUsed)}</span>
-            <span className="text-muted-foreground">{gasUsagePercent.toFixed(1)}%</span>
-          </div>
-          <Progress value={gasUsagePercent} className="h-1" />
+        <div className="flex items-center justify-between text-xs gap-2">
+          <span className="font-mono">{formatGasEmber(block.gasUsed)}</span>
+          <span className="text-muted-foreground">{gasUsagePercent.toFixed(1)}%</span>
         </div>
+        {/* Progress bar commented out to prevent layout flickering
+        <Progress value={gasUsagePercent} className="h-1" />
+        */}
       </TableCell>
       <TableCell>
         <span className="text-sm font-mono">{formatSize(block.size)}</span>
