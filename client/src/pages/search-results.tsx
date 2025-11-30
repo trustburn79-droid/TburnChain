@@ -448,6 +448,15 @@ export default function SearchResults() {
     setSearchInput(query);
   }, [typeFilter, query]);
 
+  const buildSearchUrl = () => {
+    const params = new URLSearchParams();
+    params.set('q', query);
+    if (activeFilter !== 'all') {
+      params.set('type', activeFilter);
+    }
+    return `/api/search?${params.toString()}`;
+  };
+
   const { 
     data: searchResults, 
     isLoading, 
@@ -455,7 +464,12 @@ export default function SearchResults() {
     refetch,
     isFetching
   } = useQuery<SearchResponse>({
-    queryKey: ['/api/search', query, activeFilter === 'all' ? undefined : activeFilter],
+    queryKey: ['/api/search', query, activeFilter],
+    queryFn: async () => {
+      const res = await fetch(buildSearchUrl(), { credentials: 'include' });
+      if (!res.ok) throw new Error('Search failed');
+      return res.json();
+    },
     enabled: query.length >= 1,
     staleTime: 30000,
   });
