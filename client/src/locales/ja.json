@@ -137,7 +137,8 @@
     "memberMgmt": "メンバー管理",
     "validatorOps": "バリデーター運用",
     "securityAudit": "セキュリティ監査",
-    "reports": "レポート"
+    "reports": "レポート",
+    "announcements": "お知らせ"
   },
   "dashboard": {
     "title": "ダッシュボード",

@@ -130,7 +130,8 @@
     "memberMgmt": "Gestão de Membros",
     "validatorOps": "Ops. Validadores",
     "securityAudit": "Auditoria de Segurança",
-    "reports": "Relatórios"
+    "reports": "Relatórios",
+    "announcements": "Anúncios"
   },
   "dashboard": {
     "title": "Painel",

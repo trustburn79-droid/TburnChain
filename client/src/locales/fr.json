@@ -137,7 +137,8 @@
     "memberMgmt": "Gestion des membres",
     "validatorOps": "Opérations validateurs",
     "securityAudit": "Audit de sécurité",
-    "reports": "Rapports"
+    "reports": "Rapports",
+    "announcements": "Annonces"
   },
   "dashboard": {
     "title": "Tableau de bord",

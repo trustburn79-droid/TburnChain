@@ -139,7 +139,8 @@
     "memberMgmt": "Member Mgmt",
     "validatorOps": "Validator Ops",
     "securityAudit": "Security Audit",
-    "reports": "Reports"
+    "reports": "Reports",
+    "announcements": "Announcements"
   },
   "dashboard": {
     "title": "Dashboard",

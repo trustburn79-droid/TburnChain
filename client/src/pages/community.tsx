@@ -766,7 +766,7 @@ export default function Community() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Bell className="h-5 w-5 text-primary" />
-                  {t('community.announcements', 'Announcements')}
+                  {t('nav.announcements', 'Announcements')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -869,7 +869,7 @@ export default function Community() {
                 <div className="space-y-2">
                   {displayPosts.filter(p => p.isHot).slice(0, 4).map((post) => (
                     <div key={post.id} className="flex items-center gap-2">
-                      <span className="text-sm truncate flex-1">{post.title}</span>
+                      <span className="text-sm truncate flex-1">{post.title.startsWith('posts.') ? t(`community.${post.title}`, post.title) : post.title}</span>
                       <Badge variant="outline" className="text-xs">{post.likes}</Badge>
                     </div>
                   ))}
@@ -955,7 +955,7 @@ export default function Community() {
                   <SelectItem value="governance">{t('community.governance', 'Governance')}</SelectItem>
                   <SelectItem value="trading">{t('community.trading', 'Trading')}</SelectItem>
                   <SelectItem value="support">{t('community.support', 'Support')}</SelectItem>
-                  <SelectItem value="announcements">{t('community.announcements', 'Announcements')}</SelectItem>
+                  <SelectItem value="announcements">{t('nav.announcements', 'Announcements')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

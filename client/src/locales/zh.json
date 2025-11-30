@@ -139,7 +139,8 @@
     "memberMgmt": "成员管理",
     "validatorOps": "验证者运营",
     "securityAudit": "安全审计",
-    "reports": "报告"
+    "reports": "报告",
+    "announcements": "公告"
   },
   "dashboard": {
     "title": "仪表板",

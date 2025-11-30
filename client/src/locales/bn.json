@@ -130,7 +130,8 @@
     "memberMgmt": "সদস্য ব্যবস্থাপনা",
     "validatorOps": "ভ্যালিডেটর অপস",
     "securityAudit": "নিরাপত্তা অডিট",
-    "reports": "রিপোর্ট"
+    "reports": "রিপোর্ট",
+    "announcements": "ঘোষণা"
   },
   "dashboard": {
     "title": "ড্যাশবোর্ড",

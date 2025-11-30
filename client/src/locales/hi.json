@@ -137,7 +137,8 @@
     "memberMgmt": "सदस्य प्रबंधन",
     "validatorOps": "वैलिडेटर ऑप्स",
     "securityAudit": "सुरक्षा ऑडिट",
-    "reports": "रिपोर्ट्स"
+    "reports": "रिपोर्ट्स",
+    "announcements": "घोषणाएं"
   },
   "dashboard": {
     "title": "डैशबोर्ड",

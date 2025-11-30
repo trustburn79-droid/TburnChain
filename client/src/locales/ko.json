@@ -142,7 +142,8 @@
     "memberMgmt": "멤버 관리",
     "validatorOps": "검증자 운영",
     "securityAudit": "보안 감사",
-    "reports": "리포트"
+    "reports": "리포트",
+    "announcements": "공지사항"
   },
   "dashboard": {
     "title": "대시보드",

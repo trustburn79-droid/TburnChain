@@ -136,7 +136,8 @@
     "memberMgmt": "إدارة الأعضاء",
     "validatorOps": "عمليات المدققين",
     "securityAudit": "تدقيق الأمان",
-    "reports": "التقارير"
+    "reports": "التقارير",
+    "announcements": "الإعلانات"
   },
   "dashboard": {
     "title": "لوحة التحكم",

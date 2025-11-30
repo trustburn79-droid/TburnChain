@@ -130,7 +130,8 @@
     "memberMgmt": "Управление участниками",
     "validatorOps": "Операции валидаторов",
     "securityAudit": "Аудит безопасности",
-    "reports": "Отчеты"
+    "reports": "Отчеты",
+    "announcements": "Объявления"
   },
   "dashboard": {
     "title": "Панель управления",
