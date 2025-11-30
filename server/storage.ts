@@ -408,6 +408,7 @@ export interface IStorage {
   getMemberByAddress(address: string): Promise<Member | undefined>;
   createMember(data: InsertMember): Promise<Member>;
   updateMember(id: string, data: Partial<Member>): Promise<void>;
+  deleteMember(id: string): Promise<void>;
   
   // Member Profiles
   getMemberProfileByMemberId(memberId: string): Promise<MemberProfile | undefined>;
@@ -2715,6 +2716,10 @@ export class DbStorage implements IStorage {
       ...data,
       updatedAt: new Date(),
     }).where(eq(members.id, id));
+  }
+
+  async deleteMember(id: string): Promise<void> {
+    await db.delete(members).where(eq(members.id, id));
   }
 
   // Member Profiles

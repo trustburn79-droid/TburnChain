@@ -2786,6 +2786,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to update member status" });
     }
   });
+
+  // Update member KYC level
+  app.post("/api/members/:id/kyc", async (req, res) => {
+    try {
+      const { kycLevel } = req.body;
+      if (!['none', 'basic', 'advanced', 'institutional'].includes(kycLevel)) {
+        return res.status(400).json({ error: "Invalid KYC level" });
+      }
+      await storage.updateMember(req.params.id, { kycLevel });
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error updating member KYC level:", error);
+      res.status(500).json({ error: "Failed to update member KYC level" });
+    }
+  });
+
+  // Delete member
+  app.delete("/api/members/:id", async (req, res) => {
+    try {
+      await storage.deleteMember(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting member:", error);
+      res.status(500).json({ error: "Failed to delete member" });
+    }
+  });
   
   // Get member staking positions
   app.get("/api/members/:id/staking", async (req, res) => {
