@@ -282,21 +282,47 @@ export default function DexPage() {
   const [removeLiquidityPosition, setRemoveLiquidityPosition] = useState<DexPosition | null>(null);
   const [removePercentage, setRemovePercentage] = useState([50]);
 
-  const { data: stats, isLoading: statsLoading } = useQuery<DexStatsResponse>({
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<DexStatsResponse>({
     queryKey: ["/api/dex/stats"]
   });
 
-  const { data: pools, isLoading: poolsLoading } = useQuery<DexPool[]>({
+  const { data: pools, isLoading: poolsLoading, refetch: refetchPools } = useQuery<DexPool[]>({
     queryKey: ["/api/dex/pools"]
   });
 
-  const { data: recentSwaps, isLoading: swapsLoading } = useQuery<DexSwap[]>({
-    queryKey: ["/api/dex/swaps/recent"]
+  const { data: recentSwaps, isLoading: swapsLoading, refetch: refetchSwaps } = useQuery<DexSwap[]>({
+    queryKey: ["/api/dex/swaps"]
   });
 
-  const { data: positions, isLoading: positionsLoading } = useQuery<DexPosition[]>({
+  const { data: positions, isLoading: positionsLoading, refetch: refetchPositions } = useQuery<DexPosition[]>({
     queryKey: ["/api/dex/positions"]
   });
+
+  const handleRefreshAll = async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        refetchStats(),
+        refetchPools(),
+        refetchSwaps(),
+        refetchPositions()
+      ]);
+      toast({
+        title: t('dex.refreshSuccess'),
+        description: t('dex.refreshSuccessDesc')
+      });
+    } catch (error) {
+      toast({
+        title: t('dex.refreshError'),
+        description: t('dex.refreshErrorDesc'),
+        variant: "destructive"
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   // Build quote URL with query parameters
   const quoteUrl = useMemo(() => {
@@ -313,12 +339,25 @@ export default function DexPage() {
   });
 
   const swapMutation = useMutation({
-    mutationFn: async (data: { tokenIn: string; tokenOut: string; amountIn: string; minAmountOut: string; deadline: number }) => {
+    mutationFn: async (data: { 
+      poolId: string;
+      tokenIn: string; 
+      tokenOut: string; 
+      amountIn: string; 
+      minimumAmountOut: string; 
+      deadline: number;
+      traderAddress: string;
+    }) => {
       return apiRequest("POST", "/api/dex/swap", data);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast({ title: t('dex.swapSubmitted'), description: t('dex.swapSubmittedDesc') });
-      queryClient.invalidateQueries({ queryKey: ["/api/dex"] });
+      await Promise.all([
+        refetchStats(),
+        refetchPools(),
+        refetchSwaps(),
+        refetchPositions()
+      ]);
       setSwapInput(prev => ({ ...prev, amountIn: "" }));
     },
     onError: (error: Error) => {
@@ -438,19 +477,57 @@ export default function DexPage() {
   }, [pools]);
 
   const handleSwap = () => {
-    if (!quote) return;
+    if (!quote) {
+      toast({ 
+        title: t('dex.swapFailed'), 
+        description: t('dex.noQuoteAvailable'), 
+        variant: "destructive" 
+      });
+      return;
+    }
+
+    if (!swapInput.tokenIn || !swapInput.tokenOut) {
+      toast({ 
+        title: t('dex.validationError'), 
+        description: t('dex.selectBothTokens'), 
+        variant: "destructive" 
+      });
+      return;
+    }
+
+    if (!swapInput.amountIn || parseFloat(swapInput.amountIn) <= 0) {
+      toast({ 
+        title: t('dex.validationError'), 
+        description: t('dex.enterValidAmount'), 
+        variant: "destructive" 
+      });
+      return;
+    }
+
+    const poolId = quote.route?.[0]?.poolId || pools?.[0]?.id;
+    if (!poolId) {
+      toast({ 
+        title: t('dex.swapFailed'), 
+        description: t('dex.noPoolAvailable'), 
+        variant: "destructive" 
+      });
+      return;
+    }
     
     const slippage = parseFloat(swapInput.slippage) / 100;
     const amountOutBigInt = BigInt(quote.amountOut);
     const TEN_THOUSAND = BigInt(10000);
-    const minAmountOut = (amountOutBigInt * BigInt(Math.floor((1 - slippage) * 10000))) / TEN_THOUSAND;
+    const minimumAmountOut = (amountOutBigInt * BigInt(Math.floor((1 - slippage) * 10000))) / TEN_THOUSAND;
+    const amountInWei = toWei(swapInput.amountIn);
     
     swapMutation.mutate({
+      poolId,
       tokenIn: swapInput.tokenIn,
       tokenOut: swapInput.tokenOut,
-      amountIn: swapInput.amountIn,
-      minAmountOut: minAmountOut.toString(),
-      deadline: Math.floor(Date.now() / 1000) + 1200
+      amountIn: amountInWei,
+      minimumAmountOut: minimumAmountOut.toString(),
+      deadline: Math.floor(Date.now() / 1000) + 1200,
+      traderAddress: ENTERPRISE_WALLET_ADDRESS
     });
   };
 
@@ -512,9 +589,15 @@ export default function DexPage() {
             <Activity className="h-3 w-3" />
             {activePools.length} {t('dex.liquidityPools')}
           </Badge>
-          <Button variant="outline" size="sm" data-testid="button-refresh-dex" onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/dex"] })}>
-            <RefreshCw className="h-4 w-4 mr-1" />
-            {t('common.refresh')}
+          <Button 
+            variant="outline" 
+            size="sm" 
+            data-testid="button-refresh-dex" 
+            onClick={handleRefreshAll}
+            disabled={isRefreshing}
+          >
+            <RefreshCw className={`h-4 w-4 mr-1 ${isRefreshing ? 'animate-spin' : ''}`} />
+            {isRefreshing ? t('common.refreshing') : t('common.refresh')}
           </Button>
         </div>
       </div>

@@ -1465,7 +1465,16 @@
     "lpTokenBalance": "LP 토큰 잔액",
     "estToken0Return": "예상 토큰0 반환",
     "estToken1Return": "예상 토큰1 반환",
-    "removing": "제거 중..."
+    "removing": "제거 중...",
+    "refreshSuccess": "데이터 새로고침 완료",
+    "refreshSuccessDesc": "모든 DEX 데이터가 업데이트되었습니다.",
+    "refreshError": "새로고침 실패",
+    "refreshErrorDesc": "DEX 데이터를 새로고침할 수 없습니다. 다시 시도해 주세요.",
+    "noQuoteAvailable": "스왑 견적을 사용할 수 없습니다. 유효한 토큰 금액을 입력하세요.",
+    "selectBothTokens": "입력 및 출력 토큰을 모두 선택하세요.",
+    "enterValidAmount": "0보다 큰 유효한 금액을 입력하세요.",
+    "noPoolAvailable": "이 스왑에 사용할 수 있는 유동성 풀이 없습니다.",
+    "swapping": "스왑 중..."
   },
   "lending": {
     "title": "대출 프로토콜",

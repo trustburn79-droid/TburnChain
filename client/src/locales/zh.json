@@ -1422,7 +1422,16 @@
     "lpTokenBalance": "LP 代币余额",
     "estToken0Return": "预计代币0返还",
     "estToken1Return": "预计代币1返还",
-    "removing": "移除中..."
+    "removing": "移除中...",
+    "refreshSuccess": "数据已刷新",
+    "refreshSuccessDesc": "所有 DEX 数据已更新。",
+    "refreshError": "刷新失败",
+    "refreshErrorDesc": "无法刷新 DEX 数据。请重试。",
+    "noQuoteAvailable": "无法获取交换报价。请输入有效的代币金额。",
+    "selectBothTokens": "请选择输入和输出代币。",
+    "enterValidAmount": "请输入大于零的有效金额。",
+    "noPoolAvailable": "没有可用于此交换的流动性池。",
+    "swapping": "交换中..."
   },
   "lending": {
     "title": "借贷协议",

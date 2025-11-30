@@ -1420,7 +1420,16 @@
     "lpTokenBalance": "LP Token Balance",
     "estToken0Return": "Est. Token0 Return",
     "estToken1Return": "Est. Token1 Return",
-    "removing": "Removing..."
+    "removing": "Removing...",
+    "refreshSuccess": "Data Refreshed",
+    "refreshSuccessDesc": "All DEX data has been updated.",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Unable to refresh DEX data. Please try again.",
+    "noQuoteAvailable": "No swap quote available. Please enter valid token amounts.",
+    "selectBothTokens": "Please select both input and output tokens.",
+    "enterValidAmount": "Please enter a valid amount greater than zero.",
+    "noPoolAvailable": "No liquidity pool available for this swap.",
+    "swapping": "Swapping..."
   },
   "lending": {
     "title": "Lending Protocol",
