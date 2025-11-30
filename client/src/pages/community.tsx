@@ -534,47 +534,51 @@ export default function Community() {
   ];
 
   const mockPosts: ForumPost[] = [
-    { id: "1", title: "TBURN v7.0 Mainnet Launch Discussion", author: "CryptoWhale", category: "announcements", content: "Exciting times ahead! Let's discuss the upcoming mainnet launch...", likes: 456, comments: 89, views: 2450, isPinned: true, isHot: true, createdAt: Math.floor(Date.now() / 1000) - 3600, tags: ["mainnet", "v7.0", "launch"] },
-    { id: "2", title: "Best Staking Strategies for Maximum APY", author: "StakingPro", category: "trading", content: "Here are my top strategies for maximizing your staking rewards...", likes: 234, comments: 56, views: 1890, isPinned: false, isHot: true, createdAt: Math.floor(Date.now() / 1000) - 7200, tags: ["staking", "apy", "rewards"] },
-    { id: "3", title: "Technical Deep Dive: AI Orchestration System", author: "BlockchainDev", category: "technical", content: "Let's explore how the Triple-Band AI system works under the hood...", likes: 189, comments: 42, views: 1567, isPinned: false, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 14400, tags: ["ai", "technical", "orchestration"] },
-    { id: "4", title: "Governance Proposal #42: Treasury Allocation", author: "GovernanceGuru", category: "governance", content: "Proposal to allocate 5% of treasury for ecosystem development...", likes: 312, comments: 78, views: 2100, isPinned: true, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 28800, tags: ["governance", "proposal", "treasury"] },
-    { id: "5", title: "New to TBURN? Start Here!", author: "CommunityBuilder", category: "general", content: "Welcome to the TBURN community! This guide will help you get started...", likes: 567, comments: 123, views: 4500, isPinned: true, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 86400, tags: ["beginner", "guide", "welcome"] },
+    { id: "1", title: "posts.mainnetDiscussion.title", author: "CryptoWhale", category: "announcements", content: "posts.mainnetDiscussion.content", likes: 456, comments: 89, views: 2450, isPinned: true, isHot: true, createdAt: Math.floor(Date.now() / 1000) - 3600, tags: ["mainnet", "v7.0", "launch"] },
+    { id: "2", title: "posts.stakingStrategies.title", author: "StakingPro", category: "trading", content: "posts.stakingStrategies.content", likes: 234, comments: 56, views: 1890, isPinned: false, isHot: true, createdAt: Math.floor(Date.now() / 1000) - 7200, tags: ["staking", "apy", "rewards"] },
+    { id: "3", title: "posts.aiOrchestration.title", author: "BlockchainDev", category: "technical", content: "posts.aiOrchestration.content", likes: 189, comments: 42, views: 1567, isPinned: false, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 14400, tags: ["ai", "technical", "orchestration"] },
+    { id: "4", title: "posts.governanceProposal.title", author: "GovernanceGuru", category: "governance", content: "posts.governanceProposal.content", likes: 312, comments: 78, views: 2100, isPinned: true, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 28800, tags: ["governance", "proposal", "treasury"] },
+    { id: "5", title: "posts.newToTburn.title", author: "CommunityBuilder", category: "general", content: "posts.newToTburn.content", likes: 567, comments: 123, views: 4500, isPinned: true, isHot: false, createdAt: Math.floor(Date.now() / 1000) - 86400, tags: ["beginner", "guide", "welcome"] },
   ];
 
   const mockEvents: CommunityEvent[] = [
-    { id: "1", title: "TBURN v7.0 Launch AMA", description: "Join the core team for a live Q&A session about the mainnet launch and upcoming features", type: "ama", startDate: Math.floor(Date.now() / 1000) + 86400, endDate: Math.floor(Date.now() / 1000) + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true },
-    { id: "2", title: "DeFi Workshop: Liquidity Mining", description: "Learn advanced liquidity mining strategies with hands-on exercises and expert guidance", type: "workshop", startDate: Math.floor(Date.now() / 1000) + 172800, endDate: Math.floor(Date.now() / 1000) + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true },
-    { id: "3", title: "TBURN Hackathon 2025", description: "48-hour hackathon to build innovative dApps on TBURN. Join developers worldwide!", type: "hackathon", startDate: Math.floor(Date.now() / 1000) + 604800, endDate: Math.floor(Date.now() / 1000) + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea" },
-    { id: "4", title: "Community Meetup - Tokyo", description: "Network with fellow TBURN enthusiasts in Tokyo. Food and drinks provided!", type: "meetup", startDate: Math.floor(Date.now() / 1000) + 259200, endDate: Math.floor(Date.now() / 1000) + 273600, participants: 78, maxParticipants: 100, status: "upcoming", isOnline: false, location: "Tokyo, Japan" },
-    { id: "5", title: "Staking Competition", description: "Compete for the highest staking rewards this month. Top stakers win bonus rewards!", type: "competition", startDate: Math.floor(Date.now() / 1000) - 86400, endDate: Math.floor(Date.now() / 1000) + 1209600, participants: 5670, rewards: "50,000 TBURN", status: "live", isOnline: true },
-    { id: "6", title: "NFT Art Contest", description: "Create TBURN-themed NFT artwork and win prizes. Submissions open now!", type: "competition", startDate: Math.floor(Date.now() / 1000) - 172800, endDate: Math.floor(Date.now() / 1000) + 604800, participants: 234, rewards: "25,000 TBURN", status: "live", isOnline: true },
+    { id: "1", title: "events.launchAma.title", description: "events.launchAma.desc", type: "ama", startDate: Math.floor(Date.now() / 1000) + 86400, endDate: Math.floor(Date.now() / 1000) + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true },
+    { id: "2", title: "events.defiWorkshop.title", description: "events.defiWorkshop.desc", type: "workshop", startDate: Math.floor(Date.now() / 1000) + 172800, endDate: Math.floor(Date.now() / 1000) + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true },
+    { id: "3", title: "events.hackathon.title", description: "events.hackathon.desc", type: "hackathon", startDate: Math.floor(Date.now() / 1000) + 604800, endDate: Math.floor(Date.now() / 1000) + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea" },
+    { id: "4", title: "events.tokyoMeetup.title", description: "events.tokyoMeetup.desc", type: "meetup", startDate: Math.floor(Date.now() / 1000) + 259200, endDate: Math.floor(Date.now() / 1000) + 273600, participants: 78, maxParticipants: 100, status: "upcoming", isOnline: false, location: "Tokyo, Japan" },
+    { id: "5", title: "events.stakingCompetition.title", description: "events.stakingCompetition.desc", type: "competition", startDate: Math.floor(Date.now() / 1000) - 86400, endDate: Math.floor(Date.now() / 1000) + 1209600, participants: 5670, rewards: "50,000 TBURN", status: "live", isOnline: true },
+    { id: "6", title: "events.nftContest.title", description: "events.nftContest.desc", type: "competition", startDate: Math.floor(Date.now() / 1000) - 172800, endDate: Math.floor(Date.now() / 1000) + 604800, participants: 234, rewards: "25,000 TBURN", status: "live", isOnline: true },
   ];
 
   const mockAnnouncements: Announcement[] = [
-    { id: "1", title: "Mainnet Launch Date Confirmed: December 1st", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 1st, 2025. All systems are go for the biggest upgrade in our history!", type: "news", createdAt: Math.floor(Date.now() / 1000) - 3600, isImportant: true },
-    { id: "2", title: "New Staking Tiers Available", content: "Diamond tier staking is now available with up to 25% APY boost. Check out the new staking dashboard for more details.", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 86400, isImportant: false },
-    { id: "3", title: "Security Audit Completed", content: "Our smart contracts have passed comprehensive security audits by CertiK and Trail of Bits. Full reports available on GitHub.", type: "update", createdAt: Math.floor(Date.now() / 1000) - 172800, isImportant: true },
-    { id: "4", title: "Bridge Integration: Ethereum & BSC Live", content: "Cross-chain bridge is now live for Ethereum and Binance Smart Chain. Transfer your assets seamlessly!", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 259200, isImportant: false },
+    { id: "1", title: "announcements.mainnetLaunch.title", content: "announcements.mainnetLaunch.content", type: "news", createdAt: Math.floor(Date.now() / 1000) - 3600, isImportant: true },
+    { id: "2", title: "announcements.stakingTiers.title", content: "announcements.stakingTiers.content", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 86400, isImportant: false },
+    { id: "3", title: "announcements.securityAudit.title", content: "announcements.securityAudit.content", type: "update", createdAt: Math.floor(Date.now() / 1000) - 172800, isImportant: true },
+    { id: "4", title: "announcements.bridgeIntegration.title", content: "announcements.bridgeIntegration.content", type: "feature", createdAt: Math.floor(Date.now() / 1000) - 259200, isImportant: false },
   ];
 
   const mockActivities: ActivityItem[] = [
-    { id: "1", type: "stake", user: "CryptoWhale", action: "staked", amount: "50,000 TBURN", timestamp: Math.floor(Date.now() / 1000) - 120 },
-    { id: "2", type: "post", user: "ValidatorKing", action: "created a new post", target: "Best Practices for Validators", timestamp: Math.floor(Date.now() / 1000) - 300 },
-    { id: "3", type: "vote", user: "GovernanceGuru", action: "voted on proposal", target: "#42", timestamp: Math.floor(Date.now() / 1000) - 600 },
-    { id: "4", type: "badge", user: "TBURNMaster", action: "earned badge", target: "Diamond Staker", timestamp: Math.floor(Date.now() / 1000) - 900 },
-    { id: "5", type: "comment", user: "DeFiExpert", action: "commented on", target: "Staking Strategies", timestamp: Math.floor(Date.now() / 1000) - 1200 },
-    { id: "6", type: "reward", user: "StakingPro", action: "claimed rewards", amount: "1,250 TBURN", timestamp: Math.floor(Date.now() / 1000) - 1500 },
-    { id: "7", type: "proposal", user: "CommunityBuilder", action: "submitted proposal", target: "#45", timestamp: Math.floor(Date.now() / 1000) - 1800 },
-    { id: "8", type: "stake", user: "BlockchainDev", action: "unstaked", amount: "10,000 TBURN", timestamp: Math.floor(Date.now() / 1000) - 2100 },
+    { id: "1", type: "stake", user: "CryptoWhale", action: "activities.staked", amount: "50,000 TBURN", timestamp: Math.floor(Date.now() / 1000) - 120 },
+    { id: "2", type: "post", user: "ValidatorKing", action: "activities.createdPost", target: "posts.validatorBestPractices", timestamp: Math.floor(Date.now() / 1000) - 300 },
+    { id: "3", type: "vote", user: "GovernanceGuru", action: "activities.votedOn", target: "#42", timestamp: Math.floor(Date.now() / 1000) - 600 },
+    { id: "4", type: "badge", user: "TBURNMaster", action: "activities.earnedBadge", target: "badges.diamondStaker.name", timestamp: Math.floor(Date.now() / 1000) - 900 },
+    { id: "5", type: "comment", user: "DeFiExpert", action: "activities.commentedOn", target: "posts.stakingStrategies", timestamp: Math.floor(Date.now() / 1000) - 1200 },
+    { id: "6", type: "reward", user: "StakingPro", action: "activities.claimedRewards", amount: "1,250 TBURN", timestamp: Math.floor(Date.now() / 1000) - 1500 },
+    { id: "7", type: "proposal", user: "CommunityBuilder", action: "activities.submittedProposal", target: "#45", timestamp: Math.floor(Date.now() / 1000) - 1800 },
+    { id: "8", type: "stake", user: "BlockchainDev", action: "activities.unstaked", amount: "10,000 TBURN", timestamp: Math.floor(Date.now() / 1000) - 2100 },
   ];
 
   const mockBadges: UserBadge[] = [
-    { id: "1", name: "Early Adopter", description: "Joined during the genesis period", icon: "star", rarity: "legendary", earnedAt: 1672531200 },
-    { id: "2", name: "Diamond Hands", description: "Held TBURN for over 1 year", icon: "diamond", rarity: "epic", earnedAt: 1704067200 },
-    { id: "3", name: "Governance Participant", description: "Voted on 10+ proposals", icon: "vote", rarity: "rare", progress: 80 },
-    { id: "4", name: "Community Helper", description: "Helped 100+ community members", icon: "users", rarity: "rare", earnedAt: 1709251200 },
-    { id: "5", name: "Whale Status", description: "Staked 100,000+ TBURN", icon: "coins", rarity: "epic", progress: 65 },
-    { id: "6", name: "Content Creator", description: "Created 50+ forum posts", icon: "book", rarity: "common", progress: 40 },
+    { id: "1", name: "badges.earlyAdopter.name", description: "badges.earlyAdopter.desc", icon: "star", rarity: "legendary", earnedAt: 1672531200 },
+    { id: "2", name: "badges.diamondHands.name", description: "badges.diamondHands.desc", icon: "diamond", rarity: "epic", earnedAt: 1704067200 },
+    { id: "3", name: "badges.governanceParticipant.name", description: "badges.governanceParticipant.desc", icon: "vote", rarity: "rare", progress: 80 },
+    { id: "4", name: "badges.communityHelper.name", description: "badges.communityHelper.desc", icon: "users", rarity: "rare", earnedAt: 1709251200 },
+    { id: "5", name: "badges.whaleStatus.name", description: "badges.whaleStatus.desc", icon: "coins", rarity: "epic", progress: 65 },
+    { id: "6", name: "badges.contentCreator.name", description: "badges.contentCreator.desc", icon: "book", rarity: "common", progress: 40 },
+    { id: "7", name: "badges.validator.name", description: "badges.validator.desc", icon: "shield", rarity: "legendary", earnedAt: 1714521600 },
+    { id: "8", name: "badges.bridgePioneer.name", description: "badges.bridgePioneer.desc", icon: "link", rarity: "rare", progress: 70 },
+    { id: "9", name: "badges.defiMaster.name", description: "badges.defiMaster.desc", icon: "trending", rarity: "epic", progress: 85 },
+    { id: "10", name: "badges.bugHunter.name", description: "badges.bugHunter.desc", icon: "search", rarity: "legendary" },
   ];
 
   const displayStats = stats || mockStats;
@@ -775,15 +779,15 @@ export default function Community() {
                               </Badge>
                             )}
                             <Badge variant="outline" className="text-xs capitalize">
-                              {announcement.type}
+                              {t(`community.announcementTypes.${announcement.type}`, announcement.type)}
                             </Badge>
                           </div>
                           <span className="text-xs text-muted-foreground">
                             {formatTimeAgo(announcement.createdAt)}
                           </span>
                         </div>
-                        <h4 className="font-semibold">{announcement.title}</h4>
-                        <p className="text-sm text-muted-foreground">{announcement.content}</p>
+                        <h4 className="font-semibold">{t(`community.${announcement.title}`, announcement.title)}</h4>
+                        <p className="text-sm text-muted-foreground">{t(`community.${announcement.content}`, announcement.content)}</p>
                       </div>
                     ))}
                   </div>
@@ -810,8 +814,8 @@ export default function Community() {
                         <div className="flex-1 min-w-0">
                           <p className="text-sm">
                             <span className="font-medium">{activity.user}</span>
-                            <span className="text-muted-foreground"> {activity.action} </span>
-                            {activity.target && <span className="text-primary">{activity.target}</span>}
+                            <span className="text-muted-foreground"> {t(`community.${activity.action}`, activity.action)} </span>
+                            {activity.target && <span className="text-primary">{activity.target.startsWith('posts.') || activity.target.startsWith('badges.') ? t(`community.${activity.target}`, activity.target) : activity.target}</span>}
                             {activity.amount && <span className="font-medium text-green-400"> {activity.amount}</span>}
                           </p>
                           <p className="text-xs text-muted-foreground">{formatTimeAgo(activity.timestamp)}</p>
@@ -862,7 +866,7 @@ export default function Community() {
                 <div className="space-y-2">
                   {displayPosts.filter(p => p.isHot).slice(0, 4).map((post) => (
                     <div key={post.id} className="flex items-center gap-2">
-                      <span className="text-sm truncate flex-1">{post.title}</span>
+                      <span className="text-sm truncate flex-1">{t(`community.${post.title}`, post.title)}</span>
                       <Badge variant="outline" className="text-xs">{post.likes}</Badge>
                     </div>
                   ))}
@@ -882,7 +886,7 @@ export default function Community() {
                 <div className="space-y-2">
                   {displayEvents.filter(e => e.status === 'upcoming').slice(0, 3).map((event) => (
                     <div key={event.id} className="space-y-1">
-                      <p className="text-sm font-medium truncate">{event.title}</p>
+                      <p className="text-sm font-medium truncate">{t(`community.${event.title}`, event.title)}</p>
                       <p className="text-xs text-muted-foreground">
                         {new Date(event.startDate * 1000).toLocaleDateString()}
                       </p>
@@ -1078,13 +1082,13 @@ export default function Community() {
                           </Badge>
                         )}
                         <Badge className={categoryColors[post.category]}>
-                          {post.category}
+                          {t(`community.categories.${post.category}`, post.category)}
                         </Badge>
                       </div>
                       <h3 className="text-lg font-semibold hover:text-primary transition-colors cursor-pointer">
-                        {post.title}
+                        {t(`community.${post.title}`, post.title)}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{post.content}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{t(`community.${post.content}`, post.content)}</p>
                       <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Avatar className="h-5 w-5">
@@ -1195,15 +1199,15 @@ export default function Community() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <Badge className={eventTypeColors[event.type]}>
-                      {event.type.toUpperCase()}
+                      {t(`community.eventTypes.${event.type}`, event.type.toUpperCase())}
                     </Badge>
                     <Badge variant={event.status === 'live' ? 'default' : 'outline'} className={event.status === 'live' ? 'bg-green-500' : ''}>
                       {event.status === 'live' && <span className="w-2 h-2 bg-white rounded-full mr-1 animate-pulse" />}
                       {event.status === 'live' ? t('community.live', 'LIVE') : event.status === 'upcoming' ? t('community.upcoming', 'Upcoming') : t('community.ended', 'Ended')}
                     </Badge>
                   </div>
-                  <CardTitle className="text-lg">{event.title}</CardTitle>
-                  <CardDescription>{event.description}</CardDescription>
+                  <CardTitle className="text-lg">{t(`community.${event.title}`, event.title)}</CardTitle>
+                  <CardDescription>{t(`community.${event.description}`, event.description)}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-2 text-sm">
@@ -1309,10 +1313,10 @@ export default function Community() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <h4 className="font-semibold">{badge.name}</h4>
-                        <Badge variant="outline" className="text-xs capitalize">{badge.rarity}</Badge>
+                        <h4 className="font-semibold">{t(`community.${badge.name}`, badge.name)}</h4>
+                        <Badge variant="outline" className="text-xs capitalize">{t(`community.${badge.rarity}`, badge.rarity)}</Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">{badge.description}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{t(`community.${badge.description}`, badge.description)}</p>
                       {badge.earnedAt ? (
                         <div className="flex items-center gap-1 mt-2 text-xs text-green-400">
                           <CheckCircle className="h-3 w-3" />
