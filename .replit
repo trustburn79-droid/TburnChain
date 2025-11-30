@@ -1,10 +1,10 @@
-modules = ["nodejs-20", "web", "postgresql-16"]
+modules = ["nodejs-20", "postgresql-16", "python-3.11", "web"]
 run = "npm run dev"
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["unzip", "nano"]
+packages = ["unzip", "nano", "imagemagick_light"]
 
 [deployment]
 deploymentTarget = "autoscale"
@@ -48,12 +48,12 @@ localPort = 38261
 externalPort = 3001
 
 [[ports]]
-localPort = 38559
-externalPort = 9000
-
-[[ports]]
 localPort = 40619
 externalPort = 6800
+
+[[ports]]
+localPort = 41137
+externalPort = 9000
 
 [[ports]]
 localPort = 42207
