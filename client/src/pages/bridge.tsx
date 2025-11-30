@@ -453,8 +453,27 @@ function ActivityRow({ activity, chains, onClick }: { activity: BridgeActivity; 
   );
 }
 
+const getLocaleFromLanguage = (lang: string): string => {
+  const localeMap: Record<string, string> = {
+    en: 'en-US',
+    ko: 'ko-KR',
+    ja: 'ja-JP',
+    zh: 'zh-CN',
+    ar: 'ar-SA',
+    bn: 'bn-BD',
+    es: 'es-ES',
+    fr: 'fr-FR',
+    hi: 'hi-IN',
+    pt: 'pt-BR',
+    ru: 'ru-RU',
+    ur: 'ur-PK',
+  };
+  return localeMap[lang] || 'en-US';
+};
+
 export default function Bridge() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLocale = getLocaleFromLanguage(i18n.language);
   const [activeTab, setActiveTab] = useState("overview");
   const [sourceChain, setSourceChain] = useState<string>("");
   const [destChain, setDestChain] = useState<string>("");
@@ -1158,7 +1177,7 @@ export default function Bridge() {
                       <Calendar className="w-3 h-3" />
                       {t("bridge.createdAt")}
                     </span>
-                    <span className="text-xs">{new Date(selectedTransfer.createdAt).toLocaleString()}</span>
+                    <span className="text-xs">{new Date(selectedTransfer.createdAt).toLocaleString(currentLocale)}</span>
                   </div>
                 </div>
 
@@ -1237,7 +1256,7 @@ export default function Bridge() {
                       <Calendar className="w-3 h-3" />
                       {t("bridge.timestamp")}
                     </span>
-                    <span className="text-xs">{new Date(selectedActivity.createdAt).toLocaleString()}</span>
+                    <span className="text-xs">{new Date(selectedActivity.createdAt).toLocaleString(currentLocale)}</span>
                   </div>
                 </div>
               </div>
