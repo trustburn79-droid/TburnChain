@@ -18,7 +18,13 @@ The frontend is built with React 18, TypeScript, Vite, Wouter for routing, and T
 - **Dashboard**: Displays real-time network statistics, recent blocks, transactions, and charts.
 - **Blocks & Transactions**: Provides detailed explorers with search and filter capabilities, supporting TBURN v7.0 Multi-Hash Cryptographic System (BLAKE3, SHA3-512, SHA-256).
 - **Validators**: Tracks active/inactive validators, stake, commission, APY, uptime, behavior score, and adaptive weight, powered by an AI-Enhanced Committee BFT with Reputation + Performance + AI Trust Score. Includes a 3-tier validator structure for scalable tokenomics.
-- **AI Orchestration**: Monitors Triple-Band AI (GPT-5, Claude Sonnet 4.5, Llama 4) with feedback learning, cross-band interactions, and a real-time AI Decision Stream, displaying model weights, request counts, response times, costs, and cache hit rates.
+- **AI Orchestration**: Enterprise-level Triple-Band AI monitoring (GPT-5, Claude Sonnet 4.5, Llama 4) with:
+  - 5 clickable stat cards with detailed analytics dialogs (Requests, Response Time, Cache, Cost, Accuracy)
+  - Recharts visualizations: PieChart, BarChart, AreaChart for each metric category
+  - Feedback learning, cross-band interactions, and real-time AI Decision Stream
+  - Model weights, request counts, response times, costs, and cache hit rates
+  - Decision history with search, band/status filters, and decision detail dialogs
+  - Live Feed tab with real-time decision stream cards
 - **Sharding**: Monitors Dynamic AI-Driven Sharding with ML-based optimization, showing per-shard TPS, block height, load, and validator distribution.
 - **Smart Contracts**: Tracks deployed contracts, verification, transaction counts, balances, and offers an interaction interface.
 - **Node Health**: Utilizes a Predictive Self-Healing System based on four AI algorithms (Trend Analysis, Anomaly Detection, Pattern Matching, Timeseries Forecast) to display system metrics (CPU, memory, disk), network metrics, uptime, and sync status.

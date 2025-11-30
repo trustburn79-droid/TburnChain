@@ -785,28 +785,26 @@ export default function Consensus() {
     updateMode: "replace",
   });
 
-  const { data: consensusRoundsData } = useQuery<{ rounds: ConsensusRound[] }>({
+  const consensusRoundsSnapshotSchema = z.array(z.object({
+    id: z.string(),
+    blockHeight: z.number(),
+    proposerAddress: z.string(),
+    currentPhase: z.number(),
+    prevoteCount: z.number(),
+    precommitCount: z.number(),
+    totalValidators: z.number(),
+    requiredQuorum: z.number(),
+    avgBlockTimeMs: z.number(),
+    status: z.string(),
+    startTime: z.number(),
+    completedTime: z.number().nullable(),
+    phasesJson: z.string(),
+    createdAt: z.string().or(z.date()),
+  }));
+
+  const { data: consensusRoundsData } = useQuery<ConsensusRound[]>({
     queryKey: ["/api/consensus/rounds"],
     refetchInterval: 5000,
-  });
-
-  const consensusRoundsSnapshotSchema = z.object({
-    rounds: z.array(z.object({
-      id: z.string(),
-      blockHeight: z.number(),
-      proposerAddress: z.string(),
-      currentPhase: z.number(),
-      prevoteCount: z.number(),
-      precommitCount: z.number(),
-      totalValidators: z.number(),
-      requiredQuorum: z.number(),
-      avgBlockTimeMs: z.number(),
-      status: z.string(),
-      startTime: z.number(),
-      completedTime: z.number().nullable(),
-      phasesJson: z.string(),
-      createdAt: z.string().or(z.date()),
-    })),
   });
 
   useWebSocketChannel({
@@ -841,8 +839,8 @@ export default function Consensus() {
 
   const votingActivity = votingActivityData || [];
 
-  const rounds = consensusRoundsData?.rounds || [];
-  const filteredRounds = rounds.filter((round) => {
+  const rounds: ConsensusRound[] = consensusRoundsData || [];
+  const filteredRounds = rounds.filter((round: ConsensusRound) => {
     const matchesSearch = searchQuery === "" || 
       round.blockHeight.toString().includes(searchQuery) ||
       round.proposerAddress.toLowerCase().includes(searchQuery.toLowerCase());

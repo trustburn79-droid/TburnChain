@@ -153,6 +153,8 @@ export const aiDecisions = pgTable("ai_decisions", {
   shardId: integer("shard_id"),
   validatorAddress: text("validator_address"),
   status: text("status").notNull().default("executed"), // pending, executed, failed
+  confidence: integer("confidence"), // 0-100 percentage
+  executionTime: integer("execution_time"), // execution time in ms
   metadata: jsonb("metadata"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   executedAt: timestamp("executed_at"),
@@ -5049,7 +5051,7 @@ export type GameCategory = "arcade" | "rpg" | "strategy" | "action" | "puzzle" |
 export type GameStatus = "active" | "beta" | "coming_soon" | "maintenance" | "deprecated";
 export type AssetType = "character" | "weapon" | "armor" | "item" | "land" | "vehicle" | "pet" | "card" | "skin";
 export type AssetRarity = "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythic";
-export type RewardType = "gameplay" | "tournament" | "staking" | "referral" | "achievement" | "daily" | "weekly";
+export type GameRewardType = "gameplay" | "tournament" | "staking" | "referral" | "achievement" | "daily" | "weekly";
 export type TournamentType = "single_elimination" | "double_elimination" | "round_robin" | "swiss" | "battle_royale" | "league";
 export type TournamentStatus = "upcoming" | "registration" | "active" | "completed" | "cancelled";
 export type LeaderboardType = "global" | "daily" | "weekly" | "monthly" | "seasonal" | "tournament";
