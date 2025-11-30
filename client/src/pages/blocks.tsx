@@ -154,13 +154,13 @@ interface Validator {
 }
 
 const HASH_ALGORITHMS = ["BLAKE3", "SHA3-512", "SHA-256"];
-const TIME_RANGES = [
-  { value: "15m", label: "15 minutes" },
-  { value: "1h", label: "1 hour" },
-  { value: "6h", label: "6 hours" },
-  { value: "24h", label: "24 hours" },
-  { value: "7d", label: "7 days" },
-  { value: "all", label: "All time" },
+const TIME_RANGE_KEYS = [
+  { value: "15m", labelKey: "blocks.timeRange15m" },
+  { value: "1h", labelKey: "blocks.timeRange1h" },
+  { value: "6h", labelKey: "blocks.timeRange6h" },
+  { value: "24h", labelKey: "blocks.timeRange24h" },
+  { value: "7d", labelKey: "blocks.timeRange7d" },
+  { value: "all", labelKey: "blocks.timeRangeAll" },
 ];
 
 function MetricCard({ 
@@ -853,8 +853,8 @@ export default function Blocks() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {TIME_RANGES.map(r => (
-                            <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
+                          {TIME_RANGE_KEYS.map(r => (
+                            <SelectItem key={r.value} value={r.value}>{t(r.labelKey)}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -939,7 +939,7 @@ export default function Blocks() {
               {selectedTimeRange && selectedTimeRange !== "all" && (
                 <Badge variant="secondary" className="gap-1 text-xs">
                   <Calendar className="h-3 w-3" />
-                  {TIME_RANGES.find(r => r.value === selectedTimeRange)?.label}
+                  {t(TIME_RANGE_KEYS.find(r => r.value === selectedTimeRange)?.labelKey || 'blocks.timeRangeAll')}
                   <button onClick={() => setSelectedTimeRange("all")}><XCircle className="h-3 w-3" /></button>
                 </Badge>
               )}
