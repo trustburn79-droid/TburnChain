@@ -930,6 +930,167 @@ router.get("/badges", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/badges/:badgeId/progress", async (req: Request, res: Response) => {
+  try {
+    const { badgeId } = req.params;
+    const { userId, progress, userAddress } = req.body;
+    const numericUserId = parseInt(userId) || 0;
+    
+    if (!numericUserId || progress === undefined) {
+      return res.status(400).json({ error: "userId and progress are required" });
+    }
+    
+    const progressValue = Math.min(100, Math.max(0, parseInt(progress) || 0));
+    
+    const existingUserBadge = await storage.getUserBadge(numericUserId, badgeId);
+    
+    if (existingUserBadge) {
+      const isCompleted = progressValue >= 100;
+      await storage.updateUserBadge(existingUserBadge.id, {
+        progress: progressValue,
+        isCompleted,
+        earnedAt: isCompleted ? new Date() : existingUserBadge.earnedAt,
+      });
+      
+      if (isCompleted && !existingUserBadge.isCompleted) {
+        const badge = await storage.getCommunityBadgeById(badgeId);
+        await logActivity("badge_earned", `User${numericUserId}`, "activities.earnedBadge", badge?.name || badgeId);
+        broadcastToAll("community_badge_earned", {
+          userId: numericUserId,
+          badgeId,
+          badgeName: badge?.name,
+        });
+      }
+      
+      res.json({
+        success: true,
+        badgeId,
+        progress: progressValue,
+        isCompleted: progressValue >= 100,
+        earnedAt: progressValue >= 100 ? Math.floor(Date.now() / 1000) : undefined,
+      });
+    } else {
+      const isCompleted = progressValue >= 100;
+      await storage.createUserBadge({
+        userId: numericUserId,
+        userAddress: userAddress || "",
+        badgeId,
+        progress: progressValue,
+        isCompleted,
+        earnedAt: isCompleted ? new Date() : null,
+      });
+      
+      if (isCompleted) {
+        const badge = await storage.getCommunityBadgeById(badgeId);
+        await logActivity("badge_earned", `User${numericUserId}`, "activities.earnedBadge", badge?.name || badgeId);
+        broadcastToAll("community_badge_earned", {
+          userId: numericUserId,
+          badgeId,
+          badgeName: badge?.name,
+        });
+      }
+      
+      res.json({
+        success: true,
+        badgeId,
+        progress: progressValue,
+        isCompleted,
+        earnedAt: isCompleted ? Math.floor(Date.now() / 1000) : undefined,
+      });
+    }
+  } catch (error) {
+    console.error("[Community] Error updating badge progress:", error);
+    res.status(500).json({ error: "Failed to update badge progress" });
+  }
+});
+
+router.post("/badges/:badgeId/award", async (req: Request, res: Response) => {
+  try {
+    const { badgeId } = req.params;
+    const { userId, userAddress } = req.body;
+    const numericUserId = parseInt(userId) || 0;
+    
+    if (!numericUserId) {
+      return res.status(400).json({ error: "userId is required" });
+    }
+    
+    const existingUserBadge = await storage.getUserBadge(numericUserId, badgeId);
+    if (existingUserBadge?.isCompleted) {
+      return res.json({
+        success: true,
+        badgeId,
+        alreadyAwarded: true,
+        earnedAt: existingUserBadge.earnedAt ? Math.floor(new Date(existingUserBadge.earnedAt).getTime() / 1000) : undefined,
+      });
+    }
+    
+    const userBadge = await storage.awardBadgeToUser(numericUserId, badgeId);
+    
+    const badge = await storage.getCommunityBadgeById(badgeId);
+    await logActivity("badge_earned", `User${numericUserId}`, "activities.earnedBadge", badge?.name || badgeId);
+    
+    broadcastToAll("community_badge_earned", {
+      userId: numericUserId,
+      badgeId,
+      badgeName: badge?.name,
+    });
+    
+    res.json({
+      success: true,
+      badgeId,
+      alreadyAwarded: false,
+      earnedAt: userBadge.earnedAt ? Math.floor(new Date(userBadge.earnedAt).getTime() / 1000) : undefined,
+    });
+  } catch (error) {
+    console.error("[Community] Error awarding badge:", error);
+    res.status(500).json({ error: "Failed to award badge" });
+  }
+});
+
+router.get("/user/:userId/badges", async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.userId) || 0;
+    
+    if (!userId) {
+      return res.status(400).json({ error: "Valid userId is required" });
+    }
+    
+    const userBadges = await storage.getUserBadges(userId);
+    const allBadges = await storage.getAllCommunityBadges();
+    const sampleBadges = getSampleBadges();
+    
+    const badges = (allBadges.length > 0 ? allBadges : sampleBadges.map(b => ({
+      id: b.id,
+      name: b.name,
+      description: b.description,
+      icon: b.icon,
+      rarity: b.rarity,
+    }))).map((badge: any) => {
+      const userBadge = userBadges.find(ub => ub.badgeId === badge.id);
+      return {
+        id: badge.id,
+        name: badge.name,
+        description: badge.description,
+        icon: badge.icon,
+        rarity: badge.rarity,
+        progress: userBadge?.progress || 0,
+        isCompleted: userBadge?.isCompleted || false,
+        earnedAt: userBadge?.earnedAt ? Math.floor(new Date(userBadge.earnedAt).getTime() / 1000) : undefined,
+      };
+    });
+    
+    res.json({
+      userId,
+      totalBadges: badges.length,
+      earnedBadges: badges.filter((b: any) => b.isCompleted).length,
+      badges,
+    });
+  } catch (error) {
+    console.error("[Community] Error fetching user badges:", error);
+    res.status(500).json({ error: "Failed to fetch user badges" });
+  }
+});
+
 router.get("/user-posts", async (req: Request, res: Response) => {
   try {
     const authorId = parseInt(req.query.authorId as string) || 0;
