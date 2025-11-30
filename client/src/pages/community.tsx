@@ -726,7 +726,7 @@ export default function Community() {
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2" data-testid="text-community-title">
             <Users className="h-8 w-8 text-primary" />
-            {t('community.title', 'TBURN Community')}
+            {t('community.title', 'Community')}
           </h1>
           <p className="text-muted-foreground mt-1">
             {t('community.subtitle', 'Connect, collaborate, and grow with the TBURN ecosystem')}
