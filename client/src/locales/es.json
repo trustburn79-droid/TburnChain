@@ -2151,6 +2151,142 @@
       "minutesAgo": "hace {{count}}m",
       "hoursAgo": "hace {{count}}h",
       "daysAgo": "hace {{count}}d"
+    },
+    "categories": {
+      "general": "General",
+      "technical": "Técnico",
+      "governance": "Gobernanza",
+      "trading": "Trading",
+      "support": "Soporte",
+      "announcements": "Anuncios"
+    },
+    "eventTypes": {
+      "ama": "AMA",
+      "workshop": "Taller",
+      "hackathon": "Hackathon",
+      "meetup": "Encuentro",
+      "airdrop": "Airdrop",
+      "competition": "Competencia"
+    },
+    "announcementTypes": {
+      "update": "Actualización",
+      "news": "Noticias",
+      "alert": "Alerta",
+      "feature": "Característica"
+    },
+    "badges": {
+      "earlyAdopter": {
+        "name": "Adoptador Temprano",
+        "description": "Se unió durante el primer mes de mainnet"
+      },
+      "diamondHands": {
+        "name": "Manos de Diamante",
+        "description": "Mantuvo TBURN por más de 6 meses"
+      },
+      "governanceParticipant": {
+        "name": "Participante de Gobernanza",
+        "description": "Votó en más de 10 propuestas de gobernanza"
+      },
+      "communityHelper": {
+        "name": "Ayudante de la Comunidad",
+        "description": "Ayudó a más de 50 miembros de la comunidad"
+      },
+      "whaleStatus": {
+        "name": "Estado de Ballena",
+        "description": "Posee más de 100K tokens TBURN"
+      },
+      "contentCreator": {
+        "name": "Creador de Contenido",
+        "description": "Publicó más de 25 posts en el foro"
+      },
+      "validator": {
+        "name": "Validador",
+        "description": "Opera un nodo validador de mainnet"
+      },
+      "bridgePioneer": {
+        "name": "Pionero del Puente",
+        "description": "Entre los primeros 1000 usuarios del puente cross-chain"
+      },
+      "defiMaster": {
+        "name": "Maestro DeFi",
+        "description": "Usó todos los protocolos DeFi"
+      },
+      "bugHunter": {
+        "name": "Cazador de Bugs",
+        "description": "Reportó una vulnerabilidad de seguridad válida"
+      }
+    },
+    "events": {
+      "launchAma": {
+        "title": "AMA de Lanzamiento de Mainnet",
+        "desc": "Únete a nuestros fundadores para una sesión exclusiva de AMA sobre el lanzamiento de mainnet"
+      },
+      "defiWorkshop": {
+        "title": "Taller DeFi",
+        "desc": "Aprende cómo maximizar tus rendimientos con los protocolos DeFi de TBURN"
+      },
+      "hackathon": {
+        "title": "Hackathon TBURN 2025",
+        "desc": "Construye el futuro de DeFi en TBURN y gana premios por valor de 100K TBURN"
+      },
+      "tokyoMeetup": {
+        "title": "Encuentro Comunitario: Tokyo",
+        "desc": "Conoce a la comunidad TBURN en persona en nuestro evento de Tokyo"
+      },
+      "stakingCompetition": {
+        "title": "Competencia de Staking",
+        "desc": "Compite por las mayores recompensas de staking este mes"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "Fecha de Lanzamiento de Mainnet Confirmada",
+        "content": "¡Estamos emocionados de anunciar que TBURN Mainnet se lanzará oficialmente el 1 de diciembre de 2025. ¡Todos los sistemas listos!"
+      },
+      "stakingTiers": {
+        "title": "Nuevos Niveles de Staking Lanzados",
+        "content": "Presentamos niveles de staking mejorados con hasta 25% APY para validadores Tier 1. Consulta la página de staking para más detalles."
+      },
+      "securityAudit": {
+        "title": "Auditoría de Seguridad Completada",
+        "content": "Nuestros contratos inteligentes han pasado la auditoría de seguridad integral de CertiK sin problemas críticos."
+      },
+      "bridgeIntegration": {
+        "title": "Puente Cross-Chain Ahora en Vivo",
+        "content": "El puente TBURN está ahora en vivo, soportando transferencias entre redes Ethereum, BSC y Polygon."
+      }
+    },
+    "activities": {
+      "staked": "hizo staking de",
+      "createdPost": "creó un nuevo post",
+      "votedOn": "votó en",
+      "earnedBadge": "ganó la insignia",
+      "commentedOn": "comentó en",
+      "claimedRewards": "reclamó recompensas de staking de",
+      "submittedProposal": "envió propuesta de gobernanza",
+      "unstaked": "deshizo el staking de"
+    },
+    "posts": {
+      "mainnetDiscussion": {
+        "title": "Discusión del Lanzamiento de TBURN v7.0 Mainnet",
+        "content": "¡Tiempos emocionantes por delante! Discutamos el próximo lanzamiento de mainnet y comparte tus ideas sobre el roadmap."
+      },
+      "stakingStrategies": {
+        "title": "Mejores Estrategias de Staking para Máximo APY",
+        "content": "Aquí están mis principales estrategias para maximizar tus recompensas de staking en TBURN mainnet."
+      },
+      "aiOrchestration": {
+        "title": "Inmersión Técnica: Sistema de Orquestación de IA",
+        "content": "Exploremos cómo funciona el sistema Triple-Band AI con GPT-5, Claude y Llama bajo el capó."
+      },
+      "governanceProposal": {
+        "title": "Propuesta de Gobernanza #42: Asignación del Tesoro",
+        "content": "Propuesta para asignar el 5% del tesoro para becas de desarrollo del ecosistema e iniciativas comunitarias."
+      },
+      "newToTburn": {
+        "title": "¿Nuevo en TBURN? ¡Comienza Aquí!",
+        "content": "¡Bienvenido a la comunidad TBURN! Esta guía te ayudará a comenzar con el ecosistema."
+      }
     }
   },
   "gamefi": {

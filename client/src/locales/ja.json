@@ -4856,6 +4856,142 @@
       "minutesAgo": "{{count}}分前",
       "hoursAgo": "{{count}}時間前",
       "daysAgo": "{{count}}日前"
+    },
+    "categories": {
+      "general": "一般",
+      "technical": "技術",
+      "governance": "ガバナンス",
+      "trading": "トレーディング",
+      "support": "サポート",
+      "announcements": "お知らせ"
+    },
+    "eventTypes": {
+      "ama": "AMA",
+      "workshop": "ワークショップ",
+      "hackathon": "ハッカソン",
+      "meetup": "ミートアップ",
+      "airdrop": "エアドロップ",
+      "competition": "コンペティション"
+    },
+    "announcementTypes": {
+      "update": "アップデート",
+      "news": "ニュース",
+      "alert": "アラート",
+      "feature": "機能"
+    },
+    "badges": {
+      "earlyAdopter": {
+        "name": "アーリーアダプター",
+        "description": "メインネット開始初月に参加"
+      },
+      "diamondHands": {
+        "name": "ダイヤモンドハンズ",
+        "description": "6ヶ月以上TBURNを保有"
+      },
+      "governanceParticipant": {
+        "name": "ガバナンス参加者",
+        "description": "10以上のガバナンス提案に投票"
+      },
+      "communityHelper": {
+        "name": "コミュニティヘルパー",
+        "description": "50人以上のコミュニティメンバーを支援"
+      },
+      "whaleStatus": {
+        "name": "ホエールステータス",
+        "description": "100K+ TBURNトークンを保有"
+      },
+      "contentCreator": {
+        "name": "コンテンツクリエイター",
+        "description": "25以上のフォーラム投稿を公開"
+      },
+      "validator": {
+        "name": "バリデーター",
+        "description": "メインネットバリデーターノードを運営"
+      },
+      "bridgePioneer": {
+        "name": "ブリッジパイオニア",
+        "description": "クロスチェーンブリッジの最初の1000人のユーザー"
+      },
+      "defiMaster": {
+        "name": "DeFiマスター",
+        "description": "すべてのDeFiプロトコルを使用"
+      },
+      "bugHunter": {
+        "name": "バグハンター",
+        "description": "有効なセキュリティ脆弱性を報告"
+      }
+    },
+    "events": {
+      "launchAma": {
+        "title": "メインネットローンチAMA",
+        "desc": "メインネットローンチに関する独占AMAセッションに創設者と参加"
+      },
+      "defiWorkshop": {
+        "title": "DeFiワークショップ",
+        "desc": "TBURN DeFiプロトコルで利回りを最大化する方法を学ぶ"
+      },
+      "hackathon": {
+        "title": "TBURNハッカソン2025",
+        "desc": "TBURNでDeFiの未来を構築し、100K TBURN相当の賞品を獲得"
+      },
+      "tokyoMeetup": {
+        "title": "コミュニティミートアップ：東京",
+        "desc": "東京イベントでTBURNコミュニティに直接会う"
+      },
+      "stakingCompetition": {
+        "title": "ステーキングコンペティション",
+        "desc": "今月最高のステーキング報酬を競う"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "メインネットローンチ日確定",
+        "content": "TBURNメインネットが2025年12月1日に正式にローンチされます。すべてのシステム準備完了！"
+      },
+      "stakingTiers": {
+        "title": "新しいステーキングティア発表",
+        "content": "ティア1バリデーター向けに最大25% APYの強化されたステーキングティアを導入。詳細はステーキングページをご確認ください。"
+      },
+      "securityAudit": {
+        "title": "セキュリティ監査完了",
+        "content": "スマートコントラクトがCertiKの包括的なセキュリティ監査を通過し、重大な問題はゼロでした。"
+      },
+      "bridgeIntegration": {
+        "title": "クロスチェーンブリッジ稼働開始",
+        "content": "TBURNブリッジがイーサリアム、BSC、ポリゴンネットワーク間の転送をサポートして稼働中です。"
+      }
+    },
+    "activities": {
+      "staked": "ステーキングしました",
+      "createdPost": "新しい投稿を作成しました",
+      "votedOn": "投票しました",
+      "earnedBadge": "バッジを獲得しました",
+      "commentedOn": "コメントしました",
+      "claimedRewards": "ステーキング報酬を請求しました",
+      "submittedProposal": "ガバナンス提案を提出しました",
+      "unstaked": "アンステーキングしました"
+    },
+    "posts": {
+      "mainnetDiscussion": {
+        "title": "TBURN v7.0メインネットローンチディスカッション",
+        "content": "エキサイティングな時期が近づいています！今後のメインネットローンチについて議論し、ロードマップについての意見を共有してください。"
+      },
+      "stakingStrategies": {
+        "title": "最大APYのための最高のステーキング戦略",
+        "content": "TBURNメインネットでステーキング報酬を最大化するための私のトップ戦略をご紹介します。"
+      },
+      "aiOrchestration": {
+        "title": "技術深掘り：AIオーケストレーションシステム",
+        "content": "GPT-5、Claude、Llamaで構成されるTriple-Band AIシステムがどのように動作するかを探ってみましょう。"
+      },
+      "governanceProposal": {
+        "title": "ガバナンス提案 #42：財務配分",
+        "content": "エコシステム開発助成金とコミュニティイニシアチブのために財務の5%を配分する提案です。"
+      },
+      "newToTburn": {
+        "title": "TBURNが初めてですか？ここから始めましょう！",
+        "content": "TBURNコミュニティへようこそ！このガイドがエコシステムの開始をお手伝いします。"
+      }
     }
   }
 }

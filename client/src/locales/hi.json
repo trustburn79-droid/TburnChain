@@ -3814,6 +3814,142 @@
       "minutesAgo": "{{count}} मिनट पहले",
       "hoursAgo": "{{count}} घंटे पहले",
       "daysAgo": "{{count}} दिन पहले"
+    },
+    "categories": {
+      "general": "सामान्य",
+      "technical": "तकनीकी",
+      "governance": "शासन",
+      "trading": "ट्रेडिंग",
+      "support": "सहायता",
+      "announcements": "घोषणाएं"
+    },
+    "eventTypes": {
+      "ama": "AMA",
+      "workshop": "कार्यशाला",
+      "hackathon": "हैकाथॉन",
+      "meetup": "मुलाकात",
+      "airdrop": "एयरड्रॉप",
+      "competition": "प्रतियोगिता"
+    },
+    "announcementTypes": {
+      "update": "अपडेट",
+      "news": "समाचार",
+      "alert": "अलर्ट",
+      "feature": "फीचर"
+    },
+    "badges": {
+      "earlyAdopter": {
+        "name": "अर्ली एडॉप्टर",
+        "description": "मेननेट के पहले महीने में शामिल हुए"
+      },
+      "diamondHands": {
+        "name": "डायमंड हैंड्स",
+        "description": "6 महीने से अधिक समय तक TBURN होल्ड किया"
+      },
+      "governanceParticipant": {
+        "name": "गवर्नेंस प्रतिभागी",
+        "description": "10+ गवर्नेंस प्रस्तावों पर मतदान किया"
+      },
+      "communityHelper": {
+        "name": "कम्युनिटी हेल्पर",
+        "description": "50+ समुदाय सदस्यों की मदद की"
+      },
+      "whaleStatus": {
+        "name": "व्हेल स्टेटस",
+        "description": "100K+ TBURN टोकन रखते हैं"
+      },
+      "contentCreator": {
+        "name": "कंटेंट क्रिएटर",
+        "description": "25+ फोरम पोस्ट प्रकाशित किए"
+      },
+      "validator": {
+        "name": "वैलिडेटर",
+        "description": "मेननेट वैलिडेटर नोड चलाते हैं"
+      },
+      "bridgePioneer": {
+        "name": "ब्रिज पायनियर",
+        "description": "क्रॉस-चेन ब्रिज के पहले 1000 उपयोगकर्ताओं में से एक"
+      },
+      "defiMaster": {
+        "name": "DeFi मास्टर",
+        "description": "सभी DeFi प्रोटोकॉल का उपयोग किया"
+      },
+      "bugHunter": {
+        "name": "बग हंटर",
+        "description": "एक वैध सुरक्षा कमजोरी की रिपोर्ट की"
+      }
+    },
+    "events": {
+      "launchAma": {
+        "title": "मेननेट लॉन्च AMA",
+        "desc": "मेननेट लॉन्च के बारे में एक विशेष AMA सत्र के लिए हमारे संस्थापकों के साथ जुड़ें"
+      },
+      "defiWorkshop": {
+        "title": "DeFi कार्यशाला",
+        "desc": "TBURN DeFi प्रोटोकॉल के साथ अपने रिटर्न को अधिकतम करना सीखें"
+      },
+      "hackathon": {
+        "title": "TBURN हैकाथॉन 2025",
+        "desc": "TBURN पर DeFi का भविष्य बनाएं और 100K TBURN मूल्य के पुरस्कार जीतें"
+      },
+      "tokyoMeetup": {
+        "title": "समुदाय मुलाकात: टोक्यो",
+        "desc": "हमारे टोक्यो इवेंट में TBURN समुदाय से व्यक्तिगत रूप से मिलें"
+      },
+      "stakingCompetition": {
+        "title": "स्टेकिंग प्रतियोगिता",
+        "desc": "इस महीने उच्चतम स्टेकिंग पुरस्कारों के लिए प्रतिस्पर्धा करें"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "मेननेट लॉन्च तिथि की पुष्टि",
+        "content": "हमें यह घोषित करते हुए खुशी है कि TBURN मेननेट आधिकारिक रूप से 1 दिसंबर, 2025 को लॉन्च होगा। सभी सिस्टम तैयार हैं!"
+      },
+      "stakingTiers": {
+        "title": "नए स्टेकिंग टियर जारी",
+        "content": "टियर 1 वैलिडेटर के लिए 25% तक APY के साथ उन्नत स्टेकिंग टियर पेश कर रहे हैं। विवरण के लिए स्टेकिंग पेज देखें।"
+      },
+      "securityAudit": {
+        "title": "सुरक्षा ऑडिट पूर्ण",
+        "content": "हमारे स्मार्ट कॉन्ट्रैक्ट्स ने CertiK का व्यापक सुरक्षा ऑडिट बिना किसी गंभीर समस्या के पास कर लिया है।"
+      },
+      "bridgeIntegration": {
+        "title": "क्रॉस-चेन ब्रिज अब लाइव",
+        "content": "TBURN ब्रिज अब लाइव है, Ethereum, BSC और Polygon नेटवर्क के बीच ट्रांसफर को सपोर्ट करता है।"
+      }
+    },
+    "activities": {
+      "staked": "स्टेक किया",
+      "createdPost": "एक नई पोस्ट बनाई",
+      "votedOn": "वोट किया",
+      "earnedBadge": "बैज अर्जित किया",
+      "commentedOn": "टिप्पणी की",
+      "claimedRewards": "स्टेकिंग रिवॉर्ड क्लेम किया",
+      "submittedProposal": "गवर्नेंस प्रस्ताव सबमिट किया",
+      "unstaked": "अनस्टेक किया"
+    },
+    "posts": {
+      "mainnetDiscussion": {
+        "title": "TBURN v7.0 मेननेट लॉन्च चर्चा",
+        "content": "रोमांचक समय आने वाला है! आगामी मेननेट लॉन्च पर चर्चा करें और रोडमैप पर अपने विचार साझा करें।"
+      },
+      "stakingStrategies": {
+        "title": "अधिकतम APY के लिए सर्वश्रेष्ठ स्टेकिंग रणनीतियां",
+        "content": "TBURN मेननेट पर अपने स्टेकिंग पुरस्कारों को अधिकतम करने के लिए मेरी शीर्ष रणनीतियां यहां हैं।"
+      },
+      "aiOrchestration": {
+        "title": "तकनीकी गहराई: AI ऑर्केस्ट्रेशन सिस्टम",
+        "content": "आइए जानें कि GPT-5, Claude और Llama के साथ Triple-Band AI सिस्टम कैसे काम करता है।"
+      },
+      "governanceProposal": {
+        "title": "गवर्नेंस प्रस्ताव #42: ट्रेजरी आवंटन",
+        "content": "इकोसिस्टम विकास अनुदान और समुदाय पहल के लिए ट्रेजरी का 5% आवंटित करने का प्रस्ताव।"
+      },
+      "newToTburn": {
+        "title": "TBURN में नए हैं? यहां से शुरू करें!",
+        "content": "TBURN समुदाय में आपका स्वागत है! यह गाइड आपको इकोसिस्टम शुरू करने में मदद करेगी।"
+      }
     }
   }
 }

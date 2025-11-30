@@ -2360,6 +2360,142 @@
       "minutesAgo": "{{count}} منٹ پہلے",
       "hoursAgo": "{{count}} گھنٹے پہلے",
       "daysAgo": "{{count}} دن پہلے"
+    },
+    "categories": {
+      "general": "عمومی",
+      "technical": "تکنیکی",
+      "governance": "گورننس",
+      "trading": "ٹریڈنگ",
+      "support": "سپورٹ",
+      "announcements": "اعلانات"
+    },
+    "eventTypes": {
+      "ama": "AMA",
+      "workshop": "ورکشاپ",
+      "hackathon": "ہیکاتھون",
+      "meetup": "ملاقات",
+      "airdrop": "ایئر ڈراپ",
+      "competition": "مقابلہ"
+    },
+    "announcementTypes": {
+      "update": "اپڈیٹ",
+      "news": "خبریں",
+      "alert": "الرٹ",
+      "feature": "فیچر"
+    },
+    "badges": {
+      "earlyAdopter": {
+        "name": "ابتدائی اختیار کنندہ",
+        "description": "مین نیٹ کے پہلے مہینے میں شامل ہوئے"
+      },
+      "diamondHands": {
+        "name": "ڈائمنڈ ہینڈز",
+        "description": "6 ماہ سے زیادہ TBURN رکھا"
+      },
+      "governanceParticipant": {
+        "name": "گورننس شریک",
+        "description": "10 سے زیادہ گورننس تجاویز پر ووٹ دیا"
+      },
+      "communityHelper": {
+        "name": "کمیونٹی مددگار",
+        "description": "50 سے زیادہ کمیونٹی ممبران کی مدد کی"
+      },
+      "whaleStatus": {
+        "name": "وہیل اسٹیٹس",
+        "description": "100K+ TBURN ٹوکن رکھتے ہیں"
+      },
+      "contentCreator": {
+        "name": "مواد تخلیق کار",
+        "description": "25 سے زیادہ فورم پوسٹس شائع کیں"
+      },
+      "validator": {
+        "name": "ویلیڈیٹر",
+        "description": "مین نیٹ ویلیڈیٹر نوڈ چلاتے ہیں"
+      },
+      "bridgePioneer": {
+        "name": "برج پائنیئر",
+        "description": "کراس چین برج کے پہلے 1000 صارفین میں سے ایک"
+      },
+      "defiMaster": {
+        "name": "DeFi ماسٹر",
+        "description": "تمام DeFi پروٹوکولز استعمال کیے"
+      },
+      "bugHunter": {
+        "name": "بگ ہنٹر",
+        "description": "ایک درست سیکیورٹی کمزوری کی رپورٹ کی"
+      }
+    },
+    "events": {
+      "launchAma": {
+        "title": "مین نیٹ لانچ AMA",
+        "desc": "مین نیٹ لانچ کے بارے میں ایک خصوصی AMA سیشن کے لیے ہمارے بانیوں کے ساتھ شامل ہوں"
+      },
+      "defiWorkshop": {
+        "title": "DeFi ورکشاپ",
+        "desc": "TBURN DeFi پروٹوکولز کے ساتھ اپنی واپسی کو زیادہ سے زیادہ کرنا سیکھیں"
+      },
+      "hackathon": {
+        "title": "TBURN ہیکاتھون 2025",
+        "desc": "TBURN پر DeFi کا مستقبل بنائیں اور 100K TBURN مالیت کے انعامات جیتیں"
+      },
+      "tokyoMeetup": {
+        "title": "کمیونٹی ملاقات: ٹوکیو",
+        "desc": "ہماری ٹوکیو تقریب میں TBURN کمیونٹی سے ذاتی طور پر ملیں"
+      },
+      "stakingCompetition": {
+        "title": "اسٹیکنگ مقابلہ",
+        "desc": "اس مہینے اعلیٰ ترین اسٹیکنگ انعامات کے لیے مقابلہ کریں"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "مین نیٹ لانچ تاریخ کی تصدیق",
+        "content": "ہمیں یہ اعلان کرتے ہوئے خوشی ہے کہ TBURN مین نیٹ باضابطہ طور پر 1 دسمبر 2025 کو لانچ ہوگا۔ تمام سسٹم تیار ہیں!"
+      },
+      "stakingTiers": {
+        "title": "نئے اسٹیکنگ ٹیئرز جاری",
+        "content": "ٹیئر 1 ویلیڈیٹرز کے لیے 25% تک APY کے ساتھ بہتر اسٹیکنگ ٹیئرز متعارف کرا رہے ہیں۔ تفصیلات کے لیے اسٹیکنگ پیج دیکھیں۔"
+      },
+      "securityAudit": {
+        "title": "سیکیورٹی آڈٹ مکمل",
+        "content": "ہمارے سمارٹ کانٹریکٹس نے CertiK کا جامع سیکیورٹی آڈٹ بغیر کسی سنگین مسائل کے پاس کر لیا۔"
+      },
+      "bridgeIntegration": {
+        "title": "کراس چین برج اب لائیو",
+        "content": "TBURN برج اب لائیو ہے، Ethereum، BSC اور Polygon نیٹ ورکس کے درمیان ٹرانسفرز کو سپورٹ کرتا ہے۔"
+      }
+    },
+    "activities": {
+      "staked": "اسٹیک کیا",
+      "createdPost": "ایک نئی پوسٹ بنائی",
+      "votedOn": "ووٹ دیا",
+      "earnedBadge": "بیج حاصل کیا",
+      "commentedOn": "تبصرہ کیا",
+      "claimedRewards": "اسٹیکنگ ریوارڈز کلیم کیے",
+      "submittedProposal": "گورننس تجویز جمع کرائی",
+      "unstaked": "ان اسٹیک کیا"
+    },
+    "posts": {
+      "mainnetDiscussion": {
+        "title": "TBURN v7.0 مین نیٹ لانچ بحث",
+        "content": "دلچسپ وقت آ رہا ہے! آنے والے مین نیٹ لانچ پر بحث کریں اور روڈ میپ پر اپنے خیالات شیئر کریں۔"
+      },
+      "stakingStrategies": {
+        "title": "زیادہ سے زیادہ APY کے لیے بہترین اسٹیکنگ حکمت عملی",
+        "content": "TBURN مین نیٹ پر اپنے اسٹیکنگ انعامات کو زیادہ سے زیادہ کرنے کے لیے میری سرفہرست حکمت عملیاں یہ ہیں۔"
+      },
+      "aiOrchestration": {
+        "title": "تکنیکی گہرائی: AI آرکیسٹریشن سسٹم",
+        "content": "آئیے جانیں کہ GPT-5، Claude اور Llama کے ساتھ Triple-Band AI سسٹم کیسے کام کرتا ہے۔"
+      },
+      "governanceProposal": {
+        "title": "گورننس تجویز #42: خزانہ تخصیص",
+        "content": "ایکو سسٹم ڈویلپمنٹ گرانٹس اور کمیونٹی اقدامات کے لیے خزانے کا 5% مختص کرنے کی تجویز۔"
+      },
+      "newToTburn": {
+        "title": "TBURN میں نئے ہیں؟ یہاں سے شروع کریں!",
+        "content": "TBURN کمیونٹی میں خوش آمدید! یہ گائیڈ آپ کو ایکو سسٹم شروع کرنے میں مدد کرے گی۔"
+      }
     }
   }
 }

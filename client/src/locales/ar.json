@@ -1332,6 +1332,142 @@
       "minutesAgo": "منذ {{count}} دقيقة",
       "hoursAgo": "منذ {{count}} ساعة",
       "daysAgo": "منذ {{count}} يوم"
+    },
+    "categories": {
+      "general": "عام",
+      "technical": "تقني",
+      "governance": "الحوكمة",
+      "trading": "التداول",
+      "support": "الدعم",
+      "announcements": "الإعلانات"
+    },
+    "eventTypes": {
+      "ama": "AMA",
+      "workshop": "ورشة عمل",
+      "hackathon": "هاكاثون",
+      "meetup": "لقاء",
+      "airdrop": "توزيع مجاني",
+      "competition": "مسابقة"
+    },
+    "announcementTypes": {
+      "update": "تحديث",
+      "news": "أخبار",
+      "alert": "تنبيه",
+      "feature": "ميزة"
+    },
+    "badges": {
+      "earlyAdopter": {
+        "name": "المتبني المبكر",
+        "description": "انضم خلال الشهر الأول من الشبكة الرئيسية"
+      },
+      "diamondHands": {
+        "name": "أيدي الماس",
+        "description": "احتفظ بـ TBURN لأكثر من 6 أشهر"
+      },
+      "governanceParticipant": {
+        "name": "مشارك في الحوكمة",
+        "description": "صوّت على أكثر من 10 مقترحات حوكمة"
+      },
+      "communityHelper": {
+        "name": "مساعد المجتمع",
+        "description": "ساعد أكثر من 50 عضوًا في المجتمع"
+      },
+      "whaleStatus": {
+        "name": "حالة الحوت",
+        "description": "يمتلك أكثر من 100 ألف رمز TBURN"
+      },
+      "contentCreator": {
+        "name": "صانع المحتوى",
+        "description": "نشر أكثر من 25 منشورًا في المنتدى"
+      },
+      "validator": {
+        "name": "المدقق",
+        "description": "يشغّل عقدة مدقق للشبكة الرئيسية"
+      },
+      "bridgePioneer": {
+        "name": "رائد الجسر",
+        "description": "من أول 1000 مستخدم للجسر عبر السلاسل"
+      },
+      "defiMaster": {
+        "name": "سيد DeFi",
+        "description": "استخدم جميع بروتوكولات DeFi"
+      },
+      "bugHunter": {
+        "name": "صائد الأخطاء",
+        "description": "أبلغ عن ثغرة أمنية صالحة"
+      }
+    },
+    "events": {
+      "launchAma": {
+        "title": "AMA إطلاق الشبكة الرئيسية",
+        "desc": "انضم إلى مؤسسينا في جلسة AMA حصرية حول إطلاق الشبكة الرئيسية"
+      },
+      "defiWorkshop": {
+        "title": "ورشة عمل DeFi",
+        "desc": "تعلم كيفية تعظيم عوائدك مع بروتوكولات TBURN DeFi"
+      },
+      "hackathon": {
+        "title": "هاكاثون TBURN 2025",
+        "desc": "ابنِ مستقبل DeFi على TBURN واربح جوائز بقيمة 100 ألف TBURN"
+      },
+      "tokyoMeetup": {
+        "title": "لقاء المجتمع: طوكيو",
+        "desc": "التقِ بمجتمع TBURN شخصيًا في حدثنا في طوكيو"
+      },
+      "stakingCompetition": {
+        "title": "مسابقة الستاكينغ",
+        "desc": "تنافس على أعلى مكافآت ستاكينغ هذا الشهر"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "تأكيد موعد إطلاق الشبكة الرئيسية",
+        "content": "يسعدنا الإعلان عن أن شبكة TBURN الرئيسية ستُطلق رسميًا في 1 ديسمبر 2025. جميع الأنظمة جاهزة!"
+      },
+      "stakingTiers": {
+        "title": "إصدار مستويات ستاكينغ جديدة",
+        "content": "نقدم مستويات ستاكينغ محسّنة بعائد سنوي يصل إلى 25% لمدققي المستوى الأول. تحقق من صفحة الستاكينغ للتفاصيل."
+      },
+      "securityAudit": {
+        "title": "اكتمال التدقيق الأمني",
+        "content": "اجتازت عقودنا الذكية التدقيق الأمني الشامل من CertiK بدون مشاكل حرجة."
+      },
+      "bridgeIntegration": {
+        "title": "الجسر عبر السلاسل متاح الآن",
+        "content": "جسر TBURN متاح الآن، يدعم التحويلات بين شبكات إيثريوم و BSC و بوليغون."
+      }
+    },
+    "activities": {
+      "staked": "قام بالستاكينغ",
+      "createdPost": "أنشأ منشورًا جديدًا",
+      "votedOn": "صوّت على",
+      "earnedBadge": "حصل على الشارة",
+      "commentedOn": "علّق على",
+      "claimedRewards": "طالب بمكافآت الستاكينغ بقيمة",
+      "submittedProposal": "قدّم اقتراح حوكمة",
+      "unstaked": "أزال الستاكينغ"
+    },
+    "posts": {
+      "mainnetDiscussion": {
+        "title": "نقاش إطلاق TBURN v7.0 الشبكة الرئيسية",
+        "content": "أوقات مثيرة قادمة! لنناقش إطلاق الشبكة الرئيسية القادم ونشارك آراءكم حول خارطة الطريق."
+      },
+      "stakingStrategies": {
+        "title": "أفضل استراتيجيات الستاكينغ لأقصى عائد سنوي",
+        "content": "إليكم أفضل استراتيجياتي لتعظيم مكافآت الستاكينغ على شبكة TBURN الرئيسية."
+      },
+      "aiOrchestration": {
+        "title": "تعمق تقني: نظام تنسيق الذكاء الاصطناعي",
+        "content": "دعونا نستكشف كيف يعمل نظام Triple-Band AI مع GPT-5 و Claude و Llama."
+      },
+      "governanceProposal": {
+        "title": "اقتراح الحوكمة #42: توزيع الخزينة",
+        "content": "اقتراح لتخصيص 5% من الخزينة لمنح تطوير النظام البيئي ومبادرات المجتمع."
+      },
+      "newToTburn": {
+        "title": "جديد على TBURN؟ ابدأ من هنا!",
+        "content": "مرحبًا بك في مجتمع TBURN! سيساعدك هذا الدليل على البدء مع النظام البيئي."
+      }
     }
   },
   "gamefi": {

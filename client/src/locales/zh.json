@@ -4655,6 +4655,142 @@
       "minutesAgo": "{{count}}分钟前",
       "hoursAgo": "{{count}}小时前",
       "daysAgo": "{{count}}天前"
+    },
+    "categories": {
+      "general": "综合",
+      "technical": "技术",
+      "governance": "治理",
+      "trading": "交易",
+      "support": "支持",
+      "announcements": "公告"
+    },
+    "eventTypes": {
+      "ama": "AMA",
+      "workshop": "研讨会",
+      "hackathon": "黑客马拉松",
+      "meetup": "见面会",
+      "airdrop": "空投",
+      "competition": "比赛"
+    },
+    "announcementTypes": {
+      "update": "更新",
+      "news": "新闻",
+      "alert": "警报",
+      "feature": "功能"
+    },
+    "badges": {
+      "earlyAdopter": {
+        "name": "早期采用者",
+        "description": "在主网启动首月加入"
+      },
+      "diamondHands": {
+        "name": "钻石手",
+        "description": "持有TBURN超过6个月"
+      },
+      "governanceParticipant": {
+        "name": "治理参与者",
+        "description": "对10个以上治理提案投票"
+      },
+      "communityHelper": {
+        "name": "社区助手",
+        "description": "帮助了50多位社区成员"
+      },
+      "whaleStatus": {
+        "name": "巨鲸地位",
+        "description": "持有100K+ TBURN代币"
+      },
+      "contentCreator": {
+        "name": "内容创作者",
+        "description": "发布了25篇以上论坛帖子"
+      },
+      "validator": {
+        "name": "验证者",
+        "description": "运行主网验证节点"
+      },
+      "bridgePioneer": {
+        "name": "桥接先驱",
+        "description": "跨链桥的前1000名用户"
+      },
+      "defiMaster": {
+        "name": "DeFi大师",
+        "description": "使用了所有DeFi协议"
+      },
+      "bugHunter": {
+        "name": "漏洞猎人",
+        "description": "报告了有效的安全漏洞"
+      }
+    },
+    "events": {
+      "launchAma": {
+        "title": "主网发布AMA",
+        "desc": "加入创始人的独家AMA会议，讨论主网发布事宜"
+      },
+      "defiWorkshop": {
+        "title": "DeFi研讨会",
+        "desc": "学习如何使用TBURN DeFi协议最大化收益"
+      },
+      "hackathon": {
+        "title": "TBURN黑客马拉松2025",
+        "desc": "在TBURN上构建DeFi的未来，赢取价值100K TBURN的奖品"
+      },
+      "tokyoMeetup": {
+        "title": "社区见面会：东京",
+        "desc": "在东京活动中亲自与TBURN社区见面"
+      },
+      "stakingCompetition": {
+        "title": "质押竞赛",
+        "desc": "本月争夺最高质押奖励"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "主网发布日期确认",
+        "content": "我们很高兴地宣布TBURN主网将于2025年12月1日正式发布。所有系统准备就绪！"
+      },
+      "stakingTiers": {
+        "title": "新质押层级发布",
+        "content": "为一级验证者推出增强的质押层级，年化收益率最高可达25%。详情请查看质押页面。"
+      },
+      "securityAudit": {
+        "title": "安全审计完成",
+        "content": "我们的智能合约已通过CertiK的全面安全审计，没有发现任何严重问题。"
+      },
+      "bridgeIntegration": {
+        "title": "跨链桥现已上线",
+        "content": "TBURN桥现已上线，支持以太坊、BSC和Polygon网络之间的转账。"
+      }
+    },
+    "activities": {
+      "staked": "质押了",
+      "createdPost": "创建了新帖子",
+      "votedOn": "投票了",
+      "earnedBadge": "获得了徽章",
+      "commentedOn": "评论了",
+      "claimedRewards": "领取了质押奖励",
+      "submittedProposal": "提交了治理提案",
+      "unstaked": "解除质押了"
+    },
+    "posts": {
+      "mainnetDiscussion": {
+        "title": "TBURN v7.0主网发布讨论",
+        "content": "令人兴奋的时刻即将到来！让我们讨论即将到来的主网发布，分享你对路线图的想法。"
+      },
+      "stakingStrategies": {
+        "title": "最大化年化收益的最佳质押策略",
+        "content": "以下是我在TBURN主网上最大化质押奖励的顶级策略。"
+      },
+      "aiOrchestration": {
+        "title": "技术深入：AI编排系统",
+        "content": "让我们探索由GPT-5、Claude和Llama组成的三频AI系统如何在底层运作。"
+      },
+      "governanceProposal": {
+        "title": "治理提案 #42：国库分配",
+        "content": "提议将国库的5%分配给生态系统发展补助金和社区倡议。"
+      },
+      "newToTburn": {
+        "title": "TBURN新手？从这里开始！",
+        "content": "欢迎来到TBURN社区！本指南将帮助你开始使用生态系统。"
+      }
     }
   }
 }

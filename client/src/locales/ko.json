@@ -1941,6 +1941,142 @@
       "minutesAgo": "{{count}}분 전",
       "hoursAgo": "{{count}}시간 전",
       "daysAgo": "{{count}}일 전"
+    },
+    "categories": {
+      "general": "일반",
+      "technical": "기술",
+      "governance": "거버넌스",
+      "trading": "트레이딩",
+      "support": "지원",
+      "announcements": "공지사항"
+    },
+    "eventTypes": {
+      "ama": "AMA",
+      "workshop": "워크숍",
+      "hackathon": "해커톤",
+      "meetup": "밋업",
+      "airdrop": "에어드랍",
+      "competition": "대회"
+    },
+    "announcementTypes": {
+      "update": "업데이트",
+      "news": "뉴스",
+      "alert": "알림",
+      "feature": "기능"
+    },
+    "badges": {
+      "earlyAdopter": {
+        "name": "얼리어답터",
+        "description": "메인넷 첫 달에 가입"
+      },
+      "diamondHands": {
+        "name": "다이아몬드 핸즈",
+        "description": "TBURN을 6개월 이상 보유"
+      },
+      "governanceParticipant": {
+        "name": "거버넌스 참여자",
+        "description": "10개 이상의 거버넌스 제안에 투표"
+      },
+      "communityHelper": {
+        "name": "커뮤니티 헬퍼",
+        "description": "50명 이상의 커뮤니티 회원을 도움"
+      },
+      "whaleStatus": {
+        "name": "고래 지위",
+        "description": "100K+ TBURN 토큰 보유"
+      },
+      "contentCreator": {
+        "name": "콘텐츠 크리에이터",
+        "description": "25개 이상의 포럼 게시글 작성"
+      },
+      "validator": {
+        "name": "검증자",
+        "description": "메인넷 검증자 노드 운영"
+      },
+      "bridgePioneer": {
+        "name": "브릿지 개척자",
+        "description": "크로스체인 브릿지 첫 1000명 사용자"
+      },
+      "defiMaster": {
+        "name": "DeFi 마스터",
+        "description": "모든 DeFi 프로토콜 사용"
+      },
+      "bugHunter": {
+        "name": "버그 헌터",
+        "description": "유효한 보안 취약점 신고"
+      }
+    },
+    "events": {
+      "launchAma": {
+        "title": "메인넷 론칭 AMA",
+        "desc": "메인넷 론칭에 대한 독점 AMA 세션에 창립자들과 함께하세요"
+      },
+      "defiWorkshop": {
+        "title": "DeFi 워크숍",
+        "desc": "TBURN DeFi 프로토콜로 수익을 극대화하는 방법을 배우세요"
+      },
+      "hackathon": {
+        "title": "TBURN 해커톤 2025",
+        "desc": "TBURN에서 DeFi의 미래를 구축하고 100K TBURN 상당의 상금을 획득하세요"
+      },
+      "tokyoMeetup": {
+        "title": "커뮤니티 밋업: 도쿄",
+        "desc": "도쿄 이벤트에서 TBURN 커뮤니티를 직접 만나보세요"
+      },
+      "stakingCompetition": {
+        "title": "스테이킹 경쟁",
+        "desc": "이번 달 최고의 스테이킹 보상을 놓고 경쟁하세요"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "메인넷 론칭 날짜 확정",
+        "content": "TBURN 메인넷이 2025년 12월 1일에 공식 론칭됩니다. 모든 시스템 준비 완료!"
+      },
+      "stakingTiers": {
+        "title": "새로운 스테이킹 티어 출시",
+        "content": "Tier 1 검증자를 위해 최대 25% APY의 향상된 스테이킹 티어를 소개합니다. 자세한 내용은 스테이킹 페이지를 확인하세요."
+      },
+      "securityAudit": {
+        "title": "보안 감사 완료",
+        "content": "스마트 컨트랙트가 CertiK의 종합 보안 감사를 통과했으며 치명적인 문제가 없습니다."
+      },
+      "bridgeIntegration": {
+        "title": "크로스체인 브릿지 오픈",
+        "content": "TBURN 브릿지가 이더리움, BSC, 폴리곤 네트워크 간 전송을 지원하며 운영 중입니다."
+      }
+    },
+    "activities": {
+      "staked": "스테이킹했습니다",
+      "createdPost": "새 게시글을 작성했습니다",
+      "votedOn": "투표했습니다",
+      "earnedBadge": "배지를 획득했습니다",
+      "commentedOn": "댓글을 달았습니다",
+      "claimedRewards": "스테이킹 보상을 청구했습니다",
+      "submittedProposal": "거버넌스 제안을 제출했습니다",
+      "unstaked": "언스테이킹했습니다"
+    },
+    "posts": {
+      "mainnetDiscussion": {
+        "title": "TBURN v7.0 메인넷 론칭 토론",
+        "content": "흥미진진한 시간이 다가옵니다! 다가오는 메인넷 론칭에 대해 토론하고 로드맵에 대한 의견을 공유해주세요."
+      },
+      "stakingStrategies": {
+        "title": "최대 APY를 위한 최고의 스테이킹 전략",
+        "content": "TBURN 메인넷에서 스테이킹 보상을 극대화하기 위한 최고의 전략을 소개합니다."
+      },
+      "aiOrchestration": {
+        "title": "기술 심층 분석: AI 오케스트레이션 시스템",
+        "content": "GPT-5, Claude, Llama로 구성된 Triple-Band AI 시스템이 어떻게 작동하는지 탐구해봅시다."
+      },
+      "governanceProposal": {
+        "title": "거버넌스 제안 #42: 재무 배분",
+        "content": "생태계 개발 보조금 및 커뮤니티 이니셔티브를 위해 재무의 5%를 배분하는 제안입니다."
+      },
+      "newToTburn": {
+        "title": "TBURN이 처음이신가요? 여기서 시작하세요!",
+        "content": "TBURN 커뮤니티에 오신 것을 환영합니다! 이 가이드가 생태계 시작을 도와드립니다."
+      }
     }
   },
   "gamefi": {
