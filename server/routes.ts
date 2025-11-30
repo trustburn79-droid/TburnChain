@@ -625,7 +625,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Search transactions
       if (!type || type === 'all' || type === 'tx' || type === 'transaction') {
         if (isTxHash) {
-          const tx = await storage.getTransaction(query);
+          const tx = await storage.getTransactionByHash(query);
           if (tx) {
             results.push({
               type: 'transaction',
