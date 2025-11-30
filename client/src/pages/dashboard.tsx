@@ -59,7 +59,7 @@ import {
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
 import { Link } from "wouter";
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, BarChart, Bar, LineChart, Line } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, LineChart, Line } from "recharts";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface TokenomicsData {
@@ -256,36 +256,6 @@ function TpsChart({ data }: { data: TpsDataPoint[] }) {
           formatter={(value: number) => [`${formatNumber(value)} TPS`, 'TPS']}
         />
       </AreaChart>
-    </ResponsiveContainer>
-  );
-}
-
-function BlockProductionChart({ blocks }: { blocks: Block[] | undefined }) {
-  const chartData = useMemo(() => {
-    if (!blocks || blocks.length === 0) return [];
-    return blocks.slice(0, 20).reverse().map((block, idx) => ({
-      name: `#${block.blockNumber}`,
-      txs: block.transactionCount,
-      gasUsed: parseInt(String(block.gasUsed || '0')) / 1e6,
-    }));
-  }, [blocks]);
-
-  if (chartData.length === 0) return null;
-
-  return (
-    <ResponsiveContainer width="100%" height={120}>
-      <BarChart data={chartData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-        <Bar dataKey="txs" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-        <RechartsTooltip
-          contentStyle={{
-            backgroundColor: 'hsl(var(--card))',
-            border: '1px solid hsl(var(--border))',
-            borderRadius: '6px',
-            fontSize: '12px',
-          }}
-          formatter={(value: number) => [`${value} txs`, 'Transactions']}
-        />
-      </BarChart>
     </ResponsiveContainer>
   );
 }
@@ -1089,14 +1059,11 @@ export default function Dashboard() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between gap-2">
+          <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Blocks className="h-5 w-5" />
               {t("dashboard.latestBlocks")}
             </CardTitle>
-            {recentBlocks && recentBlocks.length > 0 && (
-              <BlockProductionChart blocks={recentBlocks} />
-            )}
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
