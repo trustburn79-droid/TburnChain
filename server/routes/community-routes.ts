@@ -68,6 +68,7 @@ interface UserBadgeResponse {
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   earnedAt?: number;
   progress?: number;
+  translationKey?: string;
 }
 
 interface ActivityResponse {
@@ -94,6 +95,7 @@ interface EventResponse {
   status: 'upcoming' | 'live' | 'ended';
   location?: string;
   isOnline: boolean;
+  translationKey?: string;
 }
 
 interface AnnouncementResponse {
@@ -103,6 +105,7 @@ interface AnnouncementResponse {
   type: 'update' | 'news' | 'alert' | 'feature';
   createdAt: number;
   isImportant: boolean;
+  translationKey?: string;
 }
 
 router.get("/stats", async (req: Request, res: Response) => {
@@ -245,14 +248,14 @@ router.get("/events", async (req: Request, res: Response) => {
     const now = Math.floor(Date.now() / 1000);
     
     const baseEvents: EventResponse[] = [
-      { id: "1", title: "TBURN v7.0 Launch AMA", description: "Join the core team for a live Q&A session about the mainnet launch and upcoming features", type: "ama", startDate: now + 86400, endDate: now + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true },
-      { id: "2", title: "DeFi Workshop: Liquidity Mining", description: "Learn advanced liquidity mining strategies with hands-on exercises and expert guidance", type: "workshop", startDate: now + 172800, endDate: now + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true },
-      { id: "3", title: "TBURN Hackathon 2025", description: "48-hour hackathon to build innovative dApps on TBURN. Join developers worldwide!", type: "hackathon", startDate: now + 604800, endDate: now + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea" },
-      { id: "4", title: "Community Meetup - Tokyo", description: "Network with fellow TBURN enthusiasts in Tokyo. Food and drinks provided!", type: "meetup", startDate: now + 259200, endDate: now + 273600, participants: 78, maxParticipants: 100, status: "upcoming", isOnline: false, location: "Tokyo, Japan" },
-      { id: "5", title: "Staking Competition", description: "Compete for the highest staking rewards this month. Top stakers win bonus rewards!", type: "competition", startDate: now - 86400, endDate: now + 1209600, participants: 5670, rewards: "50,000 TBURN", status: "live", isOnline: true },
-      { id: "6", title: "NFT Art Contest", description: "Create TBURN-themed NFT artwork and win prizes. Submissions open now!", type: "competition", startDate: now - 172800, endDate: now + 604800, participants: 234, rewards: "25,000 TBURN", status: "live", isOnline: true },
-      { id: "7", title: "Validator Training Session", description: "Learn how to become a TBURN validator with this comprehensive training session", type: "workshop", startDate: now + 432000, endDate: now + 439200, participants: 156, maxParticipants: 200, status: "upcoming", isOnline: true },
-      { id: "8", title: "Community Airdrop Event", description: "Exclusive airdrop for active community members. Complete tasks to earn rewards!", type: "airdrop", startDate: now + 518400, endDate: now + 604800, participants: 3450, rewards: "200,000 TBURN", status: "upcoming", isOnline: true },
+      { id: "1", title: "TBURN v7.0 Launch AMA", description: "Join the core team for a live Q&A session about the mainnet launch and upcoming features", type: "ama", startDate: now + 86400, endDate: now + 90000, participants: 1250, maxParticipants: 2000, rewards: "10,000 TBURN", status: "upcoming", isOnline: true, translationKey: "launchAma" },
+      { id: "2", title: "DeFi Workshop: Liquidity Mining", description: "Learn advanced liquidity mining strategies with hands-on exercises and expert guidance", type: "workshop", startDate: now + 172800, endDate: now + 180000, participants: 450, maxParticipants: 500, status: "upcoming", isOnline: true, translationKey: "defiWorkshop" },
+      { id: "3", title: "TBURN Hackathon 2025", description: "48-hour hackathon to build innovative dApps on TBURN. Join developers worldwide!", type: "hackathon", startDate: now + 604800, endDate: now + 777600, participants: 89, rewards: "100,000 TBURN", status: "upcoming", isOnline: false, location: "Seoul, Korea", translationKey: "hackathon" },
+      { id: "4", title: "Community Meetup - Tokyo", description: "Network with fellow TBURN enthusiasts in Tokyo. Food and drinks provided!", type: "meetup", startDate: now + 259200, endDate: now + 273600, participants: 78, maxParticipants: 100, status: "upcoming", isOnline: false, location: "Tokyo, Japan", translationKey: "tokyoMeetup" },
+      { id: "5", title: "Staking Competition", description: "Compete for the highest staking rewards this month. Top stakers win bonus rewards!", type: "competition", startDate: now - 86400, endDate: now + 1209600, participants: 5670, rewards: "50,000 TBURN", status: "live", isOnline: true, translationKey: "stakingCompetition" },
+      { id: "6", title: "NFT Art Contest", description: "Create TBURN-themed NFT artwork and win prizes. Submissions open now!", type: "competition", startDate: now - 172800, endDate: now + 604800, participants: 234, rewards: "25,000 TBURN", status: "live", isOnline: true, translationKey: "nftContest" },
+      { id: "7", title: "Validator Training Session", description: "Learn how to become a TBURN validator with this comprehensive training session", type: "workshop", startDate: now + 432000, endDate: now + 439200, participants: 156, maxParticipants: 200, status: "upcoming", isOnline: true, translationKey: "validatorTraining" },
+      { id: "8", title: "Community Airdrop Event", description: "Exclusive airdrop for active community members. Complete tasks to earn rewards!", type: "airdrop", startDate: now + 518400, endDate: now + 604800, participants: 3450, rewards: "200,000 TBURN", status: "upcoming", isOnline: true, translationKey: "airdropEvent" },
     ];
     
     const eventsWithDynamicCounts = baseEvents.map(event => {
@@ -275,11 +278,11 @@ router.get("/announcements", async (req: Request, res: Response) => {
     const now = Math.floor(Date.now() / 1000);
     
     const announcements: AnnouncementResponse[] = [
-      { id: "1", title: "Mainnet Launch Date Confirmed: December 1st", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 1st, 2025. All systems are go for the biggest upgrade in our history!", type: "news", createdAt: now - 3600, isImportant: true },
-      { id: "2", title: "New Staking Tiers Available", content: "Diamond tier staking is now available with up to 25% APY boost. Check out the new staking dashboard for more details.", type: "feature", createdAt: now - 86400, isImportant: false },
-      { id: "3", title: "Security Audit Completed", content: "Our smart contracts have passed comprehensive security audits by CertiK and Trail of Bits. Full reports available on GitHub.", type: "update", createdAt: now - 172800, isImportant: true },
-      { id: "4", title: "Bridge Integration: Ethereum & BSC Live", content: "Cross-chain bridge is now live for Ethereum and Binance Smart Chain. Transfer your assets seamlessly!", type: "feature", createdAt: now - 259200, isImportant: false },
-      { id: "5", title: "Scheduled Maintenance: Node Upgrade", content: "Brief maintenance window scheduled for December 3rd, 2:00 AM UTC. Expected downtime: 15 minutes.", type: "alert", createdAt: now - 14400, isImportant: true },
+      { id: "1", title: "Mainnet Launch Date Confirmed: December 1st", content: "We're excited to announce that TBURN v7.0 Mainnet will officially launch on December 1st, 2025. All systems are go for the biggest upgrade in our history!", type: "news", createdAt: now - 3600, isImportant: true, translationKey: "mainnetLaunch" },
+      { id: "2", title: "New Staking Tiers Available", content: "Diamond tier staking is now available with up to 25% APY boost. Check out the new staking dashboard for more details.", type: "feature", createdAt: now - 86400, isImportant: false, translationKey: "stakingTiers" },
+      { id: "3", title: "Security Audit Completed", content: "Our smart contracts have passed comprehensive security audits by CertiK and Trail of Bits. Full reports available on GitHub.", type: "update", createdAt: now - 172800, isImportant: true, translationKey: "securityAudit" },
+      { id: "4", title: "Bridge Integration: Ethereum & BSC Live", content: "Cross-chain bridge is now live for Ethereum and Binance Smart Chain. Transfer your assets seamlessly!", type: "feature", createdAt: now - 259200, isImportant: false, translationKey: "bridgeIntegration" },
+      { id: "5", title: "Scheduled Maintenance: Node Upgrade", content: "Brief maintenance window scheduled for December 3rd, 2:00 AM UTC. Expected downtime: 15 minutes.", type: "alert", createdAt: now - 14400, isImportant: true, translationKey: "maintenance" },
     ];
     
     res.json(announcements);
@@ -332,16 +335,16 @@ router.get("/badges", async (req: Request, res: Response) => {
     const now = Math.floor(Date.now() / 1000);
     
     const badges: UserBadgeResponse[] = [
-      { id: "1", name: "Early Adopter", description: "Joined during the genesis period", icon: "star", rarity: "legendary", earnedAt: 1672531200 },
-      { id: "2", name: "Diamond Hands", description: "Held TBURN for over 1 year", icon: "diamond", rarity: "epic", earnedAt: 1704067200 },
-      { id: "3", name: "Governance Participant", description: "Voted on 10+ proposals", icon: "vote", rarity: "rare", progress: 80 },
-      { id: "4", name: "Community Helper", description: "Helped 100+ community members", icon: "users", rarity: "rare", earnedAt: 1709251200 },
-      { id: "5", name: "Whale Status", description: "Staked 100,000+ TBURN", icon: "coins", rarity: "epic", progress: 65 },
-      { id: "6", name: "Content Creator", description: "Created 50+ forum posts", icon: "book", rarity: "common", progress: 40 },
-      { id: "7", name: "Validator", description: "Run an active validator node", icon: "shield", rarity: "legendary", earnedAt: 1714521600 },
-      { id: "8", name: "Bridge Pioneer", description: "Used cross-chain bridge 10+ times", icon: "bridge", rarity: "rare", progress: 70 },
-      { id: "9", name: "DeFi Master", description: "Participated in all DeFi protocols", icon: "trending", rarity: "epic", progress: 85 },
-      { id: "10", name: "Bug Hunter", description: "Reported valid security issues", icon: "bug", rarity: "legendary" },
+      { id: "1", name: "Early Adopter", description: "Joined during the genesis period", icon: "star", rarity: "legendary", earnedAt: 1672531200, translationKey: "earlyAdopter" },
+      { id: "2", name: "Diamond Hands", description: "Held TBURN for over 1 year", icon: "diamond", rarity: "epic", earnedAt: 1704067200, translationKey: "diamondHands" },
+      { id: "3", name: "Governance Participant", description: "Voted on 10+ proposals", icon: "vote", rarity: "rare", progress: 80, translationKey: "governanceParticipant" },
+      { id: "4", name: "Community Helper", description: "Helped 100+ community members", icon: "users", rarity: "rare", earnedAt: 1709251200, translationKey: "communityHelper" },
+      { id: "5", name: "Whale Status", description: "Staked 100,000+ TBURN", icon: "coins", rarity: "epic", progress: 65, translationKey: "whaleStatus" },
+      { id: "6", name: "Content Creator", description: "Created 50+ forum posts", icon: "book", rarity: "common", progress: 40, translationKey: "contentCreator" },
+      { id: "7", name: "Validator", description: "Run an active validator node", icon: "shield", rarity: "legendary", earnedAt: 1714521600, translationKey: "validator" },
+      { id: "8", name: "Bridge Pioneer", description: "Used cross-chain bridge 10+ times", icon: "bridge", rarity: "rare", progress: 70, translationKey: "bridgePioneer" },
+      { id: "9", name: "DeFi Master", description: "Participated in all DeFi protocols", icon: "trending", rarity: "epic", progress: 85, translationKey: "defiMaster" },
+      { id: "10", name: "Bug Hunter", description: "Reported valid security issues", icon: "bug", rarity: "legendary", translationKey: "bugHunter" },
     ];
     
     res.json(badges);

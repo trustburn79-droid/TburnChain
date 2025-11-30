@@ -2026,6 +2026,18 @@
       "stakingCompetition": {
         "title": "스테이킹 경쟁",
         "desc": "이번 달 최고의 스테이킹 보상을 놓고 경쟁하세요"
+      },
+      "nftContest": {
+        "title": "NFT 아트 콘테스트",
+        "desc": "TBURN 테마 NFT 아트워크를 만들고 상품을 받으세요"
+      },
+      "validatorTraining": {
+        "title": "검증자 교육 세션",
+        "desc": "종합적인 교육을 통해 TBURN 검증자가 되는 방법을 배우세요"
+      },
+      "airdropEvent": {
+        "title": "커뮤니티 에어드롭 이벤트",
+        "desc": "활동적인 커뮤니티 멤버를 위한 독점 에어드롭. 과제를 완료하고 보상을 받으세요!"
       }
     },
     "announcements": {
@@ -2044,7 +2056,17 @@
       "bridgeIntegration": {
         "title": "크로스체인 브릿지 오픈",
         "content": "TBURN 브릿지가 이더리움, BSC, 폴리곤 네트워크 간 전송을 지원하며 운영 중입니다."
+      },
+      "maintenance": {
+        "title": "예정된 유지보수: 노드 업그레이드",
+        "content": "12월 3일 UTC 오전 2시에 간단한 유지보수 예정. 예상 다운타임: 15분."
       }
+    },
+    "rarities": {
+      "common": "일반",
+      "rare": "레어",
+      "epic": "에픽",
+      "legendary": "전설"
     },
     "activities": {
       "staked": "스테이킹했습니다",

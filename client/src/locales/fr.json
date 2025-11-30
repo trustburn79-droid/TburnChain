@@ -3912,6 +3912,18 @@
       "stakingCompetition": {
         "title": "Compétition de Staking",
         "desc": "Concourez pour les plus hautes récompenses de staking ce mois-ci"
+      },
+      "nftContest": {
+        "title": "Concours d'Art NFT",
+        "desc": "Créez des œuvres d'art NFT sur le thème TBURN et gagnez des prix"
+      },
+      "validatorTraining": {
+        "title": "Session de Formation Validateur",
+        "desc": "Apprenez à devenir un validateur TBURN avec une formation complète"
+      },
+      "airdropEvent": {
+        "title": "Événement Airdrop Communautaire",
+        "desc": "Airdrop exclusif pour les membres actifs de la communauté. Complétez des tâches pour gagner des récompenses !"
       }
     },
     "announcements": {
@@ -3930,7 +3942,17 @@
       "bridgeIntegration": {
         "title": "Pont Cross-Chain Maintenant en Ligne",
         "content": "Le pont TBURN est maintenant en ligne, supportant les transferts entre les réseaux Ethereum, BSC et Polygon."
+      },
+      "maintenance": {
+        "title": "Maintenance Planifiée : Mise à Jour du Nœud",
+        "content": "Fenêtre de maintenance brève prévue le 3 décembre à 2h00 UTC. Temps d'arrêt prévu : 15 minutes."
       }
+    },
+    "rarities": {
+      "common": "Commun",
+      "rare": "Rare",
+      "epic": "Épique",
+      "legendary": "Légendaire"
     },
     "activities": {
       "staked": "a staké",

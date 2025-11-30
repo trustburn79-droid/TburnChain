@@ -120,6 +120,7 @@ interface CommunityEvent {
   status: 'upcoming' | 'live' | 'ended';
   location?: string;
   isOnline: boolean;
+  translationKey?: string;
 }
 
 interface Announcement {
@@ -129,6 +130,7 @@ interface Announcement {
   type: 'update' | 'news' | 'alert' | 'feature';
   createdAt: number;
   isImportant: boolean;
+  translationKey?: string;
 }
 
 interface UserBadge {
@@ -139,6 +141,7 @@ interface UserBadge {
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   earnedAt?: number;
   progress?: number;
+  translationKey?: string;
 }
 
 interface ActivityItem {
@@ -786,8 +789,8 @@ export default function Community() {
                             {formatTimeAgo(announcement.createdAt)}
                           </span>
                         </div>
-                        <h4 className="font-semibold">{t(`community.${announcement.title}`, announcement.title)}</h4>
-                        <p className="text-sm text-muted-foreground">{t(`community.${announcement.content}`, announcement.content)}</p>
+                        <h4 className="font-semibold">{announcement.translationKey ? t(`community.announcements.${announcement.translationKey}.title`, announcement.title) : announcement.title}</h4>
+                        <p className="text-sm text-muted-foreground">{announcement.translationKey ? t(`community.announcements.${announcement.translationKey}.content`, announcement.content) : announcement.content}</p>
                       </div>
                     ))}
                   </div>
@@ -866,7 +869,7 @@ export default function Community() {
                 <div className="space-y-2">
                   {displayPosts.filter(p => p.isHot).slice(0, 4).map((post) => (
                     <div key={post.id} className="flex items-center gap-2">
-                      <span className="text-sm truncate flex-1">{t(`community.${post.title}`, post.title)}</span>
+                      <span className="text-sm truncate flex-1">{post.title}</span>
                       <Badge variant="outline" className="text-xs">{post.likes}</Badge>
                     </div>
                   ))}
@@ -886,7 +889,7 @@ export default function Community() {
                 <div className="space-y-2">
                   {displayEvents.filter(e => e.status === 'upcoming').slice(0, 3).map((event) => (
                     <div key={event.id} className="space-y-1">
-                      <p className="text-sm font-medium truncate">{t(`community.${event.title}`, event.title)}</p>
+                      <p className="text-sm font-medium truncate">{event.translationKey ? t(`community.events.${event.translationKey}.title`, event.title) : event.title}</p>
                       <p className="text-xs text-muted-foreground">
                         {new Date(event.startDate * 1000).toLocaleDateString()}
                       </p>
@@ -1086,9 +1089,9 @@ export default function Community() {
                         </Badge>
                       </div>
                       <h3 className="text-lg font-semibold hover:text-primary transition-colors cursor-pointer">
-                        {t(`community.${post.title}`, post.title)}
+                        {post.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{t(`community.${post.content}`, post.content)}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{post.content}</p>
                       <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Avatar className="h-5 w-5">
@@ -1206,8 +1209,8 @@ export default function Community() {
                       {event.status === 'live' ? t('community.live', 'LIVE') : event.status === 'upcoming' ? t('community.upcoming', 'Upcoming') : t('community.ended', 'Ended')}
                     </Badge>
                   </div>
-                  <CardTitle className="text-lg">{t(`community.${event.title}`, event.title)}</CardTitle>
-                  <CardDescription>{t(`community.${event.description}`, event.description)}</CardDescription>
+                  <CardTitle className="text-lg">{event.translationKey ? t(`community.events.${event.translationKey}.title`, event.title) : event.title}</CardTitle>
+                  <CardDescription>{event.translationKey ? t(`community.events.${event.translationKey}.desc`, event.description) : event.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-2 text-sm">
@@ -1313,10 +1316,10 @@ export default function Community() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <h4 className="font-semibold">{t(`community.${badge.name}`, badge.name)}</h4>
-                        <Badge variant="outline" className="text-xs capitalize">{t(`community.${badge.rarity}`, badge.rarity)}</Badge>
+                        <h4 className="font-semibold">{badge.translationKey ? t(`community.badges.${badge.translationKey}.name`, badge.name) : badge.name}</h4>
+                        <Badge variant="outline" className="text-xs capitalize">{t(`community.rarities.${badge.rarity}`, badge.rarity)}</Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">{t(`community.${badge.description}`, badge.description)}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{badge.translationKey ? t(`community.badges.${badge.translationKey}.description`, badge.description) : badge.description}</p>
                       {badge.earnedAt ? (
                         <div className="flex items-center gap-1 mt-2 text-xs text-green-400">
                           <CheckCircle className="h-3 w-3" />

@@ -4740,6 +4740,18 @@
       "stakingCompetition": {
         "title": "质押竞赛",
         "desc": "本月争夺最高质押奖励"
+      },
+      "nftContest": {
+        "title": "NFT艺术大赛",
+        "desc": "创作TBURN主题NFT艺术品赢取奖品"
+      },
+      "validatorTraining": {
+        "title": "验证者培训课程",
+        "desc": "通过全面培训学习如何成为TBURN验证者"
+      },
+      "airdropEvent": {
+        "title": "社区空投活动",
+        "desc": "活跃社区成员专属空投。完成任务赢取奖励！"
       }
     },
     "announcements": {
@@ -4758,7 +4770,17 @@
       "bridgeIntegration": {
         "title": "跨链桥现已上线",
         "content": "TBURN桥现已上线，支持以太坊、BSC和Polygon网络之间的转账。"
+      },
+      "maintenance": {
+        "title": "定期维护：节点升级",
+        "content": "12月3日UTC时间凌晨2点进行短暂维护。预计停机时间：15分钟。"
       }
+    },
+    "rarities": {
+      "common": "普通",
+      "rare": "稀有",
+      "epic": "史诗",
+      "legendary": "传奇"
     },
     "activities": {
       "staked": "质押了",

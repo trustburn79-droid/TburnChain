@@ -1978,6 +1978,18 @@
       "stakingCompetition": {
         "title": "Staking Competition",
         "desc": "Compete for the highest staking rewards this month"
+      },
+      "nftContest": {
+        "title": "NFT Art Contest",
+        "desc": "Create TBURN-themed NFT artwork and win prizes"
+      },
+      "validatorTraining": {
+        "title": "Validator Training Session",
+        "desc": "Learn how to become a TBURN validator with comprehensive training"
+      },
+      "airdropEvent": {
+        "title": "Community Airdrop Event",
+        "desc": "Exclusive airdrop for active community members. Complete tasks to earn rewards!"
       }
     },
     "announcements": {
@@ -1996,7 +2008,17 @@
       "bridgeIntegration": {
         "title": "Cross-Chain Bridge Now Live",
         "content": "The TBURN bridge is now live, supporting transfers between Ethereum, BSC, and Polygon networks."
+      },
+      "maintenance": {
+        "title": "Scheduled Maintenance: Node Upgrade",
+        "content": "Brief maintenance window scheduled for December 3rd, 2:00 AM UTC. Expected downtime: 15 minutes."
       }
+    },
+    "rarities": {
+      "common": "Common",
+      "rare": "Rare",
+      "epic": "Epic",
+      "legendary": "Legendary"
     },
     "activities": {
       "staked": "staked",

@@ -4941,6 +4941,18 @@
       "stakingCompetition": {
         "title": "ステーキングコンペティション",
         "desc": "今月最高のステーキング報酬を競う"
+      },
+      "nftContest": {
+        "title": "NFTアートコンテスト",
+        "desc": "TBURNテーマのNFTアートワークを作成して賞品を獲得"
+      },
+      "validatorTraining": {
+        "title": "バリデータートレーニングセッション",
+        "desc": "包括的なトレーニングでTBURNバリデーターになる方法を学ぶ"
+      },
+      "airdropEvent": {
+        "title": "コミュニティエアドロップイベント",
+        "desc": "アクティブなコミュニティメンバー向けの限定エアドロップ。タスクを完了して報酬を獲得！"
       }
     },
     "announcements": {
@@ -4959,7 +4971,17 @@
       "bridgeIntegration": {
         "title": "クロスチェーンブリッジ稼働開始",
         "content": "TBURNブリッジがイーサリアム、BSC、ポリゴンネットワーク間の転送をサポートして稼働中です。"
+      },
+      "maintenance": {
+        "title": "定期メンテナンス：ノードアップグレード",
+        "content": "12月3日UTC午前2時に短時間のメンテナンスを予定。予想ダウンタイム：15分。"
       }
+    },
+    "rarities": {
+      "common": "コモン",
+      "rare": "レア",
+      "epic": "エピック",
+      "legendary": "レジェンダリー"
     },
     "activities": {
       "staked": "ステーキングしました",
