@@ -872,7 +872,20 @@
     "apiGetRewardsEvents": "获取奖励事件",
     "apiGetSlashing": "获取罚没事件",
     "apiGetTiers": "获取等级配置",
-    "apiGetStats": "获取质押统计"
+    "apiGetStats": "获取质押统计",
+    "npmOpened": "打开 NPM",
+    "npmOpenedDesc": "打开 @tburn/staking-sdk 包页面",
+    "githubOpened": "打开 GitHub",
+    "githubOpenedDesc": "打开 TBURN 质押 SDK 仓库",
+    "requestSuccess": "请求成功",
+    "requestSuccessDesc": "状态 {{status}} - {{time}}ms",
+    "requestError": "请求失败",
+    "executing": "执行中...",
+    "endpointCopied": "端点 URL 已复制到剪贴板",
+    "responseCopied": "响应已复制到剪贴板",
+    "responseWillAppear": "响应将在此处显示...",
+    "apiKeyInfo": "需要 API 密钥",
+    "apiKeyInfoDesc": "请联系 TBURN 开发者门户以获取认证端点所需的 API 密钥。"
   },
   "tokenSystem": {
     "title": "代币系统 v4.0",

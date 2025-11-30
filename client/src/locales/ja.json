@@ -873,7 +873,20 @@
     "apiGetRewardsEvents": "報酬イベントを取得",
     "apiGetSlashing": "スラッシングイベントを取得",
     "apiGetTiers": "ティア設定を取得",
-    "apiGetStats": "ステーキング統計を取得"
+    "apiGetStats": "ステーキング統計を取得",
+    "npmOpened": "NPMを開く",
+    "npmOpenedDesc": "@tburn/staking-sdkパッケージページを開きます",
+    "githubOpened": "GitHubを開く",
+    "githubOpenedDesc": "TBURNステーキングSDKリポジトリを開きます",
+    "requestSuccess": "リクエスト成功",
+    "requestSuccessDesc": "ステータス {{status}} - {{time}}ms",
+    "requestError": "リクエスト失敗",
+    "executing": "実行中...",
+    "endpointCopied": "エンドポイントURLがクリップボードにコピーされました",
+    "responseCopied": "レスポンスがクリップボードにコピーされました",
+    "responseWillAppear": "レスポンスがここに表示されます...",
+    "apiKeyInfo": "APIキーが必要です",
+    "apiKeyInfoDesc": "認証が必要なエンドポイント用のAPIキーを取得するには、TBURN開発者ポータルにお問い合わせください。"
   },
   "tokenSystem": {
     "title": "TBURN トークンシステム v4.0",

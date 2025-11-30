@@ -873,7 +873,20 @@
     "apiGetRewardsEvents": "Get reward events",
     "apiGetSlashing": "Get slashing events",
     "apiGetTiers": "Get tier configuration",
-    "apiGetStats": "Get staking statistics"
+    "apiGetStats": "Get staking statistics",
+    "npmOpened": "Opening NPM",
+    "npmOpenedDesc": "Opening @tburn/staking-sdk package page",
+    "githubOpened": "Opening GitHub",
+    "githubOpenedDesc": "Opening TBURN Staking SDK repository",
+    "requestSuccess": "Request Successful",
+    "requestSuccessDesc": "Status {{status}} - {{time}}ms",
+    "requestError": "Request Failed",
+    "executing": "Executing...",
+    "endpointCopied": "Endpoint URL copied to clipboard",
+    "responseCopied": "Response copied to clipboard",
+    "responseWillAppear": "Response will appear here...",
+    "apiKeyInfo": "API Key Required",
+    "apiKeyInfoDesc": "Contact TBURN Developer Portal to request an API key for authenticated endpoints."
   },
   "tokenSystem": {
     "title": "Token System v4.0",

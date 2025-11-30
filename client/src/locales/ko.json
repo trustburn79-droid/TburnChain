@@ -873,7 +873,20 @@
     "apiGetRewardsEvents": "보상 이벤트 조회",
     "apiGetSlashing": "슬래싱 이벤트 조회",
     "apiGetTiers": "티어 구성 조회",
-    "apiGetStats": "스테이킹 통계 조회"
+    "apiGetStats": "스테이킹 통계 조회",
+    "npmOpened": "NPM 열기",
+    "npmOpenedDesc": "@tburn/staking-sdk 패키지 페이지 열기",
+    "githubOpened": "GitHub 열기",
+    "githubOpenedDesc": "TBURN 스테이킹 SDK 저장소 열기",
+    "requestSuccess": "요청 성공",
+    "requestSuccessDesc": "상태 {{status}} - {{time}}ms",
+    "requestError": "요청 실패",
+    "executing": "실행 중...",
+    "endpointCopied": "엔드포인트 URL이 클립보드에 복사되었습니다",
+    "responseCopied": "응답이 클립보드에 복사되었습니다",
+    "responseWillAppear": "응답이 여기에 표시됩니다...",
+    "apiKeyInfo": "API 키 필요",
+    "apiKeyInfoDesc": "인증된 엔드포인트용 API 키를 요청하려면 TBURN 개발자 포털에 문의하세요."
   },
   "tokenSystem": {
     "title": "토큰 시스템 v4.0",

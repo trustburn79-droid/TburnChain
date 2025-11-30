@@ -270,10 +270,29 @@ const apiEndpoints = [
   }
 ];
 
+const playgroundEndpoints = [
+  { value: "/api/staking/pools", label: "GET /api/staking/pools", method: "GET" },
+  { value: "/api/staking/stats", label: "GET /api/staking/stats", method: "GET" },
+  { value: "/api/staking/tiers", label: "GET /api/staking/tiers", method: "GET" },
+  { value: "/api/staking/rewards/current", label: "GET /api/staking/rewards/current", method: "GET" },
+  { value: "/api/staking/rewards/cycles", label: "GET /api/staking/rewards/cycles", method: "GET" },
+  { value: "/api/staking/unbonding", label: "GET /api/staking/unbonding", method: "GET" },
+  { value: "/api/staking/slashing", label: "GET /api/staking/slashing", method: "GET" },
+  { value: "/api/validators", label: "GET /api/validators", method: "GET" },
+  { value: "/api/blocks", label: "GET /api/blocks", method: "GET" },
+  { value: "/api/transactions", label: "GET /api/transactions", method: "GET" },
+];
+
 export default function StakingSDK() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [selectedEndpoint, setSelectedEndpoint] = useState(playgroundEndpoints[0].value);
+  const [parameters, setParameters] = useState('{"address": "0x..."}');
+  const [response, setResponse] = useState<string | null>(null);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const [responseTime, setResponseTime] = useState<number | null>(null);
+  const [responseStatus, setResponseStatus] = useState<number | null>(null);
 
   const copyCode = (code: string, key: string) => {
     navigator.clipboard.writeText(code);
@@ -283,6 +302,124 @@ export default function StakingSDK() {
       description: t('stakingSdk.codeCopied')
     });
     setTimeout(() => setCopiedCode(null), 2000);
+  };
+
+  const handleOpenNpm = () => {
+    window.open('https://www.npmjs.com/package/@tburn/staking-sdk', '_blank', 'noopener,noreferrer');
+    toast({
+      title: t('stakingSdk.npmOpened'),
+      description: t('stakingSdk.npmOpenedDesc')
+    });
+  };
+
+  const handleOpenGithub = () => {
+    window.open('https://github.com/tburn-network/staking-sdk', '_blank', 'noopener,noreferrer');
+    toast({
+      title: t('stakingSdk.githubOpened'),
+      description: t('stakingSdk.githubOpenedDesc')
+    });
+  };
+
+  const handleExecuteRequest = async () => {
+    setIsExecuting(true);
+    setResponse(null);
+    setResponseTime(null);
+    setResponseStatus(null);
+
+    const startTime = Date.now();
+
+    try {
+      let url = selectedEndpoint;
+      
+      try {
+        const params = JSON.parse(parameters);
+        if (Object.keys(params).length > 0 && params.address !== "0x...") {
+          const queryParams = new URLSearchParams();
+          Object.entries(params).forEach(([key, value]) => {
+            if (value && value !== "0x...") {
+              queryParams.append(key, String(value));
+            }
+          });
+          const queryString = queryParams.toString();
+          if (queryString) {
+            url = `${selectedEndpoint}?${queryString}`;
+          }
+        }
+      } catch (e) {
+      }
+
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+
+      const endTime = Date.now();
+      setResponseTime(endTime - startTime);
+      setResponseStatus(res.status);
+
+      const data = await res.json();
+      setResponse(JSON.stringify(data, null, 2));
+
+      toast({
+        title: t('stakingSdk.requestSuccess'),
+        description: t('stakingSdk.requestSuccessDesc', { 
+          status: res.status,
+          time: endTime - startTime 
+        })
+      });
+    } catch (error) {
+      const endTime = Date.now();
+      setResponseTime(endTime - startTime);
+      setResponseStatus(500);
+      
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      setResponse(JSON.stringify({ 
+        error: true, 
+        message: errorMessage,
+        timestamp: new Date().toISOString()
+      }, null, 2));
+
+      toast({
+        title: t('stakingSdk.requestError'),
+        description: errorMessage,
+        variant: "destructive"
+      });
+    } finally {
+      setIsExecuting(false);
+    }
+  };
+
+  const handleCopyEndpoint = (endpoint: string, params: string) => {
+    const fullUrl = `${window.location.origin}${endpoint}${params}`;
+    navigator.clipboard.writeText(fullUrl);
+    toast({
+      title: t('stakingSdk.copied'),
+      description: t('stakingSdk.endpointCopied')
+    });
+  };
+
+  const handleCopyResponse = () => {
+    if (response) {
+      navigator.clipboard.writeText(response);
+      toast({
+        title: t('stakingSdk.copied'),
+        description: t('stakingSdk.responseCopied')
+      });
+    }
+  };
+
+  const handleGetApiKey = () => {
+    toast({
+      title: t('stakingSdk.apiKeyInfo'),
+      description: t('stakingSdk.apiKeyInfoDesc')
+    });
+  };
+
+  const handleFullDocs = () => {
+    window.open('https://docs.tburn.network/sdk', '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -299,11 +436,21 @@ export default function StakingSDK() {
             <Package className="h-3 w-3" />
             {t('stakingSdk.version')}
           </Badge>
-          <Button variant="outline" size="sm" data-testid="button-npm">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            data-testid="button-npm"
+            onClick={handleOpenNpm}
+          >
             <ExternalLink className="h-4 w-4 mr-1" />
             {t('stakingSdk.npm')}
           </Button>
-          <Button variant="outline" size="sm" data-testid="button-github">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            data-testid="button-github"
+            onClick={handleOpenGithub}
+          >
             <GitBranch className="h-4 w-4 mr-1" />
             {t('stakingSdk.github')}
           </Button>
@@ -657,7 +804,11 @@ export default function StakingSDK() {
                         )}
                         <p className="text-sm text-muted-foreground mt-1">{t(`stakingSdk.${endpoint.descriptionKey}`)}</p>
                       </div>
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => handleCopyEndpoint(endpoint.endpoint, endpoint.params)}
+                      >
                         <Copy className="h-4 w-4" />
                       </Button>
                     </div>
@@ -682,11 +833,11 @@ export default function StakingSDK() {
                 <code className="text-sm font-mono">{`Authorization: Bearer YOUR_API_KEY`}</code>
               </pre>
               <div className="mt-4 flex gap-2">
-                <Button variant="outline" data-testid="button-get-api-key">
+                <Button variant="outline" data-testid="button-get-api-key" onClick={handleGetApiKey}>
                   <Key className="h-4 w-4 mr-2" />
                   {t('stakingSdk.getApiKey')}
                 </Button>
-                <Button variant="ghost" data-testid="button-full-docs">
+                <Button variant="ghost" data-testid="button-full-docs" onClick={handleFullDocs}>
                   <Book className="h-4 w-4 mr-2" />
                   {t('stakingSdk.fullDocumentation')}
                 </Button>
@@ -711,10 +862,15 @@ export default function StakingSDK() {
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium">{t('stakingSdk.endpoint')}</label>
-                    <select className="w-full mt-1 p-2 rounded-md border bg-background">
-                      <option value="/api/staking/pools">GET /api/staking/pools</option>
-                      <option value="/api/staking/stats">GET /api/staking/stats</option>
-                      <option value="/api/staking/tiers">GET /api/staking/tiers</option>
+                    <select 
+                      className="w-full mt-1 p-2 rounded-md border bg-background"
+                      value={selectedEndpoint}
+                      onChange={(e) => setSelectedEndpoint(e.target.value)}
+                      data-testid="select-endpoint"
+                    >
+                      {playgroundEndpoints.map((ep) => (
+                        <option key={ep.value} value={ep.value}>{ep.label}</option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -722,20 +878,58 @@ export default function StakingSDK() {
                     <textarea 
                       className="w-full mt-1 p-2 rounded-md border bg-background font-mono text-sm h-32"
                       placeholder='{"address": "0x..."}'
+                      value={parameters}
+                      onChange={(e) => setParameters(e.target.value)}
+                      data-testid="input-parameters"
                     />
                   </div>
-                  <Button className="w-full" data-testid="button-execute">
-                    <Rocket className="h-4 w-4 mr-2" />
-                    {t('stakingSdk.executeRequest')}
+                  <Button 
+                    className="w-full" 
+                    data-testid="button-execute"
+                    onClick={handleExecuteRequest}
+                    disabled={isExecuting}
+                  >
+                    {isExecuting ? (
+                      <>
+                        <Activity className="h-4 w-4 mr-2 animate-spin" />
+                        {t('stakingSdk.executing')}
+                      </>
+                    ) : (
+                      <>
+                        <Rocket className="h-4 w-4 mr-2" />
+                        {t('stakingSdk.executeRequest')}
+                      </>
+                    )}
                   </Button>
                 </div>
-                <div>
-                  <label className="text-sm font-medium">{t('stakingSdk.response')}</label>
-                  <pre className="mt-1 p-4 rounded-lg bg-muted h-64 overflow-auto">
-                    <code className="text-sm font-mono text-muted-foreground">
-                      {`// ${t('stakingSdk.response')} will appear here...`}
-                    </code>
-                  </pre>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">{t('stakingSdk.response')}</label>
+                    <div className="flex items-center gap-2">
+                      {responseStatus && (
+                        <Badge variant={responseStatus < 400 ? "default" : "destructive"}>
+                          {responseStatus}
+                        </Badge>
+                      )}
+                      {responseTime !== null && (
+                        <Badge variant="outline" className="text-xs">
+                          {responseTime}ms
+                        </Badge>
+                      )}
+                      {response && (
+                        <Button variant="ghost" size="sm" onClick={handleCopyResponse}>
+                          <Copy className="h-3 w-3" />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                  <ScrollArea className="h-64 rounded-lg bg-muted">
+                    <pre className="p-4">
+                      <code className={`text-sm font-mono ${response ? 'text-foreground' : 'text-muted-foreground'}`}>
+                        {response || `// ${t('stakingSdk.responseWillAppear')}`}
+                      </code>
+                    </pre>
+                  </ScrollArea>
                 </div>
               </div>
             </CardContent>
