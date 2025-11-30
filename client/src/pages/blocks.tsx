@@ -283,7 +283,7 @@ function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
       <TableCell>
         <div className="flex items-center gap-2">
           <Clock className="h-3 w-3 text-muted-foreground" />
-          <span className="text-sm">
+          <span className="text-xs">
             {new Date(block.timestamp * 1000).toLocaleString('en-US', {
               month: 'short',
               day: 'numeric',
@@ -757,7 +757,7 @@ export default function Blocks() {
             data-testid="button-export"
           >
             <Download className="h-4 w-4" />
-            <span className="hidden sm:inline">{t('common.export')}</span>
+            <span className="hidden sm:inline">{t('blocks.export')}</span>
           </Button>
         </div>
       </div>
