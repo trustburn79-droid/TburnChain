@@ -488,17 +488,274 @@ const apiEndpoints = [
   }
 ];
 
-const playgroundEndpoints = [
-  { value: "/api/staking/pools", label: "GET /api/staking/pools", method: "GET" },
-  { value: "/api/staking/stats", label: "GET /api/staking/stats", method: "GET" },
-  { value: "/api/staking/tiers", label: "GET /api/staking/tiers", method: "GET" },
-  { value: "/api/staking/rewards/current", label: "GET /api/staking/rewards/current", method: "GET" },
-  { value: "/api/staking/rewards/cycles", label: "GET /api/staking/rewards/cycles", method: "GET" },
-  { value: "/api/staking/unbonding", label: "GET /api/staking/unbonding", method: "GET" },
-  { value: "/api/staking/slashing", label: "GET /api/staking/slashing", method: "GET" },
-  { value: "/api/validators", label: "GET /api/validators", method: "GET" },
-  { value: "/api/blocks", label: "GET /api/blocks", method: "GET" },
-  { value: "/api/transactions", label: "GET /api/transactions", method: "GET" },
+interface PlaygroundEndpoint {
+  value: string;
+  label: string;
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  category: string;
+  description: string;
+  defaultParams: string;
+  requiresAuth: boolean;
+  sampleResponse?: string;
+}
+
+const playgroundEndpoints: PlaygroundEndpoint[] = [
+  // Staking Pools
+  { 
+    value: "/api/staking/pools", 
+    label: "GET /api/staking/pools", 
+    method: "GET",
+    category: "pools",
+    description: "Get all available staking pools with tier information",
+    defaultParams: '{}',
+    requiresAuth: false,
+    sampleResponse: '{ "pools": [...], "total": 12 }'
+  },
+  { 
+    value: "/api/staking/pools/:id", 
+    label: "GET /api/staking/pools/:id", 
+    method: "GET",
+    category: "pools",
+    description: "Get a specific staking pool by ID",
+    defaultParams: '{\n  "id": "pool-gold-001"\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/staking/stats", 
+    label: "GET /api/staking/stats", 
+    method: "GET",
+    category: "pools",
+    description: "Get overall staking statistics and TVL",
+    defaultParams: '{}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/staking/tiers", 
+    label: "GET /api/staking/tiers", 
+    method: "GET",
+    category: "pools",
+    description: "Get tier configuration and requirements",
+    defaultParams: '{}',
+    requiresAuth: false
+  },
+  // Positions
+  { 
+    value: "/api/staking/positions", 
+    label: "GET /api/staking/positions", 
+    method: "GET",
+    category: "positions",
+    description: "Get staking positions for an address",
+    defaultParams: '{\n  "address": "0x1234567890abcdef1234567890abcdef12345678"\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/staking/delegations", 
+    label: "GET /api/staking/delegations", 
+    method: "GET",
+    category: "positions",
+    description: "Get delegation positions for an address",
+    defaultParams: '{\n  "address": "0x1234567890abcdef1234567890abcdef12345678"\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/staking/unbonding", 
+    label: "GET /api/staking/unbonding", 
+    method: "GET",
+    category: "positions",
+    description: "Get pending unbonding requests",
+    defaultParams: '{\n  "address": "0x1234567890abcdef1234567890abcdef12345678"\n}',
+    requiresAuth: false
+  },
+  // Rewards
+  { 
+    value: "/api/staking/rewards/current", 
+    label: "GET /api/staking/rewards/current", 
+    method: "GET",
+    category: "rewards",
+    description: "Get current reward cycle information",
+    defaultParams: '{}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/staking/rewards/cycles", 
+    label: "GET /api/staking/rewards/cycles", 
+    method: "GET",
+    category: "rewards",
+    description: "Get historical reward cycles",
+    defaultParams: '{\n  "limit": 10,\n  "offset": 0\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/staking/rewards/events", 
+    label: "GET /api/staking/rewards/events", 
+    method: "GET",
+    category: "rewards",
+    description: "Get reward distribution events",
+    defaultParams: '{\n  "limit": 20\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/staking/slashing", 
+    label: "GET /api/staking/slashing", 
+    method: "GET",
+    category: "rewards",
+    description: "Get slashing events history",
+    defaultParams: '{\n  "limit": 10\n}',
+    requiresAuth: false
+  },
+  // Validators
+  { 
+    value: "/api/validators", 
+    label: "GET /api/validators", 
+    method: "GET",
+    category: "validators",
+    description: "Get all validators with status and performance",
+    defaultParams: '{\n  "status": "active",\n  "limit": 50\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/validators/:address", 
+    label: "GET /api/validators/:address", 
+    method: "GET",
+    category: "validators",
+    description: "Get specific validator details",
+    defaultParams: '{\n  "address": "0xValidator1234567890abcdef"\n}',
+    requiresAuth: false
+  },
+  // Blocks & Transactions
+  { 
+    value: "/api/blocks", 
+    label: "GET /api/blocks", 
+    method: "GET",
+    category: "blockchain",
+    description: "Get recent blocks",
+    defaultParams: '{\n  "limit": 10\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/blocks/:height", 
+    label: "GET /api/blocks/:height", 
+    method: "GET",
+    category: "blockchain",
+    description: "Get block by height",
+    defaultParams: '{\n  "height": "11227500"\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/transactions", 
+    label: "GET /api/transactions", 
+    method: "GET",
+    category: "blockchain",
+    description: "Get recent transactions",
+    defaultParams: '{\n  "limit": 20,\n  "type": "all"\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/transactions/:hash", 
+    label: "GET /api/transactions/:hash", 
+    method: "GET",
+    category: "blockchain",
+    description: "Get transaction by hash",
+    defaultParams: '{\n  "hash": "0xabc123..."\n}',
+    requiresAuth: false
+  },
+  // Write Operations (POST)
+  { 
+    value: "/api/staking/stake", 
+    label: "POST /api/staking/stake", 
+    method: "POST",
+    category: "write",
+    description: "Create a new staking position",
+    defaultParams: '{\n  "poolId": "pool-gold-001",\n  "amount": "10000000000000000000000",\n  "autoCompound": true\n}',
+    requiresAuth: true
+  },
+  { 
+    value: "/api/staking/unstake", 
+    label: "POST /api/staking/unstake", 
+    method: "POST",
+    category: "write",
+    description: "Request unstaking from a position",
+    defaultParams: '{\n  "positionId": "pos-abc123",\n  "amount": "5000000000000000000000"\n}',
+    requiresAuth: true
+  },
+  { 
+    value: "/api/staking/claim", 
+    label: "POST /api/staking/claim", 
+    method: "POST",
+    category: "write",
+    description: "Claim pending rewards",
+    defaultParams: '{\n  "positionIds": ["pos-abc123", "pos-def456"]\n}',
+    requiresAuth: true
+  },
+  { 
+    value: "/api/delegation/delegate", 
+    label: "POST /api/delegation/delegate", 
+    method: "POST",
+    category: "write",
+    description: "Delegate tokens to a validator",
+    defaultParams: '{\n  "validatorAddress": "0xValidator...",\n  "amount": "100000000000000000000000"\n}',
+    requiresAuth: true
+  },
+  { 
+    value: "/api/delegation/redelegate", 
+    label: "POST /api/delegation/redelegate", 
+    method: "POST",
+    category: "write",
+    description: "Redelegate between validators",
+    defaultParams: '{\n  "fromValidator": "0xValidatorA...",\n  "toValidator": "0xValidatorB...",\n  "amount": "50000000000000000000000"\n}',
+    requiresAuth: true
+  },
+  // DeFi endpoints
+  { 
+    value: "/api/dex/pools", 
+    label: "GET /api/dex/pools", 
+    method: "GET",
+    category: "defi",
+    description: "Get DEX liquidity pools",
+    defaultParams: '{\n  "limit": 20\n}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/lending/markets", 
+    label: "GET /api/lending/markets", 
+    method: "GET",
+    category: "defi",
+    description: "Get lending markets",
+    defaultParams: '{}',
+    requiresAuth: false
+  },
+  { 
+    value: "/api/yield/vaults", 
+    label: "GET /api/yield/vaults", 
+    method: "GET",
+    category: "defi",
+    description: "Get yield farming vaults",
+    defaultParams: '{\n  "status": "active"\n}',
+    requiresAuth: false
+  },
+];
+
+interface RequestHistoryItem {
+  id: string;
+  endpoint: string;
+  method: string;
+  params: string;
+  headers: string;
+  status: number;
+  responseTime: number;
+  timestamp: number;
+  response: string;
+}
+
+const endpointCategories = [
+  { value: "all", label: "All Endpoints" },
+  { value: "pools", label: "Staking Pools" },
+  { value: "positions", label: "Positions" },
+  { value: "rewards", label: "Rewards" },
+  { value: "validators", label: "Validators" },
+  { value: "blockchain", label: "Blockchain" },
+  { value: "write", label: "Write Operations" },
+  { value: "defi", label: "DeFi" },
 ];
 
 const quickStartSteps = [
@@ -1157,16 +1414,80 @@ export default function StakingSDK() {
   const { toast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [selectedEndpoint, setSelectedEndpoint] = useState(playgroundEndpoints[0].value);
-  const [parameters, setParameters] = useState('{"address": "0x..."}');
+  const [parameters, setParameters] = useState(playgroundEndpoints[0].defaultParams);
   const [response, setResponse] = useState<string | null>(null);
   const [isExecuting, setIsExecuting] = useState(false);
   const [responseTime, setResponseTime] = useState<number | null>(null);
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
+  
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [customHeaders, setCustomHeaders] = useState('{\n  "Authorization": "Bearer YOUR_API_KEY"\n}');
+  const [showHeaders, setShowHeaders] = useState(false);
+  const [jsonError, setJsonError] = useState<string | null>(null);
+  const [requestHistory, setRequestHistory] = useState<RequestHistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [responseFormat, setResponseFormat] = useState<"formatted" | "raw">("formatted");
 
   const [quickStartOpen, setQuickStartOpen] = useState(false);
   const [apiReferenceOpen, setApiReferenceOpen] = useState(false);
   const [codeExamplesOpen, setCodeExamplesOpen] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
+
+  const currentEndpoint = playgroundEndpoints.find(ep => ep.value === selectedEndpoint);
+  
+  const filteredEndpoints = selectedCategory === "all" 
+    ? playgroundEndpoints 
+    : playgroundEndpoints.filter(ep => ep.category === selectedCategory);
+
+  const validateJson = (json: string): { valid: boolean; error: string | null } => {
+    const trimmed = json.trim();
+    if (!trimmed || trimmed === '{}') {
+      return { valid: true, error: null };
+    }
+    try {
+      JSON.parse(trimmed);
+      return { valid: true, error: null };
+    } catch (e) {
+      if (e instanceof Error) {
+        return { valid: false, error: e.message };
+      }
+      return { valid: false, error: 'Invalid JSON' };
+    }
+  };
+
+  const handleEndpointChange = (endpoint: string) => {
+    setSelectedEndpoint(endpoint);
+    const ep = playgroundEndpoints.find(e => e.value === endpoint);
+    if (ep) {
+      setParameters(ep.defaultParams);
+      setJsonError(null);
+    }
+  };
+
+  const handleParametersChange = (value: string) => {
+    setParameters(value);
+    const validation = validateJson(value);
+    setJsonError(validation.error);
+  };
+
+  const loadFromHistory = (item: RequestHistoryItem) => {
+    setSelectedEndpoint(item.endpoint);
+    setParameters(item.params);
+    setCustomHeaders(item.headers);
+    setShowHistory(false);
+    toast({
+      title: t('stakingSdk.historyLoaded'),
+      description: t('stakingSdk.historyLoadedDesc')
+    });
+  };
+
+  const clearHistory = () => {
+    setRequestHistory([]);
+    toast({
+      title: t('stakingSdk.historyCleared'),
+      description: t('stakingSdk.historyClearedDesc')
+    });
+  };
 
   const copyCode = (code: string, key: string) => {
     navigator.clipboard.writeText(code);
@@ -1195,53 +1516,139 @@ export default function StakingSDK() {
   };
 
   const handleExecuteRequest = async () => {
+    const validation = validateJson(parameters);
+    if (!validation.valid) {
+      toast({
+        title: t('stakingSdk.invalidJson'),
+        description: validation.error || 'Invalid JSON',
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsExecuting(true);
     setResponse(null);
     setResponseTime(null);
     setResponseStatus(null);
 
     const startTime = Date.now();
+    const endpoint = currentEndpoint;
+    const method = endpoint?.method || "GET";
 
     try {
       let url = selectedEndpoint;
+      let parsedParams: Record<string, any> = {};
       
       try {
-        const params = JSON.parse(parameters);
-        if (Object.keys(params).length > 0 && params.address !== "0x...") {
+        const trimmed = parameters.trim();
+        parsedParams = trimmed && trimmed !== '{}' ? JSON.parse(trimmed) : {};
+      } catch (e) {
+        parsedParams = {};
+      }
+
+      const pathParamKeys = ['id', 'height', 'hash', 'address'];
+      if (url.includes(':id')) {
+        url = url.replace(':id', parsedParams.id || 'pool-gold-001');
+      }
+      if (url.includes(':height')) {
+        url = url.replace(':height', parsedParams.height || '11227500');
+      }
+      if (url.includes(':hash')) {
+        url = url.replace(':hash', parsedParams.hash || '0xabc123');
+      }
+      if (url.includes(':address')) {
+        url = url.replace(':address', parsedParams.address || '0x1234');
+      }
+
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      };
+
+      if (showHeaders && customHeaders.trim()) {
+        try {
+          const parsedHeaders = JSON.parse(customHeaders);
+          Object.entries(parsedHeaders).forEach(([key, value]) => {
+            if (typeof value === 'string' && value && !value.includes('YOUR_API_KEY')) {
+              headers[key] = value;
+            }
+          });
+        } catch (e) {
+        }
+      }
+
+      let fetchOptions: RequestInit = {
+        method,
+        headers
+      };
+
+      if (method === "GET") {
+        const remainingParams = Object.fromEntries(
+          Object.entries(parsedParams).filter(([key]) => !pathParamKeys.includes(key))
+        );
+        if (Object.keys(remainingParams).length > 0) {
           const queryParams = new URLSearchParams();
-          Object.entries(params).forEach(([key, value]) => {
-            if (value && value !== "0x...") {
-              queryParams.append(key, String(value));
+          Object.entries(remainingParams).forEach(([key, value]) => {
+            if (value !== undefined && value !== null) {
+              if (typeof value === 'object') {
+                queryParams.append(key, JSON.stringify(value));
+              } else {
+                queryParams.append(key, String(value));
+              }
             }
           });
           const queryString = queryParams.toString();
           if (queryString) {
-            url = `${selectedEndpoint}?${queryString}`;
+            url = `${url}?${queryString}`;
           }
         }
-      } catch (e) {
+      } else {
+        const bodyParams = Object.fromEntries(
+          Object.entries(parsedParams).filter(([key]) => !pathParamKeys.includes(key))
+        );
+        if (Object.keys(bodyParams).length > 0) {
+          fetchOptions.body = JSON.stringify(bodyParams);
+        }
       }
 
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      });
+      const res = await fetch(url, fetchOptions);
 
       const endTime = Date.now();
-      setResponseTime(endTime - startTime);
+      const elapsed = endTime - startTime;
+      setResponseTime(elapsed);
       setResponseStatus(res.status);
 
-      const data = await res.json();
-      setResponse(JSON.stringify(data, null, 2));
+      let data;
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await res.json();
+      } else {
+        data = { message: await res.text() };
+      }
+      
+      const responseString = responseFormat === "formatted" 
+        ? JSON.stringify(data, null, 2)
+        : JSON.stringify(data);
+      setResponse(responseString);
+
+      const historyItem: RequestHistoryItem = {
+        id: `req-${Date.now()}`,
+        endpoint: selectedEndpoint,
+        method,
+        params: parameters,
+        headers: customHeaders,
+        status: res.status,
+        responseTime: elapsed,
+        timestamp: Date.now(),
+        response: responseString.slice(0, 500)
+      };
+      setRequestHistory(prev => [historyItem, ...prev].slice(0, 20));
 
       toast({
         title: t('stakingSdk.requestSuccess'),
         description: t('stakingSdk.requestSuccessDesc', { 
           status: res.status,
-          time: endTime - startTime 
+          time: elapsed 
         })
       });
     } catch (error) {
@@ -1765,45 +2172,181 @@ export default function StakingSDK() {
         <TabsContent value="playground" className="space-y-4">
           <Card data-testid="card-playground">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Terminal className="h-5 w-5" />
-                {t('stakingSdk.interactivePlayground')}
-              </CardTitle>
-              <CardDescription>
-                {t('stakingSdk.playgroundDesc')}
-              </CardDescription>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Terminal className="h-5 w-5" />
+                    {t('stakingSdk.interactivePlayground')}
+                  </CardTitle>
+                  <CardDescription className="mt-1">
+                    {t('stakingSdk.playgroundDesc')}
+                  </CardDescription>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowHistory(!showHistory)}
+                    data-testid="button-toggle-history"
+                  >
+                    <Clock className="h-4 w-4 mr-1" />
+                    {t('stakingSdk.history')} ({requestHistory.length})
+                  </Button>
+                  <Button
+                    variant={showHeaders ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setShowHeaders(!showHeaders)}
+                    data-testid="button-toggle-headers"
+                  >
+                    <Lock className="h-4 w-4 mr-1" />
+                    {t('stakingSdk.headers')}
+                  </Button>
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              {showHistory && requestHistory.length > 0 && (
+                <div className="mb-4 p-4 rounded-lg border bg-muted/50">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-medium flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      {t('stakingSdk.requestHistory')}
+                    </h4>
+                    <Button variant="ghost" size="sm" onClick={clearHistory}>
+                      {t('stakingSdk.clearHistory')}
+                    </Button>
+                  </div>
+                  <ScrollArea className="h-32">
+                    <div className="space-y-2">
+                      {requestHistory.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-center justify-between p-2 rounded border bg-background hover-elevate cursor-pointer"
+                          onClick={() => loadFromHistory(item)}
+                          data-testid={`history-item-${item.id}`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <Badge variant={item.method === "GET" ? "default" : "secondary"} className="text-xs">
+                              {item.method}
+                            </Badge>
+                            <code className="text-xs">{item.endpoint}</code>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Badge variant={item.status < 400 ? "outline" : "destructive"} className="text-xs">
+                              {item.status}
+                            </Badge>
+                            <span className="text-xs text-muted-foreground">{item.responseTime}ms</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </div>
+              )}
+
+              <div className="grid gap-4 lg:grid-cols-2">
                 <div className="space-y-4">
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <label className="text-sm font-medium">{t('stakingSdk.category')}</label>
+                      <select 
+                        className="w-full mt-1 p-2 rounded-md border bg-background"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        data-testid="select-category"
+                      >
+                        {endpointCategories.map((cat) => (
+                          <option key={cat.value} value={cat.value}>{cat.label}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  
                   <div>
                     <label className="text-sm font-medium">{t('stakingSdk.endpoint')}</label>
                     <select 
-                      className="w-full mt-1 p-2 rounded-md border bg-background"
+                      className="w-full mt-1 p-2 rounded-md border bg-background font-mono text-sm"
                       value={selectedEndpoint}
-                      onChange={(e) => setSelectedEndpoint(e.target.value)}
+                      onChange={(e) => handleEndpointChange(e.target.value)}
                       data-testid="select-endpoint"
                     >
-                      {playgroundEndpoints.map((ep) => (
+                      {filteredEndpoints.map((ep) => (
                         <option key={ep.value} value={ep.value}>{ep.label}</option>
                       ))}
                     </select>
+                    {currentEndpoint && (
+                      <div className="mt-2 flex items-center gap-2 flex-wrap">
+                        <Badge variant={currentEndpoint.method === "GET" ? "default" : "secondary"}>
+                          {currentEndpoint.method}
+                        </Badge>
+                        {currentEndpoint.requiresAuth && (
+                          <Badge variant="outline" className="text-xs">
+                            <Lock className="h-3 w-3 mr-1" />
+                            {t('stakingSdk.requiresAuth')}
+                          </Badge>
+                        )}
+                        <p className="text-xs text-muted-foreground">{currentEndpoint.description}</p>
+                      </div>
+                    )}
                   </div>
+
+                  {showHeaders && (
+                    <div>
+                      <label className="text-sm font-medium flex items-center gap-2">
+                        <Lock className="h-4 w-4" />
+                        {t('stakingSdk.customHeaders')}
+                      </label>
+                      <textarea 
+                        className="w-full mt-1 p-3 rounded-md border bg-background font-mono text-sm h-24"
+                        value={customHeaders}
+                        onChange={(e) => setCustomHeaders(e.target.value)}
+                        data-testid="input-headers"
+                      />
+                    </div>
+                  )}
+                  
                   <div>
-                    <label className="text-sm font-medium">{t('stakingSdk.parametersJson')}</label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-sm font-medium">
+                        {currentEndpoint?.method === "POST" 
+                          ? t('stakingSdk.requestBody') 
+                          : t('stakingSdk.parametersJson')}
+                      </label>
+                      {currentEndpoint && (
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => setParameters(currentEndpoint.defaultParams)}
+                          data-testid="button-reset-params"
+                        >
+                          <RefreshCw className="h-3 w-3 mr-1" />
+                          {t('stakingSdk.resetDefault')}
+                        </Button>
+                      )}
+                    </div>
                     <textarea 
-                      className="w-full mt-1 p-2 rounded-md border bg-background font-mono text-sm h-32"
+                      className={`w-full p-3 rounded-md border bg-background font-mono text-sm h-40 ${
+                        jsonError ? 'border-destructive' : ''
+                      }`}
                       placeholder='{"address": "0x..."}'
                       value={parameters}
-                      onChange={(e) => setParameters(e.target.value)}
+                      onChange={(e) => handleParametersChange(e.target.value)}
                       data-testid="input-parameters"
                     />
+                    {jsonError && (
+                      <div className="mt-1 flex items-center gap-1 text-destructive text-xs">
+                        <AlertCircle className="h-3 w-3" />
+                        {t('stakingSdk.jsonSyntaxError')}: {jsonError}
+                      </div>
+                    )}
                   </div>
+                  
                   <Button 
                     className="w-full" 
+                    size="lg"
                     data-testid="button-execute"
                     onClick={handleExecuteRequest}
-                    disabled={isExecuting}
+                    disabled={isExecuting || !!jsonError}
                   >
                     {isExecuting ? (
                       <>
@@ -1818,34 +2361,69 @@ export default function StakingSDK() {
                     )}
                   </Button>
                 </div>
+                
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <label className="text-sm font-medium">{t('stakingSdk.response')}</label>
                     <div className="flex items-center gap-2">
                       {responseStatus && (
                         <Badge variant={responseStatus < 400 ? "default" : "destructive"}>
-                          {responseStatus}
+                          {responseStatus} {responseStatus < 400 ? 'OK' : 'Error'}
                         </Badge>
                       )}
                       {responseTime !== null && (
                         <Badge variant="outline" className="text-xs">
+                          <Clock className="h-3 w-3 mr-1" />
                           {responseTime}ms
                         </Badge>
                       )}
+                      <div className="flex border rounded">
+                        <Button 
+                          variant={responseFormat === "formatted" ? "default" : "ghost"} 
+                          size="sm"
+                          className="rounded-r-none h-7 px-2"
+                          onClick={() => setResponseFormat("formatted")}
+                          data-testid="button-format-formatted"
+                        >
+                          <FileCode className="h-3 w-3" />
+                        </Button>
+                        <Button 
+                          variant={responseFormat === "raw" ? "default" : "ghost"} 
+                          size="sm"
+                          className="rounded-l-none h-7 px-2"
+                          onClick={() => setResponseFormat("raw")}
+                          data-testid="button-format-raw"
+                        >
+                          <Braces className="h-3 w-3" />
+                        </Button>
+                      </div>
                       {response && (
                         <Button variant="ghost" size="sm" onClick={handleCopyResponse} data-testid="button-copy-response">
-                          <Copy className="h-3 w-3" />
+                          <Copy className="h-4 w-4" />
                         </Button>
                       )}
                     </div>
                   </div>
-                  <ScrollArea className="h-64 rounded-lg bg-muted">
+                  <ScrollArea className="h-[400px] rounded-lg bg-muted border">
                     <pre className="p-4">
-                      <code className={`text-sm font-mono ${response ? 'text-foreground' : 'text-muted-foreground'}`}>
+                      <code className={`text-sm font-mono whitespace-pre-wrap break-all ${
+                        response 
+                          ? responseStatus && responseStatus >= 400 
+                            ? 'text-destructive' 
+                            : 'text-foreground'
+                          : 'text-muted-foreground'
+                      }`}>
                         {response || `// ${t('stakingSdk.responseWillAppear')}`}
                       </code>
                     </pre>
                   </ScrollArea>
+                  
+                  {response && (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Server className="h-3 w-3" />
+                      {t('stakingSdk.responseSize')}: {(new Blob([response]).size / 1024).toFixed(2)} KB
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
