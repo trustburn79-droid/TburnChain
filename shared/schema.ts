@@ -1287,7 +1287,7 @@ export const consensusRoundSelectSchema = insertConsensusRoundSchema.extend({
 // Shards (add read-only fields)
 export const shardSelectSchema = insertShardSchema.extend({
   id: z.string(),
-  lastSyncedAt: z.string().or(z.date()).optional(),
+  lastSyncedAt: z.string().or(z.date()).nullish(),
 });
 
 // Snapshot schemas (arrays for periodic broadcasts)
