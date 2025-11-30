@@ -6121,5 +6121,34 @@
         "content": "欢迎来到TBURN社区！本指南将帮助你开始使用生态系统。"
       }
     }
+  },
+  "search": {
+    "placeholder": "按地址/交易哈希/区块搜索...",
+    "placeholderShort": "搜索...",
+    "search": "搜索",
+    "searching": "搜索中...",
+    "resultsFound": "找到 {{count}} 个结果",
+    "noResults": "未找到结果",
+    "noResultsDescription": "我们找不到与您的搜索匹配的内容。请尝试不同的关键词或检查拼写。",
+    "suggestions": "试试：",
+    "viewAllResults": "查看全部 {{count}} 个结果",
+    "resultsFor": "搜索结果",
+    "queryLabel": "显示结果：",
+    "enterQuery": "输入搜索词",
+    "searchDescription": "搜索区块、交易、地址或验证者",
+    "error": "搜索错误",
+    "errorDescription": "获取搜索结果失败。请重试。",
+    "showingResults": "显示 {{shown}} / {{total}} 个结果",
+    "sortedByRelevance": "按相关性排序",
+    "tryThese": "试试这些建议：",
+    "types": {
+      "all": "全部",
+      "block": "区块",
+      "transaction": "交易",
+      "address": "地址",
+      "validator": "验证者",
+      "token": "代币",
+      "contract": "合约"
+    }
   }
 }

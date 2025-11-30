@@ -4861,5 +4861,34 @@
         "content": "TBURN समुदाय में आपका स्वागत है! यह गाइड आपको इकोसिस्टम शुरू करने में मदद करेगी।"
       }
     }
+  },
+  "search": {
+    "placeholder": "पता / Tx हैश / ब्लॉक से खोजें...",
+    "placeholderShort": "खोजें...",
+    "search": "खोजें",
+    "searching": "खोज रहा है...",
+    "resultsFound": "{{count}} परिणाम मिले",
+    "noResults": "कोई परिणाम नहीं मिला",
+    "noResultsDescription": "हमें आपकी खोज से मेल खाने वाला कोई परिणाम नहीं मिला। अलग कीवर्ड आज़माएं या वर्तनी जांचें।",
+    "suggestions": "कोशिश करें:",
+    "viewAllResults": "सभी {{count}} परिणाम देखें",
+    "resultsFor": "खोज परिणाम",
+    "queryLabel": "के लिए परिणाम दिखा रहा है:",
+    "enterQuery": "खोज क्वेरी दर्ज करें",
+    "searchDescription": "ब्लॉक, ट्रांजैक्शन, पते, या वैलिडेटर खोजें",
+    "error": "खोज त्रुटि",
+    "errorDescription": "खोज परिणाम प्राप्त करने में विफल। कृपया पुनः प्रयास करें।",
+    "showingResults": "{{shown}} / {{total}} परिणाम दिखा रहा है",
+    "sortedByRelevance": "प्रासंगिकता के अनुसार क्रमबद्ध",
+    "tryThese": "ये सुझाव आज़माएं:",
+    "types": {
+      "all": "सभी",
+      "block": "ब्लॉक",
+      "transaction": "ट्रांजैक्शन",
+      "address": "पता",
+      "validator": "वैलिडेटर",
+      "token": "टोकन",
+      "contract": "कॉन्ट्रैक्ट"
+    }
   }
 }

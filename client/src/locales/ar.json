@@ -4395,5 +4395,34 @@
       "stakingRatioImpact": "تأثير نسبة التخزين",
       "active": "نشط"
     }
+  },
+  "search": {
+    "placeholder": "البحث بالعنوان / هاش المعاملة / الكتلة...",
+    "placeholderShort": "بحث...",
+    "search": "بحث",
+    "searching": "جاري البحث...",
+    "resultsFound": "تم العثور على {{count}} نتيجة",
+    "noResults": "لم يتم العثور على نتائج",
+    "noResultsDescription": "لم نتمكن من العثور على أي تطابق لبحثك. جرب كلمات مفتاحية مختلفة أو تحقق من الإملاء.",
+    "suggestions": "جرب:",
+    "viewAllResults": "عرض جميع النتائج {{count}}",
+    "resultsFor": "نتائج البحث",
+    "queryLabel": "عرض النتائج لـ:",
+    "enterQuery": "أدخل استعلام البحث",
+    "searchDescription": "البحث عن الكتل أو المعاملات أو العناوين أو المدققين",
+    "error": "خطأ في البحث",
+    "errorDescription": "فشل في جلب نتائج البحث. يرجى المحاولة مرة أخرى.",
+    "showingResults": "عرض {{shown}} من {{total}} نتيجة",
+    "sortedByRelevance": "مرتبة حسب الصلة",
+    "tryThese": "جرب هذه الاقتراحات:",
+    "types": {
+      "all": "الكل",
+      "block": "كتلة",
+      "transaction": "معاملة",
+      "address": "عنوان",
+      "validator": "مدقق",
+      "token": "رمز",
+      "contract": "عقد"
+    }
   }
 }

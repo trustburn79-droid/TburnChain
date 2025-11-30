@@ -6293,5 +6293,34 @@
     "copied": "복사됨",
     "addressCopied": "주소가 클립보드에 복사되었습니다",
     "txHashCopied": "거래 해시가 클립보드에 복사되었습니다"
+  },
+  "search": {
+    "placeholder": "주소 / 트랜잭션 해시 / 블록으로 검색...",
+    "placeholderShort": "검색...",
+    "search": "검색",
+    "searching": "검색 중...",
+    "resultsFound": "{{count}}개 결과",
+    "noResults": "결과를 찾을 수 없습니다",
+    "noResultsDescription": "검색어와 일치하는 결과를 찾을 수 없습니다. 다른 키워드를 사용하거나 철자를 확인해 주세요.",
+    "suggestions": "다음을 시도해 보세요:",
+    "viewAllResults": "전체 {{count}}개 결과 보기",
+    "resultsFor": "검색 결과",
+    "queryLabel": "검색어:",
+    "enterQuery": "검색어를 입력하세요",
+    "searchDescription": "블록, 트랜잭션, 주소 또는 검증자를 검색하세요",
+    "error": "검색 오류",
+    "errorDescription": "검색 결과를 가져오는 데 실패했습니다. 다시 시도해 주세요.",
+    "showingResults": "{{total}}개 중 {{shown}}개 결과 표시",
+    "sortedByRelevance": "관련성 순 정렬",
+    "tryThese": "다음을 시도해 보세요:",
+    "types": {
+      "all": "전체",
+      "block": "블록",
+      "transaction": "트랜잭션",
+      "address": "주소",
+      "validator": "검증자",
+      "token": "토큰",
+      "contract": "컨트랙트"
+    }
   }
 }

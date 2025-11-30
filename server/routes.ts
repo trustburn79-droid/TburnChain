@@ -379,6 +379,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/validators/stats")) {
       return next();
     }
+    // Skip auth check for search (public access)
+    if (req.path.startsWith("/search")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
 
@@ -533,6 +537,244 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching TPS history:", error);
       res.status(500).json({ error: "Failed to fetch TPS history" });
+    }
+  });
+
+  // ============================================
+  // Universal Search API - Enterprise-Grade Search
+  // ============================================
+  app.get("/api/search", async (req, res) => {
+    try {
+      const query = (req.query.q as string || "").trim();
+      const type = req.query.type as string; // Optional: 'block', 'tx', 'address', 'all'
+      const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
+      
+      if (!query) {
+        return res.status(400).json({ error: "Search query is required" });
+      }
+      
+      const results: {
+        type: 'block' | 'transaction' | 'address' | 'token' | 'validator' | 'contract';
+        id: string;
+        title: string;
+        subtitle: string;
+        data: any;
+        relevance: number;
+      }[] = [];
+      
+      // Detect query type
+      const isBlockNumber = /^\d+$/.test(query);
+      const isTxHash = /^0x[a-fA-F0-9]{64}$/.test(query);
+      const isAddress = /^0x[a-fA-F0-9]{40}$/.test(query) || /^tburn[a-z0-9]{38,42}$/i.test(query);
+      const isPartialHash = /^0x[a-fA-F0-9]+$/.test(query) && query.length >= 10;
+      
+      // Search blocks (optimized: use recent blocks instead of all)
+      if (!type || type === 'all' || type === 'block') {
+        if (isBlockNumber) {
+          const blockNumber = parseInt(query);
+          // Use recent blocks for faster search
+          const recentBlocks = await storage.getRecentBlocks(1000);
+          const block = recentBlocks.find(b => b.blockNumber === blockNumber);
+          if (block) {
+            results.push({
+              type: 'block',
+              id: block.id,
+              title: `Block #${block.blockNumber.toLocaleString()}`,
+              subtitle: `Hash: ${block.hash.slice(0, 20)}...`,
+              data: block,
+              relevance: 100
+            });
+          }
+        } else if (isPartialHash) {
+          const recentBlocks = await storage.getRecentBlocks(500);
+          const matchingBlocks = recentBlocks.filter(b => 
+            b.hash.toLowerCase().includes(query.toLowerCase())
+          ).slice(0, limit);
+          matchingBlocks.forEach((block, i) => {
+            results.push({
+              type: 'block',
+              id: block.id,
+              title: `Block #${block.blockNumber.toLocaleString()}`,
+              subtitle: `Hash: ${block.hash.slice(0, 20)}...`,
+              data: block,
+              relevance: 90 - i
+            });
+          });
+        }
+      }
+      
+      // Search transactions
+      if (!type || type === 'all' || type === 'tx' || type === 'transaction') {
+        if (isTxHash) {
+          const tx = await storage.getTransaction(query);
+          if (tx) {
+            results.push({
+              type: 'transaction',
+              id: tx.hash,
+              title: `Transaction ${tx.hash.slice(0, 16)}...`,
+              subtitle: `${tx.status} • ${tx.value} TBURN`,
+              data: tx,
+              relevance: 100
+            });
+          }
+        } else if (isPartialHash) {
+          const allTxs = await storage.getRecentTransactions(500);
+          const matchingTxs = allTxs.filter(tx => 
+            tx.hash.toLowerCase().includes(query.toLowerCase())
+          ).slice(0, limit);
+          matchingTxs.forEach((tx, i) => {
+            results.push({
+              type: 'transaction',
+              id: tx.hash,
+              title: `Transaction ${tx.hash.slice(0, 16)}...`,
+              subtitle: `${tx.status} • ${tx.value} TBURN`,
+              data: tx,
+              relevance: 85 - i
+            });
+          });
+        }
+      }
+      
+      // Search addresses/wallets
+      if (!type || type === 'all' || type === 'address') {
+        if (isAddress) {
+          const wallet = await storage.getWalletBalance(query);
+          if (wallet) {
+            results.push({
+              type: 'address',
+              id: query,
+              title: `Address ${query.slice(0, 12)}...${query.slice(-8)}`,
+              subtitle: `Balance: ${wallet.balance} TBURN`,
+              data: wallet,
+              relevance: 100
+            });
+          } else {
+            // Create a result for the address even if not found in wallet table
+            results.push({
+              type: 'address',
+              id: query,
+              title: `Address ${query.slice(0, 12)}...${query.slice(-8)}`,
+              subtitle: `View address details`,
+              data: { address: query, balance: '0' },
+              relevance: 80
+            });
+          }
+          
+          // Also search for transactions related to this address
+          const allTxs = await storage.getRecentTransactions(500);
+          const relatedTxs = allTxs.filter(tx => 
+            tx.from.toLowerCase() === query.toLowerCase() || 
+            tx.to.toLowerCase() === query.toLowerCase()
+          ).slice(0, 5);
+          relatedTxs.forEach((tx, i) => {
+            results.push({
+              type: 'transaction',
+              id: tx.hash,
+              title: `Transaction ${tx.hash.slice(0, 16)}...`,
+              subtitle: `${tx.from === query ? 'Sent' : 'Received'} ${tx.value} TBURN`,
+              data: tx,
+              relevance: 70 - i
+            });
+          });
+        }
+      }
+      
+      // Search validators
+      if (!type || type === 'all' || type === 'validator') {
+        const validators = await storage.getAllValidators();
+        const matchingValidators = validators.filter(v => 
+          v.name.toLowerCase().includes(query.toLowerCase()) ||
+          v.address.toLowerCase().includes(query.toLowerCase())
+        ).slice(0, limit);
+        matchingValidators.forEach((validator, i) => {
+          results.push({
+            type: 'validator',
+            id: validator.address,
+            title: validator.name,
+            subtitle: `${validator.status} • Stake: ${validator.stake} TBURN`,
+            data: validator,
+            relevance: 75 - i
+          });
+        });
+      }
+      
+      // Sort by relevance
+      results.sort((a, b) => b.relevance - a.relevance);
+      
+      res.json({
+        query,
+        count: results.length,
+        results: results.slice(0, limit),
+        suggestions: results.length === 0 ? [
+          { text: "Search by block number (e.g., 1234567)" },
+          { text: "Search by transaction hash (e.g., 0x...)" },
+          { text: "Search by address (e.g., 0x... or tburn...)" },
+          { text: "Search by validator name" }
+        ] : []
+      });
+    } catch (error) {
+      console.error("Error in universal search:", error);
+      res.status(500).json({ error: "Search failed" });
+    }
+  });
+
+  // Search suggestions/autocomplete endpoint
+  app.get("/api/search/suggestions", async (req, res) => {
+    try {
+      const query = (req.query.q as string || "").trim().toLowerCase();
+      const limit = Math.min(parseInt(req.query.limit as string) || 5, 10);
+      
+      if (query.length < 2) {
+        return res.json({ suggestions: [] });
+      }
+      
+      const suggestions: { type: string; text: string; value: string }[] = [];
+      
+      // Block number suggestions
+      if (/^\d+$/.test(query)) {
+        const blockNum = parseInt(query);
+        suggestions.push({
+          type: 'block',
+          text: `Block #${blockNum.toLocaleString()}`,
+          value: query
+        });
+      }
+      
+      // Address/hash pattern suggestions
+      if (query.startsWith('0x')) {
+        if (query.length >= 10 && query.length <= 42) {
+          suggestions.push({
+            type: 'address',
+            text: `Address starting with ${query}`,
+            value: query
+          });
+        }
+        if (query.length >= 10) {
+          suggestions.push({
+            type: 'transaction',
+            text: `Transaction hash starting with ${query}`,
+            value: query
+          });
+        }
+      }
+      
+      // Validator name suggestions
+      const validators = await storage.getAllValidators();
+      const matchingValidators = validators.filter(v => 
+        v.name.toLowerCase().includes(query)
+      ).slice(0, 3);
+      matchingValidators.forEach(v => {
+        suggestions.push({
+          type: 'validator',
+          text: v.name,
+          value: v.address
+        });
+      });
+      
+      res.json({ suggestions: suggestions.slice(0, limit) });
+    } catch (error) {
+      console.error("Error fetching search suggestions:", error);
+      res.status(500).json({ error: "Failed to fetch suggestions" });
     }
   });
 

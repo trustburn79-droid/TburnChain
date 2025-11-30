@@ -6325,5 +6325,34 @@
         "content": "TBURNコミュニティへようこそ！このガイドがエコシステムの開始をお手伝いします。"
       }
     }
+  },
+  "search": {
+    "placeholder": "アドレス / Txハッシュ / ブロックで検索...",
+    "placeholderShort": "検索...",
+    "search": "検索",
+    "searching": "検索中...",
+    "resultsFound": "{{count}}件の結果が見つかりました",
+    "noResults": "結果が見つかりませんでした",
+    "noResultsDescription": "検索に一致するものが見つかりませんでした。別のキーワードを試すか、スペルを確認してください。",
+    "suggestions": "試してみてください：",
+    "viewAllResults": "すべての {{count}} 件の結果を表示",
+    "resultsFor": "検索結果",
+    "queryLabel": "表示中の結果：",
+    "enterQuery": "検索クエリを入力",
+    "searchDescription": "ブロック、トランザクション、アドレス、バリデーターを検索",
+    "error": "検索エラー",
+    "errorDescription": "検索結果の取得に失敗しました。もう一度お試しください。",
+    "showingResults": "{{shown}} / {{total}} 件の結果を表示中",
+    "sortedByRelevance": "関連性順",
+    "tryThese": "これらの提案を試してください：",
+    "types": {
+      "all": "すべて",
+      "block": "ブロック",
+      "transaction": "トランザクション",
+      "address": "アドレス",
+      "validator": "バリデーター",
+      "token": "トークン",
+      "contract": "コントラクト"
+    }
   }
 }

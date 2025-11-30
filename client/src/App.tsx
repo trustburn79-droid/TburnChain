@@ -76,6 +76,9 @@ import GameFiPage from "@/pages/gamefi";
 // Community Pages
 import CommunityPage from "@/pages/community";
 
+// Search Results Page
+import SearchResults from "@/pages/search-results";
+
 // Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
@@ -146,6 +149,9 @@ function Router() {
       <Route path="/gamefi" component={GameFiPage} />
       {/* Community Routes */}
       <Route path="/community" component={CommunityPage} />
+      {/* Search Routes */}
+      <Route path="/search" component={SearchResults} />
+      <Route path="/address/:address" component={WalletDetail} />
       <Route path="/contracts" component={SmartContracts} />
       <Route path="/health" component={NodeHealth} />
       <Route path="/metrics" component={PerformanceMetrics} />

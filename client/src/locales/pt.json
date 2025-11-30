@@ -3570,5 +3570,34 @@
         "content": "Bem-vindo à comunidade TBURN! Este guia ajudará você a começar com o ecossistema."
       }
     }
+  },
+  "search": {
+    "placeholder": "Pesquisar por Endereço / Hash Tx / Bloco...",
+    "placeholderShort": "Pesquisar...",
+    "search": "Pesquisar",
+    "searching": "Pesquisando...",
+    "resultsFound": "{{count}} resultados encontrados",
+    "noResults": "Nenhum resultado encontrado",
+    "noResultsDescription": "Não encontramos nenhuma correspondência para sua pesquisa. Tente palavras-chave diferentes ou verifique a ortografia.",
+    "suggestions": "Tente:",
+    "viewAllResults": "Ver todos os {{count}} resultados",
+    "resultsFor": "Resultados da Pesquisa",
+    "queryLabel": "Mostrando resultados para:",
+    "enterQuery": "Digite uma consulta de pesquisa",
+    "searchDescription": "Pesquisar blocos, transações, endereços ou validadores",
+    "error": "Erro de Pesquisa",
+    "errorDescription": "Falha ao obter resultados da pesquisa. Por favor, tente novamente.",
+    "showingResults": "Mostrando {{shown}} de {{total}} resultados",
+    "sortedByRelevance": "Ordenado por relevância",
+    "tryThese": "Tente estas sugestões:",
+    "types": {
+      "all": "Todos",
+      "block": "Bloco",
+      "transaction": "Transação",
+      "address": "Endereço",
+      "validator": "Validador",
+      "token": "Token",
+      "contract": "Contrato"
+    }
   }
 }

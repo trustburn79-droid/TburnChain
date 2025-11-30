@@ -6208,5 +6208,34 @@
     "copied": "Copied",
     "addressCopied": "Address copied to clipboard",
     "txHashCopied": "Transaction hash copied to clipboard"
+  },
+  "search": {
+    "placeholder": "Search by Address / Tx Hash / Block...",
+    "placeholderShort": "Search...",
+    "search": "Search",
+    "searching": "Searching...",
+    "resultsFound": "{{count}} results found",
+    "noResults": "No results found",
+    "noResultsDescription": "We couldn't find any matches for your search. Try different keywords or check your spelling.",
+    "suggestions": "Try:",
+    "viewAllResults": "View all {{count}} results",
+    "resultsFor": "Search Results",
+    "queryLabel": "Showing results for:",
+    "enterQuery": "Enter a search query",
+    "searchDescription": "Search for blocks, transactions, addresses, or validators",
+    "error": "Search Error",
+    "errorDescription": "Failed to fetch search results. Please try again.",
+    "showingResults": "Showing {{shown}} of {{total}} results",
+    "sortedByRelevance": "Sorted by relevance",
+    "tryThese": "Try these suggestions:",
+    "types": {
+      "all": "All",
+      "block": "Block",
+      "transaction": "Transaction",
+      "address": "Address",
+      "validator": "Validator",
+      "token": "Token",
+      "contract": "Contract"
+    }
   }
 }

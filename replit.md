@@ -32,6 +32,13 @@ The frontend is built with React 18, TypeScript, Vite, Wouter for routing, and T
 - **Operator Portal**: A comprehensive back-office for network management, including dashboards, member management, validator operations, security audits, and compliance reports.
 - **API Key Management**: Provides a secure admin interface for generating, managing, and revoking API keys.
 - **Admin Control Panel**: A production-only mainnet management interface for real-time health monitoring, mainnet pause detection, remote restart, and comprehensive health checks.
+- **Enterprise Search**: Universal search system supporting blocks, transactions, addresses, and validators with:
+  - Real-time autocomplete with 300ms debounce
+  - Keyboard navigation (↑↓ Enter Escape)
+  - Type-based filtering and relevance scoring
+  - Multilingual support (8 languages: English, Korean, Chinese, Japanese, Hindi, Arabic, Portuguese, Russian)
+  - Public API access without authentication
+  - Optimized performance (searches recent 1000 blocks)
 
 ### DeFi Ecosystem (Phase 1: DEX/AMM)
 The TBURN DeFi Ecosystem implements enterprise-grade decentralized finance infrastructure:
