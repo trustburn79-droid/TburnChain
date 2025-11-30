@@ -563,6 +563,21 @@
       "enterprise": "Enterprise",
       "institutional": "Institutional"
     },
+    "poolNames": {
+      "pool-public-main": "TBURN Public Staking Pool",
+      "pool-validator-1": "Genesis Validator Pool",
+      "pool-institutional": "Enterprise Staking Pool",
+      "pool-liquid": "Liquid Staking Pool"
+    },
+    "poolDescriptions": {
+      "pool-public-main": "Main public staking pool for TBURN token holders. Accessible to everyone with minimum 100 TBURN.",
+      "pool-validator-1": "Premium validator pool with performance-based rewards. Higher APY for 90-day lock period.",
+      "pool-institutional": "Institutional-grade staking for enterprise participants. Maximum security and rewards.",
+      "pool-liquid": "Liquid staking pool that issues stTBURN tokens. No lock period with tradeable staked positions."
+    },
+    "validatorNames": {
+      "TBURN Core Validator": "TBURN Core Validator"
+    },
     "tier": "Tier",
     "bronze": "Bronze",
     "silver": "Silver",

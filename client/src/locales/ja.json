@@ -563,6 +563,21 @@
       "enterprise": "エンタープライズ",
       "institutional": "機関投資家向け"
     },
+    "poolNames": {
+      "pool-public-main": "TBURNパブリックステーキングプール",
+      "pool-validator-1": "ジェネシスバリデータープール",
+      "pool-institutional": "エンタープライズステーキングプール",
+      "pool-liquid": "リキッドステーキングプール"
+    },
+    "poolDescriptions": {
+      "pool-public-main": "TBURNトークンホルダー向けのメインパブリックステーキングプール。最小100 TBURNで誰でもアクセス可能。",
+      "pool-validator-1": "パフォーマンスベースの報酬を持つプレミアムバリデータープール。90日ロック期間でより高いAPY。",
+      "pool-institutional": "エンタープライズ参加者向けの機関投資家グレードステーキング。最大限のセキュリティと報酬。",
+      "pool-liquid": "stTBURNトークンを発行するリキッドステーキングプール。ロック期間なしで取引可能なステークポジション。"
+    },
+    "validatorNames": {
+      "TBURN Core Validator": "TBURNコアバリデーター"
+    },
     "tier": "ティア",
     "bronze": "ブロンズ",
     "silver": "シルバー",

@@ -533,6 +533,21 @@
       "enterprise": "مؤسسي",
       "institutional": "مؤسساتي"
     },
+    "poolNames": {
+      "pool-public-main": "مجمع ستاكينغ TBURN العام",
+      "pool-validator-1": "مجمع المصادقين الأصلي",
+      "pool-institutional": "مجمع ستاكينغ المؤسسات",
+      "pool-liquid": "مجمع الستاكينغ السائل"
+    },
+    "poolDescriptions": {
+      "pool-public-main": "مجمع الستاكينغ العام الرئيسي لحاملي توكن TBURN. متاح للجميع بحد أدنى 100 TBURN.",
+      "pool-validator-1": "مجمع مصادقين متميز مع مكافآت قائمة على الأداء. APY أعلى لفترة قفل 90 يوم.",
+      "pool-institutional": "ستاكينغ بمستوى مؤسسي للمشاركين من المؤسسات. أقصى درجات الأمان والمكافآت.",
+      "pool-liquid": "مجمع ستاكينغ سائل يصدر توكنات stTBURN. بدون فترة قفل مع مراكز قابلة للتداول."
+    },
+    "validatorNames": {
+      "TBURN Core Validator": "مصادق TBURN الأساسي"
+    },
     "tier": "المستوى",
     "bronze": "برونزي",
     "silver": "فضي",

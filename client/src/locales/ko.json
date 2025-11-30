@@ -563,6 +563,21 @@
       "enterprise": "엔터프라이즈",
       "institutional": "기관"
     },
+    "poolNames": {
+      "pool-public-main": "TBURN 퍼블릭 스테이킹 풀",
+      "pool-validator-1": "제네시스 밸리데이터 풀",
+      "pool-institutional": "엔터프라이즈 스테이킹 풀",
+      "pool-liquid": "리퀴드 스테이킹 풀"
+    },
+    "poolDescriptions": {
+      "pool-public-main": "TBURN 토큰 보유자를 위한 메인 퍼블릭 스테이킹 풀. 최소 100 TBURN으로 누구나 참여 가능.",
+      "pool-validator-1": "성과 기반 보상이 있는 프리미엄 밸리데이터 풀. 90일 락업 기간에 더 높은 APY.",
+      "pool-institutional": "엔터프라이즈 참여자를 위한 기관급 스테이킹. 최대 보안 및 보상.",
+      "pool-liquid": "stTBURN 토큰을 발행하는 리퀴드 스테이킹 풀. 거래 가능한 스테이크 포지션으로 락업 기간 없음."
+    },
+    "validatorNames": {
+      "TBURN Core Validator": "TBURN 코어 밸리데이터"
+    },
     "tier": "티어",
     "bronze": "브론즈",
     "silver": "실버",

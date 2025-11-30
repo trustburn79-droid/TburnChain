@@ -126,6 +126,24 @@ const poolTypeTranslationKeys: Record<string, string> = {
   institutional: 'staking.poolTypes.institutional'
 };
 
+const poolNameTranslationKeys: Record<string, string> = {
+  'pool-public-main': 'staking.poolNames.pool-public-main',
+  'pool-validator-1': 'staking.poolNames.pool-validator-1',
+  'pool-institutional': 'staking.poolNames.pool-institutional',
+  'pool-liquid': 'staking.poolNames.pool-liquid'
+};
+
+const poolDescriptionTranslationKeys: Record<string, string> = {
+  'pool-public-main': 'staking.poolDescriptions.pool-public-main',
+  'pool-validator-1': 'staking.poolDescriptions.pool-validator-1',
+  'pool-institutional': 'staking.poolDescriptions.pool-institutional',
+  'pool-liquid': 'staking.poolDescriptions.pool-liquid'
+};
+
+const validatorNameTranslationKeys: Record<string, string> = {
+  'TBURN Core Validator': 'staking.validatorNames.TBURN Core Validator'
+};
+
 export default function StakingPoolDetail() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
@@ -219,7 +237,9 @@ export default function StakingPoolDetail() {
         </Link>
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold" data-testid="text-pool-name">{pool.name}</h1>
+            <h1 className="text-2xl font-bold" data-testid="text-pool-name">
+              {poolNameTranslationKeys[pool.id] ? t(poolNameTranslationKeys[pool.id]) : pool.name}
+            </h1>
             <Badge className={tierColors[pool.tier.toLowerCase()] || "bg-gray-500"}>
               {tierIcons[pool.tier.toLowerCase()]}
               <span className="ml-1 capitalize">{pool.tier}</span>
@@ -233,7 +253,9 @@ export default function StakingPoolDetail() {
               {t(statusTranslationKeys[pool.status.toLowerCase()] || 'common.unknown')}
             </Badge>
           </div>
-          <p className="text-muted-foreground mt-1">{pool.description || t('stakingPoolDetail.poolOverview')}</p>
+          <p className="text-muted-foreground mt-1">
+            {poolDescriptionTranslationKeys[pool.id] ? t(poolDescriptionTranslationKeys[pool.id]) : (pool.description || t('stakingPoolDetail.poolOverview'))}
+          </p>
         </div>
         <Dialog open={stakeDialogOpen} onOpenChange={setStakeDialogOpen}>
           <DialogTrigger asChild>
@@ -244,7 +266,7 @@ export default function StakingPoolDetail() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t('stakingPoolDetail.stakeInPool')} - {pool.name}</DialogTitle>
+              <DialogTitle>{t('stakingPoolDetail.stakeInPool')} - {poolNameTranslationKeys[pool.id] ? t(poolNameTranslationKeys[pool.id]) : pool.name}</DialogTitle>
               <DialogDescription>
                 {t('stakingPoolDetail.enterStakeAmount')}
               </DialogDescription>
@@ -430,7 +452,11 @@ export default function StakingPoolDetail() {
                 <Shield className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="font-medium">{pool.validatorName || t('stakingPoolDetail.defaultValidator')}</p>
+                <p className="font-medium">
+                  {pool.validatorName && validatorNameTranslationKeys[pool.validatorName] 
+                    ? t(validatorNameTranslationKeys[pool.validatorName]) 
+                    : (pool.validatorName || t('stakingPoolDetail.defaultValidator'))}
+                </p>
                 <p className="text-xs text-muted-foreground">
                   {pool.validatorAddress?.slice(0, 10)}...{pool.validatorAddress?.slice(-8)}
                 </p>

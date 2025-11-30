@@ -178,6 +178,21 @@
       "enterprise": "کاروباری",
       "institutional": "ادارہ جاتی"
     },
+    "poolNames": {
+      "pool-public-main": "TBURN عوامی اسٹیکنگ پول",
+      "pool-validator-1": "جینیسس ویلیڈیٹر پول",
+      "pool-institutional": "انٹرپرائز اسٹیکنگ پول",
+      "pool-liquid": "لیکویڈ اسٹیکنگ پول"
+    },
+    "poolDescriptions": {
+      "pool-public-main": "TBURN ٹوکن ہولڈرز کے لیے مرکزی عوامی اسٹیکنگ پول۔ کم از کم 100 TBURN کے ساتھ سب کے لیے دستیاب۔",
+      "pool-validator-1": "کارکردگی پر مبنی انعامات کے ساتھ پریمیم ویلیڈیٹر پول۔ 90 دن کی لاک مدت کے لیے زیادہ APY۔",
+      "pool-institutional": "انٹرپرائز شرکاء کے لیے ادارہ جاتی درجے کی اسٹیکنگ۔ زیادہ سے زیادہ سیکیورٹی اور انعامات۔",
+      "pool-liquid": "stTBURN ٹوکنز جاری کرنے والا لیکویڈ اسٹیکنگ پول۔ تجارتی قابل اسٹیک پوزیشنز کے ساتھ کوئی لاک مدت نہیں۔"
+    },
+    "validatorNames": {
+      "TBURN Core Validator": "TBURN کور ویلیڈیٹر"
+    },
     "tier": "ٹیئر",
     "bronze": "کانسی",
     "silver": "چاندی",

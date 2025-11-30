@@ -562,6 +562,21 @@
       "enterprise": "企业",
       "institutional": "机构"
     },
+    "poolNames": {
+      "pool-public-main": "TBURN公开质押池",
+      "pool-validator-1": "创世验证者池",
+      "pool-institutional": "企业级质押池",
+      "pool-liquid": "流动性质押池"
+    },
+    "poolDescriptions": {
+      "pool-public-main": "面向TBURN代币持有者的主要公开质押池。最低100 TBURN即可参与。",
+      "pool-validator-1": "具有绩效奖励的高级验证者池。90天锁定期可获得更高APY。",
+      "pool-institutional": "面向企业参与者的机构级质押。最高安全性和收益。",
+      "pool-liquid": "发行stTBURN代币的流动性质押池。无锁定期，可交易质押头寸。"
+    },
+    "validatorNames": {
+      "TBURN Core Validator": "TBURN核心验证者"
+    },
     "tier": "等级",
     "bronze": "青铜",
     "silver": "白银",

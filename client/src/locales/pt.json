@@ -178,6 +178,21 @@
       "enterprise": "Empresarial",
       "institutional": "Institucional"
     },
+    "poolNames": {
+      "pool-public-main": "Pool de Staking Público TBURN",
+      "pool-validator-1": "Pool de Validadores Genesis",
+      "pool-institutional": "Pool de Staking Empresarial",
+      "pool-liquid": "Pool de Staking Líquido"
+    },
+    "poolDescriptions": {
+      "pool-public-main": "Pool de staking público principal para detentores de TBURN. Acessível a todos com mínimo de 100 TBURN.",
+      "pool-validator-1": "Pool de validadores premium com recompensas baseadas em desempenho. APY maior para período de bloqueio de 90 dias.",
+      "pool-institutional": "Staking de nível institucional para participantes empresariais. Máxima segurança e recompensas.",
+      "pool-liquid": "Pool de staking líquido que emite tokens stTBURN. Sem período de bloqueio com posições negociáveis."
+    },
+    "validatorNames": {
+      "TBURN Core Validator": "Validador Principal TBURN"
+    },
     "tier": "Nível",
     "bronze": "Bronze",
     "silver": "Prata",
