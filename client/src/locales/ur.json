@@ -1940,7 +1940,22 @@
     "templateMarketplaceFeature1": "وفاداری پوائنٹس",
     "templateMarketplaceFeature2": "کیش بیک",
     "templateMarketplaceFeature3": "مرچنٹ ٹولز",
-    "templateMarketplaceFeature4": "ادائیگی گیٹ وے"
+    "templateMarketplaceFeature4": "ادائیگی گیٹ وے",
+    "manageToken": "ٹوکن کا انتظام",
+    "manageTokenDesc": "اپنے ٹوکن کی ترتیبات، سپلائی اور اجازتوں کو ترتیب دیں اور ان کا انتظام کریں۔",
+    "symbol": "علامت",
+    "tokenActions": "ٹوکن ایکشنز",
+    "mint": "منٹ",
+    "burn": "برن",
+    "pause": "روکیں",
+    "transfer": "منتقلی",
+    "contractInfo": "کنٹریکٹ معلومات",
+    "mintSuccess": "منٹنگ شروع",
+    "mintSuccessDesc": "ٹوکن منٹنگ ٹرانزیکشن جمع کر دی گئی۔",
+    "burnSuccess": "برننگ شروع",
+    "burnSuccessDesc": "ٹوکن برننگ ٹرانزیکشن جمع کر دی گئی۔",
+    "pauseSuccess": "ٹوکن روک دیا گیا",
+    "pauseSuccessDesc": "ٹوکن منتقلی روک دی گئی ہے۔"
   },
   "crossShard": {
     "title": "کراس شارڈ کمیونیکیشن",

@@ -1940,7 +1940,22 @@
     "templateMarketplaceFeature1": "Pontos de Fidelidade",
     "templateMarketplaceFeature2": "Cashback",
     "templateMarketplaceFeature3": "Ferramentas de Comerciante",
-    "templateMarketplaceFeature4": "Gateway de Pagamento"
+    "templateMarketplaceFeature4": "Gateway de Pagamento",
+    "manageToken": "Gerenciar Token",
+    "manageTokenDesc": "Configure e gerencie as configurações, fornecimento e permissões do seu token.",
+    "symbol": "Símbolo",
+    "tokenActions": "Ações do Token",
+    "mint": "Cunhar",
+    "burn": "Queimar",
+    "pause": "Pausar",
+    "transfer": "Transferir",
+    "contractInfo": "Informações do Contrato",
+    "mintSuccess": "Cunhagem Iniciada",
+    "mintSuccessDesc": "A transação de cunhagem de tokens foi enviada.",
+    "burnSuccess": "Queima Iniciada",
+    "burnSuccessDesc": "A transação de queima de tokens foi enviada.",
+    "pauseSuccess": "Token Pausado",
+    "pauseSuccessDesc": "As transferências de tokens foram pausadas."
   },
   "crossShard": {
     "title": "Comunicação Cross-Shard",

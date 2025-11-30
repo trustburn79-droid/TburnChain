@@ -1227,7 +1227,22 @@
     "templateMarketplaceFeature1": "忠诚度积分",
     "templateMarketplaceFeature2": "返现",
     "templateMarketplaceFeature3": "商家工具",
-    "templateMarketplaceFeature4": "支付网关"
+    "templateMarketplaceFeature4": "支付网关",
+    "manageToken": "管理代币",
+    "manageTokenDesc": "配置和管理您的代币设置、供应量和权限。",
+    "symbol": "符号",
+    "tokenActions": "代币操作",
+    "mint": "铸造",
+    "burn": "销毁",
+    "pause": "暂停",
+    "transfer": "转账",
+    "contractInfo": "合约信息",
+    "mintSuccess": "铸造已启动",
+    "mintSuccessDesc": "代币铸造交易已提交。",
+    "burnSuccess": "销毁已启动",
+    "burnSuccessDesc": "代币销毁交易已提交。",
+    "pauseSuccess": "代币已暂停",
+    "pauseSuccessDesc": "代币转账已暂停。"
   },
   "dex": {
     "title": "去中心化交易所",

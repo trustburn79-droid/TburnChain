@@ -1940,7 +1940,22 @@
     "templateMarketplaceFeature1": "Баллы лояльности",
     "templateMarketplaceFeature2": "Кэшбэк",
     "templateMarketplaceFeature3": "Инструменты продавца",
-    "templateMarketplaceFeature4": "Платёжный шлюз"
+    "templateMarketplaceFeature4": "Платёжный шлюз",
+    "manageToken": "Управление токеном",
+    "manageTokenDesc": "Настройте и управляйте параметрами, запасом и разрешениями вашего токена.",
+    "symbol": "Символ",
+    "tokenActions": "Действия с токеном",
+    "mint": "Выпустить",
+    "burn": "Сжечь",
+    "pause": "Приостановить",
+    "transfer": "Перевести",
+    "contractInfo": "Информация о контракте",
+    "mintSuccess": "Выпуск начат",
+    "mintSuccessDesc": "Транзакция выпуска токенов отправлена.",
+    "burnSuccess": "Сжигание начато",
+    "burnSuccessDesc": "Транзакция сжигания токенов отправлена.",
+    "pauseSuccess": "Токен приостановлен",
+    "pauseSuccessDesc": "Переводы токенов приостановлены."
   },
   "crossShard": {
     "title": "Кросс-шардовая коммуникация",

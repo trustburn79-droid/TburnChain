@@ -1070,7 +1070,22 @@
     "templateMarketplaceFeature1": "Points de Fidélité",
     "templateMarketplaceFeature2": "Cashback",
     "templateMarketplaceFeature3": "Outils Marchand",
-    "templateMarketplaceFeature4": "Passerelle de Paiement"
+    "templateMarketplaceFeature4": "Passerelle de Paiement",
+    "manageToken": "Gérer le Token",
+    "manageTokenDesc": "Configurez et gérez les paramètres, l'approvisionnement et les permissions de votre token.",
+    "symbol": "Symbole",
+    "tokenActions": "Actions Token",
+    "mint": "Émettre",
+    "burn": "Brûler",
+    "pause": "Mettre en Pause",
+    "transfer": "Transférer",
+    "contractInfo": "Informations du Contrat",
+    "mintSuccess": "Émission Initiée",
+    "mintSuccessDesc": "La transaction d'émission de tokens a été soumise.",
+    "burnSuccess": "Brûlage Initié",
+    "burnSuccessDesc": "La transaction de brûlage de tokens a été soumise.",
+    "pauseSuccess": "Token en Pause",
+    "pauseSuccessDesc": "Les transferts de tokens ont été mis en pause."
   },
   "bridge": {
     "title": "Pont inter-chaînes",

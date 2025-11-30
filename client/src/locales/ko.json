@@ -1271,7 +1271,22 @@
     "templateMarketplaceFeature1": "로열티 포인트",
     "templateMarketplaceFeature2": "캐시백",
     "templateMarketplaceFeature3": "판매자 도구",
-    "templateMarketplaceFeature4": "결제 게이트웨이"
+    "templateMarketplaceFeature4": "결제 게이트웨이",
+    "manageToken": "토큰 관리",
+    "manageTokenDesc": "토큰 설정, 공급량, 권한을 구성하고 관리합니다.",
+    "symbol": "심볼",
+    "tokenActions": "토큰 작업",
+    "mint": "발행",
+    "burn": "소각",
+    "pause": "일시정지",
+    "transfer": "전송",
+    "contractInfo": "컨트랙트 정보",
+    "mintSuccess": "발행 시작됨",
+    "mintSuccessDesc": "토큰 발행 트랜잭션이 제출되었습니다.",
+    "burnSuccess": "소각 시작됨",
+    "burnSuccessDesc": "토큰 소각 트랜잭션이 제출되었습니다.",
+    "pauseSuccess": "토큰 일시정지됨",
+    "pauseSuccessDesc": "토큰 전송이 일시정지되었습니다."
   },
   "dex": {
     "title": "탈중앙화 거래소",

@@ -945,7 +945,22 @@
     "templateMarketplaceFeature1": "लॉयल्टी पॉइंट्स",
     "templateMarketplaceFeature2": "कैशबैक",
     "templateMarketplaceFeature3": "मर्चेंट टूल्स",
-    "templateMarketplaceFeature4": "पेमेंट गेटवे"
+    "templateMarketplaceFeature4": "पेमेंट गेटवे",
+    "manageToken": "टोकन प्रबंधन",
+    "manageTokenDesc": "अपने टोकन की सेटिंग्स, आपूर्ति और अनुमतियों को कॉन्फ़िगर और प्रबंधित करें।",
+    "symbol": "प्रतीक",
+    "tokenActions": "टोकन क्रियाएं",
+    "mint": "मिंट",
+    "burn": "बर्न",
+    "pause": "रोकें",
+    "transfer": "ट्रांसफर",
+    "contractInfo": "कॉन्ट्रैक्ट जानकारी",
+    "mintSuccess": "मिंटिंग शुरू",
+    "mintSuccessDesc": "टोकन मिंटिंग ट्रांजेक्शन सबमिट किया गया।",
+    "burnSuccess": "बर्निंग शुरू",
+    "burnSuccessDesc": "टोकन बर्निंग ट्रांजेक्शन सबमिट किया गया।",
+    "pauseSuccess": "टोकन रोका गया",
+    "pauseSuccessDesc": "टोकन ट्रांसफर रोक दिए गए हैं।"
   },
   "dex": {
     "title": "विकेंद्रीकृत एक्सचेंज",

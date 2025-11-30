@@ -1403,7 +1403,22 @@
     "templateMarketplaceFeature1": "ロイヤリティポイント",
     "templateMarketplaceFeature2": "キャッシュバック",
     "templateMarketplaceFeature3": "マーチャントツール",
-    "templateMarketplaceFeature4": "決済ゲートウェイ"
+    "templateMarketplaceFeature4": "決済ゲートウェイ",
+    "manageToken": "トークン管理",
+    "manageTokenDesc": "トークンの設定、供給量、権限を構成・管理します。",
+    "symbol": "シンボル",
+    "tokenActions": "トークンアクション",
+    "mint": "ミント",
+    "burn": "バーン",
+    "pause": "一時停止",
+    "transfer": "転送",
+    "contractInfo": "コントラクト情報",
+    "mintSuccess": "ミント開始",
+    "mintSuccessDesc": "トークンミントトランザクションが送信されました。",
+    "burnSuccess": "バーン開始",
+    "burnSuccessDesc": "トークンバーントランザクションが送信されました。",
+    "pauseSuccess": "トークン一時停止",
+    "pauseSuccessDesc": "トークン転送が一時停止されました。"
   },
   "lending": {
     "title": "レンディングプロトコル",

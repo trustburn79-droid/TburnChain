@@ -1038,7 +1038,22 @@
     "templateMarketplaceFeature1": "نقاط الولاء",
     "templateMarketplaceFeature2": "استرداد النقود",
     "templateMarketplaceFeature3": "أدوات التاجر",
-    "templateMarketplaceFeature4": "بوابة الدفع"
+    "templateMarketplaceFeature4": "بوابة الدفع",
+    "manageToken": "إدارة الرمز",
+    "manageTokenDesc": "قم بتكوين وإدارة إعدادات الرمز والعرض والأذونات.",
+    "symbol": "الرمز",
+    "tokenActions": "إجراءات الرمز",
+    "mint": "سك",
+    "burn": "حرق",
+    "pause": "إيقاف مؤقت",
+    "transfer": "تحويل",
+    "contractInfo": "معلومات العقد",
+    "mintSuccess": "بدأ السك",
+    "mintSuccessDesc": "تم إرسال معاملة سك الرموز.",
+    "burnSuccess": "بدأ الحرق",
+    "burnSuccessDesc": "تم إرسال معاملة حرق الرموز.",
+    "pauseSuccess": "تم إيقاف الرمز",
+    "pauseSuccessDesc": "تم إيقاف تحويلات الرموز مؤقتاً."
   },
   "dex": {
     "title": "البورصة اللامركزية",

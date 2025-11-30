@@ -1261,7 +1261,22 @@
     "templateMarketplaceFeature1": "Puntos de Fidelidad",
     "templateMarketplaceFeature2": "Reembolso",
     "templateMarketplaceFeature3": "Herramientas para Comerciantes",
-    "templateMarketplaceFeature4": "Pasarela de Pagos"
+    "templateMarketplaceFeature4": "Pasarela de Pagos",
+    "manageToken": "Gestionar Token",
+    "manageTokenDesc": "Configure y gestione los ajustes, suministro y permisos de su token.",
+    "symbol": "Símbolo",
+    "tokenActions": "Acciones de Token",
+    "mint": "Acuñar",
+    "burn": "Quemar",
+    "pause": "Pausar",
+    "transfer": "Transferir",
+    "contractInfo": "Información del Contrato",
+    "mintSuccess": "Acuñación Iniciada",
+    "mintSuccessDesc": "La transacción de acuñación de tokens ha sido enviada.",
+    "burnSuccess": "Quema Iniciada",
+    "burnSuccessDesc": "La transacción de quema de tokens ha sido enviada.",
+    "pauseSuccess": "Token Pausado",
+    "pauseSuccessDesc": "Las transferencias de tokens han sido pausadas."
   },
   "dex": {
     "title": "Exchange Descentralizado",

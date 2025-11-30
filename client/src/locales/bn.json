@@ -2222,7 +2222,22 @@
     "templateMarketplaceFeature1": "লয়্যালটি পয়েন্ট",
     "templateMarketplaceFeature2": "ক্যাশব্যাক",
     "templateMarketplaceFeature3": "মার্চেন্ট টুলস",
-    "templateMarketplaceFeature4": "পেমেন্ট গেটওয়ে"
+    "templateMarketplaceFeature4": "পেমেন্ট গেটওয়ে",
+    "manageToken": "টোকেন পরিচালনা",
+    "manageTokenDesc": "আপনার টোকেনের সেটিংস, সরবরাহ এবং অনুমতি কনফিগার ও পরিচালনা করুন।",
+    "symbol": "প্রতীক",
+    "tokenActions": "টোকেন অ্যাকশন",
+    "mint": "মিন্ট",
+    "burn": "বার্ন",
+    "pause": "বিরতি",
+    "transfer": "ট্রান্সফার",
+    "contractInfo": "কন্ট্র্যাক্ট তথ্য",
+    "mintSuccess": "মিন্টিং শুরু হয়েছে",
+    "mintSuccessDesc": "টোকেন মিন্টিং লেনদেন জমা দেওয়া হয়েছে।",
+    "burnSuccess": "বার্নিং শুরু হয়েছে",
+    "burnSuccessDesc": "টোকেন বার্নিং লেনদেন জমা দেওয়া হয়েছে।",
+    "pauseSuccess": "টোকেন বিরতিতে",
+    "pauseSuccessDesc": "টোকেন ট্রান্সফার বিরতিতে রাখা হয়েছে।"
   },
   "crossShard": {
     "title": "ক্রস-শার্ড কমিউনিকেশন",

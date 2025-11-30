@@ -1223,7 +1223,22 @@
     "templateMarketplaceFeature1": "Loyalty Points",
     "templateMarketplaceFeature2": "Cashback",
     "templateMarketplaceFeature3": "Merchant Tools",
-    "templateMarketplaceFeature4": "Payment Gateway"
+    "templateMarketplaceFeature4": "Payment Gateway",
+    "manageToken": "Manage Token",
+    "manageTokenDesc": "Configure and manage your token settings, supply, and permissions.",
+    "symbol": "Symbol",
+    "tokenActions": "Token Actions",
+    "mint": "Mint",
+    "burn": "Burn",
+    "pause": "Pause",
+    "transfer": "Transfer",
+    "contractInfo": "Contract Information",
+    "mintSuccess": "Mint Initiated",
+    "mintSuccessDesc": "Token minting transaction has been submitted.",
+    "burnSuccess": "Burn Initiated",
+    "burnSuccessDesc": "Token burning transaction has been submitted.",
+    "pauseSuccess": "Token Paused",
+    "pauseSuccessDesc": "Token transfers have been paused."
   },
   "dex": {
     "title": "Decentralized Exchange",
