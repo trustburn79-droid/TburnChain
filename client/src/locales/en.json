@@ -5085,6 +5085,7 @@
       "minted": "Minted",
       "whitelistRequired": "Whitelist required"
     },
+    "activityTab": "Activity",
     "activity": {
       "quantity": "Qty:"
     },

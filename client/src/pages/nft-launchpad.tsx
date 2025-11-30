@@ -337,7 +337,7 @@ function ProjectDetailDialog({
             <TabsTrigger value="overview" data-testid="dialog-tab-overview">{t("nftLaunchpad.tabs.overview")}</TabsTrigger>
             <TabsTrigger value="rounds" data-testid="dialog-tab-rounds">{t("nftLaunchpad.rounds")} ({rounds.length})</TabsTrigger>
             <TabsTrigger value="mint" data-testid="dialog-tab-mint">{t("nftLaunchpad.mintNft")}</TabsTrigger>
-            <TabsTrigger value="activity" data-testid="dialog-tab-activity">{t("nftLaunchpad.activity")}</TabsTrigger>
+            <TabsTrigger value="activity" data-testid="dialog-tab-activity">{t("nftLaunchpad.activityTab")}</TabsTrigger>
           </TabsList>
           
           <ScrollArea className="flex-1 mt-4">

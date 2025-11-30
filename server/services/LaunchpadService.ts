@@ -362,11 +362,30 @@ export class LaunchpadService {
     });
 
     const rounds = await storage.getLaunchRoundsByProject(projectId);
-    const activeRound = rounds.find(r => r.status === "active") || rounds[0];
+    let activeRound = rounds.find(r => r.status === "active") || rounds[0];
+    
+    // If no round exists, create a default public round
+    if (!activeRound) {
+      const roundId = `round-${projectId}-default`;
+      await storage.createLaunchRound({
+        id: roundId,
+        projectId,
+        name: "Public Sale",
+        roundType: "public",
+        startTime: new Date(),
+        endTime: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+        price: project.mintPrice,
+        allocation: parseInt(project.totalSupply),
+        totalMinted: 0,
+        status: "active",
+        whitelistRequired: false,
+      } as any);
+      activeRound = { id: roundId } as any;
+    }
     
     await storage.createLaunchAllocation({
       projectId,
-      roundId: activeRound?.id || projectId,
+      roundId: activeRound.id,
       walletAddress,
       quantity,
       pricePerUnit: project.mintPrice,
