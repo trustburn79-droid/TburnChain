@@ -2037,6 +2037,19 @@
       "validatorBestPractices": "Best Practices for Validators",
       "stakingStrategies": "Staking Strategies"
     },
+    "badgeNames": {
+      "diamondStaker": "Diamond Staker",
+      "earlyAdopter": "Early Adopter",
+      "diamondHands": "Diamond Hands",
+      "governanceParticipant": "Governance Participant",
+      "communityHelper": "Community Helper",
+      "whaleStatus": "Whale Status",
+      "contentCreator": "Content Creator",
+      "validator": "Validator",
+      "bridgePioneer": "Bridge Pioneer",
+      "defiMaster": "DeFi Master",
+      "bugHunter": "Bug Hunter"
+    },
     "posts": {
       "mainnetDiscussion": {
         "title": "TBURN v7.0 Mainnet Launch Discussion",

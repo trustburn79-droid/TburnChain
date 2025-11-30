@@ -116,6 +116,7 @@
     "nftMarketplace": "NFTマーケットプレイス",
     "nftLaunchpad": "NFTローンチパッド",
     "gamefiHub": "GameFiハブ",
+    "community": "コミュニティ",
     "network": "ネットワーク",
     "validators": "バリデーター",
     "members": "メンバー",
@@ -4999,6 +5000,19 @@
     "targets": {
       "validatorBestPractices": "バリデーターのベストプラクティス",
       "stakingStrategies": "ステーキング戦略"
+    },
+    "badgeNames": {
+      "diamondStaker": "ダイヤモンドステーカー",
+      "earlyAdopter": "アーリーアダプター",
+      "diamondHands": "ダイヤモンドハンズ",
+      "governanceParticipant": "ガバナンス参加者",
+      "communityHelper": "コミュニティヘルパー",
+      "whaleStatus": "クジラステータス",
+      "contentCreator": "コンテンツクリエイター",
+      "validator": "バリデーター",
+      "bridgePioneer": "ブリッジパイオニア",
+      "defiMaster": "DeFiマスター",
+      "bugHunter": "バグハンター"
     },
     "posts": {
       "mainnetDiscussion": {

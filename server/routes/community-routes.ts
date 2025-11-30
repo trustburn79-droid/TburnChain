@@ -312,7 +312,7 @@ router.get("/activity", async (req: Request, res: Response) => {
     const additionalActivities: ActivityResponse[] = [
       { id: "post-1", type: "post", user: "ValidatorKing", action: "activities.createdPost", target: "targets.validatorBestPractices", timestamp: now - 300 },
       { id: "vote-1", type: "vote", user: "GovernanceGuru", action: "activities.votedOn", target: "#42", timestamp: now - 600 },
-      { id: "badge-1", type: "badge", user: "TBURNMaster", action: "activities.earnedBadge", target: "badges.diamondStaker.name", timestamp: now - 900 },
+      { id: "badge-1", type: "badge", user: "TBURNMaster", action: "activities.earnedBadge", target: "badgeNames.diamondStaker", timestamp: now - 900 },
       { id: "comment-1", type: "comment", user: "DeFiExpert", action: "activities.commentedOn", target: "targets.stakingStrategies", timestamp: now - 1200 },
       { id: "proposal-1", type: "proposal", user: "CommunityBuilder", action: "activities.submittedProposal", target: "#45", timestamp: now - 1800 },
       { id: "stake-live-1", type: "stake", user: "CryptoWhale", action: "activities.staked", amount: "50,000 TBURN", timestamp: now - 120 },

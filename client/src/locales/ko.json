@@ -2085,6 +2085,19 @@
       "validatorBestPractices": "검증자 모범 사례",
       "stakingStrategies": "스테이킹 전략"
     },
+    "badgeNames": {
+      "diamondStaker": "다이아몬드 스테이커",
+      "earlyAdopter": "얼리 어답터",
+      "diamondHands": "다이아몬드 핸즈",
+      "governanceParticipant": "거버넌스 참여자",
+      "communityHelper": "커뮤니티 헬퍼",
+      "whaleStatus": "고래 상태",
+      "contentCreator": "콘텐츠 크리에이터",
+      "validator": "검증자",
+      "bridgePioneer": "브릿지 개척자",
+      "defiMaster": "DeFi 마스터",
+      "bugHunter": "버그 헌터"
+    },
     "posts": {
       "mainnetDiscussion": {
         "title": "TBURN v7.0 메인넷 론칭 토론",

@@ -116,6 +116,7 @@
     "nftMarketplace": "NFT मार्केटप्लेस",
     "nftLaunchpad": "NFT लॉन्चपैड",
     "gamefiHub": "GameFi हब",
+    "community": "समुदाय",
     "network": "नेटवर्क",
     "validators": "वैलिडेटर्स",
     "members": "सदस्य",
@@ -3957,6 +3958,19 @@
     "targets": {
       "validatorBestPractices": "वैलिडेटर सर्वोत्तम अभ्यास",
       "stakingStrategies": "स्टेकिंग रणनीतियां"
+    },
+    "badgeNames": {
+      "diamondStaker": "डायमंड स्टेकर",
+      "earlyAdopter": "अर्ली एडॉप्टर",
+      "diamondHands": "डायमंड हैंड्स",
+      "governanceParticipant": "गवर्नेंस प्रतिभागी",
+      "communityHelper": "कम्युनिटी हेल्पर",
+      "whaleStatus": "व्हेल स्टेटस",
+      "contentCreator": "कंटेंट क्रिएटर",
+      "validator": "वैलिडेटर",
+      "bridgePioneer": "ब्रिज पायनियर",
+      "defiMaster": "DeFi मास्टर",
+      "bugHunter": "बग हंटर"
     },
     "posts": {
       "mainnetDiscussion": {

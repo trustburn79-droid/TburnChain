@@ -754,7 +754,7 @@ export default function Community() {
           </TabsTrigger>
           <TabsTrigger value="badges" data-testid="tab-badges">
             <Award className="h-4 w-4 mr-1" />
-            {t('community.badges', 'Badges')}
+            {t('nav.badges', 'Badges')}
           </TabsTrigger>
         </TabsList>
 
@@ -818,7 +818,7 @@ export default function Community() {
                           <p className="text-sm">
                             <span className="font-medium">{activity.user}</span>
                             <span className="text-muted-foreground"> {t(`community.${activity.action}`, activity.action)} </span>
-                            {activity.target && <span className="text-primary">{activity.target.startsWith('posts.') || activity.target.startsWith('badges.') || activity.target.startsWith('targets.') ? t(`community.${activity.target}`, activity.target) : activity.target}</span>}
+                            {activity.target && <span className="text-primary">{activity.target.startsWith('posts.') || activity.target.startsWith('badgeNames.') || activity.target.startsWith('targets.') ? t(`community.${activity.target}`, activity.target) : activity.target}</span>}
                             {activity.amount && <span className="font-medium text-green-400"> {activity.amount}</span>}
                           </p>
                           <p className="text-xs text-muted-foreground">{formatTimeAgo(activity.timestamp)}</p>

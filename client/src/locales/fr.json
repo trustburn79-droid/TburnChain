@@ -116,6 +116,7 @@
     "nftMarketplace": "Marketplace NFT",
     "nftLaunchpad": "Launchpad NFT",
     "gamefiHub": "Hub GameFi",
+    "community": "Communauté",
     "network": "Réseau",
     "validators": "Validateurs",
     "members": "Membres",
@@ -3970,6 +3971,19 @@
     "targets": {
       "validatorBestPractices": "Meilleures Pratiques pour Validateurs",
       "stakingStrategies": "Stratégies de Staking"
+    },
+    "badgeNames": {
+      "diamondStaker": "Staker Diamant",
+      "earlyAdopter": "Adoptant Précoce",
+      "diamondHands": "Mains de Diamant",
+      "governanceParticipant": "Participant à la Gouvernance",
+      "communityHelper": "Aide Communautaire",
+      "whaleStatus": "Statut Baleine",
+      "contentCreator": "Créateur de Contenu",
+      "validator": "Validateur",
+      "bridgePioneer": "Pionnier du Bridge",
+      "defiMaster": "Maître DeFi",
+      "bugHunter": "Chasseur de Bugs"
     },
     "posts": {
       "mainnetDiscussion": {

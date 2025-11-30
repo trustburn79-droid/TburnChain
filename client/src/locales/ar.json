@@ -115,6 +115,7 @@
     "nftMarketplace": "سوق NFT",
     "nftLaunchpad": "منصة إطلاق NFT",
     "gamefiHub": "مركز GameFi",
+    "community": "المجتمع",
     "network": "الشبكة",
     "validators": "المدققون",
     "members": "الأعضاء",
@@ -1475,6 +1476,19 @@
     "targets": {
       "validatorBestPractices": "أفضل ممارسات المصادقين",
       "stakingStrategies": "استراتيجيات الرهن"
+    },
+    "badgeNames": {
+      "diamondStaker": "راهن الماسي",
+      "earlyAdopter": "المتبني المبكر",
+      "diamondHands": "الأيدي الماسية",
+      "governanceParticipant": "مشارك الحوكمة",
+      "communityHelper": "مساعد المجتمع",
+      "whaleStatus": "حالة الحوت",
+      "contentCreator": "صانع المحتوى",
+      "validator": "المصادق",
+      "bridgePioneer": "رائد الجسر",
+      "defiMaster": "خبير DeFi",
+      "bugHunter": "صائد الأخطاء"
     },
     "posts": {
       "mainnetDiscussion": {

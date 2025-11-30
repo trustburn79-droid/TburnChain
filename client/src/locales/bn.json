@@ -109,6 +109,7 @@
     "nftMarketplace": "NFT মার্কেটপ্লেস",
     "nftLaunchpad": "NFT লঞ্চপ্যাড",
     "gamefiHub": "GameFi হাব",
+    "community": "কমিউনিটি",
     "network": "নেটওয়ার্ক",
     "validators": "ভ্যালিডেটর",
     "members": "সদস্য",
@@ -909,6 +910,19 @@
     "targets": {
       "validatorBestPractices": "ভ্যালিডেটর সেরা অনুশীলন",
       "stakingStrategies": "স্টেকিং কৌশল"
+    },
+    "badgeNames": {
+      "diamondStaker": "ডায়মন্ড স্টেকার",
+      "earlyAdopter": "আর্লি অ্যাডপ্টার",
+      "diamondHands": "ডায়মন্ড হ্যান্ডস",
+      "governanceParticipant": "গভর্নেন্স অংশগ্রহণকারী",
+      "communityHelper": "কমিউনিটি হেল্পার",
+      "whaleStatus": "হোয়েল স্ট্যাটাস",
+      "contentCreator": "কন্টেন্ট ক্রিয়েটর",
+      "validator": "ভ্যালিডেটর",
+      "bridgePioneer": "ব্রিজ পাইওনিয়ার",
+      "defiMaster": "DeFi মাস্টার",
+      "bugHunter": "বাগ হান্টার"
     },
     "posts": {
       "mainnetDiscussion": {

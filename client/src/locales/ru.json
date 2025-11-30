@@ -109,6 +109,7 @@
     "nftMarketplace": "NFT Маркетплейс",
     "nftLaunchpad": "NFT Лаunchpad",
     "gamefiHub": "GameFi Хаб",
+    "community": "Сообщество",
     "network": "Сеть",
     "validators": "Валидаторы",
     "members": "Участники",
@@ -2503,6 +2504,19 @@
     "targets": {
       "validatorBestPractices": "Лучшие практики для валидаторов",
       "stakingStrategies": "Стратегии стейкинга"
+    },
+    "badgeNames": {
+      "diamondStaker": "Алмазный стейкер",
+      "earlyAdopter": "Ранний последователь",
+      "diamondHands": "Алмазные руки",
+      "governanceParticipant": "Участник управления",
+      "communityHelper": "Помощник сообщества",
+      "whaleStatus": "Статус кита",
+      "contentCreator": "Создатель контента",
+      "validator": "Валидатор",
+      "bridgePioneer": "Пионер моста",
+      "defiMaster": "Мастер DeFi",
+      "bugHunter": "Охотник за багами"
     },
     "posts": {
       "mainnetDiscussion": {

@@ -118,6 +118,7 @@
     "nftMarketplace": "NFT 市场",
     "nftLaunchpad": "NFT 发射台",
     "gamefiHub": "GameFi 中心",
+    "community": "社区",
     "network": "网络",
     "validators": "验证者",
     "members": "成员",
@@ -4798,6 +4799,19 @@
     "targets": {
       "validatorBestPractices": "验证者最佳实践",
       "stakingStrategies": "质押策略"
+    },
+    "badgeNames": {
+      "diamondStaker": "钻石质押者",
+      "earlyAdopter": "早期采用者",
+      "diamondHands": "钻石手",
+      "governanceParticipant": "治理参与者",
+      "communityHelper": "社区助手",
+      "whaleStatus": "巨鲸身份",
+      "contentCreator": "内容创作者",
+      "validator": "验证者",
+      "bridgePioneer": "跨链先驱",
+      "defiMaster": "DeFi大师",
+      "bugHunter": "漏洞猎人"
     },
     "posts": {
       "mainnetDiscussion": {

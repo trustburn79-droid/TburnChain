@@ -109,6 +109,7 @@
     "nftMarketplace": "NFT مارکیٹ پلیس",
     "nftLaunchpad": "NFT لانچ پیڈ",
     "gamefiHub": "GameFi ہب",
+    "community": "کمیونٹی",
     "network": "نیٹ ورک",
     "validators": "ویلیڈیٹرز",
     "members": "اراکین",
@@ -2503,6 +2504,19 @@
     "targets": {
       "validatorBestPractices": "توثیق کار بہترین طریقے",
       "stakingStrategies": "اسٹیکنگ حکمت عملی"
+    },
+    "badgeNames": {
+      "diamondStaker": "ڈائمنڈ اسٹیکر",
+      "earlyAdopter": "ابتدائی اپنانے والا",
+      "diamondHands": "ڈائمنڈ ہینڈز",
+      "governanceParticipant": "گورننس شریک",
+      "communityHelper": "کمیونٹی ہیلپر",
+      "whaleStatus": "وہیل سٹیٹس",
+      "contentCreator": "مواد تخلیق کار",
+      "validator": "توثیق کار",
+      "bridgePioneer": "برج پائینیر",
+      "defiMaster": "DeFi ماسٹر",
+      "bugHunter": "بگ ہنٹر"
     },
     "posts": {
       "mainnetDiscussion": {
