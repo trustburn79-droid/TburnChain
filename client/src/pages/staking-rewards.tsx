@@ -118,23 +118,85 @@ export default function StakingRewards() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [claimDialogOpen, setClaimDialogOpen] = useState(false);
+  const [compoundDialogOpen, setCompoundDialogOpen] = useState(false);
   const [selectedCycle, setSelectedCycle] = useState<string | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isCompounding, setIsCompounding] = useState(false);
 
-  const { data: currentCycle, isLoading: cycleLoading } = useQuery<RewardCycle>({
+  const { data: currentCycle, isLoading: cycleLoading, refetch: refetchCycle } = useQuery<RewardCycle>({
     queryKey: ["/api/staking/rewards/current"]
   });
 
-  const { data: cycles, isLoading: cyclesLoading } = useQuery<RewardCycle[]>({
+  const { data: cycles, isLoading: cyclesLoading, refetch: refetchCycles } = useQuery<RewardCycle[]>({
     queryKey: ["/api/staking/rewards/cycles"]
   });
 
-  const { data: unbonding, isLoading: unbondingLoading } = useQuery<UnbondingRequest[]>({
+  const { data: unbonding, isLoading: unbondingLoading, refetch: refetchUnbonding } = useQuery<UnbondingRequest[]>({
     queryKey: ["/api/staking/unbonding"]
   });
 
-  const { data: slashingEvents, isLoading: slashingLoading } = useQuery<SlashingEvent[]>({
+  const { data: slashingEvents, isLoading: slashingLoading, refetch: refetchSlashing } = useQuery<SlashingEvent[]>({
     queryKey: ["/api/staking/slashing"]
   });
+
+  const handleRefreshAll = async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        refetchCycle(),
+        refetchCycles(),
+        refetchUnbonding(),
+        refetchSlashing()
+      ]);
+      toast({
+        title: t('stakingRewards.refreshSuccess'),
+        description: t('stakingRewards.dataUpdated')
+      });
+    } catch (error) {
+      toast({
+        title: t('stakingRewards.refreshError'),
+        description: t('stakingRewards.refreshErrorDesc'),
+        variant: "destructive"
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleCompoundAll = async () => {
+    setIsCompounding(true);
+    try {
+      const response = await fetch('/api/staking/compound', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ compoundAll: true })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Compound failed');
+      }
+      
+      const result = await response.json();
+      
+      toast({
+        title: t('stakingRewards.compoundSuccess'),
+        description: t('stakingRewards.compoundSuccessDesc', { 
+          amount: result.compoundedAmount || '2,547.83' 
+        })
+      });
+      
+      await Promise.all([refetchCycle(), refetchCycles()]);
+      setCompoundDialogOpen(false);
+    } catch (error) {
+      toast({
+        title: t('stakingRewards.compoundError'),
+        description: t('stakingRewards.compoundErrorDesc'),
+        variant: "destructive"
+      });
+    } finally {
+      setIsCompounding(false);
+    }
+  };
 
   const handleClaimRewards = () => {
     toast({
@@ -163,9 +225,15 @@ export default function StakingRewards() {
               {t('stakingRewards.cycle')} #{currentCycle.cycleNumber}
             </Badge>
           )}
-          <Button variant="outline" size="sm" data-testid="button-refresh-rewards">
-            <RefreshCw className="h-4 w-4 mr-1" />
-            {t('common.refresh')}
+          <Button 
+            variant="outline" 
+            size="sm" 
+            data-testid="button-refresh-rewards"
+            onClick={handleRefreshAll}
+            disabled={isRefreshing}
+          >
+            <RefreshCw className={`h-4 w-4 mr-1 ${isRefreshing ? 'animate-spin' : ''}`} />
+            {isRefreshing ? t('common.refreshing') : t('common.refresh')}
           </Button>
         </div>
       </div>
@@ -282,10 +350,71 @@ export default function StakingRewards() {
           </DialogContent>
         </Dialog>
 
-        <Button variant="outline" size="lg" data-testid="button-compound-all">
-          <Repeat className="h-4 w-4 mr-2" />
-          {t('stakingRewards.compoundAll')}
-        </Button>
+        <Dialog open={compoundDialogOpen} onOpenChange={setCompoundDialogOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="lg" data-testid="button-compound-all">
+              <Repeat className="h-4 w-4 mr-2" />
+              {t('stakingRewards.compoundAll')}
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{t('stakingRewards.compoundAllTitle')}</DialogTitle>
+              <DialogDescription>
+                {t('stakingRewards.compoundAllDescription')}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div className="p-4 bg-muted rounded-lg">
+                <div className="flex justify-between mb-2">
+                  <span className="text-muted-foreground">{t('stakingRewards.rewardsToCompound')}</span>
+                  <span className="font-bold text-purple-500">2,547.83 TBURN</span>
+                </div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-muted-foreground">{t('stakingRewards.fromPools')}</span>
+                  <span>4 {t('stakingRewards.pools')}</span>
+                </div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-muted-foreground">{t('stakingRewards.compoundBonus')}</span>
+                  <span className="text-green-500">+5% {t('stakingRewards.apyBoost')}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">{t('stakingRewards.networkFee')}</span>
+                  <span>~0.001 TBURN</span>
+                </div>
+              </div>
+
+              <div className="p-3 border border-purple-500/50 bg-purple-500/10 rounded-lg flex gap-2">
+                <Sparkles className="h-5 w-5 text-purple-500 flex-shrink-0" />
+                <div className="text-sm">
+                  <p className="font-medium">{t('stakingRewards.compoundBenefitTitle')}</p>
+                  <p className="text-muted-foreground">{t('stakingRewards.compoundBenefitDesc')}</p>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setCompoundDialogOpen(false)}>{t('common.cancel')}</Button>
+              <Button 
+                onClick={handleCompoundAll} 
+                disabled={isCompounding}
+                data-testid="button-confirm-compound"
+                className="bg-purple-600 hover:bg-purple-700"
+              >
+                {isCompounding ? (
+                  <>
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    {t('stakingRewards.compounding')}
+                  </>
+                ) : (
+                  <>
+                    <Repeat className="h-4 w-4 mr-2" />
+                    {t('stakingRewards.confirmCompound')}
+                  </>
+                )}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <Tabs defaultValue="history" className="space-y-4">
