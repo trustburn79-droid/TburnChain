@@ -438,12 +438,12 @@ export default function PerformanceMetrics() {
             <TrendingUp className="h-8 w-8" />
             {t("metrics.title")}
           </h1>
-          <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
+          <div className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
             {t("metrics.subtitle")}
             <Badge variant={isConnected ? "default" : "secondary"} className={isConnected ? "bg-green-600" : ""}>
               {isConnected ? t("metrics.live") : t("metrics.polling")}
             </Badge>
-          </p>
+          </div>
         </div>
         
         <div className="flex items-center gap-2">
