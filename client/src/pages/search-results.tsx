@@ -145,33 +145,47 @@ function ResultCard({ result, index }: { result: SearchResult; index: number }) 
     });
   };
 
+  const formatTimestamp = (timestamp: number) => {
+    // Handle both seconds and milliseconds timestamps
+    const ts = timestamp > 1e12 ? timestamp : timestamp * 1000;
+    return new Date(ts).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+  };
+
   const getResultDetails = () => {
     switch (result.type) {
       case 'block':
         return {
-          primary: `Block #${result.data.blockNumber?.toLocaleString() || result.id}`,
-          secondary: result.data.timestamp ? new Date(result.data.timestamp).toLocaleString() : null,
+          primary: `${t("search.block", "Block")} #${result.data.blockNumber?.toLocaleString() || result.id}`,
+          secondary: result.data.timestamp ? formatTimestamp(result.data.timestamp) : null,
           stats: [
-            { label: "Transactions", value: result.data.transactionCount || result.data.txCount || "0" },
-            { label: "Gas Used", value: result.data.gasUsed ? `${(parseInt(result.data.gasUsed) / 1e9).toFixed(2)} Gwei` : "N/A" },
+            { label: t("search.transactions", "Transactions"), value: result.data.transactionCount || result.data.txCount || "0" },
+            { label: t("search.gasUsed", "Gas Used"), value: result.data.gasUsed ? `${(parseInt(result.data.gasUsed) / 1e9).toFixed(2)} EMB` : "N/A" },
           ]
         };
       case 'transaction':
         return {
           primary: formatHash(result.id, 16),
-          secondary: result.data.timestamp ? new Date(result.data.timestamp).toLocaleString() : null,
+          secondary: result.data.timestamp ? formatTimestamp(result.data.timestamp) : null,
           stats: [
-            { label: "Value", value: result.data.value ? `${parseFloat(result.data.value).toFixed(4)} TBURN` : "0 TBURN" },
-            { label: "Status", value: result.data.status === 'confirmed' ? "Confirmed" : "Pending" },
+            { label: t("search.value", "Value"), value: result.data.value ? `${parseFloat(result.data.value).toFixed(4)} TBURN` : "0 TBURN" },
+            { label: t("search.status", "Status"), value: result.data.status === 'confirmed' ? t("search.confirmed", "Confirmed") : t("search.pending", "Pending") },
           ]
         };
       case 'address':
         return {
           primary: formatHash(result.id, 12),
-          secondary: "Wallet Address",
+          secondary: t("search.walletAddress", "Wallet Address"),
           stats: [
-            { label: "Balance", value: result.data.balance ? `${parseFloat(result.data.balance).toFixed(4)} TBURN` : "0 TBURN" },
-            { label: "Transactions", value: result.data.txCount || "View" },
+            { label: t("search.balance", "Balance"), value: result.data.balance ? `${parseFloat(result.data.balance).toFixed(4)} TBURN` : "0 TBURN" },
+            { label: t("search.transactions", "Transactions"), value: result.data.txCount || t("search.view", "View") },
           ]
         };
       case 'validator':
@@ -179,9 +193,9 @@ function ResultCard({ result, index }: { result: SearchResult; index: number }) 
           primary: result.data.name || result.title,
           secondary: formatHash(result.data.address || result.id, 10),
           stats: [
-            { label: "Status", value: result.data.status === 'active' ? "Active" : "Inactive" },
-            { label: "Stake", value: result.data.stake ? `${(parseFloat(result.data.stake) / 1e18).toLocaleString()} TBURN` : "N/A" },
-            { label: "Uptime", value: result.data.uptime ? `${(result.data.uptime / 100).toFixed(1)}%` : "N/A" },
+            { label: t("search.status", "Status"), value: result.data.status === 'active' ? t("search.active", "Active") : t("search.inactive", "Inactive") },
+            { label: t("search.stake", "Stake"), value: result.data.stake ? `${(parseFloat(result.data.stake) / 1e18).toLocaleString()} TBURN` : "N/A" },
+            { label: t("search.uptime", "Uptime"), value: result.data.uptime ? `${(result.data.uptime / 100).toFixed(1)}%` : "N/A" },
           ]
         };
       default:
