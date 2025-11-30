@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
@@ -30,6 +33,17 @@ import {
   Package,
   Shield,
   Loader2,
+  RefreshCw,
+  Search,
+  ChevronRight,
+  ExternalLink,
+  Share2,
+  Copy,
+  CheckCircle2,
+  Play,
+  BarChart3,
+  Clock,
+  Eye,
 } from "lucide-react";
 
 const ENTERPRISE_WALLET = "0xTBURNEnterprise7890abcdef1234567890abcdef";
@@ -92,6 +106,17 @@ interface GameLeaderboard {
   totalEarned: string;
 }
 
+interface TournamentParticipant {
+  id: string;
+  tournamentId: string;
+  walletAddress: string;
+  playerName: string | null;
+  rank: number | null;
+  score: string;
+  status: string;
+  joinedAt: string;
+}
+
 interface GamefiActivity {
   id: string;
   projectId: string | null;
@@ -152,7 +177,7 @@ function formatAmount(wei: string | null | undefined, decimals: number = 18): st
   if (!wei || wei === "0") return "0";
   try {
     const value = BigInt(wei);
-    const divisor = BigInt(10 ** decimals);
+    const divisor = 10n ** BigInt(decimals);
     const integerPart = value / divisor;
     const remainder = value % divisor;
     const decimalStr = remainder.toString().padStart(decimals, '0').slice(0, 2);
@@ -318,26 +343,59 @@ function getGenreTranslationKey(genre: string): string {
   return genreMap[genre] || genre;
 }
 
-function formatTimeRemaining(dateStr: string, startedLabel: string = "Started"): string {
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diff = date.getTime() - now.getTime();
-  
-  if (diff < 0) return startedLabel;
-  
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  
-  if (days > 0) return `${days}d ${hours}h`;
-  if (hours > 0) return `${hours}h ${minutes}m`;
-  return `${minutes}m`;
+function useCountdown(targetDate: string | null): string | null {
+  const [countdown, setCountdown] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!targetDate) {
+      setCountdown(null);
+      return;
+    }
+
+    const calculateCountdown = () => {
+      const target = new Date(targetDate).getTime();
+      const now = Date.now();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        return null;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+      if (hours > 0) return `${hours}h ${minutes}m ${seconds}s`;
+      return `${minutes}m ${seconds}s`;
+    };
+
+    setCountdown(calculateCountdown());
+    const interval = setInterval(() => {
+      setCountdown(calculateCountdown());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  return countdown;
 }
 
-function ProjectCard({ project }: { project: GamefiProject }) {
+function ProjectCard({ 
+  project, 
+  onClick 
+}: { 
+  project: GamefiProject; 
+  onClick?: () => void;
+}) {
   const { t } = useTranslation();
   return (
-    <Card className="hover-elevate cursor-pointer" data-testid={`card-project-${project.id}`}>
+    <Card 
+      className="hover-elevate cursor-pointer transition-all" 
+      onClick={onClick}
+      data-testid={`card-project-${project.id}`}
+    >
       <CardContent className="p-4">
         <div className="flex gap-4">
           <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted flex-shrink-0">
@@ -359,8 +417,11 @@ function ProjectCard({ project }: { project: GamefiProject }) {
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
               <span className="font-semibold truncate">{project.name}</span>
+              {project.verified && (
+                <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0" />
+              )}
               <Badge className={getStatusColor(project.status)}>
                 {t(getStatusTranslationKey(project.status))}
               </Badge>
@@ -401,6 +462,7 @@ function ProjectCard({ project }: { project: GamefiProject }) {
               )}
             </div>
           </div>
+          <ChevronRight className="w-5 h-5 text-muted-foreground self-center flex-shrink-0" />
         </div>
       </CardContent>
     </Card>
@@ -410,11 +472,13 @@ function ProjectCard({ project }: { project: GamefiProject }) {
 function TournamentCard({ 
   tournament, 
   project,
+  onClick,
   onJoin,
   isJoining,
 }: { 
   tournament: GameTournament; 
   project?: GamefiProject;
+  onClick?: () => void;
   onJoin?: (tournamentId: string) => void;
   isJoining?: boolean;
 }) {
@@ -422,18 +486,23 @@ function TournamentCard({
   const progress = tournament.maxParticipants > 0 
     ? (tournament.currentParticipants / tournament.maxParticipants) * 100 
     : 0;
+  const countdown = useCountdown(tournament.status === "upcoming" || tournament.status === "registration" ? tournament.startTime : null);
   
   const canJoin = (tournament.status === "upcoming" || tournament.status === "registration") 
     && tournament.currentParticipants < tournament.maxParticipants;
     
   return (
-    <Card className="hover-elevate" data-testid={`card-tournament-${tournament.id}`}>
+    <Card 
+      className="hover-elevate cursor-pointer transition-all" 
+      onClick={onClick}
+      data-testid={`card-tournament-${tournament.id}`}
+    >
       <CardContent className="p-4">
         <div className="flex items-start justify-between mb-3">
-          <div>
-            <div className="font-semibold">{tournament.name}</div>
+          <div className="flex-1 min-w-0">
+            <div className="font-semibold truncate">{tournament.name}</div>
             {project && (
-              <div className="text-sm text-muted-foreground">{project.name}</div>
+              <div className="text-sm text-muted-foreground truncate">{project.name}</div>
             )}
           </div>
           <Badge className={getTournamentStatusColor(tournament.status)}>
@@ -460,13 +529,17 @@ function TournamentCard({
           </div>
           <div>
             <div className="text-muted-foreground">
-              {tournament.status === "upcoming" ? t("gamefi.startsIn") : t("gamefi.status")}
+              {countdown ? t("gamefi.startsIn") : t("gamefi.status")}
             </div>
-            <div className="font-medium">
-              {tournament.startTime && tournament.status === "upcoming"
-                ? formatTimeRemaining(tournament.startTime, t("gamefi.started"))
-                : t(getStatusTranslationKey(tournament.status))
-              }
+            <div className="font-medium flex items-center gap-1">
+              {countdown ? (
+                <>
+                  <Timer className="w-3 h-3 text-primary" />
+                  <span className="text-primary">{countdown}</span>
+                </>
+              ) : (
+                t(getStatusTranslationKey(tournament.status))
+              )}
             </div>
           </div>
         </div>
@@ -483,37 +556,38 @@ function TournamentCard({
             <span>{t("gamefi.nftRequired")}</span>
           </div>
         )}
-        {onJoin && canJoin && (
-          <Button 
-            className="w-full mt-3" 
+        <div className="flex items-center gap-2 mt-3">
+          {onJoin && canJoin && (
+            <Button 
+              className="flex-1" 
+              size="sm"
+              onClick={(e) => { e.stopPropagation(); onJoin(tournament.id); }}
+              disabled={isJoining}
+              data-testid={`button-join-tournament-${tournament.id}`}
+            >
+              {isJoining ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  {t("gamefi.joining")}
+                </>
+              ) : (
+                <>
+                  <Swords className="w-4 h-4 mr-2" />
+                  {t("gamefi.joinTournament")}
+                </>
+              )}
+            </Button>
+          )}
+          <Button
             size="sm"
-            onClick={() => onJoin(tournament.id)}
-            disabled={isJoining}
-            data-testid={`button-join-tournament-${tournament.id}`}
+            variant="ghost"
+            onClick={(e) => { e.stopPropagation(); onClick?.(); }}
+            data-testid={`button-details-tournament-${tournament.id}`}
           >
-            {isJoining ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                {t("gamefi.joining")}
-              </>
-            ) : (
-              <>
-                <Swords className="w-4 h-4 mr-2" />
-                {t("gamefi.joinTournament")}
-              </>
-            )}
+            {t("gamefi.viewDetails")}
+            <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
-        )}
-        {tournament.status === "completed" && (
-          <div className="mt-3 text-center text-sm text-muted-foreground">
-            {t("gamefi.tournamentCompleted")}
-          </div>
-        )}
-        {tournament.status === "active" && (
-          <div className="mt-3 text-center text-sm text-green-500 font-medium">
-            {t("gamefi.tournamentInProgress")}
-          </div>
-        )}
+        </div>
       </CardContent>
     </Card>
   );
@@ -603,7 +677,10 @@ function LeaderboardRow({ entry, rank }: { entry: GameLeaderboard; rank: number 
   const RankIcon = rankIcon;
   
   return (
-    <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-leaderboard-${entry.id}`}>
+    <div 
+      className="flex items-center gap-4 py-3 border-b last:border-0 hover-elevate rounded-lg px-2 cursor-pointer" 
+      data-testid={`row-leaderboard-${entry.id}`}
+    >
       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
         rank === 1 ? 'bg-yellow-500/20 text-yellow-500' :
         rank === 2 ? 'bg-gray-400/20 text-gray-400' :
@@ -694,7 +771,7 @@ function BadgeCard({ badge }: { badge: AchievementBadge }) {
   );
 }
 
-function ActivityRow({ activity }: { activity: GamefiActivity }) {
+function ActivityRow({ activity, onClick }: { activity: GamefiActivity; onClick?: () => void }) {
   const { t } = useTranslation();
   const IconComponent = getEventTypeIcon(activity.eventType);
   
@@ -713,8 +790,26 @@ function ActivityRow({ activity }: { activity: GamefiActivity }) {
     return eventLabels[eventType] || eventType.replace(/_/g, ' ');
   };
   
+  const timeAgo = (dateStr: string) => {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    
+    if (days > 0) return `${days}d ago`;
+    if (hours > 0) return `${hours}h ago`;
+    if (minutes > 0) return `${minutes}m ago`;
+    return 'Just now';
+  };
+  
   return (
-    <div className="flex items-center gap-4 py-3 border-b last:border-0" data-testid={`row-activity-${activity.id}`}>
+    <div 
+      className="flex items-center gap-4 py-3 border-b last:border-0 hover-elevate rounded-lg px-2 cursor-pointer" 
+      onClick={onClick}
+      data-testid={`row-activity-${activity.id}`}
+    >
       <div className="p-2 rounded-lg bg-muted">
         <IconComponent className="w-4 h-4" />
       </div>
@@ -724,66 +819,555 @@ function ActivityRow({ activity }: { activity: GamefiActivity }) {
           {activity.walletAddress && shortenAddress(activity.walletAddress)}
         </div>
       </div>
-      {activity.amount && (
-        <div className="text-right">
-          <div className="font-medium">{formatAmount(activity.amount)} TBURN</div>
-        </div>
-      )}
+      <div className="text-right">
+        {activity.amount && (
+          <div className="font-medium text-green-500">{formatAmount(activity.amount)} TBURN</div>
+        )}
+        <div className="text-xs text-muted-foreground">{timeAgo(activity.createdAt)}</div>
+      </div>
     </div>
+  );
+}
+
+function ProjectDetailDialog({
+  project,
+  open,
+  onOpenChange,
+}: {
+  project: GamefiProject | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { t } = useTranslation();
+  const [dialogTab, setDialogTab] = useState("overview");
+  const { toast } = useToast();
+
+  const { data: projectAssets } = useQuery<GameAsset[]>({
+    queryKey: ["/api/gamefi/projects", project?.id, "assets"],
+    enabled: !!project?.id && open,
+  });
+
+  const { data: projectLeaderboard } = useQuery<GameLeaderboard[]>({
+    queryKey: ["/api/gamefi/projects", project?.id, "leaderboard"],
+    enabled: !!project?.id && open,
+  });
+
+  const { data: projectTournaments } = useQuery<GameTournament[]>({
+    queryKey: ["/api/gamefi/tournaments"],
+    enabled: !!project?.id && open,
+    select: (data) => data?.filter(t => t.projectId === project?.id) || [],
+  });
+
+  const { data: projectActivity } = useQuery<GamefiActivity[]>({
+    queryKey: ["/api/gamefi/projects", project?.id, "activity"],
+    enabled: !!project?.id && open,
+  });
+
+  const handleCopyAddress = (address: string) => {
+    navigator.clipboard.writeText(address);
+    toast({
+      title: t("gamefi.copied"),
+      description: t("gamefi.addressCopied"),
+    });
+  };
+
+  if (!project) return null;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
+        <DialogHeader className="flex-shrink-0">
+          <div className="flex items-start gap-4">
+            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+              {project.imageUrl ? (
+                <img src={project.imageUrl} alt={project.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <Gamepad2 className="w-8 h-8 text-muted-foreground" />
+                </div>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <DialogTitle className="text-xl">{project.name}</DialogTitle>
+                {project.verified && <CheckCircle2 className="w-5 h-5 text-blue-500" />}
+                <Badge className={getStatusColor(project.status)}>
+                  {t(getStatusTranslationKey(project.status))}
+                </Badge>
+              </div>
+              <DialogDescription className="mt-1">
+                {project.developer && <span>{project.developer} • </span>}
+                {t(getCategoryTranslationKey(project.category))}
+                {project.genre && ` • ${t(getGenreTranslationKey(project.genre))}`}
+              </DialogDescription>
+              <div className="flex items-center gap-2 mt-2">
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => handleCopyAddress(project.id)}
+                  data-testid="button-copy-project-id"
+                >
+                  <Copy className="w-3 h-3 mr-1" />
+                  {shortenAddress(project.id)}
+                </Button>
+                <Button size="sm" variant="outline" data-testid="button-view-explorer">
+                  <ExternalLink className="w-3 h-3 mr-1" />
+                  {t("gamefi.viewOnExplorer")}
+                </Button>
+                <Button size="sm" variant="outline" data-testid="button-share-project">
+                  <Share2 className="w-3 h-3 mr-1" />
+                  {t("gamefi.share")}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </DialogHeader>
+
+        <Tabs value={dialogTab} onValueChange={setDialogTab} className="flex-1 flex flex-col min-h-0 mt-4">
+          <TabsList className="flex-shrink-0">
+            <TabsTrigger value="overview" data-testid="dialog-tab-overview">{t("gamefi.overview")}</TabsTrigger>
+            <TabsTrigger value="assets" data-testid="dialog-tab-assets">{t("gamefi.assets")} ({projectAssets?.length || 0})</TabsTrigger>
+            <TabsTrigger value="leaderboard" data-testid="dialog-tab-leaderboard">{t("gamefi.leaderboard")}</TabsTrigger>
+            <TabsTrigger value="tournaments" data-testid="dialog-tab-tournaments">{t("gamefi.tournaments")} ({projectTournaments?.length || 0})</TabsTrigger>
+            <TabsTrigger value="activity" data-testid="dialog-tab-activity">{t("gamefi.activityTab")}</TabsTrigger>
+          </TabsList>
+
+          <ScrollArea className="flex-1 mt-4">
+            <TabsContent value="overview" className="mt-0 space-y-6">
+              {project.description && (
+                <div>
+                  <h3 className="font-semibold mb-2">{t("gamefi.description")}</h3>
+                  <p className="text-muted-foreground">{project.description}</p>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Card>
+                  <CardContent className="p-4 text-center">
+                    <Users className="w-6 h-6 mx-auto mb-2 text-blue-500" />
+                    <div className="text-2xl font-bold">{project.totalPlayers.toLocaleString()}</div>
+                    <div className="text-sm text-muted-foreground">{t("gamefi.totalPlayers")}</div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-4 text-center">
+                    <Zap className="w-6 h-6 mx-auto mb-2 text-green-500" />
+                    <div className="text-2xl font-bold">{project.activePlayers24h.toLocaleString()}</div>
+                    <div className="text-sm text-muted-foreground">{t("gamefi.activePlayers24h")}</div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-4 text-center">
+                    <Coins className="w-6 h-6 mx-auto mb-2 text-yellow-500" />
+                    <div className="text-2xl font-bold">{formatAmount(project.totalVolume)}</div>
+                    <div className="text-sm text-muted-foreground">{t("gamefi.totalVolume")}</div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-4 text-center">
+                    <Gift className="w-6 h-6 mx-auto mb-2 text-purple-500" />
+                    <div className="text-2xl font-bold">{formatAmount(project.totalRewardsDistributed)}</div>
+                    <div className="text-sm text-muted-foreground">{t("gamefi.totalRewardsDistributed")}</div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                  <div>
+                    <div className="font-medium">{project.rating.toFixed(1)}</div>
+                    <div className="text-xs text-muted-foreground">{project.ratingCount} {t("gamefi.reviews")}</div>
+                  </div>
+                </div>
+                {project.aiScore && (
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-purple-500" />
+                    <div>
+                      <div className="font-medium">{project.aiScore.toFixed(1)}</div>
+                      <div className="text-xs text-muted-foreground">{t("gamefi.aiScore")}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {project.playToEarnEnabled && (
+                  <Badge variant="secondary" className="gap-1">
+                    <Coins className="w-3 h-3" />
+                    {t("gamefi.playToEarn")}
+                  </Badge>
+                )}
+                {project.stakingEnabled && (
+                  <Badge variant="secondary" className="gap-1">
+                    <TrendingUp className="w-3 h-3" />
+                    {t("gamefi.stakingEnabled")}
+                  </Badge>
+                )}
+                {project.tournamentEnabled && (
+                  <Badge variant="secondary" className="gap-1">
+                    <Trophy className="w-3 h-3" />
+                    {t("gamefi.tournamentsEnabled")}
+                  </Badge>
+                )}
+              </div>
+
+              <Button className="w-full" size="lg" data-testid="button-play-game">
+                <Play className="w-5 h-5 mr-2" />
+                {t("gamefi.playNow")}
+              </Button>
+            </TabsContent>
+
+            <TabsContent value="assets" className="mt-0">
+              {projectAssets && projectAssets.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {projectAssets.map(asset => (
+                    <AssetCard key={asset.id} asset={asset} />
+                  ))}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <Package className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>{t("gamefi.noAssetsAvailable")}</p>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="leaderboard" className="mt-0">
+              {projectLeaderboard && projectLeaderboard.length > 0 ? (
+                <div className="space-y-1">
+                  {projectLeaderboard.map((entry, index) => (
+                    <LeaderboardRow key={entry.id} entry={entry} rank={index + 1} />
+                  ))}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <BarChart3 className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>{t("gamefi.noLeaderboardData")}</p>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="tournaments" className="mt-0">
+              {projectTournaments && projectTournaments.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4">
+                  {projectTournaments.map(tournament => (
+                    <TournamentCard key={tournament.id} tournament={tournament} project={project} />
+                  ))}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <Trophy className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>{t("gamefi.noTournamentsAvailable")}</p>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="activity" className="mt-0">
+              {projectActivity && projectActivity.length > 0 ? (
+                <div className="space-y-1">
+                  {projectActivity.map(act => (
+                    <ActivityRow key={act.id} activity={act} />
+                  ))}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <Activity className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>{t("gamefi.noActivityYet")}</p>
+                </div>
+              )}
+            </TabsContent>
+          </ScrollArea>
+        </Tabs>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function TournamentDetailDialog({
+  tournament,
+  project,
+  open,
+  onOpenChange,
+  onJoin,
+  isJoining,
+}: {
+  tournament: GameTournament | null;
+  project?: GamefiProject;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onJoin?: (tournamentId: string) => void;
+  isJoining?: boolean;
+}) {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const countdown = useCountdown(tournament?.status === "upcoming" || tournament?.status === "registration" ? tournament.startTime : null);
+
+  const { data: participants } = useQuery<TournamentParticipant[]>({
+    queryKey: ["/api/gamefi/tournaments", tournament?.id, "participants"],
+    enabled: !!tournament?.id && open,
+  });
+
+  const handleCopyAddress = (address: string) => {
+    navigator.clipboard.writeText(address);
+    toast({
+      title: t("gamefi.copied"),
+      description: t("gamefi.addressCopied"),
+    });
+  };
+
+  if (!tournament) return null;
+
+  const progress = tournament.maxParticipants > 0 
+    ? (tournament.currentParticipants / tournament.maxParticipants) * 100 
+    : 0;
+  const canJoin = (tournament.status === "upcoming" || tournament.status === "registration") 
+    && tournament.currentParticipants < tournament.maxParticipants;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col">
+        <DialogHeader className="flex-shrink-0">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <DialogTitle className="text-xl">{tournament.name}</DialogTitle>
+                <Badge className={getTournamentStatusColor(tournament.status)}>
+                  {t(getStatusTranslationKey(tournament.status))}
+                </Badge>
+              </div>
+              <DialogDescription className="mt-1">
+                {project?.name && <span>{project.name} • </span>}
+                {t(getTournamentTypeTranslationKey(tournament.tournamentType))}
+              </DialogDescription>
+            </div>
+          </div>
+        </DialogHeader>
+
+        <ScrollArea className="flex-1 mt-4">
+          <div className="space-y-6">
+            {tournament.description && (
+              <p className="text-muted-foreground">{tournament.description}</p>
+            )}
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <Trophy className="w-6 h-6 mx-auto mb-2 text-yellow-500" />
+                  <div className="text-xl font-bold">{formatAmount(tournament.prizePool)}</div>
+                  <div className="text-sm text-muted-foreground">TBURN {t("gamefi.prizePool")}</div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <Coins className="w-6 h-6 mx-auto mb-2 text-blue-500" />
+                  <div className="text-xl font-bold">
+                    {tournament.entryFee && tournament.entryFee !== "0" 
+                      ? formatAmount(tournament.entryFee) 
+                      : t("gamefi.free")
+                    }
+                  </div>
+                  <div className="text-sm text-muted-foreground">{t("gamefi.entryFee")}</div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <Users className="w-6 h-6 mx-auto mb-2 text-green-500" />
+                  <div className="text-xl font-bold">{tournament.currentParticipants}</div>
+                  <div className="text-sm text-muted-foreground">/ {tournament.maxParticipants}</div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <Timer className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-xl font-bold">{countdown || t(getStatusTranslationKey(tournament.status))}</div>
+                  <div className="text-sm text-muted-foreground">{countdown ? t("gamefi.startsIn") : t("gamefi.status")}</div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">{t("gamefi.registrationProgress")}</span>
+                <span>{tournament.currentParticipants} / {tournament.maxParticipants}</span>
+              </div>
+              <Progress value={progress} className="h-3" />
+            </div>
+
+            {tournament.requiresNft && (
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                <Sparkles className="w-5 h-5 text-purple-500" />
+                <span className="text-purple-500">{t("gamefi.nftRequiredToJoin")}</span>
+              </div>
+            )}
+
+            {(tournament.startTime || tournament.endTime) && (
+              <div className="grid grid-cols-2 gap-4">
+                {tournament.startTime && (
+                  <div>
+                    <div className="text-sm text-muted-foreground">{t("gamefi.startTime")}</div>
+                    <div className="font-medium">{new Date(tournament.startTime).toLocaleString()}</div>
+                  </div>
+                )}
+                {tournament.endTime && (
+                  <div>
+                    <div className="text-sm text-muted-foreground">{t("gamefi.endTime")}</div>
+                    <div className="font-medium">{new Date(tournament.endTime).toLocaleString()}</div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {canJoin && onJoin && (
+              <Button 
+                className="w-full" 
+                size="lg"
+                onClick={() => onJoin(tournament.id)}
+                disabled={isJoining}
+                data-testid="button-join-tournament-dialog"
+              >
+                {isJoining ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    {t("gamefi.joining")}
+                  </>
+                ) : (
+                  <>
+                    <Swords className="w-5 h-5 mr-2" />
+                    {t("gamefi.joinTournament")}
+                  </>
+                )}
+              </Button>
+            )}
+
+            {participants && participants.length > 0 && (
+              <div>
+                <h3 className="font-semibold mb-3">{t("gamefi.participants")} ({participants.length})</h3>
+                <div className="space-y-2">
+                  {participants.map((participant, index) => (
+                    <div 
+                      key={participant.id}
+                      className="flex items-center justify-between p-3 rounded-lg border hover-elevate cursor-pointer"
+                      onClick={() => handleCopyAddress(participant.walletAddress)}
+                      data-testid={`row-participant-${participant.id}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
+                          index === 0 ? 'bg-yellow-500/20 text-yellow-500' :
+                          index === 1 ? 'bg-gray-400/20 text-gray-400' :
+                          index === 2 ? 'bg-orange-500/20 text-orange-500' :
+                          'bg-muted text-muted-foreground'
+                        }`}>
+                          {participant.rank || index + 1}
+                        </div>
+                        <div>
+                          <div className="font-medium">{participant.playerName || shortenAddress(participant.walletAddress)}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {new Date(participant.joinedAt).toLocaleDateString()}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-medium">{parseInt(participant.score || "0").toLocaleString()}</div>
+                        <Badge variant="outline" className="text-xs">{participant.status}</Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </ScrollArea>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 export default function GameFiPage() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<GamefiProject | null>(null);
+  const [selectedTournament, setSelectedTournament] = useState<GameTournament | null>(null);
   const [joiningTournamentId, setJoiningTournamentId] = useState<string | null>(null);
   const [equippingAssetId, setEquippingAssetId] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const { data: overview, isLoading: overviewLoading } = useQuery<GamefiOverview>({
+  const { data: overview, isLoading: overviewLoading, refetch: refetchOverview } = useQuery<GamefiOverview>({
     queryKey: ["/api/gamefi/stats"],
     refetchInterval: 10000,
   });
 
-  const { data: projects, isLoading: projectsLoading } = useQuery<GamefiProject[]>({
+  const { data: projects, isLoading: projectsLoading, refetch: refetchProjects } = useQuery<GamefiProject[]>({
     queryKey: ["/api/gamefi/projects"],
     refetchInterval: 15000,
   });
 
-  const { data: featuredProjects } = useQuery<GamefiProject[]>({
+  const { data: featuredProjects, refetch: refetchFeatured } = useQuery<GamefiProject[]>({
     queryKey: ["/api/gamefi/projects/featured"],
     refetchInterval: 30000,
   });
 
-  const { data: tournaments } = useQuery<GameTournament[]>({
+  const { data: tournaments, refetch: refetchTournaments } = useQuery<GameTournament[]>({
     queryKey: ["/api/gamefi/tournaments"],
     refetchInterval: 15000,
   });
 
-  const { data: activeTournaments } = useQuery<GameTournament[]>({
+  const { data: activeTournaments, refetch: refetchActiveTournaments } = useQuery<GameTournament[]>({
     queryKey: ["/api/gamefi/tournaments/active"],
     refetchInterval: 10000,
   });
 
-  const { data: badges } = useQuery<AchievementBadge[]>({
+  const { data: badges, refetch: refetchBadges } = useQuery<AchievementBadge[]>({
     queryKey: ["/api/gamefi/badges/global"],
     refetchInterval: 60000,
   });
 
-  const { data: activity } = useQuery<GamefiActivity[]>({
+  const { data: activity, refetch: refetchActivity } = useQuery<GamefiActivity[]>({
     queryKey: ["/api/gamefi/activity"],
     refetchInterval: 5000,
   });
 
-  const { data: myAssets, isLoading: assetsLoading } = useQuery<GameAsset[]>({
+  const { data: myAssets, isLoading: assetsLoading, refetch: refetchAssets } = useQuery<GameAsset[]>({
     queryKey: ["/api/gamefi/assets/owner", ENTERPRISE_WALLET],
     refetchInterval: 15000,
   });
 
-  const { data: pendingRewards, isLoading: rewardsLoading } = useQuery<PendingReward[]>({
+  const { data: pendingRewards, isLoading: rewardsLoading, refetch: refetchRewards } = useQuery<PendingReward[]>({
     queryKey: ["/api/gamefi/player", ENTERPRISE_WALLET, "pending-rewards"],
     refetchInterval: 10000,
   });
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        refetchOverview(),
+        refetchProjects(),
+        refetchFeatured(),
+        refetchTournaments(),
+        refetchActiveTournaments(),
+        refetchBadges(),
+        refetchActivity(),
+        refetchAssets(),
+        refetchRewards(),
+      ]);
+      toast({
+        title: t("gamefi.refreshSuccess"),
+        description: t("gamefi.refreshSuccessDesc"),
+      });
+    } catch (error) {
+      toast({
+        title: t("gamefi.refreshError"),
+        description: t("gamefi.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   const joinTournamentMutation = useMutation({
     mutationFn: async (tournamentId: string) => {
@@ -883,17 +1467,88 @@ export default function GameFiPage() {
     equipAssetMutation.mutate(assetId);
   };
 
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    projects?.forEach(p => {
+      if (p.category) cats.add(p.category);
+    });
+    return Array.from(cats);
+  }, [projects]);
+
+  const filteredProjects = useMemo(() => {
+    let result = projects || [];
+    
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(p => 
+        p.name.toLowerCase().includes(query) ||
+        p.description?.toLowerCase().includes(query) ||
+        p.category?.toLowerCase().includes(query) ||
+        p.genre?.toLowerCase().includes(query)
+      );
+    }
+    
+    if (categoryFilter !== "all") {
+      result = result.filter(p => p.category?.toLowerCase() === categoryFilter.toLowerCase());
+    }
+    
+    return result;
+  }, [projects, searchQuery, categoryFilter]);
+
+  const filteredTournaments = useMemo(() => {
+    if (!searchQuery) return tournaments || [];
+    const query = searchQuery.toLowerCase();
+    return (tournaments || []).filter(t => 
+      t.name.toLowerCase().includes(query) ||
+      t.description?.toLowerCase().includes(query)
+    );
+  }, [tournaments, searchQuery]);
+
   const activeProjects = projects?.filter(p => p.status === "active") || [];
   const totalPendingRewards = pendingRewards?.reduce((acc, r) => acc + BigInt(r.amount || 0), BigInt(0)) || BigInt(0);
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-page-title">{t("gamefi.title")}</h1>
           <p className="text-muted-foreground">
             {t("gamefi.pageDescription")}
           </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              placeholder={t("gamefi.searchGames")}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 w-64"
+              data-testid="input-search"
+            />
+          </div>
+          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <SelectTrigger className="w-40" data-testid="select-category">
+              <SelectValue placeholder={t("gamefi.allCategories")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t("gamefi.allCategories")}</SelectItem>
+              {categories.map(cat => (
+                <SelectItem key={cat} value={cat.toLowerCase()}>
+                  {t(getCategoryTranslationKey(cat))}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            data-testid="button-refresh"
+          >
+            <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          </Button>
         </div>
       </div>
 
@@ -1074,7 +1729,11 @@ export default function GameFiPage() {
                       ))
                     ) : (
                       featuredProjects?.map(project => (
-                        <ProjectCard key={project.id} project={project} />
+                        <ProjectCard 
+                          key={project.id} 
+                          project={project} 
+                          onClick={() => setSelectedProject(project)}
+                        />
                       ))
                     )}
                     {!projectsLoading && (!featuredProjects || featuredProjects.length === 0) && (
@@ -1105,6 +1764,7 @@ export default function GameFiPage() {
                           key={tournament.id} 
                           tournament={tournament} 
                           project={project}
+                          onClick={() => setSelectedTournament(tournament)}
                           onJoin={handleJoinTournament}
                           isJoining={joiningTournamentId === tournament.id}
                         />
@@ -1159,14 +1819,18 @@ export default function GameFiPage() {
                     <Skeleton key={i} className="h-28 w-full" />
                   ))
                 ) : (
-                  projects?.map(project => (
-                    <ProjectCard key={project.id} project={project} />
+                  filteredProjects.map(project => (
+                    <ProjectCard 
+                      key={project.id} 
+                      project={project} 
+                      onClick={() => setSelectedProject(project)}
+                    />
                   ))
                 )}
               </div>
-              {!projectsLoading && (!projects || projects.length === 0) && (
+              {!projectsLoading && filteredProjects.length === 0 && (
                 <div className="py-12 text-center text-muted-foreground">
-                  {t("gamefi.noGamesAvailable")}
+                  {searchQuery ? t("gamefi.noSearchResults") : t("gamefi.noGamesAvailable")}
                 </div>
               )}
             </CardContent>
@@ -1181,22 +1845,23 @@ export default function GameFiPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {tournaments?.map(tournament => {
+                {filteredTournaments.map(tournament => {
                   const project = projects?.find(p => p.id === tournament.projectId);
                   return (
                     <TournamentCard 
                       key={tournament.id} 
                       tournament={tournament} 
                       project={project}
+                      onClick={() => setSelectedTournament(tournament)}
                       onJoin={handleJoinTournament}
                       isJoining={joiningTournamentId === tournament.id}
                     />
                   );
                 })}
               </div>
-              {(!tournaments || tournaments.length === 0) && (
+              {filteredTournaments.length === 0 && (
                 <div className="py-12 text-center text-muted-foreground">
-                  {t("gamefi.noTournamentsAvailable")}
+                  {searchQuery ? t("gamefi.noSearchResults") : t("gamefi.noTournamentsAvailable")}
                 </div>
               )}
             </CardContent>
@@ -1297,7 +1962,7 @@ export default function GameFiPage() {
                   {pendingRewards.map(reward => (
                     <div 
                       key={reward.id} 
-                      className="flex items-center justify-between p-4 rounded-lg border"
+                      className="flex items-center justify-between p-4 rounded-lg border hover-elevate cursor-pointer"
                       data-testid={`row-reward-${reward.id}`}
                     >
                       <div className="flex items-center gap-4">
@@ -1356,6 +2021,21 @@ export default function GameFiPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <ProjectDetailDialog
+        project={selectedProject}
+        open={!!selectedProject}
+        onOpenChange={(open) => !open && setSelectedProject(null)}
+      />
+
+      <TournamentDetailDialog
+        tournament={selectedTournament}
+        project={projects?.find(p => p.id === selectedTournament?.projectId)}
+        open={!!selectedTournament}
+        onOpenChange={(open) => !open && setSelectedTournament(null)}
+        onJoin={handleJoinTournament}
+        isJoining={joiningTournamentId === selectedTournament?.id}
+      />
     </div>
   );
 }
