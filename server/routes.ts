@@ -12,6 +12,7 @@ import {
   insertWalletBalanceSchema, insertConsensusRoundSchema,
   aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema,
   aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema,
+  shardsSnapshotSchema,
   consensusStateSchema,
   type InsertMember,
   type NetworkStats
@@ -8537,6 +8538,17 @@ Provide JSON portfolio analysis:
       console.error('Error broadcasting validator updates:', error);
     }
   }, 5000, 'validators_update');
+  
+  // Shard Updates snapshot every 10 seconds (for real-time shard monitoring)
+  createTrackedInterval(async () => {
+    if (clients.size === 0) return;
+    try {
+      const shards = await storage.getAllShards();
+      broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+    } catch (error) {
+      console.error('Error broadcasting shards snapshot:', error);
+    }
+  }, 10000, 'shards_snapshot');
   
   // AI Usage Stats broadcasting every 10 seconds
   createTrackedInterval(() => {

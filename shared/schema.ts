@@ -1284,11 +1284,18 @@ export const consensusRoundSelectSchema = insertConsensusRoundSchema.extend({
   createdAt: z.string().or(z.date()),
 });
 
+// Shards (add read-only fields)
+export const shardSelectSchema = insertShardSchema.extend({
+  id: z.string(),
+  lastSyncedAt: z.string().or(z.date()).optional(),
+});
+
 // Snapshot schemas (arrays for periodic broadcasts)
 export const aiDecisionsSnapshotSchema = z.array(aiDecisionSelectSchema);
 export const crossShardMessagesSnapshotSchema = z.array(crossShardMessageSelectSchema);
 export const walletBalancesSnapshotSchema = z.array(walletBalanceSelectSchema);
 export const consensusRoundsSnapshotSchema = z.array(consensusRoundSelectSchema);
+export const shardsSnapshotSchema = z.array(shardSelectSchema);
 
 // Types
 export type Block = typeof blocks.$inferSelect;
