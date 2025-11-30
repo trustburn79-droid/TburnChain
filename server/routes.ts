@@ -566,7 +566,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const isBlockNumber = /^\d+$/.test(query);
       const isTxHash = /^0x[a-fA-F0-9]{64}$/.test(query);
       const isAddress = /^0x[a-fA-F0-9]{40}$/.test(query) || /^tburn[a-z0-9]{38,42}$/i.test(query);
-      const isPartialHash = /^0x[a-fA-F0-9]+$/.test(query) && query.length >= 10;
+      // Allow partial hash search with minimum 4 hex chars after 0x (e.g., 0x98f5)
+      const isPartialHash = /^0x[a-fA-F0-9]+$/.test(query) && query.length >= 6;
       
       // Search blocks (optimized: use direct lookup for block numbers)
       if (!type || type === 'all' || type === 'block') {
@@ -605,10 +606,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
           }
         } else if (isPartialHash) {
-          const recentBlocks = await storage.getRecentBlocks(500);
-          const matchingBlocks = recentBlocks.filter(b => 
-            b.hash.toLowerCase().includes(query.toLowerCase())
-          ).slice(0, limit);
+          // Search blocks by hash prefix across all blocks in database
+          const matchingBlocks = await storage.searchBlocksByHashPrefix(query, limit);
           matchingBlocks.forEach((block, i) => {
             results.push({
               type: 'block',
@@ -637,9 +636,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
           }
         } else if (isPartialHash) {
+          // Remove 0x prefix for matching since hashes may be stored without it
+          const searchHash = query.toLowerCase().replace(/^0x/, '');
           const allTxs = await storage.getRecentTransactions(500);
           const matchingTxs = allTxs.filter(tx => 
-            tx.hash.toLowerCase().includes(query.toLowerCase())
+            tx.hash.toLowerCase().includes(searchHash)
           ).slice(0, limit);
           matchingTxs.forEach((tx, i) => {
             results.push({

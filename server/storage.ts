@@ -316,7 +316,7 @@ import {
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, desc, isNull, and } from "drizzle-orm";
+import { eq, desc, isNull, and, sql } from "drizzle-orm";
 
 export interface IStorage {
   // Network Stats
@@ -327,6 +327,7 @@ export interface IStorage {
   getAllBlocks(): Promise<Block[]>;
   getRecentBlocks(limit?: number): Promise<Block[]>;
   getBlockByNumber(blockNumber: number): Promise<Block | undefined>;
+  searchBlocksByHashPrefix(hashPrefix: string, limit?: number): Promise<Block[]>;
   createBlock(block: InsertBlock): Promise<Block>;
 
   // Transactions
@@ -1464,6 +1465,14 @@ export class MemStorage implements IStorage {
     );
   }
 
+  async searchBlocksByHashPrefix(hashPrefix: string, limit = 10): Promise<Block[]> {
+    const normalizedPrefix = hashPrefix.toLowerCase().replace(/^0x/, '');
+    return Array.from(this.blocks.values())
+      .filter(b => b.hash.toLowerCase().includes(normalizedPrefix))
+      .sort((a, b) => Number(b.blockNumber - a.blockNumber))
+      .slice(0, limit);
+  }
+
   async createBlock(insertBlock: InsertBlock): Promise<Block> {
     // Clean up old blocks if we've reached the limit
     if (this.blocks.size >= this.MAX_BLOCKS) {
@@ -2237,6 +2246,16 @@ export class DbStorage implements IStorage {
   async getBlockByNumber(blockNumber: number): Promise<Block | undefined> {
     const result = await db.select().from(blocks).where(eq(blocks.blockNumber, blockNumber)).limit(1);
     return result[0];
+  }
+
+  async searchBlocksByHashPrefix(hashPrefix: string, limit = 10): Promise<Block[]> {
+    const normalizedPrefix = hashPrefix.toLowerCase().replace(/^0x/, '');
+    // Get recent blocks and filter by hash prefix in memory
+    // Limit to 5000 blocks for performance
+    const recentBlocks = await db.select().from(blocks).orderBy(desc(blocks.blockNumber)).limit(5000);
+    return recentBlocks
+      .filter(b => b.hash.toLowerCase().includes(normalizedPrefix))
+      .slice(0, limit);
   }
 
   async createBlock(insertBlock: InsertBlock): Promise<Block> {
