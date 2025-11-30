@@ -2432,7 +2432,32 @@
         "name": "Season Pioneer",
         "desc": "Complete a seasonal event"
       }
-    }
+    },
+    "searchGames": "Search games...",
+    "allCategories": "All Categories",
+    "noSearchResults": "No results found",
+    "refreshSuccess": "Data Refreshed",
+    "refreshSuccessDesc": "All GameFi data has been refreshed successfully",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Failed to refresh GameFi data",
+    "viewDetails": "Details",
+    "copied": "Copied",
+    "addressCopied": "Address copied to clipboard",
+    "viewOnExplorer": "Explorer",
+    "share": "Share",
+    "description": "Description",
+    "reviews": "reviews",
+    "aiScore": "AI Score",
+    "playToEarn": "Play to Earn",
+    "stakingEnabled": "Staking Enabled",
+    "tournamentsEnabled": "Tournaments",
+    "playNow": "Play Now",
+    "noAssetsAvailable": "No assets available for this game",
+    "noLeaderboardData": "No leaderboard data yet",
+    "noActivityYet": "No activity recorded yet",
+    "activityTab": "Activity",
+    "registrationProgress": "Registration Progress",
+    "nftRequiredToJoin": "NFT ownership required to participate in this tournament"
   },
   "bridge": {
     "title": "Cross-Chain Bridge",

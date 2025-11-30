@@ -2479,7 +2479,32 @@
         "name": "시즌 개척자",
         "desc": "시즌 이벤트 완료"
       }
-    }
+    },
+    "searchGames": "게임 검색...",
+    "allCategories": "전체 카테고리",
+    "noSearchResults": "검색 결과 없음",
+    "refreshSuccess": "데이터 새로고침 완료",
+    "refreshSuccessDesc": "모든 GameFi 데이터가 성공적으로 새로고침되었습니다",
+    "refreshError": "새로고침 실패",
+    "refreshErrorDesc": "GameFi 데이터 새로고침에 실패했습니다",
+    "viewDetails": "상세보기",
+    "copied": "복사됨",
+    "addressCopied": "주소가 클립보드에 복사되었습니다",
+    "viewOnExplorer": "익스플로러",
+    "share": "공유",
+    "description": "설명",
+    "reviews": "리뷰",
+    "aiScore": "AI 점수",
+    "playToEarn": "Play to Earn",
+    "stakingEnabled": "스테이킹 가능",
+    "tournamentsEnabled": "토너먼트",
+    "playNow": "지금 플레이",
+    "noAssetsAvailable": "이 게임에 사용 가능한 자산이 없습니다",
+    "noLeaderboardData": "아직 리더보드 데이터가 없습니다",
+    "noActivityYet": "아직 기록된 활동이 없습니다",
+    "activityTab": "활동",
+    "registrationProgress": "등록 진행률",
+    "nftRequiredToJoin": "이 토너먼트에 참여하려면 NFT 소유가 필요합니다"
   },
   "bridge": {
     "title": "크로스체인 브릿지",

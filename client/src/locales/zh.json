@@ -2152,7 +2152,32 @@
         "name": "赛季先驱",
         "desc": "完成赛季活动"
       }
-    }
+    },
+    "searchGames": "搜索游戏...",
+    "allCategories": "所有类别",
+    "noSearchResults": "没有搜索结果",
+    "refreshSuccess": "数据刷新成功",
+    "refreshSuccessDesc": "所有GameFi数据已成功刷新",
+    "refreshError": "刷新失败",
+    "refreshErrorDesc": "GameFi数据刷新失败",
+    "viewDetails": "详情",
+    "copied": "已复制",
+    "addressCopied": "地址已复制到剪贴板",
+    "viewOnExplorer": "浏览器",
+    "share": "分享",
+    "description": "描述",
+    "reviews": "评论",
+    "aiScore": "AI评分",
+    "playToEarn": "边玩边赚",
+    "stakingEnabled": "支持质押",
+    "tournamentsEnabled": "锦标赛",
+    "playNow": "立即开玩",
+    "noAssetsAvailable": "此游戏没有可用资产",
+    "noLeaderboardData": "暂无排行榜数据",
+    "noActivityYet": "暂无活动记录",
+    "activityTab": "活动",
+    "registrationProgress": "注册进度",
+    "nftRequiredToJoin": "参与此锦标赛需要拥有NFT"
   },
   "bridge": {
     "title": "跨链桥",

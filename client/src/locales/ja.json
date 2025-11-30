@@ -2208,7 +2208,32 @@
         "name": "シーズンパイオニア",
         "desc": "シーズナルイベントを完了する"
       }
-    }
+    },
+    "searchGames": "ゲームを検索...",
+    "allCategories": "すべてのカテゴリ",
+    "noSearchResults": "検索結果がありません",
+    "refreshSuccess": "データ更新完了",
+    "refreshSuccessDesc": "すべてのGameFiデータが正常に更新されました",
+    "refreshError": "更新失敗",
+    "refreshErrorDesc": "GameFiデータの更新に失敗しました",
+    "viewDetails": "詳細",
+    "copied": "コピー完了",
+    "addressCopied": "アドレスがクリップボードにコピーされました",
+    "viewOnExplorer": "エクスプローラー",
+    "share": "共有",
+    "description": "説明",
+    "reviews": "レビュー",
+    "aiScore": "AIスコア",
+    "playToEarn": "Play to Earn",
+    "stakingEnabled": "ステーキング対応",
+    "tournamentsEnabled": "トーナメント",
+    "playNow": "今すぐプレイ",
+    "noAssetsAvailable": "このゲームで利用可能なアセットはありません",
+    "noLeaderboardData": "リーダーボードデータはまだありません",
+    "noActivityYet": "まだアクティビティが記録されていません",
+    "activityTab": "アクティビティ",
+    "registrationProgress": "登録進捗",
+    "nftRequiredToJoin": "このトーナメントに参加するにはNFTの所有が必要です"
   },
   "bridge": {
     "title": "クロスチェーンブリッジ",
