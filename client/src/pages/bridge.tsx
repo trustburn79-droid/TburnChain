@@ -263,7 +263,7 @@ function ChainCard({ chain }: { chain: BridgeChain }) {
           </div>
         </div>
         <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
-          <span>{t("bridge.transfers24h", { count: (chain.txCount24h ?? 0).toLocaleString() })}</span>
+          <span>{t("bridge.transfers24h", { count: chain.txCount24h ?? 0 })}</span>
           {(chain.aiRiskScore ?? 1000) <= 200 && (
             <Badge variant="outline" className="text-green-500 border-green-500/30">
               <Sparkles className="w-3 h-3 mr-1" />
@@ -357,7 +357,7 @@ function ValidatorCard({ validator }: { validator: BridgeValidator }) {
           </div>
         </div>
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
-          <span>{t("bridge.attestations", { count: validator.attestationsProcessed.toLocaleString() })}</span>
+          <span>{t("bridge.attestations", { count: validator.attestationsProcessed })}</span>
           <span className="text-green-500">{t("bridge.successLabel", { rate: formatBasisPoints(successRate) })}</span>
           <div className="flex items-center gap-1">
             <Sparkles className="w-3 h-3 text-purple-500" />
