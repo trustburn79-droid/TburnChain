@@ -26,6 +26,13 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { 
   Flame, 
   Clock, 
@@ -36,7 +43,12 @@ import {
   BarChart3,
   Target,
   AlertTriangle,
-  CheckCircle
+  CheckCircle,
+  Hash,
+  Calendar,
+  Coins,
+  ExternalLink,
+  FileText
 } from "lucide-react";
 import { formatNumber, formatTokenAmount } from "@/lib/formatters";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
@@ -131,6 +143,7 @@ const getBurnReasonTranslation = (t: (key: string, options?: Record<string, unkn
 export default function BurnDashboard() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
+  const [selectedBurnEvent, setSelectedBurnEvent] = useState<BurnEvent | null>(null);
 
   const { data: stats, isLoading: statsLoading } = useQuery<BurnStats>({
     queryKey: ["/api/burn/stats"],
@@ -414,7 +427,11 @@ export default function BurnDashboard() {
         </TabsContent>
 
         <TabsContent value="events" className="space-y-4">
-          <BurnEventList events={events || []} isLoading={eventsLoading} />
+          <BurnEventList 
+            events={events || []} 
+            isLoading={eventsLoading} 
+            onEventClick={(event) => setSelectedBurnEvent(event)}
+          />
         </TabsContent>
 
         <TabsContent value="config" className="space-y-4">
@@ -425,11 +442,105 @@ export default function BurnDashboard() {
           <AIOptimization stats={stats} />
         </TabsContent>
       </Tabs>
+
+      {/* Burn Event Detail Modal */}
+      <Dialog open={!!selectedBurnEvent} onOpenChange={(open) => !open && setSelectedBurnEvent(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Flame className="w-5 h-5 text-orange-500" />
+              {t("burn.eventDetails.title")}
+            </DialogTitle>
+            <DialogDescription>
+              {t("burn.eventDetails.description")}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedBurnEvent && (
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-muted">
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="h-10 w-10 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: `${burnTypeColors[selectedBurnEvent.burnType]}20` }}
+                  >
+                    <Flame 
+                      className="h-5 w-5" 
+                      style={{ color: burnTypeColors[selectedBurnEvent.burnType] }} 
+                    />
+                  </div>
+                  <div>
+                    <div className="text-lg font-semibold">
+                      {formatTokenAmount(selectedBurnEvent.amount)}
+                    </div>
+                    <Badge variant="outline" style={{ borderColor: burnTypeColors[selectedBurnEvent.burnType] }}>
+                      {getBurnTypeLabel(t, selectedBurnEvent.burnType)}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <FileText className="w-3 h-3" />
+                    {t("burn.eventDetails.reason")}
+                  </span>
+                  <span className="text-xs text-right max-w-[60%]">
+                    {getBurnReasonTranslation(t, selectedBurnEvent.reason)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <Coins className="w-3 h-3" />
+                    {t("burn.eventDetails.amount")}
+                  </span>
+                  <span className="font-semibold">{formatTokenAmount(selectedBurnEvent.amount)}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <Activity className="w-3 h-3" />
+                    {t("burn.eventDetails.burnType")}
+                  </span>
+                  <Badge variant="outline" style={{ borderColor: burnTypeColors[selectedBurnEvent.burnType] }}>
+                    {getBurnTypeLabel(t, selectedBurnEvent.burnType)}
+                  </Badge>
+                </div>
+                {selectedBurnEvent.txHash && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground flex items-center gap-1">
+                      <Hash className="w-3 h-3" />
+                      {t("burn.eventDetails.txHash")}
+                    </span>
+                    <span className="font-mono text-xs flex items-center gap-1 text-primary">
+                      {selectedBurnEvent.txHash.substring(0, 10)}...{selectedBurnEvent.txHash.slice(-6)}
+                      <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {t("burn.eventDetails.timestamp")}
+                  </span>
+                  <span className="text-xs">{new Date(selectedBurnEvent.timestamp).toLocaleString(getDateLocale())}</span>
+                </div>
+              </div>
+
+              {selectedBurnEvent.aiRecommended && (
+                <div className="flex items-center gap-2 p-2 rounded bg-pink-500/10 text-pink-500 text-sm">
+                  <Brain className="w-4 h-4" />
+                  <span>{t("burn.eventDetails.aiRecommended")}</span>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
 
-function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: boolean }) {
+function BurnEventList({ events, isLoading, onEventClick }: { events: BurnEvent[], isLoading: boolean, onEventClick?: (event: BurnEvent) => void }) {
   const { t } = useTranslation();
   
   if (isLoading) {
@@ -460,7 +571,12 @@ function BurnEventList({ events, isLoading }: { events: BurnEvent[], isLoading: 
   return (
     <div className="space-y-2">
       {events.map((event) => (
-        <Card key={event.id} className="hover-elevate" data-testid={`card-burn-event-${event.id}`}>
+        <Card 
+          key={event.id} 
+          className="hover-elevate cursor-pointer" 
+          data-testid={`card-burn-event-${event.id}`}
+          onClick={() => onEventClick?.(event)}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">

@@ -3510,6 +3510,16 @@
         "governanceBurn": "गवर्नेंस स्वीकृत कम्युनिटी बर्न"
       }
     },
+    "eventDetails": {
+      "title": "बर्न इवेंट विवरण",
+      "description": "इस बर्न इवेंट के बारे में विस्तृत जानकारी",
+      "reason": "कारण",
+      "amount": "राशि",
+      "burnType": "बर्न प्रकार",
+      "txHash": "TX हैश",
+      "timestamp": "टाइमस्टैम्प",
+      "aiRecommended": "AI अनुशंसित बर्न"
+    },
     "config": {
       "transactionBurn": "ट्रांजैक्शन बर्न",
       "status": "स्थिति",

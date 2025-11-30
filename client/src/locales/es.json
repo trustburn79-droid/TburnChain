@@ -4614,6 +4614,16 @@
         "governanceBurn": "Quema comunitaria aprobada por gobernanza"
       }
     },
+    "eventDetails": {
+      "title": "Detalles del Evento de Quema",
+      "description": "Información detallada sobre este evento de quema",
+      "reason": "Razón",
+      "amount": "Cantidad",
+      "burnType": "Tipo de Quema",
+      "txHash": "Hash TX",
+      "timestamp": "Marca de tiempo",
+      "aiRecommended": "Quema Recomendada por AI"
+    },
     "config": {
       "transactionBurn": "Quema de Transacción",
       "status": "Estado",

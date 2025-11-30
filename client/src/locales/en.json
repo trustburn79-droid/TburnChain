@@ -4730,6 +4730,16 @@
         "governanceBurn": "Governance-approved community burn"
       }
     },
+    "eventDetails": {
+      "title": "Burn Event Details",
+      "description": "Detailed information about this burn event",
+      "reason": "Reason",
+      "amount": "Amount",
+      "burnType": "Burn Type",
+      "txHash": "TX Hash",
+      "timestamp": "Timestamp",
+      "aiRecommended": "AI Recommended Burn"
+    },
     "config": {
       "transactionBurn": "Transaction Burn",
       "status": "Status",

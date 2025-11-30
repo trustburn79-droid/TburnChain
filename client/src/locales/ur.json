@@ -2280,6 +2280,16 @@
         "governanceBurn": "گورننس منظور شدہ کمیونٹی برن"
       }
     },
+    "eventDetails": {
+      "title": "برن ایونٹ کی تفصیلات",
+      "description": "اس برن ایونٹ کے بارے میں تفصیلی معلومات",
+      "reason": "وجہ",
+      "amount": "رقم",
+      "burnType": "برن کی قسم",
+      "txHash": "TX ہیش",
+      "timestamp": "ٹائم اسٹیمپ",
+      "aiRecommended": "AI تجویز کردہ برن"
+    },
     "config": {
       "transactionBurn": "ٹرانزیکشن برن",
       "status": "حیثیت",

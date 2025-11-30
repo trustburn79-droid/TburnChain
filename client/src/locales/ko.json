@@ -4814,6 +4814,16 @@
         "governanceBurn": "거버넌스 승인 커뮤니티 소각"
       }
     },
+    "eventDetails": {
+      "title": "소각 이벤트 상세",
+      "description": "이 소각 이벤트에 대한 상세 정보",
+      "reason": "사유",
+      "amount": "수량",
+      "burnType": "소각 유형",
+      "txHash": "TX 해시",
+      "timestamp": "타임스탬프",
+      "aiRecommended": "AI 추천 소각"
+    },
     "config": {
       "transactionBurn": "트랜잭션 소각",
       "status": "상태",

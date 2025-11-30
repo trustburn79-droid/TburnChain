@@ -2562,6 +2562,16 @@
         "governanceBurn": "গভর্ন্যান্স অনুমোদিত কমিউনিটি বার্ন"
       }
     },
+    "eventDetails": {
+      "title": "বার্ন ইভেন্ট বিস্তারিত",
+      "description": "এই বার্ন ইভেন্ট সম্পর্কে বিস্তারিত তথ্য",
+      "reason": "কারণ",
+      "amount": "পরিমাণ",
+      "burnType": "বার্ন টাইপ",
+      "txHash": "TX হ্যাশ",
+      "timestamp": "টাইমস্ট্যাম্প",
+      "aiRecommended": "AI প্রস্তাবিত বার্ন"
+    },
     "config": {
       "transactionBurn": "লেনদেন বার্ন",
       "status": "স্থিতি",

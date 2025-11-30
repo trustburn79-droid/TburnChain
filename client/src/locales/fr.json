@@ -3684,6 +3684,16 @@
         "governanceBurn": "Brûlage communautaire approuvé par la gouvernance"
       }
     },
+    "eventDetails": {
+      "title": "Détails de l'Événement de Brûlage",
+      "description": "Informations détaillées sur cet événement de brûlage",
+      "reason": "Raison",
+      "amount": "Montant",
+      "burnType": "Type de Brûlage",
+      "txHash": "Hash TX",
+      "timestamp": "Horodatage",
+      "aiRecommended": "Brûlage Recommandé par IA"
+    },
     "config": {
       "transactionBurn": "Brûlage de transaction",
       "status": "Statut",

@@ -4457,6 +4457,16 @@
         "governanceBurn": "ガバナンス承認コミュニティバーン"
       }
     },
+    "eventDetails": {
+      "title": "バーンイベント詳細",
+      "description": "このバーンイベントの詳細情報",
+      "reason": "理由",
+      "amount": "数量",
+      "burnType": "バーンタイプ",
+      "txHash": "TXハッシュ",
+      "timestamp": "タイムスタンプ",
+      "aiRecommended": "AI推奨バーン"
+    },
     "config": {
       "transactionBurn": "トランザクションバーン",
       "status": "ステータス",

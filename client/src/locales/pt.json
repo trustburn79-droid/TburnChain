@@ -2280,6 +2280,16 @@
         "governanceBurn": "Queima comunitária aprovada pela governança"
       }
     },
+    "eventDetails": {
+      "title": "Detalhes do Evento de Queima",
+      "description": "Informações detalhadas sobre este evento de queima",
+      "reason": "Motivo",
+      "amount": "Quantidade",
+      "burnType": "Tipo de Queima",
+      "txHash": "Hash TX",
+      "timestamp": "Timestamp",
+      "aiRecommended": "Queima Recomendada por IA"
+    },
     "config": {
       "transactionBurn": "Queima de Transação",
       "status": "Status",

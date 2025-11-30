@@ -3545,6 +3545,16 @@
         "governanceBurn": "حرق مجتمعي معتمد من الحوكمة"
       }
     },
+    "eventDetails": {
+      "title": "تفاصيل حدث الحرق",
+      "description": "معلومات تفصيلية حول حدث الحرق هذا",
+      "reason": "السبب",
+      "amount": "الكمية",
+      "burnType": "نوع الحرق",
+      "txHash": "هاش TX",
+      "timestamp": "الطابع الزمني",
+      "aiRecommended": "حرق موصى به من الذكاء الاصطناعي"
+    },
     "config": {
       "transactionBurn": "حرق المعاملات",
       "status": "الحالة",

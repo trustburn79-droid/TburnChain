@@ -4374,6 +4374,16 @@
         "governanceBurn": "治理批准的社区销毁"
       }
     },
+    "eventDetails": {
+      "title": "销毁事件详情",
+      "description": "此销毁事件的详细信息",
+      "reason": "原因",
+      "amount": "数量",
+      "burnType": "销毁类型",
+      "txHash": "TX哈希",
+      "timestamp": "时间戳",
+      "aiRecommended": "AI推荐销毁"
+    },
     "config": {
       "transactionBurn": "交易销毁",
       "status": "状态",
