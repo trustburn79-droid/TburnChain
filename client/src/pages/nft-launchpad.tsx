@@ -919,7 +919,7 @@ function ProjectCard({
               <Button 
                 size="sm" 
                 variant="ghost"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); onClick?.(); }}
                 data-testid={`button-details-${project.id}`}
               >
                 {t("nftLaunchpad.viewDetails")}
