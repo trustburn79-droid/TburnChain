@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation, Link } from "wouter";
+import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -434,7 +434,6 @@ function EmptyQueryState() {
 
 export default function SearchResults() {
   const { t } = useTranslation();
-  const [, setLocation] = useLocation();
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchInput, setSearchInput] = useState("");
   const [currentQuery, setCurrentQuery] = useState("");
@@ -509,7 +508,8 @@ export default function SearchResults() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchInput.trim()) {
-      setLocation(`/search?q=${encodeURIComponent(searchInput.trim())}`);
+      // Use window.location.href to properly include query parameters
+      window.location.href = `/search?q=${encodeURIComponent(searchInput.trim())}`;
     }
   };
 
