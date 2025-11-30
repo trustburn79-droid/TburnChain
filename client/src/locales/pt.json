@@ -1009,6 +1009,7 @@
     "activeVoters": "Votantes Ativos",
     "committeeMembers": "Membros do Comitê",
     "missedVotes": "Votos Perdidos",
+    "avgParticipationRate": "Participação Média",
     "finalityAnalytics": "Análise de Finalidade",
     "finalityAnalyticsDesc": "Análise de tempo de finalidade de transação",
     "finalityTrend": "Tendência de Finalidade",

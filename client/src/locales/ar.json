@@ -1777,6 +1777,7 @@
     "activeVoters": "المصوتون النشطون",
     "committeeMembers": "أعضاء اللجنة",
     "missedVotes": "الأصوات الفائتة",
+    "avgParticipationRate": "متوسط المشاركة",
     "finalityAnalytics": "تحليلات النهائية",
     "finalityAnalyticsDesc": "تحليل وقت نهائية المعاملات",
     "finalityTrend": "اتجاه النهائية",

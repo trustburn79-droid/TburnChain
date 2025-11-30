@@ -1009,6 +1009,7 @@
     "activeVoters": "Активные голосующие",
     "committeeMembers": "Члены комитета",
     "missedVotes": "Пропущенные голоса",
+    "avgParticipationRate": "Среднее участие",
     "finalityAnalytics": "Аналитика финальности",
     "finalityAnalyticsDesc": "Анализ времени финальности транзакций",
     "finalityTrend": "Тренд финальности",

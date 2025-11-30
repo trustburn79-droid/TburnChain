@@ -2807,6 +2807,7 @@
     "activeVoters": "アクティブ投票者",
     "committeeMembers": "委員会メンバー",
     "missedVotes": "欠席投票",
+    "avgParticipationRate": "平均参加率",
     "finalityAnalytics": "ファイナリティ分析",
     "finalityAnalyticsDesc": "トランザクションファイナリティ時間分析",
     "finalityTrend": "ファイナリティトレンド",

@@ -3032,6 +3032,8 @@
     "activeVoters": "Active Voters",
     "committeeMembers": "Committee Members",
     "missedVotes": "Missed Votes",
+    "avgParticipationRate": "Avg Participation",
+    "votingDetails": "Voting Details",
     "finalityAnalytics": "Finality Analytics",
     "finalityAnalyticsDesc": "Transaction finality time analysis",
     "finalityTrend": "Finality Trend",

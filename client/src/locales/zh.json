@@ -2751,6 +2751,7 @@
     "activeVoters": "活跃投票者",
     "committeeMembers": "委员会成员",
     "missedVotes": "缺席投票",
+    "avgParticipationRate": "平均参与率",
     "finalityAnalytics": "最终性分析",
     "finalityAnalyticsDesc": "交易最终性时间分析",
     "finalityTrend": "最终性趋势",

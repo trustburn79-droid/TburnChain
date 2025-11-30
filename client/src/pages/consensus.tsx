@@ -446,7 +446,7 @@ function ConsensusStatsDetailDialog({
                       </div>
                       <div>
                         <div className="text-2xl font-bold text-green-600">{avgParticipation.toFixed(1)}%</div>
-                        <div className="text-xs text-muted-foreground">{t('consensus.avgTime')}</div>
+                        <div className="text-xs text-muted-foreground">{t('consensus.avgParticipationRate')}</div>
                       </div>
                       <div>
                         <div className="text-2xl font-bold text-yellow-600">{missedVotes}</div>

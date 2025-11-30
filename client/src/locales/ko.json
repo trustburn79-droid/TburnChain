@@ -3079,6 +3079,7 @@
     "activeVoters": "활성 투표자",
     "committeeMembers": "위원회 멤버",
     "missedVotes": "놓친 투표",
+    "avgParticipationRate": "평균 참여율",
     "finalityAnalytics": "최종성 분석",
     "finalityAnalyticsDesc": "트랜잭션 최종성 시간 분석",
     "finalityTrend": "최종성 추세",
