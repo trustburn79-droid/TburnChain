@@ -271,6 +271,7 @@ router.get("/posts", async (req: Request, res: Response) => {
       category: post.category,
       content: post.content,
       likes: post.likes || 0,
+      dislikes: post.dislikes || 0,
       comments: post.commentCount || 0,
       views: post.views || 0,
       isPinned: post.isPinned || false,
@@ -279,12 +280,16 @@ router.get("/posts", async (req: Request, res: Response) => {
       tags: post.tags || [],
     }));
     
-    const samplePosts = getSamplePosts(now);
-    const filteredSamplePosts = category === "all" 
-      ? samplePosts 
-      : samplePosts.filter(p => p.category === category);
-    
-    const allPosts = [...formattedDbPosts, ...filteredSamplePosts];
+    // Only use sample data if database is empty
+    let allPosts: ForumPostResponse[];
+    if (formattedDbPosts.length === 0) {
+      const samplePosts = getSamplePosts(now);
+      allPosts = category === "all" 
+        ? samplePosts 
+        : samplePosts.filter(p => p.category === category);
+    } else {
+      allPosts = formattedDbPosts;
+    }
     
     allPosts.sort((a, b) => {
       if (a.isPinned && !b.isPinned) return -1;
@@ -693,12 +698,12 @@ router.get("/events", async (req: Request, res: Response) => {
           isRegistered: !!userRegistration,
         };
       }));
+    } else {
+      // Only use sample events if database is empty
+      events = getSampleEvents(now);
     }
     
-    const sampleEvents = getSampleEvents(now);
-    const allEvents = [...events, ...sampleEvents];
-    
-    res.json(allEvents);
+    res.json(events);
   } catch (error) {
     console.error("[Community] Error fetching events:", error);
     res.status(500).json({ error: "Failed to fetch events" });
@@ -830,12 +835,12 @@ router.get("/announcements", async (req: Request, res: Response) => {
         createdAt: Math.floor(new Date(ann.createdAt).getTime() / 1000),
         isImportant: ann.isImportant || false,
       }));
+    } else {
+      // Only use sample announcements if database is empty
+      announcements = getSampleAnnouncements(now);
     }
     
-    const sampleAnnouncements = getSampleAnnouncements(now);
-    const allAnnouncements = [...announcements, ...sampleAnnouncements];
-    
-    res.json(allAnnouncements);
+    res.json(announcements);
   } catch (error) {
     console.error("[Community] Error fetching announcements:", error);
     res.status(500).json({ error: "Failed to fetch announcements" });
@@ -859,6 +864,7 @@ router.get("/activity", async (req: Request, res: Response) => {
       timestamp: Math.floor(new Date(act.createdAt).getTime() / 1000),
     }));
     
+    // Include staking positions as activities
     const stakingPositions = await storage.getAllStakingPositions(10);
     stakingPositions.slice(0, 5).forEach((pos: any, index: number) => {
       activities.push({
@@ -871,17 +877,19 @@ router.get("/activity", async (req: Request, res: Response) => {
       });
     });
     
-    const additionalActivities: ActivityResponse[] = [
-      { id: "post-1", type: "post", user: "ValidatorKing", action: "activities.createdPost", target: "targets.validatorBestPractices", timestamp: now - 300 },
-      { id: "vote-1", type: "vote", user: "GovernanceGuru", action: "activities.votedOn", target: "#42", timestamp: now - 600 },
-      { id: "badge-1", type: "badge", user: "TBURNMaster", action: "activities.earnedBadge", target: "badgeNames.diamondStaker", timestamp: now - 900 },
-      { id: "comment-1", type: "comment", user: "DeFiExpert", action: "activities.commentedOn", target: "targets.stakingStrategies", timestamp: now - 1200 },
-      { id: "proposal-1", type: "proposal", user: "CommunityBuilder", action: "activities.submittedProposal", target: "#45", timestamp: now - 1800 },
-      { id: "stake-live-1", type: "stake", user: "CryptoWhale", action: "activities.staked", amount: "50,000 TBURN", timestamp: now - 120 },
-      { id: "reward-live-1", type: "reward", user: "StakingPro", action: "activities.claimedRewards", amount: "1,250 TBURN", timestamp: now - 1500 },
-    ];
+    // Only add sample activities if no real activities exist
+    if (activities.length === 0) {
+      const sampleActivities: ActivityResponse[] = [
+        { id: "post-1", type: "post", user: "ValidatorKing", action: "activities.createdPost", target: "targets.validatorBestPractices", timestamp: now - 300 },
+        { id: "vote-1", type: "vote", user: "GovernanceGuru", action: "activities.votedOn", target: "#42", timestamp: now - 600 },
+        { id: "badge-1", type: "badge", user: "TBURNMaster", action: "activities.earnedBadge", target: "badgeNames.diamondStaker", timestamp: now - 900 },
+        { id: "comment-1", type: "comment", user: "DeFiExpert", action: "activities.commentedOn", target: "targets.stakingStrategies", timestamp: now - 1200 },
+        { id: "stake-live-1", type: "stake", user: "CryptoWhale", action: "activities.staked", amount: "50,000 TBURN", timestamp: now - 120 },
+      ];
+      activities.push(...sampleActivities);
+    }
     
-    const allActivities = [...activities, ...additionalActivities]
+    const allActivities = activities
       .sort((a, b) => b.timestamp - a.timestamp)
       .slice(0, limit);
     
