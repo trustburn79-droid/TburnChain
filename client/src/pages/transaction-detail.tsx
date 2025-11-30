@@ -36,11 +36,11 @@ export default function TransactionDetail() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "success":
-        return <Badge variant="default" className="bg-green-600">{t('transactions.success')}</Badge>;
+        return <Badge variant="default" className="bg-green-600">{t('transactions.success', 'Success')}</Badge>;
       case "failed":
-        return <Badge variant="destructive">{t('transactions.failed')}</Badge>;
+        return <Badge variant="destructive">{t('transactions.failed', 'Failed')}</Badge>;
       case "pending":
-        return <Badge variant="secondary">{t('transactions.pending')}</Badge>;
+        return <Badge variant="secondary">{t('transactions.pending', 'Pending')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -75,10 +75,10 @@ export default function TransactionDetail() {
           data-testid="button-back"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          {t('common.back')}
+          {t('common.back', 'Back')}
         </Button>
         <div>
-          <h1 className="text-3xl font-semibold text-destructive">{t('transactions.transactionNotFound')}</h1>
+          <h1 className="text-3xl font-semibold text-destructive">{t('transactions.transactionNotFound', 'Transaction Not Found')}</h1>
           <p className="text-sm text-muted-foreground mt-1">
             {t('transactions.transactionNotFoundDesc', { hash: formatAddress(txHash, 10, 10) })}
           </p>
@@ -97,12 +97,12 @@ export default function TransactionDetail() {
           data-testid="button-back"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          {t('common.back')}
+          {t('common.back', 'Back')}
         </Button>
         <div className="flex-1">
           <div className="flex items-center gap-3">
             <Activity className="h-8 w-8" />
-            <h1 className="text-3xl font-semibold">{t('transactions.transactionDetails')}</h1>
+            <h1 className="text-3xl font-semibold">{t('transactions.transactionDetails', 'Transaction Details')}</h1>
             {getStatusIcon(transaction.status)}
           </div>
           <p className="text-sm text-muted-foreground mt-1 font-mono">
@@ -117,12 +117,12 @@ export default function TransactionDetail() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Hash className="h-5 w-5" />
-              {t('transactions.transactionInformation')}
+              {t('transactions.transactionInformation', 'Transaction Information')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-sm text-muted-foreground">{t('transactions.txHash')}</p>
+              <p className="text-sm text-muted-foreground">{t('transactions.txHash', 'Transaction Hash')}</p>
               <p className="font-mono text-sm break-all" data-testid="text-tx-hash">
                 {transaction.hash}
               </p>
@@ -130,13 +130,13 @@ export default function TransactionDetail() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">{t('common.status')}</p>
+                <p className="text-sm text-muted-foreground">{t('common.status', 'Status')}</p>
                 <div className="flex items-center gap-2 mt-1">
                   {getStatusBadge(transaction.status)}
                 </div>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('blocks.timestamp')}</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.timestamp', 'Timestamp')}</p>
                 <p className="text-sm" data-testid="text-tx-timestamp">
                   {formatTimeAgo(transaction.timestamp)}
                 </p>
@@ -147,7 +147,7 @@ export default function TransactionDetail() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">{t('transactions.blockNumber')}</p>
+                <p className="text-sm text-muted-foreground">{t('transactions.blockNumber', 'Block Number')}</p>
                 <Link 
                   href={`/blocks/${transaction.blockNumber}`}
                   className="font-mono text-sm text-primary hover:underline"
@@ -157,15 +157,15 @@ export default function TransactionDetail() {
                 </Link>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('blocks.shard')}</p>
+                <p className="text-sm text-muted-foreground">{t('blocks.shard', 'Shard')}</p>
                 <Badge variant="outline" data-testid="badge-shard">
-                  {t('blocks.shard')} {transaction.shardId}
+                  {t('blocks.shard', 'Shard')} {transaction.shardId}
                 </Badge>
               </div>
             </div>
 
             <div>
-              <p className="text-sm text-muted-foreground">{t('blocks.blockHash')}</p>
+              <p className="text-sm text-muted-foreground">{t('blocks.blockHash', 'Block Hash')}</p>
               <p className="font-mono text-sm break-all text-muted-foreground">
                 {transaction.blockHash}
               </p>
@@ -177,12 +177,12 @@ export default function TransactionDetail() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
-              {t('common.address')}
+              {t('common.address', 'Address')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-sm text-muted-foreground">{t('common.from')}</p>
+              <p className="text-sm text-muted-foreground">{t('common.from', 'From')}</p>
               <p className="font-mono text-sm break-all" data-testid="text-tx-from">
                 {transaction.from}
               </p>
@@ -191,14 +191,14 @@ export default function TransactionDetail() {
             <Separator />
 
             <div>
-              <p className="text-sm text-muted-foreground">{t('common.to')}</p>
+              <p className="text-sm text-muted-foreground">{t('common.to', 'To')}</p>
               {transaction.to ? (
                 <p className="font-mono text-sm break-all" data-testid="text-tx-to">
                   {transaction.to}
                 </p>
               ) : (
                 <div className="flex items-center gap-2">
-                  <Badge variant="secondary">{t('transactions.contractCreation')}</Badge>
+                  <Badge variant="secondary">{t('transactions.contractCreation', 'Contract Creation')}</Badge>
                   {transaction.contractAddress && (
                     <p className="font-mono text-sm text-muted-foreground">
                       {formatAddress(transaction.contractAddress)}
@@ -211,7 +211,7 @@ export default function TransactionDetail() {
             <Separator />
 
             <div>
-              <p className="text-sm text-muted-foreground">{t('common.value')}</p>
+              <p className="text-sm text-muted-foreground">{t('common.value', 'Value')}</p>
               <p className="text-2xl font-bold" data-testid="text-tx-value">
                 {formatTokenAmount(transaction.value)}
               </p>
@@ -224,36 +224,36 @@ export default function TransactionDetail() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Fuel className="h-5 w-5" />
-            {t('transactions.gasDetails')}
+            {t('transactions.gasDetails', 'Gas Details')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-4">
             <div>
-              <p className="text-sm text-muted-foreground">{t('transactions.gasLimit')}</p>
+              <p className="text-sm text-muted-foreground">{t('transactions.gasLimit', 'Gas Limit')}</p>
               <p className="font-mono text-lg font-semibold" data-testid="text-gas-limit">
                 {formatNumber(transaction.gas)}
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{t('transactions.gasUsed')}</p>
+              <p className="text-sm text-muted-foreground">{t('transactions.gasUsed', 'Gas Used')}</p>
               <p className="font-mono text-lg font-semibold" data-testid="text-gas-used">
                 {transaction.gasUsed != null ? formatGasEmber(transaction.gasUsed) : (
-                  <span className="text-muted-foreground">{t('transactions.pending')}</span>
+                  <span className="text-muted-foreground">{t('transactions.pending', 'Pending')}</span>
                 )}
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{t('transactions.gasPrice')}</p>
+              <p className="text-sm text-muted-foreground">{t('transactions.gasPrice', 'Gas Price')}</p>
               <p className="font-mono text-lg font-semibold" data-testid="text-gas-price">
                 {formatGasPriceEmber(transaction.gasPrice)}
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{t('transactions.transactionFee')}</p>
+              <p className="text-sm text-muted-foreground">{t('transactions.transactionFee', 'Transaction Fee')}</p>
               <p className="font-mono text-lg font-semibold text-primary" data-testid="text-tx-fee">
                 {transaction.gasUsed != null ? calculateTransactionFeeEmber(transaction.gasPrice, transaction.gasUsed) : (
-                  <span className="text-muted-foreground">{t('transactions.pending')}</span>
+                  <span className="text-muted-foreground">{t('transactions.pending', 'Pending')}</span>
                 )}
               </p>
             </div>
@@ -265,25 +265,25 @@ export default function TransactionDetail() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Layers className="h-5 w-5" />
-            {t('dashboard.technicalDetails')}
+            {t('dashboard.technicalDetails', 'Technical Details')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-3">
             <div>
-              <p className="text-sm text-muted-foreground">{t('transactions.nonce')}</p>
+              <p className="text-sm text-muted-foreground">{t('transactions.nonce', 'Nonce')}</p>
               <p className="font-mono" data-testid="text-nonce">
                 {transaction.nonce}
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{t('dashboard.executionClass')}</p>
+              <p className="text-sm text-muted-foreground">{t('dashboard.executionClass', 'Execution Class')}</p>
               <Badge variant="outline" data-testid="badge-execution-class">
                 {transaction.executionClass || "standard"}
               </Badge>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{t('blocks.hashAlgo')}</p>
+              <p className="text-sm text-muted-foreground">{t('blocks.hashAlgo', 'Hash Algo')}</p>
               <Badge variant="outline" data-testid="badge-hash-algo">
                 {transaction.hashAlgorithm || "BLAKE3"}
               </Badge>
@@ -292,7 +292,7 @@ export default function TransactionDetail() {
 
           {transaction.input && transaction.input !== "0x" && (
             <div className="mt-4">
-              <p className="text-sm text-muted-foreground mb-2">{t('transactions.inputData')}</p>
+              <p className="text-sm text-muted-foreground mb-2">{t('transactions.inputData', 'Input Data')}</p>
               <div className="bg-muted p-3 rounded-md">
                 <p className="font-mono text-xs break-all max-h-32 overflow-auto">
                   {transaction.input}

@@ -26,11 +26,11 @@ export default function Transactions() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "success":
-        return <Badge variant="default" className="bg-green-600">{t('transactions.success')}</Badge>;
+        return <Badge variant="default" className="bg-green-600">{t('transactions.success', 'Success')}</Badge>;
       case "failed":
-        return <Badge variant="destructive">{t('transactions.failed')}</Badge>;
+        return <Badge variant="destructive">{t('transactions.failed', 'Failed')}</Badge>;
       case "pending":
-        return <Badge variant="secondary">{t('transactions.pending')}</Badge>;
+        return <Badge variant="secondary">{t('transactions.pending', 'Pending')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -41,16 +41,16 @@ export default function Transactions() {
       <div>
         <h1 className="text-3xl font-semibold flex items-center gap-2" data-testid="text-transactions-title">
           <Activity className="h-8 w-8" />
-          {t('transactions.title')}
+          {t('transactions.title', 'Transactions Explorer')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          {t('transactions.subtitle')}
+          {t('transactions.subtitle', 'Browse all transactions on the TBURN blockchain')}
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>{t('common.all')} {t('common.transactions')}</CardTitle>
+          <CardTitle>{t('common.all', 'All')} {t('common.transactions', 'Transactions')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -64,16 +64,16 @@ export default function Transactions() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t('transactions.txHash')}</TableHead>
-                    <TableHead>{t('common.block')}</TableHead>
-                    <TableHead>{t('common.time')}</TableHead>
-                    <TableHead>{t('common.from')}</TableHead>
-                    <TableHead>{t('common.to')}</TableHead>
-                    <TableHead>{t('common.value')}</TableHead>
-                    <TableHead>{t('transactions.gasUsed')}</TableHead>
-                    <TableHead>{t('transactions.gasPrice')}</TableHead>
-                    <TableHead>{t('common.fee')}</TableHead>
-                    <TableHead>{t('common.status')}</TableHead>
+                    <TableHead>{t('transactions.txHash', 'Transaction Hash')}</TableHead>
+                    <TableHead>{t('common.block', 'Block')}</TableHead>
+                    <TableHead>{t('common.time', 'Time')}</TableHead>
+                    <TableHead>{t('common.from', 'From')}</TableHead>
+                    <TableHead>{t('common.to', 'To')}</TableHead>
+                    <TableHead>{t('common.value', 'Value')}</TableHead>
+                    <TableHead>{t('transactions.gasUsed', 'Gas Used')}</TableHead>
+                    <TableHead>{t('transactions.gasPrice', 'Gas Price')}</TableHead>
+                    <TableHead>{t('common.fee', 'Fee')}</TableHead>
+                    <TableHead>{t('common.status', 'Status')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -98,7 +98,7 @@ export default function Transactions() {
                       </TableCell>
                       <TableCell className="font-mono text-sm">
                         {tx.to ? formatAddress(tx.to) : (
-                          <span className="text-muted-foreground italic">{t('transactions.contractCreation')}</span>
+                          <span className="text-muted-foreground italic">{t('transactions.contractCreation', 'Contract Creation')}</span>
                         )}
                       </TableCell>
                       <TableCell className="tabular-nums text-sm">
@@ -114,7 +114,7 @@ export default function Transactions() {
                       </TableCell>
                       <TableCell className="tabular-nums text-sm font-medium">
                         {tx.gasUsed != null ? calculateTransactionFeeEmber(tx.gasPrice, tx.gasUsed) : (
-                          <span className="text-muted-foreground">{t('common.pending')}</span>
+                          <span className="text-muted-foreground">{t('common.pending', 'Pending')}</span>
                         )}
                       </TableCell>
                       <TableCell>
@@ -127,7 +127,7 @@ export default function Transactions() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">{t('errors.notFound')}</p>
+              <p className="text-muted-foreground">{t('errors.notFound', 'No transactions found')}</p>
             </div>
           )}
         </CardContent>
