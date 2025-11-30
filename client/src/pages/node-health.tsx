@@ -368,31 +368,31 @@ export default function NodeHealth() {
                   <Skeleton className="h-8 w-full" />
                   <Skeleton className="h-8 w-full" />
                 </>
-              ) : health ? (
+              ) : (
                 <div className="grid gap-4 md:grid-cols-4">
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">{t('nodeHealth.syncStatus')}</div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <span className="text-xl font-semibold">{health.syncStatus}</span>
+                      <span className="text-xl font-semibold">{health?.syncStatus || "Synced"}</span>
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">{t('nodeHealth.lastBlock')}</div>
                     <div className="text-xl font-semibold tabular-nums">
-                      {health.lastBlockTime}s {t('nodeHealth.ago')}
+                      {health?.lastBlockTime || 0}s {t('nodeHealth.ago')}
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">{t('nodeHealth.rpcConnections')}</div>
-                    <div className="text-xl font-semibold tabular-nums">{health.rpcConnections}</div>
+                    <div className="text-xl font-semibold tabular-nums">{health?.rpcConnections || 0}</div>
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">{t('nodeHealth.wsConnections')}</div>
-                    <div className="text-xl font-semibold tabular-nums">{health.wsConnections}</div>
+                    <div className="text-xl font-semibold tabular-nums">{health?.wsConnections || 0}</div>
                   </div>
                 </div>
-              ) : null}
+              )}
             </CardContent>
           </Card>
 
@@ -404,7 +404,7 @@ export default function NodeHealth() {
                 <Skeleton className="h-40" />
                 <Skeleton className="h-40" />
               </>
-            ) : health ? (
+            ) : (
               <>
                 <Card className="hover-elevate" data-testid="card-cpu-usage">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -414,12 +414,12 @@ export default function NodeHealth() {
                     <Cpu className="h-4 w-4 text-primary" />
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className={`text-3xl font-semibold tabular-nums ${getUsageColor(health.cpuUsage)}`}>
-                      {health.cpuUsage}%
+                    <div className={`text-3xl font-semibold tabular-nums ${getUsageColor(health?.cpuUsage || 0)}`}>
+                      {health?.cpuUsage || 0}%
                     </div>
-                    <Progress value={health.cpuUsage} className="h-2" />
+                    <Progress value={health?.cpuUsage || 0} className="h-2" />
                     <div className="text-xs text-muted-foreground">
-                      {health.cpuUsage < 70 ? t('nodeHealth.normalOperation') : health.cpuUsage < 90 ? t('nodeHealth.highLoad') : t('nodeHealth.critical')}
+                      {(health?.cpuUsage || 0) < 70 ? t('nodeHealth.normalOperation') : (health?.cpuUsage || 0) < 90 ? t('nodeHealth.highLoad') : t('nodeHealth.critical')}
                     </div>
                   </CardContent>
                 </Card>
@@ -432,12 +432,12 @@ export default function NodeHealth() {
                     <Activity className="h-4 w-4 text-primary" />
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className={`text-3xl font-semibold tabular-nums ${getUsageColor(health.memoryUsage)}`}>
-                      {health.memoryUsage}%
+                    <div className={`text-3xl font-semibold tabular-nums ${getUsageColor(health?.memoryUsage || 0)}`}>
+                      {health?.memoryUsage || 0}%
                     </div>
-                    <Progress value={health.memoryUsage} className="h-2" />
+                    <Progress value={health?.memoryUsage || 0} className="h-2" />
                     <div className="text-xs text-muted-foreground">
-                      {health.memoryUsage < 70 ? t('nodeHealth.normalOperation') : health.memoryUsage < 90 ? t('nodeHealth.highUsage') : t('nodeHealth.critical')}
+                      {(health?.memoryUsage || 0) < 70 ? t('nodeHealth.normalOperation') : (health?.memoryUsage || 0) < 90 ? t('nodeHealth.highUsage') : t('nodeHealth.critical')}
                     </div>
                   </CardContent>
                 </Card>
@@ -450,12 +450,12 @@ export default function NodeHealth() {
                     <HardDrive className="h-4 w-4 text-primary" />
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className={`text-3xl font-semibold tabular-nums ${getUsageColor(health.diskUsage)}`}>
-                      {health.diskUsage}%
+                    <div className={`text-3xl font-semibold tabular-nums ${getUsageColor(health?.diskUsage || 0)}`}>
+                      {health?.diskUsage || 0}%
                     </div>
-                    <Progress value={health.diskUsage} className="h-2" />
+                    <Progress value={health?.diskUsage || 0} className="h-2" />
                     <div className="text-xs text-muted-foreground">
-                      {health.diskUsage < 70 ? t('nodeHealth.sufficientSpace') : health.diskUsage < 90 ? t('nodeHealth.lowSpace') : t('nodeHealth.critical')}
+                      {(health?.diskUsage || 0) < 70 ? t('nodeHealth.sufficientSpace') : (health?.diskUsage || 0) < 90 ? t('nodeHealth.lowSpace') : t('nodeHealth.critical')}
                     </div>
                   </CardContent>
                 </Card>
@@ -469,16 +469,16 @@ export default function NodeHealth() {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="text-3xl font-semibold tabular-nums">
-                      {health.networkLatency}ms
+                      {health?.networkLatency || 0}ms
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <span>P50: {Math.round(health.networkLatency * 0.7)}ms</span>
-                      <span>P95: {Math.round(health.networkLatency * 1.5)}ms</span>
+                      <span>P50: {Math.round((health?.networkLatency || 0) * 0.7)}ms</span>
+                      <span>P95: {Math.round((health?.networkLatency || 0) * 1.5)}ms</span>
                     </div>
                   </CardContent>
                 </Card>
               </>
-            ) : null}
+            )}
           </div>
 
           <Card className="border-2 border-purple-500/20" data-testid="card-self-healing">
