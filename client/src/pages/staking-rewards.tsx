@@ -495,7 +495,7 @@ export default function StakingRewards() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle>{t('stakingRewards.cycle')} #{cycle.cycleNumber}</CardTitle>
-                      <Badge variant={cycle.status === "active" ? "default" : "outline"}>
+                      <Badge variant={cycle.status === "active" ? "default" : "outline"} className={cycle.status === "active" ? "bg-green-600 hover:bg-green-700" : ""}>
                         {cycle.status === "active" ? (
                           <Activity className="h-3 w-3 mr-1" />
                         ) : (

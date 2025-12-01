@@ -244,7 +244,7 @@ export default function StakingPoolDetail() {
               {tierIcons[pool.tier.toLowerCase()]}
               <span className="ml-1 capitalize">{pool.tier}</span>
             </Badge>
-            <Badge variant={pool.status === "active" ? "default" : "secondary"}>
+            <Badge variant={pool.status === "active" ? "default" : "secondary"} className={pool.status === "active" ? "bg-green-600 hover:bg-green-700" : ""}>
               {pool.status === "active" ? (
                 <CheckCircle className="h-3 w-3 mr-1" />
               ) : (

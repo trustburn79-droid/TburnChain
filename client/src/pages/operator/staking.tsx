@@ -344,7 +344,7 @@ export default function OperatorStaking() {
                         <div>
                           <h3 className="font-semibold text-lg flex items-center gap-2">
                             {pool.name}
-                            <Badge variant={isActive ? "default" : "secondary"}>
+                            <Badge variant={isActive ? "default" : "secondary"} className={isActive ? "bg-green-600 hover:bg-green-700" : ""}>
                               {pool.status}
                             </Badge>
                             <Badge variant="outline" className="capitalize">
@@ -607,7 +607,7 @@ export default function OperatorStaking() {
                                 <Badge variant={
                                   cycle.status === "active" ? "default" :
                                   cycle.status === "completed" ? "outline" : "secondary"
-                                }>
+                                } className={cycle.status === "active" ? "bg-green-600 hover:bg-green-700" : ""}>
                                   {cycle.status}
                                 </Badge>
                               </p>

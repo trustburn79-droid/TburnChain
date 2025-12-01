@@ -745,7 +745,7 @@ export default function CrossShard() {
                   <CardContent className="p-4 space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="font-semibold">{shard.name}</div>
-                      <Badge variant={shard.status === 'active' ? 'default' : shard.status === 'syncing' ? 'secondary' : 'destructive'} className="text-xs">
+                      <Badge variant={shard.status === 'active' ? 'default' : shard.status === 'syncing' ? 'secondary' : 'destructive'} className={`text-xs ${shard.status === 'active' ? 'bg-green-600 hover:bg-green-700' : ''}`}>
                         {getShardStatusLabel(shard.status)}
                       </Badge>
                     </div>

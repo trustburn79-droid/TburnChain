@@ -2495,7 +2495,7 @@ function DeployedTokensDashboard() {
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-muted-foreground">{t('common.status', 'Status')}</p>
-                  <Badge variant={token.status === "active" ? "default" : "secondary"}>
+                  <Badge variant={token.status === "active" ? "default" : "secondary"} className={token.status === "active" ? "bg-green-600 hover:bg-green-700" : ""}>
                     {token.status === "active" ? t('common.active', 'Active') : token.status}
                   </Badge>
                 </div>

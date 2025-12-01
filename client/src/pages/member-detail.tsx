@@ -452,7 +452,7 @@ export default function MemberDetailPage() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant={position.status === "active" ? "default" : "secondary"}>
+                          <Badge variant={position.status === "active" ? "default" : "secondary"} className={position.status === "active" ? "bg-green-600 hover:bg-green-700" : ""}>
                             {position.status}
                           </Badge>
                         </TableCell>

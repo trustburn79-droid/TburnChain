@@ -1066,7 +1066,7 @@ export default function DexPage() {
                         <div>
                           <div className="font-semibold flex items-center gap-2">
                             {t('dex.position')} #{truncateAddress(position.id)}
-                            <Badge variant={position.isActive ? "default" : "secondary"}>
+                            <Badge variant={position.isActive ? "default" : "secondary"} className={position.isActive ? "bg-green-600 hover:bg-green-700" : ""}>
                               {position.isActive ? t('dex.active') : t('dex.closed')}
                             </Badge>
                           </div>

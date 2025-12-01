@@ -564,7 +564,7 @@ export default function StakingDashboard() {
                           <span className="ml-1 capitalize">{t(`staking.${pool.tier.toLowerCase()}`)}</span>
                         </Badge>
                       </CardTitle>
-                      <Badge variant={pool.status === "active" ? "default" : "secondary"}>
+                      <Badge variant={pool.status === "active" ? "default" : "secondary"} className={pool.status === "active" ? "bg-green-600 hover:bg-green-700" : ""}>
                         {pool.status === "active" ? (
                           <CheckCircle className="h-3 w-3 mr-1" />
                         ) : (

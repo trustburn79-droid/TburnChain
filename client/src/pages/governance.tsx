@@ -362,7 +362,7 @@ function ProposalCard({ proposal }: { proposal: Proposal }) {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h3 className="font-semibold text-lg">{getProposalTitle()}</h3>
-                <Badge variant={statusColors[proposal.status]}>
+                <Badge variant={statusColors[proposal.status]} className={proposal.status === "active" || proposal.status === "succeeded" || proposal.status === "executed" ? "bg-green-600 hover:bg-green-700" : ""}>
                   <StatusIcon className="h-3 w-3 mr-1" />
                   {t(`governance.status.${proposal.status}`)}
                 </Badge>
