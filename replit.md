@@ -102,6 +102,31 @@ The TBURN Lending/Borrowing protocol provides enterprise-grade decentralized len
 ### System Design Choices
 The project adopts a monorepo structure, separating `client/`, `server/`, and `shared/` components. Drizzle ORM is used for type-safe database interactions. Critical data is persisted in PostgreSQL, and session-based authentication secures API routes and WebSocket connections.
 
+### Enterprise Integration Architecture (December 2025)
+The TBURN Enterprise API provides unified cross-module data orchestration:
+
+- **DataHub Service** (`server/services/DataHub.ts`): Central data aggregation hub providing:
+  - Unified network snapshots with all module metrics
+  - Composite account states including tokenHoldings (TBC-20/721/1155) and bridgeActivity
+  - Validator composite states with delegations and rewards
+  - Real-time metric updates from all orchestrators
+
+- **EventBus Service** (`server/services/EventBus.ts`): 34-channel event system with dependencies:
+  - Network: blocks, transactions, stats
+  - DeFi: staking, dex, lending, bridge
+  - Governance: AI governance proposals/votes
+  - Admin/Operator: audit logs, API key events, node status
+  - AI: decisions, sharding state
+
+- **Enterprise API Routes** (`server/routes/enterprise-routes.ts`): Public read-only endpoints:
+  - `/api/enterprise/snapshot` - Full network + module metrics
+  - `/api/enterprise/accounts/:address` - Complete account state with holdings
+  - `/api/enterprise/gamefi/summary` - GameFi ecosystem metrics
+  - `/api/enterprise/launchpad/summary` - Launchpad project data
+  - `/api/enterprise/burn/metrics` - Auto-burn statistics
+  - `/api/enterprise/admin/api-keys` - API key management with EventBus propagation
+  - `/api/enterprise/operator/session` - Shared operator session state
+
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
 - **ORM**: Drizzle ORM
@@ -116,3 +141,10 @@ The project adopts a monorepo structure, separating `client/`, `server/`, and `s
 - **Validation**: Zod
 - **Session Management**: `express-session`
 - **Password Hashing**: bcryptjs
+
+## Recent Changes (December 2025)
+- Added TokenHolding and BridgeActivity interfaces to AccountCompositeState for wallet/bridge integration
+- Implemented GameFi and Launchpad enterprise summary endpoints
+- Added API key management with EventBus audit event propagation
+- Extended public endpoint whitelist for read-only enterprise data access
+- Verified all 34 EventBus channels with proper dependency mapping
