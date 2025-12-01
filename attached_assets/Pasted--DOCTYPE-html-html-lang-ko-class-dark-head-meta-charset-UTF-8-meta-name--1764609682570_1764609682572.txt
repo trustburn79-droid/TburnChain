@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Hub | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            amber: '#ffb800',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(112, 0, 255, 0.3),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(112, 0, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-purple">Learn</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Developers</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Community</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-20 px-6 overflow-hidden">
+            <div class="absolute top-20 left-1/4 w-96 h-96 bg-cyber-purple/20 rounded-full blur-[100px] animate-pulse"></div>
+            <div class="container mx-auto max-w-7xl relative z-10">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-cyan mb-6">
+                        <i class="fas fa-graduation-cap"></i> V4 Learning Center
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Education Hub</h1>
+                    <p class="text-xl text-gray-400 leading-relaxed max-w-2xl">
+                        Master the TBurn Chain V4 ecosystem. From trust-based consensus algorithms to building high-speed dApps, start your journey here.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-10 px-6 border-y border-white/5 bg-black/20">
+            <div class="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-cyber-purple mb-1">25+</div>
+                    <div class="text-sm text-gray-500 font-mono">COURSES</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-cyber-cyan mb-1">48K+</div>
+                    <div class="text-sm text-gray-500 font-mono">LEARNERS</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-cyber-green mb-1">120+</div>
+                    <div class="text-sm text-gray-500 font-mono">HOURS CONTENT</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-cyber-amber mb-1">94%</div>
+                    <div class="text-sm text-gray-500 font-mono">COMPLETION RATE</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-2">Learning Paths</h2>
+                    <p class="text-gray-400">Curated curriculums for every skill level.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="spotlight-card rounded-xl p-8 group cursor-pointer">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-green/10 border border-cyber-green/30 flex items-center justify-center text-cyber-green text-xl">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <span class="badge text-cyber-green border-cyber-green/30">Beginner</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Blockchain Basics</h3>
+                        <p class="text-gray-400 text-sm mb-6">Understand the basics of blockchain and how TBurn Chain solves the trilemma with Trust Score.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="badge bg-white/5 text-gray-300">Consensus</span>
+                            <span class="badge bg-white/5 text-gray-300">Smart Contracts</span>
+                        </div>
+                        <div class="text-cyber-green font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 group cursor-pointer">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan text-xl">
+                                <i class="fas fa-shield-halved"></i>
+                            </div>
+                            <span class="badge text-cyber-cyan border-cyber-cyan/30">Intermediate</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Trust Score System</h3>
+                        <p class="text-gray-400 text-sm mb-6">Deep dive into the 3-stage verification system, AI analysis, and the Auto-Burn mechanism.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="badge bg-white/5 text-gray-300">Algorithm</span>
+                            <span class="badge bg-white/5 text-gray-300">Verification</span>
+                        </div>
+                        <div class="text-cyber-cyan font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 group cursor-pointer">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-purple/10 border border-cyber-purple/30 flex items-center justify-center text-cyber-purple text-xl">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <span class="badge text-cyber-purple border-cyber-purple/30">Intermediate</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Mastering DeFi</h3>
+                        <p class="text-gray-400 text-sm mb-6">Learn about decentralized finance: DEX liquidity, staking, and yield farming on TBurn.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="badge bg-white/5 text-gray-300">Liquidity</span>
+                            <span class="badge bg-white/5 text-gray-300">Yield Farming</span>
+                        </div>
+                        <div class="text-cyber-purple font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 group cursor-pointer">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 rounded-lg bg-cyber-amber/10 border border-cyber-amber/30 flex items-center justify-center text-cyber-amber text-xl">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <span class="badge text-cyber-amber border-cyber-amber/30">Advanced</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Developer Course</h3>
+                        <p class="text-gray-400 text-sm mb-6">Step-by-step guide to building and deploying dApps using the TBurn SDK and API.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="badge bg-white/5 text-gray-300">SDK Setup</span>
+                            <span class="badge bg-white/5 text-gray-300">API Integration</span>
+                        </div>
+                        <div class="text-cyber-amber font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 bg-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-2">Core Concepts</h2>
+                    <p class="text-gray-400">The technology powering the network.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="spotlight-card p-6 rounded-xl">
+                        <i class="fas fa-shield-halved text-cyber-cyan text-2xl mb-4"></i>
+                        <h3 class="font-bold text-white mb-2">Trust Score</h3>
+                        <p class="text-sm text-gray-400">Dynamic score rating project reliability from 0-100.</p>
+                    </div>
+                    <div class="spotlight-card p-6 rounded-xl">
+                        <i class="fas fa-fire text-red-500 text-2xl mb-4"></i>
+                        <h3 class="font-bold text-white mb-2">Auto-Burn</h3>
+                        <p class="text-sm text-gray-400">Automatic collateral burn for non-compliance.</p>
+                    </div>
+                    <div class="spotlight-card p-6 rounded-xl">
+                        <i class="fas fa-brain text-cyber-purple text-2xl mb-4"></i>
+                        <h3 class="font-bold text-white mb-2">Triple-Band AI</h3>
+                        <p class="text-sm text-gray-400">Multi-LLM real-time analysis for verification.</p>
+                    </div>
+                    <div class="spotlight-card p-6 rounded-xl">
+                        <i class="fas fa-lock text-white text-2xl mb-4"></i>
+                        <h3 class="font-bold text-white mb-2">Quantum Security</h3>
+                        <p class="text-sm text-gray-400">CRYSTALS-Dilithium + ED25519 hybrid encryption.</p>
+                    </div>
+                    <div class="spotlight-card p-6 rounded-xl">
+                        <i class="fas fa-gas-pump text-cyber-amber text-2xl mb-4"></i>
+                        <h3 class="font-bold text-white mb-2">Ember Gas</h3>
+                        <p class="text-sm text-gray-400">Micro-gas unit (1 TBURN = 10^9 Ember).</p>
+                    </div>
+                    <div class="spotlight-card p-6 rounded-xl">
+                        <i class="fas fa-network-wired text-cyber-green text-2xl mb-4"></i>
+                        <h3 class="font-bold text-white mb-2">DPoS + BFT</h3>
+                        <p class="text-sm text-gray-400">Hybrid consensus supporting 30,000 validators.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6">
+            <div class="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12">
+                
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-6">Glossary</h2>
+                    <div class="space-y-4">
+                        <div class="spotlight-card p-4 rounded-lg flex gap-4 items-start">
+                            <span class="badge text-cyber-cyan border-cyber-cyan/50 shrink-0">TBURN</span>
+                            <p class="text-sm text-gray-400">TBurn Chain's native governance and utility token.</p>
+                        </div>
+                        <div class="spotlight-card p-4 rounded-lg flex gap-4 items-start">
+                            <span class="badge text-cyber-amber border-cyber-amber/50 shrink-0">Ember</span>
+                            <p class="text-sm text-gray-400">Gas unit for transaction fees.</p>
+                        </div>
+                        <div class="spotlight-card p-4 rounded-lg flex gap-4 items-start">
+                            <span class="badge text-red-500 border-red-500/50 shrink-0">Slashing</span>
+                            <p class="text-sm text-gray-400">Penalty on staked tokens for validator misbehavior.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-6">Certifications</h2>
+                    <div class="space-y-4">
+                        <div class="spotlight-card p-4 rounded-lg flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/30 flex items-center justify-center text-amber-600">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">TBurn Fundamentals</h4>
+                                <p class="text-xs text-gray-400">Complete basics course + pass quiz.</p>
+                            </div>
+                        </div>
+                        <div class="spotlight-card p-4 rounded-lg flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-700/30 flex items-center justify-center text-gray-400">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">DeFi Expert</h4>
+                                <p class="text-xs text-gray-400">Complete DeFi course + hands-on tasks.</p>
+                            </div>
+                        </div>
+                        <div class="spotlight-card p-4 rounded-lg flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-cyber-amber/20 flex items-center justify-center text-cyber-amber">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Developer Certification</h4>
+                                <p class="text-xs text-gray-400">Developer course + dApp project submission.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <a href="#" class="spotlight-card p-6 rounded-xl text-center group">
+                        <i class="fab fa-discord text-4xl text-cyber-purple mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="font-bold text-white">Join Discord</h3>
+                        <p class="text-sm text-gray-400">Discuss with learners.</p>
+                    </a>
+                    <a href="#" class="spotlight-card p-6 rounded-xl text-center group">
+                        <i class="fas fa-comments text-4xl text-cyber-cyan mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="font-bold text-white">Developer Forum</h3>
+                        <p class="text-sm text-gray-400">Technical Q&A.</p>
+                    </a>
+                    <a href="#" class="spotlight-card p-6 rounded-xl text-center group">
+                        <i class="fas fa-globe text-4xl text-cyber-green mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="font-bold text-white">Live Sessions</h3>
+                        <p class="text-sm text-gray-400">Weekly Workshops.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Whitepaper</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Community</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Forum</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Events</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Go</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 20000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
