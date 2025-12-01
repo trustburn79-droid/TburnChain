@@ -21,11 +21,10 @@ export function PublicRouter() {
         <Route path="/learn/what-is-burn-chain" component={WhatIsBurnChain} />
         <Route path="/learn/trust-score" component={TrustScoreSystem} />
         <Route path="/learn/wallet" component={WhatIsWallet} />
-        <Route path="/learn/education" component={EducationPrograms} />
+        <Route path="/learn/education" component={Universities} />
         <Route path="/learn/whitepaper" component={Whitepaper} />
         <Route path="/learn/tokenomics" component={Tokenomics} />
         <Route path="/learn/roadmap" component={Roadmap} />
-        <Route path="/learn/universities" component={Universities} />
         
         {/* Developer Routes */}
         <Route path="/developers" component={DeveloperHub} />
