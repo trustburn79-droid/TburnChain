@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Announcements | TBurn Chain</title>
+    <meta name="description" content="Stay updated with the latest news from TBurn Chain">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            yellow: '#ffd700',
+                            red: '#ff0055',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(112, 0, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(112, 0, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .input-dark {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        .input-dark:focus {
+            border-color: #00f0ff;
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .category-badge {
+            background: rgba(112, 0, 255, 0.1);
+            border: 1px solid rgba(112, 0, 255, 0.2);
+            color: #c084fc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.2s;
+        }
+        .category-badge:hover {
+            background: rgba(112, 0, 255, 0.2);
+            border-color: rgba(112, 0, 255, 0.4);
+            color: #fff;
+        }
+        .category-badge.active {
+            background: #7000ff;
+            color: white;
+            border-color: #7000ff;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Developers</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan">Community</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+                
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-0 right-1/4 w-[600px] h-[500px] bg-cyber-purple/10 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-5xl relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-cyan mb-6">
+                    <i class="fas fa-newspaper"></i> V4_NEWS_CENTER
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    News & <span class="text-gradient">Announcements</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
+                    Stay updated with the latest technological breakthroughs, partnerships, and ecosystem developments from TBurn Chain.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-8 px-6 border-b border-white/5 bg-black/40">
+            <div class="container mx-auto max-w-7xl flex flex-col lg:flex-row gap-6 justify-between items-center">
+                <div class="relative w-full lg:w-96">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                    <input type="text" placeholder="Search news..." class="input-dark w-full pl-10 pr-4 py-2 rounded-lg text-sm">
+                </div>
+
+                <div class="flex flex-wrap gap-2 justify-center lg:justify-end">
+                    <button class="category-badge active">All</button>
+                    <button class="category-badge">Announcement</button>
+                    <button class="category-badge">Technology</button>
+                    <button class="category-badge">Security</button>
+                    <button class="category-badge">Tokenomics</button>
+                    <button class="category-badge">Partnership</button>
+                    <button class="category-badge">DeFi</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+                    <i class="fas fa-star text-cyber-yellow"></i> Featured News
+                </h2>
+                
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block h-full">
+                        <div class="h-48 bg-gradient-to-br from-cyber-purple to-blue-600 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            <div class="absolute top-4 left-4 bg-white/90 text-black text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                                <i class="fas fa-bullhorn"></i> Announcement
+                            </div>
+                            <div class="absolute top-4 right-4 bg-cyber-purple text-white text-xs font-bold px-2 py-1 rounded">
+                                Featured
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-3 font-mono">
+                                <span><i class="far fa-calendar mr-1"></i> 11/28/2024</span>
+                                <span><i class="far fa-clock mr-1"></i> 5 min</span>
+                                <span><i class="far fa-eye mr-1"></i> 128.5K</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyber-cyan transition-colors">TBurn Chain V4 Mainnet Launch - Official Release</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+                                The world's first trust-based Layer 1 blockchain, TBurn Chain V4, officially launches its mainnet on December 5, 2024. Experience 500,000+ TPS.
+                            </p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-xs text-gray-500">TBurn Team</span>
+                                <span class="text-cyber-cyan text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">Read More <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block h-full">
+                        <div class="h-48 bg-gradient-to-br from-cyan-500 to-blue-500 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            <div class="absolute top-4 left-4 bg-white/90 text-black text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                                <i class="fas fa-microchip"></i> Technology
+                            </div>
+                            <div class="absolute top-4 right-4 bg-cyber-cyan text-black text-xs font-bold px-2 py-1 rounded">
+                                Featured
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-3 font-mono">
+                                <span><i class="far fa-calendar mr-1"></i> 11/25/2024</span>
+                                <span><i class="far fa-clock mr-1"></i> 8 min</span>
+                                <span><i class="far fa-eye mr-1"></i> 89.2K</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyber-cyan transition-colors">Triple-Band AI System Revealed</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+                                TBurn Chain's core Triple-Band AI system has been unveiled. The 3-tier AI analyzes projects in real-time and automatically calculates Trust Scores.
+                            </p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-xs text-gray-500">AI Research Team</span>
+                                <span class="text-cyber-cyan text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">Read More <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block h-full">
+                        <div class="h-48 bg-gradient-to-br from-indigo-500 to-violet-600 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            <div class="absolute top-4 left-4 bg-white/90 text-black text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                                <i class="fas fa-handshake"></i> Partnership
+                            </div>
+                            <div class="absolute top-4 right-4 bg-cyber-purple text-white text-xs font-bold px-2 py-1 rounded">
+                                Featured
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-3 font-mono">
+                                <span><i class="far fa-calendar mr-1"></i> 11/15/2024</span>
+                                <span><i class="far fa-clock mr-1"></i> 4 min</span>
+                                <span><i class="far fa-eye mr-1"></i> 98.7K</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyber-cyan transition-colors">Global Partnership Expansion - 30 Exchanges</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+                                TBurn Chain has partnered with major global exchanges. TBURN token trading will begin on 30+ exchanges on January 5, 2026.
+                            </p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-xs text-gray-500">Business Team</span>
+                                <span class="text-cyber-cyan text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">Read More <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 px-6 bg-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="far fa-newspaper text-gray-400"></i> Latest Articles
+                    </h2>
+                    <span class="text-xs text-gray-500 font-mono">Showing 5 of 5 articles</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block">
+                        <div class="h-40 bg-gradient-to-br from-amber-500 to-orange-600 relative">
+                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
+                                <i class="fas fa-coins text-cyber-yellow"></i> Tokenomics
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-3 mb-2 text-xs text-gray-500 font-mono">
+                                <span>11/22/2024</span>
+                                <span>•</span>
+                                <span>67.8K Views</span>
+                            </div>
+                            <h3 class="font-bold text-white mb-2 group-hover:text-cyber-yellow transition-colors">TBURN Token Staking Program Details</h3>
+                            <p class="text-gray-400 text-sm line-clamp-2 mb-4">Earn 12-25% APY through validator node operation. Learn how to participate.</p>
+                            <span class="text-cyber-yellow text-xs font-bold flex items-center gap-1">Read More <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block">
+                        <div class="h-40 bg-gradient-to-br from-green-500 to-emerald-600 relative">
+                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
+                                <i class="fas fa-shield-alt text-cyber-green"></i> Security
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-3 mb-2 text-xs text-gray-500 font-mono">
+                                <span>11/20/2024</span>
+                                <span>•</span>
+                                <span>56.3K Views</span>
+                            </div>
+                            <h3 class="font-bold text-white mb-2 group-hover:text-cyber-green transition-colors">Trust Score System Deep Dive</h3>
+                            <p class="text-gray-400 text-sm line-clamp-2 mb-4">Detailed explanation of the 5 evaluation factors (Team, Code, Finance, etc).</p>
+                            <span class="text-cyber-green text-xs font-bold flex items-center gap-1">Read More <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block">
+                        <div class="h-40 bg-gradient-to-br from-purple-500 to-pink-600 relative">
+                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
+                                <i class="fas fa-code text-cyber-purple"></i> Development
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-3 mb-2 text-xs text-gray-500 font-mono">
+                                <span>11/18/2024</span>
+                                <span>•</span>
+                                <span>43.1K Views</span>
+                            </div>
+                            <h3 class="font-bold text-white mb-2 group-hover:text-cyber-purple transition-colors">Developer SDK 2.0 Released</h3>
+                            <p class="text-gray-400 text-sm line-clamp-2 mb-4">Full TypeScript support, improved error handling, and new Trust Score APIs.</p>
+                            <span class="text-cyber-purple text-xs font-bold flex items-center gap-1">Read More <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block">
+                        <div class="h-40 bg-gradient-to-br from-teal-500 to-cyan-600 relative">
+                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
+                                <i class="fas fa-lock text-cyber-cyan"></i> Security
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-3 mb-2 text-xs text-gray-500 font-mono">
+                                <span>11/12/2024</span>
+                                <span>•</span>
+                                <span>34.2K Views</span>
+                            </div>
+                            <h3 class="font-bold text-white mb-2 group-hover:text-cyber-cyan transition-colors">Quantum-Resistant Cryptography</h3>
+                            <p class="text-gray-400 text-sm line-clamp-2 mb-4">CRYSTALS-Dilithium and ED25519 hybrid signature system integration complete.</p>
+                            <span class="text-cyber-cyan text-xs font-bold flex items-center gap-1">Read More <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block">
+                        <div class="h-40 bg-gradient-to-br from-rose-500 to-pink-600 relative">
+                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
+                                <i class="fas fa-chart-line text-cyber-red"></i> DeFi
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-3 mb-2 text-xs text-gray-500 font-mono">
+                                <span>11/10/2024</span>
+                                <span>•</span>
+                                <span>51.4K Views</span>
+                            </div>
+                            <h3 class="font-bold text-white mb-2 group-hover:text-cyber-red transition-colors">First DeFi Project TBurn DEX Beta</h3>
+                            <p class="text-gray-400 text-sm line-clamp-2 mb-4">Try liquidity provision and swap features on testnet now.</p>
+                            <span class="text-cyber-red text-xs font-bold flex items-center gap-1">Read More <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-2xl">
+                <div class="spotlight-card rounded-xl p-8 border border-white/10 text-center bg-gradient-to-b from-transparent to-cyber-purple/5">
+                    <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white">
+                        <i class="far fa-envelope"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Subscribe to Newsletter</h2>
+                    <p class="text-gray-400 mb-8">Get the latest TBurn Chain news delivered directly to your inbox.</p>
+                    
+                    <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <input type="email" placeholder="Enter your email" class="input-dark flex-1 px-4 py-3 rounded-lg text-sm" required>
+                        <button type="submit" class="px-6 py-3 rounded-lg bg-cyber-purple text-white font-bold hover:bg-purple-600 transition flex items-center justify-center gap-2">
+                            Subscribe <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">TBurn Chain</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Learn</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Developers</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Solutions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">News</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Sub</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                    <a href="#" class="hover:text-white">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#7000ff'; /* Purple theme for News */
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 20000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                  ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(112, 0, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+        
+        // Category Filter Logic (Simple visual toggle)
+        const categoryBtns = document.querySelectorAll('.category-badge');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
