@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useRef, forwardRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation, Link } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -93,7 +93,6 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface Block {
   id: string;
@@ -232,8 +231,7 @@ function LiveIndicator({ isLive, lastUpdate }: { isLive: boolean; lastUpdate: Da
   );
 }
 
-const BlockRow = forwardRef<HTMLTableRowElement, { block: Block; onClick: () => void }>(
-  ({ block, onClick }, ref) => {
+function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const gasUsagePercent = block.gasLimit > 0 ? (block.gasUsed / block.gasLimit) * 100 : 0;
@@ -248,13 +246,8 @@ const BlockRow = forwardRef<HTMLTableRowElement, { block: Block; onClick: () => 
   };
   
   return (
-    <motion.tr
-      ref={ref}
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.15 }}
-      className="cursor-pointer hover:bg-muted/50 border-b"
+    <TableRow
+      className="cursor-pointer hover:bg-muted/50"
       onClick={onClick}
       data-testid={`row-block-${block.blockNumber}`}
     >
@@ -366,11 +359,9 @@ const BlockRow = forwardRef<HTMLTableRowElement, { block: Block; onClick: () => 
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
-    </motion.tr>
+    </TableRow>
   );
-});
-
-BlockRow.displayName = 'BlockRow';
+}
 
 function ExportDialog({ blocks, isOpen, onClose }: { blocks: Block[]; isOpen: boolean; onClose: () => void }) {
   const { t } = useTranslation();
@@ -1073,15 +1064,13 @@ export default function Blocks() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <AnimatePresence mode="popLayout">
-                    {blocksData.blocks.map((block) => (
-                      <BlockRow
-                        key={block.id}
-                        block={block}
-                        onClick={() => setLocation(`/blocks/${block.blockNumber}`)}
-                      />
-                    ))}
-                  </AnimatePresence>
+                  {blocksData.blocks.map((block) => (
+                    <BlockRow
+                      key={block.id}
+                      block={block}
+                      onClick={() => setLocation(`/blocks/${block.blockNumber}`)}
+                    />
+                  ))}
                 </TableBody>
               </Table>
             </div>
