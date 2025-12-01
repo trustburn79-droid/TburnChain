@@ -388,6 +388,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
         req.path.startsWith("/enterprise/metrics") ||
+        req.path.startsWith("/enterprise/accounts/") ||
+        req.path.startsWith("/enterprise/validators/") ||
         req.path.startsWith("/enterprise/defi/overview") ||
         req.path.startsWith("/enterprise/token-system/summary") ||
         req.path.startsWith("/enterprise/staking-defi/correlation") ||
@@ -395,7 +397,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/enterprise/governance/overview") ||
         req.path.startsWith("/enterprise/admin/system-status") ||
         req.path.startsWith("/enterprise/operator/dashboard") ||
-        req.path.startsWith("/enterprise/dashboard/unified")) {
+        req.path.startsWith("/enterprise/operator/session") ||
+        req.path.startsWith("/enterprise/dashboard/unified") ||
+        req.path.startsWith("/enterprise/gamefi/summary") ||
+        req.path.startsWith("/enterprise/launchpad/summary") ||
+        req.path.startsWith("/enterprise/burn/") ||
+        req.path.startsWith("/enterprise/events/")) {
       return next();
     }
     requireAuth(req, res, next);
