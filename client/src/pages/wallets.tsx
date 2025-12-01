@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, forwardRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, Link } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -167,17 +167,12 @@ function MetricCard({
   );
 }
 
-function WalletRow({ 
-  wallet, 
-  onViewDetails,
-  onCopyAddress,
-  t
-}: { 
+const WalletRow = forwardRef<HTMLTableRowElement, { 
   wallet: WalletBalance;
   onViewDetails: (wallet: WalletBalance) => void;
   onCopyAddress: (address: string) => void;
   t: any;
-}) {
+}>(({ wallet, onViewDetails, onCopyAddress, t }, ref) => {
   const [, setLocation] = useLocation();
   
   const formatBalance = (wei: string) => {
@@ -202,6 +197,7 @@ function WalletRow({
 
   return (
     <motion.tr
+      ref={ref}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
@@ -296,7 +292,9 @@ function WalletRow({
       </TableCell>
     </motion.tr>
   );
-}
+});
+
+WalletRow.displayName = 'WalletRow';
 
 function WalletDetailDialog({
   wallet,

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef, forwardRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation, Link } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -232,7 +232,8 @@ function LiveIndicator({ isLive, lastUpdate }: { isLive: boolean; lastUpdate: Da
   );
 }
 
-function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
+const BlockRow = forwardRef<HTMLTableRowElement, { block: Block; onClick: () => void }>(
+  ({ block, onClick }, ref) => {
   const { t } = useTranslation();
   const { toast } = useToast();
   const gasUsagePercent = block.gasLimit > 0 ? (block.gasUsed / block.gasLimit) * 100 : 0;
@@ -248,6 +249,7 @@ function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
   
   return (
     <motion.tr
+      ref={ref}
       initial={{ opacity: 0, y: -5 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
@@ -366,7 +368,9 @@ function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
       </TableCell>
     </motion.tr>
   );
-}
+});
+
+BlockRow.displayName = 'BlockRow';
 
 function ExportDialog({ blocks, isOpen, onClose }: { blocks: Block[]; isOpen: boolean; onClose: () => void }) {
   const { t } = useTranslation();
