@@ -5658,7 +5658,124 @@
     "phaseReconnecting": "Reconnecting",
     "phaseValidating": "Validating",
     "phaseCompleted": "Completed",
-    "phaseFailed": "Failed"
+    "phaseFailed": "Failed",
+    "tabs": {
+      "overview": "Overview",
+      "liveFeed": "Live Feed",
+      "system": "System",
+      "security": "Security",
+      "analytics": "Analytics"
+    },
+    "overview": {
+      "uptimeSla": "Uptime SLA",
+      "activeSessions": "Active Sessions",
+      "adminUsers": "Admin Users",
+      "incidents": "Incidents",
+      "last30Days": "Last 30 Days",
+      "thisMonth": "This Month",
+      "avgRecoveryTime": "Avg Recovery Time",
+      "restartMttr": "Restart MTTR"
+    },
+    "analytics": {
+      "tpsHistory": "TPS History",
+      "avgTps": "Average TPS",
+      "peakTps": "Peak TPS",
+      "uptimeHistory": "Uptime History",
+      "incidentHistory": "Incident History",
+      "incidents": "Incidents",
+      "resolved": "Resolved",
+      "last24Hours": "Last 24 Hours",
+      "last30Days": "Last 30 Days",
+      "last12Months": "Last 12 Months",
+      "latencyDistribution": "Latency Distribution",
+      "apiResponseTimes": "API Response Times"
+    },
+    "security": {
+      "events": "Security Events",
+      "eventsDesc": "Recent security events and alerts",
+      "all": "All",
+      "critical": "Critical",
+      "warning": "Warning",
+      "info": "Info",
+      "noEvents": "No security events found",
+      "activeSessions": "Active Sessions",
+      "activeSessionsDesc": "Currently logged-in users and their sessions",
+      "user": "User",
+      "ip": "IP Address",
+      "device": "Device",
+      "created": "Created",
+      "lastActivity": "Last Activity",
+      "status": "Status",
+      "active": "Active",
+      "idle": "Idle",
+      "totalEvents": "Total Events",
+      "criticalEvents": "Critical Events",
+      "blockedIps": "Blocked IPs",
+      "last24Hours": "Last 24 Hours",
+      "last30Days": "Last 30 Days",
+      "requiresAttention": "Requires Attention"
+    },
+    "system": {
+      "memory": "Memory",
+      "disk": "Disk",
+      "network": "Network",
+      "resourceHistory": "Resource History",
+      "healthy": "Healthy",
+      "degraded": "Degraded",
+      "offline": "Offline",
+      "unknown": "Unknown",
+      "serviceStatus": "Service Status",
+      "serviceStatusDesc": "Real-time monitoring of all system services",
+      "latency": "Latency",
+      "uptime": "Uptime",
+      "databaseHealth": "Database Health",
+      "connected": "Connected",
+      "connections": "Connections",
+      "waiting": "Waiting",
+      "poolUsage": "Pool Usage",
+      "slow": "Slow",
+      "error": "Error",
+      "apiEndpoints": "API Endpoints",
+      "apiEndpointsDesc": "Monitoring API endpoint performance",
+      "sortLatency": "Sort by Latency",
+      "sortRequests": "Sort by Requests",
+      "sortErrors": "Sort by Errors",
+      "endpoint": "Endpoint",
+      "method": "Method",
+      "status": "Status",
+      "avgLatency": "Avg Latency",
+      "p95": "P95",
+      "requests": "Requests",
+      "errorRate": "Error Rate",
+      "systemInfo": "System Info",
+      "nodeVersion": "Node Version",
+      "platform": "Platform",
+      "processUptime": "Process Uptime",
+      "loadAverage": "Load Average"
+    },
+    "liveFeed": {
+      "title": "Live Activity Feed",
+      "description": "Real-time system events and activities",
+      "noActivity": "No recent activity"
+    },
+    "dialogs": {
+      "uptime": {
+        "title": "Uptime Details",
+        "description": "System uptime and availability statistics"
+      },
+      "sessions": {
+        "title": "Session Details",
+        "description": "Active user sessions information"
+      },
+      "incidents": {
+        "title": "Incident Details",
+        "description": "Recent incidents and their resolutions"
+      },
+      "mttr": {
+        "title": "MTTR Details",
+        "description": "Mean Time To Recovery statistics"
+      }
+    }
   },
   "apiKeys": {
     "title": "API Keys",
