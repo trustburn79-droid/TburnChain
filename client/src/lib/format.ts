@@ -75,7 +75,7 @@ export function formatGasEmber(gas: number | string, includeUnit = true): string
   
   const formatted = g >= 1e9 ? `${(g / 1e9).toFixed(2)}B` :
                     g >= 1e6 ? `${(g / 1e6).toFixed(2)}M` :
-                    g >= 1e3 ? `${(g / 1e3).toFixed(1)}K` :
+                    g >= 1e3 ? `${(g / 1e3).toFixed(2)}K` :
                     g.toLocaleString();
   
   return includeUnit ? `${formatted} EMB` : formatted;
