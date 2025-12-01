@@ -32,6 +32,7 @@ import launchpadRoutes from "./routes/launchpad-routes";
 import gamefiRoutes from "./routes/gamefi-routes";
 import bridgeRoutes from "./routes/bridge-routes";
 import { registerCommunityRoutes } from "./routes/community-routes";
+import enterpriseRoutes from "./routes/enterprise-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -383,6 +384,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (req.path.startsWith("/search")) {
       return next();
     }
+    // Skip auth check for enterprise read-only endpoints (public data)
+    if (req.path.startsWith("/enterprise/snapshot") || 
+        req.path.startsWith("/enterprise/health") ||
+        req.path.startsWith("/enterprise/metrics")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
 
@@ -413,6 +420,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use("/api/gamefi", gamefiRoutes);
   console.log("[GameFi] Routes registered successfully");
   gameFiService.initialize().catch(err => console.error("[GameFi] Init error:", err));
+
+  // ============================================
+  // ENTERPRISE DATA HUB & ORCHESTRATION (Cross-Module Integration)
+  // ============================================
+  app.use("/api/enterprise", enterpriseRoutes);
+  console.log("[Enterprise] ✅ Enterprise routes registered - DataHub & Orchestration active");
 
   // ============================================
   // Network Stats
