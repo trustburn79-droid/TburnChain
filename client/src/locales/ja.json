@@ -3518,7 +3518,9 @@
       "transfer": "転送",
       "contractCall": "コントラクト呼び出し",
       "stateSync": "状態同期"
-    }
+    },
+    "messageRoute": "シャード {{from}} → シャード {{to}}",
+    "routingPriority": "ルーティング優先度"
   },
   "consensus": {
     "title": "コンセンサス",

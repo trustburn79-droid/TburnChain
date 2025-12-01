@@ -3286,7 +3286,9 @@
       "transfer": "전송",
       "contractCall": "컨트랙트 호출",
       "stateSync": "상태 동기화"
-    }
+    },
+    "messageRoute": "샤드 {{from}} → 샤드 {{to}}",
+    "routingPriority": "라우팅 우선순위"
   },
   "consensus": {
     "title": "합의",

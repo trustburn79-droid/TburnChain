@@ -619,11 +619,11 @@
     "totalStake": "Total Stake",
     "directStaked": "direct staked",
     "delegatedStake": "Delegated Stake",
-    "delegatedTokens": "delegated tokens",
+    "delegatedTokens": "Delegated Tokens",
     "committeeSize": "Committee Size",
     "topValidators": "top validators",
     "totalDelegators": "Total Delegators",
-    "uniqueDelegators": "unique delegators",
+    "uniqueDelegators": "Unique Delegators",
     "allValidators": "All Validators",
     "tieredSystemDescription": "Tiered system: Tier 1 (200K+), Tier 2 (50K+), Tier 3 (Delegators)",
     "rank": "Rank",
@@ -711,7 +711,6 @@
     "week2": "Week 2",
     "week3": "Week 3",
     "week4": "Week 4",
-    "missedBlocks": "Missed Blocks",
     "avgAiTrust": "Avg AI Trust",
     "tierValidators": "Tier Validators",
     "dailyPool": "Daily Pool",
@@ -753,13 +752,11 @@
     "detailedAnalysis": "Detailed analysis and statistics",
     "statusDistribution": "Status Distribution",
     "topActiveValidators": "Top Active Validators",
-    "jailed": "Jailed",
     "stakeByValidator": "Stake by Validator",
     "tier1Stake": "Tier 1 Stake",
     "tier2Stake": "Tier 2 Stake",
     "tier3Stake": "Tier 3 Stake",
     "topDelegatedValidators": "Top Delegated Validators",
-    "delegatedTokens": "Delegated Tokens",
     "delegationRatio": "Delegation Ratio",
     "avgDelegation": "Average Delegation",
     "committeeMembers": "Committee Members",
@@ -767,11 +764,9 @@
     "totalCommitteeStake": "Total Committee Stake",
     "avgCommitteeUptime": "Avg Committee Uptime",
     "rotationPeriod": "Rotation Period",
-    "uniqueDelegators": "Unique Delegators",
     "delegatorsByValidator": "Delegators by Validator",
     "avgDelegatorsPerValidator": "Avg Delegators Per Validator",
     "avgStakePerDelegator": "Avg Stake Per Delegator",
-    "uptime": "Uptime",
     "economics": "Economics"
   },
   "staking": {
@@ -2293,7 +2288,7 @@
     "refund": "Refund"
   },
   "community": {
-    "title": "Community",
+    "title": "Title",
     "subtitle": "Connect, collaborate, and grow with the TBURN ecosystem",
     "online": "Online",
     "totalMembers": "Total Members",
@@ -2302,14 +2297,109 @@
     "comments": "comments",
     "proposals": "Proposals",
     "active": "active",
-    "events": "Events",
+    "events": {
+      "launchAma": {
+        "title": "Mainnet Launch AMA",
+        "desc": "Join our founders for an exclusive AMA session about the mainnet launch"
+      },
+      "defiWorkshop": {
+        "title": "DeFi Workshop",
+        "desc": "Learn how to maximize your yields with TBURN DeFi protocols"
+      },
+      "hackathon": {
+        "title": "TBURN Hackathon 2025",
+        "desc": "Build the future of DeFi on TBURN and win prizes worth 100K TBURN"
+      },
+      "tokyoMeetup": {
+        "title": "Community Meetup: Tokyo",
+        "desc": "Meet the TBURN community in person at our Tokyo event"
+      },
+      "stakingCompetition": {
+        "title": "Staking Competition",
+        "desc": "Compete for the highest staking rewards this month"
+      },
+      "nftContest": {
+        "title": "NFT Art Contest",
+        "desc": "Create TBURN-themed NFT artwork and win prizes"
+      },
+      "validatorTraining": {
+        "title": "Validator Training Session",
+        "desc": "Learn how to become a TBURN validator with comprehensive training"
+      },
+      "airdropEvent": {
+        "title": "Community Airdrop Event",
+        "desc": "Exclusive airdrop for active community members. Complete tasks to earn rewards!"
+      }
+    },
     "upcoming": "upcoming",
     "totalRewards": "Rewards Distributed",
     "overview": "Overview",
     "forum": "Forum",
     "leaderboard": "Leaderboard",
-    "badges": "Badges",
-    "announcements": "Announcements",
+    "badges": {
+      "earlyAdopter": {
+        "name": "Early Adopter",
+        "description": "Joined during the first month of mainnet"
+      },
+      "diamondHands": {
+        "name": "Diamond Hands",
+        "description": "Held TBURN for over 6 months"
+      },
+      "governanceParticipant": {
+        "name": "Governance Participant",
+        "description": "Voted on 10+ governance proposals"
+      },
+      "communityHelper": {
+        "name": "Community Helper",
+        "description": "Helped 50+ community members"
+      },
+      "whaleStatus": {
+        "name": "Whale Status",
+        "description": "Hold 100K+ TBURN tokens"
+      },
+      "contentCreator": {
+        "name": "Content Creator",
+        "description": "Published 25+ forum posts"
+      },
+      "validator": {
+        "name": "Validator",
+        "description": "Run a mainnet validator node"
+      },
+      "bridgePioneer": {
+        "name": "Bridge Pioneer",
+        "description": "First 1000 cross-chain bridge users"
+      },
+      "defiMaster": {
+        "name": "DeFi Master",
+        "description": "Used all DeFi protocols"
+      },
+      "bugHunter": {
+        "name": "Bug Hunter",
+        "description": "Reported a valid security vulnerability"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "Mainnet Launch Date Confirmed",
+        "content": "We are thrilled to announce that TBURN Mainnet will officially launch on December 1st, 2025. All systems are go!"
+      },
+      "stakingTiers": {
+        "title": "New Staking Tiers Released",
+        "content": "Introducing enhanced staking tiers with up to 25% APY for Tier 1 validators. Check the staking page for details."
+      },
+      "securityAudit": {
+        "title": "Security Audit Complete",
+        "content": "Our smart contracts have passed the comprehensive security audit by CertiK with zero critical issues."
+      },
+      "bridgeIntegration": {
+        "title": "Cross-Chain Bridge Now Live",
+        "content": "The TBURN bridge is now live, supporting transfers between Ethereum, BSC, and Polygon networks."
+      },
+      "maintenance": {
+        "title": "Scheduled Maintenance: Node Upgrade",
+        "content": "Brief maintenance window scheduled for December 3rd, 2:00 AM UTC. Expected downtime: 15 minutes."
+      }
+    },
     "important": "Important",
     "activityFeed": "Live Activity",
     "topContributors": "Top Contributors",
@@ -2389,7 +2479,6 @@
     "eventDetails": "Event Details",
     "startTime": "Start Time",
     "endTime": "End Time",
-    "title": "Title",
     "content": "Content",
     "contributions": "Contributions",
     "time": {
@@ -2419,104 +2508,6 @@
       "news": "News",
       "alert": "Alert",
       "feature": "Feature"
-    },
-    "badges": {
-      "earlyAdopter": {
-        "name": "Early Adopter",
-        "description": "Joined during the first month of mainnet"
-      },
-      "diamondHands": {
-        "name": "Diamond Hands",
-        "description": "Held TBURN for over 6 months"
-      },
-      "governanceParticipant": {
-        "name": "Governance Participant",
-        "description": "Voted on 10+ governance proposals"
-      },
-      "communityHelper": {
-        "name": "Community Helper",
-        "description": "Helped 50+ community members"
-      },
-      "whaleStatus": {
-        "name": "Whale Status",
-        "description": "Hold 100K+ TBURN tokens"
-      },
-      "contentCreator": {
-        "name": "Content Creator",
-        "description": "Published 25+ forum posts"
-      },
-      "validator": {
-        "name": "Validator",
-        "description": "Run a mainnet validator node"
-      },
-      "bridgePioneer": {
-        "name": "Bridge Pioneer",
-        "description": "First 1000 cross-chain bridge users"
-      },
-      "defiMaster": {
-        "name": "DeFi Master",
-        "description": "Used all DeFi protocols"
-      },
-      "bugHunter": {
-        "name": "Bug Hunter",
-        "description": "Reported a valid security vulnerability"
-      }
-    },
-    "events": {
-      "launchAma": {
-        "title": "Mainnet Launch AMA",
-        "desc": "Join our founders for an exclusive AMA session about the mainnet launch"
-      },
-      "defiWorkshop": {
-        "title": "DeFi Workshop",
-        "desc": "Learn how to maximize your yields with TBURN DeFi protocols"
-      },
-      "hackathon": {
-        "title": "TBURN Hackathon 2025",
-        "desc": "Build the future of DeFi on TBURN and win prizes worth 100K TBURN"
-      },
-      "tokyoMeetup": {
-        "title": "Community Meetup: Tokyo",
-        "desc": "Meet the TBURN community in person at our Tokyo event"
-      },
-      "stakingCompetition": {
-        "title": "Staking Competition",
-        "desc": "Compete for the highest staking rewards this month"
-      },
-      "nftContest": {
-        "title": "NFT Art Contest",
-        "desc": "Create TBURN-themed NFT artwork and win prizes"
-      },
-      "validatorTraining": {
-        "title": "Validator Training Session",
-        "desc": "Learn how to become a TBURN validator with comprehensive training"
-      },
-      "airdropEvent": {
-        "title": "Community Airdrop Event",
-        "desc": "Exclusive airdrop for active community members. Complete tasks to earn rewards!"
-      }
-    },
-    "announcements": {
-      "mainnetLaunch": {
-        "title": "Mainnet Launch Date Confirmed",
-        "content": "We are thrilled to announce that TBURN Mainnet will officially launch on December 1st, 2025. All systems are go!"
-      },
-      "stakingTiers": {
-        "title": "New Staking Tiers Released",
-        "content": "Introducing enhanced staking tiers with up to 25% APY for Tier 1 validators. Check the staking page for details."
-      },
-      "securityAudit": {
-        "title": "Security Audit Complete",
-        "content": "Our smart contracts have passed the comprehensive security audit by CertiK with zero critical issues."
-      },
-      "bridgeIntegration": {
-        "title": "Cross-Chain Bridge Now Live",
-        "content": "The TBURN bridge is now live, supporting transfers between Ethereum, BSC, and Polygon networks."
-      },
-      "maintenance": {
-        "title": "Scheduled Maintenance: Node Upgrade",
-        "content": "Brief maintenance window scheduled for December 3rd, 2:00 AM UTC. Expected downtime: 15 minutes."
-      }
     },
     "rarities": {
       "common": "Common",
@@ -2649,7 +2640,7 @@
     "noGamesAvailable": "No games available",
     "noTournamentsAvailable": "No tournaments available",
     "noAssetsOwned": "No assets owned yet",
-    "playToEarn": "Play games to earn or purchase assets",
+    "playToEarn": "Play to Earn",
     "noPendingRewards": "No pending rewards",
     "earnRewardsHint": "Play games and join tournaments to earn rewards",
     "noAchievementsAvailable": "No achievements available",
@@ -2800,7 +2791,6 @@
     "description": "Description",
     "reviews": "reviews",
     "aiScore": "AI Score",
-    "playToEarn": "Play to Earn",
     "stakingEnabled": "Staking Enabled",
     "tournamentsEnabled": "Tournaments",
     "playNow": "Play Now",
@@ -2820,7 +2810,7 @@
     "fromChain": "From Chain",
     "toChain": "To Chain",
     "amount": "Amount",
-    "fee": "Bridge Fee",
+    "fee": "Fee",
     "feeLabel": "Fee:",
     "estimatedTime": "Estimated Time",
     "initiate": "Initiate Transfer",
@@ -2914,9 +2904,7 @@
     "crossChainTransferInfo": "Cross-chain transfer information",
     "from": "From",
     "to": "To",
-    "status": "Status",
     "confirmations": "Confirmations",
-    "fee": "Fee",
     "sender": "Sender",
     "recipient": "Recipient",
     "sourceTxHash": "Source Tx Hash",
@@ -2989,7 +2977,31 @@
     "ai": "AI",
     "aiProcessing": "AI Processing",
     "uptime": "Uptime",
-    "decisions": "Decisions",
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Anomaly Pattern Detected and Resolved",
+      "consensus_threshold_achieved": "Consensus Threshold Achieved",
+      "smart_contract_execution_approved": "Smart Contract Execution Approved",
+      "block_validation_complete": "Block Validation Complete",
+      "validator_performance_analyzed": "Validator Performance Analyzed",
+      "network_latency_adjusted": "Network Latency Adjusted",
+      "transaction_verified_successfully": "Transaction Verified Successfully",
+      "security_protocol_updated": "Security Protocol Updated",
+      "gas_fee_optimization_applied": "Gas Fee Optimization Applied",
+      "shard_rebalancing_complete": "Shard Rebalancing Complete",
+      "cross_chain_transfer_validated": "Cross-Chain Transfer Validated",
+      "stake_distribution_optimized": "Stake Distribution Optimized",
+      "shard_load_balanced": "Shard Load Balanced",
+      "gas_fee_optimized": "Gas Fee Optimized",
+      "load_balancing_complete": "Load Balancing Complete",
+      "consensus_achieved": "Consensus Achieved",
+      "validator_rotation_complete": "Validator Rotation Complete",
+      "block_finalized": "Block Finalized",
+      "transaction_batch_processed": "Transaction Batch Processed",
+      "network_optimization_applied": "Network Optimization Applied",
+      "security_check_passed": "Security Check Passed",
+      "resource_allocation_optimized": "Resource Allocation Optimized",
+      "crossshard_message_routed": "Cross-Shard Message Routed"
+    },
     "actions": "Actions",
     "operations": "Operations",
     "accuracy": "Accuracy",
@@ -3025,31 +3037,6 @@
       "strategic": "Strategic",
       "tactical": "Tactical",
       "operational": "Operational"
-    },
-    "decisions": {
-      "anomaly_pattern_detected_and_resolved": "Anomaly Pattern Detected and Resolved",
-      "consensus_threshold_achieved": "Consensus Threshold Achieved",
-      "smart_contract_execution_approved": "Smart Contract Execution Approved",
-      "block_validation_complete": "Block Validation Complete",
-      "validator_performance_analyzed": "Validator Performance Analyzed",
-      "network_latency_adjusted": "Network Latency Adjusted",
-      "transaction_verified_successfully": "Transaction Verified Successfully",
-      "security_protocol_updated": "Security Protocol Updated",
-      "gas_fee_optimization_applied": "Gas Fee Optimization Applied",
-      "shard_rebalancing_complete": "Shard Rebalancing Complete",
-      "cross_chain_transfer_validated": "Cross-Chain Transfer Validated",
-      "stake_distribution_optimized": "Stake Distribution Optimized",
-      "shard_load_balanced": "Shard Load Balanced",
-      "gas_fee_optimized": "Gas Fee Optimized",
-      "load_balancing_complete": "Load Balancing Complete",
-      "consensus_achieved": "Consensus Achieved",
-      "validator_rotation_complete": "Validator Rotation Complete",
-      "block_finalized": "Block Finalized",
-      "transaction_batch_processed": "Transaction Batch Processed",
-      "network_optimization_applied": "Network Optimization Applied",
-      "security_check_passed": "Security Check Passed",
-      "resource_allocation_optimized": "Resource Allocation Optimized",
-      "crossshard_message_routed": "Cross-Shard Message Routed"
     },
     "categories": {
       "security": "Security",
@@ -3226,7 +3213,9 @@
       "transfer": "Transfer",
       "contractCall": "Contract Call",
       "stateSync": "State Sync"
-    }
+    },
+    "messageRoute": "Shard {{from}} → Shard {{to}}",
+    "routingPriority": "Routing Priority"
   },
   "consensus": {
     "title": "Consensus",
@@ -3335,7 +3324,6 @@
     "roundDetailDesc": "Detailed information about this consensus round",
     "roundOverview": "Round Overview",
     "duration": "Duration",
-    "votingDetails": "Voting Details",
     "phaseBreakdown": "Phase Breakdown",
     "day1": "Day 1",
     "day2": "Day 2",
@@ -3670,36 +3658,12 @@
   },
   "admin": {
     "title": "Mainnet Administration",
-    "subtitle": "TBURN Mainnet infrastructure control and monitoring",
-    "systemStatus": "System Status",
+    "subtitle": "Control and monitor TBURN mainnet infrastructure",
     "mainnetStatus": "Mainnet Status",
-    "running": "Running",
-    "paused": "Paused",
-    "maintenance": "Maintenance",
-    "restart": "Restart",
-    "pause": "Pause",
-    "resume": "Resume",
-    "healthCheck": "Health Check",
-    "runHealthCheck": "Run Health Check",
-    "configuration": "Configuration",
-    "logs": "Logs",
-    "alerts": "Alerts",
-    "users": "Users",
-    "roles": "Roles",
-    "permissions": "Permissions",
-    "apiKeyManagement": "API Key Management",
-    "generateKey": "Generate Key",
-    "revokeKey": "Revoke Key",
-    "keyName": "Key Name",
-    "keyPrefix": "Key Prefix",
-    "created": "Created",
-    "lastUsed": "Last Used",
-    "expiresAt": "Expires At",
-    "rateLimit": "Rate Limit",
-    "rateLimitedMessage": "Rate limited by TBURN mainnet API - retrying connection",
+    "rateLimitedMessage": "Rate Limited by TBURN Mainnet API - Retrying connections",
     "apiConnectionFailed": "API Connection Failed",
     "failuresRecorded": "{{count}} failures recorded",
-    "usingCachedData": "Using cached data (last update: {{time}})",
+    "usingCachedData": "Using cached data (Last update: {{time}})",
     "realtimeHealthMonitoring": "Real-time health monitoring",
     "connectingToMainnet": "Connecting to mainnet...",
     "lastBlock": "Last Block",
@@ -3717,33 +3681,34 @@
     "mainnetOffline": "Mainnet Offline",
     "rateLimitDescription": "The TBURN API is rejecting requests due to rate limiting (HTTP 429).",
     "apiErrorDescription": "The TBURN API returned an error response (HTTP 500/502).",
-    "networkErrorDescription": "Failed to establish connection to the TBURN mainnet API.",
+    "networkErrorDescription": "Failed to establish connection to TBURN mainnet API.",
     "offlineDescription": "The mainnet appears to be offline or unresponsive.",
-    "failureCount": "{{count}} failures recorded",
+    "failureCount": "{{count}} failure(s) recorded",
     "usingCachedFromAgo": "Using cached data from {{time}} ago",
     "noCachedData": "No cached data available",
     "completeFailure": "Complete failure - no data available",
     "partialFailure": "Partial failure - showing stale cached data",
     "attemptingReconnect": "Attempting to reconnect...",
     "currentState": "Current State",
-    "failureHistory": "Failure History (Last 24h)",
-    "historicalFailures": "Historical API failures stored locally - not current errors",
+    "failureHistory": "Failure History (Past 24h)",
+    "historicalFailures": "Historical API failures stored locally - Not current errors",
     "clearHistory": "Clear History",
-    "restartInProgress": "Restart In Progress",
-    "takingLongerThanExpected": "Taking longer than expected - external API may be rate limiting",
+    "restartInProgress": "Restart in Progress",
+    "takingLongerThanExpected": "Taking longer than expected - External API may be rate-limiting",
     "progress": "Progress",
-    "estRemaining": "Est. Remaining",
-    "rateLimitedWaiting": "Rate limited - waiting for cooldown",
+    "estRemaining": "Est. remaining",
+    "rateLimitedWaiting": "Rate Limited - Waiting for cooldown",
     "retryAfter": "Retry after",
     "retryAttempt": "Retry attempt",
     "mainnetControlPanel": "Mainnet Control Panel",
-    "controlPanelDescription": "Administrative operations for TBURN mainnet infrastructure",
+    "controlPanelDescription": "Administrative actions for TBURN mainnet infrastructure",
     "criticalActions": "Critical Actions",
     "restartMainnet": "Restart Mainnet",
-    "restartInProgressButton": "Restart In Progress...",
+    "restartInProgressButton": "Restart in Progress...",
     "initiating": "Initiating...",
     "restartDescription": "Triggers a clean server restart via process.exit(0). Replit will automatically restart the service within 5-10 seconds.",
     "diagnostics": "Diagnostics",
+    "runHealthCheck": "Run Health Check",
     "checkingHealth": "Checking Health...",
     "healthCheckDescription": "Performs a comprehensive health check on the mainnet infrastructure and reports status.",
     "detailedStatus": "Detailed Status",
@@ -3755,24 +3720,24 @@
     "whatHappensDescription": "Understanding the mainnet restart process",
     "expectedBehavior": "Expected Behavior:",
     "behavior1": "Server receives restart command and shuts down cleanly",
-    "behavior2": "Replit automatically restarts the application (5-10 seconds)",
+    "behavior2": "Replit automatically restarts the application (5-10s)",
     "behavior3": "Service reconnects to production mainnet at tburn1.replit.app",
     "behavior4": "Fresh data polling begins, block production resumes",
-    "behavior5": "Status changes from PAUSED → ACTIVE, TPS normalizes",
+    "behavior5": "Status changes from PAUSED → ACTIVE, TPS returns to normal",
     "recoveryTime": "Recovery Time:",
-    "recoveryDescription": "Service restart: 5-10 seconds (automatic) | Data sync: 10-20 seconds | Full recovery: 30-60 seconds total. Monitor the \"Last Block\" and \"Current TPS\" metrics above to confirm successful restart.",
+    "recoveryDescription": "Service restart: 5-10 seconds (automatic) | Data sync: 10-20 seconds | Full recovery: 30-60 seconds total. Monitor \"Last Block\" and \"Current TPS\" metrics above to confirm successful restart.",
     "confirmRestartTitle": "Confirm Mainnet Restart",
     "restartAction1": "Trigger clean shutdown via process.exit(0)",
-    "restartAction2": "Replit auto-restarts the service (5-10 seconds)",
+    "restartAction2": "Replit auto-restarts the service (5-10s)",
     "restartAction3": "Reconnect to mainnet and resume data polling",
-    "restartAction4": "Full recovery within 30-60 seconds",
+    "restartAction4": "Full recovery in 30-60 seconds",
     "thisActionWill": "This action will:",
     "adminPasswordRequired": "Admin Password Required",
     "enterAdminPassword": "Enter admin password",
     "passwordAuthHint": "Enter your admin password to authorize this operation.",
     "restarting": "Restarting...",
     "confirmHealthCheckTitle": "Confirm Health Check",
-    "healthCheckIntro": "Perform a comprehensive health check on the TBURN mainnet infrastructure.",
+    "healthCheckIntro": "This will perform a comprehensive health check on the TBURN mainnet infrastructure.",
     "checking": "Checking...",
     "checkHealth": "Check Health",
     "restartInitiated": "Mainnet Restart Initiated",
@@ -3786,7 +3751,7 @@
     "phaseReady": "Ready",
     "phaseInitiating": "Initiating",
     "phaseShuttingDown": "Shutting Down",
-    "phaseRestarting": "Server Restarting",
+    "phaseRestarting": "Restarting Server",
     "phaseReconnecting": "Reconnecting",
     "phaseValidating": "Validating",
     "phaseCompleted": "Completed",
@@ -3829,75 +3794,45 @@
     },
     "tabs": {
       "overview": "Overview",
+      "liveFeed": "Live Feed",
       "system": "System",
       "security": "Security",
-      "analytics": "Analytics",
-      "liveFeed": "Live Feed"
+      "analytics": "Analytics"
     },
     "overview": {
       "uptimeSla": "Uptime SLA",
-      "last30Days": "Last 30 days",
-      "incidents": "Incidents",
-      "thisMonth": "This month",
       "activeSessions": "Active Sessions",
-      "adminUsers": "Admin users online",
-      "restartMttr": "Restart MTTR",
-      "avgRecoveryTime": "Average recovery time"
+      "adminUsers": "Admin Users",
+      "incidents": "Incidents",
+      "last30Days": "Last 30 Days",
+      "thisMonth": "This Month",
+      "avgRecoveryTime": "Avg Recovery Time",
+      "restartMttr": "Restart MTTR"
     },
-    "system": {
-      "memory": "Memory",
-      "disk": "Disk",
-      "network": "Network",
-      "resourceHistory": "Resource Usage History",
-      "serviceStatus": "Service Status",
-      "serviceStatusDesc": "Real-time health monitoring of all services",
-      "healthy": "Healthy",
-      "degraded": "Degraded",
-      "offline": "Offline",
-      "unknown": "Unknown",
-      "slow": "Slow",
-      "error": "Error",
-      "latency": "Latency",
-      "uptime": "Uptime",
-      "databaseHealth": "Database Health",
-      "connected": "Connected",
-      "connections": "Connections",
-      "waiting": "Waiting",
-      "poolUsage": "Pool Usage",
-      "systemInfo": "System Information",
-      "nodeVersion": "Node Version",
-      "platform": "Platform",
-      "processUptime": "Process Uptime",
-      "loadAverage": "Load Average",
-      "apiEndpoints": "API Endpoints",
-      "apiEndpointsDesc": "Performance metrics for all API endpoints",
-      "endpoint": "Endpoint",
-      "method": "Method",
-      "status": "Status",
-      "avgLatency": "Avg Latency",
-      "p95": "P95",
-      "requests": "Requests",
-      "errorRate": "Error Rate",
-      "sortLatency": "By Latency",
-      "sortRequests": "By Requests",
-      "sortErrors": "By Errors"
+    "analytics": {
+      "tpsHistory": "TPS History",
+      "avgTps": "Average TPS",
+      "peakTps": "Peak TPS",
+      "uptimeHistory": "Uptime History",
+      "incidentHistory": "Incident History",
+      "incidents": "Incidents",
+      "resolved": "Resolved",
+      "last24Hours": "Last 24 Hours",
+      "last30Days": "Last 30 Days",
+      "last12Months": "Last 12 Months",
+      "latencyDistribution": "Latency Distribution",
+      "apiResponseTimes": "API Response Times"
     },
     "security": {
       "events": "Security Events",
-      "eventsDesc": "Real-time security event monitoring and alerts",
+      "eventsDesc": "Recent security events and alerts",
       "all": "All",
       "critical": "Critical",
       "warning": "Warning",
       "info": "Info",
       "noEvents": "No security events found",
-      "totalEvents": "Total Events",
-      "last24Hours": "Last 24 hours",
-      "criticalEvents": "Critical Events",
-      "requiresAttention": "Requires immediate attention",
-      "blockedIps": "Blocked IPs",
-      "last30Days": "Last 30 days",
       "activeSessions": "Active Sessions",
-      "activeSessionsDesc": "Currently active administrator sessions",
+      "activeSessionsDesc": "Currently logged-in users and their sessions",
       "user": "User",
       "ip": "IP Address",
       "device": "Device",
@@ -3905,43 +3840,73 @@
       "lastActivity": "Last Activity",
       "status": "Status",
       "active": "Active",
-      "idle": "Idle"
+      "idle": "Idle",
+      "totalEvents": "Total Events",
+      "criticalEvents": "Critical Events",
+      "blockedIps": "Blocked IPs",
+      "last24Hours": "Last 24 Hours",
+      "last30Days": "Last 30 Days",
+      "requiresAttention": "Requires Attention"
     },
-    "analytics": {
-      "uptimeHistory": "Uptime History",
-      "last30Days": "Last 30 days SLA performance",
-      "tpsHistory": "TPS Performance",
-      "last24Hours": "Last 24 hours throughput",
-      "avgTps": "Average TPS",
-      "peakTps": "Peak TPS",
-      "incidentHistory": "Incident History",
-      "last12Months": "Last 12 months incident tracking",
-      "incidents": "Incidents",
-      "resolved": "Resolved",
-      "latencyDistribution": "Latency Distribution",
-      "apiResponseTimes": "API response time breakdown"
+    "system": {
+      "memory": "Memory",
+      "disk": "Disk",
+      "network": "Network",
+      "resourceHistory": "Resource History",
+      "healthy": "Healthy",
+      "degraded": "Degraded",
+      "offline": "Offline",
+      "unknown": "Unknown",
+      "serviceStatus": "Service Status",
+      "serviceStatusDesc": "Real-time monitoring of all system services",
+      "latency": "Latency",
+      "uptime": "Uptime",
+      "databaseHealth": "Database Health",
+      "connected": "Connected",
+      "connections": "Connections",
+      "waiting": "Waiting",
+      "poolUsage": "Pool Usage",
+      "slow": "Slow",
+      "error": "Error",
+      "apiEndpoints": "API Endpoints",
+      "apiEndpointsDesc": "Monitoring API endpoint performance",
+      "sortLatency": "Sort by Latency",
+      "sortRequests": "Sort by Requests",
+      "sortErrors": "Sort by Errors",
+      "endpoint": "Endpoint",
+      "method": "Method",
+      "status": "Status",
+      "avgLatency": "Avg Latency",
+      "p95": "P95",
+      "requests": "Requests",
+      "errorRate": "Error Rate",
+      "systemInfo": "System Info",
+      "nodeVersion": "Node Version",
+      "platform": "Platform",
+      "processUptime": "Process Uptime",
+      "loadAverage": "Load Average"
     },
     "liveFeed": {
       "title": "Live Activity Feed",
-      "description": "Real-time system events and administrative actions",
+      "description": "Real-time system events and activities",
       "noActivity": "No recent activity"
     },
     "dialogs": {
       "uptime": {
-        "title": "Uptime SLA Analytics",
-        "description": "30-day uptime performance history"
-      },
-      "incidents": {
-        "title": "Incident Analytics",
-        "description": "Historical incident tracking and resolution"
+        "title": "Uptime Details",
+        "description": "System uptime and availability statistics"
       },
       "sessions": {
-        "title": "Active Sessions",
-        "description": "Currently active administrator sessions"
+        "title": "Session Details",
+        "description": "Active user sessions information"
+      },
+      "incidents": {
+        "title": "Incident Details",
+        "description": "Recent incidents and their resolutions"
       },
       "mttr": {
-        "title": "Mean Time To Recovery",
-        "description": "Historical restart recovery times"
+        "title": "MTTR Details",
+        "description": "Mean Time To Recovery statistics"
       }
     }
   },
@@ -3981,7 +3946,6 @@
     "recommendations": "Recommendations",
     "generateReport": "Generate Report",
     "downloadReport": "Download Report",
-    
     "dashboard": {
       "title": "Operator Portal",
       "subtitle": "Enterprise back-office for TBURN network management",
@@ -4102,7 +4066,6 @@
         "info": "Info"
       }
     },
-
     "members": {
       "title": "Member Management",
       "subtitle": "Manage network members, KYC/AML status, and tier assignments",
@@ -4214,7 +4177,6 @@
       "unpin": "Unpin",
       "pin": "Pin"
     },
-
     "validators": {
       "title": "Validator Operations",
       "subtitle": "Review applications, manage validators, and enforce slashing",
@@ -4405,7 +4367,6 @@
       "blockSuccessRate": "Block Success Rate",
       "unlimited": "Unlimited"
     },
-
     "security": {
       "title": "Security Audit",
       "subtitle": "Monitor security events, review audit logs, and manage compliance",
@@ -4468,7 +4429,7 @@
       "count": "Count",
       "riskLevel": "Risk Level",
       "manageIpBlocklist": "Manage IP Blocklist",
-      "blockedIps": "Blocked IPs and access restrictions",
+      "blockedIps": "Blocked IPs",
       "blockIp": "Block IP",
       "noBlockedIps": "No blocked IPs",
       "ipAddress": "IP Address",
@@ -4521,7 +4482,6 @@
       "allRisk": "All Risk",
       "actionType": "Action Type",
       "category": "Category",
-      "resource": "Resource",
       "timestamp": "Timestamp",
       "noAuditLogs": "No audit logs found",
       "eventCreated": "Security event created",
@@ -4543,21 +4503,16 @@
       "threatLevel": "Threat Level",
       "monitoringActive": "Monitoring Active",
       "suspiciousActivity": "Suspicious Activity",
-      "geoDistribution": "Geographic Distribution",
       "topThreatSources": "Top Threat Sources",
       "countryCode": "Country",
       "attemptCount": "Attempts",
       "lastAttempt": "Last Attempt",
-      "blockedIps": "Blocked IPs",
       "manageBlockedIps": "Manage blocked IP addresses",
       "never": "Never",
       "blockNewIp": "Block New IP",
       "enterIpToBlock": "Enter IP address to block",
       "blockDuration": "Block Duration",
-      "permanent": "Permanent",
-      "unblock": "Unblock",
       "confirmUnblock": "Confirm Unblock",
-      "operatorAuditLogs": "Operator Audit Logs",
       "allOperatorActions": "All operator actions are logged here",
       "operator": "Operator",
       "resourceType": "Resource Type",
@@ -4567,34 +4522,22 @@
       "resolvedBy": "Resolved by",
       "at": "at",
       "detected": "Detected",
-      "resolveEvent": "Resolve Event",
       "resolveSecurityEvent": "Resolve Security Event",
       "resolveEventDesc": "Provide resolution details for this security event",
-      "resolutionDetails": "Resolution Details",
       "describeResolution": "Describe how this event was resolved...",
       "resolve": "Resolve",
       "logSecurityEventDesc": "Report a new security incident or observation",
       "eventTypePlaceholder": "e.g., Suspicious Login, DDoS Attempt",
-      "targetType": "Target Type",
-      "member": "Member",
       "validator": "Validator",
       "transaction": "Transaction",
       "contract": "Contract",
-      "system": "System",
       "targetAddressOptional": "Target Address (Optional)",
       "eventDescriptionPlaceholder": "Describe the security event in detail...",
       "logEvent": "Log Event",
-      "blockIpAddress": "Block IP Address",
       "blockIpDesc": "Block an IP address from accessing the network",
       "ipAddressToBlock": "IP Address",
       "enterIpPlaceholder": "e.g., 192.168.1.1",
-      "blockReason": "Block Reason",
       "enterBlockReasonPlaceholder": "Reason for blocking this IP...",
-      "hours24": "24 Hours",
-      "days7": "7 Days",
-      "days30": "30 Days",
-      "confirmBlock": "Confirm Block",
-      "category": "Category",
       "threatTypes": {
         "loginAttempt": "Login Attempt",
         "suspiciousTx": "Suspicious Transaction",
@@ -4679,7 +4622,6 @@
         "api": "API"
       }
     },
-
     "reports": {
       "title": "Compliance Reports",
       "subtitle": "Generate, schedule, and manage regulatory compliance reports",
@@ -4689,7 +4631,39 @@
       "reports": "Reports",
       "templatesTab": "Templates",
       "schedules": "Schedules",
-      "compliance": "Compliance",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Data Protection",
+          "financialReporting": "Financial Reporting",
+          "networkSecurity": "Network Security",
+          "operational": "Operational"
+        },
+        "requirements": {
+          "identityVerification": "All members must complete identity verification within 30 days",
+          "sarFiling": "Suspicious Activity Reports (SARs) filed within 72 hours",
+          "gdprCompliance": "GDPR compliance for EU member data handling",
+          "encryptionAtRest": "Encryption at rest for all sensitive data",
+          "quarterlyStatements": "Quarterly financial statements submitted to regulators",
+          "annualAudit": "Annual audit by certified third party",
+          "multiSig": "Multi-signature requirement for treasury transactions",
+          "validatorKyc": "Validator KYC for committee membership",
+          "disasterRecovery": "Disaster recovery plan tested quarterly",
+          "incidentResponse": "Security incident response within 1 hour"
+        },
+        "notes": {
+          "complianceRate": "98.5% compliance rate",
+          "sarFiledOnTime": "All SARs filed on time",
+          "annualAuditPassed": "Annual audit passed",
+          "aesEncryption": "AES-256 encryption verified",
+          "q4ReportPreparation": "Q4 2025 report in preparation",
+          "auditCleanOpinion": "2024 audit completed - clean opinion",
+          "multiSigActive": "3-of-5 multisig active",
+          "validatorsVerified": "All 125 validators verified",
+          "nextTestScheduled": "Next test scheduled for December",
+          "monitoringActive": "24/7 monitoring active"
+        }
+      },
       "totalReports": "Total Reports",
       "draft": "Draft",
       "pendingReview": "Pending Review",
@@ -4793,7 +4767,6 @@
       "fillRequiredFields": "Please fill in all required fields",
       "complianceStatusUpdated": "Compliance status updated",
       "complianceUpdated": "Compliance status updated",
-      "noReportsFound": "No reports found",
       "reportName": "Report Name",
       "noScheduledReports": "No scheduled reports",
       "complianceScore": "Compliance Score",
@@ -4872,39 +4845,6 @@
         "quarterlyValidatorReport": "Quarterly Validator Report"
       },
       "complianceTab": "Compliance",
-      "compliance": {
-        "categories": {
-          "kycAml": "KYC/AML",
-          "dataProtection": "Data Protection",
-          "financialReporting": "Financial Reporting",
-          "networkSecurity": "Network Security",
-          "operational": "Operational"
-        },
-        "requirements": {
-          "identityVerification": "All members must complete identity verification within 30 days",
-          "sarFiling": "Suspicious Activity Reports (SARs) filed within 72 hours",
-          "gdprCompliance": "GDPR compliance for EU member data handling",
-          "encryptionAtRest": "Encryption at rest for all sensitive data",
-          "quarterlyStatements": "Quarterly financial statements submitted to regulators",
-          "annualAudit": "Annual audit by certified third party",
-          "multiSig": "Multi-signature requirement for treasury transactions",
-          "validatorKyc": "Validator KYC for committee membership",
-          "disasterRecovery": "Disaster recovery plan tested quarterly",
-          "incidentResponse": "Security incident response within 1 hour"
-        },
-        "notes": {
-          "complianceRate": "98.5% compliance rate",
-          "sarFiledOnTime": "All SARs filed on time",
-          "annualAuditPassed": "Annual audit passed",
-          "aesEncryption": "AES-256 encryption verified",
-          "q4ReportPreparation": "Q4 2025 report in preparation",
-          "auditCleanOpinion": "2024 audit completed - clean opinion",
-          "multiSigActive": "3-of-5 multisig active",
-          "validatorsVerified": "All 125 validators verified",
-          "nextTestScheduled": "Next test scheduled for December",
-          "monitoringActive": "24/7 monitoring active"
-        }
-      },
       "weeklyReports": "Weekly Reports",
       "dailyReports": "Daily Reports",
       "automatedReportDesc": "Automated report generation schedules",
@@ -4915,7 +4855,6 @@
         "quarterly": "Quarterly"
       }
     },
-
     "staking": {
       "title": "Staking Operations",
       "subtitle": "Manage staking pools, tiers, and reward distribution",
@@ -5017,7 +4956,6 @@
       "enableSlashingProtection": "Enable Slashing Protection",
       "createFirstPoolDesc": "Create your first staking pool to enable staking functionality."
     },
-
     "status": {
       "healthy": "Healthy",
       "degraded": "Degraded",
@@ -5559,260 +5497,6 @@
     "noPositions": "No Stakers Yet",
     "firstStaker": "Be the first to stake in this pool"
   },
-  "admin": {
-    "title": "Mainnet Administration",
-    "subtitle": "Control and monitor TBURN mainnet infrastructure",
-    "mainnetStatus": "Mainnet Status",
-    "rateLimitedMessage": "Rate Limited by TBURN Mainnet API - Retrying connections",
-    "apiConnectionFailed": "API Connection Failed",
-    "failuresRecorded": "{{count}} failures recorded",
-    "usingCachedData": "Using cached data (Last update: {{time}})",
-    "realtimeHealthMonitoring": "Real-time health monitoring",
-    "connectingToMainnet": "Connecting to mainnet...",
-    "lastBlock": "Last Block",
-    "noData": "No data",
-    "currentTps": "Current TPS",
-    "transactionsPerSecond": "Transactions per second",
-    "peakTps": "Peak TPS",
-    "allTimeHigh": "All-time high",
-    "timeSinceBlock": "Time Since Block",
-    "stalled": "Stalled",
-    "normal": "Normal",
-    "apiRateLimitTitle": "API Rate Limit - Service Unavailable",
-    "apiErrorTitle": "API Error - Service Failed",
-    "networkErrorTitle": "Network Error - Connection Failed",
-    "mainnetOffline": "Mainnet Offline",
-    "rateLimitDescription": "The TBURN API is rejecting requests due to rate limiting (HTTP 429).",
-    "apiErrorDescription": "The TBURN API returned an error response (HTTP 500/502).",
-    "networkErrorDescription": "Failed to establish connection to TBURN mainnet API.",
-    "offlineDescription": "The mainnet appears to be offline or unresponsive.",
-    "failureCount": "{{count}} failure(s) recorded",
-    "usingCachedFromAgo": "Using cached data from {{time}} ago",
-    "noCachedData": "No cached data available",
-    "completeFailure": "Complete failure - no data available",
-    "partialFailure": "Partial failure - showing stale cached data",
-    "attemptingReconnect": "Attempting to reconnect...",
-    "currentState": "Current State",
-    "failureHistory": "Failure History (Past 24h)",
-    "historicalFailures": "Historical API failures stored locally - Not current errors",
-    "clearHistory": "Clear History",
-    "restartInProgress": "Restart in Progress",
-    "takingLongerThanExpected": "Taking longer than expected - External API may be rate-limiting",
-    "progress": "Progress",
-    "estRemaining": "Est. remaining",
-    "rateLimitedWaiting": "Rate Limited - Waiting for cooldown",
-    "retryAfter": "Retry after",
-    "retryAttempt": "Retry attempt",
-    "mainnetControlPanel": "Mainnet Control Panel",
-    "controlPanelDescription": "Administrative actions for TBURN mainnet infrastructure",
-    "criticalActions": "Critical Actions",
-    "restartMainnet": "Restart Mainnet",
-    "restartInProgressButton": "Restart in Progress...",
-    "initiating": "Initiating...",
-    "restartDescription": "Triggers a clean server restart via process.exit(0). Replit will automatically restart the service within 5-10 seconds.",
-    "diagnostics": "Diagnostics",
-    "runHealthCheck": "Run Health Check",
-    "checkingHealth": "Checking Health...",
-    "healthCheckDescription": "Performs a comprehensive health check on the mainnet infrastructure and reports status.",
-    "detailedStatus": "Detailed Status",
-    "mainnetUrl": "Mainnet URL",
-    "lastBlockTimestamp": "Last Block Timestamp",
-    "blockProduction": "Block Production",
-    "stopped": "Stopped",
-    "whatHappensTitle": "What Happens During Restart",
-    "whatHappensDescription": "Understanding the mainnet restart process",
-    "expectedBehavior": "Expected Behavior:",
-    "behavior1": "Server receives restart command and shuts down cleanly",
-    "behavior2": "Replit automatically restarts the application (5-10s)",
-    "behavior3": "Service reconnects to production mainnet at tburn1.replit.app",
-    "behavior4": "Fresh data polling begins, block production resumes",
-    "behavior5": "Status changes from PAUSED → ACTIVE, TPS returns to normal",
-    "recoveryTime": "Recovery Time:",
-    "recoveryDescription": "Service restart: 5-10 seconds (automatic) | Data sync: 10-20 seconds | Full recovery: 30-60 seconds total. Monitor \"Last Block\" and \"Current TPS\" metrics above to confirm successful restart.",
-    "confirmRestartTitle": "Confirm Mainnet Restart",
-    "restartAction1": "Trigger clean shutdown via process.exit(0)",
-    "restartAction2": "Replit auto-restarts the service (5-10s)",
-    "restartAction3": "Reconnect to mainnet and resume data polling",
-    "restartAction4": "Full recovery in 30-60 seconds",
-    "thisActionWill": "This action will:",
-    "adminPasswordRequired": "Admin Password Required",
-    "enterAdminPassword": "Enter admin password",
-    "passwordAuthHint": "Enter your admin password to authorize this operation.",
-    "restarting": "Restarting...",
-    "confirmHealthCheckTitle": "Confirm Health Check",
-    "healthCheckIntro": "This will perform a comprehensive health check on the TBURN mainnet infrastructure.",
-    "checking": "Checking...",
-    "checkHealth": "Check Health",
-    "restartInitiated": "Mainnet Restart Initiated",
-    "restartInitiatedDesc": "Server is restarting. Progress will be tracked automatically.",
-    "restartFailed": "Restart Failed",
-    "restartFailedDesc": "Failed to restart mainnet. Check server logs.",
-    "healthCheckHealthy": "Health Check: Healthy",
-    "healthCheckDegraded": "Health Check: Degraded",
-    "healthCheckFailed": "Health Check Failed",
-    "healthCheckFailedDesc": "Failed to perform health check.",
-    "phaseReady": "Ready",
-    "phaseInitiating": "Initiating",
-    "phaseShuttingDown": "Shutting Down",
-    "phaseRestarting": "Restarting Server",
-    "phaseReconnecting": "Reconnecting",
-    "phaseValidating": "Validating",
-    "phaseCompleted": "Completed",
-    "phaseFailed": "Failed",
-    "statusActive": "ACTIVE",
-    "statusPaused": "PAUSED",
-    "statusDegraded": "DEGRADED",
-    "statusRestarting": "RESTARTING",
-    "statusOffline": "OFFLINE",
-    "statusRateLimited": "RATE LIMITED",
-    "statusUnknown": "UNKNOWN",
-    "ai": {
-      "title": "AI Provider Usage & Status",
-      "liveUpdates": "Live Updates",
-      "resetLimits": "Reset Limits",
-      "loading": "Loading AI provider statistics...",
-      "providerSwitched": "Provider switched",
-      "providerSwitchedDesc": "Successfully switched to {{provider}}",
-      "switchProviderFailed": "Failed to switch provider",
-      "limitsReset": "Limits reset",
-      "limitsResetDesc": "Daily limits have been reset for all providers",
-      "resetLimitsFailed": "Failed to reset limits",
-      "apiConnected": "API Connected",
-      "apiDisconnected": "API Disconnected",
-      "connected": "Connected",
-      "disconnected": "Disconnected",
-      "rateLimited": "Rate Limited",
-      "requests": "Requests",
-      "failed": "Failed",
-      "rateLimitHits": "Rate Limit Hits",
-      "dailyUsage": "Daily Usage",
-      "tokensUsed": "Tokens Used",
-      "totalCost": "Total Cost",
-      "useThisProvider": "Use This Provider",
-      "resetsAt": "Resets at: {{time}}",
-      "totalRequests": "Total Requests",
-      "totalTokens": "Total Tokens",
-      "totalCostLabel": "Total Cost",
-      "availableProviders": "Available Providers"
-    },
-    "tabs": {
-      "overview": "Overview",
-      "liveFeed": "Live Feed",
-      "system": "System",
-      "security": "Security",
-      "analytics": "Analytics"
-    },
-    "overview": {
-      "uptimeSla": "Uptime SLA",
-      "activeSessions": "Active Sessions",
-      "adminUsers": "Admin Users",
-      "incidents": "Incidents",
-      "last30Days": "Last 30 Days",
-      "thisMonth": "This Month",
-      "avgRecoveryTime": "Avg Recovery Time",
-      "restartMttr": "Restart MTTR"
-    },
-    "analytics": {
-      "tpsHistory": "TPS History",
-      "avgTps": "Average TPS",
-      "peakTps": "Peak TPS",
-      "uptimeHistory": "Uptime History",
-      "incidentHistory": "Incident History",
-      "incidents": "Incidents",
-      "resolved": "Resolved",
-      "last24Hours": "Last 24 Hours",
-      "last30Days": "Last 30 Days",
-      "last12Months": "Last 12 Months",
-      "latencyDistribution": "Latency Distribution",
-      "apiResponseTimes": "API Response Times"
-    },
-    "security": {
-      "events": "Security Events",
-      "eventsDesc": "Recent security events and alerts",
-      "all": "All",
-      "critical": "Critical",
-      "warning": "Warning",
-      "info": "Info",
-      "noEvents": "No security events found",
-      "activeSessions": "Active Sessions",
-      "activeSessionsDesc": "Currently logged-in users and their sessions",
-      "user": "User",
-      "ip": "IP Address",
-      "device": "Device",
-      "created": "Created",
-      "lastActivity": "Last Activity",
-      "status": "Status",
-      "active": "Active",
-      "idle": "Idle",
-      "totalEvents": "Total Events",
-      "criticalEvents": "Critical Events",
-      "blockedIps": "Blocked IPs",
-      "last24Hours": "Last 24 Hours",
-      "last30Days": "Last 30 Days",
-      "requiresAttention": "Requires Attention"
-    },
-    "system": {
-      "memory": "Memory",
-      "disk": "Disk",
-      "network": "Network",
-      "resourceHistory": "Resource History",
-      "healthy": "Healthy",
-      "degraded": "Degraded",
-      "offline": "Offline",
-      "unknown": "Unknown",
-      "serviceStatus": "Service Status",
-      "serviceStatusDesc": "Real-time monitoring of all system services",
-      "latency": "Latency",
-      "uptime": "Uptime",
-      "databaseHealth": "Database Health",
-      "connected": "Connected",
-      "connections": "Connections",
-      "waiting": "Waiting",
-      "poolUsage": "Pool Usage",
-      "slow": "Slow",
-      "error": "Error",
-      "apiEndpoints": "API Endpoints",
-      "apiEndpointsDesc": "Monitoring API endpoint performance",
-      "sortLatency": "Sort by Latency",
-      "sortRequests": "Sort by Requests",
-      "sortErrors": "Sort by Errors",
-      "endpoint": "Endpoint",
-      "method": "Method",
-      "status": "Status",
-      "avgLatency": "Avg Latency",
-      "p95": "P95",
-      "requests": "Requests",
-      "errorRate": "Error Rate",
-      "systemInfo": "System Info",
-      "nodeVersion": "Node Version",
-      "platform": "Platform",
-      "processUptime": "Process Uptime",
-      "loadAverage": "Load Average"
-    },
-    "liveFeed": {
-      "title": "Live Activity Feed",
-      "description": "Real-time system events and activities",
-      "noActivity": "No recent activity"
-    },
-    "dialogs": {
-      "uptime": {
-        "title": "Uptime Details",
-        "description": "System uptime and availability statistics"
-      },
-      "sessions": {
-        "title": "Session Details",
-        "description": "Active user sessions information"
-      },
-      "incidents": {
-        "title": "Incident Details",
-        "description": "Recent incidents and their resolutions"
-      },
-      "mttr": {
-        "title": "MTTR Details",
-        "description": "Mean Time To Recovery statistics"
-      }
-    }
-  },
   "apiKeys": {
     "title": "API Keys",
     "subtitle": "Manage API keys for secure access to TBURN blockchain data",
@@ -6074,21 +5758,39 @@
         "title": "Increase Burn Rate from 20% to 25%",
         "description": "This proposal aims to increase the daily emission burn rate from 20% to 25% to accelerate deflation and support long-term price stability.",
         "aiRecommendation": "This proposal has moderate economic risk but strong community support. Consider phased implementation over 30 days.",
-        "risks": ["Short-term price volatility", "Reduced liquidity incentives"],
-        "keyFactors": ["Strong validator support", "Previous similar proposal passed", "Community sentiment positive"]
+        "risks": [
+          "Short-term price volatility",
+          "Reduced liquidity incentives"
+        ],
+        "keyFactors": [
+          "Strong validator support",
+          "Previous similar proposal passed",
+          "Community sentiment positive"
+        ]
       },
       "prop-002": {
         "title": "Add Support for zkSync Bridge",
         "description": "Proposal to integrate zkSync Era as a supported chain in the TBURN cross-chain bridge with AI risk assessment.",
         "aiRecommendation": "zkSync integration is technically feasible with moderate complexity. Recommend security audit before deployment.",
-        "risks": ["New technology risk", "Integration complexity", "Liquidity fragmentation"],
-        "keyFactors": ["Technical complexity concerns", "Strong zkSync ecosystem growth", "Developer community interest"]
+        "risks": [
+          "New technology risk",
+          "Integration complexity",
+          "Liquidity fragmentation"
+        ],
+        "keyFactors": [
+          "Technical complexity concerns",
+          "Strong zkSync ecosystem growth",
+          "Developer community interest"
+        ]
       },
       "prop-003": {
         "title": "Reduce Tier 1 Validator Minimum Stake",
         "description": "Lower the Tier 1 validator minimum stake from 200,000 TBURN to 150,000 TBURN to increase validator decentralization.",
         "aiRecommendation": "Lower stake requirements increase decentralization with minimal security impact given AI reputation system.",
-        "risks": ["Slight increase in validator count", "Minor reward dilution"],
+        "risks": [
+          "Slight increase in validator count",
+          "Minor reward dilution"
+        ],
         "keyFactors": []
       },
       "prop-004": {
@@ -6102,8 +5804,15 @@
         "title": "Quantum-Resistant Signature Upgrade",
         "description": "Mandatory upgrade to CRYSTALS-Dilithium + ED25519 hybrid signatures for all validator operations.",
         "aiRecommendation": "Critical security upgrade with minimal economic impact. Strongly recommended for post-quantum protection.",
-        "risks": ["Transition period complexity", "Slight performance overhead"],
-        "keyFactors": ["Security-focused community", "Minimal downside", "Clear technical benefits"]
+        "risks": [
+          "Transition period complexity",
+          "Slight performance overhead"
+        ],
+        "keyFactors": [
+          "Security-focused community",
+          "Minimal downside",
+          "Clear technical benefits"
+        ]
       }
     }
   },

@@ -2965,7 +2965,9 @@
       "transfer": "转账",
       "contractCall": "合约调用",
       "stateSync": "状态同步"
-    }
+    },
+    "messageRoute": "分片 {{from}} → 分片 {{to}}",
+    "routingPriority": "路由优先级"
   },
   "consensus": {
     "title": "共识",
