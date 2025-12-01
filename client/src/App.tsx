@@ -1,8 +1,9 @@
 import { Switch, Route, useLocation } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { queryClient, apiRequest } from "./lib/queryClient";
+import { QueryClientProvider, useQuery, useMutation } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -13,6 +14,8 @@ import { MainnetRestartOverlay } from "@/components/mainnet-restart-overlay";
 import { AdminPasswordProvider } from "@/hooks/use-admin-password";
 import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 import '@/lib/i18n';
 
 import { PublicRouter } from "./public/PublicRouter";
@@ -162,6 +165,15 @@ function AuthenticatedApp() {
     staleTime: 10000,
   });
 
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/auth/logout");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+    },
+  });
+
   const style = {
     "--sidebar-width": "16rem",
     "--sidebar-width-icon": "3rem",
@@ -196,6 +208,22 @@ function AuthenticatedApp() {
                 <div className="flex items-center gap-2">
                   <LanguageSelector />
                   <ThemeToggle />
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => logoutMutation.mutate()}
+                        disabled={logoutMutation.isPending}
+                        data-testid="button-logout"
+                      >
+                        <LogOut className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Logout</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               </header>
               <main className="flex-1 overflow-auto">
