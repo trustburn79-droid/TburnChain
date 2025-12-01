@@ -9761,9 +9761,9 @@ Provide JSON portfolio analysis:
         amountIn: swap.amountIn,
         amountOut: swap.amountOut,
         effectivePrice: swap.effectivePrice,
-        swapType: swap.swapType,
+        swapType: BigInt(swap.amountIn) > BigInt(swap.amountOut) ? 'sell' : 'buy',
         status: swap.status,
-        executedAt: swap.executedAt,
+        executedAt: swap.completedAt,
       }));
 
       broadcastUpdate('dex_recent_swaps', {
