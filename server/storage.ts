@@ -424,6 +424,7 @@ export interface IStorage {
   getAllMembers(limit?: number): Promise<Member[]>;
   getMemberById(id: string): Promise<Member | undefined>;
   getMemberByAddress(address: string): Promise<Member | undefined>;
+  getMemberByEmail(email: string): Promise<Member | undefined>;
   createMember(data: InsertMember): Promise<Member>;
   updateMember(id: string, data: Partial<Member>): Promise<void>;
   deleteMember(id: string): Promise<void>;
@@ -2842,6 +2843,11 @@ export class DbStorage implements IStorage {
 
   async getMemberByAddress(address: string): Promise<Member | undefined> {
     const result = await db.select().from(members).where(eq(members.accountAddress, address)).limit(1);
+    return result[0];
+  }
+
+  async getMemberByEmail(email: string): Promise<Member | undefined> {
+    const result = await db.select().from(members).where(eq(members.encryptedEmail, email)).limit(1);
     return result[0];
   }
 

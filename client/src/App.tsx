@@ -40,6 +40,7 @@ import Members from "@/pages/members";
 import MemberDetail from "@/pages/member-detail";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
+import Signup from "@/pages/signup";
 
 import TokenSystem from "@/pages/token-system";
 import Bridge from "@/pages/bridge";
@@ -214,6 +215,10 @@ function RootRouter() {
   
   if (location.startsWith("/app")) {
     return <AuthenticatedApp />;
+  }
+  
+  if (location === "/signup") {
+    return <Signup />;
   }
   
   return <PublicRouter />;

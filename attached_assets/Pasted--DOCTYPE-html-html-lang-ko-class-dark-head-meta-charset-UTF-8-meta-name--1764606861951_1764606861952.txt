@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initialize Node | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(0, 240, 255, 0.5),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+
+        /* 3. Input Styles */
+        .cyber-input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        .cyber-input:focus {
+            border-color: #00f0ff;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            outline: none;
+        }
+
+        /* 4. Button Glow */
+        .btn-neon {
+            background: linear-gradient(90deg, #00f0ff, #0099ff);
+            color: black;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .btn-neon:hover {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* 5. Custom Checkbox */
+        .cyber-checkbox {
+            appearance: none;
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 1.25rem;
+            height: 1.25rem;
+            display: inline-grid;
+            place-content: center;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+        .cyber-checkbox::before {
+            content: "";
+            width: 0.65rem;
+            height: 0.65rem;
+            background-color: #00f0ff;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: 0 0 10px #00f0ff;
+        }
+        .cyber-checkbox:checked {
+            border-color: #00f0ff;
+        }
+        .cyber-checkbox:checked::before {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-fire text-black text-sm"></i>
+                        <div class="absolute inset-0 bg-white/20 rounded blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Developers</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                    <button class="text-gray-400 hover:text-cyber-cyan transition">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-4 relative z-10" id="login-container">
+        
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-cyber-purple/20 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="w-full max-w-5xl grid md:grid-cols-2 gap-6">
+            
+            <div class="spotlight-card rounded-2xl p-8 flex flex-col justify-center">
+                <div class="mb-6">
+                    <div class="inline-flex items-center gap-2 px-2 py-1 rounded bg-cyber-purple/10 border border-cyber-purple/20 text-cyber-purple text-xs font-mono mb-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyber-purple animate-pulse"></span>
+                        GATEWAY_REGISTER
+                    </div>
+                    <h1 class="text-3xl font-bold text-white mb-2 scramble-target" data-value="Initialize">Loading...</h1>
+                    <p class="text-sm text-gray-400">Create a new identity on the Neural Layer</p>
+                </div>
+
+                <form class="space-y-4">
+                    <div class="space-y-1">
+                        <label class="text-xs font-mono text-gray-500 ml-1">NODE ALIAS</label>
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                            <input type="text" placeholder="Enter username" class="cyber-input w-full py-2.5 pl-10 pr-4 rounded-lg text-sm placeholder-gray-600 focus:bg-black/50">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-xs font-mono text-gray-500 ml-1">SIGNAL FREQUENCY (EMAIL)</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                            <input type="email" placeholder="name@example.com" class="cyber-input w-full py-2.5 pl-10 pr-4 rounded-lg text-sm placeholder-gray-600 focus:bg-black/50">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-mono text-gray-500 ml-1">ENCRYPTION KEY</label>
+                            <div class="relative">
+                                <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                                <input type="password" placeholder="Password" class="cyber-input w-full py-2.5 pl-10 pr-4 rounded-lg text-sm placeholder-gray-600 focus:bg-black/50">
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-mono text-gray-500 ml-1">VERIFY KEY</label>
+                            <div class="relative">
+                                <i class="fas fa-check-circle absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                                <input type="password" placeholder="Confirm" class="cyber-input w-full py-2.5 pl-10 pr-4 rounded-lg text-sm placeholder-gray-600 focus:bg-black/50">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 pt-2">
+                        <input type="checkbox" id="terms" class="cyber-checkbox mt-1">
+                        <label for="terms" class="text-xs text-gray-400 leading-relaxed">
+                            I accept the <a href="#" class="text-cyber-cyan hover:underline">Genesis Protocols</a> and acknowledge that my node data will be immutable on the chain.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-neon w-full py-3 rounded-lg flex items-center justify-center gap-3 mt-4">
+                        <i class="fas fa-rocket"></i>
+                        <span>Initialize Node</span>
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-xs text-gray-500">
+                        Already have a node ID? 
+                        <a href="login.html" class="text-cyber-purple hover:text-white transition ml-1 font-bold">Access Gateway</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="spotlight-card rounded-2xl p-8 border-cyber-cyan/30 flex flex-col justify-center relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-cyber-cyan/50 to-transparent opacity-50 animate-pulse"></div>
+
+                <div class="mb-8 relative z-10">
+                    <h2 class="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fas fa-shield-halved text-cyber-cyan"></i> System Privileges
+                    </h2>
+                    <p class="text-sm text-gray-400">Initializing your account grants immediate access to:</p>
+                </div>
+
+                <div class="space-y-6 relative z-10">
+                    <div class="flex gap-4 group/item">
+                        <div class="w-10 h-10 rounded bg-cyber-purple/10 border border-cyber-purple/30 flex items-center justify-center shrink-0 group-hover/item:border-cyber-purple transition-colors">
+                            <i class="fas fa-bolt text-cyber-purple"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-medium text-sm">High-Speed Validator</h3>
+                            <p class="text-xs text-gray-500 mt-1">Participate in consensus with 100,000 TPS capability directly from your dashboard.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 group/item">
+                        <div class="w-10 h-10 rounded bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center shrink-0 group-hover/item:border-cyber-cyan transition-colors">
+                            <i class="fas fa-chart-line text-cyber-cyan"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-medium text-sm">Real-time Analytics</h3>
+                            <p class="text-xs text-gray-500 mt-1">Deep dive into block metrics, gas fees, and network health monitoring.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 group/item">
+                        <div class="w-10 h-10 rounded bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:border-white/30 transition-colors">
+                            <i class="fas fa-users text-gray-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-medium text-sm">DAO Governance</h3>
+                            <p class="text-xs text-gray-500 mt-1">Vote on protocol upgrades. Your identity key is your voting power.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <i class="fas fa-fingerprint absolute -bottom-12 -left-12 text-[10rem] text-white/5 rotate-[-20deg] group-hover:rotate-0 transition-transform duration-700"></i>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-center md:text-left">
+                    <p class="text-sm text-gray-500">© 2025 TBurn Chain Foundation. <span class="text-cyber-cyan/50">Genesis Block Active.</span></p>
+                </div>
+                <div class="flex gap-6 text-gray-500 text-sm">
+                    <a href="#" class="hover:text-cyber-cyan transition">Privacy</a>
+                    <a href="#" class="hover:text-cyber-cyan transition">Terms</a>
+                    <a href="#" class="hover:text-cyber-cyan transition">Whitepaper</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Text Scramble Animation
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        document.querySelectorAll(".scramble-target").forEach(target => {
+            let iterations = 0;
+            const finalValue = target.dataset.value;
+            const interval = setInterval(() => {
+                target.innerText = finalValue.split("")
+                    .map((letter, index) => {
+                        if(index < iterations) return finalValue[index];
+                        return letters[Math.floor(Math.random() * letters.length)];
+                    })
+                    .join("");
+                if(iterations >= finalValue.length) clearInterval(interval);
+                iterations += 1/3;
+            }, 40);
+        });
+
+        // 2. Spotlight Effect Logic
+        const container = document.getElementById("login-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 3. Background Particles (Identical to Login for consistency)
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 18000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.1 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

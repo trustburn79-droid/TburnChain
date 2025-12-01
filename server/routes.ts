@@ -290,14 +290,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   // Authentication Routes
   // ============================================
-  app.post("/api/auth/login", loginLimiter, (req, res) => {
-    const { password } = req.body;
+  app.post("/api/auth/login", loginLimiter, async (req, res) => {
+    const { password, email } = req.body;
     
+    // Check if member login (email + password)
+    if (email && password) {
+      try {
+        const member = await storage.getMemberByEmail(email);
+        if (member && member.passwordHash) {
+          const isValid = await bcrypt.compare(password, member.passwordHash);
+          if (isValid) {
+            req.session.authenticated = true;
+            req.session.memberId = member.id;
+            req.session.memberEmail = email;
+            return res.json({ success: true, member: { id: member.id, displayName: member.displayName } });
+          }
+        }
+        return res.status(401).json({ error: "Invalid email or password" });
+      } catch (error) {
+        console.error("Member login error:", error);
+        return res.status(500).json({ error: "Login failed" });
+      }
+    }
+    
+    // Fallback to site password
     if (password === SITE_PASSWORD) {
       req.session.authenticated = true;
       res.json({ success: true });
     } else {
       res.status(401).json({ error: "Invalid password" });
+    }
+  });
+
+  // Signup route
+  app.post("/api/auth/signup", loginLimiter, async (req, res) => {
+    const { username, email, password } = req.body;
+    
+    // Validate input
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: "Username, email, and password are required" });
+    }
+    
+    if (username.length < 3 || username.length > 20) {
+      return res.status(400).json({ error: "Username must be 3-20 characters" });
+    }
+    
+    if (password.length < 8) {
+      return res.status(400).json({ error: "Password must be at least 8 characters" });
+    }
+    
+    try {
+      // Check if email already exists
+      const existingMember = await storage.getMemberByEmail(email);
+      if (existingMember) {
+        return res.status(409).json({ error: "Email already registered" });
+      }
+      
+      // Hash password
+      const passwordHash = await bcrypt.hash(password, 12);
+      
+      // Generate account address and public key
+      const accountAddress = `0x${randomBytes(20).toString('hex')}`;
+      const publicKey = `0x${randomBytes(32).toString('hex')}`;
+      
+      // Create member
+      const member = await storage.createMember({
+        accountAddress,
+        publicKey,
+        displayName: username,
+        encryptedEmail: email, // In production, encrypt this
+        passwordHash,
+        entityType: "individual",
+        memberTier: "basic_user",
+        memberStatus: "active",
+        kycLevel: "none",
+        amlRiskScore: 0,
+        sanctionsCheckPassed: false,
+        pepStatus: false,
+      });
+      
+      // Auto-login after signup
+      req.session.authenticated = true;
+      req.session.memberId = member.id;
+      req.session.memberEmail = email;
+      
+      res.status(201).json({ 
+        success: true, 
+        member: { 
+          id: member.id, 
+          displayName: member.displayName,
+          accountAddress: member.accountAddress 
+        } 
+      });
+    } catch (error) {
+      console.error("Signup error:", error);
+      res.status(500).json({ error: "Failed to create account" });
     }
   });
 

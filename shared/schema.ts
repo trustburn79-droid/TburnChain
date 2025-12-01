@@ -421,6 +421,9 @@ export const members = pgTable("members", {
   encryptedEmail: text("encrypted_email"),
   encryptedPhone: text("encrypted_phone"),
   
+  // Authentication
+  passwordHash: text("password_hash"), // bcrypt hashed password
+  
   // Validator Reference (if member is a validator)
   validatorId: varchar("validator_id"),
   
