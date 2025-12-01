@@ -1150,4 +1150,109 @@ router.get('/health', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// GameFi Integration Endpoints
+// ============================================
+
+/**
+ * GET /api/enterprise/gamefi/summary
+ * Get GameFi ecosystem summary
+ */
+router.get('/gamefi/summary', async (req: Request, res: Response) => {
+  try {
+    const metrics = dataHub.getModuleMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        overview: {
+          totalGames: 12,
+          activeGames: 8,
+          totalPlayers: 45000,
+          activePlayers24h: 3200
+        },
+        economy: {
+          totalRewardsDistributed: '2500000000000000000000000',
+          rewardsDistributed24h: '125000000000000000000000',
+          nftItemsInGames: metrics.nft?.totalItems || 15000,
+          stakingIntegrated: true
+        },
+        trending: [
+          { gameId: 'tburn-quest', name: 'TBURN Quest', players24h: 1200, rewards24h: '50000000000000000000000' },
+          { gameId: 'ember-arena', name: 'Ember Arena', players24h: 800, rewards24h: '35000000000000000000000' },
+          { gameId: 'burn-rush', name: 'Burn Rush', players24h: 650, rewards24h: '25000000000000000000000' }
+        ],
+        integrations: {
+          nftEnabled: true,
+          stakingRewards: true,
+          autoBurnMechanic: true,
+          crossGameAssets: true
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'GameFi summary fetch failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
+// Launchpad Integration Endpoints
+// ============================================
+
+/**
+ * GET /api/enterprise/launchpad/summary
+ * Get Launchpad ecosystem summary
+ */
+router.get('/launchpad/summary', async (req: Request, res: Response) => {
+  try {
+    const metrics = dataHub.getModuleMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        overview: {
+          totalProjects: 24,
+          activeProjects: 5,
+          completedProjects: 18,
+          upcomingProjects: 3
+        },
+        fundraising: {
+          totalRaised: '15000000000000000000000000',
+          raised24h: '250000000000000000000000',
+          averageAllocation: '500000000000000000000',
+          totalParticipants: 8500
+        },
+        tiers: [
+          { tier: 'Diamond', minStake: '1000000000000000000000000', weight: 10, participants: 120 },
+          { tier: 'Platinum', minStake: '500000000000000000000000', weight: 5, participants: 450 },
+          { tier: 'Gold', minStake: '100000000000000000000000', weight: 2, participants: 1200 },
+          { tier: 'Silver', minStake: '10000000000000000000000', weight: 1, participants: 6730 }
+        ],
+        upcomingLaunches: [
+          { id: 'tbc-defi-v2', name: 'TBC DeFi V2', targetRaise: '500000000000000000000000', startDate: '2024-12-15' },
+          { id: 'ember-gaming', name: 'Ember Gaming Platform', targetRaise: '300000000000000000000000', startDate: '2024-12-20' }
+        ],
+        integrations: {
+          stakingTierSystem: true,
+          nftBoosterSupport: true,
+          autoBurnOnLaunch: true,
+          crossChainSupport: metrics.bridge ? true : false
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Launchpad summary fetch failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;
