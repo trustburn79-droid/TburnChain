@@ -560,7 +560,7 @@ export default function Transactions() {
 
     const successCount = transactions.filter(tx => tx.status === 'success').length;
     const pendingCount = transactions.filter(tx => tx.status === 'pending').length;
-    const gasUsedSum = transactions.reduce((acc, tx) => acc + (tx.gasUsed || 0), 0);
+    const gasUsedSum = transactions.reduce((acc, tx) => acc + Number(tx.gasUsed || 0), 0);
     const gasPriceSum = transactions.reduce((acc, tx) => acc + Number(tx.gasPrice || 0), 0);
     
     return {
