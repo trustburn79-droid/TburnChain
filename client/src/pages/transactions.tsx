@@ -195,7 +195,7 @@ function TransactionRow({
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "success":
-        return <Badge variant="default" className="bg-green-600 gap-1"><CheckCircle className="h-3 w-3" />{t('transactions.success')}</Badge>;
+        return <Badge variant="default" className="bg-green-600 hover:bg-green-700 border-0 gap-1"><CheckCircle className="h-3 w-3" />{t('transactions.success')}</Badge>;
       case "failed":
         return <Badge variant="destructive" className="gap-1"><XCircle className="h-3 w-3" />{t('transactions.failed')}</Badge>;
       case "pending":

@@ -1170,7 +1170,7 @@ export default function Dashboard() {
                                 ? "destructive"
                                 : "secondary"
                             }
-                            className="text-xs"
+                            className={`text-xs ${tx.status === "success" ? "bg-green-600 hover:bg-green-700 border-0" : ""}`}
                           >
                             {tx.status}
                           </Badge>
@@ -1330,6 +1330,7 @@ export default function Dashboard() {
                       ? "destructive"
                       : "secondary"
                   }
+                  className={selectedTx.status === "success" ? "bg-green-600 hover:bg-green-700 border-0" : ""}
                 >
                   {selectedTx.status?.toUpperCase()}
                 </Badge>
