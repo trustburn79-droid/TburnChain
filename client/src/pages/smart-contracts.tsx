@@ -38,7 +38,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
+import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount, formatGasEmber } from "@/lib/format";
 import { SmartContractEditor } from "@/components/SmartContractEditor";
 import { useToast } from "@/hooks/use-toast";
 import type { SmartContract } from "@shared/schema";
@@ -509,14 +509,28 @@ function ContractStatsDialog({
       }
 
       case 'tvl': {
-        const totalTVL = contracts.reduce((sum, c) => sum + parseFloat(c.balance), 0);
+        const totalTVLWei = contracts.reduce((sum, c) => {
+          try {
+            return sum + BigInt(c.balance || "0");
+          } catch {
+            return sum;
+          }
+        }, BigInt(0));
         
         const tvlByContract = contracts
-          .sort((a, b) => parseFloat(b.balance) - parseFloat(a.balance))
+          .sort((a, b) => {
+            try {
+              const balanceA = BigInt(a.balance || "0");
+              const balanceB = BigInt(b.balance || "0");
+              return balanceB > balanceA ? 1 : balanceB < balanceA ? -1 : 0;
+            } catch {
+              return 0;
+            }
+          })
           .slice(0, 5)
           .map((c, i) => ({
             name: c.name.slice(0, 15),
-            tvl: parseFloat(c.balance) / 1e18,
+            tvl: Number(BigInt(c.balance || "0") / BigInt(10 ** 14)) / 10000,
             color: CHART_COLORS[i],
           }));
 
@@ -581,11 +595,11 @@ function ContractStatsDialog({
               <CardContent className="pt-4">
                 <div className="grid grid-cols-4 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-green-600">{formatTokenAmount(totalTVL.toString())}</div>
+                    <div className="text-2xl font-bold text-green-600">{formatTokenAmount(totalTVLWei.toString())}</div>
                     <div className="text-xs text-muted-foreground">{t('smartContracts.totalTvl')}</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-blue-600">{contracts.filter(c => parseFloat(c.balance) > 0).length}</div>
+                    <div className="text-2xl font-bold text-blue-600">{contracts.filter(c => BigInt(c.balance || "0") > BigInt(0)).length}</div>
                     <div className="text-xs text-muted-foreground">{t('smartContracts.contractsWithTvl')}</div>
                   </div>
                   <div>
@@ -888,7 +902,13 @@ export default function SmartContracts() {
   const verifiedContracts = contracts?.filter(c => c.verified).length || 0;
   const totalContracts = contracts?.length || 0;
   const totalInteractions = contracts?.reduce((sum, c) => sum + c.transactionCount, 0) || 0;
-  const totalTVL = contracts?.reduce((sum, c) => sum + parseFloat(c.balance), 0) || 0;
+  const totalTVLWei = contracts?.reduce((sum, c) => {
+    try {
+      return sum + BigInt(c.balance || "0");
+    } catch {
+      return sum;
+    }
+  }, BigInt(0)) || BigInt(0);
 
   const filteredContracts = useMemo(() => {
     if (!contracts) return [];
@@ -1081,7 +1101,7 @@ export default function SmartContracts() {
                     <DollarSign className="h-4 w-4 text-green-500" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">{formatTokenAmount(totalTVL.toString())}</div>
+                    <div className="text-2xl font-semibold tabular-nums">{formatTokenAmount(totalTVLWei.toString())}</div>
                     <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                       <ArrowUpRight className="h-3 w-3 text-green-500" />
                       +15.2% {t('smartContracts.weeklyChange')}
@@ -1196,7 +1216,7 @@ export default function SmartContracts() {
                       <TableCell>
                         {activity.method ? <Badge variant="outline">{activity.method}</Badge> : '-'}
                       </TableCell>
-                      <TableCell className="tabular-nums">{formatNumber(activity.gasUsed)}</TableCell>
+                      <TableCell className="tabular-nums">{formatGasEmber(activity.gasUsed)}</TableCell>
                       <TableCell className="text-muted-foreground">
                         {formatTimeAgo(Math.floor(activity.timestamp.getTime() / 1000))}
                       </TableCell>
@@ -1492,7 +1512,7 @@ export default function SmartContracts() {
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="text-right">
-                          <div className="text-sm font-semibold tabular-nums">{formatNumber(activity.gasUsed)} gas</div>
+                          <div className="text-sm font-semibold tabular-nums">{formatGasEmber(activity.gasUsed)}</div>
                           <div className="text-xs text-muted-foreground">
                             {formatTimeAgo(Math.floor(activity.timestamp.getTime() / 1000))}
                           </div>
