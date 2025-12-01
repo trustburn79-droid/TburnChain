@@ -60,7 +60,7 @@ import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
 import { Link } from "wouter";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, LineChart, Line } from "recharts";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface TokenomicsData {
   tiers: {
@@ -1078,14 +1078,10 @@ export default function Dashboard() {
                   onRetry={() => refetchBlocks()}
                 />
               ) : recentBlocks && recentBlocks.length > 0 ? (
-                <AnimatePresence mode="popLayout">
+                <>
                   {recentBlocks.slice(0, 10).map((block, index) => (
-                    <motion.div
+                    <div
                       key={`block-item-${index}-${block.blockNumber || 'pending'}-${block.hash?.slice(0, 8) || 'no-hash'}`}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
                       className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
                       data-testid={`card-block-${block.blockNumber}`}
                       onClick={() => setSelectedBlock(block)}
@@ -1111,9 +1107,9 @@ export default function Dashboard() {
                           {formatTimeAgo(block.timestamp)}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
-                </AnimatePresence>
+                </>
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-8">
                   {t("dashboard.noBlocksFound")}
@@ -1153,14 +1149,10 @@ export default function Dashboard() {
                   onRetry={() => refetchTxs()}
                 />
               ) : recentTxs && recentTxs.length > 0 ? (
-                <AnimatePresence mode="popLayout">
+                <>
                   {recentTxs.slice(0, 10).map((tx, index) => (
-                    <motion.div
+                    <div
                       key={`tx-item-${index}-${tx.hash?.slice(0, 12) || 'pending'}`}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
                       className="flex items-center justify-between p-3 rounded-md hover-elevate border cursor-pointer"
                       data-testid={`card-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
                       onClick={() => setSelectedTx(tx)}
@@ -1198,9 +1190,9 @@ export default function Dashboard() {
                           {formatTimeAgo(tx.timestamp)}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
-                </AnimatePresence>
+                </>
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-8">
                   {t("dashboard.noTransactionsFound")}
