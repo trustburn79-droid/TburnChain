@@ -272,7 +272,7 @@ function DataSourceBadge() {
   return (
     <Badge 
       variant={isLive ? "default" : "secondary"} 
-      className={`gap-1 ${isLive ? "bg-green-600 hover:bg-green-700" : ""}`}
+      className={`gap-1 ${isLive ? "bg-green-600 hover:bg-green-700 border-0" : ""}`}
       data-testid="data-source-badge"
     >
       {isLive ? (

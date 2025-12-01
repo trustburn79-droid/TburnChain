@@ -767,7 +767,7 @@ export default function Wallets() {
             {t('wallets.title')}
           </h1>
           <div className="flex items-center gap-2 mt-1">
-            <Badge variant={isConnected ? "default" : "secondary"} className={`gap-1 ${isConnected && isAutoRefresh ? "bg-green-600 hover:bg-green-700" : ""}`}>
+            <Badge variant={isConnected ? "default" : "secondary"} className={`gap-1 ${isConnected && isAutoRefresh ? "bg-green-600 hover:bg-green-700 border-0" : ""}`}>
               {isConnected ? <Wifi className="h-3 w-3" /> : <WifiOff className="h-3 w-3" />}
               {isAutoRefresh ? t('blocks.live') : t('blocks.paused')}
             </Badge>
@@ -782,7 +782,7 @@ export default function Wallets() {
             variant={isAutoRefresh ? "default" : "outline"}
             size="sm"
             onClick={() => setIsAutoRefresh(!isAutoRefresh)}
-            className={`gap-2 ${isAutoRefresh ? "bg-green-600 hover:bg-green-700" : ""}`}
+            className={`gap-2 ${isAutoRefresh ? "bg-green-600 hover:bg-green-700 border-0" : ""}`}
             data-testid="button-toggle-live"
           >
             {isAutoRefresh ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />}

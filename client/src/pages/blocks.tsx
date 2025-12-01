@@ -769,7 +769,7 @@ export default function Blocks() {
             variant={isAutoRefresh ? "default" : "outline"}
             size="sm"
             onClick={() => setIsAutoRefresh(!isAutoRefresh)}
-            className={`gap-2 ${isAutoRefresh ? "bg-green-600 hover:bg-green-700" : ""}`}
+            className={`gap-2 ${isAutoRefresh ? "bg-green-600 hover:bg-green-700 border-0" : ""}`}
             data-testid="button-toggle-live"
           >
             {isAutoRefresh ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />}
