@@ -86,7 +86,8 @@ export default function NodeHealth() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const { data: health, isLoading, refetch: refetchHealth } = useQuery<NodeHealth>({
-    queryKey: ["/api/node/health", refreshKey],
+    queryKey: ["/api/node/health"],
+    refetchInterval: 10000,
   });
 
   const { data: networkStats, isLoading: isStatsLoading } = useQuery<NetworkStats>({
