@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is a Wallet? | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            yellow: '#ffd700',
+                            red: '#ff0055',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(0, 240, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(0, 240, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.85rem;
+            color: #00f0ff;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="learn.html" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan">Wallet</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-0 right-1/2 translate-x-1/2 w-[800px] h-[500px] bg-cyber-purple/10 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-4xl text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-purple mb-6">
+                    <i class="fas fa-wallet"></i> ESSENTIALS_MODULE_01
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    What is a <span class="text-gradient">Crypto Wallet?</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                    Your gateway to the TBurn Chain. Securely store, send, and receive digital assets through advanced cryptographic keys.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="prose prose-invert max-w-none">
+                    <h2 class="text-3xl font-bold mb-6 text-white text-center">Understanding Wallets</h2>
+                    <p class="text-lg text-gray-400 leading-relaxed mb-8 text-center">
+                        Unlike physical wallets, crypto wallets don't store coins inside them. Instead, they store <span class="text-white font-bold">Keys</span> that prove your ownership on the blockchain ledger.
+                    </p>
+
+                    <div class="spotlight-card rounded-xl p-8 border border-cyber-purple/30 bg-cyber-purple/5">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyber-purple to-cyber-cyan flex items-center justify-center text-black text-3xl shadow-lg shadow-cyber-purple/20 shrink-0">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Public & Private Keys</h3>
+                                <p class="text-gray-400 mb-4">
+                                    Your wallet consists of a pair of cryptographic keys:
+                                </p>
+                                <div class="grid gap-3">
+                                    <div class="flex items-center gap-3 p-3 rounded bg-black/40 border border-white/10">
+                                        <i class="fas fa-eye text-cyber-cyan"></i>
+                                        <div class="text-sm">
+                                            <span class="text-white font-bold block">Public Key (Address)</span>
+                                            <span class="text-gray-500 text-xs">Like your email address. Share this to receive funds.</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 rounded bg-black/40 border border-cyber-red/30">
+                                        <i class="fas fa-user-secret text-cyber-red"></i>
+                                        <div class="text-sm">
+                                            <span class="text-white font-bold block">Private Key (Seed Phrase)</span>
+                                            <span class="text-gray-500 text-xs">Like your password. <span class="text-cyber-red">NEVER SHARE THIS.</span> Grants total control.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-white/5">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-2">Wallet Types</h2>
+                    <p class="text-gray-400">Choose the right tool for your needs.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="spotlight-card rounded-xl p-8 group h-full">
+                        <div class="w-14 h-14 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-mobile-screen text-cyber-cyan text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Software Wallets (Hot)</h3>
+                        <p class="text-gray-400 mb-4 leading-relaxed">
+                            Apps or browser extensions connected to the internet. Convenient for daily transactions and connecting to dApps.
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-cyber-cyan text-xs"></i> MetaMask</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-cyber-cyan text-xs"></i> Trust Wallet</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-cyber-cyan text-xs"></i> Coinbase Wallet</li>
+                        </ul>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 group h-full">
+                        <div class="w-14 h-14 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-shield-halved text-cyber-purple text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Hardware Wallets (Cold)</h3>
+                        <p class="text-gray-400 mb-4 leading-relaxed">
+                            Physical devices that keep your private keys offline. Essential for storing large amounts of assets securely.
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-cyber-purple text-xs"></i> Ledger Nano</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-cyber-purple text-xs"></i> Trezor Model T</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-cyber-purple text-xs"></i> SafePal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="spotlight-card rounded-xl p-1 border-gradient">
+                    <div class="bg-black/60 backdrop-blur-xl rounded-lg p-8 md:p-12">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-full bg-cyber-red/20 flex items-center justify-center text-cyber-red animate-pulse">
+                                <i class="fas fa-triangle-exclamation"></i>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-white">Security Protocol</h2>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex gap-4 items-start group">
+                                <div class="mt-1 w-6 h-6 rounded bg-cyber-red/10 flex items-center justify-center shrink-0 border border-cyber-red/30 group-hover:border-cyber-red transition-colors">
+                                    <i class="fas fa-xmark text-cyber-red text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Never Share Your Seed Phrase</h4>
+                                    <p class="text-sm text-gray-400">TBurn support will NEVER ask for your private keys or seed phrase.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4 items-start group">
+                                <div class="mt-1 w-6 h-6 rounded bg-cyber-green/10 flex items-center justify-center shrink-0 border border-cyber-green/30 group-hover:border-cyber-green transition-colors">
+                                    <i class="fas fa-check text-cyber-green text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Offline Storage</h4>
+                                    <p class="text-sm text-gray-400">Write your seed phrase on paper and store it in a fireproof safe. Do not save it in a cloud note or screenshot.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4 items-start group">
+                                <div class="mt-1 w-6 h-6 rounded bg-cyber-green/10 flex items-center justify-center shrink-0 border border-cyber-green/30 group-hover:border-cyber-green transition-colors">
+                                    <i class="fas fa-check text-cyber-green text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Verify Transactions</h4>
+                                    <p class="text-sm text-gray-400">Always check the destination address and gas fees before signing any transaction.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 text-center">
+            <div class="container mx-auto max-w-3xl">
+                <h2 class="text-3xl font-bold text-white mb-4">Ready to Start?</h2>
+                <p class="text-gray-400 mb-8">
+                    To start using TBurn Chain, we recommend setting up a software wallet like MetaMask first. It's the easiest way to interact with our ecosystem.
+                </p>
+                <a href="#" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition">
+                    <i class="fas fa-download"></i> Install Wallet
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Whitepaper</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Community</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Forum</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Events</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Go</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 22000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
