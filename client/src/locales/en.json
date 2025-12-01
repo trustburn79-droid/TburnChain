@@ -103,7 +103,8 @@
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
-    "days": "days"
+    "days": "days",
+    "clickForDetails": "Click for details"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",

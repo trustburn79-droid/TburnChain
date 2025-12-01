@@ -103,7 +103,8 @@
     "export": "导出",
     "clearFilters": "清除筛选",
     "applyFilters": "应用筛选",
-    "days": "天"
+    "days": "天",
+    "clickForDetails": "点击查看详情"
   },
   "nav": {
     "brand": "TBURN 链主网",

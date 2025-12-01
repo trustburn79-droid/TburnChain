@@ -103,7 +103,8 @@
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
-    "days": "일"
+    "days": "일",
+    "clickForDetails": "클릭하여 상세보기"
   },
   "nav": {
     "brand": "TBURN 체인 메인넷",

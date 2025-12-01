@@ -104,7 +104,8 @@
     "export": "エクスポート",
     "clearFilters": "フィルターをクリア",
     "applyFilters": "フィルターを適用",
-    "days": "日"
+    "days": "日",
+    "clickForDetails": "クリックして詳細を見る"
   },
   "nav": {
     "brand": "TBURN チェーン メインネット",
