@@ -592,10 +592,10 @@
     "stake": "스테이크",
     "commission": "수수료",
     "apy": "APY",
-    "uptime": "가동 시간",
+    "uptime": "가동률",
     "blocksProposed": "제안된 블록",
     "blocksValidated": "검증된 블록",
-    "missedBlocks": "놓친 블록",
+    "missedBlocks": "미생성 블록",
     "slashingEvents": "슬래싱 이벤트",
     "delegators": "위임자",
     "totalDelegated": "총 위임량",
@@ -711,7 +711,6 @@
     "week2": "2주차",
     "week3": "3주차",
     "week4": "4주차",
-    "missedBlocks": "미생성 블록",
     "avgAiTrust": "평균 AI 신뢰",
     "tierValidators": "티어 검증자",
     "dailyPool": "일일 풀",
@@ -753,13 +752,11 @@
     "detailedAnalysis": "상세 분석 및 통계",
     "statusDistribution": "상태 분포",
     "topActiveValidators": "상위 활성 검증자",
-    "jailed": "제재됨",
     "stakeByValidator": "검증자별 스테이크",
     "tier1Stake": "Tier 1 스테이크",
     "tier2Stake": "Tier 2 스테이크",
     "tier3Stake": "Tier 3 스테이크",
     "topDelegatedValidators": "상위 위임 검증자",
-    "delegatedTokens": "위임된 토큰",
     "delegationRatio": "위임 비율",
     "avgDelegation": "평균 위임",
     "committeeMembers": "위원회 멤버",
@@ -767,11 +764,9 @@
     "totalCommitteeStake": "총 위원회 스테이크",
     "avgCommitteeUptime": "평균 위원회 가동률",
     "rotationPeriod": "로테이션 주기",
-    "uniqueDelegators": "고유 위임자",
     "delegatorsByValidator": "검증자별 위임자",
     "avgDelegatorsPerValidator": "검증자당 평균 위임자",
     "avgStakePerDelegator": "위임자당 평균 스테이크",
-    "uptime": "가동률",
     "economics": "경제학"
   },
   "staking": {
@@ -1685,8 +1680,6 @@
     "symbol": "심볼",
     "tokenActions": "토큰 작업",
     "mint": "발행",
-    "burn": "소각",
-    "pause": "일시정지",
     "transfer": "전송",
     "contractInfo": "컨트랙트 정보",
     "mintSuccess": "발행 시작됨",
@@ -1694,7 +1687,35 @@
     "burnSuccess": "소각 시작됨",
     "burnSuccessDesc": "토큰 소각 트랜잭션이 제출되었습니다.",
     "pauseSuccess": "토큰 일시정지됨",
-    "pauseSuccessDesc": "토큰 전송이 일시정지되었습니다."
+    "pauseSuccessDesc": "토큰 전송이 일시정지되었습니다.",
+    "tokenStatsBreakdown": "토큰 통계 분석",
+    "percentPopular": "인기 비율",
+    "aiModelGpt5": "GPT-5",
+    "aiModelClaude": "Claude",
+    "aiModelLlama": "Llama",
+    "multisig2ofN": "2/N 다중서명",
+    "multisig3ofN": "3/N 다중서명",
+    "multisig4ofN": "4/N 다중서명",
+    "multisig5ofN": "5/N 다중서명",
+    "vulnQuantumTitle": "양자 컴퓨팅 위협",
+    "vulnQuantumDesc": "양자 컴퓨팅이 암호화 보안에 영향을 줄 수 있습니다",
+    "vulnQuantumLocation": "코어 암호화 모듈",
+    "vulnQuantumRecommendation": "양자 내성 암호화 알고리즘으로 업그레이드",
+    "vulnMevTitle": "MEV 공격 위험",
+    "vulnMevDesc": "샌드위치 공격 취약점이 존재할 수 있습니다",
+    "vulnMevLocation": "트랜잭션 풀 모듈",
+    "vulnMevRecommendation": "MEV 보호 메커니즘 구현",
+    "vulnUncappedTitle": "제한 없음 위험",
+    "vulnUncappedDesc": "일부 작업에 제한이 없습니다",
+    "vulnUncappedLocation": "토큰 컨트랙트",
+    "vulnUncappedRecommendation": "적절한 제한 추가",
+    "vulnBotTitle": "봇 공격",
+    "vulnBotDesc": "자동화된 공격 위험이 존재할 수 있습니다",
+    "vulnBotLocation": "공개 인터페이스",
+    "vulnBotRecommendation": "속도 제한 및 검증 구현",
+    "recommendationAiGas": "AI 최적화 가스 소비",
+    "recommendationStakingApy": "동적 스테이킹 APY 조정",
+    "recommendationVesting": "스마트 베스팅 일정"
   },
   "dex": {
     "title": "탈중앙화 거래소",
@@ -2338,7 +2359,7 @@
     "refund": "환불"
   },
   "community": {
-    "title": "TBURN 커뮤니티",
+    "title": "제목",
     "subtitle": "TBURN 생태계와 연결하고, 협력하고, 함께 성장하세요",
     "online": "온라인",
     "totalMembers": "전체 회원",
@@ -2347,14 +2368,109 @@
     "comments": "댓글",
     "proposals": "제안",
     "active": "활성",
-    "events": "이벤트",
+    "events": {
+      "launchAma": {
+        "title": "메인넷 론칭 AMA",
+        "desc": "메인넷 론칭에 대한 독점 AMA 세션에 창립자들과 함께하세요"
+      },
+      "defiWorkshop": {
+        "title": "DeFi 워크숍",
+        "desc": "TBURN DeFi 프로토콜로 수익을 극대화하는 방법을 배우세요"
+      },
+      "hackathon": {
+        "title": "TBURN 해커톤 2025",
+        "desc": "TBURN에서 DeFi의 미래를 구축하고 100K TBURN 상당의 상금을 획득하세요"
+      },
+      "tokyoMeetup": {
+        "title": "커뮤니티 밋업: 도쿄",
+        "desc": "도쿄 이벤트에서 TBURN 커뮤니티를 직접 만나보세요"
+      },
+      "stakingCompetition": {
+        "title": "스테이킹 경쟁",
+        "desc": "이번 달 최고의 스테이킹 보상을 놓고 경쟁하세요"
+      },
+      "nftContest": {
+        "title": "NFT 아트 콘테스트",
+        "desc": "TBURN 테마 NFT 아트워크를 만들고 상품을 받으세요"
+      },
+      "validatorTraining": {
+        "title": "검증자 교육 세션",
+        "desc": "종합적인 교육을 통해 TBURN 검증자가 되는 방법을 배우세요"
+      },
+      "airdropEvent": {
+        "title": "커뮤니티 에어드롭 이벤트",
+        "desc": "활동적인 커뮤니티 멤버를 위한 독점 에어드롭. 과제를 완료하고 보상을 받으세요!"
+      }
+    },
     "upcoming": "예정",
     "totalRewards": "분배된 보상",
     "overview": "개요",
     "forum": "포럼",
     "leaderboard": "리더보드",
-    "badges": "배지",
-    "announcements": "공지사항",
+    "badges": {
+      "earlyAdopter": {
+        "name": "얼리어답터",
+        "description": "메인넷 첫 달에 가입"
+      },
+      "diamondHands": {
+        "name": "다이아몬드 핸즈",
+        "description": "TBURN을 6개월 이상 보유"
+      },
+      "governanceParticipant": {
+        "name": "거버넌스 참여자",
+        "description": "10개 이상의 거버넌스 제안에 투표"
+      },
+      "communityHelper": {
+        "name": "커뮤니티 헬퍼",
+        "description": "50명 이상의 커뮤니티 회원을 도움"
+      },
+      "whaleStatus": {
+        "name": "고래 지위",
+        "description": "100K+ TBURN 토큰 보유"
+      },
+      "contentCreator": {
+        "name": "콘텐츠 크리에이터",
+        "description": "25개 이상의 포럼 게시글 작성"
+      },
+      "validator": {
+        "name": "검증자",
+        "description": "메인넷 검증자 노드 운영"
+      },
+      "bridgePioneer": {
+        "name": "브릿지 개척자",
+        "description": "크로스체인 브릿지 첫 1000명 사용자"
+      },
+      "defiMaster": {
+        "name": "DeFi 마스터",
+        "description": "모든 DeFi 프로토콜 사용"
+      },
+      "bugHunter": {
+        "name": "버그 헌터",
+        "description": "유효한 보안 취약점 신고"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "메인넷 론칭 날짜 확정",
+        "content": "TBURN 메인넷이 2025년 12월 1일에 공식 론칭됩니다. 모든 시스템 준비 완료!"
+      },
+      "stakingTiers": {
+        "title": "새로운 스테이킹 티어 출시",
+        "content": "Tier 1 검증자를 위해 최대 25% APY의 향상된 스테이킹 티어를 소개합니다. 자세한 내용은 스테이킹 페이지를 확인하세요."
+      },
+      "securityAudit": {
+        "title": "보안 감사 완료",
+        "content": "스마트 컨트랙트가 CertiK의 종합 보안 감사를 통과했으며 치명적인 문제가 없습니다."
+      },
+      "bridgeIntegration": {
+        "title": "크로스체인 브릿지 오픈",
+        "content": "TBURN 브릿지가 이더리움, BSC, 폴리곤 네트워크 간 전송을 지원하며 운영 중입니다."
+      },
+      "maintenance": {
+        "title": "예정된 유지보수: 노드 업그레이드",
+        "content": "12월 3일 UTC 오전 2시에 간단한 유지보수 예정. 예상 다운타임: 15분."
+      }
+    },
     "important": "중요",
     "activityFeed": "실시간 활동",
     "topContributors": "톱 기여자",
@@ -2434,7 +2550,6 @@
     "eventDetails": "이벤트 상세",
     "startTime": "시작 시간",
     "endTime": "종료 시간",
-    "title": "제목",
     "content": "내용",
     "contributions": "기여",
     "time": {
@@ -2464,104 +2579,6 @@
       "news": "뉴스",
       "alert": "알림",
       "feature": "기능"
-    },
-    "badges": {
-      "earlyAdopter": {
-        "name": "얼리어답터",
-        "description": "메인넷 첫 달에 가입"
-      },
-      "diamondHands": {
-        "name": "다이아몬드 핸즈",
-        "description": "TBURN을 6개월 이상 보유"
-      },
-      "governanceParticipant": {
-        "name": "거버넌스 참여자",
-        "description": "10개 이상의 거버넌스 제안에 투표"
-      },
-      "communityHelper": {
-        "name": "커뮤니티 헬퍼",
-        "description": "50명 이상의 커뮤니티 회원을 도움"
-      },
-      "whaleStatus": {
-        "name": "고래 지위",
-        "description": "100K+ TBURN 토큰 보유"
-      },
-      "contentCreator": {
-        "name": "콘텐츠 크리에이터",
-        "description": "25개 이상의 포럼 게시글 작성"
-      },
-      "validator": {
-        "name": "검증자",
-        "description": "메인넷 검증자 노드 운영"
-      },
-      "bridgePioneer": {
-        "name": "브릿지 개척자",
-        "description": "크로스체인 브릿지 첫 1000명 사용자"
-      },
-      "defiMaster": {
-        "name": "DeFi 마스터",
-        "description": "모든 DeFi 프로토콜 사용"
-      },
-      "bugHunter": {
-        "name": "버그 헌터",
-        "description": "유효한 보안 취약점 신고"
-      }
-    },
-    "events": {
-      "launchAma": {
-        "title": "메인넷 론칭 AMA",
-        "desc": "메인넷 론칭에 대한 독점 AMA 세션에 창립자들과 함께하세요"
-      },
-      "defiWorkshop": {
-        "title": "DeFi 워크숍",
-        "desc": "TBURN DeFi 프로토콜로 수익을 극대화하는 방법을 배우세요"
-      },
-      "hackathon": {
-        "title": "TBURN 해커톤 2025",
-        "desc": "TBURN에서 DeFi의 미래를 구축하고 100K TBURN 상당의 상금을 획득하세요"
-      },
-      "tokyoMeetup": {
-        "title": "커뮤니티 밋업: 도쿄",
-        "desc": "도쿄 이벤트에서 TBURN 커뮤니티를 직접 만나보세요"
-      },
-      "stakingCompetition": {
-        "title": "스테이킹 경쟁",
-        "desc": "이번 달 최고의 스테이킹 보상을 놓고 경쟁하세요"
-      },
-      "nftContest": {
-        "title": "NFT 아트 콘테스트",
-        "desc": "TBURN 테마 NFT 아트워크를 만들고 상품을 받으세요"
-      },
-      "validatorTraining": {
-        "title": "검증자 교육 세션",
-        "desc": "종합적인 교육을 통해 TBURN 검증자가 되는 방법을 배우세요"
-      },
-      "airdropEvent": {
-        "title": "커뮤니티 에어드롭 이벤트",
-        "desc": "활동적인 커뮤니티 멤버를 위한 독점 에어드롭. 과제를 완료하고 보상을 받으세요!"
-      }
-    },
-    "announcements": {
-      "mainnetLaunch": {
-        "title": "메인넷 론칭 날짜 확정",
-        "content": "TBURN 메인넷이 2025년 12월 1일에 공식 론칭됩니다. 모든 시스템 준비 완료!"
-      },
-      "stakingTiers": {
-        "title": "새로운 스테이킹 티어 출시",
-        "content": "Tier 1 검증자를 위해 최대 25% APY의 향상된 스테이킹 티어를 소개합니다. 자세한 내용은 스테이킹 페이지를 확인하세요."
-      },
-      "securityAudit": {
-        "title": "보안 감사 완료",
-        "content": "스마트 컨트랙트가 CertiK의 종합 보안 감사를 통과했으며 치명적인 문제가 없습니다."
-      },
-      "bridgeIntegration": {
-        "title": "크로스체인 브릿지 오픈",
-        "content": "TBURN 브릿지가 이더리움, BSC, 폴리곤 네트워크 간 전송을 지원하며 운영 중입니다."
-      },
-      "maintenance": {
-        "title": "예정된 유지보수: 노드 업그레이드",
-        "content": "12월 3일 UTC 오전 2시에 간단한 유지보수 예정. 예상 다운타임: 15분."
-      }
     },
     "rarities": {
       "common": "일반",
@@ -2706,7 +2723,7 @@
     "noGamesAvailable": "사용 가능한 게임 없음",
     "noTournamentsAvailable": "사용 가능한 토너먼트 없음",
     "noAssetsOwned": "소유한 자산 없음",
-    "playToEarn": "게임을 플레이하거나 자산을 구매하세요",
+    "playToEarn": "Play to Earn",
     "noPendingRewards": "대기 중인 보상 없음",
     "earnRewardsHint": "게임을 플레이하고 토너먼트에 참가하여 보상을 획득하세요",
     "noAchievementsAvailable": "사용 가능한 업적 없음",
@@ -2847,7 +2864,6 @@
     "description": "설명",
     "reviews": "리뷰",
     "aiScore": "AI 점수",
-    "playToEarn": "Play to Earn",
     "stakingEnabled": "스테이킹 가능",
     "tournamentsEnabled": "토너먼트",
     "playNow": "지금 플레이",
@@ -2866,7 +2882,7 @@
     "fromChain": "출발 체인",
     "toChain": "도착 체인",
     "amount": "금액",
-    "fee": "브릿지 수수료",
+    "fee": "수수료",
     "estimatedTime": "예상 시간",
     "initiate": "전송 시작",
     "claim": "청구",
@@ -2961,9 +2977,7 @@
     "crossChainTransferInfo": "크로스체인 전송 정보",
     "from": "보내는 곳",
     "to": "받는 곳",
-    "status": "상태",
     "confirmations": "확인",
-    "fee": "수수료",
     "sender": "발신자",
     "recipient": "수신자",
     "sourceTxHash": "소스 TX 해시",
@@ -3036,7 +3050,31 @@
     "ai": "AI",
     "aiProcessing": "AI 처리",
     "uptime": "가동 시간",
-    "decisions": "결정",
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "이상 패턴이 감지되어 해결됨",
+      "consensus_threshold_achieved": "합의 임계값에 도달",
+      "smart_contract_execution_approved": "스마트 컨트랙트 실행 승인",
+      "block_validation_complete": "블록 검증 완료",
+      "validator_performance_analyzed": "검증자 성능 분석 완료",
+      "network_latency_adjusted": "네트워크 지연 시간 조정됨",
+      "transaction_verified_successfully": "트랜잭션 검증 성공",
+      "security_protocol_updated": "보안 프로토콜 업데이트됨",
+      "gas_fee_optimization_applied": "가스비 최적화 적용됨",
+      "shard_rebalancing_complete": "샤드 리밸런싱 완료",
+      "cross_chain_transfer_validated": "크로스체인 전송 검증됨",
+      "stake_distribution_optimized": "스테이크 분배 최적화됨",
+      "shard_load_balanced": "샤드 부하 분산됨",
+      "gas_fee_optimized": "가스비 최적화됨",
+      "load_balancing_complete": "부하 분산 완료",
+      "consensus_achieved": "합의 달성",
+      "validator_rotation_complete": "검증자 로테이션 완료",
+      "block_finalized": "블록 최종 확정됨",
+      "transaction_batch_processed": "트랜잭션 배치 처리됨",
+      "network_optimization_applied": "네트워크 최적화 적용됨",
+      "security_check_passed": "보안 검사 통과",
+      "resource_allocation_optimized": "리소스 할당 최적화됨",
+      "crossshard_message_routed": "크로스샤드 메시지 라우팅됨"
+    },
     "actions": "작업",
     "operations": "운영",
     "accuracy": "정확도",
@@ -3072,31 +3110,6 @@
       "strategic": "전략",
       "tactical": "전술",
       "operational": "운영"
-    },
-    "decisions": {
-      "anomaly_pattern_detected_and_resolved": "이상 패턴이 감지되어 해결됨",
-      "consensus_threshold_achieved": "합의 임계값에 도달",
-      "smart_contract_execution_approved": "스마트 컨트랙트 실행 승인",
-      "block_validation_complete": "블록 검증 완료",
-      "validator_performance_analyzed": "검증자 성능 분석 완료",
-      "network_latency_adjusted": "네트워크 지연 시간 조정됨",
-      "transaction_verified_successfully": "트랜잭션 검증 성공",
-      "security_protocol_updated": "보안 프로토콜 업데이트됨",
-      "gas_fee_optimization_applied": "가스비 최적화 적용됨",
-      "shard_rebalancing_complete": "샤드 리밸런싱 완료",
-      "cross_chain_transfer_validated": "크로스체인 전송 검증됨",
-      "stake_distribution_optimized": "스테이크 분배 최적화됨",
-      "shard_load_balanced": "샤드 부하 분산됨",
-      "gas_fee_optimized": "가스비 최적화됨",
-      "load_balancing_complete": "부하 분산 완료",
-      "consensus_achieved": "합의 달성",
-      "validator_rotation_complete": "검증자 로테이션 완료",
-      "block_finalized": "블록 최종 확정됨",
-      "transaction_batch_processed": "트랜잭션 배치 처리됨",
-      "network_optimization_applied": "네트워크 최적화 적용됨",
-      "security_check_passed": "보안 검사 통과",
-      "resource_allocation_optimized": "리소스 할당 최적화됨",
-      "crossshard_message_routed": "크로스샤드 메시지 라우팅됨"
     },
     "categories": {
       "security": "보안",
@@ -4157,7 +4170,7 @@
     "generateReport": "보고서 생성",
     "downloadReport": "보고서 다운로드",
     "dashboard": {
-    "technicalDetails": "Technical Details",
+      "technicalDetails": "Technical Details",
       "title": "운영자 포털",
       "subtitle": "TBURN 네트워크 관리를 위한 엔터프라이즈 백오피스",
       "autoRefresh": "자동",
@@ -4375,7 +4388,6 @@
       "validator": "검증자",
       "reason": "사유",
       "amount": "금액",
-      "date": "날짜",
       "resolved": "해결됨",
       "noSlashingEvents": "슬래싱 이벤트 없음",
       "applicationApproved": "신청이 승인되었습니다",
@@ -4485,8 +4497,6 @@
       "rejectionReasonLabel": "거부 사유 (선택)",
       "rejectionReasonPlaceholder": "거부하는 경우 사유를 입력하세요...",
       "markAsUnderReview": "검토 중으로 표시",
-      "reject": "거부",
-      "approve": "승인",
       "confirmSlash": "슬래시 확인",
       "doubleSign": "이중 서명",
       "invalidBlock": "무효 블록",
@@ -4832,39 +4842,7 @@
         "quarterlyValidatorReport": "분기별 검증자 보고서"
       },
       "complianceTab": "컴플라이언스",
-      "compliance": {
-        "categories": {
-          "kycAml": "KYC/AML",
-          "dataProtection": "데이터 보호",
-          "financialReporting": "재무 보고",
-          "networkSecurity": "네트워크 보안",
-          "operational": "운영"
-        },
-        "requirements": {
-          "identityVerification": "모든 멤버는 30일 이내에 신원 확인을 완료해야 합니다",
-          "sarFiling": "의심 활동 보고서(SAR)는 72시간 이내에 제출해야 합니다",
-          "gdprCompliance": "EU 멤버 데이터 처리에 대한 GDPR 준수",
-          "encryptionAtRest": "모든 민감한 데이터에 대한 저장 시 암호화",
-          "quarterlyStatements": "분기별 재무제표를 규제 기관에 제출",
-          "annualAudit": "인증된 제3자에 의한 연간 감사",
-          "multiSig": "트레저리 거래에 대한 다중 서명 요구",
-          "validatorKyc": "위원회 멤버십을 위한 검증자 KYC",
-          "disasterRecovery": "분기별 재해 복구 계획 테스트",
-          "incidentResponse": "1시간 이내 보안 사고 대응"
-        },
-        "notes": {
-          "complianceRate": "98.5% 준수율",
-          "sarFiledOnTime": "모든 SAR이 정시에 제출됨",
-          "annualAuditPassed": "연간 감사 통과",
-          "aesEncryption": "AES-256 암호화 확인됨",
-          "q4ReportPreparation": "2025년 4분기 보고서 준비 중",
-          "auditCleanOpinion": "2024년 감사 완료 - 적정 의견",
-          "multiSigActive": "3/5 다중서명 활성화",
-          "validatorsVerified": "125명의 검증자 모두 확인됨",
-          "nextTestScheduled": "12월에 다음 테스트 예정",
-          "monitoringActive": "24/7 모니터링 활성화"
-        }
-      },
+      "compliance": "규정 준수",
       "weeklyReports": "주간 보고서",
       "dailyReports": "일간 보고서",
       "automatedReportDesc": "자동화된 보고서 생성 일정",
@@ -4875,7 +4853,6 @@
         "quarterly": "분기별"
       },
       "schedules": "일정",
-      "compliance": "규정 준수",
       "totalReports": "총 보고서",
       "draft": "초안",
       "pendingReview": "검토 대기",
@@ -5873,7 +5850,68 @@
     "title": "거버넌스",
     "subtitle": "AI 분석을 통한 탈중앙화 거버넌스",
     "overview": "개요",
-    "proposals": "제안",
+    "proposals": {
+      "prop-001": {
+        "title": "소각률을 20%에서 25%로 인상",
+        "description": "이 제안은 일일 배출 소각률을 20%에서 25%로 인상하여 디플레이션을 가속화하고 장기 가격 안정성을 지원하는 것을 목표로 합니다.",
+        "aiRecommendation": "이 제안은 중간 정도의 경제적 위험이 있지만 커뮤니티 지지가 강합니다. 30일에 걸친 단계적 구현을 고려하세요.",
+        "risks": [
+          "단기 가격 변동성",
+          "유동성 인센티브 감소"
+        ],
+        "keyFactors": [
+          "강력한 검증자 지지",
+          "유사한 제안이 이전에 통과됨",
+          "긍정적인 커뮤니티 정서"
+        ]
+      },
+      "prop-002": {
+        "title": "zkSync 브릿지 지원 추가",
+        "description": "AI 위험 평가를 통해 zkSync Era를 TBURN 크로스체인 브릿지의 지원 체인으로 통합하는 제안.",
+        "aiRecommendation": "zkSync 통합은 기술적으로 실현 가능하며 복잡도는 중간입니다. 배포 전 보안 감사를 권장합니다.",
+        "risks": [
+          "신기술 위험",
+          "통합 복잡성",
+          "유동성 분산"
+        ],
+        "keyFactors": [
+          "기술적 복잡성에 대한 우려",
+          "zkSync 생태계의 강력한 성장",
+          "개발자 커뮤니티 관심"
+        ]
+      },
+      "prop-003": {
+        "title": "티어 1 검증자 최소 스테이크 감소",
+        "description": "검증자 탈중앙화를 촉진하기 위해 티어 1 검증자 최소 스테이크를 200,000 TBURN에서 150,000 TBURN으로 낮춥니다.",
+        "aiRecommendation": "스테이크 요구 사항 감소는 AI 평판 시스템을 고려할 때 보안에 미치는 영향을 최소화하면서 탈중앙화를 촉진합니다.",
+        "risks": [
+          "검증자 수 약간 증가",
+          "보상의 경미한 희석"
+        ],
+        "keyFactors": []
+      },
+      "prop-004": {
+        "title": "AI 기반 가스비 최적화 구현",
+        "description": "네트워크 혼잡도에 따라 가스비를 동적으로 조정하는 AI 모델을 배포하여 저트래픽 기간 비용을 절감합니다.",
+        "aiRecommendation": "",
+        "risks": [],
+        "keyFactors": []
+      },
+      "prop-005": {
+        "title": "양자 내성 서명 업그레이드",
+        "description": "모든 검증자 작업에 대해 CRYSTALS-Dilithium + ED25519 하이브리드 서명으로 필수 업그레이드.",
+        "aiRecommendation": "경제적 영향을 최소화한 중요한 보안 업그레이드. 포스트 양자 보호를 위해 강력히 권장됩니다.",
+        "risks": [
+          "전환 기간 복잡성",
+          "약간의 성능 오버헤드"
+        ],
+        "keyFactors": [
+          "보안 중심 커뮤니티",
+          "단점 최소화",
+          "명확한 기술적 이점"
+        ]
+      }
+    },
     "voting": "투표",
     "treasury": "트레저리",
     "aiInsights": "AI 인사이트",
@@ -6000,43 +6038,6 @@
     "prediction": {
       "for": "찬성",
       "against": "반대"
-    },
-    "proposals": {
-      "prop-001": {
-        "title": "소각률을 20%에서 25%로 인상",
-        "description": "이 제안은 일일 배출 소각률을 20%에서 25%로 인상하여 디플레이션을 가속화하고 장기 가격 안정성을 지원하는 것을 목표로 합니다.",
-        "aiRecommendation": "이 제안은 중간 정도의 경제적 위험이 있지만 커뮤니티 지지가 강합니다. 30일에 걸친 단계적 구현을 고려하세요.",
-        "risks": ["단기 가격 변동성", "유동성 인센티브 감소"],
-        "keyFactors": ["강력한 검증자 지지", "유사한 제안이 이전에 통과됨", "긍정적인 커뮤니티 정서"]
-      },
-      "prop-002": {
-        "title": "zkSync 브릿지 지원 추가",
-        "description": "AI 위험 평가를 통해 zkSync Era를 TBURN 크로스체인 브릿지의 지원 체인으로 통합하는 제안.",
-        "aiRecommendation": "zkSync 통합은 기술적으로 실현 가능하며 복잡도는 중간입니다. 배포 전 보안 감사를 권장합니다.",
-        "risks": ["신기술 위험", "통합 복잡성", "유동성 분산"],
-        "keyFactors": ["기술적 복잡성에 대한 우려", "zkSync 생태계의 강력한 성장", "개발자 커뮤니티 관심"]
-      },
-      "prop-003": {
-        "title": "티어 1 검증자 최소 스테이크 감소",
-        "description": "검증자 탈중앙화를 촉진하기 위해 티어 1 검증자 최소 스테이크를 200,000 TBURN에서 150,000 TBURN으로 낮춥니다.",
-        "aiRecommendation": "스테이크 요구 사항 감소는 AI 평판 시스템을 고려할 때 보안에 미치는 영향을 최소화하면서 탈중앙화를 촉진합니다.",
-        "risks": ["검증자 수 약간 증가", "보상의 경미한 희석"],
-        "keyFactors": []
-      },
-      "prop-004": {
-        "title": "AI 기반 가스비 최적화 구현",
-        "description": "네트워크 혼잡도에 따라 가스비를 동적으로 조정하는 AI 모델을 배포하여 저트래픽 기간 비용을 절감합니다.",
-        "aiRecommendation": "",
-        "risks": [],
-        "keyFactors": []
-      },
-      "prop-005": {
-        "title": "양자 내성 서명 업그레이드",
-        "description": "모든 검증자 작업에 대해 CRYSTALS-Dilithium + ED25519 하이브리드 서명으로 필수 업그레이드.",
-        "aiRecommendation": "경제적 영향을 최소화한 중요한 보안 업그레이드. 포스트 양자 보호를 위해 강력히 권장됩니다.",
-        "risks": ["전환 기간 복잡성", "약간의 성능 오버헤드"],
-        "keyFactors": ["보안 중심 커뮤니티", "단점 최소화", "명확한 기술적 이점"]
-      }
     }
   },
   "burn": {
