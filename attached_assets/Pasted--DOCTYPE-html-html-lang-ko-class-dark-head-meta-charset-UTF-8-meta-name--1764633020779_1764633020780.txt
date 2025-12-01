@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Activities | TBurn Chain</title>
+    <meta name="description" content="Join TBurn Chain community events, hackathons, and conferences.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            yellow: '#ffd700',
+                            red: '#ff0055',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(112, 0, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(112, 0, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0a0;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(112, 0, 255, 0.2);
+            border-color: #7000ff;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(112, 0, 255, 0.2);
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 99px;
+            height: 6px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Developers</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan">Community</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+                
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-0 left-1/4 w-[600px] h-[500px] bg-cyber-purple/10 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-5xl relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-cyan mb-6">
+                    <i class="fas fa-calendar-alt"></i> COMMUNITY_EVENTS
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Events & <span class="text-gradient">Activities</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
+                    Join TBurn Chain community events, hackathons, and conferences. <br>
+                    Connect with developers and build the future of trust together.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-8 px-6 border-b border-white/5 bg-black/40 sticky top-16 z-40 backdrop-blur-md">
+            <div class="container mx-auto max-w-7xl flex items-center gap-4 overflow-x-auto no-scrollbar">
+                <i class="fas fa-filter text-gray-500"></i>
+                <button class="filter-btn active">All Events</button>
+                <button class="filter-btn">Hackathon</button>
+                <button class="filter-btn">AMA</button>
+                <button class="filter-btn">Webinar</button>
+                <button class="filter-btn">Meetup</button>
+                <button class="filter-btn">Conference</button>
+            </div>
+        </section>
+
+        <section class="py-16 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+                    <i class="fas fa-rocket text-cyber-purple"></i> Featured Events
+                </h2>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="spotlight-card rounded-2xl p-0 border border-white/10 overflow-hidden group">
+                        <div class="h-48 bg-gradient-to-r from-cyber-purple to-blue-900 relative p-6 flex flex-col justify-between">
+                            <div class="absolute inset-0 bg-black/20"></div>
+                            <div class="relative z-10 flex justify-between items-start">
+                                <span class="bg-white/90 text-black text-xs font-bold px-2 py-1 rounded shadow-lg flex items-center gap-1">
+                                    <i class="fas fa-rocket"></i> Launch Event
+                                </span>
+                                <span class="bg-cyber-green text-black text-xs font-bold px-2 py-1 rounded shadow-lg">Online</span>
+                            </div>
+                            <div class="relative z-10 text-white">
+                                <h3 class="text-2xl font-bold mb-1">V4 Mainnet Launch</h3>
+                                <p class="text-sm opacity-90 font-mono"><i class="far fa-calendar mr-2"></i>12/05/2024 • 20:00 KST</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                                Celebrate the official mainnet launch of TBurn Chain V4. Live demo, Q&A session with the founders, and a special airdrop event for attendees.
+                            </p>
+                            
+                            <div class="mb-6">
+                                <div class="flex justify-between text-xs mb-2">
+                                    <span class="text-gray-500">Capacity</span>
+                                    <span class="text-cyber-cyan font-mono">8,542 / 10,000</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill bg-cyber-cyan" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <button class="flex-1 py-2 rounded bg-cyber-cyan text-black font-bold text-sm hover:bg-cyan-400 transition">Register Now</button>
+                                <button class="px-4 py-2 rounded border border-white/20 text-white hover:bg-white/10 transition"><i class="far fa-bell"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-2xl p-0 border border-white/10 overflow-hidden group">
+                        <div class="h-48 bg-gradient-to-r from-green-600 to-emerald-900 relative p-6 flex flex-col justify-between">
+                            <div class="absolute inset-0 bg-black/20"></div>
+                            <div class="relative z-10 flex justify-between items-start">
+                                <span class="bg-white/90 text-black text-xs font-bold px-2 py-1 rounded shadow-lg flex items-center gap-1">
+                                    <i class="fas fa-code"></i> Hackathon
+                                </span>
+                                <span class="bg-cyber-green text-black text-xs font-bold px-2 py-1 rounded shadow-lg">Online</span>
+                            </div>
+                            <div class="relative z-10 text-white">
+                                <h3 class="text-2xl font-bold mb-1">TBurn DeFi Challenge</h3>
+                                <p class="text-sm opacity-90 font-mono"><i class="far fa-calendar mr-2"></i>01/10/2025 • 48 Hours</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                                Build innovative DeFi applications on TBurn Chain and compete for $100,000 in prizes. Connect with mentors and VCs.
+                            </p>
+                            
+                            <div class="mb-6">
+                                <div class="flex justify-between text-xs mb-2">
+                                    <span class="text-gray-500">Registrations</span>
+                                    <span class="text-cyber-green font-mono">423 / 1,000</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill bg-cyber-green" style="width: 42%"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <button class="flex-1 py-2 rounded bg-cyber-green text-black font-bold text-sm hover:bg-green-400 transition">Apply Now</button>
+                                <button class="px-4 py-2 rounded border border-white/20 text-white hover:bg-white/10 transition"><i class="far fa-bell"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 px-6 bg-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+                    <i class="far fa-calendar-alt text-gray-400"></i> Upcoming Events
+                </h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-amber-500/20 text-amber-500 border border-amber-500/30 px-2 py-1 rounded text-xs font-bold">AMA Session</div>
+                            <span class="text-gray-500 text-xs font-mono">Online</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Founders AMA Session</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Direct Q&A with Changmin Kim (CEO) & Junhyuk Lee (CTO). Ask anything about the roadmap.</p>
+                        <div class="flex items-center gap-3 text-xs text-gray-500 font-mono mb-4">
+                            <span><i class="far fa-calendar"></i> 12/20</span>
+                            <span><i class="far fa-clock"></i> 21:00 KST</span>
+                        </div>
+                        <button class="w-full py-2 rounded border border-white/20 text-white text-xs hover:bg-white/10 transition">Set Reminder</button>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30 px-2 py-1 rounded text-xs font-bold">Webinar</div>
+                            <span class="text-gray-500 text-xs font-mono">Zoom</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Trust Score API Guide</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Step-by-step developer guide to integrating Trust Score API into your dApp.</p>
+                        <div class="flex items-center gap-3 text-xs text-gray-500 font-mono mb-4">
+                            <span><i class="far fa-calendar"></i> 12/10</span>
+                            <span><i class="far fa-clock"></i> 15:00 KST</span>
+                        </div>
+                        <button class="w-full py-2 rounded border border-white/20 text-white text-xs hover:bg-white/10 transition">Register</button>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-cyber-purple/20 text-cyber-purple border border-cyber-purple/30 px-2 py-1 rounded text-xs font-bold">Meetup</div>
+                            <span class="text-gray-500 text-xs font-mono">Seoul</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Seoul Blockchain Meetup</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Offline networking event at COEX. Presentations, food, and networking.</p>
+                        <div class="flex items-center gap-3 text-xs text-gray-500 font-mono mb-4">
+                            <span><i class="far fa-calendar"></i> 12/15</span>
+                            <span><i class="far fa-clock"></i> 19:00 KST</span>
+                        </div>
+                        <button class="w-full py-2 rounded border border-white/20 text-white text-xs hover:bg-white/10 transition">RSVP (Limited)</button>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-red-500/20 text-red-500 border border-red-500/30 px-2 py-1 rounded text-xs font-bold">Seminar</div>
+                            <span class="text-gray-500 text-xs font-mono">Online</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Triple-Band AI Deep Dive</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Technical explanation of how our 3-tier AI system evaluates project reliability.</p>
+                        <div class="flex items-center gap-3 text-xs text-gray-500 font-mono mb-4">
+                            <span><i class="far fa-calendar"></i> 01/15</span>
+                            <span><i class="far fa-clock"></i> 16:00 KST</span>
+                        </div>
+                        <button class="w-full py-2 rounded border border-white/20 text-white text-xs hover:bg-white/10 transition">Register</button>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-cyber-yellow/20 text-cyber-yellow border border-cyber-yellow/30 px-2 py-1 rounded text-xs font-bold">Training</div>
+                            <span class="text-gray-500 text-xs font-mono">Online</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Validator Node Ops</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Technical workshop on setting up and maintaining a secure validator node.</p>
+                        <div class="flex items-center gap-3 text-xs text-gray-500 font-mono mb-4">
+                            <span><i class="far fa-calendar"></i> 01/25</span>
+                            <span><i class="far fa-clock"></i> 14:00 KST</span>
+                        </div>
+                        <button class="w-full py-2 rounded border border-white/20 text-white text-xs hover:bg-white/10 transition">Register</button>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10 flex flex-col bg-gradient-to-br from-blue-900/20 to-transparent">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded text-xs font-bold">Conference</div>
+                            <span class="text-gray-500 text-xs font-mono">Singapore</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Future of Trust 2025</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Global conference at Marina Bay Sands. Keynotes, panels, and VIP networking.</p>
+                        <div class="flex items-center gap-3 text-xs text-gray-500 font-mono mb-4">
+                            <span><i class="far fa-calendar"></i> 02/20</span>
+                            <span><i class="far fa-clock"></i> 09:00 SGT</span>
+                        </div>
+                        <button class="w-full py-2 rounded bg-blue-600/20 text-blue-400 border border-blue-500/50 font-bold text-xs hover:bg-blue-600/40 transition">Get Tickets</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-2xl">
+                <div class="spotlight-card rounded-xl p-8 border border-accent/30 text-center bg-gradient-to-b from-accent/5 to-transparent">
+                    <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-accent">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Want to host an event?</h2>
+                    <p class="text-gray-400 mb-8">
+                        Host meetups, webinars, or hackathons with the TBurn Chain community. <br>
+                        We provide funding, swag, and marketing support.
+                    </p>
+                    <button class="px-8 py-3 rounded-lg bg-cyber-cyan text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+                        Apply to Host
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">TBurn Chain</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Learn</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Developers</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Solutions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">News</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Sub</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                    <a href="#" class="hover:text-white">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#7000ff'; /* Purple Theme for Events */
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 20000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                  ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(112, 0, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+        
+        // Filter Button Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
