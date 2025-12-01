@@ -168,11 +168,17 @@ function NeuralCanvasSignup() {
   );
 }
 
+const memberTierOptions = [
+  { value: "basic_user", label: "Basic User", description: "Standard network access and transaction capabilities" },
+  { value: "delegated_staker", label: "Delegated Staker", description: "Delegate tokens to validators and earn rewards" },
+] as const;
+
 const signupSchema = z.object({
   username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username must be at most 20 characters"),
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
   confirmPassword: z.string(),
+  memberTier: z.enum(["basic_user", "delegated_staker"]),
   terms: z.boolean().refine(val => val === true, "You must accept the terms"),
 }).refine(data => data.password === data.confirmPassword, {
   message: "Passwords do not match",
@@ -216,6 +222,7 @@ export default function Signup() {
       email: "",
       password: "",
       confirmPassword: "",
+      memberTier: "basic_user",
       terms: false,
     },
   });
@@ -246,6 +253,7 @@ export default function Signup() {
         username: data.username,
         email: data.email,
         password: data.password,
+        memberTier: data.memberTier,
       });
 
       await queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
@@ -432,6 +440,58 @@ export default function Signup() {
                       )}
                     />
                   </div>
+                </div>
+
+                {/* Member Tier Selection */}
+                <div className="space-y-2">
+                  <label className="text-xs font-mono text-gray-500 ml-1">NODE CLASS</label>
+                  <FormField
+                    control={form.control}
+                    name="memberTier"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {memberTierOptions.map((option) => (
+                              <div
+                                key={option.value}
+                                onClick={() => field.onChange(option.value)}
+                                data-testid={`tier-${option.value}`}
+                                className={`relative p-4 rounded-lg border cursor-pointer transition-all duration-200 ${
+                                  field.value === option.value
+                                    ? "border-cyan-400 bg-cyan-400/10 shadow-[0_0_15px_rgba(0,240,255,0.15)]"
+                                    : "border-white/10 bg-black/30 hover:border-white/20 hover:bg-black/40"
+                                }`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                    field.value === option.value
+                                      ? "border-cyan-400"
+                                      : "border-gray-500"
+                                  }`}>
+                                    {field.value === option.value && (
+                                      <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                                    )}
+                                  </div>
+                                  <div>
+                                    <div className={`font-semibold text-sm ${
+                                      field.value === option.value ? "text-cyan-400" : "text-white"
+                                    }`}>
+                                      {option.label}
+                                    </div>
+                                    <div className="text-xs text-gray-500 mt-0.5">
+                                      {option.description}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
 
                 {/* Terms Checkbox */}

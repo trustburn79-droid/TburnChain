@@ -324,7 +324,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Signup route
   app.post("/api/auth/signup", loginLimiter, async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, memberTier } = req.body;
     
     // Validate input
     if (!username || !email || !password) {
@@ -338,6 +338,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (password.length < 8) {
       return res.status(400).json({ error: "Password must be at least 8 characters" });
     }
+    
+    // Validate memberTier (only basic_user and delegated_staker allowed for signup)
+    const allowedTiers = ["basic_user", "delegated_staker"];
+    const selectedTier = allowedTiers.includes(memberTier) ? memberTier : "basic_user";
     
     try {
       // Check if email already exists
@@ -361,7 +365,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         encryptedEmail: email, // In production, encrypt this
         passwordHash,
         entityType: "individual",
-        memberTier: "basic_user",
+        memberTier: selectedTier,
         memberStatus: "active",
         kycLevel: "none",
         amlRiskScore: 0,
