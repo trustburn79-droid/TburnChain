@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Hub | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            yellow: '#ffd700',
+                            red: '#ff0055',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(0, 240, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(0, 240, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .glow-btn {
+            background: linear-gradient(90deg, #7000ff, #00f0ff);
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 15px rgba(112, 0, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Terminal Style */
+        .terminal-window {
+            background: #0a0a0f;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .terminal-header {
+            background: #1a1a20;
+            padding: 8px 12px;
+            display: flex;
+            gap: 6px;
+        }
+        .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+        
+        .code-line {
+            font-family: 'JetBrains Mono', monospace;
+            padding: 4px 0;
+            border-left: 2px solid transparent;
+        }
+        .code-line:hover {
+            border-left-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="learn.html" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan">Developers</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-20 left-1/4 w-[500px] h-[500px] bg-cyber-purple/10 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-4xl text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-cyan mb-6">
+                    <i class="fas fa-terminal"></i> V4 SDK & API READY
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Developer <span class="text-gradient">Hub</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
+                    Build next-generation trust-based applications. Access comprehensive development tools, SDKs, and APIs for the TBurn Chain V4 ecosystem.
+                </p>
+                <div class="flex justify-center gap-4">
+                    <button class="glow-btn px-8 py-3 rounded-lg flex items-center gap-2">
+                        Get Started <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2">
+                        <i class="fas fa-book"></i> View Docs
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-white/5">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-2">Quick Start</h2>
+                    <p class="text-gray-400">Deploy your first dApp in 5 minutes</p>
+                </div>
+
+                <div class="terminal-window shadow-2xl shadow-cyber-purple/10">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                    </div>
+                    <div class="p-6 font-mono text-sm text-gray-300 space-y-4">
+                        <div class="code-line flex gap-4">
+                            <span class="text-gray-500 select-none">1</span>
+                            <div>
+                                <span class="text-cyber-green"># Install CLI</span><br>
+                                <span class="text-cyber-cyan">npm</span> install -g @burnchain/cli
+                            </div>
+                        </div>
+                        <div class="code-line flex gap-4">
+                            <span class="text-gray-500 select-none">2</span>
+                            <div>
+                                <span class="text-cyber-green"># Create Project</span><br>
+                                <span class="text-cyber-cyan">burn</span> init my-dapp --template=react
+                            </div>
+                        </div>
+                        <div class="code-line flex gap-4">
+                            <span class="text-gray-500 select-none">3</span>
+                            <div>
+                                <span class="text-cyber-green"># Run Dev Server</span><br>
+                                <span class="text-cyber-cyan">cd</span> my-dapp && <span class="text-cyber-cyan">burn</span> dev
+                            </div>
+                        </div>
+                        <div class="code-line flex gap-4">
+                            <span class="text-gray-500 select-none">4</span>
+                            <div>
+                                <span class="text-cyber-green"># Deploy to Mainnet</span><br>
+                                <span class="text-cyber-cyan">burn</span> deploy --network=mainnet
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-2">Official SDKs</h2>
+                    <p class="text-gray-400">Native support for your favorite languages</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="spotlight-card rounded-xl p-6 group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-3xl text-yellow-400"><i class="fab fa-js"></i></div>
+                            <span class="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white">v4.2.1</span>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">JavaScript / TypeScript</h3>
+                        <div class="bg-black/30 p-2 rounded text-xs font-mono text-cyber-cyan mb-3">npm install @burnchain/sdk</div>
+                        <p class="text-xs text-gray-500">1.2M/mo downloads</p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-3xl text-blue-400"><i class="fab fa-python"></i></div>
+                            <span class="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white">v4.1.0</span>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Python</h3>
+                        <div class="bg-black/30 p-2 rounded text-xs font-mono text-cyber-cyan mb-3">pip install burnchain-py</div>
+                        <p class="text-xs text-gray-500">450K/mo downloads</p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-3xl text-orange-500"><i class="fab fa-rust"></i></div>
+                            <span class="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white">v4.0.3</span>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Rust</h3>
+                        <div class="bg-black/30 p-2 rounded text-xs font-mono text-cyber-cyan mb-3">cargo add burnchain-rs</div>
+                        <p class="text-xs text-gray-500">280K/mo downloads</p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-3xl text-cyan-400"><i class="fab fa-golang"></i></div>
+                            <span class="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white">v4.0.2</span>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Go</h3>
+                        <div class="bg-black/30 p-2 rounded text-xs font-mono text-cyber-cyan mb-3">go get github.com/burnchain/go</div>
+                        <p class="text-xs text-gray-500">180K/mo downloads</p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-3xl text-red-400"><i class="fab fa-java"></i></div>
+                            <span class="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white">v4.0.1</span>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Java / Kotlin</h3>
+                        <div class="bg-black/30 p-2 rounded text-xs font-mono text-cyber-cyan mb-3">implementation 'burnchain-jvm'</div>
+                        <p class="text-xs text-gray-500">120K/mo downloads</p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="text-3xl text-orange-400"><i class="fab fa-swift"></i></div>
+                            <span class="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white">v4.0.0</span>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Swift</h3>
+                        <div class="bg-black/30 p-2 rounded text-xs font-mono text-cyber-cyan mb-3">pod 'BurnChainSwift'</div>
+                        <p class="text-xs text-gray-500">85K/mo downloads</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-white/5 border-y border-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-2">API Reference</h2>
+                    <p class="text-gray-400">RESTful API & WebSocket Streaming</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="spotlight-card rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fas fa-cube text-cyber-purple"></i> Blockchain API
+                        </h3>
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30">GET</span>
+                                <span class="text-gray-300">/v4/blocks/{hash}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30">GET</span>
+                                <span class="text-gray-300">/v4/transactions/{txId}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">POST</span>
+                                <span class="text-gray-300">/v4/transactions/submit</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30">GET</span>
+                                <span class="text-gray-300">/v4/accounts/{address}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fas fa-coins text-cyber-cyan"></i> DeFi API
+                        </h3>
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30">GET</span>
+                                <span class="text-gray-300">/v4/defi/pools</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">POST</span>
+                                <span class="text-gray-300">/v4/defi/swap</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30">GET</span>
+                                <span class="text-gray-300">/v4/defi/lending/markets</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">POST</span>
+                                <span class="text-gray-300">/v4/defi/staking/stake</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fas fa-brain text-cyber-green"></i> AI API
+                        </h3>
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30">GET</span>
+                                <span class="text-gray-300">/v4/ai/trust-score/{id}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">POST</span>
+                                <span class="text-gray-300">/v4/ai/analyze</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded border border-green-500/30">GET</span>
+                                <span class="text-gray-300">/v4/ai/predictions</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded border border-purple-500/30">WS</span>
+                                <span class="text-gray-300">/v4/ai/stream</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-7xl">
+                
+                <div class="mb-20">
+                    <h2 class="text-3xl font-bold text-white mb-8 text-center">Development Tools</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <a href="#" class="spotlight-card p-6 rounded-xl flex items-center gap-4 group">
+                            <div class="w-12 h-12 rounded bg-white/5 flex items-center justify-center text-cyber-cyan"><i class="fas fa-terminal"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">Burn CLI</h4>
+                                <p class="text-xs text-gray-400">Project init & deploy</p>
+                            </div>
+                            <i class="fas fa-arrow-right ml-auto text-gray-600 group-hover:text-white"></i>
+                        </a>
+                        <a href="#" class="spotlight-card p-6 rounded-xl flex items-center gap-4 group">
+                            <div class="w-12 h-12 rounded bg-white/5 flex items-center justify-center text-cyber-purple"><i class="fas fa-vial"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">Test Framework</h4>
+                                <p class="text-xs text-gray-400">Unit & E2E testing</p>
+                            </div>
+                            <i class="fas fa-arrow-right ml-auto text-gray-600 group-hover:text-white"></i>
+                        </a>
+                        <a href="#" class="spotlight-card p-6 rounded-xl flex items-center gap-4 group">
+                            <div class="w-12 h-12 rounded bg-white/5 flex items-center justify-center text-cyber-green"><i class="fas fa-server"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">Local Devnet</h4>
+                                <p class="text-xs text-gray-400">Simulator environment</p>
+                            </div>
+                            <i class="fas fa-arrow-right ml-auto text-gray-600 group-hover:text-white"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="spotlight-card rounded-2xl p-8 border border-cyber-green/30 bg-cyber-green/5 text-center">
+                    <h2 class="text-3xl font-bold text-white mb-2">Developer Grants Program</h2>
+                    <p class="text-gray-400 mb-8">We support projects that expand the TBurn Chain ecosystem.</p>
+                    
+                    <div class="inline-block px-6 py-2 rounded-full bg-cyber-green/20 text-cyber-green font-bold text-2xl mb-8">
+                        $50M Total Grant Fund
+                    </div>
+
+                    <div class="grid md:grid-cols-4 gap-4 text-left">
+                        <div class="p-4 bg-black/40 rounded border border-white/10">
+                            <div class="text-xs text-cyber-green font-bold uppercase mb-1">Seed</div>
+                            <div class="text-xl font-bold text-white">$5K - $25K</div>
+                            <p class="text-xs text-gray-500 mt-1">Idea Validation</p>
+                        </div>
+                        <div class="p-4 bg-black/40 rounded border border-white/10">
+                            <div class="text-xs text-cyber-green font-bold uppercase mb-1">Growth</div>
+                            <div class="text-xl font-bold text-white">$25K - $100K</div>
+                            <p class="text-xs text-gray-500 mt-1">MVP Launch</p>
+                        </div>
+                        <div class="p-4 bg-black/40 rounded border border-white/10">
+                            <div class="text-xs text-cyber-green font-bold uppercase mb-1">Scale</div>
+                            <div class="text-xl font-bold text-white">$100K - $500K</div>
+                            <p class="text-xs text-gray-500 mt-1">Expansion</p>
+                        </div>
+                        <div class="p-4 bg-black/40 rounded border border-white/10">
+                            <div class="text-xs text-cyber-green font-bold uppercase mb-1">Enterprise</div>
+                            <div class="text-xl font-bold text-white">$500K+</div>
+                            <p class="text-xs text-gray-500 mt-1">Infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Whitepaper</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Community</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Forum</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Events</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Go</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 22000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

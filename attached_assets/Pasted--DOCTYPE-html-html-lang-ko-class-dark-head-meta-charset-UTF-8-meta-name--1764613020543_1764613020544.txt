@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Roadmap | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(112, 0, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(112, 0, 255, 0.3); }
+
+        /* Timeline Specifics */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #00f0ff, #7000ff, rgba(255,255,255,0.1));
+            z-index: 0;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #050505;
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 10px #00f0ff;
+            z-index: 10;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 3. Text Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="learn.html" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-purple">Roadmap</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-20 left-1/4 w-[500px] h-[500px] bg-cyber-cyan/10 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-4xl text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-cyan mb-6">
+                    <i class="fas fa-map"></i> STRATEGIC_PLAN_V4
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Strategic <span class="text-gradient">Roadmap</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                    Our journey to build the world's first trust-based Layer 1 blockchain. From initialization to global adoption.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 overflow-hidden">
+            <div class="container mx-auto max-w-5xl relative">
+                <div class="timeline-line hidden md:block"></div>
+
+                <div class="space-y-12 md:space-y-24">
+                    
+                    <div class="relative grid md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right order-2 md:order-1">
+                            <div class="spotlight-card rounded-xl p-8 border border-cyber-cyan/30">
+                                <div class="flex items-center justify-between md:justify-end gap-4 mb-4">
+                                    <span class="px-2 py-1 rounded bg-cyber-cyan/20 text-cyber-cyan text-xs font-mono font-bold border border-cyber-cyan/30">IN_PROGRESS</span>
+                                    <h3 class="text-2xl font-bold text-white">2024 Q4</h3>
+                                </div>
+                                <h4 class="text-xl text-cyber-cyan mb-4">Preparation Phase</h4>
+                                <ul class="space-y-2 text-sm text-gray-400 text-left md:text-right">
+                                    <li class="flex items-center gap-2 md:justify-end">Core protocol development completed <i class="fas fa-check text-cyber-green"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end">Smart contract audit (CertiK) <i class="fas fa-check text-cyber-green"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end">Testnet v0.8 launch <i class="fas fa-check text-cyber-green"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end">Seed round $2M completed <i class="fas fa-check text-cyber-green"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end text-white">Private round $5M in progress <i class="fas fa-spinner fa-spin text-cyber-cyan"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center order-1 md:order-2 timeline-dot top-1/2"></div>
+                        <div class="md:col-span-1 order-3"></div> </div>
+
+                    <div class="relative grid md:grid-cols-2 gap-8 items-center">
+                        <div class="hidden md:block"></div> <div class="hidden md:flex justify-center timeline-dot top-1/2 !border-cyber-purple !shadow-[0_0_10px_#7000ff]"></div>
+                        <div>
+                            <div class="spotlight-card rounded-xl p-8 border border-cyber-purple/30">
+                                <div class="flex items-center justify-between gap-4 mb-4">
+                                    <h3 class="text-2xl font-bold text-white">2025 Q1</h3>
+                                    <span class="px-2 py-1 rounded bg-cyber-purple/20 text-cyber-purple text-xs font-mono font-bold border border-cyber-purple/30">UPCOMING</span>
+                                </div>
+                                <h4 class="text-xl text-cyber-purple mb-4">Launch Phase</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex items-center gap-2"><i class="far fa-circle text-gray-600"></i> Mainnet v1.0 launch (Arbitrum One)</li>
+                                    <li class="flex items-center gap-2"><i class="far fa-circle text-gray-600"></i> Public token sale ($5M target)</li>
+                                    <li class="flex items-center gap-2"><i class="far fa-circle text-gray-600"></i> Major Exchange Listings (CEX)</li>
+                                    <li class="flex items-center gap-2"><i class="far fa-circle text-gray-600"></i> Validator network setup (101 nodes)</li>
+                                    <li class="flex items-center gap-2"><i class="far fa-circle text-gray-600"></i> Developer SDK Release</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative grid md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right order-2 md:order-1">
+                            <div class="spotlight-card rounded-xl p-8">
+                                <div class="flex items-center justify-between md:justify-end gap-4 mb-4">
+                                    <span class="px-2 py-1 rounded bg-white/10 text-gray-300 text-xs font-mono font-bold">PLANNED</span>
+                                    <h3 class="text-2xl font-bold text-white">2025 Q2-Q3</h3>
+                                </div>
+                                <h4 class="text-xl text-white mb-4">Growth Phase</h4>
+                                <ul class="space-y-2 text-sm text-gray-400 text-left md:text-right">
+                                    <li class="flex items-center gap-2 md:justify-end">100 projects verified milestone <i class="fas fa-road text-gray-600"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end">Community reaches 100K members <i class="fas fa-users text-gray-600"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end">Cross-chain bridge (ETH, BSC, MATIC) <i class="fas fa-link text-gray-600"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end">AI-powered fraud detection upgrade <i class="fas fa-robot text-gray-600"></i></li>
+                                    <li class="flex items-center gap-2 md:justify-end">Mobile wallet app launch <i class="fas fa-mobile-screen text-gray-600"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center order-1 md:order-2 timeline-dot top-1/2 !border-white !bg-black !shadow-none"></div>
+                        <div class="md:col-span-1 order-3"></div>
+                    </div>
+
+                    <div class="relative grid md:grid-cols-2 gap-8 items-center">
+                        <div class="hidden md:block"></div>
+                        <div class="hidden md:flex justify-center timeline-dot top-1/2 !border-white !bg-black !shadow-none"></div>
+                        <div>
+                            <div class="spotlight-card rounded-xl p-8">
+                                <div class="flex items-center justify-between gap-4 mb-4">
+                                    <h3 class="text-2xl font-bold text-white">2026+</h3>
+                                    <span class="px-2 py-1 rounded bg-white/10 text-gray-300 text-xs font-mono font-bold">LONG_TERM</span>
+                                </div>
+                                <h4 class="text-xl text-white mb-4">Global Expansion</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex items-center gap-2"><i class="fas fa-globe text-gray-600"></i> Global university program (50 countries)</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-building-columns text-gray-600"></i> Institutional investment solutions</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-handshake text-gray-600"></i> Regulatory cooperation (SEC, MAS)</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-rocket text-gray-600"></i> Full DAO governance transition</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-white/5 border-y border-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-3xl font-bold text-white mb-12 text-center">Projected Growth Metrics</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="spotlight-card rounded-xl p-8 text-center group">
+                        <h3 class="text-2xl font-bold text-cyber-cyan mb-6">Year 1</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Verified Projects</p>
+                                <p class="text-3xl font-bold text-white font-mono">1,500</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Active Users</p>
+                                <p class="text-3xl font-bold text-white font-mono">200K</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">TVL</p>
+                                <p class="text-3xl font-bold text-white font-mono">$500M</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 text-center group border border-cyber-purple/30">
+                        <h3 class="text-2xl font-bold text-cyber-purple mb-6">Year 2</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Verified Projects</p>
+                                <p class="text-3xl font-bold text-white font-mono">6,000</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Active Users</p>
+                                <p class="text-3xl font-bold text-white font-mono">800K</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">TVL</p>
+                                <p class="text-3xl font-bold text-white font-mono">$2B</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 text-center group">
+                        <h3 class="text-2xl font-bold text-cyber-green mb-6">Year 3</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Verified Projects</p>
+                                <p class="text-3xl font-bold text-white font-mono">20,000</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">Active Users</p>
+                                <p class="text-3xl font-bold text-white font-mono">2.5M</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase">TVL</p>
+                                <p class="text-3xl font-bold text-white font-mono">$5B</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-4xl text-center">
+                <h2 class="text-3xl font-bold text-white mb-6">Build the Future with TBurn Chain</h2>
+                <p class="text-gray-400 mb-8">Join our journey and contribute to building trust in the blockchain ecosystem.</p>
+                <div class="flex gap-4 justify-center">
+                    <button class="px-8 py-3 rounded-lg bg-gradient-to-r from-cyber-cyan to-cyber-purple text-black font-bold hover:shadow-[0_0_20px_rgba(112,0,255,0.5)] transition-shadow">
+                        Join Community
+                    </button>
+                    <button class="px-8 py-3 rounded-lg border border-white/20 text-white font-bold hover:bg-white/5 transition-colors">
+                        View Developer Docs
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Whitepaper</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Community</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Forum</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Events</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Go</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 22000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
