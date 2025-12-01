@@ -383,6 +383,17 @@ export default function Login({ onLoginSuccess }: LoginProps) {
               By connecting, you agree to the{" "}
               <a href="#" className="text-cyan-400 hover:underline">Protocol Protocols</a>.
             </p>
+
+            <div className="mt-6 text-center">
+              <p className="text-xs text-gray-500">
+                Don't have a node ID?{" "}
+                <Link href="/signup">
+                  <a className="text-cyan-400 hover:text-white transition font-bold" data-testid="link-signup">
+                    Initialize Node
+                  </a>
+                </Link>
+              </p>
+            </div>
           </div>
 
           {/* Info Card */}
