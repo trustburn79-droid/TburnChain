@@ -80,7 +80,6 @@ import {
   BarChart3
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { motion, AnimatePresence } from "framer-motion";
 import type { WalletBalance } from "@shared/schema";
 
 interface WalletsResponse {
@@ -196,13 +195,9 @@ const WalletRow = forwardRef<HTMLTableRowElement, {
     : '0';
 
   return (
-    <motion.tr
+    <TableRow
       ref={ref}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.2 }}
-      className="group hover:bg-muted/50 cursor-pointer border-b"
+      className="group hover:bg-muted/50 cursor-pointer"
       onClick={() => setLocation(`/wallets/${wallet.address}`)}
       data-testid={`row-wallet-${wallet.address}`}
     >
@@ -290,7 +285,7 @@ const WalletRow = forwardRef<HTMLTableRowElement, {
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
-    </motion.tr>
+    </TableRow>
   );
 });
 
@@ -1086,17 +1081,15 @@ export default function Wallets() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <AnimatePresence mode="popLayout">
-                    {wallets.map((wallet) => (
-                      <WalletRow
-                        key={wallet.id}
-                        wallet={wallet}
-                        onViewDetails={(w) => { setSelectedWallet(w); setIsDetailOpen(true); }}
-                        onCopyAddress={copyAddress}
-                        t={t}
-                      />
-                    ))}
-                  </AnimatePresence>
+                  {wallets.map((wallet) => (
+                    <WalletRow
+                      key={wallet.id || wallet.address}
+                      wallet={wallet}
+                      onViewDetails={(w) => { setSelectedWallet(w); setIsDetailOpen(true); }}
+                      onCopyAddress={copyAddress}
+                      t={t}
+                    />
+                  ))}
                 </TableBody>
               </Table>
             </div>

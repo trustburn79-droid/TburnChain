@@ -82,7 +82,6 @@ import {
   Send
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { motion, AnimatePresence } from "framer-motion";
 import type { Transaction } from "@shared/schema";
 
 interface TransactionsResponse {
@@ -213,12 +212,8 @@ function TransactionRow({
   };
 
   return (
-    <motion.tr 
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.2 }}
-      className="cursor-pointer hover:bg-muted/50 border-b"
+    <TableRow
+      className="cursor-pointer hover:bg-muted/50"
       onClick={onClick}
       data-testid={`row-transaction-${tx.hash?.slice(0, 10) || 'unknown'}`}
     >
@@ -332,7 +327,7 @@ function TransactionRow({
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
-    </motion.tr>
+    </TableRow>
   );
 }
 
@@ -974,16 +969,14 @@ export default function Transactions() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    <AnimatePresence mode="popLayout">
-                      {transactions.map((tx) => (
-                        <TransactionRow
-                          key={tx.id}
-                          tx={tx}
-                          onClick={() => tx.hash && setLocation(`/transactions/${tx.hash}`)}
-                          t={t}
-                        />
-                      ))}
-                    </AnimatePresence>
+                    {transactions.map((tx) => (
+                      <TransactionRow
+                        key={tx.id || tx.hash}
+                        tx={tx}
+                        onClick={() => tx.hash && setLocation(`/transactions/${tx.hash}`)}
+                        t={t}
+                      />
+                    ))}
                   </TableBody>
                 </Table>
               </div>
