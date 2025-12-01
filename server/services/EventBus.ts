@@ -127,6 +127,55 @@ const CHANNEL_DEPENDENCIES: ChannelDependency[] = [
     source: 'ai.decisions',
     triggers: ['sharding.state', 'validators.state'],
     transform: (decision) => ({ decisionId: decision.id, impact: decision.impact })
+  },
+  // Token System dependencies
+  {
+    source: 'token-system.mint',
+    triggers: ['network.stats', 'wallets.balance', 'wallets.activity'],
+    transform: (mint) => ({ tokenId: mint.tokenId, amount: mint.amount, to: mint.to })
+  },
+  {
+    source: 'token-system.transfer',
+    triggers: ['wallets.balance', 'wallets.activity', 'network.stats'],
+    transform: (transfer) => ({ tokenId: transfer.tokenId, from: transfer.from, to: transfer.to, amount: transfer.amount })
+  },
+  {
+    source: 'token-system.burn',
+    triggers: ['burn.events', 'network.stats', 'wallets.balance'],
+    transform: (burn) => ({ tokenId: burn.tokenId, amount: burn.amount, totalBurned: burn.totalBurned })
+  },
+  // AI Governance dependencies
+  {
+    source: 'ai-governance.proposal',
+    triggers: ['governance.proposals', 'network.stats'],
+    transform: (proposal) => ({ proposalId: proposal.id, status: proposal.status, aiScore: proposal.aiAnalysisScore })
+  },
+  {
+    source: 'ai-governance.vote',
+    triggers: ['governance.votes', 'ai-governance.proposal', 'wallets.activity'],
+    transform: (vote) => ({ proposalId: vote.proposalId, voter: vote.voter, weight: vote.weight })
+  },
+  // Admin dependencies
+  {
+    source: 'admin.audit',
+    triggers: ['network.stats', 'admin.health'],
+    transform: (audit) => ({ action: audit.action, admin: audit.adminId, timestamp: audit.timestamp })
+  },
+  {
+    source: 'admin.health',
+    triggers: ['network.stats', 'validators.state'],
+    transform: (health) => ({ status: health.status, healthScore: health.healthScore })
+  },
+  // Operator dependencies
+  {
+    source: 'operator.node-status',
+    triggers: ['validators.state', 'network.stats', 'admin.health'],
+    transform: (node) => ({ nodeId: node.nodeId, status: node.status, uptime: node.uptime })
+  },
+  {
+    source: 'operator.task',
+    triggers: ['admin.audit', 'operator.node-status'],
+    transform: (task) => ({ taskId: task.taskId, operatorId: task.operatorId, status: task.status })
   }
 ];
 
@@ -143,21 +192,41 @@ class EventBusService {
 
   private initializeChannels(): void {
     const channels: EventChannel[] = [
+      // Core Network
       'network.blocks', 'network.transactions', 'network.stats',
+      // Staking Module
       'staking.state', 'staking.rewards', 'staking.positions',
+      // DEX Module
       'dex.swaps', 'dex.liquidity', 'dex.prices',
+      // Lending Module
       'lending.markets', 'lending.positions', 'lending.liquidations',
+      // NFT Module
       'nft.listings', 'nft.sales',
+      // Bridge Module
       'bridge.transfers', 'burn.events',
+      // Validators
       'validators.state', 'validators.rewards',
+      // Wallets
       'wallets.balance', 'wallets.activity',
+      // Governance
       'governance.proposals', 'governance.votes',
-      'ai.decisions', 'sharding.state', 'cross-shard.messages'
+      // AI & Sharding
+      'ai.decisions', 'sharding.state', 'cross-shard.messages',
+      // Token System (TBC-20, TBC-721, TBC-1155)
+      'token-system.mint', 'token-system.transfer', 'token-system.burn',
+      // AI Governance
+      'ai-governance.proposal', 'ai-governance.vote',
+      // Admin Panel
+      'admin.audit', 'admin.health',
+      // Operator Portal
+      'operator.node-status', 'operator.task'
     ];
 
     channels.forEach(channel => {
       this.subscribers.set(channel, new Set());
     });
+
+    console.log(`[EventBus] Initialized ${channels.length} event channels for cross-module synchronization`);
   }
 
   /**

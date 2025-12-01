@@ -423,3 +423,192 @@ export function useEnterpriseHealth() {
     refetchInterval: 30000,
   });
 }
+
+// ============================================
+// DeFi Overview - Cross-module integration
+// ============================================
+export interface DeFiOverview {
+  totalTvl: string;
+  dexTvl: string;
+  lendingTvl: string;
+  stakingTvl: string;
+  volume24h: string;
+  transactions24h: number;
+  uniqueUsers: number;
+  topPools: any[];
+  marketTrends: any;
+}
+
+export function useDeFiOverview(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: DeFiOverview }>({
+    queryKey: ['/api/enterprise/defi/overview'],
+    refetchInterval: options?.refetchInterval || 15000,
+  });
+}
+
+// ============================================
+// Token System - TBC-20, TBC-721, TBC-1155
+// ============================================
+export interface TokenSystemSummary {
+  totalTokens: number;
+  tbc20Count: number;
+  tbc721Count: number;
+  tbc1155Count: number;
+  totalMinted: string;
+  totalHolders: number;
+  totalSupply: string;
+  circulatingSupply: string;
+  burned24h: string;
+  recentMints: any[];
+  recentTransfers: any[];
+}
+
+export function useTokenSystemSummary(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: TokenSystemSummary }>({
+    queryKey: ['/api/enterprise/token-system/summary'],
+    refetchInterval: options?.refetchInterval || 20000,
+  });
+}
+
+// ============================================
+// Staking-DeFi Correlation
+// ============================================
+export interface StakingDeFiCorrelation {
+  stakingToDefiFlow: string;
+  defiToStakingFlow: string;
+  crossUtilization: number;
+  stakersInDefi: number;
+  defiUsersStaking: number;
+  correlationMetrics: any;
+}
+
+export function useStakingDeFiCorrelation(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: StakingDeFiCorrelation }>({
+    queryKey: ['/api/enterprise/staking-defi/correlation'],
+    refetchInterval: options?.refetchInterval || 30000,
+  });
+}
+
+// ============================================
+// Bridge-DeFi Integration
+// ============================================
+export interface BridgeDeFiIntegration {
+  bridgedToDeFi: string;
+  defiToBridged: string;
+  crossChainDefiVolume: string;
+  activeRoutes: number;
+  bridgeUtilization: number;
+}
+
+export function useBridgeDeFiIntegration(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: BridgeDeFiIntegration }>({
+    queryKey: ['/api/enterprise/bridge-defi/integration'],
+    refetchInterval: options?.refetchInterval || 30000,
+  });
+}
+
+// ============================================
+// AI Governance Overview
+// ============================================
+export interface GovernanceOverview {
+  activeProposals: number;
+  totalProposals: number;
+  totalVotes: number;
+  passRate: number;
+  aiAnalysisCount: number;
+  quorumPercentage: number;
+  passedProposals: number;
+  rejectedProposals: number;
+  pendingProposals: number;
+  totalVotingPower: string;
+  participationRate: number;
+  recentProposals: any[];
+  recentVotes: any[];
+}
+
+export function useGovernanceOverview(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: GovernanceOverview }>({
+    queryKey: ['/api/enterprise/governance/overview'],
+    refetchInterval: options?.refetchInterval || 20000,
+  });
+}
+
+// ============================================
+// Admin System Status
+// ============================================
+export interface AdminSystemStatus {
+  totalAdmins: number;
+  activeApiKeys: number;
+  auditLogsCount: number;
+  lastAuditTime: number;
+  mainnetStatus: string;
+  healthScore: number;
+  failedAuthAttempts: number;
+  recentAuditLogs: any[];
+  systemAlerts: any[];
+}
+
+export function useAdminSystemStatus(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: AdminSystemStatus }>({
+    queryKey: ['/api/enterprise/admin/system-status'],
+    refetchInterval: options?.refetchInterval || 30000,
+  });
+}
+
+// ============================================
+// Operator Dashboard
+// ============================================
+export interface OperatorDashboard {
+  totalOperators: number;
+  activeOperators: number;
+  totalNodes: number;
+  healthyNodes: number;
+  pendingTasks: number;
+  completedTasks24h: number;
+  totalMembers: number;
+  activeMembers: number;
+  pendingApplications: number;
+  nodeHealthMetrics: any;
+  taskQueue: any[];
+  recentActivity: any[];
+}
+
+export function useOperatorDashboard(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: OperatorDashboard }>({
+    queryKey: ['/api/enterprise/operator/dashboard'],
+    refetchInterval: options?.refetchInterval || 20000,
+  });
+}
+
+// ============================================
+// Unified Dashboard - All modules combined
+// ============================================
+export interface UnifiedDashboard {
+  network: NetworkSnapshot;
+  modules: {
+    staking: any;
+    dex: any;
+    lending: any;
+    nft: any;
+    bridge: any;
+    burn: any;
+    tokenSystem: any;
+    aiGovernance: any;
+    admin: any;
+    operator: any;
+  };
+  crossModuleMetrics: {
+    totalValueManaged: string;
+    activeUsers24h: number;
+    transactionVolume24h: string;
+    systemHealth: number;
+  };
+  timestamp: number;
+}
+
+export function useUnifiedDashboard(options?: { refetchInterval?: number }) {
+  return useQuery<{ success: boolean; data: UnifiedDashboard }>({
+    queryKey: ['/api/enterprise/dashboard/unified'],
+    refetchInterval: options?.refetchInterval || 10000,
+  });
+}
