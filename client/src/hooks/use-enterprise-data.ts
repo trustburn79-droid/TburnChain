@@ -62,6 +62,26 @@ export interface ModuleMetrics {
   };
 }
 
+export interface TokenHolding {
+  tokenAddress: string;
+  tokenSymbol: string;
+  tokenName: string;
+  tokenType: 'TBC-20' | 'TBC-721' | 'TBC-1155';
+  balance: string;
+  valueUsd: string;
+}
+
+export interface BridgeActivity {
+  id: string;
+  sourceChain: string;
+  targetChain: string;
+  amount: string;
+  tokenSymbol: string;
+  status: string;
+  timestamp: number;
+  txHash: string;
+}
+
 export interface AccountCompositeState {
   address: string;
   balance: string;
@@ -70,6 +90,8 @@ export interface AccountCompositeState {
   dexPositions: any[];
   lendingPositions: any[];
   nftAssets: any[];
+  tokenHoldings: TokenHolding[];
+  bridgeActivity: BridgeActivity[];
   transactionCount: number;
   rewardsEarned: string;
   lastActivity: number;

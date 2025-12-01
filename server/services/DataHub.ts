@@ -29,6 +29,26 @@ export interface NetworkSnapshot {
   stakingTvl: string;
 }
 
+export interface TokenHolding {
+  tokenAddress: string;
+  tokenSymbol: string;
+  tokenName: string;
+  tokenType: 'TBC-20' | 'TBC-721' | 'TBC-1155';
+  balance: string;
+  valueUsd: string;
+}
+
+export interface BridgeActivity {
+  id: string;
+  sourceChain: string;
+  targetChain: string;
+  amount: string;
+  tokenSymbol: string;
+  status: string;
+  timestamp: number;
+  txHash: string;
+}
+
 export interface AccountCompositeState {
   address: string;
   balance: string;
@@ -37,6 +57,8 @@ export interface AccountCompositeState {
   dexPositions: any[];
   lendingPositions: LendingPosition[];
   nftAssets: NftItem[];
+  tokenHoldings: TokenHolding[];
+  bridgeActivity: BridgeActivity[];
   transactionCount: number;
   rewardsEarned: string;
   lastActivity: number;
@@ -254,6 +276,8 @@ class DataHubService {
       dexPositions: await this.getAccountDexPositions(address),
       lendingPositions: await this.getAccountLendingPositions(address),
       nftAssets: await this.getAccountNftAssets(address),
+      tokenHoldings: await this.getAccountTokenHoldings(address),
+      bridgeActivity: await this.getAccountBridgeActivity(address),
       transactionCount: await this.getAccountTransactionCount(address),
       rewardsEarned: await this.getAccountRewards(address),
       lastActivity: Date.now()
@@ -261,6 +285,79 @@ class DataHubService {
 
     this.setCache(cacheKey, state, 5000);
     return state;
+  }
+
+  /**
+   * Get token holdings for an account (TBC-20, TBC-721, TBC-1155)
+   */
+  async getAccountTokenHoldings(address: string): Promise<TokenHolding[]> {
+    try {
+      const holdings: TokenHolding[] = [];
+      
+      // Native TBURN balance
+      const balance = await this.getAccountBalance(address);
+      holdings.push({
+        tokenAddress: '0x0000000000000000000000000000000000000000',
+        tokenSymbol: 'TBURN',
+        tokenName: 'TBURN Native Token',
+        tokenType: 'TBC-20',
+        balance,
+        valueUsd: (parseFloat(balance) * 0.0000514).toFixed(2)
+      });
+      
+      // Add staked tokens as TBC-20 holdings
+      const stakedAmount = await this.getAccountStakedAmount(address);
+      if (parseFloat(stakedAmount) > 0) {
+        holdings.push({
+          tokenAddress: '0x0000000000000000000000000000000000000001',
+          tokenSymbol: 'stTBURN',
+          tokenName: 'Staked TBURN',
+          tokenType: 'TBC-20',
+          balance: stakedAmount,
+          valueUsd: (parseFloat(stakedAmount) * 0.0000514).toFixed(2)
+        });
+      }
+      
+      // Add NFT holdings as TBC-721
+      const nftAssets = await this.getAccountNftAssets(address);
+      if (nftAssets.length > 0) {
+        holdings.push({
+          tokenAddress: '0x0000000000000000000000000000000000000002',
+          tokenSymbol: 'TBURN-NFT',
+          tokenName: 'TBURN NFT Collection',
+          tokenType: 'TBC-721',
+          balance: nftAssets.length.toString(),
+          valueUsd: '0'
+        });
+      }
+      
+      return holdings;
+    } catch (error) {
+      console.error('[DataHub] Error fetching token holdings:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get bridge activity for an account
+   */
+  async getAccountBridgeActivity(address: string): Promise<BridgeActivity[]> {
+    try {
+      const transfers = await storage.getBridgeTransfersBySender(address, 20);
+      return transfers.map(transfer => ({
+        id: transfer.id,
+        sourceChain: `Chain-${transfer.sourceChainId}`,
+        targetChain: `Chain-${transfer.destinationChainId}`,
+        amount: transfer.amount,
+        tokenSymbol: transfer.tokenSymbol || 'TBURN',
+        status: transfer.status,
+        timestamp: transfer.createdAt ? new Date(transfer.createdAt).getTime() : Date.now(),
+        txHash: transfer.sourceTxHash || ''
+      }));
+    } catch (error) {
+      console.error('[DataHub] Error fetching bridge activity:', error);
+      return [];
+    }
   }
 
   /**
