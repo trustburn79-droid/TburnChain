@@ -3,7 +3,7 @@ import { PublicLayout } from "./components/PublicLayout";
 
 import Home from "./pages/Home";
 
-import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, EducationPrograms, Whitepaper, Tokenomics, Roadmap } from "./pages/learn";
+import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, EducationPrograms, Whitepaper, Tokenomics, Roadmap, Universities } from "./pages/learn";
 import { DeveloperHub, Documentation, ApiDocs, CodeExamples, QuickStart, InstallationGuide, EvmMigration } from "./pages/developers";
 import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial } from "./pages/solutions";
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
@@ -25,6 +25,7 @@ export function PublicRouter() {
         <Route path="/learn/whitepaper" component={Whitepaper} />
         <Route path="/learn/tokenomics" component={Tokenomics} />
         <Route path="/learn/roadmap" component={Roadmap} />
+        <Route path="/learn/universities" component={Universities} />
         
         {/* Developer Routes */}
         <Route path="/developers" component={DeveloperHub} />

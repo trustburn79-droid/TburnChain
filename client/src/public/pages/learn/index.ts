@@ -6,3 +6,4 @@ export { default as EducationPrograms } from "./EducationPrograms";
 export { default as Whitepaper } from "./Whitepaper";
 export { default as Tokenomics } from "./Tokenomics";
 export { default as Roadmap } from "./Roadmap";
+export { default as Universities } from "./Universities";

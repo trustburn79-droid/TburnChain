@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Whitepaper | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            yellow: '#ffd700',
+                            red: '#ff2a6d',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(0, 240, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(0, 240, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .glow-btn {
+            background: linear-gradient(90deg, #7000ff, #00f0ff);
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 20px rgba(112, 0, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .tech-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="learn.html" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan">Whitepaper</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-0 left-1/4 w-[800px] h-[500px] bg-cyber-cyan/5 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-5xl text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-cyan mb-6">
+                    <i class="fas fa-file-code"></i> VERSION 4.0.2
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    Technical <span class="text-gradient">Whitepaper</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
+                    Decentralized Trust Infrastructure for Blockchain Projects.
+                    <br>Arbitrum-based Layer 2 solution verifying reliability with 100% on-chain transparency.
+                </p>
+                <div class="flex justify-center gap-4">
+                    <button class="glow-btn px-8 py-3 rounded-lg flex items-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </button>
+                    <button class="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 border-b border-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-white mb-2">The Trust Crisis</h2>
+                    <p class="text-gray-500">Fundamental Issues in the Current Blockchain Industry</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="spotlight-card rounded-xl p-6 border-t-2 border-cyber-red/50">
+                        <i class="fas fa-triangle-exclamation text-3xl text-cyber-red mb-4"></i>
+                        <h3 class="text-white font-bold text-lg mb-2">80%+ Scams</h3>
+                        <p class="text-sm text-gray-400">Over 80% of new crypto projects are potential scams or rugpulls.</p>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-6 border-t-2 border-orange-500/50">
+                        <i class="fas fa-money-bill-wave text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-white font-bold text-lg mb-2">$2.7B Lost</h3>
+                        <p class="text-sm text-gray-400">Total funds lost to rugpulls and fraud in 2023 alone.</p>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-6 border-t-2 border-orange-500/50">
+                        <i class="fas fa-chart-line-down text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-white font-bold text-lg mb-2">$3.1B Risk</h3>
+                        <p class="text-sm text-gray-400">Estimated losses projected for 2024 without intervention.</p>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-6 border-t-2 border-cyber-red/50">
+                        <i class="fas fa-user-injured text-3xl text-cyber-red mb-4"></i>
+                        <h3 class="text-white font-bold text-lg mb-2">60-80% Loss</h3>
+                        <p class="text-sm text-gray-400">Average investor loss rate in early-stage projects.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="flex flex-col md:flex-row gap-12 items-center mb-16">
+                    <div class="md:w-1/2">
+                        <div class="inline-block px-3 py-1 rounded bg-cyber-purple/20 text-cyber-purple text-xs font-bold mb-4 font-mono">SOLUTION ARCHITECTURE</div>
+                        <h2 class="text-4xl font-bold text-white mb-6">V4 Enterprise Performance</h2>
+                        <p class="text-gray-400 leading-relaxed mb-6">
+                            TBurn Chain isn't just about trust scoring; it's a high-performance Layer 2 scaling solution built on Arbitrum technology, designed for enterprise-grade throughput.
+                        </p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-cyber-green"></i> Hybrid Consensus (DPoS + BFT)</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-cyber-green"></i> EVM Compatibility</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-cyber-green"></i> Dynamic Sharding Support</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 w-full">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="tech-border p-6 rounded-lg text-center">
+                                <i class="fas fa-bolt text-cyber-cyan text-2xl mb-2"></i>
+                                <div class="text-2xl font-bold text-white font-mono">500k+</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-widest">TPS</div>
+                            </div>
+                            <div class="tech-border p-6 rounded-lg text-center">
+                                <i class="fas fa-stopwatch text-cyber-purple text-2xl mb-2"></i>
+                                <div class="text-2xl font-bold text-white font-mono">1.84ms</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-widest">Latency</div>
+                            </div>
+                            <div class="tech-border p-6 rounded-lg text-center">
+                                <i class="fas fa-cube text-cyber-green text-2xl mb-2"></i>
+                                <div class="text-2xl font-bold text-white font-mono">1s</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-widest">Block Time</div>
+                            </div>
+                            <div class="tech-border p-6 rounded-lg text-center">
+                                <i class="fas fa-server text-cyber-yellow text-2xl mb-2"></i>
+                                <div class="text-2xl font-bold text-white font-mono">30,000</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-widest">Nodes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-4">Triple-Band AI Orchestration</h2>
+                    <p class="text-gray-400">Intelligent decision-making using three distinct AI models.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="spotlight-card rounded-xl p-8 border border-blue-500/20">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fas fa-brain text-blue-500 text-3xl"></i>
+                            <span class="text-xs font-mono bg-blue-500/10 text-blue-400 px-2 py-1 rounded">450ms</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Strategic Layer</h3>
+                        <p class="text-xs text-blue-400 mb-4 font-mono">:: ChatGPT Latest</p>
+                        <p class="text-sm text-gray-400">Handles complex market analysis, governance proposal evaluation, and long-term strategy formulation.</p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 border border-purple-500/20">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fas fa-microchip text-purple-500 text-3xl"></i>
+                            <span class="text-xs font-mono bg-purple-500/10 text-purple-400 px-2 py-1 rounded">180ms</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Tactical Layer</h3>
+                        <p class="text-xs text-purple-400 mb-4 font-mono">:: Claude Latest</p>
+                        <p class="text-sm text-gray-400">Processes trust assessment, transaction verification, and smart contract auditing.</p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 border border-green-500/20">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fas fa-terminal text-green-500 text-3xl"></i>
+                            <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">45ms</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Operational Layer</h3>
+                        <p class="text-xs text-green-400 mb-4 font-mono">:: Gemini Latest</p>
+                        <p class="text-sm text-gray-400">Executes real-time monitoring, emergency response (Auto-Burn), and automated actions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <i class="fas fa-shield-cat text-cyber-cyan"></i> Quantum-Safe Security
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="spotlight-card p-5 rounded-lg flex gap-4">
+                                <div class="text-cyber-cyan text-xl"><i class="fas fa-lock"></i></div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">CRYSTALS-Dilithium</h4>
+                                    <p class="text-gray-400 text-xs">NIST standard lattice-based signature algorithm providing post-quantum security.</p>
+                                </div>
+                            </div>
+                            <div class="spotlight-card p-5 rounded-lg flex gap-4">
+                                <div class="text-cyber-cyan text-xl"><i class="fas fa-key"></i></div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Hybrid Signatures</h4>
+                                    <p class="text-gray-400 text-xs">Combining ED25519 + Dilithium for backward compatibility and future-proofing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <i class="fas fa-cubes text-cyber-purple"></i> V4 Core Modules
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="spotlight-card p-5 rounded-lg flex gap-4">
+                                <div class="text-cyber-purple text-xl"><i class="fas fa-coins"></i></div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">DeFi Hub</h4>
+                                    <p class="text-gray-400 text-xs">Integrated AMM DEX, 85% LTV Loans, and Liquid Staking.</p>
+                                </div>
+                            </div>
+                            <div class="spotlight-card p-5 rounded-lg flex gap-4">
+                                <div class="text-cyber-purple text-xl"><i class="fas fa-gamepad"></i></div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">GameFi Platform</h4>
+                                    <p class="text-gray-400 text-xs">P2E Engine, Tournament System, and Cross-chain Item Trading.</p>
+                                </div>
+                            </div>
+                            <div class="spotlight-card p-5 rounded-lg flex gap-4">
+                                <div class="text-cyber-purple text-xl"><i class="fas fa-link"></i></div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Cross-Chain Bridge</h4>
+                                    <p class="text-gray-400 text-xs">Secure atomic swaps connected to 7+ major blockchains.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Whitepaper</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Community</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Forum</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Events</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Go</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 22000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
