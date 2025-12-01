@@ -387,7 +387,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Skip auth check for enterprise read-only endpoints (public data)
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
-        req.path.startsWith("/enterprise/metrics")) {
+        req.path.startsWith("/enterprise/metrics") ||
+        req.path.startsWith("/enterprise/defi/overview") ||
+        req.path.startsWith("/enterprise/token-system/summary") ||
+        req.path.startsWith("/enterprise/staking-defi/correlation") ||
+        req.path.startsWith("/enterprise/bridge-defi/integration") ||
+        req.path.startsWith("/enterprise/governance/overview") ||
+        req.path.startsWith("/enterprise/admin/system-status") ||
+        req.path.startsWith("/enterprise/operator/dashboard") ||
+        req.path.startsWith("/enterprise/dashboard/unified")) {
       return next();
     }
     requireAuth(req, res, next);
