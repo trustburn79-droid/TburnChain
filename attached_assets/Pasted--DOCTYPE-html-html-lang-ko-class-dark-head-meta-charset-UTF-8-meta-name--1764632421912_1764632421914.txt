@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BurnRamp | TBurn Chain</title>
+    <meta name="description" content="TBurn Chain Ramp - Instant Crypto On/Off Ramp">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            yellow: '#ffd700',
+                            red: '#ff0055',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(112, 0, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(112, 0, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .input-dark {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        .input-dark:focus {
+            border-color: #00f0ff;
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan">Services</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Fee</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Support</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+                
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-0 right-1/4 w-[600px] h-[500px] bg-cyber-purple/10 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-5xl relative z-10 text-center">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyber-cyan mb-6">
+                    <i class="fas fa-exchange-alt"></i> FIAT_CRYPTO_GATEWAY
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    TBurn Chain <span class="text-gradient">Ramp</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
+                    Buy TBURN tokens instantly with a credit card or bank account, or cash out to your bank. <br>
+                    Fast, secure, and compliant.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-12 px-6">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="spotlight-card rounded-2xl p-8 border border-white/10 bg-gradient-to-br from-cyber-purple/5 to-transparent">
+                        <div class="w-14 h-14 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30 flex items-center justify-center mb-6 text-cyber-purple text-2xl">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Buy Tokens (On-Ramp)</h3>
+                        <p class="text-gray-400 leading-relaxed mb-8">
+                            Purchase TBURN tokens instantly with credit card, bank transfer, or PayPal.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex gap-2">
+                                <input type="number" placeholder="Amount (USD)" class="input-dark w-full px-4 py-3 rounded-lg">
+                                <select class="input-dark px-4 py-3 rounded-lg w-24">
+                                    <option>USD</option>
+                                    <option>EUR</option>
+                                    <option>KRW</option>
+                                </select>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-500 px-1">
+                                <span>Est. TBURN: <span class="text-cyber-cyan">0.00</span></span>
+                                <span>Fee: ~1.5%</span>
+                            </div>
+                            <button class="w-full py-3 rounded-lg bg-cyber-purple text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)]">
+                                Buy TBURN
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-2xl p-8 border border-white/10 bg-gradient-to-br from-cyber-cyan/5 to-transparent">
+                        <div class="w-14 h-14 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center mb-6 text-cyber-cyan text-2xl">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Cash Out (Off-Ramp)</h3>
+                        <p class="text-gray-400 leading-relaxed mb-8">
+                            Cash out your TBURN tokens instantly to your bank account or PayPal.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex gap-2">
+                                <input type="number" placeholder="Amount (TBURN)" class="input-dark w-full px-4 py-3 rounded-lg">
+                                <div class="flex items-center justify-center px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-gray-400">
+                                    TBURN
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-500 px-1">
+                                <span>Est. USD: <span class="text-cyber-cyan">0.00</span></span>
+                                <span>Fee: ~1.0%</span>
+                            </div>
+                            <button class="w-full py-3 rounded-lg bg-cyber-cyan text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+                                Sell TBURN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-white/5 border-y border-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-3xl font-bold text-white mb-12 text-center">Why BurnRamp?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="spotlight-card rounded-xl p-8 text-center group">
+                        <i class="fas fa-bolt text-cyber-yellow text-4xl mb-6 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Instant Processing</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Buy/sell requests are processed within 2 minutes on average. Trade immediately without waiting.
+                        </p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 text-center group">
+                        <i class="fas fa-shield-alt text-cyber-green text-4xl mb-6 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Bank-Grade Security</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Protect your funds with 2FA, biometric authentication, and SSL encryption. Regulated compliance.
+                        </p>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 text-center group">
+                        <i class="fas fa-percent text-cyber-cyan text-4xl mb-6 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Low Fees</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Buy 1.5%, Sell 1.0% - Get more tokens with industry-leading low fees compared to competitors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-3xl font-bold text-white mb-12 text-center">Supported Payment Methods</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="spotlight-card rounded-xl p-8 border border-white/10">
+                        <h3 class="text-xl font-bold text-cyber-purple mb-6 flex items-center gap-2">
+                            <i class="fas fa-arrow-down"></i> On-Ramp (Buy)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i class="fab fa-cc-visa text-white text-xl"></i>
+                                <i class="fab fa-cc-mastercard text-white text-xl"></i>
+                                <span>Credit/Debit Cards (Visa, Mastercard)</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i class="fas fa-university text-white text-xl"></i>
+                                <span>Bank Transfer (ACH, SEPA, KRW)</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i class="fab fa-paypal text-white text-xl"></i>
+                                <i class="fab fa-apple text-white text-xl"></i>
+                                <span>PayPal, Apple Pay, Google Pay</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-8 border border-white/10">
+                        <h3 class="text-xl font-bold text-cyber-cyan mb-6 flex items-center gap-2">
+                            <i class="fas fa-arrow-up"></i> Off-Ramp (Sell)
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i class="fas fa-money-bill-wave text-white text-xl"></i>
+                                <span>Bank Transfer (USD, EUR, KRW, JPY)</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i class="fab fa-paypal text-white text-xl"></i>
+                                <span>PayPal Withdrawal</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i class="fas fa-file-invoice-dollar text-white text-xl"></i>
+                                <span>Physical Check (US Only)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-gradient-to-b from-transparent to-cyber-purple/5">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-3xl font-bold text-white mb-12 text-center">Limits & Fees</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="spotlight-card rounded-xl p-0 border border-white/10 overflow-hidden">
+                        <div class="p-6 border-b border-white/10">
+                            <h3 class="text-xl font-bold text-white">Basic Account</h3>
+                            <p class="text-xs text-gray-500 mt-1">Email verification only</p>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Daily Limit</span>
+                                <span class="text-white font-bold">$1,000</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Monthly Limit</span>
+                                <span class="text-white font-bold">$10,000</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Buy Fee</span>
+                                <span class="text-white font-bold">2.0%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Sell Fee</span>
+                                <span class="text-white font-bold">1.5%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-0 border border-cyber-cyan/50 overflow-hidden relative">
+                        <div class="absolute top-0 right-0 bg-cyber-cyan text-black text-xs font-bold px-3 py-1 rounded-bl-lg">RECOMMENDED</div>
+                        <div class="p-6 border-b border-white/10 bg-cyber-cyan/5">
+                            <h3 class="text-xl font-bold text-cyber-cyan">Verified Account</h3>
+                            <p class="text-xs text-gray-500 mt-1">KYC identity verification required</p>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Daily Limit</span>
+                                <span class="text-white font-bold">$50,000</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Monthly Limit</span>
+                                <span class="text-white font-bold">$500,000</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Buy Fee</span>
+                                <span class="text-cyber-cyan font-bold">1.5%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Sell Fee</span>
+                                <span class="text-cyber-cyan font-bold">1.0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-0 border border-cyber-purple/50 overflow-hidden">
+                        <div class="p-6 border-b border-white/10 bg-cyber-purple/5">
+                            <h3 class="text-xl font-bold text-cyber-purple">Institutional</h3>
+                            <p class="text-xs text-gray-500 mt-1">Contract required</p>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Daily Limit</span>
+                                <span class="text-white font-bold">Unlimited</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Monthly Limit</span>
+                                <span class="text-white font-bold">Unlimited</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Buy Fee</span>
+                                <span class="text-cyber-purple font-bold">0.5%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Sell Fee</span>
+                                <span class="text-cyber-purple font-bold">0.3%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-3xl font-bold text-white mb-12 text-center">How It Works</h2>
+                
+                <div class="space-y-4">
+                    <div class="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-cyber-purple text-white flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Create & Verify Account</h3>
+                            <p class="text-gray-400">Sign up with email and complete identity verification (KYC) for higher limits. Approved within 5 minutes.</p>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-cyber-cyan text-black flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Connect Wallet</h3>
+                            <p class="text-gray-400">Connect a TBurn Chain compatible wallet (MetaMask, Phantom, Ledger, etc).</p>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-cyber-green text-black flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Execute Transaction</h3>
+                            <p class="text-gray-400">Enter the amount of TBURN to buy or cash out, select payment method, and confirm.</p>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-cyber-yellow text-black flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">4</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Instant Completion</h3>
+                            <p class="text-gray-400">TBURN tokens sent to wallet or cash deposited to bank account within 2 minutes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <h2 class="text-3xl font-bold text-white mb-6">Get Started Now</h2>
+                    <div class="flex justify-center gap-4">
+                        <button class="px-8 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition">
+                            Create Account
+                        </button>
+                        <button class="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">TBurn Chain</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Learn</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Developers</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Network</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">News</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Sub</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                    <a href="#" class="hover:text-white">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#7000ff'; /* Purple theme for Ramp */
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 20000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                  ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(112, 0, 255,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

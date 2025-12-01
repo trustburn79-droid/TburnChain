@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Status | TBurn Chain</title>
+    <meta name="description" content="TBurn Chain Network Status Dashboard">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0f',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d',
+                            yellow: '#ffd700',
+                            red: '#ff0055',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* 1. Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 2. Spotlight Card Effect */
+        .spotlight-card {
+            background-color: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(112, 0, 255, 0.25),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: rgba(112, 0, 255, 0.3); }
+
+        /* 3. Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        .status-dot.green { background-color: #00ff9d; box-shadow: 0 0 10px #00ff9d; }
+        .status-dot.yellow { background-color: #ffd700; box-shadow: 0 0 10px #ffd700; }
+        .status-dot.red { background-color: #ff0055; box-shadow: 0 0 10px #ff0055; }
+
+        .uptime-bar {
+            display: flex;
+            gap: 2px;
+            height: 32px;
+            margin-top: 10px;
+        }
+        .uptime-segment {
+            flex: 1;
+            background-color: rgba(0, 255, 157, 0.2);
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+        .uptime-segment:hover {
+            background-color: #00ff9d;
+            transform: scaleY(1.2);
+        }
+        .uptime-segment.down { background-color: rgba(255, 0, 85, 0.2); }
+        .uptime-segment.down:hover { background-color: #ff0055; }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="relative w-8 h-8 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="font-bold text-black text-lg">B</span>
+                    </div>
+                    <span class="font-bold text-xl text-white tracking-tight">TBurn <span class="text-cyber-cyan">Chain</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Learn</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Developers</a>
+                    <a href="#" class="text-sm font-medium text-white border-b-2 border-cyber-cyan">Network</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition">Community</a>
+                    <a href="login.html" class="px-4 py-1.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-cyan text-xs font-mono border border-cyber-purple/30 transition">
+                        CONNECT_WALLET
+                    </a>
+                </div>
+                
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative z-10" id="main-container">
+
+        <section class="relative py-24 px-6 overflow-hidden border-b border-white/5">
+            <div class="absolute top-0 right-1/4 w-[600px] h-[500px] bg-cyber-green/10 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="container mx-auto max-w-5xl relative z-10">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-green/10 border border-cyber-green/30 text-xs font-mono text-cyber-green">
+                        <span class="status-dot green"></span> ALL_SYSTEMS_OPERATIONAL
+                    </div>
+                    <span class="text-xs font-mono text-gray-500">LAST UPDATED: 4:29:36 PM</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Network <span class="text-gradient">Status</span>
+                </h1>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
+                    Real-time monitoring of TBurn Chain V4 Mainnet. <br>
+                    Track TPS, block times, and validator health instantly.
+                </p>
+                
+                <button class="px-6 py-2 rounded-lg border border-white/20 text-white hover:bg-white/5 transition text-sm flex items-center gap-2">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
+            </div>
+        </section>
+
+        <section class="py-16 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-2">Core Performance Metrics</h2>
+                    <p class="text-gray-400 text-sm">Live network telemetry</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="spotlight-card rounded-xl p-6 border border-cyber-green/20 bg-cyber-green/5">
+                        <div class="flex items-center gap-2 mb-4 text-cyber-green">
+                            <i class="fas fa-bolt"></i>
+                            <span class="font-bold">TPS</span>
+                        </div>
+                        <div class="text-4xl font-mono font-bold text-white mb-2">487,439</div>
+                        <div class="text-xs text-gray-400">Peak: 500,000+</div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-cyber-cyan/20 bg-cyber-cyan/5">
+                        <div class="flex items-center gap-2 mb-4 text-cyber-cyan">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span class="font-bold">Latency</span>
+                        </div>
+                        <div class="text-4xl font-mono font-bold text-white mb-2">1.84ms</div>
+                        <div class="text-xs text-gray-400">P99: 3.2ms</div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-cyber-purple/20 bg-cyber-purple/5">
+                        <div class="flex items-center gap-2 mb-4 text-cyber-purple">
+                            <i class="fas fa-cube"></i>
+                            <span class="font-bold">Block Time</span>
+                        </div>
+                        <div class="text-4xl font-mono font-bold text-white mb-2">1.0s</div>
+                        <div class="text-xs text-gray-400">Finality: 6s</div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-cyber-yellow/20 bg-cyber-yellow/5">
+                        <div class="flex items-center gap-2 mb-4 text-cyber-yellow">
+                            <i class="fas fa-gas-pump"></i>
+                            <span class="font-bold">Avg Fee</span>
+                        </div>
+                        <div class="text-4xl font-mono font-bold text-white mb-2">$0.0001</div>
+                        <div class="text-xs text-gray-400">Cheap & Fast</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 bg-white/5 border-y border-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-2">Validator Network</h2>
+                    <p class="text-gray-400 text-sm">Global decentralized infrastructure</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div class="spotlight-card rounded-xl p-4 text-center">
+                        <i class="fas fa-users text-cyber-purple text-2xl mb-2"></i>
+                        <div class="text-2xl font-bold text-white font-mono">31,247</div>
+                        <div class="text-xs text-gray-500">Active Validators</div>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-4 text-center">
+                        <i class="fas fa-crown text-cyber-yellow text-2xl mb-2"></i>
+                        <div class="text-2xl font-bold text-white font-mono">128</div>
+                        <div class="text-xs text-gray-500">Super Nodes</div>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-4 text-center">
+                        <i class="fas fa-server text-cyber-cyan text-2xl mb-2"></i>
+                        <div class="text-2xl font-bold text-white font-mono">31,119</div>
+                        <div class="text-xs text-gray-500">Standard Nodes</div>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-4 text-center">
+                        <i class="fas fa-heartbeat text-cyber-green text-2xl mb-2"></i>
+                        <div class="text-2xl font-bold text-white font-mono text-cyber-green">99.97%</div>
+                        <div class="text-xs text-gray-500">Avg Uptime</div>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-4 text-center">
+                        <i class="fas fa-coins text-cyber-yellow text-2xl mb-2"></i>
+                        <div class="text-2xl font-bold text-white font-mono">$2.4B</div>
+                        <div class="text-xs text-gray-500">Total Staked</div>
+                    </div>
+                    <div class="spotlight-card rounded-xl p-4 text-center">
+                        <i class="fas fa-globe text-white text-2xl mb-2"></i>
+                        <div class="text-2xl font-bold text-white font-mono">147</div>
+                        <div class="text-xs text-gray-500">Regions</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-2">Triple-Band AI System</h2>
+                    <p class="text-gray-400 text-sm">AI Orchestration Status</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-white text-lg">Strategic Tier</h3>
+                                <p class="text-xs text-gray-400">ChatGPT Latest</p>
+                            </div>
+                            <span class="px-2 py-1 rounded bg-cyber-green/20 text-cyber-green text-xs font-mono border border-cyber-green/30">ACTIVE</span>
+                        </div>
+                        <div class="flex justify-between text-sm mt-4">
+                            <span class="text-gray-500">Latency</span>
+                            <span class="text-cyber-purple font-mono">450ms</span>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-white text-lg">Tactical Tier</h3>
+                                <p class="text-xs text-gray-400">Claude Latest</p>
+                            </div>
+                            <span class="px-2 py-1 rounded bg-cyber-green/20 text-cyber-green text-xs font-mono border border-cyber-green/30">ACTIVE</span>
+                        </div>
+                        <div class="flex justify-between text-sm mt-4">
+                            <span class="text-gray-500">Latency</span>
+                            <span class="text-cyber-cyan font-mono">180ms</span>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-xl p-6 border border-white/10">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-white text-lg">Operational Tier</h3>
+                                <p class="text-xs text-gray-400">Gemini Latest</p>
+                            </div>
+                            <span class="px-2 py-1 rounded bg-cyber-green/20 text-cyber-green text-xs font-mono border border-cyber-green/30">ACTIVE</span>
+                        </div>
+                        <div class="flex justify-between text-sm mt-4">
+                            <span class="text-gray-500">Latency</span>
+                            <span class="text-cyber-green font-mono">45ms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 bg-white/5 border-t border-white/5">
+            <div class="container mx-auto max-w-7xl">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-2">Service Status</h2>
+                    <p class="text-gray-400 text-sm">Detailed component monitoring</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="spotlight-card rounded-lg p-4 flex items-center justify-between border border-white/10">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cyber-green"></i>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Mainnet RPC API</h4>
+                                <p class="text-xs text-gray-500">JSON-RPC / WebSocket</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-cyber-green text-xs font-bold block">OPERATIONAL</span>
+                            <span class="text-gray-600 text-xs">99.99%</span>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-lg p-4 flex items-center justify-between border border-white/10">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cyber-green"></i>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Trust Score System</h4>
+                                <p class="text-xs text-gray-500">Real-time scoring</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-cyber-green text-xs font-bold block">OPERATIONAL</span>
+                            <span class="text-gray-600 text-xs">99.98%</span>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-lg p-4 flex items-center justify-between border border-white/10">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cyber-green"></i>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Cross-Chain Bridge</h4>
+                                <p class="text-xs text-gray-500">Asset Transfer</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-cyber-green text-xs font-bold block">OPERATIONAL</span>
+                            <span class="text-gray-600 text-xs">99.92%</span>
+                        </div>
+                    </div>
+
+                    <div class="spotlight-card rounded-lg p-4 flex items-center justify-between border border-white/10">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cyber-green"></i>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Quantum Security</h4>
+                                <p class="text-xs text-gray-500">Encryption Module</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-cyber-green text-xs font-bold block">OPERATIONAL</span>
+                            <span class="text-gray-600 text-xs">100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="mb-6 flex justify-between items-end">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Uptime History</h2>
+                        <p class="text-gray-400 text-sm">Past 90 days performance</p>
+                    </div>
+                    <span class="text-cyber-green font-bold">99.97% Avg.</span>
+                </div>
+
+                <div class="spotlight-card rounded-xl p-6 border border-white/10">
+                    <div class="uptime-bar">
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="99.8%" style="background-color: rgba(255, 215, 0, 0.4);"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                        <div class="uptime-segment" title="100%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500 mt-2">
+                        <span>90 days ago</span>
+                        <span>Today</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-black/40 backdrop-blur-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center">
+                            <span class="font-bold text-black text-xs">B</span>
+                        </div>
+                        <span class="font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm">
+                        The world's first trust network that verifies project reliability and ensures transparency.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">TBurn Chain</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Learn</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Developers</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Network</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyber-cyan">Documentation</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">Validators</a></li>
+                        <li><a href="#" class="hover:text-cyber-cyan">News</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 rounded px-3 py-1 text-sm text-white w-full focus:border-cyber-cyan outline-none">
+                        <button class="bg-cyber-purple text-white px-3 py-1 rounded text-sm font-bold">Sub</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                    <a href="#" class="hover:text-white">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Spotlight Effect Logic
+        const container = document.getElementById("main-container");
+        const cards = document.querySelectorAll(".spotlight-card");
+        
+        container.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // 2. Background Particles
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00ff9d'; /* Green for status page */
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 20000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                  ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 255, 157,' + opacityValue * 0.05 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+        
+        // Fill uptime bar
+        const uptimeBar = document.querySelector('.uptime-bar');
+        if(uptimeBar && uptimeBar.children.length < 90) {
+            uptimeBar.innerHTML = '';
+            for(let i=0; i<90; i++) {
+                const div = document.createElement('div');
+                div.className = 'uptime-segment';
+                div.title = `Day ${90-i}: 100% uptime`;
+                // Randomly simulate a small dip
+                if (Math.random() > 0.98) {
+                    div.style.backgroundColor = 'rgba(255, 215, 0, 0.4)';
+                    div.title = `Day ${90-i}: 99.8% uptime`;
+                }
+                uptimeBar.appendChild(div);
+            }
+        }
+    </script>
+</body>
+</html>
