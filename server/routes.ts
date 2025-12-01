@@ -6259,17 +6259,120 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.get("/api/wallets", async (req, res) => {
     try {
-      const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 20;
+      const sortBy = (req.query.sortBy as string) || 'balance';
+      const sortOrder = (req.query.sortOrder as string) || 'desc';
+      const search = (req.query.search as string) || '';
+      const balanceFilter = req.query.balanceFilter as string;
+      const activityFilter = req.query.activityFilter as string;
+      const stakingFilter = req.query.stakingFilter as string;
+      const minBalance = req.query.minBalance ? parseFloat(req.query.minBalance as string) : undefined;
+      const maxBalance = req.query.maxBalance ? parseFloat(req.query.maxBalance as string) : undefined;
+
+      let wallets: WalletBalance[];
+      
       if (isProductionMode()) {
-        // Fetch from TBURN mainnet node
         const client = getTBurnClient();
-        const wallets = await client.getWalletBalances(limit);
-        res.json(wallets);
+        wallets = await client.getWalletBalances(1000);
       } else {
-        // Fetch from local database (demo mode)
-        const wallets = await storage.getAllWalletBalances(limit);
-        res.json(wallets);
+        wallets = await storage.getAllWalletBalances(1000);
       }
+
+      // Apply search filter
+      if (search) {
+        const searchLower = search.toLowerCase();
+        wallets = wallets.filter(w => w.address.toLowerCase().includes(searchLower));
+      }
+
+      // Apply balance tier filter
+      if (balanceFilter && balanceFilter !== 'all') {
+        wallets = wallets.filter(w => {
+          const balance = parseFloat(w.balance) / 1e18;
+          switch (balanceFilter) {
+            case 'whale': return balance >= 1000000;
+            case 'large': return balance >= 100000 && balance < 1000000;
+            case 'medium': return balance >= 10000 && balance < 100000;
+            case 'small': return balance < 10000;
+            default: return true;
+          }
+        });
+      }
+
+      // Apply min/max balance filter
+      if (minBalance !== undefined) {
+        wallets = wallets.filter(w => parseFloat(w.balance) / 1e18 >= minBalance);
+      }
+      if (maxBalance !== undefined) {
+        wallets = wallets.filter(w => parseFloat(w.balance) / 1e18 <= maxBalance);
+      }
+
+      // Apply activity filter
+      if (activityFilter && activityFilter !== 'all') {
+        const now = Date.now();
+        const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
+        wallets = wallets.filter(w => {
+          const lastTx = w.lastTransactionAt ? new Date(w.lastTransactionAt).getTime() : 0;
+          return activityFilter === 'active' ? lastTx > thirtyDaysAgo : lastTx <= thirtyDaysAgo;
+        });
+      }
+
+      // Apply staking filter
+      if (stakingFilter && stakingFilter !== 'all') {
+        wallets = wallets.filter(w => {
+          const isStaking = parseFloat(w.stakedBalance) > 0;
+          return stakingFilter === 'staking' ? isStaking : !isStaking;
+        });
+      }
+
+      // Apply sorting
+      wallets.sort((a, b) => {
+        let aVal: number, bVal: number;
+        switch (sortBy) {
+          case 'balance':
+            aVal = parseFloat(a.balance);
+            bVal = parseFloat(b.balance);
+            break;
+          case 'staked':
+            aVal = parseFloat(a.stakedBalance);
+            bVal = parseFloat(b.stakedBalance);
+            break;
+          case 'rewards':
+            aVal = parseFloat(a.rewardsEarned);
+            bVal = parseFloat(b.rewardsEarned);
+            break;
+          case 'transactions':
+            aVal = a.transactionCount;
+            bVal = b.transactionCount;
+            break;
+          case 'lastActivity':
+            aVal = a.lastTransactionAt ? new Date(a.lastTransactionAt).getTime() : 0;
+            bVal = b.lastTransactionAt ? new Date(b.lastTransactionAt).getTime() : 0;
+            break;
+          default:
+            aVal = parseFloat(a.balance);
+            bVal = parseFloat(b.balance);
+        }
+        return sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
+      });
+
+      // Calculate pagination
+      const totalItems = wallets.length;
+      const totalPages = Math.ceil(totalItems / limit);
+      const offset = (page - 1) * limit;
+      const paginatedWallets = wallets.slice(offset, offset + limit);
+
+      res.json({
+        wallets: paginatedWallets,
+        pagination: {
+          page,
+          limit,
+          totalPages,
+          totalItems,
+          hasNext: page < totalPages,
+          hasPrev: page > 1
+        }
+      });
     } catch (error: unknown) {
       res.status(500).json({ error: "Failed to fetch wallet balances" });
     }
