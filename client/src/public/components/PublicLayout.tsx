@@ -1,5 +1,6 @@
 import { PublicHeader } from "./PublicHeader";
 import { PublicFooter } from "./PublicFooter";
+import "../styles/public.css";
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -7,7 +8,7 @@ interface PublicLayoutProps {
 
 export function PublicLayout({ children }: PublicLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-[#030407] text-white antialiased">
       <PublicHeader />
       <main className="flex-1">
         {children}

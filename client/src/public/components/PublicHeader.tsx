@@ -1,8 +1,8 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { ChevronDown, Menu, X, Sun, Moon, Globe } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
+import "../styles/public.css";
 
 const menuStructure = [
   {
@@ -44,31 +44,12 @@ const menuStructure = [
     ],
   },
   {
-    title: "Use Cases",
-    items: [
-      { title: "Tokenization", href: "/use-cases/tokenization" },
-      { title: "DePIN", href: "/use-cases/depin" },
-      { title: "Stablecoins", href: "/use-cases/stablecoins" },
-      { title: "Institutional Payments", href: "/use-cases/institutional" },
-      { title: "Enterprise", href: "/use-cases/enterprise" },
-      { title: "Gaming & Entertainment", href: "/use-cases/gaming" },
-    ],
-  },
-  {
     title: "Network",
     items: [
       { title: "Validators", href: "/network/validators" },
       { title: "RPC Providers", href: "/network/rpc" },
       { title: "Network Status", href: "/network/status" },
       { title: "Burn Chain Ramp", href: "/network/ramp" },
-    ],
-  },
-  {
-    title: "Community",
-    items: [
-      { title: "News & Blog", href: "/community/news" },
-      { title: "Events", href: "/community/events" },
-      { title: "Community", href: "/community/hub" },
     ],
   },
 ];
@@ -80,19 +61,19 @@ export function PublicHeader() {
   const [location] = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 mx-auto max-w-7xl">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500">
-              <span className="text-lg font-bold text-white">B</span>
+    <nav className="fixed top-0 w-full z-50 glass-nav">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 cursor-pointer group">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-[0_0_15px_rgba(112,0,255,0.4)] group-hover:rotate-12 transition-transform">
+              <span className="text-white font-bold text-xl">B</span>
             </div>
-            <span className="text-lg font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Burn Chain
+            <span className="font-bold text-xl tracking-tight text-white">
+              TBurn <span className="text-cyan-400 font-light">Chain</span>
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-8">
             {menuStructure.map((menu) => (
               <div
                 key={menu.title}
@@ -101,10 +82,10 @@ export function PublicHeader() {
                 onMouseLeave={() => setActiveMenu(null)}
               >
                 <button
-                  className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors
+                  className={`flex items-center gap-1 text-sm font-medium transition-colors
                     ${activeMenu === menu.title 
-                      ? "bg-primary/10 text-primary" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      ? "text-white" 
+                      : "text-gray-400 hover:text-white"
                     }`}
                   data-testid={`menu-${menu.title.toLowerCase()}`}
                 >
@@ -114,17 +95,17 @@ export function PublicHeader() {
 
                 {activeMenu === menu.title && (
                   <div className="absolute left-0 top-full pt-2 z-50">
-                    <div className="w-64 rounded-lg border border-border bg-popover p-2 shadow-xl">
+                    <div className="w-64 rounded-lg glass-panel p-2 shadow-xl border border-white/10">
                       {menu.items.map((item) => (
                         <Link
                           key={item.href}
                           href={item.href}
-                          className="block rounded-md px-3 py-2 text-sm hover:bg-muted transition-colors"
+                          className="block rounded-md px-3 py-2 text-sm hover:bg-white/5 transition-colors"
                           data-testid={`link-${item.href.replace(/\//g, '-').slice(1)}`}
                         >
-                          <div className="font-medium text-foreground">{item.title}</div>
+                          <div className="font-medium text-white">{item.title}</div>
                           {item.description && (
-                            <div className="text-xs text-muted-foreground mt-0.5">{item.description}</div>
+                            <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
                           )}
                         </Link>
                       ))}
@@ -133,51 +114,54 @@ export function PublicHeader() {
                 )}
               </div>
             ))}
-          </nav>
-        </div>
+          </div>
 
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            data-testid="button-theme-toggle"
-          >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
+          <div className="flex items-center gap-4">
+            <button 
+              className="p-2 text-gray-400 hover:text-white transition"
+              data-testid="button-language"
+            >
+              <Globe className="w-5 h-5" />
+            </button>
+            <button 
+              className="p-2 text-gray-400 hover:text-white transition"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              data-testid="button-theme-toggle"
+            >
+              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+            <Link href="/app">
+              <button 
+                className="glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
+                data-testid="button-login"
+              >
+                Login Interface
+              </button>
+            </Link>
 
-          <Button variant="ghost" size="icon" data-testid="button-language">
-            <Globe className="h-5 w-5" />
-          </Button>
-
-          <Link href="/app">
-            <Button variant="outline" size="sm" data-testid="button-login">
-              Login
-            </Button>
-          </Link>
-
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            data-testid="button-mobile-menu"
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+            <button
+              className="lg:hidden p-2 text-gray-400 hover:text-white"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              data-testid="button-mobile-menu"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-border bg-background">
-          <nav className="container px-4 py-4 mx-auto max-w-7xl">
+        <div className="lg:hidden glass-panel border-t border-white/5">
+          <nav className="max-w-7xl mx-auto px-6 py-4">
             {menuStructure.map((menu) => (
               <div key={menu.title} className="mb-4">
-                <div className="text-sm font-semibold text-foreground mb-2">{menu.title}</div>
+                <div className="text-sm font-semibold text-white mb-2">{menu.title}</div>
                 <div className="space-y-1 pl-4">
                   {menu.items.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block py-1.5 text-sm text-muted-foreground hover:text-foreground"
+                      className="block py-1.5 text-sm text-gray-400 hover:text-white transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.title}
@@ -189,6 +173,6 @@ export function PublicHeader() {
           </nav>
         </div>
       )}
-    </header>
+    </nav>
   );
 }
