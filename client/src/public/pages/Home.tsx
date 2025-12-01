@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useEffect, useRef, useState } from "react";
 import { 
   ArrowRight, 
   Book, 
@@ -13,6 +14,66 @@ import { useNetworkStats } from "../hooks/use-public-data";
 import { NeuralCanvas } from "../components/NeuralCanvas";
 import { AITerminal } from "../components/AITerminal";
 import "../styles/public.css";
+
+const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+function useTextScramble(text: string, delay: number = 0) {
+  const [displayText, setDisplayText] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+    let animationId: number;
+    
+    const queue: Array<{ from: string; to: string; start: number; end: number; char?: string }> = [];
+    
+    for (let i = 0; i < text.length; i++) {
+      const start = Math.floor(Math.random() * 40);
+      const end = start + Math.floor(Math.random() * 40);
+      queue.push({ from: "", to: text[i], start, end });
+    }
+
+    const update = () => {
+      let output = "";
+      let complete = 0;
+
+      for (let i = 0; i < queue.length; i++) {
+        const item = queue[i];
+        if (frame >= item.end) {
+          complete++;
+          output += item.to;
+        } else if (frame >= item.start) {
+          if (!item.char || Math.random() < 0.28) {
+            item.char = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+          }
+          output += item.char;
+        } else {
+          output += item.from;
+        }
+      }
+
+      setDisplayText(output);
+
+      if (complete === queue.length) {
+        setIsComplete(true);
+      } else {
+        frame++;
+        animationId = requestAnimationFrame(() => setTimeout(update, 30));
+      }
+    };
+
+    const timer = setTimeout(() => {
+      update();
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+      if (animationId) cancelAnimationFrame(animationId);
+    };
+  }, [text, delay]);
+
+  return { displayText, isComplete };
+}
 
 const solutions = [
   {
@@ -65,8 +126,35 @@ const getColorClasses = (color: string) => {
   return colors[color] || colors.cyan;
 };
 
+function ScrambleText({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {
+  const { displayText, isComplete } = useTextScramble(text, delay);
+  
+  return (
+    <span className={className}>
+      {displayText.split("").map((char, i) => (
+        <span 
+          key={i} 
+          className={isComplete || char === text[i] ? "" : "text-cyan-400/70"}
+          style={{ 
+            textShadow: !isComplete && char !== text[i] ? "0 0 10px rgba(0, 240, 255, 0.5)" : undefined 
+          }}
+        >
+          {char}
+        </span>
+      ))}
+      {!isComplete && <span className="cursor-blink" />}
+    </span>
+  );
+}
+
 export default function Home() {
   const { data: stats } = useNetworkStats();
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowContent(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const cards = e.currentTarget.querySelectorAll(".spotlight-card");
@@ -83,22 +171,40 @@ export default function Home() {
     <div className="min-h-screen bg-[#030407] text-white antialiased selection:bg-cyan-500/30 selection:text-white">
       <NeuralCanvas />
 
-      <main className="relative pt-32 pb-20">
+      <main className="relative pt-32 pb-20" style={{ position: "relative", zIndex: 1 }}>
         {/* Hero Section */}
         <section className="relative overflow-hidden mb-24">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] animate-pulse-slow pointer-events-none"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-[100px] animate-pulse-slow pointer-events-none" style={{ animationDelay: "1s" }}></div>
+          {/* Floating Orbs */}
+          <div className="hero-orb hero-orb-purple w-[500px] h-[500px] top-0 left-[10%]" style={{ animationDelay: "0s" }}></div>
+          <div className="hero-orb hero-orb-cyan w-[400px] h-[400px] bottom-0 right-[15%]" style={{ animationDelay: "2s" }}></div>
+          <div className="hero-orb hero-orb-purple w-[300px] h-[300px] top-[50%] right-[5%]" style={{ animationDelay: "4s" }}></div>
 
           <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/30 bg-cyan-400/5 text-cyan-400 text-xs font-mono mb-8 backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            {/* Live Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-400/5 text-cyan-400 text-xs font-mono mb-8 backdrop-blur-sm animate-glow-pulse">
+              <span className="relative w-2 h-2">
+                <span className="absolute inset-0 rounded-full bg-cyan-400 animate-ping opacity-75"></span>
+                <span className="relative rounded-full w-2 h-2 bg-cyan-400 block"></span>
+              </span>
               V4 MAINNET LIVE
             </div>
 
+            {/* Hero Title with Scramble Effect */}
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white leading-tight">
-              <span className="text-gradient" data-testid="text-hero-title">Trust-Based</span>
+              {showContent ? (
+                <>
+                  <ScrambleText 
+                    text="Trust-Based" 
+                    className="text-gradient inline-block"
+                    delay={300}
+                  />
+                  <span data-testid="text-hero-title" className="sr-only">Trust-Based</span>
+                </>
+              ) : (
+                <span className="text-gradient">Trust-Based</span>
+              )}
               <br />
-              Blockchain Ecosystem
+              <span className="text-white">Blockchain Ecosystem</span>
             </h1>
 
             <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed" data-testid="text-hero-description">
