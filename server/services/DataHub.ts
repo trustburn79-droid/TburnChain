@@ -394,8 +394,14 @@ class DataHubService {
   /**
    * Update staking metrics when staking operations occur
    */
-  updateStakingMetrics(totalStaked: string, totalPools: number, activePositions: number, apy: number): void {
-    this.moduleMetrics.staking = { totalStaked, totalPools, activePositions, apy };
+  updateStakingMetrics(totalStaked: string, totalPools: number, activePositions: number, apy: number, successfulOperations?: number): void {
+    this.moduleMetrics.staking = { 
+      totalStaked, 
+      totalPools, 
+      activePositions, 
+      apy,
+      successfulOperations: successfulOperations ?? this.moduleMetrics.staking.successfulOperations 
+    };
     this.invalidateCache('network_snapshot');
     this.emitCrossModuleEvent({
       type: 'STAKING_METRICS_UPDATED',
@@ -409,8 +415,15 @@ class DataHubService {
   /**
    * Update DEX metrics when swap/liquidity operations occur
    */
-  updateDexMetrics(tvl: string, volume24h: string, totalPools: number, activeSwaps: number): void {
-    this.moduleMetrics.dex = { tvl, volume24h, totalPools, activeSwaps };
+  updateDexMetrics(tvl: string, volume24h: string, totalPools: number, activeSwaps: number, pendingSwaps?: number, successfulSwaps?: number): void {
+    this.moduleMetrics.dex = { 
+      tvl, 
+      volume24h, 
+      totalPools, 
+      activeSwaps,
+      pendingSwaps: pendingSwaps ?? this.moduleMetrics.dex.pendingSwaps,
+      successfulSwaps: successfulSwaps ?? this.moduleMetrics.dex.successfulSwaps
+    };
     this.invalidateCache('network_snapshot');
     this.emitCrossModuleEvent({
       type: 'DEX_METRICS_UPDATED',
@@ -439,8 +452,15 @@ class DataHubService {
   /**
    * Update NFT metrics when marketplace operations occur
    */
-  updateNftMetrics(totalCollections: number, totalListings: number, volume24h: string, floorPriceAvg: string): void {
-    this.moduleMetrics.nft = { totalCollections, totalListings, volume24h, floorPriceAvg };
+  updateNftMetrics(totalCollections: number, totalListings: number, volume24h: string, floorPriceAvg: string, totalItems?: number, floorPrice?: string): void {
+    this.moduleMetrics.nft = { 
+      totalCollections, 
+      totalListings, 
+      volume24h, 
+      floorPriceAvg,
+      totalItems: totalItems ?? this.moduleMetrics.nft.totalItems,
+      floorPrice: floorPrice ?? this.moduleMetrics.nft.floorPrice
+    };
     this.emitCrossModuleEvent({
       type: 'NFT_METRICS_UPDATED',
       source: 'nft',
@@ -453,8 +473,15 @@ class DataHubService {
   /**
    * Update burn metrics when auto-burn occurs
    */
-  updateBurnMetrics(totalBurned: string, burnRate24h: string, nextBurnAmount: string, deflationRate: number): void {
-    this.moduleMetrics.burn = { totalBurned, burnRate24h, nextBurnAmount, deflationRate };
+  updateBurnMetrics(totalBurned: string, burnRate24h: string, nextBurnAmount: string, deflationRate: number, circulatingSupply?: string, totalEvents?: number): void {
+    this.moduleMetrics.burn = { 
+      totalBurned, 
+      burnRate24h, 
+      nextBurnAmount, 
+      deflationRate,
+      circulatingSupply: circulatingSupply ?? this.moduleMetrics.burn.circulatingSupply,
+      totalEvents: totalEvents ?? this.moduleMetrics.burn.totalEvents
+    };
     this.invalidateCache('network_snapshot');
     this.emitCrossModuleEvent({
       type: 'BURN_METRICS_UPDATED',
@@ -488,9 +515,22 @@ class DataHubService {
     tbc721Count: number, 
     tbc1155Count: number, 
     totalMinted: string, 
-    totalHolders: number
+    totalHolders: number,
+    totalSupply?: string,
+    circulatingSupply?: string,
+    burned24h?: string
   ): void {
-    this.moduleMetrics.tokenSystem = { totalTokens, tbc20Count, tbc721Count, tbc1155Count, totalMinted, totalHolders };
+    this.moduleMetrics.tokenSystem = { 
+      totalTokens, 
+      tbc20Count, 
+      tbc721Count, 
+      tbc1155Count, 
+      totalMinted, 
+      totalHolders,
+      totalSupply: totalSupply ?? this.moduleMetrics.tokenSystem.totalSupply,
+      circulatingSupply: circulatingSupply ?? this.moduleMetrics.tokenSystem.circulatingSupply,
+      burned24h: burned24h ?? this.moduleMetrics.tokenSystem.burned24h
+    };
     this.emitCrossModuleEvent({
       type: 'TOKEN_SYSTEM_METRICS_UPDATED',
       source: 'token-system',
@@ -509,9 +549,26 @@ class DataHubService {
     totalVotes: number,
     passRate: number,
     aiAnalysisCount: number,
-    quorumPercentage: number
+    quorumPercentage: number,
+    passedProposals?: number,
+    rejectedProposals?: number,
+    pendingProposals?: number,
+    totalVotingPower?: string,
+    participationRate?: number
   ): void {
-    this.moduleMetrics.aiGovernance = { activeProposals, totalProposals, totalVotes, passRate, aiAnalysisCount, quorumPercentage };
+    this.moduleMetrics.aiGovernance = { 
+      activeProposals, 
+      totalProposals, 
+      totalVotes, 
+      passRate, 
+      aiAnalysisCount, 
+      quorumPercentage,
+      passedProposals: passedProposals ?? this.moduleMetrics.aiGovernance.passedProposals,
+      rejectedProposals: rejectedProposals ?? this.moduleMetrics.aiGovernance.rejectedProposals,
+      pendingProposals: pendingProposals ?? this.moduleMetrics.aiGovernance.pendingProposals,
+      totalVotingPower: totalVotingPower ?? this.moduleMetrics.aiGovernance.totalVotingPower,
+      participationRate: participationRate ?? this.moduleMetrics.aiGovernance.participationRate
+    };
     this.emitCrossModuleEvent({
       type: 'AI_GOVERNANCE_METRICS_UPDATED',
       source: 'ai-governance',
@@ -530,9 +587,18 @@ class DataHubService {
     auditLogsCount: number,
     lastAuditTime: number,
     mainnetStatus: string,
-    healthScore: number
+    healthScore: number,
+    failedAuthAttempts?: number
   ): void {
-    this.moduleMetrics.admin = { totalAdmins, activeApiKeys, auditLogsCount, lastAuditTime, mainnetStatus, healthScore };
+    this.moduleMetrics.admin = { 
+      totalAdmins, 
+      activeApiKeys, 
+      auditLogsCount, 
+      lastAuditTime, 
+      mainnetStatus, 
+      healthScore,
+      failedAuthAttempts: failedAuthAttempts ?? this.moduleMetrics.admin.failedAuthAttempts
+    };
     this.emitCrossModuleEvent({
       type: 'ADMIN_METRICS_UPDATED',
       source: 'admin',
@@ -551,9 +617,22 @@ class DataHubService {
     totalNodes: number,
     healthyNodes: number,
     pendingTasks: number,
-    completedTasks24h: number
+    completedTasks24h: number,
+    totalMembers?: number,
+    activeMembers?: number,
+    pendingApplications?: number
   ): void {
-    this.moduleMetrics.operator = { totalOperators, activeOperators, totalNodes, healthyNodes, pendingTasks, completedTasks24h };
+    this.moduleMetrics.operator = { 
+      totalOperators, 
+      activeOperators, 
+      totalNodes, 
+      healthyNodes, 
+      pendingTasks, 
+      completedTasks24h,
+      totalMembers: totalMembers ?? this.moduleMetrics.operator.totalMembers,
+      activeMembers: activeMembers ?? this.moduleMetrics.operator.activeMembers,
+      pendingApplications: pendingApplications ?? this.moduleMetrics.operator.pendingApplications
+    };
     this.emitCrossModuleEvent({
       type: 'OPERATOR_METRICS_UPDATED',
       source: 'operator',
@@ -674,7 +753,7 @@ class DataHubService {
   private async getPendingTransactionCount(): Promise<number> {
     try {
       const stats = await storage.getNetworkStats();
-      return stats?.pendingTransactions ? Number(stats.pendingTransactions) : 0;
+      return (stats as any)?.pendingTransactions ? Number((stats as any).pendingTransactions) : 0;
     } catch (error) {
       console.error('[DataHub] Failed to get pending transaction count:', error);
       return 0;
@@ -976,7 +1055,8 @@ class DataHubService {
         totalStaked: totalStaked.toString(),
         totalPools: pools.length,
         activePositions: positions.filter((p: any) => p.status === 'active').length,
-        apy: 1250
+        apy: 1250,
+        successfulOperations: this.moduleMetrics.staking.successfulOperations
       };
 
       const dexPools = await storage.getAllDexPools();
@@ -989,7 +1069,9 @@ class DataHubService {
         tvl: dexTvl.toString(),
         volume24h: this.moduleMetrics.dex.volume24h,
         totalPools: dexPools.length,
-        activeSwaps: this.moduleMetrics.dex.activeSwaps
+        activeSwaps: this.moduleMetrics.dex.activeSwaps,
+        pendingSwaps: this.moduleMetrics.dex.pendingSwaps,
+        successfulSwaps: this.moduleMetrics.dex.successfulSwaps
       };
 
       console.log('[DataHub] Metrics synced from storage');
