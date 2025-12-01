@@ -590,20 +590,35 @@ export default function Wallets() {
 
   const { data: walletData, isLoading, error, refetch, isFetching } = useQuery<WalletsResponse>({
     queryKey: ["/api/wallets", queryParams],
-    queryFn: async () => {
-      const response = await fetch(`/api/wallets?${queryParams}`, {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch wallets: ${response.status} ${errorText}`);
+    queryFn: async ({ signal }) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
+      try {
+        const response = await fetch(`/api/wallets?${queryParams}`, {
+          credentials: "include",
+          signal: signal || controller.signal,
+        });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Failed to fetch wallets: ${response.status} ${errorText}`);
+        }
+        return response.json();
+      } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
       }
-      return response.json();
     },
     refetchInterval: isAutoRefresh ? 10000 : false,
     staleTime: 5000,
-    retry: 2,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
+    gcTime: 300000,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    placeholderData: (previousData) => previousData,
   });
 
   const wallets = walletData?.wallets || [];

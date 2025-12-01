@@ -502,34 +502,49 @@ export default function Transactions() {
 
   const { data: txData, isLoading, error, refetch, isFetching } = useQuery<TransactionsResponse>({
     queryKey: ["/api/transactions", queryParams],
-    queryFn: async () => {
-      const response = await fetch(`/api/transactions?${queryParams}`, {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch transactions: ${response.status} ${errorText}`);
+    queryFn: async ({ signal }) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
+      try {
+        const response = await fetch(`/api/transactions?${queryParams}`, {
+          credentials: "include",
+          signal: signal || controller.signal,
+        });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Failed to fetch transactions: ${response.status} ${errorText}`);
+        }
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          return {
+            transactions: data,
+            pagination: {
+              page: 1,
+              limit: pageSize,
+              totalPages: Math.ceil(data.length / pageSize),
+              totalItems: data.length,
+              hasNext: false,
+              hasPrev: false
+            }
+          };
+        }
+        return data;
+      } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
       }
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        return {
-          transactions: data,
-          pagination: {
-            page: 1,
-            limit: pageSize,
-            totalPages: Math.ceil(data.length / pageSize),
-            totalItems: data.length,
-            hasNext: false,
-            hasPrev: false
-          }
-        };
-      }
-      return data;
     },
     refetchInterval: isAutoRefresh ? 5000 : false,
     staleTime: 3000,
-    retry: 2,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
+    gcTime: 300000,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    placeholderData: (previousData) => previousData,
   });
 
   const transactions = txData?.transactions || [];

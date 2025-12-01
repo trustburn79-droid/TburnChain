@@ -533,36 +533,65 @@ export default function Blocks() {
   
   const { data: blocksData, isLoading, error, refetch, isFetching } = useQuery<BlocksResponse>({
     queryKey: ["/api/blocks", queryParams],
-    queryFn: async () => {
-      const response = await fetch(`/api/blocks?${queryParams}`, {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch blocks: ${response.status} ${errorText}`);
+    queryFn: async ({ signal }) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
+      try {
+        const response = await fetch(`/api/blocks?${queryParams}`, {
+          credentials: "include",
+          signal: signal || controller.signal,
+        });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Failed to fetch blocks: ${response.status} ${errorText}`);
+        }
+        return response.json();
+      } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
       }
-      return response.json();
     },
     refetchInterval: isAutoRefresh ? 5000 : false,
     staleTime: 3000,
-    retry: 2,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
+    gcTime: 300000,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    placeholderData: (previousData) => previousData,
   });
   
   const { data: validators = [] } = useQuery<Validator[]>({
     queryKey: ["/api/validators"],
-    queryFn: async () => {
-      const response = await fetch("/api/validators", {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch validators: ${response.status} ${errorText}`);
+    queryFn: async ({ signal }) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
+      try {
+        const response = await fetch("/api/validators", {
+          credentials: "include",
+          signal: signal || controller.signal,
+        });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Failed to fetch validators: ${response.status} ${errorText}`);
+        }
+        return response.json();
+      } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
       }
-      return response.json();
     },
     staleTime: 60000,
-    retry: 2,
+    gcTime: 300000,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
+    refetchOnWindowFocus: false,
   });
   
   const metrics: BlockMetrics = useMemo(() => {
