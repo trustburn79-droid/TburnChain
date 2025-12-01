@@ -313,6 +313,10 @@ import {
   type CommunityEventRegistration,
   type InsertCommunityEventRegistration,
   type CommunityStats,
+  // Bridge Infrastructure Types
+  type BridgeTransfer,
+  type InsertBridgeTransfer,
+  bridgeTransfers,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -953,6 +957,18 @@ export interface IStorage {
 
   // Community Stats
   getCommunityStats(): Promise<CommunityStats>;
+
+  // ============================================
+  // BRIDGE TRANSFERS (Cross-Chain)
+  // ============================================
+  getAllBridgeTransfers(limit?: number): Promise<BridgeTransfer[]>;
+  getBridgeTransferById(id: string): Promise<BridgeTransfer | undefined>;
+  getBridgeTransfersBySender(senderAddress: string, limit?: number): Promise<BridgeTransfer[]>;
+  getBridgeTransfersByStatus(status: string, limit?: number): Promise<BridgeTransfer[]>;
+  getRecentBridgeTransfers(limit?: number): Promise<BridgeTransfer[]>;
+  getPendingBridgeTransfers(): Promise<BridgeTransfer[]>;
+  createBridgeTransfer(data: InsertBridgeTransfer): Promise<BridgeTransfer>;
+  updateBridgeTransfer(id: string, data: Partial<BridgeTransfer>): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -5819,6 +5835,61 @@ export class DbStorage implements IStorage {
       totalRewards: "0",
       weeklyGrowth: 0,
     };
+  }
+
+  // ============================================
+  // BRIDGE TRANSFERS (Cross-Chain)
+  // ============================================
+  async getAllBridgeTransfers(limit: number = 100): Promise<BridgeTransfer[]> {
+    return db.select().from(bridgeTransfers)
+      .orderBy(desc(bridgeTransfers.createdAt))
+      .limit(limit);
+  }
+
+  async getBridgeTransferById(id: string): Promise<BridgeTransfer | undefined> {
+    const [transfer] = await db.select().from(bridgeTransfers)
+      .where(eq(bridgeTransfers.id, id));
+    return transfer;
+  }
+
+  async getBridgeTransfersBySender(senderAddress: string, limit: number = 100): Promise<BridgeTransfer[]> {
+    return db.select().from(bridgeTransfers)
+      .where(eq(bridgeTransfers.senderAddress, senderAddress))
+      .orderBy(desc(bridgeTransfers.createdAt))
+      .limit(limit);
+  }
+
+  async getBridgeTransfersByStatus(status: string, limit: number = 100): Promise<BridgeTransfer[]> {
+    return db.select().from(bridgeTransfers)
+      .where(eq(bridgeTransfers.status, status))
+      .orderBy(desc(bridgeTransfers.createdAt))
+      .limit(limit);
+  }
+
+  async getRecentBridgeTransfers(limit: number = 50): Promise<BridgeTransfer[]> {
+    return db.select().from(bridgeTransfers)
+      .orderBy(desc(bridgeTransfers.createdAt))
+      .limit(limit);
+  }
+
+  async getPendingBridgeTransfers(): Promise<BridgeTransfer[]> {
+    return db.select().from(bridgeTransfers)
+      .where(eq(bridgeTransfers.status, 'pending'))
+      .orderBy(desc(bridgeTransfers.createdAt));
+  }
+
+  async createBridgeTransfer(data: InsertBridgeTransfer): Promise<BridgeTransfer> {
+    const [result] = await db.insert(bridgeTransfers).values({
+      ...data,
+      id: `bridge-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateBridgeTransfer(id: string, data: Partial<BridgeTransfer>): Promise<void> {
+    await db.update(bridgeTransfers)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(bridgeTransfers.id, id));
   }
 }
 

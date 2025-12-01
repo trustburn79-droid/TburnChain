@@ -1,10 +1,12 @@
 /**
  * DEX Orchestrator - Manages cross-module DEX operations
  * Ensures swaps and liquidity operations update wallets, pools, and metrics
+ * With persistent storage for production-grade data consistency
  */
 
 import { dataHub } from '../DataHub';
 import { eventBus } from '../EventBus';
+import { storage } from '../../storage';
 
 export interface SwapCommand {
   userAddress: string;
@@ -62,16 +64,58 @@ class DexOrchestratorService {
   }
 
   /**
-   * Execute swap with cross-module updates
+   * Execute swap with cross-module updates and storage persistence
    */
   async swap(command: SwapCommand): Promise<DexResult> {
     const { userAddress, poolId, tokenIn, tokenOut, amountIn, minAmountOut } = command;
+    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`;
 
     try {
       const inputAmount = BigInt(amountIn);
       const outputAmount = (inputAmount * BigInt(997)) / BigInt(1000);
       const fee = (inputAmount * BigInt(3)) / BigInt(1000);
 
+      // Persist swap to database
+      const swap = await storage.createDexSwap({
+        poolId,
+        traderAddress: userAddress,
+        tokenInAddress: tokenIn,
+        tokenInSymbol: 'TOKEN_IN',
+        tokenOutAddress: tokenOut,
+        tokenOutSymbol: 'TOKEN_OUT',
+        amountIn,
+        amountOut: outputAmount.toString(),
+        amountInUsd: '0',
+        amountOutUsd: '0',
+        feeAmount: fee.toString(),
+        feeUsd: '0',
+        priceImpact: 15, // basis points
+        effectivePrice: (Number(outputAmount) / Number(inputAmount)).toString(),
+        slippageTolerance: 50,
+        actualSlippage: 0,
+        txHash,
+        status: 'completed',
+      });
+
+      // Create transaction record
+      const currentBlock = Math.floor(Date.now() / 1000);
+      await storage.createTransaction({
+        hash: txHash,
+        blockNumber: currentBlock,
+        blockHash: `0x${currentBlock.toString(16)}`,
+        from: userAddress,
+        to: poolId,
+        value: amountIn,
+        gas: 150000,
+        gasPrice: '10',
+        gasUsed: 150000,
+        status: 'success',
+        nonce: Math.floor(Math.random() * 1000000),
+        timestamp: currentBlock,
+        input: JSON.stringify({ action: 'swap', swapId: swap.id, tokenIn, tokenOut }),
+      });
+
+      // Update in-memory metrics
       this.volume24h += inputAmount;
       this.activeSwaps += 1;
 
@@ -88,6 +132,7 @@ class DexOrchestratorService {
         channel: 'dex.swaps',
         type: 'SWAP_EXECUTED',
         data: {
+          swapId: swap.id,
           userAddress,
           poolId,
           tokenIn,
@@ -136,7 +181,7 @@ class DexOrchestratorService {
 
       return {
         success: true,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash,
         message: 'Swap executed successfully',
         affectedModules: ['dex', 'wallets', 'token-system'],
         outputAmount: outputAmount.toString(),
@@ -144,6 +189,7 @@ class DexOrchestratorService {
         fees: fee.toString()
       };
     } catch (error) {
+      console.error('[DexOrchestrator] Swap failed:', error);
       return {
         success: false,
         message: `Swap failed: ${error}`,

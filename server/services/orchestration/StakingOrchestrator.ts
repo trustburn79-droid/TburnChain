@@ -1,10 +1,12 @@
 /**
  * Staking Orchestrator - Manages cross-module staking operations
  * Ensures staking actions update validators, wallets, and network metrics
+ * With persistent storage for production-grade data consistency
  */
 
 import { dataHub } from '../DataHub';
 import { eventBus } from '../EventBus';
+import { storage } from '../../storage';
 
 export interface StakeCommand {
   userAddress: string;
@@ -65,13 +67,48 @@ class StakingOrchestratorService {
   }
 
   /**
-   * Execute stake operation with cross-module updates
+   * Execute stake operation with cross-module updates and storage persistence
    */
   async stake(command: StakeCommand): Promise<StakingResult> {
     const { userAddress, validatorAddress, amount, poolId } = command;
     const stakeAmount = BigInt(amount);
+    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`;
 
     try {
+      // Persist staking position to database
+      const position = await storage.createStakingPosition({
+        stakerAddress: userAddress,
+        poolId: poolId || 'default-pool',
+        delegatedValidatorId: validatorAddress,
+        stakedAmount: amount,
+        status: 'active',
+        lockPeriod: '0',
+        rewardsEarned: '0',
+        pendingRewards: '0',
+      });
+
+      // Create transaction record
+      const currentBlock = Math.floor(Date.now() / 1000);
+      await storage.createTransaction({
+        hash: txHash,
+        blockNumber: currentBlock,
+        blockHash: `0x${currentBlock.toString(16)}`,
+        from: userAddress,
+        to: validatorAddress,
+        value: amount,
+        gas: 21000,
+        gasPrice: '10',
+        gasUsed: 21000,
+        status: 'success',
+        nonce: Math.floor(Math.random() * 1000000),
+        timestamp: currentBlock,
+        input: JSON.stringify({ action: 'stake', poolId, positionId: position.id }),
+      });
+
+      // Update validator delegation
+      await storage.delegateToValidator(validatorAddress, amount, userAddress);
+
+      // Update in-memory metrics
       this.totalStaked += stakeAmount;
       this.activePositions += 1;
 
@@ -93,6 +130,7 @@ class StakingOrchestratorService {
           validatorAddress,
           amount,
           poolId,
+          positionId: position.id,
           totalStaked: this.totalStaked.toString(),
           timestamp: Date.now()
         },
@@ -131,7 +169,7 @@ class StakingOrchestratorService {
 
       return {
         success: true,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash,
         message: 'Stake operation successful',
         affectedModules: ['staking', 'validators', 'wallets', 'dashboard'],
         updatedMetrics: {
@@ -140,6 +178,7 @@ class StakingOrchestratorService {
         }
       };
     } catch (error) {
+      console.error('[StakingOrchestrator] Stake operation failed:', error);
       return {
         success: false,
         message: `Stake operation failed: ${error}`,
