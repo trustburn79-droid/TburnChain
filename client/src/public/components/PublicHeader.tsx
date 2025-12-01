@@ -4,7 +4,19 @@ import { ChevronDown, Menu, X, Sun, Moon, Globe } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import "../styles/public.css";
 
-const menuStructure = [
+interface MenuItem {
+  title: string;
+  href: string;
+  description?: string;
+}
+
+interface MenuSection {
+  title: string;
+  items: MenuItem[];
+  highlight?: boolean;
+}
+
+const menuStructure: MenuSection[] = [
   {
     title: "Learn",
     items: [
@@ -63,6 +75,15 @@ const menuStructure = [
       { title: "Burn Chain Ramp", href: "/network/ramp" },
     ],
   },
+  {
+    title: "Community",
+    highlight: true,
+    items: [
+      { title: "News & Blog", href: "/community/news" },
+      { title: "Events", href: "/community/events" },
+      { title: "Community", href: "/community/hub" },
+    ],
+  },
 ];
 
 export function PublicHeader() {
@@ -84,7 +105,7 @@ export function PublicHeader() {
             </span>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {menuStructure.map((menu) => (
               <div
                 key={menu.title}
@@ -94,9 +115,11 @@ export function PublicHeader() {
               >
                 <button
                   className={`flex items-center gap-1 text-sm font-medium transition-colors
-                    ${activeMenu === menu.title 
-                      ? "text-white" 
-                      : "text-gray-400 hover:text-white"
+                    ${menu.highlight 
+                      ? "px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white"
+                      : activeMenu === menu.title 
+                        ? "text-white" 
+                        : "text-gray-400 hover:text-white"
                     }`}
                   data-testid={`menu-${menu.title.toLowerCase()}`}
                 >
