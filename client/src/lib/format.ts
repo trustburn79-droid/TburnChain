@@ -70,13 +70,13 @@ export function calculateTransactionFeeEmber(
 
 // Format gas used/limit with EMB unit
 export function formatGasEmber(gas: number | string, includeUnit = true): string {
-  const g = typeof gas === 'string' ? parseInt(gas) : gas;
+  const g = typeof gas === 'string' ? parseFloat(gas) : gas;
   if (isNaN(g)) return includeUnit ? '0 EMB' : '0';
   
   const formatted = g >= 1e9 ? `${(g / 1e9).toFixed(2)}B` :
                     g >= 1e6 ? `${(g / 1e6).toFixed(2)}M` :
                     g >= 1e3 ? `${(g / 1e3).toFixed(2)}K` :
-                    g.toLocaleString();
+                    Number.isInteger(g) ? g.toLocaleString() : g.toFixed(2);
   
   return includeUnit ? `${formatted} EMB` : formatted;
 }
