@@ -44,6 +44,17 @@ const menuStructure = [
     ],
   },
   {
+    title: "Use Cases",
+    items: [
+      { title: "Tokenization", href: "/use-cases/tokenization" },
+      { title: "DePIN", href: "/use-cases/depin" },
+      { title: "Stablecoins", href: "/use-cases/stablecoins" },
+      { title: "Institutional Payments", href: "/use-cases/institutional-payments" },
+      { title: "Enterprise", href: "/use-cases/enterprise" },
+      { title: "Gaming & Entertainment", href: "/use-cases/gaming" },
+    ],
+  },
+  {
     title: "Network",
     items: [
       { title: "Validators", href: "/network/validators" },

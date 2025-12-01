@@ -49,7 +49,7 @@ export function PublicRouter() {
         <Route path="/use-cases/tokenization" component={Tokenization} />
         <Route path="/use-cases/depin" component={DePIN} />
         <Route path="/use-cases/stablecoins" component={Stablecoins} />
-        <Route path="/use-cases/institutional" component={Institutional} />
+        <Route path="/use-cases/institutional-payments" component={Institutional} />
         <Route path="/use-cases/enterprise" component={Enterprise} />
         <Route path="/use-cases/gaming" component={Gaming} />
         
