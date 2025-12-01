@@ -86,6 +86,38 @@ export interface ModuleMetrics {
     nextBurnAmount: string;
     deflationRate: number;
   };
+  tokenSystem: {
+    totalTokens: number;
+    tbc20Count: number;
+    tbc721Count: number;
+    tbc1155Count: number;
+    totalMinted: string;
+    totalHolders: number;
+  };
+  aiGovernance: {
+    activeProposals: number;
+    totalProposals: number;
+    totalVotes: number;
+    passRate: number;
+    aiAnalysisCount: number;
+    quorumPercentage: number;
+  };
+  admin: {
+    totalAdmins: number;
+    activeApiKeys: number;
+    auditLogsCount: number;
+    lastAuditTime: number;
+    mainnetStatus: string;
+    healthScore: number;
+  };
+  operator: {
+    totalOperators: number;
+    activeOperators: number;
+    totalNodes: number;
+    healthyNodes: number;
+    pendingTasks: number;
+    completedTasks24h: number;
+  };
 }
 
 export interface CrossModuleEvent {
@@ -115,7 +147,11 @@ class DataHubService {
       lending: { totalSupplied: "0", totalBorrowed: "0", activeMarkets: 0, utilizationRate: 0 },
       nft: { totalCollections: 0, totalListings: 0, volume24h: "0", floorPriceAvg: "0" },
       bridge: { totalBridged: "0", pendingTransfers: 0, supportedChains: 5 },
-      burn: { totalBurned: "0", burnRate24h: "0", nextBurnAmount: "0", deflationRate: 0 }
+      burn: { totalBurned: "0", burnRate24h: "0", nextBurnAmount: "0", deflationRate: 0 },
+      tokenSystem: { totalTokens: 0, tbc20Count: 0, tbc721Count: 0, tbc1155Count: 0, totalMinted: "0", totalHolders: 0 },
+      aiGovernance: { activeProposals: 0, totalProposals: 0, totalVotes: 0, passRate: 0, aiAnalysisCount: 0, quorumPercentage: 0 },
+      admin: { totalAdmins: 0, activeApiKeys: 0, auditLogsCount: 0, lastAuditTime: 0, mainnetStatus: "active", healthScore: 100 },
+      operator: { totalOperators: 0, activeOperators: 0, totalNodes: 0, healthyNodes: 0, pendingTasks: 0, completedTasks24h: 0 }
     };
   }
 
@@ -292,6 +328,90 @@ class DataHubService {
   }
 
   /**
+   * Update Token System v4.0 metrics (TBC-20, TBC-721, TBC-1155)
+   */
+  updateTokenSystemMetrics(
+    totalTokens: number, 
+    tbc20Count: number, 
+    tbc721Count: number, 
+    tbc1155Count: number, 
+    totalMinted: string, 
+    totalHolders: number
+  ): void {
+    this.moduleMetrics.tokenSystem = { totalTokens, tbc20Count, tbc721Count, tbc1155Count, totalMinted, totalHolders };
+    this.emitCrossModuleEvent({
+      type: 'TOKEN_SYSTEM_METRICS_UPDATED',
+      source: 'token-system',
+      target: ['dashboard', 'wallets', 'dex', 'bridge'],
+      data: this.moduleMetrics.tokenSystem,
+      timestamp: Date.now()
+    });
+  }
+
+  /**
+   * Update AI Governance metrics (proposals, votes, AI analysis)
+   */
+  updateAiGovernanceMetrics(
+    activeProposals: number,
+    totalProposals: number,
+    totalVotes: number,
+    passRate: number,
+    aiAnalysisCount: number,
+    quorumPercentage: number
+  ): void {
+    this.moduleMetrics.aiGovernance = { activeProposals, totalProposals, totalVotes, passRate, aiAnalysisCount, quorumPercentage };
+    this.emitCrossModuleEvent({
+      type: 'AI_GOVERNANCE_METRICS_UPDATED',
+      source: 'ai-governance',
+      target: ['dashboard', 'validators', 'staking'],
+      data: this.moduleMetrics.aiGovernance,
+      timestamp: Date.now()
+    });
+  }
+
+  /**
+   * Update Admin Panel metrics (API keys, audits, health)
+   */
+  updateAdminMetrics(
+    totalAdmins: number,
+    activeApiKeys: number,
+    auditLogsCount: number,
+    lastAuditTime: number,
+    mainnetStatus: string,
+    healthScore: number
+  ): void {
+    this.moduleMetrics.admin = { totalAdmins, activeApiKeys, auditLogsCount, lastAuditTime, mainnetStatus, healthScore };
+    this.emitCrossModuleEvent({
+      type: 'ADMIN_METRICS_UPDATED',
+      source: 'admin',
+      target: ['dashboard', 'operator'],
+      data: this.moduleMetrics.admin,
+      timestamp: Date.now()
+    });
+  }
+
+  /**
+   * Update Operator Portal metrics (nodes, operators, tasks)
+   */
+  updateOperatorMetrics(
+    totalOperators: number,
+    activeOperators: number,
+    totalNodes: number,
+    healthyNodes: number,
+    pendingTasks: number,
+    completedTasks24h: number
+  ): void {
+    this.moduleMetrics.operator = { totalOperators, activeOperators, totalNodes, healthyNodes, pendingTasks, completedTasks24h };
+    this.emitCrossModuleEvent({
+      type: 'OPERATOR_METRICS_UPDATED',
+      source: 'operator',
+      target: ['dashboard', 'admin', 'validators'],
+      data: this.moduleMetrics.operator,
+      timestamp: Date.now()
+    });
+  }
+
+  /**
    * Subscribe to cross-module events
    */
   subscribe(eventType: string, callback: (event: CrossModuleEvent) => void): () => void {
@@ -363,7 +483,7 @@ class DataHubService {
         return stats.currentBlockHeight;
       }
       const blocks = await storage.getRecentBlocks(1);
-      return blocks.length > 0 ? blocks[0].height : 0;
+      return blocks.length > 0 ? blocks[0].blockNumber : 0;
     } catch (error) {
       console.error('[DataHub] Failed to get block height:', error);
       return 0;
@@ -413,12 +533,7 @@ class DataHubService {
    * Get total token supply
    */
   private async getTotalSupply(): Promise<string> {
-    try {
-      const stats = await storage.getNetworkStats();
-      return stats?.totalSupply || "1000000000000000000000000000";
-    } catch (error) {
-      return "1000000000000000000000000000";
-    }
+    return "1000000000000000000000000000"; // 1 billion TBURN in Wei
   }
 
   /**
@@ -426,8 +541,7 @@ class DataHubService {
    */
   private async getCirculatingSupply(): Promise<string> {
     try {
-      const stats = await storage.getNetworkStats();
-      const total = BigInt(stats?.totalSupply || "1000000000000000000000000000");
+      const total = BigInt("1000000000000000000000000000"); // 1 billion TBURN
       const burned = BigInt(this.moduleMetrics.burn.totalBurned || "0");
       return (total - burned).toString();
     } catch (error) {
@@ -467,11 +581,11 @@ class DataHubService {
    */
   private async getAccountStakedAmount(address: string): Promise<string> {
     try {
-      const positions = await storage.getStakingPositionsByUser(address);
+      const positions = await storage.getStakingPositionsByAddress(address);
       let total = BigInt(0);
       for (const pos of positions) {
         if (pos.status === 'active') {
-          total += BigInt(pos.amount);
+          total += BigInt(pos.stakedAmount);
         }
       }
       return total.toString();
@@ -486,7 +600,7 @@ class DataHubService {
    */
   private async getAccountStakingPositions(address: string): Promise<StakingPosition[]> {
     try {
-      return await storage.getStakingPositionsByUser(address);
+      return await storage.getStakingPositionsByAddress(address);
     } catch (error) {
       console.error('[DataHub] Failed to get staking positions:', error);
       return [];
@@ -498,7 +612,7 @@ class DataHubService {
    */
   private async getAccountDexPositions(address: string): Promise<any[]> {
     try {
-      return await storage.getDexPositionsByUser(address);
+      return await storage.getDexPositionsByOwner(address);
     } catch (error) {
       console.error('[DataHub] Failed to get DEX positions:', error);
       return [];
@@ -510,7 +624,8 @@ class DataHubService {
    */
   private async getAccountLendingPositions(address: string): Promise<LendingPosition[]> {
     try {
-      return await storage.getLendingPositionsByUser(address);
+      const position = await storage.getLendingPositionByUser(address);
+      return position ? [position] : [];
     } catch (error) {
       console.error('[DataHub] Failed to get lending positions:', error);
       return [];
@@ -522,7 +637,7 @@ class DataHubService {
    */
   private async getAccountNftAssets(address: string): Promise<NftItem[]> {
     try {
-      return await storage.getNftsByOwner(address);
+      return await storage.getNftItemsByOwner(address);
     } catch (error) {
       console.error('[DataHub] Failed to get NFT assets:', error);
       return [];
@@ -547,7 +662,7 @@ class DataHubService {
    */
   private async getAccountRewards(address: string): Promise<string> {
     try {
-      const positions = await storage.getStakingPositionsByUser(address);
+      const positions = await storage.getStakingPositionsByAddress(address);
       let totalRewards = BigInt(0);
       for (const pos of positions) {
         totalRewards += BigInt(pos.rewardsEarned || "0");
@@ -564,7 +679,8 @@ class DataHubService {
    */
   private async getValidator(address: string): Promise<Validator | null> {
     try {
-      return await storage.getValidator(address);
+      const validator = await storage.getValidatorByAddress(address);
+      return validator || null;
     } catch (error) {
       console.error('[DataHub] Failed to get validator:', error);
       return null;
@@ -576,12 +692,12 @@ class DataHubService {
    */
   private async getValidatorDelegations(address: string): Promise<any[]> {
     try {
-      const positions = await storage.getStakingPositionsByValidator(address);
-      return positions.map(p => ({
-        delegator: p.userAddress,
-        amount: p.amount,
-        startDate: p.startDate,
-        status: p.status
+      const delegations = await storage.getStakingDelegationsByValidator(address);
+      return delegations.map((d: any) => ({
+        delegator: d.stakerAddress,
+        amount: d.amount,
+        startDate: d.createdAt,
+        status: d.status
       }));
     } catch (error) {
       console.error('[DataHub] Failed to get delegations:', error);
@@ -594,8 +710,8 @@ class DataHubService {
    */
   private async getValidatorStakingPools(address: string): Promise<StakingPool[]> {
     try {
-      const allPools = await storage.getStakingPools();
-      return allPools.filter(p => p.validatorAddress === address);
+      const allPools = await storage.getAllStakingPools();
+      return allPools.filter((p: any) => p.validatorAddress === address);
     } catch (error) {
       console.error('[DataHub] Failed to get validator pools:', error);
       return [];
@@ -655,6 +771,25 @@ class DataHubService {
       }
     });
 
+    eventBus.subscribe(['token-system.mint'], (event) => {
+      this.invalidateCache('network_snapshot');
+      if (event.data?.holderAddress) {
+        this.invalidateAccountCache(event.data.holderAddress);
+      }
+    });
+
+    eventBus.subscribe(['ai-governance.proposal'], (event) => {
+      this.invalidateCache('network_snapshot');
+    });
+
+    eventBus.subscribe(['admin.audit'], (event) => {
+      this.invalidateCache('network_snapshot');
+    });
+
+    eventBus.subscribe(['operator.node-status'], (event) => {
+      this.invalidateCache('network_snapshot');
+    });
+
     console.log('[DataHub] Event subscriptions initialized for real-time cache invalidation');
   }
 
@@ -663,26 +798,26 @@ class DataHubService {
    */
   async syncMetricsFromStorage(): Promise<void> {
     try {
-      const pools = await storage.getStakingPools();
+      const pools = await storage.getAllStakingPools();
       const positions = await storage.getAllStakingPositions();
       let totalStaked = BigInt(0);
       for (const pos of positions) {
         if (pos.status === 'active') {
-          totalStaked += BigInt(pos.amount);
+          totalStaked += BigInt(pos.stakedAmount);
         }
       }
       
       this.moduleMetrics.staking = {
         totalStaked: totalStaked.toString(),
         totalPools: pools.length,
-        activePositions: positions.filter(p => p.status === 'active').length,
+        activePositions: positions.filter((p: any) => p.status === 'active').length,
         apy: 1250
       };
 
-      const dexPools = await storage.getDexPools();
+      const dexPools = await storage.getAllDexPools();
       let dexTvl = BigInt(0);
       for (const pool of dexPools) {
-        dexTvl += BigInt(pool.totalValueLocked || "0");
+        dexTvl += BigInt(pool.tvlUsd || "0");
       }
       
       this.moduleMetrics.dex = {

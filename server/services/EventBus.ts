@@ -30,7 +30,16 @@ export type EventChannel =
   | 'governance.votes'
   | 'ai.decisions'
   | 'sharding.state'
-  | 'cross-shard.messages';
+  | 'cross-shard.messages'
+  | 'token-system.mint'
+  | 'token-system.transfer'
+  | 'token-system.burn'
+  | 'ai-governance.proposal'
+  | 'ai-governance.vote'
+  | 'admin.audit'
+  | 'admin.health'
+  | 'operator.node-status'
+  | 'operator.task';
 
 export interface EventPayload {
   channel: EventChannel;
