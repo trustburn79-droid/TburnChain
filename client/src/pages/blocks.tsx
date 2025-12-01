@@ -534,22 +534,35 @@ export default function Blocks() {
   const { data: blocksData, isLoading, error, refetch, isFetching } = useQuery<BlocksResponse>({
     queryKey: ["/api/blocks", queryParams],
     queryFn: async () => {
-      const response = await fetch(`/api/blocks?${queryParams}`);
-      if (!response.ok) throw new Error("Failed to fetch blocks");
+      const response = await fetch(`/api/blocks?${queryParams}`, {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch blocks: ${response.status} ${errorText}`);
+      }
       return response.json();
     },
     refetchInterval: isAutoRefresh ? 5000 : false,
     staleTime: 3000,
+    retry: 2,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
   });
   
   const { data: validators = [] } = useQuery<Validator[]>({
     queryKey: ["/api/validators"],
     queryFn: async () => {
-      const response = await fetch("/api/validators");
-      if (!response.ok) throw new Error("Failed to fetch validators");
+      const response = await fetch("/api/validators", {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch validators: ${response.status} ${errorText}`);
+      }
       return response.json();
     },
     staleTime: 60000,
+    retry: 2,
   });
   
   const metrics: BlockMetrics = useMemo(() => {

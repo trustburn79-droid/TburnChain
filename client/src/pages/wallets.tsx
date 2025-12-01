@@ -590,8 +590,20 @@ export default function Wallets() {
 
   const { data: walletData, isLoading, error, refetch, isFetching } = useQuery<WalletsResponse>({
     queryKey: ["/api/wallets", queryParams],
+    queryFn: async () => {
+      const response = await fetch(`/api/wallets?${queryParams}`, {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch wallets: ${response.status} ${errorText}`);
+      }
+      return response.json();
+    },
     refetchInterval: isAutoRefresh ? 10000 : false,
     staleTime: 5000,
+    retry: 2,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
   });
 
   const wallets = walletData?.wallets || [];

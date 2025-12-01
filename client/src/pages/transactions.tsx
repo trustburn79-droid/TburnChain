@@ -503,8 +503,13 @@ export default function Transactions() {
   const { data: txData, isLoading, error, refetch, isFetching } = useQuery<TransactionsResponse>({
     queryKey: ["/api/transactions", queryParams],
     queryFn: async () => {
-      const response = await fetch(`/api/transactions?${queryParams}`);
-      if (!response.ok) throw new Error("Failed to fetch transactions");
+      const response = await fetch(`/api/transactions?${queryParams}`, {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch transactions: ${response.status} ${errorText}`);
+      }
       const data = await response.json();
       if (Array.isArray(data)) {
         return {
@@ -523,6 +528,8 @@ export default function Transactions() {
     },
     refetchInterval: isAutoRefresh ? 5000 : false,
     staleTime: 3000,
+    retry: 2,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
   });
 
   const transactions = txData?.transactions || [];
