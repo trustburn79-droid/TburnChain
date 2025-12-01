@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -15,7 +15,8 @@ import { OperatorAuthGuard } from "@/components/operator-auth-guard";
 import { LanguageSelector } from "@/components/language-selector";
 import '@/lib/i18n';
 
-// Pages
+import { PublicRouter } from "./public/PublicRouter";
+
 import Dashboard from "@/pages/dashboard";
 import Blocks from "@/pages/blocks";
 import BlockDetail from "@/pages/block-detail";
@@ -40,46 +41,26 @@ import MemberDetail from "@/pages/member-detail";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 
-// Token System v4.0 Pages
 import TokenSystem from "@/pages/token-system";
 import Bridge from "@/pages/bridge";
 import Governance from "@/pages/governance";
 import BurnDashboard from "@/pages/burn";
 
-// Staking Infrastructure Pages
 import StakingDashboard from "@/pages/staking";
 import StakingPoolDetail from "@/pages/staking-pool-detail";
 import StakingRewards from "@/pages/staking-rewards";
 import StakingSDK from "@/pages/staking-sdk";
 
-// DEX Infrastructure Pages
 import DexPage from "@/pages/dex";
-
-// Lending Infrastructure Pages
 import LendingPage from "@/pages/lending";
-
-// Yield Farming Pages
 import YieldFarmingPage from "@/pages/yield-farming";
-
-// Liquid Staking Pages
 import LiquidStakingPage from "@/pages/liquid-staking";
-
-// NFT Marketplace Pages
 import NftMarketplacePage from "@/pages/nft-marketplace";
-
-// NFT Launchpad Pages
 import NftLaunchpadPage from "@/pages/nft-launchpad";
-
-// GameFi Pages
 import GameFiPage from "@/pages/gamefi";
-
-// Community Pages
 import CommunityPage from "@/pages/community";
-
-// Search Results Page
 import SearchResults from "@/pages/search-results";
 
-// Operator Portal Pages
 import OperatorDashboard from "@/pages/operator/dashboard";
 import OperatorMembers from "@/pages/operator/members";
 import OperatorValidators from "@/pages/operator/validators";
@@ -87,7 +68,6 @@ import OperatorSecurity from "@/pages/operator/security";
 import OperatorReports from "@/pages/operator/reports";
 import OperatorStaking from "@/pages/operator/staking";
 
-// Wrapped Operator Portal Components to prevent re-mounting
 function ProtectedOperatorDashboard() {
   return <OperatorAuthGuard><OperatorDashboard /></OperatorAuthGuard>;
 }
@@ -107,64 +87,54 @@ function ProtectedOperatorStaking() {
   return <OperatorAuthGuard><OperatorStaking /></OperatorAuthGuard>;
 }
 
-function Router() {
+function AppRouter() {
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
-      <Route path="/blocks" component={Blocks} />
-      <Route path="/blocks/:blockNumber" component={BlockDetail} />
-      <Route path="/transactions" component={Transactions} />
-      <Route path="/transactions/:hash" component={TransactionDetail} />
-      <Route path="/simulator" component={TransactionSimulator} />
-      <Route path="/validators" component={Validators} />
-      <Route path="/validator/:address" component={ValidatorDetail} />
-      <Route path="/members" component={Members} />
-      <Route path="/members/:id" component={MemberDetail} />
-      <Route path="/ai" component={AIOrchestration} />
-      <Route path="/sharding" component={Sharding} />
-      <Route path="/cross-shard" component={CrossShard} />
-      <Route path="/wallets" component={Wallets} />
-      <Route path="/wallets/:address" component={WalletDetail} />
-      {/* Token System v4.0 Routes */}
-      <Route path="/token-system" component={TokenSystem} />
-      <Route path="/bridge" component={Bridge} />
-      <Route path="/governance" component={Governance} />
-      <Route path="/burn" component={BurnDashboard} />
-      {/* Staking Infrastructure Routes */}
-      <Route path="/staking" component={StakingDashboard} />
-      <Route path="/staking/pool/:id" component={StakingPoolDetail} />
-      <Route path="/staking/rewards" component={StakingRewards} />
-      <Route path="/staking/sdk" component={StakingSDK} />
-      {/* DEX Infrastructure Routes */}
-      <Route path="/dex" component={DexPage} />
-      {/* Lending Infrastructure Routes */}
-      <Route path="/lending" component={LendingPage} />
-      <Route path="/yield-farming" component={YieldFarmingPage} />
-      <Route path="/liquid-staking" component={LiquidStakingPage} />
-      {/* NFT Marketplace Routes */}
-      <Route path="/nft-marketplace" component={NftMarketplacePage} />
-      {/* NFT Launchpad Routes */}
-      <Route path="/nft-launchpad" component={NftLaunchpadPage} />
-      {/* GameFi Routes */}
-      <Route path="/gamefi" component={GameFiPage} />
-      {/* Community Routes */}
-      <Route path="/community" component={CommunityPage} />
-      {/* Search Routes */}
-      <Route path="/search" component={SearchResults} />
-      <Route path="/address/:address" component={WalletDetail} />
-      <Route path="/contracts" component={SmartContracts} />
-      <Route path="/health" component={NodeHealth} />
-      <Route path="/metrics" component={PerformanceMetrics} />
-      <Route path="/consensus" component={Consensus} />
-      <Route path="/api-keys" component={ApiKeys} />
-      <Route path="/admin" component={AdminPage} />
-      {/* Operator Portal Routes - Protected with admin auth */}
-      <Route path="/operator" component={ProtectedOperatorDashboard} />
-      <Route path="/operator/members" component={ProtectedOperatorMembers} />
-      <Route path="/operator/validators" component={ProtectedOperatorValidators} />
-      <Route path="/operator/security" component={ProtectedOperatorSecurity} />
-      <Route path="/operator/reports" component={ProtectedOperatorReports} />
-      <Route path="/operator/staking" component={ProtectedOperatorStaking} />
+      <Route path="/app" component={Dashboard} />
+      <Route path="/app/blocks" component={Blocks} />
+      <Route path="/app/blocks/:blockNumber" component={BlockDetail} />
+      <Route path="/app/transactions" component={Transactions} />
+      <Route path="/app/transactions/:hash" component={TransactionDetail} />
+      <Route path="/app/simulator" component={TransactionSimulator} />
+      <Route path="/app/validators" component={Validators} />
+      <Route path="/app/validator/:address" component={ValidatorDetail} />
+      <Route path="/app/members" component={Members} />
+      <Route path="/app/members/:id" component={MemberDetail} />
+      <Route path="/app/ai" component={AIOrchestration} />
+      <Route path="/app/sharding" component={Sharding} />
+      <Route path="/app/cross-shard" component={CrossShard} />
+      <Route path="/app/wallets" component={Wallets} />
+      <Route path="/app/wallets/:address" component={WalletDetail} />
+      <Route path="/app/token-system" component={TokenSystem} />
+      <Route path="/app/bridge" component={Bridge} />
+      <Route path="/app/governance" component={Governance} />
+      <Route path="/app/burn" component={BurnDashboard} />
+      <Route path="/app/staking" component={StakingDashboard} />
+      <Route path="/app/staking/pool/:id" component={StakingPoolDetail} />
+      <Route path="/app/staking/rewards" component={StakingRewards} />
+      <Route path="/app/staking/sdk" component={StakingSDK} />
+      <Route path="/app/dex" component={DexPage} />
+      <Route path="/app/lending" component={LendingPage} />
+      <Route path="/app/yield-farming" component={YieldFarmingPage} />
+      <Route path="/app/liquid-staking" component={LiquidStakingPage} />
+      <Route path="/app/nft-marketplace" component={NftMarketplacePage} />
+      <Route path="/app/nft-launchpad" component={NftLaunchpadPage} />
+      <Route path="/app/gamefi" component={GameFiPage} />
+      <Route path="/app/community" component={CommunityPage} />
+      <Route path="/app/search" component={SearchResults} />
+      <Route path="/app/address/:address" component={WalletDetail} />
+      <Route path="/app/contracts" component={SmartContracts} />
+      <Route path="/app/health" component={NodeHealth} />
+      <Route path="/app/metrics" component={PerformanceMetrics} />
+      <Route path="/app/consensus" component={Consensus} />
+      <Route path="/app/api-keys" component={ApiKeys} />
+      <Route path="/app/admin" component={AdminPage} />
+      <Route path="/app/operator" component={ProtectedOperatorDashboard} />
+      <Route path="/app/operator/members" component={ProtectedOperatorMembers} />
+      <Route path="/app/operator/validators" component={ProtectedOperatorValidators} />
+      <Route path="/app/operator/security" component={ProtectedOperatorSecurity} />
+      <Route path="/app/operator/reports" component={ProtectedOperatorReports} />
+      <Route path="/app/operator/staking" component={ProtectedOperatorStaking} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -181,8 +151,8 @@ interface DataSourceStatus {
 function AuthenticatedApp() {
   const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
-    refetchInterval: 60000, // Check every minute if session is still valid
-    refetchOnWindowFocus: true, // Check when window regains focus
+    refetchInterval: 60000,
+    refetchOnWindowFocus: true,
   });
   
   const { data: dataSourceStatus } = useQuery<DataSourceStatus>({
@@ -204,7 +174,6 @@ function AuthenticatedApp() {
     );
   }
 
-  // Drive authentication state directly from query data
   const isAuthenticated = authData?.authenticated ?? false;
 
   if (!isAuthenticated) {
@@ -229,7 +198,7 @@ function AuthenticatedApp() {
                 </div>
               </header>
               <main className="flex-1 overflow-auto">
-                <Router />
+                <AppRouter />
               </main>
             </div>
           </div>
@@ -240,12 +209,22 @@ function AuthenticatedApp() {
   );
 }
 
+function RootRouter() {
+  const [location] = useLocation();
+  
+  if (location.startsWith("/app")) {
+    return <AuthenticatedApp />;
+  }
+  
+  return <PublicRouter />;
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark">
         <AdminPasswordProvider>
-          <AuthenticatedApp />
+          <RootRouter />
           <Toaster />
         </AdminPasswordProvider>
       </ThemeProvider>
