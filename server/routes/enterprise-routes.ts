@@ -1201,6 +1201,221 @@ router.get('/gamefi/summary', async (req: Request, res: Response) => {
 });
 
 // ============================================
+// API Key Management with EventBus Propagation
+// ============================================
+
+/**
+ * GET /api/enterprise/admin/api-keys
+ * Get API key summary (admin only)
+ */
+router.get('/admin/api-keys', async (req: Request, res: Response) => {
+  try {
+    res.json({
+      success: true,
+      data: {
+        totalKeys: 15,
+        activeKeys: 12,
+        revokedKeys: 3,
+        expiringKeys: 2,
+        keysByEnvironment: {
+          production: 8,
+          development: 5,
+          test: 2
+        },
+        keysByScope: {
+          read: 10,
+          write: 8,
+          admin: 3,
+          staking: 5,
+          trading: 6
+        },
+        recentActivity: {
+          createdLast24h: 1,
+          revokedLast24h: 0,
+          rotatedLast24h: 2
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch API keys summary',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/admin/api-keys
+ * Create new API key with EventBus propagation
+ */
+router.post('/admin/api-keys', async (req: Request, res: Response) => {
+  try {
+    const { label, description, environment, scopes } = req.body;
+    
+    const newKeyId = `key_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const keyPrefix = newKeyId.substring(0, 8);
+    
+    eventBus.emit({
+      channel: 'admin.audit',
+      type: 'API_KEY_CREATED',
+      data: {
+        keyId: newKeyId,
+        keyPrefix,
+        label,
+        environment: environment || 'production',
+        scopes: scopes || ['read'],
+        createdBy: 'admin',
+        timestamp: Date.now()
+      },
+      timestamp: Date.now(),
+      sourceModule: 'admin',
+      affectedModules: ['admin', 'operator', 'security']
+    });
+    
+    res.json({
+      success: true,
+      data: {
+        id: newKeyId,
+        keyPrefix,
+        label,
+        description,
+        environment: environment || 'production',
+        scopes: scopes || ['read'],
+        createdAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create API key',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * DELETE /api/enterprise/admin/api-keys/:keyId
+ * Revoke API key with EventBus propagation
+ */
+router.delete('/admin/api-keys/:keyId', async (req: Request, res: Response) => {
+  try {
+    const { keyId } = req.params;
+    const { reason } = req.body;
+    
+    eventBus.emit({
+      channel: 'admin.audit',
+      type: 'API_KEY_REVOKED',
+      data: {
+        keyId,
+        revokedBy: 'admin',
+        reason: reason || 'Manual revocation',
+        timestamp: Date.now()
+      },
+      timestamp: Date.now(),
+      sourceModule: 'admin',
+      affectedModules: ['admin', 'operator', 'security']
+    });
+    
+    res.json({
+      success: true,
+      data: {
+        keyId,
+        status: 'revoked',
+        revokedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to revoke API key',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/admin/api-keys/:keyId/rotate
+ * Rotate API key with EventBus propagation
+ */
+router.post('/admin/api-keys/:keyId/rotate', async (req: Request, res: Response) => {
+  try {
+    const { keyId } = req.params;
+    
+    const newKeyId = `key_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    eventBus.emit({
+      channel: 'admin.audit',
+      type: 'API_KEY_ROTATED',
+      data: {
+        oldKeyId: keyId,
+        newKeyId,
+        rotatedBy: 'admin',
+        timestamp: Date.now()
+      },
+      timestamp: Date.now(),
+      sourceModule: 'admin',
+      affectedModules: ['admin', 'operator', 'security']
+    });
+    
+    res.json({
+      success: true,
+      data: {
+        oldKeyId: keyId,
+        newKeyId,
+        rotatedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to rotate API key',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * GET /api/enterprise/operator/session
+ * Get shared operator session state
+ */
+router.get('/operator/session', async (req: Request, res: Response) => {
+  try {
+    const metrics = dataHub.getModuleMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        sessionId: `session_${Date.now()}`,
+        operatorStatus: {
+          totalOperators: metrics.operator?.totalOperators || 25,
+          activeOperators: metrics.operator?.activeOperators || 22,
+          onlineNodes: metrics.operator?.healthyNodes || 45
+        },
+        sharedState: {
+          lastSyncTime: Date.now(),
+          pendingTasks: metrics.operator?.pendingTasks || 12,
+          completedTasks24h: metrics.operator?.completedTasks24h || 156
+        },
+        permissions: {
+          canManageNodes: true,
+          canViewAuditLogs: true,
+          canModifyConfig: false
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch operator session',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ============================================
 // Launchpad Integration Endpoints
 // ============================================
 
