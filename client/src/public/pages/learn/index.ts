@@ -9,3 +9,4 @@ export { default as Roadmap } from "./Roadmap";
 export { default as Universities } from "./Universities";
 export { default as BlockchainBasics } from "./BlockchainBasics";
 export { default as DefiMastery } from "./DefiMastery";
+export { default as DeveloperCourse } from "./DeveloperCourse";

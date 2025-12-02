@@ -3,7 +3,7 @@ import { PublicLayout } from "./components/PublicLayout";
 
 import Home from "./pages/Home";
 
-import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, EducationPrograms, Whitepaper, Tokenomics, Roadmap, Universities, BlockchainBasics, DefiMastery } from "./pages/learn";
+import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, EducationPrograms, Whitepaper, Tokenomics, Roadmap, Universities, BlockchainBasics, DefiMastery, DeveloperCourse } from "./pages/learn";
 import { DeveloperHub, Documentation, ApiDocs, CliReference, SdkGuide, SmartContracts, WebSocketApi, CodeExamples, QuickStart, InstallationGuide, EvmMigration } from "./pages/developers";
 import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial } from "./pages/solutions";
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
@@ -27,6 +27,7 @@ export function PublicRouter() {
         <Route path="/learn/roadmap" component={Roadmap} />
         <Route path="/learn/blockchain-basics" component={BlockchainBasics} />
         <Route path="/learn/defi-mastery" component={DefiMastery} />
+        <Route path="/learn/developer-course" component={DeveloperCourse} />
         <Route path="/learn/education-programs" component={EducationPrograms} />
         
         {/* Developer Routes */}

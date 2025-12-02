@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Score System | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#030407',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            green: '#00ff9d', // Trust Green
+                            red: '#ff0055',   // Danger Red
+                            border: 'rgba(255, 255, 255, 0.08)',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #030407;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Background Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(10, 20, 15, 0.6); /* Greenish tint */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .glass-nav {
+            background: rgba(3, 4, 7, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Spotlight Effect (Green Theme) */
+        .spotlight-card {
+            background-color: rgba(10, 25, 20, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(0, 255, 157, 0.4),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { 
+            transform: translateY(-2px);
+            border-color: rgba(0, 255, 157, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0, 255, 157, 0.1);
+        }
+
+        /* Utility */
+        .text-gradient-green {
+            background: linear-gradient(to right, #00ff9d, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030407; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-green/30 selection:text-white">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="fixed top-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-3 cursor-pointer group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-green to-brand-cyan flex items-center justify-center shadow-[0_0_15px_rgba(0,255,157,0.4)]">
+                        <span class="text-black font-bold text-lg font-sans">B</span>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight text-white">TBurn <span class="text-brand-green font-light">Trust</span></span>
+                </a>
+                
+                <div class="hidden lg:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-white">Score System</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Verification</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Burn Policy</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button class="glass-panel border-brand-green/30 text-brand-green px-4 py-2 rounded-lg text-xs font-bold hover:bg-brand-green/10 transition">
+                        Connect Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative pt-24 pb-20">
+        
+        <section class="relative py-16 mb-8 text-center">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-green/10 via-transparent to-transparent pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+                <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-brand-green/30 bg-brand-green/5 text-brand-green text-xs">
+                    <i class="fas fa-shield-alt"></i> Trust Score System v4.0
+                </div>
+                <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">
+                    Quantifying <span class="text-gradient-green">Blockchain Trust</span>
+                </h1>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                    TBurn Chain introduces the world's first automated verification system. 
+                    We quantify project reliability through real-time monitoring and smart contract enforcement.
+                </p>
+            </div>
+        </section>
+
+        <section class="max-w-5xl mx-auto px-6 lg:px-8 mb-20">
+            <div class="glass-panel rounded-2xl p-10 border-brand-green/20 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-green/10 rounded-full blur-[80px]"></div>
+                
+                <h2 class="text-2xl font-bold text-center mb-10">Trust Score Calculation Formula</h2>
+                
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 font-mono text-sm md:text-base">
+                    <div class="bg-black/40 p-6 rounded-xl border border-brand-green/30 text-center flex-1 w-full hover:scale-105 transition-transform">
+                        <div class="text-brand-green text-3xl font-bold mb-2">40%</div>
+                        <div class="text-gray-300">Burn Compliance</div>
+                        <p class="text-xs text-gray-500 mt-2">Schedule adherence & Collateral</p>
+                    </div>
+                    <div class="text-2xl text-gray-600">+</div>
+                    <div class="bg-black/40 p-6 rounded-xl border border-brand-cyan/30 text-center flex-1 w-full hover:scale-105 transition-transform">
+                        <div class="text-brand-cyan text-3xl font-bold mb-2">30%</div>
+                        <div class="text-gray-300">Dev Progress</div>
+                        <p class="text-xs text-gray-500 mt-2">GitHub activity & Roadmap</p>
+                    </div>
+                    <div class="text-2xl text-gray-600">+</div>
+                    <div class="bg-black/40 p-6 rounded-xl border border-brand-purple/30 text-center flex-1 w-full hover:scale-105 transition-transform">
+                        <div class="text-brand-purple text-3xl font-bold mb-2">30%</div>
+                        <div class="text-gray-300">Transparency</div>
+                        <p class="text-xs text-gray-500 mt-2">Financial audit & Wallets</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
+            <div class="flex items-center gap-3 mb-8">
+                <i class="fas fa-check-double text-brand-green text-xl"></i>
+                <h2 class="text-2xl font-bold">3-Stage Verification Process</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="spotlight-card rounded-xl p-6 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-brand-cyan/10 flex items-center justify-center text-brand-cyan">
+                            <i class="fas fa-robot text-lg"></i>
+                        </div>
+                        <span class="text-xs font-mono text-brand-cyan border border-brand-cyan/30 px-2 py-1 rounded">24 Hours</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">1. AI Automated Filtering</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Scans smart contract vulnerabilities, checks whitepaper plagiarism against global DB, and verifies team identity using biometrics.
+                    </p>
+                </div>
+
+                <div class="spotlight-card rounded-xl p-6 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-brand-purple/10 flex items-center justify-center text-brand-purple">
+                            <i class="fas fa-user-shield text-lg"></i>
+                        </div>
+                        <span class="text-xs font-mono text-brand-purple border border-brand-purple/30 px-2 py-1 rounded">7-14 Days</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">2. Expert Validation</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Committee of blockchain developers, legal, and financial experts verify financial statements and technical feasibility.
+                    </p>
+                </div>
+
+                <div class="spotlight-card rounded-xl p-6 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <i class="fas fa-vote-yea text-lg"></i>
+                        </div>
+                        <span class="text-xs font-mono text-brand-green border border-brand-green/30 px-2 py-1 rounded">3-5 Days</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">3. Community Voting</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Final public voting among TBURN token holders. Approval requires >60% consensus to proceed to Mainnet listing.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
+            <h2 class="text-2xl font-bold mb-8">Actions by Score</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-l-green-500">
+                    <div class="text-3xl font-bold text-green-500 mb-1">80-100</div>
+                    <div class="text-white font-bold mb-3">Excellent</div>
+                    <p class="text-xs text-gray-400">Normal trading active. Official "Verified" badge granted.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-l-blue-500">
+                    <div class="text-3xl font-bold text-blue-500 mb-1">60-79</div>
+                    <div class="text-white font-bold mb-3">Good</div>
+                    <p class="text-xs text-gray-400">Normal trading active. Cautionary notice displayed.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-l-yellow-500">
+                    <div class="text-3xl font-bold text-yellow-500 mb-1">40-59</div>
+                    <div class="text-white font-bold mb-3">Warning</div>
+                    <p class="text-xs text-gray-400">Warning displayed on DEX. Daily trading volume capped.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-l-red-600 bg-red-900/10">
+                    <div class="text-3xl font-bold text-red-600 mb-1">&lt; 40</div>
+                    <div class="text-white font-bold mb-3">Danger</div>
+                    <p class="text-xs text-gray-400">Trading automatically suspended. Delisting process initiated.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="glass-panel rounded-2xl p-8 border border-white/10">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fas fa-fire text-brand-red"></i> Hybrid Forced Burn
+                        </h2>
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            TBurn Chain doesn't just trust; it enforces. Projects must deposit collateral. If they fail to burn tokens as promised, the smart contract intervenes.
+                        </p>
+                        
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-cyan/20 flex items-center justify-center text-brand-cyan text-xs mt-0.5">1</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Collateral Deposit</h4>
+                                    <p class="text-xs text-gray-500">120% of planned burn amount deposited.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-cyan/20 flex items-center justify-center text-brand-cyan text-xs mt-0.5">2</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Auto-Execution</h4>
+                                    <p class="text-xs text-gray-500">Smart contract triggers burn on schedule.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-cyan/20 flex items-center justify-center text-brand-cyan text-xs mt-0.5">3</div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Real-time Verification</h4>
+                                    <p class="text-xs text-gray-500">Tx hash recorded on-chain instantly.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="h-64 bg-black/40 rounded-xl border border-dashed border-gray-700 flex items-center justify-center flex-col text-gray-500">
+                        
+
+[Image of blockchain structure diagram]
+
+                        <span class="text-xs mt-2">Figure: Collateral Burn Flow</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-brand-border bg-black/50 backdrop-blur-xl mt-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-md bg-gradient-to-br from-brand-green to-brand-cyan flex items-center justify-center">
+                        <span class="text-black font-bold text-xs">B</span>
+                    </div>
+                    <span class="font-bold text-white">TBurn Chain</span>
+                </div>
+                <p class="text-gray-600 text-sm">© 2025 TBurn Chain Foundation. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-500 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Neural Canvas (Green Theme)
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                // Particle color set to Green
+                ctx.fillStyle = '#00ff9d';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 20000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * innerWidth);
+                let y = (Math.random() * innerHeight);
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance/20000);
+                        // Line color set to Green tint
+                        ctx.strokeStyle = 'rgba(0, 255, 157,' + opacityValue * 0.1 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            init();
+        });
+        init();
+        animate();
+
+        // 2. Spotlight Interaction
+        const cards = document.querySelectorAll(".spotlight-card");
+        document.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
