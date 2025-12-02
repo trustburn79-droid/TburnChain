@@ -85,8 +85,8 @@ export function AITerminal() {
           >
             {logs.map((log) => (
               <div key={log.id} className="animate-fade-in">
-                <span className="text-gray-500 mr-1">[{log.time}]</span>
-                <span className="text-gray-400 mr-1">{">"}</span>
+                <span className="text-gray-500 mr-1 tracking-wider">[{log.time}]</span>
+                <span className="text-gray-200 mr-1">{">"}</span>
                 <span className="text-[#00f0ff] drop-shadow-[0_0_2px_rgba(0,240,255,0.5)]" style={{ fontFamily: "'Dotum', 'dotum', sans-serif" }}>{log.message}</span>
               </div>
             ))}
