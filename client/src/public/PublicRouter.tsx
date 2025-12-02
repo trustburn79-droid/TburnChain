@@ -9,6 +9,7 @@ import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Pay
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
 import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
 import { NewsBlog, Events, CommunityHub } from "./pages/community";
+import { TermsOfService, PrivacyPolicy, Disclaimer } from "./pages/legal";
 
 export function PublicRouter() {
   return (
@@ -77,6 +78,11 @@ export function PublicRouter() {
         <Route path="/community/news" component={NewsBlog} />
         <Route path="/community/events" component={Events} />
         <Route path="/community/hub" component={CommunityHub} />
+        
+        {/* Legal Routes */}
+        <Route path="/legal/terms-of-service" component={TermsOfService} />
+        <Route path="/legal/privacy-policy" component={PrivacyPolicy} />
+        <Route path="/legal/disclaimer" component={Disclaimer} />
         
         {/* Fallback - redirect to home */}
         <Route>
