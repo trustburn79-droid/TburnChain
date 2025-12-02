@@ -12,121 +12,113 @@ import {
   Users
 } from "lucide-react";
 
-const coreServices = [
-  {
-    icon: Building2,
-    iconColor: "#7000ff",
-    title: "Digital Banking Infrastructure",
-    desc: "Provide deposits, loans, and remittance services on blockchain. Start financial services instantly without complex legacy systems."
-  },
-  {
-    icon: TrendingUp,
-    iconColor: "#00f0ff",
-    title: "DeFi Protocols",
-    desc: (
-      <>
-        Generate profits through lending, borrowing, and liquidity provision. Smart contract-based automated finance with <span className="text-white font-bold">zero slippage</span>.
-      </>
-    )
-  },
-  {
-    icon: ArrowLeftRight,
-    iconColor: "#00ff9d",
-    title: "Payment Gateway",
-    desc: (
-      <>
-        Payment system supporting both crypto and fiat. <span className="text-white font-bold">95% fee reduction</span> compared to Visa/Mastercard networks.
-      </>
-    )
-  },
-  {
-    icon: Shield,
-    iconColor: "#ff0055",
-    title: "Regulatory Compliance",
-    desc: "Automate AML/CTF, KYC, and tax reporting. Built-in compliance tools ensure your dApp meets global financial regulations."
-  }
-];
-
-const stats = [
-  {
-    icon: Zap,
-    iconColor: "#ffd700",
-    value: "$2.5B+",
-    label: "Total Value Locked (TVL)"
-  },
-  {
-    icon: Percent,
-    iconColor: "#00f0ff",
-    value: "8.5%",
-    label: "Average Staking Yield (APY)"
-  },
-  {
-    icon: Users,
-    iconColor: "#7000ff",
-    value: "250K+",
-    label: "Daily Active Users"
-  }
-];
-
-const realCases = [
-  {
-    initial: "N",
-    name: "NeoBank A",
-    type: "Southeast Asian Digital Bank",
-    quote: "TBurn Chain-based digital banking acquired 1 million customers in 6 months. Operational costs reduced by 70% compared to traditional banking.",
-    stats: [
-      { label: "1M+ Customers", color: "#7000ff" },
-      { label: "-70% Costs", color: "#7000ff" }
-    ],
-    gradient: "from-[#7000ff]/10"
-  },
-  {
-    initial: "D",
-    name: "DeFi Protocol B",
-    type: "Global Lending Platform",
-    quote: "Instant loan execution with 1-second block time. Achieved TVL $800M with zero liquidations thanks to real-time collateral monitoring.",
-    stats: [
-      { label: "$800M TVL", color: "#00f0ff" },
-      { label: "0 Liquidations", color: "#00f0ff" }
-    ],
-    gradient: "from-[#00f0ff]/10"
-  }
-];
-
-const buildingSteps = [
-  {
-    step: 1,
-    color: "#00f0ff",
-    textColor: "black",
-    title: "Select Financial Service",
-    desc: "Choose a service that fits your business among digital banking, DeFi protocols, and payment gateways."
-  },
-  {
-    step: 2,
-    color: "#7000ff",
-    textColor: "white",
-    title: "Check Regulatory Requirements",
-    desc: "Check financial regulations in operating countries and set automatic compliance with TBurn Chain tools."
-  },
-  {
-    step: 3,
-    color: "#00ff9d",
-    textColor: "black",
-    title: "Deploy Smart Contracts",
-    desc: "Template contracts or custom development. TBurn Chain security audit team provides free review."
-  },
-  {
-    step: 4,
-    color: "#ffd700",
-    textColor: "black",
-    title: "Service Launch & Marketing",
-    desc: "Register on TBurn Chain Marketplace. Selected as official recommended service at 60%+ trust score."
-  }
-];
-
 export default function Financial() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const coreServices = [
+    {
+      icon: Building2,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.financial.services.banking.title'),
+      desc: t('publicPages.solutions.financial.services.banking.desc')
+    },
+    {
+      icon: TrendingUp,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.financial.services.defi.title'),
+      desc: t('publicPages.solutions.financial.services.defi.desc')
+    },
+    {
+      icon: ArrowLeftRight,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.financial.services.payment.title'),
+      desc: t('publicPages.solutions.financial.services.payment.desc')
+    },
+    {
+      icon: Shield,
+      iconColor: "#ff0055",
+      title: t('publicPages.solutions.financial.services.compliance.title'),
+      desc: t('publicPages.solutions.financial.services.compliance.desc')
+    }
+  ];
+
+  const stats = [
+    {
+      icon: Zap,
+      iconColor: "#ffd700",
+      value: "$2.5B+",
+      label: t('publicPages.solutions.financial.stats.tvl')
+    },
+    {
+      icon: Percent,
+      iconColor: "#00f0ff",
+      value: "8.5%",
+      label: t('publicPages.solutions.financial.stats.apy')
+    },
+    {
+      icon: Users,
+      iconColor: "#7000ff",
+      value: "250K+",
+      label: t('publicPages.solutions.financial.stats.dau')
+    }
+  ];
+
+  const realCases = [
+    {
+      initial: "N",
+      name: t('publicPages.solutions.financial.cases.neobank.name'),
+      type: t('publicPages.solutions.financial.cases.neobank.type'),
+      quote: t('publicPages.solutions.financial.cases.neobank.quote'),
+      stats: [
+        { label: t('publicPages.solutions.financial.cases.neobank.stats.customers'), color: "#7000ff" },
+        { label: t('publicPages.solutions.financial.cases.neobank.stats.costs'), color: "#7000ff" }
+      ],
+      gradient: "from-[#7000ff]/10"
+    },
+    {
+      initial: "D",
+      name: t('publicPages.solutions.financial.cases.defiProtocol.name'),
+      type: t('publicPages.solutions.financial.cases.defiProtocol.type'),
+      quote: t('publicPages.solutions.financial.cases.defiProtocol.quote'),
+      stats: [
+        { label: t('publicPages.solutions.financial.cases.defiProtocol.stats.tvl'), color: "#00f0ff" },
+        { label: t('publicPages.solutions.financial.cases.defiProtocol.stats.liquidations'), color: "#00f0ff" }
+      ],
+      gradient: "from-[#00f0ff]/10"
+    }
+  ];
+
+  const buildingSteps = [
+    {
+      step: 1,
+      color: "#00f0ff",
+      textColor: "black",
+      title: t('publicPages.solutions.financial.building.step1.title'),
+      desc: t('publicPages.solutions.financial.building.step1.desc')
+    },
+    {
+      step: 2,
+      color: "#7000ff",
+      textColor: "white",
+      title: t('publicPages.solutions.financial.building.step2.title'),
+      desc: t('publicPages.solutions.financial.building.step2.desc')
+    },
+    {
+      step: 3,
+      color: "#00ff9d",
+      textColor: "black",
+      title: t('publicPages.solutions.financial.building.step3.title'),
+      desc: t('publicPages.solutions.financial.building.step3.desc')
+    },
+    {
+      step: 4,
+      color: "#ffd700",
+      textColor: "black",
+      title: t('publicPages.solutions.financial.building.step4.title'),
+      desc: t('publicPages.solutions.financial.building.step4.desc')
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -173,7 +165,7 @@ export default function Financial() {
                 style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
                 data-testid="button-build"
               >
-                Start Building
+                {t('publicPages.solutions.financial.buttons.startBuilding')}
               </button>
             </Link>
             <Link href="/learn/whitepaper">
@@ -181,7 +173,7 @@ export default function Financial() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-whitepaper"
               >
-                Read Whitepaper
+                {t('publicPages.solutions.financial.buttons.readWhitepaper')}
               </button>
             </Link>
           </div>
@@ -192,8 +184,8 @@ export default function Financial() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">Core Financial Services</h2>
-            <p className="text-gray-400">Enterprise-grade modules for the future of money.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.financial.sections.coreServices.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.solutions.financial.sections.coreServices.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -251,7 +243,7 @@ export default function Financial() {
       {/* Real Cases Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Real Cases</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.financial.sections.realCases.title')}</h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
             {realCases.map((story, idx) => (
@@ -296,7 +288,7 @@ export default function Financial() {
         style={{ background: "linear-gradient(to bottom, transparent, rgba(112,0,255,0.05))" }}
       >
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Building Financial Infrastructure</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.financial.sections.building.title')}</h2>
           
           <div className="space-y-4">
             {buildingSteps.map((step, idx) => (

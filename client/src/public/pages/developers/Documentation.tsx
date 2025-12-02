@@ -14,7 +14,6 @@ import {
   Radio,
   GraduationCap,
   Cpu,
-  Gauge,
   Clock,
   Shield,
   Brain,
@@ -23,124 +22,124 @@ import {
   MessageCircle
 } from "lucide-react";
 
-const quickStartItems = [
-  { 
-    title: "Get Started in 5 Min", 
-    description: "Create your first TBurn dApp.",
-    icon: Zap,
-    color: "#00f0ff",
-    hoverColor: "hover:text-[#00f0ff]"
-  },
-  { 
-    title: "Development Setup", 
-    description: "Configure local environment & CLI.",
-    icon: Terminal,
-    color: "#7000ff",
-    hoverColor: "hover:text-[#7000ff]"
-  },
-  { 
-    title: "Get API Keys", 
-    description: "Authentication & Access tokens.",
-    icon: Key,
-    color: "#00ff9d",
-    hoverColor: "hover:text-[#00ff9d]"
-  },
-];
-
-const docCategories = [
-  { 
-    title: "API Reference", 
-    description: "Complete guide to RESTful API, GraphQL, and gRPC endpoints for node interaction.",
-    icon: Server,
-    badge: "v4.2.1",
-    gradient: "from-blue-500 to-cyan-500"
-  },
-  { 
-    title: "SDK Guide", 
-    description: "Official libraries for JavaScript, Python, Rust, Go, and Java development.",
-    icon: Package,
-    badge: "Multi-lang",
-    gradient: "from-green-500 to-emerald-500"
-  },
-  { 
-    title: "CLI Reference", 
-    description: "Manage nodes, deploy contracts, and interact with the chain via command line.",
-    icon: Terminal,
-    badge: "Tooling",
-    gradient: "from-purple-500 to-pink-500"
-  },
-  { 
-    title: "Smart Contracts", 
-    description: "Write and deploy contracts using Solidity & Vyper. Best practices and security patterns.",
-    icon: FileCode,
-    badge: "EVM",
-    gradient: "from-orange-500 to-red-500"
-  },
-  { 
-    title: "WebSocket API", 
-    description: "Subscribe to block headers, transactions, and event logs in real-time.",
-    icon: Radio,
-    badge: "Real-time",
-    gradient: "from-indigo-500 to-violet-500"
-  },
-  { 
-    title: "Tutorials", 
-    description: "Step-by-step guides for building DeFi apps, NFT marketplaces, and DAOs.",
-    icon: GraduationCap,
-    badge: "Learning",
-    gradient: "from-teal-500 to-cyan-500"
-  },
-];
-
-const architectureStats = [
-  { icon: Zap, label: "500,000+ TPS", sublabel: "Throughput", color: "#00f0ff" },
-  { icon: Clock, label: "1.84ms", sublabel: "Latency", color: "#7000ff" },
-  { icon: Shield, label: "Quantum Safe", sublabel: "Cryptography", color: "#00ff9d" },
-  { icon: Brain, label: "Triple AI", sublabel: "Orchestration", color: "#ffd700" },
-];
-
-const architectureLayers = [
-  { 
-    number: "01", 
-    title: "Application Layer", 
-    description: "dApps, Wallets, NFT Marketplaces",
-    color: "#7000ff",
-    tags: ["Web3.js", "Ethers.js"]
-  },
-  { 
-    number: "02", 
-    title: "Service Layer", 
-    description: "DeFi Protocols, GameFi Engines, AI Oracles",
-    color: "#00f0ff",
-    tags: []
-  },
-  { 
-    number: "03", 
-    title: "Consensus Layer", 
-    description: "DPoS + BFT Hybrid Engine",
-    color: "#00ff9d",
-    tags: []
-  },
-  { 
-    number: "04", 
-    title: "Execution Layer", 
-    description: "EVM Compatible, Parallel Processing",
-    color: "#ffffff",
-    tags: []
-  },
-];
-
-const additionalResources = [
-  { title: "Cookbook", description: "Practical code recipes.", icon: Utensils, color: "#7000ff" },
-  { title: "Trust Score", description: "Evaluation algorithms.", icon: Shield, color: "#00f0ff" },
-  { title: "DeFi Hub", description: "Integration guides.", icon: Coins, color: "#00ff9d" },
-  { title: "Community", description: "Join the discussion.", icon: MessageCircle, color: "#ffffff" },
-];
-
 export default function Documentation() {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const quickStartItems = [
+    { 
+      title: t('publicPages.developers.docs.quickStart.items.getStarted.title'), 
+      description: t('publicPages.developers.docs.quickStart.items.getStarted.description'),
+      icon: Zap,
+      color: "#00f0ff",
+      hoverColor: "hover:text-[#00f0ff]"
+    },
+    { 
+      title: t('publicPages.developers.docs.quickStart.items.devSetup.title'), 
+      description: t('publicPages.developers.docs.quickStart.items.devSetup.description'),
+      icon: Terminal,
+      color: "#7000ff",
+      hoverColor: "hover:text-[#7000ff]"
+    },
+    { 
+      title: t('publicPages.developers.docs.quickStart.items.apiKeys.title'), 
+      description: t('publicPages.developers.docs.quickStart.items.apiKeys.description'),
+      icon: Key,
+      color: "#00ff9d",
+      hoverColor: "hover:text-[#00ff9d]"
+    },
+  ];
+
+  const docCategories = [
+    { 
+      title: t('publicPages.developers.docs.categories.apiReference.title'), 
+      description: t('publicPages.developers.docs.categories.apiReference.description'),
+      icon: Server,
+      badge: "v4.2.1",
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    { 
+      title: t('publicPages.developers.docs.categories.sdkGuide.title'), 
+      description: t('publicPages.developers.docs.categories.sdkGuide.description'),
+      icon: Package,
+      badge: t('publicPages.developers.docs.categories.sdkGuide.badge'),
+      gradient: "from-green-500 to-emerald-500"
+    },
+    { 
+      title: t('publicPages.developers.docs.categories.cliReference.title'), 
+      description: t('publicPages.developers.docs.categories.cliReference.description'),
+      icon: Terminal,
+      badge: t('publicPages.developers.docs.categories.cliReference.badge'),
+      gradient: "from-purple-500 to-pink-500"
+    },
+    { 
+      title: t('publicPages.developers.docs.categories.smartContracts.title'), 
+      description: t('publicPages.developers.docs.categories.smartContracts.description'),
+      icon: FileCode,
+      badge: "EVM",
+      gradient: "from-orange-500 to-red-500"
+    },
+    { 
+      title: t('publicPages.developers.docs.categories.websocketApi.title'), 
+      description: t('publicPages.developers.docs.categories.websocketApi.description'),
+      icon: Radio,
+      badge: t('publicPages.developers.docs.categories.websocketApi.badge'),
+      gradient: "from-indigo-500 to-violet-500"
+    },
+    { 
+      title: t('publicPages.developers.docs.categories.tutorials.title'), 
+      description: t('publicPages.developers.docs.categories.tutorials.description'),
+      icon: GraduationCap,
+      badge: t('publicPages.developers.docs.categories.tutorials.badge'),
+      gradient: "from-teal-500 to-cyan-500"
+    },
+  ];
+
+  const architectureStats = [
+    { icon: Zap, label: t('publicPages.developers.docs.architecture.stats.throughput.label'), sublabel: t('publicPages.developers.docs.architecture.stats.throughput.sublabel'), color: "#00f0ff" },
+    { icon: Clock, label: t('publicPages.developers.docs.architecture.stats.latency.label'), sublabel: t('publicPages.developers.docs.architecture.stats.latency.sublabel'), color: "#7000ff" },
+    { icon: Shield, label: t('publicPages.developers.docs.architecture.stats.cryptography.label'), sublabel: t('publicPages.developers.docs.architecture.stats.cryptography.sublabel'), color: "#00ff9d" },
+    { icon: Brain, label: t('publicPages.developers.docs.architecture.stats.ai.label'), sublabel: t('publicPages.developers.docs.architecture.stats.ai.sublabel'), color: "#ffd700" },
+  ];
+
+  const architectureLayers = [
+    { 
+      number: "01", 
+      title: t('publicPages.developers.docs.architecture.layers.application.title'), 
+      description: t('publicPages.developers.docs.architecture.layers.application.description'),
+      color: "#7000ff",
+      tags: ["Web3.js", "Ethers.js"]
+    },
+    { 
+      number: "02", 
+      title: t('publicPages.developers.docs.architecture.layers.service.title'), 
+      description: t('publicPages.developers.docs.architecture.layers.service.description'),
+      color: "#00f0ff",
+      tags: []
+    },
+    { 
+      number: "03", 
+      title: t('publicPages.developers.docs.architecture.layers.consensus.title'), 
+      description: t('publicPages.developers.docs.architecture.layers.consensus.description'),
+      color: "#00ff9d",
+      tags: []
+    },
+    { 
+      number: "04", 
+      title: t('publicPages.developers.docs.architecture.layers.execution.title'), 
+      description: t('publicPages.developers.docs.architecture.layers.execution.description'),
+      color: "#ffffff",
+      tags: []
+    },
+  ];
+
+  const additionalResources = [
+    { title: t('publicPages.developers.docs.resources.cookbook.title'), description: t('publicPages.developers.docs.resources.cookbook.description'), icon: Utensils, color: "#7000ff" },
+    { title: t('publicPages.developers.docs.resources.trustScore.title'), description: t('publicPages.developers.docs.resources.trustScore.description'), icon: Shield, color: "#00f0ff" },
+    { title: t('publicPages.developers.docs.resources.defiHub.title'), description: t('publicPages.developers.docs.resources.defiHub.description'), icon: Coins, color: "#00ff9d" },
+    { title: t('publicPages.developers.docs.resources.community.title'), description: t('publicPages.developers.docs.resources.community.description'), icon: MessageCircle, color: "#ffffff" },
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -187,24 +186,24 @@ export default function Documentation() {
               </h1>
               <div className="flex gap-2 mt-1 flex-wrap">
                 <span className="px-2 py-0.5 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">
-                  V4 Mainnet
+                  {t('publicPages.developers.docs.badges.mainnet')}
                 </span>
                 <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 text-xs font-mono border border-white/10">
-                  Latest
+                  {t('publicPages.developers.docs.badges.latest')}
                 </span>
               </div>
             </div>
           </div>
           
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
-            Build next-generation blockchain applications on TBurn Chain. Explore comprehensive guides, API references, and smart contract examples.
+            {t('publicPages.developers.docs.heroDescription')}
           </p>
 
           {/* Search Input */}
           <div className="max-w-2xl mx-auto relative">
             <input 
               type="text" 
-              placeholder="Search documentation (e.g. 'Deploy Contract', 'RPC Endpoint')..." 
+              placeholder={t('publicPages.developers.docs.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full py-4 pl-12 pr-24 rounded-xl text-white placeholder-gray-500 transition-all focus:outline-none"
@@ -226,7 +225,7 @@ export default function Documentation() {
       {/* Quick Start Section */}
       <section className="py-12 px-6 border-b border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-lg font-bold text-white mb-6">Quick Start</h2>
+          <h2 className="text-lg font-bold text-white mb-6">{t('publicPages.developers.docs.quickStart.title')}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {quickStartItems.map((item, index) => (
               <Link key={index} href="/developers/quickstart">
@@ -262,7 +261,7 @@ export default function Documentation() {
       {/* Documentation Categories Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">Documentation Categories</h2>
+          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.docs.categoriesTitle')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {docCategories.map((category, index) => (
               <div 
@@ -293,9 +292,9 @@ export default function Documentation() {
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-              <Cpu className="w-6 h-6 text-[#7000ff]" /> V4 Core Architecture
+              <Cpu className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.docs.architecture.title')}
             </h2>
-            <p className="text-gray-400">Understanding the layers of TBurn Chain.</p>
+            <p className="text-gray-400">{t('publicPages.developers.docs.architecture.subtitle')}</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
@@ -368,7 +367,7 @@ export default function Documentation() {
       {/* Additional Resources Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">Additional Resources</h2>
+          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.docs.resourcesTitle')}</h2>
           <div className="grid md:grid-cols-4 gap-4">
             {additionalResources.map((resource, index) => (
               <Link key={index} href="/developers">
@@ -396,10 +395,10 @@ export default function Documentation() {
       >
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Build?
+            {t('publicPages.developers.docs.cta.title')}
           </h2>
           <p className="text-gray-400 mb-8">
-            Join 10,000+ developers building the future of decentralized applications.
+            {t('publicPages.developers.docs.cta.description')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">
@@ -421,7 +420,7 @@ export default function Documentation() {
               className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
               data-testid="link-discord"
             >
-              <MessageCircle className="w-4 h-4" /> Join Discord
+              <MessageCircle className="w-4 h-4" /> {t('publicPages.developers.docs.cta.joinDiscord')}
             </a>
           </div>
         </div>

@@ -8,42 +8,42 @@ import {
   Check
 } from "lucide-react";
 
-const marketStats = [
-  { value: "$2.4B", label: "Market Cap", color: "#ffb800" },
-  { value: "67.4M", label: "Circulating Supply", color: "#00f0ff" },
-  { value: "12.8M", label: "Burned (Deflationary)", color: "#ff0055" },
-  { value: "42.1M", label: "Total Staked", color: "#00ff9d" },
-];
-
-const tokenDistribution = [
-  { percent: "30%", title: "Validator Rewards", subtitle: "4-year linear vesting", color: "#7000ff" },
-  { percent: "25%", title: "Ecosystem Fund", subtitle: "5-year linear vesting for grants", color: "#00f0ff" },
-  { percent: "15%", title: "Team & Advisors", subtitle: "1-year cliff + 4-year vesting", color: "#00ff9d" },
-  { percent: "12%", title: "Foundation Reserve", subtitle: "Permanent lock (Governance unlock required)", color: "#ffb800" },
-];
-
-const burnMechanisms = [
-  { percent: "70%", title: "Transaction Fees", description: "Base fees from every transaction are automatically burned." },
-  { percent: "100%", title: "Collateral Burn", description: "Trust violation results in immediate burning of staked collateral." },
-  { percent: "30%", title: "Revenue Buyback", description: "Protocol revenue used for quarterly buyback and burn." },
-  { percent: "50%", title: "Slashing Penalty", description: "Half of validator penalties are burned permanently." },
-];
-
-const stakingRewards = [
-  { type: "Liquid Staking", apy: "8-10% APY" },
-  { type: "90-Day Lock", apy: "15-18% APY" },
-  { type: "365-Day Lock", apy: "20-25% APY" },
-];
-
-const governanceFeatures = [
-  "Vote on protocol parameter changes",
-  "Approve treasury spending proposals",
-  "Decide on major validator slashing events",
-];
-
 export default function Tokenomics() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const marketStats = [
+    { value: "$2.4B", label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
+    { value: "67.4M", label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
+    { value: "12.8M", label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
+    { value: "42.1M", label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
+  ];
+
+  const tokenDistribution = [
+    { percent: "30%", title: t('publicPages.learn.tokenomics.distribution.validatorRewards.title'), subtitle: t('publicPages.learn.tokenomics.distribution.validatorRewards.subtitle'), color: "#7000ff" },
+    { percent: "25%", title: t('publicPages.learn.tokenomics.distribution.ecosystemFund.title'), subtitle: t('publicPages.learn.tokenomics.distribution.ecosystemFund.subtitle'), color: "#00f0ff" },
+    { percent: "15%", title: t('publicPages.learn.tokenomics.distribution.teamAdvisors.title'), subtitle: t('publicPages.learn.tokenomics.distribution.teamAdvisors.subtitle'), color: "#00ff9d" },
+    { percent: "12%", title: t('publicPages.learn.tokenomics.distribution.foundationReserve.title'), subtitle: t('publicPages.learn.tokenomics.distribution.foundationReserve.subtitle'), color: "#ffb800" },
+  ];
+
+  const burnMechanisms = [
+    { percent: "70%", title: t('publicPages.learn.tokenomics.burn.transactionFees.title'), description: t('publicPages.learn.tokenomics.burn.transactionFees.description') },
+    { percent: "100%", title: t('publicPages.learn.tokenomics.burn.collateralBurn.title'), description: t('publicPages.learn.tokenomics.burn.collateralBurn.description') },
+    { percent: "30%", title: t('publicPages.learn.tokenomics.burn.revenueBuyback.title'), description: t('publicPages.learn.tokenomics.burn.revenueBuyback.description') },
+    { percent: "50%", title: t('publicPages.learn.tokenomics.burn.slashingPenalty.title'), description: t('publicPages.learn.tokenomics.burn.slashingPenalty.description') },
+  ];
+
+  const stakingRewards = [
+    { type: t('publicPages.learn.tokenomics.staking.liquidStaking'), apy: "8-10% APY" },
+    { type: t('publicPages.learn.tokenomics.staking.ninetyDayLock'), apy: "15-18% APY" },
+    { type: t('publicPages.learn.tokenomics.staking.yearLock'), apy: "20-25% APY" },
+  ];
+
+  const governanceFeatures = [
+    t('publicPages.learn.tokenomics.governance.features.voteProtocol'),
+    t('publicPages.learn.tokenomics.governance.features.approveTreasury'),
+    t('publicPages.learn.tokenomics.governance.features.decideSlashing'),
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -118,21 +118,21 @@ export default function Tokenomics() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-white">TBURN</h3>
-                  <p className="text-sm text-[#ffb800] font-mono">Governance & Utility</p>
+                  <p className="text-sm text-[#ffb800] font-mono">{t('publicPages.learn.tokenomics.tburn.type')}</p>
                 </div>
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">Total Supply</span>
+                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.totalSupply')}</span>
                   <span className="text-white font-mono">100,000,000</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">Decimals</span>
+                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.decimals')}</span>
                   <span className="text-white font-mono">18</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">Role</span>
-                  <span className="text-white">Staking, Voting, Collateral</span>
+                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.tburn.role')}</span>
+                  <span className="text-white">{t('publicPages.learn.tokenomics.tburn.roleValue')}</span>
                 </div>
               </div>
             </div>
@@ -152,21 +152,21 @@ export default function Tokenomics() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-white">Ember</h3>
-                  <p className="text-sm text-[#ff5e00] font-mono">Network Gas Unit</p>
+                  <p className="text-sm text-[#ff5e00] font-mono">{t('publicPages.learn.tokenomics.ember.type')}</p>
                 </div>
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">Exchange Ratio</span>
+                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.ember.exchangeRatio')}</span>
                   <span className="text-white font-mono">1 TBURN = 10^9 Ember</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">Base Fee</span>
-                  <span className="text-[#ff0055] font-bold">100% Burned</span>
+                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.ember.baseFee')}</span>
+                  <span className="text-[#ff0055] font-bold">{t('publicPages.learn.tokenomics.ember.baseFeeValue')}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-2 gap-2">
-                  <span className="text-gray-400">Role</span>
-                  <span className="text-white">Transaction Fees, Compute</span>
+                  <span className="text-gray-400">{t('publicPages.learn.tokenomics.ember.role')}</span>
+                  <span className="text-white">{t('publicPages.learn.tokenomics.ember.roleValue')}</span>
                 </div>
               </div>
             </div>
@@ -178,8 +178,8 @@ export default function Tokenomics() {
       <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Token Distribution</h2>
-            <p className="text-gray-400">Fair allocation designed for ecosystem longevity.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.tokenomics.distributionSection.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.learn.tokenomics.distributionSection.subtitle')}</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -252,7 +252,7 @@ export default function Tokenomics() {
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                 <span className="text-4xl font-bold text-white font-mono">100M</span>
-                <span className="text-sm text-gray-500">Total Supply</span>
+                <span className="text-sm text-gray-500">{t('publicPages.learn.tokenomics.distributionSection.totalSupply')}</span>
               </div>
             </div>
 
@@ -282,9 +282,9 @@ export default function Tokenomics() {
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-2 flex items-center justify-center gap-3">
-              <Flame className="w-8 h-8 text-[#ff0055]" /> Burn Mechanism
+              <Flame className="w-8 h-8 text-[#ff0055]" /> {t('publicPages.learn.tokenomics.burnSection.title')}
             </h2>
-            <p className="text-gray-400">Aggressive deflationary model to increase scarcity.</p>
+            <p className="text-gray-400">{t('publicPages.learn.tokenomics.burnSection.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
@@ -316,7 +316,7 @@ export default function Tokenomics() {
             >
               <div className="flex items-center gap-3 mb-6">
                 <Layers className="w-6 h-6 text-[#00ff9d]" />
-                <h3 className="text-2xl font-bold text-white">Staking Rewards</h3>
+                <h3 className="text-2xl font-bold text-white">{t('publicPages.learn.tokenomics.staking.title')}</h3>
               </div>
               <div className="space-y-4">
                 {stakingRewards.map((item, index) => (
@@ -336,7 +336,7 @@ export default function Tokenomics() {
             >
               <div className="flex items-center gap-3 mb-6">
                 <Gavel className="w-6 h-6 text-[#7000ff]" />
-                <h3 className="text-2xl font-bold text-white">Governance</h3>
+                <h3 className="text-2xl font-bold text-white">{t('publicPages.learn.tokenomics.governance.title')}</h3>
               </div>
               <ul className="space-y-3 text-gray-400">
                 {governanceFeatures.map((feature, index) => (

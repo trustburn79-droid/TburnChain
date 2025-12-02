@@ -7,79 +7,79 @@ import {
   Shield, Wallet, CreditCard, Gamepad2, ExternalLink
 } from "lucide-react";
 
-const aiTiers = [
-  {
-    icon: Crown,
-    title: "Strategic Tier",
-    model: "ChatGPT Latest",
-    latency: "~450ms",
-    color: "#7000ff",
-    description: "Handles complex context understanding, governance decisions, and long-term ecosystem strategy formulation.",
-    capabilities: [
-      "Protocol Governance",
-      "Tokenomics Optimization",
-      "Macro Risk Assessment"
-    ]
-  },
-  {
-    icon: Crosshair,
-    title: "Tactical Tier",
-    model: "Claude Latest",
-    latency: "~180ms",
-    color: "#3b82f6",
-    description: "Balances accuracy and speed for smart contract auditing, fraud detection, and security analysis.",
-    capabilities: [
-      "Contract Vulnerability Scan",
-      "Fraud Pattern Detection",
-      "Fee Optimization"
-    ]
-  },
-  {
-    icon: Zap,
-    title: "Operational Tier",
-    model: "Gemini Latest",
-    latency: "~45ms",
-    color: "#22c55e",
-    description: "Ultra-low latency processing for real-time transaction validation and network state monitoring.",
-    capabilities: [
-      "Real-time Validation",
-      "MEV Protection",
-      "Network Health Check"
-    ]
-  }
-];
-
-const architectureSteps = [
-  {
-    step: 1,
-    title: "Input & Operational Analysis",
-    description: "Transaction requests enter the mempool. Gemini (Operational Tier) instantly validates signatures and checks for MEV bots in < 50ms.",
-    color: "#22c55e"
-  },
-  {
-    step: 2,
-    title: "Tactical Security Scan",
-    description: "Concurrently, Claude (Tactical Tier) analyzes the smart contract logic for hidden backdoors or re-entrancy attacks before execution.",
-    color: "#3b82f6"
-  },
-  {
-    step: 3,
-    title: "Strategic Optimization",
-    description: "For complex DAO proposals or major transfers, ChatGPT (Strategic Tier) assesses the long-term impact on tokenomics and governance compliance.",
-    color: "#7000ff"
-  }
-];
-
-const systemStats = [
-  { icon: Server, title: "99.97% Uptime", desc: "Auto-fallback system ensures continuity." },
-  { icon: Coins, title: "Cost Optimized", desc: "AI tier selection based on task complexity." },
-  { icon: Maximize2, title: "Infinite Scale", desc: "Horizontally scalable distributed AI nodes." },
-  { icon: Lock, title: "Multi-Verify", desc: "Cross-validation between AI models." }
-];
-
 export default function AiFeatures() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const aiTiers = [
+    {
+      icon: Crown,
+      title: t('publicPages.solutions.aiFeatures.tiers.strategic.title'),
+      model: t('publicPages.solutions.aiFeatures.tiers.strategic.model'),
+      latency: "~450ms",
+      color: "#7000ff",
+      description: t('publicPages.solutions.aiFeatures.tiers.strategic.description'),
+      capabilities: [
+        t('publicPages.solutions.aiFeatures.tiers.strategic.capabilities.governance'),
+        t('publicPages.solutions.aiFeatures.tiers.strategic.capabilities.tokenomics'),
+        t('publicPages.solutions.aiFeatures.tiers.strategic.capabilities.risk')
+      ]
+    },
+    {
+      icon: Crosshair,
+      title: t('publicPages.solutions.aiFeatures.tiers.tactical.title'),
+      model: t('publicPages.solutions.aiFeatures.tiers.tactical.model'),
+      latency: "~180ms",
+      color: "#3b82f6",
+      description: t('publicPages.solutions.aiFeatures.tiers.tactical.description'),
+      capabilities: [
+        t('publicPages.solutions.aiFeatures.tiers.tactical.capabilities.vulnerability'),
+        t('publicPages.solutions.aiFeatures.tiers.tactical.capabilities.fraud'),
+        t('publicPages.solutions.aiFeatures.tiers.tactical.capabilities.fee')
+      ]
+    },
+    {
+      icon: Zap,
+      title: t('publicPages.solutions.aiFeatures.tiers.operational.title'),
+      model: t('publicPages.solutions.aiFeatures.tiers.operational.model'),
+      latency: "~45ms",
+      color: "#22c55e",
+      description: t('publicPages.solutions.aiFeatures.tiers.operational.description'),
+      capabilities: [
+        t('publicPages.solutions.aiFeatures.tiers.operational.capabilities.validation'),
+        t('publicPages.solutions.aiFeatures.tiers.operational.capabilities.mev'),
+        t('publicPages.solutions.aiFeatures.tiers.operational.capabilities.health')
+      ]
+    }
+  ];
+
+  const architectureSteps = [
+    {
+      step: 1,
+      title: t('publicPages.solutions.aiFeatures.architecture.step1.title'),
+      description: t('publicPages.solutions.aiFeatures.architecture.step1.description'),
+      color: "#22c55e"
+    },
+    {
+      step: 2,
+      title: t('publicPages.solutions.aiFeatures.architecture.step2.title'),
+      description: t('publicPages.solutions.aiFeatures.architecture.step2.description'),
+      color: "#3b82f6"
+    },
+    {
+      step: 3,
+      title: t('publicPages.solutions.aiFeatures.architecture.step3.title'),
+      description: t('publicPages.solutions.aiFeatures.architecture.step3.description'),
+      color: "#7000ff"
+    }
+  ];
+
+  const systemStats = [
+    { icon: Server, title: t('publicPages.solutions.aiFeatures.stats.uptime.title'), desc: t('publicPages.solutions.aiFeatures.stats.uptime.desc') },
+    { icon: Coins, title: t('publicPages.solutions.aiFeatures.stats.cost.title'), desc: t('publicPages.solutions.aiFeatures.stats.cost.desc') },
+    { icon: Maximize2, title: t('publicPages.solutions.aiFeatures.stats.scale.title'), desc: t('publicPages.solutions.aiFeatures.stats.scale.desc') },
+    { icon: Lock, title: t('publicPages.solutions.aiFeatures.stats.verify.title'), desc: t('publicPages.solutions.aiFeatures.stats.verify.desc') }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -192,7 +192,7 @@ export default function AiFeatures() {
 
       {/* Architecture Timeline */}
       <section className="max-w-4xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 className="text-3xl font-bold text-center text-white mb-12">Integrated AI Architecture</h2>
+        <h2 className="text-3xl font-bold text-center text-white mb-12">{t('publicPages.solutions.aiFeatures.sections.architecture.title')}</h2>
         
         <div className="relative pl-8 border-l border-gray-800 space-y-12">
           {architectureSteps.map((step, idx) => (
@@ -234,9 +234,9 @@ export default function AiFeatures() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Related Solutions</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.aiFeatures.sections.relatedSolutions.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Explore how AI integrates with other TBurn Chain solutions.
+            {t('publicPages.solutions.aiFeatures.sections.relatedSolutions.subtitle')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
             <Link 
@@ -246,8 +246,8 @@ export default function AiFeatures() {
             >
               <Wallet className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">Wallets</p>
-                <p className="text-xs text-gray-500">AI-powered security</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.wallets.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.wallets.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -257,8 +257,8 @@ export default function AiFeatures() {
             >
               <CreditCard className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Payments</p>
-                <p className="text-xs text-gray-500">Fraud detection</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.payments.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.payments.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -268,8 +268,8 @@ export default function AiFeatures() {
             >
               <Gamepad2 className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">Game Tooling</p>
-                <p className="text-xs text-gray-500">AI-driven gameplay</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.gameTooling.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.gameTooling.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -279,8 +279,8 @@ export default function AiFeatures() {
             >
               <Shield className="w-5 h-5 text-[#f59e0b]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">Financial Infra</p>
-                <p className="text-xs text-gray-500">Risk assessment</p>
+                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.relatedLinks.financial.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.relatedLinks.financial.desc')}</p>
               </div>
             </Link>
           </div>
@@ -290,9 +290,9 @@ export default function AiFeatures() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Developer Resources</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.aiFeatures.sections.developerResources.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Integrate AI capabilities into your applications.
+            {t('publicPages.solutions.aiFeatures.sections.developerResources.subtitle')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             <Link 
@@ -302,8 +302,8 @@ export default function AiFeatures() {
             >
               <BookOpen className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">SDK Guide</p>
-                <p className="text-xs text-gray-500">AI SDK integration</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.devResources.sdkGuide.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.sdkGuide.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -313,8 +313,8 @@ export default function AiFeatures() {
             >
               <Code className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Smart Contracts</p>
-                <p className="text-xs text-gray-500">AI-audited contracts</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.aiFeatures.devResources.smartContracts.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.smartContracts.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -324,8 +324,8 @@ export default function AiFeatures() {
             >
               <FileText className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">API Reference</p>
-                <p className="text-xs text-gray-500">AI API endpoints</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.aiFeatures.devResources.apiReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.apiReference.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -335,8 +335,8 @@ export default function AiFeatures() {
             >
               <Zap className="w-5 h-5 text-[#f59e0b]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">WebSocket API</p>
-                <p className="text-xs text-gray-500">Real-time AI feeds</p>
+                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.devResources.websocket.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.websocket.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -346,8 +346,8 @@ export default function AiFeatures() {
             >
               <Terminal className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">CLI Reference</p>
-                <p className="text-xs text-gray-500">AI command tools</p>
+                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.aiFeatures.devResources.cli.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.cli.desc')}</p>
               </div>
             </Link>
             <Link 
@@ -357,8 +357,8 @@ export default function AiFeatures() {
             >
               <ExternalLink className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Code Examples</p>
-                <p className="text-xs text-gray-500">AI integration samples</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.aiFeatures.devResources.examples.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.devResources.examples.desc')}</p>
               </div>
             </Link>
           </div>
@@ -371,14 +371,14 @@ export default function AiFeatures() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-defi-mastery"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Learn More</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.aiFeatures.learnMore.label')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#7000ff]/20 flex items-center justify-center">
                 <Brain className="w-5 h-5 text-[#7000ff]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#7000ff] transition">DeFi Mastery</h4>
-                <p className="text-xs text-gray-500">AI-enhanced DeFi</p>
+                <h4 className="font-bold text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.aiFeatures.learnMore.defiMastery.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.learnMore.defiMastery.desc')}</p>
               </div>
             </div>
           </Link>
@@ -387,14 +387,14 @@ export default function AiFeatures() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-developer-course"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">For Developers</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.aiFeatures.forDevelopers.label')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#f59e0b]/20 flex items-center justify-center">
                 <Code className="w-5 h-5 text-[#f59e0b]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">Developer Course</h4>
-                <p className="text-xs text-gray-500">Advanced Level</p>
+                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.aiFeatures.forDevelopers.devCourse.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.aiFeatures.forDevelopers.devCourse.desc')}</p>
               </div>
             </div>
           </Link>

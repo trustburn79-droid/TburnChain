@@ -10,100 +10,96 @@ import {
   Code, 
   Coins, 
   Star,
-  AlertTriangle,
-  Database,
-  Brain,
-  Users,
-  Link as LinkIcon
+  AlertTriangle
 } from "lucide-react";
-
-const evaluationPhilosophy = [
-  {
-    icon: Layers,
-    title: "Comprehensive",
-    description: "Full verification including team, finance, and community, not just code.",
-    color: "#7000ff",
-  },
-  {
-    icon: Timer,
-    title: "Real-time",
-    description: "Continuous monitoring and automated updates, not a one-time stamp.",
-    color: "#00f0ff",
-  },
-  {
-    icon: Search,
-    title: "Transparent",
-    description: "All evaluation criteria, data sources, and processes are public on-chain.",
-    color: "#00ff9d",
-  },
-  {
-    icon: Bot,
-    title: "Objective",
-    description: "Minimizing human bias through Triple-Band AI analysis and raw data.",
-    color: "#ffd700",
-  },
-];
-
-const scoreComponents = [
-  {
-    icon: UserRound,
-    title: "Team Transparency",
-    points: 30,
-    color: "#7000ff",
-    stars: 5,
-    items: [
-      { label: "Real Name Disclosure", pts: 10 },
-      { label: "Experience Verification", pts: 8 },
-      { label: "KYC Completion", pts: 7 },
-      { label: "Regular Communication", pts: 5 },
-    ],
-  },
-  {
-    icon: Code,
-    title: "Technical Soundness",
-    points: 25,
-    color: "#00f0ff",
-    stars: 4,
-    items: [
-      { label: "Code Quality", pts: 10 },
-      { label: "Security Audit", pts: 8 },
-      { label: "Test Coverage", pts: 4 },
-      { label: "Documentation", pts: 3 },
-    ],
-  },
-  {
-    icon: Coins,
-    title: "Financial Transparency",
-    points: 20,
-    color: "#00ff9d",
-    stars: 4,
-    items: [
-      { label: "Wallet Disclosure", pts: 6 },
-      { label: "Funding Report", pts: 6 },
-      { label: "Accounting Audit", pts: 5 },
-      { label: "Distribution Data", pts: 3 },
-    ],
-  },
-];
-
-const gradeSystem = [
-  { grade: "S", range: "85-100", title: "Supreme Trust", description: "Excellent in all areas. Low risk.", color: "#ffd700" },
-  { grade: "A", range: "70-84", title: "High Trust", description: "Good reliability. Recommended.", color: "#00ff9d" },
-  { grade: "B", range: "55-69", title: "Average", description: "Standard level. Research needed.", color: "#00f0ff" },
-  { grade: "C", range: "40-54", title: "Caution Required", description: "Risk factors detected.", color: "#ff9900" },
-  { grade: "F", range: "0-39", title: "High Risk", description: "Serious issues. Not recommended.", color: "#ff0055" },
-];
-
-const verificationProcess = [
-  { step: 1, title: "Data Collection", description: "Automated fetching from GitHub, On-chain, Social.", color: "#00f0ff" },
-  { step: 2, title: "AI Analysis", description: "NLP & Anomaly detection via Triple-Band AI.", color: "#7000ff" },
-  { step: 3, title: "Expert Review", description: "Human verification of ambiguous data points.", color: "#ffffff" },
-  { step: 4, title: "On-chain Commit", description: "Results recorded on-chain with timestamp.", color: "#00ff9d" },
-];
 
 export default function TrustScoreSystem() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const evaluationPhilosophy = [
+    {
+      icon: Layers,
+      title: t('publicPages.learn.trustScore.philosophy.comprehensive.title'),
+      description: t('publicPages.learn.trustScore.philosophy.comprehensive.description'),
+      color: "#7000ff",
+    },
+    {
+      icon: Timer,
+      title: t('publicPages.learn.trustScore.philosophy.realtime.title'),
+      description: t('publicPages.learn.trustScore.philosophy.realtime.description'),
+      color: "#00f0ff",
+    },
+    {
+      icon: Search,
+      title: t('publicPages.learn.trustScore.philosophy.transparent.title'),
+      description: t('publicPages.learn.trustScore.philosophy.transparent.description'),
+      color: "#00ff9d",
+    },
+    {
+      icon: Bot,
+      title: t('publicPages.learn.trustScore.philosophy.objective.title'),
+      description: t('publicPages.learn.trustScore.philosophy.objective.description'),
+      color: "#ffd700",
+    },
+  ];
+
+  const scoreComponents = [
+    {
+      icon: UserRound,
+      title: t('publicPages.learn.trustScore.components.teamTransparency.title'),
+      points: 30,
+      color: "#7000ff",
+      stars: 5,
+      items: [
+        { label: t('publicPages.learn.trustScore.components.teamTransparency.items.realName'), pts: 10 },
+        { label: t('publicPages.learn.trustScore.components.teamTransparency.items.experience'), pts: 8 },
+        { label: t('publicPages.learn.trustScore.components.teamTransparency.items.kyc'), pts: 7 },
+        { label: t('publicPages.learn.trustScore.components.teamTransparency.items.communication'), pts: 5 },
+      ],
+    },
+    {
+      icon: Code,
+      title: t('publicPages.learn.trustScore.components.technical.title'),
+      points: 25,
+      color: "#00f0ff",
+      stars: 4,
+      items: [
+        { label: t('publicPages.learn.trustScore.components.technical.items.codeQuality'), pts: 10 },
+        { label: t('publicPages.learn.trustScore.components.technical.items.securityAudit'), pts: 8 },
+        { label: t('publicPages.learn.trustScore.components.technical.items.testCoverage'), pts: 4 },
+        { label: t('publicPages.learn.trustScore.components.technical.items.documentation'), pts: 3 },
+      ],
+    },
+    {
+      icon: Coins,
+      title: t('publicPages.learn.trustScore.components.financial.title'),
+      points: 20,
+      color: "#00ff9d",
+      stars: 4,
+      items: [
+        { label: t('publicPages.learn.trustScore.components.financial.items.walletDisclosure'), pts: 6 },
+        { label: t('publicPages.learn.trustScore.components.financial.items.fundingReport'), pts: 6 },
+        { label: t('publicPages.learn.trustScore.components.financial.items.accountingAudit'), pts: 5 },
+        { label: t('publicPages.learn.trustScore.components.financial.items.distributionData'), pts: 3 },
+      ],
+    },
+  ];
+
+  const gradeSystem = [
+    { grade: "S", range: "85-100", title: t('publicPages.learn.trustScore.grades.s.title'), description: t('publicPages.learn.trustScore.grades.s.description'), color: "#ffd700" },
+    { grade: "A", range: "70-84", title: t('publicPages.learn.trustScore.grades.a.title'), description: t('publicPages.learn.trustScore.grades.a.description'), color: "#00ff9d" },
+    { grade: "B", range: "55-69", title: t('publicPages.learn.trustScore.grades.b.title'), description: t('publicPages.learn.trustScore.grades.b.description'), color: "#00f0ff" },
+    { grade: "C", range: "40-54", title: t('publicPages.learn.trustScore.grades.c.title'), description: t('publicPages.learn.trustScore.grades.c.description'), color: "#ff9900" },
+    { grade: "F", range: "0-39", title: t('publicPages.learn.trustScore.grades.f.title'), description: t('publicPages.learn.trustScore.grades.f.description'), color: "#ff0055" },
+  ];
+
+  const verificationProcess = [
+    { step: 1, title: t('publicPages.learn.trustScore.process.dataCollection.title'), description: t('publicPages.learn.trustScore.process.dataCollection.description'), color: "#00f0ff" },
+    { step: 2, title: t('publicPages.learn.trustScore.process.aiAnalysis.title'), description: t('publicPages.learn.trustScore.process.aiAnalysis.description'), color: "#7000ff" },
+    { step: 3, title: t('publicPages.learn.trustScore.process.expertReview.title'), description: t('publicPages.learn.trustScore.process.expertReview.description'), color: "#ffffff" },
+    { step: 4, title: t('publicPages.learn.trustScore.process.onchainCommit.title'), description: t('publicPages.learn.trustScore.process.onchainCommit.description'), color: "#00ff9d" },
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -146,7 +142,7 @@ export default function TrustScoreSystem() {
       {/* Evaluation Philosophy Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Evaluation Philosophy</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.trustScore.evaluationPhilosophy')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {evaluationPhilosophy.map((item, index) => (
               <div key={index} className="spotlight-card rounded-xl p-6" data-testid={`philosophy-card-${index}`}>
@@ -172,8 +168,8 @@ export default function TrustScoreSystem() {
       <section className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">Score Components</h2>
-            <p className="text-gray-400 font-mono text-sm">TOTAL_POINTS: 100 // SYSTEM_STATUS: ACTIVE</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.trustScore.scoreComponents')}</h2>
+            <p className="text-gray-400 font-mono text-sm">{t('publicPages.learn.trustScore.scoreComponentsStatus')}</p>
           </div>
 
           <div className="space-y-6">
@@ -209,7 +205,7 @@ export default function TrustScoreSystem() {
                   </div>
                   <div className="text-right">
                     <div className="text-3xl font-bold text-white font-mono">
-                      {component.points} <span className="text-sm text-gray-500">PTS</span>
+                      {component.points} <span className="text-sm text-gray-500">{t('publicPages.learn.trustScore.pts')}</span>
                     </div>
                   </div>
                 </div>
@@ -220,7 +216,7 @@ export default function TrustScoreSystem() {
                       className="flex justify-between items-center p-3 bg-black/40 rounded border border-white/5"
                     >
                       <span className="text-sm text-gray-300">{item.label}</span>
-                      <span className="text-xs font-mono" style={{ color: component.color }}>{item.pts}pts</span>
+                      <span className="text-xs font-mono" style={{ color: component.color }}>{item.pts}{t('publicPages.learn.trustScore.ptsUnit')}</span>
                     </div>
                   ))}
                 </div>
@@ -233,7 +229,7 @@ export default function TrustScoreSystem() {
       {/* Grade System Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Grade System</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.trustScore.gradeSystem')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {gradeSystem.map((grade, index) => (
               <div 
@@ -268,8 +264,7 @@ export default function TrustScoreSystem() {
           <div className="mt-8 p-4 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20 flex gap-3 items-start">
             <AlertTriangle className="w-5 h-5 text-[#ffd700] shrink-0 mt-0.5" />
             <p className="text-sm text-gray-300">
-              <span className="text-[#ffd700] font-bold">Important:</span> Scores are reference data, not financial advice. 
-              Trading is suspended only if Trust Score drops below 40% (Grade F). Always DYOR.
+              <span className="text-[#ffd700] font-bold">{t('publicPages.learn.trustScore.importantLabel')}</span> {t('publicPages.learn.trustScore.importantNote')}
             </p>
           </div>
         </div>
@@ -278,7 +273,7 @@ export default function TrustScoreSystem() {
       {/* Verification Process Section */}
       <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Verification Process</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.trustScore.verificationProcess')}</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {verificationProcess.map((step, index) => (
               <div key={index} className="relative text-center group" data-testid={`process-step-${step.step}`}>

@@ -38,7 +38,7 @@ export default function Validators() {
                 className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                 data-testid="button-apply-now"
               >
-                Apply Now
+                {t('publicPages.network.validators.applyNow')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -46,7 +46,7 @@ export default function Validators() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-validator-docs"
               >
-                Validator Docs
+                {t('publicPages.network.validators.validatorDocs')}
               </button>
             </Link>
           </div>
@@ -66,14 +66,14 @@ export default function Validators() {
                     ? stats.activeValidators.toLocaleString() 
                     : "125"}
               </div>
-              <div className="text-xs text-gray-400">Active Validators</div>
+              <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.activeValidators')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-total-staked">
               <Database className="w-8 h-8 text-[#ffd700] mx-auto mb-4" />
               <div className="text-3xl font-bold text-white mb-1 font-mono">
                 {stats?.totalStaked ?? validators?.summary?.totalStaked ?? "$847M"}
               </div>
-              <div className="text-xs text-gray-400">Total Staked</div>
+              <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.totalStaked')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-uptime">
               <HeartPulse className="w-8 h-8 text-[#00ff9d] mx-auto mb-4" />
@@ -82,12 +82,12 @@ export default function Validators() {
                   ? `${parseFloat(validators.summary.avgUptime).toFixed(2)}%` 
                   : stats?.uptime ?? "99.99%"}
               </div>
-              <div className="text-xs text-gray-400">Average Uptime</div>
+              <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.averageUptime')}</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-countries">
               <Globe className="w-8 h-8 text-[#00f0ff] mx-auto mb-4" />
               <div className="text-3xl font-bold text-white mb-1 font-mono">147</div>
-              <div className="text-xs text-gray-400">Operating Countries</div>
+              <div className="text-xs text-gray-400">{t('publicPages.network.validators.stats.operatingCountries')}</div>
             </div>
           </div>
         </div>
@@ -97,8 +97,8 @@ export default function Validators() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">DPoS + BFT Hybrid Consensus</h2>
-            <p className="text-gray-400">Next-generation consensus algorithm for instant finality.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.network.validators.consensus.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.network.validators.consensus.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
@@ -106,29 +106,29 @@ export default function Validators() {
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#7000ff]/10 flex items-center justify-center text-[#7000ff]">
                 <Zap className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">500,000+ TPS</h3>
-              <p className="text-sm text-gray-400">Ultra-fast transaction processing through parallel processing and sharding.</p>
+              <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.validators.consensusSpecs.tps.value')}</h3>
+              <p className="text-sm text-gray-400">{t('publicPages.network.validators.consensusSpecs.tps.description')}</p>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center border border-white/10">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#7000ff]/10 flex items-center justify-center text-[#7000ff]">
                 <Clock className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">1s Block Time</h3>
-              <p className="text-sm text-gray-400">Fast block generation for optimal user experience.</p>
+              <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.validators.consensusSpecs.blockTime.value')}</h3>
+              <p className="text-sm text-gray-400">{t('publicPages.network.validators.consensusSpecs.blockTime.description')}</p>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center border border-white/10">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#7000ff]/10 flex items-center justify-center text-[#7000ff]">
                 <CheckCheck className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">6s Finality</h3>
-              <p className="text-sm text-gray-400">BFT-based instant transaction finality guarantee.</p>
+              <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.validators.consensusSpecs.finality.value')}</h3>
+              <p className="text-sm text-gray-400">{t('publicPages.network.validators.consensusSpecs.finality.description')}</p>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center border border-white/10">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#7000ff]/10 flex items-center justify-center text-[#7000ff]">
                 <Server className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">99.97% Uptime</h3>
-              <p className="text-sm text-gray-400">Enterprise-grade stability and reliability.</p>
+              <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.validators.consensusSpecs.uptime.value')}</h3>
+              <p className="text-sm text-gray-400">{t('publicPages.network.validators.consensusSpecs.uptime.description')}</p>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function Validators() {
       {/* Validator Tier System */}
       <section className="py-20 px-6 bg-gradient-to-b from-transparent to-[#7000ff]/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Validator Tier System</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.network.validators.tierSystem.title')}</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {/* Super Node - Elite */}
@@ -147,27 +147,27 @@ export default function Validators() {
                   <div className="w-12 h-12 rounded-lg bg-[#ffd700]/20 flex items-center justify-center text-[#ffd700]">
                     <Crown className="w-6 h-6" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#ffd700]/20 text-[#ffd700] text-xs font-bold border border-[#ffd700]/30">ELITE</span>
+                  <span className="px-3 py-1 rounded-full bg-[#ffd700]/20 text-[#ffd700] text-xs font-bold border border-[#ffd700]/30">{t('publicPages.network.validators.tierSystem.elite.badge')}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-white">Super Node</h3>
+                <h3 className="text-2xl font-bold text-white">{t('publicPages.network.validators.tierSystem.elite.name')}</h3>
               </div>
               <div className="p-8 space-y-6">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Stake</span>
-                  <span className="font-bold text-white">1M+ TBURN</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.stake')}</span>
+                  <span className="font-bold text-white">{t('publicPages.network.validators.tierSystem.elite.stakeAmount')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Slots</span>
-                  <span className="font-bold text-white">Limited 128</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.slots')}</span>
+                  <span className="font-bold text-white">{t('publicPages.network.validators.tierSystem.elite.slotsAmount')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">APY</span>
-                  <span className="font-bold text-[#00ff9d]">18-25%</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.apy')}</span>
+                  <span className="font-bold text-[#00ff9d]">{t('publicPages.network.validators.tierSystem.elite.apyAmount')}</span>
                 </div>
                 <ul className="space-y-3 text-sm text-gray-400 mt-6 pt-6 border-t border-white/10">
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> Block production priority</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> Protocol revenue sharing</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> AI decision participation</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> {t('publicPages.network.validators.tierSystem.elite.benefits.blockPriority')}</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> {t('publicPages.network.validators.tierSystem.elite.benefits.revenueShare')}</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> {t('publicPages.network.validators.tierSystem.elite.benefits.aiDecision')}</li>
                 </ul>
               </div>
             </div>
@@ -179,27 +179,27 @@ export default function Validators() {
                   <div className="w-12 h-12 rounded-lg bg-[#00f0ff]/20 flex items-center justify-center text-[#00f0ff]">
                     <Server className="w-6 h-6" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#00f0ff]/20 text-[#00f0ff] text-xs font-bold border border-[#00f0ff]/30">STANDARD</span>
+                  <span className="px-3 py-1 rounded-full bg-[#00f0ff]/20 text-[#00f0ff] text-xs font-bold border border-[#00f0ff]/30">{t('publicPages.network.validators.tierSystem.standard.badge')}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-white">Standard Node</h3>
+                <h3 className="text-2xl font-bold text-white">{t('publicPages.network.validators.tierSystem.standard.name')}</h3>
               </div>
               <div className="p-8 space-y-6">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Stake</span>
-                  <span className="font-bold text-white">100K+ TBURN</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.stake')}</span>
+                  <span className="font-bold text-white">{t('publicPages.network.validators.tierSystem.standard.stakeAmount')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Slots</span>
-                  <span className="font-bold text-white">Unlimited</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.slots')}</span>
+                  <span className="font-bold text-white">{t('publicPages.network.validators.tierSystem.standard.slotsAmount')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">APY</span>
-                  <span className="font-bold text-[#00ff9d]">12-18%</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.apy')}</span>
+                  <span className="font-bold text-[#00ff9d]">{t('publicPages.network.validators.tierSystem.standard.apyAmount')}</span>
                 </div>
                 <ul className="space-y-3 text-sm text-gray-400 mt-6 pt-6 border-t border-white/10">
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> Block validation participation</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> Governance voting rights</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> Transaction fee distribution</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> {t('publicPages.network.validators.tierSystem.standard.benefits.blockValidation')}</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> {t('publicPages.network.validators.tierSystem.standard.benefits.votingRights')}</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> {t('publicPages.network.validators.tierSystem.standard.benefits.feeDistribution')}</li>
                 </ul>
               </div>
             </div>
@@ -211,27 +211,27 @@ export default function Validators() {
                   <div className="w-12 h-12 rounded-lg bg-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d]">
                     <UserCheck className="w-6 h-6" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-bold border border-[#00ff9d]/30">STARTER</span>
+                  <span className="px-3 py-1 rounded-full bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-bold border border-[#00ff9d]/30">{t('publicPages.network.validators.tierSystem.starter.badge')}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-white">Delegator</h3>
+                <h3 className="text-2xl font-bold text-white">{t('publicPages.network.validators.tierSystem.starter.name')}</h3>
               </div>
               <div className="p-8 space-y-6">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Stake</span>
-                  <span className="font-bold text-white">100+ TBURN</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.stake')}</span>
+                  <span className="font-bold text-white">{t('publicPages.network.validators.tierSystem.starter.stakeAmount')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Slots</span>
-                  <span className="font-bold text-white">Unlimited</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.slots')}</span>
+                  <span className="font-bold text-white">{t('publicPages.network.validators.tierSystem.starter.slotsAmount')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">APY</span>
-                  <span className="font-bold text-[#00ff9d]">8-12%</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.tierSystem.apy')}</span>
+                  <span className="font-bold text-[#00ff9d]">{t('publicPages.network.validators.tierSystem.starter.apyAmount')}</span>
                 </div>
                 <ul className="space-y-3 text-sm text-gray-400 mt-6 pt-6 border-t border-white/10">
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> Delegate to validators</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> Automatic reward collection</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> 7-day unstaking period</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.network.validators.tierSystem.starter.benefits.delegate')}</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.network.validators.tierSystem.starter.benefits.autoRewards')}</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.network.validators.tierSystem.starter.benefits.unstakePeriod')}</li>
                 </ul>
               </div>
             </div>
@@ -242,29 +242,29 @@ export default function Validators() {
       {/* Hardware Requirements */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Hardware Requirements</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.network.validators.hardware.title')}</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Super Node Requirements */}
             <div className="spotlight-card rounded-xl p-8 border border-white/10">
               <h3 className="text-xl font-bold text-[#ffd700] mb-6 flex items-center gap-3">
-                <Cpu className="w-5 h-5" /> Super Node Requirements
+                <Cpu className="w-5 h-5" /> {t('publicPages.network.validators.hardware.superNode.title')}
               </h3>
               <div className="space-y-4 font-mono text-sm">
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">CPU</span>
-                  <span className="text-white">32+ cores / 64+ threads (EPYC/Xeon)</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.cpu')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.superNode.cpu')}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">RAM</span>
-                  <span className="text-white">256GB+ DDR5 ECC</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.ram')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.superNode.ram')}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">Storage</span>
-                  <span className="text-white">4TB+ NVMe SSD (RAID 10)</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.storage')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.superNode.storage')}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">Network</span>
-                  <span className="text-white">10Gbps dedicated line</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.network')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.superNode.network')}</span>
                 </div>
               </div>
             </div>
@@ -272,24 +272,24 @@ export default function Validators() {
             {/* Standard Node Requirements */}
             <div className="spotlight-card rounded-xl p-8 border border-white/10">
               <h3 className="text-xl font-bold text-[#00f0ff] mb-6 flex items-center gap-3">
-                <HardDrive className="w-5 h-5" /> Standard Node Requirements
+                <HardDrive className="w-5 h-5" /> {t('publicPages.network.validators.hardware.standardNode.title')}
               </h3>
               <div className="space-y-4 font-mono text-sm">
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">CPU</span>
-                  <span className="text-white">16+ cores / 32+ threads</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.cpu')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.standardNode.cpu')}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">RAM</span>
-                  <span className="text-white">128GB+ DDR4/DDR5</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.ram')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.standardNode.ram')}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">Storage</span>
-                  <span className="text-white">2TB+ NVMe SSD</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.storage')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.standardNode.storage')}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-400">Network</span>
-                  <span className="text-white">1Gbps dedicated line</span>
+                  <span className="text-gray-400">{t('publicPages.network.validators.hardware.network')}</span>
+                  <span className="text-white">{t('publicPages.network.validators.hardware.standardNode.network')}</span>
                 </div>
               </div>
             </div>
@@ -301,37 +301,37 @@ export default function Validators() {
       <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Slashing Policy</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.network.validators.slashing.title')}</h2>
             <p className="text-gray-400 max-w-2xl mx-auto flex items-center justify-center gap-2">
               <AlertTriangle className="w-4 h-4 text-[#ff0055]" /> 
-              Violations result in slashing of staked tokens to ensure network security.
+              {t('publicPages.network.validators.slashing.subtitle')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-4">
             <div className="bg-black/40 border border-[#ffd700]/30 p-6 rounded-lg text-center">
-              <span className="inline-block px-2 py-1 rounded bg-[#ffd700]/20 text-[#ffd700] text-xs font-bold mb-3">MINOR</span>
-              <h4 className="text-white font-bold mb-1">Downtime</h4>
-              <p className="text-xs text-gray-400 mb-3">(within 24h)</p>
-              <p className="text-[#ffd700] font-mono font-bold">0.1% Slash</p>
+              <span className="inline-block px-2 py-1 rounded bg-[#ffd700]/20 text-[#ffd700] text-xs font-bold mb-3">{t('publicPages.network.validators.slashing.minor.badge')}</span>
+              <h4 className="text-white font-bold mb-1">{t('publicPages.network.validators.slashing.minor.title')}</h4>
+              <p className="text-xs text-gray-400 mb-3">{t('publicPages.network.validators.slashing.minor.description')}</p>
+              <p className="text-[#ffd700] font-mono font-bold">{t('publicPages.network.validators.slashing.minor.penalty')}</p>
             </div>
             <div className="bg-black/40 border border-orange-500/30 p-6 rounded-lg text-center">
-              <span className="inline-block px-2 py-1 rounded bg-orange-500/20 text-orange-500 text-xs font-bold mb-3">MODERATE</span>
-              <h4 className="text-white font-bold mb-1">Missed Blocks</h4>
-              <p className="text-xs text-gray-400 mb-3">(consecutive 100+)</p>
-              <p className="text-orange-500 font-mono font-bold">1% Slash</p>
+              <span className="inline-block px-2 py-1 rounded bg-orange-500/20 text-orange-500 text-xs font-bold mb-3">{t('publicPages.network.validators.slashing.moderate.badge')}</span>
+              <h4 className="text-white font-bold mb-1">{t('publicPages.network.validators.slashing.moderate.title')}</h4>
+              <p className="text-xs text-gray-400 mb-3">{t('publicPages.network.validators.slashing.moderate.description')}</p>
+              <p className="text-orange-500 font-mono font-bold">{t('publicPages.network.validators.slashing.moderate.penalty')}</p>
             </div>
             <div className="bg-black/40 border border-[#ff0055]/30 p-6 rounded-lg text-center">
-              <span className="inline-block px-2 py-1 rounded bg-[#ff0055]/20 text-[#ff0055] text-xs font-bold mb-3">SEVERE</span>
-              <h4 className="text-white font-bold mb-1">Double Sign</h4>
-              <p className="text-xs text-gray-400 mb-3">(Byzantine fault)</p>
-              <p className="text-[#ff0055] font-mono font-bold">5% Slash</p>
+              <span className="inline-block px-2 py-1 rounded bg-[#ff0055]/20 text-[#ff0055] text-xs font-bold mb-3">{t('publicPages.network.validators.slashing.severe.badge')}</span>
+              <h4 className="text-white font-bold mb-1">{t('publicPages.network.validators.slashing.severe.title')}</h4>
+              <p className="text-xs text-gray-400 mb-3">{t('publicPages.network.validators.slashing.severe.description')}</p>
+              <p className="text-[#ff0055] font-mono font-bold">{t('publicPages.network.validators.slashing.severe.penalty')}</p>
             </div>
             <div className="bg-black/40 border border-[#ff0055]/30 p-6 rounded-lg text-center">
-              <span className="inline-block px-2 py-1 rounded bg-[#ff0055]/20 text-[#ff0055] text-xs font-bold mb-3">CRITICAL</span>
-              <h4 className="text-white font-bold mb-1">Collusion</h4>
-              <p className="text-xs text-gray-400 mb-3">(attack attempt)</p>
-              <p className="text-[#ff0055] font-mono font-bold">100% Slash + Ban</p>
+              <span className="inline-block px-2 py-1 rounded bg-[#ff0055]/20 text-[#ff0055] text-xs font-bold mb-3">{t('publicPages.network.validators.slashing.critical.badge')}</span>
+              <h4 className="text-white font-bold mb-1">{t('publicPages.network.validators.slashing.critical.title')}</h4>
+              <p className="text-xs text-gray-400 mb-3">{t('publicPages.network.validators.slashing.critical.description')}</p>
+              <p className="text-[#ff0055] font-mono font-bold">{t('publicPages.network.validators.slashing.critical.penalty')}</p>
             </div>
           </div>
         </div>
@@ -341,9 +341,9 @@ export default function Validators() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl text-center">
           <div className="spotlight-card rounded-2xl p-12 border border-[#7000ff]/30">
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to Become a Validator?</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.network.validators.cta.title')}</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Join the TBurn Chain validator network and earn rewards while securing the network.
+              {t('publicPages.network.validators.cta.subtitle')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/developers/quickstart">
@@ -351,7 +351,7 @@ export default function Validators() {
                   className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                   data-testid="button-start-validating"
                 >
-                  Start Validating
+                  {t('publicPages.network.validators.cta.startValidating')}
                 </button>
               </Link>
               <Link href="/developers/docs">
@@ -359,7 +359,7 @@ export default function Validators() {
                   className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
                   data-testid="button-read-docs"
                 >
-                  <FileText className="w-4 h-4" /> Read Documentation
+                  <FileText className="w-4 h-4" /> {t('publicPages.network.validators.cta.readDocs')}
                 </button>
               </Link>
             </div>

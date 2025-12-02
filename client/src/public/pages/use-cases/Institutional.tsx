@@ -16,84 +16,84 @@ import {
   Landmark
 } from "lucide-react";
 
-const paymentFeatures = [
-  {
-    icon: Zap,
-    iconColor: "#ffd700",
-    title: "Real-Time Gross Settlement",
-    desc: "Instant, final settlement of high-value transactions. No batch processing delays or settlement risk."
-  },
-  {
-    icon: Globe,
-    iconColor: "#00f0ff",
-    title: "Cross-Border Payments",
-    desc: "Send payments to 190+ countries in seconds. Automatic FX conversion with competitive rates."
-  },
-  {
-    icon: Lock,
-    iconColor: "#7000ff",
-    title: "Compliant Infrastructure",
-    desc: "Full KYC/AML integration, sanctions screening, and regulatory reporting built into every transaction."
-  },
-  {
-    icon: FileText,
-    iconColor: "#00ff9d",
-    title: "Smart Contract Automation",
-    desc: "Programmable payment conditions, escrow, and multi-party settlements with trustless execution."
-  }
-];
-
-const metrics = [
-  {
-    value: "$12B+",
-    label: "Daily Volume",
-    iconColor: "#ffd700"
-  },
-  {
-    value: "0.02%",
-    label: "Transaction Fee",
-    iconColor: "#00f0ff"
-  },
-  {
-    value: "99.99%",
-    label: "Uptime SLA",
-    iconColor: "#00ff9d"
-  }
-];
-
-const integrations = [
-  {
-    icon: Landmark,
-    title: "Core Banking",
-    desc: "Direct integration with major core banking systems"
-  },
-  {
-    icon: Shield,
-    title: "Treasury Management",
-    desc: "Real-time liquidity optimization and cash pooling"
-  },
-  {
-    icon: Users,
-    title: "Correspondent Banking",
-    desc: "Nostro/Vostro account management on-chain"
-  },
-  {
-    icon: Clock,
-    title: "24/7 Operations",
-    desc: "Always-on infrastructure for continuous operations"
-  }
-];
-
-const clientTypes = [
-  { title: "Central Banks", desc: "CBDC infrastructure and interbank settlement" },
-  { title: "Commercial Banks", desc: "Retail and wholesale payment processing" },
-  { title: "Payment Processors", desc: "High-volume transaction infrastructure" },
-  { title: "Fintechs", desc: "Modern payment rails for next-gen services" }
-];
-
 export default function Institutional() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const paymentFeatures = [
+    {
+      icon: Zap,
+      iconColor: "#ffd700",
+      title: t('publicPages.useCases.institutional.paymentFeatures.rtgs.title'),
+      desc: t('publicPages.useCases.institutional.paymentFeatures.rtgs.desc')
+    },
+    {
+      icon: Globe,
+      iconColor: "#00f0ff",
+      title: t('publicPages.useCases.institutional.paymentFeatures.crossBorder.title'),
+      desc: t('publicPages.useCases.institutional.paymentFeatures.crossBorder.desc')
+    },
+    {
+      icon: Lock,
+      iconColor: "#7000ff",
+      title: t('publicPages.useCases.institutional.paymentFeatures.compliant.title'),
+      desc: t('publicPages.useCases.institutional.paymentFeatures.compliant.desc')
+    },
+    {
+      icon: FileText,
+      iconColor: "#00ff9d",
+      title: t('publicPages.useCases.institutional.paymentFeatures.smartContract.title'),
+      desc: t('publicPages.useCases.institutional.paymentFeatures.smartContract.desc')
+    }
+  ];
+
+  const metrics = [
+    {
+      value: "$12B+",
+      label: t('publicPages.useCases.institutional.metrics.dailyVolume'),
+      iconColor: "#ffd700"
+    },
+    {
+      value: "0.02%",
+      label: t('publicPages.useCases.institutional.metrics.transactionFee'),
+      iconColor: "#00f0ff"
+    },
+    {
+      value: "99.99%",
+      label: t('publicPages.useCases.institutional.metrics.uptimeSla'),
+      iconColor: "#00ff9d"
+    }
+  ];
+
+  const integrations = [
+    {
+      icon: Landmark,
+      title: t('publicPages.useCases.institutional.integrations.coreBanking.title'),
+      desc: t('publicPages.useCases.institutional.integrations.coreBanking.desc')
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.useCases.institutional.integrations.treasury.title'),
+      desc: t('publicPages.useCases.institutional.integrations.treasury.desc')
+    },
+    {
+      icon: Users,
+      title: t('publicPages.useCases.institutional.integrations.correspondent.title'),
+      desc: t('publicPages.useCases.institutional.integrations.correspondent.desc')
+    },
+    {
+      icon: Clock,
+      title: t('publicPages.useCases.institutional.integrations.operations.title'),
+      desc: t('publicPages.useCases.institutional.integrations.operations.desc')
+    }
+  ];
+
+  const clientTypes = [
+    { title: t('publicPages.useCases.institutional.clientTypes.centralBanks.title'), desc: t('publicPages.useCases.institutional.clientTypes.centralBanks.desc') },
+    { title: t('publicPages.useCases.institutional.clientTypes.commercialBanks.title'), desc: t('publicPages.useCases.institutional.clientTypes.commercialBanks.desc') },
+    { title: t('publicPages.useCases.institutional.clientTypes.paymentProcessors.title'), desc: t('publicPages.useCases.institutional.clientTypes.paymentProcessors.desc') },
+    { title: t('publicPages.useCases.institutional.clientTypes.fintechs.title'), desc: t('publicPages.useCases.institutional.clientTypes.fintechs.desc') }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -136,7 +136,7 @@ export default function Institutional() {
                 style={{ boxShadow: "0 0 20px rgba(255,215,0,0.3)" }}
                 data-testid="button-contact"
               >
-                Contact Sales
+                {t('publicPages.useCases.institutional.buttons.contactSales')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -144,7 +144,7 @@ export default function Institutional() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-api"
               >
-                API Reference
+                {t('publicPages.useCases.institutional.buttons.apiReference')}
               </button>
             </Link>
           </div>
@@ -176,8 +176,8 @@ export default function Institutional() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Payment Features</h2>
-            <p className="text-gray-400">Built for the demands of institutional finance.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.institutional.sections.paymentFeatures')}</h2>
+            <p className="text-gray-400">{t('publicPages.useCases.institutional.sections.paymentFeaturesDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -209,7 +209,7 @@ export default function Institutional() {
 
       <section className="py-20 px-6 bg-white/[0.02] border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">System Integrations</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.institutional.sections.systemIntegrations')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {integrations.map((item, idx) => {
@@ -232,7 +232,7 @@ export default function Institutional() {
 
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Client Types</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.institutional.sections.clientTypes')}</h2>
           
           <div className="grid md:grid-cols-2 gap-6">
             {clientTypes.map((client, idx) => (
@@ -256,10 +256,9 @@ export default function Institutional() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#ffd700]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,149,0,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">Schedule a Demo</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.institutional.cta.title')}</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              See how TBurn Chain can transform your payment infrastructure.
-              Our team will customize a solution for your institution's needs.
+              {t('publicPages.useCases.institutional.cta.desc')}
             </p>
             <Link href="/app">
               <button 
@@ -267,7 +266,7 @@ export default function Institutional() {
                 style={{ boxShadow: "0 0 20px rgba(255,215,0,0.3)" }}
                 data-testid="button-demo"
               >
-                Request Demo <ArrowRight className="w-4 h-4" />
+                {t('publicPages.useCases.institutional.cta.requestDemo')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>

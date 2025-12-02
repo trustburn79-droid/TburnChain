@@ -8,75 +8,75 @@ import {
   Wallet, CreditCard, Coins, Landmark, Bitcoin, Sparkles, Lock
 } from "lucide-react";
 
-const heroStats = [
-  { value: "7+", label: "Chains", color: "#00f0ff" },
-  { value: "$1.8B+", label: "Volume", color: "#ffffff" },
-  { value: "2.5M+", label: "Txns", color: "#00f0ff" },
-  { value: "~2 min", label: "Avg Time", color: "#ffffff" }
-];
-
-const supportedNetworks = [
-  { name: "Ethereum", color: "#3b82f6" },
-  { name: "BNB Chain", color: "#f59e0b" },
-  { name: "Polygon", color: "#8b5cf6" },
-  { name: "Arbitrum", color: "#93c5fd" },
-  { name: "Optimism", color: "#ef4444" },
-  { name: "Avalanche", color: "#dc2626" },
-  { name: "Solana", color: "#a855f7" }
-];
-
-const coreFeatures = [
-  {
-    icon: Key,
-    title: "MPC-Based Security",
-    subtitle: "No Single Point of Failure",
-    color: "#00f0ff",
-    gradientFrom: "#00f0ff",
-    gradientTo: "#3b82f6",
-    items: [
-      "Distributed Key Gen",
-      "Threshold Signatures (3/5)",
-      "Regular Key Rotation"
-    ]
-  },
-  {
-    icon: Shuffle,
-    title: "Atomic Swaps",
-    subtitle: "Complete or Cancel",
-    color: "#7000ff",
-    gradientFrom: "#7000ff",
-    gradientTo: "#ec4899",
-    items: [
-      "HTLC Contracts",
-      "Zero Slippage Risk",
-      "Auto-Refund Logic"
-    ]
-  },
-  {
-    icon: Droplets,
-    title: "Unified Liquidity",
-    subtitle: "Capital Efficiency",
-    color: "#3b82f6",
-    gradientFrom: "#3b82f6",
-    gradientTo: "#6366f1",
-    items: [
-      "Cross-Chain Pools",
-      "Dynamic Rebalancing",
-      "Large Transfer Support"
-    ]
-  }
-];
-
-const bridgeSteps = [
-  { step: 1, title: "Select Asset", desc: "Choose token & destination chain" },
-  { step: 2, title: "Lock", desc: "Approve & lock on source chain" },
-  { step: 3, title: "Verify", desc: "MPC nodes sign transaction" },
-  { step: 4, title: "Receive", desc: "Get assets on destination chain" }
-];
-
 export default function CrossChainBridge() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const heroStats = [
+    { value: "7+", label: t('publicPages.solutions.crossChainBridge.heroStats.chains'), color: "#00f0ff" },
+    { value: "$1.8B+", label: t('publicPages.solutions.crossChainBridge.heroStats.volume'), color: "#ffffff" },
+    { value: "2.5M+", label: t('publicPages.solutions.crossChainBridge.heroStats.txns'), color: "#00f0ff" },
+    { value: "~2 min", label: t('publicPages.solutions.crossChainBridge.heroStats.avgTime'), color: "#ffffff" }
+  ];
+
+  const supportedNetworks = [
+    { name: "Ethereum", color: "#3b82f6" },
+    { name: "BNB Chain", color: "#f59e0b" },
+    { name: "Polygon", color: "#8b5cf6" },
+    { name: "Arbitrum", color: "#93c5fd" },
+    { name: "Optimism", color: "#ef4444" },
+    { name: "Avalanche", color: "#dc2626" },
+    { name: "Solana", color: "#a855f7" }
+  ];
+
+  const coreFeatures = [
+    {
+      icon: Key,
+      title: t('publicPages.solutions.crossChainBridge.coreFeatures.mpcSecurity.title'),
+      subtitle: t('publicPages.solutions.crossChainBridge.coreFeatures.mpcSecurity.subtitle'),
+      color: "#00f0ff",
+      gradientFrom: "#00f0ff",
+      gradientTo: "#3b82f6",
+      items: [
+        t('publicPages.solutions.crossChainBridge.coreFeatures.mpcSecurity.items.distributedKeyGen'),
+        t('publicPages.solutions.crossChainBridge.coreFeatures.mpcSecurity.items.thresholdSignatures'),
+        t('publicPages.solutions.crossChainBridge.coreFeatures.mpcSecurity.items.regularKeyRotation')
+      ]
+    },
+    {
+      icon: Shuffle,
+      title: t('publicPages.solutions.crossChainBridge.coreFeatures.atomicSwaps.title'),
+      subtitle: t('publicPages.solutions.crossChainBridge.coreFeatures.atomicSwaps.subtitle'),
+      color: "#7000ff",
+      gradientFrom: "#7000ff",
+      gradientTo: "#ec4899",
+      items: [
+        t('publicPages.solutions.crossChainBridge.coreFeatures.atomicSwaps.items.htlcContracts'),
+        t('publicPages.solutions.crossChainBridge.coreFeatures.atomicSwaps.items.zeroSlippage'),
+        t('publicPages.solutions.crossChainBridge.coreFeatures.atomicSwaps.items.autoRefund')
+      ]
+    },
+    {
+      icon: Droplets,
+      title: t('publicPages.solutions.crossChainBridge.coreFeatures.unifiedLiquidity.title'),
+      subtitle: t('publicPages.solutions.crossChainBridge.coreFeatures.unifiedLiquidity.subtitle'),
+      color: "#3b82f6",
+      gradientFrom: "#3b82f6",
+      gradientTo: "#6366f1",
+      items: [
+        t('publicPages.solutions.crossChainBridge.coreFeatures.unifiedLiquidity.items.crossChainPools'),
+        t('publicPages.solutions.crossChainBridge.coreFeatures.unifiedLiquidity.items.dynamicRebalancing'),
+        t('publicPages.solutions.crossChainBridge.coreFeatures.unifiedLiquidity.items.largeTransferSupport')
+      ]
+    }
+  ];
+
+  const bridgeSteps = [
+    { step: 1, title: t('publicPages.solutions.crossChainBridge.bridgeSteps.step1.title'), desc: t('publicPages.solutions.crossChainBridge.bridgeSteps.step1.desc') },
+    { step: 2, title: t('publicPages.solutions.crossChainBridge.bridgeSteps.step2.title'), desc: t('publicPages.solutions.crossChainBridge.bridgeSteps.step2.desc') },
+    { step: 3, title: t('publicPages.solutions.crossChainBridge.bridgeSteps.step3.title'), desc: t('publicPages.solutions.crossChainBridge.bridgeSteps.step3.desc') },
+    { step: 4, title: t('publicPages.solutions.crossChainBridge.bridgeSteps.step4.title'), desc: t('publicPages.solutions.crossChainBridge.bridgeSteps.step4.desc') }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -144,7 +144,7 @@ export default function CrossChainBridge() {
                 className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-white px-8 py-3 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-2"
                 data-testid="button-launch-bridge"
               >
-                <ArrowLeftRight className="w-4 h-4" /> Launch Bridge App
+                <ArrowLeftRight className="w-4 h-4" /> {t('publicPages.solutions.crossChainBridge.buttons.launchBridge')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -152,7 +152,7 @@ export default function CrossChainBridge() {
                 className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
                 data-testid="button-view-docs"
               >
-                <FileText className="w-4 h-4" /> View Documentation
+                <FileText className="w-4 h-4" /> {t('publicPages.solutions.crossChainBridge.buttons.viewDocumentation')}
               </button>
             </Link>
           </div>
@@ -162,8 +162,8 @@ export default function CrossChainBridge() {
       {/* Supported Networks */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-white">Supported Networks</h2>
-          <p className="text-gray-400 text-sm mt-2">Connecting the decentralized world</p>
+          <h2 className="text-2xl font-bold text-white">{t('publicPages.solutions.crossChainBridge.supportedNetworks.title')}</h2>
+          <p className="text-gray-400 text-sm mt-2">{t('publicPages.solutions.crossChainBridge.supportedNetworks.subtitle')}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-4">
           {supportedNetworks.map((network, idx) => (
@@ -213,7 +213,7 @@ export default function CrossChainBridge() {
 
       {/* How Bridge Works */}
       <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 className="text-3xl font-bold text-center mb-12 text-white">How Bridge Works</h2>
+        <h2 className="text-3xl font-bold text-center mb-12 text-white">{t('publicPages.solutions.crossChainBridge.howItWorks.title')}</h2>
         <div className="relative">
           <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-800 -translate-y-1/2 hidden md:block z-0" />
           
@@ -238,9 +238,9 @@ export default function CrossChainBridge() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Related Solutions</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.crossChainBridge.relatedSolutions.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Explore other TBurn Chain solutions that work with Cross-Chain Bridge.
+            {t('publicPages.solutions.crossChainBridge.relatedSolutions.description')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
             <Link 
@@ -250,8 +250,8 @@ export default function CrossChainBridge() {
             >
               <Bitcoin className="w-5 h-5 text-[#f7931a]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f7931a] transition">BTCfi</p>
-                <p className="text-xs text-gray-500">BTC bridging</p>
+                <p className="font-medium text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.btcfi.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.btcfi.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -261,8 +261,8 @@ export default function CrossChainBridge() {
             >
               <Coins className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Token Extensions</p>
-                <p className="text-xs text-gray-500">Wrapped tokens</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.tokenExtensions.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.tokenExtensions.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -272,8 +272,8 @@ export default function CrossChainBridge() {
             >
               <Wallet className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">Wallets</p>
-                <p className="text-xs text-gray-500">Multi-chain wallets</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.wallets.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.wallets.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -283,8 +283,8 @@ export default function CrossChainBridge() {
             >
               <CreditCard className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">Payments</p>
-                <p className="text-xs text-gray-500">Cross-chain payments</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.payments.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.payments.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -294,8 +294,8 @@ export default function CrossChainBridge() {
             >
               <Landmark className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Financial Infra</p>
-                <p className="text-xs text-gray-500">DeFi protocols</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.financial.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.financial.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -305,8 +305,8 @@ export default function CrossChainBridge() {
             >
               <Lock className="w-5 h-5 text-[#ffd700]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ffd700] transition">Permissioned</p>
-                <p className="text-xs text-gray-500">Enterprise bridges</p>
+                <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.permissioned.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.permissioned.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -316,8 +316,8 @@ export default function CrossChainBridge() {
             >
               <Sparkles className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">AI Features</p>
-                <p className="text-xs text-gray-500">AI risk assessment</p>
+                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.aiFeatures.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.aiFeatures.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -327,8 +327,8 @@ export default function CrossChainBridge() {
             >
               <Zap className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">Actions & Blinks</p>
-                <p className="text-xs text-gray-500">Quick transfers</p>
+                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.crossChainBridge.relatedSolutions.actionsBlinks.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.relatedSolutions.actionsBlinks.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -338,9 +338,9 @@ export default function CrossChainBridge() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Developer Resources</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.crossChainBridge.developerResources.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Integrate Cross-Chain Bridge into your applications.
+            {t('publicPages.solutions.crossChainBridge.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             <Link 
@@ -350,8 +350,8 @@ export default function CrossChainBridge() {
             >
               <BookOpen className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">SDK Guide</p>
-                <p className="text-xs text-gray-500">Bridge SDK</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.crossChainBridge.developerResources.sdkGuide.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -361,8 +361,8 @@ export default function CrossChainBridge() {
             >
               <Code className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Smart Contracts</p>
-                <p className="text-xs text-gray-500">HTLC contracts</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.crossChainBridge.developerResources.smartContracts.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -372,8 +372,8 @@ export default function CrossChainBridge() {
             >
               <FileText className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">API Reference</p>
-                <p className="text-xs text-gray-500">Bridge API</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.crossChainBridge.developerResources.apiReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -383,8 +383,8 @@ export default function CrossChainBridge() {
             >
               <Globe className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">WebSocket API</p>
-                <p className="text-xs text-gray-500">Transfer status</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.crossChainBridge.developerResources.websocketApi.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.developerResources.websocketApi.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -394,8 +394,8 @@ export default function CrossChainBridge() {
             >
               <Terminal className="w-5 h-5 text-[#f59e0b]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">CLI Reference</p>
-                <p className="text-xs text-gray-500">Bridge CLI</p>
+                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.crossChainBridge.developerResources.cliReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.developerResources.cliReference.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -405,8 +405,8 @@ export default function CrossChainBridge() {
             >
               <ExternalLink className="w-5 h-5 text-[#ec4899]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ec4899] transition">Code Examples</p>
-                <p className="text-xs text-gray-500">Bridge samples</p>
+                <p className="font-medium text-white group-hover:text-[#ec4899] transition">{t('publicPages.solutions.crossChainBridge.developerResources.codeExamples.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.developerResources.codeExamples.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -419,14 +419,14 @@ export default function CrossChainBridge() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-defi-mastery"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Learn More</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.crossChainBridge.learnMore.title')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#8b5cf6]/20 flex items-center justify-center">
                 <ArrowLeftRight className="w-5 h-5 text-[#8b5cf6]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">DeFi Mastery</h4>
-                <p className="text-xs text-gray-500">Cross-chain strategies</p>
+                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.crossChainBridge.learnMore.defiMastery.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.learnMore.defiMastery.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -435,14 +435,14 @@ export default function CrossChainBridge() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-blockchain-basics"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Getting Started</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.crossChainBridge.learnMore.gettingStarted')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#00f0ff]/20 flex items-center justify-center">
                 <Link2 className="w-5 h-5 text-[#00f0ff]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#00f0ff] transition">Blockchain Basics</h4>
-                <p className="text-xs text-gray-500">Cross-chain fundamentals</p>
+                <h4 className="font-bold text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.crossChainBridge.learnMore.blockchainBasics.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.crossChainBridge.learnMore.blockchainBasics.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -450,16 +450,16 @@ export default function CrossChainBridge() {
 
         {/* CTA */}
         <div className="mt-12 text-center spotlight-card bg-gradient-to-br from-[#00f0ff]/10 via-[#3b82f6]/5 to-transparent p-12 rounded-2xl border border-[#00f0ff]/20">
-          <h2 className="text-3xl font-bold text-white mb-6">Ready to Move Assets?</h2>
+          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.crossChainBridge.cta.title')}</h2>
           <p className="text-gray-400 mb-8">
-            Start bridging your tokens instantly with low fees and high security.
+            {t('publicPages.solutions.crossChainBridge.cta.description')}
           </p>
           <Link href="/app/bridge">
             <button 
               className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-white px-10 py-4 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-3 mx-auto text-lg"
               data-testid="button-cta-launch"
             >
-              <ArrowLeftRight className="w-5 h-5" /> Launch Bridge App
+              <ArrowLeftRight className="w-5 h-5" /> {t('publicPages.solutions.crossChainBridge.cta.button')}
             </button>
           </Link>
         </div>

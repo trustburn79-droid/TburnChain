@@ -7,42 +7,6 @@ import {
 } from "lucide-react";
 import { SiJavascript, SiPython, SiRust, SiGo, SiDiscord } from "react-icons/si";
 
-const languages = [
-  { name: "JavaScript", icon: SiJavascript, color: "#ffd700", version: "v4.2.1", active: true },
-  { name: "Python", icon: SiPython, color: "#3b82f6", version: "v4.1.0", active: false },
-  { name: "Rust", icon: SiRust, color: "#f97316", version: "v4.0.3", active: false },
-  { name: "Go", icon: SiGo, color: "#00f0ff", version: "v4.0.2", active: false },
-];
-
-const features = [
-  { 
-    icon: CheckCircle, 
-    title: "Type Safety", 
-    desc: "Full TypeScript support and type hints for Python to catch errors at compile time.",
-    color: "#00ff9d",
-    bgColor: "bg-[#00ff9d]/10"
-  },
-  { 
-    icon: RefreshCw, 
-    title: "Auto Retry", 
-    desc: "Built-in resilience patterns to handle network jitter and node failovers automatically.",
-    color: "#7000ff",
-    bgColor: "bg-[#7000ff]/10"
-  },
-  { 
-    icon: Zap, 
-    title: "Real-time Streams", 
-    desc: "WebSocket-based block, transaction, and event streaming for live updates.",
-    color: "#00f0ff",
-    bgColor: "bg-[#00f0ff]/10"
-  },
-];
-
-const installCommands = [
-  { label: "NPM (Node.js)", command: "npm install @tburn/sdk" },
-  { label: "Yarn", command: "yarn add @tburn/sdk" },
-];
-
 const configCode = `import { defineConfig } from '@tburn/sdk';
 
 export default defineConfig({
@@ -59,8 +23,6 @@ export default defineConfig({
     enabled: true
   }
 });`;
-
-const exampleTabs = ["Core", "DeFi", "Streaming"];
 
 const coreExample = `import { TBurnClient } from '@tburn/sdk';
 
@@ -132,6 +94,48 @@ export default function SdkGuide() {
   const [activeTab, setActiveTab] = useState("Core");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
+  const languages = [
+    { name: "JavaScript", icon: SiJavascript, color: "#ffd700", version: "v4.2.1", active: true },
+    { name: "Python", icon: SiPython, color: "#3b82f6", version: "v4.1.0", active: false },
+    { name: "Rust", icon: SiRust, color: "#f97316", version: "v4.0.3", active: false },
+    { name: "Go", icon: SiGo, color: "#00f0ff", version: "v4.0.2", active: false },
+  ];
+
+  const features = [
+    { 
+      icon: CheckCircle, 
+      title: t('publicPages.developers.sdk.features.typeSafety.title'), 
+      desc: t('publicPages.developers.sdk.features.typeSafety.description'),
+      color: "#00ff9d",
+      bgColor: "bg-[#00ff9d]/10"
+    },
+    { 
+      icon: RefreshCw, 
+      title: t('publicPages.developers.sdk.features.autoRetry.title'), 
+      desc: t('publicPages.developers.sdk.features.autoRetry.description'),
+      color: "#7000ff",
+      bgColor: "bg-[#7000ff]/10"
+    },
+    { 
+      icon: Zap, 
+      title: t('publicPages.developers.sdk.features.realTimeStreams.title'), 
+      desc: t('publicPages.developers.sdk.features.realTimeStreams.description'),
+      color: "#00f0ff",
+      bgColor: "bg-[#00f0ff]/10"
+    },
+  ];
+
+  const installCommands = [
+    { label: t('publicPages.developers.sdk.install.npm'), command: "npm install @tburn/sdk" },
+    { label: t('publicPages.developers.sdk.install.yarn'), command: "yarn add @tburn/sdk" },
+  ];
+
+  const exampleTabs = [
+    t('publicPages.developers.sdk.examples.core'),
+    t('publicPages.developers.sdk.examples.defi'),
+    t('publicPages.developers.sdk.examples.streaming')
+  ];
+
   const handleCopy = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
     setCopiedIndex(index);
@@ -140,8 +144,8 @@ export default function SdkGuide() {
 
   const getExampleCode = () => {
     switch (activeTab) {
-      case "DeFi": return defiExample;
-      case "Streaming": return streamingExample;
+      case t('publicPages.developers.sdk.examples.defi'): return defiExample;
+      case t('publicPages.developers.sdk.examples.streaming'): return streamingExample;
       default: return coreExample;
     }
   };
@@ -220,7 +224,7 @@ export default function SdkGuide() {
             {/* Installation */}
             <div>
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <Download className="w-6 h-6 text-[#00f0ff]" /> Installation
+                <Download className="w-6 h-6 text-[#00f0ff]" /> {t('publicPages.developers.sdk.installation')}
               </h2>
               <div className="space-y-4">
                 {installCommands.map((install, index) => (
@@ -245,7 +249,7 @@ export default function SdkGuide() {
             {/* Configuration */}
             <div>
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <Settings className="w-6 h-6 text-[#7000ff]" /> Configuration
+                <Settings className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.sdk.configuration')}
               </h2>
               <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
                 <div className="bg-black/40 border-b border-white/10 p-3 flex items-center gap-2">
@@ -273,7 +277,7 @@ export default function SdkGuide() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
-            <Code className="w-6 h-6 text-[#ffd700]" /> Quick Examples
+            <Code className="w-6 h-6 text-[#ffd700]" /> {t('publicPages.developers.sdk.quickExamples')}
           </h2>
 
           <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
@@ -310,7 +314,7 @@ export default function SdkGuide() {
       <section className="py-16 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-white/5">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2">
-            <HelpCircle className="w-6 h-6" /> Need Help?
+            <HelpCircle className="w-6 h-6" /> {t('publicPages.developers.sdk.needHelp.title')}
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
@@ -318,28 +322,28 @@ export default function SdkGuide() {
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
               data-testid="link-api-reference"
             >
-              <Server className="w-5 h-5 text-[#00f0ff]" /> API Reference
+              <Server className="w-5 h-5 text-[#00f0ff]" /> {t('publicPages.developers.sdk.needHelp.apiReference')}
             </Link>
             <Link 
               href="/developers/cli"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00ff9d] transition flex items-center gap-2 text-white"
               data-testid="link-cli-reference"
             >
-              <Terminal className="w-5 h-5 text-[#00ff9d]" /> CLI Reference
+              <Terminal className="w-5 h-5 text-[#00ff9d]" /> {t('publicPages.developers.sdk.needHelp.cliReference')}
             </Link>
             <Link 
               href="/developers/examples"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ffd700] transition flex items-center gap-2 text-white"
               data-testid="link-code-examples"
             >
-              <Book className="w-5 h-5 text-[#ffd700]" /> Code Examples
+              <Book className="w-5 h-5 text-[#ffd700]" /> {t('publicPages.developers.sdk.needHelp.codeExamples')}
             </Link>
             <Link 
               href="/community/hub"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-white"
               data-testid="link-discord-support"
             >
-              <SiDiscord className="w-5 h-5 text-[#7000ff]" /> Discord Support
+              <SiDiscord className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.developers.sdk.needHelp.discordSupport')}
             </Link>
           </div>
         </div>

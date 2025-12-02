@@ -20,23 +20,22 @@ export default function Ramp() {
   
   const handleBuy = () => {
     if (!buyAmount || parseFloat(buyAmount) <= 0) {
-      toast({ title: "Error", description: "Please enter a valid amount", variant: "destructive" });
+      toast({ title: t('publicPages.network.ramp.toast.error'), description: t('publicPages.network.ramp.toast.enterValidAmount'), variant: "destructive" });
       return;
     }
-    toast({ title: "Processing", description: `Initiating purchase of ${estimatedTburn} TBURN...` });
+    toast({ title: t('publicPages.network.ramp.toast.processing'), description: `${t('publicPages.network.ramp.toast.initiatingPurchase')} ${estimatedTburn} TBURN...` });
   };
   
   const handleSell = () => {
     if (!sellAmount || parseFloat(sellAmount) <= 0) {
-      toast({ title: "Error", description: "Please enter a valid amount", variant: "destructive" });
+      toast({ title: t('publicPages.network.ramp.toast.error'), description: t('publicPages.network.ramp.toast.enterValidAmount'), variant: "destructive" });
       return;
     }
-    toast({ title: "Processing", description: `Initiating sale of ${sellAmount} TBURN...` });
+    toast({ title: t('publicPages.network.ramp.toast.processing'), description: `${t('publicPages.network.ramp.toast.initiatingSale')} ${sellAmount} TBURN...` });
   };
 
   return (
     <main className="flex-grow relative z-10">
-      {/* Hero Section */}
       <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
         
@@ -53,25 +52,23 @@ export default function Ramp() {
         </div>
       </section>
 
-      {/* Buy/Sell Cards */}
       <section className="py-12 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-2 gap-8">
-            {/* On-Ramp (Buy) */}
             <div className="spotlight-card rounded-2xl p-8 border border-white/10 bg-gradient-to-br from-[#7000ff]/5 to-transparent">
               <div className="w-14 h-14 rounded-xl bg-[#7000ff]/10 border border-[#7000ff]/30 flex items-center justify-center mb-6 text-[#7000ff]">
                 <CreditCard className="w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">Buy Tokens (On-Ramp)</h3>
+              <h3 className="text-2xl font-bold text-white mb-3">{t('publicPages.network.ramp.buy.title')}</h3>
               <p className="text-gray-400 leading-relaxed mb-8">
-                Purchase TBURN tokens instantly with credit card, bank transfer, or PayPal.
+                {t('publicPages.network.ramp.buy.desc')}
               </p>
               
               <div className="space-y-4">
                 <div className="flex gap-2">
                   <input 
                     type="number" 
-                    placeholder="Amount (USD)" 
+                    placeholder={t('publicPages.network.ramp.buy.amountPlaceholder')}
                     value={buyAmount}
                     onChange={(e) => setBuyAmount(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-[#00f0ff] focus:outline-none transition"
@@ -89,34 +86,33 @@ export default function Ramp() {
                   </select>
                 </div>
                 <div className="flex justify-between text-sm text-gray-500 px-1">
-                  <span>Est. TBURN: <span className="text-[#00f0ff]">{estimatedTburn}</span></span>
-                  <span>Fee: ~1.5%</span>
+                  <span>{t('publicPages.network.ramp.buy.estTburn')}: <span className="text-[#00f0ff]">{estimatedTburn}</span></span>
+                  <span>{t('publicPages.network.ramp.fee')}: ~1.5%</span>
                 </div>
                 <button 
                   className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)]"
                   data-testid="button-buy-tburn"
                   onClick={handleBuy}
                 >
-                  Buy TBURN
+                  {t('publicPages.network.ramp.buy.button')}
                 </button>
               </div>
             </div>
 
-            {/* Off-Ramp (Sell) */}
             <div className="spotlight-card rounded-2xl p-8 border border-white/10 bg-gradient-to-br from-[#00f0ff]/5 to-transparent">
               <div className="w-14 h-14 rounded-xl bg-[#00f0ff]/10 border border-[#00f0ff]/30 flex items-center justify-center mb-6 text-[#00f0ff]">
                 <Wallet className="w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">Cash Out (Off-Ramp)</h3>
+              <h3 className="text-2xl font-bold text-white mb-3">{t('publicPages.network.ramp.sell.title')}</h3>
               <p className="text-gray-400 leading-relaxed mb-8">
-                Cash out your TBURN tokens instantly to your bank account or PayPal.
+                {t('publicPages.network.ramp.sell.desc')}
               </p>
 
               <div className="space-y-4">
                 <div className="flex gap-2">
                   <input 
                     type="number" 
-                    placeholder="Amount (TBURN)" 
+                    placeholder={t('publicPages.network.ramp.sell.amountPlaceholder')}
                     value={sellAmount}
                     onChange={(e) => setSellAmount(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-[#00f0ff] focus:outline-none transition"
@@ -127,15 +123,15 @@ export default function Ramp() {
                   </div>
                 </div>
                 <div className="flex justify-between text-sm text-gray-500 px-1">
-                  <span>Est. USD: <span className="text-[#00f0ff]">{estimatedUsd}</span></span>
-                  <span>Fee: ~1.0%</span>
+                  <span>{t('publicPages.network.ramp.sell.estUsd')}: <span className="text-[#00f0ff]">{estimatedUsd}</span></span>
+                  <span>{t('publicPages.network.ramp.fee')}: ~1.0%</span>
                 </div>
                 <button 
                   className="w-full py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                   data-testid="button-sell-tburn"
                   onClick={handleSell}
                 >
-                  Sell TBURN
+                  {t('publicPages.network.ramp.sell.button')}
                 </button>
               </div>
             </div>
@@ -143,81 +139,79 @@ export default function Ramp() {
         </div>
       </section>
 
-      {/* Why BurnRamp? */}
       <section className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Why BurnRamp?</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.network.ramp.sections.whyBurnRamp')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="spotlight-card rounded-xl p-8 text-center group">
               <Zap className="w-10 h-10 text-[#ffd700] mx-auto mb-6 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-bold text-white mb-3">Instant Processing</h3>
+              <h3 className="text-xl font-bold text-white mb-3">{t('publicPages.network.ramp.features.instantProcessing.title')}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Buy/sell requests are processed within 2 minutes on average. Trade immediately without waiting.
+                {t('publicPages.network.ramp.features.instantProcessing.desc')}
               </p>
             </div>
 
             <div className="spotlight-card rounded-xl p-8 text-center group">
               <Shield className="w-10 h-10 text-[#00ff9d] mx-auto mb-6 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-bold text-white mb-3">Bank-Grade Security</h3>
+              <h3 className="text-xl font-bold text-white mb-3">{t('publicPages.network.ramp.features.bankGradeSecurity.title')}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Protect your funds with 2FA, biometric authentication, and SSL encryption. Regulated compliance.
+                {t('publicPages.network.ramp.features.bankGradeSecurity.desc')}
               </p>
             </div>
 
             <div className="spotlight-card rounded-xl p-8 text-center group">
               <Percent className="w-10 h-10 text-[#00f0ff] mx-auto mb-6 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-bold text-white mb-3">Low Fees</h3>
+              <h3 className="text-xl font-bold text-white mb-3">{t('publicPages.network.ramp.features.lowFees.title')}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Buy 1.5%, Sell 1.0% - Get more tokens with industry-leading low fees compared to competitors.
+                {t('publicPages.network.ramp.features.lowFees.desc')}
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Supported Payment Methods */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Supported Payment Methods</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.network.ramp.sections.paymentMethods')}</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="spotlight-card rounded-xl p-8 border border-white/10">
               <h3 className="text-xl font-bold text-[#7000ff] mb-6 flex items-center gap-2">
-                <ArrowDown className="w-5 h-5" /> On-Ramp (Buy)
+                <ArrowDown className="w-5 h-5" /> {t('publicPages.network.ramp.payments.onRamp')}
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3 text-gray-300">
                   <SiVisa className="text-white text-xl" />
                   <SiMastercard className="text-white text-xl" />
-                  <span>Credit/Debit Cards (Visa, Mastercard)</span>
+                  <span>{t('publicPages.network.ramp.payments.creditDebit')}</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-300">
                   <Landmark className="w-5 h-5 text-white" />
-                  <span>Bank Transfer (ACH, SEPA, KRW)</span>
+                  <span>{t('publicPages.network.ramp.payments.bankTransfer')}</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-300">
                   <SiPaypal className="text-white text-xl" />
                   <SiApplepay className="text-white text-xl" />
-                  <span>PayPal, Apple Pay, Google Pay</span>
+                  <span>{t('publicPages.network.ramp.payments.digitalWallets')}</span>
                 </li>
               </ul>
             </div>
 
             <div className="spotlight-card rounded-xl p-8 border border-white/10">
               <h3 className="text-xl font-bold text-[#00f0ff] mb-6 flex items-center gap-2">
-                <ArrowUp className="w-5 h-5" /> Off-Ramp (Sell)
+                <ArrowUp className="w-5 h-5" /> {t('publicPages.network.ramp.payments.offRamp')}
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3 text-gray-300">
                   <Landmark className="w-5 h-5 text-white" />
-                  <span>Bank Transfer (USD, EUR, KRW, JPY)</span>
+                  <span>{t('publicPages.network.ramp.payments.bankWithdrawal')}</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-300">
                   <SiPaypal className="text-white text-xl" />
-                  <span>PayPal Withdrawal</span>
+                  <span>{t('publicPages.network.ramp.payments.paypalWithdrawal')}</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-300">
                   <FileText className="w-5 h-5 text-white" />
-                  <span>Physical Check (US Only)</span>
+                  <span>{t('publicPages.network.ramp.payments.physicalCheck')}</span>
                 </li>
               </ul>
             </div>
@@ -225,85 +219,81 @@ export default function Ramp() {
         </div>
       </section>
 
-      {/* Limits & Fees */}
       <section className="py-20 px-6 bg-gradient-to-b from-transparent to-[#7000ff]/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Limits & Fees</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.network.ramp.sections.limitsFees')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Basic Account */}
             <div className="spotlight-card rounded-xl p-0 border border-white/10 overflow-hidden">
               <div className="p-6 border-b border-white/10">
-                <h3 className="text-xl font-bold text-white">Basic Account</h3>
-                <p className="text-xs text-gray-500 mt-1">Email verification only</p>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.network.ramp.accounts.basic.title')}</h3>
+                <p className="text-xs text-gray-500 mt-1">{t('publicPages.network.ramp.accounts.basic.desc')}</p>
               </div>
               <div className="p-6 space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Daily Limit</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.dailyLimit')}</span>
                   <span className="text-white font-bold">$1,000</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Monthly Limit</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.monthlyLimit')}</span>
                   <span className="text-white font-bold">$10,000</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Buy Fee</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.buyFee')}</span>
                   <span className="text-white font-bold">2.0%</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Sell Fee</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.sellFee')}</span>
                   <span className="text-white font-bold">1.5%</span>
                 </div>
               </div>
             </div>
 
-            {/* Verified Account */}
             <div className="spotlight-card rounded-xl p-0 border border-[#00f0ff]/50 overflow-hidden relative">
-              <div className="absolute top-0 right-0 bg-[#00f0ff] text-black text-xs font-bold px-3 py-1 rounded-bl-lg">RECOMMENDED</div>
+              <div className="absolute top-0 right-0 bg-[#00f0ff] text-black text-xs font-bold px-3 py-1 rounded-bl-lg">{t('publicPages.network.ramp.accounts.recommended')}</div>
               <div className="p-6 border-b border-white/10 bg-[#00f0ff]/5">
-                <h3 className="text-xl font-bold text-[#00f0ff]">Verified Account</h3>
-                <p className="text-xs text-gray-500 mt-1">KYC identity verification required</p>
+                <h3 className="text-xl font-bold text-[#00f0ff]">{t('publicPages.network.ramp.accounts.verified.title')}</h3>
+                <p className="text-xs text-gray-500 mt-1">{t('publicPages.network.ramp.accounts.verified.desc')}</p>
               </div>
               <div className="p-6 space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Daily Limit</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.dailyLimit')}</span>
                   <span className="text-white font-bold">$50,000</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Monthly Limit</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.monthlyLimit')}</span>
                   <span className="text-white font-bold">$500,000</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Buy Fee</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.buyFee')}</span>
                   <span className="text-[#00f0ff] font-bold">1.5%</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Sell Fee</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.sellFee')}</span>
                   <span className="text-[#00f0ff] font-bold">1.0%</span>
                 </div>
               </div>
             </div>
 
-            {/* Institutional */}
             <div className="spotlight-card rounded-xl p-0 border border-[#7000ff]/50 overflow-hidden">
               <div className="p-6 border-b border-white/10 bg-[#7000ff]/5">
-                <h3 className="text-xl font-bold text-[#7000ff]">Institutional</h3>
-                <p className="text-xs text-gray-500 mt-1">Contract required</p>
+                <h3 className="text-xl font-bold text-[#7000ff]">{t('publicPages.network.ramp.accounts.institutional.title')}</h3>
+                <p className="text-xs text-gray-500 mt-1">{t('publicPages.network.ramp.accounts.institutional.desc')}</p>
               </div>
               <div className="p-6 space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Daily Limit</span>
-                  <span className="text-white font-bold">Unlimited</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.dailyLimit')}</span>
+                  <span className="text-white font-bold">{t('publicPages.network.ramp.accounts.unlimited')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Monthly Limit</span>
-                  <span className="text-white font-bold">Unlimited</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.monthlyLimit')}</span>
+                  <span className="text-white font-bold">{t('publicPages.network.ramp.accounts.unlimited')}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Buy Fee</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.buyFee')}</span>
                   <span className="text-[#7000ff] font-bold">0.5%</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Sell Fee</span>
+                  <span className="text-gray-400">{t('publicPages.network.ramp.accounts.sellFee')}</span>
                   <span className="text-[#7000ff] font-bold">0.3%</span>
                 </div>
               </div>
@@ -312,55 +302,53 @@ export default function Ramp() {
         </div>
       </section>
 
-      {/* How It Works */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">How It Works</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.network.ramp.sections.howItWorks')}</h2>
           
           <div className="space-y-4">
             <div className="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
               <div className="w-10 h-10 rounded-full bg-[#7000ff] text-white flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">1</div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">Create & Verify Account</h3>
-                <p className="text-gray-400">Sign up with email and complete identity verification (KYC) for higher limits. Approved within 5 minutes.</p>
+                <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.ramp.steps.step1.title')}</h3>
+                <p className="text-gray-400">{t('publicPages.network.ramp.steps.step1.desc')}</p>
               </div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
               <div className="w-10 h-10 rounded-full bg-[#00f0ff] text-black flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">2</div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">Connect Wallet</h3>
-                <p className="text-gray-400">Connect a TBurn Chain compatible wallet (MetaMask, Phantom, Ledger, etc).</p>
+                <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.ramp.steps.step2.title')}</h3>
+                <p className="text-gray-400">{t('publicPages.network.ramp.steps.step2.desc')}</p>
               </div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
               <div className="w-10 h-10 rounded-full bg-[#00ff9d] text-black flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">3</div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">Execute Transaction</h3>
-                <p className="text-gray-400">Enter the amount of TBURN to buy or cash out, select payment method, and confirm.</p>
+                <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.ramp.steps.step3.title')}</h3>
+                <p className="text-gray-400">{t('publicPages.network.ramp.steps.step3.desc')}</p>
               </div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 flex items-start gap-6 group hover:bg-white/5 transition-colors">
               <div className="w-10 h-10 rounded-full bg-[#ffd700] text-black flex items-center justify-center font-bold flex-shrink-0 group-hover:scale-110 transition-transform">4</div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">Instant Completion</h3>
-                <p className="text-gray-400">TBURN tokens sent to wallet or cash deposited to bank account within 2 minutes.</p>
+                <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.network.ramp.steps.step4.title')}</h3>
+                <p className="text-gray-400">{t('publicPages.network.ramp.steps.step4.desc')}</p>
               </div>
             </div>
           </div>
 
-          {/* CTA */}
           <div className="mt-16 text-center">
-            <h2 className="text-3xl font-bold text-white mb-6">Get Started Now</h2>
+            <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.network.ramp.cta.title')}</h2>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/signup">
                 <button 
                   className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)] flex items-center gap-2"
                   data-testid="button-create-account"
                 >
-                  Create Account <ArrowRight className="w-4 h-4" />
+                  {t('publicPages.network.ramp.cta.createAccount')} <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
               <Link href="/community/hub">
@@ -368,7 +356,7 @@ export default function Ramp() {
                   className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                   data-testid="button-contact-support"
                 >
-                  Contact Support
+                  {t('publicPages.network.ramp.cta.contactSupport')}
                 </button>
               </Link>
             </div>

@@ -6596,92 +6596,114 @@
         "tag": "TECHNICAL PAPER",
         "title": "Whitepaper",
         "subtitle": "Complete technical documentation of TBurn Chain architecture, consensus, and tokenomics.",
+        "heroDescription": "Decentralized Trust Infrastructure for Blockchain Projects.",
+        "heroSubDescription": "Arbitrum-based Layer 2 solution verifying reliability with 100% on-chain transparency.",
+        "downloadPdf": "Download PDF",
+        "viewSource": "View Source",
         "trustCrisis": {
           "title": "The Trust Crisis",
-          "subtitle": "Understanding the problem we solve",
-          "stats": {
-            "rugPulls": {
-              "value": "$2.8B",
-              "label": "Lost to rug pulls in 2023"
+          "subtitle": "Fundamental Issues in the Current Blockchain Industry",
+          "items": {
+            "scams": {
+              "title": "80%+ Scams",
+              "description": "Over 80% of new crypto projects are potential scams or rugpulls."
             },
-            "scamProjects": {
-              "value": "40%",
-              "label": "Of new tokens are scams"
+            "lost": {
+              "title": "$2.7B Lost",
+              "description": "Total funds lost to rugpulls and fraud in 2023 alone."
+            },
+            "risk": {
+              "title": "$3.1B Risk",
+              "description": "Estimated losses projected for 2024 without intervention."
             },
             "investorLoss": {
-              "value": "67%",
-              "label": "Investors affected by fraud"
+              "title": "60-80% Loss",
+              "description": "Average investor loss rate in early-stage projects."
             }
           }
         },
         "performance": {
-          "title": "Performance Specifications",
+          "badge": "SOLUTION ARCHITECTURE",
+          "title": "V4 Enterprise Performance",
+          "description": "TBurn Chain isn't just about trust scoring; it's a high-performance Layer 2 scaling solution built on Arbitrum technology, designed for enterprise-grade throughput.",
+          "features": {
+            "hybridConsensus": "Hybrid Consensus (DPoS + BFT)",
+            "evmCompatibility": "EVM Compatibility",
+            "dynamicSharding": "Dynamic Sharding Support"
+          },
           "metrics": {
             "tps": {
-              "value": "50,000+",
-              "label": "Transactions Per Second"
+              "value": "500k+",
+              "label": "TPS"
+            },
+            "latency": {
+              "value": "1.84ms",
+              "label": "Latency"
             },
             "blockTime": {
               "value": "1s",
-              "label": "Average Block Time"
+              "label": "Block Time"
             },
-            "finality": {
-              "value": "6s",
-              "label": "Transaction Finality"
-            },
-            "gasCost": {
-              "value": "$0.001",
-              "label": "Average Gas Cost"
+            "nodes": {
+              "value": "30,000",
+              "label": "Nodes"
             }
           }
         },
         "aiLayers": {
-          "title": "Triple-Band AI Architecture",
-          "strategic": {
-            "title": "Strategic AI",
-            "description": "Long-term pattern analysis and risk assessment"
-          },
-          "tactical": {
-            "title": "Tactical AI",
-            "description": "Real-time transaction monitoring"
-          },
-          "operational": {
-            "title": "Operational AI",
-            "description": "Instant fraud detection and prevention"
-          }
-        },
-        "quantumSecurity": {
-          "title": "Quantum Security",
-          "description": "Future-proof cryptographic protection",
-          "features": {
-            "crystals": "CRYSTALS-Dilithium signatures",
-            "hybrid": "ED25519 hybrid encryption",
-            "postQuantum": "Post-quantum key exchange"
-          }
-        },
-        "coreModules": {
-          "title": "Core Protocol Modules",
+          "title": "Triple-Band AI Orchestration",
+          "subtitle": "Intelligent decision-making using three distinct AI models.",
           "items": {
-            "consensus": {
-              "title": "Consensus Engine",
-              "description": "Proof of Trust consensus mechanism"
+            "strategic": {
+              "title": "Strategic Layer",
+              "model": ":: ChatGPT Latest",
+              "latency": "450ms",
+              "description": "Handles complex market analysis, governance proposal evaluation, and long-term strategy formulation."
             },
-            "verification": {
-              "title": "Verification Layer",
-              "description": "3-stage trust verification system"
+            "tactical": {
+              "title": "Tactical Layer",
+              "model": ":: Claude Latest",
+              "latency": "180ms",
+              "description": "Processes trust assessment, transaction verification, and smart contract auditing."
             },
-            "execution": {
-              "title": "Execution Layer",
-              "description": "EVM-compatible smart contracts"
-            },
-            "bridge": {
-              "title": "Bridge Protocol",
-              "description": "Cross-chain asset transfers"
+            "operational": {
+              "title": "Operational Layer",
+              "model": ":: Gemini Latest",
+              "latency": "45ms",
+              "description": "Executes real-time monitoring, emergency response (Auto-Burn), and automated actions."
             }
           }
         },
-        "downloadPdf": "Download PDF",
-        "viewGithub": "View on GitHub"
+        "quantumSecurity": {
+          "title": "Quantum-Safe Security",
+          "items": {
+            "crystals": {
+              "title": "CRYSTALS-Dilithium",
+              "description": "NIST standard lattice-based signature algorithm providing post-quantum security."
+            },
+            "hybrid": {
+              "title": "Hybrid Signatures",
+              "description": "Combining ED25519 + Dilithium for backward compatibility and future-proofing."
+            }
+          }
+        },
+        "coreModules": {
+          "title": "V4 Core Modules",
+          "items": {
+            "defi": {
+              "title": "DeFi Hub",
+              "description": "Integrated AMM DEX, 85% LTV Loans, and Liquid Staking."
+            },
+            "gamefi": {
+              "title": "GameFi Platform",
+              "description": "P2E Engine, Tournament System, and Cross-chain Item Trading."
+            },
+            "bridge": {
+              "title": "Cross-Chain Bridge",
+              "description": "Secure atomic swaps connected to 7+ major blockchains."
+            }
+          }
+        }
       },
       "tokenomics": {
         "tag": "ECONOMICS",
@@ -6756,82 +6778,465 @@
         }
       },
       "roadmap": {
-        "tag": "DEVELOPMENT",
-        "title": "Roadmap",
+        "tag": "DEVELOPMENT ROADMAP",
+        "title": "Development Roadmap",
         "subtitle": "Track our progress and upcoming milestones on the journey to mainstream adoption.",
         "phases": {
           "phase1": {
+            "quarter": "Q1-Q2 2024",
             "title": "Phase 1: Foundation",
-            "period": "Q1-Q2 2024",
-            "status": "completed",
+            "status": "COMPLETED",
             "items": {
-              "mainnet": "Mainnet Launch",
-              "trustScore": "Trust Score System",
-              "bridge": "Cross-Chain Bridge",
-              "dex": "DEX Launch"
+              "item1": "Mainnet Launch & Genesis Block",
+              "item2": "Trust Score System V1",
+              "item3": "Cross-Chain Bridge (ETH, BSC)",
+              "item4": "DEX Launch with AMM",
+              "item5": "Mobile Wallet Beta"
             }
           },
           "phase2": {
+            "quarter": "Q3-Q4 2024",
             "title": "Phase 2: Expansion",
-            "period": "Q3-Q4 2024",
-            "status": "inProgress",
+            "status": "IN PROGRESS",
             "items": {
-              "gamefi": "GameFi Platform",
-              "aiEnhancement": "AI Enhancement",
-              "mobileWallet": "Mobile Wallet",
-              "partnerships": "Major Partnerships"
+              "item1": "GameFi Platform Integration",
+              "item2": "AI Enhancement Module",
+              "item3": "Mobile Wallet Full Release",
+              "item4": "Major CEX Listings",
+              "item5": "Developer SDK V2"
             }
           },
           "phase3": {
+            "quarter": "Q1-Q2 2025",
             "title": "Phase 3: Ecosystem",
-            "period": "Q1-Q2 2025",
-            "status": "upcoming",
+            "status": "PLANNED",
             "items": {
-              "dao": "Full DAO Governance",
-              "l2": "Layer 2 Solutions",
-              "enterprise": "Enterprise Adoption",
-              "global": "Global Expansion"
+              "item1": "Layer 2 Scaling Solution",
+              "item2": "DAO Governance Launch",
+              "item3": "Cross-Chain Expansion (7+ chains)",
+              "item4": "AI Trading Bot Integration",
+              "item5": "Enterprise Partnership Program"
             }
           },
           "phase4": {
+            "quarter": "Q3-Q4 2025",
             "title": "Phase 4: Mass Adoption",
-            "period": "Q3-Q4 2025",
-            "status": "upcoming",
+            "status": "PLANNED",
             "items": {
-              "quantum": "Quantum Upgrade",
-              "fiat": "Fiat Integration",
-              "institutions": "Institutional Services",
-              "metaverse": "Metaverse Integration"
+              "item1": "Global Marketing Campaign",
+              "item2": "Institutional Services Launch",
+              "item3": "Strategic Partnerships",
+              "item4": "Ecosystem Fund Deployment"
             }
           }
         },
-        "metrics": {
-          "title": "Growth Projections",
-          "users": "Active Users",
-          "tvl": "Total Value Locked",
-          "transactions": "Daily Transactions",
-          "developers": "Active Developers"
+        "growth": {
+          "sectionTitle": "Projected Growth Metrics",
+          "year1": {
+            "label": "2024",
+            "projects": "500+",
+            "users": "100K+",
+            "tvl": "$50M+"
+          },
+          "year2": {
+            "label": "2025",
+            "projects": "2,000+",
+            "users": "1M+",
+            "tvl": "$500M+"
+          },
+          "year3": {
+            "label": "2026",
+            "projects": "10,000+",
+            "users": "10M+",
+            "tvl": "$5B+"
+          },
+          "labels": {
+            "verifiedProjects": "Verified Projects",
+            "activeUsers": "Active Users",
+            "tvl": "Total Value Locked"
+          }
+        },
+        "cta": {
+          "title": "Join Us on This Journey",
+          "description": "Be part of the TBurn Chain ecosystem and help shape the future of trust-based blockchain technology.",
+          "joinCommunity": "Join Community",
+          "viewDocs": "View Documentation"
         }
       },
       "blockchainBasics": {
         "tag": "BEGINNER",
         "title": "Blockchain Basics",
-        "subtitle": "Fundamental concepts of blockchain technology and distributed systems."
+        "subtitle": "Build a solid foundation in blockchain technology. Learn how distributed ledgers, consensus mechanisms, and cryptography work together.",
+        "duration": "4 hours",
+        "backToEducation": "Back to Education Programs",
+        "courseOverview": {
+          "title": "Course Overview",
+          "description": "This comprehensive course introduces you to the fundamental concepts of blockchain technology. You'll learn about distributed ledgers, consensus mechanisms, cryptographic principles, and how these technologies power modern decentralized applications.",
+          "videoTitle": "Introduction to Blockchain",
+          "videoSubtitle": "Course Preview",
+          "figureCaption": "Figure: Course Introduction Video"
+        },
+        "curriculumTitle": "Course Curriculum",
+        "curriculum": {
+          "module1": {
+            "title": "What is Blockchain?",
+            "subtitle": "Understanding distributed ledger technology",
+            "duration": "45 min"
+          },
+          "module2": {
+            "title": "Cryptography Basics",
+            "subtitle": "Hash functions, signatures, and encryption",
+            "duration": "60 min"
+          },
+          "module3": {
+            "title": "Consensus Mechanisms",
+            "subtitle": "PoW, PoS, and TBurn's Proof of Trust",
+            "duration": "75 min"
+          },
+          "module4": {
+            "title": "TBurn Chain Architecture",
+            "subtitle": "Deep dive into our trust-based system",
+            "duration": "60 min"
+          }
+        },
+        "whatYouWillLearn": "What You'll Learn",
+        "learningOutcomes": {
+          "item1": "Understand blockchain fundamentals and distributed systems",
+          "item2": "Learn cryptographic principles behind secure transactions",
+          "item3": "Explore different consensus mechanisms",
+          "item4": "Master TBurn Chain's unique trust-based architecture"
+        },
+        "prerequisitesTitle": "Prerequisites",
+        "prerequisites": {
+          "item1": "Basic programming knowledge helpful but not required",
+          "item2": "Familiarity with web technologies"
+        },
+        "continueLearning": {
+          "title": "Continue Learning",
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "Build your first contract"
+          },
+          "sdkGuide": {
+            "title": "SDK Guide",
+            "subtitle": "Integration documentation"
+          },
+          "quickStart": {
+            "title": "Quick Start",
+            "subtitle": "Deploy your first dApp"
+          },
+          "documentation": {
+            "title": "Documentation",
+            "subtitle": "Full API reference"
+          }
+        },
+        "upNext": {
+          "label": "Up Next",
+          "title": "Trust Score System",
+          "level": "Intermediate Level"
+        }
       },
       "defiMastery": {
         "tag": "INTERMEDIATE",
         "title": "DeFi Mastery",
-        "subtitle": "Master decentralized finance concepts including DEX, lending, and yield strategies."
+        "subtitle": "Master decentralized finance protocols. Learn advanced yield strategies, liquidity provision, and risk management techniques.",
+        "duration": "8 hours",
+        "backToEducation": "Back to Education Programs",
+        "stats": {
+          "tvl": {
+            "value": "$2.1B",
+            "label": "Total Value Locked"
+          },
+          "apy": {
+            "value": "18.5%",
+            "label": "Average APY"
+          },
+          "protocols": {
+            "value": "45+",
+            "label": "Active Protocols"
+          }
+        },
+        "courseOverview": {
+          "title": "Course Overview",
+          "description": "This advanced course covers everything you need to know about decentralized finance on TBurn Chain. From understanding AMM mechanics to implementing complex yield farming strategies, you'll gain practical skills for navigating the DeFi ecosystem.",
+          "videoTitle": "DeFi Fundamentals",
+          "videoSubtitle": "Course Preview",
+          "figureCaption": "Figure: DeFi Protocol Overview"
+        },
+        "curriculumTitle": "Course Curriculum",
+        "curriculum": {
+          "module1": {
+            "title": "DEX & AMM Mechanics",
+            "subtitle": "Understanding automated market makers",
+            "duration": "90 min"
+          },
+          "module2": {
+            "title": "Lending Protocols",
+            "subtitle": "Collateralized borrowing and lending",
+            "duration": "120 min"
+          },
+          "module3": {
+            "title": "Liquidity Provision",
+            "subtitle": "LP tokens, impermanent loss, and rewards",
+            "duration": "90 min"
+          },
+          "module4": {
+            "title": "Yield Strategies",
+            "subtitle": "Optimizing returns with trust-boosted yields",
+            "duration": "120 min"
+          }
+        },
+        "keyTakeawaysTitle": "Key Takeaways",
+        "keyTakeaways": {
+          "item1": "Master AMM mechanics and liquidity pool dynamics",
+          "item2": "Understand lending protocols and collateral management",
+          "item3": "Implement yield optimization strategies"
+        },
+        "prerequisitesTitle": "Prerequisites",
+        "prerequisites": {
+          "item1": "Blockchain Basics course",
+          "item2": "Understanding of wallet operations"
+        },
+        "developerResources": {
+          "title": "Developer Resources",
+          "description": "Build and integrate with TBurn DeFi protocols using these resources.",
+          "smartContracts": {
+            "title": "DeFi Contracts",
+            "subtitle": "AMM & lending contracts"
+          },
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "Protocol integration"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocket": {
+            "title": "WebSocket Feeds",
+            "subtitle": "Real-time price data"
+          },
+          "codeExamples": {
+            "title": "Code Examples",
+            "subtitle": "Sample integrations"
+          },
+          "quickStart": {
+            "title": "Quick Start",
+            "subtitle": "5-minute setup guide"
+          }
+        },
+        "upNext": {
+          "label": "Up Next",
+          "title": "Developer Course",
+          "subtitle": "Build your own dApps"
+        }
       },
       "developerCourse": {
         "tag": "ADVANCED",
         "title": "Developer Course",
-        "subtitle": "Complete guide to building and deploying dApps on TBurn Chain."
+        "subtitle": "Build production-ready dApps on TBurn Chain. Master smart contracts, SDK integration, and deployment strategies.",
+        "duration": "20 hours",
+        "backToEducation": "Back to Education Programs",
+        "courseOverview": {
+          "title": "Course Overview",
+          "description": "This comprehensive developer course takes you from zero to deploying production-ready dApps on TBurn Chain. You'll learn smart contract development, SDK integration, testing strategies, and best practices for building secure, scalable applications."
+        },
+        "curriculumTitle": "Course Curriculum",
+        "curriculum": {
+          "module1": {
+            "title": "SDK Setup & Configuration",
+            "subtitle": "Environment setup and project initialization",
+            "duration": "2 hours"
+          },
+          "module2": {
+            "title": "Smart Contract Development",
+            "subtitle": "Writing secure, optimized contracts",
+            "duration": "6 hours"
+          },
+          "module3": {
+            "title": "API Integration",
+            "subtitle": "REST, GraphQL, and WebSocket APIs",
+            "duration": "4 hours"
+          },
+          "module4": {
+            "title": "Deployment & DevOps",
+            "subtitle": "Mainnet deployment and monitoring",
+            "duration": "4 hours"
+          }
+        },
+        "codeExample": {
+          "title": "Code Example",
+          "language": "TypeScript"
+        },
+        "developerTools": {
+          "title": "Developer Tools",
+          "description": "Access all the tools you need to build on TBurn Chain.",
+          "quickStart": {
+            "title": "Quick Start",
+            "subtitle": "5-minute setup guide"
+          },
+          "installation": {
+            "title": "Installation",
+            "subtitle": "Step-by-step guide"
+          },
+          "documentation": {
+            "title": "Documentation",
+            "subtitle": "Full API reference"
+          },
+          "evmMigration": {
+            "title": "EVM Migration",
+            "subtitle": "Port Ethereum dApps"
+          }
+        },
+        "keyTakeawaysTitle": "Key Takeaways",
+        "keyTakeaways": {
+          "item1": "Set up and configure the TBurn SDK",
+          "item2": "Write secure smart contracts with testing",
+          "item3": "Integrate with Trust Score APIs",
+          "item4": "Deploy to mainnet with best practices"
+        },
+        "prerequisitesTitle": "Prerequisites",
+        "prerequisites": {
+          "item1": "JavaScript/TypeScript proficiency",
+          "item2": "Solidity basics recommended",
+          "item3": "Blockchain fundamentals"
+        },
+        "certification": {
+          "title": "Earn Certification",
+          "description": "Complete the course to receive your TBurn Developer certification badge."
+        },
+        "resourcesTitle": "Resources",
+        "resources": {
+          "apiReference": "API Reference",
+          "sdkGuide": "SDK Guide",
+          "smartContracts": "Smart Contracts",
+          "cliReference": "CLI Reference",
+          "websocketApi": "WebSocket API",
+          "codeExamples": "Code Examples"
+        }
       },
       "introToDefi": {
-        "tag": "BEGINNER",
+        "tag": "BEGINNER FRIENDLY",
         "title": "Introduction to DeFi",
-        "subtitle": "Your first steps into decentralized finance on TBurn Chain."
+        "subtitle": "Your gateway to decentralized finance. Learn the core concepts of Trust Scores, verification systems, and how TBurn Chain protects investors.",
+        "duration": "2 hours",
+        "backToEducation": "Back to Education Programs",
+        "scoreFormula": {
+          "title": "Trust Score Formula",
+          "burnCompliance": {
+            "percentage": "40%",
+            "title": "Burn Compliance",
+            "subtitle": "Token burning schedule adherence"
+          },
+          "devProgress": {
+            "percentage": "35%",
+            "title": "Dev Progress",
+            "subtitle": "Development milestone completion"
+          },
+          "transparency": {
+            "percentage": "25%",
+            "title": "Transparency",
+            "subtitle": "On-chain data disclosure"
+          }
+        },
+        "verification": {
+          "title": "3-Stage Verification Process",
+          "stage1": {
+            "title": "AI Analysis",
+            "description": "Triple-Band AI scans project data, smart contracts, and social presence.",
+            "duration": "24 hours"
+          },
+          "stage2": {
+            "title": "Expert Review",
+            "description": "Human experts validate AI findings and perform deep-dive analysis.",
+            "duration": "7-14 days"
+          },
+          "stage3": {
+            "title": "Community Vote",
+            "description": "Token holders vote on final approval after expert review.",
+            "duration": "3-5 days"
+          }
+        },
+        "scoreActions": {
+          "title": "Actions Based on Trust Score",
+          "excellent": {
+            "label": "Excellent",
+            "description": "Full trading access, priority listings, and yield boost eligibility."
+          },
+          "good": {
+            "label": "Good",
+            "description": "Standard trading access with enhanced visibility."
+          },
+          "warning": {
+            "label": "Warning",
+            "description": "Limited trading, warning labels displayed to users."
+          },
+          "danger": {
+            "label": "Restricted",
+            "description": "Trading suspended, project under investigation."
+          }
+        },
+        "hybridBurn": {
+          "title": "Hybrid Forced Burn Mechanism",
+          "description": "When projects fail to meet burn schedule commitments, our smart contracts automatically enforce token destruction. This protects investors by ensuring deflationary promises are kept.",
+          "figureCaption": "Figure: Auto-Burn Flow Diagram"
+        },
+        "burnSteps": {
+          "step1": {
+            "title": "Schedule Monitoring",
+            "description": "AI monitors burn schedule compliance in real-time"
+          },
+          "step2": {
+            "title": "Warning Period",
+            "description": "48-hour grace period with notifications to project"
+          },
+          "step3": {
+            "title": "Auto-Execution",
+            "description": "Smart contract burns tokens from reserve wallet"
+          }
+        },
+        "developerResources": {
+          "title": "Developer Resources",
+          "description": "Ready to build? Explore our developer tools and documentation.",
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "Trust Score integration"
+          },
+          "sdkGuide": {
+            "title": "SDK Guide",
+            "subtitle": "Quick integration"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST & GraphQL"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "Real-time updates"
+          },
+          "quickStart": {
+            "title": "Quick Start",
+            "subtitle": "5-minute setup"
+          },
+          "codeExamples": {
+            "title": "Code Examples",
+            "subtitle": "Sample projects"
+          }
+        },
+        "continueLearning": {
+          "label": "Continue Learning",
+          "defiMastery": {
+            "title": "DeFi Mastery",
+            "level": "Intermediate Level"
+          }
+        },
+        "forDevelopers": {
+          "label": "For Developers",
+          "developerCourse": {
+            "title": "Developer Course",
+            "level": "Advanced Level"
+          }
+        }
       },
       "educationPrograms": {
         "tag": "PROGRAMS",
@@ -6851,102 +7256,115 @@
         "subtitle": "Build next-generation trust-based applications. Access comprehensive development tools, SDKs, and APIs for the TBurn Chain V4 ecosystem.",
         "getStarted": "Get Started",
         "viewDocs": "View Docs",
-        "quickStart": "Quick Start",
-        "sdks": "Official SDKs",
-        "apiReference": "API Reference",
-        "devTools": "Developer Tools",
-        "grants": "Developer Grants",
+        "quickStart": {
+          "title": "Quick Start",
+          "subtitle": "Deploy your first dApp in 5 minutes"
+        },
+        "sdks": {
+          "title": "Official SDKs",
+          "subtitle": "Native support for your favorite languages"
+        },
+        "apiReference": {
+          "title": "API Reference",
+          "subtitle": "RESTful API & WebSocket Streaming",
+          "blockchainApi": "Blockchain API",
+          "defiApi": "DeFi API",
+          "aiApi": "AI API"
+        },
+        "devToolsSection": {
+          "title": "Development Tools"
+        },
+        "devTools": {
+          "burnCli": {
+            "title": "Burn CLI",
+            "description": "Project init & deploy"
+          },
+          "testFramework": {
+            "title": "Test Framework",
+            "description": "Unit & E2E testing"
+          },
+          "localDevnet": {
+            "title": "Local Devnet",
+            "description": "Simulator environment"
+          }
+        },
+        "grants": {
+          "title": "Developer Grants Program",
+          "subtitle": "We support projects that expand the TBurn Chain ecosystem.",
+          "totalFund": "$50M Total Grant Fund"
+        },
         "quickStartSteps": {
-          "install": {
-            "title": "Install CLI",
-            "command": "npm install -g @tburn/cli"
+          "step1": {
+            "comment": "# Install CLI"
           },
-          "init": {
-            "title": "Initialize Project",
-            "command": "tburn init my-project"
+          "step2": {
+            "comment": "# Create Project"
           },
-          "deploy": {
-            "title": "Deploy Contract",
-            "command": "tburn deploy --network mainnet"
+          "step3": {
+            "comment": "# Run Dev Server"
+          },
+          "step4": {
+            "comment": "# Deploy to Mainnet"
           }
         },
         "sdkList": {
           "javascript": {
-            "name": "JavaScript/TypeScript",
-            "package": "@tburn/sdk"
+            "name": "JavaScript / TypeScript",
+            "version": "v4.2.1",
+            "install": "npm install @burnchain/sdk",
+            "downloads": "1.2M/mo downloads"
           },
           "python": {
             "name": "Python",
-            "package": "tburn-sdk"
+            "version": "v4.1.0",
+            "install": "pip install burnchain-py",
+            "downloads": "450K/mo downloads"
           },
           "rust": {
             "name": "Rust",
-            "package": "tburn-rs"
+            "version": "v4.0.3",
+            "install": "cargo add burnchain-rs",
+            "downloads": "280K/mo downloads"
           },
           "go": {
             "name": "Go",
-            "package": "github.com/tburn/go-sdk"
+            "version": "v4.0.2",
+            "install": "go get github.com/burnchain/go",
+            "downloads": "180K/mo downloads"
           },
           "java": {
-            "name": "Java",
-            "package": "io.tburn.sdk"
+            "name": "Java / Kotlin",
+            "version": "v4.0.1",
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "120K/mo downloads"
           },
-          "csharp": {
-            "name": "C#/.NET",
-            "package": "TBurn.SDK"
-          }
-        },
-        "apiEndpoints": {
-          "blockchain": {
-            "title": "Blockchain API",
-            "description": "Blocks, transactions, accounts"
-          },
-          "trustScore": {
-            "title": "Trust Score API",
-            "description": "Score queries and verification"
-          },
-          "defi": {
-            "title": "DeFi API",
-            "description": "DEX, lending, staking"
-          },
-          "nft": {
-            "title": "NFT API",
-            "description": "Minting, transfers, metadata"
-          }
-        },
-        "devToolsList": {
-          "explorer": {
-            "title": "Block Explorer",
-            "description": "Transaction and contract debugging"
-          },
-          "faucet": {
-            "title": "Testnet Faucet",
-            "description": "Get test tokens"
-          },
-          "ide": {
-            "title": "Online IDE",
-            "description": "Browser-based development"
-          },
-          "debugger": {
-            "title": "Contract Debugger",
-            "description": "Step-through debugging"
+          "swift": {
+            "name": "Swift",
+            "version": "v4.0.0",
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "85K/mo downloads"
           }
         },
         "grantTiers": {
           "seed": {
-            "title": "Seed Grant",
-            "amount": "$5,000 - $25,000",
-            "description": "For early-stage projects"
+            "tier": "Seed",
+            "amount": "$5K - $25K",
+            "description": "Idea Validation"
           },
-          "growth": {
-            "title": "Growth Grant",
-            "amount": "$25,000 - $100,000",
-            "description": "For scaling projects"
+          "build": {
+            "tier": "Build",
+            "amount": "$25K - $100K",
+            "description": "MVP Development"
+          },
+          "scale": {
+            "tier": "Scale",
+            "amount": "$100K - $500K",
+            "description": "Production Ready"
           },
           "enterprise": {
-            "title": "Enterprise Grant",
-            "amount": "$100,000+",
-            "description": "For major integrations"
+            "tier": "Enterprise",
+            "amount": "$500K+",
+            "description": "Ecosystem Leader"
           }
         }
       },
@@ -7007,23 +7425,62 @@
         "title": "DeFi Hub",
         "titleHighlight": "Ecosystem",
         "subtitle": "Complete decentralized finance infrastructure with DEX, lending, staking, and yield farming.",
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "24H VOLUME",
+          "activeLPs": "ACTIVE LPs",
+          "avgApy": "AVG APY"
+        },
         "features": {
           "dex": "DEX/AMM",
           "lending": "Lending Protocol",
           "staking": "Staking",
           "yield": "Yield Farming"
         },
-        "dexFeatures": {
-          "title": "DEX Features",
-          "items": {
-            "amm": "Automated Market Maker",
-            "limitOrders": "Limit Orders",
-            "crossChain": "Cross-Chain Swaps",
-            "lowFees": "Ultra-Low Fees"
-          }
+        "dex": {
+          "title": "Concentrated Liquidity DEX",
+          "description": "Capital-efficient AMM with concentrated liquidity positions. Provide liquidity in specific price ranges for up to 4000x capital efficiency compared to traditional AMMs.",
+          "feature1": "Concentrated liquidity positions for higher yields",
+          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "Range orders for advanced trading strategies",
+          "price": "Price",
+          "liquidity": "Liquidity",
+          "volume24h": "24h Volume"
+        },
+        "lending": {
+          "title": "Collateralized Lending",
+          "description": "Borrow against your crypto assets with competitive rates. Real-time liquidation protection with trust-verified collateral.",
+          "maxLtv": "MAX 80% LTV",
+          "tburnLtv": "TBURN LTV",
+          "stablecoinLtv": "Stablecoin LTV"
+        },
+        "staking": {
+          "title": "Liquid Staking",
+          "description": "Stake TBURN and receive sTBURN. Use liquid staking derivatives across DeFi while earning staking rewards.",
+          "apy": "18.5% APY",
+          "exchangeRate": "Exchange Rate",
+          "rewardCycle": "Reward Cycle",
+          "everyEpoch": "Every Epoch (24h)"
+        },
+        "yieldFarming": {
+          "tag": "YIELD FARMING",
+          "title": "Trust-Boosted Yield",
+          "subtitle": "Earn bonus rewards based on your Trust Score tier"
         },
         "boostTiers": {
           "title": "Yield Boost Tiers",
+          "standard": {
+            "name": "STANDARD",
+            "requirement": "No requirement"
+          },
+          "mid": {
+            "name": "TRUST LV.1",
+            "requirement": "Trust Score 60+"
+          },
+          "max": {
+            "name": "TRUST LV.2",
+            "requirement": "Trust Score 80+"
+          },
           "bronze": {
             "name": "Bronze",
             "boost": "1.0x"
@@ -7041,11 +7498,88 @@
             "boost": "2.0x"
           }
         },
+        "buttons": {
+          "startTrading": "Start Trading",
+          "viewAllFarms": "View All Farms"
+        },
+        "relatedSolutions": {
+          "description": "Expand your DeFi capabilities with these complementary solutions",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "Bitcoin DeFi solutions"
+          },
+          "bridge": {
+            "title": "Cross-Chain Bridge",
+            "subtitle": "Multi-chain transfers"
+          },
+          "tokenExtensions": {
+            "title": "Token Extensions",
+            "subtitle": "BRC-20 standards"
+          },
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "Secure connections"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "Global commerce"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "Institutional tools"
+          },
+          "permissioned": {
+            "title": "Permissioned Networks",
+            "subtitle": "Enterprise solutions"
+          },
+          "aiFeatures": {
+            "title": "AI Features",
+            "subtitle": "Smart automation"
+          }
+        },
+        "developerResources": {
+          "description": "Build and integrate with TBurn DeFi using our comprehensive developer tools",
+          "sdkGuide": {
+            "title": "DeFi SDK Guide",
+            "subtitle": "Integration documentation"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "Verified contracts"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocket": {
+            "title": "WebSocket Feeds",
+            "subtitle": "Real-time data streams"
+          },
+          "cli": {
+            "title": "CLI Tools",
+            "subtitle": "Command line interface"
+          },
+          "examples": {
+            "title": "Code Examples",
+            "subtitle": "Sample integrations"
+          }
+        },
+        "learnPages": {
+          "gettingStarted": "GETTING STARTED",
+          "defiMastery": {
+            "title": "DeFi Mastery Course",
+            "subtitle": "Advanced yield strategies and risk management"
+          },
+          "introToDefi": {
+            "title": "Introduction to DeFi",
+            "subtitle": "Learn the fundamentals of decentralized finance"
+          }
+        },
         "cta": {
-          "title": "Start Trading on TBurn DeFi",
-          "subtitle": "Access the most trusted decentralized finance ecosystem",
-          "launchApp": "Launch App",
-          "viewDocs": "View Docs"
+          "title": "Ready to Trade on TBurn DeFi?",
+          "subtitle": "Access the most trusted decentralized finance ecosystem with built-in trust verification",
+          "launchApp": "Launch DeFi App",
+          "viewDocs": "View Documentation"
         }
       },
       "tokenExtensions": {
@@ -7194,7 +7728,89 @@
           }
         },
         "developerQuickStart": {
-          "title": "Developer Quick Start"
+          "title": "Developer Quick Start",
+          "step1": {
+            "title": "Basic Action URL structure"
+          },
+          "step2": {
+            "title": "Add OpenGraph meta tags"
+          },
+          "step3": {
+            "title": "Deploy and share",
+            "description": "Action is now shareable across platforms"
+          }
+        },
+        "howItWorks": {
+          "title": "How Actions Work",
+          "figureLabel": "Action Flow Diagram",
+          "step1": {
+            "title": "Generate Action URL",
+            "description": "Developers create standard action links for specific transactions (e.g., Token Swap)."
+          },
+          "step2": {
+            "title": "Trust Score Display",
+            "description": "User clicks link -> System fetches and displays project reliability score instantly."
+          },
+          "step3": {
+            "title": "Secure Execution",
+            "description": "Transaction executes only if user approves and Trust Score is safe (>40%)."
+          }
+        },
+        "relatedSolutions": {
+          "description": "Enhance your blockchain actions with these complementary solutions",
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "Secure connections"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "Global commerce"
+          },
+          "commerce": {
+            "title": "Commerce",
+            "subtitle": "Merchant tools"
+          },
+          "tokenExtensions": {
+            "title": "Token Extensions",
+            "subtitle": "BRC-20 standards"
+          }
+        },
+        "developerResources": {
+          "description": "Build powerful blockchain actions with our comprehensive developer toolkit",
+          "sdkGuide": {
+            "title": "Actions SDK",
+            "subtitle": "Integration documentation"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "Verified contracts"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST endpoints"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "Real-time events"
+          },
+          "cli": {
+            "title": "CLI Tools",
+            "subtitle": "Command line"
+          },
+          "examples": {
+            "title": "Examples",
+            "subtitle": "Sample code"
+          }
+        },
+        "learnPages": {
+          "introToDefi": {
+            "title": "Introduction to DeFi",
+            "subtitle": "Learn the fundamentals of decentralized finance"
+          },
+          "developerCourse": {
+            "title": "Developer Course",
+            "subtitle": "Build dApps on TBurn Chain"
+          }
         }
       },
       "wallets": {
@@ -7237,7 +7853,8 @@
           },
           "autoWarningSystem": {
             "title": "Auto-Warning System",
-            "description": "Standard protocol for displaying warnings on low-trust (<40) transactions."
+            "description": "Standard protocol for displaying warnings on low-trust (<40) transactions.",
+            "warningExample": "Trust Score < 40 - High Risk"
           },
           "walletSdk": {
             "title": "Wallet SDK",
@@ -7445,6 +8062,9 @@
         "titleHighlight": "Payments",
         "subtitle": "Accept verified crypto payments worldwide. Instant settlement, ultra-low fees, and Trust Score filtering for merchant protection.",
         "getApiKey": "Get API Key",
+        "buttons": {
+          "viewDocs": "View Docs"
+        },
         "whyChoose": {
           "title": "Why Choose TBurn?",
           "subtitle": "Optimized infrastructure for global commerce.",
@@ -7470,17 +8090,31 @@
           "priceStability": {
             "title": "Price Stability",
             "points": "30 pts",
-            "description": "Evaluated based on daily volatility, market cap, and liquidity pool depth."
+            "description": "Evaluated based on daily volatility, market cap, and liquidity pool depth.",
+            "scoring": {
+              "volatility": "< 1% daily volatility",
+              "liquidity": "$10M+ liquidity"
+            }
           },
           "contractSecurity": {
             "title": "Contract Security",
             "points": "25 pts",
-            "description": "Audit completion, reentrancy protection, and upgrade authority decentralization."
+            "description": "Audit completion, reentrancy protection, and upgrade authority decentralization.",
+            "scoring": {
+              "audits": "3+ audits completed",
+              "criticalBug": "Critical bug found",
+              "block": "BLOCK"
+            }
           },
           "adoptionUsage": {
             "title": "Adoption & Usage",
             "points": "20 pts",
-            "description": "Number of merchants, monthly transaction volume, and average payment size."
+            "description": "Number of merchants, monthly transaction volume, and average payment size.",
+            "scoring": {
+              "merchants": "100+ merchants",
+              "transactions": "$1M+ monthly",
+              "high": "HIGH"
+            }
           }
         },
         "solutionTypes": {

@@ -3,61 +3,27 @@ import { useTranslation } from "react-i18next";
 import { 
   Code, FileCode, ArrowLeft, Clock, ChevronRight, Play, 
   Check, Terminal, Laptop, Layers, Rocket, Medal, 
-  ExternalLink, Box, FileText, BookOpen, Zap, Download
+  ExternalLink, Box, FileText, BookOpen, Zap, Download, LucideIcon
 } from "lucide-react";
 
-const curriculumModules = [
-  {
-    icon: Terminal,
-    title: "SDK Setup & Env",
-    subtitle: "Configuring the workspace",
-    duration: "90 min",
-    link: "/developers/sdk"
-  },
-  {
-    icon: Laptop,
-    title: "Smart Contract Architecture",
-    subtitle: "Writing efficient Solidity",
-    duration: "150 min",
-    link: "/developers/contracts"
-  },
-  {
-    icon: Layers,
-    title: "API Integration & Frontend",
-    subtitle: "Connecting UI to Chain",
-    duration: "120 min",
-    link: "/developers/api"
-  },
-  {
-    icon: Rocket,
-    title: "Testing & Deployment",
-    subtitle: "Mainnet Launch Protocol",
-    duration: "120 min",
-    link: "/developers/installation"
-  },
-];
+interface CurriculumModule {
+  icon: LucideIcon;
+  title: string;
+  subtitle: string;
+  duration: string;
+  link: string;
+}
 
-const keyTakeaways = [
-  "Full Environment Setup",
-  "Trust-based Contracts",
-  "Frontend Integration",
-  "Mainnet Deployment",
-];
+interface Prerequisite {
+  icon: LucideIcon;
+  text: string;
+  link: string;
+}
 
-const prerequisites = [
-  { icon: Code, text: "JS / TypeScript", link: "/developers/sdk" },
-  { icon: FileCode, text: "Basic Solidity", link: "/developers/contracts" },
-  { icon: Box, text: "Blockchain Basics", link: "/learn/blockchain-basics" },
-];
-
-const resources = [
-  { title: "API Reference", href: "/developers/api" },
-  { title: "SDK Guide", href: "/developers/sdk" },
-  { title: "Smart Contracts", href: "/developers/contracts" },
-  { title: "CLI Reference", href: "/developers/cli" },
-  { title: "WebSocket API", href: "/developers/websocket" },
-  { title: "Code Examples", href: "/developers/examples" },
-];
+interface Resource {
+  title: string;
+  href: string;
+}
 
 const codeExample = `// Trust Score 조회 - Production Example
 import { TBurnSDK, NetworkConfig } from '@tburn/sdk';
@@ -88,6 +54,59 @@ async function getTrustScore(projectAddress: string) {
 export default function DeveloperCourse() {
   const { t } = useTranslation();
 
+  const curriculumModules: CurriculumModule[] = [
+    {
+      icon: Terminal,
+      title: t('publicPages.learn.developerCourse.curriculum.module1.title'),
+      subtitle: t('publicPages.learn.developerCourse.curriculum.module1.subtitle'),
+      duration: t('publicPages.learn.developerCourse.curriculum.module1.duration'),
+      link: "/developers/sdk"
+    },
+    {
+      icon: Laptop,
+      title: t('publicPages.learn.developerCourse.curriculum.module2.title'),
+      subtitle: t('publicPages.learn.developerCourse.curriculum.module2.subtitle'),
+      duration: t('publicPages.learn.developerCourse.curriculum.module2.duration'),
+      link: "/developers/contracts"
+    },
+    {
+      icon: Layers,
+      title: t('publicPages.learn.developerCourse.curriculum.module3.title'),
+      subtitle: t('publicPages.learn.developerCourse.curriculum.module3.subtitle'),
+      duration: t('publicPages.learn.developerCourse.curriculum.module3.duration'),
+      link: "/developers/api"
+    },
+    {
+      icon: Rocket,
+      title: t('publicPages.learn.developerCourse.curriculum.module4.title'),
+      subtitle: t('publicPages.learn.developerCourse.curriculum.module4.subtitle'),
+      duration: t('publicPages.learn.developerCourse.curriculum.module4.duration'),
+      link: "/developers/installation"
+    },
+  ];
+
+  const keyTakeaways: string[] = [
+    t('publicPages.learn.developerCourse.keyTakeaways.item1'),
+    t('publicPages.learn.developerCourse.keyTakeaways.item2'),
+    t('publicPages.learn.developerCourse.keyTakeaways.item3'),
+    t('publicPages.learn.developerCourse.keyTakeaways.item4'),
+  ];
+
+  const prerequisites: Prerequisite[] = [
+    { icon: Code, text: t('publicPages.learn.developerCourse.prerequisites.item1'), link: "/developers/sdk" },
+    { icon: FileCode, text: t('publicPages.learn.developerCourse.prerequisites.item2'), link: "/developers/contracts" },
+    { icon: Box, text: t('publicPages.learn.developerCourse.prerequisites.item3'), link: "/learn/blockchain-basics" },
+  ];
+
+  const resources: Resource[] = [
+    { title: t('publicPages.learn.developerCourse.resources.apiReference'), href: "/developers/api" },
+    { title: t('publicPages.learn.developerCourse.resources.sdkGuide'), href: "/developers/sdk" },
+    { title: t('publicPages.learn.developerCourse.resources.smartContracts'), href: "/developers/contracts" },
+    { title: t('publicPages.learn.developerCourse.resources.cliReference'), href: "/developers/cli" },
+    { title: t('publicPages.learn.developerCourse.resources.websocketApi'), href: "/developers/websocket" },
+    { title: t('publicPages.learn.developerCourse.resources.codeExamples'), href: "/developers/examples" },
+  ];
+
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -99,7 +118,7 @@ export default function DeveloperCourse() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#f59e0b] mb-6 transition-colors group"
             data-testid="link-back-education"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Education Hub
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.learn.developerCourse.backToEducation')}
           </Link>
           
           <div className="flex items-start gap-6">
@@ -112,7 +131,7 @@ export default function DeveloperCourse() {
                   {t('publicPages.learn.developerCourse.tag')}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
-                  <Clock className="w-4 h-4" /> 8 hours
+                  <Clock className="w-4 h-4" /> {t('publicPages.learn.developerCourse.duration')}
                 </span>
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.developerCourse.title')}</h1>
@@ -135,16 +154,16 @@ export default function DeveloperCourse() {
             <div className="spotlight-card rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
                 <FileCode className="w-6 h-6 text-[#f59e0b]" />
-                <h2 className="text-xl font-bold text-white">Course Overview</h2>
+                <h2 className="text-xl font-bold text-white">{t('publicPages.learn.developerCourse.courseOverview.title')}</h2>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                Learn the complete process from smart contract development to dApp deployment. Master building trust-based applications in an EVM-compatible environment and gain experience through real-world projects.
+                {t('publicPages.learn.developerCourse.courseOverview.description')}
               </p>
             </div>
 
             {/* Curriculum */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">Curriculum</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.developerCourse.curriculumTitle')}</h2>
               <div className="space-y-4">
                 {curriculumModules.map((module, index) => (
                   <Link 
@@ -178,9 +197,9 @@ export default function DeveloperCourse() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <Code className="w-5 h-5 text-gray-400" />
-                  <h3 className="font-bold text-white">Trust Score Query Example</h3>
+                  <h3 className="font-bold text-white">{t('publicPages.learn.developerCourse.codeExample.title')}</h3>
                 </div>
-                <span className="text-xs text-gray-500 font-mono">TypeScript</span>
+                <span className="text-xs text-gray-500 font-mono">{t('publicPages.learn.developerCourse.codeExample.language')}</span>
               </div>
               <div className="bg-[#0d1117] p-4 rounded-lg overflow-x-auto font-mono text-xs md:text-sm leading-relaxed border border-gray-800">
                 <pre className="text-gray-300 whitespace-pre-wrap">
@@ -191,9 +210,9 @@ export default function DeveloperCourse() {
 
             {/* Developer Tools Grid */}
             <div className="spotlight-card rounded-xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4">Developer Tools & Resources</h3>
+              <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.learn.developerCourse.developerTools.title')}</h3>
               <p className="text-gray-400 text-sm mb-4">
-                Access all the tools and documentation you need to build production-ready dApps on TBurn Chain.
+                {t('publicPages.learn.developerCourse.developerTools.description')}
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <Link 
@@ -203,8 +222,8 @@ export default function DeveloperCourse() {
                 >
                   <Play className="w-5 h-5 text-[#f59e0b]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#f59e0b] transition">Quick Start</p>
-                    <p className="text-xs text-gray-500">Get started in minutes</p>
+                    <p className="font-medium text-white group-hover:text-[#f59e0b] transition">{t('publicPages.learn.developerCourse.developerTools.quickStart.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.developerCourse.developerTools.quickStart.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -214,8 +233,8 @@ export default function DeveloperCourse() {
                 >
                   <Download className="w-5 h-5 text-[#f97316]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#f97316] transition">Installation</p>
-                    <p className="text-xs text-gray-500">Setup guide</p>
+                    <p className="font-medium text-white group-hover:text-[#f97316] transition">{t('publicPages.learn.developerCourse.developerTools.installation.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.developerCourse.developerTools.installation.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -225,8 +244,8 @@ export default function DeveloperCourse() {
                 >
                   <BookOpen className="w-5 h-5 text-[#00f0ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Documentation</p>
-                    <p className="text-xs text-gray-500">Full reference</p>
+                    <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.developerCourse.developerTools.documentation.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.developerCourse.developerTools.documentation.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -236,8 +255,8 @@ export default function DeveloperCourse() {
                 >
                   <Zap className="w-5 h-5 text-[#7000ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#7000ff] transition">EVM Migration</p>
-                    <p className="text-xs text-gray-500">Migrate from Ethereum</p>
+                    <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.developerCourse.developerTools.evmMigration.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.developerCourse.developerTools.evmMigration.subtitle')}</p>
                   </div>
                 </Link>
               </div>
@@ -260,7 +279,7 @@ export default function DeveloperCourse() {
 
               {/* Key Takeaways */}
               <div className="mb-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">Key Takeaways</h3>
+                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.developerCourse.keyTakeawaysTitle')}</h3>
                 <ul className="space-y-3">
                   {keyTakeaways.map((takeaway, index) => (
                     <li key={index} className="flex items-start gap-3 text-sm text-gray-400">
@@ -273,7 +292,7 @@ export default function DeveloperCourse() {
 
               {/* Prerequisites */}
               <div className="border-t border-white/10 pt-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">Prerequisites</h3>
+                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.developerCourse.prerequisitesTitle')}</h3>
                 <ul className="space-y-3">
                   {prerequisites.map((prereq, index) => (
                     <li key={index}>
@@ -296,13 +315,13 @@ export default function DeveloperCourse() {
               <div className="w-12 h-12 mx-auto rounded-full bg-[#f59e0b]/20 flex items-center justify-center mb-3">
                 <Medal className="w-6 h-6 text-[#f59e0b]" />
               </div>
-              <h3 className="font-bold text-white mb-1">Developer Certification</h3>
-              <p className="text-xs text-gray-400">Earn the TBurn Developer Gold Badge upon completion.</p>
+              <h3 className="font-bold text-white mb-1">{t('publicPages.learn.developerCourse.certification.title')}</h3>
+              <p className="text-xs text-gray-400">{t('publicPages.learn.developerCourse.certification.description')}</p>
             </div>
 
             {/* Resources */}
             <div className="spotlight-card rounded-xl p-6">
-              <h3 className="font-bold text-white mb-4">Resources</h3>
+              <h3 className="font-bold text-white mb-4">{t('publicPages.learn.developerCourse.resourcesTitle')}</h3>
               <div className="space-y-2">
                 {resources.map((resource, index) => (
                   <Link 

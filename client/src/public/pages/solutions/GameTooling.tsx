@@ -14,131 +14,123 @@ import {
   Glasses
 } from "lucide-react";
 
-const whyBuildFeatures = [
-  {
-    icon: Zap,
-    iconColor: "#00f0ff",
-    title: "Ultra-Fast Processing",
-    desc: (
-      <>
-        <span className="text-[#00f0ff] font-mono">50,000+ TPS</span> throughput enables real-time in-game item trading. With an average <span className="text-white">1-second block time</span>, players experience instant confirmation without lag.
-      </>
-    )
-  },
-  {
-    icon: Shield,
-    iconColor: "#ff0055",
-    title: "NFT Project Verification",
-    desc: (
-      <>
-        Our 3-stage verification system (AI → Experts → Community) proactively blocks fraudulent NFT projects. Trading is automatically suspended if the Trust Score drops below <span className="text-[#ff0055]">40%</span>.
-      </>
-    )
-  },
-  {
-    icon: CheckCheck,
-    iconColor: "#00ff9d",
-    title: "Verified Ownership",
-    desc: "All game item issuance and burn records are immutable on-chain. Provide players with real-time proof of ownership and item history, eliminating forgery risks."
-  },
-  {
-    icon: Trophy,
-    iconColor: "#ffd700",
-    title: "Cross-Game Assets",
-    desc: "Full EVM compatibility allows items to be interoperable across different games. Support for multi-chain asset transfers via LayerZero integration expands your game's economy."
-  }
-];
-
-const trustScoreCategories = [
-  {
-    icon: Users,
-    iconColor: "#7000ff",
-    title: "Team Identity & Experience",
-    points: "30 pts",
-    desc: "Real name disclosure, track record verification, and social media authenticity checks.",
-    scoring: [
-      { label: "Verified Profile", value: "+30 pts", positive: true },
-      { label: "Anonymous", value: "Max 10 pts", positive: false }
-    ]
-  },
-  {
-    icon: Code,
-    iconColor: "#00f0ff",
-    title: "Smart Contract Security",
-    points: "25 pts",
-    desc: "Audit completion status, automated vulnerability testing results, and minting authority decentralization.",
-    scoring: [
-      { label: "2+ Audits", value: "+25 pts", positive: true },
-      { label: "No Audit", value: "0 pts", positive: false }
-    ]
-  },
-  {
-    icon: TrendingUp,
-    iconColor: "#00ff9d",
-    title: "Utility & Roadmap",
-    points: "25 pts",
-    desc: "Roadmap execution rate, actual utility provision (game integration), and community engagement levels.",
-    scoring: [
-      { label: "80%+ Executed", value: "+25 pts", positive: true },
-      { label: "Game Live", value: "Bonus", positive: true }
-    ]
-  }
-];
-
-const gameTypes = [
-  {
-    icon: Gamepad2,
-    iconColor: "#7000ff",
-    title: "P2E Games",
-    desc: "Trust verification blocks Ponzi schemes. Stable tokenomics for sustainable play-to-earn.",
-    tags: "RPG • Strategy • Battle"
-  },
-  {
-    icon: Store,
-    iconColor: "#00f0ff",
-    title: "NFT Marketplace",
-    desc: "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety.",
-    tags: "Risk Warning • History"
-  },
-  {
-    icon: Glasses,
-    iconColor: "#ffd700",
-    title: "Metaverse",
-    desc: "Virtual real estate, avatars, and wearables. Decentralized ownership with DAO governance.",
-    tags: "Land • Avatars • Social"
-  }
-];
-
-const integrationSteps = [
-  {
-    step: 1,
-    title: "Deploy Contracts",
-    desc: "Write ERC-721/1155 contracts in Solidity ^0.8.19 and deploy to TBurn Chain.",
-    highlight: false
-  },
-  {
-    step: 2,
-    title: "Apply for Trust Verification",
-    desc: "Submit project info via developer console. ($2,000-$3,000 fee, 7-14 days)",
-    highlight: false
-  },
-  {
-    step: 3,
-    title: "Integrate SDK",
-    desc: "Use Unity/Unreal SDK to implement minting, trading, and burning features in-game.",
-    highlight: false
-  },
-  {
-    step: 4,
-    title: "Display Trust Badge",
-    desc: "Show real-time trust scores in your game UI to build player confidence.",
-    highlight: true
-  }
-];
-
 export default function GameTooling() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const whyBuildFeatures = [
+    {
+      icon: Zap,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.gameTooling.features.ultraFast.title'),
+      desc: t('publicPages.solutions.gameTooling.features.ultraFast.desc')
+    },
+    {
+      icon: Shield,
+      iconColor: "#ff0055",
+      title: t('publicPages.solutions.gameTooling.features.verification.title'),
+      desc: t('publicPages.solutions.gameTooling.features.verification.desc')
+    },
+    {
+      icon: CheckCheck,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.gameTooling.features.ownership.title'),
+      desc: t('publicPages.solutions.gameTooling.features.ownership.desc')
+    },
+    {
+      icon: Trophy,
+      iconColor: "#ffd700",
+      title: t('publicPages.solutions.gameTooling.features.crossGame.title'),
+      desc: t('publicPages.solutions.gameTooling.features.crossGame.desc')
+    }
+  ];
+
+  const trustScoreCategories = [
+    {
+      icon: Users,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.gameTooling.trustScore.team.title'),
+      points: t('publicPages.solutions.gameTooling.trustScore.team.points'),
+      desc: t('publicPages.solutions.gameTooling.trustScore.team.desc'),
+      scoring: [
+        { label: t('publicPages.solutions.gameTooling.trustScore.team.scoring.verified'), value: "+30 pts", positive: true },
+        { label: t('publicPages.solutions.gameTooling.trustScore.team.scoring.anonymous'), value: t('publicPages.solutions.gameTooling.trustScore.team.scoring.maxPoints'), positive: false }
+      ]
+    },
+    {
+      icon: Code,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.gameTooling.trustScore.contract.title'),
+      points: t('publicPages.solutions.gameTooling.trustScore.contract.points'),
+      desc: t('publicPages.solutions.gameTooling.trustScore.contract.desc'),
+      scoring: [
+        { label: t('publicPages.solutions.gameTooling.trustScore.contract.scoring.audits'), value: "+25 pts", positive: true },
+        { label: t('publicPages.solutions.gameTooling.trustScore.contract.scoring.noAudit'), value: "0 pts", positive: false }
+      ]
+    },
+    {
+      icon: TrendingUp,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.gameTooling.trustScore.utility.title'),
+      points: t('publicPages.solutions.gameTooling.trustScore.utility.points'),
+      desc: t('publicPages.solutions.gameTooling.trustScore.utility.desc'),
+      scoring: [
+        { label: t('publicPages.solutions.gameTooling.trustScore.utility.scoring.executed'), value: "+25 pts", positive: true },
+        { label: t('publicPages.solutions.gameTooling.trustScore.utility.scoring.gameLive'), value: t('publicPages.solutions.gameTooling.trustScore.utility.scoring.bonus'), positive: true }
+      ]
+    }
+  ];
+
+  const gameTypes = [
+    {
+      icon: Gamepad2,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.gameTooling.gameTypes.p2e.title'),
+      desc: t('publicPages.solutions.gameTooling.gameTypes.p2e.desc'),
+      tags: t('publicPages.solutions.gameTooling.gameTypes.p2e.tags')
+    },
+    {
+      icon: Store,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.gameTooling.gameTypes.marketplace.title'),
+      desc: t('publicPages.solutions.gameTooling.gameTypes.marketplace.desc'),
+      tags: t('publicPages.solutions.gameTooling.gameTypes.marketplace.tags')
+    },
+    {
+      icon: Glasses,
+      iconColor: "#ffd700",
+      title: t('publicPages.solutions.gameTooling.gameTypes.metaverse.title'),
+      desc: t('publicPages.solutions.gameTooling.gameTypes.metaverse.desc'),
+      tags: t('publicPages.solutions.gameTooling.gameTypes.metaverse.tags')
+    }
+  ];
+
+  const integrationSteps = [
+    {
+      step: 1,
+      title: t('publicPages.solutions.gameTooling.integration.step1.title'),
+      desc: t('publicPages.solutions.gameTooling.integration.step1.desc'),
+      highlight: false
+    },
+    {
+      step: 2,
+      title: t('publicPages.solutions.gameTooling.integration.step2.title'),
+      desc: t('publicPages.solutions.gameTooling.integration.step2.desc'),
+      highlight: false
+    },
+    {
+      step: 3,
+      title: t('publicPages.solutions.gameTooling.integration.step3.title'),
+      desc: t('publicPages.solutions.gameTooling.integration.step3.desc'),
+      highlight: false
+    },
+    {
+      step: 4,
+      title: t('publicPages.solutions.gameTooling.integration.step4.title'),
+      desc: t('publicPages.solutions.gameTooling.integration.step4.desc'),
+      highlight: true
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -185,7 +177,7 @@ export default function GameTooling() {
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
                 data-testid="button-sdk"
               >
-                Get Unity SDK
+                {t('publicPages.solutions.gameTooling.buttons.getUnitySdk')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -193,7 +185,7 @@ export default function GameTooling() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
-                View Docs
+                {t('publicPages.solutions.gameTooling.buttons.viewDocs')}
               </button>
             </Link>
           </div>
@@ -204,8 +196,8 @@ export default function GameTooling() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Why Build on TBurn?</h2>
-            <p className="text-gray-400">Optimized for high-speed gaming and secure asset trading.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.gameTooling.sections.whyBuild.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.solutions.gameTooling.sections.whyBuild.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -238,7 +230,7 @@ export default function GameTooling() {
       {/* NFT Project Trust Score Section */}
       <section className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">NFT Project Trust Score</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.gameTooling.sections.trustScore.title')}</h2>
           
           <div className="space-y-6">
             {trustScoreCategories.map((category, idx) => {
@@ -287,7 +279,7 @@ export default function GameTooling() {
       {/* Supported Game Types Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Supported Game Types</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.gameTooling.sections.gameTypes.title')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {gameTypes.map((game, idx) => {
               const Icon = game.icon;
@@ -325,7 +317,7 @@ export default function GameTooling() {
         style={{ background: "linear-gradient(to right, rgba(112,0,255,0.1), rgba(0,240,255,0.1))" }}
       >
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Integration Guide</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.gameTooling.sections.integration.title')}</h2>
           <div className="space-y-6">
             {integrationSteps.map((step, idx) => (
               <div 

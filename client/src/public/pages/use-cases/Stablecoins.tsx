@@ -15,84 +15,84 @@ import {
   RefreshCw
 } from "lucide-react";
 
-const stablecoinTypes = [
-  {
-    icon: Banknote,
-    iconColor: "#00ff9d",
-    title: "Fiat-Backed Stablecoins",
-    desc: "1:1 backed by USD, EUR, or other fiat currencies held in regulated custodians. Real-time proof of reserves with on-chain attestations."
-  },
-  {
-    icon: Coins,
-    iconColor: "#ffd700",
-    title: "Crypto-Collateralized",
-    desc: "Over-collateralized stablecoins backed by crypto assets. Decentralized governance and transparent liquidation mechanisms."
-  },
-  {
-    icon: Building2,
-    iconColor: "#7000ff",
-    title: "Institutional Grade",
-    desc: "Permissioned stablecoins for enterprises and financial institutions. KYC/AML compliant with programmable controls."
-  },
-  {
-    icon: Globe,
-    iconColor: "#00f0ff",
-    title: "Multi-Currency",
-    desc: "Stablecoins pegged to multiple currencies enabling forex on-chain. Instant conversion with minimal slippage."
-  }
-];
-
-const metrics = [
-  {
-    value: "$2.8B",
-    label: "Total Supply",
-    iconColor: "#00ff9d"
-  },
-  {
-    value: "15M+",
-    label: "Daily Transactions",
-    iconColor: "#7000ff"
-  },
-  {
-    value: "0.001%",
-    label: "Peg Deviation",
-    iconColor: "#00f0ff"
-  }
-];
-
-const features = [
-  {
-    icon: Shield,
-    title: "Proof of Reserves",
-    desc: "Real-time attestations from top auditors verify 1:1 backing"
-  },
-  {
-    icon: Zap,
-    title: "Instant Settlement",
-    desc: "Sub-second finality for all stablecoin transfers"
-  },
-  {
-    icon: Lock,
-    title: "Programmable Compliance",
-    desc: "Built-in freeze, clawback, and blocklist capabilities"
-  },
-  {
-    icon: RefreshCw,
-    title: "Cross-Chain Bridges",
-    desc: "Native bridging to 15+ networks with unified liquidity"
-  }
-];
-
-const useCases = [
-  { title: "Payments & Remittances", desc: "Send money globally in seconds" },
-  { title: "DeFi Collateral", desc: "Use as collateral in lending protocols" },
-  { title: "Treasury Management", desc: "Corporate treasury diversification" },
-  { title: "Payroll & B2B", desc: "Streamlined business payments" }
-];
-
 export default function Stablecoins() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const stablecoinTypes = [
+    {
+      icon: Banknote,
+      iconColor: "#00ff9d",
+      title: t('publicPages.useCases.stablecoins.types.fiatBacked.title'),
+      desc: t('publicPages.useCases.stablecoins.types.fiatBacked.desc')
+    },
+    {
+      icon: Coins,
+      iconColor: "#ffd700",
+      title: t('publicPages.useCases.stablecoins.types.cryptoCollateralized.title'),
+      desc: t('publicPages.useCases.stablecoins.types.cryptoCollateralized.desc')
+    },
+    {
+      icon: Building2,
+      iconColor: "#7000ff",
+      title: t('publicPages.useCases.stablecoins.types.institutionalGrade.title'),
+      desc: t('publicPages.useCases.stablecoins.types.institutionalGrade.desc')
+    },
+    {
+      icon: Globe,
+      iconColor: "#00f0ff",
+      title: t('publicPages.useCases.stablecoins.types.multiCurrency.title'),
+      desc: t('publicPages.useCases.stablecoins.types.multiCurrency.desc')
+    }
+  ];
+
+  const metrics = [
+    {
+      value: "$2.8B",
+      label: t('publicPages.useCases.stablecoins.metrics.totalSupply'),
+      iconColor: "#00ff9d"
+    },
+    {
+      value: "15M+",
+      label: t('publicPages.useCases.stablecoins.metrics.dailyTransactions'),
+      iconColor: "#7000ff"
+    },
+    {
+      value: "0.001%",
+      label: t('publicPages.useCases.stablecoins.metrics.pegDeviation'),
+      iconColor: "#00f0ff"
+    }
+  ];
+
+  const features = [
+    {
+      icon: Shield,
+      title: t('publicPages.useCases.stablecoins.features.proofOfReserves.title'),
+      desc: t('publicPages.useCases.stablecoins.features.proofOfReserves.desc')
+    },
+    {
+      icon: Zap,
+      title: t('publicPages.useCases.stablecoins.features.instantSettlement.title'),
+      desc: t('publicPages.useCases.stablecoins.features.instantSettlement.desc')
+    },
+    {
+      icon: Lock,
+      title: t('publicPages.useCases.stablecoins.features.programmableCompliance.title'),
+      desc: t('publicPages.useCases.stablecoins.features.programmableCompliance.desc')
+    },
+    {
+      icon: RefreshCw,
+      title: t('publicPages.useCases.stablecoins.features.crossChainBridges.title'),
+      desc: t('publicPages.useCases.stablecoins.features.crossChainBridges.desc')
+    }
+  ];
+
+  const useCases = [
+    { title: t('publicPages.useCases.stablecoins.useCases.payments.title'), desc: t('publicPages.useCases.stablecoins.useCases.payments.desc') },
+    { title: t('publicPages.useCases.stablecoins.useCases.defiCollateral.title'), desc: t('publicPages.useCases.stablecoins.useCases.defiCollateral.desc') },
+    { title: t('publicPages.useCases.stablecoins.useCases.treasury.title'), desc: t('publicPages.useCases.stablecoins.useCases.treasury.desc') },
+    { title: t('publicPages.useCases.stablecoins.useCases.payroll.title'), desc: t('publicPages.useCases.stablecoins.useCases.payroll.desc') }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -135,7 +135,7 @@ export default function Stablecoins() {
                 style={{ boxShadow: "0 0 20px rgba(0,255,157,0.3)" }}
                 data-testid="button-issue"
               >
-                Issue Stablecoin
+                {t('publicPages.useCases.stablecoins.buttons.issueStablecoin')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -143,7 +143,7 @@ export default function Stablecoins() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
-                Technical Docs
+                {t('publicPages.useCases.stablecoins.buttons.technicalDocs')}
               </button>
             </Link>
           </div>
@@ -175,8 +175,8 @@ export default function Stablecoins() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Stablecoin Types</h2>
-            <p className="text-gray-400">Choose the right stablecoin model for your use case.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.stablecoins.sections.types')}</h2>
+            <p className="text-gray-400">{t('publicPages.useCases.stablecoins.sections.typesDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -208,7 +208,7 @@ export default function Stablecoins() {
 
       <section className="py-20 px-6 bg-white/[0.02] border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Platform Features</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.stablecoins.sections.platformFeatures')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => {
@@ -231,7 +231,7 @@ export default function Stablecoins() {
 
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Use Cases</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.stablecoins.sections.useCases')}</h2>
           
           <div className="grid md:grid-cols-2 gap-6">
             {useCases.map((useCase, idx) => (
@@ -255,10 +255,9 @@ export default function Stablecoins() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#00ff9d]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(0,255,157,0.1) 0%, rgba(0,240,255,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">Launch Your Stablecoin</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.stablecoins.cta.title')}</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Work with our team to design, issue, and manage your stablecoin.
-              Full regulatory compliance and technical support included.
+              {t('publicPages.useCases.stablecoins.cta.desc')}
             </p>
             <Link href="/app">
               <button 
@@ -266,7 +265,7 @@ export default function Stablecoins() {
                 style={{ boxShadow: "0 0 20px rgba(0,255,157,0.3)" }}
                 data-testid="button-get-started"
               >
-                Get Started <ArrowRight className="w-4 h-4" />
+                {t('publicPages.useCases.stablecoins.cta.getStarted')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>

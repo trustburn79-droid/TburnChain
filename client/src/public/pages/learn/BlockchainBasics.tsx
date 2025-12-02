@@ -2,60 +2,75 @@ import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { 
   BookOpen, FileText, ArrowLeft, Clock, ChevronRight, Play, 
-  PlayCircle, CheckCircle, Code, Wifi, Shield
+  PlayCircle, CheckCircle, Code, Wifi, Shield, LucideIcon
 } from "lucide-react";
 
-const curriculumModules = [
-  {
-    number: "01",
-    title: "What is Blockchain?",
-    subtitle: "The immutable ledger concept",
-    duration: "30 min",
-    color: "cyan",
-    active: false
-  },
-  {
-    number: "02",
-    title: "Consensus Algorithms",
-    subtitle: "PoW vs PoS vs TBurn Consensus",
-    duration: "30 min",
-    color: "cyan",
-    active: false
-  },
-  {
-    number: "03",
-    title: "Smart Contract Basics",
-    subtitle: "Automating trust with code",
-    duration: "30 min",
-    color: "cyan",
-    active: false,
-    link: "/developers/contracts"
-  },
-  {
-    number: "04",
-    title: "Intro to TBurn Chain",
-    subtitle: "The Trust-Based Revolution",
-    duration: "30 min",
-    color: "purple",
-    active: true,
-    link: "/learn/what-is-burn-chain"
-  },
-];
+interface CurriculumModule {
+  number: string;
+  title: string;
+  subtitle: string;
+  duration: string;
+  color: string;
+  active: boolean;
+  link?: string;
+}
 
-const learningOutcomes = [
-  "Core mechanisms of blockchain",
-  "Consensus algorithm comparison",
-  "Smart contract logic",
-  "TBurn's unique features",
-];
-
-const prerequisites = [
-  { icon: Code, text: "No coding required" },
-  { icon: Wifi, text: "Basic internet skills" },
-];
+interface Prerequisite {
+  icon: LucideIcon;
+  text: string;
+}
 
 export default function BlockchainBasics() {
   const { t } = useTranslation();
+
+  const curriculumModules: CurriculumModule[] = [
+    {
+      number: "01",
+      title: t('publicPages.learn.blockchainBasics.curriculum.module1.title'),
+      subtitle: t('publicPages.learn.blockchainBasics.curriculum.module1.subtitle'),
+      duration: t('publicPages.learn.blockchainBasics.curriculum.module1.duration'),
+      color: "cyan",
+      active: false
+    },
+    {
+      number: "02",
+      title: t('publicPages.learn.blockchainBasics.curriculum.module2.title'),
+      subtitle: t('publicPages.learn.blockchainBasics.curriculum.module2.subtitle'),
+      duration: t('publicPages.learn.blockchainBasics.curriculum.module2.duration'),
+      color: "cyan",
+      active: false
+    },
+    {
+      number: "03",
+      title: t('publicPages.learn.blockchainBasics.curriculum.module3.title'),
+      subtitle: t('publicPages.learn.blockchainBasics.curriculum.module3.subtitle'),
+      duration: t('publicPages.learn.blockchainBasics.curriculum.module3.duration'),
+      color: "cyan",
+      active: false,
+      link: "/developers/contracts"
+    },
+    {
+      number: "04",
+      title: t('publicPages.learn.blockchainBasics.curriculum.module4.title'),
+      subtitle: t('publicPages.learn.blockchainBasics.curriculum.module4.subtitle'),
+      duration: t('publicPages.learn.blockchainBasics.curriculum.module4.duration'),
+      color: "purple",
+      active: true,
+      link: "/learn/what-is-burn-chain"
+    },
+  ];
+
+  const learningOutcomes: string[] = [
+    t('publicPages.learn.blockchainBasics.learningOutcomes.item1'),
+    t('publicPages.learn.blockchainBasics.learningOutcomes.item2'),
+    t('publicPages.learn.blockchainBasics.learningOutcomes.item3'),
+    t('publicPages.learn.blockchainBasics.learningOutcomes.item4'),
+  ];
+
+  const prerequisites: Prerequisite[] = [
+    { icon: Code, text: t('publicPages.learn.blockchainBasics.prerequisites.item1') },
+    { icon: Wifi, text: t('publicPages.learn.blockchainBasics.prerequisites.item2') },
+  ];
 
   return (
     <main className="flex-grow relative z-10">
@@ -68,7 +83,7 @@ export default function BlockchainBasics() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
             data-testid="link-back-education"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Education Hub
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.learn.blockchainBasics.backToEducation')}
           </Link>
           
           <div className="flex items-start gap-6">
@@ -81,7 +96,7 @@ export default function BlockchainBasics() {
                   {t('publicPages.learn.blockchainBasics.tag')}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
-                  <Clock className="w-4 h-4" /> 2 hours
+                  <Clock className="w-4 h-4" /> {t('publicPages.learn.blockchainBasics.duration')}
                 </span>
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.blockchainBasics.title')}</h1>
@@ -104,10 +119,10 @@ export default function BlockchainBasics() {
             <div className="spotlight-card rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
                 <FileText className="w-6 h-6 text-[#7000ff]" />
-                <h2 className="text-xl font-bold text-white">Course Overview</h2>
+                <h2 className="text-xl font-bold text-white">{t('publicPages.learn.blockchainBasics.courseOverview.title')}</h2>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                In this comprehensive module, you will journey from the genesis of distributed ledger technology to the modern era of high-speed Layer 1 solutions. We will visually explore how blocks are chained and verified.
+                {t('publicPages.learn.blockchainBasics.courseOverview.description')}
               </p>
               
               <div className="mt-6 p-4 border border-white/10 border-dashed rounded-lg bg-black/20">
@@ -116,17 +131,17 @@ export default function BlockchainBasics() {
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#00f0ff]/10 flex items-center justify-center">
                       <Play className="w-8 h-8 text-[#00f0ff]" />
                     </div>
-                    <p className="text-gray-400 text-sm">Network Topology Comparison</p>
-                    <p className="text-xs text-gray-500 mt-1">Centralized vs Decentralized</p>
+                    <p className="text-gray-400 text-sm">{t('publicPages.learn.blockchainBasics.courseOverview.videoTitle')}</p>
+                    <p className="text-xs text-gray-500 mt-1">{t('publicPages.learn.blockchainBasics.courseOverview.videoSubtitle')}</p>
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 mt-2 text-center">Figure 1: Network Topology Comparison</p>
+                <p className="text-xs text-gray-500 mt-2 text-center">{t('publicPages.learn.blockchainBasics.courseOverview.figureCaption')}</p>
               </div>
             </div>
 
             {/* Curriculum */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">Curriculum</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.blockchainBasics.curriculumTitle')}</h2>
               <div className="space-y-4">
                 {curriculumModules.map((module, index) => (
                   <div 
@@ -150,7 +165,7 @@ export default function BlockchainBasics() {
 
             {/* Related Links */}
             <div className="spotlight-card rounded-xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4">Continue Learning</h3>
+              <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.learn.blockchainBasics.continueLearning.title')}</h3>
               <div className="grid md:grid-cols-2 gap-4">
                 <Link 
                   href="/developers/contracts"
@@ -159,8 +174,8 @@ export default function BlockchainBasics() {
                 >
                   <Code className="w-5 h-5 text-[#00f0ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Smart Contracts</p>
-                    <p className="text-xs text-gray-500">Build on TBurn Chain</p>
+                    <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.blockchainBasics.continueLearning.smartContracts.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.smartContracts.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -170,8 +185,8 @@ export default function BlockchainBasics() {
                 >
                   <BookOpen className="w-5 h-5 text-[#7000ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#7000ff] transition">SDK Guide</p>
-                    <p className="text-xs text-gray-500">Developer tools</p>
+                    <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.blockchainBasics.continueLearning.sdkGuide.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.sdkGuide.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -181,8 +196,8 @@ export default function BlockchainBasics() {
                 >
                   <Play className="w-5 h-5 text-[#00ff9d]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#00ff9d] transition">Quick Start</p>
-                    <p className="text-xs text-gray-500">Get started fast</p>
+                    <p className="font-medium text-white group-hover:text-[#00ff9d] transition">{t('publicPages.learn.blockchainBasics.continueLearning.quickStart.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.quickStart.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -192,8 +207,8 @@ export default function BlockchainBasics() {
                 >
                   <FileText className="w-5 h-5 text-[#ffd700]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#ffd700] transition">Documentation</p>
-                    <p className="text-xs text-gray-500">Full reference</p>
+                    <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.learn.blockchainBasics.continueLearning.documentation.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.continueLearning.documentation.subtitle')}</p>
                   </div>
                 </Link>
               </div>
@@ -216,7 +231,7 @@ export default function BlockchainBasics() {
 
               {/* What You'll Learn */}
               <div className="mb-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">What You'll Learn</h3>
+                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.blockchainBasics.whatYouWillLearn')}</h3>
                 <ul className="space-y-3">
                   {learningOutcomes.map((outcome, index) => (
                     <li key={index} className="flex items-start gap-3 text-sm text-gray-400">
@@ -229,7 +244,7 @@ export default function BlockchainBasics() {
 
               {/* Prerequisites */}
               <div className="border-t border-white/10 pt-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">Prerequisites</h3>
+                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.blockchainBasics.prerequisitesTitle')}</h3>
                 <ul className="space-y-3">
                   {prerequisites.map((prereq, index) => (
                     <li key={index} className="flex items-start gap-3 text-sm text-gray-400">
@@ -247,14 +262,14 @@ export default function BlockchainBasics() {
               className="spotlight-card rounded-xl p-6 group cursor-pointer block"
               data-testid="link-trust-score"
             >
-              <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Up Next</h3>
+              <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.learn.blockchainBasics.upNext.label')}</h3>
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[#7000ff]/20 flex items-center justify-center">
                   <Shield className="w-5 h-5 text-[#7000ff]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white group-hover:text-[#00f0ff] transition">Trust Score System</h4>
-                  <p className="text-xs text-gray-500">Intermediate Level</p>
+                  <h4 className="font-bold text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.blockchainBasics.upNext.title')}</h4>
+                  <p className="text-xs text-gray-500">{t('publicPages.learn.blockchainBasics.upNext.level')}</p>
                 </div>
               </div>
             </Link>
@@ -266,7 +281,7 @@ export default function BlockchainBasics() {
   );
 }
 
-function ModuleContent({ module }: { module: typeof curriculumModules[0] }) {
+function ModuleContent({ module }: { module: CurriculumModule }) {
   const colorClass = module.color === "purple" ? "#7000ff" : "#00f0ff";
   
   return (

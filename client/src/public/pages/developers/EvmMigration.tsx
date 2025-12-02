@@ -12,76 +12,76 @@ import {
 } from "lucide-react";
 import { SiEthereum } from "react-icons/si";
 
-const keyDifferences = [
-  {
-    icon: Code,
-    title: "EVM Compatibility",
-    iconColor: "#00f0ff",
-    bgColor: "bg-[#00f0ff]/5",
-    labelColor: "text-[#00f0ff]",
-    badgeColor: "bg-[#00f0ff]/20 text-[#00f0ff]",
-    evmDesc: "Standard EVM execution environment.",
-    tburnDesc: "100% Compatible. Deploy Solidity/Vyper as-is."
-  },
-  {
-    icon: Shield,
-    title: "Verification",
-    iconColor: "#7000ff",
-    bgColor: "bg-[#7000ff]/5",
-    labelColor: "text-[#7000ff]",
-    badgeColor: "bg-[#7000ff]/20 text-[#7000ff]",
-    evmDesc: "Manual audits & Community reviews (Slow).",
-    tburnDesc: "3-Stage Automated System (AI → Expert → Community)."
-  },
-  {
-    icon: Zap,
-    title: "Performance",
-    iconColor: "#00ff9d",
-    bgColor: "bg-[#00ff9d]/5",
-    labelColor: "text-[#00ff9d]",
-    badgeColor: "bg-[#00ff9d]/20 text-[#00ff9d]",
-    evmDesc: "15-50 TPS, Slow finality.",
-    tburnDesc: "100,000+ TPS, 1s Blocks, 6s Finality."
-  },
-  {
-    icon: Lock,
-    title: "Safety",
-    iconColor: "#ff0055",
-    bgColor: "bg-[#ff0055]/5",
-    labelColor: "text-[#ff0055]",
-    badgeColor: "bg-[#ff0055]/20 text-[#ff0055]",
-    evmDesc: "High risk of Rug Pulls & Scams.",
-    tburnDesc: "Auto-Burn Mechanism & Collateral Enforcement."
-  }
-];
-
-const developmentSteps = [
-  {
-    step: 1,
-    color: "#00f0ff",
-    title: "Use Existing Code",
-    desc: "Since TBurn is fully EVM compatible, you don't need to rewrite your smart contracts. Deploy your existing Solidity code using Hardhat or Foundry.",
-    code: "npx hardhat run scripts/deploy.ts\n--network tburn_mainnet"
-  },
-  {
-    step: 2,
-    color: "#7000ff",
-    title: "Integrate Trust Score",
-    desc: "Call the `TrustOracle` interface in your contract to check a project's reliability score before interacting. This adds a layer of safety for your users.",
-    code: "require(TrustOracle.getScore(addr) > 80);"
-  },
-  {
-    step: 3,
-    color: "#00ff9d",
-    title: "Leverage Auto-Burn",
-    desc: "Design your tokenomics to utilize TBurn's automatic burn mechanism. Gain instant user trust by automating promise fulfillment on-chain.",
-    code: "AutoBurn.execute(amount);"
-  }
-];
-
 export default function EvmMigration() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const keyDifferences = [
+    {
+      icon: Code,
+      title: t('publicPages.developers.evmMigration.differences.evmCompatibility.title'),
+      iconColor: "#00f0ff",
+      bgColor: "bg-[#00f0ff]/5",
+      labelColor: "text-[#00f0ff]",
+      badgeColor: "bg-[#00f0ff]/20 text-[#00f0ff]",
+      evmDesc: t('publicPages.developers.evmMigration.differences.evmCompatibility.evmDesc'),
+      tburnDesc: t('publicPages.developers.evmMigration.differences.evmCompatibility.tburnDesc')
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.developers.evmMigration.differences.verification.title'),
+      iconColor: "#7000ff",
+      bgColor: "bg-[#7000ff]/5",
+      labelColor: "text-[#7000ff]",
+      badgeColor: "bg-[#7000ff]/20 text-[#7000ff]",
+      evmDesc: t('publicPages.developers.evmMigration.differences.verification.evmDesc'),
+      tburnDesc: t('publicPages.developers.evmMigration.differences.verification.tburnDesc')
+    },
+    {
+      icon: Zap,
+      title: t('publicPages.developers.evmMigration.differences.performance.title'),
+      iconColor: "#00ff9d",
+      bgColor: "bg-[#00ff9d]/5",
+      labelColor: "text-[#00ff9d]",
+      badgeColor: "bg-[#00ff9d]/20 text-[#00ff9d]",
+      evmDesc: t('publicPages.developers.evmMigration.differences.performance.evmDesc'),
+      tburnDesc: t('publicPages.developers.evmMigration.differences.performance.tburnDesc')
+    },
+    {
+      icon: Lock,
+      title: t('publicPages.developers.evmMigration.differences.safety.title'),
+      iconColor: "#ff0055",
+      bgColor: "bg-[#ff0055]/5",
+      labelColor: "text-[#ff0055]",
+      badgeColor: "bg-[#ff0055]/20 text-[#ff0055]",
+      evmDesc: t('publicPages.developers.evmMigration.differences.safety.evmDesc'),
+      tburnDesc: t('publicPages.developers.evmMigration.differences.safety.tburnDesc')
+    }
+  ];
+
+  const developmentSteps = [
+    {
+      step: 1,
+      color: "#00f0ff",
+      title: t('publicPages.developers.evmMigration.steps.useExistingCode.title'),
+      desc: t('publicPages.developers.evmMigration.steps.useExistingCode.desc'),
+      code: "npx hardhat run scripts/deploy.ts\n--network tburn_mainnet"
+    },
+    {
+      step: 2,
+      color: "#7000ff",
+      title: t('publicPages.developers.evmMigration.steps.integrateTrustScore.title'),
+      desc: t('publicPages.developers.evmMigration.steps.integrateTrustScore.desc'),
+      code: "require(TrustOracle.getScore(addr) > 80);"
+    },
+    {
+      step: 3,
+      color: "#00ff9d",
+      title: t('publicPages.developers.evmMigration.steps.leverageAutoBurn.title'),
+      desc: t('publicPages.developers.evmMigration.steps.leverageAutoBurn.desc'),
+      code: "AutoBurn.execute(amount);"
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -139,8 +139,8 @@ export default function EvmMigration() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Key Differences</h2>
-            <p className="text-gray-400">Why developers are switching to TBurn.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.evmMigration.keyDifferences.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.developers.evmMigration.keyDifferences.subtitle')}</p>
           </div>
 
           <div className="grid gap-6">
@@ -161,7 +161,7 @@ export default function EvmMigration() {
                     
                     {/* EVM Column */}
                     <div className="p-6 flex flex-col justify-center">
-                      <p className="text-xs text-gray-500 uppercase mb-1">Existing EVM Chains</p>
+                      <p className="text-xs text-gray-500 uppercase mb-1">{t('publicPages.developers.evmMigration.keyDifferences.existingEvmChains')}</p>
                       <p className="text-gray-300">{diff.evmDesc}</p>
                     </div>
                     
@@ -171,9 +171,9 @@ export default function EvmMigration() {
                     {/* TBurn Column */}
                     <div className={`p-6 ${diff.bgColor} flex flex-col justify-center relative`}>
                       <div className={`absolute top-0 right-0 px-2 py-0.5 ${diff.badgeColor} text-[10px] font-bold rounded-bl`}>
-                        UPGRADE
+                        {t('publicPages.developers.evmMigration.keyDifferences.upgrade')}
                       </div>
-                      <p className={`text-xs ${diff.labelColor} uppercase mb-1`}>TBurn Chain</p>
+                      <p className={`text-xs ${diff.labelColor} uppercase mb-1`}>{t('publicPages.developers.evmMigration.keyDifferences.tburnChain')}</p>
                       <p className="text-white font-bold">{diff.tburnDesc}</p>
                     </div>
                   </div>
@@ -188,8 +188,8 @@ export default function EvmMigration() {
       <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Development Approach</h2>
-            <p className="text-gray-400">How to build on TBurn Chain</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.evmMigration.developmentApproach.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.developers.evmMigration.developmentApproach.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -234,9 +234,9 @@ export default function EvmMigration() {
         <div className="container mx-auto max-w-4xl text-center">
           <div className="spotlight-card p-1 rounded-2xl bg-gradient-to-r from-[#7000ff]/50 to-[#00f0ff]/50">
             <div className="bg-black/90 rounded-xl p-12 backdrop-blur-xl">
-              <h2 className="text-3xl font-bold text-white mb-4">Ready to Migrate?</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.developers.evmMigration.cta.title')}</h2>
               <p className="text-gray-400 mb-8 max-w-lg mx-auto">
-                Check our documentation for detailed migration guides, endpoint references, and SDKs.
+                {t('publicPages.developers.evmMigration.cta.description')}
               </p>
               <div className="flex gap-4 justify-center flex-wrap">
                 <Link href="/developers/docs">
@@ -244,7 +244,7 @@ export default function EvmMigration() {
                     className="px-8 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition"
                     data-testid="button-docs"
                   >
-                    Read Documentation
+                    {t('publicPages.developers.evmMigration.cta.readDocumentation')}
                   </button>
                 </Link>
                 <Link href="/community/hub">
@@ -252,7 +252,7 @@ export default function EvmMigration() {
                     className="px-8 py-3 rounded-lg border border-white/20 text-white font-bold hover:bg-white/10 transition"
                     data-testid="button-support"
                   >
-                    Contact Dev Support
+                    {t('publicPages.developers.evmMigration.cta.contactSupport')}
                   </button>
                 </Link>
               </div>

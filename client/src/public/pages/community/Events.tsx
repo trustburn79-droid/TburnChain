@@ -7,116 +7,123 @@ import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 
-const filterCategories = ["All Events", "Hackathon", "AMA", "Webinar", "Meetup", "Conference"];
-
-const featuredEvents = [
-  {
-    id: 1,
-    type: "Launch Event",
-    typeIcon: Rocket,
-    title: "V4 Mainnet Launch",
-    date: "12/05/2024 • 20:00 KST",
-    description: "Celebrate the official mainnet launch of TBurn Chain V4. Live demo, Q&A session with the founders, and a special airdrop event for attendees.",
-    capacity: { current: 8542, max: 10000 },
-    location: "Online",
-    gradient: "from-[#7000ff] to-blue-900",
-    buttonColor: "bg-[#00f0ff] text-black hover:bg-cyan-400",
-    progressColor: "bg-[#00f0ff]",
-    buttonText: "Register Now",
-  },
-  {
-    id: 2,
-    type: "Hackathon",
-    typeIcon: Code,
-    title: "TBurn DeFi Challenge",
-    date: "01/10/2025 • 48 Hours",
-    description: "Build innovative DeFi applications on TBurn Chain and compete for $100,000 in prizes. Connect with mentors and VCs.",
-    capacity: { current: 423, max: 1000 },
-    location: "Online",
-    gradient: "from-green-600 to-emerald-900",
-    buttonColor: "bg-[#00ff9d] text-black hover:bg-green-400",
-    progressColor: "bg-[#00ff9d]",
-    buttonText: "Apply Now",
-  },
-];
-
-const upcomingEvents = [
-  {
-    id: 3,
-    type: "AMA Session",
-    title: "Founders AMA Session",
-    description: "Direct Q&A with Changmin Kim (CEO) & Junhyuk Lee (CTO). Ask anything about the roadmap.",
-    date: "12/20",
-    time: "21:00 KST",
-    location: "Online",
-    badgeColor: "bg-amber-500/20 text-amber-500 border-amber-500/30",
-    buttonText: "Set Reminder",
-  },
-  {
-    id: 4,
-    type: "Webinar",
-    title: "Trust Score API Guide",
-    description: "Step-by-step developer guide to integrating Trust Score API into your dApp.",
-    date: "12/10",
-    time: "15:00 KST",
-    location: "Zoom",
-    badgeColor: "bg-[#00f0ff]/20 text-[#00f0ff] border-[#00f0ff]/30",
-    buttonText: "Register",
-  },
-  {
-    id: 5,
-    type: "Meetup",
-    title: "Seoul Blockchain Meetup",
-    description: "Offline networking event at COEX. Presentations, food, and networking.",
-    date: "12/15",
-    time: "19:00 KST",
-    location: "Seoul",
-    badgeColor: "bg-[#7000ff]/20 text-[#7000ff] border-[#7000ff]/30",
-    buttonText: "RSVP (Limited)",
-  },
-  {
-    id: 6,
-    type: "Seminar",
-    title: "Triple-Band AI Deep Dive",
-    description: "Technical explanation of how our 3-tier AI system evaluates project reliability.",
-    date: "01/15",
-    time: "16:00 KST",
-    location: "Online",
-    badgeColor: "bg-red-500/20 text-red-500 border-red-500/30",
-    buttonText: "Register",
-  },
-  {
-    id: 7,
-    type: "Training",
-    title: "Validator Node Ops",
-    description: "Technical workshop on setting up and maintaining a secure validator node.",
-    date: "01/25",
-    time: "14:00 KST",
-    location: "Online",
-    badgeColor: "bg-[#ffd700]/20 text-[#ffd700] border-[#ffd700]/30",
-    buttonText: "Register",
-  },
-  {
-    id: 8,
-    type: "Conference",
-    title: "Future of Trust 2025",
-    description: "Global conference at Marina Bay Sands. Keynotes, panels, and VIP networking.",
-    date: "02/20",
-    time: "09:00 SGT",
-    location: "Singapore",
-    badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-    buttonText: "Get Tickets",
-    special: true,
-  },
-];
-
 export default function Events() {
   const { t } = useTranslation();
-  const [activeFilter, setActiveFilter] = useState("All Events");
+  const [activeFilter, setActiveFilter] = useState(t('publicPages.community.events.filters.all'));
   const { toast } = useToast();
+
+  const filterCategories = [
+    t('publicPages.community.events.filters.all'),
+    t('publicPages.community.events.filters.hackathon'),
+    t('publicPages.community.events.filters.ama'),
+    t('publicPages.community.events.filters.webinar'),
+    t('publicPages.community.events.filters.meetup'),
+    t('publicPages.community.events.filters.conference')
+  ];
+
+  const featuredEvents = [
+    {
+      id: 1,
+      type: t('publicPages.community.events.types.launchEvent'),
+      typeIcon: Rocket,
+      title: t('publicPages.community.events.featured.mainnetLaunch.title'),
+      date: "12/05/2024 • 20:00 KST",
+      description: t('publicPages.community.events.featured.mainnetLaunch.description'),
+      capacity: { current: 8542, max: 10000 },
+      location: t('publicPages.community.events.locations.online'),
+      gradient: "from-[#7000ff] to-blue-900",
+      buttonColor: "bg-[#00f0ff] text-black hover:bg-cyan-400",
+      progressColor: "bg-[#00f0ff]",
+      buttonText: t('publicPages.community.events.buttons.registerNow'),
+    },
+    {
+      id: 2,
+      type: t('publicPages.community.events.filters.hackathon'),
+      typeIcon: Code,
+      title: t('publicPages.community.events.featured.defiChallenge.title'),
+      date: "01/10/2025 • 48 Hours",
+      description: t('publicPages.community.events.featured.defiChallenge.description'),
+      capacity: { current: 423, max: 1000 },
+      location: t('publicPages.community.events.locations.online'),
+      gradient: "from-green-600 to-emerald-900",
+      buttonColor: "bg-[#00ff9d] text-black hover:bg-green-400",
+      progressColor: "bg-[#00ff9d]",
+      buttonText: t('publicPages.community.events.buttons.applyNow'),
+    },
+  ];
+
+  const upcomingEvents = [
+    {
+      id: 3,
+      type: t('publicPages.community.events.types.amaSession'),
+      title: t('publicPages.community.events.upcoming.foundersAma.title'),
+      description: t('publicPages.community.events.upcoming.foundersAma.description'),
+      date: "12/20",
+      time: "21:00 KST",
+      location: t('publicPages.community.events.locations.online'),
+      badgeColor: "bg-amber-500/20 text-amber-500 border-amber-500/30",
+      buttonText: t('publicPages.community.events.buttons.setReminder'),
+    },
+    {
+      id: 4,
+      type: t('publicPages.community.events.filters.webinar'),
+      title: t('publicPages.community.events.upcoming.trustScoreApi.title'),
+      description: t('publicPages.community.events.upcoming.trustScoreApi.description'),
+      date: "12/10",
+      time: "15:00 KST",
+      location: "Zoom",
+      badgeColor: "bg-[#00f0ff]/20 text-[#00f0ff] border-[#00f0ff]/30",
+      buttonText: t('publicPages.community.events.buttons.register'),
+    },
+    {
+      id: 5,
+      type: t('publicPages.community.events.filters.meetup'),
+      title: t('publicPages.community.events.upcoming.seoulMeetup.title'),
+      description: t('publicPages.community.events.upcoming.seoulMeetup.description'),
+      date: "12/15",
+      time: "19:00 KST",
+      location: t('publicPages.community.events.locations.seoul'),
+      badgeColor: "bg-[#7000ff]/20 text-[#7000ff] border-[#7000ff]/30",
+      buttonText: t('publicPages.community.events.buttons.rsvpLimited'),
+    },
+    {
+      id: 6,
+      type: t('publicPages.community.events.types.seminar'),
+      title: t('publicPages.community.events.upcoming.aiDeepDive.title'),
+      description: t('publicPages.community.events.upcoming.aiDeepDive.description'),
+      date: "01/15",
+      time: "16:00 KST",
+      location: t('publicPages.community.events.locations.online'),
+      badgeColor: "bg-red-500/20 text-red-500 border-red-500/30",
+      buttonText: t('publicPages.community.events.buttons.register'),
+    },
+    {
+      id: 7,
+      type: t('publicPages.community.events.types.training'),
+      title: t('publicPages.community.events.upcoming.validatorOps.title'),
+      description: t('publicPages.community.events.upcoming.validatorOps.description'),
+      date: "01/25",
+      time: "14:00 KST",
+      location: t('publicPages.community.events.locations.online'),
+      badgeColor: "bg-[#ffd700]/20 text-[#ffd700] border-[#ffd700]/30",
+      buttonText: t('publicPages.community.events.buttons.register'),
+    },
+    {
+      id: 8,
+      type: t('publicPages.community.events.filters.conference'),
+      title: t('publicPages.community.events.upcoming.futureOfTrust.title'),
+      description: t('publicPages.community.events.upcoming.futureOfTrust.description'),
+      date: "02/20",
+      time: "09:00 SGT",
+      location: t('publicPages.community.events.locations.singapore'),
+      badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+      buttonText: t('publicPages.community.events.buttons.getTickets'),
+      special: true,
+    },
+  ];
   
   const handleNotification = (eventTitle: string) => {
-    toast({ title: "Reminder Set", description: `You will be notified before "${eventTitle}"` });
+    toast({ title: t('publicPages.community.events.toast.reminderSet'), description: t('publicPages.community.events.toast.reminderDescription', { title: eventTitle }) });
   };
 
   return (
@@ -163,7 +170,7 @@ export default function Events() {
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
-            <Rocket className="w-5 h-5 text-[#7000ff]" /> Featured Events
+            <Rocket className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.community.events.featuredTitle')}
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
@@ -189,7 +196,7 @@ export default function Events() {
                   
                   <div className="mb-6">
                     <div className="flex justify-between text-xs mb-2">
-                      <span className="text-gray-500">Capacity</span>
+                      <span className="text-gray-500">{t('publicPages.community.events.capacity')}</span>
                       <span className="text-[#00f0ff] font-mono">{event.capacity.current.toLocaleString()} / {event.capacity.max.toLocaleString()}</span>
                     </div>
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
@@ -228,7 +235,7 @@ export default function Events() {
       <section className="py-12 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
-            <CalendarDays className="w-5 h-5 text-gray-400" /> Upcoming Events
+            <CalendarDays className="w-5 h-5 text-gray-400" /> {t('publicPages.community.events.upcomingTitle')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -274,17 +281,16 @@ export default function Events() {
             <div className="w-16 h-16 bg-[#00f0ff]/10 rounded-full flex items-center justify-center mx-auto mb-6">
               <Mic className="w-8 h-8 text-[#00f0ff]" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-3">Want to host an event?</h2>
+            <h2 className="text-2xl font-bold text-white mb-3">{t('publicPages.community.events.hostCta.title')}</h2>
             <p className="text-gray-400 mb-8">
-              Host meetups, webinars, or hackathons with the TBurn Chain community. <br />
-              We provide funding, swag, and marketing support.
+              {t('publicPages.community.events.hostCta.description')}
             </p>
             <Link href="/community/hub">
               <button 
                 className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                 data-testid="button-apply-host"
               >
-                Apply to Host
+                {t('publicPages.community.events.hostCta.button')}
               </button>
             </Link>
           </div>

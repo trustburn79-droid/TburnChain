@@ -2,102 +2,102 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { 
-  Terminal, Download, Settings, Key, Folder, Play, Hammer, 
-  Rocket, Wallet, Bot, Book, Server, ArrowRight, HelpCircle
+  Terminal, Download, Settings, Key, Play, 
+  Book, Server, ArrowRight, HelpCircle
 } from "lucide-react";
 import { SiNpm } from "react-icons/si";
-
-const installMethods = [
-  { name: "npm", command: "npm install -g @tburn/cli", icon: SiNpm, color: "#cb3837" },
-  { name: "yarn", command: "yarn global add @tburn/cli", icon: null, label: "yarn", color: "#2188b6" },
-  { name: "pnpm", command: "pnpm add -g @tburn/cli", icon: null, label: "pnpm", color: "#f9ad00" },
-];
-
-const globalOptions = [
-  { flag: "--network, -n", desc: "Select network" },
-  { flag: "--config, -c", desc: "Config file path" },
-  { flag: "--verbose, -v", desc: "Verbose logging" },
-  { flag: "--json", desc: "JSON output" },
-  { flag: "--help, -h", desc: "Show help" },
-];
-
-const envVars = [
-  { name: "TBURN_API_KEY", required: true },
-  { name: "TBURN_PRIVATE_KEY", required: false },
-  { name: "TBURN_NETWORK", required: false },
-];
-
-const commandCategories = [
-  { name: "Project", active: true },
-  { name: "Contract" },
-  { name: "Network" },
-  { name: "Wallet" },
-  { name: "AI" },
-];
-
-const commands = [
-  {
-    cmd: "tburn init",
-    desc: "Initialize a new TBurn Chain project",
-    usage: "tburn init [project-name] [options]",
-    options: [
-      { flag: "--template, -t", desc: "Project template (react, vue, next, hardhat)", default: "react" },
-      { flag: "--typescript", desc: "Use TypeScript", default: "true" },
-    ],
-    examples: `# Create React dApp
-tburn init my-dapp --template=react
-
-# Create Hardhat smart contract project
-tburn init my-contracts --template=hardhat`,
-  },
-  {
-    cmd: "tburn dev",
-    desc: "Start local development server",
-    usage: "tburn dev [options]",
-    options: [
-      { flag: "--port, -p", desc: "Server port", default: "3000" },
-      { flag: "--open", desc: "Open browser automatically", default: "false" },
-    ],
-  },
-  {
-    cmd: "tburn build",
-    desc: "Build project for production",
-    usage: "tburn build [options]",
-    options: [
-      { flag: "--outdir, -o", desc: "Output directory", default: "dist" },
-      { flag: "--sourcemap", desc: "Generate source maps", default: "false" },
-    ],
-  },
-  {
-    cmd: "tburn deploy",
-    desc: "Deploy smart contracts to the network",
-    usage: "tburn deploy [contract] [options]",
-    options: [
-      { flag: "--network, -n", desc: "Target network", default: "mainnet" },
-      { flag: "--verify", desc: "Verify on explorer", default: "true" },
-      { flag: "--gas-price", desc: "Gas price in EMB", default: "auto" },
-    ],
-    examples: `# Deploy to mainnet
-tburn deploy MyContract --network=mainnet
-
-# Deploy to testnet with verification
-tburn deploy Token --network=testnet --verify`,
-  },
-  {
-    cmd: "tburn wallet",
-    desc: "Manage wallet and keys",
-    usage: "tburn wallet [action] [options]",
-    options: [
-      { flag: "create", desc: "Create new wallet", default: "" },
-      { flag: "import", desc: "Import from mnemonic", default: "" },
-      { flag: "balance", desc: "Check wallet balance", default: "" },
-    ],
-  },
-];
 
 export default function CliReference() {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("Project");
+
+  const installMethods = [
+    { name: "npm", command: "npm install -g @tburn/cli", icon: SiNpm, color: "#cb3837" },
+    { name: "yarn", command: "yarn global add @tburn/cli", icon: null, label: "yarn", color: "#2188b6" },
+    { name: "pnpm", command: "pnpm add -g @tburn/cli", icon: null, label: "pnpm", color: "#f9ad00" },
+  ];
+
+  const globalOptions = [
+    { flag: "--network, -n", desc: t('publicPages.developers.cli.globalOptions.network') },
+    { flag: "--config, -c", desc: t('publicPages.developers.cli.globalOptions.config') },
+    { flag: "--verbose, -v", desc: t('publicPages.developers.cli.globalOptions.verbose') },
+    { flag: "--json", desc: t('publicPages.developers.cli.globalOptions.json') },
+    { flag: "--help, -h", desc: t('publicPages.developers.cli.globalOptions.help') },
+  ];
+
+  const envVars = [
+    { name: "TBURN_API_KEY", required: true },
+    { name: "TBURN_PRIVATE_KEY", required: false },
+    { name: "TBURN_NETWORK", required: false },
+  ];
+
+  const commandCategories = [
+    { name: t('publicPages.developers.cli.categories.project'), active: true },
+    { name: t('publicPages.developers.cli.categories.contract') },
+    { name: t('publicPages.developers.cli.categories.network') },
+    { name: t('publicPages.developers.cli.categories.wallet') },
+    { name: t('publicPages.developers.cli.categories.ai') },
+  ];
+
+  const commands = [
+    {
+      cmd: "tburn init",
+      desc: t('publicPages.developers.cli.commands.init.desc'),
+      usage: "tburn init [project-name] [options]",
+      options: [
+        { flag: "--template, -t", desc: t('publicPages.developers.cli.commands.init.options.template'), default: "react" },
+        { flag: "--typescript", desc: t('publicPages.developers.cli.commands.init.options.typescript'), default: "true" },
+      ],
+      examples: `# Create React dApp
+tburn init my-dapp --template=react
+
+# Create Hardhat smart contract project
+tburn init my-contracts --template=hardhat`,
+    },
+    {
+      cmd: "tburn dev",
+      desc: t('publicPages.developers.cli.commands.dev.desc'),
+      usage: "tburn dev [options]",
+      options: [
+        { flag: "--port, -p", desc: t('publicPages.developers.cli.commands.dev.options.port'), default: "3000" },
+        { flag: "--open", desc: t('publicPages.developers.cli.commands.dev.options.open'), default: "false" },
+      ],
+    },
+    {
+      cmd: "tburn build",
+      desc: t('publicPages.developers.cli.commands.build.desc'),
+      usage: "tburn build [options]",
+      options: [
+        { flag: "--outdir, -o", desc: t('publicPages.developers.cli.commands.build.options.outdir'), default: "dist" },
+        { flag: "--sourcemap", desc: t('publicPages.developers.cli.commands.build.options.sourcemap'), default: "false" },
+      ],
+    },
+    {
+      cmd: "tburn deploy",
+      desc: t('publicPages.developers.cli.commands.deploy.desc'),
+      usage: "tburn deploy [contract] [options]",
+      options: [
+        { flag: "--network, -n", desc: t('publicPages.developers.cli.commands.deploy.options.network'), default: "mainnet" },
+        { flag: "--verify", desc: t('publicPages.developers.cli.commands.deploy.options.verify'), default: "true" },
+        { flag: "--gas-price", desc: t('publicPages.developers.cli.commands.deploy.options.gasPrice'), default: "auto" },
+      ],
+      examples: `# Deploy to mainnet
+tburn deploy MyContract --network=mainnet
+
+# Deploy to testnet with verification
+tburn deploy Token --network=testnet --verify`,
+    },
+    {
+      cmd: "tburn wallet",
+      desc: t('publicPages.developers.cli.commands.wallet.desc'),
+      usage: "tburn wallet [action] [options]",
+      options: [
+        { flag: "create", desc: t('publicPages.developers.cli.commands.wallet.options.create'), default: "" },
+        { flag: "import", desc: t('publicPages.developers.cli.commands.wallet.options.import'), default: "" },
+        { flag: "balance", desc: t('publicPages.developers.cli.commands.wallet.options.balance'), default: "" },
+      ],
+    },
+  ];
 
   return (
     <main className="flex-grow relative z-10">
@@ -115,7 +115,7 @@ export default function CliReference() {
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-4">
             {t('publicPages.developers.cli.subtitle')}
           </p>
-          <span className="text-sm font-mono text-[#7000ff]">Current Version: 4.2.1</span>
+          <span className="text-sm font-mono text-[#7000ff]">{t('publicPages.developers.cli.currentVersion')}: 4.2.1</span>
         </div>
       </section>
 
@@ -123,7 +123,7 @@ export default function CliReference() {
       <section className="py-12 px-6 border-b border-white/5 bg-black/40">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <Download className="w-6 h-6 text-[#00ff9d]" /> Installation
+            <Download className="w-6 h-6 text-[#00ff9d]" /> {t('publicPages.developers.cli.installation.title')}
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {installMethods.map((method, index) => (
@@ -143,7 +143,7 @@ export default function CliReference() {
             ))}
           </div>
           <div className="mt-6 flex items-center gap-4 text-sm text-gray-400">
-            <span>Verify installation:</span>
+            <span>{t('publicPages.developers.cli.installation.verify')}:</span>
             <code className="bg-white/10 px-2 py-1 rounded text-white">tburn --version</code>
           </div>
         </div>
@@ -158,7 +158,7 @@ export default function CliReference() {
               {/* Global Options */}
               <div className="spotlight-card rounded-xl p-6 border border-white/10 sticky top-24">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-gray-400" /> Global Options
+                  <Settings className="w-5 h-5 text-gray-400" /> {t('publicPages.developers.cli.globalOptionsTitle')}
                 </h3>
                 <ul className="space-y-3 text-sm font-mono">
                   {globalOptions.map((opt, index) => (
@@ -173,7 +173,7 @@ export default function CliReference() {
               {/* Environment Variables */}
               <div className="spotlight-card rounded-xl p-6 border border-white/10 bg-gradient-to-br from-red-900/10 to-transparent">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Key className="w-5 h-5 text-[#ff0055]" /> Environment
+                  <Key className="w-5 h-5 text-[#ff0055]" /> {t('publicPages.developers.cli.environmentTitle')}
                 </h3>
                 <div className="space-y-3 text-xs">
                   {envVars.map((env, index) => (
@@ -184,7 +184,7 @@ export default function CliReference() {
                           ? "text-[#ff0055] border-[#ff0055]/30 bg-[#ff0055]/10" 
                           : "text-[#00f0ff] border-[#00f0ff]/30 bg-[#00f0ff]/10"
                       }`}>
-                        {env.required ? "Required" : "Optional"}
+                        {env.required ? t('publicPages.developers.cli.required') : t('publicPages.developers.cli.optional')}
                       </span>
                     </div>
                   ))}
@@ -193,22 +193,22 @@ export default function CliReference() {
 
               {/* Related Links */}
               <div className="spotlight-card rounded-xl p-6 border border-white/10">
-                <h3 className="text-lg font-bold text-white mb-4">Related Docs</h3>
+                <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.developers.cli.relatedDocs')}</h3>
                 <div className="space-y-2">
                   <Link href="/developers" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
-                    Developer Hub
+                    {t('publicPages.developers.cli.relatedLinks.developerHub')}
                   </Link>
                   <Link href="/developers/docs" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
-                    Documentation
+                    {t('publicPages.developers.cli.relatedLinks.documentation')}
                   </Link>
                   <Link href="/developers/api" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
-                    API Reference
+                    {t('publicPages.developers.cli.relatedLinks.apiReference')}
                   </Link>
                   <Link href="/developers/quickstart" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
-                    Quick Start
+                    {t('publicPages.developers.cli.relatedLinks.quickStart')}
                   </Link>
                   <Link href="/developers/installation" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
-                    Installation Guide
+                    {t('publicPages.developers.cli.relatedLinks.installationGuide')}
                   </Link>
                 </div>
               </div>
@@ -243,21 +243,21 @@ export default function CliReference() {
                   </div>
                   
                   <div className="mb-6">
-                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Usage</h4>
+                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">{t('publicPages.developers.cli.usage')}</h4>
                     <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-3 font-mono text-sm text-gray-400">
                       {command.usage}
                     </div>
                   </div>
 
                   <div className="mb-6">
-                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Options</h4>
+                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">{t('publicPages.developers.cli.options')}</h4>
                     <div className="space-y-2 text-sm">
                       {command.options.map((opt, oIndex) => (
                         <div key={oIndex} className="flex gap-4">
                           <code className="text-[#00f0ff] w-32 flex-shrink-0">{opt.flag}</code>
                           <span className="text-gray-400 flex-1">{opt.desc}</span>
                           {opt.default && (
-                            <span className="text-xs text-gray-600">default: {opt.default}</span>
+                            <span className="text-xs text-gray-600">{t('publicPages.developers.cli.default')}: {opt.default}</span>
                           )}
                         </div>
                       ))}
@@ -266,7 +266,7 @@ export default function CliReference() {
 
                   {command.examples && (
                     <div>
-                      <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Examples</h4>
+                      <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">{t('publicPages.developers.cli.examples')}</h4>
                       <pre className="bg-[#0d0d12] border border-white/10 rounded-lg p-4 font-mono text-xs text-gray-400 overflow-x-auto whitespace-pre-wrap">
                         {command.examples}
                       </pre>
@@ -283,7 +283,7 @@ export default function CliReference() {
       <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-white/5">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2">
-            <HelpCircle className="w-6 h-6" /> Need Help?
+            <HelpCircle className="w-6 h-6" /> {t('publicPages.developers.cli.needHelp.title')}
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
@@ -291,14 +291,14 @@ export default function CliReference() {
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-white"
               data-testid="link-sdk-docs"
             >
-              <Book className="w-5 h-5 text-[#7000ff]" /> SDK Documentation
+              <Book className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.developers.cli.needHelp.sdkDocumentation')}
             </Link>
             <Link 
               href="/developers/api"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
               data-testid="link-api-ref"
             >
-              <Server className="w-5 h-5 text-[#00f0ff]" /> API Reference
+              <Server className="w-5 h-5 text-[#00f0ff]" /> {t('publicPages.developers.cli.needHelp.apiReference')}
             </Link>
           </div>
         </div>

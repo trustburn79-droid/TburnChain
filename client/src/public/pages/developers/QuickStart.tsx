@@ -54,18 +54,6 @@ console.log('Trust Score:', score.total); // 0-100
 console.log('Grade:', score.grade); // S, A, B, C, D, F
 console.log('AI Summary:', score.aiAnalysis.summary);`;
 
-const vsCodeExtensions = [
-  "Solidity (NomicFoundation)",
-  "ESLint & Prettier",
-  "TBurn Snippets (Official)"
-];
-
-const nextSteps = [
-  { title: "SDK Guide", desc: "Deep dive into features", color: "#00ff9d", href: "/developers/docs" },
-  { title: "API Reference", desc: "Raw endpoints", color: "#00f0ff", href: "/developers/api" },
-  { title: "Smart Contracts", desc: "Solidity examples", color: "#7000ff", href: "/developers/examples" }
-];
-
 function CodeBlock({ 
   code, 
   className = "",
@@ -74,10 +62,11 @@ function CodeBlock({
   className?: string;
 }) {
   const { toast } = useToast();
+  const { t } = useTranslation();
   
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code);
-    toast({ title: "Copied to clipboard!" });
+    toast({ title: t('common.copiedToClipboard') });
   };
 
   const highlightCode = (text: string) => {
@@ -120,6 +109,24 @@ export default function QuickStart() {
   const { t } = useTranslation();
   const [packageManager, setPackageManager] = useState<"npm" | "yarn">("npm");
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const vsCodeExtensions = [
+    t('publicPages.developers.quickstart.vsCode.solidity'),
+    t('publicPages.developers.quickstart.vsCode.eslint'),
+    t('publicPages.developers.quickstart.vsCode.tburnSnippets')
+  ];
+
+  const nextSteps = [
+    { title: t('publicPages.developers.quickstart.nextSteps.sdkGuide.title'), desc: t('publicPages.developers.quickstart.nextSteps.sdkGuide.desc'), color: "#00ff9d", href: "/developers/docs" },
+    { title: t('publicPages.developers.quickstart.nextSteps.apiReference.title'), desc: t('publicPages.developers.quickstart.nextSteps.apiReference.desc'), color: "#00f0ff", href: "/developers/api" },
+    { title: t('publicPages.developers.quickstart.nextSteps.smartContracts.title'), desc: t('publicPages.developers.quickstart.nextSteps.smartContracts.desc'), color: "#7000ff", href: "/developers/examples" }
+  ];
+
+  const prerequisites = [
+    t('publicPages.developers.quickstart.prerequisites.node'),
+    t('publicPages.developers.quickstart.prerequisites.account'),
+    t('publicPages.developers.quickstart.prerequisites.knowledge')
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -168,17 +175,13 @@ export default function QuickStart() {
           <div className="p-6 rounded-xl border border-amber-500/30 bg-amber-500/5 flex items-start gap-4">
             <AlertTriangle className="w-6 h-6 text-amber-500 flex-shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-white font-bold mb-2">Prerequisites</h3>
+              <h3 className="text-white font-bold mb-2">{t('publicPages.developers.quickstart.prerequisites.title')}</h3>
               <ul className="text-sm text-gray-400 space-y-1">
-                <li className="flex items-center gap-2">
-                  <Check className="w-3 h-3 text-[#00ff9d]" /> Node.js v18+ or Python 3.9+
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3 h-3 text-[#00ff9d]" /> TBurn Developer Account (Free)
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3 h-3 text-[#00ff9d]" /> Basic JavaScript/TypeScript knowledge
-                </li>
+                {prerequisites.map((prereq, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-[#00ff9d]" /> {prereq}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -193,10 +196,10 @@ export default function QuickStart() {
               <div className="w-10 h-10 rounded-lg bg-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d] font-bold text-xl">
                 1
               </div>
-              <h2 className="text-2xl font-bold text-white">Install SDK</h2>
+              <h2 className="text-2xl font-bold text-white">{t('publicPages.developers.quickstart.steps.installSdk.title')}</h2>
             </div>
             <p className="text-gray-400 mb-6">
-              Install the TBurn Chain SDK. It provides type-safe methods for all blockchain interactions including Trust Score queries.
+              {t('publicPages.developers.quickstart.steps.installSdk.description')}
             </p>
             
             <div className="flex gap-2 mb-0">
@@ -236,10 +239,10 @@ export default function QuickStart() {
               <div className="w-10 h-10 rounded-lg bg-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d] font-bold text-xl">
                 2
               </div>
-              <h2 className="text-2xl font-bold text-white">Initialize SDK</h2>
+              <h2 className="text-2xl font-bold text-white">{t('publicPages.developers.quickstart.steps.initializeSdk.title')}</h2>
             </div>
             <p className="text-gray-400 mb-6">
-              Configure the SDK with your API key. We recommend using the Testnet for development.
+              {t('publicPages.developers.quickstart.steps.initializeSdk.description')}
             </p>
             <CodeBlock code={step2Code} />
           </div>
@@ -254,10 +257,10 @@ export default function QuickStart() {
               <div className="w-10 h-10 rounded-lg bg-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d] font-bold text-xl">
                 3
               </div>
-              <h2 className="text-2xl font-bold text-white">First Transaction</h2>
+              <h2 className="text-2xl font-bold text-white">{t('publicPages.developers.quickstart.steps.firstTransaction.title')}</h2>
             </div>
             <p className="text-gray-400 mb-6">
-              Connect a wallet and send your first transaction. TBurn Chain offers ultra-low gas fees (~$0.0001).
+              {t('publicPages.developers.quickstart.steps.firstTransaction.description')}
             </p>
             <CodeBlock code={step3Code} />
           </div>
@@ -272,10 +275,10 @@ export default function QuickStart() {
               <div className="w-10 h-10 rounded-lg bg-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d] font-bold text-xl">
                 4
               </div>
-              <h2 className="text-2xl font-bold text-white">Query Trust Score</h2>
+              <h2 className="text-2xl font-bold text-white">{t('publicPages.developers.quickstart.steps.queryTrustScore.title')}</h2>
             </div>
             <p className="text-gray-400 mb-6">
-              This is the core feature of TBurn. Check the reliability of any project address.
+              {t('publicPages.developers.quickstart.steps.queryTrustScore.description')}
             </p>
             <CodeBlock code={step4Code} />
           </div>
@@ -285,7 +288,7 @@ export default function QuickStart() {
       {/* Network Configuration */}
       <section className="py-16 px-6 bg-white/5">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-2xl font-bold text-white mb-8 text-center">Network Configuration</h2>
+          <h2 className="text-2xl font-bold text-white mb-8 text-center">{t('publicPages.developers.quickstart.networkConfig.title')}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {/* Mainnet */}
             <div 
@@ -297,19 +300,19 @@ export default function QuickStart() {
                   className="w-2 h-2 rounded-full bg-[#00ff9d]"
                   style={{ boxShadow: "0 0 10px #00ff9d" }}
                 />
-                <h3 className="font-bold text-white">Mainnet</h3>
+                <h3 className="font-bold text-white">{t('publicPages.developers.quickstart.networkConfig.mainnet.title')}</h3>
               </div>
               <div className="space-y-3 text-sm font-mono">
                 <div className="flex justify-between flex-wrap gap-2">
-                  <span className="text-gray-500">Chain ID</span>
+                  <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.chainId')}</span>
                   <span className="text-white bg-white/10 px-2 rounded">7777</span>
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
-                  <span className="text-gray-500">RPC URL</span>
+                  <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.rpcUrl')}</span>
                   <span className="text-white bg-white/10 px-2 rounded text-xs">https://rpc.tburn.io</span>
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
-                  <span className="text-gray-500">Explorer</span>
+                  <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.explorer')}</span>
                   <span className="text-white bg-white/10 px-2 rounded text-xs">https://scan.tburn.io</span>
                 </div>
               </div>
@@ -325,19 +328,19 @@ export default function QuickStart() {
                   className="w-2 h-2 rounded-full bg-[#ffd700]"
                   style={{ boxShadow: "0 0 10px #ffd700" }}
                 />
-                <h3 className="font-bold text-white">Testnet</h3>
+                <h3 className="font-bold text-white">{t('publicPages.developers.quickstart.networkConfig.testnet.title')}</h3>
               </div>
               <div className="space-y-3 text-sm font-mono">
                 <div className="flex justify-between flex-wrap gap-2">
-                  <span className="text-gray-500">Chain ID</span>
+                  <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.chainId')}</span>
                   <span className="text-white bg-white/10 px-2 rounded">7778</span>
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
-                  <span className="text-gray-500">RPC URL</span>
+                  <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.rpcUrl')}</span>
                   <span className="text-white bg-white/10 px-2 rounded text-xs">https://testnet-rpc.tburn.io</span>
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
-                  <span className="text-gray-500">Explorer</span>
+                  <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.explorer')}</span>
                   <span className="text-white bg-white/10 px-2 rounded text-xs">https://testnet-scan.tburn.io</span>
                 </div>
               </div>
@@ -351,9 +354,9 @@ export default function QuickStart() {
         <div className="container mx-auto max-w-4xl">
           <div className="flex items-center gap-3 mb-6">
             <Code className="w-6 h-6 text-[#00f0ff]" />
-            <h2 className="text-2xl font-bold text-white">VS Code Setup</h2>
+            <h2 className="text-2xl font-bold text-white">{t('publicPages.developers.quickstart.vsCode.title')}</h2>
           </div>
-          <p className="text-gray-400 mb-6">Recommended extensions for the best development experience.</p>
+          <p className="text-gray-400 mb-6">{t('publicPages.developers.quickstart.vsCode.description')}</p>
           
           <div className="grid md:grid-cols-2 gap-4">
             {vsCodeExtensions.map((ext, index) => (
@@ -372,7 +375,7 @@ export default function QuickStart() {
       {/* What's Next */}
       <section className="py-16 px-6 bg-white/5">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-white mb-8">What's Next?</h2>
+          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.quickstart.whatsNext')}</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {nextSteps.map((step, index) => (
               <Link 

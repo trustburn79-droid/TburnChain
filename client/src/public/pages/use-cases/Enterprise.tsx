@@ -16,86 +16,86 @@ import {
   Layers
 } from "lucide-react";
 
-const solutions = [
-  {
-    icon: Key,
-    iconColor: "#7000ff",
-    title: "Identity & Access Management",
-    desc: "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
-  },
-  {
-    icon: Database,
-    iconColor: "#00f0ff",
-    title: "Supply Chain Transparency",
-    desc: "End-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
-  },
-  {
-    icon: FileText,
-    iconColor: "#00ff9d",
-    title: "Document Management",
-    desc: "Tamper-proof document storage and verification. Digital signatures, version control, and compliance archiving."
-  },
-  {
-    icon: Layers,
-    iconColor: "#ffd700",
-    title: "Business Process Automation",
-    desc: "Smart contract-driven workflows. Automate approvals, payments, and multi-party agreements with trustless execution."
-  }
-];
-
-const metrics = [
-  {
-    value: "500+",
-    label: "Enterprise Clients",
-    iconColor: "#7000ff"
-  },
-  {
-    value: "99.95%",
-    label: "Uptime Guarantee",
-    iconColor: "#00f0ff"
-  },
-  {
-    value: "24/7",
-    label: "Dedicated Support",
-    iconColor: "#00ff9d"
-  }
-];
-
-const features = [
-  {
-    icon: Shield,
-    title: "SOC 2 Compliant",
-    desc: "Enterprise security controls and annual audits"
-  },
-  {
-    icon: Lock,
-    title: "Private Subnets",
-    desc: "Isolated network environments for sensitive data"
-  },
-  {
-    icon: Users,
-    title: "Role-Based Access",
-    desc: "Granular permissions and multi-tenant isolation"
-  },
-  {
-    icon: Server,
-    title: "On-Premise Option",
-    desc: "Deploy within your own data center infrastructure"
-  }
-];
-
-const industries = [
-  { title: "Healthcare", desc: "HIPAA-compliant record management" },
-  { title: "Manufacturing", desc: "Supply chain and quality assurance" },
-  { title: "Legal", desc: "Contract management and e-signatures" },
-  { title: "Government", desc: "Transparent record keeping and voting" },
-  { title: "Insurance", desc: "Claims processing and fraud detection" },
-  { title: "Logistics", desc: "Shipment tracking and verification" }
-];
-
 export default function Enterprise() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const solutions = [
+    {
+      icon: Key,
+      iconColor: "#7000ff",
+      title: t('publicPages.useCases.enterprise.solutions.identity.title'),
+      desc: t('publicPages.useCases.enterprise.solutions.identity.desc')
+    },
+    {
+      icon: Database,
+      iconColor: "#00f0ff",
+      title: t('publicPages.useCases.enterprise.solutions.supplyChain.title'),
+      desc: t('publicPages.useCases.enterprise.solutions.supplyChain.desc')
+    },
+    {
+      icon: FileText,
+      iconColor: "#00ff9d",
+      title: t('publicPages.useCases.enterprise.solutions.document.title'),
+      desc: t('publicPages.useCases.enterprise.solutions.document.desc')
+    },
+    {
+      icon: Layers,
+      iconColor: "#ffd700",
+      title: t('publicPages.useCases.enterprise.solutions.automation.title'),
+      desc: t('publicPages.useCases.enterprise.solutions.automation.desc')
+    }
+  ];
+
+  const metrics = [
+    {
+      value: "500+",
+      label: t('publicPages.useCases.enterprise.metrics.enterpriseClients'),
+      iconColor: "#7000ff"
+    },
+    {
+      value: "99.95%",
+      label: t('publicPages.useCases.enterprise.metrics.uptimeGuarantee'),
+      iconColor: "#00f0ff"
+    },
+    {
+      value: "24/7",
+      label: t('publicPages.useCases.enterprise.metrics.dedicatedSupport'),
+      iconColor: "#00ff9d"
+    }
+  ];
+
+  const features = [
+    {
+      icon: Shield,
+      title: t('publicPages.useCases.enterprise.features.soc2.title'),
+      desc: t('publicPages.useCases.enterprise.features.soc2.desc')
+    },
+    {
+      icon: Lock,
+      title: t('publicPages.useCases.enterprise.features.privateSubnets.title'),
+      desc: t('publicPages.useCases.enterprise.features.privateSubnets.desc')
+    },
+    {
+      icon: Users,
+      title: t('publicPages.useCases.enterprise.features.roleAccess.title'),
+      desc: t('publicPages.useCases.enterprise.features.roleAccess.desc')
+    },
+    {
+      icon: Server,
+      title: t('publicPages.useCases.enterprise.features.onPremise.title'),
+      desc: t('publicPages.useCases.enterprise.features.onPremise.desc')
+    }
+  ];
+
+  const industries = [
+    { title: t('publicPages.useCases.enterprise.industries.healthcare.title'), desc: t('publicPages.useCases.enterprise.industries.healthcare.desc') },
+    { title: t('publicPages.useCases.enterprise.industries.manufacturing.title'), desc: t('publicPages.useCases.enterprise.industries.manufacturing.desc') },
+    { title: t('publicPages.useCases.enterprise.industries.legal.title'), desc: t('publicPages.useCases.enterprise.industries.legal.desc') },
+    { title: t('publicPages.useCases.enterprise.industries.government.title'), desc: t('publicPages.useCases.enterprise.industries.government.desc') },
+    { title: t('publicPages.useCases.enterprise.industries.insurance.title'), desc: t('publicPages.useCases.enterprise.industries.insurance.desc') },
+    { title: t('publicPages.useCases.enterprise.industries.logistics.title'), desc: t('publicPages.useCases.enterprise.industries.logistics.desc') }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -138,7 +138,7 @@ export default function Enterprise() {
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
                 data-testid="button-contact"
               >
-                Contact Enterprise
+                {t('publicPages.useCases.enterprise.buttons.contactEnterprise')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -146,7 +146,7 @@ export default function Enterprise() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
-                Enterprise Docs
+                {t('publicPages.useCases.enterprise.buttons.enterpriseDocs')}
               </button>
             </Link>
           </div>
@@ -178,8 +178,8 @@ export default function Enterprise() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Enterprise Solutions</h2>
-            <p className="text-gray-400">Blockchain applications for modern business challenges.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.enterprise.sections.solutions')}</h2>
+            <p className="text-gray-400">{t('publicPages.useCases.enterprise.sections.solutionsDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -211,7 +211,7 @@ export default function Enterprise() {
 
       <section className="py-20 px-6 bg-white/[0.02] border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Platform Features</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.enterprise.sections.platformFeatures')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => {
@@ -234,7 +234,7 @@ export default function Enterprise() {
 
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Industry Applications</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.enterprise.sections.industryApplications')}</h2>
           
           <div className="grid md:grid-cols-3 gap-6">
             {industries.map((industry, idx) => (
@@ -256,10 +256,9 @@ export default function Enterprise() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#7000ff]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(112,0,255,0.1) 0%, rgba(0,240,255,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">Ready for Enterprise Blockchain?</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.enterprise.cta.title')}</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Schedule a consultation with our enterprise team.
-              We'll design a custom solution that fits your organization's requirements.
+              {t('publicPages.useCases.enterprise.cta.desc')}
             </p>
             <Link href="/app">
               <button 
@@ -267,7 +266,7 @@ export default function Enterprise() {
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
                 data-testid="button-schedule"
               >
-                Schedule Consultation <ArrowRight className="w-4 h-4" />
+                {t('publicPages.useCases.enterprise.cta.scheduleConsultation')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>

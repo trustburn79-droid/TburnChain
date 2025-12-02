@@ -6,114 +6,115 @@ import { SiDiscord, SiTelegram, SiX, SiGithub } from "react-icons/si";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 
-const communityStats = [
-  {
-    id: 1,
-    icon: Users,
-    value: "307,538",
-    label: "Total Members",
-    change: "+12.5%",
-    iconColor: "text-[#7000ff]",
-    bgColor: "bg-[#7000ff]/10",
-  },
-  {
-    id: 2,
-    icon: TrendingUp,
-    value: "89,421",
-    label: "Monthly Active",
-    change: "+8.3%",
-    iconColor: "text-[#00f0ff]",
-    bgColor: "bg-[#00f0ff]/10",
-  },
-  {
-    id: 3,
-    icon: Crown,
-    value: "1,247",
-    label: "Ambassadors",
-    change: "+156",
-    iconColor: "text-[#ffd700]",
-    bgColor: "bg-[#ffd700]/10",
-  },
-  {
-    id: 4,
-    icon: GitBranch,
-    value: "482",
-    label: "Contributors",
-    change: "+45",
-    iconColor: "text-[#ff0055]",
-    bgColor: "bg-[#ff0055]/10",
-  },
-];
-
-const communityChannels = [
-  {
-    id: 1,
-    name: "Discord",
-    icon: SiDiscord,
-    members: "52,847 members",
-    description: "Real-time dev chat, support, and community hanging out.",
-    action: "Join Server",
-    color: "#5865F2",
-    href: "https://discord.gg/tburnchain",
-    external: true,
-  },
-  {
-    id: 2,
-    name: "Telegram",
-    icon: SiTelegram,
-    members: "38,291 members",
-    description: "Fast announcements and local community groups.",
-    action: "Join Channel",
-    color: "#0088cc",
-    href: "https://t.me/tburnchain",
-    external: true,
-  },
-  {
-    id: 3,
-    name: "Twitter / X",
-    icon: SiX,
-    members: "127,450 followers",
-    description: "Latest updates, partnerships, and event news.",
-    action: "Follow Us",
-    color: "#ffffff",
-    href: "https://x.com/tburnchain",
-    external: true,
-  },
-  {
-    id: 4,
-    name: "GitHub",
-    icon: SiGithub,
-    members: "3,842 stargazers",
-    description: "Open source code, SDKs, and technical documentation.",
-    action: "Contribute",
-    color: "#e0e0e0",
-    href: "https://github.com/tburnchain",
-    external: true,
-  },
-];
-
-const leaderboard = [
-  { rank: 1, name: "CryptoKim", initials: "CK", points: "125,840 pts", tier: "Diamond", isTop: true },
-  { rank: 2, name: "BlockMaster", initials: "BM", points: "98,520 pts", tier: "Platinum", isTop: false },
-  { rank: 3, name: "DeFiQueen", initials: "DQ", points: "87,340 pts", tier: "Platinum", isTop: false },
-];
-
-const ambassadorBenefits = [
-  "Monthly TBURN token rewards",
-  "Early access to new features",
-  "Official NFT Badge & Swag",
-  "Direct team communication channel",
-];
-
-const contributeWays = [
-  { icon: Code, title: "Code", description: "SDKs, Smart Contracts, Tools", action: "View Issues", color: "text-[#00f0ff]", bgColor: "bg-[#00f0ff]/10", href: "/developers/docs" },
-  { icon: Book, title: "Content", description: "Tutorials, Blogs, Translations", action: "Submit Content", color: "text-[#ffd700]", bgColor: "bg-[#ffd700]/10", href: "/community/news" },
-  { icon: Shield, title: "Moderation", description: "Discord & Telegram Support", action: "Apply Mod", color: "text-[#00ff9d]", bgColor: "bg-[#00ff9d]/10", href: "/community/hub" },
-  { icon: Megaphone, title: "Marketing", description: "Events, Social Media, Growth", action: "Join Team", color: "text-[#ff0055]", bgColor: "bg-[#ff0055]/10", href: "/community/events" },
-];
-
 export default function CommunityHub() {
   const { t } = useTranslation();
+
+  const communityStats = [
+    {
+      id: 1,
+      icon: Users,
+      value: "307,538",
+      label: t('publicPages.community.hub.stats.totalMembers'),
+      change: "+12.5%",
+      iconColor: "text-[#7000ff]",
+      bgColor: "bg-[#7000ff]/10",
+    },
+    {
+      id: 2,
+      icon: TrendingUp,
+      value: "89,421",
+      label: t('publicPages.community.hub.stats.monthlyActive'),
+      change: "+8.3%",
+      iconColor: "text-[#00f0ff]",
+      bgColor: "bg-[#00f0ff]/10",
+    },
+    {
+      id: 3,
+      icon: Crown,
+      value: "1,247",
+      label: t('publicPages.community.hub.stats.ambassadors'),
+      change: "+156",
+      iconColor: "text-[#ffd700]",
+      bgColor: "bg-[#ffd700]/10",
+    },
+    {
+      id: 4,
+      icon: GitBranch,
+      value: "482",
+      label: t('publicPages.community.hub.stats.contributors'),
+      change: "+45",
+      iconColor: "text-[#ff0055]",
+      bgColor: "bg-[#ff0055]/10",
+    },
+  ];
+
+  const communityChannels = [
+    {
+      id: 1,
+      name: "Discord",
+      icon: SiDiscord,
+      members: t('publicPages.community.hub.channels.discord.members'),
+      description: t('publicPages.community.hub.channels.discord.description'),
+      action: t('publicPages.community.hub.channels.discord.action'),
+      color: "#5865F2",
+      href: "https://discord.gg/tburnchain",
+      external: true,
+    },
+    {
+      id: 2,
+      name: "Telegram",
+      icon: SiTelegram,
+      members: t('publicPages.community.hub.channels.telegram.members'),
+      description: t('publicPages.community.hub.channels.telegram.description'),
+      action: t('publicPages.community.hub.channels.telegram.action'),
+      color: "#0088cc",
+      href: "https://t.me/tburnchain",
+      external: true,
+    },
+    {
+      id: 3,
+      name: "Twitter / X",
+      icon: SiX,
+      members: t('publicPages.community.hub.channels.twitter.members'),
+      description: t('publicPages.community.hub.channels.twitter.description'),
+      action: t('publicPages.community.hub.channels.twitter.action'),
+      color: "#ffffff",
+      href: "https://x.com/tburnchain",
+      external: true,
+    },
+    {
+      id: 4,
+      name: "GitHub",
+      icon: SiGithub,
+      members: t('publicPages.community.hub.channels.github.members'),
+      description: t('publicPages.community.hub.channels.github.description'),
+      action: t('publicPages.community.hub.channels.github.action'),
+      color: "#e0e0e0",
+      href: "https://github.com/tburnchain",
+      external: true,
+    },
+  ];
+
+  const leaderboard = [
+    { rank: 1, name: "CryptoKim", initials: "CK", points: t('publicPages.community.hub.leaderboard.points', { count: '125,840' }), tier: t('publicPages.community.hub.leaderboard.tiers.diamond'), isTop: true },
+    { rank: 2, name: "BlockMaster", initials: "BM", points: t('publicPages.community.hub.leaderboard.points', { count: '98,520' }), tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
+    { rank: 3, name: "DeFiQueen", initials: "DQ", points: t('publicPages.community.hub.leaderboard.points', { count: '87,340' }), tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
+  ];
+
+  const ambassadorBenefits = [
+    t('publicPages.community.hub.ambassador.benefits.rewards'),
+    t('publicPages.community.hub.ambassador.benefits.earlyAccess'),
+    t('publicPages.community.hub.ambassador.benefits.nftBadge'),
+    t('publicPages.community.hub.ambassador.benefits.directChannel'),
+  ];
+
+  const contributeWays = [
+    { icon: Code, title: t('publicPages.community.hub.contribute.code.title'), description: t('publicPages.community.hub.contribute.code.description'), action: t('publicPages.community.hub.contribute.code.action'), color: "text-[#00f0ff]", bgColor: "bg-[#00f0ff]/10", href: "/developers/docs" },
+    { icon: Book, title: t('publicPages.community.hub.contribute.content.title'), description: t('publicPages.community.hub.contribute.content.description'), action: t('publicPages.community.hub.contribute.content.action'), color: "text-[#ffd700]", bgColor: "bg-[#ffd700]/10", href: "/community/news" },
+    { icon: Shield, title: t('publicPages.community.hub.contribute.moderation.title'), description: t('publicPages.community.hub.contribute.moderation.description'), action: t('publicPages.community.hub.contribute.moderation.action'), color: "text-[#00ff9d]", bgColor: "bg-[#00ff9d]/10", href: "/community/hub" },
+    { icon: Megaphone, title: t('publicPages.community.hub.contribute.marketing.title'), description: t('publicPages.community.hub.contribute.marketing.description'), action: t('publicPages.community.hub.contribute.marketing.action'), color: "text-[#ff0055]", bgColor: "bg-[#ff0055]/10", href: "/community/events" },
+  ];
+
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -156,7 +157,7 @@ export default function CommunityHub() {
       {/* Community Channels */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Community Channels</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.community.hub.channelsTitle')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {communityChannels.map((channel) => (
@@ -199,8 +200,8 @@ export default function CommunityHub() {
               <div className="flex items-center gap-3 mb-6">
                 <Trophy className="w-7 h-7 text-[#ffd700]" />
                 <div>
-                  <h3 className="text-xl font-bold text-white">Contributor Leaderboard</h3>
-                  <p className="text-xs text-gray-400">Top community contributors this month</p>
+                  <h3 className="text-xl font-bold text-white">{t('publicPages.community.hub.leaderboard.title')}</h3>
+                  <p className="text-xs text-gray-400">{t('publicPages.community.hub.leaderboard.subtitle')}</p>
                 </div>
               </div>
               
@@ -233,8 +234,8 @@ export default function CommunityHub() {
               <div className="flex items-center gap-3 mb-6">
                 <Medal className="w-7 h-7 text-[#7000ff]" />
                 <div>
-                  <h3 className="text-xl font-bold text-white">Ambassador Program</h3>
-                  <p className="text-xs text-gray-400">Lead the global community</p>
+                  <h3 className="text-xl font-bold text-white">{t('publicPages.community.hub.ambassador.title')}</h3>
+                  <p className="text-xs text-gray-400">{t('publicPages.community.hub.ambassador.subtitle')}</p>
                 </div>
               </div>
 
@@ -251,7 +252,7 @@ export default function CommunityHub() {
                   className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_15px_rgba(112,0,255,0.3)]"
                   data-testid="button-apply-ambassador"
                 >
-                  Apply as Ambassador
+                  {t('publicPages.community.hub.ambassador.applyButton')}
                 </button>
               </Link>
             </div>
@@ -262,7 +263,7 @@ export default function CommunityHub() {
       {/* Ways to Contribute */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Ways to Contribute</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.community.hub.contributeTitle')}</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {contributeWays.map((way, index) => (
               <div key={index} className="spotlight-card rounded-xl p-6 text-center border border-white/10 group">
@@ -292,32 +293,31 @@ export default function CommunityHub() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00f0ff]/10 border border-[#00f0ff]/30 text-xs font-mono text-[#00f0ff] mb-4">
               <Vote className="w-3 h-3" /> TBURN DAO
             </div>
-            <h2 className="text-3xl font-bold text-white mb-4">Governance</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.community.hub.governance.title')}</h2>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Stake TBURN tokens to participate in protocol decisions. <br />
-              Create proposals, vote on upgrades, and manage the community treasury.
+              {t('publicPages.community.hub.governance.description')}
             </p>
             <Link href="/governance">
               <button 
                 className="px-6 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition flex items-center gap-2"
                 data-testid="button-governance-portal"
               >
-                Go to Governance Portal <ArrowRight className="w-4 h-4" />
+                {t('publicPages.community.hub.governance.button')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>
           <div className="flex-1 grid grid-cols-2 gap-4 w-full">
             <div className="bg-black/40 p-4 rounded-lg border border-white/10 text-center">
               <div className="text-2xl font-bold text-white mb-1">124</div>
-              <div className="text-xs text-gray-500">Proposals</div>
+              <div className="text-xs text-gray-500">{t('publicPages.community.hub.governance.stats.proposals')}</div>
             </div>
             <div className="bg-black/40 p-4 rounded-lg border border-white/10 text-center">
               <div className="text-2xl font-bold text-white mb-1">15.2M</div>
-              <div className="text-xs text-gray-500">Votes Cast</div>
+              <div className="text-xs text-gray-500">{t('publicPages.community.hub.governance.stats.votesCast')}</div>
             </div>
             <div className="bg-black/40 p-4 rounded-lg border border-white/10 text-center col-span-2">
               <div className="text-2xl font-bold text-white mb-1">$12.8M</div>
-              <div className="text-xs text-gray-500">Treasury Balance</div>
+              <div className="text-xs text-gray-500">{t('publicPages.community.hub.governance.stats.treasury')}</div>
             </div>
           </div>
         </div>

@@ -8,81 +8,81 @@ import {
   Lock, Landmark, Percent, Globe
 } from "lucide-react";
 
-const features = [
-  {
-    icon: Zap,
-    title: "High Performance",
-    description: "Experience Bitcoin DeFi at lightning speed. TBurn Chain's high TPS and low latency allow for seamless trading and yield farming.",
-    gradientFrom: "#f7931a",
-    gradientTo: "#ffd700",
-    hoverColor: "text-[#f7931a]"
-  },
-  {
-    icon: Shield,
-    title: "Trust Verification",
-    description: "Your assets are secure. Our 3-stage verification system ensures that all bridged assets and DeFi protocols are audited and trustworthy.",
-    gradientFrom: "#7000ff",
-    gradientTo: "#00f0ff",
-    hoverColor: "text-[#7000ff]"
-  },
-  {
-    icon: Users,
-    title: "Growing Ecosystem",
-    description: "Join a rapidly expanding network. Thousands of projects are building BTC-native applications on TBurn Chain.",
-    gradientFrom: "#22c55e",
-    gradientTo: "#10b981",
-    hoverColor: "text-green-400"
-  },
-  {
-    icon: Maximize2,
-    title: "Scalable Solutions",
-    description: "Built for mass adoption. Our infrastructure scales effortlessly to handle global Bitcoin liquidity demands.",
-    gradientFrom: "#3b82f6",
-    gradientTo: "#6366f1",
-    hoverColor: "text-blue-400"
-  }
-];
-
-const stats = [
-  { value: "15,000+", label: "BTC Bridged", color: "#f7931a" },
-  { value: "$450M+", label: "TVL", color: "#ffd700" },
-  { value: "Zero", label: "Security Incidents", color: "#94a3b8" }
-];
-
-const btcfiProducts = [
-  {
-    icon: ArrowRightLeft,
-    iconColor: "#f7931a",
-    title: "tBTC Bridge",
-    description: "Trustless Bitcoin bridging using threshold signatures. No custodians, fully decentralized wrapping mechanism.",
-    stats: "15,000+ BTC locked"
-  },
-  {
-    icon: Percent,
-    iconColor: "#22c55e",
-    title: "BTC Lending",
-    description: "Deposit BTC as collateral and borrow stablecoins. Variable rates based on utilization, auto-liquidation protection.",
-    stats: "8.5% avg APY"
-  },
-  {
-    icon: TrendingUp,
-    iconColor: "#3b82f6",
-    title: "BTC Yield Farming",
-    description: "Earn yield on your wrapped BTC through liquidity provision. Multiple pool options with varying risk/reward profiles.",
-    stats: "12-25% APY range"
-  },
-  {
-    icon: Lock,
-    iconColor: "#7000ff",
-    title: "BTC Staking",
-    description: "Stake wrapped BTC in validator pools to earn network rewards. Liquid staking derivatives available for DeFi composability.",
-    stats: "5.2% base APY"
-  }
-];
-
 export default function Btcfi() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const features = [
+    {
+      icon: Zap,
+      title: t('publicPages.solutions.btcfi.features.highPerformance.title'),
+      description: t('publicPages.solutions.btcfi.features.highPerformance.description'),
+      gradientFrom: "#f7931a",
+      gradientTo: "#ffd700",
+      hoverColor: "text-[#f7931a]"
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.solutions.btcfi.features.trustVerification.title'),
+      description: t('publicPages.solutions.btcfi.features.trustVerification.description'),
+      gradientFrom: "#7000ff",
+      gradientTo: "#00f0ff",
+      hoverColor: "text-[#7000ff]"
+    },
+    {
+      icon: Users,
+      title: t('publicPages.solutions.btcfi.features.growingEcosystem.title'),
+      description: t('publicPages.solutions.btcfi.features.growingEcosystem.description'),
+      gradientFrom: "#22c55e",
+      gradientTo: "#10b981",
+      hoverColor: "text-green-400"
+    },
+    {
+      icon: Maximize2,
+      title: t('publicPages.solutions.btcfi.features.scalableSolutions.title'),
+      description: t('publicPages.solutions.btcfi.features.scalableSolutions.description'),
+      gradientFrom: "#3b82f6",
+      gradientTo: "#6366f1",
+      hoverColor: "text-blue-400"
+    }
+  ];
+
+  const stats = [
+    { value: "15,000+", label: t('publicPages.solutions.btcfi.stats.btcBridged'), color: "#f7931a" },
+    { value: "$450M+", label: t('publicPages.solutions.btcfi.stats.tvl'), color: "#ffd700" },
+    { value: t('publicPages.solutions.btcfi.stats.zeroValue'), label: t('publicPages.solutions.btcfi.stats.securityIncidents'), color: "#94a3b8" }
+  ];
+
+  const btcfiProducts = [
+    {
+      icon: ArrowRightLeft,
+      iconColor: "#f7931a",
+      title: t('publicPages.solutions.btcfi.products.tbtcBridge.title'),
+      description: t('publicPages.solutions.btcfi.products.tbtcBridge.description'),
+      stats: t('publicPages.solutions.btcfi.products.tbtcBridge.stats')
+    },
+    {
+      icon: Percent,
+      iconColor: "#22c55e",
+      title: t('publicPages.solutions.btcfi.products.btcLending.title'),
+      description: t('publicPages.solutions.btcfi.products.btcLending.description'),
+      stats: t('publicPages.solutions.btcfi.products.btcLending.stats')
+    },
+    {
+      icon: TrendingUp,
+      iconColor: "#3b82f6",
+      title: t('publicPages.solutions.btcfi.products.btcYieldFarming.title'),
+      description: t('publicPages.solutions.btcfi.products.btcYieldFarming.description'),
+      stats: t('publicPages.solutions.btcfi.products.btcYieldFarming.stats')
+    },
+    {
+      icon: Lock,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.btcfi.products.btcStaking.title'),
+      description: t('publicPages.solutions.btcfi.products.btcStaking.description'),
+      stats: t('publicPages.solutions.btcfi.products.btcStaking.stats')
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -142,7 +142,7 @@ export default function Btcfi() {
                 style={{ boxShadow: "0 0 20px rgba(247,147,26,0.4)" }}
                 data-testid="button-bridge-btc"
               >
-                <ArrowRightLeft className="w-4 h-4" /> Bridge BTC
+                <ArrowRightLeft className="w-4 h-4" /> {t('publicPages.solutions.btcfi.buttons.bridgeBtc')}
               </button>
             </Link>
             <Link href="/app/yield-farming">
@@ -150,7 +150,7 @@ export default function Btcfi() {
                 className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
                 data-testid="button-view-yields"
               >
-                <BarChart3 className="w-4 h-4" /> View Yields
+                <BarChart3 className="w-4 h-4" /> {t('publicPages.solutions.btcfi.buttons.viewYields')}
               </button>
             </Link>
           </div>
@@ -208,9 +208,9 @@ export default function Btcfi() {
       {/* BTCfi Products */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">BTCfi Products</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.solutions.btcfi.productsSection.title')}</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Comprehensive suite of Bitcoin DeFi products designed for security and yield optimization.
+            {t('publicPages.solutions.btcfi.productsSection.description')}
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
@@ -250,9 +250,9 @@ export default function Btcfi() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Related Solutions</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.btcfi.relatedSolutions.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Explore other TBurn Chain solutions that complement BTCfi.
+            {t('publicPages.solutions.btcfi.relatedSolutions.description')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
             <Link 
@@ -262,8 +262,8 @@ export default function Btcfi() {
             >
               <Coins className="w-5 h-5 text-[#f7931a]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f7931a] transition">Token Extensions</p>
-                <p className="text-xs text-gray-500">tBTC standards</p>
+                <p className="font-medium text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.relatedSolutions.tokenExtensions.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.tokenExtensions.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -273,8 +273,8 @@ export default function Btcfi() {
             >
               <Wallet className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">Wallets</p>
-                <p className="text-xs text-gray-500">BTC wallets</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.btcfi.relatedSolutions.wallets.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.wallets.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -284,8 +284,8 @@ export default function Btcfi() {
             >
               <CreditCard className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Payments</p>
-                <p className="text-xs text-gray-500">BTC payments</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.btcfi.relatedSolutions.payments.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.payments.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -295,8 +295,8 @@ export default function Btcfi() {
             >
               <Landmark className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">Financial Infra</p>
-                <p className="text-xs text-gray-500">DeFi protocols</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.btcfi.relatedSolutions.financial.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.financial.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -306,8 +306,8 @@ export default function Btcfi() {
             >
               <Store className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Commerce</p>
-                <p className="text-xs text-gray-500">BTC commerce</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.btcfi.relatedSolutions.commerce.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.commerce.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -317,8 +317,8 @@ export default function Btcfi() {
             >
               <Lock className="w-5 h-5 text-[#ffd700]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ffd700] transition">Permissioned</p>
-                <p className="text-xs text-gray-500">Enterprise BTC</p>
+                <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.btcfi.relatedSolutions.permissioned.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.permissioned.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -328,8 +328,8 @@ export default function Btcfi() {
             >
               <TrendingUp className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">AI Features</p>
-                <p className="text-xs text-gray-500">AI optimization</p>
+                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.btcfi.relatedSolutions.aiFeatures.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.aiFeatures.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -339,8 +339,8 @@ export default function Btcfi() {
             >
               <Zap className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">Actions & Blinks</p>
-                <p className="text-xs text-gray-500">Quick actions</p>
+                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.btcfi.relatedSolutions.actionsBlinks.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.relatedSolutions.actionsBlinks.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -350,9 +350,9 @@ export default function Btcfi() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Developer Resources</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.btcfi.developerResources.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Build BTCfi applications with TBurn Chain's comprehensive toolkit.
+            {t('publicPages.solutions.btcfi.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             <Link 
@@ -362,8 +362,8 @@ export default function Btcfi() {
             >
               <BookOpen className="w-5 h-5 text-[#f7931a]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f7931a] transition">SDK Guide</p>
-                <p className="text-xs text-gray-500">BTCfi SDK</p>
+                <p className="font-medium text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.developerResources.sdkGuide.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -373,8 +373,8 @@ export default function Btcfi() {
             >
               <Code className="w-5 h-5 text-[#ffd700]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ffd700] transition">Smart Contracts</p>
-                <p className="text-xs text-gray-500">tBTC contracts</p>
+                <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.btcfi.developerResources.smartContracts.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -384,8 +384,8 @@ export default function Btcfi() {
             >
               <FileText className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">API Reference</p>
-                <p className="text-xs text-gray-500">Bridge API</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.btcfi.developerResources.apiReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -395,8 +395,8 @@ export default function Btcfi() {
             >
               <Globe className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">WebSocket API</p>
-                <p className="text-xs text-gray-500">Real-time feeds</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.btcfi.developerResources.websocketApi.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.websocketApi.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -406,8 +406,8 @@ export default function Btcfi() {
             >
               <Terminal className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">CLI Reference</p>
-                <p className="text-xs text-gray-500">Bridge CLI</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.btcfi.developerResources.cliReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.cliReference.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -417,8 +417,8 @@ export default function Btcfi() {
             >
               <ExternalLink className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Code Examples</p>
-                <p className="text-xs text-gray-500">BTCfi samples</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.btcfi.developerResources.codeExamples.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.developerResources.codeExamples.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -431,14 +431,14 @@ export default function Btcfi() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-defi-mastery"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Learn More</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.btcfi.learnMore.title')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#8b5cf6]/20 flex items-center justify-center">
                 <BarChart3 className="w-5 h-5 text-[#8b5cf6]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">DeFi Mastery</h4>
-                <p className="text-xs text-gray-500">BTCfi strategies</p>
+                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.btcfi.learnMore.defiMastery.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.learnMore.defiMastery.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -447,14 +447,14 @@ export default function Btcfi() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-intro-defi"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Getting Started</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.btcfi.learnMore.gettingStarted')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#f7931a]/20 flex items-center justify-center">
                 <Bitcoin className="w-5 h-5 text-[#f7931a]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f7931a] transition">Intro to DeFi</h4>
-                <p className="text-xs text-gray-500">BTCfi basics</p>
+                <h4 className="font-bold text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.btcfi.learnMore.introToDefi.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.btcfi.learnMore.introToDefi.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -462,16 +462,16 @@ export default function Btcfi() {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">Ready to unlock your Bitcoin?</h2>
+          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.btcfi.cta.title')}</h2>
           <p className="text-gray-400 mb-8">
-            Start earning yield on your idle Bitcoin today with TBurn Chain's secure BTCfi ecosystem.
+            {t('publicPages.solutions.btcfi.cta.description')}
           </p>
           <Link 
             href="/developers/docs"
             className="text-[#f7931a] hover:text-white transition-colors border-b border-[#f7931a] hover:border-white pb-1"
             data-testid="link-btcfi-guide"
           >
-            Read BTCfi Guide <ArrowLeft className="w-4 h-4 inline-block rotate-180 ml-1" />
+            {t('publicPages.solutions.btcfi.cta.link')} <ArrowLeft className="w-4 h-4 inline-block rotate-180 ml-1" />
           </Link>
         </div>
       </section>

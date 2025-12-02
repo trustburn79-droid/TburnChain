@@ -7,59 +7,6 @@ import {
 } from "lucide-react";
 import { SiEthereum } from "react-icons/si";
 
-const platformFeatures = [
-  { 
-    icon: SiEthereum, 
-    title: "EVM Compatibility", 
-    desc: "Full support for Solidity 0.8.x and Vyper. Deploy existing Ethereum contracts with zero changes.",
-    color: "#7000ff",
-    bgColor: "bg-[#7000ff]/10"
-  },
-  { 
-    icon: Shield, 
-    title: "Trust Score Integration", 
-    desc: "Native precompiles to query project and wallet Trust Scores directly on-chain.",
-    color: "#00ff9d",
-    bgColor: "bg-[#00ff9d]/10"
-  },
-  { 
-    icon: Flame, 
-    title: "Auto-Burn Mechanism", 
-    desc: "Protocol-level token burning support for deflationary tokenomics models.",
-    color: "#ffd700",
-    bgColor: "bg-[#ffd700]/10"
-  },
-  { 
-    icon: Brain, 
-    title: "AI Oracle", 
-    desc: "Access real-world data verified by our Triple-Band AI system via secure oracles.",
-    color: "#00f0ff",
-    bgColor: "bg-[#00f0ff]/10"
-  },
-  { 
-    icon: Fuel, 
-    title: "Gas Optimization", 
-    desc: "Advanced compiler optimization tools for efficient gas usage and lower costs.",
-    color: "#ff0055",
-    bgColor: "bg-[#ff0055]/10"
-  },
-  { 
-    icon: Lock, 
-    title: "Quantum Resistant", 
-    desc: "Future-proof your dApps with quantum-resistant signature schemes.",
-    color: "#ffffff",
-    bgColor: "bg-white/10"
-  },
-];
-
-const contractTemplates = [
-  { name: "Basic Token", active: true },
-  { name: "Trust Score Integration", active: false },
-  { name: "Auto Burn", active: false },
-  { name: "Staking", active: false },
-  { name: "Governance", active: false },
-];
-
 const basicTokenCode = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
@@ -205,32 +152,85 @@ contract TBurnGovernor is Governor, GovernorVotes, GovernorCountingSimple {
     }
 }`;
 
-const securityChecklist = [
-  "Prevent reentrancy attacks (use ReentrancyGuard)",
-  "Validate integer overflow/underflow (built-in with Solidity 0.8+)",
-  "Apply access control patterns (Ownable, AccessControl)",
-  "Change state before external calls (Checks-Effects-Interactions)",
-  "Protect initializer functions when using proxy patterns",
-];
-
-const gasOptimizationTips = [
-  { title: "Use memory vs storage", desc: "Cache storage variables in memory for loops." },
-  { title: "Variable packing", desc: "Pack multiple small variables into a single storage slot." },
-  { title: "Use events", desc: "Store non-essential data in logs instead of state." },
-  { title: "Short revert strings", desc: "Keep error messages concise or use custom errors." },
-];
-
 export default function SmartContracts() {
   const { t } = useTranslation();
   const [activeTemplate, setActiveTemplate] = useState("Basic Token");
   const [copied, setCopied] = useState(false);
 
+  const platformFeatures = [
+    { 
+      icon: SiEthereum, 
+      title: t('publicPages.developers.contracts.features.evmCompatibility.title'), 
+      desc: t('publicPages.developers.contracts.features.evmCompatibility.description'),
+      color: "#7000ff",
+      bgColor: "bg-[#7000ff]/10"
+    },
+    { 
+      icon: Shield, 
+      title: t('publicPages.developers.contracts.features.trustScore.title'), 
+      desc: t('publicPages.developers.contracts.features.trustScore.description'),
+      color: "#00ff9d",
+      bgColor: "bg-[#00ff9d]/10"
+    },
+    { 
+      icon: Flame, 
+      title: t('publicPages.developers.contracts.features.autoBurn.title'), 
+      desc: t('publicPages.developers.contracts.features.autoBurn.description'),
+      color: "#ffd700",
+      bgColor: "bg-[#ffd700]/10"
+    },
+    { 
+      icon: Brain, 
+      title: t('publicPages.developers.contracts.features.aiOracle.title'), 
+      desc: t('publicPages.developers.contracts.features.aiOracle.description'),
+      color: "#00f0ff",
+      bgColor: "bg-[#00f0ff]/10"
+    },
+    { 
+      icon: Fuel, 
+      title: t('publicPages.developers.contracts.features.gasOptimization.title'), 
+      desc: t('publicPages.developers.contracts.features.gasOptimization.description'),
+      color: "#ff0055",
+      bgColor: "bg-[#ff0055]/10"
+    },
+    { 
+      icon: Lock, 
+      title: t('publicPages.developers.contracts.features.quantumResistant.title'), 
+      desc: t('publicPages.developers.contracts.features.quantumResistant.description'),
+      color: "#ffffff",
+      bgColor: "bg-white/10"
+    },
+  ];
+
+  const contractTemplates = [
+    { name: t('publicPages.developers.contracts.templates.basicToken'), active: true },
+    { name: t('publicPages.developers.contracts.templates.trustScoreIntegration'), active: false },
+    { name: t('publicPages.developers.contracts.templates.autoBurn'), active: false },
+    { name: t('publicPages.developers.contracts.templates.staking'), active: false },
+    { name: t('publicPages.developers.contracts.templates.governance'), active: false },
+  ];
+
+  const securityChecklist = [
+    t('publicPages.developers.contracts.security.reentrancy'),
+    t('publicPages.developers.contracts.security.overflow'),
+    t('publicPages.developers.contracts.security.accessControl'),
+    t('publicPages.developers.contracts.security.checksEffects'),
+    t('publicPages.developers.contracts.security.initializer'),
+  ];
+
+  const gasOptimizationTips = [
+    { title: t('publicPages.developers.contracts.gasOptimization.memoryVsStorage.title'), desc: t('publicPages.developers.contracts.gasOptimization.memoryVsStorage.desc') },
+    { title: t('publicPages.developers.contracts.gasOptimization.variablePacking.title'), desc: t('publicPages.developers.contracts.gasOptimization.variablePacking.desc') },
+    { title: t('publicPages.developers.contracts.gasOptimization.useEvents.title'), desc: t('publicPages.developers.contracts.gasOptimization.useEvents.desc') },
+    { title: t('publicPages.developers.contracts.gasOptimization.shortRevert.title'), desc: t('publicPages.developers.contracts.gasOptimization.shortRevert.desc') },
+  ];
+
   const getTemplateCode = () => {
     switch (activeTemplate) {
-      case "Trust Score Integration": return trustScoreCode;
-      case "Auto Burn": return autoBurnCode;
-      case "Staking": return stakingCode;
-      case "Governance": return governanceCode;
+      case t('publicPages.developers.contracts.templates.trustScoreIntegration'): return trustScoreCode;
+      case t('publicPages.developers.contracts.templates.autoBurn'): return autoBurnCode;
+      case t('publicPages.developers.contracts.templates.staking'): return stakingCode;
+      case t('publicPages.developers.contracts.templates.governance'): return governanceCode;
       default: return basicTokenCode;
     }
   };
@@ -277,7 +277,7 @@ export default function SmartContracts() {
       {/* Platform Features */}
       <section className="py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">Platform Features</h2>
+          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.contracts.platformFeatures')}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {platformFeatures.map((feature, index) => (
               <div key={index} className="spotlight-card rounded-xl p-6 border border-white/10">
@@ -300,7 +300,7 @@ export default function SmartContracts() {
       <section className="py-12 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-            <Layers className="w-6 h-6 text-[#7000ff]" /> Contract Templates
+            <Layers className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.contracts.contractTemplates')}
           </h2>
 
           <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
@@ -329,7 +329,7 @@ export default function SmartContracts() {
                   data-testid="button-copy-code"
                 >
                   <Copy className="w-3 h-3" />
-                  {copied ? "Copied!" : "Copy"}
+                  {copied ? t('publicPages.developers.contracts.copied') : t('publicPages.developers.contracts.copy')}
                 </button>
               </div>
               <pre className="bg-[#0d0d12] p-6 font-mono text-sm text-gray-400 overflow-x-auto leading-relaxed">
@@ -348,7 +348,7 @@ export default function SmartContracts() {
             <div className="spotlight-card rounded-xl overflow-hidden border border-[#ffd700]/30 bg-[#ffd700]/5">
               <div className="p-6 border-b border-white/10 flex items-center gap-3">
                 <Shield className="w-6 h-6 text-[#ffd700]" />
-                <h3 className="text-xl font-bold text-white">Security Checklist</h3>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.developers.contracts.securityChecklist')}</h3>
               </div>
               <div className="p-6">
                 <ul className="space-y-3 text-sm text-gray-300">
@@ -368,7 +368,7 @@ export default function SmartContracts() {
             <div className="spotlight-card rounded-xl overflow-hidden border border-[#00ff9d]/30 bg-[#00ff9d]/5">
               <div className="p-6 border-b border-white/10 flex items-center gap-3">
                 <Fuel className="w-6 h-6 text-[#00ff9d]" />
-                <h3 className="text-xl font-bold text-white">Gas Optimization Tips</h3>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.developers.contracts.gasOptimizationTips')}</h3>
               </div>
               <div className="p-6">
                 <ul className="space-y-3 text-sm text-gray-300">
@@ -388,35 +388,35 @@ export default function SmartContracts() {
       {/* Ready to Deploy Section */}
       <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/10 to-[#00f0ff]/10 border-t border-white/5">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">Ready to Deploy?</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.developers.contracts.readyToDeploy')}</h2>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/developers/cli"
               className="px-6 py-3 rounded-lg bg-[#7000ff] text-white hover:bg-[#7000ff]/80 transition flex items-center gap-2 font-bold"
               data-testid="link-cli-guide"
             >
-              <Terminal className="w-5 h-5" /> CLI Guide
+              <Terminal className="w-5 h-5" /> {t('publicPages.developers.contracts.cliGuide')}
             </Link>
             <Link 
               href="/developers/api"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
               data-testid="link-api-reference"
             >
-              <Server className="w-5 h-5" /> API Reference
+              <Server className="w-5 h-5" /> {t('publicPages.developers.contracts.apiReference')}
             </Link>
             <Link 
               href="/developers/sdk"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00ff9d] transition flex items-center gap-2 text-white"
               data-testid="link-sdk-guide"
             >
-              <Book className="w-5 h-5" /> SDK Guide
+              <Book className="w-5 h-5" /> {t('publicPages.developers.contracts.sdkGuide')}
             </Link>
             <Link 
               href="/developers/evm-migration"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ffd700] transition flex items-center gap-2 text-white"
               data-testid="link-evm-migration"
             >
-              <Rocket className="w-5 h-5" /> EVM Migration
+              <Rocket className="w-5 h-5" /> {t('publicPages.developers.contracts.evmMigration')}
             </Link>
           </div>
         </div>

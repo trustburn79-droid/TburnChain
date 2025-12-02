@@ -13,114 +13,114 @@ import {
   Hexagon
 } from "lucide-react";
 
-const wallets = [
-  {
-    id: "tburn",
-    name: "TBurn Official",
-    badge: "RECOMMENDED",
-    platform: "Browser Extension • Mobile",
-    platformColor: "#00f0ff",
-    desc: "The native wallet optimized for TBurn Chain. Features real-time Trust Score display, auto-burn tracking, and direct governance voting.",
-    iconType: "gradient",
-    buttonText: "Download Wallet",
-    buttonStyle: "primary",
-    borderColor: "border-[#7000ff]/30"
-  },
-  {
-    id: "metamask",
-    name: "MetaMask",
-    platform: "Browser • Mobile",
-    platformColor: "#f6851b",
-    desc: "The world's most popular Web3 wallet. Fully compatible with TBurn Chain via custom network settings. Supports all standard token operations.",
-    iconType: "metamask",
-    buttonText: "Connect Guide",
-    buttonStyle: "outline",
-    borderColor: "border-white/10"
-  },
-  {
-    id: "trust",
-    name: "Trust Wallet",
-    platform: "Mobile App",
-    platformColor: "#3375bb",
-    desc: "Secure mobile multi-chain wallet. Excellent for managing TBurn assets on the go. Supports dApp browser integration.",
-    iconType: "shield",
-    buttonText: "Connect Guide",
-    buttonStyle: "outline",
-    borderColor: "border-white/10"
-  },
-  {
-    id: "ledger",
-    name: "Ledger",
-    platform: "Hardware Wallet",
-    platformColor: "#9ca3af",
-    desc: "Cold storage solution for maximum security. Keep your private keys offline while interacting with TBurn Chain dApps.",
-    iconType: "hardware",
-    buttonText: "Setup Guide",
-    buttonStyle: "outline",
-    borderColor: "border-white/10"
-  }
-];
-
-const devFeatures = [
-  {
-    icon: Code,
-    iconColor: "#00f0ff",
-    title: "Trust Score API",
-    desc: "Integrate real-time trust scores into your wallet UI to protect users.",
-    code: "GET /api/v1/trust-score/:address"
-  },
-  {
-    icon: AlertTriangle,
-    iconColor: "#ff0055",
-    title: "Auto-Warning System",
-    desc: "Standard protocol for displaying warnings on low-trust (<40) transactions.",
-    warning: "Trust Score Low: 35/100"
-  },
-  {
-    icon: Package,
-    iconColor: "#00ff9d",
-    title: "Wallet SDK",
-    desc: "Ready-to-use libraries for React, React Native, and Mobile development.",
-    code: "npm install @tburn/wallet-sdk"
-  }
-];
-
-const networks = [
-  {
-    name: "Mainnet",
-    borderColor: "#00ff9d",
-    indicatorColor: "#00ff9d",
-    config: [
-      { label: "Network Name", value: "TBurn Chain" },
-      { label: "RPC URL", value: "https://rpc.tburn.io" },
-      { label: "Chain ID", value: "7777" },
-      { label: "Symbol", value: "TBURN" },
-      { label: "Explorer", value: "https://scan.tburn.io" }
-    ]
-  },
-  {
-    name: "Testnet",
-    borderColor: "#ffd700",
-    indicatorColor: "#ffd700",
-    config: [
-      { label: "Network Name", value: "TBurn Testnet" },
-      { label: "RPC URL", value: "https://testnet-rpc.tburn.io" },
-      { label: "Chain ID", value: "7778" },
-      { label: "Symbol", value: "TBURN" },
-      { label: "Explorer", value: "https://testnet-scan.tburn.io" }
-    ]
-  }
-];
-
-const securityChecklist = [
-  { title: "Secure Your Seed Phrase", desc: "Write it down on paper. Never store it digitally or share it." },
-  { title: "Verify URLs", desc: "Always check you are on tburn.io to avoid phishing." },
-  { title: "Check Trust Scores", desc: "Look for the Trust Score badge before interacting with any new project." }
-];
-
 export default function Wallets() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const wallets = [
+    {
+      id: "tburn",
+      name: t('publicPages.solutions.wallets.walletList.tburn.name'),
+      badge: t('publicPages.solutions.wallets.recommended'),
+      platform: t('publicPages.solutions.wallets.walletList.tburn.platform'),
+      platformColor: "#00f0ff",
+      desc: t('publicPages.solutions.wallets.walletList.tburn.description'),
+      iconType: "gradient",
+      buttonText: t('publicPages.solutions.wallets.walletList.tburn.button'),
+      buttonStyle: "primary",
+      borderColor: "border-[#7000ff]/30"
+    },
+    {
+      id: "metamask",
+      name: t('publicPages.solutions.wallets.walletList.metamask.name'),
+      platform: t('publicPages.solutions.wallets.walletList.metamask.platform'),
+      platformColor: "#f6851b",
+      desc: t('publicPages.solutions.wallets.walletList.metamask.description'),
+      iconType: "metamask",
+      buttonText: t('publicPages.solutions.wallets.walletList.metamask.button'),
+      buttonStyle: "outline",
+      borderColor: "border-white/10"
+    },
+    {
+      id: "trust",
+      name: t('publicPages.solutions.wallets.walletList.trust.name'),
+      platform: t('publicPages.solutions.wallets.walletList.trust.platform'),
+      platformColor: "#3375bb",
+      desc: t('publicPages.solutions.wallets.walletList.trust.description'),
+      iconType: "shield",
+      buttonText: t('publicPages.solutions.wallets.walletList.trust.button'),
+      buttonStyle: "outline",
+      borderColor: "border-white/10"
+    },
+    {
+      id: "ledger",
+      name: t('publicPages.solutions.wallets.walletList.ledger.name'),
+      platform: t('publicPages.solutions.wallets.walletList.ledger.platform'),
+      platformColor: "#9ca3af",
+      desc: t('publicPages.solutions.wallets.walletList.ledger.description'),
+      iconType: "hardware",
+      buttonText: t('publicPages.solutions.wallets.walletList.ledger.button'),
+      buttonStyle: "outline",
+      borderColor: "border-white/10"
+    }
+  ];
+
+  const devFeatures = [
+    {
+      icon: Code,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.wallets.forDevelopers.trustScoreApi.title'),
+      desc: t('publicPages.solutions.wallets.forDevelopers.trustScoreApi.description'),
+      code: "GET /api/v1/trust-score/:address"
+    },
+    {
+      icon: AlertTriangle,
+      iconColor: "#ff0055",
+      title: t('publicPages.solutions.wallets.forDevelopers.autoWarningSystem.title'),
+      desc: t('publicPages.solutions.wallets.forDevelopers.autoWarningSystem.description'),
+      warning: t('publicPages.solutions.wallets.forDevelopers.autoWarningSystem.warningExample')
+    },
+    {
+      icon: Package,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.wallets.forDevelopers.walletSdk.title'),
+      desc: t('publicPages.solutions.wallets.forDevelopers.walletSdk.description'),
+      code: "npm install @tburn/wallet-sdk"
+    }
+  ];
+
+  const networks = [
+    {
+      name: t('publicPages.solutions.wallets.addNetwork.mainnet.name'),
+      borderColor: "#00ff9d",
+      indicatorColor: "#00ff9d",
+      config: [
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Chain" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://rpc.tburn.io" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "7777" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.symbol'), value: "TBURN" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://scan.tburn.io" }
+      ]
+    },
+    {
+      name: t('publicPages.solutions.wallets.addNetwork.testnet.name'),
+      borderColor: "#ffd700",
+      indicatorColor: "#ffd700",
+      config: [
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Testnet" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://testnet-rpc.tburn.io" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "7778" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.symbol'), value: "TBURN" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://testnet-scan.tburn.io" }
+      ]
+    }
+  ];
+
+  const securityChecklist = [
+    { title: t('publicPages.solutions.wallets.securityChecklist.seedPhrase.title'), desc: t('publicPages.solutions.wallets.securityChecklist.seedPhrase.description') },
+    { title: t('publicPages.solutions.wallets.securityChecklist.verifyUrls.title'), desc: t('publicPages.solutions.wallets.securityChecklist.verifyUrls.description') },
+    { title: t('publicPages.solutions.wallets.securityChecklist.checkTrustScores.title'), desc: t('publicPages.solutions.wallets.securityChecklist.checkTrustScores.description') }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -241,7 +241,7 @@ export default function Wallets() {
       {/* For Wallet Developers Section */}
       <section className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">For Wallet Developers</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.wallets.forDevelopers.title')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {devFeatures.map((feature, idx) => {
               const Icon = feature.icon;
@@ -292,7 +292,7 @@ export default function Wallets() {
       {/* Add Custom Network Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Add Custom Network</h2>
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">{t('publicPages.solutions.wallets.addNetwork.title')}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {networks.map((network, idx) => (
               <div 
@@ -340,7 +340,7 @@ export default function Wallets() {
           >
             <div className="bg-black/90 p-10 rounded-lg backdrop-blur-xl">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <Lock className="w-6 h-6 text-[#ff0055]" /> Security Checklist
+                <Lock className="w-6 h-6 text-[#ff0055]" /> {t('publicPages.solutions.wallets.securityChecklist.title')}
               </h3>
               <ul className="space-y-4">
                 {securityChecklist.map((item, idx) => (

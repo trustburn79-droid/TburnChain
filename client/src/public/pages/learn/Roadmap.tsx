@@ -35,98 +35,107 @@ interface TimelinePhase {
   isLeft: boolean;
 }
 
-const timelineData: TimelinePhase[] = [
-  {
-    quarter: "2024 Q4",
-    title: "Preparation Phase",
-    status: "IN_PROGRESS",
-    statusColor: "#00f0ff",
-    dotColor: "#00f0ff",
-    items: [
-      { text: "Core protocol development completed", completed: true },
-      { text: "Smart contract audit (CertiK)", completed: true },
-      { text: "Testnet v0.8 launch", completed: true },
-      { text: "Seed round $2M completed", completed: true },
-      { text: "Private round $5M in progress", inProgress: true },
-    ],
-    isLeft: true,
-  },
-  {
-    quarter: "2025 Q1",
-    title: "Launch Phase",
-    status: "UPCOMING",
-    statusColor: "#7000ff",
-    dotColor: "#7000ff",
-    items: [
-      { text: "Mainnet v1.0 launch (Arbitrum One)" },
-      { text: "Public token sale ($5M target)" },
-      { text: "Major Exchange Listings (CEX)" },
-      { text: "Validator network setup (101 nodes)" },
-      { text: "Developer SDK Release" },
-    ],
-    isLeft: false,
-  },
-  {
-    quarter: "2025 Q2-Q3",
-    title: "Growth Phase",
-    status: "PLANNED",
-    statusColor: "#9ca3af",
-    dotColor: "#ffffff",
-    items: [
-      { text: "100 projects verified milestone", icon: Route },
-      { text: "Community reaches 100K members", icon: Users },
-      { text: "Cross-chain bridge (ETH, BSC, MATIC)", icon: LinkIcon },
-      { text: "AI-powered fraud detection upgrade", icon: Bot },
-      { text: "Mobile wallet app launch", icon: Smartphone },
-    ],
-    isLeft: true,
-  },
-  {
-    quarter: "2026+",
-    title: "Global Expansion",
-    status: "LONG_TERM",
-    statusColor: "#9ca3af",
-    dotColor: "#ffffff",
-    items: [
-      { text: "Global university program (50 countries)", icon: Globe },
-      { text: "Institutional investment solutions", icon: Building },
-      { text: "Regulatory cooperation (SEC, MAS)", icon: Handshake },
-      { text: "Full DAO governance transition", icon: Rocket },
-    ],
-    isLeft: false,
-  },
-];
-
-const growthMetrics = [
-  {
-    year: "Year 1",
-    color: "#00f0ff",
-    projects: "1,500",
-    users: "200K",
-    tvl: "$500M",
-    hasBorder: false,
-  },
-  {
-    year: "Year 2",
-    color: "#7000ff",
-    projects: "6,000",
-    users: "800K",
-    tvl: "$2B",
-    hasBorder: true,
-  },
-  {
-    year: "Year 3",
-    color: "#00ff9d",
-    projects: "20,000",
-    users: "2.5M",
-    tvl: "$5B",
-    hasBorder: false,
-  },
-];
+interface GrowthMetric {
+  year: string;
+  color: string;
+  projects: string;
+  users: string;
+  tvl: string;
+  hasBorder: boolean;
+}
 
 export default function Roadmap() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const timelineData: TimelinePhase[] = [
+    {
+      quarter: t('publicPages.learn.roadmap.phases.phase1.quarter'),
+      title: t('publicPages.learn.roadmap.phases.phase1.title'),
+      status: t('publicPages.learn.roadmap.phases.phase1.status'),
+      statusColor: "#00f0ff",
+      dotColor: "#00f0ff",
+      items: [
+        { text: t('publicPages.learn.roadmap.phases.phase1.items.item1'), completed: true },
+        { text: t('publicPages.learn.roadmap.phases.phase1.items.item2'), completed: true },
+        { text: t('publicPages.learn.roadmap.phases.phase1.items.item3'), completed: true },
+        { text: t('publicPages.learn.roadmap.phases.phase1.items.item4'), completed: true },
+        { text: t('publicPages.learn.roadmap.phases.phase1.items.item5'), inProgress: true },
+      ],
+      isLeft: true,
+    },
+    {
+      quarter: t('publicPages.learn.roadmap.phases.phase2.quarter'),
+      title: t('publicPages.learn.roadmap.phases.phase2.title'),
+      status: t('publicPages.learn.roadmap.phases.phase2.status'),
+      statusColor: "#7000ff",
+      dotColor: "#7000ff",
+      items: [
+        { text: t('publicPages.learn.roadmap.phases.phase2.items.item1') },
+        { text: t('publicPages.learn.roadmap.phases.phase2.items.item2') },
+        { text: t('publicPages.learn.roadmap.phases.phase2.items.item3') },
+        { text: t('publicPages.learn.roadmap.phases.phase2.items.item4') },
+        { text: t('publicPages.learn.roadmap.phases.phase2.items.item5') },
+      ],
+      isLeft: false,
+    },
+    {
+      quarter: t('publicPages.learn.roadmap.phases.phase3.quarter'),
+      title: t('publicPages.learn.roadmap.phases.phase3.title'),
+      status: t('publicPages.learn.roadmap.phases.phase3.status'),
+      statusColor: "#9ca3af",
+      dotColor: "#ffffff",
+      items: [
+        { text: t('publicPages.learn.roadmap.phases.phase3.items.item1'), icon: Route },
+        { text: t('publicPages.learn.roadmap.phases.phase3.items.item2'), icon: Users },
+        { text: t('publicPages.learn.roadmap.phases.phase3.items.item3'), icon: LinkIcon },
+        { text: t('publicPages.learn.roadmap.phases.phase3.items.item4'), icon: Bot },
+        { text: t('publicPages.learn.roadmap.phases.phase3.items.item5'), icon: Smartphone },
+      ],
+      isLeft: true,
+    },
+    {
+      quarter: t('publicPages.learn.roadmap.phases.phase4.quarter'),
+      title: t('publicPages.learn.roadmap.phases.phase4.title'),
+      status: t('publicPages.learn.roadmap.phases.phase4.status'),
+      statusColor: "#9ca3af",
+      dotColor: "#ffffff",
+      items: [
+        { text: t('publicPages.learn.roadmap.phases.phase4.items.item1'), icon: Globe },
+        { text: t('publicPages.learn.roadmap.phases.phase4.items.item2'), icon: Building },
+        { text: t('publicPages.learn.roadmap.phases.phase4.items.item3'), icon: Handshake },
+        { text: t('publicPages.learn.roadmap.phases.phase4.items.item4'), icon: Rocket },
+      ],
+      isLeft: false,
+    },
+  ];
+
+  const growthMetrics: GrowthMetric[] = [
+    {
+      year: t('publicPages.learn.roadmap.growth.year1.label'),
+      color: "#00f0ff",
+      projects: t('publicPages.learn.roadmap.growth.year1.projects'),
+      users: t('publicPages.learn.roadmap.growth.year1.users'),
+      tvl: t('publicPages.learn.roadmap.growth.year1.tvl'),
+      hasBorder: false,
+    },
+    {
+      year: t('publicPages.learn.roadmap.growth.year2.label'),
+      color: "#7000ff",
+      projects: t('publicPages.learn.roadmap.growth.year2.projects'),
+      users: t('publicPages.learn.roadmap.growth.year2.users'),
+      tvl: t('publicPages.learn.roadmap.growth.year2.tvl'),
+      hasBorder: true,
+    },
+    {
+      year: t('publicPages.learn.roadmap.growth.year3.label'),
+      color: "#00ff9d",
+      projects: t('publicPages.learn.roadmap.growth.year3.projects'),
+      users: t('publicPages.learn.roadmap.growth.year3.users'),
+      tvl: t('publicPages.learn.roadmap.growth.year3.tvl'),
+      hasBorder: false,
+    },
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -209,7 +218,7 @@ export default function Roadmap() {
                               {item.completed && <Check className="w-4 h-4 text-[#00ff9d]" />}
                               {item.inProgress && <Loader2 className="w-4 h-4 text-[#00f0ff] animate-spin" />}
                               {item.icon && <item.icon className="w-4 h-4 text-gray-600" />}
-                              {!item.completed && !item.inProgress && !item.icon && phase.status === "UPCOMING" && (
+                              {!item.completed && !item.inProgress && !item.icon && phase.status === t('publicPages.learn.roadmap.phases.phase2.status') && (
                                 <Circle className="w-3 h-3 text-gray-600" />
                               )}
                             </li>
@@ -223,7 +232,7 @@ export default function Roadmap() {
                         className="w-5 h-5 rounded-full bg-[#050505] z-10"
                         style={{ 
                           border: `2px solid ${phase.dotColor}`,
-                          boxShadow: phase.status !== "PLANNED" && phase.status !== "LONG_TERM" ? `0 0 10px ${phase.dotColor}` : 'none'
+                          boxShadow: phase.status !== t('publicPages.learn.roadmap.phases.phase3.status') && phase.status !== t('publicPages.learn.roadmap.phases.phase4.status') ? `0 0 10px ${phase.dotColor}` : 'none'
                         }}
                       />
                     </div>
@@ -238,7 +247,7 @@ export default function Roadmap() {
                         className="w-5 h-5 rounded-full bg-[#050505] z-10"
                         style={{ 
                           border: `2px solid ${phase.dotColor}`,
-                          boxShadow: phase.status !== "PLANNED" && phase.status !== "LONG_TERM" ? `0 0 10px ${phase.dotColor}` : 'none'
+                          boxShadow: phase.status !== t('publicPages.learn.roadmap.phases.phase3.status') && phase.status !== t('publicPages.learn.roadmap.phases.phase4.status') ? `0 0 10px ${phase.dotColor}` : 'none'
                         }}
                       />
                     </div>
@@ -268,7 +277,7 @@ export default function Roadmap() {
                               {item.completed && <Check className="w-4 h-4 text-[#00ff9d]" />}
                               {item.inProgress && <Loader2 className="w-4 h-4 text-[#00f0ff] animate-spin" />}
                               {item.icon && <item.icon className="w-4 h-4 text-gray-600" />}
-                              {!item.completed && !item.inProgress && !item.icon && phase.status === "UPCOMING" && (
+                              {!item.completed && !item.inProgress && !item.icon && phase.status === t('publicPages.learn.roadmap.phases.phase2.status') && (
                                 <Circle className="w-3 h-3 text-gray-600" />
                               )}
                               {item.text}
@@ -288,7 +297,7 @@ export default function Roadmap() {
       {/* Projected Growth Metrics Section */}
       <section className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Projected Growth Metrics</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.learn.roadmap.growth.sectionTitle')}</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {growthMetrics.map((metric, index) => (
@@ -303,15 +312,15 @@ export default function Roadmap() {
                 <h3 className="text-2xl font-bold mb-6" style={{ color: metric.color }}>{metric.year}</h3>
                 <div className="space-y-6">
                   <div>
-                    <p className="text-xs text-gray-500 uppercase">Verified Projects</p>
+                    <p className="text-xs text-gray-500 uppercase">{t('publicPages.learn.roadmap.growth.labels.verifiedProjects')}</p>
                     <p className="text-3xl font-bold text-white font-mono">{metric.projects}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 uppercase">Active Users</p>
+                    <p className="text-xs text-gray-500 uppercase">{t('publicPages.learn.roadmap.growth.labels.activeUsers')}</p>
                     <p className="text-3xl font-bold text-white font-mono">{metric.users}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 uppercase">TVL</p>
+                    <p className="text-xs text-gray-500 uppercase">{t('publicPages.learn.roadmap.growth.labels.tvl')}</p>
                     <p className="text-3xl font-bold text-white font-mono">{metric.tvl}</p>
                   </div>
                 </div>
@@ -324,8 +333,8 @@ export default function Roadmap() {
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">Build the Future with TBurn Chain</h2>
-          <p className="text-gray-400 mb-8">Join our journey and contribute to building trust in the blockchain ecosystem.</p>
+          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.learn.roadmap.cta.title')}</h2>
+          <p className="text-gray-400 mb-8">{t('publicPages.learn.roadmap.cta.description')}</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/learn">
               <button 
@@ -333,7 +342,7 @@ export default function Roadmap() {
                 style={{ background: "linear-gradient(to right, #00f0ff, #7000ff)" }}
                 data-testid="button-join-community"
               >
-                Join Community
+                {t('publicPages.learn.roadmap.cta.joinCommunity')}
               </button>
             </Link>
             <Link href="/developers/quickstart">
@@ -341,7 +350,7 @@ export default function Roadmap() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white font-bold hover:bg-white/5 transition-colors"
                 data-testid="button-view-docs"
               >
-                View Developer Docs
+                {t('publicPages.learn.roadmap.cta.viewDocs')}
               </button>
             </Link>
           </div>

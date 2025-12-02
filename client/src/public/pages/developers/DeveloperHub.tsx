@@ -14,62 +14,19 @@ import {
 import { SiJavascript, SiPython, SiRust, SiGo, SiSwift } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
-const quickStartSteps = [
-  { step: 1, comment: "# Install CLI", command: "npm install -g @burnchain/cli", highlight: "npm" },
-  { step: 2, comment: "# Create Project", command: "burn init my-dapp --template=react", highlight: "burn" },
-  { step: 3, comment: "# Run Dev Server", command: "cd my-dapp && burn dev", highlight: "cd" },
-  { step: 4, comment: "# Deploy to Mainnet", command: "burn deploy --network=mainnet", highlight: "burn" },
+const sdkIcons = [
+  { key: "javascript", icon: SiJavascript, iconColor: "#facc15" },
+  { key: "python", icon: SiPython, iconColor: "#60a5fa" },
+  { key: "rust", icon: SiRust, iconColor: "#f97316" },
+  { key: "go", icon: SiGo, iconColor: "#22d3ee" },
+  { key: "java", icon: FaJava, iconColor: "#f87171" },
+  { key: "swift", icon: SiSwift, iconColor: "#fb923c" },
 ];
 
-const sdks = [
-  { 
-    name: "JavaScript / TypeScript", 
-    icon: SiJavascript, 
-    iconColor: "#facc15", 
-    version: "v4.2.1", 
-    install: "npm install @burnchain/sdk",
-    downloads: "1.2M/mo downloads"
-  },
-  { 
-    name: "Python", 
-    icon: SiPython, 
-    iconColor: "#60a5fa", 
-    version: "v4.1.0", 
-    install: "pip install burnchain-py",
-    downloads: "450K/mo downloads"
-  },
-  { 
-    name: "Rust", 
-    icon: SiRust, 
-    iconColor: "#f97316", 
-    version: "v4.0.3", 
-    install: "cargo add burnchain-rs",
-    downloads: "280K/mo downloads"
-  },
-  { 
-    name: "Go", 
-    icon: SiGo, 
-    iconColor: "#22d3ee", 
-    version: "v4.0.2", 
-    install: "go get github.com/burnchain/go",
-    downloads: "180K/mo downloads"
-  },
-  { 
-    name: "Java / Kotlin", 
-    icon: FaJava, 
-    iconColor: "#f87171", 
-    version: "v4.0.1", 
-    install: "implementation 'burnchain-jvm'",
-    downloads: "120K/mo downloads"
-  },
-  { 
-    name: "Swift", 
-    icon: SiSwift, 
-    iconColor: "#fb923c", 
-    version: "v4.0.0", 
-    install: "pod 'BurnChainSwift'",
-    downloads: "85K/mo downloads"
-  },
+const devToolIcons = [
+  { key: "burnCli", icon: Terminal, color: "#00f0ff" },
+  { key: "testFramework", icon: FlaskConical, color: "#7000ff" },
+  { key: "localDevnet", icon: Server, color: "#00ff9d" },
 ];
 
 const blockchainApiEndpoints = [
@@ -93,22 +50,58 @@ const aiApiEndpoints = [
   { method: "WS", path: "/v4/ai/stream", color: "#a855f7" },
 ];
 
-const devTools = [
-  { title: "Burn CLI", description: "Project init & deploy", icon: Terminal, color: "#00f0ff" },
-  { title: "Test Framework", description: "Unit & E2E testing", icon: FlaskConical, color: "#7000ff" },
-  { title: "Local Devnet", description: "Simulator environment", icon: Server, color: "#00ff9d" },
-];
-
-const grantTiers = [
-  { tier: "Seed", amount: "$5K - $25K", description: "Idea Validation" },
-  { tier: "Build", amount: "$25K - $100K", description: "MVP Development" },
-  { tier: "Scale", amount: "$100K - $500K", description: "Production Ready" },
-  { tier: "Enterprise", amount: "$500K+", description: "Ecosystem Leader" },
-];
+const grantTierKeys = ["seed", "build", "scale", "enterprise"];
 
 export default function DeveloperHub() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const quickStartSteps = [
+    { 
+      step: 1, 
+      comment: t('publicPages.developers.hub.quickStartSteps.step1.comment'), 
+      command: "npm install -g @burnchain/cli", 
+      highlight: "npm" 
+    },
+    { 
+      step: 2, 
+      comment: t('publicPages.developers.hub.quickStartSteps.step2.comment'), 
+      command: "burn init my-dapp --template=react", 
+      highlight: "burn" 
+    },
+    { 
+      step: 3, 
+      comment: t('publicPages.developers.hub.quickStartSteps.step3.comment'), 
+      command: "cd my-dapp && burn dev", 
+      highlight: "cd" 
+    },
+    { 
+      step: 4, 
+      comment: t('publicPages.developers.hub.quickStartSteps.step4.comment'), 
+      command: "burn deploy --network=mainnet", 
+      highlight: "burn" 
+    },
+  ];
+
+  const sdks = sdkIcons.map(sdk => ({
+    ...sdk,
+    name: t(`publicPages.developers.hub.sdkList.${sdk.key}.name`),
+    version: t(`publicPages.developers.hub.sdkList.${sdk.key}.version`),
+    install: t(`publicPages.developers.hub.sdkList.${sdk.key}.install`),
+    downloads: t(`publicPages.developers.hub.sdkList.${sdk.key}.downloads`),
+  }));
+
+  const devTools = devToolIcons.map(tool => ({
+    ...tool,
+    title: t(`publicPages.developers.hub.devTools.${tool.key}.title`),
+    description: t(`publicPages.developers.hub.devTools.${tool.key}.description`),
+  }));
+
+  const grantTiers = grantTierKeys.map(key => ({
+    tier: t(`publicPages.developers.hub.grantTiers.${key}.tier`),
+    amount: t(`publicPages.developers.hub.grantTiers.${key}.amount`),
+    description: t(`publicPages.developers.hub.grantTiers.${key}.description`),
+  }));
 
   useEffect(() => {
     const container = containerRef.current;
@@ -177,8 +170,8 @@ export default function DeveloperHub() {
       <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-white mb-2">Quick Start</h2>
-            <p className="text-gray-400">Deploy your first dApp in 5 minutes</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.quickStart.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.developers.hub.quickStart.subtitle')}</p>
           </div>
 
           <div 
@@ -224,8 +217,8 @@ export default function DeveloperHub() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">Official SDKs</h2>
-            <p className="text-gray-400">Native support for your favorite languages</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.sdks.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.developers.hub.sdks.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -254,15 +247,15 @@ export default function DeveloperHub() {
       <section className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">API Reference</h2>
-            <p className="text-gray-400">RESTful API & WebSocket Streaming</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.apiReference.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.developers.hub.apiReference.subtitle')}</p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Blockchain API */}
             <div className="spotlight-card rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Box className="w-5 h-5 text-[#7000ff]" /> Blockchain API
+                <Box className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.developers.hub.apiReference.blockchainApi')}
               </h3>
               <div className="space-y-3 font-mono text-xs">
                 {blockchainApiEndpoints.map((endpoint, index) => (
@@ -286,7 +279,7 @@ export default function DeveloperHub() {
             {/* DeFi API */}
             <div className="spotlight-card rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Coins className="w-5 h-5 text-[#00f0ff]" /> DeFi API
+                <Coins className="w-5 h-5 text-[#00f0ff]" /> {t('publicPages.developers.hub.apiReference.defiApi')}
               </h3>
               <div className="space-y-3 font-mono text-xs">
                 {defiApiEndpoints.map((endpoint, index) => (
@@ -310,7 +303,7 @@ export default function DeveloperHub() {
             {/* AI API */}
             <div className="spotlight-card rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Brain className="w-5 h-5 text-[#00ff9d]" /> AI API
+                <Brain className="w-5 h-5 text-[#00ff9d]" /> {t('publicPages.developers.hub.apiReference.aiApi')}
               </h3>
               <div className="space-y-3 font-mono text-xs">
                 {aiApiEndpoints.map((endpoint, index) => (
@@ -337,7 +330,7 @@ export default function DeveloperHub() {
       {/* Development Tools Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Development Tools</h2>
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">{t('publicPages.developers.hub.devToolsSection.title')}</h2>
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {devTools.map((tool, index) => (
               <Link key={index} href="/developers/docs">
@@ -367,11 +360,11 @@ export default function DeveloperHub() {
             }}
             data-testid="grants-section"
           >
-            <h2 className="text-3xl font-bold text-white mb-2">Developer Grants Program</h2>
-            <p className="text-gray-400 mb-8">We support projects that expand the TBurn Chain ecosystem.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.developers.hub.grants.title')}</h2>
+            <p className="text-gray-400 mb-8">{t('publicPages.developers.hub.grants.subtitle')}</p>
             
             <div className="inline-block px-6 py-2 rounded-full bg-[#00ff9d]/20 text-[#00ff9d] font-bold text-2xl mb-8">
-              $50M Total Grant Fund
+              {t('publicPages.developers.hub.grants.totalFund')}
             </div>
 
             <div className="grid md:grid-cols-4 gap-4 text-left">

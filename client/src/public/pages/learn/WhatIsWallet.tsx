@@ -13,44 +13,44 @@ import {
   Download
 } from "lucide-react";
 
-const walletTypes = [
-  {
-    icon: Smartphone,
-    title: "Software Wallets (Hot)",
-    description: "Apps or browser extensions connected to the internet. Convenient for daily transactions and connecting to dApps.",
-    color: "#00f0ff",
-    examples: ["MetaMask", "Trust Wallet", "Coinbase Wallet"],
-  },
-  {
-    icon: ShieldCheck,
-    title: "Hardware Wallets (Cold)",
-    description: "Physical devices that keep your private keys offline. Essential for storing large amounts of assets securely.",
-    color: "#7000ff",
-    examples: ["Ledger Nano", "Trezor Model T", "SafePal"],
-  },
-];
-
-const securityProtocols = [
-  {
-    type: "danger",
-    title: "Never Share Your Seed Phrase",
-    description: "TBurn support will NEVER ask for your private keys or seed phrase.",
-  },
-  {
-    type: "safe",
-    title: "Offline Storage",
-    description: "Write your seed phrase on paper and store it in a fireproof safe. Do not save it in a cloud note or screenshot.",
-  },
-  {
-    type: "safe",
-    title: "Verify Transactions",
-    description: "Always check the destination address and gas fees before signing any transaction.",
-  },
-];
-
 export default function WhatIsWallet() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const walletTypes = [
+    {
+      icon: Smartphone,
+      title: t('publicPages.learn.wallet.types.software.title'),
+      description: t('publicPages.learn.wallet.types.software.description'),
+      color: "#00f0ff",
+      examples: ["MetaMask", "Trust Wallet", "Coinbase Wallet"],
+    },
+    {
+      icon: ShieldCheck,
+      title: t('publicPages.learn.wallet.types.hardware.title'),
+      description: t('publicPages.learn.wallet.types.hardware.description'),
+      color: "#7000ff",
+      examples: ["Ledger Nano", "Trezor Model T", "SafePal"],
+    },
+  ];
+
+  const securityProtocols = [
+    {
+      type: "danger",
+      title: t('publicPages.learn.wallet.security.neverShare.title'),
+      description: t('publicPages.learn.wallet.security.neverShare.description'),
+    },
+    {
+      type: "safe",
+      title: t('publicPages.learn.wallet.security.offlineStorage.title'),
+      description: t('publicPages.learn.wallet.security.offlineStorage.description'),
+    },
+    {
+      type: "safe",
+      title: t('publicPages.learn.wallet.security.verifyTransactions.title'),
+      description: t('publicPages.learn.wallet.security.verifyTransactions.description'),
+    },
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -94,10 +94,9 @@ export default function WhatIsWallet() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
           <div className="prose prose-invert max-w-none">
-            <h2 className="text-3xl font-bold mb-6 text-white text-center">Understanding Wallets</h2>
+            <h2 className="text-3xl font-bold mb-6 text-white text-center">{t('publicPages.learn.wallet.understanding.title')}</h2>
             <p className="text-lg text-gray-400 leading-relaxed mb-8 text-center">
-              Unlike physical wallets, crypto wallets don't store coins inside them. Instead, they store{" "}
-              <span className="text-white font-bold">Keys</span> that prove your ownership on the blockchain ledger.
+              {t('publicPages.learn.wallet.understanding.description')}
             </p>
 
             <div 
@@ -110,24 +109,24 @@ export default function WhatIsWallet() {
                   <Key className="w-10 h-10" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-2">Public & Private Keys</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.learn.wallet.keys.title')}</h3>
                   <p className="text-gray-400 mb-4">
-                    Your wallet consists of a pair of cryptographic keys:
+                    {t('publicPages.learn.wallet.keys.description')}
                   </p>
                   <div className="grid gap-3">
                     <div className="flex items-center gap-3 p-3 rounded bg-black/40 border border-white/10">
                       <Eye className="w-5 h-5 text-[#00f0ff] shrink-0" />
                       <div className="text-sm">
-                        <span className="text-white font-bold block">Public Key (Address)</span>
-                        <span className="text-gray-500 text-xs">Like your email address. Share this to receive funds.</span>
+                        <span className="text-white font-bold block">{t('publicPages.learn.wallet.keys.public.title')}</span>
+                        <span className="text-gray-500 text-xs">{t('publicPages.learn.wallet.keys.public.description')}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 rounded bg-black/40 border border-[#ff0055]/30">
                       <UserRound className="w-5 h-5 text-[#ff0055] shrink-0" />
                       <div className="text-sm">
-                        <span className="text-white font-bold block">Private Key (Seed Phrase)</span>
+                        <span className="text-white font-bold block">{t('publicPages.learn.wallet.keys.private.title')}</span>
                         <span className="text-gray-500 text-xs">
-                          Like your password. <span className="text-[#ff0055]">NEVER SHARE THIS.</span> Grants total control.
+                          {t('publicPages.learn.wallet.keys.private.description')}
                         </span>
                       </div>
                     </div>
@@ -143,8 +142,8 @@ export default function WhatIsWallet() {
       <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">Wallet Types</h2>
-            <p className="text-gray-400">Choose the right tool for your needs.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.wallet.walletTypes.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.learn.wallet.walletTypes.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -188,7 +187,7 @@ export default function WhatIsWallet() {
                 <div className="w-12 h-12 rounded-full bg-[#ff0055]/20 flex items-center justify-center text-[#ff0055] animate-pulse">
                   <AlertTriangle className="w-6 h-6" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white">Security Protocol</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">{t('publicPages.learn.wallet.securityProtocol.title')}</h2>
               </div>
               
               <div className="space-y-4">
@@ -222,9 +221,9 @@ export default function WhatIsWallet() {
       {/* CTA Section */}
       <section className="py-16 px-6 text-center">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Start?</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.learn.wallet.cta.title')}</h2>
           <p className="text-gray-400 mb-8">
-            To start using TBurn Chain, we recommend setting up a software wallet like MetaMask first. It's the easiest way to interact with our ecosystem.
+            {t('publicPages.learn.wallet.cta.description')}
           </p>
           <a 
             href="https://metamask.io/download/" 
@@ -233,7 +232,7 @@ export default function WhatIsWallet() {
             className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition"
             data-testid="button-install-wallet"
           >
-            <Download className="w-4 h-4" /> Install Wallet
+            <Download className="w-4 h-4" /> {t('publicPages.learn.wallet.cta.button')}
           </a>
         </div>
       </section>

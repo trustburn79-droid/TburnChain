@@ -15,93 +15,88 @@ import {
   Building
 } from "lucide-react";
 
-const featureCards = [
-  {
-    icon: Lock,
-    iconColor: "#00f0ff",
-    title: "Built-in Trust Rating",
-    desc: "Trust scores are automatically recorded in token contracts. When below 40%, the",
-    codeInline: "transfer()",
-    descContinue: "function automatically fails, blocking transactions.",
-    badge: "Automated Investor Protection",
-    badgeBg: "bg-[#00f0ff]/5",
-    badgeBorder: "border-[#00f0ff]/20",
-    badgeText: "text-[#00f0ff]"
-  },
-  {
-    icon: Flame,
-    iconColor: "#ff0055",
-    title: "Automatic Burn Schedule",
-    desc: "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned. Smart contracts enforce execution without manual intervention.",
-    badge: "Enforced Deflationary Model",
-    badgeBg: "bg-[#ff0055]/5",
-    badgeBorder: "border-[#ff0055]/20",
-    badgeText: "text-[#ff0055]"
-  },
-  {
-    icon: Coins,
-    iconColor: "#ffd700",
-    title: "Collateral Transparency",
-    desc: "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios automatically calculated and reflected in trust scores."
-  },
-  {
-    icon: FileCode,
-    iconColor: "#00ff9d",
-    title: "Extended Metadata",
-    desc: "All project information including team details, whitepaper links, audit reports, and burn schedules are stored on-chain in token metadata."
-  }
-];
-
-const useCases = [
-  {
-    icon: CheckCircle,
-    color: "#00ff9d",
-    title: "Verified Project Tokens",
-    desc: "Tradeable only when maintaining 60%+ trust score."
-  },
-  {
-    icon: Coins,
-    color: "#00f0ff",
-    title: "Collateral-backed Stablecoins",
-    desc: "Real-time collateral ratio monitoring and auto liquidation."
-  },
-  {
-    icon: TrendingDown,
-    color: "#7000ff",
-    title: "Deflationary Utility Tokens",
-    desc: "Auto-burn on each transaction increases value."
-  }
-];
-
-const realExamples = [
-  { name: "BUSD (Stablecoin)", icon: DollarSign, iconColor: "#00ff9d", badge: "90+ Trust Score" },
-  { name: "BGAME (GameFi)", icon: Gamepad2, iconColor: "#7000ff", badge: "Auto-Burn Enabled" },
-  { name: "BPROP (RWA)", icon: Building, iconColor: "#00f0ff", badge: "Real Asset Collateral" }
-];
-
-const trustScoreCode = `function getTrustScore() public view returns (uint8) {
-    return trustScore; // 0-100
-}
-
-function _beforeTokenTransfer(address from, address to, uint256 amount) internal override {
-    require(trustScore >= 40, "Trust score too low");
-    super._beforeTokenTransfer(from, to, amount);
-}`;
-
-const autoBurnCode = `function scheduleBurn(uint256 amount, uint256 deadline) public onlyOwner {
-    burnSchedule.push(BurnEvent(amount, deadline, false));
-}
-
-function executeBurn() public {
-    // Auto-burn from collateral if deadline passed
-    if (block.timestamp > deadline && !executed) {
-        _burn(collateralAddress, amount);
-    }
-}`;
-
 export default function TokenExtensions() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const featureCards = [
+    {
+      icon: Lock,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.tokenExtensions.features.trustRating.title'),
+      desc: t('publicPages.solutions.tokenExtensions.features.trustRating.description'),
+      codeInline: "transfer()",
+      descContinue: t('publicPages.solutions.tokenExtensions.features.trustRating.descriptionContinue'),
+      badge: t('publicPages.solutions.tokenExtensions.features.trustRating.badge'),
+      badgeBg: "bg-[#00f0ff]/5",
+      badgeBorder: "border-[#00f0ff]/20",
+      badgeText: "text-[#00f0ff]"
+    },
+    {
+      icon: Flame,
+      iconColor: "#ff0055",
+      title: t('publicPages.solutions.tokenExtensions.features.autoBurn.title'),
+      desc: t('publicPages.solutions.tokenExtensions.features.autoBurn.description'),
+      badge: t('publicPages.solutions.tokenExtensions.features.autoBurn.badge'),
+      badgeBg: "bg-[#ff0055]/5",
+      badgeBorder: "border-[#ff0055]/20",
+      badgeText: "text-[#ff0055]"
+    },
+    {
+      icon: Coins,
+      iconColor: "#ffd700",
+      title: t('publicPages.solutions.tokenExtensions.features.collateral.title'),
+      desc: t('publicPages.solutions.tokenExtensions.features.collateral.description')
+    },
+    {
+      icon: FileCode,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.tokenExtensions.features.metadata.title'),
+      desc: t('publicPages.solutions.tokenExtensions.features.metadata.description')
+    }
+  ];
+
+  const useCases = [
+    {
+      icon: CheckCircle,
+      color: "#00ff9d",
+      title: t('publicPages.solutions.tokenExtensions.useCases.verified.title'),
+      desc: t('publicPages.solutions.tokenExtensions.useCases.verified.description')
+    },
+    {
+      icon: Coins,
+      color: "#00f0ff",
+      title: t('publicPages.solutions.tokenExtensions.useCases.stablecoins.title'),
+      desc: t('publicPages.solutions.tokenExtensions.useCases.stablecoins.description')
+    },
+    {
+      icon: TrendingDown,
+      color: "#7000ff",
+      title: t('publicPages.solutions.tokenExtensions.useCases.deflationary.title'),
+      desc: t('publicPages.solutions.tokenExtensions.useCases.deflationary.description')
+    }
+  ];
+
+  const realExamples = [
+    { 
+      name: t('publicPages.solutions.tokenExtensions.examples.busd.name'), 
+      icon: DollarSign, 
+      iconColor: "#00ff9d", 
+      badge: t('publicPages.solutions.tokenExtensions.examples.busd.badge')
+    },
+    { 
+      name: t('publicPages.solutions.tokenExtensions.examples.bgame.name'), 
+      icon: Gamepad2, 
+      iconColor: "#7000ff", 
+      badge: t('publicPages.solutions.tokenExtensions.examples.bgame.badge')
+    },
+    { 
+      name: t('publicPages.solutions.tokenExtensions.examples.bprop.name'), 
+      icon: Building, 
+      iconColor: "#00f0ff", 
+      badge: t('publicPages.solutions.tokenExtensions.examples.bprop.badge')
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -148,14 +143,14 @@ export default function TokenExtensions() {
               style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
               data-testid="button-explore"
             >
-              Explore BRC-20
+              {t('publicPages.solutions.tokenExtensions.buttons.exploreBrc20')}
             </a>
             <Link href="/developers/docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-specs"
               >
-                Read Specs
+                {t('publicPages.solutions.tokenExtensions.buttons.readSpecs')}
               </button>
             </Link>
           </div>
@@ -211,8 +206,8 @@ export default function TokenExtensions() {
       <section id="brc-20" className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">BRC-20 Token Standard</h2>
-            <p className="text-gray-400">Core interfaces for Trust & Burn functionality.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.tokenExtensions.brc20.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.solutions.tokenExtensions.brc20.subtitle')}</p>
           </div>
 
           <div className="space-y-8">
@@ -220,7 +215,7 @@ export default function TokenExtensions() {
             <div className="spotlight-card rounded-xl p-6 border border-white/10">
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-6 h-6 text-[#7000ff]" />
-                <h3 className="text-xl font-bold text-white">Trust Score Functions</h3>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.tokenExtensions.brc20.trustScoreFunctions')}</h3>
               </div>
               <div 
                 className="rounded-lg p-4 font-mono text-sm overflow-x-auto"
@@ -236,7 +231,7 @@ export default function TokenExtensions() {
                     <span className="text-[#ff79c6]">public view returns</span> (
                     <span className="text-[#8be9fd]">uint8</span>) {"{"}{"\n"}
                     {"    "}<span className="text-[#ff79c6]">return</span> trustScore;{" "}
-                    <span className="text-[#6272a4]">{"// 0-100"}</span>{"\n"}
+                    <span className="text-[#6272a4]">{t('publicPages.solutions.tokenExtensions.code.comments.range')}</span>{"\n"}
                     {"}"}{"\n\n"}
                     <span className="text-[#ff79c6]">function</span>{" "}
                     <span className="text-[#50fa7b]">_beforeTokenTransfer</span>(
@@ -258,7 +253,7 @@ export default function TokenExtensions() {
             <div className="spotlight-card rounded-xl p-6 border border-white/10">
               <div className="flex items-center gap-3 mb-4">
                 <Flame className="w-6 h-6 text-[#ff0055]" />
-                <h3 className="text-xl font-bold text-white">Auto Burn Functions</h3>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.tokenExtensions.brc20.autoBurnFunctions')}</h3>
               </div>
               <div 
                 className="rounded-lg p-4 font-mono text-sm overflow-x-auto"
@@ -280,7 +275,7 @@ export default function TokenExtensions() {
                     <span className="text-[#ff79c6]">function</span>{" "}
                     <span className="text-[#50fa7b]">executeBurn</span>(){" "}
                     <span className="text-[#ff79c6]">public</span> {"{"}{"\n"}
-                    {"    "}<span className="text-[#6272a4]">{"// Auto-burn from collateral if deadline passed"}</span>{"\n"}
+                    {"    "}<span className="text-[#6272a4]">{t('publicPages.solutions.tokenExtensions.code.comments.autoBurn')}</span>{"\n"}
                     {"    "}<span className="text-[#ff79c6]">if</span> (block.timestamp {">"} deadline && !executed) {"{"}{"\n"}
                     {"        "}<span className="text-[#50fa7b]">_burn</span>(collateralAddress, amount);{"\n"}
                     {"    "}{"}"}{"\n"}
@@ -296,7 +291,7 @@ export default function TokenExtensions() {
       {/* Use Cases Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Token Extension Use Cases</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.tokenExtensions.useCasesSection.title')}</h2>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -320,7 +315,7 @@ export default function TokenExtensions() {
             </div>
 
             <div className="spotlight-card rounded-2xl p-8 border border-white/10 bg-white/5">
-              <h3 className="text-xl font-bold text-white mb-6">Real Use Examples</h3>
+              <h3 className="text-xl font-bold text-white mb-6">{t('publicPages.solutions.tokenExtensions.examplesSection.title')}</h3>
               <ul className="space-y-4 text-sm">
                 {realExamples.map((ex, idx) => {
                   const Icon = ex.icon;
@@ -343,15 +338,15 @@ export default function TokenExtensions() {
       {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-r from-[#7000ff]/10 to-[#00f0ff]/10">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Start Issuing BRC-20 Tokens</h2>
-          <p className="text-gray-400 mb-8">Issue tokens with built-in trust rating features in under 5 minutes.</p>
+          <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.solutions.tokenExtensions.cta.title')}</h2>
+          <p className="text-gray-400 mb-8">{t('publicPages.solutions.tokenExtensions.cta.subtitle')}</p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">
               <button 
                 className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
                 data-testid="button-console"
               >
-                Open Developer Console
+                {t('publicPages.solutions.tokenExtensions.buttons.openConsole')}
               </button>
             </Link>
             <Link href="/developers/api">
@@ -359,7 +354,7 @@ export default function TokenExtensions() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-api"
               >
-                View API Docs
+                {t('publicPages.solutions.tokenExtensions.buttons.viewApiDocs')}
               </button>
             </Link>
           </div>

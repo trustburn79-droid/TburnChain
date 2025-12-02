@@ -16,48 +16,9 @@ import { Link } from "wouter";
 
 type OsTab = "linux" | "docker" | "windows" | "source";
 
-const systemRequirements = {
-  minimum: {
-    title: "Minimum",
-    subtitle: "For Testnet & Light Nodes",
-    specs: [
-      { label: "CPU", value: "4 Cores" },
-      { label: "RAM", value: "16 GB" },
-      { label: "Storage", value: "500 GB SSD" },
-      { label: "Network", value: "100 Mbps" }
-    ],
-    highlighted: false,
-    color: "#00f0ff"
-  },
-  recommended: {
-    title: "Recommended",
-    subtitle: "For Mainnet Validators",
-    specs: [
-      { label: "CPU", value: "16 Cores" },
-      { label: "RAM", value: "64 GB" },
-      { label: "Storage", value: "2 TB NVMe" },
-      { label: "Network", value: "1 Gbps" }
-    ],
-    highlighted: true,
-    color: "#7000ff"
-  },
-  ports: {
-    title: "Network Ports",
-    subtitle: "Firewall Configuration",
-    specs: [
-      { label: "P2P (TCP/UDP)", value: "30303" },
-      { label: "RPC (TCP)", value: "8545" },
-      { label: "WS (TCP)", value: "8546" },
-      { label: "Metrics", value: "6060" }
-    ],
-    highlighted: false,
-    color: "#00ff9d"
-  }
-};
-
 const linuxSteps = [
   {
-    title: "Download Binary",
+    titleKey: "downloadBinary",
     commands: [
       "curl -L https://github.com/burnchain/core/releases/download/v4.0.0/tburn-linux-amd64.tar.gz -o tburn.tar.gz",
       "tar -xvf tburn.tar.gz",
@@ -67,7 +28,7 @@ const linuxSteps = [
     comment: "# Output: TBurn Chain Core v4.0.0-stable"
   },
   {
-    title: "Initialize Node",
+    titleKey: "initializeNode",
     commands: [
       "# Initialize data directory for Mainnet",
       "tburn init --network mainnet --datadir ./data",
@@ -77,7 +38,7 @@ const linuxSteps = [
     ]
   },
   {
-    title: "Start Node",
+    titleKey: "startNode",
     commands: [
       "tburn start \\",
       "  --datadir ./data \\",
@@ -103,19 +64,6 @@ const sourceCommands = [
   "cd core",
   "make tburn",
   "./build/bin/tburn version"
-];
-
-const commonFlags = [
-  { flag: "--http", desc: "Enable HTTP-RPC server" },
-  { flag: "--ws", desc: "Enable WebSocket server" },
-  { flag: "--syncmode", desc: "fast | full | snap" },
-  { flag: "--mine", desc: "Enable mining/validating" }
-];
-
-const troubleshooting = [
-  "Node not syncing?",
-  "Port 30303/8545 errors",
-  '"Too many open files" error'
 ];
 
 function TerminalWindow({ 
@@ -167,6 +115,64 @@ export default function InstallationGuide() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
+  const systemRequirements = {
+    minimum: {
+      title: t('publicPages.developers.installation.requirements.minimum.title'),
+      subtitle: t('publicPages.developers.installation.requirements.minimum.subtitle'),
+      specs: [
+        { label: t('publicPages.developers.installation.requirements.specs.cpu'), value: t('publicPages.developers.installation.requirements.minimum.cpu') },
+        { label: t('publicPages.developers.installation.requirements.specs.ram'), value: t('publicPages.developers.installation.requirements.minimum.ram') },
+        { label: t('publicPages.developers.installation.requirements.specs.storage'), value: t('publicPages.developers.installation.requirements.minimum.storage') },
+        { label: t('publicPages.developers.installation.requirements.specs.network'), value: t('publicPages.developers.installation.requirements.minimum.network') }
+      ],
+      highlighted: false,
+      color: "#00f0ff"
+    },
+    recommended: {
+      title: t('publicPages.developers.installation.requirements.recommended.title'),
+      subtitle: t('publicPages.developers.installation.requirements.recommended.subtitle'),
+      specs: [
+        { label: t('publicPages.developers.installation.requirements.specs.cpu'), value: t('publicPages.developers.installation.requirements.recommended.cpu') },
+        { label: t('publicPages.developers.installation.requirements.specs.ram'), value: t('publicPages.developers.installation.requirements.recommended.ram') },
+        { label: t('publicPages.developers.installation.requirements.specs.storage'), value: t('publicPages.developers.installation.requirements.recommended.storage') },
+        { label: t('publicPages.developers.installation.requirements.specs.network'), value: t('publicPages.developers.installation.requirements.recommended.network') }
+      ],
+      highlighted: true,
+      color: "#7000ff"
+    },
+    ports: {
+      title: t('publicPages.developers.installation.requirements.ports.title'),
+      subtitle: t('publicPages.developers.installation.requirements.ports.subtitle'),
+      specs: [
+        { label: t('publicPages.developers.installation.requirements.ports.p2p'), value: "30303" },
+        { label: t('publicPages.developers.installation.requirements.ports.rpc'), value: "8545" },
+        { label: t('publicPages.developers.installation.requirements.ports.ws'), value: "8546" },
+        { label: t('publicPages.developers.installation.requirements.ports.metrics'), value: "6060" }
+      ],
+      highlighted: false,
+      color: "#00ff9d"
+    }
+  };
+
+  const commonFlags = [
+    { flag: "--http", desc: t('publicPages.developers.installation.flags.http') },
+    { flag: "--ws", desc: t('publicPages.developers.installation.flags.ws') },
+    { flag: "--syncmode", desc: t('publicPages.developers.installation.flags.syncmode') },
+    { flag: "--mine", desc: t('publicPages.developers.installation.flags.mine') }
+  ];
+
+  const troubleshooting = [
+    t('publicPages.developers.installation.troubleshooting.notSyncing'),
+    t('publicPages.developers.installation.troubleshooting.portErrors'),
+    t('publicPages.developers.installation.troubleshooting.openFiles')
+  ];
+
+  const troubleshootingAnswers = [
+    t('publicPages.developers.installation.troubleshooting.notSyncingAnswer'),
+    t('publicPages.developers.installation.troubleshooting.portErrorsAnswer'),
+    t('publicPages.developers.installation.troubleshooting.openFilesAnswer')
+  ];
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -188,14 +194,14 @@ export default function InstallationGuide() {
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast({ title: "Copied to clipboard!" });
+    toast({ title: t('common.copiedToClipboard') });
   };
 
   const tabs: { id: OsTab; label: string; icon: React.ReactNode }[] = [
-    { id: "linux", label: "Linux / macOS", icon: <SiLinux className="w-4 h-4" /> },
-    { id: "docker", label: "Docker", icon: <SiDocker className="w-4 h-4" /> },
-    { id: "windows", label: "Windows", icon: <Monitor className="w-4 h-4" /> },
-    { id: "source", label: "From Source", icon: <Terminal className="w-4 h-4" /> }
+    { id: "linux", label: t('publicPages.developers.installation.tabs.linux'), icon: <SiLinux className="w-4 h-4" /> },
+    { id: "docker", label: t('publicPages.developers.installation.tabs.docker'), icon: <SiDocker className="w-4 h-4" /> },
+    { id: "windows", label: t('publicPages.developers.installation.tabs.windows'), icon: <Monitor className="w-4 h-4" /> },
+    { id: "source", label: t('publicPages.developers.installation.tabs.source'), icon: <Terminal className="w-4 h-4" /> }
   ];
 
   return (
@@ -224,7 +230,7 @@ export default function InstallationGuide() {
                 style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
                 data-testid="button-quick-start"
               >
-                <Terminal className="w-5 h-5" /> Quick Start
+                <Terminal className="w-5 h-5" /> {t('publicPages.developers.installation.quickStart')}
               </button>
             </Link>
             <Link href="#docker">
@@ -232,7 +238,7 @@ export default function InstallationGuide() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
                 data-testid="button-docker"
               >
-                <SiDocker className="w-5 h-5" /> Docker Image
+                <SiDocker className="w-5 h-5" /> {t('publicPages.developers.installation.dockerImage')}
               </button>
             </Link>
           </div>
@@ -243,7 +249,7 @@ export default function InstallationGuide() {
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-            <Cpu className="w-6 h-6 text-[#7000ff]" /> System Requirements
+            <Cpu className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.installation.systemRequirements')}
           </h2>
           
           <div className="grid md:grid-cols-3 gap-6">
@@ -293,7 +299,7 @@ export default function InstallationGuide() {
       {/* Installation Steps */}
       <section className="py-16 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-2xl font-bold text-white mb-8">Installation Steps</h2>
+          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.installation.installationSteps')}</h2>
 
           {/* OS Tabs */}
           <div className="flex mb-0 border-b border-white/10 overflow-x-auto">
@@ -323,7 +329,9 @@ export default function InstallationGuide() {
                     <span className="w-6 h-6 rounded-full bg-[#00f0ff] text-black font-bold flex items-center justify-center text-sm">
                       {stepIdx + 1}
                     </span>
-                    <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                    <h3 className="text-lg font-bold text-white">
+                      {t(`publicPages.developers.installation.linuxSteps.${step.titleKey}`)}
+                    </h3>
                   </div>
                   <TerminalWindow 
                     onCopy={() => handleCopy(step.commands.filter(c => !c.startsWith("#")).join("\n"))}
@@ -351,7 +359,7 @@ export default function InstallationGuide() {
                   <span className="w-6 h-6 rounded-full bg-[#7000ff] text-white font-bold flex items-center justify-center text-sm">
                     1
                   </span>
-                  <h3 className="text-lg font-bold text-white">Pull & Run</h3>
+                  <h3 className="text-lg font-bold text-white">{t('publicPages.developers.installation.docker.pullAndRun')}</h3>
                 </div>
                 <TerminalWindow onCopy={() => handleCopy(dockerCommands.join("\n"))}>
                   {dockerCommands.map((cmd, idx) => (
@@ -366,8 +374,10 @@ export default function InstallationGuide() {
               <div className="p-4 bg-[#7000ff]/10 border border-[#7000ff]/30 rounded-lg flex gap-3 items-start">
                 <Info className="w-5 h-5 text-[#7000ff] flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-gray-300">
-                  We highly recommend using <span className="text-white font-bold">Docker Compose</span> for production setups to manage monitoring (Prometheus/Grafana) alongside the node.
-                  <Link href="/developers/docs#docker-compose" className="text-[#00f0ff] hover:underline ml-1">View docker-compose.yml</Link>
+                  {t('publicPages.developers.installation.docker.recommendation')}
+                  <Link href="/developers/docs#docker-compose" className="text-[#00f0ff] hover:underline ml-1">
+                    {t('publicPages.developers.installation.docker.viewDockerCompose')}
+                  </Link>
                 </p>
               </div>
             </div>
@@ -378,11 +388,11 @@ export default function InstallationGuide() {
             <div className="pt-6">
               <div className="text-center py-12 bg-white/5 rounded-xl">
                 <Monitor className="w-10 h-10 text-gray-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">Windows Installation</h3>
-                <p className="text-gray-400 mb-6">We recommend using WSL2 (Windows Subsystem for Linux) for the best experience.</p>
+                <h3 className="text-xl font-bold text-white mb-2">{t('publicPages.developers.installation.windows.title')}</h3>
+                <p className="text-gray-400 mb-6">{t('publicPages.developers.installation.windows.recommendation')}</p>
                 <Link href="https://github.com/burnchain/core/releases">
                   <button className="px-6 py-2 border border-white/20 rounded hover:bg-white/10 text-white transition">
-                    Download .exe (Beta)
+                    {t('publicPages.developers.installation.windows.downloadBeta')}
                   </button>
                 </Link>
               </div>
@@ -411,12 +421,12 @@ export default function InstallationGuide() {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Configuration */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">Configuration</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.developers.installation.configuration.title')}</h2>
               <p className="text-gray-400 mb-4 text-sm">
-                You can configure the node using `tburn.toml` or command line flags.
+                {t('publicPages.developers.installation.configuration.description')}
               </p>
               <div className="spotlight-card p-6 rounded-xl border border-white/10">
-                <h4 className="font-bold text-[#00f0ff] mb-3">Common Flags</h4>
+                <h4 className="font-bold text-[#00f0ff] mb-3">{t('publicPages.developers.installation.configuration.commonFlags')}</h4>
                 <ul className="space-y-3 text-sm font-mono text-gray-300">
                   {commonFlags.map((flag, idx) => (
                     <li key={idx}>
@@ -429,7 +439,7 @@ export default function InstallationGuide() {
 
             {/* Troubleshooting */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">Troubleshooting</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.developers.installation.troubleshootingTitle')}</h2>
               <div className="space-y-4">
                 {troubleshooting.map((item, idx) => (
                   <div key={idx} className="group">
@@ -443,9 +453,7 @@ export default function InstallationGuide() {
                     </button>
                     {expandedTroubleshooting === idx && (
                       <div className="p-4 text-sm text-gray-400 bg-white/5 rounded-b-lg border-x border-b border-white/5">
-                        {idx === 0 && "Check your network connection and ensure ports 30303 and 8545 are open. Try increasing --maxpeers value."}
-                        {idx === 1 && "Ensure the ports are not in use by another process. Check with 'lsof -i :30303' or 'netstat -an | grep 30303'."}
-                        {idx === 2 && "Increase the file descriptor limit: 'ulimit -n 65535'. Add to /etc/security/limits.conf for persistence."}
+                        {troubleshootingAnswers[idx]}
                       </div>
                     )}
                   </div>
@@ -459,8 +467,8 @@ export default function InstallationGuide() {
       {/* Need Help */}
       <section className="py-16 px-6 text-center">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-white mb-4">Need Help?</h2>
-          <p className="text-gray-400 mb-8">Join our Discord #validator-support channel for 24/7 assistance.</p>
+          <h2 className="text-2xl font-bold text-white mb-4">{t('publicPages.developers.installation.needHelp.title')}</h2>
+          <p className="text-gray-400 mb-8">{t('publicPages.developers.installation.needHelp.description')}</p>
           <Link 
             href="/community/hub" 
             className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#5865F2] text-white font-bold hover:bg-[#4752C4] transition"
@@ -469,7 +477,7 @@ export default function InstallationGuide() {
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
             </svg>
-            Join Discord
+            {t('publicPages.developers.installation.needHelp.joinDiscord')}
           </Link>
         </div>
       </section>

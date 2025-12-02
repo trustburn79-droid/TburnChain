@@ -13,135 +13,123 @@ import {
   Store
 } from "lucide-react";
 
-const whyChooseFeatures = [
-  {
-    icon: Zap,
-    iconColor: "#00f0ff",
-    title: "Instant Settlement",
-    desc: (
-      <>
-        Average <span className="text-white">1-second block time</span> and 6-second finality. Experience payment speeds faster than traditional credit cards with 50,000+ TPS capacity.
-      </>
-    )
-  },
-  {
-    icon: Percent,
-    iconColor: "#00ff9d",
-    title: "Ultra-Low Fees",
-    desc: (
-      <>
-        <span className="text-white">$0.001 per transaction</span>. Save up to 99% compared to traditional payment gateways. Economically viable for everything from micropayments to large transfers.
-      </>
-    )
-  },
-  {
-    icon: Shield,
-    iconColor: "#ff0055",
-    title: "Verified Tokens Only",
-    desc: (
-      <>
-        Only tokens with a Trust Score of <span className="text-[#ff0055]">40% or higher</span> are allowed. We automatically block rug-pull tokens to protect merchants and customers.
-      </>
-    )
-  },
-  {
-    icon: Globe,
-    iconColor: "#ffd700",
-    title: "Global Reach",
-    desc: "Borderless 24/7 payment infrastructure. Multi-chain support for Ethereum, Arbitrum, and Polygon via LayerZero integration allows you to accept payments from anywhere."
-  }
-];
-
-const tokenStandards = [
-  {
-    icon: TrendingUp,
-    iconColor: "#7000ff",
-    title: "Price Stability",
-    points: "30 pts",
-    desc: "Evaluated based on daily volatility, market cap, and liquidity pool depth.",
-    scoring: [
-      { label: "Volatility < 5%", value: "+30 pts", positive: true },
-      { label: "Liquidity > $10M", value: "+10 pts", positive: true }
-    ]
-  },
-  {
-    icon: Code,
-    iconColor: "#00f0ff",
-    title: "Contract Security",
-    points: "25 pts",
-    desc: "Audit completion, reentrancy protection, and upgrade authority decentralization.",
-    scoring: [
-      { label: "2+ Audits", value: "+25 pts", positive: true },
-      { label: "Critical Bug", value: "Block", positive: false }
-    ]
-  },
-  {
-    icon: CreditCard,
-    iconColor: "#00ff9d",
-    title: "Adoption & Usage",
-    points: "20 pts",
-    desc: "Number of merchants, monthly transaction volume, and average payment size.",
-    scoring: [
-      { label: "100+ Merchants", value: "High", positive: true },
-      { label: "10k+ Tx/Mo", value: "High", positive: true }
-    ]
-  }
-];
-
-const solutionTypes = [
-  {
-    icon: ShoppingCart,
-    iconColor: "#7000ff",
-    title: "Online Commerce",
-    desc: "Easy checkout integration for shops. 5-min setup.",
-    tags: "SDK • Plugins"
-  },
-  {
-    icon: Store,
-    iconColor: "#00f0ff",
-    title: "Offline POS",
-    desc: "Instant payments via QR code in physical stores.",
-    tags: "App • NFC"
-  },
-  {
-    icon: Globe,
-    iconColor: "#ffd700",
-    title: "Global Remittance",
-    desc: "Cross-border transfers with 99% lower fees.",
-    tags: "P2P • B2B"
-  }
-];
-
-const integrationSteps = [
-  {
-    step: 1,
-    title: "Issue API Key",
-    desc: "Get your credentials from the developer dashboard.",
-    code: "curl -X POST https://api.tburn.io/v1/auth/apikey"
-  },
-  {
-    step: 2,
-    title: "Install SDK",
-    desc: "Available for JS, Python, and PHP.",
-    code: "npm install @tburn/payments-sdk"
-  },
-  {
-    step: 3,
-    title: "Add Payment Button",
-    desc: "Embed the checkout button with just one line.",
-    code: '<burn-pay amount="100" currency="USD" />'
-  },
-  {
-    step: 4,
-    title: "Configure Webhooks",
-    desc: "Receive instant server notifications upon payment completion.",
-    code: null
-  }
-];
-
 export default function Payments() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const whyChooseFeatures = [
+    {
+      icon: Zap,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.payments.whyChoose.instantSettlement.title'),
+      desc: t('publicPages.solutions.payments.whyChoose.instantSettlement.description')
+    },
+    {
+      icon: Percent,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.payments.whyChoose.ultraLowFees.title'),
+      desc: t('publicPages.solutions.payments.whyChoose.ultraLowFees.description')
+    },
+    {
+      icon: Shield,
+      iconColor: "#ff0055",
+      title: t('publicPages.solutions.payments.whyChoose.verifiedTokensOnly.title'),
+      desc: t('publicPages.solutions.payments.whyChoose.verifiedTokensOnly.description')
+    },
+    {
+      icon: Globe,
+      iconColor: "#ffd700",
+      title: t('publicPages.solutions.payments.whyChoose.globalReach.title'),
+      desc: t('publicPages.solutions.payments.whyChoose.globalReach.description')
+    }
+  ];
+
+  const tokenStandards = [
+    {
+      icon: TrendingUp,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.payments.tokenStandards.priceStability.title'),
+      points: t('publicPages.solutions.payments.tokenStandards.priceStability.points'),
+      desc: t('publicPages.solutions.payments.tokenStandards.priceStability.description'),
+      scoring: [
+        { label: t('publicPages.solutions.payments.tokenStandards.priceStability.scoring.volatility'), value: "+30 pts", positive: true },
+        { label: t('publicPages.solutions.payments.tokenStandards.priceStability.scoring.liquidity'), value: "+10 pts", positive: true }
+      ]
+    },
+    {
+      icon: Code,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.payments.tokenStandards.contractSecurity.title'),
+      points: t('publicPages.solutions.payments.tokenStandards.contractSecurity.points'),
+      desc: t('publicPages.solutions.payments.tokenStandards.contractSecurity.description'),
+      scoring: [
+        { label: t('publicPages.solutions.payments.tokenStandards.contractSecurity.scoring.audits'), value: "+25 pts", positive: true },
+        { label: t('publicPages.solutions.payments.tokenStandards.contractSecurity.scoring.criticalBug'), value: t('publicPages.solutions.payments.tokenStandards.contractSecurity.scoring.block'), positive: false }
+      ]
+    },
+    {
+      icon: CreditCard,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.payments.tokenStandards.adoptionUsage.title'),
+      points: t('publicPages.solutions.payments.tokenStandards.adoptionUsage.points'),
+      desc: t('publicPages.solutions.payments.tokenStandards.adoptionUsage.description'),
+      scoring: [
+        { label: t('publicPages.solutions.payments.tokenStandards.adoptionUsage.scoring.merchants'), value: t('publicPages.solutions.payments.tokenStandards.adoptionUsage.scoring.high'), positive: true },
+        { label: t('publicPages.solutions.payments.tokenStandards.adoptionUsage.scoring.transactions'), value: t('publicPages.solutions.payments.tokenStandards.adoptionUsage.scoring.high'), positive: true }
+      ]
+    }
+  ];
+
+  const solutionTypes = [
+    {
+      icon: ShoppingCart,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.payments.solutionTypes.onlineCommerce.title'),
+      desc: t('publicPages.solutions.payments.solutionTypes.onlineCommerce.description'),
+      tags: t('publicPages.solutions.payments.solutionTypes.onlineCommerce.tags')
+    },
+    {
+      icon: Store,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.payments.solutionTypes.offlinePos.title'),
+      desc: t('publicPages.solutions.payments.solutionTypes.offlinePos.description'),
+      tags: t('publicPages.solutions.payments.solutionTypes.offlinePos.tags')
+    },
+    {
+      icon: Globe,
+      iconColor: "#ffd700",
+      title: t('publicPages.solutions.payments.solutionTypes.globalRemittance.title'),
+      desc: t('publicPages.solutions.payments.solutionTypes.globalRemittance.description'),
+      tags: t('publicPages.solutions.payments.solutionTypes.globalRemittance.tags')
+    }
+  ];
+
+  const integrationSteps = [
+    {
+      step: 1,
+      title: t('publicPages.solutions.payments.integrationGuide.step1.title'),
+      desc: t('publicPages.solutions.payments.integrationGuide.step1.description'),
+      code: "curl -X POST https://api.tburn.io/v1/auth/apikey"
+    },
+    {
+      step: 2,
+      title: t('publicPages.solutions.payments.integrationGuide.step2.title'),
+      desc: t('publicPages.solutions.payments.integrationGuide.step2.description'),
+      code: "npm install @tburn/payments-sdk"
+    },
+    {
+      step: 3,
+      title: t('publicPages.solutions.payments.integrationGuide.step3.title'),
+      desc: t('publicPages.solutions.payments.integrationGuide.step3.description'),
+      code: '<burn-pay amount="100" currency="USD" />'
+    },
+    {
+      step: 4,
+      title: t('publicPages.solutions.payments.integrationGuide.step4.title'),
+      desc: t('publicPages.solutions.payments.integrationGuide.step4.description'),
+      code: null
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -188,7 +176,7 @@ export default function Payments() {
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
                 data-testid="button-api-key"
               >
-                Get API Key
+                {t('publicPages.solutions.payments.getApiKey')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -196,7 +184,7 @@ export default function Payments() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
-                View Docs
+                {t('publicPages.solutions.payments.buttons.viewDocs')}
               </button>
             </Link>
           </div>
@@ -207,8 +195,8 @@ export default function Payments() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Why Choose TBurn?</h2>
-            <p className="text-gray-400">Optimized infrastructure for global commerce.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.payments.whyChoose.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.solutions.payments.whyChoose.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -241,7 +229,7 @@ export default function Payments() {
       {/* Payment Token Standards Section */}
       <section className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Payment Token Standards</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.payments.tokenStandards.title')}</h2>
           
           <div className="space-y-6">
             {tokenStandards.map((standard, idx) => {
@@ -290,7 +278,7 @@ export default function Payments() {
       {/* Solution Types Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Solution Types</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.payments.solutionTypes.title')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {solutionTypes.map((solution, idx) => {
               const Icon = solution.icon;
@@ -328,7 +316,7 @@ export default function Payments() {
         style={{ background: "linear-gradient(to right, rgba(112,0,255,0.1), rgba(0,240,255,0.1))" }}
       >
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Integration Guide</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.payments.integrationGuide.title')}</h2>
           <div className="space-y-6">
             {integrationSteps.map((step, idx) => (
               <div 

@@ -14,8 +14,6 @@ import {
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 
-const categories = ["All Recipes", "Smart Contracts", "DeFi", "NFTs", "Wallets"];
-
 const featuredCode = `pragma solidity ^0.8.19;
 
 import "@burnchain/contracts/ITrustOracle.sol";
@@ -40,57 +38,6 @@ contract SecureVault {
     }
 }`;
 
-const commonRecipes = [
-  {
-    title: "Connect Wallet",
-    description: "Standard hook for connecting MetaMask or TBurn Wallet to your React dApp.",
-    icon: Wallet,
-    color: "#00f0ff",
-    category: "Frontend",
-    tags: ["#react", "#web3"]
-  },
-  {
-    title: "Create ARC-20 Token",
-    description: "Deploy a standard fungible token with built-in Auto-Burn mechanics.",
-    icon: Coins,
-    color: "#7000ff",
-    category: "Solidity",
-    tags: ["#token", "#smart-contract"]
-  },
-  {
-    title: "AI Oracle Query",
-    description: "Fetch real-time market predictions using the Triple-Band AI API.",
-    icon: Bot,
-    color: "#00ff9d",
-    category: "Backend",
-    tags: ["#python", "#api"]
-  },
-  {
-    title: "NFT Minting",
-    description: "Gas-optimized ERC-721A implementation for large collections.",
-    icon: Images,
-    color: "#ffd700",
-    category: "Solidity",
-    tags: ["#nft", "#mint"]
-  },
-  {
-    title: "Flash Loan",
-    description: "Execute arbitrage using uncollateralized flash loans on TBurn DEX.",
-    icon: ArrowLeftRight,
-    color: "#ff0055",
-    category: "DeFi",
-    tags: ["#defi", "#arbitrage"]
-  },
-  {
-    title: "Indexer Setup",
-    description: "Configure a local indexer to query complex on-chain data.",
-    icon: Database,
-    color: "#3b82f6",
-    category: "Tools",
-    tags: ["#graph", "#data"]
-  },
-];
-
 function SyntaxHighlight({ code }: { code: string }) {
   const highlight = (text: string) => {
     return text
@@ -114,6 +61,71 @@ export default function CodeExamples() {
   const [activeCategory, setActiveCategory] = useState("All Recipes");
   const [activeTab, setActiveTab] = useState("SecureVault.sol");
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const categories = [
+    t('publicPages.developers.examples.categories.allRecipes'),
+    t('publicPages.developers.examples.categories.smartContracts'),
+    t('publicPages.developers.examples.categories.defi'),
+    t('publicPages.developers.examples.categories.nfts'),
+    t('publicPages.developers.examples.categories.wallets')
+  ];
+
+  const commonRecipes = [
+    {
+      title: t('publicPages.developers.examples.recipes.connectWallet.title'),
+      description: t('publicPages.developers.examples.recipes.connectWallet.description'),
+      icon: Wallet,
+      color: "#00f0ff",
+      category: t('publicPages.developers.examples.recipes.connectWallet.category'),
+      tags: ["#react", "#web3"]
+    },
+    {
+      title: t('publicPages.developers.examples.recipes.createToken.title'),
+      description: t('publicPages.developers.examples.recipes.createToken.description'),
+      icon: Coins,
+      color: "#7000ff",
+      category: t('publicPages.developers.examples.recipes.createToken.category'),
+      tags: ["#token", "#smart-contract"]
+    },
+    {
+      title: t('publicPages.developers.examples.recipes.aiOracle.title'),
+      description: t('publicPages.developers.examples.recipes.aiOracle.description'),
+      icon: Bot,
+      color: "#00ff9d",
+      category: t('publicPages.developers.examples.recipes.aiOracle.category'),
+      tags: ["#python", "#api"]
+    },
+    {
+      title: t('publicPages.developers.examples.recipes.nftMinting.title'),
+      description: t('publicPages.developers.examples.recipes.nftMinting.description'),
+      icon: Images,
+      color: "#ffd700",
+      category: t('publicPages.developers.examples.recipes.nftMinting.category'),
+      tags: ["#nft", "#mint"]
+    },
+    {
+      title: t('publicPages.developers.examples.recipes.flashLoan.title'),
+      description: t('publicPages.developers.examples.recipes.flashLoan.description'),
+      icon: ArrowLeftRight,
+      color: "#ff0055",
+      category: t('publicPages.developers.examples.recipes.flashLoan.category'),
+      tags: ["#defi", "#arbitrage"]
+    },
+    {
+      title: t('publicPages.developers.examples.recipes.indexerSetup.title'),
+      description: t('publicPages.developers.examples.recipes.indexerSetup.description'),
+      icon: Database,
+      color: "#3b82f6",
+      category: t('publicPages.developers.examples.recipes.indexerSetup.category'),
+      tags: ["#graph", "#data"]
+    },
+  ];
+
+  const featuredRecipeChecks = [
+    t('publicPages.developers.examples.featured.checks.trustScore'),
+    t('publicPages.developers.examples.featured.checks.revert'),
+    t('publicPages.developers.examples.featured.checks.gasOptimized'),
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -177,36 +189,32 @@ export default function CodeExamples() {
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-            <Flame className="w-6 h-6 text-[#7000ff]" /> Featured Recipe: Trust Score Integration
+            <Flame className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.developers.examples.featured.title')}
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div>
                 <p className="text-gray-400">
-                  Automatically verify a project's Trust Score before interacting with it. This recipe prevents your users from interacting with low-trust contracts.
+                  {t('publicPages.developers.examples.featured.description')}
                 </p>
                 <ul className="space-y-3 text-gray-300 text-sm mt-4">
-                  <li className="flex items-center gap-3">
-                    <CheckCircle className="w-4 h-4 text-[#00ff9d]" /> Checks Trust Score {">"} 70
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle className="w-4 h-4 text-[#00ff9d]" /> Reverts transaction if unsafe
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle className="w-4 h-4 text-[#00ff9d]" /> Gas optimized check
-                  </li>
+                  {featuredRecipeChecks.map((check, index) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <CheckCircle className="w-4 h-4 text-[#00ff9d]" /> {check}
+                    </li>
+                  ))}
                 </ul>
               </div>
               
               <div className="flex gap-4">
                 <div className="bg-white/5 rounded p-3 border border-white/10 text-center flex-1">
-                  <div className="text-xs text-gray-500 uppercase">Difficulty</div>
-                  <div className="text-[#00ff9d] font-bold">Intermediate</div>
+                  <div className="text-xs text-gray-500 uppercase">{t('publicPages.developers.examples.featured.difficulty')}</div>
+                  <div className="text-[#00ff9d] font-bold">{t('publicPages.developers.examples.featured.intermediate')}</div>
                 </div>
                 <div className="bg-white/5 rounded p-3 border border-white/10 text-center flex-1">
-                  <div className="text-xs text-gray-500 uppercase">Time</div>
-                  <div className="text-white font-bold">10 Mins</div>
+                  <div className="text-xs text-gray-500 uppercase">{t('publicPages.developers.examples.featured.time')}</div>
+                  <div className="text-white font-bold">{t('publicPages.developers.examples.featured.tenMins')}</div>
                 </div>
               </div>
             </div>
@@ -265,7 +273,7 @@ export default function CodeExamples() {
       {/* Common Recipes Section */}
       <section className="py-16 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-2xl font-bold text-white mb-8">Common Recipes</h2>
+          <h2 className="text-2xl font-bold text-white mb-8">{t('publicPages.developers.examples.commonRecipes')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {commonRecipes.map((recipe, index) => (
@@ -318,9 +326,9 @@ export default function CodeExamples() {
               className="rounded-xl p-10 text-center"
               style={{ background: "rgba(0, 0, 0, 0.8)", backdropFilter: "blur(24px)" }}
             >
-              <h2 className="text-3xl font-bold text-white mb-4">Got a tasty recipe?</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.developers.examples.cta.title')}</h2>
               <p className="text-gray-400 mb-8">
-                Contribute to the cookbook and earn TBURN rewards for helping the developer community.
+                {t('publicPages.developers.examples.cta.description')}
               </p>
               <div className="flex justify-center gap-4 flex-wrap">
                 <a 
@@ -334,14 +342,14 @@ export default function CodeExamples() {
                   }}
                   data-testid="button-submit-pr"
                 >
-                  <SiGithub className="w-5 h-5" /> Submit PR
+                  <SiGithub className="w-5 h-5" /> {t('publicPages.developers.examples.cta.submitPr')}
                 </a>
                 <Link href="/community/hub">
                   <button 
                     className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                     data-testid="button-request-guide"
                   >
-                    Request a Guide
+                    {t('publicPages.developers.examples.cta.requestGuide')}
                   </button>
                 </Link>
               </div>

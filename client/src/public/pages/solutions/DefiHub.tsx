@@ -10,14 +10,15 @@ import {
 import { usePublicDefiSummary } from "../../hooks/use-public-data";
 
 function DefiHeroStats() {
+  const { t } = useTranslation();
   const { data: defiResponse } = usePublicDefiSummary();
   const defi = defiResponse?.data;
   
   const heroStats = [
-    { value: defi?.tvl ?? "$1.24B+", label: "TVL", color: "#3b82f6", borderColor: "border-[#3b82f6]" },
-    { value: defi?.volume24h ?? "$245M+", label: "24h Volume", color: "#00f0ff", borderColor: "border-[#00f0ff]" },
-    { value: defi?.activeLPs != null ? defi.activeLPs.toLocaleString() : "12,847", label: "Active LPs", color: "#7000ff", borderColor: "border-[#7000ff]" },
-    { value: defi?.stakingApy ?? "18.5%", label: "Avg APY", color: "#10b981", borderColor: "border-[#10b981]" }
+    { value: defi?.tvl ?? "$1.24B+", label: t('publicPages.solutions.defiHub.stats.tvl'), color: "#3b82f6", borderColor: "border-[#3b82f6]" },
+    { value: defi?.volume24h ?? "$245M+", label: t('publicPages.solutions.defiHub.stats.volume24h'), color: "#00f0ff", borderColor: "border-[#00f0ff]" },
+    { value: defi?.activeLPs != null ? defi.activeLPs.toLocaleString() : "12,847", label: t('publicPages.solutions.defiHub.stats.activeLPs'), color: "#7000ff", borderColor: "border-[#7000ff]" },
+    { value: defi?.stakingApy ?? "18.5%", label: t('publicPages.solutions.defiHub.stats.avgApy'), color: "#10b981", borderColor: "border-[#10b981]" }
   ];
   
   return (
@@ -32,21 +33,21 @@ function DefiHeroStats() {
   );
 }
 
-const dexFeatures = [
-  "Up to 4000x capital efficiency vs V2",
-  "Multi-hop routing (up to 4 hops)",
-  "Built-in TWAP Oracle"
-];
-
-const boostTiers = [
-  { name: "Standard Boost", multiplier: "1.0x", requirement: "No TBURN staked", highlight: false },
-  { name: "Mid Boost", multiplier: "1.5x", requirement: "10k+ TBURN staked", highlight: false, color: "#3b82f6" },
-  { name: "Max Boost", multiplier: "2.5x", requirement: "1M+ TBURN staked", highlight: true, color: "#00f0ff" }
-];
-
 export default function DefiHub() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const dexFeatures = [
+    t('publicPages.solutions.defiHub.dex.feature1'),
+    t('publicPages.solutions.defiHub.dex.feature2'),
+    t('publicPages.solutions.defiHub.dex.feature3')
+  ];
+
+  const boostTiers = [
+    { name: t('publicPages.solutions.defiHub.boostTiers.standard.name'), multiplier: "1.0x", requirement: t('publicPages.solutions.defiHub.boostTiers.standard.requirement'), highlight: false },
+    { name: t('publicPages.solutions.defiHub.boostTiers.mid.name'), multiplier: "1.5x", requirement: t('publicPages.solutions.defiHub.boostTiers.mid.requirement'), highlight: false, color: "#3b82f6" },
+    { name: t('publicPages.solutions.defiHub.boostTiers.max.name'), multiplier: "2.5x", requirement: t('publicPages.solutions.defiHub.boostTiers.max.requirement'), highlight: true, color: "#00f0ff" }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -112,10 +113,10 @@ export default function DefiHub() {
                 <div className="w-10 h-10 rounded-lg bg-[#00f0ff]/20 flex items-center justify-center text-[#00f0ff]">
                   <ArrowLeftRight className="w-5 h-5" />
                 </div>
-                <h2 className="text-3xl font-bold text-white">Concentrated Liquidity DEX</h2>
+                <h2 className="text-3xl font-bold text-white">{t('publicPages.solutions.defiHub.dex.title')}</h2>
               </div>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                Experience next-gen AMM with concentrated liquidity. Maximize capital efficiency with custom price ranges and dynamic fee tiers.
+                {t('publicPages.solutions.defiHub.dex.description')}
               </p>
               <ul className="space-y-3 mb-8">
                 {dexFeatures.map((feature, idx) => (
@@ -130,7 +131,7 @@ export default function DefiHub() {
                   className="bg-[#00f0ff] text-black px-6 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center gap-2"
                   data-testid="button-start-trading"
                 >
-                  Start Trading <ArrowRight className="w-4 h-4" />
+                  {t('publicPages.solutions.defiHub.buttons.startTrading')} <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
             </div>
@@ -145,15 +146,15 @@ export default function DefiHub() {
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Price</span>
+                  <span className="text-gray-500">{t('publicPages.solutions.defiHub.dex.price')}</span>
                   <span className="text-white font-mono">$12.45</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Liquidity</span>
+                  <span className="text-gray-500">{t('publicPages.solutions.defiHub.dex.liquidity')}</span>
                   <span className="text-white font-mono">$128.5M</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">24h Vol</span>
+                  <span className="text-gray-500">{t('publicPages.solutions.defiHub.dex.volume24h')}</span>
                   <span className="text-white font-mono">$45.2M</span>
                 </div>
               </div>
@@ -171,19 +172,19 @@ export default function DefiHub() {
               <div className="w-14 h-14 rounded-xl bg-[#7000ff]/10 flex items-center justify-center text-[#7000ff] border border-[#7000ff]/20">
                 <HandCoins className="w-6 h-6" />
               </div>
-              <span className="text-xs font-mono text-[#7000ff] border border-[#7000ff]/30 px-2 py-1 rounded">Max 85% LTV</span>
+              <span className="text-xs font-mono text-[#7000ff] border border-[#7000ff]/30 px-2 py-1 rounded">{t('publicPages.solutions.defiHub.lending.maxLtv')}</span>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Collateralized Lending</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">{t('publicPages.solutions.defiHub.lending.title')}</h3>
             <p className="text-gray-400 text-sm mb-6">
-              Borrow assets instantly against your crypto holdings. AI-driven liquidation protection keeps your position safe.
+              {t('publicPages.solutions.defiHub.lending.description')}
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between p-2 rounded bg-white/5">
-                <span className="text-gray-400">TBURN LTV</span>
+                <span className="text-gray-400">{t('publicPages.solutions.defiHub.lending.tburnLtv')}</span>
                 <span className="text-white font-bold">75%</span>
               </div>
               <div className="flex justify-between p-2 rounded bg-white/5">
-                <span className="text-gray-400">Stablecoin LTV</span>
+                <span className="text-gray-400">{t('publicPages.solutions.defiHub.lending.stablecoinLtv')}</span>
                 <span className="text-white font-bold">80%</span>
               </div>
             </div>
@@ -195,20 +196,20 @@ export default function DefiHub() {
               <div className="w-14 h-14 rounded-xl bg-[#10b981]/10 flex items-center justify-center text-[#10b981] border border-[#10b981]/20">
                 <Droplets className="w-6 h-6" />
               </div>
-              <span className="text-xs font-mono text-[#10b981] border border-[#10b981]/30 px-2 py-1 rounded">~12% APY</span>
+              <span className="text-xs font-mono text-[#10b981] border border-[#10b981]/30 px-2 py-1 rounded">{t('publicPages.solutions.defiHub.staking.apy')}</span>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Liquid Staking</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">{t('publicPages.solutions.defiHub.staking.title')}</h3>
             <p className="text-gray-400 text-sm mb-6">
-              Stake TBURN to earn rewards while maintaining liquidity with sTBURN tokens. Use sTBURN across the DeFi ecosystem.
+              {t('publicPages.solutions.defiHub.staking.description')}
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between p-2 rounded bg-white/5">
-                <span className="text-gray-400">Exchange Rate</span>
+                <span className="text-gray-400">{t('publicPages.solutions.defiHub.staking.exchangeRate')}</span>
                 <span className="text-white font-bold">1 TBURN = 1.05 sTBURN</span>
               </div>
               <div className="flex justify-between p-2 rounded bg-white/5">
-                <span className="text-gray-400">Reward Cycle</span>
-                <span className="text-white font-bold">Every Epoch (6h)</span>
+                <span className="text-gray-400">{t('publicPages.solutions.defiHub.staking.rewardCycle')}</span>
+                <span className="text-white font-bold">{t('publicPages.solutions.defiHub.staking.everyEpoch')}</span>
               </div>
             </div>
           </div>
@@ -223,10 +224,10 @@ export default function DefiHub() {
           <div className="mb-8">
             <span className="text-[#00f0ff] text-sm font-bold uppercase tracking-widest mb-2 block">
               <Sprout className="w-4 h-4 inline-block mr-2" />
-              Yield Farming
+              {t('publicPages.solutions.defiHub.yieldFarming.tag')}
             </span>
-            <h2 className="text-3xl font-bold text-white">Supercharge Your Returns</h2>
-            <p className="text-gray-400 mt-2">Provide liquidity and earn TBURN rewards with up to 2.5x boost</p>
+            <h2 className="text-3xl font-bold text-white">{t('publicPages.solutions.defiHub.yieldFarming.title')}</h2>
+            <p className="text-gray-400 mt-2">{t('publicPages.solutions.defiHub.yieldFarming.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 text-left">
@@ -250,7 +251,7 @@ export default function DefiHub() {
               className="mt-10 border border-[#00f0ff] text-[#00f0ff] px-8 py-3 rounded-lg hover:bg-[#00f0ff]/10 transition"
               data-testid="button-view-farms"
             >
-              View All Farms
+              {t('publicPages.solutions.defiHub.buttons.viewAllFarms')}
             </button>
           </Link>
         </div>
@@ -259,9 +260,9 @@ export default function DefiHub() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Related Solutions</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.common.relatedSolutions')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Explore other TBurn Chain solutions that integrate with DeFi Hub.
+            {t('publicPages.solutions.defiHub.relatedSolutions.description')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
             <Link 
@@ -271,8 +272,8 @@ export default function DefiHub() {
             >
               <Bitcoin className="w-5 h-5 text-[#f7931a]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f7931a] transition">BTCfi</p>
-                <p className="text-xs text-gray-500">BTC DeFi</p>
+                <p className="font-medium text-white group-hover:text-[#f7931a] transition">{t('publicPages.solutions.defiHub.relatedSolutions.btcfi.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.btcfi.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -282,8 +283,8 @@ export default function DefiHub() {
             >
               <ArrowLeftRight className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Cross-Chain Bridge</p>
-                <p className="text-xs text-gray-500">Asset transfer</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.defiHub.relatedSolutions.bridge.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.bridge.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -293,8 +294,8 @@ export default function DefiHub() {
             >
               <Coins className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">Token Extensions</p>
-                <p className="text-xs text-gray-500">Token standards</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.defiHub.relatedSolutions.tokenExtensions.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.tokenExtensions.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -304,8 +305,8 @@ export default function DefiHub() {
             >
               <Wallet className="w-5 h-5 text-[#10b981]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#10b981] transition">Wallets</p>
-                <p className="text-xs text-gray-500">DeFi wallets</p>
+                <p className="font-medium text-white group-hover:text-[#10b981] transition">{t('publicPages.solutions.defiHub.relatedSolutions.wallets.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.wallets.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -315,8 +316,8 @@ export default function DefiHub() {
             >
               <CreditCard className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Payments</p>
-                <p className="text-xs text-gray-500">DeFi payments</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.defiHub.relatedSolutions.payments.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.payments.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -326,8 +327,8 @@ export default function DefiHub() {
             >
               <Landmark className="w-5 h-5 text-[#ffd700]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ffd700] transition">Financial Infra</p>
-                <p className="text-xs text-gray-500">Finance protocols</p>
+                <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.solutions.defiHub.relatedSolutions.financial.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.financial.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -337,8 +338,8 @@ export default function DefiHub() {
             >
               <Lock className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">Permissioned</p>
-                <p className="text-xs text-gray-500">Enterprise DeFi</p>
+                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.defiHub.relatedSolutions.permissioned.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.permissioned.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -348,8 +349,8 @@ export default function DefiHub() {
             >
               <Sparkles className="w-5 h-5 text-[#ec4899]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ec4899] transition">AI Features</p>
-                <p className="text-xs text-gray-500">AI optimization</p>
+                <p className="font-medium text-white group-hover:text-[#ec4899] transition">{t('publicPages.solutions.defiHub.relatedSolutions.aiFeatures.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.relatedSolutions.aiFeatures.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -359,9 +360,9 @@ export default function DefiHub() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Developer Resources</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.common.developerResources')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Build DeFi applications with TBurn Chain's comprehensive toolkit.
+            {t('publicPages.solutions.defiHub.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             <Link 
@@ -371,8 +372,8 @@ export default function DefiHub() {
             >
               <BookOpen className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">SDK Guide</p>
-                <p className="text-xs text-gray-500">DeFi SDK</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.defiHub.developerResources.sdkGuide.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -382,8 +383,8 @@ export default function DefiHub() {
             >
               <Code className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Smart Contracts</p>
-                <p className="text-xs text-gray-500">AMM contracts</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.defiHub.developerResources.smartContracts.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -393,8 +394,8 @@ export default function DefiHub() {
             >
               <FileText className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">API Reference</p>
-                <p className="text-xs text-gray-500">DeFi API</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.defiHub.developerResources.apiReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -404,8 +405,8 @@ export default function DefiHub() {
             >
               <Globe className="w-5 h-5 text-[#10b981]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#10b981] transition">WebSocket API</p>
-                <p className="text-xs text-gray-500">Price feeds</p>
+                <p className="font-medium text-white group-hover:text-[#10b981] transition">{t('publicPages.solutions.defiHub.developerResources.websocket.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.developerResources.websocket.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -415,8 +416,8 @@ export default function DefiHub() {
             >
               <Terminal className="w-5 h-5 text-[#f59e0b]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">CLI Reference</p>
-                <p className="text-xs text-gray-500">DeFi CLI</p>
+                <p className="font-medium text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.defiHub.developerResources.cli.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.developerResources.cli.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -426,8 +427,8 @@ export default function DefiHub() {
             >
               <ExternalLink className="w-5 h-5 text-[#ec4899]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ec4899] transition">Code Examples</p>
-                <p className="text-xs text-gray-500">DeFi samples</p>
+                <p className="font-medium text-white group-hover:text-[#ec4899] transition">{t('publicPages.solutions.defiHub.developerResources.examples.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.developerResources.examples.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -440,14 +441,14 @@ export default function DefiHub() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-defi-mastery"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Learn More</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.common.learnMoreSection')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#8b5cf6]/20 flex items-center justify-center">
                 <BarChart3 className="w-5 h-5 text-[#8b5cf6]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">DeFi Mastery</h4>
-                <p className="text-xs text-gray-500">Advanced DeFi strategies</p>
+                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.defiHub.learnPages.defiMastery.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.learnPages.defiMastery.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -456,14 +457,14 @@ export default function DefiHub() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-intro-defi"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Getting Started</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.defiHub.learnPages.gettingStarted')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#3b82f6]/20 flex items-center justify-center">
                 <Layers className="w-5 h-5 text-[#3b82f6]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#3b82f6] transition">Intro to DeFi</h4>
-                <p className="text-xs text-gray-500">DeFi fundamentals</p>
+                <h4 className="font-bold text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.defiHub.learnPages.introToDefi.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.defiHub.learnPages.introToDefi.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -471,25 +472,26 @@ export default function DefiHub() {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">Start Your DeFi Journey</h2>
+          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.defiHub.cta.title')}</h2>
           <p className="text-gray-400 mb-8">
-            Join 180K+ users already earning yield on TBurn Chain's DeFi Hub.
+            {t('publicPages.solutions.defiHub.cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/developers/quickstart">
               <button 
-                className="bg-[#00f0ff] text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center justify-center gap-2"
-                data-testid="button-launch-app"
+                className="bg-[#3b82f6] text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-600 transition flex items-center justify-center gap-2"
+                data-testid="button-launch-defi"
               >
-                <Zap className="w-4 h-4" /> Launch DeFi App
+                <Zap className="w-4 h-4" /> {t('publicPages.solutions.defiHub.cta.launchApp')}
               </button>
             </Link>
-            <Link 
-              href="/developers/docs"
-              className="border border-white/20 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2"
-              data-testid="link-read-docs"
-            >
-              <FileText className="w-4 h-4" /> Read Documentation
+            <Link href="/developers/docs">
+              <button 
+                className="border border-white/20 text-white px-8 py-3 rounded-lg hover:bg-white/5 transition flex items-center justify-center gap-2"
+                data-testid="button-view-docs"
+              >
+                <BookOpen className="w-4 h-4" /> {t('publicPages.solutions.defiHub.cta.viewDocs')}
+              </button>
             </Link>
           </div>
         </div>

@@ -19,82 +19,82 @@ import {
 } from "lucide-react";
 import { SiDiscord } from "react-icons/si";
 
-const stats = [
-  { value: "25+", label: "COURSES", color: "text-[#7000ff]" },
-  { value: "48K+", label: "LEARNERS", color: "text-[#00f0ff]" },
-  { value: "120+", label: "HOURS CONTENT", color: "text-[#00ff9d]" },
-  { value: "94%", label: "COMPLETION RATE", color: "text-[#ffb800]" },
-];
-
-const learningPaths = [
-  {
-    icon: BookOpen,
-    title: "Blockchain Basics",
-    description: "Understand the basics of blockchain and how TBurn Chain solves the trilemma with Trust Score.",
-    level: "Beginner",
-    color: "#00ff9d",
-    tags: ["Consensus", "Smart Contracts"],
-    href: "/learn/what-is-burn-chain",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Trust Score System",
-    description: "Deep dive into the 3-stage verification system, AI analysis, and the Auto-Burn mechanism.",
-    level: "Intermediate",
-    color: "#00f0ff",
-    tags: ["Algorithm", "Verification"],
-    href: "/learn/trust-score",
-  },
-  {
-    icon: Coins,
-    title: "Mastering DeFi",
-    description: "Learn about decentralized finance: DEX liquidity, staking, and yield farming on TBurn.",
-    level: "Intermediate",
-    color: "#7000ff",
-    tags: ["Liquidity", "Yield Farming"],
-    href: "/learn/tokenomics",
-  },
-  {
-    icon: Code,
-    title: "Developer Course",
-    description: "Step-by-step guide to building and deploying dApps using the TBurn SDK and API.",
-    level: "Advanced",
-    color: "#ffb800",
-    tags: ["SDK Setup", "API Integration"],
-    href: "/developers",
-  },
-];
-
-const coreConcepts = [
-  { icon: ShieldCheck, title: "Trust Score", description: "Dynamic score rating project reliability from 0-100.", color: "#00f0ff" },
-  { icon: Flame, title: "Auto-Burn", description: "Automatic collateral burn for non-compliance.", color: "#ef4444" },
-  { icon: Brain, title: "Triple-Band AI", description: "Multi-LLM real-time analysis for verification.", color: "#7000ff" },
-  { icon: Lock, title: "Quantum Security", description: "CRYSTALS-Dilithium + ED25519 hybrid encryption.", color: "#ffffff" },
-  { icon: Fuel, title: "Ember Gas", description: "Micro-gas unit (1 TBURN = 10^6 Ember).", color: "#ffb800" },
-  { icon: Network, title: "DPoS + BFT", description: "Hybrid consensus supporting 30,000 validators.", color: "#00ff9d" },
-];
-
-const glossary = [
-  { term: "TBURN", description: "TBurn Chain's native governance and utility token.", color: "#00f0ff" },
-  { term: "Ember", description: "Gas unit for transaction fees.", color: "#ffb800" },
-  { term: "Slashing", description: "Penalty on staked tokens for validator misbehavior.", color: "#ef4444" },
-];
-
-const certifications = [
-  { title: "TBurn Fundamentals", description: "Complete basics course + pass quiz.", color: "#ffb800", bgColor: "bg-amber-900/30" },
-  { title: "DeFi Expert", description: "Complete DeFi course + hands-on tasks.", color: "#9ca3af", bgColor: "bg-gray-700/30" },
-  { title: "Developer Certification", description: "Developer course + dApp project submission.", color: "#ffb800", bgColor: "bg-[#ffb800]/20" },
-];
-
-const communityLinks = [
-  { icon: SiDiscord, title: "Join Discord", description: "Discuss with learners.", color: "#7000ff", href: "/community/hub" },
-  { icon: MessageCircle, title: "Developer Forum", description: "Technical Q&A.", color: "#00f0ff", href: "/community/hub" },
-  { icon: Globe, title: "Live Sessions", description: "Weekly Workshops.", color: "#00ff9d", href: "/community/events" },
-];
-
 export default function LearnHub() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const stats = [
+    { value: "25+", label: t('publicPages.learn.hub.stats.courses'), color: "text-[#7000ff]" },
+    { value: "48K+", label: t('publicPages.learn.hub.stats.learners'), color: "text-[#00f0ff]" },
+    { value: "120+", label: t('publicPages.learn.hub.stats.hoursContent'), color: "text-[#00ff9d]" },
+    { value: "94%", label: t('publicPages.learn.hub.stats.completionRate'), color: "text-[#ffb800]" },
+  ];
+
+  const learningPaths = [
+    {
+      icon: BookOpen,
+      title: t('publicPages.learn.hub.paths.blockchainBasics.title'),
+      description: t('publicPages.learn.hub.paths.blockchainBasics.description'),
+      level: t('publicPages.learn.hub.levels.beginner'),
+      color: "#00ff9d",
+      tags: [t('publicPages.learn.hub.tags.consensus'), t('publicPages.learn.hub.tags.smartContracts')],
+      href: "/learn/what-is-burn-chain",
+    },
+    {
+      icon: ShieldCheck,
+      title: t('publicPages.learn.hub.paths.trustScoreSystem.title'),
+      description: t('publicPages.learn.hub.paths.trustScoreSystem.description'),
+      level: t('publicPages.learn.hub.levels.intermediate'),
+      color: "#00f0ff",
+      tags: [t('publicPages.learn.hub.tags.algorithm'), t('publicPages.learn.hub.tags.verification')],
+      href: "/learn/trust-score",
+    },
+    {
+      icon: Coins,
+      title: t('publicPages.learn.hub.paths.masteringDefi.title'),
+      description: t('publicPages.learn.hub.paths.masteringDefi.description'),
+      level: t('publicPages.learn.hub.levels.intermediate'),
+      color: "#7000ff",
+      tags: [t('publicPages.learn.hub.tags.liquidity'), t('publicPages.learn.hub.tags.yieldFarming')],
+      href: "/learn/tokenomics",
+    },
+    {
+      icon: Code,
+      title: t('publicPages.learn.hub.paths.developerCourse.title'),
+      description: t('publicPages.learn.hub.paths.developerCourse.description'),
+      level: t('publicPages.learn.hub.levels.advanced'),
+      color: "#ffb800",
+      tags: [t('publicPages.learn.hub.tags.sdkSetup'), t('publicPages.learn.hub.tags.apiIntegration')],
+      href: "/developers",
+    },
+  ];
+
+  const coreConcepts = [
+    { icon: ShieldCheck, title: t('publicPages.learn.hub.concepts.trustScore.title'), description: t('publicPages.learn.hub.concepts.trustScore.description'), color: "#00f0ff" },
+    { icon: Flame, title: t('publicPages.learn.hub.concepts.autoBurn.title'), description: t('publicPages.learn.hub.concepts.autoBurn.description'), color: "#ef4444" },
+    { icon: Brain, title: t('publicPages.learn.hub.concepts.tripleBandAi.title'), description: t('publicPages.learn.hub.concepts.tripleBandAi.description'), color: "#7000ff" },
+    { icon: Lock, title: t('publicPages.learn.hub.concepts.quantumSecurity.title'), description: t('publicPages.learn.hub.concepts.quantumSecurity.description'), color: "#ffffff" },
+    { icon: Fuel, title: t('publicPages.learn.hub.concepts.emberGas.title'), description: t('publicPages.learn.hub.concepts.emberGas.description'), color: "#ffb800" },
+    { icon: Network, title: t('publicPages.learn.hub.concepts.dposBft.title'), description: t('publicPages.learn.hub.concepts.dposBft.description'), color: "#00ff9d" },
+  ];
+
+  const glossary = [
+    { term: "TBURN", description: t('publicPages.learn.hub.glossary.tburn'), color: "#00f0ff" },
+    { term: "Ember", description: t('publicPages.learn.hub.glossary.ember'), color: "#ffb800" },
+    { term: "Slashing", description: t('publicPages.learn.hub.glossary.slashing'), color: "#ef4444" },
+  ];
+
+  const certifications = [
+    { title: t('publicPages.learn.hub.certifications.fundamentals.title'), description: t('publicPages.learn.hub.certifications.fundamentals.description'), color: "#ffb800", bgColor: "bg-amber-900/30" },
+    { title: t('publicPages.learn.hub.certifications.defiExpert.title'), description: t('publicPages.learn.hub.certifications.defiExpert.description'), color: "#9ca3af", bgColor: "bg-gray-700/30" },
+    { title: t('publicPages.learn.hub.certifications.developer.title'), description: t('publicPages.learn.hub.certifications.developer.description'), color: "#ffb800", bgColor: "bg-[#ffb800]/20" },
+  ];
+
+  const communityLinks = [
+    { icon: SiDiscord, title: t('publicPages.learn.hub.community.discord.title'), description: t('publicPages.learn.hub.community.discord.description'), color: "#7000ff", href: "/community/hub" },
+    { icon: MessageCircle, title: t('publicPages.learn.hub.community.forum.title'), description: t('publicPages.learn.hub.community.forum.description'), color: "#00f0ff", href: "/community/hub" },
+    { icon: Globe, title: t('publicPages.learn.hub.community.liveSessions.title'), description: t('publicPages.learn.hub.community.liveSessions.description'), color: "#00ff9d", href: "/community/events" },
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -139,7 +139,7 @@ export default function LearnHub() {
       <section className="py-10 px-6 border-y border-white/5 bg-black/20">
         <div className="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center" data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}>
+            <div key={index} className="text-center" data-testid={`stat-${index}`}>
               <div className={`text-4xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
               <div className="text-sm text-gray-500 font-mono">{stat.label}</div>
             </div>
@@ -240,7 +240,7 @@ export default function LearnHub() {
         <div className="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12">
           {/* Glossary */}
           <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Glossary</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.hub.glossaryTitle')}</h2>
             <div className="space-y-4">
               {glossary.map((item, index) => (
                 <div 
@@ -265,7 +265,7 @@ export default function LearnHub() {
 
           {/* Certifications */}
           <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Certifications</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.hub.certificationsTitle')}</h2>
             <div className="space-y-4">
               {certifications.map((cert, index) => (
                 <div 

@@ -15,80 +15,80 @@ import {
   ArrowRight
 } from "lucide-react";
 
-const tokenizationTypes = [
-  {
-    icon: Building2,
-    iconColor: "#7000ff",
-    title: "Real Estate Tokenization",
-    desc: "Fractional ownership of commercial and residential properties. Enable global investors to own pieces of prime real estate with $100 minimum investment."
-  },
-  {
-    icon: Gem,
-    iconColor: "#00f0ff",
-    title: "Luxury Asset Tokenization",
-    desc: "Tokenize high-value collectibles, art, and luxury goods. Verified provenance on-chain prevents counterfeits and enables fractional ownership."
-  },
-  {
-    icon: FileText,
-    iconColor: "#00ff9d",
-    title: "Securities Tokenization",
-    desc: "Issue and trade compliant security tokens. Automate dividend distribution, voting rights, and regulatory reporting with smart contracts."
-  },
-  {
-    icon: TrendingUp,
-    iconColor: "#ffd700",
-    title: "Commodity Tokenization",
-    desc: "Digital representation of gold, silver, oil, and agricultural products. Trade 24/7 with instant settlement and verified reserves."
-  }
-];
-
-const metrics = [
-  {
-    icon: Users,
-    iconColor: "#7000ff",
-    value: "100M+",
-    label: "New Investors Enabled"
-  },
-  {
-    icon: TrendingUp,
-    iconColor: "#00f0ff",
-    value: "$50T",
-    label: "Unlocked Asset Value"
-  },
-  {
-    icon: Lock,
-    iconColor: "#00ff9d",
-    value: "99.9%",
-    label: "Settlement Reliability"
-  }
-];
-
-const features = [
-  {
-    icon: Globe,
-    title: "Global Market Access",
-    desc: "24/7 trading with instant settlement across jurisdictions"
-  },
-  {
-    icon: Banknote,
-    title: "Fractional Ownership",
-    desc: "Invest in high-value assets with any budget"
-  },
-  {
-    icon: Shield,
-    title: "Regulatory Compliant",
-    desc: "Built-in KYC/AML and accredited investor verification"
-  },
-  {
-    icon: Lock,
-    title: "Enterprise Security",
-    desc: "Multi-sig custody and HSM-protected infrastructure"
-  }
-];
-
 export default function Tokenization() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const tokenizationTypes = [
+    {
+      icon: Building2,
+      iconColor: "#7000ff",
+      title: t('publicPages.useCases.tokenization.types.realEstate.title'),
+      desc: t('publicPages.useCases.tokenization.types.realEstate.desc')
+    },
+    {
+      icon: Gem,
+      iconColor: "#00f0ff",
+      title: t('publicPages.useCases.tokenization.types.luxuryAsset.title'),
+      desc: t('publicPages.useCases.tokenization.types.luxuryAsset.desc')
+    },
+    {
+      icon: FileText,
+      iconColor: "#00ff9d",
+      title: t('publicPages.useCases.tokenization.types.securities.title'),
+      desc: t('publicPages.useCases.tokenization.types.securities.desc')
+    },
+    {
+      icon: TrendingUp,
+      iconColor: "#ffd700",
+      title: t('publicPages.useCases.tokenization.types.commodity.title'),
+      desc: t('publicPages.useCases.tokenization.types.commodity.desc')
+    }
+  ];
+
+  const metrics = [
+    {
+      icon: Users,
+      iconColor: "#7000ff",
+      value: "100M+",
+      label: t('publicPages.useCases.tokenization.metrics.newInvestors')
+    },
+    {
+      icon: TrendingUp,
+      iconColor: "#00f0ff",
+      value: "$50T",
+      label: t('publicPages.useCases.tokenization.metrics.unlockedAssetValue')
+    },
+    {
+      icon: Lock,
+      iconColor: "#00ff9d",
+      value: "99.9%",
+      label: t('publicPages.useCases.tokenization.metrics.settlementReliability')
+    }
+  ];
+
+  const features = [
+    {
+      icon: Globe,
+      title: t('publicPages.useCases.tokenization.features.globalMarket.title'),
+      desc: t('publicPages.useCases.tokenization.features.globalMarket.desc')
+    },
+    {
+      icon: Banknote,
+      title: t('publicPages.useCases.tokenization.features.fractionalOwnership.title'),
+      desc: t('publicPages.useCases.tokenization.features.fractionalOwnership.desc')
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.useCases.tokenization.features.regulatoryCompliant.title'),
+      desc: t('publicPages.useCases.tokenization.features.regulatoryCompliant.desc')
+    },
+    {
+      icon: Lock,
+      title: t('publicPages.useCases.tokenization.features.enterpriseSecurity.title'),
+      desc: t('publicPages.useCases.tokenization.features.enterpriseSecurity.desc')
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -131,7 +131,7 @@ export default function Tokenization() {
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
                 data-testid="button-tokenize"
               >
-                Start Tokenizing
+                {t('publicPages.useCases.tokenization.buttons.startTokenizing')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -139,7 +139,7 @@ export default function Tokenization() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
-                View Documentation
+                {t('publicPages.useCases.tokenization.buttons.viewDocumentation')}
               </button>
             </Link>
           </div>
@@ -149,8 +149,8 @@ export default function Tokenization() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Tokenization Types</h2>
-            <p className="text-gray-400">Transform any asset class into tradeable digital tokens.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.tokenization.sections.types')}</h2>
+            <p className="text-gray-400">{t('publicPages.useCases.tokenization.sections.typesDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -206,7 +206,7 @@ export default function Tokenization() {
 
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Platform Features</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.tokenization.sections.platformFeatures')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => {
@@ -231,10 +231,9 @@ export default function Tokenization() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#7000ff]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(112,0,255,0.1) 0%, rgba(0,240,255,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to Tokenize?</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.tokenization.cta.title')}</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Join the growing ecosystem of tokenized assets on TBurn Chain. 
-              Our team will guide you through compliance, technology, and market strategy.
+              {t('publicPages.useCases.tokenization.cta.desc')}
             </p>
             <Link href="/app">
               <button 
@@ -242,7 +241,7 @@ export default function Tokenization() {
                 style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
                 data-testid="button-get-started"
               >
-                Get Started <ArrowRight className="w-4 h-4" />
+                {t('publicPages.useCases.tokenization.cta.getStarted')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>

@@ -26,101 +26,101 @@ import {
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 
-const trustCrisis = [
-  {
-    icon: AlertTriangle,
-    title: "80%+ Scams",
-    description: "Over 80% of new crypto projects are potential scams or rugpulls.",
-    color: "#ff2a6d",
-  },
-  {
-    icon: DollarSign,
-    title: "$2.7B Lost",
-    description: "Total funds lost to rugpulls and fraud in 2023 alone.",
-    color: "#f97316",
-  },
-  {
-    icon: TrendingDown,
-    title: "$3.1B Risk",
-    description: "Estimated losses projected for 2024 without intervention.",
-    color: "#f97316",
-  },
-  {
-    icon: UserX,
-    title: "60-80% Loss",
-    description: "Average investor loss rate in early-stage projects.",
-    color: "#ff2a6d",
-  },
-];
-
-const performanceMetrics = [
-  { icon: Zap, value: "500k+", label: "TPS", color: "#00f0ff" },
-  { icon: Timer, value: "1.84ms", label: "Latency", color: "#7000ff" },
-  { icon: Box, value: "1s", label: "Block Time", color: "#00ff9d" },
-  { icon: Server, value: "30,000", label: "Nodes", color: "#ffd700" },
-];
-
-const aiLayers = [
-  {
-    icon: Brain,
-    title: "Strategic Layer",
-    model: ":: ChatGPT Latest",
-    latency: "450ms",
-    description: "Handles complex market analysis, governance proposal evaluation, and long-term strategy formulation.",
-    color: "#3b82f6",
-  },
-  {
-    icon: Cpu,
-    title: "Tactical Layer",
-    model: ":: Claude Latest",
-    latency: "180ms",
-    description: "Processes trust assessment, transaction verification, and smart contract auditing.",
-    color: "#a855f7",
-  },
-  {
-    icon: Terminal,
-    title: "Operational Layer",
-    model: ":: Gemini Latest",
-    latency: "45ms",
-    description: "Executes real-time monitoring, emergency response (Auto-Burn), and automated actions.",
-    color: "#22c55e",
-  },
-];
-
-const quantumSecurity = [
-  {
-    icon: Lock,
-    title: "CRYSTALS-Dilithium",
-    description: "NIST standard lattice-based signature algorithm providing post-quantum security.",
-  },
-  {
-    icon: Key,
-    title: "Hybrid Signatures",
-    description: "Combining ED25519 + Dilithium for backward compatibility and future-proofing.",
-  },
-];
-
-const coreModules = [
-  {
-    icon: Coins,
-    title: "DeFi Hub",
-    description: "Integrated AMM DEX, 85% LTV Loans, and Liquid Staking.",
-  },
-  {
-    icon: Gamepad2,
-    title: "GameFi Platform",
-    description: "P2E Engine, Tournament System, and Cross-chain Item Trading.",
-  },
-  {
-    icon: LinkIcon,
-    title: "Cross-Chain Bridge",
-    description: "Secure atomic swaps connected to 7+ major blockchains.",
-  },
-];
-
 export default function Whitepaper() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const trustCrisis = [
+    {
+      icon: AlertTriangle,
+      title: t('publicPages.learn.whitepaper.trustCrisis.items.scams.title'),
+      description: t('publicPages.learn.whitepaper.trustCrisis.items.scams.description'),
+      color: "#ff2a6d",
+    },
+    {
+      icon: DollarSign,
+      title: t('publicPages.learn.whitepaper.trustCrisis.items.lost.title'),
+      description: t('publicPages.learn.whitepaper.trustCrisis.items.lost.description'),
+      color: "#f97316",
+    },
+    {
+      icon: TrendingDown,
+      title: t('publicPages.learn.whitepaper.trustCrisis.items.risk.title'),
+      description: t('publicPages.learn.whitepaper.trustCrisis.items.risk.description'),
+      color: "#f97316",
+    },
+    {
+      icon: UserX,
+      title: t('publicPages.learn.whitepaper.trustCrisis.items.investorLoss.title'),
+      description: t('publicPages.learn.whitepaper.trustCrisis.items.investorLoss.description'),
+      color: "#ff2a6d",
+    },
+  ];
+
+  const performanceMetrics = [
+    { icon: Zap, value: t('publicPages.learn.whitepaper.performance.metrics.tps.value'), label: t('publicPages.learn.whitepaper.performance.metrics.tps.label'), color: "#00f0ff" },
+    { icon: Timer, value: t('publicPages.learn.whitepaper.performance.metrics.latency.value'), label: t('publicPages.learn.whitepaper.performance.metrics.latency.label'), color: "#7000ff" },
+    { icon: Box, value: t('publicPages.learn.whitepaper.performance.metrics.blockTime.value'), label: t('publicPages.learn.whitepaper.performance.metrics.blockTime.label'), color: "#00ff9d" },
+    { icon: Server, value: t('publicPages.learn.whitepaper.performance.metrics.nodes.value'), label: t('publicPages.learn.whitepaper.performance.metrics.nodes.label'), color: "#ffd700" },
+  ];
+
+  const aiLayers = [
+    {
+      icon: Brain,
+      title: t('publicPages.learn.whitepaper.aiLayers.items.strategic.title'),
+      model: t('publicPages.learn.whitepaper.aiLayers.items.strategic.model'),
+      latency: t('publicPages.learn.whitepaper.aiLayers.items.strategic.latency'),
+      description: t('publicPages.learn.whitepaper.aiLayers.items.strategic.description'),
+      color: "#3b82f6",
+    },
+    {
+      icon: Cpu,
+      title: t('publicPages.learn.whitepaper.aiLayers.items.tactical.title'),
+      model: t('publicPages.learn.whitepaper.aiLayers.items.tactical.model'),
+      latency: t('publicPages.learn.whitepaper.aiLayers.items.tactical.latency'),
+      description: t('publicPages.learn.whitepaper.aiLayers.items.tactical.description'),
+      color: "#a855f7",
+    },
+    {
+      icon: Terminal,
+      title: t('publicPages.learn.whitepaper.aiLayers.items.operational.title'),
+      model: t('publicPages.learn.whitepaper.aiLayers.items.operational.model'),
+      latency: t('publicPages.learn.whitepaper.aiLayers.items.operational.latency'),
+      description: t('publicPages.learn.whitepaper.aiLayers.items.operational.description'),
+      color: "#22c55e",
+    },
+  ];
+
+  const quantumSecurity = [
+    {
+      icon: Lock,
+      title: t('publicPages.learn.whitepaper.quantumSecurity.items.crystals.title'),
+      description: t('publicPages.learn.whitepaper.quantumSecurity.items.crystals.description'),
+    },
+    {
+      icon: Key,
+      title: t('publicPages.learn.whitepaper.quantumSecurity.items.hybrid.title'),
+      description: t('publicPages.learn.whitepaper.quantumSecurity.items.hybrid.description'),
+    },
+  ];
+
+  const coreModules = [
+    {
+      icon: Coins,
+      title: t('publicPages.learn.whitepaper.coreModules.items.defi.title'),
+      description: t('publicPages.learn.whitepaper.coreModules.items.defi.description'),
+    },
+    {
+      icon: Gamepad2,
+      title: t('publicPages.learn.whitepaper.coreModules.items.gamefi.title'),
+      description: t('publicPages.learn.whitepaper.coreModules.items.gamefi.description'),
+    },
+    {
+      icon: LinkIcon,
+      title: t('publicPages.learn.whitepaper.coreModules.items.bridge.title'),
+      description: t('publicPages.learn.whitepaper.coreModules.items.bridge.description'),
+    },
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -155,8 +155,9 @@ export default function Whitepaper() {
             {t('publicPages.learn.whitepaper.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
-            Decentralized Trust Infrastructure for Blockchain Projects.
-            <br />Arbitrum-based Layer 2 solution verifying reliability with 100% on-chain transparency.
+            {t('publicPages.learn.whitepaper.heroDescription')}
+            <br />
+            {t('publicPages.learn.whitepaper.heroSubDescription')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/docs">
@@ -168,7 +169,7 @@ export default function Whitepaper() {
                 }}
                 data-testid="button-download-pdf"
               >
-                <FileText className="w-4 h-4" /> Download PDF
+                <FileText className="w-4 h-4" /> {t('publicPages.learn.whitepaper.downloadPdf')}
               </button>
             </Link>
             <a 
@@ -178,7 +179,7 @@ export default function Whitepaper() {
               className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
               data-testid="link-view-source"
             >
-              <SiGithub className="w-4 h-4" /> View Source
+              <SiGithub className="w-4 h-4" /> {t('publicPages.learn.whitepaper.viewSource')}
             </a>
           </div>
         </div>
@@ -188,8 +189,8 @@ export default function Whitepaper() {
       <section className="py-20 px-6 border-b border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">The Trust Crisis</h2>
-            <p className="text-gray-500">Fundamental Issues in the Current Blockchain Industry</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.whitepaper.trustCrisis.title')}</h2>
+            <p className="text-gray-500">{t('publicPages.learn.whitepaper.trustCrisis.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -215,21 +216,21 @@ export default function Whitepaper() {
           <div className="flex flex-col md:flex-row gap-12 items-center mb-16">
             <div className="md:w-1/2">
               <div className="inline-block px-3 py-1 rounded bg-[#7000ff]/20 text-[#7000ff] text-xs font-bold mb-4 font-mono">
-                SOLUTION ARCHITECTURE
+                {t('publicPages.learn.whitepaper.performance.badge')}
               </div>
-              <h2 className="text-4xl font-bold text-white mb-6">V4 Enterprise Performance</h2>
+              <h2 className="text-4xl font-bold text-white mb-6">{t('publicPages.learn.whitepaper.performance.title')}</h2>
               <p className="text-gray-400 leading-relaxed mb-6">
-                TBurn Chain isn't just about trust scoring; it's a high-performance Layer 2 scaling solution built on Arbitrum technology, designed for enterprise-grade throughput.
+                {t('publicPages.learn.whitepaper.performance.description')}
               </p>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#00ff9d]" /> Hybrid Consensus (DPoS + BFT)
+                  <Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.learn.whitepaper.performance.features.hybridConsensus')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#00ff9d]" /> EVM Compatibility
+                  <Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.learn.whitepaper.performance.features.evmCompatibility')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#00ff9d]" /> Dynamic Sharding Support
+                  <Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.learn.whitepaper.performance.features.dynamicSharding')}
                 </li>
               </ul>
             </div>
@@ -260,8 +261,8 @@ export default function Whitepaper() {
       <section className="py-20 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Triple-Band AI Orchestration</h2>
-            <p className="text-gray-400">Intelligent decision-making using three distinct AI models.</p>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.learn.whitepaper.aiLayers.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.learn.whitepaper.aiLayers.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -300,7 +301,7 @@ export default function Whitepaper() {
             {/* Quantum-Safe Security */}
             <div>
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <ShieldCheck className="w-6 h-6 text-[#00f0ff]" /> Quantum-Safe Security
+                <ShieldCheck className="w-6 h-6 text-[#00f0ff]" /> {t('publicPages.learn.whitepaper.quantumSecurity.title')}
               </h3>
               <div className="space-y-4">
                 {quantumSecurity.map((item, index) => (
@@ -320,7 +321,7 @@ export default function Whitepaper() {
             {/* V4 Core Modules */}
             <div>
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <Boxes className="w-6 h-6 text-[#7000ff]" /> V4 Core Modules
+                <Boxes className="w-6 h-6 text-[#7000ff]" /> {t('publicPages.learn.whitepaper.coreModules.title')}
               </h3>
               <div className="space-y-4">
                 {coreModules.map((item, index) => (

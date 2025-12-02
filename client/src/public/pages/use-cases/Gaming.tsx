@@ -16,86 +16,86 @@ import {
   Film
 } from "lucide-react";
 
-const categories = [
-  {
-    icon: Gamepad2,
-    iconColor: "#ff0055",
-    title: "Web3 Gaming",
-    desc: "True ownership of in-game assets. Players earn, trade, and transfer items across games. Provably fair mechanics and transparent odds."
-  },
-  {
-    icon: Palette,
-    iconColor: "#7000ff",
-    title: "NFT Collectibles",
-    desc: "Dynamic NFTs that evolve with usage. Gaming achievements, character progression, and unique items stored on-chain."
-  },
-  {
-    icon: Music,
-    iconColor: "#00f0ff",
-    title: "Music & Streaming",
-    desc: "Direct artist-to-fan monetization. Tokenized royalties, exclusive access passes, and decentralized content distribution."
-  },
-  {
-    icon: Film,
-    iconColor: "#ffd700",
-    title: "Metaverse & Virtual Worlds",
-    desc: "Interoperable virtual assets. Land ownership, wearables, and experiences that work across multiple platforms."
-  }
-];
-
-const metrics = [
-  {
-    value: "50K+",
-    label: "Daily Active Players",
-    iconColor: "#ff0055"
-  },
-  {
-    value: "$45M",
-    label: "NFT Volume",
-    iconColor: "#7000ff"
-  },
-  {
-    value: "200+",
-    label: "Games & Apps",
-    iconColor: "#00f0ff"
-  }
-];
-
-const features = [
-  {
-    icon: Zap,
-    title: "Gas-Free Gaming",
-    desc: "Session keys and meta-transactions eliminate friction"
-  },
-  {
-    icon: Shield,
-    title: "Anti-Cheat On-Chain",
-    desc: "Cryptographic verification prevents exploits"
-  },
-  {
-    icon: Users,
-    title: "Guilds & DAOs",
-    desc: "Community governance for games and esports"
-  },
-  {
-    icon: Gift,
-    title: "Play & Earn",
-    desc: "Token rewards for gameplay achievements"
-  }
-];
-
-const gameTypes = [
-  { title: "MMORPGs", desc: "Massive multiplayer worlds with player-owned economies" },
-  { title: "Battle Royale", desc: "Competitive games with skill-based rewards" },
-  { title: "Card & Strategy", desc: "Collectible cards with true ownership" },
-  { title: "Racing & Sports", desc: "Virtual vehicles and athlete NFTs" },
-  { title: "Casual & Social", desc: "Simple games with social token mechanics" },
-  { title: "Esports", desc: "Tournament infrastructure and prize pools" }
-];
-
 export default function Gaming() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const categories = [
+    {
+      icon: Gamepad2,
+      iconColor: "#ff0055",
+      title: t('publicPages.useCases.gaming.categories.web3Gaming.title'),
+      desc: t('publicPages.useCases.gaming.categories.web3Gaming.desc')
+    },
+    {
+      icon: Palette,
+      iconColor: "#7000ff",
+      title: t('publicPages.useCases.gaming.categories.nftCollectibles.title'),
+      desc: t('publicPages.useCases.gaming.categories.nftCollectibles.desc')
+    },
+    {
+      icon: Music,
+      iconColor: "#00f0ff",
+      title: t('publicPages.useCases.gaming.categories.musicStreaming.title'),
+      desc: t('publicPages.useCases.gaming.categories.musicStreaming.desc')
+    },
+    {
+      icon: Film,
+      iconColor: "#ffd700",
+      title: t('publicPages.useCases.gaming.categories.metaverse.title'),
+      desc: t('publicPages.useCases.gaming.categories.metaverse.desc')
+    }
+  ];
+
+  const metrics = [
+    {
+      value: "50K+",
+      label: t('publicPages.useCases.gaming.metrics.dailyActivePlayers'),
+      iconColor: "#ff0055"
+    },
+    {
+      value: "$45M",
+      label: t('publicPages.useCases.gaming.metrics.nftVolume'),
+      iconColor: "#7000ff"
+    },
+    {
+      value: "200+",
+      label: t('publicPages.useCases.gaming.metrics.gamesApps'),
+      iconColor: "#00f0ff"
+    }
+  ];
+
+  const features = [
+    {
+      icon: Zap,
+      title: t('publicPages.useCases.gaming.features.gasFree.title'),
+      desc: t('publicPages.useCases.gaming.features.gasFree.desc')
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.useCases.gaming.features.antiCheat.title'),
+      desc: t('publicPages.useCases.gaming.features.antiCheat.desc')
+    },
+    {
+      icon: Users,
+      title: t('publicPages.useCases.gaming.features.guilds.title'),
+      desc: t('publicPages.useCases.gaming.features.guilds.desc')
+    },
+    {
+      icon: Gift,
+      title: t('publicPages.useCases.gaming.features.playEarn.title'),
+      desc: t('publicPages.useCases.gaming.features.playEarn.desc')
+    }
+  ];
+
+  const gameTypes = [
+    { title: t('publicPages.useCases.gaming.gameTypes.mmorpgs.title'), desc: t('publicPages.useCases.gaming.gameTypes.mmorpgs.desc') },
+    { title: t('publicPages.useCases.gaming.gameTypes.battleRoyale.title'), desc: t('publicPages.useCases.gaming.gameTypes.battleRoyale.desc') },
+    { title: t('publicPages.useCases.gaming.gameTypes.cardStrategy.title'), desc: t('publicPages.useCases.gaming.gameTypes.cardStrategy.desc') },
+    { title: t('publicPages.useCases.gaming.gameTypes.racingSports.title'), desc: t('publicPages.useCases.gaming.gameTypes.racingSports.desc') },
+    { title: t('publicPages.useCases.gaming.gameTypes.casualSocial.title'), desc: t('publicPages.useCases.gaming.gameTypes.casualSocial.desc') },
+    { title: t('publicPages.useCases.gaming.gameTypes.esports.title'), desc: t('publicPages.useCases.gaming.gameTypes.esports.desc') }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -139,7 +139,7 @@ export default function Gaming() {
                 style={{ boxShadow: "0 0 20px rgba(255,0,85,0.3)" }}
                 data-testid="button-build"
               >
-                Start Building
+                {t('publicPages.useCases.gaming.buttons.startBuilding')}
               </button>
             </Link>
             <Link href="/solutions/game-tooling">
@@ -147,7 +147,7 @@ export default function Gaming() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-tools"
               >
-                Game Tooling
+                {t('publicPages.useCases.gaming.buttons.gameTooling')}
               </button>
             </Link>
           </div>
@@ -179,8 +179,8 @@ export default function Gaming() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Use Case Categories</h2>
-            <p className="text-gray-400">Powering entertainment across every format.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.gaming.sections.categories')}</h2>
+            <p className="text-gray-400">{t('publicPages.useCases.gaming.sections.categoriesDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -212,7 +212,7 @@ export default function Gaming() {
 
       <section className="py-20 px-6 bg-white/[0.02] border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Platform Features</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.gaming.sections.platformFeatures')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => {
@@ -235,7 +235,7 @@ export default function Gaming() {
 
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Game Genres</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.gaming.sections.gameGenres')}</h2>
           
           <div className="grid md:grid-cols-3 gap-6">
             {gameTypes.map((game, idx) => (
@@ -257,10 +257,9 @@ export default function Gaming() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#ff0055]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(255,0,85,0.1) 0%, rgba(112,0,255,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to Build?</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.gaming.cta.title')}</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Join the growing ecosystem of games and entertainment on TBurn Chain.
-              Access our SDK, documentation, and developer community.
+              {t('publicPages.useCases.gaming.cta.desc')}
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <Link href="/developers/quickstart">
@@ -269,7 +268,7 @@ export default function Gaming() {
                   style={{ boxShadow: "0 0 20px rgba(255,0,85,0.3)" }}
                   data-testid="button-quickstart"
                 >
-                  Quick Start <ArrowRight className="w-4 h-4" />
+                  {t('publicPages.useCases.gaming.cta.quickStart')} <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
               <Link href="/app">
@@ -277,7 +276,7 @@ export default function Gaming() {
                   className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                   data-testid="button-login"
                 >
-                  Member Portal
+                  {t('publicPages.useCases.gaming.cta.memberPortal')}
                 </button>
               </Link>
             </div>

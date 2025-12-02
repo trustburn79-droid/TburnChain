@@ -3,59 +3,79 @@ import { useTranslation } from "react-i18next";
 import { 
   Coins, Layers, ArrowLeft, Clock, ChevronRight, Play, 
   Check, Box, Wallet, Code, ArrowRightLeft, HandCoins, 
-  Droplets, TrendingUp, FileText, Zap, BookOpen, Terminal
+  Droplets, TrendingUp, FileText, Zap, BookOpen, Terminal, LucideIcon
 } from "lucide-react";
 
-const statsData = [
-  { value: "$2.4B+", label: "TVL Locked", color: "#7000ff" },
-  { value: "Up to 45%", label: "Average APY", color: "#ff00ff" },
-  { value: "50+", label: "Active Protocols", color: "#00f0ff" },
-];
+interface StatData {
+  value: string;
+  label: string;
+  color: string;
+}
 
-const curriculumModules = [
-  {
-    icon: ArrowRightLeft,
-    title: "Liquidity Provision",
-    subtitle: "Understanding AMMs & Pools",
-    duration: "60 min",
-    link: "/developers/docs"
-  },
-  {
-    icon: HandCoins,
-    title: "Collateralized Lending",
-    subtitle: "LTV Ratios & Liquidation",
-    duration: "60 min",
-    link: "/developers/api"
-  },
-  {
-    icon: Droplets,
-    title: "Liquid Staking",
-    subtitle: "Unlocking staked assets",
-    duration: "60 min",
-    link: "/developers/contracts"
-  },
-  {
-    icon: TrendingUp,
-    title: "Yield Farming",
-    subtitle: "Strategies for max APY",
-    duration: "60 min",
-    link: "/developers/sdk"
-  },
-];
+interface CurriculumModule {
+  icon: LucideIcon;
+  title: string;
+  subtitle: string;
+  duration: string;
+  link: string;
+}
 
-const keyTakeaways = [
-  "Core DeFi protocols mechanics",
-  "Advanced Farming Strategies",
-  "Risk Management",
-];
-
-const prerequisites = [
-  { icon: Box, text: "Blockchain Basics", link: "/learn/blockchain-basics" },
-  { icon: Wallet, text: "Crypto Wallet Setup", link: "/learn/wallet" },
-];
+interface Prerequisite {
+  icon: LucideIcon;
+  text: string;
+  link: string;
+}
 
 export default function DefiMastery() {
   const { t } = useTranslation();
+
+  const statsData: StatData[] = [
+    { value: t('publicPages.learn.defiMastery.stats.tvl.value'), label: t('publicPages.learn.defiMastery.stats.tvl.label'), color: "#7000ff" },
+    { value: t('publicPages.learn.defiMastery.stats.apy.value'), label: t('publicPages.learn.defiMastery.stats.apy.label'), color: "#ff00ff" },
+    { value: t('publicPages.learn.defiMastery.stats.protocols.value'), label: t('publicPages.learn.defiMastery.stats.protocols.label'), color: "#00f0ff" },
+  ];
+
+  const curriculumModules: CurriculumModule[] = [
+    {
+      icon: ArrowRightLeft,
+      title: t('publicPages.learn.defiMastery.curriculum.module1.title'),
+      subtitle: t('publicPages.learn.defiMastery.curriculum.module1.subtitle'),
+      duration: t('publicPages.learn.defiMastery.curriculum.module1.duration'),
+      link: "/developers/docs"
+    },
+    {
+      icon: HandCoins,
+      title: t('publicPages.learn.defiMastery.curriculum.module2.title'),
+      subtitle: t('publicPages.learn.defiMastery.curriculum.module2.subtitle'),
+      duration: t('publicPages.learn.defiMastery.curriculum.module2.duration'),
+      link: "/developers/api"
+    },
+    {
+      icon: Droplets,
+      title: t('publicPages.learn.defiMastery.curriculum.module3.title'),
+      subtitle: t('publicPages.learn.defiMastery.curriculum.module3.subtitle'),
+      duration: t('publicPages.learn.defiMastery.curriculum.module3.duration'),
+      link: "/developers/contracts"
+    },
+    {
+      icon: TrendingUp,
+      title: t('publicPages.learn.defiMastery.curriculum.module4.title'),
+      subtitle: t('publicPages.learn.defiMastery.curriculum.module4.subtitle'),
+      duration: t('publicPages.learn.defiMastery.curriculum.module4.duration'),
+      link: "/developers/sdk"
+    },
+  ];
+
+  const keyTakeaways: string[] = [
+    t('publicPages.learn.defiMastery.keyTakeaways.item1'),
+    t('publicPages.learn.defiMastery.keyTakeaways.item2'),
+    t('publicPages.learn.defiMastery.keyTakeaways.item3'),
+  ];
+
+  const prerequisites: Prerequisite[] = [
+    { icon: Box, text: t('publicPages.learn.defiMastery.prerequisites.item1'), link: "/learn/blockchain-basics" },
+    { icon: Wallet, text: t('publicPages.learn.defiMastery.prerequisites.item2'), link: "/learn/wallet" },
+  ];
 
   return (
     <main className="flex-grow relative z-10">
@@ -68,7 +88,7 @@ export default function DefiMastery() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#7000ff] mb-6 transition-colors group"
             data-testid="link-back-education"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Education Hub
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.learn.defiMastery.backToEducation')}
           </Link>
           
           <div className="flex items-start gap-6">
@@ -81,7 +101,7 @@ export default function DefiMastery() {
                   {t('publicPages.learn.defiMastery.tag')}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
-                  <Clock className="w-4 h-4" /> 4 hours
+                  <Clock className="w-4 h-4" /> {t('publicPages.learn.defiMastery.duration')}
                 </span>
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.defiMastery.title')}</h1>
@@ -126,10 +146,10 @@ export default function DefiMastery() {
             <div className="spotlight-card rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
                 <Layers className="w-6 h-6 text-[#7000ff]" />
-                <h2 className="text-xl font-bold text-white">Course Overview</h2>
+                <h2 className="text-xl font-bold text-white">{t('publicPages.learn.defiMastery.courseOverview.title')}</h2>
               </div>
               <p className="text-gray-400 leading-relaxed mb-6">
-                This course moves beyond the basics. You will learn the economic models behind liquidity pools, how to calculate impermanent loss, and how to execute flash loans securely.
+                {t('publicPages.learn.defiMastery.courseOverview.description')}
               </p>
 
               <div className="mt-6 p-4 border border-white/10 border-dashed rounded-lg bg-black/20">
@@ -138,17 +158,17 @@ export default function DefiMastery() {
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#7000ff]/20 flex items-center justify-center">
                       <Play className="w-8 h-8 text-[#7000ff]" />
                     </div>
-                    <p className="text-gray-400 text-sm">Smart Contract Interaction Flow</p>
-                    <p className="text-xs text-gray-500 mt-1">DeFi Protocol Architecture</p>
+                    <p className="text-gray-400 text-sm">{t('publicPages.learn.defiMastery.courseOverview.videoTitle')}</p>
+                    <p className="text-xs text-gray-500 mt-1">{t('publicPages.learn.defiMastery.courseOverview.videoSubtitle')}</p>
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 mt-2 text-center">Figure 1: Smart Contract Interaction Flow</p>
+                <p className="text-xs text-gray-500 mt-2 text-center">{t('publicPages.learn.defiMastery.courseOverview.figureCaption')}</p>
               </div>
             </div>
 
             {/* Curriculum */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">Curriculum</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.learn.defiMastery.curriculumTitle')}</h2>
               <div className="space-y-4">
                 {curriculumModules.map((module, index) => (
                   <Link 
@@ -179,9 +199,9 @@ export default function DefiMastery() {
 
             {/* Developer Resources */}
             <div className="spotlight-card rounded-xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4">Developer Resources</h3>
+              <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.learn.defiMastery.developerResources.title')}</h3>
               <p className="text-gray-400 text-sm mb-4">
-                Build DeFi applications on TBurn Chain with our comprehensive developer tools and documentation.
+                {t('publicPages.learn.defiMastery.developerResources.description')}
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <Link 
@@ -191,8 +211,8 @@ export default function DefiMastery() {
                 >
                   <Code className="w-5 h-5 text-[#7000ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#7000ff] transition">Smart Contracts</p>
-                    <p className="text-xs text-gray-500">DeFi contract templates</p>
+                    <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.learn.defiMastery.developerResources.smartContracts.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.defiMastery.developerResources.smartContracts.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -202,8 +222,8 @@ export default function DefiMastery() {
                 >
                   <BookOpen className="w-5 h-5 text-[#ff00ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#ff00ff] transition">SDK Guide</p>
-                    <p className="text-xs text-gray-500">DeFi SDK integration</p>
+                    <p className="font-medium text-white group-hover:text-[#ff00ff] transition">{t('publicPages.learn.defiMastery.developerResources.sdkGuide.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.defiMastery.developerResources.sdkGuide.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -213,8 +233,8 @@ export default function DefiMastery() {
                 >
                   <FileText className="w-5 h-5 text-[#00f0ff]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#00f0ff] transition">API Reference</p>
-                    <p className="text-xs text-gray-500">DeFi endpoints</p>
+                    <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.learn.defiMastery.developerResources.apiReference.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.defiMastery.developerResources.apiReference.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -224,8 +244,8 @@ export default function DefiMastery() {
                 >
                   <Zap className="w-5 h-5 text-[#00ff9d]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#00ff9d] transition">WebSocket API</p>
-                    <p className="text-xs text-gray-500">Real-time DeFi data</p>
+                    <p className="font-medium text-white group-hover:text-[#00ff9d] transition">{t('publicPages.learn.defiMastery.developerResources.websocket.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.defiMastery.developerResources.websocket.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -235,8 +255,8 @@ export default function DefiMastery() {
                 >
                   <Terminal className="w-5 h-5 text-[#ffd700]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#ffd700] transition">Code Examples</p>
-                    <p className="text-xs text-gray-500">DeFi code samples</p>
+                    <p className="font-medium text-white group-hover:text-[#ffd700] transition">{t('publicPages.learn.defiMastery.developerResources.codeExamples.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.defiMastery.developerResources.codeExamples.subtitle')}</p>
                   </div>
                 </Link>
                 <Link 
@@ -246,8 +266,8 @@ export default function DefiMastery() {
                 >
                   <Play className="w-5 h-5 text-[#ff0055]" />
                   <div>
-                    <p className="font-medium text-white group-hover:text-[#ff0055] transition">Quick Start</p>
-                    <p className="text-xs text-gray-500">Build your first DApp</p>
+                    <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.learn.defiMastery.developerResources.quickStart.title')}</p>
+                    <p className="text-xs text-gray-500">{t('publicPages.learn.defiMastery.developerResources.quickStart.subtitle')}</p>
                   </div>
                 </Link>
               </div>
@@ -270,7 +290,7 @@ export default function DefiMastery() {
 
               {/* Key Takeaways */}
               <div className="mb-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">Key Takeaways</h3>
+                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.defiMastery.keyTakeawaysTitle')}</h3>
                 <ul className="space-y-3">
                   {keyTakeaways.map((takeaway, index) => (
                     <li key={index} className="flex items-start gap-3 text-sm text-gray-400">
@@ -283,7 +303,7 @@ export default function DefiMastery() {
 
               {/* Prerequisites */}
               <div className="border-t border-white/10 pt-6">
-                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">Prerequisites</h3>
+                <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wide">{t('publicPages.learn.defiMastery.prerequisitesTitle')}</h3>
                 <ul className="space-y-3">
                   {prerequisites.map((prereq, index) => (
                     <li key={index}>
@@ -307,14 +327,14 @@ export default function DefiMastery() {
               className="spotlight-card rounded-xl p-6 group cursor-pointer block"
               data-testid="link-developer-course"
             >
-              <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Up Next</h3>
+              <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.learn.defiMastery.upNext.label')}</h3>
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center">
                   <Code className="w-5 h-5 text-orange-500" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white group-hover:text-orange-400 transition">Developer Course</h4>
-                  <p className="text-xs text-gray-500">Build your first DApp</p>
+                  <h4 className="font-bold text-white group-hover:text-orange-400 transition">{t('publicPages.learn.defiMastery.upNext.title')}</h4>
+                  <p className="text-xs text-gray-500">{t('publicPages.learn.defiMastery.upNext.subtitle')}</p>
                 </div>
               </div>
             </Link>

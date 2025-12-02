@@ -17,7 +17,7 @@ export default function Disclaimer() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#f59e0b] mb-6 transition-colors group"
             data-testid="link-back-home"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Home
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.legal.common.backToHome')}
           </Link>
           
           <div className="flex items-center gap-4 mb-4">
@@ -37,55 +37,55 @@ export default function Disclaimer() {
           {/* Important Notice */}
           <div className="mb-12 p-6 bg-[#f59e0b]/10 border border-[#f59e0b]/30 rounded-xl">
             <h2 className="text-xl font-bold text-[#f59e0b] flex items-center gap-2 mb-4">
-              <AlertCircle className="w-5 h-5" /> Important Notice
+              <AlertCircle className="w-5 h-5" /> {t('publicPages.legal.disclaimer.importantNotice.title')}
             </h2>
             <p className="text-gray-300 leading-relaxed">
-              Please read this disclaimer carefully before using TBurn Chain services. By accessing or using our platform, you acknowledge that you have read, understood, and agree to the following disclaimers.
+              {t('publicPages.legal.disclaimer.importantNotice.content')}
             </p>
           </div>
 
           {/* Section 1 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">1.</span> No Investment Advice
+              <span className="text-[#f59e0b]">1.</span> {t('publicPages.legal.disclaimer.sections.noAdvice.title')}
             </h2>
             <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg mb-4">
               <p className="text-red-200 leading-relaxed">
-                <strong>TBurn Chain does not provide investment, financial, tax, or legal advice.</strong> All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.
+                <strong>{t('publicPages.legal.disclaimer.sections.noAdvice.warning')}</strong>
               </p>
             </div>
             <p>
-              You should consult with qualified professionals before making any investment decisions. Past performance is not indicative of future results.
+              {t('publicPages.legal.disclaimer.sections.noAdvice.content')}
             </p>
           </div>
 
           {/* Section 2 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">2.</span> Risk Disclosure
+              <span className="text-[#f59e0b]">2.</span> {t('publicPages.legal.disclaimer.sections.riskDisclosure.title')}
             </h2>
-            <p className="mb-4">Cryptocurrency and blockchain investments carry significant risks, including:</p>
+            <p className="mb-4">{t('publicPages.legal.disclaimer.sections.riskDisclosure.intro')}</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong className="text-white">Market Volatility:</strong> Prices can fluctuate dramatically in short periods</li>
-              <li><strong className="text-white">Regulatory Risk:</strong> Laws and regulations may change unexpectedly</li>
-              <li><strong className="text-white">Technical Risk:</strong> Smart contracts may contain bugs or vulnerabilities</li>
-              <li><strong className="text-white">Liquidity Risk:</strong> You may not be able to sell assets when desired</li>
-              <li><strong className="text-white">Loss of Funds:</strong> You may lose all or part of your investment</li>
+              <li><strong className="text-white">{t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.volatility.label')}</strong> {t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.volatility.value')}</li>
+              <li><strong className="text-white">{t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.regulatory.label')}</strong> {t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.regulatory.value')}</li>
+              <li><strong className="text-white">{t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.technical.label')}</strong> {t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.technical.value')}</li>
+              <li><strong className="text-white">{t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.liquidity.label')}</strong> {t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.liquidity.value')}</li>
+              <li><strong className="text-white">{t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.loss.label')}</strong> {t('publicPages.legal.disclaimer.sections.riskDisclosure.risks.loss.value')}</li>
             </ul>
           </div>
 
           {/* Section 3 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">3.</span> Trust Score Limitations
+              <span className="text-[#f59e0b]">3.</span> {t('publicPages.legal.disclaimer.sections.trustScore.title')}
             </h2>
             <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
-              <p className="mb-4">Trust Scores are calculated based on available data and our verification process, but:</p>
+              <p className="mb-4">{t('publicPages.legal.disclaimer.sections.trustScore.intro')}</p>
               <ul className="list-disc pl-6 space-y-2 text-gray-400">
-                <li>They do not guarantee the safety or legitimacy of any project</li>
-                <li>They may not reflect all relevant factors</li>
-                <li>Historical scores may not predict future performance</li>
-                <li>They should be one of many factors in your due diligence</li>
+                <li>{t('publicPages.legal.disclaimer.sections.trustScore.items.noGuarantee')}</li>
+                <li>{t('publicPages.legal.disclaimer.sections.trustScore.items.notAllFactors')}</li>
+                <li>{t('publicPages.legal.disclaimer.sections.trustScore.items.historical')}</li>
+                <li>{t('publicPages.legal.disclaimer.sections.trustScore.items.dueDiligence')}</li>
               </ul>
             </div>
           </div>
@@ -93,31 +93,31 @@ export default function Disclaimer() {
           {/* Section 4 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">4.</span> Third-Party Content
+              <span className="text-[#f59e0b]">4.</span> {t('publicPages.legal.disclaimer.sections.thirdParty.title')}
             </h2>
             <p>
-              Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. Access to third-party resources is at your own risk.
+              {t('publicPages.legal.disclaimer.sections.thirdParty.content')}
             </p>
           </div>
 
           {/* Section 5 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">5.</span> Service Availability
+              <span className="text-[#f59e0b]">5.</span> {t('publicPages.legal.disclaimer.sections.availability.title')}
             </h2>
             <p>
-              We strive to maintain continuous service availability, but we do not guarantee uninterrupted access. Services may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances.
+              {t('publicPages.legal.disclaimer.sections.availability.content')}
             </p>
           </div>
 
           {/* Section 6 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">6.</span> Limitation of Liability
+              <span className="text-[#f59e0b]">6.</span> {t('publicPages.legal.disclaimer.sections.limitation.title')}
             </h2>
             <div className="p-6 border border-white/10 rounded-xl bg-black/20">
               <p className="text-sm text-gray-400 uppercase leading-relaxed">
-                TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES.
+                {t('publicPages.legal.disclaimer.sections.limitation.content')}
               </p>
             </div>
           </div>
@@ -125,30 +125,30 @@ export default function Disclaimer() {
           {/* Section 7 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">7.</span> Geographic Restrictions
+              <span className="text-[#f59e0b]">7.</span> {t('publicPages.legal.disclaimer.sections.geographic.title')}
             </h2>
             <p>
-              Our services may not be available in all jurisdictions. It is your responsibility to ensure that your use of TBurn Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain geographic locations.
+              {t('publicPages.legal.disclaimer.sections.geographic.content')}
             </p>
           </div>
 
           {/* Section 8 */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#f59e0b]">8.</span> Forward-Looking Statements
+              <span className="text-[#f59e0b]">8.</span> {t('publicPages.legal.disclaimer.sections.forwardLooking.title')}
             </h2>
             <p>
-              Any statements regarding future events, plans, or developments are forward-looking statements subject to risks and uncertainties. Actual results may differ materially from those expressed or implied in such statements.
+              {t('publicPages.legal.disclaimer.sections.forwardLooking.content')}
             </p>
           </div>
 
           {/* Contact Information */}
           <div className="mt-16 pt-8 border-t border-white/10">
-            <h2 className="text-xl font-bold text-white mb-4">Questions?</h2>
+            <h2 className="text-xl font-bold text-white mb-4">{t('publicPages.legal.disclaimer.contact.title')}</h2>
             <div className="p-4 rounded-lg bg-white/5 border border-white/10">
               <div className="flex items-center gap-2 mb-2">
                 <Mail className="w-4 h-4 text-[#f59e0b]" />
-                <strong className="text-[#f59e0b]">Legal Inquiries</strong>
+                <strong className="text-[#f59e0b]">{t('publicPages.legal.disclaimer.contact.label')}</strong>
               </div>
               <p className="text-gray-300">legal@tburn.io</p>
             </div>
@@ -156,7 +156,7 @@ export default function Disclaimer() {
 
           {/* Related Legal Pages */}
           <div className="mt-8 pt-8 border-t border-white/10">
-            <h3 className="text-lg font-bold text-white mb-4">Related Legal Documents</h3>
+            <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.legal.common.relatedDocs')}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Link 
                 href="/legal/terms-of-service"
@@ -165,8 +165,8 @@ export default function Disclaimer() {
               >
                 <FileText className="w-5 h-5 text-[#00f0ff]" />
                 <div>
-                  <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Terms of Service</p>
-                  <p className="text-xs text-gray-500">User agreement</p>
+                  <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.legal.common.links.terms.title')}</p>
+                  <p className="text-xs text-gray-500">{t('publicPages.legal.common.links.terms.subtitle')}</p>
                 </div>
               </Link>
               <Link 
@@ -176,8 +176,8 @@ export default function Disclaimer() {
               >
                 <Shield className="w-5 h-5 text-[#7000ff]" />
                 <div>
-                  <p className="font-medium text-white group-hover:text-[#7000ff] transition">Privacy Policy</p>
-                  <p className="text-xs text-gray-500">Data handling</p>
+                  <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.legal.common.links.privacy.title')}</p>
+                  <p className="text-xs text-gray-500">{t('publicPages.legal.common.links.privacy.subtitleData')}</p>
                 </div>
               </Link>
             </div>
@@ -185,7 +185,7 @@ export default function Disclaimer() {
 
           {/* Related Learn Pages */}
           <div className="mt-8 pt-8 border-t border-white/10">
-            <h3 className="text-lg font-bold text-white mb-4">Learn More</h3>
+            <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.legal.common.learnMore')}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Link 
                 href="/learn/trust-score-system"
@@ -194,8 +194,8 @@ export default function Disclaimer() {
               >
                 <Scale className="w-5 h-5 text-[#00f0ff]" />
                 <div>
-                  <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Trust Score System</p>
-                  <p className="text-xs text-gray-500">How scores work</p>
+                  <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.legal.common.learn.trustScore.title')}</p>
+                  <p className="text-xs text-gray-500">{t('publicPages.legal.common.learn.trustScore.subtitleHow')}</p>
                 </div>
               </Link>
               <Link 
@@ -205,8 +205,8 @@ export default function Disclaimer() {
               >
                 <TrendingDown className="w-5 h-5 text-[#10b981]" />
                 <div>
-                  <p className="font-medium text-white group-hover:text-[#10b981] transition">Intro to DeFi</p>
-                  <p className="text-xs text-gray-500">Understanding risks</p>
+                  <p className="font-medium text-white group-hover:text-[#10b981] transition">{t('publicPages.legal.common.learn.defi.title')}</p>
+                  <p className="text-xs text-gray-500">{t('publicPages.legal.common.learn.defi.subtitle')}</p>
                 </div>
               </Link>
             </div>

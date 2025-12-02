@@ -16,77 +16,77 @@ import {
   HardDrive
 } from "lucide-react";
 
-const depinCategories = [
-  {
-    icon: Wifi,
-    iconColor: "#00f0ff",
-    title: "Wireless Networks",
-    desc: "Decentralized 5G and WiFi infrastructure. Users deploy hotspots and earn tokens for providing coverage to IoT devices and mobile users."
-  },
-  {
-    icon: Server,
-    iconColor: "#7000ff",
-    title: "Compute Networks",
-    desc: "Distributed GPU and CPU computing power. Rent out idle hardware for AI training, rendering, and scientific computing."
-  },
-  {
-    icon: Map,
-    iconColor: "#00ff9d",
-    title: "Mapping & Location",
-    desc: "Crowdsourced geospatial data collection. Dashcams, drones, and mobile devices contribute to real-time mapping infrastructure."
-  },
-  {
-    icon: Cloud,
-    iconColor: "#ffd700",
-    title: "Storage Networks",
-    desc: "Decentralized file storage and CDN. Store and retrieve data across thousands of nodes with cryptographic verification."
-  }
-];
-
-const metrics = [
-  {
-    value: "2.5M+",
-    label: "Active Nodes",
-    iconColor: "#00f0ff"
-  },
-  {
-    value: "$850M",
-    label: "Protocol Revenue",
-    iconColor: "#7000ff"
-  },
-  {
-    value: "150+",
-    label: "Countries Covered",
-    iconColor: "#00ff9d"
-  }
-];
-
-const features = [
-  {
-    icon: Zap,
-    title: "Proof of Coverage",
-    desc: "Cryptographic verification that physical infrastructure exists and operates correctly"
-  },
-  {
-    icon: Shield,
-    title: "Slashing Protection",
-    desc: "Staked collateral ensures reliable operation and penalizes malicious actors"
-  },
-  {
-    icon: Users,
-    title: "Community Governance",
-    desc: "Token holders vote on protocol upgrades, rewards, and expansion zones"
-  },
-  {
-    icon: TrendingUp,
-    title: "Dynamic Rewards",
-    desc: "Earn more in underserved areas where coverage is most valuable"
-  }
-];
-
 export default function DePIN() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const depinCategories = [
+    {
+      icon: Wifi,
+      iconColor: "#00f0ff",
+      title: t('publicPages.useCases.depin.categories.wireless.title'),
+      desc: t('publicPages.useCases.depin.categories.wireless.desc')
+    },
+    {
+      icon: Server,
+      iconColor: "#7000ff",
+      title: t('publicPages.useCases.depin.categories.compute.title'),
+      desc: t('publicPages.useCases.depin.categories.compute.desc')
+    },
+    {
+      icon: Map,
+      iconColor: "#00ff9d",
+      title: t('publicPages.useCases.depin.categories.mapping.title'),
+      desc: t('publicPages.useCases.depin.categories.mapping.desc')
+    },
+    {
+      icon: Cloud,
+      iconColor: "#ffd700",
+      title: t('publicPages.useCases.depin.categories.storage.title'),
+      desc: t('publicPages.useCases.depin.categories.storage.desc')
+    }
+  ];
+
+  const metrics = [
+    {
+      value: "2.5M+",
+      label: t('publicPages.useCases.depin.metrics.activeNodes'),
+      iconColor: "#00f0ff"
+    },
+    {
+      value: "$850M",
+      label: t('publicPages.useCases.depin.metrics.protocolRevenue'),
+      iconColor: "#7000ff"
+    },
+    {
+      value: "150+",
+      label: t('publicPages.useCases.depin.metrics.countriesCovered'),
+      iconColor: "#00ff9d"
+    }
+  ];
+
+  const features = [
+    {
+      icon: Zap,
+      title: t('publicPages.useCases.depin.features.proofOfCoverage.title'),
+      desc: t('publicPages.useCases.depin.features.proofOfCoverage.desc')
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.useCases.depin.features.slashingProtection.title'),
+      desc: t('publicPages.useCases.depin.features.slashingProtection.desc')
+    },
+    {
+      icon: Users,
+      title: t('publicPages.useCases.depin.features.communityGovernance.title'),
+      desc: t('publicPages.useCases.depin.features.communityGovernance.desc')
+    },
+    {
+      icon: TrendingUp,
+      title: t('publicPages.useCases.depin.features.dynamicRewards.title'),
+      desc: t('publicPages.useCases.depin.features.dynamicRewards.desc')
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -129,7 +129,7 @@ export default function DePIN() {
                 style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
                 data-testid="button-deploy"
               >
-                Deploy Infrastructure
+                {t('publicPages.useCases.depin.buttons.deployInfrastructure')}
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -137,7 +137,7 @@ export default function DePIN() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-docs"
               >
-                Protocol Docs
+                {t('publicPages.useCases.depin.buttons.protocolDocs')}
               </button>
             </Link>
           </div>
@@ -169,8 +169,8 @@ export default function DePIN() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Infrastructure Categories</h2>
-            <p className="text-gray-400">Deploy physical infrastructure and earn rewards.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.useCases.depin.sections.categories')}</h2>
+            <p className="text-gray-400">{t('publicPages.useCases.depin.sections.categoriesDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -202,7 +202,7 @@ export default function DePIN() {
 
       <section className="py-20 px-6 bg-white/[0.02] border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Protocol Features</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.useCases.depin.sections.protocolFeatures')}</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => {
@@ -231,23 +231,22 @@ export default function DePIN() {
                 <HardDrive className="w-8 h-8 text-[#00f0ff]" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white mb-3">Hardware Requirements</h3>
+                <h3 className="text-2xl font-bold text-white mb-3">{t('publicPages.useCases.depin.hardware.title')}</h3>
                 <p className="text-gray-400 mb-4">
-                  Start earning with consumer-grade hardware. Our protocol supports a wide range of devices 
-                  from Raspberry Pi to enterprise servers. GPU miners can repurpose equipment for compute tasks.
+                  {t('publicPages.useCases.depin.hardware.desc')}
                 </p>
                 <ul className="space-y-2 text-sm text-gray-400">
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#00ff9d]" />
-                    <span>Minimum: 4GB RAM, stable internet connection</span>
+                    <span>{t('publicPages.useCases.depin.hardware.minimum')}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#00ff9d]" />
-                    <span>Recommended: 16GB RAM, dedicated IP, SSD storage</span>
+                    <span>{t('publicPages.useCases.depin.hardware.recommended')}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#00ff9d]" />
-                    <span>GPU tasks: NVIDIA RTX 3060 or equivalent</span>
+                    <span>{t('publicPages.useCases.depin.hardware.gpu')}</span>
                   </li>
                 </ul>
               </div>
@@ -260,10 +259,9 @@ export default function DePIN() {
         <div className="container mx-auto max-w-4xl">
           <div className="spotlight-card rounded-2xl p-8 border border-[#00f0ff]/30 text-center"
                style={{ background: "linear-gradient(135deg, rgba(0,240,255,0.1) 0%, rgba(112,0,255,0.05) 100%)" }}>
-            <h2 className="text-3xl font-bold text-white mb-4">Join the Network</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{t('publicPages.useCases.depin.cta.title')}</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Deploy infrastructure, contribute to decentralization, and earn rewards.
-              Get started with our easy setup guides and community support.
+              {t('publicPages.useCases.depin.cta.desc')}
             </p>
             <Link href="/app">
               <button 
@@ -271,7 +269,7 @@ export default function DePIN() {
                 style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
                 data-testid="button-get-started"
               >
-                Get Started <ArrowRight className="w-4 h-4" />
+                {t('publicPages.useCases.depin.cta.getStarted')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>

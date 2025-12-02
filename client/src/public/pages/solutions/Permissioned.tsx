@@ -15,105 +15,105 @@ import {
   HeartPulse
 } from "lucide-react";
 
-const enterpriseFeatures = [
-  {
-    icon: UserCog,
-    iconColor: "#7000ff",
-    title: "Role-Based Access Control (RBAC)",
-    desc: "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
-  },
-  {
-    icon: IdCard,
-    iconColor: "#00f0ff",
-    title: "Whitelist Validators",
-    desc: "Only trusted validators can participate in the network. Configure the network so that only internal nodes or approved partners can generate and validate blocks."
-  },
-  {
-    icon: FileText,
-    iconColor: "#00ff9d",
-    title: "Regulatory Compliance",
-    desc: "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
-  },
-  {
-    icon: Key,
-    iconColor: "#ffd700",
-    title: "Multi-Signature Governance",
-    desc: "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
-  }
-];
-
-const hybridFeatures = [
-  {
-    icon: Link2,
-    iconColor: "#00f0ff",
-    title: "Private Chain + Public Anchor",
-    desc: "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the TBurn Public Mainnet for immutability."
-  },
-  {
-    icon: EyeOff,
-    iconColor: "#7000ff",
-    title: "Selective Data Disclosure",
-    desc: "Transaction details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
-  }
-];
-
-const useCases = [
-  {
-    icon: Truck,
-    iconColor: "#00f0ff",
-    title: "Supply Chain",
-    desc: "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
-    example: "Auto Parts Tracking",
-    flow: "Raw Material → Production → Assembly"
-  },
-  {
-    icon: Landmark,
-    iconColor: "#7000ff",
-    title: "Banking Consortium",
-    desc: "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
-    example: "Cross-border Remittance",
-    flow: "3 Days → 3 Seconds, Fee $10 → $0.01"
-  },
-  {
-    icon: HeartPulse,
-    iconColor: "#00ff9d",
-    title: "Medical Data",
-    desc: "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
-    example: "E-Prescriptions",
-    flow: "Hospital → Pharmacy → Insurance"
-  }
-];
-
-const deploymentSteps = [
-  {
-    step: 1,
-    title: "Requirements Analysis (1-2 Weeks)",
-    desc: "Identify participants, design permission schemas, and review regulatory requirements. TBurn engineers provide architectural consulting.",
-    highlight: false
-  },
-  {
-    step: 2,
-    title: "Network Setup (2-3 Weeks)",
-    desc: "Deploy validator nodes, generate genesis block, and develop initial smart contracts in a test environment.",
-    highlight: false
-  },
-  {
-    step: 3,
-    title: "Integration & Migration (3-4 Weeks)",
-    desc: "API integration with legacy systems (ERP, CRM), data migration, and user training.",
-    highlight: false
-  },
-  {
-    step: 4,
-    title: "Mainnet Launch & Operations",
-    desc: "Production deployment with 24/7 monitoring and regular security audits. Ongoing support from the TBurn team.",
-    highlight: true
-  }
-];
-
 export default function Permissioned() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const enterpriseFeatures = [
+    {
+      icon: UserCog,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.permissioned.features.rbac.title'),
+      desc: t('publicPages.solutions.permissioned.features.rbac.desc')
+    },
+    {
+      icon: IdCard,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.permissioned.features.whitelist.title'),
+      desc: t('publicPages.solutions.permissioned.features.whitelist.desc')
+    },
+    {
+      icon: FileText,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.permissioned.features.compliance.title'),
+      desc: t('publicPages.solutions.permissioned.features.compliance.desc')
+    },
+    {
+      icon: Key,
+      iconColor: "#ffd700",
+      title: t('publicPages.solutions.permissioned.features.multisig.title'),
+      desc: t('publicPages.solutions.permissioned.features.multisig.desc')
+    }
+  ];
+
+  const hybridFeatures = [
+    {
+      icon: Link2,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.permissioned.hybrid.privateAnchor.title'),
+      desc: t('publicPages.solutions.permissioned.hybrid.privateAnchor.desc')
+    },
+    {
+      icon: EyeOff,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.permissioned.hybrid.selectiveDisclosure.title'),
+      desc: t('publicPages.solutions.permissioned.hybrid.selectiveDisclosure.desc')
+    }
+  ];
+
+  const useCases = [
+    {
+      icon: Truck,
+      iconColor: "#00f0ff",
+      title: t('publicPages.solutions.permissioned.useCases.supplyChain.title'),
+      desc: t('publicPages.solutions.permissioned.useCases.supplyChain.desc'),
+      example: t('publicPages.solutions.permissioned.useCases.supplyChain.example'),
+      flow: t('publicPages.solutions.permissioned.useCases.supplyChain.flow')
+    },
+    {
+      icon: Landmark,
+      iconColor: "#7000ff",
+      title: t('publicPages.solutions.permissioned.useCases.banking.title'),
+      desc: t('publicPages.solutions.permissioned.useCases.banking.desc'),
+      example: t('publicPages.solutions.permissioned.useCases.banking.example'),
+      flow: t('publicPages.solutions.permissioned.useCases.banking.flow')
+    },
+    {
+      icon: HeartPulse,
+      iconColor: "#00ff9d",
+      title: t('publicPages.solutions.permissioned.useCases.medical.title'),
+      desc: t('publicPages.solutions.permissioned.useCases.medical.desc'),
+      example: t('publicPages.solutions.permissioned.useCases.medical.example'),
+      flow: t('publicPages.solutions.permissioned.useCases.medical.flow')
+    }
+  ];
+
+  const deploymentSteps = [
+    {
+      step: 1,
+      title: t('publicPages.solutions.permissioned.deployment.step1.title'),
+      desc: t('publicPages.solutions.permissioned.deployment.step1.desc'),
+      highlight: false
+    },
+    {
+      step: 2,
+      title: t('publicPages.solutions.permissioned.deployment.step2.title'),
+      desc: t('publicPages.solutions.permissioned.deployment.step2.desc'),
+      highlight: false
+    },
+    {
+      step: 3,
+      title: t('publicPages.solutions.permissioned.deployment.step3.title'),
+      desc: t('publicPages.solutions.permissioned.deployment.step3.desc'),
+      highlight: false
+    },
+    {
+      step: 4,
+      title: t('publicPages.solutions.permissioned.deployment.step4.title'),
+      desc: t('publicPages.solutions.permissioned.deployment.step4.desc'),
+      highlight: true
+    }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -160,7 +160,7 @@ export default function Permissioned() {
                 style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
                 data-testid="button-contact"
               >
-                Contact Sales
+                {t('publicPages.solutions.permissioned.buttons.contactSales')}
               </button>
             </Link>
             <Link href="/learn/whitepaper">
@@ -168,7 +168,7 @@ export default function Permissioned() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-whitepaper"
               >
-                View Whitepaper
+                {t('publicPages.solutions.permissioned.buttons.viewWhitepaper')}
               </button>
             </Link>
           </div>
@@ -179,8 +179,8 @@ export default function Permissioned() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-2">Enterprise-Grade Permissioned Chain</h2>
-            <p className="text-gray-400">Advanced control and compliance features for businesses.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.permissioned.sections.enterpriseFeatures.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.solutions.permissioned.sections.enterpriseFeatures.subtitle')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -215,9 +215,9 @@ export default function Permissioned() {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-white mb-6">Hybrid Architecture</h2>
+              <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.permissioned.sections.hybridArchitecture.title')}</h2>
               <p className="text-gray-400 mb-6 text-lg leading-relaxed">
-                Combine the privacy of a private chain with the security of a public blockchain.
+                {t('publicPages.solutions.permissioned.sections.hybridArchitecture.subtitle')}
               </p>
               
               <div className="space-y-6">
@@ -242,18 +242,18 @@ export default function Permissioned() {
             <div className="md:w-1/2 w-full">
               <div className="spotlight-card p-8 rounded-2xl border border-[#00f0ff]/30 bg-[#00f0ff]/5 text-center">
                 <Network className="w-16 h-16 text-[#00f0ff] mx-auto mb-6" />
-                <h3 className="text-xl font-bold text-white">Private Consensus Layer</h3>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.permissioned.diagram.privateLayer')}</h3>
                 
                 <div className="my-4 border-l-2 border-dashed border-white/20 h-12 mx-auto w-0" />
                 
                 <div className="bg-black/40 p-4 rounded-lg border border-white/10 inline-block">
-                  <span className="text-xs font-mono text-gray-500">ANCHORING HASH</span>
+                  <span className="text-xs font-mono text-gray-500">{t('publicPages.solutions.permissioned.diagram.anchoringHash')}</span>
                   <div className="text-[#7000ff] font-mono text-sm mt-1">0x7f...3a9b</div>
                 </div>
                 
                 <div className="my-4 border-l-2 border-dashed border-white/20 h-12 mx-auto w-0" />
                 
-                <h3 className="text-xl font-bold text-white">Public Mainnet (L1)</h3>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.solutions.permissioned.diagram.publicMainnet')}</h3>
               </div>
             </div>
           </div>
@@ -263,7 +263,7 @@ export default function Permissioned() {
       {/* Industry Use Cases Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Industry Use Cases</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.permissioned.sections.useCases.title')}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {useCases.map((useCase, idx) => {
               const Icon = useCase.icon;
@@ -280,7 +280,7 @@ export default function Permissioned() {
                     className="bg-white/5 p-3 rounded text-xs text-gray-300"
                     style={{ borderLeft: `2px solid ${useCase.iconColor}` }}
                   >
-                    <strong>Example:</strong> {useCase.example}<br />
+                    <strong>{t('publicPages.solutions.permissioned.useCases.exampleLabel')}:</strong> {useCase.example}<br />
                     {useCase.flow}
                   </div>
                 </div>
@@ -296,7 +296,7 @@ export default function Permissioned() {
         style={{ background: "linear-gradient(to right, rgba(112,0,255,0.1), rgba(0,240,255,0.1))" }}
       >
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Deployment Process</h2>
+          <h2 className="text-3xl font-bold text-white mb-12 text-center">{t('publicPages.solutions.permissioned.sections.deployment.title')}</h2>
           <div className="space-y-6">
             {deploymentSteps.map((step, idx) => (
               <div 

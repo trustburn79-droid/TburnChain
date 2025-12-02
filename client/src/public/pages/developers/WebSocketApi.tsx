@@ -6,80 +6,6 @@ import {
   RefreshCw, Download, Server, Book, Copy, ExternalLink
 } from "lucide-react";
 
-const endpoints = [
-  { 
-    type: "Mainnet", 
-    desc: "Primary Stream", 
-    url: "wss://ws.tburn.io/v4",
-    color: "#00ff9d",
-    bgColor: "bg-[#00ff9d]/10",
-    borderColor: "border-[#00ff9d]/20"
-  },
-  { 
-    type: "Testnet", 
-    desc: "Sandbox Environment", 
-    url: "wss://ws-testnet.tburn.io/v4",
-    color: "#ffd700",
-    bgColor: "bg-yellow-500/10",
-    borderColor: "border-yellow-500/20"
-  },
-];
-
-const subscriptionChannels = [
-  {
-    name: "blocks",
-    icon: Box,
-    color: "#00f0ff",
-    borderColor: "border-l-[#00f0ff]",
-    methods: ["block.new", "block.finalized"],
-    desc: "Receive real-time notifications when new blocks are mined or finalized.",
-    code: `{
-  "type": "subscribe",
-  "channel": "blocks",
-  "params": { "all": true }
-}`
-  },
-  {
-    name: "transactions",
-    icon: ArrowRightLeft,
-    color: "#7000ff",
-    borderColor: "border-l-[#7000ff]",
-    methods: ["tx.pending", "tx.confirmed"],
-    desc: "Monitor incoming and outgoing transactions for specific addresses.",
-    code: `{
-  "type": "subscribe",
-  "channel": "transactions",
-  "params": { "address": "0xUser..." }
-}`
-  },
-  {
-    name: "trust-score",
-    icon: LineChart,
-    color: "#00ff9d",
-    borderColor: "border-l-[#00ff9d]",
-    methods: ["score.updated"],
-    desc: "Listen for AI-driven trust score updates for tracked projects.",
-    code: `{
-  "type": "subscribe",
-  "channel": "trust-score",
-  "params": { "projects": ["0x..."] }
-}`
-  },
-  {
-    name: "defi",
-    icon: Coins,
-    color: "#ff0055",
-    borderColor: "border-l-[#ff0055]",
-    methods: ["swap", "liquidity"],
-    desc: "Real-time stream of swaps, liquidity adds/removes, and staking events.",
-    code: `{
-  "type": "subscribe",
-  "channel": "defi",
-  "params": { "pools": ["TBURN/ETH"] }
-}`
-  },
-];
-
 const authCode = `const ws = new WebSocket('wss://ws.tburn.io/v4');
 
 ws.onopen = () => {
@@ -141,6 +67,80 @@ export default function WebSocketApi() {
   const { t } = useTranslation();
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
+  const endpoints = [
+    { 
+      type: t('publicPages.developers.websocket.endpoints.mainnet.type'), 
+      desc: t('publicPages.developers.websocket.endpoints.mainnet.desc'), 
+      url: "wss://ws.tburn.io/v4",
+      color: "#00ff9d",
+      bgColor: "bg-[#00ff9d]/10",
+      borderColor: "border-[#00ff9d]/20"
+    },
+    { 
+      type: t('publicPages.developers.websocket.endpoints.testnet.type'), 
+      desc: t('publicPages.developers.websocket.endpoints.testnet.desc'), 
+      url: "wss://ws-testnet.tburn.io/v4",
+      color: "#ffd700",
+      bgColor: "bg-yellow-500/10",
+      borderColor: "border-yellow-500/20"
+    },
+  ];
+
+  const subscriptionChannels = [
+    {
+      name: "blocks",
+      icon: Box,
+      color: "#00f0ff",
+      borderColor: "border-l-[#00f0ff]",
+      methods: ["block.new", "block.finalized"],
+      desc: t('publicPages.developers.websocket.channels.blocks.description'),
+      code: `{
+  "type": "subscribe",
+  "channel": "blocks",
+  "params": { "all": true }
+}`
+    },
+    {
+      name: "transactions",
+      icon: ArrowRightLeft,
+      color: "#7000ff",
+      borderColor: "border-l-[#7000ff]",
+      methods: ["tx.pending", "tx.confirmed"],
+      desc: t('publicPages.developers.websocket.channels.transactions.description'),
+      code: `{
+  "type": "subscribe",
+  "channel": "transactions",
+  "params": { "address": "0xUser..." }
+}`
+    },
+    {
+      name: "trust-score",
+      icon: LineChart,
+      color: "#00ff9d",
+      borderColor: "border-l-[#00ff9d]",
+      methods: ["score.updated"],
+      desc: t('publicPages.developers.websocket.channels.trustScore.description'),
+      code: `{
+  "type": "subscribe",
+  "channel": "trust-score",
+  "params": { "projects": ["0x..."] }
+}`
+    },
+    {
+      name: "defi",
+      icon: Coins,
+      color: "#ff0055",
+      borderColor: "border-l-[#ff0055]",
+      methods: ["swap", "liquidity"],
+      desc: t('publicPages.developers.websocket.channels.defi.description'),
+      code: `{
+  "type": "subscribe",
+  "channel": "defi",
+  "params": { "pools": ["TBURN/ETH"] }
+}`
+    },
+  ];
+
   const handleCopy = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
     setCopiedIndex(index);
@@ -173,7 +173,7 @@ export default function WebSocketApi() {
                 className="spotlight-card px-5 py-3 rounded-lg flex items-center gap-2 text-[#00f0ff] border border-[#00f0ff]/30 hover:bg-[#00f0ff]/10 transition"
                 data-testid="link-full-reference"
               >
-                <Book className="w-4 h-4" /> Full Reference
+                <Book className="w-4 h-4" /> {t('publicPages.developers.websocket.fullReference')}
               </Link>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function WebSocketApi() {
         <div className="container mx-auto max-w-7xl">
           <div className="flex items-center gap-3 mb-6">
             <Network className="w-5 h-5 text-[#7000ff]" />
-            <h2 className="text-xl font-bold text-white">Connection Endpoints</h2>
+            <h2 className="text-xl font-bold text-white">{t('publicPages.developers.websocket.connectionEndpoints')}</h2>
           </div>
           
           <div className="spotlight-card rounded-xl p-1 overflow-hidden">
@@ -224,10 +224,10 @@ export default function WebSocketApi() {
             <div className="spotlight-card rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold flex items-center gap-2 text-white">
-                  <Shield className="w-5 h-5 text-[#00f0ff]" /> Authentication
+                  <Shield className="w-5 h-5 text-[#00f0ff]" /> {t('publicPages.developers.websocket.authentication.title')}
                 </h3>
               </div>
-              <p className="text-sm text-gray-400 mb-4">Establish connection and send your API key immediately.</p>
+              <p className="text-sm text-gray-400 mb-4">{t('publicPages.developers.websocket.authentication.description')}</p>
               
               <div className="bg-[#08080b] border border-gray-800 rounded-lg p-4 overflow-x-auto">
                 <div className="flex justify-between text-xs text-gray-500 mb-2 pb-2 border-b border-gray-800">
@@ -244,12 +244,11 @@ export default function WebSocketApi() {
             <div className="spotlight-card rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold flex items-center gap-2 text-white">
-                  <Heart className="w-5 h-5 text-[#7000ff]" /> Heartbeat
+                  <Heart className="w-5 h-5 text-[#7000ff]" /> {t('publicPages.developers.websocket.heartbeat.title')}
                 </h3>
               </div>
               <p className="text-sm text-gray-400 mb-4">
-                Server sends <span className="text-[#00f0ff] font-mono">ping</span> every 30s. 
-                Reply with <span className="text-[#7000ff] font-mono">pong</span>.
+                {t('publicPages.developers.websocket.heartbeat.description')}
               </p>
               
               <div className="bg-[#08080b] border border-gray-800 rounded-lg p-4 overflow-x-auto">
@@ -270,7 +269,7 @@ export default function WebSocketApi() {
       <section className="py-12 px-6">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2 text-white">
-            <span className="text-gray-400">◈</span> Subscription Channels
+            <span className="text-gray-400">◈</span> {t('publicPages.developers.websocket.subscriptionChannels')}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -321,8 +320,8 @@ export default function WebSocketApi() {
                 <RefreshCw className="w-5 h-5 text-gray-400" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Client Implementation Strategy</h3>
-                <p className="text-sm text-gray-400">Recommended pattern for production environments</p>
+                <h3 className="text-xl font-bold text-white">{t('publicPages.developers.websocket.clientImplementation.title')}</h3>
+                <p className="text-sm text-gray-400">{t('publicPages.developers.websocket.clientImplementation.subtitle')}</p>
               </div>
             </div>
             
@@ -338,28 +337,28 @@ export default function WebSocketApi() {
       {/* Ready to Integrate */}
       <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/10 to-[#00f0ff]/10 border-t border-white/5">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">Ready to integrate?</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{t('publicPages.developers.websocket.readyToIntegrate')}</h2>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/developers/sdk"
               className="bg-[#00f0ff] text-black px-6 py-3 rounded-lg font-bold hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(0,240,255,0.4)] flex items-center gap-2"
               data-testid="link-get-sdk"
             >
-              <Download className="w-5 h-5" /> Get SDK
+              <Download className="w-5 h-5" /> {t('publicPages.developers.websocket.getSdk')}
             </Link>
             <Link 
               href="/developers/api"
               className="spotlight-card border border-white/20 px-6 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center gap-2 text-white"
               data-testid="link-rest-api"
             >
-              <Server className="w-5 h-5" /> View REST API
+              <Server className="w-5 h-5" /> {t('publicPages.developers.websocket.viewRestApi')}
             </Link>
             <Link 
               href="/developers/examples"
               className="spotlight-card border border-white/20 px-6 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center gap-2 text-white"
               data-testid="link-code-examples"
             >
-              <ExternalLink className="w-5 h-5" /> Code Examples
+              <ExternalLink className="w-5 h-5" /> {t('publicPages.developers.websocket.codeExamples')}
             </Link>
           </div>
         </div>

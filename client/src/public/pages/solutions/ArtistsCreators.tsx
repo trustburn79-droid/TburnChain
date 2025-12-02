@@ -7,50 +7,50 @@ import {
   Wallet, CreditCard, Gamepad2, Store, Coins, ExternalLink
 } from "lucide-react";
 
-const features = [
-  {
-    icon: Zap,
-    title: "Lightning Performance",
-    description: "Mint thousands of NFTs in seconds. TBurn Chain's high throughput ensures your drops happen instantly without gas wars.",
-    gradientFrom: "#d946ef",
-    gradientTo: "#8b5cf6",
-    hoverColor: "text-[#d946ef]"
-  },
-  {
-    icon: Shield,
-    title: "Trust Verification",
-    description: "Protect your community. Our 3-stage verification badge gives collectors confidence that your project is authentic and secure.",
-    gradientFrom: "#8b5cf6",
-    gradientTo: "#00f0ff",
-    hoverColor: "text-[#8b5cf6]"
-  },
-  {
-    icon: Users,
-    title: "Thriving Ecosystem",
-    description: "Join a network of thousands of artists and developers. Collaborate, cross-promote, and grow together on a unified platform.",
-    gradientFrom: "#00f0ff",
-    gradientTo: "#d946ef",
-    hoverColor: "text-[#00f0ff]"
-  },
-  {
-    icon: Maximize2,
-    title: "Infinite Scalability",
-    description: "From your first prototype to a global metaverse launch, our infrastructure scales effortlessly with your ambition.",
-    gradientFrom: "#d946ef",
-    gradientTo: "#f97316",
-    hoverColor: "text-orange-400"
-  }
-];
-
-const stats = [
-  { value: "2.5M+", label: "NFTs Minted", color: "#d946ef" },
-  { value: "$120M+", label: "Creator Earnings", color: "#8b5cf6" },
-  { value: "15k+", label: "Verified Artists", color: "#00f0ff" }
-];
-
 export default function ArtistsCreators() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const features = [
+    {
+      icon: Zap,
+      title: t('publicPages.solutions.artistsCreators.features.lightningPerformance.title'),
+      description: t('publicPages.solutions.artistsCreators.features.lightningPerformance.description'),
+      gradientFrom: "#d946ef",
+      gradientTo: "#8b5cf6",
+      hoverColor: "text-[#d946ef]"
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.solutions.artistsCreators.features.trustVerification.title'),
+      description: t('publicPages.solutions.artistsCreators.features.trustVerification.description'),
+      gradientFrom: "#8b5cf6",
+      gradientTo: "#00f0ff",
+      hoverColor: "text-[#8b5cf6]"
+    },
+    {
+      icon: Users,
+      title: t('publicPages.solutions.artistsCreators.features.thrivingEcosystem.title'),
+      description: t('publicPages.solutions.artistsCreators.features.thrivingEcosystem.description'),
+      gradientFrom: "#00f0ff",
+      gradientTo: "#d946ef",
+      hoverColor: "text-[#00f0ff]"
+    },
+    {
+      icon: Maximize2,
+      title: t('publicPages.solutions.artistsCreators.features.infiniteScalability.title'),
+      description: t('publicPages.solutions.artistsCreators.features.infiniteScalability.description'),
+      gradientFrom: "#d946ef",
+      gradientTo: "#f97316",
+      hoverColor: "text-orange-400"
+    }
+  ];
+
+  const stats = [
+    { value: "2.5M+", label: t('publicPages.solutions.artistsCreators.stats.nftsMinted'), color: "#d946ef" },
+    { value: "$120M+", label: t('publicPages.solutions.artistsCreators.stats.creatorEarnings'), color: "#8b5cf6" },
+    { value: "15k+", label: t('publicPages.solutions.artistsCreators.stats.verifiedArtists'), color: "#00f0ff" }
+  ];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -110,7 +110,7 @@ export default function ArtistsCreators() {
                 style={{ boxShadow: "0 0 20px rgba(217,70,239,0.4)" }}
                 data-testid="button-start-creating"
               >
-                <Palette className="w-4 h-4" /> Start Creating
+                <Palette className="w-4 h-4" /> {t('publicPages.solutions.artistsCreators.buttons.startCreating')}
               </button>
             </Link>
             <Link href="/app/nft-marketplace">
@@ -118,7 +118,7 @@ export default function ArtistsCreators() {
                 className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
                 data-testid="button-explore"
               >
-                <Search className="w-4 h-4" /> Explore Collections
+                <Search className="w-4 h-4" /> {t('publicPages.solutions.artistsCreators.buttons.exploreCollections')}
               </button>
             </Link>
           </div>
@@ -171,9 +171,9 @@ export default function ArtistsCreators() {
       {/* Related Solutions */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Related Solutions</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.artistsCreators.relatedSolutions.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Explore other TBurn Chain solutions for creators and artists.
+            {t('publicPages.solutions.artistsCreators.relatedSolutions.description')}
           </p>
           <div className="grid md:grid-cols-4 gap-4">
             <Link 
@@ -183,8 +183,8 @@ export default function ArtistsCreators() {
             >
               <Coins className="w-5 h-5 text-[#d946ef]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#d946ef] transition">Token Extensions</p>
-                <p className="text-xs text-gray-500">NFT standards</p>
+                <p className="font-medium text-white group-hover:text-[#d946ef] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.tokenExtensions.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.tokenExtensions.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -194,8 +194,8 @@ export default function ArtistsCreators() {
             >
               <Wallet className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">Wallets</p>
-                <p className="text-xs text-gray-500">Creator wallets</p>
+                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.wallets.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.wallets.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -205,8 +205,8 @@ export default function ArtistsCreators() {
             >
               <Store className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Commerce</p>
-                <p className="text-xs text-gray-500">NFT marketplace</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.commerce.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.commerce.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -216,8 +216,8 @@ export default function ArtistsCreators() {
             >
               <Gamepad2 className="w-5 h-5 text-[#f97316]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f97316] transition">Game Tooling</p>
-                <p className="text-xs text-gray-500">Gaming NFTs</p>
+                <p className="font-medium text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.gameTooling.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.gameTooling.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -227,8 +227,8 @@ export default function ArtistsCreators() {
             >
               <CreditCard className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">Payments</p>
-                <p className="text-xs text-gray-500">Creator payouts</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.payments.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.payments.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -238,8 +238,8 @@ export default function ArtistsCreators() {
             >
               <Zap className="w-5 h-5 text-[#facc15]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#facc15] transition">Actions & Blinks</p>
-                <p className="text-xs text-gray-500">NFT actions</p>
+                <p className="font-medium text-white group-hover:text-[#facc15] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.actionsBlinks.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.actionsBlinks.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -249,8 +249,8 @@ export default function ArtistsCreators() {
             >
               <Shield className="w-5 h-5 text-[#3b82f6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">Financial Infra</p>
-                <p className="text-xs text-gray-500">Royalty system</p>
+                <p className="font-medium text-white group-hover:text-[#3b82f6] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.financial.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.financial.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -260,8 +260,8 @@ export default function ArtistsCreators() {
             >
               <Sparkles className="w-5 h-5 text-[#7000ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#7000ff] transition">AI Features</p>
-                <p className="text-xs text-gray-500">AI art tools</p>
+                <p className="font-medium text-white group-hover:text-[#7000ff] transition">{t('publicPages.solutions.artistsCreators.relatedSolutions.aiFeatures.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.relatedSolutions.aiFeatures.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -271,9 +271,9 @@ export default function ArtistsCreators() {
       {/* Developer Resources */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Developer Resources</h3>
+          <h3 className="text-lg font-bold text-white mb-4">{t('publicPages.solutions.artistsCreators.developerResources.title')}</h3>
           <p className="text-gray-400 text-sm mb-4">
-            Build creator tools and NFT applications with TBurn Chain.
+            {t('publicPages.solutions.artistsCreators.developerResources.description')}
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             <Link 
@@ -283,8 +283,8 @@ export default function ArtistsCreators() {
             >
               <BookOpen className="w-5 h-5 text-[#d946ef]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#d946ef] transition">SDK Guide</p>
-                <p className="text-xs text-gray-500">NFT SDK</p>
+                <p className="font-medium text-white group-hover:text-[#d946ef] transition">{t('publicPages.solutions.artistsCreators.developerResources.sdkGuide.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.sdkGuide.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -294,8 +294,8 @@ export default function ArtistsCreators() {
             >
               <Code className="w-5 h-5 text-[#8b5cf6]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">Smart Contracts</p>
-                <p className="text-xs text-gray-500">TBC-721/1155</p>
+                <p className="font-medium text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.developerResources.smartContracts.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.smartContracts.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -305,8 +305,8 @@ export default function ArtistsCreators() {
             >
               <FileText className="w-5 h-5 text-[#00f0ff]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">API Reference</p>
-                <p className="text-xs text-gray-500">NFT API</p>
+                <p className="font-medium text-white group-hover:text-[#00f0ff] transition">{t('publicPages.solutions.artistsCreators.developerResources.apiReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.apiReference.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -316,8 +316,8 @@ export default function ArtistsCreators() {
             >
               <Zap className="w-5 h-5 text-[#f97316]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#f97316] transition">WebSocket API</p>
-                <p className="text-xs text-gray-500">Real-time events</p>
+                <p className="font-medium text-white group-hover:text-[#f97316] transition">{t('publicPages.solutions.artistsCreators.developerResources.websocketApi.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.websocketApi.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -327,8 +327,8 @@ export default function ArtistsCreators() {
             >
               <Terminal className="w-5 h-5 text-[#ff0055]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#ff0055] transition">CLI Reference</p>
-                <p className="text-xs text-gray-500">Minting tools</p>
+                <p className="font-medium text-white group-hover:text-[#ff0055] transition">{t('publicPages.solutions.artistsCreators.developerResources.cliReference.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.cliReference.subtitle')}</p>
               </div>
             </Link>
             <Link 
@@ -338,8 +338,8 @@ export default function ArtistsCreators() {
             >
               <ExternalLink className="w-5 h-5 text-[#22c55e]" />
               <div>
-                <p className="font-medium text-white group-hover:text-[#22c55e] transition">Code Examples</p>
-                <p className="text-xs text-gray-500">NFT samples</p>
+                <p className="font-medium text-white group-hover:text-[#22c55e] transition">{t('publicPages.solutions.artistsCreators.developerResources.codeExamples.title')}</p>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.developerResources.codeExamples.subtitle')}</p>
               </div>
             </Link>
           </div>
@@ -352,14 +352,14 @@ export default function ArtistsCreators() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-defi-mastery"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Learn More</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.artistsCreators.learnMore.title')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#8b5cf6]/20 flex items-center justify-center">
                 <Coins className="w-5 h-5 text-[#8b5cf6]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">DeFi Mastery</h4>
-                <p className="text-xs text-gray-500">NFT DeFi integration</p>
+                <h4 className="font-bold text-white group-hover:text-[#8b5cf6] transition">{t('publicPages.solutions.artistsCreators.learnMore.defiMastery.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.learnMore.defiMastery.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -368,14 +368,14 @@ export default function ArtistsCreators() {
             className="spotlight-card rounded-xl p-6 group cursor-pointer block"
             data-testid="link-developer-course"
           >
-            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">For Developers</h3>
+            <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">{t('publicPages.solutions.artistsCreators.learnMore.forDevelopers')}</h3>
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-[#f59e0b]/20 flex items-center justify-center">
                 <Code className="w-5 h-5 text-[#f59e0b]" />
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">Developer Course</h4>
-                <p className="text-xs text-gray-500">NFT development</p>
+                <h4 className="font-bold text-white group-hover:text-[#f59e0b] transition">{t('publicPages.solutions.artistsCreators.learnMore.developerCourse.title')}</h4>
+                <p className="text-xs text-gray-500">{t('publicPages.solutions.artistsCreators.learnMore.developerCourse.subtitle')}</p>
               </div>
             </div>
           </Link>
@@ -383,16 +383,16 @@ export default function ArtistsCreators() {
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">Ready to make your mark?</h2>
+          <h2 className="text-3xl font-bold text-white mb-6">{t('publicPages.solutions.artistsCreators.cta.title')}</h2>
           <p className="text-gray-400 mb-8">
-            The tools you need to build the next generation of digital experiences are here.
+            {t('publicPages.solutions.artistsCreators.cta.description')}
           </p>
           <Link 
             href="/developers/docs"
             className="text-[#d946ef] hover:text-white transition-colors border-b border-[#d946ef] hover:border-white pb-1"
             data-testid="link-creator-guide"
           >
-            Read Creator Guide <ArrowLeft className="w-4 h-4 inline-block rotate-180 ml-1" />
+            {t('publicPages.solutions.artistsCreators.cta.link')} <ArrowLeft className="w-4 h-4 inline-block rotate-180 ml-1" />
           </Link>
         </div>
       </section>
