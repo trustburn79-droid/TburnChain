@@ -25,6 +25,7 @@ const menuStructure: MenuSection[] = [
       { title: "Trust Score System", href: "/learn/trust-score" },
       { title: "What is a Wallet?", href: "/learn/wallet" },
       { title: "Blockchain Basics", href: "/learn/blockchain-basics" },
+      { title: "DeFi Mastery", href: "/learn/defi-mastery" },
       { title: "Education Programs", href: "/learn/education-programs" },
       { title: "Technical Whitepaper", href: "/learn/whitepaper" },
       { title: "Tokenomics", href: "/learn/tokenomics" },
