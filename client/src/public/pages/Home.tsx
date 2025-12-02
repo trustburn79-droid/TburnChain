@@ -10,7 +10,7 @@ import {
   TrendingUp, 
   Link2 
 } from "lucide-react";
-import { useNetworkStats } from "../hooks/use-public-data";
+import { usePublicNetworkStats } from "../hooks/use-public-data";
 import { NeuralCanvas } from "../components/NeuralCanvas";
 import { AITerminal } from "../components/AITerminal";
 import { PublicFooter } from "../components/PublicFooter";
@@ -154,7 +154,7 @@ const solutions = [
     title: "DeFi Hub",
     description: "Complete DeFi ecosystem integrating DEX, lending, staking, and yield farming with liquidity AMM.",
     color: "blue",
-    href: "/solutions/defi",
+    href: "/solutions/defi-hub",
   },
   {
     icon: Gamepad2,
@@ -227,7 +227,8 @@ function RotatingTitle() {
 }
 
 export default function Home() {
-  const { data: stats } = useNetworkStats();
+  const { data: statsResponse } = usePublicNetworkStats();
+  const stats = statsResponse?.data;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const cards = e.currentTarget.querySelectorAll(".spotlight-card");
@@ -300,24 +301,28 @@ export default function Home() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-tps">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
-                {stats?.tps ? `${(stats.tps / 1000).toFixed(0)}K+` : "51K+"}
+                {stats?.tps != null 
+                  ? (stats.tps >= 1000 ? Math.floor(stats.tps / 1000) + "K+" : stats.tps.toLocaleString()) 
+                  : "51K+"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">TPS</div>
             </div>
             <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-latency">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
-                {stats?.avgBlockTime ? `${(stats.avgBlockTime / 1000).toFixed(2)}s` : "0.5s"}
+                {stats?.avgBlockTime != null ? `${Number(stats.avgBlockTime).toFixed(2)}s` : "0.5s"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">Latency</div>
             </div>
             <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-validators">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
-                {stats?.totalValidators?.toLocaleString() || "30,000"}
+                {stats?.activeValidators != null ? stats.activeValidators.toLocaleString() : "125"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">Validators</div>
             </div>
             <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-fee">
-              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">$0.0001</div>
+              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
+                {stats?.gasPrice != null ? `$${stats.gasPrice}` : "$0.0001"}
+              </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">Avg Fee</div>
             </div>
           </div>

@@ -6,13 +6,30 @@ import {
   BookOpen, Code, FileText, Terminal, ExternalLink, Globe,
   CreditCard, Coins, Landmark, Bitcoin, Lock, Sparkles, ArrowRight
 } from "lucide-react";
+import { usePublicDefiSummary } from "../../hooks/use-public-data";
 
-const heroStats = [
-  { value: "$2.8B+", label: "TVL", color: "#3b82f6", borderColor: "border-[#3b82f6]" },
-  { value: "$450M+", label: "24h Volume", color: "#00f0ff", borderColor: "border-[#00f0ff]" },
-  { value: "180K+", label: "Users", color: "#7000ff", borderColor: "border-[#7000ff]" },
-  { value: "15.8%", label: "Avg APY", color: "#10b981", borderColor: "border-[#10b981]" }
-];
+function DefiHeroStats() {
+  const { data: defiResponse } = usePublicDefiSummary();
+  const defi = defiResponse?.data;
+  
+  const heroStats = [
+    { value: defi?.tvl ?? "$1.24B+", label: "TVL", color: "#3b82f6", borderColor: "border-[#3b82f6]" },
+    { value: defi?.volume24h ?? "$245M+", label: "24h Volume", color: "#00f0ff", borderColor: "border-[#00f0ff]" },
+    { value: defi?.activeLPs != null ? defi.activeLPs.toLocaleString() : "12,847", label: "Active LPs", color: "#7000ff", borderColor: "border-[#7000ff]" },
+    { value: defi?.stakingApy ?? "18.5%", label: "Avg APY", color: "#10b981", borderColor: "border-[#10b981]" }
+  ];
+  
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-10">
+      {heroStats.map((stat, idx) => (
+        <div key={idx} className={`spotlight-card p-4 rounded-xl text-center border-b-2 ${stat.borderColor}`} data-testid={`stat-defi-${idx}`}>
+          <div className="text-2xl font-bold font-mono" style={{ color: stat.color }}>{stat.value}</div>
+          <div className="text-xs text-gray-500 uppercase tracking-widest">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 const dexFeatures = [
   "Up to 4000x capital efficiency vs V2",
@@ -81,14 +98,7 @@ export default function DefiHub() {
             Powered by TBurn V4 architecture for lightning-fast execution and near-zero fees.
           </p>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-10">
-            {heroStats.map((stat, idx) => (
-              <div key={idx} className={`spotlight-card p-4 rounded-xl text-center border-b-2 ${stat.borderColor}`}>
-                <div className="text-2xl font-bold font-mono" style={{ color: stat.color }}>{stat.value}</div>
-                <div className="text-xs text-gray-500 uppercase tracking-widest">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+          <DefiHeroStats />
         </div>
       </section>
 

@@ -3,10 +3,16 @@ import {
   Coins, Globe, CheckCircle, RefreshCw
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useNetworkStats } from "../../hooks/use-public-data";
+import { usePublicNetworkStats, usePublicAiSummary, usePublicValidators } from "../../hooks/use-public-data";
 
 export default function NetworkStatus() {
-  const { data: stats } = useNetworkStats();
+  const { data: statsResponse, refetch: refetchStats } = usePublicNetworkStats();
+  const { data: aiResponse } = usePublicAiSummary();
+  const { data: validatorsResponse } = usePublicValidators();
+  
+  const stats = statsResponse?.data;
+  const aiData = aiResponse?.data;
+  const validatorData = validatorsResponse?.data;
   const [lastUpdated, setLastUpdated] = useState<string>("");
 
   useEffect(() => {
@@ -59,6 +65,7 @@ export default function NetworkStatus() {
           <button 
             className="px-6 py-2 rounded-lg border border-white/20 text-white hover:bg-white/5 transition text-sm flex items-center gap-2"
             data-testid="button-refresh-data"
+            onClick={() => refetchStats()}
           >
             <RefreshCw className="w-4 h-4" /> Refresh Data
           </button>
@@ -79,8 +86,8 @@ export default function NetworkStatus() {
                 <Zap className="w-5 h-5" />
                 <span className="font-bold">TPS</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2">
-                {stats?.tps?.toLocaleString() || "487,439"}
+              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-tps">
+                {stats?.tps != null ? stats.tps.toLocaleString() : "51,000"}
               </div>
               <div className="text-xs text-gray-400">Peak: 500,000+</div>
             </div>
@@ -90,17 +97,21 @@ export default function NetworkStatus() {
                 <Gauge className="w-5 h-5" />
                 <span className="font-bold">Latency</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2">1.84ms</div>
-              <div className="text-xs text-gray-400">P99: 3.2ms</div>
+              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-latency">
+                {stats?.avgBlockTime != null ? `${Number(stats.avgBlockTime).toFixed(2)}s` : "0.5s"}
+              </div>
+              <div className="text-xs text-gray-400">Finality: {stats?.finality ?? "< 2s"}</div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 border border-[#7000ff]/20 bg-[#7000ff]/5">
               <div className="flex items-center gap-2 mb-4 text-[#7000ff]">
                 <Box className="w-5 h-5" />
-                <span className="font-bold">Block Time</span>
+                <span className="font-bold">Block Height</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2">1.0s</div>
-              <div className="text-xs text-gray-400">Finality: 6s</div>
+              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-block-height">
+                {stats?.blockHeight != null ? stats.blockHeight.toLocaleString() : "14,035,000"}
+              </div>
+              <div className="text-xs text-gray-400">Shards: {stats?.shardCount ?? 16}</div>
             </div>
 
             <div className="spotlight-card rounded-xl p-6 border border-[#ffd700]/20 bg-[#ffd700]/5">
@@ -108,7 +119,9 @@ export default function NetworkStatus() {
                 <Fuel className="w-5 h-5" />
                 <span className="font-bold">Avg Fee</span>
               </div>
-              <div className="text-4xl font-mono font-bold text-white mb-2">$0.0001</div>
+              <div className="text-4xl font-mono font-bold text-white mb-2" data-testid="stat-fee">
+                ${stats?.gasPrice ?? "0.0001"}
+              </div>
               <div className="text-xs text-gray-400">Cheap & Fast</div>
             </div>
           </div>
@@ -126,27 +139,43 @@ export default function NetworkStatus() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Users className="w-6 h-6 text-[#7000ff] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono">31,247</div>
+              <div className="text-2xl font-bold text-white font-mono" data-testid="stat-active-validators">
+                {validatorData?.summary?.active != null 
+                  ? validatorData.summary.active.toLocaleString() 
+                  : stats?.activeValidators != null 
+                    ? stats.activeValidators.toLocaleString() 
+                    : "125"}
+              </div>
               <div className="text-xs text-gray-500">Active Validators</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Crown className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono">128</div>
+              <div className="text-2xl font-bold text-white font-mono">
+                {Math.floor((validatorData?.summary?.active ?? stats?.activeValidators ?? 125) * 0.1)}
+              </div>
               <div className="text-xs text-gray-500">Super Nodes</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Server className="w-6 h-6 text-[#00f0ff] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono">31,119</div>
-              <div className="text-xs text-gray-500">Standard Nodes</div>
+              <div className="text-2xl font-bold text-white font-mono" data-testid="stat-nodes">
+                {stats?.nodeCount != null ? stats.nodeCount.toLocaleString() : "1,247"}
+              </div>
+              <div className="text-xs text-gray-500">Node Count</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <HeartPulse className="w-6 h-6 text-[#00ff9d] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono text-[#00ff9d]">99.97%</div>
+              <div className="text-2xl font-bold text-white font-mono text-[#00ff9d]" data-testid="stat-uptime">
+                {validatorData?.summary?.avgUptime != null 
+                  ? `${parseFloat(validatorData.summary.avgUptime).toFixed(2)}%` 
+                  : stats?.uptime ?? "99.99%"}
+              </div>
               <div className="text-xs text-gray-500">Avg Uptime</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
               <Coins className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white font-mono">$2.4B</div>
+              <div className="text-2xl font-bold text-white font-mono" data-testid="stat-staked">
+                {stats?.totalStaked ?? "$847M"}
+              </div>
               <div className="text-xs text-gray-500">Total Staked</div>
             </div>
             <div className="spotlight-card rounded-xl p-4 text-center">
@@ -167,45 +196,57 @@ export default function NetworkStatus() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="spotlight-card rounded-xl p-6 border border-white/10">
+            <div className="spotlight-card rounded-xl p-6 border border-white/10" data-testid="card-ai-strategic">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-bold text-white text-lg">Strategic Tier</h3>
-                  <p className="text-xs text-gray-400">ChatGPT Latest</p>
+                  <p className="text-xs text-gray-400">GPT-5 Latest</p>
                 </div>
                 <span className="px-2 py-1 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">ACTIVE</span>
               </div>
               <div className="flex justify-between text-sm mt-4">
                 <span className="text-gray-500">Latency</span>
-                <span className="text-[#7000ff] font-mono">450ms</span>
+                <span className="text-[#7000ff] font-mono">{aiData?.models?.gpt5?.avgTime || "52ms"}</span>
+              </div>
+              <div className="flex justify-between text-sm mt-2">
+                <span className="text-gray-500">Accuracy</span>
+                <span className="text-white font-mono">{aiData?.models?.gpt5?.accuracy || "99.1%"}</span>
               </div>
             </div>
 
-            <div className="spotlight-card rounded-xl p-6 border border-white/10">
+            <div className="spotlight-card rounded-xl p-6 border border-white/10" data-testid="card-ai-tactical">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-bold text-white text-lg">Tactical Tier</h3>
-                  <p className="text-xs text-gray-400">Claude Latest</p>
+                  <p className="text-xs text-gray-400">Claude Sonnet 4.5</p>
                 </div>
                 <span className="px-2 py-1 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">ACTIVE</span>
               </div>
               <div className="flex justify-between text-sm mt-4">
                 <span className="text-gray-500">Latency</span>
-                <span className="text-[#00f0ff] font-mono">180ms</span>
+                <span className="text-[#00f0ff] font-mono">{aiData?.models?.claude?.avgTime || "48ms"}</span>
+              </div>
+              <div className="flex justify-between text-sm mt-2">
+                <span className="text-gray-500">Accuracy</span>
+                <span className="text-white font-mono">{aiData?.models?.claude?.accuracy || "99.4%"}</span>
               </div>
             </div>
 
-            <div className="spotlight-card rounded-xl p-6 border border-white/10">
+            <div className="spotlight-card rounded-xl p-6 border border-white/10" data-testid="card-ai-operational">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-bold text-white text-lg">Operational Tier</h3>
-                  <p className="text-xs text-gray-400">Gemini Latest</p>
+                  <p className="text-xs text-gray-400">Llama 4 Latest</p>
                 </div>
                 <span className="px-2 py-1 rounded bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-mono border border-[#00ff9d]/30">ACTIVE</span>
               </div>
               <div className="flex justify-between text-sm mt-4">
                 <span className="text-gray-500">Latency</span>
-                <span className="text-[#00ff9d] font-mono">45ms</span>
+                <span className="text-[#00ff9d] font-mono">{aiData?.models?.llama?.avgTime || "35ms"}</span>
+              </div>
+              <div className="flex justify-between text-sm mt-2">
+                <span className="text-gray-500">Accuracy</span>
+                <span className="text-white font-mono">{aiData?.models?.llama?.accuracy || "98.9%"}</span>
               </div>
             </div>
           </div>

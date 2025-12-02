@@ -4,8 +4,15 @@ import {
   AlertTriangle, Check, FileText
 } from "lucide-react";
 import { Link } from "wouter";
+import { usePublicValidators, usePublicNetworkStats } from "../../hooks/use-public-data";
 
 export default function Validators() {
+  const { data: validatorsResponse } = usePublicValidators();
+  const { data: statsResponse } = usePublicNetworkStats();
+  
+  const validators = validatorsResponse?.data;
+  const stats = statsResponse?.data;
+  
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -47,17 +54,29 @@ export default function Validators() {
           <div className="grid md:grid-cols-4 gap-6">
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-active-validators">
               <Users className="w-8 h-8 text-[#7000ff] mx-auto mb-4" />
-              <div className="text-3xl font-bold text-white mb-1 font-mono">31,247</div>
+              <div className="text-3xl font-bold text-white mb-1 font-mono">
+                {validators?.summary?.active != null 
+                  ? validators.summary.active.toLocaleString() 
+                  : stats?.activeValidators != null 
+                    ? stats.activeValidators.toLocaleString() 
+                    : "125"}
+              </div>
               <div className="text-xs text-gray-400">Active Validators</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-total-staked">
               <Database className="w-8 h-8 text-[#ffd700] mx-auto mb-4" />
-              <div className="text-3xl font-bold text-white mb-1 font-mono">$2.4B</div>
+              <div className="text-3xl font-bold text-white mb-1 font-mono">
+                {stats?.totalStaked ?? validators?.summary?.totalStaked ?? "$847M"}
+              </div>
               <div className="text-xs text-gray-400">Total Staked</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-uptime">
               <HeartPulse className="w-8 h-8 text-[#00ff9d] mx-auto mb-4" />
-              <div className="text-3xl font-bold text-white mb-1 font-mono">99.97%</div>
+              <div className="text-3xl font-bold text-white mb-1 font-mono">
+                {validators?.summary?.avgUptime != null 
+                  ? `${parseFloat(validators.summary.avgUptime).toFixed(2)}%` 
+                  : stats?.uptime ?? "99.99%"}
+              </div>
               <div className="text-xs text-gray-400">Average Uptime</div>
             </div>
             <div className="spotlight-card rounded-xl p-6 text-center group" data-testid="stat-countries">

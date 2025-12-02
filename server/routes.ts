@@ -33,6 +33,7 @@ import gamefiRoutes from "./routes/gamefi-routes";
 import bridgeRoutes from "./routes/bridge-routes";
 import { registerCommunityRoutes } from "./routes/community-routes";
 import enterpriseRoutes from "./routes/enterprise-routes";
+import { registerPublicApiRoutes } from "./routes/public-api-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -496,6 +497,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.path.startsWith("/enterprise/events/")) {
       return next();
     }
+    // Skip auth check for Public API v1 (read-only public website endpoints)
+    if (req.path.startsWith("/public/v1/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
 
@@ -532,6 +537,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============================================
   app.use("/api/enterprise", enterpriseRoutes);
   console.log("[Enterprise] ✅ Enterprise routes registered - DataHub & Orchestration active");
+
+  // ============================================
+  // PUBLIC API v1 (Read-only endpoints for public website)
+  // ============================================
+  registerPublicApiRoutes(app);
+  console.log("[Public API] ✅ Public v1 routes registered - no auth required");
 
   // ============================================
   // Network Stats
