@@ -4896,5 +4896,445 @@
     "errorRate": "Tasa de Error",
     "requestsPerSecond": "Solicitudes/Segundo",
     "activeConnections": "Conexiones Activas"
+  },
+  "publicPages": {
+    "common": {
+      "getStarted": "Comenzar",
+      "learnMore": "Más información",
+      "viewDocs": "Ver documentación",
+      "explore": "Explorar",
+      "readMore": "Leer más",
+      "startBuilding": "Empezar a construir",
+      "contactUs": "Contáctanos",
+      "joinCommunity": "Únete a la comunidad",
+      "subscribe": "Suscribirse",
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado",
+      "comingSoon": "Próximamente",
+      "new": "Nuevo",
+      "popular": "Popular",
+      "featured": "Destacado"
+    },
+    "header": {
+      "learn": "Aprender",
+      "developers": "Desarrolladores",
+      "solutions": "Soluciones",
+      "useCases": "Casos de uso",
+      "network": "Red",
+      "community": "Comunidad",
+      "loginInterface": "Iniciar sesión"
+    },
+    "footer": {
+      "ecosystem": "Ecosistema",
+      "solutions": "Soluciones",
+      "developers": "Desarrolladores",
+      "resources": "Recursos",
+      "community": "Comunidad",
+      "legal": "Legal",
+      "stayUpdated": "Mantente actualizado",
+      "newsletterDesc": "Recibe las últimas noticias y actualizaciones de TBurn Chain",
+      "enterEmail": "Ingresa tu correo electrónico",
+      "copyright": "© 2025 TBurn Chain Foundation. Todos los derechos reservados.",
+      "termsOfService": "Términos de servicio",
+      "privacyPolicy": "Política de privacidad",
+      "disclaimer": "Descargo de responsabilidad"
+    },
+    "home": {
+      "heroTag": "MAINNET EN VIVO",
+      "heroTitle": "El futuro de",
+      "heroTitleRotating": ["Basado en confianza", "Impulsado por IA", "Seguridad cuántica", "Hiper-escala"],
+      "heroSubtitle": "Blockchain",
+      "heroDescription": "La primera red de verificación de confianza impulsada por IA del mundo. Seguridad resistente a cuántica combinada con escalabilidad de nivel empresarial.",
+      "launchExplorer": "Abrir explorador",
+      "readWhitepaper": "Leer whitepaper",
+      "stats": {
+        "blocks": "Bloques",
+        "validators": "Validadores",
+        "dailyTxs": "TXs diarias",
+        "uptime": "Tiempo activo"
+      },
+      "solutions": {
+        "title": "Soluciones principales",
+        "subtitle": "Infraestructura blockchain de nivel empresarial",
+        "tripleBandAi": {
+          "title": "IA Triple-Banda",
+          "description": "Orquestación de IA de tres niveles utilizando toma de decisiones optimizada a niveles estratégico, táctico y operativo."
+        },
+        "quantumSecurity": {
+          "title": "Seguridad cuántica",
+          "description": "Firmas híbridas CRYSTALS-Dilithium + ED25519 garantizan seguridad contra futuras amenazas cuánticas."
+        },
+        "defiHub": {
+          "title": "Hub DeFi",
+          "description": "Ecosistema DeFi completo que integra DEX, préstamos, staking y yield farming con AMM de liquidez."
+        },
+        "gamefiPlatform": {
+          "title": "Plataforma GameFi",
+          "description": "Infraestructura de juegos de próxima generación con motor P2E, torneos y mercado NFT cross-chain."
+        },
+        "autoBurn": {
+          "title": "Auto quema",
+          "description": "Modelo de deflación híbrido con quema basada en transacciones, tiempo y optimizada por IA."
+        },
+        "crossChainBridge": {
+          "title": "Puente Cross-Chain",
+          "description": "Solución segura de transferencia de activos cross-chain conectando con más de 7 cadenas incluyendo Ethereum y BSC."
+        }
+      },
+      "aiTerminal": {
+        "title": "Terminal IA",
+        "subtitle": "Monitoreo de orquestación de IA en tiempo real"
+      }
+    },
+    "learn": {
+      "hub": {
+        "tag": "Centro de aprendizaje V4",
+        "title": "Hub educativo",
+        "subtitle": "Domina el ecosistema TBurn Chain V4. Desde algoritmos de consenso basados en confianza hasta la construcción de dApps de alta velocidad, comienza tu viaje aquí.",
+        "stats": {
+          "courses": "CURSOS",
+          "learners": "ESTUDIANTES",
+          "hoursContent": "HORAS DE CONTENIDO",
+          "completionRate": "TASA DE FINALIZACIÓN"
+        },
+        "learningPaths": "Rutas de aprendizaje",
+        "learningPathsDesc": "Currículos curados para cada nivel de habilidad.",
+        "coreConcepts": "Conceptos fundamentales",
+        "coreConceptsDesc": "Principios fundamentales de TBurn Chain.",
+        "quickGlossary": "Glosario rápido",
+        "certifications": "Certificaciones",
+        "certificationsDesc": "Obtén insignias verificadas",
+        "communityLearning": "Aprendizaje comunitario"
+      },
+      "whatIsBurnChain": {
+        "tag": "INTRODUCCIÓN",
+        "title": "¿Qué es TBurn Chain?",
+        "subtitle": "Descubre la primera blockchain basada en confianza del mundo con verificación de IA y seguridad resistente a cuántica."
+      },
+      "trustScore": {
+        "tag": "CARACTERÍSTICA PRINCIPAL",
+        "title": "Sistema de puntuación de confianza",
+        "subtitle": "Profundiza en el sistema de verificación de 3 etapas, análisis de IA y algoritmo de puntuación dinámica."
+      },
+      "wallet": {
+        "tag": "PRIMEROS PASOS",
+        "title": "¿Qué es una billetera?",
+        "subtitle": "Aprende sobre billeteras de criptomonedas, mejores prácticas de seguridad y cómo configurar tu billetera TBurn."
+      },
+      "whitepaper": {
+        "tag": "DOCUMENTO TÉCNICO",
+        "title": "Whitepaper",
+        "subtitle": "Documentación técnica completa de la arquitectura, consenso y tokenomics de TBurn Chain."
+      },
+      "tokenomics": {
+        "tag": "ECONOMÍA",
+        "title": "Tokenomics",
+        "subtitle": "Comprende la distribución de tokens TBURN, calendario de emisión y mecanismos deflacionarios."
+      },
+      "roadmap": {
+        "tag": "DESARROLLO",
+        "title": "Hoja de ruta",
+        "subtitle": "Sigue nuestro progreso y próximos hitos en el camino hacia la adopción masiva."
+      },
+      "blockchainBasics": {
+        "tag": "PRINCIPIANTE",
+        "title": "Fundamentos de blockchain",
+        "subtitle": "Conceptos fundamentales de tecnología blockchain y sistemas distribuidos."
+      },
+      "defiMastery": {
+        "tag": "INTERMEDIO",
+        "title": "Dominio de DeFi",
+        "subtitle": "Domina conceptos de finanzas descentralizadas incluyendo DEX, préstamos y estrategias de rendimiento."
+      },
+      "developerCourse": {
+        "tag": "AVANZADO",
+        "title": "Curso para desarrolladores",
+        "subtitle": "Guía completa para construir y desplegar dApps en TBurn Chain."
+      },
+      "introToDefi": {
+        "tag": "PRINCIPIANTE",
+        "title": "Introducción a DeFi",
+        "subtitle": "Tus primeros pasos en finanzas descentralizadas en TBurn Chain."
+      },
+      "educationPrograms": {
+        "tag": "PROGRAMAS",
+        "title": "Programas educativos",
+        "subtitle": "Rutas de aprendizaje estructuradas y programas de certificación para educación blockchain."
+      },
+      "universities": {
+        "tag": "ACADEMIA",
+        "title": "Alianzas universitarias",
+        "subtitle": "Colaboraciones académicas y programas de investigación que avanzan la educación blockchain."
+      }
+    },
+    "developers": {
+      "hub": {
+        "tag": "SDK Y API V4 LISTOS",
+        "title": "Hub de desarrolladores",
+        "subtitle": "Construye aplicaciones de próxima generación basadas en confianza. Accede a herramientas de desarrollo completas, SDKs y APIs para el ecosistema TBurn Chain V4.",
+        "getStarted": "Comenzar",
+        "viewDocs": "Ver documentación",
+        "quickStart": "Inicio rápido",
+        "sdks": "SDKs oficiales",
+        "apiReference": "Referencia de API",
+        "devTools": "Herramientas de desarrollo",
+        "grants": "Subvenciones para desarrolladores"
+      },
+      "docs": {
+        "tag": "DOCUMENTACIÓN",
+        "title": "Documentación",
+        "subtitle": "Guías completas y referencias para el desarrollo en TBurn Chain."
+      },
+      "api": {
+        "tag": "REFERENCIA API",
+        "title": "Documentación de API",
+        "subtitle": "Endpoints de API RESTful para blockchain, DeFi y servicios de IA."
+      },
+      "cli": {
+        "tag": "HERRAMIENTAS CLI",
+        "title": "Referencia CLI",
+        "subtitle": "Interfaz de línea de comandos para gestión de proyectos y despliegue."
+      },
+      "sdk": {
+        "tag": "GUÍA SDK",
+        "title": "Guía SDK",
+        "subtitle": "Guías de integración SDK multi-lenguaje y mejores prácticas."
+      },
+      "contracts": {
+        "tag": "CONTRATOS INTELIGENTES",
+        "title": "Contratos inteligentes",
+        "subtitle": "Escribe, prueba y despliega contratos inteligentes seguros en TBurn Chain."
+      },
+      "websocket": {
+        "tag": "TIEMPO REAL",
+        "title": "API WebSocket",
+        "subtitle": "Transmisión de datos en tiempo real y suscripciones a eventos."
+      },
+      "examples": {
+        "tag": "EJEMPLOS DE CÓDIGO",
+        "title": "Ejemplos de código",
+        "subtitle": "Fragmentos de código listos para usar y proyectos de muestra."
+      },
+      "quickstart": {
+        "tag": "PRIMEROS PASOS",
+        "title": "Inicio rápido",
+        "subtitle": "Comienza con TBurn Chain en minutos."
+      },
+      "installation": {
+        "tag": "CONFIGURACIÓN",
+        "title": "Guía de instalación",
+        "subtitle": "Instrucciones de instalación y configuración paso a paso."
+      },
+      "evmMigration": {
+        "tag": "MIGRACIÓN",
+        "title": "Migración EVM",
+        "subtitle": "Migra tus dApps de Ethereum a TBurn Chain."
+      }
+    },
+    "solutions": {
+      "defiHub": {
+        "tag": "ECOSISTEMA DEFI",
+        "title": "Hub DeFi",
+        "subtitle": "Infraestructura completa de finanzas descentralizadas con DEX, préstamos, staking y yield farming.",
+        "features": {
+          "dex": "DEX/AMM",
+          "lending": "Protocolo de préstamos",
+          "staking": "Staking",
+          "yield": "Yield Farming"
+        }
+      },
+      "tokenExtensions": {
+        "tag": "ESTÁNDARES DE TOKEN",
+        "title": "Extensiones de token",
+        "subtitle": "Estándares avanzados de tokens TBC-20, TBC-721 y TBC-1155 con mejoras de IA."
+      },
+      "actionsBlinks": {
+        "tag": "AUTOMATIZACIÓN",
+        "title": "Acciones y Blinks",
+        "subtitle": "Interacciones blockchain automatizadas y enlaces de transacciones instantáneas."
+      },
+      "wallets": {
+        "tag": "SOLUCIONES DE BILLETERA",
+        "title": "Soluciones de billetera",
+        "subtitle": "Infraestructura de billetera segura para empresas y consumidores."
+      },
+      "permissioned": {
+        "tag": "EMPRESARIAL",
+        "title": "Redes permisionadas",
+        "subtitle": "Redes blockchain privadas para despliegue empresarial."
+      },
+      "gameTooling": {
+        "tag": "JUEGOS",
+        "title": "Herramientas de juegos",
+        "subtitle": "Infraestructura GameFi completa para juegos blockchain."
+      },
+      "payments": {
+        "tag": "PAGOS",
+        "title": "Soluciones de pago",
+        "subtitle": "Procesamiento de pagos blockchain rápido y seguro."
+      },
+      "commerce": {
+        "tag": "COMERCIO",
+        "title": "Comercio",
+        "subtitle": "Integración de comercio electrónico y soluciones para comerciantes."
+      },
+      "financial": {
+        "tag": "FINANZAS",
+        "title": "Servicios financieros",
+        "subtitle": "Infraestructura financiera empresarial en blockchain."
+      },
+      "aiFeatures": {
+        "tag": "IMPULSADO POR IA",
+        "title": "Características de IA",
+        "subtitle": "Orquestación de IA Triple-Banda para operaciones blockchain inteligentes."
+      },
+      "artistsCreators": {
+        "tag": "CREATIVOS",
+        "title": "Artistas y creadores",
+        "subtitle": "Acuñación de NFT, regalías y herramientas de economía de creadores."
+      },
+      "btcfi": {
+        "tag": "BITCOIN DEFI",
+        "title": "BTCfi",
+        "subtitle": "Integración DeFi de Bitcoin con BTC envuelto y rendimientos cross-chain."
+      },
+      "crossChainBridge": {
+        "tag": "PUENTE",
+        "title": "Puente Cross-Chain",
+        "subtitle": "Transferencias seguras de activos a través de más de 7 redes blockchain."
+      }
+    },
+    "useCases": {
+      "tokenization": {
+        "tag": "TOKENIZACIÓN",
+        "title": "Tokenización de activos",
+        "subtitle": "Tokeniza activos del mundo real en blockchain."
+      },
+      "depin": {
+        "tag": "DEPIN",
+        "title": "DePIN",
+        "subtitle": "Redes de infraestructura física descentralizada."
+      },
+      "stablecoins": {
+        "tag": "STABLECOINS",
+        "title": "Stablecoins",
+        "subtitle": "Infraestructura de stablecoins de nivel empresarial."
+      },
+      "institutional": {
+        "tag": "INSTITUCIONAL",
+        "title": "Pagos institucionales",
+        "subtitle": "Soluciones de pago de alto volumen para empresas."
+      },
+      "enterprise": {
+        "tag": "EMPRESARIAL",
+        "title": "Soluciones empresariales",
+        "subtitle": "Soluciones blockchain completas para empresas."
+      },
+      "gaming": {
+        "tag": "JUEGOS",
+        "title": "Juegos y metaverso",
+        "subtitle": "Infraestructura GameFi e integración de metaverso."
+      }
+    },
+    "network": {
+      "validators": {
+        "tag": "RED",
+        "title": "Validadores",
+        "subtitle": "Únete a la red de validadores de TBurn y gana recompensas."
+      },
+      "rpc": {
+        "tag": "INFRAESTRUCTURA",
+        "title": "Proveedores RPC",
+        "subtitle": "Endpoints RPC de alto rendimiento y acceso a API."
+      },
+      "status": {
+        "tag": "ESTADO",
+        "title": "Estado de la red",
+        "subtitle": "Métricas de salud y rendimiento de la red en tiempo real."
+      },
+      "ramp": {
+        "tag": "PASARELA FIAT",
+        "title": "Rampa Fiat On/Off",
+        "subtitle": "Compra y vende TBURN con moneda fiduciaria."
+      }
+    },
+    "community": {
+      "hub": {
+        "tag": "COMUNIDAD",
+        "title": "Hub comunitario",
+        "subtitle": "Conecta con constructores, validadores y entusiastas."
+      },
+      "news": {
+        "tag": "NOTICIAS Y BLOG",
+        "title": "Noticias y blog",
+        "subtitle": "Últimas actualizaciones, anuncios y perspectivas."
+      },
+      "events": {
+        "tag": "EVENTOS",
+        "title": "Eventos y actividades",
+        "subtitle": "Únete a eventos de la comunidad TBurn Chain, hackathons y conferencias."
+      }
+    },
+    "legal": {
+      "terms": {
+        "title": "Términos de servicio",
+        "subtitle": "Términos y condiciones para el uso de los servicios de TBurn Chain."
+      },
+      "privacy": {
+        "title": "Política de privacidad",
+        "subtitle": "Cómo recopilamos, usamos y protegemos tus datos."
+      },
+      "disclaimer": {
+        "title": "Descargo de responsabilidad",
+        "subtitle": "Avisos legales importantes y divulgaciones de riesgos."
+      }
+    }
+  },
+  "search": {
+    "placeholder": "Buscar por dirección / Hash de TX / Bloque...",
+    "placeholderShort": "Buscar...",
+    "search": "Buscar",
+    "searching": "Buscando...",
+    "resultsFound": "{{count}} resultados encontrados",
+    "noResults": "No se encontraron resultados",
+    "noResultsDescription": "No pudimos encontrar coincidencias para tu búsqueda. Intenta con diferentes palabras clave o revisa la ortografía.",
+    "suggestions": "Intenta:",
+    "viewAllResults": "Ver todos los {{count}} resultados",
+    "resultsFor": "Resultados de búsqueda",
+    "queryLabel": "Mostrando resultados para:",
+    "enterQuery": "Ingresa una consulta de búsqueda",
+    "searchDescription": "Buscar bloques, transacciones, direcciones o validadores",
+    "enterpriseSearch": "Búsqueda empresarial de blockchain",
+    "tryExamples": "Prueba estos ejemplos:",
+    "endOfResults": "Fin de los resultados de búsqueda",
+    "error": "Error de búsqueda",
+    "errorDescription": "Error al obtener resultados de búsqueda. Por favor intenta de nuevo.",
+    "showingResults": "Mostrando {{shown}} de {{total}} resultados",
+    "sortedByRelevance": "Ordenado por relevancia",
+    "tryThese": "Prueba estas sugerencias:",
+    "block": "Bloque",
+    "transactions": "Transacciones",
+    "gasUsed": "Gas usado",
+    "value": "Valor",
+    "status": "Estado",
+    "confirmed": "Confirmado",
+    "pending": "Pendiente",
+    "walletAddress": "Dirección de cartera",
+    "balance": "Saldo",
+    "view": "Ver",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "stake": "Stake",
+    "uptime": "Tiempo activo",
+    "types": {
+      "all": "Todos los resultados",
+      "block": "Bloque",
+      "transaction": "Transacción",
+      "address": "Dirección",
+      "validator": "Validador",
+      "token": "Token",
+      "contract": "Contrato"
+    }
   }
 }
