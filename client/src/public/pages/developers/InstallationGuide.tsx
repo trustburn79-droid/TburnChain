@@ -161,6 +161,7 @@ function TerminalWindow({
 
 export default function InstallationGuide() {
   const [activeTab, setActiveTab] = useState<OsTab>("linux");
+  const [expandedTroubleshooting, setExpandedTroubleshooting] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -430,10 +431,21 @@ export default function InstallationGuide() {
               <div className="space-y-4">
                 {troubleshooting.map((item, idx) => (
                   <div key={idx} className="group">
-                    <button className="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex justify-between items-center transition">
+                    <button 
+                      className="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex justify-between items-center transition"
+                      onClick={() => setExpandedTroubleshooting(expandedTroubleshooting === idx ? null : idx)}
+                      data-testid={`button-troubleshooting-${idx}`}
+                    >
                       <span className="text-sm font-bold text-gray-300">{item}</span>
-                      <ChevronDown className="w-4 h-4 text-gray-600 group-hover:text-white" />
+                      <ChevronDown className={`w-4 h-4 text-gray-600 group-hover:text-white transition-transform ${expandedTroubleshooting === idx ? 'rotate-180' : ''}`} />
                     </button>
+                    {expandedTroubleshooting === idx && (
+                      <div className="p-4 text-sm text-gray-400 bg-white/5 rounded-b-lg border-x border-b border-white/5">
+                        {idx === 0 && "Check your network connection and ensure ports 30303 and 8545 are open. Try increasing --maxpeers value."}
+                        {idx === 1 && "Ensure the ports are not in use by another process. Check with 'lsof -i :30303' or 'netstat -an | grep 30303'."}
+                        {idx === 2 && "Increase the file descriptor limit: 'ulimit -n 65535'. Add to /etc/security/limits.conf for persistence."}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

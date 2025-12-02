@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 const categories = ["All", "Announcement", "Technology", "Security", "Tokenomics", "Partnership", "DeFi"];
 
@@ -119,6 +120,17 @@ export default function NewsBlog() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [email, setEmail] = useState("");
+  const { toast } = useToast();
+  
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes("@")) {
+      toast({ title: "Error", description: "Please enter a valid email address", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Success!", description: "You have been subscribed to our newsletter" });
+    setEmail("");
+  };
 
   return (
     <main className="flex-grow relative z-10">
@@ -269,7 +281,7 @@ export default function NewsBlog() {
             <h2 className="text-2xl font-bold text-white mb-3">Subscribe to Newsletter</h2>
             <p className="text-gray-400 mb-8">Get the latest TBurn Chain news delivered directly to your inbox.</p>
             
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={handleSubscribe}>
               <input 
                 type="email" 
                 placeholder="Enter your email" 

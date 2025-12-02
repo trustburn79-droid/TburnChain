@@ -453,12 +453,14 @@ export default function CrossChainBridge() {
           <p className="text-gray-400 mb-8">
             Start bridging your tokens instantly with low fees and high security.
           </p>
-          <button 
-            className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-white px-10 py-4 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-3 mx-auto text-lg"
-            data-testid="button-cta-launch"
-          >
-            <ArrowLeftRight className="w-5 h-5" /> Launch Bridge App
-          </button>
+          <Link href="/app/bridge">
+            <button 
+              className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-white px-10 py-4 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-3 mx-auto text-lg"
+              data-testid="button-cta-launch"
+            >
+              <ArrowLeftRight className="w-5 h-5" /> Launch Bridge App
+            </button>
+          </Link>
         </div>
       </section>
     </div>

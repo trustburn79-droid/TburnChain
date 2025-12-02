@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 const filterCategories = ["All Events", "Hackathon", "AMA", "Webinar", "Meetup", "Conference"];
 
@@ -110,6 +111,11 @@ const upcomingEvents = [
 
 export default function Events() {
   const [activeFilter, setActiveFilter] = useState("All Events");
+  const { toast } = useToast();
+  
+  const handleNotification = (eventTitle: string) => {
+    toast({ title: "Reminder Set", description: `You will be notified before "${eventTitle}"` });
+  };
 
   return (
     <main className="flex-grow relative z-10">
@@ -202,7 +208,11 @@ export default function Events() {
                         {event.buttonText}
                       </button>
                     </Link>
-                    <button className="px-4 py-2 rounded border border-white/20 text-white hover:bg-white/10 transition">
+                    <button 
+                      className="px-4 py-2 rounded border border-white/20 text-white hover:bg-white/10 transition"
+                      onClick={() => handleNotification(event.title)}
+                      data-testid={`button-notify-${event.id}`}
+                    >
                       <Bell className="w-4 h-4" />
                     </button>
                   </div>

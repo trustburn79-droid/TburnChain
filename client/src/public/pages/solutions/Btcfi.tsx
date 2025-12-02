@@ -135,19 +135,23 @@ export default function Btcfi() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              className="bg-[#f7931a] text-white px-8 py-3 rounded-lg font-bold hover:bg-orange-600 transition flex items-center justify-center gap-2"
-              style={{ boxShadow: "0 0 20px rgba(247,147,26,0.4)" }}
-              data-testid="button-bridge-btc"
-            >
-              <ArrowRightLeft className="w-4 h-4" /> Bridge BTC
-            </button>
-            <button 
-              className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
-              data-testid="button-view-yields"
-            >
-              <BarChart3 className="w-4 h-4" /> View Yields
-            </button>
+            <Link href="/solutions/cross-chain-bridge">
+              <button 
+                className="bg-[#f7931a] text-white px-8 py-3 rounded-lg font-bold hover:bg-orange-600 transition flex items-center justify-center gap-2"
+                style={{ boxShadow: "0 0 20px rgba(247,147,26,0.4)" }}
+                data-testid="button-bridge-btc"
+              >
+                <ArrowRightLeft className="w-4 h-4" /> Bridge BTC
+              </button>
+            </Link>
+            <Link href="/app/yield-farming">
+              <button 
+                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
+                data-testid="button-view-yields"
+              >
+                <BarChart3 className="w-4 h-4" /> View Yields
+              </button>
+            </Link>
           </div>
         </div>
       </section>

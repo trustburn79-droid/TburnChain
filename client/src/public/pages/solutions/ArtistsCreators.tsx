@@ -103,19 +103,23 @@ export default function ArtistsCreators() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              className="bg-[#d946ef] text-white px-8 py-3 rounded-lg font-bold hover:bg-pink-600 transition flex items-center justify-center gap-2"
-              style={{ boxShadow: "0 0 20px rgba(217,70,239,0.4)" }}
-              data-testid="button-start-creating"
-            >
-              <Palette className="w-4 h-4" /> Start Creating
-            </button>
-            <button 
-              className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
-              data-testid="button-explore"
-            >
-              <Search className="w-4 h-4" /> Explore Collections
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="bg-[#d946ef] text-white px-8 py-3 rounded-lg font-bold hover:bg-pink-600 transition flex items-center justify-center gap-2"
+                style={{ boxShadow: "0 0 20px rgba(217,70,239,0.4)" }}
+                data-testid="button-start-creating"
+              >
+                <Palette className="w-4 h-4" /> Start Creating
+              </button>
+            </Link>
+            <Link href="/app/nft-marketplace">
+              <button 
+                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
+                data-testid="button-explore"
+              >
+                <Search className="w-4 h-4" /> Explore Collections
+              </button>
+            </Link>
           </div>
         </div>
       </section>

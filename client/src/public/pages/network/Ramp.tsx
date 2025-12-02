@@ -4,14 +4,33 @@ import {
 } from "lucide-react";
 import { SiVisa, SiMastercard, SiPaypal, SiApplepay } from "react-icons/si";
 import { useState } from "react";
+import { Link } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Ramp() {
   const [buyAmount, setBuyAmount] = useState("");
   const [sellAmount, setSellAmount] = useState("");
   const [currency, setCurrency] = useState("USD");
+  const { toast } = useToast();
 
   const estimatedTburn = buyAmount ? (parseFloat(buyAmount) / 2.5).toFixed(2) : "0.00";
   const estimatedUsd = sellAmount ? (parseFloat(sellAmount) * 2.5).toFixed(2) : "0.00";
+  
+  const handleBuy = () => {
+    if (!buyAmount || parseFloat(buyAmount) <= 0) {
+      toast({ title: "Error", description: "Please enter a valid amount", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Processing", description: `Initiating purchase of ${estimatedTburn} TBURN...` });
+  };
+  
+  const handleSell = () => {
+    if (!sellAmount || parseFloat(sellAmount) <= 0) {
+      toast({ title: "Error", description: "Please enter a valid amount", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Processing", description: `Initiating sale of ${sellAmount} TBURN...` });
+  };
 
   return (
     <main className="flex-grow relative z-10">
@@ -75,6 +94,7 @@ export default function Ramp() {
                 <button 
                   className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)]"
                   data-testid="button-buy-tburn"
+                  onClick={handleBuy}
                 >
                   Buy TBURN
                 </button>
@@ -112,6 +132,7 @@ export default function Ramp() {
                 <button 
                   className="w-full py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                   data-testid="button-sell-tburn"
+                  onClick={handleSell}
                 >
                   Sell TBURN
                 </button>
@@ -333,18 +354,22 @@ export default function Ramp() {
           <div className="mt-16 text-center">
             <h2 className="text-3xl font-bold text-white mb-6">Get Started Now</h2>
             <div className="flex flex-wrap justify-center gap-4">
-              <button 
-                className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)] flex items-center gap-2"
-                data-testid="button-create-account"
-              >
-                Create Account <ArrowRight className="w-4 h-4" />
-              </button>
-              <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
-                data-testid="button-contact-support"
-              >
-                Contact Support
-              </button>
+              <Link href="/signup">
+                <button 
+                  className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.3)] flex items-center gap-2"
+                  data-testid="button-create-account"
+                >
+                  Create Account <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
+              <Link href="/community/hub">
+                <button 
+                  className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                  data-testid="button-contact-support"
+                >
+                  Contact Support
+                </button>
+              </Link>
             </div>
           </div>
         </div>

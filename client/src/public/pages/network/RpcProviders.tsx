@@ -374,18 +374,22 @@ curl -X POST "\${TBURN_BASE_URL}/webhooks" \\
               Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button 
-                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-                data-testid="button-get-started"
-              >
-                Get Started Free
-              </button>
-              <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
-                data-testid="button-contact-sales"
-              >
-                <FileText className="w-4 h-4" /> Contact Sales
-              </button>
+              <Link href="/developers/quickstart">
+                <button 
+                  className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                  data-testid="button-get-started"
+                >
+                  Get Started Free
+                </button>
+              </Link>
+              <Link href="/community/hub">
+                <button 
+                  className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
+                  data-testid="button-contact-sales"
+                >
+                  <FileText className="w-4 h-4" /> Contact Sales
+                </button>
+              </Link>
             </div>
           </div>
         </div>
