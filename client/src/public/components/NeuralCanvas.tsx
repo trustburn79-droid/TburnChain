@@ -28,7 +28,7 @@ export function NeuralCanvas() {
 
     const PARTICLE_COLOR = "#00f0ff";
     const CONNECTION_DISTANCE = 150;
-    const MOUSE_RADIUS = 120;
+    const MOUSE_RADIUS = 80;
     const PARTICLE_COUNT_FACTOR = 8000;
 
     const resizeCanvas = () => {
@@ -93,14 +93,10 @@ export function NeuralCanvas() {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < MOUSE_RADIUS && distance > 0) {
-        const force = (MOUSE_RADIUS - distance) / MOUSE_RADIUS;
-        const forceX = (dx / distance) * force * 2;
-        const forceY = (dy / distance) * force * 2;
-        particle.x -= forceX;
-        particle.y -= forceY;
-        particle.size = particle.baseSize * (1 + force * 0.5);
-      } else {
-        particle.size = particle.baseSize;
+        const pushDistance = MOUSE_RADIUS - distance;
+        const angle = Math.atan2(dy, dx);
+        particle.x -= Math.cos(angle) * pushDistance;
+        particle.y -= Math.sin(angle) * pushDistance;
       }
 
       particle.x += particle.vx;
