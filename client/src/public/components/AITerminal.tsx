@@ -81,20 +81,20 @@ export function AITerminal() {
         {/* Header Bar */}
         <div
           style={{
-            background: "rgba(30, 30, 30, 0.9)",
-            padding: "6px 12px",
+            background: "rgba(20, 20, 20, 0.95)",
+            padding: "5px 8px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            borderBottom: "1px solid rgba(60, 60, 60, 0.5)",
+            borderBottom: "1px solid rgba(50, 50, 50, 0.5)",
           }}
         >
           <span
             style={{
               fontSize: "11px",
-              color: "#888",
+              color: "#6a8a9a",
               fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
-              letterSpacing: "0.5px",
+              letterSpacing: "0.3px",
             }}
           >
             BURN_AI_CORE v4.0
@@ -130,11 +130,10 @@ export function AITerminal() {
         {/* Terminal Content */}
         <div
           style={{
-            height: "130px",
-            padding: "10px 12px",
+            padding: "6px 8px",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "flex-end",
+            justifyContent: "flex-start",
             overflow: "hidden",
           }}
         >
@@ -143,17 +142,16 @@ export function AITerminal() {
               key={log.id}
               style={{
                 fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
-                fontSize: "11px",
-                lineHeight: "1.6",
+                fontSize: "12px",
+                lineHeight: "1.5",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 animation: log.isNew ? "fadeInLog 0.4s ease-out" : "none",
-                opacity: log.isNew ? 1 : 0.9,
               }}
             >
-              <span style={{ color: "#666" }}>[{log.time}]</span>
-              <span style={{ color: "#888" }}> {">"} </span>
+              <span style={{ color: "#5a7a8a" }}>[{log.time}]</span>
+              <span style={{ color: "#7a8a9a" }}> {">"} </span>
               <span style={{ color: "#00f0ff" }}>{log.message}</span>
             </div>
           ))}
