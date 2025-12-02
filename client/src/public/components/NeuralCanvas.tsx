@@ -61,8 +61,8 @@ export function NeuralCanvas() {
         particlesRef.current.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.56,
-          vy: (Math.random() - 0.5) * 0.56,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
           size: baseSize,
           baseSize: baseSize,
           alpha: Math.random() * 0.5 + 0.3,
