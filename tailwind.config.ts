@@ -81,11 +81,19 @@ export default {
           busy: "rgb(239 68 68)",
           offline: "rgb(156 163 175)",
         },
+        brand: {
+          cyan: "#00f0ff",
+          purple: "#7000ff",
+          green: "#00ff9d",
+          yellow: "#ffd700",
+          red: "#ff0055",
+          pink: "#ff00ff",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
+        mono: ["'JetBrains Mono'", "var(--font-mono)", "monospace"],
       },
       keyframes: {
         "accordion-down": {
