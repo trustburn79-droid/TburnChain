@@ -1,6 +1,34 @@
 /* TBurn Chain Public Site Styles */
 /* ============================================ */
 
+/* 0. Typography - Space Grotesk for Public Pages */
+.public-page {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.public-page h1,
+.public-page h2,
+.public-page h3,
+.public-page h4,
+.public-page h5,
+.public-page h6 {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.public-page p,
+.public-page span,
+.public-page div,
+.public-page li,
+.public-page a {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-space {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* 1. AI Particle Network Background */
 /* Canvas is rendered with full opacity, trails create depth */
 #neural-canvas {

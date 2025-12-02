@@ -9,7 +9,7 @@ interface PublicLayoutProps {
 
 export function PublicLayout({ children }: PublicLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-[#030407] text-white antialiased">
+    <div className="public-page min-h-screen flex flex-col bg-[#030407] text-white antialiased">
       <NeuralCanvas />
       <PublicHeader />
       <main className="flex-1 relative z-10">
