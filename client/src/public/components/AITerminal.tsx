@@ -81,12 +81,12 @@ export function AITerminal() {
         {/* Header Bar */}
         <div
           style={{
-            background: "rgba(20, 20, 20, 0.95)",
+            background: "rgba(15, 22, 28, 0.98)",
             padding: "5px 8px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            borderBottom: "1px solid rgba(50, 50, 50, 0.5)",
+            borderBottom: "1px solid rgba(40, 55, 65, 0.5)",
           }}
         >
           <span
@@ -151,7 +151,7 @@ export function AITerminal() {
               }}
             >
               <span style={{ color: "#5a7a8a" }}>[{log.time}]</span>
-              <span style={{ color: "#7a8a9a" }}> {">"} </span>
+              <span style={{ color: "#a0b8c8" }}> {">"} </span>
               <span style={{ color: "#00f0ff" }}>{log.message}</span>
             </div>
           ))}
