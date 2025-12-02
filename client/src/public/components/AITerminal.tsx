@@ -72,7 +72,7 @@ export function AITerminal() {
           background: "rgba(0, 0, 0, 0.85)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          border: "1px solid rgba(60, 60, 60, 0.6)",
+          border: "1px solid rgba(30, 60, 80, 0.7)",
           borderRadius: "8px",
           overflow: "hidden",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.5)",
@@ -150,7 +150,7 @@ export function AITerminal() {
                 animation: log.isNew ? "fadeInLog 0.4s ease-out" : "none",
               }}
             >
-              <span style={{ color: "#5a7a8a" }}>[{log.time}]</span>
+              <span style={{ color: "#3a5a6a" }}>[{log.time}]</span>
               <span style={{ color: "#a0b8c8" }}> {">"} </span>
               <span style={{ color: "#00f0ff" }}>{log.message}</span>
             </div>
