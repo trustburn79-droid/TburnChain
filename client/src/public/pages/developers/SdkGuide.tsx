@@ -1,0 +1,347 @@
+import { useState } from "react";
+import { Link } from "wouter";
+import { 
+  Package, Download, Settings, Code, CheckCircle, RefreshCw, Zap, 
+  Server, HelpCircle, Copy, Book, Terminal
+} from "lucide-react";
+import { SiJavascript, SiPython, SiRust, SiGo, SiDiscord } from "react-icons/si";
+
+const languages = [
+  { name: "JavaScript", icon: SiJavascript, color: "#ffd700", version: "v4.2.1", active: true },
+  { name: "Python", icon: SiPython, color: "#3b82f6", version: "v4.1.0", active: false },
+  { name: "Rust", icon: SiRust, color: "#f97316", version: "v4.0.3", active: false },
+  { name: "Go", icon: SiGo, color: "#00f0ff", version: "v4.0.2", active: false },
+];
+
+const features = [
+  { 
+    icon: CheckCircle, 
+    title: "Type Safety", 
+    desc: "Full TypeScript support and type hints for Python to catch errors at compile time.",
+    color: "#00ff9d",
+    bgColor: "bg-[#00ff9d]/10"
+  },
+  { 
+    icon: RefreshCw, 
+    title: "Auto Retry", 
+    desc: "Built-in resilience patterns to handle network jitter and node failovers automatically.",
+    color: "#7000ff",
+    bgColor: "bg-[#7000ff]/10"
+  },
+  { 
+    icon: Zap, 
+    title: "Real-time Streams", 
+    desc: "WebSocket-based block, transaction, and event streaming for live updates.",
+    color: "#00f0ff",
+    bgColor: "bg-[#00f0ff]/10"
+  },
+];
+
+const installCommands = [
+  { label: "NPM (Node.js)", command: "npm install @tburn/sdk" },
+  { label: "Yarn", command: "yarn add @tburn/sdk" },
+];
+
+const configCode = `import { defineConfig } from '@tburn/sdk';
+
+export default defineConfig({
+  // Network: mainnet, testnet, devnet
+  network: 'mainnet',
+  
+  // API Credentials
+  apiKey: process.env.TBURN_API_KEY,
+  
+  // Options
+  timeout: 30000,
+  retries: 3,
+  ws: {
+    enabled: true
+  }
+});`;
+
+const exampleTabs = ["Core", "DeFi", "Streaming"];
+
+const coreExample = `import { TBurnClient } from '@tburn/sdk';
+
+// 1. Initialize Client
+const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
+
+// 2. Get Balance
+const balance = await client.getBalance('0xYourAddress...');
+console.log(\`Balance: \${balance.formatted} TBURN\`);
+
+// 3. Query Trust Score (AI)
+const score = await client.ai.getTrustScore('0xProjectAddress...');
+console.log(\`Score: \${score.value}/100 (Grade: \${score.grade})\`);
+
+// 4. Send Transaction
+const tx = await client.transfer({
+  to: '0xRecipient...',
+  amount: '100', // TBURN
+  gasLimit: 'auto'
+});
+console.log(\`Transaction Hash: \${tx.hash}\`);`;
+
+const defiExample = `import { TBurnClient, DeFi } from '@tburn/sdk';
+
+const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
+
+// 1. Get Pool Info
+const pool = await client.defi.getPool('TBURN-USDT');
+console.log(\`TVL: \${pool.tvl}, APY: \${pool.apy}%\`);
+
+// 2. Add Liquidity
+const lpTokens = await client.defi.addLiquidity({
+  poolId: 'TBURN-USDT',
+  amountA: '1000',
+  amountB: '500',
+  slippage: 0.5
+});
+
+// 3. Swap Tokens
+const swap = await client.defi.swap({
+  from: 'TBURN',
+  to: 'USDT',
+  amount: '100',
+  minReceived: '98'
+});`;
+
+const streamingExample = `import { TBurnClient } from '@tburn/sdk';
+
+const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
+
+// 1. Subscribe to New Blocks
+client.ws.subscribeBlocks((block) => {
+  console.log(\`New block: #\${block.number}\`);
+});
+
+// 2. Watch Address Transactions
+client.ws.watchAddress('0xYourAddress...', (tx) => {
+  console.log(\`New tx: \${tx.hash}\`);
+});
+
+// 3. Listen to Trust Score Updates
+client.ws.subscribeTrustScores(['0xProject1...'], (update) => {
+  console.log(\`Score changed: \${update.oldScore} → \${update.newScore}\`);
+});`;
+
+export default function SdkGuide() {
+  const [activeLang, setActiveLang] = useState("JavaScript");
+  const [activeTab, setActiveTab] = useState("Core");
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const handleCopy = (text: string, index: number) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
+  };
+
+  const getExampleCode = () => {
+    switch (activeTab) {
+      case "DeFi": return defiExample;
+      case "Streaming": return streamingExample;
+      default: return coreExample;
+    }
+  };
+
+  return (
+    <main className="flex-grow relative z-10">
+      {/* Hero Section */}
+      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+        <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#7000ff]/10 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="container mx-auto max-w-5xl relative z-10">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-[#7000ff] to-[#00f0ff] flex items-center justify-center shadow-[0_0_30px_rgba(112,0,255,0.3)]">
+              <Package className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white">SDK Guide</h1>
+              <p className="text-sm text-[#00f0ff] font-mono mt-1">Build dApps faster with TBurn SDK</p>
+            </div>
+          </div>
+          <p className="text-xl text-gray-400 leading-relaxed max-w-3xl">
+            The official TBurn Chain SDK provides robust tools for JavaScript, Python, Rust, and Go developers. 
+            Integrate blockchain features, manage wallets, and interact with smart contracts seamlessly.
+          </p>
+        </div>
+      </section>
+
+      {/* Language Selector (Sticky) */}
+      <section className="py-4 px-6 border-b border-white/5 bg-black/40 sticky top-20 z-40 backdrop-blur-md">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-wrap gap-3">
+            {languages.map((lang) => (
+              <button
+                key={lang.name}
+                onClick={() => setActiveLang(lang.name)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition border ${
+                  activeLang === lang.name
+                    ? "bg-[#7000ff]/20 border-[#7000ff] text-white"
+                    : "bg-white/5 border-white/10 text-gray-400 hover:border-[#7000ff] hover:text-white"
+                }`}
+                data-testid={`button-lang-${lang.name.toLowerCase()}`}
+              >
+                <lang.icon className="w-4 h-4" style={{ color: lang.color }} />
+                {lang.name}
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10">{lang.version}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid md:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <div key={index} className="spotlight-card rounded-xl p-6 border border-white/10">
+                <div className="flex items-start gap-4">
+                  <div className={`w-10 h-10 rounded-lg ${feature.bgColor} flex items-center justify-center flex-shrink-0`} style={{ color: feature.color }}>
+                    <feature.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-1">{feature.title}</h3>
+                    <p className="text-sm text-gray-400">{feature.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Installation & Configuration */}
+      <section className="py-16 px-6 bg-white/5 border-y border-white/5">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Installation */}
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <Download className="w-6 h-6 text-[#00f0ff]" /> Installation
+              </h2>
+              <div className="space-y-4">
+                {installCommands.map((install, index) => (
+                  <div key={index} className="spotlight-card rounded-xl p-4 border border-white/10">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs text-gray-500 font-mono">{install.label}</span>
+                      <button 
+                        onClick={() => handleCopy(install.command, index)}
+                        className="text-gray-500 hover:text-white transition"
+                      >
+                        <Copy className={`w-4 h-4 ${copiedIndex === index ? "text-[#00ff9d]" : ""}`} />
+                      </button>
+                    </div>
+                    <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-3 font-mono text-sm text-white">
+                      {install.command}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Configuration */}
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <Settings className="w-6 h-6 text-[#7000ff]" /> Configuration
+              </h2>
+              <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
+                <div className="bg-black/40 border-b border-white/10 p-3 flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-red-500" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <span className="w-3 h-3 rounded-full bg-green-500" />
+                  <span className="ml-2 text-xs text-gray-500 font-mono">tburn.config.ts</span>
+                </div>
+                <pre className="bg-[#0d0d12] p-4 font-mono text-sm text-gray-400 overflow-x-auto">
+                  <code dangerouslySetInnerHTML={{ __html: configCode
+                    .replace(/import|from|export default/g, '<span class="text-[#7000ff]">$&</span>')
+                    .replace(/'[^']*'/g, '<span class="text-[#00ff9d]">$&</span>')
+                    .replace(/\/\/.*/g, '<span class="text-gray-500">$&</span>')
+                    .replace(/\b(true|false)\b/g, '<span class="text-[#7000ff]">$1</span>')
+                    .replace(/\b(\d+)\b/g, '<span class="text-[#ffd700]">$1</span>')
+                  }} />
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Examples */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+            <Code className="w-6 h-6 text-[#ffd700]" /> Quick Examples
+          </h2>
+
+          <div className="spotlight-card rounded-xl overflow-hidden border border-white/10">
+            <div className="flex border-b border-white/10 bg-black/40">
+              {exampleTabs.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-3 text-sm font-medium transition ${
+                    activeTab === tab
+                      ? "text-white border-b-2 border-[#7000ff] bg-white/5 font-bold"
+                      : "text-gray-400 hover:text-white"
+                  }`}
+                  data-testid={`button-tab-${tab.toLowerCase()}`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            <pre className="bg-[#0d0d12] p-6 font-mono text-sm text-gray-400 overflow-x-auto">
+              <code dangerouslySetInnerHTML={{ __html: getExampleCode()
+                .replace(/import|from|const|await|new/g, '<span class="text-[#7000ff]">$&</span>')
+                .replace(/'[^']*'/g, '<span class="text-[#00ff9d]">$&</span>')
+                .replace(/`[^`]*`/g, '<span class="text-[#00ff9d]">$&</span>')
+                .replace(/\/\/.*/g, '<span class="text-gray-500">$&</span>')
+              }} />
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Need Help Section */}
+      <section className="py-16 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-white/5">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2">
+            <HelpCircle className="w-6 h-6" /> Need Help?
+          </h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link 
+              href="/developers/api"
+              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
+              data-testid="link-api-reference"
+            >
+              <Server className="w-5 h-5 text-[#00f0ff]" /> API Reference
+            </Link>
+            <Link 
+              href="/developers/cli"
+              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00ff9d] transition flex items-center gap-2 text-white"
+              data-testid="link-cli-reference"
+            >
+              <Terminal className="w-5 h-5 text-[#00ff9d]" /> CLI Reference
+            </Link>
+            <Link 
+              href="/developers/examples"
+              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#ffd700] transition flex items-center gap-2 text-white"
+              data-testid="link-code-examples"
+            >
+              <Book className="w-5 h-5 text-[#ffd700]" /> Code Examples
+            </Link>
+            <a 
+              href="#"
+              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-white"
+            >
+              <SiDiscord className="w-5 h-5 text-[#7000ff]" /> Discord Support
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

@@ -37,6 +37,7 @@ const menuStructure: MenuSection[] = [
       { title: "Documentation", href: "/developers/docs" },
       { title: "API Reference", href: "/developers/api" },
       { title: "CLI Reference", href: "/developers/cli" },
+      { title: "SDK Guide", href: "/developers/sdk" },
       { title: "Code Examples", href: "/developers/examples" },
       { title: "Quick Start", href: "/developers/quickstart" },
       { title: "Installation Guide", href: "/developers/installation" },
