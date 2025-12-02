@@ -1,7 +1,9 @@
 import { Link, useLocation } from "wouter";
-import { useState } from "react";
-import { ChevronDown, Menu, X, Sun, Moon, Globe } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { ChevronDown, Menu, X, Sun, Moon, Globe, Check } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
+import { useTranslation } from "react-i18next";
+import { languages } from "@/lib/i18n";
 import "../styles/public.css";
 
 interface MenuItem {
@@ -102,8 +104,29 @@ const menuStructure: MenuSection[] = [
 export function PublicHeader() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { t, i18n } = useTranslation();
   const [location] = useLocation();
+  const languageMenuRef = useRef<HTMLDivElement>(null);
+
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target as Node)) {
+        setLanguageMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const changeLanguage = (langCode: string) => {
+    i18n.changeLanguage(langCode);
+    setLanguageMenuOpen(false);
+    document.documentElement.dir = languages.find(l => l.code === langCode)?.dir || 'ltr';
+  };
 
   return (
     <nav className="fixed top-0 w-full z-50 glass-nav">
@@ -164,12 +187,44 @@ export function PublicHeader() {
           </div>
 
           <div className="flex items-center gap-4">
-            <button 
-              className="p-2 text-gray-400 hover:text-white transition"
-              data-testid="button-language"
-            >
-              <Globe className="w-5 h-5" />
-            </button>
+            <div ref={languageMenuRef} className="relative">
+              <button 
+                className="flex items-center gap-1.5 p-2 text-gray-400 hover:text-white transition"
+                onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+                data-testid="button-language"
+              >
+                <Globe className="w-5 h-5" />
+                <span className="hidden sm:inline text-xs font-medium uppercase">{currentLanguage.code}</span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${languageMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {languageMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 z-50">
+                  <div className="w-56 max-h-80 overflow-y-auto rounded-lg glass-panel p-2 shadow-xl border border-white/10">
+                    <div className="text-xs text-gray-500 px-3 py-1 mb-1 font-medium">Select Language</div>
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`w-full flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-white/5 transition-colors ${
+                          i18n.language === lang.code ? 'bg-white/5' : ''
+                        }`}
+                        data-testid={`language-${lang.code}`}
+                      >
+                        <span className="text-lg">{lang.flag}</span>
+                        <div className="flex-1 text-left">
+                          <div className="font-medium text-white">{lang.nativeName}</div>
+                          <div className="text-xs text-gray-500">{lang.name}</div>
+                        </div>
+                        {i18n.language === lang.code && (
+                          <Check className="w-4 h-4 text-cyan-400" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             <button 
               className="p-2 text-gray-400 hover:text-white transition"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -182,7 +237,7 @@ export function PublicHeader() {
                 className="glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
                 data-testid="button-login"
               >
-                Login Interface
+                {t('publicPages.header.loginInterface')}
               </button>
             </Link>
 
