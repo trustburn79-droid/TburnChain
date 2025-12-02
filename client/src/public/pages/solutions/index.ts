@@ -6,3 +6,4 @@ export { default as GameTooling } from "./GameTooling";
 export { default as Payments } from "./Payments";
 export { default as Commerce } from "./Commerce";
 export { default as Financial } from "./Financial";
+export { default as AiFeatures } from "./AiFeatures";
