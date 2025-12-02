@@ -65,7 +65,7 @@ export function NeuralCanvas() {
           vy: (Math.random() - 0.5) * 0.45,
           size: baseSize,
           baseSize: baseSize,
-          alpha: Math.random() * 0.5 + 0.3,
+          alpha: Math.random() * 0.35 + 0.21,
         });
       }
     }
@@ -74,7 +74,7 @@ export function NeuralCanvas() {
       ctx!.beginPath();
       ctx!.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
       ctx!.fillStyle = `rgba(0, 240, 255, ${particle.alpha})`;
-      ctx!.shadowBlur = 8;
+      ctx!.shadowBlur = 6;
       ctx!.shadowColor = PARTICLE_COLOR;
       ctx!.fill();
       ctx!.shadowBlur = 0;
@@ -123,7 +123,7 @@ export function NeuralCanvas() {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < CONNECTION_DISTANCE) {
-            const opacity = (1 - distance / CONNECTION_DISTANCE) * 0.075;
+            const opacity = (1 - distance / CONNECTION_DISTANCE) * 0.053;
             ctx!.strokeStyle = `rgba(0, 240, 255, ${opacity})`;
             ctx!.lineWidth = 0.8;
             ctx!.beginPath();
