@@ -93,7 +93,7 @@ export function AITerminal() {
                 key={log.id} 
                 className="animate-fade-in"
               >
-                <span className="text-gray-500 mr-1">[{log.time}]</span>
+                <span className="text-gray-500 mr-2 tracking-wider">[{log.time}]</span>
                 <span className="text-gray-200 mr-1">{">"}</span>
                 <span className="text-[#00f0ff]">{log.message}</span>
               </div>
