@@ -15,64 +15,122 @@ import { NeuralCanvas } from "../components/NeuralCanvas";
 import { AITerminal } from "../components/AITerminal";
 import "../styles/public.css";
 
-const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#";
+const KEYWORDS = ["Trust-Based", "AI-Powered", "Quantum-Safe", "Hyper-Scale"];
 
-function useTextScramble(text: string, delay: number = 0) {
-  const [displayText, setDisplayText] = useState("");
-  const [isComplete, setIsComplete] = useState(false);
+class TextScramble {
+  private chars: string;
+  private queue: Array<{ from: string; to: string; start: number; end: number; char?: string }>;
+  private frame: number;
+  private frameRequest: number | null;
+  private resolve: (() => void) | null;
+  private onUpdate: (text: string) => void;
 
-  useEffect(() => {
-    let frame = 0;
-    let animationId: number;
-    
-    const queue: Array<{ from: string; to: string; start: number; end: number; char?: string }> = [];
-    
-    for (let i = 0; i < text.length; i++) {
+  constructor(onUpdate: (text: string) => void) {
+    this.chars = SCRAMBLE_CHARS;
+    this.queue = [];
+    this.frame = 0;
+    this.frameRequest = null;
+    this.resolve = null;
+    this.onUpdate = onUpdate;
+  }
+
+  setText(newText: string, oldText: string = ""): Promise<void> {
+    const length = Math.max(oldText.length, newText.length);
+    this.queue = [];
+    this.frame = 0;
+
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || "";
+      const to = newText[i] || "";
       const start = Math.floor(Math.random() * 40);
       const end = start + Math.floor(Math.random() * 40);
-      queue.push({ from: "", to: text[i], start, end });
+      this.queue.push({ from, to, start, end });
     }
 
-    const update = () => {
-      let output = "";
-      let complete = 0;
+    if (this.frameRequest) {
+      cancelAnimationFrame(this.frameRequest);
+    }
 
-      for (let i = 0; i < queue.length; i++) {
-        const item = queue[i];
-        if (frame >= item.end) {
-          complete++;
-          output += item.to;
-        } else if (frame >= item.start) {
-          if (!item.char || Math.random() < 0.28) {
-            item.char = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
-          }
-          output += item.char;
-        } else {
-          output += item.from;
+    return new Promise((resolve) => {
+      this.resolve = resolve;
+      this.update();
+    });
+  }
+
+  private update = () => {
+    let output = "";
+    let complete = 0;
+
+    for (let i = 0; i < this.queue.length; i++) {
+      const item = this.queue[i];
+      if (this.frame >= item.end) {
+        complete++;
+        output += item.to;
+      } else if (this.frame >= item.start) {
+        if (!item.char || Math.random() < 0.28) {
+          item.char = this.chars[Math.floor(Math.random() * this.chars.length)];
         }
-      }
-
-      setDisplayText(output);
-
-      if (complete === queue.length) {
-        setIsComplete(true);
+        output += `<span class="scramble-char">${item.char}</span>`;
       } else {
-        frame++;
-        animationId = requestAnimationFrame(() => setTimeout(update, 30));
+        output += item.from;
       }
+    }
+
+    this.onUpdate(output);
+
+    if (complete === this.queue.length) {
+      if (this.resolve) this.resolve();
+    } else {
+      this.frame++;
+      this.frameRequest = requestAnimationFrame(this.update);
+    }
+  };
+
+  destroy() {
+    if (this.frameRequest) {
+      cancelAnimationFrame(this.frameRequest);
+    }
+  }
+}
+
+function useRotatingScramble(words: string[], intervalMs: number = 3000) {
+  const [displayHtml, setDisplayHtml] = useState(words[0]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrambleRef = useRef<TextScramble | null>(null);
+  const isInitializedRef = useRef(false);
+
+  useEffect(() => {
+    scrambleRef.current = new TextScramble((html) => setDisplayHtml(html));
+
+    const runCycle = async () => {
+      if (!scrambleRef.current) return;
+      
+      const nextIndex = (currentIndex + 1) % words.length;
+      await scrambleRef.current.setText(words[nextIndex], words[currentIndex]);
+      
+      setTimeout(() => {
+        setCurrentIndex(nextIndex);
+      }, intervalMs);
     };
 
-    const timer = setTimeout(() => {
-      update();
-    }, delay);
+    if (!isInitializedRef.current) {
+      isInitializedRef.current = true;
+      setTimeout(() => {
+        runCycle();
+      }, intervalMs);
+    } else {
+      runCycle();
+    }
 
     return () => {
-      clearTimeout(timer);
-      if (animationId) cancelAnimationFrame(animationId);
+      if (scrambleRef.current) {
+        scrambleRef.current.destroy();
+      }
     };
-  }, [text, delay]);
+  }, [currentIndex]);
 
-  return { displayText, isComplete };
+  return displayHtml;
 }
 
 const solutions = [
@@ -126,35 +184,19 @@ const getColorClasses = (color: string) => {
   return colors[color] || colors.cyan;
 };
 
-function ScrambleText({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {
-  const { displayText, isComplete } = useTextScramble(text, delay);
+function RotatingTitle() {
+  const displayHtml = useRotatingScramble(KEYWORDS, 3000);
   
   return (
-    <span className={className}>
-      {displayText.split("").map((char, i) => (
-        <span 
-          key={i} 
-          className={isComplete || char === text[i] ? "" : "text-cyan-400/70"}
-          style={{ 
-            textShadow: !isComplete && char !== text[i] ? "0 0 10px rgba(0, 240, 255, 0.5)" : undefined 
-          }}
-        >
-          {char}
-        </span>
-      ))}
-      {!isComplete && <span className="cursor-blink" />}
-    </span>
+    <span 
+      className="text-gradient inline-block"
+      dangerouslySetInnerHTML={{ __html: displayHtml }}
+    />
   );
 }
 
 export default function Home() {
   const { data: stats } = useNetworkStats();
-  const [showContent, setShowContent] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowContent(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const cards = e.currentTarget.querySelectorAll(".spotlight-card");
@@ -191,18 +233,8 @@ export default function Home() {
 
             {/* Hero Title with Scramble Effect */}
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white leading-tight">
-              {showContent ? (
-                <>
-                  <ScrambleText 
-                    text="Trust-Based" 
-                    className="text-gradient inline-block"
-                    delay={300}
-                  />
-                  <span data-testid="text-hero-title" className="sr-only">Trust-Based</span>
-                </>
-              ) : (
-                <span className="text-gradient">Trust-Based</span>
-              )}
+              <RotatingTitle />
+              <span data-testid="text-hero-title" className="sr-only">Trust-Based</span>
               <br />
               <span className="text-white">Blockchain Ecosystem</span>
             </h1>
