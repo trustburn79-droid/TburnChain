@@ -3660,6 +3660,16 @@
   "admin": {
     "title": "Mainnet Administration",
     "subtitle": "Control and monitor TBURN mainnet infrastructure",
+    "quickLinks": {
+      "title": "Quick Links",
+      "description": "Fast access to related management pages and documentation",
+      "members": "Members",
+      "apiKeys": "API Keys",
+      "operator": "Operator",
+      "security": "Security",
+      "whitepaper": "Whitepaper",
+      "terms": "Terms"
+    },
     "mainnetStatus": "Mainnet Status",
     "rateLimitedMessage": "Rate Limited by TBURN Mainnet API - Retrying connections",
     "apiConnectionFailed": "API Connection Failed",

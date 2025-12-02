@@ -3733,6 +3733,16 @@
   "admin": {
     "title": "메인넷 관리",
     "subtitle": "TBURN 메인넷 인프라 제어 및 모니터링",
+    "quickLinks": {
+      "title": "빠른 링크",
+      "description": "관련 관리 페이지 및 문서로 빠르게 이동",
+      "members": "회원 관리",
+      "apiKeys": "API 키",
+      "operator": "운영자",
+      "security": "보안",
+      "whitepaper": "백서",
+      "terms": "이용약관"
+    },
     "systemStatus": "시스템 상태",
     "mainnetStatus": "메인넷 상태",
     "running": "실행 중",

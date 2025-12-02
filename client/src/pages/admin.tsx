@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "wouter";
 import { useMainnetSnapshots } from "@/hooks/use-mainnet-snapshots";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -90,7 +91,11 @@ import {
   Minus,
   Filter,
   Search,
-  ChevronRight
+  ChevronRight,
+  Key,
+  BookOpen,
+  Scale,
+  ExternalLink
 } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -1603,6 +1608,45 @@ export default function AdminPage() {
           </Badge>
         </div>
       </div>
+
+      {/* Quick Links */}
+      <Card className="bg-gradient-to-r from-purple-500/5 to-cyan-500/5 border-purple-500/20">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <ExternalLink className="h-5 w-5 text-purple-500" />
+            {t('admin.quickLinks.title')}
+          </CardTitle>
+          <CardDescription>{t('admin.quickLinks.description')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            <Link href="/app/members" className="flex items-center gap-2 p-3 rounded-lg bg-background/50 border border-border hover:border-purple-500/50 hover:bg-purple-500/5 transition-colors group" data-testid="link-admin-members">
+              <Users className="h-4 w-4 text-purple-500" />
+              <span className="text-sm font-medium group-hover:text-purple-400 transition-colors">{t('admin.quickLinks.members')}</span>
+            </Link>
+            <Link href="/app/api-keys" className="flex items-center gap-2 p-3 rounded-lg bg-background/50 border border-border hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-colors group" data-testid="link-admin-api-keys">
+              <Key className="h-4 w-4 text-cyan-500" />
+              <span className="text-sm font-medium group-hover:text-cyan-400 transition-colors">{t('admin.quickLinks.apiKeys')}</span>
+            </Link>
+            <Link href="/app/operator/dashboard" className="flex items-center gap-2 p-3 rounded-lg bg-background/50 border border-border hover:border-green-500/50 hover:bg-green-500/5 transition-colors group" data-testid="link-admin-operator">
+              <Settings className="h-4 w-4 text-green-500" />
+              <span className="text-sm font-medium group-hover:text-green-400 transition-colors">{t('admin.quickLinks.operator')}</span>
+            </Link>
+            <Link href="/app/operator/security" className="flex items-center gap-2 p-3 rounded-lg bg-background/50 border border-border hover:border-yellow-500/50 hover:bg-yellow-500/5 transition-colors group" data-testid="link-admin-security">
+              <Shield className="h-4 w-4 text-yellow-500" />
+              <span className="text-sm font-medium group-hover:text-yellow-400 transition-colors">{t('admin.quickLinks.security')}</span>
+            </Link>
+            <Link href="/learn/whitepaper" className="flex items-center gap-2 p-3 rounded-lg bg-background/50 border border-border hover:border-blue-500/50 hover:bg-blue-500/5 transition-colors group" data-testid="link-admin-whitepaper">
+              <BookOpen className="h-4 w-4 text-blue-500" />
+              <span className="text-sm font-medium group-hover:text-blue-400 transition-colors">{t('admin.quickLinks.whitepaper')}</span>
+            </Link>
+            <Link href="/legal/terms-of-service" className="flex items-center gap-2 p-3 rounded-lg bg-background/50 border border-border hover:border-orange-500/50 hover:bg-orange-500/5 transition-colors group" data-testid="link-admin-terms">
+              <Scale className="h-4 w-4 text-orange-500" />
+              <span className="text-sm font-medium group-hover:text-orange-400 transition-colors">{t('admin.quickLinks.terms')}</span>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-5">
