@@ -125,13 +125,15 @@ export default function DePIN() {
             Reward contributors, verify coverage, and scale globally.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
-              style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
-              data-testid="button-deploy"
-            >
-              Deploy Infrastructure
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
+                style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
+                data-testid="button-deploy"
+              >
+                Deploy Infrastructure
+              </button>
+            </Link>
             <Link href="/developers/docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"

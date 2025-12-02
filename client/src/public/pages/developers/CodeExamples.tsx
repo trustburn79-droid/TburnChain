@@ -334,12 +334,14 @@ export default function CodeExamples() {
                 >
                   <SiGithub className="w-5 h-5" /> Submit PR
                 </a>
-                <button 
-                  className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
-                  data-testid="button-request-guide"
-                >
-                  Request a Guide
-                </button>
+                <Link href="/community/hub">
+                  <button 
+                    className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                    data-testid="button-request-guide"
+                  >
+                    Request a Guide
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

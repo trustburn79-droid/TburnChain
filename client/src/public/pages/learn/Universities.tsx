@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { useRef, useEffect } from "react";
 import { 
   GraduationCap, 
@@ -142,16 +143,18 @@ export default function Universities() {
                 <p className="text-gray-400 mb-6 leading-relaxed">
                   Are you an educator looking to incorporate blockchain technology into your curriculum? We provide ready-to-use teaching materials, guest lecture programs, and technical support to help bring TBurn Chain to the classroom.
                 </p>
-                <button 
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold text-white transition-all hover:-translate-y-0.5"
-                  style={{ 
-                    background: "linear-gradient(90deg, #7000ff, #00f0ff)",
-                    boxShadow: "0 0 15px rgba(112, 0, 255, 0.3)"
-                  }}
-                  data-testid="button-educator-resources"
-                >
-                  <Download className="w-4 h-4" /> Access Educator Resources
-                </button>
+                <Link href="/learn">
+                  <button 
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold text-white transition-all hover:-translate-y-0.5"
+                    style={{ 
+                      background: "linear-gradient(90deg, #7000ff, #00f0ff)",
+                      boxShadow: "0 0 15px rgba(112, 0, 255, 0.3)"
+                    }}
+                    data-testid="button-educator-resources"
+                  >
+                    <Download className="w-4 h-4" /> Access Educator Resources
+                  </button>
+                </Link>
               </div>
               <div className="w-full md:w-1/3 flex justify-center">
                 <Presentation className="w-32 h-32 text-white/5 rotate-12" />

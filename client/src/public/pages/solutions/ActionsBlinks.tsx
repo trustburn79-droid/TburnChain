@@ -156,13 +156,15 @@ export default function ActionsBlinks() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              className="bg-[#00f0ff] text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center justify-center gap-2"
-              style={{ boxShadow: "0 0 20px rgba(0,240,255,0.4)" }}
-              data-testid="button-create-action"
-            >
-              <Zap className="w-4 h-4" /> Create Action
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="bg-[#00f0ff] text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center justify-center gap-2"
+                style={{ boxShadow: "0 0 20px rgba(0,240,255,0.4)" }}
+                data-testid="button-create-action"
+              >
+                <Zap className="w-4 h-4" /> Create Action
+              </button>
+            </Link>
             <Link href="/developers/docs">
               <button 
                 className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"

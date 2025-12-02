@@ -256,12 +256,14 @@ export default function DefiMastery() {
             
             {/* Start Learning Card */}
             <div className="spotlight-card rounded-xl p-6 sticky top-24 border-[#7000ff]/20">
-              <button 
-                className="w-full bg-[#7000ff] text-white font-bold py-3 rounded-lg hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.4)] mb-6 flex items-center justify-center gap-2"
-                data-testid="button-start-learning"
-              >
-                <Play className="w-5 h-5" /> Start Learning
-              </button>
+              <Link href="/learn/intro-to-defi">
+                <button 
+                  className="w-full bg-[#7000ff] text-white font-bold py-3 rounded-lg hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.4)] mb-6 flex items-center justify-center gap-2"
+                  data-testid="button-start-learning"
+                >
+                  <Play className="w-5 h-5" /> Start Learning
+                </button>
+              </Link>
 
               {/* Key Takeaways */}
               <div className="mb-6">

@@ -3,6 +3,7 @@ import {
   CheckCircle, Code, Book, Shield, Megaphone, Vote
 } from "lucide-react";
 import { SiDiscord, SiTelegram, SiX, SiGithub } from "react-icons/si";
+import { Link } from "wouter";
 
 const communityStats = [
   {
@@ -104,10 +105,10 @@ const ambassadorBenefits = [
 ];
 
 const contributeWays = [
-  { icon: Code, title: "Code", description: "SDKs, Smart Contracts, Tools", action: "View Issues", color: "text-[#00f0ff]", bgColor: "bg-[#00f0ff]/10" },
-  { icon: Book, title: "Content", description: "Tutorials, Blogs, Translations", action: "Submit Content", color: "text-[#ffd700]", bgColor: "bg-[#ffd700]/10" },
-  { icon: Shield, title: "Moderation", description: "Discord & Telegram Support", action: "Apply Mod", color: "text-[#00ff9d]", bgColor: "bg-[#00ff9d]/10" },
-  { icon: Megaphone, title: "Marketing", description: "Events, Social Media, Growth", action: "Join Team", color: "text-[#ff0055]", bgColor: "bg-[#ff0055]/10" },
+  { icon: Code, title: "Code", description: "SDKs, Smart Contracts, Tools", action: "View Issues", color: "text-[#00f0ff]", bgColor: "bg-[#00f0ff]/10", href: "/developers/docs" },
+  { icon: Book, title: "Content", description: "Tutorials, Blogs, Translations", action: "Submit Content", color: "text-[#ffd700]", bgColor: "bg-[#ffd700]/10", href: "/community/news" },
+  { icon: Shield, title: "Moderation", description: "Discord & Telegram Support", action: "Apply Mod", color: "text-[#00ff9d]", bgColor: "bg-[#00ff9d]/10", href: "/community/hub" },
+  { icon: Megaphone, title: "Marketing", description: "Events, Social Media, Growth", action: "Join Team", color: "text-[#ff0055]", bgColor: "bg-[#ff0055]/10", href: "/community/events" },
 ];
 
 export default function CommunityHub() {
@@ -244,12 +245,14 @@ export default function CommunityHub() {
                 ))}
               </div>
 
-              <button 
-                className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_15px_rgba(112,0,255,0.3)]"
-                data-testid="button-apply-ambassador"
-              >
-                Apply as Ambassador
-              </button>
+              <Link href="/community/hub">
+                <button 
+                  className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_15px_rgba(112,0,255,0.3)]"
+                  data-testid="button-apply-ambassador"
+                >
+                  Apply as Ambassador
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -267,12 +270,14 @@ export default function CommunityHub() {
                 </div>
                 <h3 className="font-bold text-white mb-2">{way.title}</h3>
                 <p className="text-xs text-gray-400 mb-4">{way.description}</p>
-                <button 
-                  className="text-xs border border-white/20 px-3 py-1 rounded hover:bg-white/10 text-white"
-                  data-testid={`button-contribute-${way.title.toLowerCase()}`}
-                >
-                  {way.action}
-                </button>
+                <Link href={way.href}>
+                  <button 
+                    className="text-xs border border-white/20 px-3 py-1 rounded hover:bg-white/10 text-white"
+                    data-testid={`button-contribute-${way.title.toLowerCase()}`}
+                  >
+                    {way.action}
+                  </button>
+                </Link>
               </div>
             ))}
           </div>
@@ -291,12 +296,14 @@ export default function CommunityHub() {
               Stake TBURN tokens to participate in protocol decisions. <br />
               Create proposals, vote on upgrades, and manage the community treasury.
             </p>
-            <button 
-              className="px-6 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition flex items-center gap-2"
-              data-testid="button-governance-portal"
-            >
-              Go to Governance Portal <ArrowRight className="w-4 h-4" />
-            </button>
+            <Link href="/governance">
+              <button 
+                className="px-6 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition flex items-center gap-2"
+                data-testid="button-governance-portal"
+              >
+                Go to Governance Portal <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
           </div>
           <div className="flex-1 grid grid-cols-2 gap-4 w-full">
             <div className="bg-black/40 p-4 rounded-lg border border-white/10 text-center">

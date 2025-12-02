@@ -246,12 +246,14 @@ export default function DeveloperCourse() {
             
             {/* Start Learning Card */}
             <div className="spotlight-card rounded-xl p-6 sticky top-24 border-[#f59e0b]/20">
-              <button 
-                className="w-full bg-[#f59e0b] text-black font-bold py-3 rounded-lg hover:bg-amber-400 transition shadow-[0_0_20px_rgba(245,158,11,0.4)] mb-6 flex items-center justify-center gap-2"
-                data-testid="button-start-learning"
-              >
-                <Play className="w-5 h-5" /> Start Learning
-              </button>
+              <Link href="/developers/quickstart">
+                <button 
+                  className="w-full bg-[#f59e0b] text-black font-bold py-3 rounded-lg hover:bg-amber-400 transition shadow-[0_0_20px_rgba(245,158,11,0.4)] mb-6 flex items-center justify-center gap-2"
+                  data-testid="button-start-learning"
+                >
+                  <Play className="w-5 h-5" /> Start Learning
+                </button>
+              </Link>
 
               {/* Key Takeaways */}
               <div className="mb-6">

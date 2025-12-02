@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { useRef, useEffect } from "react";
 import { 
   Map, 
@@ -327,19 +328,23 @@ export default function Roadmap() {
           <h2 className="text-3xl font-bold text-white mb-6">Build the Future with TBurn Chain</h2>
           <p className="text-gray-400 mb-8">Join our journey and contribute to building trust in the blockchain ecosystem.</p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg text-black font-bold transition-shadow hover:shadow-[0_0_20px_rgba(112,0,255,0.5)]"
-              style={{ background: "linear-gradient(to right, #00f0ff, #7000ff)" }}
-              data-testid="button-join-community"
-            >
-              Join Community
-            </button>
-            <button 
-              className="px-8 py-3 rounded-lg border border-white/20 text-white font-bold hover:bg-white/5 transition-colors"
-              data-testid="button-view-docs"
-            >
-              View Developer Docs
-            </button>
+            <Link href="/learn">
+              <button 
+                className="px-8 py-3 rounded-lg text-black font-bold transition-shadow hover:shadow-[0_0_20px_rgba(112,0,255,0.5)]"
+                style={{ background: "linear-gradient(to right, #00f0ff, #7000ff)" }}
+                data-testid="button-join-community"
+              >
+                Join Community
+              </button>
+            </Link>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg border border-white/20 text-white font-bold hover:bg-white/5 transition-colors"
+                data-testid="button-view-docs"
+              >
+                View Developer Docs
+              </button>
+            </Link>
           </div>
         </div>
       </section>

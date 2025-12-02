@@ -215,19 +215,23 @@ export default function InstallationGuide() {
             Join the TBurn Chain network. Validate transactions, secure the network, and earn rewards. Setup takes less than 10 minutes.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition flex items-center gap-2"
-              style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
-              data-testid="button-quick-start"
-            >
-              <Terminal className="w-5 h-5" /> Quick Start
-            </button>
-            <button 
-              className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
-              data-testid="button-docker"
-            >
-              <SiDocker className="w-5 h-5" /> Docker Image
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition flex items-center gap-2"
+                style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
+                data-testid="button-quick-start"
+              >
+                <Terminal className="w-5 h-5" /> Quick Start
+              </button>
+            </Link>
+            <Link href="#docker">
+              <button 
+                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
+                data-testid="button-docker"
+              >
+                <SiDocker className="w-5 h-5" /> Docker Image
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -373,9 +377,11 @@ export default function InstallationGuide() {
                 <Monitor className="w-10 h-10 text-gray-600 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">Windows Installation</h3>
                 <p className="text-gray-400 mb-6">We recommend using WSL2 (Windows Subsystem for Linux) for the best experience.</p>
-                <button className="px-6 py-2 border border-white/20 rounded hover:bg-white/10 text-white transition">
-                  Download .exe (Beta)
-                </button>
+                <Link href="https://github.com/burnchain/core/releases">
+                  <button className="px-6 py-2 border border-white/20 rounded hover:bg-white/10 text-white transition">
+                    Download .exe (Beta)
+                  </button>
+                </Link>
               </div>
             </div>
           )}

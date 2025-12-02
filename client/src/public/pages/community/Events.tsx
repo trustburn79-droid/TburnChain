@@ -3,6 +3,7 @@ import {
   Mic, Video, MapPin, GraduationCap, Presentation
 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "wouter";
 
 const filterCategories = ["All Events", "Hackathon", "AMA", "Webinar", "Meetup", "Conference"];
 
@@ -193,12 +194,14 @@ export default function Events() {
                   </div>
 
                   <div className="flex gap-3">
-                    <button 
-                      className={`flex-1 py-2 rounded ${event.buttonColor} font-bold text-sm transition`}
-                      data-testid={`button-register-${event.id}`}
-                    >
-                      {event.buttonText}
-                    </button>
+                    <Link href={`/community/events/${event.id}`}>
+                      <button 
+                        className={`flex-1 py-2 rounded ${event.buttonColor} font-bold text-sm transition`}
+                        data-testid={`button-register-${event.id}`}
+                      >
+                        {event.buttonText}
+                      </button>
+                    </Link>
                     <button className="px-4 py-2 rounded border border-white/20 text-white hover:bg-white/10 transition">
                       <Bell className="w-4 h-4" />
                     </button>
@@ -235,16 +238,18 @@ export default function Events() {
                   <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {event.date}</span>
                   <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {event.time}</span>
                 </div>
-                <button 
-                  className={`w-full py-2 rounded text-xs transition ${
-                    event.special 
-                      ? "bg-blue-600/20 text-blue-400 border border-blue-500/50 font-bold hover:bg-blue-600/40" 
-                      : "border border-white/20 text-white hover:bg-white/10"
-                  }`}
-                  data-testid={`button-event-${event.id}`}
-                >
-                  {event.buttonText}
-                </button>
+                <Link href={`/community/events/${event.id}`}>
+                  <button 
+                    className={`w-full py-2 rounded text-xs transition ${
+                      event.special 
+                        ? "bg-blue-600/20 text-blue-400 border border-blue-500/50 font-bold hover:bg-blue-600/40" 
+                        : "border border-white/20 text-white hover:bg-white/10"
+                    }`}
+                    data-testid={`button-event-${event.id}`}
+                  >
+                    {event.buttonText}
+                  </button>
+                </Link>
               </div>
             ))}
           </div>
@@ -263,12 +268,14 @@ export default function Events() {
               Host meetups, webinars, or hackathons with the TBurn Chain community. <br />
               We provide funding, swag, and marketing support.
             </p>
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-              data-testid="button-apply-host"
-            >
-              Apply to Host
-            </button>
+            <Link href="/community/hub">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                data-testid="button-apply-host"
+              >
+                Apply to Host
+              </button>
+            </Link>
           </div>
         </div>
       </section>

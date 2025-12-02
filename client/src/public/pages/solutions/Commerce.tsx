@@ -157,13 +157,15 @@ export default function Commerce() {
             Integrate secure payments, NFT inventory, and token loyalty programs effortlessly.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
-              style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
-              data-testid="button-plugin"
-            >
-              Install Plugin
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
+                style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
+                data-testid="button-plugin"
+              >
+                Install Plugin
+              </button>
+            </Link>
             <Link href="/developers/docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
@@ -328,12 +330,14 @@ export default function Commerce() {
           </div>
 
           <div className="mt-10">
-            <button 
-              className="px-8 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition"
-              data-testid="button-start"
-            >
-              Start Integration
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-white text-black font-bold hover:bg-gray-200 transition"
+                data-testid="button-start"
+              >
+                Start Integration
+              </button>
+            </Link>
           </div>
         </div>
       </section>

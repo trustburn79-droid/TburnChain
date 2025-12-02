@@ -177,13 +177,15 @@ export default function GameTooling() {
             Build the next generation of trust-based games. Securely trade verified items and NFTs on TBurn Chain, powered by our anti-rug pull trust rating system.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
-              style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
-              data-testid="button-sdk"
-            >
-              Get Unity SDK
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
+                style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
+                data-testid="button-sdk"
+              >
+                Get Unity SDK
+              </button>
+            </Link>
             <Link href="/developers/docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"

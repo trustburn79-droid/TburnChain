@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { useRef, useEffect } from "react";
 import { 
   FileCode, 
@@ -159,16 +160,18 @@ export default function Whitepaper() {
             <br />Arbitrum-based Layer 2 solution verifying reliability with 100% on-chain transparency.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg flex items-center gap-2 font-bold text-white transition-all hover:-translate-y-0.5"
-              style={{ 
-                background: "linear-gradient(90deg, #7000ff, #00f0ff)",
-                boxShadow: "0 0 20px rgba(112, 0, 255, 0.3)"
-              }}
-              data-testid="button-download-pdf"
-            >
-              <FileText className="w-4 h-4" /> Download PDF
-            </button>
+            <Link href="/developers/docs">
+              <button 
+                className="px-8 py-3 rounded-lg flex items-center gap-2 font-bold text-white transition-all hover:-translate-y-0.5"
+                style={{ 
+                  background: "linear-gradient(90deg, #7000ff, #00f0ff)",
+                  boxShadow: "0 0 20px rgba(112, 0, 255, 0.3)"
+                }}
+                data-testid="button-download-pdf"
+              >
+                <FileText className="w-4 h-4" /> Download PDF
+              </button>
+            </Link>
             <a 
               href="https://github.com" 
               target="_blank" 

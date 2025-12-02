@@ -166,13 +166,15 @@ export default function Financial() {
             Experience 100,000 TPS speed and zero-knowledge privacy for next-gen banking.
           </p>
           <div className="flex flex-wrap gap-4">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
-              style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
-              data-testid="button-build"
-            >
-              Start Building
-            </button>
+            <Link href="/community/hub">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
+                style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
+                data-testid="button-build"
+              >
+                Start Building
+              </button>
+            </Link>
             <Link href="/learn/whitepaper">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"

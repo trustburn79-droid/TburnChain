@@ -131,13 +131,15 @@ export default function Stablecoins() {
             compliance, instant settlement, and cryptographic proof of reserves.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00ff9d] text-black font-bold hover:bg-green-400 transition"
-              style={{ boxShadow: "0 0 20px rgba(0,255,157,0.3)" }}
-              data-testid="button-issue"
-            >
-              Issue Stablecoin
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00ff9d] text-black font-bold hover:bg-green-400 transition"
+                style={{ boxShadow: "0 0 20px rgba(0,255,157,0.3)" }}
+                data-testid="button-issue"
+              >
+                Issue Stablecoin
+              </button>
+            </Link>
             <Link href="/developers/docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"

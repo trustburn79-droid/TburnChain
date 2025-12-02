@@ -152,13 +152,15 @@ export default function Permissioned() {
             Deploy private or permissioned blockchain networks using the proven technology that powers the public TBurn Chain. Built for enterprise scale and security.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
-              style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
-              data-testid="button-contact"
-            >
-              Contact Sales
-            </button>
+            <Link href="/community/hub">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition"
+                style={{ boxShadow: "0 0 20px rgba(0,240,255,0.3)" }}
+                data-testid="button-contact"
+              >
+                Contact Sales
+              </button>
+            </Link>
             <Link href="/learn/whitepaper">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"

@@ -138,18 +138,22 @@ export default function CrossChainBridge() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-white px-8 py-3 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-2"
-              data-testid="button-launch-bridge"
-            >
-              <ArrowLeftRight className="w-4 h-4" /> Launch Bridge App
-            </button>
-            <button 
-              className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
-              data-testid="button-view-docs"
-            >
-              <FileText className="w-4 h-4" /> View Documentation
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-white px-8 py-3 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-2"
+                data-testid="button-launch-bridge"
+              >
+                <ArrowLeftRight className="w-4 h-4" /> Launch Bridge App
+              </button>
+            </Link>
+            <Link href="/developers/docs">
+              <button 
+                className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2 text-white"
+                data-testid="button-view-docs"
+              >
+                <FileText className="w-4 h-4" /> View Documentation
+              </button>
+            </Link>
           </div>
         </div>
       </section>

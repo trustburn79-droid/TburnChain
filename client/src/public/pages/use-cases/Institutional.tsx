@@ -132,14 +132,16 @@ export default function Institutional() {
             and payment processors. Real-time settlement, global reach, full compliance.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#ffd700] text-black font-bold hover:bg-yellow-400 transition"
-              style={{ boxShadow: "0 0 20px rgba(255,215,0,0.3)" }}
-              data-testid="button-contact"
-            >
-              Contact Sales
-            </button>
-            <Link href="/developers/api">
+            <Link href="/community/hub">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#ffd700] text-black font-bold hover:bg-yellow-400 transition"
+                style={{ boxShadow: "0 0 20px rgba(255,215,0,0.3)" }}
+                data-testid="button-contact"
+              >
+                Contact Sales
+              </button>
+            </Link>
+            <Link href="/developers/docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
                 data-testid="button-api"

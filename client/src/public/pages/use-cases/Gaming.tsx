@@ -135,13 +135,15 @@ export default function Gaming() {
             True digital ownership, provably fair mechanics, and player-driven economies.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#ff0055] text-white font-bold hover:bg-pink-600 transition"
-              style={{ boxShadow: "0 0 20px rgba(255,0,85,0.3)" }}
-              data-testid="button-build"
-            >
-              Start Building
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#ff0055] text-white font-bold hover:bg-pink-600 transition"
+                style={{ boxShadow: "0 0 20px rgba(255,0,85,0.3)" }}
+                data-testid="button-build"
+              >
+                Start Building
+              </button>
+            </Link>
             <Link href="/solutions/game-tooling">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"

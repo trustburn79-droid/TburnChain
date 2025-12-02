@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { Link } from "wouter";
 import { 
   Wallet,
   Code,
@@ -216,17 +217,19 @@ export default function Wallets() {
                   </div>
                 </div>
                 <p className="text-gray-400 mb-6 leading-relaxed">{wallet.desc}</p>
-                <button 
-                  className={`w-full py-3 rounded-lg font-bold transition ${
-                    wallet.buttonStyle === "primary"
-                      ? "bg-[#7000ff] text-white hover:bg-purple-600"
-                      : "border border-white/20 text-white hover:bg-white/5"
-                  }`}
-                  style={wallet.buttonStyle === "primary" ? { boxShadow: "0 0 15px rgba(112,0,255,0.3)" } : {}}
-                  data-testid={`button-wallet-${wallet.id}`}
-                >
-                  {wallet.buttonText}
-                </button>
+                <Link href="/developers/docs">
+                  <button 
+                    className={`w-full py-3 rounded-lg font-bold transition ${
+                      wallet.buttonStyle === "primary"
+                        ? "bg-[#7000ff] text-white hover:bg-purple-600"
+                        : "border border-white/20 text-white hover:bg-white/5"
+                    }`}
+                    style={wallet.buttonStyle === "primary" ? { boxShadow: "0 0 15px rgba(112,0,255,0.3)" } : {}}
+                    data-testid={`button-wallet-${wallet.id}`}
+                  >
+                    {wallet.buttonText}
+                  </button>
+                </Link>
               </div>
             ))}
           </div>

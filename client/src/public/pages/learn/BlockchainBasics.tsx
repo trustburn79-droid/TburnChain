@@ -202,12 +202,14 @@ export default function BlockchainBasics() {
             
             {/* Start Learning Card */}
             <div className="spotlight-card rounded-xl p-6 sticky top-24">
-              <button 
-                className="w-full bg-[#00f0ff] text-black font-bold py-3 rounded-lg hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)] mb-6 flex items-center justify-center gap-2"
-                data-testid="button-start-learning"
-              >
-                <Play className="w-5 h-5" /> Start Learning
-              </button>
+              <Link href="/learn/trust-score">
+                <button 
+                  className="w-full bg-[#00f0ff] text-black font-bold py-3 rounded-lg hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)] mb-6 flex items-center justify-center gap-2"
+                  data-testid="button-start-learning"
+                >
+                  <Play className="w-5 h-5" /> Start Learning
+                </button>
+              </Link>
 
               {/* What You'll Learn */}
               <div className="mb-6">

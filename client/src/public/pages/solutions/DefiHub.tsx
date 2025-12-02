@@ -124,12 +124,14 @@ export default function DefiHub() {
                   </li>
                 ))}
               </ul>
-              <button 
-                className="bg-[#00f0ff] text-black px-6 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center gap-2"
-                data-testid="button-start-trading"
-              >
-                Start Trading <ArrowRight className="w-4 h-4" />
-              </button>
+              <Link href="/developers/quickstart">
+                <button 
+                  className="bg-[#00f0ff] text-black px-6 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center gap-2"
+                  data-testid="button-start-trading"
+                >
+                  Start Trading <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
             </div>
             
             <div className="spotlight-card p-6 rounded-xl border border-white/10">
@@ -242,12 +244,14 @@ export default function DefiHub() {
             ))}
           </div>
           
-          <button 
-            className="mt-10 border border-[#00f0ff] text-[#00f0ff] px-8 py-3 rounded-lg hover:bg-[#00f0ff]/10 transition"
-            data-testid="button-view-farms"
-          >
-            View All Farms
-          </button>
+          <Link href="/learn/defi-mastery">
+            <button 
+              className="mt-10 border border-[#00f0ff] text-[#00f0ff] px-8 py-3 rounded-lg hover:bg-[#00f0ff]/10 transition"
+              data-testid="button-view-farms"
+            >
+              View All Farms
+            </button>
+          </Link>
         </div>
       </section>
 
@@ -471,12 +475,14 @@ export default function DefiHub() {
             Join 180K+ users already earning yield on TBurn Chain's DeFi Hub.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              className="bg-[#00f0ff] text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center justify-center gap-2"
-              data-testid="button-launch-app"
-            >
-              <Zap className="w-4 h-4" /> Launch DeFi App
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="bg-[#00f0ff] text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-400 transition flex items-center justify-center gap-2"
+                data-testid="button-launch-app"
+              >
+                <Zap className="w-4 h-4" /> Launch DeFi App
+              </button>
+            </Link>
             <Link 
               href="/developers/docs"
               className="border border-white/20 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition flex items-center justify-center gap-2"

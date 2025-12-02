@@ -345,12 +345,14 @@ export default function TokenExtensions() {
           <h2 className="text-3xl font-bold text-white mb-4">Start Issuing BRC-20 Tokens</h2>
           <p className="text-gray-400 mb-8">Issue tokens with built-in trust rating features in under 5 minutes.</p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
-              data-testid="button-console"
-            >
-              Open Developer Console
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
+                data-testid="button-console"
+              >
+                Open Developer Console
+              </button>
+            </Link>
             <Link href="/developers/api">
               <button 
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"

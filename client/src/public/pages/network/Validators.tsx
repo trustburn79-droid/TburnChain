@@ -32,18 +32,22 @@ export default function Validators() {
           </p>
           
           <div className="flex flex-wrap gap-4">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-              data-testid="button-apply-now"
-            >
-              Apply Now
-            </button>
-            <button 
-              className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
-              data-testid="button-validator-docs"
-            >
-              Validator Docs
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                data-testid="button-apply-now"
+              >
+                Apply Now
+              </button>
+            </Link>
+            <Link href="/developers/docs">
+              <button 
+                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                data-testid="button-validator-docs"
+              >
+                Validator Docs
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -341,18 +345,22 @@ export default function Validators() {
               Join the TBurn Chain validator network and earn rewards while securing the network.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button 
-                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-                data-testid="button-start-validating"
-              >
-                Start Validating
-              </button>
-              <button 
-                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
-                data-testid="button-read-docs"
-              >
-                <FileText className="w-4 h-4" /> Read Documentation
-              </button>
+              <Link href="/developers/quickstart">
+                <button 
+                  className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                  data-testid="button-start-validating"
+                >
+                  Start Validating
+                </button>
+              </Link>
+              <Link href="/developers/docs">
+                <button 
+                  className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
+                  data-testid="button-read-docs"
+                >
+                  <FileText className="w-4 h-4" /> Read Documentation
+                </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -140,7 +140,7 @@ const solutions = [
     title: "Triple-Band AI",
     description: "Three-tier AI orchestration using optimized decision-making at strategic, tactical, and operational levels.",
     color: "pink",
-    href: "/solutions/ai-governance",
+    href: "/solutions/ai-features",
   },
   {
     icon: Shield,
@@ -276,7 +276,7 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/app">
+              <Link href="/developers/quickstart">
                 <button 
                   className="bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-white"
                   data-testid="button-get-started"

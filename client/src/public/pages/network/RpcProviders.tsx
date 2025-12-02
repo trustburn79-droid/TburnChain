@@ -34,18 +34,22 @@ export default function RpcProviders() {
           </p>
           
           <div className="flex flex-wrap gap-4">
-            <button 
-              className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-              data-testid="button-get-api-key"
-            >
-              Get API Key
-            </button>
-            <button 
-              className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
-              data-testid="button-view-docs"
-            >
-              View Docs
-            </button>
+            <Link href="/developers/quickstart">
+              <button 
+                className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                data-testid="button-get-api-key"
+              >
+                Get API Key
+              </button>
+            </Link>
+            <Link href="/developers/api">
+              <button 
+                className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition"
+                data-testid="button-view-docs"
+              >
+                View Docs
+              </button>
+            </Link>
           </div>
         </div>
       </section>
