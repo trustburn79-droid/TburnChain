@@ -52,6 +52,8 @@ const communityChannels = [
     description: "Real-time dev chat, support, and community hanging out.",
     action: "Join Server",
     color: "#5865F2",
+    href: "https://discord.gg/tburnchain",
+    external: true,
   },
   {
     id: 2,
@@ -61,6 +63,8 @@ const communityChannels = [
     description: "Fast announcements and local community groups.",
     action: "Join Channel",
     color: "#0088cc",
+    href: "https://t.me/tburnchain",
+    external: true,
   },
   {
     id: 3,
@@ -70,6 +74,8 @@ const communityChannels = [
     description: "Latest updates, partnerships, and event news.",
     action: "Follow Us",
     color: "#ffffff",
+    href: "https://x.com/tburnchain",
+    external: true,
   },
   {
     id: 4,
@@ -79,6 +85,8 @@ const communityChannels = [
     description: "Open source code, SDKs, and technical documentation.",
     action: "Contribute",
     color: "#e0e0e0",
+    href: "https://github.com/tburnchain",
+    external: true,
   },
 ];
 
@@ -152,7 +160,9 @@ export default function CommunityHub() {
             {communityChannels.map((channel) => (
               <a 
                 key={channel.id}
-                href="#" 
+                href={channel.href}
+                target={channel.external ? "_blank" : undefined}
+                rel={channel.external ? "noopener noreferrer" : undefined}
                 className="spotlight-card rounded-xl p-6 group border border-white/10 hover:border-opacity-50 transition-colors block"
                 style={{ "--hover-color": channel.color } as React.CSSProperties}
                 data-testid={`link-channel-${channel.name.toLowerCase().replace(/\s+/g, '-')}`}

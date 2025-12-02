@@ -86,8 +86,8 @@ const certifications = [
 ];
 
 const communityLinks = [
-  { icon: SiDiscord, title: "Join Discord", description: "Discuss with learners.", color: "#7000ff", href: "#" },
-  { icon: MessageCircle, title: "Developer Forum", description: "Technical Q&A.", color: "#00f0ff", href: "/community" },
+  { icon: SiDiscord, title: "Join Discord", description: "Discuss with learners.", color: "#7000ff", href: "/community/hub" },
+  { icon: MessageCircle, title: "Developer Forum", description: "Technical Q&A.", color: "#00f0ff", href: "/community/hub" },
   { icon: Globe, title: "Live Sessions", description: "Weekly Workshops.", color: "#00ff9d", href: "/community/events" },
 ];
 

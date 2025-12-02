@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { SiTypescript, SiPython } from "react-icons/si";
 import { useState } from "react";
+import { Link } from "wouter";
 
 export default function RpcProviders() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
@@ -341,21 +342,21 @@ curl -X POST "\${TBURN_BASE_URL}/webhooks" \\
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-3xl font-bold text-white mb-12 text-center">Support & Contact</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <a href="#" className="spotlight-card rounded-xl p-6 text-center border border-white/10 group">
+            <Link href="/developers/docs" className="spotlight-card rounded-xl p-6 text-center border border-white/10 group" data-testid="link-support-docs">
               <Book className="w-8 h-8 text-[#7000ff] mx-auto mb-4 group-hover:scale-110 transition-transform" />
               <h3 className="text-lg font-bold text-white mb-2">Documentation</h3>
               <p className="text-sm text-gray-400">Detailed API references and guides.</p>
-            </a>
-            <a href="#" className="spotlight-card rounded-xl p-6 text-center border border-white/10 group">
+            </Link>
+            <Link href="/network/status" className="spotlight-card rounded-xl p-6 text-center border border-white/10 group" data-testid="link-support-status">
               <HeartPulse className="w-8 h-8 text-[#00ff9d] mx-auto mb-4 group-hover:scale-110 transition-transform" />
               <h3 className="text-lg font-bold text-white mb-2">API Status</h3>
               <p className="text-sm text-gray-400">Real-time system status and uptime.</p>
-            </a>
-            <a href="#" className="spotlight-card rounded-xl p-6 text-center border border-white/10 group">
+            </Link>
+            <Link href="/developers" className="spotlight-card rounded-xl p-6 text-center border border-white/10 group" data-testid="link-support-devhub">
               <Github className="w-8 h-8 text-white mx-auto mb-4 group-hover:scale-110 transition-transform" />
               <h3 className="text-lg font-bold text-white mb-2">Developer Hub</h3>
               <p className="text-sm text-gray-400">Open source SDKs and examples.</p>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

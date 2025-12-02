@@ -140,36 +140,42 @@ const solutions = [
     title: "Triple-Band AI",
     description: "Three-tier AI orchestration using optimized decision-making at strategic, tactical, and operational levels.",
     color: "pink",
+    href: "/solutions/ai-governance",
   },
   {
     icon: Shield,
     title: "Quantum Security",
     description: "CRYSTALS-Dilithium + ED25519 hybrid signatures ensure security against future quantum threats.",
     color: "cyan",
+    href: "/solutions/token-extensions",
   },
   {
     icon: Coins,
     title: "DeFi Hub",
     description: "Complete DeFi ecosystem integrating DEX, lending, staking, and yield farming with liquidity AMM.",
     color: "blue",
+    href: "/solutions/defi",
   },
   {
     icon: Gamepad2,
     title: "GameFi Platform",
     description: "Next-gen gaming infrastructure with P2E engine, tournaments, and NFT marketplace cross-chain.",
     color: "rose",
+    href: "/use-cases/gaming",
   },
   {
     icon: TrendingUp,
     title: "Auto Burn",
     description: "Hybrid deflation model with transaction-based, time-based, and AI-optimized burning.",
     color: "green",
+    href: "/learn/tokenomics",
   },
   {
     icon: Link2,
     title: "Cross-Chain Bridge",
     description: "Secure cross-chain asset transfer solution connecting to 7+ chains including Ethereum and BSC.",
     color: "purple",
+    href: "/solutions/cross-chain-bridge",
   },
 ];
 
@@ -332,17 +338,18 @@ export default function Home() {
               const iconStyle = getIconStyle(solution.color);
               const Icon = solution.icon;
               return (
-                <div
-                  key={index}
-                  className="spotlight-card rounded-2xl p-8 group cursor-pointer"
-                  data-testid={`card-solution-${index}`}
-                >
-                  <div className={`w-11 h-11 rounded-xl ${iconStyle.bg} ${iconStyle.shadow} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    <Icon className={`w-5 h-5 ${iconStyle.iconColor}`} strokeWidth={2.5} />
+                <Link key={index} href={solution.href}>
+                  <div
+                    className="spotlight-card rounded-2xl p-8 group cursor-pointer h-full"
+                    data-testid={`card-solution-${index}`}
+                  >
+                    <div className={`w-11 h-11 rounded-xl ${iconStyle.bg} ${iconStyle.shadow} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                      <Icon className={`w-5 h-5 ${iconStyle.iconColor}`} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{solution.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{solution.description}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{solution.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{solution.description}</p>
-                </div>
+                </Link>
               );
             })}
           </div>

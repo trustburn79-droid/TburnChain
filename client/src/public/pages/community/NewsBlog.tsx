@@ -3,12 +3,14 @@ import {
   Megaphone, Cpu, Handshake, Coins, Shield, Code, Lock, LineChart, Mail
 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "wouter";
 
 const categories = ["All", "Announcement", "Technology", "Security", "Tokenomics", "Partnership", "DeFi"];
 
 const featuredNews = [
   {
     id: 1,
+    slug: "v4-mainnet-launch",
     category: "Announcement",
     categoryIcon: Megaphone,
     title: "TBurn Chain V4 Mainnet Launch - Official Release",
@@ -22,6 +24,7 @@ const featuredNews = [
   },
   {
     id: 2,
+    slug: "triple-band-ai-revealed",
     category: "Technology",
     categoryIcon: Cpu,
     title: "Triple-Band AI System Revealed",
@@ -35,6 +38,7 @@ const featuredNews = [
   },
   {
     id: 3,
+    slug: "global-partnership-expansion",
     category: "Partnership",
     categoryIcon: Handshake,
     title: "Global Partnership Expansion - 30 Exchanges",
@@ -51,6 +55,7 @@ const featuredNews = [
 const latestArticles = [
   {
     id: 4,
+    slug: "staking-program-details",
     category: "Tokenomics",
     categoryIcon: Coins,
     title: "TBURN Token Staking Program Details",
@@ -62,6 +67,7 @@ const latestArticles = [
   },
   {
     id: 5,
+    slug: "trust-score-deep-dive",
     category: "Security",
     categoryIcon: Shield,
     title: "Trust Score System Deep Dive",
@@ -73,6 +79,7 @@ const latestArticles = [
   },
   {
     id: 6,
+    slug: "sdk-2-released",
     category: "Development",
     categoryIcon: Code,
     title: "Developer SDK 2.0 Released",
@@ -84,6 +91,7 @@ const latestArticles = [
   },
   {
     id: 7,
+    slug: "quantum-resistant-cryptography",
     category: "Security",
     categoryIcon: Lock,
     title: "Quantum-Resistant Cryptography",
@@ -95,6 +103,7 @@ const latestArticles = [
   },
   {
     id: 8,
+    slug: "tburn-dex-beta",
     category: "DeFi",
     categoryIcon: LineChart,
     title: "First DeFi Project TBurn DEX Beta",
@@ -173,10 +182,11 @@ export default function NewsBlog() {
           
           <div className="grid lg:grid-cols-3 gap-8">
             {featuredNews.map((article) => (
-              <a 
+              <Link 
                 key={article.id} 
-                href="#" 
+                href={`/community/news/${article.slug}`}
                 className="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block h-full"
+                data-testid={`link-article-${article.slug}`}
               >
                 <div className={`h-48 bg-gradient-to-br ${article.gradient} relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
@@ -202,7 +212,7 @@ export default function NewsBlog() {
                     </span>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -220,10 +230,11 @@ export default function NewsBlog() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {latestArticles.map((article) => (
-              <a 
+              <Link 
                 key={article.id} 
-                href="#" 
+                href={`/community/news/${article.slug}`}
                 className="spotlight-card rounded-xl p-0 border border-white/10 group overflow-hidden block"
+                data-testid={`link-article-${article.slug}`}
               >
                 <div className={`h-40 bg-gradient-to-br ${article.gradient} relative`}>
                   <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 border border-white/20">
@@ -242,7 +253,7 @@ export default function NewsBlog() {
                     Read More <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

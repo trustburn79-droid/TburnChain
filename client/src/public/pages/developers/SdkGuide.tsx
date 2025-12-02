@@ -333,12 +333,13 @@ export default function SdkGuide() {
             >
               <Book className="w-5 h-5 text-[#ffd700]" /> Code Examples
             </Link>
-            <a 
-              href="#"
+            <Link 
+              href="/community/hub"
               className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-white"
+              data-testid="link-discord-support"
             >
               <SiDiscord className="w-5 h-5 text-[#7000ff]" /> Discord Support
-            </a>
+            </Link>
           </div>
         </div>
       </section>
