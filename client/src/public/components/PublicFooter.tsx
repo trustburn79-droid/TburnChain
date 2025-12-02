@@ -11,21 +11,27 @@ const footerLinks = {
     { title: "Staking", href: "/app/staking" },
     { title: "DEX", href: "/app/dex" },
     { title: "NFT Marketplace", href: "/app/nft-marketplace" },
+    { title: "Lending", href: "/app/lending" },
+    { title: "Yield Farming", href: "/app/yield-farming" },
   ],
   solutions: [
     { title: "DeFi Hub", href: "/solutions/defi-hub" },
-    { title: "Enterprise", href: "/solutions/enterprise" },
-    { title: "AI Orchestration", href: "/solutions/ai-orchestration" },
+    { title: "Enterprise", href: "/use-cases/enterprise" },
+    { title: "AI Features", href: "/solutions/ai-features" },
     { title: "Token Extensions", href: "/solutions/token-extensions" },
-    { title: "GameFi", href: "/solutions/gamefi" },
+    { title: "Game Tooling", href: "/solutions/game-tooling" },
     { title: "BTCfi", href: "/solutions/btcfi" },
+    { title: "Payments", href: "/solutions/payments" },
+    { title: "Actions & Blinks", href: "/solutions/actions-blinks" },
   ],
   developers: [
     { title: "Documentation", href: "/developers/docs" },
     { title: "Quickstart", href: "/developers/quickstart" },
-    { title: "API Reference", href: "/developers/api-reference" },
-    { title: "SDKs & Tools", href: "/developers/sdks" },
-    { title: "Smart Contracts", href: "/developers/smart-contracts" },
+    { title: "API Reference", href: "/developers/api" },
+    { title: "SDK Guide", href: "/developers/sdk" },
+    { title: "Smart Contracts", href: "/developers/contracts" },
+    { title: "WebSocket API", href: "/developers/websocket" },
+    { title: "CLI Reference", href: "/developers/cli" },
     { title: "GitHub", href: "https://github.com/tburnchain", external: true },
   ],
   resources: [
@@ -34,20 +40,21 @@ const footerLinks = {
     { title: "Roadmap", href: "/learn/roadmap" },
     { title: "API Status", href: "/network/status" },
     { title: "RPC Endpoints", href: "/network/rpc" },
-    { title: "Brand Assets", href: "/learn/brand-assets" },
+    { title: "Blockchain Basics", href: "/learn/blockchain-basics" },
+    { title: "DeFi Mastery", href: "/learn/defi-mastery" },
+    { title: "Education Programs", href: "/learn/education-programs" },
   ],
   community: [
     { title: "News & Blog", href: "/community/news" },
     { title: "Events", href: "/community/events" },
     { title: "Community Hub", href: "/community/hub" },
-    { title: "Ambassador Program", href: "/learn/ambassador" },
-    { title: "Bug Bounty", href: "/developers/security" },
     { title: "Governance", href: "/app/governance" },
+    { title: "Fiat Ramp", href: "/network/ramp" },
   ],
   legal: [
-    { title: "Terms of Service", href: "/legal/terms" },
-    { title: "Privacy Policy", href: "/legal/privacy" },
-    { title: "Cookie Policy", href: "/legal/cookies" },
+    { title: "Terms of Service", href: "/legal/terms-of-service" },
+    { title: "Privacy Policy", href: "/legal/privacy-policy" },
+    { title: "Disclaimer", href: "/legal/disclaimer" },
   ],
 };
 
@@ -115,11 +122,11 @@ export function PublicFooter() {
 
             {/* Contact */}
             <a 
-              href="mailto:contact@tburnchain.io" 
+              href="mailto:contact@tburn.io" 
               className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00f0ff] transition"
             >
               <Mail className="w-4 h-4" />
-              contact@tburnchain.io
+              contact@tburn.io
             </a>
           </div>
           
