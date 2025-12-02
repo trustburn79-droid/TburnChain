@@ -28,7 +28,7 @@ export function NeuralCanvas() {
 
     const PARTICLE_COLOR = "#00f0ff";
     const CONNECTION_DISTANCE = 150;
-    const MOUSE_RADIUS = 80;
+    const MOUSE_RADIUS = 120;
     const PARTICLE_COUNT_FACTOR = 6150;
 
     const resizeCanvas = () => {
