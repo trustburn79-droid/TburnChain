@@ -63,6 +63,7 @@ const menuStructure: MenuSection[] = [
       { title: "Financial Infrastructure", href: "/solutions/financial" },
       { title: "AI Features", href: "/solutions/ai-features" },
       { title: "Artists & Creators", href: "/solutions/artists-creators" },
+      { title: "BTCfi", href: "/solutions/btcfi" },
     ],
   },
   {
