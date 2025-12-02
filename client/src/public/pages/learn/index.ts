@@ -7,3 +7,4 @@ export { default as Whitepaper } from "./Whitepaper";
 export { default as Tokenomics } from "./Tokenomics";
 export { default as Roadmap } from "./Roadmap";
 export { default as Universities } from "./Universities";
+export { default as BlockchainBasics } from "./BlockchainBasics";
