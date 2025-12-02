@@ -6987,20 +6987,30 @@
     "common": {
       "getStarted": "始める",
       "learnMore": "詳しく見る",
-      "viewDocs": "ドキュメント",
-      "explore": "探索",
+      "viewDocs": "ドキュメントを見る",
+      "explore": "探索する",
       "readMore": "続きを読む",
       "startBuilding": "開発を始める",
       "contactUs": "お問い合わせ",
       "joinCommunity": "コミュニティに参加",
-      "subscribe": "購読",
+      "subscribe": "購読する",
       "beginner": "初級",
       "intermediate": "中級",
       "advanced": "上級",
       "comingSoon": "近日公開",
       "new": "新着",
       "popular": "人気",
-      "featured": "注目"
+      "featured": "注目",
+      "backToHome": "ホームに戻る",
+      "backToSolutions": "ソリューションに戻る",
+      "viewAll": "すべて表示",
+      "documentation": "ドキュメント",
+      "relatedSolutions": "関連ソリューション",
+      "developerResources": "開発者リソース",
+      "relatedLegalDocuments": "関連法的文書",
+      "learnMoreSection": "詳細を見る",
+      "securitySolutions": "セキュリティソリューション",
+      "forDevelopers": "開発者向け"
     },
     "header": {
       "learn": "学習",
@@ -7020,7 +7030,7 @@
       "legal": "法的情報",
       "stayUpdated": "最新情報を入手",
       "newsletterDesc": "TBurn Chainの最新ニュースとアップデートを受け取る",
-      "enterEmail": "メールアドレス入力",
+      "enterEmail": "メールアドレスを入力",
       "copyright": "© 2025 TBurn Chain Foundation. All rights reserved.",
       "termsOfService": "利用規約",
       "privacyPolicy": "プライバシーポリシー",
@@ -7053,7 +7063,7 @@
         },
         "defiHub": {
           "title": "DeFiハブ",
-          "description": "DEX、レンディング、ステーキング、イールドファーミングを統合した完全なDeFiエコシステム。"
+          "description": "DEX、レンディング、ステーキング、イールドファーミングと流動性AMMを統合した完全なDeFiエコシステム。"
         },
         "gamefiPlatform": {
           "title": "GameFiプラットフォーム",
@@ -7071,13 +7081,19 @@
       "aiTerminal": {
         "title": "AIターミナル",
         "subtitle": "リアルタイムAIオーケストレーション監視"
+      },
+      "cta": {
+        "title": "TBurn Chainで構築する準備はできましたか？",
+        "subtitle": "信頼ベースブロックチェーンの未来を構築する何千人もの開発者に参加しましょう",
+        "getStarted": "始める",
+        "viewDocs": "ドキュメントを見る"
       }
     },
     "learn": {
       "hub": {
         "tag": "V4ラーニングセンター",
         "title": "教育ハブ",
-        "subtitle": "TBurn Chain V4エコシステムをマスター。信頼ベースの合意アルゴリズムから高速dAppの構築まで、ここから始めましょう。",
+        "subtitle": "TBurn Chain V4エコシステムをマスター。信頼ベースのコンセンサスアルゴリズムから高速dAppの構築まで、ここから始めましょう。",
         "stats": {
           "courses": "コース",
           "learners": "学習者",
@@ -7091,37 +7107,466 @@
         "quickGlossary": "用語集",
         "certifications": "認定",
         "certificationsDesc": "認定バッジを取得",
-        "communityLearning": "コミュニティラーニング"
+        "communityLearning": "コミュニティラーニング",
+        "paths": {
+          "blockchainFundamentals": {
+            "title": "ブロックチェーン基礎",
+            "description": "ブロックチェーン技術への旅を始めましょう",
+            "level": "初級",
+            "duration": "4時間"
+          },
+          "defiMastery": {
+            "title": "DeFiマスタリー",
+            "description": "分散型金融プロトコルをマスター",
+            "level": "中級",
+            "duration": "8時間"
+          },
+          "developerTrack": {
+            "title": "開発者トラック",
+            "description": "スマートコントラクトの構築とデプロイ",
+            "level": "上級",
+            "duration": "20時間"
+          }
+        },
+        "concepts": {
+          "whatIsTBurn": {
+            "title": "TBurn Chainとは？",
+            "description": "信頼ベースブロックチェーンの紹介"
+          },
+          "trustScore": {
+            "title": "トラストスコアシステム",
+            "description": "3段階検証の理解"
+          },
+          "wallet": {
+            "title": "ウォレットとは？",
+            "description": "デジタル資産を安全に保管"
+          },
+          "whitepaper": {
+            "title": "ホワイトペーパー",
+            "description": "技術文書の詳細"
+          },
+          "tokenomics": {
+            "title": "トークノミクス",
+            "description": "トークン経済と配布"
+          },
+          "roadmap": {
+            "title": "ロードマップ",
+            "description": "将来の開発計画"
+          }
+        },
+        "glossary": {
+          "trustScore": {
+            "term": "トラストスコア",
+            "definition": "AI + エキスパート + コミュニティ検証を通じてプロジェクトに割り当てられる0-100の信頼性評価"
+          },
+          "autoBurn": {
+            "term": "自動バーン",
+            "definition": "時間とともに供給を減少させる自動トークン燃焼メカニズム"
+          },
+          "validator": {
+            "term": "バリデーター",
+            "definition": "トランザクションを検証しコンセンサスに参加するノード"
+          }
+        },
+        "certifications": {
+          "developer": {
+            "title": "TBurn開発者",
+            "description": "スマートコントラクト開発認定"
+          },
+          "defi": {
+            "title": "DeFiエキスパート",
+            "description": "分散型金融マスタリー認定"
+          },
+          "validator": {
+            "title": "バリデーターオペレーター",
+            "description": "ネットワーク検証認定"
+          }
+        },
+        "communityLinks": {
+          "discord": {
+            "title": "Discord",
+            "description": "ディスカッションに参加"
+          },
+          "forum": {
+            "title": "フォーラム",
+            "description": "Q&Aコミュニティ"
+          },
+          "youtube": {
+            "title": "YouTube",
+            "description": "ビデオチュートリアル"
+          }
+        }
       },
       "whatIsBurnChain": {
         "tag": "紹介",
         "title": "TBurn Chainとは？",
-        "subtitle": "AI検証と量子耐性セキュリティを備えた世界初の信頼ベースブロックチェーンを発見。"
+        "subtitle": "AI検証と量子耐性セキュリティを備えた世界初の信頼ベースブロックチェーンを発見。",
+        "coreFeatures": {
+          "title": "コア機能",
+          "items": {
+            "trustVerification": {
+              "title": "信頼検証",
+              "description": "AI分析、エキスパートレビュー、コミュニティ投票を組み合わせた3段階検証"
+            },
+            "quantumSecurity": {
+              "title": "量子セキュリティ",
+              "description": "将来を見据えたセキュリティのためのCRYSTALS-Dilithium + ED25519ハイブリッド署名"
+            },
+            "highPerformance": {
+              "title": "高パフォーマンス",
+              "description": "1秒のブロック時間と6秒のファイナリティで50,000+ TPS"
+            },
+            "autoBurn": {
+              "title": "自動バーン",
+              "description": "自動バーンメカニズムによるデフレトークノミクス"
+            }
+          }
+        },
+        "consensus": {
+          "title": "コンセンサスメカニズム",
+          "subtitle": "Proof of Trust（PoT）は検証とトラストスコアリングを組み合わせます",
+          "specs": {
+            "blockTime": "ブロック時間",
+            "finality": "ファイナリティ",
+            "tps": "スループット",
+            "validators": "バリデーター"
+          }
+        }
       },
       "trustScore": {
         "tag": "コア機能",
         "title": "トラストスコアシステム",
-        "subtitle": "3段階検証システム、AI分析、動的スコアリングアルゴリズムの詳細。"
+        "subtitle": "3段階検証システム、AI分析、動的スコアリングアルゴリズムの詳細。",
+        "philosophy": {
+          "title": "評価哲学",
+          "description": "トラストスコアは、複数の次元でプロジェクトの信頼性を評価することで投資家を保護するように設計されています"
+        },
+        "components": {
+          "title": "スコアコンポーネント",
+          "items": {
+            "team": {
+              "title": "チームアイデンティティ",
+              "points": "30点",
+              "description": "KYC検証、実績、ソーシャルプレゼンス"
+            },
+            "technology": {
+              "title": "テクノロジー",
+              "points": "25点",
+              "description": "スマートコントラクト監査、コード品質、セキュリティ"
+            },
+            "community": {
+              "title": "コミュニティ",
+              "points": "20点",
+              "description": "ソーシャルエンゲージメント、ガバナンス参加"
+            },
+            "financials": {
+              "title": "財務",
+              "points": "15点",
+              "description": "流動性、トークノミクス、資金管理"
+            },
+            "execution": {
+              "title": "実行",
+              "points": "10点",
+              "description": "ロードマップ達成とマイルストーン達成"
+            }
+          }
+        },
+        "grades": {
+          "title": "トラストグレード",
+          "diamond": {
+            "name": "ダイヤモンド",
+            "range": "90-100",
+            "description": "最高信頼レベル"
+          },
+          "gold": {
+            "name": "ゴールド",
+            "range": "70-89",
+            "description": "高信頼性"
+          },
+          "silver": {
+            "name": "シルバー",
+            "range": "50-69",
+            "description": "中程度の信頼"
+          },
+          "bronze": {
+            "name": "ブロンズ",
+            "range": "40-49",
+            "description": "注意が必要"
+          },
+          "restricted": {
+            "name": "制限",
+            "range": "0-39",
+            "description": "取引停止"
+          }
+        },
+        "stages": {
+          "title": "3段階検証",
+          "stage1": {
+            "title": "AI分析",
+            "duration": "24時間",
+            "description": "トリプルバンドAIを使用した自動スクリーニング"
+          },
+          "stage2": {
+            "title": "エキスパートレビュー",
+            "duration": "7-14日",
+            "description": "人間のエキスパートがAIの発見を検証"
+          },
+          "stage3": {
+            "title": "コミュニティ投票",
+            "duration": "3-5日",
+            "description": "トークンホルダーが最終承認に投票"
+          }
+        }
       },
       "wallet": {
         "tag": "はじめに",
         "title": "ウォレットとは？",
-        "subtitle": "暗号通貨ウォレット、セキュリティのベストプラクティス、TBurnウォレットの設定方法。"
+        "subtitle": "暗号通貨ウォレット、セキュリティのベストプラクティス、TBurnウォレットの設定方法について学びます。",
+        "types": {
+          "title": "ウォレットタイプ",
+          "hot": {
+            "title": "ホットウォレット",
+            "description": "インターネットに接続、日常使用に便利"
+          },
+          "cold": {
+            "title": "コールドウォレット",
+            "description": "最大限のセキュリティのためのオフラインストレージ"
+          },
+          "hardware": {
+            "title": "ハードウェアウォレット",
+            "description": "安全な鍵保管のための物理デバイス"
+          }
+        },
+        "security": {
+          "title": "セキュリティベストプラクティス",
+          "items": {
+            "seedPhrase": "シードフレーズを絶対に共有しない",
+            "verifyUrls": "ウェブサイトのURLを常に確認",
+            "enable2fa": "二要素認証を有効化",
+            "regularBackups": "定期的にバックアップを作成"
+          }
+        }
       },
       "whitepaper": {
         "tag": "技術文書",
         "title": "ホワイトペーパー",
-        "subtitle": "TBurn Chainアーキテクチャ、コンセンサス、トークノミクスの完全な技術文書。"
+        "subtitle": "TBurn Chainアーキテクチャ、コンセンサス、トークノミクスの完全な技術文書。",
+        "trustCrisis": {
+          "title": "信頼の危機",
+          "subtitle": "私たちが解決する問題の理解",
+          "stats": {
+            "rugPulls": {
+              "value": "$2.8B",
+              "label": "2023年のラグプルによる損失"
+            },
+            "scamProjects": {
+              "value": "40%",
+              "label": "新規トークンは詐欺"
+            },
+            "investorLoss": {
+              "value": "67%",
+              "label": "詐欺の影響を受けた投資家"
+            }
+          }
+        },
+        "performance": {
+          "title": "パフォーマンス仕様",
+          "metrics": {
+            "tps": {
+              "value": "50,000+",
+              "label": "秒間トランザクション数"
+            },
+            "blockTime": {
+              "value": "1秒",
+              "label": "平均ブロック時間"
+            },
+            "finality": {
+              "value": "6秒",
+              "label": "トランザクションファイナリティ"
+            },
+            "gasCost": {
+              "value": "$0.001",
+              "label": "平均ガスコスト"
+            }
+          }
+        },
+        "aiLayers": {
+          "title": "トリプルバンドAIアーキテクチャ",
+          "strategic": {
+            "title": "戦略AI",
+            "description": "長期パターン分析とリスク評価"
+          },
+          "tactical": {
+            "title": "戦術AI",
+            "description": "リアルタイムトランザクション監視"
+          },
+          "operational": {
+            "title": "運用AI",
+            "description": "即時詐欺検出と防止"
+          }
+        },
+        "quantumSecurity": {
+          "title": "量子セキュリティ",
+          "description": "将来を見据えた暗号化保護",
+          "features": {
+            "crystals": "CRYSTALS-Dilithium署名",
+            "hybrid": "ED25519ハイブリッド暗号化",
+            "postQuantum": "ポスト量子鍵交換"
+          }
+        },
+        "coreModules": {
+          "title": "コアプロトコルモジュール",
+          "items": {
+            "consensus": {
+              "title": "コンセンサスエンジン",
+              "description": "Proof of Trustコンセンサスメカニズム"
+            },
+            "verification": {
+              "title": "検証レイヤー",
+              "description": "3段階信頼検証システム"
+            },
+            "execution": {
+              "title": "実行レイヤー",
+              "description": "EVM互換スマートコントラクト"
+            },
+            "bridge": {
+              "title": "ブリッジプロトコル",
+              "description": "クロスチェーン資産転送"
+            }
+          }
+        },
+        "downloadPdf": "PDFをダウンロード",
+        "viewGithub": "GitHubで表示"
       },
       "tokenomics": {
         "tag": "経済学",
         "title": "トークノミクス",
-        "subtitle": "TBURNトークンの配布、発行スケジュール、デフレメカニズムの理解。"
+        "subtitle": "TBURNトークンの配布、発行スケジュール、デフレメカニズムを理解する。",
+        "marketStats": {
+          "title": "市場統計",
+          "totalSupply": "総供給量",
+          "circulatingSupply": "流通供給量",
+          "totalBurned": "総バーン量",
+          "marketCap": "時価総額"
+        },
+        "distribution": {
+          "title": "トークン配布",
+          "items": {
+            "ecosystem": {
+              "label": "エコシステムファンド",
+              "percentage": "30%"
+            },
+            "community": {
+              "label": "コミュニティ報酬",
+              "percentage": "25%"
+            },
+            "team": {
+              "label": "チーム＆アドバイザー",
+              "percentage": "15%"
+            },
+            "validators": {
+              "label": "バリデーターインセンティブ",
+              "percentage": "15%"
+            },
+            "reserve": {
+              "label": "リザーブファンド",
+              "percentage": "10%"
+            },
+            "liquidity": {
+              "label": "流動性",
+              "percentage": "5%"
+            }
+          }
+        },
+        "burnMechanisms": {
+          "title": "バーンメカニズム",
+          "items": {
+            "transaction": {
+              "title": "トランザクションバーン",
+              "description": "すべてのトランザクションの0.1%がバーンされます"
+            },
+            "scheduled": {
+              "title": "スケジュールバーン",
+              "description": "ネットワーク活動に基づく四半期バーン"
+            },
+            "aiOptimized": {
+              "title": "AI最適化バーン",
+              "description": "市場状況に基づく動的バーン"
+            }
+          }
+        },
+        "staking": {
+          "title": "ステーキング報酬",
+          "apy": "現在のAPY",
+          "totalStaked": "総ステーク量",
+          "validators": "アクティブバリデーター",
+          "minStake": "最小ステーク"
+        },
+        "governance": {
+          "title": "ガバナンス",
+          "description": "TBURNホルダーはプロトコルガバナンスに参加できます",
+          "votingPower": "投票権",
+          "proposalThreshold": "提案閾値",
+          "quorum": "必要定足数"
+        }
       },
       "roadmap": {
         "tag": "開発",
         "title": "ロードマップ",
-        "subtitle": "メインストリーム採用への進捗と今後のマイルストーンを追跡。"
+        "subtitle": "メインストリーム採用への進捗と今後のマイルストーンを追跡。",
+        "phases": {
+          "phase1": {
+            "title": "フェーズ1：基盤",
+            "period": "2024年Q1-Q2",
+            "status": "completed",
+            "items": {
+              "mainnet": "メインネットローンチ",
+              "trustScore": "トラストスコアシステム",
+              "bridge": "クロスチェーンブリッジ",
+              "dex": "DEXローンチ"
+            }
+          },
+          "phase2": {
+            "title": "フェーズ2：拡大",
+            "period": "2024年Q3-Q4",
+            "status": "inProgress",
+            "items": {
+              "gamefi": "GameFiプラットフォーム",
+              "aiEnhancement": "AI強化",
+              "mobileWallet": "モバイルウォレット",
+              "partnerships": "主要パートナーシップ"
+            }
+          },
+          "phase3": {
+            "title": "フェーズ3：エコシステム",
+            "period": "2025年Q1-Q2",
+            "status": "upcoming",
+            "items": {
+              "dao": "完全DAOガバナンス",
+              "l2": "レイヤー2ソリューション",
+              "enterprise": "エンタープライズ採用",
+              "global": "グローバル展開"
+            }
+          },
+          "phase4": {
+            "title": "フェーズ4：大量採用",
+            "period": "2025年Q3-Q4",
+            "status": "upcoming",
+            "items": {
+              "quantum": "量子アップグレード",
+              "fiat": "フィアット統合",
+              "institutions": "機関向けサービス",
+              "metaverse": "メタバース統合"
+            }
+          }
+        },
+        "metrics": {
+          "title": "成長予測",
+          "users": "アクティブユーザー",
+          "tvl": "総ロック価値",
+          "transactions": "日次トランザクション",
+          "developers": "アクティブ開発者"
+        }
       },
       "blockchainBasics": {
         "tag": "初級",
@@ -7160,7 +7605,7 @@
         "title": "開発者ハブ",
         "subtitle": "次世代の信頼ベースアプリケーションを構築。TBurn Chain V4エコシステム向けの包括的な開発ツール、SDK、APIにアクセス。",
         "getStarted": "始める",
-        "viewDocs": "ドキュメント",
+        "viewDocs": "ドキュメントを見る",
         "quickStart": "クイックスタート",
         "sdks": "公式SDK",
         "apiReference": "APIリファレンス",
@@ -7220,7 +7665,7 @@
     },
     "solutions": {
       "defiHub": {
-        "tag": "DeFIエコシステム",
+        "tag": "DeFiエコシステム",
         "title": "DeFiハブ",
         "subtitle": "DEX、レンディング、ステーキング、イールドファーミングを備えた完全な分散型金融インフラ。",
         "features": {
@@ -7238,27 +7683,392 @@
       "actionsBlinks": {
         "tag": "自動化",
         "title": "アクション＆ブリンクス",
-        "subtitle": "自動化されたブロックチェーンインタラクションと即時トランザクションリンク。"
+        "subtitle": "自動化されたブロックチェーンインタラクションと即時トランザクションリンク。",
+        "whatAreBlinks": {
+          "title": "ブリンクスとは？",
+          "subtitle": "Blinks（ブロックチェーンリンクス）は、任意のURLをワンクリックトランザクションに変換します。",
+          "items": {
+            "instantTx": {
+              "title": "即時トランザクション",
+              "description": "URLクリックで直接トークンスワップ、NFT購入、ステーキングを実行。dAppへの移動不要。"
+            },
+            "socialIntegration": {
+              "title": "ソーシャル統合",
+              "description": "Twitter、Discord、Telegramなどに支払いリンクを埋め込み。ウォレット接続はワンクリック。"
+            },
+            "trustProtection": {
+              "title": "トラスト保護",
+              "description": "すべてのブリンクは40%以下のトラストスコアプロジェクトへのトランザクションを自動ブロック。"
+            }
+          }
+        },
+        "howItWorks": {
+          "title": "仕組み",
+          "steps": {
+            "createAction": {
+              "title": "アクション作成",
+              "description": "開発者がスワップ、ミント、送金などの実行可能なトランザクションを定義"
+            },
+            "generateBlink": {
+              "title": "ブリンク生成",
+              "description": "システムがトランザクション詳細を含むユニークURLを作成"
+            },
+            "userClick": {
+              "title": "ユーザークリック",
+              "description": "ユーザーがリンクをクリックするとウォレットプロンプトが表示される"
+            },
+            "execute": {
+              "title": "実行",
+              "description": "署名後、TBurn上でトランザクションが即座に処理される"
+            }
+          }
+        },
+        "realWorldApps": {
+          "title": "実世界のアプリケーション",
+          "socialCommerce": {
+            "title": "ソーシャルコマース",
+            "description": "ツイートに商品支払いリンクを埋め込み。購入者は暗号ウォレットでクリックして即座に支払い。"
+          },
+          "gamingItems": {
+            "title": "ゲームアイテム",
+            "description": "Discordチャット内で直接NFTアイテムを取引。トラスト検証が詐欺を防止。"
+          },
+          "crowdfunding": {
+            "title": "クラウドファンディング",
+            "description": "Telegramリンクを通じてICOに参加。高トラストスコアプロジェクトのみ許可。"
+          },
+          "daoGovernance": {
+            "title": "DAOガバナンス",
+            "description": "メールリンクを通じて提案に投票。複雑なダッシュボードナビゲーション不要。"
+          }
+        },
+        "developerQuickStart": {
+          "title": "開発者クイックスタート"
+        }
       },
       "wallets": {
-        "tag": "ウォレットソリューション",
-        "title": "ウォレットソリューション",
-        "subtitle": "企業と消費者向けの安全なウォレットインフラ。"
+        "tag": "ウォレットエコシステム",
+        "title": "ウォレット＆",
+        "titleHighlight": "セキュリティ",
+        "subtitle": "信頼できるウォレットでTBurn Chainに接続。すべてのウォレットはトランザクション前にリアルタイムトラストスコアを表示します。",
+        "recommended": "推奨",
+        "walletList": {
+          "tburn": {
+            "name": "TBurn公式",
+            "platform": "ブラウザ拡張機能・モバイル",
+            "description": "TBurn Chain向けに最適化されたネイティブウォレット。リアルタイムトラストスコア表示、自動バーン追跡、直接ガバナンス投票機能を搭載。",
+            "button": "ウォレットをダウンロード"
+          },
+          "metamask": {
+            "name": "MetaMask",
+            "platform": "ブラウザ・モバイル",
+            "description": "世界で最も人気のWeb3ウォレット。カスタムネットワーク設定でTBurn Chainと完全互換。すべての標準トークン操作をサポート。",
+            "button": "接続ガイド"
+          },
+          "trust": {
+            "name": "Trust Wallet",
+            "platform": "モバイルアプリ",
+            "description": "安全なモバイルマルチチェーンウォレット。外出先でのTBurn資産管理に最適。dAppブラウザ統合をサポート。",
+            "button": "接続ガイド"
+          },
+          "ledger": {
+            "name": "Ledger",
+            "platform": "ハードウェアウォレット",
+            "description": "最大限のセキュリティのためのコールドストレージソリューション。TBurn Chain dAppと対話しながら秘密鍵をオフラインで保管。",
+            "button": "セットアップガイド"
+          }
+        },
+        "forDevelopers": {
+          "title": "ウォレット開発者向け",
+          "trustScoreApi": {
+            "title": "トラストスコアAPI",
+            "description": "ユーザーを保護するためにウォレットUIにリアルタイムトラストスコアを統合。"
+          },
+          "autoWarningSystem": {
+            "title": "自動警告システム",
+            "description": "低信頼度（40未満）のトランザクションに警告を表示する標準プロトコル。"
+          },
+          "walletSdk": {
+            "title": "ウォレットSDK",
+            "description": "React、React Native、モバイル開発向けのすぐに使えるライブラリ。"
+          }
+        },
+        "addNetwork": {
+          "title": "カスタムネットワークを追加",
+          "mainnet": {
+            "name": "メインネット",
+            "networkName": "ネットワーク名",
+            "rpcUrl": "RPC URL",
+            "chainId": "チェーンID",
+            "symbol": "シンボル",
+            "explorer": "エクスプローラー"
+          },
+          "testnet": {
+            "name": "テストネット"
+          }
+        },
+        "securityChecklist": {
+          "title": "セキュリティチェックリスト",
+          "seedPhrase": {
+            "title": "シードフレーズを安全に保管",
+            "description": "紙に書き留めてください。デジタルで保存したり共有したりしないでください。"
+          },
+          "verifyUrls": {
+            "title": "URLを確認",
+            "description": "フィッシングを避けるため、常にtburn.ioにいることを確認してください。"
+          },
+          "checkTrustScores": {
+            "title": "トラストスコアを確認",
+            "description": "新しいプロジェクトと対話する前にトラストスコアバッジを確認してください。"
+          }
+        }
       },
       "permissioned": {
-        "tag": "エンタープライズ",
-        "title": "パーミッションドネットワーク",
-        "subtitle": "企業デプロイ向けのプライベートブロックチェーンネットワーク。"
+        "tag": "エンタープライズソリューション",
+        "title": "パーミッションド",
+        "titleHighlight": "ネットワーク",
+        "subtitle": "TBurn Chainのトラスト検証でプライベートブロックチェーンネットワークをデプロイ。パブリックチェーンアンカリングによるエンタープライズグレードのセキュリティ。",
+        "contactSales": "営業に連絡",
+        "viewWhitepaper": "ホワイトペーパーを見る",
+        "enterpriseFeatures": {
+          "title": "エンタープライズグレードのパーミッションドチェーン",
+          "subtitle": "ビジネス向けの高度なコントロールとコンプライアンス機能。",
+          "rbac": {
+            "title": "ロールベースアクセス制御（RBAC）",
+            "description": "管理者、バリデーター、ユーザー向けの詳細な権限設定。スマートコントラクトデプロイ、トランザクション承認、データクエリの権限をロールに基づいて分離。"
+          },
+          "whitelistValidators": {
+            "title": "ホワイトリストバリデーター",
+            "description": "信頼されたバリデーターのみがネットワークに参加可能。内部ノードまたは承認されたパートナーのみがブロックを生成・検証できるようにネットワークを構成。"
+          },
+          "regulatoryCompliance": {
+            "title": "規制コンプライアンス",
+            "description": "グローバル規制（GDPR、HIPAA、SOC2）向けに設計されたフレームワーク。監査ログ、静止時および転送中のデータ暗号化、プライバシー保護機能を内蔵。"
+          },
+          "multiSigGovernance": {
+            "title": "マルチシグガバナンス",
+            "description": "重要なネットワーク決定には複数者の承認が必要。スマートコントラクトアップグレード、バリデーター管理、パラメータ変更には3/5または5/7の署名が必要。"
+          }
+        },
+        "hybridArchitecture": {
+          "title": "ハイブリッドアーキテクチャ",
+          "subtitle": "プライベートチェーンのプライバシーとパブリックブロックチェーンのセキュリティを組み合わせ。",
+          "privateChainAnchor": {
+            "title": "プライベートチェーン + パブリックアンカー",
+            "description": "内部トランザクションは高速プライベートチェーンで実行し、定期的にステートハッシュをTBurnパブリックメインネットにアンカリングして不変性を確保。"
+          },
+          "selectiveDisclosure": {
+            "title": "選択的データ開示",
+            "description": "トランザクション詳細は許可された参加者にのみ非公開のまま、必要に応じて監査人や規制当局に暗号的に証明可能。"
+          },
+          "privateConsensusLayer": "プライベートコンセンサスレイヤー",
+          "anchoringHash": "アンカリングハッシュ",
+          "publicMainnet": "パブリックメインネット（L1）"
+        },
+        "industryUseCases": {
+          "title": "業界ユースケース",
+          "supplyChain": {
+            "title": "サプライチェーン",
+            "description": "メーカーから配送まで製品を追跡。参加者は関連するトランザクションセグメントのみを閲覧。",
+            "example": "自動車部品追跡",
+            "flow": "原材料 → 生産 → 組立"
+          },
+          "bankingConsortium": {
+            "title": "銀行コンソーシアム",
+            "description": "銀行間決済ネットワーク。カウンターパーティリスクゼロのリアルタイム清算・決済。",
+            "example": "クロスボーダー送金",
+            "flow": "3日間 → 3秒、手数料$10 → $0.01"
+          },
+          "medicalData": {
+            "title": "医療データ",
+            "description": "病院と保険会社間の安全な患者データ共有。完全なHIPAAコンプライアンス監査。",
+            "example": "電子処方箋",
+            "flow": "病院 → 薬局 → 保険"
+          }
+        },
+        "deploymentProcess": {
+          "title": "デプロイメントプロセス",
+          "step1": {
+            "title": "要件分析（1-2週間）",
+            "description": "参加者の特定、権限スキーマの設計、規制要件のレビュー。TBurnエンジニアがアーキテクチャコンサルティングを提供。"
+          },
+          "step2": {
+            "title": "ネットワークセットアップ（2-3週間）",
+            "description": "バリデーターノードのデプロイ、ジェネシスブロックの生成、テスト環境での初期スマートコントラクト開発。"
+          },
+          "step3": {
+            "title": "統合＆移行（3-4週間）",
+            "description": "レガシーシステム（ERP、CRM）とのAPI統合、データ移行、ユーザートレーニング。"
+          },
+          "step4": {
+            "title": "メインネットローンチ＆運用",
+            "description": "24時間365日監視と定期セキュリティ監査によるプロダクションデプロイ。TBurnチームからの継続的サポート。"
+          }
+        }
       },
       "gameTooling": {
-        "tag": "ゲーム",
-        "title": "ゲームツール",
-        "subtitle": "ブロックチェーンゲーム向けの完全なGameFiインフラ。"
+        "tag": "GameFiインフラ",
+        "title": "ゲーム",
+        "titleHighlight": "ツール",
+        "subtitle": "NFT検証、P2Eメカニクス、クロスゲーム資産取引を備えた完全なGameFi SDK。トラストスコアが詐欺的なゲームプロジェクトを防止。",
+        "getUnitySdk": "Unity SDKを取得",
+        "whyBuild": {
+          "title": "なぜTBurnで構築するのか？",
+          "subtitle": "高速ゲーミングと安全な資産取引に最適化。",
+          "ultraFastProcessing": {
+            "title": "超高速処理",
+            "description": "50,000+ TPSスループットでリアルタイムゲーム内アイテム取引を可能に。平均1秒のブロック時間で、プレイヤーはラグなしで即時確認を体験。"
+          },
+          "nftVerification": {
+            "title": "NFTプロジェクト検証",
+            "description": "3段階検証システム（AI → エキスパート → コミュニティ）が詐欺的なNFTプロジェクトを事前にブロック。トラストスコアが40%を下回ると取引が自動的に停止。"
+          },
+          "verifiedOwnership": {
+            "title": "検証済み所有権",
+            "description": "すべてのゲームアイテム発行とバーン記録はオンチェーンで不変。プレイヤーに所有権とアイテム履歴のリアルタイム証明を提供し、偽造リスクを排除。"
+          },
+          "crossGameAssets": {
+            "title": "クロスゲーム資産",
+            "description": "完全なEVM互換性により、異なるゲーム間でアイテムの相互運用が可能。LayerZero統合によるマルチチェーン資産転送サポートでゲーム経済を拡大。"
+          }
+        },
+        "trustScoreCategories": {
+          "title": "NFTプロジェクトトラストスコア",
+          "teamIdentity": {
+            "title": "チームアイデンティティ＆経験",
+            "points": "30点",
+            "description": "実名開示、実績検証、ソーシャルメディア真正性チェック。"
+          },
+          "contractSecurity": {
+            "title": "スマートコントラクトセキュリティ",
+            "points": "25点",
+            "description": "監査完了状況、自動脆弱性テスト結果、ミント権限の分散化。"
+          },
+          "utilityRoadmap": {
+            "title": "ユーティリティ＆ロードマップ",
+            "points": "25点",
+            "description": "ロードマップ実行率、実際のユーティリティ提供（ゲーム統合）、コミュニティエンゲージメントレベル。"
+          }
+        },
+        "gameTypes": {
+          "title": "サポートされるゲームタイプ",
+          "p2e": {
+            "title": "P2Eゲーム",
+            "description": "トラスト検証がポンジスキームをブロック。持続可能なPlay-to-Earnのための安定したトークノミクス。",
+            "tags": "RPG・戦略・バトル"
+          },
+          "nftMarketplace": {
+            "title": "NFTマーケットプレイス",
+            "description": "ゲームアイテム、アートワーク、コレクションの取引。安全のためトラストバッジが自動表示。",
+            "tags": "リスク警告・履歴"
+          },
+          "metaverse": {
+            "title": "メタバース",
+            "description": "仮想不動産、アバター、ウェアラブル。DAOガバナンスによる分散型所有権。",
+            "tags": "土地・アバター・ソーシャル"
+          }
+        },
+        "integrationGuide": {
+          "title": "統合ガイド",
+          "step1": {
+            "title": "コントラクトデプロイ",
+            "description": "Solidity ^0.8.19でERC-721/1155コントラクトを作成し、TBurn Chainにデプロイ。"
+          },
+          "step2": {
+            "title": "トラスト検証申請",
+            "description": "開発者コンソールからプロジェクト情報を提出。（$2,000-$3,000手数料、7-14日）"
+          },
+          "step3": {
+            "title": "SDK統合",
+            "description": "Unity/Unreal SDKを使用してゲーム内にミント、取引、バーン機能を実装。"
+          },
+          "step4": {
+            "title": "トラストバッジ表示",
+            "description": "ゲームUIにリアルタイムトラストスコアを表示してプレイヤーの信頼を構築。"
+          }
+        }
       },
       "payments": {
-        "tag": "決済",
-        "title": "決済ソリューション",
-        "subtitle": "高速で安全なブロックチェーン決済処理。"
+        "tag": "決済インフラ",
+        "title": "グローバル",
+        "titleHighlight": "決済",
+        "subtitle": "世界中で検証済み暗号決済を受け入れ。即時決済、超低手数料、マーチャント保護のためのトラストスコアフィルタリング。",
+        "getApiKey": "APIキーを取得",
+        "whyChoose": {
+          "title": "なぜTBurnを選ぶのか？",
+          "subtitle": "グローバルコマース向けに最適化されたインフラ。",
+          "instantSettlement": {
+            "title": "即時決済",
+            "description": "平均1秒のブロック時間と6秒のファイナリティ。50,000+ TPS容量で従来のクレジットカードより速い決済スピードを体験。"
+          },
+          "ultraLowFees": {
+            "title": "超低手数料",
+            "description": "トランザクションあたり$0.001。従来の決済ゲートウェイと比較して最大99%節約。マイクロペイメントから大規模送金まで経済的に実行可能。"
+          },
+          "verifiedTokensOnly": {
+            "title": "検証済みトークンのみ",
+            "description": "トラストスコア40%以上のトークンのみ許可。ラグプルトークンを自動ブロックしてマーチャントと顧客を保護。"
+          },
+          "globalReach": {
+            "title": "グローバルリーチ",
+            "description": "ボーダーレス24時間365日決済インフラ。LayerZero統合によるEthereum、Arbitrum、Polygonのマルチチェーンサポートでどこからでも決済を受け入れ。"
+          }
+        },
+        "tokenStandards": {
+          "title": "決済トークン規格",
+          "priceStability": {
+            "title": "価格安定性",
+            "points": "30点",
+            "description": "日次ボラティリティ、時価総額、流動性プール深度に基づいて評価。"
+          },
+          "contractSecurity": {
+            "title": "コントラクトセキュリティ",
+            "points": "25点",
+            "description": "監査完了、リエントランシー保護、アップグレード権限の分散化。"
+          },
+          "adoptionUsage": {
+            "title": "採用＆使用状況",
+            "points": "20点",
+            "description": "マーチャント数、月間トランザクションボリューム、平均決済サイズ。"
+          }
+        },
+        "solutionTypes": {
+          "title": "ソリューションタイプ",
+          "onlineCommerce": {
+            "title": "オンラインコマース",
+            "description": "ショップ向け簡単チェックアウト統合。5分でセットアップ。",
+            "tags": "SDK・プラグイン"
+          },
+          "offlinePos": {
+            "title": "オフラインPOS",
+            "description": "実店舗でQRコードによる即時決済。",
+            "tags": "アプリ・NFC"
+          },
+          "globalRemittance": {
+            "title": "グローバル送金",
+            "description": "99%低い手数料でクロスボーダー送金。",
+            "tags": "P2P・B2B"
+          }
+        },
+        "integrationGuide": {
+          "title": "統合ガイド",
+          "step1": {
+            "title": "APIキー発行",
+            "description": "開発者ダッシュボードから認証情報を取得。"
+          },
+          "step2": {
+            "title": "SDKインストール",
+            "description": "JS、Python、PHP向けに利用可能。"
+          },
+          "step3": {
+            "title": "決済ボタン追加",
+            "description": "1行でチェックアウトボタンを埋め込み。"
+          },
+          "step4": {
+            "title": "Webhook設定",
+            "description": "決済完了時に即座にサーバー通知を受信。"
+          }
+        }
       },
       "commerce": {
         "tag": "コマース",
@@ -7281,7 +8091,7 @@
         "subtitle": "NFTミント、ロイヤリティ、クリエイターエコノミーツール。"
       },
       "btcfi": {
-        "tag": "ビットコインDEFI",
+        "tag": "ビットコインDeFi",
         "title": "BTCfi",
         "subtitle": "ラップドBTCとクロスチェーンイールドを含むビットコインDeFi統合。"
       },
@@ -7292,13 +8102,75 @@
       }
     },
     "useCases": {
+      "gaming": {
+        "tag": "ゲーム＆メタバース",
+        "title": "ゲーム＆メタバース",
+        "subtitle": "GameFiインフラとメタバース統合。",
+        "categories": {
+          "title": "ゲームカテゴリ",
+          "all": "すべてのゲーム",
+          "p2e": "Play-to-Earn",
+          "nft": "NFTゲーム",
+          "metaverse": "メタバース"
+        },
+        "metrics": {
+          "activePlayers": "アクティブプレイヤー",
+          "dailyTransactions": "日次トランザクション",
+          "totalNfts": "総NFT",
+          "tvl": "ゲームTVL"
+        },
+        "features": {
+          "title": "ゲーム機能",
+          "p2e": {
+            "title": "Play-to-Earn",
+            "description": "不正防止検証による持続可能なトークン経済"
+          },
+          "nftAssets": {
+            "title": "NFTゲーム資産",
+            "description": "検証済み所有権とクロスゲーム相互運用性"
+          },
+          "tournaments": {
+            "title": "トーナメント",
+            "description": "公平な分配による分散型賞金プール"
+          },
+          "guilds": {
+            "title": "ゲームギルド",
+            "description": "DAOベースのギルド管理と利益分配"
+          }
+        },
+        "gameTypes": {
+          "title": "サポートされるゲームタイプ",
+          "rpg": {
+            "title": "RPG",
+            "description": "アイテム取引のあるロールプレイングゲーム"
+          },
+          "strategy": {
+            "title": "戦略",
+            "description": "リソース管理と領土コントロール"
+          },
+          "card": {
+            "title": "カードゲーム",
+            "description": "NFTカードによるコレクティブルカードゲーム"
+          },
+          "casual": {
+            "title": "カジュアル",
+            "description": "マイクロ報酬のクイックプレイゲーム"
+          }
+        },
+        "cta": {
+          "title": "TBurnでゲームを構築する準備はできましたか？",
+          "subtitle": "GameFi SDKとドキュメントにアクセス",
+          "getStarted": "始める",
+          "viewDocs": "ドキュメントを見る"
+        }
+      },
       "tokenization": {
         "tag": "トークン化",
         "title": "資産トークン化",
         "subtitle": "ブロックチェーン上で実世界資産をトークン化。"
       },
       "depin": {
-        "tag": "DEPIN",
+        "tag": "DePIN",
         "title": "DePIN",
         "subtitle": "分散型物理インフラストラクチャネットワーク。"
       },
@@ -7313,26 +8185,243 @@
         "subtitle": "企業向けの大量決済ソリューション。"
       },
       "enterprise": {
-        "tag": "エンタープライズ",
+        "tag": "エンタープライズブロックチェーン",
         "title": "エンタープライズソリューション",
-        "subtitle": "企業向けの包括的なブロックチェーンソリューション。"
-      },
-      "gaming": {
-        "tag": "ゲーム",
-        "title": "ゲーム＆メタバース",
-        "subtitle": "GameFiインフラとメタバース統合。"
+        "subtitle": "現代のビジネス向け包括的ブロックチェーンソリューション。プライベートネットワーク、コンプライアンス機能、24時間365日エンタープライズサポート。",
+        "contactEnterprise": "エンタープライズに連絡",
+        "enterpriseDocs": "エンタープライズドキュメント",
+        "metrics": {
+          "enterpriseClients": {
+            "value": "500+",
+            "label": "エンタープライズクライアント"
+          },
+          "uptimeGuarantee": {
+            "value": "99.95%",
+            "label": "稼働時間保証"
+          },
+          "dedicatedSupport": {
+            "value": "24/7",
+            "label": "専任サポート"
+          }
+        },
+        "solutions": {
+          "title": "エンタープライズソリューション",
+          "subtitle": "現代のビジネス課題向けブロックチェーンアプリケーション。",
+          "identityAccess": {
+            "title": "アイデンティティ＆アクセス管理",
+            "description": "自己主権型資格情報による分散型アイデンティティ。多要素認証、SSO統合、詳細な権限コントロール。"
+          },
+          "supplyChain": {
+            "title": "サプライチェーン透明性",
+            "description": "エンドツーエンドの製品来歴追跡。IoT統合によるメーカーから消費者までの不変監査証跡。"
+          },
+          "documentManagement": {
+            "title": "ドキュメント管理",
+            "description": "改ざん防止ドキュメント保存と検証。デジタル署名、バージョン管理、コンプライアンスアーカイブ。"
+          },
+          "processAutomation": {
+            "title": "ビジネスプロセス自動化",
+            "description": "スマートコントラクト駆動のワークフロー。トラストレス実行による承認、決済、多者間合意の自動化。"
+          }
+        },
+        "platformFeatures": {
+          "title": "プラットフォーム機能",
+          "soc2": {
+            "title": "SOC 2準拠",
+            "description": "エンタープライズセキュリティコントロールと年次監査"
+          },
+          "privateSubnets": {
+            "title": "プライベートサブネット",
+            "description": "機密データ用の分離ネットワーク環境"
+          },
+          "roleBasedAccess": {
+            "title": "ロールベースアクセス",
+            "description": "詳細な権限とマルチテナント分離"
+          },
+          "onPremise": {
+            "title": "オンプレミスオプション",
+            "description": "自社データセンターインフラ内へのデプロイ"
+          }
+        },
+        "industryApplications": {
+          "title": "業界アプリケーション",
+          "healthcare": {
+            "title": "医療",
+            "description": "HIPAA準拠の記録管理"
+          },
+          "manufacturing": {
+            "title": "製造",
+            "description": "サプライチェーンと品質保証"
+          },
+          "legal": {
+            "title": "法務",
+            "description": "契約管理と電子署名"
+          },
+          "government": {
+            "title": "政府",
+            "description": "透明な記録管理と投票"
+          },
+          "insurance": {
+            "title": "保険",
+            "description": "請求処理と詐欺検出"
+          },
+          "logistics": {
+            "title": "物流",
+            "description": "出荷追跡と検証"
+          }
+        },
+        "cta": {
+          "title": "エンタープライズブロックチェーンの準備はできましたか？",
+          "subtitle": "エンタープライズチームとの相談を予約。組織の要件に合ったカスタムソリューションを設計します。",
+          "scheduleConsultation": "相談を予約"
+        }
       }
     },
     "network": {
       "validators": {
-        "tag": "ネットワーク",
+        "tag": "ネットワークバリデーター",
         "title": "バリデーター",
-        "subtitle": "TBurnバリデーターネットワークに参加して報酬を獲得。"
+        "subtitle": "TBurnバリデーターネットワークに参加してブロックチェーンを保護しながら報酬を獲得。",
+        "becomeValidator": "バリデーターになる",
+        "consensusSpecs": {
+          "title": "コンセンサス仕様",
+          "blockTime": {
+            "label": "ブロック時間",
+            "value": "1秒"
+          },
+          "finality": {
+            "label": "ファイナリティ",
+            "value": "6秒"
+          },
+          "validatorSet": {
+            "label": "バリデーターセット",
+            "value": "100アクティブ"
+          },
+          "epochLength": {
+            "label": "エポック長",
+            "value": "6時間"
+          }
+        },
+        "validatorTiers": {
+          "title": "バリデーターティアシステム",
+          "genesis": {
+            "name": "ジェネシス",
+            "stake": "1,000,000 TBURN",
+            "rewards": "プレミアム報酬 + ガバナンス"
+          },
+          "core": {
+            "name": "コア",
+            "stake": "500,000 TBURN",
+            "rewards": "標準報酬 + 投票"
+          },
+          "community": {
+            "name": "コミュニティ",
+            "stake": "100,000 TBURN",
+            "rewards": "基本報酬"
+          }
+        },
+        "hardwareRequirements": {
+          "title": "ハードウェア要件",
+          "cpu": "CPU: 8コア以上",
+          "ram": "RAM: 32GB以上",
+          "storage": "ストレージ: 1TB NVMe SSD",
+          "bandwidth": "帯域幅: 1Gbps"
+        },
+        "slashingPolicy": {
+          "title": "スラッシングポリシー",
+          "doubleSign": {
+            "offense": "二重署名",
+            "penalty": "ステーク100%スラッシュ"
+          },
+          "downtime": {
+            "offense": "長期ダウンタイム",
+            "penalty": "ステーク1-5%スラッシュ"
+          },
+          "maliciousVoting": {
+            "offense": "悪意のある投票",
+            "penalty": "ステーク50%スラッシュ"
+          }
+        }
       },
       "rpc": {
-        "tag": "インフラ",
+        "tag": "RPCインフラ",
         "title": "RPCプロバイダー",
-        "subtitle": "高性能RPCエンドポイントとAPIアクセス。"
+        "subtitle": "エンタープライズグレードの信頼性を持つ高性能RPCエンドポイント。WebSocketとHTTP接続をサポート。",
+        "getApiKey": "APIキーを取得",
+        "apiPlans": {
+          "title": "APIプラン＆制限",
+          "free": {
+            "name": "無料",
+            "requestsPerMin": "20",
+            "requestsPerDay": "1,000",
+            "price": "$0"
+          },
+          "basic": {
+            "name": "ベーシック",
+            "requestsPerMin": "100",
+            "requestsPerDay": "10,000",
+            "price": "$100/月"
+          },
+          "pro": {
+            "name": "プロ",
+            "requestsPerMin": "500",
+            "requestsPerDay": "100,000",
+            "price": "$500/月"
+          },
+          "enterprise": {
+            "name": "エンタープライズ",
+            "requestsPerMin": "無制限",
+            "requestsPerDay": "無制限",
+            "price": "お問い合わせ"
+          }
+        },
+        "coreEndpoints": {
+          "title": "コアエンドポイント",
+          "scoreQuery": {
+            "title": "スコアクエリAPI",
+            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+          },
+          "project": {
+            "title": "プロジェクトAPI",
+            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+          },
+          "analytics": {
+            "title": "アナリティクスAPI",
+            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+          },
+          "webhook": {
+            "title": "Webhook API",
+            "endpoints": ["POST /webhooks"],
+            "events": "イベント: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdkExamples": {
+          "title": "SDK＆エンタープライズ例",
+          "typescript": "TypeScriptエンタープライズSDK",
+          "python": "PythonエンタープライズSDK",
+          "curl": "cURLプロダクション例"
+        },
+        "support": {
+          "title": "サポート＆連絡先",
+          "documentation": {
+            "title": "ドキュメント",
+            "description": "詳細なAPIリファレンスとガイド。"
+          },
+          "apiStatus": {
+            "title": "APIステータス",
+            "description": "リアルタイムシステムステータスと稼働時間。"
+          },
+          "developerHub": {
+            "title": "開発者ハブ",
+            "description": "オープンソースSDKと例。"
+          }
+        },
+        "cta": {
+          "title": "構築する準備はできましたか？",
+          "subtitle": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
+          "getStartedFree": "無料で始める",
+          "contactSales": "営業に連絡"
+        }
       },
       "status": {
         "tag": "ステータス",
@@ -7349,7 +8438,93 @@
       "hub": {
         "tag": "コミュニティ",
         "title": "コミュニティハブ",
-        "subtitle": "ビルダー、バリデーター、愛好家とつながる。"
+        "subtitle": "ビルダー、バリデーター、愛好家とつながる。",
+        "stats": {
+          "totalMembers": {
+            "label": "総メンバー"
+          },
+          "monthlyActive": {
+            "label": "月間アクティブ"
+          },
+          "ambassadors": {
+            "label": "アンバサダー"
+          },
+          "contributors": {
+            "label": "コントリビューター"
+          }
+        },
+        "channels": {
+          "title": "コミュニティチャンネル",
+          "discord": {
+            "name": "Discord",
+            "description": "リアルタイム開発チャット、サポート、コミュニティ交流。",
+            "action": "サーバーに参加"
+          },
+          "telegram": {
+            "name": "Telegram",
+            "description": "迅速なお知らせとローカルコミュニティグループ。",
+            "action": "チャンネルに参加"
+          },
+          "twitter": {
+            "name": "Twitter / X",
+            "description": "最新アップデート、パートナーシップ、イベントニュース。",
+            "action": "フォローする"
+          },
+          "github": {
+            "name": "GitHub",
+            "description": "オープンソースコード、SDK、技術ドキュメント。",
+            "action": "コントリビュート"
+          }
+        },
+        "leaderboard": {
+          "title": "コントリビューターリーダーボード",
+          "subtitle": "今月のトップコミュニティコントリビューター"
+        },
+        "ambassadorProgram": {
+          "title": "アンバサダープログラム",
+          "subtitle": "グローバルコミュニティをリード",
+          "benefits": {
+            "tokenRewards": "毎月のTBURNトークン報酬",
+            "earlyAccess": "新機能への早期アクセス",
+            "nftBadge": "公式NFTバッジ＆グッズ",
+            "directChannel": "チームとの直接コミュニケーションチャンネル"
+          },
+          "applyButton": "アンバサダーに応募"
+        },
+        "contribute": {
+          "title": "貢献方法",
+          "code": {
+            "title": "コード",
+            "description": "SDK、スマートコントラクト、ツール",
+            "action": "課題を見る"
+          },
+          "content": {
+            "title": "コンテンツ",
+            "description": "チュートリアル、ブログ、翻訳",
+            "action": "コンテンツを提出"
+          },
+          "moderation": {
+            "title": "モデレーション",
+            "description": "Discord＆Telegramサポート",
+            "action": "モデレーターに応募"
+          },
+          "marketing": {
+            "title": "マーケティング",
+            "description": "イベント、ソーシャルメディア、成長",
+            "action": "チームに参加"
+          }
+        },
+        "governance": {
+          "title": "ガバナンス",
+          "tag": "TBURN DAO",
+          "description": "TBURNトークンをステークしてプロトコル決定に参加。提案を作成し、アップグレードに投票し、コミュニティトレジャリーを管理。",
+          "goToPortal": "ガバナンスポータルへ",
+          "stats": {
+            "proposals": "提案",
+            "votesCast": "投票数",
+            "treasuryBalance": "トレジャリー残高"
+          }
+        }
       },
       "news": {
         "tag": "ニュース＆ブログ",
@@ -7357,23 +8532,258 @@
         "subtitle": "最新のアップデート、お知らせ、インサイト。"
       },
       "events": {
-        "tag": "イベント",
+        "tag": "イベント＆アクティビティ",
         "title": "イベント＆アクティビティ",
-        "subtitle": "TBurn Chainコミュニティイベント、ハッカソン、カンファレンスに参加。"
+        "subtitle": "TBurn Chainコミュニティイベント、ハッカソン、カンファレンスに参加。",
+        "filters": {
+          "all": "すべてのイベント",
+          "hackathon": "ハッカソン",
+          "ama": "AMA",
+          "webinar": "ウェビナー",
+          "meetup": "ミートアップ",
+          "conference": "カンファレンス"
+        },
+        "featured": {
+          "title": "注目のイベント",
+          "capacity": "定員"
+        },
+        "upcoming": {
+          "title": "今後のイベント"
+        },
+        "eventTypes": {
+          "launchEvent": "ローンチイベント",
+          "hackathon": "ハッカソン",
+          "ama": "AMAセッション",
+          "webinar": "ウェビナー",
+          "meetup": "ミートアップ",
+          "seminar": "セミナー",
+          "training": "トレーニング",
+          "conference": "カンファレンス"
+        },
+        "buttons": {
+          "registerNow": "今すぐ登録",
+          "applyNow": "今すぐ応募",
+          "setReminder": "リマインダーを設定",
+          "register": "登録",
+          "rsvp": "RSVP（限定）",
+          "getTickets": "チケットを取得"
+        },
+        "hostEvent": {
+          "title": "イベントを主催したいですか？",
+          "description": "TBurn Chainコミュニティでミートアップ、ウェビナー、ハッカソンを主催。資金、グッズ、マーケティングサポートを提供します。",
+          "applyToHost": "主催者に応募"
+        },
+        "toast": {
+          "reminderSet": "リマインダー設定完了",
+          "reminderDescription": "「{{eventTitle}}」の前に通知されます"
+        }
       }
     },
     "legal": {
       "terms": {
         "title": "利用規約",
-        "subtitle": "TBurn Chainサービス利用の条件。"
+        "subtitle": "TBurn Chainサービス利用の条件。",
+        "backToHome": "ホームに戻る",
+        "sections": {
+          "acceptance": {
+            "title": "1. 規約の承諾",
+            "content": "TBurn Chainサービスにアクセスまたは使用することにより、この利用規約（「規約」）に拘束されることに同意します。これらの規約に同意しない場合は、サービスを使用しないでください。これらの規約は、お客様とTBurn Chain Foundationの間の法的拘束力のある契約を構成します。"
+          },
+          "definitions": {
+            "title": "2. 定義",
+            "tburnChain": "「TBurn Chain」とは、レイヤー1ブロックチェーンネットワークおよび関連サービスを指します。",
+            "services": "「サービス」には、ブロックチェーンネットワーク、トラスト検証システム、API、プラットフォーム機能が含まれます。",
+            "user": "「ユーザー」または「お客様」とは、TBurn Chainを使用する個人または団体を指します。",
+            "project": "「プロジェクト」とは、TBurn Chainでの検証を求めるブロックチェーンプロジェクトを指します。",
+            "trustScore": "「トラストスコア」とは、3段階検証システムを通じて割り当てられる信頼性評価を指します。"
+          },
+          "eligibility": {
+            "title": "3. 資格",
+            "intro": "TBurn Chainを使用するには、以下の条件を満たす必要があります：",
+            "age": "18歳以上（または管轄区域の法定年齢以上）であること。",
+            "legalCapacity": "拘束力のある契約を締結する法的能力を有すること。",
+            "notProhibited": "適用法の下でサービスの使用を禁止されていないこと。",
+            "comply": "オンライン行為およびブロックチェーン技術に関するすべての現地法を遵守すること。"
+          },
+          "accountSecurity": {
+            "title": "4. アカウント登録とセキュリティ",
+            "accountCreation": "4.1 アカウント作成",
+            "accountCreationContent": "正確な情報を提供し、機密性を維持し、不正アクセスがあった場合は直ちに通知することに同意します。",
+            "walletSecurity": "4.2 ウォレットセキュリティ",
+            "walletSecurityWarning": "重要：秘密鍵の保護はお客様の責任です。失われた秘密鍵は回復できません。私たちはお客様の秘密鍵にアクセスできず、失われた資金の回復を支援することはできません。"
+          },
+          "trustVerification": {
+            "title": "5. トラスト検証システム",
+            "threeStageProcess": "5.1 3段階プロセス",
+            "stage1": "ステージ1：AI駆動自動フィルタリング（24時間）",
+            "stage2": "ステージ2：ブロックチェーン開発者と監査人によるエキスパート検証（7-14日）",
+            "stage3": "ステージ3：TBURNトークンホルダーによるコミュニティ投票（3-5日）",
+            "implications": "5.2 トラストスコアの影響",
+            "implicationsContent": "トラストスコアは0-100の範囲です。40未満のスコアは自動的にトークン取引停止となります。スコアはオンチェーンでリアルタイム更新されます。"
+          },
+          "burnMechanism": {
+            "title": "6. バーンメカニズム",
+            "content": "プロジェクトはバーンコミットメントと同等の担保を預ける必要があります。予定されたバーンの実行に失敗すると、スマートコントラクトを通じて自動ペナルティと担保バーンがトリガーされます。"
+          },
+          "prohibitedActivities": {
+            "title": "7. 禁止活動",
+            "intro": "以下の行為を行わないことに同意します：",
+            "items": {
+              "moneyLaundering": "マネーロンダリングやテロ資金調達のためのプラットフォーム使用",
+              "falseInfo": "虚偽または誤解を招くプロジェクト情報の提出",
+              "manipulateTrustScores": "協調投票によるトラストスコアの操作",
+              "exploitVulnerabilities": "スマートコントラクトの脆弱性の悪用の試み",
+              "marketManipulation": "市場操作またはウォッシュトレーディングへの関与"
+            }
+          },
+          "intellectualProperty": {
+            "title": "8. 知的財産",
+            "content": "TBurn Chainのすべての知的財産権（プラットフォーム、プロトコル、ブランディングを含む）はTBurn Chain Foundationが所有します。サービスを使用するための限定的、非独占的ライセンスが付与されます。"
+          },
+          "disclaimers": {
+            "title": "9. 免責事項と制限",
+            "asIs": "「現状のまま」提供",
+            "asIsContent": "サービスは、明示または黙示を問わず、いかなる種類の保証もなく「現状のまま」および「利用可能な状態で」提供されます。",
+            "noInvestmentAdvice": "投資アドバイスなし",
+            "noInvestmentAdviceContent": "TBurn Chainは投資、金融、法的アドバイスを提供しません。トラストスコアは情報提供のみを目的としています。",
+            "limitationOfLiability": "責任の制限",
+            "limitationOfLiabilityContent": "法律で許可される最大限の範囲において、TBURN CHAINは、間接的、付随的、特別、結果的、または懲罰的損害について責任を負いません。"
+          },
+          "governingLaw": {
+            "title": "10. 準拠法",
+            "content": "これらの規約は、抵触法の原則にかかわらず、TBurn Chain Foundationが設立された管轄区域の法律に準拠し、解釈されます。"
+          }
+        },
+        "contact": {
+          "title": "連絡先情報",
+          "legalInquiries": "法的お問い合わせ",
+          "generalSupport": "一般サポート",
+          "note": "注：この利用規約は英語で提供されます。便宜上、翻訳が利用可能な場合がありますが、矛盾がある場合は英語版が優先されます。"
+        },
+        "relatedDocuments": {
+          "title": "関連法的文書",
+          "privacyPolicy": "プライバシーポリシー",
+          "privacyPolicyDesc": "データの取り扱い方法",
+          "disclaimer": "免責事項",
+          "disclaimerDesc": "リスク開示と通知"
+        },
+        "learnMore": {
+          "title": "詳細を見る",
+          "trustScoreSystem": "トラストスコアシステム",
+          "trustScoreSystemDesc": "3段階検証",
+          "whatIsWallet": "ウォレットとは？",
+          "whatIsWalletDesc": "ウォレットセキュリティ基礎",
+          "whatIsTBurnChain": "TBurn Chainとは？",
+          "whatIsTBurnChainDesc": "プラットフォーム概要"
+        }
       },
       "privacy": {
         "title": "プライバシーポリシー",
-        "subtitle": "データの収集、使用、保護方法。"
+        "subtitle": "データの収集、使用、保護方法。",
+        "backToHome": "ホームに戻る",
+        "sections": {
+          "introduction": {
+            "title": "1. はじめに",
+            "content": "TBurn Chain（「当社」）へようこそ。当社は、お客様の個人情報とプライバシーの権利を保護することに取り組んでいます。このプライバシーポリシーは、当社のウェブサイトを訪問し、ブロックチェーンサービスを使用する際に、当社がどのように情報を収集、使用、開示、保護するかを説明します。"
+          },
+          "informationCollected": {
+            "title": "2. 収集する情報",
+            "youProvide": {
+              "title": "2.1 お客様が提供する情報",
+              "accountInfo": "アカウント情報：メールアドレス、ユーザー名、ウォレットアドレス。",
+              "projectVerification": "プロジェクト検証：事業登録書類、KYC情報、財務諸表。",
+              "communication": "コミュニケーションデータ：メッセージ、サポートチケット、フィードバック。"
+            },
+            "automaticallyCollected": {
+              "title": "2.2 自動的に収集される情報",
+              "blockchainData": "ブロックチェーンデータ：公開ウォレットアドレス、トランザクションハッシュ、スマートコントラクトインタラクション。",
+              "deviceInfo": "デバイス情報：IPアドレス、ブラウザタイプ、オペレーティングシステム。",
+              "usageData": "使用データ：閲覧ページ、ナビゲーションパターン、セッション時間。"
+            }
+          },
+          "howWeUse": {
+            "title": "3. 情報の使用方法",
+            "intro": "収集した情報は以下の目的で使用されます：",
+            "items": {
+              "operating": "TBurn Chainプラットフォームの運営と維持。",
+              "verification": "3段階検証プロセス（AIフィルタリング、エキスパートレビュー、投票）の実施。",
+              "detectingFraud": "詐欺、悪用、セキュリティ脅威の検出。",
+              "improving": "分析を通じたサービスの改善。",
+              "legalCompliance": "法的コンプライアンス義務の履行。"
+            }
+          },
+          "informationSharing": {
+            "title": "4. 情報の共有",
+            "intro": "以下と情報を共有します：",
+            "validators": "バリデーター：分散型検証プロセスのため。",
+            "serviceProviders": "サービスプロバイダー：インフラおよびサポートパートナー。",
+            "legalAuthorities": "法的機関：法律で要求される場合。",
+            "noSelling": "マーケティング目的で第三者にお客様の個人データを販売することはありません。"
+          },
+          "blockchainPrivacy": {
+            "title": "5. ブロックチェーン固有のプライバシー",
+            "publicData": {
+              "title": "公開データ",
+              "content": "TBurn Chain上のトランザクションとスマートコントラクトインタラクションは公開され、不変です。このデータは削除または変更できません。"
+            },
+            "pseudonymity": {
+              "title": "匿名性",
+              "content": "ウォレットアドレスは仮名です。ただし、実世界のアイデンティティをウォレットアドレスにリンクすると、その接続が公開される可能性があります。"
+            }
+          },
+          "securityRights": {
+            "title": "6. セキュリティと権利",
+            "securityMeasures": "適切なセキュリティ対策を実施しています：",
+            "securityItems": {
+              "ssl": "転送中データのSSL/TLS暗号化",
+              "encryptedStorage": "機密データの暗号化ストレージ",
+              "mfa": "多要素認証",
+              "audits": "定期的なセキュリティ監査と侵入テスト"
+            },
+            "yourRights": "所在地に応じて、以下の権利を有する場合があります：",
+            "rightsItems": {
+              "access": "個人情報へのアクセス",
+              "correct": "不正確なデータの訂正",
+              "delete": "オフチェーンデータの削除",
+              "object": "データ処理への異議",
+              "portability": "データポータビリティ"
+            }
+          },
+          "cookies": {
+            "title": "7. Cookieとトラッキング",
+            "intro": "Cookieと類似技術を以下の目的で使用します：",
+            "items": {
+              "preferences": "設定の記憶",
+              "analyzeSite": "サイト使用状況の分析",
+              "improveExperience": "ユーザーエクスペリエンスの向上"
+            },
+            "manage": "ブラウザ設定でCookie設定を管理できます。"
+          },
+          "internationalTransfers": {
+            "title": "8. 国際データ転送",
+            "content": "お客様の情報は、お客様の国以外の国で転送および処理される場合があります。適用されるデータ保護法に準拠して、そのような転送に適切な保護措置を確保します。"
+          }
+        },
+        "contact": {
+          "title": "お問い合わせ",
+          "intro": "このプライバシーポリシーについてご質問がある場合は、プライバシーオフィスにお問い合わせください：",
+          "email": "メール",
+          "responseTime": "応答時間",
+          "responseTimeValue": "30日以内"
+        },
+        "relatedDocuments": {
+          "title": "関連法的文書",
+          "termsOfService": "利用規約",
+          "termsOfServiceDesc": "ユーザー契約"
+        }
       },
       "disclaimer": {
         "title": "免責事項",
-        "subtitle": "重要な法的通知とリスク開示。"
+        "subtitle": "重要な法的通知とリスク開示。",
+        "backToHome": "ホームに戻る",
+        "importantNotice": {
+          "title": "重要なお知らせ"
+        }
       }
     }
   },

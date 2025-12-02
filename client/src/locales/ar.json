@@ -4413,7 +4413,17 @@
       "comingSoon": "قريباً",
       "new": "جديد",
       "popular": "شائع",
-      "featured": "مميز"
+      "featured": "مميز",
+      "backToHome": "العودة إلى الصفحة الرئيسية",
+      "backToSolutions": "العودة إلى الحلول",
+      "viewAll": "عرض الكل",
+      "documentation": "الوثائق",
+      "relatedSolutions": "الحلول ذات الصلة",
+      "developerResources": "موارد المطورين",
+      "relatedLegalDocuments": "الوثائق القانونية ذات الصلة",
+      "learnMoreSection": "اعرف المزيد",
+      "securitySolutions": "حلول الأمان",
+      "forDevelopers": "للمطورين"
     },
     "header": {
       "learn": "تعلم",
@@ -4484,6 +4494,12 @@
       "aiTerminal": {
         "title": "محطة الذكاء الاصطناعي",
         "subtitle": "مراقبة تنسيق الذكاء الاصطناعي في الوقت الفعلي"
+      },
+      "cta": {
+        "title": "هل أنت مستعد للبناء على TBurn Chain؟",
+        "subtitle": "انضم إلى آلاف المطورين الذين يبنون مستقبل البلوكتشين القائم على الثقة",
+        "getStarted": "ابدأ الآن",
+        "viewDocs": "عرض الوثائق"
       }
     },
     "learn": {
@@ -4504,37 +4520,464 @@
         "quickGlossary": "مسرد سريع",
         "certifications": "الشهادات",
         "certificationsDesc": "احصل على شارات موثقة",
-        "communityLearning": "التعلم المجتمعي"
+        "communityLearning": "التعلم المجتمعي",
+        "paths": {
+          "blockchainFundamentals": {
+            "title": "أساسيات البلوكتشين",
+            "description": "ابدأ رحلتك في تقنية البلوكتشين",
+            "level": "مبتدئ",
+            "duration": "4 ساعات"
+          },
+          "defiMastery": {
+            "title": "إتقان DeFi",
+            "description": "أتقن بروتوكولات التمويل اللامركزي",
+            "level": "متوسط",
+            "duration": "8 ساعات"
+          },
+          "developerTrack": {
+            "title": "مسار المطور",
+            "description": "ابنِ وانشر العقود الذكية",
+            "level": "متقدم",
+            "duration": "20 ساعة"
+          }
+        },
+        "concepts": {
+          "whatIsTBurn": {
+            "title": "ما هو TBurn Chain؟",
+            "description": "مقدمة للبلوكتشين القائم على الثقة"
+          },
+          "trustScore": {
+            "title": "نظام درجة الثقة",
+            "description": "فهم التحقق المكون من 3 مراحل"
+          },
+          "wallet": {
+            "title": "ما هي المحفظة؟",
+            "description": "أمّن أصولك الرقمية"
+          },
+          "whitepaper": {
+            "title": "الورقة البيضاء",
+            "description": "غوص عميق في الوثائق التقنية"
+          },
+          "tokenomics": {
+            "title": "الاقتصاد الرمزي",
+            "description": "اقتصاديات وتوزيع الرموز"
+          },
+          "roadmap": {
+            "title": "خارطة الطريق",
+            "description": "خطط التطوير المستقبلية"
+          }
+        },
+        "glossary": {
+          "trustScore": {
+            "term": "درجة الثقة",
+            "definition": "تصنيف موثوقية من 0-100 يُعيَّن للمشاريع عبر التحقق بالذكاء الاصطناعي + الخبراء + المجتمع"
+          },
+          "autoBurn": {
+            "term": "الحرق التلقائي",
+            "definition": "آلية تدمير الرموز التلقائية التي تقلل العرض بمرور الوقت"
+          },
+          "validator": {
+            "term": "المدقق",
+            "definition": "العقد التي تتحقق من المعاملات وتشارك في الإجماع"
+          }
+        },
+        "certifications": {
+          "developer": {
+            "title": "مطور TBurn",
+            "description": "شهادة تطوير العقود الذكية"
+          },
+          "defi": {
+            "title": "خبير DeFi",
+            "description": "شهادة إتقان التمويل اللامركزي"
+          },
+          "validator": {
+            "title": "مشغل المدقق",
+            "description": "شهادة التحقق من الشبكة"
+          }
+        },
+        "communityLinks": {
+          "discord": {
+            "title": "Discord",
+            "description": "انضم إلى النقاشات"
+          },
+          "forum": {
+            "title": "المنتدى",
+            "description": "مجتمع الأسئلة والأجوبة"
+          },
+          "youtube": {
+            "title": "YouTube",
+            "description": "دروس فيديو"
+          }
+        }
       },
       "whatIsBurnChain": {
         "tag": "مقدمة",
         "title": "ما هو TBurn Chain؟",
-        "subtitle": "اكتشف أول بلوكتشين قائم على الثقة في العالم مع التحقق بالذكاء الاصطناعي والأمان المقاوم للحوسبة الكمية."
+        "subtitle": "اكتشف أول بلوكتشين قائم على الثقة في العالم مع التحقق بالذكاء الاصطناعي والأمان المقاوم للحوسبة الكمية.",
+        "coreFeatures": {
+          "title": "الميزات الأساسية",
+          "items": {
+            "trustVerification": {
+              "title": "التحقق من الثقة",
+              "description": "تحقق من 3 مراحل يجمع بين تحليل الذكاء الاصطناعي ومراجعة الخبراء وتصويت المجتمع"
+            },
+            "quantumSecurity": {
+              "title": "الأمان الكمي",
+              "description": "توقيعات هجينة CRYSTALS-Dilithium + ED25519 لأمان مستقبلي"
+            },
+            "highPerformance": {
+              "title": "أداء عالي",
+              "description": "أكثر من 50,000 معاملة في الثانية مع وقت كتلة ثانية واحدة ونهائية 6 ثوانٍ"
+            },
+            "autoBurn": {
+              "title": "الحرق التلقائي",
+              "description": "اقتصاديات رمزية انكماشية مع آليات حرق تلقائية"
+            }
+          }
+        },
+        "consensus": {
+          "title": "آلية الإجماع",
+          "subtitle": "إثبات الثقة (PoT) يجمع بين التحقق وتسجيل الثقة",
+          "specs": {
+            "blockTime": "وقت الكتلة",
+            "finality": "النهائية",
+            "tps": "الإنتاجية",
+            "validators": "المدققون"
+          }
+        }
       },
       "trustScore": {
         "tag": "ميزة أساسية",
         "title": "نظام درجة الثقة",
-        "subtitle": "غوص عميق في نظام التحقق المكون من 3 مراحل وتحليل الذكاء الاصطناعي وخوارزمية التسجيل الديناميكية."
+        "subtitle": "غوص عميق في نظام التحقق المكون من 3 مراحل وتحليل الذكاء الاصطناعي وخوارزمية التسجيل الديناميكية.",
+        "philosophy": {
+          "title": "فلسفة الثقة",
+          "description": "بناء أساس للتبادل الرقمي الموثوق",
+          "items": {
+            "transparency": {
+              "title": "الشفافية الأولى",
+              "description": "جميع درجات الثقة عامة وقابلة للتدقيق على السلسلة"
+            },
+            "merit": {
+              "title": "مبني على الجدارة",
+              "description": "الدرجات تعكس الأداء الفعلي وليس الرسوم المدفوعة"
+            },
+            "dynamic": {
+              "title": "التسجيل الديناميكي",
+              "description": "الدرجات تتكيف مع السلوك في الوقت الفعلي"
+            },
+            "decentralized": {
+              "title": "الحوكمة اللامركزية",
+              "description": "يشارك المجتمع في عملية التحقق"
+            }
+          }
+        },
+        "components": {
+          "title": "مكونات الدرجة",
+          "projectHistory": {
+            "title": "تاريخ المشروع",
+            "description": "سجل المسار، عمر الفريق، والتسليمات السابقة",
+            "weight": "25%"
+          },
+          "codeQuality": {
+            "title": "جودة الكود",
+            "description": "تحليل العقود الذكية، نتائج التدقيق، والثغرات المعروفة",
+            "weight": "30%"
+          },
+          "tokenMetrics": {
+            "title": "مقاييس الرموز",
+            "description": "توزيع الرموز، تركيز الملكية، وأنماط التداول",
+            "weight": "20%"
+          },
+          "communitySignals": {
+            "title": "إشارات المجتمع",
+            "description": "المشاركة الاجتماعية، تصويت الحوكمة، ومشاعر المجتمع",
+            "weight": "25%"
+          }
+        },
+        "grades": {
+          "title": "نطاقات درجات الثقة",
+          "aPlusTitle": "A+ (90-100)",
+          "aPlusDesc": "موثوق للغاية. أعلى معايير الأمان والشفافية.",
+          "aTitle": "A (80-89)",
+          "aDesc": "موثوق جداً. سجل قوي مع مخاطر بسيطة.",
+          "bTitle": "B (70-79)",
+          "bDesc": "موثوق. مشاكل ثانوية تم تحديدها ومعالجتها.",
+          "cTitle": "C (50-69)",
+          "cDesc": "يحتاج تحسين. يوصى بالعناية الواجبة.",
+          "fTitle": "F (0-49)",
+          "fDesc": "عالي المخاطر. قد يتم إيقاف التداول تلقائياً."
+        },
+        "stages": {
+          "title": "نظام التحقق من 3 مراحل",
+          "stage1": {
+            "number": "1",
+            "title": "الفحص بالذكاء الاصطناعي",
+            "duration": "24 ساعة",
+            "description": "تحليل آلي لكود العقود الذكية، الاقتصاد الرمزي، ونشاط وسائل التواصل الاجتماعي.",
+            "checks": {
+              "contractAnalysis": "تحليل العقود الذكية",
+              "tokenomicsReview": "مراجعة الاقتصاد الرمزي",
+              "socialMediaScan": "فحص وسائل التواصل الاجتماعي",
+              "historicalPatterns": "الأنماط التاريخية"
+            }
+          },
+          "stage2": {
+            "number": "2",
+            "title": "مراجعة الخبراء",
+            "duration": "7-14 يوماً",
+            "description": "مطورو البلوكتشين والمدققون يتحققون من الوثائق والكود.",
+            "checks": {
+              "manualCodeReview": "مراجعة الكود اليدوية",
+              "teamVerification": "التحقق من الفريق",
+              "documentationAudit": "تدقيق الوثائق",
+              "securityAssessment": "تقييم الأمان"
+            }
+          },
+          "stage3": {
+            "number": "3",
+            "title": "تصويت المجتمع",
+            "duration": "3-5 أيام",
+            "description": "يصوت حاملو رموز TBURN على موافقة المشروع النهائية.",
+            "checks": {
+              "tokenHolderVotes": "تصويت حاملي الرموز",
+              "quorumRequirement": "متطلب النصاب",
+              "supermajorityApproval": "موافقة الأغلبية الساحقة",
+              "finalVerification": "التحقق النهائي"
+            }
+          }
+        }
       },
       "wallet": {
         "tag": "البداية",
         "title": "ما هي المحفظة؟",
-        "subtitle": "تعرف على محافظ العملات المشفرة وأفضل ممارسات الأمان وكيفية إعداد محفظة TBurn الخاصة بك."
+        "subtitle": "تعرف على محافظ العملات المشفرة وأفضل ممارسات الأمان وكيفية إعداد محفظة TBurn الخاصة بك.",
+        "types": {
+          "title": "أنواع المحافظ",
+          "hot": {
+            "title": "المحافظ الساخنة",
+            "description": "محافظ متصلة بالإنترنت. ملائمة للاستخدام اليومي.",
+            "examples": "امتدادات المتصفح، تطبيقات الهاتف"
+          },
+          "cold": {
+            "title": "المحافظ الباردة",
+            "description": "محافظ تخزين غير متصلة بالإنترنت. أفضل للأمان طويل المدى.",
+            "examples": "محافظ الأجهزة، المحافظ الورقية"
+          },
+          "custodial": {
+            "title": "المحافظ الحفظية",
+            "description": "يتحكم طرف ثالث بالمفاتيح الخاصة.",
+            "examples": "محافظ البورصات"
+          },
+          "nonCustodial": {
+            "title": "المحافظ غير الحفظية",
+            "description": "أنت تتحكم في مفاتيحك الخاصة.",
+            "examples": "محافظ ذاتية الحفظ"
+          }
+        },
+        "security": {
+          "title": "أفضل ممارسات الأمان",
+          "seedPhrase": {
+            "title": "احمِ عبارة البذور",
+            "description": "لا تشارك عبارة الاسترداد المكونة من 12-24 كلمة أبداً"
+          },
+          "twoFactor": {
+            "title": "فعّل المصادقة الثنائية",
+            "description": "أضف طبقة أمان إضافية"
+          },
+          "verifyAddresses": {
+            "title": "تحقق من العناوين",
+            "description": "تحقق دائماً من العناوين قبل الإرسال"
+          },
+          "updateSoftware": {
+            "title": "حدّث البرنامج",
+            "description": "حافظ على تحديث برنامج المحفظة"
+          }
+        }
       },
       "whitepaper": {
         "tag": "الورقة التقنية",
         "title": "الورقة البيضاء",
-        "subtitle": "وثائق تقنية شاملة لبنية TBurn Chain والإجماع والاقتصاد الرمزي."
+        "subtitle": "وثائق تقنية شاملة لبنية TBurn Chain والإجماع والاقتصاد الرمزي.",
+        "trustCrisis": {
+          "title": "أزمة الثقة",
+          "description": "معالجة مشكلات النظام البيئي للعملات المشفرة",
+          "problems": {
+            "rugPulls": "عمليات الاحتيال - خسارة أكثر من 2.8 مليار دولار في 2023",
+            "fakeAudits": "تدقيقات أمنية مزيفة ومختومة",
+            "noAccountability": "لا توجد مساءلة بعد الإطلاق"
+          }
+        },
+        "performance": {
+          "title": "مواصفات الأداء",
+          "specs": {
+            "tps": "أكثر من 50,000 معاملة في الثانية",
+            "blockTime": "وقت كتلة ثانية واحدة",
+            "finality": "نهائية 6 ثوانٍ"
+          }
+        },
+        "aiLayers": {
+          "title": "طبقات الذكاء الاصطناعي",
+          "description": "تنسيق ذكاء اصطناعي ثلاثي النطاق",
+          "bands": {
+            "strategic": "النطاق الاستراتيجي - تخطيط وتحسين طويل المدى",
+            "tactical": "النطاق التكتيكي - تخصيص الموارد في الوقت الفعلي",
+            "operational": "النطاق التشغيلي - معالجة المعاملات والتحقق"
+          }
+        },
+        "quantumSecurity": {
+          "title": "الأمان الكمي",
+          "description": "مقاومة التهديدات الكمية المستقبلية",
+          "features": {
+            "hybridSignatures": "توقيعات هجينة CRYSTALS-Dilithium + ED25519",
+            "postQuantum": "خوارزميات تشفير ما بعد الكم",
+            "futureProof": "إعداد للأمان المستقبلي"
+          }
+        },
+        "coreModules": {
+          "title": "الوحدات الأساسية",
+          "items": {
+            "trustEngine": {
+              "title": "محرك الثقة",
+              "description": "حساب وتحديث درجات الثقة في الوقت الفعلي"
+            },
+            "consensusLayer": {
+              "title": "طبقة الإجماع",
+              "description": "إثبات الثقة مع التحسين بالذكاء الاصطناعي"
+            },
+            "executionEngine": {
+              "title": "محرك التنفيذ",
+              "description": "EVM متوافق مع ميزات TBurn المحسنة"
+            },
+            "bridgeProtocol": {
+              "title": "بروتوكول الجسر",
+              "description": "نقل آمن للأصول عبر السلاسل"
+            }
+          }
+        }
       },
       "tokenomics": {
         "tag": "الاقتصاد",
         "title": "الاقتصاد الرمزي",
-        "subtitle": "فهم توزيع رموز TBURN وجدول الإصدار والآليات الانكماشية."
+        "subtitle": "فهم توزيع رموز TBURN وجدول الإصدار والآليات الانكماشية.",
+        "marketStats": {
+          "title": "إحصائيات السوق",
+          "totalSupply": "إجمالي العرض",
+          "circulatingSupply": "العرض المتداول",
+          "totalBurned": "إجمالي المحروق",
+          "marketCap": "القيمة السوقية"
+        },
+        "distribution": {
+          "title": "توزيع الرموز",
+          "community": {
+            "title": "المجتمع والنظام البيئي",
+            "percentage": "40%",
+            "description": "منح، مكافآت، وحوافز المجتمع"
+          },
+          "staking": {
+            "title": "مكافآت التخزين",
+            "percentage": "25%",
+            "description": "مكافآت المدققين والمفوضين"
+          },
+          "team": {
+            "title": "الفريق والمستشارون",
+            "percentage": "15%",
+            "description": "استحقاق 4 سنوات مع قفل سنة واحدة"
+          },
+          "treasury": {
+            "title": "الخزينة",
+            "percentage": "10%",
+            "description": "احتياطي تطوير البروتوكول"
+          },
+          "investors": {
+            "title": "المستثمرون الأوائل",
+            "percentage": "10%",
+            "description": "استحقاق سنتين"
+          }
+        },
+        "burnMechanisms": {
+          "title": "آليات الحرق",
+          "transactionFees": {
+            "title": "حرق رسوم المعاملات",
+            "description": "يتم حرق 50% من رسوم المعاملات تلقائياً"
+          },
+          "projectPenalties": {
+            "title": "عقوبات المشاريع",
+            "description": "يتم حرق الضمان من المشاريع الفاشلة"
+          },
+          "scheduledBurns": {
+            "title": "الحروق المجدولة",
+            "description": "أحداث الحرق الدورية بناءً على الحوكمة"
+          }
+        },
+        "staking": {
+          "title": "التخزين والمكافآت",
+          "tiers": {
+            "genesis": {
+              "title": "مستوى التكوين",
+              "requirement": "1,000,000 TBURN+",
+              "apy": "أعلى من 15% APY"
+            },
+            "core": {
+              "title": "المستوى الأساسي",
+              "requirement": "500,000 TBURN+",
+              "apy": "12-15% APY"
+            },
+            "community": {
+              "title": "مستوى المجتمع",
+              "requirement": "100,000 TBURN+",
+              "apy": "8-12% APY"
+            }
+          }
+        },
+        "governance": {
+          "title": "الحوكمة",
+          "description": "يمنح حاملو TBURN حقوق التصويت على ترقيات البروتوكول، إنفاق الخزينة، وتغييرات المعلمات."
+        }
       },
       "roadmap": {
         "tag": "التطوير",
         "title": "خارطة الطريق",
-        "subtitle": "تتبع تقدمنا والمعالم القادمة في الرحلة نحو التبني الواسع."
+        "subtitle": "تتبع تقدمنا والمعالم القادمة في الرحلة نحو التبني الواسع.",
+        "phases": {
+          "phase1": {
+            "name": "المرحلة 1: الأساس",
+            "status": "مكتمل",
+            "items": {
+              "mainnetLaunch": "إطلاق الشبكة الرئيسية",
+              "trustScoreV1": "نظام درجة الثقة V1",
+              "basicDefi": "بنية DeFi الأساسية",
+              "walletIntegration": "تكامل المحفظة"
+            }
+          },
+          "phase2": {
+            "name": "المرحلة 2: التوسع",
+            "status": "جاري",
+            "items": {
+              "aiOrchestration": "تنسيق الذكاء الاصطناعي V4",
+              "crossChainBridge": "الجسر عبر السلاسل",
+              "advancedDefi": "منتجات DeFi المتقدمة",
+              "enterpriseTools": "أدوات المؤسسات"
+            }
+          },
+          "phase3": {
+            "name": "المرحلة 3: النضج",
+            "status": "قادم",
+            "items": {
+              "quantumUpgrade": "ترقية مقاومة الكم",
+              "globalCompliance": "إطار الامتثال العالمي",
+              "institutionalAdoption": "التبني المؤسسي",
+              "ecosystemExpansion": "توسيع النظام البيئي"
+            }
+          }
+        },
+        "metrics": {
+          "title": "المقاييس الرئيسية",
+          "totalProjects": "المشاريع المسجلة",
+          "totalValidators": "المدققون النشطون",
+          "totalTransactions": "إجمالي المعاملات",
+          "totalBurned": "إجمالي المحروق"
+        }
       },
       "blockchainBasics": {
         "tag": "مبتدئ",
@@ -4578,7 +5021,75 @@
         "sdks": "SDKs الرسمية",
         "apiReference": "مرجع API",
         "devTools": "أدوات المطور",
-        "grants": "منح المطورين"
+        "grants": "منح المطورين",
+        "stats": {
+          "activeProjects": "المشاريع النشطة",
+          "weeklyDeployments": "عمليات النشر الأسبوعية",
+          "apiCalls": "استدعاءات API",
+          "developers": "المطورون"
+        },
+        "sdksList": {
+          "typescript": {
+            "title": "TypeScript/JavaScript",
+            "description": "SDK الأكثر استخداماً مع دعم كامل",
+            "version": "v4.2.1"
+          },
+          "python": {
+            "title": "Python",
+            "description": "للخدمات الخلفية والتحليلات",
+            "version": "v4.1.0"
+          },
+          "rust": {
+            "title": "Rust",
+            "description": "للتطبيقات عالية الأداء",
+            "version": "v4.0.3"
+          },
+          "go": {
+            "title": "Go",
+            "description": "للبنية التحتية والأدوات",
+            "version": "v4.0.2"
+          }
+        },
+        "tools": {
+          "playground": {
+            "title": "ساحة الاختبار",
+            "description": "اختبر استدعاءات API مباشرة في المتصفح"
+          },
+          "simulator": {
+            "title": "محاكي المعاملات",
+            "description": "محاكاة المعاملات قبل التنفيذ"
+          },
+          "debugger": {
+            "title": "مصحح العقود",
+            "description": "تصحيح العقود الذكية خطوة بخطوة"
+          },
+          "monitor": {
+            "title": "مراقب الشبكة",
+            "description": "مراقبة حالة الشبكة والأداء"
+          }
+        },
+        "grantsProgram": {
+          "title": "برنامج منح المطورين",
+          "description": "احصل على تمويل لمشروعك على TBurn Chain",
+          "tiers": {
+            "seed": {
+              "title": "تمويل بذري",
+              "amount": "حتى 10,000 دولار",
+              "description": "للمشاريع في مراحلها الأولى"
+            },
+            "growth": {
+              "title": "تمويل النمو",
+              "amount": "10,000 - 50,000 دولار",
+              "description": "للمشاريع ذات قاعدة مستخدمين"
+            },
+            "scale": {
+              "title": "تمويل التوسع",
+              "amount": "50,000 - 250,000 دولار",
+              "description": "للمشاريع الجاهزة للتوسع"
+            }
+          },
+          "applyButton": "تقدم للحصول على منحة"
+        }
       },
       "docs": {
         "tag": "الوثائق",
@@ -4588,7 +5099,25 @@
       "api": {
         "tag": "مرجع API",
         "title": "وثائق API",
-        "subtitle": "نقاط نهاية RESTful API للبلوكتشين و DeFi وخدمات الذكاء الاصطناعي."
+        "subtitle": "نقاط نهاية RESTful API للبلوكتشين و DeFi وخدمات الذكاء الاصطناعي.",
+        "categories": {
+          "blockchain": {
+            "title": "Blockchain API",
+            "description": "الكتل والمعاملات والعناوين"
+          },
+          "defi": {
+            "title": "DeFi API",
+            "description": "المجمعات والتخزين والمبادلة"
+          },
+          "trust": {
+            "title": "Trust Score API",
+            "description": "درجات الثقة والتحقق"
+          },
+          "ai": {
+            "title": "AI Services API",
+            "description": "خدمات تنسيق الذكاء الاصطناعي"
+          }
+        }
       },
       "cli": {
         "tag": "أدوات CLI",
@@ -4603,7 +5132,21 @@
       "contracts": {
         "tag": "العقود الذكية",
         "title": "العقود الذكية",
-        "subtitle": "اكتب واختبر وانشر عقود ذكية آمنة على TBurn Chain."
+        "subtitle": "اكتب واختبر وانشر عقود ذكية آمنة على TBurn Chain.",
+        "standards": {
+          "tbc20": {
+            "title": "TBC-20",
+            "description": "معيار الرموز القابلة للتبادل"
+          },
+          "tbc721": {
+            "title": "TBC-721",
+            "description": "معيار الرموز غير القابلة للتبادل (NFT)"
+          },
+          "tbc1155": {
+            "title": "TBC-1155",
+            "description": "معيار الرموز متعددة المعايير"
+          }
+        }
       },
       "websocket": {
         "tag": "الوقت الفعلي",
@@ -4705,6 +5248,68 @@
       }
     },
     "useCases": {
+      "gaming": {
+        "tag": "الألعاب والميتافيرس",
+        "title": "الألعاب والميتافيرس",
+        "subtitle": "بنية تحتية GameFi وتكامل الميتافيرس.",
+        "categories": {
+          "title": "فئات الألعاب",
+          "all": "جميع الألعاب",
+          "p2e": "العب لتربح",
+          "nft": "ألعاب NFT",
+          "metaverse": "الميتافيرس"
+        },
+        "metrics": {
+          "activePlayers": "اللاعبون النشطون",
+          "dailyTransactions": "المعاملات اليومية",
+          "totalNfts": "إجمالي NFTs",
+          "tvl": "القيمة المقفلة في الألعاب"
+        },
+        "features": {
+          "title": "ميزات الألعاب",
+          "p2e": {
+            "title": "العب لتربح",
+            "description": "اقتصاديات رمزية مستدامة مع التحقق من مكافحة الغش"
+          },
+          "nftAssets": {
+            "title": "أصول NFT للألعاب",
+            "description": "ملكية موثقة وإمكانية التشغيل البيني عبر الألعاب"
+          },
+          "tournaments": {
+            "title": "البطولات",
+            "description": "مجمعات جوائز لامركزية مع توزيع عادل"
+          },
+          "guilds": {
+            "title": "نقابات الألعاب",
+            "description": "إدارة نقابات قائمة على DAO ومشاركة الأرباح"
+          }
+        },
+        "gameTypes": {
+          "title": "أنواع الألعاب المدعومة",
+          "rpg": {
+            "title": "RPG",
+            "description": "ألعاب تقمص الأدوار مع تداول العناصر"
+          },
+          "strategy": {
+            "title": "الاستراتيجية",
+            "description": "إدارة الموارد والسيطرة على المناطق"
+          },
+          "card": {
+            "title": "ألعاب الورق",
+            "description": "ألعاب البطاقات القابلة للتجميع مع بطاقات NFT"
+          },
+          "casual": {
+            "title": "الألعاب العادية",
+            "description": "ألعاب سريعة مع مكافآت صغيرة"
+          }
+        },
+        "cta": {
+          "title": "هل أنت مستعد للبناء على TBurn؟",
+          "subtitle": "الوصول إلى SDKs GameFi والوثائق",
+          "getStarted": "ابدأ الآن",
+          "viewDocs": "عرض الوثائق"
+        }
+      },
       "tokenization": {
         "tag": "الترميز",
         "title": "ترميز الأصول",
@@ -4726,26 +5331,243 @@
         "subtitle": "حلول دفع عالية الحجم للمؤسسات."
       },
       "enterprise": {
-        "tag": "المؤسسات",
+        "tag": "بلوكتشين المؤسسات",
         "title": "حلول المؤسسات",
-        "subtitle": "حلول بلوكتشين شاملة للمؤسسات."
-      },
-      "gaming": {
-        "tag": "الألعاب",
-        "title": "الألعاب والميتافيرس",
-        "subtitle": "بنية تحتية GameFi وتكامل الميتافيرس."
+        "subtitle": "حلول بلوكتشين شاملة للأعمال الحديثة. شبكات خاصة، ميزات الامتثال، ودعم مؤسسي على مدار الساعة.",
+        "contactEnterprise": "اتصل بالمؤسسات",
+        "enterpriseDocs": "وثائق المؤسسات",
+        "metrics": {
+          "enterpriseClients": {
+            "value": "500+",
+            "label": "عملاء المؤسسات"
+          },
+          "uptimeGuarantee": {
+            "value": "99.95%",
+            "label": "ضمان وقت التشغيل"
+          },
+          "dedicatedSupport": {
+            "value": "24/7",
+            "label": "دعم مخصص"
+          }
+        },
+        "solutions": {
+          "title": "حلول المؤسسات",
+          "subtitle": "تطبيقات بلوكتشين لتحديات الأعمال الحديثة.",
+          "identityAccess": {
+            "title": "إدارة الهوية والوصول",
+            "description": "هوية لامركزية مع بيانات اعتماد ذاتية السيادة. مصادقة متعددة العوامل، تكامل SSO، وضوابط أذونات دقيقة."
+          },
+          "supplyChain": {
+            "title": "شفافية سلسلة التوريد",
+            "description": "تتبع منشأ المنتج من البداية إلى النهاية. سجلات تدقيق غير قابلة للتغيير من الشركة المصنعة إلى المستهلك مع تكامل IoT."
+          },
+          "documentManagement": {
+            "title": "إدارة المستندات",
+            "description": "تخزين والتحقق من المستندات المقاومة للتلاعب. التوقيعات الرقمية، التحكم في الإصدارات، والأرشفة المتوافقة."
+          },
+          "processAutomation": {
+            "title": "أتمتة العمليات التجارية",
+            "description": "سير عمل مدفوع بالعقود الذكية. أتمتة الموافقات والمدفوعات والاتفاقيات متعددة الأطراف مع تنفيذ بدون ثقة."
+          }
+        },
+        "platformFeatures": {
+          "title": "ميزات المنصة",
+          "soc2": {
+            "title": "متوافق مع SOC 2",
+            "description": "ضوابط أمان مؤسسية وتدقيقات سنوية"
+          },
+          "privateSubnets": {
+            "title": "شبكات فرعية خاصة",
+            "description": "بيئات شبكة معزولة للبيانات الحساسة"
+          },
+          "roleBasedAccess": {
+            "title": "الوصول القائم على الأدوار",
+            "description": "أذونات دقيقة وعزل متعدد المستأجرين"
+          },
+          "onPremise": {
+            "title": "خيار محلي",
+            "description": "النشر داخل البنية التحتية لمركز البيانات الخاص بك"
+          }
+        },
+        "industryApplications": {
+          "title": "تطبيقات الصناعة",
+          "healthcare": {
+            "title": "الرعاية الصحية",
+            "description": "إدارة السجلات المتوافقة مع HIPAA"
+          },
+          "manufacturing": {
+            "title": "التصنيع",
+            "description": "سلسلة التوريد وضمان الجودة"
+          },
+          "legal": {
+            "title": "القانون",
+            "description": "إدارة العقود والتوقيعات الإلكترونية"
+          },
+          "government": {
+            "title": "الحكومة",
+            "description": "حفظ السجلات الشفاف والتصويت"
+          },
+          "insurance": {
+            "title": "التأمين",
+            "description": "معالجة المطالبات واكتشاف الاحتيال"
+          },
+          "logistics": {
+            "title": "اللوجستيات",
+            "description": "تتبع الشحنات والتحقق"
+          }
+        },
+        "cta": {
+          "title": "هل أنت مستعد للبلوكتشين المؤسسي؟",
+          "subtitle": "حدد موعداً لاستشارة مع فريق المؤسسات لدينا. سنصمم حلاً مخصصاً يناسب متطلبات منظمتك.",
+          "scheduleConsultation": "حدد موعد استشارة"
+        }
       }
     },
     "network": {
       "validators": {
-        "tag": "الشبكة",
+        "tag": "مدققو الشبكة",
         "title": "المدققون",
-        "subtitle": "انضم إلى شبكة مدققي TBurn واكسب المكافآت."
+        "subtitle": "انضم إلى شبكة مدققي TBurn واكسب المكافآت أثناء تأمين البلوكتشين.",
+        "becomeValidator": "كن مدققاً",
+        "consensusSpecs": {
+          "title": "مواصفات الإجماع",
+          "blockTime": {
+            "label": "وقت الكتلة",
+            "value": "ثانية واحدة"
+          },
+          "finality": {
+            "label": "النهائية",
+            "value": "6 ثوانٍ"
+          },
+          "validatorSet": {
+            "label": "مجموعة المدققين",
+            "value": "100 نشط"
+          },
+          "epochLength": {
+            "label": "طول الحقبة",
+            "value": "6 ساعات"
+          }
+        },
+        "validatorTiers": {
+          "title": "نظام مستويات المدققين",
+          "genesis": {
+            "name": "التكوين",
+            "stake": "1,000,000 TBURN",
+            "rewards": "مكافآت متميزة + حوكمة"
+          },
+          "core": {
+            "name": "الأساسي",
+            "stake": "500,000 TBURN",
+            "rewards": "مكافآت قياسية + تصويت"
+          },
+          "community": {
+            "name": "المجتمع",
+            "stake": "100,000 TBURN",
+            "rewards": "مكافآت أساسية"
+          }
+        },
+        "hardwareRequirements": {
+          "title": "متطلبات الأجهزة",
+          "cpu": "المعالج: 8+ أنوية",
+          "ram": "الذاكرة: 32 جيجابايت+",
+          "storage": "التخزين: 1 تيرابايت NVMe SSD",
+          "bandwidth": "النطاق الترددي: 1 جيجابت/ثانية"
+        },
+        "slashingPolicy": {
+          "title": "سياسة العقوبات",
+          "doubleSign": {
+            "offense": "التوقيع المزدوج",
+            "penalty": "قطع 100% من الحصة"
+          },
+          "downtime": {
+            "offense": "التوقف المطول",
+            "penalty": "قطع 1-5% من الحصة"
+          },
+          "maliciousVoting": {
+            "offense": "التصويت الخبيث",
+            "penalty": "قطع 50% من الحصة"
+          }
+        }
       },
       "rpc": {
-        "tag": "البنية التحتية",
+        "tag": "بنية RPC التحتية",
         "title": "مزودو RPC",
-        "subtitle": "نقاط نهاية RPC عالية الأداء والوصول إلى API."
+        "subtitle": "نقاط نهاية RPC عالية الأداء مع موثوقية على مستوى المؤسسات. دعم WebSocket و HTTP.",
+        "getApiKey": "احصل على مفتاح API",
+        "apiPlans": {
+          "title": "خطط API والحدود",
+          "free": {
+            "name": "مجاني",
+            "requestsPerMin": "20",
+            "requestsPerDay": "1,000",
+            "price": "$0"
+          },
+          "basic": {
+            "name": "أساسي",
+            "requestsPerMin": "100",
+            "requestsPerDay": "10,000",
+            "price": "$100/شهر"
+          },
+          "pro": {
+            "name": "احترافي",
+            "requestsPerMin": "500",
+            "requestsPerDay": "100,000",
+            "price": "$500/شهر"
+          },
+          "enterprise": {
+            "name": "المؤسسات",
+            "requestsPerMin": "غير محدود",
+            "requestsPerDay": "غير محدود",
+            "price": "اتصل بنا"
+          }
+        },
+        "coreEndpoints": {
+          "title": "نقاط النهاية الأساسية",
+          "scoreQuery": {
+            "title": "Score Query API",
+            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+          },
+          "project": {
+            "title": "Project API",
+            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+          },
+          "analytics": {
+            "title": "Analytics API",
+            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+          },
+          "webhook": {
+            "title": "Webhook API",
+            "endpoints": ["POST /webhooks"],
+            "events": "الأحداث: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdkExamples": {
+          "title": "أمثلة SDK والمؤسسات",
+          "typescript": "TypeScript Enterprise SDK",
+          "python": "Python Enterprise SDK",
+          "curl": "مثال cURL للإنتاج"
+        },
+        "support": {
+          "title": "الدعم والاتصال",
+          "documentation": {
+            "title": "الوثائق",
+            "description": "مراجع API مفصلة وأدلة."
+          },
+          "apiStatus": {
+            "title": "حالة API",
+            "description": "حالة النظام في الوقت الفعلي ووقت التشغيل."
+          },
+          "developerHub": {
+            "title": "مركز المطورين",
+            "description": "SDKs مفتوحة المصدر وأمثلة."
+          }
+        },
+        "cta": {
+          "title": "هل أنت مستعد للبناء؟",
+          "subtitle": "ابدأ البناء مع TBurn Chain API اليوم. احصل على مفتاح API المجاني وتمتع بالوصول إلى بنية بلوكتشين تحتية على مستوى المؤسسات.",
+          "getStartedFree": "ابدأ مجاناً",
+          "contactSales": "اتصل بالمبيعات"
+        }
       },
       "status": {
         "tag": "الحالة",
@@ -4762,7 +5584,93 @@
       "hub": {
         "tag": "المجتمع",
         "title": "مركز المجتمع",
-        "subtitle": "تواصل مع البناة والمدققين والمتحمسين."
+        "subtitle": "تواصل مع البناة والمدققين والمتحمسين.",
+        "stats": {
+          "totalMembers": {
+            "label": "إجمالي الأعضاء"
+          },
+          "monthlyActive": {
+            "label": "النشطون شهرياً"
+          },
+          "ambassadors": {
+            "label": "السفراء"
+          },
+          "contributors": {
+            "label": "المساهمون"
+          }
+        },
+        "channels": {
+          "title": "قنوات المجتمع",
+          "discord": {
+            "name": "Discord",
+            "description": "محادثات المطورين في الوقت الفعلي، الدعم، والتواصل المجتمعي.",
+            "action": "انضم إلى الخادم"
+          },
+          "telegram": {
+            "name": "Telegram",
+            "description": "إعلانات سريعة ومجموعات مجتمعية محلية.",
+            "action": "انضم إلى القناة"
+          },
+          "twitter": {
+            "name": "Twitter / X",
+            "description": "آخر التحديثات والشراكات وأخبار الفعاليات.",
+            "action": "تابعنا"
+          },
+          "github": {
+            "name": "GitHub",
+            "description": "الكود مفتوح المصدر، SDKs، والوثائق التقنية.",
+            "action": "ساهم"
+          }
+        },
+        "leaderboard": {
+          "title": "لوحة المتصدرين للمساهمين",
+          "subtitle": "أفضل المساهمين في المجتمع هذا الشهر"
+        },
+        "ambassadorProgram": {
+          "title": "برنامج السفراء",
+          "subtitle": "قد المجتمع العالمي",
+          "benefits": {
+            "tokenRewards": "مكافآت TBURN شهرية",
+            "earlyAccess": "وصول مبكر للميزات الجديدة",
+            "nftBadge": "شارة NFT رسمية وهدايا",
+            "directChannel": "قناة تواصل مباشرة مع الفريق"
+          },
+          "applyButton": "تقدم كسفير"
+        },
+        "contribute": {
+          "title": "طرق المساهمة",
+          "code": {
+            "title": "الكود",
+            "description": "SDKs، العقود الذكية، الأدوات",
+            "action": "عرض المشاكل"
+          },
+          "content": {
+            "title": "المحتوى",
+            "description": "الدروس، المدونات، الترجمات",
+            "action": "أرسل محتوى"
+          },
+          "moderation": {
+            "title": "الإشراف",
+            "description": "دعم Discord و Telegram",
+            "action": "تقدم كمشرف"
+          },
+          "marketing": {
+            "title": "التسويق",
+            "description": "الفعاليات، وسائل التواصل الاجتماعي، النمو",
+            "action": "انضم إلى الفريق"
+          }
+        },
+        "governance": {
+          "title": "الحوكمة",
+          "tag": "TBURN DAO",
+          "description": "خزّن رموز TBURN للمشاركة في قرارات البروتوكول. أنشئ مقترحات، صوت على الترقيات، وأدر خزينة المجتمع.",
+          "goToPortal": "اذهب إلى بوابة الحوكمة",
+          "stats": {
+            "proposals": "المقترحات",
+            "votesCast": "الأصوات المدلى بها",
+            "treasuryBalance": "رصيد الخزينة"
+          }
+        }
       },
       "news": {
         "tag": "الأخبار والمدونة",
@@ -4770,23 +5678,343 @@
         "subtitle": "آخر التحديثات والإعلانات والرؤى."
       },
       "events": {
-        "tag": "الفعاليات",
+        "tag": "الفعاليات والأنشطة",
         "title": "الفعاليات والأنشطة",
-        "subtitle": "انضم إلى فعاليات مجتمع TBurn Chain والهاكاثونات والمؤتمرات."
+        "subtitle": "انضم إلى فعاليات مجتمع TBurn Chain والهاكاثونات والمؤتمرات.",
+        "filters": {
+          "all": "جميع الفعاليات",
+          "hackathon": "هاكاثون",
+          "ama": "AMA",
+          "webinar": "ندوة عبر الإنترنت",
+          "meetup": "لقاء",
+          "conference": "مؤتمر"
+        },
+        "featured": {
+          "title": "الفعاليات المميزة",
+          "capacity": "السعة"
+        },
+        "upcoming": {
+          "title": "الفعاليات القادمة"
+        },
+        "eventTypes": {
+          "launchEvent": "حدث الإطلاق",
+          "hackathon": "هاكاثون",
+          "ama": "جلسة AMA",
+          "webinar": "ندوة عبر الإنترنت",
+          "meetup": "لقاء",
+          "seminar": "ندوة",
+          "training": "تدريب",
+          "conference": "مؤتمر"
+        },
+        "buttons": {
+          "registerNow": "سجل الآن",
+          "applyNow": "تقدم الآن",
+          "setReminder": "ضع تذكيراً",
+          "register": "تسجيل",
+          "rsvp": "RSVP (محدود)",
+          "getTickets": "احصل على التذاكر"
+        },
+        "hostEvent": {
+          "title": "هل تريد استضافة فعالية؟",
+          "description": "استضف لقاءات، ندوات عبر الإنترنت، أو هاكاثونات مع مجتمع TBurn Chain. نوفر التمويل والهدايا والدعم التسويقي.",
+          "applyToHost": "تقدم للاستضافة"
+        },
+        "toast": {
+          "reminderSet": "تم ضبط التذكير",
+          "reminderDescription": "سيتم إشعارك قبل \"{{eventTitle}}\""
+        }
       }
     },
     "legal": {
       "terms": {
         "title": "شروط الخدمة",
-        "subtitle": "الشروط والأحكام لاستخدام خدمات TBurn Chain."
+        "subtitle": "الشروط والأحكام لاستخدام خدمات TBurn Chain.",
+        "backToHome": "العودة إلى الرئيسية",
+        "sections": {
+          "acceptance": {
+            "title": "1. قبول الشروط",
+            "content": "بالوصول إلى خدمات TBurn Chain أو استخدامها، فإنك توافق على الالتزام بشروط الخدمة هذه ('الشروط'). إذا كنت لا توافق على هذه الشروط، فلا تستخدم خدماتنا. تشكل هذه الشروط اتفاقية ملزمة قانونياً بينك وبين مؤسسة TBurn Chain."
+          },
+          "definitions": {
+            "title": "2. التعريفات",
+            "tburnChain": "'TBurn Chain' تشير إلى شبكة البلوكتشين من الطبقة الأولى والخدمات المرتبطة بها.",
+            "services": "'الخدمات' تشمل شبكة البلوكتشين ونظام التحقق من الثقة وواجهات برمجة التطبيقات وميزات المنصة.",
+            "user": "'المستخدم' أو 'أنت' تشير إلى أي فرد أو كيان يستخدم TBurn Chain.",
+            "project": "'المشروع' يشير إلى مشاريع البلوكتشين التي تسعى للتحقق على TBurn Chain.",
+            "trustScore": "'درجة الثقة' تشير إلى تقييم الموثوقية المعين من خلال نظام التحقق ثلاثي المراحل."
+          },
+          "eligibility": {
+            "title": "3. الأهلية",
+            "intro": "لاستخدام TBurn Chain، يجب عليك:",
+            "age": "أن تبلغ 18 عاماً على الأقل (أو السن القانوني في ولايتك القضائية).",
+            "legalCapacity": "أن تمتلك الأهلية القانونية لإبرام عقود ملزمة.",
+            "notProhibited": "ألا تكون ممنوعاً من استخدام خدماتنا بموجب القوانين المعمول بها.",
+            "comply": "الامتثال لجميع القوانين المحلية المتعلقة بالسلوك عبر الإنترنت وتقنية البلوكتشين."
+          },
+          "accountSecurity": {
+            "title": "4. تسجيل الحساب والأمان",
+            "accountCreation": "4.1 إنشاء الحساب",
+            "accountCreationContent": "توافق على تقديم معلومات دقيقة والحفاظ على سريتها وإخطارنا فوراً بأي وصول غير مصرح به.",
+            "walletSecurity": "4.2 أمان المحفظة",
+            "walletSecurityWarning": "هام: أنت المسؤول الوحيد عن تأمين مفاتيحك الخاصة. لا يمكن استرداد المفاتيح الخاصة المفقودة. ليس لدينا حق الوصول إلى مفاتيحك الخاصة ولا يمكننا المساعدة في استرداد الأموال المفقودة."
+          },
+          "trustVerification": {
+            "title": "5. نظام التحقق من الثقة",
+            "threeStageProcess": "5.1 العملية ثلاثية المراحل",
+            "stage1": "المرحلة 1: التصفية التلقائية بالذكاء الاصطناعي (24 ساعة)",
+            "stage2": "المرحلة 2: التحقق من قبل الخبراء بواسطة مطوري البلوكتشين والمدققين (7-14 يوماً)",
+            "stage3": "المرحلة 3: تصويت المجتمع من قبل حاملي رمز TBURN (3-5 أيام)",
+            "implications": "5.2 آثار درجة الثقة",
+            "implicationsContent": "تتراوح درجات الثقة من 0 إلى 100. النتائج أقل من 40 تؤدي إلى تعليق تداول الرمز تلقائياً. يتم تحديث الدرجات في الوقت الفعلي على السلسلة."
+          },
+          "burnMechanism": {
+            "title": "6. آلية الحرق",
+            "content": "يجب على المشاريع إيداع ضمان يعادل التزامها بالحرق. يؤدي الفشل في تنفيذ عمليات الحرق المجدولة إلى عقوبات تلقائية وحرق الضمانات من خلال العقود الذكية."
+          },
+          "prohibitedActivities": {
+            "title": "7. الأنشطة المحظورة",
+            "intro": "توافق على عدم:",
+            "items": {
+              "moneyLaundering": "استخدام المنصة لغسيل الأموال أو تمويل الإرهاب",
+              "falseInfo": "تقديم معلومات مشروع كاذبة أو مضللة",
+              "manipulateTrustScores": "التلاعب بدرجات الثقة من خلال التصويت المنسق",
+              "exploitVulnerabilities": "محاولة استغلال ثغرات العقود الذكية",
+              "marketManipulation": "الانخراط في التلاعب بالسوق أو التداول الوهمي"
+            }
+          },
+          "intellectualProperty": {
+            "title": "8. الملكية الفكرية",
+            "content": "جميع حقوق الملكية الفكرية في TBurn Chain، بما في ذلك المنصة والبروتوكولات والعلامة التجارية، مملوكة لمؤسسة TBurn Chain. يُمنح لك ترخيص محدود وغير حصري لاستخدام خدماتنا."
+          },
+          "disclaimers": {
+            "title": "9. إخلاء المسؤولية والقيود",
+            "asIs": "على أساس 'كما هي'",
+            "asIsContent": "يتم تقديم الخدمات 'كما هي' و'حسب التوفر' دون أي ضمانات من أي نوع، سواء صريحة أو ضمنية.",
+            "noInvestmentAdvice": "لا نصائح استثمارية",
+            "noInvestmentAdviceContent": "لا تقدم TBurn Chain نصائح استثمارية أو مالية أو قانونية. درجات الثقة هي للمعلومات فقط.",
+            "limitationOfLiability": "تحديد المسؤولية",
+            "limitationOfLiabilityContent": "إلى أقصى حد يسمح به القانون، لن تكون TBURN CHAIN مسؤولة عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو تأديبية."
+          },
+          "governingLaw": {
+            "title": "10. القانون الحاكم",
+            "content": "تخضع هذه الشروط وتُفسر وفقاً لقوانين الولاية القضائية التي تم تأسيس مؤسسة TBurn Chain فيها، بغض النظر عن مبادئ تعارض القوانين."
+          }
+        },
+        "contact": {
+          "title": "معلومات الاتصال",
+          "legalInquiries": "الاستفسارات القانونية",
+          "generalSupport": "الدعم العام",
+          "note": "ملاحظة: يتم تقديم شروط الخدمة هذه باللغة الإنجليزية. قد تتوفر ترجمات للراحة، لكن النسخة الإنجليزية هي المعتمدة في حالة التعارض."
+        },
+        "relatedDocuments": {
+          "title": "المستندات القانونية ذات الصلة",
+          "privacyPolicy": "سياسة الخصوصية",
+          "privacyPolicyDesc": "كيف نتعامل مع بياناتك",
+          "disclaimer": "إخلاء المسؤولية",
+          "disclaimerDesc": "إفصاحات المخاطر والإشعارات"
+        },
+        "learnMore": {
+          "title": "اعرف المزيد",
+          "trustScoreSystem": "نظام درجة الثقة",
+          "trustScoreSystemDesc": "التحقق ثلاثي المراحل",
+          "whatIsWallet": "ما هي المحفظة؟",
+          "whatIsWalletDesc": "أساسيات أمان المحفظة",
+          "whatIsTBurnChain": "ما هي TBurn Chain؟",
+          "whatIsTBurnChainDesc": "نظرة عامة على المنصة"
+        }
       },
       "privacy": {
         "title": "سياسة الخصوصية",
-        "subtitle": "كيف نجمع ونستخدم ونحمي بياناتك."
+        "subtitle": "كيف نجمع ونستخدم ونحمي بياناتك.",
+        "backToHome": "العودة إلى الرئيسية",
+        "sections": {
+          "introduction": {
+            "title": "1. المقدمة",
+            "content": "مرحباً بك في TBurn Chain ('نحن' أو 'لنا'). نحن ملتزمون بحماية معلوماتك الشخصية وحقك في الخصوصية. توضح سياسة الخصوصية هذه كيف نجمع معلوماتك ونستخدمها ونفصح عنها ونحميها عند زيارة موقعنا الإلكتروني واستخدام خدمات البلوكتشين الخاصة بنا."
+          },
+          "informationCollected": {
+            "title": "2. المعلومات التي نجمعها",
+            "youProvide": {
+              "title": "2.1 المعلومات التي تقدمها",
+              "accountInfo": "معلومات الحساب: عنوان البريد الإلكتروني، اسم المستخدم، عناوين المحفظة.",
+              "projectVerification": "التحقق من المشروع: وثائق تسجيل الأعمال، معلومات KYC، البيانات المالية.",
+              "communication": "بيانات الاتصال: الرسائل، تذاكر الدعم، الملاحظات."
+            },
+            "automaticallyCollected": {
+              "title": "2.2 المعلومات المجمعة تلقائياً",
+              "blockchainData": "بيانات البلوكتشين: عناوين المحافظ العامة، هاش المعاملات، تفاعلات العقود الذكية.",
+              "deviceInfo": "معلومات الجهاز: عنوان IP، نوع المتصفح، نظام التشغيل.",
+              "usageData": "بيانات الاستخدام: الصفحات المعروضة، أنماط التنقل، مدة الجلسة."
+            }
+          },
+          "howWeUse": {
+            "title": "3. كيف نستخدم معلوماتك",
+            "intro": "نستخدم المعلومات المجمعة من أجل:",
+            "items": {
+              "operating": "تشغيل وصيانة منصة TBurn Chain.",
+              "verification": "إجراء عملية التحقق ثلاثية المراحل (التصفية بالذكاء الاصطناعي، مراجعة الخبراء، التصويت).",
+              "detectingFraud": "اكتشاف الاحتيال وإساءة الاستخدام والتهديدات الأمنية.",
+              "improving": "تحسين خدماتنا من خلال التحليلات.",
+              "legalCompliance": "الوفاء بالتزامات الامتثال القانوني."
+            }
+          },
+          "informationSharing": {
+            "title": "4. مشاركة المعلومات",
+            "intro": "نشارك المعلومات مع:",
+            "validators": "المدققون: لعمليات التحقق اللامركزية.",
+            "serviceProviders": "مزودو الخدمات: شركاء البنية التحتية والدعم.",
+            "legalAuthorities": "السلطات القانونية: عند الطلب بموجب القانون.",
+            "noSelling": "نحن لا نبيع بياناتك الشخصية لأطراف ثالثة لأغراض التسويق."
+          },
+          "blockchainPrivacy": {
+            "title": "5. خصوصية البلوكتشين",
+            "publicData": {
+              "title": "البيانات العامة",
+              "content": "المعاملات وتفاعلات العقود الذكية على TBurn Chain مرئية للعموم وغير قابلة للتغيير. لا يمكن حذف هذه البيانات أو تعديلها."
+            },
+            "pseudonymity": {
+              "title": "الاسم المستعار",
+              "content": "عناوين المحافظ تستخدم أسماء مستعارة. ومع ذلك، إذا ربطت هويتك الحقيقية بعنوان محفظة، فقد يصبح هذا الارتباط عاماً."
+            }
+          },
+          "securityRights": {
+            "title": "6. الأمان والحقوق",
+            "securityMeasures": "نطبق تدابير أمنية مناسبة تشمل:",
+            "securityItems": {
+              "ssl": "تشفير SSL/TLS للبيانات أثناء النقل",
+              "encryptedStorage": "تخزين مشفر للبيانات الحساسة",
+              "mfa": "المصادقة متعددة العوامل",
+              "audits": "عمليات تدقيق أمنية منتظمة واختبار الاختراق"
+            },
+            "yourRights": "اعتماداً على موقعك، قد يكون لديك الحق في:",
+            "rightsItems": {
+              "access": "الوصول إلى معلوماتك الشخصية",
+              "correct": "تصحيح البيانات غير الدقيقة",
+              "delete": "حذف بياناتك خارج السلسلة",
+              "object": "الاعتراض على معالجة البيانات",
+              "portability": "نقل البيانات"
+            }
+          },
+          "cookies": {
+            "title": "7. ملفات تعريف الارتباط والتتبع",
+            "intro": "نستخدم ملفات تعريف الارتباط والتقنيات المماثلة من أجل:",
+            "items": {
+              "preferences": "تذكر تفضيلاتك",
+              "analyzeSite": "تحليل استخدام الموقع",
+              "improveExperience": "تحسين تجربة المستخدم"
+            },
+            "manage": "يمكنك إدارة تفضيلات ملفات تعريف الارتباط من خلال إعدادات متصفحك."
+          },
+          "internationalTransfers": {
+            "title": "8. نقل البيانات الدولي",
+            "content": "قد يتم نقل معلوماتك ومعالجتها في بلدان غير بلدك. نضمن وجود ضمانات مناسبة لمثل هذه التحويلات وفقاً لقوانين حماية البيانات المعمول بها."
+          }
+        },
+        "contact": {
+          "title": "اتصل بنا",
+          "intro": "إذا كانت لديك أسئلة حول سياسة الخصوصية هذه، تواصل مع مكتب الخصوصية لدينا:",
+          "email": "البريد الإلكتروني",
+          "responseTime": "وقت الاستجابة",
+          "responseTimeValue": "خلال 30 يوماً"
+        },
+        "relatedDocuments": {
+          "title": "المستندات القانونية ذات الصلة",
+          "termsOfService": "شروط الخدمة",
+          "termsOfServiceDesc": "اتفاقية المستخدم",
+          "disclaimer": "إخلاء المسؤولية",
+          "disclaimerDesc": "إفصاحات المخاطر"
+        },
+        "learnMore": {
+          "title": "اعرف المزيد",
+          "whatIsWallet": "ما هي المحفظة؟",
+          "whatIsWalletDesc": "تأمين مفاتيحك",
+          "trustScoreSystem": "نظام درجة الثقة",
+          "trustScoreSystemDesc": "عملية التحقق",
+          "blockchainBasics": "أساسيات البلوكتشين",
+          "blockchainBasicsDesc": "البيانات على السلسلة"
+        },
+        "securitySolutions": {
+          "title": "حلول الأمان",
+          "wallets": "المحافظ",
+          "walletsDesc": "حلول المحفظة الآمنة",
+          "permissioned": "البيئات المصرح بها",
+          "permissionedDesc": "خصوصية المؤسسات"
+        }
       },
       "disclaimer": {
         "title": "إخلاء المسؤولية",
-        "subtitle": "إشعارات قانونية مهمة وإفصاحات المخاطر."
+        "subtitle": "إشعارات قانونية مهمة وإفصاحات المخاطر.",
+        "backToHome": "العودة إلى الرئيسية",
+        "importantNotice": {
+          "title": "إشعار مهم",
+          "content": "يرجى قراءة إخلاء المسؤولية هذا بعناية قبل استخدام خدمات TBurn Chain. بالوصول إلى منصتنا أو استخدامها، فإنك تقر بأنك قرأت وفهمت ووافقت على إخلاءات المسؤولية التالية."
+        },
+        "sections": {
+          "noInvestmentAdvice": {
+            "title": "1. لا نصائح استثمارية",
+            "warning": "لا تقدم TBurn Chain نصائح استثمارية أو مالية أو ضريبية أو قانونية. جميع المعلومات المقدمة على منصتنا، بما في ذلك درجات الثقة، هي لأغراض المعلومات فقط ولا ينبغي تفسيرها كنصيحة من أي نوع.",
+            "content": "يجب عليك استشارة متخصصين مؤهلين قبل اتخاذ أي قرارات استثمارية. الأداء السابق لا يشير إلى النتائج المستقبلية."
+          },
+          "riskDisclosure": {
+            "title": "2. الإفصاح عن المخاطر",
+            "intro": "تنطوي استثمارات العملات المشفرة والبلوكتشين على مخاطر كبيرة، بما في ذلك:",
+            "items": {
+              "marketVolatility": "تقلب السوق: يمكن أن تتقلب الأسعار بشكل كبير في فترات قصيرة",
+              "regulatoryRisk": "المخاطر التنظيمية: قد تتغير القوانين واللوائح بشكل غير متوقع",
+              "technicalRisk": "المخاطر التقنية: قد تحتوي العقود الذكية على أخطاء أو ثغرات",
+              "liquidityRisk": "مخاطر السيولة: قد لا تتمكن من بيع الأصول عند الرغبة",
+              "lossOfFunds": "خسارة الأموال: قد تخسر كل أو جزء من استثمارك"
+            }
+          },
+          "trustScoreLimitations": {
+            "title": "3. قيود درجة الثقة",
+            "intro": "يتم حساب درجات الثقة بناءً على البيانات المتاحة وعملية التحقق لدينا، لكن:",
+            "items": {
+              "noGuarantee": "لا تضمن سلامة أو شرعية أي مشروع",
+              "notAllFactors": "قد لا تعكس جميع العوامل ذات الصلة",
+              "noPrediction": "قد لا تتنبأ الدرجات التاريخية بالأداء المستقبلي",
+              "oneFactor": "يجب أن تكون واحدة من عوامل عديدة في فحصك الدقيق"
+            }
+          },
+          "thirdPartyContent": {
+            "title": "4. محتوى الطرف الثالث",
+            "content": "قد تحتوي منصتنا على روابط لمواقع أو مشاريع أو محتوى طرف ثالث. نحن لا نؤيد أو نتحكم أو نتحمل مسؤولية أي محتوى من طرف ثالث. الوصول إلى موارد الطرف الثالث على مسؤوليتك الخاصة."
+          },
+          "serviceAvailability": {
+            "title": "5. توفر الخدمة",
+            "content": "نسعى جاهدين للحفاظ على توفر الخدمة المستمر، لكننا لا نضمن الوصول غير المنقطع. قد تكون الخدمات غير متاحة مؤقتاً بسبب الصيانة أو التحديثات أو ظروف غير متوقعة."
+          },
+          "limitationOfLiability": {
+            "title": "6. تحديد المسؤولية",
+            "content": "إلى أقصى حد يسمح به القانون المعمول به، لن تكون مؤسسة TBURN CHAIN والشركات التابعة لها ومسؤوليها ومديريها وموظفيها ووكلائها مسؤولين عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو تأديبية أو نموذجية، بما في ذلك على سبيل المثال لا الحصر الأضرار الناجمة عن خسارة الأرباح أو السمعة أو الاستخدام أو البيانات أو الخسائر غير الملموسة الأخرى، الناتجة عن استخدامك لخدماتنا أو عدم قدرتك على استخدامها."
+          },
+          "geographicRestrictions": {
+            "title": "7. القيود الجغرافية",
+            "content": "قد لا تتوفر خدماتنا في جميع الولايات القضائية. تقع على عاتقك مسؤولية التأكد من أن استخدامك لـ TBurn Chain يتوافق مع قوانين ولايتك القضائية. نحتفظ بالحق في تقييد الوصول إلى خدماتنا من مواقع جغرافية معينة."
+          },
+          "forwardLookingStatements": {
+            "title": "8. البيانات التطلعية",
+            "content": "أي بيانات تتعلق بالأحداث أو الخطط أو التطورات المستقبلية هي بيانات تطلعية تخضع للمخاطر والشكوك. قد تختلف النتائج الفعلية مادياً عن تلك المعبر عنها أو المضمنة في مثل هذه البيانات."
+          }
+        },
+        "questions": {
+          "title": "أسئلة؟",
+          "legalInquiries": "الاستفسارات القانونية"
+        },
+        "relatedDocuments": {
+          "title": "المستندات القانونية ذات الصلة",
+          "termsOfService": "شروط الخدمة",
+          "termsOfServiceDesc": "اتفاقية المستخدم",
+          "privacyPolicy": "سياسة الخصوصية",
+          "privacyPolicyDesc": "التعامل مع البيانات"
+        },
+        "learnMore": {
+          "title": "اعرف المزيد",
+          "trustScoreSystem": "نظام درجة الثقة",
+          "trustScoreSystemDesc": "كيف تعمل الدرجات",
+          "introToDefi": "مقدمة في التمويل اللامركزي",
+          "introToDefiDesc": "فهم المخاطر"
+        }
       }
     }
   },
