@@ -27,6 +27,7 @@ const menuStructure: MenuSection[] = [
       { title: "Blockchain Basics", href: "/learn/blockchain-basics" },
       { title: "DeFi Mastery", href: "/learn/defi-mastery" },
       { title: "Developer Course", href: "/learn/developer-course" },
+      { title: "Intro to DeFi", href: "/learn/intro-to-defi" },
       { title: "Education Programs", href: "/learn/education-programs" },
       { title: "Technical Whitepaper", href: "/learn/whitepaper" },
       { title: "Tokenomics", href: "/learn/tokenomics" },

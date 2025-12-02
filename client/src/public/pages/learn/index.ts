@@ -10,3 +10,4 @@ export { default as Universities } from "./Universities";
 export { default as BlockchainBasics } from "./BlockchainBasics";
 export { default as DefiMastery } from "./DefiMastery";
 export { default as DeveloperCourse } from "./DeveloperCourse";
+export { default as IntroToDefi } from "./IntroToDefi";
