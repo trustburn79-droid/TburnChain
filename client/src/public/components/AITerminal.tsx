@@ -130,11 +130,12 @@ export function AITerminal() {
         {/* Terminal Content */}
         <div
           style={{
-            padding: "10px 12px",
+            padding: "12px 14px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
             overflow: "hidden",
+            gap: "2px",
           }}
         >
           {logs.map((log) => (
@@ -142,18 +143,28 @@ export function AITerminal() {
               key={log.id}
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "12px",
+                fontSize: "13px",
                 fontWeight: 400,
-                lineHeight: "1.7",
+                lineHeight: "1.85",
+                letterSpacing: "0.5px",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 animation: log.isNew ? "fadeInLog 0.4s ease-out" : "none",
               }}
             >
-              <span style={{ color: "#3a5a6a" }}>[{log.time}]</span>
-              <span style={{ color: "#7a9aaa" }}> {">"} </span>
-              <span style={{ color: "#00f0ff" }}>{log.message}</span>
+              <span style={{ 
+                color: "#526a78",
+                letterSpacing: "0.8px",
+              }}>[{log.time}]</span>
+              <span style={{ 
+                color: "#526a78",
+                margin: "0 6px",
+              }}>{">"}</span>
+              <span style={{ 
+                color: "#00f0ff",
+                textShadow: "0 0 8px rgba(0, 240, 255, 0.4)",
+              }}>{log.message}</span>
             </div>
           ))}
         </div>
