@@ -176,18 +176,27 @@ function NeuralCanvasLogin() {
 const benefits = [
   {
     icon: Check,
-    title: "Testnet Incentives",
-    description: "Early participants receive genesis multipliers.",
+    title: "Testnet Early Access",
+    description: "Be the first to test new features and earn contribution points.",
+    link: "/learn/roadmap",
   },
   {
     icon: GitBranch,
-    title: "Governance Rights",
-    description: "Shape the mainnet policy development.",
+    title: "Governance Participation",
+    description: "Influence the future of TBurn Chain through proposal voting.",
+    link: "/solutions/ai-features",
   },
   {
     icon: BookOpen,
-    title: "Developer Docs",
-    description: "Access exclusive technical whitepapers.",
+    title: "Technical Resources",
+    description: "Full access to developer documentation, SDKs, and API keys.",
+    link: "/developers/docs",
+  },
+  {
+    icon: Network,
+    title: "Ecosystem Rewards",
+    description: "Exclusive airdrops and rewards for active community members.",
+    link: "/learn/tokenomics",
   },
 ];
 
@@ -268,24 +277,22 @@ export default function Login({ onLoginSuccess }: LoginProps) {
       <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <Link href="/">
-              <a className="flex items-center gap-2 group">
-                <div className="relative w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Flame className="w-4 h-4 text-black" />
-                  <div className="absolute inset-0 bg-white/20 rounded blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-                <span className="font-bold text-xl text-white tracking-tight">
-                  TBurn <span className="text-cyan-400">Chain</span>
-                </span>
-              </a>
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="relative w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Flame className="w-4 h-4 text-black" />
+                <div className="absolute inset-0 bg-white/20 rounded blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+              <span className="font-bold text-xl text-white tracking-tight">
+                TBurn <span className="text-cyan-400">Chain</span>
+              </span>
             </Link>
             
             <div className="hidden md:flex items-center gap-6">
-              <Link href="/developers">
-                <a className="text-sm font-medium text-gray-400 hover:text-white transition">Developers</a>
+              <Link href="/developers" className="text-sm font-medium text-gray-400 hover:text-white transition">
+                Developers
               </Link>
-              <Link href="/network">
-                <a className="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+              <Link href="/network" className="text-sm font-medium text-gray-400 hover:text-white transition">
+                Network
               </Link>
             </div>
           </div>
@@ -381,16 +388,20 @@ export default function Login({ onLoginSuccess }: LoginProps) {
 
             <p className="text-xs text-gray-600 text-center mt-6">
               By connecting, you agree to the{" "}
-              <a href="#" className="text-cyan-400 hover:underline">Protocol Protocols</a>.
+              <Link href="/legal/terms-of-service" className="text-cyan-400 hover:underline" data-testid="link-terms">
+                Terms of Service
+              </Link>
+              {" "}and{" "}
+              <Link href="/legal/privacy-policy" className="text-purple-400 hover:underline" data-testid="link-privacy">
+                Privacy Policy
+              </Link>.
             </p>
 
             <div className="mt-6 text-center">
               <p className="text-xs text-gray-500">
                 Don't have a node ID?{" "}
-                <Link href="/signup">
-                  <a className="text-cyan-400 hover:text-white transition font-bold" data-testid="link-signup">
-                    Initialize Node
-                  </a>
+                <Link href="/signup" className="text-cyan-400 hover:text-white transition font-bold" data-testid="link-signup">
+                  Initialize Node
                 </Link>
               </p>
             </div>
@@ -412,14 +423,20 @@ export default function Login({ onLoginSuccess }: LoginProps) {
               {benefits.map((benefit, index) => {
                 const Icon = benefit.icon;
                 return (
-                  <li key={index} className="flex items-start gap-3 group/item">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-cyan-400/10 flex items-center justify-center border border-cyan-400/30 group-hover/item:border-cyan-400 transition">
-                      <Icon className="w-2.5 h-2.5 text-cyan-400" />
-                    </div>
-                    <div>
-                      <span className="block text-sm text-white font-medium">{benefit.title}</span>
-                      <span className="text-xs text-gray-500">{benefit.description}</span>
-                    </div>
+                  <li key={index}>
+                    <Link 
+                      href={benefit.link}
+                      className="flex items-start gap-3 group/item p-2 -m-2 rounded-lg hover:bg-white/5 transition" 
+                      data-testid={`link-benefit-${index}`}
+                    >
+                      <div className="mt-1 w-5 h-5 rounded-full bg-cyan-400/10 flex items-center justify-center border border-cyan-400/30 group-hover/item:border-cyan-400 transition">
+                        <Icon className="w-2.5 h-2.5 text-cyan-400" />
+                      </div>
+                      <div>
+                        <span className="block text-sm text-white font-medium group-hover/item:text-cyan-400 transition">{benefit.title}</span>
+                        <span className="text-xs text-gray-500">{benefit.description}</span>
+                      </div>
+                    </Link>
                   </li>
                 );
               })}
@@ -442,9 +459,15 @@ export default function Login({ onLoginSuccess }: LoginProps) {
               </p>
             </div>
             <div className="flex gap-6 text-gray-500 text-sm">
-              <a href="#" className="hover:text-cyan-400 transition">Privacy</a>
-              <a href="#" className="hover:text-cyan-400 transition">Terms</a>
-              <a href="#" className="hover:text-cyan-400 transition">Whitepaper</a>
+              <Link href="/legal/privacy-policy" className="hover:text-cyan-400 transition" data-testid="footer-link-privacy">
+                Privacy
+              </Link>
+              <Link href="/legal/terms-of-service" className="hover:text-cyan-400 transition" data-testid="footer-link-terms">
+                Terms
+              </Link>
+              <Link href="/learn/whitepaper" className="hover:text-cyan-400 transition" data-testid="footer-link-whitepaper">
+                Whitepaper
+              </Link>
             </div>
           </div>
         </div>
