@@ -138,13 +138,13 @@ const solutions = [
     icon: Brain,
     title: "Triple-Band AI",
     description: "Three-tier AI orchestration using optimized decision-making at strategic, tactical, and operational levels.",
-    color: "cyan",
+    color: "pink",
   },
   {
     icon: Shield,
     title: "Quantum Security",
     description: "CRYSTALS-Dilithium + ED25519 hybrid signatures ensure security against future quantum threats.",
-    color: "purple",
+    color: "cyan",
   },
   {
     icon: Coins,
@@ -156,32 +156,56 @@ const solutions = [
     icon: Gamepad2,
     title: "GameFi Platform",
     description: "Next-gen gaming infrastructure with P2E engine, tournaments, and NFT marketplace cross-chain.",
-    color: "green",
+    color: "rose",
   },
   {
     icon: TrendingUp,
     title: "Auto Burn",
     description: "Hybrid deflation model with transaction-based, time-based, and AI-optimized burning.",
-    color: "orange",
+    color: "green",
   },
   {
     icon: Link2,
     title: "Cross-Chain Bridge",
     description: "Secure cross-chain asset transfer solution connecting to 7+ chains including Ethereum and BSC.",
-    color: "red",
+    color: "purple",
   },
 ];
 
-const getColorClasses = (color: string) => {
-  const colors: Record<string, { bg: string; border: string; text: string }> = {
-    cyan: { bg: "bg-cyan-500/10", border: "border-cyan-500/20", text: "text-cyan-400" },
-    purple: { bg: "bg-purple-500/10", border: "border-purple-500/20", text: "text-purple-400" },
-    blue: { bg: "bg-blue-500/10", border: "border-blue-500/20", text: "text-blue-400" },
-    green: { bg: "bg-green-500/10", border: "border-green-500/20", text: "text-green-400" },
-    orange: { bg: "bg-orange-500/10", border: "border-orange-500/20", text: "text-orange-400" },
-    red: { bg: "bg-red-500/10", border: "border-red-500/20", text: "text-red-400" },
+const getIconStyle = (color: string) => {
+  const styles: Record<string, { bg: string; shadow: string; iconColor: string }> = {
+    pink: { 
+      bg: "bg-gradient-to-br from-pink-500 to-rose-600", 
+      shadow: "shadow-lg shadow-pink-500/30",
+      iconColor: "text-white"
+    },
+    cyan: { 
+      bg: "bg-gradient-to-br from-cyan-400 to-cyan-600", 
+      shadow: "shadow-lg shadow-cyan-500/30",
+      iconColor: "text-white"
+    },
+    blue: { 
+      bg: "bg-gradient-to-br from-blue-400 to-blue-600", 
+      shadow: "shadow-lg shadow-blue-500/30",
+      iconColor: "text-white"
+    },
+    rose: { 
+      bg: "bg-gradient-to-br from-rose-400 to-pink-600", 
+      shadow: "shadow-lg shadow-rose-500/30",
+      iconColor: "text-white"
+    },
+    green: { 
+      bg: "bg-gradient-to-br from-emerald-400 to-green-600", 
+      shadow: "shadow-lg shadow-emerald-500/30",
+      iconColor: "text-white"
+    },
+    purple: { 
+      bg: "bg-gradient-to-br from-violet-400 to-purple-600", 
+      shadow: "shadow-lg shadow-violet-500/30",
+      iconColor: "text-white"
+    },
   };
-  return colors[color] || colors.cyan;
+  return styles[color] || styles.cyan;
 };
 
 function RotatingTitle() {
@@ -304,7 +328,7 @@ export default function Home() {
             onMouseMove={handleMouseMove}
           >
             {solutions.map((solution, index) => {
-              const colors = getColorClasses(solution.color);
+              const iconStyle = getIconStyle(solution.color);
               const Icon = solution.icon;
               return (
                 <div
@@ -312,8 +336,8 @@ export default function Home() {
                   className="spotlight-card rounded-2xl p-8 group cursor-pointer"
                   data-testid={`card-solution-${index}`}
                 >
-                  <div className={`w-12 h-12 rounded-lg ${colors.bg} flex items-center justify-center mb-6 border ${colors.border} group-hover:scale-110 transition-transform`}>
-                    <Icon className={`w-5 h-5 ${colors.text}`} />
+                  <div className={`w-11 h-11 rounded-xl ${iconStyle.bg} ${iconStyle.shadow} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                    <Icon className={`w-5 h-5 ${iconStyle.iconColor}`} strokeWidth={2.5} />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">{solution.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{solution.description}</p>
