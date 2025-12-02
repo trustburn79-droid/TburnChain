@@ -9,3 +9,4 @@ export { default as Financial } from "./Financial";
 export { default as AiFeatures } from "./AiFeatures";
 export { default as ArtistsCreators } from "./ArtistsCreators";
 export { default as Btcfi } from "./Btcfi";
+export { default as CrossChainBridge } from "./CrossChainBridge";

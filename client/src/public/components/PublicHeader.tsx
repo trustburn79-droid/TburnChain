@@ -64,6 +64,7 @@ const menuStructure: MenuSection[] = [
       { title: "AI Features", href: "/solutions/ai-features" },
       { title: "Artists & Creators", href: "/solutions/artists-creators" },
       { title: "BTCfi", href: "/solutions/btcfi" },
+      { title: "Cross-Chain Bridge", href: "/solutions/cross-chain-bridge" },
     ],
   },
   {

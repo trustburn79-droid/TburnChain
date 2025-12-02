@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 
 import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, EducationPrograms, Whitepaper, Tokenomics, Roadmap, Universities, BlockchainBasics, DefiMastery, DeveloperCourse, IntroToDefi } from "./pages/learn";
 import { DeveloperHub, Documentation, ApiDocs, CliReference, SdkGuide, SmartContracts, WebSocketApi, CodeExamples, QuickStart, InstallationGuide, EvmMigration } from "./pages/developers";
-import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial, AiFeatures, ArtistsCreators, Btcfi } from "./pages/solutions";
+import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial, AiFeatures, ArtistsCreators, Btcfi, CrossChainBridge } from "./pages/solutions";
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
 import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
 import { NewsBlog, Events, CommunityHub } from "./pages/community";
@@ -56,6 +56,7 @@ export function PublicRouter() {
         <Route path="/solutions/ai-features" component={AiFeatures} />
         <Route path="/solutions/artists-creators" component={ArtistsCreators} />
         <Route path="/solutions/btcfi" component={Btcfi} />
+        <Route path="/solutions/cross-chain-bridge" component={CrossChainBridge} />
         
         {/* Use Cases Routes */}
         <Route path="/use-cases/tokenization" component={Tokenization} />
