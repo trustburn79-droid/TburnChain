@@ -130,7 +130,7 @@ export function AITerminal() {
         {/* Terminal Content */}
         <div
           style={{
-            padding: "6px 8px",
+            padding: "8px 10px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
@@ -141,18 +141,31 @@ export function AITerminal() {
             <div
               key={log.id}
               style={{
-                fontFamily: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
-                fontSize: "12px",
-                lineHeight: "1.5",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "11.5px",
+                fontWeight: 500,
+                lineHeight: "1.65",
+                letterSpacing: "0.02em",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 animation: log.isNew ? "fadeInLog 0.4s ease-out" : "none",
               }}
             >
-              <span style={{ color: "#3a5a6a" }}>[{log.time}]</span>
-              <span style={{ color: "#a0b8c8" }}> {">"} </span>
-              <span style={{ color: "#00f0ff" }}>{log.message}</span>
+              <span style={{ 
+                color: "#4a6a7a",
+                textShadow: "0 0 8px rgba(74, 106, 122, 0.3)",
+              }}>[{log.time}]</span>
+              <span style={{ 
+                color: "#00f0ff",
+                textShadow: "0 0 6px rgba(0, 240, 255, 0.5)",
+                marginLeft: "4px",
+                marginRight: "4px",
+              }}>{">"}</span>
+              <span style={{ 
+                color: "#00f0ff",
+                textShadow: "0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3)",
+              }}>{log.message}</span>
             </div>
           ))}
         </div>
