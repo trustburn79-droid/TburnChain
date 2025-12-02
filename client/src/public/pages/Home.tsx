@@ -13,6 +13,7 @@ import {
 import { useNetworkStats } from "../hooks/use-public-data";
 import { NeuralCanvas } from "../components/NeuralCanvas";
 import { AITerminal } from "../components/AITerminal";
+import { PublicFooter } from "../components/PublicFooter";
 import "../styles/public.css";
 
 const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#";
@@ -374,6 +375,7 @@ export default function Home() {
         </section>
       </main>
 
+      <PublicFooter />
       <AITerminal />
     </div>
   );
