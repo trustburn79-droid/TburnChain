@@ -79,7 +79,7 @@ export function AITerminal() {
         </div>
 
         {/* Terminal Content */}
-        <div className="p-4 h-40 relative group">
+        <div className="px-4 pt-1 pb-4 h-40 relative group">
           <div 
             ref={contentRef}
             className="h-full overflow-y-auto font-mono text-[11px] leading-relaxed space-y-1 flex flex-col justify-end"
