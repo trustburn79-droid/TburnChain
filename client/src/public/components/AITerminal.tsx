@@ -95,12 +95,7 @@ export function AITerminal() {
               >
                 <span className="text-gray-500 mr-1">[{log.time}]</span>
                 <span className="text-gray-400 mr-1">{">"}</span>
-                <span 
-                  className="text-[#00f0ff]"
-                  style={{
-                    filter: "drop-shadow(0 0 2px rgba(0,240,255,0.5))",
-                  }}
-                >{log.message}</span>
+                <span className="text-[#00f0ff]">{log.message}</span>
               </div>
             ))}
           </div>
