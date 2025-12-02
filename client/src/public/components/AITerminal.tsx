@@ -66,7 +66,7 @@ export function AITerminal() {
     <div className="fixed bottom-6 right-6 w-80 z-50 hidden lg:block">
       <div className="rounded-lg overflow-hidden border border-gray-700 bg-[#0a0a0f]/90 backdrop-blur-md shadow-2xl">
         
-        {/* Header */}
+        {/* Header - 원본 그대로 */}
         <div className="bg-gray-800/50 px-4 py-2 flex justify-between items-center border-b border-gray-700">
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-gray-400 font-mono tracking-wider">BURN_AI_CORE v4.0</span>
@@ -78,49 +78,40 @@ export function AITerminal() {
           </div>
         </div>
 
-        {/* Terminal Content */}
-        <div className="px-4 py-3 h-40 relative group">
+        {/* Terminal Content - 원본: p-4 h-40 */}
+        <div className="p-4 h-40 relative group">
           <div 
             ref={contentRef}
-            className="h-full overflow-y-auto font-mono text-[11px] leading-relaxed space-y-1"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
+            className="h-full overflow-y-auto font-mono text-[11px] leading-relaxed space-y-1 no-scrollbar flex flex-col justify-end"
           >
             {logs.map((log) => (
-              <div 
-                key={log.id} 
-                className="animate-fade-in"
-              >
-                <span className="text-gray-500 mr-2 tracking-wider">[{log.time}]</span>
-                <span className="text-gray-200 mr-1">{">"}</span>
-                <span className="text-[#00f0ff]">{log.message}</span>
+              <div key={log.id} className="animate-fade-in">
+                <span className="text-gray-500 mr-1">[{log.time}]</span>
+                <span className="text-gray-400 mr-1">{">"}</span>
+                <span className="text-[#00f0ff] drop-shadow-[0_0_2px_rgba(0,240,255,0.5)]">{log.message}</span>
               </div>
             ))}
           </div>
 
-          {/* CRT Scanline Effect */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-10 opacity-20"
-            style={{
-              background: "linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.1) 50%), linear-gradient(90deg, rgba(255,0,0,0.03), rgba(0,255,0,0.01), rgba(0,0,255,0.03))",
-              backgroundSize: "100% 2px, 3px 100%",
-            }}
-          ></div>
+          {/* CRT Scanline Effect - 원본 그대로 */}
+          <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] z-10 bg-[length:100%_2px,3px_100%] opacity-20"></div>
         </div>
       </div>
 
       <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
         @keyframes fadeIn {
           0% { opacity: 0; transform: translateY(5px); }
           100% { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in {
           animation: fadeIn 0.3s ease-out forwards;
-        }
-        div::-webkit-scrollbar {
-          display: none;
         }
       `}</style>
     </div>
