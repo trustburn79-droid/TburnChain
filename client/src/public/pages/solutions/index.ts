@@ -7,3 +7,4 @@ export { default as Payments } from "./Payments";
 export { default as Commerce } from "./Commerce";
 export { default as Financial } from "./Financial";
 export { default as AiFeatures } from "./AiFeatures";
+export { default as ArtistsCreators } from "./ArtistsCreators";
