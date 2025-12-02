@@ -49,8 +49,7 @@ export function AITerminal() {
         return updated;
       });
 
-      const nextInterval = Math.random() * 2000 + 500;
-      setTimeout(addLog, nextInterval);
+      setTimeout(addLog, 1500);
     };
 
     addLog();
