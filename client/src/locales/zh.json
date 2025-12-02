@@ -6311,6 +6311,400 @@
       }
     }
   },
+  "publicPages": {
+    "common": {
+      "getStarted": "开始使用",
+      "learnMore": "了解更多",
+      "viewDocs": "查看文档",
+      "explore": "探索",
+      "readMore": "阅读更多",
+      "startBuilding": "开始构建",
+      "contactUs": "联系我们",
+      "joinCommunity": "加入社区",
+      "subscribe": "订阅",
+      "beginner": "初级",
+      "intermediate": "中级",
+      "advanced": "高级",
+      "comingSoon": "即将推出",
+      "new": "新",
+      "popular": "热门",
+      "featured": "推荐"
+    },
+    "header": {
+      "learn": "学习",
+      "developers": "开发者",
+      "solutions": "解决方案",
+      "useCases": "应用场景",
+      "network": "网络",
+      "community": "社区",
+      "loginInterface": "登录界面"
+    },
+    "footer": {
+      "ecosystem": "生态系统",
+      "solutions": "解决方案",
+      "developers": "开发者",
+      "resources": "资源",
+      "community": "社区",
+      "legal": "法律信息",
+      "stayUpdated": "获取最新动态",
+      "newsletterDesc": "获取TBurn Chain的最新新闻和更新",
+      "enterEmail": "输入邮箱",
+      "copyright": "© 2025 TBurn Chain基金会。保留所有权利。",
+      "termsOfService": "服务条款",
+      "privacyPolicy": "隐私政策",
+      "disclaimer": "免责声明"
+    },
+    "home": {
+      "heroTag": "主网上线",
+      "heroTitle": "未来的",
+      "heroTitleRotating": ["信任驱动", "AI赋能", "量子安全", "超级扩展"],
+      "heroSubtitle": "区块链",
+      "heroDescription": "全球首个AI驱动的信任验证网络。量子安全与企业级可扩展性的完美结合。",
+      "launchExplorer": "启动浏览器",
+      "readWhitepaper": "阅读白皮书",
+      "stats": {
+        "blocks": "区块",
+        "validators": "验证者",
+        "dailyTxs": "日交易量",
+        "uptime": "运行时间"
+      },
+      "solutions": {
+        "title": "核心解决方案",
+        "subtitle": "企业级区块链基础设施",
+        "tripleBandAi": {
+          "title": "三频AI",
+          "description": "在战略、战术和操作层面进行优化决策的三层AI编排。"
+        },
+        "quantumSecurity": {
+          "title": "量子安全",
+          "description": "CRYSTALS-Dilithium + ED25519混合签名确保抵御未来量子威胁。"
+        },
+        "defiHub": {
+          "title": "DeFi中心",
+          "description": "集成DEX、借贷、质押和流动性挖矿的完整DeFi生态系统。"
+        },
+        "gamefiPlatform": {
+          "title": "GameFi平台",
+          "description": "配备P2E引擎、锦标赛和跨链NFT市场的下一代游戏基础设施。"
+        },
+        "autoBurn": {
+          "title": "自动销毁",
+          "description": "结合交易、时间和AI优化销毁的混合通缩模型。"
+        },
+        "crossChainBridge": {
+          "title": "跨链桥",
+          "description": "连接以太坊、BSC等7+条链的安全跨链资产转移解决方案。"
+        }
+      },
+      "aiTerminal": {
+        "title": "AI终端",
+        "subtitle": "实时AI编排监控"
+      }
+    },
+    "learn": {
+      "hub": {
+        "tag": "V4学习中心",
+        "title": "教育中心",
+        "subtitle": "掌握TBurn Chain V4生态系统。从信任共识算法到构建高速dApp，从这里开始。",
+        "stats": {
+          "courses": "课程",
+          "learners": "学习者",
+          "hoursContent": "内容时长",
+          "completionRate": "完成率"
+        },
+        "learningPaths": "学习路径",
+        "learningPathsDesc": "为各级别定制的课程体系。",
+        "coreConcepts": "核心概念",
+        "coreConceptsDesc": "TBurn Chain的基本原理。",
+        "quickGlossary": "快速术语表",
+        "certifications": "认证",
+        "certificationsDesc": "获得认证徽章",
+        "communityLearning": "社区学习"
+      },
+      "whatIsBurnChain": {
+        "tag": "介绍",
+        "title": "什么是TBurn Chain？",
+        "subtitle": "探索全球首个具有AI验证和量子安全的信任驱动区块链。"
+      },
+      "trustScore": {
+        "tag": "核心功能",
+        "title": "信任评分系统",
+        "subtitle": "深入了解三阶段验证系统、AI分析和动态评分算法。"
+      },
+      "wallet": {
+        "tag": "入门",
+        "title": "什么是钱包？",
+        "subtitle": "了解加密货币钱包、安全最佳实践以及如何设置TBurn钱包。"
+      },
+      "whitepaper": {
+        "tag": "技术文档",
+        "title": "白皮书",
+        "subtitle": "TBurn Chain架构、共识机制和代币经济学的完整技术文档。"
+      },
+      "tokenomics": {
+        "tag": "经济学",
+        "title": "代币经济学",
+        "subtitle": "了解TBURN代币分配、发行计划和通缩机制。"
+      },
+      "roadmap": {
+        "tag": "发展",
+        "title": "路线图",
+        "subtitle": "跟踪我们通向主流采用之旅的进展和即将到来的里程碑。"
+      },
+      "blockchainBasics": {
+        "tag": "初级",
+        "title": "区块链基础",
+        "subtitle": "区块链技术和分布式系统的基本概念。"
+      },
+      "defiMastery": {
+        "tag": "中级",
+        "title": "DeFi精通",
+        "subtitle": "掌握去中心化金融概念，包括DEX、借贷和收益策略。"
+      },
+      "developerCourse": {
+        "tag": "高级",
+        "title": "开发者课程",
+        "subtitle": "在TBurn Chain上构建和部署dApp的完整指南。"
+      },
+      "introToDefi": {
+        "tag": "初级",
+        "title": "DeFi入门",
+        "subtitle": "在TBurn Chain上迈入去中心化金融的第一步。"
+      },
+      "educationPrograms": {
+        "tag": "项目",
+        "title": "教育项目",
+        "subtitle": "区块链教育的结构化学习路径和认证项目。"
+      },
+      "universities": {
+        "tag": "学术",
+        "title": "大学合作",
+        "subtitle": "推进区块链教育的学术合作和研究项目。"
+      }
+    },
+    "developers": {
+      "hub": {
+        "tag": "V4 SDK和API就绪",
+        "title": "开发者中心",
+        "subtitle": "构建下一代信任驱动应用。访问TBurn Chain V4生态系统的综合开发工具、SDK和API。",
+        "getStarted": "开始使用",
+        "viewDocs": "查看文档",
+        "quickStart": "快速开始",
+        "sdks": "官方SDK",
+        "apiReference": "API参考",
+        "devTools": "开发工具",
+        "grants": "开发者资助"
+      },
+      "docs": {
+        "tag": "文档",
+        "title": "文档",
+        "subtitle": "TBurn Chain开发的综合指南和参考。"
+      },
+      "api": {
+        "tag": "API参考",
+        "title": "API文档",
+        "subtitle": "区块链、DeFi和AI服务的RESTful API端点。"
+      },
+      "cli": {
+        "tag": "CLI工具",
+        "title": "CLI参考",
+        "subtitle": "项目管理和部署的命令行界面。"
+      },
+      "sdk": {
+        "tag": "SDK指南",
+        "title": "SDK指南",
+        "subtitle": "多语言SDK集成指南和最佳实践。"
+      },
+      "contracts": {
+        "tag": "智能合约",
+        "title": "智能合约",
+        "subtitle": "在TBurn Chain上编写、测试和部署安全的智能合约。"
+      },
+      "websocket": {
+        "tag": "实时",
+        "title": "WebSocket API",
+        "subtitle": "实时数据流和事件订阅。"
+      },
+      "examples": {
+        "tag": "代码示例",
+        "title": "代码示例",
+        "subtitle": "即用型代码片段和示例项目。"
+      },
+      "quickstart": {
+        "tag": "入门",
+        "title": "快速开始",
+        "subtitle": "几分钟内开始使用TBurn Chain。"
+      },
+      "installation": {
+        "tag": "设置",
+        "title": "安装指南",
+        "subtitle": "分步安装和配置说明。"
+      },
+      "evmMigration": {
+        "tag": "迁移",
+        "title": "EVM迁移",
+        "subtitle": "将以太坊dApp迁移到TBurn Chain。"
+      }
+    },
+    "solutions": {
+      "defiHub": {
+        "tag": "DEFI生态系统",
+        "title": "DeFi中心",
+        "subtitle": "包含DEX、借贷、质押和流动性挖矿的完整去中心化金融基础设施。",
+        "features": {
+          "dex": "DEX/AMM",
+          "lending": "借贷协议",
+          "staking": "质押",
+          "yield": "流动性挖矿"
+        }
+      },
+      "tokenExtensions": {
+        "tag": "代币标准",
+        "title": "代币扩展",
+        "subtitle": "具有AI增强功能的高级TBC-20、TBC-721和TBC-1155代币标准。"
+      },
+      "actionsBlinks": {
+        "tag": "自动化",
+        "title": "Actions & Blinks",
+        "subtitle": "自动化区块链交互和即时交易链接。"
+      },
+      "wallets": {
+        "tag": "钱包解决方案",
+        "title": "钱包解决方案",
+        "subtitle": "为企业和消费者提供的安全钱包基础设施。"
+      },
+      "permissioned": {
+        "tag": "企业",
+        "title": "许可网络",
+        "subtitle": "企业部署的私有区块链网络。"
+      },
+      "gameTooling": {
+        "tag": "游戏",
+        "title": "游戏工具",
+        "subtitle": "区块链游戏的完整GameFi基础设施。"
+      },
+      "payments": {
+        "tag": "支付",
+        "title": "支付解决方案",
+        "subtitle": "快速安全的区块链支付处理。"
+      },
+      "commerce": {
+        "tag": "商业",
+        "title": "商业",
+        "subtitle": "电子商务集成和商家解决方案。"
+      },
+      "financial": {
+        "tag": "金融",
+        "title": "金融服务",
+        "subtitle": "基于区块链的企业金融基础设施。"
+      },
+      "aiFeatures": {
+        "tag": "AI驱动",
+        "title": "AI功能",
+        "subtitle": "用于智能区块链操作的三频AI编排。"
+      },
+      "artistsCreators": {
+        "tag": "创意",
+        "title": "艺术家与创作者",
+        "subtitle": "NFT铸造、版税和创作者经济工具。"
+      },
+      "btcfi": {
+        "tag": "比特币DEFI",
+        "title": "BTCfi",
+        "subtitle": "包含包装BTC和跨链收益的比特币DeFi集成。"
+      },
+      "crossChainBridge": {
+        "tag": "跨链桥",
+        "title": "跨链桥",
+        "subtitle": "跨7+区块链网络的安全资产转移。"
+      }
+    },
+    "useCases": {
+      "tokenization": {
+        "tag": "代币化",
+        "title": "资产代币化",
+        "subtitle": "在区块链上代币化真实世界资产。"
+      },
+      "depin": {
+        "tag": "DEPIN",
+        "title": "DePIN",
+        "subtitle": "去中心化物理基础设施网络。"
+      },
+      "stablecoins": {
+        "tag": "稳定币",
+        "title": "稳定币",
+        "subtitle": "企业级稳定币基础设施。"
+      },
+      "institutional": {
+        "tag": "机构",
+        "title": "机构支付",
+        "subtitle": "企业高容量支付解决方案。"
+      },
+      "enterprise": {
+        "tag": "企业",
+        "title": "企业解决方案",
+        "subtitle": "企业综合区块链解决方案。"
+      },
+      "gaming": {
+        "tag": "游戏",
+        "title": "游戏与元宇宙",
+        "subtitle": "GameFi基础设施和元宇宙集成。"
+      }
+    },
+    "network": {
+      "validators": {
+        "tag": "网络",
+        "title": "验证者",
+        "subtitle": "加入TBurn验证者网络并获得奖励。"
+      },
+      "rpc": {
+        "tag": "基础设施",
+        "title": "RPC提供商",
+        "subtitle": "高性能RPC端点和API访问。"
+      },
+      "status": {
+        "tag": "状态",
+        "title": "网络状态",
+        "subtitle": "实时网络健康和性能指标。"
+      },
+      "ramp": {
+        "tag": "法币通道",
+        "title": "法币出入金",
+        "subtitle": "使用法币购买和出售TBURN。"
+      }
+    },
+    "community": {
+      "hub": {
+        "tag": "社区",
+        "title": "社区中心",
+        "subtitle": "与建设者、验证者和爱好者联系。"
+      },
+      "news": {
+        "tag": "新闻与博客",
+        "title": "新闻与博客",
+        "subtitle": "最新更新、公告和见解。"
+      },
+      "events": {
+        "tag": "活动",
+        "title": "活动与事件",
+        "subtitle": "参加TBurn Chain社区活动、黑客马拉松和会议。"
+      }
+    },
+    "legal": {
+      "terms": {
+        "title": "服务条款",
+        "subtitle": "使用TBurn Chain服务的条款和条件。"
+      },
+      "privacy": {
+        "title": "隐私政策",
+        "subtitle": "我们如何收集、使用和保护您的数据。"
+      },
+      "disclaimer": {
+        "title": "免责声明",
+        "subtitle": "重要法律声明和风险披露。"
+      }
+    }
+  },
   "search": {
     "placeholder": "按地址/交易哈希/区块搜索...",
     "placeholderShort": "搜索...",

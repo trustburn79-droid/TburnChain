@@ -6983,6 +6983,400 @@
       }
     }
   },
+  "publicPages": {
+    "common": {
+      "getStarted": "始める",
+      "learnMore": "詳しく見る",
+      "viewDocs": "ドキュメント",
+      "explore": "探索",
+      "readMore": "続きを読む",
+      "startBuilding": "開発を始める",
+      "contactUs": "お問い合わせ",
+      "joinCommunity": "コミュニティに参加",
+      "subscribe": "購読",
+      "beginner": "初級",
+      "intermediate": "中級",
+      "advanced": "上級",
+      "comingSoon": "近日公開",
+      "new": "新着",
+      "popular": "人気",
+      "featured": "注目"
+    },
+    "header": {
+      "learn": "学習",
+      "developers": "開発者",
+      "solutions": "ソリューション",
+      "useCases": "ユースケース",
+      "network": "ネットワーク",
+      "community": "コミュニティ",
+      "loginInterface": "ログイン画面"
+    },
+    "footer": {
+      "ecosystem": "エコシステム",
+      "solutions": "ソリューション",
+      "developers": "開発者",
+      "resources": "リソース",
+      "community": "コミュニティ",
+      "legal": "法的情報",
+      "stayUpdated": "最新情報を入手",
+      "newsletterDesc": "TBurn Chainの最新ニュースとアップデートを受け取る",
+      "enterEmail": "メールアドレス入力",
+      "copyright": "© 2025 TBurn Chain Foundation. All rights reserved.",
+      "termsOfService": "利用規約",
+      "privacyPolicy": "プライバシーポリシー",
+      "disclaimer": "免責事項"
+    },
+    "home": {
+      "heroTag": "メインネット稼働中",
+      "heroTitle": "未来の",
+      "heroTitleRotating": ["信頼ベース", "AI駆動", "量子安全", "ハイパースケール"],
+      "heroSubtitle": "ブロックチェーン",
+      "heroDescription": "世界初のAI駆動信頼検証ネットワーク。量子耐性セキュリティとエンタープライズグレードのスケーラビリティの融合。",
+      "launchExplorer": "エクスプローラーを起動",
+      "readWhitepaper": "ホワイトペーパーを読む",
+      "stats": {
+        "blocks": "ブロック",
+        "validators": "バリデーター",
+        "dailyTxs": "日次TX",
+        "uptime": "稼働時間"
+      },
+      "solutions": {
+        "title": "コアソリューション",
+        "subtitle": "エンタープライズグレードのブロックチェーンインフラ",
+        "tripleBandAi": {
+          "title": "トリプルバンドAI",
+          "description": "戦略、戦術、運用レベルで最適化された意思決定を行う3層AIオーケストレーション。"
+        },
+        "quantumSecurity": {
+          "title": "量子セキュリティ",
+          "description": "CRYSTALS-Dilithium + ED25519ハイブリッド署名で将来の量子脅威に対応。"
+        },
+        "defiHub": {
+          "title": "DeFiハブ",
+          "description": "DEX、レンディング、ステーキング、イールドファーミングを統合した完全なDeFiエコシステム。"
+        },
+        "gamefiPlatform": {
+          "title": "GameFiプラットフォーム",
+          "description": "P2Eエンジン、トーナメント、クロスチェーンNFTマーケットプレイスを備えた次世代ゲームインフラ。"
+        },
+        "autoBurn": {
+          "title": "自動バーン",
+          "description": "トランザクションベース、時間ベース、AI最適化バーンを組み合わせたハイブリッドデフレモデル。"
+        },
+        "crossChainBridge": {
+          "title": "クロスチェーンブリッジ",
+          "description": "Ethereum、BSCなど7以上のチェーンに接続する安全なクロスチェーン資産転送ソリューション。"
+        }
+      },
+      "aiTerminal": {
+        "title": "AIターミナル",
+        "subtitle": "リアルタイムAIオーケストレーション監視"
+      }
+    },
+    "learn": {
+      "hub": {
+        "tag": "V4ラーニングセンター",
+        "title": "教育ハブ",
+        "subtitle": "TBurn Chain V4エコシステムをマスター。信頼ベースの合意アルゴリズムから高速dAppの構築まで、ここから始めましょう。",
+        "stats": {
+          "courses": "コース",
+          "learners": "学習者",
+          "hoursContent": "コンテンツ時間",
+          "completionRate": "修了率"
+        },
+        "learningPaths": "学習パス",
+        "learningPathsDesc": "すべてのスキルレベル向けのカリキュラム。",
+        "coreConcepts": "コア概念",
+        "coreConceptsDesc": "TBurn Chainの基本原理。",
+        "quickGlossary": "用語集",
+        "certifications": "認定",
+        "certificationsDesc": "認定バッジを取得",
+        "communityLearning": "コミュニティラーニング"
+      },
+      "whatIsBurnChain": {
+        "tag": "紹介",
+        "title": "TBurn Chainとは？",
+        "subtitle": "AI検証と量子耐性セキュリティを備えた世界初の信頼ベースブロックチェーンを発見。"
+      },
+      "trustScore": {
+        "tag": "コア機能",
+        "title": "トラストスコアシステム",
+        "subtitle": "3段階検証システム、AI分析、動的スコアリングアルゴリズムの詳細。"
+      },
+      "wallet": {
+        "tag": "はじめに",
+        "title": "ウォレットとは？",
+        "subtitle": "暗号通貨ウォレット、セキュリティのベストプラクティス、TBurnウォレットの設定方法。"
+      },
+      "whitepaper": {
+        "tag": "技術文書",
+        "title": "ホワイトペーパー",
+        "subtitle": "TBurn Chainアーキテクチャ、コンセンサス、トークノミクスの完全な技術文書。"
+      },
+      "tokenomics": {
+        "tag": "経済学",
+        "title": "トークノミクス",
+        "subtitle": "TBURNトークンの配布、発行スケジュール、デフレメカニズムの理解。"
+      },
+      "roadmap": {
+        "tag": "開発",
+        "title": "ロードマップ",
+        "subtitle": "メインストリーム採用への進捗と今後のマイルストーンを追跡。"
+      },
+      "blockchainBasics": {
+        "tag": "初級",
+        "title": "ブロックチェーン基礎",
+        "subtitle": "ブロックチェーン技術と分散システムの基本概念。"
+      },
+      "defiMastery": {
+        "tag": "中級",
+        "title": "DeFiマスタリー",
+        "subtitle": "DEX、レンディング、イールド戦略を含む分散型金融概念をマスター。"
+      },
+      "developerCourse": {
+        "tag": "上級",
+        "title": "開発者コース",
+        "subtitle": "TBurn ChainでdAppを構築・デプロイする完全ガイド。"
+      },
+      "introToDefi": {
+        "tag": "初級",
+        "title": "DeFi入門",
+        "subtitle": "TBurn Chainでの分散型金融への第一歩。"
+      },
+      "educationPrograms": {
+        "tag": "プログラム",
+        "title": "教育プログラム",
+        "subtitle": "ブロックチェーン教育のための体系的な学習パスと認定プログラム。"
+      },
+      "universities": {
+        "tag": "アカデミア",
+        "title": "大学パートナーシップ",
+        "subtitle": "ブロックチェーン教育を推進する学術協力と研究プログラム。"
+      }
+    },
+    "developers": {
+      "hub": {
+        "tag": "V4 SDK & API 準備完了",
+        "title": "開発者ハブ",
+        "subtitle": "次世代の信頼ベースアプリケーションを構築。TBurn Chain V4エコシステム向けの包括的な開発ツール、SDK、APIにアクセス。",
+        "getStarted": "始める",
+        "viewDocs": "ドキュメント",
+        "quickStart": "クイックスタート",
+        "sdks": "公式SDK",
+        "apiReference": "APIリファレンス",
+        "devTools": "開発ツール",
+        "grants": "開発者グラント"
+      },
+      "docs": {
+        "tag": "ドキュメント",
+        "title": "ドキュメント",
+        "subtitle": "TBurn Chain開発のための包括的なガイドとリファレンス。"
+      },
+      "api": {
+        "tag": "APIリファレンス",
+        "title": "APIドキュメント",
+        "subtitle": "ブロックチェーン、DeFi、AIサービス向けのRESTful APIエンドポイント。"
+      },
+      "cli": {
+        "tag": "CLIツール",
+        "title": "CLIリファレンス",
+        "subtitle": "プロジェクト管理とデプロイのためのコマンドラインインターフェース。"
+      },
+      "sdk": {
+        "tag": "SDKガイド",
+        "title": "SDKガイド",
+        "subtitle": "多言語SDK統合ガイドとベストプラクティス。"
+      },
+      "contracts": {
+        "tag": "スマートコントラクト",
+        "title": "スマートコントラクト",
+        "subtitle": "TBurn Chainで安全なスマートコントラクトを作成、テスト、デプロイ。"
+      },
+      "websocket": {
+        "tag": "リアルタイム",
+        "title": "WebSocket API",
+        "subtitle": "リアルタイムデータストリーミングとイベントサブスクリプション。"
+      },
+      "examples": {
+        "tag": "コード例",
+        "title": "コード例",
+        "subtitle": "すぐに使えるコードスニペットとサンプルプロジェクト。"
+      },
+      "quickstart": {
+        "tag": "はじめに",
+        "title": "クイックスタート",
+        "subtitle": "数分でTBurn Chainを始める。"
+      },
+      "installation": {
+        "tag": "セットアップ",
+        "title": "インストールガイド",
+        "subtitle": "ステップバイステップのインストールと設定手順。"
+      },
+      "evmMigration": {
+        "tag": "マイグレーション",
+        "title": "EVMマイグレーション",
+        "subtitle": "EthereumのdAppをTBurn Chainに移行。"
+      }
+    },
+    "solutions": {
+      "defiHub": {
+        "tag": "DeFIエコシステム",
+        "title": "DeFiハブ",
+        "subtitle": "DEX、レンディング、ステーキング、イールドファーミングを備えた完全な分散型金融インフラ。",
+        "features": {
+          "dex": "DEX/AMM",
+          "lending": "レンディングプロトコル",
+          "staking": "ステーキング",
+          "yield": "イールドファーミング"
+        }
+      },
+      "tokenExtensions": {
+        "tag": "トークン規格",
+        "title": "トークン拡張",
+        "subtitle": "AI強化機能を備えた高度なTBC-20、TBC-721、TBC-1155トークン規格。"
+      },
+      "actionsBlinks": {
+        "tag": "自動化",
+        "title": "アクション＆ブリンクス",
+        "subtitle": "自動化されたブロックチェーンインタラクションと即時トランザクションリンク。"
+      },
+      "wallets": {
+        "tag": "ウォレットソリューション",
+        "title": "ウォレットソリューション",
+        "subtitle": "企業と消費者向けの安全なウォレットインフラ。"
+      },
+      "permissioned": {
+        "tag": "エンタープライズ",
+        "title": "パーミッションドネットワーク",
+        "subtitle": "企業デプロイ向けのプライベートブロックチェーンネットワーク。"
+      },
+      "gameTooling": {
+        "tag": "ゲーム",
+        "title": "ゲームツール",
+        "subtitle": "ブロックチェーンゲーム向けの完全なGameFiインフラ。"
+      },
+      "payments": {
+        "tag": "決済",
+        "title": "決済ソリューション",
+        "subtitle": "高速で安全なブロックチェーン決済処理。"
+      },
+      "commerce": {
+        "tag": "コマース",
+        "title": "コマース",
+        "subtitle": "Eコマース統合とマーチャントソリューション。"
+      },
+      "financial": {
+        "tag": "金融",
+        "title": "金融サービス",
+        "subtitle": "ブロックチェーンベースのエンタープライズ金融インフラ。"
+      },
+      "aiFeatures": {
+        "tag": "AI駆動",
+        "title": "AI機能",
+        "subtitle": "インテリジェントなブロックチェーン運用のためのトリプルバンドAIオーケストレーション。"
+      },
+      "artistsCreators": {
+        "tag": "クリエイティブ",
+        "title": "アーティスト＆クリエイター",
+        "subtitle": "NFTミント、ロイヤリティ、クリエイターエコノミーツール。"
+      },
+      "btcfi": {
+        "tag": "ビットコインDEFI",
+        "title": "BTCfi",
+        "subtitle": "ラップドBTCとクロスチェーンイールドを含むビットコインDeFi統合。"
+      },
+      "crossChainBridge": {
+        "tag": "ブリッジ",
+        "title": "クロスチェーンブリッジ",
+        "subtitle": "7以上のブロックチェーンネットワーク間の安全な資産転送。"
+      }
+    },
+    "useCases": {
+      "tokenization": {
+        "tag": "トークン化",
+        "title": "資産トークン化",
+        "subtitle": "ブロックチェーン上で実世界資産をトークン化。"
+      },
+      "depin": {
+        "tag": "DEPIN",
+        "title": "DePIN",
+        "subtitle": "分散型物理インフラストラクチャネットワーク。"
+      },
+      "stablecoins": {
+        "tag": "ステーブルコイン",
+        "title": "ステーブルコイン",
+        "subtitle": "エンタープライズグレードのステーブルコインインフラ。"
+      },
+      "institutional": {
+        "tag": "機関向け",
+        "title": "機関向け決済",
+        "subtitle": "企業向けの大量決済ソリューション。"
+      },
+      "enterprise": {
+        "tag": "エンタープライズ",
+        "title": "エンタープライズソリューション",
+        "subtitle": "企業向けの包括的なブロックチェーンソリューション。"
+      },
+      "gaming": {
+        "tag": "ゲーム",
+        "title": "ゲーム＆メタバース",
+        "subtitle": "GameFiインフラとメタバース統合。"
+      }
+    },
+    "network": {
+      "validators": {
+        "tag": "ネットワーク",
+        "title": "バリデーター",
+        "subtitle": "TBurnバリデーターネットワークに参加して報酬を獲得。"
+      },
+      "rpc": {
+        "tag": "インフラ",
+        "title": "RPCプロバイダー",
+        "subtitle": "高性能RPCエンドポイントとAPIアクセス。"
+      },
+      "status": {
+        "tag": "ステータス",
+        "title": "ネットワークステータス",
+        "subtitle": "リアルタイムのネットワーク健全性とパフォーマンス指標。"
+      },
+      "ramp": {
+        "tag": "フィアットゲートウェイ",
+        "title": "フィアットオン/オフランプ",
+        "subtitle": "フィアット通貨でTBURNを売買。"
+      }
+    },
+    "community": {
+      "hub": {
+        "tag": "コミュニティ",
+        "title": "コミュニティハブ",
+        "subtitle": "ビルダー、バリデーター、愛好家とつながる。"
+      },
+      "news": {
+        "tag": "ニュース＆ブログ",
+        "title": "ニュース＆ブログ",
+        "subtitle": "最新のアップデート、お知らせ、インサイト。"
+      },
+      "events": {
+        "tag": "イベント",
+        "title": "イベント＆アクティビティ",
+        "subtitle": "TBurn Chainコミュニティイベント、ハッカソン、カンファレンスに参加。"
+      }
+    },
+    "legal": {
+      "terms": {
+        "title": "利用規約",
+        "subtitle": "TBurn Chainサービス利用の条件。"
+      },
+      "privacy": {
+        "title": "プライバシーポリシー",
+        "subtitle": "データの収集、使用、保護方法。"
+      },
+      "disclaimer": {
+        "title": "免責事項",
+        "subtitle": "重要な法的通知とリスク開示。"
+      }
+    }
+  },
   "search": {
     "placeholder": "アドレス / Txハッシュ / ブロックで検索...",
     "placeholderShort": "検索...",
