@@ -6228,6 +6228,400 @@
     "addressCopied": "Address copied to clipboard",
     "txHashCopied": "Transaction hash copied to clipboard"
   },
+  "publicPages": {
+    "common": {
+      "getStarted": "Get Started",
+      "learnMore": "Learn More",
+      "viewDocs": "View Docs",
+      "explore": "Explore",
+      "readMore": "Read More",
+      "startBuilding": "Start Building",
+      "contactUs": "Contact Us",
+      "joinCommunity": "Join Community",
+      "subscribe": "Subscribe",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "comingSoon": "Coming Soon",
+      "new": "New",
+      "popular": "Popular",
+      "featured": "Featured"
+    },
+    "header": {
+      "learn": "Learn",
+      "developers": "Developers",
+      "solutions": "Solutions",
+      "useCases": "Use Cases",
+      "network": "Network",
+      "community": "Community",
+      "loginInterface": "Login Interface"
+    },
+    "footer": {
+      "ecosystem": "Ecosystem",
+      "solutions": "Solutions",
+      "developers": "Developers",
+      "resources": "Resources",
+      "community": "Community",
+      "legal": "Legal",
+      "stayUpdated": "Stay Updated",
+      "newsletterDesc": "Get the latest news and updates from TBurn Chain",
+      "enterEmail": "Enter your email",
+      "copyright": "© 2025 TBurn Chain Foundation. All rights reserved.",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "disclaimer": "Disclaimer"
+    },
+    "home": {
+      "heroTag": "MAINNET LIVE",
+      "heroTitle": "The Future of",
+      "heroTitleRotating": ["Trust-Based", "AI-Powered", "Quantum-Safe", "Hyper-Scale"],
+      "heroSubtitle": "Blockchain",
+      "heroDescription": "World's first AI-powered trust verification network. Quantum-resistant security meets enterprise-grade scalability.",
+      "launchExplorer": "Launch Explorer",
+      "readWhitepaper": "Read Whitepaper",
+      "stats": {
+        "blocks": "Blocks",
+        "validators": "Validators",
+        "dailyTxs": "Daily TXs",
+        "uptime": "Uptime"
+      },
+      "solutions": {
+        "title": "Core Solutions",
+        "subtitle": "Enterprise-grade blockchain infrastructure",
+        "tripleBandAi": {
+          "title": "Triple-Band AI",
+          "description": "Three-tier AI orchestration using optimized decision-making at strategic, tactical, and operational levels."
+        },
+        "quantumSecurity": {
+          "title": "Quantum Security",
+          "description": "CRYSTALS-Dilithium + ED25519 hybrid signatures ensure security against future quantum threats."
+        },
+        "defiHub": {
+          "title": "DeFi Hub",
+          "description": "Complete DeFi ecosystem integrating DEX, lending, staking, and yield farming with liquidity AMM."
+        },
+        "gamefiPlatform": {
+          "title": "GameFi Platform",
+          "description": "Next-gen gaming infrastructure with P2E engine, tournaments, and NFT marketplace cross-chain."
+        },
+        "autoBurn": {
+          "title": "Auto Burn",
+          "description": "Hybrid deflation model with transaction-based, time-based, and AI-optimized burning."
+        },
+        "crossChainBridge": {
+          "title": "Cross-Chain Bridge",
+          "description": "Secure cross-chain asset transfer solution connecting to 7+ chains including Ethereum and BSC."
+        }
+      },
+      "aiTerminal": {
+        "title": "AI Terminal",
+        "subtitle": "Real-time AI orchestration monitoring"
+      }
+    },
+    "learn": {
+      "hub": {
+        "tag": "V4 Learning Center",
+        "title": "Education Hub",
+        "subtitle": "Master the TBurn Chain V4 ecosystem. From trust-based consensus algorithms to building high-speed dApps, start your journey here.",
+        "stats": {
+          "courses": "COURSES",
+          "learners": "LEARNERS",
+          "hoursContent": "HOURS CONTENT",
+          "completionRate": "COMPLETION RATE"
+        },
+        "learningPaths": "Learning Paths",
+        "learningPathsDesc": "Curated curriculums for every skill level.",
+        "coreConcepts": "Core Concepts",
+        "coreConceptsDesc": "Fundamental principles of TBurn Chain.",
+        "quickGlossary": "Quick Glossary",
+        "certifications": "Certifications",
+        "certificationsDesc": "Earn verified badges",
+        "communityLearning": "Community Learning"
+      },
+      "whatIsBurnChain": {
+        "tag": "INTRODUCTION",
+        "title": "What is TBurn Chain?",
+        "subtitle": "Discover the world's first trust-based blockchain with AI verification and quantum-resistant security."
+      },
+      "trustScore": {
+        "tag": "CORE FEATURE",
+        "title": "Trust Score System",
+        "subtitle": "Deep dive into the 3-stage verification system, AI analysis, and dynamic scoring algorithm."
+      },
+      "wallet": {
+        "tag": "GETTING STARTED",
+        "title": "What is a Wallet?",
+        "subtitle": "Learn about cryptocurrency wallets, security best practices, and how to set up your TBurn wallet."
+      },
+      "whitepaper": {
+        "tag": "TECHNICAL PAPER",
+        "title": "Whitepaper",
+        "subtitle": "Complete technical documentation of TBurn Chain architecture, consensus, and tokenomics."
+      },
+      "tokenomics": {
+        "tag": "ECONOMICS",
+        "title": "Tokenomics",
+        "subtitle": "Understand TBURN token distribution, emission schedule, and deflationary mechanisms."
+      },
+      "roadmap": {
+        "tag": "DEVELOPMENT",
+        "title": "Roadmap",
+        "subtitle": "Track our progress and upcoming milestones on the journey to mainstream adoption."
+      },
+      "blockchainBasics": {
+        "tag": "BEGINNER",
+        "title": "Blockchain Basics",
+        "subtitle": "Fundamental concepts of blockchain technology and distributed systems."
+      },
+      "defiMastery": {
+        "tag": "INTERMEDIATE",
+        "title": "DeFi Mastery",
+        "subtitle": "Master decentralized finance concepts including DEX, lending, and yield strategies."
+      },
+      "developerCourse": {
+        "tag": "ADVANCED",
+        "title": "Developer Course",
+        "subtitle": "Complete guide to building and deploying dApps on TBurn Chain."
+      },
+      "introToDefi": {
+        "tag": "BEGINNER",
+        "title": "Introduction to DeFi",
+        "subtitle": "Your first steps into decentralized finance on TBurn Chain."
+      },
+      "educationPrograms": {
+        "tag": "PROGRAMS",
+        "title": "Education Programs",
+        "subtitle": "Structured learning paths and certification programs for blockchain education."
+      },
+      "universities": {
+        "tag": "ACADEMIA",
+        "title": "University Partnerships",
+        "subtitle": "Academic collaborations and research programs advancing blockchain education."
+      }
+    },
+    "developers": {
+      "hub": {
+        "tag": "V4 SDK & API READY",
+        "title": "Developer Hub",
+        "subtitle": "Build next-generation trust-based applications. Access comprehensive development tools, SDKs, and APIs for the TBurn Chain V4 ecosystem.",
+        "getStarted": "Get Started",
+        "viewDocs": "View Docs",
+        "quickStart": "Quick Start",
+        "sdks": "Official SDKs",
+        "apiReference": "API Reference",
+        "devTools": "Developer Tools",
+        "grants": "Developer Grants"
+      },
+      "docs": {
+        "tag": "DOCUMENTATION",
+        "title": "Documentation",
+        "subtitle": "Comprehensive guides and references for TBurn Chain development."
+      },
+      "api": {
+        "tag": "API REFERENCE",
+        "title": "API Documentation",
+        "subtitle": "RESTful API endpoints for blockchain, DeFi, and AI services."
+      },
+      "cli": {
+        "tag": "CLI TOOLS",
+        "title": "CLI Reference",
+        "subtitle": "Command line interface for project management and deployment."
+      },
+      "sdk": {
+        "tag": "SDK GUIDE",
+        "title": "SDK Guide",
+        "subtitle": "Multi-language SDK integration guides and best practices."
+      },
+      "contracts": {
+        "tag": "SMART CONTRACTS",
+        "title": "Smart Contracts",
+        "subtitle": "Write, test, and deploy secure smart contracts on TBurn Chain."
+      },
+      "websocket": {
+        "tag": "REAL-TIME",
+        "title": "WebSocket API",
+        "subtitle": "Real-time data streaming and event subscriptions."
+      },
+      "examples": {
+        "tag": "CODE EXAMPLES",
+        "title": "Code Examples",
+        "subtitle": "Ready-to-use code snippets and sample projects."
+      },
+      "quickstart": {
+        "tag": "GETTING STARTED",
+        "title": "Quick Start",
+        "subtitle": "Get up and running with TBurn Chain in minutes."
+      },
+      "installation": {
+        "tag": "SETUP",
+        "title": "Installation Guide",
+        "subtitle": "Step-by-step installation and configuration instructions."
+      },
+      "evmMigration": {
+        "tag": "MIGRATION",
+        "title": "EVM Migration",
+        "subtitle": "Migrate your Ethereum dApps to TBurn Chain."
+      }
+    },
+    "solutions": {
+      "defiHub": {
+        "tag": "DEFI ECOSYSTEM",
+        "title": "DeFi Hub",
+        "subtitle": "Complete decentralized finance infrastructure with DEX, lending, staking, and yield farming.",
+        "features": {
+          "dex": "DEX/AMM",
+          "lending": "Lending Protocol",
+          "staking": "Staking",
+          "yield": "Yield Farming"
+        }
+      },
+      "tokenExtensions": {
+        "tag": "TOKEN STANDARDS",
+        "title": "Token Extensions",
+        "subtitle": "Advanced TBC-20, TBC-721, and TBC-1155 token standards with AI enhancement."
+      },
+      "actionsBlinks": {
+        "tag": "AUTOMATION",
+        "title": "Actions & Blinks",
+        "subtitle": "Automated blockchain interactions and instant transaction links."
+      },
+      "wallets": {
+        "tag": "WALLET SOLUTIONS",
+        "title": "Wallet Solutions",
+        "subtitle": "Secure wallet infrastructure for enterprises and consumers."
+      },
+      "permissioned": {
+        "tag": "ENTERPRISE",
+        "title": "Permissioned Networks",
+        "subtitle": "Private blockchain networks for enterprise deployment."
+      },
+      "gameTooling": {
+        "tag": "GAMING",
+        "title": "Game Tooling",
+        "subtitle": "Complete GameFi infrastructure for blockchain games."
+      },
+      "payments": {
+        "tag": "PAYMENTS",
+        "title": "Payment Solutions",
+        "subtitle": "Fast, secure blockchain payment processing."
+      },
+      "commerce": {
+        "tag": "COMMERCE",
+        "title": "Commerce",
+        "subtitle": "E-commerce integration and merchant solutions."
+      },
+      "financial": {
+        "tag": "FINANCE",
+        "title": "Financial Services",
+        "subtitle": "Enterprise financial infrastructure on blockchain."
+      },
+      "aiFeatures": {
+        "tag": "AI POWERED",
+        "title": "AI Features",
+        "subtitle": "Triple-Band AI orchestration for intelligent blockchain operations."
+      },
+      "artistsCreators": {
+        "tag": "CREATIVE",
+        "title": "Artists & Creators",
+        "subtitle": "NFT minting, royalties, and creator economy tools."
+      },
+      "btcfi": {
+        "tag": "BITCOIN DEFI",
+        "title": "BTCfi",
+        "subtitle": "Bitcoin DeFi integration with wrapped BTC and cross-chain yields."
+      },
+      "crossChainBridge": {
+        "tag": "BRIDGE",
+        "title": "Cross-Chain Bridge",
+        "subtitle": "Secure asset transfers across 7+ blockchain networks."
+      }
+    },
+    "useCases": {
+      "tokenization": {
+        "tag": "TOKENIZATION",
+        "title": "Asset Tokenization",
+        "subtitle": "Tokenize real-world assets on the blockchain."
+      },
+      "depin": {
+        "tag": "DEPIN",
+        "title": "DePIN",
+        "subtitle": "Decentralized Physical Infrastructure Networks."
+      },
+      "stablecoins": {
+        "tag": "STABLECOINS",
+        "title": "Stablecoins",
+        "subtitle": "Enterprise-grade stablecoin infrastructure."
+      },
+      "institutional": {
+        "tag": "INSTITUTIONAL",
+        "title": "Institutional Payments",
+        "subtitle": "High-volume payment solutions for enterprises."
+      },
+      "enterprise": {
+        "tag": "ENTERPRISE",
+        "title": "Enterprise Solutions",
+        "subtitle": "Comprehensive blockchain solutions for enterprises."
+      },
+      "gaming": {
+        "tag": "GAMING",
+        "title": "Gaming & Metaverse",
+        "subtitle": "GameFi infrastructure and metaverse integration."
+      }
+    },
+    "network": {
+      "validators": {
+        "tag": "NETWORK",
+        "title": "Validators",
+        "subtitle": "Join the TBurn validator network and earn rewards."
+      },
+      "rpc": {
+        "tag": "INFRASTRUCTURE",
+        "title": "RPC Providers",
+        "subtitle": "High-performance RPC endpoints and API access."
+      },
+      "status": {
+        "tag": "STATUS",
+        "title": "Network Status",
+        "subtitle": "Real-time network health and performance metrics."
+      },
+      "ramp": {
+        "tag": "FIAT GATEWAY",
+        "title": "Fiat On/Off Ramp",
+        "subtitle": "Buy and sell TBURN with fiat currency."
+      }
+    },
+    "community": {
+      "hub": {
+        "tag": "COMMUNITY",
+        "title": "Community Hub",
+        "subtitle": "Connect with builders, validators, and enthusiasts."
+      },
+      "news": {
+        "tag": "NEWS & BLOG",
+        "title": "News & Blog",
+        "subtitle": "Latest updates, announcements, and insights."
+      },
+      "events": {
+        "tag": "EVENTS",
+        "title": "Events & Activities",
+        "subtitle": "Join TBurn Chain community events, hackathons, and conferences."
+      }
+    },
+    "legal": {
+      "terms": {
+        "title": "Terms of Service",
+        "subtitle": "Terms and conditions for using TBurn Chain services."
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "subtitle": "How we collect, use, and protect your data."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "subtitle": "Important legal notices and risk disclosures."
+      }
+    }
+  },
   "search": {
     "placeholder": "Search by Address / Tx Hash / Block...",
     "placeholderShort": "Search...",

@@ -6454,6 +6454,400 @@
     "addressCopied": "주소가 클립보드에 복사되었습니다",
     "txHashCopied": "거래 해시가 클립보드에 복사되었습니다"
   },
+  "publicPages": {
+    "common": {
+      "getStarted": "시작하기",
+      "learnMore": "더 알아보기",
+      "viewDocs": "문서 보기",
+      "explore": "탐색",
+      "readMore": "더 보기",
+      "startBuilding": "개발 시작하기",
+      "contactUs": "문의하기",
+      "joinCommunity": "커뮤니티 참여",
+      "subscribe": "구독하기",
+      "beginner": "초급",
+      "intermediate": "중급",
+      "advanced": "고급",
+      "comingSoon": "곧 출시",
+      "new": "신규",
+      "popular": "인기",
+      "featured": "추천"
+    },
+    "header": {
+      "learn": "학습",
+      "developers": "개발자",
+      "solutions": "솔루션",
+      "useCases": "사용 사례",
+      "network": "네트워크",
+      "community": "커뮤니티",
+      "loginInterface": "로그인 인터페이스"
+    },
+    "footer": {
+      "ecosystem": "에코시스템",
+      "solutions": "솔루션",
+      "developers": "개발자",
+      "resources": "리소스",
+      "community": "커뮤니티",
+      "legal": "법적 고지",
+      "stayUpdated": "최신 정보 받기",
+      "newsletterDesc": "TBurn Chain의 최신 뉴스와 업데이트를 받아보세요",
+      "enterEmail": "이메일 입력",
+      "copyright": "© 2025 TBurn Chain 재단. 모든 권리 보유.",
+      "termsOfService": "이용약관",
+      "privacyPolicy": "개인정보처리방침",
+      "disclaimer": "면책조항"
+    },
+    "home": {
+      "heroTag": "메인넷 라이브",
+      "heroTitle": "미래의",
+      "heroTitleRotating": ["신뢰 기반", "AI 강화", "양자 안전", "초고속 확장"],
+      "heroSubtitle": "블록체인",
+      "heroDescription": "세계 최초 AI 기반 신뢰 검증 네트워크. 양자 내성 보안과 엔터프라이즈급 확장성의 조화.",
+      "launchExplorer": "익스플로러 실행",
+      "readWhitepaper": "백서 읽기",
+      "stats": {
+        "blocks": "블록",
+        "validators": "검증자",
+        "dailyTxs": "일일 트랜잭션",
+        "uptime": "가동률"
+      },
+      "solutions": {
+        "title": "핵심 솔루션",
+        "subtitle": "엔터프라이즈급 블록체인 인프라",
+        "tripleBandAi": {
+          "title": "트리플 밴드 AI",
+          "description": "전략, 전술, 운영 수준에서 최적화된 의사결정을 위한 3계층 AI 오케스트레이션."
+        },
+        "quantumSecurity": {
+          "title": "양자 보안",
+          "description": "CRYSTALS-Dilithium + ED25519 하이브리드 서명으로 미래 양자 위협에 대비."
+        },
+        "defiHub": {
+          "title": "DeFi 허브",
+          "description": "DEX, 대출, 스테이킹, 이자 농사를 유동성 AMM과 통합한 완전한 DeFi 생태계."
+        },
+        "gamefiPlatform": {
+          "title": "GameFi 플랫폼",
+          "description": "P2E 엔진, 토너먼트, 크로스체인 NFT 마켓플레이스를 갖춘 차세대 게임 인프라."
+        },
+        "autoBurn": {
+          "title": "자동 소각",
+          "description": "트랜잭션 기반, 시간 기반, AI 최적화 소각을 결합한 하이브리드 디플레이션 모델."
+        },
+        "crossChainBridge": {
+          "title": "크로스체인 브릿지",
+          "description": "이더리움, BSC 등 7개 이상 체인을 연결하는 안전한 크로스체인 자산 전송 솔루션."
+        }
+      },
+      "aiTerminal": {
+        "title": "AI 터미널",
+        "subtitle": "실시간 AI 오케스트레이션 모니터링"
+      }
+    },
+    "learn": {
+      "hub": {
+        "tag": "V4 학습 센터",
+        "title": "교육 허브",
+        "subtitle": "TBurn Chain V4 생태계를 마스터하세요. 신뢰 기반 합의 알고리즘부터 고속 dApp 개발까지, 여기서 시작하세요.",
+        "stats": {
+          "courses": "강좌",
+          "learners": "학습자",
+          "hoursContent": "시간 콘텐츠",
+          "completionRate": "수료율"
+        },
+        "learningPaths": "학습 경로",
+        "learningPathsDesc": "모든 수준을 위한 맞춤형 커리큘럼.",
+        "coreConcepts": "핵심 개념",
+        "coreConceptsDesc": "TBurn Chain의 기본 원리.",
+        "quickGlossary": "간단 용어집",
+        "certifications": "인증",
+        "certificationsDesc": "검증된 배지 획득",
+        "communityLearning": "커뮤니티 학습"
+      },
+      "whatIsBurnChain": {
+        "tag": "소개",
+        "title": "TBurn Chain이란?",
+        "subtitle": "AI 검증과 양자 내성 보안을 갖춘 세계 최초의 신뢰 기반 블록체인을 알아보세요."
+      },
+      "trustScore": {
+        "tag": "핵심 기능",
+        "title": "신뢰 점수 시스템",
+        "subtitle": "3단계 검증 시스템, AI 분석, 동적 점수 알고리즘을 심층 탐구합니다."
+      },
+      "wallet": {
+        "tag": "시작하기",
+        "title": "지갑이란?",
+        "subtitle": "암호화폐 지갑, 보안 모범 사례, TBurn 지갑 설정 방법에 대해 알아보세요."
+      },
+      "whitepaper": {
+        "tag": "기술 문서",
+        "title": "백서",
+        "subtitle": "TBurn Chain 아키텍처, 합의 메커니즘, 토큰노믹스에 대한 완전한 기술 문서."
+      },
+      "tokenomics": {
+        "tag": "경제학",
+        "title": "토큰노믹스",
+        "subtitle": "TBURN 토큰 분배, 발행 일정, 디플레이션 메커니즘을 이해하세요."
+      },
+      "roadmap": {
+        "tag": "개발",
+        "title": "로드맵",
+        "subtitle": "주류 채택을 향한 여정의 진행 상황과 예정된 마일스톤을 추적하세요."
+      },
+      "blockchainBasics": {
+        "tag": "초급",
+        "title": "블록체인 기초",
+        "subtitle": "블록체인 기술과 분산 시스템의 기본 개념."
+      },
+      "defiMastery": {
+        "tag": "중급",
+        "title": "DeFi 마스터",
+        "subtitle": "DEX, 대출, 수익 전략을 포함한 탈중앙화 금융 개념을 마스터하세요."
+      },
+      "developerCourse": {
+        "tag": "고급",
+        "title": "개발자 과정",
+        "subtitle": "TBurn Chain에서 dApp을 빌드하고 배포하는 완전 가이드."
+      },
+      "introToDefi": {
+        "tag": "초급",
+        "title": "DeFi 입문",
+        "subtitle": "TBurn Chain에서 탈중앙화 금융으로의 첫 걸음."
+      },
+      "educationPrograms": {
+        "tag": "프로그램",
+        "title": "교육 프로그램",
+        "subtitle": "블록체인 교육을 위한 체계적인 학습 경로와 인증 프로그램."
+      },
+      "universities": {
+        "tag": "학계",
+        "title": "대학 파트너십",
+        "subtitle": "블록체인 교육을 발전시키는 학술 협력 및 연구 프로그램."
+      }
+    },
+    "developers": {
+      "hub": {
+        "tag": "V4 SDK & API 준비 완료",
+        "title": "개발자 허브",
+        "subtitle": "차세대 신뢰 기반 애플리케이션을 빌드하세요. TBurn Chain V4 생태계를 위한 종합 개발 도구, SDK, API에 액세스하세요.",
+        "getStarted": "시작하기",
+        "viewDocs": "문서 보기",
+        "quickStart": "빠른 시작",
+        "sdks": "공식 SDK",
+        "apiReference": "API 레퍼런스",
+        "devTools": "개발자 도구",
+        "grants": "개발자 지원금"
+      },
+      "docs": {
+        "tag": "문서",
+        "title": "문서",
+        "subtitle": "TBurn Chain 개발을 위한 종합 가이드 및 레퍼런스."
+      },
+      "api": {
+        "tag": "API 레퍼런스",
+        "title": "API 문서",
+        "subtitle": "블록체인, DeFi, AI 서비스를 위한 RESTful API 엔드포인트."
+      },
+      "cli": {
+        "tag": "CLI 도구",
+        "title": "CLI 레퍼런스",
+        "subtitle": "프로젝트 관리 및 배포를 위한 명령줄 인터페이스."
+      },
+      "sdk": {
+        "tag": "SDK 가이드",
+        "title": "SDK 가이드",
+        "subtitle": "다국어 SDK 통합 가이드 및 모범 사례."
+      },
+      "contracts": {
+        "tag": "스마트 컨트랙트",
+        "title": "스마트 컨트랙트",
+        "subtitle": "TBurn Chain에서 안전한 스마트 컨트랙트를 작성, 테스트, 배포하세요."
+      },
+      "websocket": {
+        "tag": "실시간",
+        "title": "WebSocket API",
+        "subtitle": "실시간 데이터 스트리밍 및 이벤트 구독."
+      },
+      "examples": {
+        "tag": "코드 예제",
+        "title": "코드 예제",
+        "subtitle": "즉시 사용 가능한 코드 스니펫 및 샘플 프로젝트."
+      },
+      "quickstart": {
+        "tag": "시작하기",
+        "title": "빠른 시작",
+        "subtitle": "몇 분 안에 TBurn Chain을 시작하세요."
+      },
+      "installation": {
+        "tag": "설정",
+        "title": "설치 가이드",
+        "subtitle": "단계별 설치 및 구성 지침."
+      },
+      "evmMigration": {
+        "tag": "마이그레이션",
+        "title": "EVM 마이그레이션",
+        "subtitle": "이더리움 dApp을 TBurn Chain으로 마이그레이션하세요."
+      }
+    },
+    "solutions": {
+      "defiHub": {
+        "tag": "DEFI 생태계",
+        "title": "DeFi 허브",
+        "subtitle": "DEX, 대출, 스테이킹, 이자 농사를 갖춘 완전한 탈중앙화 금융 인프라.",
+        "features": {
+          "dex": "DEX/AMM",
+          "lending": "대출 프로토콜",
+          "staking": "스테이킹",
+          "yield": "이자 농사"
+        }
+      },
+      "tokenExtensions": {
+        "tag": "토큰 표준",
+        "title": "토큰 확장",
+        "subtitle": "AI 강화 기능을 갖춘 고급 TBC-20, TBC-721, TBC-1155 토큰 표준."
+      },
+      "actionsBlinks": {
+        "tag": "자동화",
+        "title": "액션 & 블링크",
+        "subtitle": "자동화된 블록체인 상호작용 및 즉시 트랜잭션 링크."
+      },
+      "wallets": {
+        "tag": "지갑 솔루션",
+        "title": "지갑 솔루션",
+        "subtitle": "기업과 소비자를 위한 안전한 지갑 인프라."
+      },
+      "permissioned": {
+        "tag": "엔터프라이즈",
+        "title": "허가형 네트워크",
+        "subtitle": "기업 배포를 위한 프라이빗 블록체인 네트워크."
+      },
+      "gameTooling": {
+        "tag": "게임",
+        "title": "게임 도구",
+        "subtitle": "블록체인 게임을 위한 완전한 GameFi 인프라."
+      },
+      "payments": {
+        "tag": "결제",
+        "title": "결제 솔루션",
+        "subtitle": "빠르고 안전한 블록체인 결제 처리."
+      },
+      "commerce": {
+        "tag": "커머스",
+        "title": "커머스",
+        "subtitle": "전자상거래 통합 및 판매자 솔루션."
+      },
+      "financial": {
+        "tag": "금융",
+        "title": "금융 서비스",
+        "subtitle": "블록체인 기반 엔터프라이즈 금융 인프라."
+      },
+      "aiFeatures": {
+        "tag": "AI 기반",
+        "title": "AI 기능",
+        "subtitle": "지능형 블록체인 운영을 위한 트리플 밴드 AI 오케스트레이션."
+      },
+      "artistsCreators": {
+        "tag": "크리에이티브",
+        "title": "아티스트 & 크리에이터",
+        "subtitle": "NFT 민팅, 로열티, 크리에이터 이코노미 도구."
+      },
+      "btcfi": {
+        "tag": "비트코인 DEFI",
+        "title": "BTCfi",
+        "subtitle": "랩핑된 BTC와 크로스체인 수익을 갖춘 비트코인 DeFi 통합."
+      },
+      "crossChainBridge": {
+        "tag": "브릿지",
+        "title": "크로스체인 브릿지",
+        "subtitle": "7개 이상 블록체인 네트워크 간 안전한 자산 전송."
+      }
+    },
+    "useCases": {
+      "tokenization": {
+        "tag": "토큰화",
+        "title": "자산 토큰화",
+        "subtitle": "블록체인에서 실물 자산을 토큰화하세요."
+      },
+      "depin": {
+        "tag": "DEPIN",
+        "title": "DePIN",
+        "subtitle": "탈중앙화 물리적 인프라 네트워크."
+      },
+      "stablecoins": {
+        "tag": "스테이블코인",
+        "title": "스테이블코인",
+        "subtitle": "엔터프라이즈급 스테이블코인 인프라."
+      },
+      "institutional": {
+        "tag": "기관",
+        "title": "기관 결제",
+        "subtitle": "기업을 위한 대용량 결제 솔루션."
+      },
+      "enterprise": {
+        "tag": "엔터프라이즈",
+        "title": "엔터프라이즈 솔루션",
+        "subtitle": "기업을 위한 종합 블록체인 솔루션."
+      },
+      "gaming": {
+        "tag": "게임",
+        "title": "게임 & 메타버스",
+        "subtitle": "GameFi 인프라 및 메타버스 통합."
+      }
+    },
+    "network": {
+      "validators": {
+        "tag": "네트워크",
+        "title": "검증자",
+        "subtitle": "TBurn 검증자 네트워크에 참여하고 보상을 받으세요."
+      },
+      "rpc": {
+        "tag": "인프라",
+        "title": "RPC 제공자",
+        "subtitle": "고성능 RPC 엔드포인트 및 API 액세스."
+      },
+      "status": {
+        "tag": "상태",
+        "title": "네트워크 상태",
+        "subtitle": "실시간 네트워크 상태 및 성능 지표."
+      },
+      "ramp": {
+        "tag": "법정화폐 게이트웨이",
+        "title": "법정화폐 온/오프 램프",
+        "subtitle": "법정화폐로 TBURN을 구매하고 판매하세요."
+      }
+    },
+    "community": {
+      "hub": {
+        "tag": "커뮤니티",
+        "title": "커뮤니티 허브",
+        "subtitle": "빌더, 검증자, 열성 팬들과 소통하세요."
+      },
+      "news": {
+        "tag": "뉴스 & 블로그",
+        "title": "뉴스 & 블로그",
+        "subtitle": "최신 업데이트, 공지사항, 인사이트."
+      },
+      "events": {
+        "tag": "이벤트",
+        "title": "이벤트 & 활동",
+        "subtitle": "TBurn Chain 커뮤니티 이벤트, 해커톤, 컨퍼런스에 참여하세요."
+      }
+    },
+    "legal": {
+      "terms": {
+        "title": "이용약관",
+        "subtitle": "TBurn Chain 서비스 이용에 대한 약관."
+      },
+      "privacy": {
+        "title": "개인정보처리방침",
+        "subtitle": "데이터 수집, 사용 및 보호 방법."
+      },
+      "disclaimer": {
+        "title": "면책조항",
+        "subtitle": "중요한 법적 고지 및 위험 공개."
+      }
+    }
+  },
   "search": {
     "placeholder": "주소 / 트랜잭션 해시 / 블록으로 검색...",
     "placeholderShort": "검색...",
