@@ -131,25 +131,6 @@ export function NeuralCanvas() {
         }
       }
 
-      const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
-      if (mx > 0 && mx < width && my > 0 && my < height) {
-        for (const particle of particles) {
-          const dx = mx - particle.x;
-          const dy = my - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 180) {
-            const opacity = (1 - distance / 180) * 0.11;
-            ctx!.strokeStyle = `rgba(0, 240, 255, ${opacity})`;
-            ctx!.lineWidth = 1.2;
-            ctx!.beginPath();
-            ctx!.moveTo(particle.x, particle.y);
-            ctx!.lineTo(mx, my);
-            ctx!.stroke();
-          }
-        }
-      }
     }
 
     function animate() {
