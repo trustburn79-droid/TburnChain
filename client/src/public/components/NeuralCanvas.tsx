@@ -81,13 +81,6 @@ export function NeuralCanvas() {
     }
 
     function updateParticle(particle: Particle) {
-      if (particle.x > width || particle.x < 0) {
-        particle.vx = -particle.vx;
-      }
-      if (particle.y > height || particle.y < 0) {
-        particle.vy = -particle.vy;
-      }
-
       const dx = mouseRef.current.x - particle.x;
       const dy = mouseRef.current.y - particle.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
@@ -102,8 +95,22 @@ export function NeuralCanvas() {
       particle.x += particle.vx;
       particle.y += particle.vy;
 
-      particle.x = Math.max(0, Math.min(width, particle.x));
-      particle.y = Math.max(0, Math.min(height, particle.y));
+      const margin = 5;
+      if (particle.x <= margin) {
+        particle.x = margin;
+        particle.vx = Math.abs(particle.vx);
+      } else if (particle.x >= width - margin) {
+        particle.x = width - margin;
+        particle.vx = -Math.abs(particle.vx);
+      }
+
+      if (particle.y <= margin) {
+        particle.y = margin;
+        particle.vy = Math.abs(particle.vy);
+      } else if (particle.y >= height - margin) {
+        particle.y = height - margin;
+        particle.vy = -Math.abs(particle.vy);
+      }
     }
 
     function connectParticles() {
