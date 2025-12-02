@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Building2,
   Shield,
@@ -91,6 +92,7 @@ const clientTypes = [
 ];
 
 export default function Institutional() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -119,17 +121,13 @@ export default function Institutional() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#ffd700] mb-6">
-            <Building2 className="w-4 h-4" /> INSTITUTIONAL_PAYMENTS
+            <Building2 className="w-4 h-4" /> {t('publicPages.useCases.institutional.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Institutional{" "}
-            <span className="bg-gradient-to-r from-[#ffd700] to-[#ff9500] bg-clip-text text-transparent">
-              Payments
-            </span>
+            {t('publicPages.useCases.institutional.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Enterprise-grade payment infrastructure for banks, financial institutions, 
-            and payment processors. Real-time settlement, global reach, full compliance.
+            {t('publicPages.useCases.institutional.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/community/hub">

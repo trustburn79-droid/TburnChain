@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   ShoppingBag,
   CreditCard,
@@ -115,6 +116,7 @@ const integrationSteps = [
 ];
 
 export default function Commerce() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -144,17 +146,16 @@ export default function Commerce() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <ShoppingBag className="w-4 h-4" /> COMMERCE_INFRASTRUCTURE
+            <ShoppingBag className="w-4 h-4" /> {t('publicPages.solutions.commerce.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Commerce{" "}
+            {t('publicPages.solutions.commerce.title')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Solutions
+              {t('publicPages.solutions.commerce.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Revolutionize e-commerce with blockchain. <br />
-            Integrate secure payments, NFT inventory, and token loyalty programs effortlessly.
+            {t('publicPages.solutions.commerce.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">

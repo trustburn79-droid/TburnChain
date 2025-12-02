@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   Download, 
   Cpu, 
@@ -160,6 +161,7 @@ function TerminalWindow({
 }
 
 export default function InstallationGuide() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<OsTab>("linux");
   const [expandedTroubleshooting, setExpandedTroubleshooting] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -204,16 +206,16 @@ export default function InstallationGuide() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Download className="w-4 h-4" /> NODE_INSTALLATION_V4
+            <Download className="w-4 h-4" /> {t('publicPages.developers.installation.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Run a{" "}
+            {t('publicPages.developers.installation.title').split(' ').slice(0, 1).join(' ')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Validator Node
+              {t('publicPages.developers.installation.title').split(' ').slice(1).join(' ') || 'Guide'}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Join the TBurn Chain network. Validate transactions, secure the network, and earn rewards. Setup takes less than 10 minutes.
+            {t('publicPages.developers.installation.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">

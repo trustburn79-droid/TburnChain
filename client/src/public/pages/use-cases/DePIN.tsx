@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Wifi,
   Server,
@@ -84,6 +85,7 @@ const features = [
 ];
 
 export default function DePIN() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -112,17 +114,13 @@ export default function DePIN() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Radio className="w-4 h-4" /> DECENTRALIZED_INFRASTRUCTURE
+            <Radio className="w-4 h-4" /> {t('publicPages.useCases.depin.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              DePIN
-            </span>{" "}
-            Networks
+            {t('publicPages.useCases.depin.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Build and operate Decentralized Physical Infrastructure Networks on TBurn Chain.
-            Reward contributors, verify coverage, and scale globally.
+            {t('publicPages.useCases.depin.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">

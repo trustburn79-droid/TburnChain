@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   ShieldCheck, 
   Layers, 
@@ -101,6 +102,7 @@ const verificationProcess = [
 ];
 
 export default function TrustScoreSystem() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -130,16 +132,13 @@ export default function TrustScoreSystem() {
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <ShieldCheck className="w-4 h-4" /> SYSTEM_VERIFIED
+            <ShieldCheck className="w-4 h-4" /> {t('publicPages.learn.trustScore.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Trust Score{" "}
-            <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              System
-            </span>
+            {t('publicPages.learn.trustScore.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-            A comprehensive 100-point evaluation engine. We don't just audit security once; we continuously monitor team, finance, and technical reliability in real-time.
+            {t('publicPages.learn.trustScore.subtitle')}
           </p>
         </div>
       </section>

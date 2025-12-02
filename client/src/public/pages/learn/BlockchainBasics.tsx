@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   BookOpen, FileText, ArrowLeft, Clock, ChevronRight, Play, 
   PlayCircle, CheckCircle, Code, Wifi, Shield
@@ -54,6 +55,8 @@ const prerequisites = [
 ];
 
 export default function BlockchainBasics() {
+  const { t } = useTranslation();
+
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -75,15 +78,15 @@ export default function BlockchainBasics() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border border-[#00f0ff] text-[#00f0ff] bg-[#00f0ff]/5">
-                  Beginner
+                  {t('publicPages.learn.blockchainBasics.tag')}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
                   <Clock className="w-4 h-4" /> 2 hours
                 </span>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Blockchain Basics</h1>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.blockchainBasics.title')}</h1>
               <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
-                Understand the fundamental concepts of blockchain technology, decentralization, and how TBurn Chain solves the trilemma.
+                {t('publicPages.learn.blockchainBasics.subtitle')}
               </p>
             </div>
           </div>
@@ -207,7 +210,7 @@ export default function BlockchainBasics() {
                   className="w-full bg-[#00f0ff] text-black font-bold py-3 rounded-lg hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)] mb-6 flex items-center justify-center gap-2"
                   data-testid="button-start-learning"
                 >
-                  <Play className="w-5 h-5" /> Start Learning
+                  <Play className="w-5 h-5" /> {t('publicPages.common.getStarted')}
                 </button>
               </Link>
 

@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   Coins, 
   Flame,
@@ -41,6 +42,7 @@ const governanceFeatures = [
 ];
 
 export default function Tokenomics() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -70,16 +72,13 @@ export default function Tokenomics() {
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#ffb800] mb-6">
-            <Coins className="w-4 h-4" /> TBURN + EMBER GAS
+            <Coins className="w-4 h-4" /> {t('publicPages.learn.tokenomics.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Token{" "}
-            <span className="bg-gradient-to-r from-[#ffb800] to-[#ff5e00] bg-clip-text text-transparent">
-              Economics
-            </span>
+            {t('publicPages.learn.tokenomics.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-            A sustainable economic model powered by the deflationary TBURN token and the efficient Ember Gas system. Designed for long-term value and trust-based growth.
+            {t('publicPages.learn.tokenomics.subtitle')}
           </p>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   GraduationCap, 
   BookOpen, 
@@ -53,6 +54,7 @@ const studentOpportunities = [
 ];
 
 export default function Universities() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -82,16 +84,13 @@ export default function Universities() {
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00ff9d] mb-6">
-            <GraduationCap className="w-4 h-4" /> ACADEMIC_ALLIANCE
+            <GraduationCap className="w-4 h-4" /> {t('publicPages.learn.universities.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            TBurn Chain <br />
-            <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              University Program
-            </span>
+            {t('publicPages.learn.universities.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-            Nurturing the next generation of blockchain architects. We connect students, educators, and institutions with the resources to build the future of Trust.
+            {t('publicPages.learn.universities.subtitle')}
           </p>
         </div>
       </section>

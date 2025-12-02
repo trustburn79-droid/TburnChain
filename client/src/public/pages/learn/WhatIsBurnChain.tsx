@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   ShieldCheck, 
   Zap, 
@@ -66,6 +67,7 @@ const consensusSpecs = [
 ];
 
 export default function WhatIsBurnChain() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -96,16 +98,13 @@ export default function WhatIsBurnChain() {
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
             <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-pulse" />
-            LAYER 1 PROTOCOL
+            {t('publicPages.learn.whatIsBurnChain.tag')}
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            What is <br />
-            <span className="bg-gradient-to-r from-[#7000ff] to-[#a000ff] bg-clip-text text-transparent">
-              TBurn Chain?
-            </span>
+            {t('publicPages.learn.whatIsBurnChain.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-            The world's first <span className="text-white font-medium">trust-based Layer 1 blockchain</span> that measures, verifies, and enforces the reliability of blockchain projects. We technically solve the crypto market's biggest problem: <span className="text-[#ff2a6d]">"Lack of Trust"</span>.
+            {t('publicPages.learn.whatIsBurnChain.subtitle')}
           </p>
         </div>
       </section>

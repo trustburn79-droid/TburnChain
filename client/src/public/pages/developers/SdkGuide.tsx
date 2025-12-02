@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Package, Download, Settings, Code, CheckCircle, RefreshCw, Zap, 
   Server, HelpCircle, Copy, Book, Terminal
@@ -126,6 +127,7 @@ client.ws.subscribeTrustScores(['0xProject1...'], (update) => {
 });`;
 
 export default function SdkGuide() {
+  const { t } = useTranslation();
   const [activeLang, setActiveLang] = useState("JavaScript");
   const [activeTab, setActiveTab] = useState("Core");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -156,13 +158,12 @@ export default function SdkGuide() {
               <Package className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white">SDK Guide</h1>
-              <p className="text-sm text-[#00f0ff] font-mono mt-1">Build dApps faster with TBurn SDK</p>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white">{t('publicPages.developers.sdk.title')}</h1>
+              <p className="text-sm text-[#00f0ff] font-mono mt-1">{t('publicPages.developers.sdk.tag')}</p>
             </div>
           </div>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl">
-            The official TBurn Chain SDK provides robust tools for JavaScript, Python, Rust, and Go developers. 
-            Integrate blockchain features, manage wallets, and interact with smart contracts seamlessly.
+            {t('publicPages.developers.sdk.subtitle')}
           </p>
         </div>
       </section>

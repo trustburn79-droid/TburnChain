@@ -3,9 +3,11 @@ import {
   Coins, Globe, CheckCircle, RefreshCw
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { usePublicNetworkStats, usePublicAiSummary, usePublicValidators } from "../../hooks/use-public-data";
 
 export default function NetworkStatus() {
+  const { t } = useTranslation();
   const { data: statsResponse, refetch: refetchStats } = usePublicNetworkStats();
   const { data: aiResponse } = usePublicAiSummary();
   const { data: validatorsResponse } = usePublicValidators();
@@ -49,17 +51,16 @@ export default function NetworkStatus() {
           <div className="flex flex-wrap items-center gap-4 mb-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00ff9d]/10 border border-[#00ff9d]/30 text-xs font-mono text-[#00ff9d]">
               <span className="w-2 h-2 rounded-full bg-[#00ff9d] shadow-[0_0_10px_#00ff9d]" />
-              ALL_SYSTEMS_OPERATIONAL
+              {t('publicPages.network.status.tag')}
             </div>
             <span className="text-xs font-mono text-gray-500">LAST UPDATED: {lastUpdated}</span>
           </div>
           
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Network <span className="text-gradient">Status</span>
+            {t('publicPages.network.status.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Real-time monitoring of TBurn Chain V4 Mainnet. <br />
-            Track TPS, block times, and validator health instantly.
+            {t('publicPages.network.status.subtitle')}
           </p>
           
           <button 

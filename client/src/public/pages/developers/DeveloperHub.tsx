@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Terminal, 
   ArrowRight, 
@@ -106,6 +107,7 @@ const grantTiers = [
 ];
 
 export default function DeveloperHub() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -135,16 +137,16 @@ export default function DeveloperHub() {
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Terminal className="w-4 h-4" /> V4 SDK & API READY
+            <Terminal className="w-4 h-4" /> {t('publicPages.developers.hub.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Developer{" "}
+            {t('publicPages.developers.hub.title').split(' ')[0]}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Hub
+              {t('publicPages.developers.hub.title').split(' ')[1]}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
-            Build next-generation trust-based applications. Access comprehensive development tools, SDKs, and APIs for the TBurn Chain V4 ecosystem.
+            {t('publicPages.developers.hub.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">
@@ -156,7 +158,7 @@ export default function DeveloperHub() {
                 }}
                 data-testid="button-get-started"
               >
-                Get Started <ArrowRight className="w-4 h-4" />
+                {t('publicPages.common.getStarted')} <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
             <Link href="/developers/docs">
@@ -164,7 +166,7 @@ export default function DeveloperHub() {
                 className="px-8 py-3 rounded-lg border border-white/20 text-white hover:bg-white/5 transition flex items-center gap-2"
                 data-testid="button-view-docs"
               >
-                <BookOpen className="w-4 h-4" /> View Docs
+                <BookOpen className="w-4 h-4" /> {t('publicPages.common.viewDocs')}
               </button>
             </Link>
           </div>

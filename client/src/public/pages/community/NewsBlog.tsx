@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 
 const categories = ["All", "Announcement", "Technology", "Security", "Tokenomics", "Partnership", "DeFi"];
@@ -117,6 +118,7 @@ const latestArticles = [
 ];
 
 export default function NewsBlog() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [email, setEmail] = useState("");
@@ -140,13 +142,13 @@ export default function NewsBlog() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Newspaper className="w-3 h-3" /> V4_NEWS_CENTER
+            <Newspaper className="w-3 h-3" /> {t('publicPages.community.news.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            News & <span className="text-gradient">Announcements</span>
+            {t('publicPages.community.news.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Stay updated with the latest technological breakthroughs, partnerships, and ecosystem developments from TBurn Chain.
+            {t('publicPages.community.news.subtitle')}
           </p>
         </div>
       </section>

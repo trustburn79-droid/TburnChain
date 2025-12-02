@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Landmark,
   Building2,
@@ -124,6 +125,7 @@ const buildingSteps = [
 ];
 
 export default function Financial() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -153,17 +155,16 @@ export default function Financial() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Landmark className="w-4 h-4" /> FINANCIAL_LAYER_1
+            <Landmark className="w-4 h-4" /> {t('publicPages.solutions.financial.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Financial{" "}
+            {t('publicPages.solutions.financial.title')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Infrastructure
+              {t('publicPages.solutions.financial.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Build institutional-grade financial applications with TBurn Chain. <br />
-            Experience 100,000 TPS speed and zero-knowledge privacy for next-gen banking.
+            {t('publicPages.solutions.financial.subtitle')}
           </p>
           <div className="flex flex-wrap gap-4">
             <Link href="/community/hub">

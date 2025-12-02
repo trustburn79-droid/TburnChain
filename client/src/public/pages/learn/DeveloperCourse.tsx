@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Code, FileCode, ArrowLeft, Clock, ChevronRight, Play, 
   Check, Terminal, Laptop, Layers, Rocket, Medal, 
@@ -85,6 +86,8 @@ async function getTrustScore(projectAddress: string) {
 }`;
 
 export default function DeveloperCourse() {
+  const { t } = useTranslation();
+
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -106,15 +109,15 @@ export default function DeveloperCourse() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border border-[#f59e0b] text-[#f59e0b] bg-[#f59e0b]/5">
-                  Advanced
+                  {t('publicPages.learn.developerCourse.tag')}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
                   <Clock className="w-4 h-4" /> 8 hours
                 </span>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Developer Course</h1>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.developerCourse.title')}</h1>
               <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
-                Step-by-step guide to building dApps on TBurn Chain. From setting up the SDK to deploying smart contracts on Mainnet.
+                {t('publicPages.learn.developerCourse.subtitle')}
               </p>
             </div>
           </div>
@@ -251,7 +254,7 @@ export default function DeveloperCourse() {
                   className="w-full bg-[#f59e0b] text-black font-bold py-3 rounded-lg hover:bg-amber-400 transition shadow-[0_0_20px_rgba(245,158,11,0.4)] mb-6 flex items-center justify-center gap-2"
                   data-testid="button-start-learning"
                 >
-                  <Play className="w-5 h-5" /> Start Learning
+                  <Play className="w-5 h-5" /> {t('publicPages.common.getStarted')}
                 </button>
               </Link>
 

@@ -5,8 +5,10 @@ import {
 import { SiTypescript, SiPython } from "react-icons/si";
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 
 export default function RpcProviders() {
+  const { t } = useTranslation();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const copyToClipboard = (code: string, id: string) => {
@@ -23,14 +25,13 @@ export default function RpcProviders() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Server className="w-3 h-3" /> RPC_NODES & API
+            <Server className="w-3 h-3" /> {t('publicPages.network.rpc.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            RPC <span className="text-gradient">API</span>
+            {t('publicPages.network.rpc.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            With TBurn Chain API, you can query trust scores, manage projects, access validator information, analytics data, webhooks, and more.<br />
-            <span className="text-sm font-mono text-[#7000ff] mt-4 block">Version 1.0 | Base URL: https://api.tburn.io/v1</span>
+            {t('publicPages.network.rpc.subtitle')}
           </p>
           
           <div className="flex flex-wrap gap-4">

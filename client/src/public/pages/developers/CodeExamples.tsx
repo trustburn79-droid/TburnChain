@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Utensils, 
   Flame, 
@@ -109,6 +110,7 @@ function SyntaxHighlight({ code }: { code: string }) {
 }
 
 export default function CodeExamples() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("All Recipes");
   const [activeTab, setActiveTab] = useState("SecureVault.sol");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -140,16 +142,16 @@ export default function CodeExamples() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00ff9d] mb-6">
-            <Utensils className="w-4 h-4" /> CODE_RECIPES
+            <Utensils className="w-4 h-4" /> {t('publicPages.developers.examples.tag')}
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Developer{" "}
+            {t('publicPages.developers.examples.title').split(' ')[0]}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Cookbook
+              {t('publicPages.developers.examples.title').split(' ').slice(1).join(' ') || 'Examples'}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
-            Copy-paste ready recipes to accelerate your development. From smart contracts to frontend integration.
+            {t('publicPages.developers.examples.subtitle')}
           </p>
           
           <div className="flex flex-wrap justify-center gap-3">

@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Sparkles, ArrowLeft, Zap, Shield, Users, Maximize2, 
   Palette, Search, BookOpen, Code, FileText, Terminal,
@@ -48,6 +49,7 @@ const stats = [
 ];
 
 export default function ArtistsCreators() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -84,22 +86,21 @@ export default function ArtistsCreators() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#d946ef] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Solutions
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
           </Link>
           
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-[#d946ef]/30 bg-[#d946ef]/5 text-[#d946ef] text-xs">
-            <Sparkles className="w-4 h-4" /> For Visionaries
+            <Sparkles className="w-4 h-4" /> {t('publicPages.solutions.artistsCreators.tag')}
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            Empower Your <br />
+            {t('publicPages.solutions.artistsCreators.title')} <br />
             <span className="bg-gradient-to-r from-[#d946ef] via-[#8b5cf6] to-[#00f0ff] bg-clip-text text-transparent">
-              Creative Universe
+              {t('publicPages.solutions.artistsCreators.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
-            Mint, sell, and manage digital collectibles with zero-friction tools. 
-            TBurn Chain provides the canvas; you bring the masterpiece.
+            {t('publicPages.solutions.artistsCreators.subtitle')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   Wallet, 
   Key, 
@@ -48,6 +49,7 @@ const securityProtocols = [
 ];
 
 export default function WhatIsWallet() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -77,16 +79,13 @@ export default function WhatIsWallet() {
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
-            <Wallet className="w-4 h-4" /> ESSENTIALS_MODULE_01
+            <Wallet className="w-4 h-4" /> {t('publicPages.learn.wallet.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            What is a{" "}
-            <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Crypto Wallet?
-            </span>
+            {t('publicPages.learn.wallet.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-            Your gateway to the TBurn Chain. Securely store, send, and receive digital assets through advanced cryptographic keys.
+            {t('publicPages.learn.wallet.subtitle')}
           </p>
         </div>
       </section>

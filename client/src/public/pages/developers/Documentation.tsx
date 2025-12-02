@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   BookOpen, 
   Search, 
@@ -137,6 +138,7 @@ const additionalResources = [
 ];
 
 export default function Documentation() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -178,9 +180,9 @@ export default function Documentation() {
             </div>
             <div className="text-left">
               <h1 className="text-4xl font-bold text-white" data-testid="text-page-title">
-                Developer{" "}
+                {t('publicPages.developers.docs.title').split(' ')[0]}{" "}
                 <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-                  Docs
+                  {t('publicPages.developers.docs.title').split(' ').slice(1).join(' ') || 'Docs'}
                 </span>
               </h1>
               <div className="flex gap-2 mt-1 flex-wrap">
@@ -409,7 +411,7 @@ export default function Documentation() {
                 }}
                 data-testid="button-start-building"
               >
-                Start Building <ArrowRight className="inline w-4 h-4 ml-2" />
+                {t('publicPages.common.startBuilding')} <ArrowRight className="inline w-4 h-4 ml-2" />
               </button>
             </Link>
             <a 

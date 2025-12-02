@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Building2,
   UserCog,
@@ -111,6 +112,7 @@ const deploymentSteps = [
 ];
 
 export default function Permissioned() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -140,16 +142,16 @@ export default function Permissioned() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Building2 className="w-4 h-4" /> ENTERPRISE_SOLUTIONS
+            <Building2 className="w-4 h-4" /> {t('publicPages.solutions.permissioned.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            TBurn Chain{" "}
+            {t('publicPages.solutions.permissioned.title')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Private
+              {t('publicPages.solutions.permissioned.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
-            Deploy private or permissioned blockchain networks using the proven technology that powers the public TBurn Chain. Built for enterprise scale and security.
+            {t('publicPages.solutions.permissioned.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/community/hub">

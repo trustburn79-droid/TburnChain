@@ -5,9 +5,11 @@ import {
 import { SiVisa, SiMastercard, SiPaypal, SiApplepay } from "react-icons/si";
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Ramp() {
+  const { t } = useTranslation();
   const [buyAmount, setBuyAmount] = useState("");
   const [sellAmount, setSellAmount] = useState("");
   const [currency, setCurrency] = useState("USD");
@@ -40,14 +42,13 @@ export default function Ramp() {
         
         <div className="container mx-auto max-w-5xl relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <ArrowLeftRight className="w-3 h-3" /> FIAT_CRYPTO_GATEWAY
+            <ArrowLeftRight className="w-3 h-3" /> {t('publicPages.network.ramp.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            TBurn Chain <span className="text-gradient">Ramp</span>
+            {t('publicPages.network.ramp.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Buy TBURN tokens instantly with a credit card or bank account, or cash out to your bank. <br />
-            Fast, secure, and compliant.
+            {t('publicPages.network.ramp.subtitle')}
           </p>
         </div>
       </section>

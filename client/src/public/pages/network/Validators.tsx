@@ -4,9 +4,11 @@ import {
   AlertTriangle, Check, FileText
 } from "lucide-react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { usePublicValidators, usePublicNetworkStats } from "../../hooks/use-public-data";
 
 export default function Validators() {
+  const { t } = useTranslation();
   const { data: validatorsResponse } = usePublicValidators();
   const { data: statsResponse } = usePublicNetworkStats();
   
@@ -21,14 +23,13 @@ export default function Validators() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Shield className="w-3 h-3" /> DPoS + BFT HYBRID_CONSENSUS
+            <Shield className="w-3 h-3" /> {t('publicPages.network.validators.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Validator <span className="text-gradient">Network</span>
+            {t('publicPages.network.validators.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Join TBurn Chain V4's decentralized global validator infrastructure. <br />
-            Experience ultra-fast processing and top-tier security with our hybrid consensus mechanism.
+            {t('publicPages.network.validators.subtitle')}
           </p>
           
           <div className="flex flex-wrap gap-4">

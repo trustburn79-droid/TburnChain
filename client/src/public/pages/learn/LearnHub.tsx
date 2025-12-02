@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   GraduationCap, 
   BookOpen, 
@@ -92,6 +93,7 @@ const communityLinks = [
 ];
 
 export default function LearnHub() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -121,13 +123,13 @@ export default function LearnHub() {
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-              <GraduationCap className="w-4 h-4" /> V4 Learning Center
+              <GraduationCap className="w-4 h-4" /> {t('publicPages.learn.hub.tag')}
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-learn-title">
-              Education Hub
+              {t('publicPages.learn.hub.title')}
             </h1>
             <p className="text-xl text-gray-400 leading-relaxed max-w-2xl">
-              Master the TBurn Chain V4 ecosystem. From trust-based consensus algorithms to building high-speed dApps, start your journey here.
+              {t('publicPages.learn.hub.subtitle')}
             </p>
           </div>
         </div>
@@ -149,8 +151,8 @@ export default function LearnHub() {
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">Learning Paths</h2>
-            <p className="text-gray-400">Curated curriculums for every skill level.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.hub.learningPaths')}</h2>
+            <p className="text-gray-400">{t('publicPages.learn.hub.learningPathsDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -197,7 +199,7 @@ export default function LearnHub() {
                     className="font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all"
                     style={{ color: path.color }}
                   >
-                    Start Learning <ArrowRight className="w-4 h-4" />
+                    {t('publicPages.common.getStarted')} <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </Link>
@@ -210,8 +212,8 @@ export default function LearnHub() {
       <section className="py-16 px-6 bg-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">Core Concepts</h2>
-            <p className="text-gray-400">The technology powering the network.</p>
+            <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.learn.hub.coreConcepts')}</h2>
+            <p className="text-gray-400">{t('publicPages.learn.hub.coreConceptsDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">

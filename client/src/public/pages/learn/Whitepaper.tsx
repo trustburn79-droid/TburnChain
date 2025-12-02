@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   FileCode, 
   FileText, 
@@ -118,6 +119,7 @@ const coreModules = [
 ];
 
 export default function Whitepaper() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -147,13 +149,10 @@ export default function Whitepaper() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <FileCode className="w-4 h-4" /> VERSION 4.0.2
+            <FileCode className="w-4 h-4" /> {t('publicPages.learn.whitepaper.tag')}
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            Technical{" "}
-            <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Whitepaper
-            </span>
+            {t('publicPages.learn.whitepaper.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto mb-10">
             Decentralized Trust Infrastructure for Blockchain Projects.

@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   ArrowLeftRight, ArrowLeft, Shield, Shuffle, Droplets, 
   Link2, Key, RotateCcw, Clock, Check, Zap, Globe,
@@ -74,6 +75,7 @@ const bridgeSteps = [
 ];
 
 export default function CrossChainBridge() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -110,22 +112,21 @@ export default function CrossChainBridge() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Solutions
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
           </Link>
           
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-[#00f0ff]/30 bg-[#00f0ff]/5 text-[#00f0ff] text-xs">
-            <ArrowLeftRight className="w-4 h-4" /> V4 Cross-Chain Protocol
+            <ArrowLeftRight className="w-4 h-4" /> {t('publicPages.solutions.crossChainBridge.tag')}
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            Secure & Instant <br />
+            {t('publicPages.solutions.crossChainBridge.title')} <br />
             <span className="bg-gradient-to-r from-[#00f0ff] via-[#3b82f6] to-white bg-clip-text text-transparent">
-              Asset Bridge
+              {t('publicPages.solutions.crossChainBridge.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
-            Seamlessly transfer assets between 7+ major blockchains using MPC-based security.
-            Experience atomic swaps with zero slippage and unified liquidity.
+            {t('publicPages.solutions.crossChainBridge.subtitle')}
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-10">

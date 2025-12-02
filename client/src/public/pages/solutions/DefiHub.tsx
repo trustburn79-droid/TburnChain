@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Layers, ArrowLeft, ArrowLeftRight, HandCoins, Droplets, Sprout,
   Check, TrendingUp, Percent, Users, BarChart3, Zap, Wallet,
@@ -44,6 +45,7 @@ const boostTiers = [
 ];
 
 export default function DefiHub() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -80,22 +82,21 @@ export default function DefiHub() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#3b82f6] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Solutions
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
           </Link>
           
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-[#3b82f6]/30 bg-[#3b82f6]/5 text-[#3b82f6] text-xs">
-            <Layers className="w-4 h-4" /> V4 Integrated DeFi Suite
+            <Layers className="w-4 h-4" /> {t('publicPages.solutions.defiHub.tag')}
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            The Ultimate <br />
+            {t('publicPages.solutions.defiHub.title')} <br />
             <span className="bg-gradient-to-r from-[#00f0ff] via-[#3b82f6] to-[#00ff9d] bg-clip-text text-transparent">
-              Financial Hub
+              {t('publicPages.solutions.defiHub.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
-            Swap, lend, stake, and farm in one unified ecosystem. 
-            Powered by TBurn V4 architecture for lightning-fast execution and near-zero fees.
+            {t('publicPages.solutions.defiHub.subtitle')}
           </p>
           
           <DefiHeroStats />

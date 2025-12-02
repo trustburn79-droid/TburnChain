@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Bitcoin, ArrowLeft, Zap, Shield, Users, Maximize2, 
   TrendingUp, BarChart3, BookOpen, Code, FileText, Terminal,
@@ -80,6 +81,7 @@ const btcfiProducts = [
 ];
 
 export default function Btcfi() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -116,22 +118,21 @@ export default function Btcfi() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#f7931a] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Solutions
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
           </Link>
           
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-[#f7931a]/30 bg-[#f7931a]/5 text-[#f7931a] text-xs">
-            <Bitcoin className="w-4 h-4" /> Bitcoin Liquidity Unleashed
+            <Bitcoin className="w-4 h-4" /> {t('publicPages.solutions.btcfi.tag')}
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            Bring Bitcoin to <br />
+            {t('publicPages.solutions.btcfi.title')} <br />
             <span className="bg-gradient-to-r from-[#f7931a] via-[#ffd700] to-white bg-clip-text text-transparent">
-              DeFi on TBurn
+              {t('publicPages.solutions.btcfi.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
-            Unlock the potential of your idle Bitcoin. 
-            Utilize cross-chain infrastructure and wrapped BTC solutions to earn yield, borrow, and trade on TBurn Chain.
+            {t('publicPages.solutions.btcfi.subtitle')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

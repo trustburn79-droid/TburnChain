@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Gamepad2,
   Trophy,
@@ -93,6 +94,7 @@ const gameTypes = [
 ];
 
 export default function Gaming() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -122,17 +124,13 @@ export default function Gaming() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#ff0055] mb-6">
-            <Sparkles className="w-4 h-4" /> GAMING_ENTERTAINMENT
+            <Sparkles className="w-4 h-4" /> {t('publicPages.useCases.gaming.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Gaming &{" "}
-            <span className="bg-gradient-to-r from-[#ff0055] to-[#7000ff] bg-clip-text text-transparent">
-              Entertainment
-            </span>
+            {t('publicPages.useCases.gaming.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Build the next generation of games and entertainment experiences.
-            True digital ownership, provably fair mechanics, and player-driven economies.
+            {t('publicPages.useCases.gaming.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">

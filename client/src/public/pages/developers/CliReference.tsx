@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Terminal, Download, Settings, Key, Folder, Play, Hammer, 
   Rocket, Wallet, Bot, Book, Server, ArrowRight, HelpCircle
@@ -95,6 +96,7 @@ tburn deploy Token --network=testnet --verify`,
 ];
 
 export default function CliReference() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("Project");
 
   return (
@@ -105,13 +107,13 @@ export default function CliReference() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Terminal className="w-3 h-3" /> TBURN_CLI_TOOL
+            <Terminal className="w-3 h-3" /> {t('publicPages.developers.cli.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            CLI <span className="text-gradient">Reference</span>
+            {t('publicPages.developers.cli.title').split(' ')[0]} <span className="text-gradient">{t('publicPages.developers.cli.title').split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-4">
-            Use TBurn Chain CLI to create projects, deploy contracts, and manage networks directly from your terminal.
+            {t('publicPages.developers.cli.subtitle')}
           </p>
           <span className="text-sm font-mono text-[#7000ff]">Current Version: 4.2.1</span>
         </div>

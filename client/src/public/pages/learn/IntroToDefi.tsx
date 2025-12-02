@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Shield, ArrowLeft, Clock, Coins, ArrowRightLeft, 
   HandCoins, TrendingUp, Bot, UserCheck, Vote,
@@ -50,6 +51,8 @@ const burnSteps = [
 ];
 
 export default function IntroToDefi() {
+  const { t } = useTranslation();
+
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -65,20 +68,19 @@ export default function IntroToDefi() {
           </Link>
           
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-[#00ff9d]/30 bg-[#00ff9d]/5 text-[#00ff9d] text-xs">
-            <Shield className="w-4 h-4" /> Trust Score System v4.0
+            <Shield className="w-4 h-4" /> {t('publicPages.learn.introToDefi.tag')}
           </div>
           
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            Quantifying <span className="bg-gradient-to-r from-[#00ff9d] to-[#00f0ff] bg-clip-text text-transparent">Blockchain Trust</span>
+            {t('publicPages.learn.introToDefi.title')}
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            TBurn Chain introduces the world's first automated verification system. 
-            We quantify project reliability through real-time monitoring and smart contract enforcement.
+            {t('publicPages.learn.introToDefi.subtitle')}
           </p>
           
           <div className="flex items-center justify-center gap-3 mt-6">
             <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border border-[#00ff9d] text-[#00ff9d] bg-[#00ff9d]/5">
-              Beginner
+              {t('publicPages.common.beginner')}
             </span>
             <span className="text-sm text-gray-400 flex items-center gap-1">
               <Clock className="w-4 h-4" /> 2 hours

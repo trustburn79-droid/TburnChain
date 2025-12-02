@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 
 const filterCategories = ["All Events", "Hackathon", "AMA", "Webinar", "Meetup", "Conference"];
@@ -110,6 +111,7 @@ const upcomingEvents = [
 ];
 
 export default function Events() {
+  const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState("All Events");
   const { toast } = useToast();
   
@@ -125,14 +127,13 @@ export default function Events() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <CalendarDays className="w-3 h-3" /> COMMUNITY_EVENTS
+            <CalendarDays className="w-3 h-3" /> {t('publicPages.community.events.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Events & <span className="text-gradient">Activities</span>
+            {t('publicPages.community.events.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Join TBurn Chain community events, hackathons, and conferences. <br />
-            Connect with developers and build the future of trust together.
+            {t('publicPages.community.events.subtitle')}
           </p>
         </div>
       </section>

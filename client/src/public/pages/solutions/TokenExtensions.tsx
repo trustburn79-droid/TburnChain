@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Layers,
   Lock,
@@ -99,6 +100,7 @@ function executeBurn() public {
 }`;
 
 export default function TokenExtensions() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -128,17 +130,16 @@ export default function TokenExtensions() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
-            <Layers className="w-4 h-4" /> BRC-20 STANDARD
+            <Layers className="w-4 h-4" /> {t('publicPages.solutions.tokenExtensions.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Token{" "}
+            {t('publicPages.solutions.tokenExtensions.title')}{" "}
             <span className="bg-gradient-to-r from-[#7000ff] to-[#00f0ff] bg-clip-text text-transparent">
-              Extensions
+              {t('publicPages.solutions.tokenExtensions.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Next-generation token standard adding <span className="text-white">Trust Evaluation</span> and{" "}
-            <span className="text-white">Automatic Burn</span> functionality to ERC-20.
+            {t('publicPages.solutions.tokenExtensions.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <a 

@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   CreditCard,
   Zap,
@@ -139,6 +140,7 @@ const integrationSteps = [
 ];
 
 export default function Payments() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -168,17 +170,16 @@ export default function Payments() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
-            <CreditCard className="w-4 h-4" /> NEXT_GEN_PAYMENTS
+            <CreditCard className="w-4 h-4" /> {t('publicPages.solutions.payments.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Payment{" "}
+            {t('publicPages.solutions.payments.title')}{" "}
             <span className="bg-gradient-to-r from-[#7000ff] to-[#00f0ff] bg-clip-text text-transparent">
-              Solutions
+              {t('publicPages.solutions.payments.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Ultra-fast, low-fee crypto payments powered by TBurn Chain. <br />
-            Only trusted tokens verified by our rating system are accepted.
+            {t('publicPages.solutions.payments.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Code, Key, AlertTriangle, Copy, ArrowRight, 
   Layers, FileText, Zap, Terminal
@@ -98,6 +99,7 @@ function MethodBadge({ method }: { method: string }) {
 }
 
 export default function ApiDocs() {
+  const { t } = useTranslation();
   const [copiedUrl, setCopiedUrl] = useState(false);
 
   const handleCopyUrl = () => {
@@ -114,14 +116,13 @@ export default function ApiDocs() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Code className="w-3 h-3" /> V4_MAINNET_API
+            <Code className="w-3 h-3" /> {t('publicPages.developers.api.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            API <span className="text-gradient">Reference</span>
+            {t('publicPages.developers.api.title').split(' ')[0]} <span className="text-gradient">{t('publicPages.developers.api.title').split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Complete guide to TBurn Chain V4 Mainnet API. <br />
-            Access RESTful endpoints, WebSocket streams, and GraphQL for building dApps.
+            {t('publicPages.developers.api.subtitle')}
           </p>
           <div className="flex flex-wrap gap-4">
             <button 

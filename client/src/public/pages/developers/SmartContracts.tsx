@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   FileCode, Layers, Shield, Flame, Brain, Fuel, Lock, Rocket, 
   Book, Check, Zap, Copy, Terminal, Server
@@ -220,6 +221,7 @@ const gasOptimizationTips = [
 ];
 
 export default function SmartContracts() {
+  const { t } = useTranslation();
   const [activeTemplate, setActiveTemplate] = useState("Basic Token");
   const [copied, setCopied] = useState(false);
 
@@ -262,13 +264,12 @@ export default function SmartContracts() {
               <FileCode className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white">Smart Contracts</h1>
-              <p className="text-sm text-[#00f0ff] font-mono mt-1">Build scalable dApps on TBurn Chain</p>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white">{t('publicPages.developers.contracts.title')}</h1>
+              <p className="text-sm text-[#00f0ff] font-mono mt-1">{t('publicPages.developers.contracts.tag')}</p>
             </div>
           </div>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl">
-            Complete guide to developing, testing, and deploying EVM-compatible smart contracts on TBurn Chain V4. 
-            Leverage Trust Scores, AI Oracles, and Auto-Burn features natively.
+            {t('publicPages.developers.contracts.subtitle')}
           </p>
         </div>
       </section>

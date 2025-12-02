@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Building,
   Shield,
@@ -93,6 +94,7 @@ const industries = [
 ];
 
 export default function Enterprise() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -121,17 +123,13 @@ export default function Enterprise() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
-            <Building className="w-4 h-4" /> ENTERPRISE_BLOCKCHAIN
+            <Building className="w-4 h-4" /> {t('publicPages.useCases.enterprise.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Enterprise{" "}
-            <span className="bg-gradient-to-r from-[#7000ff] to-[#00f0ff] bg-clip-text text-transparent">
-              Solutions
-            </span>
+            {t('publicPages.useCases.enterprise.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Transform your organization with blockchain-powered automation, 
-            transparency, and security. Purpose-built for enterprise requirements.
+            {t('publicPages.useCases.enterprise.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/community/hub">

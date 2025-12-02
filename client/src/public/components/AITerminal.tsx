@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 const logMessages = [
   "Initializing neural handshake...",
@@ -28,6 +29,7 @@ interface LogEntry {
 }
 
 export function AITerminal() {
+  const { t } = useTranslation();
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const idRef = useRef(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -68,7 +70,7 @@ export function AITerminal() {
         {/* Header - 원본 그대로 */}
         <div className="bg-gray-800/50 px-4 py-2 flex justify-between items-center border-b border-gray-700/50">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-gray-400 font-mono tracking-wider">BURN_AI_CORE v4.0</span>
+            <span className="text-[10px] text-gray-400 font-mono tracking-wider">{t('publicPages.home.aiTerminal.title')}</span>
           </div>
           <div className="flex gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>

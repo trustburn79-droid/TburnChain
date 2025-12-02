@@ -3,6 +3,7 @@ import {
   FileText, ArrowLeft, Shield, AlertTriangle, Scale, 
   Users, Key, CheckCircle, Mail, HelpCircle
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const sections = [
   {
@@ -36,6 +37,7 @@ const sections = [
 ];
 
 export default function TermsOfService() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -53,9 +55,9 @@ export default function TermsOfService() {
             <div className="p-3 rounded-xl bg-[#00f0ff]/10 text-[#00f0ff] border border-[#00f0ff]/20">
               <FileText className="w-6 h-6" />
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white" data-testid="text-page-title">Terms of Service</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold text-white" data-testid="text-page-title">{t('publicPages.legal.terms.title')}</h1>
           </div>
-          <p className="text-gray-400 ml-16">Last Updated: October 6, 2025</p>
+          <p className="text-gray-400 ml-16">{t('publicPages.legal.terms.subtitle')}</p>
         </div>
       </section>
 

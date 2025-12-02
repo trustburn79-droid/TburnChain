@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Coins, Layers, ArrowLeft, Clock, ChevronRight, Play, 
   Check, Box, Wallet, Code, ArrowRightLeft, HandCoins, 
@@ -54,6 +55,8 @@ const prerequisites = [
 ];
 
 export default function DefiMastery() {
+  const { t } = useTranslation();
+
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -75,15 +78,15 @@ export default function DefiMastery() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border border-[#7000ff] text-[#7000ff] bg-[#7000ff]/5">
-                  Intermediate
+                  {t('publicPages.learn.defiMastery.tag')}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
                   <Clock className="w-4 h-4" /> 4 hours
                 </span>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Mastering DeFi</h1>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('publicPages.learn.defiMastery.title')}</h1>
               <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
-                Dive deep into decentralized finance. Master the mechanics of DEXs, lending protocols, and yield farming strategies on TBurn Chain.
+                {t('publicPages.learn.defiMastery.subtitle')}
               </p>
             </div>
           </div>
@@ -261,7 +264,7 @@ export default function DefiMastery() {
                   className="w-full bg-[#7000ff] text-white font-bold py-3 rounded-lg hover:bg-purple-600 transition shadow-[0_0_20px_rgba(112,0,255,0.4)] mb-6 flex items-center justify-center gap-2"
                   data-testid="button-start-learning"
                 >
-                  <Play className="w-5 h-5" /> Start Learning
+                  <Play className="w-5 h-5" /> {t('publicPages.common.getStarted')}
                 </button>
               </Link>
 

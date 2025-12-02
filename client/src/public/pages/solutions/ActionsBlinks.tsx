@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Zap, Link2, Share2, Shield, Globe, Image, Gavel, ShoppingCart, 
   Gamepad2, Users, ArrowLeft, BookOpen, Code, FileText, Terminal,
@@ -105,6 +106,7 @@ const devQuickStart = {
 };
 
 export default function ActionsBlinks() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -137,22 +139,21 @@ export default function ActionsBlinks() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#00f0ff] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Solutions
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
           </Link>
           
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-[#00f0ff]/30 bg-[#00f0ff]/5 text-[#00f0ff] text-xs">
-            <Link2 className="w-4 h-4" /> Protocol v2.0 Live
+            <Link2 className="w-4 h-4" /> {t('publicPages.solutions.actionsBlinks.tag')}
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6" data-testid="text-page-title">
-            Blockchain Actions <br />
+            {t('publicPages.solutions.actionsBlinks.title')} <br />
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#facc15] bg-clip-text text-transparent">
-              Just One Click Away
+              {t('publicPages.solutions.actionsBlinks.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
-            Execute transactions, mint NFTs, and vote on proposals simply by clicking a URL.
-            TBurn Chain Actions integrate blockchain seamlessly into any platform.
+            {t('publicPages.solutions.actionsBlinks.subtitle')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

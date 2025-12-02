@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   ArrowRight, 
   Book, 
@@ -17,7 +18,6 @@ import { PublicFooter } from "../components/PublicFooter";
 import "../styles/public.css";
 
 const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#";
-const KEYWORDS = ["Trust-Based", "AI-Powered", "Quantum-Safe", "Hyper-Scale"];
 
 class TextScramble {
   private chars: string;
@@ -134,51 +134,6 @@ function useRotatingScramble(words: string[], intervalMs: number = 3000) {
   return displayHtml;
 }
 
-const solutions = [
-  {
-    icon: Brain,
-    title: "Triple-Band AI",
-    description: "Three-tier AI orchestration using optimized decision-making at strategic, tactical, and operational levels.",
-    color: "pink",
-    href: "/solutions/ai-features",
-  },
-  {
-    icon: Shield,
-    title: "Quantum Security",
-    description: "CRYSTALS-Dilithium + ED25519 hybrid signatures ensure security against future quantum threats.",
-    color: "cyan",
-    href: "/solutions/token-extensions",
-  },
-  {
-    icon: Coins,
-    title: "DeFi Hub",
-    description: "Complete DeFi ecosystem integrating DEX, lending, staking, and yield farming with liquidity AMM.",
-    color: "blue",
-    href: "/solutions/defi-hub",
-  },
-  {
-    icon: Gamepad2,
-    title: "GameFi Platform",
-    description: "Next-gen gaming infrastructure with P2E engine, tournaments, and NFT marketplace cross-chain.",
-    color: "rose",
-    href: "/use-cases/gaming",
-  },
-  {
-    icon: TrendingUp,
-    title: "Auto Burn",
-    description: "Hybrid deflation model with transaction-based, time-based, and AI-optimized burning.",
-    color: "green",
-    href: "/learn/tokenomics",
-  },
-  {
-    icon: Link2,
-    title: "Cross-Chain Bridge",
-    description: "Secure cross-chain asset transfer solution connecting to 7+ chains including Ethereum and BSC.",
-    color: "purple",
-    href: "/solutions/cross-chain-bridge",
-  },
-];
-
 const getIconStyle = (color: string) => {
   const styles: Record<string, { bg: string; shadow: string; iconColor: string }> = {
     pink: { 
@@ -215,8 +170,8 @@ const getIconStyle = (color: string) => {
   return styles[color] || styles.cyan;
 };
 
-function RotatingTitle() {
-  const displayHtml = useRotatingScramble(KEYWORDS, 3000);
+function RotatingTitle({ keywords }: { keywords: string[] }) {
+  const displayHtml = useRotatingScramble(keywords, 3000);
   
   return (
     <span 
@@ -227,8 +182,56 @@ function RotatingTitle() {
 }
 
 export default function Home() {
+  const { t } = useTranslation();
   const { data: statsResponse } = usePublicNetworkStats();
   const stats = statsResponse?.data;
+
+  const keywords = t('publicPages.home.heroTitleRotating', { returnObjects: true }) as string[];
+
+  const solutions = [
+    {
+      icon: Brain,
+      title: t('publicPages.home.solutions.tripleBandAi.title'),
+      description: t('publicPages.home.solutions.tripleBandAi.description'),
+      color: "pink",
+      href: "/solutions/ai-features",
+    },
+    {
+      icon: Shield,
+      title: t('publicPages.home.solutions.quantumSecurity.title'),
+      description: t('publicPages.home.solutions.quantumSecurity.description'),
+      color: "cyan",
+      href: "/solutions/token-extensions",
+    },
+    {
+      icon: Coins,
+      title: t('publicPages.home.solutions.defiHub.title'),
+      description: t('publicPages.home.solutions.defiHub.description'),
+      color: "blue",
+      href: "/solutions/defi-hub",
+    },
+    {
+      icon: Gamepad2,
+      title: t('publicPages.home.solutions.gamefiPlatform.title'),
+      description: t('publicPages.home.solutions.gamefiPlatform.description'),
+      color: "rose",
+      href: "/use-cases/gaming",
+    },
+    {
+      icon: TrendingUp,
+      title: t('publicPages.home.solutions.autoBurn.title'),
+      description: t('publicPages.home.solutions.autoBurn.description'),
+      color: "green",
+      href: "/learn/tokenomics",
+    },
+    {
+      icon: Link2,
+      title: t('publicPages.home.solutions.crossChainBridge.title'),
+      description: t('publicPages.home.solutions.crossChainBridge.description'),
+      color: "purple",
+      href: "/solutions/cross-chain-bridge",
+    },
+  ];
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const cards = e.currentTarget.querySelectorAll(".spotlight-card");
@@ -260,36 +263,37 @@ export default function Home() {
                 <span className="absolute inset-0 rounded-full bg-cyan-400 animate-ping opacity-75"></span>
                 <span className="relative rounded-full w-2 h-2 bg-cyan-400 block"></span>
               </span>
-              V4 MAINNET LIVE
+              {t('publicPages.home.heroTag')}
             </div>
 
             {/* Hero Title with Scramble Effect */}
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white leading-tight">
-              <RotatingTitle />
-              <span data-testid="text-hero-title" className="sr-only">Trust-Based</span>
+              <span className="text-white">{t('publicPages.home.heroTitle')} </span>
+              <RotatingTitle keywords={keywords} />
+              <span data-testid="text-hero-title" className="sr-only">{keywords[0]}</span>
               <br />
-              <span className="text-white">Blockchain Ecosystem</span>
+              <span className="text-white">{t('publicPages.home.heroSubtitle')}</span>
             </h1>
 
             <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed" data-testid="text-hero-description">
-              TBurn Chain is the world's first trust network that verifies project reliability and ensures transparency. Build a secure ecosystem by tracking promise fulfillment in real-time.
+              {t('publicPages.home.heroDescription')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/developers/quickstart">
                 <button 
                   className="bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-white"
-                  data-testid="button-get-started"
+                  data-testid="button-launch-explorer"
                 >
-                  Get Started <ArrowRight className="w-5 h-5" />
+                  {t('publicPages.home.launchExplorer')} <ArrowRight className="w-5 h-5" />
                 </button>
               </Link>
-              <Link href="/developers/docs">
+              <Link href="/learn/whitepaper">
                 <button 
                   className="glass-panel text-white border border-white/10 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/5 transition-all flex items-center justify-center gap-2"
-                  data-testid="button-documentation"
+                  data-testid="button-read-whitepaper"
                 >
-                  <Book className="w-5 h-5" /> Documentation
+                  <Book className="w-5 h-5" /> {t('publicPages.home.readWhitepaper')}
                 </button>
               </Link>
             </div>
@@ -299,31 +303,33 @@ export default function Home() {
         {/* Stats Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-32">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-tps">
+            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-blocks">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
-                {stats?.tps != null 
-                  ? (stats.tps >= 1000 ? Math.floor(stats.tps / 1000) + "K+" : stats.tps.toLocaleString()) 
-                  : "51K+"}
+                {stats?.totalBlocks != null 
+                  ? (stats.totalBlocks >= 1000000 ? Math.floor(stats.totalBlocks / 1000000) + "M+" : stats.totalBlocks.toLocaleString()) 
+                  : "2.1M+"}
               </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest">TPS</div>
-            </div>
-            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-latency">
-              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
-                {stats?.avgBlockTime != null ? `${Number(stats.avgBlockTime).toFixed(2)}s` : "0.5s"}
-              </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest">Latency</div>
+              <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.blocks')}</div>
             </div>
             <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-validators">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
                 {stats?.activeValidators != null ? stats.activeValidators.toLocaleString() : "125"}
               </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest">Validators</div>
+              <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.validators')}</div>
             </div>
-            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-fee">
+            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-daily-txs">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
-                {stats?.gasPrice != null ? `$${stats.gasPrice}` : "$0.0001"}
+                {stats?.totalTransactions != null 
+                  ? (stats.totalTransactions >= 1000 ? Math.floor(stats.totalTransactions / 1000) + "K+" : stats.totalTransactions.toLocaleString()) 
+                  : "51K+"}
               </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest">Avg Fee</div>
+              <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.dailyTxs')}</div>
+            </div>
+            <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-uptime">
+              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
+                99.99%
+              </div>
+              <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.uptime')}</div>
             </div>
           </div>
         </section>
@@ -331,8 +337,8 @@ export default function Home() {
         {/* Solutions Section */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4" data-testid="text-solutions-title">Core Solutions</h2>
-            <p className="text-gray-400">Next-generation enterprise blockchain infrastructure</p>
+            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4" data-testid="text-solutions-title">{t('publicPages.home.solutions.title')}</h2>
+            <p className="text-gray-400">{t('publicPages.home.solutions.subtitle')}</p>
           </div>
 
           <div 

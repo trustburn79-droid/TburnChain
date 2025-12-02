@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Coins,
   Building2,
@@ -86,6 +87,7 @@ const features = [
 ];
 
 export default function Tokenization() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -114,17 +116,13 @@ export default function Tokenization() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
-            <Coins className="w-4 h-4" /> ASSET_TOKENIZATION
+            <Coins className="w-4 h-4" /> {t('publicPages.useCases.tokenization.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Asset{" "}
-            <span className="bg-gradient-to-r from-[#7000ff] to-[#00f0ff] bg-clip-text text-transparent">
-              Tokenization
-            </span>
+            {t('publicPages.useCases.tokenization.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Transform real-world assets into digital tokens on TBurn Chain.
-            Unlock liquidity, enable fractional ownership, and reach global investors.
+            {t('publicPages.useCases.tokenization.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">

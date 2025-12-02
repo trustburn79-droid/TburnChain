@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { 
   Map, 
   Check, 
@@ -124,6 +125,7 @@ const growthMetrics = [
 ];
 
 export default function Roadmap() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -153,16 +155,13 @@ export default function Roadmap() {
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <Map className="w-4 h-4" /> STRATEGIC_PLAN_V4
+            <Map className="w-4 h-4" /> {t('publicPages.learn.roadmap.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Strategic{" "}
-            <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              Roadmap
-            </span>
+            {t('publicPages.learn.roadmap.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-            Our journey to build the world's first trust-based Layer 1 blockchain. From initialization to global adoption.
+            {t('publicPages.learn.roadmap.subtitle')}
           </p>
         </div>
       </section>

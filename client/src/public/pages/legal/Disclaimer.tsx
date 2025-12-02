@@ -3,8 +3,10 @@ import {
   AlertTriangle, ArrowLeft, FileText, Shield, TrendingDown, 
   Scale, Zap, Globe, AlertCircle, Mail
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Disclaimer() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -22,9 +24,9 @@ export default function Disclaimer() {
             <div className="p-3 rounded-xl bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20">
               <AlertTriangle className="w-6 h-6" />
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white" data-testid="text-page-title">Disclaimer</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold text-white" data-testid="text-page-title">{t('publicPages.legal.disclaimer.title')}</h1>
           </div>
-          <p className="text-gray-400 ml-16">Last Updated: October 6, 2025</p>
+          <p className="text-gray-400 ml-16">{t('publicPages.legal.disclaimer.subtitle')}</p>
         </div>
       </section>
 

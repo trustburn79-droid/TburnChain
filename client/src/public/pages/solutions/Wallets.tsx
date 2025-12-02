@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Wallet,
   Code,
@@ -118,6 +119,7 @@ const securityChecklist = [
 ];
 
 export default function Wallets() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -176,16 +178,16 @@ export default function Wallets() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
-            <Wallet className="w-4 h-4" /> ECOSYSTEM_WALLETS
+            <Wallet className="w-4 h-4" /> {t('publicPages.solutions.wallets.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            TBurn Chain{" "}
+            {t('publicPages.solutions.wallets.title')}{" "}
             <span className="bg-gradient-to-r from-[#7000ff] to-[#00f0ff] bg-clip-text text-transparent">
-              Wallets
+              {t('publicPages.solutions.wallets.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Securely manage your assets and identity. Choose from official and community-verified wallets supporting Trust Score features.
+            {t('publicPages.solutions.wallets.subtitle')}
           </p>
         </div>
       </section>

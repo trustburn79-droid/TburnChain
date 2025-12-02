@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   ArrowRight,
   Code,
@@ -79,6 +80,7 @@ const developmentSteps = [
 ];
 
 export default function EvmMigration() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -119,16 +121,16 @@ export default function EvmMigration() {
           </div>
           
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
-            <ArrowLeftRight className="w-4 h-4" /> MIGRATION_GUIDE
+            <ArrowLeftRight className="w-4 h-4" /> {t('publicPages.developers.evmMigration.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            From EVM to{" "}
+            {t('publicPages.developers.evmMigration.title').split(' ').slice(0, 1).join(' ')}{" "}
             <span className="bg-gradient-to-r from-[#00f0ff] to-[#7000ff] bg-clip-text text-transparent">
-              TBurn Chain
+              {t('publicPages.developers.evmMigration.title').split(' ').slice(1).join(' ') || 'Migration'}
             </span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-            Seamlessly migrate your dApps from Ethereum or other EVM chains. Experience fully compatible smart contracts with built-in trust verification.
+            {t('publicPages.developers.evmMigration.subtitle')}
           </p>
         </div>
       </section>

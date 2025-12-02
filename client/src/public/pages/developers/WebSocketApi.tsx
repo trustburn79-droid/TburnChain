@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Network, Shield, Heart, Box, ArrowRightLeft, LineChart, Coins,
   RefreshCw, Download, Server, Book, Copy, ExternalLink
@@ -137,6 +138,7 @@ const highlightCode = (code: string) => {
 };
 
 export default function WebSocketApi() {
+  const { t } = useTranslation();
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const handleCopy = (text: string, index: number) => {
@@ -156,14 +158,13 @@ export default function WebSocketApi() {
             <div>
               <div className="inline-flex items-center gap-2 mb-4">
                 <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-pulse" />
-                <span className="text-[#00f0ff] font-mono text-xs tracking-widest uppercase">Real-time Interface</span>
+                <span className="text-[#00f0ff] font-mono text-xs tracking-widest uppercase">{t('publicPages.developers.websocket.tag')}</span>
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-white">
-                WebSocket API
+                {t('publicPages.developers.websocket.title')}
               </h1>
               <p className="text-lg text-gray-400 max-w-2xl leading-relaxed">
-                Subscribe to real-time data streams for blocks, transactions, and events on the TBurn Chain. 
-                Designed for high-frequency trading and live analytics.
+                {t('publicPages.developers.websocket.subtitle')}
               </p>
             </div>
             <div className="flex gap-3">

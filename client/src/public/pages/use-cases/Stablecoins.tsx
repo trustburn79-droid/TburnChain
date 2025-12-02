@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Banknote,
   Shield,
@@ -90,6 +91,7 @@ const useCases = [
 ];
 
 export default function Stablecoins() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -118,17 +120,13 @@ export default function Stablecoins() {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00ff9d] mb-6">
-            <Banknote className="w-4 h-4" /> STABLECOIN_INFRASTRUCTURE
+            <Banknote className="w-4 h-4" /> {t('publicPages.useCases.stablecoins.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6" data-testid="text-page-title">
-            Enterprise{" "}
-            <span className="bg-gradient-to-r from-[#00ff9d] to-[#00f0ff] bg-clip-text text-transparent">
-              Stablecoins
-            </span>
+            {t('publicPages.useCases.stablecoins.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            Issue, manage, and transfer stablecoins on TBurn Chain with enterprise-grade 
-            compliance, instant settlement, and cryptographic proof of reserves.
+            {t('publicPages.useCases.stablecoins.subtitle')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/developers/quickstart">

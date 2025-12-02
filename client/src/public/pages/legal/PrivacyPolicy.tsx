@@ -4,8 +4,10 @@ import {
   Lock, Eye, Globe, Users, Cookie, Mail, HelpCircle, CheckCircle,
   Key, Wallet, UserCheck, Scale, BookOpen
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function PrivacyPolicy() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -23,9 +25,9 @@ export default function PrivacyPolicy() {
             <div className="p-3 rounded-xl bg-[#7000ff]/10 text-[#7000ff] border border-[#7000ff]/20">
               <Shield className="w-6 h-6" />
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white" data-testid="text-page-title">Privacy Policy</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold text-white" data-testid="text-page-title">{t('publicPages.legal.privacy.title')}</h1>
           </div>
-          <p className="text-gray-400 ml-16">Last Updated: October 6, 2025</p>
+          <p className="text-gray-400 ml-16">{t('publicPages.legal.privacy.subtitle')}</p>
         </div>
       </section>
 

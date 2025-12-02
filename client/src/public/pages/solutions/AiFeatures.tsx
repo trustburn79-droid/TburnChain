@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { 
   Brain, ArrowLeft, Crown, Crosshair, Zap, Server, Coins, 
   Maximize2, Lock, Check, BookOpen, Code, FileText, Terminal,
@@ -77,6 +78,7 @@ const systemStats = [
 ];
 
 export default function AiFeatures() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -114,22 +116,21 @@ export default function AiFeatures() {
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#7000ff] mb-6 transition-colors group"
             data-testid="link-back-solutions"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Solutions
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> {t('publicPages.common.backToSolutions')}
           </Link>
           
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-[#7000ff]/30 bg-[#7000ff]/5 text-[#7000ff] text-xs">
-            <Brain className="w-4 h-4" /> V4 AI Core Active
+            <Brain className="w-4 h-4" /> {t('publicPages.solutions.aiFeatures.tag')}
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-testid="text-page-title">
-            Triple-Band <br />
+            {t('publicPages.solutions.aiFeatures.title')} <br />
             <span className="bg-gradient-to-r from-[#7000ff] via-[#3b82f6] to-[#22c55e] bg-clip-text text-transparent">
-              AI Orchestration
+              {t('publicPages.solutions.aiFeatures.titleHighlight')}
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
-            A revolutionary fusion of ChatGPT, Claude, and Gemini. 
-            Optimized decision-making at strategic, tactical, and operational levels for the next-generation blockchain.
+            {t('publicPages.solutions.aiFeatures.subtitle')}
           </p>
         </div>
       </section>

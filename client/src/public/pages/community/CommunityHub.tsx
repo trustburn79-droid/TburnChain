@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { SiDiscord, SiTelegram, SiX, SiGithub } from "react-icons/si";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 
 const communityStats = [
   {
@@ -112,6 +113,7 @@ const contributeWays = [
 ];
 
 export default function CommunityHub() {
+  const { t } = useTranslation();
   return (
     <main className="flex-grow relative z-10">
       {/* Hero Section */}
@@ -120,14 +122,13 @@ export default function CommunityHub() {
         
         <div className="container mx-auto max-w-5xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7000ff] mb-6">
-            <Users className="w-3 h-3" /> TBURN_COMMUNITY
+            <Users className="w-3 h-3" /> {t('publicPages.community.hub.tag')}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Global <span className="text-gradient">Community</span>
+            {t('publicPages.community.hub.title')}
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Join 300K+ global community members in building the future of TBurn Chain. <br />
-            Connect, contribute, and govern the ecosystem.
+            {t('publicPages.community.hub.subtitle')}
           </p>
         </div>
       </section>
