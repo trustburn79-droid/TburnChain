@@ -5457,7 +5457,12 @@
     "confirmDelete": "Confirm Delete",
     "memberDeleted": "Member Deleted",
     "memberDeletedDesc": "Member has been deleted successfully.",
-    "deleteMemberError": "Failed to delete member. Please try again."
+    "deleteMemberError": "Failed to delete member. Please try again.",
+    "relatedResources": "Related Resources",
+    "relatedResourcesDesc": "Helpful documentation and guides for member management",
+    "learn": "Learn",
+    "solutions": "Solutions",
+    "legalDeveloper": "Legal & Developer"
   },
   "stakingPoolDetail": {
     "title": "Staking Pool Details",

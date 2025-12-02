@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
@@ -2259,6 +2260,79 @@ export default function MembersPage() {
           deleteMemberMutation.mutate(memberId);
         }}
       />
+
+      {/* Related Resources Section */}
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-primary" />
+            {t('members.relatedResources')}
+          </CardTitle>
+          <CardDescription>
+            {t('members.relatedResourcesDesc')}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Learn Section */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">{t('members.learn')}</h4>
+              <div className="space-y-2">
+                <Link href="/learn/trust-score-system" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-trust-score">
+                  <Shield className="h-4 w-4 text-cyan-500" />
+                  <span className="text-sm group-hover:text-primary transition">Trust Score System</span>
+                </Link>
+                <Link href="/learn/what-is-wallet" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-wallet">
+                  <Wallet className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm group-hover:text-primary transition">What is a Wallet?</span>
+                </Link>
+                <Link href="/learn/tokenomics" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-tokenomics">
+                  <Coins className="h-4 w-4 text-yellow-500" />
+                  <span className="text-sm group-hover:text-primary transition">Tokenomics</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Solutions Section */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">{t('members.solutions')}</h4>
+              <div className="space-y-2">
+                <Link href="/solutions/wallets" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-solution-wallets">
+                  <Wallet className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm group-hover:text-primary transition">Wallet Solutions</span>
+                </Link>
+                <Link href="/solutions/permissioned" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-solution-permissioned">
+                  <Lock className="h-4 w-4 text-amber-500" />
+                  <span className="text-sm group-hover:text-primary transition">Permissioned Environments</span>
+                </Link>
+                <Link href="/solutions/token-extensions" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-solution-token-extensions">
+                  <Layers className="h-4 w-4 text-green-500" />
+                  <span className="text-sm group-hover:text-primary transition">Token Extensions</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Legal & Developer Section */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">{t('members.legalDeveloper')}</h4>
+              <div className="space-y-2">
+                <Link href="/legal/terms-of-service" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-terms">
+                  <FileText className="h-4 w-4 text-cyan-500" />
+                  <span className="text-sm group-hover:text-primary transition">Terms of Service</span>
+                </Link>
+                <Link href="/legal/privacy-policy" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-privacy">
+                  <Shield className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm group-hover:text-primary transition">Privacy Policy</span>
+                </Link>
+                <Link href="/developers/api" className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition group" data-testid="link-api">
+                  <Globe className="h-4 w-4 text-blue-500" />
+                  <span className="text-sm group-hover:text-primary transition">API Documentation</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
