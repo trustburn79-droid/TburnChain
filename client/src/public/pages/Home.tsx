@@ -305,8 +305,8 @@ export default function Home() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="glass-panel p-6 rounded-2xl text-center group hover:border-cyan-400/30 transition-colors" data-testid="stat-blocks">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors">
-                {stats?.totalBlocks != null 
-                  ? (stats.totalBlocks >= 1000000 ? Math.floor(stats.totalBlocks / 1000000) + "M+" : stats.totalBlocks.toLocaleString()) 
+                {stats?.blockHeight != null 
+                  ? (stats.blockHeight >= 1000000 ? Math.floor(stats.blockHeight / 1000000) + "M+" : stats.blockHeight.toLocaleString()) 
                   : "2.1M+"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.blocks')}</div>
