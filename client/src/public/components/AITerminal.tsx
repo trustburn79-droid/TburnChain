@@ -49,7 +49,7 @@ export function AITerminal() {
         return updated;
       });
 
-      setTimeout(addLog, 1500);
+      setTimeout(addLog, 2000);
     };
 
     addLog();
