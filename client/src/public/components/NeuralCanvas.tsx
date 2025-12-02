@@ -120,7 +120,7 @@ export function NeuralCanvas() {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < CONNECTION_DISTANCE) {
-            const opacity = (1 - distance / CONNECTION_DISTANCE) * 0.3;
+            const opacity = (1 - distance / CONNECTION_DISTANCE) * 0.15;
             ctx!.strokeStyle = `rgba(0, 240, 255, ${opacity})`;
             ctx!.lineWidth = 0.8;
             ctx!.beginPath();
@@ -140,7 +140,7 @@ export function NeuralCanvas() {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 180) {
-            const opacity = (1 - distance / 180) * 0.45;
+            const opacity = (1 - distance / 180) * 0.22;
             ctx!.strokeStyle = `rgba(0, 240, 255, ${opacity})`;
             ctx!.lineWidth = 1.2;
             ctx!.beginPath();
