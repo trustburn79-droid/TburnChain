@@ -1,7 +1,8 @@
 import { Link } from "wouter";
 import { 
   Shield, ArrowLeft, FileText, AlertTriangle, Database, 
-  Lock, Eye, Globe, Users, Cookie, Mail, HelpCircle
+  Lock, Eye, Globe, Users, Cookie, Mail, HelpCircle, CheckCircle,
+  Key, Wallet, UserCheck, Scale, BookOpen
 } from "lucide-react";
 
 export default function PrivacyPolicy() {
@@ -32,96 +33,113 @@ export default function PrivacyPolicy() {
       <section className="max-w-4xl mx-auto px-6 lg:px-8 pb-20">
         <div className="spotlight-card rounded-xl p-8 md:p-12 text-gray-300">
           
-          {/* Section 1 */}
+          {/* Section 1: Introduction */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
               <span className="text-[#7000ff]">1.</span> Introduction
             </h2>
             <p className="leading-relaxed">
-              TBurn Chain Foundation ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use TBurn Chain services.
+              Welcome to TBurn Chain ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. 
+              This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our blockchain services.
             </p>
           </div>
 
-          {/* Section 2 */}
+          {/* Section 2: Information We Collect */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
               <span className="text-[#7000ff]">2.</span> Information We Collect
             </h2>
             
             <h3 className="text-xl font-bold text-white mt-6 mb-3 flex items-center gap-2">
-              <Database className="w-5 h-5 text-[#7000ff]" /> 2.1 On-Chain Data
+              <UserCheck className="w-5 h-5 text-[#7000ff]" /> 2.1 Information You Provide
             </h3>
             <ul className="list-disc pl-6 space-y-2 mb-6">
-              <li>Wallet addresses and transaction history</li>
-              <li>Smart contract interactions</li>
-              <li>Trust scores and verification status</li>
-              <li>Voting records for governance</li>
+              <li><strong className="text-white">Account Information:</strong> Email address, username, wallet addresses.</li>
+              <li><strong className="text-white">Project Verification:</strong> Business registration documents, KYC information, financial statements.</li>
+              <li><strong className="text-white">Communication Data:</strong> Messages, support tickets, feedback.</li>
             </ul>
 
             <h3 className="text-xl font-bold text-white mt-6 mb-3 flex items-center gap-2">
-              <Eye className="w-5 h-5 text-[#7000ff]" /> 2.2 Off-Chain Data
+              <Database className="w-5 h-5 text-[#7000ff]" /> 2.2 Automatically Collected Information
             </h3>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Email addresses (optional registration)</li>
-              <li>IP addresses and device information</li>
-              <li>Usage analytics and preferences</li>
-              <li>Support communications</li>
+              <li><strong className="text-white">Blockchain Data:</strong> Public wallet addresses, transaction hashes, smart contract interactions.</li>
+              <li><strong className="text-white">Device Information:</strong> IP address, browser type, operating system.</li>
+              <li><strong className="text-white">Usage Data:</strong> Pages viewed, navigation patterns, session duration.</li>
             </ul>
           </div>
 
-          {/* Section 3 */}
+          {/* Section 3: How We Use Your Information */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
               <span className="text-[#7000ff]">3.</span> How We Use Your Information
             </h2>
+            <p className="mb-4">We use collected information for:</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Provide, maintain, and improve our services</li>
-              <li>Process transactions and verify identity</li>
-              <li>Send administrative communications</li>
-              <li>Detect and prevent fraud or abuse</li>
-              <li>Comply with legal obligations</li>
-              <li>Conduct research and analytics</li>
+              <li>Operating and maintaining the TBurn Chain platform.</li>
+              <li>Conducting our 3-stage verification process (AI filtering, expert review, voting).</li>
+              <li>Detecting fraud, abuse, and security threats.</li>
+              <li>Improving our services through analytics.</li>
+              <li>Meeting legal compliance obligations.</li>
             </ul>
           </div>
 
-          {/* Section 4 */}
+          {/* Section 4: Information Sharing */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#7000ff]">4.</span> Data Sharing
+              <span className="text-[#7000ff]">4.</span> Information Sharing
             </h2>
-            <p className="mb-4">We may share your information with:</p>
+            <p className="mb-4">We share information with:</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong className="text-white">Service Providers:</strong> Third parties who assist in operating our platform</li>
-              <li><strong className="text-white">Legal Authorities:</strong> When required by law or to protect rights</li>
-              <li><strong className="text-white">Business Transfers:</strong> In connection with mergers or acquisitions</li>
+              <li><strong className="text-white">Validators:</strong> For decentralized verification processes.</li>
+              <li><strong className="text-white">Service Providers:</strong> Infrastructure and support partners.</li>
+              <li><strong className="text-white">Legal Authorities:</strong> When required by law.</li>
             </ul>
-            <div className="mt-4 p-4 bg-[#7000ff]/10 border border-[#7000ff]/20 rounded-lg">
-              <p className="text-sm text-gray-300">
-                <Lock className="w-4 h-4 inline mr-2" />
-                <strong>Note:</strong> On-chain data is publicly visible by nature. We cannot control access to blockchain data.
+            <div className="mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+              <p className="text-green-200 text-sm flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                <span><strong>We do NOT sell your personal data</strong> to third parties for marketing purposes.</span>
               </p>
             </div>
           </div>
 
-          {/* Section 5 */}
+          {/* Section 5: Blockchain-Specific Privacy */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#7000ff]">5.</span> Data Security
+              <span className="text-[#7000ff]">5.</span> Blockchain-Specific Privacy
             </h2>
-            <p className="mb-4">We implement appropriate security measures including:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Encryption of data in transit and at rest</li>
-              <li>Regular security audits and penetration testing</li>
-              <li>Access controls and authentication</li>
-              <li>Incident response procedures</li>
-            </ul>
+            <div className="space-y-4">
+              <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
+                <h4 className="font-bold text-white mb-2 flex items-center gap-2">
+                  <Eye className="w-4 h-4 text-[#7000ff]" /> Public Data
+                </h4>
+                <p className="text-sm text-gray-400">
+                  Transactions and smart contract interactions on TBurn Chain are publicly visible and immutable. This data cannot be deleted or modified.
+                </p>
+              </div>
+              <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
+                <h4 className="font-bold text-white mb-2 flex items-center gap-2">
+                  <Key className="w-4 h-4 text-[#7000ff]" /> Pseudonymity
+                </h4>
+                <p className="text-sm text-gray-400">
+                  Wallet addresses are pseudonymous. However, if you link your real-world identity to a wallet address, that connection may become public.
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Section 6 */}
+          {/* Section 6: Security & Rights */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
-              <span className="text-[#7000ff]">6.</span> Your Rights
+              <span className="text-[#7000ff]">6.</span> Security & Rights
             </h2>
+            <p className="mb-4">We implement appropriate security measures including:</p>
+            <ul className="list-disc pl-6 space-y-2 mb-6">
+              <li>SSL/TLS encryption for data in transit</li>
+              <li>Encrypted storage for sensitive data</li>
+              <li>Multi-factor authentication</li>
+              <li>Regular security audits and penetration testing</li>
+            </ul>
             <p className="mb-4">Depending on your location, you may have the right to:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Access your personal information</li>
@@ -154,27 +172,28 @@ export default function PrivacyPolicy() {
               <span className="text-[#7000ff]">8.</span> International Data Transfers
             </h2>
             <p>
-              Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers.
+              Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers in compliance with applicable data protection laws.
             </p>
           </div>
 
           {/* Contact Information */}
           <div className="mt-16 pt-8 border-t border-white/10">
-            <h2 className="text-xl font-bold text-white mb-4">Contact Information</h2>
+            <h2 className="text-xl font-bold text-white mb-4">Contact Us</h2>
+            <p className="mb-4 text-gray-400">If you have questions about this Privacy Policy, contact our Privacy Office:</p>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
               <div className="p-4 rounded-lg bg-white/5 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
                   <Mail className="w-4 h-4 text-[#7000ff]" />
-                  <strong className="text-[#7000ff]">Privacy Inquiries</strong>
+                  <strong className="text-[#7000ff]">Email</strong>
                 </div>
                 <p className="text-gray-300">privacy@tburn.io</p>
               </div>
               <div className="p-4 rounded-lg bg-white/5 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <Globe className="w-4 h-4 text-[#7000ff]" />
-                  <strong className="text-[#7000ff]">Data Protection Officer</strong>
+                  <HelpCircle className="w-4 h-4 text-[#7000ff]" />
+                  <strong className="text-[#7000ff]">Response Time</strong>
                 </div>
-                <p className="text-gray-300">dpo@tburn.io</p>
+                <p className="text-gray-300">Within 30 days</p>
               </div>
             </div>
           </div>
@@ -203,6 +222,75 @@ export default function PrivacyPolicy() {
                 <div>
                   <p className="font-medium text-white group-hover:text-[#f59e0b] transition">Disclaimer</p>
                   <p className="text-xs text-gray-500">Risk disclosures</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Related Learn Pages */}
+          <div className="mt-8 pt-8 border-t border-white/10">
+            <h3 className="text-lg font-bold text-white mb-4">Learn More</h3>
+            <div className="grid md:grid-cols-3 gap-4">
+              <Link 
+                href="/learn/what-is-wallet"
+                className="flex items-center gap-3 p-3 rounded-lg bg-[#7000ff]/5 border border-[#7000ff]/20 hover:bg-[#7000ff]/10 transition group"
+                data-testid="link-wallets"
+              >
+                <Wallet className="w-5 h-5 text-[#7000ff]" />
+                <div>
+                  <p className="font-medium text-white group-hover:text-[#7000ff] transition">What is a Wallet?</p>
+                  <p className="text-xs text-gray-500">Secure your keys</p>
+                </div>
+              </Link>
+              <Link 
+                href="/learn/trust-score-system"
+                className="flex items-center gap-3 p-3 rounded-lg bg-[#00f0ff]/5 border border-[#00f0ff]/20 hover:bg-[#00f0ff]/10 transition group"
+                data-testid="link-trust-score"
+              >
+                <Scale className="w-5 h-5 text-[#00f0ff]" />
+                <div>
+                  <p className="font-medium text-white group-hover:text-[#00f0ff] transition">Trust Score System</p>
+                  <p className="text-xs text-gray-500">Verification process</p>
+                </div>
+              </Link>
+              <Link 
+                href="/learn/blockchain-basics"
+                className="flex items-center gap-3 p-3 rounded-lg bg-[#10b981]/5 border border-[#10b981]/20 hover:bg-[#10b981]/10 transition group"
+                data-testid="link-blockchain"
+              >
+                <BookOpen className="w-5 h-5 text-[#10b981]" />
+                <div>
+                  <p className="font-medium text-white group-hover:text-[#10b981] transition">Blockchain Basics</p>
+                  <p className="text-xs text-gray-500">Data on-chain</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Related Solutions */}
+          <div className="mt-8 pt-8 border-t border-white/10">
+            <h3 className="text-lg font-bold text-white mb-4">Security Solutions</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <Link 
+                href="/solutions/wallets"
+                className="flex items-center gap-3 p-3 rounded-lg bg-[#7000ff]/5 border border-[#7000ff]/20 hover:bg-[#7000ff]/10 transition group"
+                data-testid="link-solution-wallets"
+              >
+                <Wallet className="w-5 h-5 text-[#7000ff]" />
+                <div>
+                  <p className="font-medium text-white group-hover:text-[#7000ff] transition">Wallets</p>
+                  <p className="text-xs text-gray-500">Secure wallet solutions</p>
+                </div>
+              </Link>
+              <Link 
+                href="/solutions/permissioned"
+                className="flex items-center gap-3 p-3 rounded-lg bg-[#ffd700]/5 border border-[#ffd700]/20 hover:bg-[#ffd700]/10 transition group"
+                data-testid="link-solution-permissioned"
+              >
+                <Lock className="w-5 h-5 text-[#ffd700]" />
+                <div>
+                  <p className="font-medium text-white group-hover:text-[#ffd700] transition">Permissioned Environments</p>
+                  <p className="text-xs text-gray-500">Enterprise privacy</p>
                 </div>
               </Link>
             </div>
