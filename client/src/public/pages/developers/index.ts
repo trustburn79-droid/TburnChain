@@ -3,6 +3,7 @@ export { default as Documentation } from "./Documentation";
 export { default as ApiDocs } from "./ApiDocs";
 export { default as CliReference } from "./CliReference";
 export { default as SdkGuide } from "./SdkGuide";
+export { default as SmartContracts } from "./SmartContracts";
 export { default as CodeExamples } from "./CodeExamples";
 export { default as QuickStart } from "./QuickStart";
 export { default as InstallationGuide } from "./InstallationGuide";

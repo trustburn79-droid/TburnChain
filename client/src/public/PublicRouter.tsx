@@ -4,7 +4,7 @@ import { PublicLayout } from "./components/PublicLayout";
 import Home from "./pages/Home";
 
 import { LearnHub, WhatIsBurnChain, TrustScoreSystem, WhatIsWallet, EducationPrograms, Whitepaper, Tokenomics, Roadmap, Universities } from "./pages/learn";
-import { DeveloperHub, Documentation, ApiDocs, CliReference, SdkGuide, CodeExamples, QuickStart, InstallationGuide, EvmMigration } from "./pages/developers";
+import { DeveloperHub, Documentation, ApiDocs, CliReference, SdkGuide, SmartContracts, CodeExamples, QuickStart, InstallationGuide, EvmMigration } from "./pages/developers";
 import { TokenExtensions, ActionsBlinks, Wallets, Permissioned, GameTooling, Payments, Commerce, Financial } from "./pages/solutions";
 import { Tokenization, DePIN, Stablecoins, Institutional, Enterprise, Gaming } from "./pages/use-cases";
 import { Validators, RpcProviders, NetworkStatus, Ramp } from "./pages/network";
@@ -32,6 +32,7 @@ export function PublicRouter() {
         <Route path="/developers/api" component={ApiDocs} />
         <Route path="/developers/cli" component={CliReference} />
         <Route path="/developers/sdk" component={SdkGuide} />
+        <Route path="/developers/contracts" component={SmartContracts} />
         <Route path="/developers/examples" component={CodeExamples} />
         <Route path="/developers/quickstart" component={QuickStart} />
         <Route path="/developers/installation" component={InstallationGuide} />
