@@ -7019,7 +7019,77 @@
       "useCases": "ユースケース",
       "network": "ネットワーク",
       "community": "コミュニティ",
-      "loginInterface": "ログイン画面"
+      "loginInterface": "ログイン画面",
+      "selectLanguage": "言語を選択",
+      "nav": {
+        "learn": {
+          "title": "学習",
+          "learnHub": { "title": "学習ハブ", "description": "Burn Chainを始める" },
+          "whatIsBurnChain": { "title": "Burn Chainとは?", "description": "ブロックチェーンについて学ぶ" },
+          "trustScore": { "title": "信頼スコアシステム", "description": "信頼検証を理解する" },
+          "wallet": { "title": "ウォレットとは?", "description": "ウォレットの基礎" },
+          "blockchainBasics": { "title": "ブロックチェーン基礎", "description": "コア概念" },
+          "defiMastery": { "title": "DeFiマスター", "description": "上級DeFiコース" },
+          "developerCourse": { "title": "開発者コース", "description": "Burn Chainで構築" },
+          "introToDefi": { "title": "DeFi入門", "description": "DeFi基礎" },
+          "educationPrograms": { "title": "教育プログラム", "description": "認定コース" },
+          "whitepaper": { "title": "技術ホワイトペーパー", "description": "詳細な技術文書" },
+          "tokenomics": { "title": "トークノミクス", "description": "トークン経済学" },
+          "roadmap": { "title": "ロードマップ", "description": "開発タイムライン" }
+        },
+        "developers": {
+          "title": "開発者",
+          "developerHub": { "title": "開発者ハブ", "description": "Burn Chainで構築" },
+          "documentation": { "title": "ドキュメント", "description": "完全なドキュメント" },
+          "apiReference": { "title": "APIリファレンス", "description": "APIエンドポイント" },
+          "cliReference": { "title": "CLIリファレンス", "description": "コマンドラインツール" },
+          "sdkGuide": { "title": "SDKガイド", "description": "SDK統合" },
+          "smartContracts": { "title": "スマートコントラクト", "description": "コントラクト開発" },
+          "websocketApi": { "title": "WebSocket API", "description": "リアルタイムデータ" },
+          "codeExamples": { "title": "コード例", "description": "サンプルコード" },
+          "quickStart": { "title": "クイックスタート", "description": "すぐに始める" },
+          "installation": { "title": "インストールガイド", "description": "セットアップ手順" },
+          "evmMigration": { "title": "EVMマイグレーション", "description": "Ethereumから移行" }
+        },
+        "solutions": {
+          "title": "ソリューション",
+          "tokenExtensions": { "title": "トークン拡張", "description": "強化されたトークン" },
+          "actionsBlinks": { "title": "アクション & ブリンク", "description": "URLベースのアクション" },
+          "wallets": { "title": "ウォレット", "description": "ウォレットソリューション" },
+          "permissioned": { "title": "許可型環境", "description": "エンタープライズネットワーク" },
+          "gameTooling": { "title": "ゲームツール", "description": "ゲーム開発" },
+          "payments": { "title": "決済", "description": "決済ソリューション" },
+          "commerce": { "title": "コマース", "description": "Eコマース統合" },
+          "financial": { "title": "金融インフラ", "description": "金融サービス" },
+          "aiFeatures": { "title": "AI機能", "description": "AI機能" },
+          "artistsCreators": { "title": "アーティスト & クリエイター", "description": "NFTプラットフォーム" },
+          "btcfi": { "title": "BTCfi", "description": "ビットコインDeFi" },
+          "crossChainBridge": { "title": "クロスチェーンブリッジ", "description": "マルチチェーンブリッジ" },
+          "defiHub": { "title": "DeFiハブ", "description": "DeFiエコシステム" }
+        },
+        "useCases": {
+          "title": "ユースケース",
+          "tokenization": { "title": "トークン化", "description": "資産のトークン化" },
+          "depin": { "title": "DePIN", "description": "分散型インフラ" },
+          "stablecoins": { "title": "ステーブルコイン", "description": "安定資産" },
+          "institutional": { "title": "機関決済", "description": "エンタープライズ決済" },
+          "enterprise": { "title": "エンタープライズ", "description": "エンタープライズソリューション" },
+          "gaming": { "title": "ゲーム & エンターテイメント", "description": "ゲームエコシステム" }
+        },
+        "network": {
+          "title": "ネットワーク",
+          "validators": { "title": "バリデーター", "description": "バリデーターになる" },
+          "rpc": { "title": "RPCプロバイダー", "description": "APIアクセス" },
+          "status": { "title": "ネットワークステータス", "description": "ネットワーク健全性" },
+          "ramp": { "title": "Burn Chain Ramp", "description": "TBURNの売買" }
+        },
+        "community": {
+          "title": "コミュニティ",
+          "news": { "title": "ニュース & ブログ", "description": "最新情報" },
+          "events": { "title": "イベント", "description": "今後のイベント" },
+          "hub": { "title": "コミュニティ", "description": "コミュニティに参加" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "エコシステム",

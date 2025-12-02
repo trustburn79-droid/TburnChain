@@ -4898,7 +4898,77 @@
       "useCases": "उपयोग के मामले",
       "network": "नेटवर्क",
       "community": "समुदाय",
-      "loginInterface": "इंटरफ़ेस में लॉगिन"
+      "loginInterface": "इंटरफ़ेस में लॉगिन",
+      "selectLanguage": "भाषा चुनें",
+      "nav": {
+        "learn": {
+          "title": "सीखें",
+          "learnHub": { "title": "लर्निंग हब", "description": "Burn Chain के साथ शुरुआत करें" },
+          "whatIsBurnChain": { "title": "Burn Chain क्या है?", "description": "हमारे ब्लॉकचेन के बारे में जानें" },
+          "trustScore": { "title": "ट्रस्ट स्कोर सिस्टम", "description": "ट्रस्ट सत्यापन को समझें" },
+          "wallet": { "title": "वॉलेट क्या है?", "description": "वॉलेट की मूल बातें" },
+          "blockchainBasics": { "title": "ब्लॉकचेन मूल बातें", "description": "मुख्य अवधारणाएं" },
+          "defiMastery": { "title": "DeFi मास्टरी", "description": "उन्नत DeFi कोर्स" },
+          "developerCourse": { "title": "डेवलपर कोर्स", "description": "Burn Chain पर बनाएं" },
+          "introToDefi": { "title": "DeFi परिचय", "description": "DeFi मूल बातें" },
+          "educationPrograms": { "title": "शिक्षा कार्यक्रम", "description": "प्रमाणन पाठ्यक्रम" },
+          "whitepaper": { "title": "तकनीकी व्हाइटपेपर", "description": "गहन तकनीकी दस्तावेज़" },
+          "tokenomics": { "title": "टोकनोमिक्स", "description": "टोकन अर्थशास्त्र" },
+          "roadmap": { "title": "रोडमैप", "description": "विकास समयरेखा" }
+        },
+        "developers": {
+          "title": "डेवलपर्स",
+          "developerHub": { "title": "डेवलपर हब", "description": "Burn Chain पर बनाएं" },
+          "documentation": { "title": "दस्तावेज़ीकरण", "description": "पूर्ण दस्तावेज़ीकरण" },
+          "apiReference": { "title": "API संदर्भ", "description": "API एंडपॉइंट्स" },
+          "cliReference": { "title": "CLI संदर्भ", "description": "कमांड लाइन टूल्स" },
+          "sdkGuide": { "title": "SDK गाइड", "description": "SDK एकीकरण" },
+          "smartContracts": { "title": "स्मार्ट कॉन्ट्रैक्ट्स", "description": "कॉन्ट्रैक्ट विकास" },
+          "websocketApi": { "title": "WebSocket API", "description": "रियल-टाइम डेटा" },
+          "codeExamples": { "title": "कोड उदाहरण", "description": "नमूना कोड" },
+          "quickStart": { "title": "त्वरित शुरुआत", "description": "जल्दी शुरू करें" },
+          "installation": { "title": "इंस्टॉलेशन गाइड", "description": "सेटअप निर्देश" },
+          "evmMigration": { "title": "EVM माइग्रेशन", "description": "Ethereum से माइग्रेट करें" }
+        },
+        "solutions": {
+          "title": "समाधान",
+          "tokenExtensions": { "title": "टोकन एक्सटेंशन", "description": "उन्नत टोकन" },
+          "actionsBlinks": { "title": "एक्शन्स और ब्लिंक्स", "description": "URL-आधारित एक्शन्स" },
+          "wallets": { "title": "वॉलेट्स", "description": "वॉलेट समाधान" },
+          "permissioned": { "title": "अनुमति प्राप्त वातावरण", "description": "एंटरप्राइज नेटवर्क" },
+          "gameTooling": { "title": "गेम टूलिंग", "description": "गेम विकास" },
+          "payments": { "title": "भुगतान", "description": "भुगतान समाधान" },
+          "commerce": { "title": "कॉमर्स", "description": "ई-कॉमर्स एकीकरण" },
+          "financial": { "title": "वित्तीय इंफ्रास्ट्रक्चर", "description": "वित्तीय सेवाएं" },
+          "aiFeatures": { "title": "AI विशेषताएं", "description": "AI क्षमताएं" },
+          "artistsCreators": { "title": "कलाकार और निर्माता", "description": "NFT प्लेटफॉर्म" },
+          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
+          "crossChainBridge": { "title": "क्रॉस-चेन ब्रिज", "description": "मल्टी-चेन ब्रिज" },
+          "defiHub": { "title": "DeFi हब", "description": "DeFi इकोसिस्टम" }
+        },
+        "useCases": {
+          "title": "उपयोग के मामले",
+          "tokenization": { "title": "टोकनाइज़ेशन", "description": "एसेट टोकनाइज़ेशन" },
+          "depin": { "title": "DePIN", "description": "विकेंद्रीकृत इंफ्रास्ट्रक्चर" },
+          "stablecoins": { "title": "स्टेबलकॉइन्स", "description": "स्थिर संपत्ति" },
+          "institutional": { "title": "संस्थागत भुगतान", "description": "एंटरप्राइज भुगतान" },
+          "enterprise": { "title": "एंटरप्राइज", "description": "एंटरप्राइज समाधान" },
+          "gaming": { "title": "गेमिंग और मनोरंजन", "description": "गेमिंग इकोसिस्टम" }
+        },
+        "network": {
+          "title": "नेटवर्क",
+          "validators": { "title": "वैलिडेटर्स", "description": "वैलिडेटर बनें" },
+          "rpc": { "title": "RPC प्रोवाइडर्स", "description": "API एक्सेस" },
+          "status": { "title": "नेटवर्क स्टेटस", "description": "नेटवर्क स्वास्थ्य" },
+          "ramp": { "title": "Burn Chain रैंप", "description": "TBURN खरीदें/बेचें" }
+        },
+        "community": {
+          "title": "समुदाय",
+          "news": { "title": "समाचार और ब्लॉग", "description": "नवीनतम अपडेट" },
+          "events": { "title": "इवेंट्स", "description": "आगामी इवेंट्स" },
+          "hub": { "title": "समुदाय", "description": "समुदाय से जुड़ें" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "इकोसिस्टम",

@@ -4432,7 +4432,77 @@
       "useCases": "حالات الاستخدام",
       "network": "الشبكة",
       "community": "المجتمع",
-      "loginInterface": "واجهة تسجيل الدخول"
+      "loginInterface": "واجهة تسجيل الدخول",
+      "selectLanguage": "اختر اللغة",
+      "nav": {
+        "learn": {
+          "title": "التعلم",
+          "learnHub": { "title": "مركز التعلم", "description": "ابدأ مع Burn Chain" },
+          "whatIsBurnChain": { "title": "ما هو Burn Chain؟", "description": "تعرف على بلوكتشين الخاص بنا" },
+          "trustScore": { "title": "نظام درجة الثقة", "description": "فهم التحقق من الثقة" },
+          "wallet": { "title": "ما هي المحفظة؟", "description": "أساسيات المحفظة" },
+          "blockchainBasics": { "title": "أساسيات البلوكتشين", "description": "المفاهيم الأساسية" },
+          "defiMastery": { "title": "إتقان DeFi", "description": "دورة DeFi المتقدمة" },
+          "developerCourse": { "title": "دورة المطور", "description": "ابنِ على Burn Chain" },
+          "introToDefi": { "title": "مقدمة إلى DeFi", "description": "أساسيات DeFi" },
+          "educationPrograms": { "title": "البرامج التعليمية", "description": "دورات الشهادات" },
+          "whitepaper": { "title": "الورقة البيضاء التقنية", "description": "وثائق تقنية متعمقة" },
+          "tokenomics": { "title": "الاقتصاد الرمزي", "description": "اقتصاديات الرموز" },
+          "roadmap": { "title": "خارطة الطريق", "description": "الجدول الزمني للتطوير" }
+        },
+        "developers": {
+          "title": "المطورون",
+          "developerHub": { "title": "مركز المطورين", "description": "ابنِ على Burn Chain" },
+          "documentation": { "title": "التوثيق", "description": "التوثيق الكامل" },
+          "apiReference": { "title": "مرجع API", "description": "نقاط نهاية API" },
+          "cliReference": { "title": "مرجع CLI", "description": "أدوات سطر الأوامر" },
+          "sdkGuide": { "title": "دليل SDK", "description": "تكامل SDK" },
+          "smartContracts": { "title": "العقود الذكية", "description": "تطوير العقود" },
+          "websocketApi": { "title": "WebSocket API", "description": "بيانات في الوقت الفعلي" },
+          "codeExamples": { "title": "أمثلة الكود", "description": "كود نموذجي" },
+          "quickStart": { "title": "البدء السريع", "description": "ابدأ بسرعة" },
+          "installation": { "title": "دليل التثبيت", "description": "تعليمات الإعداد" },
+          "evmMigration": { "title": "ترحيل EVM", "description": "الترحيل من Ethereum" }
+        },
+        "solutions": {
+          "title": "الحلول",
+          "tokenExtensions": { "title": "امتدادات الرموز", "description": "رموز محسنة" },
+          "actionsBlinks": { "title": "الإجراءات والروابط", "description": "إجراءات قائمة على URL" },
+          "wallets": { "title": "المحافظ", "description": "حلول المحفظة" },
+          "permissioned": { "title": "البيئات المرخصة", "description": "شبكات المؤسسات" },
+          "gameTooling": { "title": "أدوات الألعاب", "description": "تطوير الألعاب" },
+          "payments": { "title": "المدفوعات", "description": "حلول الدفع" },
+          "commerce": { "title": "التجارة", "description": "تكامل التجارة الإلكترونية" },
+          "financial": { "title": "البنية التحتية المالية", "description": "الخدمات المالية" },
+          "aiFeatures": { "title": "ميزات AI", "description": "قدرات AI" },
+          "artistsCreators": { "title": "الفنانون والمبدعون", "description": "منصة NFT" },
+          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
+          "crossChainBridge": { "title": "جسر عبر السلاسل", "description": "جسر متعدد السلاسل" },
+          "defiHub": { "title": "مركز DeFi", "description": "نظام DeFi البيئي" }
+        },
+        "useCases": {
+          "title": "حالات الاستخدام",
+          "tokenization": { "title": "الترميز", "description": "ترميز الأصول" },
+          "depin": { "title": "DePIN", "description": "البنية التحتية اللامركزية" },
+          "stablecoins": { "title": "العملات المستقرة", "description": "أصول مستقرة" },
+          "institutional": { "title": "المدفوعات المؤسسية", "description": "مدفوعات المؤسسات" },
+          "enterprise": { "title": "المؤسسات", "description": "حلول المؤسسات" },
+          "gaming": { "title": "الألعاب والترفيه", "description": "نظام الألعاب البيئي" }
+        },
+        "network": {
+          "title": "الشبكة",
+          "validators": { "title": "المدققون", "description": "كن مدققاً" },
+          "rpc": { "title": "مزودو RPC", "description": "وصول API" },
+          "status": { "title": "حالة الشبكة", "description": "صحة الشبكة" },
+          "ramp": { "title": "منحدر Burn Chain", "description": "شراء/بيع TBURN" }
+        },
+        "community": {
+          "title": "المجتمع",
+          "news": { "title": "الأخبار والمدونة", "description": "آخر التحديثات" },
+          "events": { "title": "الفعاليات", "description": "الفعاليات القادمة" },
+          "hub": { "title": "المجتمع", "description": "انضم إلى المجتمع" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "النظام البيئي",

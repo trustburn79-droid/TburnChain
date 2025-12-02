@@ -2731,7 +2731,77 @@
       "useCases": "ব্যবহারের ক্ষেত্র",
       "network": "নেটওয়ার্ক",
       "community": "কমিউনিটি",
-      "loginInterface": "ইন্টারফেসে লগইন"
+      "loginInterface": "ইন্টারফেসে লগইন",
+      "selectLanguage": "ভাষা নির্বাচন করুন",
+      "nav": {
+        "learn": {
+          "title": "শিখুন",
+          "learnHub": { "title": "লার্নিং হাব", "description": "Burn Chain দিয়ে শুরু করুন" },
+          "whatIsBurnChain": { "title": "Burn Chain কী?", "description": "আমাদের ব্লকচেইন সম্পর্কে জানুন" },
+          "trustScore": { "title": "ট্রাস্ট স্কোর সিস্টেম", "description": "ট্রাস্ট ভেরিফিকেশন বুঝুন" },
+          "wallet": { "title": "ওয়ালেট কী?", "description": "ওয়ালেটের মৌলিক বিষয়" },
+          "blockchainBasics": { "title": "ব্লকচেইন মৌলিক", "description": "মূল ধারণা" },
+          "defiMastery": { "title": "DeFi দক্ষতা", "description": "অ্যাডভান্সড DeFi কোর্স" },
+          "developerCourse": { "title": "ডেভেলপার কোর্স", "description": "Burn Chain-এ তৈরি করুন" },
+          "introToDefi": { "title": "DeFi পরিচিতি", "description": "DeFi মৌলিক" },
+          "educationPrograms": { "title": "শিক্ষা প্রোগ্রাম", "description": "সার্টিফিকেশন কোর্স" },
+          "whitepaper": { "title": "টেকনিক্যাল হোয়াইটপেপার", "description": "গভীর প্রযুক্তিগত ডক্স" },
+          "tokenomics": { "title": "টোকেনোমিক্স", "description": "টোকেন অর্থনীতি" },
+          "roadmap": { "title": "রোডম্যাপ", "description": "উন্নয়ন টাইমলাইন" }
+        },
+        "developers": {
+          "title": "ডেভেলপার",
+          "developerHub": { "title": "ডেভেলপার হাব", "description": "Burn Chain-এ তৈরি করুন" },
+          "documentation": { "title": "ডকুমেন্টেশন", "description": "সম্পূর্ণ ডকুমেন্টেশন" },
+          "apiReference": { "title": "API রেফারেন্স", "description": "API এন্ডপয়েন্ট" },
+          "cliReference": { "title": "CLI রেফারেন্স", "description": "কমান্ড লাইন টুলস" },
+          "sdkGuide": { "title": "SDK গাইড", "description": "SDK ইন্টিগ্রেশন" },
+          "smartContracts": { "title": "স্মার্ট কন্ট্রাক্ট", "description": "কন্ট্রাক্ট ডেভেলপমেন্ট" },
+          "websocketApi": { "title": "WebSocket API", "description": "রিয়েল-টাইম ডেটা" },
+          "codeExamples": { "title": "কোড উদাহরণ", "description": "নমুনা কোড" },
+          "quickStart": { "title": "কুইক স্টার্ট", "description": "দ্রুত শুরু করুন" },
+          "installation": { "title": "ইনস্টলেশন গাইড", "description": "সেটআপ নির্দেশনা" },
+          "evmMigration": { "title": "EVM মাইগ্রেশন", "description": "Ethereum থেকে মাইগ্রেট করুন" }
+        },
+        "solutions": {
+          "title": "সমাধান",
+          "tokenExtensions": { "title": "টোকেন এক্সটেনশন", "description": "উন্নত টোকেন" },
+          "actionsBlinks": { "title": "অ্যাকশন ও ব্লিংক", "description": "URL-ভিত্তিক অ্যাকশন" },
+          "wallets": { "title": "ওয়ালেট", "description": "ওয়ালেট সমাধান" },
+          "permissioned": { "title": "অনুমোদিত পরিবেশ", "description": "এন্টারপ্রাইজ নেটওয়ার্ক" },
+          "gameTooling": { "title": "গেম টুলিং", "description": "গেম ডেভেলপমেন্ট" },
+          "payments": { "title": "পেমেন্ট", "description": "পেমেন্ট সমাধান" },
+          "commerce": { "title": "কমার্স", "description": "ই-কমার্স ইন্টিগ্রেশন" },
+          "financial": { "title": "আর্থিক অবকাঠামো", "description": "আর্থিক সেবা" },
+          "aiFeatures": { "title": "AI বৈশিষ্ট্য", "description": "AI সক্ষমতা" },
+          "artistsCreators": { "title": "শিল্পী ও নির্মাতা", "description": "NFT প্ল্যাটফর্ম" },
+          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
+          "crossChainBridge": { "title": "ক্রস-চেইন ব্রিজ", "description": "মাল্টি-চেইন ব্রিজ" },
+          "defiHub": { "title": "DeFi হাব", "description": "DeFi ইকোসিস্টেম" }
+        },
+        "useCases": {
+          "title": "ব্যবহারের ক্ষেত্র",
+          "tokenization": { "title": "টোকেনাইজেশন", "description": "অ্যাসেট টোকেনাইজেশন" },
+          "depin": { "title": "DePIN", "description": "বিকেন্দ্রীভূত অবকাঠামো" },
+          "stablecoins": { "title": "স্টেবলকয়েন", "description": "স্থিতিশীল সম্পদ" },
+          "institutional": { "title": "প্রাতিষ্ঠানিক পেমেন্ট", "description": "এন্টারপ্রাইজ পেমেন্ট" },
+          "enterprise": { "title": "এন্টারপ্রাইজ", "description": "এন্টারপ্রাইজ সমাধান" },
+          "gaming": { "title": "গেমিং ও বিনোদন", "description": "গেমিং ইকোসিস্টেম" }
+        },
+        "network": {
+          "title": "নেটওয়ার্ক",
+          "validators": { "title": "ভ্যালিডেটর", "description": "ভ্যালিডেটর হন" },
+          "rpc": { "title": "RPC প্রোভাইডার", "description": "API অ্যাক্সেস" },
+          "status": { "title": "নেটওয়ার্ক স্ট্যাটাস", "description": "নেটওয়ার্ক স্বাস্থ্য" },
+          "ramp": { "title": "Burn Chain র‌্যাম্প", "description": "TBURN কিনুন/বিক্রি করুন" }
+        },
+        "community": {
+          "title": "সম্প্রদায়",
+          "news": { "title": "খবর ও ব্লগ", "description": "সর্বশেষ আপডেট" },
+          "events": { "title": "ইভেন্ট", "description": "আগামী ইভেন্ট" },
+          "hub": { "title": "কমিউনিটি", "description": "কমিউনিটিতে যোগ দিন" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "ইকোসিস্টেম",

@@ -4930,10 +4930,80 @@
       "learn": "Aprender",
       "developers": "Desarrolladores",
       "solutions": "Soluciones",
-      "useCases": "Casos de uso",
+      "useCases": "Casos de Uso",
       "network": "Red",
       "community": "Comunidad",
-      "loginInterface": "Iniciar sesión"
+      "loginInterface": "Iniciar sesión",
+      "selectLanguage": "Seleccionar idioma",
+      "nav": {
+        "learn": {
+          "title": "Aprender",
+          "learnHub": { "title": "Centro de Aprendizaje", "description": "Comienza con Burn Chain" },
+          "whatIsBurnChain": { "title": "¿Qué es Burn Chain?", "description": "Aprende sobre nuestra blockchain" },
+          "trustScore": { "title": "Sistema de Puntuación de Confianza", "description": "Entiende la verificación de confianza" },
+          "wallet": { "title": "¿Qué es una Billetera?", "description": "Conceptos básicos de billetera" },
+          "blockchainBasics": { "title": "Fundamentos de Blockchain", "description": "Conceptos fundamentales" },
+          "defiMastery": { "title": "Dominio DeFi", "description": "Curso avanzado de DeFi" },
+          "developerCourse": { "title": "Curso de Desarrollador", "description": "Construye en Burn Chain" },
+          "introToDefi": { "title": "Introducción a DeFi", "description": "Fundamentos de DeFi" },
+          "educationPrograms": { "title": "Programas Educativos", "description": "Cursos de certificación" },
+          "whitepaper": { "title": "Whitepaper Técnico", "description": "Documentación técnica detallada" },
+          "tokenomics": { "title": "Tokenomics", "description": "Economía del token" },
+          "roadmap": { "title": "Hoja de Ruta", "description": "Cronograma de desarrollo" }
+        },
+        "developers": {
+          "title": "Desarrolladores",
+          "developerHub": { "title": "Centro de Desarrolladores", "description": "Construye en Burn Chain" },
+          "documentation": { "title": "Documentación", "description": "Documentación completa" },
+          "apiReference": { "title": "Referencia API", "description": "Endpoints de API" },
+          "cliReference": { "title": "Referencia CLI", "description": "Herramientas de línea de comandos" },
+          "sdkGuide": { "title": "Guía SDK", "description": "Integración SDK" },
+          "smartContracts": { "title": "Contratos Inteligentes", "description": "Desarrollo de contratos" },
+          "websocketApi": { "title": "WebSocket API", "description": "Datos en tiempo real" },
+          "codeExamples": { "title": "Ejemplos de Código", "description": "Código de ejemplo" },
+          "quickStart": { "title": "Inicio Rápido", "description": "Comienza rápidamente" },
+          "installation": { "title": "Guía de Instalación", "description": "Instrucciones de configuración" },
+          "evmMigration": { "title": "Migración EVM", "description": "Migrar desde Ethereum" }
+        },
+        "solutions": {
+          "title": "Soluciones",
+          "tokenExtensions": { "title": "Extensiones de Token", "description": "Tokens mejorados" },
+          "actionsBlinks": { "title": "Actions & Blinks", "description": "Acciones basadas en URL" },
+          "wallets": { "title": "Billeteras", "description": "Soluciones de billetera" },
+          "permissioned": { "title": "Entornos Permisionados", "description": "Redes empresariales" },
+          "gameTooling": { "title": "Herramientas de Juegos", "description": "Desarrollo de juegos" },
+          "payments": { "title": "Pagos", "description": "Soluciones de pago" },
+          "commerce": { "title": "Comercio", "description": "Integración de comercio electrónico" },
+          "financial": { "title": "Infraestructura Financiera", "description": "Servicios financieros" },
+          "aiFeatures": { "title": "Funciones de IA", "description": "Capacidades de IA" },
+          "artistsCreators": { "title": "Artistas y Creadores", "description": "Plataforma NFT" },
+          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
+          "crossChainBridge": { "title": "Puente Cross-Chain", "description": "Puente multi-cadena" },
+          "defiHub": { "title": "Hub DeFi", "description": "Ecosistema DeFi" }
+        },
+        "useCases": {
+          "title": "Casos de Uso",
+          "tokenization": { "title": "Tokenización", "description": "Tokenización de activos" },
+          "depin": { "title": "DePIN", "description": "Infraestructura descentralizada" },
+          "stablecoins": { "title": "Stablecoins", "description": "Activos estables" },
+          "institutional": { "title": "Pagos Institucionales", "description": "Pagos empresariales" },
+          "enterprise": { "title": "Empresarial", "description": "Soluciones empresariales" },
+          "gaming": { "title": "Juegos y Entretenimiento", "description": "Ecosistema de juegos" }
+        },
+        "network": {
+          "title": "Red",
+          "validators": { "title": "Validadores", "description": "Conviértete en validador" },
+          "rpc": { "title": "Proveedores RPC", "description": "Acceso a API" },
+          "status": { "title": "Estado de la Red", "description": "Salud de la red" },
+          "ramp": { "title": "Burn Chain Ramp", "description": "Compra/venta de TBURN" }
+        },
+        "community": {
+          "title": "Comunidad",
+          "news": { "title": "Noticias y Blog", "description": "Últimas actualizaciones" },
+          "events": { "title": "Eventos", "description": "Próximos eventos" },
+          "hub": { "title": "Comunidad", "description": "Únete a la comunidad" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "Ecosistema",

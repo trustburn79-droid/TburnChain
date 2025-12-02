@@ -2731,7 +2731,77 @@
       "useCases": "استعمال کے معاملات",
       "network": "نیٹ ورک",
       "community": "کمیونٹی",
-      "loginInterface": "لاگ ان انٹرفیس"
+      "loginInterface": "لاگ ان انٹرفیس",
+      "selectLanguage": "زبان منتخب کریں",
+      "nav": {
+        "learn": {
+          "title": "سیکھیں",
+          "learnHub": { "title": "لرننگ ہب", "description": "Burn Chain کے ساتھ شروع کریں" },
+          "whatIsBurnChain": { "title": "Burn Chain کیا ہے؟", "description": "ہمارے بلاکچین کے بارے میں جانیں" },
+          "trustScore": { "title": "ٹرسٹ سکور سسٹم", "description": "اعتماد کی تصدیق کو سمجھیں" },
+          "wallet": { "title": "والیٹ کیا ہے؟", "description": "والیٹ کی بنیادی باتیں" },
+          "blockchainBasics": { "title": "بلاکچین کی بنیادیں", "description": "بنیادی تصورات" },
+          "defiMastery": { "title": "DeFi مہارت", "description": "ایڈوانسڈ DeFi کورس" },
+          "developerCourse": { "title": "ڈویلپر کورس", "description": "Burn Chain پر بنائیں" },
+          "introToDefi": { "title": "DeFi تعارف", "description": "DeFi کی بنیادیں" },
+          "educationPrograms": { "title": "تعلیمی پروگرام", "description": "سرٹیفیکیشن کورسز" },
+          "whitepaper": { "title": "ٹیکنیکل وائٹ پیپر", "description": "گہرائی سے تکنیکی دستاویزات" },
+          "tokenomics": { "title": "ٹوکنومکس", "description": "ٹوکن اکنامکس" },
+          "roadmap": { "title": "روڈ میپ", "description": "ترقی کی ٹائم لائن" }
+        },
+        "developers": {
+          "title": "ڈیولپرز",
+          "developerHub": { "title": "ڈویلپر ہب", "description": "Burn Chain پر بنائیں" },
+          "documentation": { "title": "دستاویزات", "description": "مکمل دستاویزات" },
+          "apiReference": { "title": "API حوالہ", "description": "API اینڈ پوائنٹس" },
+          "cliReference": { "title": "CLI حوالہ", "description": "کمانڈ لائن ٹولز" },
+          "sdkGuide": { "title": "SDK گائیڈ", "description": "SDK انضمام" },
+          "smartContracts": { "title": "سمارٹ کنٹریکٹس", "description": "کنٹریکٹ ڈویلپمنٹ" },
+          "websocketApi": { "title": "WebSocket API", "description": "ریئل ٹائم ڈیٹا" },
+          "codeExamples": { "title": "کوڈ کی مثالیں", "description": "نمونہ کوڈ" },
+          "quickStart": { "title": "فوری آغاز", "description": "جلدی شروع کریں" },
+          "installation": { "title": "انسٹالیشن گائیڈ", "description": "سیٹ اپ ہدایات" },
+          "evmMigration": { "title": "EVM مائیگریشن", "description": "Ethereum سے منتقلی" }
+        },
+        "solutions": {
+          "title": "حل",
+          "tokenExtensions": { "title": "ٹوکن ایکسٹینشنز", "description": "بہتر ٹوکنز" },
+          "actionsBlinks": { "title": "ایکشنز اور بلنکس", "description": "URL پر مبنی ایکشنز" },
+          "wallets": { "title": "والیٹس", "description": "والیٹ حل" },
+          "permissioned": { "title": "مجاز ماحول", "description": "انٹرپرائز نیٹ ورکس" },
+          "gameTooling": { "title": "گیم ٹولنگ", "description": "گیم ڈویلپمنٹ" },
+          "payments": { "title": "ادائیگیاں", "description": "ادائیگی کے حل" },
+          "commerce": { "title": "کامرس", "description": "ای کامرس انضمام" },
+          "financial": { "title": "مالیاتی انفراسٹرکچر", "description": "مالیاتی خدمات" },
+          "aiFeatures": { "title": "AI خصوصیات", "description": "AI صلاحیتیں" },
+          "artistsCreators": { "title": "فنکار اور تخلیق کار", "description": "NFT پلیٹ فارم" },
+          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
+          "crossChainBridge": { "title": "کراس چین برج", "description": "ملٹی چین برج" },
+          "defiHub": { "title": "DeFi ہب", "description": "DeFi ایکو سسٹم" }
+        },
+        "useCases": {
+          "title": "استعمال کے معاملات",
+          "tokenization": { "title": "ٹوکنائزیشن", "description": "اثاثوں کی ٹوکنائزیشن" },
+          "depin": { "title": "DePIN", "description": "غیر مرکزی انفراسٹرکچر" },
+          "stablecoins": { "title": "سٹیبل کوائنز", "description": "مستحکم اثاثے" },
+          "institutional": { "title": "ادارہ جاتی ادائیگیاں", "description": "انٹرپرائز ادائیگیاں" },
+          "enterprise": { "title": "انٹرپرائز", "description": "انٹرپرائز حل" },
+          "gaming": { "title": "گیمنگ اور تفریح", "description": "گیمنگ ایکو سسٹم" }
+        },
+        "network": {
+          "title": "نیٹ ورک",
+          "validators": { "title": "ویلیڈیٹرز", "description": "ویلیڈیٹر بنیں" },
+          "rpc": { "title": "RPC فراہم کنندگان", "description": "API رسائی" },
+          "status": { "title": "نیٹ ورک اسٹیٹس", "description": "نیٹ ورک صحت" },
+          "ramp": { "title": "Burn Chain ریمپ", "description": "TBURN خریدیں/بیچیں" }
+        },
+        "community": {
+          "title": "کمیونٹی",
+          "news": { "title": "خبریں اور بلاگ", "description": "تازہ ترین اپڈیٹس" },
+          "events": { "title": "تقریبات", "description": "آنے والی تقریبات" },
+          "hub": { "title": "کمیونٹی", "description": "کمیونٹی میں شامل ہوں" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "ایکو سسٹم",

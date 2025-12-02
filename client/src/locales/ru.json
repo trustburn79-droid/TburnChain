@@ -3602,12 +3602,82 @@
     },
     "header": {
       "learn": "Обучение",
-      "developers": "Разработчикам",
+      "developers": "Разработчики",
       "solutions": "Решения",
-      "useCases": "Применение",
+      "useCases": "Варианты использования",
       "network": "Сеть",
       "community": "Сообщество",
-      "loginInterface": "Вход в интерфейс"
+      "loginInterface": "Вход в интерфейс",
+      "selectLanguage": "Выбрать язык",
+      "nav": {
+        "learn": {
+          "title": "Обучение",
+          "learnHub": { "title": "Центр обучения", "description": "Начните работу с Burn Chain" },
+          "whatIsBurnChain": { "title": "Что такое Burn Chain?", "description": "Узнайте о нашем блокчейне" },
+          "trustScore": { "title": "Система рейтинга доверия", "description": "Понимание верификации доверия" },
+          "wallet": { "title": "Что такое кошелёк?", "description": "Основы кошелька" },
+          "blockchainBasics": { "title": "Основы блокчейна", "description": "Базовые концепции" },
+          "defiMastery": { "title": "Мастерство DeFi", "description": "Продвинутый курс DeFi" },
+          "developerCourse": { "title": "Курс разработчика", "description": "Строить на Burn Chain" },
+          "introToDefi": { "title": "Введение в DeFi", "description": "Основы DeFi" },
+          "educationPrograms": { "title": "Образовательные программы", "description": "Сертификационные курсы" },
+          "whitepaper": { "title": "Техническая документация", "description": "Подробная техническая документация" },
+          "tokenomics": { "title": "Токеномика", "description": "Экономика токена" },
+          "roadmap": { "title": "Дорожная карта", "description": "Хронология разработки" }
+        },
+        "developers": {
+          "title": "Разработчики",
+          "developerHub": { "title": "Центр разработчика", "description": "Строить на Burn Chain" },
+          "documentation": { "title": "Документация", "description": "Полная документация" },
+          "apiReference": { "title": "Справочник API", "description": "Конечные точки API" },
+          "cliReference": { "title": "Справочник CLI", "description": "Инструменты командной строки" },
+          "sdkGuide": { "title": "Руководство SDK", "description": "Интеграция SDK" },
+          "smartContracts": { "title": "Смарт-контракты", "description": "Разработка контрактов" },
+          "websocketApi": { "title": "WebSocket API", "description": "Данные в реальном времени" },
+          "codeExamples": { "title": "Примеры кода", "description": "Примеры кода" },
+          "quickStart": { "title": "Быстрый старт", "description": "Начните быстро" },
+          "installation": { "title": "Руководство по установке", "description": "Инструкции по настройке" },
+          "evmMigration": { "title": "Миграция EVM", "description": "Миграция с Ethereum" }
+        },
+        "solutions": {
+          "title": "Решения",
+          "tokenExtensions": { "title": "Расширения токенов", "description": "Расширенные токены" },
+          "actionsBlinks": { "title": "Actions & Blinks", "description": "Действия на основе URL" },
+          "wallets": { "title": "Кошельки", "description": "Решения для кошельков" },
+          "permissioned": { "title": "Разрешённые среды", "description": "Корпоративные сети" },
+          "gameTooling": { "title": "Инструменты для игр", "description": "Разработка игр" },
+          "payments": { "title": "Платежи", "description": "Платёжные решения" },
+          "commerce": { "title": "Коммерция", "description": "Интеграция электронной коммерции" },
+          "financial": { "title": "Финансовая инфраструктура", "description": "Финансовые услуги" },
+          "aiFeatures": { "title": "Функции ИИ", "description": "Возможности ИИ" },
+          "artistsCreators": { "title": "Художники и создатели", "description": "Платформа NFT" },
+          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
+          "crossChainBridge": { "title": "Кросс-чейн мост", "description": "Мультичейн мост" },
+          "defiHub": { "title": "DeFi Хаб", "description": "Экосистема DeFi" }
+        },
+        "useCases": {
+          "title": "Варианты использования",
+          "tokenization": { "title": "Токенизация", "description": "Токенизация активов" },
+          "depin": { "title": "DePIN", "description": "Децентрализованная инфраструктура" },
+          "stablecoins": { "title": "Стейблкоины", "description": "Стабильные активы" },
+          "institutional": { "title": "Институциональные платежи", "description": "Корпоративные платежи" },
+          "enterprise": { "title": "Корпоративные", "description": "Корпоративные решения" },
+          "gaming": { "title": "Игры и развлечения", "description": "Игровая экосистема" }
+        },
+        "network": {
+          "title": "Сеть",
+          "validators": { "title": "Валидаторы", "description": "Стать валидатором" },
+          "rpc": { "title": "Провайдеры RPC", "description": "Доступ к API" },
+          "status": { "title": "Состояние сети", "description": "Здоровье сети" },
+          "ramp": { "title": "Burn Chain Ramp", "description": "Купить/продать TBURN" }
+        },
+        "community": {
+          "title": "Сообщество",
+          "news": { "title": "Новости и блог", "description": "Последние обновления" },
+          "events": { "title": "Мероприятия", "description": "Предстоящие мероприятия" },
+          "hub": { "title": "Сообщество", "description": "Присоединиться к сообществу" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "Экосистема",

@@ -7,99 +7,17 @@ import { languages } from "@/lib/i18n";
 import "../styles/public.css";
 
 interface MenuItem {
-  title: string;
+  titleKey: string;
   href: string;
-  description?: string;
+  descriptionKey?: string;
 }
 
 interface MenuSection {
-  title: string;
+  key: string;
+  titleKey: string;
   items: MenuItem[];
   highlight?: boolean;
 }
-
-const menuStructure: MenuSection[] = [
-  {
-    title: "Learn",
-    items: [
-      { title: "Learn Hub", href: "/learn", description: "Get started with Burn Chain" },
-      { title: "What is Burn Chain?", href: "/learn/what-is-burn-chain" },
-      { title: "Trust Score System", href: "/learn/trust-score" },
-      { title: "What is a Wallet?", href: "/learn/wallet" },
-      { title: "Blockchain Basics", href: "/learn/blockchain-basics" },
-      { title: "DeFi Mastery", href: "/learn/defi-mastery" },
-      { title: "Developer Course", href: "/learn/developer-course" },
-      { title: "Intro to DeFi", href: "/learn/intro-to-defi" },
-      { title: "Education Programs", href: "/learn/education-programs" },
-      { title: "Technical Whitepaper", href: "/learn/whitepaper" },
-      { title: "Tokenomics", href: "/learn/tokenomics" },
-      { title: "Roadmap", href: "/learn/roadmap" },
-    ],
-  },
-  {
-    title: "Developers",
-    items: [
-      { title: "Developer Hub", href: "/developers", description: "Build on Burn Chain" },
-      { title: "Documentation", href: "/developers/docs" },
-      { title: "API Reference", href: "/developers/api" },
-      { title: "CLI Reference", href: "/developers/cli" },
-      { title: "SDK Guide", href: "/developers/sdk" },
-      { title: "Smart Contracts", href: "/developers/contracts" },
-      { title: "WebSocket API", href: "/developers/websocket" },
-      { title: "Code Examples", href: "/developers/examples" },
-      { title: "Quick Start", href: "/developers/quickstart" },
-      { title: "Installation Guide", href: "/developers/installation" },
-      { title: "EVM Migration", href: "/developers/evm-migration" },
-    ],
-  },
-  {
-    title: "Solutions",
-    items: [
-      { title: "Token Extensions", href: "/solutions/token-extensions" },
-      { title: "Actions & Blinks", href: "/solutions/actions-blinks" },
-      { title: "Wallets", href: "/solutions/wallets" },
-      { title: "Permissioned Environments", href: "/solutions/permissioned" },
-      { title: "Game Tooling", href: "/solutions/game-tooling" },
-      { title: "Payments", href: "/solutions/payments" },
-      { title: "Commerce", href: "/solutions/commerce" },
-      { title: "Financial Infrastructure", href: "/solutions/financial" },
-      { title: "AI Features", href: "/solutions/ai-features" },
-      { title: "Artists & Creators", href: "/solutions/artists-creators" },
-      { title: "BTCfi", href: "/solutions/btcfi" },
-      { title: "Cross-Chain Bridge", href: "/solutions/cross-chain-bridge" },
-      { title: "DeFi Hub", href: "/solutions/defi-hub" },
-    ],
-  },
-  {
-    title: "Use Cases",
-    items: [
-      { title: "Tokenization", href: "/use-cases/tokenization" },
-      { title: "DePIN", href: "/use-cases/depin" },
-      { title: "Stablecoins", href: "/use-cases/stablecoins" },
-      { title: "Institutional Payments", href: "/use-cases/institutional-payments" },
-      { title: "Enterprise", href: "/use-cases/enterprise" },
-      { title: "Gaming & Entertainment", href: "/use-cases/gaming" },
-    ],
-  },
-  {
-    title: "Network",
-    items: [
-      { title: "Validators", href: "/network/validators" },
-      { title: "RPC Providers", href: "/network/rpc" },
-      { title: "Network Status", href: "/network/status" },
-      { title: "Burn Chain Ramp", href: "/network/ramp" },
-    ],
-  },
-  {
-    title: "Community",
-    highlight: true,
-    items: [
-      { title: "News & Blog", href: "/community/news" },
-      { title: "Events", href: "/community/events" },
-      { title: "Community", href: "/community/hub" },
-    ],
-  },
-];
 
 export function PublicHeader() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -109,6 +27,95 @@ export function PublicHeader() {
   const { t, i18n } = useTranslation();
   const [location] = useLocation();
   const languageMenuRef = useRef<HTMLDivElement>(null);
+
+  const menuStructure: MenuSection[] = [
+    {
+      key: "learn",
+      titleKey: "publicPages.header.nav.learn.title",
+      items: [
+        { titleKey: "publicPages.header.nav.learn.learnHub.title", href: "/learn", descriptionKey: "publicPages.header.nav.learn.learnHub.description" },
+        { titleKey: "publicPages.header.nav.learn.whatIsBurnChain.title", href: "/learn/what-is-burn-chain" },
+        { titleKey: "publicPages.header.nav.learn.trustScore.title", href: "/learn/trust-score" },
+        { titleKey: "publicPages.header.nav.learn.wallet.title", href: "/learn/wallet" },
+        { titleKey: "publicPages.header.nav.learn.blockchainBasics.title", href: "/learn/blockchain-basics" },
+        { titleKey: "publicPages.header.nav.learn.defiMastery.title", href: "/learn/defi-mastery" },
+        { titleKey: "publicPages.header.nav.learn.developerCourse.title", href: "/learn/developer-course" },
+        { titleKey: "publicPages.header.nav.learn.introToDefi.title", href: "/learn/intro-to-defi" },
+        { titleKey: "publicPages.header.nav.learn.educationPrograms.title", href: "/learn/education-programs" },
+        { titleKey: "publicPages.header.nav.learn.whitepaper.title", href: "/learn/whitepaper" },
+        { titleKey: "publicPages.header.nav.learn.tokenomics.title", href: "/learn/tokenomics" },
+        { titleKey: "publicPages.header.nav.learn.roadmap.title", href: "/learn/roadmap" },
+      ],
+    },
+    {
+      key: "developers",
+      titleKey: "publicPages.header.nav.developers.title",
+      items: [
+        { titleKey: "publicPages.header.nav.developers.developerHub.title", href: "/developers", descriptionKey: "publicPages.header.nav.developers.developerHub.description" },
+        { titleKey: "publicPages.header.nav.developers.documentation.title", href: "/developers/docs" },
+        { titleKey: "publicPages.header.nav.developers.apiReference.title", href: "/developers/api" },
+        { titleKey: "publicPages.header.nav.developers.cliReference.title", href: "/developers/cli" },
+        { titleKey: "publicPages.header.nav.developers.sdkGuide.title", href: "/developers/sdk" },
+        { titleKey: "publicPages.header.nav.developers.smartContracts.title", href: "/developers/contracts" },
+        { titleKey: "publicPages.header.nav.developers.websocketApi.title", href: "/developers/websocket" },
+        { titleKey: "publicPages.header.nav.developers.codeExamples.title", href: "/developers/examples" },
+        { titleKey: "publicPages.header.nav.developers.quickStart.title", href: "/developers/quickstart" },
+        { titleKey: "publicPages.header.nav.developers.installation.title", href: "/developers/installation" },
+        { titleKey: "publicPages.header.nav.developers.evmMigration.title", href: "/developers/evm-migration" },
+      ],
+    },
+    {
+      key: "solutions",
+      titleKey: "publicPages.header.nav.solutions.title",
+      items: [
+        { titleKey: "publicPages.header.nav.solutions.tokenExtensions.title", href: "/solutions/token-extensions" },
+        { titleKey: "publicPages.header.nav.solutions.actionsBlinks.title", href: "/solutions/actions-blinks" },
+        { titleKey: "publicPages.header.nav.solutions.wallets.title", href: "/solutions/wallets" },
+        { titleKey: "publicPages.header.nav.solutions.permissioned.title", href: "/solutions/permissioned" },
+        { titleKey: "publicPages.header.nav.solutions.gameTooling.title", href: "/solutions/game-tooling" },
+        { titleKey: "publicPages.header.nav.solutions.payments.title", href: "/solutions/payments" },
+        { titleKey: "publicPages.header.nav.solutions.commerce.title", href: "/solutions/commerce" },
+        { titleKey: "publicPages.header.nav.solutions.financial.title", href: "/solutions/financial" },
+        { titleKey: "publicPages.header.nav.solutions.aiFeatures.title", href: "/solutions/ai-features" },
+        { titleKey: "publicPages.header.nav.solutions.artistsCreators.title", href: "/solutions/artists-creators" },
+        { titleKey: "publicPages.header.nav.solutions.btcfi.title", href: "/solutions/btcfi" },
+        { titleKey: "publicPages.header.nav.solutions.crossChainBridge.title", href: "/solutions/cross-chain-bridge" },
+        { titleKey: "publicPages.header.nav.solutions.defiHub.title", href: "/solutions/defi-hub" },
+      ],
+    },
+    {
+      key: "useCases",
+      titleKey: "publicPages.header.nav.useCases.title",
+      items: [
+        { titleKey: "publicPages.header.nav.useCases.tokenization.title", href: "/use-cases/tokenization" },
+        { titleKey: "publicPages.header.nav.useCases.depin.title", href: "/use-cases/depin" },
+        { titleKey: "publicPages.header.nav.useCases.stablecoins.title", href: "/use-cases/stablecoins" },
+        { titleKey: "publicPages.header.nav.useCases.institutional.title", href: "/use-cases/institutional-payments" },
+        { titleKey: "publicPages.header.nav.useCases.enterprise.title", href: "/use-cases/enterprise" },
+        { titleKey: "publicPages.header.nav.useCases.gaming.title", href: "/use-cases/gaming" },
+      ],
+    },
+    {
+      key: "network",
+      titleKey: "publicPages.header.nav.network.title",
+      items: [
+        { titleKey: "publicPages.header.nav.network.validators.title", href: "/network/validators" },
+        { titleKey: "publicPages.header.nav.network.rpc.title", href: "/network/rpc" },
+        { titleKey: "publicPages.header.nav.network.status.title", href: "/network/status" },
+        { titleKey: "publicPages.header.nav.network.ramp.title", href: "/network/ramp" },
+      ],
+    },
+    {
+      key: "community",
+      titleKey: "publicPages.header.nav.community.title",
+      highlight: true,
+      items: [
+        { titleKey: "publicPages.header.nav.community.news.title", href: "/community/news" },
+        { titleKey: "publicPages.header.nav.community.events.title", href: "/community/events" },
+        { titleKey: "publicPages.header.nav.community.hub.title", href: "/community/hub" },
+      ],
+    },
+  ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
@@ -144,26 +151,26 @@ export function PublicHeader() {
           <div className="hidden lg:flex items-center gap-6">
             {menuStructure.map((menu) => (
               <div
-                key={menu.title}
+                key={menu.key}
                 className="relative"
-                onMouseEnter={() => setActiveMenu(menu.title)}
+                onMouseEnter={() => setActiveMenu(menu.key)}
                 onMouseLeave={() => setActiveMenu(null)}
               >
                 <button
                   className={`flex items-center gap-1 text-sm font-medium transition-colors
                     ${menu.highlight 
                       ? "px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white"
-                      : activeMenu === menu.title 
+                      : activeMenu === menu.key 
                         ? "text-white" 
                         : "text-gray-400 hover:text-white"
                     }`}
-                  data-testid={`menu-${menu.title.toLowerCase()}`}
+                  data-testid={`menu-${menu.key}`}
                 >
-                  {menu.title}
-                  <ChevronDown className={`h-4 w-4 transition-transform ${activeMenu === menu.title ? "rotate-180" : ""}`} />
+                  {t(menu.titleKey)}
+                  <ChevronDown className={`h-4 w-4 transition-transform ${activeMenu === menu.key ? "rotate-180" : ""}`} />
                 </button>
 
-                {activeMenu === menu.title && (
+                {activeMenu === menu.key && (
                   <div className="absolute left-0 top-full pt-2 z-50">
                     <div className="w-64 rounded-lg glass-panel p-2 shadow-xl border border-white/10">
                       {menu.items.map((item) => (
@@ -173,9 +180,9 @@ export function PublicHeader() {
                           className="block rounded-md px-3 py-2 text-sm hover:bg-white/5 transition-colors"
                           data-testid={`link-${item.href.replace(/\//g, '-').slice(1)}`}
                         >
-                          <div className="font-medium text-white">{item.title}</div>
-                          {item.description && (
-                            <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
+                          <div className="font-medium text-white">{t(item.titleKey)}</div>
+                          {item.descriptionKey && (
+                            <div className="text-xs text-gray-500 mt-0.5">{t(item.descriptionKey)}</div>
                           )}
                         </Link>
                       ))}
@@ -201,7 +208,7 @@ export function PublicHeader() {
               {languageMenuOpen && (
                 <div className="absolute right-0 top-full mt-2 z-50">
                   <div className="w-56 max-h-80 overflow-y-auto rounded-lg glass-panel p-2 shadow-xl border border-white/10">
-                    <div className="text-xs text-gray-500 px-3 py-1 mb-1 font-medium">Select Language</div>
+                    <div className="text-xs text-gray-500 px-3 py-1 mb-1 font-medium">{t('publicPages.header.selectLanguage')}</div>
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
@@ -256,8 +263,8 @@ export function PublicHeader() {
         <div className="lg:hidden glass-panel border-t border-white/5 max-h-[calc(100vh-5rem)] overflow-y-auto">
           <nav className="max-w-7xl mx-auto px-6 py-4 pb-20">
             {menuStructure.map((menu) => (
-              <div key={menu.title} className="mb-4">
-                <div className="text-sm font-semibold text-white mb-2">{menu.title}</div>
+              <div key={menu.key} className="mb-4">
+                <div className="text-sm font-semibold text-white mb-2">{t(menu.titleKey)}</div>
                 <div className="space-y-1 pl-4">
                   {menu.items.map((item) => (
                     <Link
@@ -266,7 +273,7 @@ export function PublicHeader() {
                       className="block py-1.5 text-sm text-gray-400 hover:text-white transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      {item.title}
+                      {t(item.titleKey)}
                     </Link>
                   ))}
                 </div>

@@ -6347,7 +6347,77 @@
       "useCases": "应用场景",
       "network": "网络",
       "community": "社区",
-      "loginInterface": "登录界面"
+      "loginInterface": "登录界面",
+      "selectLanguage": "选择语言",
+      "nav": {
+        "learn": {
+          "title": "学习",
+          "learnHub": { "title": "学习中心", "description": "开始使用 Burn Chain" },
+          "whatIsBurnChain": { "title": "什么是 Burn Chain?", "description": "了解我们的区块链" },
+          "trustScore": { "title": "信任评分系统", "description": "了解信任验证" },
+          "wallet": { "title": "什么是钱包?", "description": "钱包基础" },
+          "blockchainBasics": { "title": "区块链基础", "description": "核心概念" },
+          "defiMastery": { "title": "DeFi 精通", "description": "高级 DeFi 课程" },
+          "developerCourse": { "title": "开发者课程", "description": "在 Burn Chain 上构建" },
+          "introToDefi": { "title": "DeFi 入门", "description": "DeFi 基础" },
+          "educationPrograms": { "title": "教育项目", "description": "认证课程" },
+          "whitepaper": { "title": "技术白皮书", "description": "深度技术文档" },
+          "tokenomics": { "title": "代币经济学", "description": "代币经济" },
+          "roadmap": { "title": "路线图", "description": "开发时间表" }
+        },
+        "developers": {
+          "title": "开发者",
+          "developerHub": { "title": "开发者中心", "description": "在 Burn Chain 上构建" },
+          "documentation": { "title": "文档", "description": "完整文档" },
+          "apiReference": { "title": "API 参考", "description": "API 端点" },
+          "cliReference": { "title": "CLI 参考", "description": "命令行工具" },
+          "sdkGuide": { "title": "SDK 指南", "description": "SDK 集成" },
+          "smartContracts": { "title": "智能合约", "description": "合约开发" },
+          "websocketApi": { "title": "WebSocket API", "description": "实时数据" },
+          "codeExamples": { "title": "代码示例", "description": "示例代码" },
+          "quickStart": { "title": "快速入门", "description": "快速开始" },
+          "installation": { "title": "安装指南", "description": "设置说明" },
+          "evmMigration": { "title": "EVM 迁移", "description": "从以太坊迁移" }
+        },
+        "solutions": {
+          "title": "解决方案",
+          "tokenExtensions": { "title": "代币扩展", "description": "增强型代币" },
+          "actionsBlinks": { "title": "Actions & Blinks", "description": "基于 URL 的操作" },
+          "wallets": { "title": "钱包", "description": "钱包解决方案" },
+          "permissioned": { "title": "许可环境", "description": "企业网络" },
+          "gameTooling": { "title": "游戏工具", "description": "游戏开发" },
+          "payments": { "title": "支付", "description": "支付解决方案" },
+          "commerce": { "title": "商务", "description": "电子商务集成" },
+          "financial": { "title": "金融基础设施", "description": "金融服务" },
+          "aiFeatures": { "title": "AI 功能", "description": "AI 能力" },
+          "artistsCreators": { "title": "艺术家和创作者", "description": "NFT 平台" },
+          "btcfi": { "title": "BTCfi", "description": "比特币 DeFi" },
+          "crossChainBridge": { "title": "跨链桥", "description": "多链桥接" },
+          "defiHub": { "title": "DeFi 中心", "description": "DeFi 生态系统" }
+        },
+        "useCases": {
+          "title": "应用场景",
+          "tokenization": { "title": "代币化", "description": "资产代币化" },
+          "depin": { "title": "DePIN", "description": "去中心化基础设施" },
+          "stablecoins": { "title": "稳定币", "description": "稳定资产" },
+          "institutional": { "title": "机构支付", "description": "企业支付" },
+          "enterprise": { "title": "企业", "description": "企业解决方案" },
+          "gaming": { "title": "游戏和娱乐", "description": "游戏生态系统" }
+        },
+        "network": {
+          "title": "网络",
+          "validators": { "title": "验证者", "description": "成为验证者" },
+          "rpc": { "title": "RPC 提供商", "description": "API 访问" },
+          "status": { "title": "网络状态", "description": "网络健康" },
+          "ramp": { "title": "Burn Chain Ramp", "description": "买卖 TBURN" }
+        },
+        "community": {
+          "title": "社区",
+          "news": { "title": "新闻和博客", "description": "最新动态" },
+          "events": { "title": "活动", "description": "即将举行的活动" },
+          "hub": { "title": "社区", "description": "加入社区" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "生态系统",

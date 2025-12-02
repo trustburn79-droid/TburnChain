@@ -6490,7 +6490,77 @@
       "useCases": "사용 사례",
       "network": "네트워크",
       "community": "커뮤니티",
-      "loginInterface": "로그인 인터페이스"
+      "loginInterface": "로그인 인터페이스",
+      "selectLanguage": "언어 선택",
+      "nav": {
+        "learn": {
+          "title": "학습",
+          "learnHub": { "title": "학습 허브", "description": "Burn Chain 시작하기" },
+          "whatIsBurnChain": { "title": "Burn Chain이란?", "description": "블록체인에 대해 알아보기" },
+          "trustScore": { "title": "신뢰 점수 시스템", "description": "신뢰 검증 이해하기" },
+          "wallet": { "title": "지갑이란?", "description": "지갑 기초" },
+          "blockchainBasics": { "title": "블록체인 기초", "description": "핵심 개념" },
+          "defiMastery": { "title": "DeFi 마스터", "description": "고급 DeFi 과정" },
+          "developerCourse": { "title": "개발자 과정", "description": "Burn Chain에서 개발하기" },
+          "introToDefi": { "title": "DeFi 입문", "description": "DeFi 기초" },
+          "educationPrograms": { "title": "교육 프로그램", "description": "인증 과정" },
+          "whitepaper": { "title": "기술 백서", "description": "심층 기술 문서" },
+          "tokenomics": { "title": "토크노믹스", "description": "토큰 경제학" },
+          "roadmap": { "title": "로드맵", "description": "개발 일정" }
+        },
+        "developers": {
+          "title": "개발자",
+          "developerHub": { "title": "개발자 허브", "description": "Burn Chain에서 개발하기" },
+          "documentation": { "title": "문서", "description": "전체 문서" },
+          "apiReference": { "title": "API 레퍼런스", "description": "API 엔드포인트" },
+          "cliReference": { "title": "CLI 레퍼런스", "description": "명령줄 도구" },
+          "sdkGuide": { "title": "SDK 가이드", "description": "SDK 통합" },
+          "smartContracts": { "title": "스마트 컨트랙트", "description": "컨트랙트 개발" },
+          "websocketApi": { "title": "WebSocket API", "description": "실시간 데이터" },
+          "codeExamples": { "title": "코드 예제", "description": "샘플 코드" },
+          "quickStart": { "title": "빠른 시작", "description": "빠르게 시작하기" },
+          "installation": { "title": "설치 가이드", "description": "설정 안내" },
+          "evmMigration": { "title": "EVM 마이그레이션", "description": "이더리움에서 마이그레이션" }
+        },
+        "solutions": {
+          "title": "솔루션",
+          "tokenExtensions": { "title": "토큰 익스텐션", "description": "강화된 토큰" },
+          "actionsBlinks": { "title": "액션 & 블링크", "description": "URL 기반 액션" },
+          "wallets": { "title": "지갑", "description": "지갑 솔루션" },
+          "permissioned": { "title": "허가형 환경", "description": "엔터프라이즈 네트워크" },
+          "gameTooling": { "title": "게임 도구", "description": "게임 개발" },
+          "payments": { "title": "결제", "description": "결제 솔루션" },
+          "commerce": { "title": "커머스", "description": "전자상거래 통합" },
+          "financial": { "title": "금융 인프라", "description": "금융 서비스" },
+          "aiFeatures": { "title": "AI 기능", "description": "AI 역량" },
+          "artistsCreators": { "title": "아티스트 & 크리에이터", "description": "NFT 플랫폼" },
+          "btcfi": { "title": "BTCfi", "description": "비트코인 DeFi" },
+          "crossChainBridge": { "title": "크로스체인 브릿지", "description": "멀티체인 브릿지" },
+          "defiHub": { "title": "DeFi 허브", "description": "DeFi 생태계" }
+        },
+        "useCases": {
+          "title": "사용 사례",
+          "tokenization": { "title": "토큰화", "description": "자산 토큰화" },
+          "depin": { "title": "DePIN", "description": "탈중앙화 인프라" },
+          "stablecoins": { "title": "스테이블코인", "description": "안정 자산" },
+          "institutional": { "title": "기관 결제", "description": "엔터프라이즈 결제" },
+          "enterprise": { "title": "엔터프라이즈", "description": "엔터프라이즈 솔루션" },
+          "gaming": { "title": "게임 & 엔터테인먼트", "description": "게임 생태계" }
+        },
+        "network": {
+          "title": "네트워크",
+          "validators": { "title": "검증자", "description": "검증자 되기" },
+          "rpc": { "title": "RPC 제공자", "description": "API 액세스" },
+          "status": { "title": "네트워크 상태", "description": "네트워크 건강 상태" },
+          "ramp": { "title": "Burn Chain 램프", "description": "TBURN 구매/판매" }
+        },
+        "community": {
+          "title": "커뮤니티",
+          "news": { "title": "뉴스 & 블로그", "description": "최신 업데이트" },
+          "events": { "title": "이벤트", "description": "예정된 이벤트" },
+          "hub": { "title": "커뮤니티", "description": "커뮤니티 참여" }
+        }
+      }
     },
     "footer": {
       "ecosystem": "에코시스템",

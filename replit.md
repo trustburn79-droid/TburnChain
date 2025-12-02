@@ -36,9 +36,18 @@ The frontend is built with React 18, TypeScript, Vite, Wouter for routing, and T
   - Real-time autocomplete with 300ms debounce
   - Keyboard navigation (↑↓ Enter Escape)
   - Type-based filtering and relevance scoring
-  - Multilingual support (8 languages: English, Korean, Chinese, Japanese, Hindi, Arabic, Portuguese, Russian)
   - Public API access without authentication
   - Optimized performance (searches recent 1000 blocks)
+
+### Internationalization (i18n)
+Complete 12-language support with production-ready translations:
+- **Supported Languages**: English (en), Korean (ko), Chinese Simplified (zh), Japanese (ja), Spanish (es), French (fr), Portuguese (pt), Russian (ru), Hindi (hi), Arabic (ar), Bengali (bn), Urdu (ur)
+- **RTL Support**: Arabic and Urdu with automatic `dir="rtl"` on document element
+- **Translation Architecture**: 1,600+ translation keys using `react-i18next` with namespace pattern `publicPages.section.page.key`
+- **Header Navigation**: All 6 menu sections (Learn, Developers, Solutions, Use Cases, Network, Community) fully translated with menu items and descriptions
+- **Page Coverage**: All 50+ public pages use translation keys including Learn (14 pages), Developers (11 pages), Solutions (13 pages), Use Cases (6 pages), Network (4 pages), Community (3 pages), Legal (3 pages)
+- **Language Selector**: Globe icon in header with persistent localStorage selection
+- **Technical Terms**: TBURN, TBC-20, TBC-721, API, SDK, CLI preserved in English across all translations
 
 ### DeFi Ecosystem (Phase 1: DEX/AMM)
 The TBURN DeFi Ecosystem implements enterprise-grade decentralized finance infrastructure:
