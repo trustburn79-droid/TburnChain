@@ -198,8 +198,8 @@ export function PublicHeader() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden glass-panel border-t border-white/5">
-          <nav className="max-w-7xl mx-auto px-6 py-4">
+        <div className="lg:hidden glass-panel border-t border-white/5 max-h-[calc(100vh-5rem)] overflow-y-auto">
+          <nav className="max-w-7xl mx-auto px-6 py-4 pb-20">
             {menuStructure.map((menu) => (
               <div key={menu.title} className="mb-4">
                 <div className="text-sm font-semibold text-white mb-2">{menu.title}</div>
