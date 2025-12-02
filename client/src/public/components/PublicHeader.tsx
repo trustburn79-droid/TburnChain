@@ -35,7 +35,8 @@ const menuStructure: MenuSection[] = [
     items: [
       { title: "Developer Hub", href: "/developers", description: "Build on Burn Chain" },
       { title: "Documentation", href: "/developers/docs" },
-      { title: "API Documentation", href: "/developers/api" },
+      { title: "API Reference", href: "/developers/api" },
+      { title: "CLI Reference", href: "/developers/cli" },
       { title: "Code Examples", href: "/developers/examples" },
       { title: "Quick Start", href: "/developers/quickstart" },
       { title: "Installation Guide", href: "/developers/installation" },

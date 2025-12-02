@@ -1,0 +1,306 @@
+import { useState } from "react";
+import { Link } from "wouter";
+import { 
+  Terminal, Download, Settings, Key, Folder, Play, Hammer, 
+  Rocket, Wallet, Bot, Book, Server, ArrowRight, HelpCircle
+} from "lucide-react";
+import { SiNpm } from "react-icons/si";
+
+const installMethods = [
+  { name: "npm", command: "npm install -g @tburn/cli", icon: SiNpm, color: "#cb3837" },
+  { name: "yarn", command: "yarn global add @tburn/cli", icon: null, label: "yarn", color: "#2188b6" },
+  { name: "pnpm", command: "pnpm add -g @tburn/cli", icon: null, label: "pnpm", color: "#f9ad00" },
+];
+
+const globalOptions = [
+  { flag: "--network, -n", desc: "Select network" },
+  { flag: "--config, -c", desc: "Config file path" },
+  { flag: "--verbose, -v", desc: "Verbose logging" },
+  { flag: "--json", desc: "JSON output" },
+  { flag: "--help, -h", desc: "Show help" },
+];
+
+const envVars = [
+  { name: "TBURN_API_KEY", required: true },
+  { name: "TBURN_PRIVATE_KEY", required: false },
+  { name: "TBURN_NETWORK", required: false },
+];
+
+const commandCategories = [
+  { name: "Project", active: true },
+  { name: "Contract" },
+  { name: "Network" },
+  { name: "Wallet" },
+  { name: "AI" },
+];
+
+const commands = [
+  {
+    cmd: "tburn init",
+    desc: "Initialize a new TBurn Chain project",
+    usage: "tburn init [project-name] [options]",
+    options: [
+      { flag: "--template, -t", desc: "Project template (react, vue, next, hardhat)", default: "react" },
+      { flag: "--typescript", desc: "Use TypeScript", default: "true" },
+    ],
+    examples: `# Create React dApp
+tburn init my-dapp --template=react
+
+# Create Hardhat smart contract project
+tburn init my-contracts --template=hardhat`,
+  },
+  {
+    cmd: "tburn dev",
+    desc: "Start local development server",
+    usage: "tburn dev [options]",
+    options: [
+      { flag: "--port, -p", desc: "Server port", default: "3000" },
+      { flag: "--open", desc: "Open browser automatically", default: "false" },
+    ],
+  },
+  {
+    cmd: "tburn build",
+    desc: "Build project for production",
+    usage: "tburn build [options]",
+    options: [
+      { flag: "--outdir, -o", desc: "Output directory", default: "dist" },
+      { flag: "--sourcemap", desc: "Generate source maps", default: "false" },
+    ],
+  },
+  {
+    cmd: "tburn deploy",
+    desc: "Deploy smart contracts to the network",
+    usage: "tburn deploy [contract] [options]",
+    options: [
+      { flag: "--network, -n", desc: "Target network", default: "mainnet" },
+      { flag: "--verify", desc: "Verify on explorer", default: "true" },
+      { flag: "--gas-price", desc: "Gas price in EMB", default: "auto" },
+    ],
+    examples: `# Deploy to mainnet
+tburn deploy MyContract --network=mainnet
+
+# Deploy to testnet with verification
+tburn deploy Token --network=testnet --verify`,
+  },
+  {
+    cmd: "tburn wallet",
+    desc: "Manage wallet and keys",
+    usage: "tburn wallet [action] [options]",
+    options: [
+      { flag: "create", desc: "Create new wallet", default: "" },
+      { flag: "import", desc: "Import from mnemonic", default: "" },
+      { flag: "balance", desc: "Check wallet balance", default: "" },
+    ],
+  },
+];
+
+export default function CliReference() {
+  const [activeCategory, setActiveCategory] = useState("Project");
+
+  return (
+    <main className="flex-grow relative z-10">
+      {/* Hero Section */}
+      <section className="relative py-24 px-6 overflow-hidden border-b border-white/5">
+        <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#00f0ff]/10 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="container mx-auto max-w-5xl relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] mb-6">
+            <Terminal className="w-3 h-3" /> TBURN_CLI_TOOL
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            CLI <span className="text-gradient">Reference</span>
+          </h1>
+          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mb-4">
+            Use TBurn Chain CLI to create projects, deploy contracts, and manage networks directly from your terminal.
+          </p>
+          <span className="text-sm font-mono text-[#7000ff]">Current Version: 4.2.1</span>
+        </div>
+      </section>
+
+      {/* Installation Section */}
+      <section className="py-12 px-6 border-b border-white/5 bg-black/40">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+            <Download className="w-6 h-6 text-[#00ff9d]" /> Installation
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {installMethods.map((method, index) => (
+              <div key={index} className="spotlight-card rounded-xl p-6 border border-white/10">
+                <div className="flex justify-between mb-4">
+                  <span className="font-bold text-white">{method.name}</span>
+                  {method.icon ? (
+                    <method.icon className="w-6 h-6" style={{ color: method.color }} />
+                  ) : (
+                    <span className="font-mono font-bold" style={{ color: method.color }}>{method.label}</span>
+                  )}
+                </div>
+                <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-3 font-mono text-xs text-gray-400">
+                  {method.command}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 flex items-center gap-4 text-sm text-gray-400">
+            <span>Verify installation:</span>
+            <code className="bg-white/10 px-2 py-1 rounded text-white">tburn --version</code>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content with Sidebar */}
+      <section className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Sidebar */}
+            <div className="lg:col-span-1 space-y-6">
+              {/* Global Options */}
+              <div className="spotlight-card rounded-xl p-6 border border-white/10 sticky top-24">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <Settings className="w-5 h-5 text-gray-400" /> Global Options
+                </h3>
+                <ul className="space-y-3 text-sm font-mono">
+                  {globalOptions.map((opt, index) => (
+                    <li key={index} className="flex justify-between items-center border-b border-white/5 pb-2 last:border-0">
+                      <span className="text-[#00f0ff]">{opt.flag}</span>
+                      <span className="text-gray-500 text-xs">{opt.desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Environment Variables */}
+              <div className="spotlight-card rounded-xl p-6 border border-white/10 bg-gradient-to-br from-red-900/10 to-transparent">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                  <Key className="w-5 h-5 text-[#ff0055]" /> Environment
+                </h3>
+                <div className="space-y-3 text-xs">
+                  {envVars.map((env, index) => (
+                    <div key={index} className="flex justify-between items-center">
+                      <code className="text-white">{env.name}</code>
+                      <span className={`font-mono text-[10px] px-2 py-0.5 rounded border ${
+                        env.required 
+                          ? "text-[#ff0055] border-[#ff0055]/30 bg-[#ff0055]/10" 
+                          : "text-[#00f0ff] border-[#00f0ff]/30 bg-[#00f0ff]/10"
+                      }`}>
+                        {env.required ? "Required" : "Optional"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Related Links */}
+              <div className="spotlight-card rounded-xl p-6 border border-white/10">
+                <h3 className="text-lg font-bold text-white mb-4">Related Docs</h3>
+                <div className="space-y-2">
+                  <Link href="/developers" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                    Developer Hub
+                  </Link>
+                  <Link href="/developers/docs" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                    Documentation
+                  </Link>
+                  <Link href="/developers/api" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                    API Reference
+                  </Link>
+                  <Link href="/developers/quickstart" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                    Quick Start
+                  </Link>
+                  <Link href="/developers/installation" className="block text-sm text-gray-400 hover:text-[#00f0ff] transition">
+                    Installation Guide
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Commands Content */}
+            <div className="lg:col-span-3 space-y-8">
+              {/* Category Filter */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {commandCategories.map((cat, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveCategory(cat.name)}
+                    className={`px-3 py-1 rounded-full border text-xs font-bold transition ${
+                      activeCategory === cat.name
+                        ? "border-[#7000ff] text-[#7000ff]"
+                        : "border-white/20 text-gray-400 hover:border-white hover:text-white"
+                    }`}
+                    data-testid={`button-category-${cat.name.toLowerCase()}`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Command Cards */}
+              {commands.map((command, index) => (
+                <div key={index} className="spotlight-card rounded-xl p-8 border border-white/10">
+                  <div className="flex items-center gap-4 mb-4">
+                    <code className="text-xl font-bold text-[#7000ff] font-mono">{command.cmd}</code>
+                    <span className="text-gray-400 text-sm">{command.desc}</span>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Usage</h4>
+                    <div className="bg-[#0d0d12] border border-white/10 rounded-lg p-3 font-mono text-sm text-gray-400">
+                      {command.usage}
+                    </div>
+                  </div>
+
+                  <div className="mb-6">
+                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Options</h4>
+                    <div className="space-y-2 text-sm">
+                      {command.options.map((opt, oIndex) => (
+                        <div key={oIndex} className="flex gap-4">
+                          <code className="text-[#00f0ff] w-32 flex-shrink-0">{opt.flag}</code>
+                          <span className="text-gray-400 flex-1">{opt.desc}</span>
+                          {opt.default && (
+                            <span className="text-xs text-gray-600">default: {opt.default}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {command.examples && (
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Examples</h4>
+                      <pre className="bg-[#0d0d12] border border-white/10 rounded-lg p-4 font-mono text-xs text-gray-400 overflow-x-auto whitespace-pre-wrap">
+                        {command.examples}
+                      </pre>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Need Help Section */}
+      <section className="py-12 px-6 bg-gradient-to-br from-[#7000ff]/5 to-transparent border-t border-white/5">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2">
+            <HelpCircle className="w-6 h-6" /> Need Help?
+          </h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link 
+              href="/developers/docs"
+              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#7000ff] transition flex items-center gap-2 text-white"
+              data-testid="link-sdk-docs"
+            >
+              <Book className="w-5 h-5 text-[#7000ff]" /> SDK Documentation
+            </Link>
+            <Link 
+              href="/developers/api"
+              className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#00f0ff] transition flex items-center gap-2 text-white"
+              data-testid="link-api-ref"
+            >
+              <Server className="w-5 h-5 text-[#00f0ff]" /> API Reference
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
