@@ -39,6 +39,7 @@ const menuStructure: MenuSection[] = [
       { title: "CLI Reference", href: "/developers/cli" },
       { title: "SDK Guide", href: "/developers/sdk" },
       { title: "Smart Contracts", href: "/developers/contracts" },
+      { title: "WebSocket API", href: "/developers/websocket" },
       { title: "Code Examples", href: "/developers/examples" },
       { title: "Quick Start", href: "/developers/quickstart" },
       { title: "Installation Guide", href: "/developers/installation" },

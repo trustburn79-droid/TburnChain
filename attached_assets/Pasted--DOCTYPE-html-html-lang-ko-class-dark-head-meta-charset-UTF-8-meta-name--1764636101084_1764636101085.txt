@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket API Documentation | TBurn Chain</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#030407',      // Deepest Void
+                            card: 'rgba(20, 20, 25, 0.6)',
+                            cyan: '#00f0ff',    // Neon Cyan
+                            purple: '#7000ff', // Electric Purple
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            green: '#00ff9d',
+                            red: '#ff0055'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- CORE STYLES --- */
+        body {
+            background-color: #030407;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* 1. Background & Glass */
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.2; /* 문서 가독성을 위해 배경 투명도 낮춤 */
+        }
+
+        .glass-panel {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-nav {
+            background: rgba(3, 4, 7, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 2. Spotlight Cards (Interactive) */
+        .spotlight-card {
+            background-color: rgba(15, 15, 20, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            border-radius: 0.75rem;
+        }
+        
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(112, 0, 255, 0.4),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { 
+            border-color: rgba(112, 0, 255, 0.3);
+        }
+
+        /* 3. Typography & Code */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .code-block {
+            background: #08080b;
+            border: 1px solid #1f2937;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #d1d5db;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-keyword { color: #c678dd; }
+        .code-string { color: #98c379; }
+        .code-func { color: #61afef; }
+        .code-comment { color: #5c6370; font-style: italic; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #030407; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        
+        .method-badge {
+            background: rgba(0, 240, 255, 0.1);
+            color: #00f0ff;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        .status-live {
+            background: rgba(0, 255, 157, 0.1);
+            color: #00ff9d;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-cyan/30 selection:text-white">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="fixed top-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-3 cursor-pointer group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-purple to-blue-600 flex items-center justify-center shadow-[0_0_15px_rgba(112,0,255,0.4)]">
+                        <span class="text-white font-bold text-lg font-sans">B</span>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight text-white">TBurn <span class="text-brand-cyan font-light">Docs</span></span>
+                </div>
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Overview</a>
+                    <a href="#" class="text-sm font-bold text-brand-cyan transition-colors">WebSocket API</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">REST API</a>
+                    <a href="#" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">SDKs</a>
+                </div>
+                <div class="flex items-center gap-4">
+                     <button class="px-4 py-1.5 rounded-full border border-brand-border text-xs font-mono text-gray-400 hover:border-brand-cyan hover:text-white transition">
+                        v4.2.1
+                    </button>
+                    <button class="glass-panel px-4 py-2 rounded-lg text-sm hover:bg-white/5 transition">Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative pt-32 pb-20">
+        
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse"></span>
+                        <span class="text-brand-cyan font-mono text-xs tracking-widest uppercase">Real-time Interface</span>
+                    </div>
+                    <h1 class="text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-white">
+                        WebSocket API
+                    </h1>
+                    <p class="text-lg text-gray-400 max-w-2xl leading-relaxed">
+                        Subscribe to real-time data streams for blocks, transactions, and events on the TBurn Chain. 
+                        Designed for high-frequency trading and live analytics.
+                    </p>
+                </div>
+                <div class="flex gap-3">
+                     <button class="glass-panel border-brand-cyan/30 text-brand-cyan px-5 py-3 rounded-lg flex items-center gap-2 hover:bg-brand-cyan/10 transition">
+                        <i class="fas fa-book"></i> Full Reference
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fas fa-network-wired text-brand-purple"></i>
+                <h2 class="text-xl font-bold">Connection Endpoints</h2>
+            </div>
+            
+            <div class="glass-panel rounded-xl p-1 overflow-hidden" id="card-grid">
+                <div class="grid grid-cols-1 gap-1">
+                    <div class="spotlight-card p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <span class="status-live text-xs px-2 py-1 rounded font-bold uppercase tracking-wider">Mainnet</span>
+                            <span class="text-gray-400 text-sm">Primary Stream</span>
+                        </div>
+                        <code class="font-mono text-brand-cyan text-sm">wss://ws.tburn.io/v4</code>
+                        <button class="text-gray-500 hover:text-white transition"><i class="far fa-copy"></i></button>
+                    </div>
+                    <div class="spotlight-card p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <span class="status-live bg-yellow-500/10 text-yellow-500 border-yellow-500/20 text-xs px-2 py-1 rounded font-bold uppercase tracking-wider">Testnet</span>
+                            <span class="text-gray-400 text-sm">Sandbox Environment</span>
+                        </div>
+                        <code class="font-mono text-yellow-400 text-sm">wss://ws-testnet.tburn.io/v4</code>
+                        <button class="text-gray-500 hover:text-white transition"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <div class="spotlight-card rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-bold flex items-center gap-2">
+                            <i class="fas fa-shield-alt text-brand-cyan"></i> Authentication
+                        </h3>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">Establish connection and send your API key immediately.</p>
+                    
+                    <div class="code-block">
+                        <div class="flex justify-between text-xs text-gray-500 mb-2 font-sans border-b border-gray-800 pb-2">
+                            <span>JAVASCRIPT</span>
+                            <span>AUTH_REQ</span>
+                        </div>
+<pre><code><span class="code-keyword">const</span> ws = <span class="code-keyword">new</span> WebSocket(<span class="code-string">'wss://ws.tburn.io/v4'</span>);
+
+ws.<span class="code-func">onopen</span> = () => {
+  <span class="code-comment">// Authenticate instantly</span>
+  ws.<span class="code-func">send</span>(JSON.<span class="code-func">stringify</span>({
+    <span class="code-string">type</span>: <span class="code-string">'auth'</span>,
+    <span class="code-string">apiKey</span>: <span class="code-string">'tb_live_xxxxxxxx'</span>
+  }));
+};</code></pre>
+                    </div>
+                </div>
+
+                <div class="spotlight-card rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-bold flex items-center gap-2">
+                            <i class="fas fa-heartbeat text-brand-purple"></i> Heartbeat
+                        </h3>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">Server sends <span class="text-brand-cyan font-mono">ping</span> every 30s. Reply with <span class="text-brand-purple font-mono">pong</span>.</p>
+                    
+                    <div class="code-block">
+                        <div class="flex justify-between text-xs text-gray-500 mb-2 font-sans border-b border-gray-800 pb-2">
+                            <span>JAVASCRIPT</span>
+                            <span>KEEP_ALIVE</span>
+                        </div>
+<pre><code>ws.<span class="code-func">onmessage</span> = (event) => {
+  <span class="code-keyword">const</span> msg = JSON.<span class="code-func">parse</span>(event.data);
+  
+  <span class="code-keyword">if</span> (msg.type === <span class="code-string">'ping'</span>) {
+    <span class="code-comment">// Keep connection alive</span>
+    ws.<span class="code-func">send</span>(JSON.<span class="code-func">stringify</span>({ <span class="code-string">type</span>: <span class="code-string">'pong'</span> }));
+  }
+};</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+                <i class="fas fa-layer-group text-gray-400"></i> Subscription Channels
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <div class="glass-panel rounded-xl border-l-4 border-l-brand-cyan p-6 relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-cube text-6xl text-brand-cyan"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">blocks</h3>
+                        <div class="flex gap-2">
+                            <span class="method-badge">block.new</span>
+                            <span class="method-badge">block.finalized</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">Receive real-time notifications when new blocks are mined or finalized.</p>
+                    <div class="code-block bg-black/40">
+<pre><code>{
+  <span class="code-string">"type"</span>: <span class="code-string">"subscribe"</span>,
+  <span class="code-string">"channel"</span>: <span class="code-string">"blocks"</span>,
+  <span class="code-string">"params"</span>: { <span class="code-string">"all"</span>: <span class="code-keyword">true</span> }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl border-l-4 border-l-brand-purple p-6 relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-exchange-alt text-6xl text-brand-purple"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">transactions</h3>
+                        <div class="flex gap-2">
+                            <span class="method-badge border-purple-500/30 text-purple-400 bg-purple-500/10">tx.pending</span>
+                            <span class="method-badge border-purple-500/30 text-purple-400 bg-purple-500/10">tx.confirmed</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">Monitor incoming and outgoing transactions for specific addresses.</p>
+                    <div class="code-block bg-black/40">
+<pre><code>{
+  <span class="code-string">"type"</span>: <span class="code-string">"subscribe"</span>,
+  <span class="code-string">"channel"</span>: <span class="code-string">"transactions"</span>,
+  <span class="code-string">"params"</span>: { <span class="code-string">"address"</span>: <span class="code-string">"0xUser..."</span> }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl border-l-4 border-l-brand-green p-6 relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-chart-line text-6xl text-brand-green"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">trust-score</h3>
+                        <div class="flex gap-2">
+                            <span class="method-badge border-green-500/30 text-green-400 bg-green-500/10">score.updated</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">Listen for AI-driven trust score updates for tracked projects.</p>
+                    <div class="code-block bg-black/40">
+<pre><code>{
+  <span class="code-string">"type"</span>: <span class="code-string">"subscribe"</span>,
+  <span class="code-string">"channel"</span>: <span class="code-string">"trust-score"</span>,
+  <span class="code-string">"params"</span>: { <span class="code-string">"projects"</span>: [<span class="code-string">"0x..."</span>] }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl border-l-4 border-l-brand-red p-6 relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-coins text-6xl text-brand-red"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">defi</h3>
+                        <div class="flex gap-2">
+                            <span class="method-badge border-red-500/30 text-red-400 bg-red-500/10">swap</span>
+                            <span class="method-badge border-red-500/30 text-red-400 bg-red-500/10">liquidity</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">Real-time stream of swaps, liquidity adds/removes, and staking events.</p>
+                    <div class="code-block bg-black/40">
+<pre><code>{
+  <span class="code-string">"type"</span>: <span class="code-string">"subscribe"</span>,
+  <span class="code-string">"channel"</span>: <span class="code-string">"defi"</span>,
+  <span class="code-string">"params"</span>: { <span class="code-string">"pools"</span>: [<span class="code-string">"TBURN/ETH"</span>] }
+}</code></pre>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
+            <div class="glass-panel rounded-xl p-8 border border-white/10">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
+                        <i class="fas fa-sync-alt text-gray-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">Client Implementation Strategy</h3>
+                        <p class="text-sm text-gray-400">Recommended pattern for production environments</p>
+                    </div>
+                </div>
+                
+                <div class="code-block h-64 overflow-y-auto">
+<pre><code><span class="code-keyword">class</span> TBurnWebSocket {
+  <span class="code-keyword">constructor</span>(apiKey) {
+    <span class="code-keyword">this</span>.apiKey = apiKey;
+    <span class="code-keyword">this</span>.reconnectAttempts = 0;
+    <span class="code-keyword">this</span>.subscriptions = <span class="code-keyword">new</span> Map();
+  }
+
+  <span class="code-func">connect</span>() {
+    <span class="code-keyword">this</span>.ws = <span class="code-keyword">new</span> WebSocket(<span class="code-string">'wss://ws.tburn.io/v4'</span>);
+    
+    <span class="code-keyword">this</span>.ws.<span class="code-func">onopen</span> = () => {
+      console.<span class="code-func">log</span>(<span class="code-string">'Connected to Trust Network'</span>);
+      <span class="code-keyword">this</span>.reconnectAttempts = 0;
+      <span class="code-keyword">this</span>.<span class="code-func">authenticate</span>();
+    };
+
+    <span class="code-keyword">this</span>.ws.<span class="code-func">onclose</span> = () => {
+      <span class="code-comment">// Exponential backoff</span>
+      <span class="code-keyword">const</span> delay = Math.min(1000 * Math.pow(2, <span class="code-keyword">this</span>.reconnectAttempts), 30000);
+      setTimeout(() => <span class="code-keyword">this</span>.<span class="code-func">connect</span>(), delay);
+      <span class="code-keyword">this</span>.reconnectAttempts++;
+    };
+  }
+  
+  <span class="code-comment">// ... handle messages & resubscribe logic</span>
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold mb-6">Ready to integrate?</h2>
+            <div class="flex justify-center gap-4">
+                <button class="bg-brand-cyan text-black px-6 py-3 rounded-lg font-bold hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+                    <i class="fas fa-download mr-2"></i> Get SDK
+                </button>
+                <button class="glass-panel border border-white/20 px-6 py-3 rounded-lg font-bold hover:bg-white/5 transition">
+                    View REST API
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-brand-border bg-black/50 backdrop-blur-xl mt-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">B</span>
+                        </div>
+                        <span class="text-xl font-bold text-white">TBurn Chain</span>
+                    </div>
+                    <p class="text-gray-500 text-sm max-w-sm">
+                        Trust-based blockchain ecosystem ensuring transparency through AI analysis.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Developers</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-cyan transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-brand-cyan transition">GitHub</a></li>
+                        <li><a href="#" class="hover:text-brand-cyan transition">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-brand-border mt-12 pt-8 text-center text-sm text-gray-600">
+                &copy; 2025 TBurn Chain Foundation. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Neural Network Canvas Animation (Reused from landing page for consistency)
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size; this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00f0ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            // Reduced particle count for documentation page to keep it clean
+            let numberOfParticles = (canvas.height * canvas.width) / 25000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.2) - 0.1;
+                let directionY = (Math.random() * 0.2) - 0.1;
+                let color = '#00f0ff';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 240, 255,' + opacityValue * 0.1 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            init();
+        });
+        init();
+        animate();
+
+        // 2. Spotlight Effect Logic
+        const cards = document.querySelectorAll(".spotlight-card, .glass-panel");
+        document.addEventListener("mousemove", (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+    </script>
+</body>
+</html>
