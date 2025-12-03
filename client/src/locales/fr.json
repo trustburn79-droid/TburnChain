@@ -6149,65 +6149,65 @@
         "tag": "RÉFÉRENCE API",
         "title": "Documentation API",
         "subtitle": "Points de terminaison API RESTful pour la blockchain, la DeFi et les services IA.",
-        "baseUrl": "Base URL",
-        "coreEndpoints": "Core Endpoints",
-        "parameters": "Parameters",
-        "related": "Related",
-        "officialSdks": "Official SDKs",
+        "baseUrl": "URL de Base",
+        "coreEndpoints": "Points de Terminaison Principaux",
+        "parameters": "Paramètres",
+        "related": "Liens Connexes",
+        "officialSdks": "SDKs Officiels",
         "viewDocumentation": "Voir la Documentation",
         "authentication": {
-          "title": "Authentication",
-          "description": "All API requests require an API key. Get your free key from the",
-          "dashboardLink": "Developer Tableau de Bord"
+          "title": "Authentification",
+          "description": "Toutes les requêtes API nécessitent une clé API. Obtenez votre clé gratuite depuis le",
+          "dashboardLink": "Tableau de Bord Développeur"
         },
         "sidebar": {
           "overview": "Aperçu",
-          "authentication": "Authentication",
-          "rateLimits": "Rate Limits",
-          "endpoints": "Endpoints",
-          "block": "Block",
+          "authentication": "Authentification",
+          "rateLimits": "Limites de Débit",
+          "endpoints": "Points de Terminaison",
+          "block": "Bloc",
           "transaction": "Transaction",
-          "account": "Account",
-          "smartContract": "Smart Contract",
+          "account": "Compte",
+          "smartContract": "Contrat Intelligent",
           "websocket": "WebSocket",
-          "realtimeEvents": "Real-time Événements"
+          "realtimeEvents": "Événements en Temps Réel"
         },
         "endpoints": {
           "blocks": {
-            "description": "Get block Informations by block number or hash",
-            "paramDesc": "Block number or 'Dernier'"
+            "description": "Obtenir les informations d'un bloc par numéro ou hash",
+            "paramDesc": "Numéro de bloc ou 'latest'"
           },
           "transactions": {
-            "description": "Get transaction Détails by transaction hash"
+            "description": "Obtenir les détails d'une transaction par hash"
           },
           "sendTransaction": {
-            "description": "Soumettre a signed transaction to the Réseau"
+            "description": "Soumettre une transaction signée au réseau"
           },
           "balance": {
-            "description": "Get account Solde and nonce"
+            "description": "Obtenir le solde et le nonce d'un compte"
           }
         },
         "errorHandling": {
-          "title": "Erreur Handling",
+          "title": "Gestion des Erreurs",
           "code": "Code",
           "description": "Description"
         },
         "errors": {
-          "badRequest": "Invalid request parameters",
-          "unauthorized": "Invalid or missing API key",
-          "tooManyRequests": "Rate limit exceeded",
-          "internalError": "Internal server Erreur"
+          "badRequest": "Paramètres de requête invalides",
+          "unauthorized": "Clé API invalide ou manquante",
+          "tooManyRequests": "Limite de débit dépassée",
+          "internalError": "Erreur serveur interne"
         },
         "websocketApi": {
-          "title": "WebSocket API",
-          "description": "Subscribe to real-time blockchain Événements for instant updates.",
-          "connectComment": "Connecter to WebSocket",
-          "subscribeComment": "Subscribe to Blocs channel"
+          "title": "API WebSocket",
+          "description": "Abonnez-vous aux événements blockchain en temps réel pour des mises à jour instantanées.",
+          "connectComment": "Connecter au WebSocket",
+          "subscribeComment": "S'abonner au canal des blocs"
         },
         "sdks": {
-          "javascript": "JavaScript SDK",
-          "python": "Python SDK",
-          "go": "Go SDK"
+          "javascript": "SDK JavaScript",
+          "python": "SDK Python",
+          "go": "SDK Go"
         },
         "quickLinks": {
           "quickStart": {
@@ -6219,13 +6219,13 @@
             "description": "Modèles d'intégration réels"
           },
           "rpcProviders": {
-            "title": "RPC Providers",
-            "description": "Connecter via multiple endpoints"
+            "title": "Fournisseurs RPC",
+            "description": "Connectez-vous via plusieurs points de terminaison"
           }
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
-          "documentation": "Full Documentation",
+          "developerHub": "Hub Développeur",
+          "documentation": "Documentation Complète",
           "codeExamples": "Exemples de Code",
           "quickStart": "Guide de Démarrage Rapide"
         }
@@ -6234,80 +6234,80 @@
         "tag": "OUTILS CLI",
         "title": "Référence CLI",
         "subtitle": "Interface en ligne de commande pour la gestion de projet et le déploiement.",
-        "currentVersion": "Current Version",
-        "usage": "Usage",
+        "currentVersion": "Version Actuelle",
+        "usage": "Utilisation",
         "options": "Options",
         "examples": "Exemples",
         "required": "Requis",
         "optional": "Optionnel",
         "default": "Par Défaut",
-        "globalOptionsTitle": "Global Options",
+        "globalOptionsTitle": "Options Globales",
         "environmentTitle": "Variables d'Environnement",
-        "relatedDocs": "Related Documentation",
+        "relatedDocs": "Documentation Connexe",
         "installation": {
           "title": "Installation",
-          "verify": "Vérifier installation"
+          "verify": "Vérifier l'installation"
         },
         "categories": {
-          "project": "Project",
-          "contract": "Contract",
+          "project": "Projet",
+          "contract": "Contrat",
           "network": "Réseau",
-          "wallet": "Wallet",
-          "ai": "AI"
+          "wallet": "Portefeuille",
+          "ai": "IA"
         },
         "commands": {
           "init": {
-            "desc": "Initialize a Nouveau TBurn Chain project",
+            "desc": "Initialiser un nouveau projet TBurn Chain",
             "options": {
-              "template": "Project template (defi, nft, dao)",
-              "typescript": "Use TypeScript"
+              "template": "Modèle de projet (defi, nft, dao)",
+              "typescript": "Utiliser TypeScript"
             }
           },
           "dev": {
-            "desc": "Démarrer local development server",
+            "desc": "Démarrer le serveur de développement local",
             "options": {
-              "port": "Port number",
-              "open": "Open browser automatically"
+              "port": "Numéro de port",
+              "open": "Ouvrir le navigateur automatiquement"
             }
           },
           "build": {
-            "desc": "Build project for production",
+            "desc": "Compiler le projet pour la production",
             "options": {
-              "outdir": "Output directory",
-              "sourcemap": "Generate source maps"
+              "outdir": "Répertoire de sortie",
+              "sourcemap": "Générer les source maps"
             }
           },
           "deploy": {
-            "desc": "Déployer to TBurn Chain Réseau",
+            "desc": "Déployer sur le réseau TBurn Chain",
             "options": {
-              "network": "Target Réseau (mainnet, testnet)",
-              "verify": "Vérifier contract on explorer",
-              "gasPrice": "Gas Prix in gwei"
+              "network": "Réseau cible (mainnet, testnet)",
+              "verify": "Vérifier le contrat sur l'explorateur",
+              "gasPrice": "Prix du gas en gwei"
             }
           },
           "wallet": {
-            "desc": "Wallet management commands",
+            "desc": "Commandes de gestion de portefeuille",
             "options": {
-              "create": "Créer Nouveau wallet",
-              "import": "Importer existing wallet",
-              "balance": "Check wallet Solde"
+              "create": "Créer un nouveau portefeuille",
+              "import": "Importer un portefeuille existant",
+              "balance": "Vérifier le solde du portefeuille"
             }
           }
         },
         "globalOptions": {
-          "verbose": "Enable verbose output",
-          "json": "Output in JSON format",
-          "network": "Specify Réseau",
-          "config": "Path to config file",
-          "help": "Show Aide message"
+          "verbose": "Activer la sortie détaillée",
+          "json": "Sortie au format JSON",
+          "network": "Spécifier le réseau",
+          "config": "Chemin vers le fichier de configuration",
+          "help": "Afficher le message d'aide"
         },
         "needHelp": {
-          "title": "Need Aide?",
+          "title": "Besoin d'aide ?",
           "apiReference": "Référence API",
-          "sdkDocumentation": "SDK Documentation"
+          "sdkDocumentation": "Documentation SDK"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
+          "developerHub": "Hub Développeur",
           "documentation": "Documentation",
           "apiReference": "Référence API",
           "quickStart": "Démarrage Rapide",
@@ -6320,34 +6320,34 @@
         "subtitle": "Guides d'intégration SDK multi-langages et bonnes pratiques.",
         "installation": "Installation",
         "configuration": "Configuration",
-        "quickExamples": "Quick Exemples",
+        "quickExamples": "Exemples Rapides",
         "install": {
-          "npm": "Installer with npm",
-          "yarn": "Or with yarn"
+          "npm": "Installer avec npm",
+          "yarn": "Ou avec yarn"
         },
         "features": {
           "typeSafety": {
-            "title": "Type Safety",
-            "description": "Full TypeScript Support with comprehensive type definitions for all API methods and responses."
+            "title": "Sécurité de Type",
+            "description": "Support TypeScript complet avec définitions de types complètes pour toutes les méthodes API et réponses."
           },
           "autoRetry": {
-            "title": "Auto Retry",
-            "description": "Built-in retry logic with exponential backoff for Échoué requests and Réseau issues."
+            "title": "Réessai Automatique",
+            "description": "Logique de réessai intégrée avec backoff exponentiel pour les requêtes échouées et les problèmes réseau."
           },
           "realTimeStreams": {
-            "title": "Real-Time Streams",
-            "description": "Subscribe to live blockchain Événements with WebSocket connections and reactive patterns."
+            "title": "Flux Temps Réel",
+            "description": "Abonnez-vous aux événements blockchain en direct avec des connexions WebSocket et des patterns réactifs."
           }
         },
         "examples": {
-          "core": "Core functionality",
-          "defi": "DeFi interactions",
-          "streaming": "Real-time streaming"
+          "core": "Fonctionnalités principales",
+          "defi": "Interactions DeFi",
+          "streaming": "Streaming en temps réel"
         },
         "needHelp": {
-          "title": "Need Aide?",
+          "title": "Besoin d'aide ?",
           "apiReference": "Référence API",
-          "cliReference": "CLI Reference",
+          "cliReference": "Référence CLI",
           "codeExamples": "Exemples de Code",
           "discordSupport": "Communauté Discord"
         }
@@ -6356,35 +6356,35 @@
         "tag": "CONTRATS INTELLIGENTS",
         "title": "Contrats intelligents",
         "subtitle": "Écrivez, testez et déployez des contrats intelligents sécurisés sur TBurn Chain.",
-        "contractTemplates": "Contract Templates",
+        "contractTemplates": "Modèles de Contrats",
         "copy": "Copier",
-        "copied": "Copied!",
+        "copied": "Copié !",
         "apiReference": "Référence API",
-        "cliGuide": "CLI Guide",
-        "evmMigration": "EVM Migration",
+        "cliGuide": "Guide CLI",
+        "evmMigration": "Migration EVM",
         "features": {
           "evmCompatibility": {
-            "title": "Full EVM Compatibility",
-            "description": "Déployer existing Solidity Contrats with minimal modifications. Compatible with standard development Outils."
+            "title": "Compatibilité EVM Complète",
+            "description": "Déployez vos contrats Solidity existants avec des modifications minimales. Compatible avec les outils de développement standard."
           },
           "trustIntegration": {
-            "title": "Trust Score Integration",
-            "description": "Access on-chain trust scores through oracle Contrats for trust-verified Transactions."
+            "title": "Intégration Trust Score",
+            "description": "Accédez aux scores de confiance on-chain via les contrats oracle pour des transactions vérifiées."
           },
           "autoBurn": {
-            "title": "Automatic Burn",
-            "description": "Built-in burn mechanics with scheduled execution and transparent collateral management."
+            "title": "Brûlage Automatique",
+            "description": "Mécaniques de brûlage intégrées avec exécution programmée et gestion transparente des collatéraux."
           },
           "aiOracle": {
-            "title": "AI Oracle Access",
-            "description": "Integrate AI-powered insights directly into your smart Contrats via oracle calls."
+            "title": "Accès Oracle IA",
+            "description": "Intégrez des analyses alimentées par l'IA directement dans vos contrats intelligents via des appels oracle."
           },
           "gasOptimization": {
-            "title": "Optimisation du gaz",
+            "title": "Optimisation du Gaz",
             "description": "Les techniques avancées d'optimisation du gaz réduisent les coûts de transaction jusqu'à 60%."
           },
           "quantumResistant": {
-            "title": "Signatures résistantes au quantique",
+            "title": "Signatures Résistantes au Quantique",
             "description": "Cryptographie à l'épreuve du futur avec signatures CRYSTALS-Dilithium pour une sécurité à long terme."
           },
           "trustScore": {
@@ -6394,162 +6394,162 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 Token",
-            "description": "Standard token with trust-aware transfers"
+            "title": "Token BRC-20",
+            "description": "Token standard avec transferts sensibles à la confiance"
           },
           "nft": {
-            "title": "NFT Collection",
-            "description": "ERC-721 with on-chain metadata"
+            "title": "Collection NFT",
+            "description": "ERC-721 avec métadonnées on-chain"
           },
           "defi": {
-            "title": "DeFi Protocol",
-            "description": "AMM pool with trust verification"
+            "title": "Protocole DeFi",
+            "description": "Pool AMM avec vérification de confiance"
           },
           "dao": {
-            "title": "DAO Gouvernance",
-            "description": "Token-weighted voting system"
+            "title": "Gouvernance DAO",
+            "description": "Système de vote pondéré par tokens"
           },
-          "autoBurn": "Token Auto-Burn",
-          "basicToken": "Token basique",
+          "autoBurn": "Auto-Burn de Tokens",
+          "basicToken": "Token Basique",
           "governance": "Gouvernance",
-          "staking": "Contrat de staking",
+          "staking": "Contrat de Staking",
           "trustScoreIntegration": "Intégration Trust Score"
         },
         "security": {
-          "title": "Sécurité Best Practices",
+          "title": "Bonnes Pratiques de Sécurité",
           "reentrancy": "Utilisez le modificateur ReentrancyGuard pour prévenir les appels externes récursifs",
           "accessControl": "Implémentez le contrôle d'accès basé sur les rôles avec OpenZeppelin AccessControl",
           "inputValidation": {
-            "title": "Input Validation",
-            "description": "Always validate user inputs and external data"
+            "title": "Validation des Entrées",
+            "description": "Validez toujours les entrées utilisateur et les données externes"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for upgradeable Contrats"
+            "title": "Évolutivité",
+            "description": "Utilisez les patterns proxy pour les contrats évolutifs"
           },
           "checksEffects": "Suivez le pattern checks-effects-interactions pour les appels externes",
           "initializer": "Utilisez les modificateurs initializer pour l'initialisation des contrats proxy",
           "overflow": "Utilisez SafeMath ou Solidity 0.8+ pour la protection contre les dépassements",
           "reentrancyGuard": {
-            "title": "Gardes de réentrance",
+            "title": "Gardes de Réentrance",
             "description": "Utilisez le modificateur ReentrancyGuard pour prévenir les appels récursifs"
           },
           "accessControlRole": {
-            "title": "Contrôle d'accès",
+            "title": "Contrôle d'Accès",
             "description": "Implémentez les permissions basées sur les rôles avec OpenZeppelin"
           }
         },
         "gasOptimization": {
-          "title": "Gas Optimization",
-          "subtitle": "Tips for reducing transaction costs",
-          "tip1": "Pack multiple small variables into single storage slots",
-          "tip2": "Use calldata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings",
+          "title": "Optimisation du Gaz",
+          "subtitle": "Conseils pour réduire les coûts de transaction",
+          "tip1": "Regroupez plusieurs petites variables dans des slots de stockage uniques",
+          "tip2": "Utilisez calldata au lieu de memory pour les paramètres de fonction en lecture seule",
+          "tip3": "Mettez en cache les variables de stockage en mémoire lors d'accès multiples",
+          "tip4": "Utilisez des erreurs personnalisées au lieu de chaînes de revert",
           "memoryVsStorage": {
             "title": "Memory vs Storage",
             "desc": "Utilisez memory pour les données temporaires et storage pour l'état persistant afin d'optimiser l'utilisation du gaz."
           },
           "shortRevert": {
-            "title": "Messages de revert courts",
+            "title": "Messages de Revert Courts",
             "desc": "Utilisez des erreurs personnalisées au lieu de longues chaînes de revert pour économiser le gaz de déploiement et d'exécution."
           },
           "useEvents": {
-            "title": "Utiliser les événements pour la journalisation",
+            "title": "Utiliser les Événements pour la Journalisation",
             "desc": "Émettez des événements au lieu de stocker des données lorsque l'accès historique via les logs est suffisant."
           },
           "variablePacking": {
-            "title": "Empaquetage des variables",
+            "title": "Empaquetage des Variables",
             "desc": "Regroupez plusieurs variables dans des slots de stockage uniques pour minimiser les coûts de stockage."
           }
         },
         "testing": {
-          "title": "Testing Your Contrats",
-          "description": "Comprehensive testing Guide for smart Contrats",
-          "unitTests": "Unit Tests",
-          "integrationTests": "Integration Tests",
-          "fuzzTesting": "Fuzz Testing"
+          "title": "Tester Vos Contrats",
+          "description": "Guide complet de test pour les contrats intelligents",
+          "unitTests": "Tests Unitaires",
+          "integrationTests": "Tests d'Intégration",
+          "fuzzTesting": "Tests de Fuzzing"
         },
         "deployment": {
-          "title": "Deployment Guide",
-          "step1": "Compile Contrats",
-          "step2": "Déployer to testnet",
-          "step3": "Vérifier on explorer",
-          "step4": "Déployer to mainnet"
+          "title": "Guide de Déploiement",
+          "step1": "Compiler les contrats",
+          "step2": "Déployer sur le testnet",
+          "step3": "Vérifier sur l'explorateur",
+          "step4": "Déployer sur le mainnet"
         },
         "needHelp": {
-          "title": "Need Aide?",
-          "sdkDocumentation": "SDK Documentation",
+          "title": "Besoin d'Aide ?",
+          "sdkDocumentation": "Documentation SDK",
           "codeExamples": "Exemples de Code",
           "discordSupport": "Communauté Discord"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
-          "sdkGuide": "SDK Guide",
-          "cliReference": "CLI Reference",
+          "developerHub": "Hub Développeur",
+          "sdkGuide": "Guide SDK",
+          "cliReference": "Référence CLI",
           "codeExamples": "Exemples de Code"
         },
-        "gasOptimizationTips": "Conseils d'optimisation du gaz",
-        "platformFeatures": "Fonctionnalités de la plateforme",
-        "readyToDeploy": "Prêt à déployer ?",
+        "gasOptimizationTips": "Conseils d'Optimisation du Gaz",
+        "platformFeatures": "Fonctionnalités de la Plateforme",
+        "readyToDeploy": "Prêt à Déployer ?",
         "sdkGuide": "Guide SDK",
-        "securityChecklist": "Liste de contrôle de sécurité"
+        "securityChecklist": "Liste de Contrôle de Sécurité"
       },
       "websocket": {
         "tag": "TEMPS RÉEL",
         "title": "API WebSocket",
         "subtitle": "Streaming de données en temps réel et abonnements aux événements.",
-        "connectionEndpoints": "Connection Endpoints",
-        "subscriptionChannels": "Subscription Channels",
-        "fullReference": "Full Reference",
-        "getSdk": "Get SDK",
+        "connectionEndpoints": "Points de Connexion",
+        "subscriptionChannels": "Canaux d'Abonnement",
+        "fullReference": "Référence Complète",
+        "getSdk": "Obtenir le SDK",
         "codeExamples": "Exemples de Code",
-        "viewRestApi": "View REST API",
-        "readyToIntegrate": "Ready to Integrate?",
+        "viewRestApi": "Voir l'API REST",
+        "readyToIntegrate": "Prêt à Intégrer ?",
         "endpoints": {
           "mainnet": {
             "type": "Production",
-            "desc": "Mainnet WebSocket endpoint for production applications"
+            "desc": "Point de terminaison WebSocket Mainnet pour les applications en production"
           },
           "testnet": {
-            "type": "Development",
-            "desc": "Testnet WebSocket endpoint for development and testing"
+            "type": "Développement",
+            "desc": "Point de terminaison WebSocket Testnet pour le développement et les tests"
           }
         },
         "channels": {
           "blocks": {
-            "description": "Subscribe to Nouveau block Notifications with full block data"
+            "description": "Abonnez-vous aux notifications de nouveaux blocs avec les données complètes du bloc"
           },
           "transactions": {
-            "description": "Real-time transaction updates for specific addresses"
+            "description": "Mises à jour de transactions en temps réel pour des adresses spécifiques"
           },
           "trustScore": {
-            "description": "Live trust score changes for monitored addresses"
+            "description": "Changements de score de confiance en direct pour les adresses surveillées"
           },
           "defi": {
-            "description": "Prix feeds and Liquidité pool updates"
+            "description": "Flux de prix et mises à jour des pools de liquidité"
           }
         },
         "authentication": {
-          "title": "Authentication",
-          "description": "Include your API key in the connection URL query parameter or as a header"
+          "title": "Authentification",
+          "description": "Incluez votre clé API dans le paramètre de requête de l'URL de connexion ou en tant qu'en-tête"
         },
         "heartbeat": {
           "title": "Heartbeat",
-          "description": "Send ping messages every 30 seconds to keep the connection alive"
+          "description": "Envoyez des messages ping toutes les 30 secondes pour maintenir la connexion active"
         },
         "clientImplementation": {
-          "title": "Client Implementation",
-          "subtitle": "Exemple WebSocket client in JavaScript"
+          "title": "Implémentation Client",
+          "subtitle": "Exemple de client WebSocket en JavaScript"
         }
       },
       "examples": {
         "tag": "EXEMPLES DE CODE",
         "title": "Exemples de code",
         "subtitle": "Extraits de code prêts à l'emploi et projets exemples.",
-        "commonRecipes": "Common Recipes",
+        "commonRecipes": "Recettes Courantes",
         "categories": {
-          "allRecipes": "All Recipes",
+          "allRecipes": "Toutes les Recettes",
           "smartContracts": "Contrats Intelligents",
           "defi": "DeFi",
           "nfts": "NFTs",
@@ -6557,90 +6557,90 @@
         },
         "recipes": {
           "connectWallet": {
-            "title": "Connecter Wallet",
-            "description": "Integrate MetaMask and other Web3 Portefeuilles with React hooks",
+            "title": "Connecter le Portefeuille",
+            "description": "Intégrez MetaMask et d'autres portefeuilles Web3 avec des hooks React",
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Créer BRC-20 Token",
-            "description": "Déployer a trust-verified token with automatic burn mechanics",
-            "category": "Smart Contract"
+            "title": "Créer un Token BRC-20",
+            "description": "Déployez un token vérifié par confiance avec mécaniques de brûlage automatique",
+            "category": "Contrat Intelligent"
           },
           "aiOracle": {
-            "title": "AI Oracle Integration",
-            "description": "Query AI-powered insights from smart Contrats or backend",
+            "title": "Intégration Oracle IA",
+            "description": "Interrogez des analyses alimentées par l'IA depuis les contrats intelligents ou le backend",
             "category": "Backend"
           },
           "nftMinting": {
-            "title": "NFT Minting",
-            "description": "Créer and mint NFT collections with metadata on IPFS",
+            "title": "Mint de NFT",
+            "description": "Créez et mintez des collections NFT avec métadonnées sur IPFS",
             "category": "NFT"
           },
           "flashLoan": {
-            "title": "Flash Loan",
-            "description": "Execute arbitrage with atomic flash loan Transactions",
+            "title": "Prêt Flash",
+            "description": "Exécutez de l'arbitrage avec des transactions de prêt flash atomiques",
             "category": "DeFi"
           },
           "indexerSetup": {
-            "title": "Indexer Setup",
-            "description": "Build a custom blockchain data indexer with The Graph",
+            "title": "Configuration de l'Indexeur",
+            "description": "Construisez un indexeur de données blockchain personnalisé avec The Graph",
             "category": "Infrastructure"
           }
         },
         "featured": {
-          "title": "Featured Recipe",
-          "description": "Build a secure vault that verifies project trust scores before accepting deposits. This pattern is essential for DeFi protocols.",
-          "difficulty": "Difficulty",
+          "title": "Recette Vedette",
+          "description": "Construisez un coffre sécurisé qui vérifie les scores de confiance des projets avant d'accepter les dépôts. Ce pattern est essentiel pour les protocoles DeFi.",
+          "difficulty": "Difficulté",
           "intermediate": "Intermédiaire",
-          "time": "Time",
+          "time": "Temps",
           "tenMins": "~10 mins",
           "checks": {
-            "trustScore": "Verifies Trust Score on-chain before deposit",
-            "revert": "Reverts if score below threshold",
-            "gasOptimized": "Gas-optimized for production use"
+            "trustScore": "Vérifie le Trust Score on-chain avant le dépôt",
+            "revert": "Annule si le score est en dessous du seuil",
+            "gasOptimized": "Optimisé pour le gaz en production"
           }
         },
         "cta": {
-          "title": "Have a Recipe to Partager?",
-          "description": "Contribute your code Exemples to Aide the Communauté. All contributors receive ecosystem Récompenses.",
-          "submitPr": "Soumettre PR on GitHub",
-          "requestGuide": "Request a Guide"
+          "title": "Vous avez une Recette à Partager ?",
+          "description": "Contribuez vos exemples de code pour aider la communauté. Tous les contributeurs reçoivent des récompenses de l'écosystème.",
+          "submitPr": "Soumettre une PR sur GitHub",
+          "requestGuide": "Demander un Guide"
         }
       },
       "quickstart": {
         "tag": "PREMIERS PAS",
         "title": "Démarrage rapide",
         "subtitle": "Démarrez avec TBurn Chain en quelques minutes.",
-        "whatsNext": "What's Suivant?",
+        "whatsNext": "Et Ensuite ?",
         "prerequisites": {
           "title": "Prérequis",
-          "node": "Node.js 18+ installed",
-          "account": "TBurn Chain account (testnet faucet Disponible)",
-          "knowledge": "Basique JavaScript/TypeScript knowledge"
+          "node": "Node.js 18+ installé",
+          "account": "Compte TBurn Chain (faucet testnet disponible)",
+          "knowledge": "Connaissances de base en JavaScript/TypeScript"
         },
         "steps": {
           "installSdk": {
-            "title": "Installer the SDK",
-            "description": "Ajouter the TBurn SDK to your project using npm or yarn"
+            "title": "Installer le SDK",
+            "description": "Ajoutez le SDK TBurn à votre projet avec npm ou yarn"
           },
           "initializeSdk": {
-            "title": "Initialize the SDK",
-            "description": "Configurer the SDK with your API key and Réseau Paramètres"
+            "title": "Initialiser le SDK",
+            "description": "Configurez le SDK avec votre clé API et les paramètres réseau"
           },
           "firstTransaction": {
-            "title": "Send Your First Transaction",
-            "description": "Connecter your wallet and send TBURN Tokens"
+            "title": "Envoyer Votre Première Transaction",
+            "description": "Connectez votre portefeuille et envoyez des tokens TBURN"
           },
           "queryTrustScore": {
-            "title": "Query Trust Score",
-            "description": "Retrieve AI-powered trust analysis for any address"
+            "title": "Interroger le Trust Score",
+            "description": "Récupérez l'analyse de confiance alimentée par l'IA pour n'importe quelle adresse"
           }
         },
         "networkConfig": {
-          "title": "Réseau Configuration",
+          "title": "Configuration Réseau",
           "chainId": "ID de Chaîne",
-          "rpcUrl": "RPC URL",
-          "explorer": "Explorer",
+          "rpcUrl": "URL RPC",
+          "explorer": "Explorateur",
           "mainnet": {
             "title": "Mainnet"
           },
@@ -6649,24 +6649,24 @@
           }
         },
         "vsCode": {
-          "title": "VS Code Setup",
-          "description": "Recommended extensions for TBurn Chain development",
-          "solidity": "Solidity Language Support",
-          "eslint": "ESLint for JavaScript/TypeScript",
-          "tburnSnippets": "TBurn SDK Snippets"
+          "title": "Configuration VS Code",
+          "description": "Extensions recommandées pour le développement TBurn Chain",
+          "solidity": "Support du Langage Solidity",
+          "eslint": "ESLint pour JavaScript/TypeScript",
+          "tburnSnippets": "Snippets SDK TBurn"
         },
         "nextSteps": {
           "sdkGuide": {
-            "title": "SDK Guide",
-            "desc": "Deep dive into SDK Fonctionnalités"
+            "title": "Guide SDK",
+            "desc": "Approfondissez les fonctionnalités du SDK"
           },
           "apiReference": {
             "title": "Référence API",
-            "desc": "Explore all endpoints"
+            "desc": "Explorez tous les points de terminaison"
           },
           "smartContracts": {
             "title": "Contrats Intelligents",
-            "desc": "Write your first contract"
+            "desc": "Écrivez votre premier contrat"
           }
         }
       },
@@ -6675,20 +6675,20 @@
         "title": "Guide d'installation",
         "subtitle": "Instructions d'installation et de configuration étape par étape.",
         "startBuilding": "Commencer à Construire",
-        "viewQuickStart": "View Démarrage Rapide",
+        "viewQuickStart": "Voir le Démarrage Rapide",
         "requirements": {
-          "title": "System Requirements",
+          "title": "Configuration Système Requise",
           "hardware": {
-            "title": "Hardware",
-            "cpu": "2+ CPU cores",
-            "memory": "8GB RAM minimum",
-            "storage": "50GB SSD storage"
+            "title": "Matériel",
+            "cpu": "2+ cœurs CPU",
+            "memory": "8 Go de RAM minimum",
+            "storage": "50 Go de stockage SSD"
           },
           "software": {
-            "title": "Software",
-            "os": "macOS, Linux, or Windows 10+",
-            "node": "Node.js 18 or higher",
-            "git": "Git 2.0 or higher"
+            "title": "Logiciel",
+            "os": "macOS, Linux ou Windows 10+",
+            "node": "Node.js 18 ou supérieur",
+            "git": "Git 2.0 ou supérieur"
           },
           "minimum": {
             "title": "Configuration minimale",
@@ -6725,26 +6725,26 @@
           "npm": "npm",
           "yarn": "Yarn",
           "docker": "Docker",
-          "source": "From Source",
+          "source": "Depuis les Sources",
           "linux": "Linux",
           "windows": "Windows"
         },
         "npm": {
           "title": "Installation via npm",
-          "step1": "Installer the SDK globally",
-          "step2": "Vérifier installation",
-          "step3": "Initialize a Nouveau project"
+          "step1": "Installer le SDK globalement",
+          "step2": "Vérifier l'installation",
+          "step3": "Initialiser un nouveau projet"
         },
         "yarn": {
           "title": "Installer via Yarn",
-          "step1": "Installer the SDK globally",
-          "step2": "Vérifier installation"
+          "step1": "Installer le SDK globalement",
+          "step2": "Vérifier l'installation"
         },
         "docker": {
-          "title": "Docker Installation",
-          "step1": "Pull the official image",
-          "step2": "Run the container",
-          "step3": "Access the development environment",
+          "title": "Installation Docker",
+          "step1": "Télécharger l'image officielle",
+          "step2": "Exécuter le conteneur",
+          "step3": "Accéder à l'environnement de développement",
           "pullAndRun": "Télécharger et exécuter l'image Docker",
           "recommendation": "Recommandé pour un environnement de développement isolé",
           "viewDockerCompose": "Voir la configuration Docker Compose"
@@ -6796,7 +6796,7 @@
           "title": "Prochaines Étapes",
           "quickStart": {
             "title": "Guide de Démarrage Rapide",
-            "description": "Build your first dApp in 5 minutes"
+            "description": "Construisez votre première dApp en 5 minutes"
           },
           "sdkReference": {
             "title": "Référence SDK",

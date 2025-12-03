@@ -4625,8 +4625,8 @@
           "totalSupply": "Oferta Total",
           "circulatingSupply": "Oferta Circulante",
           "totalBurned": "Total Queimado",
-          "marketCap": "Capitalização de Mercado",
-          "burned": "Queimado",
+          "marketCap": "Cap. de Mercado",
+          "burned": "Queimados",
           "totalStaked": "Total em Staking"
         },
         "distribution": {
@@ -4659,7 +4659,7 @@
           },
           "ecosystemFund": {
             "title": "Fundo do Ecossistema",
-            "subtitle": "Subsídios, parcerias e iniciativas de desenvolvimento do ecossistema"
+            "subtitle": "Grants, parcerias e iniciativas de desenvolvimento do ecossistema"
           },
           "validatorRewards": {
             "title": "Recompensas de Validadores",
@@ -4667,7 +4667,7 @@
           },
           "teamAdvisors": {
             "title": "Equipe e Consultores",
-            "subtitle": "Vesting de 4 anos com cliff de 1 ano para alinhamento de longo prazo"
+            "subtitle": "4 anos de vesting com 1 ano de cliff para alinhamento a longo prazo"
           },
           "foundationReserve": {
             "title": "Reserva da Fundação",
@@ -4697,7 +4697,7 @@
           "totalStaked": "Total em Staking",
           "validators": "Validadores Ativos",
           "minStake": "Stake Mínimo",
-          "liquidStaking": "Staking líquido disponível com token derivativo stTBURN",
+          "liquidStaking": "Staking líquido disponível com token derivado stTBURN",
           "ninetyDayLock": "Bloqueio de 90 dias: 12% APY + 1,2x peso de governança",
           "yearLock": "Bloqueio de 365 dias: 18% APY + 2x peso de governança"
         },
@@ -4708,7 +4708,7 @@
           "proposalThreshold": "Limite para Proposta",
           "quorum": "Quórum Necessário",
           "features": {
-            "voteProtocol": "Vote em atualizações de protocolo e mudanças de parâmetros",
+            "voteProtocol": "Votar em atualizações de protocolo e mudanças de parâmetros",
             "approveTreasury": "Aprove alocações do tesouro e subsídios do ecossistema",
             "decideSlashing": "Decida sobre propostas de slashing e disputas de validadores"
           }
@@ -4725,7 +4725,7 @@
         "tburn": {
           "type": "Token de Governança e Staking",
           "role": "Função",
-          "roleValue": "Token de governança primário para votação e staking para proteger a rede",
+          "roleValue": "Token de governança principal para votar e fazer staking para proteger a rede",
           "totalSupply": "1.000.000.000",
           "decimals": "18"
         },
@@ -4739,20 +4739,20 @@
         },
         "burn": {
           "transactionFees": {
-            "title": "Queima de Taxa de Transação",
-            "description": "0,1% de cada taxa de transação é queimado permanentemente, reduzindo o fornecimento com o uso da rede"
+            "title": "Queima de Taxas",
+            "description": "0.1% de cada taxa de transação é queimada permanentemente"
           },
           "slashingPenalty": {
-            "title": "Queima de Penalidade de Slashing",
-            "description": "Penalidades por mau comportamento de validadores são queimadas, reforçando incentivos de segurança da rede"
+            "title": "Penalidade de Slashing",
+            "description": "Penalidades por mau comportamento de validadores são queimadas"
           },
           "collateralBurn": {
-            "title": "Queima de Garantia",
-            "description": "Garantia de projeto falho é parcialmente queimada como parte do mecanismo de proteção ao investidor"
+            "title": "Queima de Colateral",
+            "description": "Colateral de projetos fracassados é parcialmente queimado"
           },
           "revenueBuyback": {
-            "title": "Queima de Recompra de Receita",
-            "description": "Receita do protocolo usada para comprar e queimar TBURN trimestralmente, criando pressão deflacionária"
+            "title": "Recompra de Receitas",
+            "description": "Receitas do protocolo são usadas para comprar e queimar TBURN trimestralmente"
           }
         }
       },

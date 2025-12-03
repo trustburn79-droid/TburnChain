@@ -4619,7 +4619,7 @@
       "tokenomics": {
         "tag": "ЭКОНОМИКА",
         "title": "Токеномика",
-        "subtitle": "Распределение токенов TBURN, график эмиссии и дефляционные механизмы.",
+        "subtitle": "Узнайте о распределении токена TBURN, графике эмиссии и дефляционных механизмах.",
         "marketStats": {
           "title": "Рыночная статистика",
           "totalSupply": "Общее предложение",
@@ -5740,33 +5740,33 @@
         "title": "Руководство по SDK",
         "subtitle": "Руководства по интеграции многоязычных SDK и лучшие практики.",
         "installation": "Установка",
-        "configuration": "Configuration",
-        "quickExamples": "Quick Examples",
+        "configuration": "Конфигурация",
+        "quickExamples": "Быстрые примеры",
         "install": {
-          "npm": "Install with npm",
-          "yarn": "Or with yarn"
+          "npm": "Установка через npm",
+          "yarn": "Или через yarn"
         },
         "features": {
           "typeSafety": {
-            "title": "Type Safety",
-            "description": "Full TypeScript support with comprehensive type definitions for all API methods and responses."
+            "title": "Типобезопасность",
+            "description": "Полная поддержка TypeScript с комплексными определениями типов для всех методов API и ответов."
           },
           "autoRetry": {
-            "title": "Auto Retry",
-            "description": "Built-in retry logic with exponential backoff for failed requests and network issues."
+            "title": "Автоповтор",
+            "description": "Встроенная логика повторных попыток с экспоненциальной задержкой для неудачных запросов и сетевых проблем."
           },
           "realTimeStreams": {
-            "title": "Real-Time Streams",
-            "description": "Subscribe to live blockchain events with WebSocket connections and reactive patterns."
+            "title": "Потоки в реальном времени",
+            "description": "Подписывайтесь на события блокчейна в реальном времени через WebSocket соединения и реактивные паттерны."
           }
         },
         "examples": {
-          "core": "Core functionality",
-          "defi": "DeFi interactions",
-          "streaming": "Real-time streaming"
+          "core": "Основной функционал",
+          "defi": "DeFi взаимодействия",
+          "streaming": "Потоковая передача в реальном времени"
         },
         "needHelp": {
-          "title": "Need Help?",
+          "title": "Нужна помощь?",
           "apiReference": "Справочник API",
           "cliReference": "Справочник CLI",
           "codeExamples": "Примеры кода",
@@ -5777,135 +5777,135 @@
         "tag": "СМАРТ-КОНТРАКТЫ",
         "title": "Смарт-контракты",
         "subtitle": "Пишите, тестируйте и развёртывайте безопасные смарт-контракты на TBurn Chain.",
-        "contractTemplates": "Contract Templates",
+        "contractTemplates": "Шаблоны контрактов",
         "copy": "Копировать",
-        "copied": "Copied!",
+        "copied": "Скопировано!",
         "apiReference": "Справочник API",
-        "cliGuide": "CLI Guide",
-        "evmMigration": "EVM Migration",
+        "cliGuide": "Руководство CLI",
+        "evmMigration": "Миграция EVM",
         "features": {
           "evmCompatibility": {
-            "title": "Full EVM Compatibility",
-            "description": "Deploy existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+            "title": "Полная совместимость с EVM",
+            "description": "Развертывайте существующие Solidity контракты с минимальными изменениями. Совместимость со стандартными инструментами разработки."
           },
           "trustIntegration": {
-            "title": "Trust Score Integration",
-            "description": "Access on-chain trust scores through oracle contracts for trust-verified transactions."
+            "title": "Интеграция Trust Score",
+            "description": "Доступ к ончейн рейтингам доверия через oracle-контракты для верифицированных транзакций."
           },
           "autoBurn": {
-            "title": "Automatic Burn",
-            "description": "Built-in burn mechanics with scheduled execution and transparent collateral management."
+            "title": "Автоматическое сжигание",
+            "description": "Встроенные механизмы сжигания с плановым выполнением и прозрачным управлением залогом."
           },
           "aiOracle": {
-            "title": "AI Oracle Access",
-            "description": "Integrate AI-powered insights directly into your smart contracts via oracle calls."
+            "title": "Доступ к AI Oracle",
+            "description": "Интегрируйте ИИ-аналитику напрямую в смарт-контракты через oracle-вызовы."
           },
           "gasOptimization": {
-            "title": "Gas Optimization",
-            "description": "Advanced gas optimization techniques reduce transaction costs by up to 60%."
+            "title": "Оптимизация газа",
+            "description": "Продвинутые техники оптимизации газа снижают стоимость транзакций до 60%."
           },
           "quantumResistant": {
-            "title": "Quantum-Resistant Signatures",
-            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+            "title": "Квантово-устойчивые подписи",
+            "description": "Криптография будущего с подписями CRYSTALS-Dilithium для долгосрочной безопасности."
           },
           "trustScore": {
-            "title": "Trust Score Integration",
-            "description": "On-chain trust verification with real-time scoring and automated risk assessment."
+            "title": "Интеграция Trust Score",
+            "description": "Ончейн верификация доверия с оценкой в реальном времени и автоматической оценкой рисков."
           }
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 Token",
-            "description": "Standard token with trust-aware transfers"
+            "title": "Токен BRC-20",
+            "description": "Стандартный токен с trust-aware переводами"
           },
           "nft": {
-            "title": "NFT Collection",
-            "description": "ERC-721 with on-chain metadata"
+            "title": "NFT Коллекция",
+            "description": "ERC-721 с ончейн метаданными"
           },
           "defi": {
-            "title": "DeFi Protocol",
-            "description": "AMM pool with trust verification"
+            "title": "DeFi Протокол",
+            "description": "AMM пул с верификацией доверия"
           },
           "dao": {
-            "title": "DAO Governance",
-            "description": "Token-weighted voting system"
+            "title": "DAO Управление",
+            "description": "Система голосования на основе токенов"
           },
-          "autoBurn": "Auto-Burn Token",
-          "basicToken": "Basic Token",
-          "governance": "Governance",
-          "staking": "Staking Contract",
-          "trustScoreIntegration": "Trust Score Integration"
+          "autoBurn": "Токен с авто-сжиганием",
+          "basicToken": "Базовый токен",
+          "governance": "Управление",
+          "staking": "Контракт стейкинга",
+          "trustScoreIntegration": "Интеграция Trust Score"
         },
         "security": {
-          "title": "Security Best Practices",
-          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
-          "accessControl": "Implement role-based access control with OpenZeppelin AccessControl",
-          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
-          "initializer": "Use initializer modifiers for proxy contract initialization",
-          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "title": "Лучшие практики безопасности",
+          "reentrancy": "Используйте модификатор ReentrancyGuard для предотвращения рекурсивных внешних вызовов",
+          "accessControl": "Реализуйте ролевой контроль доступа с OpenZeppelin AccessControl",
+          "checksEffects": "Следуйте паттерну checks-effects-interactions для внешних вызовов",
+          "initializer": "Используйте модификаторы initializer для инициализации proxy-контрактов",
+          "overflow": "Используйте SafeMath или Solidity 0.8+ для защиты от переполнения",
           "reentrancyGuard": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+            "title": "Защита от реентрантности",
+            "description": "Используйте модификатор ReentrancyGuard для предотвращения рекурсивных вызовов"
           },
           "accessControlRole": {
-            "title": "Access Control",
-            "description": "Implement role-based permissions with OpenZeppelin"
+            "title": "Контроль доступа",
+            "description": "Реализуйте ролевые разрешения с OpenZeppelin"
           },
           "inputValidation": {
-            "title": "Input Validation",
-            "description": "Always validate user inputs and external data"
+            "title": "Валидация ввода",
+            "description": "Всегда проверяйте пользовательские вводы и внешние данные"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for upgradeable contracts"
+            "title": "Обновляемость",
+            "description": "Используйте proxy-паттерны для обновляемых контрактов"
           }
         },
         "gasOptimization": {
-          "title": "Gas Optimization",
-          "subtitle": "Tips for reducing transaction costs",
-          "tip1": "Pack multiple small variables into single storage slots",
-          "tip2": "Use calldata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings",
+          "title": "Оптимизация газа",
+          "subtitle": "Советы по снижению стоимости транзакций",
+          "tip1": "Упаковывайте несколько маленьких переменных в один слот хранилища",
+          "tip2": "Используйте calldata вместо memory для параметров функций только для чтения",
+          "tip3": "Кэшируйте переменные хранилища в памяти при множественном доступе",
+          "tip4": "Используйте пользовательские ошибки вместо строк revert",
           "memoryVsStorage": {
             "title": "Memory vs Storage",
-            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+            "desc": "Используйте memory для временных данных и storage для постоянного состояния для оптимизации расхода газа."
           },
           "shortRevert": {
-            "title": "Short Revert Messages",
-            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+            "title": "Короткие сообщения Revert",
+            "desc": "Используйте пользовательские ошибки вместо длинных строк revert для экономии газа при развёртывании и выполнении."
           },
           "useEvents": {
-            "title": "Use Events for Logging",
-            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+            "title": "Используйте события для логирования",
+            "desc": "Генерируйте события вместо хранения данных, когда достаточно исторического доступа через логи."
           },
           "variablePacking": {
-            "title": "Variable Packing",
-            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+            "title": "Упаковка переменных",
+            "desc": "Упаковывайте несколько переменных в один слот хранилища для минимизации затрат на хранение."
           }
         },
-        "gasOptimizationTips": "Gas Optimization Tips",
+        "gasOptimizationTips": "Советы по оптимизации газа",
         "platformFeatures": "Функции платформы",
-        "readyToDeploy": "Ready to Deploy?",
+        "readyToDeploy": "Готовы к развёртыванию?",
         "sdkGuide": "Руководство SDK",
-        "securityChecklist": "Security Checklist",
+        "securityChecklist": "Чек-лист безопасности",
         "testing": {
-          "title": "Testing Your Contracts",
-          "description": "Comprehensive testing guide for smart contracts",
-          "unitTests": "Unit Tests",
-          "integrationTests": "Integration Tests",
-          "fuzzTesting": "Fuzz Testing"
+          "title": "Тестирование контрактов",
+          "description": "Полное руководство по тестированию смарт-контрактов",
+          "unitTests": "Модульные тесты",
+          "integrationTests": "Интеграционные тесты",
+          "fuzzTesting": "Фазз-тестирование"
         },
         "deployment": {
-          "title": "Deployment Guide",
-          "step1": "Compile contracts",
-          "step2": "Deploy to testnet",
-          "step3": "Verify on explorer",
-          "step4": "Deploy to mainnet"
+          "title": "Руководство по развёртыванию",
+          "step1": "Компиляция контрактов",
+          "step2": "Развёртывание в тестнет",
+          "step3": "Верификация в эксплорере",
+          "step4": "Развёртывание в мейннет"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "sdkDocumentation": "SDK Documentation",
+          "title": "Нужна помощь?",
+          "sdkDocumentation": "Документация SDK",
           "codeExamples": "Примеры кода",
           "discordSupport": "Сообщество Discord"
         },
@@ -5920,148 +5920,148 @@
         "tag": "РЕАЛЬНОЕ ВРЕМЯ",
         "title": "WebSocket API",
         "subtitle": "Потоковая передача данных и подписки на события в реальном времени.",
-        "connectionEndpoints": "Connection Endpoints",
-        "subscriptionChannels": "Subscription Channels",
-        "fullReference": "Full Reference",
-        "getSdk": "Get SDK",
+        "connectionEndpoints": "Эндпоинты подключения",
+        "subscriptionChannels": "Каналы подписки",
+        "fullReference": "Полный справочник",
+        "getSdk": "Получить SDK",
         "codeExamples": "Примеры кода",
-        "viewRestApi": "View REST API",
-        "readyToIntegrate": "Ready to Integrate?",
+        "viewRestApi": "Смотреть REST API",
+        "readyToIntegrate": "Готовы к интеграции?",
         "endpoints": {
           "mainnet": {
-            "type": "Production",
-            "desc": "Mainnet WebSocket endpoint for production applications"
+            "type": "Продакшн",
+            "desc": "WebSocket эндпоинт мейннета для продакшн-приложений"
           },
           "testnet": {
-            "type": "Development",
-            "desc": "Testnet WebSocket endpoint for development and testing"
+            "type": "Разработка",
+            "desc": "WebSocket эндпоинт тестнета для разработки и тестирования"
           }
         },
         "channels": {
           "blocks": {
-            "description": "Subscribe to new block notifications with full block data"
+            "description": "Подписка на уведомления о новых блоках с полными данными блока"
           },
           "transactions": {
-            "description": "Real-time transaction updates for specific addresses"
+            "description": "Обновления транзакций в реальном времени для конкретных адресов"
           },
           "trustScore": {
-            "description": "Live trust score changes for monitored addresses"
+            "description": "Изменения рейтинга доверия в реальном времени для отслеживаемых адресов"
           },
           "defi": {
-            "description": "Price feeds and liquidity pool updates"
+            "description": "Ценовые фиды и обновления пулов ликвидности"
           }
         },
         "authentication": {
           "title": "Аутентификация",
-          "description": "Include your API key in the connection URL query parameter or as a header"
+          "description": "Включите ваш API ключ в параметр запроса URL подключения или в заголовок"
         },
         "heartbeat": {
           "title": "Heartbeat",
-          "description": "Send ping messages every 30 seconds to keep the connection alive"
+          "description": "Отправляйте ping-сообщения каждые 30 секунд для поддержания соединения"
         },
         "clientImplementation": {
-          "title": "Client Implementation",
-          "subtitle": "Example WebSocket client in JavaScript"
+          "title": "Реализация клиента",
+          "subtitle": "Пример WebSocket клиента на JavaScript"
         }
       },
       "examples": {
         "tag": "ПРИМЕРЫ КОДА",
         "title": "Примеры кода",
         "subtitle": "Готовые к использованию фрагменты кода и примеры проектов.",
-        "commonRecipes": "Common Recipes",
+        "commonRecipes": "Популярные рецепты",
         "categories": {
-          "allRecipes": "All Recipes",
+          "allRecipes": "Все рецепты",
           "smartContracts": "Смарт-контракты",
           "defi": "DeFi",
           "nfts": "NFTs",
-          "wallets": "Wallets"
+          "wallets": "Кошельки"
         },
         "recipes": {
           "connectWallet": {
             "title": "Подключить кошелёк",
-            "description": "Integrate MetaMask and other Web3 wallets with React hooks",
-            "category": "Frontend"
+            "description": "Интеграция MetaMask и других Web3 кошельков с React хуками",
+            "category": "Фронтенд"
           },
           "createToken": {
-            "title": "Create BRC-20 Token",
-            "description": "Deploy a trust-verified token with automatic burn mechanics",
+            "title": "Создать BRC-20 токен",
+            "description": "Развёртывание верифицированного токена с автоматическим сжиганием",
             "category": "Смарт-контракт"
           },
           "aiOracle": {
-            "title": "AI Oracle Integration",
-            "description": "Query AI-powered insights from smart contracts or backend",
-            "category": "Backend"
+            "title": "Интеграция AI Oracle",
+            "description": "Запрос ИИ-аналитики из смарт-контрактов или бэкенда",
+            "category": "Бэкенд"
           },
           "nftMinting": {
-            "title": "NFT Minting",
-            "description": "Create and mint NFT collections with metadata on IPFS",
+            "title": "Минтинг NFT",
+            "description": "Создание и минтинг NFT коллекций с метаданными на IPFS",
             "category": "NFT"
           },
           "flashLoan": {
             "title": "Flash Loan",
-            "description": "Execute arbitrage with atomic flash loan transactions",
+            "description": "Выполнение арбитража с атомарными flash loan транзакциями",
             "category": "DeFi"
           },
           "indexerSetup": {
-            "title": "Indexer Setup",
-            "description": "Build a custom blockchain data indexer with The Graph",
-            "category": "Infrastructure"
+            "title": "Настройка индексатора",
+            "description": "Создание кастомного индексатора блокчейн-данных с The Graph",
+            "category": "Инфраструктура"
           }
         },
         "featured": {
-          "title": "Featured Recipe",
-          "description": "Build a secure vault that verifies project trust scores before accepting deposits. This pattern is essential for DeFi protocols.",
-          "difficulty": "Difficulty",
+          "title": "Избранный рецепт",
+          "description": "Создайте безопасное хранилище, которое проверяет рейтинги доверия проектов перед принятием депозитов. Этот паттерн необходим для DeFi протоколов.",
+          "difficulty": "Сложность",
           "intermediate": "Средний уровень",
           "time": "Время",
-          "tenMins": "~10 mins",
+          "tenMins": "~10 мин",
           "checks": {
-            "trustScore": "Verifies Trust Score on-chain before deposit",
-            "revert": "Reverts if score below threshold",
-            "gasOptimized": "Gas-optimized for production use"
+            "trustScore": "Проверяет Trust Score ончейн перед депозитом",
+            "revert": "Откатывает, если рейтинг ниже порога",
+            "gasOptimized": "Оптимизировано по газу для продакшн-использования"
           }
         },
         "cta": {
-          "title": "Have a Recipe to Share?",
-          "description": "Contribute your code examples to help the community. All contributors receive ecosystem rewards.",
-          "submitPr": "Submit PR on GitHub",
-          "requestGuide": "Request a Guide"
+          "title": "Есть рецепт, которым хотите поделиться?",
+          "description": "Внесите свои примеры кода, чтобы помочь сообществу. Все контрибьюторы получают награды экосистемы.",
+          "submitPr": "Отправить PR на GitHub",
+          "requestGuide": "Запросить руководство"
         }
       },
       "quickstart": {
         "tag": "НАЧАЛО РАБОТЫ",
         "title": "Быстрый старт",
         "subtitle": "Начните работу с TBurn Chain за несколько минут.",
-        "whatsNext": "What's Next?",
+        "whatsNext": "Что дальше?",
         "prerequisites": {
-          "title": "Prerequisites",
-          "node": "Node.js 18+ installed",
-          "account": "TBurn Chain account (testnet faucet available)",
-          "knowledge": "Basic JavaScript/TypeScript knowledge"
+          "title": "Предварительные требования",
+          "node": "Установлен Node.js 18+",
+          "account": "Аккаунт TBurn Chain (доступен кран тестнета)",
+          "knowledge": "Базовые знания JavaScript/TypeScript"
         },
         "steps": {
           "installSdk": {
-            "title": "Install the SDK",
-            "description": "Add the TBurn SDK to your project using npm or yarn"
+            "title": "Установите SDK",
+            "description": "Добавьте TBurn SDK в ваш проект через npm или yarn"
           },
           "initializeSdk": {
-            "title": "Initialize the SDK",
-            "description": "Configure the SDK with your API key and network settings"
+            "title": "Инициализируйте SDK",
+            "description": "Настройте SDK с вашим API ключом и параметрами сети"
           },
           "firstTransaction": {
-            "title": "Send Your First Transaction",
-            "description": "Connect your wallet and send TBURN tokens"
+            "title": "Отправьте первую транзакцию",
+            "description": "Подключите кошелёк и отправьте токены TBURN"
           },
           "queryTrustScore": {
-            "title": "Query Trust Score",
-            "description": "Retrieve AI-powered trust analysis for any address"
+            "title": "Запросите Trust Score",
+            "description": "Получите ИИ-анализ доверия для любого адреса"
           }
         },
         "networkConfig": {
-          "title": "Network Configuration",
+          "title": "Конфигурация сети",
           "chainId": "Chain ID",
           "rpcUrl": "RPC URL",
-          "explorer": "Explorer",
+          "explorer": "Эксплорер",
           "mainnet": {
             "title": "Mainnet"
           },
@@ -6070,24 +6070,24 @@
           }
         },
         "vsCode": {
-          "title": "VS Code Setup",
-          "description": "Recommended extensions for TBurn Chain development",
-          "solidity": "Solidity Language Support",
-          "eslint": "ESLint for JavaScript/TypeScript",
-          "tburnSnippets": "TBurn SDK Snippets"
+          "title": "Настройка VS Code",
+          "description": "Рекомендуемые расширения для разработки на TBurn Chain",
+          "solidity": "Поддержка языка Solidity",
+          "eslint": "ESLint для JavaScript/TypeScript",
+          "tburnSnippets": "Сниппеты TBurn SDK"
         },
         "nextSteps": {
           "sdkGuide": {
             "title": "Руководство SDK",
-            "desc": "Deep dive into SDK features"
+            "desc": "Глубокое погружение в функции SDK"
           },
           "apiReference": {
             "title": "Справочник API",
-            "desc": "Explore all endpoints"
+            "desc": "Изучите все эндпоинты"
           },
           "smartContracts": {
             "title": "Смарт-контракты",
-            "desc": "Write your first contract"
+            "desc": "Напишите свой первый контракт"
           }
         }
       },
@@ -6096,153 +6096,153 @@
         "title": "Руководство по установке",
         "subtitle": "Пошаговые инструкции по установке и настройке.",
         "startBuilding": "Начать разработку",
-        "viewQuickStart": "View Quick Start",
-        "systemRequirements": "System Requirements",
-        "installationSteps": "Installation Steps",
+        "viewQuickStart": "Смотреть быстрый старт",
+        "systemRequirements": "Системные требования",
+        "installationSteps": "Шаги установки",
         "quickStart": "Быстрый старт",
-        "dockerImage": "Docker Image",
-        "troubleshootingTitle": "Troubleshooting",
+        "dockerImage": "Docker образ",
+        "troubleshootingTitle": "Устранение неполадок",
         "requirements": {
-          "title": "System Requirements",
+          "title": "Системные требования",
           "hardware": {
-            "title": "Hardware",
-            "cpu": "2+ CPU cores",
-            "memory": "8GB RAM minimum",
-            "storage": "50GB SSD storage"
+            "title": "Аппаратное обеспечение",
+            "cpu": "2+ ядра CPU",
+            "memory": "Минимум 8GB RAM",
+            "storage": "50GB SSD хранилище"
           },
           "software": {
-            "title": "Software",
-            "os": "macOS, Linux, or Windows 10+",
-            "node": "Node.js 18 or higher",
-            "git": "Git 2.0 or higher"
+            "title": "Программное обеспечение",
+            "os": "macOS, Linux или Windows 10+",
+            "node": "Node.js 18 или выше",
+            "git": "Git 2.0 или выше"
           },
           "minimum": {
-            "title": "Minimum Requirements",
-            "subtitle": "For development and testing",
-            "cpu": "4 cores / 8 threads",
+            "title": "Минимальные требования",
+            "subtitle": "Для разработки и тестирования",
+            "cpu": "4 ядра / 8 потоков",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
-            "network": "10 Mbps"
+            "network": "10 Мбит/с"
           },
           "recommended": {
-            "title": "Recommended Requirements",
-            "subtitle": "For production validators",
-            "cpu": "8+ cores / 16 threads",
+            "title": "Рекомендуемые требования",
+            "subtitle": "Для продакшн-валидаторов",
+            "cpu": "8+ ядер / 16 потоков",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
-            "network": "100 Mbps"
+            "network": "100 Мбит/с"
           },
           "specs": {
             "cpu": "CPU",
             "ram": "RAM",
-            "storage": "Storage",
+            "storage": "Хранилище",
             "network": "Сеть"
           },
           "ports": {
-            "title": "Network Ports",
-            "subtitle": "Required ports for node operation",
+            "title": "Сетевые порты",
+            "subtitle": "Необходимые порты для работы ноды",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
-            "metrics": "9090 - Metrics"
+            "metrics": "9090 - Метрики"
           }
         },
         "tabs": {
           "npm": "npm",
           "yarn": "Yarn",
           "docker": "Docker",
-          "source": "From Source",
+          "source": "Из исходников",
           "linux": "Linux",
           "windows": "Windows"
         },
         "flags": {
-          "http": "--http: Enable HTTP-RPC server",
-          "ws": "--ws: Enable WebSocket server",
-          "mine": "--mine: Enable mining/validation",
-          "syncmode": "--syncmode: Sync mode (snap, full, light)"
+          "http": "--http: Включить HTTP-RPC сервер",
+          "ws": "--ws: Включить WebSocket сервер",
+          "mine": "--mine: Включить майнинг/валидацию",
+          "syncmode": "--syncmode: Режим синхронизации (snap, full, light)"
         },
         "windows": {
-          "title": "Windows Installation",
-          "recommendation": "For Windows, we recommend using WSL2 (Windows Subsystem for Linux) for optimal compatibility.",
-          "downloadBeta": "Download Windows Beta"
+          "title": "Установка на Windows",
+          "recommendation": "Для Windows рекомендуем использовать WSL2 (Windows Subsystem for Linux) для оптимальной совместимости.",
+          "downloadBeta": "Скачать Windows Beta"
         },
         "docker": {
-          "title": "Docker Installation",
-          "step1": "Pull the official image",
-          "step2": "Run the container",
-          "step3": "Access the development environment",
-          "pullAndRun": "Pull and run the Docker image",
-          "recommendation": "Recommended for isolated development environment",
-          "viewDockerCompose": "View Docker Compose configuration"
+          "title": "Установка Docker",
+          "step1": "Скачайте официальный образ",
+          "step2": "Запустите контейнер",
+          "step3": "Получите доступ к среде разработки",
+          "pullAndRun": "Скачайте и запустите Docker образ",
+          "recommendation": "Рекомендуется для изолированной среды разработки",
+          "viewDockerCompose": "Смотреть конфигурацию Docker Compose"
         },
         "npm": {
-          "title": "Install via npm",
-          "step1": "Install the SDK globally",
+          "title": "Установка через npm",
+          "step1": "Установите SDK глобально",
           "step2": "Проверка установки",
-          "step3": "Initialize a new project"
+          "step3": "Инициализируйте новый проект"
         },
         "yarn": {
-          "title": "Install via Yarn",
-          "step1": "Install the SDK globally",
+          "title": "Установка через Yarn",
+          "step1": "Установите SDK глобально",
           "step2": "Проверка установки"
         },
         "source": {
-          "title": "Build from Source",
-          "step1": "Clone the repository",
-          "step2": "Install dependencies",
-          "step3": "Build the project",
-          "step4": "Link globally"
+          "title": "Сборка из исходников",
+          "step1": "Клонируйте репозиторий",
+          "step2": "Установите зависимости",
+          "step3": "Соберите проект",
+          "step4": "Свяжите глобально"
         },
         "configuration": {
-          "title": "Configuration",
-          "description": "Configure your TBurn Chain node with environment variables and config files.",
-          "commonFlags": "Common Configuration Flags",
+          "title": "Конфигурация",
+          "description": "Настройте ноду TBurn Chain с помощью переменных окружения и конфигурационных файлов.",
+          "commonFlags": "Общие флаги конфигурации",
           "envVars": {
             "title": "Переменные окружения",
-            "apiKey": "Your TBurn API key",
-            "network": "Network (mainnet/testnet)",
-            "rpcUrl": "Custom RPC endpoint (optional)"
+            "apiKey": "Ваш TBurn API ключ",
+            "network": "Сеть (mainnet/testnet)",
+            "rpcUrl": "Кастомный RPC эндпоинт (опционально)"
           },
           "configFile": {
-            "title": "Configuration File",
-            "description": "Create a tburn.config.js file in your project root"
+            "title": "Конфигурационный файл",
+            "description": "Создайте файл tburn.config.js в корне вашего проекта"
           }
         },
         "troubleshooting": {
-          "title": "Troubleshooting",
+          "title": "Устранение неполадок",
           "permissionDenied": {
-            "title": "Permission Denied",
-            "description": "Try running with sudo or fix npm permissions"
+            "title": "Отказано в доступе",
+            "description": "Попробуйте запустить с sudo или исправьте права npm"
           },
           "nodeVersion": {
-            "title": "Node Version Mismatch",
-            "description": "Use nvm to switch to Node.js 18+"
+            "title": "Несовместимая версия Node",
+            "description": "Используйте nvm для переключения на Node.js 18+"
           },
           "networkError": {
-            "title": "Network Connection Error",
-            "description": "Check your firewall settings and RPC endpoint"
+            "title": "Ошибка сетевого подключения",
+            "description": "Проверьте настройки файрвола и RPC эндпоинт"
           },
-          "portErrors": "Port Already in Use",
-          "portErrorsAnswer": "Change the port using --http.port flag or kill the process using the port.",
-          "notSyncing": "Node Not Syncing",
-          "notSyncingAnswer": "Check network connectivity and ensure peers are available. Try adding bootstrap nodes.",
-          "openFiles": "Too Many Open Files",
-          "openFilesAnswer": "Increase system file descriptor limits with ulimit -n 65535."
+          "portErrors": "Порт уже используется",
+          "portErrorsAnswer": "Измените порт с помощью флага --http.port или завершите процесс, использующий порт.",
+          "notSyncing": "Нода не синхронизируется",
+          "notSyncingAnswer": "Проверьте сетевое подключение и убедитесь, что пиры доступны. Попробуйте добавить bootstrap-ноды.",
+          "openFiles": "Слишком много открытых файлов",
+          "openFilesAnswer": "Увеличьте лимит файловых дескрипторов командой ulimit -n 65535."
         },
         "needHelp": {
-          "title": "Need Help?",
-          "description": "Join our community for support and updates.",
+          "title": "Нужна помощь?",
+          "description": "Присоединяйтесь к нашему сообществу для поддержки и обновлений.",
           "joinDiscord": "Присоединиться к Discord"
         },
         "nextSteps": {
-          "title": "Next Steps",
+          "title": "Следующие шаги",
           "quickStart": {
             "title": "Руководство быстрого старта",
-            "description": "Build your first dApp in 5 minutes"
+            "description": "Создайте первое dApp за 5 минут"
           },
           "sdkReference": {
-            "title": "SDK Reference",
-            "description": "Complete API documentation"
+            "title": "Справочник SDK",
+            "description": "Полная документация API"
           },
           "examples": {
             "title": "Примеры кода",
@@ -6254,24 +6254,24 @@
         "tag": "МИГРАЦИЯ",
         "title": "Миграция с EVM",
         "subtitle": "Перенесите свои Ethereum dApps на TBurn Chain.",
-        "startMigration": "Start Migration",
-        "viewGuide": "View Full Guide",
+        "startMigration": "Начать миграцию",
+        "viewGuide": "Смотреть полное руководство",
         "overview": {
-          "title": "Migration Overview",
-          "description": "TBurn Chain is fully EVM-compatible, allowing you to deploy existing Ethereum smart contracts with minimal modifications.",
-          "compatibility": "100% EVM Compatibility",
-          "gasEfficiency": "Up to 10x lower gas costs",
-          "trustFeatures": "Built-in Trust Score integration"
+          "title": "Обзор миграции",
+          "description": "TBurn Chain полностью совместим с EVM, что позволяет развёртывать существующие смарт-контракты Ethereum с минимальными изменениями.",
+          "compatibility": "100% совместимость с EVM",
+          "gasEfficiency": "До 10x ниже стоимость газа",
+          "trustFeatures": "Встроенная интеграция Trust Score"
         },
         "differences": {
-          "title": "Key Differences",
+          "title": "Ключевые отличия",
           "chainId": {
             "title": "Chain ID",
             "ethereum": "Ethereum: 1",
             "tburn": "TBurn: 7777"
           },
           "consensus": {
-            "title": "Consensus Mechanism",
+            "title": "Механизм консенсуса",
             "ethereum": "Proof of Stake",
             "tburn": "Proof of Trust (PoT)"
           },
@@ -6282,91 +6282,91 @@
           },
           "blockTime": {
             "title": "Время блока",
-            "ethereum": "~12 seconds",
-            "tburn": "~3 seconds"
+            "ethereum": "~12 секунд",
+            "tburn": "~3 секунды"
           },
           "evmCompatibility": {
-            "title": "EVM Compatibility",
-            "evmDesc": "Standard EVM opcodes and execution",
-            "tburnDesc": "Enhanced EVM with Trust Score opcodes"
+            "title": "Совместимость с EVM",
+            "evmDesc": "Стандартные EVM опкоды и исполнение",
+            "tburnDesc": "Улучшенная EVM с опкодами Trust Score"
           },
           "performance": {
-            "title": "Performance",
-            "evmDesc": "~15 TPS typical throughput",
-            "tburnDesc": "50,000+ TPS with parallel execution"
+            "title": "Производительность",
+            "evmDesc": "~15 TPS типичная пропускная способность",
+            "tburnDesc": "50 000+ TPS с параллельным исполнением"
           },
           "safety": {
-            "title": "Transaction Safety",
-            "evmDesc": "Standard transaction finality",
-            "tburnDesc": "AI-verified transactions with fraud prevention"
+            "title": "Безопасность транзакций",
+            "evmDesc": "Стандартная финальность транзакций",
+            "tburnDesc": "ИИ-верифицированные транзакции с защитой от мошенничества"
           },
           "verification": {
             "title": "Верификация",
-            "evmDesc": "Basic contract verification",
-            "tburnDesc": "Trust Score verification built-in"
+            "evmDesc": "Базовая верификация контрактов",
+            "tburnDesc": "Встроенная верификация Trust Score"
           }
         },
         "keyDifferences": {
-          "title": "Key Technical Differences",
-          "subtitle": "What sets TBurn Chain apart from traditional EVM chains",
-          "existingEvmChains": "Existing EVM Chains",
+          "title": "Ключевые технические отличия",
+          "subtitle": "Что отличает TBurn Chain от традиционных EVM-совместимых сетей",
+          "existingEvmChains": "Существующие EVM сети",
           "tburnChain": "TBurn Chain",
-          "upgrade": "Upgrade"
+          "upgrade": "Улучшение"
         },
         "developmentApproach": {
-          "title": "Development Approach",
-          "subtitle": "Follow these steps to migrate your existing dApps"
+          "title": "Подход к разработке",
+          "subtitle": "Следуйте этим шагам для миграции существующих dApps"
         },
         "steps": {
-          "title": "Migration Steps",
+          "title": "Шаги миграции",
           "step1": {
-            "title": "Update Network Configuration",
-            "description": "Change RPC endpoints and chain ID in your configuration files"
+            "title": "Обновите конфигурацию сети",
+            "description": "Измените RPC эндпоинты и Chain ID в конфигурационных файлах"
           },
           "step2": {
-            "title": "Modify Contract Addresses",
-            "description": "Update hardcoded contract addresses to TBurn Chain deployments"
+            "title": "Измените адреса контрактов",
+            "description": "Обновите хардкодные адреса контрактов на развёртывания TBurn Chain"
           },
           "step3": {
-            "title": "Add Trust Score Integration",
-            "description": "Optionally integrate Trust Score verification for enhanced security"
+            "title": "Добавьте интеграцию Trust Score",
+            "description": "Опционально интегрируйте верификацию Trust Score для повышенной безопасности"
           },
           "step4": {
-            "title": "Deploy and Test",
-            "description": "Deploy to testnet first, then migrate to mainnet"
+            "title": "Разверните и протестируйте",
+            "description": "Сначала разверните в тестнет, затем мигрируйте в мейннет"
           },
           "useExistingCode": {
-            "title": "Use Existing Code",
-            "desc": "Your Solidity contracts work as-is. No modifications needed for basic functionality."
+            "title": "Используйте существующий код",
+            "desc": "Ваши Solidity контракты работают как есть. Никаких модификаций не требуется для базового функционала."
           },
           "integrateTrustScore": {
-            "title": "Integrate Trust Score",
-            "desc": "Add optional Trust Score checks to verify transaction participants."
+            "title": "Интегрируйте Trust Score",
+            "desc": "Добавьте опциональные проверки Trust Score для верификации участников транзакций."
           },
           "leverageAutoBurn": {
-            "title": "Leverage Auto-Burn",
-            "desc": "Implement deflationary mechanics with automatic token burning."
+            "title": "Используйте авто-сжигание",
+            "desc": "Реализуйте дефляционные механики с автоматическим сжиганием токенов."
           }
         },
         "commonChanges": {
-          "title": "Common Code Changes",
-          "rpcEndpoint": "RPC Endpoint Update",
-          "chainIdUpdate": "Chain ID Configuration",
-          "trustOracle": "Trust Oracle Integration (Optional)"
+          "title": "Типичные изменения кода",
+          "rpcEndpoint": "Обновление RPC эндпоинта",
+          "chainIdUpdate": "Конфигурация Chain ID",
+          "trustOracle": "Интеграция Trust Oracle (опционально)"
         },
         "tools": {
-          "title": "Migration Tools",
+          "title": "Инструменты миграции",
           "cliMigrate": {
-            "title": "CLI Migration Tool",
-            "description": "Automated contract migration with burn-cli migrate"
+            "title": "CLI инструмент миграции",
+            "description": "Автоматизированная миграция контрактов с burn-cli migrate"
           },
           "hardhatPlugin": {
-            "title": "Hardhat Plugin",
-            "description": "TBurn Hardhat plugin for seamless deployment"
+            "title": "Плагин Hardhat",
+            "description": "TBurn Hardhat плагин для бесшовного развёртывания"
           },
           "foundrySupport": {
-            "title": "Foundry Support",
-            "description": "Full Foundry compatibility for testing and deployment"
+            "title": "Поддержка Foundry",
+            "description": "Полная совместимость с Foundry для тестирования и развёртывания"
           }
         },
         "cta": {

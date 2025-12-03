@@ -6061,14 +6061,14 @@
       "tokenomics": {
         "tag": "ECONOMÍA",
         "title": "Tokenomics",
-        "subtitle": "Comprende la distribución de tokens TBURN, calendario de emisión y mecanismos deflacionarios.",
+        "subtitle": "Comprende la distribución del token TBURN, el calendario de emisión y los mecanismos deflacionarios.",
         "marketStats": {
           "title": "Estadísticas del mercado",
           "totalSupply": "Suministro total",
           "circulatingSupply": "Suministro circulante",
           "totalBurned": "Total quemado",
-          "marketCap": "Capitalización de mercado",
-          "burned": "Quemado",
+          "marketCap": "Cap. de Mercado",
+          "burned": "Quemados",
           "totalStaked": "Total en Staking"
         },
         "distribution": {
@@ -6109,7 +6109,7 @@
           },
           "teamAdvisors": {
             "title": "Equipo y Asesores",
-            "subtitle": "Vesting de 4 años con cliff de 1 año para alineación a largo plazo"
+            "subtitle": "4 años de vesting con 1 año de cliff para alineación a largo plazo"
           },
           "foundationReserve": {
             "title": "Reserva de la Fundación",
@@ -6181,20 +6181,20 @@
         },
         "burn": {
           "transactionFees": {
-            "title": "Quema de Tarifas de Transacción",
-            "description": "El 0.1% de cada tarifa de transacción se quema permanentemente, reduciendo el suministro con el uso de la red"
+            "title": "Quema de Tarifas",
+            "description": "El 0.1% de cada tarifa de transacción se quema permanentemente"
           },
           "slashingPenalty": {
-            "title": "Quema por Penalización de Slashing",
-            "description": "Las penalizaciones por mal comportamiento de validadores se queman, reforzando los incentivos de seguridad de la red"
+            "title": "Penalización por Slashing",
+            "description": "Las penalizaciones por mal comportamiento de validadores se queman"
           },
           "collateralBurn": {
             "title": "Quema de Colateral",
-            "description": "El colateral de proyectos fallidos se quema parcialmente como parte del mecanismo de protección al inversor"
+            "description": "El colateral de proyectos fallidos se quema parcialmente"
           },
           "revenueBuyback": {
-            "title": "Quema por Recompra de Ingresos",
-            "description": "Los ingresos del protocolo se usan para comprar y quemar TBURN trimestralmente, creando presión deflacionaria"
+            "title": "Recompra de Ingresos",
+            "description": "Los ingresos del protocolo se usan para comprar y quemar TBURN trimestralmente"
           }
         }
       },
@@ -7189,73 +7189,73 @@
         },
         "categories": {
           "smartContracts": {
-            "title": "Smart Contracts",
-            "description": "Write, deploy, and verify smart contracts with Trust Score integration"
+            "title": "Contratos Inteligentes",
+            "description": "Escribe, despliega y verifica contratos inteligentes con integración de Trust Score"
           },
           "apiReference": {
-            "title": "API Reference",
-            "description": "Complete REST and GraphQL API documentation"
+            "title": "Referencia de API",
+            "description": "Documentación completa de API REST y GraphQL"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "description": "Multi-language SDK integration guides",
+            "title": "Guía SDK",
+            "description": "Guías de integración SDK multi-lenguaje",
             "badge": "Popular"
           },
           "cliReference": {
-            "title": "CLI Reference",
-            "description": "Command line interface for project management",
-            "badge": "New"
+            "title": "Referencia CLI",
+            "description": "Interfaz de línea de comandos para gestión de proyectos",
+            "badge": "Nuevo"
           },
           "websocketApi": {
-            "title": "WebSocket API",
-            "description": "Real-time blockchain event subscriptions",
-            "badge": "Real-time"
+            "title": "API WebSocket",
+            "description": "Suscripciones a eventos blockchain en tiempo real",
+            "badge": "Tiempo Real"
           },
           "tutorials": {
-            "title": "Tutorials",
-            "description": "Step-by-step guides for common use cases",
-            "badge": "Beginner"
+            "title": "Tutoriales",
+            "description": "Guías paso a paso para casos de uso comunes",
+            "badge": "Principiante"
           }
         },
         "quickStart": {
-          "title": "Quick Start",
+          "title": "Inicio Rápido",
           "items": {
             "getStarted": {
-              "title": "Get Started",
-              "description": "Install the SDK and create your first project"
+              "title": "Comenzar",
+              "description": "Instala el SDK y crea tu primer proyecto"
             },
             "devSetup": {
-              "title": "Development Setup",
-              "description": "Configure your development environment"
+              "title": "Configuración de Desarrollo",
+              "description": "Configura tu entorno de desarrollo"
             },
             "apiKeys": {
-              "title": "API Keys",
-              "description": "Get your API keys from the developer dashboard"
+              "title": "Claves API",
+              "description": "Obtén tus claves API desde el panel de desarrollador"
             }
           }
         },
         "resources": {
           "cookbook": {
-            "title": "Developer Cookbook",
-            "description": "Ready-to-use code recipes and patterns"
+            "title": "Libro de Recetas para Desarrolladores",
+            "description": "Recetas de código y patrones listos para usar"
           },
           "community": {
-            "title": "Community",
-            "description": "Join Discord and get help from the community"
+            "title": "Comunidad",
+            "description": "Únete a Discord y obtén ayuda de la comunidad"
           },
           "trustScore": {
-            "title": "Trust Score Guide",
-            "description": "Understanding and integrating trust verification"
+            "title": "Guía de Trust Score",
+            "description": "Comprendiendo e integrando la verificación de confianza"
           },
           "defiHub": {
-            "title": "DeFi Hub",
-            "description": "Build DeFi applications with TBurn protocols"
+            "title": "Hub DeFi",
+            "description": "Construye aplicaciones DeFi con los protocolos de TBurn"
           }
         },
         "cta": {
-          "title": "Ready to Build?",
-          "description": "Start building on TBurn Chain today with our comprehensive documentation and SDKs.",
-          "joinDiscord": "Join Discord"
+          "title": "¿Listo para Construir?",
+          "description": "Comienza a construir en TBurn Chain hoy con nuestra documentación completa y SDKs.",
+          "joinDiscord": "Únete a Discord"
         }
       },
       "api": {
@@ -7493,106 +7493,106 @@
             "description": "Integra insights impulsados por AI directamente en tus contratos inteligentes mediante llamadas a oráculos."
           },
           "gasOptimization": {
-            "title": "Gas Optimization",
-            "description": "Advanced gas optimization techniques reduce transaction costs by up to 60%."
+            "title": "Optimización de Gas",
+            "description": "Técnicas avanzadas de optimización de gas reducen los costos de transacción hasta un 60%."
           },
           "quantumResistant": {
-            "title": "Quantum-Resistant Signatures",
-            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+            "title": "Firmas Resistentes a Cuánticos",
+            "description": "Criptografía preparada para el futuro con firmas CRYSTALS-Dilithium para seguridad a largo plazo."
           },
           "trustScore": {
-            "title": "Trust Score Integration",
-            "description": "On-chain trust verification with real-time scoring and automated risk assessment."
+            "title": "Integración de Trust Score",
+            "description": "Verificación de confianza on-chain con puntuación en tiempo real y evaluación automatizada de riesgos."
           }
         },
         "templates": {
           "erc20": {
             "title": "Token BRC-20",
-            "description": "Estándar token with trust-aware transfers"
+            "description": "Token estándar con transferencias conscientes de confianza"
           },
           "nft": {
-            "title": "NFT Collection",
-            "description": "ERC-721 with on-chain metadata"
+            "title": "Colección NFT",
+            "description": "ERC-721 con metadatos on-chain"
           },
-          "staking": "Staking Contract",
-          "governance": "Governance",
+          "staking": "Contrato de Staking",
+          "governance": "Gobernanza",
           "defi": {
-            "title": "DeFi Protocol",
-            "description": "AMM pool with trust verification"
+            "title": "Protocolo DeFi",
+            "description": "Pool AMM con verificación de confianza"
           },
           "vesting": {
             "title": "Bloqueo de Tokens",
             "description": "Contratos de vesting de tiempo bloqueado con liberación gradual"
           },
           "dao": {
-            "title": "DAO Gobernanza",
-            "description": "Token-weighted voting system"
+            "title": "Gobernanza DAO",
+            "description": "Sistema de votación ponderado por tokens"
           },
-          "autoBurn": "Auto-Burn Token",
-          "basicToken": "Basic Token",
-          "trustScoreIntegration": "Trust Score Integration"
+          "autoBurn": "Token Auto-Quema",
+          "basicToken": "Token Básico",
+          "trustScoreIntegration": "Integración de Trust Score"
         },
         "security": {
-          "title": "Seguridad Best Practices",
-          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
-          "accessControl": "Implement role-based access control with OpenZeppelin AccessControl",
+          "title": "Mejores Prácticas de Seguridad",
+          "reentrancy": "Usa el modificador ReentrancyGuard para prevenir llamadas externas recursivas",
+          "accessControl": "Implementa control de acceso basado en roles con OpenZeppelin AccessControl",
           "inputValidation": {
-            "title": "Input Validation",
-            "description": "Siempre validate user inputs and external data"
+            "title": "Validación de Entrada",
+            "description": "Siempre valida las entradas de usuario y datos externos"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for upgradeable contracts"
+            "title": "Capacidad de Actualización",
+            "description": "Usa patrones proxy para contratos actualizables"
           },
-          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
-          "initializer": "Use initializer modifiers for proxy contract initialization",
-          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "checksEffects": "Sigue el patrón checks-effects-interactions para llamadas externas",
+          "initializer": "Usa modificadores initializer para inicialización de contratos proxy",
+          "overflow": "Usa SafeMath o Solidity 0.8+ para protección contra overflow",
           "reentrancyGuard": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+            "title": "Guardas de Reentrancia",
+            "description": "Usa el modificador ReentrancyGuard para prevenir llamadas recursivas"
           },
           "accessControlRole": {
-            "title": "Access Control",
-            "description": "Implement role-based permissions with OpenZeppelin"
+            "title": "Control de Acceso",
+            "description": "Implementa permisos basados en roles con OpenZeppelin"
           }
         },
         "gasOptimization": {
-          "title": "Gas Optimization",
-          "subtitle": "Tips for reducing transaction costs",
-          "tip1": "Pack multiple small variables into single storage slots",
-          "tip2": "Use calldata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings",
+          "title": "Optimización de Gas",
+          "subtitle": "Consejos para reducir costos de transacción",
+          "tip1": "Empaqueta múltiples variables pequeñas en slots de almacenamiento únicos",
+          "tip2": "Usa calldata en lugar de memory para parámetros de función de solo lectura",
+          "tip3": "Almacena en caché las variables de storage en memory cuando se acceden múltiples veces",
+          "tip4": "Usa errores personalizados en lugar de strings de revert",
           "memoryVsStorage": {
             "title": "Memory vs Storage",
-            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+            "desc": "Usa memory para datos temporales y storage para estado persistente para optimizar el uso de gas."
           },
           "shortRevert": {
-            "title": "Short Revert Messages",
-            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+            "title": "Mensajes de Revert Cortos",
+            "desc": "Usa errores personalizados en lugar de strings de revert largos para ahorrar gas en despliegue y ejecución."
           },
           "useEvents": {
-            "title": "Use Events for Logging",
-            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+            "title": "Usa Eventos para Logging",
+            "desc": "Emite eventos en lugar de almacenar datos cuando el acceso histórico mediante logs es suficiente."
           },
           "variablePacking": {
-            "title": "Variable Packing",
-            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+            "title": "Empaquetado de Variables",
+            "desc": "Empaqueta múltiples variables en slots de almacenamiento únicos para minimizar costos de storage."
           }
         },
         "testing": {
-          "title": "Testing Your Contracts",
-          "description": "Comprehensive testing guide for smart contracts",
-          "unitTests": "Unit Tests",
-          "integrationTests": "Integration Tests",
-          "fuzzTesting": "Fuzz Testing"
+          "title": "Probando tus Contratos",
+          "description": "Guía completa de pruebas para contratos inteligentes",
+          "unitTests": "Pruebas Unitarias",
+          "integrationTests": "Pruebas de Integración",
+          "fuzzTesting": "Pruebas de Fuzzing"
         },
         "deployment": {
-          "title": "Deployment Guide",
-          "step1": "Compile contracts",
-          "step2": "Deploy to testnet",
-          "step3": "Verify on explorer",
-          "step4": "Deploy to mainnet"
+          "title": "Guía de Despliegue",
+          "step1": "Compilar contratos",
+          "step2": "Desplegar en testnet",
+          "step3": "Verificar en explorador",
+          "step4": "Desplegar en mainnet"
         },
         "needHelp": {
           "title": "¿Necesitas Ayuda?",
@@ -7602,15 +7602,15 @@
         },
         "relatedLinks": {
           "developerHub": "Centro de Desarrolladores",
-          "sdkGuide": "SDK Guide",
+          "sdkGuide": "Guía SDK",
           "cliReference": "Referencia de CLI",
           "codeExamples": "Ejemplos de Código"
         },
-        "gasOptimizationTips": "Gas Optimization Tips",
-        "platformFeatures": "Platform Features",
-        "readyToDeploy": "Ready to Deploy?",
-        "sdkGuide": "SDK Guide",
-        "securityChecklist": "Security Checklist"
+        "gasOptimizationTips": "Consejos de Optimización de Gas",
+        "platformFeatures": "Características de la Plataforma",
+        "readyToDeploy": "¿Listo para Desplegar?",
+        "sdkGuide": "Guía SDK",
+        "securityChecklist": "Lista de Verificación de Seguridad"
       },
       "websocket": {
         "tag": "TIEMPO REAL",
@@ -7627,11 +7627,11 @@
         "channels": {
           "blocks": {
             "title": "Nuevos Bloques",
-            "description": "Subscribe to new block notifications with full block data"
+            "description": "Suscríbete a notificaciones de nuevos bloques con datos completos"
           },
           "transactions": {
             "title": "Transacciones",
-            "description": "Real-time transaction updates for specific addresses"
+            "description": "Actualizaciones de transacciones en tiempo real para direcciones específicas"
           },
           "pending": {
             "title": "Pendientes",
@@ -7646,10 +7646,10 @@
             "description": "Actualizaciones de puntuación de proyectos"
           },
           "trustScore": {
-            "description": "Live trust score changes for monitored addresses"
+            "description": "Cambios de trust score en vivo para direcciones monitoreadas"
           },
           "defi": {
-            "description": "Price feeds and liquidity pool updates"
+            "description": "Feeds de precios y actualizaciones de pools de liquidez"
           }
         },
         "messageTypes": {
@@ -7668,43 +7668,43 @@
           "sdkDocs": "Documentación SDK",
           "examples": "Ejemplos de Código"
         },
-        "connectionEndpoints": "Connection Endpoints",
-        "subscriptionChannels": "Subscription Channels",
-        "fullReference": "Full Reference",
-        "getSdk": "Get SDK",
+        "connectionEndpoints": "Endpoints de Conexión",
+        "subscriptionChannels": "Canales de Suscripción",
+        "fullReference": "Referencia Completa",
+        "getSdk": "Obtener SDK",
         "codeExamples": "Ejemplos de Código",
-        "viewRestApi": "View REST API",
-        "readyToIntegrate": "Ready to Integrate?",
+        "viewRestApi": "Ver API REST",
+        "readyToIntegrate": "¿Listo para Integrar?",
         "endpoints": {
           "mainnet": {
-            "type": "Production",
-            "desc": "Mainnet WebSocket endpoint for production applications"
+            "type": "Producción",
+            "desc": "Endpoint WebSocket de Mainnet para aplicaciones de producción"
           },
           "testnet": {
-            "type": "Development",
-            "desc": "Testnet WebSocket endpoint for development and testing"
+            "type": "Desarrollo",
+            "desc": "Endpoint WebSocket de Testnet para desarrollo y pruebas"
           }
         },
         "authentication": {
           "title": "Autenticación",
-          "description": "Include your API key in the connection URL query parameter or as a header"
+          "description": "Incluye tu clave API en el parámetro de consulta de la URL de conexión o como un header"
         },
         "heartbeat": {
           "title": "Heartbeat",
-          "description": "Send ping messages every 30 seconds to keep the connection alive"
+          "description": "Envía mensajes ping cada 30 segundos para mantener la conexión activa"
         },
         "clientImplementation": {
-          "title": "Client Implementation",
-          "subtitle": "Example WebSocket client in JavaScript"
+          "title": "Implementación de Cliente",
+          "subtitle": "Ejemplo de cliente WebSocket en JavaScript"
         }
       },
       "examples": {
         "tag": "EJEMPLOS DE CÓDIGO",
         "title": "Ejemplos de código",
         "subtitle": "Fragmentos de código listos para usar y proyectos de muestra.",
-        "commonRecipes": "Common Recipes",
+        "commonRecipes": "Recetas Comunes",
         "categories": {
-          "allRecipes": "Todos Recipes",
+          "allRecipes": "Todas las Recetas",
           "smartContracts": "Contratos Inteligentes",
           "defi": "DeFi",
           "nfts": "NFTs",
@@ -7713,89 +7713,89 @@
         "recipes": {
           "connectWallet": {
             "title": "Conectar Wallet",
-            "description": "Integrate MetaMask and other Web3 wallets with React hooks",
+            "description": "Integra MetaMask y otras wallets Web3 con hooks de React",
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Crear BRC-20 Token",
-            "description": "Deploy a trust-verified token with automatic burn mechanics",
+            "title": "Crear Token BRC-20",
+            "description": "Despliega un token verificado por confianza con mecánicas de quema automática",
             "category": "Contrato Inteligente"
           },
           "aiOracle": {
-            "title": "AI Oracle Integration",
-            "description": "Query AI-powered insights from smart contracts or backend",
+            "title": "Integración de Oráculo AI",
+            "description": "Consulta insights impulsados por AI desde contratos inteligentes o backend",
             "category": "Backend"
           },
           "nftMinting": {
-            "title": "NFT Minting",
-            "description": "Crear and mint NFT collections with metadata on IPFS",
+            "title": "Acuñación de NFT",
+            "description": "Crea y acuña colecciones NFT con metadatos en IPFS",
             "category": "NFT"
           },
           "flashLoan": {
-            "title": "Flash Loan",
-            "description": "Execute arbitrage with atomic flash loan transactions",
+            "title": "Préstamo Flash",
+            "description": "Ejecuta arbitraje con transacciones atómicas de préstamo flash",
             "category": "DeFi"
           },
           "indexerSetup": {
-            "title": "Indexer Setup",
-            "description": "Build a custom blockchain data indexer with El/La Graph",
-            "category": "Infrastructure"
+            "title": "Configuración de Indexador",
+            "description": "Construye un indexador de datos blockchain personalizado con The Graph",
+            "category": "Infraestructura"
           }
         },
         "featured": {
-          "title": "Featured Recipe",
-          "description": "Build a secure vault that verifies project trust scores before accepting deposits. Este/Esta pattern is essential for DeFi protocols.",
-          "difficulty": "Difficulty",
+          "title": "Receta Destacada",
+          "description": "Construye una bóveda segura que verifica trust scores de proyectos antes de aceptar depósitos. Este patrón es esencial para protocolos DeFi.",
+          "difficulty": "Dificultad",
           "intermediate": "Intermedio",
-          "time": "Hora",
+          "time": "Tiempo",
           "tenMins": "~10 mins",
           "checks": {
-            "trustScore": "Verifies Trust Score on-chain before deposit",
-            "revert": "Reverts if score below threshold",
-            "gasOptimized": "Gas-optimized for production use"
+            "trustScore": "Verifica Trust Score on-chain antes del depósito",
+            "revert": "Revierte si la puntuación está por debajo del umbral",
+            "gasOptimized": "Optimizado para gas en uso de producción"
           }
         },
         "cta": {
-          "title": "Have a Recipe to Compartir?",
-          "description": "Contribute your code examples to help the community. Todos contributors receive ecosystem rewards.",
-          "submitPr": "Enviar PR on GitHub",
-          "requestGuide": "Request a Guide"
+          "title": "¿Tienes una Receta para Compartir?",
+          "description": "Contribuye tus ejemplos de código para ayudar a la comunidad. Todos los contribuidores reciben recompensas del ecosistema.",
+          "submitPr": "Enviar PR en GitHub",
+          "requestGuide": "Solicitar una Guía"
         }
       },
       "quickstart": {
         "tag": "PRIMEROS PASOS",
         "title": "Inicio rápido",
         "subtitle": "Comienza con TBurn Chain en minutos.",
-        "whatsNext": "Qué's Siguiente?",
+        "whatsNext": "¿Qué Sigue?",
         "prerequisites": {
-          "title": "Prerequisites",
-          "node": "Node.js 18+ installed",
-          "account": "TBurn Chain account (testnet faucet available)",
-          "knowledge": "Básico JavaScript/TypeScript knowledge"
+          "title": "Prerrequisitos",
+          "node": "Node.js 18+ instalado",
+          "account": "Cuenta de TBurn Chain (faucet de testnet disponible)",
+          "knowledge": "Conocimiento básico de JavaScript/TypeScript"
         },
         "steps": {
           "installSdk": {
-            "title": "Install the SDK",
-            "description": "Agregar the TBurn SDK to your project using npm or yarn"
+            "title": "Instalar el SDK",
+            "description": "Agrega el SDK de TBurn a tu proyecto usando npm o yarn"
           },
           "initializeSdk": {
-            "title": "Initialize the SDK",
-            "description": "Configure the SDK with your API key and network settings"
+            "title": "Inicializar el SDK",
+            "description": "Configura el SDK con tu clave API y configuración de red"
           },
           "firstTransaction": {
-            "title": "Send Your Primero Transaction",
-            "description": "Conectar your wallet and send TBURN tokens"
+            "title": "Envía tu Primera Transacción",
+            "description": "Conecta tu wallet y envía tokens TBURN"
           },
           "queryTrustScore": {
-            "title": "Query Trust Score",
-            "description": "Retrieve AI-powered trust analysis for any address"
+            "title": "Consultar Trust Score",
+            "description": "Obtén análisis de confianza impulsado por AI para cualquier dirección"
           }
         },
         "networkConfig": {
-          "title": "Network Configuración",
+          "title": "Configuración de Red",
           "chainId": "ID de Cadena",
-          "rpcUrl": "RPC URL",
-          "explorer": "Explorer",
+          "rpcUrl": "URL RPC",
+          "explorer": "Explorador",
           "mainnet": {
             "title": "Mainnet"
           },
@@ -7804,24 +7804,24 @@
           }
         },
         "vsCode": {
-          "title": "VS Code Setup",
-          "description": "Recommended extensions for TBurn Chain development",
-          "solidity": "Solidity Language Support",
-          "eslint": "ESLint for JavaScript/TypeScript",
-          "tburnSnippets": "TBurn SDK Snippets"
+          "title": "Configuración de VS Code",
+          "description": "Extensiones recomendadas para desarrollo en TBurn Chain",
+          "solidity": "Soporte de Lenguaje Solidity",
+          "eslint": "ESLint para JavaScript/TypeScript",
+          "tburnSnippets": "Snippets del SDK de TBurn"
         },
         "nextSteps": {
           "sdkGuide": {
-            "title": "SDK Guide",
-            "desc": "Deep dive into SDK features"
+            "title": "Guía SDK",
+            "desc": "Profundiza en las características del SDK"
           },
           "apiReference": {
             "title": "Referencia de API",
-            "desc": "Explore all endpoints"
+            "desc": "Explora todos los endpoints"
           },
           "smartContracts": {
             "title": "Contratos Inteligentes",
-            "desc": "Write your first contract"
+            "desc": "Escribe tu primer contrato"
           }
         }
       },
@@ -7832,7 +7832,7 @@
         "pageTitle": "Guía de Instalación",
         "pageSubtitle": "Configura tu entorno de desarrollo para TBurn Chain",
         "requirements": {
-          "title": "System Requirements",
+          "title": "Requisitos del Sistema",
           "os": {
             "title": "Sistema Operativo",
             "windows": "Windows 10 o posterior",
@@ -7841,28 +7841,28 @@
           },
           "software": {
             "title": "Software",
-            "node": "Node.js 18 or higher",
-            "git": "Git 2.0 or higher",
-            "os": "macOS, Linux, or Windows 10+"
+            "node": "Node.js 18 o superior",
+            "git": "Git 2.0 o superior",
+            "os": "macOS, Linux o Windows 10+"
           },
           "hardware": {
             "title": "Hardware",
-            "cpu": "2+ CPU cores",
-            "memory": "8GB RAM minimum",
-            "storage": "50GB SSD storage"
+            "cpu": "2+ núcleos de CPU",
+            "memory": "8GB RAM mínimo",
+            "storage": "50GB almacenamiento SSD"
           },
           "minimum": {
-            "title": "Minimum Requirements",
-            "subtitle": "For development and testing",
-            "cpu": "4 cores / 8 threads",
+            "title": "Requisitos Mínimos",
+            "subtitle": "Para desarrollo y pruebas",
+            "cpu": "4 núcleos / 8 hilos",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
             "network": "10 Mbps"
           },
           "recommended": {
-            "title": "Recommended Requirements",
-            "subtitle": "For production validators",
-            "cpu": "8+ cores / 16 threads",
+            "title": "Requisitos Recomendados",
+            "subtitle": "Para validadores de producción",
+            "cpu": "8+ núcleos / 16 hilos",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
             "network": "100 Mbps"
@@ -7874,12 +7874,12 @@
             "network": "Network"
           },
           "ports": {
-            "title": "Network Ports",
-            "subtitle": "Required ports for node operation",
+            "title": "Puertos de Red",
+            "subtitle": "Puertos requeridos para operación del nodo",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
-            "metrics": "9090 - Metrics"
+            "metrics": "9090 - Métricas"
           }
         },
         "tabs": {
@@ -7891,77 +7891,77 @@
           "windows": "Windows"
         },
         "npm": {
-          "title": "Install via npm",
-          "step1": "Install the SDK globally",
+          "title": "Instalar con npm",
+          "step1": "Instalar el SDK globalmente",
           "step2": "Verificar instalación",
-          "step3": "Initialize a new project"
+          "step3": "Inicializar un nuevo proyecto"
         },
         "yarn": {
-          "title": "Install via Yarn",
-          "step1": "Install the SDK globally",
+          "title": "Instalar con Yarn",
+          "step1": "Instalar el SDK globalmente",
           "step2": "Verificar instalación"
         },
         "docker": {
-          "title": "Docker Installation",
-          "step1": "Pull the official image",
-          "step2": "Run the container",
-          "step3": "Access the development environment",
-          "pullAndRun": "Pull and run the Docker image",
-          "recommendation": "Recommended for isolated development environment",
-          "viewDockerCompose": "View Docker Compose configuration"
+          "title": "Instalación con Docker",
+          "step1": "Descargar la imagen oficial",
+          "step2": "Ejecutar el contenedor",
+          "step3": "Acceder al entorno de desarrollo",
+          "pullAndRun": "Descargar y ejecutar la imagen de Docker",
+          "recommendation": "Recomendado para entorno de desarrollo aislado",
+          "viewDockerCompose": "Ver configuración de Docker Compose"
         },
         "source": {
-          "title": "Build from Source",
-          "step1": "Clonar the repository",
-          "step2": "Install dependencies",
-          "step3": "Build the project",
-          "step4": "Vincular globally"
+          "title": "Compilar desde Código Fuente",
+          "step1": "Clonar el repositorio",
+          "step2": "Instalar dependencias",
+          "step3": "Compilar el proyecto",
+          "step4": "Enlazar globalmente"
         },
         "configuration": {
           "title": "Configuración",
           "envVars": {
             "title": "Variables de Entorno",
-            "apiKey": "Your TBurn API key",
-            "network": "Network (mainnet/testnet)",
-            "rpcUrl": "Personalizado RPC endpoint (optional)"
+            "apiKey": "Tu clave API de TBurn",
+            "network": "Red (mainnet/testnet)",
+            "rpcUrl": "Endpoint RPC personalizado (opcional)"
           },
           "configFile": {
-            "title": "Configuración File",
-            "description": "Crear a tburn.config.js file in your project root"
+            "title": "Archivo de Configuración",
+            "description": "Crea un archivo tburn.config.js en la raíz de tu proyecto"
           },
-          "description": "Configure your TBurn Chain node with environment variables and config files.",
-          "commonFlags": "Common Configuration Flags"
+          "description": "Configura tu nodo de TBurn Chain con variables de entorno y archivos de configuración.",
+          "commonFlags": "Flags de Configuración Comunes"
         },
         "troubleshooting": {
-          "title": "Troubleshooting",
+          "title": "Solución de Problemas",
           "permissionDenied": {
-            "title": "Permission Denegado",
-            "description": "Try running with sudo or fix npm permissions"
+            "title": "Permiso Denegado",
+            "description": "Intenta ejecutar con sudo o corrige los permisos de npm"
           },
           "nodeVersion": {
-            "title": "Node Versión Mismatch",
-            "description": "Use nvm to switch to Node.js 18+"
+            "title": "Versión de Node Incompatible",
+            "description": "Usa nvm para cambiar a Node.js 18+"
           },
           "networkError": {
-            "title": "Network Connection Error",
-            "description": "Check your firewall settings and RPC endpoint"
+            "title": "Error de Conexión de Red",
+            "description": "Verifica la configuración de tu firewall y el endpoint RPC"
           },
-          "portErrors": "Port Already in Use",
-          "portErrorsAnswer": "Change the port using --http.port flag or kill the process using the port.",
-          "notSyncing": "Node Not Syncing",
-          "notSyncingAnswer": "Check network connectivity and ensure peers are available. Try adding bootstrap nodes.",
-          "openFiles": "Too Many Open Files",
-          "openFilesAnswer": "Increase system file descriptor limits with ulimit -n 65535."
+          "portErrors": "Puerto ya en Uso",
+          "portErrorsAnswer": "Cambia el puerto usando el flag --http.port o termina el proceso que está usando el puerto.",
+          "notSyncing": "Nodo no Sincronizando",
+          "notSyncingAnswer": "Verifica la conectividad de red y asegúrate de que haya peers disponibles. Intenta agregar nodos bootstrap.",
+          "openFiles": "Demasiados Archivos Abiertos",
+          "openFilesAnswer": "Aumenta los límites de descriptores de archivo del sistema con ulimit -n 65535."
         },
         "nextSteps": {
-          "title": "Siguiente Steps",
+          "title": "Siguientes Pasos",
           "quickStart": {
             "title": "Guía de Inicio Rápido",
-            "description": "Build your first dApp in 5 minutes"
+            "description": "Construye tu primera dApp en 5 minutos"
           },
           "sdkReference": {
-            "title": "SDK Reference",
-            "description": "Completar API documentation"
+            "title": "Referencia SDK",
+            "description": "Documentación completa de la API"
           },
           "examples": {
             "title": "Ejemplos de Código",
@@ -7969,27 +7969,27 @@
           }
         },
         "startBuilding": "Comenzar a Construir",
-        "viewQuickStart": "View Inicio Rápido",
-        "systemRequirements": "System Requirements",
-        "installationSteps": "Installation Steps",
-        "quickStart": "Quick Start",
-        "dockerImage": "Docker Image",
-        "troubleshootingTitle": "Troubleshooting",
+        "viewQuickStart": "Ver Inicio Rápido",
+        "systemRequirements": "Requisitos del Sistema",
+        "installationSteps": "Pasos de Instalación",
+        "quickStart": "Inicio Rápido",
+        "dockerImage": "Imagen Docker",
+        "troubleshootingTitle": "Solución de Problemas",
         "flags": {
-          "http": "--http: Enable HTTP-RPC server",
-          "ws": "--ws: Enable WebSocket server",
-          "mine": "--mine: Enable mining/validation",
-          "syncmode": "--syncmode: Sync mode (snap, full, light)"
+          "http": "--http: Habilitar servidor HTTP-RPC",
+          "ws": "--ws: Habilitar servidor WebSocket",
+          "mine": "--mine: Habilitar minado/validación",
+          "syncmode": "--syncmode: Modo de sincronización (snap, full, light)"
         },
         "windows": {
-          "title": "Windows Installation",
-          "recommendation": "For Windows, we recommend using WSL2 (Windows Subsystem for Linux) for optimal compatibility.",
-          "downloadBeta": "Download Windows Beta"
+          "title": "Instalación en Windows",
+          "recommendation": "Para Windows, recomendamos usar WSL2 (Subsistema de Windows para Linux) para compatibilidad óptima.",
+          "downloadBeta": "Descargar Beta de Windows"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "description": "Join our community for support and updates.",
-          "joinDiscord": "Join Discord"
+          "title": "¿Necesitas Ayuda?",
+          "description": "Únete a nuestra comunidad para soporte y actualizaciones.",
+          "joinDiscord": "Únete a Discord"
         }
       },
       "evmMigration": {
@@ -10592,59 +10592,66 @@
         "title": "Redes DePIN",
         "subtitle": "Construye y opera redes de infraestructura física descentralizada. Gana recompensas contribuyendo recursos de computación, almacenamiento, inalámbricos y sensores.",
         "buttons": {
-          "deployNode": "Desplegar Nodo",
-          "depinDocs": "Documentación DePIN"
+          "deployInfrastructure": "Desplegar Infraestructura",
+          "protocolDocs": "Docs del Protocolo"
         },
         "categories": {
           "wireless": {
             "title": "Redes Inalámbricas",
-            "desc": "Despliega LoRaWAN, 5G y hotspots WiFi. Proporciona cobertura descentralizada y gana recompensas basadas en uso."
+            "desc": "Cobertura descentralizada de 5G, LoRaWAN y WiFi. Gana recompensas desplegando hotspots y proporcionando conectividad a tu comunidad."
           },
           "compute": {
             "title": "Computación Distribuida",
-            "desc": "Presta potencia de cómputo inactiva y gana tokens por hora de GPU. Cargas de trabajo de entrenamiento de IA y renderizado."
+            "desc": "Compartición de recursos GPU y CPU para entrenamiento de IA, renderizado y computación científica. Monetiza tu poder de cómputo inactivo."
+          },
+          "mapping": {
+            "title": "Mapeo y Sensores",
+            "desc": "Datos geoespaciales crowdsourced, estaciones meteorológicas y sensores IoT. Construye redes de datos en tiempo real con cobertura verificada."
           },
           "storage": {
             "title": "Almacenamiento Descentralizado",
-            "desc": "Proporciona espacio en disco a la red. Recompensas por redundancia de archivos y pruebas de almacenamiento verificables."
-          },
-          "sensors": {
-            "title": "Redes de Sensores",
-            "desc": "Recopila datos meteorológicos, de calidad del aire y ambientales. Gana recompensas con matrices de sensores IoT."
+            "desc": "Almacenamiento de archivos distribuido con redundancia y cifrado. Gana recompensas contribuyendo espacio en disco a la red."
           }
         },
         "metrics": {
           "activeNodes": "Nodos Activos",
-          "monthlyRewards": "Recompensas Mensuales",
-          "networkCoverage": "Cobertura de Red"
+          "protocolRevenue": "Ingresos del Protocolo",
+          "countriesCovered": "Países Cubiertos"
         },
         "features": {
-          "verifiable": {
-            "title": "Contribuciones Verificables",
-            "desc": "Verifica operación de nodos y calidad de servicio a través de pruebas criptográficas. Cálculos de recompensas transparentes."
+          "proofOfCoverage": {
+            "title": "Prueba de Cobertura",
+            "desc": "Verifica criptográficamente el despliegue de infraestructura y disponibilidad de servicio. Distribución justa de recompensas basada en contribución real."
           },
-          "permissionless": {
-            "title": "Participación Sin Permisos",
-            "desc": "Únete a la red sin permiso. Conecta hardware y comienza a ganar recompensas inmediatamente."
+          "slashingProtection": {
+            "title": "Protección contra Slashing",
+            "desc": "Seguridad basada en stake con penalizaciones por comportamiento malicioso. Protege la integridad de la red mientras recompensa a operadores honestos."
           },
-          "scalable": {
-            "title": "Infraestructura Escalable",
-            "desc": "Escala a miles de nodos. Balanceo de carga automático y redundancia incorporados."
+          "communityGovernance": {
+            "title": "Gobernanza Comunitaria",
+            "desc": "Gobernanza del protocolo basada en DAO para parámetros de red. Los poseedores de tokens votan en actualizaciones, recompensas y prioridades de expansión."
           },
-          "hybrid": {
-            "title": "Modelo Híbrido",
-            "desc": "Combina hardware privado con nodos en la nube. Mezcla flexible de despliegues on-premise y nativos de la nube."
+          "dynamicRewards": {
+            "title": "Recompensas Dinámicas",
+            "desc": "Distribución de recompensas optimizada por IA basada en demanda y brechas de cobertura. Mayores recompensas para áreas desatendidas."
           }
         },
+        "hardware": {
+          "title": "Requisitos de Hardware",
+          "desc": "Opciones de hardware flexibles para diferentes protocolos DePIN. Comienza a ganar con inversión mínima.",
+          "minimum": "Mínimo: Raspberry Pi 4 o dispositivo ARM equivalente",
+          "recommended": "Recomendado: Servidor x86 con 16GB RAM, 1TB SSD",
+          "gpu": "Computación GPU: NVIDIA RTX 3080 o superior para cargas de trabajo de IA"
+        },
         "sections": {
-          "networks": "Tipos de Redes DePIN",
-          "networksDesc": "Explora infraestructura descentralizada soportada en TBURN",
-          "platformFeatures": "Características de la Plataforma"
+          "categories": "Categorías de Infraestructura",
+          "categoriesDesc": "Despliega y gana a través de múltiples protocolos DePIN",
+          "protocolFeatures": "Características del Protocolo"
         },
         "cta": {
-          "title": "Únete a la Revolución DePIN",
-          "desc": "Construye o contribuye a infraestructura descentralizada en TBURN y gana recompensas.",
-          "deployNow": "Desplegar Ahora"
+          "title": "¿Listo para Unirte a la Revolución DePIN?",
+          "desc": "Despliega infraestructura, gana recompensas y ayuda a construir el futuro descentralizado. Nuestras guías te ayudarán a comenzar en minutos.",
+          "getStarted": "Comenzar"
         }
       },
       "stablecoins": {
