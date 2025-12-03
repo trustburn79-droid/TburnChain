@@ -11527,8 +11527,8 @@
       },
       "rpc": {
         "tag": "RPC基础设施",
-        "title": "RPC提供商",
-        "subtitle": "具有企业级可靠性的高性能RPC端点。支持WebSocket和HTTP连接。",
+        "title": "RPC端点",
+        "subtitle": "连接官方RPC节点以获得可靠的网络访问。支持WebSocket和HTTP连接。",
         "getApiKey": "获取API密钥",
         "apiPlans": {
           "title": "API计划与限制",

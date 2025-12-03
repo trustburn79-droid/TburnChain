@@ -11869,7 +11869,7 @@
       "validators": {
         "tag": "네트워크 검증자",
         "title": "검증자",
-        "subtitle": "TBurn 검증자 네트워크에 참여하고 블록체인을 보호하면서 보상을 받으세요.",
+        "subtitle": "TBurn 검증자 네트워크에 참여하고 블록체인을 보호하면서 보상을 획득하세요.",
         "becomeValidator": "검증자 되기",
         "consensusSpecs": {
           "title": "합의 사양",
@@ -12062,8 +12062,8 @@
       },
       "rpc": {
         "tag": "RPC 인프라",
-        "title": "RPC 제공자",
-        "subtitle": "엔터프라이즈급 신뢰성을 갖춘 고성능 RPC 엔드포인트. WebSocket 및 HTTP 연결 지원.",
+        "title": "RPC 엔드포인트",
+        "subtitle": "안정적인 네트워크 액세스를 위한 공식 RPC 노드에 연결하세요. WebSocket 및 HTTP 연결 지원.",
         "getApiKey": "API 키 받기",
         "apiPlans": {
           "title": "API 플랜 & 한도",
@@ -12413,7 +12413,7 @@
       "hub": {
         "tag": "커뮤니티",
         "title": "커뮤니티 허브",
-        "subtitle": "빌더, 검증자, 열성 팬들과 소통하세요.",
+        "subtitle": "빌더, 검증자, 열성적인 사용자들과 연결하세요.",
         "stats": {
           "totalMembers": "총 Members",
           "monthlyActive": "매월 활성",

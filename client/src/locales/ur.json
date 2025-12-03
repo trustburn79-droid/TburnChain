@@ -7743,24 +7743,24 @@
     },
     "network": {
       "validators": {
-        "tag": "نیٹ ورک ویلیڈیٹرز",
-        "title": "ویلیڈیٹرز",
-        "subtitle": "TBurn ویلیڈیٹر نیٹ ورک میں شامل ہوں اور بلاکچین کو محفوظ کرتے ہوئے انعامات کمائیں۔",
-        "becomeValidator": "ویلیڈیٹر بنیں",
+        "tag": "نیٹ ورک تصدیق کنندگان",
+        "title": "تصدیق کنندگان",
+        "subtitle": "TBurn تصدیق کنندگان کے نیٹ ورک میں شامل ہوں اور بلاکچین کو محفوظ کرتے ہوئے انعامات حاصل کریں",
+        "becomeValidator": "تصدیق کنندہ بنیں",
         "consensusSpecs": {
-          "title": "اتفاق رائے وضاحتیں",
+          "title": "اتفاق رائے کی وضاحتیں",
           "blockTime": {
             "label": "بلاک ٹائم",
             "value": "1 سیکنڈ",
-            "description": "اوسط time کی طرف produce ایک نیا block"
+            "description": "نیا بلاک بنانے کا اوسط وقت"
           },
           "finality": {
             "label": "فائنلٹی",
             "value": "6 سیکنڈ",
-            "description": "وقت until trایکsایکctiپرs ہیں irreversible"
+            "description": "لین دین ناقابل واپسی ہونے تک کا وقت"
           },
           "validatorSet": {
-            "label": "ویلیڈیٹر سیٹ",
+            "label": "تصدیق کنندگان کا سیٹ",
             "value": "100 فعال"
           },
           "epochLength": {
@@ -7770,16 +7770,16 @@
           "tps": {
             "label": "TPS",
             "value": "50,000+",
-            "description": "زیادہ سے زیادہ trایکsایکctiپرs per secپرd"
+            "description": "زیادہ سے زیادہ لین دین فی سیکنڈ"
           },
           "uptime": {
-            "label": "Uptime",
+            "label": "اپ ٹائم",
             "value": "99.99%",
-            "description": "Netwیاk ایکvایکilایکbility guایکrایکtee"
+            "description": "نیٹ ورک دستیابی کی ضمانت"
           }
         },
         "validatorTiers": {
-          "title": "ویلیڈیٹر ٹیئر سسٹم",
+          "title": "تصدیق کنندگان کا ٹیئر سسٹم",
           "genesis": {
             "name": "جینیسس",
             "stake": "1,000,000 TBURN",
@@ -7818,128 +7818,128 @@
             "penalty": "50% اسٹیک سلیش"
           }
         },
-        "validatorDocs": "دیکھیں Vایکlidپریا دستاویزات",
+        "validatorDocs": "تصدیق کنندگان کی دستاویزات دیکھیں",
         "stats": {
-          "activeValidators": "فعال Vایکlidپریاs",
-          "totalStaked": "کل Stایکked",
-          "averageUptime": "اوسط Uptime",
-          "operatingCountries": "Operپرمیںg گنتیries"
+          "activeValidators": "فعال تصدیق کنندگان",
+          "totalStaked": "کل سٹیکنگ",
+          "averageUptime": "اوسط اپ ٹائم",
+          "operatingCountries": "آپریٹنگ ممالک"
         },
-        "applyNow": "لاگو کریں نہیںw",
+        "applyNow": "ابھی درخواست دیں",
         "consensus": {
-          "title": "اتفاق رائے Mechایکہےm",
-          "subtitle": "پروکا کا Trust کے ساتھ ایکI-poتھےd vایکlidپرiپر"
+          "title": "اتفاق رائے کا طریقہ",
+          "subtitle": "AI توثیق کے ساتھ اعتماد کا ثبوت"
         },
         "cta": {
-          "title": "پڑھیںy کی طرف Become ایک Vایکlidپریا?",
-          "subtitle": "شامل ہوں  netwیاk اور eایکrn rewایکrds while securمیںg TBurn Chایکمیں.",
-          "startValidating": "شروع Vایکlidپرمیںg",
+          "title": "تصدیق کنندہ بننے کے لیے تیار؟",
+          "subtitle": "نیٹ ورک میں شامل ہوں اور TBurn Chain کو محفوظ کرتے ہوئے انعامات حاصل کریں۔",
+          "startValidating": "توثیق شروع کریں",
           "readDocs": "دستاویزات پڑھیں"
         },
         "tierSystem": {
-          "title": "Vایکlidپریا Tier سسٹم",
-          "stake": "کم سے کم Stایکke",
+          "title": "تصدیق کنندگان کا ٹیئر سسٹم",
+          "stake": "کم سے کم اسٹیک",
           "apy": "APY",
-          "slots": "دستیاب Slots",
+          "slots": "دستیاب سلاٹس",
           "elite": {
-            "name": "Elite Vایکlidپریا",
-            "badge": "Elite",
+            "name": "ایلیٹ تصدیق کنندہ",
+            "badge": "ایلیٹ",
             "stakeAmount": "1,000,000 TBURN",
             "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
+            "slotsAmount": "21 سلاٹس",
             "benefits": {
-              "blockPriority": "Block productiپر priیاity",
-              "revenueShare": "شامل کریںitiپرایکl revenue shہیں",
-              "aiDecision": "ایکI decہےiپر pایکrticipپرiپر"
+              "blockPriority": "بلاک پروڈکشن ترجیح",
+              "revenueShare": "اضافی ریونیو شیئر",
+              "aiDecision": "AI فیصلے میں شرکت"
             }
           },
           "standard": {
-            "name": "معیاری Vایکlidپریا",
+            "name": "معیاری تصدیق کنندہ",
             "badge": "معیاری",
             "stakeAmount": "500,000 TBURN",
             "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
+            "slotsAmount": "50 سلاٹس",
             "benefits": {
-              "blockValidation": "Block vایکlidپرiپر حقوق",
-              "feeDistribution": "Trایکsایکctiپر fee dہےtributiپر",
-              "votingRights": "Governایکce votمیںg حقوق"
+              "blockValidation": "بلاک توثیق کے حقوق",
+              "feeDistribution": "لین دین فیس کی تقسیم",
+              "votingRights": "گورننس ووٹنگ کے حقوق"
             }
           },
           "starter": {
-            "name": "شروعer Vایکlidپریا",
-            "badge": "شروعer",
+            "name": "ابتدائی تصدیق کنندہ",
+            "badge": "ابتدائی",
             "stakeAmount": "100,000 TBURN",
             "apyAmount": "8-12%",
             "slotsAmount": "لامحدود",
             "benefits": {
-              "delegate": "Delegپرe کی طرف lایکrger vایکlidپریاs",
-              "autoRewards": "خودکار rewایکrd dہےtributiپر",
-              "unstakePeriod": "21-dایکy unstایکkمیںg period"
+              "delegate": "بڑے تصدیق کنندگان کو ڈیلیگیٹ کریں",
+              "autoRewards": "خودکار انعام کی تقسیم",
+              "unstakePeriod": "21 دن کی ان اسٹیکنگ مدت"
             }
           }
         },
         "hardware": {
-          "title": "Hایکrdwہیں Requirements",
-          "cpu": "CPU: 16+ cیاes (AMD EPYC یا Intel Xeپر)",
+          "title": "ہارڈویئر تقاضے",
+          "cpu": "CPU: 16+ کورز (AMD EPYC یا Intel Xeon)",
           "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Stیاایکge: 2TB NVMe SSD",
-          "network": "Netwیاk: 1Gbps dedicپرed",
+          "storage": "اسٹوریج: 2TB NVMe SSD",
+          "network": "نیٹ ورک: 1Gbps مختص",
           "superNode": {
-            "title": "Super نہیںde Requirements",
-            "cpu": "CPU: 32+ cیاes",
+            "title": "سپر نوڈ تقاضے",
+            "cpu": "CPU: 32+ کورز",
             "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Stیاایکge: 4TB NVMe RایکID",
-            "network": "Netwیاk: 10Gbps dedicپرed"
+            "storage": "اسٹوریج: 4TB NVMe RAID",
+            "network": "نیٹ ورک: 10Gbps مختص"
           },
           "standardNode": {
-            "title": "معیاری نہیںde Requirements",
-            "cpu": "CPU: 8+ cیاes",
+            "title": "معیاری نوڈ تقاضے",
+            "cpu": "CPU: 8+ کورز",
             "ram": "RAM: 32GB DDR4",
-            "storage": "Stیاایکge: 1TB NVMe SSD",
-            "network": "Netwیاk: 500Mbps"
+            "storage": "اسٹوریج: 1TB NVMe SSD",
+            "network": "نیٹ ورک: 500Mbps"
           }
         },
         "slashing": {
-          "title": "Slایکshمیںg Cپرditiپرs",
-          "subtitle": "Vایکlidپریاs must mایکمیںtایکمیں high stاورایکrds. Violپرiپرs result میں stایکke penایکlties.",
+          "title": "سلیشنگ شرائط",
+          "subtitle": "تصدیق کنندگان کو اعلیٰ معیار برقرار رکھنا ہوگا۔ خلاف ورزیوں کے نتیجے میں اسٹیک کی سزا ہوگی۔",
           "minor": {
-            "title": "Mمیںیا Violپرiپر",
+            "title": "معمولی خلاف ورزی",
             "badge": "انتباہ",
-            "description": "Brief downtime یا mہےsed blocks",
-            "penalty": "0.1% stایکke reductiپر"
+            "description": "مختصر ڈاؤن ٹائم یا چھوٹے بلاکس",
+            "penalty": "0.1% اسٹیک میں کمی"
           },
           "moderate": {
-            "title": "Moderپرe Violپرiپر",
-            "badge": "Penایکlty",
-            "description": "Extended downtime over 24 hہماراs",
-            "penalty": "1-5% stایکke reductiپر"
+            "title": "درمیانی خلاف ورزی",
+            "badge": "جرمانہ",
+            "description": "24 گھنٹے سے زیادہ ڈاؤن ٹائم",
+            "penalty": "1-5% اسٹیک میں کمی"
           },
           "severe": {
-            "title": "Severe Violپرiپر",
-            "badge": "Severe",
-            "description": "Mایکlicious votمیںg یا censیاship پرtemپوائنٹس",
-            "penalty": "25-50% stایکke reductiپر"
+            "title": "سنگین خلاف ورزی",
+            "badge": "سنگین",
+            "description": "بدنیتی پر مبنی ووٹنگ یا سنسرشپ کی کوششیں",
+            "penalty": "25-50% اسٹیک میں کمی"
           },
           "critical": {
-            "title": "اہم Violپرiپر",
+            "title": "اہم خلاف ورزی",
             "badge": "اہم",
-            "description": "Double signمیںg یا netwیاk پرtایکcks",
-            "penalty": "100% stایکke slایکshed"
+            "description": "ڈبل سائننگ یا نیٹ ورک حملے",
+            "penalty": "100% اسٹیک سلیش"
           }
         },
         "geography": {
-          "title": "Geogrایکphic Dہےtributiپر"
+          "title": "جغرافیائی تقسیم"
         },
         "activeValidators": {
-          "title": "فعال Vایکlidپریاs",
-          "searchPlaceholder": "تلاش vایکlidپریاs...",
-          "viewAll": "دیکھیں سب Vایکlidپریاs"
+          "title": "فعال تصدیق کنندگان",
+          "searchPlaceholder": "تصدیق کنندگان تلاش کریں...",
+          "viewAll": "تمام تصدیق کنندگان دیکھیں"
         }
       },
       "rpc": {
         "tag": "RPC انفراسٹرکچر",
-        "title": "RPC فراہم کنندگان",
-        "subtitle": "انٹرپرائز گریڈ قابل اعتمادی کے ساتھ اعلیٰ کارکردگی والے RPC اینڈ پوائنٹس۔ WebSocket اور HTTP کنکشنز کی سپورٹ۔",
+        "title": "RPC اینڈ پوائنٹس",
+        "subtitle": "قابل اعتماد نیٹ ورک رسائی کے لیے سرکاری RPC نوڈز سے جڑیں",
         "getApiKey": "API کلید حاصل کریں",
         "apiPlans": {
           "title": "API پلانز اور حدود",
@@ -8012,17 +8012,17 @@
           "documentation": {
             "title": "دستاویزات",
             "description": "تفصیلی API حوالہ جات اور گائیڈز۔",
-            "desc": "Comprehensive API documentپرiپر اور میںtegrپرiپر guides."
+            "desc": "جامع API دستاویزات اور انضمام گائیڈز۔"
           },
           "apiStatus": {
             "title": "API حیثیت",
             "description": "ریئل ٹائم سسٹم حیثیت اور اپ ٹائم۔",
-            "desc": "Reایکl-time سسٹم stپرہم, uptime metrics, اور میںcident repیاts."
+            "desc": "ریئل ٹائم سسٹم حیثیت، اپ ٹائم میٹرکس، اور واقعات کی رپورٹس۔"
           },
           "developerHub": {
             "title": "ڈویلپر ہب",
             "description": "اوپن سورس SDKs اور مثالیں۔",
-            "desc": "کھولیں sہماراce SDKs, code exایکmples, اور community resہماراces."
+            "desc": "اوپن سورس SDKs، کوڈ مثالیں، اور کمیونٹی وسائل۔"
           }
         },
         "cta": {
@@ -8030,16 +8030,16 @@
           "subtitle": "آج ہی TBurn Chain API کے ساتھ بنانا شروع کریں۔ اپنی مفت API کلید حاصل کریں اور انٹرپرائز گریڈ بلاکچین انفراسٹرکچر تک رسائی۔",
           "getStartedFree": "مفت شروع کریں",
           "contactSales": "سیلز سے رابطہ کریں",
-          "desc": "شروع buildمیںg کے ساتھ TBurn Chایکمیں ایکPI آج. Get آپ کا free ایکPI key اور ایکccess enterprہےe-grایکde blockchایکمیں میںfrایکstructure."
+          "desc": "آج ہی TBurn Chain API کے ساتھ بنانا شروع کریں۔ اپنی مفت API کلید حاصل کریں اور انٹرپرائز گریڈ بلاکچین انفراسٹرکچر تک رسائی حاصل کریں۔"
         },
         "buttons": {
-          "getApiKey": "Get API Key",
-          "viewDocs": "دیکھیں دستاویزات"
+          "getApiKey": "API کلید حاصل کریں",
+          "viewDocs": "دستاویزات دیکھیں"
         },
         "sections": {
-          "apiPlans": "API Plایکs",
-          "coreEndpoints": "Cیاe ختمپوائنٹس",
-          "sdkExamples": "SDK Exایکmples",
+          "apiPlans": "API پلانز",
+          "coreEndpoints": "بنیادی اینڈ پوائنٹس",
+          "sdkExamples": "SDK مثالیں",
           "support": "سپورٹ"
         },
         "plans": {
@@ -8053,38 +8053,38 @@
             "name": "پرو"
           },
           "enterprise": {
-            "name": "Enterprہےe"
+            "name": "انٹرپرائز"
           },
-          "requestsMin": "requests/mمیں",
-          "requestsDay": "requests/dایکy",
-          "perMonth": "/mپرth",
+          "requestsMin": "درخواستیں/منٹ",
+          "requestsDay": "درخواستیں/دن",
+          "perMonth": "/ماہ",
           "unlimited": "لامحدود",
-          "contact": "رابطہ ہم"
+          "contact": "ہم سے رابطہ کریں"
         },
         "endpoints": {
           "scoreQuery": {
-            "title": "Scیاe Query API"
+            "title": "سکور کیوری API"
           },
           "projectApi": {
-            "title": "پروject API"
+            "title": "پروجیکٹ API"
           },
           "analyticsApi": {
-            "title": "ایکnایکlytics ایکPI"
+            "title": "اینالیٹکس API"
           },
           "webhookApi": {
             "title": "Webhook API",
-            "events": "Events: scیاe.updپرed, scیاe.ایکlert, project.regہےtered"
+            "events": "ایونٹس: score.updated, score.alert, project.registered"
           }
         },
         "sdk": {
           "typescript": {
-            "title": "قسمScript SDK"
+            "title": "TypeScript SDK"
           },
           "python": {
-            "title": "Pythپر SDK"
+            "title": "Python SDK"
           },
           "curl": {
-            "title": "cURL Exایکmple"
+            "title": "cURL مثال"
           }
         }
       },
@@ -8092,96 +8092,96 @@
         "tag": "حیثیت",
         "title": "نیٹ ورک حیثیت",
         "subtitle": "ریئل ٹائم نیٹ ورک صحت اور کارکردگی میٹرکس۔",
-        "operational": "Operپرiپرایکl",
-        "lastUpdated": "آخری updپرed",
-        "daysAgo": "dایکys پہلے",
+        "operational": "آپریشنل",
+        "lastUpdated": "آخری اپڈیٹ",
+        "daysAgo": "دن پہلے",
         "today": "آج",
-        "uptimeAvg": "Uptime اوسط",
+        "uptimeAvg": "اپ ٹائم اوسط",
         "buttons": {
-          "refreshData": "ریفریش کریں Dپرایک"
+          "refreshData": "ڈیٹا ریفریش کریں"
         },
         "sections": {
-          "coreMetrics": "Cیاe Metrics",
-          "coreMetricsDesc": "Reایکl-time blockchایکمیں perکے لیےmایکce میںdicپریاs",
-          "serviceStatus": "Service حیثیت",
-          "serviceStatusDesc": "موجودہ stپرہم کا ایکll netwیاk services",
-          "uptimeHistory": "Uptime Hہےtیاy",
-          "uptimeHistoryDesc": "Netwیاk ایکvایکilایکbility over  pایکst 90 dایکys",
-          "aiSystem": "AI Orchestrپرiپر سسٹم",
-          "aiSystemDesc": "Triple-bاور AI model perکے لیےmایکce اور stپرہم",
-          "validatorNetwork": "Vایکlidپریا Netwیاk",
-          "validatorNetworkDesc": "فعال vایکlidپریاs اور geogrایکphic dہےtributiپر"
+          "coreMetrics": "بنیادی میٹرکس",
+          "coreMetricsDesc": "ریئل ٹائم بلاکچین کارکردگی انڈیکیٹرز",
+          "serviceStatus": "سروس حیثیت",
+          "serviceStatusDesc": "تمام نیٹ ورک سروسز کی موجودہ حیثیت",
+          "uptimeHistory": "اپ ٹائم تاریخ",
+          "uptimeHistoryDesc": "پچھلے 90 دنوں میں نیٹ ورک کی دستیابی",
+          "aiSystem": "AI آرکیسٹریشن سسٹم",
+          "aiSystemDesc": "ٹرپل بینڈ AI ماڈل کی کارکردگی اور حیثیت",
+          "validatorNetwork": "تصدیق کنندگان کا نیٹ ورک",
+          "validatorNetworkDesc": "فعال تصدیق کنندگان اور جغرافیائی تقسیم"
         },
         "metrics": {
-          "tps": "Trایکsایکctiپرs Per سیکنڈ",
-          "peak": "Peایکk",
-          "blockHeight": "Block Height",
-          "latency": "Netwیاk Lپرency",
+          "tps": "لین دین فی سیکنڈ",
+          "peak": "عروج",
+          "blockHeight": "بلاک اونچائی",
+          "latency": "نیٹ ورک تاخیر",
           "finality": "فائنلٹی وقت",
           "avgFee": "اوسط فیس",
-          "cheapFast": "Cheایکp & تیز",
-          "shards": "فعال Shایکrds"
+          "cheapFast": "سستا اور تیز",
+          "shards": "فعال شارڈز"
         },
         "services": {
           "mainnetRpc": {
-            "name": "Mایکمیںnet RPC",
-            "desc": "Primایکry JSON-RPC endپوائنٹس کے لیے mایکمیںnet"
+            "name": "مین نیٹ RPC",
+            "desc": "مین نیٹ کے لیے بنیادی JSON-RPC اینڈ پوائنٹس"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "Reایکl-time event streایکmمیںg اور subscriptiپرs"
+            "desc": "ریئل ٹائم ایونٹ سٹریمنگ اور سبسکرپشنز"
           },
           "explorerApi": {
-            "name": "Explیاer API",
-            "desc": "Block explیاer dپرایک endپوائنٹس"
+            "name": "ایکسپلورر API",
+            "desc": "بلاک ایکسپلورر ڈیٹا اینڈ پوائنٹس"
           },
           "trustScoreApi": {
-            "name": "Trust Scیاe API",
-            "desc": "پروject verificپرiپر اور scیامیںg endپوائنٹس"
+            "name": "ٹرسٹ سکور API",
+            "desc": "پروجیکٹ تصدیق اور سکورنگ اینڈ پوائنٹس"
           },
           "trustScore": {
-            "name": "Trust Scیاe Service",
-            "desc": "AI-poتھےd trust verificپرiپر اور project scیامیںg"
+            "name": "ٹرسٹ سکور سروس",
+            "desc": "AI سے چلنے والی اعتماد کی تصدیق اور پروجیکٹ سکورنگ"
           },
           "crossChainBridge": {
-            "name": "Cross-Chایکمیں Bridge",
-            "desc": "Multi-chایکمیں ایکsset trایکsfer service"
+            "name": "کراس چین برج",
+            "desc": "ملٹی چین اثاثہ منتقلی سروس"
           },
           "quantumSecurity": {
-            "name": "کوانٹم سیکورٹی Module",
-            "desc": "CRYSTALS-Dilithium signپرure verificپرiپر"
+            "name": "کوانٹم سیکورٹی ماڈیول",
+            "desc": "CRYSTALS-Dilithium دستخط کی تصدیق"
           }
         },
         "ai": {
           "active": "فعال",
-          "accuracy": "ایکccurایکcy",
-          "latency": "Lپرency",
+          "accuracy": "درستگی",
+          "latency": "تاخیر",
           "strategic": {
-            "title": "Strپرegic AI",
+            "title": "حکمت عملی AI",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tایکcticایکl ایکI",
-            "model": "Clایکude Sپرnet 4.5"
+            "title": "تکنیکی AI",
+            "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operپرiپرایکl ایکI",
-            "model": "Llایکmایک 4"
+            "title": "آپریشنل AI",
+            "model": "Llama 4"
           }
         },
         "uptime": {
           "monthlyAverage": "ماہانہ اوسط",
-          "uptimeGuarantee": "Uptime Guایکrایکtee",
-          "lastIncident": "آخری Incident"
+          "uptimeGuarantee": "اپ ٹائم ضمانت",
+          "lastIncident": "آخری واقعہ"
         },
         "validators": {
-          "active": "فعال Vایکlidپریاs",
-          "countries": "Operپرمیںg گنتیries",
-          "totalStaked": "کل Stایکked",
-          "avgUptime": "اوسط Uptime",
-          "nodeCount": "نہیںde گنتی",
-          "regions": "Regiپرs",
-          "superNodes": "Super نہیںdes"
+          "active": "فعال تصدیق کنندگان",
+          "countries": "آپریٹنگ ممالک",
+          "totalStaked": "کل سٹیکنگ",
+          "avgUptime": "اوسط اپ ٹائم",
+          "nodeCount": "نوڈز کی تعداد",
+          "regions": "علاقے",
+          "superNodes": "سپر نوڈز"
         }
       },
       "ramp": {
@@ -8289,38 +8289,38 @@
       "hub": {
         "tag": "کمیونٹی",
         "title": "کمیونٹی ہب",
-        "subtitle": "بلڈرز، ویلیڈیٹرز اور شائقین سے جڑیں۔",
+        "subtitle": "ڈویلپرز، تصدیق کنندگان اور شائقین سے جڑیں",
         "stats": {
-          "totalMembers": "کل Members",
+          "totalMembers": "کل ممبران",
           "monthlyActive": "ماہانہ فعال",
-          "ambassadors": "ایکmbایکssایکdیاs",
-          "contributors": "Cپرtributیاs"
+          "ambassadors": "سفیران",
+          "contributors": "شراکت دار"
         },
         "channels": {
           "title": "کمیونٹی چینلز",
           "discord": {
             "name": "Discord",
-            "description": "ریئل ٹائم ڈیو چیٹ، سپورٹ، اور کمیونٹی ہینگ آؤٹ۔",
+            "description": "ریئل ٹائم ڈویلپر چیٹ، سپورٹ، اور کمیونٹی ہینگ آؤٹ۔",
             "action": "سرور میں شامل ہوں",
-            "members": "124,500+ members"
+            "members": "124,500+ ممبران"
           },
           "telegram": {
             "name": "Telegram",
             "description": "تیز اعلانات اور مقامی کمیونٹی گروپس۔",
             "action": "چینل میں شامل ہوں",
-            "members": "89,200+ members"
+            "members": "89,200+ ممبران"
           },
           "twitter": {
             "name": "Twitter / X",
             "description": "تازہ ترین اپڈیٹس، شراکت داری، اور ایونٹ کی خبریں۔",
             "action": "فالو کریں",
-            "members": "156,000+ followers"
+            "members": "156,000+ فالوورز"
           },
           "github": {
             "name": "GitHub",
             "description": "اوپن سورس کوڈ، SDKs، اور تکنیکی دستاویزات۔",
             "action": "شراکت کریں",
-            "members": "2,400+ stایکrs"
+            "members": "2,400+ ستارے"
           }
         },
         "leaderboard": {
@@ -8328,11 +8328,11 @@
           "subtitle": "اس مہینے کے سرفہرست کمیونٹی شراکت دار",
           "points": "{{count}} پوائنٹس",
           "tiers": {
-            "diamond": "Diایکmپرd",
-            "platinum": "Plپرمیںum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Brپرze"
+            "diamond": "ڈائمنڈ",
+            "platinum": "پلاٹینم",
+            "gold": "گولڈ",
+            "silver": "سلور",
+            "bronze": "برانز"
           }
         },
         "ambassadorProgram": {
@@ -8378,101 +8378,101 @@
             "proposals": "تجاویز",
             "votesCast": "ڈالے گئے ووٹ",
             "treasuryBalance": "خزانے کا بیلنس",
-            "treasury": "Treایکsury Bایکlایکce"
+            "treasury": "خزانے کا بیلنس"
           },
-          "button": "Go کی طرف Governایکce Pیاtایکl"
+          "button": "گورننس پورٹل پر جائیں"
         },
-        "channelsTitle": "شامل ہوں Our Chایکnels",
+        "channelsTitle": "ہمارے چینلز میں شامل ہوں",
         "ambassador": {
-          "title": "ایکmbایکssایکdیا پروgrایکm",
-          "subtitle": "Leایکd  globایکl TBurn community",
-          "applyButton": "لاگو کریں ایکs ایکmbایکssایکdیا",
+          "title": "سفیر پروگرام",
+          "subtitle": "عالمی TBurn کمیونٹی کی قیادت کریں",
+          "applyButton": "سفیر کے طور پر درخواست دیں",
           "benefits": {
-            "rewards": "ماہانہ TBURN token rewایکrds",
-            "earlyAccess": "Eایکrly ایکccess کی طرف نیا feپرures",
-            "nftBadge": "Officiایکl NFT Bایکdge & Swایکg",
-            "directChannel": "Direct teایکm communicپرiپر chایکnel"
+            "rewards": "ماہانہ TBURN ٹوکن انعامات",
+            "earlyAccess": "نئے فیچرز تک ابتدائی رسائی",
+            "nftBadge": "آفیشل NFT بیج اور سویگ",
+            "directChannel": "براہ راست ٹیم کمیونیکیشن چینل"
           }
         },
-        "contributeTitle": "Wایکys کی طرف Cپرtribute"
+        "contributeTitle": "شراکت کے طریقے"
       },
       "news": {
         "tag": "خبریں اور بلاگ",
         "title": "خبریں اور بلاگ",
-        "subtitle": "تازہ ترین اپڈیٹس، اعلانات اور بصیرتیں۔",
-        "searchPlaceholder": "تلاش ایکrticles...",
-        "featuredTitle": "نمایاں Stیاies",
+        "subtitle": "تازہ ترین اپڈیٹس، اعلانات اور بصیرت",
+        "searchPlaceholder": "مضامین تلاش کریں...",
+        "featuredTitle": "نمایاں کہانیاں",
         "featuredBadge": "نمایاں",
         "latestTitle": "تازہ ترین مضامین",
-        "readMore": "پڑھیں مزید",
-        "readTime": "{{mمیںutes}} mمیں reایکd",
-        "views": "views",
-        "showingCount": "دکھائیںمیںg {{current}} کا {{totایکl}}",
+        "readMore": "مزید پڑھیں",
+        "readTime": "{{minutes}} منٹ پڑھنے کا وقت",
+        "views": "مناظر",
+        "showingCount": "{{current}} میں سے {{total}} دکھا رہا ہے",
         "categories": {
           "all": "سب",
-          "announcement": "Announcement",
-          "technology": "Technology",
-          "security": "Security",
-          "tokenomics": "تکkenomics",
-          "partnership": "Pایکrtnership",
+          "announcement": "اعلان",
+          "technology": "ٹیکنالوجی",
+          "security": "سیکورٹی",
+          "tokenomics": "ٹوکنومکس",
+          "partnership": "شراکت داری",
           "defi": "DeFi",
-          "development": "Development"
+          "development": "ترقی"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 Mایکمیںnet Officiایکlly Lایکunches",
-            "description": "ایکfter 18 mپرths کا ڈویلپمنٹ, TBURN Chایکمیں V4 Mایکمیںnet ہے ابھی live کے ساتھ 500K+ TPS, ٹرپل بینڈ ایکI, اور quایکtum-resہےtایکt security.",
-            "author": "TBURN Foundپرiپر"
+            "title": "TBURN V4 مین نیٹ سرکاری طور پر لانچ",
+            "description": "18 ماہ کی ترقی کے بعد، TBURN Chain V4 مین نیٹ اب 500K+ TPS، ٹرپل بینڈ AI، اور کوانٹم مزاحم سیکورٹی کے ساتھ لائیو ہے۔",
+            "author": "TBURN فاؤنڈیشن"
           },
           "tripleBandAi": {
-            "title": "ٹرپل بینڈ ایکI Orchestrپرiپر Reveایکled",
-            "description": "Deep dive میںکی طرف ہمارا revolutiپرایکry three-tier ایکI سسٹم وہ powers میںtelligent decہےiپر-mایکkمیںg ایکcross strپرegic, tایکcticایکl, اور operپرiپرایکl lایکyers.",
-            "author": "ایکI Reseایکrch Teایکm"
+            "title": "ٹرپل بینڈ AI آرکیسٹریشن کا انکشاف",
+            "description": "ہماری انقلابی تین درجے کی AI سسٹم میں گہرائی سے جائزہ جو حکمت عملی، تکنیکی، اور آپریشنل سطحوں پر ذہین فیصلہ سازی کو طاقت دیتا ہے۔",
+            "author": "AI ریسرچ ٹیم"
           },
           "partnership": {
-            "title": "Globایکl Pایکrtnership Expایکsiپر: 12 نیا Integrپرiپرs",
-            "description": "TBURN Chایکمیں ایکnounces strپرegic pایکrtnerships کے ساتھ leایکdمیںg DeFi protocols, exchایکges, اور enterprہےe clients ایکcross ایکsiایک, Europe, اور ایکmericایکs.",
-            "author": "Busمیںess ڈویلپمنٹ"
+            "title": "عالمی شراکت داری کی توسیع: 12 نئے انضمام",
+            "description": "TBURN Chain ایشیا، یورپ، اور امریکہ میں اہم DeFi پروٹوکولز، ایکسچینجز، اور انٹرپرائز کلائنٹس کے ساتھ حکمت عملی شراکت داری کا اعلان کرتا ہے۔",
+            "author": "بزنس ڈیولپمنٹ"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN Stایکkمیںg پروgrایکm: مکمل کریں گائیڈ کی طرف Eایکrnمیںg Rewایکrds",
-            "description": "Everythمیںg you need کی طرف kابھی ایکbout  three-tier stایکkمیںg سسٹم, ایکPY cایکlculپرiپرs, اور how کی طرف mایکximize آپ کا vایکlidپریا rewایکrds."
+            "title": "TBURN سٹیکنگ پروگرام: انعامات حاصل کرنے کی مکمل گائیڈ",
+            "description": "تین درجے کے سٹیکنگ سسٹم، APY کیلکولیٹرز، اور اپنے تصدیق کنندہ انعامات کو زیادہ سے زیادہ کرنے کے بارے میں آپ کو جو کچھ جاننے کی ضرورت ہے۔"
           },
           "trustScore": {
-            "title": "Trust Scیاe Deep Dive:  3-Stایکge تصدیقی عمل",
-            "description": "Understاور how ایکI ایکایکlysہے, expert review, اور community votمیںg wیاk toger کی طرف protect میںvestیاs from frایکudulent projects."
+            "title": "ٹرسٹ سکور کا گہرا جائزہ: 3 مرحلہ تصدیقی عمل",
+            "description": "سمجھیں کہ AI تجزیہ، ماہر جائزہ، اور کمیونٹی ووٹنگ کس طرح سرمایہ کاروں کو دھوکہ دہی والے منصوبوں سے بچانے کے لیے مل کر کام کرتے ہیں۔"
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Releایکsed: نیا Feپرures کے لیے Developers",
-            "description": "ایکnnouncمیںg SDK 2.0 کے ساتھ قسمScript suppیاt, improved WebSocket hاورlمیںg, اور streایکmlمیںed smایکrt cپرtrایکct deployment tools."
+            "title": "TBURN SDK 2.0 جاری: ڈویلپرز کے لیے نئے فیچرز",
+            "description": "TypeScript سپورٹ، بہتر WebSocket ہینڈلنگ، اور ہموار سمارٹ کنٹریکٹ تعیناتی ٹولز کے ساتھ SDK 2.0 کا اعلان۔"
           },
           "quantum": {
-            "title": "Quایکtum-Resہےtایکt Cryptogrایکphy: Future-پروکامیںg TBURN",
-            "description": "How CRYSTایکLS-Dilithium اور ED25519 hybrid signپرures protect TBURN Chایکمیں ایکgایکمیںst emergمیںg quایکtum computمیںg threپرs."
+            "title": "کوانٹم مزاحم کرپٹوگرافی: TBURN کی مستقبل کی حفاظت",
+            "description": "CRYSTALS-Dilithium اور ED25519 ہائبرڈ دستخط کس طرح TBURN Chain کو ابھرتے ہوئے کوانٹم کمپیوٹنگ خطرات سے بچاتے ہیں۔"
           },
           "dex": {
-            "title": "TBURN DEX Betایک Lایکunch: Trایکde کے ساتھ Trust Scیاes",
-            "description": "Our nپرive decentrایکlized exchایکge ہے ابھی میں betایک. Trایکde verified tokens کے ساتھ میںtegrپرed Trust Scیاe protectiپر اور low fees."
+            "title": "TBURN DEX بیٹا لانچ: ٹرسٹ سکورز کے ساتھ تجارت کریں",
+            "description": "ہماری مقامی غیر مرکزی ایکسچینج اب بیٹا میں ہے۔ مربوط ٹرسٹ سکور تحفظ اور کم فیس کے ساتھ تصدیق شدہ ٹوکنز کی تجارت کریں۔"
           }
         },
         "newsletter": {
-          "title": "Stایکy اپڈیٹ کریںd",
-          "description": "Get  lپرest خبریں, updپرes, اور میںsights delivered directly کی طرف آپ کا میںbox.",
-          "placeholder": "Enter آپ کا emایکil ایکddress",
+          "title": "اپڈیٹ رہیں",
+          "description": "تازہ ترین خبریں، اپڈیٹس، اور بصیرتیں براہ راست اپنے ان باکس میں حاصل کریں۔",
+          "placeholder": "اپنا ای میل ایڈریس درج کریں",
           "button": "سبسکرائب کریں",
-          "privacy": "We respect آپ کا privایکcy. Unsubscribe ایکytime.",
-          "success": "Subscriptiپر کامیابful",
-          "subscribed": "You've been ایکdded کی طرف ہمارا نیوز لیٹر. Check آپ کا میںbox کے لیے cپرfirmپرiپر.",
-          "error": "Subscriptiپر خرابی",
-          "invalidEmail": "Pleایکse enter ایک vایکlid emایکil ایکddress."
+          "privacy": "ہم آپ کی رازداری کا احترام کرتے ہیں۔ کسی بھی وقت ان سبسکرائب کریں۔",
+          "success": "سبسکرپشن کامیاب",
+          "subscribed": "آپ کو ہماری نیوز لیٹر میں شامل کر لیا گیا ہے۔ تصدیق کے لیے اپنا ان باکس چیک کریں۔",
+          "error": "سبسکرپشن خرابی",
+          "invalidEmail": "براہ کرم ایک درست ای میل ایڈریس درج کریں۔"
         }
       },
       "events": {
-        "tag": "تقریبات اور سرگرمیاں",
-        "title": "تقریبات اور سرگرمیاں",
-        "subtitle": "TBurn Chain کمیونٹی ایونٹس، ہیکاتھونز اور کانفرنسز میں شامل ہوں۔",
+        "tag": "ایونٹس اور سرگرمیاں",
+        "title": "ایونٹس اور سرگرمیاں",
+        "subtitle": "کمیونٹی ایونٹس، ہیکاتھون اور کانفرنسز میں شامل ہوں",
         "filters": {
           "all": "تمام ایونٹس",
           "hackathon": "ہیکاتھون",
@@ -8485,39 +8485,39 @@
           "title": "نمایاں ایونٹس",
           "capacity": "گنجائش",
           "mainnetLaunch": {
-            "title": "TBURN Mایکمیںnet Lایکunch Celebrپرiپر",
-            "description": "شامل ہوں ہم کے لیے  hہےtیاic lایکunch کا TBURN V4 Mایکمیںnet. Be pایکrt کا  next generپرiپر کا trust-bایکsed blockchایکمیں technology کے ساتھ live demos اور exclusive ایکirdrops."
+            "title": "TBURN مین نیٹ لانچ تقریب",
+            "description": "TBURN V4 مین نیٹ کے تاریخی لانچ کے لیے ہمارے ساتھ شامل ہوں۔ لائیو ڈیموز اور خصوصی ایئرڈراپس کے ساتھ اعتماد پر مبنی بلاکچین ٹیکنالوجی کی اگلی نسل کا حصہ بنیں۔"
           },
           "defiChallenge": {
-            "title": "TBURN DeFi Chایکllenge Hایکckپرhپر",
-            "description": "48-hہمارا globایکl hایکckپرhپر کے ساتھ $500K میں prizes. تعمیر کریں میںnovپرive DeFi solutiپرs پر TBURN Chایکمیں اور compete کے لیے grایکts اور میںcubپرiپر oppیاtunities."
+            "title": "TBURN DeFi چیلنج ہیکاتھون",
+            "description": "$500K انعامات کے ساتھ 48 گھنٹے کا عالمی ہیکاتھون۔ TBURN Chain پر جدید DeFi حل بنائیں اور گرانٹس اور انکیوبیشن کے مواقع کے لیے مقابلہ کریں۔"
           }
         },
         "upcoming": {
           "title": "آنے والے ایونٹس",
           "foundersAma": {
-            "title": "Founders AMA: 2025 Vہےiپر",
-            "description": "لائیو Q&ایک کے ساتھ TBURN founders dہےcussمیںg  roایکdmایکp, upcomمیںg feپرures, اور community میںitiپرives کے لیے  نیا yeایکr."
+            "title": "بانیوں کا AMA: 2025 وژن",
+            "description": "TBURN بانیوں کے ساتھ لائیو سوال و جواب، نئے سال کے لیے روڈ میپ، آنے والے فیچرز، اور کمیونٹی اقدامات پر بحث۔"
           },
           "trustScoreApi": {
-            "title": "Trust Scیاe API انضمام Wیاkshop",
-            "description": "Hاورs-پر technicایکl wیاkshop کے لیے developers. سیکھیں how کی طرف میںtegrپرe Trust Scیاe verificپرiپر میںکی طرف آپ کا dایکpps اور smایکrt cپرtrایکcts."
+            "title": "ٹرسٹ سکور API انضمام ورکشاپ",
+            "description": "ڈویلپرز کے لیے تکنیکی ورکشاپ۔ اپنے dApps اور سمارٹ کنٹریکٹس میں ٹرسٹ سکور تصدیق کو کیسے شامل کریں سیکھیں۔"
           },
           "seoulMeetup": {
-            "title": "Seoul Developer Meetup",
-            "description": "میں-persپر netwیاkمیںg event کے لیے Kیاeایک developers. Technicایکl presentپرiپرs, demos, اور exclusive swایکg کے لیے پرtendees."
+            "title": "سیول ڈویلپر میٹ اپ",
+            "description": "کوریا کے ڈویلپرز کے لیے ذاتی نیٹ ورکنگ ایونٹ۔ تکنیکی پریزنٹیشنز، ڈیموز، اور شرکاء کے لیے خصوصی سویگ۔"
           },
           "aiDeepDive": {
-            "title": "ٹرپل بینڈ ایکI Deep Dive Semمیںایکr",
-            "description": "Technicایکl deep dive میںکی طرف ہمارا ایکI یاchestrپرiپر سسٹم. سیکھیں ایکbout  ایکrchitecture behمیںd میںtelligent blockchایکمیں operپرiپرs."
+            "title": "ٹرپل بینڈ AI گہرائی سیمینار",
+            "description": "ہماری AI آرکیسٹریشن سسٹم میں تکنیکی گہرائی۔ ذہین بلاکچین آپریشنز کے پیچھے کی فن تعمیر کے بارے میں جانیں۔"
           },
           "validatorOps": {
-            "title": "Vایکlidپریا Operپرiپرs Trایکمیںمیںg",
-            "description": "Comprehensive trایکمیںمیںg کے لیے node operپریاs. Cover setup, mایکمیںtenایکce, security best prایکctices, اور rewایکrd optimizپرiپر."
+            "title": "تصدیق کنندہ آپریشنز ٹریننگ",
+            "description": "نوڈ آپریٹرز کے لیے جامع ٹریننگ۔ سیٹ اپ، دیکھ بھال، سیکورٹی بہترین طریقے، اور انعام کی اصلاح شامل ہے۔"
           },
           "futureOfTrust": {
-            "title": " Future کا Trust: TBURN Summit 2025",
-            "description": "Our flایکgship ایکnuایکl cپرference feپرurمیںg keynotes from میںdustry leایکders, technicایکl wیاkshops, اور exclusive ایکnouncements."
+            "title": "اعتماد کا مستقبل: TBURN سمٹ 2025",
+            "description": "ہماری فلیگ شپ سالانہ کانفرنس جس میں صنعت کے رہنماؤں کی کی نوٹس، تکنیکی ورکشاپس، اور خصوصی اعلانات شامل ہیں۔"
           }
         },
         "eventTypes": {
@@ -8534,10 +8534,10 @@
           "registerNow": "ابھی رجسٹر کریں",
           "applyNow": "ابھی درخواست دیں",
           "setReminder": "یاد دہانی سیٹ کریں",
-          "register": "رجسٹر",
+          "register": "رجسٹر کریں",
           "rsvp": "RSVP (محدود)",
           "getTickets": "ٹکٹ حاصل کریں",
-          "rsvpLimited": "RSVP (محدود Seپرs)"
+          "rsvpLimited": "RSVP (محدود سیٹیں)"
         },
         "hostEvent": {
           "title": "ایونٹ میزبانی کرنا چاہتے ہیں؟",
@@ -8548,24 +8548,24 @@
           "reminderSet": "یاد دہانی سیٹ",
           "reminderDescription": "آپ کو \"{{eventTitle}}\" سے پہلے مطلع کیا جائے گا"
         },
-        "featuredTitle": "نمایاں Events",
-        "upcomingTitle": "Upcomمیںg Events",
-        "capacity": "Cایکpایکcity",
+        "featuredTitle": "نمایاں ایونٹس",
+        "upcomingTitle": "آنے والے ایونٹس",
+        "capacity": "گنجائش",
         "types": {
-          "launchEvent": "Lایکunch Event",
-          "amaSession": "AMA Sessiپر",
-          "seminar": "Technicایکl Semمیںایکr",
-          "training": "Trایکمیںمیںg Wیاkshop"
+          "launchEvent": "لانچ ایونٹ",
+          "amaSession": "AMA سیشن",
+          "seminar": "تکنیکی سیمینار",
+          "training": "ٹریننگ ورکشاپ"
         },
         "locations": {
           "online": "آن لائن",
-          "seoul": "Seoul, Kیاeایک",
-          "singapore": "Sمیںgایکpیاe"
+          "seoul": "سیول، کوریا",
+          "singapore": "سنگاپور"
         },
         "hostCta": {
-          "title": "Wایکt کی طرف Host ایک Event?",
-          "description": "Host meetups, webمیںایکrs, یا hایکckپرhپرs کے ساتھ  TBurn Chایکمیں community. We provide fundمیںg, swایکg, اور mایکrketمیںg suppیاt کے لیے ایکpproved hosts.",
-          "button": "لاگو کریں کی طرف Host"
+          "title": "ایونٹ میزبانی کرنا چاہتے ہیں؟",
+          "description": "TBurn Chain کمیونٹی کے ساتھ میٹ اپس، ویبینارز، یا ہیکاتھونز کی میزبانی کریں۔ ہم منظور شدہ میزبانوں کے لیے فنڈنگ، سویگ، اور مارکیٹنگ سپورٹ فراہم کرتے ہیں۔",
+          "button": "میزبانی کے لیے درخواست دیں"
         }
       }
     },

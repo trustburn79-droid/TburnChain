@@ -11509,13 +11509,13 @@
     "community": {
       "hub": {
         "tag": "COMUNIDAD",
-        "title": "Hub de la Comunidad",
-        "subtitle": "Conecta con la comunidad TBurn Chain",
+        "title": "Hub Comunitario",
+        "subtitle": "Conecta con desarrolladores, validadores y entusiastas.",
         "stats": {
-          "totalMembers": "Total Members",
-          "monthlyActive": "Monthly Activo",
-          "ambassadors": "Ambassadors",
-          "contributors": "Contributors",
+          "totalMembers": "Total de Miembros",
+          "monthlyActive": "Activos Mensuales",
+          "ambassadors": "Embajadores",
+          "contributors": "Contribuidores",
           "members": "Miembros de la Comunidad",
           "developers": "Desarrolladores Activos",
           "countries": "Países"
@@ -11616,97 +11616,97 @@
           },
           "button": "Ir to Gobernanza Portal"
         },
-        "channelsTitle": "Unir Our Channels",
+        "channelsTitle": "Únete a Nuestros Canales",
         "ambassador": {
           "title": "Programa de Embajadores",
-          "subtitle": "Lead the global TBurn community",
-          "applyButton": "Apply as Ambassador",
+          "subtitle": "Lidera la comunidad global de TBurn",
+          "applyButton": "Aplicar como Embajador",
           "benefits": {
-            "rewards": "Monthly TBURN token rewards",
-            "earlyAccess": "Early access to new features",
-            "nftBadge": "Official NFT Badge & Swag",
-            "directChannel": "Direct team communication channel"
+            "rewards": "Recompensas mensuales en tokens TBURN",
+            "earlyAccess": "Acceso anticipado a nuevas funciones",
+            "nftBadge": "Insignia NFT Oficial y Merchandising",
+            "directChannel": "Canal de comunicación directa con el equipo"
           }
         },
-        "contributeTitle": "Ways to Contribute"
+        "contributeTitle": "Formas de Contribuir"
       },
       "news": {
         "tag": "NOTICIAS Y BLOG",
-        "title": "Noticias y blog",
-        "subtitle": "Últimas actualizaciones, anuncios y perspectivas.",
-        "searchPlaceholder": "Buscar articles...",
-        "featuredTitle": "Featured Stories",
-        "featuredBadge": "Featured",
-        "latestTitle": "Latest Articles",
+        "title": "Noticias y Blog",
+        "subtitle": "Últimas actualizaciones, anuncios e insights.",
+        "searchPlaceholder": "Buscar artículos...",
+        "featuredTitle": "Historias Destacadas",
+        "featuredBadge": "Destacado",
+        "latestTitle": "Últimos Artículos",
         "readMore": "Leer Más",
-        "readTime": "{{minutes}} min read",
-        "views": "views",
-        "showingCount": "Showing {{current}} of {{total}}",
+        "readTime": "{{minutes}} min de lectura",
+        "views": "vistas",
+        "showingCount": "Mostrando {{current}} de {{total}}",
         "categories": {
           "all": "Todos",
-          "announcement": "Announcement",
-          "technology": "Technology",
+          "announcement": "Anuncio",
+          "technology": "Tecnología",
           "security": "Seguridad",
           "tokenomics": "Tokenomics",
-          "partnership": "Partnership",
+          "partnership": "Asociación",
           "defi": "DeFi",
-          "development": "Development"
+          "development": "Desarrollo"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 Mainnet Officially Launches",
-            "description": "Después 18 months of development, TBURN Chain V4 Mainnet is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
-            "author": "TBURN Foundation"
+            "title": "TBURN V4 Mainnet Lanza Oficialmente",
+            "description": "Después de 18 meses de desarrollo, TBURN Chain V4 Mainnet está ahora en vivo con más de 500K TPS, IA Triple-Banda y seguridad resistente a cuántica.",
+            "author": "Fundación TBURN"
           },
           "tripleBandAi": {
-            "title": "Triple-Band AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
-            "author": "AI Research Team"
+            "title": "Orquestación de IA Triple-Banda Revelada",
+            "description": "Inmersión profunda en nuestro revolucionario sistema de IA de tres niveles que impulsa la toma de decisiones inteligente en capas estratégicas, tácticas y operativas.",
+            "author": "Equipo de Investigación IA"
           },
           "partnership": {
-            "title": "Global Partnership Expansion: 12 New Integrations",
-            "description": "TBURN Chain announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
-            "author": "Business Development"
+            "title": "Expansión de Asociaciones Globales: 12 Nuevas Integraciones",
+            "description": "TBURN Chain anuncia asociaciones estratégicas con protocolos DeFi líderes, exchanges y clientes empresariales en Asia, Europa y las Américas.",
+            "author": "Desarrollo de Negocios"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN Staking Program: Completar Guide to Earning Recompensas",
-            "description": "Todo you need to know about the three-tier staking system, APY calculations, and how to maximize your validator rewards."
+            "title": "Programa de Staking TBURN: Guía Completa para Ganar Recompensas",
+            "description": "Todo lo que necesitas saber sobre el sistema de staking de tres niveles, cálculos de APY y cómo maximizar tus recompensas de validador."
           },
           "trustScore": {
-            "title": "Trust Score Deep Dive: El/La 3-Stage Verificación Process",
-            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+            "title": "Trust Score en Profundidad: El Proceso de Verificación de 3 Etapas",
+            "description": "Entiende cómo el análisis de IA, la revisión de expertos y la votación comunitaria trabajan juntos para proteger a los inversores de proyectos fraudulentos."
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Released: New Features for Developers",
-            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+            "title": "TBURN SDK 2.0 Lanzado: Nuevas Funciones para Desarrolladores",
+            "description": "Anunciando SDK 2.0 con soporte TypeScript, manejo mejorado de WebSocket y herramientas optimizadas de despliegue de contratos inteligentes."
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "Cómo CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN Chain against emerging quantum computing threats."
+            "title": "Criptografía Resistente a Cuántica: Preparando TBURN para el Futuro",
+            "description": "Cómo las firmas híbridas CRYSTALS-Dilithium y ED25519 protegen TBURN Chain contra las amenazas emergentes de computación cuántica."
           },
           "dex": {
-            "title": "TBURN DEX Beta Launch: Trade with Trust Scores",
-            "description": "Our native decentralized exchange is now in beta. Trade verified tokens with integrated Trust Score protection and low fees."
+            "title": "Lanzamiento Beta de TBURN DEX: Comercia con Trust Scores",
+            "description": "Nuestro exchange descentralizado nativo está ahora en beta. Comercia tokens verificados con protección Trust Score integrada y bajas tarifas."
           }
         },
         "newsletter": {
-          "title": "Stay Updated",
-          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Entrar your email address",
+          "title": "Mantente Actualizado",
+          "description": "Recibe las últimas noticias, actualizaciones e insights directamente en tu bandeja de entrada.",
+          "placeholder": "Ingresa tu correo electrónico",
           "button": "Suscribirse",
-          "privacy": "We respect your privacy. Unsubscribe anytime.",
-          "success": "Subscription Successful",
-          "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",
-          "error": "Subscription Error",
-          "invalidEmail": "Please enter a valid email address."
+          "privacy": "Respetamos tu privacidad. Cancela la suscripción en cualquier momento.",
+          "success": "Suscripción Exitosa",
+          "subscribed": "Has sido añadido a nuestro boletín. Revisa tu bandeja de entrada para confirmar.",
+          "error": "Error de Suscripción",
+          "invalidEmail": "Por favor ingresa una dirección de correo válida."
         }
       },
       "events": {
         "tag": "EVENTOS Y ACTIVIDADES",
-        "title": "Eventos",
-        "subtitle": "Meetups, conferencias y eventos comunitarios",
+        "title": "Eventos y Actividades",
+        "subtitle": "Únete a eventos comunitarios TBurn Chain, hackatones y conferencias.",
         "filters": {
           "all": "Todos los eventos",
           "hackathon": "Hackathon",
@@ -11716,44 +11716,43 @@
           "conference": "Conferencia"
         },
         "featured": {
-          "title": "Eventos destacados",
+          "title": "Eventos Destacados",
           "capacity": "Capacidad",
           "mainnetLaunch": {
-            "title": "TBURN Mainnet Launch Celebration",
-            "description": "Unir us for the historic launch of TBURN V4 Mainnet. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
+            "title": "Celebración del Lanzamiento de TBURN Mainnet",
+            "description": "Únete a nosotros para el histórico lanzamiento de TBURN V4 Mainnet. Sé parte de la próxima generación de tecnología blockchain basada en confianza con demos en vivo y airdrops exclusivos."
           },
           "defiChallenge": {
-            "title": "TBURN DeFi Challenge Hackathon",
-            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Chain and compete for grants and incubation opportunities."
+            "title": "Hackathon TBURN DeFi Challenge",
+            "description": "Hackathon global de 48 horas con $500K en premios. Construye soluciones DeFi innovadoras en TBURN Chain y compite por subvenciones y oportunidades de incubación."
           }
         },
         "upcoming": {
-          "_value": "Próximos Eventos",
+          "title": "Próximos Eventos",
           "foundersAma": {
-            "title": "Founders AMA: 2025 Vision",
-            "description": "Live Q&Un/Una with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
+            "title": "AMA con Fundadores: Visión 2025",
+            "description": "Sesión de preguntas y respuestas en vivo con los fundadores de TBURN discutiendo la hoja de ruta, próximas funciones e iniciativas comunitarias para el nuevo año."
           },
           "trustScoreApi": {
-            "title": "Trust Score API Integration Workshop",
-            "description": "Hands-on technical workshop for developers. Learn how to integrate Trust Score verification into your dApps and smart contracts."
+            "title": "Taller de Integración de API Trust Score",
+            "description": "Taller técnico práctico para desarrolladores. Aprende a integrar la verificación Trust Score en tus dApps y contratos inteligentes."
           },
           "seoulMeetup": {
-            "title": "Seoul Developer Meetup",
-            "description": "En-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+            "title": "Meetup de Desarrolladores en Seúl",
+            "description": "Evento de networking presencial para desarrolladores coreanos. Presentaciones técnicas, demos y merchandising exclusivo para asistentes."
           },
           "aiDeepDive": {
-            "title": "Triple-Band AI Deep Dive Seminar",
-            "description": "Technical deep dive into our AI orchestration system. Learn about the architecture behind intelligent blockchain operations."
+            "title": "Seminario Inmersivo de IA Triple-Banda",
+            "description": "Inmersión técnica profunda en nuestro sistema de orquestación de IA. Aprende sobre la arquitectura detrás de las operaciones blockchain inteligentes."
           },
           "validatorOps": {
-            "title": "Validator Operations Training",
-            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+            "title": "Capacitación de Operaciones de Validador",
+            "description": "Capacitación integral para operadores de nodos. Cubre configuración, mantenimiento, mejores prácticas de seguridad y optimización de recompensas."
           },
           "futureOfTrust": {
-            "title": "El/La Future of Trust: TBURN Summit 2025",
-            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
-          },
-          "title": "Upcoming Events"
+            "title": "El Futuro de la Confianza: TBURN Summit 2025",
+            "description": "Nuestra conferencia anual insignia con ponencias de líderes de la industria, talleres técnicos y anuncios exclusivos."
+          }
         },
         "eventTypes": {
           "launchEvent": "Evento de lanzamiento",
@@ -11803,9 +11802,9 @@
           "singapore": "Singapore"
         },
         "hostCta": {
-          "title": "Want to Host an Event?",
-          "description": "Host meetups, webinars, or hackathons with the TBurn Chain community. We provide funding, swag, and marketing support for approved hosts.",
-          "button": "Apply to Host"
+          "title": "¿Quieres Organizar un Evento?",
+          "description": "Organiza meetups, webinars o hackathons con la comunidad TBurn Chain. Proporcionamos financiamiento, merchandising y soporte de marketing para organizadores aprobados.",
+          "button": "Aplicar para Organizar"
         }
       },
       "newsBlog": {

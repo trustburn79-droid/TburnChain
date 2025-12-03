@@ -9264,246 +9264,246 @@
     },
     "network": {
       "validators": {
-        "tag": "NETWORK VALIDATORS",
+        "tag": "مدققو الشبكة",
         "title": "المدققون",
-        "subtitle": "Join the TBurn validator network and earn rewards while securing the blockchain.",
-        "becomeValidator": "Become Validator",
-        "validatorDocs": "View Validator Documentation",
+        "subtitle": "انضم إلى شبكة مدققي TBurn واكسب مكافآت أثناء تأمين البلوكتشين",
+        "becomeValidator": "كن مدققاً",
+        "validatorDocs": "عرض وثائق المدقق",
         "stats": {
-          "activeValidators": "Active Validators",
-          "totalStaked": "Total Staked",
-          "averageUptime": "Average Uptime",
-          "operatingCountries": "Operating Countries"
+          "activeValidators": "المدققون النشطون",
+          "totalStaked": "إجمالي الستيكينغ",
+          "averageUptime": "متوسط وقت التشغيل",
+          "operatingCountries": "الدول العاملة"
         },
         "applyNow": "قدّم الآن",
         "consensus": {
-          "title": "Consensus Mechanism",
-          "subtitle": "Proof of Trust with AI-powered validation"
+          "title": "آلية الإجماع",
+          "subtitle": "إثبات الثقة مع التحقق بالذكاء الاصطناعي"
         },
         "consensusSpecs": {
-          "title": "Consensus Specifications",
+          "title": "مواصفات الإجماع",
           "blockTime": {
             "label": "وقت الكتلة",
             "value": "ثانية واحدة",
-            "description": "Average time to produce a new block"
+            "description": "متوسط الوقت لإنتاج كتلة جديدة"
           },
           "finality": {
             "label": "النهائية",
             "value": "6 ثوانٍ",
-            "description": "Time until transactions are irreversible"
+            "description": "الوقت حتى تصبح المعاملات نهائية"
           },
           "validatorSet": {
-            "label": "Validator Set",
-            "value": "100 active"
+            "label": "مجموعة المدققين",
+            "value": "100 نشط"
           },
           "epochLength": {
-            "label": "Epoch Length",
-            "value": "6 hours"
+            "label": "طول الحقبة",
+            "value": "6 ساعات"
           },
           "tps": {
             "label": "TPS",
-            "value": "50,000+",
-            "description": "Maximum transactions per second"
+            "value": "+50,000",
+            "description": "الحد الأقصى للمعاملات في الثانية"
           },
           "uptime": {
             "label": "وقت التشغيل",
             "value": "99.99%",
-            "description": "Network availability guarantee"
+            "description": "ضمان توفر الشبكة"
           }
         },
         "cta": {
-          "title": "Ready to Become a Validator?",
-          "subtitle": "Join the network and earn rewards while securing TBurn Chain.",
-          "startValidating": "Start Validating",
-          "readDocs": "Read Documentation"
+          "title": "مستعد لتصبح مدققاً؟",
+          "subtitle": "انضم إلى الشبكة واكسب مكافآت أثناء تأمين TBurn Chain.",
+          "startValidating": "ابدأ التحقق",
+          "readDocs": "اقرأ الوثائق"
         },
         "tierSystem": {
-          "title": "Validator Tier System",
-          "stake": "Minimum Stake",
+          "title": "نظام طبقات المدققين",
+          "stake": "الحد الأدنى للستيكينغ",
           "apy": "APY",
-          "slots": "Available Slots",
+          "slots": "الأماكن المتاحة",
           "elite": {
-            "name": "Elite Validator",
-            "badge": "Elite",
+            "name": "مدقق النخبة",
+            "badge": "نخبة",
             "stakeAmount": "1,000,000 TBURN",
             "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
+            "slotsAmount": "21 مكان",
             "benefits": {
-              "blockPriority": "Block production priority",
-              "revenueShare": "Additional revenue share",
-              "aiDecision": "AI decision participation"
+              "blockPriority": "أولوية إنتاج الكتل",
+              "revenueShare": "حصة إيرادات إضافية",
+              "aiDecision": "المشاركة في قرارات الذكاء الاصطناعي"
             }
           },
           "standard": {
-            "name": "Standard Validator",
-            "badge": "Standard",
+            "name": "مدقق قياسي",
+            "badge": "قياسي",
             "stakeAmount": "500,000 TBURN",
             "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
+            "slotsAmount": "50 مكان",
             "benefits": {
-              "blockValidation": "Block validation rights",
-              "feeDistribution": "Transaction fee distribution",
-              "votingRights": "Governance voting rights"
+              "blockValidation": "حقوق التحقق من الكتل",
+              "feeDistribution": "توزيع رسوم المعاملات",
+              "votingRights": "حقوق التصويت في الحوكمة"
             }
           },
           "starter": {
-            "name": "Starter Validator",
-            "badge": "Starter",
+            "name": "مدقق مبتدئ",
+            "badge": "مبتدئ",
             "stakeAmount": "100,000 TBURN",
             "apyAmount": "8-12%",
-            "slotsAmount": "Unlimited",
+            "slotsAmount": "غير محدود",
             "benefits": {
-              "delegate": "Delegate to larger validators",
-              "autoRewards": "Automatic reward distribution",
-              "unstakePeriod": "21-day unstaking period"
+              "delegate": "التفويض للمدققين الأكبر",
+              "autoRewards": "توزيع تلقائي للمكافآت",
+              "unstakePeriod": "فترة إلغاء الستيكينغ 21 يوم"
             }
           }
         },
         "validatorTiers": {
-          "title": "Validator Tier System",
+          "title": "نظام طبقات المدققين",
           "genesis": {
-            "name": "Genesis",
+            "name": "التكوين",
             "stake": "1,000,000 TBURN",
-            "rewards": "Premium rewards + governance"
+            "rewards": "مكافآت متميزة + حوكمة"
           },
           "core": {
-            "name": "Core",
+            "name": "الأساسي",
             "stake": "500,000 TBURN",
-            "rewards": "Standard rewards + voting"
+            "rewards": "مكافآت قياسية + تصويت"
           },
           "community": {
             "name": "المجتمع",
             "stake": "100,000 TBURN",
-            "rewards": "Base rewards"
+            "rewards": "مكافآت أساسية"
           }
         },
         "hardware": {
-          "title": "Hardware Requirements",
-          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
-          "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "Network: 1Gbps dedicated",
+          "title": "متطلبات الأجهزة",
+          "cpu": "المعالج: +16 نواة (AMD EPYC أو Intel Xeon)",
+          "ram": "الذاكرة: 64GB DDR4 ECC",
+          "storage": "التخزين: 2TB NVMe SSD",
+          "network": "الشبكة: 1Gbps مخصص",
           "superNode": {
-            "title": "Super Node Requirements",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RAID",
-            "network": "Network: 10Gbps dedicated"
+            "title": "متطلبات العقدة الفائقة",
+            "cpu": "المعالج: +32 نواة",
+            "ram": "الذاكرة: 128GB DDR4 ECC",
+            "storage": "التخزين: 4TB NVMe RAID",
+            "network": "الشبكة: 10Gbps مخصص"
           },
           "standardNode": {
-            "title": "Standard Node Requirements",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RAM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Network: 500Mbps"
+            "title": "متطلبات العقدة القياسية",
+            "cpu": "المعالج: +8 نواة",
+            "ram": "الذاكرة: 32GB DDR4",
+            "storage": "التخزين: 1TB NVMe SSD",
+            "network": "الشبكة: 500Mbps"
           }
         },
         "hardwareRequirements": {
-          "title": "Hardware Requirements",
-          "cpu": "CPU: 8+ cores",
-          "ram": "RAM: 32GB+",
-          "storage": "Storage: 1TB NVMe SSD",
-          "bandwidth": "Bandwidth: 1Gbps"
+          "title": "متطلبات الأجهزة",
+          "cpu": "المعالج: +8 نواة",
+          "ram": "الذاكرة: +32GB",
+          "storage": "التخزين: 1TB NVMe SSD",
+          "bandwidth": "عرض النطاق: 1Gbps"
         },
         "slashing": {
-          "title": "Slashing Conditions",
-          "subtitle": "Validators must maintain high standards. Violations result in stake penalties.",
+          "title": "شروط العقوبات",
+          "subtitle": "يجب على المدققين الحفاظ على معايير عالية. تؤدي الانتهاكات إلى عقوبات على الحصة.",
           "minor": {
-            "title": "Minor Violation",
-            "badge": "Warning",
-            "description": "Brief downtime or missed blocks",
-            "penalty": "0.1% stake reduction"
+            "title": "انتهاك بسيط",
+            "badge": "تحذير",
+            "description": "توقف قصير أو كتل فائتة",
+            "penalty": "خصم 0.1% من الحصة"
           },
           "moderate": {
-            "title": "Moderate Violation",
-            "badge": "Penalty",
-            "description": "Extended downtime over 24 hours",
-            "penalty": "1-5% stake reduction"
+            "title": "انتهاك متوسط",
+            "badge": "عقوبة",
+            "description": "توقف ممتد لأكثر من 24 ساعة",
+            "penalty": "خصم 1-5% من الحصة"
           },
           "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious voting or censorship attempts",
-            "penalty": "25-50% stake reduction"
+            "title": "انتهاك خطير",
+            "badge": "خطير",
+            "description": "تصويت خبيث أو محاولات رقابة",
+            "penalty": "خصم 25-50% من الحصة"
           },
           "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% stake slashed"
+            "title": "انتهاك حرج",
+            "badge": "حرج",
+            "description": "توقيع مزدوج أو هجمات على الشبكة",
+            "penalty": "خصم 100% من الحصة"
           }
         },
         "slashingPolicy": {
-          "title": "Slashing Policy",
+          "title": "سياسة العقوبات",
           "doubleSign": {
-            "offense": "Double Signing",
-            "penalty": "100% stake slashed"
+            "offense": "التوقيع المزدوج",
+            "penalty": "خصم 100% من الحصة"
           },
           "downtime": {
-            "offense": "Extended Downtime",
-            "penalty": "1-5% stake slashed"
+            "offense": "التوقف الممتد",
+            "penalty": "خصم 1-5% من الحصة"
           },
           "maliciousVoting": {
-            "offense": "Malicious Voting",
-            "penalty": "50% stake slashed"
+            "offense": "التصويت الخبيث",
+            "penalty": "خصم 50% من الحصة"
           }
         },
         "geography": {
-          "title": "Geographic Distribution"
+          "title": "التوزيع الجغرافي"
         },
         "activeValidators": {
-          "title": "Active Validators",
-          "searchPlaceholder": "Search validators...",
-          "viewAll": "View All Validators"
+          "title": "المدققون النشطون",
+          "searchPlaceholder": "البحث عن المدققين...",
+          "viewAll": "عرض جميع المدققين"
         }
       },
       "rpc": {
-        "tag": "RPC INFRASTRUCTURE",
-        "title": "RPC Providers",
-        "subtitle": "High-performance RPC endpoints with enterprise-grade reliability. Support for WebSocket and HTTP connections.",
-        "getApiKey": "Get API Key",
+        "tag": "بنية RPC التحتية",
+        "title": "نقاط نهاية RPC",
+        "subtitle": "اتصل بعقد RPC الرسمية للوصول الموثوق للشبكة. دعم اتصالات WebSocket و HTTP.",
+        "getApiKey": "احصل على مفتاح API",
         "buttons": {
-          "getApiKey": "Get API Key",
-          "viewDocs": "View Documentation"
+          "getApiKey": "احصل على مفتاح API",
+          "viewDocs": "عرض الوثائق"
         },
         "sections": {
-          "apiPlans": "API Plans",
-          "coreEndpoints": "Core Endpoints",
-          "sdkExamples": "SDK Examples",
-          "support": "Support"
+          "apiPlans": "خطط API",
+          "coreEndpoints": "نقاط النهاية الأساسية",
+          "sdkExamples": "أمثلة SDK",
+          "support": "الدعم"
         },
         "plans": {
           "free": {
-            "name": "Free"
+            "name": "مجاني"
           },
           "basic": {
-            "name": "Basic"
+            "name": "أساسي"
           },
           "pro": {
-            "name": "Pro"
+            "name": "احترافي"
           },
           "enterprise": {
-            "name": "Enterprise"
+            "name": "مؤسسي"
           },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "Unlimited",
+          "requestsMin": "طلبات/دقيقة",
+          "requestsDay": "طلبات/يوم",
+          "perMonth": "/شهر",
+          "unlimited": "غير محدود",
           "contact": "اتصل بنا"
         },
         "endpoints": {
           "scoreQuery": {
-            "title": "Score Query API"
+            "title": "API استعلام النقاط"
           },
           "projectApi": {
-            "title": "Project API"
+            "title": "API المشاريع"
           },
           "analyticsApi": {
-            "title": "Analytics API"
+            "title": "API التحليلات"
           },
           "webhookApi": {
             "title": "Webhook API",
-            "events": "Events: score.updated, score.alert, project.registered"
+            "events": "الأحداث: score.updated, score.alert, project.registered"
           }
         },
         "sdk": {
@@ -9514,47 +9514,47 @@
             "title": "Python SDK"
           },
           "curl": {
-            "title": "cURL Example"
+            "title": "مثال cURL"
           }
         },
         "cta": {
-          "title": "Ready to Build?",
-          "subtitle": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure.",
-          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure.",
-          "getStartedFree": "Get Started Free",
-          "contactSales": "Contact Sales"
+          "title": "مستعد للبناء؟",
+          "subtitle": "ابدأ البناء مع TBurn Chain API اليوم. احصل على مفتاح API مجاني واصل إلى بنية بلوكتشين على مستوى المؤسسات.",
+          "desc": "ابدأ البناء مع TBurn Chain API اليوم. احصل على مفتاح API مجاني واصل إلى بنية بلوكتشين على مستوى المؤسسات.",
+          "getStartedFree": "ابدأ مجاناً",
+          "contactSales": "تواصل مع المبيعات"
         },
         "apiPlans": {
-          "title": "API Plans & Limits",
+          "title": "خطط وحدود API",
           "free": {
-            "name": "Free",
+            "name": "مجاني",
             "requestsPerMin": "20",
             "requestsPerDay": "1,000",
             "price": "$0"
           },
           "basic": {
-            "name": "Basic",
+            "name": "أساسي",
             "requestsPerMin": "100",
             "requestsPerDay": "10,000",
-            "price": "$100/mo"
+            "price": "$100/شهر"
           },
           "pro": {
-            "name": "Pro",
+            "name": "احترافي",
             "requestsPerMin": "500",
             "requestsPerDay": "100,000",
-            "price": "$500/mo"
+            "price": "$500/شهر"
           },
           "enterprise": {
-            "name": "Enterprise",
-            "requestsPerMin": "Unlimited",
-            "requestsPerDay": "Unlimited",
-            "price": "Contact"
+            "name": "مؤسسي",
+            "requestsPerMin": "غير محدود",
+            "requestsPerDay": "غير محدود",
+            "price": "تواصل معنا"
           }
         },
         "coreEndpoints": {
-          "title": "Core Endpoints",
+          "title": "نقاط النهاية الأساسية",
           "scoreQuery": {
-            "title": "Score Query API",
+            "title": "API استعلام النقاط",
             "endpoints": [
               "GET /score/:address",
               "GET /score/:address/history",
@@ -9562,7 +9562,7 @@
             ]
           },
           "project": {
-            "title": "Project API",
+            "title": "API المشاريع",
             "endpoints": [
               "GET /projects",
               "POST /projects/register",
@@ -9570,7 +9570,7 @@
             ]
           },
           "analytics": {
-            "title": "Analytics API",
+            "title": "API التحليلات",
             "endpoints": [
               "GET /analytics/trends",
               "GET /analytics/leaderboard"
@@ -9581,31 +9581,31 @@
             "endpoints": [
               "POST /webhooks"
             ],
-            "events": "Events: score.updated, score.alert, project.registered"
+            "events": "الأحداث: score.updated, score.alert, project.registered"
           }
         },
         "sdkExamples": {
-          "title": "SDK & Enterprise Examples",
+          "title": "أمثلة SDK والمؤسسات",
           "typescript": "TypeScript Enterprise SDK",
           "python": "Python Enterprise SDK",
-          "curl": "cURL Production Example"
+          "curl": "مثال cURL للإنتاج"
         },
         "support": {
-          "title": "Support & Contact",
+          "title": "الدعم والتواصل",
           "documentation": {
             "title": "الوثائق",
-            "description": "Detailed API references and guides.",
-            "desc": "Comprehensive API documentation and integration guides."
+            "description": "مراجع API مفصلة وأدلة.",
+            "desc": "وثائق API شاملة وأدلة التكامل."
           },
           "apiStatus": {
-            "title": "API Status",
-            "description": "Real-time system status and uptime.",
-            "desc": "Real-time system status, uptime metrics, and incident reports."
+            "title": "حالة API",
+            "description": "حالة النظام ووقت التشغيل في الوقت الفعلي.",
+            "desc": "حالة النظام في الوقت الفعلي ومقاييس وقت التشغيل وتقارير الحوادث."
           },
           "developerHub": {
-            "title": "Developer Hub",
-            "description": "Open source SDKs and examples.",
-            "desc": "Open source SDKs, code examples, and community resources."
+            "title": "مركز المطورين",
+            "description": "SDKs مفتوحة المصدر وأمثلة.",
+            "desc": "SDKs مفتوحة المصدر وأمثلة الكود وموارد المجتمع."
           }
         }
       },
@@ -9613,23 +9613,23 @@
         "tag": "جميع الأنظمة تعمل",
         "title": "حالة الشبكة",
         "subtitle": "صحة الشبكة ومقاييس الأداء في الوقت الفعلي.",
-        "operational": "Operational",
-        "lastUpdated": "Last updated",
-        "daysAgo": "days ago",
-        "today": "Today",
-        "uptimeAvg": "Uptime Average",
+        "operational": "تعمل",
+        "lastUpdated": "آخر تحديث",
+        "daysAgo": "منذ أيام",
+        "today": "اليوم",
+        "uptimeAvg": "متوسط وقت التشغيل",
         "buttons": {
           "refreshData": "تحديث البيانات"
         },
         "sections": {
           "coreMetrics": "المقاييس الأساسية",
           "coreMetricsDesc": "مؤشرات أداء البلوكتشين في الوقت الفعلي",
-          "serviceStatus": "Service Status",
-          "serviceStatusDesc": "Current status of all network services",
-          "uptimeHistory": "Uptime History",
-          "uptimeHistoryDesc": "Network availability over the past 90 days",
-          "aiSystem": "AI Orchestration System",
-          "aiSystemDesc": "Triple-band AI model performance and status",
+          "serviceStatus": "حالة الخدمات",
+          "serviceStatusDesc": "الحالة الحالية لجميع خدمات الشبكة",
+          "uptimeHistory": "سجل وقت التشغيل",
+          "uptimeHistoryDesc": "توفر الشبكة خلال الـ 90 يوماً الماضية",
+          "aiSystem": "نظام تنسيق الذكاء الاصطناعي",
+          "aiSystemDesc": "أداء وحالة نموذج الذكاء الاصطناعي ثلاثي النطاق",
           "validatorNetwork": "شبكة المدققين",
           "validatorNetworkDesc": "مقاييس البنية التحتية للمدققين الموزعين"
         },
@@ -9645,64 +9645,64 @@
         },
         "services": {
           "mainnetRpc": {
-            "name": "Mainnet RPC",
-            "desc": "Primary JSON-RPC endpoints for mainnet"
+            "name": "RPC الشبكة الرئيسية",
+            "desc": "نقاط نهاية JSON-RPC الأساسية للشبكة الرئيسية"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "Real-time event streaming and subscriptions"
+            "desc": "بث الأحداث والاشتراكات في الوقت الفعلي"
           },
           "explorerApi": {
-            "name": "Explorer API",
-            "desc": "Block explorer data endpoints"
+            "name": "API المستكشف",
+            "desc": "نقاط نهاية بيانات مستكشف الكتل"
           },
           "trustScoreApi": {
-            "name": "Trust Score API",
-            "desc": "Project verification and scoring endpoints"
+            "name": "API درجة الثقة",
+            "desc": "نقاط نهاية التحقق وتقييم المشاريع"
           },
           "trustScore": {
-            "name": "Trust Score Service",
-            "desc": "AI-powered trust verification and project scoring"
+            "name": "خدمة درجة الثقة",
+            "desc": "التحقق من الثقة وتقييم المشاريع بالذكاء الاصطناعي"
           },
           "crossChainBridge": {
             "name": "جسر عبر السلاسل",
-            "desc": "Multi-chain asset transfer service"
+            "desc": "خدمة نقل الأصول متعددة السلاسل"
           },
           "quantumSecurity": {
-            "name": "Quantum Security Module",
-            "desc": "CRYSTALS-Dilithium signature verification"
+            "name": "وحدة الأمان الكمي",
+            "desc": "التحقق من توقيعات CRYSTALS-Dilithium"
           }
         },
         "ai": {
-          "active": "Active",
-          "accuracy": "Accuracy",
-          "latency": "Latency",
+          "active": "نشط",
+          "accuracy": "الدقة",
+          "latency": "زمن الاستجابة",
           "strategic": {
-            "title": "Strategic AI",
+            "title": "الذكاء الاصطناعي الاستراتيجي",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "الذكاء الاصطناعي التكتيكي",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational AI",
+            "title": "الذكاء الاصطناعي التشغيلي",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "Monthly Average",
-          "uptimeGuarantee": "Uptime Guarantee",
-          "lastIncident": "Last Incident"
+          "monthlyAverage": "المتوسط الشهري",
+          "uptimeGuarantee": "ضمان وقت التشغيل",
+          "lastIncident": "آخر حادث"
         },
         "validators": {
-          "active": "Active Validators",
-          "countries": "Operating Countries",
-          "totalStaked": "Total Staked",
-          "avgUptime": "Average Uptime",
-          "nodeCount": "Node Count",
-          "regions": "Regions",
-          "superNodes": "Super Nodes"
+          "active": "المدققون النشطون",
+          "countries": "الدول العاملة",
+          "totalStaked": "إجمالي الستيكينغ",
+          "avgUptime": "متوسط وقت التشغيل",
+          "nodeCount": "عدد العقد",
+          "regions": "المناطق",
+          "superNodes": "العقد الفائقة"
         }
       },
       "ramp": {
@@ -9808,186 +9808,186 @@
     },
     "community": {
       "hub": {
-        "tag": "COMMUNITY",
-        "title": "Community Hub",
-        "subtitle": "Connect with builders, validators, and enthusiasts.",
+        "tag": "المجتمع",
+        "title": "مركز المجتمع",
+        "subtitle": "تواصل مع المطورين والمدققين والمتحمسين.",
         "stats": {
-          "totalMembers": "Total Members",
-          "monthlyActive": "Monthly Active",
-          "ambassadors": "Ambassadors",
-          "contributors": "Contributors"
+          "totalMembers": "إجمالي الأعضاء",
+          "monthlyActive": "النشطون شهرياً",
+          "ambassadors": "السفراء",
+          "contributors": "المساهمون"
         },
-        "channelsTitle": "Join Our Channels",
+        "channelsTitle": "انضم إلى قنواتنا",
         "channels": {
-          "title": "Community Channels",
+          "title": "قنوات المجتمع",
           "discord": {
             "name": "Discord",
-            "members": "124,500+ members",
-            "description": "Real-time dev chat, support, and community hanging out.",
-            "action": "Join Server"
+            "members": "+124,500 عضو",
+            "description": "دردشة المطورين في الوقت الفعلي والدعم والتواصل المجتمعي.",
+            "action": "انضم للخادم"
           },
           "telegram": {
             "name": "Telegram",
-            "members": "89,200+ members",
-            "description": "Fast announcements and local community groups.",
-            "action": "Join Channel"
+            "members": "+89,200 عضو",
+            "description": "إعلانات سريعة ومجموعات المجتمع المحلية.",
+            "action": "انضم للقناة"
           },
           "twitter": {
             "name": "Twitter / X",
-            "members": "156,000+ followers",
-            "description": "Latest updates, partnerships, and event news.",
-            "action": "Follow Us"
+            "members": "+156,000 متابع",
+            "description": "أحدث التحديثات والشراكات وأخبار الفعاليات.",
+            "action": "تابعنا"
           },
           "github": {
             "name": "GitHub",
-            "members": "2,400+ stars",
-            "description": "Open source code, SDKs, and technical documentation.",
-            "action": "Contribute"
+            "members": "+2,400 نجمة",
+            "description": "الكود مفتوح المصدر و SDKs والوثائق التقنية.",
+            "action": "ساهم"
           }
         },
         "leaderboard": {
-          "title": "Contributor Leaderboard",
-          "subtitle": "Top community contributors this month",
-          "points": "{{count}} points",
+          "title": "لوحة قيادة المساهمين",
+          "subtitle": "أفضل المساهمين في المجتمع هذا الشهر",
+          "points": "{{count}} نقطة",
           "tiers": {
-            "diamond": "Diamond",
-            "platinum": "Platinum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Bronze"
+            "diamond": "ماسي",
+            "platinum": "بلاتيني",
+            "gold": "ذهبي",
+            "silver": "فضي",
+            "bronze": "برونزي"
           }
         },
         "ambassador": {
-          "title": "Ambassador Program",
-          "subtitle": "Lead the global TBurn community",
-          "applyButton": "Apply as Ambassador",
+          "title": "برنامج السفراء",
+          "subtitle": "قُد مجتمع TBurn العالمي",
+          "applyButton": "قدّم كسفير",
           "benefits": {
-            "rewards": "Monthly TBURN token rewards",
-            "earlyAccess": "Early access to new features",
-            "nftBadge": "Official NFT Badge & Swag",
-            "directChannel": "Direct team communication channel"
+            "rewards": "مكافآت رموز TBURN شهرية",
+            "earlyAccess": "وصول مبكر للميزات الجديدة",
+            "nftBadge": "شارة NFT رسمية وهدايا",
+            "directChannel": "قناة تواصل مباشرة مع الفريق"
           }
         },
         "ambassadorProgram": {
-          "title": "Ambassador Program",
-          "subtitle": "Lead the global community",
+          "title": "برنامج السفراء",
+          "subtitle": "قُد المجتمع العالمي",
           "benefits": {
-            "tokenRewards": "Monthly TBURN token rewards",
-            "earlyAccess": "Early access to new features",
-            "nftBadge": "Official NFT Badge & Swag",
-            "directChannel": "Direct team communication channel"
+            "tokenRewards": "مكافآت رموز TBURN شهرية",
+            "earlyAccess": "وصول مبكر للميزات الجديدة",
+            "nftBadge": "شارة NFT رسمية وهدايا",
+            "directChannel": "قناة تواصل مباشرة مع الفريق"
           },
-          "applyButton": "Apply as Ambassador"
+          "applyButton": "قدّم كسفير"
         },
-        "contributeTitle": "Ways to Contribute",
+        "contributeTitle": "طرق المساهمة",
         "contribute": {
-          "title": "Ways to Contribute",
+          "title": "طرق المساهمة",
           "code": {
-            "title": "Code",
-            "description": "SDKs, Smart Contracts, Tools",
-            "action": "View Issues"
+            "title": "الكود",
+            "description": "SDKs والعقود الذكية والأدوات",
+            "action": "عرض المشكلات"
           },
           "content": {
-            "title": "Content",
-            "description": "Tutorials, Blogs, Translations",
-            "action": "Submit Content"
+            "title": "المحتوى",
+            "description": "الدروس والمدونات والترجمات",
+            "action": "إرسال محتوى"
           },
           "moderation": {
-            "title": "Moderation",
-            "description": "Discord & Telegram Support",
-            "action": "Apply Mod"
+            "title": "الإشراف",
+            "description": "دعم Discord و Telegram",
+            "action": "قدّم كمشرف"
           },
           "marketing": {
-            "title": "Marketing",
-            "description": "Events, Social Media, Growth",
-            "action": "Join Team"
+            "title": "التسويق",
+            "description": "الفعاليات ووسائل التواصل والنمو",
+            "action": "انضم للفريق"
           }
         },
         "governance": {
-          "title": "Governance",
+          "title": "الحوكمة",
           "tag": "TBURN DAO",
-          "description": "Stake TBURN tokens to participate in protocol decisions. Create proposals, vote on upgrades, and manage the community treasury.",
-          "goToPortal": "Go to Governance Portal",
-          "button": "Go to Governance Portal",
+          "description": "راهن رموز TBURN للمشاركة في قرارات البروتوكول. أنشئ مقترحات وصوّت على الترقيات وأدر خزينة المجتمع.",
+          "goToPortal": "انتقل لبوابة الحوكمة",
+          "button": "انتقل لبوابة الحوكمة",
           "stats": {
-            "proposals": "Proposals",
-            "votesCast": "Votes Cast",
-            "treasuryBalance": "Treasury Balance",
-            "treasury": "Treasury Balance"
+            "proposals": "المقترحات",
+            "votesCast": "الأصوات المدلاة",
+            "treasuryBalance": "رصيد الخزينة",
+            "treasury": "رصيد الخزينة"
           }
         }
       },
       "news": {
-        "tag": "NEWS & BLOG",
-        "title": "News & Blog",
-        "subtitle": "Latest updates, announcements, and insights.",
-        "searchPlaceholder": "Search articles...",
-        "featuredTitle": "Featured Stories",
+        "tag": "الأخبار والمدونة",
+        "title": "الأخبار والمدونة",
+        "subtitle": "أحدث التحديثات والإعلانات والرؤى.",
+        "searchPlaceholder": "البحث في المقالات...",
+        "featuredTitle": "القصص المميزة",
         "featuredBadge": "مميز",
-        "latestTitle": "Latest Articles",
+        "latestTitle": "أحدث المقالات",
         "readMore": "اقرأ المزيد",
-        "readTime": "{{minutes}} min read",
-        "views": "views",
-        "showingCount": "Showing {{current}} of {{total}}",
+        "readTime": "{{minutes}} دقيقة قراءة",
+        "views": "مشاهدات",
+        "showingCount": "عرض {{current}} من {{total}}",
         "categories": {
           "all": "الكل",
-          "announcement": "Announcement",
-          "technology": "Technology",
-          "security": "Security",
-          "tokenomics": "Tokenomics",
-          "partnership": "Partnership",
+          "announcement": "إعلان",
+          "technology": "تكنولوجيا",
+          "security": "أمان",
+          "tokenomics": "اقتصاد الرموز",
+          "partnership": "شراكة",
           "defi": "DeFi",
-          "development": "Development"
+          "development": "تطوير"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 Mainnet Officially Launches",
-            "description": "After 18 months of development, TBURN Chain V4 Mainnet is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
-            "author": "TBURN Foundation"
+            "title": "إطلاق الشبكة الرئيسية TBURN V4 رسمياً",
+            "description": "بعد 18 شهراً من التطوير، أصبحت الشبكة الرئيسية TBURN Chain V4 متاحة الآن مع +500 ألف TPS والذكاء الاصطناعي ثلاثي النطاق والأمان المقاوم للكم.",
+            "author": "مؤسسة TBURN"
           },
           "tripleBandAi": {
-            "title": "Triple-Band AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
-            "author": "AI Research Team"
+            "title": "الكشف عن تنسيق الذكاء الاصطناعي ثلاثي النطاق",
+            "description": "نظرة عميقة على نظام الذكاء الاصطناعي الثوري ثلاثي الطبقات الذي يدير اتخاذ القرارات الذكية عبر المستويات الاستراتيجية والتكتيكية والتشغيلية.",
+            "author": "فريق أبحاث الذكاء الاصطناعي"
           },
           "partnership": {
-            "title": "Global Partnership Expansion: 12 New Integrations",
-            "description": "TBURN Chain announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
-            "author": "Business Development"
+            "title": "توسيع الشراكات العالمية: 12 تكاملاً جديداً",
+            "description": "تعلن TBURN Chain عن شراكات استراتيجية مع بروتوكولات DeFi الرائدة والبورصات وعملاء المؤسسات عبر آسيا وأوروبا والأمريكتين.",
+            "author": "تطوير الأعمال"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN Staking Program: Complete Guide to Earning Rewards",
-            "description": "Everything you need to know about the three-tier staking system, APY calculations, and how to maximize your validator rewards."
+            "title": "برنامج ستيكينغ TBURN: دليل كامل لكسب المكافآت",
+            "description": "كل ما تحتاج معرفته عن نظام الستيكينغ ثلاثي الطبقات وحسابات APY وكيفية تعظيم مكافآت المدقق."
           },
           "trustScore": {
-            "title": "Trust Score Deep Dive: The 3-Stage Verification Process",
-            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+            "title": "نظرة عميقة على درجة الثقة: عملية التحقق من 3 مراحل",
+            "description": "فهم كيف يعمل تحليل الذكاء الاصطناعي ومراجعة الخبراء وتصويت المجتمع معاً لحماية المستثمرين من المشاريع الاحتيالية."
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Released: New Features for Developers",
-            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+            "title": "إصدار TBURN SDK 2.0: ميزات جديدة للمطورين",
+            "description": "الإعلان عن SDK 2.0 مع دعم TypeScript ومعالجة WebSocket محسنة وأدوات نشر العقود الذكية المبسطة."
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN Chain against emerging quantum computing threats."
+            "title": "التشفير المقاوم للكم: تأمين مستقبل TBURN",
+            "description": "كيف تحمي توقيعات CRYSTALS-Dilithium و ED25519 الهجينة TBURN Chain من تهديدات الحوسبة الكمية الناشئة."
           },
           "dex": {
-            "title": "TBURN DEX Beta Launch: Trade with Trust Scores",
-            "description": "Our native decentralized exchange is now in beta. Trade verified tokens with integrated Trust Score protection and low fees."
+            "title": "إطلاق TBURN DEX التجريبي: تداول مع درجات الثقة",
+            "description": "منصة التداول اللامركزية الأصلية لدينا الآن في المرحلة التجريبية. تداول الرموز الموثقة مع حماية درجة الثقة المتكاملة ورسوم منخفضة."
           }
         },
         "newsletter": {
           "title": "ابق على اطلاع",
-          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
+          "description": "احصل على أحدث الأخبار والتحديثات والرؤى مباشرة في بريدك الإلكتروني.",
           "placeholder": "أدخل عنوان بريدك الإلكتروني",
           "button": "اشترك",
-          "privacy": "We respect your privacy. Unsubscribe anytime.",
-          "success": "Subscription Successful",
-          "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",
-          "error": "Subscription Error",
-          "invalidEmail": "Please enter a valid email address."
+          "privacy": "نحترم خصوصيتك. إلغاء الاشتراك في أي وقت.",
+          "success": "تم الاشتراك بنجاح",
+          "subscribed": "تمت إضافتك إلى نشرتنا الإخبارية. تحقق من بريدك الإلكتروني للتأكيد.",
+          "error": "خطأ في الاشتراك",
+          "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح."
         }
       },
       "events": {
@@ -9995,98 +9995,98 @@
         "title": "الفعاليات والأنشطة",
         "subtitle": "انضم إلى فعاليات مجتمع TBurn Chain والهاكاثونات والمؤتمرات.",
         "featuredTitle": "الفعاليات المميزة",
-        "upcomingTitle": "Upcoming Events",
-        "capacity": "Capacity",
+        "upcomingTitle": "الفعاليات القادمة",
+        "capacity": "السعة",
         "filters": {
-          "all": "All Events",
-          "hackathon": "Hackathon",
-          "ama": "AMA",
-          "webinar": "Webinar",
-          "meetup": "Meetup",
-          "conference": "Conference"
+          "all": "جميع الفعاليات",
+          "hackathon": "هاكاثون",
+          "ama": "جلسة AMA",
+          "webinar": "ندوة عبر الإنترنت",
+          "meetup": "لقاء",
+          "conference": "مؤتمر"
         },
         "types": {
-          "launchEvent": "Launch Event",
-          "amaSession": "AMA Session",
-          "seminar": "Technical Seminar",
-          "training": "Training Workshop"
+          "launchEvent": "حدث الإطلاق",
+          "amaSession": "جلسة AMA",
+          "seminar": "ندوة تقنية",
+          "training": "ورشة تدريبية"
         },
         "locations": {
-          "online": "Online",
-          "seoul": "Seoul, Korea",
-          "singapore": "Singapore"
+          "online": "عبر الإنترنت",
+          "seoul": "سيول، كوريا",
+          "singapore": "سنغافورة"
         },
         "featured": {
-          "title": "Featured Events",
-          "capacity": "Capacity",
+          "title": "الفعاليات المميزة",
+          "capacity": "السعة",
           "mainnetLaunch": {
-            "title": "TBURN Mainnet Launch Celebration",
-            "description": "Join us for the historic launch of TBURN V4 Mainnet. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
+            "title": "احتفال إطلاق الشبكة الرئيسية TBURN",
+            "description": "انضم إلينا للإطلاق التاريخي للشبكة الرئيسية TBURN V4. كن جزءاً من الجيل القادم من تقنية البلوكتشين القائمة على الثقة مع عروض حية وإسقاط جوي حصري."
           },
           "defiChallenge": {
-            "title": "TBURN DeFi Challenge Hackathon",
-            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Chain and compete for grants and incubation opportunities."
+            "title": "هاكاثون تحدي TBURN DeFi",
+            "description": "هاكاثون عالمي لمدة 48 ساعة بجوائز قيمتها 500 ألف دولار. ابنِ حلول DeFi مبتكرة على TBURN Chain وتنافس على المنح وفرص الحضانة."
           }
         },
         "upcoming": {
-          "title": "Upcoming Events",
+          "title": "الفعاليات القادمة",
           "foundersAma": {
-            "title": "Founders AMA: 2025 Vision",
-            "description": "Live Q&A with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
+            "title": "جلسة AMA مع المؤسسين: رؤية 2025",
+            "description": "جلسة أسئلة وأجوبة مباشرة مع مؤسسي TBURN لمناقشة خارطة الطريق والميزات القادمة ومبادرات المجتمع للعام الجديد."
           },
           "trustScoreApi": {
-            "title": "Trust Score API Integration Workshop",
-            "description": "Hands-on technical workshop for developers. Learn how to integrate Trust Score verification into your dApps and smart contracts."
+            "title": "ورشة عمل تكامل API درجة الثقة",
+            "description": "ورشة عمل تقنية تطبيقية للمطورين. تعلم كيفية دمج التحقق من درجة الثقة في تطبيقاتك اللامركزية وعقودك الذكية."
           },
           "seoulMeetup": {
-            "title": "Seoul Developer Meetup",
-            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+            "title": "لقاء مطوري سيول",
+            "description": "حدث تواصل حضوري للمطورين الكوريين. عروض تقنية وعروض توضيحية وهدايا حصرية للحضور."
           },
           "aiDeepDive": {
-            "title": "Triple-Band AI Deep Dive Seminar",
-            "description": "Technical deep dive into our AI orchestration system. Learn about the architecture behind intelligent blockchain operations."
+            "title": "ندوة نظرة عميقة على الذكاء الاصطناعي ثلاثي النطاق",
+            "description": "نظرة تقنية عميقة على نظام تنسيق الذكاء الاصطناعي لدينا. تعرف على البنية وراء عمليات البلوكتشين الذكية."
           },
           "validatorOps": {
-            "title": "Validator Operations Training",
-            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+            "title": "تدريب عمليات المدققين",
+            "description": "تدريب شامل لمشغلي العقد. يغطي الإعداد والصيانة وأفضل ممارسات الأمان وتحسين المكافآت."
           },
           "futureOfTrust": {
-            "title": "The Future of Trust: TBURN Summit 2025",
-            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+            "title": "مستقبل الثقة: قمة TBURN 2025",
+            "description": "مؤتمرنا السنوي الرئيسي يضم كلمات رئيسية من قادة الصناعة وورش عمل تقنية وإعلانات حصرية."
           }
         },
         "eventTypes": {
-          "launchEvent": "Launch Event",
-          "hackathon": "Hackathon",
-          "ama": "AMA Session",
-          "webinar": "Webinar",
-          "meetup": "Meetup",
-          "seminar": "Seminar",
-          "training": "Training",
-          "conference": "Conference"
+          "launchEvent": "حدث الإطلاق",
+          "hackathon": "هاكاثون",
+          "ama": "جلسة AMA",
+          "webinar": "ندوة عبر الإنترنت",
+          "meetup": "لقاء",
+          "seminar": "ندوة",
+          "training": "تدريب",
+          "conference": "مؤتمر"
         },
         "buttons": {
           "registerNow": "سجّل الآن",
           "applyNow": "قدّم الآن",
           "setReminder": "تعيين تذكير",
-          "register": "Register",
-          "rsvp": "RSVP (Limited)",
-          "rsvpLimited": "RSVP (Limited Seats)",
-          "getTickets": "Get Tickets"
+          "register": "تسجيل",
+          "rsvp": "تأكيد الحضور (محدود)",
+          "rsvpLimited": "تأكيد الحضور (مقاعد محدودة)",
+          "getTickets": "احصل على التذاكر"
         },
         "hostCta": {
-          "title": "Want to Host an Event?",
-          "description": "Host meetups, webinars, or hackathons with the TBurn Chain community. We provide funding, swag, and marketing support for approved hosts.",
-          "button": "Apply to Host"
+          "title": "هل تريد استضافة فعالية؟",
+          "description": "استضف لقاءات أو ندوات عبر الإنترنت أو هاكاثونات مع مجتمع TBurn Chain. نقدم التمويل والهدايا والدعم التسويقي للمستضيفين المعتمدين.",
+          "button": "قدّم للاستضافة"
         },
         "hostEvent": {
-          "title": "Want to host an event?",
-          "description": "Host meetups, webinars, or hackathons with the TBurn Chain community. We provide funding, swag, and marketing support.",
-          "applyToHost": "Apply to Host"
+          "title": "هل تريد استضافة فعالية؟",
+          "description": "استضف لقاءات أو ندوات عبر الإنترنت أو هاكاثونات مع مجتمع TBurn Chain. نقدم التمويل والهدايا والدعم التسويقي.",
+          "applyToHost": "قدّم للاستضافة"
         },
         "toast": {
-          "reminderSet": "Reminder Set",
-          "reminderDescription": "You will be notified before \"{{title}}\""
+          "reminderSet": "تم تعيين التذكير",
+          "reminderDescription": "سيتم إعلامك قبل \"{{title}}\""
         }
       }
     },

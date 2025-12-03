@@ -8625,19 +8625,31 @@
       "validators": {
         "tag": "СЕТЕВЫЕ ВАЛИДАТОРЫ",
         "title": "Валидаторы",
-        "subtitle": "Присоединяйтесь к сети валидаторов TBurn и получайте награды, обеспечивая безопасность блокчейна.",
+        "subtitle": "Присоединяйтесь к сети валидаторов TBurn и зарабатывайте награды, обеспечивая безопасность блокчейна",
         "becomeValidator": "Стать валидатором",
+        "validatorDocs": "Документация валидаторов",
+        "stats": {
+          "activeValidators": "Активные валидаторы",
+          "totalStaked": "Всего в стейкинге",
+          "averageUptime": "Средний аптайм",
+          "operatingCountries": "Стран работы"
+        },
+        "applyNow": "Подать заявку",
+        "consensus": {
+          "title": "Механизм консенсуса",
+          "subtitle": "Proof of Trust с AI-валидацией"
+        },
         "consensusSpecs": {
           "title": "Спецификации консенсуса",
           "blockTime": {
             "label": "Время блока",
             "value": "1 секунда",
-            "description": "Average time to produce a new block"
+            "description": "Среднее время создания нового блока"
           },
           "finality": {
             "label": "Финальность",
             "value": "6 секунд",
-            "description": "Time until transactions are irreversible"
+            "description": "Время до необратимости транзакций"
           },
           "validatorSet": {
             "label": "Набор валидаторов",
@@ -8650,12 +8662,60 @@
           "tps": {
             "label": "TPS",
             "value": "50,000+",
-            "description": "Maximum transactions per second"
+            "description": "Максимум транзакций в секунду"
           },
           "uptime": {
-            "label": "Uptime",
+            "label": "Аптайм",
             "value": "99.99%",
-            "description": "Network availability guarantee"
+            "description": "Гарантия доступности сети"
+          }
+        },
+        "cta": {
+          "title": "Готовы стать валидатором?",
+          "subtitle": "Присоединяйтесь к сети и зарабатывайте награды, защищая TBurn Chain.",
+          "startValidating": "Начать валидацию",
+          "readDocs": "Читать документацию"
+        },
+        "tierSystem": {
+          "title": "Система уровней валидаторов",
+          "stake": "Минимальный стейк",
+          "apy": "APY",
+          "slots": "Доступные слоты",
+          "elite": {
+            "name": "Элитный валидатор",
+            "badge": "Элитный",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 слот",
+            "benefits": {
+              "blockPriority": "Приоритет создания блоков",
+              "revenueShare": "Дополнительная доля дохода",
+              "aiDecision": "Участие в AI-решениях"
+            }
+          },
+          "standard": {
+            "name": "Стандартный валидатор",
+            "badge": "Стандартный",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 слотов",
+            "benefits": {
+              "blockValidation": "Права валидации блоков",
+              "feeDistribution": "Распределение комиссий",
+              "votingRights": "Права голосования в управлении"
+            }
+          },
+          "starter": {
+            "name": "Начинающий валидатор",
+            "badge": "Начинающий",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "Неограниченно",
+            "benefits": {
+              "delegate": "Делегирование крупным валидаторам",
+              "autoRewards": "Автоматическое распределение наград",
+              "unstakePeriod": "21-дневный период анстейкинга"
+            }
           }
         },
         "validatorTiers": {
@@ -8676,12 +8736,61 @@
             "rewards": "Базовые награды"
           }
         },
+        "hardware": {
+          "title": "Требования к оборудованию",
+          "cpu": "CPU: 16+ ядер (AMD EPYC или Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "Хранилище: 2TB NVMe SSD",
+          "network": "Сеть: 1Gbps выделенный",
+          "superNode": {
+            "title": "Требования к Super Node",
+            "cpu": "CPU: 32+ ядер",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "Хранилище: 4TB NVMe RAID",
+            "network": "Сеть: 10Gbps выделенный"
+          },
+          "standardNode": {
+            "title": "Требования к стандартной ноде",
+            "cpu": "CPU: 8+ ядер",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "Хранилище: 1TB NVMe SSD",
+            "network": "Сеть: 500Mbps"
+          }
+        },
         "hardwareRequirements": {
           "title": "Требования к оборудованию",
           "cpu": "CPU: 8+ ядер",
           "ram": "RAM: 32GB+",
           "storage": "Хранилище: 1TB NVMe SSD",
           "bandwidth": "Пропускная способность: 1Gbps"
+        },
+        "slashing": {
+          "title": "Условия слэшинга",
+          "subtitle": "Валидаторы должны поддерживать высокие стандарты. Нарушения приводят к штрафам стейка.",
+          "minor": {
+            "title": "Незначительное нарушение",
+            "badge": "Предупреждение",
+            "description": "Кратковременный простой или пропущенные блоки",
+            "penalty": "0.1% уменьшение стейка"
+          },
+          "moderate": {
+            "title": "Умеренное нарушение",
+            "badge": "Штраф",
+            "description": "Длительный простой более 24 часов",
+            "penalty": "1-5% уменьшение стейка"
+          },
+          "severe": {
+            "title": "Серьёзное нарушение",
+            "badge": "Серьёзное",
+            "description": "Злонамеренное голосование или попытки цензуры",
+            "penalty": "25-50% уменьшение стейка"
+          },
+          "critical": {
+            "title": "Критическое нарушение",
+            "badge": "Критическое",
+            "description": "Двойная подпись или атаки на сеть",
+            "penalty": "100% стейка слэшится"
+          }
         },
         "slashingPolicy": {
           "title": "Политика слэшинга",
@@ -8698,129 +8807,75 @@
             "penalty": "50% стейка слэшится"
           }
         },
-        "validatorDocs": "View Validator Documentation",
-        "stats": {
-          "activeValidators": "Active Validators",
-          "totalStaked": "Всего застейкано",
-          "averageUptime": "Average Uptime",
-          "operatingCountries": "Operating Countries"
-        },
-        "applyNow": "Подать заявку",
-        "consensus": {
-          "title": "Consensus Mechanism",
-          "subtitle": "Proof of Trust with AI-powered validation"
-        },
-        "cta": {
-          "title": "Ready to Become a Validator?",
-          "subtitle": "Join the network and earn rewards while securing TBurn Chain.",
-          "startValidating": "Start Validating",
-          "readDocs": "Читать документацию"
-        },
-        "tierSystem": {
-          "title": "Validator Tier System",
-          "stake": "Minimum Stake",
-          "apy": "APY",
-          "slots": "Available Slots",
-          "elite": {
-            "name": "Elite Validator",
-            "badge": "Elite",
-            "stakeAmount": "1,000,000 TBURN",
-            "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
-            "benefits": {
-              "blockPriority": "Block production priority",
-              "revenueShare": "Additional revenue share",
-              "aiDecision": "AI decision participation"
-            }
-          },
-          "standard": {
-            "name": "Standard Validator",
-            "badge": "Standard",
-            "stakeAmount": "500,000 TBURN",
-            "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
-            "benefits": {
-              "blockValidation": "Block validation rights",
-              "feeDistribution": "Transaction fee distribution",
-              "votingRights": "Governance voting rights"
-            }
-          },
-          "starter": {
-            "name": "Starter Validator",
-            "badge": "Starter",
-            "stakeAmount": "100,000 TBURN",
-            "apyAmount": "8-12%",
-            "slotsAmount": "Unlimited",
-            "benefits": {
-              "delegate": "Delegate to larger validators",
-              "autoRewards": "Automatic reward distribution",
-              "unstakePeriod": "21-day unstaking period"
-            }
-          }
-        },
-        "hardware": {
-          "title": "Hardware Requirements",
-          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
-          "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "Network: 1Gbps dedicated",
-          "superNode": {
-            "title": "Super Node Requirements",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RAID",
-            "network": "Network: 10Gbps dedicated"
-          },
-          "standardNode": {
-            "title": "Standard Node Requirements",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RAM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Network: 500Mbps"
-          }
-        },
-        "slashing": {
-          "title": "Slashing Conditions",
-          "subtitle": "Validators must maintain high standards. Violations result in stake penalties.",
-          "minor": {
-            "title": "Minor Violation",
-            "badge": "Предупреждение",
-            "description": "Brief downtime or missed blocks",
-            "penalty": "0.1% stake reduction"
-          },
-          "moderate": {
-            "title": "Moderate Violation",
-            "badge": "Penalty",
-            "description": "Extended downtime over 24 hours",
-            "penalty": "1-5% stake reduction"
-          },
-          "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious voting or censorship attempts",
-            "penalty": "25-50% stake reduction"
-          },
-          "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% stake slashed"
-          }
-        },
         "geography": {
-          "title": "Geographic Distribution"
+          "title": "Географическое распределение"
         },
         "activeValidators": {
-          "title": "Active Validators",
-          "searchPlaceholder": "Search validators...",
-          "viewAll": "View All Validators"
+          "title": "Активные валидаторы",
+          "searchPlaceholder": "Поиск валидаторов...",
+          "viewAll": "Показать всех валидаторов"
         }
       },
       "rpc": {
         "tag": "RPC ИНФРАСТРУКТУРА",
-        "title": "RPC провайдеры",
-        "subtitle": "Высокопроизводительные RPC эндпоинты с корпоративной надёжностью. Поддержка WebSocket и HTTP соединений.",
+        "title": "RPC Эндпоинты",
+        "subtitle": "Подключитесь к официальным RPC нодам для надёжного доступа к сети",
         "getApiKey": "Получить API ключ",
+        "buttons": {
+          "getApiKey": "Получить API ключ",
+          "viewDocs": "Документация"
+        },
+        "sections": {
+          "apiPlans": "API планы",
+          "coreEndpoints": "Основные эндпоинты",
+          "sdkExamples": "Примеры SDK",
+          "support": "Поддержка"
+        },
+        "plans": {
+          "free": {
+            "name": "Бесплатный"
+          },
+          "basic": {
+            "name": "Базовый"
+          },
+          "pro": {
+            "name": "Профессиональный"
+          },
+          "enterprise": {
+            "name": "Корпоративный"
+          },
+          "requestsMin": "запросов/мин",
+          "requestsDay": "запросов/день",
+          "perMonth": "/месяц",
+          "unlimited": "Безлимитно",
+          "contact": "Связаться"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "API запроса рейтинга"
+          },
+          "projectApi": {
+            "title": "API проекта"
+          },
+          "analyticsApi": {
+            "title": "API аналитики"
+          },
+          "webhookApi": {
+            "title": "API вебхуков",
+            "events": "События: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "TypeScript SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "Пример cURL"
+          }
+        },
         "apiPlans": {
           "title": "API планы и лимиты",
           "free": {
@@ -8892,175 +8947,120 @@
           "documentation": {
             "title": "Документация",
             "description": "Подробные API справочники и руководства.",
-            "desc": "Comprehensive API documentation and integration guides."
+            "desc": "Полная документация API и руководства по интеграции."
           },
           "apiStatus": {
             "title": "Статус API",
             "description": "Статус системы и время работы в реальном времени.",
-            "desc": "Real-time system status, uptime metrics, and incident reports."
+            "desc": "Статус системы в реальном времени, метрики аптайма и отчёты об инцидентах."
           },
           "developerHub": {
             "title": "Хаб разработчика",
             "description": "Open source SDK и примеры.",
-            "desc": "Open source SDKs, code examples, and community resources."
+            "desc": "Open source SDK, примеры кода и ресурсы сообщества."
           }
         },
         "cta": {
           "title": "Готовы строить?",
           "subtitle": "Начните строить с TBurn Chain API уже сегодня. Получите бесплатный API ключ и доступ к корпоративной блокчейн-инфраструктуре.",
+          "desc": "Начните строить с TBurn Chain API уже сегодня. Получите бесплатный API ключ и доступ к корпоративной блокчейн-инфраструктуре.",
           "getStartedFree": "Начать бесплатно",
-          "contactSales": "Связаться с отделом продаж",
-          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
-        },
-        "buttons": {
-          "getApiKey": "Get API Key",
-          "viewDocs": "Смотреть документацию"
-        },
-        "sections": {
-          "apiPlans": "API Plans",
-          "coreEndpoints": "Основные эндпоинты",
-          "sdkExamples": "SDK Examples",
-          "support": "Support"
-        },
-        "plans": {
-          "free": {
-            "name": "Free"
-          },
-          "basic": {
-            "name": "Basic"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Корпоративный"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "Unlimited",
-          "contact": "Contact Us"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "Score Query API"
-          },
-          "projectApi": {
-            "title": "Project API"
-          },
-          "analyticsApi": {
-            "title": "Analytics API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "Events: score.updated, score.alert, project.registered"
-          }
-        },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL Example"
-          }
+          "contactSales": "Связаться с отделом продаж"
         }
       },
       "status": {
-        "tag": "СТАТУС",
+        "tag": "СТАТУС СЕТИ",
         "title": "Статус сети",
         "subtitle": "Мониторинг состояния и производительности сети в реальном времени.",
-        "operational": "Operational",
-        "lastUpdated": "Last updated",
-        "daysAgo": "days ago",
-        "today": "Today",
-        "uptimeAvg": "Uptime Average",
+        "operational": "Работает",
+        "lastUpdated": "Обновлено",
+        "daysAgo": "дней назад",
+        "today": "Сегодня",
+        "uptimeAvg": "Средний аптайм",
         "buttons": {
-          "refreshData": "Refresh Data"
+          "refreshData": "Обновить данные"
         },
         "sections": {
-          "coreMetrics": "Core Metrics",
-          "coreMetricsDesc": "Real-time blockchain performance indicators",
-          "serviceStatus": "Service Status",
-          "serviceStatusDesc": "Current status of all network services",
-          "uptimeHistory": "Uptime History",
-          "uptimeHistoryDesc": "Network availability over the past 90 days",
-          "aiSystem": "AI Orchestration System",
-          "aiSystemDesc": "Triple-band AI model performance and status",
-          "validatorNetwork": "Validator Network",
-          "validatorNetworkDesc": "Active validators and geographic distribution"
+          "coreMetrics": "Основные метрики",
+          "coreMetricsDesc": "Показатели производительности блокчейна в реальном времени",
+          "serviceStatus": "Статус сервисов",
+          "serviceStatusDesc": "Текущий статус всех сетевых сервисов",
+          "uptimeHistory": "История аптайма",
+          "uptimeHistoryDesc": "Доступность сети за последние 90 дней",
+          "aiSystem": "AI система оркестрации",
+          "aiSystemDesc": "Производительность и статус трёхуровневой AI модели",
+          "validatorNetwork": "Сеть валидаторов",
+          "validatorNetworkDesc": "Активные валидаторы и географическое распределение"
         },
         "metrics": {
-          "tps": "Transactions Per Second",
-          "peak": "Peak",
-          "blockHeight": "Block Height",
-          "latency": "Network Latency",
-          "finality": "Finality Time",
-          "avgFee": "Average Fee",
-          "cheapFast": "Cheap & Fast",
-          "shards": "Active Shards"
+          "tps": "Транзакций в секунду",
+          "peak": "Пик",
+          "blockHeight": "Высота блока",
+          "latency": "Задержка сети",
+          "finality": "Время финальности",
+          "avgFee": "Средняя комиссия",
+          "cheapFast": "Дёшево и быстро",
+          "shards": "Активные шарды"
         },
         "services": {
           "mainnetRpc": {
             "name": "Mainnet RPC",
-            "desc": "Primary JSON-RPC endpoints for mainnet"
+            "desc": "Основные JSON-RPC эндпоинты для mainnet"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "Real-time event streaming and subscriptions"
+            "desc": "Стриминг событий и подписки в реальном времени"
           },
           "explorerApi": {
             "name": "Explorer API",
-            "desc": "Block explorer data endpoints"
+            "desc": "Эндпоинты данных блок-эксплорера"
           },
           "trustScoreApi": {
             "name": "Trust Score API",
-            "desc": "Project verification and scoring endpoints"
+            "desc": "Эндпоинты верификации и рейтинга проектов"
           },
           "trustScore": {
-            "name": "Trust Score Service",
-            "desc": "AI-powered trust verification and project scoring"
+            "name": "Trust Score сервис",
+            "desc": "AI-верификация доверия и рейтинг проектов"
           },
           "crossChainBridge": {
             "name": "Кросс-чейн мост",
-            "desc": "Multi-chain asset transfer service"
+            "desc": "Сервис мультичейн переводов активов"
           },
           "quantumSecurity": {
-            "name": "Quantum Security Module",
-            "desc": "CRYSTALS-Dilithium signature verification"
+            "name": "Модуль квантовой безопасности",
+            "desc": "Верификация подписей CRYSTALS-Dilithium"
           }
         },
         "ai": {
           "active": "Активный",
-          "accuracy": "Accuracy",
+          "accuracy": "Точность",
           "latency": "Задержка",
           "strategic": {
-            "title": "Strategic AI",
+            "title": "Стратегический AI",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "Тактический AI",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational AI",
+            "title": "Операционный AI",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "Monthly Average",
-          "uptimeGuarantee": "Uptime Guarantee",
-          "lastIncident": "Last Incident"
+          "monthlyAverage": "Среднее за месяц",
+          "uptimeGuarantee": "Гарантия аптайма",
+          "lastIncident": "Последний инцидент"
         },
         "validators": {
-          "active": "Active Validators",
-          "countries": "Operating Countries",
-          "totalStaked": "Всего застейкано",
-          "avgUptime": "Average Uptime",
-          "nodeCount": "Node Count",
-          "regions": "Regions",
+          "active": "Активные валидаторы",
+          "countries": "Стран работы",
+          "totalStaked": "Всего в стейкинге",
+          "avgUptime": "Средний аптайм",
+          "nodeCount": "Количество нод",
+          "regions": "Регионов",
           "superNodes": "Super Nodes"
         }
       },
@@ -9168,13 +9168,15 @@
     "community": {
       "hub": {
         "tag": "СООБЩЕСТВО",
-        "title": "Хаб сообщества",
-        "subtitle": "Общайтесь с разработчиками, валидаторами и энтузиастами.",
+        "title": "Сообщество",
+        "subtitle": "Общайтесь с разработчиками, валидаторами и энтузиастами",
+        "channelsTitle": "Присоединяйтесь к каналам",
+        "contributeTitle": "Способы внести вклад",
         "stats": {
-          "totalMembers": "Total Members",
-          "monthlyActive": "Monthly Active",
-          "ambassadors": "Ambassadors",
-          "contributors": "Contributors"
+          "totalMembers": "Всего участников",
+          "monthlyActive": "Активных в месяц",
+          "ambassadors": "Амбассадоров",
+          "contributors": "Контрибьюторов"
         },
         "channels": {
           "title": "Каналы сообщества",
@@ -9182,37 +9184,48 @@
             "name": "Discord",
             "description": "Чат разработчиков в реальном времени, поддержка и общение.",
             "action": "Присоединиться к серверу",
-            "members": "124,500+ members"
+            "members": "124,500+ участников"
           },
           "telegram": {
             "name": "Telegram",
             "description": "Быстрые объявления и локальные группы сообщества.",
             "action": "Присоединиться к каналу",
-            "members": "89,200+ members"
+            "members": "89,200+ участников"
           },
           "twitter": {
             "name": "Twitter / X",
             "description": "Последние обновления, партнёрства и новости мероприятий.",
             "action": "Подписаться",
-            "members": "156,000+ followers"
+            "members": "156,000+ подписчиков"
           },
           "github": {
             "name": "GitHub",
             "description": "Open source код, SDK и техническая документация.",
             "action": "Внести вклад",
-            "members": "2,400+ stars"
+            "members": "2,400+ звёзд"
           }
         },
         "leaderboard": {
-          "title": "Рейтинг контрибьюторов",
+          "title": "Лидерборд контрибьюторов",
           "subtitle": "Топ контрибьюторы сообщества в этом месяце",
-          "points": "{{count}} points",
+          "points": "{{count}} баллов",
           "tiers": {
-            "diamond": "Diamond",
-            "platinum": "Platinum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Bronze"
+            "diamond": "Бриллиант",
+            "platinum": "Платина",
+            "gold": "Золото",
+            "silver": "Серебро",
+            "bronze": "Бронза"
+          }
+        },
+        "ambassador": {
+          "title": "Программа амбассадоров",
+          "subtitle": "Возглавьте глобальное сообщество TBurn",
+          "applyButton": "Подать заявку на амбассадора",
+          "benefits": {
+            "rewards": "Ежемесячные награды в токенах TBURN",
+            "earlyAccess": "Ранний доступ к новым функциям",
+            "nftBadge": "Официальный NFT значок и мерч",
+            "directChannel": "Прямой канал связи с командой"
           }
         },
         "ambassadorProgram": {
@@ -9254,105 +9267,95 @@
           "tag": "TBURN DAO",
           "description": "Стейкайте токены TBURN для участия в решениях протокола. Создавайте предложения, голосуйте за обновления и управляйте казной сообщества.",
           "goToPortal": "Перейти в портал управления",
+          "button": "Перейти в портал управления",
           "stats": {
             "proposals": "Предложений",
             "votesCast": "Голосов подано",
             "treasuryBalance": "Баланс казны",
-            "treasury": "Treasury Balance"
-          },
-          "button": "Go to Governance Portal"
-        },
-        "channelsTitle": "Join Our Channels",
-        "ambassador": {
-          "title": "Ambassador Program",
-          "subtitle": "Lead the global TBurn community",
-          "applyButton": "Apply as Ambassador",
-          "benefits": {
-            "rewards": "Monthly TBURN token rewards",
-            "earlyAccess": "Early access to new features",
-            "nftBadge": "Official NFT Badge & Swag",
-            "directChannel": "Direct team communication channel"
+            "treasury": "Баланс казны"
           }
-        },
-        "contributeTitle": "Ways to Contribute"
+        }
       },
       "news": {
         "tag": "НОВОСТИ И БЛОГ",
         "title": "Новости и блог",
-        "subtitle": "Последние обновления, объявления и аналитика.",
-        "searchPlaceholder": "Search articles...",
-        "featuredTitle": "Featured Stories",
-        "featuredBadge": "Featured",
-        "latestTitle": "Latest Articles",
+        "subtitle": "Последние обновления, объявления и аналитика",
+        "searchPlaceholder": "Поиск статей...",
+        "featuredTitle": "Избранные статьи",
+        "featuredBadge": "Избранное",
+        "latestTitle": "Последние статьи",
         "readMore": "Читать далее",
-        "readTime": "{{minutes}} min read",
-        "views": "views",
-        "showingCount": "Showing {{current}} of {{total}}",
+        "readTime": "{{minutes}} мин чтения",
+        "views": "просмотров",
+        "showingCount": "Показано {{current}} из {{total}}",
         "categories": {
           "all": "Все",
-          "announcement": "Announcement",
-          "technology": "Technology",
-          "security": "Security",
-          "tokenomics": "Tokenomics",
-          "partnership": "Partnership",
+          "announcement": "Объявления",
+          "technology": "Технологии",
+          "security": "Безопасность",
+          "tokenomics": "Токеномика",
+          "partnership": "Партнёрства",
           "defi": "DeFi",
-          "development": "Development"
+          "development": "Разработка"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 Mainnet Officially Launches",
-            "description": "After 18 months of development, TBURN Chain V4 Mainnet is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
+            "title": "Официальный запуск TBURN V4 Mainnet",
+            "description": "После 18 месяцев разработки TBURN Chain V4 Mainnet теперь в работе с 500K+ TPS, Triple-Band AI и квантово-устойчивой безопасностью.",
             "author": "TBURN Foundation"
           },
           "tripleBandAi": {
-            "title": "Triple-Band AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
+            "title": "Представлена система Triple-Band AI Orchestration",
+            "description": "Глубокий анализ нашей революционной трёхуровневой AI системы, которая обеспечивает интеллектуальное принятие решений на стратегическом, тактическом и операционном уровнях.",
             "author": "AI Research Team"
           },
           "partnership": {
-            "title": "Global Partnership Expansion: 12 New Integrations",
-            "description": "TBURN Chain announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
+            "title": "Глобальное расширение партнёрств: 12 новых интеграций",
+            "description": "TBURN Chain объявляет о стратегических партнёрствах с ведущими DeFi протоколами, биржами и корпоративными клиентами в Азии, Европе и Америке.",
             "author": "Business Development"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN Staking Program: Complete Guide to Earning Rewards",
-            "description": "Everything you need to know about the three-tier staking system, APY calculations, and how to maximize your validator rewards."
+            "title": "Программа стейкинга TBURN: полное руководство по заработку наград",
+            "description": "Всё, что нужно знать о трёхуровневой системе стейкинга, расчётах APY и максимизации наград валидатора."
           },
           "trustScore": {
-            "title": "Trust Score Deep Dive: The 3-Stage Verification Process",
-            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+            "title": "Подробный анализ Trust Score: 3-этапный процесс верификации",
+            "description": "Понимание того, как AI-анализ, экспертная проверка и голосование сообщества работают вместе для защиты инвесторов от мошеннических проектов."
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Released: New Features for Developers",
-            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+            "title": "Выпущен TBURN SDK 2.0: новые функции для разработчиков",
+            "description": "Анонс SDK 2.0 с поддержкой TypeScript, улучшенной обработкой WebSocket и упрощёнными инструментами развёртывания смарт-контрактов."
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN Chain against emerging quantum computing threats."
+            "title": "Квантово-устойчивая криптография: защита TBURN на будущее",
+            "description": "Как гибридные подписи CRYSTALS-Dilithium и ED25519 защищают TBURN Chain от угроз квантовых вычислений."
           },
           "dex": {
-            "title": "TBURN DEX Beta Launch: Trade with Trust Scores",
-            "description": "Our native decentralized exchange is now in beta. Trade verified tokens with integrated Trust Score protection and low fees."
+            "title": "Запуск бета-версии TBURN DEX: торгуйте с Trust Scores",
+            "description": "Наша нативная децентрализованная биржа теперь в бета-версии. Торгуйте верифицированными токенами с интегрированной защитой Trust Score и низкими комиссиями."
           }
         },
         "newsletter": {
-          "title": "Stay Updated",
-          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
+          "title": "Подписка на новости",
+          "description": "Получайте последние новости, обновления и аналитику прямо на вашу почту.",
           "placeholder": "Введите ваш email адрес",
           "button": "Подписаться",
-          "privacy": "We respect your privacy. Unsubscribe anytime.",
-          "success": "Subscription Successful",
-          "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",
-          "error": "Subscription Error",
-          "invalidEmail": "Please enter a valid email address."
+          "privacy": "Мы уважаем вашу конфиденциальность. Отписка в любое время.",
+          "success": "Подписка успешна",
+          "subscribed": "Вы добавлены в нашу рассылку. Проверьте почту для подтверждения.",
+          "error": "Ошибка подписки",
+          "invalidEmail": "Пожалуйста, введите корректный email адрес."
         }
       },
       "events": {
-        "tag": "МЕРОПРИЯТИЯ И АКТИВНОСТИ",
-        "title": "Мероприятия и активности",
-        "subtitle": "Участвуйте в мероприятиях сообщества TBurn Chain, хакатонах и конференциях.",
+        "tag": "МЕРОПРИЯТИЯ",
+        "title": "Мероприятия",
+        "subtitle": "Участвуйте в хакатонах, митапах и конференциях",
+        "featuredTitle": "Избранные мероприятия",
+        "upcomingTitle": "Предстоящие мероприятия",
+        "capacity": "Вместимость",
         "filters": {
           "all": "Все мероприятия",
           "hackathon": "Хакатон",
@@ -9365,39 +9368,39 @@
           "title": "Избранные мероприятия",
           "capacity": "Вместимость",
           "mainnetLaunch": {
-            "title": "TBURN Mainnet Launch Celebration",
-            "description": "Join us for the historic launch of TBURN V4 Mainnet. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
+            "title": "Празднование запуска TBURN Mainnet",
+            "description": "Присоединяйтесь к историческому запуску TBURN V4 Mainnet. Станьте частью нового поколения блокчейн-технологий на основе доверия с живыми демонстрациями и эксклюзивными аирдропами."
           },
           "defiChallenge": {
             "title": "Хакатон TBURN DeFi Challenge",
-            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Chain and compete for grants and incubation opportunities."
+            "description": "48-часовой глобальный хакатон с призами $500K. Создавайте инновационные DeFi решения на TBURN Chain и соревнуйтесь за гранты и возможности инкубации."
           }
         },
         "upcoming": {
           "title": "Предстоящие мероприятия",
           "foundersAma": {
-            "title": "Founders AMA: 2025 Vision",
-            "description": "Live Q&A with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
+            "title": "AMA с основателями: Видение 2025",
+            "description": "Живой Q&A с основателями TBURN об обсуждении дорожной карты, предстоящих функциях и инициативах сообщества на новый год."
           },
           "trustScoreApi": {
-            "title": "Trust Score API Integration Workshop",
-            "description": "Hands-on technical workshop for developers. Learn how to integrate Trust Score verification into your dApps and smart contracts."
+            "title": "Воркшоп по интеграции Trust Score API",
+            "description": "Практический технический воркшоп для разработчиков. Узнайте, как интегрировать верификацию Trust Score в ваши dApps и смарт-контракты."
           },
           "seoulMeetup": {
-            "title": "Seoul Developer Meetup",
-            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+            "title": "Митап разработчиков в Сеуле",
+            "description": "Очное нетворкинг-мероприятие для корейских разработчиков. Технические презентации, демонстрации и эксклюзивный мерч для участников."
           },
           "aiDeepDive": {
-            "title": "Triple-Band AI Deep Dive Seminar",
-            "description": "Technical deep dive into our AI orchestration system. Learn about the architecture behind intelligent blockchain operations."
+            "title": "Семинар: Глубокий анализ Triple-Band AI",
+            "description": "Технический глубокий анализ нашей системы AI оркестрации. Узнайте об архитектуре интеллектуальных блокчейн-операций."
           },
           "validatorOps": {
-            "title": "Validator Operations Training",
-            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+            "title": "Обучение операторов валидаторов",
+            "description": "Комплексное обучение для операторов нод. Настройка, обслуживание, лучшие практики безопасности и оптимизация наград."
           },
           "futureOfTrust": {
-            "title": "The Future of Trust: TBURN Summit 2025",
-            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+            "title": "Будущее доверия: TBURN Summit 2025",
+            "description": "Наша флагманская ежегодная конференция с докладами лидеров индустрии, техническими воркшопами и эксклюзивными объявлениями."
           }
         },
         "eventTypes": {
@@ -9410,6 +9413,12 @@
           "training": "Обучение",
           "conference": "Конференция"
         },
+        "types": {
+          "launchEvent": "Запуск",
+          "amaSession": "AMA сессия",
+          "seminar": "Технический семинар",
+          "training": "Обучающий воркшоп"
+        },
         "buttons": {
           "registerNow": "Зарегистрироваться",
           "applyNow": "Подать заявку",
@@ -9417,35 +9426,26 @@
           "register": "Регистрация",
           "rsvp": "RSVP (Ограничено)",
           "getTickets": "Получить билеты",
-          "rsvpLimited": "RSVP (Limited Seats)"
+          "rsvpLimited": "RSVP (Ограниченные места)"
+        },
+        "locations": {
+          "online": "Онлайн",
+          "seoul": "Сеул, Корея",
+          "singapore": "Сингапур"
         },
         "hostEvent": {
           "title": "Хотите провести мероприятие?",
           "description": "Проводите митапы, вебинары или хакатоны с сообществом TBurn Chain. Мы предоставляем финансирование, мерч и маркетинговую поддержку.",
           "applyToHost": "Подать заявку на проведение"
         },
-        "toast": {
-          "reminderSet": "Напоминание установлено",
-          "reminderDescription": "Вы будете уведомлены перед \"{{eventTitle}}\""
-        },
-        "featuredTitle": "Избранные мероприятия",
-        "upcomingTitle": "Предстоящие мероприятия",
-        "capacity": "Вместимость",
-        "types": {
-          "launchEvent": "Запуск",
-          "amaSession": "AMA сессия",
-          "seminar": "Technical Seminar",
-          "training": "Training Workshop"
-        },
-        "locations": {
-          "online": "Онлайн",
-          "seoul": "Seoul, Korea",
-          "singapore": "Singapore"
-        },
         "hostCta": {
           "title": "Хотите провести мероприятие?",
           "description": "Проводите митапы, вебинары или хакатоны с сообществом TBurn Chain. Мы предоставляем финансирование, мерч и маркетинговую поддержку для одобренных организаторов.",
           "button": "Подать заявку на проведение"
+        },
+        "toast": {
+          "reminderSet": "Напоминание установлено",
+          "reminderDescription": "Вы будете уведомлены перед \"{{eventTitle}}\""
         }
       }
     },

@@ -12378,8 +12378,8 @@
       },
       "rpc": {
         "tag": "RPCインフラ",
-        "title": "RPCプロバイダー",
-        "subtitle": "エンタープライズグレードの信頼性を持つ高性能RPCエンドポイント。WebSocketとHTTP接続をサポート。",
+        "title": "RPCエンドポイント",
+        "subtitle": "信頼性の高いネットワークアクセスのための公式RPCノードに接続。WebSocketとHTTP接続をサポート。",
         "getApiKey": "APIキーを取得",
         "apiPlans": {
           "title": "APIプラン＆制限",
