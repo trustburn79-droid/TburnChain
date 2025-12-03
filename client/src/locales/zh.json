@@ -10851,7 +10851,7 @@
       "gaming": {
         "tag": "游戏与元宇宙",
         "title": "游戏与元宇宙",
-        "subtitle": "使用TBURN高性能GameFi基础设施构建下一代区块链游戏。无缝P2E集成、NFT资产和跨游戏经济。",
+        "subtitle": "使用TBURN的高性能GameFi基础设施构建下一代区块链游戏。无缝P2E集成、NFT资产和跨游戏经济。",
         "buttons": {
           "startBuilding": "开始构建",
           "gameTooling": "游戏工具"
@@ -10859,15 +10859,15 @@
         "categories": {
           "title": "游戏类别",
           "all": "所有游戏",
-          "p2e": "Play-to-Earn",
+          "p2e": "边玩边赚",
           "nft": "NFT游戏",
           "metaverse": {
             "title": "元宇宙与虚拟世界",
-            "desc": "构建具有区块链验证土地所有权、虚拟形象系统和跨平台资产可移植性的沉浸式虚拟体验。"
+            "desc": "构建具有区块链验证土地所有权、头像系统和跨平台资产可移植性的沉浸式虚拟体验。"
           },
           "web3Gaming": {
             "title": "Web3游戏",
-            "desc": "具有链上资产、可验证随机性和去信任锦标赛的全栈区块链游戏。构建玩家真正拥有的游戏。"
+            "desc": "具有链上资产、可验证随机性和无信任锦标赛的全栈区块链游戏。构建玩家真正拥有的游戏。"
           },
           "nftCollectibles": {
             "title": "NFT收藏品",
@@ -10875,126 +10875,117 @@
           },
           "musicStreaming": {
             "title": "音乐与流媒体",
-            "desc": "具有创作者版税的去中心化音乐分发。NFT门票、粉丝代币和艺术家对听众的直接变现。"
+            "desc": "具有创作者版税的去中心化音乐分发。NFT门票、粉丝代币和直接的艺术家对听众的货币化。"
           }
         },
         "metrics": {
           "activePlayers": "活跃玩家",
-          "dailyTransactions": "日交易量",
-          "totalNfts": "NFT总量",
+          "dailyTransactions": "每日交易",
+          "totalNfts": "NFT总数",
           "tvl": "游戏TVL",
-          "dailyActivePlayers": "日活跃玩家",
+          "dailyActivePlayers": "每日活跃玩家",
           "nftVolume": "NFT交易量",
           "gamesApps": "游戏与应用"
         },
         "features": {
           "title": "游戏功能",
           "p2e": {
-            "title": "Play-to-Earn",
-            "description": "具有反作弊验证的可持续代币经济学"
+            "title": "边玩边赚",
+            "description": "具有反作弊验证的可持续代币经济"
           },
           "nftAssets": {
             "title": "NFT游戏资产",
-            "description": "经验证的所有权和跨游戏互操作性"
+            "description": "验证的所有权和跨游戏互操作性"
           },
           "tournaments": {
             "title": "锦标赛",
-            "description": "具有公平分配的去中心化奖池"
+            "description": "公平分配的去中心化奖金池"
           },
           "guilds": {
             "title": "游戏公会",
-            "desc": "具有透明利润分享的DAO公会管理。游戏社区的奖学金计划和集体资产所有权。"
+            "desc": "透明利润分享的DAO基础公会管理。游戏社区的奖学金计划和集体资产所有权。"
           },
           "gasFree": {
             "title": "无Gas游戏",
-            "desc": "通过赞助交易实现无缝玩家体验。无钱包弹窗或Gas费打断游戏过程。"
+            "desc": "赞助交易的无缝玩家体验。没有钱包弹窗或Gas费用中断游戏。"
           },
           "antiCheat": {
             "title": "反作弊系统",
-            "desc": "具有Trust Score集成的AI驱动欺诈检测。保护您的游戏经济免受机器人、漏洞利用和恶意行为者的侵害。"
+            "desc": "集成Trust Score的AI驱动欺诈检测。保护您的游戏经济免受机器人、漏洞利用和恶意行为者的侵害。"
           },
           "playEarn": {
-            "title": "Play-to-Earn奖励",
-            "desc": "具有基于表现奖励的可持续代币经济学。奖励技能和投入时间的公平分配机制。"
+            "title": "边玩边赚奖励",
+            "desc": "基于绩效奖励的可持续代币经济学。奖励技能和投入时间的公平分配机制。"
           }
         },
         "gameTypes": {
-          "title": "支持的游戏类型",
-          "rpg": {
-            "title": "RPG",
-            "description": "具有物品交易的角色扮演游戏"
-          },
-          "strategy": {
-            "title": "策略",
-            "description": "资源管理和领土控制"
-          },
-          "card": {
-            "title": "卡牌游戏",
-            "description": "具有NFT卡牌的收集卡牌游戏"
-          },
-          "casual": {
-            "title": "休闲",
-            "description": "具有微奖励的快速游戏"
-          },
           "mmorpgs": {
             "title": "MMORPG",
-            "desc": "具有玩家所有经济和公会治理的大型多人世界"
+            "desc": "具有玩家拥有经济和公会治理的大型多人世界"
           },
           "battleRoyale": {
             "title": "大逃杀",
-            "desc": "具有奖池和排名赛季的竞技最后存活游戏"
+            "desc": "具有奖金池和排名赛季的竞技生存游戏"
           },
           "cardStrategy": {
             "title": "卡牌与策略",
-            "desc": "具有可验证稀有度和市场交易的收集卡牌游戏"
+            "desc": "具有可验证稀有度和市场交易的收藏卡牌游戏"
           },
-          "sportsRacing": {
-            "title": "体育与竞速",
+          "racingSports": {
+            "title": "竞速与体育",
             "desc": "具有验证结果和赛季联赛的竞技体育和竞速游戏"
+          },
+          "casualSocial": {
+            "title": "休闲与社交",
+            "desc": "具有代币奖励的快速会话和社交游戏"
+          },
+          "esports": {
+            "title": "电子竞技",
+            "desc": "专业锦标赛、联赛和赞助机会"
           }
         },
-        "showcase": {
-          "title": "游戏展示",
-          "featured": "精选游戏",
-          "allGames": "所有游戏",
-          "topGames": "热门游戏",
-          "newGames": "新游戏"
+        "sections": {
+          "categories": "游戏类别",
+          "categoriesDesc": "探索TBURN支持的游戏类型",
+          "platformFeatures": "平台功能",
+          "gameGenres": "游戏类型"
         },
         "cta": {
           "title": "准备开始游戏开发了吗？",
-          "subtitle": "使用TBURN GameFi基础设施加入数百万玩家。",
-          "button": "开始构建"
+          "desc": "使用TBURN GameFi基础设施加入数百万玩家。",
+          "quickStart": "快速开始",
+          "memberPortal": "会员门户"
         }
       },
       "tokenization": {
         "tag": "资产代币化",
         "title": "资产代币化",
-        "subtitle": "在TBURN区块链上将实物资产代币化。将房地产、奢侈品、证券等转换为可分割所有权的数字资产。",
+        "subtitle": "将现实世界资产转化为区块链代币。释放流动性，实现部分所有权，并通过合规代币化进入全球市场。",
         "buttons": {
-          "tokenizeAssets": "代币化资产",
-          "learnMore": "了解更多"
+          "startTokenizing": "开始代币化",
+          "viewDocumentation": "查看文档"
         },
-        "categories": {
+        "types": {
           "realEstate": {
             "title": "房地产代币化",
-            "desc": "商业和住宅房地产的分割所有权。AI驱动的估值和自动化租金收入分配。"
+            "desc": "商业和住宅房产的部分所有权。以最低资本要求和即时流动性实现房地产全球投资。"
+          },
+          "luxuryAsset": {
+            "title": "奢侈品资产代币",
+            "desc": "将艺术品、收藏品、稀有葡萄酒和奢侈品代币化。区块链验证的来源追踪和部分所有权选项。"
           },
           "securities": {
-            "title": "证券代币化",
-            "desc": "合规证券代币(STO)。KYC/AML集成、自动化股息、投资者权限管理。"
-          },
-          "luxuryGoods": {
-            "title": "奢侈品代币化",
-            "desc": "高端手表、艺术品、收藏品。AI认证、来源追踪、分割所有权。"
+            "title": "数字证券",
+            "desc": "具有自动股息分配的合规证券代币。内置监管合规的股权、债务和收益分享代币。"
           },
           "commodity": {
             "title": "商品代币",
-            "desc": "由黄金、白银、石油等实物商品支持。具有审计储备验证的实时价格反馈。"
+            "desc": "由黄金、白银和石油等实物商品支持。具有审计储备验证的实时价格信息。"
           }
         },
         "metrics": {
-          "newInvestors": "新增投资者",
-          "unlockedAssetValue": "释放的资产价值",
+          "newInvestors": "新投资者启用",
+          "unlockedAssetValue": "解锁资产价值",
           "settlementReliability": "结算可靠性"
         },
         "features": {
@@ -11003,26 +10994,26 @@
             "desc": "即时结算的24/7跨境交易。接触全球投资者和二级市场流动性。"
           },
           "fractionalOwnership": {
-            "title": "分割所有权",
-            "desc": "从100美元起投资高端资产。民主化传统独享资产类别的准入。"
+            "title": "部分所有权",
+            "desc": "从100美元起投资优质资产。民主化传统上独家资产类别的准入。"
           },
           "regulatoryCompliant": {
             "title": "监管合规",
             "desc": "内置KYC/AML、认证检查和司法管辖合规。自动化报告和审计追踪。"
           },
           "enterpriseSecurity": {
-            "title": "企业级安全",
-            "desc": "银行级托管、多签控制和量子抗性加密。机构级资产保护。"
+            "title": "企业安全",
+            "desc": "银行级托管、多重签名控制和抗量子加密。机构级资产保护。"
           }
         },
         "sections": {
           "types": "代币化类别",
-          "typesDesc": "探索可进行区块链代币化的资产类别",
+          "typesDesc": "探索准备进行区块链代币化的资产类别",
           "platformFeatures": "平台功能"
         },
         "cta": {
           "title": "准备代币化您的资产了吗？",
-          "desc": "将非流动资产转换为可交易代币。我们的团队将指导您完成从结构到发布的代币化过程。",
+          "desc": "将非流动资产转化为可交易代币。我们的团队将指导您完成从结构到启动的代币化过程。",
           "getStarted": "开始"
         }
       },
@@ -11031,110 +11022,108 @@
         "title": "DePIN网络",
         "subtitle": "构建和运营去中心化物理基础设施网络。通过贡献计算、存储、无线和传感资源获得奖励。",
         "buttons": {
-          "deployInfrastructure": "部署基础设施",
-          "protocolDocs": "协议文档"
+          "deployNode": "部署节点",
+          "depinDocs": "DePIN文档"
         },
         "categories": {
           "wireless": {
             "title": "无线网络",
-            "desc": "5G/LTE热点、IoT连接、移动卸载。覆盖证明和数据使用奖励。"
+            "desc": "LoRaWAN、5G和WiFi热点部署。提供去中心化覆盖并按使用量获得奖励。"
           },
           "compute": {
             "title": "分布式计算",
-            "desc": "GPU渲染、AI训练、科学计算。闲置资源变现和任务匹配。"
+            "desc": "出租闲置计算能力并按GPU小时获得代币。AI训练和渲染工作负载。"
           },
           "storage": {
             "title": "去中心化存储",
-            "desc": "分布式文件存储和CDN服务。数据可用性证明和自动复制。"
+            "desc": "向网络提供磁盘空间。文件冗余奖励和可验证存储证明。"
           },
-          "sensing": {
+          "sensors": {
             "title": "传感器网络",
-            "desc": "环境监测、位置数据、IoT传感器。实时数据验证和质量保证。"
+            "desc": "收集天气、空气质量和环境数据。通过物联网传感器阵列获得奖励。"
           }
         },
         "metrics": {
           "activeNodes": "活跃节点",
-          "dailyRewards": "日奖励",
-          "networkCoverage": "网络覆盖",
-          "totalContributors": "贡献者总数"
+          "monthlyRewards": "月度奖励",
+          "networkCoverage": "网络覆盖"
         },
         "features": {
-          "proofOfCoverage": {
-            "title": "覆盖证明",
-            "desc": "AI驱动的位置验证和服务质量监控。公平透明的奖励分配。"
+          "verifiable": {
+            "title": "可验证贡献",
+            "desc": "通过加密证明验证节点操作和服务质量。透明的奖励计算。"
           },
-          "tokenomics": {
-            "title": "可持续代币经济学",
-            "desc": "需求驱动的代币发行和销毁机制。长期网络增长的激励对齐。"
+          "permissionless": {
+            "title": "无许可参与",
+            "desc": "无需许可即可加入网络。插入硬件并立即开始获得奖励。"
           },
-          "easyDeployment": {
-            "title": "简易部署",
-            "desc": "即插即用硬件解决方案。自动化入驻和配置。"
+          "scalable": {
+            "title": "可扩展基础设施",
+            "desc": "扩展到数千个节点。内置自动负载均衡和冗余。"
           },
-          "realTimeAnalytics": {
-            "title": "实时分析",
-            "desc": "网络状态、收益、性能的详细仪表板。AI优化收益建议。"
+          "hybrid": {
+            "title": "混合模型",
+            "desc": "将私有硬件与云节点结合。灵活混合本地和云原生部署。"
           }
         },
         "sections": {
-          "networkTypes": "网络类型",
-          "networkTypesDesc": "探索TBURN支持的DePIN网络类别",
-          "platformCapabilities": "平台功能"
+          "networks": "DePIN网络类型",
+          "networksDesc": "探索TBURN支持的去中心化基础设施",
+          "platformFeatures": "平台功能"
         },
         "cta": {
-          "title": "准备加入DePIN网络了吗？",
-          "desc": "贡献物理基础设施并获得奖励。今天开始您的被动收入。",
-          "getStarted": "开始"
+          "title": "加入DePIN革命",
+          "desc": "在TBURN上构建或贡献去中心化基础设施以获得奖励。",
+          "deployNow": "立即部署"
         }
       },
       "stablecoins": {
         "tag": "稳定币",
-        "title": "稳定币",
-        "subtitle": "在TBURN上构建企业级稳定币基础设施。法币支持、加密货币支持、算法稳定币。",
+        "title": "稳定币基础设施",
+        "subtitle": "在TBURN的合规框架中发行、管理和赎回稳定币。支持法币抵押、加密抵押和算法模型。",
         "buttons": {
-          "launchStablecoin": "发行稳定币",
-          "documentation": "文档"
+          "issueStablecoin": "发行稳定币",
+          "stablecoinDocs": "稳定币文档"
         },
-        "categories": {
+        "types": {
           "fiatBacked": {
-            "title": "法币支持",
-            "desc": "由USD、EUR、CNY等法币1:1支持。实时储备证明和监管合规。"
+            "title": "法币抵押",
+            "desc": "完全由银行存款或国债抵押。储备证明和定期审计确保锚定稳定性。"
           },
           "cryptoBacked": {
-            "title": "加密货币支持",
-            "desc": "由加密资产超额抵押的稳定币。自动清算、价格稳定机制。"
+            "title": "加密抵押",
+            "desc": "由超额抵押加密资产发行。自动清算和动态抵押率。"
           },
           "algorithmic": {
             "title": "算法稳定币",
-            "desc": "AI驱动的供需平衡。动态变基和稳定机制。"
+            "desc": "通过供应扩张和收缩进行智能合约管理的锚定。AI优化的稳定机制。"
           },
           "commodity": {
-            "title": "商品支持",
-            "desc": "由黄金、白银等实物资产支持。链上审计和实时价格预言机。"
+            "title": "商品抵押",
+            "desc": "由黄金、白银或石油抵押。实时商品价格预言机和实物交割选项。"
           }
         },
         "metrics": {
-          "totalSupply": "总发行量",
-          "dailyVolume": "日交易量",
-          "pegStability": "锚定稳定性",
-          "backingRatio": "抵押率"
+          "totalMinted": "总铸造量",
+          "pegDeviation": "锚定偏差",
+          "reserveRatio": "储备比率"
         },
         "features": {
-          "instantSettlement": {
-            "title": "即时结算",
-            "desc": "亚秒级交易最终性。跨链桥接和全球支付。"
+          "realTimeAudit": {
+            "title": "实时审计",
+            "desc": "通过储备证明检查验证抵押品。储备状态的链上透明度。"
           },
-          "proofOfReserves": {
-            "title": "储备证明",
-            "desc": "实时链上审计。透明的抵押验证和自动化报告。"
+          "crossChain": {
+            "title": "跨链转移",
+            "desc": "通过TBURN桥将稳定币转移到其他网络。原生发行和包装选项。"
           },
-          "regulatoryCompliance": {
+          "compliance": {
             "title": "监管合规",
-            "desc": "内置KYC/AML、旅行规则合规。多司法管辖牌照支持。"
+            "desc": "内置KYC/AML和监管报告。制裁筛查和交易监控。"
           },
-          "multiChain": {
-            "title": "多链支持",
-            "desc": "无缝跨链转移。AI驱动的桥接优化和安全。"
+          "programmable": {
+            "title": "可编程支付",
+            "desc": "定期支付、托管和条件转移。自动化工资和订阅支付。"
           }
         },
         "sections": {
@@ -11143,131 +11132,175 @@
           "platformFeatures": "平台功能"
         },
         "cta": {
-          "title": "准备发行稳定币了吗？",
-          "desc": "使用企业级基础设施构建稳定的数字货币。专家团队将全程支持您的发行。",
+          "title": "准备发行您的稳定币了吗？",
+          "desc": "在TBURN上发行合规稳定币。我们的团队将指导您从设计到启动。",
           "getStarted": "开始"
         }
       },
       "institutional": {
         "tag": "机构解决方案",
         "title": "机构解决方案",
-        "subtitle": "为大型企业和金融机构提供企业级区块链解决方案。跨境支付、资产管理、合规。",
+        "subtitle": "企业和金融机构的合规区块链基础设施。专属支持、SLA保证和企业级安全。",
         "buttons": {
           "contactSales": "联系销售",
-          "whitePaper": "白皮书"
+          "institutionalDocs": "机构文档"
         },
-        "categories": {
-          "crossBorder": {
-            "title": "跨境支付",
-            "desc": "即时结算和透明费用的全球支付。多币种支持和外汇优化。"
-          },
-          "treasury": {
-            "title": "财资管理",
-            "desc": "企业财资的数字资产管理。收益优化、风险管理、自动化报告。"
-          },
+        "services": {
           "custody": {
             "title": "机构托管",
-            "desc": "银行级安全的数字资产保管。多签、保险、监管合规。"
+            "desc": "合规数字资产托管。SOC 2审计、保险覆盖和多重签名安全。"
           },
           "trading": {
-            "title": "机构交易",
-            "desc": "大宗交易的OTC柜台和暗池。深度流动性和最佳执行。"
+            "title": "机构经纪",
+            "desc": "深度流动性的大额订单执行。OTC柜台、加密借贷和保证金交易。"
+          },
+          "staking": {
+            "title": "企业质押",
+            "desc": "托管验证器节点和委托服务。定制奖励分配和税务报告。"
+          },
+          "api": {
+            "title": "API与基础设施",
+            "desc": "专用节点、私有RPC端点和企业SLA。99.99%正常运行时间保证。"
           }
         },
         "metrics": {
           "institutionalClients": "机构客户",
-          "dailySettlement": "日结算量",
-          "uptime": "正常运行时间",
-          "compliance": "合规率"
+          "assetsUnderCustody": "托管资产",
+          "uptimeSla": "正常运行时间SLA"
         },
-        "features": {
-          "enterpriseGrade": {
-            "title": "企业级安全",
-            "desc": "SOC 2 Type II、ISO 27001认证。量子抗性加密和硬件安全模块。"
+        "integrations": {
+          "erp": {
+            "title": "ERP集成",
+            "desc": "与SAP、Oracle和主要ERP平台无缝连接。自动化对账和报告。"
           },
-          "customIntegration": {
-            "title": "定制集成",
-            "desc": "与现有系统的无缝集成。REST API、WebSocket、FIX协议支持。"
+          "banking": {
+            "title": "银行合作伙伴",
+            "desc": "连接银行网络进行法币出入金。SWIFT和SEPA集成。"
           },
-          "dedicatedSupport": {
-            "title": "专属支持",
-            "desc": "24/7专属客户经理。SLA保障和优先支持。"
-          },
-          "regulatoryReporting": {
+          "compliance": {
             "title": "监管报告",
-            "desc": "自动化合规报告。多司法管辖监管合规。"
+            "desc": "自动化监管提交。MiCA、旅行规则和司法管辖要求。"
+          },
+          "custody": {
+            "title": "托管集成",
+            "desc": "与主要托管机构连接。Fireblocks、Copper等集成。"
+          }
+        },
+        "clientTypes": {
+          "funds": {
+            "title": "对冲基金与PE",
+            "desc": "基金运营、NAV计算和投资者报告的定制解决方案。"
+          },
+          "corporates": {
+            "title": "企业财务",
+            "desc": "企业财务的数字资产管理。收益优化和风险管理。"
+          },
+          "banks": {
+            "title": "银行与金融科技",
+            "desc": "与银行系统集成的白标解决方案。API优先架构。"
+          },
+          "governments": {
+            "title": "政府与央行",
+            "desc": "CBDC基础设施、监管合规和主权资产管理。"
           }
         },
         "sections": {
-          "solutions": "机构解决方案",
-          "solutionsDesc": "为大型企业定制的区块链解决方案",
-          "capabilities": "平台功能"
+          "services": "机构服务",
+          "servicesDesc": "企业级区块链解决方案",
+          "systemIntegrations": "系统集成",
+          "clientTypes": "客户类型"
         },
         "cta": {
-          "title": "了解机构解决方案",
-          "desc": "我们将为贵司需求提供定制区块链解决方案。与专业顾问咨询。",
-          "contactUs": "联系我们"
+          "title": "讨论机构解决方案",
+          "desc": "与我们的专家团队咨询，设计您的定制区块链解决方案。",
+          "requestDemo": "请求演示"
         }
       },
       "enterprise": {
-        "tag": "企业",
+        "tag": "企业区块链",
         "title": "企业解决方案",
-        "subtitle": "现代商业的综合区块链解决方案。私有网络、合规功能、24/7企业支持。",
+        "subtitle": "现代企业的综合区块链解决方案。私有网络、合规功能和24/7企业支持。",
         "buttons": {
-          "getStarted": "开始",
-          "contactSales": "联系销售"
+          "contactEnterprise": "联系企业",
+          "enterpriseDocs": "企业文档"
         },
-        "categories": {
-          "privateNetwork": {
-            "title": "私有网络",
-            "desc": "专用区块链基础设施。完全控制、定制共识、企业SLA。"
+        "solutions": {
+          "identity": {
+            "title": "身份与访问管理",
+            "desc": "具有自主权凭证的去中心化身份。多因素认证、SSO集成和细粒度权限控制。"
           },
           "supplyChain": {
-            "title": "供应链管理",
-            "desc": "端到端追踪和透明度。IoT集成、自动化验证、实时分析。"
+            "title": "供应链透明",
+            "desc": "端到端产品来源追踪。从制造商到消费者的不可变审计追踪和物联网集成。"
           },
-          "identity": {
-            "title": "数字身份",
-            "desc": "分布式身份管理。SSI、可验证凭证、隐私保护。"
+          "document": {
+            "title": "文档管理",
+            "desc": "防篡改文档存储和验证。数字签名、版本控制和合规归档。"
           },
-          "dataManagement": {
-            "title": "数据管理",
-            "desc": "不可变数据记录和审计追踪。GDPR合规、数据主权。"
+          "automation": {
+            "title": "业务流程自动化",
+            "desc": "智能合约驱动的工作流。无信任执行自动化审批、支付和多方协议。"
           }
         },
         "metrics": {
           "enterpriseClients": "企业客户",
-          "processedTransactions": "处理的交易",
-          "costReduction": "成本降低",
-          "deploymentTime": "部署时间"
+          "uptimeGuarantee": "正常运行时间保证",
+          "dedicatedSupport": "专属支持"
         },
         "features": {
-          "customBlockchain": {
-            "title": "定制区块链",
-            "desc": "满足业务需求的专用网络。定制共识、隐私层、性能优化。"
+          "soc2": {
+            "title": "SOC 2合规",
+            "desc": "年度第三方审计的企业安全控制。完整的合规文档和认证。"
           },
-          "hybridDeployment": {
-            "title": "混合部署",
-            "desc": "连接私有和公共区块链。平衡数据隐私与透明度。"
+          "privateSubnets": {
+            "title": "私有子网",
+            "desc": "敏感数据的隔离网络环境。组织的定制共识规则和访问控制。"
           },
-          "apiIntegration": {
-            "title": "API集成",
-            "desc": "与现有系统的无缝集成。RESTful API、SDK、Webhook。"
+          "roleAccess": {
+            "title": "基于角色的访问",
+            "desc": "组织各级的细粒度权限。审计日志和合规报告。"
           },
-          "compliance": {
-            "title": "合规工具",
-            "desc": "满足监管要求。审计追踪、报告、认证。"
+          "onPremise": {
+            "title": "本地选项",
+            "desc": "在您的数据中心运行TBURN节点。完全控制数据主权和延迟要求。"
+          }
+        },
+        "industries": {
+          "healthcare": {
+            "title": "医疗保健",
+            "desc": "患者记录管理、药品追踪和合规性。"
+          },
+          "manufacturing": {
+            "title": "制造业",
+            "desc": "供应链追踪、质量保证和召回管理。"
+          },
+          "legal": {
+            "title": "法律服务",
+            "desc": "智能合约、证据保全和合规自动化。"
+          },
+          "government": {
+            "title": "政府",
+            "desc": "公民服务、投票系统和公共记录管理。"
+          },
+          "insurance": {
+            "title": "保险",
+            "desc": "理赔处理、欺诈检测和再保险。"
+          },
+          "logistics": {
+            "title": "物流",
+            "desc": "货运追踪、海关合规和货物管理。"
           }
         },
         "sections": {
           "solutions": "企业解决方案",
-          "solutionsDesc": "满足业务需求的区块链解决方案",
-          "capabilities": "核心功能"
+          "solutionsDesc": "现代商业挑战的区块链应用。",
+          "platformFeatures": "平台功能",
+          "industryApplications": "行业应用"
         },
         "cta": {
-          "title": "开始企业解决方案",
-          "desc": "用于业务创新的区块链解决方案。与专业顾问咨询。",
-          "contactUs": "联系我们"
+          "title": "讨论企业合作",
+          "desc": "与我们的区块链专家咨询，为您的业务设计解决方案。",
+          "scheduleConsultation": "预约咨询"
         }
       }
     },

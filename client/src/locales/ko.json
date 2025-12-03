@@ -11386,36 +11386,36 @@
       "gaming": {
         "tag": "게임 & 메타버스",
         "title": "게임 & 메타버스",
-        "subtitle": "TBURN의 고성능 GameFi 인프라로 차세대 블록체인 게임을 구축하세요. 원활한 P2E 통합, NFT 자산, 크로스게임 경제.",
+        "subtitle": "TBURN의 고성능 GameFi 인프라로 차세대 블록체인 게임을 구축하세요. 원활한 P2E 통합, NFT 자산 및 크로스 게임 경제.",
         "buttons": {
-          "startBuilding": "빌드 시작",
+          "startBuilding": "개발 시작",
           "gameTooling": "게임 도구"
         },
         "categories": {
           "title": "게임 카테고리",
           "all": "모든 게임",
-          "p2e": "Play-to-Earn",
+          "p2e": "플레이투언",
           "nft": "NFT 게임",
           "metaverse": {
             "title": "메타버스 & 가상 세계",
-            "desc": "블록체인 검증 토지 소유권, 아바타 시스템, 크로스플랫폼 자산 이동성을 갖춘 몰입형 가상 경험을 구축하세요."
+            "desc": "블록체인 검증 토지 소유권, 아바타 시스템 및 크로스 플랫폼 자산 이동성을 갖춘 몰입형 가상 경험을 구축하세요."
           },
           "web3Gaming": {
-            "title": "Web3 게임",
-            "desc": "온체인 자산, 검증 가능한 랜덤성, 무신뢰 토너먼트를 갖춘 풀스택 블록체인 게임. 플레이어가 진정으로 소유하는 게임을 구축하세요."
+            "title": "Web3 게이밍",
+            "desc": "온체인 자산, 검증 가능한 무작위성 및 트러스트리스 토너먼트를 갖춘 풀스택 블록체인 게이밍. 플레이어가 진정으로 소유하는 게임을 만드세요."
           },
           "nftCollectibles": {
-            "title": "NFT 컬렉터블",
-            "desc": "Trust Score 인증으로 디지털 수집품을 생성, 거래, 검증하세요. 크로스게임 아이템 상호운용성 및 출처 추적."
+            "title": "NFT 수집품",
+            "desc": "Trust Score 인증으로 디지털 수집품을 생성, 거래 및 검증하세요. 크로스 게임 아이템 상호 운용성 및 출처 추적."
           },
           "musicStreaming": {
             "title": "음악 & 스트리밍",
-            "desc": "크리에이터 로열티가 포함된 탈중앙화 음악 배포. NFT 티켓, 팬 토큰, 아티스트-리스너 직접 수익화."
+            "desc": "크리에이터 로열티가 있는 분산형 음악 배포. NFT 티켓, 팬 토큰 및 직접적인 아티스트-청취자 수익화."
           }
         },
         "metrics": {
           "activePlayers": "활성 플레이어",
-          "dailyTransactions": "일일 트랜잭션",
+          "dailyTransactions": "일일 거래",
           "totalNfts": "총 NFT",
           "tvl": "게임 TVL",
           "dailyActivePlayers": "일일 활성 플레이어",
@@ -11425,251 +11425,240 @@
         "features": {
           "title": "게임 기능",
           "p2e": {
-            "title": "Play-to-Earn",
-            "description": "치트 방지 검증이 포함된 지속 가능한 토큰 경제학"
+            "title": "플레이투언",
+            "description": "안티 치트 검증이 있는 지속 가능한 토큰 경제"
           },
           "nftAssets": {
             "title": "NFT 게임 자산",
-            "description": "검증된 소유권 및 크로스게임 상호운용성"
+            "description": "검증된 소유권 및 크로스 게임 상호 운용성"
           },
           "tournaments": {
             "title": "토너먼트",
-            "description": "공정한 배분을 갖춘 탈중앙화 상금 풀"
+            "description": "공정한 배분이 있는 분산형 상금 풀"
           },
           "guilds": {
             "title": "게임 길드",
-            "desc": "투명한 수익 공유를 갖춘 DAO 기반 길드 관리. 게임 커뮤니티를 위한 장학금 프로그램 및 집단 자산 소유."
+            "desc": "투명한 수익 공유가 있는 DAO 기반 길드 관리. 게임 커뮤니티를 위한 장학금 프로그램 및 집단 자산 소유권."
           },
           "gasFree": {
-            "title": "가스비 무료 게임",
-            "desc": "스폰서 트랜잭션으로 원활한 플레이어 경험. 게임플레이를 방해하는 지갑 팝업이나 가스비 없음."
+            "title": "가스 프리 게임",
+            "desc": "스폰서 거래로 원활한 플레이어 경험. 게임 플레이를 방해하는 지갑 팝업이나 가스 수수료가 없습니다."
           },
           "antiCheat": {
-            "title": "치트 방지 시스템",
-            "desc": "Trust Score 통합 AI 기반 사기 탐지. 봇, 익스플로잇, 악의적 행위자로부터 게임 경제를 보호."
+            "title": "안티 치트 시스템",
+            "desc": "Trust Score 통합으로 AI 기반 사기 감지. 봇, 익스플로잇 및 악의적인 행위자로부터 게임 경제를 보호하세요."
           },
           "playEarn": {
-            "title": "Play-to-Earn 보상",
-            "desc": "성과 기반 보상이 포함된 지속 가능한 토크노믹스. 기술과 투자 시간에 보상하는 공정한 배분 메커니즘."
+            "title": "플레이투언 보상",
+            "desc": "성과 기반 보상이 있는 지속 가능한 토크노믹스. 기술과 투자한 시간을 보상하는 공정한 배분 메커니즘."
           }
         },
         "gameTypes": {
-          "title": "지원 게임 유형",
-          "rpg": {
-            "title": "RPG",
-            "description": "아이템 거래가 가능한 롤플레잉 게임"
-          },
-          "strategy": {
-            "title": "전략",
-            "description": "자원 관리 및 영토 통제"
-          },
-          "card": {
-            "title": "카드 게임",
-            "description": "NFT 카드가 포함된 수집형 카드 게임"
-          },
-          "casual": {
-            "title": "캐주얼",
-            "description": "마이크로 보상이 있는 퀵플레이 게임"
-          },
           "mmorpgs": {
             "title": "MMORPG",
-            "desc": "플레이어 소유 경제 및 길드 거버넌스를 갖춘 대규모 멀티플레이어 세계"
+            "desc": "플레이어 소유 경제와 길드 거버넌스가 있는 대규모 멀티플레이어 세계"
           },
           "battleRoyale": {
             "title": "배틀로얄",
-            "desc": "상금 풀과 랭크 시즌이 있는 경쟁적 라스트맨 스탠딩 게임"
+            "desc": "상금 풀과 랭크 시즌이 있는 경쟁적인 라스트 맨 스탠딩 게임"
           },
           "cardStrategy": {
             "title": "카드 & 전략",
-            "desc": "검증 가능한 희귀도 및 시장 거래가 가능한 수집형 카드 게임"
+            "desc": "검증 가능한 희귀도와 마켓 거래가 있는 수집형 카드 게임"
           },
-          "sportsRacing": {
-            "title": "스포츠 & 레이싱",
-            "desc": "검증된 결과 및 시즌 리그가 있는 경쟁적 스포츠 및 레이싱 게임"
+          "racingSports": {
+            "title": "레이싱 & 스포츠",
+            "desc": "검증된 결과와 시즌 리그가 있는 경쟁 스포츠 및 레이싱 게임"
+          },
+          "casualSocial": {
+            "title": "캐주얼 & 소셜",
+            "desc": "토큰 보상이 있는 빠른 세션 및 소셜 게임"
+          },
+          "esports": {
+            "title": "e스포츠",
+            "desc": "전문 토너먼트, 리그 및 스폰서십 기회"
           }
         },
-        "showcase": {
-          "title": "게임 쇼케이스",
-          "featured": "주요 게임",
-          "allGames": "모든 게임",
-          "topGames": "인기 게임",
-          "newGames": "신규 게임"
+        "sections": {
+          "categories": "게임 카테고리",
+          "categoriesDesc": "TBURN에서 지원하는 게임 유형 탐색",
+          "platformFeatures": "플랫폼 기능",
+          "gameGenres": "게임 장르"
         },
         "cta": {
           "title": "게임 개발을 시작할 준비가 되셨나요?",
-          "subtitle": "TBURN GameFi 인프라로 수백만 플레이어와 함께하세요.",
-          "button": "빌드 시작"
+          "desc": "TBURN GameFi 인프라로 수백만 플레이어와 함께하세요.",
+          "quickStart": "빠른 시작",
+          "memberPortal": "멤버 포털"
         }
       },
       "tokenization": {
         "tag": "자산 토큰화",
         "title": "자산 토큰화",
-        "subtitle": "TBURN 블록체인에서 실물 자산을 토큰화하세요. 부동산, 명품, 증권 등을 분할 소유 가능한 디지털 자산으로 변환.",
+        "subtitle": "실제 자산을 블록체인 토큰으로 변환하세요. 유동성을 확보하고, 부분 소유권을 가능하게 하며, 규제 준수 토큰화로 글로벌 시장에 접근하세요.",
         "buttons": {
-          "tokenizeAssets": "자산 토큰화",
-          "learnMore": "더 알아보기"
+          "startTokenizing": "토큰화 시작",
+          "viewDocumentation": "문서 보기"
         },
-        "categories": {
+        "types": {
           "realEstate": {
             "title": "부동산 토큰화",
-            "desc": "상업용 및 주거용 부동산의 분할 소유권. AI 기반 가치 평가 및 자동화된 임대 수익 분배."
+            "desc": "상업 및 주거용 부동산의 부분 소유권. 최소 자본 요구 사항과 즉시 유동성으로 부동산에 대한 글로벌 투자를 가능하게 합니다."
+          },
+          "luxuryAsset": {
+            "title": "럭셔리 자산 토큰",
+            "desc": "미술품, 수집품, 희귀 와인, 럭셔리 상품을 토큰화하세요. 블록체인 검증을 통한 출처 추적과 부분 소유권 옵션."
           },
           "securities": {
-            "title": "증권 토큰화",
-            "desc": "규정 준수 증권 토큰 (STO). KYC/AML 통합, 자동화된 배당금, 투자자 권한 관리."
-          },
-          "luxuryGoods": {
-            "title": "명품 토큰화",
-            "desc": "고급 시계, 예술품, 수집품. AI 인증, 출처 추적, 분할 소유권."
+            "title": "디지털 증권",
+            "desc": "자동 배당 분배를 갖춘 규제 준수 보안 토큰. 내장된 규제 준수가 포함된 주식, 채무 및 수익 공유 토큰."
           },
           "commodity": {
-            "title": "원자재 토큰",
-            "desc": "금, 은, 석유 등 실물 원자재로 뒷받침. 감사된 준비금 검증이 포함된 실시간 가격 피드."
+            "title": "상품 토큰",
+            "desc": "금, 은, 석유와 같은 물리적 상품으로 뒷받침됩니다. 감사된 준비금 검증과 함께 실시간 가격 피드."
           }
         },
         "metrics": {
-          "newInvestors": "새로운 투자자 유치",
-          "unlockedAssetValue": "언락된 자산 가치",
-          "settlementReliability": "정산 신뢰도"
+          "newInvestors": "신규 투자자 활성화",
+          "unlockedAssetValue": "해제된 자산 가치",
+          "settlementReliability": "결제 신뢰성"
         },
         "features": {
           "globalMarket": {
             "title": "글로벌 시장 접근",
-            "desc": "즉시 정산이 가능한 국경 없는 24/7 거래. 전 세계 투자자 및 2차 시장 유동성 접근."
+            "desc": "즉시 결제로 국경을 넘어 24/7 거래. 전 세계 투자자와 2차 시장 유동성에 접근."
           },
           "fractionalOwnership": {
-            "title": "분할 소유권",
-            "desc": "프리미엄 자산에 00부터 투자 가능. 전통적으로 독점적인 자산 클래스에 대한 접근 민주화."
+            "title": "부분 소유권",
+            "desc": "프리미엄 자산에 $100부터 투자 가능. 전통적으로 독점적인 자산 클래스에 대한 접근을 민주화."
           },
           "regulatoryCompliant": {
-            "title": "규정 준수",
-            "desc": "내장된 KYC/AML, 인증 확인, 관할권 준수. 자동화된 보고 및 감사 추적."
+            "title": "규제 준수",
+            "desc": "내장 KYC/AML, 인증 확인 및 관할권 준수. 자동화된 보고 및 감사 추적."
           },
           "enterpriseSecurity": {
-            "title": "엔터프라이즈 보안",
-            "desc": "은행급 수탁, 다중 서명 제어, 양자 내성 암호화. 기관급 자산 보호."
+            "title": "기업 보안",
+            "desc": "은행 등급 관리, 다중 서명 제어 및 양자 저항 암호화. 기관 등급 자산 보호."
           }
         },
         "sections": {
           "types": "토큰화 카테고리",
-          "typesDesc": "블록체인 토큰화가 가능한 자산 클래스 탐색",
+          "typesDesc": "블록체인 토큰화가 준비된 자산 클래스 탐색",
           "platformFeatures": "플랫폼 기능"
         },
         "cta": {
-          "title": "자산 토큰화를 시작할 준비가 되셨나요?",
-          "desc": "비유동 자산을 거래 가능한 토큰으로 변환하세요. 저희 팀이 구조화부터 출시까지 토큰화 과정을 안내해 드립니다.",
+          "title": "자산을 토큰화할 준비가 되셨나요?",
+          "desc": "비유동 자산을 거래 가능한 토큰으로 변환하세요. 저희 팀이 구조에서 출시까지 토큰화 과정을 안내해 드립니다.",
           "getStarted": "시작하기"
         }
       },
       "depin": {
-        "tag": "탈중앙화 인프라",
+        "tag": "분산 인프라",
         "title": "DePIN 네트워크",
-        "subtitle": "탈중앙화 물리적 인프라 네트워크를 구축하고 운영하세요. 컴퓨팅, 스토리지, 무선, 센싱 리소스를 기여하여 보상을 받으세요.",
+        "subtitle": "분산 물리적 인프라 네트워크를 구축하고 운영하세요. 컴퓨팅, 스토리지, 무선 및 센싱 리소스를 기여하여 보상을 받으세요.",
         "buttons": {
-          "deployInfrastructure": "인프라 배포",
-          "protocolDocs": "프로토콜 문서"
+          "deployNode": "노드 배포",
+          "depinDocs": "DePIN 문서"
         },
         "categories": {
           "wireless": {
             "title": "무선 네트워크",
-            "desc": "5G/LTE 핫스팟, IoT 연결, 모바일 오프로딩. 커버리지 증명 및 데이터 사용량 보상."
+            "desc": "LoRaWAN, 5G 및 WiFi 핫스팟 배포. 사용량에 따라 보상을 받으며 분산 커버리지를 제공하세요."
           },
           "compute": {
             "title": "분산 컴퓨팅",
-            "desc": "GPU 렌더링, AI 훈련, 과학 연산. 유휴 리소스 수익화 및 작업 매칭."
+            "desc": "유휴 컴퓨팅 파워를 빌려주고 GPU 시간당 토큰을 받으세요. AI 학습 및 렌더링 워크로드."
           },
           "storage": {
             "title": "탈중앙화 스토리지",
-            "desc": "분산 파일 스토리지 및 CDN 서비스. 데이터 가용성 증명 및 자동 복제."
+            "desc": "디스크 공간을 네트워크에 제공하세요. 파일 중복성 보상 및 검증 가능한 스토리지 증명."
           },
-          "sensing": {
+          "sensors": {
             "title": "센서 네트워크",
-            "desc": "환경 모니터링, 위치 데이터, IoT 센서. 실시간 데이터 검증 및 품질 보증."
+            "desc": "날씨, 공기질 및 환경 데이터를 수집하세요. IoT 센서 배열로 보상을 받으세요."
           }
         },
         "metrics": {
           "activeNodes": "활성 노드",
-          "dailyRewards": "일일 보상",
-          "networkCoverage": "네트워크 커버리지",
-          "totalContributors": "총 기여자"
+          "monthlyRewards": "월간 보상",
+          "networkCoverage": "네트워크 커버리지"
         },
         "features": {
-          "proofOfCoverage": {
-            "title": "커버리지 증명",
-            "desc": "AI 기반 위치 검증 및 서비스 품질 모니터링. 공정하고 투명한 보상 분배."
+          "verifiable": {
+            "title": "검증 가능한 기여",
+            "desc": "암호학적 증명을 통해 노드 운영 및 서비스 품질을 검증합니다. 투명한 보상 계산."
           },
-          "tokenomics": {
-            "title": "지속 가능한 토크노믹스",
-            "desc": "수요 기반 토큰 배출 및 소각 메커니즘. 장기적인 네트워크 성장을 위한 인센티브 정렬."
+          "permissionless": {
+            "title": "무허가 참여",
+            "desc": "허가 없이 네트워크에 참여하세요. 하드웨어를 플러그인하고 즉시 보상을 받기 시작하세요."
           },
-          "easyDeployment": {
-            "title": "간편한 배포",
-            "desc": "플러그 앤 플레이 하드웨어 솔루션. 자동 온보딩 및 구성."
+          "scalable": {
+            "title": "확장 가능한 인프라",
+            "desc": "수천 개의 노드로 확장하세요. 자동 로드 밸런싱 및 중복성이 내장되어 있습니다."
           },
-          "realTimeAnalytics": {
-            "title": "실시간 분석",
-            "desc": "네트워크 상태, 수익, 성능에 대한 상세 대시보드. 최적의 수익을 위한 AI 권장사항."
+          "hybrid": {
+            "title": "하이브리드 모델",
+            "desc": "개인 하드웨어를 클라우드 노드와 결합하세요. 온프레미스와 클라우드 네이티브 배포를 유연하게 혼합."
           }
         },
         "sections": {
-          "networkTypes": "네트워크 유형",
-          "networkTypesDesc": "TBURN에서 지원하는 DePIN 네트워크 카테고리 탐색",
-          "platformCapabilities": "플랫폼 기능"
+          "networks": "DePIN 네트워크 유형",
+          "networksDesc": "TBURN에서 지원하는 분산 인프라 탐색",
+          "platformFeatures": "플랫폼 기능"
         },
         "cta": {
-          "title": "DePIN 네트워크에 참여할 준비가 되셨나요?",
-          "desc": "물리적 인프라를 기여하고 보상을 받으세요. 오늘부터 수동 소득을 시작하세요.",
-          "getStarted": "시작하기"
+          "title": "DePIN 혁명에 동참하세요",
+          "desc": "TBURN에서 분산 인프라를 구축하거나 기여하여 보상을 받으세요.",
+          "deployNow": "지금 배포"
         }
       },
       "stablecoins": {
         "tag": "스테이블코인",
-        "title": "스테이블코인",
-        "subtitle": "TBURN에서 엔터프라이즈급 스테이블코인 인프라를 구축하세요. 법정화폐 담보, 암호화폐 담보, 알고리즘 스테이블코인.",
+        "title": "스테이블코인 인프라",
+        "subtitle": "TBURN의 규제 준수 프레임워크에서 스테이블코인을 발행, 관리 및 상환하세요. 법정화폐 담보, 암호화폐 담보 및 알고리즘 모델을 지원합니다.",
         "buttons": {
-          "launchStablecoin": "스테이블코인 출시",
-          "documentation": "문서"
+          "issueStablecoin": "스테이블코인 발행",
+          "stablecoinDocs": "스테이블코인 문서"
         },
-        "categories": {
+        "types": {
           "fiatBacked": {
             "title": "법정화폐 담보",
-            "desc": "USD, EUR, KRW 등 법정화폐로 1:1 담보. 실시간 준비금 증명 및 규제 준수."
+            "desc": "은행 예금 또는 국채로 완전히 담보됨. 준비금 증명과 정기 감사로 페그 안정성 보장."
           },
           "cryptoBacked": {
             "title": "암호화폐 담보",
-            "desc": "암호화폐 자산으로 과담보화된 스테이블코인. 자동 청산, 가격 안정 메커니즘."
+            "desc": "과잉 담보 암호화 자산으로 발행됨. 자동 청산 및 동적 담보 비율."
           },
           "algorithmic": {
             "title": "알고리즘 스테이블코인",
-            "desc": "AI 기반 수요/공급 밸런싱. 동적 리베이싱 및 안정화 메커니즘."
+            "desc": "공급 확장 및 축소를 통한 스마트 컨트랙트 관리 페그. AI 최적화 안정화 메커니즘."
           },
           "commodity": {
-            "title": "원자재 담보",
-            "desc": "금, 은 등 실물 자산으로 담보. 온체인 감사 및 실시간 가격 오라클."
+            "title": "상품 담보",
+            "desc": "금, 은 또는 석유로 담보됨. 실시간 상품 가격 오라클 및 실물 배송 옵션."
           }
         },
         "metrics": {
-          "totalSupply": "총 발행량",
-          "dailyVolume": "일일 거래량",
-          "pegStability": "페그 안정성",
-          "backingRatio": "담보 비율"
+          "totalMinted": "총 발행량",
+          "pegDeviation": "페그 편차",
+          "reserveRatio": "준비금 비율"
         },
         "features": {
-          "instantSettlement": {
-            "title": "즉시 정산",
-            "desc": "1초 미만의 트랜잭션 완결성. 크로스체인 브릿지 및 글로벌 결제."
+          "realTimeAudit": {
+            "title": "실시간 감사",
+            "desc": "준비금 증명 확인으로 담보를 검증하세요. 준비금 상태에 대한 온체인 투명성."
           },
-          "proofOfReserves": {
-            "title": "준비금 증명",
-            "desc": "실시간 온체인 감사. 투명한 담보 검증 및 자동화된 보고."
+          "crossChain": {
+            "title": "크로스 체인 이전",
+            "desc": "TBURN 브릿지를 통해 스테이블코인을 다른 네트워크로 이전하세요. 네이티브 발행 및 래핑 옵션."
           },
-          "regulatoryCompliance": {
+          "compliance": {
             "title": "규제 준수",
-            "desc": "내장된 KYC/AML, 여행 규칙 준수. 다중 관할권 라이선스 지원."
+            "desc": "내장된 KYC/AML 및 규제 보고. 제재 스크리닝 및 거래 모니터링."
           },
-          "multiChain": {
-            "title": "멀티체인 지원",
-            "desc": "원활한 크로스체인 이동. AI 기반 브릿지 최적화 및 보안."
+          "programmable": {
+            "title": "프로그래머블 페이먼트",
+            "desc": "반복 지불, 에스크로 및 조건부 이전. 자동화된 급여 및 구독 결제."
           }
         },
         "sections": {
@@ -11678,131 +11667,175 @@
           "platformFeatures": "플랫폼 기능"
         },
         "cta": {
-          "title": "스테이블코인을 출시할 준비가 되셨나요?",
-          "desc": "엔터프라이즈급 인프라로 안정적인 디지털 통화를 구축하세요. 전문가 팀이 출시 전 과정을 지원합니다.",
+          "title": "스테이블코인을 발행할 준비가 되셨나요?",
+          "desc": "TBURN에서 규제 준수 스테이블코인을 발행하세요. 저희 팀이 설계부터 출시까지 안내해 드립니다.",
           "getStarted": "시작하기"
         }
       },
       "institutional": {
         "tag": "기관 솔루션",
         "title": "기관 솔루션",
-        "subtitle": "대기업 및 금융 기관을 위한 엔터프라이즈급 블록체인 솔루션. 국경 간 결제, 자산 관리, 컴플라이언스.",
+        "subtitle": "기업과 금융 기관을 위한 규제 준수 블록체인 인프라. 전용 지원, SLA 보장 및 엔터프라이즈급 보안.",
         "buttons": {
           "contactSales": "영업팀 연락",
-          "whitePaper": "백서"
+          "institutionalDocs": "기관 문서"
         },
-        "categories": {
-          "crossBorder": {
-            "title": "국경 간 결제",
-            "desc": "즉시 정산 및 투명한 수수료의 글로벌 결제. 다중 통화 지원 및 FX 최적화."
-          },
-          "treasury": {
-            "title": "재무 관리",
-            "desc": "기업 재무를 위한 디지털 자산 관리. 수익 최적화, 위험 관리, 자동화된 보고."
-          },
+        "services": {
           "custody": {
-            "title": "기관 수탁",
-            "desc": "은행급 보안의 디지털 자산 보관. 다중 서명, 보험, 규제 준수."
+            "title": "기관 커스터디",
+            "desc": "규제 준수 디지털 자산 커스터디. SOC 2 감사, 보험 적용 및 다중 서명 보안."
           },
           "trading": {
-            "title": "기관 거래",
-            "desc": "대량 거래를 위한 OTC 데스크 및 다크풀. 딥 유동성 및 최상의 실행."
+            "title": "프라임 브로커리지",
+            "desc": "딥 유동성으로 대규모 주문 실행. OTC 데스크, 암호화폐 대출 및 마진 거래."
+          },
+          "staking": {
+            "title": "엔터프라이즈 스테이킹",
+            "desc": "관리형 검증자 노드 및 위임 서비스. 맞춤형 보상 배분 및 세금 보고."
+          },
+          "api": {
+            "title": "API & 인프라",
+            "desc": "전용 노드, 프라이빗 RPC 엔드포인트 및 엔터프라이즈 SLA. 99.99% 가동 시간 보장."
           }
         },
         "metrics": {
           "institutionalClients": "기관 고객",
-          "dailySettlement": "일일 정산",
-          "uptime": "가동 시간",
-          "compliance": "규제 준수율"
+          "assetsUnderCustody": "관리 자산",
+          "uptimeSla": "가동 시간 SLA"
         },
-        "features": {
-          "enterpriseGrade": {
-            "title": "엔터프라이즈급 보안",
-            "desc": "SOC 2 Type II, ISO 27001 인증. 양자 내성 암호화 및 하드웨어 보안 모듈."
+        "integrations": {
+          "erp": {
+            "title": "ERP 통합",
+            "desc": "SAP, Oracle 및 주요 ERP 플랫폼과 원활하게 연결하세요. 자동화된 조정 및 보고."
           },
-          "customIntegration": {
-            "title": "맞춤 통합",
-            "desc": "기존 시스템과의 원활한 통합. REST API, WebSocket, FIX 프로토콜 지원."
+          "banking": {
+            "title": "은행 파트너",
+            "desc": "법정화폐 온/오프램프를 위한 은행 네트워크와 연결하세요. SWIFT 및 SEPA 통합."
           },
-          "dedicatedSupport": {
-            "title": "전담 지원",
-            "desc": "24/7 전담 계정 관리자. SLA 보장 및 우선 지원."
-          },
-          "regulatoryReporting": {
+          "compliance": {
             "title": "규제 보고",
-            "desc": "자동화된 컴플라이언스 보고. 다중 관할권 규제 준수."
+            "desc": "자동화된 규제 제출. MiCA, 여행 규칙 및 관할권별 요구 사항."
+          },
+          "custody": {
+            "title": "커스터디 통합",
+            "desc": "주요 커스터디언과 연결하세요. Fireblocks, Copper 및 기타와 통합."
+          }
+        },
+        "clientTypes": {
+          "funds": {
+            "title": "헤지펀드 & PE",
+            "desc": "펀드 운영, NAV 계산 및 투자자 보고를 위한 맞춤형 솔루션."
+          },
+          "corporates": {
+            "title": "기업 재무",
+            "desc": "기업 재무를 위한 디지털 자산 관리. 수익률 최적화 및 리스크 관리."
+          },
+          "banks": {
+            "title": "은행 & 핀테크",
+            "desc": "은행 시스템과 통합되는 화이트 라벨 솔루션. API 우선 아키텍처."
+          },
+          "governments": {
+            "title": "정부 & 중앙은행",
+            "desc": "CBDC 인프라, 규제 준수 및 주권 자산 관리."
           }
         },
         "sections": {
-          "solutions": "기관 솔루션",
-          "solutionsDesc": "대기업을 위한 맞춤형 블록체인 솔루션",
-          "capabilities": "플랫폼 기능"
+          "services": "기관 서비스",
+          "servicesDesc": "엔터프라이즈급 블록체인 솔루션",
+          "systemIntegrations": "시스템 통합",
+          "clientTypes": "고객 유형"
         },
         "cta": {
-          "title": "기관 솔루션에 대해 알아보세요",
-          "desc": "귀사의 요구사항에 맞는 맞춤형 블록체인 솔루션을 제안해 드립니다. 전문 컨설턴트와 상담하세요.",
-          "contactUs": "문의하기"
+          "title": "기관 솔루션에 대해 논의해 보세요",
+          "desc": "저희 전문가 팀과 상담하여 맞춤형 블록체인 솔루션을 설계하세요.",
+          "requestDemo": "데모 요청"
         }
       },
       "enterprise": {
-        "tag": "엔터프라이즈",
+        "tag": "엔터프라이즈 블록체인",
         "title": "엔터프라이즈 솔루션",
-        "subtitle": "현대 비즈니스를 위한 종합 블록체인 솔루션. 프라이빗 네트워크, 규정 준수 기능, 24/7 엔터프라이즈 지원.",
+        "subtitle": "현대 비즈니스를 위한 종합 블록체인 솔루션. 프라이빗 네트워크, 규제 준수 기능 및 24/7 엔터프라이즈 지원.",
         "buttons": {
-          "getStarted": "시작하기",
-          "contactSales": "영업팀 연락"
+          "contactEnterprise": "엔터프라이즈 연락",
+          "enterpriseDocs": "엔터프라이즈 문서"
         },
-        "categories": {
-          "privateNetwork": {
-            "title": "프라이빗 네트워크",
-            "desc": "전용 블록체인 인프라. 완전한 제어, 맞춤 합의, 엔터프라이즈 SLA."
+        "solutions": {
+          "identity": {
+            "title": "신원 및 접근 관리",
+            "desc": "자기 주권 자격 증명을 갖춘 탈중앙화 신원. 다단계 인증, SSO 통합 및 세분화된 권한 제어."
           },
           "supplyChain": {
-            "title": "공급망 관리",
-            "desc": "End-to-end 추적 및 투명성. IoT 통합, 자동화된 검증, 실시간 분석."
+            "title": "공급망 투명성",
+            "desc": "종단 간 제품 출처 추적. 제조업체에서 소비자까지 불변의 감사 추적과 IoT 통합."
           },
-          "identity": {
-            "title": "디지털 아이덴티티",
-            "desc": "분산 신원 관리. SSI, 검증 가능한 자격 증명, 개인정보 보호."
+          "document": {
+            "title": "문서 관리",
+            "desc": "변조 방지 문서 저장 및 검증. 디지털 서명, 버전 관리 및 규제 준수 보관."
           },
-          "dataManagement": {
-            "title": "데이터 관리",
-            "desc": "불변의 데이터 레코드 및 감사 추적. GDPR 준수, 데이터 주권."
+          "automation": {
+            "title": "비즈니스 프로세스 자동화",
+            "desc": "스마트 컨트랙트 기반 워크플로우. 승인, 지불 및 다자간 계약을 트러스트리스 실행으로 자동화."
           }
         },
         "metrics": {
           "enterpriseClients": "엔터프라이즈 고객",
-          "processedTransactions": "처리된 트랜잭션",
-          "costReduction": "비용 절감",
-          "deploymentTime": "배포 시간"
+          "uptimeGuarantee": "가동 시간 보장",
+          "dedicatedSupport": "전담 지원"
         },
         "features": {
-          "customBlockchain": {
-            "title": "맞춤형 블록체인",
-            "desc": "비즈니스 요구사항에 맞는 전용 네트워크. 맞춤 합의, 프라이버시 레이어, 성능 최적화."
+          "soc2": {
+            "title": "SOC 2 규제 준수",
+            "desc": "연간 제3자 감사가 있는 엔터프라이즈 보안 제어. 완전한 규제 준수 문서 및 인증."
           },
-          "hybridDeployment": {
-            "title": "하이브리드 배포",
-            "desc": "프라이빗 및 퍼블릭 블록체인 연결. 데이터 프라이버시와 투명성의 균형."
+          "privateSubnets": {
+            "title": "프라이빗 서브넷",
+            "desc": "민감한 데이터를 위한 격리된 네트워크 환경. 조직을 위한 맞춤형 합의 규칙 및 접근 제어."
           },
-          "apiIntegration": {
-            "title": "API 통합",
-            "desc": "기존 시스템과의 원활한 통합. RESTful API, SDK, 웹훅."
+          "roleAccess": {
+            "title": "역할 기반 접근",
+            "desc": "조직의 모든 수준에 대한 세분화된 권한. 감사 로그 및 규제 준수 보고."
           },
-          "compliance": {
-            "title": "컴플라이언스 도구",
-            "desc": "규제 요구사항 충족. 감사 추적, 보고, 인증."
+          "onPremise": {
+            "title": "온프레미스 옵션",
+            "desc": "데이터 센터에서 TBURN 노드를 실행하세요. 데이터 주권 및 지연 시간 요구 사항에 대한 완전한 제어."
+          }
+        },
+        "industries": {
+          "healthcare": {
+            "title": "헬스케어",
+            "desc": "환자 기록 관리, 의약품 추적 및 규제 준수."
+          },
+          "manufacturing": {
+            "title": "제조업",
+            "desc": "공급망 추적, 품질 보증 및 리콜 관리."
+          },
+          "legal": {
+            "title": "법률 서비스",
+            "desc": "스마트 컨트랙트, 증거 보존 및 규제 준수 자동화."
+          },
+          "government": {
+            "title": "정부",
+            "desc": "시민 서비스, 투표 시스템 및 공공 기록 관리."
+          },
+          "insurance": {
+            "title": "보험",
+            "desc": "청구 처리, 사기 탐지 및 재보험."
+          },
+          "logistics": {
+            "title": "물류",
+            "desc": "배송 추적, 세관 규제 준수 및 화물 관리."
           }
         },
         "sections": {
           "solutions": "엔터프라이즈 솔루션",
-          "solutionsDesc": "비즈니스 요구사항에 맞는 블록체인 솔루션",
-          "capabilities": "핵심 기능"
+          "solutionsDesc": "현대 비즈니스 과제를 위한 블록체인 애플리케이션.",
+          "platformFeatures": "플랫폼 기능",
+          "industryApplications": "산업 애플리케이션"
         },
         "cta": {
-          "title": "엔터프라이즈 솔루션을 시작하세요",
-          "desc": "비즈니스 혁신을 위한 블록체인 솔루션. 전문 컨설턴트와 상담하세요.",
-          "contactUs": "문의하기"
+          "title": "엔터프라이즈 파트너십 논의",
+          "desc": "저희 블록체인 전문가와 상담하여 비즈니스에 맞는 솔루션을 설계하세요.",
+          "scheduleConsultation": "상담 예약"
         }
       }
     },

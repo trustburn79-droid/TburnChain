@@ -10423,29 +10423,29 @@
         "title": "Juegos y Metaverso",
         "subtitle": "Construye la próxima generación de juegos blockchain con la infraestructura GameFi de alto rendimiento de TBURN. Integración P2E sin problemas, activos NFT y economías entre juegos.",
         "buttons": {
-          "startBuilding": "Comenzar a Construir",
-          "gameTooling": "Herramientas de Juego"
+          "startBuilding": "Empezar a Construir",
+          "gameTooling": "Herramientas de Juegos"
         },
         "categories": {
           "title": "Categorías de Juegos",
           "all": "Todos los Juegos",
-          "p2e": "Play-to-Earn",
+          "p2e": "Jugar para Ganar",
           "nft": "Juegos NFT",
           "metaverse": {
             "title": "Metaverso y Mundos Virtuales",
-            "desc": "Construye experiencias virtuales inmersivas con propiedad de tierras verificada por blockchain, sistemas de avatar y portabilidad de activos entre plataformas."
+            "desc": "Construye experiencias virtuales inmersivas con propiedad de tierras verificada por blockchain, sistemas de avatares y portabilidad de activos entre plataformas."
           },
           "web3Gaming": {
             "title": "Juegos Web3",
-            "desc": "Juegos blockchain completos con activos on-chain, aleatoriedad verificable y torneos sin confianza. Construye juegos que los jugadores realmente poseen."
+            "desc": "Juegos blockchain de pila completa con activos en cadena, aleatoriedad verificable y torneos sin confianza. Construye juegos que los jugadores realmente poseen."
           },
           "nftCollectibles": {
             "title": "Coleccionables NFT",
-            "desc": "Crea, comercia y verifica coleccionables digitales con autenticación Trust Score. Interoperabilidad de artículos entre juegos y seguimiento de procedencia."
+            "desc": "Crea, intercambia y verifica coleccionables digitales con autenticación Trust Score. Interoperabilidad de artículos entre juegos y seguimiento de procedencia."
           },
           "musicStreaming": {
             "title": "Música y Streaming",
-            "desc": "Distribución de música descentralizada con regalías para creadores. Boletos NFT, tokens de fans y monetización directa artista-oyente."
+            "desc": "Distribución de música descentralizada con regalías para creadores. Boletos NFT, tokens de fans y monetización directa de artista a oyente."
           }
         },
         "metrics": {
@@ -10454,13 +10454,13 @@
           "totalNfts": "NFTs Totales",
           "tvl": "TVL de Juegos",
           "dailyActivePlayers": "Jugadores Activos Diarios",
-          "nftVolume": "Volumen de Trading NFT",
+          "nftVolume": "Volumen de Comercio NFT",
           "gamesApps": "Juegos y Apps"
         },
         "features": {
           "title": "Características de Juegos",
           "p2e": {
-            "title": "Play-to-Earn",
+            "title": "Jugar para Ganar",
             "description": "Economía de tokens sostenible con verificación anti-trampas"
           },
           "nftAssets": {
@@ -10472,90 +10472,81 @@
             "description": "Pools de premios descentralizados con distribución justa"
           },
           "guilds": {
-            "title": "Gremios de Juego",
-            "desc": "Gestión de gremios basada en DAO con reparto de beneficios transparente. Programas de becas y propiedad colectiva de activos para comunidades de juegos."
+            "title": "Gremios de Juegos",
+            "desc": "Gestión de gremios basada en DAO con reparto transparente de ganancias. Programas de becas y propiedad colectiva de activos para comunidades de juegos."
           },
           "gasFree": {
             "title": "Juegos Sin Gas",
-            "desc": "Experiencia de jugador sin problemas con transacciones patrocinadas. Sin popups de wallet ni tarifas de gas interrumpiendo el juego."
+            "desc": "Experiencia de jugador sin interrupciones con transacciones patrocinadas. Sin ventanas emergentes de billetera ni tarifas de gas que interrumpan el juego."
           },
           "antiCheat": {
             "title": "Sistema Anti-Trampas",
             "desc": "Detección de fraude impulsada por IA con integración Trust Score. Protege tu economía de juego de bots, exploits y actores maliciosos."
           },
           "playEarn": {
-            "title": "Recompensas Play-to-Earn",
-            "desc": "Tokenomics sostenible con recompensas basadas en rendimiento. Mecanismos de distribución justos que recompensan habilidad y tiempo invertido."
+            "title": "Recompensas Jugar para Ganar",
+            "desc": "Tokenomics sostenible con recompensas basadas en rendimiento. Mecanismos de distribución justos que recompensan la habilidad y el tiempo invertido."
           }
         },
         "gameTypes": {
-          "title": "Tipos de Juegos Soportados",
-          "rpg": {
-            "title": "RPG",
-            "description": "Juegos de rol con comercio de artículos"
-          },
-          "strategy": {
-            "title": "Estrategia",
-            "description": "Gestión de recursos y control de territorio"
-          },
-          "card": {
-            "title": "Juegos de Cartas",
-            "description": "Juegos de cartas coleccionables con cartas NFT"
-          },
-          "casual": {
-            "title": "Casual",
-            "description": "Juegos rápidos con micro-recompensas"
-          },
           "mmorpgs": {
             "title": "MMORPGs",
             "desc": "Mundos multijugador masivos con economías propiedad de jugadores y gobernanza de gremios"
           },
           "battleRoyale": {
             "title": "Battle Royale",
-            "desc": "Juegos competitivos de último superviviente con pools de premios y temporadas clasificatorias"
+            "desc": "Juegos competitivos de último en pie con pools de premios y temporadas clasificatorias"
           },
           "cardStrategy": {
             "title": "Cartas y Estrategia",
-            "desc": "Juegos de cartas coleccionables con rareza verificable y comercio en mercado"
+            "desc": "Juegos de cartas coleccionables con rareza verificable y comercio en mercados"
           },
-          "sportsRacing": {
-            "title": "Deportes y Carreras",
-            "desc": "Juegos de deportes y carreras competitivos con resultados verificados y ligas de temporada"
+          "racingSports": {
+            "title": "Carreras y Deportes",
+            "desc": "Deportes competitivos y juegos de carreras con resultados verificados y ligas de temporada"
+          },
+          "casualSocial": {
+            "title": "Casual y Social",
+            "desc": "Sesiones rápidas y juegos sociales con recompensas en tokens"
+          },
+          "esports": {
+            "title": "Esports",
+            "desc": "Torneos profesionales, ligas y oportunidades de patrocinio"
           }
         },
-        "showcase": {
-          "title": "Escaparate de Juegos",
-          "featured": "Juegos Destacados",
-          "allGames": "Todos los Juegos",
-          "topGames": "Juegos Top",
-          "newGames": "Nuevos Juegos"
+        "sections": {
+          "categories": "Categorías de Juegos",
+          "categoriesDesc": "Explora los tipos de juegos soportados en TBURN",
+          "platformFeatures": "Características de la Plataforma",
+          "gameGenres": "Géneros de Juegos"
         },
         "cta": {
-          "title": "¿Listo para comenzar a desarrollar juegos?",
-          "subtitle": "Únete a millones de jugadores con la infraestructura GameFi de TBURN.",
-          "button": "Comenzar a Construir"
+          "title": "¿Listo para empezar a desarrollar juegos?",
+          "desc": "Únete a millones de jugadores con la infraestructura GameFi de TBURN.",
+          "quickStart": "Inicio Rápido",
+          "memberPortal": "Portal de Miembros"
         }
       },
       "tokenization": {
         "tag": "TOKENIZACIÓN DE ACTIVOS",
         "title": "Tokenización de Activos",
-        "subtitle": "Tokeniza activos del mundo real en la blockchain de TBURN. Convierte bienes raíces, artículos de lujo, valores y más en activos digitales de propiedad fraccional.",
+        "subtitle": "Transforma activos del mundo real en tokens blockchain. Desbloquea liquidez, habilita propiedad fraccionada y accede a mercados globales con tokenización regulada.",
         "buttons": {
-          "tokenizeAssets": "Tokenizar Activos",
-          "learnMore": "Más Información"
+          "startTokenizing": "Empezar a Tokenizar",
+          "viewDocumentation": "Ver Documentación"
         },
-        "categories": {
+        "types": {
           "realEstate": {
             "title": "Tokenización Inmobiliaria",
-            "desc": "Propiedad fraccional de bienes raíces comerciales y residenciales. Valoración impulsada por IA y distribución automatizada de ingresos por alquiler."
+            "desc": "Propiedad fraccionada de propiedades comerciales y residenciales. Habilita inversión global en bienes raíces con requisitos mínimos de capital y liquidez instantánea."
+          },
+          "luxuryAsset": {
+            "title": "Tokens de Activos de Lujo",
+            "desc": "Tokeniza arte, coleccionables, vinos raros y bienes de lujo. Seguimiento de procedencia con verificación blockchain y opciones de propiedad fraccionada."
           },
           "securities": {
-            "title": "Tokenización de Valores",
-            "desc": "Tokens de valores conformes con regulaciones (STO). Integración KYC/AML, dividendos automatizados, gestión de permisos de inversores."
-          },
-          "luxuryGoods": {
-            "title": "Tokenización de Lujo",
-            "desc": "Relojes de alta gama, arte, coleccionables. Autenticación IA, seguimiento de procedencia, propiedad fraccional."
+            "title": "Valores Digitales",
+            "desc": "Tokens de valores conformes con distribución automática de dividendos. Tokens de acciones, deuda y participación en ingresos con cumplimiento regulatorio incorporado."
           },
           "commodity": {
             "title": "Tokens de Materias Primas",
@@ -10569,29 +10560,29 @@
         },
         "features": {
           "globalMarket": {
-            "title": "Acceso al Mercado Global",
-            "desc": "Trading 24/7 a través de fronteras con liquidación instantánea. Acceso a inversores mundiales y liquidez del mercado secundario."
+            "title": "Acceso a Mercados Globales",
+            "desc": "Comercio 24/7 a través de fronteras con liquidación instantánea. Accede a inversores mundiales y liquidez del mercado secundario."
           },
           "fractionalOwnership": {
-            "title": "Propiedad Fraccional",
-            "desc": "Permite inversión desde $100 en activos premium. Democratiza el acceso a clases de activos tradicionalmente exclusivas."
+            "title": "Propiedad Fraccionada",
+            "desc": "Habilita inversiones desde $100 en activos premium. Democratiza el acceso a clases de activos tradicionalmente exclusivas."
           },
           "regulatoryCompliant": {
-            "title": "Conforme a Regulaciones",
+            "title": "Cumplimiento Regulatorio",
             "desc": "KYC/AML integrado, verificaciones de acreditación y cumplimiento jurisdiccional. Informes automatizados y pistas de auditoría."
           },
           "enterpriseSecurity": {
             "title": "Seguridad Empresarial",
-            "desc": "Custodia de grado bancario, controles multi-firma y encriptación resistente a cuántica. Protección de activos de grado institucional."
+            "desc": "Custodia de grado bancario, controles multi-firma y cifrado resistente a cuánticos. Protección de activos de grado institucional."
           }
         },
         "sections": {
           "types": "Categorías de Tokenización",
           "typesDesc": "Explora clases de activos listas para tokenización blockchain",
-          "platformFeatures": "Capacidades de Plataforma"
+          "platformFeatures": "Capacidades de la Plataforma"
         },
         "cta": {
-          "title": "¿Listo para tokenizar tus activos?",
+          "title": "¿Listo para Tokenizar tus Activos?",
           "desc": "Transforma activos ilíquidos en tokens negociables. Nuestro equipo te guiará a través del proceso de tokenización desde la estructura hasta el lanzamiento.",
           "getStarted": "Comenzar"
         }
@@ -10601,243 +10592,285 @@
         "title": "Redes DePIN",
         "subtitle": "Construye y opera redes de infraestructura física descentralizada. Gana recompensas contribuyendo recursos de computación, almacenamiento, inalámbricos y sensores.",
         "buttons": {
-          "deployInfrastructure": "Desplegar Infraestructura",
-          "protocolDocs": "Docs del Protocolo"
+          "deployNode": "Desplegar Nodo",
+          "depinDocs": "Documentación DePIN"
         },
         "categories": {
           "wireless": {
             "title": "Redes Inalámbricas",
-            "desc": "Hotspots 5G/LTE, conectividad IoT, descarga móvil. Prueba de cobertura y recompensas por uso de datos."
+            "desc": "Despliega LoRaWAN, 5G y hotspots WiFi. Proporciona cobertura descentralizada y gana recompensas basadas en uso."
           },
           "compute": {
             "title": "Computación Distribuida",
-            "desc": "Renderizado GPU, entrenamiento IA, computación científica. Monetización de recursos ociosos y coincidencia de tareas."
+            "desc": "Presta potencia de cómputo inactiva y gana tokens por hora de GPU. Cargas de trabajo de entrenamiento de IA y renderizado."
           },
           "storage": {
             "title": "Almacenamiento Descentralizado",
-            "desc": "Almacenamiento de archivos distribuido y servicios CDN. Prueba de disponibilidad de datos y replicación automática."
+            "desc": "Proporciona espacio en disco a la red. Recompensas por redundancia de archivos y pruebas de almacenamiento verificables."
           },
-          "sensing": {
+          "sensors": {
             "title": "Redes de Sensores",
-            "desc": "Monitoreo ambiental, datos de ubicación, sensores IoT. Verificación de datos en tiempo real y garantía de calidad."
+            "desc": "Recopila datos meteorológicos, de calidad del aire y ambientales. Gana recompensas con matrices de sensores IoT."
           }
         },
         "metrics": {
           "activeNodes": "Nodos Activos",
-          "dailyRewards": "Recompensas Diarias",
-          "networkCoverage": "Cobertura de Red",
-          "totalContributors": "Contribuidores Totales"
+          "monthlyRewards": "Recompensas Mensuales",
+          "networkCoverage": "Cobertura de Red"
         },
         "features": {
-          "proofOfCoverage": {
-            "title": "Prueba de Cobertura",
-            "desc": "Verificación de ubicación impulsada por IA y monitoreo de calidad de servicio. Distribución de recompensas justa y transparente."
+          "verifiable": {
+            "title": "Contribuciones Verificables",
+            "desc": "Verifica operación de nodos y calidad de servicio a través de pruebas criptográficas. Cálculos de recompensas transparentes."
           },
-          "tokenomics": {
-            "title": "Tokenomics Sostenible",
-            "desc": "Emisión y quema de tokens impulsada por demanda. Alineación de incentivos para el crecimiento de red a largo plazo."
+          "permissionless": {
+            "title": "Participación Sin Permisos",
+            "desc": "Únete a la red sin permiso. Conecta hardware y comienza a ganar recompensas inmediatamente."
           },
-          "easyDeployment": {
-            "title": "Despliegue Fácil",
-            "desc": "Soluciones de hardware plug-and-play. Incorporación y configuración automática."
+          "scalable": {
+            "title": "Infraestructura Escalable",
+            "desc": "Escala a miles de nodos. Balanceo de carga automático y redundancia incorporados."
           },
-          "realTimeAnalytics": {
-            "title": "Analíticas en Tiempo Real",
-            "desc": "Dashboards detallados de estado de red, ganancias y rendimiento. Recomendaciones IA para ganancias óptimas."
+          "hybrid": {
+            "title": "Modelo Híbrido",
+            "desc": "Combina hardware privado con nodos en la nube. Mezcla flexible de despliegues on-premise y nativos de la nube."
           }
         },
         "sections": {
-          "networkTypes": "Tipos de Red",
-          "networkTypesDesc": "Explora categorías de redes DePIN soportadas en TBURN",
-          "platformCapabilities": "Capacidades de Plataforma"
+          "networks": "Tipos de Redes DePIN",
+          "networksDesc": "Explora infraestructura descentralizada soportada en TBURN",
+          "platformFeatures": "Características de la Plataforma"
         },
         "cta": {
-          "title": "¿Listo para unirte a la red DePIN?",
-          "desc": "Contribuye infraestructura física y gana recompensas. Comienza tus ingresos pasivos hoy.",
-          "getStarted": "Comenzar"
+          "title": "Únete a la Revolución DePIN",
+          "desc": "Construye o contribuye a infraestructura descentralizada en TBURN y gana recompensas.",
+          "deployNow": "Desplegar Ahora"
         }
       },
       "stablecoins": {
         "tag": "STABLECOINS",
-        "title": "Stablecoins",
-        "subtitle": "Construye infraestructura de stablecoins de grado empresarial en TBURN. Stablecoins respaldadas por fiat, cripto y algorítmicas.",
+        "title": "Infraestructura de Stablecoins",
+        "subtitle": "Emite, gestiona y canjea stablecoins en el marco de cumplimiento de TBURN. Soporta modelos respaldados por fiat, cripto y algorítmicos.",
         "buttons": {
-          "launchStablecoin": "Lanzar Stablecoin",
-          "documentation": "Documentación"
+          "issueStablecoin": "Emitir Stablecoin",
+          "stablecoinDocs": "Documentación de Stablecoins"
         },
-        "categories": {
+        "types": {
           "fiatBacked": {
-            "title": "Respaldadas por Fiat",
-            "desc": "Respaldadas 1:1 por USD, EUR y otras monedas fiat. Prueba de reservas en tiempo real y cumplimiento regulatorio."
+            "title": "Respaldado por Fiat",
+            "desc": "Totalmente colateralizado con depósitos bancarios o bonos del tesoro. Prueba de reservas y auditorías regulares aseguran estabilidad del peg."
           },
           "cryptoBacked": {
-            "title": "Respaldadas por Cripto",
-            "desc": "Stablecoins sobrecolateralizadas por activos cripto. Liquidación automática, mecanismos de estabilidad de precios."
+            "title": "Respaldado por Cripto",
+            "desc": "Emitido contra activos cripto sobrecolateralizados. Liquidación automática y ratios de colateral dinámicos."
           },
           "algorithmic": {
-            "title": "Stablecoins Algorítmicas",
-            "desc": "Balanceo de oferta/demanda impulsado por IA. Rebase dinámico y mecanismos de estabilización."
+            "title": "Stablecoin Algorítmico",
+            "desc": "Peg gestionado por contrato inteligente a través de expansión y contracción de suministro. Mecanismos de estabilización optimizados por IA."
           },
           "commodity": {
-            "title": "Respaldadas por Materias Primas",
-            "desc": "Respaldadas por activos físicos como oro y plata. Auditorías on-chain y oráculos de precios en tiempo real."
+            "title": "Respaldado por Materias Primas",
+            "desc": "Colateralizado con oro, plata o petróleo. Oráculos de precios de materias primas en tiempo real y opción de entrega física."
           }
         },
         "metrics": {
-          "totalSupply": "Suministro Total",
-          "dailyVolume": "Volumen Diario",
-          "pegStability": "Estabilidad del Peg",
-          "backingRatio": "Ratio de Respaldo"
+          "totalMinted": "Total Acuñado",
+          "pegDeviation": "Desviación del Peg",
+          "reserveRatio": "Ratio de Reservas"
         },
         "features": {
-          "instantSettlement": {
-            "title": "Liquidación Instantánea",
-            "desc": "Finalidad de transacciones sub-segundo. Puentes cross-chain y pagos globales."
+          "realTimeAudit": {
+            "title": "Auditoría en Tiempo Real",
+            "desc": "Verifica colateral a través de verificaciones de prueba de reservas. Transparencia on-chain del estado de reservas."
           },
-          "proofOfReserves": {
-            "title": "Prueba de Reservas",
-            "desc": "Auditorías on-chain en tiempo real. Verificación de colateral transparente e informes automatizados."
+          "crossChain": {
+            "title": "Transferencias Cross-Chain",
+            "desc": "Transfiere stablecoins a otras redes a través del puente TBURN. Opciones de emisión nativa y wrapped."
           },
-          "regulatoryCompliance": {
+          "compliance": {
             "title": "Cumplimiento Regulatorio",
-            "desc": "KYC/AML integrado, cumplimiento de regla de viaje. Soporte de licencias multi-jurisdicción."
+            "desc": "KYC/AML integrado e informes regulatorios. Filtrado de sanciones y monitoreo de transacciones."
           },
-          "multiChain": {
-            "title": "Soporte Multi-Chain",
-            "desc": "Transferencias cross-chain sin problemas. Optimización de puentes impulsada por IA y seguridad."
+          "programmable": {
+            "title": "Pagos Programables",
+            "desc": "Pagos recurrentes, custodia y transferencias condicionales. Nóminas y pagos de suscripción automatizados."
           }
         },
         "sections": {
           "types": "Tipos de Stablecoins",
           "typesDesc": "Explora modelos de stablecoins soportados en TBURN",
-          "platformFeatures": "Características de Plataforma"
+          "platformFeatures": "Características de la Plataforma"
         },
         "cta": {
-          "title": "¿Listo para lanzar tu stablecoin?",
-          "desc": "Construye monedas digitales estables con infraestructura de grado empresarial. Nuestro equipo de expertos apoya todo el proceso de lanzamiento.",
+          "title": "¿Listo para Emitir tu Stablecoin?",
+          "desc": "Emite stablecoins conformes en TBURN. Nuestro equipo te guía desde el diseño hasta el lanzamiento.",
           "getStarted": "Comenzar"
         }
       },
       "institutional": {
         "tag": "SOLUCIONES INSTITUCIONALES",
         "title": "Soluciones Institucionales",
-        "subtitle": "Soluciones blockchain de grado empresarial para grandes corporaciones e instituciones financieras. Pagos transfronterizos, gestión de activos, cumplimiento.",
+        "subtitle": "Infraestructura blockchain conforme para empresas e instituciones financieras. Soporte dedicado, garantías SLA y seguridad de grado empresarial.",
         "buttons": {
           "contactSales": "Contactar Ventas",
-          "whitePaper": "White Paper"
+          "institutionalDocs": "Documentación Institucional"
         },
-        "categories": {
-          "crossBorder": {
-            "title": "Pagos Transfronterizos",
-            "desc": "Pagos globales con liquidación instantánea y tarifas transparentes. Soporte multi-moneda y optimización FX."
-          },
-          "treasury": {
-            "title": "Gestión de Tesorería",
-            "desc": "Gestión de activos digitales para tesorería corporativa. Optimización de rendimiento, gestión de riesgos, informes automatizados."
-          },
+        "services": {
           "custody": {
             "title": "Custodia Institucional",
-            "desc": "Almacenamiento de activos digitales con seguridad de grado bancario. Multi-firma, seguros, cumplimiento regulatorio."
+            "desc": "Custodia de activos digitales conforme. Auditorías SOC 2, cobertura de seguro y seguridad multi-firma."
           },
           "trading": {
-            "title": "Trading Institucional",
-            "desc": "Mesas OTC y dark pools para operaciones de gran volumen. Liquidez profunda y mejor ejecución."
+            "title": "Corretaje Prime",
+            "desc": "Ejecución de órdenes grandes con profunda liquidez. Mesa OTC, préstamos cripto y trading con margen."
+          },
+          "staking": {
+            "title": "Staking Empresarial",
+            "desc": "Nodos validadores gestionados y servicios de delegación. Distribución de recompensas personalizada e informes fiscales."
+          },
+          "api": {
+            "title": "API e Infraestructura",
+            "desc": "Nodos dedicados, endpoints RPC privados y SLA empresarial. Garantía de tiempo de actividad del 99.99%."
           }
         },
         "metrics": {
           "institutionalClients": "Clientes Institucionales",
-          "dailySettlement": "Liquidación Diaria",
-          "uptime": "Tiempo de Actividad",
-          "compliance": "Tasa de Cumplimiento"
+          "assetsUnderCustody": "Activos Bajo Custodia",
+          "uptimeSla": "SLA de Tiempo de Actividad"
         },
-        "features": {
-          "enterpriseGrade": {
-            "title": "Seguridad de Grado Empresarial",
-            "desc": "Certificaciones SOC 2 Type II, ISO 27001. Encriptación resistente a cuántica y módulos de seguridad de hardware."
+        "integrations": {
+          "erp": {
+            "title": "Integración ERP",
+            "desc": "Conecta sin problemas con SAP, Oracle y principales plataformas ERP. Conciliación automatizada e informes."
           },
-          "customIntegration": {
-            "title": "Integración Personalizada",
-            "desc": "Integración sin problemas con sistemas existentes. Soporte REST API, WebSocket, protocolo FIX."
+          "banking": {
+            "title": "Socios Bancarios",
+            "desc": "Conecta con redes bancarias para rampas de entrada/salida de fiat. Integración SWIFT y SEPA."
           },
-          "dedicatedSupport": {
-            "title": "Soporte Dedicado",
-            "desc": "Gestor de cuenta dedicado 24/7. Garantías SLA y soporte prioritario."
-          },
-          "regulatoryReporting": {
+          "compliance": {
             "title": "Informes Regulatorios",
-            "desc": "Informes de cumplimiento automatizados. Cumplimiento regulatorio multi-jurisdicción."
+            "desc": "Envíos regulatorios automatizados. MiCA, Regla de Viaje y requisitos jurisdiccionales."
+          },
+          "custody": {
+            "title": "Integración de Custodia",
+            "desc": "Conecta con principales custodios. Integración con Fireblocks, Copper y otros."
+          }
+        },
+        "clientTypes": {
+          "funds": {
+            "title": "Fondos de Cobertura y PE",
+            "desc": "Soluciones personalizadas para operaciones de fondos, cálculo de NAV e informes a inversores."
+          },
+          "corporates": {
+            "title": "Tesorería Corporativa",
+            "desc": "Gestión de activos digitales para tesorería corporativa. Optimización de rendimiento y gestión de riesgos."
+          },
+          "banks": {
+            "title": "Bancos y Fintech",
+            "desc": "Soluciones de marca blanca que se integran con sistemas bancarios. Arquitectura API-first."
+          },
+          "governments": {
+            "title": "Gobiernos y Bancos Centrales",
+            "desc": "Infraestructura CBDC, cumplimiento regulatorio y gestión de activos soberanos."
           }
         },
         "sections": {
-          "solutions": "Soluciones Institucionales",
-          "solutionsDesc": "Soluciones blockchain personalizadas para grandes empresas",
-          "capabilities": "Capacidades de Plataforma"
+          "services": "Servicios Institucionales",
+          "servicesDesc": "Soluciones blockchain de grado empresarial",
+          "systemIntegrations": "Integraciones de Sistemas",
+          "clientTypes": "Tipos de Clientes"
         },
         "cta": {
-          "title": "Conoce las soluciones institucionales",
-          "desc": "Propondremos soluciones blockchain personalizadas para los requisitos de tu empresa. Consulta con nuestros expertos.",
-          "contactUs": "Contáctanos"
+          "title": "Discutir Soluciones Institucionales",
+          "desc": "Consulta con nuestro equipo experto para diseñar tu solución blockchain personalizada.",
+          "requestDemo": "Solicitar Demo"
         }
       },
       "enterprise": {
-        "tag": "EMPRESARIAL",
+        "tag": "BLOCKCHAIN EMPRESARIAL",
         "title": "Soluciones Empresariales",
-        "subtitle": "Soluciones blockchain integrales para negocios modernos. Redes privadas, funciones de cumplimiento, soporte empresarial 24/7.",
+        "subtitle": "Soluciones blockchain completas para negocios modernos. Redes privadas, funciones de cumplimiento y soporte empresarial 24/7.",
         "buttons": {
-          "getStarted": "Comenzar",
-          "contactSales": "Contactar Ventas"
+          "contactEnterprise": "Contactar Empresarial",
+          "enterpriseDocs": "Documentación Empresarial"
         },
-        "categories": {
-          "privateNetwork": {
-            "title": "Red Privada",
-            "desc": "Infraestructura blockchain dedicada. Control total, consenso personalizado, SLA empresarial."
+        "solutions": {
+          "identity": {
+            "title": "Identidad y Gestión de Acceso",
+            "desc": "Identidad descentralizada con credenciales auto-soberanas. Autenticación multifactor, integración SSO y controles de permisos granulares."
           },
           "supplyChain": {
-            "title": "Gestión de Cadena de Suministro",
-            "desc": "Trazabilidad y transparencia de extremo a extremo. Integración IoT, verificación automatizada, analíticas en tiempo real."
+            "title": "Transparencia de Cadena de Suministro",
+            "desc": "Seguimiento de procedencia de productos de extremo a extremo. Pistas de auditoría inmutables desde fabricante hasta consumidor con integración IoT."
           },
-          "identity": {
-            "title": "Identidad Digital",
-            "desc": "Gestión de identidad distribuida. SSI, credenciales verificables, protección de privacidad."
+          "document": {
+            "title": "Gestión de Documentos",
+            "desc": "Almacenamiento y verificación de documentos a prueba de manipulaciones. Firmas digitales, control de versiones y archivado de cumplimiento."
           },
-          "dataManagement": {
-            "title": "Gestión de Datos",
-            "desc": "Registros de datos inmutables y pistas de auditoría. Cumplimiento GDPR, soberanía de datos."
+          "automation": {
+            "title": "Automatización de Procesos de Negocio",
+            "desc": "Flujos de trabajo impulsados por contratos inteligentes. Automatiza aprobaciones, pagos y acuerdos multipartitos con ejecución sin confianza."
           }
         },
         "metrics": {
           "enterpriseClients": "Clientes Empresariales",
-          "processedTransactions": "Transacciones Procesadas",
-          "costReduction": "Reducción de Costes",
-          "deploymentTime": "Tiempo de Despliegue"
+          "uptimeGuarantee": "Garantía de Tiempo de Actividad",
+          "dedicatedSupport": "Soporte Dedicado"
         },
         "features": {
-          "customBlockchain": {
-            "title": "Blockchain Personalizada",
-            "desc": "Red dedicada para tus requisitos de negocio. Consenso personalizado, capa de privacidad, optimización de rendimiento."
+          "soc2": {
+            "title": "Cumplimiento SOC 2",
+            "desc": "Controles de seguridad empresarial con auditorías anuales de terceros. Documentación de cumplimiento completa y certificaciones."
           },
-          "hybridDeployment": {
-            "title": "Despliegue Híbrido",
-            "desc": "Conexión de blockchains privadas y públicas. Equilibrio entre privacidad de datos y transparencia."
+          "privateSubnets": {
+            "title": "Subredes Privadas",
+            "desc": "Entornos de red aislados para datos sensibles. Reglas de consenso personalizadas y controles de acceso para tu organización."
           },
-          "apiIntegration": {
-            "title": "Integración API",
-            "desc": "Integración sin problemas con sistemas existentes. API RESTful, SDK, Webhooks."
+          "roleAccess": {
+            "title": "Acceso Basado en Roles",
+            "desc": "Permisos granulares en todos los niveles de la organización. Registros de auditoría e informes de cumplimiento."
           },
-          "compliance": {
-            "title": "Herramientas de Cumplimiento",
-            "desc": "Cumplir requisitos regulatorios. Pistas de auditoría, informes, certificaciones."
+          "onPremise": {
+            "title": "Opciones On-Premise",
+            "desc": "Ejecuta nodos TBURN en tu centro de datos. Control total sobre soberanía de datos y requisitos de latencia."
+          }
+        },
+        "industries": {
+          "healthcare": {
+            "title": "Salud",
+            "desc": "Gestión de registros de pacientes, seguimiento de medicamentos y cumplimiento."
+          },
+          "manufacturing": {
+            "title": "Manufactura",
+            "desc": "Seguimiento de cadena de suministro, aseguramiento de calidad y gestión de retiradas."
+          },
+          "legal": {
+            "title": "Servicios Legales",
+            "desc": "Contratos inteligentes, preservación de evidencia y automatización de cumplimiento."
+          },
+          "government": {
+            "title": "Gobierno",
+            "desc": "Servicios ciudadanos, sistemas de votación y gestión de registros públicos."
+          },
+          "insurance": {
+            "title": "Seguros",
+            "desc": "Procesamiento de reclamaciones, detección de fraude y reaseguro."
+          },
+          "logistics": {
+            "title": "Logística",
+            "desc": "Seguimiento de envíos, cumplimiento aduanero y gestión de carga."
           }
         },
         "sections": {
           "solutions": "Soluciones Empresariales",
-          "solutionsDesc": "Soluciones blockchain para tus requisitos de negocio",
-          "capabilities": "Capacidades Principales"
+          "solutionsDesc": "Aplicaciones blockchain para desafíos empresariales modernos.",
+          "platformFeatures": "Características de la Plataforma",
+          "industryApplications": "Aplicaciones por Industria"
         },
         "cta": {
-          "title": "Comienza con soluciones empresariales",
-          "desc": "Soluciones blockchain para la innovación empresarial. Consulta con nuestros expertos.",
-          "contactUs": "Contáctanos"
+          "title": "Discutir Asociación Empresarial",
+          "desc": "Consulta con nuestros expertos blockchain para diseñar soluciones para tu negocio.",
+          "scheduleConsultation": "Programar Consulta"
         }
       }
     },
