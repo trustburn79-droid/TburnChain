@@ -32,6 +32,14 @@ export const languages = [
 
 export type LanguageCode = typeof languages[number]['code'];
 
+const RTL_LANGUAGES = ['ar', 'ur'];
+
+const updateDocumentDirection = (lang: string) => {
+  if (typeof document !== 'undefined') {
+    document.documentElement.dir = RTL_LANGUAGES.includes(lang) ? 'rtl' : 'ltr';
+  }
+};
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -63,5 +71,13 @@ i18n
       lookupLocalStorage: 'tburn-language',
     },
   });
+
+i18n.on('initialized', () => {
+  updateDocumentDirection(i18n.language);
+});
+
+i18n.on('languageChanged', (lang) => {
+  updateDocumentDirection(lang);
+});
 
 export default i18n;

@@ -96,9 +96,9 @@ export default function CommunityHub() {
   ];
 
   const leaderboard = [
-    { rank: 1, name: "CryptoKim", initials: "CK", points: t('publicPages.community.hub.leaderboard.points', { count: '125,840' }), tier: t('publicPages.community.hub.leaderboard.tiers.diamond'), isTop: true },
-    { rank: 2, name: "BlockMaster", initials: "BM", points: t('publicPages.community.hub.leaderboard.points', { count: '98,520' }), tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
-    { rank: 3, name: "DeFiQueen", initials: "DQ", points: t('publicPages.community.hub.leaderboard.points', { count: '87,340' }), tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
+    { rank: 1, name: "CryptoKim", initials: "CK", points: "125,840 pts", tier: t('publicPages.community.hub.leaderboard.tiers.diamond'), isTop: true },
+    { rank: 2, name: "BlockMaster", initials: "BM", points: "98,520 pts", tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
+    { rank: 3, name: "DeFiQueen", initials: "DQ", points: "87,340 pts", tier: t('publicPages.community.hub.leaderboard.tiers.platinum'), isTop: false },
   ];
 
   const ambassadorBenefits = [

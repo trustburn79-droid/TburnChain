@@ -9674,38 +9674,38 @@
         }
       },
       "status": {
-        "tag": "STATUS",
-        "title": "Network Status",
-        "subtitle": "Real-time network health and performance metrics.",
+        "tag": "جميع الأنظمة تعمل",
+        "title": "حالة الشبكة",
+        "subtitle": "صحة الشبكة ومقاييس الأداء في الوقت الفعلي.",
         "operational": "Operational",
         "lastUpdated": "Last updated",
         "daysAgo": "days ago",
         "today": "Today",
         "uptimeAvg": "Uptime Average",
         "buttons": {
-          "refreshData": "Refresh Data"
+          "refreshData": "تحديث البيانات"
         },
         "sections": {
-          "coreMetrics": "Core Metrics",
-          "coreMetricsDesc": "Real-time blockchain performance indicators",
+          "coreMetrics": "المقاييس الأساسية",
+          "coreMetricsDesc": "مؤشرات أداء البلوكتشين في الوقت الفعلي",
           "serviceStatus": "Service Status",
           "serviceStatusDesc": "Current status of all network services",
           "uptimeHistory": "Uptime History",
           "uptimeHistoryDesc": "Network availability over the past 90 days",
           "aiSystem": "AI Orchestration System",
           "aiSystemDesc": "Triple-band AI model performance and status",
-          "validatorNetwork": "Validator Network",
-          "validatorNetworkDesc": "Active validators and geographic distribution"
+          "validatorNetwork": "شبكة المدققين",
+          "validatorNetworkDesc": "مقاييس البنية التحتية للمدققين الموزعين"
         },
         "metrics": {
-          "tps": "Transactions Per Second",
-          "peak": "Peak",
-          "blockHeight": "Block Height",
-          "latency": "Network Latency",
-          "finality": "Finality Time",
-          "avgFee": "Average Fee",
-          "cheapFast": "Cheap & Fast",
-          "shards": "Active Shards"
+          "tps": "المعاملات/الثانية",
+          "peak": "الذروة",
+          "blockHeight": "ارتفاع الكتلة",
+          "latency": "زمن الشبكة",
+          "finality": "النهائية",
+          "avgFee": "متوسط الرسوم",
+          "cheapFast": "رخيص وسريع",
+          "shards": "الشظايا"
         },
         "services": {
           "mainnetRpc": {
@@ -10055,10 +10055,10 @@
         }
       },
       "events": {
-        "tag": "EVENTS & ACTIVITIES",
-        "title": "Events & Activities",
-        "subtitle": "Join TBurn Chain community events, hackathons, and conferences.",
-        "featuredTitle": "Featured Events",
+        "tag": "الفعاليات والأنشطة",
+        "title": "الفعاليات والأنشطة",
+        "subtitle": "انضم إلى فعاليات مجتمع TBurn Chain والهاكاثونات والمؤتمرات.",
+        "featuredTitle": "الفعاليات المميزة",
         "upcomingTitle": "Upcoming Events",
         "capacity": "Capacity",
         "filters": {
