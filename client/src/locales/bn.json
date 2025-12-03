@@ -7274,27 +7274,31 @@
       "gaming": {
         "tag": "গেমিং এবং মেটাভার্স",
         "title": "গেমিং এবং মেটাভার্স",
-        "subtitle": "GameFi অবকাঠামো এবং মেটাভার্স ইন্টিগ্রেশন।",
+        "subtitle": "TBURN-এর উচ্চ-কার্যক্ষমতা GameFi ইনফ্রাস্ট্রাকচার দিয়ে পরবর্তী প্রজন্মের ব্লকচেইন গেম তৈরি করুন। নিরবচ্ছিন্ন P2E ইন্টিগ্রেশন, NFT অ্যাসেট এবং ক্রস-গেম অর্থনীতি।",
+        "buttons": {
+          "startBuilding": "বিল্ড শুরু করুন",
+          "gameTooling": "গেম টুলস"
+        },
         "categories": {
           "title": "গেম ক্যাটাগরি",
           "all": "সব গেম",
           "p2e": "প্লে-টু-আর্ন",
           "nft": "NFT গেম",
           "metaverse": {
-            "title": "Metaverse & Virtual Worlds",
-            "desc": "Build immersive virtual experiences with blockchain-verified land ownership, avatar systems, and cross-platform asset portability."
+            "title": "মেটাভার্স এবং ভার্চুয়াল ওয়ার্ল্ড",
+            "desc": "ব্লকচেইন-যাচাইকৃত জমি মালিকানা, অবতার সিস্টেম এবং ক্রস-প্ল্যাটফর্ম অ্যাসেট পোর্টেবিলিটি সহ নিমগ্ন ভার্চুয়াল অভিজ্ঞতা তৈরি করুন।"
           },
           "web3Gaming": {
             "title": "Web3 গেমিং",
-            "desc": "Full-stack blockchain গেমিং with on-chain assets, verifiable randomness, and trustless tournaments. Build games that players truly own."
+            "desc": "অন-চেইন অ্যাসেট, যাচাইযোগ্য র্যান্ডমনেস এবং ট্রাস্টলেস টুর্নামেন্ট সহ ফুল-স্ট্যাক ব্লকচেইন গেমিং। এমন গেম তৈরি করুন যা খেলোয়াড়রা সত্যিই মালিক।"
           },
           "nftCollectibles": {
-            "title": "NFT Collectibles",
-            "desc": "Create, trade, and verify digital collectibles with Trust Score authentication. Cross-game item interoperability and provenance tracking."
+            "title": "NFT কালেক্টিবল",
+            "desc": "Trust Score অথেন্টিকেশন সহ ডিজিটাল কালেক্টিবল তৈরি, ট্রেড এবং যাচাই করুন। ক্রস-গেম আইটেম ইন্টারঅপারেবিলিটি এবং প্রোভেন্যান্স ট্র্যাকিং।"
           },
           "musicStreaming": {
-            "title": "Music & Streaming",
-            "desc": "Decentralized music distribution with creator royalties. NFT tickets, fan tokens, and direct artist-to-listener monetization."
+            "title": "মিউজিক এবং স্ট্রিমিং",
+            "desc": "ক্রিয়েটর রয়্যালটি সহ বিকেন্দ্রীভূত মিউজিক বিতরণ। NFT টিকেট, ফ্যান টোকেন এবং সরাসরি শিল্পী-শ্রোতা মনিটাইজেশন।"
           }
         },
         "metrics": {
@@ -7302,15 +7306,15 @@
           "dailyTransactions": "দৈনিক লেনদেন",
           "totalNfts": "মোট NFT",
           "tvl": "গেমিং TVL",
-          "dailyActivePlayers": "Daily Active Players",
-          "nftVolume": "NFT Trading Volume",
-          "gamesApps": "Games & Apps"
+          "dailyActivePlayers": "দৈনিক সক্রিয় খেলোয়াড়",
+          "nftVolume": "NFT ট্রেডিং ভলিউম",
+          "gamesApps": "গেম এবং অ্যাপ"
         },
         "features": {
-          "title": "গেমিং বৈশিষ্ট্য",
+          "title": "গেমিং ফিচার",
           "p2e": {
             "title": "প্লে-টু-আর্ন",
-            "description": "অ্যান্টি-চিট ভেরিফিকেশন সহ টেকসই টোকেন অর্থনীতি"
+            "description": "অ্যান্টি-চিট যাচাইকরণ সহ টেকসই টোকেন অর্থনীতি"
           },
           "nftAssets": {
             "title": "NFT গেম অ্যাসেট",
@@ -7318,24 +7322,23 @@
           },
           "tournaments": {
             "title": "টুর্নামেন্ট",
-            "description": "ন্যায্য বন্টন সহ বিকেন্দ্রীভূত পুরস্কার পুল"
+            "description": "ন্যায্য বণ্টন সহ বিকেন্দ্রীভূত পুরস্কার পুল"
           },
           "guilds": {
             "title": "গেমিং গিল্ড",
-            "description": "DAO-ভিত্তিক গিল্ড ম্যানেজমেন্ট এবং লাভ ভাগাভাগি",
-            "desc": "DAO-based guild management with transparent profit sharing. Scholarship programs and collective asset ownership for গেমিং communities."
+            "desc": "স্বচ্ছ লাভ ভাগাভাগি সহ DAO-ভিত্তিক গিল্ড ম্যানেজমেন্ট। গেমিং কমিউনিটির জন্য স্কলারশিপ প্রোগ্রাম এবং সম্মিলিত অ্যাসেট মালিকানা।"
           },
           "gasFree": {
-            "title": "Gas-Free গেমিং",
-            "desc": "Seamless player experience with sponsored transactions. No wallet popups or gas fees interrupting gameplay."
+            "title": "গ্যাস-ফ্রি গেমিং",
+            "desc": "স্পন্সরড লেনদেন সহ নিরবচ্ছিন্ন খেলোয়াড় অভিজ্ঞতা। গেমপ্লে বাধাগ্রস্ত করার কোনো ওয়ালেট পপআপ বা গ্যাস ফি নেই।"
           },
           "antiCheat": {
-            "title": "Anti-Cheat System",
-            "desc": "AI-powered fraud detection with Trust Score integration. Protect your game economy from bots, exploits, and bad actors."
+            "title": "অ্যান্টি-চিট সিস্টেম",
+            "desc": "Trust Score ইন্টিগ্রেশন সহ AI-চালিত প্রতারণা সনাক্তকরণ। বট, এক্সপ্লয়েট এবং দুষ্ট অভিনেতাদের থেকে আপনার গেম অর্থনীতি রক্ষা করুন।"
           },
           "playEarn": {
             "title": "প্লে-টু-আর্ন পুরস্কার",
-            "desc": "পারফরম্যান্স-ভিত্তিক পুরস্কার সহ টেকসই টোকেনোমিক্স। দক্ষতা এবং বিনিয়োগ করা সময়কে পুরস্কৃত করে ন্যায্য বিতরণ মেকানিজম।"
+            "desc": "পারফরম্যান্স-ভিত্তিক পুরস্কার সহ টেকসই টোকেনোমিক্স। দক্ষতা এবং বিনিয়োগকৃত সময় পুরস্কৃত করে এমন ন্যায্য বণ্টন প্রক্রিয়া।"
           }
         },
         "gameTypes": {
@@ -7354,7 +7357,7 @@
           },
           "casual": {
             "title": "ক্যাজুয়াল",
-            "description": "মাইক্রো-রিওয়ার্ড সহ কুইক-প্লে গেম"
+            "description": "মাইক্রো-পুরস্কার সহ দ্রুত খেলা"
           },
           "mmorpgs": {
             "title": "MMORPG",
@@ -7362,479 +7365,332 @@
           },
           "battleRoyale": {
             "title": "ব্যাটল রয়্যাল",
-            "desc": "পুরস্কার পুল এবং র‌্যাঙ্কড সিজন সহ প্রতিযোগিতামূলক শেষ-খেলোয়াড়-দাঁড়িয়ে থাকা গেম"
+            "desc": "পুরস্কার পুল এবং র্যাঙ্কড সিজন সহ প্রতিযোগিতামূলক লাস্ট-ম্যান-স্ট্যান্ডিং গেম"
           },
           "cardStrategy": {
-            "title": "কার্ড ও স্ট্র্যাটেজি",
-            "desc": "NFT কার্ড এবং কৌশলগত টার্ন-ভিত্তিক যুদ্ধ সহ সংগ্রহযোগ্য কার্ড গেম"
+            "title": "কার্ড এবং স্ট্র্যাটেজি",
+            "desc": "যাচাইযোগ্য বিরলতা এবং মার্কেট ট্রেডিং সহ কালেক্টিবল কার্ড গেম"
           },
-          "racingSports": {
-            "title": "রেসিং ও স্পোর্টস",
-            "desc": "গাড়ি/খেলোয়াড় NFT সহ প্রতিযোগিতামূলক রেসিং এবং স্পোর্টস সিমুলেশন"
-          },
-          "casualSocial": {
-            "title": "ক্যাজুয়াল ও সোশ্যাল",
-            "desc": "সামাজিক বৈশিষ্ট্য এবং মিনি-গেম টুর্নামেন্ট সহ শিথিল গেমিং অভিজ্ঞতা"
-          },
-          "esports": {
-            "title": "ইস্পোর্টস ও টুর্নামেন্ট",
-            "desc": "বিকেন্দ্রীভূত পুরস্কার পুল এবং ন্যায্য ম্যাচমেকিং সহ প্রতিযোগিতামূলক গেমিং"
+          "sportsRacing": {
+            "title": "স্পোর্টস এবং রেসিং",
+            "desc": "যাচাইকৃত ফলাফল এবং সিজন লীগ সহ প্রতিযোগিতামূলক স্পোর্টস এবং রেসিং গেম"
           }
         },
+        "showcase": {
+          "title": "গেম শোকেস",
+          "featured": "ফিচার্ড গেম",
+          "allGames": "সব গেম",
+          "topGames": "টপ গেম",
+          "newGames": "নতুন গেম"
+        },
         "cta": {
-          "title": "TBurn-এ গেমিং তৈরি করতে প্রস্তুত?",
-          "subtitle": "GameFi SDK এবং ডকুমেন্টেশন অ্যাক্সেস করুন",
-          "getStarted": "শুরু করুন",
-          "viewDocs": "ডক্স দেখুন",
-          "desc": "গেমিংয়ের ভবিষ্যৎ নির্মাণকারী হাজার হাজার ডেভেলপারের সাথে যোগ দিন। আমাদের ব্যাপক SDK, ডকুমেন্টেশন এবং ডেভেলপার কমিউনিটি অ্যাক্সেস করুন।",
-          "quickStart": "দ্রুত শুরু Guide",
-          "memberPortal": "Member Portal"
-        },
-        "buttons": {
-          "startBuilding": "তৈরি শুরু করুন",
-          "gameTooling": "গেম টুলিং"
-        },
-        "sections": {
-          "categories": "গেমিং ইকোসিস্টেম",
-          "categoriesDesc": "TBURN-এ ব্লকচেইন গেমিংয়ের বৈচিত্র্যময় বিশ্ব অন্বেষণ করুন",
-          "platformFeatures": "প্ল্যাটফর্ম বৈশিষ্ট্য",
-          "gameGenres": "সমর্থিত গেম ধরন"
+          "title": "গেম ডেভেলপমেন্ট শুরু করতে প্রস্তুত?",
+          "subtitle": "TBURN GameFi ইনফ্রাস্ট্রাকচার দিয়ে লাখ লাখ খেলোয়াড়ের সাথে যোগ দিন।",
+          "button": "বিল্ড শুরু করুন"
         }
       },
       "tokenization": {
-        "tag": "টোকেনাইজেশন",
+        "tag": "অ্যাসেট টোকেনাইজেশন",
         "title": "অ্যাসেট টোকেনাইজেশন",
-        "subtitle": "ব্লকচেইনে বাস্তব-বিশ্বের সম্পদ টোকেনাইজ করুন।",
+        "subtitle": "TBURN ব্লকচেইনে বাস্তব-বিশ্বের অ্যাসেট টোকেনাইজ করুন। রিয়েল এস্টেট, বিলাসবহুল আইটেম, সিকিউরিটি এবং আরও অনেক কিছু ভগ্নাংশ মালিকানাধীন ডিজিটাল অ্যাসেটে রূপান্তর করুন।",
         "buttons": {
-          "startTokenizing": "টোকেনাইজিং শুরু করুন",
-          "viewDocumentation": "ডকুমেন্টেশন দেখুন"
+          "tokenizeAssets": "অ্যাসেট টোকেনাইজ করুন",
+          "learnMore": "আরও জানুন"
         },
-        "types": {
+        "categories": {
           "realEstate": {
             "title": "রিয়েল এস্টেট টোকেনাইজেশন",
-            "desc": "বাণিজ্যিক এবং আবাসিক সম্পত্তির ভগ্নাংশ মালিকানা। ন্যূনতম মূলধন প্রয়োজনীয়তা এবং তাত্ক্ষণিক তারল্য সহ রিয়েল এস্টেটে বৈশ্বিক বিনিয়োগ সক্ষম করুন।"
-          },
-          "luxuryAsset": {
-            "title": "বিলাসবহুল সম্পদ টোকেন",
-            "desc": "শিল্প, সংগ্রহযোগ্য, বিরল ওয়াইন এবং বিলাসবহুল পণ্য টোকেনাইজ করুন। ব্লকচেইন যাচাইকরণ এবং ভগ্নাংশ মালিকানা বিকল্প সহ উৎপত্তি ট্র্যাকিং।"
+            "desc": "বাণিজ্যিক এবং আবাসিক রিয়েল এস্টেটের ভগ্নাংশ মালিকানা। AI-চালিত মূল্যায়ন এবং স্বয়ংক্রিয় ভাড়া আয় বণ্টন।"
           },
           "securities": {
-            "title": "ডিজিটাল সিকিউরিটিজ",
-            "desc": "স্বয়ংক্রিয় লভ্যাংশ বিতরণ সহ সম্মত সিকিউরিটি টোকেন। বিল্ট-ইন নিয়ন্ত্রক সম্মতি সহ ইক্যুইটি, ডেট এবং রেভিনিউ-শেয়ারিং টোকেন।"
+            "title": "সিকিউরিটি টোকেনাইজেশন",
+            "desc": "নিয়ন্ত্রক-সম্মত সিকিউরিটি টোকেন (STO)। KYC/AML ইন্টিগ্রেশন, স্বয়ংক্রিয় ডিভিডেন্ড, বিনিয়োগকারী অনুমতি ব্যবস্থাপনা।"
+          },
+          "luxuryGoods": {
+            "title": "বিলাসবহুল টোকেনাইজেশন",
+            "desc": "হাই-এন্ড ঘড়ি, শিল্প, কালেক্টিবল। AI অথেন্টিকেশন, প্রোভেন্যান্স ট্র্যাকিং, ভগ্নাংশ মালিকানা।"
           },
           "commodity": {
             "title": "কমোডিটি টোকেন",
-            "desc": "সোনা, রৌপ্য এবং তেলের মতো শারীরিক পণ্য দ্বারা সমর্থিত। অডিটেড রিজার্ভ যাচাইকরণ সহ রিয়েল-টাইম মূল্য ফিড।"
+            "desc": "সোনা, রূপা এবং তেলের মতো ভৌত পণ্য দ্বারা সমর্থিত। অডিটেড রিজার্ভ যাচাইকরণ সহ রিয়েল-টাইম মূল্য ফিড।"
           }
         },
         "metrics": {
           "newInvestors": "নতুন বিনিয়োগকারী সক্ষম",
-          "unlockedAssetValue": "আনলকড সম্পদ মান",
+          "unlockedAssetValue": "আনলক করা অ্যাসেট মূল্য",
           "settlementReliability": "সেটেলমেন্ট নির্ভরযোগ্যতা"
         },
         "features": {
           "globalMarket": {
-            "title": "বৈশ্বিক মার্কেট অ্যাক্সেস",
-            "desc": "তাত্ক্ষণিক সেটেলমেন্ট সহ সীমানা জুড়ে ২৪/৭ ট্রেডিং। বিশ্বব্যাপী বিনিয়োগকারী এবং সেকেন্ডারি মার্কেট তারল্য অ্যাক্সেস করুন।"
+            "title": "গ্লোবাল মার্কেট অ্যাক্সেস",
+            "desc": "তাৎক্ষণিক সেটেলমেন্ট সহ সীমান্ত জুড়ে 24/7 ট্রেডিং। বিশ্বব্যাপী বিনিয়োগকারী এবং সেকেন্ডারি মার্কেট লিকুইডিটিতে অ্যাক্সেস।"
           },
           "fractionalOwnership": {
             "title": "ভগ্নাংশ মালিকানা",
-            "desc": "প্রিমিয়াম সম্পদে $১০০ থেকে বিনিয়োগ সক্ষম করুন। ঐতিহ্যগতভাবে একচেটিয়া সম্পদ শ্রেণীতে অ্যাক্সেস গণতন্ত্রীকরণ করুন।"
+            "desc": "প্রিমিয়াম অ্যাসেটে $100 থেকে বিনিয়োগ সক্ষম করুন। ঐতিহ্যগতভাবে একচেটিয়া অ্যাসেট ক্লাসে অ্যাক্সেসের গণতন্ত্রীকরণ।"
           },
           "regulatoryCompliant": {
-            "title": "নিয়ন্ত্রক সম্মত",
-            "desc": "Built-in KYC/AML, accreditation checks, and jurisdictional compliance. Automated reporting and audit trails."
+            "title": "নিয়ন্ত্রক-সম্মত",
+            "desc": "বিল্ট-ইন KYC/AML, অ্যাক্রেডিটেশন চেক এবং এখতিয়ার সম্মতি। স্বয়ংক্রিয় রিপোর্টিং এবং অডিট ট্রেইল।"
           },
           "enterpriseSecurity": {
-            "title": "Enterprise Security",
-            "desc": "Bank-grade custody, multi-sig controls, and quantum-resistant encryption. প্রাতিষ্ঠানিক-grade asset protection."
+            "title": "এন্টারপ্রাইজ সিকিউরিটি",
+            "desc": "ব্যাংক-গ্রেড কাস্টডি, মাল্টি-সিগ কন্ট্রোল এবং কোয়ান্টাম-প্রতিরোধী এনক্রিপশন। প্রাতিষ্ঠানিক-গ্রেড অ্যাসেট সুরক্ষা।"
           }
         },
         "sections": {
-          "types": "টোকেনাইজেশন Categories",
-          "typesDesc": "Explore asset classes ready for blockchain টোকেনাইজেশন",
-          "platformFeatures": "Platform Capabilities"
+          "types": "টোকেনাইজেশন ক্যাটাগরি",
+          "typesDesc": "ব্লকচেইন টোকেনাইজেশনের জন্য প্রস্তুত অ্যাসেট ক্লাস অন্বেষণ করুন",
+          "platformFeatures": "প্ল্যাটফর্ম সক্ষমতা"
         },
         "cta": {
-          "title": "Ready to Tokenize Your Assets?",
-          "desc": "Transform illiquid assets into tradeable tokens. Our team will guide you through the টোকেনাইজেশন process from structure to launch.",
-          "getStarted": "Get Started"
+          "title": "আপনার অ্যাসেট টোকেনাইজ করতে প্রস্তুত?",
+          "desc": "অতরল অ্যাসেটগুলি ট্রেডযোগ্য টোকেনে রূপান্তর করুন। আমাদের দল কাঠামো থেকে লঞ্চ পর্যন্ত টোকেনাইজেশন প্রক্রিয়ায় আপনাকে গাইড করবে।",
+          "getStarted": "শুরু করুন"
         }
       },
       "depin": {
-        "tag": "DEPIN",
-        "title": "DePIN",
-        "subtitle": "বিকেন্দ্রীভূত ফিজিক্যাল ইনফ্রাস্ট্রাকচার নেটওয়ার্ক।",
+        "tag": "বিকেন্দ্রীভূত ইনফ্রাস্ট্রাকচার",
+        "title": "DePIN নেটওয়ার্ক",
+        "subtitle": "বিকেন্দ্রীভূত ভৌত ইনফ্রাস্ট্রাকচার নেটওয়ার্ক তৈরি এবং পরিচালনা করুন। কম্পিউটিং, স্টোরেজ, ওয়্যারলেস এবং সেন্সিং রিসোর্স অবদান করে পুরস্কার অর্জন করুন।",
         "buttons": {
-          "deployInfrastructure": "Deploy Infrastructure",
-          "protocolDocs": "Protocol Docs"
+          "deployInfrastructure": "ইনফ্রাস্ট্রাকচার স্থাপন করুন",
+          "protocolDocs": "প্রোটোকল ডক্স"
         },
         "categories": {
           "wireless": {
-            "title": "Wireless Networks",
-            "desc": "Decentralized 5G, LoRaWAN, and WiFi coverage. Earn rewards by deploying hotspots and providing connectivity to your community."
+            "title": "ওয়্যারলেস নেটওয়ার্ক",
+            "desc": "5G/LTE হটস্পট, IoT কানেক্টিভিটি, মোবাইল অফলোডিং। কভারেজের প্রমাণ এবং ডেটা ব্যবহার পুরস্কার।"
           },
           "compute": {
-            "title": "Distributed Compute",
-            "desc": "GPU and CPU resource sharing for AI training, rendering, and scientific computing. Monetize idle computing power."
-          },
-          "mapping": {
-            "title": "Mapping & Sensors",
-            "desc": "Crowdsourced geospatial data, weather stations, and IoT sensors. Build real-time data networks with verified coverage."
+            "title": "ডিস্ট্রিবিউটেড কম্পিউটিং",
+            "desc": "GPU রেন্ডারিং, AI ট্রেইনিং, বৈজ্ঞানিক কম্পিউটিং। নিষ্ক্রিয় রিসোর্স মনিটাইজেশন এবং টাস্ক ম্যাচিং।"
           },
           "storage": {
-            "title": "Decentralized Storage",
-            "desc": "Distributed file storage with redundancy and encryption. Earn rewards for contributing disk space to the network."
+            "title": "বিকেন্দ্রীভূত স্টোরেজ",
+            "desc": "ডিস্ট্রিবিউটেড ফাইল স্টোরেজ এবং CDN সার্ভিস। ডেটা প্রাপ্যতার প্রমাণ এবং স্বয়ংক্রিয় রেপ্লিকেশন।"
+          },
+          "sensing": {
+            "title": "সেন্সর নেটওয়ার্ক",
+            "desc": "পরিবেশ পর্যবেক্ষণ, লোকেশন ডেটা, IoT সেন্সর। রিয়েল-টাইম ডেটা যাচাইকরণ এবং গুণমান নিশ্চয়তা।"
           }
         },
         "metrics": {
-          "activeNodes": "Active নোড",
-          "protocolRevenue": "Protocol Revenue",
-          "countriesCovered": "Countries Covered"
+          "activeNodes": "সক্রিয় নোড",
+          "dailyRewards": "দৈনিক পুরস্কার",
+          "networkCoverage": "নেটওয়ার্ক কভারেজ",
+          "totalContributors": "মোট অবদানকারী"
         },
         "features": {
           "proofOfCoverage": {
-            "title": "Proof of Coverage",
-            "desc": "Cryptographically verify infrastructure deployment and সেবা প্রাপ্যতা. Fair reward distribution based on actual contribution."
+            "title": "কভারেজের প্রমাণ",
+            "desc": "AI-চালিত লোকেশন যাচাইকরণ এবং সার্ভিস কোয়ালিটি মনিটরিং। ন্যায্য এবং স্বচ্ছ পুরস্কার বণ্টন।"
           },
-          "slashingProtection": {
-            "title": "Slashing Protection",
-            "desc": "Stake-based security with penalties for malicious behavior. Protect network integrity while rewarding honest operators."
+          "tokenomics": {
+            "title": "টেকসই টোকেনোমিক্স",
+            "desc": "চাহিদা-চালিত টোকেন ইস্যু এবং বার্ন মেকানিজম। দীর্ঘমেয়াদী নেটওয়ার্ক বৃদ্ধির জন্য ইনসেন্টিভ অ্যালাইনমেন্ট।"
           },
-          "communityGovernance": {
-            "title": "Community Governance",
-            "desc": "DAO-based protocol governance for network parameters. Token holders vote on upgrades, rewards, and expansion priorities."
+          "easyDeployment": {
+            "title": "সহজ স্থাপনা",
+            "desc": "প্লাগ-এন্ড-প্লে হার্ডওয়্যার সমাধান। স্বয়ংক্রিয় অনবোর্ডিং এবং কনফিগারেশন।"
           },
-          "dynamicRewards": {
-            "title": "Dynamic Rewards",
-            "desc": "AI-optimized reward distribution based on demand and coverage gaps. Higher rewards for underserved areas."
+          "realTimeAnalytics": {
+            "title": "রিয়েল-টাইম অ্যানালিটিক্স",
+            "desc": "নেটওয়ার্ক স্ট্যাটাস, আয় এবং পারফরম্যান্সের বিস্তারিত ড্যাশবোর্ড। সর্বোত্তম আয়ের জন্য AI সুপারিশ।"
           }
         },
-        "hardware": {
-          "title": "Hardware Requirements",
-          "desc": "Flexible hardware options for different DePIN protocols. Start earning with minimal investment.",
-          "minimum": "Minimum: Raspberry Pi 4 or equivalent ARM device",
-          "recommended": "Recommended: x86 server with 16GB RAM, 1TB SSD",
-          "gpu": "GPU Compute: NVIDIA RTX 3080 or higher for AI workloads"
-        },
         "sections": {
-          "categories": "Infrastructure Categories",
-          "categoriesDesc": "Deploy and earn across multiple DePIN protocols",
-          "protocolFeatures": "Protocol Features"
+          "networkTypes": "নেটওয়ার্ক প্রকার",
+          "networkTypesDesc": "TBURN-এ সমর্থিত DePIN নেটওয়ার্ক ক্যাটাগরি অন্বেষণ করুন",
+          "platformCapabilities": "প্ল্যাটফর্ম সক্ষমতা"
         },
         "cta": {
-          "title": "Ready to Join the DePIN Revolution?",
-          "desc": "Deploy infrastructure, earn rewards, and help build the decentralized future. Our guides will help you get started in minutes.",
-          "getStarted": "Get Started"
+          "title": "DePIN নেটওয়ার্কে যোগ দিতে প্রস্তুত?",
+          "desc": "ভৌত ইনফ্রাস্ট্রাকচার অবদান করুন এবং পুরস্কার অর্জন করুন। আজই আপনার প্যাসিভ ইনকাম শুরু করুন।",
+          "getStarted": "শুরু করুন"
         }
       },
       "stablecoins": {
         "tag": "স্টেবলকয়েন",
         "title": "স্টেবলকয়েন",
-        "subtitle": "এন্টারপ্রাইজ-গ্রেড স্টেবলকয়েন অবকাঠামো।",
+        "subtitle": "TBURN-এ এন্টারপ্রাইজ-গ্রেড স্টেবলকয়েন ইনফ্রাস্ট্রাকচার তৈরি করুন। ফিয়াট-সমর্থিত, ক্রিপ্টো-সমর্থিত এবং অ্যালগরিদমিক স্টেবলকয়েন।",
         "buttons": {
-          "issueStablecoin": "Issue Stablecoin",
-          "technicalDocs": "Technical Docs"
+          "launchStablecoin": "স্টেবলকয়েন লঞ্চ করুন",
+          "documentation": "ডকুমেন্টেশন"
         },
-        "types": {
+        "categories": {
           "fiatBacked": {
-            "title": "Fiat-Backed স্টেবলকয়েন",
-            "desc": "1:1 reserve-backed tokens with real-time proof of reserves. Audited bank accounts with transparent attestation reports."
+            "title": "ফিয়াট-সমর্থিত",
+            "desc": "USD, EUR এবং অন্যান্য ফিয়াট মুদ্রা দ্বারা 1:1 সমর্থিত। রিয়েল-টাইম রিজার্ভ প্রমাণ এবং নিয়ন্ত্রক সম্মতি।"
           },
-          "cryptoCollateralized": {
-            "title": "Crypto-Collateralized",
-            "desc": "Over-collateralized স্টেবলকয়েন backed by crypto assets. Automated liquidation mechanisms and decentralized governance."
+          "cryptoBacked": {
+            "title": "ক্রিপ্টো-সমর্থিত",
+            "desc": "ক্রিপ্টো অ্যাসেট দ্বারা অতিরিক্ত জামানত সহ স্টেবলকয়েন। স্বয়ংক্রিয় লিকুইডেশন, মূল্য স্থিতিশীলতা প্রক্রিয়া।"
           },
-          "institutionalGrade": {
-            "title": "প্রাতিষ্ঠানিক Grade",
-            "desc": "Bank-grade compliance with AML/KYC integration. Whitelisting, blacklisting, and regulatory reporting built-in."
+          "algorithmic": {
+            "title": "অ্যালগরিদমিক স্টেবলকয়েন",
+            "desc": "AI-চালিত সরবরাহ/চাহিদা ব্যালেন্সিং। গতিশীল রিবেসিং এবং স্থিতিশীলতা প্রক্রিয়া।"
           },
-          "multiCurrency": {
-            "title": "Multi-Currency Support",
-            "desc": "Issue স্টেবলকয়েন pegged to any fiat currency. USD, EUR, GBP, JPY, and emerging market currencies supported."
+          "commodity": {
+            "title": "কমোডিটি-সমর্থিত",
+            "desc": "সোনা এবং রূপার মতো ভৌত অ্যাসেট দ্বারা সমর্থিত। অন-চেইন অডিট এবং রিয়েল-টাইম প্রাইস অর্যাকল।"
           }
         },
         "metrics": {
-          "totalSupply": "Total Stablecoin Supply",
-          "dailyTransactions": "Daily Transactions",
-          "pegDeviation": "Max Peg Deviation"
+          "totalSupply": "মোট সরবরাহ",
+          "dailyVolume": "দৈনিক ভলিউম",
+          "pegStability": "পেগ স্থিতিশীলতা",
+          "backingRatio": "ব্যাকিং রেশিও"
         },
         "features": {
-          "proofOfReserves": {
-            "title": "Proof of Reserves",
-            "desc": "Real-time on-chain attestation of backing assets. Third-party auditors verify reserve ratios continuously."
-          },
           "instantSettlement": {
-            "title": "Instant Settlement",
-            "desc": "Sub-second transaction ফাইনালিটি with ৫০,০০০+ TPS. No waiting for bank transfers or clearing houses."
+            "title": "তাৎক্ষণিক সেটেলমেন্ট",
+            "desc": "সাব-সেকেন্ড ট্রান্সঅ্যাকশন ফাইনালিটি। ক্রস-চেইন ব্রিজ এবং গ্লোবাল পেমেন্ট।"
           },
-          "programmableCompliance": {
-            "title": "Programmable Compliance",
-            "desc": "Smart contract-enforced transfer restrictions. Geographic limits, holding caps, and regulatory controls."
+          "proofOfReserves": {
+            "title": "রিজার্ভের প্রমাণ",
+            "desc": "রিয়েল-টাইম অন-চেইন অডিট। স্বচ্ছ জামানত যাচাইকরণ এবং স্বয়ংক্রিয় রিপোর্টিং।"
           },
-          "crossChainBridges": {
-            "title": "ক্রস-চেইন ব্রিজs",
-            "desc": "Native bridges to Ethereum, Polygon, Arbitrum, and more. Unified তারল্য across multiple networks."
-          }
-        },
-        "useCases": {
-          "payments": {
-            "title": "Global পেমেন্ট",
-            "desc": "Instant cross-border transfers with minimal fees. Replace SWIFT with blockchain-based settlement."
+          "regulatoryCompliance": {
+            "title": "নিয়ন্ত্রক সম্মতি",
+            "desc": "বিল্ট-ইন KYC/AML, ট্রাভেল রুল সম্মতি। মাল্টি-জুরিসডিকশন লাইসেন্স সাপোর্ট।"
           },
-          "defiCollateral": {
-            "title": "DeFi Collateral",
-            "desc": "Use স্টেবলকয়েন as collateral for lending, borrowing, and ইয়েল্ড ফার্মিং. Stable value for predictable positions."
-          },
-          "treasury": {
-            "title": "Treasury Management",
-            "desc": "Corporate treasury operations with on-chain transparency. Automated পেমেন্ট and cash flow management."
-          },
-          "payroll": {
-            "title": "Payroll & Benefits",
-            "desc": "Instant global payroll in stable currencies. Automatic tax withholding and benefits distribution."
+          "multiChain": {
+            "title": "মাল্টি-চেইন সাপোর্ট",
+            "desc": "নিরবচ্ছিন্ন ক্রস-চেইন ট্রান্সফার। AI-চালিত ব্রিজ অপটিমাইজেশন এবং সিকিউরিটি।"
           }
         },
         "sections": {
-          "types": "Stablecoin Types",
-          "typesDesc": "Choose the right stablecoin model for your needs",
-          "platformFeatures": "Platform Capabilities",
-          "useCases": "Use Cases"
+          "types": "স্টেবলকয়েন প্রকার",
+          "typesDesc": "TBURN-এ সমর্থিত স্টেবলকয়েন মডেল অন্বেষণ করুন",
+          "platformFeatures": "প্ল্যাটফর্ম ফিচার"
         },
         "cta": {
-          "title": "Ready to Launch Your Stablecoin?",
-          "desc": "From concept to launch in weeks. Our team provides end-to-end support for stablecoin issuance and management.",
-          "getStarted": "Get Started"
+          "title": "আপনার স্টেবলকয়েন লঞ্চ করতে প্রস্তুত?",
+          "desc": "এন্টারপ্রাইজ-গ্রেড ইনফ্রাস্ট্রাকচার দিয়ে স্থিতিশীল ডিজিটাল মুদ্রা তৈরি করুন। আমাদের বিশেষজ্ঞ দল পুরো লঞ্চ প্রক্রিয়া সমর্থন করে।",
+          "getStarted": "শুরু করুন"
         }
       },
       "institutional": {
-        "tag": "প্রাতিষ্ঠানিক",
-        "title": "প্রাতিষ্ঠানিক পেমেন্ট",
-        "subtitle": "এন্টারপ্রাইজের জন্য উচ্চ-ভলিউম পেমেন্ট সমাধান।",
+        "tag": "প্রাতিষ্ঠানিক সমাধান",
+        "title": "প্রাতিষ্ঠানিক সমাধান",
+        "subtitle": "বড় কর্পোরেশন এবং আর্থিক প্রতিষ্ঠানের জন্য এন্টারপ্রাইজ-গ্রেড ব্লকচেইন সমাধান। আন্তঃসীমান্ত পেমেন্ট, অ্যাসেট ম্যানেজমেন্ট, কমপ্লায়েন্স।",
         "buttons": {
-          "contactSales": "যোগাযোগ Sales",
-          "apiReference": "API রেফারেন্স"
+          "contactSales": "সেলস-এ যোগাযোগ করুন",
+          "whitePaper": "হোয়াইট পেপার"
         },
-        "paymentFeatures": {
-          "rtgs": {
-            "title": "Real-Time Gross Settlement",
-            "desc": "Instant ফাইনালিটি for high-value transactions. No batching delays or counterparty risk."
-          },
+        "categories": {
           "crossBorder": {
-            "title": "Cross-Border পেমেন্ট",
-            "desc": "Global reach with local settlement. Multi-currency support with real-time FX and corridor optimization."
+            "title": "আন্তঃসীমান্ত পেমেন্ট",
+            "desc": "তাৎক্ষণিক সেটেলমেন্ট এবং স্বচ্ছ ফি সহ গ্লোবাল পেমেন্ট। মাল্টি-কারেন্সি সাপোর্ট এবং FX অপটিমাইজেশন।"
           },
-          "compliant": {
-            "title": "নিয়ন্ত্রক সম্মত",
-            "desc": "Built for regulated financial institutions. Full SWIFT compatibility, ISO 20022, and regulatory reporting."
+          "treasury": {
+            "title": "ট্রেজারি ম্যানেজমেন্ট",
+            "desc": "কর্পোরেট ট্রেজারির জন্য ডিজিটাল অ্যাসেট ম্যানেজমেন্ট। ইয়েল্ড অপটিমাইজেশন, রিস্ক ম্যানেজমেন্ট, স্বয়ংক্রিয় রিপোর্টিং।"
           },
-          "smartContract": {
-            "title": "Smart Contract Escrow",
-            "desc": "Programmable payment conditions and escrow. Automate complex settlement workflows and multi-party agreements."
+          "custody": {
+            "title": "প্রাতিষ্ঠানিক কাস্টডি",
+            "desc": "ব্যাংক-গ্রেড সিকিউরিটি সহ ডিজিটাল অ্যাসেট স্টোরেজ। মাল্টি-সিগ, ইন্স্যুরেন্স, নিয়ন্ত্রক সম্মতি।"
+          },
+          "trading": {
+            "title": "প্রাতিষ্ঠানিক ট্রেডিং",
+            "desc": "উচ্চ-ভলিউম ট্রেডিংয়ের জন্য OTC ডেস্ক এবং ডার্ক পুল। গভীর লিকুইডিটি এবং সেরা এক্সিকিউশন।"
           }
         },
         "metrics": {
-          "dailyVolume": "Daily Settlement Volume",
-          "transactionFee": "Transaction Fee",
-          "uptimeSla": "আপটাইম SLA"
+          "institutionalClients": "প্রাতিষ্ঠানিক ক্লায়েন্ট",
+          "dailySettlement": "দৈনিক সেটেলমেন্ট",
+          "uptime": "আপটাইম",
+          "compliance": "কমপ্লায়েন্স রেট"
         },
-        "integrations": {
-          "coreBanking": {
-            "title": "Core Banking Integration",
-            "desc": "Native connectors for major core banking systems. Seamless integration with existing infrastructure."
+        "features": {
+          "enterpriseGrade": {
+            "title": "এন্টারপ্রাইজ-গ্রেড সিকিউরিটি",
+            "desc": "SOC 2 Type II, ISO 27001 সার্টিফিকেশন। কোয়ান্টাম-প্রতিরোধী এনক্রিপশন এবং হার্ডওয়্যার সিকিউরিটি মডিউল।"
           },
-          "treasury": {
-            "title": "Treasury Management",
-            "desc": "Real-time cash position visibility and automated তারল্য optimization across accounts."
+          "customIntegration": {
+            "title": "কাস্টম ইন্টিগ্রেশন",
+            "desc": "বিদ্যমান সিস্টেমের সাথে নিরবচ্ছিন্ন ইন্টিগ্রেশন। REST API, WebSocket, FIX প্রোটোকল সাপোর্ট।"
           },
-          "correspondent": {
-            "title": "Correspondent Banking",
-            "desc": "Reduce correspondent banking fees and settlement times. Direct peer-to-peer প্রাতিষ্ঠানিক transfers."
+          "dedicatedSupport": {
+            "title": "ডেডিকেটেড সাপোর্ট",
+            "desc": "24/7 ডেডিকেটেড অ্যাকাউন্ট ম্যানেজার। SLA গ্যারান্টি এবং অগ্রাধিকার সাপোর্ট।"
           },
-          "operations": {
-            "title": "24/7 Operations",
-            "desc": "Round-the-clock settlement with no batch processing. Continuous operations with ৯৯.৯৯% আপটাইম guarantee."
-          }
-        },
-        "clientTypes": {
-          "centralBanks": {
-            "title": "Central Banks",
-            "desc": "CBDC issuance and wholesale settlement infrastructure for monetary authorities."
-          },
-          "commercialBanks": {
-            "title": "Commercial Banks",
-            "desc": "Retail and corporate payment rails with full regulatory compliance."
-          },
-          "paymentProcessors": {
-            "title": "Payment Processors",
-            "desc": "High-volume transaction processing with instant settlement and minimal fees."
-          },
-          "fintechs": {
-            "title": "Fintechs & Neobanks",
-            "desc": "Modern banking infrastructure without legacy system constraints."
+          "regulatoryReporting": {
+            "title": "রেগুলেটরি রিপোর্টিং",
+            "desc": "স্বয়ংক্রিয় কমপ্লায়েন্স রিপোর্টিং। মাল্টি-জুরিসডিকশন রেগুলেটরি কমপ্লায়েন্স।"
           }
         },
         "sections": {
-          "paymentFeatures": "Payment Infrastructure",
-          "paymentFeaturesDesc": "Enterprise-grade payment capabilities for financial institutions",
-          "systemIntegrations": "System Integrations",
-          "clientTypes": "Client Types"
+          "solutions": "প্রাতিষ্ঠানিক সমাধান",
+          "solutionsDesc": "বড় এন্টারপ্রাইজের জন্য কাস্টম ব্লকচেইন সমাধান",
+          "capabilities": "প্ল্যাটফর্ম সক্ষমতা"
         },
         "cta": {
-          "title": "Ready to Modernize Your Payment Infrastructure?",
-          "desc": "Schedule a demo with our প্রাতিষ্ঠানিক team. We'll show you how TBURN can transform your payment operations.",
-          "requestDemo": "Request Demo"
+          "title": "প্রাতিষ্ঠানিক সমাধান সম্পর্কে জানুন",
+          "desc": "আমরা আপনার কোম্পানির প্রয়োজনীয়তার জন্য কাস্টম ব্লকচেইন সমাধান প্রস্তাব করব। আমাদের বিশেষজ্ঞদের সাথে পরামর্শ করুন।",
+          "contactUs": "আমাদের সাথে যোগাযোগ করুন"
         }
       },
       "enterprise": {
-        "tag": "এন্টারপ্রাইজ ব্লকচেইন",
+        "tag": "এন্টারপ্রাইজ",
         "title": "এন্টারপ্রাইজ সমাধান",
-        "subtitle": "আধুনিক ব্যবসার জন্য ব্যাপক ব্লকচেইন সমাধান। প্রাইভেট নেটওয়ার্ক, সম্মতি বৈশিষ্ট্য এবং ২৪/৭ এন্টারপ্রাইজ সহায়তা।",
-        "contactEnterprise": "এন্টারপ্রাইজে যোগাযোগ করুন",
-        "enterpriseDocs": "এন্টারপ্রাইজ ডক্স",
-        "metrics": {
-          "enterpriseClients": "Enterprise Clients",
-          "uptimeGuarantee": "আপটাইম Guarantee",
-          "dedicatedSupport": "Dedicated Support"
+        "subtitle": "আধুনিক ব্যবসার জন্য ব্যাপক ব্লকচেইন সমাধান। প্রাইভেট নেটওয়ার্ক, কমপ্লায়েন্স ফিচার, 24/7 এন্টারপ্রাইজ সাপোর্ট।",
+        "buttons": {
+          "getStarted": "শুরু করুন",
+          "contactSales": "সেলস-এ যোগাযোগ করুন"
         },
-        "solutions": {
-          "title": "এন্টারপ্রাইজ সমাধান",
-          "subtitle": "আধুনিক ব্যবসায়িক চ্যালেঞ্জের জন্য ব্লকচেইন অ্যাপ্লিকেশন।",
-          "identityAccess": {
-            "title": "পরিচয় এবং অ্যাক্সেস ম্যানেজমেন্ট",
-            "description": "স্ব-সার্বভৌম ক্রেডেনশিয়াল সহ বিকেন্দ্রীভূত পরিচয়। মাল্টি-ফ্যাক্টর অথেনটিকেশন, SSO ইন্টিগ্রেশন এবং দানাদার অনুমতি নিয়ন্ত্রণ।"
+        "categories": {
+          "privateNetwork": {
+            "title": "প্রাইভেট নেটওয়ার্ক",
+            "desc": "ডেডিকেটেড ব্লকচেইন ইনফ্রাস্ট্রাকচার। সম্পূর্ণ নিয়ন্ত্রণ, কাস্টম কনসেনসাস, এন্টারপ্রাইজ SLA।"
           },
           "supplyChain": {
-            "title": "সাপ্লাই চেইন স্বচ্ছতা",
-            "description": "শেষ থেকে শেষ পণ্য প্রভেনেন্স ট্র্যাকিং। IoT ইন্টিগ্রেশন সহ প্রস্তুতকারক থেকে ভোক্তা পর্যন্ত অপরিবর্তনীয় অডিট ট্রেইল।",
-            "desc": "End-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
-          },
-          "documentManagement": {
-            "title": "ডকুমেন্ট ম্যানেজমেন্ট",
-            "description": "টেম্পার-প্রুফ ডকুমেন্ট স্টোরেজ এবং যাচাইকরণ। ডিজিটাল স্বাক্ষর, ভার্সন কন্ট্রোল এবং সম্মতি আর্কাইভিং।"
-          },
-          "processAutomation": {
-            "title": "ব্যবসায়িক প্রক্রিয়া অটোমেশন",
-            "description": "স্মার্ট কন্ট্রাক্ট-চালিত ওয়ার্কফ্লো। বিশ্বাসহীন এক্সিকিউশন সহ অনুমোদন, পেমেন্ট এবং বহু-পক্ষীয় চুক্তি স্বয়ংক্রিয় করুন।"
+            "title": "সাপ্লাই চেইন ম্যানেজমেন্ট",
+            "desc": "এন্ড-টু-এন্ড ট্রেসেবিলিটি এবং স্বচ্ছতা। IoT ইন্টিগ্রেশন, স্বয়ংক্রিয় যাচাইকরণ, রিয়েল-টাইম অ্যানালিটিক্স।"
           },
           "identity": {
-            "title": "Identity & Access Management",
-            "desc": "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
+            "title": "ডিজিটাল আইডেন্টিটি",
+            "desc": "ডিস্ট্রিবিউটেড আইডেন্টিটি ম্যানেজমেন্ট। SSI, ভেরিফাইযোগ্য ক্রেডেনশিয়াল, প্রাইভেসি সুরক্ষা।"
           },
-          "document": {
-            "title": "Document Management",
-            "desc": "Tamper-proof document storage and যাচাইকরণ. Digital signatures, version control, and compliance archiving."
-          },
-          "automation": {
-            "title": "Business Process Automation",
-            "desc": "Smart contract-driven workflows. Automate approvals, পেমেন্ট, and multi-party agreements with trustless execution."
+          "dataManagement": {
+            "title": "ডেটা ম্যানেজমেন্ট",
+            "desc": "অপরিবর্তনীয় ডেটা রেকর্ড এবং অডিট ট্রেইল। GDPR কমপ্লায়েন্স, ডেটা সার্বভৌমত্ব।"
           }
         },
-        "platformFeatures": {
-          "title": "প্ল্যাটফর্ম বৈশিষ্ট্য",
-          "soc2": {
-            "title": "SOC 2 সম্মত",
-            "description": "এন্টারপ্রাইজ নিরাপত্তা নিয়ন্ত্রণ এবং বার্ষিক অডিট"
-          },
-          "privateSubnets": {
-            "title": "প্রাইভেট সাবনেট",
-            "description": "সংবেদনশীল ডেটার জন্য বিচ্ছিন্ন নেটওয়ার্ক পরিবেশ"
-          },
-          "roleBasedAccess": {
-            "title": "রোল-ভিত্তিক অ্যাক্সেস",
-            "description": "দানাদার অনুমতি এবং মাল্টি-টেন্যান্ট আইসোলেশন"
-          },
-          "onPremise": {
-            "title": "অন-প্রিমাইস অপশন",
-            "description": "আপনার নিজস্ব ডেটা সেন্টার অবকাঠামোতে ডিপ্লয় করুন"
-          }
-        },
-        "industryApplications": {
-          "title": "ইন্ডাস্ট্রি অ্যাপ্লিকেশন",
-          "healthcare": {
-            "title": "স্বাস্থ্যসেবা",
-            "description": "HIPAA-সম্মত রেকর্ড ম্যানেজমেন্ট"
-          },
-          "manufacturing": {
-            "title": "উৎপাদন",
-            "description": "সাপ্লাই চেইন এবং গুণমান নিশ্চয়তা"
-          },
-          "legal": {
-            "title": "আইনি",
-            "description": "চুক্তি ম্যানেজমেন্ট এবং ই-স্বাক্ষর"
-          },
-          "government": {
-            "title": "সরকার",
-            "description": "স্বচ্ছ রেকর্ড রাখা এবং ভোটিং"
-          },
-          "insurance": {
-            "title": "বীমা",
-            "description": "দাবি প্রক্রিয়াকরণ এবং জালিয়াতি সনাক্তকরণ"
-          },
-          "logistics": {
-            "title": "লজিস্টিক্স",
-            "description": "শিপমেন্ট ট্র্যাকিং এবং যাচাইকরণ"
-          }
-        },
-        "cta": {
-          "title": "এন্টারপ্রাইজ ব্লকচেইনের জন্য প্রস্তুত?",
-          "subtitle": "আমাদের এন্টারপ্রাইজ টিমের সাথে পরামর্শের সময়সূচী করুন। আমরা আপনার সংস্থার প্রয়োজনীয়তার সাথে মানানসই একটি কাস্টম সমাধান ডিজাইন করব।",
-          "scheduleConsultation": "পরামর্শের সময়সূচী করুন",
-          "desc": "আমাদের এন্টারপ্রাইজ টিমের সাথে একটি পরামর্শ সময়সূচী করুন। আমরা আপনার সংস্থার প্রয়োজনীয়তা অনুযায়ী একটি কাস্টম সমাধান ডিজাইন করব।"
-        },
-        "buttons": {
-          "contactEnterprise": "যোগাযোগ Enterprise",
-          "enterpriseDocs": "Enterprise Docs"
+        "metrics": {
+          "enterpriseClients": "এন্টারপ্রাইজ ক্লায়েন্ট",
+          "processedTransactions": "প্রসেসড ট্রান্সঅ্যাকশন",
+          "costReduction": "খরচ হ্রাস",
+          "deploymentTime": "ডিপ্লয়মেন্ট সময়"
         },
         "features": {
-          "soc2": {
-            "title": "SOC 2 Compliant",
-            "desc": "Enterprise security controls with annual third-party audits. Full compliance ডকুমেন্টেশন and certifications."
+          "customBlockchain": {
+            "title": "কাস্টম ব্লকচেইন",
+            "desc": "আপনার ব্যবসার প্রয়োজনীয়তার জন্য ডেডিকেটেড নেটওয়ার্ক। কাস্টম কনসেনসাস, প্রাইভেসি লেয়ার, পারফরম্যান্স অপটিমাইজেশন।"
           },
-          "privateSubnets": {
-            "title": "Private Subnets",
-            "desc": "Isolated network environments for sensitive data. Custom কনসেনসাস rules and access controls for your organization."
+          "hybridDeployment": {
+            "title": "হাইব্রিড ডিপ্লয়মেন্ট",
+            "desc": "প্রাইভেট এবং পাবলিক ব্লকচেইন সংযোগ। ডেটা প্রাইভেসি এবং স্বচ্ছতার মধ্যে ভারসাম্য।"
           },
-          "roleAccess": {
-            "title": "ভূমিকা-Based Access",
-            "desc": "Granular permissions and multi-tenant isolation. Define custom ভূমিকাs with precise access to features and data."
+          "apiIntegration": {
+            "title": "API ইন্টিগ্রেশন",
+            "desc": "বিদ্যমান সিস্টেমের সাথে নিরবচ্ছিন্ন ইন্টিগ্রেশন। RESTful API, SDK, Webhooks।"
           },
-          "onPremise": {
-            "title": "On-Premise Deployment",
-            "desc": "Deploy within your own data center infrastructure. Full control over hardware, networking, and security."
-          }
-        },
-        "industries": {
-          "healthcare": {
-            "title": "স্বাস্থ্যসেবা",
-            "desc": "HIPAA-compliant medical record management and secure health data exchange between providers."
-          },
-          "manufacturing": {
-            "title": "Manufacturing",
-            "desc": "সাপ্লাই চেইন tracking, quality assurance ডকুমেন্টেশন, and IoT sensor data যাচাইকরণ."
-          },
-          "legal": {
-            "title": "আইনি সেবা",
-            "desc": "স্মার্ট কন্ট্রাক্ট-ভিত্তিক চুক্তি, ই-স্বাক্ষর এবং অপরিবর্তনীয় নথি সংরক্ষণাগার।"
-          },
-          "government": {
-            "title": "সরকার",
-            "desc": "স্বচ্ছ পাবলিক রেকর্ড, নিরাপদ ভোটিং সিস্টেম এবং নাগরিক পরিচয় ব্যবস্থাপনা।"
-          },
-          "insurance": {
-            "title": "বীমা",
-            "desc": "ব্লকচেইনে স্বয়ংক্রিয় দাবি প্রক্রিয়াকরণ, প্রতারণা সনাক্তকরণ এবং পলিসি প্রশাসন।"
-          },
-          "logistics": {
-            "title": "লজিস্টিক্স",
-            "desc": "রিয়েল-টাইম শিপমেন্ট ট্র্যাকিং, কাস্টমস ডকুমেন্টেশন এবং ডেলিভারি যাচাইকরণ।"
+          "compliance": {
+            "title": "কমপ্লায়েন্স টুলস",
+            "desc": "নিয়ন্ত্রক প্রয়োজনীয়তা পূরণ করুন। অডিট ট্রেইল, রিপোর্টিং, সার্টিফিকেশন।"
           }
         },
         "sections": {
           "solutions": "এন্টারপ্রাইজ সমাধান",
-          "solutionsDesc": "এন্টারপ্রাইজ চ্যালেঞ্জের জন্য ডিজাইন করা ব্লকচেইন অ্যাপ্লিকেশন",
-          "platformFeatures": "নিরাপত্তা ও সম্মতি",
-          "industryApplications": "শিল্প অ্যাপ্লিকেশন"
+          "solutionsDesc": "আপনার ব্যবসার প্রয়োজনীয়তার জন্য ব্লকচেইন সমাধান",
+          "capabilities": "মূল সক্ষমতা"
+        },
+        "cta": {
+          "title": "এন্টারপ্রাইজ সমাধান দিয়ে শুরু করুন",
+          "desc": "ব্যবসায়িক উদ্ভাবনের জন্য ব্লকচেইন সমাধান। আমাদের বিশেষজ্ঞদের সাথে পরামর্শ করুন।",
+          "contactUs": "আমাদের সাথে যোগাযোগ করুন"
         }
       }
     },

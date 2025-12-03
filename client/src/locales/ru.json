@@ -8148,73 +8148,76 @@
     "useCases": {
       "gaming": {
         "tag": "ИГРЫ И МЕТАВСЕЛЕННАЯ",
-        "title": "Игры и метавселенная",
-        "subtitle": "GameFi инфраструктура и интеграция метавселенной.",
+        "title": "Игры и Метавселенная",
+        "subtitle": "Создавайте следующее поколение блокчейн-игр с высокопроизводительной GameFi инфраструктурой TBURN. Бесшовная P2E интеграция, NFT активы и межигровые экономики.",
+        "buttons": {
+          "startBuilding": "Начать Разработку",
+          "gameTooling": "Игровые Инструменты"
+        },
         "categories": {
-          "title": "Категории игр",
-          "all": "Все игры",
+          "title": "Категории Игр",
+          "all": "Все Игры",
           "p2e": "Play-to-Earn",
-          "nft": "NFT игры",
+          "nft": "NFT Игры",
           "metaverse": {
-            "title": "Метавселенная и виртуальные миры",
-            "desc": "Создавайте иммерсивные виртуальные опыты с верифицированным в блокчейне владением землёй, системами аватаров и кросс-платформенной переносимостью активов."
+            "title": "Метавселенная и Виртуальные Миры",
+            "desc": "Создавайте иммерсивные виртуальные опыты с блокчейн-верифицированным владением землёй, системами аватаров и кроссплатформенной переносимостью активов."
           },
           "web3Gaming": {
-            "title": "Web3 игры",
-            "desc": "Полностековые блокчейн-игры с on-chain активами, проверяемой случайностью и бездоверительными турнирами. Создавайте игры, которыми игроки действительно владеют."
+            "title": "Web3 Игры",
+            "desc": "Полностековые блокчейн-игры с ончейн-активами, верифицируемой случайностью и бездоверительными турнирами. Создавайте игры, которыми игроки по-настоящему владеют."
           },
           "nftCollectibles": {
-            "title": "NFT-коллекционирование",
-            "desc": "Создавайте, торгуйте и верифицируйте цифровые коллекционные предметы с аутентификацией через рейтинг доверия. Межигровая совместимость предметов и отслеживание происхождения."
+            "title": "NFT Коллекционирование",
+            "desc": "Создавайте, торгуйте и верифицируйте цифровые коллекционные предметы с аутентификацией Trust Score. Межигровая совместимость предметов и отслеживание происхождения."
           },
           "musicStreaming": {
-            "title": "Музыка и стриминг",
-            "desc": "Децентрализованная дистрибуция музыки с роялти для создателей. NFT-билеты, фан-токены и прямая монетизация от артиста к слушателю."
+            "title": "Музыка и Стриминг",
+            "desc": "Децентрализованная дистрибуция музыки с роялти для создателей. NFT билеты, фан-токены и прямая монетизация артист-слушатель."
           }
         },
         "metrics": {
-          "activePlayers": "Активные игроки",
-          "dailyTransactions": "Ежедневные транзакции",
+          "activePlayers": "Активные Игроки",
+          "dailyTransactions": "Ежедневные Транзакции",
           "totalNfts": "Всего NFT",
-          "tvl": "Gaming TVL",
-          "dailyActivePlayers": "Активных игроков в день",
-          "nftVolume": "Объём торговли NFT",
-          "gamesApps": "Игр и приложений"
+          "tvl": "TVL Игр",
+          "dailyActivePlayers": "DAU",
+          "nftVolume": "Объём Торговли NFT",
+          "gamesApps": "Игры и Приложения"
         },
         "features": {
-          "title": "Игровые функции",
+          "title": "Игровые Функции",
           "p2e": {
             "title": "Play-to-Earn",
-            "description": "Устойчивая токеномика с верификацией античита"
+            "description": "Устойчивая токен-экономика с античит-верификацией"
           },
           "nftAssets": {
-            "title": "NFT игровые активы",
-            "description": "Верифицированное владение и кросс-игровая интероперабельность"
+            "title": "NFT Игровые Активы",
+            "description": "Верифицированное владение и межигровая совместимость"
           },
           "tournaments": {
             "title": "Турниры",
-            "description": "Децентрализованные призовые пулы со справедливым распределением"
+            "description": "Децентрализованные призовые пулы с честным распределением"
           },
           "guilds": {
-            "title": "Игровые гильдии",
-            "description": "DAO-управление гильдиями и распределение прибыли",
-            "desc": "DAO-based guild management with transparent profit sharing. Scholarship programs and collective asset ownership for gaming communities."
+            "title": "Игровые Гильдии",
+            "desc": "DAO-управление гильдиями с прозрачным распределением прибыли. Стипендиальные программы и коллективное владение активами для игровых сообществ."
           },
           "gasFree": {
-            "title": "Игры без газа",
-            "desc": "Бесшовный игровой опыт со спонсируемыми транзакциями. Никаких всплывающих окон кошелька или комиссий за газ, прерывающих геймплей."
+            "title": "Игры Без Газа",
+            "desc": "Бесшовный игровой опыт со спонсируемыми транзакциями. Никаких всплывающих окон кошелька или газ-комиссий, прерывающих игру."
           },
           "antiCheat": {
-            "title": "Античит-система",
-            "desc": "Обнаружение мошенничества на базе AI с интеграцией рейтинга доверия. Защитите экономику вашей игры от ботов, эксплойтов и злоумышленников."
+            "title": "Античит-Система",
+            "desc": "ИИ-обнаружение мошенничества с интеграцией Trust Score. Защитите игровую экономику от ботов, эксплоитов и злоумышленников."
           },
           "playEarn": {
-            "title": "Награды Play-to-Earn",
-            "desc": "Устойчивая токеномика с наградами на основе производительности. Справедливые механизмы распределения, вознаграждающие навыки и вложенное время."
+            "title": "Play-to-Earn Награды",
+            "desc": "Устойчивая токеномика с наградами на основе производительности. Честные механизмы распределения, вознаграждающие навыки и вложенное время."
           }
         },
         "gameTypes": {
-          "title": "Поддерживаемые типы игр",
+          "title": "Поддерживаемые Типы Игр",
           "rpg": {
             "title": "RPG",
             "description": "Ролевые игры с торговлей предметами"
@@ -8224,492 +8227,345 @@
             "description": "Управление ресурсами и контроль территории"
           },
           "card": {
-            "title": "Карточные игры",
+            "title": "Карточные Игры",
             "description": "Коллекционные карточные игры с NFT картами"
           },
           "casual": {
             "title": "Казуальные",
-            "description": "Быстрые игры с микронаградами"
+            "description": "Быстрые игры с микро-наградами"
           },
           "mmorpgs": {
             "title": "MMORPG",
-            "desc": "Массовые мультиплеерные миры с экономиками, принадлежащими игрокам, и управлением гильдий"
+            "desc": "Массивные многопользовательские миры с экономикой, принадлежащей игрокам, и управлением гильдий"
           },
           "battleRoyale": {
-            "title": "Battle Royale",
-            "desc": "Соревновательные игры \"последний выживший\" с призовыми фондами и рейтинговыми сезонами"
+            "title": "Королевская Битва",
+            "desc": "Соревновательные игры на выживание с призовыми пулами и рейтинговыми сезонами"
           },
           "cardStrategy": {
-            "title": "Карточные и стратегии",
-            "desc": "Коллекционные карточные игры с NFT-картами и стратегическими пошаговыми боями"
+            "title": "Карты и Стратегия",
+            "desc": "Коллекционные карточные игры с верифицируемой редкостью и торговлей на рынке"
           },
-          "racingSports": {
-            "title": "Гонки и спорт",
-            "desc": "Соревновательные гонки и спортивные симуляторы с NFT транспорта/игроков"
-          },
-          "casualSocial": {
-            "title": "Казуальные и социальные",
-            "desc": "Расслабленный игровой опыт с социальными функциями и турнирами мини-игр"
-          },
-          "esports": {
-            "title": "Киберспорт и турниры",
-            "desc": "Соревновательные игры с децентрализованными призовыми фондами и честным матчмейкингом"
+          "sportsRacing": {
+            "title": "Спорт и Гонки",
+            "desc": "Соревновательные спортивные и гоночные игры с верифицированными результатами и сезонными лигами"
           }
         },
+        "showcase": {
+          "title": "Витрина Игр",
+          "featured": "Избранные Игры",
+          "allGames": "Все Игры",
+          "topGames": "Топ Игры",
+          "newGames": "Новые Игры"
+        },
         "cta": {
-          "title": "Готовы строить игры на TBurn?",
-          "subtitle": "Получите доступ к GameFi SDK и документации",
-          "getStarted": "Начать",
-          "viewDocs": "Документация",
-          "desc": "Присоединяйтесь к тысячам разработчиков, создающих будущее игр. Получите доступ к нашему комплексному SDK, документации и сообществу разработчиков.",
-          "quickStart": "Руководство быстрого старта",
-          "memberPortal": "Портал участников"
-        },
-        "buttons": {
-          "startBuilding": "Начать разработку",
-          "gameTooling": "Инструменты для игр"
-        },
-        "sections": {
-          "categories": "Игровая экосистема",
-          "categoriesDesc": "Исследуйте разнообразный мир блокчейн-игр на TBURN",
-          "platformFeatures": "Функции платформы",
-          "gameGenres": "Поддерживаемые игровые жанры"
+          "title": "Готовы начать разработку игр?",
+          "subtitle": "Присоединяйтесь к миллионам игроков с GameFi инфраструктурой TBURN.",
+          "button": "Начать Разработку"
         }
       },
       "tokenization": {
-        "tag": "ТОКЕНИЗАЦИЯ",
-        "title": "Токенизация активов",
-        "subtitle": "Токенизируйте реальные активы на блокчейне.",
+        "tag": "ТОКЕНИЗАЦИЯ АКТИВОВ",
+        "title": "Токенизация Активов",
+        "subtitle": "Токенизируйте реальные активы на блокчейне TBURN. Преобразуйте недвижимость, предметы роскоши, ценные бумаги и другое в цифровые активы с дробным владением.",
         "buttons": {
-          "startTokenizing": "Начать токенизацию",
-          "viewDocumentation": "Смотреть документацию"
+          "tokenizeAssets": "Токенизировать Активы",
+          "learnMore": "Узнать Больше"
         },
-        "types": {
+        "categories": {
           "realEstate": {
-            "title": "Токенизация недвижимости",
-            "desc": "Долевое владение коммерческой и жилой недвижимостью. Обеспечьте глобальные инвестиции в недвижимость с минимальными требованиями к капиталу и мгновенной ликвидностью."
-          },
-          "luxuryAsset": {
-            "title": "Токены предметов роскоши",
-            "desc": "Токенизируйте искусство, коллекционные предметы, редкие вина и предметы роскоши. Отслеживание происхождения с верификацией в блокчейне и опциями долевого владения."
+            "title": "Токенизация Недвижимости",
+            "desc": "Дробное владение коммерческой и жилой недвижимостью. ИИ-оценка и автоматизированное распределение арендного дохода."
           },
           "securities": {
-            "title": "Цифровые ценные бумаги",
-            "desc": "Соответствующие регуляторным требованиям токены-ценные бумаги с автоматизированным распределением дивидендов. Токены акций, долга и участия в прибыли со встроенным соответствием требованиям."
+            "title": "Токенизация Ценных Бумаг",
+            "desc": "Регуляторно-совместимые токены безопасности (STO). Интеграция KYC/AML, автоматические дивиденды, управление разрешениями инвесторов."
+          },
+          "luxuryGoods": {
+            "title": "Токенизация Предметов Роскоши",
+            "desc": "Дорогие часы, искусство, коллекционные предметы. ИИ-аутентификация, отслеживание происхождения, дробное владение."
           },
           "commodity": {
-            "title": "Товарные токены",
-            "desc": "Обеспеченные физическими товарами, такими как золото, серебро и нефть. Ценовые потоки в реальном времени с аудированной верификацией резервов."
+            "title": "Товарные Токены",
+            "desc": "Обеспеченные физическими товарами как золото, серебро и нефть. Ценовые фиды в реальном времени с аудитом резервов."
           }
         },
         "metrics": {
-          "newInvestors": "Новых инвесторов привлечено",
-          "unlockedAssetValue": "Разблокированная стоимость активов",
-          "settlementReliability": "Надёжность расчётов"
+          "newInvestors": "Новые Инвесторы",
+          "unlockedAssetValue": "Разблокированная Стоимость Активов",
+          "settlementReliability": "Надёжность Расчётов"
         },
         "features": {
           "globalMarket": {
-            "title": "Глобальный доступ к рынку",
-            "desc": "Торговля 24/7 через границы с мгновенными расчётами. Доступ к инвесторам по всему миру и ликвидности вторичного рынка."
+            "title": "Глобальный Доступ к Рынку",
+            "desc": "Торговля 24/7 через границы с мгновенными расчётами. Доступ к глобальным инвесторам и ликвидности вторичного рынка."
           },
           "fractionalOwnership": {
-            "title": "Долевое владение",
-            "desc": "Обеспечьте инвестиции от $100 в премиальные активы. Демократизируйте доступ к традиционно эксклюзивным классам активов."
+            "title": "Дробное Владение",
+            "desc": "Инвестирование от 100 долларов в премиальные активы. Демократизация доступа к традиционно эксклюзивным классам активов."
           },
           "regulatoryCompliant": {
-            "title": "Соответствие регуляторным требованиям",
-            "desc": "Встроенные KYC/AML, проверки аккредитации и соответствие юрисдикции. Автоматизированная отчётность и аудиторские следы."
+            "title": "Регуляторное Соответствие",
+            "desc": "Встроенные KYC/AML, проверки аккредитации и юрисдикционное соответствие. Автоматизированные отчёты и аудит."
           },
           "enterpriseSecurity": {
-            "title": "Корпоративная безопасность",
-            "desc": "Хранение банковского уровня, мульти-подписные контроли и квантово-устойчивое шифрование. Защита активов институционального уровня."
+            "title": "Корпоративная Безопасность",
+            "desc": "Хранение банковского уровня, мультиподписные контроли и квантово-устойчивое шифрование. Институциональная защита активов."
           }
         },
         "sections": {
-          "types": "Категории токенизации",
-          "typesDesc": "Explore asset classes ready for blockchain tokenization",
-          "platformFeatures": "Platform Capabilities"
+          "types": "Категории Токенизации",
+          "typesDesc": "Исследуйте классы активов, готовые к блокчейн-токенизации",
+          "platformFeatures": "Возможности Платформы"
         },
         "cta": {
-          "title": "Ready to Tokenize Your Assets?",
-          "desc": "Transform illiquid assets into tradeable tokens. Our team will guide you through the tokenization process from structure to launch.",
+          "title": "Готовы токенизировать свои активы?",
+          "desc": "Преобразуйте неликвидные активы в торгуемые токены. Наша команда проведёт вас через процесс токенизации от структуры до запуска.",
           "getStarted": "Начать"
         }
       },
       "depin": {
-        "tag": "DEPIN",
-        "title": "DePIN",
-        "subtitle": "Децентрализованные сети физической инфраструктуры.",
+        "tag": "ДЕЦЕНТРАЛИЗОВАННАЯ ИНФРАСТРУКТУРА",
+        "title": "DePIN Сети",
+        "subtitle": "Создавайте и управляйте децентрализованными сетями физической инфраструктуры. Зарабатывайте награды, предоставляя вычислительные, хранилищные, беспроводные и сенсорные ресурсы.",
         "buttons": {
-          "deployInfrastructure": "Deploy Infrastructure",
-          "protocolDocs": "Protocol Docs"
+          "deployInfrastructure": "Развернуть Инфраструктуру",
+          "protocolDocs": "Документация Протокола"
         },
         "categories": {
           "wireless": {
-            "title": "Беспроводные сети",
-            "desc": "Decentralized 5G, LoRaWAN, and WiFi coverage. Earn rewards by deploying hotspots and providing connectivity to your community."
+            "title": "Беспроводные Сети",
+            "desc": "5G/LTE хотспоты, IoT-подключение, мобильная разгрузка. Доказательство покрытия и награды за использование данных."
           },
           "compute": {
-            "title": "Distributed Compute",
-            "desc": "GPU and CPU resource sharing for AI training, rendering, and scientific computing. Monetize idle computing power."
-          },
-          "mapping": {
-            "title": "Mapping & Sensors",
-            "desc": "Crowdsourced geospatial data, weather stations, and IoT sensors. Build real-time data networks with verified coverage."
+            "title": "Распределённые Вычисления",
+            "desc": "GPU-рендеринг, ИИ-обучение, научные вычисления. Монетизация простаивающих ресурсов и сопоставление задач."
           },
           "storage": {
-            "title": "Decentralized Storage",
-            "desc": "Distributed file storage with redundancy and encryption. Earn rewards for contributing disk space to the network."
+            "title": "Децентрализованное Хранилище",
+            "desc": "Распределённое файловое хранилище и CDN-сервисы. Доказательство доступности данных и автоматическая репликация."
+          },
+          "sensing": {
+            "title": "Сенсорные Сети",
+            "desc": "Мониторинг окружающей среды, данные о местоположении, IoT-датчики. Верификация данных в реальном времени и гарантия качества."
           }
         },
         "metrics": {
-          "activeNodes": "Active Nodes",
-          "protocolRevenue": "Protocol Revenue",
-          "countriesCovered": "Countries Covered"
+          "activeNodes": "Активные Узлы",
+          "dailyRewards": "Ежедневные Награды",
+          "networkCoverage": "Покрытие Сети",
+          "totalContributors": "Всего Участников"
         },
         "features": {
           "proofOfCoverage": {
-            "title": "Proof of Coverage",
-            "desc": "Cryptographically verify infrastructure deployment and service availability. Fair reward distribution based on actual contribution."
+            "title": "Доказательство Покрытия",
+            "desc": "ИИ-верификация местоположения и мониторинг качества сервиса. Справедливое и прозрачное распределение наград."
           },
-          "slashingProtection": {
-            "title": "Slashing Protection",
-            "desc": "Stake-based security with penalties for malicious behavior. Protect network integrity while rewarding honest operators."
+          "tokenomics": {
+            "title": "Устойчивая Токеномика",
+            "desc": "Эмиссия и сжигание токенов на основе спроса. Выравнивание стимулов для долгосрочного роста сети."
           },
-          "communityGovernance": {
-            "title": "Community Governance",
-            "desc": "DAO-based protocol governance for network parameters. Token holders vote on upgrades, rewards, and expansion priorities."
+          "easyDeployment": {
+            "title": "Простое Развёртывание",
+            "desc": "Plug-and-play аппаратные решения. Автоматический онбординг и конфигурация."
           },
-          "dynamicRewards": {
-            "title": "Dynamic Rewards",
-            "desc": "AI-optimized reward distribution based on demand and coverage gaps. Higher rewards for underserved areas."
+          "realTimeAnalytics": {
+            "title": "Аналитика в Реальном Времени",
+            "desc": "Детальные дашборды состояния сети, доходов и производительности. ИИ-рекомендации для оптимальных заработков."
           }
         },
-        "hardware": {
-          "title": "Hardware Requirements",
-          "desc": "Flexible hardware options for different DePIN protocols. Start earning with minimal investment.",
-          "minimum": "Minimum: Raspberry Pi 4 or equivalent ARM device",
-          "recommended": "Recommended: x86 server with 16GB RAM, 1TB SSD",
-          "gpu": "GPU Compute: NVIDIA RTX 3080 or higher for AI workloads"
-        },
         "sections": {
-          "categories": "Infrastructure Categories",
-          "categoriesDesc": "Deploy and earn across multiple DePIN protocols",
-          "protocolFeatures": "Protocol Features"
+          "networkTypes": "Типы Сетей",
+          "networkTypesDesc": "Исследуйте категории DePIN-сетей, поддерживаемые на TBURN",
+          "platformCapabilities": "Возможности Платформы"
         },
         "cta": {
-          "title": "Ready to Join the DePIN Revolution?",
-          "desc": "Deploy infrastructure, earn rewards, and help build the decentralized future. Our guides will help you get started in minutes.",
+          "title": "Готовы присоединиться к DePIN-сети?",
+          "desc": "Предоставляйте физическую инфраструктуру и зарабатывайте награды. Начните пассивный доход сегодня.",
           "getStarted": "Начать"
         }
       },
       "stablecoins": {
         "tag": "СТЕЙБЛКОИНЫ",
         "title": "Стейблкоины",
-        "subtitle": "Инфраструктура стейблкоинов корпоративного уровня.",
+        "subtitle": "Создавайте инфраструктуру стейблкоинов корпоративного уровня на TBURN. Фиат-обеспеченные, крипто-обеспеченные и алгоритмические стейблкоины.",
         "buttons": {
-          "issueStablecoin": "Issue Stablecoin",
-          "technicalDocs": "Technical Docs"
+          "launchStablecoin": "Запустить Стейблкоин",
+          "documentation": "Документация"
         },
-        "types": {
+        "categories": {
           "fiatBacked": {
-            "title": "Fiat-Backed Stablecoins",
-            "desc": "1:1 reserve-backed tokens with real-time proof of reserves. Audited bank accounts with transparent attestation reports."
+            "title": "Фиат-Обеспеченные",
+            "desc": "Обеспечены 1:1 USD, EUR и другими фиатными валютами. Доказательство резервов в реальном времени и регуляторное соответствие."
           },
-          "cryptoCollateralized": {
-            "title": "Крипто-обеспеченные",
-            "desc": "Over-collateralized stablecoins backed by crypto assets. Automated liquidation mechanisms and decentralized governance."
+          "cryptoBacked": {
+            "title": "Крипто-Обеспеченные",
+            "desc": "Стейблкоины с избыточным обеспечением крипто-активами. Автоматическая ликвидация, механизмы ценовой стабильности."
           },
-          "institutionalGrade": {
-            "title": "Institutional Grade",
-            "desc": "Bank-grade compliance with AML/KYC integration. Whitelisting, blacklisting, and regulatory reporting built-in."
+          "algorithmic": {
+            "title": "Алгоритмические Стейблкоины",
+            "desc": "ИИ-балансировка спроса/предложения. Динамический ребейсинг и механизмы стабилизации."
           },
-          "multiCurrency": {
-            "title": "Multi-Currency Support",
-            "desc": "Issue stablecoins pegged to any fiat currency. USD, EUR, GBP, JPY, and emerging market currencies supported."
+          "commodity": {
+            "title": "Товарно-Обеспеченные",
+            "desc": "Обеспечены физическими активами как золото и серебро. Ончейн-аудиты и ценовые оракулы в реальном времени."
           }
         },
         "metrics": {
-          "totalSupply": "Total Stablecoin Supply",
-          "dailyTransactions": "Daily Transactions",
-          "pegDeviation": "Max Peg Deviation"
+          "totalSupply": "Общее Предложение",
+          "dailyVolume": "Ежедневный Объём",
+          "pegStability": "Стабильность Привязки",
+          "backingRatio": "Коэффициент Обеспечения"
         },
         "features": {
-          "proofOfReserves": {
-            "title": "Proof of Reserves",
-            "desc": "Real-time on-chain attestation of backing assets. Third-party auditors verify reserve ratios continuously."
-          },
           "instantSettlement": {
-            "title": "Instant Settlement",
-            "desc": "Sub-second transaction finality with 50,000+ TPS. No waiting for bank transfers or clearing houses."
+            "title": "Мгновенные Расчёты",
+            "desc": "Субсекундная финальность транзакций. Кросс-чейн мосты и глобальные платежи."
           },
-          "programmableCompliance": {
-            "title": "Programmable Compliance",
-            "desc": "Smart contract-enforced transfer restrictions. Geographic limits, holding caps, and regulatory controls."
+          "proofOfReserves": {
+            "title": "Доказательство Резервов",
+            "desc": "Ончейн-аудиты в реальном времени. Прозрачная верификация обеспечения и автоматизированные отчёты."
           },
-          "crossChainBridges": {
-            "title": "Cross-Chain Bridges",
-            "desc": "Native bridges to Ethereum, Polygon, Arbitrum, and more. Unified liquidity across multiple networks."
-          }
-        },
-        "useCases": {
-          "payments": {
-            "title": "Global Payments",
-            "desc": "Instant cross-border transfers with minimal fees. Replace SWIFT with blockchain-based settlement."
+          "regulatoryCompliance": {
+            "title": "Регуляторное Соответствие",
+            "desc": "Встроенные KYC/AML, соответствие правилам путешествий. Поддержка мультиюрисдикционных лицензий."
           },
-          "defiCollateral": {
-            "title": "DeFi Collateral",
-            "desc": "Use stablecoins as collateral for lending, borrowing, and yield farming. Stable value for predictable positions."
-          },
-          "treasury": {
-            "title": "Treasury Management",
-            "desc": "Corporate treasury operations with on-chain transparency. Automated payments and cash flow management."
-          },
-          "payroll": {
-            "title": "Payroll & Benefits",
-            "desc": "Instant global payroll in stable currencies. Automatic tax withholding and benefits distribution."
+          "multiChain": {
+            "title": "Мультичейн Поддержка",
+            "desc": "Бесшовные кросс-чейн переводы. ИИ-оптимизация мостов и безопасность."
           }
         },
         "sections": {
-          "types": "Stablecoin Types",
-          "typesDesc": "Choose the right stablecoin model for your needs",
-          "platformFeatures": "Platform Capabilities",
-          "useCases": "Варианты использования"
+          "types": "Типы Стейблкоинов",
+          "typesDesc": "Исследуйте модели стейблкоинов, поддерживаемые на TBURN",
+          "platformFeatures": "Функции Платформы"
         },
         "cta": {
-          "title": "Ready to Launch Your Stablecoin?",
-          "desc": "From concept to launch in weeks. Our team provides end-to-end support for stablecoin issuance and management.",
+          "title": "Готовы запустить свой стейблкоин?",
+          "desc": "Создавайте стабильные цифровые валюты с инфраструктурой корпоративного уровня. Наша команда экспертов поддержит весь процесс запуска.",
           "getStarted": "Начать"
         }
       },
       "institutional": {
-        "tag": "ИНСТИТУЦИОНАЛЬНЫЙ",
-        "title": "Институциональные платежи",
-        "subtitle": "Платёжные решения для крупных объёмов.",
+        "tag": "ИНСТИТУЦИОНАЛЬНЫЕ РЕШЕНИЯ",
+        "title": "Институциональные Решения",
+        "subtitle": "Блокчейн-решения корпоративного уровня для крупных корпораций и финансовых институтов. Трансграничные платежи, управление активами, соответствие требованиям.",
         "buttons": {
-          "contactSales": "Contact Sales",
-          "apiReference": "Справочник API"
+          "contactSales": "Связаться с Отделом Продаж",
+          "whitePaper": "Белая Книга"
         },
-        "paymentFeatures": {
-          "rtgs": {
-            "title": "Real-Time Gross Settlement",
-            "desc": "Instant finality for high-value transactions. No batching delays or counterparty risk."
-          },
+        "categories": {
           "crossBorder": {
-            "title": "Cross-Border Payments",
-            "desc": "Global reach with local settlement. Multi-currency support with real-time FX and corridor optimization."
+            "title": "Трансграничные Платежи",
+            "desc": "Глобальные платежи с мгновенными расчётами и прозрачными комиссиями. Мультивалютная поддержка и оптимизация FX."
           },
-          "compliant": {
-            "title": "Соответствие регуляторным требованиям",
-            "desc": "Built for regulated financial institutions. Full SWIFT compatibility, ISO 20022, and regulatory reporting."
+          "treasury": {
+            "title": "Управление Казначейством",
+            "desc": "Управление цифровыми активами для корпоративного казначейства. Оптимизация доходности, управление рисками, автоматизированная отчётность."
           },
-          "smartContract": {
-            "title": "Smart Contract Escrow",
-            "desc": "Programmable payment conditions and escrow. Automate complex settlement workflows and multi-party agreements."
+          "custody": {
+            "title": "Институциональное Хранение",
+            "desc": "Хранение цифровых активов с безопасностью банковского уровня. Мультиподпись, страхование, регуляторное соответствие."
+          },
+          "trading": {
+            "title": "Институциональная Торговля",
+            "desc": "OTC-столы и тёмные пулы для крупнообъёмной торговли. Глубокая ликвидность и лучшее исполнение."
           }
         },
         "metrics": {
-          "dailyVolume": "Daily Settlement Volume",
-          "transactionFee": "Transaction Fee",
-          "uptimeSla": "Uptime SLA"
+          "institutionalClients": "Институциональные Клиенты",
+          "dailySettlement": "Ежедневные Расчёты",
+          "uptime": "Время Работы",
+          "compliance": "Уровень Соответствия"
         },
-        "integrations": {
-          "coreBanking": {
-            "title": "Core Banking Integration",
-            "desc": "Native connectors for major core banking systems. Seamless integration with existing infrastructure."
+        "features": {
+          "enterpriseGrade": {
+            "title": "Безопасность Корпоративного Уровня",
+            "desc": "Сертификации SOC 2 Type II, ISO 27001. Квантово-устойчивое шифрование и аппаратные модули безопасности."
           },
-          "treasury": {
-            "title": "Treasury Management",
-            "desc": "Real-time cash position visibility and automated liquidity optimization across accounts."
+          "customIntegration": {
+            "title": "Пользовательская Интеграция",
+            "desc": "Бесшовная интеграция с существующими системами. Поддержка REST API, WebSocket, протокола FIX."
           },
-          "correspondent": {
-            "title": "Correspondent Banking",
-            "desc": "Reduce correspondent banking fees and settlement times. Direct peer-to-peer institutional transfers."
+          "dedicatedSupport": {
+            "title": "Выделенная Поддержка",
+            "desc": "Выделенный менеджер аккаунта 24/7. Гарантии SLA и приоритетная поддержка."
           },
-          "operations": {
-            "title": "24/7 Operations",
-            "desc": "Round-the-clock settlement with no batch processing. Continuous operations with 99.99% uptime guarantee."
-          }
-        },
-        "clientTypes": {
-          "centralBanks": {
-            "title": "Central Banks",
-            "desc": "CBDC issuance and wholesale settlement infrastructure for monetary authorities."
-          },
-          "commercialBanks": {
-            "title": "Commercial Banks",
-            "desc": "Retail and corporate payment rails with full regulatory compliance."
-          },
-          "paymentProcessors": {
-            "title": "Payment Processors",
-            "desc": "High-volume transaction processing with instant settlement and minimal fees."
-          },
-          "fintechs": {
-            "title": "Fintechs & Neobanks",
-            "desc": "Modern banking infrastructure without legacy system constraints."
+          "regulatoryReporting": {
+            "title": "Регуляторная Отчётность",
+            "desc": "Автоматизированные отчёты о соответствии. Мультиюрисдикционное регуляторное соответствие."
           }
         },
         "sections": {
-          "paymentFeatures": "Payment Infrastructure",
-          "paymentFeaturesDesc": "Enterprise-grade payment capabilities for financial institutions",
-          "systemIntegrations": "System Integrations",
-          "clientTypes": "Client Types"
+          "solutions": "Институциональные Решения",
+          "solutionsDesc": "Индивидуальные блокчейн-решения для крупных предприятий",
+          "capabilities": "Возможности Платформы"
         },
         "cta": {
-          "title": "Ready to Modernize Your Payment Infrastructure?",
-          "desc": "Schedule a demo with our institutional team. We'll show you how TBURN can transform your payment operations.",
-          "requestDemo": "Request Demo"
+          "title": "Узнайте об институциональных решениях",
+          "desc": "Мы предложим индивидуальные блокчейн-решения для требований вашей компании. Проконсультируйтесь с нашими экспертами.",
+          "contactUs": "Связаться с Нами"
         }
       },
       "enterprise": {
-        "tag": "КОРПОРАТИВНЫЙ БЛОКЧЕЙН",
-        "title": "Корпоративные решения",
-        "subtitle": "Комплексные блокчейн-решения для современного бизнеса. Частные сети, функции соответствия и корпоративная поддержка 24/7.",
-        "contactEnterprise": "Связаться с корпоративным отделом",
-        "enterpriseDocs": "Корпоративная документация",
-        "metrics": {
-          "enterpriseClients": "Enterprise Clients",
-          "uptimeGuarantee": "Uptime Guarantee",
-          "dedicatedSupport": "Dedicated Support"
+        "tag": "КОРПОРАТИВНЫЙ",
+        "title": "Корпоративные Решения",
+        "subtitle": "Комплексные блокчейн-решения для современного бизнеса. Частные сети, функции соответствия, корпоративная поддержка 24/7.",
+        "buttons": {
+          "getStarted": "Начать",
+          "contactSales": "Связаться с Отделом Продаж"
         },
-        "solutions": {
-          "title": "Корпоративные решения",
-          "subtitle": "Блокчейн-приложения для современных бизнес-задач.",
-          "identityAccess": {
-            "title": "Управление идентификацией и доступом",
-            "description": "Децентрализованная идентификация с самосуверенными учётными данными. Многофакторная аутентификация, SSO интеграция и гранулярный контроль разрешений."
+        "categories": {
+          "privateNetwork": {
+            "title": "Частная Сеть",
+            "desc": "Выделенная блокчейн-инфраструктура. Полный контроль, пользовательский консенсус, корпоративный SLA."
           },
           "supplyChain": {
-            "title": "Прозрачность цепочки поставок",
-            "description": "Сквозное отслеживание происхождения продукта. Неизменяемые аудит-логи от производителя до потребителя с IoT интеграцией.",
-            "desc": "End-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
-          },
-          "documentManagement": {
-            "title": "Управление документами",
-            "description": "Защищённое от подделки хранение и верификация документов. Цифровые подписи, контроль версий и архивирование для соответствия."
-          },
-          "processAutomation": {
-            "title": "Автоматизация бизнес-процессов",
-            "description": "Рабочие процессы на смарт-контрактах. Автоматизация согласований, платежей и многосторонних соглашений с бездоверительным исполнением."
+            "title": "Управление Цепочкой Поставок",
+            "desc": "Сквозная отслеживаемость и прозрачность. IoT-интеграция, автоматизированная верификация, аналитика в реальном времени."
           },
           "identity": {
-            "title": "Identity & Access Management",
-            "desc": "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
+            "title": "Цифровая Идентичность",
+            "desc": "Распределённое управление идентичностью. SSI, верифицируемые учётные данные, защита конфиденциальности."
           },
-          "document": {
-            "title": "Document Management",
-            "desc": "Tamper-proof document storage and verification. Digital signatures, version control, and compliance archiving."
-          },
-          "automation": {
-            "title": "Business Process Automation",
-            "desc": "Smart contract-driven workflows. Automate approvals, payments, and multi-party agreements with trustless execution."
+          "dataManagement": {
+            "title": "Управление Данными",
+            "desc": "Неизменяемые записи данных и аудиторские следы. Соответствие GDPR, суверенитет данных."
           }
         },
-        "platformFeatures": {
-          "title": "Функции платформы",
-          "soc2": {
-            "title": "Соответствие SOC 2",
-            "description": "Корпоративные средства контроля безопасности и ежегодные аудиты"
-          },
-          "privateSubnets": {
-            "title": "Частные подсети",
-            "description": "Изолированные сетевые окружения для конфиденциальных данных"
-          },
-          "roleBasedAccess": {
-            "title": "Доступ на основе ролей",
-            "description": "Гранулярные разрешения и мультитенантная изоляция"
-          },
-          "onPremise": {
-            "title": "On-Premise вариант",
-            "description": "Развёртывание в вашем собственном дата-центре"
-          }
-        },
-        "industryApplications": {
-          "title": "Отраслевые применения",
-          "healthcare": {
-            "title": "Здравоохранение",
-            "description": "HIPAA-совместимое управление записями"
-          },
-          "manufacturing": {
-            "title": "Производство",
-            "description": "Цепочка поставок и контроль качества"
-          },
-          "legal": {
-            "title": "Юриспруденция",
-            "description": "Управление контрактами и электронные подписи"
-          },
-          "government": {
-            "title": "Государство",
-            "description": "Прозрачное ведение записей и голосование"
-          },
-          "insurance": {
-            "title": "Страхование",
-            "description": "Обработка претензий и обнаружение мошенничества"
-          },
-          "logistics": {
-            "title": "Логистика",
-            "description": "Отслеживание и верификация отправлений"
-          }
-        },
-        "cta": {
-          "title": "Готовы к корпоративному блокчейну?",
-          "subtitle": "Запланируйте консультацию с нашей корпоративной командой. Мы разработаем индивидуальное решение под требования вашей организации.",
-          "scheduleConsultation": "Запланировать консультацию",
-          "desc": "Schedule a consultation with our enterprise team. We'll design a custom solution that fits your organization's requirements."
-        },
-        "buttons": {
-          "contactEnterprise": "Contact Enterprise",
-          "enterpriseDocs": "Enterprise Docs"
+        "metrics": {
+          "enterpriseClients": "Корпоративные Клиенты",
+          "processedTransactions": "Обработанные Транзакции",
+          "costReduction": "Снижение Затрат",
+          "deploymentTime": "Время Развёртывания"
         },
         "features": {
-          "soc2": {
-            "title": "SOC 2 Compliant",
-            "desc": "Enterprise security controls with annual third-party audits. Full compliance documentation and certifications."
+          "customBlockchain": {
+            "title": "Пользовательский Блокчейн",
+            "desc": "Выделенная сеть для ваших бизнес-требований. Пользовательский консенсус, уровень конфиденциальности, оптимизация производительности."
           },
-          "privateSubnets": {
-            "title": "Private Subnets",
-            "desc": "Isolated network environments for sensitive data. Custom consensus rules and access controls for your organization."
+          "hybridDeployment": {
+            "title": "Гибридное Развёртывание",
+            "desc": "Соединение частных и публичных блокчейнов. Баланс между конфиденциальностью данных и прозрачностью."
           },
-          "roleAccess": {
-            "title": "Role-Based Access",
-            "desc": "Granular permissions and multi-tenant isolation. Define custom roles with precise access to features and data."
+          "apiIntegration": {
+            "title": "API Интеграция",
+            "desc": "Бесшовная интеграция с существующими системами. RESTful API, SDK, Webhooks."
           },
-          "onPremise": {
-            "title": "On-Premise Deployment",
-            "desc": "Deploy within your own data center infrastructure. Full control over hardware, networking, and security."
-          }
-        },
-        "industries": {
-          "healthcare": {
-            "title": "Healthcare",
-            "desc": "HIPAA-compliant medical record management and secure health data exchange between providers."
-          },
-          "manufacturing": {
-            "title": "Manufacturing",
-            "desc": "Supply chain tracking, quality assurance documentation, and IoT sensor data verification."
-          },
-          "legal": {
-            "title": "Legal Services",
-            "desc": "Smart contract-based agreements, e-signatures, and immutable document archiving."
-          },
-          "government": {
-            "title": "Government",
-            "desc": "Transparent public records, secure voting systems, and citizen identity management."
-          },
-          "insurance": {
-            "title": "Insurance",
-            "desc": "Automated claims processing, fraud detection, and policy administration on blockchain."
-          },
-          "logistics": {
-            "title": "Logistics",
-            "desc": "Real-time shipment tracking, customs documentation, and delivery verification."
+          "compliance": {
+            "title": "Инструменты Соответствия",
+            "desc": "Соответствие регуляторным требованиям. Аудиторские следы, отчётность, сертификации."
           }
         },
         "sections": {
-          "solutions": "Enterprise Solutions",
-          "solutionsDesc": "Blockchain applications designed for enterprise challenges",
-          "platformFeatures": "Security & Compliance",
-          "industryApplications": "Industry Applications"
+          "solutions": "Корпоративные Решения",
+          "solutionsDesc": "Блокчейн-решения для ваших бизнес-требований",
+          "capabilities": "Ключевые Возможности"
+        },
+        "cta": {
+          "title": "Начните с корпоративных решений",
+          "desc": "Блокчейн-решения для бизнес-инноваций. Проконсультируйтесь с нашими экспертами.",
+          "contactUs": "Связаться с Нами"
         }
       }
     },

@@ -164,6 +164,8 @@ The TBURN Enterprise API provides unified cross-module data orchestration:
 - **Password Hashing**: bcryptjs
 
 ## Recent Changes (December 2025)
+- **Use-Cases Complete i18n**: All 6 Use-Cases pages (Gaming, Tokenization, DePIN, Stablecoins, Institutional, Enterprise) fully translated across all 11 languages (218 translation keys per language)
+- **E2E Verified Translations**: Language switching (EN→KO→AR→JA) tested with RTL layout for Arabic/Urdu, no raw translation keys visible
 - Added TokenHolding and BridgeActivity interfaces to AccountCompositeState for wallet/bridge integration
 - Implemented GameFi and Launchpad enterprise summary endpoints
 - Added API key management with EventBus audit event propagation

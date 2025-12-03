@@ -11702,43 +11702,47 @@
       "gaming": {
         "tag": "ゲーム＆メタバース",
         "title": "ゲーム＆メタバース",
-        "subtitle": "GameFiインフラとメタバース統合。",
+        "subtitle": "TBURNの高性能GameFiインフラで次世代ブロックチェーンゲームを構築。シームレスなP2E統合、NFT資産、クロスゲームエコノミー。",
+        "buttons": {
+          "startBuilding": "ビルド開始",
+          "gameTooling": "ゲームツール"
+        },
         "categories": {
           "title": "ゲームカテゴリ",
           "all": "すべてのゲーム",
           "p2e": "Play-to-Earn",
           "nft": "NFTゲーム",
           "metaverse": {
-            "title": "メタバース＆バーチャルワールド",
-            "desc": "ブロックチェーン検証済みの土地所有権、アバターシステム、クロスプラットフォームアセット移植性を備えた没入型バーチャル体験を構築"
+            "title": "メタバース＆仮想世界",
+            "desc": "ブロックチェーン検証済み土地所有権、アバターシステム、クロスプラットフォーム資産移植性を備えた没入型仮想体験を構築。"
           },
           "web3Gaming": {
-            "title": "Web3 ゲーミング",
-            "desc": "Full-stack ブロックチェーン ゲーミング with on-chain assets, verifiable randomness, and trustless トーナメント. Build games that players truly own."
+            "title": "Web3ゲーム",
+            "desc": "オンチェーン資産、検証可能なランダム性、トラストレストーナメントを備えたフルスタックブロックチェーンゲーム。"
           },
           "nftCollectibles": {
-            "title": "NFT Collectibles",
-            "desc": "Create, trade, and verify digital collectibles with トラストスコア authentication. クロスゲーム item interoperability and provenance tracking."
+            "title": "NFTコレクタブル",
+            "desc": "Trust Score認証でデジタルコレクタブルを作成、取引、検証。クロスゲームアイテム相互運用性と出所追跡。"
           },
           "musicStreaming": {
-            "title": "Music & Streaming",
-            "desc": "Decentralized music distribution with creator ロイヤリティ. NFT tickets, fan トークン, and direct artist-to-listener monetization."
+            "title": "音楽＆ストリーミング",
+            "desc": "クリエイターロイヤリティ付き分散型音楽配信。NFTチケット、ファントークン、アーティスト対リスナー直接収益化。"
           }
         },
         "metrics": {
           "activePlayers": "アクティブプレイヤー",
           "dailyTransactions": "日次トランザクション",
-          "totalNfts": "総NFT",
+          "totalNfts": "NFT総数",
           "tvl": "ゲームTVL",
-          "dailyActivePlayers": "Daily アクティブ Players",
-          "nftVolume": "NFT Trading Volume",
-          "gamesApps": "Games & Apps"
+          "dailyActivePlayers": "DAU",
+          "nftVolume": "NFT取引量",
+          "gamesApps": "ゲーム＆アプリ"
         },
         "features": {
           "title": "ゲーム機能",
           "p2e": {
             "title": "Play-to-Earn",
-            "description": "不正防止検証による持続可能なトークン経済"
+            "description": "アンチチート検証付き持続可能なトークンエコノミクス"
           },
           "nftAssets": {
             "title": "NFTゲーム資産",
@@ -11746,523 +11750,375 @@
           },
           "tournaments": {
             "title": "トーナメント",
-            "description": "公平な分配による分散型賞金プール"
+            "description": "公平な分配を備えた分散型賞金プール"
           },
           "guilds": {
-            "title": "ゲームギルド",
-            "description": "DAOベースのギルド管理と利益分配",
-            "desc": "DAO-based guild management with transparent profit sharing. Scholarship programs and collective asset ownership for ゲーミング communities."
+            "title": "ゲーミングギルド",
+            "desc": "透明な利益分配を備えたDAO型ギルド管理。ゲームコミュニティ向け奨学金プログラムと集団資産所有。"
           },
           "gasFree": {
-            "title": "Gas-Free ゲーミング",
-            "desc": "Seamless player experience with sponsored トランザクション. No ウォレット popups or gas 手数料 interrupting gameplay."
+            "title": "ガスフリーゲーミング",
+            "desc": "スポンサー取引によるシームレスなプレイヤー体験。ゲームプレイを中断するウォレットポップアップやガス代なし。"
           },
           "antiCheat": {
-            "title": "Anti-Cheat System",
-            "desc": "AI-powered fraud detection with トラストスコア統合. Protect your game economy from bots, exploits, and bad actors."
+            "title": "アンチチートシステム",
+            "desc": "Trust Score統合AI駆動不正検出。ボット、エクスプロイト、悪意のある行為者からゲームエコノミーを保護。"
           },
           "playEarn": {
-            "title": "Play-to-Earn Rewards",
-            "desc": "Sustainable tokenomics with performance-based rewards. Fair distribution mechanisms that reward skill and time invested."
+            "title": "Play-to-Earn報酬",
+            "desc": "パフォーマンスベース報酬付き持続可能なトークノミクス。スキルと投資時間に報いる公平な分配メカニズム。"
           }
         },
         "gameTypes": {
-          "title": "サポートされるゲームタイプ",
+          "title": "サポートゲームタイプ",
           "rpg": {
             "title": "RPG",
-            "description": "アイテム取引のあるロールプレイングゲーム"
+            "description": "アイテム取引可能なロールプレイングゲーム"
           },
           "strategy": {
             "title": "戦略",
-            "description": "リソース管理と領土コントロール"
+            "description": "リソース管理と領土支配"
           },
           "card": {
             "title": "カードゲーム",
-            "description": "NFTカードによるコレクティブルカードゲーム"
+            "description": "NFTカード付きコレクタブルカードゲーム"
           },
           "casual": {
             "title": "カジュアル",
-            "description": "マイクロ報酬のクイックプレイゲーム"
+            "description": "マイクロ報酬付きクイックプレイゲーム"
           },
           "mmorpgs": {
-            "title": "MMORPGs",
-            "desc": "Massive multiplayer worlds with player-owned economies and guild ガバナンス"
+            "title": "MMORPG",
+            "desc": "プレイヤー所有エコノミーとギルドガバナンスを備えた大規模マルチプレイヤー世界"
           },
           "battleRoyale": {
-            "title": "Battle Royale",
-            "desc": "Competitive last-player-standing games with prize pools and ranked seasons"
+            "title": "バトルロイヤル",
+            "desc": "賞金プールとランクシーズンを備えた競技ラストマンスタンディングゲーム"
           },
           "cardStrategy": {
-            "title": "Card & Strategy",
-            "desc": "Collectible card games with NFT cards and strategic turn-based combat"
+            "title": "カード＆戦略",
+            "desc": "検証可能な希少性とマーケット取引を備えたコレクタブルカードゲーム"
           },
-          "racingSports": {
-            "title": "Racing & Sports",
-            "desc": "Competitive racing and sports simulations with vehicle/player NFT"
-          },
-          "casualSocial": {
-            "title": "Casual & ソーシャル",
-            "desc": "Relaxed ゲーミング experiences with ソーシャル features and mini-game トーナメント"
-          },
-          "esports": {
-            "title": "Esports & トーナメント",
-            "desc": "Competitive ゲーミング with decentralized prize pools and fair matchmaking"
+          "sportsRacing": {
+            "title": "スポーツ＆レーシング",
+            "desc": "検証済み結果とシーズンリーグを備えた競技スポーツ＆レーシングゲーム"
           }
         },
+        "showcase": {
+          "title": "ゲームショーケース",
+          "featured": "注目ゲーム",
+          "allGames": "すべてのゲーム",
+          "topGames": "人気ゲーム",
+          "newGames": "新着ゲーム"
+        },
         "cta": {
-          "title": "TBurnでゲームを構築する準備はできましたか？",
-          "subtitle": "GameFi SDKとドキュメントにアクセス",
-          "getStarted": "始める",
-          "viewDocs": "ドキュメントを見る",
-          "desc": "Join thousands of 開発者 building the future of ゲーミング. Access our comprehensive SDK, ドキュメント, and developer コミュニティ.",
-          "quickStart": "クイックスタートガイド",
-          "memberPortal": "Member Portal"
-        },
-        "buttons": {
-          "startBuilding": "Start Building",
-          "gameTooling": "Game Tooling"
-        },
-        "sections": {
-          "categories": "ゲーミング Ecosystem",
-          "categoriesDesc": "探索 the diverse world of ブロックチェーン ゲーミング on TBURN",
-          "platformFeatures": "プラットフォーム機能",
-          "gameGenres": "Supported Game Genres"
+          "title": "ゲーム開発を始める準備はできましたか？",
+          "subtitle": "TBURN GameFiインフラで数百万のプレイヤーに参加。",
+          "button": "ビルド開始"
         }
       },
       "tokenization": {
-        "tag": "トークン化",
+        "tag": "資産トークン化",
         "title": "資産トークン化",
-        "subtitle": "ブロックチェーン上で実世界資産をトークン化。",
+        "subtitle": "TBURNブロックチェーンで実物資産をトークン化。不動産、高級品、証券を分割所有可能なデジタル資産に変換。",
         "buttons": {
-          "startTokenizing": "トークン化を開始",
-          "viewDocumentation": "View ドキュメント"
+          "tokenizeAssets": "資産をトークン化",
+          "learnMore": "詳細を見る"
         },
-        "types": {
+        "categories": {
           "realEstate": {
-            "title": "不動産 Tokenization",
-            "desc": "分割所有権 of commercial and residential properties. Enable global 投資 in 不動産 with minimal cAPItal 要件 and instant liquidity."
-          },
-          "luxuryAsset": {
-            "title": "Luxury Asset トークン",
-            "desc": "Tokenize art, collectibles, rare wines, and luxury goods. Provenance tracking with ブロックチェーン 検証 and 分割所有権 オプション."
+            "title": "不動産トークン化",
+            "desc": "商業用・住宅用不動産の分割所有権。AI駆動評価と自動化された賃貸収入分配。"
           },
           "securities": {
-            "title": "デジタル証券",
-            "desc": "Compliant セキュリティトークンs with automated dividend distribution. Equity, debt, and revenue-sharing トークン with built-in 規制コンプライアンス."
+            "title": "証券トークン化",
+            "desc": "規制準拠セキュリティトークン(STO)。KYC/AML統合、自動配当、投資家権限管理。"
+          },
+          "luxuryGoods": {
+            "title": "高級品トークン化",
+            "desc": "高級時計、アート、コレクタブル。AI認証、出所追跡、分割所有権。"
           },
           "commodity": {
             "title": "コモディティトークン",
-            "desc": "戻るed by physical commodities like gold, silver, and oil. Real-time price feeds with audited reserve 検証."
+            "desc": "金、銀、石油などの実物商品に裏付け。監査済み準備金検証付きリアルタイム価格フィード。"
           }
         },
         "metrics": {
-          "newInvestors": "新規投資家の開拓",
-          "unlockedAssetValue": "解放された資産価値",
+          "newInvestors": "新規投資家",
+          "unlockedAssetValue": "アンロック資産価値",
           "settlementReliability": "決済信頼性"
         },
         "features": {
           "globalMarket": {
             "title": "グローバル市場アクセス",
-            "desc": "24/7 trading across borders with 即時決済. Access worldwide investors and secondary market liquidity."
+            "desc": "即時決済の24/7国境を越えた取引。世界中の投資家とセカンダリーマーケット流動性にアクセス。"
           },
           "fractionalOwnership": {
             "title": "分割所有権",
-            "desc": "Enable 投資 from $100 in プレミアム assets. Democratize access to traditionすべてy exclusive asset classes."
+            "desc": "プレミアム資産に100ドルから投資可能。従来独占的だった資産クラスへのアクセスを民主化。"
           },
           "regulatoryCompliant": {
-            "title": "規制コンプライアント",
-            "desc": "Built-in KYC/AML, accreditation checks, and jurisdictional コンプライアンス. Automated reporting and audit trails."
+            "title": "規制準拠",
+            "desc": "ビルトインKYC/AML、認定チェック、管轄準拠。自動化されたレポートと監査証跡。"
           },
           "enterpriseSecurity": {
             "title": "エンタープライズセキュリティ",
-            "desc": "Bank-grade custody, マルチシグ controls, and quantum-resistant encryption. Institutional-grade asset protection."
+            "desc": "銀行グレードカストディ、マルチシグ制御、量子耐性暗号化。機関グレード資産保護。"
           }
         },
         "sections": {
           "types": "トークン化カテゴリ",
-          "typesDesc": "探索 asset classes ready for ブロックチェーン tokenization",
+          "typesDesc": "ブロックチェーントークン化可能な資産クラスを探索",
           "platformFeatures": "プラットフォーム機能"
         },
         "cta": {
           "title": "資産をトークン化する準備はできましたか？",
-          "desc": "Transform illiquid assets into tradeable トークン. Our team will guide you through the tokenization process from structure to launch.",
-          "getStarted": "始める"
+          "desc": "非流動資産を取引可能なトークンに変換。私たちのチームが構造化からローンチまでトークン化プロセスをガイドします。",
+          "getStarted": "開始する"
         }
       },
       "depin": {
-        "tag": "DePIN",
-        "title": "DePIN",
-        "subtitle": "分散型物理インフラストラクチャネットワーク。",
+        "tag": "分散型インフラ",
+        "title": "DePINネットワーク",
+        "subtitle": "分散型物理インフラネットワークを構築・運営。コンピューティング、ストレージ、ワイヤレス、センシングリソースを提供して報酬を獲得。",
         "buttons": {
-          "deployInfrastructure": "インフラをデプロイ",
+          "deployInfrastructure": "インフラを展開",
           "protocolDocs": "プロトコルドキュメント"
         },
         "categories": {
           "wireless": {
             "title": "ワイヤレスネットワーク",
-            "desc": "Decentralized 5G, LoRaWAN, and WiFi coverage. Earn rewards by deploying hotspots and providing connectivity to your コミュニティ."
+            "desc": "5G/LTEホットスポット、IoT接続、モバイルオフロード。カバレッジ証明とデータ使用報酬。"
           },
           "compute": {
             "title": "分散コンピューティング",
-            "desc": "GPU and CPU resource sharing for AI training, rendering, and scientific computing. Monetize idle computing power."
-          },
-          "mapping": {
-            "title": "マッピング＆センサー",
-            "desc": "Crowdsourced geospatial data, weather stations, and IoT sensors. Build real-time data networks with 検証済み coverage."
+            "desc": "GPUレンダリング、AIトレーニング、科学計算。遊休リソース収益化とタスクマッチング。"
           },
           "storage": {
-            "title": "分散ストレージ",
-            "desc": "Distributed file storage with redundancy and encryption. Earn rewards for contributing disk space to the network."
+            "title": "分散型ストレージ",
+            "desc": "分散ファイルストレージとCDNサービス。データ可用性証明と自動レプリケーション。"
+          },
+          "sensing": {
+            "title": "センサーネットワーク",
+            "desc": "環境モニタリング、位置データ、IoTセンサー。リアルタイムデータ検証と品質保証。"
           }
         },
         "metrics": {
           "activeNodes": "アクティブノード",
-          "protocolRevenue": "プロトコル収益",
-          "countriesCovered": "対応国"
+          "dailyRewards": "日次報酬",
+          "networkCoverage": "ネットワークカバレッジ",
+          "totalContributors": "総貢献者"
         },
         "features": {
           "proofOfCoverage": {
             "title": "カバレッジ証明",
-            "desc": "Cryptographicすべてy verify infrastructure deployment and サービスの可用性. Fair reward distribution based on actual contribution."
+            "desc": "AI駆動位置検証とサービス品質モニタリング。公平で透明な報酬分配。"
           },
-          "slashingProtection": {
-            "title": "スラッシング保護",
-            "desc": "ステーク-based セキュリティ with penalties for malicious behavior. Protect network integrity while rewarding honest operators."
+          "tokenomics": {
+            "title": "持続可能なトークノミクス",
+            "desc": "需要駆動型トークン発行と燃焼メカニズム。長期的ネットワーク成長のためのインセンティブ調整。"
           },
-          "communityGovernance": {
-            "title": "コミュニティ ガバナンス",
-            "desc": "DAO-based プロトコル ガバナンス for network parameters. Token holders vote on upgrades, rewards, and expansion priorities."
+          "easyDeployment": {
+            "title": "簡単な展開",
+            "desc": "プラグアンドプレイハードウェアソリューション。自動オンボーディングと設定。"
           },
-          "dynamicRewards": {
-            "title": "Dynamic Rewards",
-            "desc": "AI-optimized reward distribution based on demand and coverage gaps. Higher rewards for underserved areas."
+          "realTimeAnalytics": {
+            "title": "リアルタイム分析",
+            "desc": "ネットワーク状態、収益、パフォーマンスの詳細ダッシュボード。最適収益のためのAI推奨。"
           }
         },
-        "hardware": {
-          "title": "ハードウェア 要件",
-          "desc": "Flexible ハードウェア オプション for different DePIN プロトコルs. Start earning with minimal 投資.",
-          "minimum": "Minimum: Raspberry Pi 4 or equivalent ARM device",
-          "recommended": "Recommended: x86 server with 16GB RAM, 1TB SSD",
-          "gpu": "GPU Compute: NVIDIA RTX 3080 or higher for AI workloads"
-        },
         "sections": {
-          "categories": "インフラカテゴリ",
-          "categoriesDesc": "Deploy and earn across multiple DePIN プロトコルs",
-          "protocolFeatures": "プロトコル Features"
+          "networkTypes": "ネットワークタイプ",
+          "networkTypesDesc": "TBURNがサポートするDePINネットワークカテゴリを探索",
+          "platformCapabilities": "プラットフォーム機能"
         },
         "cta": {
-          "title": "Ready to Join the DePIN Revolution?",
-          "desc": "インフラをデプロイ, earn rewards, and help build the decentralized future. Our guides will help you 始める in 分.",
-          "getStarted": "始める"
+          "title": "DePINネットワークに参加する準備はできましたか？",
+          "desc": "物理インフラを提供して報酬を獲得。今日からパッシブ収入を始めましょう。",
+          "getStarted": "開始する"
         }
       },
       "stablecoins": {
         "tag": "ステーブルコイン",
         "title": "ステーブルコイン",
-        "subtitle": "エンタープライズグレードのステーブルコインインフラ。",
+        "subtitle": "TBURNでエンタープライズグレードのステーブルコインインフラを構築。法定通貨担保、暗号資産担保、アルゴリズムステーブルコイン。",
         "buttons": {
-          "issueStablecoin": "ステーブルコインを発行",
-          "technicalDocs": "技術 Docs"
+          "launchStablecoin": "ステーブルコインを発行",
+          "documentation": "ドキュメント"
         },
-        "types": {
+        "categories": {
           "fiatBacked": {
-            "title": "法定通貨担保型 ステーブルコインs",
-            "desc": "1:1 reserve-戻るed トークン with real-time proof of reserves. Audited bank accounts with transparent attestation reports."
+            "title": "法定通貨担保",
+            "desc": "USD、EUR、JPYなど法定通貨で1:1担保。リアルタイム準備金証明と規制準拠。"
           },
-          "cryptoCollateralized": {
-            "title": "Crypto-Collateralized",
-            "desc": "Over-collateralized ステーブルコインs 戻るed by crypto assets. Automated liquidation mechanisms and decentralized ガバナンス."
+          "cryptoBacked": {
+            "title": "暗号資産担保",
+            "desc": "暗号資産で過剰担保されたステーブルコイン。自動清算、価格安定メカニズム。"
           },
-          "institutionalGrade": {
-            "title": "Institutional Grade",
-            "desc": "Bank-grade コンプライアンス with AML/KYC integration. Whitelisting, blacklisting, and regulatory reporting built-in."
+          "algorithmic": {
+            "title": "アルゴリズムステーブルコイン",
+            "desc": "AI駆動需給バランス。動的リベースと安定化メカニズム。"
           },
-          "multiCurrency": {
-            "title": "マルチ通貨サポート",
-            "desc": "ステーブルコインを発行s pegged to any fiat currency. USD, EUR, GBP, JPY, and emerging market currencies supported."
+          "commodity": {
+            "title": "コモディティ担保",
+            "desc": "金、銀などの実物資産で担保。オンチェーン監査とリアルタイム価格オラクル。"
           }
         },
         "metrics": {
-          "totalSupply": "Total ステーブルコイン Supply",
-          "dailyTransactions": "日次トランザクション",
-          "pegDeviation": "Max Peg Deviation"
+          "totalSupply": "総発行量",
+          "dailyVolume": "日次取引量",
+          "pegStability": "ペグ安定性",
+          "backingRatio": "担保率"
         },
         "features": {
-          "proofOfReserves": {
-            "title": "Proof of Reserves",
-            "desc": "Real-time on-chain attestation of 戻るing assets. Third-party auditors verify reserve ratios continuously."
-          },
           "instantSettlement": {
             "title": "即時決済",
-            "desc": "Sub-second transaction finality with 50,000+ TPS. No waiting for 銀行振込s or clearing houses."
+            "desc": "サブセカンドのトランザクション確定性。クロスチェーンブリッジとグローバル決済。"
           },
-          "programmableCompliance": {
-            "title": "ProgrAMMable コンプライアンス",
-            "desc": "Smart contract-enforced 転送制限. 地理的 制限, holding caps, and regulatory controls."
+          "proofOfReserves": {
+            "title": "準備金証明",
+            "desc": "リアルタイムオンチェーン監査。透明な担保検証と自動化レポート。"
           },
-          "crossChainBridges": {
-            "title": "Cross-Chain Bridges",
-            "desc": "Native bridges to Ethereum, Polygon, Arbitrum, and more. Unified liquidity across multiple networks."
-          }
-        },
-        "useCases": {
-          "payments": {
-            "title": "Global 決済",
-            "desc": "Instant クロスボーダー transfers with minimal 手数料. Replace SWIFT with ブロックチェーン-based 決済."
+          "regulatoryCompliance": {
+            "title": "規制準拠",
+            "desc": "ビルトインKYC/AML、トラベルルール準拠。マルチ管轄ライセンスサポート。"
           },
-          "defiCollateral": {
-            "title": "DeFi Collateral",
-            "desc": "Use ステーブルコインs as collateral for レンディング, borrowing, and イールドファーミング. Stable value for predictable positions."
-          },
-          "treasury": {
-            "title": "トレジャリー管理",
-            "desc": "Corporate トレジャリー operations with on-chain transparency. Automated 決済 and cash flow management."
-          },
-          "payroll": {
-            "title": "Payroll & Benefits",
-            "desc": "Instant global payroll in stable currencies. Automatic tax withholding and benefits distribution."
+          "multiChain": {
+            "title": "マルチチェーンサポート",
+            "desc": "シームレスなクロスチェーン転送。AI駆動ブリッジ最適化とセキュリティ。"
           }
         },
         "sections": {
           "types": "ステーブルコインタイプ",
-          "typesDesc": "Choose the right ステーブルコイン model for your needs",
-          "platformFeatures": "プラットフォーム機能",
-          "useCases": "ユースケース"
+          "typesDesc": "TBURNがサポートするステーブルコインモデルを探索",
+          "platformFeatures": "プラットフォーム機能"
         },
         "cta": {
-          "title": "Ready to Launch Your ステーブルコイン?",
-          "desc": "From concept to launch in 週間. Our team provides end-to-end support for ステーブルコイン issuance and management.",
-          "getStarted": "始める"
+          "title": "ステーブルコインを発行する準備はできましたか？",
+          "desc": "エンタープライズグレードインフラで安定したデジタル通貨を構築。専門家チームがローンチ全過程をサポート。",
+          "getStarted": "開始する"
         }
       },
       "institutional": {
-        "tag": "機関向け",
-        "title": "機関向け決済",
-        "subtitle": "企業向けの大量決済ソリューション。",
+        "tag": "機関向けソリューション",
+        "title": "機関向けソリューション",
+        "subtitle": "大企業・金融機関向けエンタープライズグレードブロックチェーンソリューション。クロスボーダー決済、資産管理、コンプライアンス。",
         "buttons": {
           "contactSales": "営業に連絡",
-          "apiReference": "APIリファレンス"
+          "whitePaper": "ホワイトペーパー"
         },
-        "paymentFeatures": {
-          "rtgs": {
-            "title": "Real-Time Gross 決済",
-            "desc": "Instant finality for high-value トランザクション. No batching delays or counterparty risk."
-          },
+        "categories": {
           "crossBorder": {
             "title": "クロスボーダー決済",
-            "desc": "Global reach with local 決済. マルチ通貨サポート with real-time FX and corridor optimization."
+            "desc": "即時決済と透明な手数料のグローバル決済。マルチ通貨サポートとFX最適化。"
           },
-          "compliant": {
-            "title": "規制コンプライアント",
-            "desc": "Built for regulated 金融 機関. Full SWIFT compatibility, ISO 20022, and regulatory reporting."
+          "treasury": {
+            "title": "財務管理",
+            "desc": "企業財務向けデジタル資産管理。利回り最適化、リスク管理、自動化レポート。"
           },
-          "smartContract": {
-            "title": "Smart Contract Escrow",
-            "desc": "ProgrAMMable payment conditions and escrow. Automate complex 決済 workflows and multi-party agreements."
+          "custody": {
+            "title": "機関カストディ",
+            "desc": "銀行グレードセキュリティのデジタル資産保管。マルチシグ、保険、規制準拠。"
+          },
+          "trading": {
+            "title": "機関トレーディング",
+            "desc": "大口取引向けOTCデスクとダークプール。深い流動性と最良執行。"
           }
         },
         "metrics": {
-          "dailyVolume": "Daily 決済 Volume",
-          "transactionFee": "Transaction Fee",
-          "uptimeSla": "稼働率 SLA"
+          "institutionalClients": "機関クライアント",
+          "dailySettlement": "日次決済",
+          "uptime": "アップタイム",
+          "compliance": "コンプライアンス率"
         },
-        "integrations": {
-          "coreBanking": {
-            "title": "Core Banking Integration",
-            "desc": "Native connectors for major core banking systems. Seamless integration with existing infrastructure."
+        "features": {
+          "enterpriseGrade": {
+            "title": "エンタープライズグレードセキュリティ",
+            "desc": "SOC 2 Type II、ISO 27001認証。量子耐性暗号化とハードウェアセキュリティモジュール。"
           },
-          "treasury": {
-            "title": "トレジャリー管理",
-            "desc": "Real-time cash position visibility and automated liquidity optimization across accounts."
+          "customIntegration": {
+            "title": "カスタム統合",
+            "desc": "既存システムとのシームレス統合。REST API、WebSocket、FIXプロトコルサポート。"
           },
-          "correspondent": {
-            "title": "Correspondent Banking",
-            "desc": "Reduce correspondent banking 手数料 and 決済 times. Direct peer-to-peer institutional transfers."
+          "dedicatedSupport": {
+            "title": "専任サポート",
+            "desc": "24/7専任アカウントマネージャー。SLA保証と優先サポート。"
           },
-          "operations": {
-            "title": "24/7 Operations",
-            "desc": "Round-the-clock 決済 with no batch processing. Continuous operations with 99.99% 稼働率 guarantee."
-          }
-        },
-        "clientTypes": {
-          "centralBanks": {
-            "title": "Central Banks",
-            "desc": "CBDC issuance and wholesale 決済 infrastructure for monetary authorities."
-          },
-          "commercialBanks": {
-            "title": "Commercial Banks",
-            "desc": "Retail and corporate payment rails with full 規制コンプライアンス."
-          },
-          "paymentProcessors": {
-            "title": "Payment Processors",
-            "desc": "High-volume transaction processing with 即時決済 and minimal 手数料."
-          },
-          "fintechs": {
-            "title": "Fintechs & Neobanks",
-            "desc": "Modern banking infrastructure without legacy system constraints."
+          "regulatoryReporting": {
+            "title": "規制レポート",
+            "desc": "自動化コンプライアンスレポート。マルチ管轄規制準拠。"
           }
         },
         "sections": {
-          "paymentFeatures": "Payment Infrastructure",
-          "paymentFeaturesDesc": "Enterprise-grade payment capabilities for 金融 機関",
-          "systemIntegrations": "System Integrations",
-          "clientTypes": "Client Types"
+          "solutions": "機関向けソリューション",
+          "solutionsDesc": "大企業向けカスタムブロックチェーンソリューション",
+          "capabilities": "プラットフォーム機能"
         },
         "cta": {
-          "title": "Ready to Modernize Your Payment Infrastructure?",
-          "desc": "Schedule a demo with our institutional team. We'll show you how TBURN can transform your payment operations.",
-          "requestDemo": "Request Demo"
+          "title": "機関向けソリューションについて",
+          "desc": "御社の要件に合わせたカスタムブロックチェーンソリューションをご提案。専門コンサルタントにご相談ください。",
+          "contactUs": "お問い合わせ"
         }
       },
       "enterprise": {
-        "tag": "エンタープライズブロックチェーン",
+        "tag": "エンタープライズ",
         "title": "エンタープライズソリューション",
-        "subtitle": "現代のビジネス向け包括的ブロックチェーンソリューション。プライベートネットワーク、コンプライアンス機能、24時間365日エンタープライズサポート。",
-        "contactEnterprise": "エンタープライズに連絡",
-        "enterpriseDocs": "エンタープライズドキュメント",
-        "metrics": {
-          "enterpriseClients": "Enterprise Clients",
-          "uptimeGuarantee": "稼働率 Guarantee",
-          "dedicatedSupport": "専用サポート"
+        "subtitle": "現代ビジネス向け包括的ブロックチェーンソリューション。プライベートネットワーク、コンプライアンス機能、24/7エンタープライズサポート。",
+        "buttons": {
+          "getStarted": "開始する",
+          "contactSales": "営業に連絡"
         },
-        "solutions": {
-          "title": "エンタープライズソリューション",
-          "subtitle": "現代のビジネス課題向けブロックチェーンアプリケーション。",
-          "identityAccess": {
-            "title": "アイデンティティ＆アクセス管理",
-            "description": "自己主権型資格情報による分散型アイデンティティ。多要素認証、SSO統合、詳細な権限コントロール。"
+        "categories": {
+          "privateNetwork": {
+            "title": "プライベートネットワーク",
+            "desc": "専用ブロックチェーンインフラ。完全な制御、カスタムコンセンサス、エンタープライズSLA。"
           },
           "supplyChain": {
-            "title": "サプライチェーン透明性",
-            "description": "エンドツーエンドの製品来歴追跡。IoT統合によるメーカーから消費者までの不変監査証跡。",
-            "desc": "End-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
-          },
-          "documentManagement": {
-            "title": "ドキュメント管理",
-            "description": "改ざん防止ドキュメント保存と検証。デジタル署名、バージョン管理、コンプライアンスアーカイブ。"
-          },
-          "processAutomation": {
-            "title": "ビジネスプロセス自動化",
-            "description": "スマートコントラクト駆動のワークフロー。トラストレス実行による承認、決済、多者間合意の自動化。"
+            "title": "サプライチェーン管理",
+            "desc": "End-to-end追跡と透明性。IoT統合、自動化検証、リアルタイム分析。"
           },
           "identity": {
-            "title": "Identity & Access Management",
-            "desc": "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
+            "title": "デジタルアイデンティティ",
+            "desc": "分散型ID管理。SSI、検証可能資格情報、プライバシー保護。"
           },
-          "document": {
-            "title": "Document Management",
-            "desc": "Tamper-proof document storage and 検証. Digital signatures, version control, and コンプライアンス archiving."
-          },
-          "automation": {
-            "title": "Business Process Automation",
-            "desc": "Smart contract-driven workflows. Automate approvals, 決済, and multi-party agreements with trustless execution."
+          "dataManagement": {
+            "title": "データ管理",
+            "desc": "不変データレコードと監査証跡。GDPR準拠、データ主権。"
           }
         },
-        "platformFeatures": {
-          "title": "プラットフォーム機能",
-          "soc2": {
-            "title": "SOC 2準拠",
-            "description": "エンタープライズセキュリティコントロールと年次監査"
-          },
-          "privateSubnets": {
-            "title": "プライベートサブネット",
-            "description": "機密データ用の分離ネットワーク環境"
-          },
-          "roleBasedAccess": {
-            "title": "ロールベースアクセス",
-            "description": "詳細な権限とマルチテナント分離"
-          },
-          "onPremise": {
-            "title": "オンプレミスオプション",
-            "description": "自社データセンターインフラ内へのデプロイ"
-          }
-        },
-        "industryApplications": {
-          "title": "業界アプリケーション",
-          "healthcare": {
-            "title": "医療",
-            "description": "HIPAA準拠の記録管理"
-          },
-          "manufacturing": {
-            "title": "製造",
-            "description": "サプライチェーンと品質保証"
-          },
-          "legal": {
-            "title": "法務",
-            "description": "契約管理と電子署名"
-          },
-          "government": {
-            "title": "政府",
-            "description": "透明な記録管理と投票"
-          },
-          "insurance": {
-            "title": "保険",
-            "description": "請求処理と詐欺検出"
-          },
-          "logistics": {
-            "title": "物流",
-            "description": "出荷追跡と検証"
-          }
-        },
-        "cta": {
-          "title": "エンタープライズブロックチェーンの準備はできましたか？",
-          "subtitle": "エンタープライズチームとの相談を予約。組織の要件に合ったカスタムソリューションを設計します。",
-          "scheduleConsultation": "相談を予約",
-          "desc": "Schedule a consultation with our enterprise team. We'll design a custom solution that fits your organization's 要件."
-        },
-        "buttons": {
-          "contactEnterprise": "お問い合わせ Enterprise",
-          "enterpriseDocs": "Enterprise Docs"
+        "metrics": {
+          "enterpriseClients": "エンタープライズクライアント",
+          "processedTransactions": "処理済みトランザクション",
+          "costReduction": "コスト削減",
+          "deploymentTime": "デプロイ時間"
         },
         "features": {
-          "soc2": {
-            "title": "SOC 2 Compliant",
-            "desc": "エンタープライズセキュリティ controls with annual third-party audits. Full コンプライアンス ドキュメント and certifications."
+          "customBlockchain": {
+            "title": "カスタムブロックチェーン",
+            "desc": "ビジネス要件に合わせた専用ネットワーク。カスタムコンセンサス、プライバシーレイヤー、パフォーマンス最適化。"
           },
-          "privateSubnets": {
-            "title": "Private Subnets",
-            "desc": "Isolated network environments for sensitive data. Custom consensus rules and access controls for your organization."
+          "hybridDeployment": {
+            "title": "ハイブリッドデプロイメント",
+            "desc": "プライベートとパブリックブロックチェーンの接続。データプライバシーと透明性のバランス。"
           },
-          "roleAccess": {
-            "title": "Role-Based Access",
-            "desc": "Granular permissions and multi-tenant isolation. Define custom roles with precise access to features and data."
+          "apiIntegration": {
+            "title": "API統合",
+            "desc": "既存システムとのシームレス統合。RESTful API、SDK、Webhook。"
           },
-          "onPremise": {
-            "title": "On-Premise Deployment",
-            "desc": "Deploy within your own data center infrastructure. Full control over ハードウェア, networking, and セキュリティ."
-          }
-        },
-        "industries": {
-          "healthcare": {
-            "title": "ヘルスケア",
-            "desc": "HIPAA-compliant medical record management and secure health data exchange between providers."
-          },
-          "manufacturing": {
-            "title": "Manufacturing",
-            "desc": "サプライチェーン tracking, quality assurance ドキュメント, and IoT sensor data 検証."
-          },
-          "legal": {
-            "title": "法的情報 Services",
-            "desc": "Smart contract-based agreements, e-signatures, and immutable document archiving."
-          },
-          "government": {
-            "title": "政府・公共機関",
-            "desc": "Transparent public records, secure 投票 systems, and citizen identity management."
-          },
-          "insurance": {
-            "title": "Insurance",
-            "desc": "Automated claims processing, fraud detection, and policy administration on ブロックチェーン."
-          },
-          "logistics": {
-            "title": "Logistics",
-            "desc": "Real-time shipment tracking, customs ドキュメント, and delivery 検証."
+          "compliance": {
+            "title": "コンプライアンスツール",
+            "desc": "規制要件への対応。監査証跡、レポート、認証。"
           }
         },
         "sections": {
           "solutions": "エンタープライズソリューション",
-          "solutionsDesc": "ブロックチェーン applications designed for enterprise chすべてenges",
-          "platformFeatures": "セキュリティ & コンプライアンス",
-          "industryApplications": "Industry Applications"
+          "solutionsDesc": "ビジネス要件に合わせたブロックチェーンソリューション",
+          "capabilities": "コア機能"
+        },
+        "cta": {
+          "title": "エンタープライズソリューションを始める",
+          "desc": "ビジネス革新のためのブロックチェーンソリューション。専門コンサルタントにご相談ください。",
+          "contactUs": "お問い合わせ"
         }
       }
     },

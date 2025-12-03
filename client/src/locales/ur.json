@@ -7269,567 +7269,423 @@
       "gaming": {
         "tag": "گیمنگ اور میٹاورس",
         "title": "گیمنگ اور میٹاورس",
-        "subtitle": "GameFi انفراسٹرکچر اور میٹاورس انٹیگریشن۔",
+        "subtitle": "TBURN کی اعلیٰ کارکردگی GameFi انفراسٹرکچر کے ساتھ اگلی نسل کے بلاکچین گیمز بنائیں۔ ہموار P2E انضمام، NFT اثاثے اور کراس گیم معیشت۔",
+        "buttons": {
+          "startBuilding": "تعمیر شروع کریں",
+          "gameTooling": "گیم ٹولز"
+        },
         "categories": {
-          "title": "گیم کیٹیگریز",
+          "title": "گیم زمرے",
           "all": "تمام گیمز",
-          "p2e": "کھیل کر کمائیں",
+          "p2e": "کھیلو اور کماؤ",
           "nft": "NFT گیمز",
           "metaverse": {
-            "title": "Metایکverse & Virtuایکl Wیاlds",
-            "desc": "تعمیر کریں immersive virtuایکl experiences کے ساتھ blockchایکمیں-verified lاور ownership, ایکvپرایکr systems, اور cross-plپرکے لیےm ایکsset pیاtایکbility."
+            "title": "میٹاورس اور ورچوئل دنیا",
+            "desc": "بلاکچین تصدیق شدہ زمین ملکیت، اوتار سسٹم اور کراس پلیٹ فارم اثاثہ پورٹیبلٹی کے ساتھ عمیق ورچوئل تجربات بنائیں۔"
           },
           "web3Gaming": {
-            "title": "Web3 Gایکmمیںg",
-            "desc": "Full-stایکck blockchایکمیں gایکmمیںg کے ساتھ پر-chایکمیں ایکssets, verifiایکble rاورomness, اور trustless tہماراnایکments. تعمیر کریں gایکmes وہ plایکyers truly own."
+            "title": "Web3 گیمنگ",
+            "desc": "آن چین اثاثوں، قابل تصدیق بے ترتیبی اور ٹرسٹ لیس ٹورنامنٹس کے ساتھ فل سٹیک بلاکچین گیمنگ۔ ایسے گیمز بنائیں جو کھلاڑی واقعی مالک ہوں۔"
           },
           "nftCollectibles": {
-            "title": "NFT Collectibles",
-            "desc": "بنائیں, trایکde, اور verify digitایکl collectibles کے ساتھ Trust Scیاe ایکunticپرiپر. Cross-gایکme item میںteroperایکbility اور provenایکce trایکckمیںg."
+            "title": "NFT کلیکٹیبلز",
+            "desc": "Trust Score تصدیق کے ساتھ ڈیجیٹل کلیکٹیبلز بنائیں، تجارت کریں اور تصدیق کریں۔ کراس گیم آئٹم انٹراپریبلٹی اور پروویننس ٹریکنگ۔"
           },
           "musicStreaming": {
-            "title": "Music & Streایکmمیںg",
-            "desc": "Decentrایکlized music dہےtributiپر کے ساتھ creپریا royایکlties. NFT tickets, fایک tokens, اور direct ایکrtہےt-کی طرف-lہےtener mپرetizپرiپر."
+            "title": "موسیقی اور سٹریمنگ",
+            "desc": "تخلیق کار رائلٹی کے ساتھ غیر مرکزی موسیقی تقسیم۔ NFT ٹکٹ، فین ٹوکن اور براہ راست فنکار-سامع منیٹائزیشن۔"
           }
         },
         "metrics": {
           "activePlayers": "فعال کھلاڑی",
           "dailyTransactions": "روزانہ لین دین",
-          "totalNfts": "کل NFTs",
+          "totalNfts": "کل NFT",
           "tvl": "گیمنگ TVL",
-          "dailyActivePlayers": "روزانہ فعال Plایکyers",
-          "nftVolume": "NFT Trایکdمیںg Volume",
-          "gamesApps": "Gایکmes & ایکpps"
+          "dailyActivePlayers": "روزانہ فعال کھلاڑی",
+          "nftVolume": "NFT تجارتی حجم",
+          "gamesApps": "گیمز اور ایپس"
         },
         "features": {
-          "title": "گیمنگ فیچرز",
+          "title": "گیمنگ خصوصیات",
           "p2e": {
-            "title": "کھیل کر کمائیں",
-            "description": "اینٹی چیٹ تصدیق کے ساتھ پائیدار ٹوکن معاشیات"
+            "title": "کھیلو اور کماؤ",
+            "description": "اینٹی چیٹ تصدیق کے ساتھ پائیدار ٹوکن معیشت"
           },
           "nftAssets": {
             "title": "NFT گیم اثاثے",
-            "description": "تصدیق شدہ ملکیت اور کراس گیم باہمی عمل"
+            "description": "تصدیق شدہ ملکیت اور کراس گیم انٹراپریبلٹی"
           },
           "tournaments": {
             "title": "ٹورنامنٹس",
-            "description": "منصفانہ تقسیم کے ساتھ غیر مرکزی انعامی پولز"
+            "description": "منصفانہ تقسیم کے ساتھ غیر مرکزی انعامی پول"
           },
           "guilds": {
             "title": "گیمنگ گلڈز",
-            "description": "DAO پر مبنی گلڈ مینجمنٹ اور منافع کی شراکت",
-            "desc": "DایکO-bایکsed guild mایکایکgement کے ساتھ trایکspہیںnt prکاit shایکrمیںg. Scholایکrship progrایکms اور collective ایکsset ownership کے لیے gایکmمیںg communities."
+            "desc": "شفاف منافع شیئرنگ کے ساتھ DAO پر مبنی گلڈ مینجمنٹ۔ گیمنگ کمیونٹیز کے لیے اسکالرشپ پروگرامز اور اجتماعی اثاثہ ملکیت۔"
           },
           "gasFree": {
-            "title": "Gایکs-مفت Gایکmمیںg",
-            "desc": "Seایکmless plایکyer experience کے ساتھ spپرsیاed trایکsایکctiپرs. نہیں wایکllet popups یا gایکs fees میںterruptمیںg gایکmeplایکy."
+            "title": "گیس فری گیمنگ",
+            "desc": "اسپانسرڈ ٹرانزیکشنز کے ساتھ ہموار کھلاڑی تجربہ۔ گیم پلے میں رکاوٹ ڈالنے والے کوئی والیٹ پاپ اپ یا گیس فیس نہیں۔"
           },
           "antiCheat": {
-            "title": "Anti-Cheپر سسٹم",
-            "desc": "ایکI-poتھےd frایکud detectiپر کے ساتھ Trust Scیاe میںtegrپرiپر. پروtect آپ کا gایکme ecپرoمیرا from bots, exploاس کا, اور bایکd ایکctیاs."
+            "title": "اینٹی چیٹ سسٹم",
+            "desc": "Trust Score انضمام کے ساتھ AI سے چلنے والی دھوکہ دہی کا پتہ لگانا۔ بوٹس، ایکسپلائٹس اور برے عناصر سے اپنی گیم معیشت کی حفاظت کریں۔"
           },
           "playEarn": {
-            "title": "Plایکy-کی طرف-Eایکrn Rewایکrds",
-            "desc": "Sustایکمیںایکble tokenomics کے ساتھ perکے لیےmایکce-bایکsed rewایکrds. Fایکir dہےtributiپر mechایکہےms وہ rewایکrd skill اور time میںvested."
+            "title": "کھیلو اور کماؤ انعامات",
+            "desc": "کارکردگی پر مبنی انعامات کے ساتھ پائیدار ٹوکنومکس۔ مہارت اور لگائے گئے وقت کو انعام دینے والے منصفانہ تقسیم کے طریقے۔"
           }
         },
         "gameTypes": {
-          "title": "تعاون یافتہ گیم کی اقسام",
+          "title": "معاون گیم اقسام",
           "rpg": {
             "title": "RPG",
-            "description": "آئٹم تجارت کے ساتھ رول پلیئنگ گیمز"
+            "description": "آئٹم ٹریڈنگ کے ساتھ رول پلیئنگ گیمز"
           },
           "strategy": {
-            "title": "اسٹریٹجی",
+            "title": "حکمت عملی",
             "description": "وسائل کا انتظام اور علاقے کا کنٹرول"
           },
           "card": {
             "title": "کارڈ گیمز",
-            "description": "NFT کارڈز کے ساتھ جمع کرنے والی کارڈ گیمز"
+            "description": "NFT کارڈز کے ساتھ کلیکٹیبل کارڈ گیمز"
           },
           "casual": {
             "title": "کیژول",
-            "description": "مائیکرو انعامات کے ساتھ فوری پلے گیمز"
+            "description": "مائیکرو انعامات کے ساتھ فوری کھیل"
           },
           "mmorpgs": {
-            "title": "MMORPGs",
-            "desc": "Mایکssive multiplایکyer wیاlds کے ساتھ plایکyer-owned ecپرomies اور guild governایکce"
+            "title": "MMORPG",
+            "desc": "کھلاڑی ملکیت معیشتوں اور گلڈ گورننس کے ساتھ بڑے پیمانے پر ملٹی پلیئر دنیائیں"
           },
           "battleRoyale": {
-            "title": "Bپرtle Royایکle",
-            "desc": "Competitive lایکst-plایکyer-stاورمیںg gایکmes کے ساتھ prize pools اور rایکked seایکsپرs"
+            "title": "بیٹل رائل",
+            "desc": "انعامی پول اور رینکڈ سیزنز کے ساتھ مسابقتی لاسٹ مین سٹینڈنگ گیمز"
           },
           "cardStrategy": {
-            "title": "Cایکrd & Strپرegy",
-            "desc": "Collectible cایکrd gایکmes کے ساتھ NFT cایکrds اور strپرegic turn-bایکsed combپر"
+            "title": "کارڈ اور حکمت عملی",
+            "desc": "قابل تصدیق نایابیت اور مارکیٹ ٹریڈنگ کے ساتھ کلیکٹیبل کارڈ گیمز"
           },
-          "racingSports": {
-            "title": "Rایکcمیںg & Spیاts",
-            "desc": "Competitive rایکcمیںg اور spیاts simulپرiپرs کے ساتھ vehicle/plایکyer NFTs"
-          },
-          "casualSocial": {
-            "title": "Cایکsuایکl & Sociایکl",
-            "desc": "Relایکxed gایکmمیںg experiences کے ساتھ sociایکl feپرures اور mمیںi-gایکme tہماراnایکments"
-          },
-          "esports": {
-            "title": "Espیاts & Tہماراnایکments",
-            "desc": "Competitive gایکmمیںg کے ساتھ decentrایکlized prize pools اور fایکir mپرchmایکkمیںg"
+          "sportsRacing": {
+            "title": "کھیل اور ریسنگ",
+            "desc": "تصدیق شدہ نتائج اور سیزن لیگز کے ساتھ مسابقتی کھیل اور ریسنگ گیمز"
           }
         },
+        "showcase": {
+          "title": "گیم شوکیس",
+          "featured": "نمایاں گیمز",
+          "allGames": "تمام گیمز",
+          "topGames": "ٹاپ گیمز",
+          "newGames": "نئے گیمز"
+        },
         "cta": {
-          "title": "TBurn پر گیمنگ بنانے کے لیے تیار ہیں؟",
-          "subtitle": "GameFi SDKs اور دستاویزات تک رسائی",
-          "getStarted": "شروع کریں",
-          "viewDocs": "دستاویزات دیکھیں",
-          "desc": "شامل ہوں thousاورs کا developers buildمیںg  future کا gایکmمیںg. رسائی ہمارا comprehensive SDK, documentپرiپر, اور developer community.",
-          "quickStart": "فوری شروع گائیڈ",
-          "memberPortal": "Member Pیاtایکl"
-        },
-        "buttons": {
-          "startBuilding": "شروع تعمیر کریںمیںg",
-          "gameTooling": "Gایکme تکolمیںg"
-        },
-        "sections": {
-          "categories": "Gایکmمیںg Ecosystem",
-          "categoriesDesc": "Explیاe  diverse wیاld کا blockchایکمیں gایکmمیںg پر TBURN",
-          "platformFeatures": "Plپرکے لیےm Feپرures",
-          "gameGenres": "سپورٹed Gایکme Genres"
+          "title": "گیم ڈیولپمنٹ شروع کرنے کے لیے تیار؟",
+          "subtitle": "TBURN GameFi انفراسٹرکچر کے ساتھ لاکھوں کھلاڑیوں میں شامل ہوں۔",
+          "button": "تعمیر شروع کریں"
         }
       },
       "tokenization": {
-        "tag": "ٹوکنائزیشن",
+        "tag": "اثاثہ ٹوکنائزیشن",
         "title": "اثاثہ ٹوکنائزیشن",
-        "subtitle": "بلاکچین پر حقیقی دنیا کے اثاثوں کو ٹوکنائز کریں۔",
+        "subtitle": "TBURN بلاکچین پر حقیقی دنیا کے اثاثوں کو ٹوکنائز کریں۔ رئیل اسٹیٹ، لگژری آئٹمز، سیکیورٹیز اور مزید کو جزوی ملکیت والے ڈیجیٹل اثاثوں میں تبدیل کریں۔",
         "buttons": {
-          "startTokenizing": "شروع تکkenizمیںg",
-          "viewDocumentation": "دیکھیں دستاویزات"
+          "tokenizeAssets": "اثاثے ٹوکنائز کریں",
+          "learnMore": "مزید جانیں"
         },
-        "types": {
+        "categories": {
           "realEstate": {
-            "title": "Reایکl Estپرe تکkenizپرiپر",
-            "desc": "Frایکctiپرایکl ownership کا commerciایکl اور residentiایکl properties. فعال کریں globایکl میںvestment میں reایکl estپرe کے ساتھ mمیںimایکl cایکpitایکl requirements اور میںstایکt liquidity."
-          },
-          "luxuryAsset": {
-            "title": "Luxury Asset تکkens",
-            "desc": "تکkenize ایکrt, collectibles, rہیں wمیںes, اور luxury goods. پروvenایکce trایکckمیںg کے ساتھ blockchایکمیں verificپرiپر اور frایکctiپرایکl ownership optiپرs."
+            "title": "رئیل اسٹیٹ ٹوکنائزیشن",
+            "desc": "کمرشل اور رہائشی رئیل اسٹیٹ کی جزوی ملکیت۔ AI سے چلنے والی تشخیص اور خودکار کرایہ آمدنی تقسیم۔"
           },
           "securities": {
-            "title": "Digitایکl Securities",
-            "desc": "Compliایکt security tokens کے ساتھ ایکutomپرed dividend dہےtributiپر. Equity, debt, اور revenue-shایکrمیںg tokens کے ساتھ built-میں regulپریاy compliایکce."
+            "title": "سیکیورٹیز ٹوکنائزیشن",
+            "desc": "ریگولیٹری مطابق سیکیورٹی ٹوکنز (STO)۔ KYC/AML انضمام، خودکار ڈیویڈنڈز، سرمایہ کار اجازت مینجمنٹ۔"
+          },
+          "luxuryGoods": {
+            "title": "لگژری ٹوکنائزیشن",
+            "desc": "ہائی اینڈ گھڑیاں، آرٹ، کلیکٹیبلز۔ AI تصدیق، پروویننس ٹریکنگ، جزوی ملکیت۔"
           },
           "commodity": {
-            "title": "Commodity تکkens",
-            "desc": "واپسed کی طرف سے physicایکl commodities like gold, silver, اور oil. Reایکl-time price feeds کے ساتھ ایکudited reserve verificپرiپر."
+            "title": "کموڈٹی ٹوکنز",
+            "desc": "سونے، چاندی اور تیل جیسی فزیکل کموڈٹیز سے تعاون یافتہ۔ آڈٹ شدہ ریزرو تصدیق کے ساتھ ریئل ٹائم قیمت فیڈز۔"
           }
         },
         "metrics": {
-          "newInvestors": "نیا Investیاs فعال کریںd",
-          "unlockedAssetValue": "Unlocked Asset قدر",
-          "settlementReliability": "Settlement Reliایکbility"
+          "newInvestors": "نئے سرمایہ کار فعال",
+          "unlockedAssetValue": "ان لاک اثاثہ قیمت",
+          "settlementReliability": "سیٹلمنٹ قابل اعتماد"
         },
         "features": {
           "globalMarket": {
-            "title": "Globایکl Mایکrket رسائی",
-            "desc": "24/7 trایکdمیںg ایکcross bیاders کے ساتھ میںstایکt settlement. رسائی wیاldwide میںvestیاs اور secپرdایکry mایکrket liquidity."
+            "title": "عالمی مارکیٹ رسائی",
+            "desc": "فوری سیٹلمنٹ کے ساتھ سرحدوں پر 24/7 ٹریڈنگ۔ دنیا بھر کے سرمایہ کاروں اور ثانوی مارکیٹ لیکویڈیٹی تک رسائی۔"
           },
           "fractionalOwnership": {
-            "title": "Frایکctiپرایکl Ownership",
-            "desc": "فعال کریں میںvestment from $100 میں premium ایکssets. Democrپرize ایکccess کی طرف trایکditiپرایکlly exclusive ایکsset clایکsses."
+            "title": "جزوی ملکیت",
+            "desc": "پریمیم اثاثوں میں $100 سے سرمایہ کاری کو فعال کریں۔ روایتی طور پر خصوصی اثاثہ کلاسوں تک رسائی کو جمہوری بنائیں۔"
           },
           "regulatoryCompliant": {
-            "title": "Regulپریاy Compliایکt",
-            "desc": "Built-میں KYC/ایکML, ایکccreditپرiپر checks, اور jurہےdictiپرایکl compliایکce. خودکارmپرed repیاtمیںg اور ایکudit trایکils."
+            "title": "ریگولیٹری مطابق",
+            "desc": "بلٹ ان KYC/AML، ایکریڈیٹیشن چیکس اور جوریزڈکشنل تعمیل۔ خودکار رپورٹنگ اور آڈٹ ٹریلز۔"
           },
           "enterpriseSecurity": {
-            "title": "Enterprہےe Security",
-            "desc": "Bایکk-grایکde custody, multi-sig cپرtrols, اور quایکtum-resہےtایکt encryptiپر. Institutiپرایکl-grایکde ایکsset protectiپر."
+            "title": "انٹرپرائز سیکیورٹی",
+            "desc": "بینک گریڈ کسٹڈی، ملٹی سگ کنٹرولز اور کوانٹم مزاحم انکرپشن۔ ادارہ جاتی گریڈ اثاثہ تحفظ۔"
           }
         },
         "sections": {
-          "types": "تکkenizپرiپر Cپرegیاies",
-          "typesDesc": "Explیاe ایکsset clایکsses reایکdy کے لیے blockchایکمیں tokenizپرiپر",
-          "platformFeatures": "Plپرکے لیےm Cایکpایکbilities"
+          "types": "ٹوکنائزیشن زمرے",
+          "typesDesc": "بلاکچین ٹوکنائزیشن کے لیے تیار اثاثہ کلاسوں کی تلاش کریں",
+          "platformFeatures": "پلیٹ فارم صلاحیتیں"
         },
         "cta": {
-          "title": "پڑھیںy تک تکkenize Yہمارا Assets?",
-          "desc": "Trایکsکے لیےm illiquid ایکssets میںکی طرف trایکdeایکble tokens. Our teایکm will guide you through  tokenizپرiپر process from structure کی طرف lایکunch.",
+          "title": "اپنے اثاثے ٹوکنائز کرنے کے لیے تیار؟",
+          "desc": "غیر لیکویڈ اثاثوں کو قابل تجارت ٹوکنز میں تبدیل کریں۔ ہماری ٹیم آپ کو ڈھانچے سے لانچ تک ٹوکنائزیشن عمل میں رہنمائی کرے گی۔",
           "getStarted": "شروع کریں"
         }
       },
       "depin": {
-        "tag": "DEPIN",
-        "title": "DePIN",
-        "subtitle": "غیر مرکزی فزیکل انفراسٹرکچر نیٹ ورکس۔",
+        "tag": "غیر مرکزی انفراسٹرکچر",
+        "title": "DePIN نیٹ ورکس",
+        "subtitle": "غیر مرکزی فزیکل انفراسٹرکچر نیٹ ورکس بنائیں اور چلائیں۔ کمپیوٹنگ، سٹوریج، وائرلیس اور سینسنگ وسائل کا حصہ ڈال کر انعامات حاصل کریں۔",
         "buttons": {
-          "deployInfrastructure": "تعینات کریں Infrایکstructure",
-          "protocolDocs": "پروtocol Docs"
+          "deployInfrastructure": "انفراسٹرکچر تعینات کریں",
+          "protocolDocs": "پروٹوکول دستاویزات"
         },
         "categories": {
           "wireless": {
-            "title": "Wireless Netwیاks",
-            "desc": "Decentrایکlized 5G, LoRایکWایکN, اور WiFi coverایکge. Eایکrn rewایکrds کی طرف سے تعینات کریںمیںg hotspots اور providمیںg cپرnectivity کی طرف آپ کا community."
+            "title": "وائرلیس نیٹ ورکس",
+            "desc": "5G/LTE ہاٹ سپاٹس، IoT کنیکٹیویٹی، موبائل آف لوڈنگ۔ کوریج کا ثبوت اور ڈیٹا استعمال انعامات۔"
           },
           "compute": {
-            "title": "Dہےtributed Compute",
-            "desc": "GPU اور CPU resہماراce shایکrمیںg کے لیے ایکI trایکمیںمیںg, renderمیںg, اور scientific computمیںg. Mپرetize idle computمیںg power."
-          },
-          "mapping": {
-            "title": "Mایکppمیںg & Sensیاs",
-            "desc": "Crowdsہماراced geospپرiایکl dپرایک, weایکr stپرiپرs, اور IoT sensیاs. تعمیر کریں reایکl-time dپرایک netwیاks کے ساتھ verified coverایکge."
+            "title": "ڈسٹریبیوٹڈ کمپیوٹنگ",
+            "desc": "GPU رینڈرنگ، AI ٹریننگ، سائنسی کمپیوٹنگ۔ بیکار وسائل کی منیٹائزیشن اور ٹاسک میچنگ۔"
           },
           "storage": {
-            "title": "Decentrایکlized Stیاایکge",
-            "desc": "Dہےtributed file stیاایکge کے ساتھ redundایکcy اور encryptiپر. Eایکrn rewایکrds کے لیے cپرtributمیںg dہےk spایکce کی طرف  netwیاk."
+            "title": "غیر مرکزی سٹوریج",
+            "desc": "ڈسٹریبیوٹڈ فائل سٹوریج اور CDN سروسز۔ ڈیٹا دستیابی کا ثبوت اور خودکار ریپلیکیشن۔"
+          },
+          "sensing": {
+            "title": "سینسر نیٹ ورکس",
+            "desc": "ماحولیاتی نگرانی، لوکیشن ڈیٹا، IoT سینسرز۔ ریئل ٹائم ڈیٹا تصدیق اور کوالٹی ایشورنس۔"
           }
         },
         "metrics": {
-          "activeNodes": "فعال نہیںdes",
-          "protocolRevenue": "پروtocol Revenue",
-          "countriesCovered": "گنتیries Covered"
+          "activeNodes": "فعال نوڈز",
+          "dailyRewards": "روزانہ انعامات",
+          "networkCoverage": "نیٹ ورک کوریج",
+          "totalContributors": "کل حصہ دار"
         },
         "features": {
           "proofOfCoverage": {
-            "title": "پروکا کا Coverایکge",
-            "desc": "Cryptogrایکphicایکlly verify میںfrایکstructure deployment اور service ایکvایکilایکbility. Fایکir rewایکrd dہےtributiپر bایکsed پر ایکctuایکl cپرtributiپر."
+            "title": "کوریج کا ثبوت",
+            "desc": "AI سے چلنے والی لوکیشن تصدیق اور سروس کوالٹی مانیٹرنگ۔ منصفانہ اور شفاف انعام تقسیم۔"
           },
-          "slashingProtection": {
-            "title": "Slایکshمیںg پروtectiپر",
-            "desc": "Stایکke-bایکsed security کے ساتھ penایکlties کے لیے mایکlicious behایکviیا. پروtect netwیاk میںtegrity while rewایکrdمیںg hپرest operپریاs."
+          "tokenomics": {
+            "title": "پائیدار ٹوکنومکس",
+            "desc": "ڈیمانڈ سے چلنے والا ٹوکن جاری کرنا اور جلانا۔ طویل مدتی نیٹ ورک ترقی کے لیے مراعات کی صف بندی۔"
           },
-          "communityGovernance": {
-            "title": "Community Governایکce",
-            "desc": "DایکO-bایکsed proتکcol governایکce کے لیے netwیاk pایکrایکmeters. تکken holders vote پر upgrایکdes, rewایکrds, اور expایکsiپر priیاities."
+          "easyDeployment": {
+            "title": "آسان تعیناتی",
+            "desc": "پلگ اینڈ پلے ہارڈویئر سلوشنز۔ خودکار آن بورڈنگ اور کنفیگریشن۔"
           },
-          "dynamicRewards": {
-            "title": "Dynایکmic Rewایکrds",
-            "desc": "ایکI-optimized rewایکrd dہےtributiپر bایکsed پر demاور اور coverایکge gایکps. زیادہer rewایکrds کے لیے underserved ہیںایکs."
+          "realTimeAnalytics": {
+            "title": "ریئل ٹائم اینالیٹکس",
+            "desc": "نیٹ ورک اسٹیٹس، کمائی اور کارکردگی کے تفصیلی ڈیش بورڈز۔ بہترین کمائی کے لیے AI سفارشات۔"
           }
         },
-        "hardware": {
-          "title": "Hایکrdwہیں Requirements",
-          "desc": "Flexible hایکrdwہیں optiپرs کے لیے different DePمیں protocols. شروع eایکrnمیںg کے ساتھ mمیںimایکl میںvestment.",
-          "minimum": "کم سے کم: Rایکspberry Pi 4 یا equivایکlent ایکRM device",
-          "recommended": "Recommended: x86 server کے ساتھ 16GB RAM, 1TB SSD",
-          "gpu": "GPU Compute: NVIDIایک RTX 3080 یا higher کے لیے ایکI wیاkloایکds"
-        },
         "sections": {
-          "categories": "Infrایکstructure Cپرegیاies",
-          "categoriesDesc": "تعینات کریں اور eایکrn ایکcross multiple DePIN protocols",
-          "protocolFeatures": "پروtocol Feپرures"
+          "networkTypes": "نیٹ ورک اقسام",
+          "networkTypesDesc": "TBURN پر معاون DePIN نیٹ ورک زمروں کی تلاش کریں",
+          "platformCapabilities": "پلیٹ فارم صلاحیتیں"
         },
         "cta": {
-          "title": "پڑھیںy کی طرف شامل ہوں  DePIN Revolutiپر?",
-          "desc": "تعینات کریں میںfrایکstructure, eایکrn rewایکrds, اور help build  decentrایکlized future. Our guides will help you get stایکrted میں mمیںutes.",
+          "title": "DePIN نیٹ ورک میں شامل ہونے کے لیے تیار؟",
+          "desc": "فزیکل انفراسٹرکچر کا حصہ ڈالیں اور انعامات حاصل کریں۔ آج ہی اپنی پیسیو انکم شروع کریں۔",
           "getStarted": "شروع کریں"
         }
       },
       "stablecoins": {
-        "tag": "اسٹیبل کوائنز",
-        "title": "اسٹیبل کوائنز",
-        "subtitle": "انٹرپرائز گریڈ اسٹیبل کوائن انفراسٹرکچر۔",
+        "tag": "سٹیبل کوائنز",
+        "title": "سٹیبل کوائنز",
+        "subtitle": "TBURN پر انٹرپرائز گریڈ سٹیبل کوائن انفراسٹرکچر بنائیں۔ فیاٹ بیکڈ، کرپٹو بیکڈ اور الگورتھمک سٹیبل کوائنز۔",
         "buttons": {
-          "issueStablecoin": "Issue Stایکblecoمیں",
-          "technicalDocs": "Technicایکl Docs"
+          "launchStablecoin": "سٹیبل کوائن لانچ کریں",
+          "documentation": "دستاویزات"
         },
-        "types": {
+        "categories": {
           "fiatBacked": {
-            "title": "Fiپر-واپسed Stایکblecoمیںs",
-            "desc": "1:1 reserve-bایکcked tokens کے ساتھ reایکl-time proکا کا reserves. ایکudited bایکk ایکccounts کے ساتھ trایکspہیںnt پرtestپرiپر repیاts."
+            "title": "فیاٹ بیکڈ",
+            "desc": "USD، EUR اور دیگر فیاٹ کرنسیوں سے 1:1 تعاون یافتہ۔ ریئل ٹائم ریزرو ثبوت اور ریگولیٹری تعمیل۔"
           },
-          "cryptoCollateralized": {
-            "title": "Crypto-Colبعد میںایکlized",
-            "desc": "Over-colبعد میںایکlized stایکblecoمیںs bایکcked کی طرف سے crypto ایکssets. خودکارmپرed liquidپرiپر mechایکہےms اور decentrایکlized governایکce."
+          "cryptoBacked": {
+            "title": "کرپٹو بیکڈ",
+            "desc": "کرپٹو اثاثوں سے اوور کولیٹرلائزڈ سٹیبل کوائنز۔ خودکار لیکویڈیشن، قیمت استحکام میکانزم۔"
           },
-          "institutionalGrade": {
-            "title": "Institutiپرایکl Grایکde",
-            "desc": "Bایکk-grایکde compliایکce کے ساتھ ایکML/KYC میںtegrپرiپر. Whitelہےtمیںg, blایکcklہےtمیںg, اور regulپریاy repیاtمیںg built-میں."
+          "algorithmic": {
+            "title": "الگورتھمک سٹیبل کوائنز",
+            "desc": "AI سے چلنے والی سپلائی/ڈیمانڈ بیلنسنگ۔ ڈائنامک ری بیسنگ اور استحکام میکانزم۔"
           },
-          "multiCurrency": {
-            "title": "Multi-Currency سپورٹ",
-            "desc": "Issue stایکblecoمیںs pegged کی طرف ایکy fiپر currency. USD, EUR, GBP, JPY, اور emergمیںg mایکrket currencies suppیاted."
+          "commodity": {
+            "title": "کموڈٹی بیکڈ",
+            "desc": "سونے اور چاندی جیسے فزیکل اثاثوں سے تعاون یافتہ۔ آن چین آڈٹس اور ریئل ٹائم پرائس اوریکلز۔"
           }
         },
         "metrics": {
-          "totalSupply": "کل Stایکblecoمیں Supply",
-          "dailyTransactions": "روزانہ Trایکsایکctiپرs",
-          "pegDeviation": "Mایکx Peg Deviپرiپر"
+          "totalSupply": "کل سپلائی",
+          "dailyVolume": "روزانہ حجم",
+          "pegStability": "پیگ استحکام",
+          "backingRatio": "بیکنگ ریشو"
         },
         "features": {
-          "proofOfReserves": {
-            "title": "پروکا کا Reserves",
-            "desc": "Reایکl-time پر-chایکمیں پرtestپرiپر کا bایکckمیںg ایکssets. Third-pایکrty ایکuditیاs verify reserve rپرios cپرtمیںuously."
-          },
           "instantSettlement": {
-            "title": "فوری Settlement",
-            "desc": "Sub-secپرd trایکsایکctiپر fمیںایکlity کے ساتھ 50,000+ TPS. نہیں wایکitمیںg کے لیے bایکk trایکsfers یا cleایکrمیںg houses."
+            "title": "فوری سیٹلمنٹ",
+            "desc": "سب سیکنڈ ٹرانزیکشن فائنلٹی۔ کراس چین برجز اور عالمی ادائیگیاں۔"
           },
-          "programmableCompliance": {
-            "title": "پروgrایکmmایکble Compliایکce",
-            "desc": "Smایکrt cپرtrایکct-enکے لیےced trایکsfer restrictiپرs. Geogrایکphic limاس کا, holdمیںg cایکps, اور regulپریاy cپرtrols."
+          "proofOfReserves": {
+            "title": "ریزرو کا ثبوت",
+            "desc": "ریئل ٹائم آن چین آڈٹس۔ شفاف کولیٹرل تصدیق اور خودکار رپورٹنگ۔"
           },
-          "crossChainBridges": {
-            "title": "Cross-Chایکمیں Bridges",
-            "desc": "Nپرive bridges کی طرف Etیہاںum, Polygپر, ایکrbitrum, اور mیاe. Unified liquidity ایکcross multiple netwیاks."
-          }
-        },
-        "useCases": {
-          "payments": {
-            "title": "Globایکl Pایکyments",
-            "desc": "فوری cross-bیاder trایکsfers کے ساتھ mمیںimایکl fees. Replایکce SWIFT کے ساتھ blockchایکمیں-bایکsed settlement."
+          "regulatoryCompliance": {
+            "title": "ریگولیٹری تعمیل",
+            "desc": "بلٹ ان KYC/AML، ٹریول رول تعمیل۔ ملٹی جوریزڈکشن لائسنس سپورٹ۔"
           },
-          "defiCollateral": {
-            "title": "DeFi Colبعد میںایکl",
-            "desc": "Use stایکblecoمیںs ایکs colبعد میںایکl کے لیے lendمیںg, bیاrowمیںg, اور yield fایکrmمیںg. Stایکble vایکlue کے لیے predictایکble positiپرs."
-          },
-          "treasury": {
-            "title": "Treایکsury Mایکایکgement",
-            "desc": "Cیاpیاپرe treایکsury operپرiپرs کے ساتھ پر-chایکمیں trایکspہیںncy. خودکارmپرed pایکyments اور cایکsh flow mایکایکgement."
-          },
-          "payroll": {
-            "title": "Pایکyroll & Benefاس کا",
-            "desc": "فوری globایکl pایکyroll میں stایکble currencies. خودکار tایکx کے ساتھholdمیںg اور benefاس کا dہےtributiپر."
+          "multiChain": {
+            "title": "ملٹی چین سپورٹ",
+            "desc": "ہموار کراس چین ٹرانسفرز۔ AI سے چلنے والی برج آپٹیمائزیشن اور سیکیورٹی۔"
           }
         },
         "sections": {
-          "types": "Stایکblecoمیں قسمs",
-          "typesDesc": "چنیں  right stایکblecoمیں model کے لیے آپ کا needs",
-          "platformFeatures": "Plپرکے لیےm Cایکpایکbilities",
-          "useCases": "Use Cایکses"
+          "types": "سٹیبل کوائن اقسام",
+          "typesDesc": "TBURN پر معاون سٹیبل کوائن ماڈلز کی تلاش کریں",
+          "platformFeatures": "پلیٹ فارم فیچرز"
         },
         "cta": {
-          "title": "پڑھیںy کی طرف Lایکunch Yہمارا Stایکblecoمیں?",
-          "desc": "سے cپرcept کی طرف lایکunch میں weeks. Our teایکm provides end-کی طرف-end suppیاt کے لیے stایکblecoمیں ہےsuایکce اور mایکایکgement.",
+          "title": "اپنا سٹیبل کوائن لانچ کرنے کے لیے تیار؟",
+          "desc": "انٹرپرائز گریڈ انفراسٹرکچر کے ساتھ مستحکم ڈیجیٹل کرنسیز بنائیں۔ ہماری ماہر ٹیم پوری لانچ عمل میں مدد کرتی ہے۔",
           "getStarted": "شروع کریں"
         }
       },
       "institutional": {
-        "tag": "ادارہ جاتی",
-        "title": "ادارہ جاتی ادائیگیاں",
-        "subtitle": "انٹرپرائزز کے لیے زیادہ والیوم ادائیگی کے حل۔",
+        "tag": "ادارہ جاتی حل",
+        "title": "ادارہ جاتی حل",
+        "subtitle": "بڑی کارپوریشنز اور مالیاتی اداروں کے لیے انٹرپرائز گریڈ بلاکچین حل۔ سرحد پار ادائیگیاں، اثاثہ مینجمنٹ، تعمیل۔",
         "buttons": {
-          "contactSales": "رابطہ Sایکles",
-          "apiReference": "API Reference"
+          "contactSales": "سیلز سے رابطہ کریں",
+          "whitePaper": "وائٹ پیپر"
         },
-        "paymentFeatures": {
-          "rtgs": {
-            "title": "Reایکl-وقت Gross Settlement",
-            "desc": "فوری fمیںایکlity کے لیے high-vایکlue trایکsایکctiپرs. نہیں bپرchمیںg delایکys یا counterpایکrty rہےk."
-          },
+        "categories": {
           "crossBorder": {
-            "title": "Cross-Bیاder Pایکyments",
-            "desc": "Globایکl reایکch کے ساتھ locایکl settlement. Multi-currency suppیاt کے ساتھ reایکl-time FX اور cیاridیا optimizپرiپر."
+            "title": "سرحد پار ادائیگیاں",
+            "desc": "فوری سیٹلمنٹ اور شفاف فیس کے ساتھ عالمی ادائیگیاں۔ ملٹی کرنسی سپورٹ اور FX آپٹیمائزیشن۔"
           },
-          "compliant": {
-            "title": "Regulپریاy Compliایکt",
-            "desc": "Built کے لیے regulپرed fمیںایکciایکl میںstitutiپرs. Full SWIFT compپرibility, ISO 20022, اور regulپریاy repیاtمیںg."
+          "treasury": {
+            "title": "ٹریژری مینجمنٹ",
+            "desc": "کارپوریٹ ٹریژری کے لیے ڈیجیٹل اثاثہ مینجمنٹ۔ ییلڈ آپٹیمائزیشن، رسک مینجمنٹ، خودکار رپورٹنگ۔"
           },
-          "smartContract": {
-            "title": "Smایکrt Cپرtrایکct Escrow",
-            "desc": "پروgrایکmmایکble pایکyment cپرditiپرs اور escrow. خودکارmپرe complex settlement wیاkflows اور multi-pایکrty ایکgreements."
+          "custody": {
+            "title": "ادارہ جاتی کسٹڈی",
+            "desc": "بینک گریڈ سیکیورٹی کے ساتھ ڈیجیٹل اثاثہ سٹوریج۔ ملٹی سگ، انشورنس، ریگولیٹری تعمیل۔"
+          },
+          "trading": {
+            "title": "ادارہ جاتی ٹریڈنگ",
+            "desc": "ہائی والیوم ٹریڈنگ کے لیے OTC ڈیسک اور ڈارک پولز۔ گہری لیکویڈیٹی اور بہترین ایگزیکیوشن۔"
           }
         },
         "metrics": {
-          "dailyVolume": "روزانہ Settlement Volume",
-          "transactionFee": "Trایکsایکctiپر فیس",
-          "uptimeSla": "Uptime SLA"
+          "institutionalClients": "ادارہ جاتی کلائنٹس",
+          "dailySettlement": "روزانہ سیٹلمنٹ",
+          "uptime": "اپ ٹائم",
+          "compliance": "تعمیل شرح"
         },
-        "integrations": {
-          "coreBanking": {
-            "title": "Cیاe Bایکkمیںg میںtegrپرiپر",
-            "desc": "Nپرive cپرnectیاs کے لیے mایکjیا cیاe bایکkمیںg systems. Seایکmless میںtegrپرiپر کے ساتھ exہےtمیںg میںfrایکstructure."
+        "features": {
+          "enterpriseGrade": {
+            "title": "انٹرپرائز گریڈ سیکیورٹی",
+            "desc": "SOC 2 Type II، ISO 27001 سرٹیفیکیشنز۔ کوانٹم مزاحم انکرپشن اور ہارڈویئر سیکیورٹی ماڈیولز۔"
           },
-          "treasury": {
-            "title": "Treایکsury Mایکایکgement",
-            "desc": "Reایکl-time cایکsh positiپر vہےibility اور ایکutomپرed liquidity optimizپرiپر ایکcross ایکccounts."
+          "customIntegration": {
+            "title": "کسٹم انٹیگریشن",
+            "desc": "موجودہ سسٹمز کے ساتھ ہموار انٹیگریشن۔ REST API، WebSocket، FIX پروٹوکول سپورٹ۔"
           },
-          "correspondent": {
-            "title": "Cیاrespپرdent Bایکkمیںg",
-            "desc": "Reduce cیاrespپرdent bایکkمیںg fees اور settlement times. Direct peer-کی طرف-peer میںstitutiپرایکl trایکsfers."
+          "dedicatedSupport": {
+            "title": "ڈیڈیکیٹڈ سپورٹ",
+            "desc": "24/7 ڈیڈیکیٹڈ اکاؤنٹ مینیجر۔ SLA گارنٹیز اور ترجیحی سپورٹ۔"
           },
-          "operations": {
-            "title": "24/7 Operپرiپرs",
-            "desc": "Round--clock settlement کے ساتھ no bپرch processمیںg. Cپرtمیںuous operپرiپرs کے ساتھ 99.99% uptime guایکrایکtee."
-          }
-        },
-        "clientTypes": {
-          "centralBanks": {
-            "title": "Centrایکl Bایکks",
-            "desc": "CBDC ہےsuایکce اور wholesایکle settlement میںfrایکstructure کے لیے mپرetایکry ایکuthیاities."
-          },
-          "commercialBanks": {
-            "title": "Commerciایکl Bایکks",
-            "desc": "Retایکil اور cیاpیاپرe pایکyment rایکils کے ساتھ full regulپریاy compliایکce."
-          },
-          "paymentProcessors": {
-            "title": "Pایکyment پروcessیاs",
-            "desc": "زیادہ-volume trایکsایکctiپر processمیںg کے ساتھ میںstایکt settlement اور mمیںimایکl fees."
-          },
-          "fintechs": {
-            "title": "Fمیںtechs & Neobایکks",
-            "desc": "Modern bایکkمیںg میںfrایکstructure بغیر legایکcy سسٹم cپرstrایکمیںts."
+          "regulatoryReporting": {
+            "title": "ریگولیٹری رپورٹنگ",
+            "desc": "خودکار تعمیل رپورٹنگ۔ ملٹی جوریزڈکشن ریگولیٹری تعمیل۔"
           }
         },
         "sections": {
-          "paymentFeatures": "Pایکyment Infrایکstructure",
-          "paymentFeaturesDesc": "Enterprہےe-grایکde pایکyment cایکpایکbilities کے لیے fمیںایکciایکl میںstitutiپرs",
-          "systemIntegrations": "سسٹم Integrپرiپرs",
-          "clientTypes": "Client قسمs"
+          "solutions": "ادارہ جاتی حل",
+          "solutionsDesc": "بڑے انٹرپرائزز کے لیے کسٹم بلاکچین حل",
+          "capabilities": "پلیٹ فارم صلاحیتیں"
         },
         "cta": {
-          "title": "پڑھیںy کی طرف Modernize Yہمارا Pایکyment Infrایکstructure?",
-          "desc": "شیڈول ایک demo کے ساتھ ہمارا میںstitutiپرایکl teایکm. We'll دکھائیں you how TBURN cایک trایکsکے لیےm آپ کا pایکyment operپرiپرs.",
-          "requestDemo": "Request Demo"
+          "title": "ادارہ جاتی حل کے بارے میں جانیں",
+          "desc": "ہم آپ کی کمپنی کی ضروریات کے لیے کسٹم بلاکچین حل تجویز کریں گے۔ ہمارے ماہرین سے مشورہ کریں۔",
+          "contactUs": "ہم سے رابطہ کریں"
         }
       },
       "enterprise": {
-        "tag": "انٹرپرائز بلاکچین",
+        "tag": "انٹرپرائز",
         "title": "انٹرپرائز حل",
-        "subtitle": "جدید کاروباروں کے لیے جامع بلاکچین حل۔ پرائیویٹ نیٹ ورکس، تعمیل کی خصوصیات، اور 24/7 انٹرپرائز سپورٹ۔",
-        "contactEnterprise": "انٹرپرائز سے رابطہ کریں",
-        "enterpriseDocs": "انٹرپرائز دستاویزات",
-        "metrics": {
-          "enterpriseClients": "Enterprہےe Clients",
-          "uptimeGuarantee": "Uptime Guایکrایکtee",
-          "dedicatedSupport": "Dedicپرed سپورٹ"
+        "subtitle": "جدید کاروبار کے لیے جامع بلاکچین حل۔ پرائیویٹ نیٹ ورکس، تعمیل فیچرز، 24/7 انٹرپرائز سپورٹ۔",
+        "buttons": {
+          "getStarted": "شروع کریں",
+          "contactSales": "سیلز سے رابطہ کریں"
         },
-        "solutions": {
-          "title": "انٹرپرائز حل",
-          "subtitle": "جدید کاروباری چیلنجز کے لیے بلاکچین ایپلیکیشنز۔",
-          "identityAccess": {
-            "title": "شناخت اور رسائی کا انتظام",
-            "description": "خود مختار اسناد کے ساتھ غیر مرکزی شناخت۔ ملٹی فیکٹر توثیق، SSO انٹیگریشن، اور تفصیلی اجازت کنٹرولز۔"
+        "categories": {
+          "privateNetwork": {
+            "title": "پرائیویٹ نیٹ ورک",
+            "desc": "ڈیڈیکیٹڈ بلاکچین انفراسٹرکچر۔ مکمل کنٹرول، کسٹم کنسینسس، انٹرپرائز SLA۔"
           },
           "supplyChain": {
-            "title": "سپلائی چین شفافیت",
-            "description": "اینڈ ٹو اینڈ پروڈکٹ ماخذ ٹریکنگ۔ IoT انٹیگریشن کے ساتھ مینوفیکچرر سے صارف تک ناقابل تبدیل آڈٹ ٹریلز۔",
-            "desc": "ختم-کی طرف-ختم product provenایکce trایکckمیںg. Immutایکble ایکudit trایکils from mایکufایکcturer کی طرف cپرsumer کے ساتھ IoT میںtegrپرiپر."
-          },
-          "documentManagement": {
-            "title": "دستاویز کا انتظام",
-            "description": "چھیڑ چھاڑ سے محفوظ دستاویز اسٹوریج اور تصدیق۔ ڈیجیٹل دستخط، ورژن کنٹرول، اور تعمیل آرکائیونگ۔"
-          },
-          "processAutomation": {
-            "title": "کاروباری عمل آٹومیشن",
-            "description": "سمارٹ کنٹریکٹ سے چلنے والے ورک فلوز۔ اعتماد سے پاک عمل درآمد کے ساتھ منظوریوں، ادائیگیوں، اور کثیر فریقی معاہدوں کو خودکار کریں۔"
+            "title": "سپلائی چین مینجمنٹ",
+            "desc": "اینڈ ٹو اینڈ ٹریس ایبلٹی اور شفافیت۔ IoT انٹیگریشن، خودکار تصدیق، ریئل ٹائم اینالیٹکس۔"
           },
           "identity": {
-            "title": "Identity & رسائی Mایکایکgement",
-            "desc": "Decentrایکlized identity کے ساتھ self-sovereign credentiایکls. Multi-fایکctیا ایکunticپرiپر, SSO میںtegrپرiپر, اور grایکulایکr permہےsiپر cپرtrols."
+            "title": "ڈیجیٹل شناخت",
+            "desc": "ڈسٹریبیوٹڈ شناخت مینجمنٹ۔ SSI، قابل تصدیق کریڈینشلز، پرائیویسی تحفظ۔"
           },
-          "document": {
-            "title": "Document Mایکایکgement",
-            "desc": "Tایکmper-proکا document stیاایکge اور verificپرiپر. Digitایکl signپرures, versiپر cپرtrol, اور compliایکce ایکrchivمیںg."
-          },
-          "automation": {
-            "title": "Busمیںess پروcess خودکارmپرiپر",
-            "desc": "Smایکrt cپرtrایکct-driven wیاkflows. خودکارmپرe ایکpprovایکls, pایکyments, اور multi-pایکrty ایکgreements کے ساتھ trustless executiپر."
+          "dataManagement": {
+            "title": "ڈیٹا مینجمنٹ",
+            "desc": "ناقابل تبدیلی ڈیٹا ریکارڈز اور آڈٹ ٹریلز۔ GDPR تعمیل، ڈیٹا خود مختاری۔"
           }
         },
-        "platformFeatures": {
-          "title": "پلیٹ فارم فیچرز",
-          "soc2": {
-            "title": "SOC 2 موافق",
-            "description": "انٹرپرائز سیکیورٹی کنٹرولز اور سالانہ آڈٹس"
-          },
-          "privateSubnets": {
-            "title": "پرائیویٹ سب نیٹس",
-            "description": "حساس ڈیٹا کے لیے الگ تھلگ نیٹ ورک ماحول"
-          },
-          "roleBasedAccess": {
-            "title": "رول بیسڈ ایکسیس",
-            "description": "تفصیلی اجازتیں اور ملٹی ٹینینٹ علیحدگی"
-          },
-          "onPremise": {
-            "title": "آن پریمائز آپشن",
-            "description": "اپنے ڈیٹا سینٹر انفراسٹرکچر میں تعینات کریں"
-          }
-        },
-        "industryApplications": {
-          "title": "صنعتی ایپلیکیشنز",
-          "healthcare": {
-            "title": "ہیلتھ کیئر",
-            "description": "HIPAA موافق ریکارڈ مینجمنٹ"
-          },
-          "manufacturing": {
-            "title": "مینوفیکچرنگ",
-            "description": "سپلائی چین اور کوالٹی ایشورنس"
-          },
-          "legal": {
-            "title": "قانونی",
-            "description": "کنٹریکٹ مینجمنٹ اور ای دستخط"
-          },
-          "government": {
-            "title": "حکومت",
-            "description": "شفاف ریکارڈ کیپنگ اور ووٹنگ"
-          },
-          "insurance": {
-            "title": "انشورنس",
-            "description": "کلیمز پروسیسنگ اور فراڈ کا پتہ لگانا"
-          },
-          "logistics": {
-            "title": "لاجسٹکس",
-            "description": "شپمنٹ ٹریکنگ اور تصدیق"
-          }
-        },
-        "cta": {
-          "title": "انٹرپرائز بلاکچین کے لیے تیار ہیں؟",
-          "subtitle": "ہماری انٹرپرائز ٹیم کے ساتھ مشاورت شیڈول کریں۔ ہم ایک حسب ضرورت حل ڈیزائن کریں گے جو آپ کی تنظیم کی ضروریات کے مطابق ہو۔",
-          "scheduleConsultation": "مشاورت شیڈول کریں",
-          "desc": "شیڈول ایک cپرsultپرiپر کے ساتھ ہمارا enterprہےe teایکm. We'll design ایک custom solutiپر وہ fاس کا آپ کا یاgایکizپرiپر's requirements."
-        },
-        "buttons": {
-          "contactEnterprise": "رابطہ Enterprہےe",
-          "enterpriseDocs": "Enterprہےe Docs"
+        "metrics": {
+          "enterpriseClients": "انٹرپرائز کلائنٹس",
+          "processedTransactions": "پروسیسڈ ٹرانزیکشنز",
+          "costReduction": "لاگت میں کمی",
+          "deploymentTime": "تعیناتی وقت"
         },
         "features": {
-          "soc2": {
-            "title": "SOC 2 Compliایکt",
-            "desc": "Enterprہےe security cپرtrols کے ساتھ ایکnuایکl third-pایکrty ایکudاس کا. Full compliایکce documentپرiپر اور certificپرiپرs."
+          "customBlockchain": {
+            "title": "کسٹم بلاکچین",
+            "desc": "آپ کی کاروباری ضروریات کے لیے ڈیڈیکیٹڈ نیٹ ورک۔ کسٹم کنسینسس، پرائیویسی لیئر، کارکردگی آپٹیمائزیشن۔"
           },
-          "privateSubnets": {
-            "title": "نجی Subnets",
-            "desc": "Isolپرed netwیاk envirپرments کے لیے sensitive dپرایک. حسب ضرورت cپرsensus rules اور ایکccess cپرtrols کے لیے آپ کا یاgایکizپرiپر."
+          "hybridDeployment": {
+            "title": "ہائبرڈ تعیناتی",
+            "desc": "پرائیویٹ اور پبلک بلاکچینز کا کنکشن۔ ڈیٹا پرائیویسی اور شفافیت میں توازن۔"
           },
-          "roleAccess": {
-            "title": "کردار-Bایکsed رسائی",
-            "desc": "Grایکulایکr permہےsiپرs اور multi-tenایکt ہےolپرiپر. Defمیںe custom roles کے ساتھ precہےe ایکccess کی طرف feپرures اور dپرایک."
+          "apiIntegration": {
+            "title": "API انٹیگریشن",
+            "desc": "موجودہ سسٹمز کے ساتھ ہموار انٹیگریشن۔ RESTful API، SDK، Webhooks۔"
           },
-          "onPremise": {
-            "title": "On-Premہےe تعینات کریںment",
-            "desc": "تعینات کریں کے ساتھمیں آپ کا own dپرایک center میںfrایکstructure. Full cپرtrol over hایکrdwہیں, netwیاkمیںg, اور security."
-          }
-        },
-        "industries": {
-          "healthcare": {
-            "title": "Heایکlthcہیں",
-            "desc": "HIPایکایک-compliایکt medicایکl recیاd mایکایکgement اور secure heایکlth dپرایک exchایکge between providers."
-          },
-          "manufacturing": {
-            "title": "Mایکufایکcturمیںg",
-            "desc": "Supply chایکمیں trایکckمیںg, quایکlity ایکssurایکce documentپرiپر, اور IoT sensیا dپرایک verificپرiپر."
-          },
-          "legal": {
-            "title": "Legایکl Services",
-            "desc": "Smایکrt cپرtrایکct-bایکsed ایکgreements, e-signپرures, اور immutایکble document ایکrchivمیںg."
-          },
-          "government": {
-            "title": "Government",
-            "desc": "Trایکspہیںnt public recیاds, secure votمیںg systems, اور citizen identity mایکایکgement."
-          },
-          "insurance": {
-            "title": "Insurایکce",
-            "desc": "خودکارmپرed clایکims processمیںg, frایکud detectiپر, اور policy ایکdmمیںہےtrپرiپر پر blockchایکمیں."
-          },
-          "logistics": {
-            "title": "Logہےtics",
-            "desc": "Reایکl-time shipment trایکckمیںg, customs documentپرiپر, اور delivery verificپرiپر."
+          "compliance": {
+            "title": "تعمیل ٹولز",
+            "desc": "ریگولیٹری ضروریات کو پورا کریں۔ آڈٹ ٹریلز، رپورٹنگ، سرٹیفیکیشنز۔"
           }
         },
         "sections": {
-          "solutions": "Enterprہےe Solutiپرs",
-          "solutionsDesc": "Blockchایکمیں ایکpplicپرiپرs designed کے لیے enterprہےe chایکllenges",
-          "platformFeatures": "Security & Compliایکce",
-          "industryApplications": "Industry Applicپرiپرs"
+          "solutions": "انٹرپرائز حل",
+          "solutionsDesc": "آپ کی کاروباری ضروریات کے لیے بلاکچین حل",
+          "capabilities": "بنیادی صلاحیتیں"
+        },
+        "cta": {
+          "title": "انٹرپرائز حل سے شروع کریں",
+          "desc": "کاروباری جدت کے لیے بلاکچین حل۔ ہمارے ماہرین سے مشورہ کریں۔",
+          "contactUs": "ہم سے رابطہ کریں"
         }
       }
     },
