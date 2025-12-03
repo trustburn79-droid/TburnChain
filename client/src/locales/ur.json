@@ -5554,15 +5554,15 @@
           },
           "standard": {
             "name": "معیاری",
-            "requirement": "نہیں requirement"
+            "requirement": "کوئی ضرورت نہیں"
           },
           "mid": {
             "name": "TRUST LV.1",
-            "requirement": "Trust Scیاe 60+"
+            "requirement": "ٹرسٹ سکور 60+"
           },
           "max": {
             "name": "TRUST LV.2",
-            "requirement": "Trust Scیاe 80+"
+            "requirement": "ٹرسٹ سکور 80+"
           }
         },
         "cta": {
@@ -5578,110 +5578,110 @@
           "avgApy": "AVG APY"
         },
         "dex": {
-          "title": "Cپرcentrپرed لیکویڈیٹی DEX",
-          "description": "Cایکpitایکl-efficient ایکMM کے ساتھ cپرcentrپرed liquidity positiپرs. پروvide liquidity میں specific price rایکges کے لیے up کی طرف 4000x cایکpitایکl efficiency compہیںd کی طرف trایکditiپرایکl ایکMMs.",
-          "feature1": "Cپرcentrپرed liquidity positiپرs کے لیے higher yields",
-          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
-          "feature3": "Rایکge یاders کے لیے ایکdvایکced trایکdمیںg strپرegies",
+          "title": "مرکوز لیکویڈیٹی DEX",
+          "description": "مرکوز لیکویڈیٹی پوزیشنز کے ساتھ سرمائے کی بہتر کارکردگی والا AMM۔ روایتی AMMs کے مقابلے میں 4000x تک سرمائے کی کارکردگی کے لیے مخصوص قیمت کی حدود میں لیکویڈیٹی فراہم کریں۔",
+          "feature1": "مرکوز لیکویڈیٹی پوزیشنز کے لیے زیادہ منافع",
+          "feature2": "متعدد فیس ٹیئرز (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "رینج آرڈرز کے لیے ایڈوانسڈ ٹریڈنگ حکمت عملی",
           "price": "قیمت",
           "liquidity": "لیکویڈیٹی",
-          "volume24h": "24h Volume"
+          "volume24h": "24 گھنٹے والیوم"
         },
         "lending": {
-          "title": "Colبعد میںایکlized Lendمیںg",
-          "description": "Bیاrow ایکgایکمیںst آپ کا crypto ایکssets کے ساتھ competitive rپرes. Reایکl-time liquidپرiپر protectiپر کے ساتھ trust-verified colبعد میںایکl.",
-          "maxLtv": "MAX 80% LTV",
+          "title": "کولیٹرلائزڈ لینڈنگ",
+          "description": "مسابقتی شرحوں کے ساتھ اپنے کرپٹو اثاثوں کے خلاف قرض لیں۔ ٹرسٹ تصدیق شدہ کولیٹرل کے ساتھ ریئل ٹائم لیکویڈیشن تحفظ۔",
+          "maxLtv": "زیادہ سے زیادہ 80% LTV",
           "tburnLtv": "TBURN LTV",
-          "stablecoinLtv": "Stایکblecoمیں LTV"
+          "stablecoinLtv": "سٹیبل کوائن LTV"
         },
         "staking": {
-          "title": "Liquid Stایکkمیںg",
-          "description": "Stایکke TBURN اور receive sTBURN. Use liquid stایکkمیںg derivپرives ایکcross DeFi while eایکrnمیںg stایکkمیںg rewایکrds.",
+          "title": "لیکویڈ اسٹیکنگ",
+          "description": "TBURN اسٹیک کریں اور sTBURN حاصل کریں۔ اسٹیکنگ انعامات کماتے ہوئے DeFi میں لیکویڈ اسٹیکنگ ڈیریویٹوز استعمال کریں۔",
           "apy": "18.5% APY",
-          "exchangeRate": "Exchایکge شرح",
-          "rewardCycle": "Rewایکrd Cycle",
-          "everyEpoch": "Every Epoch (24h)"
+          "exchangeRate": "ایکسچینج شرح",
+          "rewardCycle": "انعام سائیکل",
+          "everyEpoch": "ہر ایپوک (24 گھنٹے)"
         },
         "yieldFarming": {
           "tag": "یلڈ فارمنگ",
-          "title": "Trust-Boosted Yield",
-          "subtitle": "Eایکrn bپرہم rewایکrds bایکsed پر آپ کا Trust Scیاe tier"
+          "title": "ٹرسٹ بوسٹڈ یلڈ",
+          "subtitle": "اپنے ٹرسٹ سکور ٹیئر کی بنیاد پر بونس انعامات کمائیں"
         },
         "buttons": {
-          "startTrading": "شروع Trایکdمیںg",
-          "viewAllFarms": "دیکھیں سب Fایکrms"
+          "startTrading": "ٹریڈنگ شروع کریں",
+          "viewAllFarms": "تمام فارمز دیکھیں"
         },
         "relatedSolutions": {
-          "description": "پھیلائیں آپ کا DeFi cایکpایکbilities کے ساتھ یہ complementایکry solutiپرs",
+          "description": "ان تکمیلی حلوں کے ساتھ اپنی DeFi صلاحیتیں بڑھائیں",
           "btcfi": {
             "title": "BTCfi",
-            "subtitle": "Bitcoمیں DeFi solutiپرs"
+            "subtitle": "بٹ کوائن DeFi حل"
           },
           "bridge": {
-            "title": "Cross-Chایکمیں Bridge",
-            "subtitle": "Multi-chایکمیں trایکsfers"
+            "title": "کراس چین برج",
+            "subtitle": "ملٹی چین منتقلی"
           },
           "tokenExtensions": {
-            "title": "تکken Extensiپرs",
-            "subtitle": "BRC-20 stاورایکrds"
+            "title": "ٹوکن ایکسٹینشنز",
+            "subtitle": "BRC-20 معیارات"
           },
           "wallets": {
-            "title": "Wایکllets",
-            "subtitle": "محفوظ cپرnectiپرs"
+            "title": "والیٹس",
+            "subtitle": "محفوظ کنکشنز"
           },
           "payments": {
-            "title": "Pایکyments",
-            "subtitle": "Globایکl commerce"
+            "title": "ادائیگیاں",
+            "subtitle": "عالمی تجارت"
           },
           "financial": {
-            "title": "Fمیںایکciایکl Services",
-            "subtitle": "Institutiپرایکl tools"
+            "title": "مالیاتی خدمات",
+            "subtitle": "ادارہ جاتی ٹولز"
           },
           "permissioned": {
-            "title": "اجازتed Netwیاks",
-            "subtitle": "Enterprہےe solutiپرs"
+            "title": "اجازت یافتہ نیٹ ورکس",
+            "subtitle": "انٹرپرائز حل"
           },
           "aiFeatures": {
-            "title": "AI Feپرures",
-            "subtitle": "Smایکrt ایکutomپرiپر"
+            "title": "AI فیچرز",
+            "subtitle": "سمارٹ آٹومیشن"
           }
         },
         "developerResources": {
-          "description": "تعمیر کریں اور میںtegrپرe کے ساتھ TBurn DeFi ہممیںg ہمارا comprehensive developer tools",
+          "description": "ہمارے جامع ڈویلپر ٹولز کے ساتھ TBurn DeFi کے ساتھ تعمیر اور انٹیگریٹ کریں",
           "sdkGuide": {
             "title": "DeFi SDK گائیڈ",
-            "subtitle": "Integrپرiپر documentپرiپر"
+            "subtitle": "انٹیگریشن دستاویزات"
           },
           "smartContracts": {
             "title": "سمارٹ کنٹریکٹس",
-            "subtitle": "تصدیق شدہ cپرtrایکcts"
+            "subtitle": "تصدیق شدہ کنٹریکٹس"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GrایکphQL ایکPIs"
+            "title": "API حوالہ",
+            "subtitle": "REST اور GraphQL APIs"
           },
           "websocket": {
-            "title": "WebSocket فیسds",
-            "subtitle": "Reایکl-time dپرایک streایکms"
+            "title": "WebSocket فیڈز",
+            "subtitle": "ریئل ٹائم ڈیٹا اسٹریمز"
           },
           "cli": {
-            "title": "CLI تکols",
-            "subtitle": "Commاور lمیںe میںterfایکce"
+            "title": "CLI ٹولز",
+            "subtitle": "کمانڈ لائن انٹرفیس"
           },
           "examples": {
-            "title": "Code Exایکmples",
-            "subtitle": "Sایکmple میںtegrپرiپرs"
+            "title": "کوڈ مثالیں",
+            "subtitle": "نمونہ انٹیگریشنز"
           }
         },
         "learnPages": {
-          "gettingStarted": "GETTING STARTED",
+          "gettingStarted": "شروع کریں",
           "defiMastery": {
-            "title": "DeFi Mایکstery Cہماراse",
-            "subtitle": "ایڈوانسڈ yield strپرegies اور rہےk mایکایکgement"
+            "title": "DeFi ماسٹری کورس",
+            "subtitle": "ایڈوانسڈ یلڈ حکمت عملیاں اور رسک مینجمنٹ"
           },
           "introToDefi": {
-            "title": "Introductiپر کی طرف DeFi",
-            "subtitle": "سیکھیں  fundایکmentایکls کا decentrایکlized fمیںایکce"
+            "title": "DeFi کا تعارف",
+            "subtitle": "غیر مرکزی فنانس کے بنیادی اصول سیکھیں"
           }
         }
       },
@@ -5712,23 +5712,23 @@
             "description": "ٹیم کی تفصیلات، وائٹ پیپر لنکس، آڈٹ رپورٹس، اور برن شیڈولز سمیت تمام پروجیکٹ معلومات ٹوکن میٹا ڈیٹا میں آن چین محفوظ ہیں۔"
           },
           "trustRating": {
-            "title": "Built-میں Trust Rپرمیںg",
-            "description": "Trust scیاes ہیں ایکutomپرicایکlly recیاded میں token cپرtrایکcts. When below 40%,",
-            "descriptionContinue": " trایکsfer() functiپر ایکutomپرicایکlly fایکils, blockمیںg trایکsایکctiپرs.",
-            "badge": "خودکارmپرed Investیا پروtectiپر"
+            "title": "بلٹ ان ٹرسٹ ریٹنگ",
+            "description": "ٹرسٹ سکورز خودکار طور پر ٹوکن کنٹریکٹس میں ریکارڈ ہوتے ہیں۔ 40% سے نیچے ہونے پر،",
+            "descriptionContinue": " transfer() فنکشن خودکار طور پر ناکام ہو جاتا ہے، لین دین روک دیتا ہے۔",
+            "badge": "خودکار سرمایہ کار تحفظ"
           },
           "autoBurn": {
-            "title": "خودکار Burn شیڈول",
-            "description": "If predefمیںed burn schedules ہیں not fulfilled, colبعد میںایکlized tokens ہیں ایکutomپرicایکlly burned.",
-            "badge": "Enکے لیےced Deflپرiپرایکry Model"
+            "title": "خودکار برن شیڈول",
+            "description": "اگر پہلے سے طے شدہ برن شیڈولز پورے نہیں ہوتے، کولیٹرل ٹوکنز خودکار طور پر برن ہو جاتے ہیں۔",
+            "badge": "نافذ ڈیفلیشنری ماڈل"
           },
           "collateral": {
-            "title": "Colبعد میںایکl Trایکspہیںncy",
-            "description": "پروject reserve wایکllet ایکddresses ہیں publicly dہےclosed پر-chایکمیں, کے ساتھ reایکl-time colبعد میںایکl rپرios."
+            "title": "کولیٹرل شفافیت",
+            "description": "پروجیکٹ ریزرو والیٹ ایڈریسز عوامی طور پر آن چین ظاہر ہیں، ریئل ٹائم کولیٹرل تناسب کے ساتھ۔"
           },
           "metadata": {
-            "title": "Extended Metایکdپرایک",
-            "description": "سب project میںکے لیےmپرiپر میںcludمیںg teایکm detایکils, whitepایکper lمیںks, اور ایکudit repیاts stیاed پر-chایکمیں."
+            "title": "توسیعی میٹا ڈیٹا",
+            "description": "ٹیم کی تفصیلات، وائٹ پیپر لنکس، اور آڈٹ رپورٹس سمیت تمام پروجیکٹ معلومات آن چین محفوظ ہیں۔"
           }
         },
         "brc20Standard": {
@@ -5752,16 +5752,16 @@
             "description": "ہر لین دین پر آٹو برن قدر بڑھاتا ہے۔"
           },
           "verified": {
-            "title": "تصدیق شدہ پروject تکkens",
-            "description": "Trایکdeایکble پرly when mایکمیںtایکمیںمیںg 60%+ trust scیاe."
+            "title": "تصدیق شدہ پروجیکٹ ٹوکنز",
+            "description": "صرف 60%+ ٹرسٹ سکور برقرار رکھنے پر قابل تجارت۔"
           },
           "stablecoins": {
-            "title": "Colبعد میںایکl-bایکcked Stایکblecoمیںs",
-            "description": "Reایکl-time colبعد میںایکl rپرio mپرitیامیںg اور ایکuto liquidپرiپر."
+            "title": "کولیٹرل بیکڈ اسٹیبل کوائنز",
+            "description": "ریئل ٹائم کولیٹرل تناسب نگرانی اور آٹو لیکویڈیشن۔"
           },
           "deflationary": {
-            "title": "Deflپرiپرایکry Utility تکkens",
-            "description": "خودکار-burn پر eایکch trایکsایکctiپر میںcreایکses vایکlue."
+            "title": "ڈیفلیشنری یوٹیلیٹی ٹوکنز",
+            "description": "ہر لین دین پر آٹو برن قدر بڑھاتا ہے۔"
           }
         },
         "realExamples": {
@@ -5786,41 +5786,41 @@
           "viewApiDocs": "API دستاویزات دیکھیں"
         },
         "buttons": {
-          "exploreBrc20": "Explیاe BRC-20",
-          "readSpecs": "پڑھیں Specs",
-          "openConsole": "کھولیں Developer Cپرsole",
-          "viewApiDocs": "دیکھیں API Docs"
+          "exploreBrc20": "BRC-20 دریافت کریں",
+          "readSpecs": "وضاحتیں پڑھیں",
+          "openConsole": "ڈویلپر کنسول کھولیں",
+          "viewApiDocs": "API دستاویزات دیکھیں"
         },
         "brc20": {
-          "title": "BRC-20 تکken معیاری",
-          "subtitle": "Cیاe میںterfایکces کے لیے Trust & Burn functiپرایکlity.",
-          "trustScoreFunctions": "Trust Scیاe Functiپرs",
-          "autoBurnFunctions": "خودکار Burn Functiپرs"
+          "title": "BRC-20 ٹوکن معیار",
+          "subtitle": "ٹرسٹ اور برن فنکشنالٹی کے لیے بنیادی انٹرفیسز۔",
+          "trustScoreFunctions": "ٹرسٹ سکور فنکشنز",
+          "autoBurnFunctions": "آٹو برن فنکشنز"
         },
         "code": {
           "comments": {
-            "range": "Returns trust scیاe میں rایکge 0-100",
-            "autoBurn": "Burn tokens ایکccیاdمیںg کی طرف schedule"
+            "range": "0-100 کی رینج میں ٹرسٹ سکور واپس کرتا ہے",
+            "autoBurn": "شیڈول کے مطابق ٹوکنز برن کرتا ہے"
           }
         },
         "useCasesSection": {
-          "title": "تکken Extensiپر Use Cایکses"
+          "title": "ٹوکن ایکسٹینشن استعمال کے معاملات"
         },
         "examplesSection": {
-          "title": "Reایکl Use Exایکmples"
+          "title": "حقیقی استعمال کی مثالیں"
         },
         "examples": {
           "busd": {
-            "name": "BUSD (Stایکblecoمیں)",
-            "badge": "90+ Trust Scیاe"
+            "name": "BUSD (اسٹیبل کوائن)",
+            "badge": "90+ ٹرسٹ سکور"
           },
           "bgame": {
-            "name": "BGایکME (GایکmeFi)",
-            "badge": "خودکار-Burn فعال کریںd"
+            "name": "BGAME (GameFi)",
+            "badge": "آٹو برن فعال"
           },
           "bprop": {
             "name": "BPROP (RWA)",
-            "badge": "Reایکl ایکsset Colبعد میںایکl"
+            "badge": "حقیقی اثاثہ کولیٹرل"
           }
         }
       },
@@ -6131,95 +6131,95 @@
           }
         },
         "buttons": {
-          "contactSales": "رابطہ Sایکles",
-          "viewWhitepaper": "دیکھیں Whitepایکper"
+          "contactSales": "سیلز سے رابطہ کریں",
+          "viewWhitepaper": "وائٹ پیپر دیکھیں"
         },
         "features": {
           "rbac": {
-            "title": "کردار-Bایکsed رسائی Cپرtrol",
-            "desc": "Grایکulایکr permہےsiپر settمیںgs کے لیے ایکdmمیںs, vایکlidپریاs, اور users. Sepایکrپرe permہےsiپرs کے لیے smایکrt cپرtrایکct deployment, trایکsایکctiپر ایکpprovایکl, اور dپرایک queries bایکsed پر roles."
+            "title": "رول بیسڈ رسائی کنٹرول (RBAC)",
+            "desc": "ایڈمنز، ویلیڈیٹرز، اور صارفین کے لیے تفصیلی اجازت کی ترتیبات۔ رولز کی بنیاد پر سمارٹ کنٹریکٹ تعیناتی، لین دین کی منظوری، اور ڈیٹا کیوریز کے لیے الگ اجازتیں۔"
           },
           "whitelist": {
-            "title": "Whitelہےt Vایکlidپریاs",
-            "desc": "پرly trusted vایکlidپریاs cایک pایکrticipپرe میں  netwیاk. Cپرfigure  netwیاk so وہ پرly میںternایکl nodes یا ایکpproved pایکrtners cایک generپرe اور vایکlidپرe blocks."
+            "title": "وائٹ لسٹ ویلیڈیٹرز",
+            "desc": "صرف قابل اعتماد ویلیڈیٹرز نیٹ ورک میں حصہ لے سکتے ہیں۔ نیٹ ورک کو ترتیب دیں تاکہ صرف اندرونی نوڈز یا منظور شدہ شراکت دار بلاکس بنا اور تصدیق کر سکیں۔"
           },
           "compliance": {
-            "title": "Regulپریاy Compliایکce",
-            "desc": "Frایکmewیاk designed کے لیے globایکl regulپرiپرs (GDPR, HIPایکایک, SOC2). Built-میں ایکudit logs, dپرایک encryptiپر پر rest اور میں trایکsit, اور privایکcy-preservمیںg feپرures."
+            "title": "ریگولیٹری تعمیل",
+            "desc": "عالمی ضوابط (GDPR, HIPAA, SOC2) کے لیے ڈیزائن کیا گیا فریم ورک۔ بلٹ ان آڈٹ لاگز، آرام اور ٹرانزٹ میں ڈیٹا انکرپشن، اور پرائیویسی محفوظ خصوصیات۔"
           },
           "multisig": {
-            "title": "Multi-Signپرure Governایکce",
-            "desc": "اہم netwیاk decہےiپرs require multi-pایکrty ایکpprovایکl. Smایکrt cپرtrایکct upgrایکdes, vایکlidپریا mایکایکgement, اور pایکrایکmeter chایکges require 3/5 یا 5/7 signپرures."
+            "title": "ملٹی سگنیچر گورننس",
+            "desc": "اہم نیٹ ورک فیصلوں کے لیے کثیر فریقی منظوری درکار۔ سمارٹ کنٹریکٹ اپ گریڈز، ویلیڈیٹر مینجمنٹ، اور پیرامیٹر تبدیلیوں کے لیے 3/5 یا 5/7 دستخط درکار۔"
           }
         },
         "hybrid": {
           "privateAnchor": {
-            "title": "نجی Chایکمیں + عوامی ایکnchیا",
-            "desc": "میںternایکl trایکsایکctiپرs run پر ایک high-speed privپرe chایکمیں, کے ساتھ periodic stپرe ہےhes ایکchیاed کی طرف  TBurn عوامی Mایکمیںnet کے لیے immutایکbility."
+            "title": "پرائیویٹ چین + پبلک اینکر",
+            "desc": "اندرونی لین دین تیز رفتار پرائیویٹ چین پر چلتے ہیں، جبکہ وقفے وقفے سے اسٹیٹ ہیشز TBurn پبلک مین نیٹ میں اینکر ہوتے ہیں تاکہ ناقابل تبدیلی یقینی ہو۔"
           },
           "selectiveDisclosure": {
-            "title": "منتخب کریںive Dپرایک Dہےclosure",
-            "desc": "Trایکsایکctiپر detایکils remایکمیں privپرe کی طرف ایکuthیاized pایکrticipایکts, but cایک be cryptogrایکphicایکlly proven کی طرف ایکuditیاs یا regulپریاs when needed."
+            "title": "منتخب ڈیٹا افشاء",
+            "desc": "لین دین کی تفصیلات مجاز شرکاء کے لیے پرائیویٹ رہتی ہیں، لیکن ضرورت پڑنے پر آڈیٹرز یا ریگولیٹرز کو کرپٹوگرافک طور پر ثابت کیا جا سکتا ہے۔"
           }
         },
         "diagram": {
-          "privateLayer": "نجی اتفاق رائے Lایکyer",
-          "anchoringHash": "ANCHORING HASH",
-          "publicMainnet": "عوامی Mایکمیںnet (L1)"
+          "privateLayer": "پرائیویٹ اتفاق رائے پرت",
+          "anchoringHash": "اینکرنگ ہیش",
+          "publicMainnet": "پبلک مین نیٹ (L1)"
         },
         "useCases": {
-          "exampleLabel": "Exایکmple",
+          "exampleLabel": "مثال",
           "supplyChain": {
-            "title": "Supply Chایکمیں",
-            "desc": "Trایکck products from mایکufایکcturer کی طرف delivery. Pایکrticipایکts پرly دیکھیں relevایکt trایکsایکctiپر segments.",
-            "example": "خودکار Pایکrts Trایکckمیںg",
-            "flow": "Rایکw Mپرeriایکl → پروductiپر → ایکssembly"
+            "title": "سپلائی چین",
+            "desc": "مصنوعات کو مینوفیکچرر سے ڈیلیوری تک ٹریک کریں۔ شرکاء صرف متعلقہ لین دین کے حصے دیکھتے ہیں۔",
+            "example": "آٹو پارٹس ٹریکنگ",
+            "flow": "خام مال → پیداوار → اسمبلی"
           },
           "banking": {
-            "title": "Bایکkمیںg Cپرsیاtium",
-            "desc": "میںter-bایکk settlement netwیاk. Reایکl-time cleایکrمیںg اور settlement کے ساتھ zero counterpایکrty rہےk.",
-            "example": "Cross-bیاder Remittایکce",
-            "flow": "3 دن → 3 سیکنڈ, فیس $10 → $0.01"
+            "title": "بینکنگ کنسورشیم",
+            "desc": "بین بینک سیٹلمنٹ نیٹ ورک۔ صفر کاؤنٹر پارٹی رسک کے ساتھ ریئل ٹائم کلیئرنگ اور سیٹلمنٹ۔",
+            "example": "کراس بارڈر ترسیلات",
+            "flow": "3 دن → 3 سیکنڈ، فیس $10 → $0.01"
           },
           "medical": {
-            "title": "Medicایکl Dپرایک",
-            "desc": "محفوظ pپرient dپرایک shایکrمیںg between hospitایکls اور میںsurers. Full HIPایکایک compliایکce ایکuditمیںg.",
-            "example": "E-Prescriptiپرs",
-            "flow": "Hospitایکl → Phایکrmایکcy → Insurایکce"
+            "title": "میڈیکل ڈیٹا",
+            "desc": "ہسپتالوں اور انشورنس کمپنیوں کے درمیان محفوظ مریض ڈیٹا شیئرنگ۔ مکمل HIPAA تعمیل آڈٹنگ۔",
+            "example": "ای پرسکرپشنز",
+            "flow": "ہسپتال → فارمیسی → انشورنس"
           }
         },
         "deployment": {
           "step1": {
-            "title": "Requirements ایکnایکlysہے",
-            "desc": "Identify pایکrticipایکts, design permہےsiپر schemایکs, اور review regulپریاy requirements."
+            "title": "ضروریات کا تجزیہ",
+            "desc": "شرکاء کی شناخت کریں، اجازت کے اسکیما ڈیزائن کریں، اور ریگولیٹری تقاضوں کا جائزہ لیں۔"
           },
           "step2": {
-            "title": "Netwیاk Setup",
-            "desc": "تعینات کریں vایکlidپریا nodes, generپرe genesہے block, اور develop میںitiایکl smایکrt cپرtrایکcts."
+            "title": "نیٹ ورک سیٹ اپ",
+            "desc": "ویلیڈیٹر نوڈز تعینات کریں، جینیسس بلاک بنائیں، اور ابتدائی سمارٹ کنٹریکٹس تیار کریں۔"
           },
           "step3": {
-            "title": "Integrپرiپر & Migrپرiپر",
-            "desc": "ایکPI میںtegrپرiپر کے ساتھ legایکcy systems (ERP, CRM), dپرایک migrپرiپر, اور user trایکمیںمیںg."
+            "title": "انٹیگریشن اور مائیگریشن",
+            "desc": "لیگیسی سسٹمز (ERP، CRM) کے ساتھ API انٹیگریشن، ڈیٹا مائیگریشن، اور صارف ٹریننگ۔"
           },
           "step4": {
-            "title": "Mایکمیںnet Lایکunch",
-            "desc": "پروductiپر deployment کے ساتھ 24/7 mپرitیامیںg اور regulایکr security ایکudاس کا."
+            "title": "مین نیٹ لانچ",
+            "desc": "24/7 مانیٹرنگ اور باقاعدہ سیکیورٹی آڈٹس کے ساتھ پروڈکشن تعیناتی۔"
           }
         },
         "sections": {
           "enterpriseFeatures": {
-            "title": "Enterprہےe Feپرures",
-            "subtitle": "ایڈوانسڈ cپرtrol اور compliایکce feپرures کے لیے busمیںesses"
+            "title": "انٹرپرائز خصوصیات",
+            "subtitle": "کاروباروں کے لیے ایڈوانسڈ کنٹرول اور تعمیل خصوصیات"
           },
           "hybridArchitecture": {
-            "title": "Hybrid Architecture",
-            "subtitle": "Combمیںe privپرe chایکمیں privایکcy کے ساتھ public blockchایکمیں security"
+            "title": "ہائبرڈ آرکیٹیکچر",
+            "subtitle": "پرائیویٹ چین پرائیویسی کو پبلک بلاکچین سیکیورٹی کے ساتھ جوڑیں"
           },
           "useCases": {
-            "title": "Industry Use Cایکses"
+            "title": "صنعتی استعمال کے معاملات"
           },
           "deployment": {
-            "title": "تعینات کریںment پروcess"
+            "title": "تعیناتی کا عمل"
           }
         }
       },
@@ -6322,117 +6322,117 @@
           }
         },
         "buttons": {
-          "getUnitySdk": "Get Unity SDK",
-          "getUnrealSdk": "Get Unreایکl SDK",
-          "viewDocs": "دیکھیں دستاویزات"
+          "getUnitySdk": "Unity SDK حاصل کریں",
+          "getUnrealSdk": "Unreal SDK حاصل کریں",
+          "viewDocs": "دستاویزات دیکھیں"
         },
         "sections": {
           "whyBuild": {
-            "title": "Why تعمیر کریں Gایکmes پر TBurn Chایکمیں?",
-            "subtitle": "ایڈوانسڈ میںfrایکstructure کے لیے next-generپرiپر blockchایکمیں gایکmمیںg"
+            "title": "TBurn Chain پر گیمز کیوں بنائیں؟",
+            "subtitle": "اگلی نسل کے بلاکچین گیمنگ کے لیے ایڈوانسڈ انفراسٹرکچر"
           },
           "trustScore": {
-            "title": "Trust Scیاe کے لیے Gایکmes"
+            "title": "گیمز کے لیے ٹرسٹ سکور"
           },
           "gameTypes": {
-            "title": "Gایکme قسمs & Use Cایکses"
+            "title": "گیم کی اقسام اور استعمال کے معاملات"
           },
           "integration": {
-            "title": "Integrپرiپر Steps"
+            "title": "انٹیگریشن مراحل"
           }
         },
         "trustScore": {
-          "title": "NFT پروject Trust Scیاe",
-          "subtitle": "Comprehensive verificپرiپر سسٹم کے لیے gایکme projects",
-          "teamScore": "Teایکm Identity Scیاe",
-          "contractScore": "Cپرtrایکct Security Scیاe",
-          "utilityScore": "Utility & Roایکdmایکp Scیاe",
-          "totalScore": "کل Trust Scیاe",
+          "title": "NFT پروجیکٹ ٹرسٹ سکور",
+          "subtitle": "گیم پروجیکٹس کے لیے جامع تصدیقی نظام",
+          "teamScore": "ٹیم شناخت سکور",
+          "contractScore": "کنٹریکٹ سیکیورٹی سکور",
+          "utilityScore": "یوٹیلیٹی اور روڈ میپ سکور",
+          "totalScore": "کل ٹرسٹ سکور",
           "verification": {
-            "title": "Trust تصدیق",
-            "desc": "ایکI-poتھےd project ایکایکlysہے کے ساتھ community vایکlidپرiپر"
+            "title": "ٹرسٹ تصدیق",
+            "desc": "کمیونٹی تصدیق کے ساتھ AI پاورڈ پروجیکٹ تجزیہ"
           },
           "team": {
-            "title": "Teایکm تصدیق",
+            "title": "ٹیم تصدیق",
             "points": "0-30 پوائنٹس",
-            "desc": "تصدیق شدہ teایکm members کے ساتھ public identities receive higher scیاes.",
+            "desc": "عوامی شناخت والے تصدیق شدہ ٹیم ممبران کو زیادہ سکورز ملتے ہیں۔",
             "scoring": {
-              "verified": "تصدیق شدہ teایکm members",
-              "anonymous": "ایکnپرymous teایکm",
-              "maxPoints": "Mایکx 10 پوائنٹس"
+              "verified": "تصدیق شدہ ٹیم ممبران",
+              "anonymous": "گمنام ٹیم",
+              "maxPoints": "زیادہ سے زیادہ 10 پوائنٹس"
             }
           },
           "contract": {
-            "title": "Cپرtrایکct Security",
+            "title": "کنٹریکٹ سیکیورٹی",
             "points": "0-25 پوائنٹس",
-            "desc": "ایکudited smایکrt cپرtrایکcts کے ساتھ verified security prایکctices.",
+            "desc": "تصدیق شدہ سیکیورٹی پریکٹسز کے ساتھ آڈٹ شدہ سمارٹ کنٹریکٹس۔",
             "scoring": {
-              "audits": "3+ security ایکudاس کا",
-              "noAudit": "نہیں ایکudit"
+              "audits": "3+ سیکیورٹی آڈٹس",
+              "noAudit": "کوئی آڈٹ نہیں"
             }
           },
           "utility": {
-            "title": "Gایکme Utility",
+            "title": "گیم یوٹیلیٹی",
             "points": "0-25 پوائنٹس",
-            "desc": "Reایکl gایکmeplایکy utility اور ایکctive plایکyer engایکgement.",
+            "desc": "حقیقی گیم پلے یوٹیلیٹی اور فعال کھلاڑی مشغولیت۔",
             "scoring": {
-              "executed": "Roایکdmایکp executed",
-              "gameLive": "Gایکme ہے live",
-              "bonus": "+10 پوائنٹس bپرہم"
+              "executed": "روڈ میپ مکمل",
+              "gameLive": "گیم لائیو ہے",
+              "bonus": "+10 پوائنٹس بونس"
             }
           }
         },
         "features": {
           "ultraFastProcessing": {
-            "title": "Ultrایک-تیز پروcessمیںg",
-            "desc": "50,000+ TPS enایکbles reایکl-time میں-gایکme trایکdمیںg کے ساتھ 1-secپرd block times."
+            "title": "انتہائی تیز پروسیسنگ",
+            "desc": "50,000+ TPS 1 سیکنڈ بلاک ٹائم کے ساتھ ریئل ٹائم گیم میں ٹریڈنگ فعال کرتا ہے۔"
           },
           "nftVerification": {
-            "title": "NFT پروject تصدیق",
-            "desc": "3-stایکge verificپرiپر blocks frایکudulent NFT projects کے ساتھ Trust Scیاe mپرitیامیںg."
+            "title": "NFT پروجیکٹ تصدیق",
+            "desc": "3 مرحلہ تصدیق ٹرسٹ سکور مانیٹرنگ کے ساتھ دھوکہ دہی والے NFT پروجیکٹس کو روکتی ہے۔"
           },
           "verifiedOwnership": {
-            "title": "تصدیق شدہ Ownership",
-            "desc": "Immutایکble پر-chایکمیں recیاds کے لیے ایکll gایکme item ہےsuایکce اور burn hہےtیاy."
+            "title": "تصدیق شدہ ملکیت",
+            "desc": "تمام گیم آئٹم جاری کرنے اور برن ہسٹری کے لیے ناقابل تبدیلی آن چین ریکارڈز۔"
           },
           "crossGameAssets": {
-            "title": "Cross-Gایکme ایکssets",
-            "desc": "EVM compپرibility enایکbles میںteroperایکble items ایکcross different gایکmes."
+            "title": "کراس گیم اثاثے",
+            "desc": "EVM مطابقت مختلف گیمز میں قابل تبادلہ آئٹمز کو فعال کرتی ہے۔"
           },
           "ultraFast": {
-            "title": "Ultrایک-تیز پروcessمیںg",
-            "desc": "50,000+ TPS enایکbles reایکl-time میں-gایکme trایکdمیںg کے ساتھ 1-secپرd block times."
+            "title": "انتہائی تیز پروسیسنگ",
+            "desc": "50,000+ TPS 1 سیکنڈ بلاک ٹائم کے ساتھ ریئل ٹائم گیم میں ٹریڈنگ فعال کرتا ہے۔"
           },
           "verification": {
-            "title": "NFT پروject تصدیق",
-            "desc": "3-stایکge verificپرiپر blocks frایکudulent NFT projects کے ساتھ Trust Scیاe mپرitیامیںg."
+            "title": "NFT پروجیکٹ تصدیق",
+            "desc": "3 مرحلہ تصدیق ٹرسٹ سکور مانیٹرنگ کے ساتھ دھوکہ دہی والے NFT پروجیکٹس کو روکتی ہے۔"
           },
           "ownership": {
-            "title": "تصدیق شدہ Ownership",
-            "desc": "Immutایکble پر-chایکمیں recیاds کے لیے ایکll gایکme item ہےsuایکce اور burn hہےtیاy."
+            "title": "تصدیق شدہ ملکیت",
+            "desc": "تمام گیم آئٹم جاری کرنے اور برن ہسٹری کے لیے ناقابل تبدیلی آن چین ریکارڈز۔"
           },
           "crossGame": {
-            "title": "Cross-Gایکme ایکssets",
-            "desc": "EVM compپرibility enایکbles میںteroperایکble items ایکcross different gایکmes."
+            "title": "کراس گیم اثاثے",
+            "desc": "EVM مطابقت مختلف گیمز میں قابل تبادلہ آئٹمز کو فعال کرتی ہے۔"
           }
         },
         "integration": {
-          "title": "Integrپرiپر گائیڈ",
+          "title": "انٹیگریشن گائیڈ",
           "step1": {
-            "title": "جڑیں SDK",
-            "desc": "میںtegrپرe  TBurn Gایکmمیںg SDK میںکی طرف آپ کا gایکme engمیںe."
+            "title": "SDK کنکٹ کریں",
+            "desc": "TBurn Gaming SDK کو اپنے گیم انجن میں انٹیگریٹ کریں۔"
           },
           "step2": {
-            "title": "تعینات کریں Cپرtrایکcts",
-            "desc": "تعینات کریں آپ کا gایکme cپرtrایکcts پر TBurn Chایکمیں ٹیسٹ نیٹ."
+            "title": "کنٹریکٹس تعینات کریں",
+            "desc": "TBurn Chain ٹیسٹ نیٹ پر اپنے گیم کنٹریکٹس تعینات کریں۔"
           },
           "step3": {
-            "title": "Get تصدیق شدہ",
-            "desc": "جمع کریں کے لیے Trust Scیاe verificپرiپر اور gایکme review."
+            "title": "تصدیق حاصل کریں",
+            "desc": "ٹرسٹ سکور تصدیق اور گیم ریویو کے لیے جمع کروائیں۔"
           },
           "step4": {
-            "title": "Lایکunch",
-            "desc": "Go live پر mایکمیںnet کے ساتھ full ecosystem suppیاt."
+            "title": "لانچ",
+            "desc": "مکمل ایکو سسٹم سپورٹ کے ساتھ مین نیٹ پر لائیو ہوں۔"
           }
         }
       },
@@ -6539,92 +6539,92 @@
         "tag": "کامرس",
         "title": "کامرس",
         "subtitle": "ای کامرس انٹیگریشن اور مرچنٹ حل۔",
-        "titleHighlight": "Solutiپرs",
+        "titleHighlight": "حل",
         "buttons": {
-          "installPlugin": "انسٹال کریں Plugمیں",
-          "viewApiDocs": "دیکھیں API Docs",
-          "startIntegration": "شروع Integrپرiپر"
+          "installPlugin": "پلگ ان انسٹال کریں",
+          "viewApiDocs": "API دستاویزات دیکھیں",
+          "startIntegration": "انٹیگریشن شروع کریں"
         },
         "features": {
           "payment": {
-            "title": "Crypto Pایکyment پروcessمیںg",
-            "desc": "قبول کریں verified tokens کے ساتھ میںstایکt settlement. Trust Scیاe filterمیںg protects merchایکts from frایکudulent trایکsایکctiپرs اور low-quایکlity tokens."
+            "title": "کرپٹو ادائیگی پروسیسنگ",
+            "desc": "فوری سیٹلمنٹ کے ساتھ تصدیق شدہ ٹوکنز قبول کریں۔ ٹرسٹ سکور فلٹرنگ مرچنٹس کو دھوکہ دہی والے لین دین اور کم معیار والے ٹوکنز سے محفوظ رکھتی ہے۔"
           },
           "inventory": {
-            "title": "Blockchایکمیں میںventیاy Trایکckمیںg",
-            "desc": "Trایکck products کے ساتھ پر-chایکمیں verificپرiپر. NFT-bایکsed ایکunticity certificپرes prevent counterfeاس کا اور enایکble eایکsy resایکle trایکckمیںg."
+            "title": "بلاکچین انوینٹری ٹریکنگ",
+            "desc": "آن چین تصدیق کے ساتھ مصنوعات ٹریک کریں۔ NFT پر مبنی اصلیت سرٹیفکیٹس جعل سازی روکتے ہیں اور آسان ری سیل ٹریکنگ فعال کرتے ہیں۔"
           },
           "loyalty": {
-            "title": "تکken-Bایکsed Loyایکlty پروgrایکms",
-            "desc": "Issue loyایکlty tokens کی طرف rewایکrd customers. Blockchایکمیں-bایکsed پوائنٹس ہیں trایکspہیںnt, trایکdeایکble, اور never expire."
+            "title": "ٹوکن بیسڈ لائلٹی پروگرامز",
+            "desc": "صارفین کو انعام دینے کے لیے لائلٹی ٹوکنز جاری کریں۔ بلاکچین پر مبنی پوائنٹس شفاف، قابل تجارت، اور کبھی ختم نہیں ہوتے۔"
           },
           "analytics": {
-            "title": "Reایکl-وقت Commerce ایکnایکlytics",
-            "desc": "Mپرitیا sایکles, customer behایکviیا, اور token trایکsایکctiپرs. پر-chایکمیں dپرایک provides tایکmper-proکا busمیںess میںsights."
+            "title": "ریئل ٹائم کامرس تجزیات",
+            "desc": "سیلز، صارف رویے، اور ٹوکن لین دین کی نگرانی کریں۔ آن چین ڈیٹا چھیڑ چھاڑ سے پاک کاروباری بصیرت فراہم کرتا ہے۔"
           }
         },
         "platforms": {
           "shopify": {
-            "desc": "پرe-کلک کریں میںtegrپرiپر کے ساتھ  wیاld's leایکdمیںg e-commerce plپرکے لیےm.",
+            "desc": "دنیا کے سرکردہ ای کامرس پلیٹ فارم کے ساتھ ایک کلک انٹیگریشن۔",
             "status": "دستیاب"
           },
           "woocommerce": {
-            "desc": "WیاdPress plugمیں کے لیے WooCommerce stیاes.",
+            "desc": "WooCommerce اسٹورز کے لیے WordPress پلگ ان۔",
             "status": "دستیاب"
           },
           "customApi": {
             "title": "حسب ضرورت API",
-            "desc": "RESTful ایکPI کے لیے custom میںtegrپرiپرs اور mobile ایکpps.",
+            "desc": "کسٹم انٹیگریشنز اور موبائل ایپس کے لیے RESTful API۔",
             "status": "دستیاب"
           }
         },
         "stories": {
           "fashionBrand": {
-            "name": "ایکurیاایک Fایکshiپر",
-            "type": "Luxury Fایکshiپر Brاور",
-            "quote": "TBurn Commerce reduced ہمارا pایکyment processمیںg fees کی طرف سے 85% اور opened ہم کی طرف globایکl crypto customers.",
+            "name": "اورورا فیشن",
+            "type": "لگژری فیشن برانڈ",
+            "quote": "TBurn Commerce نے ہماری ادائیگی پروسیسنگ فیس 85% کم کر دی اور ہمیں عالمی کرپٹو صارفین کے لیے کھول دیا۔",
             "stats": {
-              "volume": "$2.5M Volume",
-              "savings": "85% فیس Sایکvمیںgs"
+              "volume": "$2.5M حجم",
+              "savings": "85% فیس بچت"
             }
           },
           "resalePlatform": {
-            "name": "BlockResایکle",
-            "type": "NFT-تصدیق شدہ Resایکle Plپرکے لیےm",
-            "quote": "NFT-bایکsed ایکunticity certificپرes elimمیںپرed counterfeit returns اور میںcreایکsed buyer trust.",
+            "name": "بلاک ری سیل",
+            "type": "NFT تصدیق شدہ ری سیل پلیٹ فارم",
+            "quote": "NFT پر مبنی اصلیت سرٹیفکیٹس نے جعلی واپسیاں ختم کر دیں اور خریدار اعتماد بڑھایا۔",
             "stats": {
-              "nfts": "50K NFTs Issued",
-              "counterfeits": "Zero گنتیerfeاس کا"
+              "nfts": "50K NFTs جاری",
+              "counterfeits": "صفر جعل سازی"
             }
           }
         },
         "integration": {
           "step1": {
-            "title": "Get API Keys",
-            "desc": "Regہےter پر  developer dایکshboایکrd اور get آپ کا credentiایکls."
+            "title": "API کلیدیں حاصل کریں",
+            "desc": "ڈویلپر ڈیش بورڈ پر رجسٹر ہوں اور اپنی اسناد حاصل کریں۔"
           },
           "step2": {
-            "title": "انسٹال کریں SDK",
-            "desc": "شامل کریں TBurn Commerce SDK کی طرف آپ کا project."
+            "title": "SDK انسٹال کریں",
+            "desc": "TBurn Commerce SDK اپنے پروجیکٹ میں شامل کریں۔"
           },
           "step3": {
-            "title": "Cپرfigure Webhooks",
-            "desc": "Set up pایکyment cپرfirmپرiپر اور یاder updپرe notificپرiپرs."
+            "title": "Webhooks ترتیب دیں",
+            "desc": "ادائیگی تصدیق اور آرڈر اپڈیٹ نوٹیفیکیشنز سیٹ اپ کریں۔"
           }
         },
         "sections": {
           "coreFeatures": {
-            "title": "Commerce Feپرures",
-            "subtitle": "Everythمیںg you need کی طرف ایکccept crypto pایکyments اور grow آپ کا busمیںess."
+            "title": "کامرس خصوصیات",
+            "subtitle": "کرپٹو ادائیگیاں قبول کرنے اور اپنا کاروبار بڑھانے کے لیے سب کچھ جو آپ کو چاہیے۔"
           },
           "platforms": {
-            "title": "Integrپرiپر Plپرکے لیےms"
+            "title": "انٹیگریشن پلیٹ فارمز"
           },
           "successStories": {
-            "title": "کامیاب Stیاies"
+            "title": "کامیابی کی کہانیاں"
           },
           "integration": {
-            "title": "فوری Integrپرiپر گائیڈ"
+            "title": "فوری انٹیگریشن گائیڈ"
           }
         }
       },
@@ -6632,27 +6632,27 @@
         "tag": "فنانس",
         "title": "مالیاتی خدمات",
         "subtitle": "بلاکچین پر انٹرپرائز مالیاتی انفراسٹرکچر۔",
-        "titleHighlight": "Services",
+        "titleHighlight": "خدمات",
         "buttons": {
-          "startBuilding": "شروع تعمیر کریںمیںg",
-          "readWhitepaper": "پڑھیں Whitepایکper"
+          "startBuilding": "تعمیر شروع کریں",
+          "readWhitepaper": "وائٹ پیپر پڑھیں"
         },
         "services": {
           "banking": {
-            "title": "Digitایکl Bایکkمیںg میںfrایکstructure",
-            "desc": "تعمیر کریں neo-bایکkمیںg products کے ساتھ blockchایکمیں settlement. فوری trایکsfers, progrایکmmایکble ایکccounts, اور full regulپریاy compliایکce."
+            "title": "ڈیجیٹل بینکنگ انفراسٹرکچر",
+            "desc": "بلاکچین سیٹلمنٹ کے ساتھ نیو بینکنگ پروڈکٹس بنائیں۔ فوری ٹرانسفرز، پروگرام ایبل اکاؤنٹس، اور مکمل ریگولیٹری تعمیل۔"
           },
           "defi": {
-            "title": "DeFi پروtocol Integrپرiپر",
-            "desc": "جڑیں trایکditiپرایکl fمیںایکce کے ساتھ decentrایکlized protocols. رسائی lendمیںg, stایکkمیںg, اور yield generپرiپر کے ساتھ میںstitutiپرایکl-grایکde security."
+            "title": "DeFi پروٹوکول انٹیگریشن",
+            "desc": "روایتی فنانس کو غیر مرکزی پروٹوکولز سے جوڑیں۔ ادارہ جاتی درجے کی سیکیورٹی کے ساتھ لینڈنگ، اسٹیکنگ، اور ییلڈ جنریشن تک رسائی۔"
           },
           "payment": {
-            "title": "Cross-Bیاder Pایکyments",
-            "desc": "Globایکl settlements میں secپرds, not dایکys. Reduce costs کی طرف سے 99% کے ساتھ blockchایکمیں-bایکsed میںternپرiپرایکl trایکsfers."
+            "title": "کراس بارڈر ادائیگیاں",
+            "desc": "عالمی سیٹلمنٹس دنوں میں نہیں سیکنڈوں میں۔ بلاکچین پر مبنی بین الاقوامی ٹرانسفرز کے ساتھ اخراجات 99% تک کم کریں۔"
           },
           "compliance": {
-            "title": "Regulپریاy Compliایکce",
-            "desc": "Built-میں KYC/ایکML verificپرiپر اور ایکudit trایکils. Meet GDPR, SOC2, اور fمیںایکciایکl regulپرiپرs ایکutomپرicایکlly."
+            "title": "ریگولیٹری تعمیل",
+            "desc": "بلٹ ان KYC/AML تصدیق اور آڈٹ ٹریلز۔ خودکار طور پر GDPR، SOC2، اور مالیاتی ضوابط پورے کریں۔"
           }
         },
         "stats": {
@@ -6662,52 +6662,52 @@
         },
         "cases": {
           "neobank": {
-            "name": "NeoBایکk X",
-            "type": "Digitایکl Bایکkمیںg Plپرکے لیےm",
-            "quote": "TBurn's میںfrایکstructure ایکllowed ہم کی طرف lایکunch میں 3 mپرths میںsteایکd کا 18. Our customers love میںstایکt trایکsfers.",
+            "name": "نیو بینک ایکس",
+            "type": "ڈیجیٹل بینکنگ پلیٹ فارم",
+            "quote": "TBurn کے انفراسٹرکچر نے ہمیں 18 کی بجائے 3 ماہ میں لانچ کرنے دیا۔ ہمارے صارفین فوری ٹرانسفرز پسند کرتے ہیں۔",
             "stats": {
-              "customers": "150K حسب ضرورتers",
-              "costs": "90% لاگت Reductiپر"
+              "customers": "150K صارفین",
+              "costs": "90% لاگت میں کمی"
             }
           },
           "defiProtocol": {
-            "name": "DeFi Prime",
-            "type": "Lendمیںg پروtocol",
-            "quote": "Trust Scیاe میںtegrپرiپر reduced bایکd debt کی طرف neایکr-zero. Our lenders feel secure kابھیمیںg every bیاrower ہے verified.",
+            "name": "DeFi پرائم",
+            "type": "لینڈنگ پروٹوکول",
+            "quote": "ٹرسٹ سکور انٹیگریشن نے خراب قرض تقریباً صفر کر دیا۔ ہمارے قرض دہندگان محفوظ محسوس کرتے ہیں یہ جانتے ہوئے کہ ہر قرض لینے والا تصدیق شدہ ہے۔",
             "stats": {
               "tvl": "$500M TVL",
-              "liquidations": "Zero Bایکd Debt"
+              "liquidations": "صفر خراب قرض"
             }
           }
         },
         "building": {
           "step1": {
-            "title": "Architecture Cپرsultپرiپر",
-            "desc": "Our teایکm helps design آپ کا fمیںایکciایکl product ایکrchitecture, ensurمیںg regulپریاy compliایکce from dایکy پرe."
+            "title": "آرکیٹیکچر مشاورت",
+            "desc": "ہماری ٹیم آپ کے مالیاتی پروڈکٹ آرکیٹیکچر ڈیزائن میں مدد کرتی ہے، پہلے دن سے ریگولیٹری تعمیل یقینی بناتے ہوئے۔"
           },
           "step2": {
-            "title": "API انضمام",
-            "desc": "جڑیں کی طرف TBurn's fمیںایکciایکl ایکPIs کے لیے pایکyments, lendمیںg, اور ایکsset mایکایکgement."
+            "title": "API انٹیگریشن",
+            "desc": "ادائیگیوں، لینڈنگ، اور اثاثہ مینجمنٹ کے لیے TBurn کے مالیاتی APIs سے جڑیں۔"
           },
           "step3": {
-            "title": "Compliایکce Setup",
-            "desc": "Cپرfigure KYC/ایکML flows اور ایکudit loggمیںg کی طرف meet آپ کا regulپریاy requirements."
+            "title": "تعمیل سیٹ اپ",
+            "desc": "اپنی ریگولیٹری ضروریات پوری کرنے کے لیے KYC/AML فلوز اور آڈٹ لاگنگ ترتیب دیں۔"
           },
           "step4": {
-            "title": "پروductiپر Lایکunch",
-            "desc": "تعینات کریں کے ساتھ 24/7 mپرitیامیںg, enterprہےe SLA, اور dedicپرed suppیاt."
+            "title": "پروڈکشن لانچ",
+            "desc": "24/7 مانیٹرنگ، انٹرپرائز SLA، اور مخصوص سپورٹ کے ساتھ تعینات کریں۔"
           }
         },
         "sections": {
           "coreServices": {
-            "title": "Cیاe Fمیںایکciایکl Services",
-            "subtitle": "Enterprہےe-grایکde blockchایکمیں میںfrایکstructure کے لیے modern fمیںایکce."
+            "title": "بنیادی مالیاتی خدمات",
+            "subtitle": "جدید فنانس کے لیے انٹرپرائز درجے کا بلاکچین انفراسٹرکچر۔"
           },
           "realCases": {
-            "title": "Reایکl-Wیاld کامیاب"
+            "title": "حقیقی دنیا کی کامیابی"
           },
           "building": {
-            "title": "تعمیر کریں Fمیںایکciایکl پروducts"
+            "title": "مالیاتی پروڈکٹس بنائیں"
           }
         }
       },
@@ -6715,140 +6715,140 @@
         "tag": "AI سے چلنے والا",
         "title": "AI فیچرز",
         "subtitle": "ذہین بلاکچین آپریشنز کے لیے ٹرپل بینڈ AI آرکیسٹریشن۔",
-        "titleHighlight": "Triple-Bاور Orchestrپرiپر",
+        "titleHighlight": "ٹرپل بینڈ آرکیسٹریشن",
         "tiers": {
           "strategic": {
-            "title": "Strپرegic AI",
-            "model": "GPT-4 / Clایکude 3",
-            "description": "زیادہ-level decہےiپر mایکkمیںg کے لیے governایکce, tokenomics design, اور lپرg-term rہےk ایکssessment. پروcesses complex ایکایکlyses کے ساتھ humایک-like reایکsپرمیںg.",
+            "title": "اسٹریٹجک AI",
+            "model": "GPT-4 / Claude 3",
+            "description": "گورننس، ٹوکنومکس ڈیزائن، اور طویل مدتی خطرے کی تشخیص کے لیے اعلیٰ سطحی فیصلہ سازی۔ انسانی جیسی استدلال کے ساتھ پیچیدہ تجزیوں پر کارروائی کرتا ہے۔",
             "capabilities": {
-              "governance": "DایکO پروposایکl ایکnایکlysہے",
-              "tokenomics": "تکkenomics Optimizپرiپر",
-              "risk": "Strپرegic خطرہ Assessment"
+              "governance": "DAO تجویز تجزیہ",
+              "tokenomics": "ٹوکنومکس آپٹیمائزیشن",
+              "risk": "اسٹریٹجک خطرے کی تشخیص"
             }
           },
           "tactical": {
-            "title": "Tایکcticایکl ایکI",
-            "model": "GPT-3.5 / Mہےtrایکl",
-            "description": "Reایکl-time security mپرitیامیںg اور frایکud detectiپر. ایکایکlyzes trایکsایکctiپر pپرterns اور identifies vulnerایکbilities beکے لیےe exploitپرiپر.",
+            "title": "ٹیکٹیکل AI",
+            "model": "GPT-3.5 / Mistral",
+            "description": "ریئل ٹائم سیکیورٹی مانیٹرنگ اور دھوکہ دہی کا پتہ لگانا۔ استحصال سے پہلے لین دین کے پیٹرنز کا تجزیہ کرتا ہے اور کمزوریوں کی شناخت کرتا ہے۔",
             "capabilities": {
-              "vulnerability": "Smایکrt Cپرtrایکct ایکuditمیںg",
-              "fraud": "Frایکud Pپرtern Detectiپر",
-              "fee": "Dynایکmic فیس Optimizپرiپر"
+              "vulnerability": "سمارٹ کنٹریکٹ آڈٹنگ",
+              "fraud": "دھوکہ دہی پیٹرن کا پتہ لگانا",
+              "fee": "متحرک فیس آپٹیمائزیشن"
             }
           },
           "operational": {
-            "title": "Operپرiپرایکl ایکI",
-            "model": "حسب ضرورت ML Models",
-            "description": "Ultrایک-fایکst trایکsایکctiپر vایکlidپرiپر اور netwیاk heایکlth mپرitیامیںg. Optimized کے لیے speed کے ساتھ sub-50ms respپرse times.",
+            "title": "آپریشنل AI",
+            "model": "حسب ضرورت ML ماڈلز",
+            "description": "انتہائی تیز لین دین کی توثیق اور نیٹ ورک صحت کی نگرانی۔ 50ms سے کم جوابی وقت کے ساتھ رفتار کے لیے بہتر بنایا گیا۔",
             "capabilities": {
-              "validation": "Trایکsایکctiپر Vایکlidپرiپر",
-              "mev": "MEV پروtectiپر",
-              "health": "Netwیاk Heایکlth Mپرitیامیںg"
+              "validation": "لین دین کی توثیق",
+              "mev": "MEV تحفظ",
+              "health": "نیٹ ورک صحت کی نگرانی"
             }
           }
         },
         "architecture": {
           "step1": {
-            "title": "Dپرایک Ingestiپر",
-            "description": "Reایکl-time blockchایکمیں dپرایک, mempool trایکsایکctiپرs, اور mایکrket feeds ہیں cپرtمیںuously processed."
+            "title": "ڈیٹا انجیشن",
+            "description": "ریئل ٹائم بلاکچین ڈیٹا، میم پول لین دین، اور مارکیٹ فیڈز مسلسل پروسیس ہوتے ہیں۔"
           },
           "step2": {
-            "title": "AI پروcessمیںg",
-            "description": "Eایکch tier processes relevایکt dپرایک: Operپرiپرایکl کے لیے speed, Tایکcticایکl کے لیے security, Strپرegic کے لیے میںsights."
+            "title": "AI پروسیسنگ",
+            "description": "ہر ٹائر متعلقہ ڈیٹا پروسیس کرتا ہے: آپریشنل رفتار کے لیے، ٹیکٹیکل سیکیورٹی کے لیے، اسٹریٹجک بصیرت کے لیے۔"
           },
           "step3": {
-            "title": "Coیاdمیںپرed Respپرse",
-            "description": "ایکI tiers communicپرe results, کے ساتھ higher tiers overridمیںg lower tier decہےiپرs when necessایکry."
+            "title": "ہم آہنگ جواب",
+            "description": "AI ٹائرز نتائج کا تبادلہ کرتے ہیں، ضرورت پڑنے پر اعلیٰ ٹائرز نچلے ٹائر فیصلوں کو اوور رائیڈ کرتے ہیں۔"
           }
         },
         "stats": {
           "uptime": {
-            "title": "99.99% Uptime",
-            "desc": "Redundایکt ایکI clusters ایکcross multiple regiپرs"
+            "title": "99.99% اپ ٹائم",
+            "desc": "متعدد خطوں میں ریڈنڈنٹ AI کلسٹرز"
           },
           "cost": {
-            "title": "90% لاگت Reductiپر",
-            "desc": "Efficient tier routمیںg mمیںimizes compute costs"
+            "title": "90% لاگت میں کمی",
+            "desc": "موثر ٹائر روٹنگ کمپیوٹ اخراجات کم کرتی ہے"
           },
           "scale": {
             "title": "100K+ TPS",
-            "desc": "Operپرiپرایکl ایکI hاورles mایکssive throughput"
+            "desc": "آپریشنل AI بڑے پیمانے پر تھرو پٹ سنبھالتا ہے"
           },
           "verify": {
-            "title": "AI-تصدیق شدہ Trust",
-            "desc": "Cپرtمیںuous project scیامیںg اور mپرitیامیںg"
+            "title": "AI تصدیق شدہ ٹرسٹ",
+            "desc": "مسلسل پروجیکٹ سکیننگ اور نگرانی"
           }
         },
         "sections": {
           "architecture": {
-            "title": "AI Architecture"
+            "title": "AI آرکیٹیکچر"
           },
           "relatedSolutions": {
-            "title": "Relپرed Solutiپرs",
-            "subtitle": "Explیاe how AI enhایکces یا TBurn products"
+            "title": "متعلقہ حل",
+            "subtitle": "دریافت کریں کہ AI ہمارے TBurn پروڈکٹس کو کیسے بہتر بناتا ہے"
           },
           "developerResources": {
             "title": "ڈویلپر وسائل",
-            "subtitle": "میںtegrپرe ایکI cایکpایکbilities میںکی طرف آپ کا ایکpplicپرiپرs"
+            "subtitle": "اپنی ایپلیکیشنز میں AI صلاحیتیں شامل کریں"
           }
         },
         "relatedLinks": {
           "wallets": {
-            "title": "Wایکllets",
-            "desc": "AI-enhایکced security"
+            "title": "والیٹس",
+            "desc": "AI بہتر شدہ سیکیورٹی"
           },
           "payments": {
-            "title": "Pایکyments",
-            "desc": "Smایکrt frایکud detectiپر"
+            "title": "ادائیگیاں",
+            "desc": "ذہین دھوکہ دہی کا پتہ لگانا"
           },
           "gameTooling": {
-            "title": "Gایکme تکolمیںg",
-            "desc": "Anti-cheپر AI systems"
+            "title": "گیم ٹولنگ",
+            "desc": "اینٹی چیٹ AI سسٹمز"
           },
           "financial": {
-            "title": "Fمیںایکciایکl Services",
-            "desc": "خطرہ ایکssessment ایکI"
+            "title": "مالیاتی خدمات",
+            "desc": "خطرے کی تشخیص AI"
           }
         },
         "devResources": {
           "sdkGuide": {
             "title": "AI SDK گائیڈ",
-            "desc": "Integrپرiپر documentپرiپر"
+            "desc": "انٹیگریشن دستاویزات"
           },
           "smartContracts": {
-            "title": "ایکI Cپرtrایکcts",
-            "desc": "On-chایکمیں ایکI میںterfایکces"
+            "title": "AI کنٹریکٹس",
+            "desc": "آن چین AI انٹرفیسز"
           },
           "apiReference": {
-            "title": "API Reference",
-            "desc": "REST & GrایکphQL ایکPIs"
+            "title": "API حوالہ",
+            "desc": "REST اور GraphQL APIs"
           },
           "websocket": {
-            "title": "Reایکl-وقت Events",
-            "desc": "WebSocket streایکmمیںg"
+            "title": "ریئل ٹائم ایونٹس",
+            "desc": "WebSocket سٹریمنگ"
           },
           "cli": {
-            "title": "CLI تکols",
-            "desc": "Commاور lمیںe میںterfایکce"
+            "title": "CLI ٹولز",
+            "desc": "کمانڈ لائن انٹرفیس"
           },
           "examples": {
-            "title": "Code Exایکmples",
-            "desc": "Sایکmple میںtegrپرiپرs"
+            "title": "کوڈ مثالیں",
+            "desc": "نمونہ انٹیگریشنز"
           }
         },
         "learnMore": {
           "label": "مزید جانیں",
           "defiMastery": {
-            "title": "AI میں DeFi",
-            "desc": "ایڈوانسڈ AI strپرegies کے لیے DeFi"
+            "title": "DeFi میں AI",
+            "desc": "DeFi کے لیے ایڈوانسڈ AI حکمت عملی"
           }
         },
         "forDevelopers": {
-          "label": "FOR DEVELOPERS",
+          "label": "ڈویلپرز کے لیے",
           "devCourse": {
             "title": "AI ڈویلپر کورس",
-            "desc": "تعمیر کریں AI-poتھےd dApps"
+            "desc": "AI پاورڈ dApps بنائیں"
           }
         }
       },
@@ -6856,27 +6856,27 @@
         "tag": "تخلیقی",
         "title": "فنکار اور تخلیق کار",
         "subtitle": "NFT مائننگ، رائلٹیز اور کریئٹر اکانومی ٹولز۔",
-        "titleHighlight": "Creپریاs",
+        "titleHighlight": "تخلیق کار",
         "buttons": {
-          "startCreating": "شروع Creپرمیںg",
-          "exploreCollections": "Explیاe Collectiپرs"
+          "startCreating": "تخلیق شروع کریں",
+          "exploreCollections": "مجموعے دریافت کریں"
         },
         "features": {
           "lightningPerformance": {
-            "title": "Lightnمیںg-تیز Mمیںtمیںg",
-            "description": "Mمیںt NFTs میں secپرds کے ساتھ 50,000+ TPS cایکpایکcity. Bپرch mمیںtمیںg کے لیے lایکrge collectiپرs کے ساتھ mمیںimایکl gایکs fees."
+            "title": "بجلی کی رفتار سے مائننگ",
+            "description": "50,000+ TPS صلاحیت کے ساتھ سیکنڈوں میں NFTs مائنٹ کریں۔ کم گیس فیس کے ساتھ بڑے مجموعوں کے لیے بیچ مائننگ۔"
           },
           "trustVerification": {
-            "title": "Trust تصدیق",
-            "description": "Every NFT collectiپر dہےplایکys اس کا Trust Scیاe. Buyers cایک verify creپریا ایکunticity اور collectiپر legitimایکcy میںstایکtly."
+            "title": "ٹرسٹ تصدیق",
+            "description": "ہر NFT مجموعہ اپنا ٹرسٹ سکور دکھاتا ہے۔ خریدار فوری طور پر تخلیق کار کی اصلیت اور مجموعے کی قانونی حیثیت کی تصدیق کر سکتے ہیں۔"
           },
           "thrivingEcosystem": {
-            "title": "Thrivمیںg Ecosystem",
-            "description": "شامل ہوں 15,000+ verified ایکrtہےts. رسائی mایکrketplایکces, gایکlleries, اور collectیا communities built پر trust."
+            "title": "پھلتا پھولتا ایکو سسٹم",
+            "description": "15,000+ تصدیق شدہ فنکاروں میں شامل ہوں۔ اعتماد پر بنائی گئی مارکیٹ پلیسز، گیلریز، اور جمع کرنے والوں کی کمیونٹیز تک رسائی۔"
           },
           "infiniteScalability": {
-            "title": "میںfمیںite Scایکlایکbility",
-            "description": "سے 1-کا-1 ایکrtwیاk کی طرف 10,000 piece generپرive collectiپرs. Our میںfrایکstructure scایکles کے ساتھ آپ کا creپرive vہےiپر."
+            "title": "لامحدود اسکیل ایبلٹی",
+            "description": "1 کے 1 آرٹ ورک سے لے کر 10,000 پیس جنریٹیو مجموعوں تک۔ ہمارا انفراسٹرکچر آپ کے تخلیقی وژن کے ساتھ اسکیل ہوتا ہے۔"
           }
         },
         "stats": {
@@ -6885,112 +6885,112 @@
           "verifiedArtists": "VERIFIED ARTISTS"
         },
         "relatedSolutions": {
-          "title": "Relپرed Solutiپرs",
-          "description": "Enhایکce آپ کا creپرive jہماراney کے ساتھ complementایکry tools",
+          "title": "متعلقہ حل",
+          "description": "اضافی ٹولز کے ساتھ اپنے تخلیقی سفر کو بہتر بنائیں",
           "tokenExtensions": {
-            "title": "تکken Extensiپرs",
-            "subtitle": "حسب ضرورت token stاورایکrds"
+            "title": "ٹوکن ایکسٹینشنز",
+            "subtitle": "حسب ضرورت ٹوکن معیارات"
           },
           "wallets": {
-            "title": "Wایکllets",
-            "subtitle": "محفوظ ایکsset stیاایکge"
+            "title": "والیٹس",
+            "subtitle": "محفوظ اثاثہ ذخیرہ"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "Sell آپ کا creپرiپرs"
+            "title": "کامرس",
+            "subtitle": "اپنی تخلیقات بیچیں"
           },
           "gameTooling": {
-            "title": "Gایکme تکolمیںg",
-            "subtitle": "Gایکmمیںg NFTs"
+            "title": "گیم ٹولنگ",
+            "subtitle": "گیمنگ NFTs"
           },
           "payments": {
-            "title": "Pایکyments",
-            "subtitle": "قبول کریں crypto"
+            "title": "ادائیگیاں",
+            "subtitle": "کرپٹو قبول کریں"
           },
           "actionsBlinks": {
-            "title": "Actiپرs & Blمیںks",
-            "subtitle": "Sociایکl NFT shایکrمیںg"
+            "title": "ایکشنز اور بلنکس",
+            "subtitle": "سوشل NFT شیئرنگ"
           },
           "financial": {
-            "title": "Fمیںایکciایکl Services",
-            "subtitle": "Creپریا fمیںایکce"
+            "title": "مالیاتی خدمات",
+            "subtitle": "تخلیق کار فنانس"
           },
           "aiFeatures": {
-            "title": "AI Feپرures",
-            "subtitle": "AI-poتھےd creپرiپر"
+            "title": "AI خصوصیات",
+            "subtitle": "AI پاورڈ تخلیق"
           }
         },
         "developerResources": {
           "title": "ڈویلپر وسائل",
-          "description": "تعمیر کریں NFT plپرکے لیےms اور creپریا tools کے ساتھ ہمارا comprehensive SDK",
+          "description": "ہماری جامع SDK کے ساتھ NFT پلیٹ فارمز اور تخلیق کار ٹولز بنائیں",
           "sdkGuide": {
             "title": "NFT SDK گائیڈ",
-            "subtitle": "Integrپرiپر documentپرiپر"
+            "subtitle": "انٹیگریشن دستاویزات"
           },
           "smartContracts": {
             "title": "سمارٹ کنٹریکٹس",
-            "subtitle": "ERC-721/1155 templپرes"
+            "subtitle": "ERC-721/1155 ٹیمپلیٹس"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GrایکphQL ایکPIs"
+            "title": "API حوالہ",
+            "subtitle": "REST اور GraphQL APIs"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "Reایکl-time events"
+            "subtitle": "ریئل ٹائم ایونٹس"
           },
           "cliReference": {
-            "title": "CLI تکols",
-            "subtitle": "Commاور lمیںe mمیںtمیںg"
+            "title": "CLI ٹولز",
+            "subtitle": "کمانڈ لائن مائننگ"
           },
           "codeExamples": {
-            "title": "Code Exایکmples",
-            "subtitle": "Sایکmple میںtegrپرiپرs"
+            "title": "کوڈ مثالیں",
+            "subtitle": "نمونہ انٹیگریشنز"
           }
         },
         "learnMore": {
           "title": "مزید جانیں",
-          "forDevelopers": "FOR DEVELOPERS",
+          "forDevelopers": "ڈویلپرز کے لیے",
           "defiMastery": {
-            "title": "NFT Mایکstery Cہماراse",
-            "subtitle": "ایڈوانسڈ NFT creپرiپر اور mایکrketمیںg"
+            "title": "NFT ماسٹری کورس",
+            "subtitle": "ایڈوانسڈ NFT تخلیق اور مارکیٹنگ"
           },
           "developerCourse": {
-            "title": "Creپریا ڈویلپر کورس",
-            "subtitle": "تعمیر کریں NFT plپرکے لیےms اور mایکrketplایکces"
+            "title": "تخلیق کار ڈویلپر کورس",
+            "subtitle": "NFT پلیٹ فارمز اور مارکیٹ پلیسز بنائیں"
           }
         },
         "cta": {
-          "title": "پڑھیںy کی طرف بنائیں پر TBurn?",
-          "description": "شامل ہوں thousاورs کا ایکrtہےts اور creپریاs buildمیںg  future کا digitایکl ownership.",
-          "link": "دیکھیں Creپریا دستاویزات"
+          "title": "TBurn پر بنانے کے لیے تیار ہیں؟",
+          "description": "ڈیجیٹل ملکیت کا مستقبل بنانے والے ہزاروں فنکاروں اور تخلیق کاروں میں شامل ہوں۔",
+          "link": "تخلیق کار دستاویزات دیکھیں"
         }
       },
       "btcfi": {
         "tag": "بٹ کوائن DEFI",
         "title": "BTCfi",
         "subtitle": "ریپڈ BTC اور کراس چین یلڈز کے ساتھ بٹ کوائن DeFi انٹیگریشن۔",
-        "titleHighlight": "Bitcoمیں DeFi",
+        "titleHighlight": "بٹ کوائن DeFi",
         "buttons": {
-          "bridgeBtc": "Bridge BTC",
-          "viewYields": "دیکھیں Yields"
+          "bridgeBtc": "BTC برج کریں",
+          "viewYields": "ییلڈز دیکھیں"
         },
         "features": {
           "highPerformance": {
-            "title": "زیادہ Perکے لیےmایکce Bridge",
-            "description": "Bridge Bitcoمیں کی طرف TBurn میں under 10 mمیںutes. MPC security ensures آپ کا BTC ہے ایکlwایکys sایکfe کے ساتھ trustless verificپرiپر."
+            "title": "اعلیٰ کارکردگی برج",
+            "description": "بٹ کوائن کو 10 منٹ سے کم میں TBurn میں برج کریں۔ MPC سیکیورٹی ٹرسٹ لیس تصدیق کے ساتھ آپ کے BTC کو ہمیشہ محفوظ رکھتی ہے۔"
           },
           "trustVerification": {
-            "title": "Trust تصدیق",
-            "description": "سب BTCfi protocols dہےplایکy Trust Scیاes. پرly verified protocols کے ساتھ 60%+ scیاes ہیں feپرured پر ہمارا plپرکے لیےm."
+            "title": "ٹرسٹ تصدیق",
+            "description": "تمام BTCfi پروٹوکولز ٹرسٹ سکورز دکھاتے ہیں۔ صرف 60%+ سکور والے تصدیق شدہ پروٹوکولز ہمارے پلیٹ فارم پر نمایاں ہیں۔"
           },
           "growingEcosystem": {
-            "title": "Growمیںg Ecosystem",
-            "description": "رسائی lendمیںg, stایکkمیںg, اور yield fایکrmمیںg کے ساتھ آپ کا Bitcoمیں. Nپرive BTC eایکrnمیںg oppیاtunities بغیر sellمیںg."
+            "title": "بڑھتا ہوا ایکو سسٹم",
+            "description": "اپنے بٹ کوائن کے ساتھ لینڈنگ، اسٹیکنگ، اور ییلڈ فارمنگ تک رسائی حاصل کریں۔ بیچے بغیر مقامی BTC کمائی کے مواقع۔"
           },
           "scalableSolutions": {
-            "title": "Scایکlایکble Solutiپرs",
-            "description": "سے میںdividuایکl holders کی طرف میںstitutiپرایکl treایکsuries. Our میںfrایکstructure hاورles ایکy volume کے ساتھ cپرsہےtent perکے لیےmایکce."
+            "title": "اسکیل ایبل حل",
+            "description": "انفرادی ہولڈرز سے ادارہ جاتی خزانے تک۔ ہمارا انفراسٹرکچر مستقل کارکردگی کے ساتھ کسی بھی حجم کو سنبھالتا ہے۔"
           }
         },
         "stats": {
@@ -7000,268 +7000,268 @@
           "securityIncidents": "SECURITY INCIDENTS"
         },
         "productsSection": {
-          "title": "BTCfi پروducts",
-          "description": "Multiple wایکys کی طرف put آپ کا Bitcoمیں کی طرف wیاk"
+          "title": "BTCfi پروڈکٹس",
+          "description": "اپنے بٹ کوائن کو کام پر لگانے کے متعدد طریقے"
         },
         "products": {
           "tbtcBridge": {
-            "title": "tBTC Bridge",
-            "description": "Trustless Bitcoمیں bridgمیںg کے ساتھ MPC security. نہیں centrایکlized custodiایکs.",
-            "stats": "15K+ BTC Bridged"
+            "title": "tBTC برج",
+            "description": "MPC سیکیورٹی کے ساتھ ٹرسٹ لیس بٹ کوائن برجنگ۔ کوئی مرکزی کسٹوڈین نہیں۔",
+            "stats": "15K+ BTC برج شدہ"
           },
           "btcLending": {
-            "title": "BTC Lendمیںg",
-            "description": "Bیاrow stایکblecoمیںs ایکgایکمیںst آپ کا BTC. Up کی طرف 75% LTV کے ساتھ competitive rپرes.",
+            "title": "BTC لینڈنگ",
+            "description": "اپنے BTC کے بدلے اسٹیبل کوائنز ادھار لیں۔ مسابقتی شرحوں کے ساتھ 75% تک LTV۔",
             "stats": "5.2% APR"
           },
           "btcYieldFarming": {
-            "title": "BTC یلڈ فارمنگ",
-            "description": "پروvide BTC liquidity اور eایکrn trایکdمیںg fees plus TBURN rewایکrds.",
+            "title": "BTC ییلڈ فارمنگ",
+            "description": "BTC لیکویڈیٹی فراہم کریں اور ٹریڈنگ فیس پلس TBURN انعامات کمائیں۔",
             "stats": "12.5% APY"
           },
           "btcStaking": {
-            "title": "BTC Stایکkمیںg",
-            "description": "Stایکke wrایکpped BTC کی طرف secure  netwیاk اور eایکrn pایکssive rewایکrds.",
+            "title": "BTC اسٹیکنگ",
+            "description": "نیٹ ورک محفوظ کرنے اور غیر فعال انعامات کمانے کے لیے ریپڈ BTC اسٹیک کریں۔",
             "stats": "8.3% APY"
           }
         },
         "relatedSolutions": {
-          "title": "Relپرed Solutiپرs",
-          "description": "Enhایکce آپ کا BTCfi experience کے ساتھ یہ tools",
+          "title": "متعلقہ حل",
+          "description": "ان ٹولز کے ساتھ اپنے BTCfi تجربے کو بہتر بنائیں",
           "tokenExtensions": {
-            "title": "تکken Extensiپرs",
-            "subtitle": "BRC-20 stاورایکrds"
+            "title": "ٹوکن ایکسٹینشنز",
+            "subtitle": "BRC-20 معیارات"
           },
           "wallets": {
-            "title": "Wایکllets",
-            "subtitle": "BTC-compپرible wایکllets"
+            "title": "والیٹس",
+            "subtitle": "BTC مطابق والیٹس"
           },
           "payments": {
-            "title": "Pایکyments",
-            "subtitle": "Pایکy کے ساتھ BTC"
+            "title": "ادائیگیاں",
+            "subtitle": "BTC سے ادا کریں"
           },
           "financial": {
-            "title": "Fمیںایکciایکl Services",
-            "subtitle": "BTC bایکkمیںg"
+            "title": "مالیاتی خدمات",
+            "subtitle": "BTC بینکنگ"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "قبول کریں BTC"
+            "title": "کامرس",
+            "subtitle": "BTC قبول کریں"
           },
           "permissioned": {
-            "title": "اجازتed",
-            "subtitle": "Enterprہےe BTC"
+            "title": "اجازت یافتہ",
+            "subtitle": "انٹرپرائز BTC"
           },
           "aiFeatures": {
-            "title": "AI Feپرures",
-            "subtitle": "Smایکrt BTC strپرegies"
+            "title": "AI خصوصیات",
+            "subtitle": "ذہین BTC حکمت عملی"
           },
           "actionsBlinks": {
-            "title": "Actiپرs & Blمیںks",
-            "subtitle": "BTC trایکsایکctiپرs"
+            "title": "ایکشنز اور بلنکس",
+            "subtitle": "BTC لین دین"
           }
         },
         "developerResources": {
           "title": "ڈویلپر وسائل",
-          "description": "تعمیر کریں BTCfi ایکpplicپرiپرs کے ساتھ ہمارا comprehensive tools",
+          "description": "ہمارے جامع ٹولز کے ساتھ BTCfi ایپلیکیشنز بنائیں",
           "sdkGuide": {
             "title": "BTCfi SDK گائیڈ",
-            "subtitle": "Integrپرiپر documentپرiپر"
+            "subtitle": "انٹیگریشن دستاویزات"
           },
           "smartContracts": {
             "title": "سمارٹ کنٹریکٹس",
-            "subtitle": "BTC cپرtrایکct templپرes"
+            "subtitle": "BTC کنٹریکٹ ٹیمپلیٹس"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GrایکphQL ایکPIs"
+            "title": "API حوالہ",
+            "subtitle": "REST اور GraphQL APIs"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "Reایکl-time BTC events"
+            "subtitle": "ریئل ٹائم BTC ایونٹس"
           },
           "cliReference": {
-            "title": "CLI تکols",
-            "subtitle": "Commاور lمیںe میںterfایکce"
+            "title": "CLI ٹولز",
+            "subtitle": "کمانڈ لائن انٹرفیس"
           },
           "codeExamples": {
-            "title": "Code Exایکmples",
-            "subtitle": "Sایکmple میںtegrپرiپرs"
+            "title": "کوڈ مثالیں",
+            "subtitle": "نمونہ انٹیگریشنز"
           }
         },
         "learnMore": {
           "title": "مزید جانیں",
-          "gettingStarted": "GETTING STARTED",
+          "gettingStarted": "شروع کریں",
           "defiMastery": {
-            "title": "BTCfi Mایکstery Cہماراse",
-            "subtitle": "ایڈوانسڈ Bitcoمیں DeFi strپرegies"
+            "title": "BTCfi ماسٹری کورس",
+            "subtitle": "ایڈوانسڈ بٹ کوائن DeFi حکمت عملی"
           },
           "introToDefi": {
-            "title": "Introductiپر کی طرف BTCfi",
-            "subtitle": "سیکھیں Bitcoمیں DeFi fundایکmentایکls"
+            "title": "BTCfi کا تعارف",
+            "subtitle": "بٹ کوائن DeFi کی بنیادیں سیکھیں"
           }
         },
         "cta": {
-          "title": "پڑھیںy کی طرف Unlock Yہمارا Bitcoمیں?",
-          "description": "شروع eایکrnمیںg yield پر آپ کا BTC آج کے ساتھ trust-verified protocols.",
-          "link": "دیکھیں BTCfi دستاویزات"
+          "title": "اپنے بٹ کوائن کو آزاد کرنے کے لیے تیار ہیں؟",
+          "description": "آج ہی ٹرسٹ تصدیق شدہ پروٹوکولز کے ساتھ اپنے BTC پر ییلڈ کمانا شروع کریں۔",
+          "link": "BTCfi دستاویزات دیکھیں"
         }
       },
       "crossChainBridge": {
         "tag": "برج",
         "title": "کراس چین برج",
         "subtitle": "7+ بلاکچین نیٹ ورکس میں محفوظ اثاثہ منتقلی۔",
-        "titleHighlight": "Bridge",
+        "titleHighlight": "برج",
         "buttons": {
-          "launchBridge": "Lایکunch Bridge",
-          "viewDocumentation": "دیکھیں دستاویزات"
+          "launchBridge": "برج لانچ کریں",
+          "viewDocumentation": "دستاویزات دیکھیں"
         },
         "heroStats": {
-          "chains": "SUPPORTED CHAINS",
-          "volume": "TOTAL VOLUME",
-          "txns": "TOTAL TRANSACTIONS",
-          "avgTime": "AVG BRIDGE TIME"
+          "chains": "سپورٹڈ چینز",
+          "volume": "کل حجم",
+          "txns": "کل لین دین",
+          "avgTime": "اوسط برج وقت"
         },
         "supportedNetworks": {
-          "title": "سپورٹed Netwیاks",
-          "subtitle": "Bridge ایکssets کی طرف اور from mایکjیا blockchایکمیں netwیاks"
+          "title": "سپورٹڈ نیٹ ورکس",
+          "subtitle": "بڑے بلاکچین نیٹ ورکس کی طرف اور ان سے اثاثے برج کریں"
         },
         "coreFeatures": {
           "mpcSecurity": {
-            "title": "MPC Security",
-            "subtitle": "Multi-Pایکrty Computپرiپر کے لیے trustless bridgمیںg",
+            "title": "MPC سیکیورٹی",
+            "subtitle": "ٹرسٹ لیس برجنگ کے لیے ملٹی پارٹی کمپیوٹیشن",
             "items": {
-              "distributedKeyGen": "Dہےtributed Key Generپرiپر",
-              "thresholdSignatures": "Threshold Signپرures",
-              "regularKeyRotation": "Regulایکr Key Rotپرiپر"
+              "distributedKeyGen": "تقسیم شدہ کلید جنریشن",
+              "thresholdSignatures": "تھریشولڈ دستخط",
+              "regularKeyRotation": "باقاعدہ کلید روٹیشن"
             }
           },
           "atomicSwaps": {
-            "title": "ایکtomic Swایکps",
-            "subtitle": "سب-یا-nothمیںg trایکsایکctiپر guایکrایکtees",
+            "title": "ایٹامک سویپس",
+            "subtitle": "سب کچھ یا کچھ نہیں لین دین کی ضمانتیں",
             "items": {
               "htlcContracts": "HTLC سمارٹ کنٹریکٹس",
-              "zeroSlippage": "Zero Slippایکge Swایکps",
-              "autoRefund": "خودکار Refunds"
+              "zeroSlippage": "صفر سلپیج سویپس",
+              "autoRefund": "آٹو ریفنڈز"
             }
           },
           "unifiedLiquidity": {
-            "title": "Unified لیکویڈیٹی",
-            "subtitle": "Deep cross-chایکمیں liquidity pools",
+            "title": "متحد لیکویڈیٹی",
+            "subtitle": "گہرے کراس چین لیکویڈیٹی پولز",
             "items": {
-              "crossChainPools": "Cross-Chایکمیں لیکویڈیٹی Pools",
-              "dynamicRebalancing": "Dynایکmic Pool Rebایکlایکcمیںg",
-              "largeTransferSupport": "Lایکrge Trایکsfer سپورٹ"
+              "crossChainPools": "کراس چین لیکویڈیٹی پولز",
+              "dynamicRebalancing": "متحرک پول ری بیلنسنگ",
+              "largeTransferSupport": "بڑی منتقلی سپورٹ"
             }
           }
         },
         "howItWorks": {
-          "title": "How  Bridge Wیاks"
+          "title": "برج کیسے کام کرتا ہے"
         },
         "bridgeSteps": {
           "step1": {
-            "title": "جڑیں Wایکllet",
-            "desc": "جڑیں آپ کا wایکllet اور select sہماراce/destمیںپرiپر chایکمیںs."
+            "title": "والیٹ کنکٹ کریں",
+            "desc": "اپنا والیٹ کنکٹ کریں اور سورس/ڈیسٹینیشن چینز منتخب کریں۔"
           },
           "step2": {
-            "title": "منتخب کریں Assets",
-            "desc": "چنیں tokens کی طرف bridge اور enter  ایکmount."
+            "title": "اثاثے منتخب کریں",
+            "desc": "برج کرنے کے لیے ٹوکنز چنیں اور رقم درج کریں۔"
           },
           "step3": {
-            "title": "تصدیق کریں Trایکsfer",
-            "desc": "Review fees اور Trust Scیاe verificپرiپر, n cپرfirm."
+            "title": "منتقلی کی تصدیق کریں",
+            "desc": "فیس اور ٹرسٹ سکور تصدیق کا جائزہ لیں، پھر تصدیق کریں۔"
           },
           "step4": {
-            "title": "وصول کریں Assets",
-            "desc": "ایکssets ایکrrive پر destمیںپرiپر chایکمیں میں ~2 mمیںutes."
+            "title": "اثاثے وصول کریں",
+            "desc": "اثاثے ~2 منٹ میں ڈیسٹینیشن چین پر پہنچ جاتے ہیں۔"
           }
         },
         "relatedSolutions": {
-          "title": "Relپرed Solutiپرs",
-          "description": "Enhایکce آپ کا cross-chایکمیں experience کے ساتھ یہ tools",
+          "title": "متعلقہ حل",
+          "description": "ان ٹولز کے ساتھ اپنے کراس چین تجربے کو بہتر بنائیں",
           "btcfi": {
             "title": "BTCfi",
-            "subtitle": "Bridge Bitcoمیں"
+            "subtitle": "بٹ کوائن برج"
           },
           "tokenExtensions": {
-            "title": "تکken Extensiپرs",
-            "subtitle": "Cross-chایکمیں tokens"
+            "title": "ٹوکن ایکسٹینشنز",
+            "subtitle": "کراس چین ٹوکنز"
           },
           "wallets": {
-            "title": "Wایکllets",
-            "subtitle": "Multi-chایکمیں wایکllets"
+            "title": "والیٹس",
+            "subtitle": "ملٹی چین والیٹس"
           },
           "payments": {
-            "title": "Pایکyments",
-            "subtitle": "Cross-chایکمیں pایکyments"
+            "title": "ادائیگیاں",
+            "subtitle": "کراس چین ادائیگیاں"
           },
           "financial": {
-            "title": "Fمیںایکciایکl Services",
-            "subtitle": "Multi-chایکمیں fمیںایکce"
+            "title": "مالیاتی خدمات",
+            "subtitle": "ملٹی چین فنانس"
           },
           "permissioned": {
-            "title": "اجازتed",
-            "subtitle": "Enterprہےe bridges"
+            "title": "اجازت یافتہ",
+            "subtitle": "انٹرپرائز برجز"
           },
           "aiFeatures": {
-            "title": "AI Feپرures",
-            "subtitle": "Smایکrt routمیںg"
+            "title": "AI خصوصیات",
+            "subtitle": "ذہین روٹنگ"
           },
           "actionsBlinks": {
-            "title": "Actiپرs & Blمیںks",
-            "subtitle": "Bridge viایک lمیںks"
+            "title": "ایکشنز اور بلنکس",
+            "subtitle": "لنکس کے ذریعے برج"
           }
         },
         "developerResources": {
           "title": "ڈویلپر وسائل",
-          "description": "میںtegrپرe cross-chایکمیں functiپرایکlity میںکی طرف آپ کا ایکpplicپرiپرs",
+          "description": "اپنی ایپلیکیشنز میں کراس چین فنکشنالٹی شامل کریں",
           "sdkGuide": {
-            "title": "Bridge SDK گائیڈ",
-            "subtitle": "Integrپرiپر documentپرiپر"
+            "title": "برج SDK گائیڈ",
+            "subtitle": "انٹیگریشن دستاویزات"
           },
           "smartContracts": {
             "title": "سمارٹ کنٹریکٹس",
-            "subtitle": "Bridge cپرtrایکcts"
+            "subtitle": "برج کنٹریکٹس"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GrایکphQL ایکPIs"
+            "title": "API حوالہ",
+            "subtitle": "REST اور GraphQL APIs"
           },
           "websocketApi": {
             "title": "WebSocket API",
             "subtitle": "ریئل ٹائم اپڈیٹس"
           },
           "cliReference": {
-            "title": "CLI تکols",
-            "subtitle": "Commاور lمیںe bridgمیںg"
+            "title": "CLI ٹولز",
+            "subtitle": "کمانڈ لائن برجنگ"
           },
           "codeExamples": {
-            "title": "Code Exایکmples",
-            "subtitle": "Sایکmple میںtegrپرiپرs"
+            "title": "کوڈ مثالیں",
+            "subtitle": "نمونہ انٹیگریشنز"
           }
         },
         "learnMore": {
           "title": "مزید جانیں",
-          "forDevelopers": "FOR DEVELOPERS",
-          "gettingStarted": "GETTING STARTED",
+          "forDevelopers": "ڈویلپرز کے لیے",
+          "gettingStarted": "شروع کریں",
           "defiMastery": {
-            "title": "Cross-Chایکمیں DeFi",
-            "subtitle": "ایڈوانسڈ multi-chایکمیں strپرegies"
+            "title": "کراس چین DeFi",
+            "subtitle": "ایڈوانسڈ ملٹی چین حکمت عملی"
           },
           "developerCourse": {
-            "title": "Bridge ڈویلپر کورس",
-            "subtitle": "تعمیر کریں cross-chایکمیں ایکpplicپرiپرs"
+            "title": "برج ڈویلپر کورس",
+            "subtitle": "کراس چین ایپلیکیشنز بنائیں"
           },
           "blockchainBasics": {
-            "title": "Cross-Chایکمیں بنیادیs",
-            "subtitle": "Understاورمیںg blockchایکمیں bridges اور میںteroperایکbility"
+            "title": "کراس چین بنیادیات",
+            "subtitle": "بلاکچین برجز اور انٹراپریبلٹی کو سمجھیں"
           }
         },
         "cta": {
-          "title": "پڑھیںy کی طرف Bridge Yہمارا Assets?",
-          "description": "Trایکsfer ایکssets ایکcross chایکمیںs securely کے ساتھ trust verificپرiپر.",
-          "link": "دیکھیں Bridge دستاویزات",
-          "button": "Lایکunch Bridge ایکpp"
+          "title": "اپنے اثاثے برج کرنے کے لیے تیار ہیں؟",
+          "description": "ٹرسٹ تصدیق کے ساتھ چینز میں محفوظ طریقے سے اثاثے منتقل کریں۔",
+          "link": "برج دستاویزات دیکھیں",
+          "button": "برج ایپ لانچ کریں"
         }
       }
     },

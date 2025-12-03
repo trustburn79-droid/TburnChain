@@ -6370,25 +6370,25 @@
           }
         },
         "cta": {
-          "title": "Ready to Migrate?",
-          "description": "Get started with our step-by-step migration guide and tools.",
-          "startNow": "Start Migration Now",
+          "title": "Готовы к миграции?",
+          "description": "Начните с нашего пошагового руководства и инструментов миграции.",
+          "startNow": "Начать миграцию",
           "contactSupport": "Связаться с поддержкой",
           "readDocumentation": "Читать документацию"
         },
         "faq": {
-          "title": "Frequently Asked Questions",
+          "title": "Часто задаваемые вопросы",
           "q1": {
-            "question": "Will my existing Solidity contracts work?",
-            "answer": "Yes, TBurn Chain is fully EVM-compatible and supports all Solidity versions."
+            "question": "Будут ли работать мои существующие Solidity контракты?",
+            "answer": "Да, TBurn Chain полностью EVM-совместим и поддерживает все версии Solidity."
           },
           "q2": {
-            "question": "Do I need to re-audit my contracts?",
-            "answer": "We recommend a security review for Trust Score integration, but existing logic should work as-is."
+            "question": "Нужно ли мне повторно проводить аудит контрактов?",
+            "answer": "Мы рекомендуем провести проверку безопасности для интеграции Trust Score, но существующая логика должна работать как есть."
           },
           "q3": {
-            "question": "How long does migration take?",
-            "answer": "Simple contracts can be migrated in hours. Complex protocols may take 1-2 weeks."
+            "question": "Сколько времени занимает миграция?",
+            "answer": "Простые контракты можно мигрировать за часы. Сложные протоколы могут занять 1-2 недели."
           }
         }
       }
@@ -6592,23 +6592,23 @@
             "description": "Вся информация о проекте, включая данные о команде, ссылки на whitepaper, отчёты аудита и графики сжигания, хранится в метаданных токена."
           },
           "trustRating": {
-            "title": "Built-in Trust Rating",
-            "description": "Trust scores are automatically recorded in token contracts. When below 40%,",
-            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
-            "badge": "Automated Investor Protection"
+            "title": "Встроенный рейтинг доверия",
+            "description": "Рейтинги доверия автоматически записываются в контракты токенов. При падении ниже 40%",
+            "descriptionContinue": "функция transfer() автоматически отказывает, блокируя транзакции.",
+            "badge": "Автоматическая защита инвесторов"
           },
           "autoBurn": {
-            "title": "Automatic Burn Schedule",
-            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned.",
-            "badge": "Enforced Deflationary Model"
+            "title": "Автоматический график сжигания",
+            "description": "Если запланированные сжигания не выполняются, залоговые токены автоматически сжигаются.",
+            "badge": "Обязательная дефляционная модель"
           },
           "collateral": {
-            "title": "Collateral Transparency",
-            "description": "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+            "title": "Прозрачность залога",
+            "description": "Адреса резервных кошельков проектов публично раскрыты в сети с коэффициентами залога в реальном времени."
           },
           "metadata": {
-            "title": "Extended Metadata",
-            "description": "All project information including team details, whitepaper links, and audit reports stored on-chain."
+            "title": "Расширенные метаданные",
+            "description": "Вся информация о проекте, включая данные о команде, ссылки на whitepaper и отчёты аудита, хранится в сети."
           }
         },
         "brc20Standard": {
@@ -6632,16 +6632,16 @@
             "description": "Авто-сжигание при каждой транзакции увеличивает стоимость."
           },
           "verified": {
-            "title": "Verified Project Tokens",
-            "description": "Tradeable only when maintaining 60%+ trust score."
+            "title": "Верифицированные токены проектов",
+            "description": "Торгуемые только при поддержании рейтинга доверия 60%+."
           },
           "stablecoins": {
-            "title": "Collateral-backed Stablecoins",
-            "description": "Real-time collateral ratio monitoring and auto liquidation."
+            "title": "Стейблкоины с залоговым обеспечением",
+            "description": "Мониторинг коэффициента залога в реальном времени и автоликвидация."
           },
           "deflationary": {
-            "title": "Deflationary Utility Tokens",
-            "description": "Auto-burn on each transaction increases value."
+            "title": "Дефляционные утилитарные токены",
+            "description": "Авто-сжигание при каждой транзакции увеличивает стоимость."
           }
         },
         "realExamples": {
@@ -6666,41 +6666,41 @@
           "viewApiDocs": "API документация"
         },
         "buttons": {
-          "exploreBrc20": "Explore BRC-20",
-          "readSpecs": "Read Specs",
-          "openConsole": "Open Developer Console",
-          "viewApiDocs": "View API Docs"
+          "exploreBrc20": "Изучить BRC-20",
+          "readSpecs": "Читать спецификации",
+          "openConsole": "Открыть консоль разработчика",
+          "viewApiDocs": "API документация"
         },
         "brc20": {
-          "title": "BRC-20 Token Standard",
-          "subtitle": "Core interfaces for Trust & Burn functionality.",
-          "trustScoreFunctions": "Trust Score Functions",
-          "autoBurnFunctions": "Auto Burn Functions"
+          "title": "Стандарт токенов BRC-20",
+          "subtitle": "Основные интерфейсы для функциональности Trust & Burn.",
+          "trustScoreFunctions": "Функции рейтинга доверия",
+          "autoBurnFunctions": "Функции авто-сжигания"
         },
         "code": {
           "comments": {
-            "range": "Returns trust score in range 0-100",
-            "autoBurn": "Burn tokens according to schedule"
+            "range": "Возвращает рейтинг доверия в диапазоне 0-100",
+            "autoBurn": "Сжигание токенов по расписанию"
           }
         },
         "useCasesSection": {
-          "title": "Token Extension Use Cases"
+          "title": "Варианты использования расширений токенов"
         },
         "examplesSection": {
-          "title": "Real Use Examples"
+          "title": "Реальные примеры использования"
         },
         "examples": {
           "busd": {
-            "name": "BUSD (Stablecoin)",
-            "badge": "90+ Trust Score"
+            "name": "BUSD (Стейблкоин)",
+            "badge": "Рейтинг доверия 90+"
           },
           "bgame": {
             "name": "BGAME (GameFi)",
-            "badge": "Auto-Burn Enabled"
+            "badge": "Авто-сжигание включено"
           },
           "bprop": {
             "name": "BPROP (RWA)",
-            "badge": "Real Asset Collateral"
+            "badge": "Залог реальных активов"
           }
         }
       },
@@ -7011,95 +7011,95 @@
           }
         },
         "buttons": {
-          "contactSales": "Contact Sales",
-          "viewWhitepaper": "View Whitepaper"
+          "contactSales": "Связаться с отделом продаж",
+          "viewWhitepaper": "Читать Whitepaper"
         },
         "features": {
           "rbac": {
-            "title": "Role-Based Access Control",
-            "desc": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+            "title": "Управление доступом на основе ролей",
+            "desc": "Гранулярные настройки разрешений для администраторов, валидаторов и пользователей. Раздельные права на развёртывание смарт-контрактов, одобрение транзакций и запросы данных."
           },
           "whitelist": {
-            "title": "Whitelist Validators",
-            "desc": "Only trusted validators can participate in the network. Configure the network so that only internal nodes or approved partners can generate and validate blocks."
+            "title": "Белый список валидаторов",
+            "desc": "Только доверенные валидаторы могут участвовать в сети. Настройте сеть так, чтобы только внутренние узлы или одобренные партнёры могли генерировать и валидировать блоки."
           },
           "compliance": {
-            "title": "Regulatory Compliance",
-            "desc": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+            "title": "Соответствие нормативам",
+            "desc": "Фреймворк для глобальных регуляций (GDPR, HIPAA, SOC2). Встроенные аудит-логи, шифрование данных при хранении и передаче, функции защиты приватности."
           },
           "multisig": {
-            "title": "Multi-Signature Governance",
-            "desc": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+            "title": "Мультиподписное управление",
+            "desc": "Критические решения сети требуют многостороннего одобрения. Обновления смарт-контрактов, управление валидаторами и изменение параметров требуют 3/5 или 5/7 подписей."
           }
         },
         "hybrid": {
           "privateAnchor": {
-            "title": "Private Chain + Public Anchor",
-            "desc": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the TBurn Public Mainnet for immutability."
+            "title": "Частный блокчейн + Публичная привязка",
+            "desc": "Внутренние транзакции выполняются на высокоскоростном частном блокчейне, с периодической привязкой хешей состояния к публичному мейннету TBurn."
           },
           "selectiveDisclosure": {
-            "title": "Selective Data Disclosure",
-            "desc": "Transaction details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+            "title": "Выборочное раскрытие данных",
+            "desc": "Детали транзакций остаются приватными для авторизованных участников, но могут быть криптографически подтверждены аудиторам или регуляторам при необходимости."
           }
         },
         "diagram": {
-          "privateLayer": "Private Consensus Layer",
-          "anchoringHash": "ANCHORING HASH",
-          "publicMainnet": "Public Mainnet (L1)"
+          "privateLayer": "Уровень частного консенсуса",
+          "anchoringHash": "ХЕШ ПРИВЯЗКИ",
+          "publicMainnet": "Публичный мейннет (L1)"
         },
         "useCases": {
-          "exampleLabel": "Example",
+          "exampleLabel": "Пример",
           "supplyChain": {
-            "title": "Supply Chain",
-            "desc": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
-            "example": "Auto Parts Tracking",
-            "flow": "Raw Material → Production → Assembly"
+            "title": "Цепочка поставок",
+            "desc": "Отслеживайте продукцию от производителя до доставки. Участники видят только релевантные сегменты транзакций.",
+            "example": "Отслеживание автозапчастей",
+            "flow": "Сырьё → Производство → Сборка"
           },
           "banking": {
-            "title": "Banking Consortium",
-            "desc": "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
-            "example": "Cross-border Remittance",
-            "flow": "3 Days → 3 Seconds, Fee $10 → $0.01"
+            "title": "Банковский консорциум",
+            "desc": "Сеть межбанковских расчётов. Расчёты в реальном времени с нулевым контрагентским риском.",
+            "example": "Трансграничные переводы",
+            "flow": "3 дня → 3 секунды, Комиссия $10 → $0.01"
           },
           "medical": {
-            "title": "Medical Data",
-            "desc": "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
-            "example": "E-Prescriptions",
-            "flow": "Hospital → Pharmacy → Insurance"
+            "title": "Медицинские данные",
+            "desc": "Безопасный обмен данными пациентов между больницами и страховщиками. Полное соответствие аудиту HIPAA.",
+            "example": "Электронные рецепты",
+            "flow": "Больница → Аптека → Страховая"
           }
         },
         "deployment": {
           "step1": {
-            "title": "Requirements Analysis",
-            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+            "title": "Анализ требований",
+            "desc": "Определение участников, проектирование схем разрешений и анализ нормативных требований."
           },
           "step2": {
-            "title": "Network Setup",
-            "desc": "Deploy validator nodes, generate genesis block, and develop initial smart contracts."
+            "title": "Настройка сети",
+            "desc": "Развёртывание узлов валидаторов, генерация генезис-блока и разработка начальных смарт-контрактов."
           },
           "step3": {
-            "title": "Integration & Migration",
-            "desc": "API integration with legacy systems (ERP, CRM), data migration, and user training."
+            "title": "Интеграция и миграция",
+            "desc": "API-интеграция с устаревшими системами (ERP, CRM), миграция данных и обучение пользователей."
           },
           "step4": {
-            "title": "Mainnet Launch",
-            "desc": "Production deployment with 24/7 monitoring and regular security audits."
+            "title": "Запуск мейннета",
+            "desc": "Производственное развёртывание с мониторингом 24/7 и регулярными аудитами безопасности."
           }
         },
         "sections": {
           "enterpriseFeatures": {
-            "title": "Enterprise Features",
-            "subtitle": "Advanced control and compliance features for businesses"
+            "title": "Корпоративные функции",
+            "subtitle": "Расширенные функции контроля и соответствия для бизнеса"
           },
           "hybridArchitecture": {
-            "title": "Hybrid Architecture",
-            "subtitle": "Combine private chain privacy with public blockchain security"
+            "title": "Гибридная архитектура",
+            "subtitle": "Объедините приватность частного блокчейна с безопасностью публичного"
           },
           "useCases": {
-            "title": "Industry Use Cases"
+            "title": "Отраслевые применения"
           },
           "deployment": {
-            "title": "Deployment Process"
+            "title": "Процесс развёртывания"
           }
         }
       },
@@ -7153,33 +7153,33 @@
             "title": "P2E игры",
             "description": "Верификация доверия блокирует схемы Понци. Стабильная токеномика для устойчивого play-to-earn.",
             "tags": "RPG • Стратегия • Битва",
-            "desc": "Reward players with verified tokens and NFTs for gameplay achievements."
+            "desc": "Награждайте игроков верифицированными токенами и NFT за игровые достижения."
           },
           "nftMarketplace": {
             "title": "NFT Маркетплейс",
             "description": "Торгуйте игровыми предметами, произведениями искусства и коллекциями. Значки Trust автоматически отображаются для безопасности.",
             "tags": "Предупреждение о риске • История",
-            "desc": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety."
+            "desc": "Торгуйте игровыми предметами, произведениями искусства и коллекциями. Значки доверия отображаются автоматически для безопасности."
           },
           "metaverse": {
             "title": "Метавселенная",
             "description": "Виртуальная недвижимость, аватары и предметы одежды. Децентрализованное владение с DAO управлением.",
             "tags": "Земля • Аватары • Социальное",
-            "desc": "Immersive virtual environments with verified digital asset ownership."
+            "desc": "Иммерсивные виртуальные среды с верифицированным владением цифровыми активами."
           },
-          "subtitle": "Build any type of blockchain game with our comprehensive tooling",
+          "subtitle": "Создавайте любые типы блокчейн-игр с нашим комплексным инструментарием",
           "marketplace": {
-            "title": "NFT Marketplaces",
-            "desc": "Secure trading platforms for in-game items with trust verification.",
-            "tags": "Trading, Auction, Exchange"
+            "title": "NFT Маркетплейсы",
+            "desc": "Безопасные торговые платформы для игровых предметов с верификацией доверия.",
+            "tags": "Торговля, Аукционы, Обмен"
           },
           "casualGames": {
-            "title": "Casual Games",
-            "desc": "Lightweight blockchain integration for casual gaming with microtransactions."
+            "title": "Казуальные игры",
+            "desc": "Лёгкая блокчейн-интеграция для казуальных игр с микротранзакциями."
           },
           "esports": {
             "title": "Киберспорт и турниры",
-            "desc": "Decentralized prize pools with transparent distribution and anti-cheat verification."
+            "desc": "Децентрализованные призовые фонды с прозрачным распределением и античит-верификацией."
           }
         },
         "integrationGuide": {
@@ -7202,117 +7202,117 @@
           }
         },
         "buttons": {
-          "getUnitySdk": "Get Unity SDK",
-          "getUnrealSdk": "Get Unreal SDK",
+          "getUnitySdk": "Получить Unity SDK",
+          "getUnrealSdk": "Получить Unreal SDK",
           "viewDocs": "Смотреть документацию"
         },
         "sections": {
           "whyBuild": {
-            "title": "Why Build Games on TBurn Chain?",
-            "subtitle": "Advanced infrastructure for next-generation blockchain gaming"
+            "title": "Почему строить игры на TBurn Chain?",
+            "subtitle": "Продвинутая инфраструктура для блокчейн-игр нового поколения"
           },
           "trustScore": {
-            "title": "Trust Score for Games"
+            "title": "Рейтинг доверия для игр"
           },
           "gameTypes": {
-            "title": "Game Types & Use Cases"
+            "title": "Типы игр и варианты использования"
           },
           "integration": {
-            "title": "Integration Steps"
+            "title": "Шаги интеграции"
           }
         },
         "trustScore": {
-          "title": "NFT Project Trust Score",
-          "subtitle": "Comprehensive verification system for game projects",
-          "teamScore": "Team Identity Score",
-          "contractScore": "Contract Security Score",
-          "utilityScore": "Utility & Roadmap Score",
-          "totalScore": "Total Trust Score",
+          "title": "Рейтинг доверия NFT проектов",
+          "subtitle": "Комплексная система верификации игровых проектов",
+          "teamScore": "Оценка идентификации команды",
+          "contractScore": "Оценка безопасности контракта",
+          "utilityScore": "Оценка утилиты и дорожной карты",
+          "totalScore": "Общий рейтинг доверия",
           "verification": {
             "title": "Верификация доверия",
-            "desc": "AI-powered project analysis with community validation"
+            "desc": "ИИ-анализ проектов с валидацией сообществом"
           },
           "team": {
-            "title": "Team Verification",
-            "points": "0-30 pts",
-            "desc": "Verified team members with public identities receive higher scores.",
+            "title": "Верификация команды",
+            "points": "0-30 баллов",
+            "desc": "Верифицированные члены команды с публичной идентификацией получают более высокие оценки.",
             "scoring": {
-              "verified": "Verified team members",
-              "anonymous": "Anonymous team",
-              "maxPoints": "Max 10 pts"
+              "verified": "Верифицированные члены команды",
+              "anonymous": "Анонимная команда",
+              "maxPoints": "Макс. 10 баллов"
             }
           },
           "contract": {
-            "title": "Contract Security",
-            "points": "0-25 pts",
-            "desc": "Audited smart contracts with verified security practices.",
+            "title": "Безопасность контракта",
+            "points": "0-25 баллов",
+            "desc": "Аудированные смарт-контракты с верифицированными практиками безопасности.",
             "scoring": {
-              "audits": "3+ security audits",
-              "noAudit": "No audit"
+              "audits": "3+ аудита безопасности",
+              "noAudit": "Без аудита"
             }
           },
           "utility": {
-            "title": "Game Utility",
-            "points": "0-25 pts",
-            "desc": "Real gameplay utility and active player engagement.",
+            "title": "Игровая утилита",
+            "points": "0-25 баллов",
+            "desc": "Реальная игровая полезность и активное вовлечение игроков.",
             "scoring": {
-              "executed": "Roadmap executed",
-              "gameLive": "Game is live",
-              "bonus": "+10 pts bonus"
+              "executed": "Дорожная карта выполнена",
+              "gameLive": "Игра запущена",
+              "bonus": "+10 баллов бонус"
             }
           }
         },
         "features": {
           "ultraFastProcessing": {
-            "title": "Ultra-Fast Processing",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+            "title": "Сверхбыстрая обработка",
+            "desc": "50 000+ TPS позволяет торговать в игре в реальном времени с временем блока 1 секунда."
           },
           "nftVerification": {
-            "title": "NFT Project Verification",
-            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+            "title": "Верификация NFT проектов",
+            "desc": "3-этапная верификация блокирует мошеннические NFT проекты с мониторингом Trust Score."
           },
           "verifiedOwnership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-chain records for all game item issuance and burn history."
+            "title": "Верифицированное владение",
+            "desc": "Неизменяемые записи в сети для всей истории выпуска и сжигания игровых предметов."
           },
           "crossGameAssets": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM compatibility enables interoperable items across different games."
+            "title": "Кросс-игровые активы",
+            "desc": "EVM-совместимость обеспечивает интероперабельность предметов между разными играми."
           },
           "ultraFast": {
-            "title": "Ultra-Fast Processing",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+            "title": "Сверхбыстрая обработка",
+            "desc": "50 000+ TPS позволяет торговать в игре в реальном времени с временем блока 1 секунда."
           },
           "verification": {
-            "title": "NFT Project Verification",
-            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+            "title": "Верификация NFT проектов",
+            "desc": "3-этапная верификация блокирует мошеннические NFT проекты с мониторингом Trust Score."
           },
           "ownership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-chain records for all game item issuance and burn history."
+            "title": "Верифицированное владение",
+            "desc": "Неизменяемые записи в сети для всей истории выпуска и сжигания игровых предметов."
           },
           "crossGame": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM compatibility enables interoperable items across different games."
+            "title": "Кросс-игровые активы",
+            "desc": "EVM-совместимость обеспечивает интероперабельность предметов между разными играми."
           }
         },
         "integration": {
-          "title": "Integration Guide",
+          "title": "Руководство по интеграции",
           "step1": {
-            "title": "Connect SDK",
-            "desc": "Integrate the TBurn Gaming SDK into your game engine."
+            "title": "Подключение SDK",
+            "desc": "Интегрируйте TBurn Gaming SDK в ваш игровой движок."
           },
           "step2": {
-            "title": "Deploy Contracts",
-            "desc": "Deploy your game contracts on TBurn Chain testnet."
+            "title": "Развёртывание контрактов",
+            "desc": "Разверните игровые контракты в тестовой сети TBurn Chain."
           },
           "step3": {
-            "title": "Get Verified",
-            "desc": "Submit for Trust Score verification and game review."
+            "title": "Получение верификации",
+            "desc": "Подайте заявку на верификацию Trust Score и ревью игры."
           },
           "step4": {
-            "title": "Launch",
-            "desc": "Go live on mainnet with full ecosystem support."
+            "title": "Запуск",
+            "desc": "Выходите в мейннет с полной поддержкой экосистемы."
           }
         }
       },
@@ -7419,92 +7419,92 @@
         "tag": "КОММЕРЦИЯ",
         "title": "Коммерция",
         "subtitle": "Интеграция электронной коммерции и решения для продавцов.",
-        "titleHighlight": "Solutions",
+        "titleHighlight": "Решения",
         "buttons": {
-          "installPlugin": "Install Plugin",
-          "viewApiDocs": "View API Docs",
-          "startIntegration": "Start Integration"
+          "installPlugin": "Установить плагин",
+          "viewApiDocs": "API документация",
+          "startIntegration": "Начать интеграцию"
         },
         "features": {
           "payment": {
-            "title": "Crypto Payment Processing",
-            "desc": "Accept verified tokens with instant settlement. Trust Score filtering protects merchants from fraudulent transactions and low-quality tokens."
+            "title": "Обработка криптоплатежей",
+            "desc": "Принимайте верифицированные токены с мгновенными расчётами. Фильтрация Trust Score защищает продавцов от мошеннических транзакций и низкокачественных токенов."
           },
           "inventory": {
-            "title": "Blockchain Inventory Tracking",
-            "desc": "Track products with on-chain verification. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+            "title": "Блокчейн-отслеживание инвентаря",
+            "desc": "Отслеживайте продукцию с верификацией в сети. NFT-сертификаты подлинности предотвращают подделки и упрощают отслеживание перепродаж."
           },
           "loyalty": {
-            "title": "Token-Based Loyalty Programs",
-            "desc": "Issue loyalty tokens to reward customers. Blockchain-based points are transparent, tradeable, and never expire."
+            "title": "Программы лояльности на токенах",
+            "desc": "Выпускайте токены лояльности для поощрения клиентов. Блокчейн-баллы прозрачны, торгуемы и никогда не истекают."
           },
           "analytics": {
-            "title": "Real-Time Commerce Analytics",
-            "desc": "Monitor sales, customer behavior, and token transactions. On-chain data provides tamper-proof business insights."
+            "title": "Аналитика коммерции в реальном времени",
+            "desc": "Отслеживайте продажи, поведение клиентов и токен-транзакции. Данные в сети обеспечивают защищённые от подделки бизнес-инсайты."
           }
         },
         "platforms": {
           "shopify": {
-            "desc": "One-click integration with the world's leading e-commerce platform.",
-            "status": "AVAILABLE"
+            "desc": "Интеграция в один клик с ведущей мировой платформой электронной коммерции.",
+            "status": "ДОСТУПНО"
           },
           "woocommerce": {
-            "desc": "WordPress plugin for WooCommerce stores.",
-            "status": "AVAILABLE"
+            "desc": "WordPress-плагин для магазинов WooCommerce.",
+            "status": "ДОСТУПНО"
           },
           "customApi": {
-            "title": "Custom API",
-            "desc": "RESTful API for custom integrations and mobile apps.",
-            "status": "AVAILABLE"
+            "title": "Кастомный API",
+            "desc": "RESTful API для пользовательских интеграций и мобильных приложений.",
+            "status": "ДОСТУПНО"
           }
         },
         "stories": {
           "fashionBrand": {
             "name": "Aurora Fashion",
-            "type": "Luxury Fashion Brand",
-            "quote": "TBurn Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "type": "Люксовый модный бренд",
+            "quote": "TBurn Commerce сократил наши комиссии за обработку платежей на 85% и открыл нас для глобальных крипто-клиентов.",
             "stats": {
-              "volume": "$2.5M Volume",
-              "savings": "85% Fee Savings"
+              "volume": "$2.5M объём",
+              "savings": "85% экономия на комиссиях"
             }
           },
           "resalePlatform": {
             "name": "BlockResale",
-            "type": "NFT-Verified Resale Platform",
-            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "type": "NFT-верифицированная платформа перепродаж",
+            "quote": "NFT-сертификаты подлинности устранили возвраты подделок и повысили доверие покупателей.",
             "stats": {
-              "nfts": "50K NFTs Issued",
-              "counterfeits": "Zero Counterfeits"
+              "nfts": "50K NFT выпущено",
+              "counterfeits": "Ноль подделок"
             }
           }
         },
         "integration": {
           "step1": {
-            "title": "Get API Keys",
-            "desc": "Register on the developer dashboard and get your credentials."
+            "title": "Получение API ключей",
+            "desc": "Зарегистрируйтесь в панели разработчика и получите учётные данные."
           },
           "step2": {
-            "title": "Install SDK",
-            "desc": "Add TBurn Commerce SDK to your project."
+            "title": "Установка SDK",
+            "desc": "Добавьте TBurn Commerce SDK в ваш проект."
           },
           "step3": {
-            "title": "Configure Webhooks",
-            "desc": "Set up payment confirmation and order update notifications."
+            "title": "Настройка вебхуков",
+            "desc": "Настройте уведомления о подтверждении оплаты и обновлении заказов."
           }
         },
         "sections": {
           "coreFeatures": {
-            "title": "Commerce Features",
-            "subtitle": "Everything you need to accept crypto payments and grow your business."
+            "title": "Функции коммерции",
+            "subtitle": "Всё необходимое для приёма криптоплатежей и роста вашего бизнеса."
           },
           "platforms": {
-            "title": "Integration Platforms"
+            "title": "Платформы интеграции"
           },
           "successStories": {
-            "title": "Success Stories"
+            "title": "Истории успеха"
           },
           "integration": {
-            "title": "Quick Integration Guide"
+            "title": "Краткое руководство по интеграции"
           }
         }
       },
@@ -7512,82 +7512,82 @@
         "tag": "ФИНАНСЫ",
         "title": "Финансовые услуги",
         "subtitle": "Корпоративная финансовая инфраструктура на блокчейне.",
-        "titleHighlight": "Services",
+        "titleHighlight": "Услуги",
         "buttons": {
           "startBuilding": "Начать разработку",
-          "readWhitepaper": "Read Whitepaper"
+          "readWhitepaper": "Читать Whitepaper"
         },
         "services": {
           "banking": {
-            "title": "Digital Banking Infrastructure",
-            "desc": "Build neo-banking products with blockchain settlement. Instant transfers, programmable accounts, and full regulatory compliance."
+            "title": "Инфраструктура цифрового банкинга",
+            "desc": "Создавайте нео-банковские продукты с блокчейн-расчётами. Мгновенные переводы, программируемые счета и полное соответствие нормативам."
           },
           "defi": {
-            "title": "DeFi Protocol Integration",
-            "desc": "Connect traditional finance with decentralized protocols. Access lending, staking, and yield generation with institutional-grade security."
+            "title": "Интеграция с DeFi протоколами",
+            "desc": "Связывайте традиционные финансы с децентрализованными протоколами. Доступ к кредитованию, стейкингу и генерации дохода с безопасностью институционального уровня."
           },
           "payment": {
-            "title": "Cross-Border Payments",
-            "desc": "Global settlements in seconds, not days. Reduce costs by 99% with blockchain-based international transfers."
+            "title": "Трансграничные платежи",
+            "desc": "Глобальные расчёты за секунды, а не дни. Снижение затрат на 99% благодаря международным переводам на блокчейне."
           },
           "compliance": {
-            "title": "Regulatory Compliance",
-            "desc": "Built-in KYC/AML verification and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+            "title": "Соответствие нормативам",
+            "desc": "Встроенная верификация KYC/AML и аудиторские логи. Автоматическое соответствие GDPR, SOC2 и финансовым регуляциям."
           }
         },
         "stats": {
-          "tvl": "Total Value Locked",
-          "apy": "Average APY",
-          "dau": "Daily Active Users"
+          "tvl": "Общая заблокированная стоимость",
+          "apy": "Средняя APY",
+          "dau": "Активных пользователей в день"
         },
         "cases": {
           "neobank": {
             "name": "NeoBank X",
-            "type": "Digital Banking Platform",
-            "quote": "TBurn's infrastructure allowed us to launch in 3 months instead of 18. Our customers love instant transfers.",
+            "type": "Платформа цифрового банкинга",
+            "quote": "Инфраструктура TBurn позволила нам запуститься за 3 месяца вместо 18. Наши клиенты в восторге от мгновенных переводов.",
             "stats": {
-              "customers": "150K Customers",
-              "costs": "90% Cost Reduction"
+              "customers": "150K клиентов",
+              "costs": "90% снижение затрат"
             }
           },
           "defiProtocol": {
             "name": "DeFi Prime",
-            "type": "Lending Protocol",
-            "quote": "Trust Score integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "type": "Протокол кредитования",
+            "quote": "Интеграция Trust Score сократила безнадёжные долги почти до нуля. Наши кредиторы чувствуют себя уверенно, зная, что каждый заёмщик верифицирован.",
             "stats": {
               "tvl": "$500M TVL",
-              "liquidations": "Zero Bad Debt"
+              "liquidations": "Ноль безнадёжных долгов"
             }
           }
         },
         "building": {
           "step1": {
-            "title": "Architecture Consultation",
-            "desc": "Our team helps design your financial product architecture, ensuring regulatory compliance from day one."
+            "title": "Архитектурная консультация",
+            "desc": "Наша команда помогает спроектировать архитектуру вашего финансового продукта, обеспечивая соответствие нормативам с первого дня."
           },
           "step2": {
             "title": "Интеграция API",
-            "desc": "Connect to TBurn's financial APIs for payments, lending, and asset management."
+            "desc": "Подключитесь к финансовым API TBurn для платежей, кредитования и управления активами."
           },
           "step3": {
-            "title": "Compliance Setup",
-            "desc": "Configure KYC/AML flows and audit logging to meet your regulatory requirements."
+            "title": "Настройка соответствия",
+            "desc": "Настройте потоки KYC/AML и аудиторское логирование для соответствия вашим нормативным требованиям."
           },
           "step4": {
-            "title": "Production Launch",
-            "desc": "Deploy with 24/7 monitoring, enterprise SLA, and dedicated support."
+            "title": "Продакшн-запуск",
+            "desc": "Развёртывание с мониторингом 24/7, корпоративным SLA и выделенной поддержкой."
           }
         },
         "sections": {
           "coreServices": {
-            "title": "Core Financial Services",
-            "subtitle": "Enterprise-grade blockchain infrastructure for modern finance."
+            "title": "Основные финансовые сервисы",
+            "subtitle": "Блокчейн-инфраструктура корпоративного уровня для современных финансов."
           },
           "realCases": {
-            "title": "Real-World Success"
+            "title": "Реальные истории успеха"
           },
           "building": {
-            "title": "Build Financial Products"
+            "title": "Создание финансовых продуктов"
           }
         }
       },
@@ -7598,118 +7598,118 @@
         "titleHighlight": "Triple-Band Orchestration",
         "tiers": {
           "strategic": {
-            "title": "Strategic AI",
+            "title": "Стратегический ИИ",
             "model": "GPT-4 / Claude 3",
-            "description": "High-level decision making for governance, tokenomics design, and long-term risk assessment. Processes complex analyses with human-like reasoning.",
+            "description": "Принятие решений высокого уровня для управления, проектирования токеномики и долгосрочной оценки рисков. Обрабатывает сложные анализы с человекоподобным мышлением.",
             "capabilities": {
-              "governance": "DAO Proposal Analysis",
-              "tokenomics": "Tokenomics Optimization",
-              "risk": "Strategic Risk Assessment"
+              "governance": "Анализ предложений DAO",
+              "tokenomics": "Оптимизация токеномики",
+              "risk": "Стратегическая оценка рисков"
             }
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "Тактический ИИ",
             "model": "GPT-3.5 / Mistral",
-            "description": "Real-time security monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "description": "Мониторинг безопасности и обнаружение мошенничества в реальном времени. Анализирует паттерны транзакций и выявляет уязвимости до их эксплуатации.",
             "capabilities": {
-              "vulnerability": "Smart Contract Auditing",
-              "fraud": "Fraud Pattern Detection",
-              "fee": "Dynamic Fee Optimization"
+              "vulnerability": "Аудит смарт-контрактов",
+              "fraud": "Обнаружение мошеннических паттернов",
+              "fee": "Динамическая оптимизация комиссий"
             }
           },
           "operational": {
-            "title": "Operational AI",
-            "model": "Custom ML Models",
-            "description": "Ultra-fast transaction validation and network health monitoring. Optimized for speed with sub-50ms response times.",
+            "title": "Операционный ИИ",
+            "model": "Кастомные ML модели",
+            "description": "Сверхбыстрая валидация транзакций и мониторинг состояния сети. Оптимизирован для скорости с временем отклика менее 50мс.",
             "capabilities": {
-              "validation": "Transaction Validation",
-              "mev": "MEV Protection",
-              "health": "Network Health Monitoring"
+              "validation": "Валидация транзакций",
+              "mev": "Защита от MEV",
+              "health": "Мониторинг состояния сети"
             }
           }
         },
         "architecture": {
           "step1": {
-            "title": "Data Ingestion",
-            "description": "Real-time blockchain data, mempool transactions, and market feeds are continuously processed."
+            "title": "Загрузка данных",
+            "description": "Блокчейн-данные в реальном времени, транзакции мемпула и рыночные потоки непрерывно обрабатываются."
           },
           "step2": {
-            "title": "AI Processing",
-            "description": "Each tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+            "title": "ИИ-обработка",
+            "description": "Каждый уровень обрабатывает соответствующие данные: Операционный для скорости, Тактический для безопасности, Стратегический для инсайтов."
           },
           "step3": {
-            "title": "Coordinated Response",
-            "description": "AI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+            "title": "Координированный ответ",
+            "description": "Уровни ИИ обмениваются результатами, при необходимости более высокие уровни переопределяют решения нижних."
           }
         },
         "stats": {
           "uptime": {
-            "title": "99.99% Uptime",
-            "desc": "Redundant AI clusters across multiple regions"
+            "title": "99.99% Аптайм",
+            "desc": "Резервные ИИ-кластеры в нескольких регионах"
           },
           "cost": {
-            "title": "90% Cost Reduction",
-            "desc": "Efficient tier routing minimizes compute costs"
+            "title": "90% снижение затрат",
+            "desc": "Эффективная маршрутизация по уровням минимизирует вычислительные расходы"
           },
           "scale": {
             "title": "100K+ TPS",
-            "desc": "Operational AI handles massive throughput"
+            "desc": "Операционный ИИ обрабатывает массивную пропускную способность"
           },
           "verify": {
-            "title": "AI-Verified Trust",
-            "desc": "Continuous project scoring and monitoring"
+            "title": "ИИ-верифицированное доверие",
+            "desc": "Непрерывная оценка и мониторинг проектов"
           }
         },
         "sections": {
           "architecture": {
-            "title": "AI Architecture"
+            "title": "Архитектура ИИ"
           },
           "relatedSolutions": {
             "title": "Связанные решения",
-            "subtitle": "Explore how AI enhances other TBurn products"
+            "subtitle": "Узнайте, как ИИ улучшает другие продукты TBurn"
           },
           "developerResources": {
             "title": "Ресурсы для разработчиков",
-            "subtitle": "Integrate AI capabilities into your applications"
+            "subtitle": "Интегрируйте ИИ-возможности в ваши приложения"
           }
         },
         "relatedLinks": {
           "wallets": {
-            "title": "Wallets",
-            "desc": "AI-enhanced security"
+            "title": "Кошельки",
+            "desc": "Безопасность на базе ИИ"
           },
           "payments": {
-            "title": "Payments",
-            "desc": "Smart fraud detection"
+            "title": "Платежи",
+            "desc": "Умное обнаружение мошенничества"
           },
           "gameTooling": {
             "title": "Инструменты для игр",
-            "desc": "Anti-cheat AI systems"
+            "desc": "Античит-системы на ИИ"
           },
           "financial": {
-            "title": "Financial Services",
-            "desc": "Risk assessment AI"
+            "title": "Финансовые услуги",
+            "desc": "ИИ для оценки рисков"
           }
         },
         "devResources": {
           "sdkGuide": {
-            "title": "AI SDK Guide",
+            "title": "Руководство AI SDK",
             "desc": "Документация по интеграции"
           },
           "smartContracts": {
-            "title": "AI Contracts",
-            "desc": "On-chain интерфейсы AI"
+            "title": "ИИ-контракты",
+            "desc": "On-chain интерфейсы ИИ"
           },
           "apiReference": {
             "title": "Справочник API",
             "desc": "REST и GraphQL API"
           },
           "websocket": {
-            "title": "Real-Time Events",
-            "desc": "WebSocket streaming"
+            "title": "События в реальном времени",
+            "desc": "Потоковая передача WebSocket"
           },
           "cli": {
-            "title": "CLI Tools",
+            "title": "Инструменты CLI",
             "desc": "Интерфейс командной строки"
           },
           "examples": {
@@ -7736,7 +7736,7 @@
         "tag": "ТВОРЧЕСТВО",
         "title": "Художники и создатели",
         "subtitle": "Минтинг NFT, роялти и инструменты креативной экономики.",
-        "titleHighlight": "Creators",
+        "titleHighlight": "Создатели",
         "buttons": {
           "startCreating": "Начать создавать",
           "exploreCollections": "Изучить коллекции"
@@ -7766,17 +7766,17 @@
         },
         "relatedSolutions": {
           "title": "Связанные решения",
-          "description": "Enhance your creative journey with complementary tools",
+          "description": "Улучшите ваш творческий путь с помощью дополнительных инструментов",
           "tokenExtensions": {
-            "title": "Token Extensions",
+            "title": "Расширения токенов",
             "subtitle": "Пользовательские стандарты токенов"
           },
           "wallets": {
-            "title": "Wallets",
+            "title": "Кошельки",
             "subtitle": "Безопасное хранение активов"
           },
           "commerce": {
-            "title": "Commerce",
+            "title": "Коммерция",
             "subtitle": "Продавайте свои работы"
           },
           "gameTooling": {
@@ -7784,15 +7784,15 @@
             "subtitle": "Игровые NFT"
           },
           "payments": {
-            "title": "Payments",
+            "title": "Платежи",
             "subtitle": "Принимайте криптовалюту"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
+            "title": "Actions и Blinks",
             "subtitle": "Социальный шаринг NFT"
           },
           "financial": {
-            "title": "Financial Services",
+            "title": "Финансовые услуги",
             "subtitle": "Финансы для создателей"
           },
           "aiFeatures": {
@@ -7820,7 +7820,7 @@
             "subtitle": "События в реальном времени"
           },
           "cliReference": {
-            "title": "CLI Tools",
+            "title": "Инструменты CLI",
             "subtitle": "Минтинг через командную строку"
           },
           "codeExamples": {
@@ -7862,7 +7862,7 @@
           },
           "trustVerification": {
             "title": "Верификация доверия",
-            "description": "All BTCfi protocols display Trust Scores. Only verified protocols with 60%+ scores are featured on our platform."
+            "description": "Все протоколы BTCfi отображают рейтинги доверия. На нашей платформе представлены только верифицированные протоколы с рейтингом 60%+."
           },
           "growingEcosystem": {
             "title": "Растущая экосистема",
@@ -7907,29 +7907,29 @@
         },
         "relatedSolutions": {
           "title": "Связанные решения",
-          "description": "Enhance your BTCfi experience with these tools",
+          "description": "Улучшите ваш опыт BTCfi с этими инструментами",
           "tokenExtensions": {
-            "title": "Token Extensions",
+            "title": "Расширения токенов",
             "subtitle": "Стандарты BRC-20"
           },
           "wallets": {
-            "title": "Wallets",
+            "title": "Кошельки",
             "subtitle": "BTC-совместимые кошельки"
           },
           "payments": {
-            "title": "Payments",
+            "title": "Платежи",
             "subtitle": "Оплата BTC"
           },
           "financial": {
-            "title": "Financial Services",
+            "title": "Финансовые услуги",
             "subtitle": "Банкинг BTC"
           },
           "commerce": {
-            "title": "Commerce",
+            "title": "Коммерция",
             "subtitle": "Принимайте BTC"
           },
           "permissioned": {
-            "title": "Permissioned",
+            "title": "Разрешённые сети",
             "subtitle": "Корпоративный BTC"
           },
           "aiFeatures": {
@@ -7937,7 +7937,7 @@
             "subtitle": "Умные стратегии BTC"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
+            "title": "Actions и Blinks",
             "subtitle": "Транзакции BTC"
           }
         },
@@ -7961,7 +7961,7 @@
             "subtitle": "События BTC в реальном времени"
           },
           "cliReference": {
-            "title": "CLI Tools",
+            "title": "Инструменты CLI",
             "subtitle": "Интерфейс командной строки"
           },
           "codeExamples": {
@@ -7991,7 +7991,7 @@
         "tag": "МОСТ",
         "title": "Кросс-чейн мост",
         "subtitle": "Безопасная передача активов между 7+ блокчейн-сетями.",
-        "titleHighlight": "Bridge",
+        "titleHighlight": "Мост",
         "buttons": {
           "launchBridge": "Запустить мост",
           "viewDocumentation": "Смотреть документацию"
@@ -8058,29 +8058,29 @@
         },
         "relatedSolutions": {
           "title": "Связанные решения",
-          "description": "Enhance your cross-chain experience with these tools",
+          "description": "Улучшите ваш кросс-чейн опыт с этими инструментами",
           "btcfi": {
             "title": "BTCfi",
             "subtitle": "Мост Bitcoin"
           },
           "tokenExtensions": {
-            "title": "Token Extensions",
+            "title": "Расширения токенов",
             "subtitle": "Кросс-чейн токены"
           },
           "wallets": {
-            "title": "Wallets",
+            "title": "Кошельки",
             "subtitle": "Мультичейн кошельки"
           },
           "payments": {
-            "title": "Payments",
+            "title": "Платежи",
             "subtitle": "Кросс-чейн платежи"
           },
           "financial": {
-            "title": "Financial Services",
+            "title": "Финансовые услуги",
             "subtitle": "Мультичейн финансы"
           },
           "permissioned": {
-            "title": "Permissioned",
+            "title": "Разрешённые сети",
             "subtitle": "Корпоративные мосты"
           },
           "aiFeatures": {
@@ -8088,7 +8088,7 @@
             "subtitle": "Умная маршрутизация"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
+            "title": "Actions и Blinks",
             "subtitle": "Мост через ссылки"
           }
         },
@@ -8112,7 +8112,7 @@
             "subtitle": "Обновления в реальном времени"
           },
           "cliReference": {
-            "title": "CLI Tools",
+            "title": "Инструменты CLI",
             "subtitle": "Мост через командную строку"
           },
           "codeExamples": {

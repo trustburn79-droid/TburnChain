@@ -6747,23 +6747,23 @@
             "description": "Todas as informações do projeto incluindo detalhes da equipe, links do whitepaper, relatórios de auditoria e cronogramas de queima são armazenados on-chain nos metadados do token."
           },
           "trustRating": {
-            "title": "Construído-in Confiança Umvaliação",
-            "description": "Confiança scores are automatically recorded in token contracts. When below 40%,",
-            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
-            "badge": "Umutomated Emvestidor Protection"
+            "title": "Classificação de Confiança Integrada",
+            "description": "Pontuações de confiança são automaticamente registradas em contratos de token. Quando abaixo de 40%,",
+            "descriptionContinue": "a função transfer() falha automaticamente, bloqueando transações.",
+            "badge": "Proteção Automatizada ao Investidor"
           },
           "autoBurn": {
-            "title": "Umutomatic Queima Schedule",
-            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned.",
-            "badge": "Enforced Deflacionário Model"
+            "title": "Cronograma de Queima Automática",
+            "description": "Se os cronogramas de queima predefinidos não forem cumpridos, tokens colateralizados são automaticamente queimados.",
+            "badge": "Modelo Deflacionário Forçado"
           },
           "collateral": {
-            "title": "Garantia Transparency",
-            "description": "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+            "title": "Transparência de Colateral",
+            "description": "Endereços de carteiras de reserva de projetos são divulgados publicamente on-chain, com taxas de colateral em tempo real."
           },
           "metadata": {
-            "title": "Extended Metadata",
-            "description": "Parados project information including team details, whitepaper links, and audit reports stored on-chain."
+            "title": "Metadados Estendidos",
+            "description": "Todas as informações do projeto incluindo detalhes da equipe, links do whitepaper e relatórios de auditoria armazenados on-chain."
           }
         },
         "brc20Standard": {
@@ -6787,16 +6787,16 @@
             "description": "Auto-queima em cada transação aumenta o valor."
           },
           "verified": {
-            "title": "Verificado Project Parakens",
-            "description": "Negociarable only when maintaining 60%+ trust score."
+            "title": "Tokens de Projetos Verificados",
+            "description": "Negociáveis apenas mantendo pontuação de confiança acima de 60%."
           },
           "stablecoins": {
-            "title": "Garantia-backed Stablecoins",
-            "description": "Em tempo real collateral ratio monitoring and auto liquidation."
+            "title": "Stablecoins Lastreadas em Colateral",
+            "description": "Monitoramento de taxa de colateral em tempo real e auto liquidação."
           },
           "deflationary": {
-            "title": "Deflacionário Utility Parakens",
-            "description": "Umuto-burn on each transaction increases value."
+            "title": "Tokens Utilitários Deflacionários",
+            "description": "Auto-queima em cada transação aumenta o valor."
           }
         },
         "realExamples": {
@@ -6834,40 +6834,40 @@
         },
         "buttons": {
           "exploreBrc20": "Explorar BRC-20",
-          "readSpecs": "Ler Specs",
-          "openConsole": "Umberto Desenvolvedor Console",
-          "viewApiDocs": "Ver UmPI Docs"
+          "readSpecs": "Ler Especificações",
+          "openConsole": "Abrir Console do Desenvolvedor",
+          "viewApiDocs": "Ver Documentação da API"
         },
         "brc20": {
-          "title": "BRC-20 Paraken Padrão",
-          "subtitle": "Core interfaces for Confiança & Queima functionality.",
-          "trustScoreFunctions": "Confiança Pontuação Funçãos",
-          "autoBurnFunctions": "Umuto Queima Funçãos"
+          "title": "Padrão de Token BRC-20",
+          "subtitle": "Interfaces principais para funcionalidade de Confiança e Queima.",
+          "trustScoreFunctions": "Funções de Pontuação de Confiança",
+          "autoBurnFunctions": "Funções de Auto Queima"
         },
         "code": {
           "comments": {
-            "range": "Returns trust score in range 0-100",
-            "autoBurn": "Queima tokens according to schedule"
+            "range": "Retorna pontuação de confiança no intervalo 0-100",
+            "autoBurn": "Queima tokens conforme o cronograma"
           }
         },
         "useCasesSection": {
-          "title": "Paraken Extension Casos de Uso"
+          "title": "Casos de Uso de Extensões de Token"
         },
         "examplesSection": {
-          "title": "Real Use Exemplos"
+          "title": "Exemplos Reais de Uso"
         },
         "examples": {
           "busd": {
             "name": "BUSD (Stablecoin)",
-            "badge": "90+ Confiança Pontuação"
+            "badge": "Pontuação de Confiança 90+"
           },
           "bgame": {
-            "name": "BGUmME (JogoFi)",
-            "badge": "Umuto-Queima Habilitado"
+            "name": "BGAME (GameFi)",
+            "badge": "Auto-Queima Habilitada"
           },
           "bprop": {
-            "name": "BPROP (RWUm)",
-            "badge": "Real Emivo Garantia"
+            "name": "BPROP (RWA)",
+            "badge": "Colateral de Ativo Real"
           }
         }
       },
@@ -7195,94 +7195,94 @@
             "description": "Regras de consenso e governança customizáveis"
           },
           "rbac": {
-            "title": "Role-Based Umccess Control",
-            "desc": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+            "title": "Controle de Acesso Baseado em Função (RBAC)",
+            "desc": "Configurações de permissão granulares para administradores, validadores e usuários. Permissões separadas para implantação de contratos inteligentes, aprovação de transações e consultas de dados baseadas em funções."
           },
           "whitelist": {
-            "title": "Whitelist Validadors",
-            "desc": "Emly trusted validators can participate in the network. Configure the network so that only internal nodes or approved partners can generate and validate blocks."
+            "title": "Validadores na Lista Branca",
+            "desc": "Apenas validadores confiáveis podem participar da rede. Configure a rede para que apenas nós internos ou parceiros aprovados possam gerar e validar blocos."
           },
           "compliance": {
-            "title": "Regulatory Conformidade",
-            "desc": "Framework designed for global regulations (GDPR, HIPUmUm, SOC2). Construído-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+            "title": "Conformidade Regulatória",
+            "desc": "Framework projetado para regulamentações globais (GDPR, HIPAA, SOC2). Logs de auditoria integrados, criptografia de dados em repouso e em trânsito, e recursos de preservação de privacidade."
           },
           "multisig": {
-            "title": "Multi-Signature Governança",
-            "desc": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+            "title": "Governança Multi-Assinatura",
+            "desc": "Decisões críticas de rede requerem aprovação multi-partes. Atualizações de contratos inteligentes, gestão de validadores e mudanças de parâmetros requerem 3/5 ou 5/7 assinaturas."
           }
         },
         "buttons": {
-          "contactSales": "Contato Sales",
+          "contactSales": "Contato Comercial",
           "viewWhitepaper": "Ver Whitepaper"
         },
         "hybrid": {
           "privateAnchor": {
-            "title": "Privado Chain + Público Umnchor",
-            "desc": "Emternal transactions run on a high-speed private chain, with periodic state hashes anchored to the TQueima Público Mainnet for immutability."
+            "title": "Chain Privada + Âncora Pública",
+            "desc": "Transações internas executam em uma chain privada de alta velocidade, com hashes de estado periódicos ancorados à Mainnet Pública TBurn para imutabilidade."
           },
           "selectiveDisclosure": {
-            "title": "Selective Data Disclosure",
-            "desc": "Transação details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+            "title": "Divulgação Seletiva de Dados",
+            "desc": "Detalhes de transação permanecem privados para participantes autorizados, mas podem ser comprovados criptograficamente para auditores ou reguladores quando necessário."
           }
         },
         "diagram": {
-          "privateLayer": "Privado Consenso Layer",
-          "anchoringHash": "UmNCHORING HUmSH",
-          "publicMainnet": "Público Mainnet (L1)"
+          "privateLayer": "Camada de Consenso Privada",
+          "anchoringHash": "HASH DE ANCORAGEM",
+          "publicMainnet": "Mainnet Pública (L1)"
         },
         "useCases": {
           "exampleLabel": "Exemplo",
           "supplyChain": {
-            "title": "Paranecimento Chain",
-            "desc": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
-            "example": "Umuto Parts Tracking",
-            "flow": "Raw Material → Production → Umssembly"
+            "title": "Cadeia de Suprimentos",
+            "desc": "Rastreie produtos do fabricante até a entrega. Participantes veem apenas segmentos de transação relevantes.",
+            "example": "Rastreamento de Autopeças",
+            "flow": "Matéria-Prima → Produção → Montagem"
           },
           "banking": {
-            "title": "Banking Consortium",
-            "desc": "Emter-bank settlement network. Em tempo real clearing and settlement with zero counterparty risk.",
-            "example": "Cross-border Remittance",
-            "flow": "3 Days → 3 Seconds, Taxa $10 → $0.01"
+            "title": "Consórcio Bancário",
+            "desc": "Rede de liquidação interbancária. Compensação e liquidação em tempo real com zero risco de contraparte.",
+            "example": "Remessa Internacional",
+            "flow": "3 Dias → 3 Segundos, Taxa $10 → $0.01"
           },
           "medical": {
-            "title": "Medical Data",
-            "desc": "Seguro patient data sharing between hospitals and insurers. Completo HIPUmUm compliance auditing.",
-            "example": "E-Prescriptions",
-            "flow": "Hospital → Pharmacy → Emsurance"
+            "title": "Dados Médicos",
+            "desc": "Compartilhamento seguro de dados de pacientes entre hospitais e seguradoras. Auditoria com conformidade HIPAA total.",
+            "example": "E-Prescrições",
+            "flow": "Hospital → Farmácia → Seguro"
           }
         },
         "deployment": {
           "step1": {
-            "title": "Requisitos Umnálise",
-            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+            "title": "Análise de Requisitos",
+            "desc": "Identifique participantes, projete esquemas de permissão e revise requisitos regulatórios."
           },
           "step2": {
-            "title": "Rede Configuração",
-            "desc": "Implantar validator nodes, generate genesis block, and develop initial smart contracts."
+            "title": "Configuração de Rede",
+            "desc": "Implante nós validadores, gere bloco gênesis e desenvolva contratos inteligentes iniciais."
           },
           "step3": {
-            "title": "Emtegração & Migration",
-            "desc": "UmPI integration with legacy systems (ERP, CRM), data migration, and user training."
+            "title": "Integração e Migração",
+            "desc": "Integração de API com sistemas legados (ERP, CRM), migração de dados e treinamento de usuários."
           },
           "step4": {
-            "title": "Mainnet Lançar",
-            "desc": "Production deployment with 24/7 monitoring and regular security audits."
+            "title": "Lançamento Mainnet",
+            "desc": "Implantação em produção com monitoramento 24/7 e auditorias de segurança regulares."
           }
         },
         "sections": {
           "enterpriseFeatures": {
-            "title": "Empresarial Recursos",
-            "subtitle": "Umvançado control and compliance features for businesses"
+            "title": "Recursos Empresariais",
+            "subtitle": "Controle avançado e recursos de conformidade para empresas"
           },
           "hybridArchitecture": {
-            "title": "Hybrid Umrquitetura",
-            "subtitle": "Combine private chain privacy with public blockchain security"
+            "title": "Arquitetura Híbrida",
+            "subtitle": "Combine privacidade de chain privada com segurança de blockchain pública"
           },
           "useCases": {
-            "title": "Emdustry Casos de Uso"
+            "title": "Casos de Uso por Indústria"
           },
           "deployment": {
-            "title": "Implantarment Processo"
+            "title": "Processo de Implantação"
           }
         }
       },
@@ -7336,33 +7336,33 @@
             "title": "Jogos P2E",
             "description": "Verificação de confiança bloqueia esquemas Ponzi. Tokenomics estável para Play-to-Earn sustentável.",
             "tags": "RPG • Estratégia • Batalha",
-            "desc": "Recompensa players with verified tokens and NFTs for gameplay achievements."
+            "desc": "Recompense jogadores com tokens e NFTs verificados por conquistas no jogo."
           },
           "nftMarketplace": {
             "title": "Marketplace NFT",
             "description": "Negocie itens de jogos, arte e coleções. Distintivos de confiança são automaticamente exibidos para segurança.",
             "tags": "Alerta de Risco • Histórico",
-            "desc": "Negociar game items, artwork, and collections. Confiança badges are automatically displayed for safety."
+            "desc": "Negocie itens de jogos, arte e coleções. Distintivos de confiança são automaticamente exibidos para segurança."
           },
           "metaverse": {
             "title": "Metaverso",
             "description": "Imóveis virtuais, avatares e vestíveis. Propriedade descentralizada com governança DAO.",
             "tags": "Terrenos • Avatares • Social",
-            "desc": "Immersive virtual environments with verified digital asset ownership."
+            "desc": "Ambientes virtuais imersivos com propriedade de ativos digitais verificada."
           },
-          "subtitle": "Build any type of blockchain game with our comprehensive tooling",
+          "subtitle": "Construa qualquer tipo de jogo blockchain com nossas ferramentas abrangentes",
           "marketplace": {
-            "title": "NFT Mercadoplaces",
-            "desc": "Seguro trading platforms for in-game items with trust verification.",
+            "title": "Marketplaces NFT",
+            "desc": "Plataformas de negociação seguras para itens de jogos com verificação de confiança.",
             "tags": "Negociação, Leilão, Exchange"
           },
           "casualGames": {
-            "title": "Casual Jogos",
-            "desc": "Lightweight blockchain integration for casual gaming with microtransactions."
+            "title": "Jogos Casuais",
+            "desc": "Integração blockchain leve para jogos casuais com microtransações."
           },
           "esports": {
-            "title": "Esports & Pararneios",
-            "desc": "Descentralizado prize pools with transparent distribution and anti-cheat verification."
+            "title": "Esports e Torneios",
+            "desc": "Premiações descentralizadas com distribuição transparente e verificação anti-trapaça."
           }
         },
         "integrationGuide": {
@@ -7385,117 +7385,117 @@
           }
         },
         "buttons": {
-          "getUnitySdk": "Get Unity SDK",
-          "getUnrealSdk": "Get Unreal SDK",
+          "getUnitySdk": "Obter SDK Unity",
+          "getUnrealSdk": "Obter SDK Unreal",
           "viewDocs": "Ver Documentação"
         },
         "sections": {
           "whyBuild": {
-            "title": "Why Build Jogos on TQueima Chain?",
-            "subtitle": "Umvançado infrastructure for next-generation blockchain gaming"
+            "title": "Por Que Construir Jogos na TBurn Chain?",
+            "subtitle": "Infraestrutura avançada para jogos blockchain de próxima geração"
           },
           "trustScore": {
-            "title": "Confiança Pontuação for Jogos"
+            "title": "Pontuação de Confiança para Jogos"
           },
           "gameTypes": {
-            "title": "Jogo Types & Casos de Uso"
+            "title": "Tipos de Jogos e Casos de Uso"
           },
           "integration": {
-            "title": "Emtegração Passos"
+            "title": "Passos de Integração"
           }
         },
         "trustScore": {
-          "title": "NFT Project Confiança Pontuação",
-          "subtitle": "Abrangente verification system for game projects",
-          "teamScore": "Equipe Identity Pontuação",
-          "contractScore": "Contrato Segurança Pontuação",
-          "utilityScore": "Utility & Roadmap Pontuação",
-          "totalScore": "Paratal Confiança Pontuação",
+          "title": "Pontuação de Confiança de Projeto NFT",
+          "subtitle": "Sistema de verificação abrangente para projetos de jogos",
+          "teamScore": "Pontuação de Identidade da Equipe",
+          "contractScore": "Pontuação de Segurança do Contrato",
+          "utilityScore": "Pontuação de Utilidade e Roadmap",
+          "totalScore": "Pontuação de Confiança Total",
           "verification": {
-            "title": "Confiança Verificação",
-            "desc": "UmI-powered project analysis with community validation"
+            "title": "Verificação de Confiança",
+            "desc": "Análise de projeto com IA e validação da comunidade"
           },
           "team": {
-            "title": "Equipe Verificação",
+            "title": "Verificação de Equipe",
             "points": "0-30 pts",
-            "desc": "Verificado team members with public identities receive higher scores.",
+            "desc": "Membros verificados com identidades públicas recebem pontuações maiores.",
             "scoring": {
-              "verified": "Verificado team members",
-              "anonymous": "Umnonymous team",
-              "maxPoints": "Max 10 pts"
+              "verified": "Membros verificados",
+              "anonymous": "Equipe anônima",
+              "maxPoints": "Máx 10 pts"
             }
           },
           "contract": {
-            "title": "Contrato Segurança",
+            "title": "Segurança do Contrato",
             "points": "0-25 pts",
-            "desc": "Umuditoriaed smart contracts with verified security practices.",
+            "desc": "Contratos inteligentes auditados com práticas de segurança verificadas.",
             "scoring": {
-              "audits": "3+ security audits",
-              "noAudit": "No audit"
+              "audits": "3+ auditorias de segurança",
+              "noAudit": "Sem auditoria"
             }
           },
           "utility": {
-            "title": "Jogo Utility",
+            "title": "Utilidade do Jogo",
             "points": "0-25 pts",
-            "desc": "Real gameplay utility and active player engagement.",
+            "desc": "Utilidade real de gameplay e engajamento ativo de jogadores.",
             "scoring": {
-              "executed": "Roadmap executed",
-              "gameLive": "Jogo is live",
-              "bonus": "+10 pts bonus"
+              "executed": "Roadmap executado",
+              "gameLive": "Jogo está ativo",
+              "bonus": "+10 pts bônus"
             }
           }
         },
         "features": {
           "ultraFastProcessing": {
-            "title": "Ultra-Rápido Processoando",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-segundo block times."
+            "title": "Processamento Ultra-Rápido",
+            "desc": "50.000+ TPS permite negociação in-game em tempo real com blocos de 1 segundo."
           },
           "nftVerification": {
-            "title": "NFT Project Verificação",
-            "desc": "3-stage verification blocks fraudulent NFT projects with Confiança Pontuação monitoring."
+            "title": "Verificação de Projeto NFT",
+            "desc": "Verificação em 3 estágios bloqueia projetos NFT fraudulentos com monitoramento de Pontuação de Confiança."
           },
           "verifiedOwnership": {
-            "title": "Verificado Propriedade",
-            "desc": "Imutável on-chain records for all game item issuance and burn history."
+            "title": "Propriedade Verificada",
+            "desc": "Registros imutáveis on-chain para todo histórico de emissão e queima de itens."
           },
           "crossGameAssets": {
-            "title": "Cross-Jogo Emivos",
-            "desc": "EVM compatibility enables interoperable items across different games."
+            "title": "Ativos Entre Jogos",
+            "desc": "Compatibilidade EVM permite itens interoperáveis entre diferentes jogos."
           },
           "ultraFast": {
-            "title": "Ultra-Rápido Processoando",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-segundo block times."
+            "title": "Processamento Ultra-Rápido",
+            "desc": "50.000+ TPS permite negociação in-game em tempo real com blocos de 1 segundo."
           },
           "verification": {
-            "title": "NFT Project Verificação",
-            "desc": "3-stage verification blocks fraudulent NFT projects with Confiança Pontuação monitoring."
+            "title": "Verificação de Projeto NFT",
+            "desc": "Verificação em 3 estágios bloqueia projetos NFT fraudulentos com monitoramento de Pontuação de Confiança."
           },
           "ownership": {
-            "title": "Verificado Propriedade",
-            "desc": "Imutável on-chain records for all game item issuance and burn history."
+            "title": "Propriedade Verificada",
+            "desc": "Registros imutáveis on-chain para todo histórico de emissão e queima de itens."
           },
           "crossGame": {
-            "title": "Cross-Jogo Emivos",
-            "desc": "EVM compatibility enables interoperable items across different games."
+            "title": "Ativos Entre Jogos",
+            "desc": "Compatibilidade EVM permite itens interoperáveis entre diferentes jogos."
           }
         },
         "integration": {
-          "title": "Emtegração Guia",
+          "title": "Guia de Integração",
           "step1": {
             "title": "Conectar SDK",
-            "desc": "Emtegrate the TQueima Jogos SDK into your game engine."
+            "desc": "Integre o SDK de Jogos TBurn no seu motor de jogo."
           },
           "step2": {
             "title": "Implantar Contratos",
-            "desc": "Implantar your game contracts on TQueima Chain testnet."
+            "desc": "Implante seus contratos de jogo na testnet da TBurn Chain."
           },
           "step3": {
-            "title": "Get Verificado",
-            "desc": "Enviar for Confiança Pontuação verification and game review."
+            "title": "Obter Verificação",
+            "desc": "Envie para verificação de Pontuação de Confiança e revisão do jogo."
           },
           "step4": {
             "title": "Lançar",
-            "desc": "Go live on mainnet with full ecosystem support."
+            "desc": "Entre em produção na mainnet com suporte total do ecossistema."
           }
         }
       },
@@ -7604,90 +7604,90 @@
         "subtitle": "Integração de e-commerce e soluções para comerciantes.",
         "titleHighlight": "Soluções",
         "buttons": {
-          "installPlugin": "Emstall Plugin",
-          "viewApiDocs": "Ver UmPI Docs",
-          "startIntegration": "Emiciar Emtegração"
+          "installPlugin": "Instalar Plugin",
+          "viewApiDocs": "Ver Documentação da API",
+          "startIntegration": "Iniciar Integração"
         },
         "features": {
           "payment": {
-            "title": "Crypto Payment Processoando",
-            "desc": "Umccept verified tokens with instant settlement. Confiança Pontuação filtering protects merchants from fraudulent transactions and low-quality tokens."
+            "title": "Processamento de Pagamentos Cripto",
+            "desc": "Aceite tokens verificados com liquidação instantânea. A filtragem por Pontuação de Confiança protege comerciantes de transações fraudulentas e tokens de baixa qualidade."
           },
           "inventory": {
-            "title": "Blocochain Emventory Tracking",
-            "desc": "Track products with on-chain verification. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+            "title": "Rastreamento de Inventário em Blockchain",
+            "desc": "Rastreie produtos com verificação on-chain. Certificados de autenticidade baseados em NFT previnem falsificações e permitem fácil rastreamento de revenda."
           },
           "loyalty": {
-            "title": "Paraken-Based Loyalty Programas",
-            "desc": "Ésue loyalty tokens to reward customers. Blocochain-based points are transparent, tradeable, and never expire."
+            "title": "Programas de Fidelidade Baseados em Token",
+            "desc": "Emita tokens de fidelidade para recompensar clientes. Pontos baseados em blockchain são transparentes, negociáveis e nunca expiram."
           },
           "analytics": {
-            "title": "Real-Time Commerce Umnálises",
-            "desc": "Monitor sales, customer behavior, and token transactions. Em-chain data provides tamper-proof business insights."
+            "title": "Análises de Comércio em Tempo Real",
+            "desc": "Monitore vendas, comportamento do cliente e transações de tokens. Dados on-chain fornecem insights de negócios à prova de adulteração."
           }
         },
         "platforms": {
           "shopify": {
-            "desc": "Eme-click integration with the world's leading e-commerce platform.",
-            "status": "UmVUmILUmBLE"
+            "desc": "Integração com um clique na plataforma líder mundial de e-commerce.",
+            "status": "DISPONÍVEL"
           },
           "woocommerce": {
-            "desc": "WordPress plugin for WooCommerce stores.",
-            "status": "UmVUmILUmBLE"
+            "desc": "Plugin WordPress para lojas WooCommerce.",
+            "status": "DISPONÍVEL"
           },
           "customApi": {
-            "title": "Personalizado UmPI",
-            "desc": "RESTful UmPI for custom integrations and mobile apps.",
-            "status": "UmVUmILUmBLE"
+            "title": "API Personalizada",
+            "desc": "API RESTful para integrações personalizadas e aplicativos móveis.",
+            "status": "DISPONÍVEL"
           }
         },
         "stories": {
           "fashionBrand": {
-            "name": "Umurora Fashion",
-            "type": "Luxury Fashion Brand",
-            "quote": "TQueima Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "name": "Aurora Fashion",
+            "type": "Marca de Moda de Luxo",
+            "quote": "O TBurn Commerce reduziu nossas taxas de processamento de pagamento em 85% e nos abriu para clientes cripto globais.",
             "stats": {
-              "volume": "$2.5M Volume",
-              "savings": "85% Taxa Savings"
+              "volume": "$2.5M de Volume",
+              "savings": "85% de Economia em Taxas"
             }
           },
           "resalePlatform": {
-            "name": "BlocoResale",
-            "type": "NFT-Verificado Resale Plataforma",
-            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "name": "BlockResale",
+            "type": "Plataforma de Revenda Verificada por NFT",
+            "quote": "Certificados de autenticidade baseados em NFT eliminaram devoluções falsificadas e aumentaram a confiança dos compradores.",
             "stats": {
-              "nfts": "50K NFTs Ésued",
-              "counterfeits": "Zero Counterfeits"
+              "nfts": "50K NFTs Emitidos",
+              "counterfeits": "Zero Falsificações"
             }
           }
         },
         "integration": {
           "step1": {
-            "title": "Get UmPI Keys",
-            "desc": "Registrar on the developer dashboard and get your credentials."
+            "title": "Obter Chaves de API",
+            "desc": "Registre-se no painel do desenvolvedor e obtenha suas credenciais."
           },
           "step2": {
-            "title": "Emstall SDK",
-            "desc": "Umdicionar TQueima Commerce SDK to your project."
+            "title": "Instalar SDK",
+            "desc": "Adicione o SDK TBurn Commerce ao seu projeto."
           },
           "step3": {
-            "title": "Configure Webhooks",
-            "desc": "Set up payment confirmation and order update notifications."
+            "title": "Configurar Webhooks",
+            "desc": "Configure confirmação de pagamento e notificações de atualização de pedidos."
           }
         },
         "sections": {
           "coreFeatures": {
-            "title": "Commerce Recursos",
-            "subtitle": "Everything you need to accept crypto payments and grow your business."
+            "title": "Recursos de Comércio",
+            "subtitle": "Tudo que você precisa para aceitar pagamentos cripto e expandir seu negócio."
           },
           "platforms": {
-            "title": "Emtegração Plataformas"
+            "title": "Plataformas de Integração"
           },
           "successStories": {
-            "title": "Sucesso Stories"
+            "title": "Casos de Sucesso"
           },
           "integration": {
-            "title": "Rápido Emtegração Guia"
+            "title": "Guia de Integração Rápida"
           }
         }
       },
@@ -7715,80 +7715,80 @@
         },
         "titleHighlight": "Serviços",
         "buttons": {
-          "startBuilding": "Emiciar Building",
+          "startBuilding": "Começar a Construir",
           "readWhitepaper": "Ler Whitepaper"
         },
         "services": {
           "banking": {
-            "title": "Digital Banking Emfraestrutura",
-            "desc": "Build neo-banking products with blockchain settlement. Emstantâneo transfers, programmable accounts, and full regulatory compliance."
+            "title": "Infraestrutura de Banco Digital",
+            "desc": "Construa produtos de neo-banking com liquidação em blockchain. Transferências instantâneas, contas programáveis e conformidade regulatória total."
           },
           "defi": {
-            "title": "DeFi Protocolo Emtegração",
-            "desc": "Conectar traditional finance with decentralized protocols. Umccess lending, staking, and yield generation with institutional-grade security."
+            "title": "Integração de Protocolo DeFi",
+            "desc": "Conecte finanças tradicionais com protocolos descentralizados. Acesse empréstimos, staking e geração de rendimento com segurança de nível institucional."
           },
           "payment": {
-            "title": "Cross-Border Payments",
-            "desc": "Global settlements in segundos, not dias. Reduce costs by 99% with blockchain-based international transfers."
+            "title": "Pagamentos Internacionais",
+            "desc": "Liquidações globais em segundos, não dias. Reduza custos em 99% com transferências internacionais baseadas em blockchain."
           },
           "compliance": {
-            "title": "Regulatory Conformidade",
-            "desc": "Construído-in KYC/UmML verification and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+            "title": "Conformidade Regulatória",
+            "desc": "Verificação KYC/AML integrada e trilhas de auditoria. Atenda automaticamente às regulamentações GDPR, SOC2 e financeiras."
           }
         },
         "stats": {
-          "tvl": "Paratal Valor Locked",
-          "apy": "Umverage UmPY",
-          "dau": "Diário Emivo Usuários"
+          "tvl": "Valor Total Bloqueado",
+          "apy": "APY Médio",
+          "dau": "Usuários Ativos Diários"
         },
         "cases": {
           "neobank": {
             "name": "NeoBank X",
-            "type": "Digital Banking Plataforma",
-            "quote": "TQueima's infrastructure allowed us to launch in 3 meses instead of 18. Nosso customers love instant transfers.",
+            "type": "Plataforma de Banco Digital",
+            "quote": "A infraestrutura TBurn nos permitiu lançar em 3 meses em vez de 18. Nossos clientes adoram as transferências instantâneas.",
             "stats": {
-              "customers": "150K Personalizadoers",
-              "costs": "90% Custo Reduction"
+              "customers": "150K Clientes",
+              "costs": "90% de Redução de Custos"
             }
           },
           "defiProtocol": {
             "name": "DeFi Prime",
-            "type": "Empréstimo Protocolo",
-            "quote": "Confiança Pontuação integration reduced bad debt to near-zero. Nosso lenders feel secure knowing every borrower is verified.",
+            "type": "Protocolo de Empréstimos",
+            "quote": "A integração da Pontuação de Confiança reduziu a inadimplência para quase zero. Nossos credores se sentem seguros sabendo que todo mutuário é verificado.",
             "stats": {
               "tvl": "$500M TVL",
-              "liquidations": "Zero Bad Debt"
+              "liquidations": "Zero Inadimplência"
             }
           }
         },
         "building": {
           "step1": {
-            "title": "Umrquitetura Consultation",
-            "desc": "Nosso team helps design your financial product architecture, ensuring regulatory compliance from dia one."
+            "title": "Consultoria de Arquitetura",
+            "desc": "Nossa equipe ajuda a projetar a arquitetura do seu produto financeiro, garantindo conformidade regulatória desde o primeiro dia."
           },
           "step2": {
             "title": "Integração de API",
-            "desc": "Conectar to TQueima's financial UmPÉ for payments, lending, and asset management."
+            "desc": "Conecte-se às APIs financeiras do TBurn para pagamentos, empréstimos e gestão de ativos."
           },
           "step3": {
-            "title": "Conformidade Configuração",
-            "desc": "Configure KYC/UmML flows and audit logging to meet your regulatory requirements."
+            "title": "Configuração de Conformidade",
+            "desc": "Configure fluxos KYC/AML e registro de auditoria para atender aos seus requisitos regulatórios."
           },
           "step4": {
-            "title": "Production Lançar",
-            "desc": "Implantar with 24/7 monitoring, enterprise SLUm, and dedicated support."
+            "title": "Lançamento em Produção",
+            "desc": "Implante com monitoramento 24/7, SLA empresarial e suporte dedicado."
           }
         },
         "sections": {
           "coreServices": {
-            "title": "Core Financial Serviços",
-            "subtitle": "Empresarial-grade blockchain infrastructure for modern finance."
+            "title": "Serviços Financeiros Principais",
+            "subtitle": "Infraestrutura blockchain de nível empresarial para finanças modernas."
           },
           "realCases": {
-            "title": "Real-World Sucesso"
+            "title": "Casos de Sucesso Reais"
           },
           "building": {
-            "title": "Build Financial Produtos"
+            "title": "Construa Produtos Financeiros"
           }
         }
       },
@@ -7813,140 +7813,140 @@
             "description": "Monitoramento em tempo real e resposta"
           }
         },
-        "titleHighlight": "Triple-Band Ouchestration",
+        "titleHighlight": "Orquestração Tripla Banda",
         "tiers": {
           "strategic": {
-            "title": "Strategic UmI",
+            "title": "IA Estratégica",
             "model": "GPT-4 / Claude 3",
-            "description": "High-level decision making for governance, tokenomics design, and long-term risk assessment. Processoes complex analyses with human-like reasoning.",
+            "description": "Tomada de decisão de alto nível para governança, design de tokenomics e avaliação de risco de longo prazo. Processa análises complexas com raciocínio semelhante ao humano.",
             "capabilities": {
-              "governance": "DUmO Proposta Umnálise",
-              "tokenomics": "Parakenomics Optimization",
-              "risk": "Strategic Risco Umvaliação"
+              "governance": "Análise de Propostas DAO",
+              "tokenomics": "Otimização de Tokenomics",
+              "risk": "Avaliação de Risco Estratégico"
             }
           },
           "tactical": {
-            "title": "Tactical UmI",
+            "title": "IA Tática",
             "model": "GPT-3.5 / Mistral",
-            "description": "Em tempo real security monitoring and fraud detection. Umnalyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "description": "Monitoramento de segurança em tempo real e detecção de fraudes. Analisa padrões de transação e identifica vulnerabilidades antes da exploração.",
             "capabilities": {
-              "vulnerability": "Smart Contrato Umuditoriaing",
-              "fraud": "Fraud Pattern Detection",
-              "fee": "Dinâmico Taxa Optimization"
+              "vulnerability": "Auditoria de Contratos Inteligentes",
+              "fraud": "Detecção de Padrões de Fraude",
+              "fee": "Otimização Dinâmica de Taxas"
             }
           },
           "operational": {
-            "title": "Operational UmI",
-            "model": "Personalizado ML Models",
-            "description": "Ultra-fast transaction validation and network health monitoring. Otimizado for speed with sub-50ms response times.",
+            "title": "IA Operacional",
+            "model": "Modelos ML Personalizados",
+            "description": "Validação ultra-rápida de transações e monitoramento de saúde da rede. Otimizado para velocidade com tempos de resposta inferiores a 50ms.",
             "capabilities": {
-              "validation": "Transação Validation",
-              "mev": "MEV Protection",
-              "health": "Rede Health Monitoring"
+              "validation": "Validação de Transações",
+              "mev": "Proteção MEV",
+              "health": "Monitoramento de Saúde da Rede"
             }
           }
         },
         "architecture": {
           "step1": {
-            "title": "Data Emgestion",
-            "description": "Em tempo real blockchain data, mempool transactions, and market feeds are continuously processed."
+            "title": "Ingestão de Dados",
+            "description": "Dados de blockchain em tempo real, transações de mempool e feeds de mercado são processados continuamente."
           },
           "step2": {
-            "title": "UmI Processoando",
-            "description": "Each tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+            "title": "Processamento de IA",
+            "description": "Cada camada processa dados relevantes: Operacional para velocidade, Tática para segurança, Estratégica para insights."
           },
           "step3": {
-            "title": "Coordinated Resposta",
-            "description": "UmI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+            "title": "Resposta Coordenada",
+            "description": "As camadas de IA comunicam resultados, com camadas superiores substituindo decisões de camadas inferiores quando necessário."
           }
         },
         "stats": {
           "uptime": {
-            "title": "99.99% Uptime",
-            "desc": "Redundant UmI clusters across multiple regions"
+            "title": "99.99% de Disponibilidade",
+            "desc": "Clusters de IA redundantes em múltiplas regiões"
           },
           "cost": {
-            "title": "90% Custo Reduction",
-            "desc": "Eficiente tier routing minimizes compute costs"
+            "title": "90% de Redução de Custos",
+            "desc": "Roteamento eficiente de camadas minimiza custos de computação"
           },
           "scale": {
             "title": "100K+ TPS",
-            "desc": "Operational UmI handles massive throughput"
+            "desc": "IA Operacional lida com alto throughput"
           },
           "verify": {
-            "title": "UmI-Verificado Confiança",
-            "desc": "Continuous project scoring and monitoring"
+            "title": "Confiança Verificada por IA",
+            "desc": "Pontuação e monitoramento contínuo de projetos"
           }
         },
         "sections": {
           "architecture": {
-            "title": "UmI Umrquitetura"
+            "title": "Arquitetura de IA"
           },
           "relatedSolutions": {
-            "title": "Relacionado Soluções",
-            "subtitle": "Explorar how UmI enhances other TQueima products"
+            "title": "Soluções Relacionadas",
+            "subtitle": "Explore como a IA aprimora outros produtos TBurn"
           },
           "developerResources": {
             "title": "Recursos para Desenvolvedores",
-            "subtitle": "Emtegrate UmI capabilities into your applications"
+            "subtitle": "Integre capacidades de IA em suas aplicações"
           }
         },
         "relatedLinks": {
           "wallets": {
             "title": "Carteiras",
-            "desc": "UmI-enhanced security"
+            "desc": "Segurança aprimorada por IA"
           },
           "payments": {
-            "title": "Payments",
-            "desc": "Smart fraud detection"
+            "title": "Pagamentos",
+            "desc": "Detecção inteligente de fraudes"
           },
           "gameTooling": {
-            "title": "Jogo Paraoling",
-            "desc": "Umnti-cheat UmI systems"
+            "title": "Ferramentas de Jogos",
+            "desc": "Sistemas anti-trapaça com IA"
           },
           "financial": {
-            "title": "Financial Serviços",
-            "desc": "Risco assessment UmI"
+            "title": "Serviços Financeiros",
+            "desc": "IA para avaliação de risco"
           }
         },
         "devResources": {
           "sdkGuide": {
-            "title": "UmI SDK Guia",
-            "desc": "Emtegração documentation"
+            "title": "Guia do SDK de IA",
+            "desc": "Documentação de integração"
           },
           "smartContracts": {
-            "title": "UmI Contratos",
-            "desc": "Em-chain UmI interfaces"
+            "title": "Contratos de IA",
+            "desc": "Interfaces de IA on-chain"
           },
           "apiReference": {
             "title": "Referência de API",
-            "desc": "REST & GraphQL UmPÉ"
+            "desc": "APIs REST e GraphQL"
           },
           "websocket": {
-            "title": "Real-Time Eventos",
-            "desc": "WebSocket streaming"
+            "title": "Eventos em Tempo Real",
+            "desc": "Streaming WebSocket"
           },
           "cli": {
-            "title": "CLI Paraols",
-            "desc": "Command line interface"
+            "title": "Ferramentas CLI",
+            "desc": "Interface de linha de comando"
           },
           "examples": {
             "title": "Exemplos de Código",
-            "desc": "Exemplo integrations"
+            "desc": "Exemplos de integração"
           }
         },
         "learnMore": {
-          "label": "LEUmRN MORE",
+          "label": "SAIBA MAIS",
           "defiMastery": {
-            "title": "UmI in DeFi",
-            "desc": "Umvançado UmI strategies for DeFi"
+            "title": "IA em DeFi",
+            "desc": "Estratégias avançadas de IA para DeFi"
           }
         },
         "forDevelopers": {
-          "label": "FOR DEVELOPERS",
+          "label": "PARA DESENVOLVEDORES",
           "devCourse": {
-            "title": "UmI Desenvolvedor Curso",
-            "desc": "Build UmI-powered dUmpps"
+            "title": "Curso de Desenvolvedor de IA",
+            "desc": "Construa dApps impulsionados por IA"
           }
         }
       },
@@ -7972,112 +7972,112 @@
             "description": "Prova de autenticidade on-chain"
           },
           "lightningPerformance": {
-            "title": "Lightning-Rápido Cunhageming",
-            "description": "Cunhagem NFTs in segundos with 50,000+ TPS capacity. Batch minting for large collections with minimal gas fees."
+            "title": "Cunhagem Ultrarrápida",
+            "description": "Cunhe NFTs em segundos com capacidade de mais de 50.000 TPS. Cunhagem em lote para grandes coleções com taxas de gas mínimas."
           },
           "trustVerification": {
-            "title": "Confiança Verificação",
-            "description": "Every NFT collection displays its Confiança Pontuação. Comprarers can verify creator authenticity and collection legitimacy instantly."
+            "title": "Verificação de Confiança",
+            "description": "Cada coleção NFT exibe sua Pontuação de Confiança. Compradores podem verificar a autenticidade do criador e a legitimidade da coleção instantaneamente."
           },
           "thrivingEcosystem": {
-            "title": "Thriving Ecossistema",
-            "description": "Participar 15,000+ verified artists. Umccess marketplaces, galleries, and collector communities built on trust."
+            "title": "Ecossistema Próspero",
+            "description": "Junte-se a mais de 15.000 artistas verificados. Acesse marketplaces, galerias e comunidades de colecionadores construídas com base na confiança."
           },
           "infiniteScalability": {
-            "title": "Emfinite Scalability",
-            "description": "De 1-of-1 artwork to 10,000 piece generative collections. Nosso infrastructure scales with your creative vision."
+            "title": "Escalabilidade Infinita",
+            "description": "De obras únicas a coleções generativas de 10.000 peças. Nossa infraestrutura escala com sua visão criativa."
           }
         },
-        "titleHighlight": "Criadors",
+        "titleHighlight": "Criadores",
         "buttons": {
-          "startCreating": "Emiciar Creating",
-          "exploreCollections": "Explorar Coleçãos"
+          "startCreating": "Começar a Criar",
+          "exploreCollections": "Explorar Coleções"
         },
         "stats": {
-          "nftsMinted": "NFTs MINTED",
-          "creatorEarnings": "CREUmTOR EUmRNINGS",
-          "verifiedArtists": "VERIFIED UmRTISTS"
+          "nftsMinted": "NFTs CUNHADOS",
+          "creatorEarnings": "GANHOS DOS CRIADORES",
+          "verifiedArtists": "ARTISTAS VERIFICADOS"
         },
         "relatedSolutions": {
-          "title": "Relacionado Soluções",
-          "description": "Enhance your creative journey with complementary tools",
+          "title": "Soluções Relacionadas",
+          "description": "Aprimore sua jornada criativa com ferramentas complementares",
           "tokenExtensions": {
-            "title": "Paraken Extensions",
-            "subtitle": "Personalizado token standards"
+            "title": "Extensões de Token",
+            "subtitle": "Padrões de token personalizados"
           },
           "wallets": {
             "title": "Carteiras",
-            "subtitle": "Seguro asset storage"
+            "subtitle": "Armazenamento seguro de ativos"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "Vender your creations"
+            "title": "Comércio",
+            "subtitle": "Venda suas criações"
           },
           "gameTooling": {
-            "title": "Jogo Paraoling",
-            "subtitle": "Jogos NFTs"
+            "title": "Ferramentas de Jogos",
+            "subtitle": "NFTs para jogos"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Umccept crypto"
+            "title": "Pagamentos",
+            "subtitle": "Aceite cripto"
           },
           "actionsBlinks": {
-            "title": "Umctions & Blinks",
-            "subtitle": "Social NFT sharing"
+            "title": "Actions e Blinks",
+            "subtitle": "Compartilhamento social de NFT"
           },
           "financial": {
-            "title": "Financial Serviços",
-            "subtitle": "Criador finance"
+            "title": "Serviços Financeiros",
+            "subtitle": "Finanças para criadores"
           },
           "aiFeatures": {
-            "title": "UmI Recursos",
-            "subtitle": "UmI-powered creation"
+            "title": "Recursos de IA",
+            "subtitle": "Criação impulsionada por IA"
           }
         },
         "developerResources": {
           "title": "Recursos para Desenvolvedores",
-          "description": "Build NFT platforms and creator tools with our comprehensive SDK",
+          "description": "Construa plataformas NFT e ferramentas para criadores com nosso SDK abrangente",
           "sdkGuide": {
-            "title": "NFT SDK Guia",
-            "subtitle": "Emtegração documentation"
+            "title": "Guia do SDK NFT",
+            "subtitle": "Documentação de integração"
           },
           "smartContracts": {
             "title": "Contratos Inteligentes",
-            "subtitle": "ERC-721/1155 templates"
+            "subtitle": "Templates ERC-721/1155"
           },
           "apiReference": {
             "title": "Referência de API",
-            "subtitle": "REST & GraphQL UmPÉ"
+            "subtitle": "APIs REST e GraphQL"
           },
           "websocketApi": {
             "title": "API WebSocket",
-            "subtitle": "Em tempo real events"
+            "subtitle": "Eventos em tempo real"
           },
           "cliReference": {
-            "title": "CLI Paraols",
-            "subtitle": "Command line minting"
+            "title": "Ferramentas CLI",
+            "subtitle": "Cunhagem por linha de comando"
           },
           "codeExamples": {
             "title": "Exemplos de Código",
-            "subtitle": "Exemplo integrations"
+            "subtitle": "Exemplos de integração"
           }
         },
         "learnMore": {
-          "title": "LEUmRN MORE",
-          "forDevelopers": "FOR DEVELOPERS",
+          "title": "SAIBA MAIS",
+          "forDevelopers": "PARA DESENVOLVEDORES",
           "defiMastery": {
-            "title": "NFT Mestrey Curso",
-            "subtitle": "Umvançado NFT creation and marketing"
+            "title": "Curso de Domínio NFT",
+            "subtitle": "Criação e marketing avançado de NFT"
           },
           "developerCourse": {
-            "title": "Criador Desenvolvedor Curso",
-            "subtitle": "Build NFT platforms and marketplaces"
+            "title": "Curso de Desenvolvedor para Criadores",
+            "subtitle": "Construa plataformas e marketplaces NFT"
           }
         },
         "cta": {
-          "title": "Lery to Criar on TQueima?",
-          "description": "Participar thousands of artists and creators building the future of digital ownership.",
-          "link": "Ver Criador Documentoação"
+          "title": "Pronto para Criar no TBurn?",
+          "description": "Junte-se a milhares de artistas e criadores construindo o futuro da propriedade digital.",
+          "link": "Ver Documentação para Criadores"
         }
       },
       "btcfi": {
@@ -8102,139 +8102,139 @@
             "description": "Ganhe rendimento em BTC através de pools de liquidez"
           },
           "highPerformance": {
-            "title": "High Desempenho Ponte",
-            "description": "Ponte Bitcoin to TQueima in under 10 minutos. MPC security ensures your BTC is always safe with trustless verification."
+            "title": "Ponte de Alto Desempenho",
+            "description": "Transfira Bitcoin para TBurn em menos de 10 minutos. A segurança MPC garante que seu BTC está sempre seguro com verificação trustless."
           },
           "trustVerification": {
-            "title": "Confiança Verificação",
-            "description": "Parados BTCfi protocols display Confiança Pontuaçãos. Emly verified protocols with 60%+ scores are featured on our platform."
+            "title": "Verificação de Confiança",
+            "description": "Todos os protocolos BTCfi exibem Pontuações de Confiança. Apenas protocolos verificados com pontuações acima de 60% são destacados em nossa plataforma."
           },
           "growingEcosystem": {
-            "title": "Growing Ecossistema",
-            "description": "Umccess lending, staking, and yield farming with your Bitcoin. Native BTC earning opportunities without selling."
+            "title": "Ecossistema em Crescimento",
+            "description": "Acesse empréstimos, staking e yield farming com seu Bitcoin. Oportunidades nativas de ganhos em BTC sem precisar vender."
           },
           "scalableSolutions": {
-            "title": "Escalável Soluções",
-            "description": "De individual holders to institutional treasuries. Nosso infrastructure handles any volume with consistent performance."
+            "title": "Soluções Escaláveis",
+            "description": "De detentores individuais a tesourarias institucionais. Nossa infraestrutura lida com qualquer volume com desempenho consistente."
           }
         },
         "titleHighlight": "Bitcoin DeFi",
         "buttons": {
-          "bridgeBtc": "Ponte BTC",
+          "bridgeBtc": "Transferir BTC",
           "viewYields": "Ver Rendimentos"
         },
         "stats": {
-          "btcBridged": "BTC BRIDGED",
+          "btcBridged": "BTC TRANSFERIDO",
           "tvl": "TVL",
           "zeroValue": "0",
-          "securityIncidents": "SECURITY INCIDENTS"
+          "securityIncidents": "INCIDENTES DE SEGURANÇA"
         },
         "productsSection": {
-          "title": "BTCfi Produtos",
-          "description": "Multiple ways to put your Bitcoin to work"
+          "title": "Produtos BTCfi",
+          "description": "Múltiplas formas de colocar seu Bitcoin para trabalhar"
         },
         "products": {
           "tbtcBridge": {
-            "title": "tBTC Ponte",
-            "description": "Confiançaless Bitcoin bridging with MPC security. No centralized custodians.",
-            "stats": "15K+ BTC Ponted"
+            "title": "Ponte tBTC",
+            "description": "Ponte Bitcoin trustless com segurança MPC. Sem custodiantes centralizados.",
+            "stats": "15K+ BTC Transferidos"
           },
           "btcLending": {
-            "title": "BTC Empréstimo",
-            "description": "Borrow stablecoins against your BTC. Up to 75% LTV with competitive rates.",
-            "stats": "5.2% UmPR"
+            "title": "Empréstimos BTC",
+            "description": "Empreste stablecoins contra seu BTC. Até 75% LTV com taxas competitivas.",
+            "stats": "5.2% APR"
           },
           "btcYieldFarming": {
-            "title": "BTC Rendimento Farming",
-            "description": "Provide BTC liquidity and earn trading fees plus TBURN rewards.",
-            "stats": "12.5% UmPY"
+            "title": "Yield Farming BTC",
+            "description": "Forneça liquidez em BTC e ganhe taxas de negociação mais recompensas TBURN.",
+            "stats": "12.5% APY"
           },
           "btcStaking": {
-            "title": "BTC Staking",
-            "description": "Stake wrapped BTC to secure the network and earn passive rewards.",
-            "stats": "8.3% UmPY"
+            "title": "Staking BTC",
+            "description": "Faça stake de wrapped BTC para proteger a rede e ganhar recompensas passivas.",
+            "stats": "8.3% APY"
           }
         },
         "relatedSolutions": {
-          "title": "Relacionado Soluções",
-          "description": "Enhance your BTCfi experience with these tools",
+          "title": "Soluções Relacionadas",
+          "description": "Aprimore sua experiência BTCfi com estas ferramentas",
           "tokenExtensions": {
-            "title": "Paraken Extensions",
-            "subtitle": "BRC-20 standards"
+            "title": "Extensões de Token",
+            "subtitle": "Padrões BRC-20"
           },
           "wallets": {
             "title": "Carteiras",
-            "subtitle": "BTC-compatible wallets"
+            "subtitle": "Carteiras compatíveis com BTC"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Pay with BTC"
+            "title": "Pagamentos",
+            "subtitle": "Pague com BTC"
           },
           "financial": {
-            "title": "Financial Serviços",
-            "subtitle": "BTC banking"
+            "title": "Serviços Financeiros",
+            "subtitle": "Serviços bancários BTC"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "Umccept BTC"
+            "title": "Comércio",
+            "subtitle": "Aceite BTC"
           },
           "permissioned": {
-            "title": "Permissioned",
-            "subtitle": "Empresarial BTC"
+            "title": "Permissionado",
+            "subtitle": "BTC empresarial"
           },
           "aiFeatures": {
-            "title": "UmI Recursos",
-            "subtitle": "Smart BTC strategies"
+            "title": "Recursos de IA",
+            "subtitle": "Estratégias inteligentes de BTC"
           },
           "actionsBlinks": {
-            "title": "Umctions & Blinks",
-            "subtitle": "BTC transactions"
+            "title": "Actions e Blinks",
+            "subtitle": "Transações BTC"
           }
         },
         "developerResources": {
           "title": "Recursos para Desenvolvedores",
-          "description": "Build BTCfi applications with our comprehensive tools",
+          "description": "Construa aplicações BTCfi com nossas ferramentas abrangentes",
           "sdkGuide": {
-            "title": "BTCfi SDK Guia",
-            "subtitle": "Emtegração documentation"
+            "title": "Guia do SDK BTCfi",
+            "subtitle": "Documentação de integração"
           },
           "smartContracts": {
             "title": "Contratos Inteligentes",
-            "subtitle": "BTC contract templates"
+            "subtitle": "Templates de contratos BTC"
           },
           "apiReference": {
             "title": "Referência de API",
-            "subtitle": "REST & GraphQL UmPÉ"
+            "subtitle": "APIs REST e GraphQL"
           },
           "websocketApi": {
             "title": "API WebSocket",
-            "subtitle": "Em tempo real BTC events"
+            "subtitle": "Eventos BTC em tempo real"
           },
           "cliReference": {
-            "title": "CLI Paraols",
-            "subtitle": "Command line interface"
+            "title": "Ferramentas CLI",
+            "subtitle": "Interface de linha de comando"
           },
           "codeExamples": {
             "title": "Exemplos de Código",
-            "subtitle": "Exemplo integrations"
+            "subtitle": "Exemplos de integração"
           }
         },
         "learnMore": {
-          "title": "LEUmRN MORE",
-          "gettingStarted": "GETTING STUmRTED",
+          "title": "SAIBA MAIS",
+          "gettingStarted": "PRIMEIROS PASSOS",
           "defiMastery": {
-            "title": "BTCfi Mestrey Curso",
-            "subtitle": "Umvançado Bitcoin DeFi strategies"
+            "title": "Curso de Domínio BTCfi",
+            "subtitle": "Estratégias avançadas de Bitcoin DeFi"
           },
           "introToDefi": {
-            "title": "Emtroduction to BTCfi",
-            "subtitle": "Learn Bitcoin DeFi fundamentals"
+            "title": "Introdução ao BTCfi",
+            "subtitle": "Aprenda os fundamentos do Bitcoin DeFi"
           }
         },
         "cta": {
-          "title": "Lery to Unlock Seu Bitcoin?",
-          "description": "Emiciar earning yield on your BTC todia with trust-verified protocols.",
-          "link": "Ver BTCfi Documentoação"
+          "title": "Pronto para Desbloquear Seu Bitcoin?",
+          "description": "Comece a ganhar rendimento no seu BTC hoje com protocolos verificados por confiança.",
+          "link": "Ver Documentação BTCfi"
         }
       },
       "crossChainBridge": {
@@ -8252,63 +8252,63 @@
             "title": "Pagamentos",
             "subtitle": "Soluções de pagamento global"
           },
-          "description": "Enhance your cross-chain experience with these tools",
+          "description": "Aprimore sua experiência cross-chain com estas ferramentas",
           "btcfi": {
             "title": "BTCfi",
             "subtitle": "Ponte Bitcoin"
           },
           "tokenExtensions": {
-            "title": "Paraken Extensions",
-            "subtitle": "Cross-chain tokens"
+            "title": "Extensões de Token",
+            "subtitle": "Tokens cross-chain"
           },
           "wallets": {
             "title": "Carteiras",
-            "subtitle": "Multi-chain wallets"
+            "subtitle": "Carteiras multi-chain"
           },
           "financial": {
-            "title": "Financial Serviços",
-            "subtitle": "Multi-chain finance"
+            "title": "Serviços Financeiros",
+            "subtitle": "Finanças multi-chain"
           },
           "permissioned": {
-            "title": "Permissioned",
-            "subtitle": "Empresarial bridges"
+            "title": "Permissionado",
+            "subtitle": "Pontes empresariais"
           },
           "aiFeatures": {
-            "title": "UmI Recursos",
-            "subtitle": "Smart routing"
+            "title": "Recursos de IA",
+            "subtitle": "Roteamento inteligente"
           },
           "actionsBlinks": {
-            "title": "Umctions & Blinks",
+            "title": "Actions e Blinks",
             "subtitle": "Ponte via links"
           }
         },
         "developerResources": {
           "title": "Recursos para Desenvolvedores",
           "subtitle": "Ferramentas e documentação para integração",
-          "description": "Emtegrate cross-chain functionality into your applications",
+          "description": "Integre funcionalidade cross-chain em suas aplicações",
           "sdkGuide": {
-            "title": "Ponte SDK Guia",
-            "subtitle": "Emtegração documentation"
+            "title": "Guia do SDK de Ponte",
+            "subtitle": "Documentação de integração"
           },
           "smartContracts": {
             "title": "Contratos Inteligentes",
-            "subtitle": "Ponte contracts"
+            "subtitle": "Contratos de ponte"
           },
           "apiReference": {
             "title": "Referência de API",
-            "subtitle": "REST & GraphQL UmPÉ"
+            "subtitle": "APIs REST e GraphQL"
           },
           "websocketApi": {
             "title": "API WebSocket",
-            "subtitle": "Em tempo real updates"
+            "subtitle": "Atualizações em tempo real"
           },
           "cliReference": {
-            "title": "CLI Paraols",
-            "subtitle": "Command line bridging"
+            "title": "Ferramentas CLI",
+            "subtitle": "Ponte por linha de comando"
           },
           "codeExamples": {
             "title": "Exemplos de Código",
-            "subtitle": "Exemplo integrations"
+            "subtitle": "Exemplos de integração"
           }
         },
         "titleHighlight": "Ponte",
@@ -8317,87 +8317,87 @@
           "viewDocumentation": "Ver Documentação"
         },
         "heroStats": {
-          "chains": "SUPPORTED CHUmINS",
-          "volume": "TOTUmL VOLUME",
-          "txns": "TOTUmL TRUmNSUmCTIONS",
-          "avgTime": "UmVG BRIDGE TIME"
+          "chains": "CHAINS SUPORTADAS",
+          "volume": "VOLUME TOTAL",
+          "txns": "TOTAL DE TRANSAÇÕES",
+          "avgTime": "TEMPO MÉDIO DE PONTE"
         },
         "supportedNetworks": {
-          "title": "Suporteed Redes",
-          "subtitle": "Ponte assets to and from major blockchain networks"
+          "title": "Redes Suportadas",
+          "subtitle": "Transfira ativos de e para as principais redes blockchain"
         },
         "coreFeatures": {
           "mpcSecurity": {
-            "title": "MPC Segurança",
-            "subtitle": "Multi-Party Computation for trustless bridging",
+            "title": "Segurança MPC",
+            "subtitle": "Computação Multi-Partes para ponte trustless",
             "items": {
-              "distributedKeyGen": "Distribuído Key Generation",
-              "thresholdSignatures": "Threshold Signatures",
-              "regularKeyRotation": "Regular Key Rotation"
+              "distributedKeyGen": "Geração de Chaves Distribuída",
+              "thresholdSignatures": "Assinaturas de Limiar",
+              "regularKeyRotation": "Rotação Regular de Chaves"
             }
           },
           "atomicSwaps": {
-            "title": "Emomic Trocas",
-            "subtitle": "Parados-or-nothing transaction guarantees",
+            "title": "Trocas Atômicas",
+            "subtitle": "Garantias de transação tudo-ou-nada",
             "items": {
-              "htlcContracts": "HTLC Smart Contratos",
-              "zeroSlippage": "Zero Slippage Trocas",
-              "autoRefund": "Umutomatic Refunds"
+              "htlcContracts": "Contratos Inteligentes HTLC",
+              "zeroSlippage": "Trocas Sem Slippage",
+              "autoRefund": "Reembolsos Automáticos"
             }
           },
           "unifiedLiquidity": {
-            "title": "Unified Liquidez",
-            "subtitle": "Deep cross-chain liquidity pools",
+            "title": "Liquidez Unificada",
+            "subtitle": "Pools de liquidez cross-chain profundos",
             "items": {
-              "crossChainPools": "Cross-Chain Liquidez Pools",
-              "dynamicRebalancing": "Dinâmico Pool Rebalancing",
-              "largeTransferSupport": "Large Transferência Suporte"
+              "crossChainPools": "Pools de Liquidez Cross-Chain",
+              "dynamicRebalancing": "Rebalanceamento Dinâmico de Pools",
+              "largeTransferSupport": "Suporte a Grandes Transferências"
             }
           }
         },
         "howItWorks": {
-          "title": "How the Ponte Works"
+          "title": "Como a Ponte Funciona"
         },
         "bridgeSteps": {
           "step1": {
             "title": "Conectar Carteira",
-            "desc": "Conectar your wallet and select source/destination chains."
+            "desc": "Conecte sua carteira e selecione as chains de origem e destino."
           },
           "step2": {
-            "title": "Select Emivos",
-            "desc": "Choose tokens to bridge and enter the amount."
+            "title": "Selecionar Ativos",
+            "desc": "Escolha os tokens para transferir e insira o valor."
           },
           "step3": {
             "title": "Confirmar Transferência",
-            "desc": "Review fees and Confiança Pontuação verification, then confirm."
+            "desc": "Revise as taxas e a verificação de Pontuação de Confiança, depois confirme."
           },
           "step4": {
-            "title": "Receive Emivos",
-            "desc": "Emivos arrive on destination chain in ~2 minutos."
+            "title": "Receber Ativos",
+            "desc": "Os ativos chegam na chain de destino em ~2 minutos."
           }
         },
         "learnMore": {
-          "title": "LEUmRN MORE",
-          "forDevelopers": "FOR DEVELOPERS",
-          "gettingStarted": "GETTING STUmRTED",
+          "title": "SAIBA MAIS",
+          "forDevelopers": "PARA DESENVOLVEDORES",
+          "gettingStarted": "PRIMEIROS PASSOS",
           "defiMastery": {
-            "title": "Cross-Chain DeFi",
-            "subtitle": "Umvançado multi-chain strategies"
+            "title": "DeFi Cross-Chain",
+            "subtitle": "Estratégias avançadas multi-chain"
           },
           "developerCourse": {
-            "title": "Ponte Desenvolvedor Curso",
-            "subtitle": "Build cross-chain applications"
+            "title": "Curso de Desenvolvedor de Pontes",
+            "subtitle": "Construa aplicações cross-chain"
           },
           "blockchainBasics": {
-            "title": "Cross-Chain Básicos",
-            "subtitle": "Entendendo blockchain bridges and interoperability"
+            "title": "Básicos Cross-Chain",
+            "subtitle": "Entendendo pontes blockchain e interoperabilidade"
           }
         },
         "cta": {
-          "title": "Lery to Ponte Seu Emivos?",
-          "description": "Transferência assets across chains securely with trust verification.",
-          "link": "Ver Ponte Documentoação",
-          "button": "Lançar Ponte Umpp"
+          "title": "Pronto para Transferir Seus Ativos?",
+          "description": "Transfira ativos entre chains com segurança e verificação de confiança.",
+          "link": "Ver Documentação da Ponte",
+          "button": "Lançar App de Ponte"
         }
       },
       "enterprise": {

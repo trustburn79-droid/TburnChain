@@ -5553,16 +5553,16 @@
             "boost": "২.০x"
           },
           "standard": {
-            "name": "STANDARD",
-            "requirement": "No requirement"
+            "name": "স্ট্যান্ডার্ড",
+            "requirement": "কোনো প্রয়োজনীয়তা নেই"
           },
           "mid": {
-            "name": "TRUST LV.1",
-            "requirement": "Trust Score 60+"
+            "name": "ট্রাস্ট লেভেল ১",
+            "requirement": "ট্রাস্ট স্কোর ৬০+"
           },
           "max": {
-            "name": "TRUST LV.2",
-            "requirement": "Trust Score 80+"
+            "name": "ট্রাস্ট লেভেল ২",
+            "requirement": "ট্রাস্ট স্কোর ৮০+"
           }
         },
         "cta": {
@@ -5573,88 +5573,88 @@
         },
         "stats": {
           "tvl": "TVL",
-          "volume24h": "24H VOLUME",
-          "activeLPs": "ACTIVE LPs",
-          "avgApy": "AVG APY"
+          "volume24h": "২৪ ঘণ্টার ভলিউম",
+          "activeLPs": "সক্রিয় LPs",
+          "avgApy": "গড় APY"
         },
         "dex": {
-          "title": "Concentrated তারল্য DEX",
-          "description": "Capital-efficient AMM with concentrated তারল্য positions. Provide তারল্য in specific price ranges for up to 4000x capital efficiency compared to traditional AMMs.",
-          "feature1": "Concentrated তারল্য positions for higher yields",
-          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
-          "feature3": "Range orders for উন্নত স্তর trading strategies",
-          "price": "Price",
+          "title": "ঘনীভূত তারল্য DEX",
+          "description": "ঘনীভূত তারল্য পজিশন সহ মূলধন-দক্ষ AMM। নির্দিষ্ট মূল্য পরিসরে তারল্য প্রদান করুন, ঐতিহ্যবাহী AMM-এর তুলনায় ৪০০০x পর্যন্ত মূলধন দক্ষতা।",
+          "feature1": "উচ্চতর ইয়েল্ডের জন্য ঘনীভূত তারল্য পজিশন",
+          "feature2": "একাধিক ফি টিয়ার (০.০১%, ০.০৫%, ০.৩%, ১%)",
+          "feature3": "উন্নত ট্রেডিং কৌশলের জন্য রেঞ্জ অর্ডার",
+          "price": "মূল্য",
           "liquidity": "তারল্য",
-          "volume24h": "24h Volume"
+          "volume24h": "২৪ ঘণ্টার ভলিউম"
         },
         "lending": {
-          "title": "Collateralized Lending",
-          "description": "Borrow against your crypto assets with competitive rates. Real-time liquidation protection with trust-verified collateral.",
-          "maxLtv": "MAX 80% LTV",
+          "title": "জামানতযুক্ত ঋণ",
+          "description": "প্রতিযোগিতামূলক হারে আপনার ক্রিপ্টো সম্পদের বিপরীতে ঋণ নিন। বিশ্বাস-যাচাইকৃত জামানত সহ রিয়েল-টাইম লিকুইডেশন সুরক্ষা।",
+          "maxLtv": "সর্বোচ্চ ৮০% LTV",
           "tburnLtv": "TBURN LTV",
-          "stablecoinLtv": "Stablecoin LTV"
+          "stablecoinLtv": "স্টেবলকয়েন LTV"
         },
         "staking": {
-          "title": "Liquid Staking",
-          "description": "Stake TBURN and receive sTBURN. Use liquid staking derivatives across DeFi while earning staking rewards.",
-          "apy": "১৮.5% APY",
-          "exchangeRate": "Exchange Rate",
-          "rewardCycle": "Reward Cycle",
-          "everyEpoch": "Every Epoch (24h)"
+          "title": "লিকুইড স্টেকিং",
+          "description": "TBURN স্টেক করুন এবং sTBURN পান। স্টেকিং পুরস্কার অর্জন করার সময় DeFi জুড়ে লিকুইড স্টেকিং ডেরিভেটিভ ব্যবহার করুন।",
+          "apy": "১৮.৫% APY",
+          "exchangeRate": "বিনিময় হার",
+          "rewardCycle": "পুরস্কার চক্র",
+          "everyEpoch": "প্রতি ইপক (২৪ ঘণ্টা)"
         },
         "yieldFarming": {
           "tag": "ইয়েল্ড ফার্মিং",
-          "title": "Trust-Boosted Yield",
-          "subtitle": "Earn bonus rewards based on your Trust Score tier"
+          "title": "ট্রাস্ট-বুস্টেড ইয়েল্ড",
+          "subtitle": "আপনার ট্রাস্ট স্কোর টিয়ারের উপর ভিত্তি করে বোনাস পুরস্কার অর্জন করুন"
         },
         "buttons": {
-          "startTrading": "Start Trading",
-          "viewAllFarms": "View All Farms"
+          "startTrading": "ট্রেডিং শুরু করুন",
+          "viewAllFarms": "সব ফার্ম দেখুন"
         },
         "relatedSolutions": {
-          "description": "Expand your DeFi capabilities with these complementary solutions",
+          "description": "এই পরিপূরক সমাধানগুলির সাথে আপনার DeFi ক্ষমতা প্রসারিত করুন",
           "btcfi": {
             "title": "BTCFi",
-            "subtitle": "Bitcoin DeFi solutions"
+            "subtitle": "বিটকয়েন DeFi সমাধান"
           },
           "bridge": {
             "title": "ক্রস-চেইন ব্রিজ",
-            "subtitle": "Multi-chain transfers"
+            "subtitle": "মাল্টি-চেইন ট্রান্সফার"
           },
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "BRC-20 স্ট্যান্ডার্ডs"
+            "subtitle": "BRC-20 স্ট্যান্ডার্ড"
           },
           "wallets": {
             "title": "ওয়ালেট",
-            "subtitle": "Secure connections"
+            "subtitle": "নিরাপদ সংযোগ"
           },
           "payments": {
             "title": "পেমেন্ট",
-            "subtitle": "Global বাণিজ্য"
+            "subtitle": "বৈশ্বিক বাণিজ্য"
           },
           "financial": {
             "title": "আর্থিক সেবা",
-            "subtitle": "প্রাতিষ্ঠানিক tools"
+            "subtitle": "প্রাতিষ্ঠানিক টুলস"
           },
           "permissioned": {
-            "title": "অনুমতিপ্রাপ্ত Networks",
+            "title": "অনুমতিপ্রাপ্ত নেটওয়ার্ক",
             "subtitle": "এন্টারপ্রাইজ সমাধান"
           },
           "aiFeatures": {
             "title": "AI বৈশিষ্ট্য",
-            "subtitle": "Smart automation"
+            "subtitle": "স্মার্ট অটোমেশন"
           }
         },
         "developerResources": {
-          "description": "Build and integrate with TBurn DeFi using our comprehensive developer tools",
+          "description": "আমাদের ব্যাপক ডেভেলপার টুল ব্যবহার করে TBurn DeFi দিয়ে তৈরি এবং ইন্টিগ্রেট করুন",
           "sdkGuide": {
-            "title": "DeFi SDK Guide",
-            "subtitle": "Integration ডকুমেন্টেশন"
+            "title": "DeFi SDK গাইড",
+            "subtitle": "ইন্টিগ্রেশন ডকুমেন্টেশন"
           },
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "subtitle": "Verified contracts"
+            "subtitle": "যাচাইকৃত কন্ট্রাক্ট"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
@@ -5662,26 +5662,26 @@
           },
           "websocket": {
             "title": "WebSocket ফিড",
-            "subtitle": "Real-time data streams"
+            "subtitle": "রিয়েল-টাইম ডেটা স্ট্রিম"
           },
           "cli": {
-            "title": "CLI Tools",
-            "subtitle": "Command line interface"
+            "title": "CLI টুলস",
+            "subtitle": "কমান্ড লাইন ইন্টারফেস"
           },
           "examples": {
             "title": "কোড উদাহরণ",
-            "subtitle": "Sample integrations"
+            "subtitle": "নমুনা ইন্টিগ্রেশন"
           }
         },
         "learnPages": {
-          "gettingStarted": "GETTING STARTED",
+          "gettingStarted": "শুরু করুন",
           "defiMastery": {
-            "title": "DeFi Mastery Course",
-            "subtitle": "উন্নত স্তর ইয়েল্ড স্ট্র্যাটেজি and risk management"
+            "title": "DeFi মাস্টারি কোর্স",
+            "subtitle": "উন্নত ইয়েল্ড কৌশল এবং ঝুঁকি ব্যবস্থাপনা"
           },
           "introToDefi": {
             "title": "DeFi পরিচিতি",
-            "subtitle": "Learn the fundamentals of decentralized finance"
+            "subtitle": "বিকেন্দ্রীভূত ফিনান্সের মৌলিক বিষয়গুলি শিখুন"
           }
         }
       },
@@ -5712,28 +5712,28 @@
             "description": "টিমের বিবরণ, হোয়াইটপেপার লিঙ্ক, অডিট রিপোর্ট এবং বার্ন শিডিউল সহ সমস্ত প্রজেক্ট তথ্য টোকেন মেটাডেটায় অন-চেইনে সংরক্ষিত হয়।"
           },
           "trustRating": {
-            "title": "Built-in Trust Rating",
-            "description": "Trust scores are automatically recorded in token contracts. When below 40%,",
-            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
-            "badge": "Automated Investor Protection"
+            "title": "বিল্ট-ইন ট্রাস্ট রেটিং",
+            "description": "বিশ্বাস স্কোর স্বয়ংক্রিয়ভাবে টোকেন কন্ট্রাক্টে রেকর্ড করা হয়। ৪০% এর নিচে হলে,",
+            "descriptionContinue": "transfer() ফাংশন স্বয়ংক্রিয়ভাবে ব্যর্থ হয়, লেনদেন ব্লক করে।",
+            "badge": "স্বয়ংক্রিয় বিনিয়োগকারী সুরক্ষা"
           },
           "autoBurn": {
-            "title": "Automatic Burn Schedule",
-            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically পোড়ানো.",
-            "badge": "Enforced Deflationary Model"
+            "title": "স্বয়ংক্রিয় বার্ন শিডিউল",
+            "description": "পূর্বনির্ধারিত বার্ন শিডিউল পূরণ না হলে, জামানত টোকেন স্বয়ংক্রিয়ভাবে বার্ন হয়।",
+            "badge": "প্রয়োগযোগ্য ডিফ্লেশনারি মডেল"
           },
           "collateral": {
-            "title": "Collateral Transparency",
-            "description": "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+            "title": "জামানত স্বচ্ছতা",
+            "description": "প্রজেক্ট রিজার্ভ ওয়ালেট ঠিকানা অন-চেইনে প্রকাশ্যে প্রকাশিত, রিয়েল-টাইম জামানত অনুপাত সহ।"
           },
           "metadata": {
-            "title": "Extended Metadata",
-            "description": "All project information including team details, হোয়াইটপেপার links, and audit reports stored on-chain."
+            "title": "বর্ধিত মেটাডেটা",
+            "description": "টিমের বিবরণ, হোয়াইটপেপার লিঙ্ক এবং অডিট রিপোর্ট সহ সমস্ত প্রজেক্ট তথ্য অন-চেইনে সংরক্ষিত।"
           }
         },
         "brc20Standard": {
           "title": "BRC-20 টোকেন স্ট্যান্ডার্ড",
-          "subtitle": "Trust এবং Burn কার্যকারিতার জন্য কোর ইন্টারফেস।",
+          "subtitle": "ট্রাস্ট এবং বার্ন কার্যকারিতার জন্য কোর ইন্টারফেস।",
           "trustScoreFunctions": "ট্রাস্ট স্কোর ফাংশন",
           "autoBurnFunctions": "অটো বার্ন ফাংশন"
         },
@@ -5752,16 +5752,16 @@
             "description": "প্রতিটি লেনদেনে অটো-বার্ন মান বাড়ায়।"
           },
           "verified": {
-            "title": "Verified Project Tokens",
-            "description": "Tradeable only when maintaining 60%+ trust score."
+            "title": "যাচাইকৃত প্রজেক্ট টোকেন",
+            "description": "শুধুমাত্র ৬০%+ বিশ্বাস স্কোর বজায় রাখলে ট্রেডযোগ্য।"
           },
           "stablecoins": {
-            "title": "Collateral-backed স্টেবলকয়েন",
-            "description": "Real-time collateral ratio monitoring and auto liquidation."
+            "title": "জামানত-সমর্থিত স্টেবলকয়েন",
+            "description": "রিয়েল-টাইম জামানত অনুপাত মনিটরিং এবং অটো লিকুইডেশন।"
           },
           "deflationary": {
-            "title": "Deflationary Utility Tokens",
-            "description": "Auto-burn on each transaction increases value."
+            "title": "ডিফ্লেশনারি ইউটিলিটি টোকেন",
+            "description": "প্রতিটি লেনদেনে অটো-বার্ন মান বৃদ্ধি করে।"
           }
         },
         "realExamples": {
@@ -5786,48 +5786,48 @@
           "viewApiDocs": "API ডক্স দেখুন"
         },
         "buttons": {
-          "exploreBrc20": "Explore BRC-20",
-          "readSpecs": "Read Specs",
-          "openConsole": "Open Developer Console",
-          "viewApiDocs": "View API Docs"
+          "exploreBrc20": "BRC-20 অন্বেষণ করুন",
+          "readSpecs": "স্পেক পড়ুন",
+          "openConsole": "ডেভেলপার কনসোল খুলুন",
+          "viewApiDocs": "API ডক্স দেখুন"
         },
         "brc20": {
-          "title": "BRC-20 Token স্ট্যান্ডার্ড",
-          "subtitle": "Core interfaces for Trust & Burn functionality.",
-          "trustScoreFunctions": "Trust Score Functions",
-          "autoBurnFunctions": "Auto Burn Functions"
+          "title": "BRC-20 টোকেন স্ট্যান্ডার্ড",
+          "subtitle": "ট্রাস্ট ও বার্ন কার্যকারিতার জন্য কোর ইন্টারফেস।",
+          "trustScoreFunctions": "ট্রাস্ট স্কোর ফাংশন",
+          "autoBurnFunctions": "অটো বার্ন ফাংশন"
         },
         "code": {
           "comments": {
-            "range": "Returns trust score in range 0-100",
-            "autoBurn": "Burn tokens according to schedule"
+            "range": "০-১০০ পরিসরে বিশ্বাস স্কোর ফেরত দেয়",
+            "autoBurn": "শিডিউল অনুযায়ী টোকেন বার্ন করে"
           }
         },
         "useCasesSection": {
-          "title": "Token Extension Use Cases"
+          "title": "টোকেন এক্সটেনশন ব্যবহারের ক্ষেত্র"
         },
         "examplesSection": {
-          "title": "Real Use Examples"
+          "title": "বাস্তব ব্যবহারের উদাহরণ"
         },
         "examples": {
           "busd": {
-            "name": "BUSD (Stablecoin)",
-            "badge": "90+ Trust Score"
+            "name": "BUSD (স্টেবলকয়েন)",
+            "badge": "৯০+ বিশ্বাস স্কোর"
           },
           "bgame": {
             "name": "BGAME (GameFi)",
-            "badge": "Auto-Burn Enabled"
+            "badge": "অটো-বার্ন সক্রিয়"
           },
           "bprop": {
             "name": "BPROP (RWA)",
-            "badge": "Real Asset Collateral"
+            "badge": "বাস্তব সম্পদ জামানত"
           }
         }
       },
       "actionsBlinks": {
         "tag": "ব্লকচেইন অ্যাকশন",
-        "title": "Actions এবং",
-        "titleHighlight": "Blinks",
+        "title": "অ্যাকশন এবং",
+        "titleHighlight": "ব্লিঙ্ক",
         "subtitle": "সহজ URL লিঙ্কের মাধ্যমে ব্লকচেইন লেনদেন সম্পাদন করুন। সোশ্যাল মিডিয়ায় সোয়াপ, মিন্টিং এবং ভোট শেয়ার করুন। বিশ্বাস স্কোর যাচাই অন্তর্ভুক্ত।",
         "createAction": "অ্যাকশন তৈরি করুন",
         "coreCapabilities": {
@@ -5879,7 +5879,7 @@
             "title": "নিরাপদ এক্সিকিউশন",
             "description": "শুধুমাত্র ব্যবহারকারী অনুমোদন করলে এবং বিশ্বাস স্কোর নিরাপদ হলে (>৪০%) লেনদেন সম্পাদিত হয়।"
           },
-          "figureLabel": "Action Flow Diagram"
+          "figureLabel": "অ্যাকশন ফ্লো ডায়াগ্রাম"
         },
         "realWorldApps": {
           "title": "বাস্তব-বিশ্ব অ্যাপ্লিকেশন",
@@ -5903,44 +5903,44 @@
         "developerQuickStart": {
           "title": "ডেভেলপার দ্রুত শুরু",
           "step1": {
-            "title": "Basic Action URL structure"
+            "title": "বেসিক অ্যাকশন URL স্ট্রাকচার"
           },
           "step2": {
-            "title": "Add OpenGraph meta tags"
+            "title": "OpenGraph মেটা ট্যাগ যোগ করুন"
           },
           "step3": {
-            "title": "Deploy and share",
-            "description": "Action is now shareable across platforms"
+            "title": "ডিপ্লয় এবং শেয়ার করুন",
+            "description": "অ্যাকশন এখন প্ল্যাটফর্ম জুড়ে শেয়ারযোগ্য"
           }
         },
         "relatedSolutions": {
-          "description": "Enhance your blockchain actions with these complementary solutions",
+          "description": "এই পরিপূরক সমাধানগুলির সাথে আপনার ব্লকচেইন অ্যাকশন উন্নত করুন",
           "wallets": {
             "title": "ওয়ালেট",
-            "subtitle": "Secure connections"
+            "subtitle": "নিরাপদ সংযোগ"
           },
           "payments": {
             "title": "পেমেন্ট",
-            "subtitle": "Global বাণিজ্য"
+            "subtitle": "বৈশ্বিক বাণিজ্য"
           },
           "commerce": {
             "title": "বাণিজ্য",
-            "subtitle": "Merchant tools"
+            "subtitle": "মার্চেন্ট টুল"
           },
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "BRC-20 স্ট্যান্ডার্ডs"
+            "subtitle": "BRC-20 স্ট্যান্ডার্ড"
           }
         },
         "developerResources": {
-          "description": "Build powerful blockchain actions with our comprehensive developer toolkit",
+          "description": "আমাদের ব্যাপক ডেভেলপার টুলকিট দিয়ে শক্তিশালী ব্লকচেইন অ্যাকশন তৈরি করুন",
           "sdkGuide": {
-            "title": "Actions SDK",
-            "subtitle": "Integration ডকুমেন্টেশন"
+            "title": "অ্যাকশন SDK",
+            "subtitle": "ইন্টিগ্রেশন ডকুমেন্টেশন"
           },
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "subtitle": "Verified contracts"
+            "subtitle": "যাচাইকৃত কন্ট্রাক্ট"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
@@ -5948,25 +5948,25 @@
           },
           "websocket": {
             "title": "WebSocket",
-            "subtitle": "Real-time events"
+            "subtitle": "রিয়েল-টাইম ইভেন্ট"
           },
           "cli": {
-            "title": "CLI Tools",
-            "subtitle": "Command line"
+            "title": "CLI টুলস",
+            "subtitle": "কমান্ড লাইন"
           },
           "examples": {
-            "title": "Examples",
-            "subtitle": "Sample code"
+            "title": "উদাহরণ",
+            "subtitle": "নমুনা কোড"
           }
         },
         "learnPages": {
           "introToDefi": {
             "title": "DeFi পরিচিতি",
-            "subtitle": "Learn the fundamentals of decentralized finance"
+            "subtitle": "বিকেন্দ্রীভূত ফিনান্সের মৌলিক বিষয়গুলি শিখুন"
           },
           "developerCourse": {
             "title": "ডেভেলপার কোর্স",
-            "subtitle": "Build dApps on TBurn Chain"
+            "subtitle": "TBurn Chain-এ dApps তৈরি করুন"
           }
         }
       },
@@ -6011,7 +6011,7 @@
           "autoWarningSystem": {
             "title": "অটো-সতর্কতা সিস্টেম",
             "description": "কম-বিশ্বাস (<৪০) লেনদেনে সতর্কতা প্রদর্শনের জন্য স্ট্যান্ডার্ড প্রোটোকল।",
-            "warningExample": "Trust Score < 40 - High Risk"
+            "warningExample": "ট্রাস্ট স্কোর < ৪০ - উচ্চ ঝুঁকি"
           },
           "walletSdk": {
             "title": "ওয়ালেট SDK",
@@ -6136,95 +6136,95 @@
           }
         },
         "buttons": {
-          "contactSales": "যোগাযোগ Sales",
-          "viewWhitepaper": "View হোয়াইটপেপার"
+          "contactSales": "বিক্রয়ে যোগাযোগ করুন",
+          "viewWhitepaper": "হোয়াইটপেপার দেখুন"
         },
         "features": {
           "rbac": {
-            "title": "ভূমিকা-Based Access Control",
-            "desc": "Granular permission settings for admins, ভ্যালিডেটর, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on ভূমিকাs."
+            "title": "ভূমিকা-ভিত্তিক অ্যাক্সেস কন্ট্রোল",
+            "desc": "অ্যাডমিন, ভ্যালিডেটর এবং ব্যবহারকারীদের জন্য দানাদার অনুমতি সেটিংস। ভূমিকার উপর ভিত্তি করে স্মার্ট কন্ট্রাক্ট ডিপ্লয়মেন্ট, লেনদেন অনুমোদন এবং ডেটা কোয়েরির জন্য পৃথক অনুমতি।"
           },
           "whitelist": {
-            "title": "Whitelist ভ্যালিডেটর",
-            "desc": "Only trusted ভ্যালিডেটর can participate in the network. Configure the network so that only internal নোড or approved partners can generate and validate blocks."
+            "title": "হোয়াইটলিস্ট ভ্যালিডেটর",
+            "desc": "শুধুমাত্র বিশ্বস্ত ভ্যালিডেটররা নেটওয়ার্কে অংশগ্রহণ করতে পারে। নেটওয়ার্ক কনফিগার করুন যাতে শুধুমাত্র অভ্যন্তরীণ নোড বা অনুমোদিত অংশীদাররা ব্লক তৈরি এবং যাচাই করতে পারে।"
           },
           "compliance": {
-            "title": "Regulatory Compliance",
-            "desc": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+            "title": "নিয়ন্ত্রক সম্মতি",
+            "desc": "বৈশ্বিক নিয়ন্ত্রণের জন্য ডিজাইন করা ফ্রেমওয়ার্ক (GDPR, HIPAA, SOC2)। বিল্ট-ইন অডিট লগ, বিশ্রাম এবং ট্রানজিটে ডেটা এনক্রিপশন এবং গোপনীয়তা-সংরক্ষণ বৈশিষ্ট্য।"
           },
           "multisig": {
-            "title": "Multi-Signature Governance",
-            "desc": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+            "title": "মাল্টি-সিগনেচার গভর্ন্যান্স",
+            "desc": "গুরুত্বপূর্ণ নেটওয়ার্ক সিদ্ধান্তের জন্য বহু-পক্ষীয় অনুমোদন প্রয়োজন। স্মার্ট কন্ট্রাক্ট আপগ্রেড, ভ্যালিডেটর ম্যানেজমেন্ট এবং প্যারামিটার পরিবর্তনের জন্য ৩/৫ বা ৫/৭ স্বাক্ষর প্রয়োজন।"
           }
         },
         "hybrid": {
           "privateAnchor": {
-            "title": "Private Chain + Public Anchor",
-            "desc": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the TBurn Public Mainnet for immutability."
+            "title": "প্রাইভেট চেইন + পাবলিক অ্যাঙ্কর",
+            "desc": "অভ্যন্তরীণ লেনদেন উচ্চ-গতির প্রাইভেট চেইনে চলে, অপরিবর্তনীয়তার জন্য পর্যায়ক্রমিক স্টেট হ্যাশ TBurn পাবলিক মেইননেটে অ্যাঙ্কর করা হয়।"
           },
           "selectiveDisclosure": {
-            "title": "Selective Data Disclosure",
-            "desc": "Transaction details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+            "title": "নির্বাচনী ডেটা প্রকাশ",
+            "desc": "লেনদেন বিবরণ অনুমোদিত অংশগ্রহণকারীদের কাছে ব্যক্তিগত থাকে, কিন্তু প্রয়োজনে অডিটর বা নিয়ন্ত্রকদের কাছে ক্রিপ্টোগ্রাফিকভাবে প্রমাণ করা যেতে পারে।"
           }
         },
         "diagram": {
-          "privateLayer": "Private কনসেনসাস Layer",
-          "anchoringHash": "ANCHORING HASH",
-          "publicMainnet": "Public Mainnet (L1)"
+          "privateLayer": "প্রাইভেট কনসেনসাস লেয়ার",
+          "anchoringHash": "অ্যাঙ্করিং হ্যাশ",
+          "publicMainnet": "পাবলিক মেইননেট (L1)"
         },
         "useCases": {
-          "exampleLabel": "Example",
+          "exampleLabel": "উদাহরণ",
           "supplyChain": {
             "title": "সাপ্লাই চেইন",
-            "desc": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
-            "example": "Auto Parts Tracking",
-            "flow": "Raw Material → Production → Assembly"
+            "desc": "প্রস্তুতকারক থেকে ডেলিভারি পর্যন্ত পণ্য ট্র্যাক করুন। অংশগ্রহণকারীরা শুধুমাত্র প্রাসঙ্গিক লেনদেন সেগমেন্ট দেখতে পায়।",
+            "example": "অটো পার্টস ট্র্যাকিং",
+            "flow": "কাঁচামাল → উৎপাদন → অ্যাসেম্বলি"
           },
           "banking": {
-            "title": "Banking Consortium",
-            "desc": "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
-            "example": "Cross-border Remittance",
-            "flow": "3 Days → 3 Seconds, Fee $10 → $0.01"
+            "title": "ব্যাংকিং কনসোর্টিয়াম",
+            "desc": "আন্তঃ-ব্যাংক সেটেলমেন্ট নেটওয়ার্ক। শূন্য পাল্টা-পক্ষ ঝুঁকির সাথে রিয়েল-টাইম ক্লিয়ারিং এবং সেটেলমেন্ট।",
+            "example": "ক্রস-বর্ডার রেমিটেন্স",
+            "flow": "৩ দিন → ৩ সেকেন্ড, ফি $১০ → $০.০১"
           },
           "medical": {
-            "title": "Medical Data",
-            "desc": "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
-            "example": "E-Prescriptions",
-            "flow": "Hospital → Pharmacy → বীমা"
+            "title": "মেডিকেল ডেটা",
+            "desc": "হাসপাতাল এবং বীমাকারীদের মধ্যে নিরাপদ রোগীর ডেটা শেয়ারিং। সম্পূর্ণ HIPAA সম্মতি অডিটিং।",
+            "example": "ই-প্রেসক্রিপশন",
+            "flow": "হাসপাতাল → ফার্মেসি → বীমা"
           }
         },
         "deployment": {
           "step1": {
-            "title": "Requirements Analysis",
-            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+            "title": "প্রয়োজনীয়তা বিশ্লেষণ",
+            "desc": "অংশগ্রহণকারী চিহ্নিত করুন, অনুমতি স্কিমা ডিজাইন করুন এবং নিয়ন্ত্রক প্রয়োজনীয়তা পর্যালোচনা করুন।"
           },
           "step2": {
-            "title": "Network Setup",
-            "desc": "Deploy validator নোড, generate genesis block, and develop initial স্মার্ট কন্ট্রাক্ট."
+            "title": "নেটওয়ার্ক সেটআপ",
+            "desc": "ভ্যালিডেটর নোড ডিপ্লয় করুন, জেনেসিস ব্লক তৈরি করুন এবং প্রাথমিক স্মার্ট কন্ট্রাক্ট ডেভেলপ করুন।"
           },
           "step3": {
-            "title": "Integration & মাইগ্রেশন",
-            "desc": "API ইন্টিগ্রেশন with legacy systems (ERP, CRM), data মাইগ্রেশন, and user training."
+            "title": "ইন্টিগ্রেশন ও মাইগ্রেশন",
+            "desc": "লিগ্যাসি সিস্টেমের (ERP, CRM) সাথে API ইন্টিগ্রেশন, ডেটা মাইগ্রেশন এবং ব্যবহারকারী প্রশিক্ষণ।"
           },
           "step4": {
-            "title": "Mainnet Launch",
-            "desc": "Production deployment with 24/7 monitoring and regular security audits."
+            "title": "মেইননেট লঞ্চ",
+            "desc": "২৪/৭ মনিটরিং এবং নিয়মিত নিরাপত্তা অডিট সহ প্রোডাকশন ডিপ্লয়মেন্ট।"
           }
         },
         "sections": {
           "enterpriseFeatures": {
-            "title": "Enterprise Features",
-            "subtitle": "উন্নত স্তর control and compliance features for businesses"
+            "title": "এন্টারপ্রাইজ বৈশিষ্ট্য",
+            "subtitle": "ব্যবসার জন্য উন্নত নিয়ন্ত্রণ এবং সম্মতি বৈশিষ্ট্য"
           },
           "hybridArchitecture": {
-            "title": "Hybrid Architecture",
-            "subtitle": "Combine private chain privacy with public blockchain security"
+            "title": "হাইব্রিড আর্কিটেকচার",
+            "subtitle": "প্রাইভেট চেইনের গোপনীয়তা পাবলিক ব্লকচেইনের নিরাপত্তার সাথে একত্রিত করুন"
           },
           "useCases": {
-            "title": "Industry Use Cases"
+            "title": "ইন্ডাস্ট্রি ইউজ কেস"
           },
           "deployment": {
-            "title": "Deployment Process"
+            "title": "ডিপ্লয়মেন্ট প্রক্রিয়া"
           }
         }
       },
@@ -6278,33 +6278,33 @@
             "title": "P2E গেম",
             "description": "বিশ্বাস যাচাইকরণ পঞ্জি স্কিম ব্লক করে। টেকসই প্লে-টু-আর্নের জন্য স্থিতিশীল টোকেনোমিক্স।",
             "tags": "RPG • স্ট্র্যাটেজি • ব্যাটেল",
-            "desc": "Reward players with verified tokens and NFTs for gameplay achievements."
+            "desc": "গেমপ্লে অর্জনের জন্য খেলোয়াড়দের যাচাইকৃত টোকেন এবং NFT দিয়ে পুরস্কৃত করুন।"
           },
           "nftMarketplace": {
             "title": "NFT মার্কেটপ্লেস",
             "description": "গেম আইটেম, আর্টওয়ার্ক এবং কালেকশন ট্রেড করুন। নিরাপত্তার জন্য স্বয়ংক্রিয়ভাবে বিশ্বাস ব্যাজ প্রদর্শিত হয়।",
             "tags": "ঝুঁকি সতর্কতা • ইতিহাস",
-            "desc": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety."
+            "desc": "গেম আইটেম, আর্টওয়ার্ক এবং কালেকশন ট্রেড করুন। নিরাপত্তার জন্য স্বয়ংক্রিয়ভাবে বিশ্বাস ব্যাজ প্রদর্শিত হয়।"
           },
           "metaverse": {
             "title": "মেটাভার্স",
             "description": "ভার্চুয়াল রিয়েল এস্টেট, অবতার এবং পরিধেয়। DAO গভর্ন্যান্স সহ বিকেন্দ্রীভূত মালিকানা।",
             "tags": "জমি • অবতার • সামাজিক",
-            "desc": "Immersive virtual environments with verified digital asset ownership."
+            "desc": "যাচাইকৃত ডিজিটাল সম্পদ মালিকানা সহ ইমার্সিভ ভার্চুয়াল পরিবেশ।"
           },
-          "subtitle": "Build any type of blockchain game with our comprehensive tooling",
+          "subtitle": "আমাদের ব্যাপক টুলিং দিয়ে যেকোনো ধরনের ব্লকচেইন গেম তৈরি করুন",
           "marketplace": {
-            "title": "NFT Marketplaces",
-            "desc": "Secure trading platforms for in-game items with trust যাচাইকরণ.",
-            "tags": "Trading, Auction, Exchange"
+            "title": "NFT মার্কেটপ্লেস",
+            "desc": "বিশ্বাস যাচাইকরণ সহ ইন-গেম আইটেমের জন্য নিরাপদ ট্রেডিং প্ল্যাটফর্ম।",
+            "tags": "ট্রেডিং, নিলাম, এক্সচেঞ্জ"
           },
           "casualGames": {
-            "title": "Casual Games",
-            "desc": "Lightweight blockchain integration for casual গেমিং with microtransactions."
+            "title": "ক্যাজুয়াল গেমস",
+            "desc": "মাইক্রোট্রানজেকশন সহ ক্যাজুয়াল গেমিংয়ের জন্য হালকা ব্লকচেইন ইন্টিগ্রেশন।"
           },
           "esports": {
             "title": "ইস্পোর্টস ও টুর্নামেন্ট",
-            "desc": "Decentralized prize pools with transparent distribution and anti-cheat যাচাইকরণ."
+            "desc": "স্বচ্ছ বিতরণ এবং অ্যান্টি-চিট যাচাইকরণ সহ বিকেন্দ্রীভূত পুরস্কার পুল।"
           }
         },
         "integrationGuide": {
@@ -6327,117 +6327,117 @@
           }
         },
         "buttons": {
-          "getUnitySdk": "Get Unity SDK",
-          "getUnrealSdk": "Get Unreal SDK",
+          "getUnitySdk": "Unity SDK পান",
+          "getUnrealSdk": "Unreal SDK পান",
           "viewDocs": "ডকুমেন্টেশন দেখুন"
         },
         "sections": {
           "whyBuild": {
-            "title": "Why Build Games on TBurn Chain?",
-            "subtitle": "উন্নত স্তর infrastructure for next-generation blockchain গেমিং"
+            "title": "TBurn Chain-এ কেন গেম তৈরি করবেন?",
+            "subtitle": "পরবর্তী প্রজন্মের ব্লকচেইন গেমিংয়ের জন্য উন্নত অবকাঠামো"
           },
           "trustScore": {
-            "title": "Trust Score for Games"
+            "title": "গেমের জন্য ট্রাস্ট স্কোর"
           },
           "gameTypes": {
-            "title": "Game Types & Use Cases"
+            "title": "গেম প্রকার ও ব্যবহারের ক্ষেত্র"
           },
           "integration": {
-            "title": "Integration Steps"
+            "title": "ইন্টিগ্রেশন ধাপ"
           }
         },
         "trustScore": {
-          "title": "NFT Project Trust Score",
-          "subtitle": "Comprehensive যাচাইকরণ system for game projects",
-          "teamScore": "Team Identity Score",
-          "contractScore": "Contract Security Score",
-          "utilityScore": "Utility & রোডম্যাপ Score",
-          "totalScore": "Total Trust Score",
+          "title": "NFT প্রজেক্ট বিশ্বাস স্কোর",
+          "subtitle": "গেম প্রজেক্টের জন্য ব্যাপক যাচাইকরণ সিস্টেম",
+          "teamScore": "টিম পরিচয় স্কোর",
+          "contractScore": "কন্ট্রাক্ট নিরাপত্তা স্কোর",
+          "utilityScore": "ইউটিলিটি ও রোডম্যাপ স্কোর",
+          "totalScore": "মোট বিশ্বাস স্কোর",
           "verification": {
-            "title": "Trust যাচাইকরণ",
-            "desc": "AI-powered project analysis with community validation"
+            "title": "ট্রাস্ট যাচাইকরণ",
+            "desc": "কমিউনিটি ভ্যালিডেশন সহ AI-চালিত প্রজেক্ট বিশ্লেষণ"
           },
           "team": {
-            "title": "Team যাচাইকরণ",
-            "points": "0-30 পয়েন্ট",
-            "desc": "Verified team members with public identities receive higher scores.",
+            "title": "টিম যাচাইকরণ",
+            "points": "০-৩০ পয়েন্ট",
+            "desc": "পাবলিক পরিচয় সহ যাচাইকৃত টিম সদস্যরা উচ্চতর স্কোর পান।",
             "scoring": {
-              "verified": "Verified team members",
-              "anonymous": "Anonymous team",
-              "maxPoints": "Max 10 পয়েন্ট"
+              "verified": "যাচাইকৃত টিম সদস্য",
+              "anonymous": "বেনামী টিম",
+              "maxPoints": "সর্বোচ্চ ১০ পয়েন্ট"
             }
           },
           "contract": {
-            "title": "Contract Security",
-            "points": "0-25 পয়েন্ট",
-            "desc": "Audited স্মার্ট কন্ট্রাক্ট with verified security practices.",
+            "title": "কন্ট্রাক্ট নিরাপত্তা",
+            "points": "০-২৫ পয়েন্ট",
+            "desc": "যাচাইকৃত নিরাপত্তা অনুশীলন সহ অডিটেড স্মার্ট কন্ট্রাক্ট।",
             "scoring": {
-              "audits": "3+ security audits",
-              "noAudit": "No audit"
+              "audits": "৩+ নিরাপত্তা অডিট",
+              "noAudit": "কোনো অডিট নেই"
             }
           },
           "utility": {
-            "title": "Game Utility",
-            "points": "0-25 পয়েন্ট",
-            "desc": "Real gameplay utility and active player engagement.",
+            "title": "গেম ইউটিলিটি",
+            "points": "০-২৫ পয়েন্ট",
+            "desc": "প্রকৃত গেমপ্লে ইউটিলিটি এবং সক্রিয় খেলোয়াড় এনগেজমেন্ট।",
             "scoring": {
-              "executed": "রোডম্যাপ executed",
-              "gameLive": "Game is live",
-              "bonus": "+10 পয়েন্ট bonus"
+              "executed": "রোডম্যাপ বাস্তবায়িত",
+              "gameLive": "গেম লাইভ",
+              "bonus": "+১০ পয়েন্ট বোনাস"
             }
           }
         },
         "features": {
           "ultraFastProcessing": {
-            "title": "Ultra-Fast Processing",
-            "desc": "৫০,০০০+ TPS enables real-time in-game trading with 1-second ব্লক সময়s."
+            "title": "আল্ট্রা-ফাস্ট প্রসেসিং",
+            "desc": "৫০,০০০+ TPS ১-সেকেন্ড ব্লক টাইমে রিয়েল-টাইম ইন-গেম ট্রেডিং সক্ষম করে।"
           },
           "nftVerification": {
-            "title": "NFT Project যাচাইকরণ",
-            "desc": "3-stage যাচাইকরণ blocks fraudulent NFT projects with Trust Score monitoring."
+            "title": "NFT প্রজেক্ট যাচাইকরণ",
+            "desc": "৩-পর্যায়ের যাচাইকরণ ট্রাস্ট স্কোর মনিটরিং সহ প্রতারণামূলক NFT প্রজেক্ট ব্লক করে।"
           },
           "verifiedOwnership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-chain records for all game item issuance and burn history."
+            "title": "যাচাইকৃত মালিকানা",
+            "desc": "সমস্ত গেম আইটেম ইস্যু এবং বার্ন ইতিহাসের জন্য অপরিবর্তনীয় অন-চেইন রেকর্ড।"
           },
           "crossGameAssets": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM সামঞ্জস্য enables interoperable items across different games."
+            "title": "ক্রস-গেম অ্যাসেট",
+            "desc": "EVM সামঞ্জস্যতা বিভিন্ন গেম জুড়ে ইন্টারঅপারেবল আইটেম সক্ষম করে।"
           },
           "ultraFast": {
-            "title": "Ultra-Fast Processing",
-            "desc": "৫০,০০০+ TPS enables real-time in-game trading with 1-second ব্লক সময়s."
+            "title": "আল্ট্রা-ফাস্ট প্রসেসিং",
+            "desc": "৫০,০০০+ TPS ১-সেকেন্ড ব্লক টাইমে রিয়েল-টাইম ইন-গেম ট্রেডিং সক্ষম করে।"
           },
           "verification": {
-            "title": "NFT Project যাচাইকরণ",
-            "desc": "3-stage যাচাইকরণ blocks fraudulent NFT projects with Trust Score monitoring."
+            "title": "NFT প্রজেক্ট যাচাইকরণ",
+            "desc": "৩-পর্যায়ের যাচাইকরণ ট্রাস্ট স্কোর মনিটরিং সহ প্রতারণামূলক NFT প্রজেক্ট ব্লক করে।"
           },
           "ownership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-chain records for all game item issuance and burn history."
+            "title": "যাচাইকৃত মালিকানা",
+            "desc": "সমস্ত গেম আইটেম ইস্যু এবং বার্ন ইতিহাসের জন্য অপরিবর্তনীয় অন-চেইন রেকর্ড।"
           },
           "crossGame": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM সামঞ্জস্য enables interoperable items across different games."
+            "title": "ক্রস-গেম অ্যাসেট",
+            "desc": "EVM সামঞ্জস্যতা বিভিন্ন গেম জুড়ে ইন্টারঅপারেবল আইটেম সক্ষম করে।"
           }
         },
         "integration": {
-          "title": "Integration Guide",
+          "title": "ইন্টিগ্রেশন গাইড",
           "step1": {
-            "title": "Connect SDK",
-            "desc": "Integrate the TBurn গেমিং SDK into your game engine."
+            "title": "SDK সংযোগ করুন",
+            "desc": "আপনার গেম ইঞ্জিনে TBurn গেমিং SDK ইন্টিগ্রেট করুন।"
           },
           "step2": {
-            "title": "Deploy Contracts",
-            "desc": "Deploy your game contracts on TBurn Chain testnet."
+            "title": "কন্ট্রাক্ট ডিপ্লয় করুন",
+            "desc": "TBurn Chain টেস্টনেটে আপনার গেম কন্ট্রাক্ট ডিপ্লয় করুন।"
           },
           "step3": {
-            "title": "Get Verified",
-            "desc": "Submit for Trust Score যাচাইকরণ and game review."
+            "title": "যাচাই পান",
+            "desc": "ট্রাস্ট স্কোর যাচাইকরণ এবং গেম রিভিউয়ের জন্য জমা দিন।"
           },
           "step4": {
-            "title": "Launch",
-            "desc": "Go live on mainnet with full ecosystem support."
+            "title": "লঞ্চ করুন",
+            "desc": "সম্পূর্ণ ইকোসিস্টেম সাপোর্ট সহ মেইননেটে লাইভ হন।"
           }
         }
       },
@@ -6474,7 +6474,7 @@
             "points": "৩০ পয়েন্ট",
             "description": "দৈনিক অস্থিরতা, মার্কেট ক্যাপ এবং লিকুইডিটি পুল গভীরতার উপর ভিত্তি করে মূল্যায়ন।",
             "scoring": {
-              "volatility": "< 1% daily volatility",
+              "volatility": "< ১% দৈনিক অস্থিরতা",
               "liquidity": "$১০ মিলিয়ন+ তারল্য"
             }
           },
@@ -6483,9 +6483,9 @@
             "points": "২৫ পয়েন্ট",
             "description": "অডিট সম্পন্নতা, রিএন্ট্রান্সি সুরক্ষা এবং আপগ্রেড কর্তৃপক্ষ বিকেন্দ্রীকরণ।",
             "scoring": {
-              "audits": "3+ audits completed",
-              "criticalBug": "Critical bug found",
-              "block": "BLOCK"
+              "audits": "৩+ অডিট সম্পন্ন",
+              "criticalBug": "গুরুতর বাগ পাওয়া গেছে",
+              "block": "ব্লক"
             }
           },
           "adoptionUsage": {
@@ -6493,9 +6493,9 @@
             "points": "২০ পয়েন্ট",
             "description": "মার্চেন্ট সংখ্যা, মাসিক লেনদেন ভলিউম এবং গড় পেমেন্ট আকার।",
             "scoring": {
-              "merchants": "100+ merchants",
-              "transactions": "$১ মিলিয়ন+ monthly",
-              "high": "HIGH"
+              "merchants": "১০০+ মার্চেন্ট",
+              "transactions": "$১ মিলিয়ন+ মাসিক",
+              "high": "উচ্চ"
             }
           }
         },
@@ -6537,99 +6537,99 @@
           }
         },
         "buttons": {
-          "viewDocs": "View Docs"
+          "viewDocs": "ডক্স দেখুন"
         }
       },
       "commerce": {
         "tag": "কমার্স",
         "title": "কমার্স",
         "subtitle": "ই-কমার্স ইন্টিগ্রেশন এবং মার্চেন্ট সমাধান।",
-        "titleHighlight": "Solutions",
+        "titleHighlight": "সমাধান",
         "buttons": {
-          "installPlugin": "Install Plugin",
-          "viewApiDocs": "View API Docs",
-          "startIntegration": "Start Integration"
+          "installPlugin": "প্লাগইন ইনস্টল করুন",
+          "viewApiDocs": "API ডক্স দেখুন",
+          "startIntegration": "ইন্টিগ্রেশন শুরু করুন"
         },
         "features": {
           "payment": {
-            "title": "Crypto Payment Processing",
-            "desc": "Accept verified tokens with instant settlement. Trust Score filtering protects merchants from fraudulent transactions and low-quality tokens."
+            "title": "ক্রিপ্টো পেমেন্ট প্রসেসিং",
+            "desc": "তাৎক্ষণিক সেটেলমেন্ট সহ যাচাইকৃত টোকেন গ্রহণ করুন। ট্রাস্ট স্কোর ফিল্টারিং মার্চেন্টদের প্রতারণামূলক লেনদেন এবং নিম্ন-মানের টোকেন থেকে সুরক্ষিত রাখে।"
           },
           "inventory": {
-            "title": "Blockchain Inventory Tracking",
-            "desc": "Track products with on-chain যাচাইকরণ. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+            "title": "ব্লকচেইন ইনভেন্টরি ট্র্যাকিং",
+            "desc": "অন-চেইন যাচাইকরণ সহ পণ্য ট্র্যাক করুন। NFT-ভিত্তিক সত্যতা সার্টিফিকেট জাল প্রতিরোধ করে এবং সহজ পুনঃবিক্রয় ট্র্যাকিং সক্ষম করে।"
           },
           "loyalty": {
-            "title": "Token-Based Loyalty Programs",
-            "desc": "Issue loyalty tokens to reward customers. Blockchain-based পয়েন্ট are transparent, tradeable, and never expire."
+            "title": "টোকেন-ভিত্তিক লয়্যালটি প্রোগ্রাম",
+            "desc": "গ্রাহকদের পুরস্কৃত করতে লয়্যালটি টোকেন ইস্যু করুন। ব্লকচেইন-ভিত্তিক পয়েন্ট স্বচ্ছ, ট্রেডযোগ্য এবং কখনো মেয়াদ শেষ হয় না।"
           },
           "analytics": {
-            "title": "Real-Time বাণিজ্য Analytics",
-            "desc": "Monitor sales, customer behavior, and token transactions. On-chain data provides tamper-proof business insights."
+            "title": "রিয়েল-টাইম বাণিজ্য বিশ্লেষণ",
+            "desc": "বিক্রয়, গ্রাহক আচরণ এবং টোকেন লেনদেন মনিটর করুন। অন-চেইন ডেটা টেম্পার-প্রুফ ব্যবসায়িক অন্তর্দৃষ্টি প্রদান করে।"
           }
         },
         "platforms": {
           "shopify": {
-            "desc": "One-click integration with the world's leading e-বাণিজ্য platform.",
-            "status": "AVAILABLE"
+            "desc": "বিশ্বের শীর্ষস্থানীয় ই-কমার্স প্ল্যাটফর্মের সাথে ওয়ান-ক্লিক ইন্টিগ্রেশন।",
+            "status": "উপলব্ধ"
           },
           "woocommerce": {
-            "desc": "WordPress plugin for Wooবাণিজ্য stores.",
-            "status": "AVAILABLE"
+            "desc": "WooCommerce স্টোরের জন্য WordPress প্লাগইন।",
+            "status": "উপলব্ধ"
           },
           "customApi": {
-            "title": "Custom API",
-            "desc": "RESTful API for custom integrations and mobile apps.",
-            "status": "AVAILABLE"
+            "title": "কাস্টম API",
+            "desc": "কাস্টম ইন্টিগ্রেশন এবং মোবাইল অ্যাপের জন্য RESTful API।",
+            "status": "উপলব্ধ"
           }
         },
         "stories": {
           "fashionBrand": {
-            "name": "Aurora Fashion",
-            "type": "Luxury Fashion Brand",
-            "quote": "TBurn বাণিজ্য reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "name": "অরোরা ফ্যাশন",
+            "type": "বিলাসবহুল ফ্যাশন ব্র্যান্ড",
+            "quote": "TBurn কমার্স আমাদের পেমেন্ট প্রসেসিং ফি ৮৫% কমিয়েছে এবং আমাদের বৈশ্বিক ক্রিপ্টো গ্রাহকদের কাছে উন্মুক্ত করেছে।",
             "stats": {
-              "volume": "$2.5M Volume",
-              "savings": "85% Fee Savings"
+              "volume": "$২.৫ মিলিয়ন ভলিউম",
+              "savings": "৮৫% ফি সাশ্রয়"
             }
           },
           "resalePlatform": {
-            "name": "BlockResale",
-            "type": "NFT-Verified Resale Platform",
-            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "name": "ব্লকরিসেল",
+            "type": "NFT-যাচাইকৃত পুনঃবিক্রয় প্ল্যাটফর্ম",
+            "quote": "NFT-ভিত্তিক সত্যতা সার্টিফিকেট জাল রিটার্ন দূর করেছে এবং ক্রেতার বিশ্বাস বাড়িয়েছে।",
             "stats": {
-              "nfts": "50K NFTs Issued",
-              "counterfeits": "Zero Counterfeits"
+              "nfts": "৫০ হাজার NFT ইস্যু করা হয়েছে",
+              "counterfeits": "শূন্য জাল"
             }
           }
         },
         "integration": {
           "step1": {
-            "title": "Get API Keys",
-            "desc": "Register on the developer dashboard and get your credentials."
+            "title": "API কী পান",
+            "desc": "ডেভেলপার ড্যাশবোর্ডে রেজিস্টার করুন এবং আপনার ক্রেডেনশিয়াল পান।"
           },
           "step2": {
-            "title": "Install SDK",
-            "desc": "Add TBurn বাণিজ্য SDK to your project."
+            "title": "SDK ইনস্টল করুন",
+            "desc": "আপনার প্রজেক্টে TBurn কমার্স SDK যোগ করুন।"
           },
           "step3": {
-            "title": "Configure Webhooks",
-            "desc": "Set up payment confirmation and order update notifications."
+            "title": "Webhooks কনফিগার করুন",
+            "desc": "পেমেন্ট নিশ্চিতকরণ এবং অর্ডার আপডেট নোটিফিকেশন সেট আপ করুন।"
           }
         },
         "sections": {
           "coreFeatures": {
-            "title": "বাণিজ্য Features",
-            "subtitle": "Everything you need to accept crypto পেমেন্ট and grow your business."
+            "title": "বাণিজ্য বৈশিষ্ট্য",
+            "subtitle": "ক্রিপ্টো পেমেন্ট গ্রহণ এবং আপনার ব্যবসা বাড়ানোর জন্য প্রয়োজনীয় সবকিছু।"
           },
           "platforms": {
-            "title": "Integration Platforms"
+            "title": "ইন্টিগ্রেশন প্ল্যাটফর্ম"
           },
           "successStories": {
-            "title": "Success Stories"
+            "title": "সাফল্যের গল্প"
           },
           "integration": {
-            "title": "Quick Integration Guide"
+            "title": "দ্রুত ইন্টিগ্রেশন গাইড"
           }
         }
       },
@@ -6637,82 +6637,82 @@
         "tag": "ফিনান্স",
         "title": "আর্থিক সেবা",
         "subtitle": "ব্লকচেইনে এন্টারপ্রাইজ আর্থিক অবকাঠামো।",
-        "titleHighlight": "Services",
+        "titleHighlight": "সেবা",
         "buttons": {
           "startBuilding": "তৈরি শুরু করুন",
-          "readWhitepaper": "Read হোয়াইটপেপার"
+          "readWhitepaper": "হোয়াইটপেপার পড়ুন"
         },
         "services": {
           "banking": {
-            "title": "Digital Banking Infrastructure",
-            "desc": "Build neo-banking products with blockchain settlement. Instant transfers, programmable accounts, and full regulatory compliance."
+            "title": "ডিজিটাল ব্যাংকিং অবকাঠামো",
+            "desc": "ব্লকচেইন সেটেলমেন্ট সহ নিও-ব্যাংকিং পণ্য তৈরি করুন। তাৎক্ষণিক ট্রান্সফার, প্রোগ্রামেবল অ্যাকাউন্ট এবং সম্পূর্ণ নিয়ন্ত্রক সম্মতি।"
           },
           "defi": {
             "title": "DeFi প্রোটোকল ইন্টিগ্রেশন",
-            "desc": "Connect traditional finance with decentralized protocols. Access lending, staking, and yield generation with প্রাতিষ্ঠানিক-grade security."
+            "desc": "ঐতিহ্যবাহী ফিনান্সকে বিকেন্দ্রীভূত প্রোটোকলের সাথে সংযুক্ত করুন। প্রাতিষ্ঠানিক-গ্রেড নিরাপত্তা সহ ঋণ, স্টেকিং এবং ইয়েল্ড জেনারেশন অ্যাক্সেস করুন।"
           },
           "payment": {
-            "title": "Cross-Border পেমেন্ট",
-            "desc": "Global settlements in seconds, not days. Reduce costs by 99% with blockchain-based international transfers."
+            "title": "ক্রস-বর্ডার পেমেন্ট",
+            "desc": "দিনের পরিবর্তে সেকেন্ডে বৈশ্বিক সেটেলমেন্ট। ব্লকচেইন-ভিত্তিক আন্তর্জাতিক ট্রান্সফারের মাধ্যমে ৯৯% খরচ কমান।"
           },
           "compliance": {
-            "title": "Regulatory Compliance",
-            "desc": "Built-in KYC/AML যাচাইকরণ and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+            "title": "নিয়ন্ত্রক সম্মতি",
+            "desc": "বিল্ট-ইন KYC/AML যাচাইকরণ এবং অডিট ট্রেইল। স্বয়ংক্রিয়ভাবে GDPR, SOC2 এবং আর্থিক নিয়ম পূরণ করুন।"
           }
         },
         "stats": {
           "tvl": "মোট লকড মান",
           "apy": "গড় APY",
-          "dau": "Daily সক্রিয় ব্যবহারকারী"
+          "dau": "দৈনিক সক্রিয় ব্যবহারকারী"
         },
         "cases": {
           "neobank": {
-            "name": "NeoBank X",
-            "type": "Digital Banking Platform",
-            "quote": "TBurn's infrastructure allowed us to launch in 3 months instead of ১৮. Our customers love instant transfers.",
+            "name": "নিওব্যাংক X",
+            "type": "ডিজিটাল ব্যাংকিং প্ল্যাটফর্ম",
+            "quote": "TBurn-এর অবকাঠামো আমাদের ১৮ মাসের পরিবর্তে ৩ মাসে লঞ্চ করতে সাহায্য করেছে। আমাদের গ্রাহকরা তাৎক্ষণিক ট্রান্সফার পছন্দ করেন।",
             "stats": {
-              "customers": "150K Customers",
-              "costs": "90% Cost Reduction"
+              "customers": "১৫০ হাজার গ্রাহক",
+              "costs": "৯০% খরচ হ্রাস"
             }
           },
           "defiProtocol": {
-            "name": "DeFi Prime",
-            "type": "Lending Protocol",
-            "quote": "Trust Score integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "name": "DeFi প্রাইম",
+            "type": "ঋণ প্রোটোকল",
+            "quote": "ট্রাস্ট স্কোর ইন্টিগ্রেশন খারাপ ঋণ প্রায় শূন্যে নামিয়ে এনেছে। আমাদের ঋণদাতারা জেনে নিরাপদ বোধ করেন যে প্রতিটি ঋণগ্রহীতা যাচাইকৃত।",
             "stats": {
-              "tvl": "$500M TVL",
-              "liquidations": "Zero Bad Debt"
+              "tvl": "$৫০০ মিলিয়ন TVL",
+              "liquidations": "শূন্য খারাপ ঋণ"
             }
           }
         },
         "building": {
           "step1": {
-            "title": "Architecture Consultation",
-            "desc": "Our team helps design your financial product architecture, ensuring regulatory compliance from day one."
+            "title": "আর্কিটেকচার পরামর্শ",
+            "desc": "আমাদের টিম আপনার আর্থিক পণ্য আর্কিটেকচার ডিজাইন করতে সাহায্য করে, প্রথম দিন থেকে নিয়ন্ত্রক সম্মতি নিশ্চিত করে।"
           },
           "step2": {
             "title": "API ইন্টিগ্রেশন",
-            "desc": "Connect to TBurn's financial APIs for পেমেন্ট, lending, and asset management."
+            "desc": "পেমেন্ট, ঋণ এবং সম্পদ ব্যবস্থাপনার জন্য TBurn-এর আর্থিক API-এর সাথে সংযুক্ত হন।"
           },
           "step3": {
-            "title": "Compliance Setup",
-            "desc": "Configure KYC/AML flows and audit logging to meet your regulatory requirements."
+            "title": "কমপ্লায়েন্স সেটআপ",
+            "desc": "আপনার নিয়ন্ত্রক প্রয়োজনীয়তা পূরণ করতে KYC/AML ফ্লো এবং অডিট লগিং কনফিগার করুন।"
           },
           "step4": {
-            "title": "Production Launch",
-            "desc": "Deploy with 24/7 monitoring, enterprise SLA, and dedicated support."
+            "title": "প্রোডাকশন লঞ্চ",
+            "desc": "২৪/৭ মনিটরিং, এন্টারপ্রাইজ SLA এবং ডেডিকেটেড সাপোর্ট সহ ডিপ্লয় করুন।"
           }
         },
         "sections": {
           "coreServices": {
-            "title": "Core আর্থিক সেবা",
-            "subtitle": "Enterprise-grade blockchain infrastructure for modern finance."
+            "title": "মূল আর্থিক সেবা",
+            "subtitle": "আধুনিক ফিনান্সের জন্য এন্টারপ্রাইজ-গ্রেড ব্লকচেইন অবকাঠামো।"
           },
           "realCases": {
-            "title": "Real-World Success"
+            "title": "বাস্তব-বিশ্বের সাফল্য"
           },
           "building": {
-            "title": "Build Financial Products"
+            "title": "আর্থিক পণ্য তৈরি করুন"
           }
         }
       },
@@ -6720,140 +6720,140 @@
         "tag": "AI চালিত",
         "title": "AI বৈশিষ্ট্য",
         "subtitle": "বুদ্ধিমান ব্লকচেইন অপারেশনের জন্য ট্রিপল-ব্যান্ড AI অর্কেস্ট্রেশন।",
-        "titleHighlight": "Triple-Band Orchestration",
+        "titleHighlight": "ট্রিপল-ব্যান্ড অর্কেস্ট্রেশন",
         "tiers": {
           "strategic": {
-            "title": "Strategic AI",
+            "title": "কৌশলগত AI",
             "model": "GPT-4 / Claude 3",
-            "description": "High-level decision making for governance, টোকেনোমিক্স design, and long-term risk assessment. Processes complex analyses with human-like reasoning.",
+            "description": "গভর্ন্যান্স, টোকেনোমিক্স ডিজাইন এবং দীর্ঘমেয়াদী ঝুঁকি মূল্যায়নের জন্য উচ্চ-স্তরের সিদ্ধান্ত গ্রহণ। মানব-সদৃশ যুক্তি দিয়ে জটিল বিশ্লেষণ প্রক্রিয়া করে।",
             "capabilities": {
-              "governance": "DAO Proposal Analysis",
-              "tokenomics": "টোকেনোমিক্স Optimization",
-              "risk": "Strategic Risk Assessment"
+              "governance": "DAO প্রস্তাব বিশ্লেষণ",
+              "tokenomics": "টোকেনোমিক্স অপ্টিমাইজেশন",
+              "risk": "কৌশলগত ঝুঁকি মূল্যায়ন"
             }
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "কৌশলী AI",
             "model": "GPT-3.5 / Mistral",
-            "description": "Real-time security monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "description": "রিয়েল-টাইম নিরাপত্তা মনিটরিং এবং জালিয়াতি সনাক্তকরণ। লেনদেন প্যাটার্ন বিশ্লেষণ করে এবং শোষণের আগে দুর্বলতা চিহ্নিত করে।",
             "capabilities": {
-              "vulnerability": "Smart Contract Auditing",
-              "fraud": "Fraud Pattern Detection",
-              "fee": "Dynamic Fee Optimization"
+              "vulnerability": "স্মার্ট কন্ট্রাক্ট অডিটিং",
+              "fraud": "জালিয়াতি প্যাটার্ন সনাক্তকরণ",
+              "fee": "ডায়নামিক ফি অপ্টিমাইজেশন"
             }
           },
           "operational": {
-            "title": "Operational AI",
-            "model": "Custom ML Models",
-            "description": "Ultra-fast transaction validation and network health monitoring. Optimized for speed with sub-50ms response times.",
+            "title": "অপারেশনাল AI",
+            "model": "কাস্টম ML মডেল",
+            "description": "আল্ট্রা-ফাস্ট লেনদেন যাচাইকরণ এবং নেটওয়ার্ক স্বাস্থ্য মনিটরিং। ৫০ms এর কম প্রতিক্রিয়া সময়ের জন্য গতির জন্য অপ্টিমাইজড।",
             "capabilities": {
-              "validation": "Transaction Validation",
-              "mev": "MEV Protection",
-              "health": "Network Health Monitoring"
+              "validation": "লেনদেন যাচাইকরণ",
+              "mev": "MEV সুরক্ষা",
+              "health": "নেটওয়ার্ক স্বাস্থ্য মনিটরিং"
             }
           }
         },
         "architecture": {
           "step1": {
-            "title": "Data Ingestion",
-            "description": "Real-time blockchain data, mempool transactions, and market feeds are continuously processed."
+            "title": "ডেটা ইনজেশন",
+            "description": "রিয়েল-টাইম ব্লকচেইন ডেটা, মেমপুল লেনদেন এবং মার্কেট ফিড ক্রমাগত প্রক্রিয়া করা হয়।"
           },
           "step2": {
-            "title": "AI Processing",
-            "description": "Each tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+            "title": "AI প্রসেসিং",
+            "description": "প্রতিটি টিয়ার প্রাসঙ্গিক ডেটা প্রক্রিয়া করে: গতির জন্য অপারেশনাল, নিরাপত্তার জন্য কৌশলী, অন্তর্দৃষ্টির জন্য কৌশলগত।"
           },
           "step3": {
-            "title": "Coordinated Response",
-            "description": "AI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+            "title": "সমন্বিত প্রতিক্রিয়া",
+            "description": "AI টিয়ার ফলাফল যোগাযোগ করে, প্রয়োজনে উচ্চতর টিয়ার নিম্ন টিয়ারের সিদ্ধান্ত ওভাররাইড করে।"
           }
         },
         "stats": {
           "uptime": {
             "title": "৯৯.৯৯% আপটাইম",
-            "desc": "Redundant AI clusters across multiple regions"
+            "desc": "একাধিক অঞ্চল জুড়ে রিডান্ড্যান্ট AI ক্লাস্টার"
           },
           "cost": {
-            "title": "90% Cost Reduction",
-            "desc": "Efficient tier routing minimizes compute costs"
+            "title": "৯০% খরচ হ্রাস",
+            "desc": "দক্ষ টিয়ার রাউটিং কম্পিউট খরচ কমায়"
           },
           "scale": {
             "title": "১০০ হাজার+ TPS",
-            "desc": "Operational AI handles massive throughput"
+            "desc": "অপারেশনাল AI ব্যাপক থ্রুপুট পরিচালনা করে"
           },
           "verify": {
-            "title": "AI-Verified Trust",
-            "desc": "Continuous project scoring and monitoring"
+            "title": "AI-যাচাইকৃত বিশ্বাস",
+            "desc": "ক্রমাগত প্রজেক্ট স্কোরিং এবং মনিটরিং"
           }
         },
         "sections": {
           "architecture": {
-            "title": "AI Architecture"
+            "title": "AI আর্কিটেকচার"
           },
           "relatedSolutions": {
-            "title": "Related Solutions",
-            "subtitle": "Explore how AI enhances other TBurn products"
+            "title": "সম্পর্কিত সমাধান",
+            "subtitle": "AI কীভাবে অন্যান্য TBurn পণ্য উন্নত করে তা অন্বেষণ করুন"
           },
           "developerResources": {
             "title": "ডেভেলপার রিসোর্স",
-            "subtitle": "Integrate AI capabilities into your applications"
+            "subtitle": "আপনার অ্যাপ্লিকেশনে AI ক্ষমতা ইন্টিগ্রেট করুন"
           }
         },
         "relatedLinks": {
           "wallets": {
             "title": "ওয়ালেট",
-            "desc": "AI-enhanced security"
+            "desc": "AI-উন্নত নিরাপত্তা"
           },
           "payments": {
             "title": "পেমেন্ট",
-            "desc": "Smart fraud detection"
+            "desc": "স্মার্ট জালিয়াতি সনাক্তকরণ"
           },
           "gameTooling": {
             "title": "গেম টুলিং",
-            "desc": "Anti-cheat AI systems"
+            "desc": "অ্যান্টি-চিট AI সিস্টেম"
           },
           "financial": {
             "title": "আর্থিক সেবা",
-            "desc": "Risk assessment AI"
+            "desc": "ঝুঁকি মূল্যায়ন AI"
           }
         },
         "devResources": {
           "sdkGuide": {
-            "title": "AI SDK Guide",
-            "desc": "Integration ডকুমেন্টেশন"
+            "title": "AI SDK গাইড",
+            "desc": "ইন্টিগ্রেশন ডকুমেন্টেশন"
           },
           "smartContracts": {
-            "title": "AI Contracts",
-            "desc": "On-chain AI interfaces"
+            "title": "AI কন্ট্রাক্ট",
+            "desc": "অন-চেইন AI ইন্টারফেস"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
             "desc": "REST ও GraphQL API"
           },
           "websocket": {
-            "title": "Real-Time Events",
-            "desc": "WebSocket streaming"
+            "title": "রিয়েল-টাইম ইভেন্ট",
+            "desc": "WebSocket স্ট্রিমিং"
           },
           "cli": {
-            "title": "CLI Tools",
-            "desc": "Command line interface"
+            "title": "CLI টুলস",
+            "desc": "কমান্ড লাইন ইন্টারফেস"
           },
           "examples": {
             "title": "কোড উদাহরণ",
-            "desc": "Sample integrations"
+            "desc": "নমুনা ইন্টিগ্রেশন"
           }
         },
         "learnMore": {
           "label": "আরও জানুন",
           "defiMastery": {
-            "title": "AI in DeFi",
-            "desc": "উন্নত স্তর AI strategies for DeFi"
+            "title": "DeFi-তে AI",
+            "desc": "DeFi-এর জন্য উন্নত AI কৌশল"
           }
         },
         "forDevelopers": {
           "label": "ডেভেলপারদের জন্য",
           "devCourse": {
             "title": "AI ডেভেলপার কোর্স",
-            "desc": "Build AI-powered dApps"
+            "desc": "AI-চালিত dApps তৈরি করুন"
           }
         }
       },
@@ -6861,80 +6861,80 @@
         "tag": "সৃজনশীল",
         "title": "শিল্পী এবং নির্মাতা",
         "subtitle": "NFT মিন্টিং, রয়্যালটি এবং ক্রিয়েটর ইকোনমি টুলস।",
-        "titleHighlight": "Creators",
+        "titleHighlight": "নির্মাতা",
         "buttons": {
-          "startCreating": "Start Creating",
-          "exploreCollections": "Explore Collections"
+          "startCreating": "সৃষ্টি শুরু করুন",
+          "exploreCollections": "কালেকশন অন্বেষণ করুন"
         },
         "features": {
           "lightningPerformance": {
-            "title": "Lightning-Fast Minting",
-            "description": "Mint NFTs in seconds with ৫০,০০০+ TPS capacity. Batch minting for large collections with minimal gas fees."
+            "title": "বিদ্যুৎ-দ্রুত মিন্টিং",
+            "description": "৫০,০০০+ TPS ক্ষমতা সহ সেকেন্ডে NFT মিন্ট করুন। ন্যূনতম গ্যাস ফি সহ বড় কালেকশনের জন্য ব্যাচ মিন্টিং।"
           },
           "trustVerification": {
-            "title": "Trust যাচাইকরণ",
-            "description": "Every NFT collection displays its Trust Score. Buyers can verify creator authenticity and collection legitimacy instantly."
+            "title": "বিশ্বাস যাচাইকরণ",
+            "description": "প্রতিটি NFT কালেকশন তার ট্রাস্ট স্কোর প্রদর্শন করে। ক্রেতারা তাৎক্ষণিকভাবে ক্রিয়েটরের সত্যতা এবং কালেকশনের বৈধতা যাচাই করতে পারেন।"
           },
           "thrivingEcosystem": {
-            "title": "Thriving Ecosystem",
-            "description": "Join 15,000+ verified artists. Access marketplaces, galleries, and collector communities built on trust."
+            "title": "সমৃদ্ধ ইকোসিস্টেম",
+            "description": "১৫,০০০+ যাচাইকৃত শিল্পীদের সাথে যোগ দিন। বিশ্বাসের উপর নির্মিত মার্কেটপ্লেস, গ্যালারি এবং কালেক্টর কমিউনিটি অ্যাক্সেস করুন।"
           },
           "infiniteScalability": {
-            "title": "Infinite Scalability",
-            "description": "From 1-of-1 artwork to 10,000 piece generative collections. Our infrastructure scales with your creative vision."
+            "title": "অসীম স্কেলেবিলিটি",
+            "description": "১-অফ-১ আর্টওয়ার্ক থেকে ১০,০০০ পিস জেনারেটিভ কালেকশন পর্যন্ত। আমাদের অবকাঠামো আপনার সৃজনশীল দৃষ্টিভঙ্গির সাথে স্কেল করে।"
           }
         },
         "stats": {
-          "nftsMinted": "NFTs MINTED",
-          "creatorEarnings": "CREATOR EARNINGS",
-          "verifiedArtists": "VERIFIED ARTISTS"
+          "nftsMinted": "মিন্ট করা NFT",
+          "creatorEarnings": "ক্রিয়েটর আয়",
+          "verifiedArtists": "যাচাইকৃত শিল্পী"
         },
         "relatedSolutions": {
-          "title": "Related Solutions",
-          "description": "Enhance your creative journey with complementary tools",
+          "title": "সম্পর্কিত সমাধান",
+          "description": "পরিপূরক টুল দিয়ে আপনার সৃজনশীল যাত্রা উন্নত করুন",
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "Custom token স্ট্যান্ডার্ডs"
+            "subtitle": "কাস্টম টোকেন স্ট্যান্ডার্ড"
           },
           "wallets": {
             "title": "ওয়ালেট",
-            "subtitle": "Secure asset storage"
+            "subtitle": "নিরাপদ সম্পদ সংরক্ষণ"
           },
           "commerce": {
             "title": "বাণিজ্য",
-            "subtitle": "Sell your creations"
+            "subtitle": "আপনার সৃষ্টি বিক্রি করুন"
           },
           "gameTooling": {
             "title": "গেম টুলিং",
-            "subtitle": "গেমিং NFTs"
+            "subtitle": "গেমিং NFT"
           },
           "payments": {
             "title": "পেমেন্ট",
-            "subtitle": "Accept crypto"
+            "subtitle": "ক্রিপ্টো গ্রহণ করুন"
           },
           "actionsBlinks": {
             "title": "অ্যাকশন ও ব্লিঙ্ক",
-            "subtitle": "Social NFT sharing"
+            "subtitle": "সোশ্যাল NFT শেয়ারিং"
           },
           "financial": {
             "title": "আর্থিক সেবা",
-            "subtitle": "Creator finance"
+            "subtitle": "ক্রিয়েটর ফিনান্স"
           },
           "aiFeatures": {
             "title": "AI বৈশিষ্ট্য",
-            "subtitle": "AI-powered creation"
+            "subtitle": "AI-চালিত সৃষ্টি"
           }
         },
         "developerResources": {
           "title": "ডেভেলপার রিসোর্স",
-          "description": "Build NFT platforms and creator tools with our comprehensive SDK",
+          "description": "আমাদের ব্যাপক SDK দিয়ে NFT প্ল্যাটফর্ম এবং ক্রিয়েটর টুল তৈরি করুন",
           "sdkGuide": {
-            "title": "NFT SDK Guide",
-            "subtitle": "Integration ডকুমেন্টেশন"
+            "title": "NFT SDK গাইড",
+            "subtitle": "ইন্টিগ্রেশন ডকুমেন্টেশন"
           },
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "subtitle": "ERC-721/1155 templates"
+            "subtitle": "ERC-721/1155 টেমপ্লেট"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
@@ -6942,140 +6942,140 @@
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "Real-time events"
+            "subtitle": "রিয়েল-টাইম ইভেন্ট"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line minting"
+            "title": "CLI টুলস",
+            "subtitle": "কমান্ড লাইন মিন্টিং"
           },
           "codeExamples": {
             "title": "কোড উদাহরণ",
-            "subtitle": "Sample integrations"
+            "subtitle": "নমুনা ইন্টিগ্রেশন"
           }
         },
         "learnMore": {
           "title": "আরও জানুন",
           "forDevelopers": "ডেভেলপারদের জন্য",
           "defiMastery": {
-            "title": "NFT Mastery Course",
-            "subtitle": "উন্নত স্তর NFT creation and marketing"
+            "title": "NFT মাস্টারি কোর্স",
+            "subtitle": "উন্নত NFT সৃষ্টি এবং মার্কেটিং"
           },
           "developerCourse": {
-            "title": "Creator ডেভেলপার কোর্স",
-            "subtitle": "Build NFT platforms and marketplaces"
+            "title": "ক্রিয়েটর ডেভেলপার কোর্স",
+            "subtitle": "NFT প্ল্যাটফর্ম এবং মার্কেটপ্লেস তৈরি করুন"
           }
         },
         "cta": {
-          "title": "Ready to Create on TBurn?",
-          "description": "Join thousands of artists and creators building the future of digital ownership.",
-          "link": "View Creator ডকুমেন্টেশন"
+          "title": "TBurn-এ সৃষ্টি করতে প্রস্তুত?",
+          "description": "ডিজিটাল মালিকানার ভবিষ্যত নির্মাণকারী হাজার হাজার শিল্পী এবং ক্রিয়েটরদের সাথে যোগ দিন।",
+          "link": "ক্রিয়েটর ডকুমেন্টেশন দেখুন"
         }
       },
       "btcfi": {
         "tag": "বিটকয়েন DEFI",
         "title": "BTCfi",
         "subtitle": "র‍্যাপড BTC এবং ক্রস-চেইন ইয়েল্ড সহ Bitcoin DeFi ইন্টিগ্রেশন।",
-        "titleHighlight": "Bitcoin DeFi",
+        "titleHighlight": "বিটকয়েন DeFi",
         "buttons": {
-          "bridgeBtc": "Bridge BTC",
-          "viewYields": "View Yields"
+          "bridgeBtc": "BTC ব্রিজ করুন",
+          "viewYields": "ইয়েল্ড দেখুন"
         },
         "features": {
           "highPerformance": {
-            "title": "High Performance Bridge",
-            "description": "Bridge Bitcoin to TBurn in under 10 minutes. MPC security ensures your BTC is always safe with trustless যাচাইকরণ."
+            "title": "উচ্চ-পারফরম্যান্স ব্রিজ",
+            "description": "১০ মিনিটের কম সময়ে বিটকয়েন TBurn-এ ব্রিজ করুন। MPC নিরাপত্তা নিশ্চিত করে যে আপনার BTC সর্বদা ট্রাস্টলেস যাচাইকরণ সহ নিরাপদ।"
           },
           "trustVerification": {
-            "title": "Trust যাচাইকরণ",
-            "description": "All BTCFi protocols display Trust Scores. Only verified protocols with 60%+ scores are featured on our platform."
+            "title": "বিশ্বাস যাচাইকরণ",
+            "description": "সমস্ত BTCFi প্রোটোকল ট্রাস্ট স্কোর প্রদর্শন করে। শুধুমাত্র ৬০%+ স্কোর সহ যাচাইকৃত প্রোটোকল আমাদের প্ল্যাটফর্মে বৈশিষ্ট্যযুক্ত।"
           },
           "growingEcosystem": {
-            "title": "Growing Ecosystem",
-            "description": "Access lending, staking, and ইয়েল্ড ফার্মিং with your Bitcoin. Native BTC earning opportunities without selling."
+            "title": "ক্রমবর্ধমান ইকোসিস্টেম",
+            "description": "আপনার বিটকয়েন দিয়ে ঋণ, স্টেকিং এবং ইয়েল্ড ফার্মিং অ্যাক্সেস করুন। বিক্রি না করে নেটিভ BTC উপার্জনের সুযোগ।"
           },
           "scalableSolutions": {
-            "title": "Scalable Solutions",
-            "description": "From individual holders to প্রাতিষ্ঠানিক treasuries. Our infrastructure handles any volume with consistent performance."
+            "title": "স্কেলেবল সমাধান",
+            "description": "স্বতন্ত্র হোল্ডার থেকে প্রাতিষ্ঠানিক ট্রেজারি পর্যন্ত। আমাদের অবকাঠামো সামঞ্জস্যপূর্ণ পারফরম্যান্স সহ যেকোনো ভলিউম পরিচালনা করে।"
           }
         },
         "stats": {
-          "btcBridged": "BTC BRIDGED",
+          "btcBridged": "ব্রিজড BTC",
           "tvl": "TVL",
-          "zeroValue": "0",
-          "securityIncidents": "SECURITY INCIDENTS"
+          "zeroValue": "০",
+          "securityIncidents": "নিরাপত্তা ঘটনা"
         },
         "productsSection": {
-          "title": "BTCFi Products",
-          "description": "Multiple ways to put your Bitcoin to work"
+          "title": "BTCFi পণ্য",
+          "description": "আপনার বিটকয়েন কাজে লাগানোর একাধিক উপায়"
         },
         "products": {
           "tbtcBridge": {
-            "title": "tBTC Bridge",
-            "description": "Trustless Bitcoin bridging with MPC security. No centralized custodians.",
-            "stats": "15K+ BTC Bridged"
+            "title": "tBTC ব্রিজ",
+            "description": "MPC নিরাপত্তা সহ ট্রাস্টলেস বিটকয়েন ব্রিজিং। কোনো কেন্দ্রীভূত কাস্টোডিয়ান নেই।",
+            "stats": "১৫ হাজার+ BTC ব্রিজড"
           },
           "btcLending": {
-            "title": "BTC Lending",
-            "description": "Borrow স্টেবলকয়েন against your BTC. Up to 75% LTV with competitive rates.",
-            "stats": "5.2% APR"
+            "title": "BTC ঋণ",
+            "description": "আপনার BTC-এর বিপরীতে স্টেবলকয়েন ধার নিন। প্রতিযোগিতামূলক হারে ৭৫% পর্যন্ত LTV।",
+            "stats": "৫.২% APR"
           },
           "btcYieldFarming": {
             "title": "BTC ইয়েল্ড ফার্মিং",
-            "description": "Provide BTC তারল্য and earn trading fees plus TBURN rewards.",
-            "stats": "12.5% APY"
+            "description": "BTC তারল্য প্রদান করুন এবং ট্রেডিং ফি প্লাস TBURN পুরস্কার অর্জন করুন।",
+            "stats": "১২.৫% APY"
           },
           "btcStaking": {
-            "title": "BTC Staking",
-            "description": "Stake wrapped BTC to secure the network and earn passive rewards.",
-            "stats": "8.3% APY"
+            "title": "BTC স্টেকিং",
+            "description": "নেটওয়ার্ক সুরক্ষিত করতে এবং প্যাসিভ পুরস্কার অর্জন করতে র‍্যাপড BTC স্টেক করুন।",
+            "stats": "৮.৩% APY"
           }
         },
         "relatedSolutions": {
-          "title": "Related Solutions",
-          "description": "Enhance your BTCFi experience with these tools",
+          "title": "সম্পর্কিত সমাধান",
+          "description": "এই টুলগুলি দিয়ে আপনার BTCFi অভিজ্ঞতা উন্নত করুন",
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "BRC-20 স্ট্যান্ডার্ডs"
+            "subtitle": "BRC-20 স্ট্যান্ডার্ড"
           },
           "wallets": {
             "title": "ওয়ালেট",
-            "subtitle": "BTC-compatible ওয়ালেট"
+            "subtitle": "BTC-সামঞ্জস্যপূর্ণ ওয়ালেট"
           },
           "payments": {
             "title": "পেমেন্ট",
-            "subtitle": "Pay with BTC"
+            "subtitle": "BTC দিয়ে পেমেন্ট করুন"
           },
           "financial": {
             "title": "আর্থিক সেবা",
-            "subtitle": "BTC banking"
+            "subtitle": "BTC ব্যাংকিং"
           },
           "commerce": {
             "title": "বাণিজ্য",
-            "subtitle": "Accept BTC"
+            "subtitle": "BTC গ্রহণ করুন"
           },
           "permissioned": {
             "title": "অনুমতিপ্রাপ্ত",
-            "subtitle": "Enterprise BTC"
+            "subtitle": "এন্টারপ্রাইজ BTC"
           },
           "aiFeatures": {
             "title": "AI বৈশিষ্ট্য",
-            "subtitle": "Smart BTC strategies"
+            "subtitle": "স্মার্ট BTC কৌশল"
           },
           "actionsBlinks": {
             "title": "অ্যাকশন ও ব্লিঙ্ক",
-            "subtitle": "BTC transactions"
+            "subtitle": "BTC লেনদেন"
           }
         },
         "developerResources": {
           "title": "ডেভেলপার রিসোর্স",
-          "description": "Build BTCFi applications with our comprehensive tools",
+          "description": "আমাদের ব্যাপক টুল দিয়ে BTCFi অ্যাপ্লিকেশন তৈরি করুন",
           "sdkGuide": {
-            "title": "BTCFi SDK Guide",
-            "subtitle": "Integration ডকুমেন্টেশন"
+            "title": "BTCFi SDK গাইড",
+            "subtitle": "ইন্টিগ্রেশন ডকুমেন্টেশন"
           },
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "subtitle": "BTC contract templates"
+            "subtitle": "BTC কন্ট্রাক্ট টেমপ্লেট"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
@@ -7083,150 +7083,150 @@
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "Real-time BTC events"
+            "subtitle": "রিয়েল-টাইম BTC ইভেন্ট"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line interface"
+            "title": "CLI টুলস",
+            "subtitle": "কমান্ড লাইন ইন্টারফেস"
           },
           "codeExamples": {
             "title": "কোড উদাহরণ",
-            "subtitle": "Sample integrations"
+            "subtitle": "নমুনা ইন্টিগ্রেশন"
           }
         },
         "learnMore": {
           "title": "আরও জানুন",
-          "gettingStarted": "GETTING STARTED",
+          "gettingStarted": "শুরু করুন",
           "defiMastery": {
-            "title": "BTCFi Mastery Course",
-            "subtitle": "উন্নত স্তর Bitcoin DeFi strategies"
+            "title": "BTCFi মাস্টারি কোর্স",
+            "subtitle": "উন্নত বিটকয়েন DeFi কৌশল"
           },
           "introToDefi": {
-            "title": "Introduction to BTCFi",
-            "subtitle": "Learn Bitcoin DeFi মৌলিক"
+            "title": "BTCFi পরিচিতি",
+            "subtitle": "বিটকয়েন DeFi মৌলিক বিষয় শিখুন"
           }
         },
         "cta": {
-          "title": "Ready to Unlock Your Bitcoin?",
-          "description": "Start earning yield on your BTC today with trust-verified protocols.",
-          "link": "View BTCFi ডকুমেন্টেশন"
+          "title": "আপনার বিটকয়েন আনলক করতে প্রস্তুত?",
+          "description": "বিশ্বাস-যাচাইকৃত প্রোটোকল সহ আজই আপনার BTC-তে ইয়েল্ড উপার্জন শুরু করুন।",
+          "link": "BTCFi ডকুমেন্টেশন দেখুন"
         }
       },
       "crossChainBridge": {
         "tag": "ব্রিজ",
         "title": "ক্রস-চেইন ব্রিজ",
         "subtitle": "৭+ ব্লকচেইন নেটওয়ার্ক জুড়ে নিরাপদ অ্যাসেট ট্রান্সফার।",
-        "titleHighlight": "Bridge",
+        "titleHighlight": "ব্রিজ",
         "buttons": {
-          "launchBridge": "Launch Bridge",
+          "launchBridge": "ব্রিজ চালু করুন",
           "viewDocumentation": "ডকুমেন্টেশন দেখুন"
         },
         "heroStats": {
-          "chains": "SUPPORTED CHAINS",
-          "volume": "TOTAL VOLUME",
-          "txns": "TOTAL TRANSACTIONS",
-          "avgTime": "AVG BRIDGE TIME"
+          "chains": "সমর্থিত চেইন",
+          "volume": "মোট ভলিউম",
+          "txns": "মোট লেনদেন",
+          "avgTime": "গড় ব্রিজ সময়"
         },
         "supportedNetworks": {
-          "title": "Supported Networks",
-          "subtitle": "Bridge assets to and from major blockchain networks"
+          "title": "সমর্থিত নেটওয়ার্ক",
+          "subtitle": "প্রধান ব্লকচেইন নেটওয়ার্ক থেকে এবং তে অ্যাসেট ব্রিজ করুন"
         },
         "coreFeatures": {
           "mpcSecurity": {
-            "title": "MPC Security",
-            "subtitle": "Multi-Party Computation for trustless bridging",
+            "title": "MPC নিরাপত্তা",
+            "subtitle": "ট্রাস্টলেস ব্রিজিংয়ের জন্য মাল্টি-পার্টি কম্পিউটেশন",
             "items": {
-              "distributedKeyGen": "Distributed Key Generation",
-              "thresholdSignatures": "Threshold Signatures",
-              "regularKeyRotation": "Regular Key Rotation"
+              "distributedKeyGen": "ডিস্ট্রিবিউটেড কী জেনারেশন",
+              "thresholdSignatures": "থ্রেশহোল্ড সিগনেচার",
+              "regularKeyRotation": "নিয়মিত কী রোটেশন"
             }
           },
           "atomicSwaps": {
-            "title": "Atomic Swaps",
-            "subtitle": "All-or-nothing transaction guarantees",
+            "title": "অ্যাটমিক সোয়াপ",
+            "subtitle": "সব-অথবা-কিছুই-না লেনদেন গ্যারান্টি",
             "items": {
               "htlcContracts": "HTLC স্মার্ট কন্ট্রাক্ট",
-              "zeroSlippage": "Zero Slippage Swaps",
-              "autoRefund": "Automatic Refunds"
+              "zeroSlippage": "শূন্য স্লিপেজ সোয়াপ",
+              "autoRefund": "স্বয়ংক্রিয় রিফান্ড"
             }
           },
           "unifiedLiquidity": {
-            "title": "Unified তারল্য",
-            "subtitle": "Deep cross-chain তারল্য pools",
+            "title": "ইউনিফাইড তারল্য",
+            "subtitle": "গভীর ক্রস-চেইন তারল্য পুল",
             "items": {
-              "crossChainPools": "Cross-Chain তারল্য Pools",
-              "dynamicRebalancing": "Dynamic Pool Rebalancing",
-              "largeTransferSupport": "Large Transfer Support"
+              "crossChainPools": "ক্রস-চেইন তারল্য পুল",
+              "dynamicRebalancing": "ডায়নামিক পুল রিব্যালেন্সিং",
+              "largeTransferSupport": "বড় ট্রান্সফার সমর্থন"
             }
           }
         },
         "howItWorks": {
-          "title": "How the Bridge Works"
+          "title": "ব্রিজ কীভাবে কাজ করে"
         },
         "bridgeSteps": {
           "step1": {
-            "title": "Connect Wallet",
-            "desc": "Connect your wallet and select source/destination chains."
+            "title": "ওয়ালেট সংযোগ করুন",
+            "desc": "আপনার ওয়ালেট সংযুক্ত করুন এবং উৎস/গন্তব্য চেইন নির্বাচন করুন।"
           },
           "step2": {
-            "title": "Select Assets",
-            "desc": "Choose tokens to bridge and enter the amount."
+            "title": "অ্যাসেট নির্বাচন করুন",
+            "desc": "ব্রিজ করতে টোকেন নির্বাচন করুন এবং পরিমাণ লিখুন।"
           },
           "step3": {
-            "title": "Confirm Transfer",
-            "desc": "Review fees and Trust Score যাচাইকরণ, then confirm."
+            "title": "ট্রান্সফার নিশ্চিত করুন",
+            "desc": "ফি এবং ট্রাস্ট স্কোর যাচাইকরণ পর্যালোচনা করুন, তারপর নিশ্চিত করুন।"
           },
           "step4": {
-            "title": "Receive Assets",
-            "desc": "Assets arrive on destination chain in ~2 minutes."
+            "title": "অ্যাসেট গ্রহণ করুন",
+            "desc": "অ্যাসেট প্রায় ২ মিনিটে গন্তব্য চেইনে পৌঁছায়।"
           }
         },
         "relatedSolutions": {
-          "title": "Related Solutions",
-          "description": "Enhance your cross-chain experience with these tools",
+          "title": "সম্পর্কিত সমাধান",
+          "description": "এই টুলগুলি দিয়ে আপনার ক্রস-চেইন অভিজ্ঞতা উন্নত করুন",
           "btcfi": {
             "title": "BTCFi",
-            "subtitle": "Bridge Bitcoin"
+            "subtitle": "বিটকয়েন ব্রিজ করুন"
           },
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "Cross-chain tokens"
+            "subtitle": "ক্রস-চেইন টোকেন"
           },
           "wallets": {
             "title": "ওয়ালেট",
-            "subtitle": "Multi-chain ওয়ালেট"
+            "subtitle": "মাল্টি-চেইন ওয়ালেট"
           },
           "payments": {
             "title": "পেমেন্ট",
-            "subtitle": "Cross-chain পেমেন্ট"
+            "subtitle": "ক্রস-চেইন পেমেন্ট"
           },
           "financial": {
             "title": "আর্থিক সেবা",
-            "subtitle": "Multi-chain finance"
+            "subtitle": "মাল্টি-চেইন ফিনান্স"
           },
           "permissioned": {
             "title": "অনুমতিপ্রাপ্ত",
-            "subtitle": "Enterprise bridges"
+            "subtitle": "এন্টারপ্রাইজ ব্রিজ"
           },
           "aiFeatures": {
             "title": "AI বৈশিষ্ট্য",
-            "subtitle": "Smart routing"
+            "subtitle": "স্মার্ট রাউটিং"
           },
           "actionsBlinks": {
             "title": "অ্যাকশন ও ব্লিঙ্ক",
-            "subtitle": "Bridge via links"
+            "subtitle": "লিঙ্কের মাধ্যমে ব্রিজ করুন"
           }
         },
         "developerResources": {
           "title": "ডেভেলপার রিসোর্স",
-          "description": "Integrate cross-chain functionality into your applications",
+          "description": "আপনার অ্যাপ্লিকেশনে ক্রস-চেইন কার্যকারিতা ইন্টিগ্রেট করুন",
           "sdkGuide": {
-            "title": "Bridge SDK Guide",
-            "subtitle": "Integration ডকুমেন্টেশন"
+            "title": "ব্রিজ SDK গাইড",
+            "subtitle": "ইন্টিগ্রেশন ডকুমেন্টেশন"
           },
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "subtitle": "Bridge contracts"
+            "subtitle": "ব্রিজ কন্ট্রাক্ট"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
@@ -7237,36 +7237,36 @@
             "subtitle": "রিয়েল-টাইম আপডেট"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line bridging"
+            "title": "CLI টুলস",
+            "subtitle": "কমান্ড লাইন ব্রিজিং"
           },
           "codeExamples": {
             "title": "কোড উদাহরণ",
-            "subtitle": "Sample integrations"
+            "subtitle": "নমুনা ইন্টিগ্রেশন"
           }
         },
         "learnMore": {
           "title": "আরও জানুন",
           "forDevelopers": "ডেভেলপারদের জন্য",
-          "gettingStarted": "GETTING STARTED",
+          "gettingStarted": "শুরু করুন",
           "defiMastery": {
-            "title": "Cross-Chain DeFi",
-            "subtitle": "উন্নত স্তর multi-chain strategies"
+            "title": "ক্রস-চেইন DeFi",
+            "subtitle": "উন্নত মাল্টি-চেইন কৌশল"
           },
           "developerCourse": {
-            "title": "Bridge ডেভেলপার কোর্স",
-            "subtitle": "Build cross-chain applications"
+            "title": "ব্রিজ ডেভেলপার কোর্স",
+            "subtitle": "ক্রস-চেইন অ্যাপ্লিকেশন তৈরি করুন"
           },
           "blockchainBasics": {
-            "title": "Cross-Chain Basics",
-            "subtitle": "Understanding blockchain bridges and interoperability"
+            "title": "ক্রস-চেইন বেসিক",
+            "subtitle": "ব্লকচেইন ব্রিজ এবং ইন্টারঅপারেবিলিটি বোঝা"
           }
         },
         "cta": {
-          "title": "Ready to Bridge Your Assets?",
-          "description": "Transfer assets across chains securely with trust যাচাইকরণ.",
-          "link": "View Bridge ডকুমেন্টেশন",
-          "button": "Launch Bridge App"
+          "title": "আপনার অ্যাসেট ব্রিজ করতে প্রস্তুত?",
+          "description": "বিশ্বাস যাচাইকরণ সহ নিরাপদে চেইন জুড়ে অ্যাসেট ট্রান্সফার করুন।",
+          "link": "ব্রিজ ডকুমেন্টেশন দেখুন",
+          "button": "ব্রিজ অ্যাপ চালু করুন"
         }
       }
     },

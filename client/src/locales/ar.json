@@ -7047,1742 +7047,1742 @@
     },
     "solutions": {
       "defiHub": {
-        "tag": "DEFI ECOSYSTEM",
+        "tag": "النظام البيئي DeFi",
         "title": "مركز DeFi",
         "titleHighlight": "النظام البيئي",
-        "subtitle": "Complete decentralized finance infrastructure with DEX, lending, staking, and yield farming.",
+        "subtitle": "بنية تحتية كاملة للتمويل اللامركزي تتضمن DEX والإقراض والستاكينغ وزراعة العائد.",
         "stats": {
-          "tvl": "TVL",
-          "volume24h": "24H VOLUME",
-          "activeLPs": "ACTIVE LPs",
-          "avgApy": "AVG APY"
+          "tvl": "إجمالي القيمة المقفلة",
+          "volume24h": "حجم التداول 24 ساعة",
+          "activeLPs": "مزودو السيولة النشطون",
+          "avgApy": "متوسط العائد السنوي"
         },
         "features": {
           "dex": "DEX/AMM",
-          "lending": "Lending Protocol",
-          "staking": "Staking",
+          "lending": "بروتوكول الإقراض",
+          "staking": "الستاكينغ",
           "yield": "زراعة العائد"
         },
         "dex": {
-          "title": "Concentrated Liquidity DEX",
-          "description": "Capital-efficient AMM with concentrated liquidity positions. Provide liquidity in specific price ranges for up to 4000x capital efficiency compared to traditional AMMs.",
-          "feature1": "Concentrated liquidity positions for higher yields",
-          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
-          "feature3": "Range orders for advanced trading strategies",
-          "price": "Price",
+          "title": "DEX بسيولة مركزة",
+          "description": "AMM عالي الكفاءة في رأس المال مع مراكز سيولة مركزة. قدم السيولة في نطاقات سعرية محددة لتحقيق كفاءة رأسمالية تصل إلى 4000 ضعف مقارنة بـ AMM التقليدية.",
+          "feature1": "مراكز سيولة مركزة لعوائد أعلى",
+          "feature2": "مستويات رسوم متعددة (0.01%، 0.05%، 0.3%، 1%)",
+          "feature3": "أوامر النطاق لاستراتيجيات التداول المتقدمة",
+          "price": "السعر",
           "liquidity": "السيولة",
-          "volume24h": "24h Volume"
+          "volume24h": "حجم 24 ساعة"
         },
         "lending": {
-          "title": "Collateralized Lending",
-          "description": "Borrow against your crypto assets with competitive rates. Real-time liquidation protection with trust-verified collateral.",
-          "maxLtv": "MAX 80% LTV",
-          "tburnLtv": "TBURN LTV",
-          "stablecoinLtv": "Stablecoin LTV"
+          "title": "الإقراض المضمون",
+          "description": "اقترض مقابل أصولك المشفرة بأسعار تنافسية. حماية التصفية في الوقت الفعلي مع ضمانات موثقة بدرجة الثقة.",
+          "maxLtv": "نسبة القرض للقيمة القصوى 80%",
+          "tburnLtv": "نسبة القرض للقيمة TBURN",
+          "stablecoinLtv": "نسبة القرض للقيمة للعملات المستقرة"
         },
         "staking": {
-          "title": "Liquid Staking",
-          "description": "Stake TBURN and receive sTBURN. Use liquid staking derivatives across DeFi while earning staking rewards.",
-          "apy": "18.5% APY",
-          "exchangeRate": "Exchange Rate",
-          "rewardCycle": "Reward Cycle",
-          "everyEpoch": "Every Epoch (24h)"
+          "title": "الستاكينغ السائل",
+          "description": "راهن TBURN واستلم sTBURN. استخدم مشتقات الستاكينغ السائل عبر DeFi مع كسب مكافآت الستاكينغ.",
+          "apy": "العائد السنوي 18.5%",
+          "exchangeRate": "سعر الصرف",
+          "rewardCycle": "دورة المكافآت",
+          "everyEpoch": "كل حقبة (24 ساعة)"
         },
         "yieldFarming": {
-          "tag": "YIELD FARMING",
-          "title": "Trust-Boosted Yield",
-          "subtitle": "Earn bonus rewards based on your Trust Score tier"
+          "tag": "زراعة العائد",
+          "title": "عائد معزز بالثقة",
+          "subtitle": "اكسب مكافآت إضافية بناءً على مستوى درجة الثقة الخاصة بك"
         },
         "boostTiers": {
-          "title": "Yield Boost Tiers",
+          "title": "مستويات تعزيز العائد",
           "standard": {
-            "name": "STANDARD",
-            "requirement": "No requirement"
+            "name": "قياسي",
+            "requirement": "لا توجد متطلبات"
           },
           "mid": {
-            "name": "TRUST LV.1",
-            "requirement": "Trust Score 60+"
+            "name": "مستوى الثقة 1",
+            "requirement": "درجة الثقة 60+"
           },
           "max": {
-            "name": "TRUST LV.2",
-            "requirement": "Trust Score 80+"
+            "name": "مستوى الثقة 2",
+            "requirement": "درجة الثقة 80+"
           },
           "bronze": {
-            "name": "Bronze",
+            "name": "برونزي",
             "boost": "1.0x"
           },
           "silver": {
-            "name": "Silver",
+            "name": "فضي",
             "boost": "1.25x"
           },
           "gold": {
-            "name": "Gold",
+            "name": "ذهبي",
             "boost": "1.5x"
           },
           "diamond": {
-            "name": "Diamond",
+            "name": "ماسي",
             "boost": "2.0x"
           }
         },
         "buttons": {
-          "startTrading": "Start Trading",
-          "viewAllFarms": "View All Farms"
+          "startTrading": "ابدأ التداول",
+          "viewAllFarms": "عرض جميع المزارع"
         },
         "relatedSolutions": {
-          "description": "Expand your DeFi capabilities with these complementary solutions",
+          "description": "وسّع قدراتك في DeFi مع هذه الحلول المكملة",
           "btcfi": {
             "title": "BTCfi",
-            "subtitle": "Bitcoin DeFi solutions"
+            "subtitle": "حلول Bitcoin DeFi"
           },
           "bridge": {
             "title": "جسر عبر السلاسل",
-            "subtitle": "Multi-chain transfers"
+            "subtitle": "التحويلات متعددة السلاسل"
           },
           "tokenExtensions": {
-            "title": "Token Extensions",
-            "subtitle": "BRC-20 standards"
+            "title": "امتدادات الرموز",
+            "subtitle": "معايير BRC-20"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "Secure connections"
+            "title": "المحافظ",
+            "subtitle": "اتصالات آمنة"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Global commerce"
+            "title": "المدفوعات",
+            "subtitle": "التجارة العالمية"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "Institutional tools"
+            "title": "الخدمات المالية",
+            "subtitle": "أدوات مؤسسية"
           },
           "permissioned": {
-            "title": "Permissioned Networks",
-            "subtitle": "Enterprise solutions"
+            "title": "الشبكات المرخصة",
+            "subtitle": "حلول المؤسسات"
           },
           "aiFeatures": {
-            "title": "AI Features",
-            "subtitle": "Smart automation"
+            "title": "ميزات الذكاء الاصطناعي",
+            "subtitle": "الأتمتة الذكية"
           }
         },
         "developerResources": {
-          "description": "Build and integrate with TBurn DeFi using our comprehensive developer tools",
+          "description": "قم بالبناء والتكامل مع TBurn DeFi باستخدام أدوات المطورين الشاملة",
           "sdkGuide": {
-            "title": "DeFi SDK Guide",
-            "subtitle": "Integration documentation"
+            "title": "دليل DeFi SDK",
+            "subtitle": "وثائق التكامل"
           },
           "smartContracts": {
             "title": "العقود الذكية",
-            "subtitle": "Verified contracts"
+            "subtitle": "عقود موثقة"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GraphQL APIs"
+            "title": "مرجع API",
+            "subtitle": "واجهات REST و GraphQL"
           },
           "websocket": {
-            "title": "WebSocket Feeds",
-            "subtitle": "Real-time data streams"
+            "title": "تغذيات WebSocket",
+            "subtitle": "تدفقات البيانات الفورية"
           },
           "cli": {
-            "title": "CLI Tools",
-            "subtitle": "Command line interface"
+            "title": "أدوات CLI",
+            "subtitle": "واجهة سطر الأوامر"
           },
           "examples": {
-            "title": "Code Examples",
-            "subtitle": "Sample integrations"
+            "title": "أمثلة الكود",
+            "subtitle": "نماذج التكامل"
           }
         },
         "learnPages": {
-          "gettingStarted": "GETTING STARTED",
+          "gettingStarted": "البدء",
           "defiMastery": {
-            "title": "DeFi Mastery Course",
-            "subtitle": "Advanced yield strategies and risk management"
+            "title": "دورة إتقان DeFi",
+            "subtitle": "استراتيجيات العائد المتقدمة وإدارة المخاطر"
           },
           "introToDefi": {
-            "title": "Introduction to DeFi",
-            "subtitle": "Learn the fundamentals of decentralized finance"
+            "title": "مقدمة في DeFi",
+            "subtitle": "تعلم أساسيات التمويل اللامركزي"
           }
         },
         "cta": {
-          "title": "Ready to Trade on TBurn DeFi?",
-          "subtitle": "Access the most trusted decentralized finance ecosystem with built-in trust verification",
-          "launchApp": "Launch DeFi App",
-          "viewDocs": "View Documentation"
+          "title": "هل أنت مستعد للتداول على TBurn DeFi؟",
+          "subtitle": "الوصول إلى أكثر أنظمة التمويل اللامركزي موثوقية مع التحقق المدمج من الثقة",
+          "launchApp": "تشغيل تطبيق DeFi",
+          "viewDocs": "عرض الوثائق"
         }
       },
       "tokenExtensions": {
-        "tag": "TOKEN STANDARDS",
-        "title": "Token",
-        "titleHighlight": "Extensions",
-        "subtitle": "Advanced BRC-20 token standards with built-in trust verification and automatic burn mechanics.",
-        "exploreBrc20": "Explore BRC-20",
-        "readSpecs": "Read Specs",
+        "tag": "معايير الرموز",
+        "title": "امتدادات",
+        "titleHighlight": "الرموز",
+        "subtitle": "معايير رموز BRC-20 المتقدمة مع التحقق المدمج من الثقة وآليات الحرق التلقائي.",
+        "exploreBrc20": "استكشف BRC-20",
+        "readSpecs": "اقرأ المواصفات",
         "buttons": {
-          "exploreBrc20": "Explore BRC-20",
-          "readSpecs": "Read Specs",
-          "openConsole": "Open Developer Console",
-          "viewApiDocs": "View API Docs"
+          "exploreBrc20": "استكشف BRC-20",
+          "readSpecs": "اقرأ المواصفات",
+          "openConsole": "فتح وحدة تحكم المطور",
+          "viewApiDocs": "عرض وثائق API"
         },
         "features": {
           "builtInTrustRating": {
-            "title": "Built-in Trust Rating",
-            "description": "Trust scores are automatically recorded in token contracts. When below 40%, the transfer() function automatically fails, blocking transactions.",
-            "badge": "Automated Investor Protection"
+            "title": "تصنيف الثقة المدمج",
+            "description": "يتم تسجيل درجات الثقة تلقائياً في عقود الرموز. عندما تنخفض عن 40%، تفشل دالة transfer() تلقائياً وتحظر المعاملات.",
+            "badge": "حماية المستثمر الآلية"
           },
           "autoBurnSchedule": {
-            "title": "Automatic Burn Schedule",
-            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned. Smart contracts enforce execution without manual intervention.",
-            "badge": "Enforced Deflationary Model"
+            "title": "جدول الحرق التلقائي",
+            "description": "إذا لم يتم الوفاء بجداول الحرق المحددة مسبقاً، يتم حرق الرموز المضمونة تلقائياً. تفرض العقود الذكية التنفيذ دون تدخل يدوي.",
+            "badge": "نموذج انكماشي مفروض"
           },
           "collateralTransparency": {
-            "title": "Collateral Transparency",
-            "description": "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios automatically calculated and reflected in trust scores."
+            "title": "شفافية الضمانات",
+            "description": "يتم الكشف علناً عن عناوين محافظ احتياطي المشروع على السلسلة، مع حساب نسب الضمان في الوقت الفعلي وانعكاسها في درجات الثقة."
           },
           "extendedMetadata": {
-            "title": "Extended Metadata",
-            "description": "All project information including team details, whitepaper links, audit reports, and burn schedules are stored on-chain in token metadata."
+            "title": "البيانات الوصفية الموسعة",
+            "description": "يتم تخزين جميع معلومات المشروع بما في ذلك تفاصيل الفريق وروابط الورقة البيضاء وتقارير التدقيق وجداول الحرق على السلسلة في البيانات الوصفية للرمز."
           },
           "trustRating": {
-            "title": "Built-in Trust Rating",
-            "description": "Trust scores are automatically recorded in token contracts. When below 40%,",
-            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
-            "badge": "Automated Investor Protection"
+            "title": "تصنيف الثقة المدمج",
+            "description": "يتم تسجيل درجات الثقة تلقائياً في عقود الرموز. عندما تنخفض عن 40%،",
+            "descriptionContinue": "تفشل دالة transfer() تلقائياً وتحظر المعاملات.",
+            "badge": "حماية المستثمر الآلية"
           },
           "autoBurn": {
-            "title": "Automatic Burn Schedule",
-            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned.",
-            "badge": "Enforced Deflationary Model"
+            "title": "جدول الحرق التلقائي",
+            "description": "إذا لم يتم الوفاء بجداول الحرق المحددة مسبقاً، يتم حرق الرموز المضمونة تلقائياً.",
+            "badge": "نموذج انكماشي مفروض"
           },
           "collateral": {
-            "title": "Collateral Transparency",
-            "description": "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+            "title": "شفافية الضمانات",
+            "description": "يتم الكشف علناً عن عناوين محافظ احتياطي المشروع على السلسلة، مع نسب الضمان في الوقت الفعلي."
           },
           "metadata": {
-            "title": "Extended Metadata",
-            "description": "All project information including team details, whitepaper links, and audit reports stored on-chain."
+            "title": "البيانات الوصفية الموسعة",
+            "description": "جميع معلومات المشروع بما في ذلك تفاصيل الفريق وروابط الورقة البيضاء وتقارير التدقيق مخزنة على السلسلة."
           }
         },
         "brc20": {
-          "title": "BRC-20 Token Standard",
-          "subtitle": "Core interfaces for Trust & Burn functionality.",
-          "trustScoreFunctions": "Trust Score Functions",
-          "autoBurnFunctions": "Auto Burn Functions"
+          "title": "معيار رمز BRC-20",
+          "subtitle": "الواجهات الأساسية لوظائف الثقة والحرق.",
+          "trustScoreFunctions": "دوال درجة الثقة",
+          "autoBurnFunctions": "دوال الحرق التلقائي"
         },
         "brc20Standard": {
-          "title": "BRC-20 Token Standard",
-          "subtitle": "Core interfaces for Trust & Burn functionality.",
-          "trustScoreFunctions": "Trust Score Functions",
-          "autoBurnFunctions": "Auto Burn Functions"
+          "title": "معيار رمز BRC-20",
+          "subtitle": "الواجهات الأساسية لوظائف الثقة والحرق.",
+          "trustScoreFunctions": "دوال درجة الثقة",
+          "autoBurnFunctions": "دوال الحرق التلقائي"
         },
         "code": {
           "comments": {
-            "range": "Returns trust score in range 0-100",
-            "autoBurn": "Burn tokens according to schedule"
+            "range": "يُرجع درجة الثقة في النطاق 0-100",
+            "autoBurn": "حرق الرموز وفقاً للجدول"
           }
         },
         "useCasesSection": {
-          "title": "Token Extension Use Cases"
+          "title": "حالات استخدام امتدادات الرموز"
         },
         "useCases": {
-          "title": "Token Extension Use Cases",
+          "title": "حالات استخدام امتدادات الرموز",
           "verifiedProjectTokens": {
-            "title": "Verified Project Tokens",
-            "description": "Tradeable only when maintaining 60%+ trust score."
+            "title": "رموز المشاريع الموثقة",
+            "description": "قابلة للتداول فقط عند الحفاظ على درجة ثقة 60%+."
           },
           "collateralBackedStablecoins": {
-            "title": "Collateral-backed Stablecoins",
-            "description": "Real-time collateral ratio monitoring and auto liquidation."
+            "title": "العملات المستقرة المدعومة بضمانات",
+            "description": "مراقبة نسبة الضمان في الوقت الفعلي والتصفية التلقائية."
           },
           "deflationaryUtilityTokens": {
-            "title": "Deflationary Utility Tokens",
-            "description": "Auto-burn on each transaction increases value."
+            "title": "رموز المنفعة الانكماشية",
+            "description": "الحرق التلقائي في كل معاملة يزيد القيمة."
           },
           "verified": {
-            "title": "Verified Project Tokens",
-            "description": "Tradeable only when maintaining 60%+ trust score."
+            "title": "رموز المشاريع الموثقة",
+            "description": "قابلة للتداول فقط عند الحفاظ على درجة ثقة 60%+."
           },
           "stablecoins": {
-            "title": "Collateral-backed Stablecoins",
-            "description": "Real-time collateral ratio monitoring and auto liquidation."
+            "title": "العملات المستقرة المدعومة بضمانات",
+            "description": "مراقبة نسبة الضمان في الوقت الفعلي والتصفية التلقائية."
           },
           "deflationary": {
-            "title": "Deflationary Utility Tokens",
-            "description": "Auto-burn on each transaction increases value."
+            "title": "رموز المنفعة الانكماشية",
+            "description": "الحرق التلقائي في كل معاملة يزيد القيمة."
           }
         },
         "examplesSection": {
-          "title": "Real Use Examples"
+          "title": "أمثلة الاستخدام الفعلي"
         },
         "examples": {
           "busd": {
-            "name": "BUSD (Stablecoin)",
-            "badge": "90+ Trust Score"
+            "name": "BUSD (عملة مستقرة)",
+            "badge": "درجة ثقة 90+"
           },
           "bgame": {
             "name": "BGAME (GameFi)",
-            "badge": "Auto-Burn Enabled"
+            "badge": "الحرق التلقائي مفعّل"
           },
           "bprop": {
             "name": "BPROP (RWA)",
-            "badge": "Real Asset Collateral"
+            "badge": "ضمان أصول حقيقية"
           }
         },
         "realExamples": {
-          "title": "Real Use Examples",
+          "title": "أمثلة الاستخدام الفعلي",
           "busd": {
-            "name": "BUSD (Stablecoin)",
-            "badge": "90+ Trust Score"
+            "name": "BUSD (عملة مستقرة)",
+            "badge": "درجة ثقة 90+"
           },
           "bgame": {
             "name": "BGAME (GameFi)",
-            "badge": "Auto-Burn Enabled"
+            "badge": "الحرق التلقائي مفعّل"
           },
           "bprop": {
             "name": "BPROP (RWA)",
-            "badge": "Real Asset Collateral"
+            "badge": "ضمان أصول حقيقية"
           }
         },
         "cta": {
-          "title": "Start Issuing BRC-20 Tokens",
-          "subtitle": "Issue tokens with built-in trust rating features in under 5 minutes.",
-          "openConsole": "Open Developer Console",
-          "viewApiDocs": "View API Docs"
+          "title": "ابدأ بإصدار رموز BRC-20",
+          "subtitle": "أصدر رموزاً مع ميزات تصنيف الثقة المدمجة في أقل من 5 دقائق.",
+          "openConsole": "فتح وحدة تحكم المطور",
+          "viewApiDocs": "عرض وثائق API"
         }
       },
       "actionsBlinks": {
-        "tag": "BLOCKCHAIN ACTIONS",
-        "title": "Actions &",
-        "titleHighlight": "Blinks",
-        "subtitle": "Execute blockchain transactions via simple URL links. Share swaps, minting, and votes on social media. Trust Score verification included.",
-        "createAction": "Create Action",
+        "tag": "إجراءات البلوكتشين",
+        "title": "الإجراءات",
+        "titleHighlight": "والروابط",
+        "subtitle": "نفّذ معاملات البلوكتشين عبر روابط URL بسيطة. شارك المبادلات والسك والتصويتات على وسائل التواصل الاجتماعي. يتضمن التحقق من درجة الثقة.",
+        "createAction": "إنشاء إجراء",
         "coreCapabilities": {
-          "title": "Core Capabilities",
-          "subtitle": "Next-generation protocol standardizing blockchain interactions",
+          "title": "القدرات الأساسية",
+          "subtitle": "بروتوكول الجيل التالي لتوحيد تفاعلات البلوكتشين",
           "urlExecution": {
-            "title": "URL Execution",
-            "description": "Perform swaps, minting, and voting instantly via deep links."
+            "title": "تنفيذ URL",
+            "description": "نفّذ المبادلات والسك والتصويت فوراً عبر الروابط العميقة."
           },
           "socialIntegration": {
-            "title": "Social Integration",
-            "description": "Embed blockchain actions directly into Twitter, Discord, and Telegram."
+            "title": "التكامل الاجتماعي",
+            "description": "ادمج إجراءات البلوكتشين مباشرة في Twitter وDiscord وTelegram."
           },
           "trustVerified": {
-            "title": "Trust Verified",
-            "description": "Auto-displays target project's Trust Score before execution."
+            "title": "موثق بالثقة",
+            "description": "يعرض تلقائياً درجة ثقة المشروع المستهدف قبل التنفيذ."
           },
           "universalAccess": {
-            "title": "Universal Access",
-            "description": "Consistent experience across Web, Mobile, and IoT devices."
+            "title": "وصول عالمي",
+            "description": "تجربة متسقة عبر الويب والهاتف وأجهزة IoT."
           }
         },
         "actionTypes": {
-          "title": "Action Types",
+          "title": "أنواع الإجراءات",
           "defi": {
-            "title": "DeFi Actions",
-            "description": "Instant token swaps, liquidity provision, and staking via URL."
+            "title": "إجراءات DeFi",
+            "description": "مبادلات رموز فورية وتوفير السيولة والستاكينغ عبر URL."
           },
           "nft": {
-            "title": "NFT Actions",
-            "description": "One-click minting, transfers, and auction bidding."
+            "title": "إجراءات NFT",
+            "description": "السك بنقرة واحدة والتحويلات والمزايدة في المزادات."
           },
           "governance": {
-            "title": "Governance",
-            "description": "Vote on DAO proposals directly from community chats."
+            "title": "الحوكمة",
+            "description": "صوّت على مقترحات DAO مباشرة من محادثات المجتمع."
           }
         },
         "howItWorks": {
-          "title": "How Actions Work",
-          "figureLabel": "Action Flow Diagram",
+          "title": "كيف تعمل الإجراءات",
+          "figureLabel": "مخطط تدفق الإجراء",
           "step1": {
-            "title": "Generate Action URL",
-            "description": "Developers create standard action links for specific transactions (e.g., Token Swap)."
+            "title": "إنشاء رابط الإجراء",
+            "description": "ينشئ المطورون روابط إجراءات قياسية لمعاملات محددة (مثل مبادلة الرموز)."
           },
           "step2": {
-            "title": "Trust Score Display",
-            "description": "User clicks link -> System fetches and displays project reliability score instantly."
+            "title": "عرض درجة الثقة",
+            "description": "ينقر المستخدم على الرابط -> يجلب النظام ويعرض درجة موثوقية المشروع فوراً."
           },
           "step3": {
-            "title": "Secure Execution",
-            "description": "Transaction executes only if user approves and Trust Score is safe (>40%)."
+            "title": "التنفيذ الآمن",
+            "description": "تُنفذ المعاملة فقط إذا وافق المستخدم وكانت درجة الثقة آمنة (>40%)."
           }
         },
         "realWorldApps": {
-          "title": "Real-World Applications",
+          "title": "التطبيقات الواقعية",
           "socialCommerce": {
-            "title": "Social Commerce",
-            "description": "Embed product payment links in tweets. Buyers click to pay instantly with crypto wallet."
+            "title": "التجارة الاجتماعية",
+            "description": "ادمج روابط دفع المنتجات في التغريدات. ينقر المشترون للدفع فوراً بمحفظة العملات المشفرة."
           },
           "gamingItems": {
-            "title": "Gaming Items",
-            "description": "Trade NFT items directly within Discord chats. Trust verification prevents scams."
+            "title": "عناصر الألعاب",
+            "description": "تداول عناصر NFT مباشرة في محادثات Discord. التحقق من الثقة يمنع الاحتيال."
           },
           "crowdfunding": {
-            "title": "Crowdfunding",
-            "description": "Participate in ICOs via Telegram links. Only high Trust Score projects allowed."
+            "title": "التمويل الجماعي",
+            "description": "شارك في ICO عبر روابط Telegram. المشاريع ذات درجة الثقة العالية فقط مسموح بها."
           },
           "daoGovernance": {
-            "title": "DAO Governance",
-            "description": "Vote on proposals via email links. No complex dashboard navigation needed."
+            "title": "حوكمة DAO",
+            "description": "صوّت على المقترحات عبر روابط البريد الإلكتروني. لا حاجة للتنقل في لوحات معقدة."
           }
         },
         "developerQuickStart": {
-          "title": "Developer Quick Start",
+          "title": "البداية السريعة للمطورين",
           "step1": {
-            "title": "Basic Action URL structure"
+            "title": "هيكل URL الإجراء الأساسي"
           },
           "step2": {
-            "title": "Add OpenGraph meta tags"
+            "title": "إضافة علامات OpenGraph الوصفية"
           },
           "step3": {
-            "title": "Deploy and share",
-            "description": "Action is now shareable across platforms"
+            "title": "النشر والمشاركة",
+            "description": "الإجراء الآن قابل للمشاركة عبر المنصات"
           }
         },
         "relatedSolutions": {
-          "description": "Enhance your blockchain actions with these complementary solutions",
+          "description": "عزز إجراءات البلوكتشين الخاصة بك مع هذه الحلول المكملة",
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "Secure connections"
+            "title": "المحافظ",
+            "subtitle": "اتصالات آمنة"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Global commerce"
+            "title": "المدفوعات",
+            "subtitle": "التجارة العالمية"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "Merchant tools"
+            "title": "التجارة",
+            "subtitle": "أدوات التجار"
           },
           "tokenExtensions": {
-            "title": "Token Extensions",
-            "subtitle": "BRC-20 standards"
+            "title": "امتدادات الرموز",
+            "subtitle": "معايير BRC-20"
           }
         },
         "developerResources": {
-          "description": "Build powerful blockchain actions with our comprehensive developer toolkit",
+          "description": "ابنِ إجراءات بلوكتشين قوية مع مجموعة أدوات المطورين الشاملة",
           "sdkGuide": {
             "title": "Actions SDK",
-            "subtitle": "Integration documentation"
+            "subtitle": "وثائق التكامل"
           },
           "smartContracts": {
             "title": "العقود الذكية",
-            "subtitle": "Verified contracts"
+            "subtitle": "عقود موثقة"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST endpoints"
+            "title": "مرجع API",
+            "subtitle": "نقاط نهاية REST"
           },
           "websocket": {
             "title": "WebSocket",
-            "subtitle": "Real-time events"
+            "subtitle": "أحداث فورية"
           },
           "cli": {
-            "title": "CLI Tools",
-            "subtitle": "Command line"
+            "title": "أدوات CLI",
+            "subtitle": "سطر الأوامر"
           },
           "examples": {
-            "title": "Examples",
-            "subtitle": "Sample code"
+            "title": "الأمثلة",
+            "subtitle": "كود نموذجي"
           }
         },
         "learnPages": {
           "introToDefi": {
-            "title": "Introduction to DeFi",
-            "subtitle": "Learn the fundamentals of decentralized finance"
+            "title": "مقدمة في DeFi",
+            "subtitle": "تعلم أساسيات التمويل اللامركزي"
           },
           "developerCourse": {
             "title": "دورة المطور",
-            "subtitle": "Build dApps on TBurn Chain"
+            "subtitle": "ابنِ تطبيقات dApps على TBurn Chain"
           }
         }
       },
       "wallets": {
-        "tag": "WALLET ECOSYSTEM",
-        "title": "Wallets &",
-        "titleHighlight": "Security",
-        "subtitle": "Connect with TBurn Chain using trusted wallets. All wallets display real-time Trust Scores before transactions.",
-        "recommended": "RECOMMENDED",
+        "tag": "نظام المحافظ البيئي",
+        "title": "المحافظ",
+        "titleHighlight": "والأمان",
+        "subtitle": "اتصل بـ TBurn Chain باستخدام محافظ موثوقة. جميع المحافظ تعرض درجات الثقة في الوقت الفعلي قبل المعاملات.",
+        "recommended": "موصى به",
         "walletList": {
           "tburn": {
-            "name": "TBurn Official",
-            "platform": "Browser Extension • Mobile",
-            "description": "The native wallet optimized for TBurn Chain. Features real-time Trust Score display, auto-burn tracking, and direct governance voting.",
-            "button": "Download Wallet"
+            "name": "TBurn الرسمية",
+            "platform": "إضافة المتصفح • الهاتف",
+            "description": "المحفظة الأصلية المُحسَّنة لـ TBurn Chain. تتميز بعرض درجة الثقة في الوقت الفعلي وتتبع الحرق التلقائي والتصويت المباشر على الحوكمة.",
+            "button": "تحميل المحفظة"
           },
           "metamask": {
             "name": "MetaMask",
-            "platform": "Browser • Mobile",
-            "description": "The world's most popular Web3 wallet. Fully compatible with TBurn Chain via custom network settings. Supports all standard token operations.",
-            "button": "Connect Guide"
+            "platform": "المتصفح • الهاتف",
+            "description": "أشهر محفظة Web3 في العالم. متوافقة بالكامل مع TBurn Chain عبر إعدادات الشبكة المخصصة. تدعم جميع عمليات الرموز القياسية.",
+            "button": "دليل الاتصال"
           },
           "trust": {
             "name": "Trust Wallet",
-            "platform": "Mobile App",
-            "description": "Secure mobile multi-chain wallet. Excellent for managing TBurn assets on the go. Supports dApp browser integration.",
-            "button": "Connect Guide"
+            "platform": "تطبيق الهاتف",
+            "description": "محفظة متعددة السلاسل آمنة للهاتف. ممتازة لإدارة أصول TBurn أثناء التنقل. تدعم تكامل متصفح dApp.",
+            "button": "دليل الاتصال"
           },
           "ledger": {
             "name": "Ledger",
-            "platform": "Hardware Wallet",
-            "description": "Cold storage solution for maximum security. Keep your private keys offline while interacting with TBurn Chain dApps.",
-            "button": "Setup Guide"
+            "platform": "محفظة الأجهزة",
+            "description": "حل التخزين البارد لأقصى درجات الأمان. احتفظ بمفاتيحك الخاصة غير متصلة أثناء التفاعل مع تطبيقات TBurn Chain.",
+            "button": "دليل الإعداد"
           }
         },
         "forDevelopers": {
-          "title": "For Wallet Developers",
+          "title": "لمطوري المحافظ",
           "trustScoreApi": {
-            "title": "Trust Score API",
-            "description": "Integrate real-time trust scores into your wallet UI to protect users."
+            "title": "واجهة درجة الثقة API",
+            "description": "ادمج درجات الثقة في الوقت الفعلي في واجهة محفظتك لحماية المستخدمين."
           },
           "autoWarningSystem": {
-            "title": "Auto-Warning System",
-            "description": "Standard protocol for displaying warnings on low-trust (<40) transactions.",
-            "warningExample": "Trust Score < 40 - High Risk"
+            "title": "نظام التحذير التلقائي",
+            "description": "بروتوكول قياسي لعرض التحذيرات على المعاملات منخفضة الثقة (<40).",
+            "warningExample": "درجة الثقة < 40 - خطورة عالية"
           },
           "walletSdk": {
             "title": "Wallet SDK",
-            "description": "Ready-to-use libraries for React, React Native, and Mobile development."
+            "description": "مكتبات جاهزة للاستخدام لـ React وReact Native وتطوير الهاتف."
           }
         },
         "addNetwork": {
-          "title": "Add Custom Network",
+          "title": "إضافة شبكة مخصصة",
           "mainnet": {
-            "name": "Mainnet",
-            "networkName": "Network Name",
-            "rpcUrl": "RPC URL",
-            "chainId": "Chain ID",
-            "symbol": "Symbol",
-            "explorer": "Explorer"
+            "name": "الشبكة الرئيسية",
+            "networkName": "اسم الشبكة",
+            "rpcUrl": "رابط RPC",
+            "chainId": "معرف السلسلة",
+            "symbol": "الرمز",
+            "explorer": "المستكشف"
           },
           "testnet": {
-            "name": "Testnet"
+            "name": "شبكة الاختبار"
           }
         },
         "securityChecklist": {
-          "title": "Security Checklist",
+          "title": "قائمة التحقق الأمني",
           "seedPhrase": {
-            "title": "Secure Your Seed Phrase",
-            "description": "Write it down on paper. Never store it digitally or share it."
+            "title": "احمِ عبارة الاسترداد",
+            "description": "اكتبها على ورقة. لا تخزنها رقمياً أو تشاركها أبداً."
           },
           "verifyUrls": {
-            "title": "Verify URLs",
-            "description": "Always check you are on tburn.io to avoid phishing."
+            "title": "تحقق من الروابط",
+            "description": "تأكد دائماً أنك على tburn.io لتجنب التصيد الاحتيالي."
           },
           "checkTrustScores": {
-            "title": "Check Trust Scores",
-            "description": "Look for the Trust Score badge before interacting with any new project."
+            "title": "تحقق من درجات الثقة",
+            "description": "ابحث عن شارة درجة الثقة قبل التفاعل مع أي مشروع جديد."
           }
         }
       },
       "permissioned": {
-        "tag": "ENTERPRISE SOLUTIONS",
-        "title": "Permissioned",
-        "titleHighlight": "Networks",
-        "subtitle": "Deploy private blockchain networks with TBurn Chain's trust verification. Enterprise-grade security with public chain anchoring.",
-        "contactSales": "Contact Sales",
-        "viewWhitepaper": "View Whitepaper",
+        "tag": "حلول المؤسسات",
+        "title": "الشبكات",
+        "titleHighlight": "المرخصة",
+        "subtitle": "انشر شبكات بلوكتشين خاصة مع التحقق من الثقة من TBurn Chain. أمان على مستوى المؤسسات مع تثبيت السلسلة العامة.",
+        "contactSales": "اتصل بالمبيعات",
+        "viewWhitepaper": "عرض الورقة البيضاء",
         "buttons": {
-          "contactSales": "Contact Sales",
-          "viewWhitepaper": "View Whitepaper"
+          "contactSales": "اتصل بالمبيعات",
+          "viewWhitepaper": "عرض الورقة البيضاء"
         },
         "enterpriseFeatures": {
-          "title": "Enterprise-Grade Permissioned Chain",
-          "subtitle": "Advanced control and compliance features for businesses.",
+          "title": "سلسلة مرخصة بمستوى المؤسسات",
+          "subtitle": "ميزات تحكم وامتثال متقدمة للشركات.",
           "rbac": {
-            "title": "Role-Based Access Control (RBAC)",
-            "description": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+            "title": "التحكم في الوصول المستند إلى الأدوار (RBAC)",
+            "description": "إعدادات أذونات دقيقة للمسؤولين والمدققين والمستخدمين. أذونات منفصلة لنشر العقود الذكية والموافقة على المعاملات واستعلامات البيانات بناءً على الأدوار."
           },
           "whitelistValidators": {
-            "title": "Whitelist Validators",
-            "description": "Only trusted validators can participate in the network. Configure the network so that only internal nodes or approved partners can generate and validate blocks."
+            "title": "القائمة البيضاء للمدققين",
+            "description": "المدققون الموثوقون فقط يمكنهم المشاركة في الشبكة. قم بتكوين الشبكة بحيث يمكن للعقد الداخلية أو الشركاء المعتمدين فقط إنشاء الكتل والتحقق منها."
           },
           "regulatoryCompliance": {
-            "title": "Regulatory Compliance",
-            "description": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+            "title": "الامتثال التنظيمي",
+            "description": "إطار عمل مصمم للوائح العالمية (GDPR، HIPAA، SOC2). سجلات تدقيق مدمجة وتشفير البيانات في الراحة وأثناء النقل وميزات حماية الخصوصية."
           },
           "multiSigGovernance": {
-            "title": "Multi-Signature Governance",
-            "description": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+            "title": "حوكمة التوقيع المتعدد",
+            "description": "قرارات الشبكة الحرجة تتطلب موافقة متعددة الأطراف. ترقيات العقود الذكية وإدارة المدققين وتغييرات المعلمات تتطلب 3/5 أو 5/7 توقيعات."
           }
         },
         "features": {
           "rbac": {
-            "title": "Role-Based Access Control",
-            "desc": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+            "title": "التحكم في الوصول المستند إلى الأدوار",
+            "desc": "إعدادات أذونات دقيقة للمسؤولين والمدققين والمستخدمين. أذونات منفصلة لنشر العقود الذكية والموافقة على المعاملات واستعلامات البيانات بناءً على الأدوار."
           },
           "whitelist": {
-            "title": "Whitelist Validators",
-            "desc": "Only trusted validators can participate in the network. Configure the network so that only internal nodes or approved partners can generate and validate blocks."
+            "title": "القائمة البيضاء للمدققين",
+            "desc": "المدققون الموثوقون فقط يمكنهم المشاركة في الشبكة. قم بتكوين الشبكة بحيث يمكن للعقد الداخلية أو الشركاء المعتمدين فقط إنشاء الكتل والتحقق منها."
           },
           "compliance": {
-            "title": "Regulatory Compliance",
-            "desc": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+            "title": "الامتثال التنظيمي",
+            "desc": "إطار عمل مصمم للوائح العالمية (GDPR، HIPAA، SOC2). سجلات تدقيق مدمجة وتشفير البيانات في الراحة وأثناء النقل وميزات حماية الخصوصية."
           },
           "multisig": {
-            "title": "Multi-Signature Governance",
-            "desc": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+            "title": "حوكمة التوقيع المتعدد",
+            "desc": "قرارات الشبكة الحرجة تتطلب موافقة متعددة الأطراف. ترقيات العقود الذكية وإدارة المدققين وتغييرات المعلمات تتطلب 3/5 أو 5/7 توقيعات."
           }
         },
         "hybrid": {
           "privateAnchor": {
-            "title": "Private Chain + Public Anchor",
-            "desc": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the TBurn Public Mainnet for immutability."
+            "title": "سلسلة خاصة + تثبيت عام",
+            "desc": "تعمل المعاملات الداخلية على سلسلة خاصة عالية السرعة، مع تثبيت دوري لتجزئات الحالة على الشبكة الرئيسية العامة لـ TBurn لضمان الثبات."
           },
           "selectiveDisclosure": {
-            "title": "Selective Data Disclosure",
-            "desc": "Transaction details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+            "title": "الكشف الانتقائي عن البيانات",
+            "desc": "تبقى تفاصيل المعاملات خاصة للمشاركين المعتمدين، ولكن يمكن إثباتها تشفيرياً للمدققين أو المنظمين عند الحاجة."
           }
         },
         "hybridArchitecture": {
-          "title": "Hybrid Architecture",
-          "subtitle": "Combine the privacy of a private chain with the security of a public blockchain.",
+          "title": "البنية الهجينة",
+          "subtitle": "اجمع بين خصوصية السلسلة الخاصة وأمان البلوكتشين العام.",
           "privateChainAnchor": {
-            "title": "Private Chain + Public Anchor",
-            "description": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the TBurn Public Mainnet for immutability."
+            "title": "سلسلة خاصة + تثبيت عام",
+            "description": "تعمل المعاملات الداخلية على سلسلة خاصة عالية السرعة، مع تثبيت دوري لتجزئات الحالة على الشبكة الرئيسية العامة لـ TBurn لضمان الثبات."
           },
           "selectiveDisclosure": {
-            "title": "Selective Data Disclosure",
-            "description": "Transaction details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+            "title": "الكشف الانتقائي عن البيانات",
+            "description": "تبقى تفاصيل المعاملات خاصة للمشاركين المعتمدين، ولكن يمكن إثباتها تشفيرياً للمدققين أو المنظمين عند الحاجة."
           },
-          "privateConsensusLayer": "Private Consensus Layer",
-          "anchoringHash": "ANCHORING HASH",
-          "publicMainnet": "Public Mainnet (L1)"
+          "privateConsensusLayer": "طبقة الإجماع الخاصة",
+          "anchoringHash": "تجزئة التثبيت",
+          "publicMainnet": "الشبكة الرئيسية العامة (L1)"
         },
         "diagram": {
-          "privateLayer": "Private Consensus Layer",
-          "anchoringHash": "ANCHORING HASH",
-          "publicMainnet": "Public Mainnet (L1)"
+          "privateLayer": "طبقة الإجماع الخاصة",
+          "anchoringHash": "تجزئة التثبيت",
+          "publicMainnet": "الشبكة الرئيسية العامة (L1)"
         },
         "useCases": {
-          "exampleLabel": "Example",
+          "exampleLabel": "مثال",
           "supplyChain": {
-            "title": "Supply Chain",
-            "desc": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
-            "example": "Auto Parts Tracking",
-            "flow": "Raw Material → Production → Assembly"
+            "title": "سلسلة التوريد",
+            "desc": "تتبع المنتجات من المصنع إلى التسليم. يرى المشاركون فقط أجزاء المعاملات ذات الصلة.",
+            "example": "تتبع قطع غيار السيارات",
+            "flow": "المواد الخام ← الإنتاج ← التجميع"
           },
           "banking": {
-            "title": "Banking Consortium",
-            "desc": "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
-            "example": "Cross-border Remittance",
-            "flow": "3 Days → 3 Seconds, Fee $10 → $0.01"
+            "title": "اتحاد البنوك",
+            "desc": "شبكة تسوية بين البنوك. مقاصة وتسوية في الوقت الفعلي مع صفر مخاطر الطرف المقابل.",
+            "example": "التحويلات عبر الحدود",
+            "flow": "3 أيام ← 3 ثوانٍ، رسوم $10 ← $0.01"
           },
           "medical": {
-            "title": "Medical Data",
-            "desc": "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
-            "example": "E-Prescriptions",
-            "flow": "Hospital → Pharmacy → Insurance"
+            "title": "البيانات الطبية",
+            "desc": "مشاركة آمنة لبيانات المرضى بين المستشفيات وشركات التأمين. تدقيق امتثال HIPAA كامل.",
+            "example": "الوصفات الإلكترونية",
+            "flow": "المستشفى ← الصيدلية ← التأمين"
           }
         },
         "industryUseCases": {
-          "title": "Industry Use Cases",
+          "title": "حالات استخدام الصناعة",
           "supplyChain": {
-            "title": "Supply Chain",
-            "description": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
-            "example": "Auto Parts Tracking",
-            "flow": "Raw Material → Production → Assembly"
+            "title": "سلسلة التوريد",
+            "description": "تتبع المنتجات من المصنع إلى التسليم. يرى المشاركون فقط أجزاء المعاملات ذات الصلة.",
+            "example": "تتبع قطع غيار السيارات",
+            "flow": "المواد الخام ← الإنتاج ← التجميع"
           },
           "bankingConsortium": {
-            "title": "Banking Consortium",
-            "description": "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
-            "example": "Cross-border Remittance",
-            "flow": "3 Days → 3 Seconds, Fee $10 → $0.01"
+            "title": "اتحاد البنوك",
+            "description": "شبكة تسوية بين البنوك. مقاصة وتسوية في الوقت الفعلي مع صفر مخاطر الطرف المقابل.",
+            "example": "التحويلات عبر الحدود",
+            "flow": "3 أيام ← 3 ثوانٍ، رسوم $10 ← $0.01"
           },
           "medicalData": {
-            "title": "Medical Data",
-            "description": "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
-            "example": "E-Prescriptions",
-            "flow": "Hospital → Pharmacy → Insurance"
+            "title": "البيانات الطبية",
+            "description": "مشاركة آمنة لبيانات المرضى بين المستشفيات وشركات التأمين. تدقيق امتثال HIPAA كامل.",
+            "example": "الوصفات الإلكترونية",
+            "flow": "المستشفى ← الصيدلية ← التأمين"
           }
         },
         "deployment": {
           "step1": {
-            "title": "Requirements Analysis",
-            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+            "title": "تحليل المتطلبات",
+            "desc": "تحديد المشاركين وتصميم مخططات الأذونات ومراجعة المتطلبات التنظيمية."
           },
           "step2": {
-            "title": "Network Setup",
-            "desc": "Deploy validator nodes, generate genesis block, and develop initial smart contracts."
+            "title": "إعداد الشبكة",
+            "desc": "نشر عقد المدققين وإنشاء كتلة التكوين وتطوير العقود الذكية الأولية."
           },
           "step3": {
-            "title": "Integration & Migration",
-            "desc": "API integration with legacy systems (ERP, CRM), data migration, and user training."
+            "title": "التكامل والترحيل",
+            "desc": "تكامل API مع الأنظمة القديمة (ERP، CRM) وترحيل البيانات وتدريب المستخدمين."
           },
           "step4": {
-            "title": "Mainnet Launch",
-            "desc": "Production deployment with 24/7 monitoring and regular security audits."
+            "title": "إطلاق الشبكة الرئيسية",
+            "desc": "النشر الإنتاجي مع المراقبة على مدار الساعة وعمليات التدقيق الأمني المنتظمة."
           }
         },
         "deploymentProcess": {
-          "title": "Deployment Process",
+          "title": "عملية النشر",
           "step1": {
-            "title": "Requirements Analysis (1-2 Weeks)",
-            "description": "Identify participants, design permission schemas, and review regulatory requirements. TBurn engineers provide architectural consulting."
+            "title": "تحليل المتطلبات (1-2 أسبوع)",
+            "description": "تحديد المشاركين وتصميم مخططات الأذونات ومراجعة المتطلبات التنظيمية. يقدم مهندسو TBurn استشارات معمارية."
           },
           "step2": {
-            "title": "Network Setup (2-3 Weeks)",
-            "description": "Deploy validator nodes, generate genesis block, and develop initial smart contracts in a test environment."
+            "title": "إعداد الشبكة (2-3 أسابيع)",
+            "description": "نشر عقد المدققين وإنشاء كتلة التكوين وتطوير العقود الذكية الأولية في بيئة اختبار."
           },
           "step3": {
-            "title": "Integration & Migration (3-4 Weeks)",
-            "description": "API integration with legacy systems (ERP, CRM), data migration, and user training."
+            "title": "التكامل والترحيل (3-4 أسابيع)",
+            "description": "تكامل API مع الأنظمة القديمة (ERP، CRM) وترحيل البيانات وتدريب المستخدمين."
           },
           "step4": {
-            "title": "Mainnet Launch & Operations",
-            "description": "Production deployment with 24/7 monitoring and regular security audits. Ongoing support from the TBurn team."
+            "title": "إطلاق الشبكة الرئيسية والعمليات",
+            "description": "النشر الإنتاجي مع المراقبة على مدار الساعة وعمليات التدقيق الأمني المنتظمة. دعم مستمر من فريق TBurn."
           }
         },
         "sections": {
           "enterpriseFeatures": {
-            "title": "Enterprise Features",
-            "subtitle": "Advanced control and compliance features for businesses"
+            "title": "ميزات المؤسسات",
+            "subtitle": "ميزات تحكم وامتثال متقدمة للشركات"
           },
           "hybridArchitecture": {
-            "title": "Hybrid Architecture",
-            "subtitle": "Combine private chain privacy with public blockchain security"
+            "title": "البنية الهجينة",
+            "subtitle": "اجمع بين خصوصية السلسلة الخاصة وأمان البلوكتشين العام"
           },
           "useCases": {
-            "title": "Industry Use Cases"
+            "title": "حالات استخدام الصناعة"
           },
           "deployment": {
-            "title": "Deployment Process"
+            "title": "عملية النشر"
           }
         }
       },
       "gameTooling": {
-        "tag": "GAMEFI INFRASTRUCTURE",
-        "title": "Game",
-        "titleHighlight": "Tooling",
-        "subtitle": "Complete GameFi SDK with NFT verification, P2E mechanics, and cross-game asset trading. Trust Score prevents fraudulent game projects.",
-        "getUnitySdk": "Get Unity SDK",
+        "tag": "بنية GameFi التحتية",
+        "title": "أدوات",
+        "titleHighlight": "الألعاب",
+        "subtitle": "GameFi SDK متكامل مع التحقق من NFT وآليات P2E وتداول الأصول عبر الألعاب. درجة الثقة تمنع مشاريع الألعاب الاحتيالية.",
+        "getUnitySdk": "احصل على Unity SDK",
         "buttons": {
-          "getUnitySdk": "Get Unity SDK",
-          "getUnrealSdk": "Get Unreal SDK",
-          "viewDocs": "View Documentation"
+          "getUnitySdk": "احصل على Unity SDK",
+          "getUnrealSdk": "احصل على Unreal SDK",
+          "viewDocs": "عرض الوثائق"
         },
         "sections": {
           "whyBuild": {
-            "title": "Why Build Games on TBurn Chain?",
-            "subtitle": "Advanced infrastructure for next-generation blockchain gaming"
+            "title": "لماذا تبني ألعاباً على TBurn Chain؟",
+            "subtitle": "بنية تحتية متقدمة لألعاب البلوكتشين من الجيل التالي"
           },
           "trustScore": {
-            "title": "Trust Score for Games"
+            "title": "درجة الثقة للألعاب"
           },
           "gameTypes": {
-            "title": "Game Types & Use Cases"
+            "title": "أنواع الألعاب وحالات الاستخدام"
           },
           "integration": {
-            "title": "Integration Steps"
+            "title": "خطوات التكامل"
           }
         },
         "trustScore": {
-          "title": "NFT Project Trust Score",
-          "subtitle": "Comprehensive verification system for game projects",
-          "teamScore": "Team Identity Score",
-          "contractScore": "Contract Security Score",
-          "utilityScore": "Utility & Roadmap Score",
-          "totalScore": "Total Trust Score",
+          "title": "درجة ثقة مشروع NFT",
+          "subtitle": "نظام تحقق شامل لمشاريع الألعاب",
+          "teamScore": "درجة هوية الفريق",
+          "contractScore": "درجة أمان العقد",
+          "utilityScore": "درجة المنفعة وخارطة الطريق",
+          "totalScore": "إجمالي درجة الثقة",
           "verification": {
-            "title": "Trust Verification",
-            "desc": "AI-powered project analysis with community validation"
+            "title": "التحقق من الثقة",
+            "desc": "تحليل مشروع مدعوم بالذكاء الاصطناعي مع التحقق المجتمعي"
           },
           "team": {
-            "title": "Team Verification",
-            "points": "0-30 pts",
-            "desc": "Verified team members with public identities receive higher scores.",
+            "title": "التحقق من الفريق",
+            "points": "0-30 نقطة",
+            "desc": "أعضاء الفريق الموثقون بهويات عامة يحصلون على درجات أعلى.",
             "scoring": {
-              "verified": "Verified team members",
-              "anonymous": "Anonymous team",
-              "maxPoints": "Max 10 pts"
+              "verified": "أعضاء فريق موثقون",
+              "anonymous": "فريق مجهول",
+              "maxPoints": "حد أقصى 10 نقاط"
             }
           },
           "contract": {
-            "title": "Contract Security",
-            "points": "0-25 pts",
-            "desc": "Audited smart contracts with verified security practices.",
+            "title": "أمان العقد",
+            "points": "0-25 نقطة",
+            "desc": "عقود ذكية مدققة مع ممارسات أمان موثقة.",
             "scoring": {
-              "audits": "3+ security audits",
-              "noAudit": "No audit"
+              "audits": "3+ تدقيقات أمنية",
+              "noAudit": "بدون تدقيق"
             }
           },
           "utility": {
-            "title": "Game Utility",
-            "points": "0-25 pts",
-            "desc": "Real gameplay utility and active player engagement.",
+            "title": "منفعة اللعبة",
+            "points": "0-25 نقطة",
+            "desc": "منفعة لعب حقيقية ومشاركة لاعبين نشطة.",
             "scoring": {
-              "executed": "Roadmap executed",
-              "gameLive": "Game is live",
-              "bonus": "+10 pts bonus"
+              "executed": "خارطة الطريق منفذة",
+              "gameLive": "اللعبة متاحة",
+              "bonus": "+10 نقاط إضافية"
             }
           }
         },
         "features": {
           "ultraFastProcessing": {
-            "title": "Ultra-Fast Processing",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+            "title": "معالجة فائقة السرعة",
+            "desc": "50,000+ TPS يتيح التداول داخل اللعبة في الوقت الفعلي مع أوقات كتل مدتها ثانية واحدة."
           },
           "nftVerification": {
-            "title": "NFT Project Verification",
-            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+            "title": "التحقق من مشروع NFT",
+            "desc": "نظام تحقق من 3 مراحل يحظر مشاريع NFT الاحتيالية مع مراقبة درجة الثقة."
           },
           "verifiedOwnership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-chain records for all game item issuance and burn history."
+            "title": "ملكية موثقة",
+            "desc": "سجلات غير قابلة للتغيير على السلسلة لجميع عمليات إصدار وحرق عناصر اللعبة."
           },
           "crossGameAssets": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM compatibility enables interoperable items across different games."
+            "title": "أصول عبر الألعاب",
+            "desc": "توافق EVM يتيح العناصر القابلة للتشغيل المتبادل عبر ألعاب مختلفة."
           },
           "ultraFast": {
-            "title": "Ultra-Fast Processing",
-            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+            "title": "معالجة فائقة السرعة",
+            "desc": "50,000+ TPS يتيح التداول داخل اللعبة في الوقت الفعلي مع أوقات كتل مدتها ثانية واحدة."
           },
           "verification": {
-            "title": "NFT Project Verification",
-            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+            "title": "التحقق من مشروع NFT",
+            "desc": "نظام تحقق من 3 مراحل يحظر مشاريع NFT الاحتيالية مع مراقبة درجة الثقة."
           },
           "ownership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-chain records for all game item issuance and burn history."
+            "title": "ملكية موثقة",
+            "desc": "سجلات غير قابلة للتغيير على السلسلة لجميع عمليات إصدار وحرق عناصر اللعبة."
           },
           "crossGame": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM compatibility enables interoperable items across different games."
+            "title": "أصول عبر الألعاب",
+            "desc": "توافق EVM يتيح العناصر القابلة للتشغيل المتبادل عبر ألعاب مختلفة."
           }
         },
         "integration": {
-          "title": "Integration Guide",
+          "title": "دليل التكامل",
           "step1": {
-            "title": "Connect SDK",
-            "desc": "Integrate the TBurn Gaming SDK into your game engine."
+            "title": "ربط SDK",
+            "desc": "ادمج TBurn Gaming SDK في محرك لعبتك."
           },
           "step2": {
-            "title": "Deploy Contracts",
-            "desc": "Deploy your game contracts on TBurn Chain testnet."
+            "title": "نشر العقود",
+            "desc": "انشر عقود لعبتك على شبكة TBurn Chain التجريبية."
           },
           "step3": {
-            "title": "Get Verified",
-            "desc": "Submit for Trust Score verification and game review."
+            "title": "احصل على التحقق",
+            "desc": "قدم طلباً للتحقق من درجة الثقة ومراجعة اللعبة."
           },
           "step4": {
-            "title": "Launch",
-            "desc": "Go live on mainnet with full ecosystem support."
+            "title": "الإطلاق",
+            "desc": "انطلق على الشبكة الرئيسية مع دعم النظام البيئي الكامل."
           }
         },
         "whyBuild": {
-          "title": "Why Build on TBurn?",
-          "subtitle": "Optimized for high-speed gaming and secure asset trading.",
+          "title": "لماذا تبني على TBurn؟",
+          "subtitle": "مُحسَّن للألعاب عالية السرعة وتداول الأصول الآمن.",
           "ultraFastProcessing": {
-            "title": "Ultra-Fast Processing",
-            "description": "50,000+ TPS throughput enables real-time in-game item trading. With an average 1-second block time, players experience instant confirmation without lag."
+            "title": "معالجة فائقة السرعة",
+            "description": "إنتاجية 50,000+ TPS تتيح تداول عناصر اللعبة في الوقت الفعلي. مع متوسط وقت كتلة ثانية واحدة، يختبر اللاعبون تأكيداً فورياً بدون تأخير."
           },
           "nftVerification": {
-            "title": "NFT Project Verification",
-            "description": "Our 3-stage verification system (AI → Experts → Community) proactively blocks fraudulent NFT projects. Trading is automatically suspended if the Trust Score drops below 40%."
+            "title": "التحقق من مشروع NFT",
+            "description": "نظام التحقق من 3 مراحل (الذكاء الاصطناعي ← الخبراء ← المجتمع) يحظر استباقياً مشاريع NFT الاحتيالية. يتم تعليق التداول تلقائياً إذا انخفضت درجة الثقة عن 40%."
           },
           "verifiedOwnership": {
-            "title": "Verified Ownership",
-            "description": "All game item issuance and burn records are immutable on-chain. Provide players with real-time proof of ownership and item history, eliminating forgery risks."
+            "title": "ملكية موثقة",
+            "description": "جميع سجلات إصدار وحرق عناصر اللعبة غير قابلة للتغيير على السلسلة. قدم للاعبين إثبات ملكية في الوقت الفعلي وتاريخ العنصر، مما يلغي مخاطر التزوير."
           },
           "crossGameAssets": {
-            "title": "Cross-Game Assets",
-            "description": "Full EVM compatibility allows items to be interoperable across different games. Support for multi-chain asset transfers via LayerZero integration expands your game's economy."
+            "title": "أصول عبر الألعاب",
+            "description": "التوافق الكامل مع EVM يتيح للعناصر أن تكون قابلة للتشغيل المتبادل عبر ألعاب مختلفة. دعم نقل الأصول متعدد السلاسل عبر تكامل LayerZero يوسع اقتصاد لعبتك."
           }
         },
         "trustScoreCategories": {
-          "title": "NFT Project Trust Score",
+          "title": "درجة ثقة مشروع NFT",
           "teamIdentity": {
-            "title": "Team Identity & Experience",
-            "points": "30 pts",
-            "description": "Real name disclosure, track record verification, and social media authenticity checks."
+            "title": "هوية الفريق والخبرة",
+            "points": "30 نقطة",
+            "description": "الكشف عن الاسم الحقيقي والتحقق من السجل وفحوصات مصداقية وسائل التواصل الاجتماعي."
           },
           "contractSecurity": {
-            "title": "Smart Contract Security",
-            "points": "25 pts",
-            "description": "Audit completion status, automated vulnerability testing results, and minting authority decentralization."
+            "title": "أمان العقود الذكية",
+            "points": "25 نقطة",
+            "description": "حالة إتمام التدقيق ونتائج اختبار الثغرات الآلي ولامركزية صلاحية السك."
           },
           "utilityRoadmap": {
-            "title": "Utility & Roadmap",
-            "points": "25 pts",
-            "description": "Roadmap execution rate, actual utility provision (game integration), and community engagement levels."
+            "title": "المنفعة وخارطة الطريق",
+            "points": "25 نقطة",
+            "description": "معدل تنفيذ خارطة الطريق وتوفير المنفعة الفعلي (تكامل اللعبة) ومستويات مشاركة المجتمع."
           }
         },
         "gameTypes": {
-          "title": "Supported Game Types",
-          "subtitle": "Build any type of blockchain game with our comprehensive tooling",
+          "title": "أنواع الألعاب المدعومة",
+          "subtitle": "ابنِ أي نوع من ألعاب البلوكتشين مع أدواتنا الشاملة",
           "p2e": {
-            "title": "Play-to-Earn Games",
-            "desc": "Reward players with verified tokens and NFTs for gameplay achievements.",
-            "tags": "RPG, Strategy, Battle Royale"
+            "title": "ألعاب P2E",
+            "desc": "كافئ اللاعبين برموز وNFT موثقة على إنجازات اللعب.",
+            "tags": "RPG، استراتيجية، Battle Royale"
           },
           "nftMarketplace": {
-            "title": "NFT Marketplace",
-            "description": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety.",
-            "desc": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety.",
-            "tags": "Risk Warning • History"
+            "title": "سوق NFT",
+            "description": "تداول عناصر اللعبة والأعمال الفنية والمجموعات. شارات الثقة تُعرض تلقائياً للسلامة.",
+            "desc": "تداول عناصر اللعبة والأعمال الفنية والمجموعات. شارات الثقة تُعرض تلقائياً للسلامة.",
+            "tags": "تحذير المخاطر • التاريخ"
           },
           "marketplace": {
-            "title": "NFT Marketplaces",
-            "desc": "Secure trading platforms for in-game items with trust verification.",
-            "tags": "Trading, Auction, Exchange"
+            "title": "أسواق NFT",
+            "desc": "منصات تداول آمنة للعناصر داخل اللعبة مع التحقق من الثقة.",
+            "tags": "التداول، المزاد، التبادل"
           },
           "metaverse": {
-            "title": "Metaverse & Virtual Worlds",
-            "desc": "Immersive virtual environments with verified digital asset ownership.",
-            "tags": "Virtual Land, Avatars, Social"
+            "title": "الميتافيرس والعوالم الافتراضية",
+            "desc": "بيئات افتراضية غامرة مع ملكية أصول رقمية موثقة.",
+            "tags": "أرض افتراضية، صور رمزية، اجتماعي"
           },
           "casualGames": {
-            "title": "Casual Games",
-            "desc": "Lightweight blockchain integration for casual gaming with microtransactions."
+            "title": "الألعاب العادية",
+            "desc": "تكامل بلوكتشين خفيف للألعاب العادية مع المعاملات الصغيرة."
           },
           "esports": {
             "title": "الرياضات الإلكترونية والبطولات",
-            "desc": "Decentralized prize pools with transparent distribution and anti-cheat verification."
+            "desc": "مجمعات جوائز لامركزية مع توزيع شفاف والتحقق من مكافحة الغش."
           }
         },
         "integrationGuide": {
-          "title": "Integration Guide",
+          "title": "دليل التكامل",
           "step1": {
-            "title": "Deploy Contracts",
-            "description": "Write ERC-721/1155 contracts in Solidity ^0.8.19 and deploy to TBurn Chain."
+            "title": "نشر العقود",
+            "description": "اكتب عقود ERC-721/1155 بـ Solidity ^0.8.19 وانشرها على TBurn Chain."
           },
           "step2": {
-            "title": "Apply for Trust Verification",
-            "description": "Submit project info via developer console. ($2,000-$3,000 fee, 7-14 days)"
+            "title": "التقدم للتحقق من الثقة",
+            "description": "قدم معلومات المشروع عبر وحدة تحكم المطور. (رسوم $2,000-$3,000، 7-14 يوماً)"
           },
           "step3": {
-            "title": "Integrate SDK",
-            "description": "Use Unity/Unreal SDK to implement minting, trading, and burning features in-game."
+            "title": "دمج SDK",
+            "description": "استخدم Unity/Unreal SDK لتنفيذ ميزات السك والتداول والحرق داخل اللعبة."
           },
           "step4": {
-            "title": "Display Trust Badge",
-            "description": "Show real-time trust scores in your game UI to build player confidence."
+            "title": "عرض شارة الثقة",
+            "description": "اعرض درجات الثقة في الوقت الفعلي في واجهة لعبتك لبناء ثقة اللاعب."
           }
         }
       },
       "payments": {
-        "tag": "PAYMENT INFRASTRUCTURE",
-        "title": "Global",
-        "titleHighlight": "Payments",
-        "subtitle": "Accept verified crypto payments worldwide. Instant settlement, ultra-low fees, and Trust Score filtering for merchant protection.",
-        "getApiKey": "Get API Key",
+        "tag": "بنية المدفوعات التحتية",
+        "title": "المدفوعات",
+        "titleHighlight": "العالمية",
+        "subtitle": "اقبل مدفوعات العملات المشفرة الموثقة في جميع أنحاء العالم. تسوية فورية ورسوم منخفضة للغاية وتصفية درجة الثقة لحماية التجار.",
+        "getApiKey": "احصل على مفتاح API",
         "buttons": {
           "viewDocs": "عرض الوثائق"
         },
         "whyChoose": {
-          "title": "Why Choose TBurn?",
-          "subtitle": "Optimized infrastructure for global commerce.",
+          "title": "لماذا تختار TBurn؟",
+          "subtitle": "بنية تحتية مُحسَّنة للتجارة العالمية.",
           "instantSettlement": {
-            "title": "Instant Settlement",
-            "description": "Average 1-second block time and 6-second finality. Experience payment speeds faster than traditional credit cards with 50,000+ TPS capacity."
+            "title": "التسوية الفورية",
+            "description": "متوسط وقت الكتلة ثانية واحدة ونهائية 6 ثوانٍ. اختبر سرعات دفع أسرع من بطاقات الائتمان التقليدية مع سعة 50,000+ TPS."
           },
           "ultraLowFees": {
-            "title": "Ultra-Low Fees",
-            "description": "$0.001 per transaction. Save up to 99% compared to traditional payment gateways. Economically viable for everything from micropayments to large transfers."
+            "title": "رسوم منخفضة للغاية",
+            "description": "$0.001 لكل معاملة. وفر حتى 99% مقارنة ببوابات الدفع التقليدية. مجدية اقتصادياً لكل شيء من المدفوعات الصغيرة إلى التحويلات الكبيرة."
           },
           "verifiedTokensOnly": {
-            "title": "Verified Tokens Only",
-            "description": "Only tokens with a Trust Score of 40% or higher are allowed. We automatically block rug-pull tokens to protect merchants and customers."
+            "title": "الرموز الموثقة فقط",
+            "description": "يُسمح فقط بالرموز ذات درجة ثقة 40% أو أعلى. نحظر تلقائياً رموز الاحتيال لحماية التجار والعملاء."
           },
           "globalReach": {
-            "title": "Global Reach",
-            "description": "Borderless 24/7 payment infrastructure. Multi-chain support for Ethereum, Arbitrum, and Polygon via LayerZero integration allows you to accept payments from anywhere."
+            "title": "الوصول العالمي",
+            "description": "بنية دفع بلا حدود على مدار الساعة. دعم متعدد السلاسل لـ Ethereum وArbitrum وPolygon عبر تكامل LayerZero يتيح لك قبول المدفوعات من أي مكان."
           }
         },
         "tokenStandards": {
-          "title": "Payment Token Standards",
+          "title": "معايير رموز الدفع",
           "priceStability": {
-            "title": "Price Stability",
-            "points": "30 pts",
-            "description": "Evaluated based on daily volatility, market cap, and liquidity pool depth.",
+            "title": "استقرار السعر",
+            "points": "30 نقطة",
+            "description": "يُقيَّم بناءً على التقلب اليومي والقيمة السوقية وعمق مجمع السيولة.",
             "scoring": {
-              "volatility": "< 1% daily volatility",
-              "liquidity": "$10M+ liquidity"
+              "volatility": "< 1% تقلب يومي",
+              "liquidity": "$10M+ سيولة"
             }
           },
           "contractSecurity": {
-            "title": "Contract Security",
-            "points": "25 pts",
-            "description": "Audit completion, reentrancy protection, and upgrade authority decentralization.",
+            "title": "أمان العقد",
+            "points": "25 نقطة",
+            "description": "إتمام التدقيق وحماية إعادة الدخول ولامركزية صلاحية الترقية.",
             "scoring": {
-              "audits": "3+ audits completed",
-              "criticalBug": "Critical bug found",
-              "block": "BLOCK"
+              "audits": "3+ تدقيقات مكتملة",
+              "criticalBug": "تم اكتشاف خطأ حرج",
+              "block": "حظر"
             }
           },
           "adoptionUsage": {
-            "title": "Adoption & Usage",
-            "points": "20 pts",
-            "description": "Number of merchants, monthly transaction volume, and average payment size.",
+            "title": "التبني والاستخدام",
+            "points": "20 نقطة",
+            "description": "عدد التجار وحجم المعاملات الشهري ومتوسط حجم الدفع.",
             "scoring": {
-              "merchants": "100+ merchants",
-              "transactions": "$1M+ monthly",
-              "high": "HIGH"
+              "merchants": "100+ تاجر",
+              "transactions": "$1M+ شهرياً",
+              "high": "مرتفع"
             }
           }
         },
         "solutionTypes": {
-          "title": "Solution Types",
+          "title": "أنواع الحلول",
           "onlineCommerce": {
-            "title": "Online Commerce",
-            "description": "Easy checkout integration for shops. 5-min setup.",
-            "tags": "SDK • Plugins"
+            "title": "التجارة الإلكترونية",
+            "description": "تكامل سهل لنقاط الدفع للمتاجر. إعداد في 5 دقائق.",
+            "tags": "SDK • الإضافات"
           },
           "offlinePos": {
-            "title": "Offline POS",
-            "description": "Instant payments via QR code in physical stores.",
-            "tags": "App • NFC"
+            "title": "نقاط البيع غير المتصلة",
+            "description": "مدفوعات فورية عبر رمز QR في المتاجر الفعلية.",
+            "tags": "التطبيق • NFC"
           },
           "globalRemittance": {
-            "title": "Global Remittance",
-            "description": "Cross-border transfers with 99% lower fees.",
+            "title": "التحويلات العالمية",
+            "description": "تحويلات عبر الحدود برسوم أقل بنسبة 99%.",
             "tags": "P2P • B2B"
           }
         },
         "integrationGuide": {
-          "title": "Integration Guide",
+          "title": "دليل التكامل",
           "step1": {
-            "title": "Issue API Key",
-            "description": "Get your credentials from the developer dashboard."
+            "title": "إصدار مفتاح API",
+            "description": "احصل على بيانات اعتمادك من لوحة تحكم المطور."
           },
           "step2": {
-            "title": "Install SDK",
-            "description": "Available for JS, Python, and PHP."
+            "title": "تثبيت SDK",
+            "description": "متوفر لـ JS وPython وPHP."
           },
           "step3": {
-            "title": "Add Payment Button",
-            "description": "Embed the checkout button with just one line."
+            "title": "إضافة زر الدفع",
+            "description": "ادمج زر الدفع بسطر واحد فقط."
           },
           "step4": {
-            "title": "Configure Webhooks",
-            "description": "Receive instant server notifications upon payment completion."
+            "title": "تكوين Webhooks",
+            "description": "استلم إشعارات الخادم الفورية عند اكتمال الدفع."
           }
         }
       },
       "commerce": {
-        "tag": "COMMERCE",
-        "title": "Commerce",
-        "titleHighlight": "الحلول",
-        "subtitle": "E-commerce integration and merchant solutions. Accept crypto payments seamlessly with Trust Score verification.",
+        "tag": "التجارة",
+        "title": "حلول",
+        "titleHighlight": "التجارة",
+        "subtitle": "تكامل التجارة الإلكترونية وحلول التجار. اقبل مدفوعات العملات المشفرة بسلاسة مع التحقق من درجة الثقة.",
         "buttons": {
-          "installPlugin": "Install Plugin",
-          "viewApiDocs": "View API Docs",
-          "startIntegration": "Start Integration"
+          "installPlugin": "تثبيت الإضافة",
+          "viewApiDocs": "عرض وثائق API",
+          "startIntegration": "بدء التكامل"
         },
         "features": {
           "payment": {
-            "title": "Crypto Payment Processing",
-            "desc": "Accept verified tokens with instant settlement. Trust Score filtering protects merchants from fraudulent transactions and low-quality tokens."
+            "title": "معالجة مدفوعات العملات المشفرة",
+            "desc": "اقبل الرموز الموثقة مع التسوية الفورية. تصفية درجة الثقة تحمي التجار من المعاملات الاحتيالية والرموز منخفضة الجودة."
           },
           "inventory": {
-            "title": "Blockchain Inventory Tracking",
-            "desc": "Track products with on-chain verification. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+            "title": "تتبع المخزون بالبلوكتشين",
+            "desc": "تتبع المنتجات مع التحقق على السلسلة. شهادات الأصالة المستندة إلى NFT تمنع التزوير وتتيح تتبع إعادة البيع بسهولة."
           },
           "loyalty": {
-            "title": "Token-Based Loyalty Programs",
-            "desc": "Issue loyalty tokens to reward customers. Blockchain-based points are transparent, tradeable, and never expire."
+            "title": "برامج الولاء المستندة للرموز",
+            "desc": "أصدر رموز الولاء لمكافأة العملاء. النقاط المستندة للبلوكتشين شفافة وقابلة للتداول ولا تنتهي صلاحيتها أبداً."
           },
           "analytics": {
-            "title": "Real-Time Commerce Analytics",
-            "desc": "Monitor sales, customer behavior, and token transactions. On-chain data provides tamper-proof business insights."
+            "title": "تحليلات التجارة الفورية",
+            "desc": "راقب المبيعات وسلوك العملاء ومعاملات الرموز. البيانات على السلسلة توفر رؤى أعمال مقاومة للتلاعب."
           }
         },
         "platforms": {
           "shopify": {
-            "desc": "One-click integration with the world's leading e-commerce platform.",
-            "status": "AVAILABLE"
+            "desc": "تكامل بنقرة واحدة مع منصة التجارة الإلكترونية الرائدة في العالم.",
+            "status": "متوفر"
           },
           "woocommerce": {
-            "desc": "WordPress plugin for WooCommerce stores.",
-            "status": "AVAILABLE"
+            "desc": "إضافة WordPress لمتاجر WooCommerce.",
+            "status": "متوفر"
           },
           "customApi": {
-            "title": "Custom API",
-            "desc": "RESTful API for custom integrations and mobile apps.",
-            "status": "AVAILABLE"
+            "title": "API مخصص",
+            "desc": "واجهة RESTful API للتكاملات المخصصة وتطبيقات الهاتف.",
+            "status": "متوفر"
           }
         },
         "stories": {
           "fashionBrand": {
             "name": "Aurora Fashion",
-            "type": "Luxury Fashion Brand",
-            "quote": "TBurn Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "type": "علامة أزياء فاخرة",
+            "quote": "خفضت TBurn Commerce رسوم معالجة الدفع لدينا بنسبة 85% وفتحتنا على عملاء العملات المشفرة العالميين.",
             "stats": {
-              "volume": "$2.5M Volume",
-              "savings": "85% Fee Savings"
+              "volume": "$2.5M حجم",
+              "savings": "85% توفير في الرسوم"
             }
           },
           "resalePlatform": {
             "name": "BlockResale",
-            "type": "NFT-Verified Resale Platform",
-            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "type": "منصة إعادة بيع موثقة بـ NFT",
+            "quote": "شهادات الأصالة المستندة إلى NFT قضت على المرتجعات المزيفة وزادت ثقة المشترين.",
             "stats": {
-              "nfts": "50K NFTs Issued",
-              "counterfeits": "Zero Counterfeits"
+              "nfts": "50K NFT صادرة",
+              "counterfeits": "صفر مزيفات"
             }
           }
         },
         "integration": {
           "step1": {
-            "title": "Get API Keys",
-            "desc": "Register on the developer dashboard and get your credentials."
+            "title": "احصل على مفاتيح API",
+            "desc": "سجل في لوحة تحكم المطور واحصل على بيانات اعتمادك."
           },
           "step2": {
-            "title": "Install SDK",
-            "desc": "Add TBurn Commerce SDK to your project."
+            "title": "تثبيت SDK",
+            "desc": "أضف TBurn Commerce SDK إلى مشروعك."
           },
           "step3": {
-            "title": "Configure Webhooks",
-            "desc": "Set up payment confirmation and order update notifications."
+            "title": "تكوين Webhooks",
+            "desc": "إعداد إشعارات تأكيد الدفع وتحديث الطلبات."
           }
         },
         "sections": {
           "coreFeatures": {
-            "title": "Commerce Features",
-            "subtitle": "Everything you need to accept crypto payments and grow your business."
+            "title": "ميزات التجارة",
+            "subtitle": "كل ما تحتاجه لقبول مدفوعات العملات المشفرة وتنمية أعمالك."
           },
           "platforms": {
-            "title": "Integration Platforms"
+            "title": "منصات التكامل"
           },
           "successStories": {
-            "title": "Success Stories"
+            "title": "قصص النجاح"
           },
           "integration": {
-            "title": "Quick Integration Guide"
+            "title": "دليل التكامل السريع"
           }
         }
       },
       "financial": {
-        "tag": "FINANCE",
-        "title": "Financial",
-        "titleHighlight": "Services",
-        "subtitle": "Enterprise financial infrastructure on blockchain. Banking-grade security with DeFi innovation.",
+        "tag": "المالية",
+        "title": "الخدمات",
+        "titleHighlight": "المالية",
+        "subtitle": "بنية مالية مؤسسية على البلوكتشين. أمان على مستوى البنوك مع ابتكار DeFi.",
         "buttons": {
           "startBuilding": "ابدأ البناء",
           "readWhitepaper": "قراءة الورقة البيضاء"
         },
         "services": {
           "banking": {
-            "title": "Digital Banking Infrastructure",
-            "desc": "Build neo-banking products with blockchain settlement. Instant transfers, programmable accounts, and full regulatory compliance."
+            "title": "بنية الخدمات المصرفية الرقمية",
+            "desc": "ابنِ منتجات مصرفية جديدة مع تسوية البلوكتشين. تحويلات فورية وحسابات قابلة للبرمجة وامتثال تنظيمي كامل."
           },
           "defi": {
-            "title": "DeFi Protocol Integration",
-            "desc": "Connect traditional finance with decentralized protocols. Access lending, staking, and yield generation with institutional-grade security."
+            "title": "تكامل بروتوكول DeFi",
+            "desc": "اربط التمويل التقليدي بالبروتوكولات اللامركزية. الوصول إلى الإقراض والستاكينغ وتوليد العائد بأمان على مستوى المؤسسات."
           },
           "payment": {
-            "title": "Cross-Border Payments",
-            "desc": "Global settlements in seconds, not days. Reduce costs by 99% with blockchain-based international transfers."
+            "title": "المدفوعات عبر الحدود",
+            "desc": "تسويات عالمية في ثوانٍ وليس أيام. خفض التكاليف بنسبة 99% مع التحويلات الدولية المستندة للبلوكتشين."
           },
           "compliance": {
-            "title": "Regulatory Compliance",
-            "desc": "Built-in KYC/AML verification and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+            "title": "الامتثال التنظيمي",
+            "desc": "التحقق المدمج من KYC/AML ومسارات التدقيق. استوفِ لوائح GDPR وSOC2 والتنظيمات المالية تلقائياً."
           }
         },
         "stats": {
-          "tvl": "Total Value Locked",
-          "apy": "Average APY",
-          "dau": "Daily Active Users"
+          "tvl": "إجمالي القيمة المقفلة",
+          "apy": "متوسط العائد السنوي",
+          "dau": "المستخدمون النشطون يومياً"
         },
         "cases": {
           "neobank": {
             "name": "NeoBank X",
-            "type": "Digital Banking Platform",
-            "quote": "TBurn's infrastructure allowed us to launch in 3 months instead of 18. Our customers love instant transfers.",
+            "type": "منصة مصرفية رقمية",
+            "quote": "سمحت لنا بنية TBurn التحتية بالإطلاق في 3 أشهر بدلاً من 18. عملاؤنا يحبون التحويلات الفورية.",
             "stats": {
-              "customers": "150K Customers",
-              "costs": "90% Cost Reduction"
+              "customers": "150K عميل",
+              "costs": "90% خفض في التكاليف"
             }
           },
           "defiProtocol": {
             "name": "DeFi Prime",
-            "type": "Lending Protocol",
-            "quote": "Trust Score integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "type": "بروتوكول الإقراض",
+            "quote": "تكامل درجة الثقة قلل الديون المعدومة إلى ما يقرب الصفر. المقرضون لدينا يشعرون بالأمان مع العلم أن كل مقترض موثق.",
             "stats": {
               "tvl": "$500M TVL",
-              "liquidations": "Zero Bad Debt"
+              "liquidations": "صفر ديون معدومة"
             }
           }
         },
         "building": {
           "step1": {
-            "title": "Architecture Consultation",
-            "desc": "Our team helps design your financial product architecture, ensuring regulatory compliance from day one."
+            "title": "استشارة البنية",
+            "desc": "يساعد فريقنا في تصميم بنية منتجك المالي، مما يضمن الامتثال التنظيمي من اليوم الأول."
           },
           "step2": {
             "title": "تكامل API",
-            "desc": "Connect to TBurn's financial APIs for payments, lending, and asset management."
+            "desc": "اتصل بواجهات TBurn المالية للمدفوعات والإقراض وإدارة الأصول."
           },
           "step3": {
-            "title": "Compliance Setup",
-            "desc": "Configure KYC/AML flows and audit logging to meet your regulatory requirements."
+            "title": "إعداد الامتثال",
+            "desc": "قم بتكوين تدفقات KYC/AML وتسجيل التدقيق لتلبية متطلباتك التنظيمية."
           },
           "step4": {
-            "title": "Production Launch",
-            "desc": "Deploy with 24/7 monitoring, enterprise SLA, and dedicated support."
+            "title": "الإطلاق الإنتاجي",
+            "desc": "انشر مع المراقبة على مدار الساعة واتفاقية مستوى الخدمة المؤسسية والدعم المخصص."
           }
         },
         "sections": {
           "coreServices": {
-            "title": "Core Financial Services",
-            "subtitle": "Enterprise-grade blockchain infrastructure for modern finance."
+            "title": "الخدمات المالية الأساسية",
+            "subtitle": "بنية بلوكتشين تحتية على مستوى المؤسسات للتمويل الحديث."
           },
           "realCases": {
-            "title": "Real-World Success"
+            "title": "النجاح الواقعي"
           },
           "building": {
-            "title": "Build Financial Products"
+            "title": "بناء المنتجات المالية"
           }
         }
       },
       "aiFeatures": {
-        "tag": "AI POWERED",
-        "title": "AI Features",
-        "titleHighlight": "Triple-Band Orchestration",
-        "subtitle": "Triple-Band AI orchestration for intelligent blockchain operations. Three specialized AI tiers working in harmony for optimal decision-making.",
+        "tag": "مدعوم بالذكاء الاصطناعي",
+        "title": "ميزات الذكاء الاصطناعي",
+        "titleHighlight": "التنسيق ثلاثي النطاق",
+        "subtitle": "تنسيق الذكاء الاصطناعي ثلاثي النطاق لعمليات البلوكتشين الذكية. ثلاثة مستويات متخصصة من الذكاء الاصطناعي تعمل بتناغم لاتخاذ القرارات المثلى.",
         "tiers": {
           "strategic": {
-            "title": "Strategic AI",
+            "title": "الذكاء الاصطناعي الاستراتيجي",
             "model": "GPT-4 / Claude 3",
-            "description": "High-level decision making for governance, tokenomics design, and long-term risk assessment. Processes complex analyses with human-like reasoning.",
+            "description": "اتخاذ القرارات عالية المستوى للحوكمة وتصميم اقتصاديات الرموز وتقييم المخاطر طويلة المدى. يعالج التحليلات المعقدة بتفكير يشبه الإنسان.",
             "capabilities": {
-              "governance": "DAO Proposal Analysis",
-              "tokenomics": "Tokenomics Optimization",
-              "risk": "Strategic Risk Assessment"
+              "governance": "تحليل مقترحات DAO",
+              "tokenomics": "تحسين اقتصاديات الرموز",
+              "risk": "تقييم المخاطر الاستراتيجية"
             }
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "الذكاء الاصطناعي التكتيكي",
             "model": "GPT-3.5 / Mistral",
-            "description": "Real-time security monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "description": "مراقبة الأمان في الوقت الفعلي واكتشاف الاحتيال. يحلل أنماط المعاملات ويحدد الثغرات قبل الاستغلال.",
             "capabilities": {
-              "vulnerability": "Smart Contract Auditing",
-              "fraud": "Fraud Pattern Detection",
-              "fee": "Dynamic Fee Optimization"
+              "vulnerability": "تدقيق العقود الذكية",
+              "fraud": "اكتشاف أنماط الاحتيال",
+              "fee": "تحسين الرسوم الديناميكي"
             }
           },
           "operational": {
-            "title": "Operational AI",
-            "model": "Custom ML Models",
-            "description": "Ultra-fast transaction validation and network health monitoring. Optimized for speed with sub-50ms response times.",
+            "title": "الذكاء الاصطناعي التشغيلي",
+            "model": "نماذج ML مخصصة",
+            "description": "التحقق من المعاملات فائق السرعة ومراقبة صحة الشبكة. مُحسَّن للسرعة بأوقات استجابة أقل من 50 مللي ثانية.",
             "capabilities": {
-              "validation": "Transaction Validation",
-              "mev": "MEV Protection",
-              "health": "Network Health Monitoring"
+              "validation": "التحقق من المعاملات",
+              "mev": "حماية MEV",
+              "health": "مراقبة صحة الشبكة"
             }
           }
         },
         "architecture": {
           "step1": {
-            "title": "Data Ingestion",
-            "description": "Real-time blockchain data, mempool transactions, and market feeds are continuously processed."
+            "title": "استيعاب البيانات",
+            "description": "بيانات البلوكتشين في الوقت الفعلي ومعاملات mempool وتغذيات السوق تُعالج باستمرار."
           },
           "step2": {
-            "title": "AI Processing",
-            "description": "Each tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+            "title": "معالجة الذكاء الاصطناعي",
+            "description": "يعالج كل مستوى البيانات ذات الصلة: التشغيلي للسرعة، التكتيكي للأمان، الاستراتيجي للرؤى."
           },
           "step3": {
-            "title": "Coordinated Response",
-            "description": "AI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+            "title": "الاستجابة المنسقة",
+            "description": "تتواصل مستويات الذكاء الاصطناعي بالنتائج، مع تجاوز المستويات الأعلى لقرارات المستويات الأدنى عند الضرورة."
           }
         },
         "stats": {
           "uptime": {
-            "title": "99.99% Uptime",
-            "desc": "Redundant AI clusters across multiple regions"
+            "title": "99.99% وقت التشغيل",
+            "desc": "مجموعات ذكاء اصطناعي متكررة عبر مناطق متعددة"
           },
           "cost": {
-            "title": "90% Cost Reduction",
-            "desc": "Efficient tier routing minimizes compute costs"
+            "title": "90% خفض في التكاليف",
+            "desc": "التوجيه الفعال للمستويات يقلل تكاليف الحوسبة"
           },
           "scale": {
             "title": "100K+ TPS",
-            "desc": "Operational AI handles massive throughput"
+            "desc": "الذكاء الاصطناعي التشغيلي يتعامل مع إنتاجية ضخمة"
           },
           "verify": {
-            "title": "AI-Verified Trust",
-            "desc": "Continuous project scoring and monitoring"
+            "title": "ثقة موثقة بالذكاء الاصطناعي",
+            "desc": "تسجيل ومراقبة مستمرة للمشاريع"
           }
         },
         "sections": {
           "architecture": {
-            "title": "AI Architecture"
+            "title": "بنية الذكاء الاصطناعي"
           },
           "relatedSolutions": {
             "title": "الحلول ذات الصلة",
-            "subtitle": "Explore how AI enhances other TBurn products"
+            "subtitle": "اكتشف كيف يعزز الذكاء الاصطناعي منتجات TBurn الأخرى"
           },
           "developerResources": {
             "title": "موارد المطورين",
-            "subtitle": "Integrate AI capabilities into your applications"
+            "subtitle": "ادمج قدرات الذكاء الاصطناعي في تطبيقاتك"
           }
         },
         "relatedLinks": {
           "wallets": {
-            "title": "Wallets",
-            "desc": "AI-enhanced security"
+            "title": "المحافظ",
+            "desc": "أمان معزز بالذكاء الاصطناعي"
           },
           "payments": {
-            "title": "Payments",
-            "desc": "Smart fraud detection"
+            "title": "المدفوعات",
+            "desc": "اكتشاف الاحتيال الذكي"
           },
           "gameTooling": {
-            "title": "Game Tooling",
-            "desc": "Anti-cheat AI systems"
+            "title": "أدوات الألعاب",
+            "desc": "أنظمة مكافحة الغش بالذكاء الاصطناعي"
           },
           "financial": {
-            "title": "Financial Services",
-            "desc": "Risk assessment AI"
+            "title": "الخدمات المالية",
+            "desc": "تقييم المخاطر بالذكاء الاصطناعي"
           }
         },
         "devResources": {
           "sdkGuide": {
-            "title": "AI SDK Guide",
-            "desc": "Integration documentation"
+            "title": "دليل AI SDK",
+            "desc": "وثائق التكامل"
           },
           "smartContracts": {
-            "title": "AI Contracts",
-            "desc": "On-chain AI interfaces"
+            "title": "عقود الذكاء الاصطناعي",
+            "desc": "واجهات الذكاء الاصطناعي على السلسلة"
           },
           "apiReference": {
-            "title": "API Reference",
-            "desc": "REST & GraphQL APIs"
+            "title": "مرجع API",
+            "desc": "واجهات REST & GraphQL"
           },
           "websocket": {
-            "title": "Real-Time Events",
-            "desc": "WebSocket streaming"
+            "title": "الأحداث الفورية",
+            "desc": "بث WebSocket"
           },
           "cli": {
-            "title": "CLI Tools",
-            "desc": "Command line interface"
+            "title": "أدوات CLI",
+            "desc": "واجهة سطر الأوامر"
           },
           "examples": {
-            "title": "Code Examples",
-            "desc": "Sample integrations"
+            "title": "أمثلة الكود",
+            "desc": "تكاملات نموذجية"
           }
         },
         "learnMore": {
-          "label": "LEARN MORE",
+          "label": "تعلم المزيد",
           "defiMastery": {
-            "title": "AI in DeFi",
-            "desc": "Advanced AI strategies for DeFi"
+            "title": "الذكاء الاصطناعي في DeFi",
+            "desc": "استراتيجيات ذكاء اصطناعي متقدمة لـ DeFi"
           }
         },
         "forDevelopers": {
-          "label": "FOR DEVELOPERS",
+          "label": "للمطورين",
           "devCourse": {
-            "title": "AI Developer Course",
-            "desc": "Build AI-powered dApps"
+            "title": "دورة مطوري الذكاء الاصطناعي",
+            "desc": "ابنِ تطبيقات dApps مدعومة بالذكاء الاصطناعي"
           }
         }
       },
       "artistsCreators": {
-        "tag": "CREATIVE",
-        "title": "Artists &",
-        "titleHighlight": "Creators",
-        "subtitle": "NFT minting, royalties, and creator economy tools. Build your digital art empire with Trust-verified authenticity.",
+        "tag": "إبداعي",
+        "title": "الفنانون",
+        "titleHighlight": "والمبدعون",
+        "subtitle": "سك NFT والعائدات وأدوات اقتصاد المبدعين. ابنِ إمبراطوريتك الفنية الرقمية مع أصالة موثقة بدرجة الثقة.",
         "buttons": {
-          "startCreating": "Start Creating",
-          "exploreCollections": "Explore Collections"
+          "startCreating": "ابدأ الإبداع",
+          "exploreCollections": "استكشف المجموعات"
         },
         "features": {
           "lightningPerformance": {
-            "title": "Lightning-Fast Minting",
-            "description": "Mint NFTs in seconds with 50,000+ TPS capacity. Batch minting for large collections with minimal gas fees."
+            "title": "سك بسرعة البرق",
+            "description": "اسك NFT في ثوانٍ بسعة 50,000+ TPS. السك الجماعي للمجموعات الكبيرة برسوم غاز ضئيلة."
           },
           "trustVerification": {
-            "title": "Trust Verification",
-            "description": "Every NFT collection displays its Trust Score. Buyers can verify creator authenticity and collection legitimacy instantly."
+            "title": "التحقق من الثقة",
+            "description": "كل مجموعة NFT تعرض درجة الثقة الخاصة بها. يمكن للمشترين التحقق من أصالة المبدع وشرعية المجموعة فوراً."
           },
           "thrivingEcosystem": {
-            "title": "Thriving Ecosystem",
-            "description": "Join 15,000+ verified artists. Access marketplaces, galleries, and collector communities built on trust."
+            "title": "نظام بيئي مزدهر",
+            "description": "انضم إلى أكثر من 15,000 فنان موثق. الوصول إلى الأسواق والمعارض ومجتمعات الجامعين المبنية على الثقة."
           },
           "infiniteScalability": {
-            "title": "Infinite Scalability",
-            "description": "From 1-of-1 artwork to 10,000 piece generative collections. Our infrastructure scales with your creative vision."
+            "title": "قابلية توسع لا نهائية",
+            "description": "من أعمال فنية فريدة إلى مجموعات توليدية من 10,000 قطعة. بنيتنا التحتية تتوسع مع رؤيتك الإبداعية."
           }
         },
         "stats": {
-          "nftsMinted": "NFTs MINTED",
-          "creatorEarnings": "CREATOR EARNINGS",
-          "verifiedArtists": "VERIFIED ARTISTS"
+          "nftsMinted": "NFT مسكوكة",
+          "creatorEarnings": "أرباح المبدعين",
+          "verifiedArtists": "فنانون موثقون"
         },
         "relatedSolutions": {
           "title": "الحلول ذات الصلة",
-          "description": "Enhance your creative journey with complementary tools",
+          "description": "عزز رحلتك الإبداعية بأدوات تكميلية",
           "tokenExtensions": {
-            "title": "Token Extensions",
-            "subtitle": "Custom token standards"
+            "title": "امتدادات الرموز",
+            "subtitle": "معايير رموز مخصصة"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "Secure asset storage"
+            "title": "المحافظ",
+            "subtitle": "تخزين آمن للأصول"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "Sell your creations"
+            "title": "التجارة",
+            "subtitle": "بيع إبداعاتك"
           },
           "gameTooling": {
-            "title": "Game Tooling",
-            "subtitle": "Gaming NFTs"
+            "title": "أدوات الألعاب",
+            "subtitle": "NFT الألعاب"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Accept crypto"
+            "title": "المدفوعات",
+            "subtitle": "قبول العملات المشفرة"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
-            "subtitle": "Social NFT sharing"
+            "title": "الإجراءات والوميض",
+            "subtitle": "مشاركة NFT الاجتماعية"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "Creator finance"
+            "title": "الخدمات المالية",
+            "subtitle": "تمويل المبدعين"
           },
           "aiFeatures": {
-            "title": "AI Features",
-            "subtitle": "AI-powered creation"
+            "title": "ميزات الذكاء الاصطناعي",
+            "subtitle": "إبداع مدعوم بالذكاء الاصطناعي"
           }
         },
         "developerResources": {
           "title": "موارد المطورين",
-          "description": "Build NFT platforms and creator tools with our comprehensive SDK",
+          "description": "ابنِ منصات NFT وأدوات المبدعين مع SDK الشاملة لدينا",
           "sdkGuide": {
-            "title": "NFT SDK Guide",
-            "subtitle": "Integration documentation"
+            "title": "دليل NFT SDK",
+            "subtitle": "وثائق التكامل"
           },
           "smartContracts": {
             "title": "العقود الذكية",
-            "subtitle": "ERC-721/1155 templates"
+            "subtitle": "قوالب ERC-721/1155"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GraphQL APIs"
+            "title": "مرجع API",
+            "subtitle": "واجهات REST & GraphQL"
           },
           "websocketApi": {
-            "title": "WebSocket API",
-            "subtitle": "Real-time events"
+            "title": "واجهة WebSocket",
+            "subtitle": "الأحداث الفورية"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line minting"
+            "title": "أدوات CLI",
+            "subtitle": "السك بسطر الأوامر"
           },
           "codeExamples": {
-            "title": "Code Examples",
-            "subtitle": "Sample integrations"
+            "title": "أمثلة الكود",
+            "subtitle": "تكاملات نموذجية"
           }
         },
         "learnMore": {
-          "title": "LEARN MORE",
-          "forDevelopers": "FOR DEVELOPERS",
+          "title": "تعلم المزيد",
+          "forDevelopers": "للمطورين",
           "defiMastery": {
-            "title": "NFT Mastery Course",
-            "subtitle": "Advanced NFT creation and marketing"
+            "title": "دورة إتقان NFT",
+            "subtitle": "إنشاء وتسويق NFT المتقدم"
           },
           "developerCourse": {
-            "title": "Creator Developer Course",
-            "subtitle": "Build NFT platforms and marketplaces"
+            "title": "دورة مطوري المبدعين",
+            "subtitle": "ابنِ منصات وأسواق NFT"
           }
         },
         "cta": {
-          "title": "Ready to Create on TBurn?",
-          "description": "Join thousands of artists and creators building the future of digital ownership.",
-          "link": "View Creator Documentation"
+          "title": "هل أنت مستعد للإبداع على TBurn؟",
+          "description": "انضم إلى آلاف الفنانين والمبدعين الذين يبنون مستقبل الملكية الرقمية.",
+          "link": "عرض وثائق المبدعين"
         }
       },
       "btcfi": {
-        "tag": "BITCOIN DEFI",
+        "tag": "Bitcoin DeFi",
         "title": "BTCfi",
         "titleHighlight": "Bitcoin DeFi",
-        "subtitle": "Bitcoin DeFi integration with wrapped BTC and cross-chain yields. Unlock your Bitcoin's earning potential.",
+        "subtitle": "تكامل Bitcoin DeFi مع BTC المغلف والعائدات عبر السلاسل. أطلق إمكانات كسب البيتكوين الخاصة بك.",
         "buttons": {
-          "bridgeBtc": "Bridge BTC",
-          "viewYields": "View Yields"
+          "bridgeBtc": "جسر BTC",
+          "viewYields": "عرض العائدات"
         },
         "features": {
           "highPerformance": {
-            "title": "High Performance Bridge",
-            "description": "Bridge Bitcoin to TBurn in under 10 minutes. MPC security ensures your BTC is always safe with trustless verification."
+            "title": "جسر عالي الأداء",
+            "description": "جسر البيتكوين إلى TBurn في أقل من 10 دقائق. أمان MPC يضمن أن BTC الخاص بك آمن دائماً مع التحقق بدون ثقة."
           },
           "trustVerification": {
-            "title": "Trust Verification",
-            "description": "All BTCfi protocols display Trust Scores. Only verified protocols with 60%+ scores are featured on our platform."
+            "title": "التحقق من الثقة",
+            "description": "جميع بروتوكولات BTCfi تعرض درجات الثقة. فقط البروتوكولات الموثقة بدرجات 60%+ تُعرض على منصتنا."
           },
           "growingEcosystem": {
-            "title": "Growing Ecosystem",
-            "description": "Access lending, staking, and yield farming with your Bitcoin. Native BTC earning opportunities without selling."
+            "title": "نظام بيئي متنامٍ",
+            "description": "الوصول إلى الإقراض والستاكينغ وزراعة العائد مع البيتكوين الخاص بك. فرص كسب BTC أصلية بدون بيع."
           },
           "scalableSolutions": {
-            "title": "Scalable Solutions",
-            "description": "From individual holders to institutional treasuries. Our infrastructure handles any volume with consistent performance."
+            "title": "حلول قابلة للتوسع",
+            "description": "من الحائزين الأفراد إلى خزائن المؤسسات. بنيتنا التحتية تتعامل مع أي حجم بأداء ثابت."
           }
         },
         "stats": {
-          "btcBridged": "BTC BRIDGED",
+          "btcBridged": "BTC مُجَسَّر",
           "tvl": "TVL",
           "zeroValue": "0",
-          "securityIncidents": "SECURITY INCIDENTS"
+          "securityIncidents": "حوادث أمنية"
         },
         "productsSection": {
-          "title": "BTCfi Products",
-          "description": "Multiple ways to put your Bitcoin to work"
+          "title": "منتجات BTCfi",
+          "description": "طرق متعددة لتشغيل البيتكوين الخاص بك"
         },
         "products": {
           "tbtcBridge": {
-            "title": "tBTC Bridge",
-            "description": "Trustless Bitcoin bridging with MPC security. No centralized custodians.",
-            "stats": "15K+ BTC Bridged"
+            "title": "جسر tBTC",
+            "description": "جسر بيتكوين بدون ثقة مع أمان MPC. بدون أمناء مركزيين.",
+            "stats": "15K+ BTC مُجَسَّر"
           },
           "btcLending": {
-            "title": "BTC Lending",
-            "description": "Borrow stablecoins against your BTC. Up to 75% LTV with competitive rates.",
+            "title": "إقراض BTC",
+            "description": "اقترض العملات المستقرة مقابل BTC الخاص بك. حتى 75% LTV بأسعار تنافسية.",
             "stats": "5.2% APR"
           },
           "btcYieldFarming": {
-            "title": "BTC Yield Farming",
-            "description": "Provide BTC liquidity and earn trading fees plus TBURN rewards.",
+            "title": "زراعة عائد BTC",
+            "description": "قدم سيولة BTC واكسب رسوم التداول بالإضافة إلى مكافآت TBURN.",
             "stats": "12.5% APY"
           },
           "btcStaking": {
-            "title": "BTC Staking",
-            "description": "Stake wrapped BTC to secure the network and earn passive rewards.",
+            "title": "ستاكينغ BTC",
+            "description": "قم بستاكينغ BTC المغلف لتأمين الشبكة وكسب مكافآت سلبية.",
             "stats": "8.3% APY"
           }
         },
         "relatedSolutions": {
           "title": "الحلول ذات الصلة",
-          "description": "Enhance your BTCfi experience with these tools",
+          "description": "عزز تجربة BTCfi الخاصة بك بهذه الأدوات",
           "tokenExtensions": {
-            "title": "Token Extensions",
-            "subtitle": "BRC-20 standards"
+            "title": "امتدادات الرموز",
+            "subtitle": "معايير BRC-20"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "BTC-compatible wallets"
+            "title": "المحافظ",
+            "subtitle": "محافظ متوافقة مع BTC"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Pay with BTC"
+            "title": "المدفوعات",
+            "subtitle": "الدفع بـ BTC"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "BTC banking"
+            "title": "الخدمات المالية",
+            "subtitle": "الخدمات المصرفية لـ BTC"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "Accept BTC"
+            "title": "التجارة",
+            "subtitle": "قبول BTC"
           },
           "permissioned": {
-            "title": "Permissioned",
-            "subtitle": "Enterprise BTC"
+            "title": "المرخصة",
+            "subtitle": "BTC المؤسسي"
           },
           "aiFeatures": {
-            "title": "AI Features",
-            "subtitle": "Smart BTC strategies"
+            "title": "ميزات الذكاء الاصطناعي",
+            "subtitle": "استراتيجيات BTC الذكية"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
-            "subtitle": "BTC transactions"
+            "title": "الإجراءات والوميض",
+            "subtitle": "معاملات BTC"
           }
         },
         "developerResources": {
           "title": "موارد المطورين",
-          "description": "Build BTCfi applications with our comprehensive tools",
+          "description": "ابنِ تطبيقات BTCfi بأدواتنا الشاملة",
           "sdkGuide": {
-            "title": "BTCfi SDK Guide",
-            "subtitle": "Integration documentation"
+            "title": "دليل BTCfi SDK",
+            "subtitle": "وثائق التكامل"
           },
           "smartContracts": {
             "title": "العقود الذكية",
-            "subtitle": "BTC contract templates"
+            "subtitle": "قوالب عقود BTC"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GraphQL APIs"
+            "title": "مرجع API",
+            "subtitle": "واجهات REST & GraphQL"
           },
           "websocketApi": {
-            "title": "WebSocket API",
-            "subtitle": "Real-time BTC events"
+            "title": "واجهة WebSocket",
+            "subtitle": "أحداث BTC الفورية"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line interface"
+            "title": "أدوات CLI",
+            "subtitle": "واجهة سطر الأوامر"
           },
           "codeExamples": {
-            "title": "Code Examples",
-            "subtitle": "Sample integrations"
+            "title": "أمثلة الكود",
+            "subtitle": "تكاملات نموذجية"
           }
         },
         "learnMore": {
-          "title": "LEARN MORE",
-          "gettingStarted": "GETTING STARTED",
+          "title": "تعلم المزيد",
+          "gettingStarted": "البداية",
           "defiMastery": {
-            "title": "BTCfi Mastery Course",
-            "subtitle": "Advanced Bitcoin DeFi strategies"
+            "title": "دورة إتقان BTCfi",
+            "subtitle": "استراتيجيات Bitcoin DeFi المتقدمة"
           },
           "introToDefi": {
-            "title": "Introduction to BTCfi",
-            "subtitle": "Learn Bitcoin DeFi fundamentals"
+            "title": "مقدمة في BTCfi",
+            "subtitle": "تعلم أساسيات Bitcoin DeFi"
           }
         },
         "cta": {
-          "title": "Ready to Unlock Your Bitcoin?",
-          "description": "Start earning yield on your BTC today with trust-verified protocols.",
-          "link": "View BTCfi Documentation"
+          "title": "هل أنت مستعد لإطلاق البيتكوين الخاص بك؟",
+          "description": "ابدأ بكسب العائد على BTC الخاص بك اليوم مع بروتوكولات موثقة.",
+          "link": "عرض وثائق BTCfi"
         }
       },
       "crossChainBridge": {
-        "tag": "BRIDGE",
-        "title": "Cross-Chain",
-        "titleHighlight": "Bridge",
-        "subtitle": "Secure asset transfers across 7+ blockchain networks. MPC security with atomic swaps and unified liquidity.",
+        "tag": "الجسر",
+        "title": "الجسر",
+        "titleHighlight": "عبر السلاسل",
+        "subtitle": "نقل آمن للأصول عبر أكثر من 7 شبكات بلوكتشين. أمان MPC مع المبادلات الذرية والسيولة الموحدة.",
         "buttons": {
-          "launchBridge": "Launch Bridge",
-          "viewDocumentation": "View Documentation"
+          "launchBridge": "إطلاق الجسر",
+          "viewDocumentation": "عرض الوثائق"
         },
         "heroStats": {
-          "chains": "SUPPORTED CHAINS",
-          "volume": "TOTAL VOLUME",
-          "txns": "TOTAL TRANSACTIONS",
-          "avgTime": "AVG BRIDGE TIME"
+          "chains": "السلاسل المدعومة",
+          "volume": "إجمالي الحجم",
+          "txns": "إجمالي المعاملات",
+          "avgTime": "متوسط وقت الجسر"
         },
         "supportedNetworks": {
-          "title": "Supported Networks",
-          "subtitle": "Bridge assets to and from major blockchain networks"
+          "title": "الشبكات المدعومة",
+          "subtitle": "جسر الأصول من وإلى شبكات البلوكتشين الرئيسية"
         },
         "coreFeatures": {
           "mpcSecurity": {
-            "title": "MPC Security",
-            "subtitle": "Multi-Party Computation for trustless bridging",
+            "title": "أمان MPC",
+            "subtitle": "حساب متعدد الأطراف للجسر بدون ثقة",
             "items": {
-              "distributedKeyGen": "Distributed Key Generation",
-              "thresholdSignatures": "Threshold Signatures",
-              "regularKeyRotation": "Regular Key Rotation"
+              "distributedKeyGen": "توليد المفاتيح الموزع",
+              "thresholdSignatures": "التوقيعات العتبية",
+              "regularKeyRotation": "تدوير المفاتيح المنتظم"
             }
           },
           "atomicSwaps": {
-            "title": "Atomic Swaps",
-            "subtitle": "All-or-nothing transaction guarantees",
+            "title": "المبادلات الذرية",
+            "subtitle": "ضمانات معاملات الكل أو لا شيء",
             "items": {
-              "htlcContracts": "HTLC Smart Contracts",
-              "zeroSlippage": "Zero Slippage Swaps",
-              "autoRefund": "Automatic Refunds"
+              "htlcContracts": "عقود HTLC الذكية",
+              "zeroSlippage": "مبادلات بدون انزلاق",
+              "autoRefund": "استرداد تلقائي"
             }
           },
           "unifiedLiquidity": {
-            "title": "Unified Liquidity",
-            "subtitle": "Deep cross-chain liquidity pools",
+            "title": "السيولة الموحدة",
+            "subtitle": "مجمعات سيولة عميقة عبر السلاسل",
             "items": {
-              "crossChainPools": "Cross-Chain Liquidity Pools",
-              "dynamicRebalancing": "Dynamic Pool Rebalancing",
-              "largeTransferSupport": "Large Transfer Support"
+              "crossChainPools": "مجمعات السيولة عبر السلاسل",
+              "dynamicRebalancing": "إعادة التوازن الديناميكي للمجمعات",
+              "largeTransferSupport": "دعم التحويلات الكبيرة"
             }
           }
         },
         "howItWorks": {
-          "title": "How the Bridge Works"
+          "title": "كيف يعمل الجسر"
         },
         "bridgeSteps": {
           "step1": {
-            "title": "Connect Wallet",
-            "desc": "Connect your wallet and select source/destination chains."
+            "title": "اتصل بالمحفظة",
+            "desc": "اتصل بمحفظتك واختر سلاسل المصدر والوجهة."
           },
           "step2": {
-            "title": "Select Assets",
-            "desc": "Choose tokens to bridge and enter the amount."
+            "title": "اختر الأصول",
+            "desc": "اختر الرموز للجسر وأدخل المبلغ."
           },
           "step3": {
-            "title": "Confirm Transfer",
-            "desc": "Review fees and Trust Score verification, then confirm."
+            "title": "تأكيد التحويل",
+            "desc": "راجع الرسوم والتحقق من درجة الثقة، ثم أكد."
           },
           "step4": {
-            "title": "Receive Assets",
-            "desc": "Assets arrive on destination chain in ~2 minutes."
+            "title": "استلام الأصول",
+            "desc": "تصل الأصول إلى السلسلة الوجهة في حوالي دقيقتين."
           }
         },
         "relatedSolutions": {
           "title": "الحلول ذات الصلة",
-          "description": "Enhance your cross-chain experience with these tools",
+          "description": "عزز تجربتك عبر السلاسل بهذه الأدوات",
           "btcfi": {
             "title": "BTCfi",
-            "subtitle": "Bridge Bitcoin"
+            "subtitle": "جسر البيتكوين"
           },
           "tokenExtensions": {
-            "title": "Token Extensions",
-            "subtitle": "Cross-chain tokens"
+            "title": "امتدادات الرموز",
+            "subtitle": "رموز عبر السلاسل"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "Multi-chain wallets"
+            "title": "المحافظ",
+            "subtitle": "محافظ متعددة السلاسل"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Cross-chain payments"
+            "title": "المدفوعات",
+            "subtitle": "المدفوعات عبر السلاسل"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "Multi-chain finance"
+            "title": "الخدمات المالية",
+            "subtitle": "التمويل متعدد السلاسل"
           },
           "permissioned": {
-            "title": "Permissioned",
-            "subtitle": "Enterprise bridges"
+            "title": "المرخصة",
+            "subtitle": "جسور المؤسسات"
           },
           "aiFeatures": {
-            "title": "AI Features",
-            "subtitle": "Smart routing"
+            "title": "ميزات الذكاء الاصطناعي",
+            "subtitle": "التوجيه الذكي"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
-            "subtitle": "Bridge via links"
+            "title": "الإجراءات والوميض",
+            "subtitle": "الجسر عبر الروابط"
           }
         },
         "developerResources": {
           "title": "موارد المطورين",
-          "description": "Integrate cross-chain functionality into your applications",
+          "description": "ادمج وظائف عبر السلاسل في تطبيقاتك",
           "sdkGuide": {
-            "title": "Bridge SDK Guide",
-            "subtitle": "Integration documentation"
+            "title": "دليل Bridge SDK",
+            "subtitle": "وثائق التكامل"
           },
           "smartContracts": {
             "title": "العقود الذكية",
-            "subtitle": "Bridge contracts"
+            "subtitle": "عقود الجسر"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GraphQL APIs"
+            "title": "مرجع API",
+            "subtitle": "واجهات REST & GraphQL"
           },
           "websocketApi": {
-            "title": "WebSocket API",
-            "subtitle": "Real-time updates"
+            "title": "واجهة WebSocket",
+            "subtitle": "التحديثات الفورية"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line bridging"
+            "title": "أدوات CLI",
+            "subtitle": "الجسر بسطر الأوامر"
           },
           "codeExamples": {
-            "title": "Code Examples",
-            "subtitle": "Sample integrations"
+            "title": "أمثلة الكود",
+            "subtitle": "تكاملات نموذجية"
           }
         },
         "learnMore": {
-          "title": "LEARN MORE",
-          "forDevelopers": "FOR DEVELOPERS",
-          "gettingStarted": "GETTING STARTED",
+          "title": "تعلم المزيد",
+          "forDevelopers": "للمطورين",
+          "gettingStarted": "البداية",
           "defiMastery": {
-            "title": "Cross-Chain DeFi",
-            "subtitle": "Advanced multi-chain strategies"
+            "title": "DeFi عبر السلاسل",
+            "subtitle": "استراتيجيات متقدمة متعددة السلاسل"
           },
           "developerCourse": {
-            "title": "Bridge Developer Course",
-            "subtitle": "Build cross-chain applications"
+            "title": "دورة مطوري الجسر",
+            "subtitle": "ابنِ تطبيقات عبر السلاسل"
           },
           "blockchainBasics": {
-            "title": "Cross-Chain Basics",
-            "subtitle": "Understanding blockchain bridges and interoperability"
+            "title": "أساسيات عبر السلاسل",
+            "subtitle": "فهم جسور البلوكتشين والتشغيل البيني"
           }
         },
         "cta": {
-          "title": "Ready to Bridge Your Assets?",
-          "description": "Transfer assets across chains securely with trust verification.",
-          "link": "View Bridge Documentation",
-          "button": "Launch Bridge App"
+          "title": "هل أنت مستعد لجسر أصولك؟",
+          "description": "انقل الأصول عبر السلاسل بأمان مع التحقق من الثقة.",
+          "link": "عرض وثائق الجسر",
+          "button": "إطلاق تطبيق الجسر"
         }
       }
     },

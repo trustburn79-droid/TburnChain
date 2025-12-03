@@ -7867,23 +7867,23 @@
             "description": "टीम विवरण, व्हाइटपेपर लिंक, ऑडिट रिपोर्ट और बर्न शेड्यूल सहित सभी प्रोजेक्ट जानकारी टोकन मेटाडेटा में ऑन-चेन संग्रहीत होती है।"
           },
           "trustRating": {
-            "title": "Built-in Trust Rating",
-            "description": "Trust scores are automatically recorded in टोकन contracts. When below 40%,",
-            "descriptionContinue": "the ट्रांसफर() फंक्शन automatically fails, blocking transactions.",
-            "badge": "Automated निवेशक Protection"
+            "title": "बिल्ट-इन विश्वास रेटिंग",
+            "description": "विश्वास स्कोर स्वचालित रूप से टोकन कॉन्ट्रैक्ट्स में रिकॉर्ड होते हैं। 40% से नीचे होने पर,",
+            "descriptionContinue": "ट्रांसफर() फंक्शन स्वचालित रूप से विफल हो जाता है, लेनदेन को ब्लॉक करता है।",
+            "badge": "स्वचालित निवेशक सुरक्षा"
           },
           "autoBurn": {
-            "title": "Automatic बर्न शेड्यूल",
-            "description": "If predefined बर्न schedules are not fulfilled, collateralized tokens are automatically burned.",
-            "badge": "Enforced Deflationary Model"
+            "title": "स्वचालित बर्न शेड्यूल",
+            "description": "यदि पूर्व-निर्धारित बर्न शेड्यूल पूरे नहीं होते हैं, तो कोलेटरलाइज्ड टोकन स्वचालित रूप से बर्न हो जाते हैं।",
+            "badge": "प्रवर्तित डिफ्लेशनरी मॉडल"
           },
           "collateral": {
-            "title": "Collateral Transparency",
-            "description": "Project reserve wallet addresses are publicly disclosed on-चेन, with real-समय collateral ratios."
+            "title": "कोलेटरल पारदर्शिता",
+            "description": "प्रोजेक्ट रिजर्व वॉलेट पते सार्वजनिक रूप से ऑन-चेन प्रकट होते हैं, रियल-टाइम कोलेटरल अनुपात के साथ।"
           },
           "metadata": {
-            "title": "Extended Metadata",
-            "description": "All project जानकारी including team विवरण, whitepaper links, and ऑडिट reports stored on-चेन."
+            "title": "विस्तारित मेटाडेटा",
+            "description": "टीम विवरण, व्हाइटपेपर लिंक और ऑडिट रिपोर्ट सहित सभी प्रोजेक्ट जानकारी ऑन-चेन संग्रहीत होती है।"
           }
         },
         "brc20Standard": {
@@ -7907,16 +7907,16 @@
             "description": "प्रत्येक लेनदेन पर ऑटो-बर्न मूल्य बढ़ाता है।"
           },
           "verified": {
-            "title": "Verified Project Tokens",
-            "description": "Tradeable only when maintaining 60%+ trust स्कोर."
+            "title": "सत्यापित प्रोजेक्ट टोकन",
+            "description": "केवल 60%+ विश्वास स्कोर बनाए रखने पर ट्रेड योग्य।"
           },
           "stablecoins": {
-            "title": "Collateral-backed Stablecoins",
-            "description": "Real-समय collateral ratio monitoring and auto liquidation."
+            "title": "कोलेटरल-बैक्ड स्टेबलकॉइन्स",
+            "description": "रियल-टाइम कोलेटरल अनुपात निगरानी और ऑटो लिक्विडेशन।"
           },
           "deflationary": {
-            "title": "Deflationary उपयोगिता Tokens",
-            "description": "Auto-बर्न on each transaction increases मूल्य."
+            "title": "डिफ्लेशनरी यूटिलिटी टोकन",
+            "description": "प्रत्येक लेनदेन पर ऑटो-बर्न मूल्य बढ़ाता है।"
           }
         },
         "realExamples": {
@@ -7941,41 +7941,41 @@
           "viewApiDocs": "API दस्तावेज़ देखें"
         },
         "buttons": {
-          "exploreBrc20": "एक्सप्लोर करें BRC-20",
-          "readSpecs": "Read Specs",
-          "openConsole": "Open डेवलपर Console",
-          "viewApiDocs": "व्यू API Docs"
+          "exploreBrc20": "BRC-20 खोजें",
+          "readSpecs": "स्पेक्स पढ़ें",
+          "openConsole": "डेवलपर कंसोल खोलें",
+          "viewApiDocs": "API दस्तावेज़ देखें"
         },
         "brc20": {
           "title": "BRC-20 टोकन मानक",
-          "subtitle": "Core interfaces for Trust & बर्न functionality.",
-          "trustScoreFunctions": "Trust स्कोर Functions",
-          "autoBurnFunctions": "Auto बर्न Functions"
+          "subtitle": "Trust & Burn कार्यक्षमता के लिए कोर इंटरफेस।",
+          "trustScoreFunctions": "विश्वास स्कोर फंक्शन्स",
+          "autoBurnFunctions": "ऑटो बर्न फंक्शन्स"
         },
         "code": {
           "comments": {
-            "range": "Returns trust स्कोर in रेंज 0-100",
-            "autoBurn": "बर्न tokens according to शेड्यूल"
+            "range": "0-100 रेंज में विश्वास स्कोर लौटाता है",
+            "autoBurn": "शेड्यूल के अनुसार टोकन बर्न करें"
           }
         },
         "useCasesSection": {
-          "title": "टोकन एक्सटेंशन Use Cases"
+          "title": "टोकन एक्सटेंशन उपयोग के मामले"
         },
         "examplesSection": {
-          "title": "Real Use Examples"
+          "title": "वास्तविक उपयोग उदाहरण"
         },
         "examples": {
           "busd": {
             "name": "BUSD (स्टेबलकॉइन)",
-            "badge": "90+ Trust स्कोर"
+            "badge": "90+ विश्वास स्कोर"
           },
           "bgame": {
             "name": "BGAME (GameFi)",
-            "badge": "Auto-बर्न सक्षम"
+            "badge": "ऑटो-बर्न सक्षम"
           },
           "bprop": {
             "name": "BPROP (RWA)",
-            "badge": "Real एसेट Collateral"
+            "badge": "वास्तविक एसेट कोलेटरल"
           }
         }
       },
@@ -8286,92 +8286,92 @@
           }
         },
         "buttons": {
-          "contactSales": "संपर्क Sales",
-          "viewWhitepaper": "व्यू Whitepaper"
+          "contactSales": "सेल्स से संपर्क करें",
+          "viewWhitepaper": "व्हाइटपेपर देखें"
         },
         "features": {
           "rbac": {
-            "title": "Role-Based एक्सेस नियंत्रण",
-            "desc": "Granular अनुमति सेटिंग्स for admins, validators, and users. Separate permissions for smart कॉन्ट्रैक्ट तैनाती, transaction मंजूरी, and डेटा queries based on roles."
+            "title": "भूमिका-आधारित एक्सेस नियंत्रण",
+            "desc": "एडमिन, वैलिडेटर्स और उपयोगकर्ताओं के लिए ग्रैन्युलर अनुमति सेटिंग्स। भूमिकाओं के आधार पर स्मार्ट कॉन्ट्रैक्ट तैनाती, लेनदेन अनुमोदन और डेटा क्वेरीज के लिए अलग अनुमतियां।"
           },
           "whitelist": {
-            "title": "व्हाइटलिस्ट Validators",
-            "desc": "Only trusted validators can participate in the network. Configure the network so that only internal nodes or approved partners can generate and validate blocks."
+            "title": "व्हाइटलिस्ट वैलिडेटर्स",
+            "desc": "केवल विश्वसनीय वैलिडेटर्स नेटवर्क में भाग ले सकते हैं। नेटवर्क को कॉन्फ़िगर करें ताकि केवल आंतरिक नोड्स या स्वीकृत भागीदार ब्लॉक जनरेट और वैलिडेट कर सकें।"
           },
           "compliance": {
-            "title": "Regulatory अनुपालन",
-            "desc": "फ्रेमवर्क designed for global regulations (GDPR, HIPAA, SOC2). Built-in ऑडिट logs, डेटा encryption at rest and in transit, and गोपनीयता-preserving विशेषताएं."
+            "title": "नियामक अनुपालन",
+            "desc": "वैश्विक विनियमों (GDPR, HIPAA, SOC2) के लिए डिज़ाइन किया गया फ्रेमवर्क। बिल्ट-इन ऑडिट लॉग्स, ट्रांजिट और रेस्ट में डेटा एन्क्रिप्शन, और गोपनीयता-संरक्षण सुविधाएं।"
           },
           "multisig": {
-            "title": "Multi-Signature गवर्नेंस",
-            "desc": "Critical network decisions require multi-party मंजूरी. Smart कॉन्ट्रैक्ट upgrades, वैलिडेटर प्रबंधन, and parameter changes require 3/5 or 5/7 signatures."
+            "title": "मल्टी-सिग्नेचर गवर्नेंस",
+            "desc": "महत्वपूर्ण नेटवर्क निर्णयों के लिए बहु-पक्ष अनुमोदन आवश्यक। स्मार्ट कॉन्ट्रैक्ट अपग्रेड, वैलिडेटर प्रबंधन और पैरामीटर परिवर्तनों के लिए 3/5 या 5/7 हस्ताक्षर आवश्यक।"
           }
         },
         "hybrid": {
           "privateAnchor": {
-            "title": "Private चेन + Public Anchor",
-            "desc": "Internal transactions run on a high-speed private चेन, with periodic state hashes anchored to the TBurn Public Mainnet for immutability."
+            "title": "प्राइवेट चेन + पब्लिक एंकर",
+            "desc": "आंतरिक लेनदेन हाई-स्पीड प्राइवेट चेन पर चलते हैं, अपरिवर्तनीयता के लिए TBurn पब्लिक मेननेट पर समय-समय पर स्टेट हैश एंकर किए जाते हैं।"
           },
           "selectiveDisclosure": {
-            "title": "Selective डेटा Disclosure",
-            "desc": "Transaction विवरण remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+            "title": "चयनात्मक डेटा प्रकटीकरण",
+            "desc": "लेनदेन विवरण अधिकृत प्रतिभागियों के लिए निजी रहते हैं, लेकिन आवश्यकता पड़ने पर ऑडिटर्स या नियामकों को क्रिप्टोग्राफिक रूप से सिद्ध किए जा सकते हैं।"
           }
         },
         "diagram": {
-          "privateLayer": "Private Consensus लेयर",
-          "anchoringHash": "ANCHORING हैश",
-          "publicMainnet": "Public Mainnet (L1)"
+          "privateLayer": "प्राइवेट कंसेंसस लेयर",
+          "anchoringHash": "एंकरिंग हैश",
+          "publicMainnet": "पब्लिक मेननेट (L1)"
         },
         "useCases": {
           "exampleLabel": "उदाहरण",
           "supplyChain": {
-            "title": "Supply चेन",
-            "desc": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
-            "example": "Auto Parts Tracking",
-            "flow": "Raw Material → उत्पादन → Assembly"
+            "title": "सप्लाई चेन",
+            "desc": "निर्माता से डिलीवरी तक उत्पादों को ट्रैक करें। प्रतिभागी केवल प्रासंगिक लेनदेन खंड देखते हैं।",
+            "example": "ऑटो पार्ट्स ट्रैकिंग",
+            "flow": "कच्चा माल → उत्पादन → असेंबली"
           },
           "banking": {
-            "title": "Banking Consortium",
-            "desc": "Inter-bank settlement network. Real-समय clearing and settlement with zero counterparty जोखिम.",
-            "example": "Cross-border Remittance",
+            "title": "बैंकिंग कंसोर्टियम",
+            "desc": "इंटर-बैंक सेटलमेंट नेटवर्क। शून्य काउंटरपार्टी जोखिम के साथ रियल-टाइम क्लियरिंग और सेटलमेंट।",
+            "example": "क्रॉस-बॉर्डर रेमिटेंस",
             "flow": "3 दिन → 3 सेकंड, शुल्क $10 → $0.01"
           },
           "medical": {
-            "title": "Medical डेटा",
-            "desc": "Secure patient डेटा sharing between hospitals and insurers. Full HIPAA अनुपालन auditing.",
-            "example": "E-Prescriptions",
-            "flow": "Hospital → Pharmacy → Insurance"
+            "title": "मेडिकल डेटा",
+            "desc": "अस्पतालों और बीमाकर्ताओं के बीच सुरक्षित रोगी डेटा साझाकरण। पूर्ण HIPAA अनुपालन ऑडिटिंग।",
+            "example": "ई-प्रिस्क्रिप्शन",
+            "flow": "अस्पताल → फार्मेसी → बीमा"
           }
         },
         "deployment": {
           "step1": {
-            "title": "Requirements विश्लेषण",
-            "desc": "Identify participants, डिज़ाइन अनुमति schemas, and समीक्षा regulatory requirements."
+            "title": "आवश्यकता विश्लेषण",
+            "desc": "प्रतिभागियों की पहचान करें, अनुमति स्कीमा डिज़ाइन करें और नियामक आवश्यकताओं की समीक्षा करें।"
           },
           "step2": {
-            "title": "Network सेटअप",
-            "desc": "तैनात करें वैलिडेटर nodes, generate genesis ब्लॉक, and develop initial smart contracts."
+            "title": "नेटवर्क सेटअप",
+            "desc": "वैलिडेटर नोड्स तैनात करें, जेनेसिस ब्लॉक जनरेट करें और प्रारंभिक स्मार्ट कॉन्ट्रैक्ट्स विकसित करें।"
           },
           "step3": {
-            "title": "एकीकरण & माइग्रेशन",
-            "desc": "API एकीकरण with legacy systems (ERP, CRM), डेटा माइग्रेशन, and उपयोगकर्ता training."
+            "title": "एकीकरण और माइग्रेशन",
+            "desc": "लेगेसी सिस्टम्स (ERP, CRM) के साथ API एकीकरण, डेटा माइग्रेशन और उपयोगकर्ता प्रशिक्षण।"
           },
           "step4": {
-            "title": "Mainnet लॉन्च करें",
-            "desc": "उत्पादन तैनाती with 24/7 monitoring and regular सुरक्षा audits."
+            "title": "मेननेट लॉन्च",
+            "desc": "24/7 मॉनिटरिंग और नियमित सुरक्षा ऑडिट के साथ प्रोडक्शन तैनाती।"
           }
         },
         "sections": {
           "enterpriseFeatures": {
-            "title": "Enterprise विशेषताएं",
-            "subtitle": "Advanced नियंत्रण and अनुपालन विशेषताएं for businesses"
+            "title": "एंटरप्राइज विशेषताएं",
+            "subtitle": "व्यवसायों के लिए उन्नत नियंत्रण और अनुपालन सुविधाएं"
           },
           "hybridArchitecture": {
-            "title": "Hybrid आर्किटेक्चर",
-            "subtitle": "Combine private चेन गोपनीयता with public blockchain सुरक्षा"
+            "title": "हाइब्रिड आर्किटेक्चर",
+            "subtitle": "प्राइवेट चेन गोपनीयता को पब्लिक ब्लॉकचेन सुरक्षा के साथ मिलाएं"
           },
           "useCases": {
-            "title": "Industry Use Cases"
+            "title": "उद्योग उपयोग के मामले"
           },
           "deployment": {
             "title": "तैनाती प्रक्रिया"
@@ -8428,33 +8428,33 @@
             "title": "P2E गेम्स",
             "description": "विश्वास सत्यापन पोंजी स्कीम्स को ब्लॉक करता है। स्थायी प्ले-टू-अर्न के लिए स्थिर टोकनोमिक्स।",
             "tags": "RPG • स्ट्रेटेजी • बैटल",
-            "desc": "रिवॉर्ड players with verified tokens and NFTs for gameplay achievements."
+            "desc": "गेमप्ले उपलब्धियों के लिए सत्यापित टोकन और NFTs के साथ खिलाड़ियों को पुरस्कृत करें।"
           },
           "nftMarketplace": {
             "title": "NFT मार्केटप्लेस",
             "description": "गेम आइटम्स, आर्टवर्क और कलेक्शन्स ट्रेड करें। सुरक्षा के लिए विश्वास बैज स्वचालित रूप से प्रदर्शित होते हैं।",
             "tags": "जोखिम चेतावनी • इतिहास",
-            "desc": "ट्रेड game आइटम्स, artwork, and collections. Trust badges are automatically displayed for safety."
+            "desc": "गेम आइटम्स, आर्टवर्क और कलेक्शन्स ट्रेड करें। सुरक्षा के लिए विश्वास बैज स्वचालित रूप से प्रदर्शित होते हैं।"
           },
           "metaverse": {
             "title": "मेटावर्स",
             "description": "वर्चुअल रियल एस्टेट, अवतार और वियरेबल्स। DAO गवर्नेंस के साथ विकेंद्रीकृत स्वामित्व।",
             "tags": "भूमि • अवतार • सोशल",
-            "desc": "Immersive virtual environments with verified digital एसेट ownership."
+            "desc": "सत्यापित डिजिटल एसेट स्वामित्व के साथ इमर्सिव वर्चुअल वातावरण।"
           },
-          "subtitle": "निर्माण करें any प्रकार of blockchain game with our comprehensive tooling",
+          "subtitle": "हमारे व्यापक टूलिंग के साथ किसी भी प्रकार का ब्लॉकचेन गेम बनाएं",
           "marketplace": {
-            "title": "NFT Marketplaces",
-            "desc": "Secure trading platforms for in-game आइटम्स with trust सत्यापन.",
-            "tags": "Trading, Auction, एक्सचेंज"
+            "title": "NFT मार्केटप्लेस",
+            "desc": "विश्वास सत्यापन के साथ इन-गेम आइटम्स के लिए सुरक्षित ट्रेडिंग प्लेटफॉर्म।",
+            "tags": "ट्रेडिंग, नीलामी, एक्सचेंज"
           },
           "casualGames": {
-            "title": "Casual Games",
-            "desc": "Lightweight blockchain एकीकरण for casual gaming with microtransactions."
+            "title": "कैज़ुअल गेम्स",
+            "desc": "माइक्रोट्रांजेक्शन के साथ कैज़ुअल गेमिंग के लिए लाइटवेट ब्लॉकचेन एकीकरण।"
           },
           "esports": {
-            "title": "Esports & Tournaments",
-            "desc": "Decentralized prize pools with transparent distribution and anti-cheat सत्यापन."
+            "title": "ईस्पोर्ट्स और टूर्नामेंट",
+            "desc": "पारदर्शी वितरण और एंटी-चीट सत्यापन के साथ विकेंद्रीकृत पुरस्कार पूल।"
           }
         },
         "integrationGuide": {
@@ -8477,117 +8477,117 @@
           }
         },
         "buttons": {
-          "getUnitySdk": "Get Unity SDK",
-          "getUnrealSdk": "Get Unreal SDK",
+          "getUnitySdk": "Unity SDK प्राप्त करें",
+          "getUnrealSdk": "Unreal SDK प्राप्त करें",
           "viewDocs": "दस्तावेज़ीकरण देखें"
         },
         "sections": {
           "whyBuild": {
-            "title": "Why निर्माण करें Games on TBurn चेन?",
-            "subtitle": "Advanced इंफ्रास्ट्रक्चर for अगला-generation blockchain gaming"
+            "title": "TBurn चेन पर गेम्स क्यों बनाएं?",
+            "subtitle": "अगली पीढ़ी के ब्लॉकचेन गेमिंग के लिए उन्नत इंफ्रास्ट्रक्चर"
           },
           "trustScore": {
-            "title": "Trust स्कोर for Games"
+            "title": "गेम्स के लिए विश्वास स्कोर"
           },
           "gameTypes": {
-            "title": "Game Types & Use Cases"
+            "title": "गेम प्रकार और उपयोग के मामले"
           },
           "integration": {
-            "title": "एकीकरण Steps"
+            "title": "एकीकरण चरण"
           }
         },
         "trustScore": {
-          "title": "NFT Project Trust स्कोर",
-          "subtitle": "Comprehensive सत्यापन सिस्टम for game projects",
-          "teamScore": "Team Identity स्कोर",
+          "title": "NFT प्रोजेक्ट विश्वास स्कोर",
+          "subtitle": "गेम प्रोजेक्ट्स के लिए व्यापक सत्यापन सिस्टम",
+          "teamScore": "टीम पहचान स्कोर",
           "contractScore": "कॉन्ट्रैक्ट सुरक्षा स्कोर",
-          "utilityScore": "उपयोगिता & रोडमैप स्कोर",
-          "totalScore": "कुल Trust स्कोर",
+          "utilityScore": "उपयोगिता और रोडमैप स्कोर",
+          "totalScore": "कुल विश्वास स्कोर",
           "verification": {
-            "title": "Trust सत्यापन",
-            "desc": "AI-powered project विश्लेषण with community सत्यापन"
+            "title": "विश्वास सत्यापन",
+            "desc": "समुदाय सत्यापन के साथ AI-संचालित प्रोजेक्ट विश्लेषण"
           },
           "team": {
-            "title": "Team सत्यापन",
-            "points": "0-30 pts",
-            "desc": "Verified team members with public identities receive higher scores.",
+            "title": "टीम सत्यापन",
+            "points": "0-30 अंक",
+            "desc": "सार्वजनिक पहचान वाले सत्यापित टीम सदस्यों को उच्च स्कोर प्राप्त होते हैं।",
             "scoring": {
-              "verified": "Verified team members",
-              "anonymous": "Anonymous team",
-              "maxPoints": "Max 10 pts"
+              "verified": "सत्यापित टीम सदस्य",
+              "anonymous": "गुमनाम टीम",
+              "maxPoints": "अधिकतम 10 अंक"
             }
           },
           "contract": {
             "title": "कॉन्ट्रैक्ट सुरक्षा",
-            "points": "0-25 pts",
-            "desc": "Audited smart contracts with verified सुरक्षा practices.",
+            "points": "0-25 अंक",
+            "desc": "सत्यापित सुरक्षा प्रथाओं के साथ ऑडिट किए गए स्मार्ट कॉन्ट्रैक्ट्स।",
             "scoring": {
-              "audits": "3+ सुरक्षा audits",
-              "noAudit": "No ऑडिट"
+              "audits": "3+ सुरक्षा ऑडिट",
+              "noAudit": "कोई ऑडिट नहीं"
             }
           },
           "utility": {
-            "title": "Game उपयोगिता",
-            "points": "0-25 pts",
-            "desc": "Real gameplay उपयोगिता and सक्रिय player engagement.",
+            "title": "गेम उपयोगिता",
+            "points": "0-25 अंक",
+            "desc": "वास्तविक गेमप्ले उपयोगिता और सक्रिय खिलाड़ी जुड़ाव।",
             "scoring": {
-              "executed": "रोडमैप executed",
-              "gameLive": "Game is लाइव",
-              "bonus": "+10 pts bonus"
+              "executed": "रोडमैप निष्पादित",
+              "gameLive": "गेम लाइव है",
+              "bonus": "+10 अंक बोनस"
             }
           }
         },
         "features": {
           "ultraFastProcessing": {
-            "title": "Ultra-Fast प्रोसेसिंग",
-            "desc": "50,000+ TPS enables real-समय in-game trading with 1-second ब्लॉक times."
+            "title": "अल्ट्रा-फास्ट प्रोसेसिंग",
+            "desc": "50,000+ TPS 1-सेकंड ब्लॉक टाइम के साथ रियल-टाइम इन-गेम ट्रेडिंग सक्षम करता है।"
           },
           "nftVerification": {
-            "title": "NFT Project सत्यापन",
-            "desc": "3-चरण सत्यापन blocks fraudulent NFT projects with Trust स्कोर monitoring."
+            "title": "NFT प्रोजेक्ट सत्यापन",
+            "desc": "3-चरण सत्यापन विश्वास स्कोर मॉनिटरिंग के साथ धोखाधड़ी NFT प्रोजेक्ट्स को ब्लॉक करता है।"
           },
           "verifiedOwnership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-चेन records for all game आइटम issuance and बर्न इतिहास."
+            "title": "सत्यापित स्वामित्व",
+            "desc": "सभी गेम आइटम जारी करने और बर्न इतिहास के लिए अपरिवर्तनीय ऑन-चेन रिकॉर्ड।"
           },
           "crossGameAssets": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM संगतता enables interoperable आइटम्स across different games."
+            "title": "क्रॉस-गेम एसेट्स",
+            "desc": "EVM संगतता विभिन्न गेम्स में इंटरऑपरेबल आइटम्स सक्षम करती है।"
           },
           "ultraFast": {
-            "title": "Ultra-Fast प्रोसेसिंग",
-            "desc": "50,000+ TPS enables real-समय in-game trading with 1-second ब्लॉक times."
+            "title": "अल्ट्रा-फास्ट प्रोसेसिंग",
+            "desc": "50,000+ TPS 1-सेकंड ब्लॉक टाइम के साथ रियल-टाइम इन-गेम ट्रेडिंग सक्षम करता है।"
           },
           "verification": {
-            "title": "NFT Project सत्यापन",
-            "desc": "3-चरण सत्यापन blocks fraudulent NFT projects with Trust स्कोर monitoring."
+            "title": "NFT प्रोजेक्ट सत्यापन",
+            "desc": "3-चरण सत्यापन विश्वास स्कोर मॉनिटरिंग के साथ धोखाधड़ी NFT प्रोजेक्ट्स को ब्लॉक करता है।"
           },
           "ownership": {
-            "title": "Verified Ownership",
-            "desc": "Immutable on-चेन records for all game आइटम issuance and बर्न इतिहास."
+            "title": "सत्यापित स्वामित्व",
+            "desc": "सभी गेम आइटम जारी करने और बर्न इतिहास के लिए अपरिवर्तनीय ऑन-चेन रिकॉर्ड।"
           },
           "crossGame": {
-            "title": "Cross-Game Assets",
-            "desc": "EVM संगतता enables interoperable आइटम्स across different games."
+            "title": "क्रॉस-गेम एसेट्स",
+            "desc": "EVM संगतता विभिन्न गेम्स में इंटरऑपरेबल आइटम्स सक्षम करती है।"
           }
         },
         "integration": {
           "title": "एकीकरण गाइड",
           "step1": {
-            "title": "कनेक्ट करें SDK",
-            "desc": "Integrate the TBurn Gaming SDK into your game engine."
+            "title": "SDK कनेक्ट करें",
+            "desc": "TBurn गेमिंग SDK को अपने गेम इंजन में एकीकृत करें।"
           },
           "step2": {
-            "title": "तैनात करें Contracts",
-            "desc": "तैनात करें your game contracts on TBurn चेन testnet."
+            "title": "कॉन्ट्रैक्ट्स तैनात करें",
+            "desc": "TBurn चेन टेस्टनेट पर अपने गेम कॉन्ट्रैक्ट्स तैनात करें।"
           },
           "step3": {
-            "title": "Get Verified",
-            "desc": "जमा करें for Trust स्कोर सत्यापन and game समीक्षा."
+            "title": "सत्यापित हों",
+            "desc": "विश्वास स्कोर सत्यापन और गेम समीक्षा के लिए जमा करें।"
           },
           "step4": {
             "title": "लॉन्च करें",
-            "desc": "Go लाइव on mainnet with full ecosystem सपोर्ट."
+            "desc": "पूर्ण इकोसिस्टम सपोर्ट के साथ मेननेट पर लाइव जाएं।"
           }
         }
       },
@@ -8696,90 +8696,90 @@
         "subtitle": "ई-कॉमर्स एकीकरण और मर्चेंट समाधान।",
         "titleHighlight": "समाधान",
         "buttons": {
-          "installPlugin": "Install प्लगइन",
-          "viewApiDocs": "व्यू API Docs",
-          "startIntegration": "शुरू करें एकीकरण"
+          "installPlugin": "प्लगइन इंस्टॉल करें",
+          "viewApiDocs": "API दस्तावेज़ देखें",
+          "startIntegration": "एकीकरण शुरू करें"
         },
         "features": {
           "payment": {
-            "title": "Crypto Payment प्रोसेसिंग",
-            "desc": "स्वीकार करें verified tokens with instant settlement. Trust स्कोर filtering protects merchants from fraudulent transactions and low-quality tokens."
+            "title": "क्रिप्टो पेमेंट प्रोसेसिंग",
+            "desc": "तत्काल सेटलमेंट के साथ सत्यापित टोकन स्वीकार करें। विश्वास स्कोर फ़िल्टरिंग मर्चेंट्स को धोखाधड़ी लेनदेन और निम्न-गुणवत्ता टोकन से बचाती है।"
           },
           "inventory": {
-            "title": "Blockchain Inventory Tracking",
-            "desc": "Track products with on-चेन सत्यापन. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+            "title": "ब्लॉकचेन इन्वेंटरी ट्रैकिंग",
+            "desc": "ऑन-चेन सत्यापन के साथ उत्पादों को ट्रैक करें। NFT-आधारित प्रामाणिकता प्रमाणपत्र नकली को रोकते हैं और आसान पुनर्विक्रय ट्रैकिंग सक्षम करते हैं।"
           },
           "loyalty": {
-            "title": "टोकन-Based Loyalty Programs",
-            "desc": "मुद्दा loyalty tokens to रिवॉर्ड customers. Blockchain-based अंक are transparent, tradeable, and never expire."
+            "title": "टोकन-आधारित लॉयल्टी प्रोग्राम",
+            "desc": "ग्राहकों को पुरस्कृत करने के लिए लॉयल्टी टोकन जारी करें। ब्लॉकचेन-आधारित अंक पारदर्शी, व्यापार योग्य हैं और कभी समाप्त नहीं होते।"
           },
           "analytics": {
-            "title": "Real-समय Commerce Analytics",
-            "desc": "Monitor sales, ग्राहक behavior, and टोकन transactions. On-चेन डेटा provides tamper-proof business insights."
+            "title": "रियल-टाइम कॉमर्स एनालिटिक्स",
+            "desc": "बिक्री, ग्राहक व्यवहार और टोकन लेनदेन की निगरानी करें। ऑन-चेन डेटा छेड़छाड़-रहित व्यावसायिक अंतर्दृष्टि प्रदान करता है।"
           }
         },
         "platforms": {
           "shopify": {
-            "desc": "One-click एकीकरण with the world's leading e-commerce प्लेटफॉर्म.",
+            "desc": "विश्व की अग्रणी ई-कॉमर्स प्लेटफॉर्म के साथ वन-क्लिक एकीकरण।",
             "status": "उपलब्ध"
           },
           "woocommerce": {
-            "desc": "WordPress प्लगइन for WooCommerce stores.",
+            "desc": "WooCommerce स्टोर्स के लिए WordPress प्लगइन।",
             "status": "उपलब्ध"
           },
           "customApi": {
-            "title": "Custom API",
-            "desc": "RESTful API for custom integrations and mobile apps.",
+            "title": "कस्टम API",
+            "desc": "कस्टम एकीकरण और मोबाइल ऐप्स के लिए RESTful API।",
             "status": "उपलब्ध"
           }
         },
         "stories": {
           "fashionBrand": {
             "name": "Aurora Fashion",
-            "type": "Luxury Fashion Brand",
-            "quote": "TBurn Commerce reduced our payment प्रोसेसिंग fees by 85% and opened us to global crypto customers.",
+            "type": "लक्ज़री फैशन ब्रांड",
+            "quote": "TBurn Commerce ने हमारी पेमेंट प्रोसेसिंग फीस को 85% कम कर दिया और हमें वैश्विक क्रिप्टो ग्राहकों के लिए खोल दिया।",
             "stats": {
               "volume": "$2.5M वॉल्यूम",
-              "savings": "85% शुल्क Savings"
+              "savings": "85% शुल्क बचत"
             }
           },
           "resalePlatform": {
             "name": "BlockResale",
-            "type": "NFT-Verified Resale प्लेटफॉर्म",
-            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased खरीदार trust.",
+            "type": "NFT-सत्यापित पुनर्विक्रय प्लेटफॉर्म",
+            "quote": "NFT-आधारित प्रामाणिकता प्रमाणपत्रों ने नकली रिटर्न समाप्त कर दिए और खरीदार विश्वास बढ़ाया।",
             "stats": {
-              "nfts": "50K NFTs Issued",
-              "counterfeits": "Zero Counterfeits"
+              "nfts": "50K NFTs जारी",
+              "counterfeits": "शून्य नकली"
             }
           }
         },
         "integration": {
           "step1": {
-            "title": "Get API Keys",
-            "desc": "Register on the डेवलपर डैशबोर्ड and get your credentials."
+            "title": "API Keys प्राप्त करें",
+            "desc": "डेवलपर डैशबोर्ड पर पंजीकरण करें और अपने क्रेडेंशियल्स प्राप्त करें।"
           },
           "step2": {
-            "title": "Install SDK",
-            "desc": "Add TBurn Commerce SDK to your project."
+            "title": "SDK इंस्टॉल करें",
+            "desc": "अपने प्रोजेक्ट में TBurn Commerce SDK जोड़ें।"
           },
           "step3": {
-            "title": "Configure Webhooks",
-            "desc": "सेट up payment पुष्टि and order अपडेट notifications."
+            "title": "Webhooks कॉन्फ़िगर करें",
+            "desc": "पेमेंट पुष्टि और ऑर्डर अपडेट नोटिफिकेशन सेट अप करें।"
           }
         },
         "sections": {
           "coreFeatures": {
-            "title": "Commerce विशेषताएं",
-            "subtitle": "Everything you need to स्वीकार करें crypto payments and grow your business."
+            "title": "कॉमर्स विशेषताएं",
+            "subtitle": "क्रिप्टो पेमेंट स्वीकार करने और अपने व्यवसाय को बढ़ाने के लिए आवश्यक सब कुछ।"
           },
           "platforms": {
-            "title": "एकीकरण Platforms"
+            "title": "एकीकरण प्लेटफॉर्म"
           },
           "successStories": {
-            "title": "सफलता Stories"
+            "title": "सफलता की कहानियां"
           },
           "integration": {
-            "title": "Quick एकीकरण गाइड"
+            "title": "त्वरित एकीकरण गाइड"
           }
         }
       },
@@ -8787,82 +8787,82 @@
         "tag": "वित्त",
         "title": "वित्तीय सेवाएं",
         "subtitle": "ब्लॉकचेन पर एंटरप्राइज वित्तीय इंफ्रास्ट्रक्चर।",
-        "titleHighlight": "Services",
+        "titleHighlight": "सेवाएं",
         "buttons": {
-          "startBuilding": "शुरू करें Building",
-          "readWhitepaper": "Read Whitepaper"
+          "startBuilding": "निर्माण शुरू करें",
+          "readWhitepaper": "व्हाइटपेपर पढ़ें"
         },
         "services": {
           "banking": {
-            "title": "Digital Banking इंफ्रास्ट्रक्चर",
-            "desc": "निर्माण करें neo-banking products with blockchain settlement. Instant transfers, programmable accounts, and full regulatory अनुपालन."
+            "title": "डिजिटल बैंकिंग इंफ्रास्ट्रक्चर",
+            "desc": "ब्लॉकचेन सेटलमेंट के साथ नियो-बैंकिंग उत्पाद बनाएं। तत्काल ट्रांसफर, प्रोग्रामेबल खाते और पूर्ण नियामक अनुपालन।"
           },
           "defi": {
             "title": "DeFi प्रोटोकॉल एकीकरण",
-            "desc": "कनेक्ट करें traditional finance with decentralized protocols. एक्सेस lending, staking, and yield generation with institutional-ग्रेड सुरक्षा."
+            "desc": "पारंपरिक वित्त को विकेंद्रीकृत प्रोटोकॉल से जोड़ें। संस्थागत-ग्रेड सुरक्षा के साथ लेंडिंग, स्टेकिंग और यील्ड जनरेशन एक्सेस करें।"
           },
           "payment": {
-            "title": "Cross-Border Payments",
-            "desc": "Global settlements in सेकंड, not दिन. Reduce costs by 99% with blockchain-based international transfers."
+            "title": "क्रॉस-बॉर्डर पेमेंट्स",
+            "desc": "दिनों में नहीं, सेकंडों में वैश्विक सेटलमेंट। ब्लॉकचेन-आधारित अंतर्राष्ट्रीय ट्रांसफर से लागत 99% कम करें।"
           },
           "compliance": {
-            "title": "Regulatory अनुपालन",
-            "desc": "Built-in KYC/AML सत्यापन and ऑडिट trails. Meet GDPR, SOC2, and financial regulations automatically."
+            "title": "नियामक अनुपालन",
+            "desc": "बिल्ट-इन KYC/AML सत्यापन और ऑडिट ट्रेल्स। GDPR, SOC2 और वित्तीय विनियमों को स्वचालित रूप से पूरा करें।"
           }
         },
         "stats": {
-          "tvl": "कुल मूल्य Locked",
+          "tvl": "कुल लॉक्ड मूल्य",
           "apy": "औसत APY",
-          "dau": "Daily सक्रिय Users"
+          "dau": "दैनिक सक्रिय उपयोगकर्ता"
         },
         "cases": {
           "neobank": {
             "name": "NeoBank X",
-            "type": "Digital Banking प्लेटफॉर्म",
-            "quote": "TBurn's इंफ्रास्ट्रक्चर allowed us to लॉन्च करें in 3 महीने instead of 18. Our customers love instant transfers.",
+            "type": "डिजिटल बैंकिंग प्लेटफॉर्म",
+            "quote": "TBurn के इंफ्रास्ट्रक्चर ने हमें 18 के बजाय 3 महीनों में लॉन्च करने की अनुमति दी। हमारे ग्राहक तत्काल ट्रांसफर पसंद करते हैं।",
             "stats": {
-              "customers": "150K Customers",
-              "costs": "90% लागत Reduction"
+              "customers": "150K ग्राहक",
+              "costs": "90% लागत में कमी"
             }
           },
           "defiProtocol": {
             "name": "DeFi Prime",
-            "type": "Lending प्रोटोकॉल",
-            "quote": "Trust स्कोर एकीकरण reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "type": "लेंडिंग प्रोटोकॉल",
+            "quote": "विश्वास स्कोर एकीकरण ने बैड डेट को लगभग शून्य कर दिया। हमारे लेंडर्स यह जानकर सुरक्षित महसूस करते हैं कि प्रत्येक उधारकर्ता सत्यापित है।",
             "stats": {
               "tvl": "$500M TVL",
-              "liquidations": "Zero Bad Debt"
+              "liquidations": "शून्य बैड डेट"
             }
           }
         },
         "building": {
           "step1": {
-            "title": "आर्किटेक्चर Consultation",
-            "desc": "Our team helps डिज़ाइन your financial product आर्किटेक्चर, ensuring regulatory अनुपालन from day one."
+            "title": "आर्किटेक्चर परामर्श",
+            "desc": "हमारी टीम आपके वित्तीय उत्पाद आर्किटेक्चर को डिज़ाइन करने में मदद करती है, पहले दिन से नियामक अनुपालन सुनिश्चित करती है।"
           },
           "step2": {
             "title": "API एकीकरण",
-            "desc": "कनेक्ट करें to TBurn's financial APIs for payments, lending, and एसेट प्रबंधन."
+            "desc": "पेमेंट्स, लेंडिंग और एसेट प्रबंधन के लिए TBurn के वित्तीय APIs से कनेक्ट करें।"
           },
           "step3": {
             "title": "अनुपालन सेटअप",
-            "desc": "Configure KYC/AML flows and ऑडिट logging to meet your regulatory requirements."
+            "desc": "अपनी नियामक आवश्यकताओं को पूरा करने के लिए KYC/AML फ्लो और ऑडिट लॉगिंग कॉन्फ़िगर करें।"
           },
           "step4": {
-            "title": "उत्पादन लॉन्च करें",
-            "desc": "तैनात करें with 24/7 monitoring, enterprise SLA, and dedicated सपोर्ट."
+            "title": "प्रोडक्शन लॉन्च",
+            "desc": "24/7 मॉनिटरिंग, एंटरप्राइज SLA और समर्पित सपोर्ट के साथ तैनात करें।"
           }
         },
         "sections": {
           "coreServices": {
-            "title": "Core Financial Services",
-            "subtitle": "Enterprise-ग्रेड blockchain इंफ्रास्ट्रक्चर for modern finance."
+            "title": "मुख्य वित्तीय सेवाएं",
+            "subtitle": "आधुनिक वित्त के लिए एंटरप्राइज-ग्रेड ब्लॉकचेन इंफ्रास्ट्रक्चर।"
           },
           "realCases": {
-            "title": "Real-World सफलता"
+            "title": "वास्तविक-विश्व सफलता"
           },
           "building": {
-            "title": "निर्माण करें Financial Products"
+            "title": "वित्तीय उत्पाद बनाएं"
           }
         }
       },
@@ -8870,69 +8870,69 @@
         "tag": "AI संचालित",
         "title": "AI विशेषताएं",
         "subtitle": "बुद्धिमान ब्लॉकचेन संचालन के लिए ट्रिपल-बैंड AI ऑर्केस्ट्रेशन।",
-        "titleHighlight": "Triple-Band Orchestration",
+        "titleHighlight": "ट्रिपल-बैंड ऑर्केस्ट्रेशन",
         "tiers": {
           "strategic": {
-            "title": "Strategic AI",
+            "title": "स्ट्रैटेजिक AI",
             "model": "GPT-4 / Claude 3",
-            "description": "High-स्तर decision making for गवर्नेंस, tokenomics डिज़ाइन, and long-शर्त जोखिम assessment. Processes complex analyses with human-like reasoning.",
+            "description": "गवर्नेंस, टोकनोमिक्स डिज़ाइन और दीर्घकालिक जोखिम मूल्यांकन के लिए उच्च-स्तरीय निर्णय लेना। मानव-जैसे तर्क के साथ जटिल विश्लेषण प्रोसेस करता है।",
             "capabilities": {
-              "governance": "DAO Proposal विश्लेषण",
-              "tokenomics": "Tokenomics Optimization",
-              "risk": "Strategic जोखिम Assessment"
+              "governance": "DAO प्रस्ताव विश्लेषण",
+              "tokenomics": "टोकनोमिक्स अनुकूलन",
+              "risk": "रणनीतिक जोखिम मूल्यांकन"
             }
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "टैक्टिकल AI",
             "model": "GPT-3.5 / Mistral",
-            "description": "Real-समय सुरक्षा monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "description": "रियल-टाइम सुरक्षा निगरानी और धोखाधड़ी पहचान। लेनदेन पैटर्न का विश्लेषण करता है और शोषण से पहले कमजोरियों की पहचान करता है।",
             "capabilities": {
-              "vulnerability": "Smart कॉन्ट्रैक्ट Auditing",
-              "fraud": "Fraud Pattern Detection",
-              "fee": "Dynamic शुल्क Optimization"
+              "vulnerability": "स्मार्ट कॉन्ट्रैक्ट ऑडिटिंग",
+              "fraud": "धोखाधड़ी पैटर्न पहचान",
+              "fee": "डायनेमिक शुल्क अनुकूलन"
             }
           },
           "operational": {
-            "title": "Operational AI",
-            "model": "Custom ML Models",
-            "description": "Ultra-fast transaction सत्यापन and network health monitoring. Optimized for speed with sub-50ms प्रतिक्रिया times.",
+            "title": "ऑपरेशनल AI",
+            "model": "कस्टम ML मॉडल्स",
+            "description": "अल्ट्रा-फास्ट लेनदेन सत्यापन और नेटवर्क स्वास्थ्य निगरानी। 50ms से कम प्रतिक्रिया समय के साथ गति के लिए अनुकूलित।",
             "capabilities": {
-              "validation": "Transaction सत्यापन",
-              "mev": "MEV Protection",
-              "health": "Network Health Monitoring"
+              "validation": "लेनदेन सत्यापन",
+              "mev": "MEV सुरक्षा",
+              "health": "नेटवर्क स्वास्थ्य निगरानी"
             }
           }
         },
         "architecture": {
           "step1": {
-            "title": "डेटा Ingestion",
-            "description": "Real-समय blockchain डेटा, mempool transactions, and market feeds are continuously processed."
+            "title": "डेटा अंतर्ग्रहण",
+            "description": "रियल-टाइम ब्लॉकचेन डेटा, मेमपूल लेनदेन और मार्केट फीड्स को निरंतर प्रोसेस किया जाता है।"
           },
           "step2": {
             "title": "AI प्रोसेसिंग",
-            "description": "Each टियर processes relevant डेटा: Operational for speed, Tactical for सुरक्षा, Strategic for insights."
+            "description": "प्रत्येक टियर प्रासंगिक डेटा प्रोसेस करता है: ऑपरेशनल गति के लिए, टैक्टिकल सुरक्षा के लिए, स्ट्रैटेजिक अंतर्दृष्टि के लिए।"
           },
           "step3": {
-            "title": "Coordinated प्रतिक्रिया",
-            "description": "AI tiers communicate results, with higher tiers overriding lower टियर decisions when necessary."
+            "title": "समन्वित प्रतिक्रिया",
+            "description": "AI टियर्स परिणाम संप्रेषित करते हैं, आवश्यकता पड़ने पर उच्च टियर्स निचले टियर निर्णयों को ओवरराइड करते हैं।"
           }
         },
         "stats": {
           "uptime": {
             "title": "99.99% अपटाइम",
-            "desc": "Redundant AI clusters across multiple regions"
+            "desc": "कई क्षेत्रों में रिडंडेंट AI क्लस्टर्स"
           },
           "cost": {
-            "title": "90% लागत Reduction",
-            "desc": "Efficient टियर routing minimizes compute costs"
+            "title": "90% लागत में कमी",
+            "desc": "कुशल टियर रूटिंग कंप्यूट लागत को न्यूनतम करती है"
           },
           "scale": {
             "title": "100K+ TPS",
-            "desc": "Operational AI handles massive थ्रूपुट"
+            "desc": "ऑपरेशनल AI भारी थ्रूपुट संभालता है"
           },
           "verify": {
-            "title": "AI-Verified Trust",
-            "desc": "Continuous project scoring and monitoring"
+            "title": "AI-सत्यापित विश्वास",
+            "desc": "निरंतर प्रोजेक्ट स्कोरिंग और निगरानी"
           }
         },
         "sections": {
@@ -8940,30 +8940,30 @@
             "title": "AI आर्किटेक्चर"
           },
           "relatedSolutions": {
-            "title": "Related समाधान",
-            "subtitle": "एक्सप्लोर करें how AI enhances other TBurn products"
+            "title": "संबंधित समाधान",
+            "subtitle": "जानें कि AI अन्य TBurn उत्पादों को कैसे बढ़ाता है"
           },
           "developerResources": {
             "title": "डेवलपर संसाधन",
-            "subtitle": "Integrate AI capabilities into your applications"
+            "subtitle": "अपने अनुप्रयोगों में AI क्षमताएं एकीकृत करें"
           }
         },
         "relatedLinks": {
           "wallets": {
-            "title": "Wallets",
-            "desc": "AI-enhanced सुरक्षा"
+            "title": "वॉलेट्स",
+            "desc": "AI-संवर्धित सुरक्षा"
           },
           "payments": {
-            "title": "Payments",
-            "desc": "Smart fraud detection"
+            "title": "पेमेंट्स",
+            "desc": "स्मार्ट धोखाधड़ी पहचान"
           },
           "gameTooling": {
-            "title": "Game Tooling",
-            "desc": "Anti-cheat AI systems"
+            "title": "गेम टूलिंग",
+            "desc": "एंटी-चीट AI सिस्टम"
           },
           "financial": {
-            "title": "Financial Services",
-            "desc": "जोखिम assessment AI"
+            "title": "वित्तीय सेवाएं",
+            "desc": "जोखिम मूल्यांकन AI"
           }
         },
         "devResources": {
@@ -8972,38 +8972,38 @@
             "desc": "एकीकरण दस्तावेज़ीकरण"
           },
           "smartContracts": {
-            "title": "AI Contracts",
-            "desc": "On-चेन AI interfaces"
+            "title": "AI कॉन्ट्रैक्ट्स",
+            "desc": "ऑन-चेन AI इंटरफेस"
           },
           "apiReference": {
             "title": "API संदर्भ",
-            "desc": "REST & GraphQL APIs"
+            "desc": "REST और GraphQL APIs"
           },
           "websocket": {
-            "title": "Real-समय Events",
-            "desc": "WebSocket streaming"
+            "title": "रियल-टाइम इवेंट्स",
+            "desc": "WebSocket स्ट्रीमिंग"
           },
           "cli": {
-            "title": "CLI Tools",
-            "desc": "Command line interface"
+            "title": "CLI टूल्स",
+            "desc": "कमांड लाइन इंटरफेस"
           },
           "examples": {
             "title": "कोड उदाहरण",
-            "desc": "नमूना integrations"
+            "desc": "नमूना एकीकरण"
           }
         },
         "learnMore": {
           "label": "और जानें",
           "defiMastery": {
-            "title": "AI in DeFi",
-            "desc": "Advanced AI strategies for DeFi"
+            "title": "DeFi में AI",
+            "desc": "DeFi के लिए उन्नत AI रणनीतियां"
           }
         },
         "forDevelopers": {
-          "label": "FOR DEVELOPERS",
+          "label": "डेवलपर्स के लिए",
           "devCourse": {
-            "title": "AI डेवलपर Course",
-            "desc": "निर्माण करें AI-powered dApps"
+            "title": "AI डेवलपर कोर्स",
+            "desc": "AI-संचालित dApps बनाएं"
           }
         }
       },
@@ -9011,114 +9011,114 @@
         "tag": "क्रिएटिव",
         "title": "कलाकार और क्रिएटर्स",
         "subtitle": "NFT मिंटिंग, रॉयल्टी और क्रिएटर इकॉनमी टूल्स।",
-        "titleHighlight": "Creators",
+        "titleHighlight": "क्रिएटर्स",
         "buttons": {
-          "startCreating": "शुरू करें Creating",
-          "exploreCollections": "एक्सप्लोर करें Collections"
+          "startCreating": "बनाना शुरू करें",
+          "exploreCollections": "कलेक्शन्स खोजें"
         },
         "features": {
           "lightningPerformance": {
-            "title": "Lightning-Fast Minting",
-            "description": "मिंट NFTs in सेकंड with 50,000+ TPS क्षमता. बैच minting for large collections with minimal गैस fees."
+            "title": "बिजली-तेज मिंटिंग",
+            "description": "50,000+ TPS क्षमता के साथ सेकंडों में NFTs मिंट करें। न्यूनतम गैस फीस के साथ बड़े कलेक्शन्स के लिए बैच मिंटिंग।"
           },
           "trustVerification": {
-            "title": "Trust सत्यापन",
-            "description": "Every NFT कलेक्शन displays its Trust स्कोर. Buyers can verify creator authenticity and कलेक्शन legitimacy instantly."
+            "title": "विश्वास सत्यापन",
+            "description": "प्रत्येक NFT कलेक्शन अपना विश्वास स्कोर प्रदर्शित करता है। खरीदार तत्काल क्रिएटर प्रामाणिकता और कलेक्शन वैधता सत्यापित कर सकते हैं।"
           },
           "thrivingEcosystem": {
-            "title": "Thriving Ecosystem",
-            "description": "शामिल हों 15,000+ verified artists. एक्सेस marketplaces, galleries, and collector communities built on trust."
+            "title": "समृद्ध इकोसिस्टम",
+            "description": "15,000+ सत्यापित कलाकारों से जुड़ें। विश्वास पर निर्मित मार्केटप्लेस, गैलरीज और कलेक्टर समुदायों तक पहुंचें।"
           },
           "infiniteScalability": {
-            "title": "Infinite स्केलेबिलिटी",
-            "description": "From 1-of-1 artwork to 10,000 piece generative collections. Our इंफ्रास्ट्रक्चर scales with your creative vision."
+            "title": "अनंत स्केलेबिलिटी",
+            "description": "1-ऑफ-1 आर्टवर्क से लेकर 10,000 पीस जेनेरेटिव कलेक्शन्स तक। हमारा इंफ्रास्ट्रक्चर आपके क्रिएटिव विज़न के साथ स्केल होता है।"
           }
         },
         "stats": {
-          "nftsMinted": "NFTs MINTED",
-          "creatorEarnings": "CREATOR EARNINGS",
-          "verifiedArtists": "VERIFIED ARTISTS"
+          "nftsMinted": "मिंट किए गए NFTs",
+          "creatorEarnings": "क्रिएटर कमाई",
+          "verifiedArtists": "सत्यापित कलाकार"
         },
         "relatedSolutions": {
-          "title": "Related समाधान",
-          "description": "Enhance your creative journey with complementary tools",
+          "title": "संबंधित समाधान",
+          "description": "पूरक टूल्स के साथ अपनी क्रिएटिव यात्रा को बढ़ाएं",
           "tokenExtensions": {
-            "title": "टोकन Extensions",
-            "subtitle": "Custom टोकन standards"
+            "title": "टोकन एक्सटेंशन्स",
+            "subtitle": "कस्टम टोकन मानक"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "Secure एसेट storage"
+            "title": "वॉलेट्स",
+            "subtitle": "सुरक्षित एसेट स्टोरेज"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "Sell your creations"
+            "title": "कॉमर्स",
+            "subtitle": "अपनी रचनाएं बेचें"
           },
           "gameTooling": {
-            "title": "Game Tooling",
-            "subtitle": "Gaming NFTs"
+            "title": "गेम टूलिंग",
+            "subtitle": "गेमिंग NFTs"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "स्वीकार करें crypto"
+            "title": "पेमेंट्स",
+            "subtitle": "क्रिप्टो स्वीकार करें"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
-            "subtitle": "Social NFT sharing"
+            "title": "एक्शंस और ब्लिंक्स",
+            "subtitle": "सोशल NFT शेयरिंग"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "Creator finance"
+            "title": "वित्तीय सेवाएं",
+            "subtitle": "क्रिएटर फाइनेंस"
           },
           "aiFeatures": {
             "title": "AI विशेषताएं",
-            "subtitle": "AI-powered creation"
+            "subtitle": "AI-संचालित रचना"
           }
         },
         "developerResources": {
           "title": "डेवलपर संसाधन",
-          "description": "निर्माण करें NFT platforms and creator tools with our comprehensive SDK",
+          "description": "हमारे व्यापक SDK के साथ NFT प्लेटफॉर्म और क्रिएटर टूल्स बनाएं",
           "sdkGuide": {
             "title": "NFT SDK गाइड",
             "subtitle": "एकीकरण दस्तावेज़ीकरण"
           },
           "smartContracts": {
             "title": "स्मार्ट कॉन्ट्रैक्ट्स",
-            "subtitle": "ERC-721/1155 templates"
+            "subtitle": "ERC-721/1155 टेम्पलेट्स"
           },
           "apiReference": {
             "title": "API संदर्भ",
-            "subtitle": "REST & GraphQL APIs"
+            "subtitle": "REST और GraphQL APIs"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "Real-समय events"
+            "subtitle": "रियल-टाइम इवेंट्स"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line minting"
+            "title": "CLI टूल्स",
+            "subtitle": "कमांड लाइन मिंटिंग"
           },
           "codeExamples": {
             "title": "कोड उदाहरण",
-            "subtitle": "नमूना integrations"
+            "subtitle": "नमूना एकीकरण"
           }
         },
         "learnMore": {
           "title": "और जानें",
-          "forDevelopers": "FOR DEVELOPERS",
+          "forDevelopers": "डेवलपर्स के लिए",
           "defiMastery": {
-            "title": "NFT Mastery Course",
-            "subtitle": "Advanced NFT creation and marketing"
+            "title": "NFT मास्टरी कोर्स",
+            "subtitle": "उन्नत NFT निर्माण और मार्केटिंग"
           },
           "developerCourse": {
-            "title": "Creator डेवलपर Course",
-            "subtitle": "निर्माण करें NFT platforms and marketplaces"
+            "title": "क्रिएटर डेवलपर कोर्स",
+            "subtitle": "NFT प्लेटफॉर्म और मार्केटप्लेस बनाएं"
           }
         },
         "cta": {
-          "title": "Ready to बनाएं on TBurn?",
-          "description": "शामिल हों thousands of artists and creators building the future of digital ownership.",
-          "link": "व्यू Creator दस्तावेज़ीकरण"
+          "title": "TBurn पर बनाने के लिए तैयार?",
+          "description": "हजारों कलाकारों और क्रिएटर्स से जुड़ें जो डिजिटल स्वामित्व का भविष्य बना रहे हैं।",
+          "link": "क्रिएटर दस्तावेज़ीकरण देखें"
         }
       },
       "btcfi": {
@@ -9127,139 +9127,139 @@
         "subtitle": "रैप्ड BTC और क्रॉस-चेन यील्ड्स के साथ Bitcoin DeFi एकीकरण।",
         "titleHighlight": "Bitcoin DeFi",
         "buttons": {
-          "bridgeBtc": "ब्रिज BTC",
-          "viewYields": "व्यू Yields"
+          "bridgeBtc": "BTC ब्रिज करें",
+          "viewYields": "यील्ड्स देखें"
         },
         "features": {
           "highPerformance": {
-            "title": "High प्रदर्शन ब्रिज",
-            "description": "ब्रिज Bitcoin to TBurn in under 10 मिनट. MPC सुरक्षा ensures your BTC is always safe with trustless सत्यापन."
+            "title": "हाई परफॉर्मेंस ब्रिज",
+            "description": "10 मिनट से कम में Bitcoin को TBurn में ब्रिज करें। MPC सुरक्षा ट्रस्टलेस सत्यापन के साथ आपके BTC को हमेशा सुरक्षित रखती है।"
           },
           "trustVerification": {
-            "title": "Trust सत्यापन",
-            "description": "All BTCfi protocols display Trust Scores. Only verified protocols with 60%+ scores are featured on our प्लेटफॉर्म."
+            "title": "विश्वास सत्यापन",
+            "description": "सभी BTCfi प्रोटोकॉल विश्वास स्कोर प्रदर्शित करते हैं। केवल 60%+ स्कोर वाले सत्यापित प्रोटोकॉल हमारे प्लेटफॉर्म पर फीचर होते हैं।"
           },
           "growingEcosystem": {
-            "title": "Growing Ecosystem",
-            "description": "एक्सेस lending, staking, and yield farming with your Bitcoin. Native BTC earning opportunities without selling."
+            "title": "बढ़ता इकोसिस्टम",
+            "description": "अपने Bitcoin के साथ लेंडिंग, स्टेकिंग और यील्ड फार्मिंग एक्सेस करें। बिना बेचे देशी BTC कमाई के अवसर।"
           },
           "scalableSolutions": {
-            "title": "Scalable समाधान",
-            "description": "From individual holders to institutional treasuries. Our इंफ्रास्ट्रक्चर handles any वॉल्यूम with consistent प्रदर्शन."
+            "title": "स्केलेबल समाधान",
+            "description": "व्यक्तिगत धारकों से लेकर संस्थागत ट्रेजरीज तक। हमारा इंफ्रास्ट्रक्चर सुसंगत प्रदर्शन के साथ किसी भी वॉल्यूम को संभालता है।"
           }
         },
         "stats": {
-          "btcBridged": "BTC BRIDGED",
+          "btcBridged": "ब्रिज किए गए BTC",
           "tvl": "TVL",
           "zeroValue": "0",
-          "securityIncidents": "सुरक्षा INCIDENTS"
+          "securityIncidents": "सुरक्षा घटनाएं"
         },
         "productsSection": {
-          "title": "BTCfi Products",
-          "description": "Multiple ways to put your Bitcoin to work"
+          "title": "BTCfi उत्पाद",
+          "description": "अपने Bitcoin को काम पर लगाने के कई तरीके"
         },
         "products": {
           "tbtcBridge": {
             "title": "tBTC ब्रिज",
-            "description": "Trustless Bitcoin bridging with MPC सुरक्षा. No centralized custodians.",
-            "stats": "15K+ BTC Bridged"
+            "description": "MPC सुरक्षा के साथ ट्रस्टलेस Bitcoin ब्रिजिंग। कोई केंद्रीकृत कस्टोडियन नहीं।",
+            "stats": "15K+ BTC ब्रिज किए गए"
           },
           "btcLending": {
-            "title": "BTC Lending",
-            "description": "बॉरो stablecoins against your BTC. Up to 75% LTV with competitive rates.",
+            "title": "BTC लेंडिंग",
+            "description": "अपने BTC के विरुद्ध स्टेबलकॉइन उधार लें। प्रतिस्पर्धी दरों के साथ 75% LTV तक।",
             "stats": "5.2% APR"
           },
           "btcYieldFarming": {
-            "title": "BTC Yield Farming",
-            "description": "Provide BTC liquidity and earn trading fees plus TBURN rewards.",
+            "title": "BTC यील्ड फार्मिंग",
+            "description": "BTC लिक्विडिटी प्रदान करें और ट्रेडिंग फीस प्लस TBURN रिवॉर्ड्स कमाएं।",
             "stats": "12.5% APY"
           },
           "btcStaking": {
-            "title": "BTC Staking",
-            "description": "स्टेक wrapped BTC to secure the network and earn passive rewards.",
+            "title": "BTC स्टेकिंग",
+            "description": "नेटवर्क सुरक्षित करने और निष्क्रिय रिवॉर्ड्स कमाने के लिए रैप्ड BTC स्टेक करें।",
             "stats": "8.3% APY"
           }
         },
         "relatedSolutions": {
-          "title": "Related समाधान",
-          "description": "Enhance your BTCfi अनुभव with these tools",
+          "title": "संबंधित समाधान",
+          "description": "इन टूल्स के साथ अपने BTCfi अनुभव को बढ़ाएं",
           "tokenExtensions": {
-            "title": "टोकन Extensions",
-            "subtitle": "BRC-20 standards"
+            "title": "टोकन एक्सटेंशन्स",
+            "subtitle": "BRC-20 मानक"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "BTC-compatible wallets"
+            "title": "वॉलेट्स",
+            "subtitle": "BTC-संगत वॉलेट्स"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Pay with BTC"
+            "title": "पेमेंट्स",
+            "subtitle": "BTC से भुगतान करें"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "BTC banking"
+            "title": "वित्तीय सेवाएं",
+            "subtitle": "BTC बैंकिंग"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "स्वीकार करें BTC"
+            "title": "कॉमर्स",
+            "subtitle": "BTC स्वीकार करें"
           },
           "permissioned": {
-            "title": "Permissioned",
-            "subtitle": "Enterprise BTC"
+            "title": "परमिशन्ड",
+            "subtitle": "एंटरप्राइज BTC"
           },
           "aiFeatures": {
             "title": "AI विशेषताएं",
-            "subtitle": "Smart BTC strategies"
+            "subtitle": "स्मार्ट BTC रणनीतियां"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
-            "subtitle": "BTC transactions"
+            "title": "एक्शंस और ब्लिंक्स",
+            "subtitle": "BTC लेनदेन"
           }
         },
         "developerResources": {
           "title": "डेवलपर संसाधन",
-          "description": "निर्माण करें BTCfi applications with our comprehensive tools",
+          "description": "हमारे व्यापक टूल्स के साथ BTCfi एप्लिकेशन बनाएं",
           "sdkGuide": {
             "title": "BTCfi SDK गाइड",
             "subtitle": "एकीकरण दस्तावेज़ीकरण"
           },
           "smartContracts": {
             "title": "स्मार्ट कॉन्ट्रैक्ट्स",
-            "subtitle": "BTC कॉन्ट्रैक्ट templates"
+            "subtitle": "BTC कॉन्ट्रैक्ट टेम्पलेट्स"
           },
           "apiReference": {
             "title": "API संदर्भ",
-            "subtitle": "REST & GraphQL APIs"
+            "subtitle": "REST और GraphQL APIs"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "Real-समय BTC events"
+            "subtitle": "रियल-टाइम BTC इवेंट्स"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line interface"
+            "title": "CLI टूल्स",
+            "subtitle": "कमांड लाइन इंटरफेस"
           },
           "codeExamples": {
             "title": "कोड उदाहरण",
-            "subtitle": "नमूना integrations"
+            "subtitle": "नमूना एकीकरण"
           }
         },
         "learnMore": {
           "title": "और जानें",
           "gettingStarted": "शुरू करना",
           "defiMastery": {
-            "title": "BTCfi Mastery Course",
-            "subtitle": "Advanced Bitcoin DeFi strategies"
+            "title": "BTCfi मास्टरी कोर्स",
+            "subtitle": "उन्नत Bitcoin DeFi रणनीतियां"
           },
           "introToDefi": {
-            "title": "परिचय to BTCfi",
-            "subtitle": "Learn Bitcoin DeFi fundamentals"
+            "title": "BTCfi का परिचय",
+            "subtitle": "Bitcoin DeFi मूल बातें सीखें"
           }
         },
         "cta": {
-          "title": "Ready to Unlock Your Bitcoin?",
-          "description": "शुरू करें earning yield on your BTC today with trust-verified protocols.",
-          "link": "व्यू BTCfi दस्तावेज़ीकरण"
+          "title": "अपना Bitcoin अनलॉक करने के लिए तैयार?",
+          "description": "विश्वास-सत्यापित प्रोटोकॉल के साथ आज ही अपने BTC पर यील्ड कमाना शुरू करें।",
+          "link": "BTCfi दस्तावेज़ीकरण देखें"
         }
       },
       "crossChainBridge": {
@@ -9268,155 +9268,155 @@
         "subtitle": "7+ ब्लॉकचेन नेटवर्क्स में सुरक्षित एसेट ट्रांसफर।",
         "titleHighlight": "ब्रिज",
         "buttons": {
-          "launchBridge": "लॉन्च करें ब्रिज",
+          "launchBridge": "ब्रिज लॉन्च करें",
           "viewDocumentation": "दस्तावेज़ीकरण देखें"
         },
         "heroStats": {
-          "chains": "SUPPORTED CHAINS",
+          "chains": "समर्थित चेन्स",
           "volume": "कुल वॉल्यूम",
-          "txns": "कुल TRANSACTIONS",
-          "avgTime": "AVG ब्रिज समय"
+          "txns": "कुल लेनदेन",
+          "avgTime": "औसत ब्रिज समय"
         },
         "supportedNetworks": {
-          "title": "Supported Networks",
-          "subtitle": "ब्रिज assets to and from major blockchain networks"
+          "title": "समर्थित नेटवर्क्स",
+          "subtitle": "प्रमुख ब्लॉकचेन नेटवर्क्स से और उनमें एसेट्स ब्रिज करें"
         },
         "coreFeatures": {
           "mpcSecurity": {
             "title": "MPC सुरक्षा",
-            "subtitle": "Multi-Party Computation for trustless bridging",
+            "subtitle": "ट्रस्टलेस ब्रिजिंग के लिए मल्टी-पार्टी कंप्यूटेशन",
             "items": {
-              "distributedKeyGen": "Distributed की Generation",
-              "thresholdSignatures": "थ्रेशोल्ड Signatures",
-              "regularKeyRotation": "Regular की Rotation"
+              "distributedKeyGen": "वितरित की जनरेशन",
+              "thresholdSignatures": "थ्रेशोल्ड सिग्नेचर्स",
+              "regularKeyRotation": "नियमित की रोटेशन"
             }
           },
           "atomicSwaps": {
-            "title": "Atomic Swaps",
-            "subtitle": "All-or-nothing transaction guarantees",
+            "title": "एटॉमिक स्वैप्स",
+            "subtitle": "ऑल-ऑर-नथिंग लेनदेन गारंटी",
             "items": {
-              "htlcContracts": "HTLC Smart Contracts",
-              "zeroSlippage": "Zero Slippage Swaps",
-              "autoRefund": "Automatic Refunds"
+              "htlcContracts": "HTLC स्मार्ट कॉन्ट्रैक्ट्स",
+              "zeroSlippage": "ज़ीरो स्लिपेज स्वैप्स",
+              "autoRefund": "स्वचालित रिफंड"
             }
           },
           "unifiedLiquidity": {
-            "title": "Unified Liquidity",
-            "subtitle": "Deep cross-चेन liquidity pools",
+            "title": "यूनिफाइड लिक्विडिटी",
+            "subtitle": "गहरे क्रॉस-चेन लिक्विडिटी पूल्स",
             "items": {
-              "crossChainPools": "Cross-चेन Liquidity Pools",
-              "dynamicRebalancing": "Dynamic पूल Rebalancing",
-              "largeTransferSupport": "Large ट्रांसफर सपोर्ट"
+              "crossChainPools": "क्रॉस-चेन लिक्विडिटी पूल्स",
+              "dynamicRebalancing": "डायनेमिक पूल रीबैलेंसिंग",
+              "largeTransferSupport": "बड़े ट्रांसफर सपोर्ट"
             }
           }
         },
         "howItWorks": {
-          "title": "How the ब्रिज Works"
+          "title": "ब्रिज कैसे काम करता है"
         },
         "bridgeSteps": {
           "step1": {
-            "title": "कनेक्ट करें Wallet",
-            "desc": "कनेक्ट करें your wallet and select स्रोत/गंतव्य chains."
+            "title": "वॉलेट कनेक्ट करें",
+            "desc": "अपना वॉलेट कनेक्ट करें और स्रोत/गंतव्य चेन्स चुनें।"
           },
           "step2": {
-            "title": "Select Assets",
-            "desc": "Choose tokens to ब्रिज and enter the राशि."
+            "title": "एसेट्स चुनें",
+            "desc": "ब्रिज करने के लिए टोकन चुनें और राशि दर्ज करें।"
           },
           "step3": {
-            "title": "पुष्टि करें ट्रांसफर",
-            "desc": "समीक्षा fees and Trust स्कोर सत्यापन, then पुष्टि करें."
+            "title": "ट्रांसफर पुष्टि करें",
+            "desc": "फीस और विश्वास स्कोर सत्यापन की समीक्षा करें, फिर पुष्टि करें।"
           },
           "step4": {
-            "title": "Receive Assets",
-            "desc": "Assets arrive on गंतव्य चेन in ~2 मिनट."
+            "title": "एसेट्स प्राप्त करें",
+            "desc": "एसेट्स ~2 मिनट में गंतव्य चेन पर पहुंचते हैं।"
           }
         },
         "relatedSolutions": {
-          "title": "Related समाधान",
-          "description": "Enhance your cross-चेन अनुभव with these tools",
+          "title": "संबंधित समाधान",
+          "description": "इन टूल्स के साथ अपने क्रॉस-चेन अनुभव को बढ़ाएं",
           "btcfi": {
             "title": "BTCfi",
-            "subtitle": "ब्रिज Bitcoin"
+            "subtitle": "Bitcoin ब्रिज करें"
           },
           "tokenExtensions": {
-            "title": "टोकन Extensions",
-            "subtitle": "Cross-चेन tokens"
+            "title": "टोकन एक्सटेंशन्स",
+            "subtitle": "क्रॉस-चेन टोकन्स"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "Multi-चेन wallets"
+            "title": "वॉलेट्स",
+            "subtitle": "मल्टी-चेन वॉलेट्स"
           },
           "payments": {
-            "title": "Payments",
-            "subtitle": "Cross-चेन payments"
+            "title": "पेमेंट्स",
+            "subtitle": "क्रॉस-चेन पेमेंट्स"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "Multi-चेन finance"
+            "title": "वित्तीय सेवाएं",
+            "subtitle": "मल्टी-चेन फाइनेंस"
           },
           "permissioned": {
-            "title": "Permissioned",
-            "subtitle": "Enterprise bridges"
+            "title": "परमिशन्ड",
+            "subtitle": "एंटरप्राइज ब्रिज"
           },
           "aiFeatures": {
             "title": "AI विशेषताएं",
-            "subtitle": "Smart routing"
+            "subtitle": "स्मार्ट रूटिंग"
           },
           "actionsBlinks": {
-            "title": "Actions & Blinks",
-            "subtitle": "ब्रिज via links"
+            "title": "एक्शंस और ब्लिंक्स",
+            "subtitle": "लिंक्स के माध्यम से ब्रिज"
           }
         },
         "developerResources": {
           "title": "डेवलपर संसाधन",
-          "description": "Integrate cross-चेन functionality into your applications",
+          "description": "अपने एप्लिकेशन में क्रॉस-चेन कार्यक्षमता एकीकृत करें",
           "sdkGuide": {
             "title": "ब्रिज SDK गाइड",
             "subtitle": "एकीकरण दस्तावेज़ीकरण"
           },
           "smartContracts": {
             "title": "स्मार्ट कॉन्ट्रैक्ट्स",
-            "subtitle": "ब्रिज contracts"
+            "subtitle": "ब्रिज कॉन्ट्रैक्ट्स"
           },
           "apiReference": {
             "title": "API संदर्भ",
-            "subtitle": "REST & GraphQL APIs"
+            "subtitle": "REST और GraphQL APIs"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "Real-समय updates"
+            "subtitle": "रियल-टाइम अपडेट्स"
           },
           "cliReference": {
-            "title": "CLI Tools",
-            "subtitle": "Command line bridging"
+            "title": "CLI टूल्स",
+            "subtitle": "कमांड लाइन ब्रिजिंग"
           },
           "codeExamples": {
             "title": "कोड उदाहरण",
-            "subtitle": "नमूना integrations"
+            "subtitle": "नमूना एकीकरण"
           }
         },
         "learnMore": {
           "title": "और जानें",
-          "forDevelopers": "FOR DEVELOPERS",
+          "forDevelopers": "डेवलपर्स के लिए",
           "gettingStarted": "शुरू करना",
           "defiMastery": {
-            "title": "Cross-चेन DeFi",
-            "subtitle": "Advanced multi-चेन strategies"
+            "title": "क्रॉस-चेन DeFi",
+            "subtitle": "उन्नत मल्टी-चेन रणनीतियां"
           },
           "developerCourse": {
-            "title": "ब्रिज डेवलपर Course",
-            "subtitle": "निर्माण करें cross-चेन applications"
+            "title": "ब्रिज डेवलपर कोर्स",
+            "subtitle": "क्रॉस-चेन एप्लिकेशन बनाएं"
           },
           "blockchainBasics": {
-            "title": "Cross-चेन Basics",
-            "subtitle": "Understanding blockchain bridges and इंटरऑपरेबिलिटी"
+            "title": "क्रॉस-चेन बेसिक्स",
+            "subtitle": "ब्लॉकचेन ब्रिज और इंटरऑपरेबिलिटी को समझें"
           }
         },
         "cta": {
-          "title": "Ready to ब्रिज Your Assets?",
-          "description": "ट्रांसफर assets across chains securely with trust सत्यापन.",
-          "link": "व्यू ब्रिज दस्तावेज़ीकरण",
-          "button": "लॉन्च करें ब्रिज App"
+          "title": "अपने एसेट्स ब्रिज करने के लिए तैयार?",
+          "description": "विश्वास सत्यापन के साथ सुरक्षित रूप से चेन्स में एसेट्स ट्रांसफर करें।",
+          "link": "ब्रिज दस्तावेज़ीकरण देखें",
+          "button": "ब्रिज ऐप लॉन्च करें"
         }
       }
     },
