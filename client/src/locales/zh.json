@@ -7322,6 +7322,15 @@
         "tag": "经济学",
         "title": "代币经济学",
         "subtitle": "了解TBURN代币分配、发行计划和通缩机制。",
+        "distributionSection": {
+          "title": "代币分配",
+          "subtitle": "为长期生态系统增长和可持续性设计的战略分配",
+          "totalSupply": "1,000,000,000 TBURN"
+        },
+        "burnSection": {
+          "title": "销毁机制",
+          "subtitle": "确保代币价值持续增长的多重通缩机制"
+        },
         "marketStats": {
           "title": "市场统计",
           "totalSupply": "总供应量",
@@ -7330,6 +7339,21 @@
           "marketCap": "市值",
           "burned": "已销毁",
           "totalStaked": "总质押量"
+        },
+        "tburn": {
+          "type": "治理与质押代币",
+          "totalSupply": "总发行量",
+          "decimals": "小数位",
+          "role": "角色",
+          "roleValue": "用于投票和质押以保护网络安全的主要治理代币"
+        },
+        "ember": {
+          "type": "Gas代币",
+          "exchangeRatio": "兑换比例",
+          "baseFee": "基础费用",
+          "baseFeeValue": "0.001 EMBER",
+          "role": "角色",
+          "roleValue": "用于交易费用和智能合约执行的原生Gas代币"
         },
         "distribution": {
           "title": "代币分配",
@@ -7359,21 +7383,21 @@
               "percentage": "5%"
             }
           },
-          "ecosystemFund": {
-            "title": "生态系统基金",
-            "subtitle": "授予s, partnerships, and ecosystem development initiatives"
-          },
           "validatorRewards": {
             "title": "验证者奖励",
-            "subtitle": "区块 rewards and validation incentives for network security"
+            "subtitle": "用于网络安全的区块奖励和验证激励"
+          },
+          "ecosystemFund": {
+            "title": "生态基金",
+            "subtitle": "资助、合作伙伴关系和生态系统发展计划"
           },
           "teamAdvisors": {
             "title": "团队与顾问",
-            "subtitle": "4-year vesting with 1-year cliff for long-term alignment"
+            "subtitle": "4年归属期，1年锁定期，确保长期目标一致"
           },
           "foundationReserve": {
             "title": "基金会储备",
-            "subtitle": "Emergency fund and strategic opportunities reserve"
+            "subtitle": "应急资金和战略机会储备"
           }
         },
         "burnMechanisms": {
@@ -7393,15 +7417,33 @@
             }
           }
         },
+        "burn": {
+          "transactionFees": {
+            "title": "交易费销毁",
+            "description": "每笔交易费用的0.1%被永久销毁，随网络使用量减少供应"
+          },
+          "collateralBurn": {
+            "title": "抵押品销毁",
+            "description": "作为投资者保护机制的一部分，失败项目的抵押品部分被销毁"
+          },
+          "revenueBuyback": {
+            "title": "收入回购销毁",
+            "description": "协议收入用于每季度回购和销毁TBURN，产生通缩压力"
+          },
+          "slashingPenalty": {
+            "title": "削减惩罚销毁",
+            "description": "验证者不当行为的惩罚被销毁，加强网络安全激励"
+          }
+        },
         "staking": {
           "title": "质押奖励",
           "apy": "当前年化收益",
           "totalStaked": "总质押量",
           "validators": "活跃验证者",
           "minStake": "最低质押量",
-          "liquidStaking": "Liquid staking available with stTBURN derivative token",
-          "ninetyDayLock": "90-day lock: 12% 年化收益率 + 1.2x governance weight",
-          "yearLock": "365-day lock: 18% 年化收益率 + 2x governance weight"
+          "liquidStaking": "流动质押：可使用stTBURN衍生代币",
+          "ninetyDayLock": "90天锁定：12% APY + 1.2x治理权重",
+          "yearLock": "365天锁定：18% APY + 2x治理权重"
         },
         "governance": {
           "title": "治理",
@@ -7410,51 +7452,9 @@
           "proposalThreshold": "提案门槛",
           "quorum": "所需法定人数",
           "features": {
-            "voteProtocol": "Vote on protocol upgrades and parameter changes",
-            "approveTreasury": "批准 treasury allocations and ecosystem grants",
-            "decideSlashing": "Decide on slashing proposals and validator disputes"
-          }
-        },
-        "distributionSection": {
-          "title": "代币分配",
-          "subtitle": "Strategic allocation designed for long-term ecosystem growth and sustainability",
-          "totalSupply": "1,000,000,000 TBURN"
-        },
-        "burnSection": {
-          "title": "销毁机制",
-          "subtitle": "Multiple deflationary mechanisms ensuring sustainable token value appreciation"
-        },
-        "tburn": {
-          "type": "治理与质押代币",
-          "role": "角色",
-          "roleValue": "Primary governance token for voting and staking to secure the network",
-          "totalSupply": "1,000,000,000",
-          "decimals": "18"
-        },
-        "ember": {
-          "type": "Gas 代币",
-          "role": "角色",
-          "roleValue": "Native gas token for transaction fees and smart contract execution",
-          "baseFee": "基础费用",
-          "baseFeeValue": "0.001 EMBER",
-          "exchangeRatio": "1 TBURN staked = 100 EMBER/day"
-        },
-        "burn": {
-          "transactionFees": {
-            "title": "交易费用销毁",
-            "description": "0.1% of every transaction fee is permanently burned, reducing supply with network usage"
-          },
-          "slashingPenalty": {
-            "title": "罚没惩罚销毁",
-            "description": "有效ator misbehavior penalties are burned, reinforcing network security incentives"
-          },
-          "collateralBurn": {
-            "title": "抵押品销毁",
-            "description": "失败 project collateral is partially burned as part of investor protection mechanism"
-          },
-          "revenueBuyback": {
-            "title": "收入回购销毁",
-            "description": "专业tocol revenue used to buy and burn TBURN quarterly, creating deflationary pressure"
+            "voteProtocol": "对协议升级和参数更改进行投票",
+            "approveTreasury": "批准国库分配和生态系统资助",
+            "decideSlashing": "决定削减提案和验证者争议"
           }
         }
       },
@@ -8117,7 +8117,7 @@
             "title": "种子资助",
             "amount": "$5,000 - $25,000",
             "description": "面向早期项目",
-            "tier": "Seed"
+            "tier": "种子"
           },
           "growth": {
             "title": "成长资助",
@@ -8128,17 +8128,17 @@
             "title": "企业资助",
             "amount": "$100,000+",
             "description": "面向重大集成",
-            "tier": "Enterprise"
+            "tier": "企业级"
           },
           "build": {
-            "tier": "Build",
+            "tier": "构建",
             "amount": "$25K - $100K",
-            "description": "MVP Development"
+            "description": "MVP 开发"
           },
           "scale": {
-            "tier": "Scale",
+            "tier": "规模化",
             "amount": "$100K - $500K",
-            "description": "Production Ready"
+            "description": "生产就绪"
           }
         },
         "devToolsSection": {
@@ -8280,7 +8280,7 @@
         "viewDocumentation": "查看文档",
         "authentication": {
           "title": "身份验证",
-          "description": "全部 API requests require an API key. Get your free key from the",
+          "description": "所有 API 请求都需要 API 密钥。从以下位置获取您的免费密钥",
           "dashboardLink": "开发者仪表板"
         },
         "sidebar": {
@@ -8298,13 +8298,13 @@
         "endpoints": {
           "blocks": {
             "description": "按区块号或哈希获取区块信息",
-            "paramDesc": "区块 number or 'latest'"
+            "paramDesc": "区块号或 'latest'"
           },
           "transactions": {
             "description": "按交易哈希获取交易详情"
           },
           "sendTransaction": {
-            "description": "提交 a signed transaction to the network"
+            "description": "向网络提交已签名的交易"
           },
           "balance": {
             "description": "获取账户余额和 nonce"
@@ -8316,15 +8316,15 @@
           "description": "描述"
         },
         "errors": {
-          "badRequest": "无效 request parameters",
-          "unauthorized": "无效 or missing API key",
-          "tooManyRequests": "比率 limit exceeded",
+          "badRequest": "无效的请求参数",
+          "unauthorized": "无效或缺失的 API 密钥",
+          "tooManyRequests": "超出速率限制",
           "internalError": "内部服务器错误"
         },
         "websocketApi": {
           "title": "WebSocket API",
           "description": "订阅实时区块链事件以获取即时更新。",
-          "connectComment": "连接 to WebSocket",
+          "connectComment": "连接到 WebSocket",
           "subscribeComment": "订阅区块频道"
         },
         "sdks": {
@@ -8335,7 +8335,7 @@
         "quickLinks": {
           "quickStart": {
             "title": "快速入门",
-            "description": "部署 your first d应用 in 5 minutes"
+            "description": "5分钟内部署您的第一个 dApp"
           },
           "codeExamples": {
             "title": "代码示例",
@@ -8343,7 +8343,7 @@
           },
           "rpcProviders": {
             "title": "RPC 提供商",
-            "description": "连接 via multiple end分"
+            "description": "通过多个端点连接"
           }
         },
         "relatedLinks": {
@@ -8369,7 +8369,7 @@
         "relatedDocs": "相关文档",
         "installation": {
           "title": "安装",
-          "verify": "验证 installation"
+          "verify": "验证安装"
         },
         "categories": {
           "project": "项目",
@@ -8380,52 +8380,52 @@
         },
         "commands": {
           "init": {
-            "desc": "初始化 a new T销毁 链 project",
+            "desc": "初始化一个新的 TBurn Chain 项目",
             "options": {
-              "template": "项目 template (defi, nft, dao)",
-              "typescript": "Use 类型脚本"
+              "template": "项目模板 (defi, nft, dao)",
+              "typescript": "使用 TypeScript"
             }
           },
           "dev": {
-            "desc": "开始 local development server",
+            "desc": "启动本地开发服务器",
             "options": {
               "port": "端口号",
-              "open": "打开 browser automatically"
+              "open": "自动打开浏览器"
             }
           },
           "build": {
-            "desc": "构建 project for production",
+            "desc": "为生产环境构建项目",
             "options": {
-              "outdir": "输出 directory",
+              "outdir": "输出目录",
               "sourcemap": "生成源映射"
             }
           },
           "deploy": {
-            "desc": "部署 to T销毁 链 network",
+            "desc": "部署到 TBurn Chain 网络",
             "options": {
-              "network": "目标 network (mainnet, testnet)",
-              "verify": "验证 contract on explorer",
+              "network": "目标网络 (mainnet, testnet)",
+              "verify": "在浏览器上验证合约",
               "gasPrice": "Gas 价格（gwei）"
             }
           },
           "wallet": {
-            "desc": "钱包 management commands",
+            "desc": "钱包管理命令",
             "options": {
-              "create": "创建 new wallet",
-              "import": "导入 existing wallet",
-              "balance": "检查 wallet balance"
+              "create": "创建新钱包",
+              "import": "导入现有钱包",
+              "balance": "检查钱包余额"
             }
           }
         },
         "globalOptions": {
-          "verbose": "启用 verbose output",
-          "json": "输出 in JSON format",
+          "verbose": "启用详细输出",
+          "json": "以 JSON 格式输出",
           "network": "指定网络",
           "config": "配置文件路径",
-          "help": "显示 help message"
+          "help": "显示帮助信息"
         },
         "needHelp": {
-          "title": "Need 帮助?",
+          "title": "需要帮助？",
           "apiReference": "API 参考",
           "sdkDocumentation": "SDK 文档"
         },
@@ -8434,7 +8434,7 @@
           "documentation": "文档",
           "apiReference": "API 参考",
           "quickStart": "快速入门",
-          "installationGuide": "安装 指南"
+          "installationGuide": "安装指南"
         }
       },
       "sdk": {
@@ -8445,13 +8445,13 @@
         "configuration": "配置",
         "quickExamples": "快速示例",
         "install": {
-          "npm": "安装 with npm",
+          "npm": "使用 npm 安装",
           "yarn": "或使用 yarn"
         },
         "features": {
           "typeSafety": {
             "title": "类型安全",
-            "description": "完整 类型脚本 support with comprehensive type definitions for all API methods and responses."
+            "description": "完整的 TypeScript 支持，为所有 API 方法和响应提供全面的类型定义。"
           },
           "autoRetry": {
             "title": "自动重试",
@@ -8465,10 +8465,10 @@
         "examples": {
           "core": "核心功能",
           "defi": "DeFi 交互",
-          "streaming": "实时 streaming"
+          "streaming": "实时流"
         },
         "needHelp": {
-          "title": "Need 帮助?",
+          "title": "需要帮助？",
           "apiReference": "API 参考",
           "cliReference": "CLI 参考",
           "codeExamples": "代码示例",
@@ -8488,11 +8488,11 @@
         "features": {
           "evmCompatibility": {
             "title": "完全 EVM 兼容",
-            "description": "部署 existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+            "description": "以最小的修改部署现有的 Solidity 合约。兼容标准开发工具。"
           },
           "trustIntegration": {
             "title": "信任评分集成",
-            "description": "访问 on-chain trust scores through oracle contracts for trust-verified transactions."
+            "description": "通过预言机合约访问链上信任评分，实现信任验证交易。"
           },
           "autoBurn": {
             "title": "自动销毁",
@@ -8518,19 +8518,19 @@
         "templates": {
           "erc20": {
             "title": "BRC-20 代币",
-            "description": "标准 token with trust-aware transfers"
+            "description": "具有信任感知转账的标准代币"
           },
           "nft": {
             "title": "NFT 收藏",
-            "description": "ERC-721 with on-chain metadata"
+            "description": "带有链上元数据的 ERC-721"
           },
           "defi": {
-            "title": "DeFi 专业tocol",
-            "description": "AMM pool with trust verification"
+            "title": "DeFi 协议",
+            "description": "带有信任验证的 AMM 池"
           },
           "dao": {
-            "title": "DAO Governance",
-            "description": "代币-weighted voting system"
+            "title": "DAO 治理",
+            "description": "代币加权投票系统"
           },
           "autoBurn": "自动销毁代币",
           "basicToken": "基础代币",
@@ -8539,16 +8539,16 @@
           "trustScoreIntegration": "信任评分集成"
         },
         "security": {
-          "title": "安全 最佳 Practices",
+          "title": "安全最佳实践",
           "reentrancy": "使用 ReentrancyGuard 修饰符防止递归外部调用",
           "accessControl": "使用 OpenZeppelin AccessControl 实现基于角色的访问控制",
           "inputValidation": {
-            "title": "输入 有效ation",
-            "description": "始终 validate user inputs and external data"
+            "title": "输入验证",
+            "description": "始终验证用户输入和外部数据"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for upgradeable contracts"
+            "title": "可升级性",
+            "description": "使用代理模式实现可升级合约"
           },
           "checksEffects": "对外部调用遵循检查-效果-交互模式",
           "initializer": "对代理合约初始化使用初始化器修饰符",
@@ -8563,12 +8563,12 @@
           }
         },
         "gasOptimization": {
-          "title": "Gas Optimization",
-          "subtitle": "Tips for reducing transaction costs",
-          "tip1": "Pack multiple small variables into single storage slots",
-          "tip2": "Use calldata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings",
+          "title": "Gas 优化",
+          "subtitle": "降低交易成本的技巧",
+          "tip1": "将多个小变量打包到单个存储槽中",
+          "tip2": "对只读函数参数使用 calldata 而不是 memory",
+          "tip3": "多次访问时将存储变量缓存到内存中",
+          "tip4": "使用自定义错误代替回退字符串",
           "memoryVsStorage": {
             "title": "内存与存储",
             "desc": "对临时数据使用内存，对持久状态使用存储，以优化 Gas 使用。"
@@ -8587,21 +8587,21 @@
           }
         },
         "testing": {
-          "title": "测试 Your 合约s",
-          "description": "Comprehensive testing guide for smart contracts",
-          "unitTests": "Unit 测试s",
-          "integrationTests": "集成 测试s",
-          "fuzzTesting": "Fuzz 测试"
+          "title": "测试您的合约",
+          "description": "智能合约综合测试指南",
+          "unitTests": "单元测试",
+          "integrationTests": "集成测试",
+          "fuzzTesting": "模糊测试"
         },
         "deployment": {
-          "title": "部署ment 指南",
-          "step1": "Compile contracts",
-          "step2": "部署 to testnet",
-          "step3": "验证 on explorer",
-          "step4": "部署 to mainnet"
+          "title": "部署指南",
+          "step1": "编译合约",
+          "step2": "部署到测试网",
+          "step3": "在浏览器上验证",
+          "step4": "部署到主网"
         },
         "needHelp": {
-          "title": "Need 帮助?",
+          "title": "需要帮助？",
           "sdkDocumentation": "SDK 文档",
           "codeExamples": "代码示例",
           "discordSupport": "Discord 社区"
@@ -8622,148 +8622,148 @@
         "tag": "实时",
         "title": "WebSocket API",
         "subtitle": "实时数据流和事件订阅。",
-        "connectionEndpoints": "连接ion 端点",
-        "subscriptionChannels": "Subscription Channels",
-        "fullReference": "完整 参考",
-        "getSdk": "Get SDK",
+        "connectionEndpoints": "连接端点",
+        "subscriptionChannels": "订阅频道",
+        "fullReference": "完整参考",
+        "getSdk": "获取 SDK",
         "codeExamples": "代码示例",
-        "viewRestApi": "View REST API",
-        "readyToIntegrate": "准备就绪 to Integrate?",
+        "viewRestApi": "查看 REST API",
+        "readyToIntegrate": "准备好集成了吗？",
         "endpoints": {
           "mainnet": {
-            "type": "专业duction",
-            "desc": "主网 WebSocket endpoint for production applications"
+            "type": "生产环境",
+            "desc": "用于生产应用的主网 WebSocket 端点"
           },
           "testnet": {
-            "type": "Development",
-            "desc": "测试网 WebSocket endpoint for development and testing"
+            "type": "开发环境",
+            "desc": "用于开发和测试的测试网 WebSocket 端点"
           }
         },
         "channels": {
           "blocks": {
-            "description": "Subscribe to new block notifications with full block data"
+            "description": "订阅新区块通知，获取完整区块数据"
           },
           "transactions": {
-            "description": "实时 transaction updates for specific addresses"
+            "description": "特定地址的实时交易更新"
           },
           "trustScore": {
-            "description": "实时 trust score changes for monitored addresses"
+            "description": "监控地址的实时信任评分变化"
           },
           "defi": {
-            "description": "价格 feeds and liquidity pool updates"
+            "description": "价格信息和流动性池更新"
           }
         },
         "authentication": {
           "title": "身份验证",
-          "description": "Include your API key in the connection URL query parameter or as a header"
+          "description": "在连接 URL 查询参数或请求头中包含您的 API 密钥"
         },
         "heartbeat": {
-          "title": "Heartbeat",
-          "description": "发送 ping messages every 30 seconds to keep the connection alive"
+          "title": "心跳检测",
+          "description": "每 30 秒发送 ping 消息以保持连接活跃"
         },
         "clientImplementation": {
-          "title": "Client Implementation",
-          "subtitle": "示例 WebSocket client in Java脚本"
+          "title": "客户端实现",
+          "subtitle": "JavaScript WebSocket 客户端示例"
         }
       },
       "examples": {
         "tag": "代码示例",
         "title": "代码示例",
         "subtitle": "即用型代码片段和示例项目。",
-        "commonRecipes": "Common Recipes",
+        "commonRecipes": "常用示例",
         "categories": {
-          "allRecipes": "全部 Recipes",
+          "allRecipes": "全部示例",
           "smartContracts": "智能合约",
           "defi": "DeFi",
           "nfts": "NFTs",
-          "wallets": "钱包s"
+          "wallets": "钱包"
         },
         "recipes": {
           "connectWallet": {
-            "title": "连接 钱包",
-            "description": "Integrate MetaMask and other Web3 wallets with React hooks",
-            "category": "Frontend"
+            "title": "连接钱包",
+            "description": "使用 React hooks 集成 MetaMask 和其他 Web3 钱包",
+            "category": "前端"
           },
           "createToken": {
             "title": "创建 BRC-20 代币",
-            "description": "部署 a trust-verified token with automatic burn mechanics",
+            "description": "部署具有自动销毁机制的信任验证代币",
             "category": "智能合约"
           },
           "aiOracle": {
             "title": "AI Oracle 集成",
-            "description": "Query AI-powered insights from smart contracts or backend",
-            "category": "返回end"
+            "description": "从智能合约或后端查询 AI 驱动的洞察",
+            "category": "后端"
           },
           "nftMinting": {
-            "title": "NFT 铸造ing",
-            "description": "创建 and mint NFT collections with metadata on IPFS",
+            "title": "NFT 铸造",
+            "description": "创建和铸造 IPFS 元数据的 NFT 集合",
             "category": "NFT"
           },
           "flashLoan": {
-            "title": "Flash Loan",
-            "description": "Execute arbitrage with atomic flash loan transactions",
+            "title": "闪电贷",
+            "description": "通过原子闪电贷交易执行套利",
             "category": "DeFi"
           },
           "indexerSetup": {
-            "title": "Indexer 设置",
-            "description": "构建 a custom blockchain data indexer with The 图表",
+            "title": "索引器设置",
+            "description": "使用 The Graph 构建自定义区块链数据索引器",
             "category": "基础设施"
           }
         },
         "featured": {
-          "title": "精选 Recipe",
-          "description": "构建 a secure vault that verifies project trust scores before accepting deposits. This pattern is essential for DeFi protocols.",
-          "difficulty": "困难y",
+          "title": "精选示例",
+          "description": "构建一个在接受存款前验证项目信任评分的安全金库。这种模式对 DeFi 协议至关重要。",
+          "difficulty": "难度",
           "intermediate": "中级",
           "time": "时间",
-          "tenMins": "~10 mins",
+          "tenMins": "约 10 分钟",
           "checks": {
-            "trustScore": "Verifies Trust Score on-chain before deposit",
-            "revert": "Reverts if score below threshold",
-            "gasOptimized": "Gas-optimized for production use"
+            "trustScore": "存款前链上验证信任评分",
+            "revert": "评分低于阈值时回退",
+            "gasOptimized": "针对生产环境进行 Gas 优化"
           }
         },
         "cta": {
-          "title": "Have a Recipe to 分享?",
-          "description": "Contribute your code examples to help the community. 全部 contributors receive ecosystem rewards.",
-          "submitPr": "提交 PR on GitHub",
-          "requestGuide": "Request a 指南"
+          "title": "有示例要分享？",
+          "description": "贡献您的代码示例来帮助社区。所有贡献者都会获得生态系统奖励。",
+          "submitPr": "在 GitHub 上提交 PR",
+          "requestGuide": "请求指南"
         }
       },
       "quickstart": {
         "tag": "入门",
         "title": "快速开始",
         "subtitle": "几分钟内开始使用TBurn Chain。",
-        "whatsNext": "What's 下一步?",
+        "whatsNext": "下一步是什么？",
         "prerequisites": {
           "title": "先决条件",
-          "node": "节点.js 18+ installed",
-          "account": "T销毁 链 account (testnet faucet available)",
-          "knowledge": "基础 Java脚本/类型脚本 knowledge"
+          "node": "已安装 Node.js 18+",
+          "account": "TBurn Chain 账户（测试网水龙头可用）",
+          "knowledge": "基础 JavaScript/TypeScript 知识"
         },
         "steps": {
           "installSdk": {
-            "title": "安装 the SDK",
-            "description": "添加 the T销毁 SDK to your project using npm or yarn"
+            "title": "安装 SDK",
+            "description": "使用 npm 或 yarn 将 TBurn SDK 添加到您的项目"
           },
           "initializeSdk": {
-            "title": "初始化 the SDK",
-            "description": "配置 the SDK with your API key and network settings"
+            "title": "初始化 SDK",
+            "description": "使用您的 API 密钥和网络设置配置 SDK"
           },
           "firstTransaction": {
-            "title": "发送 Your 第一 交易",
-            "description": "连接 your wallet and send TBURN tokens"
+            "title": "发送您的第一笔交易",
+            "description": "连接您的钱包并发送 TBURN 代币"
           },
           "queryTrustScore": {
-            "title": "Query Trust Score",
-            "description": "Retrieve AI-powered trust analysis for any address"
+            "title": "查询信任评分",
+            "description": "获取任意地址的 AI 驱动信任分析"
           }
         },
         "networkConfig": {
-          "title": "网络 配置",
+          "title": "网络配置",
           "chainId": "链 ID",
           "rpcUrl": "RPC URL",
-          "explorer": "探索r",
+          "explorer": "浏览器",
           "mainnet": {
             "title": "主网"
           },
@@ -8772,24 +8772,24 @@
           }
         },
         "vsCode": {
-          "title": "VS 代码 设置",
-          "description": "推荐 extensions for T销毁 链 development",
-          "solidity": "Solidity Language 支持",
-          "eslint": "ESLint for Java脚本/类型脚本",
-          "tburnSnippets": "T销毁 SDK Snippets"
+          "title": "VS Code 设置",
+          "description": "TBurn Chain 开发推荐扩展",
+          "solidity": "Solidity 语言支持",
+          "eslint": "JavaScript/TypeScript ESLint",
+          "tburnSnippets": "TBurn SDK 代码片段"
         },
         "nextSteps": {
           "sdkGuide": {
             "title": "SDK 指南",
-            "desc": "Deep dive into SDK features"
+            "desc": "深入了解 SDK 功能"
           },
           "apiReference": {
             "title": "API 参考",
-            "desc": "探索 all end分"
+            "desc": "探索所有端点"
           },
           "smartContracts": {
             "title": "智能合约",
-            "desc": "Write your first contract"
+            "desc": "编写您的第一个合约"
           }
         }
       },
@@ -8798,20 +8798,20 @@
         "title": "安装指南",
         "subtitle": "分步安装和配置说明。",
         "startBuilding": "开始构建",
-        "viewQuickStart": "View 快速入门",
+        "viewQuickStart": "查看快速入门",
         "requirements": {
-          "title": "System Requirements",
+          "title": "系统要求",
           "hardware": {
-            "title": "困难ware",
-            "cpu": "2+ CPU cores",
-            "memory": "8GB RAM minimum",
-            "storage": "50GB SSD storage"
+            "title": "硬件",
+            "cpu": "2+ CPU 核心",
+            "memory": "最低 8GB RAM",
+            "storage": "50GB SSD 存储"
           },
           "software": {
-            "title": "Software",
-            "os": "macOS, Linux, or Windows 10+",
-            "node": "节点.js 18 or higher",
-            "git": "Git 2.0 or higher"
+            "title": "软件",
+            "os": "macOS、Linux 或 Windows 10+",
+            "node": "Node.js 18 或更高版本",
+            "git": "Git 2.0 或更高版本"
           },
           "minimum": {
             "title": "最低要求",
@@ -8848,65 +8848,65 @@
           "npm": "npm",
           "yarn": "Yarn",
           "docker": "Docker",
-          "source": "从 Source",
+          "source": "从源码",
           "linux": "Linux",
           "windows": "Windows"
         },
         "npm": {
-          "title": "安装 via npm",
-          "step1": "安装 the SDK globally",
-          "step2": "验证 installation",
-          "step3": "初始化 a new project"
+          "title": "通过 npm 安装",
+          "step1": "全局安装 SDK",
+          "step2": "验证安装",
+          "step3": "初始化新项目"
         },
         "yarn": {
-          "title": "安装 via Yarn",
-          "step1": "安装 the SDK globally",
-          "step2": "验证 installation"
+          "title": "通过 Yarn 安装",
+          "step1": "全局安装 SDK",
+          "step2": "验证安装"
         },
         "docker": {
           "title": "Docker 安装",
-          "step1": "Pull the official image",
-          "step2": "Run the container",
-          "step3": "访问 the development environment",
+          "step1": "拉取官方镜像",
+          "step2": "运行容器",
+          "step3": "访问开发环境",
           "pullAndRun": "拉取并运行 Docker 镜像",
           "recommendation": "推荐用于隔离的开发环境",
           "viewDockerCompose": "查看 Docker Compose 配置"
         },
         "source": {
-          "title": "构建 from Source",
-          "step1": "Clone the repository",
-          "step2": "安装 dependencies",
-          "step3": "构建 the project",
-          "step4": "链接 globally"
+          "title": "从源码构建",
+          "step1": "克隆仓库",
+          "step2": "安装依赖",
+          "step3": "构建项目",
+          "step4": "全局链接"
         },
         "configuration": {
           "title": "配置",
           "envVars": {
             "title": "环境变量",
-            "apiKey": "Your T销毁 API key",
+            "apiKey": "您的 TBurn API 密钥",
             "network": "网络 (mainnet/testnet)",
-            "rpcUrl": "自定义 RPC endpoint (optional)"
+            "rpcUrl": "自定义 RPC 端点（可选）"
           },
           "configFile": {
-            "title": "配置 文件",
-            "description": "创建 a tburn.config.js file in your project root"
+            "title": "配置文件",
+            "description": "在项目根目录创建 tburn.config.js 文件"
           },
           "description": "使用环境变量和配置文件配置您的 TBurn Chain 节点。",
           "commonFlags": "常用配置标志"
         },
         "troubleshooting": {
-          "title": "Troubleshooting",
+          "title": "故障排除",
           "permissionDenied": {
-            "title": "权限 Denied",
-            "description": "Try running with sudo or fix npm permissions"
+            "title": "权限被拒绝",
+            "description": "尝试使用 sudo 运行或修复 npm 权限"
           },
           "nodeVersion": {
-            "title": "节点 版本 Mismatch",
-            "description": "Use nvm to switch to 节点.js 18+"
+            "title": "Node 版本不匹配",
+            "description": "使用 nvm 切换到 Node.js 18+"
           },
           "networkError": {
-            "title": "网络 连接ion 错误",
-            "description": "检查 your firewall settings and RPC endpoint"
+            "title": "网络连接错误",
+            "description": "检查您的防火墙设置和 RPC 端点"
           },
           "portErrors": "端口已被占用",
           "portErrorsAnswer": "使用 --http.port 标志更改端口或终止占用该端口的进程。",
@@ -8916,14 +8916,14 @@
           "openFilesAnswer": "使用 ulimit -n 65535 增加系统文件描述符限制。"
         },
         "nextSteps": {
-          "title": "下一步 Steps",
+          "title": "下一步",
           "quickStart": {
             "title": "快速入门指南",
-            "description": "构建 your first d应用 in 5 minutes"
+            "description": "5 分钟内构建您的第一个 dApp"
           },
           "sdkReference": {
             "title": "SDK 参考",
-            "description": "Complete API documentation"
+            "description": "完整的 API 文档"
           },
           "examples": {
             "title": "代码示例",
@@ -8960,17 +8960,17 @@
         "viewGuide": "查看完整指南",
         "overview": {
           "title": "迁移概述",
-          "description": "T销毁 链 is fully EVM-compatible, allowing you to deploy existing Ethereum smart contracts with minimal modifications.",
+          "description": "TBurn Chain 完全兼容 EVM，允许您以最小的修改部署现有的以太坊智能合约。",
           "compatibility": "100% EVM 兼容",
-          "gasEfficiency": "Up to 10x lower gas costs",
-          "trustFeatures": "Built-in Trust Score integration"
+          "gasEfficiency": "Gas 成本降低高达 10 倍",
+          "trustFeatures": "内置信任评分集成"
         },
         "differences": {
           "title": "主要差异",
           "chainId": {
             "title": "链 ID",
-            "ethereum": "Ethereum: 1",
-            "tburn": "T销毁: 7777"
+            "ethereum": "以太坊: 1",
+            "tburn": "TBurn: 7777"
           },
           "consensus": {
             "title": "共识机制",
@@ -8984,8 +8984,8 @@
           },
           "blockTime": {
             "title": "出块时间",
-            "ethereum": "~12 seconds",
-            "tburn": "~3 seconds"
+            "ethereum": "约 12 秒",
+            "tburn": "约 3 秒"
           },
           "evmCompatibility": {
             "title": "EVM 兼容性",
@@ -9012,19 +9012,19 @@
           "title": "迁移步骤",
           "step1": {
             "title": "更新网络配置",
-            "description": "Change RPC end分 and chain ID in your configuration files"
+            "description": "在配置文件中更改 RPC 端点和链 ID"
           },
           "step2": {
             "title": "修改合约地址",
-            "description": "更新 hardcoded contract addresses to T销毁 链 deployments"
+            "description": "将硬编码的合约地址更新为 TBurn Chain 部署地址"
           },
           "step3": {
             "title": "添加信任评分集成",
-            "description": "可选ly integrate Trust Score verification for enhanced security"
+            "description": "可选地集成信任评分验证以增强安全性"
           },
           "step4": {
             "title": "部署和测试",
-            "description": "部署 to testnet first, then migrate to mainnet"
+            "description": "先部署到测试网，然后迁移到主网"
           },
           "useExistingCode": {
             "title": "使用现有代码",
@@ -9049,20 +9049,20 @@
           "title": "迁移工具",
           "cliMigrate": {
             "title": "CLI 迁移工具",
-            "description": "Automated contract migration with burn-cli migrate"
+            "description": "使用 burn-cli migrate 自动化合约迁移"
           },
           "hardhatPlugin": {
             "title": "Hardhat 插件",
-            "description": "T销毁 困难hat plugin for seamless deployment"
+            "description": "TBurn Hardhat 插件实现无缝部署"
           },
           "foundrySupport": {
             "title": "Foundry 支持",
-            "description": "完整 Foundry compatibility for testing and deployment"
+            "description": "完整的 Foundry 兼容性，支持测试和部署"
           }
         },
         "cta": {
           "title": "准备好迁移了吗？",
-          "description": "开始 with our step-by-step migration guide and tools.",
+          "description": "使用我们的分步迁移指南和工具开始。",
           "startNow": "立即开始迁移",
           "contactSupport": "联系支持",
           "readDocumentation": "阅读文档"
@@ -9070,16 +9070,16 @@
         "faq": {
           "title": "常见问题",
           "q1": {
-            "question": "Will my existing Solidity contracts work?",
-            "answer": "是, T销毁 链 is fully EVM-compatible and supports all Solidity versions."
+            "question": "我现有的 Solidity 合约能用吗？",
+            "answer": "是的，TBurn Chain 完全兼容 EVM，支持所有 Solidity 版本。"
           },
           "q2": {
-            "question": "Do I need to re-audit my contracts?",
-            "answer": "We recommend a security review for Trust Score integration, but existing logic should work as-is."
+            "question": "我需要重新审计我的合约吗？",
+            "answer": "我们建议对信任评分集成进行安全审查，但现有逻辑应该可以直接使用。"
           },
           "q3": {
-            "question": "How long does migration take?",
-            "answer": "简单 contracts can be migrated in hours. 复杂 protocols may take 1-2 weeks."
+            "question": "迁移需要多长时间？",
+            "answer": "简单合约可以在几小时内迁移。复杂协议可能需要 1-2 周。"
           }
         },
         "keyDifferences": {
@@ -11020,61 +11020,68 @@
       "depin": {
         "tag": "去中心化基础设施",
         "title": "DePIN网络",
-        "subtitle": "构建和运营去中心化物理基础设施网络。通过贡献计算、存储、无线和传感资源获得奖励。",
+        "subtitle": "构建和运营去中心化物理基础设施网络。通过贡献计算、存储、无线和传感资源来获得奖励。",
         "buttons": {
-          "deployNode": "部署节点",
-          "depinDocs": "DePIN文档"
+          "deployInfrastructure": "部署基础设施",
+          "protocolDocs": "协议文档"
         },
         "categories": {
           "wireless": {
             "title": "无线网络",
-            "desc": "LoRaWAN、5G和WiFi热点部署。提供去中心化覆盖并按使用量获得奖励。"
+            "desc": "去中心化5G、LoRaWAN和WiFi覆盖。通过部署热点并为社区提供连接来获得奖励。"
           },
           "compute": {
             "title": "分布式计算",
-            "desc": "出租闲置计算能力并按GPU小时获得代币。AI训练和渲染工作负载。"
+            "desc": "用于AI训练、渲染和科学计算的GPU和CPU资源共享。将闲置计算能力变现。"
+          },
+          "mapping": {
+            "title": "地图与传感器",
+            "desc": "众包地理空间数据、气象站和物联网传感器。构建具有验证覆盖的实时数据网络。"
           },
           "storage": {
             "title": "去中心化存储",
-            "desc": "向网络提供磁盘空间。文件冗余奖励和可验证存储证明。"
-          },
-          "sensors": {
-            "title": "传感器网络",
-            "desc": "收集天气、空气质量和环境数据。通过物联网传感器阵列获得奖励。"
+            "desc": "具有冗余和加密的分布式文件存储。通过向网络贡献磁盘空间来获得奖励。"
           }
         },
         "metrics": {
           "activeNodes": "活跃节点",
-          "monthlyRewards": "月度奖励",
-          "networkCoverage": "网络覆盖"
+          "protocolRevenue": "协议收入",
+          "countriesCovered": "覆盖国家"
         },
         "features": {
-          "verifiable": {
-            "title": "可验证贡献",
-            "desc": "通过加密证明验证节点操作和服务质量。透明的奖励计算。"
+          "proofOfCoverage": {
+            "title": "覆盖证明",
+            "desc": "以密码学方式验证基础设施部署和服务可用性。基于实际贡献的公平奖励分配。"
           },
-          "permissionless": {
-            "title": "无许可参与",
-            "desc": "无需许可即可加入网络。插入硬件并立即开始获得奖励。"
+          "slashingProtection": {
+            "title": "削减保护",
+            "desc": "基于质押的安全机制，对恶意行为进行惩罚。在奖励诚实运营者的同时保护网络完整性。"
           },
-          "scalable": {
-            "title": "可扩展基础设施",
-            "desc": "扩展到数千个节点。内置自动负载均衡和冗余。"
+          "communityGovernance": {
+            "title": "社区治理",
+            "desc": "基于DAO的网络参数协议治理。代币持有者对升级、奖励和扩展优先级进行投票。"
           },
-          "hybrid": {
-            "title": "混合模型",
-            "desc": "将私有硬件与云节点结合。灵活混合本地和云原生部署。"
+          "dynamicRewards": {
+            "title": "动态奖励",
+            "desc": "基于需求和覆盖缺口的AI优化奖励分配。服务不足地区获得更高奖励。"
           }
         },
+        "hardware": {
+          "title": "硬件要求",
+          "desc": "适用于不同DePIN协议的灵活硬件选项。以最少投资开始获得收益。",
+          "minimum": "最低配置：Raspberry Pi 4或同等ARM设备",
+          "recommended": "推荐配置：配备16GB RAM、1TB SSD的x86服务器",
+          "gpu": "GPU计算：用于AI工作负载的NVIDIA RTX 3080或更高"
+        },
         "sections": {
-          "networks": "DePIN网络类型",
-          "networksDesc": "探索TBURN支持的去中心化基础设施",
-          "platformFeatures": "平台功能"
+          "categories": "基础设施类别",
+          "categoriesDesc": "在多个DePIN协议中部署并获得收益",
+          "protocolFeatures": "协议功能"
         },
         "cta": {
-          "title": "加入DePIN革命",
-          "desc": "在TBURN上构建或贡献去中心化基础设施以获得奖励。",
-          "deployNow": "立即部署"
+          "title": "准备好加入DePIN革命了吗？",
+          "desc": "部署基础设施，获得奖励，帮助构建去中心化的未来。我们的指南将帮助您在几分钟内开始。",
+          "getStarted": "开始使用"
         }
       },
       "stablecoins": {

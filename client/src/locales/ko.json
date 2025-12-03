@@ -7464,15 +7464,39 @@
       "tokenomics": {
         "tag": "경제학",
         "title": "토큰노믹스",
-        "subtitle": "TBURN 토큰 분배, 발행 일정, 디플레이션 메커니즘을 이해하세요.",
+        "subtitle": "TBURN 토큰 분배, 발행 일정 및 디플레이션 메커니즘을 이해하세요.",
+        "distributionSection": {
+          "title": "토큰 분배",
+          "subtitle": "장기 생태계 성장과 지속가능성을 위한 전략적 배분",
+          "totalSupply": "1,000,000,000 TBURN"
+        },
+        "burnSection": {
+          "title": "소각 메커니즘",
+          "subtitle": "지속 가능한 토큰 가치 상승을 위한 다중 디플레이션 메커니즘"
+        },
         "marketStats": {
           "title": "시장 통계",
           "totalSupply": "총 공급량",
           "circulatingSupply": "유통 공급량",
           "totalBurned": "총 소각량",
           "marketCap": "시가총액",
-          "burned": "Burned",
-          "totalStaked": "총 Staked"
+          "burned": "소각량",
+          "totalStaked": "총 스테이킹량"
+        },
+        "tburn": {
+          "type": "거버넌스 & 스테이킹 토큰",
+          "totalSupply": "총 발행량",
+          "decimals": "소수점",
+          "role": "역할",
+          "roleValue": "네트워크 보안을 위한 투표 및 스테이킹용 주요 거버넌스 토큰"
+        },
+        "ember": {
+          "type": "가스 토큰",
+          "exchangeRatio": "교환 비율",
+          "baseFee": "기본 수수료",
+          "baseFeeValue": "0.001 EMBER",
+          "role": "역할",
+          "roleValue": "트랜잭션 수수료 및 스마트 컨트랙트 실행을 위한 네이티브 가스 토큰"
         },
         "distribution": {
           "title": "토큰 분배",
@@ -7502,21 +7526,39 @@
               "percentage": "5%"
             }
           },
-          "ecosystemFund": {
-            "title": "Ecosystem 펀드",
-            "subtitle": "보조금, partnerships, and ecosystem development initiatives"
-          },
           "validatorRewards": {
             "title": "검증자 보상",
-            "subtitle": "블록 rewards and validation incentives for network security"
+            "subtitle": "네트워크 보안을 위한 블록 보상 및 검증 인센티브"
+          },
+          "ecosystemFund": {
+            "title": "생태계 펀드",
+            "subtitle": "그랜트, 파트너십 및 생태계 개발 이니셔티브"
           },
           "teamAdvisors": {
-            "title": "팀 & Advisors",
-            "subtitle": "4-year vesting with 1-year cliff for long-term alignment"
+            "title": "팀 & 어드바이저",
+            "subtitle": "장기 목표 일치를 위한 4년 베스팅, 1년 클리프"
           },
           "foundationReserve": {
-            "title": "재단 Reserve",
-            "subtitle": "Emergency fund and strategic opportunities reserve"
+            "title": "재단 준비금",
+            "subtitle": "비상 자금 및 전략적 기회 준비금"
+          }
+        },
+        "burn": {
+          "transactionFees": {
+            "title": "거래 수수료 소각",
+            "description": "모든 거래 수수료의 0.1%가 영구 소각되어 네트워크 사용량에 따라 공급량 감소"
+          },
+          "collateralBurn": {
+            "title": "담보 소각",
+            "description": "투자자 보호 메커니즘의 일부로 실패한 프로젝트 담보가 부분 소각"
+          },
+          "revenueBuyback": {
+            "title": "수익 바이백 소각",
+            "description": "프로토콜 수익으로 분기별 TBURN 매입 및 소각, 디플레이션 압력 생성"
+          },
+          "slashingPenalty": {
+            "title": "슬래싱 패널티 소각",
+            "description": "검증자 부정행위 패널티가 소각되어 네트워크 보안 인센티브 강화"
           }
         },
         "burnMechanisms": {
@@ -7542,9 +7584,9 @@
           "totalStaked": "총 스테이킹",
           "validators": "활성 검증자",
           "minStake": "최소 스테이킹",
-          "liquidStaking": "Liquid staking available with stTBURN derivative token",
-          "ninetyDayLock": "90-day lock: 12% APY + 1.2x governance weight",
-          "yearLock": "365-day lock: 18% APY + 2x governance weight"
+          "liquidStaking": "유동 스테이킹: stTBURN 파생 토큰으로 사용 가능",
+          "ninetyDayLock": "90일 락업: 12% APY + 1.2x 거버넌스 가중치",
+          "yearLock": "365일 락업: 18% APY + 2x 거버넌스 가중치"
         },
         "governance": {
           "title": "거버넌스",
@@ -7553,51 +7595,9 @@
           "proposalThreshold": "제안 임계값",
           "quorum": "정족수",
           "features": {
-            "voteProtocol": "투표 on protocol upgrades and parameter changes",
-            "approveTreasury": "승인 treasury allocations and ecosystem grants",
-            "decideSlashing": "Decide on slashing proposals and validator disputes"
-          }
-        },
-        "distributionSection": {
-          "title": "토큰 Distribution",
-          "subtitle": "장기적인 생태계 성장과 지속 가능성을 위해 설계된 전략적 배분",
-          "totalSupply": "1,000,000,000 TBURN"
-        },
-        "burnSection": {
-          "title": "소각 Mechanisms",
-          "subtitle": "지속 가능한 토큰 가치 상승을 보장하는 다중 디플레이션 메커니즘"
-        },
-        "tburn": {
-          "type": "거버넌스 & 스테이킹 토큰",
-          "role": "Role",
-          "roleValue": "기본 governance token for voting and staking to secure the network",
-          "totalSupply": "1,000,000,000",
-          "decimals": "18"
-        },
-        "ember": {
-          "type": "가스 토큰",
-          "role": "Role",
-          "roleValue": "Native gas token for transaction fees and smart contract execution",
-          "baseFee": "Base 수수료",
-          "baseFeeValue": "0.001 EMBER",
-          "exchangeRatio": "1 TBURN staked = 100 EMBER/day"
-        },
-        "burn": {
-          "transactionFees": {
-            "title": "트랜잭션 수수료 소각",
-            "description": "0.1% of every transaction fee is permanently burned, reducing supply with network usage"
-          },
-          "slashingPenalty": {
-            "title": "Slashing 페널티 소각",
-            "description": "검증자 misbehavior penalties are burned, reinforcing network security incentives"
-          },
-          "collateralBurn": {
-            "title": "담보 소각",
-            "description": "실패 project collateral is partially burned as part of investor protection mechanism"
-          },
-          "revenueBuyback": {
-            "title": "수익 Buyback 소각",
-            "description": "Protocol revenue used to buy and burn TBURN quarterly, creating deflationary pressure"
+            "voteProtocol": "프로토콜 업그레이드 및 파라미터 변경 투표",
+            "approveTreasury": "트레저리 배분 및 생태계 그랜트 승인",
+            "decideSlashing": "슬래싱 제안 및 검증자 분쟁 결정"
           }
         }
       },
@@ -8348,84 +8348,84 @@
               "sublabel": "< 1초"
             },
             "ai": {
-              "label": "AI Models",
-              "sublabel": "Triple-band orchestration"
+              "label": "AI 모델",
+              "sublabel": "트리플 밴드 오케스트레이션"
             },
             "cryptography": {
-              "label": "Cryptography",
-              "sublabel": "Quantum-resistant"
+              "label": "암호화",
+              "sublabel": "양자 저항"
             }
           }
         },
         "categories": {
           "smartContracts": {
-            "title": "Smart Contracts",
-            "description": "Write, deploy, and verify smart contracts with Trust Score integration"
+            "title": "스마트 컨트랙트",
+            "description": "신뢰 점수 통합으로 스마트 컨트랙트 작성, 배포 및 검증"
           },
           "apiReference": {
-            "title": "API Reference",
-            "description": "Complete REST and GraphQL API documentation"
+            "title": "API 레퍼런스",
+            "description": "완전한 REST 및 GraphQL API 문서"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "description": "Multi-language SDK integration guides",
-            "badge": "Popular"
+            "title": "SDK 가이드",
+            "description": "다중 언어 SDK 통합 가이드",
+            "badge": "인기"
           },
           "cliReference": {
-            "title": "CLI Reference",
-            "description": "Command line interface for project management",
-            "badge": "New"
+            "title": "CLI 레퍼런스",
+            "description": "프로젝트 관리를 위한 명령줄 인터페이스",
+            "badge": "새로운"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "description": "Real-time blockchain event subscriptions",
-            "badge": "Real-time"
+            "description": "실시간 블록체인 이벤트 구독",
+            "badge": "실시간"
           },
           "tutorials": {
-            "title": "Tutorials",
-            "description": "Step-by-step guides for common use cases",
-            "badge": "Beginner"
+            "title": "튜토리얼",
+            "description": "일반적인 사용 사례를 위한 단계별 가이드",
+            "badge": "초급"
           }
         },
         "quickStart": {
-          "title": "Quick Start",
+          "title": "빠른 시작",
           "items": {
             "getStarted": {
-              "title": "Get Started",
-              "description": "Install the SDK and create your first project"
+              "title": "시작하기",
+              "description": "SDK를 설치하고 첫 번째 프로젝트 생성"
             },
             "devSetup": {
-              "title": "Development Setup",
-              "description": "Configure your development environment"
+              "title": "개발 환경 설정",
+              "description": "개발 환경 구성"
             },
             "apiKeys": {
-              "title": "API Keys",
-              "description": "Get your API keys from the developer dashboard"
+              "title": "API 키",
+              "description": "개발자 대시보드에서 API 키 발급"
             }
           }
         },
         "resources": {
           "cookbook": {
-            "title": "Developer Cookbook",
-            "description": "Ready-to-use code recipes and patterns"
+            "title": "개발자 쿡북",
+            "description": "바로 사용할 수 있는 코드 레시피와 패턴"
           },
           "community": {
-            "title": "Community",
-            "description": "Join Discord and get help from the community"
+            "title": "커뮤니티",
+            "description": "Discord에 참여하고 커뮤니티의 도움 받기"
           },
           "trustScore": {
-            "title": "Trust Score Guide",
-            "description": "Understanding and integrating trust verification"
+            "title": "신뢰 점수 가이드",
+            "description": "신뢰 검증 이해 및 통합"
           },
           "defiHub": {
-            "title": "DeFi Hub",
-            "description": "Build DeFi applications with TBurn protocols"
+            "title": "DeFi 허브",
+            "description": "TBurn 프로토콜로 DeFi 애플리케이션 구축"
           }
         },
         "cta": {
-          "title": "Ready to Build?",
-          "description": "Start building on TBurn Chain today with our comprehensive documentation and SDKs.",
-          "joinDiscord": "Join Discord"
+          "title": "빌드할 준비가 되셨나요?",
+          "description": "종합적인 문서와 SDK로 오늘부터 TBurn 체인에서 빌드를 시작하세요.",
+          "joinDiscord": "Discord 참여"
         }
       },
       "api": {
@@ -8868,10 +8868,10 @@
           "streaming": "실시간 스트리밍"
         },
         "needHelp": {
-          "title": "Need 도움말?",
+          "title": "도움이 필요하신가요?",
           "apiReference": "API 레퍼런스",
           "cliReference": "CLI 레퍼런스",
-          "codeExamples": "Code 예제",
+          "codeExamples": "코드 예제",
           "discordSupport": "Discord 커뮤니티"
         }
       },
@@ -8888,191 +8888,191 @@
         "features": {
           "evmCompatibility": {
             "title": "완전한 EVM 호환성",
-            "description": "배포 existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+            "description": "최소한의 수정으로 기존 Solidity 컨트랙트를 배포하세요. 표준 개발 도구와 호환됩니다."
           },
           "trustIntegration": {
-            "title": "Trust 점수 통합",
-            "description": "접근 on-chain trust scores through oracle contracts for trust-verified transactions."
+            "title": "신뢰 점수 통합",
+            "description": "오라클 컨트랙트를 통해 온체인 신뢰 점수에 접근하여 신뢰 검증 트랜잭션을 처리합니다."
           },
           "autoBurn": {
-            "title": "Automatic 소각",
+            "title": "자동 소각",
             "description": "예약 실행과 투명한 담보 관리가 포함된 내장 소각 메커니즘."
           },
           "aiOracle": {
-            "title": "AI Oracle 접근",
-            "description": "Integrate AI-powered insights directly into your smart contracts via oracle calls."
+            "title": "AI 오라클 접근",
+            "description": "오라클 호출을 통해 AI 기반 인사이트를 스마트 컨트랙트에 직접 통합하세요."
           },
           "gasOptimization": {
-            "title": "Gas Optimization",
-            "description": "Advanced gas optimization techniques reduce transaction costs by up to 60%."
+            "title": "가스 최적화",
+            "description": "고급 가스 최적화 기술로 트랜잭션 비용을 최대 60%까지 절감합니다."
           },
           "quantumResistant": {
-            "title": "Quantum-Resistant Signatures",
-            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+            "title": "양자 저항 서명",
+            "description": "장기 보안을 위한 CRYSTALS-Dilithium 서명으로 미래 지향적 암호화를 제공합니다."
           },
           "trustScore": {
-            "title": "Trust Score Integration",
-            "description": "On-chain trust verification with real-time scoring and automated risk assessment."
+            "title": "신뢰 점수 통합",
+            "description": "실시간 점수 산정과 자동 위험 평가를 통한 온체인 신뢰 검증."
           }
         },
         "templates": {
           "erc20": {
             "title": "BRC-20 토큰",
-            "description": "표준 token with trust-aware transfers"
+            "description": "신뢰 인식 전송이 가능한 표준 토큰"
           },
           "nft": {
             "title": "NFT 컬렉션",
-            "description": "ERC-721 with on-chain metadata"
+            "description": "온체인 메타데이터를 갖춘 ERC-721"
           },
           "defi": {
-            "title": "DeFi Protocol",
-            "description": "AMM pool with trust verification"
+            "title": "DeFi 프로토콜",
+            "description": "신뢰 검증이 포함된 AMM 풀"
           },
           "dao": {
             "title": "DAO 거버넌스",
-            "description": "토큰-weighted voting system"
+            "description": "토큰 가중 투표 시스템"
           },
-          "autoBurn": "Auto-Burn Token",
-          "basicToken": "Basic Token",
-          "governance": "Governance",
-          "staking": "Staking Contract",
-          "trustScoreIntegration": "Trust Score Integration"
+          "autoBurn": "자동 소각 토큰",
+          "basicToken": "기본 토큰",
+          "governance": "거버넌스",
+          "staking": "스테이킹 컨트랙트",
+          "trustScoreIntegration": "신뢰 점수 통합"
         },
         "security": {
-          "title": "보안 Best Practices",
-          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
-          "accessControl": "Implement role-based access control with OpenZeppelin AccessControl",
+          "title": "보안 모범 사례",
+          "reentrancy": "재귀적 외부 호출을 방지하기 위해 ReentrancyGuard 수정자 사용",
+          "accessControl": "OpenZeppelin AccessControl로 역할 기반 접근 제어 구현",
           "inputValidation": {
-            "title": "Input Validation",
-            "description": "항상 validate user inputs and external data"
+            "title": "입력 검증",
+            "description": "항상 사용자 입력과 외부 데이터를 검증하세요"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for upgradeable contracts"
+            "title": "업그레이드 가능성",
+            "description": "업그레이드 가능한 컨트랙트를 위해 프록시 패턴 사용"
           },
-          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
-          "initializer": "Use initializer modifiers for proxy contract initialization",
-          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "checksEffects": "외부 호출에 대해 checks-effects-interactions 패턴 따르기",
+          "initializer": "프록시 컨트랙트 초기화를 위해 initializer 수정자 사용",
+          "overflow": "오버플로우 방지를 위해 SafeMath 또는 Solidity 0.8+ 사용",
           "reentrancyGuard": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+            "title": "재진입 가드",
+            "description": "재귀적 호출을 방지하기 위해 ReentrancyGuard 수정자 사용"
           },
           "accessControlRole": {
-            "title": "Access Control",
-            "description": "Implement role-based permissions with OpenZeppelin"
+            "title": "접근 제어",
+            "description": "OpenZeppelin으로 역할 기반 권한 구현"
           }
         },
         "gasOptimization": {
           "title": "가스 최적화",
-          "subtitle": "Tips for reducing transaction costs",
-          "tip1": "Pack multiple small variables into single storage slots",
-          "tip2": "Use calldata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings",
+          "subtitle": "트랜잭션 비용 절감 팁",
+          "tip1": "여러 작은 변수를 단일 저장소 슬롯에 패킹",
+          "tip2": "읽기 전용 함수 매개변수에는 memory 대신 calldata 사용",
+          "tip3": "여러 번 접근하는 저장소 변수는 메모리에 캐시",
+          "tip4": "revert 문자열 대신 커스텀 에러 사용",
           "memoryVsStorage": {
-            "title": "Memory vs Storage",
-            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+            "title": "메모리 vs 저장소",
+            "desc": "가스 사용량 최적화를 위해 임시 데이터는 메모리, 영구 상태는 저장소 사용."
           },
           "shortRevert": {
-            "title": "Short Revert Messages",
-            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+            "title": "짧은 Revert 메시지",
+            "desc": "배포 및 실행 가스 절약을 위해 긴 revert 문자열 대신 커스텀 에러 사용."
           },
           "useEvents": {
-            "title": "Use Events for Logging",
-            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+            "title": "로깅에 이벤트 사용",
+            "desc": "로그를 통한 기록 접근이 충분할 때 데이터 저장 대신 이벤트 발생."
           },
           "variablePacking": {
-            "title": "Variable Packing",
-            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+            "title": "변수 패킹",
+            "desc": "저장소 비용 최소화를 위해 여러 변수를 단일 저장소 슬롯에 패킹."
           }
         },
         "testing": {
-          "title": "테스트 Your Contracts",
-          "description": "Comprehensive testing guide for smart contracts",
-          "unitTests": "Unit Tests",
-          "integrationTests": "통합 Tests",
-          "fuzzTesting": "Fuzz 테스트"
+          "title": "컨트랙트 테스트",
+          "description": "스마트 컨트랙트를 위한 종합 테스트 가이드",
+          "unitTests": "유닛 테스트",
+          "integrationTests": "통합 테스트",
+          "fuzzTesting": "퍼즈 테스트"
         },
         "deployment": {
           "title": "배포 가이드",
-          "step1": "Compile contracts",
-          "step2": "배포 to testnet",
-          "step3": "Verify on explorer",
-          "step4": "배포 to mainnet"
+          "step1": "컨트랙트 컴파일",
+          "step2": "테스트넷에 배포",
+          "step3": "익스플로러에서 검증",
+          "step4": "메인넷에 배포"
         },
         "needHelp": {
-          "title": "Need 도움말?",
+          "title": "도움이 필요하신가요?",
           "sdkDocumentation": "SDK 문서",
-          "codeExamples": "Code 예제",
+          "codeExamples": "코드 예제",
           "discordSupport": "Discord 커뮤니티"
         },
         "relatedLinks": {
           "developerHub": "개발자 허브",
           "sdkGuide": "SDK 가이드",
           "cliReference": "CLI 레퍼런스",
-          "codeExamples": "Code 예제"
+          "codeExamples": "코드 예제"
         },
-        "gasOptimizationTips": "Gas Optimization Tips",
-        "platformFeatures": "Platform Features",
-        "readyToDeploy": "Ready to Deploy?",
-        "sdkGuide": "SDK Guide",
-        "securityChecklist": "Security Checklist"
+        "gasOptimizationTips": "가스 최적화 팁",
+        "platformFeatures": "플랫폼 기능",
+        "readyToDeploy": "배포할 준비가 되셨나요?",
+        "sdkGuide": "SDK 가이드",
+        "securityChecklist": "보안 체크리스트"
       },
       "websocket": {
         "tag": "실시간",
         "title": "WebSocket API",
         "subtitle": "실시간 데이터 스트리밍 및 이벤트 구독.",
         "connectionEndpoints": "연결 엔드포인트",
-        "subscriptionChannels": "구독 Channels",
+        "subscriptionChannels": "구독 채널",
         "fullReference": "전체 레퍼런스",
-        "getSdk": "가져오기 SDK",
-        "codeExamples": "Code 예제",
-        "viewRestApi": "보기 REST API",
-        "readyToIntegrate": "준비됨 to Integrate?",
+        "getSdk": "SDK 가져오기",
+        "codeExamples": "코드 예제",
+        "viewRestApi": "REST API 보기",
+        "readyToIntegrate": "통합할 준비가 되셨나요?",
         "endpoints": {
           "mainnet": {
             "type": "프로덕션",
-            "desc": "메인넷 WebSocket endpoint for production applications"
+            "desc": "프로덕션 애플리케이션을 위한 메인넷 WebSocket 엔드포인트"
           },
           "testnet": {
             "type": "개발",
-            "desc": "테스트넷 WebSocket endpoint for development and testing"
+            "desc": "개발 및 테스트를 위한 테스트넷 WebSocket 엔드포인트"
           }
         },
         "channels": {
           "blocks": {
-            "description": "Subscribe to new block notifications with full block data"
+            "description": "전체 블록 데이터와 함께 새 블록 알림 구독"
           },
           "transactions": {
-            "description": "실시간 transaction updates for specific addresses"
+            "description": "특정 주소에 대한 실시간 트랜잭션 업데이트"
           },
           "trustScore": {
-            "description": "실시간 trust score changes for monitored addresses"
+            "description": "모니터링되는 주소에 대한 실시간 신뢰 점수 변경"
           },
           "defi": {
-            "description": "가격 feeds and liquidity pool updates"
+            "description": "가격 피드 및 유동성 풀 업데이트"
           }
         },
         "authentication": {
           "title": "인증",
-          "description": "포함 your API key in the connection URL query parameter or as a header"
+          "description": "연결 URL 쿼리 파라미터 또는 헤더에 API 키 포함"
         },
         "heartbeat": {
-          "title": "Heartbeat",
-          "description": "보내기 ping messages every 30 seconds to keep the connection alive"
+          "title": "하트비트",
+          "description": "연결 유지를 위해 30초마다 ping 메시지 전송"
         },
         "clientImplementation": {
           "title": "클라이언트 구현",
-          "subtitle": "예제 WebSocket client in JavaScript"
+          "subtitle": "JavaScript로 작성된 WebSocket 클라이언트 예제"
         }
       },
       "examples": {
         "tag": "코드 예제",
         "title": "코드 예제",
         "subtitle": "즉시 사용 가능한 코드 스니펫 및 샘플 프로젝트.",
-        "commonRecipes": "공통 Recipes",
+        "commonRecipes": "공통 레시피",
         "categories": {
-          "allRecipes": "All Recipes",
+          "allRecipes": "모든 레시피",
           "smartContracts": "스마트 컨트랙트",
           "defi": "DeFi",
           "nfts": "NFT",
@@ -9081,89 +9081,89 @@
         "recipes": {
           "connectWallet": {
             "title": "지갑 연결",
-            "description": "Integrate MetaMask and other Web3 wallets with React hooks",
-            "category": "Frontend"
+            "description": "React hooks로 MetaMask 및 기타 Web3 지갑 통합",
+            "category": "프론트엔드"
           },
           "createToken": {
-            "title": "생성 BRC-20 토큰",
-            "description": "배포 a trust-verified token with automatic burn mechanics",
+            "title": "BRC-20 토큰 생성",
+            "description": "자동 소각 메커니즘이 포함된 신뢰 검증 토큰 배포",
             "category": "스마트 컨트랙트"
           },
           "aiOracle": {
-            "title": "AI Oracle 통합",
-            "description": "쿼리 AI-powered insights from smart contracts or backend",
-            "category": "Backend"
+            "title": "AI 오라클 통합",
+            "description": "스마트 컨트랙트 또는 백엔드에서 AI 기반 인사이트 쿼리",
+            "category": "백엔드"
           },
           "nftMinting": {
             "title": "NFT 발행",
-            "description": "생성 and mint NFT collections with metadata on IPFS",
+            "description": "IPFS에 메타데이터가 있는 NFT 컬렉션 생성 및 발행",
             "category": "NFT"
           },
           "flashLoan": {
-            "title": "Flash Loan",
-            "description": "Execute arbitrage with atomic flash loan transactions",
+            "title": "플래시 론",
+            "description": "원자적 플래시 론 트랜잭션으로 차익거래 실행",
             "category": "DeFi"
           },
           "indexerSetup": {
-            "title": "Indexer 설정",
-            "description": "빌드 a custom blockchain data indexer with The Graph",
-            "category": "Infrastructure"
+            "title": "인덱서 설정",
+            "description": "The Graph로 커스텀 블록체인 데이터 인덱서 구축",
+            "category": "인프라"
           }
         },
         "featured": {
-          "title": "Featured Recipe",
-          "description": "빌드 a secure vault that verifies project trust scores before accepting deposits. This pattern is essential for DeFi protocols.",
-          "difficulty": "Difficulty",
+          "title": "추천 레시피",
+          "description": "입금 수락 전 프로젝트 신뢰 점수를 검증하는 안전한 볼트를 구축하세요. 이 패턴은 DeFi 프로토콜에 필수적입니다.",
+          "difficulty": "난이도",
           "intermediate": "중급",
-          "time": "Time",
-          "tenMins": "~10 mins",
+          "time": "시간",
+          "tenMins": "~10분",
           "checks": {
-            "trustScore": "Verifies Trust 점수 on-chain before deposit",
-            "revert": "Reverts if score below threshold",
-            "gasOptimized": "가스-optimized for production use"
+            "trustScore": "입금 전 온체인 신뢰 점수 검증",
+            "revert": "임계값 미만 시 트랜잭션 실패",
+            "gasOptimized": "프로덕션 사용을 위한 가스 최적화"
           }
         },
         "cta": {
-          "title": "Have a Recipe to Share?",
-          "description": "Contribute your code examples to help the community. All contributors receive ecosystem rewards.",
-          "submitPr": "제출 PR on GitHub",
-          "requestGuide": "요청 a 가이드"
+          "title": "공유할 레시피가 있으신가요?",
+          "description": "커뮤니티를 돕기 위해 코드 예제를 기여하세요. 모든 기여자는 생태계 보상을 받습니다.",
+          "submitPr": "GitHub에 PR 제출",
+          "requestGuide": "가이드 요청"
         }
       },
       "quickstart": {
         "tag": "시작하기",
         "title": "빠른 시작",
         "subtitle": "몇 분 안에 TBurn 체인을 시작하세요.",
-        "whatsNext": "What's 다음?",
+        "whatsNext": "다음 단계는?",
         "prerequisites": {
           "title": "전제조건",
-          "node": "노드.js 18+ installed",
-          "account": "TBurn 체인 account (testnet faucet available)",
-          "knowledge": "기본 JavaScript/TypeScript knowledge"
+          "node": "Node.js 18 이상 설치됨",
+          "account": "TBurn 체인 계정 (테스트넷 Faucet 사용 가능)",
+          "knowledge": "기본 JavaScript/TypeScript 지식"
         },
         "steps": {
           "installSdk": {
-            "title": "Install the SDK",
-            "description": "추가 the TBurn SDK to your project using npm or yarn"
+            "title": "SDK 설치",
+            "description": "npm 또는 yarn을 사용하여 프로젝트에 TBurn SDK 추가"
           },
           "initializeSdk": {
-            "title": "Initialize the SDK",
-            "description": "구성 the SDK with your API key and network settings"
+            "title": "SDK 초기화",
+            "description": "API 키와 네트워크 설정으로 SDK 구성"
           },
           "firstTransaction": {
-            "title": "보내기 Your 처음 트랜잭션",
-            "description": "Connect your wallet and send TBURN tokens"
+            "title": "첫 번째 트랜잭션 보내기",
+            "description": "지갑을 연결하고 TBURN 토큰 전송"
           },
           "queryTrustScore": {
-            "title": "쿼리 Trust 점수",
-            "description": "Retrieve AI-powered trust analysis for any address"
+            "title": "신뢰 점수 쿼리",
+            "description": "모든 주소에 대한 AI 기반 신뢰 분석 조회"
           }
         },
         "networkConfig": {
           "title": "네트워크 구성",
           "chainId": "체인 ID",
           "rpcUrl": "RPC URL",
-          "explorer": "Explorer",
+          "explorer": "익스플로러",
           "mainnet": {
             "title": "메인넷"
           },
@@ -9173,23 +9173,23 @@
         },
         "vsCode": {
           "title": "VS Code 설정",
-          "description": "권장 extensions for TBurn 체인 development",
-          "solidity": "Solidity Language 지원",
-          "eslint": "ESLint for JavaScript/TypeScript",
-          "tburnSnippets": "TBurn SDK Snippets"
+          "description": "TBurn 체인 개발을 위한 권장 익스텐션",
+          "solidity": "Solidity 언어 지원",
+          "eslint": "JavaScript/TypeScript용 ESLint",
+          "tburnSnippets": "TBurn SDK 스니펫"
         },
         "nextSteps": {
           "sdkGuide": {
             "title": "SDK 가이드",
-            "desc": "Deep dive into SDK features"
+            "desc": "SDK 기능 심층 분석"
           },
           "apiReference": {
             "title": "API 레퍼런스",
-            "desc": "탐색 all endpoints"
+            "desc": "모든 엔드포인트 탐색"
           },
           "smartContracts": {
             "title": "스마트 컨트랙트",
-            "desc": "Write your first contract"
+            "desc": "첫 번째 컨트랙트 작성"
           }
         }
       },
@@ -9198,33 +9198,33 @@
         "title": "설치 가이드",
         "subtitle": "단계별 설치 및 구성 지침.",
         "startBuilding": "빌드 시작",
-        "viewQuickStart": "보기 빠른 시작",
+        "viewQuickStart": "빠른 시작 보기",
         "requirements": {
           "title": "시스템 요구사항",
           "hardware": {
             "title": "하드웨어",
-            "cpu": "2+ CPU cores",
-            "memory": "8GB RAM minimum",
-            "storage": "50GB SSD storage"
+            "cpu": "2+ CPU 코어",
+            "memory": "최소 8GB RAM",
+            "storage": "50GB SSD 저장소"
           },
           "software": {
             "title": "소프트웨어",
-            "os": "macOS, Linux, or Windows 10+",
-            "node": "노드.js 18 or higher",
-            "git": "Git 2.0 or higher"
+            "os": "macOS, Linux, 또는 Windows 10+",
+            "node": "Node.js 18 이상",
+            "git": "Git 2.0 이상"
           },
           "minimum": {
-            "title": "Minimum Requirements",
-            "subtitle": "For development and testing",
-            "cpu": "4 cores / 8 threads",
+            "title": "최소 요구사항",
+            "subtitle": "개발 및 테스트용",
+            "cpu": "4 코어 / 8 스레드",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
             "network": "10 Mbps"
           },
           "recommended": {
-            "title": "Recommended Requirements",
-            "subtitle": "For production validators",
-            "cpu": "8+ cores / 16 threads",
+            "title": "권장 요구사항",
+            "subtitle": "프로덕션 검증자용",
+            "cpu": "8+ 코어 / 16 스레드",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
             "network": "100 Mbps"
@@ -9232,124 +9232,124 @@
           "specs": {
             "cpu": "CPU",
             "ram": "RAM",
-            "storage": "Storage",
-            "network": "Network"
+            "storage": "저장소",
+            "network": "네트워크"
           },
           "ports": {
-            "title": "Network Ports",
-            "subtitle": "Required ports for node operation",
+            "title": "네트워크 포트",
+            "subtitle": "노드 운영에 필요한 포트",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
-            "metrics": "9090 - Metrics"
+            "metrics": "9090 - 메트릭"
           }
         },
         "tabs": {
           "npm": "npm",
           "yarn": "Yarn",
           "docker": "Docker",
-          "source": "From Source",
+          "source": "소스에서 빌드",
           "linux": "Linux",
           "windows": "Windows"
         },
         "npm": {
-          "title": "Install via npm",
-          "step1": "Install the SDK globally",
-          "step2": "Verify installation",
-          "step3": "Initialize a new project"
+          "title": "npm으로 설치",
+          "step1": "SDK 전역 설치",
+          "step2": "설치 확인",
+          "step3": "새 프로젝트 초기화"
         },
         "yarn": {
-          "title": "Install via Yarn",
-          "step1": "Install the SDK globally",
-          "step2": "Verify installation"
+          "title": "Yarn으로 설치",
+          "step1": "SDK 전역 설치",
+          "step2": "설치 확인"
         },
         "docker": {
           "title": "Docker 설치",
-          "step1": "Pull the official image",
-          "step2": "Run the container",
-          "step3": "접근 the development environment",
-          "pullAndRun": "Pull and run the Docker image",
-          "recommendation": "Recommended for isolated development environment",
-          "viewDockerCompose": "View Docker Compose configuration"
+          "step1": "공식 이미지 풀",
+          "step2": "컨테이너 실행",
+          "step3": "개발 환경 접근",
+          "pullAndRun": "Docker 이미지 풀 및 실행",
+          "recommendation": "격리된 개발 환경에 권장됨",
+          "viewDockerCompose": "Docker Compose 설정 보기"
         },
         "source": {
-          "title": "빌드 from Source",
-          "step1": "Clone the repository",
-          "step2": "Install dependencies",
-          "step3": "빌드 the project",
-          "step4": "링크 globally"
+          "title": "소스에서 빌드",
+          "step1": "저장소 복제",
+          "step2": "의존성 설치",
+          "step3": "프로젝트 빌드",
+          "step4": "전역으로 링크"
         },
         "configuration": {
           "title": "구성",
           "envVars": {
             "title": "환경 변수",
-            "apiKey": "Your TBurn API key",
+            "apiKey": "TBurn API 키",
             "network": "네트워크 (mainnet/testnet)",
-            "rpcUrl": "사용자 정의 RPC endpoint (optional)"
+            "rpcUrl": "사용자 정의 RPC 엔드포인트 (선택)"
           },
           "configFile": {
-            "title": "구성 File",
-            "description": "생성 a tburn.config.js file in your project root"
+            "title": "구성 파일",
+            "description": "프로젝트 루트에 tburn.config.js 파일 생성"
           },
-          "description": "Configure your TBurn Chain node with environment variables and config files.",
-          "commonFlags": "Common Configuration Flags"
+          "description": "환경 변수와 구성 파일로 TBurn 체인 노드를 구성하세요.",
+          "commonFlags": "일반 구성 플래그"
         },
         "troubleshooting": {
-          "title": "Troubleshooting",
+          "title": "문제 해결",
           "permissionDenied": {
-            "title": "권한 Denied",
-            "description": "Try running with sudo or fix npm permissions"
+            "title": "권한 거부",
+            "description": "sudo로 실행하거나 npm 권한을 수정해 보세요"
           },
           "nodeVersion": {
-            "title": "노드 버전 Mismatch",
-            "description": "Use nvm to switch to 노드.js 18+"
+            "title": "Node 버전 불일치",
+            "description": "nvm을 사용하여 Node.js 18+로 전환하세요"
           },
           "networkError": {
             "title": "네트워크 연결 오류",
-            "description": "확인 your firewall settings and RPC endpoint"
+            "description": "방화벽 설정과 RPC 엔드포인트를 확인하세요"
           },
-          "portErrors": "Port Already in Use",
-          "portErrorsAnswer": "Change the port using --http.port flag or kill the process using the port.",
-          "notSyncing": "Node Not Syncing",
-          "notSyncingAnswer": "Check network connectivity and ensure peers are available. Try adding bootstrap nodes.",
-          "openFiles": "Too Many Open Files",
-          "openFilesAnswer": "Increase system file descriptor limits with ulimit -n 65535."
+          "portErrors": "포트가 이미 사용 중",
+          "portErrorsAnswer": "--http.port 플래그로 포트를 변경하거나 해당 포트를 사용하는 프로세스를 종료하세요.",
+          "notSyncing": "노드가 동기화되지 않음",
+          "notSyncingAnswer": "네트워크 연결을 확인하고 피어가 사용 가능한지 확인하세요. 부트스트랩 노드를 추가해 보세요.",
+          "openFiles": "열린 파일이 너무 많음",
+          "openFilesAnswer": "ulimit -n 65535로 시스템 파일 디스크립터 제한을 늘리세요."
         },
         "nextSteps": {
-          "title": "다음 Steps",
+          "title": "다음 단계",
           "quickStart": {
             "title": "빠른 시작 가이드",
-            "description": "빌드 your first dApp in 5 minutes"
+            "description": "5분 안에 첫 번째 dApp 빌드"
           },
           "sdkReference": {
             "title": "SDK 레퍼런스",
-            "description": "완료 API documentation"
+            "description": "전체 API 문서"
           },
           "examples": {
-            "title": "Code 예제",
+            "title": "코드 예제",
             "description": "실제 통합 패턴"
           }
         },
-        "systemRequirements": "System Requirements",
-        "installationSteps": "Installation Steps",
-        "quickStart": "Quick Start",
-        "dockerImage": "Docker Image",
-        "troubleshootingTitle": "Troubleshooting",
+        "systemRequirements": "시스템 요구사항",
+        "installationSteps": "설치 단계",
+        "quickStart": "빠른 시작",
+        "dockerImage": "Docker 이미지",
+        "troubleshootingTitle": "문제 해결",
         "flags": {
-          "http": "--http: Enable HTTP-RPC server",
-          "ws": "--ws: Enable WebSocket server",
-          "mine": "--mine: Enable mining/validation",
-          "syncmode": "--syncmode: Sync mode (snap, full, light)"
+          "http": "--http: HTTP-RPC 서버 활성화",
+          "ws": "--ws: WebSocket 서버 활성화",
+          "mine": "--mine: 채굴/검증 활성화",
+          "syncmode": "--syncmode: 동기화 모드 (snap, full, light)"
         },
         "windows": {
-          "title": "Windows Installation",
-          "recommendation": "For Windows, we recommend using WSL2 (Windows Subsystem for Linux) for optimal compatibility.",
-          "downloadBeta": "Download Windows Beta"
+          "title": "Windows 설치",
+          "recommendation": "Windows의 경우 최적의 호환성을 위해 WSL2(Windows Subsystem for Linux)를 사용하는 것이 좋습니다.",
+          "downloadBeta": "Windows 베타 다운로드"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "description": "Join our community for support and updates.",
-          "joinDiscord": "Join Discord"
+          "title": "도움이 필요하신가요?",
+          "description": "지원 및 업데이트를 위해 커뮤니티에 참여하세요.",
+          "joinDiscord": "Discord 참여"
         }
       },
       "evmMigration": {
@@ -9373,8 +9373,8 @@
             "tburn": "TBurn: 7777"
           },
           "consensus": {
-            "title": "합의 Mechanism",
-            "ethereum": "Proof of 스테이크",
+            "title": "합의 메커니즘",
+            "ethereum": "지분 증명",
             "tburn": "신뢰 증명 (PoT)"
           },
           "gasToken": {
@@ -9388,55 +9388,55 @@
             "tburn": "~3초"
           },
           "evmCompatibility": {
-            "title": "EVM Compatibility",
-            "evmDesc": "Standard EVM opcodes and execution",
-            "tburnDesc": "Enhanced EVM with Trust Score opcodes"
+            "title": "EVM 호환성",
+            "evmDesc": "표준 EVM opcode 및 실행",
+            "tburnDesc": "신뢰 점수 opcode가 포함된 향상된 EVM"
           },
           "performance": {
-            "title": "Performance",
-            "evmDesc": "~15 TPS typical throughput",
-            "tburnDesc": "50,000+ TPS with parallel execution"
+            "title": "성능",
+            "evmDesc": "~15 TPS 일반 처리량",
+            "tburnDesc": "병렬 실행으로 50,000+ TPS"
           },
           "safety": {
-            "title": "Transaction Safety",
-            "evmDesc": "Standard transaction finality",
-            "tburnDesc": "AI-verified transactions with fraud prevention"
+            "title": "트랜잭션 안전성",
+            "evmDesc": "표준 트랜잭션 최종성",
+            "tburnDesc": "사기 방지가 포함된 AI 검증 트랜잭션"
           },
           "verification": {
-            "title": "Verification",
-            "evmDesc": "Basic contract verification",
-            "tburnDesc": "Trust Score verification built-in"
+            "title": "검증",
+            "evmDesc": "기본 컨트랙트 검증",
+            "tburnDesc": "신뢰 점수 검증 내장"
           }
         },
         "steps": {
-          "title": "마이그레이션 Steps",
+          "title": "마이그레이션 단계",
           "step1": {
-            "title": "업데이트 네트워크 구성",
+            "title": "네트워크 구성 업데이트",
             "description": "구성 파일에서 RPC 엔드포인트 및 체인 ID 변경"
           },
           "step2": {
             "title": "컨트랙트 주소 수정",
-            "description": "업데이트 hardcoded contract addresses to TBurn 체인 deployments"
+            "description": "하드코딩된 컨트랙트 주소를 TBurn 체인 배포로 업데이트"
           },
           "step3": {
             "title": "신뢰도 점수 통합 추가",
             "description": "향상된 보안을 위해 선택적으로 신뢰도 점수 검증 통합"
           },
           "step4": {
-            "title": "배포 and 테스트",
-            "description": "배포 to testnet first, then migrate to mainnet"
+            "title": "배포 및 테스트",
+            "description": "먼저 테스트넷에 배포한 후 메인넷으로 마이그레이션"
           },
           "useExistingCode": {
-            "title": "Use Existing Code",
-            "desc": "Your Solidity contracts work as-is. No modifications needed for basic functionality."
+            "title": "기존 코드 사용",
+            "desc": "Solidity 컨트랙트가 그대로 작동합니다. 기본 기능에는 수정이 필요 없습니다."
           },
           "integrateTrustScore": {
-            "title": "Integrate Trust Score",
-            "desc": "Add optional Trust Score checks to verify transaction participants."
+            "title": "신뢰 점수 통합",
+            "desc": "트랜잭션 참여자를 확인하기 위한 선택적 신뢰 점수 검사 추가."
           },
           "leverageAutoBurn": {
-            "title": "Leverage Auto-Burn",
-            "desc": "Implement deflationary mechanics with automatic token burning."
+            "title": "자동 소각 활용",
+            "desc": "자동 토큰 소각으로 디플레이션 메커니즘 구현."
           }
         },
         "commonChanges": {
@@ -9446,7 +9446,7 @@
           "trustOracle": "Trust Oracle 통합 (선택)"
         },
         "tools": {
-          "title": "마이그레이션 Tools",
+          "title": "마이그레이션 도구",
           "cliMigrate": {
             "title": "CLI 마이그레이션 도구",
             "description": "burn-cli migrate로 자동화된 컨트랙트 마이그레이션"
@@ -9463,9 +9463,9 @@
         "cta": {
           "title": "마이그레이션할 준비가 되셨나요?",
           "description": "단계별 마이그레이션 가이드와 도구로 시작하세요.",
-          "startNow": "마이그레이션 시작 Now",
-          "contactSupport": "연락처 지원",
-          "readDocumentation": "Read Documentation"
+          "startNow": "지금 마이그레이션 시작",
+          "contactSupport": "지원 문의",
+          "readDocumentation": "문서 읽기"
         },
         "faq": {
           "title": "자주 묻는 질문",
@@ -9483,15 +9483,15 @@
           }
         },
         "keyDifferences": {
-          "title": "Key Technical Differences",
-          "subtitle": "What sets TBurn Chain apart from traditional EVM chains",
-          "existingEvmChains": "Existing EVM Chains",
-          "tburnChain": "TBurn Chain",
-          "upgrade": "Upgrade"
+          "title": "주요 기술적 차이점",
+          "subtitle": "TBurn 체인을 기존 EVM 체인과 구별하는 점",
+          "existingEvmChains": "기존 EVM 체인",
+          "tburnChain": "TBurn 체인",
+          "upgrade": "업그레이드"
         },
         "developmentApproach": {
-          "title": "Development Approach",
-          "subtitle": "Follow these steps to migrate your existing dApps"
+          "title": "개발 접근 방식",
+          "subtitle": "기존 dApp을 마이그레이션하려면 다음 단계를 따르세요"
         }
       }
     },
@@ -11553,63 +11553,70 @@
         }
       },
       "depin": {
-        "tag": "분산 인프라",
+        "tag": "탈중앙화 인프라",
         "title": "DePIN 네트워크",
-        "subtitle": "분산 물리적 인프라 네트워크를 구축하고 운영하세요. 컴퓨팅, 스토리지, 무선 및 센싱 리소스를 기여하여 보상을 받으세요.",
+        "subtitle": "탈중앙화 물리 인프라 네트워크를 구축하고 운영하세요. 컴퓨팅, 스토리지, 무선 및 센싱 리소스를 기여하여 보상을 획득하세요.",
         "buttons": {
-          "deployNode": "노드 배포",
-          "depinDocs": "DePIN 문서"
+          "deployInfrastructure": "인프라 배포",
+          "protocolDocs": "프로토콜 문서"
         },
         "categories": {
           "wireless": {
             "title": "무선 네트워크",
-            "desc": "LoRaWAN, 5G 및 WiFi 핫스팟 배포. 사용량에 따라 보상을 받으며 분산 커버리지를 제공하세요."
+            "desc": "탈중앙화 5G, LoRaWAN 및 WiFi 커버리지. 핫스팟을 배포하고 커뮤니티에 연결성을 제공하여 보상을 획득하세요."
           },
           "compute": {
             "title": "분산 컴퓨팅",
-            "desc": "유휴 컴퓨팅 파워를 빌려주고 GPU 시간당 토큰을 받으세요. AI 학습 및 렌더링 워크로드."
+            "desc": "AI 학습, 렌더링 및 과학 컴퓨팅을 위한 GPU 및 CPU 리소스 공유. 유휴 컴퓨팅 파워를 수익화하세요."
+          },
+          "mapping": {
+            "title": "매핑 & 센서",
+            "desc": "크라우드소싱 지리 공간 데이터, 기상 관측소 및 IoT 센서. 검증된 커버리지로 실시간 데이터 네트워크를 구축하세요."
           },
           "storage": {
             "title": "탈중앙화 스토리지",
-            "desc": "디스크 공간을 네트워크에 제공하세요. 파일 중복성 보상 및 검증 가능한 스토리지 증명."
-          },
-          "sensors": {
-            "title": "센서 네트워크",
-            "desc": "날씨, 공기질 및 환경 데이터를 수집하세요. IoT 센서 배열로 보상을 받으세요."
+            "desc": "이중화 및 암호화가 적용된 분산 파일 스토리지. 네트워크에 디스크 공간을 기여하여 보상을 획득하세요."
           }
         },
         "metrics": {
           "activeNodes": "활성 노드",
-          "monthlyRewards": "월간 보상",
-          "networkCoverage": "네트워크 커버리지"
+          "protocolRevenue": "프로토콜 수익",
+          "countriesCovered": "서비스 국가"
         },
         "features": {
-          "verifiable": {
-            "title": "검증 가능한 기여",
-            "desc": "암호학적 증명을 통해 노드 운영 및 서비스 품질을 검증합니다. 투명한 보상 계산."
+          "proofOfCoverage": {
+            "title": "커버리지 증명",
+            "desc": "인프라 배포 및 서비스 가용성을 암호학적으로 검증합니다. 실제 기여도에 기반한 공정한 보상 분배."
           },
-          "permissionless": {
-            "title": "무허가 참여",
-            "desc": "허가 없이 네트워크에 참여하세요. 하드웨어를 플러그인하고 즉시 보상을 받기 시작하세요."
+          "slashingProtection": {
+            "title": "슬래싱 보호",
+            "desc": "악의적 행동에 대한 페널티가 있는 스테이크 기반 보안. 정직한 운영자에게 보상하면서 네트워크 무결성을 보호합니다."
           },
-          "scalable": {
-            "title": "확장 가능한 인프라",
-            "desc": "수천 개의 노드로 확장하세요. 자동 로드 밸런싱 및 중복성이 내장되어 있습니다."
+          "communityGovernance": {
+            "title": "커뮤니티 거버넌스",
+            "desc": "네트워크 파라미터를 위한 DAO 기반 프로토콜 거버넌스. 토큰 보유자가 업그레이드, 보상 및 확장 우선순위에 투표합니다."
           },
-          "hybrid": {
-            "title": "하이브리드 모델",
-            "desc": "개인 하드웨어를 클라우드 노드와 결합하세요. 온프레미스와 클라우드 네이티브 배포를 유연하게 혼합."
+          "dynamicRewards": {
+            "title": "동적 보상",
+            "desc": "수요와 커버리지 갭에 기반한 AI 최적화 보상 분배. 서비스 부족 지역에 더 높은 보상."
           }
         },
+        "hardware": {
+          "title": "하드웨어 요구사항",
+          "desc": "다양한 DePIN 프로토콜을 위한 유연한 하드웨어 옵션. 최소 투자로 수익 창출을 시작하세요.",
+          "minimum": "최소: Raspberry Pi 4 또는 동급 ARM 장치",
+          "recommended": "권장: 16GB RAM, 1TB SSD를 갖춘 x86 서버",
+          "gpu": "GPU 컴퓨팅: AI 워크로드를 위한 NVIDIA RTX 3080 이상"
+        },
         "sections": {
-          "networks": "DePIN 네트워크 유형",
-          "networksDesc": "TBURN에서 지원하는 분산 인프라 탐색",
-          "platformFeatures": "플랫폼 기능"
+          "categories": "인프라 카테고리",
+          "categoriesDesc": "여러 DePIN 프로토콜에서 배포하고 수익을 올리세요",
+          "protocolFeatures": "프로토콜 기능"
         },
         "cta": {
-          "title": "DePIN 혁명에 동참하세요",
-          "desc": "TBURN에서 분산 인프라를 구축하거나 기여하여 보상을 받으세요.",
-          "deployNow": "지금 배포"
+          "title": "DePIN 혁명에 참여할 준비가 되셨나요?",
+          "desc": "인프라를 배포하고, 보상을 획득하고, 탈중앙화된 미래 구축을 도우세요. 우리 가이드가 몇 분 안에 시작할 수 있도록 도와드립니다.",
+          "getStarted": "시작하기"
         }
       },
       "stablecoins": {

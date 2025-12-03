@@ -7991,17 +7991,17 @@
         "viewSource": "ソースを見る"
       },
       "tokenomics": {
-        "tag": "経済学",
+        "tag": "エコノミクス",
         "title": "トークノミクス",
-        "subtitle": "TBURNトークンの配布、発行スケジュール、デフレメカニズムを理解する。",
+        "subtitle": "TBURNトークンの分配、発行スケジュール、デフレメカニズムを理解しましょう。",
         "marketStats": {
           "title": "市場統計",
           "totalSupply": "総供給量",
           "circulatingSupply": "流通供給量",
           "totalBurned": "総バーン量",
           "marketCap": "時価総額",
-          "burned": "Burned",
-          "totalStaked": "総ステーク量"
+          "burned": "バーン済み",
+          "totalStaked": "総ステーキング量"
         },
         "distribution": {
           "title": "トークン配布",
@@ -8031,21 +8031,21 @@
               "percentage": "5%"
             }
           },
-          "ecosystemFund": {
-            "title": "Ecosystem Fund",
-            "subtitle": "Grants, パートナーシップ, and ecosystem development initiatives"
-          },
           "validatorRewards": {
             "title": "バリデーター報酬",
-            "subtitle": "ブロック報酬s and validation incentives for network セキュリティ"
+            "subtitle": "ネットワークセキュリティのためのブロック報酬と検証インセンティブ"
+          },
+          "ecosystemFund": {
+            "title": "エコシステムファンド",
+            "subtitle": "グラント、パートナーシップ、エコシステム開発イニシアチブ"
           },
           "teamAdvisors": {
-            "title": "Team & Advisors",
-            "subtitle": "4-year vesting with 1-year cliff for long-term alignment"
+            "title": "チーム＆アドバイザー",
+            "subtitle": "長期目標の整合性のための4年ベスティング、1年クリフ"
           },
           "foundationReserve": {
-            "title": "Foundation Reserve",
-            "subtitle": "Emergency fund and strategic opportunities reserve"
+            "title": "財団準備金",
+            "subtitle": "緊急資金と戦略的機会のための準備金"
           }
         },
         "burnMechanisms": {
@@ -8071,9 +8071,9 @@
           "totalStaked": "総ステーク量",
           "validators": "アクティブバリデーター",
           "minStake": "最小ステーク",
-          "liquidStaking": "Liquid ステーキング available with stTBURN derivative token",
-          "ninetyDayLock": "90-day lock: 12% APY + 1.2x ガバナンス weight",
-          "yearLock": "365-day lock: 18% APY + 2x ガバナンス weight"
+          "liquidStaking": "リキッドステーキング：stTBURNデリバティブトークンで利用可能",
+          "ninetyDayLock": "90日ロック：12% APY + 1.2xガバナンス重み",
+          "yearLock": "365日ロック：18% APY + 2xガバナンス重み"
         },
         "governance": {
           "title": "ガバナンス",
@@ -8082,51 +8082,51 @@
           "proposalThreshold": "提案閾値",
           "quorum": "必要定足数",
           "features": {
-            "voteProtocol": "Vote on プロトコル upgrades and parameter 変更",
-            "approveTreasury": "Approve トレジャリー すべてocations and ecosystem grants",
-            "decideSlashing": "Decide on slashing 提案 and バリデーター disputes"
+            "voteProtocol": "プロトコルアップグレードとパラメータ変更への投票",
+            "approveTreasury": "トレジャリー配分とエコシステムグラントの承認",
+            "decideSlashing": "スラッシング提案とバリデーター紛争の決定"
           }
         },
         "distributionSection": {
-          "title": "Token Distribution",
-          "subtitle": "Strategic すべてocation designed for long-term ecosystem growth and sustainability",
+          "title": "トークン分配",
+          "subtitle": "長期的なエコシステム成長と持続可能性のための戦略的配分",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
-          "title": "Burn Mechanisms",
-          "subtitle": "Multiple deflationary mechanisms ensuring sustainable token value appreciation"
+          "title": "バーンメカニズム",
+          "subtitle": "持続可能なトークン価値上昇を確保する複数のデフレメカニズム"
         },
         "tburn": {
-          "type": "ガバナンス & ステーキング Token",
-          "role": "Role",
-          "roleValue": "Primary ガバナンス token for 投票 and ステーキング to secure the network",
-          "totalSupply": "1,000,000,000",
-          "decimals": "18"
+          "type": "ガバナンス＆ステーキングトークン",
+          "totalSupply": "総発行量",
+          "decimals": "小数点",
+          "role": "役割",
+          "roleValue": "ネットワークセキュリティのための投票とステーキング用の主要ガバナンストークン"
         },
         "ember": {
-          "type": "Gas Token",
-          "role": "Role",
-          "roleValue": "Native gas token for トランザクション手数料 and smart contract execution",
-          "baseFee": "Base Fee",
+          "type": "ガストークン",
+          "exchangeRatio": "交換レート",
+          "baseFee": "基本手数料",
           "baseFeeValue": "0.001 EMBER",
-          "exchangeRatio": "1 TBURN ステークd = 100 EMBER/day"
+          "role": "役割",
+          "roleValue": "トランザクション手数料とスマートコントラクト実行のためのネイティブガストークン"
         },
         "burn": {
           "transactionFees": {
-            "title": "Transaction Fee Burn",
-            "description": "0.1% of every transaction fee is permanently burned, reducing supply with network 使用法"
-          },
-          "slashingPenalty": {
-            "title": "Slashing Penalty Burn",
-            "description": "バリデーター misbehavior penalties are burned, re情報rcing network セキュリティ incentives"
+            "title": "取引手数料バーン",
+            "description": "全取引手数料の0.1%が永久にバーンされ、ネットワーク使用量に応じて供給量が減少"
           },
           "collateralBurn": {
-            "title": "Collateral Burn",
-            "description": "Failed project collateral is partiすべてy burned as part of investor protection mechanism"
+            "title": "担保バーン",
+            "description": "投資家保護メカニズムの一環として、失敗したプロジェクトの担保が一部バーン"
           },
           "revenueBuyback": {
-            "title": "Revenue Buy戻る Burn",
-            "description": "プロトコル収益 used to buy and burn TBURN quarterly, creating deflationary pressure"
+            "title": "収益買い戻しバーン",
+            "description": "プロトコル収益を使用して四半期ごとにTBURNを買い戻し・バーン、デフレ圧力を生成"
+          },
+          "slashingPenalty": {
+            "title": "スラッシングペナルティバーン",
+            "description": "バリデーターの不正行為に対するペナルティがバーンされ、ネットワークセキュリティインセンティブを強化"
           }
         }
       },
@@ -8791,144 +8791,144 @@
               "sublabel": "< 1秒"
             },
             "ai": {
-              "label": "AI Models",
-              "sublabel": "Triple-band orchestration"
+              "label": "AIモデル",
+              "sublabel": "トリプルバンドオーケストレーション"
             },
             "cryptography": {
-              "label": "Cryptography",
-              "sublabel": "Quantum-resistant"
+              "label": "暗号化",
+              "sublabel": "量子耐性"
             }
           }
         },
         "categories": {
           "smartContracts": {
-            "title": "Smart Contracts",
-            "description": "Write, deploy, and verify smart contracts with Trust Score integration"
+            "title": "スマートコントラクト",
+            "description": "トラストスコア統合でスマートコントラクトを作成、デプロイ、検証"
           },
           "apiReference": {
-            "title": "API Reference",
-            "description": "Complete REST and GraphQL API documentation"
+            "title": "APIリファレンス",
+            "description": "完全なRESTおよびGraphQL APIドキュメント"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "description": "Multi-language SDK integration guides",
-            "badge": "Popular"
+            "title": "SDKガイド",
+            "description": "マルチ言語SDK統合ガイド",
+            "badge": "人気"
           },
           "cliReference": {
-            "title": "CLI Reference",
-            "description": "Command line interface for project management",
-            "badge": "New"
+            "title": "CLIリファレンス",
+            "description": "プロジェクト管理のためのコマンドラインインターフェース",
+            "badge": "新規"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "description": "Real-time blockchain event subscriptions",
-            "badge": "Real-time"
+            "description": "リアルタイムブロックチェーンイベントサブスクリプション",
+            "badge": "リアルタイム"
           },
           "tutorials": {
-            "title": "Tutorials",
-            "description": "Step-by-step guides for common use cases",
-            "badge": "Beginner"
+            "title": "チュートリアル",
+            "description": "一般的なユースケースのためのステップバイステップガイド",
+            "badge": "初心者"
           }
         },
         "quickStart": {
-          "title": "Quick Start",
+          "title": "クイックスタート",
           "items": {
             "getStarted": {
-              "title": "Get Started",
-              "description": "Install the SDK and create your first project"
+              "title": "始める",
+              "description": "SDKをインストールして最初のプロジェクトを作成"
             },
             "devSetup": {
-              "title": "Development Setup",
-              "description": "Configure your development environment"
+              "title": "開発環境セットアップ",
+              "description": "開発環境を構成"
             },
             "apiKeys": {
-              "title": "API Keys",
-              "description": "Get your API keys from the developer dashboard"
+              "title": "APIキー",
+              "description": "開発者ダッシュボードからAPIキーを取得"
             }
           }
         },
         "resources": {
           "cookbook": {
-            "title": "Developer Cookbook",
-            "description": "Ready-to-use code recipes and patterns"
+            "title": "開発者クックブック",
+            "description": "すぐに使えるコードレシピとパターン"
           },
           "community": {
-            "title": "Community",
-            "description": "Join Discord and get help from the community"
+            "title": "コミュニティ",
+            "description": "Discordに参加してコミュニティからヘルプを得る"
           },
           "trustScore": {
-            "title": "Trust Score Guide",
-            "description": "Understanding and integrating trust verification"
+            "title": "トラストスコアガイド",
+            "description": "信頼検証の理解と統合"
           },
           "defiHub": {
-            "title": "DeFi Hub",
-            "description": "Build DeFi applications with TBurn protocols"
+            "title": "DeFiハブ",
+            "description": "TBurnプロトコルでDeFiアプリケーションを構築"
           }
         },
         "cta": {
-          "title": "Ready to Build?",
-          "description": "Start building on TBurn Chain today with our comprehensive documentation and SDKs.",
-          "joinDiscord": "Join Discord"
+          "title": "構築する準備はできましたか？",
+          "description": "包括的なドキュメントとSDKで今日からTBurn Chainで構築を始めましょう。",
+          "joinDiscord": "Discordに参加"
         }
       },
       "api": {
         "tag": "APIリファレンス",
         "title": "APIドキュメント",
         "subtitle": "ブロックチェーン、DeFi、AIサービス向けのRESTful APIエンドポイント。",
-        "baseUrl": "Base URL",
-        "coreEndpoints": "Core エンドポイント",
-        "parameters": "Parameters",
-        "related": "Related",
-        "officialSdks": "公式 SDKs",
-        "viewDocumentation": "View ドキュメント",
+        "baseUrl": "ベースURL",
+        "coreEndpoints": "コアエンドポイント",
+        "parameters": "パラメータ",
+        "related": "関連",
+        "officialSdks": "公式SDK",
+        "viewDocumentation": "ドキュメントを見る",
         "authentication": {
-          "title": "Authentication",
-          "description": "すべて API requests require an API key. Get your free key from the",
-          "dashboardLink": "Developer Dashboard"
+          "title": "認証",
+          "description": "すべてのAPIリクエストにはAPIキーが必要です。無料キーを取得するには",
+          "dashboardLink": "開発者ダッシュボード"
         },
         "sidebar": {
-          "overview": "Overview",
-          "authentication": "Authentication",
-          "rateLimits": "レート制限s",
+          "overview": "概要",
+          "authentication": "認証",
+          "rateLimits": "レート制限",
           "endpoints": "エンドポイント",
-          "block": "Block",
-          "transaction": "Transaction",
-          "account": "Account",
-          "smartContract": "Smart Contract",
+          "block": "ブロック",
+          "transaction": "トランザクション",
+          "account": "アカウント",
+          "smartContract": "スマートコントラクト",
           "websocket": "WebSocket",
-          "realtimeEvents": "Real-time イベント"
+          "realtimeEvents": "リアルタイムイベント"
         },
         "endpoints": {
           "blocks": {
-            "description": "Get block 情報rmation by block number or hash",
-            "paramDesc": "Block number or 'latest'"
+            "description": "ブロック番号またはハッシュでブロック情報を取得",
+            "paramDesc": "ブロック番号または'latest'"
           },
           "transactions": {
-            "description": "Get transaction 詳細 by transaction hash"
+            "description": "トランザクションハッシュでトランザクション詳細を取得"
           },
           "sendTransaction": {
-            "description": "送信 a signed transaction to the network"
+            "description": "署名済みトランザクションをネットワークに送信"
           },
           "balance": {
-            "description": "Get account balance and nonce"
+            "description": "アカウント残高とノンスを取得"
           }
         },
         "errorHandling": {
-          "title": "エラー Handling",
-          "code": "Code",
+          "title": "エラーハンドリング",
+          "code": "コード",
           "description": "説明"
         },
         "errors": {
-          "badRequest": "Invalid request parameters",
-          "unauthorized": "Invalid or missing API key",
-          "tooManyRequests": "レート制限 exceeded",
-          "internalError": "Internal server エラー"
+          "badRequest": "無効なリクエストパラメータ",
+          "unauthorized": "無効または欠落したAPIキー",
+          "tooManyRequests": "レート制限を超過",
+          "internalError": "内部サーバーエラー"
         },
         "websocketApi": {
           "title": "WebSocket API",
-          "description": "購読 to real-time ブロックチェーン イベント for instant updates.",
-          "connectComment": "Connect to WebSocket",
-          "subscribeComment": "購読 to ブロック channel"
+          "description": "即時更新のためにリアルタイムブロックチェーンイベントにサブスクライブ。",
+          "connectComment": "WebSocketに接続",
+          "subscribeComment": "ブロックチャンネルにサブスクライブ"
         },
         "sdks": {
           "javascript": "JavaScript SDK",
@@ -8938,7 +8938,7 @@
         "quickLinks": {
           "quickStart": {
             "title": "クイックスタート",
-            "description": "Deploy your first dApp in 5 分"
+            "description": "5分で最初のdAppをデプロイ"
           },
           "codeExamples": {
             "title": "コード例",
@@ -8946,7 +8946,7 @@
           },
           "rpcProviders": {
             "title": "RPCプロバイダー",
-            "description": "Connect via multiple エンドポイント"
+            "description": "複数のエンドポイント経由で接続"
           }
         },
         "relatedLinks": {
@@ -8975,69 +8975,69 @@
           "verify": "インストールを確認"
         },
         "categories": {
-          "project": "Project",
-          "contract": "Contract",
-          "network": "Network",
+          "project": "プロジェクト",
+          "contract": "コントラクト",
+          "network": "ネットワーク",
           "wallet": "ウォレット",
           "ai": "AI"
         },
         "commands": {
           "init": {
-            "desc": "Initialize a 新規 TBurn Chain project",
+            "desc": "新規TBurn Chainプロジェクトを初期化",
             "options": {
-              "template": "Project template (defi, nft, dao)",
-              "typescript": "Use TypeScript"
+              "template": "プロジェクトテンプレート（defi, nft, dao）",
+              "typescript": "TypeScriptを使用"
             }
           },
           "dev": {
-            "desc": "Start local development server",
+            "desc": "ローカル開発サーバーを起動",
             "options": {
-              "port": "Port number",
-              "open": "Open ブラウザ automaticすべてy"
+              "port": "ポート番号",
+              "open": "ブラウザを自動で開く"
             }
           },
           "build": {
-            "desc": "Build project for production",
+            "desc": "本番用にプロジェクトをビルド",
             "options": {
-              "outdir": "Output directory",
-              "sourcemap": "Generate source maps"
+              "outdir": "出力ディレクトリ",
+              "sourcemap": "ソースマップを生成"
             }
           },
           "deploy": {
-            "desc": "Deploy to TBurn Chain network",
+            "desc": "TBurn Chainネットワークにデプロイ",
             "options": {
-              "network": "Target network (メインネット, テストネット)",
-              "verify": "Verify contract on 探索r",
-              "gasPrice": "Gas price in gwei"
+              "network": "ターゲットネットワーク（メインネット、テストネット）",
+              "verify": "エクスプローラーでコントラクトを検証",
+              "gasPrice": "ガス価格（gwei単位）"
             }
           },
           "wallet": {
-            "desc": "ウォレット management commands",
+            "desc": "ウォレット管理コマンド",
             "options": {
-              "create": "Create 新規 ウォレット",
-              "import": "Import existing ウォレット",
-              "balance": "Check ウォレット balance"
+              "create": "新規ウォレットを作成",
+              "import": "既存ウォレットをインポート",
+              "balance": "ウォレット残高を確認"
             }
           }
         },
         "globalOptions": {
-          "verbose": "Enable verbose output",
-          "json": "Output in JSON format",
-          "network": "Specify network",
-          "config": "Path to config file",
-          "help": "Show help message"
+          "verbose": "詳細出力を有効化",
+          "json": "JSON形式で出力",
+          "network": "ネットワークを指定",
+          "config": "設定ファイルのパス",
+          "help": "ヘルプメッセージを表示"
         },
         "needHelp": {
-          "title": "Need Help?",
+          "title": "ヘルプが必要ですか？",
           "apiReference": "APIリファレンス",
-          "sdkDocumentation": "SDK ドキュメント"
+          "sdkDocumentation": "SDKドキュメント"
         },
         "relatedLinks": {
           "developerHub": "開発者ハブ",
           "documentation": "ドキュメント",
           "apiReference": "APIリファレンス",
           "quickStart": "クイックスタート",
-          "installationGuide": "インストール Guide"
+          "installationGuide": "インストールガイド"
         }
       },
       "sdk": {
@@ -9046,168 +9046,168 @@
         "subtitle": "多言語SDK統合ガイドとベストプラクティス。",
         "installation": "インストール",
         "configuration": "設定",
-        "quickExamples": "Quick 例",
+        "quickExamples": "クイック例",
         "install": {
-          "npm": "Instすべて with npm",
-          "yarn": "Or with Yarn"
+          "npm": "npmでインストール",
+          "yarn": "またはYarnで"
         },
         "features": {
           "typeSafety": {
-            "title": "Type Safety",
-            "description": "Full TypeScript support with comprehensive type definitions for すべて API methods and responses."
+            "title": "型安全性",
+            "description": "すべてのAPIメソッドとレスポンスに対する包括的な型定義を備えた完全なTypeScriptサポート。"
           },
           "autoRetry": {
-            "title": "Auto Retry",
-            "description": "Built-in retry logic with exponential 戻るoff for failed requests and network issues."
+            "title": "自動リトライ",
+            "description": "失敗したリクエストとネットワーク問題に対する指数バックオフによる組み込みリトライロジック。"
           },
           "realTimeStreams": {
-            "title": "Real-Time Streams",
-            "description": "購読 to live ブロックチェーン イベント with WebSocket connections and reアクティブ patterns."
+            "title": "リアルタイムストリーム",
+            "description": "WebSocket接続とリアクティブパターンでライブブロックチェーンイベントにサブスクライブ。"
           }
         },
         "examples": {
-          "core": "Core functionality",
-          "defi": "DeFi interアクション",
-          "streaming": "Real-time streaming"
+          "core": "コア機能",
+          "defi": "DeFiインタラクション",
+          "streaming": "リアルタイムストリーミング"
         },
         "needHelp": {
-          "title": "Need Help?",
+          "title": "ヘルプが必要ですか？",
           "apiReference": "APIリファレンス",
           "cliReference": "CLIリファレンス",
           "codeExamples": "コード例",
-          "discordSupport": "Discord コミュニティ"
+          "discordSupport": "Discordコミュニティ"
         }
       },
       "contracts": {
         "tag": "スマートコントラクト",
         "title": "スマートコントラクト",
         "subtitle": "TBurn Chainで安全なスマートコントラクトを作成、テスト、デプロイ。",
-        "contractTemplates": "Contract Templates",
+        "contractTemplates": "コントラクトテンプレート",
         "copy": "コピー",
         "copied": "コピー済み!",
         "apiReference": "APIリファレンス",
-        "cliGuide": "CLI Guide",
-        "evmMigration": "EVM Migration",
+        "cliGuide": "CLIガイド",
+        "evmMigration": "EVMマイグレーション",
         "features": {
           "evmCompatibility": {
-            "title": "Full EVM Compatibility",
-            "description": "Deploy existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+            "title": "完全なEVM互換性",
+            "description": "最小限の変更で既存のSolidityコントラクトをデプロイ。標準開発ツールと互換性あり。"
           },
           "trustIntegration": {
             "title": "トラストスコア統合",
-            "description": "Access on-chain トラストスコアs through oracle contracts for trust-検証済み トランザクション."
+            "description": "信頼検証済みトランザクションのためにオラクルコントラクトでオンチェーントラストスコアにアクセス。"
           },
           "autoBurn": {
-            "title": "Automatic Burn",
-            "description": "Built-in burn mechanics with scheduled execution and transparent collateral management."
+            "title": "自動バーン",
+            "description": "スケジュール実行と透明な担保管理を備えた組み込みバーンメカニクス。"
           },
           "aiOracle": {
-            "title": "AI Oracle Access",
-            "description": "Integrate AI-powered insights directly into your smart contracts via oracle cすべてs."
+            "title": "AIオラクルアクセス",
+            "description": "オラクルコールでAI駆動のインサイトをスマートコントラクトに直接統合。"
           },
           "gasOptimization": {
-            "title": "Gas Optimization",
-            "description": "Advanced gas optimization techniques reduce transaction costs by up to 60%."
+            "title": "ガス最適化",
+            "description": "高度なガス最適化技術でトランザクションコストを最大60%削減。"
           },
           "quantumResistant": {
-            "title": "Quantum-Resistant Signatures",
-            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+            "title": "量子耐性署名",
+            "description": "長期セキュリティのためのCRYSTALS-Dilithium署名による将来を見据えた暗号化。"
           },
           "trustScore": {
-            "title": "Trust Score Integration",
-            "description": "On-chain trust verification with real-time scoring and automated risk assessment."
+            "title": "トラストスコア統合",
+            "description": "リアルタイムスコアリングと自動リスク評価によるオンチェーン信頼検証。"
           }
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 Token",
-            "description": "Standard token with trust-aware transfers"
+            "title": "BRC-20トークン",
+            "description": "信頼対応トランスファー付き標準トークン"
           },
           "nft": {
-            "title": "NFT Collection",
-            "description": "ERC-721 with on-chain メタデータ"
+            "title": "NFTコレクション",
+            "description": "オンチェーンメタデータ付きERC-721"
           },
           "defi": {
-            "title": "DeFi プロトコル",
-            "description": "AMM pool with trust 検証"
+            "title": "DeFiプロトコル",
+            "description": "信頼検証付きAMMプール"
           },
           "dao": {
-            "title": "DAO ガバナンス",
-            "description": "Token-weighted 投票 system"
+            "title": "DAOガバナンス",
+            "description": "トークン加重投票システム"
           },
-          "autoBurn": "Auto-Burn Token",
-          "basicToken": "Basic Token",
-          "governance": "Governance",
-          "staking": "Staking Contract",
-          "trustScoreIntegration": "Trust Score Integration"
+          "autoBurn": "自動バーントークン",
+          "basicToken": "基本トークン",
+          "governance": "ガバナンス",
+          "staking": "ステーキングコントラクト",
+          "trustScoreIntegration": "トラストスコア統合"
         },
         "security": {
-          "title": "セキュリティ Best Practices",
-          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
-          "accessControl": "Implement role-based access control with OpenZeppelin AccessControl",
+          "title": "セキュリティベストプラクティス",
+          "reentrancy": "ReentrancyGuard修飾子を使用して再帰的な外部呼び出しを防止",
+          "accessControl": "OpenZeppelin AccessControlでロールベースのアクセス制御を実装",
           "inputValidation": {
-            "title": "Input Validation",
-            "description": "Always validate user inputs and external data"
+            "title": "入力検証",
+            "description": "常にユーザー入力と外部データを検証"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for アップグレード可能 contracts"
+            "title": "アップグレード可能性",
+            "description": "アップグレード可能なコントラクトにプロキシパターンを使用"
           },
-          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
-          "initializer": "Use initializer modifiers for proxy contract initialization",
-          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "checksEffects": "外部呼び出しにはchecks-effects-interactionsパターンに従う",
+          "initializer": "プロキシコントラクト初期化にinitializer修飾子を使用",
+          "overflow": "オーバーフロー保護にSafeMathまたはSolidity 0.8+を使用",
           "reentrancyGuard": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+            "title": "リエントランシーガード",
+            "description": "再帰呼び出しを防止するためにReentrancyGuard修飾子を使用"
           },
           "accessControlRole": {
-            "title": "Access Control",
-            "description": "Implement role-based permissions with OpenZeppelin"
+            "title": "アクセス制御",
+            "description": "OpenZeppelinでロールベースのパーミッションを実装"
           }
         },
         "gasOptimization": {
-          "title": "Gas Optimization",
-          "subtitle": "チップ for reducing transaction costs",
-          "tip1": "Pack multiple smすべて variables into single storage slots",
-          "tip2": "Use cすべてdata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom エラーs instead of revert strings",
+          "title": "ガス最適化",
+          "subtitle": "トランザクションコスト削減のヒント",
+          "tip1": "複数の小さな変数を単一のストレージスロットにパック",
+          "tip2": "読み取り専用関数パラメータにはmemoryではなくcalldataを使用",
+          "tip3": "複数回アクセスされるストレージ変数をメモリにキャッシュ",
+          "tip4": "revert文字列の代わりにカスタムエラーを使用",
           "memoryVsStorage": {
-            "title": "Memory vs Storage",
-            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+            "title": "メモリ vs ストレージ",
+            "desc": "ガス使用量を最適化するために、一時データにはメモリ、永続状態にはストレージを使用。"
           },
           "shortRevert": {
-            "title": "Short Revert Messages",
-            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+            "title": "短いリバートメッセージ",
+            "desc": "デプロイと実行ガスを節約するために、長いrevert文字列の代わりにカスタムエラーを使用。"
           },
           "useEvents": {
-            "title": "Use Events for Logging",
-            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+            "title": "ログにイベントを使用",
+            "desc": "ログ経由の履歴アクセスで十分な場合は、データを保存する代わりにイベントを発行。"
           },
           "variablePacking": {
-            "title": "Variable Packing",
-            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+            "title": "変数パッキング",
+            "desc": "ストレージコストを最小化するために、複数の変数を単一のストレージスロットにパック。"
           }
         },
         "testing": {
-          "title": "Testing Your Contracts",
-          "description": "Comprehensive testing guide for smart contracts",
-          "unitTests": "Unit Tests",
-          "integrationTests": "Integration Tests",
-          "fuzzTesting": "Fuzz Testing"
+          "title": "コントラクトのテスト",
+          "description": "スマートコントラクトの包括的なテストガイド",
+          "unitTests": "ユニットテスト",
+          "integrationTests": "統合テスト",
+          "fuzzTesting": "ファズテスト"
         },
         "deployment": {
-          "title": "Deployment Guide",
-          "step1": "Compile contracts",
-          "step2": "Deploy to テストネット",
-          "step3": "Verify on 探索r",
-          "step4": "Deploy to メインネット"
+          "title": "デプロイガイド",
+          "step1": "コントラクトをコンパイル",
+          "step2": "テストネットにデプロイ",
+          "step3": "エクスプローラーで検証",
+          "step4": "メインネットにデプロイ"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "sdkDocumentation": "SDK ドキュメント",
+          "title": "ヘルプが必要ですか？",
+          "sdkDocumentation": "SDKドキュメント",
           "codeExamples": "コード例",
-          "discordSupport": "Discord コミュニティ"
+          "discordSupport": "Discordコミュニティ"
         },
         "relatedLinks": {
           "developerHub": "開発者ハブ",
@@ -9215,158 +9215,158 @@
           "cliReference": "CLIリファレンス",
           "codeExamples": "コード例"
         },
-        "gasOptimizationTips": "Gas Optimization Tips",
-        "platformFeatures": "Platform Features",
-        "readyToDeploy": "Ready to Deploy?",
-        "sdkGuide": "SDK Guide",
-        "securityChecklist": "Security Checklist"
+        "gasOptimizationTips": "ガス最適化のヒント",
+        "platformFeatures": "プラットフォーム機能",
+        "readyToDeploy": "デプロイする準備はできましたか？",
+        "sdkGuide": "SDKガイド",
+        "securityChecklist": "セキュリティチェックリスト"
       },
       "websocket": {
         "tag": "リアルタイム",
         "title": "WebSocket API",
         "subtitle": "リアルタイムデータストリーミングとイベントサブスクリプション。",
-        "connectionEndpoints": "Connection エンドポイント",
-        "subscriptionChannels": "Subscription Channels",
-        "fullReference": "Full Reference",
+        "connectionEndpoints": "接続エンドポイント",
+        "subscriptionChannels": "サブスクリプションチャンネル",
+        "fullReference": "完全なリファレンス",
         "getSdk": "SDKを取得",
         "codeExamples": "コード例",
-        "viewRestApi": "View REST API",
-        "readyToIntegrate": "Ready to Integrate?",
+        "viewRestApi": "REST APIを見る",
+        "readyToIntegrate": "統合する準備はできましたか？",
         "endpoints": {
           "mainnet": {
-            "type": "Production",
-            "desc": "メインネット WebSocket endpoint for production applications"
+            "type": "本番",
+            "desc": "本番アプリケーション用のメインネットWebSocketエンドポイント"
           },
           "testnet": {
-            "type": "Development",
-            "desc": "テストネット WebSocket endpoint for development and testing"
+            "type": "開発",
+            "desc": "開発とテスト用のテストネットWebSocketエンドポイント"
           }
         },
         "channels": {
           "blocks": {
-            "description": "購読 to 新規 block notifications with full block data"
+            "description": "完全なブロックデータを含む新規ブロック通知にサブスクライブ"
           },
           "transactions": {
-            "description": "Real-time transaction updates for specific addresses"
+            "description": "特定のアドレスのリアルタイムトランザクション更新"
           },
           "trustScore": {
-            "description": "Live トラストスコア 変更 for monitored addresses"
+            "description": "監視対象アドレスのライブトラストスコア変更"
           },
           "defi": {
-            "description": "Price feeds and liquidity pool updates"
+            "description": "価格フィードと流動性プール更新"
           }
         },
         "authentication": {
-          "title": "Authentication",
-          "description": "Include your API key in the connection URL query parameter or as a header"
+          "title": "認証",
+          "description": "接続URLクエリパラメータまたはヘッダーにAPIキーを含める"
         },
         "heartbeat": {
-          "title": "Heartbeat",
-          "description": "Send ping messages every 30 秒 to keep the connection alive"
+          "title": "ハートビート",
+          "description": "接続を維持するために30秒ごとにpingメッセージを送信"
         },
         "clientImplementation": {
-          "title": "Client Implementation",
-          "subtitle": "Example WebSocket client in JavaScript"
+          "title": "クライアント実装",
+          "subtitle": "JavaScriptでのWebSocketクライアント例"
         }
       },
       "examples": {
         "tag": "コード例",
         "title": "コード例",
         "subtitle": "すぐに使えるコードスニペットとサンプルプロジェクト。",
-        "commonRecipes": "Common Recipes",
+        "commonRecipes": "一般的なレシピ",
         "categories": {
-          "allRecipes": "すべて Recipes",
-          "smartContracts": "Smart Contracts",
+          "allRecipes": "すべてのレシピ",
+          "smartContracts": "スマートコントラクト",
           "defi": "DeFi",
           "nfts": "NFT",
-          "wallets": "ウォレットs"
+          "wallets": "ウォレット"
         },
         "recipes": {
           "connectWallet": {
             "title": "ウォレット接続",
-            "description": "Integrate MetaMask and other Web3 ウォレットs with React hooks",
-            "category": "Frontend"
+            "description": "ReactフックでMetaMaskやその他のWeb3ウォレットを統合",
+            "category": "フロントエンド"
           },
           "createToken": {
-            "title": "Create BRC-20 Token",
-            "description": "Deploy a trust-検証済み token with automatic burn mechanics",
-            "category": "Smart Contract"
+            "title": "BRC-20トークンを作成",
+            "description": "自動バーンメカニクス付きの信頼検証済みトークンをデプロイ",
+            "category": "スマートコントラクト"
           },
           "aiOracle": {
-            "title": "AI Oracle Integration",
-            "description": "Query AI-powered insights from smart contracts or 戻るend",
-            "category": "戻るend"
+            "title": "AIオラクル統合",
+            "description": "スマートコントラクトまたはバックエンドからAI駆動インサイトをクエリ",
+            "category": "バックエンド"
           },
           "nftMinting": {
             "title": "NFTミント",
-            "description": "Create and mint NFT collections with メタデータ on IPFS",
+            "description": "IPFS上のメタデータでNFTコレクションを作成しミント",
             "category": "NFT"
           },
           "flashLoan": {
-            "title": "Flash Loan",
-            "description": "Execute arbitrage with atomic flash loan トランザクション",
+            "title": "フラッシュローン",
+            "description": "アトミックフラッシュローントランザクションでアービトラージを実行",
             "category": "DeFi"
           },
           "indexerSetup": {
-            "title": "InDEXer Setup",
-            "description": "Build a custom ブロックチェーン data inDEXer with The Graph",
-            "category": "Infrastructure"
+            "title": "インデクサーセットアップ",
+            "description": "The Graphでカスタムブロックチェーンデータインデクサーを構築",
+            "category": "インフラストラクチャ"
           }
         },
         "featured": {
-          "title": "注目 Recipe",
-          "description": "Build a secure ボールト that verifies project トラストスコアs before accepting deposits. This pattern is essential for DeFi プロトコルs.",
-          "difficulty": "Difficulty",
-          "intermediate": "Intermediate",
-          "time": "Time",
-          "tenMins": "~10 mins",
+          "title": "注目のレシピ",
+          "description": "デポジットを受け入れる前にプロジェクトのトラストスコアを検証するセキュアなボールトを構築。このパターンはDeFiプロトコルに不可欠です。",
+          "difficulty": "難易度",
+          "intermediate": "中級",
+          "time": "時間",
+          "tenMins": "約10分",
           "checks": {
-            "trustScore": "Verifies トラストスコア on-chain before deposit",
-            "revert": "Reverts if score below threshold",
-            "gasOptimized": "Gas-optimized for production use"
+            "trustScore": "デポジット前にオンチェーンでトラストスコアを検証",
+            "revert": "スコアが閾値未満の場合リバート",
+            "gasOptimized": "本番利用のためのガス最適化済み"
           }
         },
         "cta": {
-          "title": "Have a Recipe to 共有?",
-          "description": "Contribute your コード例 to help the コミュニティ. すべて contributors receive ecosystem rewards.",
-          "submitPr": "送信 PR on GitHub",
-          "requestGuide": "Request a Guide"
+          "title": "共有したいレシピがありますか？",
+          "description": "コミュニティを助けるためにコード例を貢献してください。すべての貢献者はエコシステム報酬を受け取ります。",
+          "submitPr": "GitHubでPRを送信",
+          "requestGuide": "ガイドをリクエスト"
         }
       },
       "quickstart": {
         "tag": "はじめに",
         "title": "クイックスタート",
         "subtitle": "数分でTBurn Chainを始める。",
-        "whatsNext": "What's 次へ?",
+        "whatsNext": "次は何ですか？",
         "prerequisites": {
-          "title": "Prerequisites",
-          "node": "Node.js 18+ instすべてed",
-          "account": "TBurn Chain account (テストネット faucet available)",
-          "knowledge": "ベーシック JavaScript/TypeScript knowledge"
+          "title": "前提条件",
+          "node": "Node.js 18+がインストール済み",
+          "account": "TBurn Chainアカウント（テストネットフォーセット利用可能）",
+          "knowledge": "基本的なJavaScript/TypeScriptの知識"
         },
         "steps": {
           "installSdk": {
-            "title": "Instすべて the SDK",
-            "description": "Add the TBurn SDK to your project using npm or Yarn"
+            "title": "SDKをインストール",
+            "description": "npmまたはYarnを使用してプロジェクトにTBurn SDKを追加"
           },
           "initializeSdk": {
-            "title": "Initialize the SDK",
-            "description": "Configure the SDK with your API key and network settings"
+            "title": "SDKを初期化",
+            "description": "APIキーとネットワーク設定でSDKを構成"
           },
           "firstTransaction": {
-            "title": "Send Your First Transaction",
-            "description": "Connect your ウォレット and send TBURN トークン"
+            "title": "最初のトランザクションを送信",
+            "description": "ウォレットを接続してTBURNトークンを送信"
           },
           "queryTrustScore": {
-            "title": "Query トラストスコア",
-            "description": "Retrieve AI-powered trust analysis for any address"
+            "title": "トラストスコアをクエリ",
+            "description": "任意のアドレスのAI駆動信頼分析を取得"
           }
         },
         "networkConfig": {
-          "title": "Network 設定",
-          "chainId": "Chain ID",
+          "title": "ネットワーク設定",
+          "chainId": "チェーンID",
           "rpcUrl": "RPC URL",
-          "explorer": "探索r",
+          "explorer": "エクスプローラー",
           "mainnet": {
             "title": "メインネット"
           },
@@ -9375,24 +9375,24 @@
           }
         },
         "vsCode": {
-          "title": "VS Code Setup",
-          "description": "Recommended extensions for TBurn Chain development",
-          "solidity": "Solidity Language Support",
-          "eslint": "ESLint for JavaScript/TypeScript",
-          "tburnSnippets": "TBurn SDK Snippets"
+          "title": "VS Codeセットアップ",
+          "description": "TBurn Chain開発のための推奨拡張機能",
+          "solidity": "Solidity言語サポート",
+          "eslint": "JavaScript/TypeScript用ESLint",
+          "tburnSnippets": "TBurn SDKスニペット"
         },
         "nextSteps": {
           "sdkGuide": {
             "title": "SDKガイド",
-            "desc": "Deep dive into SDK features"
+            "desc": "SDK機能の詳細"
           },
           "apiReference": {
             "title": "APIリファレンス",
-            "desc": "探索 すべて エンドポイント"
+            "desc": "すべてのエンドポイントを探索"
           },
           "smartContracts": {
-            "title": "Smart Contracts",
-            "desc": "Write your first contract"
+            "title": "スマートコントラクト",
+            "desc": "最初のコントラクトを作成"
           }
         }
       },
@@ -9400,34 +9400,34 @@
         "tag": "セットアップ",
         "title": "インストールガイド",
         "subtitle": "ステップバイステップのインストールと設定手順。",
-        "startBuilding": "Start Building",
-        "viewQuickStart": "View クイックスタート",
+        "startBuilding": "構築を開始",
+        "viewQuickStart": "クイックスタートを見る",
         "requirements": {
           "title": "システム要件",
           "hardware": {
             "title": "ハードウェア",
-            "cpu": "2+ CPU cores",
-            "memory": "8GB RAM minimum",
-            "storage": "50GB SSD storage"
+            "cpu": "2+ CPUコア",
+            "memory": "8GB RAM最小",
+            "storage": "50GB SSDストレージ"
           },
           "software": {
             "title": "ソフトウェア",
-            "os": "macOS, Linux, or Windows 10+",
-            "node": "Node.js 18 or higher",
+            "os": "macOS、Linux、またはWindows 10+",
+            "node": "Node.js 18以上",
             "git": "Git 2.0以降"
           },
           "minimum": {
-            "title": "Minimum Requirements",
-            "subtitle": "For development and testing",
-            "cpu": "4 cores / 8 threads",
+            "title": "最小要件",
+            "subtitle": "開発とテスト用",
+            "cpu": "4コア / 8スレッド",
             "ram": "8GB RAM",
             "storage": "100GB SSD",
             "network": "10 Mbps"
           },
           "recommended": {
-            "title": "Recommended Requirements",
-            "subtitle": "For production validators",
-            "cpu": "8+ cores / 16 threads",
+            "title": "推奨要件",
+            "subtitle": "本番バリデーター用",
+            "cpu": "8+コア / 16スレッド",
             "ram": "32GB RAM",
             "storage": "500GB NVMe SSD",
             "network": "100 Mbps"
@@ -9435,16 +9435,16 @@
           "specs": {
             "cpu": "CPU",
             "ram": "RAM",
-            "storage": "Storage",
-            "network": "Network"
+            "storage": "ストレージ",
+            "network": "ネットワーク"
           },
           "ports": {
-            "title": "Network Ports",
-            "subtitle": "Required ports for node operation",
+            "title": "ネットワークポート",
+            "subtitle": "ノード運用に必要なポート",
             "rpc": "8545 - JSON-RPC",
             "ws": "8546 - WebSocket",
             "p2p": "30303 - P2P",
-            "metrics": "9090 - Metrics"
+            "metrics": "9090 - メトリクス"
           }
         },
         "tabs": {
@@ -9471,9 +9471,9 @@
           "step1": "公式イメージをプル",
           "step2": "コンテナを実行",
           "step3": "開発環境にアクセス",
-          "pullAndRun": "Pull and run the Docker image",
-          "recommendation": "Recommended for isolated development environment",
-          "viewDockerCompose": "View Docker Compose configuration"
+          "pullAndRun": "Dockerイメージをプルして実行",
+          "recommendation": "隔離された開発環境に推奨",
+          "viewDockerCompose": "Docker Compose設定を見る"
         },
         "source": {
           "title": "ソースからビルド",
@@ -9494,8 +9494,8 @@
             "title": "設定ファイル",
             "description": "プロジェクトルートにtburn.config.jsファイルを作成"
           },
-          "description": "Configure your TBurn Chain node with environment variables and config files.",
-          "commonFlags": "Common Configuration Flags"
+          "description": "環境変数と設定ファイルでTBurn Chainノードを構成。",
+          "commonFlags": "一般的な設定フラグ"
         },
         "troubleshooting": {
           "title": "トラブルシューティング",
@@ -9511,12 +9511,12 @@
             "title": "ネットワーク接続エラー",
             "description": "ファイアウォール設定とRPCエンドポイントを確認"
           },
-          "portErrors": "Port Already in Use",
-          "portErrorsAnswer": "Change the port using --http.port flag or kill the process using the port.",
-          "notSyncing": "Node Not Syncing",
-          "notSyncingAnswer": "Check network connectivity and ensure peers are available. Try adding bootstrap nodes.",
-          "openFiles": "Too Many Open Files",
-          "openFilesAnswer": "Increase system file descriptor limits with ulimit -n 65535."
+          "portErrors": "ポートが既に使用中",
+          "portErrorsAnswer": "--http.portフラグでポートを変更するか、そのポートを使用しているプロセスを終了してください。",
+          "notSyncing": "ノードが同期していない",
+          "notSyncingAnswer": "ネットワーク接続を確認し、ピアが利用可能であることを確認してください。ブートストラップノードの追加をお試しください。",
+          "openFiles": "開いているファイルが多すぎる",
+          "openFilesAnswer": "ulimit -n 65535でシステムファイルディスクリプタ制限を増やしてください。"
         },
         "nextSteps": {
           "title": "次のステップ",
@@ -9533,168 +9533,168 @@
             "description": "実世界の統合パターン"
           }
         },
-        "systemRequirements": "System Requirements",
-        "installationSteps": "Installation Steps",
-        "quickStart": "Quick Start",
-        "dockerImage": "Docker Image",
-        "troubleshootingTitle": "Troubleshooting",
+        "systemRequirements": "システム要件",
+        "installationSteps": "インストール手順",
+        "quickStart": "クイックスタート",
+        "dockerImage": "Dockerイメージ",
+        "troubleshootingTitle": "トラブルシューティング",
         "flags": {
-          "http": "--http: Enable HTTP-RPC server",
-          "ws": "--ws: Enable WebSocket server",
-          "mine": "--mine: Enable mining/validation",
-          "syncmode": "--syncmode: Sync mode (snap, full, light)"
+          "http": "--http: HTTP-RPCサーバーを有効化",
+          "ws": "--ws: WebSocketサーバーを有効化",
+          "mine": "--mine: マイニング/バリデーションを有効化",
+          "syncmode": "--syncmode: 同期モード（snap、full、light）"
         },
         "windows": {
-          "title": "Windows Installation",
-          "recommendation": "For Windows, we recommend using WSL2 (Windows Subsystem for Linux) for optimal compatibility.",
-          "downloadBeta": "Download Windows Beta"
+          "title": "Windowsインストール",
+          "recommendation": "Windowsでは、最適な互換性のためにWSL2（Windows Subsystem for Linux）の使用を推奨します。",
+          "downloadBeta": "Windowsベータ版をダウンロード"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "description": "Join our community for support and updates.",
-          "joinDiscord": "Join Discord"
+          "title": "ヘルプが必要ですか？",
+          "description": "サポートと更新情報のためにコミュニティに参加してください。",
+          "joinDiscord": "Discordに参加"
         }
       },
       "evmMigration": {
         "tag": "マイグレーション",
         "title": "EVMマイグレーション",
         "subtitle": "EthereumのdAppをTBurn Chainに移行。",
-        "startMigration": "Start Migration",
-        "viewGuide": "View Full Guide",
+        "startMigration": "マイグレーションを開始",
+        "viewGuide": "完全なガイドを見る",
         "overview": {
-          "title": "Migration Overview",
-          "description": "TBurn Chain is fully EVM-compatible, すべてowing you to deploy existing Ethereum smart contracts with minimal modifications.",
-          "compatibility": "100% EVM Compatibility",
-          "gasEfficiency": "Up to 10x lower gas costs",
-          "trustFeatures": "Built-in トラストスコア統合"
+          "title": "マイグレーション概要",
+          "description": "TBurn Chainは完全にEVM互換であり、最小限の変更で既存のEthereumスマートコントラクトをデプロイできます。",
+          "compatibility": "100% EVM互換性",
+          "gasEfficiency": "最大10倍低いガスコスト",
+          "trustFeatures": "組み込みトラストスコア統合"
         },
         "differences": {
-          "title": "Key Differences",
+          "title": "主な違い",
           "chainId": {
-            "title": "Chain ID",
+            "title": "チェーンID",
             "ethereum": "Ethereum: 1",
             "tburn": "TBurn: 7777"
           },
           "consensus": {
-            "title": "Consensus Mechanism",
-            "ethereum": "Proof of ステーク",
-            "tburn": "Proof of Trust (PoT)"
+            "title": "コンセンサスメカニズム",
+            "ethereum": "プルーフオブステーク",
+            "tburn": "プルーフオブトラスト（PoT）"
           },
           "gasToken": {
-            "title": "Gas Token",
+            "title": "ガストークン",
             "ethereum": "ETH",
             "tburn": "TBURN"
           },
           "blockTime": {
-            "title": "Block Time",
-            "ethereum": "~12 秒",
-            "tburn": "~3 秒"
+            "title": "ブロックタイム",
+            "ethereum": "約12秒",
+            "tburn": "約3秒"
           },
           "evmCompatibility": {
-            "title": "EVM Compatibility",
-            "evmDesc": "Standard EVM opcodes and execution",
-            "tburnDesc": "Enhanced EVM with Trust Score opcodes"
+            "title": "EVM互換性",
+            "evmDesc": "標準EVMオペコードと実行",
+            "tburnDesc": "トラストスコアオペコードを備えた拡張EVM"
           },
           "performance": {
-            "title": "Performance",
-            "evmDesc": "~15 TPS typical throughput",
-            "tburnDesc": "50,000+ TPS with parallel execution"
+            "title": "パフォーマンス",
+            "evmDesc": "約15 TPSの一般的なスループット",
+            "tburnDesc": "並列実行で50,000+ TPS"
           },
           "safety": {
-            "title": "Transaction Safety",
-            "evmDesc": "Standard transaction finality",
-            "tburnDesc": "AI-verified transactions with fraud prevention"
+            "title": "トランザクション安全性",
+            "evmDesc": "標準的なトランザクションファイナリティ",
+            "tburnDesc": "不正防止機能付きAI検証トランザクション"
           },
           "verification": {
-            "title": "Verification",
-            "evmDesc": "Basic contract verification",
-            "tburnDesc": "Trust Score verification built-in"
+            "title": "検証",
+            "evmDesc": "基本的なコントラクト検証",
+            "tburnDesc": "組み込みトラストスコア検証"
           }
         },
         "steps": {
-          "title": "Migration Steps",
+          "title": "マイグレーション手順",
           "step1": {
-            "title": "Update Network 設定",
-            "description": "Change RPC エンドポイント and chain ID in your 設定ファイルs"
+            "title": "ネットワーク設定を更新",
+            "description": "設定ファイルでRPCエンドポイントとチェーンIDを変更"
           },
           "step2": {
-            "title": "Modify Contract Addresses",
-            "description": "Update hardcoded contract addresses to TBurn Chain deployments"
+            "title": "コントラクトアドレスを変更",
+            "description": "ハードコードされたコントラクトアドレスをTBurn Chainデプロイメントに更新"
           },
           "step3": {
-            "title": "Add トラストスコア統合",
-            "description": "オプションly integrate トラストスコア 検証 for enhanced セキュリティ"
+            "title": "トラストスコア統合を追加",
+            "description": "セキュリティ強化のためにオプションでトラストスコア検証を統合"
           },
           "step4": {
-            "title": "Deploy and Test",
-            "description": "Deploy to テストネット first, then migrate to メインネット"
+            "title": "デプロイしてテスト",
+            "description": "最初にテストネットにデプロイし、次にメインネットに移行"
           },
           "useExistingCode": {
-            "title": "Use Existing Code",
-            "desc": "Your Solidity contracts work as-is. No modifications needed for basic functionality."
+            "title": "既存コードを使用",
+            "desc": "Solidityコントラクトはそのまま動作します。基本機能には変更不要。"
           },
           "integrateTrustScore": {
-            "title": "Integrate Trust Score",
-            "desc": "Add optional Trust Score checks to verify transaction participants."
+            "title": "トラストスコアを統合",
+            "desc": "トランザクション参加者を検証するためのオプションのトラストスコアチェックを追加。"
           },
           "leverageAutoBurn": {
-            "title": "Leverage Auto-Burn",
-            "desc": "Implement deflationary mechanics with automatic token burning."
+            "title": "自動バーンを活用",
+            "desc": "自動トークンバーンでデフレメカニクスを実装。"
           }
         },
         "commonChanges": {
-          "title": "Common Code 変更",
-          "rpcEndpoint": "RPC Endpoint Update",
-          "chainIdUpdate": "Chain ID 設定",
-          "trustOracle": "Trust Oracle Integration (オプション)"
+          "title": "一般的なコード変更",
+          "rpcEndpoint": "RPCエンドポイント更新",
+          "chainIdUpdate": "チェーンID設定",
+          "trustOracle": "トラストオラクル統合（オプション）"
         },
         "tools": {
-          "title": "Migration Tools",
+          "title": "マイグレーションツール",
           "cliMigrate": {
-            "title": "CLI Migration Tool",
-            "description": "Automated contract migration with burn-cli migrate"
+            "title": "CLIマイグレーションツール",
+            "description": "burn-cli migrateによる自動コントラクトマイグレーション"
           },
           "hardhatPlugin": {
-            "title": "Hardhat Plugin",
-            "description": "TBurn Hardhat plugin for seamless deployment"
+            "title": "Hardhatプラグイン",
+            "description": "シームレスなデプロイのためのTBurn Hardhatプラグイン"
           },
           "foundrySupport": {
-            "title": "Foundry Support",
-            "description": "Full Foundry compatibility for testing and deployment"
+            "title": "Foundryサポート",
+            "description": "テストとデプロイのための完全なFoundry互換性"
           }
         },
         "cta": {
-          "title": "Ready to Migrate?",
-          "description": "始める with our step-by-step migration guide and tools.",
-          "startNow": "Start Migration Now",
-          "contactSupport": "お問い合わせ Support",
-          "readDocumentation": "Read Documentation"
+          "title": "移行する準備はできましたか？",
+          "description": "ステップバイステップのマイグレーションガイドとツールで始めましょう。",
+          "startNow": "今すぐマイグレーションを開始",
+          "contactSupport": "サポートに連絡",
+          "readDocumentation": "ドキュメントを読む"
         },
         "faq": {
-          "title": "Frequently Asked Questions",
+          "title": "よくある質問",
           "q1": {
-            "question": "Will my existing Solidity contracts work?",
-            "answer": "Yes, TBurn Chain is fully EVM-compatible and supports すべて Solidity versions."
+            "question": "既存のSolidityコントラクトは動作しますか？",
+            "answer": "はい、TBurn Chainは完全にEVM互換であり、すべてのSolidityバージョンをサポートしています。"
           },
           "q2": {
-            "question": "Do I need to re-audit my contracts?",
-            "answer": "We recommend a セキュリティ review for トラストスコア統合, but existing logic should work as-is."
+            "question": "コントラクトを再監査する必要がありますか？",
+            "answer": "トラストスコア統合のためのセキュリティレビューを推奨しますが、既存のロジックはそのまま動作するはずです。"
           },
           "q3": {
-            "question": "How long does migration take?",
-            "answer": "Simple contracts can be migrated in 時間. Complex プロトコルs may take 1-2 週間."
+            "question": "マイグレーションにはどのくらい時間がかかりますか？",
+            "answer": "シンプルなコントラクトは数時間で移行できます。複雑なプロトコルは1〜2週間かかる場合があります。"
           }
         },
         "keyDifferences": {
-          "title": "Key Technical Differences",
-          "subtitle": "What sets TBurn Chain apart from traditional EVM chains",
-          "existingEvmChains": "Existing EVM Chains",
+          "title": "主要な技術的違い",
+          "subtitle": "従来のEVMチェーンとTBurn Chainの違い",
+          "existingEvmChains": "既存のEVMチェーン",
           "tburnChain": "TBurn Chain",
-          "upgrade": "Upgrade"
+          "upgrade": "アップグレード"
         },
         "developmentApproach": {
-          "title": "Development Approach",
-          "subtitle": "Follow these steps to migrate your existing dApps"
+          "title": "開発アプローチ",
+          "subtitle": "既存のdAppを移行するためのこれらの手順に従ってください"
         }
       }
     },
@@ -11869,63 +11869,70 @@
         }
       },
       "depin": {
-        "tag": "分散型インフラ",
+        "tag": "分散型インフラストラクチャ",
         "title": "DePINネットワーク",
-        "subtitle": "分散型物理インフラネットワークを構築・運営。コンピューティング、ストレージ、ワイヤレス、センシングリソースを提供して報酬を獲得。",
+        "subtitle": "分散型物理インフラストラクチャネットワークを構築・運営。コンピューティング、ストレージ、無線、センシングリソースを提供して報酬を獲得。",
         "buttons": {
-          "deployNode": "ノードをデプロイ",
-          "depinDocs": "DePINドキュメント"
+          "deployInfrastructure": "インフラを展開",
+          "protocolDocs": "プロトコル文書"
         },
         "categories": {
           "wireless": {
-            "title": "ワイヤレスネットワーク",
-            "desc": "LoRaWAN、5G、WiFiホットスポットをデプロイ。分散カバレッジを提供し使用量に応じて報酬を獲得。"
+            "title": "無線ネットワーク",
+            "desc": "分散型5G、LoRaWAN、WiFiカバレッジ。ホットスポットを展開しコミュニティに接続性を提供して報酬を獲得。"
           },
           "compute": {
             "title": "分散コンピューティング",
-            "desc": "アイドルコンピューティングパワーを貸し出してGPU時間でトークンを獲得。AIトレーニングとレンダリングワークロード。"
+            "desc": "AIトレーニング、レンダリング、科学計算のためのGPU・CPUリソース共有。アイドル状態のコンピューティングパワーを収益化。"
+          },
+          "mapping": {
+            "title": "マッピング＆センサー",
+            "desc": "クラウドソーシング地理空間データ、気象ステーション、IoTセンサー。検証済みカバレッジでリアルタイムデータネットワークを構築。"
           },
           "storage": {
-            "title": "分散ストレージ",
-            "desc": "ネットワークにディスクスペースを提供。ファイル冗長性報酬と検証可能なストレージ証明。"
-          },
-          "sensors": {
-            "title": "センサーネットワーク",
-            "desc": "気象、大気質、環境データを収集。IoTセンサーアレイで報酬を獲得。"
+            "title": "分散型ストレージ",
+            "desc": "冗長性と暗号化を備えた分散ファイルストレージ。ネットワークにディスクスペースを提供して報酬を獲得。"
           }
         },
         "metrics": {
           "activeNodes": "アクティブノード",
-          "monthlyRewards": "月間報酬",
-          "networkCoverage": "ネットワークカバレッジ"
+          "protocolRevenue": "プロトコル収益",
+          "countriesCovered": "対応国"
         },
         "features": {
-          "verifiable": {
-            "title": "検証可能な貢献",
-            "desc": "暗号証明によるノード運用とサービス品質の検証。透明な報酬計算。"
+          "proofOfCoverage": {
+            "title": "カバレッジ証明",
+            "desc": "インフラ展開とサービス可用性を暗号学的に検証。実際の貢献に基づく公正な報酬分配。"
           },
-          "permissionless": {
-            "title": "パーミッションレス参加",
-            "desc": "許可なくネットワークに参加。ハードウェアを接続して即座に報酬獲得を開始。"
+          "slashingProtection": {
+            "title": "スラッシング保護",
+            "desc": "悪意ある行動にペナルティを課すステークベースのセキュリティ。誠実なオペレーターに報酬を与えながらネットワーク整合性を保護。"
           },
-          "scalable": {
-            "title": "スケーラブルインフラ",
-            "desc": "数千ノードにスケール。自動ロードバランシングと冗長性を内蔵。"
+          "communityGovernance": {
+            "title": "コミュニティガバナンス",
+            "desc": "ネットワークパラメータのためのDAOベースプロトコルガバナンス。トークン保有者がアップグレード、報酬、拡張優先度に投票。"
           },
-          "hybrid": {
-            "title": "ハイブリッドモデル",
-            "desc": "プライベートハードウェアとクラウドノードを組み合わせ。オンプレミスとクラウドネイティブデプロイメントを柔軟にミックス。"
+          "dynamicRewards": {
+            "title": "ダイナミック報酬",
+            "desc": "需要とカバレッジギャップに基づくAI最適化報酬分配。サービス不足地域により高い報酬。"
           }
         },
+        "hardware": {
+          "title": "ハードウェア要件",
+          "desc": "さまざまなDePINプロトコル向けの柔軟なハードウェアオプション。最小限の投資で収益獲得を開始。",
+          "minimum": "最小構成：Raspberry Pi 4または同等のARMデバイス",
+          "recommended": "推奨構成：16GB RAM、1TB SSDを搭載したx86サーバー",
+          "gpu": "GPUコンピューティング：AIワークロード向けNVIDIA RTX 3080以上"
+        },
         "sections": {
-          "networks": "DePINネットワークタイプ",
-          "networksDesc": "TBURNがサポートする分散インフラを探索",
-          "platformFeatures": "プラットフォーム機能"
+          "categories": "インフラカテゴリ",
+          "categoriesDesc": "複数のDePINプロトコルで展開して収益を獲得",
+          "protocolFeatures": "プロトコル機能"
         },
         "cta": {
-          "title": "DePIN革命に参加",
-          "desc": "TBURNで分散インフラを構築または貢献して報酬を獲得。",
-          "deployNow": "今すぐデプロイ"
+          "title": "DePIN革命に参加する準備はできましたか？",
+          "desc": "インフラを展開し、報酬を獲得し、分散化された未来の構築を支援。ガイドで数分で始められます。",
+          "getStarted": "始める"
         }
       },
       "stablecoins": {
