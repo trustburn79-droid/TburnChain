@@ -9823,102 +9823,102 @@
       },
       "ramp": {
         "tag": "PASSERELLE FIAT",
-        "title": "Rampe Fiat On/Off",
-        "subtitle": "Achetez et vendez du TBURN avec de la monnaie fiduciaire.",
-        "fee": "Fee",
+        "title": "Entrée/Sortie Fiat",
+        "subtitle": "Achetez et vendez des TBURN avec de la monnaie fiduciaire.",
+        "fee": "Frais",
         "sections": {
-          "howItWorks": "How It Works",
-          "paymentMethods": "Payment Methods",
-          "limitsFees": "Limits & Fees",
-          "whyBurnRamp": "Why Burn Ramp?"
+          "howItWorks": "Comment Ça Marche",
+          "paymentMethods": "Méthodes de Paiement",
+          "limitsFees": "Limites et Frais",
+          "whyBurnRamp": "Pourquoi Burn Ramp ?"
         },
         "buy": {
-          "title": "Buy TBURN",
-          "desc": "Purchase TBURN Tokens with your preferred payment method",
-          "amountPlaceholder": "Enter Montant in USD",
-          "estTburn": "Estimated TBURN",
-          "button": "Buy TBURN"
+          "title": "Acheter TBURN",
+          "desc": "Achetez des tokens TBURN avec votre méthode de paiement préférée",
+          "amountPlaceholder": "Entrez le montant en USD",
+          "estTburn": "TBURN estimé",
+          "button": "Acheter TBURN"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "desc": "Convert your TBURN Tokens to fiat currency",
-          "amountPlaceholder": "Enter Montant in TBURN",
-          "estUsd": "Estimated USD",
-          "button": "Sell TBURN"
+          "title": "Vendre TBURN",
+          "desc": "Convertissez vos tokens TBURN en monnaie fiduciaire",
+          "amountPlaceholder": "Entrez la quantité de TBURN",
+          "estUsd": "USD estimé",
+          "button": "Vendre TBURN"
         },
         "steps": {
           "step1": {
-            "title": "Créer Account",
-            "desc": "S'inscrire and complete KYC verification"
+            "title": "Créer un Compte",
+            "desc": "Inscrivez-vous et complétez la vérification KYC"
           },
           "step2": {
-            "title": "Choose Montant",
-            "desc": "Select your purchase or sale Montant"
+            "title": "Choisir le Montant",
+            "desc": "Sélectionnez votre montant d'achat ou de vente"
           },
           "step3": {
-            "title": "Select Payment",
-            "desc": "Choose your preferred payment method"
+            "title": "Sélectionner le Paiement",
+            "desc": "Choisissez votre méthode de paiement préférée"
           },
           "step4": {
-            "title": "Complete Transaction",
-            "desc": "Review and Confirmer your transaction"
+            "title": "Finaliser la Transaction",
+            "desc": "Vérifiez et confirmez votre transaction"
           }
         },
         "payments": {
-          "onRamp": "On-Ramp Methods",
-          "offRamp": "Off-Ramp Methods",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "Bank Transfer (ACH/SEPA)",
-          "digitalWallets": "Digital Portefeuilles (Apple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Withdrawal",
-          "paypalWithdrawal": "PayPal Withdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "Méthodes d'Entrée",
+          "offRamp": "Méthodes de Sortie",
+          "creditDebit": "Carte de Crédit/Débit",
+          "bankTransfer": "Virement Bancaire (ACH/SEPA)",
+          "digitalWallets": "Portefeuilles Numériques (Apple Pay, Google Pay)",
+          "bankWithdrawal": "Retrait Bancaire",
+          "paypalWithdrawal": "Retrait PayPal",
+          "physicalCheck": "Chèque Physique"
         },
         "accounts": {
           "basic": {
             "title": "Basique",
-            "desc": "Email verification only"
+            "desc": "Vérification par email uniquement"
           },
           "verified": {
-            "title": "Verified",
-            "desc": "Full KYC completed"
+            "title": "Vérifié",
+            "desc": "KYC complet effectué"
           },
           "institutional": {
             "title": "Institutionnel",
-            "desc": "Business account with enhanced limits"
+            "desc": "Compte entreprise avec limites améliorées"
           },
-          "dailyLimit": "Daily Limit",
-          "monthlyLimit": "Monthly Limit",
-          "buyFee": "Buy Fee",
-          "sellFee": "Sell Fee",
-          "unlimited": "Unlimited",
-          "recommended": "Recommended"
+          "dailyLimit": "Limite Quotidienne",
+          "monthlyLimit": "Limite Mensuelle",
+          "buyFee": "Frais d'Achat",
+          "sellFee": "Frais de Vente",
+          "unlimited": "Illimité",
+          "recommended": "Recommandé"
         },
         "features": {
           "instantProcessing": {
-            "title": "Instant Traitement",
-            "desc": "Most Transactions complete within minutes"
+            "title": "Traitement Instantané",
+            "desc": "La plupart des transactions sont complétées en quelques minutes"
           },
           "lowFees": {
-            "title": "Low Fees",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "Frais Réduits",
+            "desc": "Tarifs compétitifs à partir de 0,5%"
           },
           "bankGradeSecurity": {
-            "title": "Bank-Grade Sécurité",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "Sécurité Bancaire",
+            "desc": "Chiffrement 256 bits et protection 2FA"
           }
         },
         "cta": {
           "title": "Prêt à Commencer ?",
-          "createAccount": "Créer Account",
+          "createAccount": "Créer un Compte",
           "contactSupport": "Contacter le Support"
         },
         "toast": {
-          "processing": "Traitement...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid Montant",
-          "error": "Transaction Échoué. Please try again."
+          "processing": "Traitement en cours...",
+          "initiatingPurchase": "Initiation de l'achat de TBURN...",
+          "initiatingSale": "Initiation de la vente de TBURN...",
+          "enterValidAmount": "Veuillez entrer un montant valide",
+          "error": "Transaction échouée. Veuillez réessayer."
         }
       }
     },
@@ -10046,7 +10046,7 @@
         "views": "views",
         "showingCount": "Showing {{current}} of {{Total}}",
         "categories": {
-          "all": "All",
+          "all": "Tous",
           "announcement": "Announcement",
           "technology": "Technology",
           "security": "Sécurité",
@@ -10097,8 +10097,8 @@
         "newsletter": {
           "title": "Stay Updated",
           "description": "Get the Dernier Actualités, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Enter your email address",
-          "button": "Subscribe",
+          "placeholder": "Entrez votre adresse email",
+          "button": "S'abonner",
           "privacy": "We respect your privacy. Unsubscribe anytime.",
           "success": "Subscription Successful",
           "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",

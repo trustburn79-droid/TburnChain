@@ -9158,102 +9158,102 @@
       },
       "ramp": {
         "tag": "ФИАТНЫЙ ШЛЮЗ",
-        "title": "Фиатный вход/выход",
+        "title": "Ввод/Вывод Фиата",
         "subtitle": "Покупайте и продавайте TBURN за фиатную валюту.",
         "fee": "Комиссия",
         "sections": {
-          "howItWorks": "How It Works",
-          "paymentMethods": "Payment Methods",
-          "limitsFees": "Limits & Fees",
-          "whyBurnRamp": "Why Burn Ramp?"
+          "howItWorks": "Как Это Работает",
+          "paymentMethods": "Способы Оплаты",
+          "limitsFees": "Лимиты и Комиссии",
+          "whyBurnRamp": "Почему Burn Ramp?"
         },
         "buy": {
-          "title": "Buy TBURN",
-          "desc": "Purchase TBURN tokens with your preferred payment method",
-          "amountPlaceholder": "Enter amount in USD",
-          "estTburn": "Estimated TBURN",
-          "button": "Buy TBURN"
+          "title": "Купить TBURN",
+          "desc": "Покупайте токены TBURN предпочитаемым способом оплаты",
+          "amountPlaceholder": "Введите сумму в USD",
+          "estTburn": "Ожидаемый TBURN",
+          "button": "Купить TBURN"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "desc": "Convert your TBURN tokens to fiat currency",
-          "amountPlaceholder": "Enter amount in TBURN",
-          "estUsd": "Estimated USD",
-          "button": "Sell TBURN"
+          "title": "Продать TBURN",
+          "desc": "Конвертируйте токены TBURN в фиатную валюту",
+          "amountPlaceholder": "Введите количество TBURN",
+          "estUsd": "Ожидаемый USD",
+          "button": "Продать TBURN"
         },
         "steps": {
           "step1": {
-            "title": "Create Account",
-            "desc": "Sign up and complete KYC verification"
+            "title": "Создать Аккаунт",
+            "desc": "Зарегистрируйтесь и пройдите KYC верификацию"
           },
           "step2": {
-            "title": "Choose Amount",
-            "desc": "Select your purchase or sale amount"
+            "title": "Выбрать Сумму",
+            "desc": "Выберите сумму покупки или продажи"
           },
           "step3": {
-            "title": "Select Payment",
-            "desc": "Choose your preferred payment method"
+            "title": "Выбрать Оплату",
+            "desc": "Выберите предпочитаемый способ оплаты"
           },
           "step4": {
-            "title": "Complete Transaction",
-            "desc": "Review and confirm your transaction"
+            "title": "Завершить Транзакцию",
+            "desc": "Проверьте и подтвердите транзакцию"
           }
         },
         "payments": {
-          "onRamp": "On-Ramp Methods",
-          "offRamp": "Off-Ramp Methods",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "Bank Transfer (ACH/SEPA)",
-          "digitalWallets": "Digital Wallets (Apple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Withdrawal",
-          "paypalWithdrawal": "PayPal Withdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "Способы Ввода",
+          "offRamp": "Способы Вывода",
+          "creditDebit": "Кредитная/Дебетовая Карта",
+          "bankTransfer": "Банковский Перевод (ACH/SEPA)",
+          "digitalWallets": "Цифровые Кошельки (Apple Pay, Google Pay)",
+          "bankWithdrawal": "Банковский Вывод",
+          "paypalWithdrawal": "Вывод PayPal",
+          "physicalCheck": "Физический Чек"
         },
         "accounts": {
           "basic": {
-            "title": "Basic",
-            "desc": "Email verification only"
+            "title": "Базовый",
+            "desc": "Только подтверждение email"
           },
           "verified": {
-            "title": "Verified",
-            "desc": "Full KYC completed"
+            "title": "Верифицированный",
+            "desc": "Полная KYC верификация"
           },
           "institutional": {
             "title": "Институциональный",
-            "desc": "Business account with enhanced limits"
+            "desc": "Бизнес-аккаунт с расширенными лимитами"
           },
-          "dailyLimit": "Daily Limit",
-          "monthlyLimit": "Monthly Limit",
-          "buyFee": "Buy Fee",
-          "sellFee": "Sell Fee",
-          "unlimited": "Unlimited",
-          "recommended": "Recommended"
+          "dailyLimit": "Дневной Лимит",
+          "monthlyLimit": "Месячный Лимит",
+          "buyFee": "Комиссия Покупки",
+          "sellFee": "Комиссия Продажи",
+          "unlimited": "Безлимит",
+          "recommended": "Рекомендуемый"
         },
         "features": {
           "instantProcessing": {
-            "title": "Instant Processing",
-            "desc": "Most transactions complete within minutes"
+            "title": "Мгновенная Обработка",
+            "desc": "Большинство транзакций завершаются за минуты"
           },
           "lowFees": {
-            "title": "Low Fees",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "Низкие Комиссии",
+            "desc": "Конкурентные ставки от 0,5%"
           },
           "bankGradeSecurity": {
-            "title": "Bank-Grade Security",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "Банковская Безопасность",
+            "desc": "256-битное шифрование и 2FA защита"
           }
         },
         "cta": {
-          "title": "Готовы начать?",
-          "createAccount": "Create Account",
-          "contactSupport": "Связаться с поддержкой"
+          "title": "Готовы Начать?",
+          "createAccount": "Создать Аккаунт",
+          "contactSupport": "Связаться с Поддержкой"
         },
         "toast": {
-          "processing": "Processing...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid amount",
-          "error": "Transaction failed. Please try again."
+          "processing": "Обработка...",
+          "initiatingPurchase": "Начинаем покупку TBURN...",
+          "initiatingSale": "Начинаем продажу TBURN...",
+          "enterValidAmount": "Пожалуйста, введите корректную сумму",
+          "error": "Транзакция не удалась. Попробуйте снова."
         }
       }
     },
@@ -9376,12 +9376,12 @@
         "featuredTitle": "Featured Stories",
         "featuredBadge": "Featured",
         "latestTitle": "Latest Articles",
-        "readMore": "Read More",
+        "readMore": "Читать далее",
         "readTime": "{{minutes}} min read",
         "views": "views",
         "showingCount": "Showing {{current}} of {{total}}",
         "categories": {
-          "all": "All",
+          "all": "Все",
           "announcement": "Announcement",
           "technology": "Technology",
           "security": "Security",
@@ -9432,8 +9432,8 @@
         "newsletter": {
           "title": "Stay Updated",
           "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Enter your email address",
-          "button": "Subscribe",
+          "placeholder": "Введите ваш email адрес",
+          "button": "Подписаться",
           "privacy": "We respect your privacy. Unsubscribe anytime.",
           "success": "Subscription Successful",
           "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",

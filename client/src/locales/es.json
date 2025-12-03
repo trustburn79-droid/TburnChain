@@ -11458,118 +11458,102 @@
       },
       "ramp": {
         "tag": "PASARELA FIAT",
-        "title": "Rampa On/Off",
-        "subtitle": "Convierte entre moneda fiat y TBURN de forma fluida",
+        "title": "Entrada/Salida Fiat",
+        "subtitle": "Compra y vende TBURN con moneda fiduciaria.",
+        "fee": "Comisión",
+        "sections": {
+          "howItWorks": "Cómo Funciona",
+          "paymentMethods": "Métodos de Pago",
+          "limitsFees": "Límites y Comisiones",
+          "whyBurnRamp": "¿Por qué Burn Ramp?"
+        },
         "buy": {
-          "title": "Buy TBURN",
-          "description": "Compra TBURN con tarjeta de crédito, transferencia bancaria o procesadores de pago",
-          "desc": "Purchase TBURN tokens with your preferred payment method",
-          "amountPlaceholder": "Entrar amount in USD",
-          "estTburn": "Estimated TBURN",
-          "button": "Buy TBURN"
+          "title": "Comprar TBURN",
+          "desc": "Compra tokens TBURN con tu método de pago preferido",
+          "amountPlaceholder": "Ingresa monto en USD",
+          "estTburn": "TBURN estimado",
+          "button": "Comprar TBURN"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "description": "Convierte TBURN de vuelta a moneda fiat",
-          "desc": "Convert your TBURN tokens to fiat currency",
-          "amountPlaceholder": "Entrar amount in TBURN",
-          "estUsd": "Estimated USD",
-          "button": "Sell TBURN"
-        },
-        "providers": {
-          "title": "Proveedores Soportados"
-        },
-        "currencies": {
-          "title": "Monedas Soportadas"
-        },
-        "fees": {
-          "title": "Tarifas y Límites",
-          "buy": "Tarifa de Compra",
-          "sell": "Tarifa de Venta",
-          "minAmount": "Cantidad Mínima",
-          "maxAmount": "Cantidad Máxima"
-        },
-        "cta": {
-          "title": "¿Listo para Comenzar?",
-          "button": "Conectar Cartera",
-          "createAccount": "Crear Account",
-          "contactSupport": "Contact Support"
-        },
-        "fee": "Tarifa",
-        "sections": {
-          "howItWorks": "Cómo It Works",
-          "paymentMethods": "Payment Methods",
-          "limitsFees": "Limits & Fees",
-          "whyBurnRamp": "Por qué Burn Ramp?"
+          "title": "Vender TBURN",
+          "desc": "Convierte tus tokens TBURN a moneda fiduciaria",
+          "amountPlaceholder": "Ingresa cantidad de TBURN",
+          "estUsd": "USD estimado",
+          "button": "Vender TBURN"
         },
         "steps": {
           "step1": {
-            "title": "Crear Account",
-            "desc": "Sign up and complete KYC verification"
+            "title": "Crear Cuenta",
+            "desc": "Regístrate y completa la verificación KYC"
           },
           "step2": {
-            "title": "Elegir Cantidad",
-            "desc": "Seleccionar your purchase or sale amount"
+            "title": "Elige el Monto",
+            "desc": "Selecciona tu monto de compra o venta"
           },
           "step3": {
-            "title": "Seleccionar Payment",
-            "desc": "Elegir your preferred payment method"
+            "title": "Selecciona Pago",
+            "desc": "Elige tu método de pago preferido"
           },
           "step4": {
-            "title": "Completar Transaction",
-            "desc": "Review and confirm your transaction"
+            "title": "Completa la Transacción",
+            "desc": "Revisa y confirma tu transacción"
           }
         },
         "payments": {
-          "onRamp": "En-Ramp Methods",
-          "offRamp": "Off-Ramp Methods",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "Bank Transfer (ACH/SEPA)",
-          "digitalWallets": "Digital Wallets (Apple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Withdrawal",
-          "paypalWithdrawal": "PayPal Withdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "Métodos de Entrada",
+          "offRamp": "Métodos de Salida",
+          "creditDebit": "Tarjeta de Crédito/Débito",
+          "bankTransfer": "Transferencia Bancaria (ACH/SEPA)",
+          "digitalWallets": "Billeteras Digitales (Apple Pay, Google Pay)",
+          "bankWithdrawal": "Retiro Bancario",
+          "paypalWithdrawal": "Retiro por PayPal",
+          "physicalCheck": "Cheque Físico"
         },
         "accounts": {
           "basic": {
             "title": "Básico",
-            "desc": "Email verification only"
+            "desc": "Solo verificación de email"
           },
           "verified": {
             "title": "Verificado",
-            "desc": "Full KYC completed"
+            "desc": "KYC completo realizado"
           },
           "institutional": {
             "title": "Institucional",
-            "desc": "Business account with enhanced limits"
+            "desc": "Cuenta empresarial con límites mejorados"
           },
-          "dailyLimit": "Daily Limit",
-          "monthlyLimit": "Monthly Limit",
-          "buyFee": "Buy Tarifa",
-          "sellFee": "Sell Tarifa",
+          "dailyLimit": "Límite Diario",
+          "monthlyLimit": "Límite Mensual",
+          "buyFee": "Comisión de Compra",
+          "sellFee": "Comisión de Venta",
           "unlimited": "Ilimitado",
-          "recommended": "Recommended"
+          "recommended": "Recomendado"
         },
         "features": {
           "instantProcessing": {
-            "title": "Instant Procesando",
-            "desc": "Más transactions complete within minutes"
+            "title": "Procesamiento Instantáneo",
+            "desc": "La mayoría de las transacciones se completan en minutos"
           },
           "lowFees": {
-            "title": "Low Fees",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "Bajas Comisiones",
+            "desc": "Tarifas competitivas desde 0.5%"
           },
           "bankGradeSecurity": {
-            "title": "Bank-Grade Seguridad",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "Seguridad Bancaria",
+            "desc": "Cifrado de 256 bits y protección 2FA"
           }
+        },
+        "cta": {
+          "title": "¿Listo para Comenzar?",
+          "createAccount": "Crear Cuenta",
+          "contactSupport": "Contactar Soporte"
         },
         "toast": {
           "processing": "Procesando...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid amount",
-          "error": "Transaction failed. Please try again."
+          "initiatingPurchase": "Iniciando compra de TBURN...",
+          "initiatingSale": "Iniciando venta de TBURN...",
+          "enterValidAmount": "Por favor ingresa un monto válido",
+          "error": "Transacción fallida. Por favor intenta de nuevo."
         }
       },
       "bridge": {

@@ -9552,102 +9552,102 @@
       },
       "ramp": {
         "tag": "GATEWAY FIAT",
-        "title": "Rampa de Entrada/Saída Fiat",
+        "title": "Entrada/Saída Fiat",
         "subtitle": "Compre e venda TBURN com moeda fiduciária.",
         "fee": "Taxa",
         "sections": {
-          "howItWorks": "How It Works",
-          "paymentMethods": "Payment Métodos",
-          "limitsFees": "Limits & Taxas",
-          "whyBurnRamp": "Why Queima Ramp?"
+          "howItWorks": "Como Funciona",
+          "paymentMethods": "Métodos de Pagamento",
+          "limitsFees": "Limites e Taxas",
+          "whyBurnRamp": "Por que Burn Ramp?"
         },
         "buy": {
           "title": "Comprar TBURN",
-          "desc": "Purchase TBURN tokens with your preferred payment method",
-          "amountPlaceholder": "Enter amount in USD",
-          "estTburn": "Estimated TBURN",
+          "desc": "Compre tokens TBURN com seu método de pagamento preferido",
+          "amountPlaceholder": "Digite o valor em USD",
+          "estTburn": "TBURN estimado",
           "button": "Comprar TBURN"
         },
         "sell": {
           "title": "Vender TBURN",
-          "desc": "Convert your TBURN tokens to fiat currency",
-          "amountPlaceholder": "Enter amount in TBURN",
-          "estUsd": "Estimated USD",
+          "desc": "Converta seus tokens TBURN para moeda fiduciária",
+          "amountPlaceholder": "Digite a quantidade de TBURN",
+          "estUsd": "USD estimado",
           "button": "Vender TBURN"
         },
         "steps": {
           "step1": {
             "title": "Criar Conta",
-            "desc": "Sign up and complete KYC verification"
+            "desc": "Cadastre-se e complete a verificação KYC"
           },
           "step2": {
-            "title": "Choose Valor",
-            "desc": "Select your purchase or sale amount"
+            "title": "Escolher Valor",
+            "desc": "Selecione seu valor de compra ou venda"
           },
           "step3": {
-            "title": "Select Payment",
-            "desc": "Choose your preferred payment method"
+            "title": "Selecionar Pagamento",
+            "desc": "Escolha seu método de pagamento preferido"
           },
           "step4": {
-            "title": "Completo Transação",
-            "desc": "Review and confirm your transaction"
+            "title": "Concluir Transação",
+            "desc": "Revise e confirme sua transação"
           }
         },
         "payments": {
-          "onRamp": "Em-Ramp Métodos",
-          "offRamp": "Off-Ramp Métodos",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "Bank Transferência (UmCH/SEPUm)",
-          "digitalWallets": "Digital Carteiras (Umpple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Comdrawal",
-          "paypalWithdrawal": "PayPal Comdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "Métodos de Entrada",
+          "offRamp": "Métodos de Saída",
+          "creditDebit": "Cartão de Crédito/Débito",
+          "bankTransfer": "Transferência Bancária (ACH/SEPA)",
+          "digitalWallets": "Carteiras Digitais (Apple Pay, Google Pay)",
+          "bankWithdrawal": "Saque Bancário",
+          "paypalWithdrawal": "Saque PayPal",
+          "physicalCheck": "Cheque Físico"
         },
         "accounts": {
           "basic": {
             "title": "Básico",
-            "desc": "E-mail verification only"
+            "desc": "Apenas verificação de e-mail"
           },
           "verified": {
             "title": "Verificado",
-            "desc": "Completo KYC completed"
+            "desc": "KYC completo realizado"
           },
           "institutional": {
-            "title": "Emstitucional",
-            "desc": "Business account with enhanced limits"
+            "title": "Institucional",
+            "desc": "Conta empresarial com limites ampliados"
           },
-          "dailyLimit": "Diário Limit",
-          "monthlyLimit": "Mensal Limit",
-          "buyFee": "Comprar Taxa",
-          "sellFee": "Vender Taxa",
-          "unlimited": "Unlimited",
+          "dailyLimit": "Limite Diário",
+          "monthlyLimit": "Limite Mensal",
+          "buyFee": "Taxa de Compra",
+          "sellFee": "Taxa de Venda",
+          "unlimited": "Ilimitado",
           "recommended": "Recomendado"
         },
         "features": {
           "instantProcessing": {
-            "title": "Emstantâneo Processoando",
-            "desc": "Most transactions complete within minutos"
+            "title": "Processamento Instantâneo",
+            "desc": "A maioria das transações é concluída em minutos"
           },
           "lowFees": {
-            "title": "Low Taxas",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "Baixas Taxas",
+            "desc": "Tarifas competitivas a partir de 0,5%"
           },
           "bankGradeSecurity": {
-            "title": "Bank-Grau Segurança",
-            "desc": "256-bit encryption and 2FUm protection"
+            "title": "Segurança Bancária",
+            "desc": "Criptografia de 256 bits e proteção 2FA"
           }
         },
         "cta": {
           "title": "Pronto para Começar?",
           "createAccount": "Criar Conta",
-          "contactSupport": "Contato Suporte"
+          "contactSupport": "Contatar Suporte"
         },
         "toast": {
-          "processing": "Processoando...",
-          "initiatingPurchase": "Emitiating TBURN purchase...",
-          "initiatingSale": "Emitiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid amount",
-          "error": "Transação failed. Please try again."
+          "processing": "Processando...",
+          "initiatingPurchase": "Iniciando compra de TBURN...",
+          "initiatingSale": "Iniciando venda de TBURN...",
+          "enterValidAmount": "Por favor, insira um valor válido",
+          "error": "Transação falhou. Por favor, tente novamente."
         }
       }
     },
@@ -9826,7 +9826,7 @@
         "newsletter": {
           "title": "Stay Emualizado",
           "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Enter your email address",
+          "placeholder": "Digite seu endereço de e-mail",
           "button": "Emscrever-se",
           "privacy": "We respect your privacy. Unsubscribe anytime.",
           "success": "Subscription Sucessoful",

@@ -8283,102 +8283,102 @@
       },
       "ramp": {
         "tag": "ফিয়াট গেটওয়ে",
-        "title": "ফিয়াট অন/অফ র‍্যাম্প",
-        "subtitle": "ফিয়াট মুদ্রায় TBURN কিনুন এবং বিক্রি করুন।",
-        "fee": "Fee",
+        "title": "ফিয়াট জমা/উত্তোলন",
+        "subtitle": "ফিয়াট মুদ্রা দিয়ে TBURN কিনুন এবং বিক্রি করুন।",
+        "fee": "ফি",
         "sections": {
-          "howItWorks": "How It Works",
-          "paymentMethods": "Payment Methods",
-          "limitsFees": "Limits & Fees",
-          "whyBurnRamp": "Why Burn Ramp?"
+          "howItWorks": "এটি কিভাবে কাজ করে",
+          "paymentMethods": "পেমেন্ট পদ্ধতি",
+          "limitsFees": "সীমা এবং ফি",
+          "whyBurnRamp": "কেন Burn Ramp?"
         },
         "buy": {
-          "title": "Buy TBURN",
-          "desc": "Purchase TBURN tokens with your preferred payment method",
-          "amountPlaceholder": "Enter amount in USD",
-          "estTburn": "Estimated TBURN",
-          "button": "Buy TBURN"
+          "title": "TBURN কিনুন",
+          "desc": "আপনার পছন্দের পেমেন্ট পদ্ধতি দিয়ে TBURN টোকেন কিনুন",
+          "amountPlaceholder": "USD পরিমাণ লিখুন",
+          "estTburn": "আনুমানিক TBURN",
+          "button": "TBURN কিনুন"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "desc": "Convert your TBURN tokens to fiat currency",
-          "amountPlaceholder": "Enter amount in TBURN",
-          "estUsd": "Estimated USD",
-          "button": "Sell TBURN"
+          "title": "TBURN বিক্রি করুন",
+          "desc": "আপনার TBURN টোকেন ফিয়াট মুদ্রায় রূপান্তর করুন",
+          "amountPlaceholder": "TBURN পরিমাণ লিখুন",
+          "estUsd": "আনুমানিক USD",
+          "button": "TBURN বিক্রি করুন"
         },
         "steps": {
           "step1": {
-            "title": "Create Account",
-            "desc": "Sign up and complete KYC যাচাইকরণ"
+            "title": "অ্যাকাউন্ট তৈরি করুন",
+            "desc": "সাইন আপ করুন এবং KYC যাচাই সম্পূর্ণ করুন"
           },
           "step2": {
-            "title": "Choose Amount",
-            "desc": "Select your purchase or sale amount"
+            "title": "পরিমাণ নির্বাচন করুন",
+            "desc": "আপনার ক্রয় বা বিক্রয় পরিমাণ নির্বাচন করুন"
           },
           "step3": {
-            "title": "Select Payment",
-            "desc": "Choose your preferred payment method"
+            "title": "পেমেন্ট নির্বাচন করুন",
+            "desc": "আপনার পছন্দের পেমেন্ট পদ্ধতি নির্বাচন করুন"
           },
           "step4": {
-            "title": "Complete Transaction",
-            "desc": "Review and confirm your transaction"
+            "title": "লেনদেন সম্পূর্ণ করুন",
+            "desc": "পর্যালোচনা করুন এবং আপনার লেনদেন নিশ্চিত করুন"
           }
         },
         "payments": {
-          "onRamp": "On-Ramp Methods",
-          "offRamp": "Off-Ramp Methods",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "Bank Transfer (ACH/SEPA)",
-          "digitalWallets": "Digital ওয়ালেট (Apple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Withdrawal",
-          "paypalWithdrawal": "PayPal Withdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "জমা পদ্ধতি",
+          "offRamp": "উত্তোলন পদ্ধতি",
+          "creditDebit": "ক্রেডিট/ডেবিট কার্ড",
+          "bankTransfer": "ব্যাংক ট্রান্সফার (ACH/SEPA)",
+          "digitalWallets": "ডিজিটাল ওয়ালেট (Apple Pay, Google Pay)",
+          "bankWithdrawal": "ব্যাংক উত্তোলন",
+          "paypalWithdrawal": "PayPal উত্তোলন",
+          "physicalCheck": "ফিজিক্যাল চেক"
         },
         "accounts": {
           "basic": {
-            "title": "Basic",
-            "desc": "Email যাচাইকরণ only"
+            "title": "বেসিক",
+            "desc": "শুধুমাত্র ইমেইল যাচাই"
           },
           "verified": {
-            "title": "Verified",
-            "desc": "Full KYC completed"
+            "title": "যাচাইকৃত",
+            "desc": "সম্পূর্ণ KYC সম্পন্ন"
           },
           "institutional": {
             "title": "প্রাতিষ্ঠানিক",
-            "desc": "Business account with enhanced limits"
+            "desc": "বর্ধিত সীমা সহ ব্যবসায়িক অ্যাকাউন্ট"
           },
-          "dailyLimit": "Daily Limit",
-          "monthlyLimit": "Monthly Limit",
-          "buyFee": "Buy Fee",
-          "sellFee": "Sell Fee",
-          "unlimited": "Unlimited",
-          "recommended": "Recommended"
+          "dailyLimit": "দৈনিক সীমা",
+          "monthlyLimit": "মাসিক সীমা",
+          "buyFee": "ক্রয় ফি",
+          "sellFee": "বিক্রয় ফি",
+          "unlimited": "সীমাহীন",
+          "recommended": "প্রস্তাবিত"
         },
         "features": {
           "instantProcessing": {
-            "title": "Instant Processing",
-            "desc": "Most transactions complete within minutes"
+            "title": "তাৎক্ষণিক প্রসেসিং",
+            "desc": "বেশিরভাগ লেনদেন মিনিটের মধ্যে সম্পন্ন হয়"
           },
           "lowFees": {
-            "title": "Low Fees",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "কম ফি",
+            "desc": "0.5% থেকে শুরু প্রতিযোগিতামূলক দর"
           },
           "bankGradeSecurity": {
-            "title": "Bank-Grade Security",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "ব্যাংক-গ্রেড সুরক্ষা",
+            "desc": "256-বিট এনক্রিপশন এবং 2FA সুরক্ষা"
           }
         },
         "cta": {
           "title": "শুরু করতে প্রস্তুত?",
-          "createAccount": "Create Account",
-          "contactSupport": "যোগাযোগ Support"
+          "createAccount": "অ্যাকাউন্ট তৈরি করুন",
+          "contactSupport": "সাপোর্টে যোগাযোগ করুন"
         },
         "toast": {
-          "processing": "Processing...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid amount",
-          "error": "Transaction failed. Please try again."
+          "processing": "প্রসেসিং হচ্ছে...",
+          "initiatingPurchase": "TBURN ক্রয় শুরু হচ্ছে...",
+          "initiatingSale": "TBURN বিক্রয় শুরু হচ্ছে...",
+          "enterValidAmount": "অনুগ্রহ করে একটি বৈধ পরিমাণ লিখুন",
+          "error": "লেনদেন ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।"
         }
       }
     },
@@ -8501,12 +8501,12 @@
         "featuredTitle": "Featured Stories",
         "featuredBadge": "Featured",
         "latestTitle": "Latest Articles",
-        "readMore": "Read More",
+        "readMore": "আরও পড়ুন",
         "readTime": "{{minutes}} min read",
         "views": "views",
         "showingCount": "Showing {{current}} of {{total}}",
         "categories": {
-          "all": "All",
+          "all": "সব",
           "announcement": "Announcement",
           "technology": "Technology",
           "security": "Security",
@@ -8557,8 +8557,8 @@
         "newsletter": {
           "title": "Stay Updated",
           "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Enter your email address",
-          "button": "Subscribe",
+          "placeholder": "আপনার ইমেইল ঠিকানা লিখুন",
+          "button": "সাবস্ক্রাইব করুন",
           "privacy": "We respect your privacy. Unsubscribe anytime.",
           "success": "Subscription Successful",
           "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",

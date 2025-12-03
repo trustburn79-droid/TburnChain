@@ -9353,7 +9353,7 @@
           "averageUptime": "Average Uptime",
           "operatingCountries": "Operating Countries"
         },
-        "applyNow": "Apply Now",
+        "applyNow": "قدّم الآن",
         "consensus": {
           "title": "Consensus Mechanism",
           "subtitle": "Proof of Trust with AI-powered validation"
@@ -9784,103 +9784,103 @@
         }
       },
       "ramp": {
-        "tag": "FIAT GATEWAY",
-        "title": "Fiat On/Off Ramp",
-        "subtitle": "Buy and sell TBURN with fiat currency.",
-        "fee": "Fee",
+        "tag": "بوابة العملات الورقية",
+        "title": "إيداع/سحب العملات الورقية",
+        "subtitle": "اشترِ وبع TBURN بالعملات الورقية.",
+        "fee": "الرسوم",
         "sections": {
-          "howItWorks": "How It Works",
-          "paymentMethods": "Payment Methods",
-          "limitsFees": "Limits & Fees",
-          "whyBurnRamp": "Why Burn Ramp?"
+          "howItWorks": "كيف يعمل",
+          "paymentMethods": "طرق الدفع",
+          "limitsFees": "الحدود والرسوم",
+          "whyBurnRamp": "لماذا Burn Ramp؟"
         },
         "buy": {
-          "title": "Buy TBURN",
-          "desc": "Purchase TBURN tokens with your preferred payment method",
-          "amountPlaceholder": "Enter amount in USD",
-          "estTburn": "Estimated TBURN",
-          "button": "Buy TBURN"
+          "title": "شراء TBURN",
+          "desc": "اشترِ رموز TBURN بطريقة الدفع المفضلة لديك",
+          "amountPlaceholder": "أدخل المبلغ بالدولار",
+          "estTburn": "TBURN المقدر",
+          "button": "شراء TBURN"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "desc": "Convert your TBURN tokens to fiat currency",
-          "amountPlaceholder": "Enter amount in TBURN",
-          "estUsd": "Estimated USD",
-          "button": "Sell TBURN"
+          "title": "بيع TBURN",
+          "desc": "حوّل رموز TBURN إلى عملة ورقية",
+          "amountPlaceholder": "أدخل كمية TBURN",
+          "estUsd": "الدولار المقدر",
+          "button": "بيع TBURN"
         },
         "steps": {
           "step1": {
-            "title": "Create Account",
-            "desc": "Sign up and complete KYC verification"
+            "title": "إنشاء حساب",
+            "desc": "سجّل وأكمل التحقق من الهوية"
           },
           "step2": {
-            "title": "Choose Amount",
-            "desc": "Select your purchase or sale amount"
+            "title": "اختر المبلغ",
+            "desc": "حدد مبلغ الشراء أو البيع"
           },
           "step3": {
-            "title": "Select Payment",
-            "desc": "Choose your preferred payment method"
+            "title": "اختر الدفع",
+            "desc": "اختر طريقة الدفع المفضلة"
           },
           "step4": {
-            "title": "Complete Transaction",
-            "desc": "Review and confirm your transaction"
+            "title": "أكمل المعاملة",
+            "desc": "راجع وأكد معاملتك"
           }
         },
         "payments": {
-          "onRamp": "On-Ramp Methods",
-          "offRamp": "Off-Ramp Methods",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "Bank Transfer (ACH/SEPA)",
-          "digitalWallets": "Digital Wallets (Apple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Withdrawal",
-          "paypalWithdrawal": "PayPal Withdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "طرق الإيداع",
+          "offRamp": "طرق السحب",
+          "creditDebit": "بطاقة ائتمان/خصم",
+          "bankTransfer": "تحويل بنكي (ACH/SEPA)",
+          "digitalWallets": "محافظ رقمية (Apple Pay, Google Pay)",
+          "bankWithdrawal": "سحب بنكي",
+          "paypalWithdrawal": "سحب PayPal",
+          "physicalCheck": "شيك مادي"
         },
         "accounts": {
           "basic": {
-            "title": "Basic",
-            "desc": "Email verification only"
+            "title": "أساسي",
+            "desc": "التحقق من البريد الإلكتروني فقط"
           },
           "verified": {
-            "title": "Verified",
-            "desc": "Full KYC completed"
+            "title": "موثّق",
+            "desc": "تم إكمال KYC الكامل"
           },
           "institutional": {
-            "title": "Institutional",
-            "desc": "Business account with enhanced limits"
+            "title": "مؤسسي",
+            "desc": "حساب أعمال مع حدود محسّنة"
           },
-          "dailyLimit": "Daily Limit",
-          "monthlyLimit": "Monthly Limit",
-          "buyFee": "Buy Fee",
-          "sellFee": "Sell Fee",
-          "unlimited": "Unlimited",
-          "recommended": "Recommended"
+          "dailyLimit": "الحد اليومي",
+          "monthlyLimit": "الحد الشهري",
+          "buyFee": "رسوم الشراء",
+          "sellFee": "رسوم البيع",
+          "unlimited": "غير محدود",
+          "recommended": "موصى به"
         },
         "features": {
           "instantProcessing": {
-            "title": "Instant Processing",
-            "desc": "Most transactions complete within minutes"
+            "title": "معالجة فورية",
+            "desc": "تكتمل معظم المعاملات في دقائق"
           },
           "lowFees": {
-            "title": "Low Fees",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "رسوم منخفضة",
+            "desc": "أسعار تنافسية تبدأ من 0.5%"
           },
           "bankGradeSecurity": {
-            "title": "Bank-Grade Security",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "أمان بنكي",
+            "desc": "تشفير 256 بت وحماية 2FA"
           }
         },
         "cta": {
-          "title": "Ready to Get Started?",
-          "createAccount": "Create Account",
-          "contactSupport": "Contact Support"
+          "title": "مستعد للبدء؟",
+          "createAccount": "إنشاء حساب",
+          "contactSupport": "اتصل بالدعم"
         },
         "toast": {
-          "processing": "Processing...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid amount",
-          "error": "Transaction failed. Please try again."
+          "processing": "جارٍ المعالجة...",
+          "initiatingPurchase": "بدء شراء TBURN...",
+          "initiatingSale": "بدء بيع TBURN...",
+          "enterValidAmount": "الرجاء إدخال مبلغ صالح",
+          "error": "فشلت المعاملة. يرجى المحاولة مرة أخرى."
         }
       }
     },
@@ -10008,7 +10008,7 @@
         "views": "views",
         "showingCount": "Showing {{current}} of {{total}}",
         "categories": {
-          "all": "All",
+          "all": "الكل",
           "announcement": "Announcement",
           "technology": "Technology",
           "security": "Security",
@@ -10059,7 +10059,7 @@
         "newsletter": {
           "title": "ابق على اطلاع",
           "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Enter your email address",
+          "placeholder": "أدخل عنوان بريدك الإلكتروني",
           "button": "اشترك",
           "privacy": "We respect your privacy. Unsubscribe anytime.",
           "success": "Subscription Successful",
@@ -10144,9 +10144,9 @@
           "conference": "Conference"
         },
         "buttons": {
-          "registerNow": "Register Now",
-          "applyNow": "Apply Now",
-          "setReminder": "Set Reminder",
+          "registerNow": "سجّل الآن",
+          "applyNow": "قدّم الآن",
+          "setReminder": "تعيين تذكير",
           "register": "Register",
           "rsvp": "RSVP (Limited)",
           "rsvpLimited": "RSVP (Limited Seats)",

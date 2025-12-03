@@ -10433,102 +10433,102 @@
       },
       "ramp": {
         "tag": "फिएट गेटवे",
-        "title": "फिएट ऑन/ऑफ रैंप",
-        "subtitle": "फिएट करेंसी के साथ TBURN खरीदें और बेचें।",
+        "title": "फिएट जमा/निकासी",
+        "subtitle": "फिएट मुद्रा से TBURN खरीदें और बेचें।",
         "fee": "शुल्क",
         "sections": {
-          "howItWorks": "How It Works",
-          "paymentMethods": "Payment Methods",
-          "limitsFees": "Limits & Fees",
-          "whyBurnRamp": "Why बर्न Ramp?"
+          "howItWorks": "यह कैसे काम करता है",
+          "paymentMethods": "भुगतान विधियाँ",
+          "limitsFees": "सीमाएँ और शुल्क",
+          "whyBurnRamp": "Burn Ramp क्यों?"
         },
         "buy": {
-          "title": "Buy TBURN",
-          "desc": "Purchase TBURN tokens with your preferred payment विधि",
-          "amountPlaceholder": "Enter राशि in USD",
-          "estTburn": "Estimated TBURN",
-          "button": "Buy TBURN"
+          "title": "TBURN खरीदें",
+          "desc": "अपनी पसंदीदा भुगतान विधि से TBURN टोकन खरीदें",
+          "amountPlaceholder": "USD में राशि दर्ज करें",
+          "estTburn": "अनुमानित TBURN",
+          "button": "TBURN खरीदें"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "desc": "Convert your TBURN tokens to fiat मुद्रा",
-          "amountPlaceholder": "Enter राशि in TBURN",
-          "estUsd": "Estimated USD",
-          "button": "Sell TBURN"
+          "title": "TBURN बेचें",
+          "desc": "अपने TBURN टोकन को फिएट मुद्रा में बदलें",
+          "amountPlaceholder": "TBURN राशि दर्ज करें",
+          "estUsd": "अनुमानित USD",
+          "button": "TBURN बेचें"
         },
         "steps": {
           "step1": {
-            "title": "बनाएं Account",
-            "desc": "साइन अप करें and पूर्ण KYC सत्यापन"
+            "title": "खाता बनाएं",
+            "desc": "साइन अप करें और KYC सत्यापन पूरा करें"
           },
           "step2": {
-            "title": "Choose राशि",
-            "desc": "Select your purchase or sale राशि"
+            "title": "राशि चुनें",
+            "desc": "अपनी खरीद या बिक्री राशि चुनें"
           },
           "step3": {
-            "title": "Select Payment",
-            "desc": "Choose your preferred payment विधि"
+            "title": "भुगतान चुनें",
+            "desc": "अपनी पसंदीदा भुगतान विधि चुनें"
           },
           "step4": {
-            "title": "पूर्ण Transaction",
-            "desc": "समीक्षा and पुष्टि करें your transaction"
+            "title": "लेनदेन पूरा करें",
+            "desc": "समीक्षा करें और अपने लेनदेन की पुष्टि करें"
           }
         },
         "payments": {
-          "onRamp": "On-Ramp Methods",
-          "offRamp": "Off-Ramp Methods",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "Bank ट्रांसफर (ACH/SEPA)",
-          "digitalWallets": "Digital Wallets (Apple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Withdrawal",
-          "paypalWithdrawal": "PayPal Withdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "जमा विधियाँ",
+          "offRamp": "निकासी विधियाँ",
+          "creditDebit": "क्रेडिट/डेबिट कार्ड",
+          "bankTransfer": "बैंक ट्रांसफर (ACH/SEPA)",
+          "digitalWallets": "डिजिटल वॉलेट (Apple Pay, Google Pay)",
+          "bankWithdrawal": "बैंक निकासी",
+          "paypalWithdrawal": "PayPal निकासी",
+          "physicalCheck": "भौतिक चेक"
         },
         "accounts": {
           "basic": {
-            "title": "Basic",
-            "desc": "ईमेल सत्यापन only"
+            "title": "बेसिक",
+            "desc": "केवल ईमेल सत्यापन"
           },
           "verified": {
-            "title": "Verified",
-            "desc": "Full KYC पूर्ण हो गया"
+            "title": "सत्यापित",
+            "desc": "पूर्ण KYC पूरा"
           },
           "institutional": {
-            "title": "Institutional",
-            "desc": "Business account with enhanced limits"
+            "title": "संस्थागत",
+            "desc": "बढ़ी हुई सीमाओं के साथ व्यावसायिक खाता"
           },
-          "dailyLimit": "Daily सीमा",
-          "monthlyLimit": "Monthly सीमा",
-          "buyFee": "Buy शुल्क",
-          "sellFee": "Sell शुल्क",
-          "unlimited": "Unlimited",
-          "recommended": "Recommended"
+          "dailyLimit": "दैनिक सीमा",
+          "monthlyLimit": "मासिक सीमा",
+          "buyFee": "खरीद शुल्क",
+          "sellFee": "बिक्री शुल्क",
+          "unlimited": "असीमित",
+          "recommended": "अनुशंसित"
         },
         "features": {
           "instantProcessing": {
-            "title": "Instant प्रोसेसिंग",
-            "desc": "Most transactions पूर्ण within मिनट"
+            "title": "तत्काल प्रसंस्करण",
+            "desc": "अधिकांश लेनदेन मिनटों में पूरे होते हैं"
           },
           "lowFees": {
-            "title": "Low Fees",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "कम शुल्क",
+            "desc": "0.5% से शुरू होने वाली प्रतिस्पर्धी दरें"
           },
           "bankGradeSecurity": {
-            "title": "Bank-ग्रेड सुरक्षा",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "बैंक-स्तरीय सुरक्षा",
+            "desc": "256-बिट एन्क्रिप्शन और 2FA सुरक्षा"
           }
         },
         "cta": {
-          "title": "शुरू करने के लिए तैयार हैं?",
-          "createAccount": "बनाएं Account",
-          "contactSupport": "संपर्क सपोर्ट"
+          "title": "शुरू करने के लिए तैयार?",
+          "createAccount": "खाता बनाएं",
+          "contactSupport": "सहायता से संपर्क करें"
         },
         "toast": {
-          "processing": "प्रोसेसिंग...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid राशि",
-          "error": "Transaction विफल. Please try again."
+          "processing": "प्रसंस्करण हो रहा है...",
+          "initiatingPurchase": "TBURN खरीद शुरू हो रही है...",
+          "initiatingSale": "TBURN बिक्री शुरू हो रही है...",
+          "enterValidAmount": "कृपया एक मान्य राशि दर्ज करें",
+          "error": "लेनदेन विफल। कृपया पुनः प्रयास करें।"
         }
       }
     },
@@ -10656,7 +10656,7 @@
         "views": "views",
         "showingCount": "Showing {{current}} of {{कुल}}",
         "categories": {
-          "all": "All",
+          "all": "सभी",
           "announcement": "Announcement",
           "technology": "Technology",
           "security": "सुरक्षा",
@@ -10707,8 +10707,8 @@
         "newsletter": {
           "title": "Stay Updated",
           "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Enter your ईमेल पता",
-          "button": "Subscribe",
+          "placeholder": "अपना ईमेल पता दर्ज करें",
+          "button": "सदस्यता लें",
           "privacy": "We respect your गोपनीयता. Unsubscribe anytime.",
           "success": "Subscription सफल",
           "subscribed": "You've been added to our newsletter. Check your inbox for पुष्टि.",

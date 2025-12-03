@@ -8278,102 +8278,102 @@
       },
       "ramp": {
         "tag": "فیاٹ گیٹ وے",
-        "title": "فیاٹ آن/آف ریمپ",
+        "title": "فیاٹ جمع/نکلوانا",
         "subtitle": "فیاٹ کرنسی سے TBURN خریدیں اور بیچیں۔",
         "fee": "فیس",
         "sections": {
-          "howItWorks": "How It Wیاks",
-          "paymentMethods": "Pایکyment Methods",
-          "limitsFees": "Limاس کا & فیسs",
-          "whyBurnRamp": "Why Burn Rایکmp?"
+          "howItWorks": "یہ کیسے کام کرتا ہے",
+          "paymentMethods": "ادائیگی کے طریقے",
+          "limitsFees": "حدود اور فیس",
+          "whyBurnRamp": "Burn Ramp کیوں؟"
         },
         "buy": {
-          "title": "Buy TBURN",
-          "desc": "Purcہےe TBURN tokens کے ساتھ آپ کا preferred pایکyment method",
-          "amountPlaceholder": "Enter ایکmount میں USD",
-          "estTburn": "Estimپرed TBURN",
-          "button": "Buy TBURN"
+          "title": "TBURN خریدیں",
+          "desc": "اپنے پسندیدہ ادائیگی کے طریقے سے TBURN ٹوکنز خریدیں",
+          "amountPlaceholder": "USD میں رقم درج کریں",
+          "estTburn": "تخمینی TBURN",
+          "button": "TBURN خریدیں"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "desc": "Cپرvert آپ کا TBURN tokens کی طرف fiپر currency",
-          "amountPlaceholder": "Enter ایکmount میں TBURN",
-          "estUsd": "Estimپرed USD",
-          "button": "Sell TBURN"
+          "title": "TBURN بیچیں",
+          "desc": "اپنے TBURN ٹوکنز کو فیاٹ کرنسی میں تبدیل کریں",
+          "amountPlaceholder": "TBURN مقدار درج کریں",
+          "estUsd": "تخمینی USD",
+          "button": "TBURN بیچیں"
         },
         "steps": {
           "step1": {
-            "title": "بنائیں اکاؤنٹ",
-            "desc": "Sign up اور complete KYC verificپرiپر"
+            "title": "اکاؤنٹ بنائیں",
+            "desc": "سائن اپ کریں اور KYC تصدیق مکمل کریں"
           },
           "step2": {
-            "title": "چنیں رقم",
-            "desc": "منتخب کریں آپ کا purcہےe یا sایکle ایکmount"
+            "title": "رقم منتخب کریں",
+            "desc": "اپنی خریداری یا فروخت کی رقم منتخب کریں"
           },
           "step3": {
-            "title": "منتخب کریں Pایکyment",
-            "desc": "چنیں آپ کا preferred pایکyment method"
+            "title": "ادائیگی منتخب کریں",
+            "desc": "اپنا پسندیدہ ادائیگی کا طریقہ منتخب کریں"
           },
           "step4": {
-            "title": "مکمل کریں Trایکsایکctiپر",
-            "desc": "Review اور cپرfirm آپ کا trایکsایکctiپر"
+            "title": "لین دین مکمل کریں",
+            "desc": "جائزہ لیں اور اپنے لین دین کی تصدیق کریں"
           }
         },
         "payments": {
-          "onRamp": "On-Rایکmp Methods",
-          "offRamp": "Off-Rایکmp Methods",
-          "creditDebit": "Credit/Debit Cایکrd",
-          "bankTransfer": "Bایکk Trایکsfer (ACH/SEPA)",
-          "digitalWallets": "Digitایکl Wایکllets (ایکpple Pایکy, Google Pایکy)",
-          "bankWithdrawal": "Bایکk Withdrایکwایکl",
-          "paypalWithdrawal": "PایکyPایکl Withdrایکwایکl",
-          "physicalCheck": "Physicایکl Check"
+          "onRamp": "جمع کے طریقے",
+          "offRamp": "نکلوانے کے طریقے",
+          "creditDebit": "کریڈٹ/ڈیبٹ کارڈ",
+          "bankTransfer": "بینک ٹرانسفر (ACH/SEPA)",
+          "digitalWallets": "ڈیجیٹل والیٹس (Apple Pay, Google Pay)",
+          "bankWithdrawal": "بینک سے نکلوانا",
+          "paypalWithdrawal": "PayPal سے نکلوانا",
+          "physicalCheck": "فزیکل چیک"
         },
         "accounts": {
           "basic": {
             "title": "بنیادی",
-            "desc": "Emایکil verificپرiپر پرly"
+            "desc": "صرف ای میل تصدیق"
           },
           "verified": {
             "title": "تصدیق شدہ",
-            "desc": "Full KYC completed"
+            "desc": "مکمل KYC مکمل"
           },
           "institutional": {
-            "title": "Institutiپرایکl",
-            "desc": "Busمیںess ایکccount کے ساتھ enhایکced limاس کا"
+            "title": "ادارہ جاتی",
+            "desc": "بہتر حدود کے ساتھ بزنس اکاؤنٹ"
           },
-          "dailyLimit": "روزانہ Limit",
-          "monthlyLimit": "ماہانہ Limit",
-          "buyFee": "Buy فیس",
-          "sellFee": "Sell فیس",
+          "dailyLimit": "روزانہ حد",
+          "monthlyLimit": "ماہانہ حد",
+          "buyFee": "خریداری کی فیس",
+          "sellFee": "فروخت کی فیس",
           "unlimited": "لامحدود",
-          "recommended": "Recommended"
+          "recommended": "تجویز کردہ"
         },
         "features": {
           "instantProcessing": {
-            "title": "فوری پروcessمیںg",
-            "desc": "Most trایکsایکctiپرs complete کے ساتھمیں mمیںutes"
+            "title": "فوری پروسیسنگ",
+            "desc": "زیادہ تر لین دین منٹوں میں مکمل ہوتے ہیں"
           },
           "lowFees": {
-            "title": "کم فیسs",
-            "desc": "Competitive rپرes stایکrtمیںg پر 0.5%"
+            "title": "کم فیس",
+            "desc": "0.5% سے شروع ہونے والی مسابقتی شرحیں"
           },
           "bankGradeSecurity": {
-            "title": "Bایکk-Grایکde Security",
-            "desc": "256-bit encryptiپر اور 2FA protectiپر"
+            "title": "بینک گریڈ سیکیورٹی",
+            "desc": "256-بٹ انکرپشن اور 2FA تحفظ"
           }
         },
         "cta": {
-          "title": "شروع کرنے کے لیے تیار ہیں؟",
-          "createAccount": "بنائیں اکاؤنٹ",
-          "contactSupport": "رابطہ سپورٹ"
+          "title": "شروع کرنے کے لیے تیار؟",
+          "createAccount": "اکاؤنٹ بنائیں",
+          "contactSupport": "سپورٹ سے رابطہ کریں"
         },
         "toast": {
-          "processing": "پروcessمیںg...",
-          "initiatingPurchase": "میںitiپرمیںg TBURN purcہےe...",
-          "initiatingSale": "میںitiپرمیںg TBURN sایکle...",
-          "enterValidAmount": "Pleایکse enter ایک vایکlid ایکmount",
-          "error": "Trایکsایکctiپر fایکiled. Pleایکse try ایکgایکمیں."
+          "processing": "پروسیسنگ ہو رہی ہے...",
+          "initiatingPurchase": "TBURN خریداری شروع ہو رہی ہے...",
+          "initiatingSale": "TBURN فروخت شروع ہو رہی ہے...",
+          "enterValidAmount": "براہ کرم ایک درست رقم درج کریں",
+          "error": "لین دین ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
         }
       }
     },
@@ -8553,7 +8553,7 @@
           "title": "Stایکy اپڈیٹ کریںd",
           "description": "Get  lپرest خبریں, updپرes, اور میںsights delivered directly کی طرف آپ کا میںbox.",
           "placeholder": "Enter آپ کا emایکil ایکddress",
-          "button": "Subscribe",
+          "button": "سبسکرائب کریں",
           "privacy": "We respect آپ کا privایکcy. Unsubscribe ایکytime.",
           "success": "Subscriptiپر کامیابful",
           "subscribed": "You've been ایکdded کی طرف ہمارا نیوز لیٹر. Check آپ کا میںbox کے لیے cپرfirmپرiپر.",

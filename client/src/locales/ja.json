@@ -12710,103 +12710,103 @@
         "uptimeAvg": "Uptime Average"
       },
       "ramp": {
-        "tag": "フィアットゲートウェイ",
-        "title": "フィアットオン/オフランプ",
-        "subtitle": "フィアット通貨でTBURNを売買。",
-        "fee": "Fee",
+        "tag": "法定通貨ゲートウェイ",
+        "title": "法定通貨入出金",
+        "subtitle": "法定通貨でTBURNを売買できます。",
+        "fee": "手数料",
         "sections": {
-          "howItWorks": "仕組み",
-          "paymentMethods": "決済方法",
-          "limitsFees": "制限 & 手数料",
-          "whyBurnRamp": "Why Burn Ramp?"
+          "howItWorks": "利用方法",
+          "paymentMethods": "支払い方法",
+          "limitsFees": "上限と手数料",
+          "whyBurnRamp": "Burn Rampを選ぶ理由"
         },
         "buy": {
-          "title": "Buy TBURN",
-          "desc": "Purchase TBURN トークン with your preferred payment method",
-          "amountPlaceholder": "Enter amount in USD",
-          "estTburn": "Estimated TBURN",
-          "button": "Buy TBURN"
+          "title": "TBURN を購入",
+          "desc": "お好みの支払い方法でTBURNトークンを購入",
+          "amountPlaceholder": "USD金額を入力",
+          "estTburn": "推定 TBURN",
+          "button": "TBURN を購入"
         },
         "sell": {
-          "title": "Sell TBURN",
-          "desc": "Convert your TBURN トークン to fiat currency",
-          "amountPlaceholder": "Enter amount in TBURN",
-          "estUsd": "Estimated USD",
-          "button": "Sell TBURN"
+          "title": "TBURN を売却",
+          "desc": "TBURNトークンを法定通貨に交換",
+          "amountPlaceholder": "TBURN数量を入力",
+          "estUsd": "推定 USD",
+          "button": "TBURN を売却"
         },
         "steps": {
           "step1": {
-            "title": "Create Account",
-            "desc": "Sign up and complete KYC 検証"
+            "title": "アカウント作成",
+            "desc": "登録とKYC認証を完了"
           },
           "step2": {
-            "title": "Choose Amount",
-            "desc": "Select your purchase or sale amount"
+            "title": "金額選択",
+            "desc": "購入または売却金額を選択"
           },
           "step3": {
-            "title": "Select Payment",
-            "desc": "Choose your preferred payment method"
+            "title": "支払い方法選択",
+            "desc": "お好みの支払い方法を選択"
           },
           "step4": {
-            "title": "Complete Transaction",
-            "desc": "Review and confirm your transaction"
+            "title": "取引完了",
+            "desc": "取引を確認して完了"
           }
         },
         "payments": {
-          "onRamp": "オンランプ Methods",
-          "offRamp": "オフランプ Methods",
-          "creditDebit": "Credit/Debit Card",
-          "bankTransfer": "銀行振込 (ACH/SEPA)",
-          "digitalWallets": "Digital ウォレットs (Apple Pay, Google Pay)",
-          "bankWithdrawal": "Bank Withdrawal",
-          "paypalWithdrawal": "PayPal Withdrawal",
-          "physicalCheck": "Physical Check"
+          "onRamp": "入金方法",
+          "offRamp": "出金方法",
+          "creditDebit": "クレジット/デビットカード",
+          "bankTransfer": "銀行振込（ACH/SEPA）",
+          "digitalWallets": "デジタルウォレット（Apple Pay、Google Pay）",
+          "bankWithdrawal": "銀行出金",
+          "paypalWithdrawal": "PayPal 出金",
+          "physicalCheck": "物理的な小切手"
         },
         "accounts": {
           "basic": {
             "title": "ベーシック",
-            "desc": "Email 検証 only"
+            "desc": "メール認証のみ"
           },
           "verified": {
-            "title": "検証済み",
-            "desc": "Full KYC completed"
+            "title": "認証済み",
+            "desc": "完全なKYC認証完了"
           },
           "institutional": {
-            "title": "Institutional",
-            "desc": "Business account with enhanced 制限"
+            "title": "機関",
+            "desc": "拡張された上限を持つ法人アカウント"
           },
-          "dailyLimit": "Daily Limit",
-          "monthlyLimit": "Monthly Limit",
-          "buyFee": "Buy Fee",
-          "sellFee": "Sell Fee",
-          "unlimited": "Unlimited",
-          "recommended": "Recommended"
+          "dailyLimit": "日次上限",
+          "monthlyLimit": "月次上限",
+          "buyFee": "購入手数料",
+          "sellFee": "売却手数料",
+          "unlimited": "無制限",
+          "recommended": "おすすめ"
         },
         "features": {
           "instantProcessing": {
-            "title": "Instant Processing",
-            "desc": "Most トランザクション complete within 分"
+            "title": "即時処理",
+            "desc": "ほとんどの取引が数分で完了"
           },
           "lowFees": {
             "title": "低手数料",
-            "desc": "Competitive rates starting at 0.5%"
+            "desc": "0.5%からの競争力ある料率"
           },
           "bankGradeSecurity": {
-            "title": "銀行グレードセキュリティ",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "銀行レベルのセキュリティ",
+            "desc": "256ビット暗号化と2FA保護"
           }
         },
         "cta": {
-          "title": "Ready to 始める?",
-          "createAccount": "Create Account",
-          "contactSupport": "お問い合わせ Support"
+          "title": "始める準備はできましたか？",
+          "createAccount": "アカウント作成",
+          "contactSupport": "サポートに連絡"
         },
         "toast": {
-          "processing": "Processing...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid amount",
-          "error": "Transaction failed. Please try again."
+          "processing": "処理中...",
+          "initiatingPurchase": "TBURN購入を開始中...",
+          "initiatingSale": "TBURN売却を開始中...",
+          "enterValidAmount": "有効な金額を入力してください",
+          "error": "取引に失敗しました。再度お試しください。"
         }
       }
     },
@@ -12985,7 +12985,7 @@
         "newsletter": {
           "title": "Stay Updated",
           "description": "Get the latest ニュース, updates, and insights delivered directly to your inbox.",
-          "placeholder": "Enter your メールアドレス",
+          "placeholder": "メールアドレスを入力してください",
           "button": "購読",
           "privacy": "We respect your プライバシー. Un購読 anytime.",
           "success": "Subscription 成功ful",

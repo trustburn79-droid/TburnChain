@@ -11864,98 +11864,98 @@
         "subtitle": "使用法币购买和出售TBURN。",
         "fee": "费用",
         "sections": {
-          "howItWorks": "How It Works",
-          "paymentMethods": "支付 方法s",
-          "limitsFees": "Limits & 费用s",
-          "whyBurnRamp": "Why 销毁 Ramp?"
+          "howItWorks": "如何运作",
+          "paymentMethods": "支付方式",
+          "limitsFees": "限额与费用",
+          "whyBurnRamp": "为什么选择 Burn Ramp？"
         },
         "buy": {
           "title": "购买 TBURN",
-          "desc": "购买 TBURN tokens with your preferred payment method",
-          "amountPlaceholder": "进入 amount in USD",
-          "estTburn": "Estimated TBURN",
+          "desc": "使用您偏好的支付方式购买 TBURN 代币",
+          "amountPlaceholder": "输入美元金额",
+          "estTburn": "预计 TBURN",
           "button": "购买 TBURN"
         },
         "sell": {
           "title": "出售 TBURN",
-          "desc": "Convert your TBURN tokens to fiat currency",
-          "amountPlaceholder": "进入 amount in TBURN",
-          "estUsd": "Estimated USD",
+          "desc": "将您的 TBURN 代币兑换为法币",
+          "amountPlaceholder": "输入 TBURN 数量",
+          "estUsd": "预计美元",
           "button": "出售 TBURN"
         },
         "steps": {
           "step1": {
-            "title": "创建 账户",
-            "desc": "签名 up and complete KYC verification"
+            "title": "创建账户",
+            "desc": "注册并完成 KYC 身份验证"
           },
           "step2": {
-            "title": "选择 金额",
-            "desc": "选择 your purchase or sale amount"
+            "title": "选择金额",
+            "desc": "选择您的购买或出售金额"
           },
           "step3": {
-            "title": "选择 支付",
-            "desc": "选择 your preferred payment method"
+            "title": "选择支付方式",
+            "desc": "选择您偏好的支付方式"
           },
           "step4": {
-            "title": "Complete 交易",
-            "desc": "Review and confirm your transaction"
+            "title": "完成交易",
+            "desc": "审核并确认您的交易"
           }
         },
         "payments": {
-          "onRamp": "开-Ramp 方法s",
-          "offRamp": "关-Ramp 方法s",
-          "creditDebit": "Credit/Debit 卡片",
-          "bankTransfer": "Bank 转账 (ACH/SEPA)",
-          "digitalWallets": "Digital 钱包s (应用le Pay, Google Pay)",
-          "bankWithdrawal": "Bank 提取al",
-          "paypalWithdrawal": "PayPal 提取al",
-          "physicalCheck": "Physical 检查"
+          "onRamp": "入金方式",
+          "offRamp": "出金方式",
+          "creditDebit": "信用卡/借记卡",
+          "bankTransfer": "银行转账（ACH/SEPA）",
+          "digitalWallets": "数字钱包（Apple Pay、Google Pay）",
+          "bankWithdrawal": "银行提款",
+          "paypalWithdrawal": "PayPal 提款",
+          "physicalCheck": "实体支票"
         },
         "accounts": {
           "basic": {
-            "title": "基础",
-            "desc": "电子邮件 verification only"
+            "title": "基础版",
+            "desc": "仅需邮箱验证"
           },
           "verified": {
-            "title": "已验证",
-            "desc": "完整 KYC completed"
+            "title": "认证版",
+            "desc": "完成完整KYC验证"
           },
           "institutional": {
-            "title": "Institutional",
-            "desc": "业务 account with enhanced limits"
+            "title": "机构版",
+            "desc": "拥有更高限额的企业账户"
           },
-          "dailyLimit": "Daily Limit",
-          "monthlyLimit": "月ly Limit",
-          "buyFee": "购买 费用",
-          "sellFee": "出售 费用",
+          "dailyLimit": "每日限额",
+          "monthlyLimit": "每月限额",
+          "buyFee": "购买费用",
+          "sellFee": "出售费用",
           "unlimited": "无限制",
           "recommended": "推荐"
         },
         "features": {
           "instantProcessing": {
-            "title": "即时 专业cessing",
-            "desc": "大多数 transactions complete within minutes"
+            "title": "即时处理",
+            "desc": "大多数交易在几分钟内完成"
           },
           "lowFees": {
-            "title": "低 费用s",
-            "desc": "Competitive rates starting at 0.5%"
+            "title": "低费用",
+            "desc": "具有竞争力的费率，低至0.5%"
           },
           "bankGradeSecurity": {
-            "title": "Bank-Grade 安全",
-            "desc": "256-bit encryption and 2FA protection"
+            "title": "银行级安全",
+            "desc": "256位加密和双因素认证保护"
           }
         },
         "cta": {
           "title": "准备好开始了吗？",
-          "createAccount": "创建 账户",
+          "createAccount": "创建账户",
           "contactSupport": "联系支持"
         },
         "toast": {
-          "processing": "专业cessing...",
-          "initiatingPurchase": "Initiating TBURN purchase...",
-          "initiatingSale": "Initiating TBURN sale...",
-          "enterValidAmount": "Please enter a valid amount",
-          "error": "交易 failed. Please try again."
+          "processing": "处理中...",
+          "initiatingPurchase": "正在发起 TBURN 购买...",
+          "initiatingSale": "正在发起 TBURN 出售...",
+          "enterValidAmount": "请输入有效金额",
+          "error": "交易失败，请重试。"
         }
       }
     },
@@ -12135,7 +12135,7 @@
           "title": "Stay 更新d",
           "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
           "placeholder": "进入 your email address",
-          "button": "Subscribe",
+          "button": "订阅",
           "privacy": "We respect your privacy. Unsubscribe anytime.",
           "success": "Subscription 成功ful",
           "subscribed": "You've been added to our newsletter. 检查 your inbox for confirmation.",
