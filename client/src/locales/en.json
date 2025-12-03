@@ -6422,7 +6422,24 @@
         "quickGlossary": "Quick Glossary",
         "certifications": "Certifications",
         "certificationsDesc": "Earn verified badges",
+        "certificationsTitle": "Certification Programs",
         "communityLearning": "Community Learning",
+        "glossaryTitle": "Key Terms & Definitions",
+        "levels": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced"
+        },
+        "tags": {
+          "algorithm": "Algorithm",
+          "apiIntegration": "API Integration",
+          "consensus": "Consensus",
+          "liquidity": "Liquidity",
+          "sdkSetup": "SDK Setup",
+          "smartContracts": "Smart Contracts",
+          "verification": "Verification",
+          "yieldFarming": "Yield Farming"
+        },
         "paths": {
           "blockchainFundamentals": {
             "title": "Blockchain Fundamentals",
@@ -6441,6 +6458,22 @@
             "description": "Build and deploy smart contracts",
             "level": "Advanced",
             "duration": "20 hours"
+          },
+          "blockchainBasics": {
+            "title": "Blockchain Basics",
+            "description": "Learn fundamental blockchain concepts and distributed ledger technology"
+          },
+          "developerCourse": {
+            "title": "Developer Course",
+            "description": "Build production-ready dApps with smart contracts and SDK integration"
+          },
+          "masteringDefi": {
+            "title": "Mastering DeFi",
+            "description": "Advanced strategies for liquidity provision, yield farming, and risk management"
+          },
+          "trustScoreSystem": {
+            "title": "Trust Score System",
+            "description": "Deep dive into 3-stage verification and project reliability assessment"
           }
         },
         "concepts": {
@@ -6467,6 +6500,26 @@
           "roadmap": {
             "title": "Roadmap",
             "description": "Future development plans"
+          },
+          "autoBurn": {
+            "title": "Auto Burn Mechanism",
+            "description": "Automatic token destruction system for deflationary economics"
+          },
+          "dposBft": {
+            "title": "DPoS + BFT Consensus",
+            "description": "Hybrid consensus combining Delegated Proof of Stake with Byzantine Fault Tolerance"
+          },
+          "emberGas": {
+            "title": "Ember Gas Token",
+            "description": "Native gas token for transaction fees and network operations"
+          },
+          "quantumSecurity": {
+            "title": "Quantum Security",
+            "description": "CRYSTALS-Dilithium hybrid signatures for post-quantum protection"
+          },
+          "tripleBandAi": {
+            "title": "Triple-Band AI",
+            "description": "Three-tier AI orchestration for strategic, tactical, and operational decisions"
           }
         },
         "glossary": {
@@ -6481,7 +6534,10 @@
           "validator": {
             "term": "Validator",
             "definition": "Nodes that verify transactions and participate in consensus"
-          }
+          },
+          "tburn": "TBURN is the native governance and staking token of TBurn Chain with a fixed supply of 1 billion tokens",
+          "ember": "Ember is the gas token used for transaction fees on TBurn Chain, obtained by staking TBURN",
+          "slashing": "Slashing is the penalty mechanism that burns a portion of validator stake for malicious behavior or downtime"
         },
         "certifications": {
           "developer": {
@@ -6495,6 +6551,28 @@
           "validator": {
             "title": "Validator Operator",
             "description": "Network validation certification"
+          },
+          "defiExpert": {
+            "title": "DeFi Expert Certification",
+            "description": "Master yield strategies, liquidity provision, and advanced DeFi protocol integration"
+          },
+          "fundamentals": {
+            "title": "Blockchain Fundamentals",
+            "description": "Demonstrate knowledge of blockchain basics, cryptography, and consensus mechanisms"
+          }
+        },
+        "community": {
+          "discord": {
+            "title": "Discord Community",
+            "description": "Join real-time discussions with developers and enthusiasts"
+          },
+          "forum": {
+            "title": "Developer Forum",
+            "description": "Ask questions and share knowledge with the community"
+          },
+          "liveSessions": {
+            "title": "Live Sessions",
+            "description": "Weekly workshops and AMA sessions with the core team"
           }
         },
         "communityLinks": {
@@ -6518,6 +6596,7 @@
         "subtitle": "Discover the world's first trust-based blockchain with AI verification and quantum-resistant security.",
         "coreFeatures": {
           "title": "Core Features",
+          "subtitle": "Enterprise-grade blockchain infrastructure built for reliability and performance",
           "items": {
             "trustVerification": {
               "title": "Trust Verification",
@@ -6537,6 +6616,49 @@
             }
           }
         },
+        "features": {
+          "trustVerification": {
+            "title": "Trust Verification System",
+            "description": "Multi-layered verification combining AI analysis, expert review, and community governance for project reliability"
+          },
+          "ultraFast": {
+            "title": "Ultra-Fast Transactions",
+            "description": "1-second block time with 6-second finality enables real-time transaction processing at scale"
+          },
+          "distributed": {
+            "title": "Distributed Architecture",
+            "description": "Decentralized network of 21+ validators ensuring censorship resistance and high availability"
+          },
+          "autoBurn": {
+            "title": "Auto Burn Economics",
+            "description": "Deflationary token model with transaction-based, scheduled, and AI-optimized burning mechanisms"
+          }
+        },
+        "specs": {
+          "blockTime": "Block Time",
+          "finality": "Finality",
+          "oneSecond": "1 second",
+          "sixSeconds": "6 seconds",
+          "theoreticalTps": "Theoretical TPS",
+          "practicalTps": "Practical TPS"
+        },
+        "techSpecs": {
+          "title": "Technical Specifications",
+          "consensusDesc": "Hybrid DPoS + BFT consensus with 21 active validators and 100 standby nodes",
+          "smartContractsDesc": "Full EVM compatibility with Solidity 0.8+ support and optimized gas costs"
+        },
+        "trustBased": {
+          "title": "Trust-Based Blockchain",
+          "paragraph1": "TBurn Chain is the world's first blockchain built on trust verification. Every project on our network undergoes rigorous 3-stage verification before listing.",
+          "paragraph2": "Our unique Trust Score system protects investors by providing transparent, real-time reliability ratings for all verified projects.",
+          "protocolRule": "Protocol-level trust enforcement ensures bad actors are automatically identified and restricted from the ecosystem."
+        },
+        "developer": {
+          "title": "Developer Resources",
+          "description": "Build on TBurn Chain with our comprehensive developer tools and documentation.",
+          "readDocs": "Read Documentation",
+          "tburnSdk": "TBurn SDK"
+        },
         "consensus": {
           "title": "Consensus Mechanism",
           "subtitle": "Proof of Trust (PoT) combines validation with trust scoring",
@@ -6552,9 +6674,34 @@
         "tag": "CORE FEATURE",
         "title": "Trust Score System",
         "subtitle": "Deep dive into the 3-stage verification system, AI analysis, and dynamic scoring algorithm.",
+        "evaluationPhilosophy": "Our evaluation methodology combines automated analysis with human expertise to provide comprehensive project assessments.",
+        "gradeSystem": "Trust Grade Classification",
+        "scoreComponents": "Score Components",
+        "scoreComponentsStatus": "Real-time component tracking",
+        "verificationProcess": "Verification Process",
+        "pts": "pts",
+        "ptsUnit": "points",
+        "importantLabel": "Important",
+        "importantNote": "Trust Scores are dynamic and updated in real-time based on ongoing project behavior and community feedback.",
         "philosophy": {
           "title": "Evaluation Philosophy",
-          "description": "Trust scores are designed to protect investors by evaluating project reliability through multiple dimensions"
+          "description": "Trust scores are designed to protect investors by evaluating project reliability through multiple dimensions",
+          "objective": {
+            "title": "Objective Analysis",
+            "description": "Data-driven evaluation eliminating human bias through standardized metrics and AI-powered assessment"
+          },
+          "comprehensive": {
+            "title": "Comprehensive Review",
+            "description": "Multi-dimensional analysis covering team, technology, financials, and execution capabilities"
+          },
+          "transparent": {
+            "title": "Full Transparency",
+            "description": "All scoring factors and methodologies are publicly documented and on-chain verifiable"
+          },
+          "realtime": {
+            "title": "Real-time Updates",
+            "description": "Continuous monitoring with instant score adjustments based on project behavior changes"
+          }
         },
         "components": {
           "title": "Score Components",
@@ -6584,6 +6731,33 @@
               "points": "10 pts",
               "description": "Roadmap delivery and milestone achievement"
             }
+          },
+          "teamTransparency": {
+            "title": "Team Transparency",
+            "items": {
+              "kyc": "KYC Verification Status",
+              "realName": "Real Name Disclosure",
+              "experience": "Industry Experience & Track Record",
+              "communication": "Community Communication Quality"
+            }
+          },
+          "technical": {
+            "title": "Technical Assessment",
+            "items": {
+              "codeQuality": "Code Quality & Standards",
+              "securityAudit": "Security Audit Results",
+              "testCoverage": "Test Coverage Percentage",
+              "documentation": "Technical Documentation"
+            }
+          },
+          "financial": {
+            "title": "Financial Health",
+            "items": {
+              "fundingReport": "Funding Source Transparency",
+              "walletDisclosure": "Wallet Disclosure Status",
+              "accountingAudit": "Financial Audit Results",
+              "distributionData": "Token Distribution Data"
+            }
           }
         },
         "grades": {
@@ -6612,6 +6786,44 @@
             "name": "Restricted",
             "range": "0-39",
             "description": "Trading suspended"
+          },
+          "s": {
+            "title": "S Grade - Diamond",
+            "description": "Exceptional project with perfect verification. Full trading access and priority DEX listing."
+          },
+          "a": {
+            "title": "A Grade - Gold",
+            "description": "Highly reliable project with strong fundamentals. Standard trading access with enhanced visibility."
+          },
+          "b": {
+            "title": "B Grade - Silver",
+            "description": "Good project with minor concerns. Trading allowed with standard monitoring."
+          },
+          "c": {
+            "title": "C Grade - Bronze",
+            "description": "Project requires attention. Trading allowed with warning labels displayed."
+          },
+          "f": {
+            "title": "F Grade - Restricted",
+            "description": "Failed verification or serious concerns. Trading suspended pending investigation."
+          }
+        },
+        "process": {
+          "dataCollection": {
+            "title": "Data Collection",
+            "description": "Automated gathering of on-chain data, social metrics, and project documentation"
+          },
+          "aiAnalysis": {
+            "title": "AI Analysis",
+            "description": "Triple-Band AI performs comprehensive analysis across all scoring dimensions"
+          },
+          "expertReview": {
+            "title": "Expert Review",
+            "description": "Human experts validate AI findings and perform deep-dive investigation"
+          },
+          "onchainCommit": {
+            "title": "On-Chain Commit",
+            "description": "Final score is committed to blockchain with full audit trail and transparency"
           }
         },
         "stages": {
@@ -6637,6 +6849,14 @@
         "tag": "GETTING STARTED",
         "title": "What is a Wallet?",
         "subtitle": "Learn about cryptocurrency wallets, security best practices, and how to set up your TBurn wallet.",
+        "understanding": {
+          "title": "Understanding Crypto Wallets",
+          "description": "A cryptocurrency wallet is a digital tool that stores your private keys and allows you to send, receive, and manage your digital assets securely."
+        },
+        "walletTypes": {
+          "title": "Wallet Types Explained",
+          "subtitle": "Choose the right wallet type based on your security needs and usage patterns"
+        },
         "types": {
           "title": "Wallet Types",
           "hot": {
@@ -6650,7 +6870,26 @@
           "hardware": {
             "title": "Hardware Wallets",
             "description": "Physical devices for secure key storage"
+          },
+          "software": {
+            "title": "Software Wallets",
+            "description": "Desktop and mobile applications for convenient access to your crypto assets"
           }
+        },
+        "keys": {
+          "title": "Understanding Keys",
+          "description": "Your wallet security depends on proper key management. Learn the difference between public and private keys.",
+          "public": {
+            "title": "Public Key",
+            "description": "Your wallet address that others use to send you cryptocurrency. Safe to share publicly."
+          },
+          "private": {
+            "title": "Private Key",
+            "description": "Secret key that controls access to your funds. Never share this with anyone."
+          }
+        },
+        "securityProtocol": {
+          "title": "Security Protocol"
         },
         "security": {
           "title": "Security Best Practices",
@@ -6659,7 +6898,24 @@
             "verifyUrls": "Always verify website URLs",
             "enable2fa": "Enable two-factor authentication",
             "regularBackups": "Make regular backups"
+          },
+          "neverShare": {
+            "title": "Never Share Private Keys",
+            "description": "Your private keys and seed phrase should never be shared with anyone. No legitimate service will ever ask for them."
+          },
+          "offlineStorage": {
+            "title": "Use Offline Storage",
+            "description": "Store large amounts in cold wallets. Keep only small amounts in hot wallets for daily transactions."
+          },
+          "verifyTransactions": {
+            "title": "Verify All Transactions",
+            "description": "Always double-check recipient addresses and transaction amounts before confirming any transfer."
           }
+        },
+        "cta": {
+          "title": "Ready to Get Started?",
+          "description": "Create your first TBurn wallet and start exploring the ecosystem. Our setup guide will walk you through every step.",
+          "button": "Create Wallet"
         }
       },
       "whitepaper": {
@@ -6779,12 +7035,38 @@
         "tag": "ECONOMICS",
         "title": "Tokenomics",
         "subtitle": "Understand TBURN token distribution, emission schedule, and deflationary mechanisms.",
+        "distributionSection": {
+          "title": "Token Distribution",
+          "subtitle": "Strategic allocation designed for long-term ecosystem growth and sustainability",
+          "totalSupply": "1,000,000,000 TBURN"
+        },
+        "burnSection": {
+          "title": "Burn Mechanisms",
+          "subtitle": "Multiple deflationary mechanisms ensuring sustainable token value appreciation"
+        },
         "marketStats": {
           "title": "Market Statistics",
           "totalSupply": "Total Supply",
           "circulatingSupply": "Circulating Supply",
           "totalBurned": "Total Burned",
-          "marketCap": "Market Cap"
+          "marketCap": "Market Cap",
+          "burned": "Burned",
+          "totalStaked": "Total Staked"
+        },
+        "tburn": {
+          "type": "Governance & Staking Token",
+          "role": "Role",
+          "roleValue": "Primary governance token for voting and staking to secure the network",
+          "totalSupply": "1,000,000,000",
+          "decimals": "18"
+        },
+        "ember": {
+          "type": "Gas Token",
+          "role": "Role",
+          "roleValue": "Native gas token for transaction fees and smart contract execution",
+          "baseFee": "Base Fee",
+          "baseFeeValue": "0.001 EMBER",
+          "exchangeRatio": "1 TBURN staked = 100 EMBER/day"
         },
         "distribution": {
           "title": "Token Distribution",
@@ -6813,6 +7095,40 @@
               "label": "Liquidity",
               "percentage": "5%"
             }
+          },
+          "ecosystemFund": {
+            "title": "Ecosystem Fund",
+            "subtitle": "Grants, partnerships, and ecosystem development initiatives"
+          },
+          "validatorRewards": {
+            "title": "Validator Rewards",
+            "subtitle": "Block rewards and validation incentives for network security"
+          },
+          "teamAdvisors": {
+            "title": "Team & Advisors",
+            "subtitle": "4-year vesting with 1-year cliff for long-term alignment"
+          },
+          "foundationReserve": {
+            "title": "Foundation Reserve",
+            "subtitle": "Emergency fund and strategic opportunities reserve"
+          }
+        },
+        "burn": {
+          "transactionFees": {
+            "title": "Transaction Fee Burn",
+            "description": "0.1% of every transaction fee is permanently burned, reducing supply with network usage"
+          },
+          "slashingPenalty": {
+            "title": "Slashing Penalty Burn",
+            "description": "Validator misbehavior penalties are burned, reinforcing network security incentives"
+          },
+          "collateralBurn": {
+            "title": "Collateral Burn",
+            "description": "Failed project collateral is partially burned as part of investor protection mechanism"
+          },
+          "revenueBuyback": {
+            "title": "Revenue Buyback Burn",
+            "description": "Protocol revenue used to buy and burn TBURN quarterly, creating deflationary pressure"
           }
         },
         "burnMechanisms": {
@@ -6837,14 +7153,22 @@
           "apy": "Current APY",
           "totalStaked": "Total Staked",
           "validators": "Active Validators",
-          "minStake": "Minimum Stake"
+          "minStake": "Minimum Stake",
+          "liquidStaking": "Liquid staking available with stTBURN derivative token",
+          "ninetyDayLock": "90-day lock: 12% APY + 1.2x governance weight",
+          "yearLock": "365-day lock: 18% APY + 2x governance weight"
         },
         "governance": {
           "title": "Governance",
           "description": "TBURN holders can participate in protocol governance",
           "votingPower": "Voting Power",
           "proposalThreshold": "Proposal Threshold",
-          "quorum": "Quorum Required"
+          "quorum": "Quorum Required",
+          "features": {
+            "voteProtocol": "Vote on protocol upgrades and parameter changes",
+            "approveTreasury": "Approve treasury allocations and ecosystem grants",
+            "decideSlashing": "Decide on slashing proposals and validator disputes"
+          }
         }
       },
       "roadmap": {
@@ -7446,47 +7770,677 @@
       "api": {
         "tag": "API REFERENCE",
         "title": "API Documentation",
-        "subtitle": "RESTful API endpoints for blockchain, DeFi, and AI services."
+        "subtitle": "RESTful API endpoints for blockchain, DeFi, and AI services.",
+        "baseUrl": "Base URL",
+        "coreEndpoints": "Core Endpoints",
+        "parameters": "Parameters",
+        "related": "Related",
+        "officialSdks": "Official SDKs",
+        "viewDocumentation": "View Documentation",
+        "authentication": {
+          "title": "Authentication",
+          "description": "All API requests require an API key. Get your free key from the",
+          "dashboardLink": "Developer Dashboard"
+        },
+        "sidebar": {
+          "overview": "Overview",
+          "authentication": "Authentication",
+          "rateLimits": "Rate Limits",
+          "endpoints": "Endpoints",
+          "block": "Block",
+          "transaction": "Transaction",
+          "account": "Account",
+          "smartContract": "Smart Contract",
+          "websocket": "WebSocket",
+          "realtimeEvents": "Real-time Events"
+        },
+        "endpoints": {
+          "blocks": {
+            "description": "Get block information by block number or hash",
+            "paramDesc": "Block number or 'latest'"
+          },
+          "transactions": {
+            "description": "Get transaction details by transaction hash"
+          },
+          "sendTransaction": {
+            "description": "Submit a signed transaction to the network"
+          },
+          "balance": {
+            "description": "Get account balance and nonce"
+          }
+        },
+        "errorHandling": {
+          "title": "Error Handling",
+          "code": "Code",
+          "description": "Description"
+        },
+        "errors": {
+          "badRequest": "Invalid request parameters",
+          "unauthorized": "Invalid or missing API key",
+          "tooManyRequests": "Rate limit exceeded",
+          "internalError": "Internal server error"
+        },
+        "websocketApi": {
+          "title": "WebSocket API",
+          "description": "Subscribe to real-time blockchain events for instant updates.",
+          "connectComment": "Connect to WebSocket",
+          "subscribeComment": "Subscribe to blocks channel"
+        },
+        "sdks": {
+          "javascript": "JavaScript SDK",
+          "python": "Python SDK",
+          "go": "Go SDK"
+        },
+        "quickLinks": {
+          "quickStart": {
+            "title": "Quick Start",
+            "description": "Deploy your first dApp in 5 minutes"
+          },
+          "codeExamples": {
+            "title": "Code Examples",
+            "description": "Real-world integration patterns"
+          },
+          "rpcProviders": {
+            "title": "RPC Providers",
+            "description": "Connect via multiple endpoints"
+          }
+        },
+        "relatedLinks": {
+          "developerHub": "Developer Hub",
+          "documentation": "Full Documentation",
+          "codeExamples": "Code Examples",
+          "quickStart": "Quick Start Guide"
+        }
       },
       "cli": {
         "tag": "CLI TOOLS",
         "title": "CLI Reference",
-        "subtitle": "Command line interface for project management and deployment."
+        "subtitle": "Command line interface for project management and deployment.",
+        "currentVersion": "Current Version",
+        "usage": "Usage",
+        "options": "Options",
+        "examples": "Examples",
+        "required": "Required",
+        "optional": "Optional",
+        "default": "Default",
+        "globalOptionsTitle": "Global Options",
+        "environmentTitle": "Environment Variables",
+        "relatedDocs": "Related Documentation",
+        "installation": {
+          "title": "Installation",
+          "verify": "Verify installation"
+        },
+        "categories": {
+          "project": "Project",
+          "contract": "Contract",
+          "network": "Network",
+          "wallet": "Wallet",
+          "ai": "AI"
+        },
+        "commands": {
+          "init": {
+            "desc": "Initialize a new TBurn Chain project",
+            "options": {
+              "template": "Project template (defi, nft, dao)",
+              "typescript": "Use TypeScript"
+            }
+          },
+          "dev": {
+            "desc": "Start local development server",
+            "options": {
+              "port": "Port number",
+              "open": "Open browser automatically"
+            }
+          },
+          "build": {
+            "desc": "Build project for production",
+            "options": {
+              "outdir": "Output directory",
+              "sourcemap": "Generate source maps"
+            }
+          },
+          "deploy": {
+            "desc": "Deploy to TBurn Chain network",
+            "options": {
+              "network": "Target network (mainnet, testnet)",
+              "verify": "Verify contract on explorer",
+              "gasPrice": "Gas price in gwei"
+            }
+          },
+          "wallet": {
+            "desc": "Wallet management commands",
+            "options": {
+              "create": "Create new wallet",
+              "import": "Import existing wallet",
+              "balance": "Check wallet balance"
+            }
+          }
+        },
+        "globalOptions": {
+          "verbose": "Enable verbose output",
+          "json": "Output in JSON format",
+          "network": "Specify network",
+          "config": "Path to config file",
+          "help": "Show help message"
+        },
+        "needHelp": {
+          "title": "Need Help?",
+          "apiReference": "API Reference",
+          "sdkDocumentation": "SDK Documentation"
+        },
+        "relatedLinks": {
+          "developerHub": "Developer Hub",
+          "documentation": "Documentation",
+          "apiReference": "API Reference",
+          "quickStart": "Quick Start",
+          "installationGuide": "Installation Guide"
+        }
       },
       "sdk": {
         "tag": "SDK GUIDE",
         "title": "SDK Guide",
-        "subtitle": "Multi-language SDK integration guides and best practices."
+        "subtitle": "Multi-language SDK integration guides and best practices.",
+        "installation": "Installation",
+        "configuration": "Configuration",
+        "quickExamples": "Quick Examples",
+        "install": {
+          "npm": "Install with npm",
+          "yarn": "Or with yarn"
+        },
+        "features": {
+          "typeSafety": {
+            "title": "Type Safety",
+            "description": "Full TypeScript support with comprehensive type definitions for all API methods and responses."
+          },
+          "autoRetry": {
+            "title": "Auto Retry",
+            "description": "Built-in retry logic with exponential backoff for failed requests and network issues."
+          },
+          "realTimeStreams": {
+            "title": "Real-Time Streams",
+            "description": "Subscribe to live blockchain events with WebSocket connections and reactive patterns."
+          }
+        },
+        "examples": {
+          "core": "Core functionality",
+          "defi": "DeFi interactions",
+          "streaming": "Real-time streaming"
+        },
+        "needHelp": {
+          "title": "Need Help?",
+          "apiReference": "API Reference",
+          "cliReference": "CLI Reference",
+          "codeExamples": "Code Examples",
+          "discordSupport": "Discord Community"
+        }
       },
       "contracts": {
         "tag": "SMART CONTRACTS",
         "title": "Smart Contracts",
-        "subtitle": "Write, test, and deploy secure smart contracts on TBurn Chain."
+        "subtitle": "Write, test, and deploy secure smart contracts on TBurn Chain.",
+        "contractTemplates": "Contract Templates",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "apiReference": "API Reference",
+        "cliGuide": "CLI Guide",
+        "evmMigration": "EVM Migration",
+        "features": {
+          "evmCompatibility": {
+            "title": "Full EVM Compatibility",
+            "description": "Deploy existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+          },
+          "trustIntegration": {
+            "title": "Trust Score Integration",
+            "description": "Access on-chain trust scores through oracle contracts for trust-verified transactions."
+          },
+          "autoBurn": {
+            "title": "Automatic Burn",
+            "description": "Built-in burn mechanics with scheduled execution and transparent collateral management."
+          },
+          "aiOracle": {
+            "title": "AI Oracle Access",
+            "description": "Integrate AI-powered insights directly into your smart contracts via oracle calls."
+          }
+        },
+        "templates": {
+          "erc20": {
+            "title": "BRC-20 Token",
+            "description": "Standard token with trust-aware transfers"
+          },
+          "nft": {
+            "title": "NFT Collection",
+            "description": "ERC-721 with on-chain metadata"
+          },
+          "defi": {
+            "title": "DeFi Protocol",
+            "description": "AMM pool with trust verification"
+          },
+          "dao": {
+            "title": "DAO Governance",
+            "description": "Token-weighted voting system"
+          }
+        },
+        "security": {
+          "title": "Security Best Practices",
+          "reentrancy": {
+            "title": "Reentrancy Guards",
+            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+          },
+          "accessControl": {
+            "title": "Access Control",
+            "description": "Implement role-based permissions with OpenZeppelin"
+          },
+          "inputValidation": {
+            "title": "Input Validation",
+            "description": "Always validate user inputs and external data"
+          },
+          "upgradeability": {
+            "title": "Upgradeability",
+            "description": "Use proxy patterns for upgradeable contracts"
+          }
+        },
+        "gasOptimization": {
+          "title": "Gas Optimization",
+          "subtitle": "Tips for reducing transaction costs",
+          "tip1": "Pack multiple small variables into single storage slots",
+          "tip2": "Use calldata instead of memory for read-only function parameters",
+          "tip3": "Cache storage variables in memory when accessed multiple times",
+          "tip4": "Use custom errors instead of revert strings"
+        },
+        "testing": {
+          "title": "Testing Your Contracts",
+          "description": "Comprehensive testing guide for smart contracts",
+          "unitTests": "Unit Tests",
+          "integrationTests": "Integration Tests",
+          "fuzzTesting": "Fuzz Testing"
+        },
+        "deployment": {
+          "title": "Deployment Guide",
+          "step1": "Compile contracts",
+          "step2": "Deploy to testnet",
+          "step3": "Verify on explorer",
+          "step4": "Deploy to mainnet"
+        },
+        "needHelp": {
+          "title": "Need Help?",
+          "sdkDocumentation": "SDK Documentation",
+          "codeExamples": "Code Examples",
+          "discordSupport": "Discord Community"
+        },
+        "relatedLinks": {
+          "developerHub": "Developer Hub",
+          "sdkGuide": "SDK Guide",
+          "cliReference": "CLI Reference",
+          "codeExamples": "Code Examples"
+        }
       },
       "websocket": {
         "tag": "REAL-TIME",
         "title": "WebSocket API",
-        "subtitle": "Real-time data streaming and event subscriptions."
+        "subtitle": "Real-time data streaming and event subscriptions.",
+        "connectionEndpoints": "Connection Endpoints",
+        "subscriptionChannels": "Subscription Channels",
+        "fullReference": "Full Reference",
+        "getSdk": "Get SDK",
+        "codeExamples": "Code Examples",
+        "viewRestApi": "View REST API",
+        "readyToIntegrate": "Ready to Integrate?",
+        "endpoints": {
+          "mainnet": {
+            "type": "Production",
+            "desc": "Mainnet WebSocket endpoint for production applications"
+          },
+          "testnet": {
+            "type": "Development",
+            "desc": "Testnet WebSocket endpoint for development and testing"
+          }
+        },
+        "channels": {
+          "blocks": {
+            "description": "Subscribe to new block notifications with full block data"
+          },
+          "transactions": {
+            "description": "Real-time transaction updates for specific addresses"
+          },
+          "trustScore": {
+            "description": "Live trust score changes for monitored addresses"
+          },
+          "defi": {
+            "description": "Price feeds and liquidity pool updates"
+          }
+        },
+        "authentication": {
+          "title": "Authentication",
+          "description": "Include your API key in the connection URL query parameter or as a header"
+        },
+        "heartbeat": {
+          "title": "Heartbeat",
+          "description": "Send ping messages every 30 seconds to keep the connection alive"
+        },
+        "clientImplementation": {
+          "title": "Client Implementation",
+          "subtitle": "Example WebSocket client in JavaScript"
+        }
       },
       "examples": {
         "tag": "CODE EXAMPLES",
         "title": "Code Examples",
-        "subtitle": "Ready-to-use code snippets and sample projects."
+        "subtitle": "Ready-to-use code snippets and sample projects.",
+        "commonRecipes": "Common Recipes",
+        "categories": {
+          "allRecipes": "All Recipes",
+          "smartContracts": "Smart Contracts",
+          "defi": "DeFi",
+          "nfts": "NFTs",
+          "wallets": "Wallets"
+        },
+        "recipes": {
+          "connectWallet": {
+            "title": "Connect Wallet",
+            "description": "Integrate MetaMask and other Web3 wallets with React hooks",
+            "category": "Frontend"
+          },
+          "createToken": {
+            "title": "Create BRC-20 Token",
+            "description": "Deploy a trust-verified token with automatic burn mechanics",
+            "category": "Smart Contract"
+          },
+          "aiOracle": {
+            "title": "AI Oracle Integration",
+            "description": "Query AI-powered insights from smart contracts or backend",
+            "category": "Backend"
+          },
+          "nftMinting": {
+            "title": "NFT Minting",
+            "description": "Create and mint NFT collections with metadata on IPFS",
+            "category": "NFT"
+          },
+          "flashLoan": {
+            "title": "Flash Loan",
+            "description": "Execute arbitrage with atomic flash loan transactions",
+            "category": "DeFi"
+          },
+          "indexerSetup": {
+            "title": "Indexer Setup",
+            "description": "Build a custom blockchain data indexer with The Graph",
+            "category": "Infrastructure"
+          }
+        },
+        "featured": {
+          "title": "Featured Recipe",
+          "description": "Build a secure vault that verifies project trust scores before accepting deposits. This pattern is essential for DeFi protocols.",
+          "difficulty": "Difficulty",
+          "intermediate": "Intermediate",
+          "time": "Time",
+          "tenMins": "~10 mins",
+          "checks": {
+            "trustScore": "Verifies Trust Score on-chain before deposit",
+            "revert": "Reverts if score below threshold",
+            "gasOptimized": "Gas-optimized for production use"
+          }
+        },
+        "cta": {
+          "title": "Have a Recipe to Share?",
+          "description": "Contribute your code examples to help the community. All contributors receive ecosystem rewards.",
+          "submitPr": "Submit PR on GitHub",
+          "requestGuide": "Request a Guide"
+        }
       },
       "quickstart": {
         "tag": "GETTING STARTED",
         "title": "Quick Start",
-        "subtitle": "Get up and running with TBurn Chain in minutes."
+        "subtitle": "Get up and running with TBurn Chain in minutes.",
+        "whatsNext": "What's Next?",
+        "prerequisites": {
+          "title": "Prerequisites",
+          "node": "Node.js 18+ installed",
+          "account": "TBurn Chain account (testnet faucet available)",
+          "knowledge": "Basic JavaScript/TypeScript knowledge"
+        },
+        "steps": {
+          "installSdk": {
+            "title": "Install the SDK",
+            "description": "Add the TBurn SDK to your project using npm or yarn"
+          },
+          "initializeSdk": {
+            "title": "Initialize the SDK",
+            "description": "Configure the SDK with your API key and network settings"
+          },
+          "firstTransaction": {
+            "title": "Send Your First Transaction",
+            "description": "Connect your wallet and send TBURN tokens"
+          },
+          "queryTrustScore": {
+            "title": "Query Trust Score",
+            "description": "Retrieve AI-powered trust analysis for any address"
+          }
+        },
+        "networkConfig": {
+          "title": "Network Configuration",
+          "chainId": "Chain ID",
+          "rpcUrl": "RPC URL",
+          "explorer": "Explorer",
+          "mainnet": {
+            "title": "Mainnet"
+          },
+          "testnet": {
+            "title": "Testnet"
+          }
+        },
+        "vsCode": {
+          "title": "VS Code Setup",
+          "description": "Recommended extensions for TBurn Chain development",
+          "solidity": "Solidity Language Support",
+          "eslint": "ESLint for JavaScript/TypeScript",
+          "tburnSnippets": "TBurn SDK Snippets"
+        },
+        "nextSteps": {
+          "sdkGuide": {
+            "title": "SDK Guide",
+            "desc": "Deep dive into SDK features"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "desc": "Explore all endpoints"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "desc": "Write your first contract"
+          }
+        }
       },
       "installation": {
         "tag": "SETUP",
         "title": "Installation Guide",
-        "subtitle": "Step-by-step installation and configuration instructions."
+        "subtitle": "Step-by-step installation and configuration instructions.",
+        "startBuilding": "Start Building",
+        "viewQuickStart": "View Quick Start",
+        "requirements": {
+          "title": "System Requirements",
+          "hardware": {
+            "title": "Hardware",
+            "cpu": "2+ CPU cores",
+            "memory": "8GB RAM minimum",
+            "storage": "50GB SSD storage"
+          },
+          "software": {
+            "title": "Software",
+            "os": "macOS, Linux, or Windows 10+",
+            "node": "Node.js 18 or higher",
+            "git": "Git 2.0 or higher"
+          }
+        },
+        "tabs": {
+          "npm": "npm",
+          "yarn": "Yarn",
+          "docker": "Docker",
+          "source": "From Source"
+        },
+        "npm": {
+          "title": "Install via npm",
+          "step1": "Install the SDK globally",
+          "step2": "Verify installation",
+          "step3": "Initialize a new project"
+        },
+        "yarn": {
+          "title": "Install via Yarn",
+          "step1": "Install the SDK globally",
+          "step2": "Verify installation"
+        },
+        "docker": {
+          "title": "Docker Installation",
+          "step1": "Pull the official image",
+          "step2": "Run the container",
+          "step3": "Access the development environment"
+        },
+        "source": {
+          "title": "Build from Source",
+          "step1": "Clone the repository",
+          "step2": "Install dependencies",
+          "step3": "Build the project",
+          "step4": "Link globally"
+        },
+        "configuration": {
+          "title": "Configuration",
+          "envVars": {
+            "title": "Environment Variables",
+            "apiKey": "Your TBurn API key",
+            "network": "Network (mainnet/testnet)",
+            "rpcUrl": "Custom RPC endpoint (optional)"
+          },
+          "configFile": {
+            "title": "Configuration File",
+            "description": "Create a tburn.config.js file in your project root"
+          }
+        },
+        "troubleshooting": {
+          "title": "Troubleshooting",
+          "permissionDenied": {
+            "title": "Permission Denied",
+            "description": "Try running with sudo or fix npm permissions"
+          },
+          "nodeVersion": {
+            "title": "Node Version Mismatch",
+            "description": "Use nvm to switch to Node.js 18+"
+          },
+          "networkError": {
+            "title": "Network Connection Error",
+            "description": "Check your firewall settings and RPC endpoint"
+          }
+        },
+        "nextSteps": {
+          "title": "Next Steps",
+          "quickStart": {
+            "title": "Quick Start Guide",
+            "description": "Build your first dApp in 5 minutes"
+          },
+          "sdkReference": {
+            "title": "SDK Reference",
+            "description": "Complete API documentation"
+          },
+          "examples": {
+            "title": "Code Examples",
+            "description": "Real-world integration patterns"
+          }
+        }
       },
       "evmMigration": {
         "tag": "MIGRATION",
         "title": "EVM Migration",
-        "subtitle": "Migrate your Ethereum dApps to TBurn Chain."
+        "subtitle": "Migrate your Ethereum dApps to TBurn Chain.",
+        "startMigration": "Start Migration",
+        "viewGuide": "View Full Guide",
+        "overview": {
+          "title": "Migration Overview",
+          "description": "TBurn Chain is fully EVM-compatible, allowing you to deploy existing Ethereum smart contracts with minimal modifications.",
+          "compatibility": "100% EVM Compatibility",
+          "gasEfficiency": "Up to 10x lower gas costs",
+          "trustFeatures": "Built-in Trust Score integration"
+        },
+        "differences": {
+          "title": "Key Differences",
+          "chainId": {
+            "title": "Chain ID",
+            "ethereum": "Ethereum: 1",
+            "tburn": "TBurn: 7777"
+          },
+          "consensus": {
+            "title": "Consensus Mechanism",
+            "ethereum": "Proof of Stake",
+            "tburn": "Proof of Trust (PoT)"
+          },
+          "gasToken": {
+            "title": "Gas Token",
+            "ethereum": "ETH",
+            "tburn": "TBURN"
+          },
+          "blockTime": {
+            "title": "Block Time",
+            "ethereum": "~12 seconds",
+            "tburn": "~3 seconds"
+          }
+        },
+        "steps": {
+          "title": "Migration Steps",
+          "step1": {
+            "title": "Update Network Configuration",
+            "description": "Change RPC endpoints and chain ID in your configuration files"
+          },
+          "step2": {
+            "title": "Modify Contract Addresses",
+            "description": "Update hardcoded contract addresses to TBurn Chain deployments"
+          },
+          "step3": {
+            "title": "Add Trust Score Integration",
+            "description": "Optionally integrate Trust Score verification for enhanced security"
+          },
+          "step4": {
+            "title": "Deploy and Test",
+            "description": "Deploy to testnet first, then migrate to mainnet"
+          }
+        },
+        "commonChanges": {
+          "title": "Common Code Changes",
+          "rpcEndpoint": "RPC Endpoint Update",
+          "chainIdUpdate": "Chain ID Configuration",
+          "trustOracle": "Trust Oracle Integration (Optional)"
+        },
+        "tools": {
+          "title": "Migration Tools",
+          "cliMigrate": {
+            "title": "CLI Migration Tool",
+            "description": "Automated contract migration with burn-cli migrate"
+          },
+          "hardhatPlugin": {
+            "title": "Hardhat Plugin",
+            "description": "TBurn Hardhat plugin for seamless deployment"
+          },
+          "foundrySupport": {
+            "title": "Foundry Support",
+            "description": "Full Foundry compatibility for testing and deployment"
+          }
+        },
+        "cta": {
+          "title": "Ready to Migrate?",
+          "description": "Get started with our step-by-step migration guide and tools.",
+          "startNow": "Start Migration Now",
+          "contactSupport": "Contact Support"
+        },
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "q1": {
+            "question": "Will my existing Solidity contracts work?",
+            "answer": "Yes, TBurn Chain is fully EVM-compatible and supports all Solidity versions."
+          },
+          "q2": {
+            "question": "Do I need to re-audit my contracts?",
+            "answer": "We recommend a security review for Trust Score integration, but existing logic should work as-is."
+          },
+          "q3": {
+            "question": "How long does migration take?",
+            "answer": "Simple contracts can be migrated in hours. Complex protocols may take 1-2 weeks."
+          }
+        }
       }
     },
     "solutions": {
@@ -7659,6 +8613,12 @@
         "subtitle": "Advanced BRC-20 token standards with built-in trust verification and automatic burn mechanics.",
         "exploreBrc20": "Explore BRC-20",
         "readSpecs": "Read Specs",
+        "buttons": {
+          "exploreBrc20": "Explore BRC-20",
+          "readSpecs": "Read Specs",
+          "openConsole": "Open Developer Console",
+          "viewApiDocs": "View API Docs"
+        },
         "features": {
           "builtInTrustRating": {
             "title": "Built-in Trust Rating",
@@ -7677,13 +8637,47 @@
           "extendedMetadata": {
             "title": "Extended Metadata",
             "description": "All project information including team details, whitepaper links, audit reports, and burn schedules are stored on-chain in token metadata."
+          },
+          "trustRating": {
+            "title": "Built-in Trust Rating",
+            "description": "Trust scores are automatically recorded in token contracts. When below 40%,",
+            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
+            "badge": "Automated Investor Protection"
+          },
+          "autoBurn": {
+            "title": "Automatic Burn Schedule",
+            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned.",
+            "badge": "Enforced Deflationary Model"
+          },
+          "collateral": {
+            "title": "Collateral Transparency",
+            "description": "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+          },
+          "metadata": {
+            "title": "Extended Metadata",
+            "description": "All project information including team details, whitepaper links, and audit reports stored on-chain."
           }
+        },
+        "brc20": {
+          "title": "BRC-20 Token Standard",
+          "subtitle": "Core interfaces for Trust & Burn functionality.",
+          "trustScoreFunctions": "Trust Score Functions",
+          "autoBurnFunctions": "Auto Burn Functions"
         },
         "brc20Standard": {
           "title": "BRC-20 Token Standard",
           "subtitle": "Core interfaces for Trust & Burn functionality.",
           "trustScoreFunctions": "Trust Score Functions",
           "autoBurnFunctions": "Auto Burn Functions"
+        },
+        "code": {
+          "comments": {
+            "range": "Returns trust score in range 0-100",
+            "autoBurn": "Burn tokens according to schedule"
+          }
+        },
+        "useCasesSection": {
+          "title": "Token Extension Use Cases"
         },
         "useCases": {
           "title": "Token Extension Use Cases",
@@ -7698,6 +8692,35 @@
           "deflationaryUtilityTokens": {
             "title": "Deflationary Utility Tokens",
             "description": "Auto-burn on each transaction increases value."
+          },
+          "verified": {
+            "title": "Verified Project Tokens",
+            "description": "Tradeable only when maintaining 60%+ trust score."
+          },
+          "stablecoins": {
+            "title": "Collateral-backed Stablecoins",
+            "description": "Real-time collateral ratio monitoring and auto liquidation."
+          },
+          "deflationary": {
+            "title": "Deflationary Utility Tokens",
+            "description": "Auto-burn on each transaction increases value."
+          }
+        },
+        "examplesSection": {
+          "title": "Real Use Examples"
+        },
+        "examples": {
+          "busd": {
+            "name": "BUSD (Stablecoin)",
+            "badge": "90+ Trust Score"
+          },
+          "bgame": {
+            "name": "BGAME (GameFi)",
+            "badge": "Auto-Burn Enabled"
+          },
+          "bprop": {
+            "name": "BPROP (RWA)",
+            "badge": "Real Asset Collateral"
           }
         },
         "realExamples": {
@@ -7968,6 +8991,10 @@
         "subtitle": "Deploy private blockchain networks with TBurn Chain's trust verification. Enterprise-grade security with public chain anchoring.",
         "contactSales": "Contact Sales",
         "viewWhitepaper": "View Whitepaper",
+        "buttons": {
+          "contactSales": "Contact Sales",
+          "viewWhitepaper": "View Whitepaper"
+        },
         "enterpriseFeatures": {
           "title": "Enterprise-Grade Permissioned Chain",
           "subtitle": "Advanced control and compliance features for businesses.",
@@ -7988,6 +9015,34 @@
             "description": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
           }
         },
+        "features": {
+          "rbac": {
+            "title": "Role-Based Access Control",
+            "desc": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+          },
+          "whitelist": {
+            "title": "Whitelist Validators",
+            "desc": "Only trusted validators can participate in the network. Configure the network so that only internal nodes or approved partners can generate and validate blocks."
+          },
+          "compliance": {
+            "title": "Regulatory Compliance",
+            "desc": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+          },
+          "multisig": {
+            "title": "Multi-Signature Governance",
+            "desc": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+          }
+        },
+        "hybrid": {
+          "privateAnchor": {
+            "title": "Private Chain + Public Anchor",
+            "desc": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the TBurn Public Mainnet for immutability."
+          },
+          "selectiveDisclosure": {
+            "title": "Selective Data Disclosure",
+            "desc": "Transaction details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+          }
+        },
         "hybridArchitecture": {
           "title": "Hybrid Architecture",
           "subtitle": "Combine the privacy of a private chain with the security of a public blockchain.",
@@ -8002,6 +9057,32 @@
           "privateConsensusLayer": "Private Consensus Layer",
           "anchoringHash": "ANCHORING HASH",
           "publicMainnet": "Public Mainnet (L1)"
+        },
+        "diagram": {
+          "privateLayer": "Private Consensus Layer",
+          "anchoringHash": "ANCHORING HASH",
+          "publicMainnet": "Public Mainnet (L1)"
+        },
+        "useCases": {
+          "exampleLabel": "Example",
+          "supplyChain": {
+            "title": "Supply Chain",
+            "desc": "Track products from manufacturer to delivery. Participants only see relevant transaction segments.",
+            "example": "Auto Parts Tracking",
+            "flow": "Raw Material → Production → Assembly"
+          },
+          "banking": {
+            "title": "Banking Consortium",
+            "desc": "Inter-bank settlement network. Real-time clearing and settlement with zero counterparty risk.",
+            "example": "Cross-border Remittance",
+            "flow": "3 Days → 3 Seconds, Fee $10 → $0.01"
+          },
+          "medical": {
+            "title": "Medical Data",
+            "desc": "Secure patient data sharing between hospitals and insurers. Full HIPAA compliance auditing.",
+            "example": "E-Prescriptions",
+            "flow": "Hospital → Pharmacy → Insurance"
+          }
         },
         "industryUseCases": {
           "title": "Industry Use Cases",
@@ -8024,6 +9105,24 @@
             "flow": "Hospital → Pharmacy → Insurance"
           }
         },
+        "deployment": {
+          "step1": {
+            "title": "Requirements Analysis",
+            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+          },
+          "step2": {
+            "title": "Network Setup",
+            "desc": "Deploy validator nodes, generate genesis block, and develop initial smart contracts."
+          },
+          "step3": {
+            "title": "Integration & Migration",
+            "desc": "API integration with legacy systems (ERP, CRM), data migration, and user training."
+          },
+          "step4": {
+            "title": "Mainnet Launch",
+            "desc": "Production deployment with 24/7 monitoring and regular security audits."
+          }
+        },
         "deploymentProcess": {
           "title": "Deployment Process",
           "step1": {
@@ -8041,6 +9140,22 @@
           "step4": {
             "title": "Mainnet Launch & Operations",
             "description": "Production deployment with 24/7 monitoring and regular security audits. Ongoing support from the TBurn team."
+          }
+        },
+        "sections": {
+          "enterpriseFeatures": {
+            "title": "Enterprise Features",
+            "subtitle": "Advanced control and compliance features for businesses"
+          },
+          "hybridArchitecture": {
+            "title": "Hybrid Architecture",
+            "subtitle": "Combine private chain privacy with public blockchain security"
+          },
+          "useCases": {
+            "title": "Industry Use Cases"
+          },
+          "deployment": {
+            "title": "Deployment Process"
           }
         }
       },
@@ -8228,51 +9343,766 @@
       "commerce": {
         "tag": "COMMERCE",
         "title": "Commerce",
-        "subtitle": "E-commerce integration and merchant solutions."
+        "titleHighlight": "Solutions",
+        "subtitle": "E-commerce integration and merchant solutions. Accept crypto payments seamlessly with Trust Score verification.",
+        "buttons": {
+          "installPlugin": "Install Plugin",
+          "viewApiDocs": "View API Docs"
+        },
+        "features": {
+          "payment": {
+            "title": "Crypto Payment Processing",
+            "desc": "Accept verified tokens with instant settlement. Trust Score filtering protects merchants from fraudulent transactions and low-quality tokens."
+          },
+          "inventory": {
+            "title": "Blockchain Inventory Tracking",
+            "desc": "Track products with on-chain verification. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+          },
+          "loyalty": {
+            "title": "Token-Based Loyalty Programs",
+            "desc": "Issue loyalty tokens to reward customers. Blockchain-based points are transparent, tradeable, and never expire."
+          },
+          "analytics": {
+            "title": "Real-Time Commerce Analytics",
+            "desc": "Monitor sales, customer behavior, and token transactions. On-chain data provides tamper-proof business insights."
+          }
+        },
+        "platforms": {
+          "shopify": {
+            "desc": "One-click integration with the world's leading e-commerce platform.",
+            "status": "AVAILABLE"
+          },
+          "woocommerce": {
+            "desc": "WordPress plugin for WooCommerce stores.",
+            "status": "AVAILABLE"
+          },
+          "customApi": {
+            "title": "Custom API",
+            "desc": "RESTful API for custom integrations and mobile apps.",
+            "status": "AVAILABLE"
+          }
+        },
+        "stories": {
+          "fashionBrand": {
+            "name": "Aurora Fashion",
+            "type": "Luxury Fashion Brand",
+            "quote": "TBurn Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "stats": {
+              "volume": "$2.5M Volume",
+              "savings": "85% Fee Savings"
+            }
+          },
+          "resalePlatform": {
+            "name": "BlockResale",
+            "type": "NFT-Verified Resale Platform",
+            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "stats": {
+              "nfts": "50K NFTs Issued",
+              "counterfeits": "Zero Counterfeits"
+            }
+          }
+        },
+        "integration": {
+          "step1": {
+            "title": "Get API Keys",
+            "desc": "Register on the developer dashboard and get your credentials."
+          },
+          "step2": {
+            "title": "Install SDK",
+            "desc": "Add TBurn Commerce SDK to your project."
+          },
+          "step3": {
+            "title": "Configure Webhooks",
+            "desc": "Set up payment confirmation and order update notifications."
+          }
+        },
+        "sections": {
+          "coreFeatures": {
+            "title": "Commerce Features",
+            "subtitle": "Everything you need to accept crypto payments and grow your business."
+          },
+          "platforms": {
+            "title": "Integration Platforms"
+          },
+          "successStories": {
+            "title": "Success Stories"
+          },
+          "integration": {
+            "title": "Quick Integration Guide"
+          }
+        }
       },
       "financial": {
         "tag": "FINANCE",
-        "title": "Financial Services",
-        "subtitle": "Enterprise financial infrastructure on blockchain."
+        "title": "Financial",
+        "titleHighlight": "Services",
+        "subtitle": "Enterprise financial infrastructure on blockchain. Banking-grade security with DeFi innovation.",
+        "buttons": {
+          "startBuilding": "Start Building",
+          "readWhitepaper": "Read Whitepaper"
+        },
+        "services": {
+          "banking": {
+            "title": "Digital Banking Infrastructure",
+            "desc": "Build neo-banking products with blockchain settlement. Instant transfers, programmable accounts, and full regulatory compliance."
+          },
+          "defi": {
+            "title": "DeFi Protocol Integration",
+            "desc": "Connect traditional finance with decentralized protocols. Access lending, staking, and yield generation with institutional-grade security."
+          },
+          "payment": {
+            "title": "Cross-Border Payments",
+            "desc": "Global settlements in seconds, not days. Reduce costs by 99% with blockchain-based international transfers."
+          },
+          "compliance": {
+            "title": "Regulatory Compliance",
+            "desc": "Built-in KYC/AML verification and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+          }
+        },
+        "stats": {
+          "tvl": "Total Value Locked",
+          "apy": "Average APY",
+          "dau": "Daily Active Users"
+        },
+        "cases": {
+          "neobank": {
+            "name": "NeoBank X",
+            "type": "Digital Banking Platform",
+            "quote": "TBurn's infrastructure allowed us to launch in 3 months instead of 18. Our customers love instant transfers.",
+            "stats": {
+              "customers": "150K Customers",
+              "costs": "90% Cost Reduction"
+            }
+          },
+          "defiProtocol": {
+            "name": "DeFi Prime",
+            "type": "Lending Protocol",
+            "quote": "Trust Score integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "stats": {
+              "tvl": "$500M TVL",
+              "liquidations": "Zero Bad Debt"
+            }
+          }
+        },
+        "building": {
+          "step1": {
+            "title": "Architecture Consultation",
+            "desc": "Our team helps design your financial product architecture, ensuring regulatory compliance from day one."
+          },
+          "step2": {
+            "title": "API Integration",
+            "desc": "Connect to TBurn's financial APIs for payments, lending, and asset management."
+          },
+          "step3": {
+            "title": "Compliance Setup",
+            "desc": "Configure KYC/AML flows and audit logging to meet your regulatory requirements."
+          },
+          "step4": {
+            "title": "Production Launch",
+            "desc": "Deploy with 24/7 monitoring, enterprise SLA, and dedicated support."
+          }
+        },
+        "sections": {
+          "coreServices": {
+            "title": "Core Financial Services",
+            "subtitle": "Enterprise-grade blockchain infrastructure for modern finance."
+          },
+          "realCases": {
+            "title": "Real-World Success"
+          },
+          "building": {
+            "title": "Build Financial Products"
+          }
+        }
       },
       "aiFeatures": {
         "tag": "AI POWERED",
         "title": "AI Features",
-        "subtitle": "Triple-Band AI orchestration for intelligent blockchain operations."
+        "titleHighlight": "Triple-Band Orchestration",
+        "subtitle": "Triple-Band AI orchestration for intelligent blockchain operations. Three specialized AI tiers working in harmony for optimal decision-making.",
+        "tiers": {
+          "strategic": {
+            "title": "Strategic AI",
+            "model": "GPT-4 / Claude 3",
+            "description": "High-level decision making for governance, tokenomics design, and long-term risk assessment. Processes complex analyses with human-like reasoning.",
+            "capabilities": {
+              "governance": "DAO Proposal Analysis",
+              "tokenomics": "Tokenomics Optimization",
+              "risk": "Strategic Risk Assessment"
+            }
+          },
+          "tactical": {
+            "title": "Tactical AI",
+            "model": "GPT-3.5 / Mistral",
+            "description": "Real-time security monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "capabilities": {
+              "vulnerability": "Smart Contract Auditing",
+              "fraud": "Fraud Pattern Detection",
+              "fee": "Dynamic Fee Optimization"
+            }
+          },
+          "operational": {
+            "title": "Operational AI",
+            "model": "Custom ML Models",
+            "description": "Ultra-fast transaction validation and network health monitoring. Optimized for speed with sub-50ms response times.",
+            "capabilities": {
+              "validation": "Transaction Validation",
+              "mev": "MEV Protection",
+              "health": "Network Health Monitoring"
+            }
+          }
+        },
+        "architecture": {
+          "step1": {
+            "title": "Data Ingestion",
+            "description": "Real-time blockchain data, mempool transactions, and market feeds are continuously processed."
+          },
+          "step2": {
+            "title": "AI Processing",
+            "description": "Each tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+          },
+          "step3": {
+            "title": "Coordinated Response",
+            "description": "AI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+          }
+        },
+        "stats": {
+          "uptime": {
+            "title": "99.99% Uptime",
+            "desc": "Redundant AI clusters across multiple regions"
+          },
+          "cost": {
+            "title": "90% Cost Reduction",
+            "desc": "Efficient tier routing minimizes compute costs"
+          },
+          "scale": {
+            "title": "100K+ TPS",
+            "desc": "Operational AI handles massive throughput"
+          },
+          "verify": {
+            "title": "AI-Verified Trust",
+            "desc": "Continuous project scoring and monitoring"
+          }
+        },
+        "sections": {
+          "architecture": {
+            "title": "AI Architecture"
+          },
+          "relatedSolutions": {
+            "title": "Related Solutions",
+            "subtitle": "Explore how AI enhances other TBurn products"
+          },
+          "developerResources": {
+            "title": "Developer Resources",
+            "subtitle": "Integrate AI capabilities into your applications"
+          }
+        },
+        "relatedLinks": {
+          "wallets": {
+            "title": "Wallets",
+            "desc": "AI-enhanced security"
+          },
+          "payments": {
+            "title": "Payments",
+            "desc": "Smart fraud detection"
+          },
+          "gameTooling": {
+            "title": "Game Tooling",
+            "desc": "Anti-cheat AI systems"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "desc": "Risk assessment AI"
+          }
+        },
+        "devResources": {
+          "sdkGuide": {
+            "title": "AI SDK Guide",
+            "desc": "Integration documentation"
+          },
+          "smartContracts": {
+            "title": "AI Contracts",
+            "desc": "On-chain AI interfaces"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "desc": "REST & GraphQL APIs"
+          },
+          "websocket": {
+            "title": "Real-Time Events",
+            "desc": "WebSocket streaming"
+          },
+          "cli": {
+            "title": "CLI Tools",
+            "desc": "Command line interface"
+          },
+          "examples": {
+            "title": "Code Examples",
+            "desc": "Sample integrations"
+          }
+        },
+        "learnMore": {
+          "label": "LEARN MORE",
+          "defiMastery": {
+            "title": "AI in DeFi",
+            "desc": "Advanced AI strategies for DeFi"
+          }
+        },
+        "forDevelopers": {
+          "label": "FOR DEVELOPERS",
+          "devCourse": {
+            "title": "AI Developer Course",
+            "desc": "Build AI-powered dApps"
+          }
+        }
       },
       "artistsCreators": {
         "tag": "CREATIVE",
-        "title": "Artists & Creators",
-        "subtitle": "NFT minting, royalties, and creator economy tools."
+        "title": "Artists &",
+        "titleHighlight": "Creators",
+        "subtitle": "NFT minting, royalties, and creator economy tools. Build your digital art empire with Trust-verified authenticity.",
+        "buttons": {
+          "startCreating": "Start Creating",
+          "exploreCollections": "Explore Collections"
+        },
+        "features": {
+          "lightningPerformance": {
+            "title": "Lightning-Fast Minting",
+            "description": "Mint NFTs in seconds with 50,000+ TPS capacity. Batch minting for large collections with minimal gas fees."
+          },
+          "trustVerification": {
+            "title": "Trust Verification",
+            "description": "Every NFT collection displays its Trust Score. Buyers can verify creator authenticity and collection legitimacy instantly."
+          },
+          "thrivingEcosystem": {
+            "title": "Thriving Ecosystem",
+            "description": "Join 15,000+ verified artists. Access marketplaces, galleries, and collector communities built on trust."
+          },
+          "infiniteScalability": {
+            "title": "Infinite Scalability",
+            "description": "From 1-of-1 artwork to 10,000 piece generative collections. Our infrastructure scales with your creative vision."
+          }
+        },
+        "stats": {
+          "nftsMinted": "NFTs MINTED",
+          "creatorEarnings": "CREATOR EARNINGS",
+          "verifiedArtists": "VERIFIED ARTISTS"
+        },
+        "relatedSolutions": {
+          "title": "Related Solutions",
+          "description": "Enhance your creative journey with complementary tools",
+          "tokenExtensions": {
+            "title": "Token Extensions",
+            "subtitle": "Custom token standards"
+          },
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "Secure asset storage"
+          },
+          "commerce": {
+            "title": "Commerce",
+            "subtitle": "Sell your creations"
+          },
+          "gameTooling": {
+            "title": "Game Tooling",
+            "subtitle": "Gaming NFTs"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "Accept crypto"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "Social NFT sharing"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "Creator finance"
+          },
+          "aiFeatures": {
+            "title": "AI Features",
+            "subtitle": "AI-powered creation"
+          }
+        },
+        "developerResources": {
+          "title": "Developer Resources",
+          "description": "Build NFT platforms and creator tools with our comprehensive SDK",
+          "sdkGuide": {
+            "title": "NFT SDK Guide",
+            "subtitle": "Integration documentation"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "ERC-721/1155 templates"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "Real-time events"
+          },
+          "cliReference": {
+            "title": "CLI Tools",
+            "subtitle": "Command line minting"
+          },
+          "codeExamples": {
+            "title": "Code Examples",
+            "subtitle": "Sample integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "forDevelopers": "FOR DEVELOPERS",
+          "defiMastery": {
+            "title": "NFT Mastery Course",
+            "subtitle": "Advanced NFT creation and marketing"
+          },
+          "developerCourse": {
+            "title": "Creator Developer Course",
+            "subtitle": "Build NFT platforms and marketplaces"
+          }
+        },
+        "cta": {
+          "title": "Ready to Create on TBurn?",
+          "description": "Join thousands of artists and creators building the future of digital ownership.",
+          "link": "View Creator Documentation"
+        }
       },
       "btcfi": {
         "tag": "BITCOIN DEFI",
         "title": "BTCfi",
-        "subtitle": "Bitcoin DeFi integration with wrapped BTC and cross-chain yields."
+        "titleHighlight": "Bitcoin DeFi",
+        "subtitle": "Bitcoin DeFi integration with wrapped BTC and cross-chain yields. Unlock your Bitcoin's earning potential.",
+        "buttons": {
+          "bridgeBtc": "Bridge BTC",
+          "viewYields": "View Yields"
+        },
+        "features": {
+          "highPerformance": {
+            "title": "High Performance Bridge",
+            "description": "Bridge Bitcoin to TBurn in under 10 minutes. MPC security ensures your BTC is always safe with trustless verification."
+          },
+          "trustVerification": {
+            "title": "Trust Verification",
+            "description": "All BTCfi protocols display Trust Scores. Only verified protocols with 60%+ scores are featured on our platform."
+          },
+          "growingEcosystem": {
+            "title": "Growing Ecosystem",
+            "description": "Access lending, staking, and yield farming with your Bitcoin. Native BTC earning opportunities without selling."
+          },
+          "scalableSolutions": {
+            "title": "Scalable Solutions",
+            "description": "From individual holders to institutional treasuries. Our infrastructure handles any volume with consistent performance."
+          }
+        },
+        "stats": {
+          "btcBridged": "BTC BRIDGED",
+          "tvl": "TVL",
+          "zeroValue": "0",
+          "securityIncidents": "SECURITY INCIDENTS"
+        },
+        "productsSection": {
+          "title": "BTCfi Products",
+          "description": "Multiple ways to put your Bitcoin to work"
+        },
+        "products": {
+          "tbtcBridge": {
+            "title": "tBTC Bridge",
+            "description": "Trustless Bitcoin bridging with MPC security. No centralized custodians.",
+            "stats": "15K+ BTC Bridged"
+          },
+          "btcLending": {
+            "title": "BTC Lending",
+            "description": "Borrow stablecoins against your BTC. Up to 75% LTV with competitive rates.",
+            "stats": "5.2% APR"
+          },
+          "btcYieldFarming": {
+            "title": "BTC Yield Farming",
+            "description": "Provide BTC liquidity and earn trading fees plus TBURN rewards.",
+            "stats": "12.5% APY"
+          },
+          "btcStaking": {
+            "title": "BTC Staking",
+            "description": "Stake wrapped BTC to secure the network and earn passive rewards.",
+            "stats": "8.3% APY"
+          }
+        },
+        "relatedSolutions": {
+          "title": "Related Solutions",
+          "description": "Enhance your BTCfi experience with these tools",
+          "tokenExtensions": {
+            "title": "Token Extensions",
+            "subtitle": "BRC-20 standards"
+          },
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "BTC-compatible wallets"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "Pay with BTC"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "BTC banking"
+          },
+          "commerce": {
+            "title": "Commerce",
+            "subtitle": "Accept BTC"
+          },
+          "permissioned": {
+            "title": "Permissioned",
+            "subtitle": "Enterprise BTC"
+          },
+          "aiFeatures": {
+            "title": "AI Features",
+            "subtitle": "Smart BTC strategies"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "BTC transactions"
+          }
+        },
+        "developerResources": {
+          "title": "Developer Resources",
+          "description": "Build BTCfi applications with our comprehensive tools",
+          "sdkGuide": {
+            "title": "BTCfi SDK Guide",
+            "subtitle": "Integration documentation"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "BTC contract templates"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "Real-time BTC events"
+          },
+          "cliReference": {
+            "title": "CLI Tools",
+            "subtitle": "Command line interface"
+          },
+          "codeExamples": {
+            "title": "Code Examples",
+            "subtitle": "Sample integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "gettingStarted": "GETTING STARTED",
+          "defiMastery": {
+            "title": "BTCfi Mastery Course",
+            "subtitle": "Advanced Bitcoin DeFi strategies"
+          },
+          "introToDefi": {
+            "title": "Introduction to BTCfi",
+            "subtitle": "Learn Bitcoin DeFi fundamentals"
+          }
+        },
+        "cta": {
+          "title": "Ready to Unlock Your Bitcoin?",
+          "description": "Start earning yield on your BTC today with trust-verified protocols.",
+          "link": "View BTCfi Documentation"
+        }
       },
       "crossChainBridge": {
         "tag": "BRIDGE",
-        "title": "Cross-Chain Bridge",
-        "subtitle": "Secure asset transfers across 7+ blockchain networks."
+        "title": "Cross-Chain",
+        "titleHighlight": "Bridge",
+        "subtitle": "Secure asset transfers across 7+ blockchain networks. MPC security with atomic swaps and unified liquidity.",
+        "buttons": {
+          "launchBridge": "Launch Bridge",
+          "viewDocumentation": "View Documentation"
+        },
+        "heroStats": {
+          "chains": "SUPPORTED CHAINS",
+          "volume": "TOTAL VOLUME",
+          "txns": "TOTAL TRANSACTIONS",
+          "avgTime": "AVG BRIDGE TIME"
+        },
+        "supportedNetworks": {
+          "title": "Supported Networks",
+          "subtitle": "Bridge assets to and from major blockchain networks"
+        },
+        "coreFeatures": {
+          "mpcSecurity": {
+            "title": "MPC Security",
+            "subtitle": "Multi-Party Computation for trustless bridging",
+            "items": {
+              "distributedKeyGen": "Distributed Key Generation",
+              "thresholdSignatures": "Threshold Signatures",
+              "regularKeyRotation": "Regular Key Rotation"
+            }
+          },
+          "atomicSwaps": {
+            "title": "Atomic Swaps",
+            "subtitle": "All-or-nothing transaction guarantees",
+            "items": {
+              "htlcContracts": "HTLC Smart Contracts",
+              "zeroSlippage": "Zero Slippage Swaps",
+              "autoRefund": "Automatic Refunds"
+            }
+          },
+          "unifiedLiquidity": {
+            "title": "Unified Liquidity",
+            "subtitle": "Deep cross-chain liquidity pools",
+            "items": {
+              "crossChainPools": "Cross-Chain Liquidity Pools",
+              "dynamicRebalancing": "Dynamic Pool Rebalancing",
+              "largeTransferSupport": "Large Transfer Support"
+            }
+          }
+        },
+        "howItWorks": {
+          "title": "How the Bridge Works"
+        },
+        "bridgeSteps": {
+          "step1": {
+            "title": "Connect Wallet",
+            "desc": "Connect your wallet and select source/destination chains."
+          },
+          "step2": {
+            "title": "Select Assets",
+            "desc": "Choose tokens to bridge and enter the amount."
+          },
+          "step3": {
+            "title": "Confirm Transfer",
+            "desc": "Review fees and Trust Score verification, then confirm."
+          },
+          "step4": {
+            "title": "Receive Assets",
+            "desc": "Assets arrive on destination chain in ~2 minutes."
+          }
+        },
+        "relatedSolutions": {
+          "title": "Related Solutions",
+          "description": "Enhance your cross-chain experience with these tools",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "Bridge Bitcoin"
+          },
+          "tokenExtensions": {
+            "title": "Token Extensions",
+            "subtitle": "Cross-chain tokens"
+          },
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "Multi-chain wallets"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "Cross-chain payments"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "Multi-chain finance"
+          },
+          "permissioned": {
+            "title": "Permissioned",
+            "subtitle": "Enterprise bridges"
+          },
+          "aiFeatures": {
+            "title": "AI Features",
+            "subtitle": "Smart routing"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "Bridge via links"
+          }
+        },
+        "developerResources": {
+          "title": "Developer Resources",
+          "description": "Integrate cross-chain functionality into your applications",
+          "sdkGuide": {
+            "title": "Bridge SDK Guide",
+            "subtitle": "Integration documentation"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "Bridge contracts"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "Real-time updates"
+          },
+          "cliReference": {
+            "title": "CLI Tools",
+            "subtitle": "Command line bridging"
+          },
+          "codeExamples": {
+            "title": "Code Examples",
+            "subtitle": "Sample integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "forDevelopers": "FOR DEVELOPERS",
+          "defiMastery": {
+            "title": "Cross-Chain DeFi",
+            "subtitle": "Advanced multi-chain strategies"
+          },
+          "developerCourse": {
+            "title": "Bridge Developer Course",
+            "subtitle": "Build cross-chain applications"
+          }
+        },
+        "cta": {
+          "title": "Ready to Bridge Your Assets?",
+          "description": "Transfer assets across chains securely with trust verification.",
+          "link": "View Bridge Documentation"
+        }
       }
     },
     "useCases": {
       "gaming": {
         "tag": "GAMING & METAVERSE",
         "title": "Gaming & Metaverse",
-        "subtitle": "GameFi infrastructure and metaverse integration.",
+        "subtitle": "Build the next generation of blockchain games with TBURN's high-performance GameFi infrastructure. Seamless P2E integration, NFT assets, and cross-game economies.",
+        "buttons": {
+          "startBuilding": "Start Building",
+          "gameTooling": "Game Tooling"
+        },
         "categories": {
           "title": "Game Categories",
           "all": "All Games",
           "p2e": "Play-to-Earn",
           "nft": "NFT Games",
-          "metaverse": "Metaverse"
+          "metaverse": "Metaverse",
+          "web3Gaming": {
+            "title": "Web3 Gaming",
+            "desc": "Full-stack blockchain gaming with on-chain assets, verifiable randomness, and trustless tournaments. Build games that players truly own."
+          },
+          "nftCollectibles": {
+            "title": "NFT Collectibles",
+            "desc": "Create, trade, and verify digital collectibles with Trust Score authentication. Cross-game item interoperability and provenance tracking."
+          },
+          "musicStreaming": {
+            "title": "Music & Streaming",
+            "desc": "Decentralized music distribution with creator royalties. NFT tickets, fan tokens, and direct artist-to-listener monetization."
+          },
+          "metaverse": {
+            "title": "Metaverse & Virtual Worlds",
+            "desc": "Build immersive virtual experiences with blockchain-verified land ownership, avatar systems, and cross-platform asset portability."
+          }
         },
         "metrics": {
           "activePlayers": "Active Players",
           "dailyTransactions": "Daily Transactions",
           "totalNfts": "Total NFTs",
-          "tvl": "Gaming TVL"
+          "tvl": "Gaming TVL",
+          "dailyActivePlayers": "Daily Active Players",
+          "nftVolume": "NFT Trading Volume",
+          "gamesApps": "Games & Apps"
         },
         "features": {
           "title": "Gaming Features",
@@ -8290,7 +10120,19 @@
           },
           "guilds": {
             "title": "Gaming Guilds",
-            "description": "DAO-based guild management and profit sharing"
+            "desc": "DAO-based guild management with transparent profit sharing. Scholarship programs and collective asset ownership for gaming communities."
+          },
+          "gasFree": {
+            "title": "Gas-Free Gaming",
+            "desc": "Seamless player experience with sponsored transactions. No wallet popups or gas fees interrupting gameplay."
+          },
+          "antiCheat": {
+            "title": "Anti-Cheat System",
+            "desc": "AI-powered fraud detection with Trust Score integration. Protect your game economy from bots, exploits, and bad actors."
+          },
+          "playEarn": {
+            "title": "Play-to-Earn Rewards",
+            "desc": "Sustainable tokenomics with performance-based rewards. Fair distribution mechanisms that reward skill and time invested."
           }
         },
         "gameTypes": {
@@ -8310,73 +10152,384 @@
           "casual": {
             "title": "Casual",
             "description": "Quick-play games with micro-rewards"
+          },
+          "mmorpgs": {
+            "title": "MMORPGs",
+            "desc": "Massive multiplayer worlds with player-owned economies and guild governance"
+          },
+          "battleRoyale": {
+            "title": "Battle Royale",
+            "desc": "Competitive last-player-standing games with prize pools and ranked seasons"
+          },
+          "cardStrategy": {
+            "title": "Card & Strategy",
+            "desc": "Collectible card games with NFT cards and strategic turn-based combat"
+          },
+          "racingSports": {
+            "title": "Racing & Sports",
+            "desc": "Competitive racing and sports simulations with vehicle/player NFTs"
+          },
+          "casualSocial": {
+            "title": "Casual & Social",
+            "desc": "Relaxed gaming experiences with social features and mini-game tournaments"
+          },
+          "esports": {
+            "title": "Esports & Tournaments",
+            "desc": "Competitive gaming with decentralized prize pools and fair matchmaking"
           }
+        },
+        "sections": {
+          "categories": "Gaming Ecosystem",
+          "categoriesDesc": "Explore the diverse world of blockchain gaming on TBURN",
+          "platformFeatures": "Platform Features",
+          "gameGenres": "Supported Game Genres"
         },
         "cta": {
           "title": "Ready to Build Gaming on TBurn?",
           "subtitle": "Access GameFi SDKs and documentation",
+          "desc": "Join thousands of developers building the future of gaming. Access our comprehensive SDK, documentation, and developer community.",
+          "quickStart": "Quick Start Guide",
+          "memberPortal": "Member Portal",
           "getStarted": "Get Started",
           "viewDocs": "View Docs"
         }
       },
       "tokenization": {
-        "tag": "TOKENIZATION",
+        "tag": "ASSET TOKENIZATION",
         "title": "Asset Tokenization",
-        "subtitle": "Tokenize real-world assets on the blockchain."
+        "subtitle": "Transform real-world assets into blockchain tokens. Unlock liquidity, enable fractional ownership, and access global markets with regulatory-compliant tokenization.",
+        "buttons": {
+          "startTokenizing": "Start Tokenizing",
+          "viewDocumentation": "View Documentation"
+        },
+        "types": {
+          "realEstate": {
+            "title": "Real Estate Tokenization",
+            "desc": "Fractional ownership of commercial and residential properties. Enable global investment in real estate with minimal capital requirements and instant liquidity."
+          },
+          "luxuryAsset": {
+            "title": "Luxury Asset Tokens",
+            "desc": "Tokenize art, collectibles, rare wines, and luxury goods. Provenance tracking with blockchain verification and fractional ownership options."
+          },
+          "securities": {
+            "title": "Digital Securities",
+            "desc": "Compliant security tokens with automated dividend distribution. Equity, debt, and revenue-sharing tokens with built-in regulatory compliance."
+          },
+          "commodity": {
+            "title": "Commodity Tokens",
+            "desc": "Backed by physical commodities like gold, silver, and oil. Real-time price feeds with audited reserve verification."
+          }
+        },
+        "metrics": {
+          "newInvestors": "New Investors Enabled",
+          "unlockedAssetValue": "Unlocked Asset Value",
+          "settlementReliability": "Settlement Reliability"
+        },
+        "features": {
+          "globalMarket": {
+            "title": "Global Market Access",
+            "desc": "24/7 trading across borders with instant settlement. Access worldwide investors and secondary market liquidity."
+          },
+          "fractionalOwnership": {
+            "title": "Fractional Ownership",
+            "desc": "Enable investment from $100 in premium assets. Democratize access to traditionally exclusive asset classes."
+          },
+          "regulatoryCompliant": {
+            "title": "Regulatory Compliant",
+            "desc": "Built-in KYC/AML, accreditation checks, and jurisdictional compliance. Automated reporting and audit trails."
+          },
+          "enterpriseSecurity": {
+            "title": "Enterprise Security",
+            "desc": "Bank-grade custody, multi-sig controls, and quantum-resistant encryption. Institutional-grade asset protection."
+          }
+        },
+        "sections": {
+          "types": "Tokenization Categories",
+          "typesDesc": "Explore asset classes ready for blockchain tokenization",
+          "platformFeatures": "Platform Capabilities"
+        },
+        "cta": {
+          "title": "Ready to Tokenize Your Assets?",
+          "desc": "Transform illiquid assets into tradeable tokens. Our team will guide you through the tokenization process from structure to launch.",
+          "getStarted": "Get Started"
+        }
       },
       "depin": {
-        "tag": "DEPIN",
-        "title": "DePIN",
-        "subtitle": "Decentralized Physical Infrastructure Networks."
+        "tag": "DECENTRALIZED INFRASTRUCTURE",
+        "title": "DePIN Networks",
+        "subtitle": "Build and operate decentralized physical infrastructure networks. Earn rewards by contributing computing, storage, wireless, and sensing resources.",
+        "buttons": {
+          "deployInfrastructure": "Deploy Infrastructure",
+          "protocolDocs": "Protocol Docs"
+        },
+        "categories": {
+          "wireless": {
+            "title": "Wireless Networks",
+            "desc": "Decentralized 5G, LoRaWAN, and WiFi coverage. Earn rewards by deploying hotspots and providing connectivity to your community."
+          },
+          "compute": {
+            "title": "Distributed Compute",
+            "desc": "GPU and CPU resource sharing for AI training, rendering, and scientific computing. Monetize idle computing power."
+          },
+          "mapping": {
+            "title": "Mapping & Sensors",
+            "desc": "Crowdsourced geospatial data, weather stations, and IoT sensors. Build real-time data networks with verified coverage."
+          },
+          "storage": {
+            "title": "Decentralized Storage",
+            "desc": "Distributed file storage with redundancy and encryption. Earn rewards for contributing disk space to the network."
+          }
+        },
+        "metrics": {
+          "activeNodes": "Active Nodes",
+          "protocolRevenue": "Protocol Revenue",
+          "countriesCovered": "Countries Covered"
+        },
+        "features": {
+          "proofOfCoverage": {
+            "title": "Proof of Coverage",
+            "desc": "Cryptographically verify infrastructure deployment and service availability. Fair reward distribution based on actual contribution."
+          },
+          "slashingProtection": {
+            "title": "Slashing Protection",
+            "desc": "Stake-based security with penalties for malicious behavior. Protect network integrity while rewarding honest operators."
+          },
+          "communityGovernance": {
+            "title": "Community Governance",
+            "desc": "DAO-based protocol governance for network parameters. Token holders vote on upgrades, rewards, and expansion priorities."
+          },
+          "dynamicRewards": {
+            "title": "Dynamic Rewards",
+            "desc": "AI-optimized reward distribution based on demand and coverage gaps. Higher rewards for underserved areas."
+          }
+        },
+        "hardware": {
+          "title": "Hardware Requirements",
+          "desc": "Flexible hardware options for different DePIN protocols. Start earning with minimal investment.",
+          "minimum": "Minimum: Raspberry Pi 4 or equivalent ARM device",
+          "recommended": "Recommended: x86 server with 16GB RAM, 1TB SSD",
+          "gpu": "GPU Compute: NVIDIA RTX 3080 or higher for AI workloads"
+        },
+        "sections": {
+          "categories": "Infrastructure Categories",
+          "categoriesDesc": "Deploy and earn across multiple DePIN protocols",
+          "protocolFeatures": "Protocol Features"
+        },
+        "cta": {
+          "title": "Ready to Join the DePIN Revolution?",
+          "desc": "Deploy infrastructure, earn rewards, and help build the decentralized future. Our guides will help you get started in minutes.",
+          "getStarted": "Get Started"
+        }
       },
       "stablecoins": {
-        "tag": "STABLECOINS",
-        "title": "Stablecoins",
-        "subtitle": "Enterprise-grade stablecoin infrastructure."
+        "tag": "STABLECOIN INFRASTRUCTURE",
+        "title": "Stablecoin Solutions",
+        "subtitle": "Enterprise-grade stablecoin issuance and management. Fiat-backed, crypto-collateralized, and algorithmic options with full regulatory compliance.",
+        "buttons": {
+          "issueStablecoin": "Issue Stablecoin",
+          "technicalDocs": "Technical Docs"
+        },
+        "types": {
+          "fiatBacked": {
+            "title": "Fiat-Backed Stablecoins",
+            "desc": "1:1 reserve-backed tokens with real-time proof of reserves. Audited bank accounts with transparent attestation reports."
+          },
+          "cryptoCollateralized": {
+            "title": "Crypto-Collateralized",
+            "desc": "Over-collateralized stablecoins backed by crypto assets. Automated liquidation mechanisms and decentralized governance."
+          },
+          "institutionalGrade": {
+            "title": "Institutional Grade",
+            "desc": "Bank-grade compliance with AML/KYC integration. Whitelisting, blacklisting, and regulatory reporting built-in."
+          },
+          "multiCurrency": {
+            "title": "Multi-Currency Support",
+            "desc": "Issue stablecoins pegged to any fiat currency. USD, EUR, GBP, JPY, and emerging market currencies supported."
+          }
+        },
+        "metrics": {
+          "totalSupply": "Total Stablecoin Supply",
+          "dailyTransactions": "Daily Transactions",
+          "pegDeviation": "Max Peg Deviation"
+        },
+        "features": {
+          "proofOfReserves": {
+            "title": "Proof of Reserves",
+            "desc": "Real-time on-chain attestation of backing assets. Third-party auditors verify reserve ratios continuously."
+          },
+          "instantSettlement": {
+            "title": "Instant Settlement",
+            "desc": "Sub-second transaction finality with 50,000+ TPS. No waiting for bank transfers or clearing houses."
+          },
+          "programmableCompliance": {
+            "title": "Programmable Compliance",
+            "desc": "Smart contract-enforced transfer restrictions. Geographic limits, holding caps, and regulatory controls."
+          },
+          "crossChainBridges": {
+            "title": "Cross-Chain Bridges",
+            "desc": "Native bridges to Ethereum, Polygon, Arbitrum, and more. Unified liquidity across multiple networks."
+          }
+        },
+        "useCases": {
+          "payments": {
+            "title": "Global Payments",
+            "desc": "Instant cross-border transfers with minimal fees. Replace SWIFT with blockchain-based settlement."
+          },
+          "defiCollateral": {
+            "title": "DeFi Collateral",
+            "desc": "Use stablecoins as collateral for lending, borrowing, and yield farming. Stable value for predictable positions."
+          },
+          "treasury": {
+            "title": "Treasury Management",
+            "desc": "Corporate treasury operations with on-chain transparency. Automated payments and cash flow management."
+          },
+          "payroll": {
+            "title": "Payroll & Benefits",
+            "desc": "Instant global payroll in stable currencies. Automatic tax withholding and benefits distribution."
+          }
+        },
+        "sections": {
+          "types": "Stablecoin Types",
+          "typesDesc": "Choose the right stablecoin model for your needs",
+          "platformFeatures": "Platform Capabilities",
+          "useCases": "Use Cases"
+        },
+        "cta": {
+          "title": "Ready to Launch Your Stablecoin?",
+          "desc": "From concept to launch in weeks. Our team provides end-to-end support for stablecoin issuance and management.",
+          "getStarted": "Get Started"
+        }
       },
       "institutional": {
-        "tag": "INSTITUTIONAL",
+        "tag": "INSTITUTIONAL PAYMENTS",
         "title": "Institutional Payments",
-        "subtitle": "High-volume payment solutions for enterprises."
+        "subtitle": "High-volume payment infrastructure for banks and financial institutions. Real-time gross settlement, cross-border payments, and regulatory compliance.",
+        "buttons": {
+          "contactSales": "Contact Sales",
+          "apiReference": "API Reference"
+        },
+        "paymentFeatures": {
+          "rtgs": {
+            "title": "Real-Time Gross Settlement",
+            "desc": "Instant finality for high-value transactions. No batching delays or counterparty risk."
+          },
+          "crossBorder": {
+            "title": "Cross-Border Payments",
+            "desc": "Global reach with local settlement. Multi-currency support with real-time FX and corridor optimization."
+          },
+          "compliant": {
+            "title": "Regulatory Compliant",
+            "desc": "Built for regulated financial institutions. Full SWIFT compatibility, ISO 20022, and regulatory reporting."
+          },
+          "smartContract": {
+            "title": "Smart Contract Escrow",
+            "desc": "Programmable payment conditions and escrow. Automate complex settlement workflows and multi-party agreements."
+          }
+        },
+        "metrics": {
+          "dailyVolume": "Daily Settlement Volume",
+          "transactionFee": "Transaction Fee",
+          "uptimeSla": "Uptime SLA"
+        },
+        "integrations": {
+          "coreBanking": {
+            "title": "Core Banking Integration",
+            "desc": "Native connectors for major core banking systems. Seamless integration with existing infrastructure."
+          },
+          "treasury": {
+            "title": "Treasury Management",
+            "desc": "Real-time cash position visibility and automated liquidity optimization across accounts."
+          },
+          "correspondent": {
+            "title": "Correspondent Banking",
+            "desc": "Reduce correspondent banking fees and settlement times. Direct peer-to-peer institutional transfers."
+          },
+          "operations": {
+            "title": "24/7 Operations",
+            "desc": "Round-the-clock settlement with no batch processing. Continuous operations with 99.99% uptime guarantee."
+          }
+        },
+        "clientTypes": {
+          "centralBanks": {
+            "title": "Central Banks",
+            "desc": "CBDC issuance and wholesale settlement infrastructure for monetary authorities."
+          },
+          "commercialBanks": {
+            "title": "Commercial Banks",
+            "desc": "Retail and corporate payment rails with full regulatory compliance."
+          },
+          "paymentProcessors": {
+            "title": "Payment Processors",
+            "desc": "High-volume transaction processing with instant settlement and minimal fees."
+          },
+          "fintechs": {
+            "title": "Fintechs & Neobanks",
+            "desc": "Modern banking infrastructure without legacy system constraints."
+          }
+        },
+        "sections": {
+          "paymentFeatures": "Payment Infrastructure",
+          "paymentFeaturesDesc": "Enterprise-grade payment capabilities for financial institutions",
+          "systemIntegrations": "System Integrations",
+          "clientTypes": "Client Types"
+        },
+        "cta": {
+          "title": "Ready to Modernize Your Payment Infrastructure?",
+          "desc": "Schedule a demo with our institutional team. We'll show you how TBURN can transform your payment operations.",
+          "requestDemo": "Request Demo"
+        }
       },
       "enterprise": {
         "tag": "ENTERPRISE BLOCKCHAIN",
         "title": "Enterprise Solutions",
         "subtitle": "Comprehensive blockchain solutions for modern businesses. Private networks, compliance features, and 24/7 enterprise support.",
+        "buttons": {
+          "contactEnterprise": "Contact Enterprise",
+          "enterpriseDocs": "Enterprise Docs"
+        },
         "contactEnterprise": "Contact Enterprise",
         "enterpriseDocs": "Enterprise Docs",
         "metrics": {
-          "enterpriseClients": {
-            "value": "500+",
-            "label": "Enterprise Clients"
-          },
-          "uptimeGuarantee": {
-            "value": "99.95%",
-            "label": "Uptime Guarantee"
-          },
-          "dedicatedSupport": {
-            "value": "24/7",
-            "label": "Dedicated Support"
-          }
+          "enterpriseClients": "Enterprise Clients",
+          "uptimeGuarantee": "Uptime Guarantee",
+          "dedicatedSupport": "Dedicated Support"
         },
         "solutions": {
           "title": "Enterprise Solutions",
           "subtitle": "Blockchain applications for modern business challenges.",
-          "identityAccess": {
+          "identity": {
             "title": "Identity & Access Management",
-            "description": "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
+            "desc": "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
           },
           "supplyChain": {
             "title": "Supply Chain Transparency",
-            "description": "End-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
+            "desc": "End-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
           },
-          "documentManagement": {
+          "document": {
             "title": "Document Management",
-            "description": "Tamper-proof document storage and verification. Digital signatures, version control, and compliance archiving."
+            "desc": "Tamper-proof document storage and verification. Digital signatures, version control, and compliance archiving."
           },
-          "processAutomation": {
+          "automation": {
             "title": "Business Process Automation",
-            "description": "Smart contract-driven workflows. Automate approvals, payments, and multi-party agreements with trustless execution."
+            "desc": "Smart contract-driven workflows. Automate approvals, payments, and multi-party agreements with trustless execution."
+          }
+        },
+        "features": {
+          "soc2": {
+            "title": "SOC 2 Compliant",
+            "desc": "Enterprise security controls with annual third-party audits. Full compliance documentation and certifications."
+          },
+          "privateSubnets": {
+            "title": "Private Subnets",
+            "desc": "Isolated network environments for sensitive data. Custom consensus rules and access controls for your organization."
+          },
+          "roleAccess": {
+            "title": "Role-Based Access",
+            "desc": "Granular permissions and multi-tenant isolation. Define custom roles with precise access to features and data."
+          },
+          "onPremise": {
+            "title": "On-Premise Deployment",
+            "desc": "Deploy within your own data center infrastructure. Full control over hardware, networking, and security."
           }
         },
         "platformFeatures": {
@@ -8396,6 +10549,32 @@
           "onPremise": {
             "title": "On-Premise Option",
             "description": "Deploy within your own data center infrastructure"
+          }
+        },
+        "industries": {
+          "healthcare": {
+            "title": "Healthcare",
+            "desc": "HIPAA-compliant medical record management and secure health data exchange between providers."
+          },
+          "manufacturing": {
+            "title": "Manufacturing",
+            "desc": "Supply chain tracking, quality assurance documentation, and IoT sensor data verification."
+          },
+          "legal": {
+            "title": "Legal Services",
+            "desc": "Smart contract-based agreements, e-signatures, and immutable document archiving."
+          },
+          "government": {
+            "title": "Government",
+            "desc": "Transparent public records, secure voting systems, and citizen identity management."
+          },
+          "insurance": {
+            "title": "Insurance",
+            "desc": "Automated claims processing, fraud detection, and policy administration on blockchain."
+          },
+          "logistics": {
+            "title": "Logistics",
+            "desc": "Real-time shipment tracking, customs documentation, and delivery verification."
           }
         },
         "industryApplications": {
@@ -8425,9 +10604,16 @@
             "description": "Shipment tracking and verification"
           }
         },
+        "sections": {
+          "solutions": "Enterprise Solutions",
+          "solutionsDesc": "Blockchain applications designed for enterprise challenges",
+          "platformFeatures": "Security & Compliance",
+          "industryApplications": "Industry Applications"
+        },
         "cta": {
           "title": "Ready for Enterprise Blockchain?",
           "subtitle": "Schedule a consultation with our enterprise team. We'll design a custom solution that fits your organization's requirements.",
+          "desc": "Schedule a consultation with our enterprise team. We'll design a custom solution that fits your organization's requirements.",
           "scheduleConsultation": "Schedule Consultation"
         }
       }
@@ -8438,6 +10624,13 @@
         "title": "Validators",
         "subtitle": "Join the TBurn validator network and earn rewards while securing the blockchain.",
         "becomeValidator": "Become Validator",
+        "validatorDocs": "View Validator Documentation",
+        "stats": {
+          "activeValidators": "Active Validators",
+          "totalStaked": "Total Staked",
+          "averageUptime": "Average Uptime",
+          "operatingCountries": "Operating Countries"
+        },
         "consensusSpecs": {
           "title": "Consensus Specifications",
           "blockTime": {
@@ -8455,6 +10648,48 @@
           "epochLength": {
             "label": "Epoch Length",
             "value": "6 hours"
+          }
+        },
+        "tierSystem": {
+          "title": "Validator Tier System",
+          "stake": "Minimum Stake",
+          "apy": "APY",
+          "slots": "Available Slots",
+          "elite": {
+            "name": "Elite Validator",
+            "badge": "Elite",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 slots",
+            "benefits": {
+              "blockPriority": "Block production priority",
+              "revenueShare": "Additional revenue share",
+              "aiDecision": "AI decision participation"
+            }
+          },
+          "standard": {
+            "name": "Standard Validator",
+            "badge": "Standard",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 slots",
+            "benefits": {
+              "blockValidation": "Block validation rights",
+              "feeDistribution": "Transaction fee distribution",
+              "votingRights": "Governance voting rights"
+            }
+          },
+          "starter": {
+            "name": "Starter Validator",
+            "badge": "Starter",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "Unlimited",
+            "benefits": {
+              "delegate": "Delegate to larger validators",
+              "autoRewards": "Automatic reward distribution",
+              "unstakePeriod": "21-day unstaking period"
+            }
           }
         },
         "validatorTiers": {
@@ -8475,12 +10710,54 @@
             "rewards": "Base rewards"
           }
         },
+        "hardware": {
+          "title": "Hardware Requirements",
+          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "Storage: 2TB NVMe SSD",
+          "network": "Network: 1Gbps dedicated",
+          "superNode": {
+            "title": "Super Node Requirements",
+            "cpu": "CPU: 32+ cores",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "Storage: 4TB NVMe RAID",
+            "network": "Network: 10Gbps dedicated"
+          }
+        },
         "hardwareRequirements": {
           "title": "Hardware Requirements",
           "cpu": "CPU: 8+ cores",
           "ram": "RAM: 32GB+",
           "storage": "Storage: 1TB NVMe SSD",
           "bandwidth": "Bandwidth: 1Gbps"
+        },
+        "slashing": {
+          "title": "Slashing Conditions",
+          "subtitle": "Validators must maintain high standards. Violations result in stake penalties.",
+          "minor": {
+            "title": "Minor Violation",
+            "badge": "Warning",
+            "description": "Brief downtime or missed blocks",
+            "penalty": "0.1% stake reduction"
+          },
+          "moderate": {
+            "title": "Moderate Violation",
+            "badge": "Penalty",
+            "description": "Extended downtime over 24 hours",
+            "penalty": "1-5% stake reduction"
+          },
+          "severe": {
+            "title": "Severe Violation",
+            "badge": "Severe",
+            "description": "Malicious voting or censorship attempts",
+            "penalty": "25-50% stake reduction"
+          },
+          "critical": {
+            "title": "Critical Violation",
+            "badge": "Critical",
+            "description": "Double signing or network attacks",
+            "penalty": "100% stake slashed"
+          }
         },
         "slashingPolicy": {
           "title": "Slashing Policy",
@@ -8496,6 +10773,14 @@
             "offense": "Malicious Voting",
             "penalty": "50% stake slashed"
           }
+        },
+        "geography": {
+          "title": "Geographic Distribution"
+        },
+        "activeValidators": {
+          "title": "Active Validators",
+          "searchPlaceholder": "Search validators...",
+          "viewAll": "View All Validators"
         }
       },
       "rpc": {
@@ -8503,6 +10788,64 @@
         "title": "RPC Providers",
         "subtitle": "High-performance RPC endpoints with enterprise-grade reliability. Support for WebSocket and HTTP connections.",
         "getApiKey": "Get API Key",
+        "buttons": {
+          "getApiKey": "Get API Key",
+          "viewDocs": "View Documentation"
+        },
+        "sections": {
+          "apiPlans": "API Plans",
+          "coreEndpoints": "Core Endpoints",
+          "sdkExamples": "SDK Examples",
+          "support": "Support"
+        },
+        "plans": {
+          "free": {
+            "name": "Free"
+          },
+          "basic": {
+            "name": "Basic"
+          },
+          "pro": {
+            "name": "Pro"
+          },
+          "enterprise": {
+            "name": "Enterprise"
+          },
+          "requestsMin": "requests/min",
+          "requestsDay": "requests/day",
+          "perMonth": "/month",
+          "unlimited": "Unlimited",
+          "contact": "Contact Us"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "Score Query API"
+          },
+          "projectApi": {
+            "title": "Project API"
+          },
+          "analyticsApi": {
+            "title": "Analytics API"
+          },
+          "webhookApi": {
+            "title": "Webhook API",
+            "events": "Events: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "TypeScript SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "cURL Example"
+          }
+        },
+        "cta": {
+          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
+        },
         "apiPlans": {
           "title": "API Plans & Limits",
           "free": {
@@ -8581,12 +10924,189 @@
       "status": {
         "tag": "STATUS",
         "title": "Network Status",
-        "subtitle": "Real-time network health and performance metrics."
+        "subtitle": "Real-time network health and performance metrics.",
+        "operational": "Operational",
+        "lastUpdated": "Last updated",
+        "daysAgo": "days ago",
+        "buttons": {
+          "refreshData": "Refresh Data"
+        },
+        "sections": {
+          "coreMetrics": "Core Metrics",
+          "coreMetricsDesc": "Real-time blockchain performance indicators",
+          "serviceStatus": "Service Status",
+          "serviceStatusDesc": "Current status of all network services",
+          "uptimeHistory": "Uptime History",
+          "uptimeHistoryDesc": "Network availability over the past 90 days",
+          "aiSystem": "AI Orchestration System",
+          "aiSystemDesc": "Triple-band AI model performance and status",
+          "validatorNetwork": "Validator Network",
+          "validatorNetworkDesc": "Active validators and geographic distribution"
+        },
+        "metrics": {
+          "tps": "Transactions Per Second",
+          "peak": "Peak",
+          "blockHeight": "Block Height",
+          "latency": "Network Latency",
+          "finality": "Finality Time",
+          "avgFee": "Average Fee",
+          "cheapFast": "Cheap & Fast",
+          "shards": "Active Shards"
+        },
+        "services": {
+          "mainnetRpc": {
+            "name": "Mainnet RPC",
+            "desc": "Primary JSON-RPC endpoints for mainnet"
+          },
+          "wsApi": {
+            "name": "WebSocket API",
+            "desc": "Real-time event streaming and subscriptions"
+          },
+          "explorerApi": {
+            "name": "Explorer API",
+            "desc": "Block explorer data endpoints"
+          },
+          "trustScoreApi": {
+            "name": "Trust Score API",
+            "desc": "Project verification and scoring endpoints"
+          },
+          "crossChainBridge": {
+            "name": "Cross-Chain Bridge",
+            "desc": "Multi-chain asset transfer service"
+          },
+          "quantumSecurity": {
+            "name": "Quantum Security Module",
+            "desc": "CRYSTALS-Dilithium signature verification"
+          }
+        },
+        "ai": {
+          "active": "Active",
+          "accuracy": "Accuracy",
+          "latency": "Latency",
+          "strategic": {
+            "title": "Strategic AI",
+            "model": "GPT-5"
+          },
+          "tactical": {
+            "title": "Tactical AI",
+            "model": "Claude Sonnet 4.5"
+          },
+          "operational": {
+            "title": "Operational AI",
+            "model": "Llama 4"
+          }
+        },
+        "uptime": {
+          "monthlyAverage": "Monthly Average",
+          "uptimeGuarantee": "Uptime Guarantee",
+          "lastIncident": "Last Incident"
+        },
+        "validators": {
+          "active": "Active Validators",
+          "countries": "Operating Countries",
+          "totalStaked": "Total Staked",
+          "avgUptime": "Average Uptime"
+        }
       },
       "ramp": {
         "tag": "FIAT GATEWAY",
         "title": "Fiat On/Off Ramp",
-        "subtitle": "Buy and sell TBURN with fiat currency."
+        "subtitle": "Buy and sell TBURN with fiat currency.",
+        "fee": "Fee",
+        "sections": {
+          "howItWorks": "How It Works",
+          "paymentMethods": "Payment Methods",
+          "limitsFees": "Limits & Fees",
+          "whyBurnRamp": "Why Burn Ramp?"
+        },
+        "buy": {
+          "title": "Buy TBURN",
+          "desc": "Purchase TBURN tokens with your preferred payment method",
+          "amountPlaceholder": "Enter amount in USD",
+          "estTburn": "Estimated TBURN",
+          "button": "Buy TBURN"
+        },
+        "sell": {
+          "title": "Sell TBURN",
+          "desc": "Convert your TBURN tokens to fiat currency",
+          "amountPlaceholder": "Enter amount in TBURN",
+          "estUsd": "Estimated USD",
+          "button": "Sell TBURN"
+        },
+        "steps": {
+          "step1": {
+            "title": "Create Account",
+            "desc": "Sign up and complete KYC verification"
+          },
+          "step2": {
+            "title": "Choose Amount",
+            "desc": "Select your purchase or sale amount"
+          },
+          "step3": {
+            "title": "Select Payment",
+            "desc": "Choose your preferred payment method"
+          },
+          "step4": {
+            "title": "Complete Transaction",
+            "desc": "Review and confirm your transaction"
+          }
+        },
+        "payments": {
+          "onRamp": "On-Ramp Methods",
+          "offRamp": "Off-Ramp Methods",
+          "creditDebit": "Credit/Debit Card",
+          "bankTransfer": "Bank Transfer (ACH/SEPA)",
+          "digitalWallets": "Digital Wallets (Apple Pay, Google Pay)",
+          "bankWithdrawal": "Bank Withdrawal",
+          "paypalWithdrawal": "PayPal Withdrawal",
+          "physicalCheck": "Physical Check"
+        },
+        "accounts": {
+          "basic": {
+            "title": "Basic",
+            "desc": "Email verification only"
+          },
+          "verified": {
+            "title": "Verified",
+            "desc": "Full KYC completed"
+          },
+          "institutional": {
+            "title": "Institutional",
+            "desc": "Business account with enhanced limits"
+          },
+          "dailyLimit": "Daily Limit",
+          "monthlyLimit": "Monthly Limit",
+          "buyFee": "Buy Fee",
+          "sellFee": "Sell Fee",
+          "unlimited": "Unlimited",
+          "recommended": "Recommended"
+        },
+        "features": {
+          "instantProcessing": {
+            "title": "Instant Processing",
+            "desc": "Most transactions complete within minutes"
+          },
+          "lowFees": {
+            "title": "Low Fees",
+            "desc": "Competitive rates starting at 0.5%"
+          },
+          "bankGradeSecurity": {
+            "title": "Bank-Grade Security",
+            "desc": "256-bit encryption and 2FA protection"
+          }
+        },
+        "cta": {
+          "title": "Ready to Get Started?",
+          "createAccount": "Create Account",
+          "contactSupport": "Contact Support"
+        },
+        "toast": {
+          "processing": "Processing...",
+          "initiatingPurchase": "Initiating TBURN purchase...",
+          "initiatingSale": "Initiating TBURN sale...",
+          "enterValidAmount": "Please enter a valid amount",
+          "error": "Transaction failed. Please try again."
+        }
       }
     },
     "community": {
@@ -8595,45 +11115,61 @@
         "title": "Community Hub",
         "subtitle": "Connect with builders, validators, and enthusiasts.",
         "stats": {
-          "totalMembers": {
-            "label": "Total Members"
-          },
-          "monthlyActive": {
-            "label": "Monthly Active"
-          },
-          "ambassadors": {
-            "label": "Ambassadors"
-          },
-          "contributors": {
-            "label": "Contributors"
-          }
+          "totalMembers": "Total Members",
+          "monthlyActive": "Monthly Active",
+          "ambassadors": "Ambassadors",
+          "contributors": "Contributors"
         },
+        "channelsTitle": "Join Our Channels",
         "channels": {
           "title": "Community Channels",
           "discord": {
             "name": "Discord",
+            "members": "124,500+ members",
             "description": "Real-time dev chat, support, and community hanging out.",
             "action": "Join Server"
           },
           "telegram": {
             "name": "Telegram",
+            "members": "89,200+ members",
             "description": "Fast announcements and local community groups.",
             "action": "Join Channel"
           },
           "twitter": {
             "name": "Twitter / X",
+            "members": "156,000+ followers",
             "description": "Latest updates, partnerships, and event news.",
             "action": "Follow Us"
           },
           "github": {
             "name": "GitHub",
+            "members": "2,400+ stars",
             "description": "Open source code, SDKs, and technical documentation.",
             "action": "Contribute"
           }
         },
         "leaderboard": {
           "title": "Contributor Leaderboard",
-          "subtitle": "Top community contributors this month"
+          "subtitle": "Top community contributors this month",
+          "points": "{{count}} points",
+          "tiers": {
+            "diamond": "Diamond",
+            "platinum": "Platinum",
+            "gold": "Gold",
+            "silver": "Silver",
+            "bronze": "Bronze"
+          }
+        },
+        "ambassador": {
+          "title": "Ambassador Program",
+          "subtitle": "Lead the global TBurn community",
+          "applyButton": "Apply as Ambassador",
+          "benefits": {
+            "rewards": "Monthly TBURN token rewards",
+            "earlyAccess": "Early access to new features",
+            "nftBadge": "Official NFT Badge & Swag",
+            "directChannel": "Direct team communication channel"
+          }
         },
         "ambassadorProgram": {
           "title": "Ambassador Program",
@@ -8646,6 +11182,7 @@
           },
           "applyButton": "Apply as Ambassador"
         },
+        "contributeTitle": "Ways to Contribute",
         "contribute": {
           "title": "Ways to Contribute",
           "code": {
@@ -8674,22 +11211,95 @@
           "tag": "TBURN DAO",
           "description": "Stake TBURN tokens to participate in protocol decisions. Create proposals, vote on upgrades, and manage the community treasury.",
           "goToPortal": "Go to Governance Portal",
+          "button": "Go to Governance Portal",
           "stats": {
             "proposals": "Proposals",
             "votesCast": "Votes Cast",
-            "treasuryBalance": "Treasury Balance"
+            "treasuryBalance": "Treasury Balance",
+            "treasury": "Treasury Balance"
           }
         }
       },
       "news": {
         "tag": "NEWS & BLOG",
         "title": "News & Blog",
-        "subtitle": "Latest updates, announcements, and insights."
+        "subtitle": "Latest updates, announcements, and insights.",
+        "searchPlaceholder": "Search articles...",
+        "featuredTitle": "Featured Stories",
+        "featuredBadge": "Featured",
+        "latestTitle": "Latest Articles",
+        "readMore": "Read More",
+        "readTime": "{{minutes}} min read",
+        "views": "views",
+        "showingCount": "Showing {{current}} of {{total}}",
+        "categories": {
+          "all": "All",
+          "announcement": "Announcement",
+          "technology": "Technology",
+          "security": "Security",
+          "tokenomics": "Tokenomics",
+          "partnership": "Partnership",
+          "defi": "DeFi",
+          "development": "Development"
+        },
+        "featured": {
+          "mainnetLaunch": {
+            "title": "TBURN V4 Mainnet Officially Launches",
+            "description": "After 18 months of development, TBURN Chain V4 Mainnet is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
+            "author": "TBURN Foundation"
+          },
+          "tripleBandAi": {
+            "title": "Triple-Band AI Orchestration Revealed",
+            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
+            "author": "AI Research Team"
+          },
+          "partnership": {
+            "title": "Global Partnership Expansion: 12 New Integrations",
+            "description": "TBURN Chain announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
+            "author": "Business Development"
+          }
+        },
+        "articles": {
+          "staking": {
+            "title": "TBURN Staking Program: Complete Guide to Earning Rewards",
+            "description": "Everything you need to know about the three-tier staking system, APY calculations, and how to maximize your validator rewards."
+          },
+          "trustScore": {
+            "title": "Trust Score Deep Dive: The 3-Stage Verification Process",
+            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+          },
+          "sdk": {
+            "title": "TBURN SDK 2.0 Released: New Features for Developers",
+            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+          },
+          "quantum": {
+            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
+            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN Chain against emerging quantum computing threats."
+          },
+          "dex": {
+            "title": "TBURN DEX Beta Launch: Trade with Trust Scores",
+            "description": "Our native decentralized exchange is now in beta. Trade verified tokens with integrated Trust Score protection and low fees."
+          }
+        },
+        "newsletter": {
+          "title": "Stay Updated",
+          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
+          "placeholder": "Enter your email address",
+          "button": "Subscribe",
+          "privacy": "We respect your privacy. Unsubscribe anytime.",
+          "success": "Subscription Successful",
+          "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",
+          "error": "Subscription Error",
+          "invalidEmail": "Please enter a valid email address."
+        }
       },
       "events": {
         "tag": "EVENTS & ACTIVITIES",
         "title": "Events & Activities",
         "subtitle": "Join TBurn Chain community events, hackathons, and conferences.",
+        "featuredTitle": "Featured Events",
+        "upcomingTitle": "Upcoming Events",
+        "capacity": "Capacity",
         "filters": {
           "all": "All Events",
           "hackathon": "Hackathon",
@@ -8698,12 +11308,55 @@
           "meetup": "Meetup",
           "conference": "Conference"
         },
+        "types": {
+          "launchEvent": "Launch Event",
+          "amaSession": "AMA Session",
+          "seminar": "Technical Seminar",
+          "training": "Training Workshop"
+        },
+        "locations": {
+          "online": "Online",
+          "seoul": "Seoul, Korea",
+          "singapore": "Singapore"
+        },
         "featured": {
           "title": "Featured Events",
-          "capacity": "Capacity"
+          "capacity": "Capacity",
+          "mainnetLaunch": {
+            "title": "TBURN Mainnet Launch Celebration",
+            "description": "Join us for the historic launch of TBURN V4 Mainnet. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
+          },
+          "defiChallenge": {
+            "title": "TBURN DeFi Challenge Hackathon",
+            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Chain and compete for grants and incubation opportunities."
+          }
         },
         "upcoming": {
-          "title": "Upcoming Events"
+          "title": "Upcoming Events",
+          "foundersAma": {
+            "title": "Founders AMA: 2025 Vision",
+            "description": "Live Q&A with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
+          },
+          "trustScoreApi": {
+            "title": "Trust Score API Integration Workshop",
+            "description": "Hands-on technical workshop for developers. Learn how to integrate Trust Score verification into your dApps and smart contracts."
+          },
+          "seoulMeetup": {
+            "title": "Seoul Developer Meetup",
+            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+          },
+          "aiDeepDive": {
+            "title": "Triple-Band AI Deep Dive Seminar",
+            "description": "Technical deep dive into our AI orchestration system. Learn about the architecture behind intelligent blockchain operations."
+          },
+          "validatorOps": {
+            "title": "Validator Operations Training",
+            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+          },
+          "futureOfTrust": {
+            "title": "The Future of Trust: TBURN Summit 2025",
+            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+          }
         },
         "eventTypes": {
           "launchEvent": "Launch Event",
@@ -8721,7 +11374,13 @@
           "setReminder": "Set Reminder",
           "register": "Register",
           "rsvp": "RSVP (Limited)",
+          "rsvpLimited": "RSVP (Limited Seats)",
           "getTickets": "Get Tickets"
+        },
+        "hostCta": {
+          "title": "Want to Host an Event?",
+          "description": "Host meetups, webinars, or hackathons with the TBurn Chain community. We provide funding, swag, and marketing support for approved hosts.",
+          "button": "Apply to Host"
         },
         "hostEvent": {
           "title": "Want to host an event?",
@@ -8730,11 +11389,68 @@
         },
         "toast": {
           "reminderSet": "Reminder Set",
-          "reminderDescription": "You will be notified before \"{{eventTitle}}\""
+          "reminderDescription": "You will be notified before \"{{title}}\""
         }
       }
     },
     "legal": {
+      "common": {
+        "backToHome": "Back to Home",
+        "learnMore": "Learn More",
+        "relatedDocs": "Related Documents",
+        "securitySolutions": "Security Solutions",
+        "links": {
+          "privacy": {
+            "title": "Privacy Policy",
+            "subtitle": "How we handle your data",
+            "subtitleData": "Your data protection rights"
+          },
+          "terms": {
+            "title": "Terms of Service",
+            "subtitle": "User agreement and conditions"
+          },
+          "disclaimer": {
+            "title": "Disclaimer",
+            "subtitle": "Legal notices",
+            "subtitleRisk": "Risk disclosures"
+          }
+        },
+        "learn": {
+          "trustScore": {
+            "title": "Trust Score System",
+            "subtitle": "3-stage verification process",
+            "subtitleHow": "How Trust Scores work",
+            "subtitleVerification": "Verification methodology"
+          },
+          "wallet": {
+            "title": "What is a Wallet?",
+            "subtitle": "Wallet basics",
+            "subtitleSecurity": "Securing your assets"
+          },
+          "blockchain": {
+            "title": "Blockchain Basics",
+            "subtitle": "Understanding blockchain technology"
+          },
+          "burnChain": {
+            "title": "What is TBurn Chain?",
+            "subtitle": "Platform overview"
+          },
+          "defi": {
+            "title": "Intro to DeFi",
+            "subtitle": "Decentralized finance fundamentals"
+          }
+        },
+        "solutions": {
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "Secure wallet solutions"
+          },
+          "permissioned": {
+            "title": "Permissioned Environments",
+            "subtitle": "Enterprise privacy solutions"
+          }
+        }
+      },
       "terms": {
         "title": "Terms of Service",
         "subtitle": "Terms and conditions for using TBurn Chain services.",
@@ -8750,7 +11466,29 @@
             "services": "'Services' includes the blockchain network, trust verification system, APIs, and platform features.",
             "user": "'User' or 'you' refers to any individual or entity using TBurn Chain.",
             "project": "'Project' refers to blockchain projects seeking verification on TBurn Chain.",
-            "trustScore": "'Trust Score' refers to the reliability rating assigned through our 3-stage verification system."
+            "trustScore": "'Trust Score' refers to the reliability rating assigned through our 3-stage verification system.",
+            "items": {
+              "tburnChain": {
+                "term": "TBurn Chain",
+                "desc": "The Layer 1 blockchain network and associated services"
+              },
+              "services": {
+                "term": "Services",
+                "desc": "The blockchain network, trust verification system, APIs, and platform features"
+              },
+              "user": {
+                "term": "User",
+                "desc": "Any individual or entity using TBurn Chain"
+              },
+              "project": {
+                "term": "Project",
+                "desc": "Blockchain projects seeking verification on TBurn Chain"
+              },
+              "trustScore": {
+                "term": "Trust Score",
+                "desc": "The reliability rating assigned through our 3-stage verification system"
+              }
+            }
           },
           "eligibility": {
             "title": "3. Eligibility",
@@ -8758,7 +11496,25 @@
             "age": "Be at least 18 years old (or legal age in your jurisdiction).",
             "legalCapacity": "Have the legal capacity to enter into binding contracts.",
             "notProhibited": "Not be prohibited from using our services under applicable laws.",
-            "comply": "Comply with all local laws regarding online conduct and blockchain technology."
+            "comply": "Comply with all local laws regarding online conduct and blockchain technology.",
+            "items": {
+              "age": "Be at least 18 years old (or legal age in your jurisdiction)",
+              "capacity": "Have the legal capacity to enter into binding contracts",
+              "comply": "Comply with all local laws regarding online conduct and blockchain technology",
+              "prohibited": "Not be prohibited from using our services under applicable laws"
+            }
+          },
+          "account": {
+            "title": "4. Account Registration & Security",
+            "creation": {
+              "title": "4.1 Account Creation",
+              "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
+            },
+            "wallet": {
+              "title": "4.2 Wallet Security",
+              "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
+              "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
+            }
           },
           "accountSecurity": {
             "title": "4. Account Registration & Security",
@@ -8773,12 +11529,45 @@
             "stage1": "Stage 1: AI-powered automatic filtering (24 hours)",
             "stage2": "Stage 2: Expert validation by blockchain developers and auditors (7-14 days)",
             "stage3": "Stage 3: Community voting by TBURN token holders (3-5 days)",
-            "implications": "5.2 Trust Score Implications",
+            "implications": {
+              "title": "5.2 Trust Score Implications",
+              "content": "Trust scores range from 0-100. Scores below 40 result in automatic token trading suspension. Scores are updated in real-time on-chain."
+            },
+            "process": {
+              "title": "3-Stage Verification Process",
+              "stage1": {
+                "label": "Stage 1: AI Analysis",
+                "value": "AI-powered automatic filtering (24 hours)"
+              },
+              "stage2": {
+                "label": "Stage 2: Expert Review",
+                "value": "Expert validation by blockchain developers and auditors (7-14 days)"
+              },
+              "stage3": {
+                "label": "Stage 3: Community Voting",
+                "value": "Community voting by TBURN token holders (3-5 days)"
+              }
+            },
             "implicationsContent": "Trust scores range from 0-100. Scores below 40 result in automatic token trading suspension. Scores are updated in real-time on-chain."
+          },
+          "burn": {
+            "title": "6. Burn Mechanism",
+            "content": "Projects must deposit collateral equal to their burn commitment. Failure to execute scheduled burns triggers automatic penalties and collateral burns through smart contracts."
           },
           "burnMechanism": {
             "title": "6. Burn Mechanism",
             "content": "Projects must deposit collateral equal to their burn commitment. Failure to execute scheduled burns triggers automatic penalties and collateral burns through smart contracts."
+          },
+          "prohibited": {
+            "title": "7. Prohibited Activities",
+            "intro": "You agree not to:",
+            "items": {
+              "laundering": "Use the platform for money laundering or terrorist financing",
+              "falseInfo": "Submit false or misleading project information",
+              "manipulate": "Manipulate Trust Scores through coordinated voting",
+              "exploit": "Attempt to exploit smart contract vulnerabilities",
+              "washTrading": "Engage in market manipulation or wash trading"
+            }
           },
           "prohibitedActivities": {
             "title": "7. Prohibited Activities",
@@ -8791,18 +11580,36 @@
               "marketManipulation": "Engage in market manipulation or wash trading"
             }
           },
+          "ip": {
+            "title": "8. Intellectual Property",
+            "content": "All intellectual property rights in TBurn Chain, including the platform, protocols, and branding, are owned by TBurn Chain Foundation. You are granted a limited, non-exclusive license to use our services."
+          },
           "intellectualProperty": {
             "title": "8. Intellectual Property",
             "content": "All intellectual property rights in TBurn Chain, including the platform, protocols, and branding, are owned by TBurn Chain Foundation. You are granted a limited, non-exclusive license to use our services."
           },
           "disclaimers": {
             "title": "9. Disclaimers & Limitations",
-            "asIs": "'As-Is' Basis",
-            "asIsContent": "Services are provided 'AS IS' and 'AS AVAILABLE' without warranties of any kind, either express or implied.",
+            "asIs": {
+              "title": "'As-Is' Basis",
+              "content": "Services are provided 'AS IS' and 'AS AVAILABLE' without warranties of any kind, either express or implied."
+            },
+            "noAdvice": {
+              "title": "No Investment Advice",
+              "content": "TBurn Chain does not provide investment, financial, or legal advice. Trust scores are informational only."
+            },
+            "limitation": {
+              "title": "Limitation of Liability",
+              "content": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
+            },
             "noInvestmentAdvice": "No Investment Advice",
             "noInvestmentAdviceContent": "TBurn Chain does not provide investment, financial, or legal advice. Trust scores are informational only.",
             "limitationOfLiability": "Limitation of Liability",
             "limitationOfLiabilityContent": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
+          },
+          "governing": {
+            "title": "10. Governing Law",
+            "content": "These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where TBurn Chain Foundation is incorporated, without regard to conflict of law principles."
           },
           "governingLaw": {
             "title": "10. Governing Law",
@@ -8813,7 +11620,13 @@
           "title": "Contact Information",
           "legalInquiries": "Legal Inquiries",
           "generalSupport": "General Support",
-          "note": "Note: These Terms of Service are provided in English. Translations may be available for convenience, but the English version governs in case of conflicts."
+          "note": "Note: These Terms of Service are provided in English. Translations may be available for convenience, but the English version governs in case of conflicts.",
+          "legal": {
+            "label": "Legal Inquiries"
+          },
+          "support": {
+            "label": "General Support"
+          }
         },
         "relatedDocuments": {
           "title": "Related Legal Documents",
@@ -8841,6 +11654,39 @@
             "title": "1. Introduction",
             "content": "Welcome to TBurn Chain ('we,' 'our,' or 'us'). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our blockchain services."
           },
+          "informationCollect": {
+            "title": "2. Information We Collect",
+            "provided": {
+              "title": "2.1 Information You Provide",
+              "account": {
+                "label": "Account Information",
+                "value": "Email address, username, wallet addresses"
+              },
+              "project": {
+                "label": "Project Verification",
+                "value": "Business registration documents, KYC information, financial statements"
+              },
+              "communication": {
+                "label": "Communication Data",
+                "value": "Messages, support tickets, feedback"
+              }
+            },
+            "automatic": {
+              "title": "2.2 Automatically Collected Information",
+              "blockchain": {
+                "label": "Blockchain Data",
+                "value": "Public wallet addresses, transaction hashes, smart contract interactions"
+              },
+              "device": {
+                "label": "Device Information",
+                "value": "IP address, browser type, operating system"
+              },
+              "usage": {
+                "label": "Usage Data",
+                "value": "Pages viewed, navigation patterns, session duration"
+              }
+            }
+          },
           "informationCollected": {
             "title": "2. Information We Collect",
             "youProvide": {
@@ -8864,8 +11710,27 @@
               "verification": "Conducting our 3-stage verification process (AI filtering, expert review, voting).",
               "detectingFraud": "Detecting fraud, abuse, and security threats.",
               "improving": "Improving our services through analytics.",
-              "legalCompliance": "Meeting legal compliance obligations."
+              "legalCompliance": "Meeting legal compliance obligations.",
+              "compliance": "Meeting legal and regulatory compliance obligations",
+              "fraud": "Detecting and preventing fraud, abuse, and security threats"
             }
+          },
+          "sharing": {
+            "title": "4. Information Sharing",
+            "intro": "We share information with:",
+            "validators": {
+              "label": "Validators",
+              "value": "For decentralized verification processes"
+            },
+            "providers": {
+              "label": "Service Providers",
+              "value": "Infrastructure and support partners"
+            },
+            "legal": {
+              "label": "Legal Authorities",
+              "value": "When required by law"
+            },
+            "noSell": "We do NOT sell your personal data to third parties for marketing purposes."
           },
           "informationSharing": {
             "title": "4. Information Sharing",
@@ -8874,6 +11739,17 @@
             "serviceProviders": "Service Providers: Infrastructure and support partners.",
             "legalAuthorities": "Legal Authorities: When required by law.",
             "noSelling": "We do NOT sell your personal data to third parties for marketing purposes."
+          },
+          "blockchain": {
+            "title": "5. Blockchain-Specific Privacy",
+            "publicData": {
+              "title": "Public Data",
+              "content": "Transactions and smart contract interactions on TBurn Chain are publicly visible and immutable. This data cannot be deleted or modified."
+            },
+            "pseudonymity": {
+              "title": "Pseudonymity",
+              "content": "Wallet addresses are pseudonymous. However, if you link your real-world identity to a wallet address, that connection may become public."
+            }
           },
           "blockchainPrivacy": {
             "title": "5. Blockchain-Specific Privacy",
@@ -8884,6 +11760,24 @@
             "pseudonymity": {
               "title": "Pseudonymity",
               "content": "Wallet addresses are pseudonymous. However, if you link your real-world identity to a wallet address, that connection may become public."
+            }
+          },
+          "security": {
+            "title": "6. Security & Rights",
+            "intro": "We implement appropriate security measures including:",
+            "measures": {
+              "ssl": "SSL/TLS encryption for data in transit",
+              "encrypted": "Encrypted storage for sensitive data",
+              "mfa": "Multi-factor authentication",
+              "audits": "Regular security audits and penetration testing"
+            },
+            "rightsIntro": "Depending on your location, you may have the right to:",
+            "rights": {
+              "access": "Access your personal information",
+              "correct": "Correct inaccurate data",
+              "delete": "Delete your off-chain data",
+              "object": "Object to data processing",
+              "portability": "Data portability"
             }
           },
           "securityRights": {
@@ -8910,9 +11804,15 @@
             "items": {
               "preferences": "Remember your preferences",
               "analyzeSite": "Analyze site usage",
-              "improveExperience": "Improve user experience"
+              "improveExperience": "Improve user experience",
+              "analytics": "Analyzing site usage patterns",
+              "experience": "Improving your user experience"
             },
             "manage": "You can manage cookie preferences through your browser settings."
+          },
+          "international": {
+            "title": "8. International Data Transfers",
+            "content": "Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers in compliance with applicable data protection laws."
           },
           "internationalTransfers": {
             "title": "8. International Data Transfers",
@@ -8922,7 +11822,14 @@
         "contact": {
           "title": "Contact Us",
           "intro": "If you have questions about this Privacy Policy, contact our Privacy Office:",
-          "email": "Email",
+          "description": "If you have questions about this Privacy Policy, please contact our Privacy Office.",
+          "email": {
+            "label": "Email"
+          },
+          "response": {
+            "label": "Response Time",
+            "value": "Within 30 days"
+          },
           "responseTime": "Response Time",
           "responseTimeValue": "Within 30 days"
         },
@@ -8959,6 +11866,11 @@
           "content": "Please read this disclaimer carefully before using TBurn Chain services. By accessing or using our platform, you acknowledge that you have read, understood, and agree to the following disclaimers."
         },
         "sections": {
+          "noAdvice": {
+            "title": "1. No Investment Advice",
+            "warning": "TBurn Chain does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
+            "content": "You should consult with qualified professionals before making any investment decisions. Past performance is not indicative of future results."
+          },
           "noInvestmentAdvice": {
             "title": "1. No Investment Advice",
             "warning": "TBurn Chain does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
@@ -8973,6 +11885,38 @@
               "technicalRisk": "Technical Risk: Smart contracts may contain bugs or vulnerabilities",
               "liquidityRisk": "Liquidity Risk: You may not be able to sell assets when desired",
               "lossOfFunds": "Loss of Funds: You may lose all or part of your investment"
+            },
+            "risks": {
+              "volatility": {
+                "label": "Market Volatility",
+                "value": "Prices can fluctuate dramatically in short periods"
+              },
+              "regulatory": {
+                "label": "Regulatory Risk",
+                "value": "Laws and regulations may change unexpectedly"
+              },
+              "technical": {
+                "label": "Technical Risk",
+                "value": "Smart contracts may contain bugs or vulnerabilities"
+              },
+              "liquidity": {
+                "label": "Liquidity Risk",
+                "value": "You may not be able to sell assets when desired"
+              },
+              "loss": {
+                "label": "Loss of Funds",
+                "value": "You may lose all or part of your investment"
+              }
+            }
+          },
+          "trustScore": {
+            "title": "3. Trust Score Limitations",
+            "intro": "Trust Scores are calculated based on available data and our verification process, but:",
+            "items": {
+              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
+              "notAllFactors": "They may not reflect all relevant factors",
+              "historical": "Historical scores may not predict future performance",
+              "dueDiligence": "They should be one of many factors in your due diligence"
             }
           },
           "trustScoreLimitations": {
@@ -8985,26 +11929,50 @@
               "oneFactor": "They should be one of many factors in your due diligence"
             }
           },
+          "thirdParty": {
+            "title": "4. Third-Party Content",
+            "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. Access to third-party resources is at your own risk."
+          },
           "thirdPartyContent": {
             "title": "4. Third-Party Content",
             "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. Access to third-party resources is at your own risk."
+          },
+          "availability": {
+            "title": "5. Service Availability",
+            "content": "We strive to maintain continuous service availability, but we do not guarantee uninterrupted access. Services may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances."
           },
           "serviceAvailability": {
             "title": "5. Service Availability",
             "content": "We strive to maintain continuous service availability, but we do not guarantee uninterrupted access. Services may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances."
           },
+          "limitation": {
+            "title": "6. Limitation of Liability",
+            "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
+          },
           "limitationOfLiability": {
             "title": "6. Limitation of Liability",
             "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
+          },
+          "geographic": {
+            "title": "7. Geographic Restrictions",
+            "content": "Our services may not be available in all jurisdictions. It is your responsibility to ensure that your use of TBurn Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain geographic locations."
           },
           "geographicRestrictions": {
             "title": "7. Geographic Restrictions",
             "content": "Our services may not be available in all jurisdictions. It is your responsibility to ensure that your use of TBurn Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain geographic locations."
           },
+          "forwardLooking": {
+            "title": "8. Forward-Looking Statements",
+            "content": "Any statements regarding future events, plans, or developments are forward-looking statements subject to risks and uncertainties. Actual results may differ materially from those expressed or implied in such statements."
+          },
           "forwardLookingStatements": {
             "title": "8. Forward-Looking Statements",
             "content": "Any statements regarding future events, plans, or developments are forward-looking statements subject to risks and uncertainties. Actual results may differ materially from those expressed or implied in such statements."
           }
+        },
+        "contact": {
+          "title": "Questions?",
+          "label": "Legal Inquiries"
         },
         "questions": {
           "title": "Questions?",
