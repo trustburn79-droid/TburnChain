@@ -6497,10 +6497,10 @@
           "title": "학습",
           "learnHub": {
             "title": "학습 허브",
-            "description": "Burn Chain 시작하기"
+            "description": "Burn 체인 시작하기"
           },
           "whatIsBurnChain": {
-            "title": "Burn Chain이란?",
+            "title": "Burn 체인이란?",
             "description": "블록체인에 대해 알아보기"
           },
           "trustScore": {
@@ -6521,7 +6521,7 @@
           },
           "developerCourse": {
             "title": "개발자 과정",
-            "description": "Burn Chain에서 개발하기"
+            "description": "Burn 체인에서 개발하기"
           },
           "introToDefi": {
             "title": "DeFi 입문",
@@ -6548,7 +6548,7 @@
           "title": "개발자",
           "developerHub": {
             "title": "개발자 허브",
-            "description": "Burn Chain에서 개발하기"
+            "description": "Burn 체인에서 개발하기"
           },
           "documentation": {
             "title": "문서",
@@ -6688,7 +6688,7 @@
             "description": "네트워크 건강 상태"
           },
           "ramp": {
-            "title": "Burn Chain 램프",
+            "title": "Burn 체인 램프",
             "description": "TBURN 구매/판매"
           }
         },
@@ -6717,9 +6717,9 @@
       "community": "커뮤니티",
       "legal": "법적 고지",
       "stayUpdated": "최신 정보 받기",
-      "newsletterDesc": "TBurn Chain의 최신 뉴스와 업데이트를 받아보세요",
+      "newsletterDesc": "TBurn 체인의 최신 뉴스와 업데이트를 받아보세요",
       "enterEmail": "이메일 입력",
-      "copyright": "© 2025 TBurn Chain 재단. 모든 권리 보유.",
+      "copyright": "© 2025 TBurn 체인 재단. 모든 권리 보유.",
       "termsOfService": "이용약관",
       "privacyPolicy": "개인정보처리방침",
       "disclaimer": "면책조항"
@@ -6776,7 +6776,7 @@
         "subtitle": "실시간 AI 오케스트레이션 모니터링"
       },
       "cta": {
-        "title": "TBurn Chain에서 개발할 준비가 되셨나요?",
+        "title": "TBurn 체인에서 개발할 준비가 되셨나요?",
         "subtitle": "신뢰 기반 블록체인의 미래를 함께 만들어가는 수천 명의 개발자와 함께하세요",
         "getStarted": "시작하기",
         "viewDocs": "문서 보기"
@@ -6786,7 +6786,7 @@
       "hub": {
         "tag": "V4 학습 센터",
         "title": "교육 허브",
-        "subtitle": "TBurn Chain V4 생태계를 마스터하세요. 신뢰 기반 합의 알고리즘부터 고속 dApp 개발까지, 여기서 시작하세요.",
+        "subtitle": "TBurn 체인 V4 생태계를 마스터하세요. 신뢰 기반 합의 알고리즘부터 고속 dApp 개발까지, 여기서 시작하세요.",
         "stats": {
           "courses": "강좌",
           "learners": "학습자",
@@ -6796,7 +6796,7 @@
         "learningPaths": "학습 경로",
         "learningPathsDesc": "모든 수준을 위한 맞춤형 커리큘럼.",
         "coreConcepts": "핵심 개념",
-        "coreConceptsDesc": "TBurn Chain의 기본 원리.",
+        "coreConceptsDesc": "TBurn 체인의 기본 원리.",
         "quickGlossary": "간단 용어집",
         "certifications": {
           "developer": {
@@ -6810,6 +6810,14 @@
           "validator": {
             "title": "검증자 운영자",
             "description": "네트워크 검증 인증"
+          },
+          "defiExpert": {
+            "title": "DeFi 전문가 자격증",
+            "description": "수익 전략, 유동성 공급 및 고급 DeFi 프로토콜 통합 마스터"
+          },
+          "fundamentals": {
+            "title": "블록체인 기초",
+            "description": "블록체인 기초, 암호학 및 합의 메커니즘에 대한 지식 증명"
           }
         },
         "certificationsDesc": "검증된 배지 획득",
@@ -6832,11 +6840,27 @@
             "description": "스마트 컨트랙트를 빌드하고 배포하세요",
             "level": "고급",
             "duration": "20시간"
+          },
+          "blockchainBasics": {
+            "title": "블록체인 기초",
+            "description": "기본 블록체인 개념과 분산 원장 기술 학습"
+          },
+          "developerCourse": {
+            "title": "개발자 과정",
+            "description": "스마트 컨트랙트와 SDK 통합으로 프로덕션 준비 dApp 개발"
+          },
+          "masteringDefi": {
+            "title": "DeFi 마스터",
+            "description": "유동성 공급, 이자 농사 및 위험 관리를 위한 고급 전략"
+          },
+          "trustScoreSystem": {
+            "title": "신뢰도 점수 시스템",
+            "description": "3단계 검증 및 프로젝트 신뢰성 평가 심층 분석"
           }
         },
         "concepts": {
           "whatIsTBurn": {
-            "title": "TBurn Chain이란?",
+            "title": "TBurn 체인이란?",
             "description": "신뢰 기반 블록체인 소개"
           },
           "trustScore": {
@@ -6858,6 +6882,26 @@
           "roadmap": {
             "title": "로드맵",
             "description": "향후 개발 계획"
+          },
+          "autoBurn": {
+            "title": "자동 소각 메커니즘",
+            "description": "디플레이션 경제를 위한 자동 토큰 소각 시스템"
+          },
+          "dposBft": {
+            "title": "DPoS + BFT 합의",
+            "description": "위임 지분 증명과 비잔틴 장애 허용을 결합한 하이브리드 합의"
+          },
+          "emberGas": {
+            "title": "Ember 가스 토큰",
+            "description": "트랜잭션 수수료 및 네트워크 운영을 위한 기본 가스 토큰"
+          },
+          "quantumSecurity": {
+            "title": "양자 보안",
+            "description": "포스트 양자 보호를 위한 CRYSTALS-Dilithium 하이브리드 서명"
+          },
+          "tripleBandAi": {
+            "title": "트리플 밴드 AI",
+            "description": "전략적, 전술적, 운영적 의사결정을 위한 3계층 AI 오케스트레이션"
           }
         },
         "glossary": {
@@ -6872,7 +6916,10 @@
           "validator": {
             "term": "검증자",
             "definition": "트랜잭션을 검증하고 합의에 참여하는 노드"
-          }
+          },
+          "tburn": "TBURN은 10억 개의 고정 공급량을 가진 TBurn 체인의 기본 거버넌스 및 스테이킹 토큰입니다",
+          "ember": "Ember는 TBURN 스테이킹으로 얻을 수 있는 TBurn 체인의 트랜잭션 수수료 가스 토큰입니다",
+          "slashing": "슬래싱은 악의적 행동이나 다운타임에 대해 검증자 스테이크의 일부를 소각하는 페널티 메커니즘입니다"
         },
         "communityLinks": {
           "discord": {
@@ -6887,11 +6934,42 @@
             "title": "YouTube",
             "description": "비디오 튜토리얼"
           }
+        },
+        "certificationsTitle": "자격증 프로그램",
+        "glossaryTitle": "핵심 용어 및 정의",
+        "levels": {
+          "beginner": "초급",
+          "intermediate": "중급",
+          "advanced": "고급"
+        },
+        "tags": {
+          "algorithm": "알고리즘",
+          "apiIntegration": "API 통합",
+          "consensus": "합의",
+          "liquidity": "유동성",
+          "sdkSetup": "SDK 설정",
+          "smartContracts": "스마트 컨트랙트",
+          "verification": "검증",
+          "yieldFarming": "이자 농사"
+        },
+        "community": {
+          "discord": {
+            "title": "Discord 커뮤니티",
+            "description": "개발자 및 열정적인 사용자들과 실시간 토론 참여"
+          },
+          "forum": {
+            "title": "개발자 포럼",
+            "description": "커뮤니티와 질문하고 지식 공유"
+          },
+          "liveSessions": {
+            "title": "라이브 세션",
+            "description": "코어 팀과 함께하는 주간 워크샵 및 AMA 세션"
+          }
         }
       },
       "whatIsBurnChain": {
         "tag": "소개",
-        "title": "TBurn Chain이란?",
+        "title": "TBurn 체인이란?",
         "subtitle": "AI 검증과 양자 내성 보안을 갖춘 세계 최초의 신뢰 기반 블록체인을 알아보세요.",
         "coreFeatures": {
           "title": "핵심 기능",
@@ -6912,7 +6990,8 @@
               "title": "자동 소각",
               "description": "자동 소각 메커니즘을 통한 디플레이션 토큰노믹스"
             }
-          }
+          },
+          "subtitle": "신뢰성과 성능을 위해 구축된 엔터프라이즈급 블록체인 인프라"
         },
         "consensus": {
           "title": "합의 메커니즘",
@@ -6923,6 +7002,49 @@
             "tps": "처리량",
             "validators": "검증자"
           }
+        },
+        "features": {
+          "trustVerification": {
+            "title": "신뢰 검증 시스템",
+            "description": "프로젝트 신뢰성을 위한 AI 분석, 전문가 검토 및 커뮤니티 거버넌스를 결합한 다층 검증"
+          },
+          "ultraFast": {
+            "title": "초고속 트랜잭션",
+            "description": "1초 블록 시간과 6초 완결성으로 대규모 실시간 트랜잭션 처리 가능"
+          },
+          "distributed": {
+            "title": "분산 아키텍처",
+            "description": "검열 저항과 고가용성을 보장하는 21개 이상의 검증자로 구성된 분산 네트워크"
+          },
+          "autoBurn": {
+            "title": "자동 소각 경제학",
+            "description": "트랜잭션 기반, 예약 및 AI 최적화 소각 메커니즘을 갖춘 디플레이션 토큰 모델"
+          }
+        },
+        "specs": {
+          "blockTime": "블록 시간",
+          "finality": "완결성",
+          "oneSecond": "1초",
+          "sixSeconds": "6초",
+          "theoreticalTps": "이론적 TPS",
+          "practicalTps": "실제 TPS"
+        },
+        "techSpecs": {
+          "title": "기술 사양",
+          "consensusDesc": "21개 활성 검증자와 100개 대기 노드를 갖춘 하이브리드 DPoS + BFT 합의",
+          "smartContractsDesc": "Solidity 0.8+ 지원과 최적화된 가스 비용을 갖춘 완전한 EVM 호환성"
+        },
+        "trustBased": {
+          "title": "신뢰 기반 블록체인",
+          "paragraph1": "TBurn 체인은 신뢰 검증을 기반으로 구축된 세계 최초의 블록체인입니다. 네트워크의 모든 프로젝트는 상장 전 엄격한 3단계 검증을 거칩니다.",
+          "paragraph2": "고유한 신뢰도 점수 시스템은 모든 검증된 프로젝트에 대해 투명하고 실시간 신뢰성 등급을 제공하여 투자자를 보호합니다.",
+          "protocolRule": "프로토콜 수준의 신뢰 강제 기능은 악의적 행위자를 자동으로 식별하고 생태계에서 제한합니다."
+        },
+        "developer": {
+          "title": "개발자 리소스",
+          "description": "종합적인 개발자 도구와 문서로 TBurn 체인에서 개발하세요.",
+          "readDocs": "문서 읽기",
+          "tburnSdk": "TBurn SDK"
         }
       },
       "trustScore": {
@@ -6931,7 +7053,23 @@
         "subtitle": "3단계 검증 시스템, AI 분석, 동적 점수 알고리즘을 심층 탐구합니다.",
         "philosophy": {
           "title": "평가 철학",
-          "description": "신뢰도 점수는 다양한 차원에서 프로젝트 신뢰성을 평가하여 투자자를 보호하도록 설계되었습니다"
+          "description": "신뢰도 점수는 다양한 차원에서 프로젝트 신뢰성을 평가하여 투자자를 보호하도록 설계되었습니다",
+          "objective": {
+            "title": "객관적 분석",
+            "description": "표준화된 메트릭과 AI 기반 평가를 통해 인간 편향을 제거하는 데이터 기반 평가"
+          },
+          "comprehensive": {
+            "title": "종합 검토",
+            "description": "팀, 기술, 재무 및 실행 역량을 다루는 다차원 분석"
+          },
+          "transparent": {
+            "title": "완전한 투명성",
+            "description": "모든 점수 요소와 방법론은 공개 문서화되고 온체인 검증 가능합니다"
+          },
+          "realtime": {
+            "title": "실시간 업데이트",
+            "description": "프로젝트 행동 변화에 따른 즉각적인 점수 조정과 함께하는 지속적인 모니터링"
+          }
         },
         "components": {
           "title": "점수 구성 요소",
@@ -6961,6 +7099,33 @@
               "points": "10점",
               "description": "로드맵 이행 및 마일스톤 달성"
             }
+          },
+          "teamTransparency": {
+            "title": "팀 투명성",
+            "items": {
+              "kyc": "KYC 검증 상태",
+              "realName": "실명 공개",
+              "experience": "업계 경험 및 실적",
+              "communication": "커뮤니티 커뮤니케이션 품질"
+            }
+          },
+          "technical": {
+            "title": "기술 평가",
+            "items": {
+              "codeQuality": "코드 품질 및 표준",
+              "securityAudit": "보안 감사 결과",
+              "testCoverage": "테스트 커버리지 비율",
+              "documentation": "기술 문서"
+            }
+          },
+          "financial": {
+            "title": "재무 건전성",
+            "items": {
+              "fundingReport": "자금 출처 투명성",
+              "walletDisclosure": "지갑 공개 상태",
+              "accountingAudit": "재무 감사 결과",
+              "distributionData": "토큰 배포 데이터"
+            }
           }
         },
         "grades": {
@@ -6989,6 +7154,26 @@
             "name": "제한됨",
             "range": "0-39",
             "description": "거래 중지"
+          },
+          "s": {
+            "title": "S 등급 - 다이아몬드",
+            "description": "완벽한 검증을 갖춘 뛰어난 프로젝트. 전체 거래 액세스 및 우선 DEX 상장."
+          },
+          "a": {
+            "title": "A 등급 - 골드",
+            "description": "강력한 기초를 갖춘 매우 신뢰할 수 있는 프로젝트. 향상된 가시성과 함께 표준 거래 액세스."
+          },
+          "b": {
+            "title": "B 등급 - 실버",
+            "description": "사소한 우려가 있는 양호한 프로젝트. 표준 모니터링과 함께 거래 허용."
+          },
+          "c": {
+            "title": "C 등급 - 브론즈",
+            "description": "주의가 필요한 프로젝트. 경고 라벨 표시와 함께 거래 허용."
+          },
+          "f": {
+            "title": "F 등급 - 제한됨",
+            "description": "검증 실패 또는 심각한 우려. 조사 대기 중 거래 중단."
           }
         },
         "stages": {
@@ -7007,6 +7192,33 @@
             "title": "커뮤니티 투표",
             "duration": "3-5일",
             "description": "토큰 보유자가 최종 승인에 투표"
+          }
+        },
+        "evaluationPhilosophy": "평가 방법론은 자동화된 분석과 인간 전문 지식을 결합하여 포괄적인 프로젝트 평가를 제공합니다.",
+        "gradeSystem": "신뢰 등급 분류",
+        "scoreComponents": "점수 구성요소",
+        "scoreComponentsStatus": "실시간 구성요소 추적",
+        "verificationProcess": "검증 프로세스",
+        "pts": "점",
+        "ptsUnit": "점",
+        "importantLabel": "중요",
+        "importantNote": "신뢰도 점수는 동적이며 진행 중인 프로젝트 행동과 커뮤니티 피드백을 기반으로 실시간 업데이트됩니다.",
+        "process": {
+          "dataCollection": {
+            "title": "데이터 수집",
+            "description": "온체인 데이터, 소셜 메트릭 및 프로젝트 문서의 자동 수집"
+          },
+          "aiAnalysis": {
+            "title": "AI 분석",
+            "description": "트리플 밴드 AI가 모든 점수 차원에서 종합 분석 수행"
+          },
+          "expertReview": {
+            "title": "전문가 검토",
+            "description": "인간 전문가가 AI 발견 사항을 검증하고 심층 조사 수행"
+          },
+          "onchainCommit": {
+            "title": "온체인 커밋",
+            "description": "최종 점수는 완전한 감사 추적과 투명성과 함께 블록체인에 커밋됩니다"
           }
         }
       },
@@ -7027,6 +7239,10 @@
           "hardware": {
             "title": "하드웨어 지갑",
             "description": "안전한 키 저장을 위한 물리적 장치"
+          },
+          "software": {
+            "title": "소프트웨어 지갑",
+            "description": "암호화폐 자산에 편리하게 접근할 수 있는 데스크톱 및 모바일 애플리케이션"
           }
         },
         "security": {
@@ -7036,13 +7252,53 @@
             "verifyUrls": "항상 웹사이트 URL을 확인하세요",
             "enable2fa": "2단계 인증을 활성화하세요",
             "regularBackups": "정기적으로 백업하세요"
+          },
+          "neverShare": {
+            "title": "개인 키 절대 공유 금지",
+            "description": "개인 키와 시드 문구는 절대 누구와도 공유하면 안 됩니다. 정당한 서비스는 절대 이를 요청하지 않습니다."
+          },
+          "offlineStorage": {
+            "title": "Use 오프라인 Storage",
+            "description": "대량의 자산은 콜드 월렛에 저장하세요. 일일 거래용으로 핫 월렛에는 소량만 보관하세요."
+          },
+          "verifyTransactions": {
+            "title": "Verify All 트랜잭션",
+            "description": "전송을 확인하기 전에 항상 수신자 주소와 거래 금액을 다시 확인하세요."
           }
+        },
+        "understanding": {
+          "title": "Understanding Crypto 지갑",
+          "description": "암호화폐 지갑은 개인 키를 저장하고 디지털 자산을 안전하게 송금, 수신 및 관리할 수 있는 디지털 도구입니다."
+        },
+        "walletTypes": {
+          "title": "지갑 Types Explained",
+          "subtitle": "보안 요구 사항과 사용 패턴에 따라 적절한 지갑 유형 선택"
+        },
+        "keys": {
+          "title": "키 이해하기",
+          "description": "지갑 보안은 적절한 키 관리에 달려 있습니다. 공개 키와 개인 키의 차이를 알아보세요.",
+          "public": {
+            "title": "공개 키",
+            "description": "다른 사람들이 암호화폐를 보내는 데 사용하는 지갑 주소입니다. 공개적으로 공유해도 안전합니다."
+          },
+          "private": {
+            "title": "개인 키",
+            "description": "자금에 대한 접근을 제어하는 비밀 키입니다. 절대 누구와도 공유하지 마세요."
+          }
+        },
+        "securityProtocol": {
+          "title": "보안 Protocol"
+        },
+        "cta": {
+          "title": "준비됨 to 시작하기?",
+          "description": "첫 번째 TBurn 지갑을 만들고 생태계를 탐험해 보세요. 설정 가이드가 모든 단계를 안내합니다.",
+          "button": "지갑 생성"
         }
       },
       "whitepaper": {
         "tag": "기술 문서",
         "title": "백서",
-        "subtitle": "TBurn Chain 아키텍처, 합의 메커니즘, 토큰노믹스에 대한 완전한 기술 문서.",
+        "subtitle": "TBurn 체인 아키텍처, 합의 메커니즘, 토큰노믹스에 대한 완전한 기술 문서.",
         "trustCrisis": {
           "title": "신뢰 위기",
           "subtitle": "우리가 해결하는 문제 이해하기",
@@ -7108,7 +7364,7 @@
             }
           },
           "badge": "솔루션 아키텍처",
-          "description": "TBurn Chain은 단순한 신뢰 점수 시스템이 아닙니다. Arbitrum 기술을 기반으로 구축된 고성능 Layer 2 스케일링 솔루션으로, 엔터프라이즈급 처리량을 위해 설계되었습니다.",
+          "description": "TBurn 체인은 단순한 신뢰 점수 시스템이 아닙니다. Arbitrum 기술을 기반으로 구축된 고성능 Layer 2 스케일링 솔루션으로, 엔터프라이즈급 처리량을 위해 설계되었습니다.",
           "features": {
             "hybridConsensus": "하이브리드 합의 (DPoS + BFT)",
             "evmCompatibility": "EVM 호환성",
@@ -7133,19 +7389,19 @@
           "items": {
             "strategic": {
               "title": "전략 레이어",
-              "model": ":: ChatGPT Latest",
+              "model": ":: ChatGPT 최신",
               "latency": "450ms",
               "description": "복잡한 시장 분석, 거버넌스 제안 평가, 장기 전략 수립을 처리합니다."
             },
             "tactical": {
               "title": "전술 레이어",
-              "model": ":: Claude Latest",
+              "model": ":: Claude 최신",
               "latency": "180ms",
               "description": "신뢰 평가, 트랜잭션 검증, 스마트 컨트랙트 감사를 처리합니다."
             },
             "operational": {
               "title": "운영 레이어",
-              "model": ":: Gemini Latest",
+              "model": ":: Gemini 최신",
               "latency": "45ms",
               "description": "실시간 모니터링, 긴급 대응(자동 소각), 자동화 작업을 실행합니다."
             }
@@ -7214,7 +7470,9 @@
           "totalSupply": "총 공급량",
           "circulatingSupply": "유통 공급량",
           "totalBurned": "총 소각량",
-          "marketCap": "시가총액"
+          "marketCap": "시가총액",
+          "burned": "Burned",
+          "totalStaked": "총 Staked"
         },
         "distribution": {
           "title": "토큰 분배",
@@ -7243,6 +7501,22 @@
               "label": "유동성",
               "percentage": "5%"
             }
+          },
+          "ecosystemFund": {
+            "title": "Ecosystem 펀드",
+            "subtitle": "보조금, partnerships, and ecosystem development initiatives"
+          },
+          "validatorRewards": {
+            "title": "검증자 보상",
+            "subtitle": "블록 rewards and validation incentives for network security"
+          },
+          "teamAdvisors": {
+            "title": "팀 & Advisors",
+            "subtitle": "4-year vesting with 1-year cliff for long-term alignment"
+          },
+          "foundationReserve": {
+            "title": "재단 Reserve",
+            "subtitle": "Emergency fund and strategic opportunities reserve"
           }
         },
         "burnMechanisms": {
@@ -7267,14 +7541,64 @@
           "apy": "현재 APY",
           "totalStaked": "총 스테이킹",
           "validators": "활성 검증자",
-          "minStake": "최소 스테이킹"
+          "minStake": "최소 스테이킹",
+          "liquidStaking": "Liquid staking available with stTBURN derivative token",
+          "ninetyDayLock": "90-day lock: 12% APY + 1.2x governance weight",
+          "yearLock": "365-day lock: 18% APY + 2x governance weight"
         },
         "governance": {
           "title": "거버넌스",
           "description": "TBURN 보유자는 프로토콜 거버넌스에 참여할 수 있습니다",
           "votingPower": "투표권",
           "proposalThreshold": "제안 임계값",
-          "quorum": "정족수"
+          "quorum": "정족수",
+          "features": {
+            "voteProtocol": "투표 on protocol upgrades and parameter changes",
+            "approveTreasury": "승인 treasury allocations and ecosystem grants",
+            "decideSlashing": "Decide on slashing proposals and validator disputes"
+          }
+        },
+        "distributionSection": {
+          "title": "토큰 Distribution",
+          "subtitle": "장기적인 생태계 성장과 지속 가능성을 위해 설계된 전략적 배분",
+          "totalSupply": "1,000,000,000 TBURN"
+        },
+        "burnSection": {
+          "title": "소각 Mechanisms",
+          "subtitle": "지속 가능한 토큰 가치 상승을 보장하는 다중 디플레이션 메커니즘"
+        },
+        "tburn": {
+          "type": "거버넌스 & 스테이킹 토큰",
+          "role": "Role",
+          "roleValue": "기본 governance token for voting and staking to secure the network",
+          "totalSupply": "1,000,000,000",
+          "decimals": "18"
+        },
+        "ember": {
+          "type": "가스 토큰",
+          "role": "Role",
+          "roleValue": "Native gas token for transaction fees and smart contract execution",
+          "baseFee": "Base 수수료",
+          "baseFeeValue": "0.001 EMBER",
+          "exchangeRatio": "1 TBURN staked = 100 EMBER/day"
+        },
+        "burn": {
+          "transactionFees": {
+            "title": "트랜잭션 수수료 소각",
+            "description": "0.1% of every transaction fee is permanently burned, reducing supply with network usage"
+          },
+          "slashingPenalty": {
+            "title": "Slashing 페널티 소각",
+            "description": "검증자 misbehavior penalties are burned, reinforcing network security incentives"
+          },
+          "collateralBurn": {
+            "title": "담보 소각",
+            "description": "실패 project collateral is partially burned as part of investor protection mechanism"
+          },
+          "revenueBuyback": {
+            "title": "수익 Buyback 소각",
+            "description": "Protocol revenue used to buy and burn TBURN quarterly, creating deflationary pressure"
+          }
         }
       },
       "roadmap": {
@@ -7283,7 +7607,7 @@
         "subtitle": "주류 채택을 향한 여정의 진행 상황과 예정된 마일스톤을 추적하세요.",
         "phases": {
           "phase1": {
-            "title": "Phase 1: 기반",
+            "title": "페이즈 1: 기반",
             "period": "2024년 1-2분기",
             "status": "completed",
             "items": {
@@ -7300,7 +7624,7 @@
             "quarter": "Q1-Q2 2024"
           },
           "phase2": {
-            "title": "Phase 2: 확장",
+            "title": "페이즈 2: 확장",
             "period": "2024년 3-4분기",
             "status": "inProgress",
             "items": {
@@ -7317,7 +7641,7 @@
             "quarter": "Q3-Q4 2024"
           },
           "phase3": {
-            "title": "Phase 3: 생태계",
+            "title": "페이즈 3: 생태계",
             "period": "2025년 1-2분기",
             "status": "upcoming",
             "items": {
@@ -7334,7 +7658,7 @@
             "quarter": "Q1-Q2 2025"
           },
           "phase4": {
-            "title": "Phase 4: 대중 채택",
+            "title": "페이즈 4: 대중 채택",
             "period": "2025년 3-4분기",
             "status": "upcoming",
             "items": {
@@ -7385,7 +7709,7 @@
         },
         "cta": {
           "title": "이 여정에 함께하세요",
-          "description": "TBurn Chain 생태계의 일원이 되어 신뢰 기반 블록체인 기술의 미래를 함께 만들어가세요.",
+          "description": "TBurn 체인 생태계의 일원이 되어 신뢰 기반 블록체인 기술의 미래를 함께 만들어가세요.",
           "joinCommunity": "커뮤니티 참여",
           "viewDocs": "문서 보기"
         }
@@ -7421,7 +7745,7 @@
             "duration": "75 min"
           },
           "module4": {
-            "title": "TBurn Chain 아키텍처",
+            "title": "TBurn 체인 아키텍처",
             "subtitle": "신뢰 기반 시스템 심층 탐구",
             "duration": "60 min"
           }
@@ -7431,7 +7755,7 @@
           "item1": "블록체인 기초 및 분산 시스템 이해",
           "item2": "안전한 트랜잭션의 암호학 원리 학습",
           "item3": "다양한 합의 메커니즘 탐구",
-          "item4": "TBurn Chain의 고유한 신뢰 기반 아키텍처 마스터"
+          "item4": "TBurn 체인의 고유한 신뢰 기반 아키텍처 마스터"
         },
         "prerequisitesTitle": "사전 요구사항",
         "prerequisites": {
@@ -7485,7 +7809,7 @@
         },
         "courseOverview": {
           "title": "코스 개요",
-          "description": "이 고급 코스에서는 TBurn Chain의 탈중앙화 금융에 대해 알아야 할 모든 것을 다룹니다. AMM 메커니즘 이해부터 복잡한 이자 농사 전략 구현까지, DeFi 생태계를 탐색하기 위한 실용적인 기술을 습득하게 됩니다.",
+          "description": "이 고급 코스에서는 TBurn 체인의 탈중앙화 금융에 대해 알아야 할 모든 것을 다룹니다. AMM 메커니즘 이해부터 복잡한 이자 농사 전략 구현까지, DeFi 생태계를 탐색하기 위한 실용적인 기술을 습득하게 됩니다.",
           "videoTitle": "DeFi 기초",
           "videoSubtitle": "코스 미리보기",
           "figureCaption": "그림: DeFi 프로토콜 개요"
@@ -7561,12 +7885,12 @@
       "developerCourse": {
         "tag": "고급",
         "title": "개발자 과정",
-        "subtitle": "TBurn Chain에서 dApp을 빌드하고 배포하는 완전 가이드.",
+        "subtitle": "TBurn 체인에서 dApp을 빌드하고 배포하는 완전 가이드.",
         "duration": "20시간",
         "backToEducation": "교육 프로그램으로 돌아가기",
         "courseOverview": {
           "title": "코스 개요",
-          "description": "이 종합 개발자 코스는 TBurn Chain에서 프로덕션 준비된 dApp을 배포하는 것까지 처음부터 안내합니다. 스마트 컨트랙트 개발, SDK 통합, 테스트 전략, 안전하고 확장 가능한 애플리케이션 구축을 위한 모범 사례를 배우게 됩니다."
+          "description": "이 종합 개발자 코스는 TBurn 체인에서 프로덕션 준비된 dApp을 배포하는 것까지 처음부터 안내합니다. 스마트 컨트랙트 개발, SDK 통합, 테스트 전략, 안전하고 확장 가능한 애플리케이션 구축을 위한 모범 사례를 배우게 됩니다."
         },
         "curriculumTitle": "코스 커리큘럼",
         "curriculum": {
@@ -7597,7 +7921,7 @@
         },
         "developerTools": {
           "title": "개발자 도구",
-          "description": "TBurn Chain에서 구축하는 데 필요한 모든 도구에 접근하세요.",
+          "description": "TBurn 체인에서 구축하는 데 필요한 모든 도구에 접근하세요.",
           "quickStart": {
             "title": "빠른 시작",
             "subtitle": "5분 설정 가이드"
@@ -7645,7 +7969,7 @@
       "introToDefi": {
         "tag": "초급",
         "title": "DeFi 입문",
-        "subtitle": "TBurn Chain에서 탈중앙화 금융으로의 첫 걸음.",
+        "subtitle": "TBurn 체인에서 탈중앙화 금융으로의 첫 걸음.",
         "duration": "2시간",
         "backToEducation": "교육 프로그램으로 돌아가기",
         "scoreFormula": {
@@ -7780,7 +8104,7 @@
       "hub": {
         "tag": "V4 SDK & API 준비 완료",
         "title": "개발자 허브",
-        "subtitle": "차세대 신뢰 기반 애플리케이션을 빌드하세요. TBurn Chain V4 생태계를 위한 종합 개발 도구, SDK, API에 액세스하세요.",
+        "subtitle": "차세대 신뢰 기반 애플리케이션을 빌드하세요. TBurn 체인 V4 생태계를 위한 종합 개발 도구, SDK, API에 액세스하세요.",
         "getStarted": "시작하기",
         "viewDocs": "문서 보기",
         "quickStart": {
@@ -7814,7 +8138,7 @@
         },
         "grants": {
           "title": "개발자 지원금 프로그램",
-          "subtitle": "TBurn Chain 생태계를 확장하는 프로젝트를 지원합니다.",
+          "subtitle": "TBurn 체인 생태계를 확장하는 프로젝트를 지원합니다.",
           "totalFund": "$50M 총 지원금"
         },
         "quickStartSteps": {
@@ -7866,7 +8190,7 @@
             "downloads": "월 280K 다운로드"
           },
           "go": {
-            "name": "Go",
+            "name": "이동",
             "package": "github.com/tburn/go-sdk",
             "version": "v4.0.2",
             "install": "go get github.com/burnchain/go",
@@ -7930,7 +8254,8 @@
           "seed": {
             "title": "시드 지원금",
             "amount": "$5,000 - $25,000",
-            "description": "초기 단계 프로젝트용"
+            "description": "초기 단계 프로젝트용",
+            "tier": "시드"
           },
           "growth": {
             "title": "성장 지원금",
@@ -7940,7 +8265,18 @@
           "enterprise": {
             "title": "엔터프라이즈 지원금",
             "amount": "$100,000+",
-            "description": "주요 통합 프로젝트용"
+            "description": "주요 통합 프로젝트용",
+            "tier": "엔터프라이즈"
+          },
+          "build": {
+            "tier": "빌드",
+            "amount": "$25K - $100K",
+            "description": "MVP 개발"
+          },
+          "scale": {
+            "tier": "스케일",
+            "amount": "$100K - $500K",
+            "description": "프로덕션 준비됨"
           }
         },
         "devToolsSection": {
@@ -7972,7 +8308,7 @@
       "docs": {
         "tag": "문서",
         "title": "문서",
-        "subtitle": "TBurn Chain 개발을 위한 종합 가이드 및 레퍼런스."
+        "subtitle": "TBurn 체인 개발을 위한 종합 가이드 및 레퍼런스."
       },
       "api": {
         "tag": "API 레퍼런스",
@@ -7982,20 +8318,20 @@
           "tag": "API 레퍼런스",
           "title": "REST API",
           "titleHighlight": "문서",
-          "subtitle": "TBurn Chain 데이터를 액세스하기 위한 완전한 RESTful API 레퍼런스."
+          "subtitle": "TBurn 체인 데이터를 액세스하기 위한 완전한 RESTful API 레퍼런스."
         },
         "buttons": {
           "viewSpec": "API 사양 보기",
           "openPlayground": "플레이그라운드 열기"
         },
-        "baseUrl": {
-          "label": "API 기본 URL"
-        },
+        "baseUrl": "기본 URL",
         "authentication": {
           "title": "인증",
           "apiKeyLabel": "API 키",
           "headerLabel": "인증 헤더",
-          "getApiKey": "API 키 받기"
+          "getApiKey": "API 키 받기",
+          "description": "모든 API 요청에는 API 키가 필요합니다. 무료 키는 다음에서 받으세요",
+          "dashboardLink": "개발자 대시보드"
         },
         "endpoints": {
           "title": "API 엔드포인트",
@@ -8033,6 +8369,19 @@
             "endpoint1": "POST /v1/ai/analyze",
             "endpoint2": "GET /v1/ai/predictions",
             "endpoint3": "POST /v1/ai/sentiment"
+          },
+          "blocks": {
+            "description": "블록 번호 또는 해시로 블록 정보 가져오기",
+            "paramDesc": "블록 number or 'latest'"
+          },
+          "transactions": {
+            "description": "트랜잭션 해시로 트랜잭션 상세 정보 가져오기"
+          },
+          "sendTransaction": {
+            "description": "제출 a signed transaction to the network"
+          },
+          "balance": {
+            "description": "계정 잔액 및 논스 가져오기"
           }
         },
         "responseFormats": {
@@ -8084,9 +8433,68 @@
         },
         "cta": {
           "title": "API로 빌드 시작하기",
-          "subtitle": "API 키를 받고 지금 TBurn Chain 데이터를 액세스하세요.",
+          "subtitle": "API 키를 받고 지금 TBurn 체인 데이터를 액세스하세요.",
           "getApiKey": "API 키 받기",
           "viewDocs": "문서 보기"
+        },
+        "coreEndpoints": "Core 엔드포인트",
+        "parameters": "파라미터",
+        "related": "관련",
+        "officialSdks": "공식 SDK",
+        "viewDocumentation": "문서 보기",
+        "sidebar": {
+          "overview": "개요",
+          "authentication": "인증",
+          "rateLimits": "속도 제한",
+          "endpoints": "엔드포인트",
+          "block": "블록",
+          "transaction": "트랜잭션",
+          "account": "계정",
+          "smartContract": "스마트 컨트랙트",
+          "websocket": "WebSocket",
+          "realtimeEvents": "실시간 이벤트"
+        },
+        "errorHandling": {
+          "title": "오류 처리",
+          "code": "코드",
+          "description": "설명"
+        },
+        "errors": {
+          "badRequest": "잘못된 요청 파라미터",
+          "unauthorized": "유효하지 않거나 누락된 API 키",
+          "tooManyRequests": "속도 제한 초과",
+          "internalError": "내부 서버 오류"
+        },
+        "websocketApi": {
+          "title": "WebSocket API",
+          "description": "실시간 블록체인 이벤트를 구독하여 즉시 업데이트를 받으세요.",
+          "connectComment": "WebSocket에 연결",
+          "subscribeComment": "블록 채널 구독"
+        },
+        "sdks": {
+          "javascript": "JavaScript SDK",
+          "python": "Python SDK",
+          "go": "이동 SDK"
+        },
+        "quickLinks": {
+          "quickStart": {
+            "title": "빠른 시작",
+            "description": "배포 your first dApp in 5 minutes"
+          },
+          "codeExamples": {
+            "title": "Code 예제",
+            "description": "실제 통합 패턴"
+          },
+          "rpcProviders": {
+            "title": "RPC 프로바이더",
+            "description": "여러 엔드포인트를 통해 연결"
+          }
+        },
+        "relatedLinks": {
+          "developerHub": "개발자 허브",
+          "documentation": "전체 문서",
+          "codeExamples": "Code 예제",
+          "quickStart": "빠른 시작 가이드"
         }
       },
       "cli": {
@@ -8097,7 +8505,7 @@
           "tag": "CLI 레퍼런스",
           "title": "CLI",
           "titleHighlight": "도구",
-          "subtitle": "TBurn Chain 명령줄 인터페이스를 사용한 프로젝트 관리 및 배포."
+          "subtitle": "TBurn 체인 명령줄 인터페이스를 사용한 프로젝트 관리 및 배포."
         },
         "buttons": {
           "install": "설치하기",
@@ -8113,12 +8521,22 @@
           "init": {
             "name": "init",
             "description": "새 TBurn 프로젝트 초기화",
-            "usage": "tburn init [project-name]"
+            "usage": "tburn init [project-name]",
+            "desc": "새 TBurn 체인 프로젝트 초기화",
+            "options": {
+              "template": "프로젝트 템플릿 (defi, nft, dao)",
+              "typescript": "TypeScript 사용"
+            }
           },
           "build": {
             "name": "build",
             "description": "스마트 컨트랙트 컴파일",
-            "usage": "tburn build [--release]"
+            "usage": "tburn build [--release]",
+            "desc": "빌드 project for production",
+            "options": {
+              "outdir": "출력 디렉토리",
+              "sourcemap": "소스 맵 생성"
+            }
           },
           "test": {
             "name": "test",
@@ -8128,7 +8546,28 @@
           "deploy": {
             "name": "deploy",
             "description": "네트워크에 배포",
-            "usage": "tburn deploy --network mainnet"
+            "usage": "tburn deploy --network mainnet",
+            "desc": "배포 to TBurn 체인 network",
+            "options": {
+              "network": "대상 네트워크 (mainnet, testnet)",
+              "verify": "익스플로러에서 컨트랙트 검증",
+              "gasPrice": "가스 price in gwei"
+            }
+          },
+          "dev": {
+            "desc": "로컬 개발 서버 시작",
+            "options": {
+              "port": "포트 번호",
+              "open": "열기 browser automatically"
+            }
+          },
+          "wallet": {
+            "desc": "지갑 management commands",
+            "options": {
+              "create": "새 지갑 생성",
+              "import": "가져오기 existing wallet",
+              "balance": "지갑 잔액 확인"
+            }
           }
         },
         "developerResources": {
@@ -8153,9 +8592,45 @@
         },
         "cta": {
           "title": "CLI로 빌드 시작하기",
-          "subtitle": "명령줄 도구로 TBurn Chain 개발을 시작하세요.",
+          "subtitle": "명령줄 도구로 TBurn 체인 개발을 시작하세요.",
           "install": "설치하기",
           "viewDocs": "문서 보기"
+        },
+        "currentVersion": "현재 버전",
+        "usage": "사용법",
+        "options": "옵션",
+        "examples": "예제",
+        "required": "필수",
+        "optional": "선택",
+        "default": "기본값",
+        "globalOptionsTitle": "전역 옵션",
+        "environmentTitle": "환경 변수",
+        "relatedDocs": "Related 문서",
+        "categories": {
+          "project": "프로젝트",
+          "contract": "컨트랙트",
+          "network": "네트워크",
+          "wallet": "지갑",
+          "ai": "AI"
+        },
+        "globalOptions": {
+          "verbose": "상세 출력 활성화",
+          "json": "JSON 형식으로 출력",
+          "network": "네트워크 지정",
+          "config": "설정 파일 경로",
+          "help": "도움말 메시지 표시"
+        },
+        "needHelp": {
+          "title": "Need 도움말?",
+          "apiReference": "API 레퍼런스",
+          "sdkDocumentation": "SDK 문서"
+        },
+        "relatedLinks": {
+          "developerHub": "개발자 허브",
+          "documentation": "문서",
+          "apiReference": "API 레퍼런스",
+          "quickStart": "빠른 시작",
+          "installationGuide": "설치 가이드"
         }
       },
       "sdk": {
@@ -8166,7 +8641,7 @@
           "tag": "SDK 가이드",
           "title": "SDK",
           "titleHighlight": "통합",
-          "subtitle": "선호하는 프로그래밍 언어를 위한 공식 SDK로 TBurn Chain과 통합하세요."
+          "subtitle": "선호하는 프로그래밍 언어를 위한 공식 SDK로 TBurn 체인과 통합하세요."
         },
         "buttons": {
           "viewDocs": "문서 보기",
@@ -8175,7 +8650,7 @@
         "sdkList": {
           "javascript": {
             "title": "JavaScript/TypeScript",
-            "description": "Node.js 및 브라우저 환경을 위한 전체 기능 SDK",
+            "description": "노드.js 및 브라우저 환경을 위한 전체 기능 SDK",
             "features": {
               "feature1": "TypeScript 타입 완전 지원",
               "feature2": "Promise 기반 API",
@@ -8186,7 +8661,7 @@
             "title": "Python",
             "description": "데이터 분석 및 백엔드 서비스를 위한 Python SDK",
             "features": {
-              "feature1": "Async/await 지원",
+              "feature1": "비동기/await 지원",
               "feature2": "Pandas DataFrame 통합",
               "feature3": "Jupyter Notebook 호환"
             }
@@ -8201,8 +8676,8 @@
             }
           },
           "go": {
-            "title": "Go",
-            "description": "마이크로서비스 및 클라우드 네이티브를 위한 Go SDK",
+            "title": "이동",
+            "description": "마이크로서비스 및 클라우드 네이티브를 위한 이동 SDK",
             "features": {
               "feature1": "고루틴 기반 동시성",
               "feature2": "경량 바이너리",
@@ -8244,40 +8719,511 @@
         },
         "cta": {
           "title": "SDK로 빌드 시작하기",
-          "subtitle": "공식 SDK로 TBurn Chain을 빠르게 통합하세요.",
+          "subtitle": "공식 SDK로 TBurn 체인을 빠르게 통합하세요.",
           "viewDocs": "문서 보기",
           "joinDiscord": "Discord 참여"
+        },
+        "installation": "설치",
+        "configuration": "구성",
+        "quickExamples": "빠른 예제",
+        "install": {
+          "npm": "npm으로 설치",
+          "yarn": "또는 yarn으로"
+        },
+        "features": {
+          "typeSafety": {
+            "title": "타입 안전성",
+            "description": "모든 API 메서드와 응답에 대한 포괄적인 타입 정의와 함께 완전한 TypeScript 지원."
+          },
+          "autoRetry": {
+            "title": "Auto 재시도",
+            "description": "실패한 요청과 네트워크 문제에 대한 지수 백오프와 함께 내장된 재시도 로직."
+          },
+          "realTimeStreams": {
+            "title": "실시간 스트림",
+            "description": "WebSocket 연결과 반응형 패턴으로 실시간 블록체인 이벤트 구독."
+          }
+        },
+        "examples": {
+          "core": "핵심 기능",
+          "defi": "DeFi 상호작용",
+          "streaming": "실시간 스트리밍"
+        },
+        "needHelp": {
+          "title": "Need 도움말?",
+          "apiReference": "API 레퍼런스",
+          "cliReference": "CLI 레퍼런스",
+          "codeExamples": "Code 예제",
+          "discordSupport": "Discord 커뮤니티"
         }
       },
       "contracts": {
         "tag": "스마트 컨트랙트",
         "title": "스마트 컨트랙트",
-        "subtitle": "TBurn Chain에서 안전한 스마트 컨트랙트를 작성, 테스트, 배포하세요."
+        "subtitle": "TBurn 체인에서 안전한 스마트 컨트랙트를 작성, 테스트, 배포하세요.",
+        "contractTemplates": "컨트랙트 템플릿",
+        "copy": "복사",
+        "copied": "복사됨!",
+        "apiReference": "API 레퍼런스",
+        "cliGuide": "CLI 가이드",
+        "evmMigration": "EVM 마이그레이션",
+        "features": {
+          "evmCompatibility": {
+            "title": "완전한 EVM 호환성",
+            "description": "배포 existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+          },
+          "trustIntegration": {
+            "title": "Trust 점수 통합",
+            "description": "접근 on-chain trust scores through oracle contracts for trust-verified transactions."
+          },
+          "autoBurn": {
+            "title": "Automatic 소각",
+            "description": "예약 실행과 투명한 담보 관리가 포함된 내장 소각 메커니즘."
+          },
+          "aiOracle": {
+            "title": "AI Oracle 접근",
+            "description": "Integrate AI-powered insights directly into your smart contracts via oracle calls."
+          }
+        },
+        "templates": {
+          "erc20": {
+            "title": "BRC-20 토큰",
+            "description": "표준 token with trust-aware transfers"
+          },
+          "nft": {
+            "title": "NFT 컬렉션",
+            "description": "ERC-721 with on-chain metadata"
+          },
+          "defi": {
+            "title": "DeFi Protocol",
+            "description": "AMM pool with trust verification"
+          },
+          "dao": {
+            "title": "DAO 거버넌스",
+            "description": "토큰-weighted voting system"
+          }
+        },
+        "security": {
+          "title": "보안 Best Practices",
+          "reentrancy": {
+            "title": "Reentrancy Guards",
+            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+          },
+          "accessControl": {
+            "title": "접근 제어",
+            "description": "Implement role-based permissions with OpenZeppelin"
+          },
+          "inputValidation": {
+            "title": "Input Validation",
+            "description": "항상 validate user inputs and external data"
+          },
+          "upgradeability": {
+            "title": "Upgradeability",
+            "description": "Use proxy patterns for upgradeable contracts"
+          }
+        },
+        "gasOptimization": {
+          "title": "가스 최적화",
+          "subtitle": "Tips for reducing transaction costs",
+          "tip1": "Pack multiple small variables into single storage slots",
+          "tip2": "Use calldata instead of memory for read-only function parameters",
+          "tip3": "Cache storage variables in memory when accessed multiple times",
+          "tip4": "Use custom errors instead of revert strings"
+        },
+        "testing": {
+          "title": "테스트 Your Contracts",
+          "description": "Comprehensive testing guide for smart contracts",
+          "unitTests": "Unit Tests",
+          "integrationTests": "통합 Tests",
+          "fuzzTesting": "Fuzz 테스트"
+        },
+        "deployment": {
+          "title": "배포 가이드",
+          "step1": "Compile contracts",
+          "step2": "배포 to testnet",
+          "step3": "Verify on explorer",
+          "step4": "배포 to mainnet"
+        },
+        "needHelp": {
+          "title": "Need 도움말?",
+          "sdkDocumentation": "SDK 문서",
+          "codeExamples": "Code 예제",
+          "discordSupport": "Discord 커뮤니티"
+        },
+        "relatedLinks": {
+          "developerHub": "개발자 허브",
+          "sdkGuide": "SDK 가이드",
+          "cliReference": "CLI 레퍼런스",
+          "codeExamples": "Code 예제"
+        }
       },
       "websocket": {
         "tag": "실시간",
         "title": "WebSocket API",
-        "subtitle": "실시간 데이터 스트리밍 및 이벤트 구독."
+        "subtitle": "실시간 데이터 스트리밍 및 이벤트 구독.",
+        "connectionEndpoints": "연결 엔드포인트",
+        "subscriptionChannels": "구독 Channels",
+        "fullReference": "전체 레퍼런스",
+        "getSdk": "가져오기 SDK",
+        "codeExamples": "Code 예제",
+        "viewRestApi": "보기 REST API",
+        "readyToIntegrate": "준비됨 to Integrate?",
+        "endpoints": {
+          "mainnet": {
+            "type": "프로덕션",
+            "desc": "메인넷 WebSocket endpoint for production applications"
+          },
+          "testnet": {
+            "type": "개발",
+            "desc": "테스트넷 WebSocket endpoint for development and testing"
+          }
+        },
+        "channels": {
+          "blocks": {
+            "description": "Subscribe to new block notifications with full block data"
+          },
+          "transactions": {
+            "description": "실시간 transaction updates for specific addresses"
+          },
+          "trustScore": {
+            "description": "실시간 trust score changes for monitored addresses"
+          },
+          "defi": {
+            "description": "가격 feeds and liquidity pool updates"
+          }
+        },
+        "authentication": {
+          "title": "인증",
+          "description": "포함 your API key in the connection URL query parameter or as a header"
+        },
+        "heartbeat": {
+          "title": "Heartbeat",
+          "description": "보내기 ping messages every 30 seconds to keep the connection alive"
+        },
+        "clientImplementation": {
+          "title": "클라이언트 구현",
+          "subtitle": "예제 WebSocket client in JavaScript"
+        }
       },
       "examples": {
         "tag": "코드 예제",
         "title": "코드 예제",
-        "subtitle": "즉시 사용 가능한 코드 스니펫 및 샘플 프로젝트."
+        "subtitle": "즉시 사용 가능한 코드 스니펫 및 샘플 프로젝트.",
+        "commonRecipes": "공통 Recipes",
+        "categories": {
+          "allRecipes": "All Recipes",
+          "smartContracts": "스마트 컨트랙트",
+          "defi": "DeFi",
+          "nfts": "NFT",
+          "wallets": "지갑"
+        },
+        "recipes": {
+          "connectWallet": {
+            "title": "지갑 연결",
+            "description": "Integrate MetaMask and other Web3 wallets with React hooks",
+            "category": "Frontend"
+          },
+          "createToken": {
+            "title": "생성 BRC-20 토큰",
+            "description": "배포 a trust-verified token with automatic burn mechanics",
+            "category": "스마트 컨트랙트"
+          },
+          "aiOracle": {
+            "title": "AI Oracle 통합",
+            "description": "쿼리 AI-powered insights from smart contracts or backend",
+            "category": "Backend"
+          },
+          "nftMinting": {
+            "title": "NFT 발행",
+            "description": "생성 and mint NFT collections with metadata on IPFS",
+            "category": "NFT"
+          },
+          "flashLoan": {
+            "title": "Flash Loan",
+            "description": "Execute arbitrage with atomic flash loan transactions",
+            "category": "DeFi"
+          },
+          "indexerSetup": {
+            "title": "Indexer 설정",
+            "description": "빌드 a custom blockchain data indexer with The Graph",
+            "category": "Infrastructure"
+          }
+        },
+        "featured": {
+          "title": "Featured Recipe",
+          "description": "빌드 a secure vault that verifies project trust scores before accepting deposits. This pattern is essential for DeFi protocols.",
+          "difficulty": "Difficulty",
+          "intermediate": "중급",
+          "time": "Time",
+          "tenMins": "~10 mins",
+          "checks": {
+            "trustScore": "Verifies Trust 점수 on-chain before deposit",
+            "revert": "Reverts if score below threshold",
+            "gasOptimized": "가스-optimized for production use"
+          }
+        },
+        "cta": {
+          "title": "Have a Recipe to Share?",
+          "description": "Contribute your code examples to help the community. All contributors receive ecosystem rewards.",
+          "submitPr": "제출 PR on GitHub",
+          "requestGuide": "요청 a 가이드"
+        }
       },
       "quickstart": {
         "tag": "시작하기",
         "title": "빠른 시작",
-        "subtitle": "몇 분 안에 TBurn Chain을 시작하세요."
+        "subtitle": "몇 분 안에 TBurn 체인을 시작하세요.",
+        "whatsNext": "What's 다음?",
+        "prerequisites": {
+          "title": "전제조건",
+          "node": "노드.js 18+ installed",
+          "account": "TBurn 체인 account (testnet faucet available)",
+          "knowledge": "기본 JavaScript/TypeScript knowledge"
+        },
+        "steps": {
+          "installSdk": {
+            "title": "Install the SDK",
+            "description": "추가 the TBurn SDK to your project using npm or yarn"
+          },
+          "initializeSdk": {
+            "title": "Initialize the SDK",
+            "description": "구성 the SDK with your API key and network settings"
+          },
+          "firstTransaction": {
+            "title": "보내기 Your 처음 트랜잭션",
+            "description": "Connect your wallet and send TBURN tokens"
+          },
+          "queryTrustScore": {
+            "title": "쿼리 Trust 점수",
+            "description": "Retrieve AI-powered trust analysis for any address"
+          }
+        },
+        "networkConfig": {
+          "title": "네트워크 구성",
+          "chainId": "체인 ID",
+          "rpcUrl": "RPC URL",
+          "explorer": "Explorer",
+          "mainnet": {
+            "title": "메인넷"
+          },
+          "testnet": {
+            "title": "테스트넷"
+          }
+        },
+        "vsCode": {
+          "title": "VS Code 설정",
+          "description": "권장 extensions for TBurn 체인 development",
+          "solidity": "Solidity Language 지원",
+          "eslint": "ESLint for JavaScript/TypeScript",
+          "tburnSnippets": "TBurn SDK Snippets"
+        },
+        "nextSteps": {
+          "sdkGuide": {
+            "title": "SDK 가이드",
+            "desc": "Deep dive into SDK features"
+          },
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "desc": "탐색 all endpoints"
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트",
+            "desc": "Write your first contract"
+          }
+        }
       },
       "installation": {
         "tag": "설정",
         "title": "설치 가이드",
-        "subtitle": "단계별 설치 및 구성 지침."
+        "subtitle": "단계별 설치 및 구성 지침.",
+        "startBuilding": "빌드 시작",
+        "viewQuickStart": "보기 빠른 시작",
+        "requirements": {
+          "title": "시스템 요구사항",
+          "hardware": {
+            "title": "하드웨어",
+            "cpu": "2+ CPU cores",
+            "memory": "8GB RAM minimum",
+            "storage": "50GB SSD storage"
+          },
+          "software": {
+            "title": "소프트웨어",
+            "os": "macOS, Linux, or Windows 10+",
+            "node": "노드.js 18 or higher",
+            "git": "Git 2.0 or higher"
+          }
+        },
+        "tabs": {
+          "npm": "npm",
+          "yarn": "Yarn",
+          "docker": "Docker",
+          "source": "From Source"
+        },
+        "npm": {
+          "title": "Install via npm",
+          "step1": "Install the SDK globally",
+          "step2": "Verify installation",
+          "step3": "Initialize a new project"
+        },
+        "yarn": {
+          "title": "Install via Yarn",
+          "step1": "Install the SDK globally",
+          "step2": "Verify installation"
+        },
+        "docker": {
+          "title": "Docker 설치",
+          "step1": "Pull the official image",
+          "step2": "Run the container",
+          "step3": "접근 the development environment"
+        },
+        "source": {
+          "title": "빌드 from Source",
+          "step1": "Clone the repository",
+          "step2": "Install dependencies",
+          "step3": "빌드 the project",
+          "step4": "링크 globally"
+        },
+        "configuration": {
+          "title": "구성",
+          "envVars": {
+            "title": "환경 변수",
+            "apiKey": "Your TBurn API key",
+            "network": "네트워크 (mainnet/testnet)",
+            "rpcUrl": "사용자 정의 RPC endpoint (optional)"
+          },
+          "configFile": {
+            "title": "구성 File",
+            "description": "생성 a tburn.config.js file in your project root"
+          }
+        },
+        "troubleshooting": {
+          "title": "Troubleshooting",
+          "permissionDenied": {
+            "title": "권한 Denied",
+            "description": "Try running with sudo or fix npm permissions"
+          },
+          "nodeVersion": {
+            "title": "노드 버전 Mismatch",
+            "description": "Use nvm to switch to 노드.js 18+"
+          },
+          "networkError": {
+            "title": "네트워크 연결 오류",
+            "description": "확인 your firewall settings and RPC endpoint"
+          }
+        },
+        "nextSteps": {
+          "title": "다음 Steps",
+          "quickStart": {
+            "title": "빠른 시작 가이드",
+            "description": "빌드 your first dApp in 5 minutes"
+          },
+          "sdkReference": {
+            "title": "SDK 레퍼런스",
+            "description": "완료 API documentation"
+          },
+          "examples": {
+            "title": "Code 예제",
+            "description": "실제 통합 패턴"
+          }
+        }
       },
       "evmMigration": {
         "tag": "마이그레이션",
         "title": "EVM 마이그레이션",
-        "subtitle": "이더리움 dApp을 TBurn Chain으로 마이그레이션하세요."
+        "subtitle": "이더리움 dApp을 TBurn 체인으로 마이그레이션하세요.",
+        "startMigration": "마이그레이션 시작",
+        "viewGuide": "전체 가이드 보기",
+        "overview": {
+          "title": "마이그레이션 개요",
+          "description": "TBurn 체인은 완전한 EVM 호환성을 제공하여 최소한의 수정으로 기존 Ethereum 스마트 컨트랙트를 배포할 수 있습니다.",
+          "compatibility": "100% EVM 호환성",
+          "gasEfficiency": "최대 10배 낮은 가스 비용",
+          "trustFeatures": "내장 신뢰도 점수 통합"
+        },
+        "differences": {
+          "title": "주요 차이점",
+          "chainId": {
+            "title": "체인 ID",
+            "ethereum": "Ethereum: 1",
+            "tburn": "TBurn: 7777"
+          },
+          "consensus": {
+            "title": "합의 Mechanism",
+            "ethereum": "Proof of 스테이크",
+            "tburn": "신뢰 증명 (PoT)"
+          },
+          "gasToken": {
+            "title": "가스 토큰",
+            "ethereum": "ETH",
+            "tburn": "TBURN"
+          },
+          "blockTime": {
+            "title": "블록 시간",
+            "ethereum": "~12초",
+            "tburn": "~3초"
+          }
+        },
+        "steps": {
+          "title": "마이그레이션 Steps",
+          "step1": {
+            "title": "업데이트 네트워크 구성",
+            "description": "구성 파일에서 RPC 엔드포인트 및 체인 ID 변경"
+          },
+          "step2": {
+            "title": "컨트랙트 주소 수정",
+            "description": "업데이트 hardcoded contract addresses to TBurn 체인 deployments"
+          },
+          "step3": {
+            "title": "신뢰도 점수 통합 추가",
+            "description": "향상된 보안을 위해 선택적으로 신뢰도 점수 검증 통합"
+          },
+          "step4": {
+            "title": "배포 and 테스트",
+            "description": "배포 to testnet first, then migrate to mainnet"
+          }
+        },
+        "commonChanges": {
+          "title": "일반적인 코드 변경",
+          "rpcEndpoint": "RPC 엔드포인트 업데이트",
+          "chainIdUpdate": "체인 ID 구성",
+          "trustOracle": "Trust Oracle 통합 (선택)"
+        },
+        "tools": {
+          "title": "마이그레이션 Tools",
+          "cliMigrate": {
+            "title": "CLI 마이그레이션 도구",
+            "description": "burn-cli migrate로 자동화된 컨트랙트 마이그레이션"
+          },
+          "hardhatPlugin": {
+            "title": "Hardhat 플러그인",
+            "description": "원활한 배포를 위한 TBurn Hardhat 플러그인"
+          },
+          "foundrySupport": {
+            "title": "Foundry 지원",
+            "description": "테스트 및 배포를 위한 완전한 Foundry 호환성"
+          }
+        },
+        "cta": {
+          "title": "마이그레이션할 준비가 되셨나요?",
+          "description": "단계별 마이그레이션 가이드와 도구로 시작하세요.",
+          "startNow": "마이그레이션 시작 Now",
+          "contactSupport": "연락처 지원"
+        },
+        "faq": {
+          "title": "자주 묻는 질문",
+          "q1": {
+            "question": "기존 Solidity 컨트랙트가 작동하나요?",
+            "answer": "네, TBurn 체인은 완전한 EVM 호환성을 제공하며 모든 Solidity 버전을 지원합니다."
+          },
+          "q2": {
+            "question": "컨트랙트를 다시 감사받아야 하나요?",
+            "answer": "신뢰도 점수 통합을 위한 보안 검토를 권장하지만, 기존 로직은 그대로 작동해야 합니다."
+          },
+          "q3": {
+            "question": "마이그레이션은 얼마나 걸리나요?",
+            "answer": "간단한 컨트랙트는 몇 시간 만에 마이그레이션할 수 있습니다. 복잡한 프로토콜은 1-2주가 걸릴 수 있습니다."
+          }
+        }
       }
     },
     "solutions": {
@@ -8318,6 +9264,18 @@
           "diamond": {
             "name": "다이아몬드",
             "boost": "2.0배"
+          },
+          "standard": {
+            "name": "STANDARD",
+            "requirement": "아니오 requirement"
+          },
+          "mid": {
+            "name": "TRUST LV.1",
+            "requirement": "Trust 점수 60+"
+          },
+          "max": {
+            "name": "TRUST LV.2",
+            "requirement": "Trust 점수 80+"
           }
         },
         "cta": {
@@ -8344,6 +9302,22 @@
           "bridge": {
             "title": "브릿지",
             "subtitle": "크로스체인 자산"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "Bitcoin DeFi solutions"
+          },
+          "wallets": {
+            "title": "지갑",
+            "subtitle": "보안 connections"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "기관 tools"
+          },
+          "permissioned": {
+            "title": "Permissioned Networks",
+            "subtitle": "엔터프라이즈 solutions"
           }
         },
         "learnPages": {
@@ -8356,7 +9330,8 @@
             "subtitle": "탈중앙화 금융의 기본 학습"
           },
           "title": "DeFi 학습하기",
-          "description": "TBurn Chain에서 DeFi를 마스터하기 위한 종합 가이드"
+          "description": "TBurn 체인에서 DeFi를 마스터하기 위한 종합 가이드",
+          "gettingStarted": "GETTING STARTED"
         },
         "developerResources": {
           "title": "개발자 리소스",
@@ -8384,7 +9359,55 @@
           "quickStart": {
             "title": "빠른 시작",
             "subtitle": "5분 가이드"
+          },
+          "cli": {
+            "title": "CLI Tools",
+            "subtitle": "Command line interface"
+          },
+          "examples": {
+            "title": "Code 예제",
+            "subtitle": "샘플 integrations"
           }
+        },
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "24H VOLUME",
+          "activeLPs": "ACTIVE LPs",
+          "avgApy": "AVG APY"
+        },
+        "dex": {
+          "title": "집중 유동성 DEX",
+          "description": "자본-efficient AMM with 집중 liquidity positions. Provide liquidity in specific price ranges for up to 4000x capital efficiency compared to traditional AMMs.",
+          "feature1": "집중 liquidity positions for higher yields",
+          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "Range orders for advanced trading strategies",
+          "price": "가격",
+          "liquidity": "유동성",
+          "volume24h": "24h 볼륨"
+        },
+        "lending": {
+          "title": "Collateralized 대출",
+          "description": "Borrow against your crypto assets with competitive rates. 실시간 liquidation protection with trust-verified collateral.",
+          "maxLtv": "MAX 80% LTV",
+          "tburnLtv": "TBURN LTV",
+          "stablecoinLtv": "Stablecoin LTV"
+        },
+        "staking": {
+          "title": "Liquid 스테이킹",
+          "description": "스테이크 TBURN and receive sTBURN. Use liquid staking derivatives across DeFi while earning staking rewards.",
+          "apy": "18.5% APY",
+          "exchangeRate": "거래소 비율",
+          "rewardCycle": "보상 Cycle",
+          "everyEpoch": "Every Epoch (24h)"
+        },
+        "yieldFarming": {
+          "tag": "YIELD FARMING",
+          "title": "Trust-Boosted 수익",
+          "subtitle": "Earn bonus rewards based on your Trust 점수 tier"
+        },
+        "buttons": {
+          "startTrading": "시작 거래",
+          "viewAllFarms": "전체 보기 Farms"
         }
       },
       "tokenExtensions": {
@@ -8412,6 +9435,25 @@
           "extendedMetadata": {
             "title": "확장 메타데이터",
             "description": "팀 세부 정보, 백서 링크, 감사 보고서, 소각 일정을 포함한 모든 프로젝트 정보가 토큰 메타데이터에 온체인으로 저장됩니다."
+          },
+          "trustRating": {
+            "title": "Built-in Trust 평가",
+            "description": "Trust scores are automatically recorded in token contracts. When below 40%,",
+            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
+            "badge": "Automated Investor Protection"
+          },
+          "autoBurn": {
+            "title": "Automatic 소각 Schedule",
+            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned.",
+            "badge": "Enforced Deflationary 모델"
+          },
+          "collateral": {
+            "title": "담보 Transparency",
+            "description": "Project reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+          },
+          "metadata": {
+            "title": "Extended Metadata",
+            "description": "All project information including team details, whitepaper links, and audit reports stored on-chain."
           }
         },
         "brc20Standard": {
@@ -8433,6 +9475,18 @@
           "deflationaryUtilityTokens": {
             "title": "디플레이션 유틸리티 토큰",
             "description": "각 트랜잭션마다 자동 소각으로 가치 증가."
+          },
+          "verified": {
+            "title": "검증됨 Project 토큰",
+            "description": "Tradeable only when maintaining 60%+ trust score."
+          },
+          "stablecoins": {
+            "title": "담보-backed Stablecoins",
+            "description": "실시간 collateral ratio monitoring and auto liquidation."
+          },
+          "deflationary": {
+            "title": "Deflationary 유틸리티 토큰",
+            "description": "Auto-burn on each transaction increases value."
           }
         },
         "realExamples": {
@@ -8455,6 +9509,44 @@
           "subtitle": "5분 이내에 내장 신뢰 등급 기능을 가진 토큰을 발행하세요.",
           "openConsole": "개발자 콘솔 열기",
           "viewApiDocs": "API 문서 보기"
+        },
+        "buttons": {
+          "exploreBrc20": "탐색 BRC-20",
+          "readSpecs": "읽기 Specs",
+          "openConsole": "열기 개발자 Console",
+          "viewApiDocs": "보기 API Docs"
+        },
+        "brc20": {
+          "title": "BRC-20 토큰 표준",
+          "subtitle": "Core interfaces for Trust & 소각 functionality.",
+          "trustScoreFunctions": "Trust 점수 Functions",
+          "autoBurnFunctions": "Auto 소각 Functions"
+        },
+        "code": {
+          "comments": {
+            "range": "Returns trust score in range 0-100",
+            "autoBurn": "소각 tokens according to schedule"
+          }
+        },
+        "useCasesSection": {
+          "title": "토큰 Extension Use Cases"
+        },
+        "examplesSection": {
+          "title": "Real Use 예제"
+        },
+        "examples": {
+          "busd": {
+            "name": "BUSD (Stablecoin)",
+            "badge": "90+ Trust 점수"
+          },
+          "bgame": {
+            "name": "BGAME (GameFi)",
+            "badge": "Auto-소각 활성화됨"
+          },
+          "bprop": {
+            "name": "BPROP (RWA)",
+            "badge": "Real 자산 담보"
+          }
         }
       },
       "actionsBlinks": {
@@ -8601,7 +9693,7 @@
           },
           "developerCourse": {
             "title": "개발자 과정",
-            "subtitle": "TBurn Chain에서 dApp 구축"
+            "subtitle": "TBurn 체인에서 dApp 구축"
           },
           "title": "액션 & 블링크 학습하기",
           "description": "블록체인 액션을 마스터하기 위한 종합 가이드"
@@ -8617,23 +9709,23 @@
         "tag": "지갑 생태계",
         "title": "지갑 &",
         "titleHighlight": "보안",
-        "subtitle": "신뢰할 수 있는 지갑으로 TBurn Chain에 연결하세요. 모든 지갑은 트랜잭션 전 실시간 신뢰도 점수를 표시합니다.",
+        "subtitle": "신뢰할 수 있는 지갑으로 TBurn 체인에 연결하세요. 모든 지갑은 트랜잭션 전 실시간 신뢰도 점수를 표시합니다.",
         "recommended": "추천",
         "walletList": {
           "tburn": {
             "name": "TBurn 공식",
             "platform": "브라우저 확장 • 모바일",
-            "description": "TBurn Chain에 최적화된 네이티브 지갑. 실시간 신뢰도 점수 표시, 자동 소각 추적, 직접 거버넌스 투표 기능.",
+            "description": "TBurn 체인에 최적화된 네이티브 지갑. 실시간 신뢰도 점수 표시, 자동 소각 추적, 직접 거버넌스 투표 기능.",
             "button": "지갑 다운로드"
           },
           "metamask": {
             "name": "MetaMask",
             "platform": "브라우저 • 모바일",
-            "description": "세계에서 가장 인기 있는 Web3 지갑. 커스텀 네트워크 설정을 통해 TBurn Chain과 완전 호환. 모든 표준 토큰 작업 지원.",
+            "description": "세계에서 가장 인기 있는 Web3 지갑. 커스텀 네트워크 설정을 통해 TBurn 체인과 완전 호환. 모든 표준 토큰 작업 지원.",
             "button": "연결 가이드"
           },
           "trust": {
-            "name": "Trust Wallet",
+            "name": "Trust 지갑",
             "platform": "모바일 앱",
             "description": "안전한 모바일 멀티체인 지갑. 이동 중 TBurn 자산 관리에 탁월. dApp 브라우저 통합 지원.",
             "button": "연결 가이드"
@@ -8641,7 +9733,7 @@
           "ledger": {
             "name": "Ledger",
             "platform": "하드웨어 지갑",
-            "description": "최대 보안을 위한 콜드 스토리지 솔루션. TBurn Chain dApp과 상호작용하면서 개인 키를 오프라인으로 유지하세요.",
+            "description": "최대 보안을 위한 콜드 스토리지 솔루션. TBurn 체인 dApp과 상호작용하면서 개인 키를 오프라인으로 유지하세요.",
             "button": "설정 가이드"
           }
         },
@@ -8737,7 +9829,7 @@
         "tag": "엔터프라이즈 솔루션",
         "title": "허가형",
         "titleHighlight": "네트워크",
-        "subtitle": "TBurn Chain의 신뢰 검증으로 프라이빗 블록체인 네트워크를 배포하세요. 퍼블릭 체인 앵커링과 엔터프라이즈급 보안.",
+        "subtitle": "TBurn 체인의 신뢰 검증으로 프라이빗 블록체인 네트워크를 배포하세요. 퍼블릭 체인 앵커링과 엔터프라이즈급 보안.",
         "contactSales": "영업팀 연락",
         "viewWhitepaper": "백서 보기",
         "enterpriseFeatures": {
@@ -8814,6 +9906,98 @@
             "title": "메인넷 출시 & 운영",
             "description": "24/7 모니터링과 정기 보안 감사를 통한 프로덕션 배포. TBurn 팀의 지속적인 지원."
           }
+        },
+        "buttons": {
+          "contactSales": "연락처 Sales",
+          "viewWhitepaper": "보기 Whitepaper"
+        },
+        "features": {
+          "rbac": {
+            "title": "역할 기반 접근 제어",
+            "desc": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+          },
+          "whitelist": {
+            "title": "Whitelist 검증자",
+            "desc": "단지 trusted validators can participate in the network. 구성 the network so that only internal nodes or approved partners can generate and validate blocks."
+          },
+          "compliance": {
+            "title": "Regulatory 규정 준수",
+            "desc": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+          },
+          "multisig": {
+            "title": "다중 서명 거버넌스",
+            "desc": "Critical network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+          }
+        },
+        "hybrid": {
+          "privateAnchor": {
+            "title": "비공개 체인 + 공개 Anchor",
+            "desc": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the TBurn 공개 메인넷 for immutability."
+          },
+          "selectiveDisclosure": {
+            "title": "Selective 데이터 Disclosure",
+            "desc": "트랜잭션 details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+          }
+        },
+        "diagram": {
+          "privateLayer": "비공개 합의 Layer",
+          "anchoringHash": "ANCHORING HASH",
+          "publicMainnet": "공개 메인넷 (L1)"
+        },
+        "useCases": {
+          "exampleLabel": "예제",
+          "supplyChain": {
+            "title": "공급 체인",
+            "desc": "추적 products from manufacturer to delivery. Participants only see relevant transaction segments.",
+            "example": "Auto Parts Tracking",
+            "flow": "Raw Material → 프로덕션 → Assembly"
+          },
+          "banking": {
+            "title": "Banking Consortium",
+            "desc": "Inter-bank settlement network. 실시간 clearing and settlement with zero counterparty risk.",
+            "example": "Cross-border Remittance",
+            "flow": "3 Days → 3 Seconds, 수수료 $10 → $0.01"
+          },
+          "medical": {
+            "title": "Medical 데이터",
+            "desc": "보안 patient data sharing between hospitals and insurers. 전체 HIPAA compliance auditing.",
+            "example": "E-Prescriptions",
+            "flow": "Hospital → Pharmacy → Insurance"
+          }
+        },
+        "deployment": {
+          "step1": {
+            "title": "요구사항 Analysis",
+            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+          },
+          "step2": {
+            "title": "네트워크 설정",
+            "desc": "배포 validator nodes, generate genesis block, and develop initial smart contracts."
+          },
+          "step3": {
+            "title": "통합 & 마이그레이션",
+            "desc": "API integration with legacy systems (ERP, CRM), data migration, and user training."
+          },
+          "step4": {
+            "title": "메인넷 Launch",
+            "desc": "프로덕션 deployment with 24/7 monitoring and regular security audits."
+          }
+        },
+        "sections": {
+          "enterpriseFeatures": {
+            "title": "엔터프라이즈 기능",
+            "subtitle": "Advanced control and compliance features for businesses"
+          },
+          "hybridArchitecture": {
+            "title": "Hybrid Architecture",
+            "subtitle": "Combine private chain privacy with public blockchain security"
+          },
+          "useCases": {
+            "title": "Industry Use Cases"
+          },
+          "deployment": {
+            "title": "배포 Process"
+          }
         }
       },
       "gameTooling": {
@@ -8882,7 +10066,7 @@
           "title": "통합 가이드",
           "step1": {
             "title": "컨트랙트 배포",
-            "description": "Solidity ^0.8.19로 ERC-721/1155 컨트랙트를 작성하고 TBurn Chain에 배포하세요."
+            "description": "Solidity ^0.8.19로 ERC-721/1155 컨트랙트를 작성하고 TBurn 체인에 배포하세요."
           },
           "step2": {
             "title": "신뢰 검증 신청",
@@ -8958,7 +10142,7 @@
             },
             "requirement": "최소 75점 필요"
           },
-          "description": "TBurn Chain 결제에 승인된 토큰 및 점수 기준"
+          "description": "TBurn 체인 결제에 승인된 토큰 및 점수 기준"
         },
         "solutionTypes": {
           "title": "솔루션 유형",
@@ -9071,32 +10255,724 @@
       "commerce": {
         "tag": "커머스",
         "title": "커머스",
-        "subtitle": "전자상거래 통합 및 판매자 솔루션."
+        "subtitle": "전자상거래 통합 및 판매자 솔루션.",
+        "titleHighlight": "Solutions",
+        "buttons": {
+          "installPlugin": "Install Plugin",
+          "viewApiDocs": "보기 API Docs"
+        },
+        "features": {
+          "payment": {
+            "title": "Crypto 결제 처리 중",
+            "desc": "수락 verified tokens with instant settlement. Trust 점수 filtering protects merchants from fraudulent transactions and low-quality tokens."
+          },
+          "inventory": {
+            "title": "블록체인 Inventory Tracking",
+            "desc": "추적 products with on-chain verification. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+          },
+          "loyalty": {
+            "title": "토큰-Based Loyalty Programs",
+            "desc": "이슈 loyalty tokens to reward customers. 블록체인-based points are transparent, tradeable, and never expire."
+          },
+          "analytics": {
+            "title": "Real-Time Commerce Analytics",
+            "desc": "모니터링 sales, customer behavior, and token transactions. 켜짐-chain data provides tamper-proof business insights."
+          }
+        },
+        "platforms": {
+          "shopify": {
+            "desc": "One-click integration with the world's leading e-commerce platform.",
+            "status": "AVAILABLE"
+          },
+          "woocommerce": {
+            "desc": "WordPress plugin for WooCommerce stores.",
+            "status": "AVAILABLE"
+          },
+          "customApi": {
+            "title": "사용자 정의 API",
+            "desc": "RESTful API for custom integrations and mobile apps.",
+            "status": "AVAILABLE"
+          }
+        },
+        "stories": {
+          "fashionBrand": {
+            "name": "Aurora Fashion",
+            "type": "Luxury Fashion Brand",
+            "quote": "TBurn Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "stats": {
+              "volume": "$2.5M 볼륨",
+              "savings": "85% 수수료 Savings"
+            }
+          },
+          "resalePlatform": {
+            "name": "BlockResale",
+            "type": "NFT-검증됨 Resale 플랫폼",
+            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "stats": {
+              "nfts": "50K NFT Issued",
+              "counterfeits": "Zero Counterfeits"
+            }
+          }
+        },
+        "integration": {
+          "step1": {
+            "title": "가져오기 API Keys",
+            "desc": "Register on the developer dashboard and get your credentials."
+          },
+          "step2": {
+            "title": "Install SDK",
+            "desc": "추가 TBurn Commerce SDK to your project."
+          },
+          "step3": {
+            "title": "구성 Webhooks",
+            "desc": "설정 up payment confirmation and order update notifications."
+          }
+        },
+        "sections": {
+          "coreFeatures": {
+            "title": "Commerce 기능",
+            "subtitle": "Everything you need to accept crypto payments and grow your business."
+          },
+          "platforms": {
+            "title": "통합 Platforms"
+          },
+          "successStories": {
+            "title": "성공 Stories"
+          },
+          "integration": {
+            "title": "빠른 통합 가이드"
+          }
+        }
       },
       "financial": {
         "tag": "금융",
         "title": "금융 서비스",
-        "subtitle": "블록체인 기반 엔터프라이즈 금융 인프라."
+        "subtitle": "블록체인 기반 엔터프라이즈 금융 인프라.",
+        "titleHighlight": "Services",
+        "buttons": {
+          "startBuilding": "빌드 시작",
+          "readWhitepaper": "읽기 Whitepaper"
+        },
+        "services": {
+          "banking": {
+            "title": "Digital Banking Infrastructure",
+            "desc": "빌드 neo-banking products with blockchain settlement. Instant transfers, programmable accounts, and full regulatory compliance."
+          },
+          "defi": {
+            "title": "DeFi Protocol 통합",
+            "desc": "Connect traditional finance with decentralized protocols. 접근 lending, staking, and yield generation with institutional-grade security."
+          },
+          "payment": {
+            "title": "Cross-Border Payments",
+            "desc": "Global settlements in seconds, not days. Reduce costs by 99% with blockchain-based international transfers."
+          },
+          "compliance": {
+            "title": "Regulatory 규정 준수",
+            "desc": "Built-in KYC/AML verification and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+          }
+        },
+        "stats": {
+          "tvl": "총 값 Locked",
+          "apy": "평균 APY",
+          "dau": "매일 활성 Users"
+        },
+        "cases": {
+          "neobank": {
+            "name": "NeoBank X",
+            "type": "Digital Banking 플랫폼",
+            "quote": "TBurn's infrastructure allowed us to launch in 3 months instead of 18. Our customers love instant transfers.",
+            "stats": {
+              "customers": "150K Customers",
+              "costs": "90% 비용 Reduction"
+            }
+          },
+          "defiProtocol": {
+            "name": "DeFi Prime",
+            "type": "대출 Protocol",
+            "quote": "Trust 점수 integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "stats": {
+              "tvl": "$500M TVL",
+              "liquidations": "Zero Bad Debt"
+            }
+          }
+        },
+        "building": {
+          "step1": {
+            "title": "Architecture Consultation",
+            "desc": "Our team helps design your financial product architecture, ensuring regulatory compliance from day one."
+          },
+          "step2": {
+            "title": "API 통합",
+            "desc": "Connect to TBurn's financial APIs for payments, lending, and asset management."
+          },
+          "step3": {
+            "title": "규정 준수 설정",
+            "desc": "구성 KYC/AML flows and audit logging to meet your regulatory requirements."
+          },
+          "step4": {
+            "title": "프로덕션 Launch",
+            "desc": "배포 with 24/7 monitoring, enterprise SLA, and dedicated support."
+          }
+        },
+        "sections": {
+          "coreServices": {
+            "title": "Core Financial Services",
+            "subtitle": "엔터프라이즈급 blockchain infrastructure for modern finance."
+          },
+          "realCases": {
+            "title": "Real-World 성공"
+          },
+          "building": {
+            "title": "빌드 Financial Products"
+          }
+        }
       },
       "aiFeatures": {
         "tag": "AI 기반",
         "title": "AI 기능",
-        "subtitle": "지능형 블록체인 운영을 위한 트리플 밴드 AI 오케스트레이션."
+        "subtitle": "지능형 블록체인 운영을 위한 트리플 밴드 AI 오케스트레이션.",
+        "titleHighlight": "Triple-Band Orchestration",
+        "tiers": {
+          "strategic": {
+            "title": "Strategic AI",
+            "model": "GPT-4 / Claude 3",
+            "description": "High-level decision making for governance, tokenomics design, and long-term risk assessment. Processes complex analyses with human-like reasoning.",
+            "capabilities": {
+              "governance": "DAO 제안 Analysis",
+              "tokenomics": "Tokenomics 최적화",
+              "risk": "Strategic 위험 Assessment"
+            }
+          },
+          "tactical": {
+            "title": "Tactical AI",
+            "model": "GPT-3.5 / Mistral",
+            "description": "실시간 security monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "capabilities": {
+              "vulnerability": "스마트 컨트랙트 감사",
+              "fraud": "Fraud 패턴 Detection",
+              "fee": "Dynamic 수수료 최적화"
+            }
+          },
+          "operational": {
+            "title": "Operational AI",
+            "model": "사용자 정의 ML Models",
+            "description": "Ultra-fast transaction validation and network health monitoring. Optimized for speed with sub-50ms response times.",
+            "capabilities": {
+              "validation": "트랜잭션 Validation",
+              "mev": "MEV Protection",
+              "health": "네트워크 Health Monitoring"
+            }
+          }
+        },
+        "architecture": {
+          "step1": {
+            "title": "데이터 Ingestion",
+            "description": "실시간 blockchain data, mempool transactions, and market feeds are continuously processed."
+          },
+          "step2": {
+            "title": "AI 처리 중",
+            "description": "Each tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+          },
+          "step3": {
+            "title": "Coordinated 응답",
+            "description": "AI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+          }
+        },
+        "stats": {
+          "uptime": {
+            "title": "99.99% Uptime",
+            "desc": "Redundant AI clusters across multiple regions"
+          },
+          "cost": {
+            "title": "90% 비용 Reduction",
+            "desc": "Efficient tier routing minimizes compute costs"
+          },
+          "scale": {
+            "title": "100K+ TPS",
+            "desc": "Operational AI handles massive throughput"
+          },
+          "verify": {
+            "title": "AI-검증됨 Trust",
+            "desc": "Continuous project scoring and monitoring"
+          }
+        },
+        "sections": {
+          "architecture": {
+            "title": "AI Architecture"
+          },
+          "relatedSolutions": {
+            "title": "Related Solutions",
+            "subtitle": "탐색 how AI enhances other TBurn products"
+          },
+          "developerResources": {
+            "title": "개발자 리소스",
+            "subtitle": "Integrate AI capabilities into your applications"
+          }
+        },
+        "relatedLinks": {
+          "wallets": {
+            "title": "지갑",
+            "desc": "AI-enhanced security"
+          },
+          "payments": {
+            "title": "Payments",
+            "desc": "Smart fraud detection"
+          },
+          "gameTooling": {
+            "title": "Game Tooling",
+            "desc": "Anti-cheat AI systems"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "desc": "위험 assessment AI"
+          }
+        },
+        "devResources": {
+          "sdkGuide": {
+            "title": "AI SDK 가이드",
+            "desc": "통합 documentation"
+          },
+          "smartContracts": {
+            "title": "AI Contracts",
+            "desc": "켜짐-chain AI interfaces"
+          },
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "desc": "REST & GraphQL APIs"
+          },
+          "websocket": {
+            "title": "Real-Time 이벤트",
+            "desc": "WebSocket streaming"
+          },
+          "cli": {
+            "title": "CLI Tools",
+            "desc": "Command line interface"
+          },
+          "examples": {
+            "title": "Code 예제",
+            "desc": "샘플 integrations"
+          }
+        },
+        "learnMore": {
+          "label": "LEARN MORE",
+          "defiMastery": {
+            "title": "AI in DeFi",
+            "desc": "Advanced AI strategies for DeFi"
+          }
+        },
+        "forDevelopers": {
+          "label": "FOR DEVELOPERS",
+          "devCourse": {
+            "title": "AI 개발자 Course",
+            "desc": "빌드 AI-powered dApps"
+          }
+        }
       },
       "artistsCreators": {
         "tag": "크리에이티브",
         "title": "아티스트 & 크리에이터",
-        "subtitle": "NFT 민팅, 로열티, 크리에이터 이코노미 도구."
+        "subtitle": "NFT 민팅, 로열티, 크리에이터 이코노미 도구.",
+        "titleHighlight": "Creators",
+        "buttons": {
+          "startCreating": "시작 Creating",
+          "exploreCollections": "탐색 컬렉션"
+        },
+        "features": {
+          "lightningPerformance": {
+            "title": "Lightning-Fast 발행",
+            "description": "발행 NFT in seconds with 50,000+ TPS capacity. Batch minting for large collections with minimal gas fees."
+          },
+          "trustVerification": {
+            "title": "Trust Verification",
+            "description": "Every NFT collection displays its Trust 점수. Buyers can verify creator authenticity and collection legitimacy instantly."
+          },
+          "thrivingEcosystem": {
+            "title": "Thriving Ecosystem",
+            "description": "Join 15,000+ verified artists. 접근 marketplaces, galleries, and collector communities built on trust."
+          },
+          "infiniteScalability": {
+            "title": "Infinite Scalability",
+            "description": "From 1-of-1 artwork to 10,000 piece generative collections. Our infrastructure scales with your creative vision."
+          }
+        },
+        "stats": {
+          "nftsMinted": "NFT MINTED",
+          "creatorEarnings": "CREATOR EARNINGS",
+          "verifiedArtists": "VERIFIED ARTISTS"
+        },
+        "relatedSolutions": {
+          "title": "Related Solutions",
+          "description": "향상 your creative journey with complementary tools",
+          "tokenExtensions": {
+            "title": "토큰 Extensions",
+            "subtitle": "사용자 정의 token standards"
+          },
+          "wallets": {
+            "title": "지갑",
+            "subtitle": "보안 asset storage"
+          },
+          "commerce": {
+            "title": "Commerce",
+            "subtitle": "Sell your creations"
+          },
+          "gameTooling": {
+            "title": "Game Tooling",
+            "subtitle": "게임 NFT"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "수락 crypto"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "Social NFT sharing"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "Creator finance"
+          },
+          "aiFeatures": {
+            "title": "AI 기능",
+            "subtitle": "AI-powered creation"
+          }
+        },
+        "developerResources": {
+          "title": "개발자 리소스",
+          "description": "빌드 NFT platforms and creator tools with our comprehensive SDK",
+          "sdkGuide": {
+            "title": "NFT SDK 가이드",
+            "subtitle": "통합 documentation"
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트",
+            "subtitle": "ERC-721/1155 templates"
+          },
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "실시간 events"
+          },
+          "cliReference": {
+            "title": "CLI Tools",
+            "subtitle": "Command line minting"
+          },
+          "codeExamples": {
+            "title": "Code 예제",
+            "subtitle": "샘플 integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "forDevelopers": "FOR DEVELOPERS",
+          "defiMastery": {
+            "title": "NFT Mastery Course",
+            "subtitle": "Advanced NFT creation and marketing"
+          },
+          "developerCourse": {
+            "title": "Creator 개발자 Course",
+            "subtitle": "빌드 NFT platforms and marketplaces"
+          }
+        },
+        "cta": {
+          "title": "준비됨 to 생성 on TBurn?",
+          "description": "Join thousands of artists and creators building the future of digital ownership.",
+          "link": "보기 Creator 문서"
+        }
       },
       "btcfi": {
         "tag": "비트코인 DEFI",
         "title": "BTCfi",
-        "subtitle": "랩핑된 BTC와 크로스체인 수익을 갖춘 비트코인 DeFi 통합."
+        "subtitle": "랩핑된 BTC와 크로스체인 수익을 갖춘 비트코인 DeFi 통합.",
+        "titleHighlight": "Bitcoin DeFi",
+        "buttons": {
+          "bridgeBtc": "브릿지 BTC",
+          "viewYields": "보기 Yields"
+        },
+        "features": {
+          "highPerformance": {
+            "title": "High 성능 브릿지",
+            "description": "브릿지 Bitcoin to TBurn in under 10 minutes. MPC security ensures your BTC is always safe with trustless verification."
+          },
+          "trustVerification": {
+            "title": "Trust Verification",
+            "description": "All BTCfi protocols display Trust Scores. 단지 verified protocols with 60%+ scores are featured on our platform."
+          },
+          "growingEcosystem": {
+            "title": "Growing Ecosystem",
+            "description": "접근 lending, staking, and yield farming with your Bitcoin. Native BTC earning opportunities without selling."
+          },
+          "scalableSolutions": {
+            "title": "Scalable Solutions",
+            "description": "From individual holders to institutional treasuries. Our infrastructure handles any volume with consistent performance."
+          }
+        },
+        "stats": {
+          "btcBridged": "BTC BRIDGED",
+          "tvl": "TVL",
+          "zeroValue": "0",
+          "securityIncidents": "SECURITY INCIDENTS"
+        },
+        "productsSection": {
+          "title": "BTCfi Products",
+          "description": "Multiple ways to put your Bitcoin to work"
+        },
+        "products": {
+          "tbtcBridge": {
+            "title": "tBTC 브릿지",
+            "description": "Trustless Bitcoin bridging with MPC security. 아니오 centralized custodians.",
+            "stats": "15K+ BTC Bridged"
+          },
+          "btcLending": {
+            "title": "BTC 대출",
+            "description": "Borrow stablecoins against your BTC. Up to 75% LTV with competitive rates.",
+            "stats": "5.2% APR"
+          },
+          "btcYieldFarming": {
+            "title": "BTC 이자 농사",
+            "description": "Provide BTC liquidity and earn trading fees plus TBURN rewards.",
+            "stats": "12.5% APY"
+          },
+          "btcStaking": {
+            "title": "BTC 스테이킹",
+            "description": "스테이크 wrapped BTC to secure the network and earn passive rewards.",
+            "stats": "8.3% APY"
+          }
+        },
+        "relatedSolutions": {
+          "title": "Related Solutions",
+          "description": "향상 your BTCfi experience with these tools",
+          "tokenExtensions": {
+            "title": "토큰 Extensions",
+            "subtitle": "BRC-20 standards"
+          },
+          "wallets": {
+            "title": "지갑",
+            "subtitle": "BTC-compatible wallets"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "Pay with BTC"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "BTC banking"
+          },
+          "commerce": {
+            "title": "Commerce",
+            "subtitle": "수락 BTC"
+          },
+          "permissioned": {
+            "title": "Permissioned",
+            "subtitle": "엔터프라이즈 BTC"
+          },
+          "aiFeatures": {
+            "title": "AI 기능",
+            "subtitle": "Smart BTC strategies"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "BTC transactions"
+          }
+        },
+        "developerResources": {
+          "title": "개발자 리소스",
+          "description": "빌드 BTCfi applications with our comprehensive tools",
+          "sdkGuide": {
+            "title": "BTCfi SDK 가이드",
+            "subtitle": "통합 documentation"
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트",
+            "subtitle": "BTC contract templates"
+          },
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "실시간 BTC events"
+          },
+          "cliReference": {
+            "title": "CLI Tools",
+            "subtitle": "Command line interface"
+          },
+          "codeExamples": {
+            "title": "Code 예제",
+            "subtitle": "샘플 integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "gettingStarted": "GETTING STARTED",
+          "defiMastery": {
+            "title": "BTCfi Mastery Course",
+            "subtitle": "Advanced Bitcoin DeFi strategies"
+          },
+          "introToDefi": {
+            "title": "소개 to BTCfi",
+            "subtitle": "학습 Bitcoin DeFi fundamentals"
+          }
+        },
+        "cta": {
+          "title": "준비됨 to 잠금 해제 Your Bitcoin?",
+          "description": "시작 earning yield on your BTC today with trust-verified protocols.",
+          "link": "보기 BTCfi 문서"
+        }
       },
       "crossChainBridge": {
         "tag": "브릿지",
         "title": "크로스체인 브릿지",
-        "subtitle": "7개 이상 블록체인 네트워크 간 안전한 자산 전송."
+        "subtitle": "7개 이상 블록체인 네트워크 간 안전한 자산 전송.",
+        "titleHighlight": "브릿지",
+        "buttons": {
+          "launchBridge": "Launch 브릿지",
+          "viewDocumentation": "문서 보기"
+        },
+        "heroStats": {
+          "chains": "SUPPORTED CHAINS",
+          "volume": "TOTAL VOLUME",
+          "txns": "TOTAL TRANSACTIONS",
+          "avgTime": "AVG BRIDGE TIME"
+        },
+        "supportedNetworks": {
+          "title": "Supported Networks",
+          "subtitle": "브릿지 assets to and from major blockchain networks"
+        },
+        "coreFeatures": {
+          "mpcSecurity": {
+            "title": "MPC 보안",
+            "subtitle": "Multi-Party Computation for trustless bridging",
+            "items": {
+              "distributedKeyGen": "Distributed 키 Generation",
+              "thresholdSignatures": "Threshold Signatures",
+              "regularKeyRotation": "Regular 키 Rotation"
+            }
+          },
+          "atomicSwaps": {
+            "title": "Atomic Swaps",
+            "subtitle": "All-or-nothing transaction guarantees",
+            "items": {
+              "htlcContracts": "HTLC 스마트 컨트랙트",
+              "zeroSlippage": "Zero Slippage Swaps",
+              "autoRefund": "Automatic Refunds"
+            }
+          },
+          "unifiedLiquidity": {
+            "title": "Unified 유동성",
+            "subtitle": "Deep cross-chain liquidity pools",
+            "items": {
+              "crossChainPools": "크로스체인 유동성 풀",
+              "dynamicRebalancing": "Dynamic 풀 Rebalancing",
+              "largeTransferSupport": "Large 전송 지원"
+            }
+          }
+        },
+        "howItWorks": {
+          "title": "How the 브릿지 Works"
+        },
+        "bridgeSteps": {
+          "step1": {
+            "title": "지갑 연결",
+            "desc": "Connect your wallet and select source/destination chains."
+          },
+          "step2": {
+            "title": "선택 Assets",
+            "desc": "선택 tokens to bridge and enter the amount."
+          },
+          "step3": {
+            "title": "확인 전송",
+            "desc": "검토 fees and Trust 점수 verification, then confirm."
+          },
+          "step4": {
+            "title": "받기 Assets",
+            "desc": "Assets arrive on destination chain in ~2 minutes."
+          }
+        },
+        "relatedSolutions": {
+          "title": "Related Solutions",
+          "description": "향상 your cross-chain experience with these tools",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "브릿지 Bitcoin"
+          },
+          "tokenExtensions": {
+            "title": "토큰 Extensions",
+            "subtitle": "크로스체인 tokens"
+          },
+          "wallets": {
+            "title": "지갑",
+            "subtitle": "멀티체인 wallets"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "크로스체인 payments"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "멀티체인 finance"
+          },
+          "permissioned": {
+            "title": "Permissioned",
+            "subtitle": "엔터프라이즈 bridges"
+          },
+          "aiFeatures": {
+            "title": "AI 기능",
+            "subtitle": "Smart routing"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "브릿지 via links"
+          }
+        },
+        "developerResources": {
+          "title": "개발자 리소스",
+          "description": "Integrate cross-chain functionality into your applications",
+          "sdkGuide": {
+            "title": "브릿지 SDK 가이드",
+            "subtitle": "통합 documentation"
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트",
+            "subtitle": "브릿지 contracts"
+          },
+          "apiReference": {
+            "title": "API 레퍼런스",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "실시간 updates"
+          },
+          "cliReference": {
+            "title": "CLI Tools",
+            "subtitle": "Command line bridging"
+          },
+          "codeExamples": {
+            "title": "Code 예제",
+            "subtitle": "샘플 integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "forDevelopers": "FOR DEVELOPERS",
+          "defiMastery": {
+            "title": "크로스체인 DeFi",
+            "subtitle": "Advanced multi-chain strategies"
+          },
+          "developerCourse": {
+            "title": "브릿지 개발자 Course",
+            "subtitle": "빌드 cross-chain applications"
+          }
+        },
+        "cta": {
+          "title": "준비됨 to 브릿지 Your Assets?",
+          "description": "전송 assets across chains securely with trust verification.",
+          "link": "보기 브릿지 문서"
+        }
       }
     },
     "useCases": {
@@ -9109,13 +10985,28 @@
           "all": "모든 게임",
           "p2e": "플레이투언",
           "nft": "NFT 게임",
-          "metaverse": "메타버스"
+          "metaverse": "메타버스",
+          "web3Gaming": {
+            "title": "Web3 게임",
+            "desc": "전체-stack blockchain gaming with on-chain assets, verifiable randomness, and trustless tournaments. 빌드 games that players truly own."
+          },
+          "nftCollectibles": {
+            "title": "NFT Collectibles",
+            "desc": "생성, trade, and verify digital collectibles with Trust 점수 authentication. Cross-game item interoperability and provenance tracking."
+          },
+          "musicStreaming": {
+            "title": "Music & Streaming",
+            "desc": "Decentralized music distribution with creator royalties. NFT tickets, fan tokens, and direct artist-to-listener monetization."
+          }
         },
         "metrics": {
           "activePlayers": "활성 플레이어",
           "dailyTransactions": "일일 트랜잭션",
           "totalNfts": "총 NFT",
-          "tvl": "게임 TVL"
+          "tvl": "게임 TVL",
+          "dailyActivePlayers": "매일 활성 Players",
+          "nftVolume": "NFT 거래 볼륨",
+          "gamesApps": "게임 & Apps"
         },
         "features": {
           "title": "게임 기능",
@@ -9133,7 +11024,20 @@
           },
           "guilds": {
             "title": "게임 길드",
-            "description": "DAO 기반 길드 관리 및 수익 공유"
+            "description": "DAO 기반 길드 관리 및 수익 공유",
+            "desc": "DAO-based guild management with transparent profit sharing. Scholarship programs and collective asset ownership for gaming communities."
+          },
+          "gasFree": {
+            "title": "가스-무료 게임",
+            "desc": "Seamless player experience with sponsored transactions. 아니오 wallet popups or gas fees interrupting gameplay."
+          },
+          "antiCheat": {
+            "title": "Anti-Cheat 시스템",
+            "desc": "AI-powered fraud detection with Trust 점수 integration. 보호 your game economy from bots, exploits, and bad actors."
+          },
+          "playEarn": {
+            "title": "플레이 투 언 보상",
+            "desc": "Sustainable tokenomics with performance-based rewards. Fair distribution mechanisms that reward skill and time invested."
           }
         },
         "gameTypes": {
@@ -9153,34 +11057,336 @@
           "casual": {
             "title": "캐주얼",
             "description": "마이크로 보상이 있는 퀵플레이 게임"
+          },
+          "mmorpgs": {
+            "title": "MMORPGs",
+            "desc": "Massive multiplayer worlds with player-owned economies and guild governance"
+          },
+          "battleRoyale": {
+            "title": "Battle Royale",
+            "desc": "Competitive last-player-standing games with prize pools and ranked seasons"
+          },
+          "cardStrategy": {
+            "title": "Card & Strategy",
+            "desc": "Collectible card games with NFT cards and strategic turn-based combat"
+          },
+          "racingSports": {
+            "title": "Racing & Sports",
+            "desc": "Competitive racing and sports simulations with vehicle/player NFT"
+          },
+          "casualSocial": {
+            "title": "Casual & Social",
+            "desc": "Relaxed gaming experiences with social features and mini-game tournaments"
+          },
+          "esports": {
+            "title": "Esports & 토너먼트",
+            "desc": "Competitive gaming with decentralized prize pools and fair matchmaking"
           }
         },
         "cta": {
           "title": "TBurn에서 게임을 개발할 준비가 되셨나요?",
           "subtitle": "GameFi SDK와 문서에 접근하세요",
           "getStarted": "시작하기",
-          "viewDocs": "문서 보기"
+          "viewDocs": "문서 보기",
+          "desc": "Join thousands of developers building the future of gaming. 접근 our comprehensive SDK, documentation, and developer community.",
+          "quickStart": "빠른 시작 가이드",
+          "memberPortal": "멤버 Portal"
+        },
+        "buttons": {
+          "startBuilding": "빌드 시작",
+          "gameTooling": "Game Tooling"
+        },
+        "sections": {
+          "categories": "게임 Ecosystem",
+          "categoriesDesc": "탐색 the diverse world of blockchain gaming on TBURN",
+          "platformFeatures": "플랫폼 기능",
+          "gameGenres": "Supported Game Genres"
         }
       },
       "tokenization": {
         "tag": "토큰화",
         "title": "자산 토큰화",
-        "subtitle": "블록체인에서 실물 자산을 토큰화하세요."
+        "subtitle": "블록체인에서 실물 자산을 토큰화하세요.",
+        "buttons": {
+          "startTokenizing": "시작 Tokenizing",
+          "viewDocumentation": "문서 보기"
+        },
+        "types": {
+          "realEstate": {
+            "title": "Real Estate Tokenization",
+            "desc": "Fractional ownership of commercial and residential properties. 활성화 global investment in real estate with minimal capital requirements and instant liquidity."
+          },
+          "luxuryAsset": {
+            "title": "Luxury 자산 토큰",
+            "desc": "Tokenize art, collectibles, rare wines, and luxury goods. Provenance tracking with blockchain verification and fractional ownership options."
+          },
+          "securities": {
+            "title": "Digital Securities",
+            "desc": "Compliant security tokens with automated dividend distribution. Equity, debt, and revenue-sharing tokens with built-in regulatory compliance."
+          },
+          "commodity": {
+            "title": "Commodity 토큰",
+            "desc": "Backed by physical commodities like gold, silver, and oil. 실시간 price feeds with audited reserve verification."
+          }
+        },
+        "metrics": {
+          "newInvestors": "새로운 투자자 활성화됨",
+          "unlockedAssetValue": "Unlocked 자산 값",
+          "settlementReliability": "Settlement Reliability"
+        },
+        "features": {
+          "globalMarket": {
+            "title": "Global 시장 접근",
+            "desc": "24/7 trading across borders with instant settlement. 접근 worldwide investors and secondary market liquidity."
+          },
+          "fractionalOwnership": {
+            "title": "Fractional Ownership",
+            "desc": "활성화 investment from $100 in premium assets. Democratize access to traditionally exclusive asset classes."
+          },
+          "regulatoryCompliant": {
+            "title": "Regulatory Compliant",
+            "desc": "Built-in KYC/AML, accreditation checks, and jurisdictional compliance. Automated reporting and audit trails."
+          },
+          "enterpriseSecurity": {
+            "title": "엔터프라이즈 보안",
+            "desc": "Bank-grade custody, multi-sig controls, and quantum-resistant encryption. 기관-grade asset protection."
+          }
+        },
+        "sections": {
+          "types": "Tokenization Categories",
+          "typesDesc": "탐색 asset classes ready for blockchain tokenization",
+          "platformFeatures": "플랫폼 Capabilities"
+        },
+        "cta": {
+          "title": "준비됨 to Tokenize Your Assets?",
+          "desc": "Transform illiquid assets into tradeable tokens. Our team will guide you through the tokenization process from structure to launch.",
+          "getStarted": "시작하기"
+        }
       },
       "depin": {
         "tag": "DEPIN",
         "title": "DePIN",
-        "subtitle": "탈중앙화 물리적 인프라 네트워크."
+        "subtitle": "탈중앙화 물리적 인프라 네트워크.",
+        "buttons": {
+          "deployInfrastructure": "배포 Infrastructure",
+          "protocolDocs": "Protocol Docs"
+        },
+        "categories": {
+          "wireless": {
+            "title": "Wireless Networks",
+            "desc": "Decentralized 5G, LoRaWAN, and WiFi coverage. Earn rewards by deploying hotspots and providing connectivity to your community."
+          },
+          "compute": {
+            "title": "Distributed Compute",
+            "desc": "GPU and CPU resource sharing for AI training, rendering, and scientific computing. Monetize idle computing power."
+          },
+          "mapping": {
+            "title": "Mapping & Sensors",
+            "desc": "Crowdsourced geospatial data, weather stations, and IoT sensors. 빌드 real-time data networks with verified coverage."
+          },
+          "storage": {
+            "title": "Decentralized Storage",
+            "desc": "Distributed file storage with redundancy and encryption. Earn rewards for contributing disk space to the network."
+          }
+        },
+        "metrics": {
+          "activeNodes": "활성 노드",
+          "protocolRevenue": "Protocol 수익",
+          "countriesCovered": "Countries Covered"
+        },
+        "features": {
+          "proofOfCoverage": {
+            "title": "Proof of Coverage",
+            "desc": "Cryptographically verify infrastructure deployment and service availability. Fair reward distribution based on actual contribution."
+          },
+          "slashingProtection": {
+            "title": "Slashing Protection",
+            "desc": "스테이크-based security with penalties for malicious behavior. 보호 network integrity while rewarding honest operators."
+          },
+          "communityGovernance": {
+            "title": "커뮤니티 거버넌스",
+            "desc": "DAO-based protocol governance for network parameters. 토큰 holders vote on upgrades, rewards, and expansion priorities."
+          },
+          "dynamicRewards": {
+            "title": "Dynamic 보상",
+            "desc": "AI-optimized reward distribution based on demand and coverage gaps. Higher rewards for underserved areas."
+          }
+        },
+        "hardware": {
+          "title": "하드웨어 요구사항",
+          "desc": "Flexible hardware options for different DePIN protocols. 시작 earning with minimal investment.",
+          "minimum": "최소: Raspberry Pi 4 or equivalent ARM device",
+          "recommended": "권장: x86 server with 16GB RAM, 1TB SSD",
+          "gpu": "GPU Compute: NVIDIA RTX 3080 or higher for AI workloads"
+        },
+        "sections": {
+          "categories": "Infrastructure Categories",
+          "categoriesDesc": "배포 and earn across multiple DePIN protocols",
+          "protocolFeatures": "Protocol 기능"
+        },
+        "cta": {
+          "title": "준비됨 to Join the DePIN Revolution?",
+          "desc": "배포 infrastructure, earn rewards, and help build the decentralized future. Our guides will help you get started in minutes.",
+          "getStarted": "시작하기"
+        }
       },
       "stablecoins": {
         "tag": "스테이블코인",
         "title": "스테이블코인",
-        "subtitle": "엔터프라이즈급 스테이블코인 인프라."
+        "subtitle": "엔터프라이즈급 스테이블코인 인프라.",
+        "buttons": {
+          "issueStablecoin": "이슈 Stablecoin",
+          "technicalDocs": "Technical Docs"
+        },
+        "types": {
+          "fiatBacked": {
+            "title": "Fiat-Backed Stablecoins",
+            "desc": "1:1 reserve-backed tokens with real-time proof of reserves. Audited bank accounts with transparent attestation reports."
+          },
+          "cryptoCollateralized": {
+            "title": "Crypto-Collateralized",
+            "desc": "Over-collateralized stablecoins backed by crypto assets. Automated liquidation mechanisms and decentralized governance."
+          },
+          "institutionalGrade": {
+            "title": "기관 등급",
+            "desc": "Bank-grade compliance with AML/KYC integration. Whitelisting, blacklisting, and regulatory reporting built-in."
+          },
+          "multiCurrency": {
+            "title": "Multi-통화 지원",
+            "desc": "이슈 stablecoins pegged to any fiat currency. USD, EUR, GBP, JPY, and emerging market currencies supported."
+          }
+        },
+        "metrics": {
+          "totalSupply": "총 Stablecoin 공급",
+          "dailyTransactions": "매일 트랜잭션",
+          "pegDeviation": "Max Peg Deviation"
+        },
+        "features": {
+          "proofOfReserves": {
+            "title": "Proof of Reserves",
+            "desc": "실시간 on-chain attestation of backing assets. Third-party auditors verify reserve ratios continuously."
+          },
+          "instantSettlement": {
+            "title": "Instant Settlement",
+            "desc": "서브-second transaction finality with 50,000+ TPS. 아니오 waiting for bank transfers or clearing houses."
+          },
+          "programmableCompliance": {
+            "title": "Programmable 규정 준수",
+            "desc": "Smart contract-enforced transfer restrictions. Geographic limits, holding caps, and regulatory controls."
+          },
+          "crossChainBridges": {
+            "title": "크로스체인 Bridges",
+            "desc": "Native bridges to Ethereum, Polygon, Arbitrum, and more. Unified liquidity across multiple networks."
+          }
+        },
+        "useCases": {
+          "payments": {
+            "title": "Global Payments",
+            "desc": "Instant cross-border transfers with minimal fees. Replace SWIFT with blockchain-based settlement."
+          },
+          "defiCollateral": {
+            "title": "DeFi 담보",
+            "desc": "Use stablecoins as collateral for lending, borrowing, and yield farming. Stable value for predictable positions."
+          },
+          "treasury": {
+            "title": "재무 Management",
+            "desc": "기업 treasury operations with on-chain transparency. Automated payments and cash flow management."
+          },
+          "payroll": {
+            "title": "Payroll & 이점",
+            "desc": "Instant global payroll in stable currencies. Automatic tax withholding and benefits distribution."
+          }
+        },
+        "sections": {
+          "types": "Stablecoin Types",
+          "typesDesc": "선택 the right stablecoin model for your needs",
+          "platformFeatures": "플랫폼 Capabilities",
+          "useCases": "Use Cases"
+        },
+        "cta": {
+          "title": "준비됨 to Launch Your Stablecoin?",
+          "desc": "From concept to launch in weeks. Our team provides end-to-end support for stablecoin issuance and management.",
+          "getStarted": "시작하기"
+        }
       },
       "institutional": {
         "tag": "기관",
         "title": "기관 결제",
-        "subtitle": "기업을 위한 대용량 결제 솔루션."
+        "subtitle": "기업을 위한 대용량 결제 솔루션.",
+        "buttons": {
+          "contactSales": "연락처 Sales",
+          "apiReference": "API 레퍼런스"
+        },
+        "paymentFeatures": {
+          "rtgs": {
+            "title": "Real-Time Gross Settlement",
+            "desc": "Instant finality for high-value transactions. 아니오 batching delays or counterparty risk."
+          },
+          "crossBorder": {
+            "title": "Cross-Border Payments",
+            "desc": "Global reach with local settlement. Multi-currency support with real-time FX and corridor optimization."
+          },
+          "compliant": {
+            "title": "Regulatory Compliant",
+            "desc": "Built for regulated financial institutions. 전체 SWIFT compatibility, ISO 20022, and regulatory reporting."
+          },
+          "smartContract": {
+            "title": "스마트 컨트랙트 Escrow",
+            "desc": "Programmable payment conditions and escrow. Automate complex settlement workflows and multi-party agreements."
+          }
+        },
+        "metrics": {
+          "dailyVolume": "매일 Settlement 볼륨",
+          "transactionFee": "트랜잭션 수수료",
+          "uptimeSla": "Uptime SLA"
+        },
+        "integrations": {
+          "coreBanking": {
+            "title": "Core Banking 통합",
+            "desc": "Native connectors for major core banking systems. Seamless integration with existing infrastructure."
+          },
+          "treasury": {
+            "title": "재무 Management",
+            "desc": "실시간 cash position visibility and automated liquidity optimization across accounts."
+          },
+          "correspondent": {
+            "title": "Correspondent Banking",
+            "desc": "Reduce correspondent banking fees and settlement times. Direct peer-to-peer institutional transfers."
+          },
+          "operations": {
+            "title": "24/7 Operations",
+            "desc": "Round-the-clock settlement with no batch processing. Continuous operations with 99.99% uptime guarantee."
+          }
+        },
+        "clientTypes": {
+          "centralBanks": {
+            "title": "Central Banks",
+            "desc": "CBDC issuance and wholesale settlement infrastructure for monetary authorities."
+          },
+          "commercialBanks": {
+            "title": "Commercial Banks",
+            "desc": "Retail and corporate payment rails with full regulatory compliance."
+          },
+          "paymentProcessors": {
+            "title": "결제 Processors",
+            "desc": "High-volume transaction processing with instant settlement and minimal fees."
+          },
+          "fintechs": {
+            "title": "Fintechs & Neobanks",
+            "desc": "Modern banking infrastructure without legacy system constraints."
+          }
+        },
+        "sections": {
+          "paymentFeatures": "결제 Infrastructure",
+          "paymentFeaturesDesc": "엔터프라이즈급 payment capabilities for financial institutions",
+          "systemIntegrations": "시스템 Integrations",
+          "clientTypes": "클라이언트 Types"
+        },
+        "cta": {
+          "title": "준비됨 to Modernize Your 결제 Infrastructure?",
+          "desc": "Schedule a demo with our institutional team. We'll show you how TBURN can transform your payment operations.",
+          "requestDemo": "요청 Demo"
+        }
       },
       "enterprise": {
         "tag": "엔터프라이즈 블록체인",
@@ -9189,18 +11395,9 @@
         "contactEnterprise": "엔터프라이즈 문의",
         "enterpriseDocs": "엔터프라이즈 문서",
         "metrics": {
-          "enterpriseClients": {
-            "value": "500+",
-            "label": "엔터프라이즈 고객"
-          },
-          "uptimeGuarantee": {
-            "value": "99.95%",
-            "label": "가동률 보장"
-          },
-          "dedicatedSupport": {
-            "value": "24/7",
-            "label": "전담 지원"
-          }
+          "enterpriseClients": "엔터프라이즈 Clients",
+          "uptimeGuarantee": "Uptime Guarantee",
+          "dedicatedSupport": "Dedicated 지원"
         },
         "solutions": {
           "title": "엔터프라이즈 솔루션",
@@ -9211,7 +11408,8 @@
           },
           "supplyChain": {
             "title": "공급망 투명성",
-            "description": "엔드투엔드 제품 출처 추적. IoT 통합으로 제조사에서 소비자까지 불변의 감사 추적."
+            "description": "엔드투엔드 제품 출처 추적. IoT 통합으로 제조사에서 소비자까지 불변의 감사 추적.",
+            "desc": "종료-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
           },
           "documentManagement": {
             "title": "문서 관리",
@@ -9220,6 +11418,18 @@
           "processAutomation": {
             "title": "비즈니스 프로세스 자동화",
             "description": "스마트 컨트랙트 기반 워크플로우. 신뢰 없는 실행으로 승인, 결제, 다자간 합의를 자동화."
+          },
+          "identity": {
+            "title": "Identity & 접근 Management",
+            "desc": "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
+          },
+          "document": {
+            "title": "Document Management",
+            "desc": "Tamper-proof document storage and verification. Digital signatures, version control, and compliance archiving."
+          },
+          "automation": {
+            "title": "비즈니스 Process Automation",
+            "desc": "Smart contract-driven workflows. Automate approvals, payments, and multi-party agreements with trustless execution."
           }
         },
         "platformFeatures": {
@@ -9271,7 +11481,62 @@
         "cta": {
           "title": "엔터프라이즈 블록체인 준비되셨나요?",
           "subtitle": "엔터프라이즈 팀과 상담을 예약하세요. 귀사의 요구사항에 맞는 맞춤형 솔루션을 설계해 드립니다.",
-          "scheduleConsultation": "상담 예약"
+          "scheduleConsultation": "상담 예약",
+          "desc": "Schedule a consultation with our enterprise team. We'll design a custom solution that fits your organization's requirements."
+        },
+        "buttons": {
+          "contactEnterprise": "연락처 엔터프라이즈",
+          "enterpriseDocs": "엔터프라이즈 Docs"
+        },
+        "features": {
+          "soc2": {
+            "title": "SOC 2 Compliant",
+            "desc": "엔터프라이즈 security controls with annual third-party audits. 전체 compliance documentation and certifications."
+          },
+          "privateSubnets": {
+            "title": "비공개 Subnets",
+            "desc": "Isolated network environments for sensitive data. 사용자 정의 consensus rules and access controls for your organization."
+          },
+          "roleAccess": {
+            "title": "역할 기반 접근",
+            "desc": "Granular permissions and multi-tenant isolation. Define custom roles with precise access to features and data."
+          },
+          "onPremise": {
+            "title": "켜짐-Premise 배포",
+            "desc": "배포 within your own data center infrastructure. 전체 control over hardware, networking, and security."
+          }
+        },
+        "industries": {
+          "healthcare": {
+            "title": "Healthcare",
+            "desc": "HIPAA-compliant medical record management and secure health data exchange between providers."
+          },
+          "manufacturing": {
+            "title": "Manufacturing",
+            "desc": "공급 chain tracking, quality assurance documentation, and IoT sensor data verification."
+          },
+          "legal": {
+            "title": "법적 고지 Services",
+            "desc": "Smart contract-based agreements, e-signatures, and immutable document archiving."
+          },
+          "government": {
+            "title": "Government",
+            "desc": "Transparent public records, secure voting systems, and citizen identity management."
+          },
+          "insurance": {
+            "title": "Insurance",
+            "desc": "Automated claims processing, fraud detection, and policy administration on blockchain."
+          },
+          "logistics": {
+            "title": "Logistics",
+            "desc": "실시간 shipment tracking, customs documentation, and delivery verification."
+          }
+        },
+        "sections": {
+          "solutions": "엔터프라이즈 Solutions",
+          "solutionsDesc": "블록체인 applications designed for enterprise challenges",
+          "platformFeatures": "보안 & 규정 준수",
+          "industryApplications": "Industry Applications"
         }
       }
     },
@@ -9339,6 +11604,105 @@
             "offense": "악의적 투표",
             "penalty": "스테이크 50% 슬래싱"
           }
+        },
+        "validatorDocs": "보기 검증자 문서",
+        "stats": {
+          "activeValidators": "활성 검증자",
+          "totalStaked": "총 스테이킹",
+          "averageUptime": "평균 가동 시간",
+          "operatingCountries": "운영 국가"
+        },
+        "tierSystem": {
+          "title": "검증자 티어 시스템",
+          "stake": "최소 스테이크",
+          "apy": "APY",
+          "slots": "사용 가능 Slots",
+          "elite": {
+            "name": "Elite 검증자",
+            "badge": "엘리트",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 slots",
+            "benefits": {
+              "blockPriority": "블록 production priority",
+              "revenueShare": "Additional revenue share",
+              "aiDecision": "AI decision participation"
+            }
+          },
+          "standard": {
+            "name": "표준 검증자",
+            "badge": "표준",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 슬롯",
+            "benefits": {
+              "blockValidation": "블록 validation rights",
+              "feeDistribution": "트랜잭션 fee distribution",
+              "votingRights": "거버넌스 voting rights"
+            }
+          },
+          "starter": {
+            "name": "Starter 검증자",
+            "badge": "Starter",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "무제한",
+            "benefits": {
+              "delegate": "Delegate to larger validators",
+              "autoRewards": "Automatic reward distribution",
+              "unstakePeriod": "21-day unstaking period"
+            }
+          }
+        },
+        "hardware": {
+          "title": "하드웨어 요구사항",
+          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "Storage: 2TB NVMe SSD",
+          "network": "네트워크: 1Gbps dedicated",
+          "superNode": {
+            "title": "Super 노드 요구사항",
+            "cpu": "CPU: 32+ cores",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "Storage: 4TB NVMe RAID",
+            "network": "네트워크: 10Gbps dedicated"
+          }
+        },
+        "slashing": {
+          "title": "Slashing 조건",
+          "subtitle": "검증자 must maintain high standards. Violations result in stake penalties.",
+          "minor": {
+            "title": "Minor Violation",
+            "badge": "경고",
+            "description": "Brief downtime or missed blocks",
+            "penalty": "0.1% stake reduction"
+          },
+          "moderate": {
+            "title": "Moderate Violation",
+            "badge": "페널티",
+            "description": "Extended downtime over 24 hours",
+            "penalty": "1-5% stake reduction"
+          },
+          "severe": {
+            "title": "Severe Violation",
+            "badge": "Severe",
+            "description": "Malicious voting or censorship attempts",
+            "penalty": "25-50% stake reduction"
+          },
+          "critical": {
+            "title": "Critical Violation",
+            "badge": "Critical",
+            "description": "Double signing or network attacks",
+            "penalty": "100% stake slashed"
+          }
+        },
+        "geography": {
+          "title": "Geographic Distribution"
+        },
+        "activeValidators": {
+          "title": "활성 검증자",
+          "searchPlaceholder": "검색 validators...",
+          "viewAll": "전체 보기 검증자"
         }
       },
       "rpc": {
@@ -9429,20 +11793,252 @@
         },
         "cta": {
           "title": "개발 시작할 준비되셨나요?",
-          "subtitle": "오늘 TBurn Chain API로 개발을 시작하세요. 무료 API 키를 받고 엔터프라이즈급 블록체인 인프라에 접근하세요.",
+          "subtitle": "오늘 TBurn 체인 API로 개발을 시작하세요. 무료 API 키를 받고 엔터프라이즈급 블록체인 인프라에 접근하세요.",
           "getStartedFree": "무료로 시작하기",
           "contactSales": "영업팀 연락"
+        },
+        "buttons": {
+          "getApiKey": "가져오기 API 키",
+          "viewDocs": "문서 보기"
+        },
+        "sections": {
+          "apiPlans": "API 요금제",
+          "coreEndpoints": "Core 엔드포인트",
+          "sdkExamples": "SDK 예제",
+          "support": "지원"
+        },
+        "plans": {
+          "free": {
+            "name": "무료"
+          },
+          "basic": {
+            "name": "기본"
+          },
+          "pro": {
+            "name": "Pro"
+          },
+          "enterprise": {
+            "name": "엔터프라이즈"
+          },
+          "requestsMin": "requests/min",
+          "requestsDay": "requests/day",
+          "perMonth": "/month",
+          "unlimited": "무제한",
+          "contact": "연락처 Us"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "점수 쿼리 API"
+          },
+          "projectApi": {
+            "title": "Project API"
+          },
+          "analyticsApi": {
+            "title": "Analytics API"
+          },
+          "webhookApi": {
+            "title": "Webhook API",
+            "events": "이벤트: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "TypeScript SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "cURL 예제"
+          }
         }
       },
       "status": {
         "tag": "상태",
         "title": "네트워크 상태",
-        "subtitle": "실시간 네트워크 상태 및 성능 지표."
+        "subtitle": "실시간 네트워크 상태 및 성능 지표.",
+        "operational": "Operational",
+        "lastUpdated": "마지막 updated",
+        "daysAgo": "days ago",
+        "buttons": {
+          "refreshData": "새로고침 데이터"
+        },
+        "sections": {
+          "coreMetrics": "Core Metrics",
+          "coreMetricsDesc": "실시간 blockchain performance indicators",
+          "serviceStatus": "서비스 상태",
+          "serviceStatusDesc": "현재 status of all network services",
+          "uptimeHistory": "Uptime History",
+          "uptimeHistoryDesc": "네트워크 availability over the past 90 days",
+          "aiSystem": "AI Orchestration 시스템",
+          "aiSystemDesc": "Triple-band AI model performance and status",
+          "validatorNetwork": "검증자 네트워크",
+          "validatorNetworkDesc": "활성 validators and geographic distribution"
+        },
+        "metrics": {
+          "tps": "트랜잭션 Per Second",
+          "peak": "Peak",
+          "blockHeight": "블록 높이",
+          "latency": "네트워크 지연 시간",
+          "finality": "완결성 Time",
+          "avgFee": "평균 수수료",
+          "cheapFast": "Cheap & Fast",
+          "shards": "활성 Shards"
+        },
+        "services": {
+          "mainnetRpc": {
+            "name": "메인넷 RPC",
+            "desc": "기본 JSON-RPC endpoints for mainnet"
+          },
+          "wsApi": {
+            "name": "WebSocket API",
+            "desc": "실시간 event streaming and subscriptions"
+          },
+          "explorerApi": {
+            "name": "Explorer API",
+            "desc": "블록 explorer data endpoints"
+          },
+          "trustScoreApi": {
+            "name": "Trust 점수 API",
+            "desc": "Project verification and scoring endpoints"
+          },
+          "crossChainBridge": {
+            "name": "크로스체인 브릿지",
+            "desc": "멀티체인 asset transfer service"
+          },
+          "quantumSecurity": {
+            "name": "Quantum 보안 모듈",
+            "desc": "CRYSTALS-Dilithium signature verification"
+          }
+        },
+        "ai": {
+          "active": "활성",
+          "accuracy": "Accuracy",
+          "latency": "지연 시간",
+          "strategic": {
+            "title": "Strategic AI",
+            "model": "GPT-5"
+          },
+          "tactical": {
+            "title": "Tactical AI",
+            "model": "Claude Sonnet 4.5"
+          },
+          "operational": {
+            "title": "Operational AI",
+            "model": "Llama 4"
+          }
+        },
+        "uptime": {
+          "monthlyAverage": "매월 평균",
+          "uptimeGuarantee": "Uptime Guarantee",
+          "lastIncident": "마지막 Incident"
+        },
+        "validators": {
+          "active": "활성 검증자",
+          "countries": "운영 국가",
+          "totalStaked": "총 스테이킹",
+          "avgUptime": "평균 가동 시간"
+        }
       },
       "ramp": {
         "tag": "법정화폐 게이트웨이",
         "title": "법정화폐 온/오프 램프",
-        "subtitle": "법정화폐로 TBURN을 구매하고 판매하세요."
+        "subtitle": "법정화폐로 TBURN을 구매하고 판매하세요.",
+        "fee": "수수료",
+        "sections": {
+          "howItWorks": "How It Works",
+          "paymentMethods": "결제 Methods",
+          "limitsFees": "Limits & Fees",
+          "whyBurnRamp": "Why 소각 Ramp?"
+        },
+        "buy": {
+          "title": "Buy TBURN",
+          "desc": "Purchase TBURN tokens with your preferred payment method",
+          "amountPlaceholder": "Enter amount in USD",
+          "estTburn": "Estimated TBURN",
+          "button": "Buy TBURN"
+        },
+        "sell": {
+          "title": "Sell TBURN",
+          "desc": "Convert your TBURN tokens to fiat currency",
+          "amountPlaceholder": "Enter amount in TBURN",
+          "estUsd": "Estimated USD",
+          "button": "Sell TBURN"
+        },
+        "steps": {
+          "step1": {
+            "title": "계정 생성",
+            "desc": "Sign up and complete KYC verification"
+          },
+          "step2": {
+            "title": "선택 금액",
+            "desc": "선택 your purchase or sale amount"
+          },
+          "step3": {
+            "title": "선택 결제",
+            "desc": "선택 your preferred payment method"
+          },
+          "step4": {
+            "title": "완료 트랜잭션",
+            "desc": "검토 and confirm your transaction"
+          }
+        },
+        "payments": {
+          "onRamp": "켜짐-Ramp Methods",
+          "offRamp": "꺼짐-Ramp Methods",
+          "creditDebit": "크레딧/데빗 Card",
+          "bankTransfer": "Bank 전송 (ACH/SEPA)",
+          "digitalWallets": "Digital 지갑 (Apple Pay, Google Pay)",
+          "bankWithdrawal": "Bank 출금",
+          "paypalWithdrawal": "PayPal 출금",
+          "physicalCheck": "Physical 확인"
+        },
+        "accounts": {
+          "basic": {
+            "title": "기본",
+            "desc": "Email verification only"
+          },
+          "verified": {
+            "title": "검증됨",
+            "desc": "전체 KYC completed"
+          },
+          "institutional": {
+            "title": "기관",
+            "desc": "비즈니스 account with enhanced limits"
+          },
+          "dailyLimit": "매일 제한",
+          "monthlyLimit": "매월 제한",
+          "buyFee": "Buy 수수료",
+          "sellFee": "Sell 수수료",
+          "unlimited": "무제한",
+          "recommended": "권장"
+        },
+        "features": {
+          "instantProcessing": {
+            "title": "Instant 처리 중",
+            "desc": "Most transactions complete within minutes"
+          },
+          "lowFees": {
+            "title": "Low Fees",
+            "desc": "Competitive rates starting at 0.5%"
+          },
+          "bankGradeSecurity": {
+            "title": "Bank-등급 보안",
+            "desc": "256-bit encryption and 2FA protection"
+          }
+        },
+        "cta": {
+          "title": "준비됨 to 시작하기?",
+          "createAccount": "계정 생성",
+          "contactSupport": "연락처 지원"
+        },
+        "toast": {
+          "processing": "처리 중...",
+          "initiatingPurchase": "Initiating TBURN purchase...",
+          "initiatingSale": "Initiating TBURN sale...",
+          "enterValidAmount": "Please enter a valid amount",
+          "error": "트랜잭션 failed. Please try again."
+        }
       }
     },
     "community": {
@@ -9451,45 +12047,49 @@
         "title": "커뮤니티 허브",
         "subtitle": "빌더, 검증자, 열성 팬들과 소통하세요.",
         "stats": {
-          "totalMembers": {
-            "label": "총 멤버"
-          },
-          "monthlyActive": {
-            "label": "월간 활성"
-          },
-          "ambassadors": {
-            "label": "앰배서더"
-          },
-          "contributors": {
-            "label": "기여자"
-          }
+          "totalMembers": "총 Members",
+          "monthlyActive": "매월 활성",
+          "ambassadors": "Ambassadors",
+          "contributors": "Contributors"
         },
         "channels": {
           "title": "커뮤니티 채널",
           "discord": {
             "name": "Discord",
             "description": "실시간 개발 채팅, 지원, 커뮤니티 교류.",
-            "action": "서버 참여"
+            "action": "서버 참여",
+            "members": "124,500+ members"
           },
           "telegram": {
             "name": "Telegram",
             "description": "빠른 공지사항 및 지역 커뮤니티 그룹.",
-            "action": "채널 참여"
+            "action": "채널 참여",
+            "members": "89,200+ members"
           },
           "twitter": {
             "name": "Twitter / X",
             "description": "최신 업데이트, 파트너십, 이벤트 소식.",
-            "action": "팔로우하기"
+            "action": "팔로우하기",
+            "members": "156,000+ followers"
           },
           "github": {
             "name": "GitHub",
             "description": "오픈소스 코드, SDK, 기술 문서.",
-            "action": "기여하기"
+            "action": "기여하기",
+            "members": "2,400+ stars"
           }
         },
         "leaderboard": {
           "title": "기여자 리더보드",
-          "subtitle": "이번 달 최고 커뮤니티 기여자"
+          "subtitle": "이번 달 최고 커뮤니티 기여자",
+          "points": "{{count}} points",
+          "tiers": {
+            "diamond": "Diamond",
+            "platinum": "Platinum",
+            "gold": "Gold",
+            "silver": "Silver",
+            "bronze": "Bronze"
+          }
         },
         "ambassadorProgram": {
           "title": "앰배서더 프로그램",
@@ -9533,19 +12133,102 @@
           "stats": {
             "proposals": "제안",
             "votesCast": "투표 수",
-            "treasuryBalance": "재무 잔액"
+            "treasuryBalance": "재무 잔액",
+            "treasury": "재무 잔액"
+          },
+          "button": "이동 to 거버넌스 Portal"
+        },
+        "channelsTitle": "Join Our Channels",
+        "ambassador": {
+          "title": "Ambassador Program",
+          "subtitle": "Lead the global TBurn community",
+          "applyButton": "적용 as Ambassador",
+          "benefits": {
+            "rewards": "매월 TBURN token rewards",
+            "earlyAccess": "Early access to new features",
+            "nftBadge": "Official NFT Badge & Swag",
+            "directChannel": "Direct team communication channel"
           }
-        }
+        },
+        "contributeTitle": "Ways to Contribute"
       },
       "news": {
         "tag": "뉴스 & 블로그",
         "title": "뉴스 & 블로그",
-        "subtitle": "최신 업데이트, 공지사항, 인사이트."
+        "subtitle": "최신 업데이트, 공지사항, 인사이트.",
+        "searchPlaceholder": "검색 articles...",
+        "featuredTitle": "Featured Stories",
+        "featuredBadge": "Featured",
+        "latestTitle": "최신 Articles",
+        "readMore": "더 읽기",
+        "readTime": "{{minutes}} min read",
+        "views": "views",
+        "showingCount": "Showing {{current}} of {{total}}",
+        "categories": {
+          "all": "All",
+          "announcement": "공지사항",
+          "technology": "Technology",
+          "security": "보안",
+          "tokenomics": "Tokenomics",
+          "partnership": "Partnership",
+          "defi": "DeFi",
+          "development": "개발"
+        },
+        "featured": {
+          "mainnetLaunch": {
+            "title": "TBURN V4 메인넷 Officially Launches",
+            "description": "후 18 months of development, TBURN 체인 V4 메인넷 is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
+            "author": "TBURN 재단"
+          },
+          "tripleBandAi": {
+            "title": "Triple-Band AI Orchestration Revealed",
+            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
+            "author": "AI Research 팀"
+          },
+          "partnership": {
+            "title": "Global Partnership Expansion: 12 새로운 Integrations",
+            "description": "TBURN 체인 announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
+            "author": "비즈니스 개발"
+          }
+        },
+        "articles": {
+          "staking": {
+            "title": "TBURN 스테이킹 Program: 완료 가이드 to Earning 보상",
+            "description": "Everything you need to know about the three-tier staking system, APY calculations, and how to maximize your validator rewards."
+          },
+          "trustScore": {
+            "title": "Trust 점수 Deep Dive: The 3-스테이지 Verification Process",
+            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+          },
+          "sdk": {
+            "title": "TBURN SDK 2.0 Released: 새로운 기능 for Developers",
+            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+          },
+          "quantum": {
+            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
+            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN 체인 against emerging quantum computing threats."
+          },
+          "dex": {
+            "title": "TBURN DEX Beta Launch: 거래 with Trust Scores",
+            "description": "Our native decentralized exchange is now in beta. 거래 verified tokens with integrated Trust 점수 protection and low fees."
+          }
+        },
+        "newsletter": {
+          "title": "Stay Updated",
+          "description": "가져오기 the latest news, updates, and insights delivered directly to your inbox.",
+          "placeholder": "Enter your email address",
+          "button": "Subscribe",
+          "privacy": "We respect your privacy. Unsubscribe anytime.",
+          "success": "구독 Successful",
+          "subscribed": "You've been added to our newsletter. 확인 your inbox for confirmation.",
+          "error": "구독 오류",
+          "invalidEmail": "Please enter a valid email address."
+        }
       },
       "events": {
         "tag": "이벤트 & 활동",
         "title": "이벤트 & 활동",
-        "subtitle": "TBurn Chain 커뮤니티 이벤트, 해커톤, 컨퍼런스에 참여하세요.",
+        "subtitle": "TBurn 체인 커뮤니티 이벤트, 해커톤, 컨퍼런스에 참여하세요.",
         "filters": {
           "all": "모든 이벤트",
           "hackathon": "해커톤",
@@ -9556,10 +12239,42 @@
         },
         "featured": {
           "title": "주요 이벤트",
-          "capacity": "정원"
+          "capacity": "정원",
+          "mainnetLaunch": {
+            "title": "TBURN 메인넷 Launch Celebration",
+            "description": "Join us for the historic launch of TBURN V4 메인넷. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
+          },
+          "defiChallenge": {
+            "title": "TBURN DeFi Challenge Hackathon",
+            "description": "48-hour global hackathon with $500K in prizes. 빌드 innovative DeFi solutions on TBURN 체인 and compete for grants and incubation opportunities."
+          }
         },
         "upcoming": {
-          "title": "예정된 이벤트"
+          "title": "예정된 이벤트",
+          "foundersAma": {
+            "title": "Founders AMA: 2025 Vision",
+            "description": "실시간 Q&A with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
+          },
+          "trustScoreApi": {
+            "title": "Trust 점수 API 통합 Workshop",
+            "description": "Hands-on technical workshop for developers. 학습 how to integrate Trust 점수 verification into your dApps and smart contracts."
+          },
+          "seoulMeetup": {
+            "title": "Seoul 개발자 Meetup",
+            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+          },
+          "aiDeepDive": {
+            "title": "Triple-Band AI Deep Dive Seminar",
+            "description": "Technical deep dive into our AI orchestration system. 학습 about the architecture behind intelligent blockchain operations."
+          },
+          "validatorOps": {
+            "title": "검증자 Operations Training",
+            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+          },
+          "futureOfTrust": {
+            "title": "The Future of Trust: TBURN Summit 2025",
+            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+          }
         },
         "eventTypes": {
           "launchEvent": "출시 이벤트",
@@ -9577,44 +12292,92 @@
           "setReminder": "알림 설정",
           "register": "등록",
           "rsvp": "RSVP (제한)",
-          "getTickets": "티켓 받기"
+          "getTickets": "티켓 받기",
+          "rsvpLimited": "RSVP (Limited Seats)"
         },
         "hostEvent": {
           "title": "이벤트를 주최하고 싶으신가요?",
-          "description": "TBurn Chain 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
+          "description": "TBurn 체인 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
           "applyToHost": "주최 신청"
         },
         "toast": {
           "reminderSet": "알림 설정됨",
           "reminderDescription": "\"{{eventTitle}}\" 전에 알림을 받게 됩니다"
+        },
+        "featuredTitle": "Featured 이벤트",
+        "upcomingTitle": "Upcoming 이벤트",
+        "capacity": "용량",
+        "types": {
+          "launchEvent": "Launch Event",
+          "amaSession": "AMA Session",
+          "seminar": "Technical Seminar",
+          "training": "Training Workshop"
+        },
+        "locations": {
+          "online": "온라인",
+          "seoul": "Seoul, Korea",
+          "singapore": "Singapore"
+        },
+        "hostCta": {
+          "title": "Want to Host an Event?",
+          "description": "Host meetups, webinars, or hackathons with the TBurn 체인 community. We provide funding, swag, and marketing support for approved hosts.",
+          "button": "적용 to Host"
         }
       }
     },
     "legal": {
       "terms": {
         "title": "이용약관",
-        "subtitle": "TBurn Chain 서비스 이용에 대한 약관.",
+        "subtitle": "TBurn 체인 서비스 이용에 대한 약관.",
         "backToHome": "홈으로 돌아가기",
         "sections": {
           "acceptance": {
             "title": "1. 약관 동의",
-            "content": "TBurn Chain 서비스에 접근하거나 사용함으로써 귀하는 본 이용약관('약관')에 구속되는 것에 동의합니다. 본 약관에 동의하지 않으시면 서비스를 사용하지 마십시오. 본 약관은 귀하와 TBurn Chain 재단 간의 법적 구속력 있는 계약을 구성합니다."
+            "content": "TBurn 체인 서비스에 접근하거나 사용함으로써 귀하는 본 이용약관('약관')에 구속되는 것에 동의합니다. 본 약관에 동의하지 않으시면 서비스를 사용하지 마십시오. 본 약관은 귀하와 TBurn 체인 재단 간의 법적 구속력 있는 계약을 구성합니다."
           },
           "definitions": {
             "title": "2. 정의",
-            "tburnChain": "'TBurn Chain'은 레이어 1 블록체인 네트워크 및 관련 서비스를 의미합니다.",
+            "tburnChain": "'TBurn 체인'은 레이어 1 블록체인 네트워크 및 관련 서비스를 의미합니다.",
             "services": "'서비스'는 블록체인 네트워크, 신뢰 검증 시스템, API, 플랫폼 기능을 포함합니다.",
-            "user": "'사용자' 또는 '귀하'는 TBurn Chain을 사용하는 모든 개인 또는 법인을 의미합니다.",
-            "project": "'프로젝트'는 TBurn Chain에서 검증을 받고자 하는 블록체인 프로젝트를 의미합니다.",
-            "trustScore": "'신뢰도 점수'는 3단계 검증 시스템을 통해 부여되는 신뢰성 등급을 의미합니다."
+            "user": "'사용자' 또는 '귀하'는 TBurn 체인을 사용하는 모든 개인 또는 법인을 의미합니다.",
+            "project": "'프로젝트'는 TBurn 체인에서 검증을 받고자 하는 블록체인 프로젝트를 의미합니다.",
+            "trustScore": "'신뢰도 점수'는 3단계 검증 시스템을 통해 부여되는 신뢰성 등급을 의미합니다.",
+            "items": {
+              "tburnChain": {
+                "term": "TBurn 체인",
+                "desc": "The Layer 1 blockchain network and associated services"
+              },
+              "services": {
+                "term": "Services",
+                "desc": "The blockchain network, trust verification system, APIs, and platform features"
+              },
+              "user": {
+                "term": "사용자",
+                "desc": "Any individual or entity using TBurn 체인"
+              },
+              "project": {
+                "term": "Project",
+                "desc": "블록체인 projects seeking verification on TBurn 체인"
+              },
+              "trustScore": {
+                "term": "Trust 점수",
+                "desc": "The reliability rating assigned through our 3-stage verification system"
+              }
+            }
           },
           "eligibility": {
             "title": "3. 자격 요건",
-            "intro": "TBurn Chain을 사용하려면 다음 조건을 충족해야 합니다:",
+            "intro": "TBurn 체인을 사용하려면 다음 조건을 충족해야 합니다:",
             "age": "만 18세 이상(또는 관할권의 법정 연령)이어야 합니다.",
             "legalCapacity": "구속력 있는 계약을 체결할 법적 능력이 있어야 합니다.",
             "notProhibited": "해당 법률에 따라 서비스 사용이 금지되지 않아야 합니다.",
-            "comply": "온라인 행동 및 블록체인 기술에 관한 모든 현지 법률을 준수해야 합니다."
+            "comply": "온라인 행동 및 블록체인 기술에 관한 모든 현지 법률을 준수해야 합니다.",
+            "items": {
+              "age": "Be at least 18 years old (or legal age in your jurisdiction)",
+              "capacity": "Have the legal capacity to enter into binding contracts",
+              "comply": "Comply with all local laws regarding online conduct and blockchain technology",
+              "prohibited": "Not be prohibited from using our services under applicable laws"
+            }
           },
           "accountSecurity": {
             "title": "4. 계정 등록 & 보안",
@@ -9630,7 +12393,22 @@
             "stage2": "2단계: 블록체인 개발자 및 감사자에 의한 전문가 검증 (7-14일)",
             "stage3": "3단계: TBURN 토큰 보유자에 의한 커뮤니티 투표 (3-5일)",
             "implications": "5.2 신뢰도 점수 영향",
-            "implicationsContent": "신뢰도 점수는 0-100 범위입니다. 40 미만의 점수는 자동 토큰 거래 중지를 초래합니다. 점수는 온체인에서 실시간으로 업데이트됩니다."
+            "implicationsContent": "신뢰도 점수는 0-100 범위입니다. 40 미만의 점수는 자동 토큰 거래 중지를 초래합니다. 점수는 온체인에서 실시간으로 업데이트됩니다.",
+            "process": {
+              "title": "3-스테이지 Verification Process",
+              "stage1": {
+                "label": "스테이지 1: AI Analysis",
+                "value": "AI-powered automatic filtering (24 hours)"
+              },
+              "stage2": {
+                "label": "스테이지 2: Expert 검토",
+                "value": "Expert validation by blockchain developers and auditors (7-14 days)"
+              },
+              "stage3": {
+                "label": "스테이지 3: 커뮤니티 투표",
+                "value": "커뮤니티 voting by TBURN token holders (3-5 days)"
+              }
+            }
           },
           "burnMechanism": {
             "title": "6. 소각 메커니즘",
@@ -9649,27 +12427,76 @@
           },
           "intellectualProperty": {
             "title": "8. 지적 재산권",
-            "content": "플랫폼, 프로토콜, 브랜딩을 포함한 TBurn Chain의 모든 지적 재산권은 TBurn Chain 재단이 소유합니다. 귀하는 서비스를 사용할 수 있는 제한적이고 비독점적인 라이선스를 부여받습니다."
+            "content": "플랫폼, 프로토콜, 브랜딩을 포함한 TBurn 체인의 모든 지적 재산권은 TBurn 체인 재단이 소유합니다. 귀하는 서비스를 사용할 수 있는 제한적이고 비독점적인 라이선스를 부여받습니다."
           },
           "disclaimers": {
             "title": "9. 면책 조항 & 제한",
             "asIs": "'있는 그대로' 기준",
             "asIsContent": "서비스는 명시적이든 묵시적이든 어떠한 종류의 보증 없이 '있는 그대로' 및 '이용 가능한 대로' 제공됩니다.",
             "noInvestmentAdvice": "투자 조언 없음",
-            "noInvestmentAdviceContent": "TBurn Chain은 투자, 재정 또는 법률 조언을 제공하지 않습니다. 신뢰도 점수는 정보 제공 목적으로만 사용됩니다.",
+            "noInvestmentAdviceContent": "TBurn 체인은 투자, 재정 또는 법률 조언을 제공하지 않습니다. 신뢰도 점수는 정보 제공 목적으로만 사용됩니다.",
             "limitationOfLiability": "책임 제한",
-            "limitationOfLiabilityContent": "법률이 허용하는 최대 범위 내에서 TBURN CHAIN은 간접적, 우발적, 특별, 결과적 또는 징벌적 손해에 대해 책임지지 않습니다."
+            "limitationOfLiabilityContent": "법률이 허용하는 최대 범위 내에서 TBURN CHAIN은 간접적, 우발적, 특별, 결과적 또는 징벌적 손해에 대해 책임지지 않습니다.",
+            "noAdvice": {
+              "title": "투자 조언 없음",
+              "content": "TBurn 체인 does not provide investment, financial, or legal advice. Trust scores are informational only."
+            },
+            "limitation": {
+              "title": "책임 제한",
+              "content": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
+            }
           },
           "governingLaw": {
             "title": "10. 준거법",
-            "content": "본 약관은 법률 충돌 원칙에 관계없이 TBurn Chain 재단이 설립된 관할권의 법률에 따라 규율되고 해석됩니다."
+            "content": "본 약관은 법률 충돌 원칙에 관계없이 TBurn 체인 재단이 설립된 관할권의 법률에 따라 규율되고 해석됩니다."
+          },
+          "account": {
+            "title": "4. 계정 Registration & 보안",
+            "creation": {
+              "title": "4.1 계정 Creation",
+              "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
+            },
+            "wallet": {
+              "title": "4.2 지갑 보안",
+              "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
+              "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
+            }
+          },
+          "burn": {
+            "title": "6. 소각 Mechanism",
+            "content": "Projects must deposit collateral equal to their burn commitment. Failure to execute scheduled burns triggers automatic penalties and collateral burns through smart contracts."
+          },
+          "prohibited": {
+            "title": "7. Prohibited Activities",
+            "intro": "You agree not to:",
+            "items": {
+              "laundering": "Use the platform for money laundering or terrorist financing",
+              "falseInfo": "제출 false or misleading project information",
+              "manipulate": "Manipulate Trust Scores through coordinated voting",
+              "exploit": "Attempt to exploit smart contract vulnerabilities",
+              "washTrading": "Engage in market manipulation or wash trading"
+            }
+          },
+          "ip": {
+            "title": "8. Intellectual Property",
+            "content": "All intellectual property rights in TBurn 체인, including the platform, protocols, and branding, are owned by TBurn 체인 재단. You are granted a limited, non-exclusive license to use our services."
+          },
+          "governing": {
+            "title": "10. Governing Law",
+            "content": "These 약관 shall be governed by and construed in accordance with the laws of the jurisdiction where TBurn 체인 재단 is incorporated, without regard to conflict of law principles."
           }
         },
         "contact": {
           "title": "연락처 정보",
           "legalInquiries": "법적 문의",
           "generalSupport": "일반 지원",
-          "note": "참고: 본 이용약관은 영어로 제공됩니다. 편의를 위해 번역본이 제공될 수 있으나, 충돌이 있는 경우 영어 버전이 우선합니다."
+          "note": "참고: 본 이용약관은 영어로 제공됩니다. 편의를 위해 번역본이 제공될 수 있으나, 충돌이 있는 경우 영어 버전이 우선합니다.",
+          "legal": {
+            "label": "법적 고지 Inquiries"
+          },
+          "support": {
+            "label": "General 지원"
+          }
         },
         "relatedDocuments": {
           "title": "관련 법적 문서",
@@ -9684,7 +12511,7 @@
           "trustScoreSystemDesc": "3단계 검증",
           "whatIsWallet": "지갑이란?",
           "whatIsWalletDesc": "지갑 보안 기초",
-          "whatIsTBurnChain": "TBurn Chain이란?",
+          "whatIsTBurnChain": "TBurn 체인이란?",
           "whatIsTBurnChainDesc": "플랫폼 개요"
         }
       },
@@ -9695,7 +12522,7 @@
         "sections": {
           "introduction": {
             "title": "1. 소개",
-            "content": "TBurn Chain('당사' 또는 '우리')에 오신 것을 환영합니다. 당사는 귀하의 개인 정보와 프라이버시 권리를 보호하기 위해 최선을 다하고 있습니다. 본 개인정보처리방침은 귀하가 당사 웹사이트를 방문하고 블록체인 서비스를 사용할 때 당사가 귀하의 정보를 수집, 사용, 공개 및 보호하는 방법을 설명합니다."
+            "content": "TBurn 체인('당사' 또는 '우리')에 오신 것을 환영합니다. 당사는 귀하의 개인 정보와 프라이버시 권리를 보호하기 위해 최선을 다하고 있습니다. 본 개인정보처리방침은 귀하가 당사 웹사이트를 방문하고 블록체인 서비스를 사용할 때 당사가 귀하의 정보를 수집, 사용, 공개 및 보호하는 방법을 설명합니다."
           },
           "informationCollected": {
             "title": "2. 수집하는 정보",
@@ -9716,11 +12543,13 @@
             "title": "3. 정보 사용 방법",
             "intro": "수집된 정보는 다음 용도로 사용됩니다:",
             "items": {
-              "operating": "TBurn Chain 플랫폼 운영 및 유지.",
+              "operating": "TBurn 체인 플랫폼 운영 및 유지.",
               "verification": "3단계 검증 프로세스 수행(AI 필터링, 전문가 검토, 투표).",
               "detectingFraud": "사기, 남용, 보안 위협 탐지.",
               "improving": "분석을 통한 서비스 개선.",
-              "legalCompliance": "법적 규정 준수 의무 충족."
+              "legalCompliance": "법적 규정 준수 의무 충족.",
+              "compliance": "Meeting legal and regulatory compliance obligations",
+              "fraud": "Detecting and preventing fraud, abuse, and security threats"
             }
           },
           "informationSharing": {
@@ -9735,7 +12564,7 @@
             "title": "5. 블록체인 관련 프라이버시",
             "publicData": {
               "title": "공개 데이터",
-              "content": "TBurn Chain의 트랜잭션 및 스마트 컨트랙트 상호작용은 공개적으로 볼 수 있으며 불변입니다. 이 데이터는 삭제하거나 수정할 수 없습니다."
+              "content": "TBurn 체인의 트랜잭션 및 스마트 컨트랙트 상호작용은 공개적으로 볼 수 있으며 불변입니다. 이 데이터는 삭제하거나 수정할 수 없습니다."
             },
             "pseudonymity": {
               "title": "익명성",
@@ -9766,13 +12595,98 @@
             "items": {
               "preferences": "귀하의 환경설정 기억",
               "analyzeSite": "사이트 사용량 분석",
-              "improveExperience": "사용자 경험 개선"
+              "improveExperience": "사용자 경험 개선",
+              "analytics": "Analyzing site usage patterns",
+              "experience": "Improving your user experience"
             },
             "manage": "브라우저 설정을 통해 쿠키 환경설정을 관리할 수 있습니다."
           },
           "internationalTransfers": {
             "title": "8. 국제 데이터 전송",
             "content": "귀하의 정보는 귀하의 국가가 아닌 다른 국가로 전송되어 처리될 수 있습니다. 당사는 적용 가능한 데이터 보호법을 준수하여 해당 전송에 대한 적절한 보호 조치를 보장합니다."
+          },
+          "informationCollect": {
+            "title": "2. 정보 We Collect",
+            "provided": {
+              "title": "2.1 정보 You Provide",
+              "account": {
+                "label": "계정 정보",
+                "value": "Email address, username, wallet addresses"
+              },
+              "project": {
+                "label": "Project Verification",
+                "value": "비즈니스 registration documents, KYC information, financial statements"
+              },
+              "communication": {
+                "label": "Communication 데이터",
+                "value": "Messages, support tickets, feedback"
+              }
+            },
+            "automatic": {
+              "title": "2.2 자동으로 Collected 정보",
+              "blockchain": {
+                "label": "블록체인 데이터",
+                "value": "공개 wallet addresses, transaction hashes, smart contract interactions"
+              },
+              "device": {
+                "label": "Device 정보",
+                "value": "IP address, browser type, operating system"
+              },
+              "usage": {
+                "label": "사용법 데이터",
+                "value": "Pages viewed, navigation patterns, session duration"
+              }
+            }
+          },
+          "sharing": {
+            "title": "4. 정보 Sharing",
+            "intro": "We share information with:",
+            "validators": {
+              "label": "검증자",
+              "value": "For decentralized verification processes"
+            },
+            "providers": {
+              "label": "서비스 Providers",
+              "value": "Infrastructure and support partners"
+            },
+            "legal": {
+              "label": "법적 고지 Authorities",
+              "value": "When required by law"
+            },
+            "noSell": "We do NOT sell your personal data to third parties for marketing purposes."
+          },
+          "blockchain": {
+            "title": "5. 블록체인-Specific 개인정보",
+            "publicData": {
+              "title": "공개 데이터",
+              "content": "트랜잭션 and smart contract interactions on TBurn 체인 are publicly visible and immutable. This data cannot be deleted or modified."
+            },
+            "pseudonymity": {
+              "title": "Pseudonymity",
+              "content": "지갑 addresses are pseudonymous. However, if you link your real-world identity to a wallet address, that connection may become public."
+            }
+          },
+          "security": {
+            "title": "6. 보안 & Rights",
+            "intro": "We implement appropriate security measures including:",
+            "measures": {
+              "ssl": "SSL/TLS encryption for data in transit",
+              "encrypted": "Encrypted storage for sensitive data",
+              "mfa": "Multi-factor authentication",
+              "audits": "Regular security audits and penetration testing"
+            },
+            "rightsIntro": "Depending on your location, you may have the right to:",
+            "rights": {
+              "access": "접근 your personal information",
+              "correct": "Correct inaccurate data",
+              "delete": "삭제 your off-chain data",
+              "object": "객체 to data processing",
+              "portability": "데이터 portability"
+            }
+          },
+          "international": {
+            "title": "8. International 데이터 Transfers",
+            "content": "Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers in compliance with applicable data protection laws."
           }
         },
         "contact": {
@@ -9780,7 +12694,12 @@
           "intro": "본 개인정보처리방침에 대한 질문이 있으시면 개인정보 보호 담당자에게 연락하십시오:",
           "email": "이메일",
           "responseTime": "응답 시간",
-          "responseTimeValue": "30일 이내"
+          "responseTimeValue": "30일 이내",
+          "description": "If you have questions about this 개인정보 처리방침, please contact our 개인정보 Office.",
+          "response": {
+            "label": "응답 Time",
+            "value": "내 30 days"
+          }
         },
         "relatedDocuments": {
           "title": "관련 법적 문서",
@@ -9812,12 +12731,12 @@
         "backToHome": "홈으로 돌아가기",
         "importantNotice": {
           "title": "중요 고지",
-          "content": "TBurn Chain 서비스를 사용하기 전에 본 면책조항을 주의 깊게 읽으십시오. 당사 플랫폼에 접근하거나 사용함으로써 귀하는 다음 면책조항을 읽고, 이해하고, 동의함을 인정합니다."
+          "content": "TBurn 체인 서비스를 사용하기 전에 본 면책조항을 주의 깊게 읽으십시오. 당사 플랫폼에 접근하거나 사용함으로써 귀하는 다음 면책조항을 읽고, 이해하고, 동의함을 인정합니다."
         },
         "sections": {
           "noInvestmentAdvice": {
             "title": "1. 투자 조언 없음",
-            "warning": "TBurn Chain은 투자, 재정, 세금 또는 법률 조언을 제공하지 않습니다. 신뢰도 점수를 포함하여 당사 플랫폼에서 제공하는 모든 정보는 정보 제공 목적으로만 사용되며 어떤 종류의 조언으로도 해석되어서는 안 됩니다.",
+            "warning": "TBurn 체인은 투자, 재정, 세금 또는 법률 조언을 제공하지 않습니다. 신뢰도 점수를 포함하여 당사 플랫폼에서 제공하는 모든 정보는 정보 제공 목적으로만 사용되며 어떤 종류의 조언으로도 해석되어서는 안 됩니다.",
             "content": "투자 결정을 내리기 전에 자격을 갖춘 전문가와 상담해야 합니다. 과거 실적이 미래 결과를 보장하지 않습니다."
           },
           "riskDisclosure": {
@@ -9829,6 +12748,28 @@
               "technicalRisk": "기술적 위험: 스마트 컨트랙트에 버그나 취약점이 있을 수 있습니다",
               "liquidityRisk": "유동성 위험: 원하는 때에 자산을 판매하지 못할 수 있습니다",
               "lossOfFunds": "자금 손실: 투자금의 전부 또는 일부를 잃을 수 있습니다"
+            },
+            "risks": {
+              "volatility": {
+                "label": "시장 변동성",
+                "value": "Prices can fluctuate dramatically in short periods"
+              },
+              "regulatory": {
+                "label": "규제 위험",
+                "value": "법률 및 규정이 예기치 않게 변경될 수 있습니다"
+              },
+              "technical": {
+                "label": "기술적 위험",
+                "value": "Smart contracts may contain bugs or vulnerabilities"
+              },
+              "liquidity": {
+                "label": "유동성 위험",
+                "value": "원하는 때에 자산을 판매하지 못할 수 있습니다"
+              },
+              "loss": {
+                "label": "손실 of 펀드",
+                "value": "투자금의 전부 또는 일부를 잃을 수 있습니다"
+              }
             }
           },
           "trustScoreLimitations": {
@@ -9855,9 +12796,44 @@
           },
           "geographicRestrictions": {
             "title": "7. 지리적 제한",
-            "content": "당사 서비스는 모든 관할권에서 이용 가능하지 않을 수 있습니다. TBurn Chain 사용이 귀하의 관할권 법률을 준수하는지 확인하는 것은 귀하의 책임입니다. 당사는 특정 지리적 위치에서 서비스 접근을 제한할 권리를 보유합니다."
+            "content": "당사 서비스는 모든 관할권에서 이용 가능하지 않을 수 있습니다. TBurn 체인 사용이 귀하의 관할권 법률을 준수하는지 확인하는 것은 귀하의 책임입니다. 당사는 특정 지리적 위치에서 서비스 접근을 제한할 권리를 보유합니다."
           },
           "forwardLookingStatements": {
+            "title": "8. 미래 예측 진술",
+            "content": "미래 이벤트, 계획 또는 개발에 관한 모든 진술은 위험과 불확실성이 있는 미래 예측 진술입니다. 실제 결과는 해당 진술에서 표현되거나 암시된 것과 실질적으로 다를 수 있습니다."
+          },
+          "noAdvice": {
+            "title": "1. 투자 조언 없음",
+            "warning": "TBurn 체인 does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
+            "content": "You should consult with qualified professionals before making any investment decisions. Past performance is not indicative of future results."
+          },
+          "trustScore": {
+            "title": "3. 신뢰도 점수 제한",
+            "intro": "신뢰도 점수는 이용 가능한 데이터와 검증 프로세스를 기반으로 계산되지만:",
+            "items": {
+              "noGuarantee": "프로젝트의 안전성이나 적법성을 보장하지 않습니다",
+              "notAllFactors": "모든 관련 요소를 반영하지 못할 수 있습니다",
+              "historical": "과거 점수가 미래 성과를 예측하지 못할 수 있습니다",
+              "dueDiligence": "실사에서 여러 요소 중 하나로만 사용해야 합니다"
+            }
+          },
+          "thirdParty": {
+            "title": "4. 제3자 콘텐츠",
+            "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. 접근 to third-party resources is at your own risk."
+          },
+          "availability": {
+            "title": "5. 서비스 가용성",
+            "content": "당사는 지속적인 서비스 가용성을 유지하기 위해 노력하지만, 중단 없는 접근을 보장하지 않습니다. 유지보수, 업그레이드 또는 예상치 못한 상황으로 인해 서비스가 일시적으로 사용 불가능할 수 있습니다."
+          },
+          "limitation": {
+            "title": "6. 책임 제한",
+            "content": "적용 가능한 법률이 허용하는 최대 범위 내에서 TBURN CHAIN 재단과 그 계열사, 임원, 이사, 직원 및 에이전트는 귀하의 서비스 사용 또는 사용 불능으로 인한 이익, 영업권, 사용, 데이터 또는 기타 무형 손실에 대한 손해를 포함하되 이에 국한되지 않는 간접적, 우발적, 특별, 결과적, 징벌적 또는 예시적 손해에 대해 책임지지 않습니다."
+          },
+          "geographic": {
+            "title": "7. 지리적 제한",
+            "content": "당사 서비스는 모든 관할권에서 이용 가능하지 않을 수 있습니다. TBurn 체인 사용이 귀하의 관할권 법률을 준수하는지 확인하는 것은 귀하의 책임입니다. 당사는 특정 지리적 위치에서 서비스 접근을 제한할 권리를 보유합니다."
+          },
+          "forwardLooking": {
             "title": "8. 미래 예측 진술",
             "content": "미래 이벤트, 계획 또는 개발에 관한 모든 진술은 위험과 불확실성이 있는 미래 예측 진술입니다. 실제 결과는 해당 진술에서 표현되거나 암시된 것과 실질적으로 다를 수 있습니다."
           }
@@ -9879,6 +12855,67 @@
           "trustScoreSystemDesc": "점수 작동 방식",
           "introToDefi": "DeFi 입문",
           "introToDefiDesc": "위험 이해하기"
+        },
+        "contact": {
+          "title": "질문이 있으신가요?",
+          "label": "법적 고지 Inquiries"
+        }
+      },
+      "common": {
+        "backToHome": "뒤로 to Home",
+        "learnMore": "자세히 알아보기",
+        "relatedDocs": "Related Documents",
+        "securitySolutions": "보안 Solutions",
+        "links": {
+          "privacy": {
+            "title": "개인정보 처리방침",
+            "subtitle": "How we handle your data",
+            "subtitleData": "Your data protection rights"
+          },
+          "terms": {
+            "title": "서비스 약관",
+            "subtitle": "사용자 agreement and conditions"
+          },
+          "disclaimer": {
+            "title": "면책조항",
+            "subtitle": "법적 고지 notices",
+            "subtitleRisk": "위험 disclosures"
+          }
+        },
+        "learn": {
+          "trustScore": {
+            "title": "신뢰도 점수 시스템",
+            "subtitle": "3-stage verification process",
+            "subtitleHow": "How Trust Scores work",
+            "subtitleVerification": "Verification methodology"
+          },
+          "wallet": {
+            "title": "What is a 지갑?",
+            "subtitle": "지갑 basics",
+            "subtitleSecurity": "Securing your assets"
+          },
+          "blockchain": {
+            "title": "블록체인 기초",
+            "subtitle": "Understanding blockchain technology"
+          },
+          "burnChain": {
+            "title": "What is TBurn 체인?",
+            "subtitle": "플랫폼 overview"
+          },
+          "defi": {
+            "title": "Intro to DeFi",
+            "subtitle": "Decentralized finance fundamentals"
+          }
+        },
+        "solutions": {
+          "wallets": {
+            "title": "지갑",
+            "subtitle": "보안 wallet solutions"
+          },
+          "permissioned": {
+            "title": "Permissioned Environments",
+            "subtitle": "엔터프라이즈 privacy solutions"
+          }
         }
       }
     }

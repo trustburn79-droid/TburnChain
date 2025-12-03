@@ -6667,6 +6667,14 @@
           "validator": {
             "title": "验证者运营商",
             "description": "网络验证认证"
+          },
+          "defiExpert": {
+            "title": "DeFi 专家认证",
+            "description": "掌握收益策略、流动性提供和高级 DeFi 协议集成"
+          },
+          "fundamentals": {
+            "title": "区块链基础",
+            "description": "展示区块链基础、密码学和共识机制知识"
           }
         },
         "certificationsDesc": "获得认证徽章",
@@ -6689,6 +6697,22 @@
             "description": "构建和部署智能合约",
             "level": "高级",
             "duration": "20小时"
+          },
+          "blockchainBasics": {
+            "title": "区块链基础",
+            "description": "学习基础区块链概念和分布式账本技术"
+          },
+          "developerCourse": {
+            "title": "开发者课程",
+            "description": "使用智能合约和 SDK 集成构建生产就绪的 dApps"
+          },
+          "masteringDefi": {
+            "title": "精通 DeFi",
+            "description": "流动性提供、收益农场和风险管理的高级策略"
+          },
+          "trustScoreSystem": {
+            "title": "信任评分系统",
+            "description": "深入了解三阶段验证和项目可靠性评估"
           }
         },
         "concepts": {
@@ -6715,6 +6739,26 @@
           "roadmap": {
             "title": "路线图",
             "description": "未来发展计划"
+          },
+          "autoBurn": {
+            "title": "自动销毁机制",
+            "description": "用于通缩经济的自动代币销毁系统"
+          },
+          "dposBft": {
+            "title": "DPoS + BFT 共识",
+            "description": "结合委托权益证明和拜占庭容错的混合共识"
+          },
+          "emberGas": {
+            "title": "Ember Gas 代币",
+            "description": "用于交易费用和网络运营的原生 Gas 代币"
+          },
+          "quantumSecurity": {
+            "title": "量子安全",
+            "description": "CRYSTALS-Dilithium 混合签名用于后量子保护"
+          },
+          "tripleBandAi": {
+            "title": "三频段 AI",
+            "description": "用于战略、战术和运营决策的三层 AI 编排"
           }
         },
         "glossary": {
@@ -6729,7 +6773,10 @@
           "validator": {
             "term": "验证者",
             "definition": "验证交易并参与共识的节点"
-          }
+          },
+          "tburn": "TBURN is the native governance and staking token of T销毁 链 with a fixed supply of 1 billion tokens",
+          "ember": "Ember is the gas token used for transaction fees on T销毁 链, obtained by staking TBURN",
+          "slashing": "Slashing is the penalty mechanism that burns a portion of validator stake for malicious behavior or downtime"
         },
         "communityLinks": {
           "discord": {
@@ -6743,6 +6790,37 @@
           "youtube": {
             "title": "YouTube",
             "description": "视频教程"
+          }
+        },
+        "certificationsTitle": "认证计划",
+        "glossaryTitle": "关键术语与定义",
+        "levels": {
+          "beginner": "初学者",
+          "intermediate": "中级",
+          "advanced": "高级"
+        },
+        "tags": {
+          "algorithm": "算法",
+          "apiIntegration": "API 集成",
+          "consensus": "共识",
+          "liquidity": "流动性",
+          "sdkSetup": "SDK 设置",
+          "smartContracts": "智能合约",
+          "verification": "验证",
+          "yieldFarming": "收益农场"
+        },
+        "community": {
+          "discord": {
+            "title": "Discord 社区",
+            "description": "加入 real-time discussions with developers and enthusiasts"
+          },
+          "forum": {
+            "title": "开发者论坛",
+            "description": "Ask questions and share knowledge with the community"
+          },
+          "liveSessions": {
+            "title": "直播会议",
+            "description": "周ly workshops and AMA sessions with the core team"
           }
         }
       },
@@ -6769,7 +6847,8 @@
               "title": "自动销毁",
               "description": "具有自动销毁机制的通缩代币经济学"
             }
-          }
+          },
+          "subtitle": "企业-grade blockchain infrastructure built for reliability and performance"
         },
         "consensus": {
           "title": "共识机制",
@@ -6780,6 +6859,49 @@
             "tps": "吞吐量",
             "validators": "验证者"
           }
+        },
+        "features": {
+          "trustVerification": {
+            "title": "信任验证 System",
+            "description": "Multi-layered verification combining AI analysis, expert review, and community governance for project reliability"
+          },
+          "ultraFast": {
+            "title": "Ultra-快速 交易s",
+            "description": "1-second block time with 6-second finality enables real-time transaction processing at scale"
+          },
+          "distributed": {
+            "title": "Distributed Architecture",
+            "description": "Decentralized network of 21+ validators ensuring censorship resistance and high availability"
+          },
+          "autoBurn": {
+            "title": "Auto 销毁 Economics",
+            "description": "Deflationary token model with transaction-based, scheduled, and AI-optimized burning mechanisms"
+          }
+        },
+        "specs": {
+          "blockTime": "出块时间",
+          "finality": "Finality",
+          "oneSecond": "1 second",
+          "sixSeconds": "6 seconds",
+          "theoreticalTps": "Theoretical TPS",
+          "practicalTps": "Practical TPS"
+        },
+        "techSpecs": {
+          "title": "Technical Specifications",
+          "consensusDesc": "Hybrid DPoS + BFT consensus with 21 active validators and 100 standby nodes",
+          "smartContractsDesc": "完整 EVM compatibility with Solidity 0.8+ support and optimized gas costs"
+        },
+        "trustBased": {
+          "title": "Trust-Based 区块chain",
+          "paragraph1": "T销毁 链 is the world's first blockchain built on trust verification. 每 project on our network undergoes rigorous 3-stage verification before listing.",
+          "paragraph2": "Our unique Trust Score system protects investors by providing transparent, real-time reliability ratings for all verified projects.",
+          "protocolRule": "专业tocol-level trust enforcement ensures bad actors are automatically identified and restricted from the ecosystem."
+        },
+        "developer": {
+          "title": "开发者 资源",
+          "description": "构建 on T销毁 链 with our comprehensive developer tools and documentation.",
+          "readDocs": "Read 文档",
+          "tburnSdk": "T销毁 SDK"
         }
       },
       "trustScore": {
@@ -6788,7 +6910,23 @@
         "subtitle": "深入了解三阶段验证系统、AI分析和动态评分算法。",
         "philosophy": {
           "title": "评估理念",
-          "description": "信任评分旨在通过多维度评估项目可靠性来保护投资者"
+          "description": "信任评分旨在通过多维度评估项目可靠性来保护投资者",
+          "objective": {
+            "title": "客观分析",
+            "description": "通过标准化指标和 AI 驱动评估消除人为偏见的数据驱动评估"
+          },
+          "comprehensive": {
+            "title": "全面审查",
+            "description": "涵盖团队、技术、财务和执行能力的多维分析"
+          },
+          "transparent": {
+            "title": "完全透明",
+            "description": "所有评分因素和方法都公开记录并可在链上验证"
+          },
+          "realtime": {
+            "title": "实时更新",
+            "description": "基于项目行为变化的持续监控和即时评分调整"
+          }
         },
         "components": {
           "title": "评分组成",
@@ -6818,6 +6956,33 @@
               "points": "10分",
               "description": "路线图交付和里程碑完成情况"
             }
+          },
+          "teamTransparency": {
+            "title": "团队透明度",
+            "items": {
+              "kyc": "KYC 验证状态",
+              "realName": "真实姓名披露",
+              "experience": "行业经验和业绩记录",
+              "communication": "社区沟通质量"
+            }
+          },
+          "technical": {
+            "title": "技术评估",
+            "items": {
+              "codeQuality": "代码质量与标准",
+              "securityAudit": "安全审计结果",
+              "testCoverage": "测试覆盖率",
+              "documentation": "技术文档"
+            }
+          },
+          "financial": {
+            "title": "财务健康",
+            "items": {
+              "fundingReport": "资金来源透明度",
+              "walletDisclosure": "钱包披露状态",
+              "accountingAudit": "财务审计结果",
+              "distributionData": "代币分配数据"
+            }
           }
         },
         "grades": {
@@ -6846,6 +7011,26 @@
             "name": "受限",
             "range": "0-39",
             "description": "交易暂停"
+          },
+          "s": {
+            "title": "S 级 - 钻石",
+            "description": "Exceptional project with perfect verification. 完整 trading access and priority DEX listing."
+          },
+          "a": {
+            "title": "A 级 - 金牌",
+            "description": "高ly reliable project with strong fundamentals. 标准 trading access with enhanced visibility."
+          },
+          "b": {
+            "title": "B 级 - 银牌",
+            "description": "好 project with minor concerns. Trading allowed with standard monitoring."
+          },
+          "c": {
+            "title": "C 级 - 青铜",
+            "description": "项目 requires attention. Trading allowed with warning labels displayed."
+          },
+          "f": {
+            "title": "F 级 - 受限",
+            "description": "失败 verification or serious concerns. Trading suspended pending investigation."
           }
         },
         "stages": {
@@ -6864,6 +7049,33 @@
             "title": "社区投票",
             "duration": "3-5天",
             "description": "代币持有者投票最终批准"
+          }
+        },
+        "evaluationPhilosophy": "Our evaluation methodology combines automated analysis with human expertise to provide comprehensive project assessments.",
+        "gradeSystem": "信任等级分类",
+        "scoreComponents": "评分组成",
+        "scoreComponentsStatus": "实时组件追踪",
+        "verificationProcess": "验证流程",
+        "pts": "分",
+        "ptsUnit": "分",
+        "importantLabel": "重要",
+        "importantNote": "Trust Scores are dynamic and updated in real-time based on ongoing project behavior and community feedback.",
+        "process": {
+          "dataCollection": {
+            "title": "数据收集",
+            "description": "Automated gathering of on-chain data, social metrics, and project documentation"
+          },
+          "aiAnalysis": {
+            "title": "AI 分析",
+            "description": "三频段 AI performs comprehensive analysis across all scoring dimensions"
+          },
+          "expertReview": {
+            "title": "专家审核",
+            "description": "Human experts validate AI findings and perform deep-dive investigation"
+          },
+          "onchainCommit": {
+            "title": "链上提交",
+            "description": "Final score is committed to blockchain with full audit trail and transparency"
           }
         }
       },
@@ -6884,6 +7096,10 @@
           "hardware": {
             "title": "硬件钱包",
             "description": "用于安全密钥存储的物理设备"
+          },
+          "software": {
+            "title": "软件钱包",
+            "description": "Desktop and mobile applications for convenient access to your crypto assets"
           }
         },
         "security": {
@@ -6893,7 +7109,47 @@
             "verifyUrls": "始终验证网站URL",
             "enable2fa": "启用双因素认证",
             "regularBackups": "定期备份"
+          },
+          "neverShare": {
+            "title": "切勿分享私钥",
+            "description": "Your private keys and seed phrase should never be shared with anyone. 否 legitimate service will ever ask for them."
+          },
+          "offlineStorage": {
+            "title": "使用离线存储",
+            "description": "Store large amounts in cold wallets. Keep only small amounts in hot wallets for daily transactions."
+          },
+          "verifyTransactions": {
+            "title": "验证所有交易",
+            "description": "始终 double-check recipient addresses and transaction amounts before confirming any transfer."
           }
+        },
+        "understanding": {
+          "title": "了解加密钱包",
+          "description": "A cryptocurrency wallet is a digital tool that stores your private keys and allows you to send, receive, and manage your digital assets securely."
+        },
+        "walletTypes": {
+          "title": "钱包类型说明",
+          "subtitle": "选择 the right wallet type based on your security needs and usage patterns"
+        },
+        "keys": {
+          "title": "了解密钥",
+          "description": "Your wallet security depends on proper key management. Learn the difference between public and private keys.",
+          "public": {
+            "title": "公钥",
+            "description": "Your wallet address that others use to send you cryptocurrency. Safe to share publicly."
+          },
+          "private": {
+            "title": "私钥",
+            "description": "密钥 key that controls access to your funds. 从不 share this with anyone."
+          }
+        },
+        "securityProtocol": {
+          "title": "安全协议"
+        },
+        "cta": {
+          "title": "准备好开始了吗？",
+          "description": "创建 your first T销毁 wallet and start exploring the ecosystem. Our setup guide will walk you through every step.",
+          "button": "创建钱包"
         }
       },
       "whitepaper": {
@@ -7071,7 +7327,9 @@
           "totalSupply": "总供应量",
           "circulatingSupply": "流通供应量",
           "totalBurned": "已销毁总量",
-          "marketCap": "市值"
+          "marketCap": "市值",
+          "burned": "已销毁",
+          "totalStaked": "总质押量"
         },
         "distribution": {
           "title": "代币分配",
@@ -7100,6 +7358,22 @@
               "label": "流动性",
               "percentage": "5%"
             }
+          },
+          "ecosystemFund": {
+            "title": "生态系统基金",
+            "subtitle": "授予s, partnerships, and ecosystem development initiatives"
+          },
+          "validatorRewards": {
+            "title": "验证者奖励",
+            "subtitle": "区块 rewards and validation incentives for network security"
+          },
+          "teamAdvisors": {
+            "title": "团队与顾问",
+            "subtitle": "4-year vesting with 1-year cliff for long-term alignment"
+          },
+          "foundationReserve": {
+            "title": "基金会储备",
+            "subtitle": "Emergency fund and strategic opportunities reserve"
           }
         },
         "burnMechanisms": {
@@ -7124,14 +7398,64 @@
           "apy": "当前年化收益",
           "totalStaked": "总质押量",
           "validators": "活跃验证者",
-          "minStake": "最低质押量"
+          "minStake": "最低质押量",
+          "liquidStaking": "Liquid staking available with stTBURN derivative token",
+          "ninetyDayLock": "90-day lock: 12% 年化收益率 + 1.2x governance weight",
+          "yearLock": "365-day lock: 18% 年化收益率 + 2x governance weight"
         },
         "governance": {
           "title": "治理",
           "description": "TBURN持有者可参与协议治理",
           "votingPower": "投票权",
           "proposalThreshold": "提案门槛",
-          "quorum": "所需法定人数"
+          "quorum": "所需法定人数",
+          "features": {
+            "voteProtocol": "Vote on protocol upgrades and parameter changes",
+            "approveTreasury": "批准 treasury allocations and ecosystem grants",
+            "decideSlashing": "Decide on slashing proposals and validator disputes"
+          }
+        },
+        "distributionSection": {
+          "title": "代币分配",
+          "subtitle": "Strategic allocation designed for long-term ecosystem growth and sustainability",
+          "totalSupply": "1,000,000,000 TBURN"
+        },
+        "burnSection": {
+          "title": "销毁机制",
+          "subtitle": "Multiple deflationary mechanisms ensuring sustainable token value appreciation"
+        },
+        "tburn": {
+          "type": "治理与质押代币",
+          "role": "角色",
+          "roleValue": "Primary governance token for voting and staking to secure the network",
+          "totalSupply": "1,000,000,000",
+          "decimals": "18"
+        },
+        "ember": {
+          "type": "Gas 代币",
+          "role": "角色",
+          "roleValue": "Native gas token for transaction fees and smart contract execution",
+          "baseFee": "基础费用",
+          "baseFeeValue": "0.001 EMBER",
+          "exchangeRatio": "1 TBURN staked = 100 EMBER/day"
+        },
+        "burn": {
+          "transactionFees": {
+            "title": "交易费用销毁",
+            "description": "0.1% of every transaction fee is permanently burned, reducing supply with network usage"
+          },
+          "slashingPenalty": {
+            "title": "罚没惩罚销毁",
+            "description": "有效ator misbehavior penalties are burned, reinforcing network security incentives"
+          },
+          "collateralBurn": {
+            "title": "抵押品销毁",
+            "description": "失败 project collateral is partially burned as part of investor protection mechanism"
+          },
+          "revenueBuyback": {
+            "title": "收入回购销毁",
+            "description": "专业tocol revenue used to buy and burn TBURN quarterly, creating deflationary pressure"
+          }
         }
       },
       "roadmap": {
@@ -7824,52 +8148,951 @@
       "docs": {
         "tag": "文档",
         "title": "文档",
-        "subtitle": "TBurn Chain开发的综合指南和参考。"
+        "subtitle": "TBurn Chain开发的综合指南和参考。",
+        "heroDescription": "在 TBurn Chain 上构建所需的一切。从快速入门到高级 API 参考。",
+        "searchPlaceholder": "搜索文档...",
+        "categoriesTitle": "文档分类",
+        "resourcesTitle": "开发者资源",
+        "badges": {
+          "latest": "最新",
+          "mainnet": "主网"
+        },
+        "architecture": {
+          "title": "网络架构",
+          "subtitle": "了解 TBurn Chain 多层架构",
+          "layers": {
+            "consensus": {
+              "title": "共识层",
+              "description": "信任证明共识，具有 AI 驱动的验证和抗量子签名"
+            },
+            "execution": {
+              "title": "执行层",
+              "description": "EVM 兼容的智能合约执行，具有 Gas 优化"
+            },
+            "application": {
+              "title": "应用层",
+              "description": "dApps、DeFi 协议和面向用户的服务"
+            },
+            "service": {
+              "title": "服务层",
+              "description": "用于集成的 API、SDK 和开发者工具"
+            }
+          },
+          "stats": {
+            "throughput": {
+              "label": "吞吐量",
+              "sublabel": "50,000+ TPS"
+            },
+            "latency": {
+              "label": "延迟",
+              "sublabel": "< 1 秒"
+            },
+            "ai": {
+              "label": "AI 模型",
+              "sublabel": "三频编排"
+            },
+            "cryptography": {
+              "label": "密码学",
+              "sublabel": "抗量子"
+            }
+          }
+        },
+        "categories": {
+          "smartContracts": {
+            "title": "智能合约",
+            "description": "编写、部署和验证集成信任评分的智能合约"
+          },
+          "apiReference": {
+            "title": "API 参考",
+            "description": "完整的 REST 和 GraphQL API 文档"
+          },
+          "sdkGuide": {
+            "title": "SDK 指南",
+            "description": "多语言 SDK 集成指南",
+            "badge": "热门"
+          },
+          "cliReference": {
+            "title": "CLI 参考",
+            "description": "用于项目管理的命令行界面",
+            "badge": "新"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "实时区块链事件订阅",
+            "badge": "实时"
+          },
+          "tutorials": {
+            "title": "教程",
+            "description": "常见用例的分步指南",
+            "badge": "初学者"
+          }
+        },
+        "quickStart": {
+          "title": "快速入门",
+          "items": {
+            "getStarted": {
+              "title": "开始使用",
+              "description": "安装 SDK 并创建您的第一个项目"
+            },
+            "devSetup": {
+              "title": "开发环境设置",
+              "description": "配置您的开发环境"
+            },
+            "apiKeys": {
+              "title": "API 密钥",
+              "description": "从开发者控制台获取您的 API 密钥"
+            }
+          }
+        },
+        "resources": {
+          "cookbook": {
+            "title": "开发者手册",
+            "description": "即用型代码配方和模式"
+          },
+          "community": {
+            "title": "社区",
+            "description": "加入 Discord 并从社区获取帮助"
+          },
+          "trustScore": {
+            "title": "信任评分指南",
+            "description": "了解和集成信任验证"
+          },
+          "defiHub": {
+            "title": "DeFi 中心",
+            "description": "使用 TBurn 协议构建 DeFi 应用"
+          }
+        },
+        "cta": {
+          "title": "准备好构建了吗？",
+          "description": "立即使用我们全面的文档和 SDK 开始在 TBurn Chain 上构建。",
+          "joinDiscord": "加入 Discord"
+        }
       },
       "api": {
         "tag": "API参考",
         "title": "API文档",
-        "subtitle": "区块链、DeFi和AI服务的RESTful API端点。"
+        "subtitle": "区块链、DeFi和AI服务的RESTful API端点。",
+        "baseUrl": "基础 URL",
+        "coreEndpoints": "核心端点",
+        "parameters": "参数",
+        "related": "相关",
+        "officialSdks": "官方 SDK",
+        "viewDocumentation": "查看文档",
+        "authentication": {
+          "title": "身份验证",
+          "description": "全部 API requests require an API key. Get your free key from the",
+          "dashboardLink": "开发者仪表板"
+        },
+        "sidebar": {
+          "overview": "概述",
+          "authentication": "身份验证",
+          "rateLimits": "速率限制",
+          "endpoints": "端点",
+          "block": "区块",
+          "transaction": "交易",
+          "account": "账户",
+          "smartContract": "智能合约",
+          "websocket": "WebSocket",
+          "realtimeEvents": "实时事件"
+        },
+        "endpoints": {
+          "blocks": {
+            "description": "按区块号或哈希获取区块信息",
+            "paramDesc": "区块 number or 'latest'"
+          },
+          "transactions": {
+            "description": "按交易哈希获取交易详情"
+          },
+          "sendTransaction": {
+            "description": "提交 a signed transaction to the network"
+          },
+          "balance": {
+            "description": "获取账户余额和 nonce"
+          }
+        },
+        "errorHandling": {
+          "title": "错误处理",
+          "code": "代码",
+          "description": "描述"
+        },
+        "errors": {
+          "badRequest": "无效 request parameters",
+          "unauthorized": "无效 or missing API key",
+          "tooManyRequests": "比率 limit exceeded",
+          "internalError": "内部服务器错误"
+        },
+        "websocketApi": {
+          "title": "WebSocket API",
+          "description": "订阅实时区块链事件以获取即时更新。",
+          "connectComment": "连接 to WebSocket",
+          "subscribeComment": "订阅区块频道"
+        },
+        "sdks": {
+          "javascript": "JavaScript SDK",
+          "python": "Python SDK",
+          "go": "Go SDK"
+        },
+        "quickLinks": {
+          "quickStart": {
+            "title": "快速入门",
+            "description": "部署 your first d应用 in 5 minutes"
+          },
+          "codeExamples": {
+            "title": "代码示例",
+            "description": "真实世界集成模式"
+          },
+          "rpcProviders": {
+            "title": "RPC 提供商",
+            "description": "连接 via multiple end分"
+          }
+        },
+        "relatedLinks": {
+          "developerHub": "开发者中心",
+          "documentation": "完整文档",
+          "codeExamples": "代码示例",
+          "quickStart": "快速入门指南"
+        }
       },
       "cli": {
         "tag": "CLI工具",
         "title": "CLI参考",
-        "subtitle": "项目管理和部署的命令行界面。"
+        "subtitle": "项目管理和部署的命令行界面。",
+        "currentVersion": "当前版本",
+        "usage": "使用方法",
+        "options": "选项",
+        "examples": "示例",
+        "required": "必需",
+        "optional": "可选",
+        "default": "默认",
+        "globalOptionsTitle": "全局选项",
+        "environmentTitle": "环境变量",
+        "relatedDocs": "相关文档",
+        "installation": {
+          "title": "安装",
+          "verify": "验证 installation"
+        },
+        "categories": {
+          "project": "项目",
+          "contract": "合约",
+          "network": "网络",
+          "wallet": "钱包",
+          "ai": "AI"
+        },
+        "commands": {
+          "init": {
+            "desc": "初始化 a new T销毁 链 project",
+            "options": {
+              "template": "项目 template (defi, nft, dao)",
+              "typescript": "Use 类型脚本"
+            }
+          },
+          "dev": {
+            "desc": "开始 local development server",
+            "options": {
+              "port": "端口号",
+              "open": "打开 browser automatically"
+            }
+          },
+          "build": {
+            "desc": "构建 project for production",
+            "options": {
+              "outdir": "输出 directory",
+              "sourcemap": "生成源映射"
+            }
+          },
+          "deploy": {
+            "desc": "部署 to T销毁 链 network",
+            "options": {
+              "network": "目标 network (mainnet, testnet)",
+              "verify": "验证 contract on explorer",
+              "gasPrice": "Gas 价格（gwei）"
+            }
+          },
+          "wallet": {
+            "desc": "钱包 management commands",
+            "options": {
+              "create": "创建 new wallet",
+              "import": "导入 existing wallet",
+              "balance": "检查 wallet balance"
+            }
+          }
+        },
+        "globalOptions": {
+          "verbose": "启用 verbose output",
+          "json": "输出 in JSON format",
+          "network": "指定网络",
+          "config": "配置文件路径",
+          "help": "显示 help message"
+        },
+        "needHelp": {
+          "title": "Need 帮助?",
+          "apiReference": "API 参考",
+          "sdkDocumentation": "SDK 文档"
+        },
+        "relatedLinks": {
+          "developerHub": "开发者中心",
+          "documentation": "文档",
+          "apiReference": "API 参考",
+          "quickStart": "快速入门",
+          "installationGuide": "安装 指南"
+        }
       },
       "sdk": {
         "tag": "SDK指南",
         "title": "SDK指南",
-        "subtitle": "多语言SDK集成指南和最佳实践。"
+        "subtitle": "多语言SDK集成指南和最佳实践。",
+        "installation": "安装",
+        "configuration": "配置",
+        "quickExamples": "快速示例",
+        "install": {
+          "npm": "安装 with npm",
+          "yarn": "或使用 yarn"
+        },
+        "features": {
+          "typeSafety": {
+            "title": "类型安全",
+            "description": "完整 类型脚本 support with comprehensive type definitions for all API methods and responses."
+          },
+          "autoRetry": {
+            "title": "自动重试",
+            "description": "内置重试逻辑，对失败请求和网络问题采用指数退避策略。"
+          },
+          "realTimeStreams": {
+            "title": "实时流",
+            "description": "使用 WebSocket 连接和响应式模式订阅实时区块链事件。"
+          }
+        },
+        "examples": {
+          "core": "核心功能",
+          "defi": "DeFi 交互",
+          "streaming": "实时 streaming"
+        },
+        "needHelp": {
+          "title": "Need 帮助?",
+          "apiReference": "API 参考",
+          "cliReference": "CLI 参考",
+          "codeExamples": "代码示例",
+          "discordSupport": "Discord 社区"
+        }
       },
       "contracts": {
         "tag": "智能合约",
         "title": "智能合约",
-        "subtitle": "在TBurn Chain上编写、测试和部署安全的智能合约。"
+        "subtitle": "在TBurn Chain上编写、测试和部署安全的智能合约。",
+        "contractTemplates": "合约模板",
+        "copy": "复制",
+        "copied": "已复制！",
+        "apiReference": "API 参考",
+        "cliGuide": "CLI 指南",
+        "evmMigration": "EVM 迁移",
+        "features": {
+          "evmCompatibility": {
+            "title": "完全 EVM 兼容",
+            "description": "部署 existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+          },
+          "trustIntegration": {
+            "title": "信任评分集成",
+            "description": "访问 on-chain trust scores through oracle contracts for trust-verified transactions."
+          },
+          "autoBurn": {
+            "title": "自动销毁",
+            "description": "内置销毁机制，具有计划执行和透明抵押品管理。"
+          },
+          "aiOracle": {
+            "title": "AI 预言机访问",
+            "description": "通过预言机调用将 AI 驱动的洞察直接集成到智能合约中。"
+          },
+          "gasOptimization": {
+            "title": "Gas 优化",
+            "description": "先进的 Gas 优化技术可将交易成本降低高达 60%。"
+          },
+          "quantumResistant": {
+            "title": "抗量子签名",
+            "description": "使用 CRYSTALS-Dilithium 签名的面向未来的密码学，确保长期安全。"
+          },
+          "trustScore": {
+            "title": "信任评分集成",
+            "description": "链上信任验证，具有实时评分和自动风险评估。"
+          }
+        },
+        "templates": {
+          "erc20": {
+            "title": "BRC-20 代币",
+            "description": "标准 token with trust-aware transfers"
+          },
+          "nft": {
+            "title": "NFT 收藏",
+            "description": "ERC-721 with on-chain metadata"
+          },
+          "defi": {
+            "title": "DeFi 专业tocol",
+            "description": "AMM pool with trust verification"
+          },
+          "dao": {
+            "title": "DAO Governance",
+            "description": "代币-weighted voting system"
+          },
+          "autoBurn": "自动销毁代币",
+          "basicToken": "基础代币",
+          "governance": "治理",
+          "staking": "质押合约",
+          "trustScoreIntegration": "信任评分集成"
+        },
+        "security": {
+          "title": "安全 最佳 Practices",
+          "reentrancy": "使用 ReentrancyGuard 修饰符防止递归外部调用",
+          "accessControl": "使用 OpenZeppelin AccessControl 实现基于角色的访问控制",
+          "inputValidation": {
+            "title": "输入 有效ation",
+            "description": "始终 validate user inputs and external data"
+          },
+          "upgradeability": {
+            "title": "Upgradeability",
+            "description": "Use proxy patterns for upgradeable contracts"
+          },
+          "checksEffects": "对外部调用遵循检查-效果-交互模式",
+          "initializer": "对代理合约初始化使用初始化器修饰符",
+          "overflow": "使用 SafeMath 或 Solidity 0.8+ 进行溢出保护",
+          "reentrancyGuard": {
+            "title": "重入保护",
+            "description": "使用 ReentrancyGuard 修饰符防止递归调用"
+          },
+          "accessControlRole": {
+            "title": "访问控制",
+            "description": "使用 OpenZeppelin 实现基于角色的权限"
+          }
+        },
+        "gasOptimization": {
+          "title": "Gas Optimization",
+          "subtitle": "Tips for reducing transaction costs",
+          "tip1": "Pack multiple small variables into single storage slots",
+          "tip2": "Use calldata instead of memory for read-only function parameters",
+          "tip3": "Cache storage variables in memory when accessed multiple times",
+          "tip4": "Use custom errors instead of revert strings",
+          "memoryVsStorage": {
+            "title": "内存与存储",
+            "desc": "对临时数据使用内存，对持久状态使用存储，以优化 Gas 使用。"
+          },
+          "shortRevert": {
+            "title": "简短的回退消息",
+            "desc": "使用自定义错误代替长回退字符串，以节省部署和执行 Gas。"
+          },
+          "useEvents": {
+            "title": "使用事件记录日志",
+            "desc": "当通过日志进行历史访问就足够时，发出事件而不是存储数据。"
+          },
+          "variablePacking": {
+            "title": "变量打包",
+            "desc": "将多个变量打包到单个存储槽中，以最小化存储成本。"
+          }
+        },
+        "testing": {
+          "title": "测试 Your 合约s",
+          "description": "Comprehensive testing guide for smart contracts",
+          "unitTests": "Unit 测试s",
+          "integrationTests": "集成 测试s",
+          "fuzzTesting": "Fuzz 测试"
+        },
+        "deployment": {
+          "title": "部署ment 指南",
+          "step1": "Compile contracts",
+          "step2": "部署 to testnet",
+          "step3": "验证 on explorer",
+          "step4": "部署 to mainnet"
+        },
+        "needHelp": {
+          "title": "Need 帮助?",
+          "sdkDocumentation": "SDK 文档",
+          "codeExamples": "代码示例",
+          "discordSupport": "Discord 社区"
+        },
+        "relatedLinks": {
+          "developerHub": "开发者中心",
+          "sdkGuide": "SDK 指南",
+          "cliReference": "CLI 参考",
+          "codeExamples": "代码示例"
+        },
+        "gasOptimizationTips": "Gas 优化技巧",
+        "platformFeatures": "平台功能",
+        "readyToDeploy": "准备好部署了吗？",
+        "sdkGuide": "SDK 指南",
+        "securityChecklist": "安全检查清单"
       },
       "websocket": {
         "tag": "实时",
         "title": "WebSocket API",
-        "subtitle": "实时数据流和事件订阅。"
+        "subtitle": "实时数据流和事件订阅。",
+        "connectionEndpoints": "连接ion 端点",
+        "subscriptionChannels": "Subscription Channels",
+        "fullReference": "完整 参考",
+        "getSdk": "Get SDK",
+        "codeExamples": "代码示例",
+        "viewRestApi": "View REST API",
+        "readyToIntegrate": "准备就绪 to Integrate?",
+        "endpoints": {
+          "mainnet": {
+            "type": "专业duction",
+            "desc": "主网 WebSocket endpoint for production applications"
+          },
+          "testnet": {
+            "type": "Development",
+            "desc": "测试网 WebSocket endpoint for development and testing"
+          }
+        },
+        "channels": {
+          "blocks": {
+            "description": "Subscribe to new block notifications with full block data"
+          },
+          "transactions": {
+            "description": "实时 transaction updates for specific addresses"
+          },
+          "trustScore": {
+            "description": "实时 trust score changes for monitored addresses"
+          },
+          "defi": {
+            "description": "价格 feeds and liquidity pool updates"
+          }
+        },
+        "authentication": {
+          "title": "身份验证",
+          "description": "Include your API key in the connection URL query parameter or as a header"
+        },
+        "heartbeat": {
+          "title": "Heartbeat",
+          "description": "发送 ping messages every 30 seconds to keep the connection alive"
+        },
+        "clientImplementation": {
+          "title": "Client Implementation",
+          "subtitle": "示例 WebSocket client in Java脚本"
+        }
       },
       "examples": {
         "tag": "代码示例",
         "title": "代码示例",
-        "subtitle": "即用型代码片段和示例项目。"
+        "subtitle": "即用型代码片段和示例项目。",
+        "commonRecipes": "Common Recipes",
+        "categories": {
+          "allRecipes": "全部 Recipes",
+          "smartContracts": "智能合约",
+          "defi": "DeFi",
+          "nfts": "NFTs",
+          "wallets": "钱包s"
+        },
+        "recipes": {
+          "connectWallet": {
+            "title": "连接 钱包",
+            "description": "Integrate MetaMask and other Web3 wallets with React hooks",
+            "category": "Frontend"
+          },
+          "createToken": {
+            "title": "创建 BRC-20 代币",
+            "description": "部署 a trust-verified token with automatic burn mechanics",
+            "category": "智能合约"
+          },
+          "aiOracle": {
+            "title": "AI Oracle 集成",
+            "description": "Query AI-powered insights from smart contracts or backend",
+            "category": "返回end"
+          },
+          "nftMinting": {
+            "title": "NFT 铸造ing",
+            "description": "创建 and mint NFT collections with metadata on IPFS",
+            "category": "NFT"
+          },
+          "flashLoan": {
+            "title": "Flash Loan",
+            "description": "Execute arbitrage with atomic flash loan transactions",
+            "category": "DeFi"
+          },
+          "indexerSetup": {
+            "title": "Indexer 设置",
+            "description": "构建 a custom blockchain data indexer with The 图表",
+            "category": "基础设施"
+          }
+        },
+        "featured": {
+          "title": "精选 Recipe",
+          "description": "构建 a secure vault that verifies project trust scores before accepting deposits. This pattern is essential for DeFi protocols.",
+          "difficulty": "困难y",
+          "intermediate": "中级",
+          "time": "时间",
+          "tenMins": "~10 mins",
+          "checks": {
+            "trustScore": "Verifies Trust Score on-chain before deposit",
+            "revert": "Reverts if score below threshold",
+            "gasOptimized": "Gas-optimized for production use"
+          }
+        },
+        "cta": {
+          "title": "Have a Recipe to 分享?",
+          "description": "Contribute your code examples to help the community. 全部 contributors receive ecosystem rewards.",
+          "submitPr": "提交 PR on GitHub",
+          "requestGuide": "Request a 指南"
+        }
       },
       "quickstart": {
         "tag": "入门",
         "title": "快速开始",
-        "subtitle": "几分钟内开始使用TBurn Chain。"
+        "subtitle": "几分钟内开始使用TBurn Chain。",
+        "whatsNext": "What's 下一步?",
+        "prerequisites": {
+          "title": "先决条件",
+          "node": "节点.js 18+ installed",
+          "account": "T销毁 链 account (testnet faucet available)",
+          "knowledge": "基础 Java脚本/类型脚本 knowledge"
+        },
+        "steps": {
+          "installSdk": {
+            "title": "安装 the SDK",
+            "description": "添加 the T销毁 SDK to your project using npm or yarn"
+          },
+          "initializeSdk": {
+            "title": "初始化 the SDK",
+            "description": "配置 the SDK with your API key and network settings"
+          },
+          "firstTransaction": {
+            "title": "发送 Your 第一 交易",
+            "description": "连接 your wallet and send TBURN tokens"
+          },
+          "queryTrustScore": {
+            "title": "Query Trust Score",
+            "description": "Retrieve AI-powered trust analysis for any address"
+          }
+        },
+        "networkConfig": {
+          "title": "网络 配置",
+          "chainId": "链 ID",
+          "rpcUrl": "RPC URL",
+          "explorer": "探索r",
+          "mainnet": {
+            "title": "主网"
+          },
+          "testnet": {
+            "title": "测试网"
+          }
+        },
+        "vsCode": {
+          "title": "VS 代码 设置",
+          "description": "推荐 extensions for T销毁 链 development",
+          "solidity": "Solidity Language 支持",
+          "eslint": "ESLint for Java脚本/类型脚本",
+          "tburnSnippets": "T销毁 SDK Snippets"
+        },
+        "nextSteps": {
+          "sdkGuide": {
+            "title": "SDK 指南",
+            "desc": "Deep dive into SDK features"
+          },
+          "apiReference": {
+            "title": "API 参考",
+            "desc": "探索 all end分"
+          },
+          "smartContracts": {
+            "title": "智能合约",
+            "desc": "Write your first contract"
+          }
+        }
       },
       "installation": {
         "tag": "设置",
         "title": "安装指南",
-        "subtitle": "分步安装和配置说明。"
+        "subtitle": "分步安装和配置说明。",
+        "startBuilding": "开始构建",
+        "viewQuickStart": "View 快速入门",
+        "requirements": {
+          "title": "System Requirements",
+          "hardware": {
+            "title": "困难ware",
+            "cpu": "2+ CPU cores",
+            "memory": "8GB RAM minimum",
+            "storage": "50GB SSD storage"
+          },
+          "software": {
+            "title": "Software",
+            "os": "macOS, Linux, or Windows 10+",
+            "node": "节点.js 18 or higher",
+            "git": "Git 2.0 or higher"
+          },
+          "minimum": {
+            "title": "最低要求",
+            "subtitle": "用于开发和测试",
+            "cpu": "4 核 / 8 线程",
+            "ram": "8GB RAM",
+            "storage": "100GB SSD",
+            "network": "10 Mbps"
+          },
+          "recommended": {
+            "title": "推荐要求",
+            "subtitle": "用于生产验证者",
+            "cpu": "8+ 核 / 16 线程",
+            "ram": "32GB RAM",
+            "storage": "500GB NVMe SSD",
+            "network": "100 Mbps"
+          },
+          "specs": {
+            "cpu": "CPU",
+            "ram": "RAM",
+            "storage": "存储",
+            "network": "网络"
+          },
+          "ports": {
+            "title": "网络端口",
+            "subtitle": "节点运行所需端口",
+            "rpc": "8545 - JSON-RPC",
+            "ws": "8546 - WebSocket",
+            "p2p": "30303 - P2P",
+            "metrics": "9090 - 指标"
+          }
+        },
+        "tabs": {
+          "npm": "npm",
+          "yarn": "Yarn",
+          "docker": "Docker",
+          "source": "从 Source",
+          "linux": "Linux",
+          "windows": "Windows"
+        },
+        "npm": {
+          "title": "安装 via npm",
+          "step1": "安装 the SDK globally",
+          "step2": "验证 installation",
+          "step3": "初始化 a new project"
+        },
+        "yarn": {
+          "title": "安装 via Yarn",
+          "step1": "安装 the SDK globally",
+          "step2": "验证 installation"
+        },
+        "docker": {
+          "title": "Docker 安装",
+          "step1": "Pull the official image",
+          "step2": "Run the container",
+          "step3": "访问 the development environment",
+          "pullAndRun": "拉取并运行 Docker 镜像",
+          "recommendation": "推荐用于隔离的开发环境",
+          "viewDockerCompose": "查看 Docker Compose 配置"
+        },
+        "source": {
+          "title": "构建 from Source",
+          "step1": "Clone the repository",
+          "step2": "安装 dependencies",
+          "step3": "构建 the project",
+          "step4": "链接 globally"
+        },
+        "configuration": {
+          "title": "配置",
+          "envVars": {
+            "title": "环境变量",
+            "apiKey": "Your T销毁 API key",
+            "network": "网络 (mainnet/testnet)",
+            "rpcUrl": "自定义 RPC endpoint (optional)"
+          },
+          "configFile": {
+            "title": "配置 文件",
+            "description": "创建 a tburn.config.js file in your project root"
+          },
+          "description": "使用环境变量和配置文件配置您的 TBurn Chain 节点。",
+          "commonFlags": "常用配置标志"
+        },
+        "troubleshooting": {
+          "title": "Troubleshooting",
+          "permissionDenied": {
+            "title": "权限 Denied",
+            "description": "Try running with sudo or fix npm permissions"
+          },
+          "nodeVersion": {
+            "title": "节点 版本 Mismatch",
+            "description": "Use nvm to switch to 节点.js 18+"
+          },
+          "networkError": {
+            "title": "网络 连接ion 错误",
+            "description": "检查 your firewall settings and RPC endpoint"
+          },
+          "portErrors": "端口已被占用",
+          "portErrorsAnswer": "使用 --http.port 标志更改端口或终止占用该端口的进程。",
+          "notSyncing": "节点未同步",
+          "notSyncingAnswer": "检查网络连接并确保有可用的对等节点。尝试添加引导节点。",
+          "openFiles": "打开文件过多",
+          "openFilesAnswer": "使用 ulimit -n 65535 增加系统文件描述符限制。"
+        },
+        "nextSteps": {
+          "title": "下一步 Steps",
+          "quickStart": {
+            "title": "快速入门指南",
+            "description": "构建 your first d应用 in 5 minutes"
+          },
+          "sdkReference": {
+            "title": "SDK 参考",
+            "description": "Complete API documentation"
+          },
+          "examples": {
+            "title": "代码示例",
+            "description": "真实世界集成模式"
+          }
+        },
+        "systemRequirements": "系统要求",
+        "installationSteps": "安装步骤",
+        "quickStart": "快速入门",
+        "dockerImage": "Docker 镜像",
+        "troubleshootingTitle": "故障排除",
+        "flags": {
+          "http": "--http: 启用 HTTP-RPC 服务器",
+          "ws": "--ws: 启用 WebSocket 服务器",
+          "mine": "--mine: 启用挖矿/验证",
+          "syncmode": "--syncmode: 同步模式 (snap, full, light)"
+        },
+        "windows": {
+          "title": "Windows 安装",
+          "recommendation": "对于 Windows，我们建议使用 WSL2（Windows Subsystem for Linux）以获得最佳兼容性。",
+          "downloadBeta": "下载 Windows 测试版"
+        },
+        "needHelp": {
+          "title": "需要帮助？",
+          "description": "加入我们的社区获取支持和更新。",
+          "joinDiscord": "加入 Discord"
+        }
       },
       "evmMigration": {
         "tag": "迁移",
         "title": "EVM迁移",
-        "subtitle": "将以太坊dApp迁移到TBurn Chain。"
+        "subtitle": "将以太坊dApp迁移到TBurn Chain。",
+        "startMigration": "开始迁移",
+        "viewGuide": "查看完整指南",
+        "overview": {
+          "title": "迁移概述",
+          "description": "T销毁 链 is fully EVM-compatible, allowing you to deploy existing Ethereum smart contracts with minimal modifications.",
+          "compatibility": "100% EVM 兼容",
+          "gasEfficiency": "Up to 10x lower gas costs",
+          "trustFeatures": "Built-in Trust Score integration"
+        },
+        "differences": {
+          "title": "主要差异",
+          "chainId": {
+            "title": "链 ID",
+            "ethereum": "Ethereum: 1",
+            "tburn": "T销毁: 7777"
+          },
+          "consensus": {
+            "title": "共识机制",
+            "ethereum": "权益证明",
+            "tburn": "信任证明 (PoT)"
+          },
+          "gasToken": {
+            "title": "Gas 代币",
+            "ethereum": "ETH",
+            "tburn": "TBURN"
+          },
+          "blockTime": {
+            "title": "出块时间",
+            "ethereum": "~12 seconds",
+            "tburn": "~3 seconds"
+          },
+          "evmCompatibility": {
+            "title": "EVM 兼容性",
+            "evmDesc": "标准 EVM 操作码和执行",
+            "tburnDesc": "增强型 EVM，带有信任评分操作码"
+          },
+          "performance": {
+            "title": "性能",
+            "evmDesc": "~15 TPS 典型吞吐量",
+            "tburnDesc": "50,000+ TPS 并行执行"
+          },
+          "safety": {
+            "title": "交易安全",
+            "evmDesc": "标准交易最终性",
+            "tburnDesc": "AI 验证交易，具有欺诈防护"
+          },
+          "verification": {
+            "title": "验证",
+            "evmDesc": "基本合约验证",
+            "tburnDesc": "内置信任评分验证"
+          }
+        },
+        "steps": {
+          "title": "迁移步骤",
+          "step1": {
+            "title": "更新网络配置",
+            "description": "Change RPC end分 and chain ID in your configuration files"
+          },
+          "step2": {
+            "title": "修改合约地址",
+            "description": "更新 hardcoded contract addresses to T销毁 链 deployments"
+          },
+          "step3": {
+            "title": "添加信任评分集成",
+            "description": "可选ly integrate Trust Score verification for enhanced security"
+          },
+          "step4": {
+            "title": "部署和测试",
+            "description": "部署 to testnet first, then migrate to mainnet"
+          },
+          "useExistingCode": {
+            "title": "使用现有代码",
+            "desc": "您的 Solidity 合约可以直接使用。基本功能无需修改。"
+          },
+          "integrateTrustScore": {
+            "title": "集成信任评分",
+            "desc": "添加可选的信任评分检查以验证交易参与者。"
+          },
+          "leverageAutoBurn": {
+            "title": "利用自动销毁",
+            "desc": "通过自动代币销毁实现通缩机制。"
+          }
+        },
+        "commonChanges": {
+          "title": "常见代码更改",
+          "rpcEndpoint": "RPC 端点更新",
+          "chainIdUpdate": "链 ID 配置",
+          "trustOracle": "信任预言机集成（可选）"
+        },
+        "tools": {
+          "title": "迁移工具",
+          "cliMigrate": {
+            "title": "CLI 迁移工具",
+            "description": "Automated contract migration with burn-cli migrate"
+          },
+          "hardhatPlugin": {
+            "title": "Hardhat 插件",
+            "description": "T销毁 困难hat plugin for seamless deployment"
+          },
+          "foundrySupport": {
+            "title": "Foundry 支持",
+            "description": "完整 Foundry compatibility for testing and deployment"
+          }
+        },
+        "cta": {
+          "title": "准备好迁移了吗？",
+          "description": "开始 with our step-by-step migration guide and tools.",
+          "startNow": "立即开始迁移",
+          "contactSupport": "联系支持",
+          "readDocumentation": "阅读文档"
+        },
+        "faq": {
+          "title": "常见问题",
+          "q1": {
+            "question": "Will my existing Solidity contracts work?",
+            "answer": "是, T销毁 链 is fully EVM-compatible and supports all Solidity versions."
+          },
+          "q2": {
+            "question": "Do I need to re-audit my contracts?",
+            "answer": "We recommend a security review for Trust Score integration, but existing logic should work as-is."
+          },
+          "q3": {
+            "question": "How long does migration take?",
+            "answer": "简单 contracts can be migrated in hours. 复杂 protocols may take 1-2 weeks."
+          }
+        },
+        "keyDifferences": {
+          "title": "关键技术差异",
+          "subtitle": "TBurn Chain 与传统 EVM 链的区别",
+          "existingEvmChains": "现有 EVM 链",
+          "tburnChain": "TBurn Chain",
+          "upgrade": "升级"
+        },
+        "developmentApproach": {
+          "title": "开发方法",
+          "subtitle": "按照以下步骤迁移您的现有 dApps"
+        }
       }
     },
     "solutions": {
@@ -8069,6 +9292,25 @@
           "extendedMetadata": {
             "title": "扩展元数据",
             "description": "所有项目信息，包括团队详情、白皮书链接、审计报告和销毁计划，都存储在代币元数据的链上。"
+          },
+          "trustRating": {
+            "title": "内置信任评级",
+            "description": "Trust scores are automatically recorded in token contracts. When below 40%,",
+            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
+            "badge": "自动投资者保护"
+          },
+          "autoBurn": {
+            "title": "自动销毁计划",
+            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned.",
+            "badge": "强制通缩模型"
+          },
+          "collateral": {
+            "title": "抵押品透明度",
+            "description": "项目 reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+          },
+          "metadata": {
+            "title": "扩展元数据",
+            "description": "全部 project information including team details, whitepaper links, and audit reports stored on-chain."
           }
         },
         "brc20Standard": {
@@ -8090,6 +9332,18 @@
           "deflationaryUtilityTokens": {
             "title": "通缩实用代币",
             "description": "每笔交易自动销毁，增加价值。"
+          },
+          "verified": {
+            "title": "已验证项目代币",
+            "description": "交易able only when maintaining 60%+ trust score."
+          },
+          "stablecoins": {
+            "title": "抵押支持稳定币",
+            "description": "实时 collateral ratio monitoring and auto liquidation."
+          },
+          "deflationary": {
+            "title": "通缩实用代币",
+            "description": "Auto-burn on each transaction increases value."
           }
         },
         "realExamples": {
@@ -8112,6 +9366,44 @@
           "subtitle": "在5分钟内发行具有内置信任评级功能的代币。",
           "openConsole": "打开开发者控制台",
           "viewApiDocs": "查看API文档"
+        },
+        "buttons": {
+          "exploreBrc20": "探索 BRC-20",
+          "readSpecs": "阅读规格",
+          "openConsole": "打开开发者控制台",
+          "viewApiDocs": "查看 API 文档"
+        },
+        "brc20": {
+          "title": "BRC-20 代币标准",
+          "subtitle": "Core interfaces for Trust & 销毁 functionality.",
+          "trustScoreFunctions": "信任评分函数",
+          "autoBurnFunctions": "自动销毁函数"
+        },
+        "code": {
+          "comments": {
+            "range": "Returns trust score in range 0-100",
+            "autoBurn": "销毁 tokens according to schedule"
+          }
+        },
+        "useCasesSection": {
+          "title": "代币扩展用例"
+        },
+        "examplesSection": {
+          "title": "真实使用示例"
+        },
+        "examples": {
+          "busd": {
+            "name": "BUSD (Stablecoin)",
+            "badge": "90+ Trust Score"
+          },
+          "bgame": {
+            "name": "BGAME (游戏Fi)",
+            "badge": "Auto-销毁 启用d"
+          },
+          "bprop": {
+            "name": "BPROP (RWA)",
+            "badge": "Real Asset 抵押品"
+          }
         }
       },
       "actionsBlinks": {
@@ -8419,6 +9711,98 @@
             "title": "主网上线与运营",
             "description": "生产部署，24/7监控和定期安全审计。TBurn团队持续支持。"
           }
+        },
+        "buttons": {
+          "contactSales": "联系销售",
+          "viewWhitepaper": "查看白皮书"
+        },
+        "features": {
+          "rbac": {
+            "title": "基于角色的访问控制",
+            "desc": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+          },
+          "whitelist": {
+            "title": "白名单验证者",
+            "desc": "开ly trusted validators can participate in the network. 配置 the network so that only internal nodes or approved partners can generate and validate blocks."
+          },
+          "compliance": {
+            "title": "监管合规",
+            "desc": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+          },
+          "multisig": {
+            "title": "多签名治理",
+            "desc": "关键 network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+          }
+        },
+        "hybrid": {
+          "privateAnchor": {
+            "title": "私有链 + 公共锚定",
+            "desc": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the T销毁 公开 主网 for immutability."
+          },
+          "selectiveDisclosure": {
+            "title": "选择性数据披露",
+            "desc": "交易 details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+          }
+        },
+        "diagram": {
+          "privateLayer": "私有共识层",
+          "anchoringHash": "锚定哈希",
+          "publicMainnet": "公共主网 (L1)"
+        },
+        "useCases": {
+          "exampleLabel": "示例",
+          "supplyChain": {
+            "title": "供应链",
+            "desc": "追踪 products from manufacturer to delivery. Participants only see relevant transaction segments.",
+            "example": "汽车零部件追踪",
+            "flow": "Raw Material → 专业duction → Assembly"
+          },
+          "banking": {
+            "title": "银行联盟",
+            "desc": "Inter-bank settlement network. 实时 clearing and settlement with zero counterparty risk.",
+            "example": "跨境汇款",
+            "flow": "3 Days → 3 Seconds, 费用 $10 → $0.01"
+          },
+          "medical": {
+            "title": "医疗数据",
+            "desc": "安全 patient data sharing between hospitals and insurers. 完整 HIPAA compliance auditing.",
+            "example": "电子处方",
+            "flow": "Hospital → Pharmacy → 保险"
+          }
+        },
+        "deployment": {
+          "step1": {
+            "title": "需求分析",
+            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+          },
+          "step2": {
+            "title": "网络设置",
+            "desc": "部署 validator nodes, generate genesis block, and develop initial smart contracts."
+          },
+          "step3": {
+            "title": "集成与迁移",
+            "desc": "API integration with legacy systems (ERP, CRM), data migration, and user training."
+          },
+          "step4": {
+            "title": "主网启动",
+            "desc": "专业duction deployment with 24/7 monitoring and regular security audits."
+          }
+        },
+        "sections": {
+          "enterpriseFeatures": {
+            "title": "企业功能",
+            "subtitle": "高级 control and compliance features for businesses"
+          },
+          "hybridArchitecture": {
+            "title": "混合架构",
+            "subtitle": "Combine private chain privacy with public blockchain security"
+          },
+          "useCases": {
+            "title": "行业用例"
+          },
+          "deployment": {
+            "title": "部署流程"
+          }
         }
       },
       "gameTooling": {
@@ -8470,17 +9854,34 @@
           "p2e": {
             "title": "P2E游戏",
             "description": "信任验证阻止庞氏骗局。稳定的代币经济学实现可持续的边玩边赚。",
-            "tags": "RPG • 策略 • 战斗"
+            "tags": "RPG • 策略 • 战斗",
+            "desc": "通过已验证的代币和 NFT 奖励玩家的游戏成就。"
           },
           "nftMarketplace": {
             "title": "NFT市场",
             "description": "交易游戏道具、艺术品和收藏品。自动显示信任徽章确保安全。",
-            "tags": "风险警告 • 历史"
+            "tags": "风险警告 • 历史",
+            "desc": "交易游戏物品、艺术品和收藏品。自动显示信任徽章以确保安全。"
           },
           "metaverse": {
             "title": "元宇宙",
             "description": "虚拟房地产、头像和可穿戴设备。DAO治理的去中心化所有权。",
-            "tags": "土地 • 头像 • 社交"
+            "tags": "土地 • 头像 • 社交",
+            "desc": "具有已验证数字资产所有权的沉浸式虚拟环境。"
+          },
+          "subtitle": "使用我们全面的工具构建任何类型的区块链游戏",
+          "marketplace": {
+            "title": "NFT 市场",
+            "desc": "具有信任验证的游戏内物品安全交易平台。",
+            "tags": "交易, 拍卖, 交换"
+          },
+          "casualGames": {
+            "title": "休闲游戏",
+            "desc": "具有微交易的轻量级区块链集成休闲游戏。"
+          },
+          "esports": {
+            "title": "电子竞技与锦标赛",
+            "desc": "具有透明分配和防作弊验证的去中心化奖池。"
           }
         },
         "integrationGuide": {
@@ -8500,6 +9901,120 @@
           "step4": {
             "title": "显示信任徽章",
             "description": "在游戏UI中显示实时信任评分，建立玩家信心。"
+          }
+        },
+        "buttons": {
+          "getUnitySdk": "获取 Unity SDK",
+          "getUnrealSdk": "获取 Unreal SDK",
+          "viewDocs": "查看文档"
+        },
+        "sections": {
+          "whyBuild": {
+            "title": "为什么在 TBurn Chain 上构建游戏？",
+            "subtitle": "下一代区块链游戏的先进基础设施"
+          },
+          "trustScore": {
+            "title": "游戏信任评分"
+          },
+          "gameTypes": {
+            "title": "游戏类型与用例"
+          },
+          "integration": {
+            "title": "集成步骤"
+          }
+        },
+        "trustScore": {
+          "title": "NFT 项目信任评分",
+          "subtitle": "游戏项目的综合验证系统",
+          "teamScore": "团队身份评分",
+          "contractScore": "合约安全评分",
+          "utilityScore": "实用性与路线图评分",
+          "totalScore": "总信任评分",
+          "verification": {
+            "title": "信任验证",
+            "desc": "AI 驱动的项目分析与社区验证"
+          },
+          "team": {
+            "title": "团队验证",
+            "points": "0-30 分",
+            "desc": "具有公开身份的已验证团队成员获得更高分数。",
+            "scoring": {
+              "verified": "已验证团队成员",
+              "anonymous": "匿名团队",
+              "maxPoints": "最高 10 分"
+            }
+          },
+          "contract": {
+            "title": "合约安全",
+            "points": "0-25 分",
+            "desc": "经过审计的智能合约，具有已验证的安全实践。",
+            "scoring": {
+              "audits": "3+ 次安全审计",
+              "noAudit": "无审计"
+            }
+          },
+          "utility": {
+            "title": "游戏实用性",
+            "points": "0-25 分",
+            "desc": "真实的游戏实用性和活跃的玩家参与。",
+            "scoring": {
+              "executed": "路线图已执行",
+              "gameLive": "游戏已上线",
+              "bonus": "+10 分奖励"
+            }
+          }
+        },
+        "features": {
+          "ultraFastProcessing": {
+            "title": "超快处理",
+            "desc": "50,000+ TPS 支持 1 秒区块时间的实时游戏内交易。"
+          },
+          "nftVerification": {
+            "title": "NFT 项目验证",
+            "desc": "三阶段验证通过信任评分监控阻止欺诈性 NFT 项目。"
+          },
+          "verifiedOwnership": {
+            "title": "已验证所有权",
+            "desc": "所有游戏物品发行和销毁历史的不可篡改链上记录。"
+          },
+          "crossGameAssets": {
+            "title": "跨游戏资产",
+            "desc": "EVM 兼容性支持不同游戏之间的可互操作物品。"
+          },
+          "ultraFast": {
+            "title": "超快处理",
+            "desc": "50,000+ TPS 支持 1 秒区块时间的实时游戏内交易。"
+          },
+          "verification": {
+            "title": "NFT 项目验证",
+            "desc": "三阶段验证通过信任评分监控阻止欺诈性 NFT 项目。"
+          },
+          "ownership": {
+            "title": "已验证所有权",
+            "desc": "所有游戏物品发行和销毁历史的不可篡改链上记录。"
+          },
+          "crossGame": {
+            "title": "跨游戏资产",
+            "desc": "EVM 兼容性支持不同游戏之间的可互操作物品。"
+          }
+        },
+        "integration": {
+          "title": "集成指南",
+          "step1": {
+            "title": "连接 SDK",
+            "desc": "将 TBurn Gaming SDK 集成到您的游戏引擎中。"
+          },
+          "step2": {
+            "title": "部署合约",
+            "desc": "在 TBurn Chain 测试网上部署您的游戏合约。"
+          },
+          "step3": {
+            "title": "获取验证",
+            "desc": "提交信任评分验证和游戏审核。"
+          },
+          "step4": {
+            "title": "上线",
+            "desc": "在主网上线，获得完整的生态系统支持。"
           }
         }
       },
@@ -8605,32 +10120,731 @@
       "commerce": {
         "tag": "商业",
         "title": "商业",
-        "subtitle": "电子商务集成和商家解决方案。"
+        "subtitle": "电子商务集成和商家解决方案。",
+        "titleHighlight": "解决方案",
+        "buttons": {
+          "installPlugin": "安装插件",
+          "viewApiDocs": "查看 API 文档",
+          "startIntegration": "开始集成"
+        },
+        "features": {
+          "payment": {
+            "title": "加密支付处理",
+            "desc": "接受 verified tokens with instant settlement. Trust Score filtering protects merchants from fraudulent transactions and low-quality tokens."
+          },
+          "inventory": {
+            "title": "区块链库存追踪",
+            "desc": "追踪 products with on-chain verification. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+          },
+          "loyalty": {
+            "title": "基于代币的忠诚度计划",
+            "desc": "Issue loyalty tokens to reward customers. 区块chain-based 分 are transparent, tradeable, and never expire."
+          },
+          "analytics": {
+            "title": "实时商务分析",
+            "desc": "监控 sales, customer behavior, and token transactions. 开-chain data provides tamper-proof business insights."
+          }
+        },
+        "platforms": {
+          "shopify": {
+            "desc": "开e-click integration with the world's leading e-commerce platform.",
+            "status": "可用"
+          },
+          "woocommerce": {
+            "desc": "WordPress plugin for WooCommerce stores.",
+            "status": "可用"
+          },
+          "customApi": {
+            "title": "自定义 API",
+            "desc": "RESTful API for custom integrations and mobile apps.",
+            "status": "可用"
+          }
+        },
+        "stories": {
+          "fashionBrand": {
+            "name": "Aurora Fashion",
+            "type": "Luxury Fashion Brand",
+            "quote": "T销毁 Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "stats": {
+              "volume": "$2.5M 交易量",
+              "savings": "85% 费用 Savings"
+            }
+          },
+          "resalePlatform": {
+            "name": "区块Resale",
+            "type": "NFT-已验证 Resale 平台",
+            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "stats": {
+              "nfts": "50K NFTs Issued",
+              "counterfeits": "Zero Counterfeits"
+            }
+          }
+        },
+        "integration": {
+          "step1": {
+            "title": "获取 API 密钥",
+            "desc": "Register on the developer dashboard and get your credentials."
+          },
+          "step2": {
+            "title": "安装 SDK",
+            "desc": "添加 T销毁 Commerce SDK to your project."
+          },
+          "step3": {
+            "title": "配置 Webhooks",
+            "desc": "Set up payment confirmation and order update notifications."
+          }
+        },
+        "sections": {
+          "coreFeatures": {
+            "title": "商务功能",
+            "subtitle": "每thing you need to accept crypto payments and grow your business."
+          },
+          "platforms": {
+            "title": "集成平台"
+          },
+          "successStories": {
+            "title": "成功案例"
+          },
+          "integration": {
+            "title": "快速集成指南"
+          }
+        }
       },
       "financial": {
         "tag": "金融",
         "title": "金融服务",
-        "subtitle": "基于区块链的企业金融基础设施。"
+        "subtitle": "基于区块链的企业金融基础设施。",
+        "titleHighlight": "服务",
+        "buttons": {
+          "startBuilding": "开始构建",
+          "readWhitepaper": "阅读白皮书"
+        },
+        "services": {
+          "banking": {
+            "title": "数字银行基础设施",
+            "desc": "构建 neo-banking products with blockchain settlement. 即时 transfers, programmable accounts, and full regulatory compliance."
+          },
+          "defi": {
+            "title": "DeFi 协议集成",
+            "desc": "连接 traditional finance with decentralized protocols. 访问 lending, staking, and yield generation with institutional-grade security."
+          },
+          "payment": {
+            "title": "跨境支付",
+            "desc": "全球 settlements in seconds, not days. Reduce costs by 99% with blockchain-based international transfers."
+          },
+          "compliance": {
+            "title": "监管合规",
+            "desc": "Built-in KYC/AML verification and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+          }
+        },
+        "stats": {
+          "tvl": "总锁仓价值",
+          "apy": "平均年化收益",
+          "dau": "每日活跃用户"
+        },
+        "cases": {
+          "neobank": {
+            "name": "NeoBank X",
+            "type": "Digital Banking 平台",
+            "quote": "T销毁's infrastructure allowed us to launch in 3 months instead of 18. Our customers love instant transfers.",
+            "stats": {
+              "customers": "150K 自定义ers",
+              "costs": "90% 成本 Reduction"
+            }
+          },
+          "defiProtocol": {
+            "name": "DeFi Prime",
+            "type": "借贷 专业tocol",
+            "quote": "Trust Score integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "stats": {
+              "tvl": "$500M TVL",
+              "liquidations": "Zero 差 Debt"
+            }
+          }
+        },
+        "building": {
+          "step1": {
+            "title": "架构咨询",
+            "desc": "Our team helps design your financial product architecture, ensuring regulatory compliance from day one."
+          },
+          "step2": {
+            "title": "API 集成",
+            "desc": "连接 to T销毁's financial APIs for payments, lending, and asset management."
+          },
+          "step3": {
+            "title": "合规设置",
+            "desc": "配置 KYC/AML flows and audit logging to meet your regulatory requirements."
+          },
+          "step4": {
+            "title": "生产启动",
+            "desc": "部署 with 24/7 monitoring, enterprise SLA, and dedicated support."
+          }
+        },
+        "sections": {
+          "coreServices": {
+            "title": "核心金融服务",
+            "subtitle": "企业-grade blockchain infrastructure for modern finance."
+          },
+          "realCases": {
+            "title": "真实成功案例"
+          },
+          "building": {
+            "title": "构建金融产品"
+          }
+        }
       },
       "aiFeatures": {
         "tag": "AI驱动",
         "title": "AI功能",
-        "subtitle": "用于智能区块链操作的三频AI编排。"
+        "subtitle": "用于智能区块链操作的三频AI编排。",
+        "titleHighlight": "三频段编排",
+        "tiers": {
+          "strategic": {
+            "title": "战略 AI",
+            "model": "GPT-4 / Claude 3",
+            "description": "高-level decision making for governance, tokenomics design, and long-term risk assessment. 专业cesses complex analyses with human-like reasoning.",
+            "capabilities": {
+              "governance": "DAO 提案分析",
+              "tokenomics": "代币经济优化",
+              "risk": "战略风险评估"
+            }
+          },
+          "tactical": {
+            "title": "战术 AI",
+            "model": "GPT-3.5 / Mistral",
+            "description": "实时 security monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "capabilities": {
+              "vulnerability": "智能合约审计",
+              "fraud": "欺诈模式检测",
+              "fee": "动态费用优化"
+            }
+          },
+          "operational": {
+            "title": "运营 AI",
+            "model": "自定义 ML Models",
+            "description": "Ultra-fast transaction validation and network health monitoring. Optimized for speed with sub-50ms response times.",
+            "capabilities": {
+              "validation": "交易 有效ation",
+              "mev": "MEV 专业tection",
+              "health": "网络 Health 监控ing"
+            }
+          }
+        },
+        "architecture": {
+          "step1": {
+            "title": "数据 Ingestion",
+            "description": "实时 blockchain data, mempool transactions, and market feeds are continuously processed."
+          },
+          "step2": {
+            "title": "AI 专业cessing",
+            "description": "每个 tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+          },
+          "step3": {
+            "title": "Coordinated Response",
+            "description": "AI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+          }
+        },
+        "stats": {
+          "uptime": {
+            "title": "99.99% Uptime",
+            "desc": "Redundant AI clusters across multiple regions"
+          },
+          "cost": {
+            "title": "90% 成本 Reduction",
+            "desc": "Efficient tier routing minimizes compute costs"
+          },
+          "scale": {
+            "title": "100K+ TPS",
+            "desc": "运营 AI handles massive throughput"
+          },
+          "verify": {
+            "title": "AI-已验证 Trust",
+            "desc": "Continuous project scoring and monitoring"
+          }
+        },
+        "sections": {
+          "architecture": {
+            "title": "AI Architecture"
+          },
+          "relatedSolutions": {
+            "title": "相关 解决方案",
+            "subtitle": "探索 how AI enhances other T销毁 products"
+          },
+          "developerResources": {
+            "title": "开发者 资源",
+            "subtitle": "Integrate AI capabilities into your applications"
+          }
+        },
+        "relatedLinks": {
+          "wallets": {
+            "title": "钱包s",
+            "desc": "AI-enhanced security"
+          },
+          "payments": {
+            "title": "支付",
+            "desc": "Smart fraud detection"
+          },
+          "gameTooling": {
+            "title": "游戏工具",
+            "desc": "Anti-cheat AI systems"
+          },
+          "financial": {
+            "title": "Financial 服务",
+            "desc": "Risk assessment AI"
+          }
+        },
+        "devResources": {
+          "sdkGuide": {
+            "title": "AI SDK 指南",
+            "desc": "集成 documentation"
+          },
+          "smartContracts": {
+            "title": "AI 合约s",
+            "desc": "开-chain AI interfaces"
+          },
+          "apiReference": {
+            "title": "API 参考",
+            "desc": "REST & 图表QL APIs"
+          },
+          "websocket": {
+            "title": "Real-时间 事件",
+            "desc": "WebSocket streaming"
+          },
+          "cli": {
+            "title": "CLI 工具",
+            "desc": "Command line interface"
+          },
+          "examples": {
+            "title": "代码示例",
+            "desc": "样本 integrations"
+          }
+        },
+        "learnMore": {
+          "label": "LEARN MORE",
+          "defiMastery": {
+            "title": "AI in DeFi",
+            "desc": "高级 AI strategies for DeFi"
+          }
+        },
+        "forDevelopers": {
+          "label": "面向开发者",
+          "devCourse": {
+            "title": "AI 开发者课程",
+            "desc": "构建 AI-powered d应用"
+          }
+        }
       },
       "artistsCreators": {
         "tag": "创意",
         "title": "艺术家与创作者",
-        "subtitle": "NFT铸造、版税和创作者经济工具。"
+        "subtitle": "NFT铸造、版税和创作者经济工具。",
+        "titleHighlight": "创作者",
+        "buttons": {
+          "startCreating": "开始 Creating",
+          "exploreCollections": "探索 收藏"
+        },
+        "features": {
+          "lightningPerformance": {
+            "title": "Lightning-快速 铸造ing",
+            "description": "铸造 NFTs in seconds with 50,000+ TPS capacity. Batch minting for large collections with minimal gas fees."
+          },
+          "trustVerification": {
+            "title": "信任验证",
+            "description": "每 NFT collection displays its Trust Score. 购买ers can verify creator authenticity and collection legitimacy instantly."
+          },
+          "thrivingEcosystem": {
+            "title": "Thriving 生态系统",
+            "description": "加入 15,000+ verified artists. 访问 marketplaces, galleries, and collector communities built on trust."
+          },
+          "infiniteScalability": {
+            "title": "Infinite Scalability",
+            "description": "从 1-of-1 artwork to 10,000 piece generative collections. Our infrastructure scales with your creative vision."
+          }
+        },
+        "stats": {
+          "nftsMinted": "NFTs MINTED",
+          "creatorEarnings": "CREATOR EARNINGS",
+          "verifiedArtists": "VERIFIED ARTISTS"
+        },
+        "relatedSolutions": {
+          "title": "相关 解决方案",
+          "description": "Enhance your creative journey with complementary tools",
+          "tokenExtensions": {
+            "title": "代币 Extensions",
+            "subtitle": "自定义 token standards"
+          },
+          "wallets": {
+            "title": "钱包s",
+            "subtitle": "安全 asset storage"
+          },
+          "commerce": {
+            "title": "Commerce",
+            "subtitle": "出售 your creations"
+          },
+          "gameTooling": {
+            "title": "游戏工具",
+            "subtitle": "游戏 NFTs"
+          },
+          "payments": {
+            "title": "支付",
+            "subtitle": "接受 crypto"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "社交 NFT sharing"
+          },
+          "financial": {
+            "title": "Financial 服务",
+            "subtitle": "创作者 finance"
+          },
+          "aiFeatures": {
+            "title": "AI 功能",
+            "subtitle": "AI-powered creation"
+          }
+        },
+        "developerResources": {
+          "title": "开发者 资源",
+          "description": "构建 NFT platforms and creator tools with our comprehensive SDK",
+          "sdkGuide": {
+            "title": "NFT SDK 指南",
+            "subtitle": "集成 documentation"
+          },
+          "smartContracts": {
+            "title": "智能合约",
+            "subtitle": "ERC-721/1155 templates"
+          },
+          "apiReference": {
+            "title": "API 参考",
+            "subtitle": "REST & 图表QL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "实时 events"
+          },
+          "cliReference": {
+            "title": "CLI 工具",
+            "subtitle": "Command line minting"
+          },
+          "codeExamples": {
+            "title": "代码示例",
+            "subtitle": "样本 integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "forDevelopers": "面向开发者",
+          "defiMastery": {
+            "title": "NFT Mastery Course",
+            "subtitle": "高级 NFT creation and marketing"
+          },
+          "developerCourse": {
+            "title": "创作者 开发者课程",
+            "subtitle": "构建 NFT platforms and marketplaces"
+          }
+        },
+        "cta": {
+          "title": "准备就绪 to 创建 on T销毁?",
+          "description": "加入 thousands of artists and creators building the future of digital ownership.",
+          "link": "View 创作者 文档"
+        }
       },
       "btcfi": {
         "tag": "比特币DEFI",
         "title": "BTCfi",
-        "subtitle": "包含包装BTC和跨链收益的比特币DeFi集成。"
+        "subtitle": "包含包装BTC和跨链收益的比特币DeFi集成。",
+        "titleHighlight": "Bitcoin DeFi",
+        "buttons": {
+          "bridgeBtc": "桥接 BTC",
+          "viewYields": "View Yields"
+        },
+        "features": {
+          "highPerformance": {
+            "title": "高 Performance 桥接",
+            "description": "桥接 Bitcoin to T销毁 in under 10 minutes. MPC security ensures your BTC is always safe with trustless verification."
+          },
+          "trustVerification": {
+            "title": "信任验证",
+            "description": "全部 BTCfi protocols display Trust Scores. 开ly verified protocols with 60%+ scores are featured on our platform."
+          },
+          "growingEcosystem": {
+            "title": "Growing 生态系统",
+            "description": "访问 lending, staking, and yield farming with your Bitcoin. Native BTC earning opportunities without selling."
+          },
+          "scalableSolutions": {
+            "title": "Scalable 解决方案",
+            "description": "从 individual holders to institutional treasuries. Our infrastructure handles any volume with consistent performance."
+          }
+        },
+        "stats": {
+          "btcBridged": "BTC BRIDGED",
+          "tvl": "TVL",
+          "zeroValue": "0",
+          "securityIncidents": "SECURITY INCIDENTS"
+        },
+        "productsSection": {
+          "title": "BTCfi 专业ducts",
+          "description": "Multiple ways to put your Bitcoin to work"
+        },
+        "products": {
+          "tbtcBridge": {
+            "title": "tBTC 桥接",
+            "description": "Trustless Bitcoin bridging with MPC security. 否 centralized custodians.",
+            "stats": "15K+ BTC 桥接d"
+          },
+          "btcLending": {
+            "title": "BTC 借贷",
+            "description": "Borrow stablecoins against your BTC. Up to 75% LTV with competitive rates.",
+            "stats": "5.2% APR"
+          },
+          "btcYieldFarming": {
+            "title": "BTC 收益农场",
+            "description": "专业vide BTC liquidity and earn trading fees plus TBURN rewards.",
+            "stats": "12.5% 年化收益率"
+          },
+          "btcStaking": {
+            "title": "BTC 质押",
+            "description": "质押 wrapped BTC to secure the network and earn passive rewards.",
+            "stats": "8.3% 年化收益率"
+          }
+        },
+        "relatedSolutions": {
+          "title": "相关 解决方案",
+          "description": "Enhance your BTCfi experience with these tools",
+          "tokenExtensions": {
+            "title": "代币 Extensions",
+            "subtitle": "BRC-20 standards"
+          },
+          "wallets": {
+            "title": "钱包s",
+            "subtitle": "BTC-compatible wallets"
+          },
+          "payments": {
+            "title": "支付",
+            "subtitle": "Pay with BTC"
+          },
+          "financial": {
+            "title": "Financial 服务",
+            "subtitle": "BTC banking"
+          },
+          "commerce": {
+            "title": "Commerce",
+            "subtitle": "接受 BTC"
+          },
+          "permissioned": {
+            "title": "权限ed",
+            "subtitle": "企业 BTC"
+          },
+          "aiFeatures": {
+            "title": "AI 功能",
+            "subtitle": "Smart BTC strategies"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "BTC transactions"
+          }
+        },
+        "developerResources": {
+          "title": "开发者 资源",
+          "description": "构建 BTCfi applications with our comprehensive tools",
+          "sdkGuide": {
+            "title": "BTCfi SDK 指南",
+            "subtitle": "集成 documentation"
+          },
+          "smartContracts": {
+            "title": "智能合约",
+            "subtitle": "BTC contract templates"
+          },
+          "apiReference": {
+            "title": "API 参考",
+            "subtitle": "REST & 图表QL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "实时 BTC events"
+          },
+          "cliReference": {
+            "title": "CLI 工具",
+            "subtitle": "Command line interface"
+          },
+          "codeExamples": {
+            "title": "代码示例",
+            "subtitle": "样本 integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "gettingStarted": "GETTING STARTED",
+          "defiMastery": {
+            "title": "BTCfi Mastery Course",
+            "subtitle": "高级 Bitcoin DeFi strategies"
+          },
+          "introToDefi": {
+            "title": "简介 to BTCfi",
+            "subtitle": "Learn Bitcoin DeFi fundamentals"
+          }
+        },
+        "cta": {
+          "title": "准备就绪 to 解锁 Your Bitcoin?",
+          "description": "开始 earning yield on your BTC today with trust-verified protocols.",
+          "link": "View BTCfi 文档"
+        }
       },
       "crossChainBridge": {
         "tag": "跨链桥",
         "title": "跨链桥",
-        "subtitle": "跨7+区块链网络的安全资产转移。"
+        "subtitle": "跨7+区块链网络的安全资产转移。",
+        "titleHighlight": "桥接",
+        "buttons": {
+          "launchBridge": "启动 桥接",
+          "viewDocumentation": "查看文档"
+        },
+        "heroStats": {
+          "chains": "SUPPORTED CHAINS",
+          "volume": "TOTAL VOLUME",
+          "txns": "TOTAL TRANSACTIONS",
+          "avgTime": "AVG BRIDGE TIME"
+        },
+        "supportedNetworks": {
+          "title": "支持ed 网络s",
+          "subtitle": "桥接 assets to and from major blockchain networks"
+        },
+        "coreFeatures": {
+          "mpcSecurity": {
+            "title": "MPC 安全",
+            "subtitle": "Multi-Party Computation for trustless bridging",
+            "items": {
+              "distributedKeyGen": "Distributed 密钥 Generation",
+              "thresholdSignatures": "Threshold 签名s",
+              "regularKeyRotation": "Regular 密钥 Rotation"
+            }
+          },
+          "atomicSwaps": {
+            "title": "Atomic 交换s",
+            "subtitle": "全部-or-nothing transaction guarantees",
+            "items": {
+              "htlcContracts": "HTLC 智能合约",
+              "zeroSlippage": "Zero Slippage 交换s",
+              "autoRefund": "Automatic Refunds"
+            }
+          },
+          "unifiedLiquidity": {
+            "title": "Unified 流动性",
+            "subtitle": "Deep cross-chain liquidity pools",
+            "items": {
+              "crossChainPools": "Cross-链 流动性 池",
+              "dynamicRebalancing": "Dynamic 池 Rebalancing",
+              "largeTransferSupport": "大 转账 支持"
+            }
+          }
+        },
+        "howItWorks": {
+          "title": "How the 桥接 Works"
+        },
+        "bridgeSteps": {
+          "step1": {
+            "title": "连接 钱包",
+            "desc": "连接 your wallet and select source/destination chains."
+          },
+          "step2": {
+            "title": "选择 Assets",
+            "desc": "选择 tokens to bridge and enter the amount."
+          },
+          "step3": {
+            "title": "确认 转账",
+            "desc": "Review fees and Trust Score verification, then confirm."
+          },
+          "step4": {
+            "title": "接收 Assets",
+            "desc": "Assets arrive on destination chain in ~2 minutes."
+          }
+        },
+        "relatedSolutions": {
+          "title": "相关 解决方案",
+          "description": "Enhance your cross-chain experience with these tools",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "桥接 Bitcoin"
+          },
+          "tokenExtensions": {
+            "title": "代币 Extensions",
+            "subtitle": "Cross-chain tokens"
+          },
+          "wallets": {
+            "title": "钱包s",
+            "subtitle": "Multi-chain wallets"
+          },
+          "payments": {
+            "title": "支付",
+            "subtitle": "Cross-chain payments"
+          },
+          "financial": {
+            "title": "Financial 服务",
+            "subtitle": "Multi-chain finance"
+          },
+          "permissioned": {
+            "title": "权限ed",
+            "subtitle": "企业 bridges"
+          },
+          "aiFeatures": {
+            "title": "AI 功能",
+            "subtitle": "Smart routing"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "subtitle": "桥接 via links"
+          }
+        },
+        "developerResources": {
+          "title": "开发者 资源",
+          "description": "Integrate cross-chain functionality into your applications",
+          "sdkGuide": {
+            "title": "桥接 SDK 指南",
+            "subtitle": "集成 documentation"
+          },
+          "smartContracts": {
+            "title": "智能合约",
+            "subtitle": "桥接 contracts"
+          },
+          "apiReference": {
+            "title": "API 参考",
+            "subtitle": "REST & 图表QL APIs"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "subtitle": "实时 updates"
+          },
+          "cliReference": {
+            "title": "CLI 工具",
+            "subtitle": "Command line bridging"
+          },
+          "codeExamples": {
+            "title": "代码示例",
+            "subtitle": "样本 integrations"
+          }
+        },
+        "learnMore": {
+          "title": "LEARN MORE",
+          "forDevelopers": "面向开发者",
+          "defiMastery": {
+            "title": "跨链 DeFi",
+            "subtitle": "高级多链策略"
+          },
+          "developerCourse": {
+            "title": "桥接开发者课程",
+            "subtitle": "构建跨链应用"
+          },
+          "gettingStarted": "开始使用",
+          "blockchainBasics": {
+            "title": "跨链基础",
+            "subtitle": "了解区块链桥接和互操作性"
+          }
+        },
+        "cta": {
+          "title": "准备好桥接您的资产了吗？",
+          "description": "通过信任验证安全地跨链转移资产。",
+          "link": "查看桥接文档",
+          "button": "启动桥接应用"
+        }
       }
     },
     "useCases": {
@@ -8643,13 +10857,31 @@
           "all": "所有游戏",
           "p2e": "边玩边赚",
           "nft": "NFT游戏",
-          "metaverse": "元宇宙"
+          "metaverse": {
+            "title": "元宇宙与虚拟世界",
+            "desc": "构建 immersive virtual experiences with blockchain-verified land ownership, avatar systems, and cross-platform asset portability."
+          },
+          "web3Gaming": {
+            "title": "Web3 游戏",
+            "desc": "完整-stack blockchain gaming with on-chain assets, verifiable randomness, and trustless tournaments. 构建 games that players truly own."
+          },
+          "nftCollectibles": {
+            "title": "NFT 收藏品",
+            "desc": "创建, trade, and verify digital collectibles with Trust Score authentication. Cross-game item interoperability and provenance tracking."
+          },
+          "musicStreaming": {
+            "title": "音乐与流媒体",
+            "desc": "Decentralized music distribution with creator royalties. NFT tickets, fan tokens, and direct artist-to-listener monetization."
+          }
         },
         "metrics": {
           "activePlayers": "活跃玩家",
           "dailyTransactions": "日交易量",
           "totalNfts": "总NFT数",
-          "tvl": "游戏总锁仓"
+          "tvl": "游戏总锁仓",
+          "dailyActivePlayers": "每日活跃玩家",
+          "nftVolume": "NFT 交易量",
+          "gamesApps": "游戏与应用"
         },
         "features": {
           "title": "游戏功能",
@@ -8667,7 +10899,20 @@
           },
           "guilds": {
             "title": "游戏公会",
-            "description": "基于DAO的公会管理和利润分享"
+            "description": "基于DAO的公会管理和利润分享",
+            "desc": "DAO-based guild management with transparent profit sharing. Scholarship programs and collective asset ownership for gaming communities."
+          },
+          "gasFree": {
+            "title": "免 Gas 游戏",
+            "desc": "Seamless player experience with sponsored transactions. 否 wallet popups or gas fees interrupting gameplay."
+          },
+          "antiCheat": {
+            "title": "防作弊系统",
+            "desc": "AI-powered fraud detection with Trust Score integration. 专业tect your game economy from bots, exploits, and bad actors."
+          },
+          "playEarn": {
+            "title": "玩赚奖励",
+            "desc": "Sustainable tokenomics with performance-based rewards. 一般 distribution mechanisms that reward skill and time invested."
           }
         },
         "gameTypes": {
@@ -8687,34 +10932,336 @@
           "casual": {
             "title": "休闲",
             "description": "具有微奖励的快速游戏"
+          },
+          "mmorpgs": {
+            "title": "大型多人在线角色扮演游戏",
+            "desc": "Massive multiplayer worlds with player-owned economies and guild governance"
+          },
+          "battleRoyale": {
+            "title": "大逃杀",
+            "desc": "Competitive last-player-standing games with prize pools and ranked seasons"
+          },
+          "cardStrategy": {
+            "title": "卡牌与策略",
+            "desc": "Collectible card games with NFT cards and strategic turn-based combat"
+          },
+          "racingSports": {
+            "title": "竞速与体育",
+            "desc": "Competitive racing and sports simulations with vehicle/player NFTs"
+          },
+          "casualSocial": {
+            "title": "休闲与社交",
+            "desc": "Relaxed gaming experiences with social features and mini-game tournaments"
+          },
+          "esports": {
+            "title": "电子竞技与锦标赛",
+            "desc": "Competitive gaming with decentralized prize pools and fair matchmaking"
           }
         },
         "cta": {
           "title": "准备好在TBurn上构建游戏了吗？",
           "subtitle": "访问GameFi SDK和文档",
           "getStarted": "开始使用",
-          "viewDocs": "查看文档"
+          "viewDocs": "查看文档",
+          "desc": "加入 thousands of developers building the future of gaming. 访问 our comprehensive SDK, documentation, and developer community.",
+          "quickStart": "快速入门指南",
+          "memberPortal": "会员门户"
+        },
+        "buttons": {
+          "startBuilding": "开始构建",
+          "gameTooling": "游戏工具"
+        },
+        "sections": {
+          "categories": "游戏生态系统",
+          "categoriesDesc": "探索 the diverse world of blockchain gaming on TBURN",
+          "platformFeatures": "平台功能",
+          "gameGenres": "支持的游戏类型"
         }
       },
       "tokenization": {
         "tag": "代币化",
         "title": "资产代币化",
-        "subtitle": "在区块链上代币化真实世界资产。"
+        "subtitle": "在区块链上代币化真实世界资产。",
+        "buttons": {
+          "startTokenizing": "开始代币化",
+          "viewDocumentation": "查看文档"
+        },
+        "types": {
+          "realEstate": {
+            "title": "房地产代币化",
+            "desc": "Fractional ownership of commercial and residential properties. 启用 global investment in real estate with minimal capital requirements and instant liquidity."
+          },
+          "luxuryAsset": {
+            "title": "奢侈资产代币",
+            "desc": "代币ize art, collectibles, rare wines, and luxury goods. 专业venance tracking with blockchain verification and fractional ownership options."
+          },
+          "securities": {
+            "title": "数字证券",
+            "desc": "Compliant security tokens with automated dividend distribution. Equity, debt, and revenue-sharing tokens with built-in regulatory compliance."
+          },
+          "commodity": {
+            "title": "商品代币",
+            "desc": "返回ed by physical commodities like gold, silver, and oil. 实时 price feeds with audited reserve verification."
+          }
+        },
+        "metrics": {
+          "newInvestors": "新投资者已启用",
+          "unlockedAssetValue": "解锁资产价值",
+          "settlementReliability": "结算可靠性"
+        },
+        "features": {
+          "globalMarket": {
+            "title": "全球市场访问",
+            "desc": "24/7 trading across borders with instant settlement. 访问 worldwide investors and secondary market liquidity."
+          },
+          "fractionalOwnership": {
+            "title": "分割所有权",
+            "desc": "启用 investment from $100 in premium assets. 演示cratize access to traditionally exclusive asset classes."
+          },
+          "regulatoryCompliant": {
+            "title": "监管合规",
+            "desc": "Built-in KYC/AML, accreditation checks, and jurisdictional compliance. Automated reporting and audit trails."
+          },
+          "enterpriseSecurity": {
+            "title": "企业安全",
+            "desc": "Bank-grade custody, multi-sig controls, and quantum-resistant encryption. Institutional-grade asset protection."
+          }
+        },
+        "sections": {
+          "types": "代币化类别",
+          "typesDesc": "探索 asset classes ready for blockchain tokenization",
+          "platformFeatures": "平台能力"
+        },
+        "cta": {
+          "title": "准备好代币化您的资产了吗？",
+          "desc": "Transform illiquid assets into tradeable tokens. Our team will guide you through the tokenization process from structure to launch.",
+          "getStarted": "开始"
+        }
       },
       "depin": {
         "tag": "DEPIN",
         "title": "DePIN",
-        "subtitle": "去中心化物理基础设施网络。"
+        "subtitle": "去中心化物理基础设施网络。",
+        "buttons": {
+          "deployInfrastructure": "部署基础设施",
+          "protocolDocs": "协议文档"
+        },
+        "categories": {
+          "wireless": {
+            "title": "无线网络",
+            "desc": "Decentralized 5G, LoRaWAN, and WiFi coverage. Earn rewards by deploying hotspots and providing connectivity to your community."
+          },
+          "compute": {
+            "title": "分布式计算",
+            "desc": "GPU and CPU resource sharing for AI training, rendering, and scientific computing. Monetize idle computing power."
+          },
+          "mapping": {
+            "title": "测绘与传感器",
+            "desc": "Crowdsourced geospatial data, weather stations, and IoT sensors. 构建 real-time data networks with verified coverage."
+          },
+          "storage": {
+            "title": "去中心化存储",
+            "desc": "Distributed file storage with redundancy and encryption. Earn rewards for contributing disk space to the network."
+          }
+        },
+        "metrics": {
+          "activeNodes": "活跃节点",
+          "protocolRevenue": "协议收入",
+          "countriesCovered": "覆盖国家"
+        },
+        "features": {
+          "proofOfCoverage": {
+            "title": "覆盖证明",
+            "desc": "Cryptographically verify infrastructure deployment and service availability. 一般 reward distribution based on actual contribution."
+          },
+          "slashingProtection": {
+            "title": "罚没保护",
+            "desc": "质押-based security with penalties for malicious behavior. 专业tect network integrity while rewarding honest operators."
+          },
+          "communityGovernance": {
+            "title": "社区治理",
+            "desc": "DAO-based protocol governance for network parameters. 代币 holders vote on upgrades, rewards, and expansion priorities."
+          },
+          "dynamicRewards": {
+            "title": "动态奖励",
+            "desc": "AI-optimized reward distribution based on demand and coverage gaps. 高er rewards for underserved areas."
+          }
+        },
+        "hardware": {
+          "title": "硬件要求",
+          "desc": "Flexible hardware options for different DePIN protocols. 开始 earning with minimal investment.",
+          "minimum": "最小: Raspberry Pi 4 or equivalent ARM device",
+          "recommended": "推荐: x86 server with 16GB RAM, 1TB SSD",
+          "gpu": "GPU Compute: NVIDIA RTX 3080 or higher for AI workloads"
+        },
+        "sections": {
+          "categories": "基础设施类别",
+          "categoriesDesc": "部署 and earn across multiple DePIN protocols",
+          "protocolFeatures": "协议功能"
+        },
+        "cta": {
+          "title": "准备好加入 DePIN 革命了吗？",
+          "desc": "部署 infrastructure, earn rewards, and help build the decentralized future. Our guides will help you get started in minutes.",
+          "getStarted": "开始"
+        }
       },
       "stablecoins": {
         "tag": "稳定币",
         "title": "稳定币",
-        "subtitle": "企业级稳定币基础设施。"
+        "subtitle": "企业级稳定币基础设施。",
+        "buttons": {
+          "issueStablecoin": "发行稳定币",
+          "technicalDocs": "技术文档"
+        },
+        "types": {
+          "fiatBacked": {
+            "title": "法币支持稳定币",
+            "desc": "1:1 reserve-backed tokens with real-time proof of reserves. Audited bank accounts with transparent attestation reports."
+          },
+          "cryptoCollateralized": {
+            "title": "加密抵押",
+            "desc": "Over-collateralized stablecoins backed by crypto assets. Automated liquidation mechanisms and decentralized governance."
+          },
+          "institutionalGrade": {
+            "title": "机构级",
+            "desc": "Bank-grade compliance with AML/KYC integration. Whitelisting, blacklisting, and regulatory reporting built-in."
+          },
+          "multiCurrency": {
+            "title": "多币种支持",
+            "desc": "Issue stablecoins pegged to any fiat currency. USD, EUR, GBP, JPY, and emerging market currencies supported."
+          }
+        },
+        "metrics": {
+          "totalSupply": "稳定币总供应量",
+          "dailyTransactions": "每日交易",
+          "pegDeviation": "最大锚定偏差"
+        },
+        "features": {
+          "proofOfReserves": {
+            "title": "储备证明",
+            "desc": "实时 on-chain attestation of backing assets. Third-party auditors verify reserve ratios continuously."
+          },
+          "instantSettlement": {
+            "title": "即时结算",
+            "desc": "Sub-second transaction finality with 50,000+ TPS. 否 waiting for bank transfers or clearing houses."
+          },
+          "programmableCompliance": {
+            "title": "可编程合规",
+            "desc": "Smart contract-enforced transfer restrictions. Geographic limits, holding caps, and regulatory controls."
+          },
+          "crossChainBridges": {
+            "title": "跨链桥",
+            "desc": "Native bridges to Ethereum, Polygon, Arbitrum, and more. Unified liquidity across multiple networks."
+          }
+        },
+        "useCases": {
+          "payments": {
+            "title": "全球支付",
+            "desc": "即时 cross-border transfers with minimal fees. 替换 SWIFT with blockchain-based settlement."
+          },
+          "defiCollateral": {
+            "title": "DeFi 抵押品",
+            "desc": "Use stablecoins as collateral for lending, borrowing, and yield farming. Stable value for predictable positions."
+          },
+          "treasury": {
+            "title": "财务管理",
+            "desc": "Corporate treasury operations with on-chain transparency. Automated payments and cash flow management."
+          },
+          "payroll": {
+            "title": "工资与福利",
+            "desc": "即时 global payroll in stable currencies. Automatic tax withholding and benefits distribution."
+          }
+        },
+        "sections": {
+          "types": "稳定币类型",
+          "typesDesc": "选择 the right stablecoin model for your needs",
+          "platformFeatures": "平台能力",
+          "useCases": "用例"
+        },
+        "cta": {
+          "title": "准备好发行您的稳定币了吗？",
+          "desc": "从 concept to launch in weeks. Our team provides end-to-end support for stablecoin issuance and management.",
+          "getStarted": "开始"
+        }
       },
       "institutional": {
         "tag": "机构",
         "title": "机构支付",
-        "subtitle": "企业高容量支付解决方案。"
+        "subtitle": "企业高容量支付解决方案。",
+        "buttons": {
+          "contactSales": "联系销售",
+          "apiReference": "API 参考"
+        },
+        "paymentFeatures": {
+          "rtgs": {
+            "title": "实时总额结算",
+            "desc": "即时 finality for high-value transactions. 否 batching delays or counterparty risk."
+          },
+          "crossBorder": {
+            "title": "跨境支付",
+            "desc": "全球 reach with local settlement. Multi-currency support with real-time FX and corridor optimization."
+          },
+          "compliant": {
+            "title": "监管合规",
+            "desc": "Built for regulated financial institutions. 完整 SWIFT compatibility, ISO 20022, and regulatory reporting."
+          },
+          "smartContract": {
+            "title": "智能合约托管",
+            "desc": "专业grammable payment conditions and escrow. Automate complex settlement workflows and multi-party agreements."
+          }
+        },
+        "metrics": {
+          "dailyVolume": "每日结算量",
+          "transactionFee": "交易费用",
+          "uptimeSla": "运行时间 SLA"
+        },
+        "integrations": {
+          "coreBanking": {
+            "title": "核心银行集成",
+            "desc": "Native connectors for major core banking systems. Seamless integration with existing infrastructure."
+          },
+          "treasury": {
+            "title": "财务管理",
+            "desc": "实时 cash position visibility and automated liquidity optimization across accounts."
+          },
+          "correspondent": {
+            "title": "代理银行",
+            "desc": "Reduce correspondent banking fees and settlement times. Direct peer-to-peer institutional transfers."
+          },
+          "operations": {
+            "title": "24/7 运营",
+            "desc": "Round-the-clock settlement with no batch processing. Continuous operations with 99.99% uptime guarantee."
+          }
+        },
+        "clientTypes": {
+          "centralBanks": {
+            "title": "中央银行",
+            "desc": "CBDC issuance and wholesale settlement infrastructure for monetary authorities."
+          },
+          "commercialBanks": {
+            "title": "商业银行",
+            "desc": "Retail and corporate payment rails with full regulatory compliance."
+          },
+          "paymentProcessors": {
+            "title": "支付处理商",
+            "desc": "高-volume transaction processing with instant settlement and minimal fees."
+          },
+          "fintechs": {
+            "title": "金融科技与新银行",
+            "desc": "现代 banking infrastructure without legacy system constraints."
+          }
+        },
+        "sections": {
+          "paymentFeatures": "支付基础设施",
+          "paymentFeaturesDesc": "企业-grade payment capabilities for financial institutions",
+          "systemIntegrations": "系统集成",
+          "clientTypes": "客户类型"
+        },
+        "cta": {
+          "title": "准备好现代化您的支付基础设施了吗？",
+          "desc": "时间表 a demo with our institutional team. We'll show you how TBURN can transform your payment operations.",
+          "requestDemo": "请求演示"
+        }
       },
       "enterprise": {
         "tag": "企业区块链",
@@ -8723,18 +11270,9 @@
         "contactEnterprise": "联系企业销售",
         "enterpriseDocs": "企业文档",
         "metrics": {
-          "enterpriseClients": {
-            "value": "500+",
-            "label": "企业客户"
-          },
-          "uptimeGuarantee": {
-            "value": "99.95%",
-            "label": "运行时间保证"
-          },
-          "dedicatedSupport": {
-            "value": "24/7",
-            "label": "专属支持"
-          }
+          "enterpriseClients": "企业客户",
+          "uptimeGuarantee": "运行时间保证",
+          "dedicatedSupport": "专属支持"
         },
         "solutions": {
           "title": "企业解决方案",
@@ -8745,7 +11283,8 @@
           },
           "supplyChain": {
             "title": "供应链透明度",
-            "description": "端到端产品溯源跟踪。从制造商到消费者的不可篡改审计轨迹，支持IoT集成。"
+            "description": "端到端产品溯源跟踪。从制造商到消费者的不可篡改审计轨迹，支持IoT集成。",
+            "desc": "End-to-end product provenance tracking. Immutable audit trails from manufacturer to consumer with IoT integration."
           },
           "documentManagement": {
             "title": "文档管理",
@@ -8754,6 +11293,18 @@
           "processAutomation": {
             "title": "业务流程自动化",
             "description": "智能合约驱动的工作流。自动化审批、支付和多方协议的无信任执行。"
+          },
+          "identity": {
+            "title": "身份与访问管理",
+            "desc": "Decentralized identity with self-sovereign credentials. Multi-factor authentication, SSO integration, and granular permission controls."
+          },
+          "document": {
+            "title": "文档管理",
+            "desc": "Tamper-proof document storage and verification. Digital signatures, version control, and compliance archiving."
+          },
+          "automation": {
+            "title": "业务流程自动化",
+            "desc": "Smart contract-driven workflows. Automate approvals, payments, and multi-party agreements with trustless execution."
           }
         },
         "platformFeatures": {
@@ -8805,7 +11356,62 @@
         "cta": {
           "title": "准备好使用企业区块链了吗？",
           "subtitle": "与我们的企业团队安排咨询。我们将设计一个符合您组织需求的定制解决方案。",
-          "scheduleConsultation": "安排咨询"
+          "scheduleConsultation": "安排咨询",
+          "desc": "时间表 a consultation with our enterprise team. We'll design a custom solution that fits your organization's requirements."
+        },
+        "buttons": {
+          "contactEnterprise": "联系企业版",
+          "enterpriseDocs": "企业文档"
+        },
+        "features": {
+          "soc2": {
+            "title": "SOC 2 合规",
+            "desc": "企业 security controls with annual third-party audits. 完整 compliance documentation and certifications."
+          },
+          "privateSubnets": {
+            "title": "私有子网",
+            "desc": "Isolated network environments for sensitive data. 自定义 consensus rules and access controls for your organization."
+          },
+          "roleAccess": {
+            "title": "基于角色的访问",
+            "desc": "Granular permissions and multi-tenant isolation. Define custom roles with precise access to features and data."
+          },
+          "onPremise": {
+            "title": "本地部署",
+            "desc": "部署 within your own data center infrastructure. 完整 control over hardware, networking, and security."
+          }
+        },
+        "industries": {
+          "healthcare": {
+            "title": "医疗保健",
+            "desc": "HIPAA-compliant medical record management and secure health data exchange between providers."
+          },
+          "manufacturing": {
+            "title": "制造业",
+            "desc": "Supply chain tracking, quality assurance documentation, and IoT sensor data verification."
+          },
+          "legal": {
+            "title": "法律服务",
+            "desc": "Smart contract-based agreements, e-signatures, and immutable document archiving."
+          },
+          "government": {
+            "title": "政府",
+            "desc": "Transparent public records, secure voting systems, and citizen identity management."
+          },
+          "insurance": {
+            "title": "保险",
+            "desc": "Automated claims processing, fraud detection, and policy administration on blockchain."
+          },
+          "logistics": {
+            "title": "物流",
+            "desc": "实时 shipment tracking, customs documentation, and delivery verification."
+          }
+        },
+        "sections": {
+          "solutions": "企业解决方案",
+          "solutionsDesc": "区块chain applications designed for enterprise challenges",
+          "platformFeatures": "安全与合规",
+          "industryApplications": "行业应用"
         }
       }
     },
@@ -8819,11 +11425,13 @@
           "title": "共识规格",
           "blockTime": {
             "label": "出块时间",
-            "value": "1秒"
+            "value": "1秒",
+            "description": "生成新区块的平均时间"
           },
           "finality": {
             "label": "最终确认",
-            "value": "6秒"
+            "value": "6秒",
+            "description": "交易变为不可逆的时间"
           },
           "validatorSet": {
             "label": "验证者集合",
@@ -8832,6 +11440,16 @@
           "epochLength": {
             "label": "纪元长度",
             "value": "6小时"
+          },
+          "tps": {
+            "label": "TPS",
+            "value": "50,000+",
+            "description": "每秒最大交易数"
+          },
+          "uptime": {
+            "label": "运行时间",
+            "value": "99.99%",
+            "description": "网络可用性保证"
           }
         },
         "validatorTiers": {
@@ -8873,6 +11491,123 @@
             "offense": "恶意投票",
             "penalty": "50%质押罚没"
           }
+        },
+        "validatorDocs": "查看验证者文档",
+        "stats": {
+          "activeValidators": "活跃验证者",
+          "totalStaked": "总质押量",
+          "averageUptime": "平均运行时间",
+          "operatingCountries": "运营国家"
+        },
+        "tierSystem": {
+          "title": "验证者等级系统",
+          "stake": "最低质押",
+          "apy": "年化收益率",
+          "slots": "可用槽位",
+          "elite": {
+            "name": "精英验证者",
+            "badge": "精英",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 slots",
+            "benefits": {
+              "blockPriority": "区块生产优先权",
+              "revenueShare": "额外收入分成",
+              "aiDecision": "AI 决策参与"
+            }
+          },
+          "standard": {
+            "name": "标准验证者",
+            "badge": "标准",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 slots",
+            "benefits": {
+              "blockValidation": "区块验证权",
+              "feeDistribution": "交易费用分配",
+              "votingRights": "治理投票权"
+            }
+          },
+          "starter": {
+            "name": "初级验证者",
+            "badge": "初级",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "无限制",
+            "benefits": {
+              "delegate": "委托给较大验证者",
+              "autoRewards": "自动奖励分配",
+              "unstakePeriod": "21 天解质押期"
+            }
+          }
+        },
+        "hardware": {
+          "title": "硬件要求",
+          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "Storage: 2TB NVMe SSD",
+          "network": "网络: 1Gbps dedicated",
+          "superNode": {
+            "title": "超级节点要求",
+            "cpu": "CPU: 32+ cores",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "Storage: 4TB NVMe RAID",
+            "network": "网络: 10Gbps dedicated"
+          },
+          "standardNode": {
+            "title": "标准节点要求",
+            "cpu": "CPU: 8+ 核",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "存储: 1TB NVMe SSD",
+            "network": "网络: 500Mbps"
+          }
+        },
+        "slashing": {
+          "title": "罚没条件",
+          "subtitle": "验证者 must maintain high standards. Violations result in stake penalties.",
+          "minor": {
+            "title": "轻微违规",
+            "badge": "警告",
+            "description": "Brief downtime or missed blocks",
+            "penalty": "0.1% stake reduction"
+          },
+          "moderate": {
+            "title": "中度违规",
+            "badge": "惩罚",
+            "description": "Extended downtime over 24 hours",
+            "penalty": "1-5% stake reduction"
+          },
+          "severe": {
+            "title": "严重违规",
+            "badge": "严重",
+            "description": "Malicious voting or censorship attem分",
+            "penalty": "25-50% stake reduction"
+          },
+          "critical": {
+            "title": "关键违规",
+            "badge": "关键",
+            "description": "Double signing or network attacks",
+            "penalty": "100% stake slashed"
+          }
+        },
+        "geography": {
+          "title": "地理分布"
+        },
+        "activeValidators": {
+          "title": "活跃验证者",
+          "searchPlaceholder": "搜索 validators...",
+          "viewAll": "查看所有验证者"
+        },
+        "applyNow": "立即申请",
+        "consensus": {
+          "title": "共识机制",
+          "subtitle": "具有 AI 驱动验证的信任证明"
+        },
+        "cta": {
+          "title": "准备好成为验证者了吗？",
+          "subtitle": "加入网络，在保护 TBurn Chain 的同时获得奖励。",
+          "startValidating": "开始验证",
+          "readDocs": "阅读文档"
         }
       },
       "rpc": {
@@ -8950,33 +11685,278 @@
           "title": "支持与联系",
           "documentation": {
             "title": "文档",
-            "description": "详细的API参考和指南。"
+            "description": "详细的API参考和指南。",
+            "desc": "全面的 API 文档和集成指南。"
           },
           "apiStatus": {
             "title": "API状态",
-            "description": "实时系统状态和运行时间。"
+            "description": "实时系统状态和运行时间。",
+            "desc": "实时系统状态、运行时间指标和事件报告。"
           },
           "developerHub": {
             "title": "开发者中心",
-            "description": "开源SDK和示例。"
+            "description": "开源SDK和示例。",
+            "desc": "开源 SDK、代码示例和社区资源。"
           }
         },
         "cta": {
           "title": "准备好开始构建了吗？",
           "subtitle": "立即开始使用TBurn Chain API构建。获取您的免费API密钥并访问企业级区块链基础设施。",
           "getStartedFree": "免费开始",
-          "contactSales": "联系销售"
+          "contactSales": "联系销售",
+          "desc": "立即开始使用 TBurn Chain API 构建。获取您的免费 API 密钥并访问企业级区块链基础设施。"
+        },
+        "buttons": {
+          "getApiKey": "获取 API 密钥",
+          "viewDocs": "查看文档"
+        },
+        "sections": {
+          "apiPlans": "API 计划",
+          "coreEndpoints": "核心端点",
+          "sdkExamples": "SDK 示例",
+          "support": "支持"
+        },
+        "plans": {
+          "free": {
+            "name": "免费"
+          },
+          "basic": {
+            "name": "基础"
+          },
+          "pro": {
+            "name": "专业"
+          },
+          "enterprise": {
+            "name": "企业"
+          },
+          "requestsMin": "requests/min",
+          "requestsDay": "requests/day",
+          "perMonth": "/month",
+          "unlimited": "无限制",
+          "contact": "联系 Us"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "评分查询 API"
+          },
+          "projectApi": {
+            "title": "项目 API"
+          },
+          "analyticsApi": {
+            "title": "分析 API"
+          },
+          "webhookApi": {
+            "title": "Webhook API",
+            "events": "事件: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "类型脚本 SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "cURL 示例"
+          }
         }
       },
       "status": {
         "tag": "状态",
         "title": "网络状态",
-        "subtitle": "实时网络健康和性能指标。"
+        "subtitle": "实时网络健康和性能指标。",
+        "operational": "Operational",
+        "lastUpdated": "最后 updated",
+        "daysAgo": "days ago",
+        "buttons": {
+          "refreshData": "刷新 数据"
+        },
+        "sections": {
+          "coreMetrics": "Core 指标",
+          "coreMetricsDesc": "实时 blockchain performance indicators",
+          "serviceStatus": "服务 状态",
+          "serviceStatusDesc": "Current status of all network services",
+          "uptimeHistory": "Uptime 历史",
+          "uptimeHistoryDesc": "网络 availability over the past 90 days",
+          "aiSystem": "AI Orchestration System",
+          "aiSystemDesc": "Triple-band AI model performance and status",
+          "validatorNetwork": "有效ator 网络",
+          "validatorNetworkDesc": "活跃 validators and geographic distribution"
+        },
+        "metrics": {
+          "tps": "交易s Per Second",
+          "peak": "Peak",
+          "blockHeight": "区块 Height",
+          "latency": "网络 Latency",
+          "finality": "Finality 时间",
+          "avgFee": "平均 费用",
+          "cheapFast": "Cheap & 快速",
+          "shards": "活跃 Shards"
+        },
+        "services": {
+          "mainnetRpc": {
+            "name": "主网 RPC",
+            "desc": "Primary JSON-RPC end分 for mainnet"
+          },
+          "wsApi": {
+            "name": "WebSocket API",
+            "desc": "实时 event streaming and subscriptions"
+          },
+          "explorerApi": {
+            "name": "探索r API",
+            "desc": "区块 explorer data end分"
+          },
+          "trustScoreApi": {
+            "name": "Trust Score API",
+            "desc": "项目 verification and scoring end分"
+          },
+          "crossChainBridge": {
+            "name": "Cross-链 桥接",
+            "desc": "Multi-chain asset transfer service"
+          },
+          "quantumSecurity": {
+            "name": "量子安全 Module",
+            "desc": "CRYSTALS-Dilithium signature verification"
+          },
+          "trustScore": {
+            "name": "信任评分服务",
+            "desc": "AI 驱动的信任验证和项目评分"
+          }
+        },
+        "ai": {
+          "active": "活跃",
+          "accuracy": "Accuracy",
+          "latency": "Latency",
+          "strategic": {
+            "title": "战略 AI",
+            "model": "GPT-5"
+          },
+          "tactical": {
+            "title": "战术 AI",
+            "model": "Claude Sonnet 4.5"
+          },
+          "operational": {
+            "title": "运营 AI",
+            "model": "Llama 4"
+          }
+        },
+        "uptime": {
+          "monthlyAverage": "月ly 平均",
+          "uptimeGuarantee": "运行时间保证",
+          "lastIncident": "最后 Incident"
+        },
+        "validators": {
+          "active": "活跃验证者",
+          "countries": "运营国家",
+          "totalStaked": "总质押量",
+          "avgUptime": "平均运行时间",
+          "nodeCount": "节点数量",
+          "regions": "地区",
+          "superNodes": "超级节点"
+        },
+        "today": "今日",
+        "uptimeAvg": "平均运行时间"
       },
       "ramp": {
         "tag": "法币通道",
         "title": "法币出入金",
-        "subtitle": "使用法币购买和出售TBURN。"
+        "subtitle": "使用法币购买和出售TBURN。",
+        "fee": "费用",
+        "sections": {
+          "howItWorks": "How It Works",
+          "paymentMethods": "支付 方法s",
+          "limitsFees": "Limits & 费用s",
+          "whyBurnRamp": "Why 销毁 Ramp?"
+        },
+        "buy": {
+          "title": "购买 TBURN",
+          "desc": "购买 TBURN tokens with your preferred payment method",
+          "amountPlaceholder": "进入 amount in USD",
+          "estTburn": "Estimated TBURN",
+          "button": "购买 TBURN"
+        },
+        "sell": {
+          "title": "出售 TBURN",
+          "desc": "Convert your TBURN tokens to fiat currency",
+          "amountPlaceholder": "进入 amount in TBURN",
+          "estUsd": "Estimated USD",
+          "button": "出售 TBURN"
+        },
+        "steps": {
+          "step1": {
+            "title": "创建 账户",
+            "desc": "签名 up and complete KYC verification"
+          },
+          "step2": {
+            "title": "选择 金额",
+            "desc": "选择 your purchase or sale amount"
+          },
+          "step3": {
+            "title": "选择 支付",
+            "desc": "选择 your preferred payment method"
+          },
+          "step4": {
+            "title": "Complete 交易",
+            "desc": "Review and confirm your transaction"
+          }
+        },
+        "payments": {
+          "onRamp": "开-Ramp 方法s",
+          "offRamp": "关-Ramp 方法s",
+          "creditDebit": "Credit/Debit 卡片",
+          "bankTransfer": "Bank 转账 (ACH/SEPA)",
+          "digitalWallets": "Digital 钱包s (应用le Pay, Google Pay)",
+          "bankWithdrawal": "Bank 提取al",
+          "paypalWithdrawal": "PayPal 提取al",
+          "physicalCheck": "Physical 检查"
+        },
+        "accounts": {
+          "basic": {
+            "title": "基础",
+            "desc": "电子邮件 verification only"
+          },
+          "verified": {
+            "title": "已验证",
+            "desc": "完整 KYC completed"
+          },
+          "institutional": {
+            "title": "Institutional",
+            "desc": "业务 account with enhanced limits"
+          },
+          "dailyLimit": "Daily Limit",
+          "monthlyLimit": "月ly Limit",
+          "buyFee": "购买 费用",
+          "sellFee": "出售 费用",
+          "unlimited": "无限制",
+          "recommended": "推荐"
+        },
+        "features": {
+          "instantProcessing": {
+            "title": "即时 专业cessing",
+            "desc": "大多数 transactions complete within minutes"
+          },
+          "lowFees": {
+            "title": "低 费用s",
+            "desc": "Competitive rates starting at 0.5%"
+          },
+          "bankGradeSecurity": {
+            "title": "Bank-Grade 安全",
+            "desc": "256-bit encryption and 2FA protection"
+          }
+        },
+        "cta": {
+          "title": "准备好开始了吗？",
+          "createAccount": "创建 账户",
+          "contactSupport": "联系支持"
+        },
+        "toast": {
+          "processing": "专业cessing...",
+          "initiatingPurchase": "Initiating TBURN purchase...",
+          "initiatingSale": "Initiating TBURN sale...",
+          "enterValidAmount": "Please enter a valid amount",
+          "error": "交易 failed. Please try again."
+        }
       }
     },
     "community": {
@@ -8985,45 +11965,49 @@
         "title": "社区中心",
         "subtitle": "与建设者、验证者和爱好者联系。",
         "stats": {
-          "totalMembers": {
-            "label": "总成员数"
-          },
-          "monthlyActive": {
-            "label": "月活跃用户"
-          },
-          "ambassadors": {
-            "label": "大使"
-          },
-          "contributors": {
-            "label": "贡献者"
-          }
+          "totalMembers": "总计 成员",
+          "monthlyActive": "月ly 活跃",
+          "ambassadors": "Ambassadors",
+          "contributors": "Contributors"
         },
         "channels": {
           "title": "社区频道",
           "discord": {
             "name": "Discord",
             "description": "实时开发聊天、支持和社区交流。",
-            "action": "加入服务器"
+            "action": "加入服务器",
+            "members": "124,500+ members"
           },
           "telegram": {
             "name": "Telegram",
             "description": "快速公告和本地社区群组。",
-            "action": "加入频道"
+            "action": "加入频道",
+            "members": "89,200+ members"
           },
           "twitter": {
             "name": "Twitter / X",
             "description": "最新更新、合作伙伴关系和活动新闻。",
-            "action": "关注我们"
+            "action": "关注我们",
+            "members": "156,000+ followers"
           },
           "github": {
             "name": "GitHub",
             "description": "开源代码、SDK和技术文档。",
-            "action": "贡献代码"
+            "action": "贡献代码",
+            "members": "2,400+ stars"
           }
         },
         "leaderboard": {
           "title": "贡献者排行榜",
-          "subtitle": "本月顶级社区贡献者"
+          "subtitle": "本月顶级社区贡献者",
+          "points": "{{count}} 分",
+          "tiers": {
+            "diamond": "Diamond",
+            "platinum": "Platinum",
+            "gold": "Gold",
+            "silver": "Silver",
+            "bronze": "Bronze"
+          }
         },
         "ambassadorProgram": {
           "title": "大使计划",
@@ -9067,14 +12051,97 @@
           "stats": {
             "proposals": "提案",
             "votesCast": "投票数",
-            "treasuryBalance": "金库余额"
+            "treasuryBalance": "金库余额",
+            "treasury": "Treasury 余额"
+          },
+          "button": "Go to Governance Portal"
+        },
+        "channelsTitle": "加入 Our Channels",
+        "ambassador": {
+          "title": "Ambassador 专业gram",
+          "subtitle": "Lead the global T销毁 community",
+          "applyButton": "应用 as Ambassador",
+          "benefits": {
+            "rewards": "月ly TBURN token rewards",
+            "earlyAccess": "Early access to new features",
+            "nftBadge": "关icial NFT 差ge & Swag",
+            "directChannel": "Direct team communication channel"
           }
-        }
+        },
+        "contributeTitle": "Ways to Contribute"
       },
       "news": {
         "tag": "新闻与博客",
         "title": "新闻与博客",
-        "subtitle": "最新更新、公告和见解。"
+        "subtitle": "最新更新、公告和见解。",
+        "searchPlaceholder": "搜索 articles...",
+        "featuredTitle": "精选 Stories",
+        "featuredBadge": "精选",
+        "latestTitle": "最新 Articles",
+        "readMore": "阅读更多",
+        "readTime": "{{minutes}} min read",
+        "views": "views",
+        "showingCount": "显示ing {{current}} of {{total}}",
+        "categories": {
+          "all": "全部",
+          "announcement": "Announcement",
+          "technology": "技术",
+          "security": "安全",
+          "tokenomics": "代币omics",
+          "partnership": "合作伙伴hip",
+          "defi": "DeFi",
+          "development": "Development"
+        },
+        "featured": {
+          "mainnetLaunch": {
+            "title": "TBURN V4 主网 关icially 启动es",
+            "description": "之后 18 months of development, TBURN 链 V4 主网 is now live with 500K+ TPS, 三频段 AI, and quantum-resistant security.",
+            "author": "TBURN Foundation"
+          },
+          "tripleBandAi": {
+            "title": "三频段 AI Orchestration Revealed",
+            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
+            "author": "AI Research 团队"
+          },
+          "partnership": {
+            "title": "全球 合作伙伴hip Expansion: 12 新 集成",
+            "description": "TBURN 链 announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
+            "author": "业务 Development"
+          }
+        },
+        "articles": {
+          "staking": {
+            "title": "TBURN 质押 专业gram: Complete 指南 to Earning 奖励",
+            "description": "每thing you need to know about the three-tier staking system, 年化收益率 calculations, and how to maximize your validator rewards."
+          },
+          "trustScore": {
+            "title": "Trust Score Deep Dive: The 3-Stage 验证流程",
+            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+          },
+          "sdk": {
+            "title": "TBURN SDK 2.0 发布d: 新 功能 for 开发者",
+            "description": "Announcing SDK 2.0 with 类型脚本 support, improved WebSocket handling, and streamlined smart contract deployment tools."
+          },
+          "quantum": {
+            "title": "Quantum-Resistant Cryptography: 未来-专业ofing TBURN",
+            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN 链 against emerging quantum computing threats."
+          },
+          "dex": {
+            "title": "TBURN DEX Beta 启动: 交易 with Trust Scores",
+            "description": "Our native decentralized exchange is now in beta. 交易 verified tokens with integrated Trust Score protection and low fees."
+          }
+        },
+        "newsletter": {
+          "title": "Stay 更新d",
+          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
+          "placeholder": "进入 your email address",
+          "button": "Subscribe",
+          "privacy": "We respect your privacy. Unsubscribe anytime.",
+          "success": "Subscription 成功ful",
+          "subscribed": "You've been added to our newsletter. 检查 your inbox for confirmation.",
+          "error": "Subscription 错误",
+          "invalidEmail": "Please enter a valid email address."
+        }
       },
       "events": {
         "tag": "活动与事件",
@@ -9090,10 +12157,42 @@
         },
         "featured": {
           "title": "精选活动",
-          "capacity": "容量"
+          "capacity": "容量",
+          "mainnetLaunch": {
+            "title": "TBURN 主网启动 Celebration",
+            "description": "加入 us for the historic launch of TBURN V4 主网. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
+          },
+          "defiChallenge": {
+            "title": "TBURN DeFi Challenge Hackathon",
+            "description": "48-hour global hackathon with $500K in prizes. 构建 innovative DeFi solutions on TBURN 链 and compete for grants and incubation opportunities."
+          }
         },
         "upcoming": {
-          "title": "即将举行的活动"
+          "title": "即将举行的活动",
+          "foundersAma": {
+            "title": "Founders AMA: 2025 愿景",
+            "description": "实时 Q&A with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
+          },
+          "trustScoreApi": {
+            "title": "Trust Score API 集成 Workshop",
+            "description": "Hands-on technical workshop for developers. Learn how to integrate Trust Score verification into your d应用 and smart contracts."
+          },
+          "seoulMeetup": {
+            "title": "Seoul 开发者 Meetup",
+            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+          },
+          "aiDeepDive": {
+            "title": "三频段 AI Deep Dive Seminar",
+            "description": "Technical deep dive into our AI orchestration system. Learn about the architecture behind intelligent blockchain operations."
+          },
+          "validatorOps": {
+            "title": "有效ator Operations Training",
+            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+          },
+          "futureOfTrust": {
+            "title": "The 未来 of Trust: TBURN Summit 2025",
+            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+          }
         },
         "eventTypes": {
           "launchEvent": "发布活动",
@@ -9111,7 +12210,8 @@
           "setReminder": "设置提醒",
           "register": "注册",
           "rsvp": "预约（名额有限）",
-          "getTickets": "获取门票"
+          "getTickets": "获取门票",
+          "rsvpLimited": "RSVP (Limited Seats)"
         },
         "hostEvent": {
           "title": "想要举办活动？",
@@ -9121,6 +12221,25 @@
         "toast": {
           "reminderSet": "提醒已设置",
           "reminderDescription": "您将在\"{{eventTitle}}\"开始前收到通知"
+        },
+        "featuredTitle": "精选 事件",
+        "upcomingTitle": "Upcoming 事件",
+        "capacity": "Capacity",
+        "types": {
+          "launchEvent": "启动 事件",
+          "amaSession": "AMA Session",
+          "seminar": "Technical Seminar",
+          "training": "Training Workshop"
+        },
+        "locations": {
+          "online": "在线",
+          "seoul": "Seoul, Korea",
+          "singapore": "Singapore"
+        },
+        "hostCta": {
+          "title": "Want to Host an 事件?",
+          "description": "Host meetups, webinars, or hackathons with the T销毁 链 community. We provide funding, swag, and marketing support for approved hosts.",
+          "button": "应用 to Host"
         }
       }
     },
@@ -9140,7 +12259,29 @@
             "services": "「服务」包括区块链网络、信任验证系统、API和平台功能。",
             "user": "「用户」或「您」指使用TBurn Chain的任何个人或实体。",
             "project": "「项目」指在TBurn Chain上寻求验证的区块链项目。",
-            "trustScore": "「信任评分」指通过我们的三阶段验证系统分配的可靠性评级。"
+            "trustScore": "「信任评分」指通过我们的三阶段验证系统分配的可靠性评级。",
+            "items": {
+              "tburnChain": {
+                "term": "T销毁 链",
+                "desc": "The Layer 1 blockchain network and associated services"
+              },
+              "services": {
+                "term": "服务",
+                "desc": "The blockchain network, trust verification system, APIs, and platform features"
+              },
+              "user": {
+                "term": "用户",
+                "desc": "任何 individual or entity using T销毁 链"
+              },
+              "project": {
+                "term": "项目",
+                "desc": "区块chain projects seeking verification on T销毁 链"
+              },
+              "trustScore": {
+                "term": "Trust Score",
+                "desc": "The reliability rating assigned through our 3-stage verification system"
+              }
+            }
           },
           "eligibility": {
             "title": "3. 资格要求",
@@ -9148,7 +12289,13 @@
             "age": "年满18岁（或您所在司法管辖区的法定年龄）。",
             "legalCapacity": "具有签订具有约束力合同的法律能力。",
             "notProhibited": "未被适用法律禁止使用我们的服务。",
-            "comply": "遵守有关在线行为和区块链技术的所有当地法律。"
+            "comply": "遵守有关在线行为和区块链技术的所有当地法律。",
+            "items": {
+              "age": "Be at least 18 years old (or legal age in your jurisdiction)",
+              "capacity": "Have the legal capacity to enter into binding contracts",
+              "comply": "Comply with all local laws regarding online conduct and blockchain technology",
+              "prohibited": "否t be prohibited from using our services under applicable laws"
+            }
           },
           "accountSecurity": {
             "title": "4. 账户注册与安全",
@@ -9163,8 +12310,26 @@
             "stage1": "第一阶段：AI驱动的自动筛选（24小时）",
             "stage2": "第二阶段：区块链开发者和审计师的专家验证（7-14天）",
             "stage3": "第三阶段：TBURN代币持有者的社区投票（3-5天）",
-            "implications": "5.2 信任评分影响",
-            "implicationsContent": "信任评分范围为0-100。低于40的分数将导致代币交易自动暂停。评分在链上实时更新。"
+            "implications": {
+              "title": "5.2 Trust Score Implications",
+              "content": "Trust scores range from 0-100. Scores below 40 result in automatic token trading suspension. Scores are updated in real-time on-chain."
+            },
+            "implicationsContent": "信任评分范围为0-100。低于40的分数将导致代币交易自动暂停。评分在链上实时更新。",
+            "process": {
+              "title": "3-Stage 验证流程",
+              "stage1": {
+                "label": "Stage 1: AI 分析",
+                "value": "AI-powered automatic filtering (24 hours)"
+              },
+              "stage2": {
+                "label": "Stage 2: 专家审核",
+                "value": "Expert validation by blockchain developers and auditors (7-14 days)"
+              },
+              "stage3": {
+                "label": "Stage 3: 社区 Voting",
+                "value": "社区 voting by TBURN token holders (3-5 days)"
+              }
+            }
           },
           "burnMechanism": {
             "title": "6. 销毁机制",
@@ -9187,23 +12352,75 @@
           },
           "disclaimers": {
             "title": "9. 免责声明与限制",
-            "asIs": "「按现状」提供",
+            "asIs": {
+              "title": "'As-Is' Basis",
+              "content": "服务 are provided 'AS IS' and 'AS 可用' without warranties of any kind, either express or implied."
+            },
             "asIsContent": "服务以「按现状」和「可用时」提供，不提供任何形式的明示或暗示担保。",
             "noInvestmentAdvice": "无投资建议",
             "noInvestmentAdviceContent": "TBurn Chain不提供投资、财务或法律建议。信任评分仅供参考。",
             "limitationOfLiability": "责任限制",
-            "limitationOfLiabilityContent": "在法律允许的最大范围内，TBURN CHAIN不对任何间接、附带、特殊、后果性或惩罚性损害承担责任。"
+            "limitationOfLiabilityContent": "在法律允许的最大范围内，TBURN CHAIN不对任何间接、附带、特殊、后果性或惩罚性损害承担责任。",
+            "noAdvice": {
+              "title": "否 Investment Advice",
+              "content": "T销毁 链 does not provide investment, financial, or legal advice. Trust scores are informational only."
+            },
+            "limitation": {
+              "title": "Limitation of Liability",
+              "content": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
+            }
           },
           "governingLaw": {
             "title": "10. 适用法律",
             "content": "这些条款应受TBurn Chain基金会注册地司法管辖区法律的管辖和解释，不考虑法律冲突原则。"
+          },
+          "account": {
+            "title": "4. 账户 Registration & 安全",
+            "creation": {
+              "title": "4.1 账户 Creation",
+              "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
+            },
+            "wallet": {
+              "title": "4.2 钱包 安全",
+              "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
+              "important": "重要: We do not have access to your private keys and cannot help recover lost funds."
+            }
+          },
+          "burn": {
+            "title": "6. 销毁 Mechanism",
+            "content": "项目s must deposit collateral equal to their burn commitment. Failure to execute scheduled burns triggers automatic penalties and collateral burns through smart contracts."
+          },
+          "prohibited": {
+            "title": "7. 禁止活动",
+            "intro": "You agree not to:",
+            "items": {
+              "laundering": "Use the platform for money laundering or terrorist financing",
+              "falseInfo": "提交 false or misleading project information",
+              "manipulate": "Manipulate Trust Scores through coordinated voting",
+              "exploit": "Attempt to exploit smart contract vulnerabilities",
+              "washTrading": "Engage in market manipulation or wash trading"
+            }
+          },
+          "ip": {
+            "title": "8. 知识产权",
+            "content": "全部 intellectual property rights in T销毁 链, including the platform, protocols, and branding, are owned by T销毁 链 Foundation. You are granted a limited, non-exclusive license to use our services."
+          },
+          "governing": {
+            "title": "10. 管辖法律",
+            "content": "These 条款 shall be governed by and construed in accordance with the laws of the jurisdiction where T销毁 链 Foundation is incorporated, without regard to conflict of law principles."
           }
         },
         "contact": {
           "title": "联系信息",
           "legalInquiries": "法律咨询",
           "generalSupport": "一般支持",
-          "note": "注意：这些服务条款以英文提供。翻译版本可能仅供参考，如有冲突，以英文版本为准。"
+          "note": "注意：这些服务条款以英文提供。翻译版本可能仅供参考，如有冲突，以英文版本为准。",
+          "legal": {
+            "label": "法律咨询"
+          },
+          "support": {
+            "label": "General 支持"
+          }
         },
         "relatedDocuments": {
           "title": "相关法律文件",
@@ -9254,7 +12471,9 @@
               "verification": "进行我们的三阶段验证流程（AI筛选、专家审核、投票）。",
               "detectingFraud": "检测欺诈、滥用和安全威胁。",
               "improving": "通过分析改进我们的服务。",
-              "legalCompliance": "满足法律合规义务。"
+              "legalCompliance": "满足法律合规义务。",
+              "compliance": "Meeting legal and regulatory compliance obligations",
+              "fraud": "Detecting and preventing fraud, abuse, and security threats"
             }
           },
           "informationSharing": {
@@ -9300,21 +12519,113 @@
             "items": {
               "preferences": "记住您的偏好设置",
               "analyzeSite": "分析网站使用情况",
-              "improveExperience": "改善用户体验"
+              "improveExperience": "改善用户体验",
+              "analytics": "Analyzing site usage patterns",
+              "experience": "Improving your user experience"
             },
             "manage": "您可以通过浏览器设置管理Cookie偏好设置。"
           },
           "internationalTransfers": {
             "title": "8. 国际数据传输",
             "content": "您的信息可能被转移到并在您所在国家/地区以外的国家/地区进行处理。我们确保根据适用的数据保护法律为此类传输提供适当的保障措施。"
+          },
+          "informationCollect": {
+            "title": "2. Information We Collect",
+            "provided": {
+              "title": "2.1 Information You 专业vide",
+              "account": {
+                "label": "账户 Information",
+                "value": "电子邮件 address, username, wallet addresses"
+              },
+              "project": {
+                "label": "项目 验证",
+                "value": "业务 registration documents, KYC information, financial statements"
+              },
+              "communication": {
+                "label": "Communication 数据",
+                "value": "消息, support tickets, feedback"
+              }
+            },
+            "automatic": {
+              "title": "2.2 Automatically Collected Information",
+              "blockchain": {
+                "label": "区块chain 数据",
+                "value": "公开 wallet addresses, transaction hashes, smart contract interactions"
+              },
+              "device": {
+                "label": "Device Information",
+                "value": "IP address, browser type, operating system"
+              },
+              "usage": {
+                "label": "使用方法 数据",
+                "value": "Pages viewed, navigation patterns, session duration"
+              }
+            }
+          },
+          "sharing": {
+            "title": "4. Information Sharing",
+            "intro": "We share information with:",
+            "validators": {
+              "label": "验证者",
+              "value": "For decentralized verification processes"
+            },
+            "providers": {
+              "label": "服务 专业viders",
+              "value": "基础设施 and support partners"
+            },
+            "legal": {
+              "label": "Legal Authorities",
+              "value": "When required by law"
+            },
+            "noSell": "We do NOT sell your personal data to third parties for marketing purposes."
+          },
+          "blockchain": {
+            "title": "5. 区块chain-Specific 隐私",
+            "publicData": {
+              "title": "公开 数据",
+              "content": "交易s and smart contract interactions on T销毁 链 are publicly visible and immutable. This data cannot be deleted or modified."
+            },
+            "pseudonymity": {
+              "title": "Pseudonymity",
+              "content": "钱包 addresses are pseudonymous. However, if you link your real-world identity to a wallet address, that connection may become public."
+            }
+          },
+          "security": {
+            "title": "6. 安全 & 右s",
+            "intro": "We implement appropriate security measures including:",
+            "measures": {
+              "ssl": "SSL/TLS encryption for data in transit",
+              "encrypted": "加密ed storage for sensitive data",
+              "mfa": "Multi-factor authentication",
+              "audits": "Regular security audits and penetration testing"
+            },
+            "rightsIntro": "Depending on your location, you may have the right to:",
+            "rights": {
+              "access": "访问 your personal information",
+              "correct": "正确 inaccurate data",
+              "delete": "删除 your off-chain data",
+              "object": "对象 to data processing",
+              "portability": "数据 portability"
+            }
+          },
+          "international": {
+            "title": "8. International 数据 转账s",
+            "content": "Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers in compliance with applicable data protection laws."
           }
         },
         "contact": {
           "title": "联系我们",
           "intro": "如果您对本隐私政策有疑问，请联系我们的隐私办公室：",
-          "email": "电子邮件",
+          "email": {
+            "label": "电子邮件"
+          },
           "responseTime": "响应时间",
-          "responseTimeValue": "30天内"
+          "responseTimeValue": "30天内",
+          "description": "If you have questions about this 隐私政策, please contact our 隐私 关ice.",
+          "response": {
+            "label": "Response 时间",
+            "value": "在内 30 days"
+          }
         },
         "relatedDocuments": {
           "title": "相关法律文件",
@@ -9363,6 +12674,28 @@
               "technicalRisk": "技术风险：智能合约可能包含漏洞或缺陷",
               "liquidityRisk": "流动性风险：您可能无法在需要时出售资产",
               "lossOfFunds": "资金损失：您可能损失全部或部分投资"
+            },
+            "risks": {
+              "volatility": {
+                "label": "市场 Volatility",
+                "value": "价格s can fluctuate dramatically in short periods"
+              },
+              "regulatory": {
+                "label": "Regulatory Risk",
+                "value": "Laws and regulations may change unexpectedly"
+              },
+              "technical": {
+                "label": "Technical Risk",
+                "value": "Smart contracts may contain bugs or vulnerabilities"
+              },
+              "liquidity": {
+                "label": "流动性 Risk",
+                "value": "You may not be able to sell assets when desired"
+              },
+              "loss": {
+                "label": "Loss of Funds",
+                "value": "You may lose all or part of your investment"
+              }
             }
           },
           "trustScoreLimitations": {
@@ -9394,6 +12727,41 @@
           "forwardLookingStatements": {
             "title": "8. 前瞻性声明",
             "content": "任何关于未来事件、计划或发展的声明都是前瞻性声明，受风险和不确定性影响。实际结果可能与此类声明中明示或暗示的结果存在重大差异。"
+          },
+          "noAdvice": {
+            "title": "1. 否 Investment Advice",
+            "warning": "T销毁 链 does not provide investment, financial, tax, or legal advice. 全部 information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
+            "content": "You should consult with qualified professionals before making any investment decisions. 过去 performance is not indicative of future results."
+          },
+          "trustScore": {
+            "title": "3. Trust Score Limitations",
+            "intro": "Trust Scores are calculated based on available data and our verification process, but:",
+            "items": {
+              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
+              "notAllFactors": "They may not reflect all relevant factors",
+              "historical": "Historical scores may not predict future performance",
+              "dueDiligence": "They should be one of many factors in your due diligence"
+            }
+          },
+          "thirdParty": {
+            "title": "4. Third-Party Content",
+            "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. 访问 to third-party resources is at your own risk."
+          },
+          "availability": {
+            "title": "5. 服务 Availability",
+            "content": "We strive to maintain continuous service availability, but we do not guarantee uninterrupted access. 服务 may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances."
+          },
+          "limitation": {
+            "title": "6. Limitation of Liability",
+            "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
+          },
+          "geographic": {
+            "title": "7. Geographic Restrictions",
+            "content": "Our services may not be available in all jurisdictions. It is your responsibility to ensure that your use of T销毁 链 complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain geographic locations."
+          },
+          "forwardLooking": {
+            "title": "8. Forward-Looking Statements",
+            "content": "任何 statements regarding future events, plans, or developments are forward-looking statements subject to risks and uncertainties. Actual results may differ materially from those expressed or implied in such statements."
           }
         },
         "questions": {
@@ -9413,6 +12781,67 @@
           "trustScoreSystemDesc": "评分工作原理",
           "introToDefi": "DeFi入门",
           "introToDefiDesc": "了解风险"
+        },
+        "contact": {
+          "title": "有问题？",
+          "label": "法律咨询"
+        }
+      },
+      "common": {
+        "backToHome": "返回 to 首页",
+        "learnMore": "了解更多",
+        "relatedDocs": "相关 文档",
+        "securitySolutions": "安全 解决方案",
+        "links": {
+          "privacy": {
+            "title": "隐私政策",
+            "subtitle": "How we handle your data",
+            "subtitleData": "Your data protection rights"
+          },
+          "terms": {
+            "title": "服务条款",
+            "subtitle": "用户 agreement and conditions"
+          },
+          "disclaimer": {
+            "title": "免责声明",
+            "subtitle": "Legal notices",
+            "subtitleRisk": "Risk disclosures"
+          }
+        },
+        "learn": {
+          "trustScore": {
+            "title": "信任评分系统",
+            "subtitle": "3-stage verification process",
+            "subtitleHow": "How Trust Scores work",
+            "subtitleVerification": "验证 methodology"
+          },
+          "wallet": {
+            "title": "What is a 钱包?",
+            "subtitle": "钱包 basics",
+            "subtitleSecurity": "Securing your assets"
+          },
+          "blockchain": {
+            "title": "区块链基础",
+            "subtitle": "Understanding blockchain technology"
+          },
+          "burnChain": {
+            "title": "What is T销毁 链?",
+            "subtitle": "平台 overview"
+          },
+          "defi": {
+            "title": "Intro to DeFi",
+            "subtitle": "Decentralized finance fundamentals"
+          }
+        },
+        "solutions": {
+          "wallets": {
+            "title": "钱包s",
+            "subtitle": "安全 wallet solutions"
+          },
+          "permissioned": {
+            "title": "权限ed Environments",
+            "subtitle": "企业 privacy solutions"
+          }
         }
       }
     }
