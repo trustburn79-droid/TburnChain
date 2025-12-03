@@ -1039,7 +1039,7 @@
     "fromChain": "से चेन",
     "toChain": "को चेन",
     "amount": "राशि",
-    "fee": "ब्रिज शुल्क",
+    "fee": "शुल्क",
     "estimatedTime": "अनुमानित समय",
     "initiate": "ट्रांसफर शुरू करें",
     "claim": "दावा करें",
@@ -1065,7 +1065,6 @@
     "from": "से",
     "to": "को",
     "confirmations": "पुष्टिकरण",
-    "fee": "शुल्क",
     "sender": "भेजने वाला",
     "recipient": "प्राप्तकर्ता",
     "sourceTxHash": "सोर्स TX हैश",
@@ -1665,7 +1664,6 @@
     "timeoutRate": "टाइमआउट दर",
     "earlyTerminations": "समय से पहले समाप्ति",
     "currentRound": "वर्तमान राउंड",
-    "participation": "भागीदारी",
     "fromLastWeek": "पिछले सप्ताह से",
     "fromTarget": "लक्ष्य से",
     "instantFinality": "तत्काल अंतिमता",
@@ -2048,14 +2046,12 @@
     "requestAnalyticsDesc": "AI अनुरोध पैटर्न और वितरण का व्यापक विश्लेषण",
     "requestDistribution": "अनुरोध वितरण",
     "successVsFailure": "सफलता बनाम विफलता",
-    "successRate": "सफलता दर",
     "responseTimeAnalytics": "प्रतिक्रिया समय विश्लेषण",
     "responseTimeAnalyticsDesc": "मॉडल प्रतिक्रिया समय और प्रदर्शन का विश्लेषण",
     "responseTimeByModel": "मॉडल द्वारा प्रतिक्रिया समय",
     "timeDistribution": "समय वितरण",
     "fastestModel": "सबसे तेज़ मॉडल",
     "slowestModel": "सबसे धीमा मॉडल",
-    "activeModels": "सक्रिय मॉडल्स",
     "cacheAnalytics": "कैश विश्लेषण",
     "cacheAnalyticsDesc": "कैश प्रदर्शन और लागत बचत विश्लेषण",
     "cacheHitByModel": "मॉडल द्वारा कैश हिट",
@@ -2611,7 +2607,7 @@
     "generateReport": "रिपोर्ट जनरेट करें",
     "downloadReport": "रिपोर्ट डाउनलोड करें",
     "dashboard": {
-    "technicalDetails": "Technical Details",
+      "technicalDetails": "Technical Details",
       "title": "ऑपरेटर पोर्टल",
       "subtitle": "TBURN नेटवर्क मैनेजमेंट के लिए एंटरप्राइज़ बैक-ऑफिस",
       "autoRefresh": "ऑटो",
@@ -3130,8 +3126,6 @@
       "geographicAnalysis": "भौगोलिक विश्लेषण",
       "threatSourcesByCountry": "देश के अनुसार थ्रेट स्रोत",
       "percentOfTotal": "कुल का %",
-      "country": "देश",
-      "riskLevel": "जोखिम स्तर",
       "adminAuditLogs": "एडमिन ऑडिट लॉग्स",
       "action": "कार्रवाई",
       "risk": "जोखिम",
@@ -3191,7 +3185,6 @@
       "actionType": "कार्य प्रकार",
       "category": "श्रेणी",
       "resource": "रिसोर्स",
-      "timestamp": "टाइमस्टैम्प",
       "noAuditLogs": "कोई ऑडिट लॉग नहीं मिला",
       "eventCreated": "सुरक्षा इवेंट बनाया गया",
       "failedCreateEvent": "इवेंट बनाने में विफल",
@@ -3404,7 +3397,7 @@
       }
     },
     "staking": {
-    "details": "Details",
+      "details": "Details",
       "title": "स्टेकिंग मैनेजमेंट",
       "subtitle": "नेटवर्क स्टेकिंग पूल्स और डेलीगेशंस प्रबंधित करें",
       "totalStaked": "कुल स्टेक्ड",
@@ -4226,21 +4219,39 @@
         "title": "बर्न रेट 20% से 25% तक बढ़ाएं",
         "description": "यह प्रस्ताव डिफ्लेशन को तेज करने और दीर्घकालिक मूल्य स्थिरता का समर्थन करने के लिए दैनिक उत्सर्जन बर्न रेट को 20% से 25% तक बढ़ाने का प्रयास करता है।",
         "aiRecommendation": "इस प्रस्ताव में मध्यम आर्थिक जोखिम है लेकिन मजबूत सामुदायिक समर्थन है। 30 दिनों में चरणबद्ध कार्यान्वयन पर विचार करें।",
-        "risks": ["अल्पकालिक मूल्य अस्थिरता", "कम लिक्विडिटी प्रोत्साहन"],
-        "keyFactors": ["वैलिडेटर्स का मजबूत समर्थन", "समान प्रस्ताव पहले पास हुए हैं", "सकारात्मक समुदाय भावना"]
+        "risks": [
+          "अल्पकालिक मूल्य अस्थिरता",
+          "कम लिक्विडिटी प्रोत्साहन"
+        ],
+        "keyFactors": [
+          "वैलिडेटर्स का मजबूत समर्थन",
+          "समान प्रस्ताव पहले पास हुए हैं",
+          "सकारात्मक समुदाय भावना"
+        ]
       },
       "prop-002": {
         "title": "zkSync ब्रिज सपोर्ट जोड़ें",
         "description": "AI जोखिम मूल्यांकन के साथ TBURN क्रॉस-चेन ब्रिज पर समर्थित चेन के रूप में zkSync Era को एकीकृत करने का प्रस्ताव।",
         "aiRecommendation": "zkSync इंटीग्रेशन मध्यम जटिलता के साथ तकनीकी रूप से संभव है। डिप्लॉयमेंट से पहले सुरक्षा ऑडिट की सिफारिश की जाती है।",
-        "risks": ["नई तकनीक के जोखिम", "इंटीग्रेशन जटिलता", "लिक्विडिटी विखंडन"],
-        "keyFactors": ["तकनीकी जटिलता की चिंताएं", "zkSync इकोसिस्टम की मजबूत वृद्धि", "डेवलपर समुदाय की रुचि"]
+        "risks": [
+          "नई तकनीक के जोखिम",
+          "इंटीग्रेशन जटिलता",
+          "लिक्विडिटी विखंडन"
+        ],
+        "keyFactors": [
+          "तकनीकी जटिलता की चिंताएं",
+          "zkSync इकोसिस्टम की मजबूत वृद्धि",
+          "डेवलपर समुदाय की रुचि"
+        ]
       },
       "prop-003": {
         "title": "टियर-1 वैलिडेटर न्यूनतम स्टेक कम करें",
         "description": "वैलिडेटर विकेंद्रीकरण को बढ़ावा देने के लिए टियर-1 वैलिडेटर न्यूनतम स्टेक को 200,000 TBURN से 150,000 TBURN तक कम करें।",
         "aiRecommendation": "स्टेक आवश्यकता कम करने से AI प्रतिष्ठा प्रणाली को देखते हुए न्यूनतम सुरक्षा प्रभाव के साथ विकेंद्रीकरण को बढ़ावा मिलता है।",
-        "risks": ["वैलिडेटर गणना में मामूली वृद्धि", "रिवार्ड्स का मामूली डायल्यूशन"],
+        "risks": [
+          "वैलिडेटर गणना में मामूली वृद्धि",
+          "रिवार्ड्स का मामूली डायल्यूशन"
+        ],
         "keyFactors": []
       },
       "prop-004": {
@@ -4254,8 +4265,15 @@
         "title": "क्वांटम-प्रतिरोधी हस्ताक्षर अपग्रेड",
         "description": "सभी वैलिडेटर ऑपरेशंस के लिए CRYSTALS-Dilithium + ED25519 हाइब्रिड सिग्नेचर में अनिवार्य अपग्रेड।",
         "aiRecommendation": "न्यूनतम आर्थिक प्रभाव वाला महत्वपूर्ण सुरक्षा अपग्रेड। पोस्ट-क्वांटम सुरक्षा के लिए अत्यधिक अनुशंसित।",
-        "risks": ["ट्रांजिशन अवधि की जटिलता", "मामूली परफॉर्मेंस ओवरहेड"],
-        "keyFactors": ["सुरक्षा-केंद्रित समुदाय", "न्यूनतम नुकसान", "स्पष्ट तकनीकी लाभ"]
+        "risks": [
+          "ट्रांजिशन अवधि की जटिलता",
+          "मामूली परफॉर्मेंस ओवरहेड"
+        ],
+        "keyFactors": [
+          "सुरक्षा-केंद्रित समुदाय",
+          "न्यूनतम नुकसान",
+          "स्पष्ट तकनीकी लाभ"
+        ]
       }
     }
   },
@@ -4581,7 +4599,7 @@
     }
   },
   "community": {
-    "title": "TBURN समुदाय",
+    "title": "शीर्षक",
     "subtitle": "TBURN इकोसिस्टम के साथ जुड़ें, सहयोग करें और विकास करें",
     "online": "ऑनलाइन",
     "totalMembers": "कुल सदस्य",
@@ -4590,14 +4608,109 @@
     "comments": "टिप्पणियाँ",
     "proposals": "प्रस्ताव",
     "active": "सक्रिय",
-    "events": "इवेंट्स",
+    "events": {
+      "launchAma": {
+        "title": "मेननेट लॉन्च AMA",
+        "desc": "मेननेट लॉन्च के बारे में एक विशेष AMA सत्र के लिए हमारे संस्थापकों के साथ जुड़ें"
+      },
+      "defiWorkshop": {
+        "title": "DeFi कार्यशाला",
+        "desc": "TBURN DeFi प्रोटोकॉल के साथ अपने रिटर्न को अधिकतम करना सीखें"
+      },
+      "hackathon": {
+        "title": "TBURN हैकाथॉन 2025",
+        "desc": "TBURN पर DeFi का भविष्य बनाएं और 100K TBURN मूल्य के पुरस्कार जीतें"
+      },
+      "tokyoMeetup": {
+        "title": "समुदाय मुलाकात: टोक्यो",
+        "desc": "हमारे टोक्यो इवेंट में TBURN समुदाय से व्यक्तिगत रूप से मिलें"
+      },
+      "stakingCompetition": {
+        "title": "स्टेकिंग प्रतियोगिता",
+        "desc": "इस महीने उच्चतम स्टेकिंग पुरस्कारों के लिए प्रतिस्पर्धा करें"
+      },
+      "nftContest": {
+        "title": "NFT आर्ट प्रतियोगिता",
+        "desc": "TBURN थीम वाली NFT कलाकृति बनाएं और पुरस्कार जीतें"
+      },
+      "validatorTraining": {
+        "title": "वैलिडेटर प्रशिक्षण सत्र",
+        "desc": "व्यापक प्रशिक्षण के साथ TBURN वैलिडेटर बनना सीखें"
+      },
+      "airdropEvent": {
+        "title": "सामुदायिक एयरड्रॉप इवेंट",
+        "desc": "सक्रिय समुदाय सदस्यों के लिए विशेष एयरड्रॉप। पुरस्कार जीतने के लिए कार्य पूरे करें!"
+      }
+    },
     "upcoming": "आगामी",
     "totalRewards": "वितरित पुरस्कार",
     "overview": "अवलोकन",
     "forum": "फोरम",
     "leaderboard": "लीडरबोर्ड",
-    "badges": "बैज",
-    "announcements": "घोषणाएं",
+    "badges": {
+      "earlyAdopter": {
+        "name": "अर्ली एडॉप्टर",
+        "description": "मेननेट के पहले महीने में शामिल हुए"
+      },
+      "diamondHands": {
+        "name": "डायमंड हैंड्स",
+        "description": "6 महीने से अधिक समय तक TBURN होल्ड किया"
+      },
+      "governanceParticipant": {
+        "name": "गवर्नेंस प्रतिभागी",
+        "description": "10+ गवर्नेंस प्रस्तावों पर मतदान किया"
+      },
+      "communityHelper": {
+        "name": "कम्युनिटी हेल्पर",
+        "description": "50+ समुदाय सदस्यों की मदद की"
+      },
+      "whaleStatus": {
+        "name": "व्हेल स्टेटस",
+        "description": "100K+ TBURN टोकन रखते हैं"
+      },
+      "contentCreator": {
+        "name": "कंटेंट क्रिएटर",
+        "description": "25+ फोरम पोस्ट प्रकाशित किए"
+      },
+      "validator": {
+        "name": "वैलिडेटर",
+        "description": "मेननेट वैलिडेटर नोड चलाते हैं"
+      },
+      "bridgePioneer": {
+        "name": "ब्रिज पायनियर",
+        "description": "क्रॉस-चेन ब्रिज के पहले 1000 उपयोगकर्ताओं में से एक"
+      },
+      "defiMaster": {
+        "name": "DeFi मास्टर",
+        "description": "सभी DeFi प्रोटोकॉल का उपयोग किया"
+      },
+      "bugHunter": {
+        "name": "बग हंटर",
+        "description": "एक वैध सुरक्षा कमजोरी की रिपोर्ट की"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "मेननेट लॉन्च तिथि की पुष्टि",
+        "content": "हमें यह घोषित करते हुए खुशी है कि TBURN मेननेट आधिकारिक रूप से 1 दिसंबर, 2025 को लॉन्च होगा। सभी सिस्टम तैयार हैं!"
+      },
+      "stakingTiers": {
+        "title": "नए स्टेकिंग टियर जारी",
+        "content": "टियर 1 वैलिडेटर के लिए 25% तक APY के साथ उन्नत स्टेकिंग टियर पेश कर रहे हैं। विवरण के लिए स्टेकिंग पेज देखें।"
+      },
+      "securityAudit": {
+        "title": "सुरक्षा ऑडिट पूर्ण",
+        "content": "हमारे स्मार्ट कॉन्ट्रैक्ट्स ने CertiK का व्यापक सुरक्षा ऑडिट बिना किसी गंभीर समस्या के पास कर लिया है।"
+      },
+      "bridgeIntegration": {
+        "title": "क्रॉस-चेन ब्रिज अब लाइव",
+        "content": "TBURN ब्रिज अब लाइव है, Ethereum, BSC और Polygon नेटवर्क के बीच ट्रांसफर को सपोर्ट करता है।"
+      },
+      "maintenance": {
+        "title": "निर्धारित रखरखाव: नोड अपग्रेड",
+        "content": "3 दिसंबर, 2:00 AM UTC के लिए संक्षिप्त रखरखाव अवधि निर्धारित। अपेक्षित डाउनटाइम: 15 मिनट।"
+      }
+    },
     "important": "महत्वपूर्ण",
     "activityFeed": "लाइव गतिविधि",
     "topContributors": "शीर्ष योगदानकर्ता",
@@ -4677,7 +4790,6 @@
     "eventDetails": "इवेंट विवरण",
     "startTime": "शुरू होने का समय",
     "endTime": "समाप्त होने का समय",
-    "title": "शीर्षक",
     "content": "सामग्री",
     "contributions": "योगदान",
     "time": {
@@ -4707,104 +4819,6 @@
       "news": "समाचार",
       "alert": "अलर्ट",
       "feature": "फीचर"
-    },
-    "badges": {
-      "earlyAdopter": {
-        "name": "अर्ली एडॉप्टर",
-        "description": "मेननेट के पहले महीने में शामिल हुए"
-      },
-      "diamondHands": {
-        "name": "डायमंड हैंड्स",
-        "description": "6 महीने से अधिक समय तक TBURN होल्ड किया"
-      },
-      "governanceParticipant": {
-        "name": "गवर्नेंस प्रतिभागी",
-        "description": "10+ गवर्नेंस प्रस्तावों पर मतदान किया"
-      },
-      "communityHelper": {
-        "name": "कम्युनिटी हेल्पर",
-        "description": "50+ समुदाय सदस्यों की मदद की"
-      },
-      "whaleStatus": {
-        "name": "व्हेल स्टेटस",
-        "description": "100K+ TBURN टोकन रखते हैं"
-      },
-      "contentCreator": {
-        "name": "कंटेंट क्रिएटर",
-        "description": "25+ फोरम पोस्ट प्रकाशित किए"
-      },
-      "validator": {
-        "name": "वैलिडेटर",
-        "description": "मेननेट वैलिडेटर नोड चलाते हैं"
-      },
-      "bridgePioneer": {
-        "name": "ब्रिज पायनियर",
-        "description": "क्रॉस-चेन ब्रिज के पहले 1000 उपयोगकर्ताओं में से एक"
-      },
-      "defiMaster": {
-        "name": "DeFi मास्टर",
-        "description": "सभी DeFi प्रोटोकॉल का उपयोग किया"
-      },
-      "bugHunter": {
-        "name": "बग हंटर",
-        "description": "एक वैध सुरक्षा कमजोरी की रिपोर्ट की"
-      }
-    },
-    "events": {
-      "launchAma": {
-        "title": "मेननेट लॉन्च AMA",
-        "desc": "मेननेट लॉन्च के बारे में एक विशेष AMA सत्र के लिए हमारे संस्थापकों के साथ जुड़ें"
-      },
-      "defiWorkshop": {
-        "title": "DeFi कार्यशाला",
-        "desc": "TBURN DeFi प्रोटोकॉल के साथ अपने रिटर्न को अधिकतम करना सीखें"
-      },
-      "hackathon": {
-        "title": "TBURN हैकाथॉन 2025",
-        "desc": "TBURN पर DeFi का भविष्य बनाएं और 100K TBURN मूल्य के पुरस्कार जीतें"
-      },
-      "tokyoMeetup": {
-        "title": "समुदाय मुलाकात: टोक्यो",
-        "desc": "हमारे टोक्यो इवेंट में TBURN समुदाय से व्यक्तिगत रूप से मिलें"
-      },
-      "stakingCompetition": {
-        "title": "स्टेकिंग प्रतियोगिता",
-        "desc": "इस महीने उच्चतम स्टेकिंग पुरस्कारों के लिए प्रतिस्पर्धा करें"
-      },
-      "nftContest": {
-        "title": "NFT आर्ट प्रतियोगिता",
-        "desc": "TBURN थीम वाली NFT कलाकृति बनाएं और पुरस्कार जीतें"
-      },
-      "validatorTraining": {
-        "title": "वैलिडेटर प्रशिक्षण सत्र",
-        "desc": "व्यापक प्रशिक्षण के साथ TBURN वैलिडेटर बनना सीखें"
-      },
-      "airdropEvent": {
-        "title": "सामुदायिक एयरड्रॉप इवेंट",
-        "desc": "सक्रिय समुदाय सदस्यों के लिए विशेष एयरड्रॉप। पुरस्कार जीतने के लिए कार्य पूरे करें!"
-      }
-    },
-    "announcements": {
-      "mainnetLaunch": {
-        "title": "मेननेट लॉन्च तिथि की पुष्टि",
-        "content": "हमें यह घोषित करते हुए खुशी है कि TBURN मेननेट आधिकारिक रूप से 1 दिसंबर, 2025 को लॉन्च होगा। सभी सिस्टम तैयार हैं!"
-      },
-      "stakingTiers": {
-        "title": "नए स्टेकिंग टियर जारी",
-        "content": "टियर 1 वैलिडेटर के लिए 25% तक APY के साथ उन्नत स्टेकिंग टियर पेश कर रहे हैं। विवरण के लिए स्टेकिंग पेज देखें।"
-      },
-      "securityAudit": {
-        "title": "सुरक्षा ऑडिट पूर्ण",
-        "content": "हमारे स्मार्ट कॉन्ट्रैक्ट्स ने CertiK का व्यापक सुरक्षा ऑडिट बिना किसी गंभीर समस्या के पास कर लिया है।"
-      },
-      "bridgeIntegration": {
-        "title": "क्रॉस-चेन ब्रिज अब लाइव",
-        "content": "TBURN ब्रिज अब लाइव है, Ethereum, BSC और Polygon नेटवर्क के बीच ट्रांसफर को सपोर्ट करता है।"
-      },
-      "maintenance": {
-        "title": "निर्धारित रखरखाव: नोड अपग्रेड",
-        "content": "3 दिसंबर, 2:00 AM UTC के लिए संक्षिप्त रखरखाव अवधि निर्धारित। अपेक्षित डाउनटाइम: 15 मिनट।"
-      }
     },
     "rarities": {
       "common": "सामान्य",
@@ -4903,70 +4917,217 @@
       "nav": {
         "learn": {
           "title": "सीखें",
-          "learnHub": { "title": "लर्निंग हब", "description": "Burn Chain के साथ शुरुआत करें" },
-          "whatIsBurnChain": { "title": "Burn Chain क्या है?", "description": "हमारे ब्लॉकचेन के बारे में जानें" },
-          "trustScore": { "title": "ट्रस्ट स्कोर सिस्टम", "description": "ट्रस्ट सत्यापन को समझें" },
-          "wallet": { "title": "वॉलेट क्या है?", "description": "वॉलेट की मूल बातें" },
-          "blockchainBasics": { "title": "ब्लॉकचेन मूल बातें", "description": "मुख्य अवधारणाएं" },
-          "defiMastery": { "title": "DeFi मास्टरी", "description": "उन्नत DeFi कोर्स" },
-          "developerCourse": { "title": "डेवलपर कोर्स", "description": "Burn Chain पर बनाएं" },
-          "introToDefi": { "title": "DeFi परिचय", "description": "DeFi मूल बातें" },
-          "educationPrograms": { "title": "शिक्षा कार्यक्रम", "description": "प्रमाणन पाठ्यक्रम" },
-          "whitepaper": { "title": "तकनीकी व्हाइटपेपर", "description": "गहन तकनीकी दस्तावेज़" },
-          "tokenomics": { "title": "टोकनोमिक्स", "description": "टोकन अर्थशास्त्र" },
-          "roadmap": { "title": "रोडमैप", "description": "विकास समयरेखा" }
+          "learnHub": {
+            "title": "लर्निंग हब",
+            "description": "Burn Chain के साथ शुरुआत करें"
+          },
+          "whatIsBurnChain": {
+            "title": "Burn Chain क्या है?",
+            "description": "हमारे ब्लॉकचेन के बारे में जानें"
+          },
+          "trustScore": {
+            "title": "ट्रस्ट स्कोर सिस्टम",
+            "description": "ट्रस्ट सत्यापन को समझें"
+          },
+          "wallet": {
+            "title": "वॉलेट क्या है?",
+            "description": "वॉलेट की मूल बातें"
+          },
+          "blockchainBasics": {
+            "title": "ब्लॉकचेन मूल बातें",
+            "description": "मुख्य अवधारणाएं"
+          },
+          "defiMastery": {
+            "title": "DeFi मास्टरी",
+            "description": "उन्नत DeFi कोर्स"
+          },
+          "developerCourse": {
+            "title": "डेवलपर कोर्स",
+            "description": "Burn Chain पर बनाएं"
+          },
+          "introToDefi": {
+            "title": "DeFi परिचय",
+            "description": "DeFi मूल बातें"
+          },
+          "educationPrograms": {
+            "title": "शिक्षा कार्यक्रम",
+            "description": "प्रमाणन पाठ्यक्रम"
+          },
+          "whitepaper": {
+            "title": "तकनीकी व्हाइटपेपर",
+            "description": "गहन तकनीकी दस्तावेज़"
+          },
+          "tokenomics": {
+            "title": "टोकनोमिक्स",
+            "description": "टोकन अर्थशास्त्र"
+          },
+          "roadmap": {
+            "title": "रोडमैप",
+            "description": "विकास समयरेखा"
+          }
         },
         "developers": {
           "title": "डेवलपर्स",
-          "developerHub": { "title": "डेवलपर हब", "description": "Burn Chain पर बनाएं" },
-          "documentation": { "title": "दस्तावेज़ीकरण", "description": "पूर्ण दस्तावेज़ीकरण" },
-          "apiReference": { "title": "API संदर्भ", "description": "API एंडपॉइंट्स" },
-          "cliReference": { "title": "CLI संदर्भ", "description": "कमांड लाइन टूल्स" },
-          "sdkGuide": { "title": "SDK गाइड", "description": "SDK एकीकरण" },
-          "smartContracts": { "title": "स्मार्ट कॉन्ट्रैक्ट्स", "description": "कॉन्ट्रैक्ट विकास" },
-          "websocketApi": { "title": "WebSocket API", "description": "रियल-टाइम डेटा" },
-          "codeExamples": { "title": "कोड उदाहरण", "description": "नमूना कोड" },
-          "quickStart": { "title": "त्वरित शुरुआत", "description": "जल्दी शुरू करें" },
-          "installation": { "title": "इंस्टॉलेशन गाइड", "description": "सेटअप निर्देश" },
-          "evmMigration": { "title": "EVM माइग्रेशन", "description": "Ethereum से माइग्रेट करें" }
+          "developerHub": {
+            "title": "डेवलपर हब",
+            "description": "Burn Chain पर बनाएं"
+          },
+          "documentation": {
+            "title": "दस्तावेज़ीकरण",
+            "description": "पूर्ण दस्तावेज़ीकरण"
+          },
+          "apiReference": {
+            "title": "API संदर्भ",
+            "description": "API एंडपॉइंट्स"
+          },
+          "cliReference": {
+            "title": "CLI संदर्भ",
+            "description": "कमांड लाइन टूल्स"
+          },
+          "sdkGuide": {
+            "title": "SDK गाइड",
+            "description": "SDK एकीकरण"
+          },
+          "smartContracts": {
+            "title": "स्मार्ट कॉन्ट्रैक्ट्स",
+            "description": "कॉन्ट्रैक्ट विकास"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "रियल-टाइम डेटा"
+          },
+          "codeExamples": {
+            "title": "कोड उदाहरण",
+            "description": "नमूना कोड"
+          },
+          "quickStart": {
+            "title": "त्वरित शुरुआत",
+            "description": "जल्दी शुरू करें"
+          },
+          "installation": {
+            "title": "इंस्टॉलेशन गाइड",
+            "description": "सेटअप निर्देश"
+          },
+          "evmMigration": {
+            "title": "EVM माइग्रेशन",
+            "description": "Ethereum से माइग्रेट करें"
+          }
         },
         "solutions": {
           "title": "समाधान",
-          "tokenExtensions": { "title": "टोकन एक्सटेंशन", "description": "उन्नत टोकन" },
-          "actionsBlinks": { "title": "एक्शन्स और ब्लिंक्स", "description": "URL-आधारित एक्शन्स" },
-          "wallets": { "title": "वॉलेट्स", "description": "वॉलेट समाधान" },
-          "permissioned": { "title": "अनुमति प्राप्त वातावरण", "description": "एंटरप्राइज नेटवर्क" },
-          "gameTooling": { "title": "गेम टूलिंग", "description": "गेम विकास" },
-          "payments": { "title": "भुगतान", "description": "भुगतान समाधान" },
-          "commerce": { "title": "कॉमर्स", "description": "ई-कॉमर्स एकीकरण" },
-          "financial": { "title": "वित्तीय इंफ्रास्ट्रक्चर", "description": "वित्तीय सेवाएं" },
-          "aiFeatures": { "title": "AI विशेषताएं", "description": "AI क्षमताएं" },
-          "artistsCreators": { "title": "कलाकार और निर्माता", "description": "NFT प्लेटफॉर्म" },
-          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
-          "crossChainBridge": { "title": "क्रॉस-चेन ब्रिज", "description": "मल्टी-चेन ब्रिज" },
-          "defiHub": { "title": "DeFi हब", "description": "DeFi इकोसिस्टम" }
+          "tokenExtensions": {
+            "title": "टोकन एक्सटेंशन",
+            "description": "उन्नत टोकन"
+          },
+          "actionsBlinks": {
+            "title": "एक्शन्स और ब्लिंक्स",
+            "description": "URL-आधारित एक्शन्स"
+          },
+          "wallets": {
+            "title": "वॉलेट्स",
+            "description": "वॉलेट समाधान"
+          },
+          "permissioned": {
+            "title": "अनुमति प्राप्त वातावरण",
+            "description": "एंटरप्राइज नेटवर्क"
+          },
+          "gameTooling": {
+            "title": "गेम टूलिंग",
+            "description": "गेम विकास"
+          },
+          "payments": {
+            "title": "भुगतान",
+            "description": "भुगतान समाधान"
+          },
+          "commerce": {
+            "title": "कॉमर्स",
+            "description": "ई-कॉमर्स एकीकरण"
+          },
+          "financial": {
+            "title": "वित्तीय इंफ्रास्ट्रक्चर",
+            "description": "वित्तीय सेवाएं"
+          },
+          "aiFeatures": {
+            "title": "AI विशेषताएं",
+            "description": "AI क्षमताएं"
+          },
+          "artistsCreators": {
+            "title": "कलाकार और निर्माता",
+            "description": "NFT प्लेटफॉर्म"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "description": "Bitcoin DeFi"
+          },
+          "crossChainBridge": {
+            "title": "क्रॉस-चेन ब्रिज",
+            "description": "मल्टी-चेन ब्रिज"
+          },
+          "defiHub": {
+            "title": "DeFi हब",
+            "description": "DeFi इकोसिस्टम"
+          }
         },
         "useCases": {
           "title": "उपयोग के मामले",
-          "tokenization": { "title": "टोकनाइज़ेशन", "description": "एसेट टोकनाइज़ेशन" },
-          "depin": { "title": "DePIN", "description": "विकेंद्रीकृत इंफ्रास्ट्रक्चर" },
-          "stablecoins": { "title": "स्टेबलकॉइन्स", "description": "स्थिर संपत्ति" },
-          "institutional": { "title": "संस्थागत भुगतान", "description": "एंटरप्राइज भुगतान" },
-          "enterprise": { "title": "एंटरप्राइज", "description": "एंटरप्राइज समाधान" },
-          "gaming": { "title": "गेमिंग और मनोरंजन", "description": "गेमिंग इकोसिस्टम" }
+          "tokenization": {
+            "title": "टोकनाइज़ेशन",
+            "description": "एसेट टोकनाइज़ेशन"
+          },
+          "depin": {
+            "title": "DePIN",
+            "description": "विकेंद्रीकृत इंफ्रास्ट्रक्चर"
+          },
+          "stablecoins": {
+            "title": "स्टेबलकॉइन्स",
+            "description": "स्थिर संपत्ति"
+          },
+          "institutional": {
+            "title": "संस्थागत भुगतान",
+            "description": "एंटरप्राइज भुगतान"
+          },
+          "enterprise": {
+            "title": "एंटरप्राइज",
+            "description": "एंटरप्राइज समाधान"
+          },
+          "gaming": {
+            "title": "गेमिंग और मनोरंजन",
+            "description": "गेमिंग इकोसिस्टम"
+          }
         },
         "network": {
           "title": "नेटवर्क",
-          "validators": { "title": "वैलिडेटर्स", "description": "वैलिडेटर बनें" },
-          "rpc": { "title": "RPC प्रोवाइडर्स", "description": "API एक्सेस" },
-          "status": { "title": "नेटवर्क स्टेटस", "description": "नेटवर्क स्वास्थ्य" },
-          "ramp": { "title": "Burn Chain रैंप", "description": "TBURN खरीदें/बेचें" }
+          "validators": {
+            "title": "वैलिडेटर्स",
+            "description": "वैलिडेटर बनें"
+          },
+          "rpc": {
+            "title": "RPC प्रोवाइडर्स",
+            "description": "API एक्सेस"
+          },
+          "status": {
+            "title": "नेटवर्क स्टेटस",
+            "description": "नेटवर्क स्वास्थ्य"
+          },
+          "ramp": {
+            "title": "Burn Chain रैंप",
+            "description": "TBURN खरीदें/बेचें"
+          }
         },
         "community": {
           "title": "समुदाय",
-          "news": { "title": "समाचार और ब्लॉग", "description": "नवीनतम अपडेट" },
-          "events": { "title": "इवेंट्स", "description": "आगामी इवेंट्स" },
-          "hub": { "title": "समुदाय", "description": "समुदाय से जुड़ें" }
+          "news": {
+            "title": "समाचार और ब्लॉग",
+            "description": "नवीनतम अपडेट"
+          },
+          "events": {
+            "title": "इवेंट्स",
+            "description": "आगामी इवेंट्स"
+          },
+          "hub": {
+            "title": "समुदाय",
+            "description": "समुदाय से जुड़ें"
+          }
         }
       }
     },
@@ -4988,7 +5149,12 @@
     "home": {
       "heroTag": "मेननेट लाइव",
       "heroTitle": "का भविष्य",
-      "heroTitleRotating": ["ट्रस्ट-आधारित", "AI-संचालित", "क्वांटम-सुरक्षित", "हाइपर-स्केल"],
+      "heroTitleRotating": [
+        "ट्रस्ट-आधारित",
+        "AI-संचालित",
+        "क्वांटम-सुरक्षित",
+        "हाइपर-स्केल"
+      ],
       "heroSubtitle": "ब्लॉकचेन",
       "heroDescription": "दुनिया का पहला AI-संचालित ट्रस्ट सत्यापन नेटवर्क। क्वांटम-प्रतिरोधी सुरक्षा एंटरप्राइज-ग्रेड स्केलेबिलिटी से मिलती है।",
       "launchExplorer": "एक्सप्लोरर लॉन्च करें",
@@ -5054,7 +5220,20 @@
         "coreConcepts": "मूल अवधारणाएं",
         "coreConceptsDesc": "TBurn Chain के मौलिक सिद्धांत।",
         "quickGlossary": "त्वरित शब्दावली",
-        "certifications": "प्रमाणपत्र",
+        "certifications": {
+          "developer": {
+            "title": "TBurn डेवलपर",
+            "description": "स्मार्ट कॉन्ट्रैक्ट विकास प्रमाणन"
+          },
+          "defi": {
+            "title": "DeFi विशेषज्ञ",
+            "description": "विकेंद्रीकृत वित्त महारत प्रमाणन"
+          },
+          "validator": {
+            "title": "वैलिडेटर ऑपरेटर",
+            "description": "नेटवर्क सत्यापन प्रमाणन"
+          }
+        },
         "certificationsDesc": "सत्यापित बैज अर्जित करें",
         "communityLearning": "सामुदायिक शिक्षा",
         "paths": {
@@ -5115,20 +5294,6 @@
           "validator": {
             "term": "वैलिडेटर",
             "definition": "लेनदेन सत्यापित करने और सहमति में भाग लेने वाले नोड्स"
-          }
-        },
-        "certifications": {
-          "developer": {
-            "title": "TBurn डेवलपर",
-            "description": "स्मार्ट कॉन्ट्रैक्ट विकास प्रमाणन"
-          },
-          "defi": {
-            "title": "DeFi विशेषज्ञ",
-            "description": "विकेंद्रीकृत वित्त महारत प्रमाणन"
-          },
-          "validator": {
-            "title": "वैलिडेटर ऑपरेटर",
-            "description": "नेटवर्क सत्यापन प्रमाणन"
           }
         },
         "communityLinks": {
@@ -5316,6 +5481,24 @@
               "value": "67%",
               "label": "निवेशक धोखाधड़ी से प्रभावित"
             }
+          },
+          "items": {
+            "scams": {
+              "title": "80%+ घोटाले",
+              "description": "80% से अधिक नए क्रिप्टो प्रोजेक्ट संभावित घोटाले या रगपुल हैं।"
+            },
+            "lost": {
+              "title": "$2.7B नुकसान",
+              "description": "केवल 2023 में रगपुल और धोखाधड़ी से खोई गई कुल धनराशि।"
+            },
+            "risk": {
+              "title": "$3.1B जोखिम",
+              "description": "हस्तक्षेप के बिना 2024 के लिए अनुमानित नुकसान।"
+            },
+            "investorLoss": {
+              "title": "60-80% नुकसान",
+              "description": "प्रारंभिक चरण के प्रोजेक्ट्स में औसत निवेशक हानि दर।"
+            }
           }
         },
         "performance": {
@@ -5336,7 +5519,22 @@
             "gasCost": {
               "value": "$0.001",
               "label": "औसत गैस लागत"
+            },
+            "latency": {
+              "value": "1.84ms",
+              "label": "विलंबता"
+            },
+            "nodes": {
+              "value": "30,000",
+              "label": "नोड्स"
             }
+          },
+          "badge": "समाधान आर्किटेक्चर",
+          "description": "TBurn Chain केवल ट्रस्ट स्कोरिंग के बारे में नहीं है; यह Arbitrum तकनीक पर निर्मित एक उच्च-प्रदर्शन Layer 2 स्केलिंग समाधान है, जो एंटरप्राइज-ग्रेड थ्रूपुट के लिए डिज़ाइन किया गया है।",
+          "features": {
+            "hybridConsensus": "हाइब्रिड सहमति (DPoS + BFT)",
+            "evmCompatibility": "EVM संगतता",
+            "dynamicSharding": "डायनेमिक शार्डिंग समर्थन"
           }
         },
         "aiLayers": {
@@ -5352,6 +5550,27 @@
           "operational": {
             "title": "परिचालन AI",
             "description": "तत्काल धोखाधड़ी पहचान और रोकथाम"
+          },
+          "subtitle": "तीन अलग-अलग AI मॉडलों का उपयोग करके बुद्धिमान निर्णय-निर्माण।",
+          "items": {
+            "strategic": {
+              "title": "रणनीतिक परत",
+              "model": ":: ChatGPT Latest",
+              "latency": "450ms",
+              "description": "जटिल बाजार विश्लेषण, गवर्नेंस प्रस्ताव मूल्यांकन और दीर्घकालिक रणनीति निर्माण को संभालता है।"
+            },
+            "tactical": {
+              "title": "सामरिक परत",
+              "model": ":: Claude Latest",
+              "latency": "180ms",
+              "description": "ट्रस्ट मूल्यांकन, लेनदेन सत्यापन और स्मार्ट कॉन्ट्रैक्ट ऑडिटिंग को प्रोसेस करता है।"
+            },
+            "operational": {
+              "title": "परिचालन परत",
+              "model": ":: Gemini Latest",
+              "latency": "45ms",
+              "description": "रियल-टाइम मॉनिटरिंग, इमरजेंसी रिस्पॉन्स (Auto-Burn), और स्वचालित कार्यों को निष्पादित करता है।"
+            }
           }
         },
         "quantumSecurity": {
@@ -5361,6 +5580,16 @@
             "crystals": "CRYSTALS-Dilithium हस्ताक्षर",
             "hybrid": "ED25519 हाइब्रिड एन्क्रिप्शन",
             "postQuantum": "पोस्ट-क्वांटम की एक्सचेंज"
+          },
+          "items": {
+            "crystals": {
+              "title": "CRYSTALS-Dilithium",
+              "description": "पोस्ट-क्वांटम सुरक्षा प्रदान करने वाला NIST मानक लैटिस-आधारित हस्ताक्षर एल्गोरिथम।"
+            },
+            "hybrid": {
+              "title": "हाइब्रिड हस्ताक्षर",
+              "description": "पिछड़ी संगतता और भविष्य-प्रूफिंग के लिए ED25519 + Dilithium का संयोजन।"
+            }
           }
         },
         "coreModules": {
@@ -5381,11 +5610,22 @@
             "bridge": {
               "title": "ब्रिज प्रोटोकॉल",
               "description": "क्रॉस-चेन एसेट ट्रांसफर"
+            },
+            "defi": {
+              "title": "DeFi हब",
+              "description": "एकीकृत AMM DEX, 85% LTV लोन, और लिक्विड स्टेकिंग।"
+            },
+            "gamefi": {
+              "title": "GameFi प्लेटफॉर्म",
+              "description": "P2E इंजन, टूर्नामेंट सिस्टम, और क्रॉस-चेन आइटम ट्रेडिंग।"
             }
           }
         },
         "downloadPdf": "PDF डाउनलोड करें",
-        "viewGithub": "GitHub पर देखें"
+        "viewGithub": "GitHub पर देखें",
+        "heroDescription": "ब्लॉकचेन प्रोजेक्ट्स के लिए विकेंद्रीकृत विश्वास अवसंरचना।",
+        "heroSubDescription": "100% ऑन-चेन पारदर्शिता के साथ विश्वसनीयता सत्यापित करने वाला Arbitrum-आधारित Layer 2 समाधान।",
+        "viewSource": "स्रोत देखें"
       },
       "tokenomics": {
         "tag": "अर्थशास्त्र",
@@ -5472,8 +5712,14 @@
               "mainnet": "मेननेट लॉन्च",
               "trustScore": "विश्वास स्कोर सिस्टम",
               "bridge": "क्रॉस-चेन ब्रिज",
-              "dex": "DEX लॉन्च"
-            }
+              "dex": "DEX लॉन्च",
+              "item1": "मेननेट लॉन्च और जेनेसिस ब्लॉक",
+              "item2": "ट्रस्ट स्कोर सिस्टम V1",
+              "item3": "क्रॉस-चेन ब्रिज (ETH, BSC)",
+              "item4": "AMM के साथ DEX लॉन्च",
+              "item5": "मोबाइल वॉलेट बीटा"
+            },
+            "quarter": "Q1-Q2 2024"
           },
           "phase2": {
             "title": "फेज 2: विस्तार",
@@ -5483,8 +5729,14 @@
               "gamefi": "GameFi प्लेटफॉर्म",
               "aiEnhancement": "AI संवर्धन",
               "mobileWallet": "मोबाइल वॉलेट",
-              "partnerships": "प्रमुख साझेदारियां"
-            }
+              "partnerships": "प्रमुख साझेदारियां",
+              "item1": "GameFi प्लेटफॉर्म एकीकरण",
+              "item2": "AI एन्हांसमेंट मॉड्यूल",
+              "item3": "मोबाइल वॉलेट पूर्ण रिलीज़",
+              "item4": "प्रमुख CEX लिस्टिंग",
+              "item5": "डेवलपर SDK V2"
+            },
+            "quarter": "Q3-Q4 2024"
           },
           "phase3": {
             "title": "फेज 3: इकोसिस्टम",
@@ -5494,8 +5746,14 @@
               "dao": "पूर्ण DAO गवर्नेंस",
               "l2": "Layer 2 समाधान",
               "enterprise": "एंटरप्राइज अपनाना",
-              "global": "वैश्विक विस्तार"
-            }
+              "global": "वैश्विक विस्तार",
+              "item1": "Layer 2 स्केलिंग समाधान",
+              "item2": "DAO गवर्नेंस लॉन्च",
+              "item3": "क्रॉस-चेन विस्तार (7+ चेन)",
+              "item4": "AI ट्रेडिंग बॉट एकीकरण",
+              "item5": "एंटरप्राइज साझेदारी कार्यक्रम"
+            },
+            "quarter": "Q1-Q2 2025"
           },
           "phase4": {
             "title": "फेज 4: जन अपनाना",
@@ -5505,8 +5763,13 @@
               "quantum": "क्वांटम अपग्रेड",
               "fiat": "फिएट एकीकरण",
               "institutions": "संस्थागत सेवाएं",
-              "metaverse": "मेटावर्स एकीकरण"
-            }
+              "metaverse": "मेटावर्स एकीकरण",
+              "item1": "वैश्विक मार्केटिंग अभियान",
+              "item2": "संस्थागत सेवाओं का लॉन्च",
+              "item3": "रणनीतिक साझेदारी",
+              "item4": "इकोसिस्टम फंड परिनियोजन"
+            },
+            "quarter": "Q3-Q4 2025"
           }
         },
         "metrics": {
@@ -5515,27 +5778,414 @@
           "tvl": "कुल लॉक वैल्यू",
           "transactions": "दैनिक लेनदेन",
           "developers": "सक्रिय डेवलपर्स"
+        },
+        "growth": {
+          "sectionTitle": "अनुमानित विकास मेट्रिक्स",
+          "year1": {
+            "label": "2024",
+            "projects": "500+",
+            "users": "100K+",
+            "tvl": "$50M+"
+          },
+          "year2": {
+            "label": "2025",
+            "projects": "2,000+",
+            "users": "1M+",
+            "tvl": "$500M+"
+          },
+          "year3": {
+            "label": "2026",
+            "projects": "10,000+",
+            "users": "10M+",
+            "tvl": "$5B+"
+          },
+          "labels": {
+            "verifiedProjects": "सत्यापित प्रोजेक्ट्स",
+            "activeUsers": "सक्रिय उपयोगकर्ता",
+            "tvl": "कुल लॉक्ड वैल्यू"
+          }
+        },
+        "cta": {
+          "title": "इस यात्रा में हमसे जुड़ें",
+          "description": "TBurn Chain इकोसिस्टम का हिस्सा बनें और ट्रस्ट-आधारित ब्लॉकचेन तकनीक का भविष्य आकार देने में मदद करें।",
+          "joinCommunity": "समुदाय से जुड़ें",
+          "viewDocs": "दस्तावेज़ीकरण देखें"
         }
       },
       "blockchainBasics": {
         "tag": "शुरुआती",
         "title": "ब्लॉकचेन बेसिक्स",
-        "subtitle": "ब्लॉकचेन तकनीक और वितरित सिस्टम की मूल अवधारणाएं।"
+        "subtitle": "ब्लॉकचेन तकनीक और वितरित सिस्टम की मूल अवधारणाएं।",
+        "duration": "4 घंटे",
+        "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
+        "courseOverview": {
+          "title": "कोर्स अवलोकन",
+          "description": "यह व्यापक कोर्स आपको ब्लॉकचेन तकनीक की मौलिक अवधारणाओं से परिचित कराता है। आप वितरित लेजर, सहमति तंत्र, क्रिप्टोग्राफिक सिद्धांतों और इन तकनीकों द्वारा आधुनिक विकेंद्रीकृत एप्लिकेशन को कैसे संचालित किया जाता है, इसके बारे में सीखेंगे।",
+          "videoTitle": "ब्लॉकचेन का परिचय",
+          "videoSubtitle": "कोर्स पूर्वावलोकन",
+          "figureCaption": "चित्र: कोर्स परिचय वीडियो"
+        },
+        "curriculumTitle": "कोर्स पाठ्यक्रम",
+        "curriculum": {
+          "module1": {
+            "title": "ब्लॉकचेन क्या है?",
+            "subtitle": "वितरित लेजर तकनीक को समझना",
+            "duration": "45 min"
+          },
+          "module2": {
+            "title": "क्रिप्टोग्राफी मूल बातें",
+            "subtitle": "हैश फंक्शन, हस्ताक्षर और एन्क्रिप्शन",
+            "duration": "60 min"
+          },
+          "module3": {
+            "title": "सहमति तंत्र",
+            "subtitle": "PoW, PoS, और TBurn का प्रूफ ऑफ ट्रस्ट",
+            "duration": "75 min"
+          },
+          "module4": {
+            "title": "TBurn Chain आर्किटेक्चर",
+            "subtitle": "हमारे ट्रस्ट-आधारित सिस्टम में गहराई से",
+            "duration": "60 min"
+          }
+        },
+        "whatYouWillLearn": "आप क्या सीखेंगे",
+        "learningOutcomes": {
+          "item1": "ब्लॉकचेन मूल बातें और वितरित सिस्टम को समझें",
+          "item2": "सुरक्षित लेनदेन के पीछे क्रिप्टोग्राफिक सिद्धांतों को सीखें",
+          "item3": "विभिन्न सहमति तंत्रों का अन्वेषण करें",
+          "item4": "TBurn Chain के अद्वितीय ट्रस्ट-आधारित आर्किटेक्चर में महारत हासिल करें"
+        },
+        "prerequisitesTitle": "पूर्वापेक्षाएं",
+        "prerequisites": {
+          "item1": "बेसिक प्रोग्रामिंग ज्ञान सहायक लेकिन आवश्यक नहीं",
+          "item2": "वेब तकनीकों से परिचितता"
+        },
+        "continueLearning": {
+          "title": "सीखना जारी रखें",
+          "smartContracts": {
+            "title": "स्मार्ट कॉन्ट्रैक्ट्स",
+            "subtitle": "अपना पहला कॉन्ट्रैक्ट बनाएं"
+          },
+          "sdkGuide": {
+            "title": "SDK गाइड",
+            "subtitle": "एकीकरण दस्तावेज़ीकरण"
+          },
+          "quickStart": {
+            "title": "त्वरित शुरुआत",
+            "subtitle": "अपना पहला dApp तैनात करें"
+          },
+          "documentation": {
+            "title": "दस्तावेज़ीकरण",
+            "subtitle": "पूर्ण API संदर्भ"
+          }
+        },
+        "upNext": {
+          "label": "आगे",
+          "title": "ट्रस्ट स्कोर सिस्टम",
+          "level": "मध्यवर्ती स्तर"
+        }
       },
       "defiMastery": {
         "tag": "मध्यवर्ती",
         "title": "DeFi मास्टरी",
-        "subtitle": "DEX, लेंडिंग और यील्ड रणनीतियों सहित विकेंद्रीकृत वित्त अवधारणाओं में महारत हासिल करें।"
+        "subtitle": "DEX, लेंडिंग और यील्ड रणनीतियों सहित विकेंद्रीकृत वित्त अवधारणाओं में महारत हासिल करें।",
+        "duration": "8 घंटे",
+        "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
+        "stats": {
+          "tvl": {
+            "value": "$2.1B",
+            "label": "कुल लॉक्ड वैल्यू"
+          },
+          "apy": {
+            "value": "18.5%",
+            "label": "औसत APY"
+          },
+          "protocols": {
+            "value": "45+",
+            "label": "सक्रिय प्रोटोकॉल"
+          }
+        },
+        "courseOverview": {
+          "title": "कोर्स अवलोकन",
+          "description": "यह उन्नत कोर्स TBurn Chain पर विकेंद्रीकृत वित्त के बारे में सब कुछ कवर करता है। AMM मैकेनिक्स को समझने से लेकर जटिल यील्ड फार्मिंग रणनीतियों को लागू करने तक, आप DeFi इकोसिस्टम में नेविगेट करने के लिए व्यावहारिक कौशल प्राप्त करेंगे।",
+          "videoTitle": "DeFi मूल बातें",
+          "videoSubtitle": "कोर्स पूर्वावलोकन",
+          "figureCaption": "चित्र: DeFi प्रोटोकॉल अवलोकन"
+        },
+        "curriculumTitle": "कोर्स पाठ्यक्रम",
+        "curriculum": {
+          "module1": {
+            "title": "DEX और AMM मैकेनिक्स",
+            "subtitle": "स्वचालित बाजार निर्माताओं को समझना",
+            "duration": "90 min"
+          },
+          "module2": {
+            "title": "लेंडिंग प्रोटोकॉल",
+            "subtitle": "संपार्श्विक उधार और उधारी",
+            "duration": "120 min"
+          },
+          "module3": {
+            "title": "लिक्विडिटी प्रोविजन",
+            "subtitle": "LP टोकन, अस्थायी नुकसान और पुरस्कार",
+            "duration": "90 min"
+          },
+          "module4": {
+            "title": "यील्ड रणनीतियां",
+            "subtitle": "ट्रस्ट-बूस्टेड यील्ड के साथ रिटर्न ऑप्टिमाइज़ करना",
+            "duration": "120 min"
+          }
+        },
+        "keyTakeawaysTitle": "मुख्य निष्कर्ष",
+        "keyTakeaways": {
+          "item1": "AMM मैकेनिक्स और लिक्विडिटी पूल डायनामिक्स में महारत हासिल करें",
+          "item2": "लेंडिंग प्रोटोकॉल और संपार्श्विक प्रबंधन को समझें",
+          "item3": "यील्ड ऑप्टिमाइज़ेशन रणनीतियों को लागू करें"
+        },
+        "prerequisitesTitle": "पूर्वापेक्षाएं",
+        "prerequisites": {
+          "item1": "ब्लॉकचेन बेसिक्स कोर्स",
+          "item2": "वॉलेट ऑपरेशन की समझ"
+        },
+        "developerResources": {
+          "title": "डेवलपर संसाधन",
+          "description": "इन संसाधनों का उपयोग करके TBurn DeFi प्रोटोकॉल के साथ बिल्ड और इंटीग्रेट करें।",
+          "smartContracts": {
+            "title": "DeFi कॉन्ट्रैक्ट्स",
+            "subtitle": "AMM और लेंडिंग कॉन्ट्रैक्ट्स"
+          },
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "प्रोटोकॉल एकीकरण"
+          },
+          "apiReference": {
+            "title": "API संदर्भ",
+            "subtitle": "REST और GraphQL APIs"
+          },
+          "websocket": {
+            "title": "WebSocket फीड्स",
+            "subtitle": "रियल-टाइम मूल्य डेटा"
+          },
+          "codeExamples": {
+            "title": "कोड उदाहरण",
+            "subtitle": "नमूना एकीकरण"
+          },
+          "quickStart": {
+            "title": "त्वरित शुरुआत",
+            "subtitle": "5-मिनट सेटअप गाइड"
+          }
+        },
+        "upNext": {
+          "label": "आगे",
+          "title": "डेवलपर कोर्स",
+          "subtitle": "अपने dApps बनाएं"
+        }
       },
       "developerCourse": {
         "tag": "उन्नत",
         "title": "डेवलपर कोर्स",
-        "subtitle": "TBurn Chain पर dApps बनाने और तैनात करने की पूर्ण गाइड।"
+        "subtitle": "TBurn Chain पर dApps बनाने और तैनात करने की पूर्ण गाइड।",
+        "duration": "20 घंटे",
+        "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
+        "courseOverview": {
+          "title": "कोर्स अवलोकन",
+          "description": "यह व्यापक डेवलपर कोर्स आपको शून्य से TBurn Chain पर प्रोडक्शन-रेडी dApps तैनात करने तक ले जाता है।"
+        },
+        "curriculumTitle": "कोर्स पाठ्यक्रम",
+        "curriculum": {
+          "module1": {
+            "title": "SDK सेटअप और कॉन्फ़िगरेशन",
+            "subtitle": "वातावरण सेटअप और प्रोजेक्ट इनिशियलाइजेशन",
+            "duration": "2 घंटे"
+          },
+          "module2": {
+            "title": "स्मार्ट कॉन्ट्रैक्ट विकास",
+            "subtitle": "सुरक्षित, ऑप्टिमाइज्ड कॉन्ट्रैक्ट्स लिखना",
+            "duration": "6 घंटे"
+          },
+          "module3": {
+            "title": "API एकीकरण",
+            "subtitle": "REST, GraphQL, और WebSocket APIs",
+            "duration": "4 घंटे"
+          },
+          "module4": {
+            "title": "परिनियोजन और DevOps",
+            "subtitle": "मेननेट परिनियोजन और मॉनिटरिंग",
+            "duration": "4 घंटे"
+          }
+        },
+        "codeExample": {
+          "title": "कोड उदाहरण",
+          "language": "TypeScript"
+        },
+        "developerTools": {
+          "title": "डेवलपर टूल्स",
+          "description": "TBurn Chain पर बनाने के लिए आवश्यक सभी टूल्स एक्सेस करें।",
+          "quickStart": {
+            "title": "त्वरित शुरुआत",
+            "subtitle": "5-मिनट सेटअप गाइड"
+          },
+          "installation": {
+            "title": "इंस्टॉलेशन",
+            "subtitle": "चरण-दर-चरण गाइड"
+          },
+          "documentation": {
+            "title": "दस्तावेज़ीकरण",
+            "subtitle": "पूर्ण API संदर्भ"
+          },
+          "evmMigration": {
+            "title": "EVM माइग्रेशन",
+            "subtitle": "Ethereum dApps पोर्ट करें"
+          }
+        },
+        "keyTakeawaysTitle": "मुख्य निष्कर्ष",
+        "keyTakeaways": {
+          "item1": "TBurn SDK सेटअप और कॉन्फ़िगर करें",
+          "item2": "परीक्षण के साथ सुरक्षित स्मार्ट कॉन्ट्रैक्ट्स लिखें",
+          "item3": "ट्रस्ट स्कोर APIs के साथ एकीकृत करें",
+          "item4": "सर्वोत्तम अभ्यासों के साथ मेननेट पर तैनात करें"
+        },
+        "prerequisitesTitle": "पूर्वापेक्षाएं",
+        "prerequisites": {
+          "item1": "JavaScript/TypeScript दक्षता",
+          "item2": "Solidity मूल बातें अनुशंसित",
+          "item3": "ब्लॉकचेन मूल बातें"
+        },
+        "certification": {
+          "title": "प्रमाणपत्र अर्जित करें",
+          "description": "अपना TBurn डेवलपर प्रमाणन बैज प्राप्त करने के लिए कोर्स पूरा करें।"
+        },
+        "resourcesTitle": "संसाधन",
+        "resources": {
+          "apiReference": "API संदर्भ",
+          "sdkGuide": "SDK गाइड",
+          "smartContracts": "स्मार्ट कॉन्ट्रैक्ट्स",
+          "cliReference": "CLI संदर्भ",
+          "websocketApi": "WebSocket API",
+          "codeExamples": "कोड उदाहरण"
+        }
       },
       "introToDefi": {
         "tag": "शुरुआती",
         "title": "DeFi का परिचय",
-        "subtitle": "TBurn Chain पर विकेंद्रीकृत वित्त में आपके पहले कदम।"
+        "subtitle": "TBurn Chain पर विकेंद्रीकृत वित्त में आपके पहले कदम।",
+        "duration": "2 घंटे",
+        "backToEducation": "शिक्षा कार्यक्रमों पर वापस जाएं",
+        "scoreFormula": {
+          "title": "ट्रस्ट स्कोर फॉर्मूला",
+          "burnCompliance": {
+            "percentage": "40%",
+            "title": "बर्न अनुपालन",
+            "subtitle": "टोकन बर्निंग शेड्यूल पालन"
+          },
+          "devProgress": {
+            "percentage": "35%",
+            "title": "विकास प्रगति",
+            "subtitle": "विकास मील का पत्थर पूर्णता"
+          },
+          "transparency": {
+            "percentage": "25%",
+            "title": "पारदर्शिता",
+            "subtitle": "ऑन-चेन डेटा प्रकटीकरण"
+          }
+        },
+        "verification": {
+          "title": "3-चरण सत्यापन प्रक्रिया",
+          "stage1": {
+            "title": "AI विश्लेषण",
+            "description": "ट्रिपल-बैंड AI प्रोजेक्ट डेटा, स्मार्ट कॉन्ट्रैक्ट्स और सोशल उपस्थिति को स्कैन करता है।",
+            "duration": "24 घंटे"
+          },
+          "stage2": {
+            "title": "विशेषज्ञ समीक्षा",
+            "description": "मानव विशेषज्ञ AI निष्कर्षों को मान्य करते हैं और गहन विश्लेषण करते हैं।",
+            "duration": "7-14 दिन"
+          },
+          "stage3": {
+            "title": "समुदाय वोट",
+            "description": "विशेषज्ञ समीक्षा के बाद टोकन धारक अंतिम अनुमोदन पर वोट करते हैं।",
+            "duration": "3-5 दिन"
+          }
+        },
+        "scoreActions": {
+          "title": "ट्रस्ट स्कोर के आधार पर कार्रवाइयां",
+          "excellent": {
+            "label": "उत्कृष्ट",
+            "description": "पूर्ण ट्रेडिंग एक्सेस, प्राथमिकता लिस्टिंग और यील्ड बूस्ट पात्रता।"
+          },
+          "good": {
+            "label": "अच्छा",
+            "description": "बढ़ी हुई दृश्यता के साथ मानक ट्रेडिंग एक्सेस।"
+          },
+          "warning": {
+            "label": "चेतावनी",
+            "description": "सीमित ट्रेडिंग, उपयोगकर्ताओं को चेतावनी लेबल प्रदर्शित।"
+          },
+          "danger": {
+            "label": "प्रतिबंधित",
+            "description": "ट्रेडिंग निलंबित, प्रोजेक्ट जांच के अधीन।"
+          }
+        },
+        "hybridBurn": {
+          "title": "हाइब्रिड फोर्स्ड बर्न मैकेनिज्म",
+          "description": "जब प्रोजेक्ट बर्न शेड्यूल प्रतिबद्धताओं को पूरा करने में विफल होते हैं, तो हमारे स्मार्ट कॉन्ट्रैक्ट स्वचालित रूप से टोकन विनाश लागू करते हैं।",
+          "figureCaption": "चित्र: ऑटो-बर्न फ्लो आरेख"
+        },
+        "burnSteps": {
+          "step1": {
+            "title": "शेड्यूल मॉनिटरिंग",
+            "description": "AI रियल-टाइम में बर्न शेड्यूल अनुपालन की निगरानी करता है"
+          },
+          "step2": {
+            "title": "चेतावनी अवधि",
+            "description": "प्रोजेक्ट को सूचनाओं के साथ 48-घंटे की छूट अवधि"
+          },
+          "step3": {
+            "title": "स्वचालित निष्पादन",
+            "description": "स्मार्ट कॉन्ट्रैक्ट रिजर्व वॉलेट से टोकन बर्न करता है"
+          }
+        },
+        "developerResources": {
+          "title": "डेवलपर संसाधन",
+          "description": "निर्माण के लिए तैयार हैं? हमारे डेवलपर टूल्स और दस्तावेज़ीकरण का अन्वेषण करें।",
+          "smartContracts": {
+            "title": "स्मार्ट कॉन्ट्रैक्ट्स",
+            "subtitle": "ट्रस्ट स्कोर एकीकरण"
+          },
+          "sdkGuide": {
+            "title": "SDK गाइड",
+            "subtitle": "त्वरित एकीकरण"
+          },
+          "apiReference": {
+            "title": "API संदर्भ",
+            "subtitle": "REST और GraphQL"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "रियल-टाइम अपडेट"
+          },
+          "quickStart": {
+            "title": "त्वरित शुरुआत",
+            "subtitle": "5-मिनट सेटअप"
+          },
+          "codeExamples": {
+            "title": "कोड उदाहरण",
+            "subtitle": "नमूना प्रोजेक्ट्स"
+          }
+        },
+        "continueLearning": {
+          "label": "सीखना जारी रखें",
+          "defiMastery": {
+            "title": "DeFi मास्टरी",
+            "level": "मध्यवर्ती स्तर"
+          }
+        },
+        "forDevelopers": {
+          "label": "डेवलपर्स के लिए",
+          "developerCourse": {
+            "title": "डेवलपर कोर्स",
+            "level": "उन्नत स्तर"
+          }
+        }
       },
       "educationPrograms": {
         "tag": "प्रोग्राम्स",
@@ -5555,11 +6205,40 @@
         "subtitle": "अगली पीढ़ी के ट्रस्ट-आधारित एप्लिकेशन बनाएं। TBurn Chain V4 इकोसिस्टम के लिए व्यापक विकास उपकरण, SDKs और APIs एक्सेस करें।",
         "getStarted": "शुरू करें",
         "viewDocs": "दस्तावेज़ देखें",
-        "quickStart": "क्विक स्टार्ट",
-        "sdks": "आधिकारिक SDKs",
-        "apiReference": "API संदर्भ",
-        "devTools": "डेवलपर टूल्स",
-        "grants": "डेवलपर अनुदान",
+        "quickStart": {
+          "title": "त्वरित शुरुआत",
+          "subtitle": "5 मिनट में अपना पहला dApp तैनात करें"
+        },
+        "sdks": {
+          "title": "आधिकारिक SDKs",
+          "subtitle": "आपकी पसंदीदा भाषाओं के लिए मूल समर्थन"
+        },
+        "apiReference": {
+          "title": "API संदर्भ",
+          "subtitle": "RESTful API और WebSocket स्ट्रीमिंग",
+          "blockchainApi": "ब्लॉकचेन API",
+          "defiApi": "DeFi API",
+          "aiApi": "AI API"
+        },
+        "devTools": {
+          "burnCli": {
+            "title": "Burn CLI",
+            "description": "प्रोजेक्ट इनिट और तैनाती"
+          },
+          "testFramework": {
+            "title": "टेस्ट फ्रेमवर्क",
+            "description": "यूनिट और E2E टेस्टिंग"
+          },
+          "localDevnet": {
+            "title": "लोकल Devnet",
+            "description": "सिम्युलेटर वातावरण"
+          }
+        },
+        "grants": {
+          "title": "डेवलपर अनुदान कार्यक्रम",
+          "subtitle": "हम उन प्रोजेक्ट्स का समर्थन करते हैं जो TBurn Chain इकोसिस्टम का विस्तार करते हैं।",
+          "totalFund": "$50M कुल अनुदान फंड"
+        },
         "quickStartSteps": {
           "install": {
             "title": "CLI इंस्टॉल करें",
@@ -5572,32 +6251,65 @@
           "deploy": {
             "title": "कॉन्ट्रैक्ट तैनात करें",
             "command": "tburn deploy --network mainnet"
+          },
+          "step1": {
+            "comment": "# CLI इंस्टॉल करें"
+          },
+          "step2": {
+            "comment": "# प्रोजेक्ट बनाएं"
+          },
+          "step3": {
+            "comment": "# Dev सर्वर चलाएं"
+          },
+          "step4": {
+            "comment": "# मेननेट पर तैनात करें"
           }
         },
         "sdkList": {
           "javascript": {
             "name": "JavaScript/TypeScript",
-            "package": "@tburn/sdk"
+            "package": "@tburn/sdk",
+            "version": "v4.2.1",
+            "install": "npm install @burnchain/sdk",
+            "downloads": "1.2M/मासिक डाउनलोड"
           },
           "python": {
             "name": "Python",
-            "package": "tburn-sdk"
+            "package": "tburn-sdk",
+            "version": "v4.1.0",
+            "install": "pip install burnchain-py",
+            "downloads": "450K/मासिक डाउनलोड"
           },
           "rust": {
             "name": "Rust",
-            "package": "tburn-rs"
+            "package": "tburn-rs",
+            "version": "v4.0.3",
+            "install": "cargo add burnchain-rs",
+            "downloads": "280K/मासिक डाउनलोड"
           },
           "go": {
             "name": "Go",
-            "package": "github.com/tburn/go-sdk"
+            "package": "github.com/tburn/go-sdk",
+            "version": "v4.0.2",
+            "install": "go get github.com/burnchain/go",
+            "downloads": "180K/मासिक डाउनलोड"
           },
           "java": {
             "name": "Java",
-            "package": "io.tburn.sdk"
+            "package": "io.tburn.sdk",
+            "version": "v4.0.1",
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "120K/मासिक डाउनलोड"
           },
           "csharp": {
             "name": "C#/.NET",
             "package": "TBurn.SDK"
+          },
+          "swift": {
+            "name": "Swift",
+            "version": "v4.0.0",
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "85K/मासिक डाउनलोड"
           }
         },
         "apiEndpoints": {
@@ -5640,7 +6352,8 @@
           "seed": {
             "title": "सीड ग्रांट",
             "amount": "$5,000 - $25,000",
-            "description": "प्रारंभिक-चरण प्रोजेक्ट्स के लिए"
+            "description": "प्रारंभिक-चरण प्रोजेक्ट्स के लिए",
+            "tier": "सीड"
           },
           "growth": {
             "title": "ग्रोथ ग्रांट",
@@ -5650,8 +6363,22 @@
           "enterprise": {
             "title": "एंटरप्राइज ग्रांट",
             "amount": "$100,000+",
-            "description": "प्रमुख एकीकरण के लिए"
+            "description": "प्रमुख एकीकरण के लिए",
+            "tier": "एंटरप्राइज"
+          },
+          "build": {
+            "tier": "बिल्ड",
+            "amount": "$25K - $100K",
+            "description": "MVP विकास"
+          },
+          "scale": {
+            "tier": "स्केल",
+            "amount": "$100K - $500K",
+            "description": "प्रोडक्शन तैयार"
           }
+        },
+        "devToolsSection": {
+          "title": "विकास टूल्स"
         }
       },
       "docs": {
@@ -5743,6 +6470,18 @@
           "diamond": {
             "name": "डायमंड",
             "boost": "2.0x"
+          },
+          "standard": {
+            "name": "मानक",
+            "requirement": "कोई आवश्यकता नहीं"
+          },
+          "mid": {
+            "name": "ट्रस्ट LV.1",
+            "requirement": "ट्रस्ट स्कोर 60+"
+          },
+          "max": {
+            "name": "ट्रस्ट LV.2",
+            "requirement": "ट्रस्ट स्कोर 80+"
           }
         },
         "cta": {
@@ -5750,6 +6489,119 @@
           "subtitle": "सबसे विश्वसनीय विकेंद्रीकृत वित्त इकोसिस्टम एक्सेस करें",
           "launchApp": "ऐप लॉन्च करें",
           "viewDocs": "दस्तावेज़ देखें"
+        },
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "24घं वॉल्यूम",
+          "activeLPs": "सक्रिय LPs",
+          "avgApy": "औसत APY"
+        },
+        "dex": {
+          "title": "संकेंद्रित लिक्विडिटी DEX",
+          "description": "संकेंद्रित लिक्विडिटी पोजीशन के साथ पूंजी-कुशल AMM।",
+          "feature1": "उच्च यील्ड के लिए संकेंद्रित लिक्विडिटी पोजीशन",
+          "feature2": "कई शुल्क स्तर (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "उन्नत ट्रेडिंग रणनीतियों के लिए रेंज ऑर्डर",
+          "price": "मूल्य",
+          "liquidity": "लिक्विडिटी",
+          "volume24h": "24घं वॉल्यूम"
+        },
+        "lending": {
+          "title": "संपार्श्विक लेंडिंग",
+          "description": "प्रतिस्पर्धी दरों के साथ अपनी क्रिप्टो संपत्तियों के विरुद्ध उधार लें।",
+          "maxLtv": "अधिकतम 80% LTV",
+          "tburnLtv": "TBURN LTV",
+          "stablecoinLtv": "स्टेबलकॉइन LTV"
+        },
+        "staking": {
+          "title": "लिक्विड स्टेकिंग",
+          "description": "TBURN स्टेक करें और sTBURN प्राप्त करें।",
+          "apy": "18.5% APY",
+          "exchangeRate": "एक्सचेंज रेट",
+          "rewardCycle": "रिवॉर्ड साइकिल",
+          "everyEpoch": "हर एपॉक (24घं)"
+        },
+        "yieldFarming": {
+          "tag": "यील्ड फार्मिंग",
+          "title": "ट्रस्ट-बूस्टेड यील्ड",
+          "subtitle": "अपने ट्रस्ट स्कोर टियर के आधार पर बोनस रिवॉर्ड अर्जित करें"
+        },
+        "buttons": {
+          "startTrading": "ट्रेडिंग शुरू करें",
+          "viewAllFarms": "सभी फार्म देखें"
+        },
+        "relatedSolutions": {
+          "description": "इन पूरक समाधानों के साथ अपनी DeFi क्षमताओं का विस्तार करें",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "Bitcoin DeFi समाधान"
+          },
+          "bridge": {
+            "title": "क्रॉस-चेन ब्रिज",
+            "subtitle": "मल्टी-चेन ट्रांसफर"
+          },
+          "tokenExtensions": {
+            "title": "टोकन एक्सटेंशन",
+            "subtitle": "BRC-20 मानक"
+          },
+          "wallets": {
+            "title": "वॉलेट्स",
+            "subtitle": "सुरक्षित कनेक्शन"
+          },
+          "payments": {
+            "title": "भुगतान",
+            "subtitle": "वैश्विक वाणिज्य"
+          },
+          "financial": {
+            "title": "वित्तीय सेवाएं",
+            "subtitle": "संस्थागत टूल्स"
+          },
+          "permissioned": {
+            "title": "अनुमति प्राप्त नेटवर्क",
+            "subtitle": "एंटरप्राइज समाधान"
+          },
+          "aiFeatures": {
+            "title": "AI विशेषताएं",
+            "subtitle": "स्मार्ट ऑटोमेशन"
+          }
+        },
+        "developerResources": {
+          "description": "हमारे व्यापक डेवलपर टूल्स का उपयोग करके TBurn DeFi के साथ बिल्ड और इंटीग्रेट करें",
+          "sdkGuide": {
+            "title": "DeFi SDK गाइड",
+            "subtitle": "एकीकरण दस्तावेज़ीकरण"
+          },
+          "smartContracts": {
+            "title": "स्मार्ट कॉन्ट्रैक्ट्स",
+            "subtitle": "सत्यापित कॉन्ट्रैक्ट्स"
+          },
+          "apiReference": {
+            "title": "API संदर्भ",
+            "subtitle": "REST और GraphQL APIs"
+          },
+          "websocket": {
+            "title": "WebSocket फीड्स",
+            "subtitle": "रियल-टाइम डेटा स्ट्रीम"
+          },
+          "cli": {
+            "title": "CLI टूल्स",
+            "subtitle": "कमांड लाइन इंटरफ़ेस"
+          },
+          "examples": {
+            "title": "कोड उदाहरण",
+            "subtitle": "नमूना एकीकरण"
+          }
+        },
+        "learnPages": {
+          "gettingStarted": "शुरू करना",
+          "defiMastery": {
+            "title": "DeFi मास्टरी कोर्स",
+            "subtitle": "उन्नत यील्ड रणनीतियां और जोखिम प्रबंधन"
+          },
+          "introToDefi": {
+            "title": "DeFi का परिचय",
+            "subtitle": "विकेंद्रीकृत वित्त की मूल बातें सीखें"
+          }
         }
       },
       "tokenExtensions": {
@@ -5876,7 +6728,8 @@
           "step3": {
             "title": "सुरक्षित निष्पादन",
             "description": "लेनदेन तभी निष्पादित होता है जब उपयोगकर्ता स्वीकृत करता है और विश्वास स्कोर सुरक्षित है (>40%)।"
-          }
+          },
+          "figureLabel": "एक्शन फ्लो आरेख"
         },
         "realWorldApps": {
           "title": "वास्तविक-विश्व एप्लिकेशन",
@@ -5898,7 +6751,73 @@
           }
         },
         "developerQuickStart": {
-          "title": "डेवलपर क्विक स्टार्ट"
+          "title": "डेवलपर क्विक स्टार्ट",
+          "step1": {
+            "title": "मूल एक्शन URL संरचना"
+          },
+          "step2": {
+            "title": "OpenGraph मेटा टैग जोड़ें"
+          },
+          "step3": {
+            "title": "तैनात करें और साझा करें",
+            "description": "एक्शन अब प्लेटफॉर्मों पर साझा करने योग्य है"
+          }
+        },
+        "relatedSolutions": {
+          "description": "इन पूरक समाधानों के साथ अपनी ब्लॉकचेन एक्शन्स को बढ़ाएं",
+          "wallets": {
+            "title": "वॉलेट्स",
+            "subtitle": "सुरक्षित कनेक्शन"
+          },
+          "payments": {
+            "title": "भुगतान",
+            "subtitle": "वैश्विक वाणिज्य"
+          },
+          "commerce": {
+            "title": "कॉमर्स",
+            "subtitle": "मर्चेंट टूल्स"
+          },
+          "tokenExtensions": {
+            "title": "टोकन एक्सटेंशन",
+            "subtitle": "BRC-20 मानक"
+          }
+        },
+        "developerResources": {
+          "description": "हमारे व्यापक डेवलपर टूलकिट के साथ शक्तिशाली ब्लॉकचेन एक्शन्स बनाएं",
+          "sdkGuide": {
+            "title": "एक्शन्स SDK",
+            "subtitle": "एकीकरण दस्तावेज़ीकरण"
+          },
+          "smartContracts": {
+            "title": "स्मार्ट कॉन्ट्रैक्ट्स",
+            "subtitle": "सत्यापित कॉन्ट्रैक्ट्स"
+          },
+          "apiReference": {
+            "title": "API संदर्भ",
+            "subtitle": "REST एंडपॉइंट्स"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "रियल-टाइम इवेंट्स"
+          },
+          "cli": {
+            "title": "CLI टूल्स",
+            "subtitle": "कमांड लाइन"
+          },
+          "examples": {
+            "title": "उदाहरण",
+            "subtitle": "नमूना कोड"
+          }
+        },
+        "learnPages": {
+          "introToDefi": {
+            "title": "DeFi का परिचय",
+            "subtitle": "विकेंद्रीकृत वित्त की मूल बातें सीखें"
+          },
+          "developerCourse": {
+            "title": "डेवलपर कोर्स",
+            "subtitle": "TBurn Chain पर dApps बनाएं"
+          }
         }
       },
       "wallets": {
@@ -5941,7 +6860,8 @@
           },
           "autoWarningSystem": {
             "title": "ऑटो-वॉर्निंग सिस्टम",
-            "description": "कम-विश्वास (<40) लेनदेन पर चेतावनी प्रदर्शित करने के लिए मानक प्रोटोकॉल।"
+            "description": "कम-विश्वास (<40) लेनदेन पर चेतावनी प्रदर्शित करने के लिए मानक प्रोटोकॉल।",
+            "warningExample": "ट्रस्ट स्कोर < 40 - उच्च जोखिम"
           },
           "walletSdk": {
             "title": "वॉलेट SDK",
@@ -6174,17 +7094,31 @@
           "priceStability": {
             "title": "मूल्य स्थिरता",
             "points": "30 अंक",
-            "description": "दैनिक अस्थिरता, मार्केट कैप और तरलता पूल गहराई के आधार पर मूल्यांकन।"
+            "description": "दैनिक अस्थिरता, मार्केट कैप और तरलता पूल गहराई के आधार पर मूल्यांकन।",
+            "scoring": {
+              "volatility": "< 1% दैनिक अस्थिरता",
+              "liquidity": "$10M+ लिक्विडिटी"
+            }
           },
           "contractSecurity": {
             "title": "कॉन्ट्रैक्ट सुरक्षा",
             "points": "25 अंक",
-            "description": "ऑडिट पूर्णता, रीएंट्रेंसी सुरक्षा और अपग्रेड प्राधिकरण विकेंद्रीकरण।"
+            "description": "ऑडिट पूर्णता, रीएंट्रेंसी सुरक्षा और अपग्रेड प्राधिकरण विकेंद्रीकरण।",
+            "scoring": {
+              "audits": "3+ ऑडिट पूर्ण",
+              "criticalBug": "गंभीर बग पाया गया",
+              "block": "अवरुद्ध"
+            }
           },
           "adoptionUsage": {
             "title": "अपनाना और उपयोग",
             "points": "20 अंक",
-            "description": "मर्चेंट्स की संख्या, मासिक लेनदेन वॉल्यूम और औसत पेमेंट आकार।"
+            "description": "मर्चेंट्स की संख्या, मासिक लेनदेन वॉल्यूम और औसत पेमेंट आकार।",
+            "scoring": {
+              "merchants": "100+ व्यापारी",
+              "transactions": "$1M+ मासिक",
+              "high": "उच्च"
+            }
           }
         },
         "solutionTypes": {
@@ -6223,6 +7157,9 @@
             "title": "Webhooks कॉन्फ़िगर करें",
             "description": "पेमेंट पूर्ण होने पर तत्काल सर्वर नोटिफिकेशन प्राप्त करें।"
           }
+        },
+        "buttons": {
+          "viewDocs": "दस्तावेज़ देखें"
         }
       },
       "commerce": {
@@ -6534,19 +7471,32 @@
           "title": "कोर एंडपॉइंट्स",
           "scoreQuery": {
             "title": "स्कोर क्वेरी API",
-            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+            "endpoints": [
+              "GET /score/:address",
+              "GET /score/:address/history",
+              "POST /score/batch"
+            ]
           },
           "project": {
             "title": "प्रोजेक्ट API",
-            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+            "endpoints": [
+              "GET /projects",
+              "POST /projects/register",
+              "GET /projects/:id"
+            ]
           },
           "analytics": {
             "title": "एनालिटिक्स API",
-            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+            "endpoints": [
+              "GET /analytics/trends",
+              "GET /analytics/leaderboard"
+            ]
           },
           "webhook": {
             "title": "Webhook API",
-            "endpoints": ["POST /webhooks"],
+            "endpoints": [
+              "POST /webhooks"
+            ],
             "events": "इवेंट्स: score.updated, score.alert, project.registered"
           }
         },

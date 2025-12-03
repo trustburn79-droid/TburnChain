@@ -365,7 +365,7 @@
     "fromChain": "Da Chain",
     "toChain": "Para Chain",
     "amount": "Valor",
-    "fee": "Taxa da Ponte",
+    "fee": "Taxa",
     "estimatedTime": "Tempo Estimado",
     "initiate": "Iniciar Transferência",
     "claim": "Reivindicar",
@@ -391,7 +391,6 @@
     "from": "De",
     "to": "Para",
     "confirmations": "Confirmações",
-    "fee": "Taxa",
     "sender": "Remetente",
     "recipient": "Destinatário",
     "sourceTxHash": "Hash TX Origem",
@@ -1020,7 +1019,31 @@
     "ai": "IA",
     "aiProcessing": "Processamento IA",
     "uptime": "Tempo Ativo",
-    "decisions": "Decisões",
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Padrão de anomalia detectado e resolvido",
+      "consensus_threshold_achieved": "Limiar de consenso alcançado",
+      "smart_contract_execution_approved": "Execução de contrato inteligente aprovada",
+      "block_validation_complete": "Validação de bloco concluída",
+      "validator_performance_analyzed": "Desempenho do validador analisado",
+      "network_latency_adjusted": "Latência de rede ajustada",
+      "transaction_verified_successfully": "Transação verificada com sucesso",
+      "security_protocol_updated": "Protocolo de segurança atualizado",
+      "gas_fee_optimization_applied": "Otimização de taxa de gas aplicada",
+      "shard_rebalancing_complete": "Rebalanceamento de shards concluído",
+      "cross_chain_transfer_validated": "Transferência cross-chain validada",
+      "stake_distribution_optimized": "Distribuição de stake otimizada",
+      "shard_load_balanced": "Carga de shards balanceada",
+      "gas_fee_optimized": "Taxa de gas otimizada",
+      "load_balancing_complete": "Balanceamento de carga completo",
+      "consensus_achieved": "Consenso alcançado",
+      "validator_rotation_complete": "Rotação de validadores completa",
+      "block_finalized": "Bloco finalizado",
+      "transaction_batch_processed": "Lote de transações processado",
+      "network_optimization_applied": "Otimização de rede aplicada",
+      "security_check_passed": "Verificação de segurança aprovada",
+      "resource_allocation_optimized": "Alocação de recursos otimizada",
+      "crossshard_message_routed": "Mensagem cross-shard roteada"
+    },
     "actions": "Ações",
     "operations": "Operações",
     "accuracy": "Precisão",
@@ -1056,31 +1079,6 @@
       "strategic": "Estratégico",
       "tactical": "Tático",
       "operational": "Operacional"
-    },
-    "decisions": {
-      "anomaly_pattern_detected_and_resolved": "Padrão de anomalia detectado e resolvido",
-      "consensus_threshold_achieved": "Limiar de consenso alcançado",
-      "smart_contract_execution_approved": "Execução de contrato inteligente aprovada",
-      "block_validation_complete": "Validação de bloco concluída",
-      "validator_performance_analyzed": "Desempenho do validador analisado",
-      "network_latency_adjusted": "Latência de rede ajustada",
-      "transaction_verified_successfully": "Transação verificada com sucesso",
-      "security_protocol_updated": "Protocolo de segurança atualizado",
-      "gas_fee_optimization_applied": "Otimização de taxa de gas aplicada",
-      "shard_rebalancing_complete": "Rebalanceamento de shards concluído",
-      "cross_chain_transfer_validated": "Transferência cross-chain validada",
-      "stake_distribution_optimized": "Distribuição de stake otimizada",
-      "shard_load_balanced": "Carga de shards balanceada",
-      "gas_fee_optimized": "Taxa de gas otimizada",
-      "load_balancing_complete": "Balanceamento de carga completo",
-      "consensus_achieved": "Consenso alcançado",
-      "validator_rotation_complete": "Rotação de validadores completa",
-      "block_finalized": "Bloco finalizado",
-      "transaction_batch_processed": "Lote de transações processado",
-      "network_optimization_applied": "Otimização de rede aplicada",
-      "security_check_passed": "Verificação de segurança aprovada",
-      "resource_allocation_optimized": "Alocação de recursos otimizada",
-      "crossshard_message_routed": "Mensagem cross-shard roteada"
     },
     "categories": {
       "security": "Segurança",
@@ -1590,7 +1588,7 @@
     "generateReport": "Gerar Relatório",
     "downloadReport": "Baixar Relatório",
     "dashboard": {
-    "technicalDetails": "Technical Details",
+      "technicalDetails": "Technical Details",
       "title": "Portal do Operador",
       "subtitle": "Back-office empresarial para gerenciamento de rede TBURN",
       "autoRefresh": "Auto",
@@ -2043,7 +2041,39 @@
       "reports": "Relatórios",
       "templates": "Modelos",
       "schedules": "Agendamentos",
-      "compliance": "Conformidade",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Proteção de Dados",
+          "financialReporting": "Relatórios Financeiros",
+          "networkSecurity": "Segurança de Rede",
+          "operational": "Operacional"
+        },
+        "requirements": {
+          "identityVerification": "Todos os membros devem completar a verificação de identidade em 30 dias",
+          "sarFiling": "Relatórios de Atividade Suspeita (SARs) arquivados em 72 horas",
+          "gdprCompliance": "Conformidade GDPR para tratamento de dados de membros da UE",
+          "encryptionAtRest": "Criptografia em repouso para todos os dados sensíveis",
+          "quarterlyStatements": "Demonstrações financeiras trimestrais enviadas aos reguladores",
+          "annualAudit": "Auditoria anual por terceiro certificado",
+          "multiSig": "Requisito de multi-assinatura para transações do tesouro",
+          "validatorKyc": "KYC de validador para participação no comitê",
+          "disasterRecovery": "Plano de recuperação de desastres testado trimestralmente",
+          "incidentResponse": "Resposta a incidentes de segurança em 1 hora"
+        },
+        "notes": {
+          "complianceRate": "Taxa de conformidade de 98,5%",
+          "sarFiledOnTime": "Todos os SARs arquivados no prazo",
+          "annualAuditPassed": "Auditoria anual aprovada",
+          "aesEncryption": "Criptografia AES-256 verificada",
+          "q4ReportPreparation": "Relatório Q4 2025 em preparação",
+          "auditCleanOpinion": "Auditoria 2024 concluída - parecer limpo",
+          "multiSigActive": "Multisig 3-de-5 ativo",
+          "validatorsVerified": "Todos os 125 validadores verificados",
+          "nextTestScheduled": "Próximo teste agendado para dezembro",
+          "monitoringActive": "Monitoramento 24/7 ativo"
+        }
+      },
       "totalReports": "Total de Relatórios",
       "draft": "Rascunho",
       "pendingReview": "Revisão Pendente",
@@ -2101,39 +2131,6 @@
         "quarterlyValidatorReport": "Relatório de Validadores Trimestral"
       },
       "complianceTab": "Conformidade",
-      "compliance": {
-        "categories": {
-          "kycAml": "KYC/AML",
-          "dataProtection": "Proteção de Dados",
-          "financialReporting": "Relatórios Financeiros",
-          "networkSecurity": "Segurança de Rede",
-          "operational": "Operacional"
-        },
-        "requirements": {
-          "identityVerification": "Todos os membros devem completar a verificação de identidade em 30 dias",
-          "sarFiling": "Relatórios de Atividade Suspeita (SARs) arquivados em 72 horas",
-          "gdprCompliance": "Conformidade GDPR para tratamento de dados de membros da UE",
-          "encryptionAtRest": "Criptografia em repouso para todos os dados sensíveis",
-          "quarterlyStatements": "Demonstrações financeiras trimestrais enviadas aos reguladores",
-          "annualAudit": "Auditoria anual por terceiro certificado",
-          "multiSig": "Requisito de multi-assinatura para transações do tesouro",
-          "validatorKyc": "KYC de validador para participação no comitê",
-          "disasterRecovery": "Plano de recuperação de desastres testado trimestralmente",
-          "incidentResponse": "Resposta a incidentes de segurança em 1 hora"
-        },
-        "notes": {
-          "complianceRate": "Taxa de conformidade de 98,5%",
-          "sarFiledOnTime": "Todos os SARs arquivados no prazo",
-          "annualAuditPassed": "Auditoria anual aprovada",
-          "aesEncryption": "Criptografia AES-256 verificada",
-          "q4ReportPreparation": "Relatório Q4 2025 em preparação",
-          "auditCleanOpinion": "Auditoria 2024 concluída - parecer limpo",
-          "multiSigActive": "Multisig 3-de-5 ativo",
-          "validatorsVerified": "Todos os 125 validadores verificados",
-          "nextTestScheduled": "Próximo teste agendado para dezembro",
-          "monitoringActive": "Monitoramento 24/7 ativo"
-        }
-      },
       "complianceData": {
         "categories": {
           "kycAml": "KYC/AML",
@@ -2178,7 +2175,7 @@
       }
     },
     "staking": {
-    "details": "Details",
+      "details": "Details",
       "title": "Operações de Staking",
       "subtitle": "Gerenciar pools de staking, níveis e distribuição de recompensas",
       "refresh": "Atualizar",
@@ -3159,21 +3156,39 @@
         "title": "Aumentar a taxa de queima de 20% para 25%",
         "description": "Esta proposta visa aumentar a taxa de queima de emissões diárias de 20% para 25% para acelerar a deflação e apoiar a estabilidade de preços a longo prazo.",
         "aiRecommendation": "Esta proposta tem risco econômico moderado, mas forte apoio da comunidade. Considere implementação gradual ao longo de 30 dias.",
-        "risks": ["Volatilidade de preços a curto prazo", "Redução de incentivos de liquidez"],
-        "keyFactors": ["Forte apoio dos validadores", "Propostas similares foram aprovadas antes", "Sentimento positivo da comunidade"]
+        "risks": [
+          "Volatilidade de preços a curto prazo",
+          "Redução de incentivos de liquidez"
+        ],
+        "keyFactors": [
+          "Forte apoio dos validadores",
+          "Propostas similares foram aprovadas antes",
+          "Sentimento positivo da comunidade"
+        ]
       },
       "prop-002": {
         "title": "Adicionar suporte para ponte zkSync",
         "description": "Proposta para integrar zkSync Era como uma rede suportada na ponte cross-chain TBURN com avaliação de risco por IA.",
         "aiRecommendation": "A integração zkSync é tecnicamente viável com complexidade média. Auditoria de segurança recomendada antes da implantação.",
-        "risks": ["Riscos de nova tecnologia", "Complexidade de integração", "Fragmentação de liquidez"],
-        "keyFactors": ["Preocupações com complexidade técnica", "Forte crescimento do ecossistema zkSync", "Interesse da comunidade de desenvolvedores"]
+        "risks": [
+          "Riscos de nova tecnologia",
+          "Complexidade de integração",
+          "Fragmentação de liquidez"
+        ],
+        "keyFactors": [
+          "Preocupações com complexidade técnica",
+          "Forte crescimento do ecossistema zkSync",
+          "Interesse da comunidade de desenvolvedores"
+        ]
       },
       "prop-003": {
         "title": "Reduzir o stake mínimo para validadores Tier-1",
         "description": "Reduzir o stake mínimo de validadores Tier-1 de 200.000 TBURN para 150.000 TBURN para promover a descentralização de validadores.",
         "aiRecommendation": "A redução do requisito de stake promove a descentralização com impacto mínimo na segurança dado o sistema de reputação de IA.",
-        "risks": ["Leve aumento no número de validadores", "Diluição menor das recompensas"],
+        "risks": [
+          "Leve aumento no número de validadores",
+          "Diluição menor das recompensas"
+        ],
         "keyFactors": []
       },
       "prop-004": {
@@ -3187,8 +3202,15 @@
         "title": "Atualização de assinaturas resistentes a quantum",
         "description": "Atualização obrigatória para assinaturas híbridas CRYSTALS-Dilithium + ED25519 para todas as operações de validadores.",
         "aiRecommendation": "Atualização de segurança crítica com impacto econômico mínimo. Altamente recomendada para proteção pós-quântica.",
-        "risks": ["Complexidade do período de transição", "Ligeira sobrecarga de desempenho"],
-        "keyFactors": ["Comunidade focada em segurança", "Desvantagens mínimas", "Vantagens técnicas claras"]
+        "risks": [
+          "Complexidade do período de transição",
+          "Ligeira sobrecarga de desempenho"
+        ],
+        "keyFactors": [
+          "Comunidade focada em segurança",
+          "Desvantagens mínimas",
+          "Vantagens técnicas claras"
+        ]
       }
     }
   },
@@ -3290,7 +3312,7 @@
     }
   },
   "community": {
-    "title": "Comunidade TBURN",
+    "title": "Título",
     "subtitle": "Conecte-se, colabore e cresça com o ecossistema TBURN",
     "online": "Online",
     "totalMembers": "Total de membros",
@@ -3299,14 +3321,109 @@
     "comments": "comentários",
     "proposals": "Propostas",
     "active": "ativo",
-    "events": "Eventos",
+    "events": {
+      "launchAma": {
+        "title": "AMA de Lançamento da Mainnet",
+        "desc": "Junte-se aos nossos fundadores para uma sessão exclusiva de AMA sobre o lançamento da mainnet"
+      },
+      "defiWorkshop": {
+        "title": "Workshop DeFi",
+        "desc": "Aprenda como maximizar seus rendimentos com os protocolos DeFi TBURN"
+      },
+      "hackathon": {
+        "title": "Hackathon TBURN 2025",
+        "desc": "Construa o futuro do DeFi na TBURN e ganhe prêmios no valor de 100K TBURN"
+      },
+      "tokyoMeetup": {
+        "title": "Encontro da Comunidade: Tóquio",
+        "desc": "Conheça a comunidade TBURN pessoalmente em nosso evento em Tóquio"
+      },
+      "stakingCompetition": {
+        "title": "Competição de Staking",
+        "desc": "Compita pelas maiores recompensas de staking este mês"
+      },
+      "nftContest": {
+        "title": "Concurso de Arte NFT",
+        "desc": "Crie arte NFT com tema TBURN e ganhe prêmios"
+      },
+      "validatorTraining": {
+        "title": "Sessão de Treinamento de Validadores",
+        "desc": "Aprenda a se tornar um validador TBURN com treinamento completo"
+      },
+      "airdropEvent": {
+        "title": "Evento de Airdrop Comunitário",
+        "desc": "Airdrop exclusivo para membros ativos da comunidade. Complete tarefas para ganhar recompensas!"
+      }
+    },
     "upcoming": "próximos",
     "totalRewards": "Recompensas distribuídas",
     "overview": "Visão geral",
     "forum": "Fórum",
     "leaderboard": "Classificação",
-    "badges": "Distintivos",
-    "announcements": "Anúncios",
+    "badges": {
+      "earlyAdopter": {
+        "name": "Adotante Inicial",
+        "description": "Entrou durante o primeiro mês da mainnet"
+      },
+      "diamondHands": {
+        "name": "Mãos de Diamante",
+        "description": "Segurou TBURN por mais de 6 meses"
+      },
+      "governanceParticipant": {
+        "name": "Participante de Governança",
+        "description": "Votou em mais de 10 propostas de governança"
+      },
+      "communityHelper": {
+        "name": "Ajudante da Comunidade",
+        "description": "Ajudou mais de 50 membros da comunidade"
+      },
+      "whaleStatus": {
+        "name": "Status de Baleia",
+        "description": "Possui mais de 100K tokens TBURN"
+      },
+      "contentCreator": {
+        "name": "Criador de Conteúdo",
+        "description": "Publicou mais de 25 posts no fórum"
+      },
+      "validator": {
+        "name": "Validador",
+        "description": "Opera um nó validador mainnet"
+      },
+      "bridgePioneer": {
+        "name": "Pioneiro da Ponte",
+        "description": "Entre os primeiros 1000 usuários da ponte cross-chain"
+      },
+      "defiMaster": {
+        "name": "Mestre DeFi",
+        "description": "Usou todos os protocolos DeFi"
+      },
+      "bugHunter": {
+        "name": "Caçador de Bugs",
+        "description": "Reportou uma vulnerabilidade de segurança válida"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "Data de Lançamento da Mainnet Confirmada",
+        "content": "Estamos entusiasmados em anunciar que a Mainnet TBURN será lançada oficialmente em 1º de dezembro de 2025. Todos os sistemas prontos!"
+      },
+      "stakingTiers": {
+        "title": "Novos Níveis de Staking Lançados",
+        "content": "Apresentando níveis de staking aprimorados com até 25% APY para validadores Tier 1. Confira a página de staking para detalhes."
+      },
+      "securityAudit": {
+        "title": "Auditoria de Segurança Concluída",
+        "content": "Nossos contratos inteligentes passaram pela auditoria de segurança abrangente da CertiK sem problemas críticos."
+      },
+      "bridgeIntegration": {
+        "title": "Ponte Cross-Chain Agora Ativa",
+        "content": "A ponte TBURN está agora ativa, suportando transferências entre as redes Ethereum, BSC e Polygon."
+      },
+      "maintenance": {
+        "title": "Manutenção Programada: Atualização de Nó",
+        "content": "Janela de manutenção breve agendada para 3 de dezembro, 2:00 AM UTC. Tempo de inatividade esperado: 15 minutos."
+      }
+    },
     "important": "Importante",
     "activityFeed": "Atividade ao vivo",
     "topContributors": "Principais contribuidores",
@@ -3386,7 +3503,6 @@
     "eventDetails": "Detalhes do evento",
     "startTime": "Hora de início",
     "endTime": "Hora de término",
-    "title": "Título",
     "content": "Conteúdo",
     "contributions": "Contribuições",
     "time": {
@@ -3416,104 +3532,6 @@
       "news": "Notícias",
       "alert": "Alerta",
       "feature": "Recurso"
-    },
-    "badges": {
-      "earlyAdopter": {
-        "name": "Adotante Inicial",
-        "description": "Entrou durante o primeiro mês da mainnet"
-      },
-      "diamondHands": {
-        "name": "Mãos de Diamante",
-        "description": "Segurou TBURN por mais de 6 meses"
-      },
-      "governanceParticipant": {
-        "name": "Participante de Governança",
-        "description": "Votou em mais de 10 propostas de governança"
-      },
-      "communityHelper": {
-        "name": "Ajudante da Comunidade",
-        "description": "Ajudou mais de 50 membros da comunidade"
-      },
-      "whaleStatus": {
-        "name": "Status de Baleia",
-        "description": "Possui mais de 100K tokens TBURN"
-      },
-      "contentCreator": {
-        "name": "Criador de Conteúdo",
-        "description": "Publicou mais de 25 posts no fórum"
-      },
-      "validator": {
-        "name": "Validador",
-        "description": "Opera um nó validador mainnet"
-      },
-      "bridgePioneer": {
-        "name": "Pioneiro da Ponte",
-        "description": "Entre os primeiros 1000 usuários da ponte cross-chain"
-      },
-      "defiMaster": {
-        "name": "Mestre DeFi",
-        "description": "Usou todos os protocolos DeFi"
-      },
-      "bugHunter": {
-        "name": "Caçador de Bugs",
-        "description": "Reportou uma vulnerabilidade de segurança válida"
-      }
-    },
-    "events": {
-      "launchAma": {
-        "title": "AMA de Lançamento da Mainnet",
-        "desc": "Junte-se aos nossos fundadores para uma sessão exclusiva de AMA sobre o lançamento da mainnet"
-      },
-      "defiWorkshop": {
-        "title": "Workshop DeFi",
-        "desc": "Aprenda como maximizar seus rendimentos com os protocolos DeFi TBURN"
-      },
-      "hackathon": {
-        "title": "Hackathon TBURN 2025",
-        "desc": "Construa o futuro do DeFi na TBURN e ganhe prêmios no valor de 100K TBURN"
-      },
-      "tokyoMeetup": {
-        "title": "Encontro da Comunidade: Tóquio",
-        "desc": "Conheça a comunidade TBURN pessoalmente em nosso evento em Tóquio"
-      },
-      "stakingCompetition": {
-        "title": "Competição de Staking",
-        "desc": "Compita pelas maiores recompensas de staking este mês"
-      },
-      "nftContest": {
-        "title": "Concurso de Arte NFT",
-        "desc": "Crie arte NFT com tema TBURN e ganhe prêmios"
-      },
-      "validatorTraining": {
-        "title": "Sessão de Treinamento de Validadores",
-        "desc": "Aprenda a se tornar um validador TBURN com treinamento completo"
-      },
-      "airdropEvent": {
-        "title": "Evento de Airdrop Comunitário",
-        "desc": "Airdrop exclusivo para membros ativos da comunidade. Complete tarefas para ganhar recompensas!"
-      }
-    },
-    "announcements": {
-      "mainnetLaunch": {
-        "title": "Data de Lançamento da Mainnet Confirmada",
-        "content": "Estamos entusiasmados em anunciar que a Mainnet TBURN será lançada oficialmente em 1º de dezembro de 2025. Todos os sistemas prontos!"
-      },
-      "stakingTiers": {
-        "title": "Novos Níveis de Staking Lançados",
-        "content": "Apresentando níveis de staking aprimorados com até 25% APY para validadores Tier 1. Confira a página de staking para detalhes."
-      },
-      "securityAudit": {
-        "title": "Auditoria de Segurança Concluída",
-        "content": "Nossos contratos inteligentes passaram pela auditoria de segurança abrangente da CertiK sem problemas críticos."
-      },
-      "bridgeIntegration": {
-        "title": "Ponte Cross-Chain Agora Ativa",
-        "content": "A ponte TBURN está agora ativa, suportando transferências entre as redes Ethereum, BSC e Polygon."
-      },
-      "maintenance": {
-        "title": "Manutenção Programada: Atualização de Nó",
-        "content": "Janela de manutenção breve agendada para 3 de dezembro, 2:00 AM UTC. Tempo de inatividade esperado: 15 minutos."
-      }
     },
     "rarities": {
       "common": "Comum",
@@ -3612,70 +3630,217 @@
       "nav": {
         "learn": {
           "title": "Aprender",
-          "learnHub": { "title": "Centro de Aprendizado", "description": "Comece com Burn Chain" },
-          "whatIsBurnChain": { "title": "O que é Burn Chain?", "description": "Aprenda sobre nossa blockchain" },
-          "trustScore": { "title": "Sistema de Pontuação de Confiança", "description": "Entenda a verificação de confiança" },
-          "wallet": { "title": "O que é uma Carteira?", "description": "Noções básicas de carteira" },
-          "blockchainBasics": { "title": "Fundamentos de Blockchain", "description": "Conceitos fundamentais" },
-          "defiMastery": { "title": "Domínio DeFi", "description": "Curso avançado de DeFi" },
-          "developerCourse": { "title": "Curso de Desenvolvedor", "description": "Construa em Burn Chain" },
-          "introToDefi": { "title": "Introdução ao DeFi", "description": "Fundamentos de DeFi" },
-          "educationPrograms": { "title": "Programas Educacionais", "description": "Cursos de certificação" },
-          "whitepaper": { "title": "Whitepaper Técnico", "description": "Documentação técnica detalhada" },
-          "tokenomics": { "title": "Tokenomics", "description": "Economia do token" },
-          "roadmap": { "title": "Roadmap", "description": "Cronograma de desenvolvimento" }
+          "learnHub": {
+            "title": "Centro de Aprendizado",
+            "description": "Comece com Burn Chain"
+          },
+          "whatIsBurnChain": {
+            "title": "O que é Burn Chain?",
+            "description": "Aprenda sobre nossa blockchain"
+          },
+          "trustScore": {
+            "title": "Sistema de Pontuação de Confiança",
+            "description": "Entenda a verificação de confiança"
+          },
+          "wallet": {
+            "title": "O que é uma Carteira?",
+            "description": "Noções básicas de carteira"
+          },
+          "blockchainBasics": {
+            "title": "Fundamentos de Blockchain",
+            "description": "Conceitos fundamentais"
+          },
+          "defiMastery": {
+            "title": "Domínio DeFi",
+            "description": "Curso avançado de DeFi"
+          },
+          "developerCourse": {
+            "title": "Curso de Desenvolvedor",
+            "description": "Construa em Burn Chain"
+          },
+          "introToDefi": {
+            "title": "Introdução ao DeFi",
+            "description": "Fundamentos de DeFi"
+          },
+          "educationPrograms": {
+            "title": "Programas Educacionais",
+            "description": "Cursos de certificação"
+          },
+          "whitepaper": {
+            "title": "Whitepaper Técnico",
+            "description": "Documentação técnica detalhada"
+          },
+          "tokenomics": {
+            "title": "Tokenomics",
+            "description": "Economia do token"
+          },
+          "roadmap": {
+            "title": "Roadmap",
+            "description": "Cronograma de desenvolvimento"
+          }
         },
         "developers": {
           "title": "Desenvolvedores",
-          "developerHub": { "title": "Hub do Desenvolvedor", "description": "Construa em Burn Chain" },
-          "documentation": { "title": "Documentação", "description": "Documentação completa" },
-          "apiReference": { "title": "Referência API", "description": "Endpoints de API" },
-          "cliReference": { "title": "Referência CLI", "description": "Ferramentas de linha de comando" },
-          "sdkGuide": { "title": "Guia SDK", "description": "Integração SDK" },
-          "smartContracts": { "title": "Contratos Inteligentes", "description": "Desenvolvimento de contratos" },
-          "websocketApi": { "title": "WebSocket API", "description": "Dados em tempo real" },
-          "codeExamples": { "title": "Exemplos de Código", "description": "Código de exemplo" },
-          "quickStart": { "title": "Início Rápido", "description": "Comece rapidamente" },
-          "installation": { "title": "Guia de Instalação", "description": "Instruções de configuração" },
-          "evmMigration": { "title": "Migração EVM", "description": "Migrar do Ethereum" }
+          "developerHub": {
+            "title": "Hub do Desenvolvedor",
+            "description": "Construa em Burn Chain"
+          },
+          "documentation": {
+            "title": "Documentação",
+            "description": "Documentação completa"
+          },
+          "apiReference": {
+            "title": "Referência API",
+            "description": "Endpoints de API"
+          },
+          "cliReference": {
+            "title": "Referência CLI",
+            "description": "Ferramentas de linha de comando"
+          },
+          "sdkGuide": {
+            "title": "Guia SDK",
+            "description": "Integração SDK"
+          },
+          "smartContracts": {
+            "title": "Contratos Inteligentes",
+            "description": "Desenvolvimento de contratos"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "Dados em tempo real"
+          },
+          "codeExamples": {
+            "title": "Exemplos de Código",
+            "description": "Código de exemplo"
+          },
+          "quickStart": {
+            "title": "Início Rápido",
+            "description": "Comece rapidamente"
+          },
+          "installation": {
+            "title": "Guia de Instalação",
+            "description": "Instruções de configuração"
+          },
+          "evmMigration": {
+            "title": "Migração EVM",
+            "description": "Migrar do Ethereum"
+          }
         },
         "solutions": {
           "title": "Soluções",
-          "tokenExtensions": { "title": "Extensões de Token", "description": "Tokens aprimorados" },
-          "actionsBlinks": { "title": "Actions & Blinks", "description": "Ações baseadas em URL" },
-          "wallets": { "title": "Carteiras", "description": "Soluções de carteira" },
-          "permissioned": { "title": "Ambientes Permissionados", "description": "Redes empresariais" },
-          "gameTooling": { "title": "Ferramentas de Jogos", "description": "Desenvolvimento de jogos" },
-          "payments": { "title": "Pagamentos", "description": "Soluções de pagamento" },
-          "commerce": { "title": "Comércio", "description": "Integração de e-commerce" },
-          "financial": { "title": "Infraestrutura Financeira", "description": "Serviços financeiros" },
-          "aiFeatures": { "title": "Recursos de IA", "description": "Capacidades de IA" },
-          "artistsCreators": { "title": "Artistas e Criadores", "description": "Plataforma NFT" },
-          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
-          "crossChainBridge": { "title": "Ponte Cross-Chain", "description": "Ponte multi-chain" },
-          "defiHub": { "title": "Hub DeFi", "description": "Ecossistema DeFi" }
+          "tokenExtensions": {
+            "title": "Extensões de Token",
+            "description": "Tokens aprimorados"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "description": "Ações baseadas em URL"
+          },
+          "wallets": {
+            "title": "Carteiras",
+            "description": "Soluções de carteira"
+          },
+          "permissioned": {
+            "title": "Ambientes Permissionados",
+            "description": "Redes empresariais"
+          },
+          "gameTooling": {
+            "title": "Ferramentas de Jogos",
+            "description": "Desenvolvimento de jogos"
+          },
+          "payments": {
+            "title": "Pagamentos",
+            "description": "Soluções de pagamento"
+          },
+          "commerce": {
+            "title": "Comércio",
+            "description": "Integração de e-commerce"
+          },
+          "financial": {
+            "title": "Infraestrutura Financeira",
+            "description": "Serviços financeiros"
+          },
+          "aiFeatures": {
+            "title": "Recursos de IA",
+            "description": "Capacidades de IA"
+          },
+          "artistsCreators": {
+            "title": "Artistas e Criadores",
+            "description": "Plataforma NFT"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "description": "Bitcoin DeFi"
+          },
+          "crossChainBridge": {
+            "title": "Ponte Cross-Chain",
+            "description": "Ponte multi-chain"
+          },
+          "defiHub": {
+            "title": "Hub DeFi",
+            "description": "Ecossistema DeFi"
+          }
         },
         "useCases": {
           "title": "Casos de Uso",
-          "tokenization": { "title": "Tokenização", "description": "Tokenização de ativos" },
-          "depin": { "title": "DePIN", "description": "Infraestrutura descentralizada" },
-          "stablecoins": { "title": "Stablecoins", "description": "Ativos estáveis" },
-          "institutional": { "title": "Pagamentos Institucionais", "description": "Pagamentos empresariais" },
-          "enterprise": { "title": "Empresarial", "description": "Soluções empresariais" },
-          "gaming": { "title": "Jogos e Entretenimento", "description": "Ecossistema de jogos" }
+          "tokenization": {
+            "title": "Tokenização",
+            "description": "Tokenização de ativos"
+          },
+          "depin": {
+            "title": "DePIN",
+            "description": "Infraestrutura descentralizada"
+          },
+          "stablecoins": {
+            "title": "Stablecoins",
+            "description": "Ativos estáveis"
+          },
+          "institutional": {
+            "title": "Pagamentos Institucionais",
+            "description": "Pagamentos empresariais"
+          },
+          "enterprise": {
+            "title": "Empresarial",
+            "description": "Soluções empresariais"
+          },
+          "gaming": {
+            "title": "Jogos e Entretenimento",
+            "description": "Ecossistema de jogos"
+          }
         },
         "network": {
           "title": "Rede",
-          "validators": { "title": "Validadores", "description": "Torne-se um validador" },
-          "rpc": { "title": "Provedores RPC", "description": "Acesso à API" },
-          "status": { "title": "Status da Rede", "description": "Saúde da rede" },
-          "ramp": { "title": "Burn Chain Ramp", "description": "Comprar/vender TBURN" }
+          "validators": {
+            "title": "Validadores",
+            "description": "Torne-se um validador"
+          },
+          "rpc": {
+            "title": "Provedores RPC",
+            "description": "Acesso à API"
+          },
+          "status": {
+            "title": "Status da Rede",
+            "description": "Saúde da rede"
+          },
+          "ramp": {
+            "title": "Burn Chain Ramp",
+            "description": "Comprar/vender TBURN"
+          }
         },
         "community": {
           "title": "Comunidade",
-          "news": { "title": "Notícias e Blog", "description": "Últimas atualizações" },
-          "events": { "title": "Eventos", "description": "Próximos eventos" },
-          "hub": { "title": "Comunidade", "description": "Junte-se à comunidade" }
+          "news": {
+            "title": "Notícias e Blog",
+            "description": "Últimas atualizações"
+          },
+          "events": {
+            "title": "Eventos",
+            "description": "Próximos eventos"
+          },
+          "hub": {
+            "title": "Comunidade",
+            "description": "Junte-se à comunidade"
+          }
         }
       }
     },
@@ -3697,7 +3862,12 @@
     "home": {
       "heroTag": "MAINNET AO VIVO",
       "heroTitle": "O Futuro da",
-      "heroTitleRotating": ["Baseada em Confiança", "Impulsionada por IA", "Segura contra Quantum", "Hiper-Escalável"],
+      "heroTitleRotating": [
+        "Baseada em Confiança",
+        "Impulsionada por IA",
+        "Segura contra Quantum",
+        "Hiper-Escalável"
+      ],
       "heroSubtitle": "Blockchain",
       "heroDescription": "A primeira rede de verificação de confiança impulsionada por IA do mundo. Segurança resistente a quantum encontra escalabilidade de nível empresarial.",
       "launchExplorer": "Iniciar Explorador",
@@ -3763,7 +3933,20 @@
         "coreConcepts": "Conceitos Fundamentais",
         "coreConceptsDesc": "Princípios fundamentais da TBurn Chain.",
         "quickGlossary": "Glossário Rápido",
-        "certifications": "Certificações",
+        "certifications": {
+          "developer": {
+            "title": "Desenvolvedor TBurn",
+            "description": "Certificação em desenvolvimento de contratos inteligentes"
+          },
+          "defi": {
+            "title": "Especialista DeFi",
+            "description": "Certificação de domínio em finanças descentralizadas"
+          },
+          "validator": {
+            "title": "Operador de Validador",
+            "description": "Certificação em validação de rede"
+          }
+        },
         "certificationsDesc": "Obtenha distintivos verificados",
         "communityLearning": "Aprendizado Comunitário",
         "paths": {
@@ -3824,20 +4007,6 @@
           "validator": {
             "term": "Validador",
             "definition": "Nós que verificam transações e participam do consenso"
-          }
-        },
-        "certifications": {
-          "developer": {
-            "title": "Desenvolvedor TBurn",
-            "description": "Certificação em desenvolvimento de contratos inteligentes"
-          },
-          "defi": {
-            "title": "Especialista DeFi",
-            "description": "Certificação de domínio em finanças descentralizadas"
-          },
-          "validator": {
-            "title": "Operador de Validador",
-            "description": "Certificação em validação de rede"
           }
         },
         "communityLinks": {
@@ -4025,6 +4194,24 @@
               "value": "67%",
               "label": "Investidores afetados por fraude"
             }
+          },
+          "items": {
+            "scams": {
+              "title": "80%+ Golpes",
+              "description": "Mais de 80% dos novos projetos cripto são potenciais golpes ou rugpulls."
+            },
+            "lost": {
+              "title": "$2.7B Perdidos",
+              "description": "Total de fundos perdidos para rugpulls e fraudes apenas em 2023."
+            },
+            "risk": {
+              "title": "$3.1B em Risco",
+              "description": "Perdas estimadas projetadas para 2024 sem intervenção."
+            },
+            "investorLoss": {
+              "title": "60-80% de Perda",
+              "description": "Taxa média de perda do investidor em projetos em fase inicial."
+            }
           }
         },
         "performance": {
@@ -4045,7 +4232,22 @@
             "gasCost": {
               "value": "$0.001",
               "label": "Custo Médio de Gas"
+            },
+            "latency": {
+              "value": "1.84ms",
+              "label": "Latência"
+            },
+            "nodes": {
+              "value": "30,000",
+              "label": "Nós"
             }
+          },
+          "badge": "ARQUITETURA DA SOLUÇÃO",
+          "description": "TBurn Chain não é apenas sobre pontuação de confiança; é uma solução de escalonamento Layer 2 de alto desempenho construída sobre tecnologia Arbitrum, projetada para throughput de nível empresarial.",
+          "features": {
+            "hybridConsensus": "Consenso Híbrido (DPoS + BFT)",
+            "evmCompatibility": "Compatibilidade EVM",
+            "dynamicSharding": "Suporte a Sharding Dinâmico"
           }
         },
         "aiLayers": {
@@ -4061,6 +4263,27 @@
           "operational": {
             "title": "IA Operacional",
             "description": "Detecção e prevenção instantânea de fraudes"
+          },
+          "subtitle": "Tomada de decisão inteligente usando três modelos de IA distintos.",
+          "items": {
+            "strategic": {
+              "title": "Camada Estratégica",
+              "model": ":: ChatGPT Latest",
+              "latency": "450ms",
+              "description": "Lida com análise de mercado complexa, avaliação de propostas de governança e formulação de estratégias de longo prazo."
+            },
+            "tactical": {
+              "title": "Camada Tática",
+              "model": ":: Claude Latest",
+              "latency": "180ms",
+              "description": "Processa avaliação de confiança, verificação de transações e auditoria de contratos inteligentes."
+            },
+            "operational": {
+              "title": "Camada Operacional",
+              "model": ":: Gemini Latest",
+              "latency": "45ms",
+              "description": "Executa monitoramento em tempo real, resposta a emergências (Auto-Burn) e ações automatizadas."
+            }
           }
         },
         "quantumSecurity": {
@@ -4070,6 +4293,16 @@
             "crystals": "Assinaturas CRYSTALS-Dilithium",
             "hybrid": "Criptografia híbrida ED25519",
             "postQuantum": "Troca de chaves pós-quântica"
+          },
+          "items": {
+            "crystals": {
+              "title": "CRYSTALS-Dilithium",
+              "description": "Algoritmo de assinatura baseado em lattice padrão NIST fornecendo segurança pós-quântica."
+            },
+            "hybrid": {
+              "title": "Assinaturas Híbridas",
+              "description": "Combinando ED25519 + Dilithium para compatibilidade retroativa e proteção futura."
+            }
           }
         },
         "coreModules": {
@@ -4090,11 +4323,22 @@
             "bridge": {
               "title": "Protocolo de Ponte",
               "description": "Transferências de ativos cross-chain"
+            },
+            "defi": {
+              "title": "Hub DeFi",
+              "description": "AMM DEX integrado, empréstimos com 85% LTV e Liquid Staking."
+            },
+            "gamefi": {
+              "title": "Plataforma GameFi",
+              "description": "Motor P2E, sistema de torneios e negociação de itens cross-chain."
             }
           }
         },
         "downloadPdf": "Baixar PDF",
-        "viewGithub": "Ver no GitHub"
+        "viewGithub": "Ver no GitHub",
+        "heroDescription": "Infraestrutura de Confiança Descentralizada para Projetos Blockchain.",
+        "heroSubDescription": "Solução Layer 2 baseada em Arbitrum verificando confiabilidade com 100% de transparência on-chain.",
+        "viewSource": "Ver Código Fonte"
       },
       "tokenomics": {
         "tag": "ECONOMIA",
@@ -4181,8 +4425,14 @@
               "mainnet": "Lançamento Mainnet",
               "trustScore": "Sistema de Pontuação de Confiança",
               "bridge": "Ponte Cross-Chain",
-              "dex": "Lançamento DEX"
-            }
+              "dex": "Lançamento DEX",
+              "item1": "Lançamento da Mainnet e Bloco Gênesis",
+              "item2": "Sistema de Pontuação de Confiança V1",
+              "item3": "Ponte Cross-Chain (ETH, BSC)",
+              "item4": "Lançamento DEX com AMM",
+              "item5": "Carteira Mobile Beta"
+            },
+            "quarter": "Q1-Q2 2024"
           },
           "phase2": {
             "title": "Fase 2: Expansão",
@@ -4192,8 +4442,14 @@
               "gamefi": "Plataforma GameFi",
               "aiEnhancement": "Aprimoramento de IA",
               "mobileWallet": "Carteira Mobile",
-              "partnerships": "Grandes Parcerias"
-            }
+              "partnerships": "Grandes Parcerias",
+              "item1": "Integração da Plataforma GameFi",
+              "item2": "Módulo de Aprimoramento de IA",
+              "item3": "Lançamento Completo da Carteira Mobile",
+              "item4": "Listagens em Grandes CEX",
+              "item5": "SDK para Desenvolvedores V2"
+            },
+            "quarter": "Q3-Q4 2024"
           },
           "phase3": {
             "title": "Fase 3: Ecossistema",
@@ -4203,8 +4459,14 @@
               "dao": "Governança DAO Completa",
               "l2": "Soluções Layer 2",
               "enterprise": "Adoção Empresarial",
-              "global": "Expansão Global"
-            }
+              "global": "Expansão Global",
+              "item1": "Solução de Escalonamento Layer 2",
+              "item2": "Lançamento de Governança DAO",
+              "item3": "Expansão Cross-Chain (7+ chains)",
+              "item4": "Integração de Bot de Trading com IA",
+              "item5": "Programa de Parcerias Empresariais"
+            },
+            "quarter": "Q1-Q2 2025"
           },
           "phase4": {
             "title": "Fase 4: Adoção em Massa",
@@ -4214,8 +4476,13 @@
               "quantum": "Atualização Quântica",
               "fiat": "Integração Fiat",
               "institutions": "Serviços Institucionais",
-              "metaverse": "Integração Metaverso"
-            }
+              "metaverse": "Integração Metaverso",
+              "item1": "Campanha de Marketing Global",
+              "item2": "Lançamento de Serviços Institucionais",
+              "item3": "Parcerias Estratégicas",
+              "item4": "Implantação do Fundo do Ecossistema"
+            },
+            "quarter": "Q3-Q4 2025"
           }
         },
         "metrics": {
@@ -4224,32 +4491,469 @@
           "tvl": "Valor Total Bloqueado",
           "transactions": "Transações Diárias",
           "developers": "Desenvolvedores Ativos"
+        },
+        "growth": {
+          "sectionTitle": "Métricas de Crescimento Projetadas",
+          "year1": {
+            "label": "2024",
+            "projects": "500+",
+            "users": "100K+",
+            "tvl": "$50M+"
+          },
+          "year2": {
+            "label": "2025",
+            "projects": "2,000+",
+            "users": "1M+",
+            "tvl": "$500M+"
+          },
+          "year3": {
+            "label": "2026",
+            "projects": "10,000+",
+            "users": "10M+",
+            "tvl": "$5B+"
+          },
+          "labels": {
+            "verifiedProjects": "Projetos Verificados",
+            "activeUsers": "Usuários Ativos",
+            "tvl": "Valor Total Bloqueado"
+          }
+        },
+        "cta": {
+          "title": "Junte-se a Nós Nesta Jornada",
+          "description": "Faça parte do ecossistema TBurn Chain e ajude a moldar o futuro da tecnologia blockchain baseada em confiança.",
+          "joinCommunity": "Junte-se à Comunidade",
+          "viewDocs": "Ver Documentação"
         }
       },
       "blockchainBasics": {
         "tag": "INICIANTE",
         "title": "Fundamentos de Blockchain",
-        "subtitle": "Conceitos fundamentais de tecnologia blockchain e sistemas distribuídos."
+        "subtitle": "Conceitos fundamentais de tecnologia blockchain e sistemas distribuídos.",
+        "duration": "4 horas",
+        "backToEducation": "Voltar aos Programas Educacionais",
+        "courseOverview": {
+          "title": "Visão Geral do Curso",
+          "description": "Este curso abrangente apresenta os conceitos fundamentais da tecnologia blockchain. Você aprenderá sobre ledgers distribuídos, mecanismos de consenso, princípios criptográficos e como essas tecnologias alimentam aplicações descentralizadas modernas.",
+          "videoTitle": "Introdução ao Blockchain",
+          "videoSubtitle": "Prévia do Curso",
+          "figureCaption": "Figura: Vídeo de Introdução ao Curso"
+        },
+        "curriculumTitle": "Currículo do Curso",
+        "curriculum": {
+          "module1": {
+            "title": "O que é Blockchain?",
+            "subtitle": "Entendendo a tecnologia de ledger distribuído",
+            "duration": "45 min"
+          },
+          "module2": {
+            "title": "Fundamentos de Criptografia",
+            "subtitle": "Funções hash, assinaturas e criptografia",
+            "duration": "60 min"
+          },
+          "module3": {
+            "title": "Mecanismos de Consenso",
+            "subtitle": "PoW, PoS e Prova de Confiança do TBurn",
+            "duration": "75 min"
+          },
+          "module4": {
+            "title": "Arquitetura TBurn Chain",
+            "subtitle": "Imersão profunda em nosso sistema baseado em confiança",
+            "duration": "60 min"
+          }
+        },
+        "whatYouWillLearn": "O Que Você Vai Aprender",
+        "learningOutcomes": {
+          "item1": "Entender os fundamentos de blockchain e sistemas distribuídos",
+          "item2": "Aprender princípios criptográficos por trás de transações seguras",
+          "item3": "Explorar diferentes mecanismos de consenso",
+          "item4": "Dominar a arquitetura única baseada em confiança do TBurn Chain"
+        },
+        "prerequisitesTitle": "Pré-requisitos",
+        "prerequisites": {
+          "item1": "Conhecimento básico de programação é útil, mas não obrigatório",
+          "item2": "Familiaridade com tecnologias web"
+        },
+        "continueLearning": {
+          "title": "Continue Aprendendo",
+          "smartContracts": {
+            "title": "Contratos Inteligentes",
+            "subtitle": "Construa seu primeiro contrato"
+          },
+          "sdkGuide": {
+            "title": "Guia SDK",
+            "subtitle": "Documentação de integração"
+          },
+          "quickStart": {
+            "title": "Início Rápido",
+            "subtitle": "Implante seu primeiro dApp"
+          },
+          "documentation": {
+            "title": "Documentação",
+            "subtitle": "Referência completa da API"
+          }
+        },
+        "upNext": {
+          "label": "Próximo",
+          "title": "Sistema de Pontuação de Confiança",
+          "level": "Nível Intermediário"
+        }
       },
       "defiMastery": {
         "tag": "INTERMEDIÁRIO",
         "title": "Domínio DeFi",
-        "subtitle": "Domine conceitos de finanças descentralizadas incluindo DEX, empréstimos e estratégias de rendimento."
+        "subtitle": "Domine conceitos de finanças descentralizadas incluindo DEX, empréstimos e estratégias de rendimento.",
+        "duration": "8 horas",
+        "backToEducation": "Voltar aos Programas Educacionais",
+        "stats": {
+          "tvl": {
+            "value": "$2.1B",
+            "label": "Valor Total Bloqueado"
+          },
+          "apy": {
+            "value": "18.5%",
+            "label": "APY Médio"
+          },
+          "protocols": {
+            "value": "45+",
+            "label": "Protocolos Ativos"
+          }
+        },
+        "courseOverview": {
+          "title": "Visão Geral do Curso",
+          "description": "Este curso avançado cobre tudo o que você precisa saber sobre finanças descentralizadas no TBurn Chain. Desde entender mecânicas de AMM até implementar estratégias complexas de yield farming, você ganhará habilidades práticas para navegar no ecossistema DeFi.",
+          "videoTitle": "Fundamentos DeFi",
+          "videoSubtitle": "Prévia do Curso",
+          "figureCaption": "Figura: Visão Geral do Protocolo DeFi"
+        },
+        "curriculumTitle": "Currículo do Curso",
+        "curriculum": {
+          "module1": {
+            "title": "Mecânicas DEX e AMM",
+            "subtitle": "Entendendo market makers automatizados",
+            "duration": "90 min"
+          },
+          "module2": {
+            "title": "Protocolos de Empréstimo",
+            "subtitle": "Empréstimos e empréstimos colateralizados",
+            "duration": "120 min"
+          },
+          "module3": {
+            "title": "Provisão de Liquidez",
+            "subtitle": "Tokens LP, perda impermanente e recompensas",
+            "duration": "90 min"
+          },
+          "module4": {
+            "title": "Estratégias de Yield",
+            "subtitle": "Otimizando retornos com yields potencializados por confiança",
+            "duration": "120 min"
+          }
+        },
+        "keyTakeawaysTitle": "Principais Aprendizados",
+        "keyTakeaways": {
+          "item1": "Dominar mecânicas de AMM e dinâmicas de pools de liquidez",
+          "item2": "Entender protocolos de empréstimo e gestão de colateral",
+          "item3": "Implementar estratégias de otimização de yield"
+        },
+        "prerequisitesTitle": "Pré-requisitos",
+        "prerequisites": {
+          "item1": "Curso de Fundamentos de Blockchain",
+          "item2": "Conhecimento de operações de carteira"
+        },
+        "developerResources": {
+          "title": "Recursos para Desenvolvedores",
+          "description": "Construa e integre com os protocolos DeFi do TBurn usando esses recursos.",
+          "smartContracts": {
+            "title": "Contratos DeFi",
+            "subtitle": "Contratos AMM e de empréstimo"
+          },
+          "sdkGuide": {
+            "title": "SDK DeFi",
+            "subtitle": "Integração de protocolo"
+          },
+          "apiReference": {
+            "title": "Referência API",
+            "subtitle": "APIs REST e GraphQL"
+          },
+          "websocket": {
+            "title": "Feeds WebSocket",
+            "subtitle": "Dados de preço em tempo real"
+          },
+          "codeExamples": {
+            "title": "Exemplos de Código",
+            "subtitle": "Integrações de exemplo"
+          },
+          "quickStart": {
+            "title": "Início Rápido",
+            "subtitle": "Guia de configuração de 5 minutos"
+          }
+        },
+        "upNext": {
+          "label": "Próximo",
+          "title": "Curso de Desenvolvedor",
+          "subtitle": "Construa seus próprios dApps"
+        }
       },
       "developerCourse": {
         "tag": "AVANÇADO",
         "title": "Curso de Desenvolvedor",
-        "subtitle": "Guia completo para construir e implantar dApps na TBurn Chain."
+        "subtitle": "Guia completo para construir e implantar dApps na TBurn Chain.",
+        "duration": "20 horas",
+        "backToEducation": "Voltar aos Programas Educacionais",
+        "courseOverview": {
+          "title": "Visão Geral do Curso",
+          "description": "Este curso abrangente para desenvolvedores leva você do zero à implantação de dApps prontos para produção no TBurn Chain. Você aprenderá desenvolvimento de contratos inteligentes, integração de SDK, estratégias de teste e melhores práticas para construir aplicações seguras e escaláveis."
+        },
+        "curriculumTitle": "Currículo do Curso",
+        "curriculum": {
+          "module1": {
+            "title": "Configuração e Setup do SDK",
+            "subtitle": "Configuração de ambiente e inicialização de projeto",
+            "duration": "2 horas"
+          },
+          "module2": {
+            "title": "Desenvolvimento de Contratos Inteligentes",
+            "subtitle": "Escrevendo contratos seguros e otimizados",
+            "duration": "6 horas"
+          },
+          "module3": {
+            "title": "Integração de API",
+            "subtitle": "APIs REST, GraphQL e WebSocket",
+            "duration": "4 horas"
+          },
+          "module4": {
+            "title": "Implantação e DevOps",
+            "subtitle": "Implantação na mainnet e monitoramento",
+            "duration": "4 horas"
+          }
+        },
+        "codeExample": {
+          "title": "Exemplo de Código",
+          "language": "TypeScript"
+        },
+        "developerTools": {
+          "title": "Ferramentas para Desenvolvedores",
+          "description": "Acesse todas as ferramentas necessárias para construir no TBurn Chain.",
+          "quickStart": {
+            "title": "Início Rápido",
+            "subtitle": "Guia de configuração de 5 minutos"
+          },
+          "installation": {
+            "title": "Instalação",
+            "subtitle": "Guia passo a passo"
+          },
+          "documentation": {
+            "title": "Documentação",
+            "subtitle": "Referência completa da API"
+          },
+          "evmMigration": {
+            "title": "Migração EVM",
+            "subtitle": "Migre dApps Ethereum"
+          }
+        },
+        "keyTakeawaysTitle": "Principais Aprendizados",
+        "keyTakeaways": {
+          "item1": "Configurar e configurar o SDK TBurn",
+          "item2": "Escrever contratos inteligentes seguros com testes",
+          "item3": "Integrar com APIs de Pontuação de Confiança",
+          "item4": "Implantar na mainnet com melhores práticas"
+        },
+        "prerequisitesTitle": "Pré-requisitos",
+        "prerequisites": {
+          "item1": "Proficiência em JavaScript/TypeScript",
+          "item2": "Noções básicas de Solidity recomendadas",
+          "item3": "Fundamentos de blockchain"
+        },
+        "certification": {
+          "title": "Obtenha Certificação",
+          "description": "Complete o curso para receber seu distintivo de certificação de Desenvolvedor TBurn."
+        },
+        "resourcesTitle": "Recursos",
+        "resources": {
+          "apiReference": "Referência API",
+          "sdkGuide": "Guia SDK",
+          "smartContracts": "Contratos Inteligentes",
+          "cliReference": "Referência CLI",
+          "websocketApi": "API WebSocket",
+          "codeExamples": "Exemplos de Código"
+        }
       },
       "introToDefi": {
         "tag": "INICIANTE",
         "title": "Introdução ao DeFi",
-        "subtitle": "Seus primeiros passos nas finanças descentralizadas na TBurn Chain."
+        "subtitle": "Seus primeiros passos nas finanças descentralizadas na TBurn Chain.",
+        "duration": "2 horas",
+        "backToEducation": "Voltar aos Programas Educacionais",
+        "scoreFormula": {
+          "title": "Fórmula da Pontuação de Confiança",
+          "burnCompliance": {
+            "percentage": "40%",
+            "title": "Conformidade de Queima",
+            "subtitle": "Aderência ao cronograma de queima de tokens"
+          },
+          "devProgress": {
+            "percentage": "35%",
+            "title": "Progresso de Desenvolvimento",
+            "subtitle": "Conclusão de marcos de desenvolvimento"
+          },
+          "transparency": {
+            "percentage": "25%",
+            "title": "Transparência",
+            "subtitle": "Divulgação de dados on-chain"
+          }
+        },
+        "verification": {
+          "title": "Processo de Verificação em 3 Estágios",
+          "stage1": {
+            "title": "Análise por IA",
+            "description": "IA de Tripla Banda analisa dados do projeto, contratos inteligentes e presença social.",
+            "duration": "24 horas"
+          },
+          "stage2": {
+            "title": "Revisão de Especialistas",
+            "description": "Especialistas humanos validam os resultados da IA e realizam análise aprofundada.",
+            "duration": "7-14 dias"
+          },
+          "stage3": {
+            "title": "Votação da Comunidade",
+            "description": "Detentores de tokens votam na aprovação final após revisão dos especialistas.",
+            "duration": "3-5 dias"
+          }
+        },
+        "scoreActions": {
+          "title": "Ações Baseadas na Pontuação de Confiança",
+          "excellent": {
+            "label": "Excelente",
+            "description": "Acesso total a negociações, listagens prioritárias e elegibilidade para boost de yield."
+          },
+          "good": {
+            "label": "Bom",
+            "description": "Acesso padrão a negociações com visibilidade aprimorada."
+          },
+          "warning": {
+            "label": "Atenção",
+            "description": "Negociação limitada, avisos exibidos aos usuários."
+          },
+          "danger": {
+            "label": "Restrito",
+            "description": "Negociação suspensa, projeto sob investigação."
+          }
+        },
+        "hybridBurn": {
+          "title": "Mecanismo de Queima Forçada Híbrida",
+          "description": "Quando projetos falham em cumprir compromissos de cronograma de queima, nossos contratos inteligentes automaticamente aplicam a destruição de tokens. Isso protege investidores garantindo que promessas deflacionárias sejam mantidas.",
+          "figureCaption": "Figura: Diagrama de Fluxo de Auto-Queima"
+        },
+        "burnSteps": {
+          "step1": {
+            "title": "Monitoramento de Cronograma",
+            "description": "IA monitora conformidade do cronograma de queima em tempo real"
+          },
+          "step2": {
+            "title": "Período de Aviso",
+            "description": "Período de carência de 48 horas com notificações ao projeto"
+          },
+          "step3": {
+            "title": "Auto-Execução",
+            "description": "Contrato inteligente queima tokens da carteira de reserva"
+          }
+        },
+        "developerResources": {
+          "title": "Recursos para Desenvolvedores",
+          "description": "Pronto para construir? Explore nossas ferramentas e documentação para desenvolvedores.",
+          "smartContracts": {
+            "title": "Contratos Inteligentes",
+            "subtitle": "Integração de Pontuação de Confiança"
+          },
+          "sdkGuide": {
+            "title": "Guia SDK",
+            "subtitle": "Integração rápida"
+          },
+          "apiReference": {
+            "title": "Referência API",
+            "subtitle": "REST e GraphQL"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "Atualizações em tempo real"
+          },
+          "quickStart": {
+            "title": "Início Rápido",
+            "subtitle": "Configuração de 5 minutos"
+          },
+          "codeExamples": {
+            "title": "Exemplos de Código",
+            "subtitle": "Projetos de exemplo"
+          }
+        },
+        "continueLearning": {
+          "label": "Continue Aprendendo",
+          "defiMastery": {
+            "title": "Domínio DeFi",
+            "level": "Nível Intermediário"
+          }
+        },
+        "forDevelopers": {
+          "label": "Para Desenvolvedores",
+          "developerCourse": {
+            "title": "Curso de Desenvolvedor",
+            "level": "Nível Avançado"
+          }
+        }
       },
       "educationPrograms": {
         "tag": "PROGRAMAS",
         "title": "Programas de Educação",
-        "subtitle": "Trilhas de aprendizado estruturadas e programas de certificação para educação blockchain."
+        "subtitle": "Trilhas de aprendizado estruturadas e programas de certificação para educação blockchain.",
+        "pageTitle": "Programas Educacionais",
+        "pageSubtitle": "Cursos completos e certificações para dominar a tecnologia blockchain",
+        "stats": {
+          "totalCourses": "8 Cursos",
+          "hoursContent": "50+ Horas",
+          "activeLearners": "10K+ Alunos",
+          "completionRate": "92% Taxa"
+        },
+        "coursesTitle": "Trilhas de Aprendizado Disponíveis",
+        "coursesSubtitle": "Escolha sua trilha e comece a aprender hoje",
+        "courses": {
+          "blockchainBasics": {
+            "description": "Domine os conceitos fundamentais da tecnologia blockchain e sistemas distribuídos",
+            "modules": "4 Módulos",
+            "hours": "4 horas"
+          },
+          "defiMastery": {
+            "description": "Domine os protocolos de finanças descentralizadas e estratégias de yield farming",
+            "modules": "4 Módulos",
+            "hours": "8 horas"
+          },
+          "developerCourse": {
+            "description": "Construa e implante dApps prontos para produção no TBurn Chain",
+            "modules": "4 Módulos",
+            "hours": "20 horas"
+          },
+          "introToDefi": {
+            "description": "Aprenda os fundamentos de DeFi e como a Pontuação de Confiança protege investidores",
+            "modules": "3 Módulos",
+            "hours": "2 horas"
+          }
+        },
+        "startLearning": "Começar a Aprender",
+        "certificationsTitle": "Certificações Disponíveis",
+        "certificationsSubtitle": "Obtenha distintivos verificados para demonstrar sua expertise",
+        "certifications": {
+          "developer": {
+            "title": "Desenvolvedor TBurn Certificado",
+            "description": "Demonstre domínio em desenvolvimento de contratos inteligentes e integração SDK"
+          },
+          "defi": {
+            "title": "Especialista DeFi Certificado",
+            "description": "Certificação de proficiência em DeFi e estratégias de yield"
+          },
+          "validator": {
+            "title": "Operador de Validador Certificado",
+            "description": "Certificação em operação e manutenção de nós validadores"
+          }
+        },
+        "getCertified": "Obter Certificação"
       },
       "universities": {
         "tag": "ACADEMIA",
@@ -4264,11 +4968,40 @@
         "subtitle": "Construa aplicações de próxima geração baseadas em confiança. Acesse ferramentas de desenvolvimento abrangentes, SDKs e APIs para o ecossistema TBurn Chain V4.",
         "getStarted": "Começar",
         "viewDocs": "Ver Documentação",
-        "quickStart": "Início Rápido",
-        "sdks": "SDKs Oficiais",
-        "apiReference": "Referência da API",
-        "devTools": "Ferramentas de Desenvolvedor",
-        "grants": "Subsídios para Desenvolvedores",
+        "quickStart": {
+          "title": "Início Rápido",
+          "subtitle": "Implante seu primeiro dApp em 5 minutos"
+        },
+        "sdks": {
+          "title": "SDKs Oficiais",
+          "subtitle": "Suporte nativo para suas linguagens favoritas"
+        },
+        "apiReference": {
+          "title": "Referência API",
+          "subtitle": "API RESTful e Streaming WebSocket",
+          "blockchainApi": "API Blockchain",
+          "defiApi": "API DeFi",
+          "aiApi": "API de IA"
+        },
+        "devTools": {
+          "burnCli": {
+            "title": "Burn CLI",
+            "description": "Inicialização e implantação de projeto"
+          },
+          "testFramework": {
+            "title": "Framework de Testes",
+            "description": "Testes unitários e E2E"
+          },
+          "localDevnet": {
+            "title": "Devnet Local",
+            "description": "Ambiente de simulação"
+          }
+        },
+        "grants": {
+          "title": "Programa de Grants para Desenvolvedores",
+          "subtitle": "Apoiamos projetos que expandem o ecossistema TBurn Chain.",
+          "totalFund": "Fundo Total de Grants de $50M"
+        },
         "quickStartSteps": {
           "install": {
             "title": "Instalar CLI",
@@ -4281,32 +5014,65 @@
           "deploy": {
             "title": "Implantar Contrato",
             "command": "tburn deploy --network mainnet"
+          },
+          "step1": {
+            "comment": "# Instalar CLI"
+          },
+          "step2": {
+            "comment": "# Criar Projeto"
+          },
+          "step3": {
+            "comment": "# Executar Servidor de Dev"
+          },
+          "step4": {
+            "comment": "# Implantar na Mainnet"
           }
         },
         "sdkList": {
           "javascript": {
             "name": "JavaScript/TypeScript",
-            "package": "@tburn/sdk"
+            "package": "@tburn/sdk",
+            "version": "v4.2.1",
+            "install": "npm install @burnchain/sdk",
+            "downloads": "1.2M downloads/mês"
           },
           "python": {
             "name": "Python",
-            "package": "tburn-sdk"
+            "package": "tburn-sdk",
+            "version": "v4.1.0",
+            "install": "pip install burnchain-py",
+            "downloads": "450K downloads/mês"
           },
           "rust": {
             "name": "Rust",
-            "package": "tburn-rs"
+            "package": "tburn-rs",
+            "version": "v4.0.3",
+            "install": "cargo add burnchain-rs",
+            "downloads": "280K downloads/mês"
           },
           "go": {
             "name": "Go",
-            "package": "github.com/tburn/go-sdk"
+            "package": "github.com/tburn/go-sdk",
+            "version": "v4.0.2",
+            "install": "go get github.com/burnchain/go",
+            "downloads": "180K downloads/mês"
           },
           "java": {
             "name": "Java",
-            "package": "io.tburn.sdk"
+            "package": "io.tburn.sdk",
+            "version": "v4.0.1",
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "120K downloads/mês"
           },
           "csharp": {
             "name": "C#/.NET",
             "package": "TBurn.SDK"
+          },
+          "swift": {
+            "name": "Swift",
+            "version": "v4.0.0",
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "80K downloads/mês"
           }
         },
         "apiEndpoints": {
@@ -4348,8 +5114,9 @@
         "grantTiers": {
           "seed": {
             "title": "Subsídio Semente",
-            "amount": "$5.000 - $25.000",
-            "description": "Para projetos em estágio inicial"
+            "amount": "$5K - $25K",
+            "description": "Prova de Conceito",
+            "tier": "Seed"
           },
           "growth": {
             "title": "Subsídio Crescimento",
@@ -4358,9 +5125,23 @@
           },
           "enterprise": {
             "title": "Subsídio Empresarial",
-            "amount": "$100.000+",
-            "description": "Para soluções empresariais"
+            "amount": "$500K+",
+            "description": "Parcerias Estratégicas",
+            "tier": "Enterprise"
+          },
+          "build": {
+            "tier": "Build",
+            "amount": "$25K - $100K",
+            "description": "Desenvolvimento MVP"
+          },
+          "scale": {
+            "tier": "Scale",
+            "amount": "$100K - $500K",
+            "description": "Pronto para Produção"
           }
+        },
+        "devToolsSection": {
+          "title": "Ferramentas de Desenvolvimento"
         }
       },
       "docs": {
@@ -4536,6 +5317,25 @@
           "diamond": {
             "name": "Diamante",
             "boost": "2.0x"
+          },
+          "standard": {
+            "name": "PADRÃO",
+            "requirement": "Sem requisito"
+          },
+          "mid": {
+            "name": "CONFIANÇA NV.1",
+            "requirement": "Pontuação de Confiança 60+",
+            "boost": "+15% Boost"
+          },
+          "high": {
+            "name": "CONFIANÇA NV.2",
+            "requirement": "Pontuação 80+",
+            "boost": "+30% Boost"
+          },
+          "max": {
+            "name": "CONFIANÇA NV.2",
+            "requirement": "Pontuação de Confiança 80+",
+            "boost": "+50% Boost"
           }
         },
         "cta": {
@@ -4543,6 +5343,138 @@
           "subtitle": "Acesse o ecossistema de finanças descentralizadas mais confiável",
           "launchApp": "Lançar App",
           "viewDocs": "Ver Documentação"
+        },
+        "relatedSolutions": {
+          "aiFeatures": {
+            "title": "Recursos de IA",
+            "subtitle": "Automação inteligente"
+          },
+          "description": "Expanda suas capacidades DeFi com estas soluções complementares",
+          "wallets": {
+            "title": "Carteiras",
+            "subtitle": "Conexões seguras"
+          },
+          "payments": {
+            "title": "Pagamentos",
+            "subtitle": "Comércio global"
+          },
+          "tokenExtensions": {
+            "title": "Extensões de Token",
+            "subtitle": "Padrões BRC-20"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "Soluções DeFi para Bitcoin"
+          },
+          "bridge": {
+            "title": "Ponte Cross-Chain",
+            "subtitle": "Transferências multi-chain"
+          },
+          "financial": {
+            "title": "Serviços Financeiros",
+            "subtitle": "Ferramentas institucionais"
+          },
+          "permissioned": {
+            "title": "Redes Permissionadas",
+            "subtitle": "Soluções empresariais"
+          }
+        },
+        "learnPages": {
+          "defiMastery": {
+            "title": "Curso de Domínio DeFi",
+            "subtitle": "Estratégias avançadas de yield e gestão de risco"
+          },
+          "introToDefi": {
+            "title": "Introdução ao DeFi",
+            "subtitle": "Aprenda os fundamentos das finanças descentralizadas"
+          },
+          "gettingStarted": "PRIMEIROS PASSOS"
+        },
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "VOLUME 24H",
+          "activeLPs": "LPs ATIVOS",
+          "avgApy": "APY MÉDIO"
+        },
+        "dex": {
+          "title": "DEX com Liquidez Concentrada",
+          "description": "AMM eficiente em capital com posições de liquidez concentrada. Forneça liquidez em faixas de preço específicas para até 4000x de eficiência de capital comparado a AMMs tradicionais.",
+          "feature1": "Posições de liquidez concentrada para rendimentos maiores",
+          "feature2": "Múltiplas faixas de taxa (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "Ordens de faixa para estratégias de trading avançadas",
+          "price": "Preço",
+          "liquidity": "Liquidez",
+          "volume24h": "Volume 24h"
+        },
+        "lending": {
+          "title": "Empréstimos Colateralizados",
+          "description": "Empreste contra seus ativos cripto com taxas competitivas. Proteção de liquidação em tempo real com colateral verificado por confiança.",
+          "maxLtv": "LTV MÁXIMO 80%",
+          "tburnLtv": "LTV TBURN",
+          "stablecoinLtv": "LTV Stablecoin"
+        },
+        "staking": {
+          "title": "Liquid Staking",
+          "description": "Faça stake de TBURN e receba sTBURN. Use derivativos de liquid staking em DeFi enquanto ganha recompensas de staking.",
+          "apy": "18.5% APY",
+          "exchangeRate": "Taxa de Câmbio",
+          "rewardCycle": "Ciclo de Recompensa",
+          "everyEpoch": "Cada Época (24h)"
+        },
+        "yieldFarming": {
+          "tag": "YIELD FARMING",
+          "title": "Yield Potencializado por Confiança",
+          "subtitle": "Ganhe recompensas bônus baseadas no seu nível de Pontuação de Confiança"
+        },
+        "securityFeatures": {
+          "title": "Recursos de Segurança",
+          "aiMonitoring": {
+            "title": "Monitoramento IA 24/7",
+            "description": "Triple-Band AI monitora todos os protocolos DeFi para atividades suspeitas, manipulação de preços e vulnerabilidades."
+          },
+          "trustVerification": {
+            "title": "Verificação de Confiança",
+            "description": "Todos os projetos DeFi passam por processo rigoroso de verificação de pontuação de confiança antes da listagem."
+          },
+          "circuitBreakers": {
+            "title": "Disjuntores Automáticos",
+            "description": "Mecanismos de proteção automática pausam protocolos durante condições anormais de mercado."
+          },
+          "insurance": {
+            "title": "Fundo de Seguro",
+            "description": "Fundo de seguro apoiado pela comunidade protege contra explorações e eventos de cisne negro."
+          }
+        },
+        "developerResources": {
+          "description": "Construa e integre com TBurn DeFi usando nossas ferramentas abrangentes para desenvolvedores",
+          "sdkGuide": {
+            "title": "Guia SDK DeFi",
+            "subtitle": "Documentação de integração"
+          },
+          "smartContracts": {
+            "title": "Contratos Inteligentes",
+            "subtitle": "Contratos verificados"
+          },
+          "apiReference": {
+            "title": "Referência API",
+            "subtitle": "APIs REST e GraphQL"
+          },
+          "websocket": {
+            "title": "Feeds WebSocket",
+            "subtitle": "Streams de dados em tempo real"
+          },
+          "cli": {
+            "title": "Ferramentas CLI",
+            "subtitle": "Interface de linha de comando"
+          },
+          "examples": {
+            "title": "Exemplos de Código",
+            "subtitle": "Integrações de exemplo"
+          }
+        },
+        "buttons": {
+          "startTrading": "Começar a Negociar",
+          "viewAllFarms": "Ver Todas as Farms"
         }
       },
       "tokenExtensions": {
@@ -4613,6 +5545,18 @@
           "subtitle": "Emita tokens com recursos de classificação de confiança integrados em menos de 5 minutos.",
           "openConsole": "Abrir Console do Desenvolvedor",
           "viewApiDocs": "Ver Documentação da API"
+        },
+        "developerResources": {
+          "title": "Recursos para Desenvolvedores",
+          "subtitle": "Construa tokens customizados com nossas ferramentas",
+          "sdk": {
+            "title": "SDK de Extensões",
+            "subtitle": "Biblioteca de integração"
+          },
+          "contracts": {
+            "title": "Contratos Base",
+            "subtitle": "Templates auditados"
+          }
         }
       },
       "actionsBlinks": {
@@ -4669,7 +5613,8 @@
           "step3": {
             "title": "Execução Segura",
             "description": "Transação executa apenas se o usuário aprovar e a Pontuação de Confiança for segura (>40%)."
-          }
+          },
+          "figureLabel": "Diagrama de Fluxo de Ações"
         },
         "realWorldApps": {
           "title": "Aplicações do Mundo Real",
@@ -4691,7 +5636,73 @@
           }
         },
         "developerQuickStart": {
-          "title": "Início Rápido para Desenvolvedores"
+          "title": "Início Rápido para Desenvolvedores",
+          "step1": {
+            "title": "Estrutura básica de URL de Ação"
+          },
+          "step2": {
+            "title": "Adicionar meta tags OpenGraph"
+          },
+          "step3": {
+            "title": "Implantar e compartilhar",
+            "description": "A ação agora pode ser compartilhada em todas as plataformas"
+          }
+        },
+        "relatedSolutions": {
+          "description": "Aprimore suas ações blockchain com estas soluções complementares",
+          "wallets": {
+            "title": "Carteiras",
+            "subtitle": "Conexões seguras"
+          },
+          "payments": {
+            "title": "Pagamentos",
+            "subtitle": "Comércio global"
+          },
+          "commerce": {
+            "title": "Comércio",
+            "subtitle": "Ferramentas para comerciantes"
+          },
+          "tokenExtensions": {
+            "title": "Extensões de Token",
+            "subtitle": "Padrões BRC-20"
+          }
+        },
+        "developerResources": {
+          "description": "Construa ações blockchain poderosas com nosso kit de ferramentas abrangente para desenvolvedores",
+          "sdkGuide": {
+            "title": "SDK de Ações",
+            "subtitle": "Documentação de integração"
+          },
+          "smartContracts": {
+            "title": "Contratos Inteligentes",
+            "subtitle": "Contratos verificados"
+          },
+          "apiReference": {
+            "title": "Referência API",
+            "subtitle": "Endpoints REST"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "Eventos em tempo real"
+          },
+          "cli": {
+            "title": "Ferramentas CLI",
+            "subtitle": "Linha de comando"
+          },
+          "examples": {
+            "title": "Exemplos",
+            "subtitle": "Código de exemplo"
+          }
+        },
+        "learnPages": {
+          "introToDefi": {
+            "title": "Introdução ao DeFi",
+            "subtitle": "Aprenda os fundamentos das finanças descentralizadas"
+          },
+          "developerCourse": {
+            "title": "Curso de Desenvolvedor",
+            "subtitle": "Construa dApps no TBurn Chain"
+          }
         }
       },
       "wallets": {
@@ -4734,7 +5745,8 @@
           },
           "autoWarningSystem": {
             "title": "Sistema de Alerta Automático",
-            "description": "Protocolo padrão para exibir alertas em transações de baixa confiança (<40)."
+            "description": "Protocolo padrão para exibir alertas em transações de baixa confiança (<40).",
+            "warningExample": "Pontuação de Confiança < 40 - Alto Risco"
           },
           "walletSdk": {
             "title": "SDK de Carteira",
@@ -4852,6 +5864,24 @@
             "title": "Lançamento Mainnet & Operações",
             "description": "Implantação em produção com monitoramento 24/7 e auditorias de segurança regulares. Suporte contínuo da equipe TBurn."
           }
+        },
+        "heroTag": "AMBIENTES PERMISSIONADOS",
+        "heroTitle": "Redes Blockchain Empresariais Privadas",
+        "heroSubtitle": "Implante redes blockchain permissionadas com controle total sobre participantes e governança.",
+        "features": {
+          "title": "Recursos Empresariais",
+          "access": {
+            "title": "Controle de Acesso",
+            "description": "Gestão granular de permissões e identidades"
+          },
+          "privacy": {
+            "title": "Privacidade de Dados",
+            "description": "Transações confidenciais e canais privados"
+          },
+          "governance": {
+            "title": "Governança Personalizada",
+            "description": "Regras de consenso e governança customizáveis"
+          }
         }
       },
       "gameTooling": {
@@ -4967,17 +5997,31 @@
           "priceStability": {
             "title": "Estabilidade de Preço",
             "points": "30 pts",
-            "description": "Avaliado com base em volatilidade diária, capitalização de mercado e profundidade do pool de liquidez."
+            "description": "Avaliado com base em volatilidade diária, capitalização de mercado e profundidade do pool de liquidez.",
+            "scoring": {
+              "volatility": "< 1% volatilidade diária",
+              "liquidity": "$10M+ de liquidez"
+            }
           },
           "contractSecurity": {
             "title": "Segurança de Contrato",
             "points": "25 pts",
-            "description": "Conclusão de auditoria, proteção contra reentrância e descentralização de autoridade de atualização."
+            "description": "Conclusão de auditoria, proteção contra reentrância e descentralização de autoridade de atualização.",
+            "scoring": {
+              "audits": "3+ auditorias concluídas",
+              "criticalBug": "Bug crítico encontrado",
+              "block": "BLOQUEIO"
+            }
           },
           "adoptionUsage": {
             "title": "Adoção & Uso",
             "points": "20 pts",
-            "description": "Número de comerciantes, volume de transações mensais e tamanho médio de pagamento."
+            "description": "Número de comerciantes, volume de transações mensais e tamanho médio de pagamento.",
+            "scoring": {
+              "merchants": "100+ comerciantes",
+              "transactions": "$1M+ mensal",
+              "high": "ALTO"
+            }
           }
         },
         "solutionTypes": {
@@ -5016,6 +6060,9 @@
             "title": "Configurar Webhooks",
             "description": "Receba notificações instantâneas no servidor após conclusão do pagamento."
           }
+        },
+        "buttons": {
+          "viewDocs": "Ver Documentação"
         }
       },
       "commerce": {
@@ -5026,27 +6073,252 @@
       "financial": {
         "tag": "FINANÇAS",
         "title": "Serviços Financeiros",
-        "subtitle": "Infraestrutura financeira empresarial em blockchain."
+        "subtitle": "Infraestrutura financeira empresarial em blockchain.",
+        "heroTag": "INFRAESTRUTURA FINANCEIRA",
+        "heroTitle": "Serviços Financeiros Descentralizados",
+        "heroSubtitle": "Infraestrutura completa para instituições financeiras entrarem no mundo blockchain.",
+        "features": {
+          "title": "Capacidades Financeiras",
+          "custody": {
+            "title": "Custódia Institucional",
+            "description": "Soluções de custódia de nível bancário"
+          },
+          "settlement": {
+            "title": "Liquidação Instantânea",
+            "description": "Finalização de transações em segundos"
+          },
+          "reporting": {
+            "title": "Relatórios Regulatórios",
+            "description": "Conformidade automatizada e auditoria"
+          }
+        }
       },
       "aiFeatures": {
         "tag": "IMPULSIONADO POR IA",
         "title": "Recursos de IA",
-        "subtitle": "Orquestração de IA de Tripla Banda para operações blockchain inteligentes."
+        "subtitle": "Orquestração de IA de Tripla Banda para operações blockchain inteligentes.",
+        "heroTag": "RECURSOS DE IA",
+        "heroTitle": "Orquestração de IA de Tripla Banda",
+        "heroSubtitle": "Três camadas de inteligência artificial trabalhando em harmonia para proteger e otimizar a rede.",
+        "layers": {
+          "strategic": {
+            "title": "Camada Estratégica",
+            "description": "Análise de mercado de longo prazo e governança"
+          },
+          "tactical": {
+            "title": "Camada Tática",
+            "description": "Avaliação de confiança e verificação"
+          },
+          "operational": {
+            "title": "Camada Operacional",
+            "description": "Monitoramento em tempo real e resposta"
+          }
+        }
       },
       "artistsCreators": {
         "tag": "CRIATIVO",
         "title": "Artistas e Criadores",
-        "subtitle": "Cunhagem de NFT, royalties e ferramentas para economia criadora."
+        "subtitle": "Cunhagem de NFT, royalties e ferramentas para economia criadora.",
+        "heroTag": "ARTISTAS E CRIADORES",
+        "heroTitle": "Plataforma NFT para Criadores",
+        "heroSubtitle": "Cunhe, venda e gerencie NFTs com royalties automáticos e verificação de autenticidade.",
+        "features": {
+          "title": "Recursos para Criadores",
+          "minting": {
+            "title": "Cunhagem Fácil",
+            "description": "Crie NFTs sem conhecimento técnico"
+          },
+          "royalties": {
+            "title": "Royalties Automáticos",
+            "description": "Receba percentual de todas as revendas"
+          },
+          "verification": {
+            "title": "Verificação de Autoria",
+            "description": "Prova de autenticidade on-chain"
+          }
+        }
       },
       "btcfi": {
         "tag": "BITCOIN DEFI",
         "title": "BTCfi",
-        "subtitle": "Integração Bitcoin DeFi com BTC encapsulado e rendimentos cross-chain."
+        "subtitle": "Integração Bitcoin DeFi com BTC encapsulado e rendimentos cross-chain.",
+        "heroTag": "BTCFI",
+        "heroTitle": "Bitcoin DeFi no TBurn Chain",
+        "heroSubtitle": "Desbloqueie o potencial DeFi do Bitcoin com wrapped BTC verificado e pools de liquidez.",
+        "features": {
+          "title": "Recursos BTCfi",
+          "wrappedBtc": {
+            "title": "Wrapped BTC",
+            "description": "BTC 1:1 com custódia verificada e pontuação de confiança"
+          },
+          "lending": {
+            "title": "Empréstimos BTC",
+            "description": "Empréstimos colateralizados com até 70% LTV"
+          },
+          "yield": {
+            "title": "Yield BTC",
+            "description": "Ganhe rendimento em BTC através de pools de liquidez"
+          }
+        }
       },
       "crossChainBridge": {
         "tag": "PONTE",
         "title": "Ponte Cross-Chain",
-        "subtitle": "Transferências seguras de ativos em mais de 7 redes blockchain."
+        "subtitle": "Transferências seguras de ativos em mais de 7 redes blockchain.",
+        "relatedSolutions": {
+          "title": "Soluções Relacionadas",
+          "subtitle": "Explore outras soluções do ecossistema",
+          "defiHub": {
+            "title": "Hub DeFi",
+            "subtitle": "Ecossistema DeFi completo"
+          },
+          "payments": {
+            "title": "Pagamentos",
+            "subtitle": "Soluções de pagamento global"
+          }
+        },
+        "developerResources": {
+          "title": "Recursos para Desenvolvedores",
+          "subtitle": "Ferramentas e documentação para integração"
+        }
+      },
+      "enterprise": {
+        "heroTag": "SOLUÇÕES EMPRESARIAIS",
+        "heroTitle": "Infraestrutura Blockchain de Nível Empresarial",
+        "heroSubtitle": "Infraestrutura blockchain segura, escalável e em conformidade com regulações para as maiores organizações do mundo.",
+        "stats": {
+          "uptime": {
+            "value": "99.99%",
+            "label": "Tempo de Atividade SLA"
+          },
+          "compliance": {
+            "value": "SOC2",
+            "label": "Em Conformidade"
+          },
+          "support": {
+            "value": "24/7",
+            "label": "Suporte Dedicado"
+          }
+        },
+        "features": {
+          "title": "Recursos Empresariais",
+          "subtitle": "Construído para organizações que exigem os mais altos padrões",
+          "security": {
+            "title": "Segurança Avançada",
+            "description": "Criptografia resistente a quantum, HSM e controles de acesso de nível empresarial"
+          },
+          "compliance": {
+            "title": "Conformidade Regulatória",
+            "description": "SOC2 Tipo II, GDPR, e frameworks de conformidade personalizados"
+          },
+          "integration": {
+            "title": "Integração Empresarial",
+            "description": "APIs REST e GraphQL, SDKs e integração com sistemas legados"
+          },
+          "support": {
+            "title": "Suporte Premium",
+            "description": "Gerente de conta dedicado e suporte técnico 24/7"
+          }
+        }
+      },
+      "gaming": {
+        "heroTag": "INFRAESTRUTURA GAMEFI",
+        "heroTitle": "Infraestrutura de Jogos de Próxima Geração",
+        "heroSubtitle": "Motor P2E, sistema de torneios e negociação de itens cross-chain para desenvolvedores de jogos blockchain.",
+        "stats": {
+          "tps": {
+            "value": "50K+",
+            "label": "TPS Gaming"
+          },
+          "games": {
+            "value": "200+",
+            "label": "Jogos Ativos"
+          },
+          "players": {
+            "value": "5M+",
+            "label": "Jogadores"
+          }
+        },
+        "features": {
+          "title": "Recursos de Plataforma GameFi",
+          "subtitle": "Tudo que você precisa para construir jogos blockchain de sucesso",
+          "p2e": {
+            "title": "Motor P2E",
+            "description": "Sistema de recompensas integrado com tokenomics anti-inflação"
+          },
+          "tournaments": {
+            "title": "Sistema de Torneios",
+            "description": "Torneios on-chain com distribuição automática de prêmios"
+          },
+          "nft": {
+            "title": "NFTs de Jogos",
+            "description": "Itens e personagens cross-game com padrões unificados"
+          },
+          "trading": {
+            "title": "Negociação Cross-Chain",
+            "description": "Marketplace integrado para itens de múltiplos jogos"
+          }
+        }
+      },
+      "stablecoins": {
+        "heroTag": "STABLECOINS",
+        "heroTitle": "Infraestrutura de Stablecoins Confiável",
+        "heroSubtitle": "Stablecoins verificadas com pontuação de confiança para transações seguras e estáveis.",
+        "stats": {
+          "volume": {
+            "value": "$2.1B",
+            "label": "Volume Mensal"
+          },
+          "pairs": {
+            "value": "50+",
+            "label": "Pares de Trading"
+          },
+          "fees": {
+            "value": "0.05%",
+            "label": "Taxa Média"
+          }
+        }
+      },
+      "depin": {
+        "heroTag": "INFRAESTRUTURA DEPIN",
+        "heroTitle": "Redes de Infraestrutura Física Descentralizada",
+        "heroSubtitle": "Conecte dispositivos físicos à blockchain com verificação de confiança e incentivos.",
+        "features": {
+          "title": "Capacidades DePIN",
+          "subtitle": "Infraestrutura completa para projetos de hardware descentralizado",
+          "devices": {
+            "title": "Registro de Dispositivos",
+            "description": "Identidade verificada on-chain para dispositivos IoT"
+          },
+          "rewards": {
+            "title": "Incentivos Automáticos",
+            "description": "Distribuição de recompensas baseada em contribuição de rede"
+          },
+          "data": {
+            "title": "Verificação de Dados",
+            "description": "Oráculos validam dados de dispositivos em tempo real"
+          }
+        }
+      },
+      "tokenization": {
+        "heroTag": "TOKENIZAÇÃO",
+        "heroTitle": "Tokenização de Ativos do Mundo Real",
+        "heroSubtitle": "Tokenize imóveis, commodities e ativos financeiros com conformidade regulatória.",
+        "features": {
+          "title": "Recursos de Tokenização",
+          "realEstate": {
+            "title": "Imóveis",
+            "description": "Propriedade fracionada de imóveis comerciais e residenciais"
+          },
+          "commodities": {
+            "title": "Commodities",
+            "description": "Ouro, prata e commodities agrícolas tokenizadas"
+          },
+          "securities": {
+            "title": "Valores Mobiliários",
+            "description": "Ações, títulos e derivativos em conformidade"
+          }
+        }
       }
     },
     "useCases": {
@@ -5327,19 +6599,32 @@
           "title": "Endpoints Principais",
           "scoreQuery": {
             "title": "API de Consulta de Pontuação",
-            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+            "endpoints": [
+              "GET /score/:address",
+              "GET /score/:address/history",
+              "POST /score/batch"
+            ]
           },
           "project": {
             "title": "API de Projeto",
-            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+            "endpoints": [
+              "GET /projects",
+              "POST /projects/register",
+              "GET /projects/:id"
+            ]
           },
           "analytics": {
             "title": "API de Analytics",
-            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+            "endpoints": [
+              "GET /analytics/trends",
+              "GET /analytics/leaderboard"
+            ]
           },
           "webhook": {
             "title": "API de Webhook",
-            "endpoints": ["POST /webhooks"],
+            "endpoints": [
+              "POST /webhooks"
+            ],
             "events": "Eventos: score.updated, score.alert, project.registered"
           }
         },

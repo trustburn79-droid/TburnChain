@@ -365,7 +365,7 @@
     "fromChain": "Из сети",
     "toChain": "В сеть",
     "amount": "Сумма",
-    "fee": "Комиссия моста",
+    "fee": "Комиссия",
     "estimatedTime": "Расчетное время",
     "initiate": "Начать перевод",
     "claim": "Получить",
@@ -391,7 +391,6 @@
     "from": "От",
     "to": "Кому",
     "confirmations": "Подтверждения",
-    "fee": "Комиссия",
     "sender": "Отправитель",
     "recipient": "Получатель",
     "sourceTxHash": "Хеш TX Источника",
@@ -1020,7 +1019,31 @@
     "ai": "AI",
     "aiProcessing": "Обработка AI",
     "uptime": "Время работы",
-    "decisions": "Решения",
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "Аномальный паттерн обнаружен и устранён",
+      "consensus_threshold_achieved": "Порог консенсуса достигнут",
+      "smart_contract_execution_approved": "Выполнение смарт-контракта одобрено",
+      "block_validation_complete": "Валидация блока завершена",
+      "validator_performance_analyzed": "Производительность валидатора проанализирована",
+      "network_latency_adjusted": "Сетевая задержка скорректирована",
+      "transaction_verified_successfully": "Транзакция успешно верифицирована",
+      "security_protocol_updated": "Протокол безопасности обновлён",
+      "gas_fee_optimization_applied": "Оптимизация комиссии за газ применена",
+      "shard_rebalancing_complete": "Ребалансировка шардов завершена",
+      "cross_chain_transfer_validated": "Кросс-чейн перевод валидирован",
+      "stake_distribution_optimized": "Распределение стейка оптимизировано",
+      "shard_load_balanced": "Нагрузка шардов сбалансирована",
+      "gas_fee_optimized": "Комиссия за газ оптимизирована",
+      "load_balancing_complete": "Балансировка нагрузки завершена",
+      "consensus_achieved": "Консенсус достигнут",
+      "validator_rotation_complete": "Ротация валидаторов завершена",
+      "block_finalized": "Блок финализирован",
+      "transaction_batch_processed": "Пакет транзакций обработан",
+      "network_optimization_applied": "Оптимизация сети применена",
+      "security_check_passed": "Проверка безопасности пройдена",
+      "resource_allocation_optimized": "Распределение ресурсов оптимизировано",
+      "crossshard_message_routed": "Кросс-шард сообщение маршрутизировано"
+    },
     "actions": "Действия",
     "operations": "Операции",
     "accuracy": "Точность",
@@ -1056,31 +1079,6 @@
       "strategic": "Стратегический",
       "tactical": "Тактический",
       "operational": "Операционный"
-    },
-    "decisions": {
-      "anomaly_pattern_detected_and_resolved": "Аномальный паттерн обнаружен и устранён",
-      "consensus_threshold_achieved": "Порог консенсуса достигнут",
-      "smart_contract_execution_approved": "Выполнение смарт-контракта одобрено",
-      "block_validation_complete": "Валидация блока завершена",
-      "validator_performance_analyzed": "Производительность валидатора проанализирована",
-      "network_latency_adjusted": "Сетевая задержка скорректирована",
-      "transaction_verified_successfully": "Транзакция успешно верифицирована",
-      "security_protocol_updated": "Протокол безопасности обновлён",
-      "gas_fee_optimization_applied": "Оптимизация комиссии за газ применена",
-      "shard_rebalancing_complete": "Ребалансировка шардов завершена",
-      "cross_chain_transfer_validated": "Кросс-чейн перевод валидирован",
-      "stake_distribution_optimized": "Распределение стейка оптимизировано",
-      "shard_load_balanced": "Нагрузка шардов сбалансирована",
-      "gas_fee_optimized": "Комиссия за газ оптимизирована",
-      "load_balancing_complete": "Балансировка нагрузки завершена",
-      "consensus_achieved": "Консенсус достигнут",
-      "validator_rotation_complete": "Ротация валидаторов завершена",
-      "block_finalized": "Блок финализирован",
-      "transaction_batch_processed": "Пакет транзакций обработан",
-      "network_optimization_applied": "Оптимизация сети применена",
-      "security_check_passed": "Проверка безопасности пройдена",
-      "resource_allocation_optimized": "Распределение ресурсов оптимизировано",
-      "crossshard_message_routed": "Кросс-шард сообщение маршрутизировано"
     },
     "categories": {
       "security": "Безопасность",
@@ -1590,7 +1588,7 @@
     "generateReport": "Создать отчет",
     "downloadReport": "Скачать отчет",
     "dashboard": {
-    "technicalDetails": "Technical Details",
+      "technicalDetails": "Technical Details",
       "title": "Портал оператора",
       "subtitle": "Корпоративный бэк-офис для управления сетью TBURN",
       "autoRefresh": "Авто",
@@ -2043,7 +2041,39 @@
       "reports": "Отчеты",
       "templates": "Шаблоны",
       "schedules": "Расписания",
-      "compliance": "Соответствие",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "Защита данных",
+          "financialReporting": "Финансовая отчетность",
+          "networkSecurity": "Сетевая безопасность",
+          "operational": "Операционный"
+        },
+        "requirements": {
+          "identityVerification": "Все участники должны пройти верификацию личности в течение 30 дней",
+          "sarFiling": "Отчеты о подозрительной деятельности (SARs) подаются в течение 72 часов",
+          "gdprCompliance": "Соответствие GDPR при обработке данных участников из ЕС",
+          "encryptionAtRest": "Шифрование в состоянии покоя для всех конфиденциальных данных",
+          "quarterlyStatements": "Квартальная финансовая отчетность представляется регуляторам",
+          "annualAudit": "Ежегодный аудит сертифицированной третьей стороной",
+          "multiSig": "Требование мультиподписи для казначейских транзакций",
+          "validatorKyc": "KYC валидатора для членства в комитете",
+          "disasterRecovery": "План восстановления после сбоев тестируется ежеквартально",
+          "incidentResponse": "Реагирование на инциденты безопасности в течение 1 часа"
+        },
+        "notes": {
+          "complianceRate": "Уровень соответствия 98,5%",
+          "sarFiledOnTime": "Все SAR поданы вовремя",
+          "annualAuditPassed": "Годовой аудит пройден",
+          "aesEncryption": "Шифрование AES-256 проверено",
+          "q4ReportPreparation": "Отчет Q4 2025 в подготовке",
+          "auditCleanOpinion": "Аудит 2024 завершен - чистое заключение",
+          "multiSigActive": "Мультиподпись 3-из-5 активна",
+          "validatorsVerified": "Все 125 валидаторов верифицированы",
+          "nextTestScheduled": "Следующий тест запланирован на декабрь",
+          "monitoringActive": "Мониторинг 24/7 активен"
+        }
+      },
       "totalReports": "Всего отчетов",
       "draft": "Черновик",
       "pendingReview": "Ожидает проверки",
@@ -2101,39 +2131,6 @@
         "quarterlyValidatorReport": "Квартальный отчет о валидаторах"
       },
       "complianceTab": "Соответствие",
-      "compliance": {
-        "categories": {
-          "kycAml": "KYC/AML",
-          "dataProtection": "Защита данных",
-          "financialReporting": "Финансовая отчетность",
-          "networkSecurity": "Сетевая безопасность",
-          "operational": "Операционный"
-        },
-        "requirements": {
-          "identityVerification": "Все участники должны пройти верификацию личности в течение 30 дней",
-          "sarFiling": "Отчеты о подозрительной деятельности (SARs) подаются в течение 72 часов",
-          "gdprCompliance": "Соответствие GDPR при обработке данных участников из ЕС",
-          "encryptionAtRest": "Шифрование в состоянии покоя для всех конфиденциальных данных",
-          "quarterlyStatements": "Квартальная финансовая отчетность представляется регуляторам",
-          "annualAudit": "Ежегодный аудит сертифицированной третьей стороной",
-          "multiSig": "Требование мультиподписи для казначейских транзакций",
-          "validatorKyc": "KYC валидатора для членства в комитете",
-          "disasterRecovery": "План восстановления после сбоев тестируется ежеквартально",
-          "incidentResponse": "Реагирование на инциденты безопасности в течение 1 часа"
-        },
-        "notes": {
-          "complianceRate": "Уровень соответствия 98,5%",
-          "sarFiledOnTime": "Все SAR поданы вовремя",
-          "annualAuditPassed": "Годовой аудит пройден",
-          "aesEncryption": "Шифрование AES-256 проверено",
-          "q4ReportPreparation": "Отчет Q4 2025 в подготовке",
-          "auditCleanOpinion": "Аудит 2024 завершен - чистое заключение",
-          "multiSigActive": "Мультиподпись 3-из-5 активна",
-          "validatorsVerified": "Все 125 валидаторов верифицированы",
-          "nextTestScheduled": "Следующий тест запланирован на декабрь",
-          "monitoringActive": "Мониторинг 24/7 активен"
-        }
-      },
       "complianceData": {
         "categories": {
           "kycAml": "KYC/AML",
@@ -2178,7 +2175,7 @@
       }
     },
     "staking": {
-    "details": "Details",
+      "details": "Details",
       "title": "Операции стейкинга",
       "subtitle": "Управление пулами стейкинга, уровнями и распределением наград",
       "refresh": "Обновить",
@@ -3159,21 +3156,39 @@
         "title": "Увеличить ставку сжигания с 20% до 25%",
         "description": "Это предложение направлено на увеличение ставки сжигания ежедневных эмиссий с 20% до 25% для ускорения дефляции и поддержки долгосрочной ценовой стабильности.",
         "aiRecommendation": "Это предложение несёт умеренный экономический риск, но имеет сильную поддержку сообщества. Рассмотрите поэтапное внедрение в течение 30 дней.",
-        "risks": ["Краткосрочная волатильность цен", "Снижение стимулов ликвидности"],
-        "keyFactors": ["Сильная поддержка валидаторов", "Подобные предложения ранее были приняты", "Позитивное настроение сообщества"]
+        "risks": [
+          "Краткосрочная волатильность цен",
+          "Снижение стимулов ликвидности"
+        ],
+        "keyFactors": [
+          "Сильная поддержка валидаторов",
+          "Подобные предложения ранее были приняты",
+          "Позитивное настроение сообщества"
+        ]
       },
       "prop-002": {
         "title": "Добавить поддержку моста zkSync",
         "description": "Предложение по интеграции zkSync Era в качестве поддерживаемой сети в кросс-чейн мост TBURN с оценкой рисков ИИ.",
         "aiRecommendation": "Интеграция zkSync технически осуществима со средней сложностью. Рекомендуется аудит безопасности перед развёртыванием.",
-        "risks": ["Риски новой технологии", "Сложность интеграции", "Фрагментация ликвидности"],
-        "keyFactors": ["Опасения по поводу технической сложности", "Сильный рост экосистемы zkSync", "Интерес сообщества разработчиков"]
+        "risks": [
+          "Риски новой технологии",
+          "Сложность интеграции",
+          "Фрагментация ликвидности"
+        ],
+        "keyFactors": [
+          "Опасения по поводу технической сложности",
+          "Сильный рост экосистемы zkSync",
+          "Интерес сообщества разработчиков"
+        ]
       },
       "prop-003": {
         "title": "Снизить минимальный стейк для валидаторов Tier-1",
         "description": "Снизить минимальный стейк для валидаторов Tier-1 с 200 000 TBURN до 150 000 TBURN для продвижения децентрализации валидаторов.",
         "aiRecommendation": "Снижение требований к стейку способствует децентрализации с минимальным влиянием на безопасность благодаря системе репутации ИИ.",
-        "risks": ["Небольшое увеличение количества валидаторов", "Незначительное размывание вознаграждений"],
+        "risks": [
+          "Небольшое увеличение количества валидаторов",
+          "Незначительное размывание вознаграждений"
+        ],
         "keyFactors": []
       },
       "prop-004": {
@@ -3187,8 +3202,15 @@
         "title": "Обновление квантово-устойчивых подписей",
         "description": "Обязательный переход на гибридные подписи CRYSTALS-Dilithium + ED25519 для всех операций валидаторов.",
         "aiRecommendation": "Критическое обновление безопасности с минимальным экономическим воздействием. Настоятельно рекомендуется для пост-квантовой защиты.",
-        "risks": ["Сложность переходного периода", "Небольшое снижение производительности"],
-        "keyFactors": ["Сообщество ориентировано на безопасность", "Минимальные недостатки", "Явные технические преимущества"]
+        "risks": [
+          "Сложность переходного периода",
+          "Небольшое снижение производительности"
+        ],
+        "keyFactors": [
+          "Сообщество ориентировано на безопасность",
+          "Минимальные недостатки",
+          "Явные технические преимущества"
+        ]
       }
     }
   },
@@ -3290,7 +3312,7 @@
     }
   },
   "community": {
-    "title": "Сообщество TBURN",
+    "title": "Заголовок",
     "subtitle": "Подключайтесь, сотрудничайте и развивайтесь вместе с экосистемой TBURN",
     "online": "Онлайн",
     "totalMembers": "Всего участников",
@@ -3299,14 +3321,109 @@
     "comments": "комментарии",
     "proposals": "Предложения",
     "active": "активных",
-    "events": "События",
+    "events": {
+      "launchAma": {
+        "title": "AMA запуска мейннета",
+        "desc": "Присоединяйтесь к нашим основателям на эксклюзивной сессии AMA о запуске мейннета"
+      },
+      "defiWorkshop": {
+        "title": "Воркшоп DeFi",
+        "desc": "Узнайте, как максимизировать доходность с протоколами TBURN DeFi"
+      },
+      "hackathon": {
+        "title": "Хакатон TBURN 2025",
+        "desc": "Создайте будущее DeFi на TBURN и выиграйте призы на 100K TBURN"
+      },
+      "tokyoMeetup": {
+        "title": "Встреча сообщества: Токио",
+        "desc": "Познакомьтесь с сообществом TBURN лично на нашем мероприятии в Токио"
+      },
+      "stakingCompetition": {
+        "title": "Соревнование по стейкингу",
+        "desc": "Соревнуйтесь за наивысшие награды стейкинга в этом месяце"
+      },
+      "nftContest": {
+        "title": "Конкурс NFT-искусства",
+        "desc": "Создайте NFT-арт на тему TBURN и выиграйте призы"
+      },
+      "validatorTraining": {
+        "title": "Сессия обучения валидаторов",
+        "desc": "Узнайте, как стать валидатором TBURN с комплексным обучением"
+      },
+      "airdropEvent": {
+        "title": "Общественный аирдроп",
+        "desc": "Эксклюзивный аирдроп для активных членов сообщества. Выполняйте задания, чтобы заработать награды!"
+      }
+    },
     "upcoming": "предстоящих",
     "totalRewards": "Распределённые награды",
     "overview": "Обзор",
     "forum": "Форум",
     "leaderboard": "Рейтинг",
-    "badges": "Значки",
-    "announcements": "Объявления",
+    "badges": {
+      "earlyAdopter": {
+        "name": "Ранний последователь",
+        "description": "Присоединился в первый месяц мейннета"
+      },
+      "diamondHands": {
+        "name": "Бриллиантовые руки",
+        "description": "Держал TBURN более 6 месяцев"
+      },
+      "governanceParticipant": {
+        "name": "Участник управления",
+        "description": "Голосовал по 10+ предложениям управления"
+      },
+      "communityHelper": {
+        "name": "Помощник сообщества",
+        "description": "Помог 50+ членам сообщества"
+      },
+      "whaleStatus": {
+        "name": "Статус кита",
+        "description": "Владеет 100K+ токенов TBURN"
+      },
+      "contentCreator": {
+        "name": "Создатель контента",
+        "description": "Опубликовал 25+ постов на форуме"
+      },
+      "validator": {
+        "name": "Валидатор",
+        "description": "Управляет узлом валидатора мейннета"
+      },
+      "bridgePioneer": {
+        "name": "Пионер моста",
+        "description": "В числе первых 1000 пользователей кросс-чейн моста"
+      },
+      "defiMaster": {
+        "name": "Мастер DeFi",
+        "description": "Использовал все протоколы DeFi"
+      },
+      "bugHunter": {
+        "name": "Охотник за багами",
+        "description": "Сообщил о действительной уязвимости безопасности"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "Дата запуска мейннета подтверждена",
+        "content": "Мы рады объявить, что мейннет TBURN официально запустится 1 декабря 2025 года. Все системы готовы!"
+      },
+      "stakingTiers": {
+        "title": "Запущены новые уровни стейкинга",
+        "content": "Представляем улучшенные уровни стейкинга с APY до 25% для валидаторов Tier 1. Подробности на странице стейкинга."
+      },
+      "securityAudit": {
+        "title": "Аудит безопасности завершен",
+        "content": "Наши смарт-контракты прошли комплексный аудит безопасности CertiK без критических проблем."
+      },
+      "bridgeIntegration": {
+        "title": "Кросс-чейн мост теперь работает",
+        "content": "Мост TBURN теперь работает, поддерживая переводы между сетями Ethereum, BSC и Polygon."
+      },
+      "maintenance": {
+        "title": "Плановое обслуживание: Обновление узла",
+        "content": "Краткое техническое обслуживание запланировано на 3 декабря, 2:00 UTC. Ожидаемое время простоя: 15 минут."
+      }
+    },
     "important": "Важно",
     "activityFeed": "Лента активности",
     "topContributors": "Лучшие участники",
@@ -3386,7 +3503,6 @@
     "eventDetails": "Детали события",
     "startTime": "Время начала",
     "endTime": "Время окончания",
-    "title": "Заголовок",
     "content": "Содержание",
     "contributions": "Вклад",
     "time": {
@@ -3416,104 +3532,6 @@
       "news": "Новости",
       "alert": "Оповещение",
       "feature": "Функция"
-    },
-    "badges": {
-      "earlyAdopter": {
-        "name": "Ранний последователь",
-        "description": "Присоединился в первый месяц мейннета"
-      },
-      "diamondHands": {
-        "name": "Бриллиантовые руки",
-        "description": "Держал TBURN более 6 месяцев"
-      },
-      "governanceParticipant": {
-        "name": "Участник управления",
-        "description": "Голосовал по 10+ предложениям управления"
-      },
-      "communityHelper": {
-        "name": "Помощник сообщества",
-        "description": "Помог 50+ членам сообщества"
-      },
-      "whaleStatus": {
-        "name": "Статус кита",
-        "description": "Владеет 100K+ токенов TBURN"
-      },
-      "contentCreator": {
-        "name": "Создатель контента",
-        "description": "Опубликовал 25+ постов на форуме"
-      },
-      "validator": {
-        "name": "Валидатор",
-        "description": "Управляет узлом валидатора мейннета"
-      },
-      "bridgePioneer": {
-        "name": "Пионер моста",
-        "description": "В числе первых 1000 пользователей кросс-чейн моста"
-      },
-      "defiMaster": {
-        "name": "Мастер DeFi",
-        "description": "Использовал все протоколы DeFi"
-      },
-      "bugHunter": {
-        "name": "Охотник за багами",
-        "description": "Сообщил о действительной уязвимости безопасности"
-      }
-    },
-    "events": {
-      "launchAma": {
-        "title": "AMA запуска мейннета",
-        "desc": "Присоединяйтесь к нашим основателям на эксклюзивной сессии AMA о запуске мейннета"
-      },
-      "defiWorkshop": {
-        "title": "Воркшоп DeFi",
-        "desc": "Узнайте, как максимизировать доходность с протоколами TBURN DeFi"
-      },
-      "hackathon": {
-        "title": "Хакатон TBURN 2025",
-        "desc": "Создайте будущее DeFi на TBURN и выиграйте призы на 100K TBURN"
-      },
-      "tokyoMeetup": {
-        "title": "Встреча сообщества: Токио",
-        "desc": "Познакомьтесь с сообществом TBURN лично на нашем мероприятии в Токио"
-      },
-      "stakingCompetition": {
-        "title": "Соревнование по стейкингу",
-        "desc": "Соревнуйтесь за наивысшие награды стейкинга в этом месяце"
-      },
-      "nftContest": {
-        "title": "Конкурс NFT-искусства",
-        "desc": "Создайте NFT-арт на тему TBURN и выиграйте призы"
-      },
-      "validatorTraining": {
-        "title": "Сессия обучения валидаторов",
-        "desc": "Узнайте, как стать валидатором TBURN с комплексным обучением"
-      },
-      "airdropEvent": {
-        "title": "Общественный аирдроп",
-        "desc": "Эксклюзивный аирдроп для активных членов сообщества. Выполняйте задания, чтобы заработать награды!"
-      }
-    },
-    "announcements": {
-      "mainnetLaunch": {
-        "title": "Дата запуска мейннета подтверждена",
-        "content": "Мы рады объявить, что мейннет TBURN официально запустится 1 декабря 2025 года. Все системы готовы!"
-      },
-      "stakingTiers": {
-        "title": "Запущены новые уровни стейкинга",
-        "content": "Представляем улучшенные уровни стейкинга с APY до 25% для валидаторов Tier 1. Подробности на странице стейкинга."
-      },
-      "securityAudit": {
-        "title": "Аудит безопасности завершен",
-        "content": "Наши смарт-контракты прошли комплексный аудит безопасности CertiK без критических проблем."
-      },
-      "bridgeIntegration": {
-        "title": "Кросс-чейн мост теперь работает",
-        "content": "Мост TBURN теперь работает, поддерживая переводы между сетями Ethereum, BSC и Polygon."
-      },
-      "maintenance": {
-        "title": "Плановое обслуживание: Обновление узла",
-        "content": "Краткое техническое обслуживание запланировано на 3 декабря, 2:00 UTC. Ожидаемое время простоя: 15 минут."
-      }
     },
     "rarities": {
       "common": "Обычный",
@@ -3612,70 +3630,217 @@
       "nav": {
         "learn": {
           "title": "Обучение",
-          "learnHub": { "title": "Центр обучения", "description": "Начните работу с Burn Chain" },
-          "whatIsBurnChain": { "title": "Что такое Burn Chain?", "description": "Узнайте о нашем блокчейне" },
-          "trustScore": { "title": "Система рейтинга доверия", "description": "Понимание верификации доверия" },
-          "wallet": { "title": "Что такое кошелёк?", "description": "Основы кошелька" },
-          "blockchainBasics": { "title": "Основы блокчейна", "description": "Базовые концепции" },
-          "defiMastery": { "title": "Мастерство DeFi", "description": "Продвинутый курс DeFi" },
-          "developerCourse": { "title": "Курс разработчика", "description": "Строить на Burn Chain" },
-          "introToDefi": { "title": "Введение в DeFi", "description": "Основы DeFi" },
-          "educationPrograms": { "title": "Образовательные программы", "description": "Сертификационные курсы" },
-          "whitepaper": { "title": "Техническая документация", "description": "Подробная техническая документация" },
-          "tokenomics": { "title": "Токеномика", "description": "Экономика токена" },
-          "roadmap": { "title": "Дорожная карта", "description": "Хронология разработки" }
+          "learnHub": {
+            "title": "Центр обучения",
+            "description": "Начните работу с Burn Chain"
+          },
+          "whatIsBurnChain": {
+            "title": "Что такое Burn Chain?",
+            "description": "Узнайте о нашем блокчейне"
+          },
+          "trustScore": {
+            "title": "Система рейтинга доверия",
+            "description": "Понимание верификации доверия"
+          },
+          "wallet": {
+            "title": "Что такое кошелёк?",
+            "description": "Основы кошелька"
+          },
+          "blockchainBasics": {
+            "title": "Основы блокчейна",
+            "description": "Базовые концепции"
+          },
+          "defiMastery": {
+            "title": "Мастерство DeFi",
+            "description": "Продвинутый курс DeFi"
+          },
+          "developerCourse": {
+            "title": "Курс разработчика",
+            "description": "Строить на Burn Chain"
+          },
+          "introToDefi": {
+            "title": "Введение в DeFi",
+            "description": "Основы DeFi"
+          },
+          "educationPrograms": {
+            "title": "Образовательные программы",
+            "description": "Сертификационные курсы"
+          },
+          "whitepaper": {
+            "title": "Техническая документация",
+            "description": "Подробная техническая документация"
+          },
+          "tokenomics": {
+            "title": "Токеномика",
+            "description": "Экономика токена"
+          },
+          "roadmap": {
+            "title": "Дорожная карта",
+            "description": "Хронология разработки"
+          }
         },
         "developers": {
           "title": "Разработчики",
-          "developerHub": { "title": "Центр разработчика", "description": "Строить на Burn Chain" },
-          "documentation": { "title": "Документация", "description": "Полная документация" },
-          "apiReference": { "title": "Справочник API", "description": "Конечные точки API" },
-          "cliReference": { "title": "Справочник CLI", "description": "Инструменты командной строки" },
-          "sdkGuide": { "title": "Руководство SDK", "description": "Интеграция SDK" },
-          "smartContracts": { "title": "Смарт-контракты", "description": "Разработка контрактов" },
-          "websocketApi": { "title": "WebSocket API", "description": "Данные в реальном времени" },
-          "codeExamples": { "title": "Примеры кода", "description": "Примеры кода" },
-          "quickStart": { "title": "Быстрый старт", "description": "Начните быстро" },
-          "installation": { "title": "Руководство по установке", "description": "Инструкции по настройке" },
-          "evmMigration": { "title": "Миграция EVM", "description": "Миграция с Ethereum" }
+          "developerHub": {
+            "title": "Центр разработчика",
+            "description": "Строить на Burn Chain"
+          },
+          "documentation": {
+            "title": "Документация",
+            "description": "Полная документация"
+          },
+          "apiReference": {
+            "title": "Справочник API",
+            "description": "Конечные точки API"
+          },
+          "cliReference": {
+            "title": "Справочник CLI",
+            "description": "Инструменты командной строки"
+          },
+          "sdkGuide": {
+            "title": "Руководство SDK",
+            "description": "Интеграция SDK"
+          },
+          "smartContracts": {
+            "title": "Смарт-контракты",
+            "description": "Разработка контрактов"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "Данные в реальном времени"
+          },
+          "codeExamples": {
+            "title": "Примеры кода",
+            "description": "Примеры кода"
+          },
+          "quickStart": {
+            "title": "Быстрый старт",
+            "description": "Начните быстро"
+          },
+          "installation": {
+            "title": "Руководство по установке",
+            "description": "Инструкции по настройке"
+          },
+          "evmMigration": {
+            "title": "Миграция EVM",
+            "description": "Миграция с Ethereum"
+          }
         },
         "solutions": {
           "title": "Решения",
-          "tokenExtensions": { "title": "Расширения токенов", "description": "Расширенные токены" },
-          "actionsBlinks": { "title": "Actions & Blinks", "description": "Действия на основе URL" },
-          "wallets": { "title": "Кошельки", "description": "Решения для кошельков" },
-          "permissioned": { "title": "Разрешённые среды", "description": "Корпоративные сети" },
-          "gameTooling": { "title": "Инструменты для игр", "description": "Разработка игр" },
-          "payments": { "title": "Платежи", "description": "Платёжные решения" },
-          "commerce": { "title": "Коммерция", "description": "Интеграция электронной коммерции" },
-          "financial": { "title": "Финансовая инфраструктура", "description": "Финансовые услуги" },
-          "aiFeatures": { "title": "Функции ИИ", "description": "Возможности ИИ" },
-          "artistsCreators": { "title": "Художники и создатели", "description": "Платформа NFT" },
-          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
-          "crossChainBridge": { "title": "Кросс-чейн мост", "description": "Мультичейн мост" },
-          "defiHub": { "title": "DeFi Хаб", "description": "Экосистема DeFi" }
+          "tokenExtensions": {
+            "title": "Расширения токенов",
+            "description": "Расширенные токены"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "description": "Действия на основе URL"
+          },
+          "wallets": {
+            "title": "Кошельки",
+            "description": "Решения для кошельков"
+          },
+          "permissioned": {
+            "title": "Разрешённые среды",
+            "description": "Корпоративные сети"
+          },
+          "gameTooling": {
+            "title": "Инструменты для игр",
+            "description": "Разработка игр"
+          },
+          "payments": {
+            "title": "Платежи",
+            "description": "Платёжные решения"
+          },
+          "commerce": {
+            "title": "Коммерция",
+            "description": "Интеграция электронной коммерции"
+          },
+          "financial": {
+            "title": "Финансовая инфраструктура",
+            "description": "Финансовые услуги"
+          },
+          "aiFeatures": {
+            "title": "Функции ИИ",
+            "description": "Возможности ИИ"
+          },
+          "artistsCreators": {
+            "title": "Художники и создатели",
+            "description": "Платформа NFT"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "description": "Bitcoin DeFi"
+          },
+          "crossChainBridge": {
+            "title": "Кросс-чейн мост",
+            "description": "Мультичейн мост"
+          },
+          "defiHub": {
+            "title": "DeFi Хаб",
+            "description": "Экосистема DeFi"
+          }
         },
         "useCases": {
           "title": "Варианты использования",
-          "tokenization": { "title": "Токенизация", "description": "Токенизация активов" },
-          "depin": { "title": "DePIN", "description": "Децентрализованная инфраструктура" },
-          "stablecoins": { "title": "Стейблкоины", "description": "Стабильные активы" },
-          "institutional": { "title": "Институциональные платежи", "description": "Корпоративные платежи" },
-          "enterprise": { "title": "Корпоративные", "description": "Корпоративные решения" },
-          "gaming": { "title": "Игры и развлечения", "description": "Игровая экосистема" }
+          "tokenization": {
+            "title": "Токенизация",
+            "description": "Токенизация активов"
+          },
+          "depin": {
+            "title": "DePIN",
+            "description": "Децентрализованная инфраструктура"
+          },
+          "stablecoins": {
+            "title": "Стейблкоины",
+            "description": "Стабильные активы"
+          },
+          "institutional": {
+            "title": "Институциональные платежи",
+            "description": "Корпоративные платежи"
+          },
+          "enterprise": {
+            "title": "Корпоративные",
+            "description": "Корпоративные решения"
+          },
+          "gaming": {
+            "title": "Игры и развлечения",
+            "description": "Игровая экосистема"
+          }
         },
         "network": {
           "title": "Сеть",
-          "validators": { "title": "Валидаторы", "description": "Стать валидатором" },
-          "rpc": { "title": "Провайдеры RPC", "description": "Доступ к API" },
-          "status": { "title": "Состояние сети", "description": "Здоровье сети" },
-          "ramp": { "title": "Burn Chain Ramp", "description": "Купить/продать TBURN" }
+          "validators": {
+            "title": "Валидаторы",
+            "description": "Стать валидатором"
+          },
+          "rpc": {
+            "title": "Провайдеры RPC",
+            "description": "Доступ к API"
+          },
+          "status": {
+            "title": "Состояние сети",
+            "description": "Здоровье сети"
+          },
+          "ramp": {
+            "title": "Burn Chain Ramp",
+            "description": "Купить/продать TBURN"
+          }
         },
         "community": {
           "title": "Сообщество",
-          "news": { "title": "Новости и блог", "description": "Последние обновления" },
-          "events": { "title": "Мероприятия", "description": "Предстоящие мероприятия" },
-          "hub": { "title": "Сообщество", "description": "Присоединиться к сообществу" }
+          "news": {
+            "title": "Новости и блог",
+            "description": "Последние обновления"
+          },
+          "events": {
+            "title": "Мероприятия",
+            "description": "Предстоящие мероприятия"
+          },
+          "hub": {
+            "title": "Сообщество",
+            "description": "Присоединиться к сообществу"
+          }
         }
       }
     },
@@ -3697,7 +3862,12 @@
     "home": {
       "heroTag": "МЕЙННЕТ ЗАПУЩЕН",
       "heroTitle": "Будущее",
-      "heroTitleRotating": ["Доверительного", "ИИ-управляемого", "Квантово-защищённого", "Гиперскоростного"],
+      "heroTitleRotating": [
+        "Доверительного",
+        "ИИ-управляемого",
+        "Квантово-защищённого",
+        "Гиперскоростного"
+      ],
       "heroSubtitle": "Блокчейна",
       "heroDescription": "Первая в мире сеть верификации доверия на базе ИИ. Квантово-устойчивая безопасность сочетается с масштабируемостью корпоративного уровня.",
       "launchExplorer": "Открыть обозреватель",
@@ -3763,7 +3933,20 @@
         "coreConcepts": "Основные концепции",
         "coreConceptsDesc": "Фундаментальные принципы TBurn Chain.",
         "quickGlossary": "Краткий глоссарий",
-        "certifications": "Сертификация",
+        "certifications": {
+          "developer": {
+            "title": "Разработчик TBurn",
+            "description": "Сертификация по разработке смарт-контрактов"
+          },
+          "defi": {
+            "title": "Эксперт DeFi",
+            "description": "Сертификация мастерства децентрализованных финансов"
+          },
+          "validator": {
+            "title": "Оператор валидатора",
+            "description": "Сертификация по валидации сети"
+          }
+        },
         "certificationsDesc": "Получите проверенные значки",
         "communityLearning": "Обучение в сообществе",
         "paths": {
@@ -3824,20 +4007,6 @@
           "validator": {
             "term": "Валидатор",
             "definition": "Узлы, которые верифицируют транзакции и участвуют в консенсусе"
-          }
-        },
-        "certifications": {
-          "developer": {
-            "title": "Разработчик TBurn",
-            "description": "Сертификация по разработке смарт-контрактов"
-          },
-          "defi": {
-            "title": "Эксперт DeFi",
-            "description": "Сертификация мастерства децентрализованных финансов"
-          },
-          "validator": {
-            "title": "Оператор валидатора",
-            "description": "Сертификация по валидации сети"
           }
         },
         "communityLinks": {
@@ -4025,6 +4194,24 @@
               "value": "67%",
               "label": "Инвесторов пострадали от мошенничества"
             }
+          },
+          "items": {
+            "scams": {
+              "title": "80%+ Мошенничества",
+              "description": "Более 80% новых крипто-проектов являются потенциальными мошенничествами или rug pull."
+            },
+            "lost": {
+              "title": "$2.7B Потеряно",
+              "description": "Общие потери от rug pull и мошенничества только в 2023 году."
+            },
+            "risk": {
+              "title": "$3.1B Риск",
+              "description": "Прогнозируемые потери на 2024 год без вмешательства."
+            },
+            "investorLoss": {
+              "title": "60-80% Потерь",
+              "description": "Средний уровень потерь инвесторов в проектах ранней стадии."
+            }
           }
         },
         "performance": {
@@ -4045,7 +4232,22 @@
             "gasCost": {
               "value": "$0.001",
               "label": "Средняя стоимость газа"
+            },
+            "latency": {
+              "value": "1.84ms",
+              "label": "Задержка"
+            },
+            "nodes": {
+              "value": "30,000",
+              "label": "Узлы"
             }
+          },
+          "badge": "АРХИТЕКТУРА РЕШЕНИЯ",
+          "description": "TBurn Chain — это не только система рейтинга доверия; это высокопроизводительное решение масштабирования Layer 2, построенное на технологии Arbitrum, предназначенное для пропускной способности корпоративного уровня.",
+          "features": {
+            "hybridConsensus": "Гибридный консенсус (DPoS + BFT)",
+            "evmCompatibility": "Совместимость с EVM",
+            "dynamicSharding": "Поддержка динамического шардинга"
           }
         },
         "aiLayers": {
@@ -4061,6 +4263,27 @@
           "operational": {
             "title": "Операционный ИИ",
             "description": "Мгновенное обнаружение и предотвращение мошенничества"
+          },
+          "subtitle": "Интеллектуальное принятие решений с использованием трёх различных ИИ-моделей.",
+          "items": {
+            "strategic": {
+              "title": "Стратегический уровень",
+              "model": ":: ChatGPT Latest",
+              "latency": "450ms",
+              "description": "Обрабатывает комплексный анализ рынка, оценку предложений управления и формулирование долгосрочной стратегии."
+            },
+            "tactical": {
+              "title": "Тактический уровень",
+              "model": ":: Claude Latest",
+              "latency": "180ms",
+              "description": "Обрабатывает оценку доверия, верификацию транзакций и аудит смарт-контрактов."
+            },
+            "operational": {
+              "title": "Операционный уровень",
+              "model": ":: Gemini Latest",
+              "latency": "45ms",
+              "description": "Выполняет мониторинг в реальном времени, экстренное реагирование (Auto-Burn) и автоматизированные действия."
+            }
           }
         },
         "quantumSecurity": {
@@ -4070,6 +4293,16 @@
             "crystals": "Подписи CRYSTALS-Dilithium",
             "hybrid": "Гибридное шифрование ED25519",
             "postQuantum": "Пост-квантовый обмен ключами"
+          },
+          "items": {
+            "crystals": {
+              "title": "CRYSTALS-Dilithium",
+              "description": "Стандартный алгоритм подписи NIST на основе решёток, обеспечивающий постквантовую безопасность."
+            },
+            "hybrid": {
+              "title": "Гибридные подписи",
+              "description": "Комбинация ED25519 + Dilithium для обратной совместимости и защиты от будущих угроз."
+            }
           }
         },
         "coreModules": {
@@ -4090,11 +4323,22 @@
             "bridge": {
               "title": "Протокол моста",
               "description": "Кросс-чейн передача активов"
+            },
+            "defi": {
+              "title": "DeFi Hub",
+              "description": "Интегрированный AMM DEX, кредиты с LTV 85% и ликвидный стейкинг."
+            },
+            "gamefi": {
+              "title": "GameFi Платформа",
+              "description": "P2E движок, турнирная система и кросс-чейн торговля предметами."
             }
           }
         },
         "downloadPdf": "Скачать PDF",
-        "viewGithub": "Смотреть на GitHub"
+        "viewGithub": "Смотреть на GitHub",
+        "heroDescription": "Децентрализованная Инфраструктура Доверия для Блокчейн-проектов.",
+        "heroSubDescription": "Решение Layer 2 на базе Arbitrum, верифицирующее надёжность со 100% прозрачностью на блокчейне.",
+        "viewSource": "Просмотреть Исходный Код"
       },
       "tokenomics": {
         "tag": "ЭКОНОМИКА",
@@ -4181,8 +4425,14 @@
               "mainnet": "Запуск мейннета",
               "trustScore": "Система рейтинга доверия",
               "bridge": "Кросс-чейн мост",
-              "dex": "Запуск DEX"
-            }
+              "dex": "Запуск DEX",
+              "item1": "Запуск мейннета и генезис-блок",
+              "item2": "Система рейтинга доверия V1",
+              "item3": "Кросс-чейн мост (ETH, BSC)",
+              "item4": "Запуск DEX с AMM",
+              "item5": "Бета мобильного кошелька"
+            },
+            "quarter": "Q1-Q2 2024"
           },
           "phase2": {
             "title": "Фаза 2: Расширение",
@@ -4192,8 +4442,14 @@
               "gamefi": "GameFi платформа",
               "aiEnhancement": "Улучшение ИИ",
               "mobileWallet": "Мобильный кошелёк",
-              "partnerships": "Крупные партнёрства"
-            }
+              "partnerships": "Крупные партнёрства",
+              "item1": "Интеграция GameFi платформы",
+              "item2": "Модуль улучшения ИИ",
+              "item3": "Полный релиз мобильного кошелька",
+              "item4": "Листинг на крупных CEX",
+              "item5": "SDK для разработчиков V2"
+            },
+            "quarter": "Q3-Q4 2024"
           },
           "phase3": {
             "title": "Фаза 3: Экосистема",
@@ -4203,8 +4459,14 @@
               "dao": "Полное DAO управление",
               "l2": "Решения Layer 2",
               "enterprise": "Корпоративное внедрение",
-              "global": "Глобальное расширение"
-            }
+              "global": "Глобальное расширение",
+              "item1": "Решение масштабирования Layer 2",
+              "item2": "Запуск DAO управления",
+              "item3": "Расширение кросс-чейн (7+ сетей)",
+              "item4": "Интеграция ИИ торгового бота",
+              "item5": "Программа корпоративных партнёрств"
+            },
+            "quarter": "Q1-Q2 2025"
           },
           "phase4": {
             "title": "Фаза 4: Массовое внедрение",
@@ -4214,8 +4476,13 @@
               "quantum": "Квантовое обновление",
               "fiat": "Интеграция с фиатом",
               "institutions": "Институциональные сервисы",
-              "metaverse": "Интеграция метавселенной"
-            }
+              "metaverse": "Интеграция метавселенной",
+              "item1": "Глобальная маркетинговая кампания",
+              "item2": "Запуск институциональных услуг",
+              "item3": "Стратегические партнёрства",
+              "item4": "Развёртывание фонда экосистемы"
+            },
+            "quarter": "Q3-Q4 2025"
           }
         },
         "metrics": {
@@ -4224,27 +4491,414 @@
           "tvl": "Общая заблокированная стоимость",
           "transactions": "Ежедневные транзакции",
           "developers": "Активные разработчики"
+        },
+        "growth": {
+          "sectionTitle": "Прогнозируемые метрики роста",
+          "year1": {
+            "label": "2024",
+            "projects": "500+",
+            "users": "100K+",
+            "tvl": "$50M+"
+          },
+          "year2": {
+            "label": "2025",
+            "projects": "2,000+",
+            "users": "1M+",
+            "tvl": "$500M+"
+          },
+          "year3": {
+            "label": "2026",
+            "projects": "10,000+",
+            "users": "10M+",
+            "tvl": "$5B+"
+          },
+          "labels": {
+            "verifiedProjects": "Верифицированные проекты",
+            "activeUsers": "Активные пользователи",
+            "tvl": "Общая заблокированная стоимость"
+          }
+        },
+        "cta": {
+          "title": "Присоединяйтесь к нашему путешествию",
+          "description": "Станьте частью экосистемы TBurn Chain и помогите формировать будущее технологии блокчейна на основе доверия.",
+          "joinCommunity": "Присоединиться к сообществу",
+          "viewDocs": "Просмотреть документацию"
         }
       },
       "blockchainBasics": {
         "tag": "НАЧИНАЮЩИЙ",
         "title": "Основы блокчейна",
-        "subtitle": "Фундаментальные концепции технологии блокчейн и распределённых систем."
+        "subtitle": "Фундаментальные концепции технологии блокчейн и распределённых систем.",
+        "duration": "4 часа",
+        "backToEducation": "Назад к образовательным программам",
+        "courseOverview": {
+          "title": "Обзор курса",
+          "description": "Этот всеобъемлющий курс познакомит вас с фундаментальными концепциями технологии блокчейн. Вы узнаете о распределённых реестрах, механизмах консенсуса, криптографических принципах и о том, как эти технологии обеспечивают работу современных децентрализованных приложений.",
+          "videoTitle": "Введение в блокчейн",
+          "videoSubtitle": "Предпросмотр курса",
+          "figureCaption": "Рисунок: Вступительное видео курса"
+        },
+        "curriculumTitle": "Программа курса",
+        "curriculum": {
+          "module1": {
+            "title": "Что такое блокчейн?",
+            "subtitle": "Понимание технологии распределённого реестра",
+            "duration": "45 мин"
+          },
+          "module2": {
+            "title": "Основы криптографии",
+            "subtitle": "Хеш-функции, подписи и шифрование",
+            "duration": "60 мин"
+          },
+          "module3": {
+            "title": "Механизмы консенсуса",
+            "subtitle": "PoW, PoS и Proof of Trust от TBurn",
+            "duration": "75 мин"
+          },
+          "module4": {
+            "title": "Архитектура TBurn Chain",
+            "subtitle": "Глубокое погружение в систему на основе доверия",
+            "duration": "60 мин"
+          }
+        },
+        "whatYouWillLearn": "Чему вы научитесь",
+        "learningOutcomes": {
+          "item1": "Понимание основ блокчейна и распределённых систем",
+          "item2": "Изучение криптографических принципов безопасных транзакций",
+          "item3": "Исследование различных механизмов консенсуса",
+          "item4": "Освоение уникальной архитектуры TBurn Chain на основе доверия"
+        },
+        "prerequisitesTitle": "Предварительные требования",
+        "prerequisites": {
+          "item1": "Базовые знания программирования полезны, но не обязательны",
+          "item2": "Знакомство с веб-технологиями"
+        },
+        "continueLearning": {
+          "title": "Продолжить обучение",
+          "smartContracts": {
+            "title": "Смарт-контракты",
+            "subtitle": "Создайте свой первый контракт"
+          },
+          "sdkGuide": {
+            "title": "Руководство SDK",
+            "subtitle": "Документация по интеграции"
+          },
+          "quickStart": {
+            "title": "Быстрый старт",
+            "subtitle": "Разверните своё первое dApp"
+          },
+          "documentation": {
+            "title": "Документация",
+            "subtitle": "Полный справочник API"
+          }
+        },
+        "upNext": {
+          "label": "Далее",
+          "title": "Система рейтинга доверия",
+          "level": "Средний уровень"
+        }
       },
       "defiMastery": {
         "tag": "СРЕДНИЙ УРОВЕНЬ",
         "title": "Мастерство DeFi",
-        "subtitle": "Освойте концепции децентрализованных финансов: DEX, кредитование и стратегии доходности."
+        "subtitle": "Освойте концепции децентрализованных финансов: DEX, кредитование и стратегии доходности.",
+        "duration": "8 часов",
+        "backToEducation": "Назад к образовательным программам",
+        "stats": {
+          "tvl": {
+            "value": "$2.1B",
+            "label": "Общая заблокированная стоимость"
+          },
+          "apy": {
+            "value": "18.5%",
+            "label": "Средний APY"
+          },
+          "protocols": {
+            "value": "45+",
+            "label": "Активные протоколы"
+          }
+        },
+        "courseOverview": {
+          "title": "Обзор курса",
+          "description": "Этот продвинутый курс охватывает всё, что вам нужно знать о децентрализованных финансах на TBurn Chain. От понимания механики AMM до реализации сложных стратегий yield farming — вы получите практические навыки для навигации в экосистеме DeFi.",
+          "videoTitle": "Основы DeFi",
+          "videoSubtitle": "Предпросмотр курса",
+          "figureCaption": "Рисунок: Обзор протокола DeFi"
+        },
+        "curriculumTitle": "Программа курса",
+        "curriculum": {
+          "module1": {
+            "title": "Механика DEX и AMM",
+            "subtitle": "Понимание автоматизированных маркет-мейкеров",
+            "duration": "90 мин"
+          },
+          "module2": {
+            "title": "Протоколы кредитования",
+            "subtitle": "Обеспеченное заимствование и кредитование",
+            "duration": "120 мин"
+          },
+          "module3": {
+            "title": "Предоставление ликвидности",
+            "subtitle": "LP токены, непостоянные потери и награды",
+            "duration": "90 мин"
+          },
+          "module4": {
+            "title": "Стратегии доходности",
+            "subtitle": "Оптимизация доходов с усиленной доходностью доверия",
+            "duration": "120 мин"
+          }
+        },
+        "keyTakeawaysTitle": "Ключевые выводы",
+        "keyTakeaways": {
+          "item1": "Освоение механики AMM и динамики пулов ликвидности",
+          "item2": "Понимание протоколов кредитования и управления залогом",
+          "item3": "Реализация стратегий оптимизации доходности"
+        },
+        "prerequisitesTitle": "Предварительные требования",
+        "prerequisites": {
+          "item1": "Курс основ блокчейна",
+          "item2": "Понимание операций с кошельком"
+        },
+        "developerResources": {
+          "title": "Ресурсы для разработчиков",
+          "description": "Создавайте и интегрируйтесь с протоколами TBurn DeFi, используя эти ресурсы.",
+          "smartContracts": {
+            "title": "DeFi контракты",
+            "subtitle": "AMM и контракты кредитования"
+          },
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "Интеграция протокола"
+          },
+          "apiReference": {
+            "title": "Справочник API",
+            "subtitle": "REST и GraphQL API"
+          },
+          "websocket": {
+            "title": "WebSocket потоки",
+            "subtitle": "Данные о ценах в реальном времени"
+          },
+          "codeExamples": {
+            "title": "Примеры кода",
+            "subtitle": "Примеры интеграций"
+          },
+          "quickStart": {
+            "title": "Быстрый старт",
+            "subtitle": "5-минутное руководство по настройке"
+          }
+        },
+        "upNext": {
+          "label": "Далее",
+          "title": "Курс разработчика",
+          "subtitle": "Создайте свои dApps"
+        }
       },
       "developerCourse": {
         "tag": "ПРОДВИНУТЫЙ",
         "title": "Курс разработчика",
-        "subtitle": "Полное руководство по созданию и развёртыванию dApps на TBurn Chain."
+        "subtitle": "Полное руководство по созданию и развёртыванию dApps на TBurn Chain.",
+        "duration": "20 часов",
+        "backToEducation": "Назад к образовательным программам",
+        "courseOverview": {
+          "title": "Обзор курса",
+          "description": "Этот всеобъемлющий курс для разработчиков проведёт вас от нуля до развёртывания готовых к продакшену dApps на TBurn Chain. Вы изучите разработку смарт-контрактов, интеграцию SDK, стратегии тестирования и лучшие практики создания безопасных, масштабируемых приложений."
+        },
+        "curriculumTitle": "Программа курса",
+        "curriculum": {
+          "module1": {
+            "title": "Настройка и конфигурация SDK",
+            "subtitle": "Настройка окружения и инициализация проекта",
+            "duration": "2 часа"
+          },
+          "module2": {
+            "title": "Разработка смарт-контрактов",
+            "subtitle": "Написание безопасных, оптимизированных контрактов",
+            "duration": "6 часов"
+          },
+          "module3": {
+            "title": "Интеграция API",
+            "subtitle": "REST, GraphQL и WebSocket API",
+            "duration": "4 часа"
+          },
+          "module4": {
+            "title": "Развёртывание и DevOps",
+            "subtitle": "Развёртывание в мейннет и мониторинг",
+            "duration": "4 часа"
+          }
+        },
+        "codeExample": {
+          "title": "Пример кода",
+          "language": "TypeScript"
+        },
+        "developerTools": {
+          "title": "Инструменты разработчика",
+          "description": "Получите доступ ко всем инструментам, необходимым для разработки на TBurn Chain.",
+          "quickStart": {
+            "title": "Быстрый старт",
+            "subtitle": "5-минутное руководство по настройке"
+          },
+          "installation": {
+            "title": "Установка",
+            "subtitle": "Пошаговое руководство"
+          },
+          "documentation": {
+            "title": "Документация",
+            "subtitle": "Полный справочник API"
+          },
+          "evmMigration": {
+            "title": "Миграция EVM",
+            "subtitle": "Перенос dApps с Ethereum"
+          }
+        },
+        "keyTakeawaysTitle": "Ключевые выводы",
+        "keyTakeaways": {
+          "item1": "Настройка и конфигурация TBurn SDK",
+          "item2": "Написание безопасных смарт-контрактов с тестированием",
+          "item3": "Интеграция с API рейтинга доверия",
+          "item4": "Развёртывание в мейннет с лучшими практиками"
+        },
+        "prerequisitesTitle": "Предварительные требования",
+        "prerequisites": {
+          "item1": "Владение JavaScript/TypeScript",
+          "item2": "Рекомендуется знание основ Solidity",
+          "item3": "Основы блокчейна"
+        },
+        "certification": {
+          "title": "Получите сертификат",
+          "description": "Завершите курс, чтобы получить значок сертифицированного разработчика TBurn."
+        },
+        "resourcesTitle": "Ресурсы",
+        "resources": {
+          "apiReference": "Справочник API",
+          "sdkGuide": "Руководство SDK",
+          "smartContracts": "Смарт-контракты",
+          "cliReference": "Справочник CLI",
+          "websocketApi": "WebSocket API",
+          "codeExamples": "Примеры кода"
+        }
       },
       "introToDefi": {
         "tag": "НАЧИНАЮЩИЙ",
         "title": "Введение в DeFi",
-        "subtitle": "Ваши первые шаги в мир децентрализованных финансов на TBurn Chain."
+        "subtitle": "Ваши первые шаги в мир децентрализованных финансов на TBurn Chain.",
+        "duration": "2 часа",
+        "backToEducation": "Назад к образовательным программам",
+        "scoreFormula": {
+          "title": "Формула рейтинга доверия",
+          "burnCompliance": {
+            "percentage": "40%",
+            "title": "Соответствие сжиганию",
+            "subtitle": "Соблюдение графика сжигания токенов"
+          },
+          "devProgress": {
+            "percentage": "35%",
+            "title": "Прогресс разработки",
+            "subtitle": "Выполнение этапов разработки"
+          },
+          "transparency": {
+            "percentage": "25%",
+            "title": "Прозрачность",
+            "subtitle": "Раскрытие данных на блокчейне"
+          }
+        },
+        "verification": {
+          "title": "3-этапный процесс верификации",
+          "stage1": {
+            "title": "ИИ-анализ",
+            "description": "Triple-Band ИИ сканирует данные проекта, смарт-контракты и социальное присутствие.",
+            "duration": "24 часа"
+          },
+          "stage2": {
+            "title": "Экспертная оценка",
+            "description": "Эксперты-люди проверяют выводы ИИ и проводят глубокий анализ.",
+            "duration": "7-14 дней"
+          },
+          "stage3": {
+            "title": "Голосование сообщества",
+            "description": "Держатели токенов голосуют за окончательное одобрение после экспертной оценки.",
+            "duration": "3-5 дней"
+          }
+        },
+        "scoreActions": {
+          "title": "Действия на основе рейтинга доверия",
+          "excellent": {
+            "label": "Отлично",
+            "description": "Полный торговый доступ, приоритетные листинги и право на повышенную доходность."
+          },
+          "good": {
+            "label": "Хорошо",
+            "description": "Стандартный торговый доступ с повышенной видимостью."
+          },
+          "warning": {
+            "label": "Предупреждение",
+            "description": "Ограниченная торговля, отображение предупреждающих меток для пользователей."
+          },
+          "danger": {
+            "label": "Ограничено",
+            "description": "Торговля приостановлена, проект под расследованием."
+          }
+        },
+        "hybridBurn": {
+          "title": "Гибридный механизм принудительного сжигания",
+          "description": "Когда проекты не выполняют обязательства по графику сжигания, наши смарт-контракты автоматически обеспечивают уничтожение токенов. Это защищает инвесторов, гарантируя выполнение дефляционных обещаний.",
+          "figureCaption": "Рисунок: Схема потока Auto-Burn"
+        },
+        "burnSteps": {
+          "step1": {
+            "title": "Мониторинг графика",
+            "description": "ИИ в реальном времени мониторит соблюдение графика сжигания"
+          },
+          "step2": {
+            "title": "Период предупреждения",
+            "description": "48-часовой льготный период с уведомлениями проекта"
+          },
+          "step3": {
+            "title": "Автовыполнение",
+            "description": "Смарт-контракт сжигает токены из резервного кошелька"
+          }
+        },
+        "developerResources": {
+          "title": "Ресурсы для разработчиков",
+          "description": "Готовы начать разработку? Изучите наши инструменты и документацию для разработчиков.",
+          "smartContracts": {
+            "title": "Смарт-контракты",
+            "subtitle": "Интеграция рейтинга доверия"
+          },
+          "sdkGuide": {
+            "title": "Руководство SDK",
+            "subtitle": "Быстрая интеграция"
+          },
+          "apiReference": {
+            "title": "Справочник API",
+            "subtitle": "REST и GraphQL"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "Обновления в реальном времени"
+          },
+          "quickStart": {
+            "title": "Быстрый старт",
+            "subtitle": "5-минутная настройка"
+          },
+          "codeExamples": {
+            "title": "Примеры кода",
+            "subtitle": "Примеры проектов"
+          }
+        },
+        "continueLearning": {
+          "label": "Продолжить обучение",
+          "defiMastery": {
+            "title": "Мастерство DeFi",
+            "level": "Средний уровень"
+          }
+        },
+        "forDevelopers": {
+          "label": "Для разработчиков",
+          "developerCourse": {
+            "title": "Курс разработчика",
+            "level": "Продвинутый уровень"
+          }
+        }
       },
       "educationPrograms": {
         "tag": "ПРОГРАММЫ",
@@ -4264,11 +4918,45 @@
         "subtitle": "Создавайте приложения нового поколения на основе доверия. Получите доступ к инструментам разработки, SDK и API для экосистемы TBurn Chain V4.",
         "getStarted": "Начать",
         "viewDocs": "Документация",
-        "quickStart": "Быстрый старт",
-        "sdks": "Официальные SDK",
-        "apiReference": "Справочник API",
-        "devTools": "Инструменты разработчика",
-        "grants": "Гранты для разработчиков",
+        "quickStart": {
+          "_value": "Быстрый старт",
+          "title": "Быстрый старт",
+          "subtitle": "Разверните своё первое dApp за 5 минут"
+        },
+        "sdks": {
+          "_value": "Официальные SDK",
+          "title": "Официальные SDK",
+          "subtitle": "Нативная поддержка ваших любимых языков"
+        },
+        "apiReference": {
+          "_value": "Справочник API",
+          "title": "Справочник API",
+          "subtitle": "RESTful API и WebSocket потоковая передача",
+          "blockchainApi": "Blockchain API",
+          "defiApi": "DeFi API",
+          "aiApi": "AI API"
+        },
+        "devTools": {
+          "_value": "Инструменты разработчика",
+          "burnCli": {
+            "title": "Burn CLI",
+            "description": "Инициализация и развёртывание проекта"
+          },
+          "testFramework": {
+            "title": "Тестовый фреймворк",
+            "description": "Модульное и E2E тестирование"
+          },
+          "localDevnet": {
+            "title": "Локальный Devnet",
+            "description": "Среда симулятора"
+          }
+        },
+        "grants": {
+          "_value": "Гранты для разработчиков",
+          "title": "Программа грантов для разработчиков",
+          "subtitle": "Мы поддерживаем проекты, расширяющие экосистему TBurn Chain.",
+          "totalFund": "$50M Общий грантовый фонд"
+        },
         "quickStartSteps": {
           "install": {
             "title": "Установка CLI",
@@ -4281,32 +4969,65 @@
           "deploy": {
             "title": "Развёртывание контракта",
             "command": "tburn deploy --network mainnet"
+          },
+          "step1": {
+            "comment": "# Установить CLI"
+          },
+          "step2": {
+            "comment": "# Создать проект"
+          },
+          "step3": {
+            "comment": "# Запустить Dev-сервер"
+          },
+          "step4": {
+            "comment": "# Развернуть в мейннет"
           }
         },
         "sdkList": {
           "javascript": {
             "name": "JavaScript/TypeScript",
-            "package": "@tburn/sdk"
+            "package": "@tburn/sdk",
+            "version": "v4.2.1",
+            "install": "npm install @burnchain/sdk",
+            "downloads": "1.2M загрузок/месяц"
           },
           "python": {
             "name": "Python",
-            "package": "tburn-sdk"
+            "package": "tburn-sdk",
+            "version": "v4.1.0",
+            "install": "pip install burnchain-py",
+            "downloads": "450K загрузок/месяц"
           },
           "rust": {
             "name": "Rust",
-            "package": "tburn-rs"
+            "package": "tburn-rs",
+            "version": "v4.0.3",
+            "install": "cargo add burnchain-rs",
+            "downloads": "280K загрузок/месяц"
           },
           "go": {
             "name": "Go",
-            "package": "github.com/tburn/go-sdk"
+            "package": "github.com/tburn/go-sdk",
+            "version": "v4.0.2",
+            "install": "go get github.com/burnchain/go",
+            "downloads": "180K загрузок/месяц"
           },
           "java": {
             "name": "Java",
-            "package": "io.tburn.sdk"
+            "package": "io.tburn.sdk",
+            "version": "v4.0.1",
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "120K загрузок/месяц"
           },
           "csharp": {
             "name": "C#/.NET",
             "package": "TBurn.SDK"
+          },
+          "swift": {
+            "name": "Swift",
+            "version": "v4.0.0",
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "85K загрузок/месяц"
           }
         },
         "apiEndpoints": {
@@ -4349,7 +5070,8 @@
           "seed": {
             "title": "Начальный грант",
             "amount": "$5,000 - $25,000",
-            "description": "Для проектов на ранней стадии"
+            "description": "Для проектов на ранней стадии",
+            "tier": "Начальный уровень"
           },
           "growth": {
             "title": "Грант роста",
@@ -4359,8 +5081,22 @@
           "enterprise": {
             "title": "Корпоративный грант",
             "amount": "$100,000+",
-            "description": "Для крупных интеграций"
+            "description": "Для крупных интеграций",
+            "tier": "Корпоративный уровень"
+          },
+          "build": {
+            "tier": "Уровень сборки",
+            "amount": "$25K - $100K",
+            "description": "Для проектов со значительным прогрессом"
+          },
+          "scale": {
+            "tier": "Уровень масштабирования",
+            "amount": "$100K - $500K",
+            "description": "Для проектов, готовых к масштабированию"
           }
+        },
+        "devToolsSection": {
+          "title": "Инструменты разработки"
         }
       },
       "docs": {
@@ -4452,6 +5188,18 @@
           "diamond": {
             "name": "Бриллиант",
             "boost": "2.0x"
+          },
+          "standard": {
+            "name": "СТАНДАРТ",
+            "requirement": "Без требований"
+          },
+          "mid": {
+            "name": "УРОВЕНЬ ДОВЕРИЯ 1",
+            "requirement": "Trust Score 60+"
+          },
+          "max": {
+            "name": "УРОВЕНЬ ДОВЕРИЯ 2",
+            "requirement": "Trust Score 80+"
           }
         },
         "cta": {
@@ -4459,6 +5207,119 @@
           "subtitle": "Получите доступ к самой надёжной экосистеме децентрализованных финансов",
           "launchApp": "Запустить приложение",
           "viewDocs": "Документация"
+        },
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "ОБЪЁМ 24Ч",
+          "activeLPs": "АКТИВНЫЕ LP",
+          "avgApy": "СРЕДНИЙ APY"
+        },
+        "dex": {
+          "title": "DEX с концентрированной ликвидностью",
+          "description": "Капиталоэффективный AMM с концентрированными позициями ликвидности. Предоставляйте ликвидность в определённых ценовых диапазонах для повышения капиталоэффективности до 4000x по сравнению с традиционными AMM.",
+          "feature1": "Концентрированные позиции ликвидности для повышенной доходности",
+          "feature2": "Множество уровней комиссий (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "Диапазонные ордера для продвинутых торговых стратегий",
+          "price": "Цена",
+          "liquidity": "Ликвидность",
+          "volume24h": "Объём 24ч"
+        },
+        "lending": {
+          "title": "Обеспеченное кредитование",
+          "description": "Занимайте под залог криптоактивов по конкурентным ставкам. Защита от ликвидации в реальном времени с верифицированным залогом.",
+          "maxLtv": "МАКС. 80% LTV",
+          "tburnLtv": "LTV TBURN",
+          "stablecoinLtv": "LTV стейблкоинов"
+        },
+        "staking": {
+          "title": "Ликвидный стейкинг",
+          "description": "Стейкайте TBURN и получайте sTBURN. Используйте деривативы ликвидного стейкинга в DeFi, получая награды за стейкинг.",
+          "apy": "18.5% APY",
+          "exchangeRate": "Курс обмена",
+          "rewardCycle": "Цикл наград",
+          "everyEpoch": "Каждая эпоха (24ч)"
+        },
+        "yieldFarming": {
+          "tag": "ДОХОДНОЕ ФЕРМЕРСТВО",
+          "title": "Доходность с бустом доверия",
+          "subtitle": "Получайте бонусные награды в зависимости от уровня Trust Score"
+        },
+        "buttons": {
+          "startTrading": "Начать торговлю",
+          "viewAllFarms": "Все фермы"
+        },
+        "relatedSolutions": {
+          "description": "Расширьте возможности DeFi с этими дополнительными решениями",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "DeFi-решения для Bitcoin"
+          },
+          "bridge": {
+            "title": "Кросс-чейн мост",
+            "subtitle": "Мультичейн переводы"
+          },
+          "tokenExtensions": {
+            "title": "Расширения токенов",
+            "subtitle": "Стандарты BRC-20"
+          },
+          "wallets": {
+            "title": "Кошельки",
+            "subtitle": "Безопасные подключения"
+          },
+          "payments": {
+            "title": "Платежи",
+            "subtitle": "Глобальные транзакции"
+          },
+          "financial": {
+            "title": "Финансовые услуги",
+            "subtitle": "Институциональные инструменты"
+          },
+          "permissioned": {
+            "title": "Разрешённые сети",
+            "subtitle": "Корпоративные решения"
+          },
+          "aiFeatures": {
+            "title": "Функции ИИ",
+            "subtitle": "Умная автоматизация"
+          }
+        },
+        "developerResources": {
+          "description": "Создавайте мощные DeFi приложения с нашим комплексным инструментарием для разработчиков",
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "Документация по интеграции"
+          },
+          "smartContracts": {
+            "title": "Смарт-контракты",
+            "subtitle": "Верифицированные контракты"
+          },
+          "apiReference": {
+            "title": "Справочник API",
+            "subtitle": "REST конечные точки"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "События в реальном времени"
+          },
+          "cli": {
+            "title": "CLI инструменты",
+            "subtitle": "Командная строка"
+          },
+          "examples": {
+            "title": "Примеры кода",
+            "subtitle": "Примеры интеграций"
+          }
+        },
+        "learnPages": {
+          "gettingStarted": "НАЧАЛО РАБОТЫ",
+          "defiMastery": {
+            "title": "Курс мастерства DeFi",
+            "subtitle": "Продвинутые стратегии доходности и управление рисками"
+          },
+          "introToDefi": {
+            "title": "Введение в DeFi",
+            "subtitle": "Изучите основы децентрализованных финансов"
+          }
         }
       },
       "tokenExtensions": {
@@ -4585,7 +5446,8 @@
           "step3": {
             "title": "Безопасное выполнение",
             "description": "Транзакция выполняется только при одобрении пользователя и безопасном рейтинге доверия (>40%)."
-          }
+          },
+          "figureLabel": "Схема потока действий"
         },
         "realWorldApps": {
           "title": "Практические применения",
@@ -4607,7 +5469,73 @@
           }
         },
         "developerQuickStart": {
-          "title": "Быстрый старт для разработчиков"
+          "title": "Быстрый старт для разработчиков",
+          "step1": {
+            "title": "Базовая структура URL действия"
+          },
+          "step2": {
+            "title": "Добавить OpenGraph мета-теги"
+          },
+          "step3": {
+            "title": "Развернуть и поделиться",
+            "description": "Действие теперь доступно для распространения на всех платформах"
+          }
+        },
+        "relatedSolutions": {
+          "description": "Улучшите ваши блокчейн-действия с этими дополнительными решениями",
+          "wallets": {
+            "title": "Кошельки",
+            "subtitle": "Безопасные подключения"
+          },
+          "payments": {
+            "title": "Платежи",
+            "subtitle": "Глобальная коммерция"
+          },
+          "commerce": {
+            "title": "Коммерция",
+            "subtitle": "Инструменты для продавцов"
+          },
+          "tokenExtensions": {
+            "title": "Расширения токенов",
+            "subtitle": "Стандарты BRC-20"
+          }
+        },
+        "developerResources": {
+          "description": "Создавайте мощные блокчейн-действия с нашим комплексным инструментарием для разработчиков",
+          "sdkGuide": {
+            "title": "Actions SDK",
+            "subtitle": "Документация по интеграции"
+          },
+          "smartContracts": {
+            "title": "Смарт-контракты",
+            "subtitle": "Верифицированные контракты"
+          },
+          "apiReference": {
+            "title": "Справочник API",
+            "subtitle": "REST конечные точки"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "События в реальном времени"
+          },
+          "cli": {
+            "title": "CLI инструменты",
+            "subtitle": "Командная строка"
+          },
+          "examples": {
+            "title": "Примеры",
+            "subtitle": "Примеры кода"
+          }
+        },
+        "learnPages": {
+          "introToDefi": {
+            "title": "Введение в DeFi",
+            "subtitle": "Изучите основы децентрализованных финансов"
+          },
+          "developerCourse": {
+            "title": "Курс разработчика",
+            "subtitle": "Создавайте dApps на TBurn Chain"
+          }
         }
       },
       "wallets": {
@@ -4650,7 +5578,8 @@
           },
           "autoWarningSystem": {
             "title": "Система автопредупреждений",
-            "description": "Стандартный протокол для отображения предупреждений при транзакциях с низким рейтингом доверия (<40)."
+            "description": "Стандартный протокол для отображения предупреждений при транзакциях с низким рейтингом доверия (<40).",
+            "warningExample": "Trust Score < 40 - Высокий риск"
           },
           "walletSdk": {
             "title": "Wallet SDK",
@@ -4883,17 +5812,31 @@
           "priceStability": {
             "title": "Стабильность цены",
             "points": "30 баллов",
-            "description": "Оценивается по дневной волатильности, рыночной капитализации и глубине пула ликвидности."
+            "description": "Оценивается по дневной волатильности, рыночной капитализации и глубине пула ликвидности.",
+            "scoring": {
+              "volatility": "< 1% дневная волатильность",
+              "liquidity": "$10M+ ликвидность"
+            }
           },
           "contractSecurity": {
             "title": "Безопасность контракта",
             "points": "25 баллов",
-            "description": "Прохождение аудита, защита от reentrancy и децентрализация прав обновления."
+            "description": "Прохождение аудита, защита от reentrancy и децентрализация прав обновления.",
+            "scoring": {
+              "audits": "3+ аудита завершено",
+              "criticalBug": "Критическая ошибка найдена",
+              "block": "БЛОК"
+            }
           },
           "adoptionUsage": {
             "title": "Принятие и использование",
             "points": "20 баллов",
-            "description": "Количество продавцов, месячный объём транзакций и средний размер платежа."
+            "description": "Количество продавцов, месячный объём транзакций и средний размер платежа.",
+            "scoring": {
+              "merchants": "100+ продавцов",
+              "transactions": "$1M+ в месяц",
+              "high": "ВЫСОКИЙ"
+            }
           }
         },
         "solutionTypes": {
@@ -4932,6 +5875,9 @@
             "title": "Настройка вебхуков",
             "description": "Получайте мгновенные уведомления на сервер при завершении оплаты."
           }
+        },
+        "buttons": {
+          "viewDocs": "Документация"
         }
       },
       "commerce": {
@@ -5243,19 +6189,32 @@
           "title": "Основные эндпоинты",
           "scoreQuery": {
             "title": "Score Query API",
-            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+            "endpoints": [
+              "GET /score/:address",
+              "GET /score/:address/history",
+              "POST /score/batch"
+            ]
           },
           "project": {
             "title": "Project API",
-            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+            "endpoints": [
+              "GET /projects",
+              "POST /projects/register",
+              "GET /projects/:id"
+            ]
           },
           "analytics": {
             "title": "Analytics API",
-            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+            "endpoints": [
+              "GET /analytics/trends",
+              "GET /analytics/leaderboard"
+            ]
           },
           "webhook": {
             "title": "Webhook API",
-            "endpoints": ["POST /webhooks"],
+            "endpoints": [
+              "POST /webhooks"
+            ],
             "events": "События: score.updated, score.alert, project.registered"
           }
         },
