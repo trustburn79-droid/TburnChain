@@ -5365,63 +5365,63 @@
         }
       },
       "tokenomics": {
-        "tag": "ECONOMICS",
-        "title": "Tokenomics",
-        "subtitle": "Understand TBURN token distribution, emission schedule, and deflationary mechanisms.",
+        "tag": "الاقتصاد",
+        "title": "اقتصاديات التوكن",
+        "subtitle": "افهم توزيع توكن TBURN وجدول الإصدار وآليات الانكماش.",
         "distributionSection": {
-          "title": "Token Distribution",
-          "subtitle": "Strategic allocation designed for long-term ecosystem growth and sustainability",
+          "title": "توزيع التوكنات",
+          "subtitle": "تخصيص استراتيجي مصمم للنمو طويل المدى واستدامة النظام البيئي",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
-          "title": "Burn Mechanisms",
-          "subtitle": "Multiple deflationary mechanisms ensuring sustainable token value appreciation"
+          "title": "آليات الحرق",
+          "subtitle": "آليات انكماشية متعددة تضمن ارتفاع مستدام في قيمة التوكن"
         },
         "marketStats": {
-          "title": "Market Statistics",
-          "totalSupply": "Total Supply",
-          "circulatingSupply": "Circulating Supply",
-          "totalBurned": "Total Burned",
-          "marketCap": "Market Cap",
-          "burned": "Burned",
-          "totalStaked": "Total Staked"
+          "title": "إحصائيات السوق",
+          "totalSupply": "إجمالي المعروض",
+          "circulatingSupply": "المعروض المتداول",
+          "totalBurned": "إجمالي المحروق",
+          "marketCap": "القيمة السوقية",
+          "burned": "المحروق",
+          "totalStaked": "إجمالي الستيكينغ"
         },
         "tburn": {
-          "type": "Governance & Staking Token",
-          "role": "Role",
-          "roleValue": "Primary governance token for voting and staking to secure the network",
+          "type": "توكن الحوكمة والستيكينغ",
+          "role": "الدور",
+          "roleValue": "توكن الحوكمة الرئيسي للتصويت والستيكينغ لتأمين الشبكة",
           "totalSupply": "1,000,000,000",
           "decimals": "18"
         },
         "ember": {
-          "type": "Gas Token",
-          "role": "Role",
-          "roleValue": "Native gas token for transaction fees and smart contract execution",
-          "baseFee": "Base Fee",
+          "type": "توكن الغاز",
+          "role": "الدور",
+          "roleValue": "توكن الغاز الأصلي لرسوم المعاملات وتنفيذ العقود الذكية",
+          "baseFee": "الرسوم الأساسية",
           "baseFeeValue": "0.001 EMBER",
-          "exchangeRatio": "1 TBURN staked = 100 EMBER/day"
+          "exchangeRatio": "1 TBURN مُخزَّن = 100 EMBER/يوم"
         },
         "distribution": {
-          "title": "Token Distribution",
+          "title": "توزيع التوكنات",
           "items": {
             "ecosystem": {
-              "label": "Ecosystem Fund",
+              "label": "صندوق النظام البيئي",
               "percentage": "30%"
             },
             "community": {
-              "label": "Community Rewards",
+              "label": "مكافآت المجتمع",
               "percentage": "25%"
             },
             "team": {
-              "label": "Team & Advisors",
+              "label": "الفريق والمستشارون",
               "percentage": "15%"
             },
             "validators": {
-              "label": "Validator Incentives",
+              "label": "حوافز المدققين",
               "percentage": "15%"
             },
             "reserve": {
-              "label": "Reserve Fund",
+              "label": "صندوق الاحتياطي",
               "percentage": "10%"
             },
             "liquidity": {
@@ -5430,77 +5430,77 @@
             }
           },
           "ecosystemFund": {
-            "title": "Ecosystem Fund",
-            "subtitle": "Grants, partnerships, and ecosystem development initiatives"
+            "title": "صندوق النظام البيئي",
+            "subtitle": "المنح والشراكات ومبادرات تطوير النظام البيئي"
           },
           "validatorRewards": {
-            "title": "Validator Rewards",
-            "subtitle": "Block rewards and validation incentives for network security"
+            "title": "مكافآت المدققين",
+            "subtitle": "مكافآت الكتل وحوافز التحقق لأمان الشبكة"
           },
           "teamAdvisors": {
-            "title": "Team & Advisors",
-            "subtitle": "4-year vesting with 1-year cliff for long-term alignment"
+            "title": "الفريق والمستشارون",
+            "subtitle": "استحقاق 4 سنوات مع فترة انتظار سنة للمواءمة طويلة المدى"
           },
           "foundationReserve": {
-            "title": "Foundation Reserve",
-            "subtitle": "Emergency fund and strategic opportunities reserve"
+            "title": "احتياطي المؤسسة",
+            "subtitle": "صندوق الطوارئ واحتياطي الفرص الاستراتيجية"
           }
         },
         "burn": {
           "transactionFees": {
-            "title": "Transaction Fee Burn",
-            "description": "0.1% of every transaction fee is permanently burned, reducing supply with network usage"
+            "title": "حرق رسوم المعاملات",
+            "description": "يتم حرق 0.1% من كل رسوم معاملة بشكل دائم، مما يقلل المعروض مع استخدام الشبكة"
           },
           "slashingPenalty": {
-            "title": "Slashing Penalty Burn",
-            "description": "Validator misbehavior penalties are burned, reinforcing network security incentives"
+            "title": "حرق عقوبة السلاشينغ",
+            "description": "يتم حرق عقوبات سوء سلوك المدققين، مما يعزز حوافز أمان الشبكة"
           },
           "collateralBurn": {
-            "title": "Collateral Burn",
-            "description": "Failed project collateral is partially burned as part of investor protection mechanism"
+            "title": "حرق الضمان",
+            "description": "يتم حرق ضمانات المشاريع الفاشلة جزئياً كجزء من آلية حماية المستثمر"
           },
           "revenueBuyback": {
-            "title": "Revenue Buyback Burn",
-            "description": "Protocol revenue used to buy and burn TBURN quarterly, creating deflationary pressure"
+            "title": "حرق إعادة شراء الإيرادات",
+            "description": "تُستخدم إيرادات البروتوكول لشراء وحرق TBURN ربع سنوياً، مما يخلق ضغطاً انكماشياً"
           }
         },
         "burnMechanisms": {
-          "title": "Burn Mechanisms",
+          "title": "آليات الحرق",
           "items": {
             "transaction": {
-              "title": "Transaction Burn",
-              "description": "0.1% of every transaction is burned"
+              "title": "حرق المعاملات",
+              "description": "يتم حرق 0.1% من كل معاملة"
             },
             "scheduled": {
-              "title": "Scheduled Burns",
-              "description": "Quarterly burns based on network activity"
+              "title": "الحرق المجدول",
+              "description": "حرق ربع سنوي بناءً على نشاط الشبكة"
             },
             "aiOptimized": {
-              "title": "AI-Optimized Burns",
-              "description": "Dynamic burning based on market conditions"
+              "title": "الحرق المحسّن بالذكاء الاصطناعي",
+              "description": "حرق ديناميكي بناءً على ظروف السوق"
             }
           }
         },
         "staking": {
-          "title": "Staking Rewards",
-          "apy": "Current APY",
-          "totalStaked": "Total Staked",
-          "validators": "Active Validators",
-          "minStake": "Minimum Stake",
-          "liquidStaking": "Liquid staking available with stTBURN derivative token",
-          "ninetyDayLock": "90-day lock: 12% APY + 1.2x governance weight",
-          "yearLock": "365-day lock: 18% APY + 2x governance weight"
+          "title": "مكافآت الستيكينغ",
+          "apy": "العائد السنوي الحالي",
+          "totalStaked": "إجمالي المُخزَّن",
+          "validators": "المدققون النشطون",
+          "minStake": "الحد الأدنى للستيكينغ",
+          "liquidStaking": "الستيكينغ السائل متاح مع توكن مشتق stTBURN",
+          "ninetyDayLock": "قفل 90 يوم: 12% عائد سنوي + 1.2x وزن حوكمة",
+          "yearLock": "قفل 365 يوم: 18% عائد سنوي + 2x وزن حوكمة"
         },
         "governance": {
-          "title": "Governance",
-          "description": "TBURN holders can participate in protocol governance",
-          "votingPower": "Voting Power",
-          "proposalThreshold": "Proposal Threshold",
-          "quorum": "Quorum Required",
+          "title": "الحوكمة",
+          "description": "يمكن لحاملي TBURN المشاركة في حوكمة البروتوكول",
+          "votingPower": "قوة التصويت",
+          "proposalThreshold": "عتبة الاقتراح",
+          "quorum": "النصاب المطلوب",
           "features": {
-            "voteProtocol": "Vote on protocol upgrades and parameter changes",
-            "approveTreasury": "Approve treasury allocations and ecosystem grants",
-            "decideSlashing": "Decide on slashing proposals and validator disputes"
+            "voteProtocol": "التصويت على ترقيات البروتوكول وتغييرات المعلمات",
+            "approveTreasury": "الموافقة على تخصيصات الخزينة ومنح النظام البيئي",
+            "decideSlashing": "اتخاذ القرار بشأن مقترحات السلاشينغ ونزاعات المدققين"
           }
         }
       },
@@ -5978,60 +5978,60 @@
     },
     "developers": {
       "hub": {
-        "tag": "V4 SDK & API READY",
-        "title": "Developer Hub",
-        "subtitle": "Build next-generation trust-based applications. Access comprehensive development tools, SDKs, and APIs for the TBurn Chain V4 ecosystem.",
+        "tag": "SDK & API V4 جاهز",
+        "title": "مركز المطورين",
+        "subtitle": "ابنِ تطبيقات الجيل القادم القائمة على الثقة. احصل على أدوات تطوير شاملة وSDK وAPI لنظام TBurn Chain V4.",
         "getStarted": "ابدأ الآن",
         "viewDocs": "عرض الوثائق",
         "quickStart": {
-          "title": "Quick Start",
-          "subtitle": "Deploy your first dApp in 5 minutes"
+          "title": "البدء السريع",
+          "subtitle": "انشر أول تطبيق لامركزي في 5 دقائق"
         },
         "sdks": {
-          "title": "Official SDKs",
-          "subtitle": "Native support for your favorite languages"
+          "title": "SDK الرسمية",
+          "subtitle": "دعم أصلي للغات البرمجة المفضلة لديك"
         },
         "apiReference": {
-          "title": "API Reference",
-          "subtitle": "RESTful API & WebSocket Streaming",
-          "blockchainApi": "Blockchain API",
-          "defiApi": "DeFi API",
-          "aiApi": "AI API"
+          "title": "مرجع API",
+          "subtitle": "RESTful API وبث WebSocket",
+          "blockchainApi": "API البلوكتشين",
+          "defiApi": "API DeFi",
+          "aiApi": "API الذكاء الاصطناعي"
         },
         "devToolsSection": {
-          "title": "Development Tools"
+          "title": "أدوات التطوير"
         },
         "devTools": {
           "burnCli": {
             "title": "Burn CLI",
-            "description": "Project init & deploy"
+            "description": "تهيئة ونشر المشروع"
           },
           "testFramework": {
-            "title": "Test Framework",
-            "description": "Unit & E2E testing"
+            "title": "إطار الاختبار",
+            "description": "اختبارات الوحدة والتكامل"
           },
           "localDevnet": {
-            "title": "Local Devnet",
-            "description": "Simulator environment"
+            "title": "شبكة التطوير المحلية",
+            "description": "بيئة المحاكاة"
           }
         },
         "grants": {
-          "title": "Developer Grants Program",
-          "subtitle": "We support projects that expand the TBurn Chain ecosystem.",
-          "totalFund": "$50M Total Grant Fund"
+          "title": "برنامج منح المطورين",
+          "subtitle": "ندعم المشاريع التي توسع نظام TBurn Chain البيئي.",
+          "totalFund": "إجمالي صندوق المنح 50 مليون دولار"
         },
         "quickStartSteps": {
           "step1": {
-            "comment": "# Install CLI"
+            "comment": "# تثبيت CLI"
           },
           "step2": {
-            "comment": "# Create Project"
+            "comment": "# إنشاء المشروع"
           },
           "step3": {
-            "comment": "# Run Dev Server"
+            "comment": "# تشغيل خادم التطوير"
           },
           "step4": {
-            "comment": "# Deploy to Mainnet"
+            "comment": "# النشر على الشبكة الرئيسية"
           }
         },
         "sdkList": {
@@ -6039,243 +6039,243 @@
             "name": "JavaScript / TypeScript",
             "version": "v4.2.1",
             "install": "npm install @burnchain/sdk",
-            "downloads": "1.2M/mo downloads"
+            "downloads": "1.2 مليون تنزيل/شهر"
           },
           "python": {
             "name": "Python",
             "version": "v4.1.0",
             "install": "pip install burnchain-py",
-            "downloads": "450K/mo downloads"
+            "downloads": "450 ألف تنزيل/شهر"
           },
           "rust": {
             "name": "Rust",
             "version": "v4.0.3",
             "install": "cargo add burnchain-rs",
-            "downloads": "280K/mo downloads"
+            "downloads": "280 ألف تنزيل/شهر"
           },
           "go": {
             "name": "Go",
             "version": "v4.0.2",
             "install": "go get github.com/burnchain/go",
-            "downloads": "180K/mo downloads"
+            "downloads": "180 ألف تنزيل/شهر"
           },
           "java": {
             "name": "Java / Kotlin",
             "version": "v4.0.1",
             "install": "implementation 'burnchain-jvm'",
-            "downloads": "120K/mo downloads"
+            "downloads": "120 ألف تنزيل/شهر"
           },
           "swift": {
             "name": "Swift",
             "version": "v4.0.0",
             "install": "pod 'BurnChainSwift'",
-            "downloads": "85K/mo downloads"
+            "downloads": "85 ألف تنزيل/شهر"
           }
         },
         "grantTiers": {
           "seed": {
-            "tier": "Seed",
+            "tier": "البذرة",
             "amount": "$5K - $25K",
-            "description": "Idea Validation"
+            "description": "التحقق من الفكرة"
           },
           "build": {
-            "tier": "Build",
+            "tier": "البناء",
             "amount": "$25K - $100K",
-            "description": "MVP Development"
+            "description": "تطوير MVP"
           },
           "scale": {
-            "tier": "Scale",
+            "tier": "التوسع",
             "amount": "$100K - $500K",
-            "description": "Production Ready"
+            "description": "جاهز للإنتاج"
           },
           "enterprise": {
-            "tier": "Enterprise",
+            "tier": "المؤسسات",
             "amount": "$500K+",
-            "description": "Ecosystem Leader"
+            "description": "قائد النظام البيئي"
           }
         }
       },
       "docs": {
-        "tag": "DOCUMENTATION",
+        "tag": "الوثائق",
         "title": "الوثائق",
-        "subtitle": "Comprehensive guides and references for TBurn Chain development.",
-        "heroDescription": "Everything you need to build on TBurn Chain. From quick starts to advanced API references.",
-        "searchPlaceholder": "Search documentation...",
-        "categoriesTitle": "Documentation Categories",
+        "subtitle": "أدلة ومراجع شاملة لتطوير TBurn Chain.",
+        "heroDescription": "كل ما تحتاجه للبناء على TBurn Chain. من البدء السريع إلى مراجع API المتقدمة.",
+        "searchPlaceholder": "البحث في الوثائق...",
+        "categoriesTitle": "فئات الوثائق",
         "resourcesTitle": "موارد المطورين",
         "badges": {
-          "latest": "Latest",
-          "mainnet": "Mainnet"
+          "latest": "الأحدث",
+          "mainnet": "الشبكة الرئيسية"
         },
         "architecture": {
-          "title": "Network Architecture",
-          "subtitle": "Understanding the TBurn Chain multi-layer architecture",
+          "title": "هيكلة الشبكة",
+          "subtitle": "فهم هيكلة TBurn Chain متعددة الطبقات",
           "layers": {
             "consensus": {
-              "title": "Consensus Layer",
-              "description": "Proof of Trust consensus with AI-powered validation and quantum-resistant signatures"
+              "title": "طبقة الإجماع",
+              "description": "إجماع إثبات الثقة مع تحقق مدعوم بالذكاء الاصطناعي وتوقيعات مقاومة للكم"
             },
             "execution": {
-              "title": "Execution Layer",
-              "description": "EVM-compatible smart contract execution with gas optimization"
+              "title": "طبقة التنفيذ",
+              "description": "تنفيذ عقود ذكية متوافق مع EVM مع تحسين الغاز"
             },
             "application": {
-              "title": "Application Layer",
-              "description": "dApps, DeFi protocols, and user-facing services"
+              "title": "طبقة التطبيقات",
+              "description": "التطبيقات اللامركزية وبروتوكولات DeFi والخدمات للمستخدمين"
             },
             "service": {
-              "title": "Service Layer",
-              "description": "APIs, SDKs, and developer tools for integration"
+              "title": "طبقة الخدمات",
+              "description": "API وSDK وأدوات المطورين للتكامل"
             }
           },
           "stats": {
             "throughput": {
-              "label": "Throughput",
-              "sublabel": "50,000+ TPS"
+              "label": "معدل النقل",
+              "sublabel": "+50,000 TPS"
             },
             "latency": {
-              "label": "Latency",
-              "sublabel": "< 1 second"
+              "label": "زمن الاستجابة",
+              "sublabel": "< 1 ثانية"
             },
             "ai": {
-              "label": "AI Models",
-              "sublabel": "Triple-band orchestration"
+              "label": "نماذج الذكاء الاصطناعي",
+              "sublabel": "تنسيق ثلاثي النطاق"
             },
             "cryptography": {
-              "label": "Cryptography",
-              "sublabel": "Quantum-resistant"
+              "label": "التشفير",
+              "sublabel": "مقاوم للكم"
             }
           }
         },
         "categories": {
           "smartContracts": {
             "title": "العقود الذكية",
-            "description": "Write, deploy, and verify smart contracts with Trust Score integration"
+            "description": "اكتب وانشر وتحقق من العقود الذكية مع تكامل Trust Score"
           },
           "apiReference": {
-            "title": "API Reference",
-            "description": "Complete REST and GraphQL API documentation"
+            "title": "مرجع API",
+            "description": "وثائق API كاملة لـ REST وGraphQL"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "description": "Multi-language SDK integration guides",
+            "title": "دليل SDK",
+            "description": "أدلة تكامل SDK متعددة اللغات",
             "badge": "شائع"
           },
           "cliReference": {
-            "title": "CLI Reference",
-            "description": "Command line interface for project management",
+            "title": "مرجع CLI",
+            "description": "واجهة سطر الأوامر لإدارة المشاريع",
             "badge": "جديد"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "description": "Real-time blockchain event subscriptions",
-            "badge": "Real-time"
+            "description": "اشتراكات أحداث البلوكتشين في الوقت الفعلي",
+            "badge": "فوري"
           },
           "tutorials": {
-            "title": "Tutorials",
-            "description": "Step-by-step guides for common use cases",
+            "title": "الدروس التعليمية",
+            "description": "أدلة خطوة بخطوة لحالات الاستخدام الشائعة",
             "badge": "مبتدئ"
           }
         },
         "quickStart": {
-          "title": "Quick Start",
+          "title": "البدء السريع",
           "items": {
             "getStarted": {
               "title": "ابدأ الآن",
-              "description": "Install the SDK and create your first project"
+              "description": "ثبّت SDK وأنشئ مشروعك الأول"
             },
             "devSetup": {
-              "title": "Development Setup",
-              "description": "Configure your development environment"
+              "title": "إعداد التطوير",
+              "description": "قم بتهيئة بيئة التطوير الخاصة بك"
             },
             "apiKeys": {
-              "title": "API Keys",
-              "description": "Get your API keys from the developer dashboard"
+              "title": "مفاتيح API",
+              "description": "احصل على مفاتيح API من لوحة تحكم المطورين"
             }
           }
         },
         "resources": {
           "cookbook": {
-            "title": "Developer Cookbook",
-            "description": "Ready-to-use code recipes and patterns"
+            "title": "كتاب وصفات المطور",
+            "description": "وصفات كود وأنماط جاهزة للاستخدام"
           },
           "community": {
             "title": "المجتمع",
-            "description": "Join Discord and get help from the community"
+            "description": "انضم إلى Discord واحصل على مساعدة من المجتمع"
           },
           "trustScore": {
-            "title": "Trust Score Guide",
-            "description": "Understanding and integrating trust verification"
+            "title": "دليل Trust Score",
+            "description": "فهم وتكامل التحقق من الثقة"
           },
           "defiHub": {
             "title": "مركز DeFi",
-            "description": "Build DeFi applications with TBurn protocols"
+            "description": "ابنِ تطبيقات DeFi مع بروتوكولات TBurn"
           }
         },
         "cta": {
-          "title": "Ready to Build?",
-          "description": "Start building on TBurn Chain today with our comprehensive documentation and SDKs.",
-          "joinDiscord": "Join Discord"
+          "title": "هل أنت مستعد للبناء؟",
+          "description": "ابدأ البناء على TBurn Chain اليوم مع وثائقنا الشاملة وSDK.",
+          "joinDiscord": "انضم إلى Discord"
         }
       },
       "api": {
-        "tag": "API REFERENCE",
-        "title": "API Documentation",
-        "subtitle": "RESTful API endpoints for blockchain, DeFi, and AI services.",
-        "baseUrl": "Base URL",
-        "coreEndpoints": "Core Endpoints",
-        "parameters": "Parameters",
-        "related": "Related",
-        "officialSdks": "Official SDKs",
-        "viewDocumentation": "View Documentation",
+        "tag": "مرجع API",
+        "title": "وثائق API",
+        "subtitle": "نقاط نهاية RESTful API للبلوكتشين وDeFi وخدمات الذكاء الاصطناعي.",
+        "baseUrl": "الرابط الأساسي",
+        "coreEndpoints": "نقاط النهاية الأساسية",
+        "parameters": "المعلمات",
+        "related": "ذات صلة",
+        "officialSdks": "SDK الرسمية",
+        "viewDocumentation": "عرض الوثائق",
         "authentication": {
-          "title": "Authentication",
-          "description": "All API requests require an API key. Get your free key from the",
-          "dashboardLink": "Developer Dashboard"
+          "title": "المصادقة",
+          "description": "جميع طلبات API تتطلب مفتاح API. احصل على مفتاحك المجاني من",
+          "dashboardLink": "لوحة تحكم المطورين"
         },
         "sidebar": {
-          "overview": "Overview",
-          "authentication": "Authentication",
-          "rateLimits": "Rate Limits",
-          "endpoints": "Endpoints",
-          "block": "Block",
-          "transaction": "Transaction",
-          "account": "Account",
-          "smartContract": "Smart Contract",
+          "overview": "نظرة عامة",
+          "authentication": "المصادقة",
+          "rateLimits": "حدود الطلبات",
+          "endpoints": "نقاط النهاية",
+          "block": "الكتلة",
+          "transaction": "المعاملة",
+          "account": "الحساب",
+          "smartContract": "العقد الذكي",
           "websocket": "WebSocket",
-          "realtimeEvents": "Real-time Events"
+          "realtimeEvents": "الأحداث الفورية"
         },
         "endpoints": {
           "blocks": {
-            "description": "Get block information by block number or hash",
-            "paramDesc": "Block number or 'latest'"
+            "description": "الحصول على معلومات الكتلة برقم الكتلة أو الهاش",
+            "paramDesc": "رقم الكتلة أو 'latest'"
           },
           "transactions": {
-            "description": "Get transaction details by transaction hash"
+            "description": "الحصول على تفاصيل المعاملة بهاش المعاملة"
           },
           "sendTransaction": {
-            "description": "Submit a signed transaction to the network"
+            "description": "إرسال معاملة موقعة إلى الشبكة"
           },
           "balance": {
-            "description": "Get account balance and nonce"
+            "description": "الحصول على رصيد الحساب والـ nonce"
           }
         },
         "errorHandling": {
-          "title": "Error Handling",
-          "code": "Code",
-          "description": "Description"
+          "title": "معالجة الأخطاء",
+          "code": "الكود",
+          "description": "الوصف"
         },
         "errors": {
-          "badRequest": "Invalid request parameters",
-          "unauthorized": "Invalid or missing API key",
-          "tooManyRequests": "Rate limit exceeded",
-          "internalError": "Internal server error"
+          "badRequest": "معلمات طلب غير صالحة",
+          "unauthorized": "مفتاح API غير صالح أو مفقود",
+          "tooManyRequests": "تم تجاوز حد الطلبات",
+          "internalError": "خطأ داخلي في الخادم"
         },
         "websocketApi": {
           "title": "WebSocket API",
-          "description": "Subscribe to real-time blockchain events for instant updates.",
-          "connectComment": "Connect to WebSocket",
-          "subscribeComment": "Subscribe to blocks channel"
+          "description": "اشترك في أحداث البلوكتشين الفورية للحصول على تحديثات فورية.",
+          "connectComment": "الاتصال بـ WebSocket",
+          "subscribeComment": "الاشتراك في قناة الكتل"
         },
         "sdks": {
           "javascript": "JavaScript SDK",
@@ -6284,288 +6284,288 @@
         },
         "quickLinks": {
           "quickStart": {
-            "title": "Quick Start",
-            "description": "Deploy your first dApp in 5 minutes"
+            "title": "البدء السريع",
+            "description": "انشر أول تطبيق لامركزي في 5 دقائق"
           },
           "codeExamples": {
-            "title": "Code Examples",
-            "description": "Real-world integration patterns"
+            "title": "أمثلة الكود",
+            "description": "أنماط تكامل واقعية"
           },
           "rpcProviders": {
-            "title": "RPC Providers",
-            "description": "Connect via multiple endpoints"
+            "title": "مزودو RPC",
+            "description": "اتصل عبر نقاط نهاية متعددة"
           }
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
-          "documentation": "Full Documentation",
-          "codeExamples": "Code Examples",
+          "developerHub": "مركز المطورين",
+          "documentation": "الوثائق الكاملة",
+          "codeExamples": "أمثلة الكود",
           "quickStart": "دليل البدء السريع"
         }
       },
       "cli": {
-        "tag": "CLI TOOLS",
-        "title": "CLI Reference",
-        "subtitle": "Command line interface for project management and deployment.",
-        "currentVersion": "Current Version",
-        "usage": "Usage",
-        "options": "Options",
-        "examples": "Examples",
-        "required": "Required",
-        "optional": "Optional",
-        "default": "Default",
-        "globalOptionsTitle": "Global Options",
-        "environmentTitle": "Environment Variables",
-        "relatedDocs": "Related Documentation",
+        "tag": "أدوات CLI",
+        "title": "مرجع CLI",
+        "subtitle": "واجهة سطر الأوامر لإدارة المشاريع والنشر.",
+        "currentVersion": "الإصدار الحالي",
+        "usage": "الاستخدام",
+        "options": "الخيارات",
+        "examples": "الأمثلة",
+        "required": "مطلوب",
+        "optional": "اختياري",
+        "default": "الافتراضي",
+        "globalOptionsTitle": "الخيارات العامة",
+        "environmentTitle": "متغيرات البيئة",
+        "relatedDocs": "الوثائق ذات الصلة",
         "installation": {
-          "title": "Installation",
-          "verify": "Verify installation"
+          "title": "التثبيت",
+          "verify": "تحقق من التثبيت"
         },
         "categories": {
-          "project": "Project",
-          "contract": "Contract",
+          "project": "المشروع",
+          "contract": "العقد",
           "network": "الشبكة",
-          "wallet": "Wallet",
-          "ai": "AI"
+          "wallet": "المحفظة",
+          "ai": "الذكاء الاصطناعي"
         },
         "commands": {
           "init": {
-            "desc": "Initialize a new TBurn Chain project",
+            "desc": "تهيئة مشروع TBurn Chain جديد",
             "options": {
-              "template": "Project template (defi, nft, dao)",
-              "typescript": "Use TypeScript"
+              "template": "قالب المشروع (defi, nft, dao)",
+              "typescript": "استخدام TypeScript"
             }
           },
           "dev": {
-            "desc": "Start local development server",
+            "desc": "بدء خادم التطوير المحلي",
             "options": {
-              "port": "Port number",
-              "open": "Open browser automatically"
+              "port": "رقم المنفذ",
+              "open": "فتح المتصفح تلقائياً"
             }
           },
           "build": {
-            "desc": "Build project for production",
+            "desc": "بناء المشروع للإنتاج",
             "options": {
-              "outdir": "Output directory",
-              "sourcemap": "Generate source maps"
+              "outdir": "مجلد الإخراج",
+              "sourcemap": "إنشاء خرائط المصدر"
             }
           },
           "deploy": {
-            "desc": "Deploy to TBurn Chain network",
+            "desc": "النشر على شبكة TBurn Chain",
             "options": {
-              "network": "Target network (mainnet, testnet)",
-              "verify": "Verify contract on explorer",
-              "gasPrice": "Gas price in gwei"
+              "network": "الشبكة المستهدفة (mainnet, testnet)",
+              "verify": "التحقق من العقد في المستكشف",
+              "gasPrice": "سعر الغاز بـ gwei"
             }
           },
           "wallet": {
-            "desc": "Wallet management commands",
+            "desc": "أوامر إدارة المحفظة",
             "options": {
-              "create": "Create new wallet",
-              "import": "Import existing wallet",
-              "balance": "Check wallet balance"
+              "create": "إنشاء محفظة جديدة",
+              "import": "استيراد محفظة موجودة",
+              "balance": "التحقق من رصيد المحفظة"
             }
           }
         },
         "globalOptions": {
-          "verbose": "Enable verbose output",
-          "json": "Output in JSON format",
-          "network": "Specify network",
-          "config": "Path to config file",
-          "help": "Show help message"
+          "verbose": "تفعيل الإخراج المفصل",
+          "json": "الإخراج بتنسيق JSON",
+          "network": "تحديد الشبكة",
+          "config": "مسار ملف التكوين",
+          "help": "عرض رسالة المساعدة"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "apiReference": "API Reference",
-          "sdkDocumentation": "SDK Documentation"
+          "title": "تحتاج مساعدة؟",
+          "apiReference": "مرجع API",
+          "sdkDocumentation": "وثائق SDK"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
+          "developerHub": "مركز المطورين",
           "documentation": "الوثائق",
-          "apiReference": "API Reference",
-          "quickStart": "Quick Start",
-          "installationGuide": "Installation Guide"
+          "apiReference": "مرجع API",
+          "quickStart": "البدء السريع",
+          "installationGuide": "دليل التثبيت"
         }
       },
       "sdk": {
-        "tag": "SDK GUIDE",
-        "title": "SDK Guide",
-        "subtitle": "Multi-language SDK integration guides and best practices.",
-        "installation": "Installation",
-        "configuration": "Configuration",
-        "quickExamples": "Quick Examples",
+        "tag": "دليل SDK",
+        "title": "دليل SDK",
+        "subtitle": "أدلة تكامل SDK متعددة اللغات وأفضل الممارسات.",
+        "installation": "التثبيت",
+        "configuration": "التكوين",
+        "quickExamples": "أمثلة سريعة",
         "install": {
-          "npm": "Install with npm",
-          "yarn": "Or with yarn"
+          "npm": "التثبيت باستخدام npm",
+          "yarn": "أو باستخدام yarn"
         },
         "features": {
           "typeSafety": {
-            "title": "Type Safety",
-            "description": "Full TypeScript support with comprehensive type definitions for all API methods and responses."
+            "title": "أمان الأنواع",
+            "description": "دعم TypeScript كامل مع تعريفات أنواع شاملة لجميع طرق API والاستجابات."
           },
           "autoRetry": {
-            "title": "Auto Retry",
-            "description": "Built-in retry logic with exponential backoff for failed requests and network issues."
+            "title": "إعادة المحاولة التلقائية",
+            "description": "منطق إعادة محاولة مدمج مع تراجع أسي للطلبات الفاشلة ومشاكل الشبكة."
           },
           "realTimeStreams": {
-            "title": "Real-Time Streams",
-            "description": "Subscribe to live blockchain events with WebSocket connections and reactive patterns."
+            "title": "البث الفوري",
+            "description": "اشترك في أحداث البلوكتشين المباشرة مع اتصالات WebSocket وأنماط تفاعلية."
           }
         },
         "examples": {
-          "core": "Core functionality",
-          "defi": "DeFi interactions",
-          "streaming": "Real-time streaming"
+          "core": "الوظائف الأساسية",
+          "defi": "تفاعلات DeFi",
+          "streaming": "البث الفوري"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "apiReference": "API Reference",
-          "cliReference": "CLI Reference",
-          "codeExamples": "Code Examples",
+          "title": "تحتاج مساعدة؟",
+          "apiReference": "مرجع API",
+          "cliReference": "مرجع CLI",
+          "codeExamples": "أمثلة الكود",
           "discordSupport": "مجتمع Discord"
         }
       },
       "contracts": {
-        "tag": "SMART CONTRACTS",
+        "tag": "العقود الذكية",
         "title": "العقود الذكية",
-        "subtitle": "Write, test, and deploy secure smart contracts on TBurn Chain.",
-        "contractTemplates": "Contract Templates",
-        "copy": "Copy",
-        "copied": "Copied!",
-        "apiReference": "API Reference",
-        "cliGuide": "CLI Guide",
-        "evmMigration": "EVM Migration",
+        "subtitle": "اكتب واختبر وانشر عقوداً ذكية آمنة على TBurn Chain.",
+        "contractTemplates": "قوالب العقود",
+        "copy": "نسخ",
+        "copied": "تم النسخ!",
+        "apiReference": "مرجع API",
+        "cliGuide": "دليل CLI",
+        "evmMigration": "ترحيل EVM",
         "features": {
           "evmCompatibility": {
-            "title": "Full EVM Compatibility",
-            "description": "Deploy existing Solidity contracts with minimal modifications. Compatible with standard development tools."
+            "title": "توافق كامل مع EVM",
+            "description": "انشر عقود Solidity الموجودة بتعديلات طفيفة. متوافق مع أدوات التطوير القياسية."
           },
           "trustIntegration": {
-            "title": "Trust Score Integration",
-            "description": "Access on-chain trust scores through oracle contracts for trust-verified transactions."
+            "title": "تكامل Trust Score",
+            "description": "الوصول إلى درجات الثقة على السلسلة من خلال عقود الأوراكل للمعاملات المتحقق منها."
           },
           "autoBurn": {
-            "title": "Automatic Burn",
-            "description": "Built-in burn mechanics with scheduled execution and transparent collateral management."
+            "title": "الحرق التلقائي",
+            "description": "آليات حرق مدمجة مع تنفيذ مجدول وإدارة ضمانات شفافة."
           },
           "aiOracle": {
-            "title": "AI Oracle Access",
-            "description": "Integrate AI-powered insights directly into your smart contracts via oracle calls."
+            "title": "وصول AI Oracle",
+            "description": "ادمج رؤى مدعومة بالذكاء الاصطناعي مباشرة في عقودك الذكية عبر استدعاءات الأوراكل."
           },
           "gasOptimization": {
-            "title": "Gas Optimization",
-            "description": "Advanced gas optimization techniques reduce transaction costs by up to 60%."
+            "title": "تحسين الغاز",
+            "description": "تقنيات تحسين الغاز المتقدمة تقلل تكاليف المعاملات بنسبة تصل إلى 60%."
           },
           "quantumResistant": {
-            "title": "Quantum-Resistant Signatures",
-            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+            "title": "توقيعات مقاومة للكم",
+            "description": "تشفير مستقبلي مع توقيعات CRYSTALS-Dilithium للأمان طويل المدى."
           },
           "trustScore": {
-            "title": "Trust Score Integration",
-            "description": "On-chain trust verification with real-time scoring and automated risk assessment."
+            "title": "تكامل Trust Score",
+            "description": "التحقق من الثقة على السلسلة مع تقييم فوري وتقييم مخاطر آلي."
           }
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 Token",
-            "description": "Standard token with trust-aware transfers"
+            "title": "توكن BRC-20",
+            "description": "توكن قياسي مع تحويلات واعية للثقة"
           },
           "nft": {
-            "title": "NFT Collection",
-            "description": "ERC-721 with on-chain metadata"
+            "title": "مجموعة NFT",
+            "description": "ERC-721 مع بيانات وصفية على السلسلة"
           },
           "defi": {
-            "title": "DeFi Protocol",
-            "description": "AMM pool with trust verification"
+            "title": "بروتوكول DeFi",
+            "description": "مجمع AMM مع التحقق من الثقة"
           },
           "dao": {
-            "title": "DAO Governance",
-            "description": "Token-weighted voting system"
+            "title": "حوكمة DAO",
+            "description": "نظام تصويت مرجح بالتوكن"
           },
-          "autoBurn": "Auto-Burn Token",
-          "basicToken": "Basic Token",
-          "governance": "Governance",
-          "staking": "Staking Contract",
-          "trustScoreIntegration": "Trust Score Integration"
+          "autoBurn": "توكن الحرق التلقائي",
+          "basicToken": "توكن أساسي",
+          "governance": "الحوكمة",
+          "staking": "عقد الستيكينغ",
+          "trustScoreIntegration": "تكامل Trust Score"
         },
         "security": {
-          "title": "Security Best Practices",
-          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
-          "accessControl": "Implement role-based access control with OpenZeppelin AccessControl",
-          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
-          "initializer": "Use initializer modifiers for proxy contract initialization",
-          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "title": "أفضل ممارسات الأمان",
+          "reentrancy": "استخدم معدِّل ReentrancyGuard لمنع الاستدعاءات الخارجية المتكررة",
+          "accessControl": "نفّذ التحكم في الوصول القائم على الأدوار مع OpenZeppelin AccessControl",
+          "checksEffects": "اتبع نمط checks-effects-interactions للاستدعاءات الخارجية",
+          "initializer": "استخدم معدِّلات initializer لتهيئة عقود البروكسي",
+          "overflow": "استخدم SafeMath أو Solidity 0.8+ للحماية من الفيضان",
           "reentrancyGuard": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+            "title": "حراس إعادة الدخول",
+            "description": "استخدم معدِّل ReentrancyGuard لمنع الاستدعاءات المتكررة"
           },
           "accessControlRole": {
-            "title": "Access Control",
-            "description": "Implement role-based permissions with OpenZeppelin"
+            "title": "التحكم في الوصول",
+            "description": "نفّذ الأذونات القائمة على الأدوار مع OpenZeppelin"
           },
           "inputValidation": {
-            "title": "Input Validation",
-            "description": "Always validate user inputs and external data"
+            "title": "التحقق من المدخلات",
+            "description": "تحقق دائماً من مدخلات المستخدم والبيانات الخارجية"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for upgradeable contracts"
+            "title": "قابلية الترقية",
+            "description": "استخدم أنماط البروكسي للعقود القابلة للترقية"
           }
         },
         "gasOptimization": {
-          "title": "Gas Optimization",
-          "subtitle": "Tips for reducing transaction costs",
-          "tip1": "Pack multiple small variables into single storage slots",
-          "tip2": "Use calldata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings",
+          "title": "تحسين الغاز",
+          "subtitle": "نصائح لتقليل تكاليف المعاملات",
+          "tip1": "حزم متغيرات صغيرة متعددة في فتحات تخزين واحدة",
+          "tip2": "استخدم calldata بدلاً من memory لمعلمات الدوال للقراءة فقط",
+          "tip3": "خزّن متغيرات التخزين في الذاكرة عند الوصول إليها عدة مرات",
+          "tip4": "استخدم أخطاء مخصصة بدلاً من سلاسل revert",
           "memoryVsStorage": {
-            "title": "Memory vs Storage",
-            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+            "title": "الذاكرة مقابل التخزين",
+            "desc": "استخدم الذاكرة للبيانات المؤقتة والتخزين للحالة الدائمة لتحسين استخدام الغاز."
           },
           "shortRevert": {
-            "title": "Short Revert Messages",
-            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+            "title": "رسائل Revert قصيرة",
+            "desc": "استخدم أخطاء مخصصة بدلاً من سلاسل revert الطويلة لتوفير غاز النشر والتنفيذ."
           },
           "useEvents": {
-            "title": "Use Events for Logging",
-            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+            "title": "استخدم الأحداث للتسجيل",
+            "desc": "أطلق أحداثاً بدلاً من تخزين البيانات عندما يكون الوصول التاريخي عبر السجلات كافياً."
           },
           "variablePacking": {
-            "title": "Variable Packing",
-            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+            "title": "حزم المتغيرات",
+            "desc": "حزم متغيرات متعددة في فتحات تخزين واحدة لتقليل تكاليف التخزين."
           }
         },
-        "gasOptimizationTips": "Gas Optimization Tips",
+        "gasOptimizationTips": "نصائح تحسين الغاز",
         "platformFeatures": "ميزات المنصة",
-        "readyToDeploy": "Ready to Deploy?",
-        "sdkGuide": "SDK Guide",
-        "securityChecklist": "Security Checklist",
+        "readyToDeploy": "هل أنت مستعد للنشر؟",
+        "sdkGuide": "دليل SDK",
+        "securityChecklist": "قائمة فحص الأمان",
         "testing": {
-          "title": "Testing Your Contracts",
-          "description": "Comprehensive testing guide for smart contracts",
-          "unitTests": "Unit Tests",
-          "integrationTests": "Integration Tests",
-          "fuzzTesting": "Fuzz Testing"
+          "title": "اختبار عقودك",
+          "description": "دليل اختبار شامل للعقود الذكية",
+          "unitTests": "اختبارات الوحدة",
+          "integrationTests": "اختبارات التكامل",
+          "fuzzTesting": "الاختبار العشوائي"
         },
         "deployment": {
-          "title": "Deployment Guide",
-          "step1": "Compile contracts",
-          "step2": "Deploy to testnet",
-          "step3": "Verify on explorer",
-          "step4": "Deploy to mainnet"
+          "title": "دليل النشر",
+          "step1": "تجميع العقود",
+          "step2": "النشر على شبكة الاختبار",
+          "step3": "التحقق في المستكشف",
+          "step4": "النشر على الشبكة الرئيسية"
         },
         "needHelp": {
-          "title": "Need Help?",
-          "sdkDocumentation": "SDK Documentation",
-          "codeExamples": "Code Examples",
+          "title": "تحتاج مساعدة؟",
+          "sdkDocumentation": "وثائق SDK",
+          "codeExamples": "أمثلة الكود",
           "discordSupport": "مجتمع Discord"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
-          "sdkGuide": "SDK Guide",
-          "cliReference": "CLI Reference",
-          "codeExamples": "Code Examples"
+          "developerHub": "مركز المطورين",
+          "sdkGuide": "دليل SDK",
+          "cliReference": "مرجع CLI",
+          "codeExamples": "أمثلة الكود"
         }
       },
       "websocket": {

@@ -3743,16 +3743,16 @@
       },
       "tokenomics": {
         "tag": "معاشیات",
-        "title": "ٹوکنومکس",
-        "subtitle": "TBURN ٹوکن کی تقسیم، اخراج کا شیڈول اور ڈیفلیشنری میکانزم سمجھیں۔",
+        "title": "ٹوکن اکنامکس",
+        "subtitle": "TBURN ٹوکن کی تقسیم، اجراء کے شیڈول اور افراط زر کے میکانزم کو سمجھیں۔",
         "marketStats": {
           "title": "مارکیٹ کے اعدادوشمار",
           "totalSupply": "کل سپلائی",
-          "circulatingSupply": "گردش میں سپلائی",
-          "totalBurned": "کل برن شدہ",
+          "circulatingSupply": "گردشی سپلائی",
+          "totalBurned": "کل جلایا گیا",
           "marketCap": "مارکیٹ کیپ",
-          "burned": "Burned",
-          "totalStaked": "کل Stایکked"
+          "burned": "جلایا گیا",
+          "totalStaked": "کل سٹیکنگ"
         },
         "distribution": {
           "title": "ٹوکن کی تقسیم",
@@ -3766,11 +3766,11 @@
               "percentage": "25%"
             },
             "team": {
-              "label": "ٹیم اور مشیر",
+              "label": "ٹیم اور مشیران",
               "percentage": "15%"
             },
             "validators": {
-              "label": "ویلیڈیٹر مراعات",
+              "label": "تصدیق کنندگان کے انعامات",
               "percentage": "15%"
             },
             "reserve": {
@@ -3783,20 +3783,20 @@
             }
           },
           "ecosystemFund": {
-            "title": "Ecosystem Fund",
-            "subtitle": "Grایکts, pایکrtnerships, اور ecosystem ڈویلپمنٹ میںitiپرives"
+            "title": "ایکو سسٹم فنڈ",
+            "subtitle": "گرانٹس، شراکت داری اور ایکو سسٹم ترقیاتی اقدامات"
           },
           "validatorRewards": {
-            "title": "Vایکlidپریا Rewایکrds",
-            "subtitle": "Block rewایکrds اور vایکlidپرiپر میںcentives کے لیے netwیاk security"
+            "title": "تصدیق کنندگان کے انعامات",
+            "subtitle": "نیٹ ورک سیکیورٹی کے لیے بلاک انعامات اور توثیق کی حوصلہ افزائی"
           },
           "teamAdvisors": {
-            "title": "Teایکm & ایکdvہےیاs",
-            "subtitle": "4-yeایکr vestمیںg کے ساتھ 1-yeایکr cliff کے لیے lپرg-term ایکlignment"
+            "title": "ٹیم اور مشیران",
+            "subtitle": "طویل مدتی ہم آہنگی کے لیے 4 سال کی ویسٹنگ اور 1 سال کی کلف"
           },
           "foundationReserve": {
-            "title": "Foundپرiپر Reserve",
-            "subtitle": "Emergency fund اور strپرegic oppیاtunities reserve"
+            "title": "فاؤنڈیشن ریزرو",
+            "subtitle": "ہنگامی فنڈ اور اسٹریٹجک مواقع کا ریزرو"
           }
         },
         "burnMechanisms": {
@@ -3817,14 +3817,14 @@
           }
         },
         "staking": {
-          "title": "اسٹیکنگ انعامات",
+          "title": "سٹیکنگ انعامات",
           "apy": "موجودہ APY",
-          "totalStaked": "کل اسٹیکڈ",
-          "validators": "فعال ویلیڈیٹرز",
-          "minStake": "کم از کم اسٹیک",
-          "liquidStaking": "Liquid stایکkمیںg ایکvایکilایکble کے ساتھ stTBURN derivپرive token",
-          "ninetyDayLock": "90-dایکy lock: 12% ایکPY + 1.2x governایکce weight",
-          "yearLock": "365-dایکy lock: 18% ایکPY + 2x governایکce weight"
+          "totalStaked": "کل سٹیکنگ",
+          "validators": "فعال تصدیق کنندگان",
+          "minStake": "کم از کم سٹیک",
+          "liquidStaking": "لیکوڈ سٹیکنگ stTBURN ڈیریویٹو ٹوکن کے ساتھ دستیاب",
+          "ninetyDayLock": "90 دن کا لاک: 12% APY + 1.2x گورننس ویٹ",
+          "yearLock": "365 دن کا لاک: 18% APY + 2x گورننس ویٹ"
         },
         "governance": {
           "title": "گورننس",
@@ -3833,51 +3833,51 @@
           "proposalThreshold": "تجویز کی حد",
           "quorum": "مطلوبہ کورم",
           "features": {
-            "voteProtocol": "Vote پر protocol upgrایکdes اور pایکrایکmeter chایکges",
-            "approveTreasury": "منظور کریں treایکsury ایکllocپرiپرs اور ecosystem grایکts",
-            "decideSlashing": "Decide پر slایکshمیںg proposایکls اور vایکlidپریا dہےputes"
+            "voteProtocol": "پروٹوکول اپ گریڈز اور پیرامیٹر تبدیلیوں پر ووٹ کریں",
+            "approveTreasury": "خزانے کی تخصیص اور ایکو سسٹم گرانٹس کی منظوری",
+            "decideSlashing": "سلیشنگ تجاویز اور تصدیق کنندگان کے تنازعات پر فیصلہ کریں"
           }
         },
         "distributionSection": {
-          "title": "تکken Dہےtributiپر",
-          "subtitle": "Strپرegic ایکllocپرiپر designed کے لیے lپرg-term ecosystem growth اور sustایکمیںایکbility",
+          "title": "ٹوکن کی تقسیم",
+          "subtitle": "طویل مدتی ایکو سسٹم کی ترقی اور پائیداری کے لیے اسٹریٹجک تخصیص",
           "totalSupply": "1,000,000,000 TBURN"
         },
         "burnSection": {
-          "title": "Burn Mechایکہےms",
-          "subtitle": "Multiple deflپرiپرایکry mechایکہےms ensurمیںg sustایکمیںایکble token vایکlue ایکppreciپرiپر"
+          "title": "برن میکانزم",
+          "subtitle": "ٹوکن کی پائیدار قدر میں اضافے کو یقینی بنانے والے متعدد افراط زر کے میکانزم"
         },
         "tburn": {
-          "type": "Governایکce & Stایکkمیںg تکken",
+          "type": "گورننس اور سٹیکنگ ٹوکن",
           "role": "کردار",
-          "roleValue": "Primایکry governایکce token کے لیے votمیںg اور stایکkمیںg کی طرف secure  netwیاk",
+          "roleValue": "نیٹ ورک کو محفوظ کرنے کے لیے ووٹنگ اور سٹیکنگ کے لیے بنیادی گورننس ٹوکن",
           "totalSupply": "1,000,000,000",
           "decimals": "18"
         },
         "ember": {
-          "type": "Gایکs تکken",
+          "type": "گیس ٹوکن",
           "role": "کردار",
-          "roleValue": "Nپرive gایکs token کے لیے trایکsایکctiپر fees اور smایکrt cپرtrایکct executiپر",
-          "baseFee": "Bایکse فیس",
+          "roleValue": "ٹرانزیکشن فیس اور سمارٹ کنٹریکٹ کے نفاذ کے لیے مقامی گیس ٹوکن",
+          "baseFee": "بنیادی فیس",
           "baseFeeValue": "0.001 EMBER",
-          "exchangeRatio": "1 TBURN stایکked = 100 EMBER/dایکy"
+          "exchangeRatio": "1 TBURN سٹیک = 100 EMBER/دن"
         },
         "burn": {
           "transactionFees": {
-            "title": "Trایکsایکctiپر فیس Burn",
-            "description": "0.1% کا every trایکsایکctiپر fee ہے permایکently burned, reducمیںg supply کے ساتھ netwیاk ہمایکge"
+            "title": "فیس برن",
+            "description": "ہر ٹرانزیکشن فیس کا 0.1% مستقل طور پر جلایا جاتا ہے"
           },
           "slashingPenalty": {
-            "title": "Slایکshمیںg Penایکlty Burn",
-            "description": "Vایکlidپریا mہےbehایکviیا penایکlties ہیں burned, reمیںکے لیےcمیںg netwیاk security میںcentives"
+            "title": "سلیشنگ جرمانہ",
+            "description": "تصدیق کنندگان کے برے رویے کے جرمانے جلائے جاتے ہیں"
           },
           "collateralBurn": {
-            "title": "Colبعد میںایکl Burn",
-            "description": "ناکام project colبعد میںایکl ہے pایکrtiایکlly burned ایکs pایکrt کا میںvestیا protectiپر mechایکہےm"
+            "title": "ضمانت برن",
+            "description": "ناکام پروجیکٹس کی ضمانت جزوی طور پر جلائی جاتی ہے"
           },
           "revenueBuyback": {
-            "title": "Revenue Buybایکck Burn",
-            "description": "پروtocol revenue used کی طرف buy اور burn TBURN quایکrterly, creپرمیںg deflپرiپرایکry pressure"
+            "title": "ریونیو بائی بیک",
+            "description": "پروٹوکول کی آمدنی سہ ماہی TBURN خریدنے اور جلانے کے لیے استعمال ہوتی ہے"
           }
         }
       },
@@ -4388,38 +4388,38 @@
         "getStarted": "شروع کریں",
         "viewDocs": "دستاویزات دیکھیں",
         "quickStart": {
-          "title": "فوری شروع",
+          "title": "فوری شروعات",
           "subtitle": "5 منٹ میں اپنی پہلی dApp تعینات کریں"
         },
         "sdks": {
-          "title": "Officiایکl SDKs",
-          "subtitle": "Nپرive suppیاt کے لیے آپ کا fایکvیاite lایکguایکges"
+          "title": "آفیشل SDKs",
+          "subtitle": "آپ کی پسندیدہ زبانوں کے لیے مقامی سپورٹ"
         },
         "apiReference": {
-          "title": "API Reference",
-          "subtitle": "RESTful ایکPI & WebSocket Streایکmمیںg",
-          "blockchainApi": "Blockchایکمیں ایکPI",
+          "title": "API حوالہ",
+          "subtitle": "RESTful API اور WebSocket سٹریمنگ",
+          "blockchainApi": "بلاکچین API",
           "defiApi": "DeFi API",
           "aiApi": "AI API"
         },
         "devTools": {
           "burnCli": {
             "title": "Burn CLI",
-            "description": "پروject میںit & تعینات کریں"
+            "description": "پروجیکٹ شروع اور تعینات کریں"
           },
           "testFramework": {
-            "title": "Test Frایکmewیاk",
-            "description": "Unit & E2E testمیںg"
+            "title": "ٹیسٹ فریم ورک",
+            "description": "یونٹ اور E2E ٹیسٹنگ"
           },
           "localDevnet": {
-            "title": "Locایکl Devnet",
-            "description": "Simulپریا envirپرment"
+            "title": "لوکل Devnet",
+            "description": "سمولیٹر ماحول"
           }
         },
         "grants": {
-          "title": "Developer Grایکts پروgrایکm",
-          "subtitle": "We suppیاt projects وہ expاور  TBurn Chایکمیں ecosystem.",
-          "totalFund": "$50M Total Grant Fund"
+          "title": "ڈویلپر گرانٹس پروگرام",
+          "subtitle": "ہم TBurn Chain ایکو سسٹم کو بڑھانے والے پروجیکٹس کی حمایت کرتے ہیں۔",
+          "totalFund": "$50M کل گرانٹ فنڈ"
         },
         "quickStartSteps": {
           "install": {
@@ -4435,53 +4435,53 @@
             "command": "tburn deploy --network mainnet"
           },
           "step1": {
-            "comment": "# انسٹال کریں CLI"
+            "comment": "# CLI انسٹال کریں"
           },
           "step2": {
-            "comment": "# بنائیں پروject"
+            "comment": "# پروجیکٹ بنائیں"
           },
           "step3": {
-            "comment": "# Run Dev Server"
+            "comment": "# ڈیو سرور چلائیں"
           },
           "step4": {
-            "comment": "# تعینات کریں کی طرف Mایکمیںnet"
+            "comment": "# مین نیٹ پر تعینات کریں"
           }
         },
         "sdkList": {
           "javascript": {
-            "name": "JavaScript/TypeScript",
+            "name": "JavaScript / TypeScript",
             "package": "@tburn/sdk",
             "version": "v4.2.1",
-            "install": "npm میںstایکll @burnchایکمیں/sdk",
-            "downloads": "1.2M/mo downloایکds"
+            "install": "npm install @burnchain/sdk",
+            "downloads": "1.2M/ماہ ڈاؤن لوڈز"
           },
           "python": {
             "name": "Python",
             "package": "tburn-sdk",
             "version": "v4.1.0",
-            "install": "pip میںstایکll burnchایکمیں-py",
-            "downloads": "450K/mo downloایکds"
+            "install": "pip install burnchain-py",
+            "downloads": "450K/ماہ ڈاؤن لوڈز"
           },
           "rust": {
             "name": "Rust",
             "package": "tburn-rs",
             "version": "v4.0.3",
-            "install": "cایکrgo ایکdd burnchایکمیں-rs",
-            "downloads": "280K/mo downloایکds"
+            "install": "cargo add burnchain-rs",
+            "downloads": "280K/ماہ ڈاؤن لوڈز"
           },
           "go": {
             "name": "Go",
             "package": "github.com/tburn/go-sdk",
             "version": "v4.0.2",
-            "install": "go get github.com/burnchایکمیں/go",
-            "downloads": "180K/mo downloایکds"
+            "install": "go get github.com/burnchain/go",
+            "downloads": "180K/ماہ ڈاؤن لوڈز"
           },
           "java": {
-            "name": "Java",
+            "name": "Java / Kotlin",
             "package": "io.tburn.sdk",
             "version": "v4.0.1",
-            "install": "implementپرiپر 'burnchایکمیں-jvm'",
-            "downloads": "120K/mo downloایکds"
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "120K/ماہ ڈاؤن لوڈز"
           },
           "csharp": {
             "name": "C#/.NET",
@@ -4490,8 +4490,8 @@
           "swift": {
             "name": "Swift",
             "version": "v4.0.0",
-            "install": "pod 'BurnChایکمیںSwift'",
-            "downloads": "85K/mo downloایکds"
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "85K/ماہ ڈاؤن لوڈز"
           }
         },
         "apiEndpoints": {
@@ -4533,9 +4533,9 @@
         "grantTiers": {
           "seed": {
             "title": "سیڈ گرانٹ",
-            "amount": "$5,000 - $25,000",
-            "description": "ابتدائی مرحلے کے پروجیکٹس کے لیے",
-            "tier": "Seed"
+            "amount": "$5K - $25K",
+            "description": "آئیڈیا کی توثیق",
+            "tier": "سیڈ"
           },
           "growth": {
             "title": "گروتھ گرانٹ",
@@ -4544,352 +4544,352 @@
           },
           "enterprise": {
             "title": "انٹرپرائز گرانٹ",
-            "amount": "$100,000+",
-            "description": "بڑے انٹیگریشنز کے لیے",
-            "tier": "Enterprہےe"
+            "amount": "$500K+",
+            "description": "ایکو سسٹم لیڈر",
+            "tier": "انٹرپرائز"
           },
           "build": {
-            "tier": "تعمیر کریں",
+            "tier": "تعمیر",
             "amount": "$25K - $100K",
-            "description": "MVP Development"
+            "description": "MVP ڈویلپمنٹ"
           },
           "scale": {
-            "tier": "Scایکle",
+            "tier": "اسکیل",
             "amount": "$100K - $500K",
-            "description": "پروductiپر پڑھیںy"
+            "description": "پروڈکشن کے لیے تیار"
           }
         },
         "devToolsSection": {
-          "title": "ڈویلپمنٹ تکols"
+          "title": "ڈویلپمنٹ ٹولز"
         }
       },
       "docs": {
         "tag": "دستاویزات",
         "title": "دستاویزات",
         "subtitle": "TBurn Chain ڈویلپمنٹ کے لیے جامع گائیڈز اور حوالہ جات۔",
-        "heroDescription": "Everythمیںg you need کی طرف build پر TBurn Chایکمیں. سے quick stایکrts کی طرف ایکdvایکced ایکPI references.",
-        "searchPlaceholder": "تلاش documentپرiپر...",
-        "categoriesTitle": "دستاویزات Cپرegیاies",
+        "heroDescription": "TBurn Chain پر تعمیر کے لیے آپ کو سب کچھ درکار ہے۔ فوری شروعات سے لے کر ایڈوانسڈ API حوالہ جات تک۔",
+        "searchPlaceholder": "دستاویزات تلاش کریں...",
+        "categoriesTitle": "دستاویزات کے زمرے",
         "resourcesTitle": "ڈویلپر وسائل",
         "badges": {
           "latest": "تازہ ترین",
-          "mainnet": "Mایکمیںnet"
+          "mainnet": "مین نیٹ"
         },
         "architecture": {
-          "title": "Netwیاk Architecture",
-          "subtitle": "Understاورمیںg  TBurn Chایکمیں multi-lایکyer ایکrchitecture",
+          "title": "نیٹ ورک آرکیٹیکچر",
+          "subtitle": "TBurn Chain ملٹی لیئر آرکیٹیکچر کو سمجھنا",
           "layers": {
             "consensus": {
-              "title": "اتفاق رائے Lایکyer",
-              "description": "پروکا کا Trust cپرsensus کے ساتھ ایکI-poتھےd vایکlidپرiپر اور quایکtum-resہےtایکt signپرures"
+              "title": "اتفاق رائے کی پرت",
+              "description": "AI سے چلنے والی توثیق اور کوانٹم مزاحم دستخطوں کے ساتھ پروف آف ٹرسٹ اتفاق رائے"
             },
             "execution": {
-              "title": "Executiپر Lایکyer",
-              "description": "EVM-compپرible smایکrt cپرtrایکct executiپر کے ساتھ gایکs optimizپرiپر"
+              "title": "عمل درآمد کی پرت",
+              "description": "گیس آپٹیمائزیشن کے ساتھ EVM موافق سمارٹ کنٹریکٹ عمل درآمد"
             },
             "application": {
-              "title": "ایکpplicپرiپر Lایکyer",
-              "description": "dایکpps, DeFi protocols, اور user-fایکcمیںg services"
+              "title": "ایپلیکیشن کی پرت",
+              "description": "dApps، DeFi پروٹوکولز اور صارف کا سامنا کرنے والی سروسز"
             },
             "service": {
-              "title": "Service Lایکyer",
-              "description": "APIs, SDKs, اور developer tools کے لیے میںtegrپرiپر"
+              "title": "سروس کی پرت",
+              "description": "انضمام کے لیے APIs، SDKs اور ڈویلپر ٹولز"
             }
           },
           "stats": {
             "throughput": {
-              "label": "Throughput",
+              "label": "تھروپٹ",
               "sublabel": "50,000+ TPS"
             },
             "latency": {
-              "label": "Lپرency",
+              "label": "لیٹنسی",
               "sublabel": "< 1 سیکنڈ"
             },
             "ai": {
-              "label": "AI Models",
-              "sublabel": "Triple-bاور یاchestrپرiپر"
+              "label": "AI ماڈلز",
+              "sublabel": "ٹرپل بینڈ آرکیسٹریشن"
             },
             "cryptography": {
-              "label": "Cryptogrایکphy",
-              "sublabel": "Quایکtum-resہےtایکt"
+              "label": "کرپٹوگرافی",
+              "sublabel": "کوانٹم مزاحم"
             }
           }
         },
         "categories": {
           "smartContracts": {
             "title": "سمارٹ کنٹریکٹس",
-            "description": "Write, تعینات کریں, اور verify smایکrt cپرtrایکcts کے ساتھ Trust Scیاe میںtegrپرiپر"
+            "description": "Trust Score انضمام کے ساتھ سمارٹ کنٹریکٹس لکھیں، تعینات کریں اور تصدیق کریں"
           },
           "apiReference": {
-            "title": "API Reference",
-            "description": "مکمل کریں REST اور GrایکphQL ایکPI documentپرiپر"
+            "title": "API حوالہ",
+            "description": "مکمل REST اور GraphQL API دستاویزات"
           },
           "sdkGuide": {
             "title": "SDK گائیڈ",
-            "description": "Multi-lایکguایکge SDK میںtegrپرiپر guides",
+            "description": "ملٹی لینگویج SDK انضمام گائیڈز",
             "badge": "مقبول"
           },
           "cliReference": {
-            "title": "CLI Reference",
-            "description": "Commاور lمیںe میںterfایکce کے لیے project mایکایکgement",
+            "title": "CLI حوالہ",
+            "description": "پروجیکٹ مینجمنٹ کے لیے کمانڈ لائن انٹرفیس",
             "badge": "نیا"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "description": "Reایکl-time blockchایکمیں event subscriptiپرs",
-            "badge": "Reایکl-time"
+            "description": "ریئل ٹائم بلاکچین ایونٹ سبسکرپشنز",
+            "badge": "ریئل ٹائم"
           },
           "tutorials": {
-            "title": "Tutیاiایکls",
-            "description": "Step-کی طرف سے-step guides کے لیے commپر use cایکses",
+            "title": "ٹیوٹوریلز",
+            "description": "عام استعمال کے معاملات کے لیے قدم بہ قدم گائیڈز",
             "badge": "ابتدائی"
           }
         },
         "quickStart": {
-          "title": "فوری شروع",
+          "title": "فوری شروعات",
           "items": {
             "getStarted": {
               "title": "شروع کریں",
-              "description": "انسٹال کریں  SDK اور creپرe آپ کا پہلا project"
+              "description": "SDK انسٹال کریں اور اپنا پہلا پروجیکٹ بنائیں"
             },
             "devSetup": {
-              "title": "Development Setup",
-              "description": "Cپرfigure آپ کا ڈویلپمنٹ envirپرment"
+              "title": "ڈویلپمنٹ سیٹ اپ",
+              "description": "اپنا ڈویلپمنٹ ماحول ترتیب دیں"
             },
             "apiKeys": {
-              "title": "API Keys",
-              "description": "Get آپ کا ایکPI keys from  developer dایکshboایکrd"
+              "title": "API کیز",
+              "description": "ڈویلپر ڈیش بورڈ سے اپنی API کیز حاصل کریں"
             }
           }
         },
         "resources": {
           "cookbook": {
-            "title": "Developer Cookbook",
-            "description": "پڑھیںy-کی طرف-use code recipes اور pپرterns"
+            "title": "ڈویلپر کک بک",
+            "description": "استعمال کے لیے تیار کوڈ ریسپیز اور پیٹرنز"
           },
           "community": {
-            "title": "Community",
-            "description": "شامل ہوں Dہےcیاd اور get help from  community"
+            "title": "کمیونٹی",
+            "description": "Discord میں شامل ہوں اور کمیونٹی سے مدد حاصل کریں"
           },
           "trustScore": {
-            "title": "Trust Scیاe گائیڈ",
-            "description": "Understاورمیںg اور میںtegrپرمیںg trust verificپرiپر"
+            "title": "Trust Score گائیڈ",
+            "description": "ٹرسٹ تصدیق کو سمجھنا اور انضمام کرنا"
           },
           "defiHub": {
-            "title": "DeFi Hub",
-            "description": "تعمیر کریں DeFi ایکpplicپرiپرs کے ساتھ TBurn protocols"
+            "title": "DeFi ہب",
+            "description": "TBurn پروٹوکولز کے ساتھ DeFi ایپلیکیشنز بنائیں"
           }
         },
         "cta": {
-          "title": "پڑھیںy کی طرف تعمیر کریں?",
-          "description": "شروع buildمیںg پر TBurn Chایکمیں آج کے ساتھ ہمارا comprehensive documentپرiپر اور SDKs.",
-          "joinDiscord": "شامل ہوں Dہےcیاd"
+          "title": "تعمیر کے لیے تیار ہیں؟",
+          "description": "ہماری جامع دستاویزات اور SDKs کے ساتھ آج TBurn Chain پر تعمیر شروع کریں۔",
+          "joinDiscord": "Discord میں شامل ہوں"
         }
       },
       "api": {
         "tag": "API حوالہ",
         "title": "API دستاویزات",
         "subtitle": "بلاکچین، DeFi اور AI سروسز کے لیے RESTful API اینڈ پوائنٹس۔",
-        "baseUrl": "Bایکse URL",
-        "coreEndpoints": "Cیاe ختمپوائنٹس",
+        "baseUrl": "بیس URL",
+        "coreEndpoints": "کور اینڈ پوائنٹس",
         "parameters": "پیرامیٹرز",
-        "related": "Relپرed",
-        "officialSdks": "Officiایکl SDKs",
-        "viewDocumentation": "دیکھیں دستاویزات",
+        "related": "متعلقہ",
+        "officialSdks": "آفیشل SDKs",
+        "viewDocumentation": "دستاویزات دیکھیں",
         "authentication": {
-          "title": "Aunticپرiپر",
-          "description": "سب API requests require ایک API key. Get آپ کا free key from ",
-          "dashboardLink": "Developer ڈیش بورڈ"
+          "title": "توثیق",
+          "description": "تمام API درخواستوں کے لیے API کی ضرورت ہے۔ اپنی مفت کی حاصل کریں",
+          "dashboardLink": "ڈویلپر ڈیش بورڈ"
         },
         "sidebar": {
           "overview": "جائزہ",
-          "authentication": "Aunticپرiپر",
-          "rateLimits": "شرح Limاس کا",
-          "endpoints": "ختمپوائنٹس",
-          "block": "Block",
-          "transaction": "Trایکsایکctiپر",
+          "authentication": "توثیق",
+          "rateLimits": "شرح کی حدود",
+          "endpoints": "اینڈ پوائنٹس",
+          "block": "بلاک",
+          "transaction": "ٹرانزیکشن",
           "account": "اکاؤنٹ",
-          "smartContract": "Smایکrt Cپرtrایکct",
+          "smartContract": "سمارٹ کنٹریکٹ",
           "websocket": "WebSocket",
-          "realtimeEvents": "Reایکl-time Events"
+          "realtimeEvents": "ریئل ٹائم ایونٹس"
         },
         "endpoints": {
           "blocks": {
-            "description": "Get block میںکے لیےmپرiپر کی طرف سے block number یا ہےh",
-            "paramDesc": "Block number یا 'lپرest'"
+            "description": "بلاک نمبر یا ہیش کے ذریعے بلاک کی معلومات حاصل کریں",
+            "paramDesc": "بلاک نمبر یا 'latest'"
           },
           "transactions": {
-            "description": "Get trایکsایکctiپر detایکils کی طرف سے trایکsایکctiپر ہےh"
+            "description": "ٹرانزیکشن ہیش کے ذریعے ٹرانزیکشن کی تفصیلات حاصل کریں"
           },
           "sendTransaction": {
-            "description": "جمع کریں ایک signed trایکsایکctiپر کی طرف  netwیاk"
+            "description": "نیٹ ورک پر دستخط شدہ ٹرانزیکشن جمع کریں"
           },
           "balance": {
-            "description": "Get ایکccount bایکlایکce اور nپرce"
+            "description": "اکاؤنٹ بیلنس اور نونس حاصل کریں"
           }
         },
         "errorHandling": {
-          "title": "خرابی Hاورlمیںg",
-          "code": "Code",
+          "title": "خرابی کی ہینڈلنگ",
+          "code": "کوڈ",
           "description": "تفصیل"
         },
         "errors": {
-          "badRequest": "Invایکlid request pایکrایکmeters",
-          "unauthorized": "میںvایکlid یا mہےsمیںg ایکPI key",
-          "tooManyRequests": "شرح limit exceeded",
-          "internalError": "Internایکl server errیا"
+          "badRequest": "غلط درخواست پیرامیٹرز",
+          "unauthorized": "غلط یا گم شدہ API کی",
+          "tooManyRequests": "شرح کی حد سے تجاوز",
+          "internalError": "اندرونی سرور کی خرابی"
         },
         "websocketApi": {
           "title": "WebSocket API",
-          "description": "سبسکرائب کریں کی طرف reایکl-time blockchایکمیں events کے لیے میںstایکt updپرes.",
-          "connectComment": "جڑیں کی طرف WebSocket",
-          "subscribeComment": "سبسکرائب کریں کی طرف blocks chایکnel"
+          "description": "فوری اپڈیٹس کے لیے ریئل ٹائم بلاکچین ایونٹس کو سبسکرائب کریں۔",
+          "connectComment": "WebSocket سے جڑیں",
+          "subscribeComment": "بلاکس چینل کو سبسکرائب کریں"
         },
         "sdks": {
-          "javascript": "JایکvایکScript SDK",
-          "python": "Pythپر SDK",
+          "javascript": "JavaScript SDK",
+          "python": "Python SDK",
           "go": "Go SDK"
         },
         "quickLinks": {
           "quickStart": {
-            "title": "فوری شروع",
-            "description": "تعینات کریں آپ کا پہلا dApp میں 5 mمیںutes"
+            "title": "فوری شروعات",
+            "description": "5 منٹ میں اپنی پہلی dApp تعینات کریں"
           },
           "codeExamples": {
-            "title": "Code Exایکmples",
-            "description": "Reایکl-wیاld میںtegrپرiپر pپرterns"
+            "title": "کوڈ کی مثالیں",
+            "description": "حقیقی دنیا کے انضمام کے پیٹرنز"
           },
           "rpcProviders": {
-            "title": "RPC پروviders",
-            "description": "جڑیں viایک multiple endپوائنٹس"
+            "title": "RPC فراہم کنندگان",
+            "description": "متعدد اینڈ پوائنٹس کے ذریعے جڑیں"
           }
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
-          "documentation": "Full دستاویزات",
-          "codeExamples": "Code Exایکmples",
-          "quickStart": "فوری شروع گائیڈ"
+          "developerHub": "ڈویلپر ہب",
+          "documentation": "مکمل دستاویزات",
+          "codeExamples": "کوڈ کی مثالیں",
+          "quickStart": "فوری شروعات گائیڈ"
         }
       },
       "cli": {
         "tag": "CLI ٹولز",
         "title": "CLI حوالہ",
         "subtitle": "پروجیکٹ مینجمنٹ اور تعیناتی کے لیے کمانڈ لائن انٹرفیس۔",
-        "currentVersion": "موجودہ Versiپر",
-        "usage": "ہمایکge",
+        "currentVersion": "موجودہ ورژن",
+        "usage": "استعمال",
         "options": "اختیارات",
-        "examples": "Exایکmples",
+        "examples": "مثالیں",
         "required": "ضروری",
         "optional": "اختیاری",
         "default": "ڈیفالٹ",
-        "globalOptionsTitle": "Globایکl اختیارات",
-        "environmentTitle": "Envirپرment Vایکriایکbles",
-        "relatedDocs": "Relپرed دستاویزات",
+        "globalOptionsTitle": "عالمی اختیارات",
+        "environmentTitle": "ماحولیاتی متغیرات",
+        "relatedDocs": "متعلقہ دستاویزات",
         "installation": {
-          "title": "انسٹال کریںپرiپر",
-          "verify": "Verify میںstایکllپرiپر"
+          "title": "انسٹالیشن",
+          "verify": "انسٹالیشن کی تصدیق کریں"
         },
         "categories": {
-          "project": "پروject",
-          "contract": "Cپرtrایکct",
-          "network": "Netwیاk",
-          "wallet": "Wایکllet",
+          "project": "پروجیکٹ",
+          "contract": "کنٹریکٹ",
+          "network": "نیٹ ورک",
+          "wallet": "والیٹ",
           "ai": "AI"
         },
         "commands": {
           "init": {
-            "desc": "میںitiایکlize ایک نیا TBurn Chایکمیں project",
+            "desc": "نیا TBurn Chain پروجیکٹ شروع کریں",
             "options": {
-              "template": "پروject templپرe (defi, nft, dایکo)",
-              "typescript": "Use قسمScript"
+              "template": "پروجیکٹ ٹیمپلیٹ (defi, nft, dao)",
+              "typescript": "TypeScript استعمال کریں"
             }
           },
           "dev": {
-            "desc": "شروع locایکl ڈویلپمنٹ server",
+            "desc": "لوکل ڈویلپمنٹ سرور شروع کریں",
             "options": {
-              "port": "Pیاt number",
-              "open": "کھولیں browser ایکutomپرicایکlly"
+              "port": "پورٹ نمبر",
+              "open": "خودکار طور پر براؤزر کھولیں"
             }
           },
           "build": {
-            "desc": "تعمیر کریں project کے لیے productiپر",
+            "desc": "پروڈکشن کے لیے پروجیکٹ تعمیر کریں",
             "options": {
-              "outdir": "Output directیاy",
-              "sourcemap": "Generپرe sہماراce mایکps"
+              "outdir": "آؤٹ پٹ ڈائریکٹری",
+              "sourcemap": "سورس میپس بنائیں"
             }
           },
           "deploy": {
-            "desc": "تعینات کریں کی طرف TBurn Chایکمیں netwیاk",
+            "desc": "TBurn Chain نیٹ ورک پر تعینات کریں",
             "options": {
-              "network": "Tایکrget netwیاk (mایکمیںnet, ٹیسٹ نیٹ)",
-              "verify": "Verify cپرtrایکct پر explیاer",
-              "gasPrice": "Gایکs price میں gwei"
+              "network": "ٹارگٹ نیٹ ورک (mainnet, testnet)",
+              "verify": "ایکسپلورر پر کنٹریکٹ کی تصدیق کریں",
+              "gasPrice": "gwei میں گیس کی قیمت"
             }
           },
           "wallet": {
-            "desc": "Wایکllet mایکایکgement commاورs",
+            "desc": "والیٹ مینجمنٹ کمانڈز",
             "options": {
-              "create": "بنائیں نیا wایکllet",
-              "import": "Impیاt exہےtمیںg wایکllet",
-              "balance": "Check wایکllet bایکlایکce"
+              "create": "نیا والیٹ بنائیں",
+              "import": "موجودہ والیٹ درآمد کریں",
+              "balance": "والیٹ بیلنس چیک کریں"
             }
           }
         },
         "globalOptions": {
-          "verbose": "فعال کریں verbose output",
-          "json": "Output میں JSON کے لیےmپر",
-          "network": "Specify netwیاk",
-          "config": "Pپرh کی طرف cپرfig file",
-          "help": "دکھائیں help messایکge"
+          "verbose": "تفصیلی آؤٹ پٹ فعال کریں",
+          "json": "JSON فارمیٹ میں آؤٹ پٹ",
+          "network": "نیٹ ورک مخصوص کریں",
+          "config": "کنفیگ فائل کا راستہ",
+          "help": "مدد کا پیغام دکھائیں"
         },
         "needHelp": {
-          "title": "Need مدد?",
-          "apiReference": "API Reference",
+          "title": "مدد چاہیے؟",
+          "apiReference": "API حوالہ",
           "sdkDocumentation": "SDK دستاویزات"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
+          "developerHub": "ڈویلپر ہب",
           "documentation": "دستاویزات",
-          "apiReference": "API Reference",
-          "quickStart": "فوری شروع",
-          "installationGuide": "انسٹال کریںپرiپر گائیڈ"
+          "apiReference": "API حوالہ",
+          "quickStart": "فوری شروعات",
+          "installationGuide": "انسٹالیشن گائیڈ"
         }
       },
       "sdk": {
         "tag": "SDK گائیڈ",
         "title": "SDK گائیڈ",
         "subtitle": "ملٹی لینگویج SDK انٹیگریشن گائیڈز اور بہترین طریقے۔",
-        "installation": "انسٹال کریںپرiپر",
+        "installation": "انسٹالیشن",
         "configuration": "ترتیب",
-        "quickExamples": "فوری Exایکmples",
+        "quickExamples": "فوری مثالیں",
         "install": {
-          "npm": "انسٹال کریں کے ساتھ npm",
-          "yarn": "یا کے ساتھ yایکrn"
+          "npm": "npm کے ساتھ انسٹال کریں",
+          "yarn": "یا yarn کے ساتھ"
         },
         "features": {
           "typeSafety": {
-            "title": "قسم محفوظty",
-            "description": "Full قسمScript suppیاt کے ساتھ comprehensive قسم defمیںitiپرs کے لیے ایکll ایکPI methods اور respپرses."
+            "title": "ٹائپ سیفٹی",
+            "description": "تمام API میتھڈز اور ریسپانسز کے لیے جامع ٹائپ ڈیفینیشنز کے ساتھ مکمل TypeScript سپورٹ۔"
           },
           "autoRetry": {
-            "title": "خودکار دوبارہ کوشش کریں",
-            "description": "Built-میں retry logic کے ساتھ expپرentiایکl bایکckکاf کے لیے fایکiled requests اور netwیاk ہےsues."
+            "title": "آٹو ری ٹرائی",
+            "description": "ناکام درخواستوں اور نیٹ ورک مسائل کے لیے ایکسپوننشل بیک آف کے ساتھ بلٹ ان ری ٹرائی لاجک۔"
           },
           "realTimeStreams": {
-            "title": "Reایکl-وقت Streایکms",
-            "description": "سبسکرائب کریں کی طرف live blockchایکمیں events کے ساتھ WebSocket cپرnectiپرs اور reایکctive pپرterns."
+            "title": "ریئل ٹائم سٹریمز",
+            "description": "WebSocket کنکشنز اور ری ایکٹیو پیٹرنز کے ساتھ لائیو بلاکچین ایونٹس کو سبسکرائب کریں۔"
           }
         },
         "examples": {
-          "core": "Cیاe functiپرایکlity",
-          "defi": "DeFi میںterایکctiپرs",
-          "streaming": "Reایکl-time streایکmمیںg"
+          "core": "کور فنکشنالٹی",
+          "defi": "DeFi انٹریکشنز",
+          "streaming": "ریئل ٹائم سٹریمنگ"
         },
         "needHelp": {
-          "title": "Need مدد?",
-          "apiReference": "API Reference",
-          "cliReference": "CLI Reference",
-          "codeExamples": "Code Exایکmples",
+          "title": "مدد چاہیے؟",
+          "apiReference": "API حوالہ",
+          "cliReference": "CLI حوالہ",
+          "codeExamples": "کوڈ کی مثالیں",
           "discordSupport": "Discord کمیونٹی"
         }
       },
@@ -4897,229 +4897,229 @@
         "tag": "سمارٹ کنٹریکٹس",
         "title": "سمارٹ کنٹریکٹس",
         "subtitle": "TBurn Chain پر محفوظ سمارٹ کنٹریکٹس لکھیں، ٹیسٹ کریں اور تعینات کریں۔",
-        "contractTemplates": "Cپرtrایکct Templپرes",
+        "contractTemplates": "کنٹریکٹ ٹیمپلیٹس",
         "copy": "کاپی کریں",
         "copied": "کاپی ہو گیا!",
-        "apiReference": "API Reference",
+        "apiReference": "API حوالہ",
         "cliGuide": "CLI گائیڈ",
-        "evmMigration": "EVM Migrپرiپر",
+        "evmMigration": "EVM مائیگریشن",
         "features": {
           "evmCompatibility": {
-            "title": "Full EVM Compپرibility",
-            "description": "تعینات کریں exہےtمیںg Solidity cپرtrایکcts کے ساتھ mمیںimایکl modificپرiپرs. Compپرible کے ساتھ stاورایکrd ڈویلپمنٹ tools."
+            "title": "مکمل EVM موافقت",
+            "description": "کم سے کم ترامیم کے ساتھ موجودہ Solidity کنٹریکٹس تعینات کریں۔ معیاری ڈویلپمنٹ ٹولز کے ساتھ ہم آہنگ۔"
           },
           "trustIntegration": {
-            "title": "Trust Scیاe Integrپرiپر",
-            "description": "رسائی پر-chایکمیں trust scیاes through یاایکcle cپرtrایکcts کے لیے trust-verified trایکsایکctiپرs."
+            "title": "Trust Score انضمام",
+            "description": "ٹرسٹ تصدیق شدہ ٹرانزیکشنز کے لیے اوریکل کنٹریکٹس کے ذریعے آن چین ٹرسٹ سکورز تک رسائی حاصل کریں۔"
           },
           "autoBurn": {
-            "title": "خودکار Burn",
-            "description": "Built-میں burn mechایکics کے ساتھ scheduled executiپر اور trایکspہیںnt colبعد میںایکl mایکایکgement."
+            "title": "خودکار برن",
+            "description": "شیڈولڈ ایگزیکیوشن اور شفاف کولیٹرل مینجمنٹ کے ساتھ بلٹ ان برن میکانکس۔"
           },
           "aiOracle": {
-            "title": "ایکI یاایکcle رسائی",
-            "description": "میںtegrپرe ایکI-poتھےd میںsights directly میںکی طرف آپ کا smایکrt cپرtrایکcts viایک یاایکcle cایکlls."
+            "title": "AI اوریکل رسائی",
+            "description": "اوریکل کالز کے ذریعے براہ راست اپنے سمارٹ کنٹریکٹس میں AI سے چلنے والی بصیرتیں شامل کریں۔"
           },
           "gasOptimization": {
-            "title": "Gایکs Optimizپرiپر",
-            "description": "ایڈوانسڈ gایکs optimizپرiپر techniques reduce trایکsایکctiپر costs کی طرف سے up کی طرف 60%."
+            "title": "گیس آپٹیمائزیشن",
+            "description": "ایڈوانسڈ گیس آپٹیمائزیشن تکنیکیں ٹرانزیکشن لاگت کو 60% تک کم کرتی ہیں۔"
           },
           "quantumResistant": {
-            "title": "Quایکtum-Resہےtایکt Signپرures",
-            "description": "Future-proکا cryptogrایکphy کے ساتھ CRYSTایکLS-Dilithium signپرures کے لیے lپرg-term security."
+            "title": "کوانٹم مزاحم دستخط",
+            "description": "طویل مدتی سیکیورٹی کے لیے CRYSTALS-Dilithium دستخطوں کے ساتھ مستقبل کے لیے تیار کرپٹوگرافی۔"
           },
           "trustScore": {
-            "title": "Trust Scیاe Integrپرiپر",
-            "description": "پر-chایکمیں trust verificپرiپر کے ساتھ reایکl-time scیامیںg اور ایکutomپرed rہےk ایکssessment."
+            "title": "Trust Score انضمام",
+            "description": "ریئل ٹائم سکورنگ اور خودکار خطرے کی تشخیص کے ساتھ آن چین ٹرسٹ تصدیق۔"
           }
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 تکken",
-            "description": "معیاری token کے ساتھ trust-ایکwہیں trایکsfers"
+            "title": "BRC-20 ٹوکن",
+            "description": "ٹرسٹ سے آگاہ ٹرانسفرز کے ساتھ معیاری ٹوکن"
           },
           "nft": {
-            "title": "NFT Collectiپر",
-            "description": "ERC-721 کے ساتھ پر-chایکمیں metایکdپرایک"
+            "title": "NFT کلیکشن",
+            "description": "آن چین میٹا ڈیٹا کے ساتھ ERC-721"
           },
           "defi": {
-            "title": "DeFi پروtocol",
-            "description": "AMM pool کے ساتھ trust verificپرiپر"
+            "title": "DeFi پروٹوکول",
+            "description": "ٹرسٹ تصدیق کے ساتھ AMM پول"
           },
           "dao": {
-            "title": "DAO Governایکce",
-            "description": "تکken-weighted votمیںg سسٹم"
+            "title": "DAO گورننس",
+            "description": "ٹوکن ویٹڈ ووٹنگ سسٹم"
           },
-          "autoBurn": "خودکار-Burn تکken",
-          "basicToken": "بنیادی تکken",
-          "governance": "Governایکce",
-          "staking": "Stایکkمیںg Cپرtrایکct",
-          "trustScoreIntegration": "Trust Scیاe Integrپرiپر"
+          "autoBurn": "آٹو برن ٹوکن",
+          "basicToken": "بنیادی ٹوکن",
+          "governance": "گورننس",
+          "staking": "سٹیکنگ کنٹریکٹ",
+          "trustScoreIntegration": "Trust Score انضمام"
         },
         "security": {
-          "title": "Security بہترین Prایکctices",
-          "reentrancy": "Use ReentrایکcyGuایکrd modifier کی طرف prevent recursive externایکl cایکlls",
-          "accessControl": "Implement role-bایکsed رسائی cپرtrol کے ساتھ کھولیںZeppelمیں رسائیCپرtrol",
-          "checksEffects": "Follow checks-effects-میںterایکctiپرs pپرtern کے لیے externایکl cایکlls",
-          "initializer": "Use میںitiایکlizer modifiers کے لیے proxy cپرtrایکct میںitiایکlizپرiپر",
-          "overflow": "Use محفوظMپرh یا Solidity 0.8+ کے لیے overflow protectiپر",
+          "title": "سیکیورٹی بہترین طریقے",
+          "reentrancy": "ریکرسو ایکسٹرنل کالز روکنے کے لیے ReentrancyGuard موڈیفائر استعمال کریں",
+          "accessControl": "OpenZeppelin AccessControl کے ساتھ رول بیسڈ رسائی کنٹرول نافذ کریں",
+          "checksEffects": "ایکسٹرنل کالز کے لیے checks-effects-interactions پیٹرن فالو کریں",
+          "initializer": "پراکسی کنٹریکٹ انیشلائزیشن کے لیے initializer موڈیفائرز استعمال کریں",
+          "overflow": "اوور فلو پروٹیکشن کے لیے SafeMath یا Solidity 0.8+ استعمال کریں",
           "reentrancyGuard": {
-            "title": "Reentrایکcy Guایکrds",
-            "description": "Use ReentrایکcyGuایکrd modifier کی طرف prevent recursive cایکlls"
+            "title": "ری اینٹرینسی گارڈز",
+            "description": "ریکرسو کالز روکنے کے لیے ReentrancyGuard موڈیفائر استعمال کریں"
           },
           "accessControlRole": {
-            "title": "رسائی Cپرtrol",
-            "description": "Implement role-bایکsed permہےsiپرs کے ساتھ کھولیںZeppelمیں"
+            "title": "رسائی کنٹرول",
+            "description": "OpenZeppelin کے ساتھ رول بیسڈ اجازتیں نافذ کریں"
           },
           "inputValidation": {
-            "title": "Input Vایکlidپرiپر",
-            "description": "ایکlwایکys vایکlidپرe user میںputs اور externایکl dپرایک"
+            "title": "ان پٹ ویلیڈیشن",
+            "description": "ہمیشہ صارف کے ان پٹس اور ایکسٹرنل ڈیٹا کی توثیق کریں"
           },
           "upgradeability": {
-            "title": "Upgrایکdeایکbility",
-            "description": "Use proxy pپرterns کے لیے upgrایکdeایکble cپرtrایکcts"
+            "title": "اپ گریڈیبلٹی",
+            "description": "اپ گریڈ ایبل کنٹریکٹس کے لیے پراکسی پیٹرنز استعمال کریں"
           }
         },
         "gasOptimization": {
-          "title": "Gایکs Optimizپرiپر",
-          "subtitle": "Tips کے لیے reducمیںg trایکsایکctiپر costs",
-          "tip1": "Pایکck multiple smایکll vایکriایکbles میںکی طرف sمیںgle stیاایکge slots",
-          "tip2": "Use cایکlldپرایک میںsteایکd کا memیاy کے لیے reایکd-پرly functiپر pایکrایکmeters",
-          "tip3": "Cایکche stیاایکge vایکriایکbles میں memیاy when ایکccessed multiple times",
-          "tip4": "Use custom errیاs میںsteایکd کا revert strمیںgs",
+          "title": "گیس آپٹیمائزیشن",
+          "subtitle": "ٹرانزیکشن لاگت کم کرنے کے لیے تجاویز",
+          "tip1": "متعدد چھوٹے متغیرات کو سنگل سٹوریج سلاٹس میں پیک کریں",
+          "tip2": "ریڈ اونلی فنکشن پیرامیٹرز کے لیے میموری کی بجائے calldata استعمال کریں",
+          "tip3": "متعدد بار رسائی ہونے پر سٹوریج متغیرات کو میموری میں کیش کریں",
+          "tip4": "ریورٹ سٹرنگز کی بجائے کسٹم ایررز استعمال کریں",
           "memoryVsStorage": {
-            "title": "Memیاy vs Stیاایکge",
-            "desc": "Use memیاy کے لیے tempیاایکry dپرایک اور stیاایکge کے لیے persہےtent stپرe کی طرف optimize gایکs ہمایکge."
+            "title": "میموری بمقابلہ سٹوریج",
+            "desc": "گیس استعمال آپٹیمائز کرنے کے لیے عارضی ڈیٹا کے لیے میموری اور مستقل سٹیٹ کے لیے سٹوریج استعمال کریں۔"
           },
           "shortRevert": {
-            "title": "Shیاt Revert Messایکges",
-            "desc": "Use custom errیاs میںsteایکd کا lپرg revert strمیںgs کی طرف sایکve deployment اور executiپر gایکs."
+            "title": "مختصر ریورٹ پیغامات",
+            "desc": "ڈیپلائمنٹ اور ایگزیکیوشن گیس بچانے کے لیے لمبی ریورٹ سٹرنگز کی بجائے کسٹم ایررز استعمال کریں۔"
           },
           "useEvents": {
-            "title": "Use Events کے لیے Loggمیںg",
-            "desc": "Emit events میںsteایکd کا stیامیںg dپرایک when hہےtیاicایکl ایکccess viایک logs ہے sufficient."
+            "title": "لاگنگ کے لیے ایونٹس استعمال کریں",
+            "desc": "جب لاگز کے ذریعے تاریخی رسائی کافی ہو تو ڈیٹا سٹور کرنے کی بجائے ایونٹس ایمٹ کریں۔"
           },
           "variablePacking": {
-            "title": "Vایکriایکble Pایکckمیںg",
-            "desc": "Pایکck multiple vایکriایکbles میںکی طرف sمیںgle stیاایکge slots کی طرف mمیںimize stیاایکge costs."
+            "title": "متغیر پیکنگ",
+            "desc": "سٹوریج لاگت کم کرنے کے لیے متعدد متغیرات کو سنگل سٹوریج سلاٹس میں پیک کریں۔"
           }
         },
-        "gasOptimizationTips": "Gایکs Optimizپرiپر Tips",
-        "platformFeatures": "Plپرکے لیےm Feپرures",
-        "readyToDeploy": "پڑھیںy کی طرف تعینات کریں?",
+        "gasOptimizationTips": "گیس آپٹیمائزیشن تجاویز",
+        "platformFeatures": "پلیٹ فارم خصوصیات",
+        "readyToDeploy": "تعینات کے لیے تیار ہیں؟",
         "sdkGuide": "SDK گائیڈ",
-        "securityChecklist": "Security Checklہےt",
+        "securityChecklist": "سیکیورٹی چیک لسٹ",
         "testing": {
-          "title": "Testمیںg Yہمارا Cپرtrایکcts",
-          "description": "Comprehensive testمیںg guide کے لیے smایکrt cپرtrایکcts",
-          "unitTests": "Unit Tests",
-          "integrationTests": "Integrپرiپر Tests",
-          "fuzzTesting": "Fuzz Testمیںg"
+          "title": "اپنے کنٹریکٹس کی ٹیسٹنگ",
+          "description": "سمارٹ کنٹریکٹس کے لیے جامع ٹیسٹنگ گائیڈ",
+          "unitTests": "یونٹ ٹیسٹس",
+          "integrationTests": "انٹیگریشن ٹیسٹس",
+          "fuzzTesting": "فز ٹیسٹنگ"
         },
         "deployment": {
-          "title": "تعینات کریںment گائیڈ",
-          "step1": "Compile cپرtrایکcts",
-          "step2": "تعینات کریں کی طرف ٹیسٹ نیٹ",
-          "step3": "Verify پر explیاer",
-          "step4": "تعینات کریں کی طرف mایکمیںnet"
+          "title": "تعیناتی گائیڈ",
+          "step1": "کنٹریکٹس کمپائل کریں",
+          "step2": "ٹیسٹ نیٹ پر تعینات کریں",
+          "step3": "ایکسپلورر پر تصدیق کریں",
+          "step4": "مین نیٹ پر تعینات کریں"
         },
         "needHelp": {
-          "title": "Need مدد?",
+          "title": "مدد چاہیے؟",
           "sdkDocumentation": "SDK دستاویزات",
-          "codeExamples": "Code Exایکmples",
+          "codeExamples": "کوڈ کی مثالیں",
           "discordSupport": "Discord کمیونٹی"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
+          "developerHub": "ڈویلپر ہب",
           "sdkGuide": "SDK گائیڈ",
-          "cliReference": "CLI Reference",
-          "codeExamples": "Code Exایکmples"
+          "cliReference": "CLI حوالہ",
+          "codeExamples": "کوڈ کی مثالیں"
         }
       },
       "websocket": {
         "tag": "ریئل ٹائم",
         "title": "WebSocket API",
         "subtitle": "ریئل ٹائم ڈیٹا سٹریمنگ اور ایونٹ سبسکرپشنز۔",
-        "connectionEndpoints": "جڑیںiپر ختمپوائنٹس",
-        "subscriptionChannels": "Subscriptiپر Chایکnels",
-        "fullReference": "Full Reference",
-        "getSdk": "Get SDK",
-        "codeExamples": "Code Exایکmples",
-        "viewRestApi": "دیکھیں REST API",
-        "readyToIntegrate": "پڑھیںy کی طرف Integrپرe?",
+        "connectionEndpoints": "کنکشن اینڈ پوائنٹس",
+        "subscriptionChannels": "سبسکرپشن چینلز",
+        "fullReference": "مکمل حوالہ",
+        "getSdk": "SDK حاصل کریں",
+        "codeExamples": "کوڈ کی مثالیں",
+        "viewRestApi": "REST API دیکھیں",
+        "readyToIntegrate": "انضمام کے لیے تیار ہیں؟",
         "endpoints": {
           "mainnet": {
-            "type": "پروductiپر",
-            "desc": "Mایکمیںnet WebSocket endpoمیںt کے لیے productiپر ایکpplicپرiپرs"
+            "type": "پروڈکشن",
+            "desc": "پروڈکشن ایپلیکیشنز کے لیے مین نیٹ WebSocket اینڈ پوائنٹ"
           },
           "testnet": {
-            "type": "Development",
-            "desc": "ٹیسٹ نیٹ WebSocket endpoمیںt کے لیے ڈویلپمنٹ اور testمیںg"
+            "type": "ڈویلپمنٹ",
+            "desc": "ڈویلپمنٹ اور ٹیسٹنگ کے لیے ٹیسٹ نیٹ WebSocket اینڈ پوائنٹ"
           }
         },
         "channels": {
           "blocks": {
-            "description": "سبسکرائب کریں کی طرف نیا block notificپرiپرs کے ساتھ full block dپرایک"
+            "description": "مکمل بلاک ڈیٹا کے ساتھ نئے بلاک نوٹیفیکیشنز کو سبسکرائب کریں"
           },
           "transactions": {
-            "description": "Reایکl-time trایکsایکctiپر updپرes کے لیے specific ایکddresses"
+            "description": "مخصوص ایڈریسز کے لیے ریئل ٹائم ٹرانزیکشن اپڈیٹس"
           },
           "trustScore": {
-            "description": "لائیو trust scیاe chایکges کے لیے mپرitیاed ایکddresses"
+            "description": "مانیٹر شدہ ایڈریسز کے لیے لائیو ٹرسٹ سکور تبدیلیاں"
           },
           "defi": {
-            "description": "قیمت feeds اور liquidity pool updپرes"
+            "description": "قیمت فیڈز اور لیکویڈیٹی پول اپڈیٹس"
           }
         },
         "authentication": {
-          "title": "Aunticپرiپر",
-          "description": "میںclude آپ کا ایکPI key میں  cپرnectiپر URL query pایکrایکmeter یا ایکs ایک heایکder"
+          "title": "توثیق",
+          "description": "اپنی API کی کو کنکشن URL کویری پیرامیٹر میں یا ہیڈر کے طور پر شامل کریں"
         },
         "heartbeat": {
-          "title": "Heایکrtbeپر",
-          "description": "بھیجیں pمیںg messایکges every 30 secپرds کی طرف keep  cپرnectiپر ایکlive"
+          "title": "ہارٹ بیٹ",
+          "description": "کنکشن کو زندہ رکھنے کے لیے ہر 30 سیکنڈ میں پنگ پیغامات بھیجیں"
         },
         "clientImplementation": {
-          "title": "Client Implementپرiپر",
-          "subtitle": "Exایکmple WebSocket client میں JایکvایکScript"
+          "title": "کلائنٹ عمل درآمد",
+          "subtitle": "JavaScript میں مثالی WebSocket کلائنٹ"
         }
       },
       "examples": {
         "tag": "کوڈ مثالیں",
         "title": "کوڈ مثالیں",
         "subtitle": "استعمال کے لیے تیار کوڈ سنپٹس اور نمونہ پروجیکٹس۔",
-        "commonRecipes": "Commپر Recipes",
+        "commonRecipes": "عام ریسپیز",
         "categories": {
-          "allRecipes": "سب Recipes",
+          "allRecipes": "تمام ریسپیز",
           "smartContracts": "سمارٹ کنٹریکٹس",
           "defi": "DeFi",
           "nfts": "NFTs",
-          "wallets": "Wایکllets"
+          "wallets": "والیٹس"
         },
         "recipes": {
           "connectWallet": {
-            "title": "جڑیں Wایکllet",
-            "description": "Integrپرe MetایکMایکsk اور یا Web3 wایکllets کے ساتھ Reایکct hooks",
-            "category": "Frپرtend"
+            "title": "والیٹ جوڑیں",
+            "description": "React hooks کے ساتھ MetaMask اور دیگر Web3 والیٹس کو مربوط کریں",
+            "category": "فرنٹ اینڈ"
           },
           "createToken": {
-            "title": "بنائیں BRC-20 تکken",
-            "description": "تعینات کریں ایک trust-verified token کے ساتھ ایکutomپرic burn mechایکics",
-            "category": "Smایکrt Cپرtrایکct"
+            "title": "BRC-20 ٹوکن بنائیں",
+            "description": "خودکار برن میکانکس کے ساتھ ٹرسٹ تصدیق شدہ ٹوکن تعینات کریں",
+            "category": "سمارٹ کنٹریکٹ"
           },
           "aiOracle": {
-            "title": "ایکI یاایکcle Integrپرiپر",
-            "description": "Query ایکI-poتھےd میںsights from smایکrt cپرtrایکcts یا bایکckend",
-            "category": "واپسend"
+            "title": "AI اوریکل انضمام",
+            "description": "سمارٹ کنٹریکٹس یا بیک اینڈ سے AI سے چلنے والی بصیرتیں حاصل کریں",
+            "category": "بیک اینڈ"
           },
           "nftMinting": {
-            "title": "NFT Mمیںtمیںg",
-            "description": "بنائیں اور mمیںt NFT collectiپرs کے ساتھ metایکdپرایک پر IPFS",
+            "title": "NFT منٹنگ",
+            "description": "IPFS پر میٹا ڈیٹا کے ساتھ NFT کلیکشنز بنائیں اور منٹ کریں",
             "category": "NFT"
           },
           "flashLoan": {
-            "title": "Flایکsh Loایک",
-            "description": "Execute ایکrbitrایکge کے ساتھ پرomic flایکsh loایک trایکsایکctiپرs",
+            "title": "فلیش لون",
+            "description": "ایٹامک فلیش لون ٹرانزیکشنز کے ساتھ آربیٹریج انجام دیں",
             "category": "DeFi"
           },
           "indexerSetup": {

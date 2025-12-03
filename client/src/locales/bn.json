@@ -3743,16 +3743,16 @@
       },
       "tokenomics": {
         "tag": "অর্থনীতি",
-        "title": "টোকেনোমিক্স",
-        "subtitle": "TBURN টোকেন বিতরণ, এমিশন শিডিউল এবং ডিফ্লেশনারি মেকানিজম বুঝুন।",
+        "title": "টোকেনমিক্স",
+        "subtitle": "TBURN টোকেন বিতরণ, নির্গমন সূচি এবং ডিফ্লেশনারি মেকানিজম বুঝুন।",
         "marketStats": {
           "title": "মার্কেট পরিসংখ্যান",
           "totalSupply": "মোট সরবরাহ",
           "circulatingSupply": "প্রচলিত সরবরাহ",
           "totalBurned": "মোট বার্ন করা",
           "marketCap": "মার্কেট ক্যাপ",
-          "burned": "পোড়ানো",
-          "totalStaked": "মোট স্টেক করা"
+          "burned": "পোড়ানো হয়েছে",
+          "totalStaked": "মোট স্টেক"
         },
         "distribution": {
           "title": "টোকেন বিতরণ",
@@ -3784,15 +3784,15 @@
           },
           "ecosystemFund": {
             "title": "ইকোসিস্টেম ফান্ড",
-            "subtitle": "গ্রান্ট, অংশীদারিত্ব এবং ইকোসিস্টেম ডেভেলপমেন্ট উদ্যোগ"
+            "subtitle": "অনুদান, অংশীদারিত্ব এবং ইকোসিস্টেম উন্নয়ন উদ্যোগ"
           },
           "validatorRewards": {
             "title": "ভ্যালিডেটর পুরস্কার",
-            "subtitle": "নেটওয়ার্ক সিকিউরিটির জন্য ব্লক পুরস্কার এবং ভ্যালিডেশন ইনসেন্টিভ"
+            "subtitle": "নেটওয়ার্ক নিরাপত্তার জন্য ব্লক পুরস্কার এবং যাচাইকরণ প্রণোদনা"
           },
           "teamAdvisors": {
             "title": "টিম ও উপদেষ্টা",
-            "subtitle": "দীর্ঘমেয়াদী সারিবদ্ধতার জন্য ১-বছর ক্লিফ সহ ৪-বছর ভেস্টিং"
+            "subtitle": "দীর্ঘমেয়াদী সারিবদ্ধতার জন্য 4 বছরের ভেস্টিং এবং 1 বছরের ক্লিফ"
           },
           "foundationReserve": {
             "title": "ফাউন্ডেশন রিজার্ভ",
@@ -3817,12 +3817,12 @@
           }
         },
         "staking": {
-          "title": "স্টেকিং রিওয়ার্ড",
+          "title": "স্টেকিং পুরস্কার",
           "apy": "বর্তমান APY",
           "totalStaked": "মোট স্টেক করা",
           "validators": "সক্রিয় ভ্যালিডেটর",
           "minStake": "সর্বনিম্ন স্টেক",
-          "liquidStaking": "stTBURN ডেরিভেটিভ টোকেন সহ লিকুইড স্টেকিং উপলব্ধ",
+          "liquidStaking": "stTBURN ডেরিভেটিভ টোকেনের সাথে লিকুইড স্টেকিং উপলব্ধ",
           "ninetyDayLock": "৯০-দিন লক: ১২% APY + ১.২x গভর্ন্যান্স ওজন",
           "yearLock": "৩৬৫-দিন লক: ১৮% APY + ২x গভর্ন্যান্স ওজন"
         },
@@ -3840,12 +3840,12 @@
         },
         "distributionSection": {
           "title": "টোকেন বিতরণ",
-          "subtitle": "দীর্ঘমেয়াদী ইকোসিস্টেম বৃদ্ধি এবং স্থায়িত্বের জন্য ডিজাইন করা কৌশলগত বরাদ্দ",
+          "subtitle": "দীর্ঘমেয়াদী ইকোসিস্টেম বৃদ্ধি এবং স্থায়িত্বের জন্য কৌশলগত বরাদ্দ",
           "totalSupply": "১,০০০,০০০,০০০ TBURN"
         },
         "burnSection": {
           "title": "বার্ন মেকানিজম",
-          "subtitle": "টেকসই টোকেন মূল্য বৃদ্ধি নিশ্চিত করে একাধিক মুদ্রাস্ফীতি-বিরোধী মেকানিজম"
+          "subtitle": "টোকেন মূল্যের টেকসই বৃদ্ধি নিশ্চিত করা একাধিক ডিফ্লেশনারি মেকানিজম"
         },
         "tburn": {
           "type": "গভর্ন্যান্স ও স্টেকিং টোকেন",
@@ -3864,20 +3864,20 @@
         },
         "burn": {
           "transactionFees": {
-            "title": "লেনদেন ফি বার্ন",
-            "description": "প্রতিটি লেনদেন ফির ০.১% স্থায়ীভাবে পোড়ানো হয়, নেটওয়ার্ক ব্যবহারের সাথে সরবরাহ হ্রাস করে"
+            "title": "ফি বার্ন",
+            "description": "প্রতিটি লেনদেন ফির 0.1% স্থায়ীভাবে পোড়ানো হয়"
           },
           "slashingPenalty": {
-            "title": "স্ল্যাশিং পেনাল্টি বার্ন",
-            "description": "ভ্যালিডেটর অসদাচরণ জরিমানা পোড়ানো হয়, নেটওয়ার্ক সিকিউরিটি ইনসেন্টিভ শক্তিশালী করে"
+            "title": "স্ল্যাশিং জরিমানা",
+            "description": "ভ্যালিডেটর অসদাচরণের জরিমানা পোড়ানো হয়"
           },
           "collateralBurn": {
-            "title": "কোলাটেরাল বার্ন",
-            "description": "বিনিয়োগকারী সুরক্ষা মেকানিজমের অংশ হিসাবে ব্যর্থ প্রকল্প কোলাটেরাল আংশিকভাবে পোড়ানো হয়"
+            "title": "জামানত বার্ন",
+            "description": "ব্যর্থ প্রকল্পের জামানত আংশিকভাবে পোড়ানো হয়"
           },
           "revenueBuyback": {
-            "title": "রেভিনিউ বাইব্যাক বার্ন",
-            "description": "প্রোটোকল রেভিনিউ ত্রৈমাসিক TBURN কিনতে এবং পোড়াতে ব্যবহৃত হয়, মুদ্রাস্ফীতি-বিরোধী চাপ তৈরি করে"
+            "title": "রাজস্ব বাইব্যাক",
+            "description": "প্রোটোকল রাজস্ব ত্রৈমাসিক TBURN কেনা এবং পোড়ানোর জন্য ব্যবহৃত হয়"
           }
         }
       },
@@ -4567,38 +4567,38 @@
         "tag": "ডকুমেন্টেশন",
         "title": "ডকুমেন্টেশন",
         "subtitle": "TBurn Chain ডেভেলপমেন্টের জন্য ব্যাপক গাইড এবং রেফারেন্স।",
-        "heroDescription": "Everything you need to build on TBurn Chain. From দ্রুত শুরুs to উন্নত স্তর API রেফারেন্সs.",
-        "searchPlaceholder": "Search ডকুমেন্টেশন...",
-        "categoriesTitle": "ডকুমেন্টেশন Categories",
+        "heroDescription": "TBurn Chain-এ তৈরি করার জন্য আপনার যা প্রয়োজন সবকিছু। দ্রুত শুরু থেকে উন্নত স্তরের API রেফারেন্স পর্যন্ত।",
+        "searchPlaceholder": "ডকুমেন্টেশন খুঁজুন...",
+        "categoriesTitle": "ডকুমেন্টেশন বিভাগসমূহ",
         "resourcesTitle": "ডেভেলপার রিসোর্স",
         "badges": {
-          "latest": "Latest",
-          "mainnet": "Mainnet"
+          "latest": "সর্বশেষ",
+          "mainnet": "মেইননেট"
         },
         "architecture": {
-          "title": "Network Architecture",
-          "subtitle": "Understanding the TBurn Chain multi-layer architecture",
+          "title": "নেটওয়ার্ক আর্কিটেকচার",
+          "subtitle": "TBurn Chain মাল্টি-লেয়ার আর্কিটেকচার বোঝা",
           "layers": {
             "consensus": {
-              "title": "কনসেনসাস Layer",
-              "description": "Proof of Trust কনসেনসাস with AI-powered validation and quantum-resistant signatures"
+              "title": "কনসেনসাস লেয়ার",
+              "description": "AI-চালিত ভ্যালিডেশন এবং কোয়ান্টাম-প্রতিরোধী স্বাক্ষর সহ প্রুফ অফ ট্রাস্ট কনসেনসাস"
             },
             "execution": {
-              "title": "Execution Layer",
-              "description": "EVM-compatible smart contract execution with gas optimization"
+              "title": "এক্সিকিউশন লেয়ার",
+              "description": "গ্যাস অপ্টিমাইজেশন সহ EVM-সামঞ্জস্যপূর্ণ স্মার্ট কন্ট্রাক্ট এক্সিকিউশন"
             },
             "application": {
-              "title": "Application Layer",
-              "description": "dApps, DeFi protocols, and user-facing services"
+              "title": "অ্যাপ্লিকেশন লেয়ার",
+              "description": "dApps, DeFi প্রোটোকল এবং ব্যবহারকারী-মুখী সেবাসমূহ"
             },
             "service": {
-              "title": "Service Layer",
-              "description": "APIs, SDKs, and developer tools for integration"
+              "title": "সার্ভিস লেয়ার",
+              "description": "ইন্টিগ্রেশনের জন্য API, SDK এবং ডেভেলপার টুলস"
             }
           },
           "stats": {
             "throughput": {
-              "label": "Throughput",
+              "label": "থ্রুপুট",
               "sublabel": "৫০,০০০+ TPS"
             },
             "latency": {
@@ -4606,42 +4606,42 @@
               "sublabel": "< ১ সেকেন্ড"
             },
             "ai": {
-              "label": "AI Models",
-              "sublabel": "Triple-band orchestration"
+              "label": "AI মডেল",
+              "sublabel": "ট্রিপল-ব্যান্ড অর্কেস্ট্রেশন"
             },
             "cryptography": {
-              "label": "Cryptography",
-              "sublabel": "Quantum-resistant"
+              "label": "ক্রিপ্টোগ্রাফি",
+              "sublabel": "কোয়ান্টাম-প্রতিরোধী"
             }
           }
         },
         "categories": {
           "smartContracts": {
             "title": "স্মার্ট কন্ট্রাক্ট",
-            "description": "Write, deploy, and verify স্মার্ট কন্ট্রাক্ট with Trust Score integration"
+            "description": "ট্রাস্ট স্কোর ইন্টিগ্রেশন সহ স্মার্ট কন্ট্রাক্ট লিখুন, ডিপ্লয় করুন এবং যাচাই করুন"
           },
           "apiReference": {
             "title": "API রেফারেন্স",
-            "description": "Complete REST and GraphQL API ডকুমেন্টেশন"
+            "description": "সম্পূর্ণ REST এবং GraphQL API ডকুমেন্টেশন"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "description": "Multi-language SDK integration guides",
-            "badge": "Popular"
+            "title": "SDK গাইড",
+            "description": "মাল্টি-ল্যাঙ্গুয়েজ SDK ইন্টিগ্রেশন গাইড",
+            "badge": "জনপ্রিয়"
           },
           "cliReference": {
-            "title": "CLI Reference",
-            "description": "Command line interface for project management",
-            "badge": "New"
+            "title": "CLI রেফারেন্স",
+            "description": "প্রজেক্ট ম্যানেজমেন্টের জন্য কমান্ড লাইন ইন্টারফেস",
+            "badge": "নতুন"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "description": "Real-time blockchain event subscriptions",
-            "badge": "Real-time"
+            "description": "রিয়েল-টাইম ব্লকচেইন ইভেন্ট সাবস্ক্রিপশন",
+            "badge": "রিয়েল-টাইম"
           },
           "tutorials": {
-            "title": "Tutorials",
-            "description": "Step-by-step guides for common use cases",
+            "title": "টিউটোরিয়াল",
+            "description": "সাধারণ ব্যবহারের ক্ষেত্রগুলির জন্য ধাপে ধাপে গাইড",
             "badge": "শুরুর স্তর"
           }
         },
@@ -4649,101 +4649,101 @@
           "title": "দ্রুত শুরু",
           "items": {
             "getStarted": {
-              "title": "Get Started",
-              "description": "Install the SDK and create your first project"
+              "title": "শুরু করুন",
+              "description": "SDK ইনস্টল করুন এবং আপনার প্রথম প্রজেক্ট তৈরি করুন"
             },
             "devSetup": {
-              "title": "Development Setup",
-              "description": "Configure your development environment"
+              "title": "ডেভেলপমেন্ট সেটআপ",
+              "description": "আপনার ডেভেলপমেন্ট এনভায়রনমেন্ট কনফিগার করুন"
             },
             "apiKeys": {
-              "title": "API Keys",
-              "description": "Get your API keys from the developer dashboard"
+              "title": "API কী",
+              "description": "ডেভেলপার ড্যাশবোর্ড থেকে আপনার API কী পান"
             }
           }
         },
         "resources": {
           "cookbook": {
-            "title": "Developer Cookbook",
-            "description": "Ready-to-use code recipes and patterns"
+            "title": "ডেভেলপার কুকবুক",
+            "description": "ব্যবহার-প্রস্তুত কোড রেসিপি এবং প্যাটার্ন"
           },
           "community": {
-            "title": "Community",
-            "description": "Join Discord and get help from the community"
+            "title": "কমিউনিটি",
+            "description": "Discord-এ যোগ দিন এবং কমিউনিটি থেকে সাহায্য পান"
           },
           "trustScore": {
-            "title": "Trust Score Guide",
-            "description": "Understanding and integrating trust যাচাইকরণ"
+            "title": "ট্রাস্ট স্কোর গাইড",
+            "description": "ট্রাস্ট যাচাইকরণ বোঝা এবং ইন্টিগ্রেট করা"
           },
           "defiHub": {
             "title": "DeFi হাব",
-            "description": "Build DeFi applications with TBurn protocols"
+            "description": "TBurn প্রোটোকল দিয়ে DeFi অ্যাপ্লিকেশন তৈরি করুন"
           }
         },
         "cta": {
-          "title": "Ready to Build?",
-          "description": "তৈরি শুরু করুন on TBurn Chain today with our comprehensive ডকুমেন্টেশন and SDKs.",
-          "joinDiscord": "Join Discord"
+          "title": "তৈরি করতে প্রস্তুত?",
+          "description": "আমাদের ব্যাপক ডকুমেন্টেশন এবং SDK দিয়ে আজই TBurn Chain-এ তৈরি শুরু করুন।",
+          "joinDiscord": "Discord-এ যোগ দিন"
         }
       },
       "api": {
         "tag": "API রেফারেন্স",
         "title": "API ডকুমেন্টেশন",
         "subtitle": "ব্লকচেইন, DeFi এবং AI সার্ভিসের জন্য RESTful API এন্ডপয়েন্ট।",
-        "baseUrl": "Base URL",
-        "coreEndpoints": "Core Endপয়েন্ট",
-        "parameters": "Parameters",
-        "related": "Related",
+        "baseUrl": "বেস URL",
+        "coreEndpoints": "কোর এন্ডপয়েন্ট",
+        "parameters": "প্যারামিটার",
+        "related": "সম্পর্কিত",
         "officialSdks": "অফিসিয়াল SDK",
         "viewDocumentation": "ডকুমেন্টেশন দেখুন",
         "authentication": {
-          "title": "Authentication",
-          "description": "All API requests require an API key. Get your free key from the",
-          "dashboardLink": "Developer Dashboard"
+          "title": "প্রমাণীকরণ",
+          "description": "সমস্ত API অনুরোধের জন্য একটি API কী প্রয়োজন। থেকে আপনার বিনামূল্যে কী পান",
+          "dashboardLink": "ডেভেলপার ড্যাশবোর্ড"
         },
         "sidebar": {
-          "overview": "Overview",
-          "authentication": "Authentication",
-          "rateLimits": "Rate Limits",
-          "endpoints": "Endপয়েন্ট",
-          "block": "Block",
-          "transaction": "Transaction",
-          "account": "Account",
-          "smartContract": "Smart Contract",
+          "overview": "ওভারভিউ",
+          "authentication": "প্রমাণীকরণ",
+          "rateLimits": "রেট লিমিট",
+          "endpoints": "এন্ডপয়েন্ট",
+          "block": "ব্লক",
+          "transaction": "লেনদেন",
+          "account": "অ্যাকাউন্ট",
+          "smartContract": "স্মার্ট কন্ট্রাক্ট",
           "websocket": "WebSocket",
-          "realtimeEvents": "Real-time Events"
+          "realtimeEvents": "রিয়েল-টাইম ইভেন্ট"
         },
         "endpoints": {
           "blocks": {
-            "description": "Get block information by block number or hash",
-            "paramDesc": "Block number or 'latest'"
+            "description": "ব্লক নম্বর বা হ্যাশ দ্বারা ব্লক তথ্য পান",
+            "paramDesc": "ব্লক নম্বর বা 'latest'"
           },
           "transactions": {
-            "description": "Get transaction details by transaction hash"
+            "description": "লেনদেন হ্যাশ দ্বারা লেনদেন বিবরণ পান"
           },
           "sendTransaction": {
-            "description": "Submit a signed transaction to the network"
+            "description": "নেটওয়ার্কে একটি স্বাক্ষরিত লেনদেন জমা দিন"
           },
           "balance": {
-            "description": "Get account balance and nonce"
+            "description": "অ্যাকাউন্ট ব্যালেন্স এবং নন্স পান"
           }
         },
         "errorHandling": {
-          "title": "Error Handling",
-          "code": "Code",
-          "description": "Description"
+          "title": "ত্রুটি হ্যান্ডলিং",
+          "code": "কোড",
+          "description": "বিবরণ"
         },
         "errors": {
-          "badRequest": "Invalid request parameters",
-          "unauthorized": "Invalid or missing API key",
-          "tooManyRequests": "Rate limit exceeded",
-          "internalError": "Internal server error"
+          "badRequest": "অবৈধ অনুরোধ প্যারামিটার",
+          "unauthorized": "অবৈধ বা অনুপস্থিত API কী",
+          "tooManyRequests": "রেট লিমিট অতিক্রম করেছে",
+          "internalError": "অভ্যন্তরীণ সার্ভার ত্রুটি"
         },
         "websocketApi": {
           "title": "WebSocket API",
-          "description": "Subscribe to real-time blockchain events for instant updates.",
-          "connectComment": "Connect to WebSocket",
-          "subscribeComment": "Subscribe to blocks channel"
+          "description": "তাৎক্ষণিক আপডেটের জন্য রিয়েল-টাইম ব্লকচেইন ইভেন্টে সাবস্ক্রাইব করুন।",
+          "connectComment": "WebSocket-এ সংযোগ করুন",
+          "subscribeComment": "ব্লক চ্যানেলে সাবস্ক্রাইব করুন"
         },
         "sdks": {
           "javascript": "JavaScript SDK",
@@ -4757,98 +4757,98 @@
           },
           "codeExamples": {
             "title": "কোড উদাহরণ",
-            "description": "Real-world integration patterns"
+            "description": "বাস্তব-বিশ্ব ইন্টিগ্রেশন প্যাটার্ন"
           },
           "rpcProviders": {
             "title": "RPC প্রোভাইডার",
-            "description": "Connect via multiple endপয়েন্ট"
+            "description": "একাধিক এন্ডপয়েন্টের মাধ্যমে সংযোগ করুন"
           }
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
-          "documentation": "Full ডকুমেন্টেশন",
+          "developerHub": "ডেভেলপার হাব",
+          "documentation": "সম্পূর্ণ ডকুমেন্টেশন",
           "codeExamples": "কোড উদাহরণ",
-          "quickStart": "দ্রুত শুরু Guide"
+          "quickStart": "দ্রুত শুরু গাইড"
         }
       },
       "cli": {
         "tag": "CLI টুলস",
         "title": "CLI রেফারেন্স",
         "subtitle": "প্রজেক্ট ম্যানেজমেন্ট এবং ডিপ্লয়মেন্টের জন্য কমান্ড লাইন ইন্টারফেস।",
-        "currentVersion": "Current Version",
-        "usage": "Usage",
-        "options": "Options",
-        "examples": "Examples",
-        "required": "Required",
-        "optional": "Optional",
-        "default": "Default",
-        "globalOptionsTitle": "Global Options",
-        "environmentTitle": "Environment Variables",
-        "relatedDocs": "Related ডকুমেন্টেশন",
+        "currentVersion": "বর্তমান সংস্করণ",
+        "usage": "ব্যবহার",
+        "options": "অপশন",
+        "examples": "উদাহরণ",
+        "required": "প্রয়োজনীয়",
+        "optional": "ঐচ্ছিক",
+        "default": "ডিফল্ট",
+        "globalOptionsTitle": "গ্লোবাল অপশন",
+        "environmentTitle": "এনভায়রনমেন্ট ভেরিয়েবল",
+        "relatedDocs": "সম্পর্কিত ডকুমেন্টেশন",
         "installation": {
-          "title": "Installation",
-          "verify": "Verify installation"
+          "title": "ইনস্টলেশন",
+          "verify": "ইনস্টলেশন যাচাই করুন"
         },
         "categories": {
-          "project": "Project",
-          "contract": "Contract",
-          "network": "Network",
-          "wallet": "Wallet",
+          "project": "প্রজেক্ট",
+          "contract": "কন্ট্রাক্ট",
+          "network": "নেটওয়ার্ক",
+          "wallet": "ওয়ালেট",
           "ai": "AI"
         },
         "commands": {
           "init": {
-            "desc": "Initialize a new TBurn Chain project",
+            "desc": "একটি নতুন TBurn Chain প্রজেক্ট ইনিশিয়ালাইজ করুন",
             "options": {
-              "template": "Project template (defi, nft, dao)",
-              "typescript": "Use TypeScript"
+              "template": "প্রজেক্ট টেমপ্লেট (defi, nft, dao)",
+              "typescript": "TypeScript ব্যবহার করুন"
             }
           },
           "dev": {
-            "desc": "Start local development server",
+            "desc": "লোকাল ডেভেলপমেন্ট সার্ভার শুরু করুন",
             "options": {
-              "port": "Port number",
-              "open": "Open browser automatically"
+              "port": "পোর্ট নম্বর",
+              "open": "স্বয়ংক্রিয়ভাবে ব্রাউজার খুলুন"
             }
           },
           "build": {
-            "desc": "Build project for production",
+            "desc": "প্রোডাকশনের জন্য প্রজেক্ট বিল্ড করুন",
             "options": {
-              "outdir": "Output directory",
-              "sourcemap": "Generate source maps"
+              "outdir": "আউটপুট ডিরেক্টরি",
+              "sourcemap": "সোর্স ম্যাপ জেনারেট করুন"
             }
           },
           "deploy": {
-            "desc": "Deploy to TBurn Chain network",
+            "desc": "TBurn Chain নেটওয়ার্কে ডিপ্লয় করুন",
             "options": {
-              "network": "Target network (mainnet, testnet)",
-              "verify": "Verify contract on explorer",
-              "gasPrice": "Gas price in gwei"
+              "network": "টার্গেট নেটওয়ার্ক (mainnet, testnet)",
+              "verify": "এক্সপ্লোরারে কন্ট্রাক্ট যাচাই করুন",
+              "gasPrice": "gwei-তে গ্যাস প্রাইস"
             }
           },
           "wallet": {
-            "desc": "Wallet management commands",
+            "desc": "ওয়ালেট ম্যানেজমেন্ট কমান্ড",
             "options": {
-              "create": "Create new wallet",
-              "import": "Import existing wallet",
-              "balance": "Check wallet balance"
+              "create": "নতুন ওয়ালেট তৈরি করুন",
+              "import": "বিদ্যমান ওয়ালেট আমদানি করুন",
+              "balance": "ওয়ালেট ব্যালেন্স চেক করুন"
             }
           }
         },
         "globalOptions": {
-          "verbose": "Enable verbose output",
-          "json": "Output in JSON format",
-          "network": "Specify network",
-          "config": "Path to config file",
-          "help": "Show help message"
+          "verbose": "ভার্বোস আউটপুট সক্ষম করুন",
+          "json": "JSON ফরম্যাটে আউটপুট",
+          "network": "নেটওয়ার্ক নির্দিষ্ট করুন",
+          "config": "কনফিগ ফাইলের পথ",
+          "help": "সাহায্য বার্তা দেখান"
         },
         "needHelp": {
-          "title": "Need Help?",
+          "title": "সাহায্য প্রয়োজন?",
           "apiReference": "API রেফারেন্স",
           "sdkDocumentation": "SDK ডকুমেন্টেশন"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
+          "developerHub": "ডেভেলপার হাব",
           "documentation": "ডকুমেন্টেশন",
           "apiReference": "API রেফারেন্স",
           "quickStart": "দ্রুত শুরু",
@@ -4859,36 +4859,36 @@
         "tag": "SDK গাইড",
         "title": "SDK গাইড",
         "subtitle": "মাল্টি-ল্যাঙ্গুয়েজ SDK ইন্টিগ্রেশন গাইড এবং সেরা অনুশীলন।",
-        "installation": "Installation",
+        "installation": "ইনস্টলেশন",
         "configuration": "কনফিগারেশন",
-        "quickExamples": "Quick Examples",
+        "quickExamples": "দ্রুত উদাহরণ",
         "install": {
-          "npm": "Install with npm",
-          "yarn": "Or with yarn"
+          "npm": "npm দিয়ে ইনস্টল করুন",
+          "yarn": "অথবা yarn দিয়ে"
         },
         "features": {
           "typeSafety": {
-            "title": "Type Safety",
-            "description": "Full TypeScript support with comprehensive type definitions for all API methods and responses."
+            "title": "টাইপ সেফটি",
+            "description": "সমস্ত API মেথড এবং রেসপন্সের জন্য ব্যাপক টাইপ ডেফিনিশন সহ সম্পূর্ণ TypeScript সাপোর্ট।"
           },
           "autoRetry": {
-            "title": "Auto Retry",
-            "description": "Built-in retry logic with exponential backoff for failed requests and network issues."
+            "title": "অটো রিট্রাই",
+            "description": "ব্যর্থ অনুরোধ এবং নেটওয়ার্ক সমস্যার জন্য এক্সপোনেনশিয়াল ব্যাকঅফ সহ বিল্ট-ইন রিট্রাই লজিক।"
           },
           "realTimeStreams": {
-            "title": "Real-Time Streams",
-            "description": "Subscribe to live blockchain events with WebSocket connections and reactive patterns."
+            "title": "রিয়েল-টাইম স্ট্রিম",
+            "description": "WebSocket সংযোগ এবং রিয়েক্টিভ প্যাটার্ন সহ লাইভ ব্লকচেইন ইভেন্টে সাবস্ক্রাইব করুন।"
           }
         },
         "examples": {
-          "core": "Core functionality",
-          "defi": "DeFi interactions",
-          "streaming": "Real-time streaming"
+          "core": "কোর ফাংশনালিটি",
+          "defi": "DeFi ইন্টারঅ্যাকশন",
+          "streaming": "রিয়েল-টাইম স্ট্রিমিং"
         },
         "needHelp": {
-          "title": "Need Help?",
+          "title": "সাহায্য প্রয়োজন?",
           "apiReference": "API রেফারেন্স",
-          "cliReference": "CLI Reference",
+          "cliReference": "CLI রেফারেন্স",
           "codeExamples": "কোড উদাহরণ",
           "discordSupport": "Discord কমিউনিটি"
         }
@@ -4897,142 +4897,142 @@
         "tag": "স্মার্ট কন্ট্রাক্ট",
         "title": "স্মার্ট কন্ট্রাক্ট",
         "subtitle": "TBurn Chain-এ নিরাপদ স্মার্ট কন্ট্রাক্ট লিখুন, পরীক্ষা করুন এবং ডিপ্লয় করুন।",
-        "contractTemplates": "Contract Templates",
-        "copy": "Copy",
-        "copied": "Copied!",
+        "contractTemplates": "কন্ট্রাক্ট টেমপ্লেট",
+        "copy": "কপি",
+        "copied": "কপি হয়েছে!",
         "apiReference": "API রেফারেন্স",
-        "cliGuide": "CLI Guide",
+        "cliGuide": "CLI গাইড",
         "evmMigration": "EVM মাইগ্রেশন",
         "features": {
           "evmCompatibility": {
-            "title": "Full EVM সামঞ্জস্য",
-            "description": "Deploy existing Solidity contracts with minimal modifications. Compatible with স্ট্যান্ডার্ড ডেভেলপমেন্ট টুল."
+            "title": "সম্পূর্ণ EVM সামঞ্জস্য",
+            "description": "ন্যূনতম পরিবর্তন সহ বিদ্যমান Solidity কন্ট্রাক্ট ডিপ্লয় করুন। স্ট্যান্ডার্ড ডেভেলপমেন্ট টুলের সাথে সামঞ্জস্যপূর্ণ।"
           },
           "trustIntegration": {
-            "title": "Trust Score Integration",
-            "description": "Access on-chain trust scores through oracle contracts for trust-verified transactions."
+            "title": "ট্রাস্ট স্কোর ইন্টিগ্রেশন",
+            "description": "বিশ্বাস-যাচাইকৃত লেনদেনের জন্য ওরাকল কন্ট্রাক্টের মাধ্যমে অন-চেইন ট্রাস্ট স্কোর অ্যাক্সেস করুন।"
           },
           "autoBurn": {
-            "title": "Automatic Burn",
-            "description": "Built-in burn mechanics with scheduled execution and transparent collateral management."
+            "title": "স্বয়ংক্রিয় বার্ন",
+            "description": "নির্ধারিত এক্সিকিউশন এবং স্বচ্ছ কোলাটেরাল ব্যবস্থাপনা সহ বিল্ট-ইন বার্ন মেকানিক্স।"
           },
           "aiOracle": {
-            "title": "AI Oracle Access",
-            "description": "Integrate AI-powered insights directly into your স্মার্ট কন্ট্রাক্ট via oracle calls."
+            "title": "AI ওরাকল অ্যাক্সেস",
+            "description": "ওরাকল কলের মাধ্যমে সরাসরি আপনার স্মার্ট কন্ট্রাক্টে AI-চালিত অন্তর্দৃষ্টি ইন্টিগ্রেট করুন।"
           },
           "gasOptimization": {
-            "title": "Gas Optimization",
-            "description": "উন্নত স্তর gas optimization techniques reduce transaction costs by up to 60%."
+            "title": "গ্যাস অপ্টিমাইজেশন",
+            "description": "উন্নত গ্যাস অপ্টিমাইজেশন টেকনিক লেনদেন খরচ 60% পর্যন্ত কমায়।"
           },
           "quantumResistant": {
-            "title": "Quantum-Resistant Signatures",
-            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+            "title": "কোয়ান্টাম-প্রতিরোধী স্বাক্ষর",
+            "description": "দীর্ঘমেয়াদী নিরাপত্তার জন্য CRYSTALS-Dilithium স্বাক্ষর সহ ভবিষ্যত-প্রমাণ ক্রিপ্টোগ্রাফি।"
           },
           "trustScore": {
-            "title": "Trust Score Integration",
-            "description": "On-chain trust যাচাইকরণ with real-time scoring and automated risk assessment."
+            "title": "ট্রাস্ট স্কোর ইন্টিগ্রেশন",
+            "description": "রিয়েল-টাইম স্কোরিং এবং স্বয়ংক্রিয় ঝুঁকি মূল্যায়ন সহ অন-চেইন ট্রাস্ট যাচাইকরণ।"
           }
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 Token",
-            "description": "স্ট্যান্ডার্ড token with trust-aware transfers"
+            "title": "BRC-20 টোকেন",
+            "description": "বিশ্বাস-সচেতন ট্রান্সফার সহ স্ট্যান্ডার্ড টোকেন"
           },
           "nft": {
-            "title": "NFT Collection",
-            "description": "ERC-721 with on-chain metadata"
+            "title": "NFT সংগ্রহ",
+            "description": "অন-চেইন মেটাডেটা সহ ERC-721"
           },
           "defi": {
-            "title": "DeFi Protocol",
-            "description": "AMM pool with trust যাচাইকরণ"
+            "title": "DeFi প্রোটোকল",
+            "description": "ট্রাস্ট যাচাইকরণ সহ AMM পুল"
           },
           "dao": {
-            "title": "DAO Governance",
-            "description": "Token-weighted voting system"
+            "title": "DAO গভর্ন্যান্স",
+            "description": "টোকেন-ওজনযুক্ত ভোটিং সিস্টেম"
           },
-          "autoBurn": "Auto-Burn Token",
-          "basicToken": "Basic Token",
-          "governance": "Governance",
-          "staking": "Staking Contract",
-          "trustScoreIntegration": "Trust Score Integration"
+          "autoBurn": "অটো-বার্ন টোকেন",
+          "basicToken": "বেসিক টোকেন",
+          "governance": "গভর্ন্যান্স",
+          "staking": "স্টেকিং কন্ট্রাক্ট",
+          "trustScoreIntegration": "ট্রাস্ট স্কোর ইন্টিগ্রেশন"
         },
         "security": {
-          "title": "Security Best Practices",
-          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
-          "accessControl": "Implement ভূমিকা-based access control with OpenZeppelin AccessControl",
-          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
-          "initializer": "Use initializer modifiers for proxy contract initialization",
-          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "title": "নিরাপত্তা সেরা অনুশীলন",
+          "reentrancy": "রিকার্সিভ এক্সটার্নাল কল প্রতিরোধ করতে ReentrancyGuard মডিফায়ার ব্যবহার করুন",
+          "accessControl": "OpenZeppelin AccessControl দিয়ে ভূমিকা-ভিত্তিক অ্যাক্সেস কন্ট্রোল বাস্তবায়ন করুন",
+          "checksEffects": "এক্সটার্নাল কলের জন্য checks-effects-interactions প্যাটার্ন অনুসরণ করুন",
+          "initializer": "প্রক্সি কন্ট্রাক্ট ইনিশিয়ালাইজেশনের জন্য initializer মডিফায়ার ব্যবহার করুন",
+          "overflow": "ওভারফ্লো সুরক্ষার জন্য SafeMath বা Solidity 0.8+ ব্যবহার করুন",
           "reentrancyGuard": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+            "title": "রিএন্ট্রান্সি গার্ড",
+            "description": "রিকার্সিভ কল প্রতিরোধ করতে ReentrancyGuard মডিফায়ার ব্যবহার করুন"
           },
           "accessControlRole": {
-            "title": "Access Control",
-            "description": "Implement ভূমিকা-based permissions with OpenZeppelin"
+            "title": "অ্যাক্সেস কন্ট্রোল",
+            "description": "OpenZeppelin দিয়ে ভূমিকা-ভিত্তিক অনুমতি বাস্তবায়ন করুন"
           },
           "inputValidation": {
-            "title": "Input Validation",
-            "description": "Always validate user inputs and external data"
+            "title": "ইনপুট ভ্যালিডেশন",
+            "description": "সর্বদা ব্যবহারকারীর ইনপুট এবং এক্সটার্নাল ডেটা যাচাই করুন"
           },
           "upgradeability": {
-            "title": "Upgradeability",
-            "description": "Use proxy patterns for upgradeable contracts"
+            "title": "আপগ্রেডেবিলিটি",
+            "description": "আপগ্রেডযোগ্য কন্ট্রাক্টের জন্য প্রক্সি প্যাটার্ন ব্যবহার করুন"
           }
         },
         "gasOptimization": {
-          "title": "Gas Optimization",
-          "subtitle": "Tips for reducing transaction costs",
-          "tip1": "Pack multiple small variables into single storage slots",
-          "tip2": "Use calldata instead of memory for read-only function parameters",
-          "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings",
+          "title": "গ্যাস অপ্টিমাইজেশন",
+          "subtitle": "লেনদেন খরচ কমানোর টিপস",
+          "tip1": "একাধিক ছোট ভেরিয়েবল একক স্টোরেজ স্লটে প্যাক করুন",
+          "tip2": "রিড-অনলি ফাংশন প্যারামিটারের জন্য মেমরির বদলে calldata ব্যবহার করুন",
+          "tip3": "একাধিকবার অ্যাক্সেস করার সময় স্টোরেজ ভেরিয়েবল মেমরিতে ক্যাশ করুন",
+          "tip4": "রিভার্ট স্ট্রিংয়ের বদলে কাস্টম এরর ব্যবহার করুন",
           "memoryVsStorage": {
-            "title": "Memory vs Storage",
-            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+            "title": "মেমরি বনাম স্টোরেজ",
+            "desc": "গ্যাস ব্যবহার অপ্টিমাইজ করতে অস্থায়ী ডেটার জন্য মেমরি এবং স্থায়ী স্টেটের জন্য স্টোরেজ ব্যবহার করুন।"
           },
           "shortRevert": {
-            "title": "Short Revert Messages",
-            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+            "title": "সংক্ষিপ্ত রিভার্ট মেসেজ",
+            "desc": "ডিপ্লয়মেন্ট এবং এক্সিকিউশন গ্যাস বাঁচাতে দীর্ঘ রিভার্ট স্ট্রিংয়ের বদলে কাস্টম এরর ব্যবহার করুন।"
           },
           "useEvents": {
-            "title": "Use Events for Logging",
-            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+            "title": "লগিংয়ের জন্য ইভেন্ট ব্যবহার করুন",
+            "desc": "লগের মাধ্যমে ঐতিহাসিক অ্যাক্সেস যথেষ্ট হলে ডেটা সংরক্ষণের বদলে ইভেন্ট এমিট করুন।"
           },
           "variablePacking": {
-            "title": "Variable Packing",
-            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+            "title": "ভেরিয়েবল প্যাকিং",
+            "desc": "স্টোরেজ খরচ কমাতে একাধিক ভেরিয়েবল একক স্টোরেজ স্লটে প্যাক করুন।"
           }
         },
-        "gasOptimizationTips": "Gas Optimization Tips",
+        "gasOptimizationTips": "গ্যাস অপ্টিমাইজেশন টিপস",
         "platformFeatures": "প্ল্যাটফর্ম বৈশিষ্ট্য",
-        "readyToDeploy": "Ready to Deploy?",
-        "sdkGuide": "SDK Guide",
-        "securityChecklist": "Security Checklist",
+        "readyToDeploy": "ডিপ্লয় করতে প্রস্তুত?",
+        "sdkGuide": "SDK গাইড",
+        "securityChecklist": "নিরাপত্তা চেকলিস্ট",
         "testing": {
-          "title": "Testing Your Contracts",
-          "description": "Comprehensive testing guide for স্মার্ট কন্ট্রাক্ট",
-          "unitTests": "Unit Tests",
-          "integrationTests": "Integration Tests",
-          "fuzzTesting": "Fuzz Testing"
+          "title": "আপনার কন্ট্রাক্ট টেস্ট করা",
+          "description": "স্মার্ট কন্ট্রাক্টের জন্য ব্যাপক টেস্টিং গাইড",
+          "unitTests": "ইউনিট টেস্ট",
+          "integrationTests": "ইন্টিগ্রেশন টেস্ট",
+          "fuzzTesting": "ফাজ টেস্টিং"
         },
         "deployment": {
-          "title": "Deployment Guide",
-          "step1": "Compile contracts",
-          "step2": "Deploy to testnet",
-          "step3": "Verify on explorer",
-          "step4": "Deploy to mainnet"
+          "title": "ডিপ্লয়মেন্ট গাইড",
+          "step1": "কন্ট্রাক্ট কম্পাইল করুন",
+          "step2": "টেস্টনেটে ডিপ্লয় করুন",
+          "step3": "এক্সপ্লোরারে যাচাই করুন",
+          "step4": "মেইননেটে ডিপ্লয় করুন"
         },
         "needHelp": {
-          "title": "Need Help?",
+          "title": "সাহায্য প্রয়োজন?",
           "sdkDocumentation": "SDK ডকুমেন্টেশন",
           "codeExamples": "কোড উদাহরণ",
           "discordSupport": "Discord কমিউনিটি"
         },
         "relatedLinks": {
-          "developerHub": "Developer Hub",
-          "sdkGuide": "SDK Guide",
-          "cliReference": "CLI Reference",
+          "developerHub": "ডেভেলপার হাব",
+          "sdkGuide": "SDK গাইড",
+          "cliReference": "CLI রেফারেন্স",
           "codeExamples": "কোড উদাহরণ"
         }
       },
@@ -5040,48 +5040,48 @@
         "tag": "রিয়েল-টাইম",
         "title": "WebSocket API",
         "subtitle": "রিয়েল-টাইম ডেটা স্ট্রিমিং এবং ইভেন্ট সাবস্ক্রিপশন।",
-        "connectionEndpoints": "Connection Endপয়েন্ট",
-        "subscriptionChannels": "Subscription Channels",
-        "fullReference": "Full Reference",
-        "getSdk": "Get SDK",
+        "connectionEndpoints": "সংযোগ এন্ডপয়েন্ট",
+        "subscriptionChannels": "সাবস্ক্রিপশন চ্যানেল",
+        "fullReference": "সম্পূর্ণ রেফারেন্স",
+        "getSdk": "SDK পান",
         "codeExamples": "কোড উদাহরণ",
-        "viewRestApi": "View REST API",
-        "readyToIntegrate": "Ready to Integrate?",
+        "viewRestApi": "REST API দেখুন",
+        "readyToIntegrate": "ইন্টিগ্রেট করতে প্রস্তুত?",
         "endpoints": {
           "mainnet": {
-            "type": "Production",
-            "desc": "Mainnet WebSocket endpoint for production applications"
+            "type": "প্রোডাকশন",
+            "desc": "প্রোডাকশন অ্যাপ্লিকেশনের জন্য মেইননেট WebSocket এন্ডপয়েন্ট"
           },
           "testnet": {
-            "type": "Development",
-            "desc": "Testnet WebSocket endpoint for development and testing"
+            "type": "ডেভেলপমেন্ট",
+            "desc": "ডেভেলপমেন্ট এবং টেস্টিংয়ের জন্য টেস্টনেট WebSocket এন্ডপয়েন্ট"
           }
         },
         "channels": {
           "blocks": {
-            "description": "Subscribe to new block notifications with full block data"
+            "description": "সম্পূর্ণ ব্লক ডেটা সহ নতুন ব্লক নোটিফিকেশনে সাবস্ক্রাইব করুন"
           },
           "transactions": {
-            "description": "Real-time transaction updates for specific addresses"
+            "description": "নির্দিষ্ট ঠিকানার জন্য রিয়েল-টাইম লেনদেন আপডেট"
           },
           "trustScore": {
-            "description": "Live trust score changes for monitored addresses"
+            "description": "মনিটর করা ঠিকানার জন্য লাইভ ট্রাস্ট স্কোর পরিবর্তন"
           },
           "defi": {
-            "description": "Price feeds and তারল্য pool updates"
+            "description": "প্রাইস ফিড এবং তারল্য পুল আপডেট"
           }
         },
         "authentication": {
-          "title": "Authentication",
-          "description": "Include your API key in the connection URL query parameter or as a header"
+          "title": "প্রমাণীকরণ",
+          "description": "সংযোগ URL কুয়েরি প্যারামিটার বা হেডার হিসাবে আপনার API কী অন্তর্ভুক্ত করুন"
         },
         "heartbeat": {
-          "title": "Heartbeat",
-          "description": "Send ping messages every 30 seconds to keep the connection alive"
+          "title": "হার্টবিট",
+          "description": "সংযোগ সক্রিয় রাখতে প্রতি 30 সেকেন্ডে পিং বার্তা পাঠান"
         },
         "clientImplementation": {
-          "title": "Client Implementation",
-          "subtitle": "Example WebSocket client in JavaScript"
+          "title": "ক্লায়েন্ট ইমপ্লিমেন্টেশন",
+          "subtitle": "JavaScript-এ উদাহরণ WebSocket ক্লায়েন্ট"
         }
       },
       "examples": {
