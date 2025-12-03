@@ -11078,141 +11078,160 @@
         }
       },
       "stablecoins": {
-        "tag": "稳定币",
-        "title": "稳定币基础设施",
-        "subtitle": "在TBURN的合规框架中发行、管理和赎回稳定币。支持法币抵押、加密抵押和算法模型。",
+        "tag": "稳定币基础设施",
+        "title": "稳定币解决方案",
+        "subtitle": "企业级稳定币发行和管理。法币担保、加密担保和算法选项，完全符合监管要求。",
         "buttons": {
           "issueStablecoin": "发行稳定币",
-          "stablecoinDocs": "稳定币文档"
+          "technicalDocs": "技术文档"
         },
         "types": {
           "fiatBacked": {
-            "title": "法币抵押",
-            "desc": "完全由银行存款或国债抵押。储备证明和定期审计确保锚定稳定性。"
+            "title": "法币担保",
+            "desc": "1:1储备支持代币，实时储备证明。经审计银行账户，透明证明报告。"
           },
-          "cryptoBacked": {
-            "title": "加密抵押",
-            "desc": "由超额抵押加密资产发行。自动清算和动态抵押率。"
+          "cryptoCollateralized": {
+            "title": "加密担保",
+            "desc": "由加密资产超额担保的稳定币。自动清算机制和去中心化治理。"
           },
-          "algorithmic": {
-            "title": "算法稳定币",
-            "desc": "通过供应扩张和收缩进行智能合约管理的锚定。AI优化的稳定机制。"
+          "institutionalGrade": {
+            "title": "机构级",
+            "desc": "银行级合规，集成AML/KYC。内置白名单、黑名单和监管报告。"
           },
-          "commodity": {
-            "title": "商品抵押",
-            "desc": "由黄金、白银或石油抵押。实时商品价格预言机和实物交割选项。"
+          "multiCurrency": {
+            "title": "多币种支持",
+            "desc": "发行与任何法币挂钩的稳定币。支持USD、EUR、GBP、JPY和新兴市场货币。"
           }
         },
         "metrics": {
-          "totalMinted": "总铸造量",
-          "pegDeviation": "锚定偏差",
-          "reserveRatio": "储备比率"
+          "totalSupply": "稳定币总供应量",
+          "dailyTransactions": "日交易量",
+          "pegDeviation": "最大锚定偏差"
         },
         "features": {
-          "realTimeAudit": {
-            "title": "实时审计",
-            "desc": "通过储备证明检查验证抵押品。储备状态的链上透明度。"
+          "proofOfReserves": {
+            "title": "储备证明",
+            "desc": "支持资产的实时链上证明。第三方审计师持续验证储备比率。"
           },
-          "crossChain": {
-            "title": "跨链转移",
-            "desc": "通过TBURN桥将稳定币转移到其他网络。原生发行和包装选项。"
+          "instantSettlement": {
+            "title": "即时结算",
+            "desc": "50,000+ TPS的亚秒级交易最终性。无需等待银行转账或清算。"
           },
-          "compliance": {
-            "title": "监管合规",
-            "desc": "内置KYC/AML和监管报告。制裁筛查和交易监控。"
+          "programmableCompliance": {
+            "title": "可编程合规",
+            "desc": "智能合约强制执行的转账限制。地理限制、持有上限和监管控制。"
           },
-          "programmable": {
-            "title": "可编程支付",
-            "desc": "定期支付、托管和条件转移。自动化工资和订阅支付。"
+          "crossChainBridges": {
+            "title": "跨链桥",
+            "desc": "原生桥接以太坊、Polygon、Arbitrum等。多网络统一流动性。"
+          }
+        },
+        "useCases": {
+          "payments": {
+            "title": "全球支付",
+            "desc": "最低费用即时跨境转账。用区块链结算替代SWIFT。"
+          },
+          "defiCollateral": {
+            "title": "DeFi抵押",
+            "desc": "将稳定币用作借贷和收益农场的抵押品。稳定价值实现可预测头寸。"
+          },
+          "treasury": {
+            "title": "资金管理",
+            "desc": "链上透明的企业资金运营。自动化支付和现金流管理。"
+          },
+          "payroll": {
+            "title": "薪资和福利",
+            "desc": "稳定货币即时全球发薪。自动预扣税和福利分配。"
           }
         },
         "sections": {
           "types": "稳定币类型",
-          "typesDesc": "探索TBURN支持的稳定币模型",
-          "platformFeatures": "平台功能"
+          "typesDesc": "为您的需求选择正确的稳定币模型",
+          "platformFeatures": "平台功能",
+          "useCases": "使用场景"
         },
         "cta": {
           "title": "准备发行您的稳定币了吗？",
-          "desc": "在TBURN上发行合规稳定币。我们的团队将指导您从设计到启动。",
+          "desc": "几周内从概念到发布。我们的团队提供稳定币发行和管理的端到端支持。",
           "getStarted": "开始"
         }
       },
       "institutional": {
-        "tag": "机构解决方案",
-        "title": "机构解决方案",
-        "subtitle": "企业和金融机构的合规区块链基础设施。专属支持、SLA保证和企业级安全。",
+        "tag": "机构支付",
+        "title": "机构支付",
+        "subtitle": "为银行和金融机构提供的大容量支付基础设施。实时总额结算、跨境支付和监管合规。",
         "buttons": {
           "contactSales": "联系销售",
-          "institutionalDocs": "机构文档"
+          "apiReference": "API参考"
         },
-        "services": {
-          "custody": {
-            "title": "机构托管",
-            "desc": "合规数字资产托管。SOC 2审计、保险覆盖和多重签名安全。"
+        "paymentFeatures": {
+          "rtgs": {
+            "title": "实时总额结算",
+            "desc": "高价值交易即时最终性。无批处理延迟或交易对手风险。"
           },
-          "trading": {
-            "title": "机构经纪",
-            "desc": "深度流动性的大额订单执行。OTC柜台、加密借贷和保证金交易。"
+          "crossBorder": {
+            "title": "跨境支付",
+            "desc": "本地结算的全球覆盖。多币种支持，实时外汇和通道优化。"
           },
-          "staking": {
-            "title": "企业质押",
-            "desc": "托管验证器节点和委托服务。定制奖励分配和税务报告。"
+          "compliant": {
+            "title": "监管合规",
+            "desc": "为受监管金融机构构建。完全兼容SWIFT、ISO 20022和监管报告。"
           },
-          "api": {
-            "title": "API与基础设施",
-            "desc": "专用节点、私有RPC端点和企业SLA。99.99%正常运行时间保证。"
+          "smartContract": {
+            "title": "智能合约托管",
+            "desc": "可编程支付条件和托管。自动化复杂结算工作流和多方协议。"
           }
         },
         "metrics": {
-          "institutionalClients": "机构客户",
-          "assetsUnderCustody": "托管资产",
+          "dailyVolume": "日结算量",
+          "transactionFee": "交易费用",
           "uptimeSla": "正常运行时间SLA"
         },
         "integrations": {
-          "erp": {
-            "title": "ERP集成",
-            "desc": "与SAP、Oracle和主要ERP平台无缝连接。自动化对账和报告。"
+          "coreBanking": {
+            "title": "核心银行集成",
+            "desc": "主要核心银行系统的原生连接器。与现有基础设施无缝集成。"
           },
-          "banking": {
-            "title": "银行合作伙伴",
-            "desc": "连接银行网络进行法币出入金。SWIFT和SEPA集成。"
+          "treasury": {
+            "title": "资金管理",
+            "desc": "实时现金头寸可见性和跨账户自动流动性优化。"
           },
-          "compliance": {
-            "title": "监管报告",
-            "desc": "自动化监管提交。MiCA、旅行规则和司法管辖要求。"
+          "correspondent": {
+            "title": "代理银行",
+            "desc": "减少代理银行费用和结算时间。直接点对点机构转账。"
           },
-          "custody": {
-            "title": "托管集成",
-            "desc": "与主要托管机构连接。Fireblocks、Copper等集成。"
+          "operations": {
+            "title": "24/7运营",
+            "desc": "无批处理的全天候结算。99.99%正常运行时间保证的连续运营。"
           }
         },
         "clientTypes": {
-          "funds": {
-            "title": "对冲基金与PE",
-            "desc": "基金运营、NAV计算和投资者报告的定制解决方案。"
+          "centralBanks": {
+            "title": "中央银行",
+            "desc": "货币当局的CBDC发行和批发结算基础设施。"
           },
-          "corporates": {
-            "title": "企业财务",
-            "desc": "企业财务的数字资产管理。收益优化和风险管理。"
+          "commercialBanks": {
+            "title": "商业银行",
+            "desc": "完全合规的零售和企业支付轨道。"
           },
-          "banks": {
-            "title": "银行与金融科技",
-            "desc": "与银行系统集成的白标解决方案。API优先架构。"
+          "paymentProcessors": {
+            "title": "支付处理商",
+            "desc": "即时结算和最低费用的高容量交易处理。"
           },
-          "governments": {
-            "title": "政府与央行",
-            "desc": "CBDC基础设施、监管合规和主权资产管理。"
+          "fintechs": {
+            "title": "金融科技和新银行",
+            "desc": "无遗留系统限制的现代银行基础设施。"
           }
         },
         "sections": {
-          "services": "机构服务",
-          "servicesDesc": "企业级区块链解决方案",
+          "paymentFeatures": "支付基础设施",
+          "paymentFeaturesDesc": "金融机构的企业级支付功能",
           "systemIntegrations": "系统集成",
           "clientTypes": "客户类型"
         },
         "cta": {
-          "title": "讨论机构解决方案",
-          "desc": "与我们的专家团队咨询，设计您的定制区块链解决方案。",
+          "title": "准备现代化您的支付基础设施吗？",
+          "desc": "与我们的机构团队安排演示。我们将展示TBURN如何改变您的支付运营。",
           "requestDemo": "请求演示"
         }
       },

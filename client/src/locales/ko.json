@@ -11613,141 +11613,160 @@
         }
       },
       "stablecoins": {
-        "tag": "스테이블코인",
-        "title": "스테이블코인 인프라",
-        "subtitle": "TBURN의 규제 준수 프레임워크에서 스테이블코인을 발행, 관리 및 상환하세요. 법정화폐 담보, 암호화폐 담보 및 알고리즘 모델을 지원합니다.",
+        "tag": "스테이블코인 인프라",
+        "title": "스테이블코인 솔루션",
+        "subtitle": "엔터프라이즈급 스테이블코인 발행 및 관리. 법정화폐 담보, 암호화폐 담보 및 알고리즘 옵션과 완벽한 규제 준수를 제공합니다.",
         "buttons": {
           "issueStablecoin": "스테이블코인 발행",
-          "stablecoinDocs": "스테이블코인 문서"
+          "technicalDocs": "기술 문서"
         },
         "types": {
           "fiatBacked": {
             "title": "법정화폐 담보",
             "desc": "은행 예금 또는 국채로 완전히 담보됨. 준비금 증명과 정기 감사로 페그 안정성 보장."
           },
-          "cryptoBacked": {
+          "cryptoCollateralized": {
             "title": "암호화폐 담보",
-            "desc": "과잉 담보 암호화 자산으로 발행됨. 자동 청산 및 동적 담보 비율."
+            "desc": "과잉 담보 암호화 자산으로 발행됨. 자동 청산 메커니즘 및 탈중앙화 거버넌스."
           },
-          "algorithmic": {
-            "title": "알고리즘 스테이블코인",
-            "desc": "공급 확장 및 축소를 통한 스마트 컨트랙트 관리 페그. AI 최적화 안정화 메커니즘."
+          "institutionalGrade": {
+            "title": "기관급 스테이블코인",
+            "desc": "AML/KYC 통합으로 은행급 규제 준수. 화이트리스팅, 블랙리스팅 및 규제 보고 내장."
           },
-          "commodity": {
-            "title": "상품 담보",
-            "desc": "금, 은 또는 석유로 담보됨. 실시간 상품 가격 오라클 및 실물 배송 옵션."
+          "multiCurrency": {
+            "title": "다중 통화 지원",
+            "desc": "모든 법정 통화에 페그된 스테이블코인 발행. USD, EUR, GBP, JPY 및 신흥 시장 통화 지원."
           }
         },
         "metrics": {
-          "totalMinted": "총 발행량",
-          "pegDeviation": "페그 편차",
-          "reserveRatio": "준비금 비율"
+          "totalSupply": "총 스테이블코인 공급량",
+          "dailyTransactions": "일일 거래",
+          "pegDeviation": "최대 페그 편차"
         },
         "features": {
-          "realTimeAudit": {
-            "title": "실시간 감사",
-            "desc": "준비금 증명 확인으로 담보를 검증하세요. 준비금 상태에 대한 온체인 투명성."
+          "proofOfReserves": {
+            "title": "준비금 증명",
+            "desc": "담보 자산의 실시간 온체인 증명. 제3자 감사인이 준비금 비율을 지속적으로 검증."
           },
-          "crossChain": {
-            "title": "크로스 체인 이전",
-            "desc": "TBURN 브릿지를 통해 스테이블코인을 다른 네트워크로 이전하세요. 네이티브 발행 및 래핑 옵션."
+          "instantSettlement": {
+            "title": "즉시 정산",
+            "desc": "50,000+ TPS의 서브초 거래 최종성. 은행 이체나 청산소 대기 없음."
           },
-          "compliance": {
-            "title": "규제 준수",
-            "desc": "내장된 KYC/AML 및 규제 보고. 제재 스크리닝 및 거래 모니터링."
+          "programmableCompliance": {
+            "title": "프로그래머블 규제 준수",
+            "desc": "스마트 컨트랙트 적용 이전 제한. 지역 제한, 보유 한도 및 규제 통제."
           },
-          "programmable": {
-            "title": "프로그래머블 페이먼트",
-            "desc": "반복 지불, 에스크로 및 조건부 이전. 자동화된 급여 및 구독 결제."
+          "crossChainBridges": {
+            "title": "크로스체인 브릿지",
+            "desc": "이더리움, 폴리곤, 아비트럼 등에 대한 네이티브 브릿지. 여러 네트워크에 걸친 통합 유동성."
+          }
+        },
+        "useCases": {
+          "payments": {
+            "title": "글로벌 결제",
+            "desc": "최소 수수료로 즉시 국경 간 이체. SWIFT를 블록체인 기반 정산으로 대체."
+          },
+          "defiCollateral": {
+            "title": "DeFi 담보",
+            "desc": "대출, 차입 및 이자 농사를 위한 담보로 스테이블코인 사용. 예측 가능한 포지션을 위한 안정적인 가치."
+          },
+          "treasury": {
+            "title": "재무 관리",
+            "desc": "온체인 투명성을 갖춘 기업 재무 운영. 자동화된 결제 및 현금 흐름 관리."
+          },
+          "payroll": {
+            "title": "급여 및 복리후생",
+            "desc": "안정적인 통화로 즉시 글로벌 급여 지급. 자동 세금 원천징수 및 복리후생 배분."
           }
         },
         "sections": {
           "types": "스테이블코인 유형",
-          "typesDesc": "TBURN에서 지원하는 스테이블코인 모델 탐색",
-          "platformFeatures": "플랫폼 기능"
+          "typesDesc": "필요에 맞는 스테이블코인 모델 선택",
+          "platformFeatures": "플랫폼 기능",
+          "useCases": "사용 사례"
         },
         "cta": {
-          "title": "스테이블코인을 발행할 준비가 되셨나요?",
-          "desc": "TBURN에서 규제 준수 스테이블코인을 발행하세요. 저희 팀이 설계부터 출시까지 안내해 드립니다.",
+          "title": "스테이블코인 출시 준비 되셨나요?",
+          "desc": "몇 주 만에 컨셉에서 출시까지. 저희 팀이 스테이블코인 발행 및 관리를 위한 엔드투엔드 지원을 제공합니다.",
           "getStarted": "시작하기"
         }
       },
       "institutional": {
-        "tag": "기관 솔루션",
-        "title": "기관 솔루션",
-        "subtitle": "기업과 금융 기관을 위한 규제 준수 블록체인 인프라. 전용 지원, SLA 보장 및 엔터프라이즈급 보안.",
+        "tag": "기관 결제",
+        "title": "기관 결제",
+        "subtitle": "은행 및 금융 기관을 위한 대용량 결제 인프라. 실시간 총액결제, 국경간 결제 및 규제 준수.",
         "buttons": {
           "contactSales": "영업팀 연락",
-          "institutionalDocs": "기관 문서"
+          "apiReference": "API 레퍼런스"
         },
-        "services": {
-          "custody": {
-            "title": "기관 커스터디",
-            "desc": "규제 준수 디지털 자산 커스터디. SOC 2 감사, 보험 적용 및 다중 서명 보안."
+        "paymentFeatures": {
+          "rtgs": {
+            "title": "실시간 총액결제",
+            "desc": "고가치 거래를 위한 즉시 최종성. 배치 지연이나 거래상대방 위험 없음."
           },
-          "trading": {
-            "title": "프라임 브로커리지",
-            "desc": "딥 유동성으로 대규모 주문 실행. OTC 데스크, 암호화폐 대출 및 마진 거래."
+          "crossBorder": {
+            "title": "국경간 결제",
+            "desc": "현지 정산으로 글로벌 도달. 실시간 FX 및 코리더 최적화를 통한 다중 통화 지원."
           },
-          "staking": {
-            "title": "엔터프라이즈 스테이킹",
-            "desc": "관리형 검증자 노드 및 위임 서비스. 맞춤형 보상 배분 및 세금 보고."
+          "compliant": {
+            "title": "규제 준수",
+            "desc": "규제 금융 기관을 위해 구축. 완전한 SWIFT 호환성, ISO 20022 및 규제 보고."
           },
-          "api": {
-            "title": "API & 인프라",
-            "desc": "전용 노드, 프라이빗 RPC 엔드포인트 및 엔터프라이즈 SLA. 99.99% 가동 시간 보장."
+          "smartContract": {
+            "title": "스마트 컨트랙트 에스크로",
+            "desc": "프로그래머블 결제 조건 및 에스크로. 복잡한 정산 워크플로우 및 다자간 계약 자동화."
           }
         },
         "metrics": {
-          "institutionalClients": "기관 고객",
-          "assetsUnderCustody": "관리 자산",
+          "dailyVolume": "일일 정산량",
+          "transactionFee": "거래 수수료",
           "uptimeSla": "가동 시간 SLA"
         },
         "integrations": {
-          "erp": {
-            "title": "ERP 통합",
-            "desc": "SAP, Oracle 및 주요 ERP 플랫폼과 원활하게 연결하세요. 자동화된 조정 및 보고."
+          "coreBanking": {
+            "title": "코어 뱅킹 통합",
+            "desc": "주요 코어 뱅킹 시스템과 네이티브 커넥터. 기존 인프라와 원활한 통합."
           },
-          "banking": {
-            "title": "은행 파트너",
-            "desc": "법정화폐 온/오프램프를 위한 은행 네트워크와 연결하세요. SWIFT 및 SEPA 통합."
+          "treasury": {
+            "title": "재무 관리",
+            "desc": "실시간 현금 포지션 가시성 및 계정 간 자동화된 유동성 최적화."
           },
-          "compliance": {
-            "title": "규제 보고",
-            "desc": "자동화된 규제 제출. MiCA, 여행 규칙 및 관할권별 요구 사항."
+          "correspondent": {
+            "title": "환거래 은행",
+            "desc": "환거래 은행 수수료 및 정산 시간 절감. 직접 P2P 기관 이체."
           },
-          "custody": {
-            "title": "커스터디 통합",
-            "desc": "주요 커스터디언과 연결하세요. Fireblocks, Copper 및 기타와 통합."
+          "operations": {
+            "title": "24/7 운영",
+            "desc": "배치 처리 없는 24시간 정산. 99.99% 가동 시간 보장으로 연속 운영."
           }
         },
         "clientTypes": {
-          "funds": {
-            "title": "헤지펀드 & PE",
-            "desc": "펀드 운영, NAV 계산 및 투자자 보고를 위한 맞춤형 솔루션."
+          "centralBanks": {
+            "title": "중앙은행",
+            "desc": "통화 당국을 위한 CBDC 발행 및 도매 정산 인프라."
           },
-          "corporates": {
-            "title": "기업 재무",
-            "desc": "기업 재무를 위한 디지털 자산 관리. 수익률 최적화 및 리스크 관리."
+          "commercialBanks": {
+            "title": "상업은행",
+            "desc": "완전한 규제 준수를 갖춘 소매 및 기업 결제 레일."
           },
-          "banks": {
-            "title": "은행 & 핀테크",
-            "desc": "은행 시스템과 통합되는 화이트 라벨 솔루션. API 우선 아키텍처."
+          "paymentProcessors": {
+            "title": "결제 처리업체",
+            "desc": "즉시 정산 및 최소 수수료로 대용량 거래 처리."
           },
-          "governments": {
-            "title": "정부 & 중앙은행",
-            "desc": "CBDC 인프라, 규제 준수 및 주권 자산 관리."
+          "fintechs": {
+            "title": "핀테크 & 네오뱅크",
+            "desc": "레거시 시스템 제약 없는 현대적 뱅킹 인프라."
           }
         },
         "sections": {
-          "services": "기관 서비스",
-          "servicesDesc": "엔터프라이즈급 블록체인 솔루션",
+          "paymentFeatures": "결제 인프라",
+          "paymentFeaturesDesc": "금융 기관을 위한 엔터프라이즈급 결제 기능",
           "systemIntegrations": "시스템 통합",
           "clientTypes": "고객 유형"
         },
         "cta": {
-          "title": "기관 솔루션에 대해 논의해 보세요",
-          "desc": "저희 전문가 팀과 상담하여 맞춤형 블록체인 솔루션을 설계하세요.",
+          "title": "결제 인프라 현대화 준비 되셨나요?",
+          "desc": "기관 팀과 데모 일정을 잡으세요. TBURN이 결제 운영을 어떻게 혁신할 수 있는지 보여드리겠습니다.",
           "requestDemo": "데모 요청"
         }
       },

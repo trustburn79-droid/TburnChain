@@ -9041,141 +9041,160 @@
         }
       },
       "stablecoins": {
-        "tag": "STABLECOINS",
-        "title": "Infrastructure Stablecoins",
-        "subtitle": "Émettez, gérez et rachetez des stablecoins dans le cadre de conformité de TBURN. Supporte les modèles adossés au fiat, crypto et algorithmiques.",
+        "tag": "INFRASTRUCTURE STABLECOINS",
+        "title": "Solutions Stablecoins",
+        "subtitle": "Émission et gestion de stablecoins de grade entreprise. Options adossées au fiat, crypto et algorithmiques avec conformité réglementaire complète.",
         "buttons": {
           "issueStablecoin": "Émettre Stablecoin",
-          "stablecoinDocs": "Documentation Stablecoins"
+          "technicalDocs": "Documentation Technique"
         },
         "types": {
           "fiatBacked": {
             "title": "Adossé au Fiat",
-            "desc": "Entièrement collatéralisé avec dépôts bancaires ou obligations du Trésor. Preuve de réserves et audits réguliers assurent la stabilité du peg."
+            "desc": "Tokens adossés à des réserves 1:1 avec preuve de réserves en temps réel. Comptes bancaires audités avec rapports dattestation transparents."
           },
-          "cryptoBacked": {
-            "title": "Adossé au Crypto",
-            "desc": "Émis contre des actifs crypto surcollatéralisés. Liquidation automatique et ratios de collatéral dynamiques."
+          "cryptoCollateralized": {
+            "title": "Collatéralisé Crypto",
+            "desc": "Stablecoins surcollatéralisés adossés à des actifs crypto. Mécanismes de liquidation automatisés et gouvernance décentralisée."
           },
-          "algorithmic": {
-            "title": "Stablecoin Algorithmique",
-            "desc": "Peg géré par contrat intelligent via expansion et contraction de loffre. Mécanismes de stabilisation optimisés par IA."
+          "institutionalGrade": {
+            "title": "Grade Institutionnel",
+            "desc": "Conformité de grade bancaire avec intégration AML/KYC. Listes blanches, listes noires et rapports réglementaires intégrés."
           },
-          "commodity": {
-            "title": "Adossé aux Matières Premières",
-            "desc": "Collatéralisé avec or, argent ou pétrole. Oracles de prix de matières premières en temps réel et option de livraison physique."
+          "multiCurrency": {
+            "title": "Support Multi-Devises",
+            "desc": "Émettez des stablecoins indexés sur toute devise fiat. Support USD, EUR, GBP, JPY et devises des marchés émergents."
           }
         },
         "metrics": {
-          "totalMinted": "Total Émis",
-          "pegDeviation": "Déviation du Peg",
-          "reserveRatio": "Ratio de Réserves"
+          "totalSupply": "Offre Totale de Stablecoins",
+          "dailyTransactions": "Transactions Quotidiennes",
+          "pegDeviation": "Déviation Maximum du Peg"
         },
         "features": {
-          "realTimeAudit": {
-            "title": "Audit en Temps Réel",
-            "desc": "Vérifiez le collatéral via des vérifications de preuve de réserves. Transparence on-chain de létat des réserves."
+          "proofOfReserves": {
+            "title": "Preuve de Réserves",
+            "desc": "Attestation on-chain en temps réel des actifs de garantie. Auditeurs tiers vérifient les ratios de réserves en continu."
           },
-          "crossChain": {
-            "title": "Transferts Cross-Chain",
-            "desc": "Transférez des stablecoins vers dautres réseaux via le pont TBURN. Options démission native et wrapped."
+          "instantSettlement": {
+            "title": "Règlement Instantané",
+            "desc": "Finalité de transaction sub-seconde avec 50,000+ TPS. Pas dattente pour virements bancaires ou chambres de compensation."
           },
-          "compliance": {
-            "title": "Conformité Réglementaire",
-            "desc": "KYC/AML intégré et rapports réglementaires. Filtrage des sanctions et surveillance des transactions."
+          "programmableCompliance": {
+            "title": "Conformité Programmable",
+            "desc": "Restrictions de transfert appliquées par contrat intelligent. Limites géographiques, plafonds de détention et contrôles réglementaires."
           },
-          "programmable": {
-            "title": "Paiements Programmables",
-            "desc": "Paiements récurrents, séquestre et transferts conditionnels. Paie et paiements dabonnement automatisés."
+          "crossChainBridges": {
+            "title": "Ponts Cross-Chain",
+            "desc": "Ponts natifs vers Ethereum, Polygon, Arbitrum et plus. Liquidité unifiée à travers plusieurs réseaux."
+          }
+        },
+        "useCases": {
+          "payments": {
+            "title": "Paiements Globaux",
+            "desc": "Transferts transfrontaliers instantanés avec frais minimaux. Remplacez SWIFT par un règlement basé sur la blockchain."
+          },
+          "defiCollateral": {
+            "title": "Collatéral DeFi",
+            "desc": "Utilisez des stablecoins comme collatéral pour le prêt et le yield farming. Valeur stable pour des positions prévisibles."
+          },
+          "treasury": {
+            "title": "Gestion de Trésorerie",
+            "desc": "Opérations de trésorerie dentreprise avec transparence on-chain. Paiements automatisés et gestion de trésorerie."
+          },
+          "payroll": {
+            "title": "Paie et Avantages",
+            "desc": "Paie globale instantanée en devises stables. Retenue fiscale automatique et distribution davantages."
           }
         },
         "sections": {
           "types": "Types de Stablecoins",
-          "typesDesc": "Explorez les modèles de stablecoins supportés sur TBURN",
-          "platformFeatures": "Fonctionnalités de la Plateforme"
+          "typesDesc": "Choisissez le bon modèle de stablecoin pour vos besoins",
+          "platformFeatures": "Capacités de la Plateforme",
+          "useCases": "Cas dUsage"
         },
         "cta": {
-          "title": "Prêt à Émettre Votre Stablecoin?",
-          "desc": "Émettez des stablecoins conformes sur TBURN. Notre équipe vous guide de la conception au lancement.",
+          "title": "Prêt à Lancer Votre Stablecoin?",
+          "desc": "Du concept au lancement en quelques semaines. Notre équipe fournit un support de bout en bout pour lémission et la gestion de stablecoins.",
           "getStarted": "Commencer"
         }
       },
       "institutional": {
-        "tag": "SOLUTIONS INSTITUTIONNELLES",
-        "title": "Solutions Institutionnelles",
-        "subtitle": "Infrastructure blockchain conforme pour entreprises et institutions financières. Support dédié, garanties SLA et sécurité de grade entreprise.",
+        "tag": "PAIEMENTS INSTITUTIONNELS",
+        "title": "Paiements Institutionnels",
+        "subtitle": "Infrastructure de paiement à haut volume pour banques et institutions financières. Règlement brut en temps réel, paiements transfrontaliers et conformité réglementaire.",
         "buttons": {
           "contactSales": "Contacter les Ventes",
-          "institutionalDocs": "Documentation Institutionnelle"
+          "apiReference": "Référence API"
         },
-        "services": {
-          "custody": {
-            "title": "Custody Institutionnel",
-            "desc": "Custody dactifs numériques conforme. Audits SOC 2, couverture assurance et sécurité multi-signature."
+        "paymentFeatures": {
+          "rtgs": {
+            "title": "Règlement Brut en Temps Réel",
+            "desc": "Finalité instantanée pour transactions à haute valeur. Pas de délais de traitement par lots ni de risque de contrepartie."
           },
-          "trading": {
-            "title": "Courtage Prime",
-            "desc": "Exécution de grandes commandes avec liquidité profonde. Bureau OTC, prêt crypto et trading sur marge."
+          "crossBorder": {
+            "title": "Paiements Transfrontaliers",
+            "desc": "Portée mondiale avec règlement local. Support multi-devises avec FX en temps réel et optimisation des corridors."
           },
-          "staking": {
-            "title": "Staking Entreprise",
-            "desc": "Nœuds validateurs gérés et services de délégation. Distribution de récompenses personnalisée et rapports fiscaux."
+          "compliant": {
+            "title": "Conforme Réglementairement",
+            "desc": "Construit pour institutions financières réglementées. Compatibilité SWIFT complète, ISO 20022 et rapports réglementaires."
           },
-          "api": {
-            "title": "API et Infrastructure",
-            "desc": "Nœuds dédiés, endpoints RPC privés et SLA entreprise. Garantie de temps de fonctionnement 99.99%."
+          "smartContract": {
+            "title": "Séquestre par Contrat Intelligent",
+            "desc": "Conditions de paiement programmables et séquestre. Automatisez les workflows de règlement complexes et accords multipartites."
           }
         },
         "metrics": {
-          "institutionalClients": "Clients Institutionnels",
-          "assetsUnderCustody": "Actifs Sous Custody",
+          "dailyVolume": "Volume de Règlement Quotidien",
+          "transactionFee": "Frais de Transaction",
           "uptimeSla": "SLA Temps de Fonctionnement"
         },
         "integrations": {
-          "erp": {
-            "title": "Intégration ERP",
-            "desc": "Connectez sans problème avec SAP, Oracle et principales plateformes ERP. Réconciliation automatisée et rapports."
+          "coreBanking": {
+            "title": "Intégration Core Banking",
+            "desc": "Connecteurs natifs pour principaux systèmes core banking. Intégration transparente avec linfrastructure existante."
           },
-          "banking": {
-            "title": "Partenaires Bancaires",
-            "desc": "Connectez-vous aux réseaux bancaires pour les rampes fiat on/off. Intégration SWIFT et SEPA."
+          "treasury": {
+            "title": "Gestion de Trésorerie",
+            "desc": "Visibilité de position de trésorerie en temps réel et optimisation automatisée de liquidité entre comptes."
           },
-          "compliance": {
-            "title": "Rapports Réglementaires",
-            "desc": "Soumissions réglementaires automatisées. MiCA, Règle de Voyage et exigences juridictionnelles."
+          "correspondent": {
+            "title": "Banque Correspondante",
+            "desc": "Réduisez les frais de banque correspondante et les délais de règlement. Transferts institutionnels directs pair-à-pair."
           },
-          "custody": {
-            "title": "Intégration Custody",
-            "desc": "Connectez-vous aux principaux custodians. Intégration avec Fireblocks, Copper et autres."
+          "operations": {
+            "title": "Opérations 24/7",
+            "desc": "Règlement continu sans traitement par lots. Opérations continues avec garantie de temps de fonctionnement 99.99%."
           }
         },
         "clientTypes": {
-          "funds": {
-            "title": "Hedge Funds et PE",
-            "desc": "Solutions personnalisées pour opérations de fonds, calcul NAV et rapports aux investisseurs."
+          "centralBanks": {
+            "title": "Banques Centrales",
+            "desc": "Émission de CBDC et infrastructure de règlement de gros pour autorités monétaires."
           },
-          "corporates": {
-            "title": "Trésorerie dEntreprise",
-            "desc": "Gestion dactifs numériques pour trésorerie dentreprise. Optimisation du rendement et gestion des risques."
+          "commercialBanks": {
+            "title": "Banques Commerciales",
+            "desc": "Rails de paiement de détail et dentreprise avec conformité réglementaire complète."
           },
-          "banks": {
-            "title": "Banques et Fintech",
-            "desc": "Solutions en marque blanche sintégrant aux systèmes bancaires. Architecture API-first."
+          "paymentProcessors": {
+            "title": "Processeurs de Paiement",
+            "desc": "Traitement de transactions à haut volume avec règlement instantané et frais minimaux."
           },
-          "governments": {
-            "title": "Gouvernements et Banques Centrales",
-            "desc": "Infrastructure CBDC, conformité réglementaire et gestion dactifs souverains."
+          "fintechs": {
+            "title": "Fintechs et Néobanques",
+            "desc": "Infrastructure bancaire moderne sans contraintes des systèmes hérités."
           }
         },
         "sections": {
-          "services": "Services Institutionnels",
-          "servicesDesc": "Solutions blockchain de grade entreprise",
+          "paymentFeatures": "Infrastructure de Paiement",
+          "paymentFeaturesDesc": "Capacités de paiement de grade entreprise pour institutions financières",
           "systemIntegrations": "Intégrations Systèmes",
           "clientTypes": "Types de Clients"
         },
         "cta": {
-          "title": "Discuter des Solutions Institutionnelles",
-          "desc": "Consultez notre équipe dexperts pour concevoir votre solution blockchain personnalisée.",
+          "title": "Prêt à Moderniser Votre Infrastructure de Paiement?",
+          "desc": "Planifiez une démo avec notre équipe institutionnelle. Nous vous montrerons comment TBURN peut transformer vos opérations de paiement.",
           "requestDemo": "Demander une Démo"
         }
       },
