@@ -9135,16 +9135,16 @@
             "boost": "2.0x"
           },
           "standard": {
-            "name": "STANDARD",
-            "requirement": "No requirement"
+            "name": "标准",
+            "requirement": "无要求"
           },
           "mid": {
-            "name": "TRUST LV.1",
-            "requirement": "Trust Score 60+"
+            "name": "信任等级 1",
+            "requirement": "信任评分 60+"
           },
           "max": {
-            "name": "TRUST LV.2",
-            "requirement": "Trust Score 80+"
+            "name": "信任等级 2",
+            "requirement": "信任评分 80+"
           }
         },
         "cta": {
@@ -9154,74 +9154,74 @@
           "viewDocs": "查看文档"
         },
         "stats": {
-          "tvl": "TVL",
-          "volume24h": "24H VOLUME",
-          "activeLPs": "ACTIVE LPs",
-          "avgApy": "AVG APY"
+          "tvl": "总锁仓量",
+          "volume24h": "24小时交易量",
+          "activeLPs": "活跃流动性提供者",
+          "avgApy": "平均年化收益"
         },
         "dex": {
-          "title": "Concentrated Liquidity DEX",
-          "description": "Capital-efficient AMM with concentrated liquidity positions. Provide liquidity in specific price ranges for up to 4000x capital efficiency compared to traditional AMMs.",
-          "feature1": "Concentrated liquidity positions for higher yields",
-          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
-          "feature3": "Range orders for advanced trading strategies",
-          "price": "Price",
-          "liquidity": "Liquidity",
-          "volume24h": "24h Volume"
+          "title": "集中流动性 DEX",
+          "description": "具有集中流动性头寸的资本高效 AMM。在特定价格范围内提供流动性，与传统 AMM 相比可实现高达 4000 倍的资本效率。",
+          "feature1": "集中流动性头寸可获得更高收益",
+          "feature2": "多级手续费（0.01%、0.05%、0.3%、1%）",
+          "feature3": "范围订单支持高级交易策略",
+          "price": "价格",
+          "liquidity": "流动性",
+          "volume24h": "24小时交易量"
         },
         "lending": {
-          "title": "Collateralized Lending",
-          "description": "Borrow against your crypto assets with competitive rates. Real-time liquidation protection with trust-verified collateral.",
-          "maxLtv": "MAX 80% LTV",
+          "title": "抵押借贷",
+          "description": "以您的加密资产作为抵押品进行借贷，享受具有竞争力的利率。信任验证抵押品提供实时清算保护。",
+          "maxLtv": "最高 80% LTV",
           "tburnLtv": "TBURN LTV",
-          "stablecoinLtv": "Stablecoin LTV"
+          "stablecoinLtv": "稳定币 LTV"
         },
         "staking": {
-          "title": "Liquid Staking",
-          "description": "Stake TBURN and receive sTBURN. Use liquid staking derivatives across DeFi while earning staking rewards.",
-          "apy": "18.5% APY",
-          "exchangeRate": "Exchange Rate",
-          "rewardCycle": "Reward Cycle",
-          "everyEpoch": "Every Epoch (24h)"
+          "title": "流动性质押",
+          "description": "质押 TBURN 并获得 sTBURN。在赚取质押奖励的同时，在 DeFi 中使用流动性质押衍生品。",
+          "apy": "18.5% 年化收益",
+          "exchangeRate": "兑换比率",
+          "rewardCycle": "奖励周期",
+          "everyEpoch": "每个周期（24小时）"
         },
         "yieldFarming": {
-          "tag": "YIELD FARMING",
-          "title": "Trust-Boosted Yield",
-          "subtitle": "Earn bonus rewards based on your Trust Score tier"
+          "tag": "收益农场",
+          "title": "信任加成收益",
+          "subtitle": "根据您的信任评分等级获得额外奖励"
         },
         "buttons": {
-          "startTrading": "Start Trading",
-          "viewAllFarms": "View All Farms"
+          "startTrading": "开始交易",
+          "viewAllFarms": "查看所有农场"
         },
         "relatedSolutions": {
-          "description": "Expand your DeFi capabilities with these complementary solutions",
+          "description": "通过这些互补解决方案扩展您的 DeFi 能力",
           "btcfi": {
             "title": "BTCfi",
-            "subtitle": "Bitcoin DeFi solutions"
+            "subtitle": "比特币 DeFi 解决方案"
           },
           "bridge": {
-            "title": "Cross-Chain Bridge",
-            "subtitle": "Multi-chain transfers"
+            "title": "跨链桥",
+            "subtitle": "多链转账"
           },
           "tokenExtensions": {
             "title": "代币扩展",
             "subtitle": "BRC-20标准"
           },
           "wallets": {
-            "title": "Wallets",
-            "subtitle": "Secure connections"
+            "title": "钱包",
+            "subtitle": "安全连接"
           },
           "payments": {
             "title": "支付",
             "subtitle": "全球商务"
           },
           "financial": {
-            "title": "Financial Services",
-            "subtitle": "Institutional tools"
+            "title": "金融服务",
+            "subtitle": "机构工具"
           },
           "permissioned": {
-            "title": "Permissioned Networks",
-            "subtitle": "Enterprise solutions"
+            "title": "许可网络",
+            "subtitle": "企业解决方案"
           },
           "aiFeatures": {
             "title": "AI功能",
@@ -9295,22 +9295,22 @@
           },
           "trustRating": {
             "title": "内置信任评级",
-            "description": "Trust scores are automatically recorded in token contracts. When below 40%,",
-            "descriptionContinue": "the transfer() function automatically fails, blocking transactions.",
+            "description": "信任评分自动记录在代币合约中。当低于40%时，",
+            "descriptionContinue": "transfer() 函数自动失败，阻止交易。",
             "badge": "自动投资者保护"
           },
           "autoBurn": {
             "title": "自动销毁计划",
-            "description": "If predefined burn schedules are not fulfilled, collateralized tokens are automatically burned.",
+            "description": "如果未执行预定义的销毁计划，抵押代币将自动销毁。",
             "badge": "强制通缩模型"
           },
           "collateral": {
             "title": "抵押品透明度",
-            "description": "项目 reserve wallet addresses are publicly disclosed on-chain, with real-time collateral ratios."
+            "description": "项目储备钱包地址在链上公开披露，实时显示抵押率。"
           },
           "metadata": {
             "title": "扩展元数据",
-            "description": "全部 project information including team details, whitepaper links, and audit reports stored on-chain."
+            "description": "所有项目信息（包括团队详情、白皮书链接和审计报告）均存储在链上。"
           }
         },
         "brc20Standard": {
@@ -9335,15 +9335,15 @@
           },
           "verified": {
             "title": "已验证项目代币",
-            "description": "交易able only when maintaining 60%+ trust score."
+            "description": "仅在保持 60%+ 信任评分时可交易。"
           },
           "stablecoins": {
             "title": "抵押支持稳定币",
-            "description": "实时 collateral ratio monitoring and auto liquidation."
+            "description": "实时抵押率监控和自动清算。"
           },
           "deflationary": {
             "title": "通缩实用代币",
-            "description": "Auto-burn on each transaction increases value."
+            "description": "每笔交易自动销毁，增加价值。"
           }
         },
         "realExamples": {
@@ -9375,14 +9375,14 @@
         },
         "brc20": {
           "title": "BRC-20 代币标准",
-          "subtitle": "Core interfaces for Trust & 销毁 functionality.",
+          "subtitle": "信任与销毁功能的核心接口。",
           "trustScoreFunctions": "信任评分函数",
           "autoBurnFunctions": "自动销毁函数"
         },
         "code": {
           "comments": {
-            "range": "Returns trust score in range 0-100",
-            "autoBurn": "销毁 tokens according to schedule"
+            "range": "返回 0-100 范围内的信任评分",
+            "autoBurn": "按计划销毁代币"
           }
         },
         "useCasesSection": {
@@ -9393,16 +9393,16 @@
         },
         "examples": {
           "busd": {
-            "name": "BUSD (Stablecoin)",
-            "badge": "90+ Trust Score"
+            "name": "BUSD（稳定币）",
+            "badge": "90+ 信任评分"
           },
           "bgame": {
-            "name": "BGAME (游戏Fi)",
-            "badge": "Auto-销毁 启用d"
+            "name": "BGAME（GameFi）",
+            "badge": "自动销毁已启用"
           },
           "bprop": {
-            "name": "BPROP (RWA)",
-            "badge": "Real Asset 抵押品"
+            "name": "BPROP（RWA）",
+            "badge": "真实资产抵押"
           }
         }
       },
@@ -9719,29 +9719,29 @@
         "features": {
           "rbac": {
             "title": "基于角色的访问控制",
-            "desc": "Granular permission settings for admins, validators, and users. Separate permissions for smart contract deployment, transaction approval, and data queries based on roles."
+            "desc": "针对管理员、验证者和用户的细粒度权限设置。基于角色为智能合约部署、交易审批和数据查询设置独立权限。"
           },
           "whitelist": {
             "title": "白名单验证者",
-            "desc": "开ly trusted validators can participate in the network. 配置 the network so that only internal nodes or approved partners can generate and validate blocks."
+            "desc": "只有受信任的验证者可以参与网络。配置网络使只有内部节点或经批准的合作伙伴才能生成和验证区块。"
           },
           "compliance": {
             "title": "监管合规",
-            "desc": "Framework designed for global regulations (GDPR, HIPAA, SOC2). Built-in audit logs, data encryption at rest and in transit, and privacy-preserving features."
+            "desc": "专为全球法规（GDPR、HIPAA、SOC2）设计的框架。内置审计日志、静态和传输中的数据加密以及隐私保护功能。"
           },
           "multisig": {
             "title": "多签名治理",
-            "desc": "关键 network decisions require multi-party approval. Smart contract upgrades, validator management, and parameter changes require 3/5 or 5/7 signatures."
+            "desc": "关键网络决策需要多方批准。智能合约升级、验证者管理和参数变更需要 3/5 或 5/7 签名。"
           }
         },
         "hybrid": {
           "privateAnchor": {
             "title": "私有链 + 公共锚定",
-            "desc": "Internal transactions run on a high-speed private chain, with periodic state hashes anchored to the T销毁 公开 主网 for immutability."
+            "desc": "内部交易在高速私有链上运行，定期将状态哈希锚定到 TBURN 公共主网以实现不可篡改性。"
           },
           "selectiveDisclosure": {
             "title": "选择性数据披露",
-            "desc": "交易 details remain private to authorized participants, but can be cryptographically proven to auditors or regulators when needed."
+            "desc": "交易详情对授权参与者保密，但在需要时可以向审计员或监管机构提供加密证明。"
           }
         },
         "diagram": {
@@ -9753,49 +9753,49 @@
           "exampleLabel": "示例",
           "supplyChain": {
             "title": "供应链",
-            "desc": "追踪 products from manufacturer to delivery. Participants only see relevant transaction segments.",
+            "desc": "从制造商到交付全程追踪产品。参与者只能看到相关的交易段。",
             "example": "汽车零部件追踪",
-            "flow": "Raw Material → 专业duction → Assembly"
+            "flow": "原材料 → 生产 → 组装"
           },
           "banking": {
             "title": "银行联盟",
-            "desc": "Inter-bank settlement network. 实时 clearing and settlement with zero counterparty risk.",
+            "desc": "银行间结算网络。实时清算和结算，零对手风险。",
             "example": "跨境汇款",
-            "flow": "3 Days → 3 Seconds, 费用 $10 → $0.01"
+            "flow": "3天 → 3秒，费用 $10 → $0.01"
           },
           "medical": {
             "title": "医疗数据",
-            "desc": "安全 patient data sharing between hospitals and insurers. 完整 HIPAA compliance auditing.",
+            "desc": "医院和保险公司之间安全共享患者数据。完整的 HIPAA 合规审计。",
             "example": "电子处方",
-            "flow": "Hospital → Pharmacy → 保险"
+            "flow": "医院 → 药房 → 保险"
           }
         },
         "deployment": {
           "step1": {
             "title": "需求分析",
-            "desc": "Identify participants, design permission schemas, and review regulatory requirements."
+            "desc": "识别参与者，设计权限架构，审查监管要求。"
           },
           "step2": {
             "title": "网络设置",
-            "desc": "部署 validator nodes, generate genesis block, and develop initial smart contracts."
+            "desc": "部署验证者节点，生成创世区块，开发初始智能合约。"
           },
           "step3": {
             "title": "集成与迁移",
-            "desc": "API integration with legacy systems (ERP, CRM), data migration, and user training."
+            "desc": "与遗留系统（ERP、CRM）的 API 集成、数据迁移和用户培训。"
           },
           "step4": {
             "title": "主网启动",
-            "desc": "专业duction deployment with 24/7 monitoring and regular security audits."
+            "desc": "生产部署，24/7 监控和定期安全审计。"
           }
         },
         "sections": {
           "enterpriseFeatures": {
             "title": "企业功能",
-            "subtitle": "高级 control and compliance features for businesses"
+            "subtitle": "面向企业的高级控制和合规功能"
           },
           "hybridArchitecture": {
             "title": "混合架构",
-            "subtitle": "Combine private chain privacy with public blockchain security"
+            "subtitle": "结合私有链隐私与公共区块链安全"
           },
           "useCases": {
             "title": "行业用例"
@@ -10130,74 +10130,74 @@
         "features": {
           "payment": {
             "title": "加密支付处理",
-            "desc": "接受 verified tokens with instant settlement. Trust Score filtering protects merchants from fraudulent transactions and low-quality tokens."
+            "desc": "接受经验证的代币并即时结算。信任评分过滤保护商家免受欺诈交易和低质量代币的侵害。"
           },
           "inventory": {
             "title": "区块链库存追踪",
-            "desc": "追踪 products with on-chain verification. NFT-based authenticity certificates prevent counterfeits and enable easy resale tracking."
+            "desc": "通过链上验证追踪产品。基于 NFT 的真品证书可防止伪造并支持便捷的转售追踪。"
           },
           "loyalty": {
             "title": "基于代币的忠诚度计划",
-            "desc": "Issue loyalty tokens to reward customers. 区块chain-based 分 are transparent, tradeable, and never expire."
+            "desc": "发行忠诚度代币奖励客户。基于区块链的积分透明、可交易且永不过期。"
           },
           "analytics": {
             "title": "实时商务分析",
-            "desc": "监控 sales, customer behavior, and token transactions. 开-chain data provides tamper-proof business insights."
+            "desc": "监控销售、客户行为和代币交易。链上数据提供防篡改的业务洞察。"
           }
         },
         "platforms": {
           "shopify": {
-            "desc": "开e-click integration with the world's leading e-commerce platform.",
+            "desc": "一键集成全球领先的电子商务平台。",
             "status": "可用"
           },
           "woocommerce": {
-            "desc": "WordPress plugin for WooCommerce stores.",
+            "desc": "适用于 WooCommerce 商店的 WordPress 插件。",
             "status": "可用"
           },
           "customApi": {
             "title": "自定义 API",
-            "desc": "RESTful API for custom integrations and mobile apps.",
+            "desc": "用于自定义集成和移动应用的 RESTful API。",
             "status": "可用"
           }
         },
         "stories": {
           "fashionBrand": {
             "name": "Aurora Fashion",
-            "type": "Luxury Fashion Brand",
-            "quote": "T销毁 Commerce reduced our payment processing fees by 85% and opened us to global crypto customers.",
+            "type": "奢侈时尚品牌",
+            "quote": "TBURN Commerce 将我们的支付处理费用降低了 85%，并为我们打开了全球加密客户市场。",
             "stats": {
               "volume": "$2.5M 交易量",
-              "savings": "85% 费用 Savings"
+              "savings": "85% 费用节省"
             }
           },
           "resalePlatform": {
-            "name": "区块Resale",
-            "type": "NFT-已验证 Resale 平台",
-            "quote": "NFT-based authenticity certificates eliminated counterfeit returns and increased buyer trust.",
+            "name": "BlockResale",
+            "type": "NFT 验证转售平台",
+            "quote": "基于 NFT 的真品证书消除了假冒退货，提高了买家信任度。",
             "stats": {
-              "nfts": "50K NFTs Issued",
-              "counterfeits": "Zero Counterfeits"
+              "nfts": "已发行 50K NFT",
+              "counterfeits": "零假冒"
             }
           }
         },
         "integration": {
           "step1": {
             "title": "获取 API 密钥",
-            "desc": "Register on the developer dashboard and get your credentials."
+            "desc": "在开发者仪表板注册并获取您的凭据。"
           },
           "step2": {
             "title": "安装 SDK",
-            "desc": "添加 T销毁 Commerce SDK to your project."
+            "desc": "将 TBURN Commerce SDK 添加到您的项目中。"
           },
           "step3": {
             "title": "配置 Webhooks",
-            "desc": "Set up payment confirmation and order update notifications."
+            "desc": "设置支付确认和订单更新通知。"
           }
         },
         "sections": {
           "coreFeatures": {
             "title": "商务功能",
-            "subtitle": "每thing you need to accept crypto payments and grow your business."
+            "subtitle": "接受加密支付和发展业务所需的一切。"
           },
           "platforms": {
             "title": "集成平台"
@@ -10222,19 +10222,19 @@
         "services": {
           "banking": {
             "title": "数字银行基础设施",
-            "desc": "构建 neo-banking products with blockchain settlement. 即时 transfers, programmable accounts, and full regulatory compliance."
+            "desc": "使用区块链结算构建新银行产品。即时转账、可编程账户和完全监管合规。"
           },
           "defi": {
             "title": "DeFi 协议集成",
-            "desc": "连接 traditional finance with decentralized protocols. 访问 lending, staking, and yield generation with institutional-grade security."
+            "desc": "连接传统金融与去中心化协议。以机构级安全访问借贷、质押和收益生成。"
           },
           "payment": {
             "title": "跨境支付",
-            "desc": "全球 settlements in seconds, not days. Reduce costs by 99% with blockchain-based international transfers."
+            "desc": "全球结算以秒计而非天计。通过基于区块链的国际转账降低 99% 的成本。"
           },
           "compliance": {
             "title": "监管合规",
-            "desc": "Built-in KYC/AML verification and audit trails. Meet GDPR, SOC2, and financial regulations automatically."
+            "desc": "内置 KYC/AML 验证和审计追踪。自动满足 GDPR、SOC2 和金融法规要求。"
           }
         },
         "stats": {
@@ -10245,45 +10245,45 @@
         "cases": {
           "neobank": {
             "name": "NeoBank X",
-            "type": "Digital Banking 平台",
-            "quote": "T销毁's infrastructure allowed us to launch in 3 months instead of 18. Our customers love instant transfers.",
+            "type": "数字银行平台",
+            "quote": "TBURN 的基础设施让我们在 3 个月内上线，而不是 18 个月。我们的客户喜欢即时转账。",
             "stats": {
-              "customers": "150K 自定义ers",
-              "costs": "90% 成本 Reduction"
+              "customers": "15万客户",
+              "costs": "成本降低 90%"
             }
           },
           "defiProtocol": {
             "name": "DeFi Prime",
-            "type": "借贷 专业tocol",
-            "quote": "Trust Score integration reduced bad debt to near-zero. Our lenders feel secure knowing every borrower is verified.",
+            "type": "借贷协议",
+            "quote": "信任评分集成将坏账降至接近零。我们的出借方知道每个借款人都经过验证，因此感到安心。",
             "stats": {
-              "tvl": "$500M TVL",
-              "liquidations": "Zero 差 Debt"
+              "tvl": "$500M 总锁仓",
+              "liquidations": "零坏账"
             }
           }
         },
         "building": {
           "step1": {
             "title": "架构咨询",
-            "desc": "Our team helps design your financial product architecture, ensuring regulatory compliance from day one."
+            "desc": "我们的团队帮助设计您的金融产品架构，从第一天起确保监管合规。"
           },
           "step2": {
             "title": "API 集成",
-            "desc": "连接 to T销毁's financial APIs for payments, lending, and asset management."
+            "desc": "连接 TBURN 的金融 API 进行支付、借贷和资产管理。"
           },
           "step3": {
             "title": "合规设置",
-            "desc": "配置 KYC/AML flows and audit logging to meet your regulatory requirements."
+            "desc": "配置 KYC/AML 流程和审计日志以满足您的监管要求。"
           },
           "step4": {
             "title": "生产启动",
-            "desc": "部署 with 24/7 monitoring, enterprise SLA, and dedicated support."
+            "desc": "部署 24/7 监控、企业级 SLA 和专属支持。"
           }
         },
         "sections": {
           "coreServices": {
             "title": "核心金融服务",
-            "subtitle": "企业-grade blockchain infrastructure for modern finance."
+            "subtitle": "面向现代金融的企业级区块链基础设施。"
           },
           "realCases": {
             "title": "真实成功案例"
@@ -10302,7 +10302,7 @@
           "strategic": {
             "title": "战略 AI",
             "model": "GPT-4 / Claude 3",
-            "description": "高-level decision making for governance, tokenomics design, and long-term risk assessment. 专业cesses complex analyses with human-like reasoning.",
+            "description": "用于治理、代币经济设计和长期风险评估的高级决策。以类人推理处理复杂分析。",
             "capabilities": {
               "governance": "DAO 提案分析",
               "tokenomics": "代币经济优化",
@@ -10312,7 +10312,7 @@
           "tactical": {
             "title": "战术 AI",
             "model": "GPT-3.5 / Mistral",
-            "description": "实时 security monitoring and fraud detection. Analyzes transaction patterns and identifies vulnerabilities before exploitation.",
+            "description": "实时安全监控和欺诈检测。分析交易模式并在被利用前识别漏洞。",
             "capabilities": {
               "vulnerability": "智能合约审计",
               "fraud": "欺诈模式检测",
@@ -10321,116 +10321,116 @@
           },
           "operational": {
             "title": "运营 AI",
-            "model": "自定义 ML Models",
-            "description": "Ultra-fast transaction validation and network health monitoring. Optimized for speed with sub-50ms response times.",
+            "model": "自定义 ML 模型",
+            "description": "超快交易验证和网络健康监控。优化速度，响应时间低于 50 毫秒。",
             "capabilities": {
-              "validation": "交易 有效ation",
-              "mev": "MEV 专业tection",
-              "health": "网络 Health 监控ing"
+              "validation": "交易验证",
+              "mev": "MEV 防护",
+              "health": "网络健康监控"
             }
           }
         },
         "architecture": {
           "step1": {
-            "title": "数据 Ingestion",
-            "description": "实时 blockchain data, mempool transactions, and market feeds are continuously processed."
+            "title": "数据摄取",
+            "description": "持续处理实时区块链数据、内存池交易和市场数据。"
           },
           "step2": {
-            "title": "AI 专业cessing",
-            "description": "每个 tier processes relevant data: Operational for speed, Tactical for security, Strategic for insights."
+            "title": "AI 处理",
+            "description": "每个层级处理相关数据：运营层处理速度、战术层处理安全、战略层处理洞察。"
           },
           "step3": {
-            "title": "Coordinated Response",
-            "description": "AI tiers communicate results, with higher tiers overriding lower tier decisions when necessary."
+            "title": "协调响应",
+            "description": "AI 层级通信结果，必要时高层级可覆盖低层级决策。"
           }
         },
         "stats": {
           "uptime": {
-            "title": "99.99% Uptime",
-            "desc": "Redundant AI clusters across multiple regions"
+            "title": "99.99% 运行时间",
+            "desc": "跨多个区域的冗余 AI 集群"
           },
           "cost": {
-            "title": "90% 成本 Reduction",
-            "desc": "Efficient tier routing minimizes compute costs"
+            "title": "成本降低 90%",
+            "desc": "高效的层级路由最小化计算成本"
           },
           "scale": {
             "title": "100K+ TPS",
-            "desc": "运营 AI handles massive throughput"
+            "desc": "运营 AI 处理大规模吞吐量"
           },
           "verify": {
-            "title": "AI-已验证 Trust",
-            "desc": "Continuous project scoring and monitoring"
+            "title": "AI 验证信任",
+            "desc": "持续项目评分和监控"
           }
         },
         "sections": {
           "architecture": {
-            "title": "AI Architecture"
+            "title": "AI 架构"
           },
           "relatedSolutions": {
-            "title": "相关 解决方案",
-            "subtitle": "探索 how AI enhances other T销毁 products"
+            "title": "相关解决方案",
+            "subtitle": "探索 AI 如何增强其他 TBURN 产品"
           },
           "developerResources": {
-            "title": "开发者 资源",
-            "subtitle": "Integrate AI capabilities into your applications"
+            "title": "开发者资源",
+            "subtitle": "将 AI 能力集成到您的应用中"
           }
         },
         "relatedLinks": {
           "wallets": {
-            "title": "钱包s",
-            "desc": "AI-enhanced security"
+            "title": "钱包",
+            "desc": "AI 增强安全"
           },
           "payments": {
             "title": "支付",
-            "desc": "Smart fraud detection"
+            "desc": "智能欺诈检测"
           },
           "gameTooling": {
             "title": "游戏工具",
-            "desc": "Anti-cheat AI systems"
+            "desc": "反作弊 AI 系统"
           },
           "financial": {
-            "title": "Financial 服务",
-            "desc": "Risk assessment AI"
+            "title": "金融服务",
+            "desc": "风险评估 AI"
           }
         },
         "devResources": {
           "sdkGuide": {
             "title": "AI SDK 指南",
-            "desc": "集成 documentation"
+            "desc": "集成文档"
           },
           "smartContracts": {
-            "title": "AI 合约s",
-            "desc": "开-chain AI interfaces"
+            "title": "AI 合约",
+            "desc": "链上 AI 接口"
           },
           "apiReference": {
             "title": "API 参考",
-            "desc": "REST & 图表QL APIs"
+            "desc": "REST 和 GraphQL API"
           },
           "websocket": {
-            "title": "Real-时间 事件",
-            "desc": "WebSocket streaming"
+            "title": "实时事件",
+            "desc": "WebSocket 流"
           },
           "cli": {
             "title": "CLI 工具",
-            "desc": "Command line interface"
+            "desc": "命令行接口"
           },
           "examples": {
             "title": "代码示例",
-            "desc": "样本 integrations"
+            "desc": "示例集成"
           }
         },
         "learnMore": {
-          "label": "LEARN MORE",
+          "label": "了解更多",
           "defiMastery": {
-            "title": "AI in DeFi",
-            "desc": "高级 AI strategies for DeFi"
+            "title": "DeFi 中的 AI",
+            "desc": "DeFi 的高级 AI 策略"
           }
         },
         "forDevelopers": {
           "label": "面向开发者",
           "devCourse": {
             "title": "AI 开发者课程",
-            "desc": "构建 AI-powered d应用"
+            "desc": "构建 AI 驱动的 dApp"
           }
         }
       },
@@ -10440,253 +10440,253 @@
         "subtitle": "NFT铸造、版税和创作者经济工具。",
         "titleHighlight": "创作者",
         "buttons": {
-          "startCreating": "开始 Creating",
-          "exploreCollections": "探索 收藏"
+          "startCreating": "开始创作",
+          "exploreCollections": "探索收藏"
         },
         "features": {
           "lightningPerformance": {
-            "title": "Lightning-快速 铸造ing",
-            "description": "铸造 NFTs in seconds with 50,000+ TPS capacity. Batch minting for large collections with minimal gas fees."
+            "title": "闪电般快速铸造",
+            "description": "以 50,000+ TPS 容量在几秒内铸造 NFT。大型收藏品批量铸造，gas 费用极低。"
           },
           "trustVerification": {
             "title": "信任验证",
-            "description": "每 NFT collection displays its Trust Score. 购买ers can verify creator authenticity and collection legitimacy instantly."
+            "description": "每个 NFT 收藏都显示其信任评分。买家可以即时验证创作者真实性和收藏合法性。"
           },
           "thrivingEcosystem": {
-            "title": "Thriving 生态系统",
-            "description": "加入 15,000+ verified artists. 访问 marketplaces, galleries, and collector communities built on trust."
+            "title": "繁荣的生态系统",
+            "description": "加入 15,000+ 已验证艺术家。访问建立在信任基础上的市场、画廊和收藏家社区。"
           },
           "infiniteScalability": {
-            "title": "Infinite Scalability",
-            "description": "从 1-of-1 artwork to 10,000 piece generative collections. Our infrastructure scales with your creative vision."
+            "title": "无限可扩展性",
+            "description": "从 1/1 艺术品到 10,000 件生成式收藏。我们的基础设施随您的创意愿景扩展。"
           }
         },
         "stats": {
-          "nftsMinted": "NFTs MINTED",
-          "creatorEarnings": "CREATOR EARNINGS",
-          "verifiedArtists": "VERIFIED ARTISTS"
+          "nftsMinted": "已铸造 NFT",
+          "creatorEarnings": "创作者收入",
+          "verifiedArtists": "已验证艺术家"
         },
         "relatedSolutions": {
-          "title": "相关 解决方案",
-          "description": "Enhance your creative journey with complementary tools",
+          "title": "相关解决方案",
+          "description": "使用互补工具提升您的创作之旅",
           "tokenExtensions": {
-            "title": "代币 Extensions",
-            "subtitle": "自定义 token standards"
+            "title": "代币扩展",
+            "subtitle": "自定义代币标准"
           },
           "wallets": {
-            "title": "钱包s",
-            "subtitle": "安全 asset storage"
+            "title": "钱包",
+            "subtitle": "安全资产存储"
           },
           "commerce": {
-            "title": "Commerce",
-            "subtitle": "出售 your creations"
+            "title": "商务",
+            "subtitle": "销售您的作品"
           },
           "gameTooling": {
             "title": "游戏工具",
-            "subtitle": "游戏 NFTs"
+            "subtitle": "游戏 NFT"
           },
           "payments": {
             "title": "支付",
-            "subtitle": "接受 crypto"
+            "subtitle": "接受加密货币"
           },
           "actionsBlinks": {
             "title": "Actions & Blinks",
-            "subtitle": "社交 NFT sharing"
+            "subtitle": "社交 NFT 分享"
           },
           "financial": {
-            "title": "Financial 服务",
-            "subtitle": "创作者 finance"
+            "title": "金融服务",
+            "subtitle": "创作者金融"
           },
           "aiFeatures": {
             "title": "AI 功能",
-            "subtitle": "AI-powered creation"
+            "subtitle": "AI 驱动创作"
           }
         },
         "developerResources": {
-          "title": "开发者 资源",
-          "description": "构建 NFT platforms and creator tools with our comprehensive SDK",
+          "title": "开发者资源",
+          "description": "使用我们全面的 SDK 构建 NFT 平台和创作者工具",
           "sdkGuide": {
             "title": "NFT SDK 指南",
-            "subtitle": "集成 documentation"
+            "subtitle": "集成文档"
           },
           "smartContracts": {
             "title": "智能合约",
-            "subtitle": "ERC-721/1155 templates"
+            "subtitle": "ERC-721/1155 模板"
           },
           "apiReference": {
             "title": "API 参考",
-            "subtitle": "REST & 图表QL APIs"
+            "subtitle": "REST 和 GraphQL API"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "实时 events"
+            "subtitle": "实时事件"
           },
           "cliReference": {
             "title": "CLI 工具",
-            "subtitle": "Command line minting"
+            "subtitle": "命令行铸造"
           },
           "codeExamples": {
             "title": "代码示例",
-            "subtitle": "样本 integrations"
+            "subtitle": "示例集成"
           }
         },
         "learnMore": {
-          "title": "LEARN MORE",
+          "title": "了解更多",
           "forDevelopers": "面向开发者",
           "defiMastery": {
-            "title": "NFT Mastery Course",
-            "subtitle": "高级 NFT creation and marketing"
+            "title": "NFT 精通课程",
+            "subtitle": "高级 NFT 创作和营销"
           },
           "developerCourse": {
-            "title": "创作者 开发者课程",
-            "subtitle": "构建 NFT platforms and marketplaces"
+            "title": "创作者开发者课程",
+            "subtitle": "构建 NFT 平台和市场"
           }
         },
         "cta": {
-          "title": "准备就绪 to 创建 on T销毁?",
-          "description": "加入 thousands of artists and creators building the future of digital ownership.",
-          "link": "View 创作者 文档"
+          "title": "准备在 TBURN 上创作？",
+          "description": "加入数千名艺术家和创作者，共同构建数字所有权的未来。",
+          "link": "查看创作者文档"
         }
       },
       "btcfi": {
         "tag": "比特币DEFI",
         "title": "BTCfi",
         "subtitle": "包含包装BTC和跨链收益的比特币DeFi集成。",
-        "titleHighlight": "Bitcoin DeFi",
+        "titleHighlight": "比特币 DeFi",
         "buttons": {
           "bridgeBtc": "桥接 BTC",
-          "viewYields": "View Yields"
+          "viewYields": "查看收益"
         },
         "features": {
           "highPerformance": {
-            "title": "高 Performance 桥接",
-            "description": "桥接 Bitcoin to T销毁 in under 10 minutes. MPC security ensures your BTC is always safe with trustless verification."
+            "title": "高性能桥接",
+            "description": "在 10 分钟内将比特币桥接到 TBURN。MPC 安全确保您的 BTC 始终安全，采用无信任验证。"
           },
           "trustVerification": {
             "title": "信任验证",
-            "description": "全部 BTCfi protocols display Trust Scores. 开ly verified protocols with 60%+ scores are featured on our platform."
+            "description": "所有 BTCfi 协议都显示信任评分。评分 60%+ 的公开验证协议会在我们的平台上推荐。"
           },
           "growingEcosystem": {
-            "title": "Growing 生态系统",
-            "description": "访问 lending, staking, and yield farming with your Bitcoin. Native BTC earning opportunities without selling."
+            "title": "增长的生态系统",
+            "description": "使用您的比特币访问借贷、质押和收益农场。无需出售即可获得原生 BTC 收益机会。"
           },
           "scalableSolutions": {
-            "title": "Scalable 解决方案",
-            "description": "从 individual holders to institutional treasuries. Our infrastructure handles any volume with consistent performance."
+            "title": "可扩展解决方案",
+            "description": "从个人持有者到机构金库。我们的基础设施以稳定的性能处理任何交易量。"
           }
         },
         "stats": {
-          "btcBridged": "BTC BRIDGED",
-          "tvl": "TVL",
+          "btcBridged": "已桥接 BTC",
+          "tvl": "总锁仓量",
           "zeroValue": "0",
-          "securityIncidents": "SECURITY INCIDENTS"
+          "securityIncidents": "安全事件"
         },
         "productsSection": {
-          "title": "BTCfi 专业ducts",
-          "description": "Multiple ways to put your Bitcoin to work"
+          "title": "BTCfi 产品",
+          "description": "多种方式让您的比特币发挥作用"
         },
         "products": {
           "tbtcBridge": {
             "title": "tBTC 桥接",
-            "description": "Trustless Bitcoin bridging with MPC security. 否 centralized custodians.",
-            "stats": "15K+ BTC 桥接d"
+            "description": "采用 MPC 安全的无信任比特币桥接。无中心化托管人。",
+            "stats": "15K+ BTC 已桥接"
           },
           "btcLending": {
             "title": "BTC 借贷",
-            "description": "Borrow stablecoins against your BTC. Up to 75% LTV with competitive rates.",
-            "stats": "5.2% APR"
+            "description": "使用您的 BTC 作为抵押借入稳定币。高达 75% LTV，利率具有竞争力。",
+            "stats": "5.2% 年利率"
           },
           "btcYieldFarming": {
             "title": "BTC 收益农场",
-            "description": "专业vide BTC liquidity and earn trading fees plus TBURN rewards.",
+            "description": "提供 BTC 流动性，赚取交易费用和 TBURN 奖励。",
             "stats": "12.5% 年化收益率"
           },
           "btcStaking": {
             "title": "BTC 质押",
-            "description": "质押 wrapped BTC to secure the network and earn passive rewards.",
+            "description": "质押包装的 BTC 以保护网络并赚取被动奖励。",
             "stats": "8.3% 年化收益率"
           }
         },
         "relatedSolutions": {
-          "title": "相关 解决方案",
-          "description": "Enhance your BTCfi experience with these tools",
+          "title": "相关解决方案",
+          "description": "使用这些工具增强您的 BTCfi 体验",
           "tokenExtensions": {
-            "title": "代币 Extensions",
-            "subtitle": "BRC-20 standards"
+            "title": "代币扩展",
+            "subtitle": "BRC-20 标准"
           },
           "wallets": {
-            "title": "钱包s",
-            "subtitle": "BTC-compatible wallets"
+            "title": "钱包",
+            "subtitle": "BTC 兼容钱包"
           },
           "payments": {
             "title": "支付",
-            "subtitle": "Pay with BTC"
+            "subtitle": "用 BTC 支付"
           },
           "financial": {
-            "title": "Financial 服务",
-            "subtitle": "BTC banking"
+            "title": "金融服务",
+            "subtitle": "BTC 银行"
           },
           "commerce": {
-            "title": "Commerce",
+            "title": "商务",
             "subtitle": "接受 BTC"
           },
           "permissioned": {
-            "title": "权限ed",
+            "title": "许可网络",
             "subtitle": "企业 BTC"
           },
           "aiFeatures": {
             "title": "AI 功能",
-            "subtitle": "Smart BTC strategies"
+            "subtitle": "智能 BTC 策略"
           },
           "actionsBlinks": {
             "title": "Actions & Blinks",
-            "subtitle": "BTC transactions"
+            "subtitle": "BTC 交易"
           }
         },
         "developerResources": {
-          "title": "开发者 资源",
-          "description": "构建 BTCfi applications with our comprehensive tools",
+          "title": "开发者资源",
+          "description": "使用我们全面的工具构建 BTCfi 应用",
           "sdkGuide": {
             "title": "BTCfi SDK 指南",
-            "subtitle": "集成 documentation"
+            "subtitle": "集成文档"
           },
           "smartContracts": {
             "title": "智能合约",
-            "subtitle": "BTC contract templates"
+            "subtitle": "BTC 合约模板"
           },
           "apiReference": {
             "title": "API 参考",
-            "subtitle": "REST & 图表QL APIs"
+            "subtitle": "REST 和 GraphQL API"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "实时 BTC events"
+            "subtitle": "实时 BTC 事件"
           },
           "cliReference": {
             "title": "CLI 工具",
-            "subtitle": "Command line interface"
+            "subtitle": "命令行接口"
           },
           "codeExamples": {
             "title": "代码示例",
-            "subtitle": "样本 integrations"
+            "subtitle": "示例集成"
           }
         },
         "learnMore": {
-          "title": "LEARN MORE",
-          "gettingStarted": "GETTING STARTED",
+          "title": "了解更多",
+          "gettingStarted": "入门指南",
           "defiMastery": {
-            "title": "BTCfi Mastery Course",
-            "subtitle": "高级 Bitcoin DeFi strategies"
+            "title": "BTCfi 精通课程",
+            "subtitle": "高级比特币 DeFi 策略"
           },
           "introToDefi": {
-            "title": "简介 to BTCfi",
-            "subtitle": "Learn Bitcoin DeFi fundamentals"
+            "title": "BTCfi 入门",
+            "subtitle": "学习比特币 DeFi 基础知识"
           }
         },
         "cta": {
-          "title": "准备就绪 to 解锁 Your Bitcoin?",
-          "description": "开始 earning yield on your BTC today with trust-verified protocols.",
-          "link": "View BTCfi 文档"
+          "title": "准备好解锁您的比特币了吗？",
+          "description": "立即开始通过信任验证协议为您的 BTC 赚取收益。",
+          "link": "查看 BTCfi 文档"
         }
       },
       "crossChainBridge": {
@@ -10695,135 +10695,135 @@
         "subtitle": "跨7+区块链网络的安全资产转移。",
         "titleHighlight": "桥接",
         "buttons": {
-          "launchBridge": "启动 桥接",
+          "launchBridge": "启动桥接",
           "viewDocumentation": "查看文档"
         },
         "heroStats": {
-          "chains": "SUPPORTED CHAINS",
-          "volume": "TOTAL VOLUME",
-          "txns": "TOTAL TRANSACTIONS",
-          "avgTime": "AVG BRIDGE TIME"
+          "chains": "支持的链",
+          "volume": "总交易量",
+          "txns": "总交易次数",
+          "avgTime": "平均桥接时间"
         },
         "supportedNetworks": {
-          "title": "支持ed 网络s",
-          "subtitle": "桥接 assets to and from major blockchain networks"
+          "title": "支持的网络",
+          "subtitle": "与主流区块链网络进行资产桥接"
         },
         "coreFeatures": {
           "mpcSecurity": {
             "title": "MPC 安全",
-            "subtitle": "Multi-Party Computation for trustless bridging",
+            "subtitle": "用于无信任桥接的多方计算",
             "items": {
-              "distributedKeyGen": "Distributed 密钥 Generation",
-              "thresholdSignatures": "Threshold 签名s",
-              "regularKeyRotation": "Regular 密钥 Rotation"
+              "distributedKeyGen": "分布式密钥生成",
+              "thresholdSignatures": "门限签名",
+              "regularKeyRotation": "定期密钥轮换"
             }
           },
           "atomicSwaps": {
-            "title": "Atomic 交换s",
-            "subtitle": "全部-or-nothing transaction guarantees",
+            "title": "原子交换",
+            "subtitle": "全有或全无的交易保证",
             "items": {
               "htlcContracts": "HTLC 智能合约",
-              "zeroSlippage": "Zero Slippage 交换s",
-              "autoRefund": "Automatic Refunds"
+              "zeroSlippage": "零滑点交换",
+              "autoRefund": "自动退款"
             }
           },
           "unifiedLiquidity": {
-            "title": "Unified 流动性",
-            "subtitle": "Deep cross-chain liquidity pools",
+            "title": "统一流动性",
+            "subtitle": "深度跨链流动性池",
             "items": {
-              "crossChainPools": "Cross-链 流动性 池",
-              "dynamicRebalancing": "Dynamic 池 Rebalancing",
-              "largeTransferSupport": "大 转账 支持"
+              "crossChainPools": "跨链流动性池",
+              "dynamicRebalancing": "动态池再平衡",
+              "largeTransferSupport": "大额转账支持"
             }
           }
         },
         "howItWorks": {
-          "title": "How the 桥接 Works"
+          "title": "桥接工作原理"
         },
         "bridgeSteps": {
           "step1": {
-            "title": "连接 钱包",
-            "desc": "连接 your wallet and select source/destination chains."
+            "title": "连接钱包",
+            "desc": "连接您的钱包并选择源链/目标链。"
           },
           "step2": {
-            "title": "选择 Assets",
-            "desc": "选择 tokens to bridge and enter the amount."
+            "title": "选择资产",
+            "desc": "选择要桥接的代币并输入金额。"
           },
           "step3": {
-            "title": "确认 转账",
-            "desc": "Review fees and Trust Score verification, then confirm."
+            "title": "确认转账",
+            "desc": "查看费用和信任评分验证，然后确认。"
           },
           "step4": {
-            "title": "接收 Assets",
-            "desc": "Assets arrive on destination chain in ~2 minutes."
+            "title": "接收资产",
+            "desc": "资产在约 2 分钟内到达目标链。"
           }
         },
         "relatedSolutions": {
-          "title": "相关 解决方案",
-          "description": "Enhance your cross-chain experience with these tools",
+          "title": "相关解决方案",
+          "description": "使用这些工具增强您的跨链体验",
           "btcfi": {
             "title": "BTCfi",
-            "subtitle": "桥接 Bitcoin"
+            "subtitle": "桥接比特币"
           },
           "tokenExtensions": {
-            "title": "代币 Extensions",
-            "subtitle": "Cross-chain tokens"
+            "title": "代币扩展",
+            "subtitle": "跨链代币"
           },
           "wallets": {
-            "title": "钱包s",
-            "subtitle": "Multi-chain wallets"
+            "title": "钱包",
+            "subtitle": "多链钱包"
           },
           "payments": {
             "title": "支付",
-            "subtitle": "Cross-chain payments"
+            "subtitle": "跨链支付"
           },
           "financial": {
-            "title": "Financial 服务",
-            "subtitle": "Multi-chain finance"
+            "title": "金融服务",
+            "subtitle": "多链金融"
           },
           "permissioned": {
-            "title": "权限ed",
-            "subtitle": "企业 bridges"
+            "title": "许可网络",
+            "subtitle": "企业桥接"
           },
           "aiFeatures": {
             "title": "AI 功能",
-            "subtitle": "Smart routing"
+            "subtitle": "智能路由"
           },
           "actionsBlinks": {
             "title": "Actions & Blinks",
-            "subtitle": "桥接 via links"
+            "subtitle": "通过链接桥接"
           }
         },
         "developerResources": {
-          "title": "开发者 资源",
-          "description": "Integrate cross-chain functionality into your applications",
+          "title": "开发者资源",
+          "description": "将跨链功能集成到您的应用中",
           "sdkGuide": {
             "title": "桥接 SDK 指南",
-            "subtitle": "集成 documentation"
+            "subtitle": "集成文档"
           },
           "smartContracts": {
             "title": "智能合约",
-            "subtitle": "桥接 contracts"
+            "subtitle": "桥接合约"
           },
           "apiReference": {
             "title": "API 参考",
-            "subtitle": "REST & 图表QL APIs"
+            "subtitle": "REST 和 GraphQL API"
           },
           "websocketApi": {
             "title": "WebSocket API",
-            "subtitle": "实时 updates"
+            "subtitle": "实时更新"
           },
           "cliReference": {
             "title": "CLI 工具",
-            "subtitle": "Command line bridging"
+            "subtitle": "命令行桥接"
           },
           "codeExamples": {
             "title": "代码示例",
-            "subtitle": "样本 integrations"
+            "subtitle": "示例集成"
           }
         },
         "learnMore": {
-          "title": "LEARN MORE",
+          "title": "了解更多",
           "forDevelopers": "面向开发者",
           "defiMastery": {
             "title": "跨链 DeFi",
