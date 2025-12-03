@@ -6352,70 +6352,217 @@
       "nav": {
         "learn": {
           "title": "学习",
-          "learnHub": { "title": "学习中心", "description": "开始使用 Burn Chain" },
-          "whatIsBurnChain": { "title": "什么是 Burn Chain?", "description": "了解我们的区块链" },
-          "trustScore": { "title": "信任评分系统", "description": "了解信任验证" },
-          "wallet": { "title": "什么是钱包?", "description": "钱包基础" },
-          "blockchainBasics": { "title": "区块链基础", "description": "核心概念" },
-          "defiMastery": { "title": "DeFi 精通", "description": "高级 DeFi 课程" },
-          "developerCourse": { "title": "开发者课程", "description": "在 Burn Chain 上构建" },
-          "introToDefi": { "title": "DeFi 入门", "description": "DeFi 基础" },
-          "educationPrograms": { "title": "教育项目", "description": "认证课程" },
-          "whitepaper": { "title": "技术白皮书", "description": "深度技术文档" },
-          "tokenomics": { "title": "代币经济学", "description": "代币经济" },
-          "roadmap": { "title": "路线图", "description": "开发时间表" }
+          "learnHub": {
+            "title": "学习中心",
+            "description": "开始使用 Burn Chain"
+          },
+          "whatIsBurnChain": {
+            "title": "什么是 Burn Chain?",
+            "description": "了解我们的区块链"
+          },
+          "trustScore": {
+            "title": "信任评分系统",
+            "description": "了解信任验证"
+          },
+          "wallet": {
+            "title": "什么是钱包?",
+            "description": "钱包基础"
+          },
+          "blockchainBasics": {
+            "title": "区块链基础",
+            "description": "核心概念"
+          },
+          "defiMastery": {
+            "title": "DeFi 精通",
+            "description": "高级 DeFi 课程"
+          },
+          "developerCourse": {
+            "title": "开发者课程",
+            "description": "在 Burn Chain 上构建"
+          },
+          "introToDefi": {
+            "title": "DeFi 入门",
+            "description": "DeFi 基础"
+          },
+          "educationPrograms": {
+            "title": "教育项目",
+            "description": "认证课程"
+          },
+          "whitepaper": {
+            "title": "技术白皮书",
+            "description": "深度技术文档"
+          },
+          "tokenomics": {
+            "title": "代币经济学",
+            "description": "代币经济"
+          },
+          "roadmap": {
+            "title": "路线图",
+            "description": "开发时间表"
+          }
         },
         "developers": {
           "title": "开发者",
-          "developerHub": { "title": "开发者中心", "description": "在 Burn Chain 上构建" },
-          "documentation": { "title": "文档", "description": "完整文档" },
-          "apiReference": { "title": "API 参考", "description": "API 端点" },
-          "cliReference": { "title": "CLI 参考", "description": "命令行工具" },
-          "sdkGuide": { "title": "SDK 指南", "description": "SDK 集成" },
-          "smartContracts": { "title": "智能合约", "description": "合约开发" },
-          "websocketApi": { "title": "WebSocket API", "description": "实时数据" },
-          "codeExamples": { "title": "代码示例", "description": "示例代码" },
-          "quickStart": { "title": "快速入门", "description": "快速开始" },
-          "installation": { "title": "安装指南", "description": "设置说明" },
-          "evmMigration": { "title": "EVM 迁移", "description": "从以太坊迁移" }
+          "developerHub": {
+            "title": "开发者中心",
+            "description": "在 Burn Chain 上构建"
+          },
+          "documentation": {
+            "title": "文档",
+            "description": "完整文档"
+          },
+          "apiReference": {
+            "title": "API 参考",
+            "description": "API 端点"
+          },
+          "cliReference": {
+            "title": "CLI 参考",
+            "description": "命令行工具"
+          },
+          "sdkGuide": {
+            "title": "SDK 指南",
+            "description": "SDK 集成"
+          },
+          "smartContracts": {
+            "title": "智能合约",
+            "description": "合约开发"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "实时数据"
+          },
+          "codeExamples": {
+            "title": "代码示例",
+            "description": "示例代码"
+          },
+          "quickStart": {
+            "title": "快速入门",
+            "description": "快速开始"
+          },
+          "installation": {
+            "title": "安装指南",
+            "description": "设置说明"
+          },
+          "evmMigration": {
+            "title": "EVM 迁移",
+            "description": "从以太坊迁移"
+          }
         },
         "solutions": {
           "title": "解决方案",
-          "tokenExtensions": { "title": "代币扩展", "description": "增强型代币" },
-          "actionsBlinks": { "title": "Actions & Blinks", "description": "基于 URL 的操作" },
-          "wallets": { "title": "钱包", "description": "钱包解决方案" },
-          "permissioned": { "title": "许可环境", "description": "企业网络" },
-          "gameTooling": { "title": "游戏工具", "description": "游戏开发" },
-          "payments": { "title": "支付", "description": "支付解决方案" },
-          "commerce": { "title": "商务", "description": "电子商务集成" },
-          "financial": { "title": "金融基础设施", "description": "金融服务" },
-          "aiFeatures": { "title": "AI 功能", "description": "AI 能力" },
-          "artistsCreators": { "title": "艺术家和创作者", "description": "NFT 平台" },
-          "btcfi": { "title": "BTCfi", "description": "比特币 DeFi" },
-          "crossChainBridge": { "title": "跨链桥", "description": "多链桥接" },
-          "defiHub": { "title": "DeFi 中心", "description": "DeFi 生态系统" }
+          "tokenExtensions": {
+            "title": "代币扩展",
+            "description": "增强型代币"
+          },
+          "actionsBlinks": {
+            "title": "Actions & Blinks",
+            "description": "基于 URL 的操作"
+          },
+          "wallets": {
+            "title": "钱包",
+            "description": "钱包解决方案"
+          },
+          "permissioned": {
+            "title": "许可环境",
+            "description": "企业网络"
+          },
+          "gameTooling": {
+            "title": "游戏工具",
+            "description": "游戏开发"
+          },
+          "payments": {
+            "title": "支付",
+            "description": "支付解决方案"
+          },
+          "commerce": {
+            "title": "商务",
+            "description": "电子商务集成"
+          },
+          "financial": {
+            "title": "金融基础设施",
+            "description": "金融服务"
+          },
+          "aiFeatures": {
+            "title": "AI 功能",
+            "description": "AI 能力"
+          },
+          "artistsCreators": {
+            "title": "艺术家和创作者",
+            "description": "NFT 平台"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "description": "比特币 DeFi"
+          },
+          "crossChainBridge": {
+            "title": "跨链桥",
+            "description": "多链桥接"
+          },
+          "defiHub": {
+            "title": "DeFi 中心",
+            "description": "DeFi 生态系统"
+          }
         },
         "useCases": {
           "title": "应用场景",
-          "tokenization": { "title": "代币化", "description": "资产代币化" },
-          "depin": { "title": "DePIN", "description": "去中心化基础设施" },
-          "stablecoins": { "title": "稳定币", "description": "稳定资产" },
-          "institutional": { "title": "机构支付", "description": "企业支付" },
-          "enterprise": { "title": "企业", "description": "企业解决方案" },
-          "gaming": { "title": "游戏和娱乐", "description": "游戏生态系统" }
+          "tokenization": {
+            "title": "代币化",
+            "description": "资产代币化"
+          },
+          "depin": {
+            "title": "DePIN",
+            "description": "去中心化基础设施"
+          },
+          "stablecoins": {
+            "title": "稳定币",
+            "description": "稳定资产"
+          },
+          "institutional": {
+            "title": "机构支付",
+            "description": "企业支付"
+          },
+          "enterprise": {
+            "title": "企业",
+            "description": "企业解决方案"
+          },
+          "gaming": {
+            "title": "游戏和娱乐",
+            "description": "游戏生态系统"
+          }
         },
         "network": {
           "title": "网络",
-          "validators": { "title": "验证者", "description": "成为验证者" },
-          "rpc": { "title": "RPC 提供商", "description": "API 访问" },
-          "status": { "title": "网络状态", "description": "网络健康" },
-          "ramp": { "title": "Burn Chain Ramp", "description": "买卖 TBURN" }
+          "validators": {
+            "title": "验证者",
+            "description": "成为验证者"
+          },
+          "rpc": {
+            "title": "RPC 提供商",
+            "description": "API 访问"
+          },
+          "status": {
+            "title": "网络状态",
+            "description": "网络健康"
+          },
+          "ramp": {
+            "title": "Burn Chain Ramp",
+            "description": "买卖 TBURN"
+          }
         },
         "community": {
           "title": "社区",
-          "news": { "title": "新闻和博客", "description": "最新动态" },
-          "events": { "title": "活动", "description": "即将举行的活动" },
-          "hub": { "title": "社区", "description": "加入社区" }
+          "news": {
+            "title": "新闻和博客",
+            "description": "最新动态"
+          },
+          "events": {
+            "title": "活动",
+            "description": "即将举行的活动"
+          },
+          "hub": {
+            "title": "社区",
+            "description": "加入社区"
+          }
         }
       }
     },
@@ -6437,7 +6584,12 @@
     "home": {
       "heroTag": "主网上线",
       "heroTitle": "未来的",
-      "heroTitleRotating": ["信任驱动", "AI赋能", "量子安全", "超级扩展"],
+      "heroTitleRotating": [
+        "信任驱动",
+        "AI赋能",
+        "量子安全",
+        "超级扩展"
+      ],
       "heroSubtitle": "区块链",
       "heroDescription": "全球首个AI驱动的信任验证网络。量子安全与企业级可扩展性的完美结合。",
       "launchExplorer": "启动浏览器",
@@ -6503,7 +6655,20 @@
         "coreConcepts": "核心概念",
         "coreConceptsDesc": "TBurn Chain的基本原理。",
         "quickGlossary": "快速术语表",
-        "certifications": "认证",
+        "certifications": {
+          "developer": {
+            "title": "TBurn开发者",
+            "description": "智能合约开发认证"
+          },
+          "defi": {
+            "title": "DeFi专家",
+            "description": "去中心化金融精通认证"
+          },
+          "validator": {
+            "title": "验证者运营商",
+            "description": "网络验证认证"
+          }
+        },
         "certificationsDesc": "获得认证徽章",
         "communityLearning": "社区学习",
         "paths": {
@@ -6564,20 +6729,6 @@
           "validator": {
             "term": "验证者",
             "definition": "验证交易并参与共识的节点"
-          }
-        },
-        "certifications": {
-          "developer": {
-            "title": "TBurn开发者",
-            "description": "智能合约开发认证"
-          },
-          "defi": {
-            "title": "DeFi专家",
-            "description": "去中心化金融精通认证"
-          },
-          "validator": {
-            "title": "验证者运营商",
-            "description": "网络验证认证"
           }
         },
         "communityLinks": {
@@ -6765,6 +6916,24 @@
               "value": "67%",
               "label": "投资者受到欺诈影响"
             }
+          },
+          "items": {
+            "scams": {
+              "title": "80%+ 骗局",
+              "description": "超过80%的新加密项目是潜在的骗局或跑路项目。"
+            },
+            "lost": {
+              "title": "$2.7B 损失",
+              "description": "仅2023年因跑路和欺诈造成的总损失。"
+            },
+            "risk": {
+              "title": "$3.1B 风险",
+              "description": "预计2024年在无干预情况下的损失。"
+            },
+            "investorLoss": {
+              "title": "60-80% 亏损",
+              "description": "早期项目投资者的平均亏损率。"
+            }
           }
         },
         "performance": {
@@ -6785,7 +6954,22 @@
             "gasCost": {
               "value": "$0.001",
               "label": "平均Gas费用"
+            },
+            "latency": {
+              "value": "1.84ms",
+              "label": "延迟"
+            },
+            "nodes": {
+              "value": "30,000",
+              "label": "节点"
             }
+          },
+          "badge": "解决方案架构",
+          "description": "TBurn Chain不仅仅是信任评分系统；它是一个基于Arbitrum技术构建的高性能Layer 2扩展解决方案，专为企业级吞吐量设计。",
+          "features": {
+            "hybridConsensus": "混合共识 (DPoS + BFT)",
+            "evmCompatibility": "EVM 兼容性",
+            "dynamicSharding": "动态分片支持"
           }
         },
         "aiLayers": {
@@ -6801,6 +6985,27 @@
           "operational": {
             "title": "操作AI",
             "description": "即时欺诈检测和预防"
+          },
+          "subtitle": "使用三种不同AI模型进行智能决策。",
+          "items": {
+            "strategic": {
+              "title": "战略层",
+              "model": ":: ChatGPT Latest",
+              "latency": "450ms",
+              "description": "处理复杂市场分析、治理提案评估和长期战略制定。"
+            },
+            "tactical": {
+              "title": "战术层",
+              "model": ":: Claude Latest",
+              "latency": "180ms",
+              "description": "处理信任评估、交易验证和智能合约审计。"
+            },
+            "operational": {
+              "title": "操作层",
+              "model": ":: Gemini Latest",
+              "latency": "45ms",
+              "description": "执行实时监控、紧急响应（自动销毁）和自动化操作。"
+            }
           }
         },
         "quantumSecurity": {
@@ -6810,6 +7015,16 @@
             "crystals": "CRYSTALS-Dilithium签名",
             "hybrid": "ED25519混合加密",
             "postQuantum": "后量子密钥交换"
+          },
+          "items": {
+            "crystals": {
+              "title": "CRYSTALS-Dilithium",
+              "description": "提供后量子安全的NIST标准格基签名算法。"
+            },
+            "hybrid": {
+              "title": "混合签名",
+              "description": "结合ED25519 + Dilithium实现向后兼容和面向未来。"
+            }
           }
         },
         "coreModules": {
@@ -6830,11 +7045,22 @@
             "bridge": {
               "title": "跨链协议",
               "description": "跨链资产转移"
+            },
+            "defi": {
+              "title": "DeFi中心",
+              "description": "集成AMM DEX、85% LTV贷款和流动性质押。"
+            },
+            "gamefi": {
+              "title": "GameFi平台",
+              "description": "P2E引擎、锦标赛系统和跨链道具交易。"
             }
           }
         },
         "downloadPdf": "下载PDF",
-        "viewGithub": "在GitHub上查看"
+        "viewGithub": "在GitHub上查看",
+        "heroDescription": "面向区块链项目的去中心化信任基础设施。",
+        "heroSubDescription": "基于Arbitrum的Layer 2解决方案，以100%链上透明度验证可靠性。",
+        "viewSource": "查看源码"
       },
       "tokenomics": {
         "tag": "经济学",
@@ -6921,8 +7147,14 @@
               "mainnet": "主网上线",
               "trustScore": "信任评分系统",
               "bridge": "跨链桥",
-              "dex": "DEX上线"
-            }
+              "dex": "DEX上线",
+              "item1": "主网上线与创世区块",
+              "item2": "信任评分系统V1",
+              "item3": "跨链桥（ETH, BSC）",
+              "item4": "DEX上线（含AMM）",
+              "item5": "移动钱包Beta版"
+            },
+            "quarter": "Q1-Q2 2024"
           },
           "phase2": {
             "title": "第二阶段：扩展",
@@ -6932,8 +7164,14 @@
               "gamefi": "GameFi平台",
               "aiEnhancement": "AI增强",
               "mobileWallet": "移动钱包",
-              "partnerships": "重大合作"
-            }
+              "partnerships": "重大合作",
+              "item1": "GameFi平台集成",
+              "item2": "AI增强模块",
+              "item3": "移动钱包正式版",
+              "item4": "主要CEX上市",
+              "item5": "开发者SDK V2"
+            },
+            "quarter": "Q3-Q4 2024"
           },
           "phase3": {
             "title": "第三阶段：生态系统",
@@ -6943,8 +7181,14 @@
               "dao": "完整DAO治理",
               "l2": "Layer 2解决方案",
               "enterprise": "企业采用",
-              "global": "全球扩展"
-            }
+              "global": "全球扩展",
+              "item1": "Layer 2扩展解决方案",
+              "item2": "DAO治理上线",
+              "item3": "跨链扩展（7+条链）",
+              "item4": "AI交易机器人集成",
+              "item5": "企业合作伙伴计划"
+            },
+            "quarter": "Q1-Q2 2025"
           },
           "phase4": {
             "title": "第四阶段：大规模采用",
@@ -6954,8 +7198,13 @@
               "quantum": "量子升级",
               "fiat": "法币集成",
               "institutions": "机构服务",
-              "metaverse": "元宇宙集成"
-            }
+              "metaverse": "元宇宙集成",
+              "item1": "全球营销活动",
+              "item2": "机构服务上线",
+              "item3": "战略合作伙伴关系",
+              "item4": "生态系统基金部署"
+            },
+            "quarter": "Q3-Q4 2025"
           }
         },
         "metrics": {
@@ -6964,27 +7213,414 @@
           "tvl": "总锁仓价值",
           "transactions": "日交易量",
           "developers": "活跃开发者"
+        },
+        "growth": {
+          "sectionTitle": "预期增长指标",
+          "year1": {
+            "label": "2024",
+            "projects": "500+",
+            "users": "100K+",
+            "tvl": "$50M+"
+          },
+          "year2": {
+            "label": "2025",
+            "projects": "2,000+",
+            "users": "1M+",
+            "tvl": "$500M+"
+          },
+          "year3": {
+            "label": "2026",
+            "projects": "10,000+",
+            "users": "10M+",
+            "tvl": "$5B+"
+          },
+          "labels": {
+            "verifiedProjects": "已验证项目",
+            "activeUsers": "活跃用户",
+            "tvl": "总锁仓量"
+          }
+        },
+        "cta": {
+          "title": "与我们一起踏上这段旅程",
+          "description": "成为TBurn Chain生态系统的一部分，共同塑造基于信任的区块链技术的未来。",
+          "joinCommunity": "加入社区",
+          "viewDocs": "查看文档"
         }
       },
       "blockchainBasics": {
         "tag": "初级",
         "title": "区块链基础",
-        "subtitle": "区块链技术和分布式系统的基本概念。"
+        "subtitle": "区块链技术和分布式系统的基本概念。",
+        "duration": "4小时",
+        "backToEducation": "返回教育课程",
+        "courseOverview": {
+          "title": "课程概述",
+          "description": "本综合课程将向您介绍区块链技术的基本概念。您将学习分布式账本、共识机制、密码学原理，以及这些技术如何驱动现代去中心化应用。",
+          "videoTitle": "区块链入门",
+          "videoSubtitle": "课程预览",
+          "figureCaption": "图表：课程介绍视频"
+        },
+        "curriculumTitle": "课程大纲",
+        "curriculum": {
+          "module1": {
+            "title": "什么是区块链？",
+            "subtitle": "理解分布式账本技术",
+            "duration": "45 min"
+          },
+          "module2": {
+            "title": "密码学基础",
+            "subtitle": "哈希函数、签名和加密",
+            "duration": "60 min"
+          },
+          "module3": {
+            "title": "共识机制",
+            "subtitle": "PoW、PoS和TBurn的信任证明",
+            "duration": "75 min"
+          },
+          "module4": {
+            "title": "TBurn Chain架构",
+            "subtitle": "深入了解信任驱动系统",
+            "duration": "60 min"
+          }
+        },
+        "whatYouWillLearn": "您将学到什么",
+        "learningOutcomes": {
+          "item1": "理解区块链基础和分布式系统",
+          "item2": "学习安全交易背后的密码学原理",
+          "item3": "探索不同的共识机制",
+          "item4": "掌握TBurn Chain独特的信任驱动架构"
+        },
+        "prerequisitesTitle": "先修条件",
+        "prerequisites": {
+          "item1": "有基础编程知识会有帮助，但非必需",
+          "item2": "熟悉Web技术"
+        },
+        "continueLearning": {
+          "title": "继续学习",
+          "smartContracts": {
+            "title": "智能合约",
+            "subtitle": "构建您的第一个合约"
+          },
+          "sdkGuide": {
+            "title": "SDK指南",
+            "subtitle": "集成文档"
+          },
+          "quickStart": {
+            "title": "快速入门",
+            "subtitle": "部署您的第一个dApp"
+          },
+          "documentation": {
+            "title": "文档",
+            "subtitle": "完整API参考"
+          }
+        },
+        "upNext": {
+          "label": "下一步",
+          "title": "信任评分系统",
+          "level": "中级"
+        }
       },
       "defiMastery": {
         "tag": "中级",
         "title": "DeFi精通",
-        "subtitle": "掌握去中心化金融概念，包括DEX、借贷和收益策略。"
+        "subtitle": "掌握去中心化金融概念，包括DEX、借贷和收益策略。",
+        "duration": "8小时",
+        "backToEducation": "返回教育课程",
+        "stats": {
+          "tvl": {
+            "value": "$2.1B",
+            "label": "总锁仓量"
+          },
+          "apy": {
+            "value": "18.5%",
+            "label": "平均年化收益率"
+          },
+          "protocols": {
+            "value": "45+",
+            "label": "活跃协议"
+          }
+        },
+        "courseOverview": {
+          "title": "课程概述",
+          "description": "本高级课程涵盖您在TBurn Chain上进行去中心化金融所需的一切知识。从理解AMM机制到实施复杂的收益农场策略，您将获得驾驭DeFi生态系统的实用技能。",
+          "videoTitle": "DeFi基础",
+          "videoSubtitle": "课程预览",
+          "figureCaption": "图表：DeFi协议概述"
+        },
+        "curriculumTitle": "课程大纲",
+        "curriculum": {
+          "module1": {
+            "title": "DEX与AMM机制",
+            "subtitle": "理解自动做市商",
+            "duration": "90 min"
+          },
+          "module2": {
+            "title": "借贷协议",
+            "subtitle": "抵押借贷",
+            "duration": "120 min"
+          },
+          "module3": {
+            "title": "流动性提供",
+            "subtitle": "LP代币、无常损失和奖励",
+            "duration": "90 min"
+          },
+          "module4": {
+            "title": "收益策略",
+            "subtitle": "通过信任加成优化收益",
+            "duration": "120 min"
+          }
+        },
+        "keyTakeawaysTitle": "核心要点",
+        "keyTakeaways": {
+          "item1": "掌握AMM机制和流动性池动态",
+          "item2": "理解借贷协议和抵押品管理",
+          "item3": "实施收益优化策略"
+        },
+        "prerequisitesTitle": "先修条件",
+        "prerequisites": {
+          "item1": "区块链基础课程",
+          "item2": "了解钱包操作"
+        },
+        "developerResources": {
+          "title": "开发者资源",
+          "description": "使用这些资源在TBurn DeFi协议上构建和集成。",
+          "smartContracts": {
+            "title": "DeFi合约",
+            "subtitle": "AMM与借贷合约"
+          },
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "协议集成"
+          },
+          "apiReference": {
+            "title": "API参考",
+            "subtitle": "REST与GraphQL API"
+          },
+          "websocket": {
+            "title": "WebSocket数据流",
+            "subtitle": "实时价格数据"
+          },
+          "codeExamples": {
+            "title": "代码示例",
+            "subtitle": "集成示例"
+          },
+          "quickStart": {
+            "title": "快速入门",
+            "subtitle": "5分钟设置指南"
+          }
+        },
+        "upNext": {
+          "label": "下一步",
+          "title": "开发者课程",
+          "subtitle": "构建您自己的dApp"
+        }
       },
       "developerCourse": {
         "tag": "高级",
         "title": "开发者课程",
-        "subtitle": "在TBurn Chain上构建和部署dApp的完整指南。"
+        "subtitle": "在TBurn Chain上构建和部署dApp的完整指南。",
+        "duration": "20小时",
+        "backToEducation": "返回教育课程",
+        "courseOverview": {
+          "title": "课程概述",
+          "description": "本综合开发者课程将带您从零开始在TBurn Chain上部署生产级dApp。您将学习智能合约开发、SDK集成、测试策略以及构建安全、可扩展应用的最佳实践。"
+        },
+        "curriculumTitle": "课程大纲",
+        "curriculum": {
+          "module1": {
+            "title": "SDK设置与配置",
+            "subtitle": "环境设置和项目初始化",
+            "duration": "2小时"
+          },
+          "module2": {
+            "title": "智能合约开发",
+            "subtitle": "编写安全、优化的合约",
+            "duration": "6小时"
+          },
+          "module3": {
+            "title": "API集成",
+            "subtitle": "REST、GraphQL和WebSocket API",
+            "duration": "4小时"
+          },
+          "module4": {
+            "title": "部署与DevOps",
+            "subtitle": "主网部署和监控",
+            "duration": "4小时"
+          }
+        },
+        "codeExample": {
+          "title": "代码示例",
+          "language": "TypeScript"
+        },
+        "developerTools": {
+          "title": "开发者工具",
+          "description": "访问在TBurn Chain上构建所需的所有工具。",
+          "quickStart": {
+            "title": "快速入门",
+            "subtitle": "5分钟设置指南"
+          },
+          "installation": {
+            "title": "安装",
+            "subtitle": "分步指南"
+          },
+          "documentation": {
+            "title": "文档",
+            "subtitle": "完整API参考"
+          },
+          "evmMigration": {
+            "title": "EVM迁移",
+            "subtitle": "移植以太坊dApp"
+          }
+        },
+        "keyTakeawaysTitle": "核心要点",
+        "keyTakeaways": {
+          "item1": "设置和配置TBurn SDK",
+          "item2": "编写带有测试的安全智能合约",
+          "item3": "与信任评分API集成",
+          "item4": "按最佳实践部署到主网"
+        },
+        "prerequisitesTitle": "先修条件",
+        "prerequisites": {
+          "item1": "JavaScript/TypeScript熟练掌握",
+          "item2": "建议了解Solidity基础",
+          "item3": "区块链基础知识"
+        },
+        "certification": {
+          "title": "获得认证",
+          "description": "完成课程后获得您的TBurn开发者认证徽章。"
+        },
+        "resourcesTitle": "资源",
+        "resources": {
+          "apiReference": "API参考",
+          "sdkGuide": "SDK指南",
+          "smartContracts": "智能合约",
+          "cliReference": "CLI参考",
+          "websocketApi": "WebSocket API",
+          "codeExamples": "代码示例"
+        }
       },
       "introToDefi": {
         "tag": "初级",
         "title": "DeFi入门",
-        "subtitle": "在TBurn Chain上迈入去中心化金融的第一步。"
+        "subtitle": "在TBurn Chain上迈入去中心化金融的第一步。",
+        "duration": "2小时",
+        "backToEducation": "返回教育课程",
+        "scoreFormula": {
+          "title": "信任评分公式",
+          "burnCompliance": {
+            "percentage": "40%",
+            "title": "销毁合规",
+            "subtitle": "代币销毁计划遵守情况"
+          },
+          "devProgress": {
+            "percentage": "35%",
+            "title": "开发进度",
+            "subtitle": "开发里程碑完成情况"
+          },
+          "transparency": {
+            "percentage": "25%",
+            "title": "透明度",
+            "subtitle": "链上数据披露"
+          }
+        },
+        "verification": {
+          "title": "三阶段验证流程",
+          "stage1": {
+            "title": "AI分析",
+            "description": "三频AI扫描项目数据、智能合约和社交媒体。",
+            "duration": "24小时"
+          },
+          "stage2": {
+            "title": "专家审核",
+            "description": "人类专家验证AI发现并进行深度分析。",
+            "duration": "7-14天"
+          },
+          "stage3": {
+            "title": "社区投票",
+            "description": "代币持有者在专家审核后对最终批准进行投票。",
+            "duration": "3-5天"
+          }
+        },
+        "scoreActions": {
+          "title": "基于信任评分的操作",
+          "excellent": {
+            "label": "优秀",
+            "description": "完整交易权限、优先上架和收益加成资格。"
+          },
+          "good": {
+            "label": "良好",
+            "description": "标准交易权限，增强曝光度。"
+          },
+          "warning": {
+            "label": "警告",
+            "description": "交易受限，向用户显示警告标签。"
+          },
+          "danger": {
+            "label": "受限",
+            "description": "交易暂停，项目正在调查中。"
+          }
+        },
+        "hybridBurn": {
+          "title": "混合强制销毁机制",
+          "description": "当项目未能履行销毁计划承诺时，我们的智能合约会自动执行代币销毁。这通过确保通缩承诺得到遵守来保护投资者。",
+          "figureCaption": "图表：自动销毁流程图"
+        },
+        "burnSteps": {
+          "step1": {
+            "title": "计划监控",
+            "description": "AI实时监控销毁计划合规情况"
+          },
+          "step2": {
+            "title": "警告期",
+            "description": "48小时宽限期并通知项目方"
+          },
+          "step3": {
+            "title": "自动执行",
+            "description": "智能合约从储备钱包销毁代币"
+          }
+        },
+        "developerResources": {
+          "title": "开发者资源",
+          "description": "准备好开始构建了吗？探索我们的开发者工具和文档。",
+          "smartContracts": {
+            "title": "智能合约",
+            "subtitle": "信任评分集成"
+          },
+          "sdkGuide": {
+            "title": "SDK指南",
+            "subtitle": "快速集成"
+          },
+          "apiReference": {
+            "title": "API参考",
+            "subtitle": "REST与GraphQL"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "实时更新"
+          },
+          "quickStart": {
+            "title": "快速入门",
+            "subtitle": "5分钟设置"
+          },
+          "codeExamples": {
+            "title": "代码示例",
+            "subtitle": "示例项目"
+          }
+        },
+        "continueLearning": {
+          "label": "继续学习",
+          "defiMastery": {
+            "title": "DeFi精通",
+            "level": "中级"
+          }
+        },
+        "forDevelopers": {
+          "label": "面向开发者",
+          "developerCourse": {
+            "title": "开发者课程",
+            "level": "高级"
+          }
+        }
       },
       "educationPrograms": {
         "tag": "项目",
@@ -7004,11 +7640,45 @@
         "subtitle": "构建下一代信任驱动应用。访问TBurn Chain V4生态系统的综合开发工具、SDK和API。",
         "getStarted": "开始使用",
         "viewDocs": "查看文档",
-        "quickStart": "快速开始",
-        "sdks": "官方SDK",
-        "apiReference": "API参考",
-        "devTools": "开发工具",
-        "grants": "开发者资助",
+        "quickStart": {
+          "_value": "快速开始",
+          "title": "快速入门",
+          "subtitle": "5分钟内部署您的第一个dApp"
+        },
+        "sdks": {
+          "_value": "官方SDK",
+          "title": "官方SDK",
+          "subtitle": "原生支持您喜爱的编程语言"
+        },
+        "apiReference": {
+          "_value": "API参考",
+          "title": "API参考",
+          "subtitle": "RESTful API与WebSocket流",
+          "blockchainApi": "区块链API",
+          "defiApi": "DeFi API",
+          "aiApi": "AI API"
+        },
+        "devTools": {
+          "_value": "开发工具",
+          "burnCli": {
+            "title": "Burn CLI",
+            "description": "项目初始化与部署"
+          },
+          "testFramework": {
+            "title": "测试框架",
+            "description": "单元测试与端到端测试"
+          },
+          "localDevnet": {
+            "title": "本地开发网",
+            "description": "模拟器环境"
+          }
+        },
+        "grants": {
+          "_value": "开发者资助",
+          "title": "开发者资助计划",
+          "subtitle": "我们支持扩展TBurn Chain生态系统的项目。",
+          "totalFund": "$50M 总资助基金"
+        },
         "quickStartSteps": {
           "install": {
             "title": "安装CLI",
@@ -7021,32 +7691,65 @@
           "deploy": {
             "title": "部署合约",
             "command": "tburn deploy --network mainnet"
+          },
+          "step1": {
+            "comment": "# 安装CLI"
+          },
+          "step2": {
+            "comment": "# 创建项目"
+          },
+          "step3": {
+            "comment": "# 运行开发服务器"
+          },
+          "step4": {
+            "comment": "# 部署到主网"
           }
         },
         "sdkList": {
           "javascript": {
             "name": "JavaScript/TypeScript",
-            "package": "@tburn/sdk"
+            "package": "@tburn/sdk",
+            "version": "v4.2.1",
+            "install": "npm install @burnchain/sdk",
+            "downloads": "1.2M/月下载量"
           },
           "python": {
             "name": "Python",
-            "package": "tburn-sdk"
+            "package": "tburn-sdk",
+            "version": "v4.1.0",
+            "install": "pip install burnchain-py",
+            "downloads": "450K/月下载量"
           },
           "rust": {
             "name": "Rust",
-            "package": "tburn-rs"
+            "package": "tburn-rs",
+            "version": "v4.0.3",
+            "install": "cargo add burnchain-rs",
+            "downloads": "280K/月下载量"
           },
           "go": {
             "name": "Go",
-            "package": "github.com/tburn/go-sdk"
+            "package": "github.com/tburn/go-sdk",
+            "version": "v4.0.2",
+            "install": "go get github.com/burnchain/go",
+            "downloads": "180K/月下载量"
           },
           "java": {
             "name": "Java",
-            "package": "io.tburn.sdk"
+            "package": "io.tburn.sdk",
+            "version": "v4.0.1",
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "120K/月下载量"
           },
           "csharp": {
             "name": "C#/.NET",
             "package": "TBurn.SDK"
+          },
+          "swift": {
+            "name": "Swift",
+            "version": "v4.0.0",
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "80K/月下载量"
           }
         },
         "apiEndpoints": {
@@ -7089,7 +7792,8 @@
           "seed": {
             "title": "种子资助",
             "amount": "$5,000 - $25,000",
-            "description": "面向早期项目"
+            "description": "面向早期项目",
+            "tier": "Seed"
           },
           "growth": {
             "title": "成长资助",
@@ -7099,8 +7803,22 @@
           "enterprise": {
             "title": "企业资助",
             "amount": "$100,000+",
-            "description": "面向重大集成"
+            "description": "面向重大集成",
+            "tier": "Enterprise"
+          },
+          "build": {
+            "tier": "Build",
+            "amount": "$25K - $100K",
+            "description": "MVP Development"
+          },
+          "scale": {
+            "tier": "Scale",
+            "amount": "$100K - $500K",
+            "description": "Production Ready"
           }
+        },
+        "devToolsSection": {
+          "title": "开发工具"
         }
       },
       "docs": {
@@ -7192,6 +7910,18 @@
           "diamond": {
             "name": "钻石",
             "boost": "2.0x"
+          },
+          "standard": {
+            "name": "STANDARD",
+            "requirement": "No requirement"
+          },
+          "mid": {
+            "name": "TRUST LV.1",
+            "requirement": "Trust Score 60+"
+          },
+          "max": {
+            "name": "TRUST LV.2",
+            "requirement": "Trust Score 80+"
           }
         },
         "cta": {
@@ -7199,6 +7929,119 @@
           "subtitle": "访问最受信赖的去中心化金融生态系统",
           "launchApp": "启动应用",
           "viewDocs": "查看文档"
+        },
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "24H VOLUME",
+          "activeLPs": "ACTIVE LPs",
+          "avgApy": "AVG APY"
+        },
+        "dex": {
+          "title": "Concentrated Liquidity DEX",
+          "description": "Capital-efficient AMM with concentrated liquidity positions. Provide liquidity in specific price ranges for up to 4000x capital efficiency compared to traditional AMMs.",
+          "feature1": "Concentrated liquidity positions for higher yields",
+          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "Range orders for advanced trading strategies",
+          "price": "Price",
+          "liquidity": "Liquidity",
+          "volume24h": "24h Volume"
+        },
+        "lending": {
+          "title": "Collateralized Lending",
+          "description": "Borrow against your crypto assets with competitive rates. Real-time liquidation protection with trust-verified collateral.",
+          "maxLtv": "MAX 80% LTV",
+          "tburnLtv": "TBURN LTV",
+          "stablecoinLtv": "Stablecoin LTV"
+        },
+        "staking": {
+          "title": "Liquid Staking",
+          "description": "Stake TBURN and receive sTBURN. Use liquid staking derivatives across DeFi while earning staking rewards.",
+          "apy": "18.5% APY",
+          "exchangeRate": "Exchange Rate",
+          "rewardCycle": "Reward Cycle",
+          "everyEpoch": "Every Epoch (24h)"
+        },
+        "yieldFarming": {
+          "tag": "YIELD FARMING",
+          "title": "Trust-Boosted Yield",
+          "subtitle": "Earn bonus rewards based on your Trust Score tier"
+        },
+        "buttons": {
+          "startTrading": "Start Trading",
+          "viewAllFarms": "View All Farms"
+        },
+        "relatedSolutions": {
+          "description": "Expand your DeFi capabilities with these complementary solutions",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "Bitcoin DeFi solutions"
+          },
+          "bridge": {
+            "title": "Cross-Chain Bridge",
+            "subtitle": "Multi-chain transfers"
+          },
+          "tokenExtensions": {
+            "title": "代币扩展",
+            "subtitle": "BRC-20标准"
+          },
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "Secure connections"
+          },
+          "payments": {
+            "title": "支付",
+            "subtitle": "全球商务"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "Institutional tools"
+          },
+          "permissioned": {
+            "title": "Permissioned Networks",
+            "subtitle": "Enterprise solutions"
+          },
+          "aiFeatures": {
+            "title": "AI功能",
+            "subtitle": "智能自动化"
+          }
+        },
+        "developerResources": {
+          "description": "使用我们全面的开发者工具包构建强大的DeFi应用。",
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "集成文档"
+          },
+          "smartContracts": {
+            "title": "智能合约",
+            "subtitle": "已验证合约"
+          },
+          "apiReference": {
+            "title": "API参考",
+            "subtitle": "REST端点"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "实时事件"
+          },
+          "cli": {
+            "title": "CLI工具",
+            "subtitle": "命令行"
+          },
+          "examples": {
+            "title": "示例",
+            "subtitle": "示例代码"
+          }
+        },
+        "learnPages": {
+          "gettingStarted": "GETTING STARTED",
+          "defiMastery": {
+            "title": "DeFi精通课程",
+            "subtitle": "高级收益策略和风险管理"
+          },
+          "introToDefi": {
+            "title": "DeFi入门",
+            "subtitle": "学习去中心化金融基础"
+          }
         }
       },
       "tokenExtensions": {
@@ -7325,7 +8168,8 @@
           "step3": {
             "title": "安全执行",
             "description": "仅当用户批准且信任评分安全（>40%）时执行交易。"
-          }
+          },
+          "figureLabel": "操作流程图"
         },
         "realWorldApps": {
           "title": "现实世界应用",
@@ -7347,7 +8191,73 @@
           }
         },
         "developerQuickStart": {
-          "title": "开发者快速入门"
+          "title": "开发者快速入门",
+          "step1": {
+            "title": "基础操作URL结构"
+          },
+          "step2": {
+            "title": "添加OpenGraph元标签"
+          },
+          "step3": {
+            "title": "部署并分享",
+            "description": "操作现在可以跨平台分享"
+          }
+        },
+        "relatedSolutions": {
+          "description": "使用这些互补解决方案增强您的区块链操作",
+          "wallets": {
+            "title": "钱包",
+            "subtitle": "安全连接"
+          },
+          "payments": {
+            "title": "支付",
+            "subtitle": "全球商务"
+          },
+          "commerce": {
+            "title": "商务",
+            "subtitle": "商家工具"
+          },
+          "tokenExtensions": {
+            "title": "代币扩展",
+            "subtitle": "BRC-20标准"
+          }
+        },
+        "developerResources": {
+          "description": "使用我们全面的开发者工具包构建强大的区块链操作",
+          "sdkGuide": {
+            "title": "操作SDK",
+            "subtitle": "集成文档"
+          },
+          "smartContracts": {
+            "title": "智能合约",
+            "subtitle": "已验证合约"
+          },
+          "apiReference": {
+            "title": "API参考",
+            "subtitle": "REST端点"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "实时事件"
+          },
+          "cli": {
+            "title": "CLI工具",
+            "subtitle": "命令行"
+          },
+          "examples": {
+            "title": "示例",
+            "subtitle": "示例代码"
+          }
+        },
+        "learnPages": {
+          "introToDefi": {
+            "title": "DeFi入门",
+            "subtitle": "学习去中心化金融基础"
+          },
+          "developerCourse": {
+            "title": "开发者课程",
+            "subtitle": "在TBurn Chain上构建dApp"
+          }
         }
       },
       "wallets": {
@@ -7390,7 +8300,8 @@
           },
           "autoWarningSystem": {
             "title": "自动警告系统",
-            "description": "在低信任（<40）交易上显示警告的标准协议。"
+            "description": "在低信任（<40）交易上显示警告的标准协议。",
+            "warningExample": "信任评分 < 40 - 高风险"
           },
           "walletSdk": {
             "title": "钱包SDK",
@@ -7623,17 +8534,31 @@
           "priceStability": {
             "title": "价格稳定性",
             "points": "30分",
-            "description": "基于日波动率、市值和流动性池深度评估。"
+            "description": "基于日波动率、市值和流动性池深度评估。",
+            "scoring": {
+              "volatility": "< 1%日波动率",
+              "liquidity": "$10M+流动性"
+            }
           },
           "contractSecurity": {
             "title": "合约安全",
             "points": "25分",
-            "description": "审计完成、重入保护和升级权限去中心化。"
+            "description": "审计完成、重入保护和升级权限去中心化。",
+            "scoring": {
+              "audits": "3+次审计完成",
+              "criticalBug": "发现严重漏洞",
+              "block": "阻止"
+            }
           },
           "adoptionUsage": {
             "title": "采用与使用",
             "points": "20分",
-            "description": "商家数量、月交易量和平均支付金额。"
+            "description": "商家数量、月交易量和平均支付金额。",
+            "scoring": {
+              "merchants": "100+商家",
+              "transactions": "$1M+月交易量",
+              "high": "高"
+            }
           }
         },
         "solutionTypes": {
@@ -7672,6 +8597,9 @@
             "title": "配置Webhooks",
             "description": "支付完成后接收即时服务器通知。"
           }
+        },
+        "buttons": {
+          "viewDocs": "查看文档"
         }
       },
       "commerce": {
@@ -7983,19 +8911,32 @@
           "title": "核心端点",
           "scoreQuery": {
             "title": "评分查询API",
-            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+            "endpoints": [
+              "GET /score/:address",
+              "GET /score/:address/history",
+              "POST /score/batch"
+            ]
           },
           "project": {
             "title": "项目API",
-            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+            "endpoints": [
+              "GET /projects",
+              "POST /projects/register",
+              "GET /projects/:id"
+            ]
           },
           "analytics": {
             "title": "分析API",
-            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+            "endpoints": [
+              "GET /analytics/trends",
+              "GET /analytics/leaderboard"
+            ]
           },
           "webhook": {
             "title": "Webhook API",
-            "endpoints": ["POST /webhooks"],
+            "endpoints": [
+              "POST /webhooks"
+            ],
             "events": "事件: score.updated, score.alert, project.registered"
           }
         },

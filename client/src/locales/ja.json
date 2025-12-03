@@ -7024,70 +7024,217 @@
       "nav": {
         "learn": {
           "title": "学習",
-          "learnHub": { "title": "学習ハブ", "description": "Burn Chainを始める" },
-          "whatIsBurnChain": { "title": "Burn Chainとは?", "description": "ブロックチェーンについて学ぶ" },
-          "trustScore": { "title": "信頼スコアシステム", "description": "信頼検証を理解する" },
-          "wallet": { "title": "ウォレットとは?", "description": "ウォレットの基礎" },
-          "blockchainBasics": { "title": "ブロックチェーン基礎", "description": "コア概念" },
-          "defiMastery": { "title": "DeFiマスター", "description": "上級DeFiコース" },
-          "developerCourse": { "title": "開発者コース", "description": "Burn Chainで構築" },
-          "introToDefi": { "title": "DeFi入門", "description": "DeFi基礎" },
-          "educationPrograms": { "title": "教育プログラム", "description": "認定コース" },
-          "whitepaper": { "title": "技術ホワイトペーパー", "description": "詳細な技術文書" },
-          "tokenomics": { "title": "トークノミクス", "description": "トークン経済学" },
-          "roadmap": { "title": "ロードマップ", "description": "開発タイムライン" }
+          "learnHub": {
+            "title": "学習ハブ",
+            "description": "Burn Chainを始める"
+          },
+          "whatIsBurnChain": {
+            "title": "Burn Chainとは?",
+            "description": "ブロックチェーンについて学ぶ"
+          },
+          "trustScore": {
+            "title": "信頼スコアシステム",
+            "description": "信頼検証を理解する"
+          },
+          "wallet": {
+            "title": "ウォレットとは?",
+            "description": "ウォレットの基礎"
+          },
+          "blockchainBasics": {
+            "title": "ブロックチェーン基礎",
+            "description": "コア概念"
+          },
+          "defiMastery": {
+            "title": "DeFiマスター",
+            "description": "上級DeFiコース"
+          },
+          "developerCourse": {
+            "title": "開発者コース",
+            "description": "Burn Chainで構築"
+          },
+          "introToDefi": {
+            "title": "DeFi入門",
+            "description": "DeFi基礎"
+          },
+          "educationPrograms": {
+            "title": "教育プログラム",
+            "description": "認定コース"
+          },
+          "whitepaper": {
+            "title": "技術ホワイトペーパー",
+            "description": "詳細な技術文書"
+          },
+          "tokenomics": {
+            "title": "トークノミクス",
+            "description": "トークン経済学"
+          },
+          "roadmap": {
+            "title": "ロードマップ",
+            "description": "開発タイムライン"
+          }
         },
         "developers": {
           "title": "開発者",
-          "developerHub": { "title": "開発者ハブ", "description": "Burn Chainで構築" },
-          "documentation": { "title": "ドキュメント", "description": "完全なドキュメント" },
-          "apiReference": { "title": "APIリファレンス", "description": "APIエンドポイント" },
-          "cliReference": { "title": "CLIリファレンス", "description": "コマンドラインツール" },
-          "sdkGuide": { "title": "SDKガイド", "description": "SDK統合" },
-          "smartContracts": { "title": "スマートコントラクト", "description": "コントラクト開発" },
-          "websocketApi": { "title": "WebSocket API", "description": "リアルタイムデータ" },
-          "codeExamples": { "title": "コード例", "description": "サンプルコード" },
-          "quickStart": { "title": "クイックスタート", "description": "すぐに始める" },
-          "installation": { "title": "インストールガイド", "description": "セットアップ手順" },
-          "evmMigration": { "title": "EVMマイグレーション", "description": "Ethereumから移行" }
+          "developerHub": {
+            "title": "開発者ハブ",
+            "description": "Burn Chainで構築"
+          },
+          "documentation": {
+            "title": "ドキュメント",
+            "description": "完全なドキュメント"
+          },
+          "apiReference": {
+            "title": "APIリファレンス",
+            "description": "APIエンドポイント"
+          },
+          "cliReference": {
+            "title": "CLIリファレンス",
+            "description": "コマンドラインツール"
+          },
+          "sdkGuide": {
+            "title": "SDKガイド",
+            "description": "SDK統合"
+          },
+          "smartContracts": {
+            "title": "スマートコントラクト",
+            "description": "コントラクト開発"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "リアルタイムデータ"
+          },
+          "codeExamples": {
+            "title": "コード例",
+            "description": "サンプルコード"
+          },
+          "quickStart": {
+            "title": "クイックスタート",
+            "description": "すぐに始める"
+          },
+          "installation": {
+            "title": "インストールガイド",
+            "description": "セットアップ手順"
+          },
+          "evmMigration": {
+            "title": "EVMマイグレーション",
+            "description": "Ethereumから移行"
+          }
         },
         "solutions": {
           "title": "ソリューション",
-          "tokenExtensions": { "title": "トークン拡張", "description": "強化されたトークン" },
-          "actionsBlinks": { "title": "アクション & ブリンク", "description": "URLベースのアクション" },
-          "wallets": { "title": "ウォレット", "description": "ウォレットソリューション" },
-          "permissioned": { "title": "許可型環境", "description": "エンタープライズネットワーク" },
-          "gameTooling": { "title": "ゲームツール", "description": "ゲーム開発" },
-          "payments": { "title": "決済", "description": "決済ソリューション" },
-          "commerce": { "title": "コマース", "description": "Eコマース統合" },
-          "financial": { "title": "金融インフラ", "description": "金融サービス" },
-          "aiFeatures": { "title": "AI機能", "description": "AI機能" },
-          "artistsCreators": { "title": "アーティスト & クリエイター", "description": "NFTプラットフォーム" },
-          "btcfi": { "title": "BTCfi", "description": "ビットコインDeFi" },
-          "crossChainBridge": { "title": "クロスチェーンブリッジ", "description": "マルチチェーンブリッジ" },
-          "defiHub": { "title": "DeFiハブ", "description": "DeFiエコシステム" }
+          "tokenExtensions": {
+            "title": "トークン拡張",
+            "description": "強化されたトークン"
+          },
+          "actionsBlinks": {
+            "title": "アクション & ブリンク",
+            "description": "URLベースのアクション"
+          },
+          "wallets": {
+            "title": "ウォレット",
+            "description": "ウォレットソリューション"
+          },
+          "permissioned": {
+            "title": "許可型環境",
+            "description": "エンタープライズネットワーク"
+          },
+          "gameTooling": {
+            "title": "ゲームツール",
+            "description": "ゲーム開発"
+          },
+          "payments": {
+            "title": "決済",
+            "description": "決済ソリューション"
+          },
+          "commerce": {
+            "title": "コマース",
+            "description": "Eコマース統合"
+          },
+          "financial": {
+            "title": "金融インフラ",
+            "description": "金融サービス"
+          },
+          "aiFeatures": {
+            "title": "AI機能",
+            "description": "AI機能"
+          },
+          "artistsCreators": {
+            "title": "アーティスト & クリエイター",
+            "description": "NFTプラットフォーム"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "description": "ビットコインDeFi"
+          },
+          "crossChainBridge": {
+            "title": "クロスチェーンブリッジ",
+            "description": "マルチチェーンブリッジ"
+          },
+          "defiHub": {
+            "title": "DeFiハブ",
+            "description": "DeFiエコシステム"
+          }
         },
         "useCases": {
           "title": "ユースケース",
-          "tokenization": { "title": "トークン化", "description": "資産のトークン化" },
-          "depin": { "title": "DePIN", "description": "分散型インフラ" },
-          "stablecoins": { "title": "ステーブルコイン", "description": "安定資産" },
-          "institutional": { "title": "機関決済", "description": "エンタープライズ決済" },
-          "enterprise": { "title": "エンタープライズ", "description": "エンタープライズソリューション" },
-          "gaming": { "title": "ゲーム & エンターテイメント", "description": "ゲームエコシステム" }
+          "tokenization": {
+            "title": "トークン化",
+            "description": "資産のトークン化"
+          },
+          "depin": {
+            "title": "DePIN",
+            "description": "分散型インフラ"
+          },
+          "stablecoins": {
+            "title": "ステーブルコイン",
+            "description": "安定資産"
+          },
+          "institutional": {
+            "title": "機関決済",
+            "description": "エンタープライズ決済"
+          },
+          "enterprise": {
+            "title": "エンタープライズ",
+            "description": "エンタープライズソリューション"
+          },
+          "gaming": {
+            "title": "ゲーム & エンターテイメント",
+            "description": "ゲームエコシステム"
+          }
         },
         "network": {
           "title": "ネットワーク",
-          "validators": { "title": "バリデーター", "description": "バリデーターになる" },
-          "rpc": { "title": "RPCプロバイダー", "description": "APIアクセス" },
-          "status": { "title": "ネットワークステータス", "description": "ネットワーク健全性" },
-          "ramp": { "title": "Burn Chain Ramp", "description": "TBURNの売買" }
+          "validators": {
+            "title": "バリデーター",
+            "description": "バリデーターになる"
+          },
+          "rpc": {
+            "title": "RPCプロバイダー",
+            "description": "APIアクセス"
+          },
+          "status": {
+            "title": "ネットワークステータス",
+            "description": "ネットワーク健全性"
+          },
+          "ramp": {
+            "title": "Burn Chain Ramp",
+            "description": "TBURNの売買"
+          }
         },
         "community": {
           "title": "コミュニティ",
-          "news": { "title": "ニュース & ブログ", "description": "最新情報" },
-          "events": { "title": "イベント", "description": "今後のイベント" },
-          "hub": { "title": "コミュニティ", "description": "コミュニティに参加" }
+          "news": {
+            "title": "ニュース & ブログ",
+            "description": "最新情報"
+          },
+          "events": {
+            "title": "イベント",
+            "description": "今後のイベント"
+          },
+          "hub": {
+            "title": "コミュニティ",
+            "description": "コミュニティに参加"
+          }
         }
       }
     },
@@ -7109,7 +7256,12 @@
     "home": {
       "heroTag": "メインネット稼働中",
       "heroTitle": "未来の",
-      "heroTitleRotating": ["信頼ベース", "AI駆動", "量子安全", "ハイパースケール"],
+      "heroTitleRotating": [
+        "信頼ベース",
+        "AI駆動",
+        "量子安全",
+        "ハイパースケール"
+      ],
       "heroSubtitle": "ブロックチェーン",
       "heroDescription": "世界初のAI駆動信頼検証ネットワーク。量子耐性セキュリティとエンタープライズグレードのスケーラビリティの融合。",
       "launchExplorer": "エクスプローラーを起動",
@@ -7175,7 +7327,20 @@
         "coreConcepts": "コア概念",
         "coreConceptsDesc": "TBurn Chainの基本原理。",
         "quickGlossary": "用語集",
-        "certifications": "認定",
+        "certifications": {
+          "developer": {
+            "title": "TBurn開発者",
+            "description": "スマートコントラクト開発認定"
+          },
+          "defi": {
+            "title": "DeFiエキスパート",
+            "description": "分散型金融マスタリー認定"
+          },
+          "validator": {
+            "title": "バリデーターオペレーター",
+            "description": "ネットワーク検証認定"
+          }
+        },
         "certificationsDesc": "認定バッジを取得",
         "communityLearning": "コミュニティラーニング",
         "paths": {
@@ -7236,20 +7401,6 @@
           "validator": {
             "term": "バリデーター",
             "definition": "トランザクションを検証しコンセンサスに参加するノード"
-          }
-        },
-        "certifications": {
-          "developer": {
-            "title": "TBurn開発者",
-            "description": "スマートコントラクト開発認定"
-          },
-          "defi": {
-            "title": "DeFiエキスパート",
-            "description": "分散型金融マスタリー認定"
-          },
-          "validator": {
-            "title": "バリデーターオペレーター",
-            "description": "ネットワーク検証認定"
           }
         },
         "communityLinks": {
@@ -7437,6 +7588,24 @@
               "value": "67%",
               "label": "詐欺の影響を受けた投資家"
             }
+          },
+          "items": {
+            "scams": {
+              "title": "80%+詐欺",
+              "description": "新規暗号プロジェクトの80%以上が詐欺またはラグプルの可能性があります。"
+            },
+            "lost": {
+              "title": "$2.7B損失",
+              "description": "2023年だけでラグプルと詐欺により失われた総資金。"
+            },
+            "risk": {
+              "title": "$3.1Bリスク",
+              "description": "介入なしで2024年に予測される推定損失額。"
+            },
+            "investorLoss": {
+              "title": "60-80%損失",
+              "description": "初期段階プロジェクトにおける平均投資家損失率。"
+            }
           }
         },
         "performance": {
@@ -7457,7 +7626,22 @@
             "gasCost": {
               "value": "$0.001",
               "label": "平均ガスコスト"
+            },
+            "latency": {
+              "value": "1.84ms",
+              "label": "レイテンシ"
+            },
+            "nodes": {
+              "value": "30,000",
+              "label": "ノード数"
             }
+          },
+          "badge": "ソリューションアーキテクチャ",
+          "description": "TBurn Chainはトラストスコアリングだけではありません。Arbitrum技術を基盤とした高性能Layer 2スケーリングソリューションであり、エンタープライズグレードのスループット向けに設計されています。",
+          "features": {
+            "hybridConsensus": "ハイブリッドコンセンサス (DPoS + BFT)",
+            "evmCompatibility": "EVM互換性",
+            "dynamicSharding": "動的シャーディングサポート"
           }
         },
         "aiLayers": {
@@ -7473,6 +7657,27 @@
           "operational": {
             "title": "運用AI",
             "description": "即時詐欺検出と防止"
+          },
+          "subtitle": "3つの異なるAIモデルを使用したインテリジェントな意思決定。",
+          "items": {
+            "strategic": {
+              "title": "戦略レイヤー",
+              "model": ":: ChatGPT Latest",
+              "latency": "450ms",
+              "description": "複雑な市場分析、ガバナンス提案評価、長期戦略策定を処理。"
+            },
+            "tactical": {
+              "title": "戦術レイヤー",
+              "model": ":: Claude Latest",
+              "latency": "180ms",
+              "description": "信頼評価、トランザクション検証、スマートコントラクト監査を処理。"
+            },
+            "operational": {
+              "title": "運用レイヤー",
+              "model": ":: Gemini Latest",
+              "latency": "45ms",
+              "description": "リアルタイム監視、緊急対応（自動バーン）、自動化アクションを実行。"
+            }
           }
         },
         "quantumSecurity": {
@@ -7482,6 +7687,16 @@
             "crystals": "CRYSTALS-Dilithium署名",
             "hybrid": "ED25519ハイブリッド暗号化",
             "postQuantum": "ポスト量子鍵交換"
+          },
+          "items": {
+            "crystals": {
+              "title": "CRYSTALS-Dilithium",
+              "description": "ポスト量子セキュリティを提供するNIST標準格子ベース署名アルゴリズム。"
+            },
+            "hybrid": {
+              "title": "ハイブリッド署名",
+              "description": "後方互換性と将来対応のためのED25519 + Dilithiumの組み合わせ。"
+            }
           }
         },
         "coreModules": {
@@ -7502,11 +7717,22 @@
             "bridge": {
               "title": "ブリッジプロトコル",
               "description": "クロスチェーン資産転送"
+            },
+            "defi": {
+              "title": "DeFiハブ",
+              "description": "統合AMM DEX、85% LTVローン、リキッドステーキング。"
+            },
+            "gamefi": {
+              "title": "GameFiプラットフォーム",
+              "description": "P2Eエンジン、トーナメントシステム、クロスチェーンアイテム取引。"
             }
           }
         },
         "downloadPdf": "PDFをダウンロード",
-        "viewGithub": "GitHubで表示"
+        "viewGithub": "GitHubで表示",
+        "heroDescription": "ブロックチェーンプロジェクト向け分散型信頼インフラストラクチャ。",
+        "heroSubDescription": "100%オンチェーン透明性で信頼性を検証するArbitrum基盤のLayer 2ソリューション。",
+        "viewSource": "ソースを見る"
       },
       "tokenomics": {
         "tag": "経済学",
@@ -7593,8 +7819,14 @@
               "mainnet": "メインネットローンチ",
               "trustScore": "トラストスコアシステム",
               "bridge": "クロスチェーンブリッジ",
-              "dex": "DEXローンチ"
-            }
+              "dex": "DEXローンチ",
+              "item1": "メインネットローンチ＆ジェネシスブロック",
+              "item2": "トラストスコアシステム V1",
+              "item3": "クロスチェーンブリッジ (ETH, BSC)",
+              "item4": "AMMを搭載したDEXローンチ",
+              "item5": "モバイルウォレットベータ版"
+            },
+            "quarter": "Q1-Q2 2024"
           },
           "phase2": {
             "title": "フェーズ2：拡大",
@@ -7604,8 +7836,14 @@
               "gamefi": "GameFiプラットフォーム",
               "aiEnhancement": "AI強化",
               "mobileWallet": "モバイルウォレット",
-              "partnerships": "主要パートナーシップ"
-            }
+              "partnerships": "主要パートナーシップ",
+              "item1": "GameFiプラットフォーム統合",
+              "item2": "AI強化モジュール",
+              "item3": "モバイルウォレット正式リリース",
+              "item4": "主要CEX上場",
+              "item5": "開発者SDK V2"
+            },
+            "quarter": "Q3-Q4 2024"
           },
           "phase3": {
             "title": "フェーズ3：エコシステム",
@@ -7615,8 +7853,14 @@
               "dao": "完全DAOガバナンス",
               "l2": "レイヤー2ソリューション",
               "enterprise": "エンタープライズ採用",
-              "global": "グローバル展開"
-            }
+              "global": "グローバル展開",
+              "item1": "Layer 2スケーリングソリューション",
+              "item2": "DAOガバナンスローンチ",
+              "item3": "クロスチェーン拡張 (7+チェーン)",
+              "item4": "AIトレーディングボット統合",
+              "item5": "エンタープライズパートナーシッププログラム"
+            },
+            "quarter": "Q1-Q2 2025"
           },
           "phase4": {
             "title": "フェーズ4：大量採用",
@@ -7626,8 +7870,13 @@
               "quantum": "量子アップグレード",
               "fiat": "フィアット統合",
               "institutions": "機関向けサービス",
-              "metaverse": "メタバース統合"
-            }
+              "metaverse": "メタバース統合",
+              "item1": "グローバルマーケティングキャンペーン",
+              "item2": "機関向けサービスローンチ",
+              "item3": "戦略的パートナーシップ",
+              "item4": "エコシステムファンド展開"
+            },
+            "quarter": "Q3-Q4 2025"
           }
         },
         "metrics": {
@@ -7636,27 +7885,414 @@
           "tvl": "総ロック価値",
           "transactions": "日次トランザクション",
           "developers": "アクティブ開発者"
+        },
+        "growth": {
+          "sectionTitle": "予測成長指標",
+          "year1": {
+            "label": "2024",
+            "projects": "500+",
+            "users": "100K+",
+            "tvl": "$50M+"
+          },
+          "year2": {
+            "label": "2025",
+            "projects": "2,000+",
+            "users": "1M+",
+            "tvl": "$500M+"
+          },
+          "year3": {
+            "label": "2026",
+            "projects": "10,000+",
+            "users": "10M+",
+            "tvl": "$5B+"
+          },
+          "labels": {
+            "verifiedProjects": "検証済みプロジェクト",
+            "activeUsers": "アクティブユーザー",
+            "tvl": "総ロック価値"
+          }
+        },
+        "cta": {
+          "title": "この旅に参加しましょう",
+          "description": "TBurn Chainエコシステムの一員となり、信頼ベースブロックチェーン技術の未来を共に形作りましょう。",
+          "joinCommunity": "コミュニティに参加",
+          "viewDocs": "ドキュメントを見る"
         }
       },
       "blockchainBasics": {
         "tag": "初級",
         "title": "ブロックチェーン基礎",
-        "subtitle": "ブロックチェーン技術と分散システムの基本概念。"
+        "subtitle": "ブロックチェーン技術と分散システムの基本概念。",
+        "duration": "4時間",
+        "backToEducation": "教育プログラムに戻る",
+        "courseOverview": {
+          "title": "コース概要",
+          "description": "この包括的なコースでは、ブロックチェーン技術の基本概念を紹介します。分散型台帳、コンセンサスメカニズム、暗号原理、そしてこれらの技術が現代の分散型アプリケーションをどのように支えているかを学びます。",
+          "videoTitle": "ブロックチェーン入門",
+          "videoSubtitle": "コースプレビュー",
+          "figureCaption": "図：コース紹介動画"
+        },
+        "curriculumTitle": "コースカリキュラム",
+        "curriculum": {
+          "module1": {
+            "title": "ブロックチェーンとは？",
+            "subtitle": "分散型台帳技術の理解",
+            "duration": "45 min"
+          },
+          "module2": {
+            "title": "暗号技術の基礎",
+            "subtitle": "ハッシュ関数、署名、暗号化",
+            "duration": "60 min"
+          },
+          "module3": {
+            "title": "コンセンサスメカニズム",
+            "subtitle": "PoW、PoS、TBurnのProof of Trust",
+            "duration": "75 min"
+          },
+          "module4": {
+            "title": "TBurn Chainアーキテクチャ",
+            "subtitle": "信頼ベースシステムの詳細解説",
+            "duration": "60 min"
+          }
+        },
+        "whatYouWillLearn": "学習内容",
+        "learningOutcomes": {
+          "item1": "ブロックチェーンの基礎と分散システムの理解",
+          "item2": "安全なトランザクションを支える暗号原理の学習",
+          "item3": "様々なコンセンサスメカニズムの探求",
+          "item4": "TBurn Chain独自の信頼ベースアーキテクチャのマスター"
+        },
+        "prerequisitesTitle": "前提条件",
+        "prerequisites": {
+          "item1": "基本的なプログラミング知識があると有用（必須ではありません）",
+          "item2": "Web技術への親しみ"
+        },
+        "continueLearning": {
+          "title": "学習を続ける",
+          "smartContracts": {
+            "title": "スマートコントラクト",
+            "subtitle": "初めてのコントラクトを構築"
+          },
+          "sdkGuide": {
+            "title": "SDKガイド",
+            "subtitle": "統合ドキュメント"
+          },
+          "quickStart": {
+            "title": "クイックスタート",
+            "subtitle": "初めてのdAppをデプロイ"
+          },
+          "documentation": {
+            "title": "ドキュメント",
+            "subtitle": "完全なAPIリファレンス"
+          }
+        },
+        "upNext": {
+          "label": "次のコース",
+          "title": "トラストスコアシステム",
+          "level": "中級レベル"
+        }
       },
       "defiMastery": {
         "tag": "中級",
         "title": "DeFiマスタリー",
-        "subtitle": "DEX、レンディング、イールド戦略を含む分散型金融概念をマスター。"
+        "subtitle": "DEX、レンディング、イールド戦略を含む分散型金融概念をマスター。",
+        "duration": "8時間",
+        "backToEducation": "教育プログラムに戻る",
+        "stats": {
+          "tvl": {
+            "value": "$2.1B",
+            "label": "総ロック価値"
+          },
+          "apy": {
+            "value": "18.5%",
+            "label": "平均APY"
+          },
+          "protocols": {
+            "value": "45+",
+            "label": "アクティブプロトコル"
+          }
+        },
+        "courseOverview": {
+          "title": "コース概要",
+          "description": "この上級コースでは、TBurn Chain上の分散型金融について知るべきすべてを網羅します。AMMメカニズムの理解から複雑なイールドファーミング戦略の実装まで、DeFiエコシステムをナビゲートするための実践的なスキルを習得します。",
+          "videoTitle": "DeFi基礎",
+          "videoSubtitle": "コースプレビュー",
+          "figureCaption": "図：DeFiプロトコル概要"
+        },
+        "curriculumTitle": "コースカリキュラム",
+        "curriculum": {
+          "module1": {
+            "title": "DEX＆AMMメカニズム",
+            "subtitle": "自動マーケットメーカーの理解",
+            "duration": "90 min"
+          },
+          "module2": {
+            "title": "レンディングプロトコル",
+            "subtitle": "担保付き借入と貸付",
+            "duration": "120 min"
+          },
+          "module3": {
+            "title": "流動性提供",
+            "subtitle": "LPトークン、インパーマネントロス、報酬",
+            "duration": "90 min"
+          },
+          "module4": {
+            "title": "イールド戦略",
+            "subtitle": "信頼ブースト利回りによるリターン最適化",
+            "duration": "120 min"
+          }
+        },
+        "keyTakeawaysTitle": "主要ポイント",
+        "keyTakeaways": {
+          "item1": "AMMメカニズムと流動性プールダイナミクスのマスター",
+          "item2": "レンディングプロトコルと担保管理の理解",
+          "item3": "イールド最適化戦略の実装"
+        },
+        "prerequisitesTitle": "前提条件",
+        "prerequisites": {
+          "item1": "ブロックチェーン基礎コース",
+          "item2": "ウォレット操作の理解"
+        },
+        "developerResources": {
+          "title": "開発者リソース",
+          "description": "これらのリソースを使用してTBurn DeFiプロトコルを構築・統合します。",
+          "smartContracts": {
+            "title": "DeFiコントラクト",
+            "subtitle": "AMM＆レンディングコントラクト"
+          },
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "プロトコル統合"
+          },
+          "apiReference": {
+            "title": "APIリファレンス",
+            "subtitle": "REST＆GraphQL API"
+          },
+          "websocket": {
+            "title": "WebSocketフィード",
+            "subtitle": "リアルタイム価格データ"
+          },
+          "codeExamples": {
+            "title": "コード例",
+            "subtitle": "サンプル統合"
+          },
+          "quickStart": {
+            "title": "クイックスタート",
+            "subtitle": "5分セットアップガイド"
+          }
+        },
+        "upNext": {
+          "label": "次のコース",
+          "title": "開発者コース",
+          "subtitle": "独自のdAppを構築"
+        }
       },
       "developerCourse": {
         "tag": "上級",
         "title": "開発者コース",
-        "subtitle": "TBurn ChainでdAppを構築・デプロイする完全ガイド。"
+        "subtitle": "TBurn ChainでdAppを構築・デプロイする完全ガイド。",
+        "duration": "20時間",
+        "backToEducation": "教育プログラムに戻る",
+        "courseOverview": {
+          "title": "コース概要",
+          "description": "この包括的な開発者コースでは、ゼロからTBurn Chain上で本番対応のdAppをデプロイするまでを学びます。スマートコントラクト開発、SDK統合、テスト戦略、安全でスケーラブルなアプリケーション構築のベストプラクティスを習得します。"
+        },
+        "curriculumTitle": "コースカリキュラム",
+        "curriculum": {
+          "module1": {
+            "title": "SDKセットアップ＆設定",
+            "subtitle": "環境セットアップとプロジェクト初期化",
+            "duration": "2時間"
+          },
+          "module2": {
+            "title": "スマートコントラクト開発",
+            "subtitle": "安全で最適化されたコントラクトの作成",
+            "duration": "6時間"
+          },
+          "module3": {
+            "title": "API統合",
+            "subtitle": "REST、GraphQL、WebSocket API",
+            "duration": "4時間"
+          },
+          "module4": {
+            "title": "デプロイ＆DevOps",
+            "subtitle": "メインネットデプロイと監視",
+            "duration": "4時間"
+          }
+        },
+        "codeExample": {
+          "title": "コード例",
+          "language": "TypeScript"
+        },
+        "developerTools": {
+          "title": "開発ツール",
+          "description": "TBurn Chain上で構築するために必要なすべてのツールにアクセス。",
+          "quickStart": {
+            "title": "クイックスタート",
+            "subtitle": "5分セットアップガイド"
+          },
+          "installation": {
+            "title": "インストール",
+            "subtitle": "ステップバイステップガイド"
+          },
+          "documentation": {
+            "title": "ドキュメント",
+            "subtitle": "完全なAPIリファレンス"
+          },
+          "evmMigration": {
+            "title": "EVMマイグレーション",
+            "subtitle": "Ethereum dAppの移行"
+          }
+        },
+        "keyTakeawaysTitle": "主要ポイント",
+        "keyTakeaways": {
+          "item1": "TBurn SDKのセットアップと設定",
+          "item2": "テスト付きの安全なスマートコントラクトの作成",
+          "item3": "トラストスコアAPIとの統合",
+          "item4": "ベストプラクティスでメインネットにデプロイ"
+        },
+        "prerequisitesTitle": "前提条件",
+        "prerequisites": {
+          "item1": "JavaScript/TypeScript習熟",
+          "item2": "Solidity基礎推奨",
+          "item3": "ブロックチェーン基礎"
+        },
+        "certification": {
+          "title": "認定を取得",
+          "description": "コースを完了してTBurn開発者認定バッジを取得しましょう。"
+        },
+        "resourcesTitle": "リソース",
+        "resources": {
+          "apiReference": "APIリファレンス",
+          "sdkGuide": "SDKガイド",
+          "smartContracts": "スマートコントラクト",
+          "cliReference": "CLIリファレンス",
+          "websocketApi": "WebSocket API",
+          "codeExamples": "コード例"
+        }
       },
       "introToDefi": {
         "tag": "初級",
         "title": "DeFi入門",
-        "subtitle": "TBurn Chainでの分散型金融への第一歩。"
+        "subtitle": "TBurn Chainでの分散型金融への第一歩。",
+        "duration": "2時間",
+        "backToEducation": "教育プログラムに戻る",
+        "scoreFormula": {
+          "title": "トラストスコア計算式",
+          "burnCompliance": {
+            "percentage": "40%",
+            "title": "バーンコンプライアンス",
+            "subtitle": "トークンバーンスケジュール遵守"
+          },
+          "devProgress": {
+            "percentage": "35%",
+            "title": "開発進捗",
+            "subtitle": "開発マイルストーン達成"
+          },
+          "transparency": {
+            "percentage": "25%",
+            "title": "透明性",
+            "subtitle": "オンチェーンデータ開示"
+          }
+        },
+        "verification": {
+          "title": "3段階検証プロセス",
+          "stage1": {
+            "title": "AI分析",
+            "description": "トリプルバンドAIがプロジェクトデータ、スマートコントラクト、ソーシャルプレゼンスをスキャン。",
+            "duration": "24時間"
+          },
+          "stage2": {
+            "title": "エキスパートレビュー",
+            "description": "人間のエキスパートがAIの発見を検証し、詳細分析を実施。",
+            "duration": "7-14日"
+          },
+          "stage3": {
+            "title": "コミュニティ投票",
+            "description": "エキスパートレビュー後、トークンホルダーが最終承認に投票。",
+            "duration": "3-5日"
+          }
+        },
+        "scoreActions": {
+          "title": "トラストスコアに基づくアクション",
+          "excellent": {
+            "label": "優秀",
+            "description": "フル取引アクセス、優先リスティング、イールドブースト対象。"
+          },
+          "good": {
+            "label": "良好",
+            "description": "標準取引アクセスと強化された可視性。"
+          },
+          "warning": {
+            "label": "警告",
+            "description": "限定取引、ユーザーに警告ラベル表示。"
+          },
+          "danger": {
+            "label": "制限",
+            "description": "取引停止、プロジェクト調査中。"
+          }
+        },
+        "hybridBurn": {
+          "title": "ハイブリッド強制バーンメカニズム",
+          "description": "プロジェクトがバーンスケジュールのコミットメントを達成できない場合、スマートコントラクトが自動的にトークン破壊を強制します。これにより、デフレ約束が守られ、投資家を保護します。",
+          "figureCaption": "図：自動バーンフロー図"
+        },
+        "burnSteps": {
+          "step1": {
+            "title": "スケジュール監視",
+            "description": "AIがリアルタイムでバーンスケジュールコンプライアンスを監視"
+          },
+          "step2": {
+            "title": "警告期間",
+            "description": "プロジェクトへの通知付き48時間猶予期間"
+          },
+          "step3": {
+            "title": "自動実行",
+            "description": "スマートコントラクトがリザーブウォレットからトークンをバーン"
+          }
+        },
+        "developerResources": {
+          "title": "開発者リソース",
+          "description": "構築する準備はできましたか？開発者ツールとドキュメントを探索しましょう。",
+          "smartContracts": {
+            "title": "スマートコントラクト",
+            "subtitle": "トラストスコア統合"
+          },
+          "sdkGuide": {
+            "title": "SDKガイド",
+            "subtitle": "クイック統合"
+          },
+          "apiReference": {
+            "title": "APIリファレンス",
+            "subtitle": "REST＆GraphQL"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "リアルタイム更新"
+          },
+          "quickStart": {
+            "title": "クイックスタート",
+            "subtitle": "5分セットアップ"
+          },
+          "codeExamples": {
+            "title": "コード例",
+            "subtitle": "サンプルプロジェクト"
+          }
+        },
+        "continueLearning": {
+          "label": "学習を続ける",
+          "defiMastery": {
+            "title": "DeFiマスタリー",
+            "level": "中級レベル"
+          }
+        },
+        "forDevelopers": {
+          "label": "開発者向け",
+          "developerCourse": {
+            "title": "開発者コース",
+            "level": "上級レベル"
+          }
+        }
       },
       "educationPrograms": {
         "tag": "プログラム",
@@ -7676,11 +8312,117 @@
         "subtitle": "次世代の信頼ベースアプリケーションを構築。TBurn Chain V4エコシステム向けの包括的な開発ツール、SDK、APIにアクセス。",
         "getStarted": "始める",
         "viewDocs": "ドキュメントを見る",
-        "quickStart": "クイックスタート",
-        "sdks": "公式SDK",
-        "apiReference": "APIリファレンス",
-        "devTools": "開発ツール",
-        "grants": "開発者グラント"
+        "quickStart": {
+          "title": "クイックスタート",
+          "subtitle": "5分でdAppをデプロイ"
+        },
+        "sdks": {
+          "title": "公式SDK",
+          "subtitle": "お気に入りの言語のネイティブサポート"
+        },
+        "apiReference": {
+          "title": "APIリファレンス",
+          "subtitle": "RESTful API＆WebSocketストリーミング",
+          "blockchainApi": "ブロックチェーンAPI",
+          "defiApi": "DeFi API",
+          "aiApi": "AI API"
+        },
+        "devTools": {
+          "burnCli": {
+            "title": "Burn CLI",
+            "description": "プロジェクト初期化＆デプロイ"
+          },
+          "testFramework": {
+            "title": "テストフレームワーク",
+            "description": "ユニット＆E2Eテスト"
+          },
+          "localDevnet": {
+            "title": "ローカルDevnet",
+            "description": "シミュレーター環境"
+          }
+        },
+        "grants": {
+          "title": "開発者グラントプログラム",
+          "subtitle": "TBurn Chainエコシステムを拡大するプロジェクトをサポートします。",
+          "totalFund": "$50M 総グラントファンド"
+        },
+        "devToolsSection": {
+          "title": "開発ツール"
+        },
+        "quickStartSteps": {
+          "step1": {
+            "comment": "# CLIをインストール"
+          },
+          "step2": {
+            "comment": "# プロジェクトを作成"
+          },
+          "step3": {
+            "comment": "# 開発サーバーを起動"
+          },
+          "step4": {
+            "comment": "# メインネットにデプロイ"
+          }
+        },
+        "sdkList": {
+          "javascript": {
+            "version": "v4.2.1",
+            "install": "npm install @burnchain/sdk",
+            "downloads": "月間1.2Mダウンロード",
+            "name": "JavaScript / TypeScript"
+          },
+          "python": {
+            "version": "v4.1.0",
+            "install": "pip install burnchain-py",
+            "downloads": "月間450Kダウンロード",
+            "name": "Python"
+          },
+          "rust": {
+            "version": "v4.0.3",
+            "install": "cargo add burnchain-rs",
+            "downloads": "月間280Kダウンロード",
+            "name": "Rust"
+          },
+          "go": {
+            "version": "v4.0.2",
+            "install": "go get github.com/burnchain/go",
+            "downloads": "月間180Kダウンロード",
+            "name": "Go"
+          },
+          "java": {
+            "version": "v4.0.1",
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "月間120Kダウンロード",
+            "name": "Java / Kotlin"
+          },
+          "swift": {
+            "name": "Swift",
+            "version": "v4.0.0",
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "月間85Kダウンロード"
+          }
+        },
+        "grantTiers": {
+          "seed": {
+            "tier": "Seed",
+            "amount": "$5K - $25K",
+            "description": "アイデア検証"
+          },
+          "build": {
+            "tier": "Build",
+            "amount": "$25K - $100K",
+            "description": "MVP Development"
+          },
+          "scale": {
+            "tier": "Scale",
+            "amount": "$100K - $500K",
+            "description": "Production Ready"
+          },
+          "enterprise": {
+            "tier": "Enterprise",
+            "amount": "$500K+",
+            "description": "エコシステムリーダー"
+          }
+        }
       },
       "docs": {
         "tag": "ドキュメント",
@@ -7743,12 +8485,252 @@
           "lending": "レンディングプロトコル",
           "staking": "ステーキング",
           "yield": "イールドファーミング"
+        },
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "24H VOLUME",
+          "activeLPs": "ACTIVE LPs",
+          "avgApy": "AVG APY"
+        },
+        "dex": {
+          "title": "Concentrated Liquidity DEX",
+          "description": "Capital-efficient AMM with concentrated liquidity positions. Provide liquidity in specific price ranges for up to 4000x capital efficiency compared to traditional AMMs.",
+          "feature1": "Concentrated liquidity positions for higher yields",
+          "feature2": "Multiple fee tiers (0.01%, 0.05%, 0.3%, 1%)",
+          "feature3": "Range orders for advanced trading strategies",
+          "price": "Price",
+          "liquidity": "Liquidity",
+          "volume24h": "24h Volume"
+        },
+        "lending": {
+          "title": "Collateralized Lending",
+          "description": "Borrow against your crypto assets with competitive rates. Real-time liquidation protection with trust-verified collateral.",
+          "maxLtv": "MAX 80% LTV",
+          "tburnLtv": "TBURN LTV",
+          "stablecoinLtv": "Stablecoin LTV"
+        },
+        "staking": {
+          "title": "Liquid Staking",
+          "description": "Stake TBURN and receive sTBURN. Use liquid staking derivatives across DeFi while earning staking rewards.",
+          "apy": "18.5% APY",
+          "exchangeRate": "Exchange Rate",
+          "rewardCycle": "Reward Cycle",
+          "everyEpoch": "Every Epoch (24h)"
+        },
+        "yieldFarming": {
+          "tag": "YIELD FARMING",
+          "title": "Trust-Boosted Yield",
+          "subtitle": "Earn bonus rewards based on your Trust Score tier"
+        },
+        "boostTiers": {
+          "standard": {
+            "name": "STANDARD",
+            "requirement": "No requirement"
+          },
+          "mid": {
+            "name": "TRUST LV.1",
+            "requirement": "Trust Score 60+"
+          },
+          "max": {
+            "name": "TRUST LV.2",
+            "requirement": "Trust Score 80+"
+          },
+          "title": "イールドブーストティア",
+          "bronze": {
+            "name": "ブロンズ",
+            "boost": "1.0x"
+          },
+          "silver": {
+            "name": "シルバー",
+            "boost": "1.25x"
+          },
+          "gold": {
+            "name": "ゴールド",
+            "boost": "1.5x"
+          },
+          "diamond": {
+            "name": "ダイヤモンド",
+            "boost": "2.0x"
+          }
+        },
+        "buttons": {
+          "startTrading": "Start Trading",
+          "viewAllFarms": "View All Farms"
+        },
+        "relatedSolutions": {
+          "description": "Expand your DeFi capabilities with these complementary solutions",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "Bitcoin DeFi solutions"
+          },
+          "bridge": {
+            "title": "Cross-Chain Bridge",
+            "subtitle": "Multi-chain transfers"
+          },
+          "tokenExtensions": {
+            "title": "Token Extensions",
+            "subtitle": "BRC-20 standards"
+          },
+          "wallets": {
+            "title": "Wallets",
+            "subtitle": "Secure connections"
+          },
+          "payments": {
+            "title": "Payments",
+            "subtitle": "Global commerce"
+          },
+          "financial": {
+            "title": "Financial Services",
+            "subtitle": "Institutional tools"
+          },
+          "permissioned": {
+            "title": "Permissioned Networks",
+            "subtitle": "Enterprise solutions"
+          },
+          "aiFeatures": {
+            "title": "AI機能",
+            "subtitle": "スマート自動化"
+          }
+        },
+        "developerResources": {
+          "description": "Build and integrate with TBurn DeFi using our comprehensive developer tools",
+          "sdkGuide": {
+            "title": "DeFi SDK Guide",
+            "subtitle": "Integration documentation"
+          },
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "subtitle": "Verified contracts"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "subtitle": "REST & GraphQL APIs"
+          },
+          "websocket": {
+            "title": "WebSocket Feeds",
+            "subtitle": "Real-time data streams"
+          },
+          "cli": {
+            "title": "CLI Tools",
+            "subtitle": "Command line interface"
+          },
+          "examples": {
+            "title": "Code Examples",
+            "subtitle": "Sample integrations"
+          }
+        },
+        "learnPages": {
+          "gettingStarted": "GETTING STARTED",
+          "defiMastery": {
+            "title": "DeFiマスタリーコース",
+            "subtitle": "高度なイールド戦略とリスク管理"
+          },
+          "introToDefi": {
+            "title": "DeFi入門",
+            "subtitle": "分散型金融の基礎を学ぶ"
+          }
+        },
+        "titleHighlight": "エコシステム",
+        "cta": {
+          "title": "TBurn DeFiで取引する準備はできましたか？",
+          "subtitle": "組み込みのトラスト検証を備えた最も信頼性の高い分散型金融エコシステムにアクセス",
+          "launchApp": "DeFiアプリを起動",
+          "viewDocs": "ドキュメントを見る"
         }
       },
       "tokenExtensions": {
         "tag": "トークン規格",
         "title": "トークン拡張",
-        "subtitle": "AI強化機能を備えた高度なTBC-20、TBC-721、TBC-1155トークン規格。"
+        "subtitle": "AI強化機能を備えた高度なTBC-20、TBC-721、TBC-1155トークン規格。",
+        "titleHighlight": "拡張機能",
+        "exploreBrc20": "BRC-20を探索",
+        "readSpecs": "仕様を読む",
+        "features": {
+          "builtInTrustRating": {
+            "title": "組み込みトラスト評価",
+            "description": "トラストスコアはトークンコントラクトに自動記録されます。40%を下回ると、transfer()関数が自動的に失敗し、トランザクションをブロックします。",
+            "badge": "自動投資家保護"
+          },
+          "autoBurnSchedule": {
+            "title": "自動バーンスケジュール",
+            "description": "事前定義されたバーンスケジュールが達成されない場合、担保トークンは自動的にバーンされます。スマートコントラクトが手動介入なしに実行を強制します。",
+            "badge": "強制デフレモデル"
+          },
+          "collateralTransparency": {
+            "title": "担保透明性",
+            "description": "プロジェクトのリザーブウォレットアドレスはオンチェーンで公開され、リアルタイムの担保比率が自動計算されトラストスコアに反映されます。"
+          },
+          "extendedMetadata": {
+            "title": "拡張メタデータ",
+            "description": "開発チーム情報、オーディット結果、ロードマップ進捗などのプロジェクト情報をトークンに直接埋め込みます。"
+          }
+        },
+        "standards": {
+          "brc20": {
+            "title": "BRC-20",
+            "description": "トラスト統合を備えた代替可能トークン"
+          },
+          "brc721": {
+            "title": "BRC-721",
+            "description": "トラスト検証を備えた非代替性トークン"
+          },
+          "brc1155": {
+            "title": "BRC-1155",
+            "description": "トラスト機能を備えたマルチトークン"
+          }
+        },
+        "developerResources": {
+          "title": "開発者リソース",
+          "description": "包括的なツールでTBurnトークン拡張を構築",
+          "sdkGuide": {
+            "title": "トークンSDK",
+            "subtitle": "統合ガイド"
+          },
+          "smartContracts": {
+            "title": "コントラクトテンプレート",
+            "subtitle": "すぐに使えるコード"
+          },
+          "apiReference": {
+            "title": "トークンAPI",
+            "subtitle": "RESTエンドポイント"
+          },
+          "examples": {
+            "title": "サンプル",
+            "subtitle": "参照実装"
+          }
+        },
+        "relatedSolutions": {
+          "title": "関連ソリューション",
+          "description": "これらの補完ツールでトークンを強化",
+          "defiHub": {
+            "title": "DeFiハブ",
+            "subtitle": "トークン取引"
+          },
+          "actionsBlinks": {
+            "title": "アクション＆ブリンクス",
+            "subtitle": "即時転送"
+          },
+          "wallets": {
+            "title": "ウォレット",
+            "subtitle": "安全な保管"
+          },
+          "payments": {
+            "title": "決済",
+            "subtitle": "商取引統合"
+          }
+        },
+        "learnPages": {
+          "title": "詳細を学ぶ",
+          "description": "トークン標準とその仕組みを理解する",
+          "tokenomics": {
+            "title": "トークノミクス",
+            "subtitle": "トークン経済学を理解"
+          },
+          "introToDefi": {
+            "title": "DeFi入門",
+            "subtitle": "分散型金融の基礎"
+          }
+        }
       },
       "actionsBlinks": {
         "tag": "自動化",
@@ -7791,7 +8773,8 @@
               "title": "実行",
               "description": "署名後、TBurn上でトランザクションが即座に処理される"
             }
-          }
+          },
+          "figureLabel": "アクションフロー図"
         },
         "realWorldApps": {
           "title": "実世界のアプリケーション",
@@ -7813,7 +8796,73 @@
           }
         },
         "developerQuickStart": {
-          "title": "開発者クイックスタート"
+          "title": "開発者クイックスタート",
+          "step1": {
+            "title": "基本的なアクションURL構造"
+          },
+          "step2": {
+            "title": "OpenGraphメタタグを追加"
+          },
+          "step3": {
+            "title": "デプロイして共有",
+            "description": "アクションがプラットフォーム間で共有可能になりました"
+          }
+        },
+        "relatedSolutions": {
+          "description": "これらの補完ソリューションでブロックチェーンアクションを強化",
+          "wallets": {
+            "title": "ウォレット",
+            "subtitle": "安全な接続"
+          },
+          "payments": {
+            "title": "決済",
+            "subtitle": "グローバルコマース"
+          },
+          "commerce": {
+            "title": "コマース",
+            "subtitle": "マーチャントツール"
+          },
+          "tokenExtensions": {
+            "title": "トークン拡張",
+            "subtitle": "BRC-20標準"
+          }
+        },
+        "developerResources": {
+          "description": "包括的な開発者ツールキットで強力なブロックチェーンアクションを構築",
+          "sdkGuide": {
+            "title": "アクションSDK",
+            "subtitle": "統合ドキュメント"
+          },
+          "smartContracts": {
+            "title": "スマートコントラクト",
+            "subtitle": "検証済みコントラクト"
+          },
+          "apiReference": {
+            "title": "APIリファレンス",
+            "subtitle": "RESTエンドポイント"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "リアルタイムイベント"
+          },
+          "cli": {
+            "title": "CLIツール",
+            "subtitle": "コマンドライン"
+          },
+          "examples": {
+            "title": "サンプル",
+            "subtitle": "サンプルコード"
+          }
+        },
+        "learnPages": {
+          "introToDefi": {
+            "title": "DeFi入門",
+            "subtitle": "分散型金融の基礎を学ぶ"
+          },
+          "developerCourse": {
+            "title": "開発者コース",
+            "subtitle": "TBurn Chain上でdAppを構築"
+          }
         }
       },
       "wallets": {
@@ -7856,7 +8905,8 @@
           },
           "autoWarningSystem": {
             "title": "自動警告システム",
-            "description": "低信頼度（40未満）のトランザクションに警告を表示する標準プロトコル。"
+            "description": "低信頼度（40未満）のトランザクションに警告を表示する標準プロトコル。",
+            "warningExample": "トラストスコア < 40 - 高リスク"
           },
           "walletSdk": {
             "title": "ウォレットSDK",
@@ -8061,7 +9111,7 @@
       "payments": {
         "tag": "決済インフラ",
         "title": "グローバル",
-        "titleHighlight": "決済",
+        "titleHighlight": "インフラ",
         "subtitle": "世界中で検証済み暗号決済を受け入れ。即時決済、超低手数料、マーチャント保護のためのトラストスコアフィルタリング。",
         "getApiKey": "APIキーを取得",
         "whyChoose": {
@@ -8085,21 +9135,35 @@
           }
         },
         "tokenStandards": {
-          "title": "決済トークン規格",
+          "title": "決済トークン評価基準",
           "priceStability": {
             "title": "価格安定性",
             "points": "30点",
-            "description": "日次ボラティリティ、時価総額、流動性プール深度に基づいて評価。"
+            "description": "決済に適した低ボラティリティ",
+            "scoring": {
+              "volatility": "日次ボラティリティ < 1%",
+              "liquidity": "流動性 $10M+"
+            }
           },
           "contractSecurity": {
             "title": "コントラクトセキュリティ",
             "points": "25点",
-            "description": "監査完了、リエントランシー保護、アップグレード権限の分散化。"
+            "description": "監査済みスマートコントラクト検証",
+            "scoring": {
+              "audits": "3+回の監査完了",
+              "criticalBug": "重大バグ発見",
+              "block": "ブロック"
+            }
           },
           "adoptionUsage": {
-            "title": "採用＆使用状況",
+            "title": "採用と使用状況",
             "points": "20点",
-            "description": "マーチャント数、月間トランザクションボリューム、平均決済サイズ。"
+            "description": "実世界での商業利用",
+            "scoring": {
+              "merchants": "100+マーチャント",
+              "transactions": "月間$1M+",
+              "high": "高"
+            }
           }
         },
         "solutionTypes": {
@@ -8138,12 +9202,173 @@
             "title": "Webhook設定",
             "description": "決済完了時に即座にサーバー通知を受信。"
           }
+        },
+        "buttons": {
+          "viewDocs": "ドキュメントを見る"
+        },
+        "launchPayments": "決済を開始",
+        "viewIntegrationGuide": "統合ガイドを見る",
+        "trustVerified": "トラスト検証済み",
+        "crossChain": "クロスチェーン",
+        "instantSettlement": "即時決済",
+        "paymentTokenScore": {
+          "title": "決済トークントラストスコア",
+          "description": "決済が処理される前に、AIが自動的にトラストスコアに基づいてトークンを検証します。"
+        },
+        "merchantFeatures": {
+          "title": "マーチャント機能",
+          "subtitle": "あらゆる規模のビジネス向けエンタープライズグレードツール",
+          "invoicing": {
+            "title": "請求書発行",
+            "description": "自動変換とフィアット決済オプション付きの暗号請求書を生成"
+          },
+          "subscriptions": {
+            "title": "サブスクリプション",
+            "description": "柔軟な請求サイクルと自動リトライによる定期支払い"
+          },
+          "multiCurrency": {
+            "title": "マルチ通貨",
+            "description": "すべてのTBurnトークンとステーブルコインで支払いを受け付け"
+          },
+          "analytics": {
+            "title": "アナリティクス",
+            "description": "収益、顧客行動、決済フローを追跡"
+          },
+          "security": {
+            "title": "セキュリティ",
+            "description": "マルチシグと時間ロック付きの暗号セキュリティ"
+          },
+          "compliance": {
+            "title": "コンプライアンス",
+            "description": "グローバル規制（GDPR、PCI-DSS）準拠のフレームワーク"
+          }
+        },
+        "cta": {
+          "title": "今すぐ支払いの受け付けを開始",
+          "subtitle": "数分でTBurn決済をビジネスに統合",
+          "createMerchantAccount": "マーチャントアカウントを作成"
+        },
+        "developerResources": {
+          "title": "開発者リソース",
+          "description": "包括的なツールでTBurn決済を統合",
+          "sdkGuide": {
+            "title": "決済SDK",
+            "subtitle": "統合ガイド"
+          },
+          "smartContracts": {
+            "title": "決済コントラクト",
+            "subtitle": "エスクローと分割"
+          },
+          "apiReference": {
+            "title": "決済API",
+            "subtitle": "RESTエンドポイント"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "リアルタイムイベント"
+          },
+          "examples": {
+            "title": "Eコマースサンプル",
+            "subtitle": "ショップ統合"
+          },
+          "cli": {
+            "title": "決済CLI",
+            "subtitle": "ターミナルツール"
+          }
+        },
+        "relatedSolutions": {
+          "title": "関連ソリューション",
+          "description": "これらの補完ツールで決済を強化",
+          "commerce": {
+            "title": "コマース",
+            "subtitle": "フルストアソリューション"
+          },
+          "actionsBlinks": {
+            "title": "アクション＆ブリンクス",
+            "subtitle": "ワンクリック支払い"
+          },
+          "wallets": {
+            "title": "ウォレット",
+            "subtitle": "安全な保管"
+          },
+          "tokenExtensions": {
+            "title": "トークン拡張",
+            "subtitle": "カスタム決済トークン"
+          }
         }
       },
       "commerce": {
         "tag": "コマース",
         "title": "コマース",
-        "subtitle": "Eコマース統合とマーチャントソリューション。"
+        "subtitle": "Eコマース統合とマーチャントソリューション。",
+        "titleHighlight": "ソリューション",
+        "getStarted": "始める",
+        "viewDocs": "ドキュメントを見る",
+        "features": {
+          "title": "コマース機能",
+          "description": "安全な暗号決済のための完全なEコマースソリューション",
+          "onlineStore": {
+            "title": "オンラインストア",
+            "description": "暗号決済統合を備えた完全なEコマースプラットフォーム"
+          },
+          "pointOfSale": {
+            "title": "POS",
+            "description": "QRコードとNFC支払いを備えた店内決済"
+          },
+          "invoicing": {
+            "title": "請求書発行",
+            "description": "自動フォローアップ付きのプロ請求書"
+          },
+          "subscriptions": {
+            "title": "サブスクリプション",
+            "description": "定期請求管理"
+          }
+        },
+        "cta": {
+          "title": "コマースソリューションを始める",
+          "subtitle": "暗号を使用したビジネス決済の受け付け開始",
+          "createAccount": "マーチャントアカウントを作成"
+        },
+        "developerResources": {
+          "title": "開発者リソース",
+          "description": "コマースプラットフォームを構築・統合",
+          "sdkGuide": {
+            "title": "コマースSDK",
+            "subtitle": "統合ガイド"
+          },
+          "smartContracts": {
+            "title": "マーケットプレイスコントラクト",
+            "subtitle": "P2P取引"
+          },
+          "apiReference": {
+            "title": "コマースAPI",
+            "subtitle": "REST＆GraphQL"
+          },
+          "examples": {
+            "title": "ストアテンプレート",
+            "subtitle": "すぐに使えるストア"
+          }
+        },
+        "relatedSolutions": {
+          "title": "関連ソリューション",
+          "description": "これらの補完ツールでコマースを強化",
+          "payments": {
+            "title": "決済",
+            "subtitle": "決済処理"
+          },
+          "wallets": {
+            "title": "ウォレット",
+            "subtitle": "顧客ウォレット"
+          },
+          "tokenExtensions": {
+            "title": "トークン拡張",
+            "subtitle": "ロイヤリティトークン"
+          },
+          "actionsBlinks": {
+            "title": "アクション＆ブリンクス",
+            "subtitle": "ソーシャルコマース"
+          }
+        }
       },
       "financial": {
         "tag": "金融",
@@ -8449,19 +9674,32 @@
           "title": "コアエンドポイント",
           "scoreQuery": {
             "title": "スコアクエリAPI",
-            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+            "endpoints": [
+              "GET /score/:address",
+              "GET /score/:address/history",
+              "POST /score/batch"
+            ]
           },
           "project": {
             "title": "プロジェクトAPI",
-            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+            "endpoints": [
+              "GET /projects",
+              "POST /projects/register",
+              "GET /projects/:id"
+            ]
           },
           "analytics": {
             "title": "アナリティクスAPI",
-            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+            "endpoints": [
+              "GET /analytics/trends",
+              "GET /analytics/leaderboard"
+            ]
           },
           "webhook": {
             "title": "Webhook API",
-            "endpoints": ["POST /webhooks"],
+            "endpoints": [
+              "POST /webhooks"
+            ],
             "events": "イベント: score.updated, score.alert, project.registered"
           }
         },
@@ -8853,6 +10091,24 @@
         "backToHome": "ホームに戻る",
         "importantNotice": {
           "title": "重要なお知らせ"
+        },
+        "questions": {
+          "title": "ご質問はありますか？",
+          "legalInquiries": "法的お問い合わせ"
+        },
+        "relatedDocuments": {
+          "title": "関連法的文書",
+          "termsOfService": "利用規約",
+          "termsOfServiceDesc": "ユーザー契約",
+          "privacyPolicy": "プライバシーポリシー",
+          "privacyPolicyDesc": "データ取扱い"
+        },
+        "learnMore": {
+          "title": "詳細を学ぶ",
+          "trustScoreSystem": "トラストスコアシステム",
+          "trustScoreSystemDesc": "スコアの仕組み",
+          "introToDefi": "DeFi入門",
+          "introToDefiDesc": "リスクの理解"
         }
       }
     }

@@ -1276,7 +1276,7 @@
     "refund": "استرداد"
   },
   "community": {
-    "title": "مجتمع TBURN",
+    "title": "العنوان",
     "subtitle": "تواصل وتعاون ونمو مع نظام TBURN البيئي",
     "online": "متصل",
     "totalMembers": "إجمالي الأعضاء",
@@ -1285,14 +1285,109 @@
     "comments": "تعليقات",
     "proposals": "المقترحات",
     "active": "نشط",
-    "events": "الفعاليات",
+    "events": {
+      "launchAma": {
+        "title": "AMA إطلاق الشبكة الرئيسية",
+        "desc": "انضم إلى مؤسسينا في جلسة AMA حصرية حول إطلاق الشبكة الرئيسية"
+      },
+      "defiWorkshop": {
+        "title": "ورشة عمل DeFi",
+        "desc": "تعلم كيفية تعظيم عوائدك مع بروتوكولات TBURN DeFi"
+      },
+      "hackathon": {
+        "title": "هاكاثون TBURN 2025",
+        "desc": "ابنِ مستقبل DeFi على TBURN واربح جوائز بقيمة 100 ألف TBURN"
+      },
+      "tokyoMeetup": {
+        "title": "لقاء المجتمع: طوكيو",
+        "desc": "التقِ بمجتمع TBURN شخصيًا في حدثنا في طوكيو"
+      },
+      "stakingCompetition": {
+        "title": "مسابقة الستاكينغ",
+        "desc": "تنافس على أعلى مكافآت ستاكينغ هذا الشهر"
+      },
+      "nftContest": {
+        "title": "مسابقة فن NFT",
+        "desc": "أنشئ أعمال فنية NFT بموضوع TBURN واربح جوائز"
+      },
+      "validatorTraining": {
+        "title": "جلسة تدريب المدققين",
+        "desc": "تعلم كيف تصبح مدققًا على TBURN من خلال تدريب شامل"
+      },
+      "airdropEvent": {
+        "title": "حدث توزيع مجتمعي",
+        "desc": "توزيع حصري لأعضاء المجتمع النشطين. أكمل المهام لكسب المكافآت!"
+      }
+    },
     "upcoming": "القادمة",
     "totalRewards": "المكافآت الموزعة",
     "overview": "نظرة عامة",
     "forum": "المنتدى",
     "leaderboard": "لوحة المتصدرين",
-    "badges": "الشارات",
-    "announcements": "الإعلانات",
+    "badges": {
+      "earlyAdopter": {
+        "name": "المتبني المبكر",
+        "description": "انضم خلال الشهر الأول من الشبكة الرئيسية"
+      },
+      "diamondHands": {
+        "name": "أيدي الماس",
+        "description": "احتفظ بـ TBURN لأكثر من 6 أشهر"
+      },
+      "governanceParticipant": {
+        "name": "مشارك في الحوكمة",
+        "description": "صوّت على أكثر من 10 مقترحات حوكمة"
+      },
+      "communityHelper": {
+        "name": "مساعد المجتمع",
+        "description": "ساعد أكثر من 50 عضوًا في المجتمع"
+      },
+      "whaleStatus": {
+        "name": "حالة الحوت",
+        "description": "يمتلك أكثر من 100 ألف رمز TBURN"
+      },
+      "contentCreator": {
+        "name": "صانع المحتوى",
+        "description": "نشر أكثر من 25 منشورًا في المنتدى"
+      },
+      "validator": {
+        "name": "المدقق",
+        "description": "يشغّل عقدة مدقق للشبكة الرئيسية"
+      },
+      "bridgePioneer": {
+        "name": "رائد الجسر",
+        "description": "من أول 1000 مستخدم للجسر عبر السلاسل"
+      },
+      "defiMaster": {
+        "name": "سيد DeFi",
+        "description": "استخدم جميع بروتوكولات DeFi"
+      },
+      "bugHunter": {
+        "name": "صائد الأخطاء",
+        "description": "أبلغ عن ثغرة أمنية صالحة"
+      }
+    },
+    "announcements": {
+      "mainnetLaunch": {
+        "title": "تأكيد موعد إطلاق الشبكة الرئيسية",
+        "content": "يسعدنا الإعلان عن أن شبكة TBURN الرئيسية ستُطلق رسميًا في 1 ديسمبر 2025. جميع الأنظمة جاهزة!"
+      },
+      "stakingTiers": {
+        "title": "إصدار مستويات ستاكينغ جديدة",
+        "content": "نقدم مستويات ستاكينغ محسّنة بعائد سنوي يصل إلى 25% لمدققي المستوى الأول. تحقق من صفحة الستاكينغ للتفاصيل."
+      },
+      "securityAudit": {
+        "title": "اكتمال التدقيق الأمني",
+        "content": "اجتازت عقودنا الذكية التدقيق الأمني الشامل من CertiK بدون مشاكل حرجة."
+      },
+      "bridgeIntegration": {
+        "title": "الجسر عبر السلاسل متاح الآن",
+        "content": "جسر TBURN متاح الآن، يدعم التحويلات بين شبكات إيثريوم و BSC و بوليغون."
+      },
+      "maintenance": {
+        "title": "صيانة مجدولة: ترقية العقدة",
+        "content": "فترة صيانة قصيرة مجدولة في 3 ديسمبر الساعة 2:00 صباحًا بتوقيت UTC. وقت التوقف المتوقع: 15 دقيقة."
+      }
+    },
     "important": "مهم",
     "activityFeed": "النشاط المباشر",
     "topContributors": "أفضل المساهمين",
@@ -1372,7 +1467,6 @@
     "eventDetails": "تفاصيل الفعالية",
     "startTime": "وقت البدء",
     "endTime": "وقت الانتهاء",
-    "title": "العنوان",
     "content": "المحتوى",
     "contributions": "المساهمات",
     "time": {
@@ -1402,104 +1496,6 @@
       "news": "أخبار",
       "alert": "تنبيه",
       "feature": "ميزة"
-    },
-    "badges": {
-      "earlyAdopter": {
-        "name": "المتبني المبكر",
-        "description": "انضم خلال الشهر الأول من الشبكة الرئيسية"
-      },
-      "diamondHands": {
-        "name": "أيدي الماس",
-        "description": "احتفظ بـ TBURN لأكثر من 6 أشهر"
-      },
-      "governanceParticipant": {
-        "name": "مشارك في الحوكمة",
-        "description": "صوّت على أكثر من 10 مقترحات حوكمة"
-      },
-      "communityHelper": {
-        "name": "مساعد المجتمع",
-        "description": "ساعد أكثر من 50 عضوًا في المجتمع"
-      },
-      "whaleStatus": {
-        "name": "حالة الحوت",
-        "description": "يمتلك أكثر من 100 ألف رمز TBURN"
-      },
-      "contentCreator": {
-        "name": "صانع المحتوى",
-        "description": "نشر أكثر من 25 منشورًا في المنتدى"
-      },
-      "validator": {
-        "name": "المدقق",
-        "description": "يشغّل عقدة مدقق للشبكة الرئيسية"
-      },
-      "bridgePioneer": {
-        "name": "رائد الجسر",
-        "description": "من أول 1000 مستخدم للجسر عبر السلاسل"
-      },
-      "defiMaster": {
-        "name": "سيد DeFi",
-        "description": "استخدم جميع بروتوكولات DeFi"
-      },
-      "bugHunter": {
-        "name": "صائد الأخطاء",
-        "description": "أبلغ عن ثغرة أمنية صالحة"
-      }
-    },
-    "events": {
-      "launchAma": {
-        "title": "AMA إطلاق الشبكة الرئيسية",
-        "desc": "انضم إلى مؤسسينا في جلسة AMA حصرية حول إطلاق الشبكة الرئيسية"
-      },
-      "defiWorkshop": {
-        "title": "ورشة عمل DeFi",
-        "desc": "تعلم كيفية تعظيم عوائدك مع بروتوكولات TBURN DeFi"
-      },
-      "hackathon": {
-        "title": "هاكاثون TBURN 2025",
-        "desc": "ابنِ مستقبل DeFi على TBURN واربح جوائز بقيمة 100 ألف TBURN"
-      },
-      "tokyoMeetup": {
-        "title": "لقاء المجتمع: طوكيو",
-        "desc": "التقِ بمجتمع TBURN شخصيًا في حدثنا في طوكيو"
-      },
-      "stakingCompetition": {
-        "title": "مسابقة الستاكينغ",
-        "desc": "تنافس على أعلى مكافآت ستاكينغ هذا الشهر"
-      },
-      "nftContest": {
-        "title": "مسابقة فن NFT",
-        "desc": "أنشئ أعمال فنية NFT بموضوع TBURN واربح جوائز"
-      },
-      "validatorTraining": {
-        "title": "جلسة تدريب المدققين",
-        "desc": "تعلم كيف تصبح مدققًا على TBURN من خلال تدريب شامل"
-      },
-      "airdropEvent": {
-        "title": "حدث توزيع مجتمعي",
-        "desc": "توزيع حصري لأعضاء المجتمع النشطين. أكمل المهام لكسب المكافآت!"
-      }
-    },
-    "announcements": {
-      "mainnetLaunch": {
-        "title": "تأكيد موعد إطلاق الشبكة الرئيسية",
-        "content": "يسعدنا الإعلان عن أن شبكة TBURN الرئيسية ستُطلق رسميًا في 1 ديسمبر 2025. جميع الأنظمة جاهزة!"
-      },
-      "stakingTiers": {
-        "title": "إصدار مستويات ستاكينغ جديدة",
-        "content": "نقدم مستويات ستاكينغ محسّنة بعائد سنوي يصل إلى 25% لمدققي المستوى الأول. تحقق من صفحة الستاكينغ للتفاصيل."
-      },
-      "securityAudit": {
-        "title": "اكتمال التدقيق الأمني",
-        "content": "اجتازت عقودنا الذكية التدقيق الأمني الشامل من CertiK بدون مشاكل حرجة."
-      },
-      "bridgeIntegration": {
-        "title": "الجسر عبر السلاسل متاح الآن",
-        "content": "جسر TBURN متاح الآن، يدعم التحويلات بين شبكات إيثريوم و BSC و بوليغون."
-      },
-      "maintenance": {
-        "title": "صيانة مجدولة: ترقية العقدة",
-        "content": "فترة صيانة قصيرة مجدولة في 3 ديسمبر الساعة 2:00 صباحًا بتوقيت UTC. وقت التوقف المتوقع: 15 دقيقة."
-      }
     },
     "rarities": {
       "common": "عادي",
@@ -2040,7 +2036,31 @@
     "ai": "الذكاء الاصطناعي",
     "aiProcessing": "معالجة الذكاء الاصطناعي",
     "uptime": "وقت التشغيل",
-    "decisions": "القرارات",
+    "decisions": {
+      "anomaly_pattern_detected_and_resolved": "تم اكتشاف نمط غير طبيعي وحله",
+      "consensus_threshold_achieved": "تم الوصول إلى عتبة الإجماع",
+      "smart_contract_execution_approved": "تمت الموافقة على تنفيذ العقد الذكي",
+      "block_validation_complete": "اكتمل التحقق من الكتلة",
+      "validator_performance_analyzed": "تم تحليل أداء المصادق",
+      "network_latency_adjusted": "تم تعديل زمن استجابة الشبكة",
+      "transaction_verified_successfully": "تم التحقق من المعاملة بنجاح",
+      "security_protocol_updated": "تم تحديث بروتوكول الأمان",
+      "gas_fee_optimization_applied": "تم تطبيق تحسين رسوم الغاز",
+      "shard_rebalancing_complete": "اكتمل إعادة توازن الشظايا",
+      "cross_chain_transfer_validated": "تم التحقق من النقل عبر السلاسل",
+      "stake_distribution_optimized": "تم تحسين توزيع الرهان",
+      "shard_load_balanced": "تم توازن حمل الشظايا",
+      "gas_fee_optimized": "تم تحسين رسوم الغاز",
+      "load_balancing_complete": "اكتمل توازن الحمل",
+      "consensus_achieved": "تم تحقيق الإجماع",
+      "validator_rotation_complete": "اكتمل تدوير المصادقين",
+      "block_finalized": "تم إتمام الكتلة",
+      "transaction_batch_processed": "تمت معالجة دفعة المعاملات",
+      "network_optimization_applied": "تم تطبيق تحسين الشبكة",
+      "security_check_passed": "تم اجتياز فحص الأمان",
+      "resource_allocation_optimized": "تم تحسين تخصيص الموارد",
+      "crossshard_message_routed": "تم توجيه رسالة عبر الشظايا"
+    },
     "actions": "الإجراءات",
     "operations": "العمليات",
     "accuracy": "الدقة",
@@ -2076,31 +2096,6 @@
       "strategic": "استراتيجي",
       "tactical": "تكتيكي",
       "operational": "تشغيلي"
-    },
-    "decisions": {
-      "anomaly_pattern_detected_and_resolved": "تم اكتشاف نمط غير طبيعي وحله",
-      "consensus_threshold_achieved": "تم الوصول إلى عتبة الإجماع",
-      "smart_contract_execution_approved": "تمت الموافقة على تنفيذ العقد الذكي",
-      "block_validation_complete": "اكتمل التحقق من الكتلة",
-      "validator_performance_analyzed": "تم تحليل أداء المصادق",
-      "network_latency_adjusted": "تم تعديل زمن استجابة الشبكة",
-      "transaction_verified_successfully": "تم التحقق من المعاملة بنجاح",
-      "security_protocol_updated": "تم تحديث بروتوكول الأمان",
-      "gas_fee_optimization_applied": "تم تطبيق تحسين رسوم الغاز",
-      "shard_rebalancing_complete": "اكتمل إعادة توازن الشظايا",
-      "cross_chain_transfer_validated": "تم التحقق من النقل عبر السلاسل",
-      "stake_distribution_optimized": "تم تحسين توزيع الرهان",
-      "shard_load_balanced": "تم توازن حمل الشظايا",
-      "gas_fee_optimized": "تم تحسين رسوم الغاز",
-      "load_balancing_complete": "اكتمل توازن الحمل",
-      "consensus_achieved": "تم تحقيق الإجماع",
-      "validator_rotation_complete": "اكتمل تدوير المصادقين",
-      "block_finalized": "تم إتمام الكتلة",
-      "transaction_batch_processed": "تمت معالجة دفعة المعاملات",
-      "network_optimization_applied": "تم تطبيق تحسين الشبكة",
-      "security_check_passed": "تم اجتياز فحص الأمان",
-      "resource_allocation_optimized": "تم تحسين تخصيص الموارد",
-      "crossshard_message_routed": "تم توجيه رسالة عبر الشظايا"
     },
     "categories": {
       "security": "الأمان",
@@ -3110,7 +3105,7 @@
     "generateReport": "إنشاء تقرير",
     "downloadReport": "تحميل التقرير",
     "dashboard": {
-    "technicalDetails": "Technical Details",
+      "technicalDetails": "Technical Details",
       "title": "بوابة المشغل",
       "subtitle": "المكتب الخلفي للمؤسسات لإدارة شبكة TBURN",
       "autoRefresh": "تلقائي",
@@ -3692,8 +3687,6 @@
       "geographicAnalysis": "التحليل الجغرافي",
       "threatSourcesByCountry": "مصادر التهديدات حسب البلد",
       "percentOfTotal": "% من الإجمالي",
-      "country": "البلد",
-      "riskLevel": "مستوى المخاطر",
       "adminAuditLogs": "سجلات تدقيق المسؤول",
       "action": "الإجراء",
       "risk": "المخاطر",
@@ -3705,7 +3698,7 @@
       "contract": "العقد",
       "targetAddressOptional": "عنوان الهدف (اختياري)",
       "resolveSecurityEvent": "حل حدث الأمان",
-      "resolveEventDesc": "قدم تفاصيل الحل لهذا الحدث الأمني",
+      "resolveEventDesc": "قدم تفاصيل الحل لحدث الأمان هذا",
       "describeResolution": "صف كيف تم حل هذا الحدث...",
       "resolve": "حل",
       "logSecurityEventDesc": "الإبلاغ عن حادث أو ملاحظة أمان جديدة",
@@ -3715,7 +3708,7 @@
       "blockIpDesc": "حظر عنوان IP من الوصول إلى الشبكة",
       "ipAddressToBlock": "عنوان IP",
       "enterIpPlaceholder": "مثال: 192.168.1.1",
-      "enterBlockReasonPlaceholder": "سبب حظر هذا الـ IP...",
+      "enterBlockReasonPlaceholder": "سبب حظر هذا IP...",
       "operatorAuditLogs": "سجلات تدقيق المشغل",
       "operatorActionsRecord": "سجل كامل لإجراءات المشغل",
       "riskFilter": "فلتر المخاطر",
@@ -3763,22 +3756,6 @@
       "resolvedBy": "تم حله بواسطة",
       "at": "في",
       "detected": "تم الاكتشاف",
-      "resolveSecurityEvent": "حل حدث الأمان",
-      "resolveEventDesc": "قدم تفاصيل الحل لحدث الأمان هذا",
-      "describeResolution": "صف كيف تم حل هذا الحدث...",
-      "resolve": "حل",
-      "logSecurityEventDesc": "الإبلاغ عن حادث أو ملاحظة أمان جديدة",
-      "eventTypePlaceholder": "مثال: تسجيل دخول مشبوه، محاولة DDoS",
-      "validator": "المدقق",
-      "transaction": "المعاملة",
-      "contract": "العقد",
-      "targetAddressOptional": "عنوان الهدف (اختياري)",
-      "eventDescriptionPlaceholder": "صف حدث الأمان بالتفصيل...",
-      "logEvent": "تسجيل الحدث",
-      "blockIpDesc": "حظر عنوان IP من الوصول إلى الشبكة",
-      "ipAddressToBlock": "عنوان IP",
-      "enterIpPlaceholder": "مثال: 192.168.1.1",
-      "enterBlockReasonPlaceholder": "سبب حظر هذا IP...",
       "threatTypes": {
         "loginAttempt": "محاولة تسجيل الدخول",
         "suspiciousTx": "معاملة مشبوهة",
@@ -3870,9 +3847,85 @@
       "newSchedule": "جدول جديد",
       "generateReport": "إنشاء تقرير",
       "reports": "التقارير",
-      "templates": "القوالب",
+      "templates": {
+        "kycSummary": {
+          "name": "ملخص KYC",
+          "description": "نظرة عامة على حالة التحقق من العضوية"
+        },
+        "amlReport": {
+          "name": "تقرير AML",
+          "description": "مراقبة نشاط مكافحة غسيل الأموال وتحليل المعاملات المشبوهة"
+        },
+        "transactionReport": {
+          "name": "تقرير نشاط المعاملات",
+          "description": "تفاصيل نشاط معاملات الشبكة وحجمها"
+        },
+        "validatorReport": {
+          "name": "تقرير أداء المدققين",
+          "description": "ملخص وقت التشغيل والمكافآت وأحداث العقوبات للمدققين"
+        },
+        "financialStatement": {
+          "name": "البيان المالي",
+          "description": "رصيد الخزينة وإصدار الرموز وإحصائيات الحرق"
+        },
+        "fields": {
+          "totalMembers": "إجمالي الأعضاء",
+          "verified": "تم التحقق",
+          "pending": "قيد الانتظار",
+          "rejected": "مرفوض",
+          "tierDistribution": "توزيع المستويات",
+          "flaggedTransactions": "المعاملات المشبوهة",
+          "sarFiled": "SAR مقدم",
+          "riskAssessment": "تقييم المخاطر",
+          "countryBreakdown": "توزيع حسب الدولة",
+          "totalVolume": "إجمالي الحجم",
+          "uniqueAddresses": "العناوين الفريدة",
+          "averageTxSize": "متوسط حجم المعاملة",
+          "feeRevenue": "إيرادات الرسوم",
+          "activeValidators": "المدققون النشطون",
+          "avgUptime": "متوسط وقت التشغيل",
+          "totalRewards": "إجمالي المكافآت",
+          "slashingEvents": "أحداث العقوبات",
+          "treasuryBalance": "رصيد الخزينة",
+          "dailyEmission": "الإصدار اليومي",
+          "totalBurned": "إجمالي المحروق",
+          "netInflation": "صافي التضخم"
+        }
+      },
       "schedules": "الجداول",
-      "compliance": "الامتثال",
+      "compliance": {
+        "categories": {
+          "kycAml": "KYC/AML",
+          "dataProtection": "حماية البيانات",
+          "financialReporting": "التقارير المالية",
+          "networkSecurity": "أمن الشبكة",
+          "operational": "تشغيلي"
+        },
+        "requirements": {
+          "identityVerification": "يجب على جميع الأعضاء إكمال التحقق من الهوية خلال 30 يومًا",
+          "sarFiling": "تقارير النشاط المشبوه (SARs) تُقدم خلال 72 ساعة",
+          "gdprCompliance": "الامتثال لـ GDPR للتعامل مع بيانات أعضاء الاتحاد الأوروبي",
+          "encryptionAtRest": "التشفير أثناء الراحة لجميع البيانات الحساسة",
+          "quarterlyStatements": "البيانات المالية ربع السنوية تُقدم للجهات التنظيمية",
+          "annualAudit": "تدقيق سنوي من طرف ثالث معتمد",
+          "multiSig": "متطلب التوقيع المتعدد لمعاملات الخزينة",
+          "validatorKyc": "KYC المدقق لعضوية اللجنة",
+          "disasterRecovery": "اختبار خطة التعافي من الكوارث ربع سنويًا",
+          "incidentResponse": "الاستجابة لحوادث الأمن خلال ساعة واحدة"
+        },
+        "notes": {
+          "complianceRate": "معدل الامتثال 98.5%",
+          "sarFiledOnTime": "جميع تقارير SAR قُدمت في الوقت المحدد",
+          "annualAuditPassed": "اجتاز التدقيق السنوي",
+          "aesEncryption": "تم التحقق من تشفير AES-256",
+          "q4ReportPreparation": "تقرير الربع الرابع 2025 قيد الإعداد",
+          "auditCleanOpinion": "اكتمل تدقيق 2024 - رأي نظيف",
+          "multiSigActive": "توقيع متعدد 3 من 5 نشط",
+          "validatorsVerified": "تم التحقق من جميع المدققين الـ 125",
+          "nextTestScheduled": "الاختبار التالي مجدول في ديسمبر",
+          "monitoringActive": "المراقبة نشطة على مدار الساعة"
+        }
+      },
       "totalReports": "إجمالي التقارير",
       "draft": "مسودة",
       "pendingReview": "في انتظار المراجعة",
@@ -3996,51 +4049,6 @@
       "recipientsCommaSeparated": "المستلمون (مفصولون بفواصل)",
       "recipientsPlaceholder": "email1@example.com، email2@example.com",
       "createSchedule": "إنشاء الجدول",
-      "templates": {
-        "kycSummary": {
-          "name": "ملخص KYC",
-          "description": "نظرة عامة على حالة التحقق من العضوية"
-        },
-        "amlReport": {
-          "name": "تقرير AML",
-          "description": "مراقبة نشاط مكافحة غسيل الأموال وتحليل المعاملات المشبوهة"
-        },
-        "transactionReport": {
-          "name": "تقرير نشاط المعاملات",
-          "description": "تفاصيل نشاط معاملات الشبكة وحجمها"
-        },
-        "validatorReport": {
-          "name": "تقرير أداء المدققين",
-          "description": "ملخص وقت التشغيل والمكافآت وأحداث العقوبات للمدققين"
-        },
-        "financialStatement": {
-          "name": "البيان المالي",
-          "description": "رصيد الخزينة وإصدار الرموز وإحصائيات الحرق"
-        },
-        "fields": {
-          "totalMembers": "إجمالي الأعضاء",
-          "verified": "تم التحقق",
-          "pending": "قيد الانتظار",
-          "rejected": "مرفوض",
-          "tierDistribution": "توزيع المستويات",
-          "flaggedTransactions": "المعاملات المشبوهة",
-          "sarFiled": "SAR مقدم",
-          "riskAssessment": "تقييم المخاطر",
-          "countryBreakdown": "توزيع حسب الدولة",
-          "totalVolume": "إجمالي الحجم",
-          "uniqueAddresses": "العناوين الفريدة",
-          "averageTxSize": "متوسط حجم المعاملة",
-          "feeRevenue": "إيرادات الرسوم",
-          "activeValidators": "المدققون النشطون",
-          "avgUptime": "متوسط وقت التشغيل",
-          "totalRewards": "إجمالي المكافآت",
-          "slashingEvents": "أحداث العقوبات",
-          "treasuryBalance": "رصيد الخزينة",
-          "dailyEmission": "الإصدار اليومي",
-          "totalBurned": "إجمالي المحروق",
-          "netInflation": "صافي التضخم"
-        }
-      },
       "scheduled": {
         "weeklyKycSummary": "ملخص KYC الأسبوعي",
         "monthlyAmlReport": "تقرير AML الشهري",
@@ -4048,39 +4056,6 @@
         "quarterlyValidatorReport": "تقرير المدققين ربع السنوي"
       },
       "complianceTab": "الامتثال",
-      "compliance": {
-        "categories": {
-          "kycAml": "KYC/AML",
-          "dataProtection": "حماية البيانات",
-          "financialReporting": "التقارير المالية",
-          "networkSecurity": "أمن الشبكة",
-          "operational": "تشغيلي"
-        },
-        "requirements": {
-          "identityVerification": "يجب على جميع الأعضاء إكمال التحقق من الهوية خلال 30 يومًا",
-          "sarFiling": "تقارير النشاط المشبوه (SARs) تُقدم خلال 72 ساعة",
-          "gdprCompliance": "الامتثال لـ GDPR للتعامل مع بيانات أعضاء الاتحاد الأوروبي",
-          "encryptionAtRest": "التشفير أثناء الراحة لجميع البيانات الحساسة",
-          "quarterlyStatements": "البيانات المالية ربع السنوية تُقدم للجهات التنظيمية",
-          "annualAudit": "تدقيق سنوي من طرف ثالث معتمد",
-          "multiSig": "متطلب التوقيع المتعدد لمعاملات الخزينة",
-          "validatorKyc": "KYC المدقق لعضوية اللجنة",
-          "disasterRecovery": "اختبار خطة التعافي من الكوارث ربع سنويًا",
-          "incidentResponse": "الاستجابة لحوادث الأمن خلال ساعة واحدة"
-        },
-        "notes": {
-          "complianceRate": "معدل الامتثال 98.5%",
-          "sarFiledOnTime": "جميع تقارير SAR قُدمت في الوقت المحدد",
-          "annualAuditPassed": "اجتاز التدقيق السنوي",
-          "aesEncryption": "تم التحقق من تشفير AES-256",
-          "q4ReportPreparation": "تقرير الربع الرابع 2025 قيد الإعداد",
-          "auditCleanOpinion": "اكتمل تدقيق 2024 - رأي نظيف",
-          "multiSigActive": "توقيع متعدد 3 من 5 نشط",
-          "validatorsVerified": "تم التحقق من جميع المدققين الـ 125",
-          "nextTestScheduled": "الاختبار التالي مجدول في ديسمبر",
-          "monitoringActive": "المراقبة نشطة على مدار الساعة"
-        }
-      },
       "weeklyReports": "التقارير الأسبوعية",
       "dailyReports": "التقارير اليومية",
       "automatedReportDesc": "جداول إنشاء التقارير الآلية",
@@ -4092,7 +4067,7 @@
       }
     },
     "staking": {
-    "details": "Details",
+      "details": "Details",
       "title": "عمليات الستاكينغ",
       "subtitle": "إدارة مجمعات الستاكينغ والمستويات وتوزيع المكافآت",
       "refresh": "تحديث",
@@ -4266,21 +4241,39 @@
         "title": "زيادة معدل الحرق من 20% إلى 25%",
         "description": "يسعى هذا الاقتراح إلى زيادة معدل حرق الانبعاثات اليومية من 20% إلى 25% لتسريع الانكماش ودعم استقرار الأسعار على المدى الطويل.",
         "aiRecommendation": "هذا الاقتراح ينطوي على مخاطر اقتصادية معتدلة لكنه يحظى بدعم مجتمعي قوي. فكر في التنفيذ التدريجي على مدار 30 يوماً.",
-        "risks": ["تقلب الأسعار قصير المدى", "انخفاض حوافز السيولة"],
-        "keyFactors": ["دعم قوي من المصادقين", "مقترحات مماثلة تمت الموافقة عليها سابقاً", "شعور إيجابي من المجتمع"]
+        "risks": [
+          "تقلب الأسعار قصير المدى",
+          "انخفاض حوافز السيولة"
+        ],
+        "keyFactors": [
+          "دعم قوي من المصادقين",
+          "مقترحات مماثلة تمت الموافقة عليها سابقاً",
+          "شعور إيجابي من المجتمع"
+        ]
       },
       "prop-002": {
         "title": "إضافة دعم جسر zkSync",
         "description": "اقتراح لدمج zkSync Era كسلسلة مدعومة في جسر TBURN عبر السلاسل مع تقييم المخاطر بالذكاء الاصطناعي.",
         "aiRecommendation": "تكامل zkSync ممكن تقنياً بتعقيد متوسط. يُوصى بإجراء تدقيق أمني قبل النشر.",
-        "risks": ["مخاطر التكنولوجيا الجديدة", "تعقيد التكامل", "تجزئة السيولة"],
-        "keyFactors": ["مخاوف من التعقيد التقني", "نمو قوي لنظام zkSync البيئي", "اهتمام مجتمع المطورين"]
+        "risks": [
+          "مخاطر التكنولوجيا الجديدة",
+          "تعقيد التكامل",
+          "تجزئة السيولة"
+        ],
+        "keyFactors": [
+          "مخاوف من التعقيد التقني",
+          "نمو قوي لنظام zkSync البيئي",
+          "اهتمام مجتمع المطورين"
+        ]
       },
       "prop-003": {
         "title": "تقليل الحد الأدنى للرهان للمصادقين من المستوى الأول",
         "description": "تقليل الحد الأدنى للرهان للمصادقين من المستوى الأول من 200,000 TBURN إلى 150,000 TBURN لتعزيز لامركزية المصادقين.",
         "aiRecommendation": "تقليل متطلبات الرهان يعزز اللامركزية مع تأثير أمني ضئيل نظراً لنظام سمعة الذكاء الاصطناعي.",
-        "risks": ["زيادة طفيفة في عدد المصادقين", "تخفيف طفيف للمكافآت"],
+        "risks": [
+          "زيادة طفيفة في عدد المصادقين",
+          "تخفيف طفيف للمكافآت"
+        ],
         "keyFactors": []
       },
       "prop-004": {
@@ -4294,8 +4287,15 @@
         "title": "ترقية التوقيعات المقاومة للكم",
         "description": "ترقية إلزامية إلى توقيعات هجينة CRYSTALS-Dilithium + ED25519 لجميع عمليات المصادقين.",
         "aiRecommendation": "ترقية أمنية حرجة بتأثير اقتصادي ضئيل. موصى بها بشدة للحماية ما بعد الكمية.",
-        "risks": ["تعقيد فترة الانتقال", "زيادة طفيفة في الأداء"],
-        "keyFactors": ["مجتمع يركز على الأمان", "عيوب ضئيلة", "مزايا تقنية واضحة"]
+        "risks": [
+          "تعقيد فترة الانتقال",
+          "زيادة طفيفة في الأداء"
+        ],
+        "keyFactors": [
+          "مجتمع يركز على الأمان",
+          "عيوب ضئيلة",
+          "مزايا تقنية واضحة"
+        ]
       }
     }
   },
@@ -4437,70 +4437,217 @@
       "nav": {
         "learn": {
           "title": "التعلم",
-          "learnHub": { "title": "مركز التعلم", "description": "ابدأ مع Burn Chain" },
-          "whatIsBurnChain": { "title": "ما هو Burn Chain؟", "description": "تعرف على بلوكتشين الخاص بنا" },
-          "trustScore": { "title": "نظام درجة الثقة", "description": "فهم التحقق من الثقة" },
-          "wallet": { "title": "ما هي المحفظة؟", "description": "أساسيات المحفظة" },
-          "blockchainBasics": { "title": "أساسيات البلوكتشين", "description": "المفاهيم الأساسية" },
-          "defiMastery": { "title": "إتقان DeFi", "description": "دورة DeFi المتقدمة" },
-          "developerCourse": { "title": "دورة المطور", "description": "ابنِ على Burn Chain" },
-          "introToDefi": { "title": "مقدمة إلى DeFi", "description": "أساسيات DeFi" },
-          "educationPrograms": { "title": "البرامج التعليمية", "description": "دورات الشهادات" },
-          "whitepaper": { "title": "الورقة البيضاء التقنية", "description": "وثائق تقنية متعمقة" },
-          "tokenomics": { "title": "الاقتصاد الرمزي", "description": "اقتصاديات الرموز" },
-          "roadmap": { "title": "خارطة الطريق", "description": "الجدول الزمني للتطوير" }
+          "learnHub": {
+            "title": "مركز التعلم",
+            "description": "ابدأ مع Burn Chain"
+          },
+          "whatIsBurnChain": {
+            "title": "ما هو Burn Chain؟",
+            "description": "تعرف على بلوكتشين الخاص بنا"
+          },
+          "trustScore": {
+            "title": "نظام درجة الثقة",
+            "description": "فهم التحقق من الثقة"
+          },
+          "wallet": {
+            "title": "ما هي المحفظة؟",
+            "description": "أساسيات المحفظة"
+          },
+          "blockchainBasics": {
+            "title": "أساسيات البلوكتشين",
+            "description": "المفاهيم الأساسية"
+          },
+          "defiMastery": {
+            "title": "إتقان DeFi",
+            "description": "دورة DeFi المتقدمة"
+          },
+          "developerCourse": {
+            "title": "دورة المطور",
+            "description": "ابنِ على Burn Chain"
+          },
+          "introToDefi": {
+            "title": "مقدمة إلى DeFi",
+            "description": "أساسيات DeFi"
+          },
+          "educationPrograms": {
+            "title": "البرامج التعليمية",
+            "description": "دورات الشهادات"
+          },
+          "whitepaper": {
+            "title": "الورقة البيضاء التقنية",
+            "description": "وثائق تقنية متعمقة"
+          },
+          "tokenomics": {
+            "title": "الاقتصاد الرمزي",
+            "description": "اقتصاديات الرموز"
+          },
+          "roadmap": {
+            "title": "خارطة الطريق",
+            "description": "الجدول الزمني للتطوير"
+          }
         },
         "developers": {
           "title": "المطورون",
-          "developerHub": { "title": "مركز المطورين", "description": "ابنِ على Burn Chain" },
-          "documentation": { "title": "التوثيق", "description": "التوثيق الكامل" },
-          "apiReference": { "title": "مرجع API", "description": "نقاط نهاية API" },
-          "cliReference": { "title": "مرجع CLI", "description": "أدوات سطر الأوامر" },
-          "sdkGuide": { "title": "دليل SDK", "description": "تكامل SDK" },
-          "smartContracts": { "title": "العقود الذكية", "description": "تطوير العقود" },
-          "websocketApi": { "title": "WebSocket API", "description": "بيانات في الوقت الفعلي" },
-          "codeExamples": { "title": "أمثلة الكود", "description": "كود نموذجي" },
-          "quickStart": { "title": "البدء السريع", "description": "ابدأ بسرعة" },
-          "installation": { "title": "دليل التثبيت", "description": "تعليمات الإعداد" },
-          "evmMigration": { "title": "ترحيل EVM", "description": "الترحيل من Ethereum" }
+          "developerHub": {
+            "title": "مركز المطورين",
+            "description": "ابنِ على Burn Chain"
+          },
+          "documentation": {
+            "title": "التوثيق",
+            "description": "التوثيق الكامل"
+          },
+          "apiReference": {
+            "title": "مرجع API",
+            "description": "نقاط نهاية API"
+          },
+          "cliReference": {
+            "title": "مرجع CLI",
+            "description": "أدوات سطر الأوامر"
+          },
+          "sdkGuide": {
+            "title": "دليل SDK",
+            "description": "تكامل SDK"
+          },
+          "smartContracts": {
+            "title": "العقود الذكية",
+            "description": "تطوير العقود"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "بيانات في الوقت الفعلي"
+          },
+          "codeExamples": {
+            "title": "أمثلة الكود",
+            "description": "كود نموذجي"
+          },
+          "quickStart": {
+            "title": "البدء السريع",
+            "description": "ابدأ بسرعة"
+          },
+          "installation": {
+            "title": "دليل التثبيت",
+            "description": "تعليمات الإعداد"
+          },
+          "evmMigration": {
+            "title": "ترحيل EVM",
+            "description": "الترحيل من Ethereum"
+          }
         },
         "solutions": {
           "title": "الحلول",
-          "tokenExtensions": { "title": "امتدادات الرموز", "description": "رموز محسنة" },
-          "actionsBlinks": { "title": "الإجراءات والروابط", "description": "إجراءات قائمة على URL" },
-          "wallets": { "title": "المحافظ", "description": "حلول المحفظة" },
-          "permissioned": { "title": "البيئات المرخصة", "description": "شبكات المؤسسات" },
-          "gameTooling": { "title": "أدوات الألعاب", "description": "تطوير الألعاب" },
-          "payments": { "title": "المدفوعات", "description": "حلول الدفع" },
-          "commerce": { "title": "التجارة", "description": "تكامل التجارة الإلكترونية" },
-          "financial": { "title": "البنية التحتية المالية", "description": "الخدمات المالية" },
-          "aiFeatures": { "title": "ميزات AI", "description": "قدرات AI" },
-          "artistsCreators": { "title": "الفنانون والمبدعون", "description": "منصة NFT" },
-          "btcfi": { "title": "BTCfi", "description": "Bitcoin DeFi" },
-          "crossChainBridge": { "title": "جسر عبر السلاسل", "description": "جسر متعدد السلاسل" },
-          "defiHub": { "title": "مركز DeFi", "description": "نظام DeFi البيئي" }
+          "tokenExtensions": {
+            "title": "امتدادات الرموز",
+            "description": "رموز محسنة"
+          },
+          "actionsBlinks": {
+            "title": "الإجراءات والروابط",
+            "description": "إجراءات قائمة على URL"
+          },
+          "wallets": {
+            "title": "المحافظ",
+            "description": "حلول المحفظة"
+          },
+          "permissioned": {
+            "title": "البيئات المرخصة",
+            "description": "شبكات المؤسسات"
+          },
+          "gameTooling": {
+            "title": "أدوات الألعاب",
+            "description": "تطوير الألعاب"
+          },
+          "payments": {
+            "title": "المدفوعات",
+            "description": "حلول الدفع"
+          },
+          "commerce": {
+            "title": "التجارة",
+            "description": "تكامل التجارة الإلكترونية"
+          },
+          "financial": {
+            "title": "البنية التحتية المالية",
+            "description": "الخدمات المالية"
+          },
+          "aiFeatures": {
+            "title": "ميزات AI",
+            "description": "قدرات AI"
+          },
+          "artistsCreators": {
+            "title": "الفنانون والمبدعون",
+            "description": "منصة NFT"
+          },
+          "btcfi": {
+            "title": "BTCfi",
+            "description": "Bitcoin DeFi"
+          },
+          "crossChainBridge": {
+            "title": "جسر عبر السلاسل",
+            "description": "جسر متعدد السلاسل"
+          },
+          "defiHub": {
+            "title": "مركز DeFi",
+            "description": "نظام DeFi البيئي"
+          }
         },
         "useCases": {
           "title": "حالات الاستخدام",
-          "tokenization": { "title": "الترميز", "description": "ترميز الأصول" },
-          "depin": { "title": "DePIN", "description": "البنية التحتية اللامركزية" },
-          "stablecoins": { "title": "العملات المستقرة", "description": "أصول مستقرة" },
-          "institutional": { "title": "المدفوعات المؤسسية", "description": "مدفوعات المؤسسات" },
-          "enterprise": { "title": "المؤسسات", "description": "حلول المؤسسات" },
-          "gaming": { "title": "الألعاب والترفيه", "description": "نظام الألعاب البيئي" }
+          "tokenization": {
+            "title": "الترميز",
+            "description": "ترميز الأصول"
+          },
+          "depin": {
+            "title": "DePIN",
+            "description": "البنية التحتية اللامركزية"
+          },
+          "stablecoins": {
+            "title": "العملات المستقرة",
+            "description": "أصول مستقرة"
+          },
+          "institutional": {
+            "title": "المدفوعات المؤسسية",
+            "description": "مدفوعات المؤسسات"
+          },
+          "enterprise": {
+            "title": "المؤسسات",
+            "description": "حلول المؤسسات"
+          },
+          "gaming": {
+            "title": "الألعاب والترفيه",
+            "description": "نظام الألعاب البيئي"
+          }
         },
         "network": {
           "title": "الشبكة",
-          "validators": { "title": "المدققون", "description": "كن مدققاً" },
-          "rpc": { "title": "مزودو RPC", "description": "وصول API" },
-          "status": { "title": "حالة الشبكة", "description": "صحة الشبكة" },
-          "ramp": { "title": "منحدر Burn Chain", "description": "شراء/بيع TBURN" }
+          "validators": {
+            "title": "المدققون",
+            "description": "كن مدققاً"
+          },
+          "rpc": {
+            "title": "مزودو RPC",
+            "description": "وصول API"
+          },
+          "status": {
+            "title": "حالة الشبكة",
+            "description": "صحة الشبكة"
+          },
+          "ramp": {
+            "title": "منحدر Burn Chain",
+            "description": "شراء/بيع TBURN"
+          }
         },
         "community": {
           "title": "المجتمع",
-          "news": { "title": "الأخبار والمدونة", "description": "آخر التحديثات" },
-          "events": { "title": "الفعاليات", "description": "الفعاليات القادمة" },
-          "hub": { "title": "المجتمع", "description": "انضم إلى المجتمع" }
+          "news": {
+            "title": "الأخبار والمدونة",
+            "description": "آخر التحديثات"
+          },
+          "events": {
+            "title": "الفعاليات",
+            "description": "الفعاليات القادمة"
+          },
+          "hub": {
+            "title": "المجتمع",
+            "description": "انضم إلى المجتمع"
+          }
         }
       }
     },
@@ -4522,7 +4669,12 @@
     "home": {
       "heroTag": "الشبكة الرئيسية مباشرة",
       "heroTitle": "مستقبل",
-      "heroTitleRotating": ["القائمة على الثقة", "المدعومة بالذكاء الاصطناعي", "الآمنة كمياً", "فائقة التوسع"],
+      "heroTitleRotating": [
+        "القائمة على الثقة",
+        "المدعومة بالذكاء الاصطناعي",
+        "الآمنة كمياً",
+        "فائقة التوسع"
+      ],
       "heroSubtitle": "البلوكتشين",
       "heroDescription": "أول شبكة تحقق ثقة مدعومة بالذكاء الاصطناعي في العالم. أمان مقاوم للحوسبة الكمية يلتقي بقابلية التوسع على مستوى المؤسسات.",
       "launchExplorer": "تشغيل المستكشف",
@@ -4588,7 +4740,20 @@
         "coreConcepts": "المفاهيم الأساسية",
         "coreConceptsDesc": "المبادئ الأساسية لـ TBurn Chain.",
         "quickGlossary": "مسرد سريع",
-        "certifications": "الشهادات",
+        "certifications": {
+          "developer": {
+            "title": "مطور TBurn",
+            "description": "شهادة تطوير العقود الذكية"
+          },
+          "defi": {
+            "title": "خبير DeFi",
+            "description": "شهادة إتقان التمويل اللامركزي"
+          },
+          "validator": {
+            "title": "مشغل المدقق",
+            "description": "شهادة التحقق من الشبكة"
+          }
+        },
         "certificationsDesc": "احصل على شارات موثقة",
         "communityLearning": "التعلم المجتمعي",
         "paths": {
@@ -4649,20 +4814,6 @@
           "validator": {
             "term": "المدقق",
             "definition": "العقد التي تتحقق من المعاملات وتشارك في الإجماع"
-          }
-        },
-        "certifications": {
-          "developer": {
-            "title": "مطور TBurn",
-            "description": "شهادة تطوير العقود الذكية"
-          },
-          "defi": {
-            "title": "خبير DeFi",
-            "description": "شهادة إتقان التمويل اللامركزي"
-          },
-          "validator": {
-            "title": "مشغل المدقق",
-            "description": "شهادة التحقق من الشبكة"
           }
         },
         "communityLinks": {
@@ -4763,6 +4914,33 @@
             "title": "إشارات المجتمع",
             "description": "المشاركة الاجتماعية، تصويت الحوكمة، ومشاعر المجتمع",
             "weight": "25%"
+          },
+          "items": {
+            "team": {
+              "title": "هوية الفريق",
+              "points": "30 نقطة",
+              "description": "التحقق من الهوية، سجل الإنجازات، والحضور الاجتماعي"
+            },
+            "technology": {
+              "title": "التقنية",
+              "points": "25 نقطة",
+              "description": "تدقيق العقود الذكية، جودة الكود، والأمان"
+            },
+            "community": {
+              "title": "المجتمع",
+              "points": "20 نقطة",
+              "description": "المشاركة الاجتماعية، المشاركة في الحوكمة"
+            },
+            "financials": {
+              "title": "الماليات",
+              "points": "15 نقطة",
+              "description": "السيولة، الاقتصاد الرمزي، وإدارة الأموال"
+            },
+            "execution": {
+              "title": "التنفيذ",
+              "points": "10 نقاط",
+              "description": "تنفيذ خارطة الطريق وتحقيق المعالم"
+            }
           }
         },
         "grades": {
@@ -4776,7 +4954,32 @@
           "cTitle": "C (50-69)",
           "cDesc": "يحتاج تحسين. يوصى بالعناية الواجبة.",
           "fTitle": "F (0-49)",
-          "fDesc": "عالي المخاطر. قد يتم إيقاف التداول تلقائياً."
+          "fDesc": "عالي المخاطر. قد يتم إيقاف التداول تلقائياً.",
+          "diamond": {
+            "name": "الماسي",
+            "range": "90-100",
+            "description": "أعلى مستوى ثقة"
+          },
+          "gold": {
+            "name": "الذهبي",
+            "range": "70-89",
+            "description": "موثوقية عالية"
+          },
+          "silver": {
+            "name": "الفضي",
+            "range": "50-69",
+            "description": "ثقة متوسطة"
+          },
+          "bronze": {
+            "name": "البرونزي",
+            "range": "40-49",
+            "description": "يُنصح بالحذر"
+          },
+          "restricted": {
+            "name": "مقيد",
+            "range": "0-39",
+            "description": "التداول معلق"
+          }
         },
         "stages": {
           "title": "نظام التحقق من 3 مراحل",
@@ -4843,6 +5046,10 @@
             "title": "المحافظ غير الحفظية",
             "description": "أنت تتحكم في مفاتيحك الخاصة.",
             "examples": "محافظ ذاتية الحفظ"
+          },
+          "hardware": {
+            "title": "المحافظ الصلبة",
+            "description": "أجهزة فيزيائية لتخزين المفاتيح بأمان"
           }
         },
         "security": {
@@ -4862,6 +5069,12 @@
           "updateSoftware": {
             "title": "حدّث البرنامج",
             "description": "حافظ على تحديث برنامج المحفظة"
+          },
+          "items": {
+            "seedPhrase": "لا تشارك عبارة الاسترداد أبداً",
+            "verifyUrls": "تحقق دائماً من عناوين المواقع",
+            "enable2fa": "فعّل المصادقة الثنائية",
+            "regularBackups": "قم بعمل نسخ احتياطية منتظمة"
           }
         }
       },
@@ -4876,7 +5089,26 @@
             "rugPulls": "عمليات الاحتيال - خسارة أكثر من 2.8 مليار دولار في 2023",
             "fakeAudits": "تدقيقات أمنية مزيفة ومختومة",
             "noAccountability": "لا توجد مساءلة بعد الإطلاق"
-          }
+          },
+          "items": {
+            "scams": {
+              "title": "80%+ احتيال",
+              "description": "أكثر من 80% من مشاريع العملات المشفرة الجديدة هي عمليات احتيال أو سحب بساط محتملة."
+            },
+            "lost": {
+              "title": "$2.7B خسائر",
+              "description": "إجمالي الأموال المفقودة بسبب سحب البساط والاحتيال في عام 2023 وحده."
+            },
+            "risk": {
+              "title": "$3.1B مخاطر",
+              "description": "الخسائر المتوقعة لعام 2024 بدون تدخل."
+            },
+            "investorLoss": {
+              "title": "60-80% خسارة",
+              "description": "متوسط معدل خسارة المستثمرين في المشاريع المبكرة."
+            }
+          },
+          "subtitle": "المشاكل الأساسية في صناعة البلوكتشين الحالية"
         },
         "performance": {
           "title": "مواصفات الأداء",
@@ -4884,6 +5116,31 @@
             "tps": "أكثر من 50,000 معاملة في الثانية",
             "blockTime": "وقت كتلة ثانية واحدة",
             "finality": "نهائية 6 ثوانٍ"
+          },
+          "badge": "هندسة الحل",
+          "description": "TBurn Chain ليس مجرد نظام تسجيل ثقة؛ إنه حل توسع Layer 2 عالي الأداء مبني على تقنية Arbitrum، مصمم لإنتاجية على مستوى المؤسسات.",
+          "features": {
+            "hybridConsensus": "إجماع هجين (DPoS + BFT)",
+            "evmCompatibility": "توافق EVM",
+            "dynamicSharding": "دعم التجزئة الديناميكية"
+          },
+          "metrics": {
+            "latency": {
+              "value": "1.84ms",
+              "label": "زمن الاستجابة"
+            },
+            "nodes": {
+              "value": "30,000",
+              "label": "العقد"
+            },
+            "tps": {
+              "value": "500k+",
+              "label": "TPS"
+            },
+            "blockTime": {
+              "value": "1s",
+              "label": "وقت الكتلة"
+            }
           }
         },
         "aiLayers": {
@@ -4893,6 +5150,27 @@
             "strategic": "النطاق الاستراتيجي - تخطيط وتحسين طويل المدى",
             "tactical": "النطاق التكتيكي - تخصيص الموارد في الوقت الفعلي",
             "operational": "النطاق التشغيلي - معالجة المعاملات والتحقق"
+          },
+          "subtitle": "اتخاذ قرارات ذكية باستخدام ثلاثة نماذج AI متميزة.",
+          "items": {
+            "strategic": {
+              "title": "الطبقة الاستراتيجية",
+              "model": ":: ChatGPT Latest",
+              "latency": "450ms",
+              "description": "يتعامل مع تحليل السوق المعقد وتقييم مقترحات الحوكمة وصياغة الاستراتيجية طويلة المدى."
+            },
+            "tactical": {
+              "title": "الطبقة التكتيكية",
+              "model": ":: Claude Latest",
+              "latency": "180ms",
+              "description": "يعالج تقييم الثقة والتحقق من المعاملات وتدقيق العقود الذكية."
+            },
+            "operational": {
+              "title": "الطبقة التشغيلية",
+              "model": ":: Gemini Latest",
+              "latency": "45ms",
+              "description": "ينفذ المراقبة في الوقت الفعلي والاستجابة للطوارئ (الحرق التلقائي) والإجراءات الآلية."
+            }
           }
         },
         "quantumSecurity": {
@@ -4902,6 +5180,16 @@
             "hybridSignatures": "توقيعات هجينة CRYSTALS-Dilithium + ED25519",
             "postQuantum": "خوارزميات تشفير ما بعد الكم",
             "futureProof": "إعداد للأمان المستقبلي"
+          },
+          "items": {
+            "crystals": {
+              "title": "CRYSTALS-Dilithium",
+              "description": "خوارزمية توقيع قائمة على الشبكة وفق معيار NIST توفر أماناً ما بعد الكم."
+            },
+            "hybrid": {
+              "title": "التوقيعات الهجينة",
+              "description": "دمج ED25519 + Dilithium للتوافق مع الإصدارات السابقة وضمان المستقبل."
+            }
           }
         },
         "coreModules": {
@@ -4922,9 +5210,25 @@
             "bridgeProtocol": {
               "title": "بروتوكول الجسر",
               "description": "نقل آمن للأصول عبر السلاسل"
+            },
+            "defi": {
+              "title": "مركز DeFi",
+              "description": "DEX متكامل مع AMM، قروض بنسبة 85% LTV، والستاكينغ السائل."
+            },
+            "gamefi": {
+              "title": "منصة GameFi",
+              "description": "محرك P2E، نظام البطولات، وتداول العناصر عبر السلاسل."
+            },
+            "bridge": {
+              "title": "جسر عبر السلاسل",
+              "description": "تبادلات ذرية آمنة متصلة بأكثر من 7 سلاسل بلوكتشين رئيسية."
             }
           }
-        }
+        },
+        "heroDescription": "البنية التحتية للثقة اللامركزية لمشاريع البلوكتشين.",
+        "heroSubDescription": "حل Layer 2 مبني على Arbitrum للتحقق من الموثوقية بشفافية 100% على السلسلة.",
+        "viewSource": "عرض المصدر",
+        "downloadPdf": "تحميل PDF"
       },
       "tokenomics": {
         "tag": "الاقتصاد",
@@ -4963,6 +5267,32 @@
             "title": "المستثمرون الأوائل",
             "percentage": "10%",
             "description": "استحقاق سنتين"
+          },
+          "items": {
+            "ecosystem": {
+              "label": "صندوق النظام البيئي",
+              "percentage": "30%"
+            },
+            "community": {
+              "label": "مكافآت المجتمع",
+              "percentage": "25%"
+            },
+            "team": {
+              "label": "الفريق والمستشارون",
+              "percentage": "15%"
+            },
+            "validators": {
+              "label": "حوافز المدققين",
+              "percentage": "15%"
+            },
+            "reserve": {
+              "label": "صندوق الاحتياطي",
+              "percentage": "10%"
+            },
+            "liquidity": {
+              "label": "السيولة",
+              "percentage": "5%"
+            }
           }
         },
         "burnMechanisms": {
@@ -4978,6 +5308,20 @@
           "scheduledBurns": {
             "title": "الحروق المجدولة",
             "description": "أحداث الحرق الدورية بناءً على الحوكمة"
+          },
+          "items": {
+            "transaction": {
+              "title": "حرق المعاملات",
+              "description": "يتم حرق 0.1% من كل معاملة"
+            },
+            "scheduled": {
+              "title": "الحرق المجدول",
+              "description": "حرق ربع سنوي بناءً على نشاط الشبكة"
+            },
+            "aiOptimized": {
+              "title": "الحرق المحسن بالذكاء الاصطناعي",
+              "description": "حرق ديناميكي بناءً على ظروف السوق"
+            }
           }
         },
         "staking": {
@@ -4998,11 +5342,18 @@
               "requirement": "100,000 TBURN+",
               "apy": "8-12% APY"
             }
-          }
+          },
+          "apy": "العائد السنوي الحالي",
+          "totalStaked": "إجمالي المُراهن",
+          "validators": "المدققون النشطون",
+          "minStake": "الحد الأدنى للمراهنة"
         },
         "governance": {
           "title": "الحوكمة",
-          "description": "يمنح حاملو TBURN حقوق التصويت على ترقيات البروتوكول، إنفاق الخزينة، وتغييرات المعلمات."
+          "description": "يمنح حاملو TBURN حقوق التصويت على ترقيات البروتوكول، إنفاق الخزينة، وتغييرات المعلمات.",
+          "votingPower": "قوة التصويت",
+          "proposalThreshold": "عتبة المقترحات",
+          "quorum": "النصاب المطلوب"
         }
       },
       "roadmap": {
@@ -5017,8 +5368,15 @@
               "mainnetLaunch": "إطلاق الشبكة الرئيسية",
               "trustScoreV1": "نظام درجة الثقة V1",
               "basicDefi": "بنية DeFi الأساسية",
-              "walletIntegration": "تكامل المحفظة"
-            }
+              "walletIntegration": "تكامل المحفظة",
+              "item1": "إطلاق الشبكة الرئيسية وكتلة التكوين",
+              "item2": "نظام درجة الثقة V1",
+              "item3": "جسر عبر السلاسل (ETH, BSC)",
+              "item4": "إطلاق DEX مع AMM",
+              "item5": "محفظة الجوال النسخة التجريبية"
+            },
+            "quarter": "Q1-Q2 2024",
+            "title": "المرحلة الأولى: الأساس"
           },
           "phase2": {
             "name": "المرحلة 2: التوسع",
@@ -5027,8 +5385,15 @@
               "aiOrchestration": "تنسيق الذكاء الاصطناعي V4",
               "crossChainBridge": "الجسر عبر السلاسل",
               "advancedDefi": "منتجات DeFi المتقدمة",
-              "enterpriseTools": "أدوات المؤسسات"
-            }
+              "enterpriseTools": "أدوات المؤسسات",
+              "item1": "تكامل منصة GameFi",
+              "item2": "وحدة تحسين AI",
+              "item3": "الإصدار الكامل لمحفظة الجوال",
+              "item4": "إدراج في بورصات CEX كبرى",
+              "item5": "SDK للمطورين V2"
+            },
+            "quarter": "Q3-Q4 2024",
+            "title": "المرحلة الثانية: التوسع"
           },
           "phase3": {
             "name": "المرحلة 3: النضج",
@@ -5037,8 +5402,26 @@
               "quantumUpgrade": "ترقية مقاومة الكم",
               "globalCompliance": "إطار الامتثال العالمي",
               "institutionalAdoption": "التبني المؤسسي",
-              "ecosystemExpansion": "توسيع النظام البيئي"
-            }
+              "ecosystemExpansion": "توسيع النظام البيئي",
+              "item1": "حل توسع Layer 2",
+              "item2": "إطلاق حوكمة DAO",
+              "item3": "توسع عبر السلاسل (7+ سلاسل)",
+              "item4": "تكامل روبوت تداول AI",
+              "item5": "برنامج شراكة المؤسسات"
+            },
+            "quarter": "Q1-Q2 2025",
+            "title": "المرحلة الثالثة: النظام البيئي"
+          },
+          "phase4": {
+            "quarter": "Q3-Q4 2025",
+            "items": {
+              "item1": "حملة تسويق عالمية",
+              "item2": "إطلاق الخدمات المؤسسية",
+              "item3": "شراكات استراتيجية",
+              "item4": "نشر صندوق النظام البيئي"
+            },
+            "title": "المرحلة الرابعة: التبني الجماعي",
+            "status": "مُخطط"
           }
         },
         "metrics": {
@@ -5047,27 +5430,414 @@
           "totalValidators": "المدققون النشطون",
           "totalTransactions": "إجمالي المعاملات",
           "totalBurned": "إجمالي المحروق"
+        },
+        "growth": {
+          "sectionTitle": "مقاييس النمو المتوقعة",
+          "year1": {
+            "label": "2024",
+            "projects": "500+",
+            "users": "100K+",
+            "tvl": "$50M+"
+          },
+          "year2": {
+            "label": "2025",
+            "projects": "2,000+",
+            "users": "1M+",
+            "tvl": "$500M+"
+          },
+          "year3": {
+            "label": "2026",
+            "projects": "10,000+",
+            "users": "10M+",
+            "tvl": "$5B+"
+          },
+          "labels": {
+            "verifiedProjects": "المشاريع الموثقة",
+            "activeUsers": "المستخدمون النشطون",
+            "tvl": "القيمة الإجمالية المقفلة"
+          }
+        },
+        "cta": {
+          "title": "انضم إلينا في هذه الرحلة",
+          "description": "كن جزءاً من نظام TBurn Chain البيئي وساعد في تشكيل مستقبل تقنية البلوكتشين القائمة على الثقة.",
+          "joinCommunity": "انضم إلى المجتمع",
+          "viewDocs": "عرض الوثائق"
         }
       },
       "blockchainBasics": {
         "tag": "مبتدئ",
         "title": "أساسيات البلوكتشين",
-        "subtitle": "المفاهيم الأساسية لتقنية البلوكتشين والأنظمة الموزعة."
+        "subtitle": "المفاهيم الأساسية لتقنية البلوكتشين والأنظمة الموزعة.",
+        "duration": "4 ساعات",
+        "backToEducation": "العودة إلى البرامج التعليمية",
+        "courseOverview": {
+          "title": "نظرة عامة على الدورة",
+          "description": "تقدم هذه الدورة الشاملة المفاهيم الأساسية لتقنية البلوكتشين. ستتعلم عن السجلات الموزعة وآليات الإجماع والمبادئ التشفيرية وكيف تدعم هذه التقنيات التطبيقات اللامركزية الحديثة.",
+          "videoTitle": "مقدمة إلى البلوكتشين",
+          "videoSubtitle": "معاينة الدورة",
+          "figureCaption": "الشكل: فيديو تقديم الدورة"
+        },
+        "curriculumTitle": "منهج الدورة",
+        "curriculum": {
+          "module1": {
+            "title": "ما هو البلوكتشين؟",
+            "subtitle": "فهم تقنية السجلات الموزعة",
+            "duration": "45 min"
+          },
+          "module2": {
+            "title": "أساسيات التشفير",
+            "subtitle": "دوال الهاش والتوقيعات والتشفير",
+            "duration": "60 min"
+          },
+          "module3": {
+            "title": "آليات الإجماع",
+            "subtitle": "PoW, PoS, وإثبات الثقة في TBurn",
+            "duration": "75 min"
+          },
+          "module4": {
+            "title": "معمارية TBurn Chain",
+            "subtitle": "نظرة معمقة في نظامنا القائم على الثقة",
+            "duration": "60 min"
+          }
+        },
+        "whatYouWillLearn": "ما ستتعلمه",
+        "learningOutcomes": {
+          "item1": "فهم أساسيات البلوكتشين والأنظمة الموزعة",
+          "item2": "تعلم المبادئ التشفيرية وراء المعاملات الآمنة",
+          "item3": "استكشاف آليات الإجماع المختلفة",
+          "item4": "إتقان معمارية TBurn Chain الفريدة القائمة على الثقة"
+        },
+        "prerequisitesTitle": "المتطلبات الأساسية",
+        "prerequisites": {
+          "item1": "معرفة البرمجة الأساسية مفيدة ولكن غير مطلوبة",
+          "item2": "الإلمام بتقنيات الويب"
+        },
+        "continueLearning": {
+          "title": "استمر في التعلم",
+          "smartContracts": {
+            "title": "العقود الذكية",
+            "subtitle": "ابنِ عقدك الأول"
+          },
+          "sdkGuide": {
+            "title": "دليل SDK",
+            "subtitle": "وثائق التكامل"
+          },
+          "quickStart": {
+            "title": "البدء السريع",
+            "subtitle": "انشر أول dApp لك"
+          },
+          "documentation": {
+            "title": "الوثائق",
+            "subtitle": "مرجع API الكامل"
+          }
+        },
+        "upNext": {
+          "label": "التالي",
+          "title": "نظام درجة الثقة",
+          "level": "المستوى المتوسط"
+        }
       },
       "defiMastery": {
         "tag": "متوسط",
         "title": "إتقان DeFi",
-        "subtitle": "أتقن مفاهيم التمويل اللامركزي بما في ذلك DEX والإقراض واستراتيجيات العائد."
+        "subtitle": "أتقن مفاهيم التمويل اللامركزي بما في ذلك DEX والإقراض واستراتيجيات العائد.",
+        "duration": "8 ساعات",
+        "backToEducation": "العودة إلى البرامج التعليمية",
+        "stats": {
+          "tvl": {
+            "value": "$2.1B",
+            "label": "القيمة الإجمالية المقفلة"
+          },
+          "apy": {
+            "value": "18.5%",
+            "label": "متوسط APY"
+          },
+          "protocols": {
+            "value": "45+",
+            "label": "البروتوكولات النشطة"
+          }
+        },
+        "courseOverview": {
+          "title": "نظرة عامة على الدورة",
+          "description": "تغطي هذه الدورة المتقدمة كل ما تحتاج معرفته عن التمويل اللامركزي على TBurn Chain. من فهم آليات AMM إلى تنفيذ استراتيجيات زراعة العائد المعقدة، ستكتسب مهارات عملية للتنقل في نظام DeFi البيئي.",
+          "videoTitle": "أساسيات DeFi",
+          "videoSubtitle": "معاينة الدورة",
+          "figureCaption": "الشكل: نظرة عامة على بروتوكول DeFi"
+        },
+        "curriculumTitle": "منهج الدورة",
+        "curriculum": {
+          "module1": {
+            "title": "آليات DEX و AMM",
+            "subtitle": "فهم صانعي السوق الآليين",
+            "duration": "90 min"
+          },
+          "module2": {
+            "title": "بروتوكولات الإقراض",
+            "subtitle": "الاقتراض والإقراض بضمان",
+            "duration": "120 min"
+          },
+          "module3": {
+            "title": "توفير السيولة",
+            "subtitle": "رموز LP والخسارة غير الدائمة والمكافآت",
+            "duration": "90 min"
+          },
+          "module4": {
+            "title": "استراتيجيات العائد",
+            "subtitle": "تحسين العوائد مع تعزيز الثقة",
+            "duration": "120 min"
+          }
+        },
+        "keyTakeawaysTitle": "النقاط الرئيسية",
+        "keyTakeaways": {
+          "item1": "إتقان آليات AMM وديناميكيات مجمع السيولة",
+          "item2": "فهم بروتوكولات الإقراض وإدارة الضمانات",
+          "item3": "تنفيذ استراتيجيات تحسين العائد"
+        },
+        "prerequisitesTitle": "المتطلبات الأساسية",
+        "prerequisites": {
+          "item1": "دورة أساسيات البلوكتشين",
+          "item2": "فهم عمليات المحفظة"
+        },
+        "developerResources": {
+          "title": "موارد المطورين",
+          "description": "ابنِ وادمج مع بروتوكولات TBurn DeFi باستخدام هذه الموارد.",
+          "smartContracts": {
+            "title": "عقود DeFi",
+            "subtitle": "عقود AMM والإقراض"
+          },
+          "sdkGuide": {
+            "title": "DeFi SDK",
+            "subtitle": "تكامل البروتوكول"
+          },
+          "apiReference": {
+            "title": "مرجع API",
+            "subtitle": "REST و GraphQL APIs"
+          },
+          "websocket": {
+            "title": "تغذيات WebSocket",
+            "subtitle": "بيانات الأسعار في الوقت الفعلي"
+          },
+          "codeExamples": {
+            "title": "أمثلة الكود",
+            "subtitle": "نماذج التكامل"
+          },
+          "quickStart": {
+            "title": "البدء السريع",
+            "subtitle": "دليل إعداد 5 دقائق"
+          }
+        },
+        "upNext": {
+          "label": "التالي",
+          "title": "دورة المطور",
+          "subtitle": "ابنِ تطبيقاتك اللامركزية الخاصة"
+        }
       },
       "developerCourse": {
         "tag": "متقدم",
         "title": "دورة المطور",
-        "subtitle": "دليل شامل لبناء ونشر تطبيقات dApps على TBurn Chain."
+        "subtitle": "دليل شامل لبناء ونشر تطبيقات dApps على TBurn Chain.",
+        "duration": "20 ساعة",
+        "backToEducation": "العودة إلى البرامج التعليمية",
+        "courseOverview": {
+          "title": "نظرة عامة على الدورة",
+          "description": "تأخذك دورة المطور الشاملة هذه من الصفر إلى نشر تطبيقات dApps جاهزة للإنتاج على TBurn Chain. ستتعلم تطوير العقود الذكية وتكامل SDK واستراتيجيات الاختبار وأفضل الممارسات لبناء تطبيقات آمنة وقابلة للتوسع."
+        },
+        "curriculumTitle": "منهج الدورة",
+        "curriculum": {
+          "module1": {
+            "title": "إعداد وتهيئة SDK",
+            "subtitle": "إعداد البيئة وتهيئة المشروع",
+            "duration": "ساعتان"
+          },
+          "module2": {
+            "title": "تطوير العقود الذكية",
+            "subtitle": "كتابة عقود آمنة ومحسنة",
+            "duration": "6 ساعات"
+          },
+          "module3": {
+            "title": "تكامل API",
+            "subtitle": "REST و GraphQL و WebSocket APIs",
+            "duration": "4 ساعات"
+          },
+          "module4": {
+            "title": "النشر و DevOps",
+            "subtitle": "النشر على الشبكة الرئيسية والمراقبة",
+            "duration": "4 ساعات"
+          }
+        },
+        "codeExample": {
+          "title": "مثال كود",
+          "language": "TypeScript"
+        },
+        "developerTools": {
+          "title": "أدوات المطور",
+          "description": "الوصول إلى جميع الأدوات التي تحتاجها للبناء على TBurn Chain.",
+          "quickStart": {
+            "title": "البدء السريع",
+            "subtitle": "دليل إعداد 5 دقائق"
+          },
+          "installation": {
+            "title": "التثبيت",
+            "subtitle": "دليل خطوة بخطوة"
+          },
+          "documentation": {
+            "title": "الوثائق",
+            "subtitle": "مرجع API الكامل"
+          },
+          "evmMigration": {
+            "title": "ترحيل EVM",
+            "subtitle": "نقل تطبيقات Ethereum"
+          }
+        },
+        "keyTakeawaysTitle": "النقاط الرئيسية",
+        "keyTakeaways": {
+          "item1": "إعداد وتهيئة TBurn SDK",
+          "item2": "كتابة عقود ذكية آمنة مع الاختبارات",
+          "item3": "التكامل مع واجهات Trust Score APIs",
+          "item4": "النشر على الشبكة الرئيسية بأفضل الممارسات"
+        },
+        "prerequisitesTitle": "المتطلبات الأساسية",
+        "prerequisites": {
+          "item1": "إتقان JavaScript/TypeScript",
+          "item2": "يوصى بأساسيات Solidity",
+          "item3": "أساسيات البلوكتشين"
+        },
+        "certification": {
+          "title": "احصل على الشهادة",
+          "description": "أكمل الدورة للحصول على شارة شهادة مطور TBurn الخاصة بك."
+        },
+        "resourcesTitle": "الموارد",
+        "resources": {
+          "apiReference": "مرجع API",
+          "sdkGuide": "دليل SDK",
+          "smartContracts": "العقود الذكية",
+          "cliReference": "مرجع CLI",
+          "websocketApi": "WebSocket API",
+          "codeExamples": "أمثلة الكود"
+        }
       },
       "introToDefi": {
         "tag": "مبتدئ",
         "title": "مقدمة في DeFi",
-        "subtitle": "خطواتك الأولى في التمويل اللامركزي على TBurn Chain."
+        "subtitle": "خطواتك الأولى في التمويل اللامركزي على TBurn Chain.",
+        "duration": "ساعتان",
+        "backToEducation": "العودة إلى البرامج التعليمية",
+        "scoreFormula": {
+          "title": "صيغة درجة الثقة",
+          "burnCompliance": {
+            "percentage": "40%",
+            "title": "الامتثال للحرق",
+            "subtitle": "الالتزام بجدول حرق الرموز"
+          },
+          "devProgress": {
+            "percentage": "35%",
+            "title": "تقدم التطوير",
+            "subtitle": "إنجاز معالم التطوير"
+          },
+          "transparency": {
+            "percentage": "25%",
+            "title": "الشفافية",
+            "subtitle": "الإفصاح عن البيانات على السلسلة"
+          }
+        },
+        "verification": {
+          "title": "عملية التحقق من 3 مراحل",
+          "stage1": {
+            "title": "تحليل AI",
+            "description": "يفحص AI ثلاثي النطاق بيانات المشروع والعقود الذكية والحضور الاجتماعي.",
+            "duration": "24 ساعة"
+          },
+          "stage2": {
+            "title": "مراجعة الخبراء",
+            "description": "يتحقق الخبراء البشريون من نتائج AI ويجرون تحليلاً معمقاً.",
+            "duration": "7-14 يوماً"
+          },
+          "stage3": {
+            "title": "تصويت المجتمع",
+            "description": "يصوت حاملو الرموز على الموافقة النهائية بعد مراجعة الخبراء.",
+            "duration": "3-5 أيام"
+          }
+        },
+        "scoreActions": {
+          "title": "الإجراءات بناءً على درجة الثقة",
+          "excellent": {
+            "label": "ممتاز",
+            "description": "وصول كامل للتداول، وإدراج ذو أولوية، وأهلية تعزيز العائد."
+          },
+          "good": {
+            "label": "جيد",
+            "description": "وصول قياسي للتداول مع رؤية معززة."
+          },
+          "warning": {
+            "label": "تحذير",
+            "description": "تداول محدود، وتُعرض تسميات التحذير للمستخدمين."
+          },
+          "danger": {
+            "label": "مقيد",
+            "description": "تعليق التداول، والمشروع قيد التحقيق."
+          }
+        },
+        "hybridBurn": {
+          "title": "آلية الحرق القسري الهجين",
+          "description": "عندما تفشل المشاريع في الوفاء بالتزامات جدول الحرق، تفرض عقودنا الذكية تلقائياً تدمير الرموز. هذا يحمي المستثمرين من خلال ضمان الحفاظ على وعود الانكماش.",
+          "figureCaption": "الشكل: مخطط تدفق الحرق التلقائي"
+        },
+        "burnSteps": {
+          "step1": {
+            "title": "مراقبة الجدول",
+            "description": "يراقب AI امتثال جدول الحرق في الوقت الفعلي"
+          },
+          "step2": {
+            "title": "فترة التحذير",
+            "description": "فترة سماح 48 ساعة مع إشعارات للمشروع"
+          },
+          "step3": {
+            "title": "التنفيذ التلقائي",
+            "description": "العقد الذكي يحرق الرموز من محفظة الاحتياطي"
+          }
+        },
+        "developerResources": {
+          "title": "موارد المطورين",
+          "description": "هل أنت مستعد للبناء؟ استكشف أدوات المطورين والوثائق لدينا.",
+          "smartContracts": {
+            "title": "العقود الذكية",
+            "subtitle": "تكامل درجة الثقة"
+          },
+          "sdkGuide": {
+            "title": "دليل SDK",
+            "subtitle": "تكامل سريع"
+          },
+          "apiReference": {
+            "title": "مرجع API",
+            "subtitle": "REST و GraphQL"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "تحديثات في الوقت الفعلي"
+          },
+          "quickStart": {
+            "title": "البدء السريع",
+            "subtitle": "إعداد 5 دقائق"
+          },
+          "codeExamples": {
+            "title": "أمثلة الكود",
+            "subtitle": "مشاريع نموذجية"
+          }
+        },
+        "continueLearning": {
+          "label": "استمر في التعلم",
+          "defiMastery": {
+            "title": "إتقان DeFi",
+            "level": "المستوى المتوسط"
+          }
+        },
+        "forDevelopers": {
+          "label": "للمطورين",
+          "developerCourse": {
+            "title": "دورة المطور",
+            "level": "المستوى المتقدم"
+          }
+        }
       },
       "educationPrograms": {
         "tag": "البرامج",
@@ -5087,11 +5857,45 @@
         "subtitle": "ابنِ تطبيقات الجيل التالي القائمة على الثقة. الوصول إلى أدوات تطوير شاملة و SDKs و APIs لنظام TBurn Chain V4 البيئي.",
         "getStarted": "ابدأ الآن",
         "viewDocs": "عرض الوثائق",
-        "quickStart": "البدء السريع",
-        "sdks": "SDKs الرسمية",
-        "apiReference": "مرجع API",
-        "devTools": "أدوات المطور",
-        "grants": "منح المطورين",
+        "quickStart": {
+          "_value": "البدء السريع",
+          "title": "البدء السريع",
+          "subtitle": "انشر أول dApp لك في 5 دقائق"
+        },
+        "sdks": {
+          "_value": "SDKs الرسمية",
+          "title": "حزم SDK الرسمية",
+          "subtitle": "دعم أصلي للغات المفضلة لديك"
+        },
+        "apiReference": {
+          "_value": "مرجع API",
+          "title": "مرجع API",
+          "subtitle": "RESTful API وبث WebSocket",
+          "blockchainApi": "Blockchain API",
+          "defiApi": "DeFi API",
+          "aiApi": "AI API"
+        },
+        "devTools": {
+          "_value": "أدوات المطور",
+          "burnCli": {
+            "title": "Burn CLI",
+            "description": "تهيئة المشروع والنشر"
+          },
+          "testFramework": {
+            "title": "إطار الاختبار",
+            "description": "اختبار الوحدة والشامل"
+          },
+          "localDevnet": {
+            "title": "Devnet المحلي",
+            "description": "بيئة المحاكاة"
+          }
+        },
+        "grants": {
+          "_value": "منح المطورين",
+          "title": "برنامج منح المطورين",
+          "subtitle": "ندعم المشاريع التي توسع نظام TBurn Chain البيئي.",
+          "totalFund": "$50M إجمالي صندوق المنح"
+        },
         "stats": {
           "activeProjects": "المشاريع النشطة",
           "weeklyDeployments": "عمليات النشر الأسبوعية",
@@ -5159,6 +5963,83 @@
             }
           },
           "applyButton": "تقدم للحصول على منحة"
+        },
+        "devToolsSection": {
+          "title": "أدوات التطوير"
+        },
+        "quickStartSteps": {
+          "step1": {
+            "comment": "# تثبيت CLI"
+          },
+          "step2": {
+            "comment": "# إنشاء مشروع"
+          },
+          "step3": {
+            "comment": "# تشغيل خادم التطوير"
+          },
+          "step4": {
+            "comment": "# النشر على الشبكة الرئيسية"
+          }
+        },
+        "sdkList": {
+          "javascript": {
+            "version": "v4.2.1",
+            "install": "npm install @burnchain/sdk",
+            "downloads": "1.2M تحميل/شهر",
+            "name": "JavaScript / TypeScript"
+          },
+          "python": {
+            "version": "v4.1.0",
+            "install": "pip install burnchain-py",
+            "downloads": "450K تحميل/شهر",
+            "name": "Python"
+          },
+          "rust": {
+            "version": "v4.0.3",
+            "install": "cargo add burnchain-rs",
+            "downloads": "280K تحميل/شهر",
+            "name": "Rust"
+          },
+          "go": {
+            "version": "v4.0.2",
+            "install": "go get github.com/burnchain/go",
+            "downloads": "180K تحميل/شهر",
+            "name": "Go"
+          },
+          "java": {
+            "version": "v4.0.1",
+            "install": "implementation 'burnchain-jvm'",
+            "downloads": "120K تحميل/شهر",
+            "name": "Java / Kotlin"
+          },
+          "swift": {
+            "name": "Swift",
+            "version": "v4.0.0",
+            "install": "pod 'BurnChainSwift'",
+            "downloads": "85K تحميل/شهر"
+          }
+        },
+        "grantTiers": {
+          "seed": {
+            "tier": "بذرة",
+            "amount": "$5K - $25K",
+            "description": "التحقق من الفكرة"
+          },
+          "build": {
+            "tier": "بناء",
+            "amount": "$25K - $100K",
+            "description": "تطوير MVP"
+          },
+          "scale": {
+            "tier": "توسع",
+            "amount": "$100K - $500K",
+            "description": "جاهز للإنتاج"
+          },
+          "enterprise": {
+            "tier": "مؤسسة",
+            "amount": "$500K+",
+            "description": "قائد النظام البيئي"
+          }
         }
       },
       "docs": {
@@ -5254,37 +6135,716 @@
           "lending": "بروتوكول الإقراض",
           "staking": "التخزين",
           "yield": "زراعة العائد"
+        },
+        "stats": {
+          "tvl": "TVL",
+          "volume24h": "حجم 24 ساعة",
+          "activeLPs": "مزودي السيولة النشطين",
+          "avgApy": "متوسط APY"
+        },
+        "dex": {
+          "title": "DEX بسيولة مركزة",
+          "description": "AMM عالي كفاءة رأس المال مع مراكز سيولة مركزة. وفر السيولة في نطاقات سعرية محددة لكفاءة رأس مال تصل إلى 4000x مقارنة بـ AMM التقليدية.",
+          "feature1": "مراكز سيولة مركزة لعوائد أعلى",
+          "feature2": "طبقات رسوم متعددة (0.01%، 0.05%، 0.3%، 1%)",
+          "feature3": "أوامر النطاق لاستراتيجيات التداول المتقدمة",
+          "price": "السعر",
+          "liquidity": "السيولة",
+          "volume24h": "حجم 24 ساعة"
+        },
+        "lending": {
+          "title": "الإقراض بضمان",
+          "description": "اقترض مقابل أصولك المشفرة بأسعار تنافسية. حماية التصفية في الوقت الفعلي مع ضمان موثق بالثقة.",
+          "maxLtv": "أقصى 80% LTV",
+          "tburnLtv": "TBURN LTV",
+          "stablecoinLtv": "Stablecoin LTV"
+        },
+        "staking": {
+          "title": "الستاكينغ السائل",
+          "description": "راهن TBURN واحصل على sTBURN. استخدم مشتقات الستاكينغ السائل عبر DeFi مع كسب مكافآت الستاكينغ.",
+          "apy": "18.5% APY",
+          "exchangeRate": "سعر الصرف",
+          "rewardCycle": "دورة المكافآت",
+          "everyEpoch": "كل حقبة (24 ساعة)"
+        },
+        "yieldFarming": {
+          "tag": "زراعة العائد",
+          "title": "عائد معزز بالثقة",
+          "subtitle": "اكسب مكافآت إضافية بناءً على مستوى درجة الثقة الخاص بك"
+        },
+        "boostTiers": {
+          "standard": {
+            "name": "قياسي",
+            "requirement": "بدون متطلبات"
+          },
+          "mid": {
+            "name": "الثقة مستوى 1",
+            "requirement": "درجة الثقة 60+"
+          },
+          "max": {
+            "name": "الثقة مستوى 2",
+            "requirement": "درجة الثقة 80+"
+          },
+          "title": "مستويات تعزيز العائد",
+          "bronze": {
+            "name": "البرونزي",
+            "boost": "1.0x"
+          },
+          "silver": {
+            "name": "الفضي",
+            "boost": "1.25x"
+          },
+          "gold": {
+            "name": "الذهبي",
+            "boost": "1.5x"
+          },
+          "diamond": {
+            "name": "الماسي",
+            "boost": "2.0x"
+          }
+        },
+        "buttons": {
+          "startTrading": "ابدأ التداول",
+          "viewAllFarms": "عرض جميع المزارع"
+        },
+        "relatedSolutions": {
+          "description": "وسع قدراتك في DeFi مع هذه الحلول المكملة",
+          "btcfi": {
+            "title": "BTCfi",
+            "subtitle": "حلول Bitcoin DeFi"
+          },
+          "bridge": {
+            "title": "جسر عبر السلاسل",
+            "subtitle": "نقل متعدد السلاسل"
+          },
+          "tokenExtensions": {
+            "title": "امتدادات الرموز",
+            "subtitle": "معايير BRC-20"
+          },
+          "wallets": {
+            "title": "المحافظ",
+            "subtitle": "اتصالات آمنة"
+          },
+          "payments": {
+            "title": "المدفوعات",
+            "subtitle": "التجارة العالمية"
+          },
+          "financial": {
+            "title": "الخدمات المالية",
+            "subtitle": "أدوات مؤسسية"
+          },
+          "permissioned": {
+            "title": "الشبكات المرخصة",
+            "subtitle": "حلول المؤسسات"
+          },
+          "aiFeatures": {
+            "title": "ميزات AI",
+            "subtitle": "أتمتة ذكية"
+          }
+        },
+        "developerResources": {
+          "description": "ابنِ وادمج مع TBurn DeFi باستخدام أدوات المطورين الشاملة لدينا",
+          "sdkGuide": {
+            "title": "دليل DeFi SDK",
+            "subtitle": "وثائق التكامل"
+          },
+          "smartContracts": {
+            "title": "العقود الذكية",
+            "subtitle": "عقود موثقة"
+          },
+          "apiReference": {
+            "title": "مرجع API",
+            "subtitle": "REST و GraphQL APIs"
+          },
+          "websocket": {
+            "title": "تغذيات WebSocket",
+            "subtitle": "تدفقات البيانات في الوقت الفعلي"
+          },
+          "cli": {
+            "title": "أدوات CLI",
+            "subtitle": "واجهة سطر الأوامر"
+          },
+          "examples": {
+            "title": "أمثلة الكود",
+            "subtitle": "نماذج التكامل"
+          }
+        },
+        "learnPages": {
+          "gettingStarted": "البدء",
+          "defiMastery": {
+            "title": "دورة إتقان DeFi",
+            "subtitle": "استراتيجيات العائد المتقدمة وإدارة المخاطر"
+          },
+          "introToDefi": {
+            "title": "مقدمة إلى DeFi",
+            "subtitle": "تعلم أساسيات التمويل اللامركزي"
+          }
+        },
+        "titleHighlight": "البيئي",
+        "cta": {
+          "title": "هل أنت مستعد للتداول على TBurn DeFi؟",
+          "subtitle": "الوصول إلى نظام التمويل اللامركزي الأكثر موثوقية مع التحقق المدمج من الثقة",
+          "launchApp": "تشغيل تطبيق DeFi",
+          "viewDocs": "عرض الوثائق"
         }
       },
       "tokenExtensions": {
         "tag": "معايير الرموز",
         "title": "امتدادات الرموز",
-        "subtitle": "معايير رموز متقدمة TBC-20 و TBC-721 و TBC-1155 مع تحسين الذكاء الاصطناعي."
+        "subtitle": "معايير رموز متقدمة TBC-20 و TBC-721 و TBC-1155 مع تحسين الذكاء الاصطناعي.",
+        "titleHighlight": "الامتدادات",
+        "exploreBrc20": "استكشف BRC-20",
+        "readSpecs": "قراءة المواصفات",
+        "features": {
+          "builtInTrustRating": {
+            "title": "تصنيف الثقة المدمج",
+            "description": "يتم تسجيل درجات الثقة تلقائياً في عقود الرموز. عندما تنخفض عن 40%، تفشل وظيفة transfer() تلقائياً، مما يحظر المعاملات.",
+            "badge": "حماية المستثمر الآلية"
+          },
+          "autoBurnSchedule": {
+            "title": "جدول الحرق التلقائي",
+            "description": "إذا لم يتم الوفاء بجداول الحرق المحددة مسبقاً، يتم حرق الرموز المرهونة تلقائياً. تفرض العقود الذكية التنفيذ دون تدخل يدوي.",
+            "badge": "نموذج انكماشي مُفعّل"
+          },
+          "collateralTransparency": {
+            "title": "شفافية الضمانات",
+            "description": "يتم الإفصاح علناً عن عناوين محافظ احتياطي المشروع على السلسلة، مع حساب نسب الضمانات في الوقت الفعلي وانعكاسها في درجات الثقة."
+          },
+          "extendedMetadata": {
+            "title": "البيانات الوصفية الموسعة",
+            "description": "يتم تخزين جميع معلومات المشروع بما في ذلك تفاصيل الفريق وروابط الورقة البيضاء وتقارير التدقيق وجداول الحرق على السلسلة في البيانات الوصفية للرمز."
+          }
+        },
+        "brc20Standard": {
+          "title": "معيار رموز BRC-20",
+          "subtitle": "الواجهات الأساسية لوظائف الثقة والحرق.",
+          "trustScoreFunctions": "وظائف درجة الثقة",
+          "autoBurnFunctions": "وظائف الحرق التلقائي"
+        },
+        "useCases": {
+          "title": "حالات استخدام امتدادات الرموز",
+          "verifiedProjectTokens": {
+            "title": "رموز المشاريع الموثقة",
+            "description": "قابلة للتداول فقط عند الحفاظ على درجة ثقة 60%+."
+          },
+          "collateralBackedStablecoins": {
+            "title": "العملات المستقرة المدعومة بضمانات",
+            "description": "مراقبة نسبة الضمانات في الوقت الفعلي والتصفية التلقائية."
+          },
+          "deflationaryUtilityTokens": {
+            "title": "رموز المرافق الانكماشية",
+            "description": "الحرق التلقائي في كل معاملة يزيد القيمة."
+          }
+        },
+        "realExamples": {
+          "title": "أمثلة استخدام حقيقية",
+          "busd": {
+            "name": "BUSD (عملة مستقرة)",
+            "badge": "درجة ثقة 90+"
+          },
+          "bgame": {
+            "name": "BGAME (GameFi)",
+            "badge": "الحرق التلقائي مُفعّل"
+          },
+          "bprop": {
+            "name": "BPROP (RWA)",
+            "badge": "ضمان أصول حقيقية"
+          }
+        },
+        "cta": {
+          "title": "ابدأ إصدار رموز BRC-20",
+          "subtitle": "أصدر رموزاً مع ميزات تصنيف الثقة المدمجة في أقل من 5 دقائق.",
+          "openConsole": "فتح وحدة تحكم المطورين",
+          "viewApiDocs": "عرض وثائق API"
+        }
       },
       "actionsBlinks": {
         "tag": "الأتمتة",
         "title": "الإجراءات والوميض",
-        "subtitle": "تفاعلات بلوكتشين آلية وروابط معاملات فورية."
+        "subtitle": "تفاعلات بلوكتشين آلية وروابط معاملات فورية.",
+        "howItWorks": {
+          "figureLabel": "مخطط تدفق الإجراء",
+          "title": "كيف تعمل الإجراءات",
+          "step1": {
+            "title": "إنشاء URL الإجراء",
+            "description": "ينشئ المطورون روابط إجراء قياسية لمعاملات محددة (مثل تبديل الرموز)."
+          },
+          "step2": {
+            "title": "عرض درجة الثقة",
+            "description": "ينقر المستخدم على الرابط -> يجلب النظام ويعرض درجة موثوقية المشروع فوراً."
+          },
+          "step3": {
+            "title": "التنفيذ الآمن",
+            "description": "تُنفذ المعاملة فقط إذا وافق المستخدم وكانت درجة الثقة آمنة (>40%)."
+          }
+        },
+        "developerQuickStart": {
+          "step1": {
+            "title": "هيكل URL الإجراء الأساسي"
+          },
+          "step2": {
+            "title": "إضافة علامات OpenGraph الوصفية"
+          },
+          "step3": {
+            "title": "النشر والمشاركة",
+            "description": "الإجراء الآن قابل للمشاركة عبر المنصات"
+          },
+          "title": "البدء السريع للمطورين"
+        },
+        "relatedSolutions": {
+          "description": "عزز إجراءات البلوكتشين الخاصة بك مع هذه الحلول المكملة",
+          "wallets": {
+            "title": "المحافظ",
+            "subtitle": "اتصالات آمنة"
+          },
+          "payments": {
+            "title": "المدفوعات",
+            "subtitle": "التجارة العالمية"
+          },
+          "commerce": {
+            "title": "التجارة",
+            "subtitle": "أدوات التجار"
+          },
+          "tokenExtensions": {
+            "title": "امتدادات الرموز",
+            "subtitle": "معايير BRC-20"
+          }
+        },
+        "developerResources": {
+          "description": "ابنِ إجراءات بلوكتشين قوية مع مجموعة أدوات المطورين الشاملة لدينا",
+          "sdkGuide": {
+            "title": "Actions SDK",
+            "subtitle": "وثائق التكامل"
+          },
+          "smartContracts": {
+            "title": "العقود الذكية",
+            "subtitle": "عقود موثقة"
+          },
+          "apiReference": {
+            "title": "مرجع API",
+            "subtitle": "نقاط نهاية REST"
+          },
+          "websocket": {
+            "title": "WebSocket",
+            "subtitle": "أحداث في الوقت الفعلي"
+          },
+          "cli": {
+            "title": "أدوات CLI",
+            "subtitle": "سطر الأوامر"
+          },
+          "examples": {
+            "title": "أمثلة",
+            "subtitle": "كود نموذجي"
+          }
+        },
+        "learnPages": {
+          "introToDefi": {
+            "title": "مقدمة إلى DeFi",
+            "subtitle": "تعلم أساسيات التمويل اللامركزي"
+          },
+          "developerCourse": {
+            "title": "دورة المطور",
+            "subtitle": "ابنِ dApps على TBurn Chain"
+          }
+        },
+        "titleHighlight": "والروابط",
+        "createAction": "إنشاء إجراء",
+        "coreCapabilities": {
+          "title": "القدرات الأساسية",
+          "subtitle": "بروتوكول الجيل التالي لتوحيد تفاعلات البلوكتشين",
+          "urlExecution": {
+            "title": "تنفيذ URL",
+            "description": "قم بالتبديلات والسك والتصويت فوراً عبر الروابط العميقة."
+          },
+          "socialIntegration": {
+            "title": "التكامل الاجتماعي",
+            "description": "أدمج إجراءات البلوكتشين مباشرة في Twitter و Discord و Telegram."
+          },
+          "trustVerified": {
+            "title": "موثق بالثقة",
+            "description": "يعرض تلقائياً درجة ثقة المشروع المستهدف قبل التنفيذ."
+          },
+          "universalAccess": {
+            "title": "الوصول الشامل",
+            "description": "تجربة متسقة عبر الويب والجوال وأجهزة IoT."
+          }
+        },
+        "actionTypes": {
+          "title": "أنواع الإجراءات",
+          "defi": {
+            "title": "إجراءات DeFi",
+            "description": "تبديل الرموز الفوري، توفير السيولة، والستاكينغ عبر URL."
+          },
+          "nft": {
+            "title": "إجراءات NFT",
+            "description": "السك بنقرة واحدة، التحويلات، والمزايدة في المزادات."
+          },
+          "governance": {
+            "title": "الحوكمة",
+            "description": "صوّت على مقترحات DAO مباشرة من محادثات المجتمع."
+          }
+        },
+        "realWorldApps": {
+          "title": "التطبيقات الواقعية",
+          "socialCommerce": {
+            "title": "التجارة الاجتماعية",
+            "description": "أدمج روابط دفع المنتجات في التغريدات. يدفع المشترون فوراً بمحفظة العملات المشفرة."
+          },
+          "gamingItems": {
+            "title": "عناصر الألعاب",
+            "description": "تداول عناصر NFT مباشرة في محادثات Discord. التحقق من الثقة يمنع الاحتيال."
+          },
+          "crowdfunding": {
+            "title": "التمويل الجماعي",
+            "description": "شارك في ICOs عبر روابط Telegram. المشاريع ذات درجة الثقة العالية فقط مسموحة."
+          },
+          "daoGovernance": {
+            "title": "حوكمة DAO",
+            "description": "صوّت على المقترحات عبر روابط البريد الإلكتروني. لا حاجة لتصفح لوحات معقدة."
+          }
+        }
       },
       "wallets": {
         "tag": "حلول المحفظة",
         "title": "حلول المحفظة",
-        "subtitle": "بنية تحتية آمنة للمحفظة للمؤسسات والمستهلكين."
+        "subtitle": "بنية تحتية آمنة للمحفظة للمؤسسات والمستهلكين.",
+        "forDevelopers": {
+          "autoWarningSystem": {
+            "warningExample": "درجة الثقة < 40 - مخاطر عالية",
+            "title": "نظام التحذير التلقائي",
+            "description": "بروتوكول قياسي لعرض التحذيرات على المعاملات منخفضة الثقة (<40)."
+          },
+          "title": "لمطوري المحافظ",
+          "trustScoreApi": {
+            "title": "واجهة API درجة الثقة",
+            "description": "ادمج درجات الثقة في الوقت الفعلي في واجهة محفظتك لحماية المستخدمين."
+          },
+          "walletSdk": {
+            "title": "محفظة SDK",
+            "description": "مكتبات جاهزة للاستخدام لـ React و React Native وتطوير الجوال."
+          }
+        },
+        "titleHighlight": "الأمان",
+        "recommended": "موصى به",
+        "walletList": {
+          "tburn": {
+            "name": "TBurn الرسمية",
+            "platform": "إضافة متصفح • جوال",
+            "description": "المحفظة الأصلية المحسنة لـ TBurn Chain. تتميز بعرض درجة الثقة في الوقت الفعلي وتتبع الحرق التلقائي والتصويت المباشر في الحوكمة.",
+            "button": "تحميل المحفظة"
+          },
+          "metamask": {
+            "name": "MetaMask",
+            "platform": "متصفح • جوال",
+            "description": "محفظة Web3 الأكثر شعبية في العالم. متوافقة تماماً مع TBurn Chain عبر إعدادات الشبكة المخصصة. تدعم جميع عمليات الرموز القياسية.",
+            "button": "دليل الاتصال"
+          },
+          "trust": {
+            "name": "Trust Wallet",
+            "platform": "تطبيق جوال",
+            "description": "محفظة جوال آمنة متعددة السلاسل. ممتازة لإدارة أصول TBurn أثناء التنقل. تدعم تكامل متصفح dApp.",
+            "button": "دليل الاتصال"
+          },
+          "ledger": {
+            "name": "Ledger",
+            "platform": "محفظة صلبة",
+            "description": "حل التخزين البارد لأقصى درجات الأمان. احتفظ بمفاتيحك الخاصة بدون اتصال أثناء التفاعل مع تطبيقات TBurn Chain اللامركزية.",
+            "button": "دليل الإعداد"
+          }
+        },
+        "addNetwork": {
+          "title": "إضافة شبكة مخصصة",
+          "mainnet": {
+            "name": "الشبكة الرئيسية",
+            "networkName": "اسم الشبكة",
+            "rpcUrl": "عنوان RPC",
+            "chainId": "معرف السلسلة",
+            "symbol": "الرمز",
+            "explorer": "المستكشف"
+          },
+          "testnet": {
+            "name": "شبكة الاختبار"
+          }
+        },
+        "securityChecklist": {
+          "title": "قائمة التحقق الأمنية",
+          "seedPhrase": {
+            "title": "احمِ عبارة الاسترداد",
+            "description": "اكتبها على ورق. لا تخزنها رقمياً أو تشاركها أبداً."
+          },
+          "verifyUrls": {
+            "title": "تحقق من العناوين",
+            "description": "تأكد دائماً أنك على tburn.io لتجنب التصيد."
+          },
+          "checkTrustScores": {
+            "title": "تحقق من درجات الثقة",
+            "description": "ابحث عن شارة درجة الثقة قبل التفاعل مع أي مشروع جديد."
+          }
+        }
       },
       "permissioned": {
         "tag": "المؤسسات",
         "title": "الشبكات المرخصة",
-        "subtitle": "شبكات بلوكتشين خاصة للنشر المؤسسي."
+        "subtitle": "شبكات بلوكتشين خاصة للنشر المؤسسي.",
+        "titleHighlight": "المرخصة",
+        "contactSales": "تواصل مع المبيعات",
+        "viewWhitepaper": "عرض الورقة البيضاء",
+        "enterpriseFeatures": {
+          "title": "سلسلة مرخصة على مستوى المؤسسات",
+          "subtitle": "ميزات تحكم وامتثال متقدمة للشركات.",
+          "rbac": {
+            "title": "التحكم بالوصول المستند إلى الأدوار (RBAC)",
+            "description": "إعدادات أذونات دقيقة للمسؤولين والمدققين والمستخدمين. أذونات منفصلة لنشر العقود الذكية والموافقة على المعاملات واستعلامات البيانات بناءً على الأدوار."
+          },
+          "whitelistValidators": {
+            "title": "القائمة البيضاء للمدققين",
+            "description": "يمكن فقط للمدققين الموثوقين المشاركة في الشبكة. قم بتكوين الشبكة بحيث يمكن فقط للعقد الداخلية أو الشركاء المعتمدين إنشاء الكتل والتحقق منها."
+          },
+          "regulatoryCompliance": {
+            "title": "الامتثال التنظيمي",
+            "description": "إطار مصمم للوائح العالمية (GDPR, HIPAA, SOC2). سجلات تدقيق مدمجة، تشفير البيانات أثناء الراحة والنقل، وميزات الخصوصية."
+          },
+          "multiSigGovernance": {
+            "title": "حوكمة التوقيع المتعدد",
+            "description": "قرارات الشبكة الحرجة تتطلب موافقة متعددة الأطراف. ترقيات العقود الذكية وإدارة المدققين وتغييرات المعلمات تتطلب 3/5 أو 5/7 توقيعات."
+          }
+        },
+        "hybridArchitecture": {
+          "title": "البنية الهجينة",
+          "subtitle": "اجمع بين خصوصية السلسلة الخاصة وأمان البلوكتشين العام.",
+          "privateChainAnchor": {
+            "title": "السلسلة الخاصة + المرساة العامة",
+            "description": "تعمل المعاملات الداخلية على سلسلة خاصة عالية السرعة، مع تثبيت تجزئات الحالة الدورية على الشبكة الرئيسية العامة لـ TBurn لضمان عدم التغيير."
+          },
+          "selectiveDisclosure": {
+            "title": "الإفصاح الانتقائي للبيانات",
+            "description": "تبقى تفاصيل المعاملات خاصة للمشاركين المصرح لهم، ولكن يمكن إثباتها تشفيرياً للمدققين أو المنظمين عند الحاجة."
+          },
+          "privateConsensusLayer": "طبقة الإجماع الخاصة",
+          "anchoringHash": "تجزئة التثبيت",
+          "publicMainnet": "الشبكة الرئيسية العامة (L1)"
+        },
+        "industryUseCases": {
+          "title": "حالات الاستخدام الصناعية",
+          "supplyChain": {
+            "title": "سلسلة التوريد",
+            "description": "تتبع المنتجات من الشركة المصنعة إلى التسليم. يرى المشاركون فقط أجزاء المعاملات ذات الصلة.",
+            "example": "تتبع قطع غيار السيارات",
+            "flow": "المواد الخام ← الإنتاج ← التجميع"
+          },
+          "bankingConsortium": {
+            "title": "اتحاد البنوك",
+            "description": "شبكة التسوية بين البنوك. المقاصة والتسوية في الوقت الفعلي بدون مخاطر الطرف المقابل.",
+            "example": "التحويلات عبر الحدود",
+            "flow": "3 أيام ← 3 ثوانٍ، الرسوم $10 ← $0.01"
+          },
+          "medicalData": {
+            "title": "البيانات الطبية",
+            "description": "مشاركة آمنة لبيانات المرضى بين المستشفيات وشركات التأمين. تدقيق كامل لامتثال HIPAA.",
+            "example": "الوصفات الإلكترونية",
+            "flow": "المستشفى ← الصيدلية ← التأمين"
+          }
+        },
+        "deploymentProcess": {
+          "title": "عملية النشر",
+          "step1": {
+            "title": "تحليل المتطلبات (1-2 أسابيع)",
+            "description": "تحديد المشاركين، تصميم مخططات الأذونات، ومراجعة المتطلبات التنظيمية. يقدم مهندسو TBurn استشارات معمارية."
+          },
+          "step2": {
+            "title": "إعداد الشبكة (2-3 أسابيع)",
+            "description": "نشر عقد المدققين، إنشاء كتلة التكوين، وتطوير العقود الذكية الأولية في بيئة اختبار."
+          },
+          "step3": {
+            "title": "التكامل والترحيل (3-4 أسابيع)",
+            "description": "تكامل API مع الأنظمة القديمة (ERP, CRM)، ترحيل البيانات، وتدريب المستخدمين."
+          },
+          "step4": {
+            "title": "إطلاق الشبكة الرئيسية والتشغيل",
+            "description": "نشر الإنتاج مع مراقبة على مدار الساعة وتدقيقات أمنية منتظمة. دعم مستمر من فريق TBurn."
+          }
+        }
       },
       "gameTooling": {
         "tag": "الألعاب",
         "title": "أدوات الألعاب",
-        "subtitle": "بنية تحتية GameFi كاملة لألعاب البلوكتشين."
+        "subtitle": "بنية تحتية GameFi كاملة لألعاب البلوكتشين.",
+        "titleHighlight": "الأدوات",
+        "getUnitySdk": "احصل على Unity SDK",
+        "whyBuild": {
+          "title": "لماذا تبني على TBurn؟",
+          "subtitle": "محسّن للألعاب عالية السرعة وتداول الأصول الآمن.",
+          "ultraFastProcessing": {
+            "title": "معالجة فائقة السرعة",
+            "description": "إنتاجية 50,000+ TPS تتيح تداول العناصر في الوقت الفعلي داخل اللعبة. مع متوسط وقت كتلة ثانية واحدة، يختبر اللاعبون تأكيداً فورياً دون تأخير."
+          },
+          "nftVerification": {
+            "title": "التحقق من مشاريع NFT",
+            "description": "يحظر نظام التحقق ثلاثي المراحل (AI ← خبراء ← مجتمع) مشاريع NFT الاحتيالية بشكل استباقي. يتم تعليق التداول تلقائياً إذا انخفضت درجة الثقة عن 40%."
+          },
+          "verifiedOwnership": {
+            "title": "الملكية الموثقة",
+            "description": "جميع سجلات إصدار وحرق عناصر اللعبة غير قابلة للتغيير على السلسلة. توفير إثبات ملكية في الوقت الفعلي وتاريخ العناصر للاعبين، مما يزيل مخاطر التزوير."
+          },
+          "crossGameAssets": {
+            "title": "الأصول عبر الألعاب",
+            "description": "التوافق الكامل مع EVM يسمح بتشغيل العناصر عبر ألعاب مختلفة. دعم نقل الأصول متعدد السلاسل عبر تكامل LayerZero يوسع اقتصاد لعبتك."
+          }
+        },
+        "trustScoreCategories": {
+          "title": "درجة ثقة مشروع NFT",
+          "teamIdentity": {
+            "title": "هوية الفريق والخبرة",
+            "points": "30 نقطة",
+            "description": "الإفصاح عن الاسم الحقيقي، التحقق من سجل الإنجازات، وفحص مصداقية وسائل التواصل الاجتماعي."
+          },
+          "contractSecurity": {
+            "title": "أمان العقود الذكية",
+            "points": "25 نقطة",
+            "description": "حالة إكمال التدقيق، نتائج اختبار الثغرات الآلية، ولامركزية سلطة السك."
+          },
+          "utilityRoadmap": {
+            "title": "المنفعة وخارطة الطريق",
+            "points": "25 نقطة",
+            "description": "معدل تنفيذ خارطة الطريق، توفير المنفعة الفعلية (تكامل اللعبة)، ومستويات مشاركة المجتمع."
+          }
+        },
+        "gameTypes": {
+          "title": "أنواع الألعاب المدعومة",
+          "p2e": {
+            "title": "ألعاب P2E",
+            "description": "التحقق من الثقة يحظر مخططات بونزي. اقتصاديات رمزية مستقرة للعب والكسب المستدام.",
+            "tags": "RPG • استراتيجية • معارك"
+          },
+          "nftMarketplace": {
+            "title": "سوق NFT",
+            "description": "تداول عناصر اللعبة والأعمال الفنية والمجموعات. تُعرض شارات الثقة تلقائياً للأمان.",
+            "tags": "تحذير المخاطر • التاريخ"
+          },
+          "metaverse": {
+            "title": "الميتافيرس",
+            "description": "العقارات الافتراضية والأفاتار والملابس القابلة للارتداء. ملكية لامركزية مع حوكمة DAO.",
+            "tags": "الأراضي • الأفاتار • اجتماعي"
+          }
+        },
+        "integrationGuide": {
+          "title": "دليل التكامل",
+          "step1": {
+            "title": "نشر العقود",
+            "description": "اكتب عقود ERC-721/1155 في Solidity ^0.8.19 وانشرها على TBurn Chain."
+          },
+          "step2": {
+            "title": "التقدم للتحقق من الثقة",
+            "description": "أرسل معلومات المشروع عبر وحدة تحكم المطورين. (رسوم $2,000-$3,000، 7-14 يوماً)"
+          },
+          "step3": {
+            "title": "دمج SDK",
+            "description": "استخدم Unity/Unreal SDK لتنفيذ ميزات السك والتداول والحرق داخل اللعبة."
+          },
+          "step4": {
+            "title": "عرض شارة الثقة",
+            "description": "اعرض درجات الثقة في الوقت الفعلي في واجهة لعبتك لبناء ثقة اللاعبين."
+          }
+        }
       },
       "payments": {
         "tag": "المدفوعات",
         "title": "حلول الدفع",
-        "subtitle": "معالجة دفع بلوكتشين سريعة وآمنة."
+        "subtitle": "معالجة دفع بلوكتشين سريعة وآمنة.",
+        "buttons": {
+          "viewDocs": "عرض الوثائق"
+        },
+        "tokenStandards": {
+          "priceStability": {
+            "scoring": {
+              "volatility": "< 1% تقلب يومي",
+              "liquidity": "$10M+ سيولة"
+            },
+            "title": "استقرار السعر",
+            "points": "30 نقطة",
+            "description": "يُقيّم بناءً على التقلب اليومي والقيمة السوقية وعمق مجمع السيولة."
+          },
+          "contractSecurity": {
+            "scoring": {
+              "audits": "3+ تدقيقات مكتملة",
+              "criticalBug": "تم اكتشاف خطأ حرج",
+              "block": "حظر"
+            },
+            "title": "أمان العقد",
+            "points": "25 نقطة",
+            "description": "إكمال التدقيق، حماية إعادة الدخول، ولامركزية سلطة الترقية."
+          },
+          "adoptionUsage": {
+            "scoring": {
+              "merchants": "100+ تاجر",
+              "transactions": "$1M+ شهرياً",
+              "high": "عالي"
+            },
+            "title": "التبني والاستخدام",
+            "points": "20 نقطة",
+            "description": "عدد التجار، حجم المعاملات الشهرية، ومتوسط حجم الدفع."
+          },
+          "title": "معايير رموز الدفع"
+        },
+        "titleHighlight": "المدفوعات",
+        "getApiKey": "احصل على مفتاح API",
+        "whyChoose": {
+          "title": "لماذا تختار TBurn؟",
+          "subtitle": "بنية تحتية محسنة للتجارة العالمية.",
+          "instantSettlement": {
+            "title": "تسوية فورية",
+            "description": "متوسط وقت كتلة ثانية واحدة ونهائية 6 ثوانٍ. اختبر سرعات دفع أسرع من بطاقات الائتمان التقليدية مع سعة 50,000+ TPS."
+          },
+          "ultraLowFees": {
+            "title": "رسوم منخفضة للغاية",
+            "description": "$0.001 لكل معاملة. وفّر حتى 99% مقارنة ببوابات الدفع التقليدية. قابلة للتطبيق اقتصادياً لكل شيء من المدفوعات الصغيرة إلى التحويلات الكبيرة."
+          },
+          "verifiedTokensOnly": {
+            "title": "الرموز الموثقة فقط",
+            "description": "يُسمح فقط بالرموز ذات درجة ثقة 40% أو أعلى. نحظر تلقائياً رموز سحب البساط لحماية التجار والعملاء."
+          },
+          "globalReach": {
+            "title": "الوصول العالمي",
+            "description": "بنية تحتية للدفع على مدار الساعة بلا حدود. دعم متعدد السلاسل لـ Ethereum و Arbitrum و Polygon عبر تكامل LayerZero يتيح لك قبول المدفوعات من أي مكان."
+          }
+        },
+        "solutionTypes": {
+          "title": "أنواع الحلول",
+          "onlineCommerce": {
+            "title": "التجارة الإلكترونية",
+            "description": "تكامل سهل للدفع في المتاجر. إعداد في 5 دقائق.",
+            "tags": "SDK • إضافات"
+          },
+          "offlinePos": {
+            "title": "نقاط البيع غير المتصلة",
+            "description": "مدفوعات فورية عبر رمز QR في المتاجر الفعلية.",
+            "tags": "تطبيق • NFC"
+          },
+          "globalRemittance": {
+            "title": "التحويلات العالمية",
+            "description": "تحويلات عبر الحدود برسوم أقل بنسبة 99%.",
+            "tags": "P2P • B2B"
+          }
+        },
+        "integrationGuide": {
+          "title": "دليل التكامل",
+          "step1": {
+            "title": "إصدار مفتاح API",
+            "description": "احصل على بيانات اعتمادك من لوحة تحكم المطورين."
+          },
+          "step2": {
+            "title": "تثبيت SDK",
+            "description": "متوفر لـ JS و Python و PHP."
+          },
+          "step3": {
+            "title": "إضافة زر الدفع",
+            "description": "أدمج زر الدفع بسطر واحد فقط."
+          },
+          "step4": {
+            "title": "تكوين Webhooks",
+            "description": "تلقَّ إشعارات خادم فورية عند اكتمال الدفع."
+          }
+        }
       },
       "commerce": {
         "tag": "التجارة",
@@ -5595,19 +7155,32 @@
           "title": "نقاط النهاية الأساسية",
           "scoreQuery": {
             "title": "Score Query API",
-            "endpoints": ["GET /score/:address", "GET /score/:address/history", "POST /score/batch"]
+            "endpoints": [
+              "GET /score/:address",
+              "GET /score/:address/history",
+              "POST /score/batch"
+            ]
           },
           "project": {
             "title": "Project API",
-            "endpoints": ["GET /projects", "POST /projects/register", "GET /projects/:id"]
+            "endpoints": [
+              "GET /projects",
+              "POST /projects/register",
+              "GET /projects/:id"
+            ]
           },
           "analytics": {
             "title": "Analytics API",
-            "endpoints": ["GET /analytics/trends", "GET /analytics/leaderboard"]
+            "endpoints": [
+              "GET /analytics/trends",
+              "GET /analytics/leaderboard"
+            ]
           },
           "webhook": {
             "title": "Webhook API",
-            "endpoints": ["POST /webhooks"],
+            "endpoints": [
+              "POST /webhooks"
+            ],
             "events": "الأحداث: score.updated, score.alert, project.registered"
           }
         },
