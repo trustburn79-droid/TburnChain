@@ -12415,48 +12415,60 @@
         "title": "커뮤니티 허브",
         "subtitle": "빌더, 검증자, 열성적인 사용자들과 연결하세요.",
         "stats": {
-          "totalMembers": "총 Members",
-          "monthlyActive": "매월 활성",
-          "ambassadors": "Ambassadors",
-          "contributors": "Contributors"
+          "totalMembers": "총 멤버",
+          "monthlyActive": "월간 활성",
+          "ambassadors": "앰배서더",
+          "contributors": "기여자"
         },
+        "channelsTitle": "채널 참여하기",
         "channels": {
           "title": "커뮤니티 채널",
           "discord": {
             "name": "Discord",
-            "description": "실시간 개발 채팅, 지원, 커뮤니티 교류.",
-            "action": "서버 참여",
-            "members": "124,500+ members"
+            "members": "124,500+ 멤버",
+            "description": "실시간 개발자 채팅, 지원 및 커뮤니티 교류.",
+            "action": "서버 참여"
           },
           "telegram": {
             "name": "Telegram",
+            "members": "89,200+ 멤버",
             "description": "빠른 공지사항 및 지역 커뮤니티 그룹.",
-            "action": "채널 참여",
-            "members": "89,200+ members"
+            "action": "채널 참여"
           },
           "twitter": {
             "name": "Twitter / X",
-            "description": "최신 업데이트, 파트너십, 이벤트 소식.",
-            "action": "팔로우하기",
-            "members": "156,000+ followers"
+            "members": "156,000+ 팔로워",
+            "description": "최신 업데이트, 파트너십 및 이벤트 소식.",
+            "action": "팔로우"
           },
           "github": {
             "name": "GitHub",
-            "description": "오픈소스 코드, SDK, 기술 문서.",
-            "action": "기여하기",
-            "members": "2,400+ stars"
+            "members": "2,400+ 스타",
+            "description": "오픈 소스 코드, SDK 및 기술 문서.",
+            "action": "기여하기"
           }
         },
         "leaderboard": {
           "title": "기여자 리더보드",
-          "subtitle": "이번 달 최고 커뮤니티 기여자",
-          "points": "{{count}} points",
+          "subtitle": "이달의 최고 커뮤니티 기여자",
+          "points": "{{count}} 포인트",
           "tiers": {
-            "diamond": "Diamond",
-            "platinum": "Platinum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Bronze"
+            "diamond": "다이아몬드",
+            "platinum": "플래티넘",
+            "gold": "골드",
+            "silver": "실버",
+            "bronze": "브론즈"
+          }
+        },
+        "ambassador": {
+          "title": "앰배서더 프로그램",
+          "subtitle": "글로벌 TBurn 커뮤니티를 이끌어주세요",
+          "applyButton": "앰배서더 신청",
+          "benefits": {
+            "rewards": "월간 TBURN 토큰 보상",
+            "earlyAccess": "신기능 조기 액세스",
+            "nftBadge": "공식 NFT 배지 및 굿즈",
+            "directChannel": "팀 직접 소통 채널"
           }
         },
         "ambassadorProgram": {
@@ -12465,11 +12477,12 @@
           "benefits": {
             "tokenRewards": "월간 TBURN 토큰 보상",
             "earlyAccess": "새로운 기능 얼리 액세스",
-            "nftBadge": "공식 NFT 배지 & 굿즈",
+            "nftBadge": "공식 NFT 배지 및 굿즈",
             "directChannel": "팀 직접 커뮤니케이션 채널"
           },
           "applyButton": "앰배서더 신청"
         },
+        "contributeTitle": "기여 방법",
         "contribute": {
           "title": "기여 방법",
           "code": {
@@ -12484,164 +12497,165 @@
           },
           "moderation": {
             "title": "모더레이션",
-            "description": "Discord & Telegram 지원",
-            "action": "모더레이터 신청"
+            "description": "Discord 및 Telegram 지원",
+            "action": "모드 신청"
           },
           "marketing": {
             "title": "마케팅",
             "description": "이벤트, 소셜 미디어, 성장",
-            "action": "팀 합류"
+            "action": "팀 참여"
           }
         },
         "governance": {
           "title": "거버넌스",
           "tag": "TBURN DAO",
-          "description": "TBURN 토큰을 스테이킹하여 프로토콜 결정에 참여하세요. 제안을 생성하고, 업그레이드에 투표하고, 커뮤니티 재무를 관리하세요.",
+          "description": "TBURN 토큰을 스테이킹하여 프로토콜 결정에 참여하세요. 제안서 생성, 업그레이드 투표, 커뮤니티 재무 관리에 참여할 수 있습니다.",
+          "button": "거버넌스 포털 이동",
           "goToPortal": "거버넌스 포털로 이동",
           "stats": {
             "proposals": "제안",
             "votesCast": "투표 수",
-            "treasuryBalance": "재무 잔액",
-            "treasury": "재무 잔액"
-          },
-          "button": "이동 to 거버넌스 Portal"
-        },
-        "channelsTitle": "Join Our Channels",
-        "ambassador": {
-          "title": "Ambassador Program",
-          "subtitle": "Lead the global TBurn community",
-          "applyButton": "적용 as Ambassador",
-          "benefits": {
-            "rewards": "매월 TBURN token rewards",
-            "earlyAccess": "Early access to new features",
-            "nftBadge": "Official NFT Badge & Swag",
-            "directChannel": "Direct team communication channel"
+            "treasury": "재무 잔액",
+            "treasuryBalance": "재무 잔액"
           }
-        },
-        "contributeTitle": "Ways to Contribute"
+        }
       },
       "news": {
         "tag": "뉴스 & 블로그",
         "title": "뉴스 & 블로그",
         "subtitle": "최신 업데이트, 공지사항, 인사이트.",
-        "searchPlaceholder": "검색 articles...",
-        "featuredTitle": "Featured Stories",
-        "featuredBadge": "Featured",
-        "latestTitle": "최신 Articles",
-        "readMore": "더 읽기",
-        "readTime": "{{minutes}} min read",
-        "views": "views",
-        "showingCount": "Showing {{current}} of {{total}}",
+        "searchPlaceholder": "기사 검색...",
+        "featuredTitle": "주요 기사",
+        "featuredBadge": "추천",
+        "latestTitle": "최신 기사",
+        "readMore": "더 보기",
+        "readTime": "{{minutes}}분 소요",
+        "views": "조회",
+        "showingCount": "{{current}} / {{total}} 표시 중",
         "categories": {
           "all": "전체",
-          "announcement": "공지사항",
-          "technology": "Technology",
+          "announcement": "공지",
+          "technology": "기술",
           "security": "보안",
-          "tokenomics": "Tokenomics",
-          "partnership": "Partnership",
+          "tokenomics": "토큰노믹스",
+          "partnership": "파트너십",
           "defi": "DeFi",
           "development": "개발"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 메인넷 Officially Launches",
-            "description": "후 18 months of development, TBURN 체인 V4 메인넷 is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant security.",
+            "title": "TBURN V4 메인넷 공식 출시",
+            "description": "18개월의 개발 끝에 TBURN Chain V4 메인넷이 500K+ TPS, Triple-Band AI, 양자 저항 보안으로 출시되었습니다.",
             "author": "TBURN 재단"
           },
           "tripleBandAi": {
-            "title": "Triple-Band AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
-            "author": "AI Research 팀"
+            "title": "Triple-Band AI 오케스트레이션 공개",
+            "description": "전략, 전술, 운영 레이어 전반에 걸쳐 지능적인 의사결정을 지원하는 혁신적인 3단계 AI 시스템에 대한 심층 분석.",
+            "author": "AI 연구팀"
           },
           "partnership": {
-            "title": "Global Partnership Expansion: 12 새로운 Integrations",
-            "description": "TBURN 체인 announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
-            "author": "비즈니스 개발"
+            "title": "글로벌 파트너십 확장: 12개 신규 통합",
+            "description": "TBURN Chain이 아시아, 유럽, 미주 전역의 주요 DeFi 프로토콜, 거래소, 기업 고객과의 전략적 파트너십을 발표합니다.",
+            "author": "비즈니스 개발팀"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN 스테이킹 Program: 완료 가이드 to Earning 보상",
-            "description": "Everything you need to know about the three-tier staking system, APY calculations, and how to maximize your validator rewards."
+            "title": "TBURN 스테이킹 프로그램: 보상 획득 완전 가이드",
+            "description": "3단계 스테이킹 시스템, APY 계산, 검증자 보상 극대화 방법에 대한 모든 것."
           },
           "trustScore": {
-            "title": "Trust 점수 Deep Dive: The 3-스테이지 Verification Process",
-            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+            "title": "트러스트 스코어 심층 분석: 3단계 검증 프로세스",
+            "description": "AI 분석, 전문가 리뷰, 커뮤니티 투표가 어떻게 함께 작동하여 투자자를 사기 프로젝트로부터 보호하는지 알아보세요."
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Released: 새로운 기능 for Developers",
-            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+            "title": "TBURN SDK 2.0 출시: 개발자를 위한 새로운 기능",
+            "description": "TypeScript 지원, 개선된 WebSocket 처리, 간소화된 스마트 컨트랙트 배포 도구를 갖춘 SDK 2.0을 발표합니다."
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN 체인 against emerging quantum computing threats."
+            "title": "양자 저항 암호화: TBURN의 미래 대비",
+            "description": "CRYSTALS-Dilithium 및 ED25519 하이브리드 서명이 TBURN Chain을 신흥 양자 컴퓨팅 위협으로부터 어떻게 보호하는지 알아보세요."
           },
           "dex": {
-            "title": "TBURN DEX Beta Launch: 거래 with Trust Scores",
-            "description": "Our native decentralized exchange is now in beta. 거래 verified tokens with integrated Trust 점수 protection and low fees."
+            "title": "TBURN DEX 베타 출시: 트러스트 스코어로 거래하기",
+            "description": "네이티브 탈중앙화 거래소가 베타로 출시되었습니다. 통합 트러스트 스코어 보호와 낮은 수수료로 검증된 토큰을 거래하세요."
           }
         },
         "newsletter": {
-          "title": "Stay Updated",
-          "description": "가져오기 the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "이메일 주소를 입력하세요",
-          "button": "구독하기",
-          "privacy": "We respect your privacy. Unsubscribe anytime.",
-          "success": "구독 Successful",
-          "subscribed": "You've been added to our newsletter. 확인 your inbox for confirmation.",
+          "title": "최신 소식 받기",
+          "description": "최신 뉴스, 업데이트, 인사이트를 받은편지함으로 직접 받아보세요.",
+          "placeholder": "이메일 주소 입력",
+          "button": "구독",
+          "privacy": "개인정보를 존중합니다. 언제든 구독 취소 가능.",
+          "success": "구독 성공",
+          "subscribed": "뉴스레터에 추가되었습니다. 받은편지함에서 확인 메일을 확인하세요.",
           "error": "구독 오류",
-          "invalidEmail": "Please enter a valid email address."
+          "invalidEmail": "유효한 이메일 주소를 입력해 주세요."
         }
       },
       "events": {
         "tag": "이벤트 & 활동",
         "title": "이벤트 & 활동",
         "subtitle": "TBurn 체인 커뮤니티 이벤트, 해커톤, 컨퍼런스에 참여하세요.",
+        "featuredTitle": "주요 이벤트",
+        "upcomingTitle": "예정된 이벤트",
+        "capacity": "정원",
         "filters": {
-          "all": "모든 이벤트",
+          "all": "전체 이벤트",
           "hackathon": "해커톤",
           "ama": "AMA",
           "webinar": "웨비나",
           "meetup": "밋업",
           "conference": "컨퍼런스"
         },
+        "types": {
+          "launchEvent": "런칭 이벤트",
+          "amaSession": "AMA 세션",
+          "seminar": "기술 세미나",
+          "training": "트레이닝 워크숍"
+        },
+        "locations": {
+          "online": "온라인",
+          "seoul": "서울, 대한민국",
+          "singapore": "싱가포르"
+        },
         "featured": {
           "title": "주요 이벤트",
           "capacity": "정원",
           "mainnetLaunch": {
-            "title": "TBURN 메인넷 Launch Celebration",
-            "description": "Join us for the historic launch of TBURN V4 메인넷. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
+            "title": "TBURN 메인넷 출시 기념 행사",
+            "description": "TBURN V4 메인넷의 역사적인 출시에 함께하세요. 라이브 데모와 독점 에어드롭과 함께 차세대 신뢰 기반 블록체인 기술의 일원이 되세요."
           },
           "defiChallenge": {
-            "title": "TBURN DeFi Challenge Hackathon",
-            "description": "48-hour global hackathon with $500K in prizes. 빌드 innovative DeFi solutions on TBURN 체인 and compete for grants and incubation opportunities."
+            "title": "TBURN DeFi 챌린지 해커톤",
+            "description": "50만 달러 상금 규모의 48시간 글로벌 해커톤. TBURN Chain에서 혁신적인 DeFi 솔루션을 구축하고 그랜트 및 인큐베이션 기회를 놓고 경쟁하세요."
           }
         },
         "upcoming": {
           "title": "예정된 이벤트",
           "foundersAma": {
-            "title": "Founders AMA: 2025 Vision",
-            "description": "실시간 Q&A with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
+            "title": "창립자 AMA: 2025 비전",
+            "description": "TBURN 창립자들과 함께하는 라이브 Q&A. 새해 로드맵, 예정된 기능, 커뮤니티 이니셔티브에 대해 논의합니다."
           },
           "trustScoreApi": {
-            "title": "Trust 점수 API 통합 Workshop",
-            "description": "Hands-on technical workshop for developers. 학습 how to integrate Trust 점수 verification into your dApps and smart contracts."
+            "title": "트러스트 스코어 API 통합 워크숍",
+            "description": "개발자를 위한 실습 기술 워크숍. dApp과 스마트 컨트랙트에 트러스트 스코어 검증을 통합하는 방법을 배웁니다."
           },
           "seoulMeetup": {
-            "title": "Seoul 개발자 Meetup",
-            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+            "title": "서울 개발자 밋업",
+            "description": "한국 개발자를 위한 오프라인 네트워킹 이벤트. 기술 프레젠테이션, 데모, 참가자 전용 굿즈 제공."
           },
           "aiDeepDive": {
-            "title": "Triple-Band AI Deep Dive Seminar",
-            "description": "Technical deep dive into our AI orchestration system. 학습 about the architecture behind intelligent blockchain operations."
+            "title": "Triple-Band AI 심층 세미나",
+            "description": "AI 오케스트레이션 시스템에 대한 기술 심층 분석. 지능형 블록체인 운영의 아키텍처를 배웁니다."
           },
           "validatorOps": {
-            "title": "검증자 Operations Training",
-            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+            "title": "검증자 운영 트레이닝",
+            "description": "노드 운영자를 위한 종합 교육. 설정, 유지보수, 보안 모범 사례, 보상 최적화를 다룹니다."
           },
           "futureOfTrust": {
-            "title": "The Future of Trust: TBURN Summit 2025",
-            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+            "title": "신뢰의 미래: TBURN Summit 2025",
+            "description": "업계 리더들의 기조연설, 기술 워크숍, 독점 발표가 포함된 연례 플래그십 컨퍼런스."
           }
         },
         "eventTypes": {
@@ -12660,36 +12674,22 @@
           "setReminder": "알림 설정",
           "register": "등록",
           "rsvp": "RSVP (제한)",
-          "getTickets": "티켓 받기",
-          "rsvpLimited": "RSVP (Limited Seats)"
+          "rsvpLimited": "RSVP (좌석 한정)",
+          "getTickets": "티켓 구매"
         },
         "hostEvent": {
           "title": "이벤트를 주최하고 싶으신가요?",
           "description": "TBurn 체인 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
           "applyToHost": "주최 신청"
         },
+        "hostCta": {
+          "title": "이벤트를 주최하고 싶으신가요?",
+          "description": "TBurn Chain 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 승인된 호스트에게 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
+          "button": "호스트 신청"
+        },
         "toast": {
           "reminderSet": "알림 설정됨",
-          "reminderDescription": "\"{{eventTitle}}\" 전에 알림을 받게 됩니다"
-        },
-        "featuredTitle": "Featured 이벤트",
-        "upcomingTitle": "Upcoming 이벤트",
-        "capacity": "용량",
-        "types": {
-          "launchEvent": "Launch Event",
-          "amaSession": "AMA Session",
-          "seminar": "Technical Seminar",
-          "training": "Training Workshop"
-        },
-        "locations": {
-          "online": "온라인",
-          "seoul": "Seoul, Korea",
-          "singapore": "Singapore"
-        },
-        "hostCta": {
-          "title": "Want to Host an Event?",
-          "description": "Host meetups, webinars, or hackathons with the TBurn 체인 community. We provide funding, swag, and marketing support for approved hosts.",
-          "button": "적용 to Host"
+          "reminderDescription": "\"{{title}}\" 전에 알림을 받게 됩니다"
         }
       }
     },

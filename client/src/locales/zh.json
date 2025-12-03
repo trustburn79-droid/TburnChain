@@ -11880,48 +11880,60 @@
         "title": "社区中心",
         "subtitle": "与建设者、验证者和爱好者联系。",
         "stats": {
-          "totalMembers": "总计 成员",
-          "monthlyActive": "月ly 活跃",
-          "ambassadors": "Ambassadors",
-          "contributors": "Contributors"
+          "totalMembers": "总成员",
+          "monthlyActive": "月活跃",
+          "ambassadors": "大使",
+          "contributors": "贡献者"
         },
+        "channelsTitle": "加入我们的频道",
         "channels": {
           "title": "社区频道",
           "discord": {
             "name": "Discord",
-            "description": "实时开发聊天、支持和社区交流。",
-            "action": "加入服务器",
-            "members": "124,500+ members"
+            "members": "124,500+ 成员",
+            "description": "实时开发者聊天、支持和社区交流。",
+            "action": "加入服务器"
           },
           "telegram": {
             "name": "Telegram",
+            "members": "89,200+ 成员",
             "description": "快速公告和本地社区群组。",
-            "action": "加入频道",
-            "members": "89,200+ members"
+            "action": "加入频道"
           },
           "twitter": {
             "name": "Twitter / X",
+            "members": "156,000+ 关注者",
             "description": "最新更新、合作伙伴关系和活动新闻。",
-            "action": "关注我们",
-            "members": "156,000+ followers"
+            "action": "关注我们"
           },
           "github": {
             "name": "GitHub",
+            "members": "2,400+ 星标",
             "description": "开源代码、SDK和技术文档。",
-            "action": "贡献代码",
-            "members": "2,400+ stars"
+            "action": "贡献"
           }
         },
         "leaderboard": {
           "title": "贡献者排行榜",
           "subtitle": "本月顶级社区贡献者",
-          "points": "{{count}} 分",
+          "points": "{{count}} 积分",
           "tiers": {
-            "diamond": "Diamond",
-            "platinum": "Platinum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Bronze"
+            "diamond": "钻石",
+            "platinum": "铂金",
+            "gold": "黄金",
+            "silver": "白银",
+            "bronze": "青铜"
+          }
+        },
+        "ambassador": {
+          "title": "大使计划",
+          "subtitle": "领导全球TBurn社区",
+          "applyButton": "申请成为大使",
+          "benefits": {
+            "rewards": "月度TBURN代币奖励",
+            "earlyAccess": "新功能早期访问",
+            "nftBadge": "官方NFT徽章和周边",
+            "directChannel": "团队直接沟通渠道"
           }
         },
         "ambassadorProgram": {
@@ -11935,6 +11947,7 @@
           },
           "applyButton": "申请成为大使"
         },
+        "contributeTitle": "贡献方式",
         "contribute": {
           "title": "贡献方式",
           "code": {
@@ -11961,153 +11974,110 @@
         "governance": {
           "title": "治理",
           "tag": "TBURN DAO",
-          "description": "质押TBURN代币参与协议决策。创建提案、投票升级和管理社区金库。",
+          "description": "质押TBURN代币参与协议决策。创建提案、投票升级、管理社区金库。",
+          "button": "前往治理门户",
           "goToPortal": "前往治理门户",
           "stats": {
             "proposals": "提案",
             "votesCast": "投票数",
-            "treasuryBalance": "金库余额",
-            "treasury": "Treasury 余额"
-          },
-          "button": "Go to Governance Portal"
-        },
-        "channelsTitle": "加入 Our Channels",
-        "ambassador": {
-          "title": "Ambassador 专业gram",
-          "subtitle": "Lead the global T销毁 community",
-          "applyButton": "应用 as Ambassador",
-          "benefits": {
-            "rewards": "月ly TBURN token rewards",
-            "earlyAccess": "Early access to new features",
-            "nftBadge": "关icial NFT 差ge & Swag",
-            "directChannel": "Direct team communication channel"
+            "treasury": "金库余额",
+            "treasuryBalance": "金库余额"
           }
-        },
-        "contributeTitle": "Ways to Contribute"
+        }
       },
       "news": {
         "tag": "新闻与博客",
         "title": "新闻与博客",
         "subtitle": "最新更新、公告和见解。",
-        "searchPlaceholder": "搜索 articles...",
-        "featuredTitle": "精选 Stories",
+        "searchPlaceholder": "搜索文章...",
+        "featuredTitle": "精选故事",
         "featuredBadge": "精选",
-        "latestTitle": "最新 Articles",
+        "latestTitle": "最新文章",
         "readMore": "阅读更多",
-        "readTime": "{{minutes}} min read",
-        "views": "views",
-        "showingCount": "显示ing {{current}} of {{total}}",
+        "readTime": "{{minutes}}分钟阅读",
+        "views": "浏览",
+        "showingCount": "显示 {{current}} / {{total}}",
         "categories": {
           "all": "全部",
-          "announcement": "Announcement",
+          "announcement": "公告",
           "technology": "技术",
           "security": "安全",
-          "tokenomics": "代币omics",
-          "partnership": "合作伙伴hip",
+          "tokenomics": "代币经济学",
+          "partnership": "合作伙伴",
           "defi": "DeFi",
-          "development": "Development"
+          "development": "开发"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 主网 关icially 启动es",
-            "description": "之后 18 months of development, TBURN 链 V4 主网 is now live with 500K+ TPS, 三频段 AI, and quantum-resistant security.",
-            "author": "TBURN Foundation"
+            "title": "TBURN V4主网正式上线",
+            "description": "经过18个月的开发，TBURN Chain V4主网现已上线，具备500K+ TPS、Triple-Band AI和量子抗性安全。",
+            "author": "TBURN基金会"
           },
           "tripleBandAi": {
-            "title": "三频段 AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
-            "author": "AI Research 团队"
+            "title": "Triple-Band AI编排系统揭秘",
+            "description": "深入了解我们革命性的三层AI系统，该系统在战略、战术和运营层面提供智能决策。",
+            "author": "AI研究团队"
           },
           "partnership": {
-            "title": "全球 合作伙伴hip Expansion: 12 新 集成",
-            "description": "TBURN 链 announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
-            "author": "业务 Development"
+            "title": "全球合作扩展：12个新集成",
+            "description": "TBURN Chain宣布与亚洲、欧洲和美洲的领先DeFi协议、交易所和企业客户建立战略合作。",
+            "author": "商业发展部"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN 质押 专业gram: Complete 指南 to Earning 奖励",
-            "description": "每thing you need to know about the three-tier staking system, 年化收益率 calculations, and how to maximize your validator rewards."
+            "title": "TBURN质押计划：赚取奖励完整指南",
+            "description": "关于三级质押系统、APY计算以及如何最大化验证者奖励的所有信息。"
           },
           "trustScore": {
-            "title": "Trust Score Deep Dive: The 3-Stage 验证流程",
-            "description": "Understand how AI analysis, expert review, and community voting work together to protect investors from fraudulent projects."
+            "title": "信任评分深度解析：3阶段验证流程",
+            "description": "了解AI分析、专家审核和社区投票如何协同工作，保护投资者免受欺诈项目侵害。"
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 发布d: 新 功能 for 开发者",
-            "description": "Announcing SDK 2.0 with 类型脚本 support, improved WebSocket handling, and streamlined smart contract deployment tools."
+            "title": "TBURN SDK 2.0发布：开发者新功能",
+            "description": "发布SDK 2.0，支持TypeScript、改进的WebSocket处理和简化的智能合约部署工具。"
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: 未来-专业ofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN 链 against emerging quantum computing threats."
+            "title": "量子抗性加密：为TBURN的未来做好准备",
+            "description": "了解CRYSTALS-Dilithium和ED25519混合签名如何保护TBURN Chain免受新兴量子计算威胁。"
           },
           "dex": {
-            "title": "TBURN DEX Beta 启动: 交易 with Trust Scores",
-            "description": "Our native decentralized exchange is now in beta. 交易 verified tokens with integrated Trust Score protection and low fees."
+            "title": "TBURN DEX测试版上线：使用信任评分交易",
+            "description": "我们的原生去中心化交易所现已进入测试阶段。使用集成信任评分保护和低费用交易验证代币。"
           }
         },
         "newsletter": {
-          "title": "Stay 更新d",
-          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
-          "placeholder": "进入 your email address",
+          "title": "保持更新",
+          "description": "将最新新闻、更新和见解直接发送到您的收件箱。",
+          "placeholder": "输入您的电子邮件地址",
           "button": "订阅",
-          "privacy": "We respect your privacy. Unsubscribe anytime.",
-          "success": "Subscription 成功ful",
-          "subscribed": "You've been added to our newsletter. 检查 your inbox for confirmation.",
-          "error": "Subscription 错误",
-          "invalidEmail": "Please enter a valid email address."
+          "privacy": "我们尊重您的隐私。随时可以取消订阅。",
+          "success": "订阅成功",
+          "subscribed": "您已加入我们的通讯。请检查收件箱确认。",
+          "error": "订阅错误",
+          "invalidEmail": "请输入有效的电子邮件地址。"
         }
       },
       "events": {
         "tag": "活动与事件",
         "title": "活动与事件",
         "subtitle": "参加TBurn Chain社区活动、黑客马拉松和会议。",
+        "featuredTitle": "精选活动",
+        "upcomingTitle": "即将举行的活动",
+        "capacity": "容量",
         "filters": {
           "all": "所有活动",
-          "hackathon": "黑客马拉松",
+          "hackathon": "黑客松",
           "ama": "AMA",
           "webinar": "网络研讨会",
-          "meetup": "线下聚会",
+          "meetup": "聚会",
           "conference": "会议"
         },
-        "featured": {
-          "title": "精选活动",
-          "capacity": "容量",
-          "mainnetLaunch": {
-            "title": "TBURN 主网启动 Celebration",
-            "description": "加入 us for the historic launch of TBURN V4 主网. Be part of the next generation of trust-based blockchain technology with live demos and exclusive airdrops."
-          },
-          "defiChallenge": {
-            "title": "TBURN DeFi Challenge Hackathon",
-            "description": "48-hour global hackathon with $500K in prizes. 构建 innovative DeFi solutions on TBURN 链 and compete for grants and incubation opportunities."
-          }
-        },
-        "upcoming": {
-          "title": "即将举行的活动",
-          "foundersAma": {
-            "title": "Founders AMA: 2025 愿景",
-            "description": "实时 Q&A with TBURN founders discussing the roadmap, upcoming features, and community initiatives for the new year."
-          },
-          "trustScoreApi": {
-            "title": "Trust Score API 集成 Workshop",
-            "description": "Hands-on technical workshop for developers. Learn how to integrate Trust Score verification into your d应用 and smart contracts."
-          },
-          "seoulMeetup": {
-            "title": "Seoul 开发者 Meetup",
-            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
-          },
-          "aiDeepDive": {
-            "title": "三频段 AI Deep Dive Seminar",
-            "description": "Technical deep dive into our AI orchestration system. Learn about the architecture behind intelligent blockchain operations."
-          },
-          "validatorOps": {
-            "title": "有效ator Operations Training",
-            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
-          },
-          "futureOfTrust": {
-            "title": "The 未来 of Trust: TBURN Summit 2025",
-            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
-          }
+        "types": {
+          "launchEvent": "发布活动",
+          "amaSession": "AMA会议",
+          "seminar": "技术研讨会",
+          "training": "培训工作坊"
         },
         "eventTypes": {
           "launchEvent": "发布活动",
@@ -12119,42 +12089,72 @@
           "training": "培训",
           "conference": "会议"
         },
+        "locations": {
+          "online": "线上",
+          "seoul": "首尔，韩国",
+          "singapore": "新加坡"
+        },
+        "featured": {
+          "title": "精选活动",
+          "capacity": "容量",
+          "mainnetLaunch": {
+            "title": "TBURN主网发布庆典",
+            "description": "参与TBURN V4主网的历史性发布。通过现场演示和独家空投成为下一代信任区块链技术的一部分。"
+          },
+          "defiChallenge": {
+            "title": "TBURN DeFi挑战黑客松",
+            "description": "48小时全球黑客松，奖金50万美元。在TBURN Chain上构建创新DeFi解决方案，争夺资助和孵化机会。"
+          }
+        },
+        "upcoming": {
+          "title": "即将举行的活动",
+          "foundersAma": {
+            "title": "创始人AMA：2025愿景",
+            "description": "与TBURN创始人实时问答，讨论路线图、即将推出的功能和新年社区倡议。"
+          },
+          "trustScoreApi": {
+            "title": "信任评分API集成工作坊",
+            "description": "开发者实践技术工作坊。学习如何将信任评分验证集成到您的dApp和智能合约中。"
+          },
+          "seoulMeetup": {
+            "title": "首尔开发者聚会",
+            "description": "韩国开发者线下社交活动。技术演讲、演示和参与者专属周边。"
+          },
+          "aiDeepDive": {
+            "title": "Triple-Band AI深度研讨会",
+            "description": "深入了解我们的AI编排系统。学习智能区块链运营背后的架构。"
+          },
+          "validatorOps": {
+            "title": "验证者运营培训",
+            "description": "节点运营商综合培训。涵盖设置、维护、安全最佳实践和奖励优化。"
+          },
+          "futureOfTrust": {
+            "title": "信任的未来：TBURN Summit 2025",
+            "description": "我们的年度旗舰会议，包括行业领袖主题演讲、技术工作坊和独家公告。"
+          }
+        },
         "buttons": {
           "registerNow": "立即注册",
           "applyNow": "立即申请",
           "setReminder": "设置提醒",
           "register": "注册",
-          "rsvp": "预约（名额有限）",
+          "rsvpLimited": "RSVP（限定席位）",
           "getTickets": "获取门票",
-          "rsvpLimited": "RSVP (Limited Seats)"
+          "rsvp": "预约（名额有限）"
         },
         "hostEvent": {
           "title": "想要举办活动？",
           "description": "与TBurn Chain社区一起举办线下聚会、网络研讨会或黑客马拉松。我们提供资金、周边和营销支持。",
           "applyToHost": "申请举办"
         },
+        "hostCta": {
+          "title": "想主办活动吗？",
+          "description": "与TBurn Chain社区一起主办聚会、网络研讨会或黑客松。我们为批准的主办方提供资金、周边和营销支持。",
+          "button": "申请主办"
+        },
         "toast": {
           "reminderSet": "提醒已设置",
-          "reminderDescription": "您将在\"{{eventTitle}}\"开始前收到通知"
-        },
-        "featuredTitle": "精选 事件",
-        "upcomingTitle": "Upcoming 事件",
-        "capacity": "Capacity",
-        "types": {
-          "launchEvent": "启动 事件",
-          "amaSession": "AMA Session",
-          "seminar": "Technical Seminar",
-          "training": "Training Workshop"
-        },
-        "locations": {
-          "online": "在线",
-          "seoul": "Seoul, Korea",
-          "singapore": "Singapore"
-        },
-        "hostCta": {
-          "title": "Want to Host an 事件?",
-          "description": "Host meetups, webinars, or hackathons with the T销毁 链 community. We provide funding, swag, and marketing support for approved hosts.",
-          "button": "应用 to Host"
+          "reminderDescription": "您将在\"{{title}}\"之前收到通知"
         }
       }
     },

@@ -12731,48 +12731,49 @@
         "title": "コミュニティハブ",
         "subtitle": "ビルダー、バリデーター、愛好家とつながる。",
         "stats": {
-          "totalMembers": "Total Members",
-          "monthlyActive": "Monthly アクティブ",
-          "ambassadors": "Ambassadors",
-          "contributors": "Contributors"
+          "totalMembers": "総メンバー数",
+          "monthlyActive": "月間アクティブ",
+          "ambassadors": "アンバサダー",
+          "contributors": "コントリビューター"
         },
+        "channelsTitle": "チャンネルに参加",
         "channels": {
           "title": "コミュニティチャンネル",
           "discord": {
             "name": "Discord",
-            "description": "リアルタイム開発チャット、サポート、コミュニティ交流。",
-            "action": "サーバーに参加",
-            "members": "124,500+ members"
+            "members": "124,500+ メンバー",
+            "description": "リアルタイム開発者チャット、サポート、コミュニティ交流。",
+            "action": "サーバー参加"
           },
           "telegram": {
             "name": "Telegram",
+            "members": "89,200+ メンバー",
             "description": "迅速なお知らせとローカルコミュニティグループ。",
-            "action": "チャンネルに参加",
-            "members": "89,200+ members"
+            "action": "チャンネル参加"
           },
           "twitter": {
             "name": "Twitter / X",
+            "members": "156,000+ フォロワー",
             "description": "最新アップデート、パートナーシップ、イベントニュース。",
-            "action": "フォローする",
-            "members": "156,000+ followers"
+            "action": "フォロー"
           },
           "github": {
             "name": "GitHub",
+            "members": "2,400+ スター",
             "description": "オープンソースコード、SDK、技術ドキュメント。",
-            "action": "コントリビュート",
-            "members": "2,400+ stars"
+            "action": "コントリビュート"
           }
         },
         "leaderboard": {
           "title": "コントリビューターリーダーボード",
           "subtitle": "今月のトップコミュニティコントリビューター",
-          "points": "{{count}} points",
+          "points": "{{count}} ポイント",
           "tiers": {
-            "diamond": "Diamond",
-            "platinum": "Platinum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Bronze"
+            "diamond": "ダイヤモンド",
+            "platinum": "プラチナ",
+            "gold": "ゴールド",
+            "silver": "シルバー",
+            "bronze": "ブロンズ"
           }
         },
         "ambassadorProgram": {
@@ -12786,133 +12787,135 @@
           },
           "applyButton": "アンバサダーに応募"
         },
+        "ambassador": {
+          "title": "アンバサダープログラム",
+          "subtitle": "グローバルTBurnコミュニティをリード",
+          "applyButton": "アンバサダー申請",
+          "benefits": {
+            "rewards": "月間TBURNトークン報酬",
+            "earlyAccess": "新機能への早期アクセス",
+            "nftBadge": "公式NFTバッジ＆グッズ",
+            "directChannel": "チーム直接コミュニケーションチャンネル"
+          }
+        },
+        "contributeTitle": "貢献方法",
         "contribute": {
           "title": "貢献方法",
           "code": {
             "title": "コード",
             "description": "SDK、スマートコントラクト、ツール",
-            "action": "課題を見る"
+            "action": "イシューを見る"
           },
           "content": {
             "title": "コンテンツ",
             "description": "チュートリアル、ブログ、翻訳",
-            "action": "コンテンツを提出"
+            "action": "コンテンツ投稿"
           },
           "moderation": {
             "title": "モデレーション",
             "description": "Discord＆Telegramサポート",
-            "action": "モデレーターに応募"
+            "action": "モデレーター申請"
           },
           "marketing": {
             "title": "マーケティング",
             "description": "イベント、ソーシャルメディア、成長",
-            "action": "チームに参加"
+            "action": "チーム参加"
           }
         },
         "governance": {
           "title": "ガバナンス",
           "tag": "TBURN DAO",
-          "description": "TBURNトークンをステークしてプロトコル決定に参加。提案を作成し、アップグレードに投票し、コミュニティトレジャリーを管理。",
+          "description": "TBURNトークンをステークしてプロトコル決定に参加。提案作成、アップグレード投票、コミュニティ財務管理に参加できます。",
           "goToPortal": "ガバナンスポータルへ",
+          "button": "ガバナンスポータルへ",
           "stats": {
             "proposals": "提案",
             "votesCast": "投票数",
             "treasuryBalance": "トレジャリー残高",
-            "treasury": "トレジャリー Balance"
-          },
-          "button": "Go to ガバナンス Portal"
-        },
-        "channelsTitle": "Join Our Channels",
-        "ambassador": {
-          "title": "Ambassador Program",
-          "subtitle": "Lead the global TBurn コミュニティ",
-          "applyButton": "申請する as Ambassador",
-          "benefits": {
-            "rewards": "Monthly TBURN token rewards",
-            "earlyAccess": "Early access to 新規 features",
-            "nftBadge": "公式 NFT Badge & Swag",
-            "directChannel": "Direct team communication channel"
+            "treasury": "財務残高"
           }
-        },
-        "contributeTitle": "Ways to Contribute"
+        }
       },
       "news": {
         "tag": "ニュース＆ブログ",
         "title": "ニュース＆ブログ",
         "subtitle": "最新のアップデート、お知らせ、インサイト。",
-        "searchPlaceholder": "Search articles...",
-        "featuredTitle": "注目 Stories",
+        "searchPlaceholder": "記事を検索...",
+        "featuredTitle": "注目記事",
         "featuredBadge": "注目",
         "latestTitle": "最新記事",
         "readMore": "続きを読む",
-        "readTime": "{{分}} min read",
-        "views": "views",
-        "showingCount": "Showing {{current}} of {{total}}",
+        "readTime": "{{minutes}}分で読める",
+        "views": "閲覧",
+        "showingCount": "{{current}} / {{total}} を表示",
         "categories": {
           "all": "すべて",
-          "announcement": "Announcement",
-          "technology": "Technology",
+          "announcement": "お知らせ",
+          "technology": "テクノロジー",
           "security": "セキュリティ",
-          "tokenomics": "Tokenomics",
-          "partnership": "パートナーhip",
+          "tokenomics": "トークノミクス",
+          "partnership": "パートナーシップ",
           "defi": "DeFi",
-          "development": "Development"
+          "development": "開発"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 メインネット 公式ly Launches",
-            "description": "After 18 ヶ月 of development, TBURN Chain V4 メインネット is now live with 500K+ TPS, Triple-Band AI, and quantum-resistant セキュリティ.",
-            "author": "TBURN Foundation"
+            "title": "TBURN V4メインネット正式ローンチ",
+            "description": "18ヶ月の開発を経て、TBURN Chain V4メインネットが500K+ TPS、Triple-Band AI、量子耐性セキュリティと共にライブ。",
+            "author": "TBURN財団"
           },
           "tripleBandAi": {
-            "title": "Triple-Band AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and operational layers.",
-            "author": "AI Research Team"
+            "title": "Triple-Band AIオーケストレーション公開",
+            "description": "戦略、戦術、運用レイヤーにわたってインテリジェントな意思決定を支える革新的な3層AIシステムの詳細分析。",
+            "author": "AI研究チーム"
           },
           "partnership": {
-            "title": "Global パートナーhip Expansion: 12 新規 Integrations",
-            "description": "TBURN Chain announces strategic パートナーシップ with leading DeFi プロトコルs, ex変更, and enterprise clients across Asia, Europe, and Americas.",
-            "author": "Business Development"
+            "title": "グローバルパートナーシップ拡大：12の新統合",
+            "description": "TBURN Chainがアジア、ヨーロッパ、南北アメリカの主要DeFiプロトコル、取引所、企業クライアントとの戦略的パートナーシップを発表。",
+            "author": "事業開発部"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN ステーキング Program: Complete Guide to Earning Rewards",
-            "description": "Everything you need to know about the three-tier ステーキング system, APY calculations, and how to maximize your バリデーター報酬."
+            "title": "TBURNステーキングプログラム：報酬獲得完全ガイド",
+            "description": "3層ステーキングシステム、APY計算、バリデーター報酬最大化方法についてのすべて。"
           },
           "trustScore": {
-            "title": "トラストスコア Deep Dive: The 3-Stage 検証 Process",
-            "description": "Understand how AI analysis, expert review, and コミュニティ 投票 work together to protect investors from fraudulent projects."
+            "title": "トラストスコア詳細分析：3段階検証プロセス",
+            "description": "AI分析、専門家レビュー、コミュニティ投票がどのように連携して投資家を詐欺プロジェクトから守るかをご覧ください。"
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Released: 新規 Features for 開発者",
-            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+            "title": "TBURN SDK 2.0リリース：開発者向け新機能",
+            "description": "TypeScriptサポート、改善されたWebSocket処理、効率化されたスマートコントラクトデプロイツールを備えたSDK 2.0を発表。"
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN Chain against emerging quantum computing threats."
+            "title": "量子耐性暗号化：TBURNの将来への備え",
+            "description": "CRYSTALS-DilithiumとED25519ハイブリッド署名がTBURN Chainを新興量子コンピューティング脅威からどのように保護するかをご覧ください。"
           },
           "dex": {
-            "title": "TBURN DEX Beta Launch: Trade with トラストスコアs",
-            "description": "Our native decentralized exchange is now in beta. Trade 検証済み トークン with integrated トラストスコア protection and 低手数料."
+            "title": "TBURN DEXベータローンチ：トラストスコアで取引",
+            "description": "ネイティブ分散型取引所がベータ版で登場。統合トラストスコア保護と低手数料で検証済みトークンを取引。"
           }
         },
         "newsletter": {
-          "title": "Stay Updated",
-          "description": "Get the latest ニュース, updates, and insights delivered directly to your inbox.",
-          "placeholder": "メールアドレスを入力してください",
+          "title": "最新情報を受け取る",
+          "description": "最新ニュース、アップデート、インサイトを直接受信箱にお届けします。",
+          "placeholder": "メールアドレスを入力",
           "button": "購読",
-          "privacy": "We respect your プライバシー. Un購読 anytime.",
-          "success": "Subscription 成功ful",
-          "subscribed": "You've been added to our ニュースレター. Check your inbox for confirmation.",
-          "error": "Subscription エラー",
-          "invalidEmail": "Please enter a valid メールアドレス."
+          "privacy": "プライバシーを尊重します。いつでも購読解除できます。",
+          "success": "購読成功",
+          "subscribed": "ニュースレターに登録されました。確認メールをご確認ください。",
+          "error": "購読エラー",
+          "invalidEmail": "有効なメールアドレスを入力してください。"
         }
       },
       "events": {
         "tag": "イベント＆アクティビティ",
         "title": "イベント＆アクティビティ",
         "subtitle": "TBurn Chainコミュニティイベント、ハッカソン、カンファレンスに参加。",
+        "featuredTitle": "注目イベント",
+        "upcomingTitle": "今後のイベント",
+        "capacity": "定員",
         "filters": {
           "all": "すべてのイベント",
           "hackathon": "ハッカソン",
@@ -12921,43 +12924,54 @@
           "meetup": "ミートアップ",
           "conference": "カンファレンス"
         },
+        "types": {
+          "launchEvent": "ローンチイベント",
+          "amaSession": "AMAセッション",
+          "seminar": "技術セミナー",
+          "training": "トレーニングワークショップ"
+        },
+        "locations": {
+          "online": "オンライン",
+          "seoul": "ソウル、韓国",
+          "singapore": "シンガポール"
+        },
         "featured": {
           "title": "注目のイベント",
           "capacity": "定員",
           "mainnetLaunch": {
-            "title": "TBURN メインネット Launch Celebration",
-            "description": "Join us for the historic launch of TBURN V4 メインネット. Be part of the 次へ generation of trust-based ブロックチェーン technology with live demos and exclusive airdrops."
+            "title": "TBURNメインネットローンチ記念",
+            "description": "TBURN V4メインネットの歴史的ローンチにご参加ください。ライブデモと独占エアドロップで次世代信頼ベースブロックチェーン技術の一員に。"
           },
           "defiChallenge": {
-            "title": "TBURN DeFi Chすべてenge ハッカソン",
-            "description": "48-hour global ハッカソン with $500K in prizes. Build innovative DeFi ソリューション on TBURN Chain and compete for grants and incubation opportunities."
+            "title": "TBURN DeFiチャレンジハッカソン",
+            "description": "賞金50万ドルの48時間グローバルハッカソン。TBURN Chain上で革新的なDeFiソリューションを構築し、グラントとインキュベーション機会を競いましょう。"
           }
         },
         "upcoming": {
           "title": "今後のイベント",
           "foundersAma": {
-            "title": "Founders AMA: 2025 Vision",
-            "description": "Live Q&A with TBURN founders discussing the roadmap, upcoming features, and コミュニティ initiatives for the 新規 year."
+            "title": "創設者AMA：2025ビジョン",
+            "description": "TBURN創設者とのライブQ&A。新年のロードマップ、今後の機能、コミュニティイニシアチブについて議論。"
           },
           "trustScoreApi": {
-            "title": "トラストスコア API Integration Workshop",
-            "description": "Hands-on 技術 workshop for 開発者. 学ぶ how to integrate トラストスコア 検証 into your dApps and smart contracts."
+            "title": "トラストスコアAPI統合ワークショップ",
+            "description": "開発者向け実践技術ワークショップ。dAppとスマートコントラクトへのトラストスコア検証統合方法を学びます。"
           },
           "seoulMeetup": {
-            "title": "Seoul Developer ミートアップ",
-            "description": "対面 networking event for Korean 開発者. 技術 presentations, demos, and exclusive swag for attendees."
+            "title": "ソウル開発者ミートアップ",
+            "description": "韓国開発者向け対面ネットワーキングイベント。技術プレゼンテーション、デモ、参加者限定グッズ。"
           },
           "aiDeepDive": {
-            "title": "Triple-Band AI Deep Dive Seminar",
-            "description": "技術 deep dive into our AI orchestration system. 学ぶ about the architecture behind intelligent ブロックチェーン operations."
+            "title": "Triple-Band AIディープダイブセミナー",
+            "description": "AIオーケストレーションシステムの技術詳細分析。インテリジェントブロックチェーン運用の背後にあるアーキテクチャを学びます。"
           },
           "validatorOps": {
-            "title": "バリデーター Operations Training",
-            "description": "Comprehensive training for node operators. Cover setup, maintenance, セキュリティ best practices, and reward optimization."
+            "title": "バリデーター運用トレーニング",
+            "description": "ノードオペレーター向け包括的トレーニング。セットアップ、メンテナンス、セキュリティベストプラクティス、報酬最適化を網羅。"
           },
           "futureOfTrust": {
-            "title": "The Future of Trust: TBURN Summit 2025",
-            "description": "Our flagship annual カンファレンス featuring keynotes from industry leaders, 技術 workshops, and exclusive アナウンス."
+            "title": "信頼の未来：TBURN Summit 2025",
+            "description": "業界リーダーの基調講演、技術ワークショップ、独占発表を含む年間フラッグシップカンファレンス。"
           }
         },
         "eventTypes": {
@@ -12972,40 +12986,26 @@
         },
         "buttons": {
           "registerNow": "今すぐ登録",
-          "applyNow": "今すぐ応募",
-          "setReminder": "リマインダーを設定",
+          "applyNow": "今すぐ申請",
+          "setReminder": "リマインダー設定",
           "register": "登録",
           "rsvp": "RSVP（限定）",
-          "getTickets": "チケットを取得",
-          "rsvpLimited": "RSVP (Limited Seats)"
+          "rsvpLimited": "RSVP（限定席）",
+          "getTickets": "チケット取得"
         },
         "hostEvent": {
           "title": "イベントを主催したいですか？",
           "description": "TBurn Chainコミュニティでミートアップ、ウェビナー、ハッカソンを主催。資金、グッズ、マーケティングサポートを提供します。",
           "applyToHost": "主催者に応募"
         },
+        "hostCta": {
+          "title": "イベントを主催しませんか？",
+          "description": "TBurn Chainコミュニティとミートアップ、ウェビナー、ハッカソンを主催しましょう。承認されたホストに資金、グッズ、マーケティングサポートを提供します。",
+          "button": "ホスト申請"
+        },
         "toast": {
           "reminderSet": "リマインダー設定完了",
-          "reminderDescription": "「{{eventTitle}}」の前に通知されます"
-        },
-        "featuredTitle": "注目 イベント",
-        "upcomingTitle": "今後のイベント",
-        "capacity": "Capacity",
-        "types": {
-          "launchEvent": "Launch Event",
-          "amaSession": "AMA Session",
-          "seminar": "技術 Seminar",
-          "training": "Training Workshop"
-        },
-        "locations": {
-          "online": "オンライン",
-          "seoul": "Seoul, Korea",
-          "singapore": "Singapore"
-        },
-        "hostCta": {
-          "title": "Want to イベントを主催?",
-          "description": "Host ミートアップs, webinars, or ハッカソンs with the TBurn Chain コミュニティ. We provide funding, swag, and marketing support for approved hosts.",
-          "button": "応募する"
+          "reminderDescription": "「{{title}}」の前に通知されます"
         }
       }
     },

@@ -9634,32 +9634,32 @@
           "title": "Canais da Comunidade",
           "discord": {
             "name": "Discord",
-            "description": "Chat de desenvolvedores em tempo real, suporte e convivência da comunidade.",
-            "action": "Entrar no Servidor",
-            "members": "124,500+ members"
+            "members": "124,500+ membros",
+            "description": "Chat de desenvolvedores em tempo real, suporte e interação comunitária.",
+            "action": "Entrar no Servidor"
           },
           "telegram": {
             "name": "Telegram",
+            "members": "89,200+ membros",
             "description": "Anúncios rápidos e grupos comunitários locais.",
-            "action": "Entrar no Canal",
-            "members": "89,200+ members"
+            "action": "Entrar no Canal"
           },
           "twitter": {
             "name": "Twitter / X",
+            "members": "156,000+ seguidores",
             "description": "Últimas atualizações, parcerias e notícias de eventos.",
-            "action": "Seguir",
-            "members": "156,000+ followers"
+            "action": "Seguir"
           },
           "github": {
             "name": "GitHub",
-            "description": "Código open source, SDKs e documentação técnica.",
-            "action": "Contribuir",
-            "members": "2,400+ stars"
+            "members": "2,400+ estrelas",
+            "description": "Código aberto, SDKs e documentação técnica.",
+            "action": "Contribuir"
           }
         },
         "leaderboard": {
           "title": "Ranking de Contribuidores",
-          "subtitle": "Principais contribuidores da comunidade este mês",
+          "subtitle": "Principais contribuidores do mês",
           "points": "{{count}} pontos",
           "tiers": {
             "diamond": "Diamante",
@@ -9707,24 +9707,24 @@
           "title": "Governança",
           "tag": "TBURN DAO",
           "description": "Faça staking de tokens TBURN para participar de decisões do protocolo. Crie propostas, vote em atualizações e gerencie o tesouro da comunidade.",
-          "goToPortal": "Ir para Portal de Governança",
+          "goToPortal": "Ir para o Portal de Governança",
           "stats": {
             "proposals": "Propostas",
             "votesCast": "Votos Realizados",
             "treasuryBalance": "Saldo do Tesouro",
-            "treasury": "Saldo Tesouraria"
+            "treasury": "Saldo do Tesouro"
           },
-          "button": "Ir para Portal de Governança"
+          "button": "Ir para o Portal de Governança"
         },
-        "channelsTitle": "Participe dos Nossos Canais",
+        "channelsTitle": "Junte-se aos Nossos Canais",
         "ambassador": {
           "title": "Programa de Embaixadores",
           "subtitle": "Lidere a comunidade global TBurn",
           "applyButton": "Candidatar-se como Embaixador",
           "benefits": {
             "rewards": "Recompensas mensais em tokens TBURN",
-            "earlyAccess": "Acesso antecipado a novos recursos",
-            "nftBadge": "Distintivo NFT Oficial e Brindes",
+            "earlyAccess": "Acesso antecipado a novas funcionalidades",
+            "nftBadge": "Badge NFT oficial e brindes",
             "directChannel": "Canal de comunicação direta com a equipe"
           }
         },

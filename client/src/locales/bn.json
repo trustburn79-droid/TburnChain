@@ -8305,39 +8305,39 @@
           "title": "কমিউনিটি চ্যানেল",
           "discord": {
             "name": "Discord",
-            "description": "রিয়েল-টাইম ডেভ চ্যাট, সহায়তা এবং কমিউনিটি আড্ডা।",
+            "description": "রিয়েল-টাইম ডেভেলপার চ্যাট, সাপোর্ট এবং কমিউনিটি ইন্টারঅ্যাকশন।",
             "action": "সার্ভারে যোগ দিন",
-            "members": "124,৫০০+ members"
+            "members": "১২৪,৫০০+ সদস্য"
           },
           "telegram": {
             "name": "Telegram",
             "description": "দ্রুত ঘোষণা এবং স্থানীয় কমিউনিটি গ্রুপ।",
             "action": "চ্যানেলে যোগ দিন",
-            "members": "89,200+ members"
+            "members": "৮৯,২০০+ সদস্য"
           },
           "twitter": {
             "name": "Twitter / X",
-            "description": "সর্বশেষ আপডেট, অংশীদারিত্ব এবং ইভেন্ট সংবাদ।",
-            "action": "আমাদের অনুসরণ করুন",
-            "members": "156,000+ followers"
+            "description": "সর্বশেষ আপডেট, অংশীদারিত্ব এবং ইভেন্ট নিউজ।",
+            "action": "অনুসরণ করুন",
+            "members": "১৫৬,০০০+ অনুসরণকারী"
           },
           "github": {
             "name": "GitHub",
-            "description": "ওপেন সোর্স কোড, SDK এবং প্রযুক্তিগত ডকুমেন্টেশন।",
-            "action": "অবদান করুন",
-            "members": "2,400+ stars"
+            "description": "ওপেন সোর্স কোড, SDKs এবং প্রযুক্তিগত ডকুমেন্টেশন।",
+            "action": "অবদান রাখুন",
+            "members": "২,৪০০+ স্টার"
           }
         },
         "leaderboard": {
           "title": "অবদানকারী লিডারবোর্ড",
-          "subtitle": "এই মাসের শীর্ষ কমিউনিটি অবদানকারী",
+          "subtitle": "এই মাসের শীর্ষ অবদানকারী",
           "points": "{{count}} পয়েন্ট",
           "tiers": {
-            "diamond": "Diamond",
-            "platinum": "Platinum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Bronze"
+            "diamond": "ডায়মন্ড",
+            "platinum": "প্লাটিনাম",
+            "gold": "গোল্ড",
+            "silver": "সিলভার",
+            "bronze": "ব্রোঞ্জ"
           }
         },
         "ambassadorProgram": {
@@ -8383,101 +8383,104 @@
             "proposals": "প্রস্তাব",
             "votesCast": "প্রদত্ত ভোট",
             "treasuryBalance": "ট্রেজারি ব্যালেন্স",
-            "treasury": "Treasury Balance"
+            "treasury": "ট্রেজারি ব্যালেন্স"
           },
-          "button": "Go to Governance Portal"
+          "button": "গভর্ন্যান্স পোর্টালে যান"
         },
-        "channelsTitle": "Join Our Channels",
+        "channelsTitle": "আমাদের চ্যানেলে যোগ দিন",
         "ambassador": {
-          "title": "Ambassador Program",
-          "subtitle": "Lead the global TBurn community",
-          "applyButton": "Apply as Ambassador",
+          "title": "অ্যাম্বাসাডর প্রোগ্রাম",
+          "subtitle": "বিশ্বব্যাপী TBurn কমিউনিটির নেতৃত্ব দিন",
+          "applyButton": "অ্যাম্বাসাডর হিসেবে আবেদন করুন",
           "benefits": {
-            "rewards": "Monthly TBURN token rewards",
-            "earlyAccess": "Early access to new features",
-            "nftBadge": "Official NFT Badge & Swag",
-            "directChannel": "Direct team communication channel"
+            "rewards": "মাসিক TBURN টোকেন পুরস্কার",
+            "earlyAccess": "নতুন বৈশিষ্ট্যে আগাম অ্যাক্সেস",
+            "nftBadge": "অফিসিয়াল NFT ব্যাজ এবং সোয়াগ",
+            "directChannel": "টিমের সাথে সরাসরি যোগাযোগ চ্যানেল"
           }
         },
-        "contributeTitle": "Ways to Contribute"
+        "contributeTitle": "অবদান করার উপায়"
       },
       "news": {
         "tag": "খবর ও ব্লগ",
         "title": "খবর ও ব্লগ",
-        "subtitle": "সর্বশেষ আপডেট, ঘোষণা এবং অন্তর্দৃষ্টি",
-        "searchPlaceholder": "Search articles...",
-        "featuredTitle": "Featured Stories",
-        "featuredBadge": "Featured",
-        "latestTitle": "Latest Articles",
+        "subtitle": "সর্বশেষ আপডেট, ঘোষণা এবং অন্তর্দৃষ্টি।",
+        "searchPlaceholder": "আর্টিকেল খুঁজুন...",
+        "featuredTitle": "ফিচার্ড স্টোরি",
+        "featuredBadge": "ফিচার্ড",
+        "latestTitle": "সর্বশেষ আর্টিকেল",
         "readMore": "আরও পড়ুন",
-        "readTime": "{{minutes}} min read",
-        "views": "views",
-        "showingCount": "Showing {{current}} of {{total}}",
+        "readTime": "{{minutes}} মিনিট পড়ার সময়",
+        "views": "ভিউ",
+        "showingCount": "{{total}} এর মধ্যে {{current}} দেখানো হচ্ছে",
         "categories": {
           "all": "সব",
-          "announcement": "Announcement",
-          "technology": "Technology",
-          "security": "Security",
+          "announcement": "ঘোষণা",
+          "technology": "প্রযুক্তি",
+          "security": "নিরাপত্তা",
           "tokenomics": "টোকেনোমিক্স",
-          "partnership": "Partnership",
+          "partnership": "অংশীদারিত্ব",
           "defi": "DeFi",
-          "development": "Development"
+          "development": "উন্নয়ন"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 Mainnet Officially Launches",
-            "description": "After ১৮ months of development, TBURN Chain V4 Mainnet is now live with 500K+ TPS, ট্রিপল-ব্যান্ড AI, and quantum-resistant security.",
-            "author": "TBURN Foundation"
+            "title": "TBURN V4 মেইননেট আনুষ্ঠানিকভাবে চালু",
+            "description": "১৮ মাসের উন্নয়নের পর, TBURN Chain V4 মেইননেট এখন 500K+ TPS, ট্রিপল-ব্যান্ড AI এবং কোয়ান্টাম-রেসিস্ট্যান্ট সিকিউরিটি সহ লাইভ।",
+            "author": "TBURN ফাউন্ডেশন"
           },
           "tripleBandAi": {
-            "title": "ট্রিপল-ব্যান্ড AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-tier AI system that powers intelligent decision-making across strategic, tactical, and অপারেশনাল স্তরs.",
-            "author": "AI Research Team"
+            "title": "ট্রিপল-ব্যান্ড AI অর্কেস্ট্রেশন প্রকাশিত",
+            "description": "আমাদের বৈপ্লবিক থ্রি-টায়ার AI সিস্টেমের গভীর অন্তর্দৃষ্টি যা কৌশলগত, সামরিক এবং অপারেশনাল স্তরে বুদ্ধিমান সিদ্ধান্ত গ্রহণকে শক্তি দেয়।",
+            "author": "AI রিসার্চ টিম"
           },
           "partnership": {
-            "title": "Global Partnership Expansion: 12 New Integrations",
-            "description": "TBURN Chain announces কৌশলগত অংশীদারিত্ব with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
-            "author": "Business Development"
+            "title": "বিশ্বব্যাপী অংশীদারিত্ব সম্প্রসারণ: ১২টি নতুন ইন্টিগ্রেশন",
+            "description": "TBURN Chain এশিয়া, ইউরোপ এবং আমেরিকা জুড়ে শীর্ষ DeFi প্রোটোকল, এক্সচেঞ্জ এবং এন্টারপ্রাইজ ক্লায়েন্টদের সাথে কৌশলগত অংশীদারিত্ব ঘোষণা করেছে।",
+            "author": "বিজনেস ডেভেলপমেন্ট"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN Staking Program: Complete Guide to Earning Rewards",
-            "description": "Everything you need to know about the three-tier staking system, APY calculations, and how to maximize your ভ্যালিডেটর পুরস্কার."
+            "title": "TBURN স্টেকিং প্রোগ্রাম: রিওয়ার্ড অর্জনের সম্পূর্ণ গাইড",
+            "description": "থ্রি-টায়ার স্টেকিং সিস্টেম, APY গণনা এবং আপনার ভ্যালিডেটর পুরস্কার সর্বাধিক করার বিষয়ে সবকিছু।"
           },
           "trustScore": {
-            "title": "Trust Score Deep Dive: The 3-Stage যাচাইকরণ Process",
-            "description": "Understand how AI বিশ্লেষণ, বিশেষজ্ঞ পর্যালোচনা, and community voting work together to protect investors from fraudulent projects."
+            "title": "ট্রাস্ট স্কোর গভীর বিশ্লেষণ: ৩-পর্যায় যাচাইকরণ প্রক্রিয়া",
+            "description": "AI বিশ্লেষণ, বিশেষজ্ঞ পর্যালোচনা এবং কমিউনিটি ভোটিং কীভাবে প্রতারণামূলক প্রকল্প থেকে বিনিয়োগকারীদের রক্ষা করতে একসাথে কাজ করে তা বুঝুন।"
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Released: New Features ডেভেলপারদের জন্য",
-            "description": "Announcing SDK 2.0 with TypeScript support, improved WebSocket handling, and streamlined smart contract deployment tools."
+            "title": "TBURN SDK 2.0 প্রকাশিত: ডেভেলপারদের জন্য নতুন বৈশিষ্ট্য",
+            "description": "TypeScript সাপোর্ট, উন্নত WebSocket হ্যান্ডলিং এবং স্ট্রিমলাইন্ড স্মার্ট কন্ট্রাক্ট ডিপ্লয়মেন্ট টুলস সহ SDK 2.0 ঘোষণা।"
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 হাইব্রিড স্বাক্ষর protect TBURN Chain against emerging quantum computing threats."
+            "title": "কোয়ান্টাম-রেসিস্ট্যান্ট ক্রিপ্টোগ্রাফি: TBURN-এর ভবিষ্যত-প্রুফিং",
+            "description": "কীভাবে CRYSTALS-Dilithium এবং ED25519 হাইব্রিড সিগনেচার উদীয়মান কোয়ান্টাম কম্পিউটিং হুমকি থেকে TBURN Chain কে রক্ষা করে।"
           },
           "dex": {
-            "title": "TBURN DEX Beta Launch: Trade with Trust Scores",
-            "description": "Our native decentralized exchange is now in beta. Trade verified tokens with integrated Trust Score protection and low fees."
+            "title": "TBURN DEX বিটা লঞ্চ: ট্রাস্ট স্কোর দিয়ে ট্রেড করুন",
+            "description": "আমাদের নেটিভ ডিসেন্ট্রালাইজড এক্সচেঞ্জ এখন বিটায় রয়েছে। ইন্টিগ্রেটেড ট্রাস্ট স্কোর প্রোটেকশন এবং কম ফি দিয়ে ভেরিফাইড টোকেন ট্রেড করুন।"
           }
         },
         "newsletter": {
-          "title": "Stay Updated",
-          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
+          "title": "আপডেট থাকুন",
+          "description": "সর্বশেষ খবর, আপডেট এবং অন্তর্দৃষ্টি সরাসরি আপনার ইনবক্সে পান।",
           "placeholder": "আপনার ইমেইল ঠিকানা লিখুন",
           "button": "সাবস্ক্রাইব করুন",
-          "privacy": "We respect your privacy. Unsubscribe anytime.",
-          "success": "Subscription Successful",
-          "subscribed": "You've been added to our newsletter. Check your inbox for confirmation.",
-          "error": "Subscription Error",
-          "invalidEmail": "Please enter a valid email address."
+          "privacy": "আমরা আপনার গোপনীয়তাকে সম্মান করি। যেকোনো সময় আনসাবস্ক্রাইব করুন।",
+          "success": "সাবস্ক্রিপশন সফল",
+          "subscribed": "আপনাকে আমাদের নিউজলেটারে যোগ করা হয়েছে। নিশ্চিতকরণের জন্য আপনার ইনবক্স দেখুন।",
+          "error": "সাবস্ক্রিপশন ত্রুটি",
+          "invalidEmail": "অনুগ্রহ করে একটি বৈধ ইমেইল ঠিকানা লিখুন।"
         }
       },
       "events": {
         "tag": "ইভেন্ট ও কার্যক্রম",
         "title": "ইভেন্ট ও কার্যক্রম",
-        "subtitle": "কমিউনিটি ইভেন্ট, হ্যাকাথন এবং সম্মেলনে যোগ দিন",
+        "subtitle": "TBurn Chain কমিউনিটি ইভেন্ট, হ্যাকাথন এবং কনফারেন্সে যোগ দিন।",
+        "featuredTitle": "ফিচার্ড ইভেন্ট",
+        "upcomingTitle": "আসন্ন ইভেন্ট",
+        "capacity": "ধারণক্ষমতা",
         "filters": {
           "all": "সব ইভেন্ট",
           "hackathon": "হ্যাকাথন",
@@ -8486,43 +8489,54 @@
           "meetup": "মিটআপ",
           "conference": "কনফারেন্স"
         },
+        "types": {
+          "launchEvent": "লঞ্চ ইভেন্ট",
+          "amaSession": "AMA সেশন",
+          "seminar": "টেকনিক্যাল সেমিনার",
+          "training": "ট্রেনিং ওয়ার্কশপ"
+        },
+        "locations": {
+          "online": "অনলাইন",
+          "seoul": "সিউল, কোরিয়া",
+          "singapore": "সিঙ্গাপুর"
+        },
         "featured": {
-          "title": "বৈশিষ্ট্যযুক্ত ইভেন্ট",
-          "capacity": "ক্ষমতা",
+          "title": "ফিচার্ড ইভেন্ট",
+          "capacity": "ধারণক্ষমতা",
           "mainnetLaunch": {
-            "title": "TBURN Mainnet Launch Celebration",
-            "description": "Join us for the historic launch of TBURN V4 Mainnet. Be part of the next generation of বিশ্বাস-ভিত্তিক ব্লকচেইন technology with live demos and exclusive airdrops."
+            "title": "TBURN মেইননেট লঞ্চ সেলিব্রেশন",
+            "description": "TBURN V4 মেইননেটের ঐতিহাসিক লঞ্চে আমাদের সাথে যোগ দিন। লাইভ ডেমো এবং এক্সক্লুসিভ এয়ারড্রপস সহ ট্রাস্ট-বেসড ব্লকচেইন প্রযুক্তির পরবর্তী প্রজন্মের অংশ হন।"
           },
           "defiChallenge": {
-            "title": "TBURN DeFi Challenge Hackathon",
-            "description": "48-hour global hackathon with $500K in prizes. Build innovative DeFi solutions on TBURN Chain and compete for grants and incubation opportunities."
+            "title": "TBURN DeFi চ্যালেঞ্জ হ্যাকাথন",
+            "description": "$500K পুরস্কার সহ ৪৮-ঘণ্টার গ্লোবাল হ্যাকাথন। TBURN Chain-এ উদ্ভাবনী DeFi সমাধান তৈরি করুন এবং গ্র্যান্ট ও ইনকিউবেশন সুযোগের জন্য প্রতিযোগিতা করুন।"
           }
         },
         "upcoming": {
           "title": "আসন্ন ইভেন্ট",
           "foundersAma": {
-            "title": "Founders AMA: ২০২৫ Vision",
-            "description": "Live Q&A with TBURN founders discussing the রোডম্যাপ, upcoming features, and community initiatives for the new year."
+            "title": "ফাউন্ডার্স AMA: ২০২৫ ভিশন",
+            "description": "TBURN ফাউন্ডারদের সাথে লাইভ Q&A যারা নতুন বছরের জন্য রোডম্যাপ, আসন্ন বৈশিষ্ট্য এবং কমিউনিটি উদ্যোগ নিয়ে আলোচনা করবেন।"
           },
           "trustScoreApi": {
-            "title": "Trust Score API ইন্টিগ্রেশন Workshop",
-            "description": "Hands-on technical workshop ডেভেলপারদের জন্য. Learn how to integrate Trust Score যাচাইকরণ into your dApps and স্মার্ট কন্ট্রাক্ট."
+            "title": "ট্রাস্ট স্কোর API ইন্টিগ্রেশন ওয়ার্কশপ",
+            "description": "ডেভেলপারদের জন্য হ্যান্ডস-অন টেকনিক্যাল ওয়ার্কশপ। জানুন কীভাবে আপনার dApps এবং স্মার্ট কন্ট্রাক্টে ট্রাস্ট স্কোর ভেরিফিকেশন ইন্টিগ্রেট করবেন।"
           },
           "seoulMeetup": {
-            "title": "Seoul Developer Meetup",
-            "description": "In-person networking event for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+            "title": "সিউল ডেভেলপার মিটআপ",
+            "description": "কোরিয়ান ডেভেলপারদের জন্য ইন-পার্সন নেটওয়ার্কিং ইভেন্ট। টেকনিক্যাল প্রেজেন্টেশন, ডেমো এবং অংশগ্রহণকারীদের জন্য এক্সক্লুসিভ সোয়াগ।"
           },
           "aiDeepDive": {
-            "title": "ট্রিপল-ব্যান্ড AI Deep Dive Seminar",
-            "description": "Technical deep dive into our AI orchestration system. Learn about the architecture behind intelligent blockchain operations."
+            "title": "ট্রিপল-ব্যান্ড AI ডিপ ডাইভ সেমিনার",
+            "description": "আমাদের AI অর্কেস্ট্রেশন সিস্টেমের টেকনিক্যাল গভীর বিশ্লেষণ। বুদ্ধিমান ব্লকচেইন অপারেশনের পিছনের আর্কিটেকচার সম্পর্কে জানুন।"
           },
           "validatorOps": {
-            "title": "Validator Operations Training",
-            "description": "Comprehensive training for node operators. Cover setup, maintenance, security best practices, and reward optimization."
+            "title": "ভ্যালিডেটর অপারেশন্স ট্রেনিং",
+            "description": "নোড অপারেটরদের জন্য ব্যাপক প্রশিক্ষণ। সেটআপ, রক্ষণাবেক্ষণ, সিকিউরিটি বেস্ট প্র্যাক্টিস এবং রিওয়ার্ড অপ্টিমাইজেশন কভার করে।"
           },
           "futureOfTrust": {
-            "title": "The Future of Trust: TBURN Summit ২০২৫",
-            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+            "title": "বিশ্বাসের ভবিষ্যত: TBURN সামিট ২০২৫",
+            "description": "আমাদের ফ্ল্যাগশিপ বার্ষিক কনফারেন্স যেখানে ইন্ডাস্ট্রি লিডারদের কীনোট, টেকনিক্যাল ওয়ার্কশপ এবং এক্সক্লুসিভ ঘোষণা রয়েছে।"
           }
         },
         "eventTypes": {
@@ -8532,7 +8546,7 @@
           "webinar": "ওয়েবিনার",
           "meetup": "মিটআপ",
           "seminar": "সেমিনার",
-          "training": "প্রশিক্ষণ",
+          "training": "ট্রেনিং",
           "conference": "কনফারেন্স"
         },
         "buttons": {
@@ -8541,36 +8555,22 @@
           "setReminder": "রিমাইন্ডার সেট করুন",
           "register": "রেজিস্টার করুন",
           "rsvp": "RSVP (সীমিত)",
-          "getTickets": "টিকেট পান",
-          "rsvpLimited": "RSVP (Limited Seats)"
+          "rsvpLimited": "RSVP (সীমিত সিট)",
+          "getTickets": "টিকেট পান"
+        },
+        "hostCta": {
+          "title": "ইভেন্ট হোস্ট করতে চান?",
+          "description": "TBurn Chain কমিউনিটির সাথে মিটআপ, ওয়েবিনার বা হ্যাকাথন হোস্ট করুন। আমরা অনুমোদিত হোস্টদের জন্য ফান্ডিং, সোয়াগ এবং মার্কেটিং সাপোর্ট প্রদান করি।",
+          "button": "হোস্ট হিসেবে আবেদন করুন"
         },
         "hostEvent": {
           "title": "ইভেন্ট হোস্ট করতে চান?",
-          "description": "TBurn Chain কমিউনিটির সাথে মিটআপ, ওয়েবিনার বা হ্যাকাথন হোস্ট করুন। আমরা ফান্ডিং, সোয়াগ এবং মার্কেটিং সহায়তা প্রদান করি।",
+          "description": "TBurn Chain কমিউনিটির সাথে মিটআপ, ওয়েবিনার বা হ্যাকাথন হোস্ট করুন। আমরা ফান্ডিং, সোয়াগ এবং মার্কেটিং সাপোর্ট প্রদান করি।",
           "applyToHost": "হোস্ট হিসেবে আবেদন করুন"
         },
         "toast": {
           "reminderSet": "রিমাইন্ডার সেট হয়েছে",
-          "reminderDescription": "\"{{eventTitle}}\" এর আগে আপনাকে জানানো হবে"
-        },
-        "featuredTitle": "Featured Events",
-        "upcomingTitle": "Upcoming Events",
-        "capacity": "Capacity",
-        "types": {
-          "launchEvent": "Launch Event",
-          "amaSession": "AMA Session",
-          "seminar": "Technical Seminar",
-          "training": "Training Workshop"
-        },
-        "locations": {
-          "online": "Online",
-          "seoul": "Seoul, Korea",
-          "singapore": "Singapore"
-        },
-        "hostCta": {
-          "title": "Want to Host an Event?",
-          "description": "Host meetups, webinars, or hackathons with the TBurn Chain community. We provide funding, swag, and marketing support for approved hosts.",
-          "button": "Apply to Host"
+          "reminderDescription": "\"{{title}}\" এর আগে আপনাকে জানানো হবে"
         }
       }
     },

@@ -10459,42 +10459,42 @@
           "contributors": "Contributors"
         },
         "channels": {
-          "title": "समुदाय चैनल",
+          "title": "कम्युनिटी चैनल्स",
           "discord": {
             "name": "Discord",
-            "description": "रियल-टाइम डेव चैट, सपोर्ट और समुदाय हैंगआउट।",
+            "description": "रियल-टाइम डेवलपर चैट, सपोर्ट और कम्युनिटी इंटरैक्शन।",
             "action": "सर्वर जॉइन करें",
-            "members": "124,500+ members"
+            "members": "124,500+ सदस्य"
           },
           "telegram": {
             "name": "Telegram",
-            "description": "तेज घोषणाएं और स्थानीय समुदाय समूह।",
+            "description": "तेज़ घोषणाएं और स्थानीय कम्युनिटी ग्रुप्स।",
             "action": "चैनल जॉइन करें",
-            "members": "89,200+ members"
+            "members": "89,200+ सदस्य"
           },
           "twitter": {
             "name": "Twitter / X",
-            "description": "नवीनतम अपडेट, साझेदारियां और इवेंट समाचार।",
-            "action": "हमें फॉलो करें",
-            "members": "156,000+ followers"
+            "description": "नवीनतम अपडेट, पार्टनरशिप और इवेंट न्यूज़।",
+            "action": "फॉलो करें",
+            "members": "156,000+ फॉलोअर्स"
           },
           "github": {
             "name": "GitHub",
-            "description": "ओपन सोर्स कोड, SDKs और तकनीकी दस्तावेज़ीकरण।",
+            "description": "ओपन सोर्स कोड, SDKs और तकनीकी डॉक्यूमेंटेशन।",
             "action": "योगदान करें",
-            "members": "2,400+ stars"
+            "members": "2,400+ स्टार्स"
           }
         },
         "leaderboard": {
           "title": "योगदानकर्ता लीडरबोर्ड",
-          "subtitle": "इस महीने के शीर्ष समुदाय योगदानकर्ता",
-          "points": "{{count}} अंक",
+          "subtitle": "इस महीने के शीर्ष योगदानकर्ता",
+          "points": "{{count}} पॉइंट्स",
           "tiers": {
-            "diamond": "Diamond",
-            "platinum": "Platinum",
-            "gold": "Gold",
-            "silver": "Silver",
-            "bronze": "Bronze"
+            "diamond": "डायमंड",
+            "platinum": "प्लैटिनम",
+            "gold": "गोल्ड",
+            "silver": "सिल्वर",
+            "bronze": "ब्रॉन्ज"
           }
         },
         "ambassadorProgram": {
@@ -10534,200 +10534,200 @@
         "governance": {
           "title": "गवर्नेंस",
           "tag": "TBURN DAO",
-          "description": "प्रोटोकॉल निर्णयों में भाग लेने के लिए TBURN टोकन स्टेक करें। प्रस्ताव बनाएं, अपग्रेड पर वोट करें और समुदाय ट्रेजरी प्रबंधित करें।",
+          "description": "प्रोटोकॉल निर्णयों में भाग लेने के लिए TBURN टोकन स्टेक करें। प्रस्ताव बनाएं, अपग्रेड पर वोट करें और कम्युनिटी ट्रेजरी प्रबंधित करें।",
           "goToPortal": "गवर्नेंस पोर्टल पर जाएं",
           "stats": {
             "proposals": "प्रस्ताव",
             "votesCast": "डाले गए वोट",
             "treasuryBalance": "ट्रेजरी बैलेंस",
-            "treasury": "Treasury शेष"
+            "treasury": "ट्रेजरी बैलेंस"
           },
-          "button": "Go to गवर्नेंस Portal"
+          "button": "गवर्नेंस पोर्टल पर जाएं"
         },
-        "channelsTitle": "शामिल हों Our Channels",
+        "channelsTitle": "हमारे चैनल्स से जुड़ें",
         "ambassador": {
-          "title": "Ambassador Program",
-          "subtitle": "Lead the global TBurn community",
-          "applyButton": "लागू करें as Ambassador",
+          "title": "एम्बेसडर प्रोग्राम",
+          "subtitle": "ग्लोबल TBurn कम्युनिटी का नेतृत्व करें",
+          "applyButton": "एम्बेसडर के रूप में आवेदन करें",
           "benefits": {
-            "rewards": "Monthly TBURN टोकन rewards",
-            "earlyAccess": "Early एक्सेस to new विशेषताएं",
-            "nftBadge": "Official NFT बैज & Swag",
-            "directChannel": "Direct team communication channel"
+            "rewards": "मासिक TBURN टोकन पुरस्कार",
+            "earlyAccess": "नई सुविधाओं तक शीघ्र पहुंच",
+            "nftBadge": "आधिकारिक NFT बैज और स्वैग",
+            "directChannel": "टीम के साथ सीधा संचार चैनल"
           }
         },
-        "contributeTitle": "Ways to Contribute"
+        "contributeTitle": "योगदान करने के तरीके"
       },
       "news": {
         "tag": "समाचार और ब्लॉग",
         "title": "समाचार और ब्लॉग",
-        "subtitle": "नवीनतम अपडेट, घोषणाएं और अंतर्दृष्टि",
-        "searchPlaceholder": "खोजें articles...",
-        "featuredTitle": "Featured Stories",
-        "featuredBadge": "Featured",
-        "latestTitle": "Latest Articles",
+        "subtitle": "नवीनतम अपडेट, घोषणाएं और अंतर्दृष्टि।",
+        "searchPlaceholder": "आर्टिकल्स खोजें...",
+        "featuredTitle": "फीचर्ड स्टोरीज़",
+        "featuredBadge": "फीचर्ड",
+        "latestTitle": "नवीनतम आर्टिकल्स",
         "readMore": "और पढ़ें",
-        "readTime": "{{मिनट}} min read",
-        "views": "views",
-        "showingCount": "Showing {{current}} of {{कुल}}",
+        "readTime": "{{minutes}} मिनट पढ़ने का समय",
+        "views": "व्यूज़",
+        "showingCount": "{{total}} में से {{current}} दिखा रहे हैं",
         "categories": {
           "all": "सभी",
-          "announcement": "Announcement",
-          "technology": "Technology",
+          "announcement": "घोषणा",
+          "technology": "तकनीक",
           "security": "सुरक्षा",
-          "tokenomics": "Tokenomics",
-          "partnership": "Partnership",
+          "tokenomics": "टोकनोमिक्स",
+          "partnership": "पार्टनरशिप",
           "defi": "DeFi",
           "development": "विकास"
         },
         "featured": {
           "mainnetLaunch": {
-            "title": "TBURN V4 Mainnet Officially Launches",
-            "description": "After 18 महीने of विकास, TBURN चेन V4 Mainnet is now लाइव with 500K+ TPS, Triple-Band AI, and quantum-resistant सुरक्षा.",
-            "author": "TBURN Foundation"
+            "title": "TBURN V4 मेननेट आधिकारिक रूप से लॉन्च",
+            "description": "18 महीने के विकास के बाद, TBURN चेन V4 मेननेट अब 500K+ TPS, ट्रिपल-बैंड AI और क्वांटम-रेसिस्टेंट सुरक्षा के साथ लाइव है।",
+            "author": "TBURN फाउंडेशन"
           },
           "tripleBandAi": {
-            "title": "Triple-Band AI Orchestration Revealed",
-            "description": "Deep dive into our revolutionary three-टियर AI सिस्टम that powers intelligent decision-making across strategic, tactical, and operational layers.",
-            "author": "AI Research Team"
+            "title": "ट्रिपल-बैंड AI ऑर्केस्ट्रेशन का खुलासा",
+            "description": "हमारी क्रांतिकारी तीन-स्तरीय AI प्रणाली का गहन अध्ययन जो रणनीतिक, सामरिक और संचालन स्तरों पर बुद्धिमान निर्णय लेने में सक्षम बनाती है।",
+            "author": "AI रिसर्च टीम"
           },
           "partnership": {
-            "title": "Global Partnership Expansion: 12 New Integrations",
-            "description": "TBURN चेन announces strategic partnerships with leading DeFi protocols, exchanges, and enterprise clients across Asia, Europe, and Americas.",
-            "author": "Business विकास"
+            "title": "ग्लोबल पार्टनरशिप विस्तार: 12 नई इंटीग्रेशन",
+            "description": "TBURN चेन ने एशिया, यूरोप और अमेरिका में अग्रणी DeFi प्रोटोकॉल, एक्सचेंज और एंटरप्राइज क्लाइंट्स के साथ रणनीतिक साझेदारी की घोषणा की।",
+            "author": "बिजनेस डेवलपमेंट"
           }
         },
         "articles": {
           "staking": {
-            "title": "TBURN Staking Program: पूर्ण गाइड to Earning Rewards",
-            "description": "Everything you need to know about the three-टियर staking सिस्टम, APY calculations, and how to maximize your वैलिडेटर rewards."
+            "title": "TBURN स्टेकिंग प्रोग्राम: रिवॉर्ड्स कमाने की पूर्ण गाइड",
+            "description": "तीन-स्तरीय स्टेकिंग सिस्टम, APY गणना और अपने वैलिडेटर रिवॉर्ड्स को अधिकतम करने के बारे में सब कुछ।"
           },
           "trustScore": {
-            "title": "Trust स्कोर Deep Dive: The 3-चरण सत्यापन प्रक्रिया",
-            "description": "Understand how AI विश्लेषण, विशेषज्ञ समीक्षा, and community voting work together to protect investors from fraudulent projects."
+            "title": "ट्रस्ट स्कोर गहन अध्ययन: 3-चरण सत्यापन प्रक्रिया",
+            "description": "समझें कि AI विश्लेषण, विशेषज्ञ समीक्षा और कम्युनिटी वोटिंग कैसे धोखाधड़ी वाले प्रोजेक्ट्स से निवेशकों की सुरक्षा के लिए मिलकर काम करते हैं।"
           },
           "sdk": {
-            "title": "TBURN SDK 2.0 Released: New विशेषताएं for Developers",
-            "description": "Announcing SDK 2.0 with TypeScript सपोर्ट, improved WebSocket handling, and streamlined smart कॉन्ट्रैक्ट तैनाती tools."
+            "title": "TBURN SDK 2.0 रिलीज़: डेवलपर्स के लिए नई सुविधाएं",
+            "description": "TypeScript सपोर्ट, बेहतर WebSocket हैंडलिंग और स्ट्रीमलाइन्ड स्मार्ट कॉन्ट्रैक्ट डिप्लॉयमेंट टूल्स के साथ SDK 2.0 की घोषणा।"
           },
           "quantum": {
-            "title": "Quantum-Resistant Cryptography: Future-Proofing TBURN",
-            "description": "How CRYSTALS-Dilithium and ED25519 hybrid signatures protect TBURN चेन against emerging quantum computing threats."
+            "title": "क्वांटम-रेसिस्टेंट क्रिप्टोग्राफी: TBURN का भविष्य-प्रूफिंग",
+            "description": "कैसे CRYSTALS-Dilithium और ED25519 हाइब्रिड सिग्नेचर उभरते क्वांटम कंप्यूटिंग खतरों से TBURN चेन की सुरक्षा करते हैं।"
           },
           "dex": {
-            "title": "TBURN DEX Beta लॉन्च करें: ट्रेड with Trust Scores",
-            "description": "Our native decentralized एक्सचेंज is now in beta. ट्रेड verified tokens with integrated Trust स्कोर protection and low fees."
+            "title": "TBURN DEX बीटा लॉन्च: ट्रस्ट स्कोर के साथ ट्रेड करें",
+            "description": "हमारा नेटिव डिसेंट्रलाइज्ड एक्सचेंज अब बीटा में है। इंटीग्रेटेड ट्रस्ट स्कोर प्रोटेक्शन और कम फीस के साथ वेरिफाइड टोकन ट्रेड करें।"
           }
         },
         "newsletter": {
-          "title": "Stay Updated",
-          "description": "Get the latest news, updates, and insights delivered directly to your inbox.",
+          "title": "अपडेटेड रहें",
+          "description": "नवीनतम समाचार, अपडेट और अंतर्दृष्टि सीधे अपने इनबॉक्स में प्राप्त करें।",
           "placeholder": "अपना ईमेल पता दर्ज करें",
-          "button": "सदस्यता लें",
-          "privacy": "We respect your गोपनीयता. Unsubscribe anytime.",
-          "success": "Subscription सफल",
-          "subscribed": "You've been added to our newsletter. Check your inbox for पुष्टि.",
-          "error": "Subscription त्रुटि",
-          "invalidEmail": "Please enter a valid ईमेल पता."
+          "button": "सब्सक्राइब करें",
+          "privacy": "हम आपकी गोपनीयता का सम्मान करते हैं। कभी भी अनसब्सक्राइब करें।",
+          "success": "सब्सक्रिप्शन सफल",
+          "subscribed": "आपको हमारे न्यूज़लेटर में जोड़ दिया गया है। पुष्टि के लिए अपना इनबॉक्स देखें।",
+          "error": "सब्सक्रिप्शन त्रुटि",
+          "invalidEmail": "कृपया एक वैध ईमेल पता दर्ज करें।"
         }
       },
       "events": {
         "tag": "इवेंट्स और गतिविधियां",
         "title": "इवेंट्स और गतिविधियां",
-        "subtitle": "कम्युनिटी इवेंट्स, हैकाथॉन और सम्मेलनों में शामिल हों",
+        "subtitle": "TBurn Chain कम्युनिटी इवेंट्स, हैकाथॉन और कॉन्फ्रेंस में शामिल हों।",
+        "featuredTitle": "फीचर्ड इवेंट्स",
+        "upcomingTitle": "आगामी इवेंट्स",
+        "capacity": "क्षमता",
         "filters": {
           "all": "सभी इवेंट्स",
           "hackathon": "हैकाथॉन",
           "ama": "AMA",
           "webinar": "वेबिनार",
           "meetup": "मीटअप",
-          "conference": "सम्मेलन"
+          "conference": "कॉन्फ्रेंस"
+        },
+        "types": {
+          "launchEvent": "लॉन्च इवेंट",
+          "amaSession": "AMA सेशन",
+          "seminar": "तकनीकी सेमिनार",
+          "training": "ट्रेनिंग वर्कशॉप"
+        },
+        "locations": {
+          "online": "ऑनलाइन",
+          "seoul": "सियोल, कोरिया",
+          "singapore": "सिंगापुर"
         },
         "featured": {
-          "title": "विशेष इवेंट्स",
+          "title": "फीचर्ड इवेंट्स",
           "capacity": "क्षमता",
           "mainnetLaunch": {
-            "title": "TBURN Mainnet लॉन्च करें Celebration",
-            "description": "शामिल हों us for the historic लॉन्च करें of TBURN V4 Mainnet. Be भाग of the अगला generation of trust-based blockchain technology with लाइव demos and exclusive airdrops."
+            "title": "TBURN मेननेट लॉन्च सेलिब्रेशन",
+            "description": "TBURN V4 मेननेट के ऐतिहासिक लॉन्च के लिए हमसे जुड़ें। लाइव डेमो और एक्सक्लूसिव एयरड्रॉप्स के साथ ट्रस्ट-बेस्ड ब्लॉकचेन टेक्नोलॉजी की अगली पीढ़ी का हिस्सा बनें।"
           },
           "defiChallenge": {
-            "title": "TBURN DeFi Challenge Hackathon",
-            "description": "48-hour global hackathon with $500K in prizes. निर्माण करें innovative DeFi समाधान on TBURN चेन and compete for grants and incubation opportunities."
+            "title": "TBURN DeFi चैलेंज हैकाथॉन",
+            "description": "$500K पुरस्कारों के साथ 48-घंटे का ग्लोबल हैकाथॉन। TBURN चेन पर इनोवेटिव DeFi सॉल्यूशंस बनाएं और ग्रांट्स और इनक्यूबेशन अवसरों के लिए प्रतिस्पर्धा करें।"
           }
         },
         "upcoming": {
           "title": "आगामी इवेंट्स",
           "foundersAma": {
-            "title": "Founders AMA: 2025 Vision",
-            "description": "लाइव Q&A with TBURN founders discussing the रोडमैप, upcoming विशेषताएं, and community initiatives for the new year."
+            "title": "फाउंडर्स AMA: 2025 विज़न",
+            "description": "TBURN फाउंडर्स के साथ लाइव Q&A जो नए साल के लिए रोडमैप, आगामी फीचर्स और कम्युनिटी इनिशिएटिव्स पर चर्चा करेंगे।"
           },
           "trustScoreApi": {
-            "title": "Trust स्कोर API एकीकरण Workshop",
-            "description": "Hands-on technical workshop for developers. Learn how to integrate Trust स्कोर सत्यापन into your dApps and smart contracts."
+            "title": "ट्रस्ट स्कोर API इंटीग्रेशन वर्कशॉप",
+            "description": "डेवलपर्स के लिए हैंड्स-ऑन तकनीकी वर्कशॉप। जानें कि अपने dApps और स्मार्ट कॉन्ट्रैक्ट्स में ट्रस्ट स्कोर वेरिफिकेशन कैसे इंटीग्रेट करें।"
           },
           "seoulMeetup": {
-            "title": "Seoul डेवलपर Meetup",
-            "description": "In-person networking इवेंट for Korean developers. Technical presentations, demos, and exclusive swag for attendees."
+            "title": "सियोल डेवलपर मीटअप",
+            "description": "कोरियाई डेवलपर्स के लिए इन-पर्सन नेटवर्किंग इवेंट। तकनीकी प्रेजेंटेशन, डेमो और उपस्थित लोगों के लिए एक्सक्लूसिव स्वैग।"
           },
           "aiDeepDive": {
-            "title": "Triple-Band AI Deep Dive Seminar",
-            "description": "Technical deep dive into our AI orchestration सिस्टम. Learn about the आर्किटेक्चर behind intelligent blockchain operations."
+            "title": "ट्रिपल-बैंड AI डीप डाइव सेमिनार",
+            "description": "हमारे AI ऑर्केस्ट्रेशन सिस्टम में तकनीकी गहन अध्ययन। इंटेलिजेंट ब्लॉकचेन ऑपरेशंस के पीछे की आर्किटेक्चर के बारे में जानें।"
           },
           "validatorOps": {
-            "title": "वैलिडेटर Operations Training",
-            "description": "Comprehensive training for नोड operators. Cover सेटअप, रखरखाव, सुरक्षा best practices, and रिवॉर्ड optimization."
+            "title": "वैलिडेटर ऑपरेशंस ट्रेनिंग",
+            "description": "नोड ऑपरेटर्स के लिए व्यापक प्रशिक्षण। सेटअप, मेंटेनेंस, सुरक्षा बेस्ट प्रैक्टिस और रिवॉर्ड ऑप्टिमाइजेशन कवर करता है।"
           },
           "futureOfTrust": {
-            "title": "The Future of Trust: TBURN Summit 2025",
-            "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
+            "title": "ट्रस्ट का भविष्य: TBURN समिट 2025",
+            "description": "हमारी फ्लैगशिप वार्षिक कॉन्फ्रेंस जिसमें इंडस्ट्री लीडर्स की कीनोट्स, तकनीकी वर्कशॉप और एक्सक्लूसिव घोषणाएं शामिल हैं।"
           }
         },
         "eventTypes": {
           "launchEvent": "लॉन्च इवेंट",
           "hackathon": "हैकाथॉन",
-          "ama": "AMA सत्र",
+          "ama": "AMA सेशन",
           "webinar": "वेबिनार",
           "meetup": "मीटअप",
           "seminar": "सेमिनार",
-          "training": "प्रशिक्षण",
-          "conference": "सम्मेलन"
+          "training": "ट्रेनिंग",
+          "conference": "कॉन्फ्रेंस"
         },
         "buttons": {
-          "registerNow": "अभी पंजीकरण करें",
+          "registerNow": "अभी रजिस्टर करें",
           "applyNow": "अभी आवेदन करें",
           "setReminder": "रिमाइंडर सेट करें",
-          "register": "पंजीकरण करें",
+          "register": "रजिस्टर करें",
           "rsvp": "RSVP (सीमित)",
-          "getTickets": "टिकट प्राप्त करें",
-          "rsvpLimited": "RSVP (Limited Seats)"
+          "rsvpLimited": "RSVP (सीमित सीटें)",
+          "getTickets": "टिकट प्राप्त करें"
+        },
+        "hostCta": {
+          "title": "इवेंट होस्ट करना चाहते हैं?",
+          "description": "TBurn Chain कम्युनिटी के साथ मीटअप्स, वेबिनार या हैकाथॉन होस्ट करें। हम अप्रूव्ड होस्ट्स के लिए फंडिंग, स्वैग और मार्केटिंग सपोर्ट प्रदान करते हैं।",
+          "button": "होस्ट करने के लिए आवेदन करें"
         },
         "hostEvent": {
           "title": "इवेंट होस्ट करना चाहते हैं?",
-          "description": "TBurn Chain समुदाय के साथ मीटअप्स, वेबिनार या हैकाथॉन होस्ट करें। हम फंडिंग, स्वैग और मार्केटिंग सपोर्ट प्रदान करते हैं।",
+          "description": "TBurn Chain कम्युनिटी के साथ मीटअप्स, वेबिनार या हैकाथॉन होस्ट करें। हम फंडिंग, स्वैग और मार्केटिंग सपोर्ट प्रदान करते हैं।",
           "applyToHost": "होस्ट करने के लिए आवेदन करें"
         },
         "toast": {
-          "reminderSet": "रिमाइंडर सेट",
-          "reminderDescription": "\"{{eventTitle}}\" से पहले आपको सूचित किया जाएगा"
-        },
-        "featuredTitle": "Featured Events",
-        "upcomingTitle": "Upcoming Events",
-        "capacity": "क्षमता",
-        "types": {
-          "launchEvent": "लॉन्च करें इवेंट",
-          "amaSession": "AMA Session",
-          "seminar": "Technical Seminar",
-          "training": "Training Workshop"
-        },
-        "locations": {
-          "online": "ऑनलाइन",
-          "seoul": "Seoul, Korea",
-          "singapore": "Singapore"
-        },
-        "hostCta": {
-          "title": "Want to होस्ट an इवेंट?",
-          "description": "होस्ट meetups, webinars, or hackathons with the TBurn चेन community. We provide funding, swag, and marketing सपोर्ट for approved hosts.",
-          "button": "लागू करें to होस्ट"
+          "reminderSet": "रिमाइंडर सेट हो गया",
+          "reminderDescription": "\"{{title}}\" से पहले आपको सूचित किया जाएगा"
         }
       }
     },
