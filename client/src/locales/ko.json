@@ -8308,7 +8308,125 @@
       "docs": {
         "tag": "문서",
         "title": "문서",
-        "subtitle": "TBurn 체인 개발을 위한 종합 가이드 및 레퍼런스."
+        "subtitle": "TBurn 체인 개발을 위한 종합 가이드 및 레퍼런스.",
+        "heroDescription": "TBurn Chain에서 구축하는 데 필요한 모든 것. API에서 스마트 컨트랙트까지, 프로덕션 지원 dApp을 구축하세요.",
+        "searchPlaceholder": "문서 검색...",
+        "categoriesTitle": "문서 카테고리",
+        "resourcesTitle": "개발자 리소스",
+        "badges": {
+          "latest": "최신",
+          "mainnet": "메인넷"
+        },
+        "architecture": {
+          "title": "네트워크 아키텍처",
+          "subtitle": "TBurn Chain 다층 아키텍처 이해",
+          "layers": {
+            "consensus": {
+              "title": "합의 레이어",
+              "description": "AI 기반 검증과 함께하는 신뢰 증명 합의"
+            },
+            "execution": {
+              "title": "실행 레이어",
+              "description": "가스 최적화를 통한 EVM 호환 스마트 컨트랙트 실행"
+            },
+            "application": {
+              "title": "애플리케이션 레이어",
+              "description": "dApp, DeFi 프로토콜 및 사용자 대면 서비스"
+            },
+            "service": {
+              "title": "서비스 레이어",
+              "description": "통합을 위한 API, SDK 및 개발자 도구"
+            }
+          },
+          "stats": {
+            "throughput": {
+              "label": "처리량",
+              "sublabel": "50,000+ TPS"
+            },
+            "latency": {
+              "label": "지연 시간",
+              "sublabel": "< 1초"
+            },
+            "ai": {
+              "label": "AI Models",
+              "sublabel": "Triple-band orchestration"
+            },
+            "cryptography": {
+              "label": "Cryptography",
+              "sublabel": "Quantum-resistant"
+            }
+          }
+        },
+        "categories": {
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "description": "Write, deploy, and verify smart contracts with Trust Score integration"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "description": "Complete REST and GraphQL API documentation"
+          },
+          "sdkGuide": {
+            "title": "SDK Guide",
+            "description": "Multi-language SDK integration guides",
+            "badge": "Popular"
+          },
+          "cliReference": {
+            "title": "CLI Reference",
+            "description": "Command line interface for project management",
+            "badge": "New"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "Real-time blockchain event subscriptions",
+            "badge": "Real-time"
+          },
+          "tutorials": {
+            "title": "Tutorials",
+            "description": "Step-by-step guides for common use cases",
+            "badge": "Beginner"
+          }
+        },
+        "quickStart": {
+          "title": "Quick Start",
+          "items": {
+            "getStarted": {
+              "title": "Get Started",
+              "description": "Install the SDK and create your first project"
+            },
+            "devSetup": {
+              "title": "Development Setup",
+              "description": "Configure your development environment"
+            },
+            "apiKeys": {
+              "title": "API Keys",
+              "description": "Get your API keys from the developer dashboard"
+            }
+          }
+        },
+        "resources": {
+          "cookbook": {
+            "title": "Developer Cookbook",
+            "description": "Ready-to-use code recipes and patterns"
+          },
+          "community": {
+            "title": "Community",
+            "description": "Join Discord and get help from the community"
+          },
+          "trustScore": {
+            "title": "Trust Score Guide",
+            "description": "Understanding and integrating trust verification"
+          },
+          "defiHub": {
+            "title": "DeFi Hub",
+            "description": "Build DeFi applications with TBurn protocols"
+          }
+        },
+        "cta": {
+          "title": "Ready to Build?",
+          "description": "Start building on TBurn Chain today with our comprehensive documentation and SDKs.",
+          "joinDiscord": "Join Discord"
+        }
       },
       "api": {
         "tag": "API 레퍼런스",
@@ -8783,6 +8901,18 @@
           "aiOracle": {
             "title": "AI Oracle 접근",
             "description": "Integrate AI-powered insights directly into your smart contracts via oracle calls."
+          },
+          "gasOptimization": {
+            "title": "Gas Optimization",
+            "description": "Advanced gas optimization techniques reduce transaction costs by up to 60%."
+          },
+          "quantumResistant": {
+            "title": "Quantum-Resistant Signatures",
+            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+          },
+          "trustScore": {
+            "title": "Trust Score Integration",
+            "description": "On-chain trust verification with real-time scoring and automated risk assessment."
           }
         },
         "templates": {
@@ -8801,18 +8931,17 @@
           "dao": {
             "title": "DAO 거버넌스",
             "description": "토큰-weighted voting system"
-          }
+          },
+          "autoBurn": "Auto-Burn Token",
+          "basicToken": "Basic Token",
+          "governance": "Governance",
+          "staking": "Staking Contract",
+          "trustScoreIntegration": "Trust Score Integration"
         },
         "security": {
           "title": "보안 Best Practices",
-          "reentrancy": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
-          },
-          "accessControl": {
-            "title": "접근 제어",
-            "description": "Implement role-based permissions with OpenZeppelin"
-          },
+          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
+          "accessControl": "Implement role-based access control with OpenZeppelin AccessControl",
           "inputValidation": {
             "title": "Input Validation",
             "description": "항상 validate user inputs and external data"
@@ -8820,6 +8949,17 @@
           "upgradeability": {
             "title": "Upgradeability",
             "description": "Use proxy patterns for upgradeable contracts"
+          },
+          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
+          "initializer": "Use initializer modifiers for proxy contract initialization",
+          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "reentrancyGuard": {
+            "title": "Reentrancy Guards",
+            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+          },
+          "accessControlRole": {
+            "title": "Access Control",
+            "description": "Implement role-based permissions with OpenZeppelin"
           }
         },
         "gasOptimization": {
@@ -8828,7 +8968,23 @@
           "tip1": "Pack multiple small variables into single storage slots",
           "tip2": "Use calldata instead of memory for read-only function parameters",
           "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings"
+          "tip4": "Use custom errors instead of revert strings",
+          "memoryVsStorage": {
+            "title": "Memory vs Storage",
+            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+          },
+          "shortRevert": {
+            "title": "Short Revert Messages",
+            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+          },
+          "useEvents": {
+            "title": "Use Events for Logging",
+            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+          },
+          "variablePacking": {
+            "title": "Variable Packing",
+            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+          }
         },
         "testing": {
           "title": "테스트 Your Contracts",
@@ -8855,7 +9011,12 @@
           "sdkGuide": "SDK 가이드",
           "cliReference": "CLI 레퍼런스",
           "codeExamples": "Code 예제"
-        }
+        },
+        "gasOptimizationTips": "Gas Optimization Tips",
+        "platformFeatures": "Platform Features",
+        "readyToDeploy": "Ready to Deploy?",
+        "sdkGuide": "SDK Guide",
+        "securityChecklist": "Security Checklist"
       },
       "websocket": {
         "tag": "실시간",
@@ -9051,13 +9212,45 @@
             "os": "macOS, Linux, or Windows 10+",
             "node": "노드.js 18 or higher",
             "git": "Git 2.0 or higher"
+          },
+          "minimum": {
+            "title": "Minimum Requirements",
+            "subtitle": "For development and testing",
+            "cpu": "4 cores / 8 threads",
+            "ram": "8GB RAM",
+            "storage": "100GB SSD",
+            "network": "10 Mbps"
+          },
+          "recommended": {
+            "title": "Recommended Requirements",
+            "subtitle": "For production validators",
+            "cpu": "8+ cores / 16 threads",
+            "ram": "32GB RAM",
+            "storage": "500GB NVMe SSD",
+            "network": "100 Mbps"
+          },
+          "specs": {
+            "cpu": "CPU",
+            "ram": "RAM",
+            "storage": "Storage",
+            "network": "Network"
+          },
+          "ports": {
+            "title": "Network Ports",
+            "subtitle": "Required ports for node operation",
+            "rpc": "8545 - JSON-RPC",
+            "ws": "8546 - WebSocket",
+            "p2p": "30303 - P2P",
+            "metrics": "9090 - Metrics"
           }
         },
         "tabs": {
           "npm": "npm",
           "yarn": "Yarn",
           "docker": "Docker",
-          "source": "From Source"
+          "source": "From Source",
+          "linux": "Linux",
+          "windows": "Windows"
         },
         "npm": {
           "title": "Install via npm",
@@ -9074,7 +9267,10 @@
           "title": "Docker 설치",
           "step1": "Pull the official image",
           "step2": "Run the container",
-          "step3": "접근 the development environment"
+          "step3": "접근 the development environment",
+          "pullAndRun": "Pull and run the Docker image",
+          "recommendation": "Recommended for isolated development environment",
+          "viewDockerCompose": "View Docker Compose configuration"
         },
         "source": {
           "title": "빌드 from Source",
@@ -9094,7 +9290,9 @@
           "configFile": {
             "title": "구성 File",
             "description": "생성 a tburn.config.js file in your project root"
-          }
+          },
+          "description": "Configure your TBurn Chain node with environment variables and config files.",
+          "commonFlags": "Common Configuration Flags"
         },
         "troubleshooting": {
           "title": "Troubleshooting",
@@ -9109,7 +9307,13 @@
           "networkError": {
             "title": "네트워크 연결 오류",
             "description": "확인 your firewall settings and RPC endpoint"
-          }
+          },
+          "portErrors": "Port Already in Use",
+          "portErrorsAnswer": "Change the port using --http.port flag or kill the process using the port.",
+          "notSyncing": "Node Not Syncing",
+          "notSyncingAnswer": "Check network connectivity and ensure peers are available. Try adding bootstrap nodes.",
+          "openFiles": "Too Many Open Files",
+          "openFilesAnswer": "Increase system file descriptor limits with ulimit -n 65535."
         },
         "nextSteps": {
           "title": "다음 Steps",
@@ -9125,6 +9329,27 @@
             "title": "Code 예제",
             "description": "실제 통합 패턴"
           }
+        },
+        "systemRequirements": "System Requirements",
+        "installationSteps": "Installation Steps",
+        "quickStart": "Quick Start",
+        "dockerImage": "Docker Image",
+        "troubleshootingTitle": "Troubleshooting",
+        "flags": {
+          "http": "--http: Enable HTTP-RPC server",
+          "ws": "--ws: Enable WebSocket server",
+          "mine": "--mine: Enable mining/validation",
+          "syncmode": "--syncmode: Sync mode (snap, full, light)"
+        },
+        "windows": {
+          "title": "Windows Installation",
+          "recommendation": "For Windows, we recommend using WSL2 (Windows Subsystem for Linux) for optimal compatibility.",
+          "downloadBeta": "Download Windows Beta"
+        },
+        "needHelp": {
+          "title": "Need Help?",
+          "description": "Join our community for support and updates.",
+          "joinDiscord": "Join Discord"
         }
       },
       "evmMigration": {
@@ -9161,6 +9386,26 @@
             "title": "블록 시간",
             "ethereum": "~12초",
             "tburn": "~3초"
+          },
+          "evmCompatibility": {
+            "title": "EVM Compatibility",
+            "evmDesc": "Standard EVM opcodes and execution",
+            "tburnDesc": "Enhanced EVM with Trust Score opcodes"
+          },
+          "performance": {
+            "title": "Performance",
+            "evmDesc": "~15 TPS typical throughput",
+            "tburnDesc": "50,000+ TPS with parallel execution"
+          },
+          "safety": {
+            "title": "Transaction Safety",
+            "evmDesc": "Standard transaction finality",
+            "tburnDesc": "AI-verified transactions with fraud prevention"
+          },
+          "verification": {
+            "title": "Verification",
+            "evmDesc": "Basic contract verification",
+            "tburnDesc": "Trust Score verification built-in"
           }
         },
         "steps": {
@@ -9180,6 +9425,18 @@
           "step4": {
             "title": "배포 and 테스트",
             "description": "배포 to testnet first, then migrate to mainnet"
+          },
+          "useExistingCode": {
+            "title": "Use Existing Code",
+            "desc": "Your Solidity contracts work as-is. No modifications needed for basic functionality."
+          },
+          "integrateTrustScore": {
+            "title": "Integrate Trust Score",
+            "desc": "Add optional Trust Score checks to verify transaction participants."
+          },
+          "leverageAutoBurn": {
+            "title": "Leverage Auto-Burn",
+            "desc": "Implement deflationary mechanics with automatic token burning."
           }
         },
         "commonChanges": {
@@ -9207,7 +9464,8 @@
           "title": "마이그레이션할 준비가 되셨나요?",
           "description": "단계별 마이그레이션 가이드와 도구로 시작하세요.",
           "startNow": "마이그레이션 시작 Now",
-          "contactSupport": "연락처 지원"
+          "contactSupport": "연락처 지원",
+          "readDocumentation": "Read Documentation"
         },
         "faq": {
           "title": "자주 묻는 질문",
@@ -9223,6 +9481,17 @@
             "question": "마이그레이션은 얼마나 걸리나요?",
             "answer": "간단한 컨트랙트는 몇 시간 만에 마이그레이션할 수 있습니다. 복잡한 프로토콜은 1-2주가 걸릴 수 있습니다."
           }
+        },
+        "keyDifferences": {
+          "title": "Key Technical Differences",
+          "subtitle": "What sets TBurn Chain apart from traditional EVM chains",
+          "existingEvmChains": "Existing EVM Chains",
+          "tburnChain": "TBurn Chain",
+          "upgrade": "Upgrade"
+        },
+        "developmentApproach": {
+          "title": "Development Approach",
+          "subtitle": "Follow these steps to migrate your existing dApps"
         }
       }
     },
@@ -10049,17 +10318,34 @@
           "p2e": {
             "title": "P2E 게임",
             "description": "신뢰 검증이 폰지 스킴을 차단합니다. 지속 가능한 플레이투언을 위한 안정적인 토큰노믹스.",
-            "tags": "RPG • 전략 • 배틀"
+            "tags": "RPG • 전략 • 배틀",
+            "desc": "Reward players with verified tokens and NFTs for gameplay achievements."
           },
           "nftMarketplace": {
             "title": "NFT 마켓플레이스",
             "description": "게임 아이템, 아트워크, 컬렉션을 거래하세요. 안전을 위해 신뢰 배지가 자동으로 표시됩니다.",
-            "tags": "위험 경고 • 이력"
+            "tags": "위험 경고 • 이력",
+            "desc": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety."
           },
           "metaverse": {
             "title": "메타버스",
             "description": "가상 부동산, 아바타, 웨어러블. DAO 거버넌스를 통한 탈중앙화 소유권.",
-            "tags": "랜드 • 아바타 • 소셜"
+            "tags": "랜드 • 아바타 • 소셜",
+            "desc": "Immersive virtual environments with verified digital asset ownership."
+          },
+          "subtitle": "Build any type of blockchain game with our comprehensive tooling",
+          "marketplace": {
+            "title": "NFT Marketplaces",
+            "desc": "Secure trading platforms for in-game items with trust verification.",
+            "tags": "Trading, Auction, Exchange"
+          },
+          "casualGames": {
+            "title": "Casual Games",
+            "desc": "Lightweight blockchain integration for casual gaming with microtransactions."
+          },
+          "esports": {
+            "title": "Esports & Tournaments",
+            "desc": "Decentralized prize pools with transparent distribution and anti-cheat verification."
           }
         },
         "integrationGuide": {
@@ -10079,6 +10365,120 @@
           "step4": {
             "title": "신뢰 배지 표시",
             "description": "플레이어 신뢰 구축을 위해 게임 UI에 실시간 신뢰도 점수를 표시하세요."
+          }
+        },
+        "buttons": {
+          "getUnitySdk": "Unity SDK 받기",
+          "getUnrealSdk": "Unreal SDK 받기",
+          "viewDocs": "문서 보기"
+        },
+        "sections": {
+          "whyBuild": {
+            "title": "TBurn에서 게임을 구축하는 이유",
+            "subtitle": "차세대 블록체인 게이밍 인프라"
+          },
+          "trustScore": {
+            "title": "Trust Score for Games"
+          },
+          "gameTypes": {
+            "title": "Game Types & Use Cases"
+          },
+          "integration": {
+            "title": "Integration Steps"
+          }
+        },
+        "trustScore": {
+          "title": "NFT Project Trust Score",
+          "subtitle": "Comprehensive verification system for game projects",
+          "teamScore": "Team Identity Score",
+          "contractScore": "Contract Security Score",
+          "utilityScore": "Utility & Roadmap Score",
+          "totalScore": "Total Trust Score",
+          "verification": {
+            "title": "Trust Verification",
+            "desc": "AI-powered project analysis with community validation"
+          },
+          "team": {
+            "title": "Team Verification",
+            "points": "0-30 pts",
+            "desc": "Verified team members with public identities receive higher scores.",
+            "scoring": {
+              "verified": "Verified team members",
+              "anonymous": "Anonymous team",
+              "maxPoints": "Max 10 pts"
+            }
+          },
+          "contract": {
+            "title": "Contract Security",
+            "points": "0-25 pts",
+            "desc": "Audited smart contracts with verified security practices.",
+            "scoring": {
+              "audits": "3+ security audits",
+              "noAudit": "No audit"
+            }
+          },
+          "utility": {
+            "title": "Game Utility",
+            "points": "0-25 pts",
+            "desc": "Real gameplay utility and active player engagement.",
+            "scoring": {
+              "executed": "Roadmap executed",
+              "gameLive": "Game is live",
+              "bonus": "+10 pts bonus"
+            }
+          }
+        },
+        "features": {
+          "ultraFastProcessing": {
+            "title": "Ultra-Fast Processing",
+            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+          },
+          "nftVerification": {
+            "title": "NFT Project Verification",
+            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+          },
+          "verifiedOwnership": {
+            "title": "Verified Ownership",
+            "desc": "Immutable on-chain records for all game item issuance and burn history."
+          },
+          "crossGameAssets": {
+            "title": "Cross-Game Assets",
+            "desc": "EVM compatibility enables interoperable items across different games."
+          },
+          "ultraFast": {
+            "title": "Ultra-Fast Processing",
+            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+          },
+          "verification": {
+            "title": "NFT Project Verification",
+            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+          },
+          "ownership": {
+            "title": "Verified Ownership",
+            "desc": "Immutable on-chain records for all game item issuance and burn history."
+          },
+          "crossGame": {
+            "title": "Cross-Game Assets",
+            "desc": "EVM compatibility enables interoperable items across different games."
+          }
+        },
+        "integration": {
+          "title": "Integration Guide",
+          "step1": {
+            "title": "Connect SDK",
+            "desc": "Integrate the TBurn Gaming SDK into your game engine."
+          },
+          "step2": {
+            "title": "Deploy Contracts",
+            "desc": "Deploy your game contracts on TBurn Chain testnet."
+          },
+          "step3": {
+            "title": "Get Verified",
+            "desc": "Submit for Trust Score verification and game review."
+          },
+          "step4": {
+            "title": "Launch",
+            "desc": "Go live on mainnet with full ecosystem support."
           }
         }
       },
@@ -10259,7 +10659,8 @@
         "titleHighlight": "Solutions",
         "buttons": {
           "installPlugin": "Install Plugin",
-          "viewApiDocs": "보기 API Docs"
+          "viewApiDocs": "보기 API Docs",
+          "startIntegration": "Start Integration"
         },
         "features": {
           "payment": {
@@ -10966,12 +11367,18 @@
           "developerCourse": {
             "title": "브릿지 개발자 Course",
             "subtitle": "빌드 cross-chain applications"
+          },
+          "gettingStarted": "GETTING STARTED",
+          "blockchainBasics": {
+            "title": "Cross-Chain Basics",
+            "subtitle": "Understanding blockchain bridges and interoperability"
           }
         },
         "cta": {
           "title": "준비됨 to 브릿지 Your Assets?",
           "description": "전송 assets across chains securely with trust verification.",
-          "link": "보기 브릿지 문서"
+          "link": "보기 브릿지 문서",
+          "button": "Launch Bridge App"
         }
       }
     },
@@ -10985,7 +11392,10 @@
           "all": "모든 게임",
           "p2e": "플레이투언",
           "nft": "NFT 게임",
-          "metaverse": "메타버스",
+          "metaverse": {
+            "title": "메타버스 및 가상 세계",
+            "desc": "블록체인 검증 토지 소유권, 아바타 시스템 및 크로스 플랫폼 자산 이식성을 갖춘 몰입형 가상 경험 구축"
+          },
           "web3Gaming": {
             "title": "Web3 게임",
             "desc": "전체-stack blockchain gaming with on-chain assets, verifiable randomness, and trustless tournaments. 빌드 games that players truly own."
@@ -11550,11 +11960,13 @@
           "title": "합의 사양",
           "blockTime": {
             "label": "블록 시간",
-            "value": "1초"
+            "value": "1초",
+            "description": "합의당 평균 블록 시간"
           },
           "finality": {
             "label": "완결성",
-            "value": "6초"
+            "value": "6초",
+            "description": "네트워크 전체 트랜잭션 최종성"
           },
           "validatorSet": {
             "label": "검증자 세트",
@@ -11563,6 +11975,16 @@
           "epochLength": {
             "label": "에포크 길이",
             "value": "6시간"
+          },
+          "tps": {
+            "label": "TPS",
+            "value": "50,000+",
+            "description": "Maximum transactions per second"
+          },
+          "uptime": {
+            "label": "Uptime",
+            "value": "99.99%",
+            "description": "Network availability guarantee"
           }
         },
         "validatorTiers": {
@@ -11666,6 +12088,13 @@
             "ram": "RAM: 128GB DDR4 ECC",
             "storage": "Storage: 4TB NVMe RAID",
             "network": "네트워크: 10Gbps dedicated"
+          },
+          "standardNode": {
+            "title": "Standard Node Requirements",
+            "cpu": "CPU: 8+ cores",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "Storage: 1TB NVMe SSD",
+            "network": "Network: 500Mbps"
           }
         },
         "slashing": {
@@ -11703,6 +12132,17 @@
           "title": "활성 검증자",
           "searchPlaceholder": "검색 validators...",
           "viewAll": "전체 보기 검증자"
+        },
+        "applyNow": "지금 지원하기",
+        "consensus": {
+          "title": "합의 사양",
+          "subtitle": "고성능 블록체인을 구동하는 기술 세부 사항"
+        },
+        "cta": {
+          "title": "Ready to Become a Validator?",
+          "subtitle": "Join the network and earn rewards while securing TBurn Chain.",
+          "startValidating": "Start Validating",
+          "readDocs": "Read Documentation"
         }
       },
       "rpc": {
@@ -11780,22 +12220,26 @@
           "title": "지원 & 연락처",
           "documentation": {
             "title": "문서",
-            "description": "상세한 API 레퍼런스 및 가이드."
+            "description": "상세한 API 레퍼런스 및 가이드.",
+            "desc": "Comprehensive API documentation and integration guides."
           },
           "apiStatus": {
             "title": "API 상태",
-            "description": "실시간 시스템 상태 및 가동률."
+            "description": "실시간 시스템 상태 및 가동률.",
+            "desc": "Real-time system status, uptime metrics, and incident reports."
           },
           "developerHub": {
             "title": "개발자 허브",
-            "description": "오픈소스 SDK 및 예제."
+            "description": "오픈소스 SDK 및 예제.",
+            "desc": "Open source SDKs, code examples, and community resources."
           }
         },
         "cta": {
           "title": "개발 시작할 준비되셨나요?",
           "subtitle": "오늘 TBurn 체인 API로 개발을 시작하세요. 무료 API 키를 받고 엔터프라이즈급 블록체인 인프라에 접근하세요.",
           "getStartedFree": "무료로 시작하기",
-          "contactSales": "영업팀 연락"
+          "contactSales": "영업팀 연락",
+          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
         },
         "buttons": {
           "getApiKey": "가져오기 API 키",
@@ -11909,6 +12353,10 @@
           "quantumSecurity": {
             "name": "Quantum 보안 모듈",
             "desc": "CRYSTALS-Dilithium signature verification"
+          },
+          "trustScore": {
+            "name": "Trust Score Service",
+            "desc": "AI-powered trust verification and project scoring"
           }
         },
         "ai": {
@@ -11937,8 +12385,13 @@
           "active": "활성 검증자",
           "countries": "운영 국가",
           "totalStaked": "총 스테이킹",
-          "avgUptime": "평균 가동 시간"
-        }
+          "avgUptime": "평균 가동 시간",
+          "nodeCount": "Node Count",
+          "regions": "Regions",
+          "superNodes": "Super Nodes"
+        },
+        "today": "Today",
+        "uptimeAvg": "Uptime Average"
       },
       "ramp": {
         "tag": "법정화폐 게이트웨이",
@@ -12392,7 +12845,10 @@
             "stage1": "1단계: AI 기반 자동 필터링 (24시간)",
             "stage2": "2단계: 블록체인 개발자 및 감사자에 의한 전문가 검증 (7-14일)",
             "stage3": "3단계: TBURN 토큰 보유자에 의한 커뮤니티 투표 (3-5일)",
-            "implications": "5.2 신뢰도 점수 영향",
+            "implications": {
+              "title": "5.2 신뢰 점수 함의",
+              "content": "신뢰 점수는 0-100 범위입니다. 40 미만의 점수는 자동 토큰 거래 중단을 초래합니다. 점수는 온체인에서 실시간으로 업데이트됩니다."
+            },
             "implicationsContent": "신뢰도 점수는 0-100 범위입니다. 40 미만의 점수는 자동 토큰 거래 중지를 초래합니다. 점수는 온체인에서 실시간으로 업데이트됩니다.",
             "process": {
               "title": "3-스테이지 Verification Process",
@@ -12431,7 +12887,10 @@
           },
           "disclaimers": {
             "title": "9. 면책 조항 & 제한",
-            "asIs": "'있는 그대로' 기준",
+            "asIs": {
+              "title": "'있는 그대로' 기준",
+              "content": "서비스는 명시적이든 묵시적이든 어떠한 보증 없이 '있는 그대로' 및 '사용 가능한 대로' 제공됩니다."
+            },
             "asIsContent": "서비스는 명시적이든 묵시적이든 어떠한 종류의 보증 없이 '있는 그대로' 및 '이용 가능한 대로' 제공됩니다.",
             "noInvestmentAdvice": "투자 조언 없음",
             "noInvestmentAdviceContent": "TBurn 체인은 투자, 재정 또는 법률 조언을 제공하지 않습니다. 신뢰도 점수는 정보 제공 목적으로만 사용됩니다.",
@@ -12692,7 +13151,9 @@
         "contact": {
           "title": "연락처",
           "intro": "본 개인정보처리방침에 대한 질문이 있으시면 개인정보 보호 담당자에게 연락하십시오:",
-          "email": "이메일",
+          "email": {
+            "label": "이메일"
+          },
           "responseTime": "응답 시간",
           "responseTimeValue": "30일 이내",
           "description": "If you have questions about this 개인정보 처리방침, please contact our 개인정보 Office.",

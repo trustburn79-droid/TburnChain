@@ -90,7 +90,21 @@
     "claudeSonnet": "Claude Sonnet 4.5",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
-    "gemini": "Gemini 2.0"
+    "gemini": "Gemini 2.0",
+    "live": "En Vivo",
+    "refreshing": "Actualizando",
+    "optional": "Opcional",
+    "required": "Requerido",
+    "of": "de",
+    "perPage": "Por Página",
+    "min": "Mín",
+    "max": "Máx",
+    "export": "Exportar",
+    "clearFilters": "Limpiar Filtros",
+    "applyFilters": "Aplicar Filtros",
+    "noDataAvailable": "Sin Datos Disponibles",
+    "days": "Días",
+    "clickForDetails": "Clic para Detalles"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",
@@ -7124,7 +7138,125 @@
       "docs": {
         "tag": "DOCUMENTACIÓN",
         "title": "Documentación",
-        "subtitle": "Guías completas y referencias para el desarrollo en TBurn Chain."
+        "subtitle": "Guías completas y referencias para el desarrollo en TBurn Chain.",
+        "heroDescription": "Todo lo que necesitas para construir en TBurn Chain. Desde APIs hasta contratos inteligentes.",
+        "searchPlaceholder": "Buscar documentación...",
+        "categoriesTitle": "Categorías de Documentación",
+        "resourcesTitle": "Recursos para Desarrolladores",
+        "badges": {
+          "latest": "Último",
+          "mainnet": "Mainnet"
+        },
+        "architecture": {
+          "title": "Arquitectura de Red",
+          "subtitle": "Entendiendo la arquitectura multicapa de TBurn Chain",
+          "layers": {
+            "consensus": {
+              "title": "Capa de Consenso",
+              "description": "Consenso de Prueba de Confianza con validación impulsada por IA"
+            },
+            "execution": {
+              "title": "Capa de Ejecución",
+              "description": "Ejecución de contratos inteligentes compatible con EVM con optimización de gas"
+            },
+            "application": {
+              "title": "Capa de Aplicación",
+              "description": "dApps, protocolos DeFi y servicios orientados al usuario"
+            },
+            "service": {
+              "title": "Capa de Servicio",
+              "description": "APIs, SDKs y herramientas de desarrollo para integración"
+            }
+          },
+          "stats": {
+            "throughput": {
+              "label": "Rendimiento",
+              "sublabel": "50,000+ TPS"
+            },
+            "latency": {
+              "label": "Latencia",
+              "sublabel": "< 1 segundo"
+            },
+            "ai": {
+              "label": "AI Models",
+              "sublabel": "Triple-band orchestration"
+            },
+            "cryptography": {
+              "label": "Cryptography",
+              "sublabel": "Quantum-resistant"
+            }
+          }
+        },
+        "categories": {
+          "smartContracts": {
+            "title": "Smart Contracts",
+            "description": "Write, deploy, and verify smart contracts with Trust Score integration"
+          },
+          "apiReference": {
+            "title": "API Reference",
+            "description": "Complete REST and GraphQL API documentation"
+          },
+          "sdkGuide": {
+            "title": "SDK Guide",
+            "description": "Multi-language SDK integration guides",
+            "badge": "Popular"
+          },
+          "cliReference": {
+            "title": "CLI Reference",
+            "description": "Command line interface for project management",
+            "badge": "New"
+          },
+          "websocketApi": {
+            "title": "WebSocket API",
+            "description": "Real-time blockchain event subscriptions",
+            "badge": "Real-time"
+          },
+          "tutorials": {
+            "title": "Tutorials",
+            "description": "Step-by-step guides for common use cases",
+            "badge": "Beginner"
+          }
+        },
+        "quickStart": {
+          "title": "Quick Start",
+          "items": {
+            "getStarted": {
+              "title": "Get Started",
+              "description": "Install the SDK and create your first project"
+            },
+            "devSetup": {
+              "title": "Development Setup",
+              "description": "Configure your development environment"
+            },
+            "apiKeys": {
+              "title": "API Keys",
+              "description": "Get your API keys from the developer dashboard"
+            }
+          }
+        },
+        "resources": {
+          "cookbook": {
+            "title": "Developer Cookbook",
+            "description": "Ready-to-use code recipes and patterns"
+          },
+          "community": {
+            "title": "Community",
+            "description": "Join Discord and get help from the community"
+          },
+          "trustScore": {
+            "title": "Trust Score Guide",
+            "description": "Understanding and integrating trust verification"
+          },
+          "defiHub": {
+            "title": "DeFi Hub",
+            "description": "Build DeFi applications with TBurn protocols"
+          }
+        },
+        "cta": {
+          "title": "Ready to Build?",
+          "description": "Start building on TBurn Chain today with our comprehensive documentation and SDKs.",
+          "joinDiscord": "Join Discord"
+        }
       },
       "api": {
         "tag": "REFERENCIA API",
@@ -7359,6 +7491,18 @@
           "aiOracle": {
             "title": "Acceso a Oráculo AI",
             "description": "Integra insights impulsados por AI directamente en tus contratos inteligentes mediante llamadas a oráculos."
+          },
+          "gasOptimization": {
+            "title": "Gas Optimization",
+            "description": "Advanced gas optimization techniques reduce transaction costs by up to 60%."
+          },
+          "quantumResistant": {
+            "title": "Quantum-Resistant Signatures",
+            "description": "Future-proof cryptography with CRYSTALS-Dilithium signatures for long-term security."
+          },
+          "trustScore": {
+            "title": "Trust Score Integration",
+            "description": "On-chain trust verification with real-time scoring and automated risk assessment."
           }
         },
         "templates": {
@@ -7370,14 +7514,8 @@
             "title": "NFT Collection",
             "description": "ERC-721 with on-chain metadata"
           },
-          "staking": {
-            "title": "Pool de Staking",
-            "description": "Sistema de staking con recompensas e integración de delegación"
-          },
-          "governance": {
-            "title": "DAO de Gobernanza",
-            "description": "Gobernanza descentralizada con votación ponderada por tokens"
-          },
+          "staking": "Staking Contract",
+          "governance": "Governance",
           "defi": {
             "title": "DeFi Protocol",
             "description": "AMM pool with trust verification"
@@ -7389,18 +7527,15 @@
           "dao": {
             "title": "DAO Gobernanza",
             "description": "Token-weighted voting system"
-          }
+          },
+          "autoBurn": "Auto-Burn Token",
+          "basicToken": "Basic Token",
+          "trustScoreIntegration": "Trust Score Integration"
         },
         "security": {
           "title": "Seguridad Best Practices",
-          "reentrancy": {
-            "title": "Reentrancy Guards",
-            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
-          },
-          "accessControl": {
-            "title": "Access Control",
-            "description": "Implement role-based permissions with OpenZeppelin"
-          },
+          "reentrancy": "Use ReentrancyGuard modifier to prevent recursive external calls",
+          "accessControl": "Implement role-based access control with OpenZeppelin AccessControl",
           "inputValidation": {
             "title": "Input Validation",
             "description": "Siempre validate user inputs and external data"
@@ -7408,6 +7543,17 @@
           "upgradeability": {
             "title": "Upgradeability",
             "description": "Use proxy patterns for upgradeable contracts"
+          },
+          "checksEffects": "Follow checks-effects-interactions pattern for external calls",
+          "initializer": "Use initializer modifiers for proxy contract initialization",
+          "overflow": "Use SafeMath or Solidity 0.8+ for overflow protection",
+          "reentrancyGuard": {
+            "title": "Reentrancy Guards",
+            "description": "Use ReentrancyGuard modifier to prevent recursive calls"
+          },
+          "accessControlRole": {
+            "title": "Access Control",
+            "description": "Implement role-based permissions with OpenZeppelin"
           }
         },
         "gasOptimization": {
@@ -7416,7 +7562,23 @@
           "tip1": "Pack multiple small variables into single storage slots",
           "tip2": "Use calldata instead of memory for read-only function parameters",
           "tip3": "Cache storage variables in memory when accessed multiple times",
-          "tip4": "Use custom errors instead of revert strings"
+          "tip4": "Use custom errors instead of revert strings",
+          "memoryVsStorage": {
+            "title": "Memory vs Storage",
+            "desc": "Use memory for temporary data and storage for persistent state to optimize gas usage."
+          },
+          "shortRevert": {
+            "title": "Short Revert Messages",
+            "desc": "Use custom errors instead of long revert strings to save deployment and execution gas."
+          },
+          "useEvents": {
+            "title": "Use Events for Logging",
+            "desc": "Emit events instead of storing data when historical access via logs is sufficient."
+          },
+          "variablePacking": {
+            "title": "Variable Packing",
+            "desc": "Pack multiple variables into single storage slots to minimize storage costs."
+          }
         },
         "testing": {
           "title": "Testing Your Contracts",
@@ -7443,7 +7605,12 @@
           "sdkGuide": "SDK Guide",
           "cliReference": "Referencia de CLI",
           "codeExamples": "Ejemplos de Código"
-        }
+        },
+        "gasOptimizationTips": "Gas Optimization Tips",
+        "platformFeatures": "Platform Features",
+        "readyToDeploy": "Ready to Deploy?",
+        "sdkGuide": "SDK Guide",
+        "securityChecklist": "Security Checklist"
       },
       "websocket": {
         "tag": "TIEMPO REAL",
@@ -7683,13 +7850,45 @@
             "cpu": "2+ CPU cores",
             "memory": "8GB RAM minimum",
             "storage": "50GB SSD storage"
+          },
+          "minimum": {
+            "title": "Minimum Requirements",
+            "subtitle": "For development and testing",
+            "cpu": "4 cores / 8 threads",
+            "ram": "8GB RAM",
+            "storage": "100GB SSD",
+            "network": "10 Mbps"
+          },
+          "recommended": {
+            "title": "Recommended Requirements",
+            "subtitle": "For production validators",
+            "cpu": "8+ cores / 16 threads",
+            "ram": "32GB RAM",
+            "storage": "500GB NVMe SSD",
+            "network": "100 Mbps"
+          },
+          "specs": {
+            "cpu": "CPU",
+            "ram": "RAM",
+            "storage": "Storage",
+            "network": "Network"
+          },
+          "ports": {
+            "title": "Network Ports",
+            "subtitle": "Required ports for node operation",
+            "rpc": "8545 - JSON-RPC",
+            "ws": "8546 - WebSocket",
+            "p2p": "30303 - P2P",
+            "metrics": "9090 - Metrics"
           }
         },
         "tabs": {
           "npm": "npm",
           "yarn": "Yarn",
           "docker": "Docker",
-          "source": "Desde Source"
+          "source": "Desde Source",
+          "linux": "Linux",
+          "windows": "Windows"
         },
         "npm": {
           "title": "Install via npm",
@@ -7706,7 +7905,10 @@
           "title": "Docker Installation",
           "step1": "Pull the official image",
           "step2": "Run the container",
-          "step3": "Access the development environment"
+          "step3": "Access the development environment",
+          "pullAndRun": "Pull and run the Docker image",
+          "recommendation": "Recommended for isolated development environment",
+          "viewDockerCompose": "View Docker Compose configuration"
         },
         "source": {
           "title": "Build from Source",
@@ -7726,7 +7928,9 @@
           "configFile": {
             "title": "Configuración File",
             "description": "Crear a tburn.config.js file in your project root"
-          }
+          },
+          "description": "Configure your TBurn Chain node with environment variables and config files.",
+          "commonFlags": "Common Configuration Flags"
         },
         "troubleshooting": {
           "title": "Troubleshooting",
@@ -7741,7 +7945,13 @@
           "networkError": {
             "title": "Network Connection Error",
             "description": "Check your firewall settings and RPC endpoint"
-          }
+          },
+          "portErrors": "Port Already in Use",
+          "portErrorsAnswer": "Change the port using --http.port flag or kill the process using the port.",
+          "notSyncing": "Node Not Syncing",
+          "notSyncingAnswer": "Check network connectivity and ensure peers are available. Try adding bootstrap nodes.",
+          "openFiles": "Too Many Open Files",
+          "openFilesAnswer": "Increase system file descriptor limits with ulimit -n 65535."
         },
         "nextSteps": {
           "title": "Siguiente Steps",
@@ -7759,7 +7969,28 @@
           }
         },
         "startBuilding": "Comenzar a Construir",
-        "viewQuickStart": "View Inicio Rápido"
+        "viewQuickStart": "View Inicio Rápido",
+        "systemRequirements": "System Requirements",
+        "installationSteps": "Installation Steps",
+        "quickStart": "Quick Start",
+        "dockerImage": "Docker Image",
+        "troubleshootingTitle": "Troubleshooting",
+        "flags": {
+          "http": "--http: Enable HTTP-RPC server",
+          "ws": "--ws: Enable WebSocket server",
+          "mine": "--mine: Enable mining/validation",
+          "syncmode": "--syncmode: Sync mode (snap, full, light)"
+        },
+        "windows": {
+          "title": "Windows Installation",
+          "recommendation": "For Windows, we recommend using WSL2 (Windows Subsystem for Linux) for optimal compatibility.",
+          "downloadBeta": "Download Windows Beta"
+        },
+        "needHelp": {
+          "title": "Need Help?",
+          "description": "Join our community for support and updates.",
+          "joinDiscord": "Join Discord"
+        }
       },
       "evmMigration": {
         "tag": "MIGRACIÓN",
@@ -7805,6 +8036,26 @@
             "title": "Tiempo de Bloque",
             "ethereum": "~12 seconds",
             "tburn": "~3 seconds"
+          },
+          "evmCompatibility": {
+            "title": "EVM Compatibility",
+            "evmDesc": "Standard EVM opcodes and execution",
+            "tburnDesc": "Enhanced EVM with Trust Score opcodes"
+          },
+          "performance": {
+            "title": "Performance",
+            "evmDesc": "~15 TPS typical throughput",
+            "tburnDesc": "50,000+ TPS with parallel execution"
+          },
+          "safety": {
+            "title": "Transaction Safety",
+            "evmDesc": "Standard transaction finality",
+            "tburnDesc": "AI-verified transactions with fraud prevention"
+          },
+          "verification": {
+            "title": "Verification",
+            "evmDesc": "Basic contract verification",
+            "tburnDesc": "Trust Score verification built-in"
           }
         },
         "steps": {
@@ -7840,6 +8091,18 @@
           "step4": {
             "title": "Deploy and Test",
             "description": "Deploy to testnet first, then migrate to mainnet"
+          },
+          "useExistingCode": {
+            "title": "Use Existing Code",
+            "desc": "Your Solidity contracts work as-is. No modifications needed for basic functionality."
+          },
+          "integrateTrustScore": {
+            "title": "Integrate Trust Score",
+            "desc": "Add optional Trust Score checks to verify transaction participants."
+          },
+          "leverageAutoBurn": {
+            "title": "Leverage Auto-Burn",
+            "desc": "Implement deflationary mechanics with automatic token burning."
           }
         },
         "sidebar": {
@@ -7873,7 +8136,8 @@
           "title": "Ready to Migrate?",
           "description": "Get started with our step-by-step migration guide and tools.",
           "startNow": "Inicio Migration Ahora",
-          "contactSupport": "Contact Support"
+          "contactSupport": "Contact Support",
+          "readDocumentation": "Read Documentation"
         },
         "faq": {
           "title": "Frequently Asked Questions",
@@ -7889,6 +8153,17 @@
             "question": "Cómo long does migration take?",
             "answer": "Simple contracts can be migrated in hours. Complex protocols may take 1-2 weeks."
           }
+        },
+        "keyDifferences": {
+          "title": "Key Technical Differences",
+          "subtitle": "What sets TBurn Chain apart from traditional EVM chains",
+          "existingEvmChains": "Existing EVM Chains",
+          "tburnChain": "TBurn Chain",
+          "upgrade": "Upgrade"
+        },
+        "developmentApproach": {
+          "title": "Development Approach",
+          "subtitle": "Follow these steps to migrate your existing dApps"
         }
       },
       "codeExamples": {
@@ -8928,17 +9203,34 @@
           "p2e": {
             "title": "Juegos P2E",
             "description": "La verificación de confianza bloquea esquemas Ponzi. Tokenomics estable para play-to-earn sostenible.",
-            "tags": "RPG • Estrategia • Batalla"
+            "tags": "RPG • Estrategia • Batalla",
+            "desc": "Reward players with verified tokens and NFTs for gameplay achievements."
           },
           "nftMarketplace": {
             "title": "Mercado NFT",
             "description": "Intercambia artículos de juego, arte y colecciones. Las insignias de confianza se muestran automáticamente para seguridad.",
-            "tags": "Advertencia de riesgo • Historial"
+            "tags": "Advertencia de riesgo • Historial",
+            "desc": "Trade game items, artwork, and collections. Trust badges are automatically displayed for safety."
           },
           "metaverse": {
             "title": "Metaverso",
             "description": "Bienes raíces virtuales, avatares y wearables. Propiedad descentralizada con gobernanza DAO.",
-            "tags": "Terrenos • Avatares • Social"
+            "tags": "Terrenos • Avatares • Social",
+            "desc": "Immersive virtual environments with verified digital asset ownership."
+          },
+          "subtitle": "Build any type of blockchain game with our comprehensive tooling",
+          "marketplace": {
+            "title": "NFT Marketplaces",
+            "desc": "Secure trading platforms for in-game items with trust verification.",
+            "tags": "Trading, Auction, Exchange"
+          },
+          "casualGames": {
+            "title": "Casual Games",
+            "desc": "Lightweight blockchain integration for casual gaming with microtransactions."
+          },
+          "esports": {
+            "title": "Esports & Tournaments",
+            "desc": "Decentralized prize pools with transparent distribution and anti-cheat verification."
           }
         },
         "integrationGuide": {
@@ -8976,6 +9268,38 @@
           "economy": {
             "title": "Herramientas de Economía",
             "description": "Diseña y gestiona economías de juego"
+          },
+          "ultraFastProcessing": {
+            "title": "Ultra-Fast Processing",
+            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+          },
+          "nftVerification": {
+            "title": "NFT Project Verification",
+            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+          },
+          "verifiedOwnership": {
+            "title": "Verified Ownership",
+            "desc": "Immutable on-chain records for all game item issuance and burn history."
+          },
+          "crossGameAssets": {
+            "title": "Cross-Game Assets",
+            "desc": "EVM compatibility enables interoperable items across different games."
+          },
+          "ultraFast": {
+            "title": "Ultra-Fast Processing",
+            "desc": "50,000+ TPS enables real-time in-game trading with 1-second block times."
+          },
+          "verification": {
+            "title": "NFT Project Verification",
+            "desc": "3-stage verification blocks fraudulent NFT projects with Trust Score monitoring."
+          },
+          "ownership": {
+            "title": "Verified Ownership",
+            "desc": "Immutable on-chain records for all game item issuance and burn history."
+          },
+          "crossGame": {
+            "title": "Cross-Game Assets",
+            "desc": "EVM compatibility enables interoperable items across different games."
           }
         },
         "engines": {
@@ -8988,6 +9312,86 @@
           "title": "Construye tu Juego Web3",
           "description": "Accede a herramientas de desarrollo y recursos",
           "button": "Comenzar"
+        },
+        "buttons": {
+          "getUnitySdk": "Obtener Unity SDK",
+          "getUnrealSdk": "Obtener Unreal SDK",
+          "viewDocs": "Ver Documentación"
+        },
+        "sections": {
+          "whyBuild": {
+            "title": "Por Qué Construir Juegos en TBurn",
+            "subtitle": "Infraestructura de gaming blockchain de próxima generación"
+          },
+          "trustScore": {
+            "title": "Trust Score for Games"
+          },
+          "gameTypes": {
+            "title": "Game Types & Use Cases"
+          },
+          "integration": {
+            "title": "Integration Steps"
+          }
+        },
+        "trustScore": {
+          "title": "NFT Project Trust Score",
+          "subtitle": "Comprehensive verification system for game projects",
+          "teamScore": "Team Identity Score",
+          "contractScore": "Contract Security Score",
+          "utilityScore": "Utility & Roadmap Score",
+          "totalScore": "Total Trust Score",
+          "verification": {
+            "title": "Trust Verification",
+            "desc": "AI-powered project analysis with community validation"
+          },
+          "team": {
+            "title": "Team Verification",
+            "points": "0-30 pts",
+            "desc": "Verified team members with public identities receive higher scores.",
+            "scoring": {
+              "verified": "Verified team members",
+              "anonymous": "Anonymous team",
+              "maxPoints": "Max 10 pts"
+            }
+          },
+          "contract": {
+            "title": "Contract Security",
+            "points": "0-25 pts",
+            "desc": "Audited smart contracts with verified security practices.",
+            "scoring": {
+              "audits": "3+ security audits",
+              "noAudit": "No audit"
+            }
+          },
+          "utility": {
+            "title": "Game Utility",
+            "points": "0-25 pts",
+            "desc": "Real gameplay utility and active player engagement.",
+            "scoring": {
+              "executed": "Roadmap executed",
+              "gameLive": "Game is live",
+              "bonus": "+10 pts bonus"
+            }
+          }
+        },
+        "integration": {
+          "title": "Integration Guide",
+          "step1": {
+            "title": "Connect SDK",
+            "desc": "Integrate the TBurn Gaming SDK into your game engine."
+          },
+          "step2": {
+            "title": "Deploy Contracts",
+            "desc": "Deploy your game contracts on TBurn Chain testnet."
+          },
+          "step3": {
+            "title": "Get Verified",
+            "desc": "Submit for Trust Score verification and game review."
+          },
+          "step4": {
+            "title": "Launch",
+            "desc": "Go live on mainnet with full ecosystem support."
+          }
         }
       },
       "payments": {
@@ -9168,7 +9572,8 @@
         "titleHighlight": "Soluciones",
         "buttons": {
           "installPlugin": "Install Plugin",
-          "viewApiDocs": "View API Docs"
+          "viewApiDocs": "View API Docs",
+          "startIntegration": "Start Integration"
         },
         "platforms": {
           "shopify": {
@@ -9864,7 +10269,12 @@
             "title": "Curso de Desarrollador de Puentes",
             "subtitle": "Construir aplicaciones cross-chain"
           },
-          "title": "LEARN MORE"
+          "title": "LEARN MORE",
+          "gettingStarted": "GETTING STARTED",
+          "blockchainBasics": {
+            "title": "Cross-Chain Basics",
+            "subtitle": "Understanding blockchain bridges and interoperability"
+          }
         },
         "titleHighlight": "Bridge",
         "buttons": {
@@ -10586,11 +10996,13 @@
           "title": "Especificaciones de consenso",
           "blockTime": {
             "label": "Tiempo de bloque",
-            "value": "1 segundo"
+            "value": "1 segundo",
+            "description": "Tiempo promedio de bloque por consenso"
           },
           "finality": {
             "label": "Finalidad",
-            "value": "6 segundos"
+            "value": "6 segundos",
+            "description": "Finalidad de transacciones en toda la red"
           },
           "validatorSet": {
             "label": "Conjunto de validadores",
@@ -10599,6 +11011,16 @@
           "epochLength": {
             "label": "Duración de época",
             "value": "6 horas"
+          },
+          "tps": {
+            "label": "TPS",
+            "value": "50,000+",
+            "description": "Maximum transactions per second"
+          },
+          "uptime": {
+            "label": "Uptime",
+            "value": "99.99%",
+            "description": "Network availability guarantee"
           }
         },
         "validatorTiers": {
@@ -10702,6 +11124,13 @@
             "ram": "RAM: 128GB DDR4 ECC",
             "storage": "Storage: 4TB NVMe RAID",
             "network": "Network: 10Gbps dedicated"
+          },
+          "standardNode": {
+            "title": "Standard Node Requirements",
+            "cpu": "CPU: 8+ cores",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "Storage: 1TB NVMe SSD",
+            "network": "Network: 500Mbps"
           }
         },
         "slashing": {
@@ -10744,6 +11173,17 @@
         "pageSubtitle": "Operadores de red asegurando consenso y seguridad de TBurn Chain",
         "buttons": {
           "becomeValidator": "Convertirse en Validador"
+        },
+        "applyNow": "Aplicar Ahora",
+        "consensus": {
+          "title": "Especificaciones de Consenso",
+          "subtitle": "Detalles técnicos que impulsan el blockchain de alto rendimiento"
+        },
+        "cta": {
+          "title": "Ready to Become a Validator?",
+          "subtitle": "Join the network and earn rewards while securing TBurn Chain.",
+          "startValidating": "Start Validating",
+          "readDocs": "Read Documentation"
         }
       },
       "rpc": {
@@ -10819,14 +11259,20 @@
         },
         "support": {
           "title": "Soporte y contacto",
-          "documentation": "Documentación Completa",
+          "documentation": {
+            "title": "Documentación",
+            "description": "Referencias detalladas de API y guías.",
+            "desc": "Documentación completa de API y guías de integración."
+          },
           "apiStatus": {
             "title": "Estado de API",
-            "description": "Estado del sistema en tiempo real y tiempo activo."
+            "description": "Estado del sistema en tiempo real y tiempo activo.",
+            "desc": "Real-time system status, uptime metrics, and incident reports."
           },
           "developerHub": {
             "title": "Hub de desarrolladores",
-            "description": "SDKs y ejemplos de código abierto."
+            "description": "SDKs y ejemplos de código abierto.",
+            "desc": "Open source SDKs, code examples, and community resources."
           },
           "discord": "Comunidad Discord",
           "email": "Soporte por Email"
@@ -10837,7 +11283,8 @@
           "getStartedFree": "Comenzar gratis",
           "contactSales": "Contactar ventas",
           "description": "Obtén tu clave API gratuita y comienza a construir",
-          "button": "Obtener Clave API Gratuita"
+          "button": "Obtener Clave API Gratuita",
+          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
         },
         "buttons": {
           "getApiKey": "Get API Key",
@@ -10948,6 +11395,10 @@
           "quantumSecurity": {
             "name": "Quantum Seguridad Module",
             "desc": "CRYSTALS-Dilithium signature verification"
+          },
+          "trustScore": {
+            "name": "Trust Score Service",
+            "desc": "AI-powered trust verification and project scoring"
           }
         },
         "incidents": {
@@ -10997,8 +11448,13 @@
           "active": "Validadores Activos",
           "countries": "Operating Countries",
           "totalStaked": "Total en Staking",
-          "avgUptime": "Average Tiempo de Actividad"
-        }
+          "avgUptime": "Average Tiempo de Actividad",
+          "nodeCount": "Node Count",
+          "regions": "Regions",
+          "superNodes": "Super Nodes"
+        },
+        "today": "Today",
+        "uptimeAvg": "Uptime Average"
       },
       "ramp": {
         "tag": "PASARELA FIAT",
@@ -11398,7 +11854,8 @@
           "futureOfTrust": {
             "title": "El/La Future of Trust: TBURN Summit 2025",
             "description": "Our flagship annual conference featuring keynotes from industry leaders, technical workshops, and exclusive announcements."
-          }
+          },
+          "title": "Upcoming Events"
         },
         "eventTypes": {
           "launchEvent": "Evento de lanzamiento",

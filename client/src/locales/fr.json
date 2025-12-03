@@ -90,7 +90,21 @@
     "claudeSonnet": "Claude Sonnet 4.5",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
-    "gemini": "Gemini 2.0"
+    "gemini": "Gemini 2.0",
+    "live": "En Direct",
+    "refreshing": "Actualisation",
+    "optional": "Optionnel",
+    "required": "Requis",
+    "of": "de",
+    "perPage": "Par Page",
+    "min": "Min",
+    "max": "Max",
+    "export": "Exporter",
+    "clearFilters": "Effacer Filtres",
+    "applyFilters": "Appliquer Filtres",
+    "noDataAvailable": "Aucune Donnée",
+    "days": "Jours",
+    "clickForDetails": "Cliquer pour Détails"
   },
   "nav": {
     "brand": "TBURN Chain Mainnet",
