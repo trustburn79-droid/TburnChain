@@ -392,17 +392,21 @@ export default function UnifiedDashboard() {
     return "operational";
   }, [networkStats]);
 
+  const defaultAIStatus: AISystemStatus = {
+    models: [
+      { name: "Claude 4.5 Sonnet", status: "operational", accuracy: 97.8, decisionsToday: 1247, avgConfidence: 94.2, latency: 145 },
+      { name: "GPT-4o", status: "operational", accuracy: 96.5, decisionsToday: 892, avgConfidence: 92.8, latency: 178 },
+      { name: "Gemini Pro", status: "operational", accuracy: 95.2, decisionsToday: 634, avgConfidence: 91.5, latency: 156 },
+    ],
+    totalDecisionsToday: 2773,
+    avgConfidence: 92.8,
+  };
+
   const aiStatus: AISystemStatus = useMemo(() => {
-    if (aiData) return aiData;
-    return {
-      models: [
-        { name: "Claude 4.5 Sonnet", status: "operational", accuracy: 97.8, decisionsToday: 1247, avgConfidence: 94.2, latency: 145 },
-        { name: "GPT-5", status: "operational", accuracy: 96.5, decisionsToday: 892, avgConfidence: 92.8, latency: 178 },
-        { name: "Gemini 2.0", status: "operational", accuracy: 95.2, decisionsToday: 634, avgConfidence: 91.5, latency: 156 },
-      ],
-      totalDecisionsToday: 2773,
-      avgConfidence: 92.8,
-    };
+    if (aiData && Array.isArray(aiData.models) && aiData.models.length > 0) {
+      return aiData;
+    }
+    return defaultAIStatus;
   }, [aiData]);
 
   const systemResources: SystemResources = useMemo(() => {
@@ -410,29 +414,33 @@ export default function UnifiedDashboard() {
     return { cpu: 42, memory: 68, disk: 54, networkIO: 78 };
   }, [resourcesData]);
 
+  const defaultTopValidators = [
+    { address: "0x1234...5678", name: "TBURN Genesis", stake: "15000000", uptime: 99.99, commission: 5 },
+    { address: "0x2345...6789", name: "BlockForge", stake: "12500000", uptime: 99.95, commission: 7 },
+    { address: "0x3456...789a", name: "CryptoStake", stake: "10800000", uptime: 99.92, commission: 6 },
+    { address: "0x4567...89ab", name: "NodeMaster", stake: "9200000", uptime: 99.88, commission: 8 },
+    { address: "0x5678...9abc", name: "ValidateX", stake: "8100000", uptime: 99.85, commission: 5 },
+  ];
+
   const validatorSummary: ValidatorSummary = useMemo(() => {
     const validators = validatorsData?.validators || [];
     const active = validators.filter((v: any) => v.status === "active").length;
     const inactive = validators.filter((v: any) => v.status === "inactive").length;
     const jailed = validators.filter((v: any) => v.status === "jailed").length;
     
+    const mappedValidators = validators.slice(0, 5).map((v: any, i: number) => ({
+      address: v.address || `0x${i}234...5678`,
+      name: v.name || `Validator ${i + 1}`,
+      stake: v.stake || String(15000000 - i * 2000000),
+      uptime: v.uptime || 99.99 - i * 0.02,
+      commission: v.commission || 5 + i,
+    }));
+
     return {
       online: active || 142,
       offline: inactive || 8,
       jailed: jailed || 6,
-      topValidators: validators.slice(0, 5).map((v: any, i: number) => ({
-        address: v.address || `0x${i}234...5678`,
-        name: v.name || `Validator ${i + 1}`,
-        stake: v.stake || String(15000000 - i * 2000000),
-        uptime: v.uptime || 99.99 - i * 0.02,
-        commission: v.commission || 5 + i,
-      })) || [
-        { address: "0x1234...5678", name: "TBURN Genesis", stake: "15000000", uptime: 99.99, commission: 5 },
-        { address: "0x2345...6789", name: "BlockForge", stake: "12500000", uptime: 99.95, commission: 7 },
-        { address: "0x3456...789a", name: "CryptoStake", stake: "10800000", uptime: 99.92, commission: 6 },
-        { address: "0x4567...89ab", name: "NodeMaster", stake: "9200000", uptime: 99.88, commission: 8 },
-        { address: "0x5678...9abc", name: "ValidateX", stake: "8100000", uptime: 99.85, commission: 5 },
-      ],
+      topValidators: mappedValidators.length > 0 ? mappedValidators : defaultTopValidators,
     };
   }, [validatorsData]);
 

@@ -231,8 +231,10 @@ function AdminRouter() {
   );
 }
 
+import Login from "@/pages/login";
+
 export function AdminPortalLayout() {
-  const { data: authData } = useQuery<{ authenticated: boolean }>({
+  const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
     refetchInterval: 60000,
   });
@@ -251,6 +253,21 @@ export function AdminPortalLayout() {
     "--sidebar-width": "18rem",
     "--sidebar-width-icon": "4rem",
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-4">
+          <Shield className="h-12 w-12 text-primary animate-pulse" />
+          <p className="text-muted-foreground">Loading Admin Portal...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!authData?.authenticated) {
+    return <Login onLoginSuccess={() => refetch()} />;
+  }
 
   return (
     <TooltipProvider>
