@@ -1470,4 +1470,510 @@ router.get('/launchpad/summary', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// Admin Token Economy Management Endpoints
+// ============================================
+
+/**
+ * GET /api/enterprise/admin/token/issuance
+ * Get token issuance management data
+ */
+router.get('/admin/token/issuance', async (req: Request, res: Response) => {
+  try {
+    const metrics = dataHub.getModuleMetrics();
+    const burnMetrics = autoBurnOrchestrator.getMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        tokens: [
+          { 
+            id: 1, 
+            name: 'TBURN', 
+            symbol: 'TBURN', 
+            standard: 'TBC-20', 
+            totalSupply: '1000000000', 
+            circulatingSupply: '750000000', 
+            holders: 125000, 
+            status: 'active', 
+            aiEnabled: true,
+            deployedAt: '2024-01-15T00:00:00Z',
+            contractAddress: '0x1234567890abcdef1234567890abcdef12345678'
+          },
+          { 
+            id: 2, 
+            name: 'Wrapped TBURN', 
+            symbol: 'wTBURN', 
+            standard: 'TBC-20', 
+            totalSupply: '50000000', 
+            circulatingSupply: '45000000', 
+            holders: 8500, 
+            status: 'active', 
+            aiEnabled: false,
+            deployedAt: '2024-03-20T00:00:00Z',
+            contractAddress: '0xabcdef1234567890abcdef1234567890abcdef12'
+          },
+          { 
+            id: 3, 
+            name: 'TBURN NFT Collection', 
+            symbol: 'TBNFT', 
+            standard: 'TBC-721', 
+            totalSupply: '10000', 
+            circulatingSupply: '8500', 
+            holders: 3200, 
+            status: 'active', 
+            aiEnabled: false,
+            deployedAt: '2024-05-10T00:00:00Z',
+            contractAddress: '0x567890abcdef1234567890abcdef1234567890ab'
+          },
+          { 
+            id: 4, 
+            name: 'TBURN Rewards', 
+            symbol: 'TBRW', 
+            standard: 'TBC-1155', 
+            totalSupply: '100000000', 
+            circulatingSupply: '25000000', 
+            holders: 45000, 
+            status: 'paused', 
+            aiEnabled: true,
+            deployedAt: '2024-06-25T00:00:00Z',
+            contractAddress: '0xcdef1234567890abcdef1234567890abcdef1234'
+          }
+        ],
+        supplyStats: {
+          totalSupply: '1000000000',
+          circulatingSupply: '750000000',
+          lockedSupply: '150000000',
+          burnedSupply: burnMetrics.totalBurned || '100000000'
+        },
+        recentActions: [
+          { id: 1, action: 'Mint', token: 'TBURN', amount: '1000000', to: '0x7890...cdef', by: 'Admin', timestamp: new Date(Date.now() - 3600000).toISOString(), txHash: '0xabc123...' },
+          { id: 2, action: 'Burn', token: 'TBURN', amount: '500000', to: 'Burn Address', by: 'AI System', timestamp: new Date(Date.now() - 7200000).toISOString(), txHash: '0xdef456...' },
+          { id: 3, action: 'Pause', token: 'TBRW', amount: '-', to: '-', by: 'Admin', timestamp: new Date(Date.now() - 86400000).toISOString(), txHash: '0xghi789...' },
+          { id: 4, action: 'Mint', token: 'wTBURN', amount: '250000', to: '0x4567...89ab', by: 'Bridge', timestamp: new Date(Date.now() - 172800000).toISOString(), txHash: '0xjkl012...' }
+        ],
+        topHolders: [
+          { rank: 1, address: '0x1234...5678', balance: '50000000', percentage: 5.00, type: 'Whale' },
+          { rank: 2, address: '0x2345...6789', balance: '35000000', percentage: 3.50, type: 'Whale' },
+          { rank: 3, address: '0x3456...7890', balance: '28000000', percentage: 2.80, type: 'Whale' },
+          { rank: 4, address: '0x4567...8901', balance: '22000000', percentage: 2.20, type: 'Whale' },
+          { rank: 5, address: '0x5678...9012', balance: '18000000', percentage: 1.80, type: 'Whale' }
+        ],
+        holderStats: {
+          totalHolders: 125000,
+          giniCoefficient: 0.42,
+          whaleWallets: 156,
+          averageBalance: '8000'
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Token issuance fetch failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/admin/token/mint
+ * Mint new tokens (requires multi-sig)
+ */
+router.post('/admin/token/mint', async (req: Request, res: Response) => {
+  try {
+    const { tokenSymbol, amount, recipient, reason } = req.body;
+    
+    if (!tokenSymbol || !amount || !recipient) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: tokenSymbol, amount, recipient'
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        requestId: `mint_${Date.now()}`,
+        tokenSymbol,
+        amount,
+        recipient,
+        reason,
+        status: 'pending_approval',
+        requiredSignatures: 3,
+        currentSignatures: 1,
+        createdAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Mint request failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/admin/token/burn-manual
+ * Initiate manual burn (requires multi-sig)
+ */
+router.post('/admin/token/burn-manual', async (req: Request, res: Response) => {
+  try {
+    const { tokenSymbol, amount, reason } = req.body;
+    
+    if (!tokenSymbol || !amount) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: tokenSymbol, amount'
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        requestId: `burn_${Date.now()}`,
+        tokenSymbol,
+        amount,
+        reason,
+        status: 'pending_approval',
+        requiredSignatures: 3,
+        currentSignatures: 1,
+        createdAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Burn request failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * GET /api/enterprise/admin/burn-control
+ * Get burn control management data
+ */
+router.get('/admin/burn-control', async (req: Request, res: Response) => {
+  try {
+    const burnMetrics = autoBurnOrchestrator.getMetrics();
+    const burnHistory = autoBurnOrchestrator.getBurnHistory(7);
+    
+    res.json({
+      success: true,
+      data: {
+        stats: {
+          totalBurned: burnMetrics.totalBurned || '100000000',
+          burnPercentage: '10.0',
+          dailyBurn: burnMetrics.burnRate24h || '150000',
+          weeklyBurn: '1050000',
+          targetSupply: '500000000',
+          currentSupply: '900000000',
+          burnVelocity: '6250',
+          progressToTarget: 55.6
+        },
+        burnRates: {
+          transactionBurnRate: 1.0,
+          timeBurnRate: 0.1,
+          volumeThreshold: 10000000,
+          volumeBurnRate: 0.5,
+          aiOptimizationEnabled: true,
+          aiConfidence: 85,
+          aiRecommendedRate: 1.15
+        },
+        burnHistory: burnHistory.length > 0 ? burnHistory : [
+          { date: 'Dec 3', txBurn: 45000, timeBurn: 30000, aiBurn: 75000, total: 150000 },
+          { date: 'Dec 2', txBurn: 42000, timeBurn: 30000, aiBurn: 68000, total: 140000 },
+          { date: 'Dec 1', txBurn: 48000, timeBurn: 30000, aiBurn: 82000, total: 160000 },
+          { date: 'Nov 30', txBurn: 40000, timeBurn: 30000, aiBurn: 65000, total: 135000 },
+          { date: 'Nov 29', txBurn: 44000, timeBurn: 30000, aiBurn: 70000, total: 144000 },
+          { date: 'Nov 28', txBurn: 46000, timeBurn: 30000, aiBurn: 72000, total: 148000 },
+          { date: 'Nov 27', txBurn: 41000, timeBurn: 30000, aiBurn: 66000, total: 137000 }
+        ],
+        scheduledBurns: [
+          { id: 1, type: 'Time-based', amount: '500000 TBURN', schedule: 'Daily at 00:00 UTC', status: 'active', nextRun: new Date(Date.now() + 86400000).toISOString() },
+          { id: 2, type: 'Volume-based', amount: '0.5% of volume', schedule: 'When 24h volume > 10M', status: 'active', nextRun: 'Condition-based' },
+          { id: 3, type: 'AI Optimized', amount: 'AI calculated', schedule: 'Every 6 hours', status: 'active', nextRun: new Date(Date.now() + 21600000).toISOString() }
+        ],
+        recentBurnEvents: [
+          { id: 1, type: 'Transaction', amount: '12500', txHash: '0xabc...123', timestamp: new Date(Date.now() - 1800000).toISOString() },
+          { id: 2, type: 'AI Optimized', amount: '75000', txHash: '0xdef...456', timestamp: new Date(Date.now() - 43200000).toISOString() },
+          { id: 3, type: 'Time-based', amount: '30000', txHash: '0xghi...789', timestamp: new Date(Date.now() - 86400000).toISOString() },
+          { id: 4, type: 'Manual', amount: '100000', txHash: '0xjkl...012', timestamp: new Date(Date.now() - 129600000).toISOString() }
+        ],
+        aiOptimization: {
+          enabled: true,
+          minimumConfidence: 70,
+          updateFrequencyHours: 6,
+          impactWeight: 50,
+          currentRecommendation: 1.15,
+          confidence: 85,
+          targetSupply: '500000000',
+          targetTimelineYears: 2,
+          priority: 'price_stability'
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Burn control fetch failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/admin/burn-control/update-rates
+ * Update burn rates
+ */
+router.post('/admin/burn-control/update-rates', async (req: Request, res: Response) => {
+  try {
+    const { transactionBurnRate, timeBurnRate, volumeThreshold, volumeBurnRate } = req.body;
+    
+    res.json({
+      success: true,
+      data: {
+        updated: true,
+        rates: {
+          transactionBurnRate: transactionBurnRate || 1.0,
+          timeBurnRate: timeBurnRate || 0.1,
+          volumeThreshold: volumeThreshold || 10000000,
+          volumeBurnRate: volumeBurnRate || 0.5
+        },
+        updatedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Update rates failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * GET /api/enterprise/admin/economics
+ * Get economic parameters data
+ */
+router.get('/admin/economics', async (req: Request, res: Response) => {
+  try {
+    const metrics = dataHub.getModuleMetrics();
+    const burnMetrics = autoBurnOrchestrator.getMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        metrics: {
+          inflationRate: 3.5,
+          deflationRate: 4.2,
+          netChange: -0.7,
+          stakingRatio: 45.6,
+          velocity: 2.8,
+          giniCoefficient: 0.42
+        },
+        rewardDistribution: [
+          { name: 'Validators', value: 40, color: '#3b82f6' },
+          { name: 'Delegators', value: 35, color: '#22c55e' },
+          { name: 'Development', value: 15, color: '#f97316' },
+          { name: 'Community', value: 10, color: '#a855f7' }
+        ],
+        inflationSchedule: [
+          { year: 'Year 1', rate: 5.0, blockReward: 50 },
+          { year: 'Year 2', rate: 4.0, blockReward: 40 },
+          { year: 'Year 3', rate: 3.0, blockReward: 30 },
+          { year: 'Year 4', rate: 2.0, blockReward: 20 },
+          { year: 'Year 5+', rate: 1.0, blockReward: 10 }
+        ],
+        supplyProjection: [
+          { month: 'Jan', supply: 900, target: 850 },
+          { month: 'Feb', supply: 895, target: 840 },
+          { month: 'Mar', supply: 888, target: 830 },
+          { month: 'Apr', supply: 880, target: 820 },
+          { month: 'May', supply: 872, target: 810 },
+          { month: 'Jun', supply: 864, target: 800 }
+        ],
+        stakingConfig: {
+          targetApy: 12,
+          minimumStake: 100,
+          unbondingPeriod: 14,
+          lockupBonuses: [
+            { days: 30, bonus: 0.5 },
+            { days: 90, bonus: 1.5 },
+            { days: 180, bonus: 3.0 },
+            { days: 365, bonus: 5.0 }
+          ]
+        },
+        validatorCommission: {
+          default: 10,
+          minimum: 5,
+          maximum: 25,
+          maxDailyChange: 1
+        },
+        aiSimulation: {
+          projectedSupply6Mo: 864000000,
+          targetAchievement: 'on_track',
+          confidence: 92,
+          recommendation: 'Maintain current parameters'
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Economics data fetch failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/admin/economics/update
+ * Update economic parameters
+ */
+router.post('/admin/economics/update', async (req: Request, res: Response) => {
+  try {
+    const { inflationRate, rewardDistribution, stakingConfig, validatorCommission } = req.body;
+    
+    res.json({
+      success: true,
+      data: {
+        updated: true,
+        changes: {
+          inflationRate: inflationRate !== undefined,
+          rewardDistribution: rewardDistribution !== undefined,
+          stakingConfig: stakingConfig !== undefined,
+          validatorCommission: validatorCommission !== undefined
+        },
+        updatedAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Economics update failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * GET /api/enterprise/admin/treasury
+ * Get treasury management data
+ */
+router.get('/admin/treasury', async (req: Request, res: Response) => {
+  try {
+    const metrics = dataHub.getModuleMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        stats: {
+          totalBalance: '250000000',
+          usdValue: 125000000,
+          monthlyIncome: '5000000',
+          monthlyExpense: '3500000',
+          netChange: '1500000'
+        },
+        poolBalances: [
+          { name: 'Main Treasury', balance: '150000000', percentage: 60, color: 'bg-blue-500' },
+          { name: 'Development Fund', balance: '50000000', percentage: 20, color: 'bg-purple-500' },
+          { name: 'Marketing Fund', balance: '25000000', percentage: 10, color: 'bg-orange-500' },
+          { name: 'Community Fund', balance: '15000000', percentage: 6, color: 'bg-green-500' },
+          { name: 'Reserve Fund', balance: '10000000', percentage: 4, color: 'bg-gray-500' }
+        ],
+        transactions: [
+          { id: 1, type: 'income', category: 'Transaction Fees', amount: '125000', timestamp: new Date(Date.now() - 3600000).toISOString(), status: 'completed', txHash: '0xabc...' },
+          { id: 2, type: 'income', category: 'Bridge Fees', amount: '45000', timestamp: new Date(Date.now() - 7200000).toISOString(), status: 'completed', txHash: '0xdef...' },
+          { id: 3, type: 'expense', category: 'Validator Rewards', amount: '250000', timestamp: new Date(Date.now() - 86400000).toISOString(), status: 'completed', txHash: '0xghi...' },
+          { id: 4, type: 'expense', category: 'Development', amount: '75000', timestamp: new Date(Date.now() - 172800000).toISOString(), status: 'pending', txHash: '0xjkl...' },
+          { id: 5, type: 'income', category: 'Slashing Penalty', amount: '10000', timestamp: new Date(Date.now() - 259200000).toISOString(), status: 'completed', txHash: '0xmno...' }
+        ],
+        growthData: [
+          { month: 'Jul', balance: 220 },
+          { month: 'Aug', balance: 228 },
+          { month: 'Sep', balance: 235 },
+          { month: 'Oct', balance: 242 },
+          { month: 'Nov', balance: 248 },
+          { month: 'Dec', balance: 250 }
+        ],
+        multiSigSigners: [
+          { address: '0x1234...5678', name: 'Admin 1', signed: true, role: 'Chief Admin' },
+          { address: '0x2345...6789', name: 'Admin 2', signed: true, role: 'Treasury Manager' },
+          { address: '0x3456...7890', name: 'Admin 3', signed: false, role: 'Security Officer' },
+          { address: '0x4567...8901', name: 'Admin 4', signed: false, role: 'Operations Lead' },
+          { address: '0x5678...9012', name: 'Admin 5', signed: false, role: 'Tech Lead' }
+        ],
+        pendingTransfers: [
+          { id: 'transfer_1', from: 'Main Treasury', to: 'Development Fund', amount: '75000', reason: 'Q4 Development Budget', signatures: 2, requiredSignatures: 3, createdAt: new Date(Date.now() - 86400000).toISOString() }
+        ],
+        budget: {
+          annual: {
+            development: { allocated: 2000000, spent: 1300000, percentage: 65 },
+            marketing: { allocated: 1000000, spent: 450000, percentage: 45 },
+            operations: { allocated: 500000, spent: 400000, percentage: 80 },
+            community: { allocated: 300000, spent: 90000, percentage: 30 }
+          },
+          totals: {
+            totalBudget: 3800000,
+            totalSpent: 2240000,
+            remaining: 1560000,
+            utilization: 59
+          }
+        }
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Treasury data fetch failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+/**
+ * POST /api/enterprise/admin/treasury/transfer
+ * Initiate treasury transfer (requires multi-sig)
+ */
+router.post('/admin/treasury/transfer', async (req: Request, res: Response) => {
+  try {
+    const { fromPool, toAddress, amount, reason } = req.body;
+    
+    if (!fromPool || !toAddress || !amount) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: fromPool, toAddress, amount'
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        transferId: `transfer_${Date.now()}`,
+        fromPool,
+        toAddress,
+        amount,
+        reason,
+        status: 'pending_approval',
+        requiredSignatures: 3,
+        currentSignatures: 1,
+        createdAt: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Transfer request failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 export default router;

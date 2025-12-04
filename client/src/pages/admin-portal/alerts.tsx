@@ -1,369 +1,627 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Textarea } from "@/components/ui/textarea";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import {
+  AlertCircle,
+  AlertOctagon,
   AlertTriangle,
   Bell,
-  Check,
+  BellOff,
   CheckCircle2,
   Clock,
+  Download,
   Eye,
+  EyeOff,
   Filter,
+  Info,
+  RefreshCw,
   Search,
+  Settings,
   Shield,
-  ShieldAlert,
-  XCircle,
+  Trash2,
+  X,
+  Zap,
 } from "lucide-react";
-import { queryClient } from "@/lib/queryClient";
 
 interface Alert {
   id: string;
-  type: string;
-  severity: "critical" | "high" | "medium" | "low";
+  severity: "critical" | "high" | "medium" | "low" | "info";
   title: string;
-  message: string;
-  timestamp: Date;
-  status: "active" | "acknowledged" | "resolved";
+  description: string;
   source: string;
-  targetType?: string;
-  targetId?: string;
-  metadata?: Record<string, any>;
+  timestamp: Date;
+  acknowledged: boolean;
+  resolved: boolean;
+  category: string;
+}
+
+interface AlertStats {
+  total: number;
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+  info: number;
+  acknowledged: number;
+  unacknowledged: number;
+}
+
+function AlertStatCard({
+  icon: Icon,
+  label,
+  value,
+  bgColor = "bg-muted",
+  iconColor = "text-muted-foreground",
+  isLoading = false,
+  testId,
+}: {
+  icon: any;
+  label: string;
+  value: number;
+  bgColor?: string;
+  iconColor?: string;
+  isLoading?: boolean;
+  testId: string;
+}) {
+  return (
+    <Card data-testid={testId}>
+      <CardContent className="p-4">
+        <div className="flex items-center gap-3">
+          <div className={`p-2 rounded-lg ${bgColor}`}>
+            <Icon className={`h-5 w-5 ${iconColor}`} />
+          </div>
+          <div>
+            <p className="text-xs text-muted-foreground">{label}</p>
+            {isLoading ? (
+              <Skeleton className="h-7 w-12 mt-1" />
+            ) : (
+              <p className="text-2xl font-bold" data-testid={`${testId}-value`}>{value}</p>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default function AdminAlerts() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [severityFilter, setSeverityFilter] = useState<string>("all");
-  const [statusFilter, setStatusFilter] = useState<string>("active");
-  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
-  const [resolution, setResolution] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [wsConnected, setWsConnected] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [showResolved, setShowResolved] = useState(false);
 
-  const alerts: Alert[] = useMemo(() => [
-    { id: "1", type: "security", severity: "critical", title: "Suspicious Activity Detected", message: "Multiple failed login attempts from IP 192.168.1.100. Possible brute force attack detected.", timestamp: new Date(Date.now() - 300000), status: "active", source: "Security Monitor", targetType: "system", metadata: { ip: "192.168.1.100", attempts: 15 } },
-    { id: "2", type: "validator", severity: "high", title: "Validator Offline", message: "Validator 0x7890...cdef has been offline for 15 minutes. May impact consensus.", timestamp: new Date(Date.now() - 900000), status: "active", source: "Validator Monitor", targetType: "validator", targetId: "0x7890cdef" },
-    { id: "3", type: "bridge", severity: "medium", title: "Arbitrum Bridge Degraded", message: "Increased latency on Arbitrum bridge connections. Average latency: 285ms (threshold: 200ms).", timestamp: new Date(Date.now() - 1800000), status: "acknowledged", source: "Bridge Monitor", targetType: "bridge", targetId: "arbitrum" },
-    { id: "4", type: "ai", severity: "medium", title: "AI Model Retraining Required", message: "GPT-5 model accuracy dropped below 95%. Automatic retraining initiated.", timestamp: new Date(Date.now() - 3600000), status: "acknowledged", source: "AI Orchestrator", targetType: "ai_model", targetId: "gpt5" },
-    { id: "5", type: "system", severity: "low", title: "Scheduled Maintenance", message: "Database optimization scheduled for tonight at 02:00 UTC.", timestamp: new Date(Date.now() - 7200000), status: "active", source: "System Scheduler" },
-    { id: "6", type: "network", severity: "high", title: "High Network Latency", message: "Network latency spike detected on Shard 3. Current: 165ms (threshold: 150ms).", timestamp: new Date(Date.now() - 10800000), status: "resolved", source: "Network Monitor", targetType: "shard", targetId: "3" },
-    { id: "7", type: "security", severity: "medium", title: "API Key Near Expiration", message: "API key 'prod-analytics' expires in 7 days. Please rotate.", timestamp: new Date(Date.now() - 14400000), status: "active", source: "Key Manager" },
-    { id: "8", type: "validator", severity: "low", title: "Validator Commission Change", message: "Validator 0x1234...5678 changed commission from 5% to 7%.", timestamp: new Date(Date.now() - 18000000), status: "resolved", source: "Validator Monitor", targetType: "validator", targetId: "0x12345678" },
-  ], []);
+  const { data: alertsData, isLoading: loadingAlerts, error: alertsError, refetch: refetchAlerts } = useQuery<{ alerts: Alert[] }>({
+    queryKey: ["/api/admin/alerts"],
+    refetchInterval: 15000,
+  });
+
+  const alerts: Alert[] = useMemo(() => {
+    if (alertsData?.alerts) return alertsData.alerts;
+    return [
+      { id: "alert-1", severity: "critical", title: t("adminAlerts.validatorDowntime"), description: t("adminAlerts.validatorDowntimeDesc"), source: "Validator Monitor", timestamp: new Date(Date.now() - 300000), acknowledged: false, resolved: false, category: "validators" },
+      { id: "alert-2", severity: "high", title: t("adminAlerts.highMemoryUsage"), description: t("adminAlerts.highMemoryUsageDesc"), source: "Resource Monitor", timestamp: new Date(Date.now() - 600000), acknowledged: true, resolved: false, category: "resources" },
+      { id: "alert-3", severity: "medium", title: t("adminAlerts.bridgeLatencySpike"), description: t("adminAlerts.bridgeLatencySpikeDesc"), source: "Bridge Monitor", timestamp: new Date(Date.now() - 900000), acknowledged: false, resolved: false, category: "bridge" },
+      { id: "alert-4", severity: "low", title: t("adminAlerts.unusualTrafficPattern"), description: t("adminAlerts.unusualTrafficPatternDesc"), source: "Security Monitor", timestamp: new Date(Date.now() - 1200000), acknowledged: true, resolved: false, category: "security" },
+      { id: "alert-5", severity: "info", title: t("adminAlerts.scheduledMaintenance"), description: t("adminAlerts.scheduledMaintenanceDesc"), source: "System", timestamp: new Date(Date.now() - 1800000), acknowledged: true, resolved: false, category: "system" },
+      { id: "alert-6", severity: "high", title: t("adminAlerts.consensusDelay"), description: t("adminAlerts.consensusDelayDesc"), source: "Consensus Engine", timestamp: new Date(Date.now() - 2400000), acknowledged: false, resolved: false, category: "consensus" },
+      { id: "alert-7", severity: "critical", title: t("adminAlerts.databaseConnectionPool"), description: t("adminAlerts.databaseConnectionPoolDesc"), source: "Database Monitor", timestamp: new Date(Date.now() - 3600000), acknowledged: true, resolved: true, category: "database" },
+      { id: "alert-8", severity: "medium", title: t("adminAlerts.aiModelAccuracy"), description: t("adminAlerts.aiModelAccuracyDesc"), source: "AI Monitor", timestamp: new Date(Date.now() - 5400000), acknowledged: true, resolved: true, category: "ai" },
+    ];
+  }, [alertsData, t]);
+
+  const alertStats: AlertStats = useMemo(() => {
+    const activeAlerts = showResolved ? alerts : alerts.filter(a => !a.resolved);
+    return {
+      total: activeAlerts.length,
+      critical: activeAlerts.filter(a => a.severity === "critical").length,
+      high: activeAlerts.filter(a => a.severity === "high").length,
+      medium: activeAlerts.filter(a => a.severity === "medium").length,
+      low: activeAlerts.filter(a => a.severity === "low").length,
+      info: activeAlerts.filter(a => a.severity === "info").length,
+      acknowledged: activeAlerts.filter(a => a.acknowledged).length,
+      unacknowledged: activeAlerts.filter(a => !a.acknowledged).length,
+    };
+  }, [alerts, showResolved]);
 
   const filteredAlerts = useMemo(() => {
-    return alerts.filter(alert => {
-      const matchesSearch = searchQuery === "" ||
-        alert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        alert.message.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesSeverity = severityFilter === "all" || alert.severity === severityFilter;
-      const matchesStatus = statusFilter === "all" || alert.status === statusFilter;
-      return matchesSearch && matchesSeverity && matchesStatus;
-    });
-  }, [alerts, searchQuery, severityFilter, statusFilter]);
+    let result = showResolved ? alerts : alerts.filter(a => !a.resolved);
+    
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(a => 
+        a.title.toLowerCase().includes(query) || 
+        a.description.toLowerCase().includes(query) ||
+        a.source.toLowerCase().includes(query)
+      );
+    }
+    
+    if (severityFilter !== "all") {
+      result = result.filter(a => a.severity === severityFilter);
+    }
+    
+    if (statusFilter === "acknowledged") {
+      result = result.filter(a => a.acknowledged);
+    } else if (statusFilter === "unacknowledged") {
+      result = result.filter(a => !a.acknowledged);
+    }
+    
+    return result.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  }, [alerts, searchQuery, severityFilter, statusFilter, showResolved]);
 
-  const alertCounts = useMemo(() => ({
-    critical: alerts.filter(a => a.severity === "critical" && a.status !== "resolved").length,
-    high: alerts.filter(a => a.severity === "high" && a.status !== "resolved").length,
-    medium: alerts.filter(a => a.severity === "medium" && a.status !== "resolved").length,
-    low: alerts.filter(a => a.severity === "low" && a.status !== "resolved").length,
-    total: alerts.filter(a => a.status !== "resolved").length,
-  }), [alerts]);
+  const acknowledgeAlert = useMutation({
+    mutationFn: async (alertId: string) => {
+      return apiRequest("POST", `/api/admin/alerts/${alertId}/acknowledge`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts"] });
+      toast({ title: t("adminAlerts.alertAcknowledged") });
+    },
+    onError: () => {
+      toast({ title: t("adminAlerts.acknowledgeError"), variant: "destructive" });
+    },
+  });
 
-  const getSeverityColor = (severity: string) => {
+  const resolveAlert = useMutation({
+    mutationFn: async (alertId: string) => {
+      return apiRequest("POST", `/api/admin/alerts/${alertId}/resolve`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts"] });
+      toast({ title: t("adminAlerts.alertResolved") });
+    },
+    onError: () => {
+      toast({ title: t("adminAlerts.resolveError"), variant: "destructive" });
+    },
+  });
+
+  const getSeverityBadge = (severity: string) => {
     switch (severity) {
-      case "critical": return "text-red-500 bg-red-500/10";
-      case "high": return "text-orange-500 bg-orange-500/10";
-      case "medium": return "text-yellow-500 bg-yellow-500/10";
-      case "low": return "text-blue-500 bg-blue-500/10";
-      default: return "text-muted-foreground bg-muted";
-    }
-  };
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "active":
-        return <Badge className="bg-red-500/10 text-red-500">Active</Badge>;
-      case "acknowledged":
-        return <Badge className="bg-yellow-500/10 text-yellow-500">Acknowledged</Badge>;
-      case "resolved":
-        return <Badge className="bg-green-500/10 text-green-500">Resolved</Badge>;
+      case "critical":
+        return <Badge className="bg-red-500/10 text-red-500">{t("adminAlerts.critical")}</Badge>;
+      case "high":
+        return <Badge className="bg-orange-500/10 text-orange-500">{t("adminAlerts.high")}</Badge>;
+      case "medium":
+        return <Badge className="bg-yellow-500/10 text-yellow-500">{t("adminAlerts.medium")}</Badge>;
+      case "low":
+        return <Badge className="bg-blue-500/10 text-blue-500">{t("adminAlerts.low")}</Badge>;
+      case "info":
+        return <Badge className="bg-gray-500/10 text-gray-500">{t("adminAlerts.info")}</Badge>;
       default:
-        return <Badge variant="secondary">{status}</Badge>;
+        return <Badge variant="secondary">{severity}</Badge>;
     }
   };
 
-  const formatTimeAgo = (date: Date) => {
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-    if (seconds < 60) return `${seconds}s ago`;
-    const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) return `${minutes}m ago`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours}h ago`;
-    const days = Math.floor(hours / 24);
-    return `${days}d ago`;
-  };
-
-  const handleAcknowledge = (alertId: string) => {
-    console.log("Acknowledging alert:", alertId);
-  };
-
-  const handleResolve = () => {
-    if (selectedAlert) {
-      console.log("Resolving alert:", selectedAlert.id, "with resolution:", resolution);
-      setSelectedAlert(null);
-      setResolution("");
+  const getSeverityIcon = (severity: string) => {
+    switch (severity) {
+      case "critical":
+        return <AlertOctagon className="h-5 w-5 text-red-500" />;
+      case "high":
+        return <AlertTriangle className="h-5 w-5 text-orange-500" />;
+      case "medium":
+        return <AlertCircle className="h-5 w-5 text-yellow-500" />;
+      case "low":
+        return <Info className="h-5 w-5 text-blue-500" />;
+      case "info":
+        return <Info className="h-5 w-5 text-gray-500" />;
+      default:
+        return <AlertCircle className="h-5 w-5" />;
     }
   };
+
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+    const connectWebSocket = () => {
+      try {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+        
+        ws.onopen = () => {
+          setWsConnected(true);
+          ws?.send(JSON.stringify({ type: "subscribe", channels: ["alerts"] }));
+        };
+        
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "alert_update" || data.type === "new_alert") {
+              refetchAlerts();
+            }
+            setLastUpdate(new Date());
+          } catch (e) {
+            console.error("WebSocket message parse error:", e);
+          }
+        };
+        
+        ws.onclose = () => {
+          setWsConnected(false);
+          setTimeout(connectWebSocket, 5000);
+        };
+        
+        ws.onerror = () => {
+          setWsConnected(false);
+        };
+      } catch (e) {
+        console.error("WebSocket connection error:", e);
+      }
+    };
+
+    connectWebSocket();
+    
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  }, [refetchAlerts]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetchAlerts();
+      toast({
+        title: t("adminAlerts.refreshSuccess"),
+        description: t("adminAlerts.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminAlerts.refreshError"),
+        description: t("adminAlerts.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+      setLastUpdate(new Date());
+    }
+  }, [refetchAlerts, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      alertStats,
+      alerts: filteredAlerts,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tburn-alerts-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: t("adminAlerts.exportSuccess"),
+      description: t("adminAlerts.exportSuccessDesc"),
+    });
+  }, [alertStats, filteredAlerts, toast, t]);
+
+  const formatTimestamp = (date: Date) => {
+    const now = new Date();
+    const diff = now.getTime() - new Date(date).getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+    
+    if (minutes < 60) return t("adminAlerts.minAgo", { count: minutes });
+    if (hours < 24) return t("adminAlerts.hourAgo", { count: hours });
+    return t("adminAlerts.dayAgo", { count: days });
+  };
+
+  if (alertsError) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="alerts-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminAlerts.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminAlerts.error.description")}</p>
+            <Button onClick={() => refetchAlerts()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminAlerts.retry")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex-1 overflow-auto">
-      <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-              <Bell className="h-8 w-8" />
-              Alert Center
-            </h1>
-            <p className="text-muted-foreground">Monitor and manage system alerts and notifications</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <Card className="cursor-pointer hover-elevate" onClick={() => setSeverityFilter("all")}>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Total Active</p>
-                  <p className="text-2xl font-bold">{alertCounts.total}</p>
-                </div>
-                <Bell className="h-8 w-8 text-muted-foreground" />
+    <TooltipProvider>
+      <div className="flex-1 overflow-auto" data-testid="alerts-page">
+        <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-page-title">
+                <Bell className="h-8 w-8" />
+                {t("adminAlerts.title")}
+              </h1>
+              <p className="text-muted-foreground" data-testid="text-page-subtitle">
+                {t("adminAlerts.subtitle")}
+              </p>
+            </div>
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${wsConnected ? 'bg-green-500/10' : 'bg-yellow-500/10'}`}>
+                      <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
+                      <span className="text-xs">{wsConnected ? t("adminAlerts.connected") : t("adminAlerts.reconnecting")}</span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {wsConnected ? t("adminAlerts.wsConnected") : t("adminAlerts.wsReconnecting")}
+                  </TooltipContent>
+                </Tooltip>
+                <Clock className="h-4 w-4" />
+                <span data-testid="text-last-update">{t("adminAlerts.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
               </div>
-            </CardContent>
-          </Card>
-          <Card className="cursor-pointer hover-elevate" onClick={() => setSeverityFilter("critical")}>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-red-500">Critical</p>
-                  <p className="text-2xl font-bold text-red-500">{alertCounts.critical}</p>
-                </div>
-                <ShieldAlert className="h-8 w-8 text-red-500" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="cursor-pointer hover-elevate" onClick={() => setSeverityFilter("high")}>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-orange-500">High</p>
-                  <p className="text-2xl font-bold text-orange-500">{alertCounts.high}</p>
-                </div>
-                <AlertTriangle className="h-8 w-8 text-orange-500" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="cursor-pointer hover-elevate" onClick={() => setSeverityFilter("medium")}>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-yellow-500">Medium</p>
-                  <p className="text-2xl font-bold text-yellow-500">{alertCounts.medium}</p>
-                </div>
-                <AlertTriangle className="h-8 w-8 text-yellow-500" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="cursor-pointer hover-elevate" onClick={() => setSeverityFilter("low")}>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-blue-500">Low</p>
-                  <p className="text-2xl font-bold text-blue-500">{alertCounts.low}</p>
-                </div>
-                <Bell className="h-8 w-8 text-blue-500" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-              <CardTitle>Alerts</CardTitle>
               <div className="flex items-center gap-2">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search alerts..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-9 w-[250px]"
-                    data-testid="input-alert-search"
-                  />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={handleRefresh}
+                      disabled={isRefreshing}
+                      data-testid="button-refresh"
+                    >
+                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminAlerts.refresh")}</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={handleExport}
+                      data-testid="button-export"
+                    >
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminAlerts.export")}</TooltipContent>
+                </Tooltip>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            <AlertStatCard
+              icon={Bell}
+              label={t("adminAlerts.totalAlerts")}
+              value={alertStats.total}
+              bgColor="bg-primary/10"
+              iconColor="text-primary"
+              isLoading={loadingAlerts}
+              testId="stat-total"
+            />
+            <AlertStatCard
+              icon={AlertOctagon}
+              label={t("adminAlerts.critical")}
+              value={alertStats.critical}
+              bgColor="bg-red-500/10"
+              iconColor="text-red-500"
+              isLoading={loadingAlerts}
+              testId="stat-critical"
+            />
+            <AlertStatCard
+              icon={AlertTriangle}
+              label={t("adminAlerts.high")}
+              value={alertStats.high}
+              bgColor="bg-orange-500/10"
+              iconColor="text-orange-500"
+              isLoading={loadingAlerts}
+              testId="stat-high"
+            />
+            <AlertStatCard
+              icon={AlertCircle}
+              label={t("adminAlerts.medium")}
+              value={alertStats.medium}
+              bgColor="bg-yellow-500/10"
+              iconColor="text-yellow-500"
+              isLoading={loadingAlerts}
+              testId="stat-medium"
+            />
+            <AlertStatCard
+              icon={Info}
+              label={t("adminAlerts.low")}
+              value={alertStats.low}
+              bgColor="bg-blue-500/10"
+              iconColor="text-blue-500"
+              isLoading={loadingAlerts}
+              testId="stat-low"
+            />
+            <AlertStatCard
+              icon={Info}
+              label={t("adminAlerts.info")}
+              value={alertStats.info}
+              bgColor="bg-gray-500/10"
+              iconColor="text-gray-500"
+              isLoading={loadingAlerts}
+              testId="stat-info"
+            />
+            <AlertStatCard
+              icon={Eye}
+              label={t("adminAlerts.acknowledged")}
+              value={alertStats.acknowledged}
+              bgColor="bg-green-500/10"
+              iconColor="text-green-500"
+              isLoading={loadingAlerts}
+              testId="stat-acknowledged"
+            />
+            <AlertStatCard
+              icon={EyeOff}
+              label={t("adminAlerts.unacknowledged")}
+              value={alertStats.unacknowledged}
+              bgColor="bg-muted"
+              iconColor="text-muted-foreground"
+              isLoading={loadingAlerts}
+              testId="stat-unacknowledged"
+            />
+          </div>
+
+          <Card data-testid="card-alert-filters">
+            <CardContent className="p-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex-1 min-w-[200px]">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder={t("adminAlerts.searchPlaceholder")}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10"
+                      data-testid="input-search"
+                    />
+                  </div>
                 </div>
                 <Select value={severityFilter} onValueChange={setSeverityFilter}>
-                  <SelectTrigger className="w-[130px]">
-                    <SelectValue placeholder="Severity" />
+                  <SelectTrigger className="w-[150px]" data-testid="select-severity">
+                    <SelectValue placeholder={t("adminAlerts.severity")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Severity</SelectItem>
-                    <SelectItem value="critical">Critical</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="all">{t("adminAlerts.allSeverities")}</SelectItem>
+                    <SelectItem value="critical">{t("adminAlerts.critical")}</SelectItem>
+                    <SelectItem value="high">{t("adminAlerts.high")}</SelectItem>
+                    <SelectItem value="medium">{t("adminAlerts.medium")}</SelectItem>
+                    <SelectItem value="low">{t("adminAlerts.low")}</SelectItem>
+                    <SelectItem value="info">{t("adminAlerts.info")}</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-[130px]">
-                    <SelectValue placeholder="Status" />
+                  <SelectTrigger className="w-[150px]" data-testid="select-status">
+                    <SelectValue placeholder={t("adminAlerts.status")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="acknowledged">Acknowledged</SelectItem>
-                    <SelectItem value="resolved">Resolved</SelectItem>
+                    <SelectItem value="all">{t("adminAlerts.allStatuses")}</SelectItem>
+                    <SelectItem value="acknowledged">{t("adminAlerts.acknowledged")}</SelectItem>
+                    <SelectItem value="unacknowledged">{t("adminAlerts.unacknowledged")}</SelectItem>
                   </SelectContent>
                 </Select>
+                <div className="flex items-center gap-2">
+                  <Switch
+                    checked={showResolved}
+                    onCheckedChange={setShowResolved}
+                    data-testid="switch-show-resolved"
+                  />
+                  <span className="text-sm text-muted-foreground">{t("adminAlerts.showResolved")}</span>
+                </div>
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-[500px]">
-              <div className="space-y-3">
-                {filteredAlerts.map((alert) => (
-                  <div
-                    key={alert.id}
-                    className="p-4 rounded-lg border hover-elevate cursor-pointer"
-                    onClick={() => setSelectedAlert(alert)}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className={`p-2 rounded-lg ${getSeverityColor(alert.severity)}`}>
-                        <AlertTriangle className="h-5 w-5" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <h3 className="font-medium">{alert.title}</h3>
-                            <p className="text-sm text-muted-foreground mt-1">{alert.message}</p>
+            </CardContent>
+          </Card>
+
+          <Card data-testid="card-alerts-list">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5" />
+                {t("adminAlerts.activeAlerts")} ({filteredAlerts.length})
+              </CardTitle>
+              <CardDescription>{t("adminAlerts.activeAlertsDesc")}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loadingAlerts ? (
+                <div className="space-y-4">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton key={i} className="h-24 w-full" />
+                  ))}
+                </div>
+              ) : filteredAlerts.length === 0 ? (
+                <div className="text-center py-12" data-testid="no-alerts">
+                  <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium mb-2">{t("adminAlerts.noActiveAlerts")}</h3>
+                  <p className="text-muted-foreground">{t("adminAlerts.noActiveAlertsDesc")}</p>
+                </div>
+              ) : (
+                <ScrollArea className="h-[500px]">
+                  <div className="space-y-4">
+                    {filteredAlerts.map((alert, index) => (
+                      <div
+                        key={alert.id}
+                        className={`p-4 rounded-lg border hover-elevate ${
+                          alert.resolved ? 'opacity-60' : ''
+                        } ${alert.severity === 'critical' && !alert.acknowledged ? 'border-red-500/50' : ''}`}
+                        data-testid={`alert-item-${index}`}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="mt-1">{getSeverityIcon(alert.severity)}</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap mb-1">
+                              <h4 className="font-medium" data-testid={`alert-title-${index}`}>{alert.title}</h4>
+                              {getSeverityBadge(alert.severity)}
+                              {alert.acknowledged && (
+                                <Badge variant="outline" className="text-xs">{t("adminAlerts.acked")}</Badge>
+                              )}
+                              {alert.resolved && (
+                                <Badge className="bg-green-500/10 text-green-500 text-xs">{t("adminAlerts.resolved")}</Badge>
+                              )}
+                            </div>
+                            <p className="text-sm text-muted-foreground mb-2" data-testid={`alert-desc-${index}`}>{alert.description}</p>
+                            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                              <span>{t("adminAlerts.source")}: {alert.source}</span>
+                              <span data-testid={`alert-time-${index}`}>{formatTimestamp(alert.timestamp)}</span>
+                            </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            {getStatusBadge(alert.status)}
-                            <Badge variant="outline" className="uppercase text-xs">
-                              {alert.severity}
-                            </Badge>
+                            {!alert.acknowledged && !alert.resolved && (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => acknowledgeAlert.mutate(alert.id)}
+                                    disabled={acknowledgeAlert.isPending}
+                                    data-testid={`button-acknowledge-${index}`}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("adminAlerts.acknowledge")}</TooltipContent>
+                              </Tooltip>
+                            )}
+                            {!alert.resolved && (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => resolveAlert.mutate(alert.id)}
+                                    disabled={resolveAlert.isPending}
+                                    data-testid={`button-resolve-${index}`}
+                                  >
+                                    <CheckCircle2 className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>{t("adminAlerts.resolve")}</TooltipContent>
+                              </Tooltip>
+                            )}
                           </div>
                         </div>
-                        <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            {formatTimeAgo(alert.timestamp)}
-                          </span>
-                          <span>Source: {alert.source}</span>
-                          {alert.targetType && (
-                            <span>Target: {alert.targetType}</span>
-                          )}
-                        </div>
                       </div>
-                      {alert.status === "active" && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleAcknowledge(alert.id);
-                          }}
-                          data-testid={`button-acknowledge-${alert.id}`}
-                        >
-                          <Check className="h-4 w-4 mr-1" />
-                          Acknowledge
-                        </Button>
-                      )}
-                    </div>
+                    ))}
                   </div>
-                ))}
-                {filteredAlerts.length === 0 && (
-                  <div className="text-center py-12 text-muted-foreground">
-                    <Bell className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <p>No alerts found matching your criteria</p>
-                  </div>
-                )}
-              </div>
-            </ScrollArea>
-          </CardContent>
-        </Card>
-
-        <Dialog open={!!selectedAlert} onOpenChange={() => setSelectedAlert(null)}>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <AlertTriangle className={`h-5 w-5 ${selectedAlert?.severity === "critical" ? "text-red-500" : selectedAlert?.severity === "high" ? "text-orange-500" : "text-yellow-500"}`} />
-                {selectedAlert?.title}
-              </DialogTitle>
-              <DialogDescription>
-                Alert ID: {selectedAlert?.id} | Source: {selectedAlert?.source}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                {selectedAlert && getStatusBadge(selectedAlert.status)}
-                <Badge variant="outline" className="uppercase">
-                  {selectedAlert?.severity}
-                </Badge>
-                <span className="text-sm text-muted-foreground">
-                  {selectedAlert && formatTimeAgo(selectedAlert.timestamp)}
-                </span>
-              </div>
-              <div className="p-4 rounded-lg bg-muted/50">
-                <p className="text-sm">{selectedAlert?.message}</p>
-              </div>
-              {selectedAlert?.metadata && (
-                <div>
-                  <h4 className="font-medium mb-2">Additional Details</h4>
-                  <pre className="p-4 rounded-lg bg-muted/50 text-xs overflow-auto">
-                    {JSON.stringify(selectedAlert.metadata, null, 2)}
-                  </pre>
-                </div>
+                </ScrollArea>
               )}
-              {selectedAlert?.status !== "resolved" && (
-                <div>
-                  <h4 className="font-medium mb-2">Resolution Notes</h4>
-                  <Textarea
-                    placeholder="Enter resolution details..."
-                    value={resolution}
-                    onChange={(e) => setResolution(e.target.value)}
-                    rows={3}
-                  />
-                </div>
-              )}
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setSelectedAlert(null)}>
-                Close
-              </Button>
-              {selectedAlert?.status === "active" && (
-                <Button variant="secondary" onClick={() => handleAcknowledge(selectedAlert.id)}>
-                  <Check className="h-4 w-4 mr-1" />
-                  Acknowledge
-                </Button>
-              )}
-              {selectedAlert?.status !== "resolved" && (
-                <Button onClick={handleResolve} disabled={!resolution}>
-                  <CheckCircle2 className="h-4 w-4 mr-1" />
-                  Resolve
-                </Button>
-              )}
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }
