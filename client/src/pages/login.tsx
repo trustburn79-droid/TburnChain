@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { SiGoogle, SiGithub } from "react-icons/si";
 import { queryClient } from "@/lib/queryClient";
+import { LanguageSelector } from "@/components/language-selector";
 
 interface LoginFormData {
   password: string;
@@ -276,6 +277,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
               <Link href="/network" className="text-sm font-medium text-gray-400 hover:text-white transition">
                 {t('login.nav.network')}
               </Link>
+              <LanguageSelector />
             </div>
           </div>
         </div>
