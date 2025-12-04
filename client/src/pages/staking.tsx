@@ -618,7 +618,7 @@ export default function StakingDashboard() {
                         <Coins className="h-4 w-4 mr-1" />
                         {t('staking.stake')}
                       </Button>
-                      <Link href={`/staking/pool/${pool.id}`}>
+                      <Link href={`/app/staking/pool/${pool.id}`}>
                         <Button variant="outline" size="sm" data-testid={`button-details-${pool.id}`}>
                           {t('staking.details')}
                         </Button>

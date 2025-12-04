@@ -214,7 +214,7 @@ export default function StakingPoolDetail() {
             <AlertCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium">{t('stakingPoolDetail.poolNotFound')}</h3>
             <p className="text-muted-foreground">{t('stakingPoolDetail.poolNotFoundDesc')}</p>
-            <Link href="/staking">
+            <Link href="/app/staking">
               <Button className="mt-4">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 {t('common.back')}
@@ -229,7 +229,7 @@ export default function StakingPoolDetail() {
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/staking">
+        <Link href="/app/staking">
           <Button variant="ghost" size="sm" data-testid="button-back">
             <ArrowLeft className="h-4 w-4 mr-1" />
             {t('common.back')}
@@ -478,7 +478,7 @@ export default function StakingPoolDetail() {
               </div>
             </div>
 
-            <Link href={`/validator/${pool.validatorAddress}`}>
+            <Link href={`/app/validator/${pool.validatorAddress}`}>
               <Button variant="outline" className="w-full" data-testid="button-view-validator">
                 {t('stakingPoolDetail.viewValidator')}
                 <ExternalLink className="h-4 w-4 ml-2" />

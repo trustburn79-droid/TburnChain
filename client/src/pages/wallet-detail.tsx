@@ -273,7 +273,7 @@ export default function WalletDetail() {
                 <div 
                   key={tx.id} 
                   className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover-elevate cursor-pointer"
-                  onClick={() => tx.hash && setLocation(`/transactions/${tx.hash}`)}
+                  onClick={() => tx.hash && setLocation(`/app/transactions/${tx.hash}`)}
                   data-testid={`row-tx-${tx.hash?.slice(0, 10)}`}
                 >
                   <div className="flex items-center gap-3">

@@ -973,7 +973,7 @@ export default function Dashboard() {
           ) : (
             <>
               <DeFiStatCard
-                href="/dex"
+                href="/app/dex"
                 icon={ArrowRightLeft}
                 title={t("dashboard.dexAmm")}
                 value={`${dexStats?.totalPools || 0} ${t("dashboard.pools")}`}
@@ -983,7 +983,7 @@ export default function Dashboard() {
                 testId="card-dex-stats"
               />
               <DeFiStatCard
-                href="/lending"
+                href="/app/lending"
                 icon={Landmark}
                 title={t("dashboard.lending")}
                 value={`${lendingStats?.totalMarkets || 0} ${t("dashboard.markets")}`}
@@ -993,7 +993,7 @@ export default function Dashboard() {
                 testId="card-lending-stats"
               />
               <DeFiStatCard
-                href="/yield"
+                href="/app/yield-farming"
                 icon={Sprout}
                 title={t("dashboard.yieldFarming")}
                 value={`${yieldStats?.totalVaults || 0} ${t("dashboard.vaults")}`}
@@ -1003,7 +1003,7 @@ export default function Dashboard() {
                 testId="card-yield-stats"
               />
               <DeFiStatCard
-                href="/liquid-staking"
+                href="/app/liquid-staking"
                 icon={Droplets}
                 title={t("dashboard.liquidStaking")}
                 value={`${lstStats?.totalPools || 0} ${t("dashboard.pools")}`}
@@ -1013,7 +1013,7 @@ export default function Dashboard() {
                 testId="card-lst-stats"
               />
               <DeFiStatCard
-                href="/nft"
+                href="/app/nft-marketplace"
                 icon={Image}
                 title={t("dashboard.nftMarketplace")}
                 value={`${nftStats?.totalCollections || 0} ${t("dashboard.collections")}`}
@@ -1023,7 +1023,7 @@ export default function Dashboard() {
                 testId="card-nft-stats"
               />
               <DeFiStatCard
-                href="/launchpad"
+                href="/app/nft-launchpad"
                 icon={Rocket}
                 title={t("dashboard.launchpad")}
                 value={`${launchpadStats?.totalProjects || 0} ${t("dashboard.projects")}`}
@@ -1033,7 +1033,7 @@ export default function Dashboard() {
                 testId="card-launchpad-stats"
               />
               <DeFiStatCard
-                href="/gamefi"
+                href="/app/gamefi"
                 icon={Gamepad2}
                 title={t("dashboard.gamefi")}
                 value={`${gameFiStats?.totalProjects || 0} ${t("dashboard.games")}`}
@@ -1043,7 +1043,7 @@ export default function Dashboard() {
                 testId="card-gamefi-stats"
               />
               <DeFiStatCard
-                href="/bridge"
+                href="/app/bridge"
                 icon={Link2}
                 title={t("dashboard.crossChainBridge")}
                 value={`${bridgeStats?.activeChains || 0} ${t("dashboard.chains")}`}
@@ -1118,7 +1118,7 @@ export default function Dashboard() {
             </div>
             {recentBlocks && recentBlocks.length > 0 && (
               <div className="mt-4 pt-4 border-t">
-                <Link href="/blocks">
+                <Link href="/app/blocks">
                   <Button variant="outline" className="w-full" data-testid="button-view-all-blocks">
                     {t("dashboard.viewAllBlocks")}
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -1201,7 +1201,7 @@ export default function Dashboard() {
             </div>
             {recentTxs && recentTxs.length > 0 && (
               <div className="mt-4 pt-4 border-t">
-                <Link href="/transactions">
+                <Link href="/app/transactions">
                   <Button variant="outline" className="w-full" data-testid="button-view-all-transactions">
                     {t("dashboard.viewAllTransactions")}
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -1421,7 +1421,7 @@ export default function Dashboard() {
                 <Button variant="outline" onClick={() => setSelectedTx(null)}>
                   {t("dashboard.close")}
                 </Button>
-                <Link href={`/transactions/${selectedTx.hash}`}>
+                <Link href={`/app/transactions/${selectedTx.hash}`}>
                   <Button data-testid="button-view-tx-details">
                     {t("dashboard.viewFullDetails")}
                     <ArrowRight className="h-4 w-4 ml-1" />

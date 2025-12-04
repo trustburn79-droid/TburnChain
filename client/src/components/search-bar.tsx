@@ -125,16 +125,16 @@ export function SearchBar({
         navigate(`/app/blocks/${result.data.blockNumber || result.id}`);
         break;
       case 'transaction':
-        navigate(`/transactions/${result.id}`);
+        navigate(`/app/transactions/${result.id}`);
         break;
       case 'address':
-        navigate(`/address/${result.id}`);
+        navigate(`/app/address/${result.id}`);
         break;
       case 'validator':
-        navigate(`/validators?search=${result.id}`);
+        navigate(`/app/validators?search=${result.id}`);
         break;
       default:
-        navigate(`/search?q=${encodeURIComponent(result.id)}`);
+        navigate(`/app/search?q=${encodeURIComponent(result.id)}`);
     }
   };
 
@@ -146,7 +146,7 @@ export function SearchBar({
     onSearch?.(query);
     
     // Navigate to search results page
-    navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+    navigate(`/app/search?q=${encodeURIComponent(query.trim())}`);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

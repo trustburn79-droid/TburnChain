@@ -198,7 +198,7 @@ const WalletRow = forwardRef<HTMLTableRowElement, {
     <TableRow
       ref={ref}
       className="group hover:bg-muted/50 cursor-pointer"
-      onClick={() => setLocation(`/wallets/${wallet.address}`)}
+      onClick={() => setLocation(`/app/wallets/${wallet.address}`)}
       data-testid={`row-wallet-${wallet.address}`}
     >
       <TableCell className="font-mono text-sm">
@@ -278,7 +278,7 @@ const WalletRow = forwardRef<HTMLTableRowElement, {
               {t('common.copyAddress')}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={(e) => { e.stopPropagation(); setLocation(`/transactions?address=${wallet.address}`); }}>
+            <DropdownMenuItem onClick={(e) => { e.stopPropagation(); setLocation(`/app/transactions?address=${wallet.address}`); }}>
               <Activity className="h-4 w-4 mr-2" />
               {t('wallets.viewTransactions')}
             </DropdownMenuItem>
@@ -423,7 +423,7 @@ function WalletDetailDialog({
           <Button variant="outline" onClick={onClose}>
             {t('common.close')}
           </Button>
-          <Link href={`/wallets/${wallet.address}`}>
+          <Link href={`/app/wallets/${wallet.address}`}>
             <Button>
               <ExternalLink className="h-4 w-4 mr-2" />
               {t('wallets.viewFullProfile')}

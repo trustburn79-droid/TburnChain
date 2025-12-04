@@ -114,13 +114,13 @@ function getNavigationPath(result: SearchResult): string {
     case 'block':
       return `/app/blocks/${result.data.blockNumber || result.id}`;
     case 'transaction':
-      return `/transactions/${result.id}`;
+      return `/app/transactions/${result.id}`;
     case 'address':
-      return `/address/${result.id}`;
+      return `/app/address/${result.id}`;
     case 'validator':
-      return `/validators?search=${result.id}`;
+      return `/app/validators?search=${result.id}`;
     default:
-      return `/search?q=${encodeURIComponent(result.id)}`;
+      return `/app/search?q=${encodeURIComponent(result.id)}`;
   }
 }
 

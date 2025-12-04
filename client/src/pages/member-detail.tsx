@@ -432,7 +432,7 @@ export default function MemberDetailPage() {
                     {member.stakingPositions.map((position) => (
                       <TableRow key={position.id}>
                         <TableCell>
-                          <Link href={`/validator/${position.validatorAddress}`}>
+                          <Link href={`/app/validator/${position.validatorAddress}`}>
                             <Button variant="ghost" className="p-0 h-auto font-mono">
                               {position.validatorAddress.slice(0, 6)}...
                               {position.validatorAddress.slice(-4)}

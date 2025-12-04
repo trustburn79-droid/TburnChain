@@ -401,7 +401,7 @@ export default function OperatorStaking() {
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Link href={`/staking/pool/${pool.id}`}>
+                          <Link href={`/app/staking/pool/${pool.id}`}>
                             <Button variant="outline" size="sm" data-testid={`button-view-pool-${pool.id}`}>
                               {t('operator.staking.viewDetails')}
                             </Button>

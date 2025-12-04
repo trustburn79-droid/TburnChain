@@ -238,7 +238,7 @@ export default function ValidatorDetail() {
           <AlertCircle className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
           <h2 className="text-xl font-semibold mb-2">{t('validators.title')} - {t('common.error')}</h2>
           <p className="text-muted-foreground mb-4">{t('common.address')}: {address}</p>
-          <Link href="/validators">
+          <Link href="/app/validators">
             <Button variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
               {t('common.back')}
@@ -268,7 +268,7 @@ export default function ValidatorDetail() {
     <div className="container mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/validators">
+          <Link href="/app/validators">
             <Button variant="outline" size="icon">
               <ArrowLeft className="h-4 w-4" />
             </Button>
@@ -820,7 +820,7 @@ export default function ValidatorDetail() {
                       <TableCell className="text-sm">{event.description}</TableCell>
                       <TableCell>
                         {event.txHash ? (
-                          <Link href={`/tx/${event.txHash}`}>
+                          <Link href={`/app/transactions/${event.txHash}`}>
                             <Button variant="ghost" size="sm" className="text-primary hover:underline h-auto p-0">
                               {formatAddress(event.txHash)}
                             </Button>

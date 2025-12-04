@@ -221,7 +221,7 @@ function TransactionRow({
         <div className="flex items-center gap-2">
           {getTxTypeIcon()}
           <Link 
-            href={`/transactions/${tx.hash}`}
+            href={`/app/transactions/${tx.hash}`}
             className="font-mono text-xs text-primary hover:underline"
             data-testid={`link-tx-${tx.hash?.slice(0, 10)}`}
           >
@@ -973,7 +973,7 @@ export default function Transactions() {
                       <TransactionRow
                         key={tx.id || tx.hash}
                         tx={tx}
-                        onClick={() => tx.hash && setLocation(`/transactions/${tx.hash}`)}
+                        onClick={() => tx.hash && setLocation(`/app/transactions/${tx.hash}`)}
                         t={t}
                       />
                     ))}
