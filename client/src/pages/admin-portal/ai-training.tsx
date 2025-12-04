@@ -115,7 +115,7 @@ export default function AdminAITraining() {
     refetchInterval: 30000,
   });
 
-  const trainingData = data || mockData;
+  const trainingData = data && data.stats ? data : mockData;
   const jobs = liveJobs.length > 0 ? liveJobs : trainingData.jobs;
 
   const pauseJobMutation = useMutation({

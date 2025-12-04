@@ -131,7 +131,7 @@ export default function AdminAIOrchestration() {
     refetchInterval: 30000,
   });
 
-  const aiData = data || mockData;
+  const aiData = data && data.models?.length > 0 ? data : mockData;
   const decisions = liveDecisions.length > 0 ? liveDecisions : aiData.decisions;
 
   useEffect(() => {
@@ -355,7 +355,7 @@ export default function AdminAIOrchestration() {
                     </div>
                     <div>
                       <span className="text-muted-foreground">{t("adminAI.requests24h")}</span>
-                      <p className="font-medium" data-testid={`text-model-requests-${model.id}`}>{model.requests24h.toLocaleString()}</p>
+                      <p className="font-medium" data-testid={`text-model-requests-${model.id}`}>{(model.requests24h ?? 0).toLocaleString()}</p>
                     </div>
                   </div>
                   <div className="pt-2 border-t">

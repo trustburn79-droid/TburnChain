@@ -6108,9 +6108,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/tokens", async (_req, res) => {
     try {
       const tokens = [
-        { id: 'tburn', symbol: 'TBURN', name: 'TBURN Token', totalSupply: '100000000000000000000000000', circulatingSupply: '75000000000000000000000000', burnedSupply: '5000000000000000000000000', mintedToday: '0', burnedToday: '100000000000000000000000', status: 'active', type: 'native', decimals: 18 },
-        { id: 'stburn', symbol: 'stTBURN', name: 'Staked TBURN', totalSupply: '25000000000000000000000000', circulatingSupply: '25000000000000000000000000', burnedSupply: '0', mintedToday: '1000000000000000000000', burnedToday: '0', status: 'active', type: 'liquid-staking', decimals: 18 },
-        { id: 'weth', symbol: 'WETH', name: 'Wrapped Ethereum', totalSupply: '10000000000000000000000', circulatingSupply: '10000000000000000000000', burnedSupply: '0', mintedToday: '0', burnedToday: '0', status: 'active', type: 'wrapped', decimals: 18 }
+        { id: 'tburn', symbol: 'TBURN', name: 'TBURN Token', standard: 'TBC-20', totalSupply: '1.24B', circulatingSupply: '850M', holders: 125847, burnedSupply: '156M', mintedToday: '0', burnedToday: '2.5M', status: 'active', type: 'native', decimals: 18, aiEnabled: true },
+        { id: 'stburn', symbol: 'stTBURN', name: 'Staked TBURN', standard: 'TBC-20', totalSupply: '425M', circulatingSupply: '425M', holders: 45892, burnedSupply: '0', mintedToday: '1.2M', burnedToday: '0', status: 'active', type: 'liquid-staking', decimals: 18, aiEnabled: true },
+        { id: 'weth', symbol: 'WETH', name: 'Wrapped Ethereum', standard: 'TBC-20', totalSupply: '15,000', circulatingSupply: '15,000', holders: 8542, burnedSupply: '0', mintedToday: '50', burnedToday: '0', status: 'active', type: 'wrapped', decimals: 18, aiEnabled: false },
+        { id: 'usdc', symbol: 'USDC', name: 'USD Coin', standard: 'TBC-20', totalSupply: '50M', circulatingSupply: '50M', holders: 32156, burnedSupply: '0', mintedToday: '100K', burnedToday: '50K', status: 'active', type: 'stablecoin', decimals: 6, aiEnabled: false },
+        { id: 'tburnft', symbol: 'TBURNFT', name: 'TBURN Genesis NFT', standard: 'TBC-721', totalSupply: '10,000', circulatingSupply: '10,000', holders: 5847, burnedSupply: '0', mintedToday: '0', burnedToday: '0', status: 'active', type: 'nft', decimals: 0, aiEnabled: false }
       ];
       res.json({
         tokens,
@@ -6118,7 +6120,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           totalTokens: tokens.length,
           totalMarketCap: '$2,500,000,000',
           dailyVolume: '$125,000,000',
-          totalBurned: '5,000,000 TBURN'
+          totalBurned: '156,000,000 TBURN'
         }
       });
     } catch (error) {
@@ -6338,10 +6340,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/ai/models", async (_req, res) => {
     res.json({
       models: [
-        { id: 'claude-sonnet', name: 'Claude Sonnet', provider: 'anthropic', status: 'active', version: '3.5' },
-        { id: 'gpt-4', name: 'GPT-4', provider: 'openai', status: 'active', version: '4.0' },
-        { id: 'gemini-pro', name: 'Gemini Pro', provider: 'google', status: 'inactive', version: '1.0' }
-      ]
+        { id: 1, name: "GPT-5 Omni", layer: "Strategic", status: "online", latency: 450, tokenRate: 3200, accuracy: 99.1, requests24h: 12500, cost24h: 125.50 },
+        { id: 2, name: "Claude Sonnet 4.5", layer: "Tactical", status: "online", latency: 180, tokenRate: 2100, accuracy: 97.2, requests24h: 45000, cost24h: 89.25 },
+        { id: 3, name: "Llama 3.3 70B", layer: "Operational", status: "online", latency: 45, tokenRate: 890, accuracy: 95.8, requests24h: 180000, cost24h: 0 },
+      ],
+      decisions: [
+        { id: 1, type: "Strategic", content: "Increase validator committee to 120", confidence: 92, executed: true, timestamp: new Date(Date.now() - 300000).toISOString() },
+        { id: 2, type: "Tactical", content: "Rebalance shard 5 load to shard 8", confidence: 88, executed: true, timestamp: new Date(Date.now() - 600000).toISOString() },
+        { id: 3, type: "Operational", content: "Adjust gas price to 115 Ember", confidence: 95, executed: true, timestamp: new Date(Date.now() - 900000).toISOString() },
+        { id: 4, type: "Strategic", content: "Activate bridge circuit breaker", confidence: 65, executed: false, timestamp: new Date(Date.now() - 1200000).toISOString() },
+      ],
+      performance: [
+        { time: "00:00", gpt5: 450, claude: 180, llama: 45 },
+        { time: "04:00", gpt5: 460, claude: 175, llama: 48 },
+        { time: "08:00", gpt5: 480, claude: 190, llama: 52 },
+        { time: "12:00", gpt5: 445, claude: 185, llama: 44 },
+        { time: "16:00", gpt5: 455, claude: 178, llama: 46 },
+        { time: "20:00", gpt5: 448, claude: 182, llama: 47 },
+      ],
+      stats: {
+        overallAccuracy: 98.2,
+        totalRequests24h: "237.5k",
+        totalCost24h: 214.75,
+        uptime: 99.9
+      }
     });
   });
 
@@ -6360,13 +6382,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/ai/training", async (_req, res) => {
     res.json({
       jobs: [
-        { id: 'job-1', model: 'burn-predictor', status: 'completed', progress: 100, startedAt: new Date(Date.now() - 86400000).toISOString() },
-        { id: 'job-2', model: 'risk-assessor', status: 'running', progress: 65, startedAt: new Date(Date.now() - 3600000).toISOString() }
+        { id: 1, name: "Consensus Optimizer v2.1", model: "Llama 3.3", status: "running", progress: 67, eta: "2h 15m", dataPoints: "1.2M" },
+        { id: 2, name: "Shard Balancer v1.8", model: "Custom", status: "completed", progress: 100, eta: "-", dataPoints: "850K" },
+        { id: 3, name: "Gas Predictor v3.0", model: "Claude FT", status: "queued", progress: 0, eta: "~4h", dataPoints: "2.1M" },
+        { id: 4, name: "Anomaly Detector v2.5", model: "Llama 3.3", status: "paused", progress: 45, eta: "-", dataPoints: "500K" },
       ],
       datasets: [
-        { id: 'ds-1', name: 'Historical Burns', records: 50000, lastUpdated: new Date().toISOString() },
-        { id: 'ds-2', name: 'Transaction Patterns', records: 1000000, lastUpdated: new Date().toISOString() }
-      ]
+        { name: "Transaction Patterns", records: "15.2M", size: "8.5 GB", lastUpdated: "2024-12-03", quality: 98 },
+        { name: "Validator Performance", records: "2.8M", size: "1.2 GB", lastUpdated: "2024-12-03", quality: 99 },
+        { name: "Network Metrics", records: "45.6M", size: "12.3 GB", lastUpdated: "2024-12-02", quality: 97 },
+        { name: "Security Events", records: "890K", size: "450 MB", lastUpdated: "2024-12-03", quality: 95 },
+      ],
+      accuracyData: [
+        { epoch: 1, accuracy: 75, loss: 0.45 },
+        { epoch: 2, accuracy: 82, loss: 0.32 },
+        { epoch: 3, accuracy: 88, loss: 0.24 },
+        { epoch: 4, accuracy: 92, loss: 0.18 },
+        { epoch: 5, accuracy: 95, loss: 0.12 },
+        { epoch: 6, accuracy: 97, loss: 0.08 },
+      ],
+      modelVersions: [
+        { version: "v2.1.0", date: "2024-12-03", accuracy: 98.7, status: "production" },
+        { version: "v2.0.5", date: "2024-11-28", accuracy: 97.2, status: "backup" },
+        { version: "v2.0.0", date: "2024-11-15", accuracy: 96.5, status: "archived" },
+      ],
+      stats: {
+        activeJobs: 2,
+        runningJobs: 1,
+        queuedJobs: 1,
+        totalData: "64.5M",
+        avgAccuracy: 97.4,
+        modelVersions: 12
+      }
     });
   });
 
