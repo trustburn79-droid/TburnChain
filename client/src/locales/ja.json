@@ -7444,8 +7444,8 @@
             "description": "分散型金融プロトコルとイールド戦略"
           },
           "fundamentals": {
-            "title": "ブロックチェーン Fundamentals",
-            "description": "Demonstrate knowledge of ブロックチェーン ベーシックs, cryptography, and consensus mechanisms"
+            "title": "ブロックチェーン基礎",
+            "description": "ブロックチェーンの基礎、暗号化、コンセンサスメカニズムの知識を証明"
           }
         },
         "certificationsDesc": "認定バッジを取得",
@@ -7470,20 +7470,20 @@
             "duration": "20時間"
           },
           "blockchainBasics": {
-            "title": "ブロックチェーン ベーシックs",
-            "description": "学ぶ fundamental ブロックチェーン concepts and distributed ledger technology"
+            "title": "ブロックチェーン基礎",
+            "description": "基本的なブロックチェーンの概念と分散型台帳技術を学ぶ"
           },
           "developerCourse": {
-            "title": "Developer Course",
-            "description": "Build production-ready dApps with smart contracts and SDK integration"
+            "title": "開発者コース",
+            "description": "スマートコントラクトとSDK統合で本番対応のdAppsを構築"
           },
           "masteringDefi": {
-            "title": "Mastering DeFi",
-            "description": "Advanced strategies for liquidity provision, イールドファーミング, and risk management"
+            "title": "DeFiマスタリー",
+            "description": "流動性供給、イールドファーミング、リスク管理の高度な戦略"
           },
           "trustScoreSystem": {
-            "title": "トラストスコア System",
-            "description": "Deep dive into 3-stage 検証 and project reliability assessment"
+            "title": "トラストスコアシステム",
+            "description": "3段階検証とプロジェクト信頼性評価の詳細解説"
           }
         },
         "concepts": {
@@ -7512,24 +7512,24 @@
             "description": "将来の開発計画"
           },
           "autoBurn": {
-            "title": "Auto Burn Mechanism",
-            "description": "Automatic token destruction system for deflationary economics"
+            "title": "自動バーンメカニズム",
+            "description": "デフレ経済のための自動トークン破壊システム"
           },
           "dposBft": {
-            "title": "DPoS + BFT Consensus",
-            "description": "Hybrid consensus combining 委任d Proof of ステーク with Byzantine Fault Tolerance"
+            "title": "DPoS + BFTコンセンサス",
+            "description": "委任プルーフオブステークとビザンチン障害耐性を組み合わせたハイブリッドコンセンサス"
           },
           "emberGas": {
-            "title": "Ember Gas Token",
-            "description": "Native gas token for トランザクション手数料 and network operations"
+            "title": "Emberガストークン",
+            "description": "取引手数料とネットワーク運用のためのネイティブガストークン"
           },
           "quantumSecurity": {
-            "title": "Quantum セキュリティ",
-            "description": "CRYSTALS-Dilithium hybrid signatures for post-quantum protection"
+            "title": "量子セキュリティ",
+            "description": "ポスト量子保護のためのCRYSTALS-Dilithiumハイブリッド署名"
           },
           "tripleBandAi": {
-            "title": "Triple-Band AI",
-            "description": "Three-tier AI orchestration for strategic, tactical, and operational decisions"
+            "title": "トリプルバンドAI",
+            "description": "戦略的、戦術的、運用的意思決定のための3層AIオーケストレーション"
           }
         },
         "glossary": {
@@ -7545,9 +7545,9 @@
             "term": "バリデーター",
             "definition": "トランザクションを検証しコンセンサスに参加するノード"
           },
-          "tburn": "TBURN is the native ガバナンス and ステーキング token of TBurn Chain with a fixed supply of 1 billion トークン",
-          "ember": "Ember is the gas token used for トランザクション手数料 on TBurn Chain, obtained by ステーキング TBURN",
-          "slashing": "Slashing is the penalty mechanism that burns a portion of バリデーター ステーク for malicious behavior or downtime"
+          "tburn": "TBURNはTBurn Chainのネイティブガバナンス・ステーキングトークンで、総供給量は10億トークンに固定",
+          "ember": "EmberはTBurn Chain上の取引手数料に使用されるガストークンで、TBURNをステーキングすることで取得",
+          "slashing": "スラッシングは悪意ある行動やダウンタイムに対してバリデーターのステークの一部を燃焼させるペナルティメカニズム"
         },
         "communityLinks": {
           "discord": {
@@ -7563,20 +7563,20 @@
             "description": "ビデオチュートリアル"
           }
         },
-        "certificationsTitle": "Certification Programs",
-        "glossaryTitle": "Key 利用規約 & Definitions",
+        "certificationsTitle": "認定プログラム",
+        "glossaryTitle": "主要用語と定義",
         "levels": {
-          "beginner": "Beginner",
-          "intermediate": "Intermediate",
-          "advanced": "Advanced"
+          "beginner": "初級",
+          "intermediate": "中級",
+          "advanced": "上級"
         },
         "tags": {
-          "algorithm": "Algorithm",
-          "apiIntegration": "API Integration",
-          "consensus": "Consensus",
-          "liquidity": "Liquidity",
-          "sdkSetup": "SDK Setup",
-          "smartContracts": "Smart Contracts",
+          "algorithm": "アルゴリズム",
+          "apiIntegration": "API統合",
+          "consensus": "コンセンサス",
+          "liquidity": "流動性",
+          "sdkSetup": "SDKセットアップ",
+          "smartContracts": "スマートコントラクト",
           "verification": "検証",
           "yieldFarming": "イールドファーミング"
         },
@@ -7590,8 +7590,8 @@
             "description": "技術的な議論とQ&A"
           },
           "liveSessions": {
-            "title": "Live Sessions",
-            "description": "Weekly workshops and AMA sessions with the core team"
+            "title": "ライブセッション",
+            "description": "コアチームとの週次ワークショップとAMAセッション"
           }
         }
       },
