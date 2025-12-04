@@ -5145,15 +5145,70 @@
       }
     },
     "footer": {
+      "brandDescription": "AI विश्लेषण द्वारा संचालित दुनिया का पहला ट्रस्ट नेटवर्क। प्रोजेक्ट विश्वसनीयता को सत्यापित करना और पारदर्शिता सुनिश्चित करना।",
+      "stats": {
+        "blocks": "ब्लॉक्स",
+        "validators": "वैलिडेटर्स",
+        "dailyTxs": "दैनिक TXs",
+        "uptime": "अपटाइम"
+      },
       "ecosystem": "इकोसिस्टम",
+      "ecosystemLinks": {
+        "validators": "वैलिडेटर्स",
+        "bridge": "ब्रिज",
+        "explorer": "एक्सप्लोरर",
+        "staking": "स्टेकिंग",
+        "dex": "DEX",
+        "nftMarketplace": "NFT मार्केटप्लेस",
+        "lending": "लेंडिंग",
+        "yieldFarming": "यील्ड फार्मिंग"
+      },
       "solutions": "समाधान",
+      "solutionsLinks": {
+        "defiHub": "DeFi हब",
+        "enterprise": "एंटरप्राइज",
+        "aiFeatures": "AI सुविधाएं",
+        "tokenExtensions": "टोकन एक्सटेंशन्स",
+        "gameTooling": "गेम टूलिंग",
+        "btcfi": "BTCfi",
+        "payments": "भुगतान",
+        "actionsBlinks": "एक्शन्स और ब्लिंक्स"
+      },
       "developers": "डेवलपर्स",
+      "developersLinks": {
+        "documentation": "डॉक्युमेंटेशन",
+        "quickstart": "क्विकस्टार्ट",
+        "apiReference": "API रेफरेंस",
+        "sdkGuide": "SDK गाइड",
+        "smartContracts": "स्मार्ट कॉन्ट्रैक्ट्स",
+        "websocketApi": "WebSocket API",
+        "cliReference": "CLI रेफरेंस",
+        "github": "GitHub"
+      },
       "resources": "संसाधन",
+      "resourcesLinks": {
+        "whitepaper": "व्हाइटपेपर",
+        "tokenomics": "टोकनोमिक्स",
+        "roadmap": "रोडमैप",
+        "apiStatus": "API स्टेटस",
+        "rpcEndpoints": "RPC एंडपॉइंट्स",
+        "blockchainBasics": "ब्लॉकचेन की मूल बातें",
+        "defiMastery": "DeFi मास्टरी",
+        "educationPrograms": "शिक्षा कार्यक्रम"
+      },
       "community": "समुदाय",
+      "communityLinks": {
+        "newsBlog": "समाचार और ब्लॉग",
+        "events": "इवेंट्स",
+        "communityHub": "कम्युनिटी हब",
+        "governance": "गवर्नेंस",
+        "fiatRamp": "फिएट रैंप"
+      },
       "legal": "कानूनी",
       "stayUpdated": "अपडेट रहें",
       "newsletterDesc": "TBurn Chain से नवीनतम समाचार और अपडेट प्राप्त करें",
       "enterEmail": "अपना ईमेल दर्ज करें",
+      "subscribe": "सब्सक्राइब करें",
       "copyright": "© 2025 TBurn Chain फाउंडेशन। सर्वाधिकार सुरक्षित।",
       "termsOfService": "सेवा की शर्तें",
       "privacyPolicy": "गोपनीयता नीति",

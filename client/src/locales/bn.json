@@ -2990,15 +2990,70 @@
       }
     },
     "footer": {
+      "brandDescription": "বিশ্বের প্রথম AI বিশ্লেষণ দ্বারা চালিত ট্রাস্ট নেটওয়ার্ক। প্রকল্পের নির্ভরযোগ্যতা যাচাই এবং স্বচ্ছতা নিশ্চিত করা।",
+      "stats": {
+        "blocks": "ব্লক",
+        "validators": "ভ্যালিডেটর",
+        "dailyTxs": "দৈনিক TX",
+        "uptime": "আপটাইম"
+      },
       "ecosystem": "ইকোসিস্টেম",
+      "ecosystemLinks": {
+        "validators": "ভ্যালিডেটর",
+        "bridge": "ব্রিজ",
+        "explorer": "এক্সপ্লোরার",
+        "staking": "স্টেকিং",
+        "dex": "DEX",
+        "nftMarketplace": "NFT মার্কেটপ্লেস",
+        "lending": "লেন্ডিং",
+        "yieldFarming": "ইয়েল্ড ফার্মিং"
+      },
       "solutions": "সমাধান",
+      "solutionsLinks": {
+        "defiHub": "DeFi হাব",
+        "enterprise": "এন্টারপ্রাইজ",
+        "aiFeatures": "AI বৈশিষ্ট্য",
+        "tokenExtensions": "টোকেন এক্সটেনশন",
+        "gameTooling": "গেম টুলিং",
+        "btcfi": "BTCfi",
+        "payments": "পেমেন্ট",
+        "actionsBlinks": "Actions & Blinks"
+      },
       "developers": "ডেভেলপার",
+      "developersLinks": {
+        "documentation": "ডকুমেন্টেশন",
+        "quickstart": "কুইকস্টার্ট",
+        "apiReference": "API রেফারেন্স",
+        "sdkGuide": "SDK গাইড",
+        "smartContracts": "স্মার্ট কন্ট্রাক্ট",
+        "websocketApi": "WebSocket API",
+        "cliReference": "CLI রেফারেন্স",
+        "github": "GitHub"
+      },
       "resources": "রিসোর্স",
+      "resourcesLinks": {
+        "whitepaper": "হোয়াইটপেপার",
+        "tokenomics": "টোকেনমিক্স",
+        "roadmap": "রোডম্যাপ",
+        "apiStatus": "API স্ট্যাটাস",
+        "rpcEndpoints": "RPC এন্ডপয়েন্ট",
+        "blockchainBasics": "ব্লকচেইন বেসিক",
+        "defiMastery": "DeFi দক্ষতা",
+        "educationPrograms": "শিক্ষা কার্যক্রম"
+      },
       "community": "কমিউনিটি",
+      "communityLinks": {
+        "newsBlog": "খবর ও ব্লগ",
+        "events": "ইভেন্ট",
+        "communityHub": "কমিউনিটি হাব",
+        "governance": "গভর্ন্যান্স",
+        "fiatRamp": "ফিয়াট র‌্যাম্প"
+      },
       "legal": "আইনি",
       "stayUpdated": "আপডেট থাকুন",
       "newsletterDesc": "TBurn Chain থেকে সর্বশেষ খবর এবং আপডেট পান",
       "enterEmail": "আপনার ইমেইল দিন",
+      "subscribe": "সাবস্ক্রাইব",
       "copyright": "© ২০২৫ TBurn Chain Foundation। সর্বস্বত্ব সংরক্ষিত।",
       "termsOfService": "সেবার শর্তাবলী",
       "privacyPolicy": "গোপনীয়তা নীতি",

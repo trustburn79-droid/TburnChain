@@ -6567,15 +6567,70 @@
       }
     },
     "footer": {
+      "brandDescription": "全球首个由AI分析驱动的信任网络。验证项目可靠性并确保透明度。",
+      "stats": {
+        "blocks": "区块",
+        "validators": "验证者",
+        "dailyTxs": "日交易量",
+        "uptime": "运行时间"
+      },
       "ecosystem": "生态系统",
+      "ecosystemLinks": {
+        "validators": "验证者",
+        "bridge": "跨链桥",
+        "explorer": "浏览器",
+        "staking": "质押",
+        "dex": "DEX",
+        "nftMarketplace": "NFT 市场",
+        "lending": "借贷",
+        "yieldFarming": "收益农场"
+      },
       "solutions": "解决方案",
+      "solutionsLinks": {
+        "defiHub": "DeFi 中心",
+        "enterprise": "企业级",
+        "aiFeatures": "AI 功能",
+        "tokenExtensions": "代币扩展",
+        "gameTooling": "游戏工具",
+        "btcfi": "BTCfi",
+        "payments": "支付",
+        "actionsBlinks": "Actions & Blinks"
+      },
       "developers": "开发者",
+      "developersLinks": {
+        "documentation": "文档",
+        "quickstart": "快速开始",
+        "apiReference": "API 参考",
+        "sdkGuide": "SDK 指南",
+        "smartContracts": "智能合约",
+        "websocketApi": "WebSocket API",
+        "cliReference": "CLI 参考",
+        "github": "GitHub"
+      },
       "resources": "资源",
+      "resourcesLinks": {
+        "whitepaper": "白皮书",
+        "tokenomics": "代币经济学",
+        "roadmap": "路线图",
+        "apiStatus": "API 状态",
+        "rpcEndpoints": "RPC 端点",
+        "blockchainBasics": "区块链基础",
+        "defiMastery": "DeFi 精通",
+        "educationPrograms": "教育项目"
+      },
       "community": "社区",
+      "communityLinks": {
+        "newsBlog": "新闻与博客",
+        "events": "活动",
+        "communityHub": "社区中心",
+        "governance": "治理",
+        "fiatRamp": "法币通道"
+      },
       "legal": "法律信息",
       "stayUpdated": "获取最新动态",
       "newsletterDesc": "获取TBurn Chain的最新新闻和更新",
       "enterEmail": "输入邮箱",
+      "subscribe": "订阅",
       "copyright": "© 2025 TBurn Chain基金会。保留所有权利。",
       "termsOfService": "服务条款",
       "privacyPolicy": "隐私政策",

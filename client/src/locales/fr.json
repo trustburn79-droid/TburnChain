@@ -4449,15 +4449,70 @@
       }
     },
     "footer": {
+      "brandDescription": "Le premier réseau de confiance au monde alimenté par l'analyse IA. Vérification de la fiabilité des projets et garantie de transparence.",
+      "stats": {
+        "blocks": "Blocs",
+        "validators": "Validateurs",
+        "dailyTxs": "TX quotidiennes",
+        "uptime": "Disponibilité"
+      },
       "ecosystem": "Écosystème",
+      "ecosystemLinks": {
+        "validators": "Validateurs",
+        "bridge": "Pont",
+        "explorer": "Explorateur",
+        "staking": "Staking",
+        "dex": "DEX",
+        "nftMarketplace": "Marketplace NFT",
+        "lending": "Prêt",
+        "yieldFarming": "Yield Farming"
+      },
       "solutions": "Solutions",
+      "solutionsLinks": {
+        "defiHub": "Hub DeFi",
+        "enterprise": "Entreprise",
+        "aiFeatures": "Fonctionnalités IA",
+        "tokenExtensions": "Extensions de jetons",
+        "gameTooling": "Outils de jeu",
+        "btcfi": "BTCfi",
+        "payments": "Paiements",
+        "actionsBlinks": "Actions & Blinks"
+      },
       "developers": "Développeurs",
+      "developersLinks": {
+        "documentation": "Documentation",
+        "quickstart": "Démarrage rapide",
+        "apiReference": "Référence API",
+        "sdkGuide": "Guide SDK",
+        "smartContracts": "Contrats intelligents",
+        "websocketApi": "API WebSocket",
+        "cliReference": "Référence CLI",
+        "github": "GitHub"
+      },
       "resources": "Ressources",
+      "resourcesLinks": {
+        "whitepaper": "Livre blanc",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Feuille de route",
+        "apiStatus": "État de l'API",
+        "rpcEndpoints": "Points de terminaison RPC",
+        "blockchainBasics": "Fondamentaux de la blockchain",
+        "defiMastery": "Maîtrise de la DeFi",
+        "educationPrograms": "Programmes éducatifs"
+      },
       "community": "Communauté",
+      "communityLinks": {
+        "newsBlog": "Actualités et blog",
+        "events": "Événements",
+        "communityHub": "Hub communautaire",
+        "governance": "Gouvernance",
+        "fiatRamp": "Rampe fiat"
+      },
       "legal": "Mentions légales",
       "stayUpdated": "Restez informé",
       "newsletterDesc": "Recevez les dernières nouvelles et mises à jour de TBurn Chain",
       "enterEmail": "Entrez votre e-mail",
+      "subscribe": "S'abonner",
       "copyright": "© 2025 TBurn Chain Foundation. Tous droits réservés.",
       "termsOfService": "Conditions d'utilisation",
       "privacyPolicy": "Politique de confidentialité",

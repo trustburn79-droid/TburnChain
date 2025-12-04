@@ -5227,33 +5227,74 @@
       }
     },
     "footer": {
+      "brandDescription": "La primera red de confianza del mundo impulsada por análisis de IA. Verificando la fiabilidad de proyectos y garantizando transparencia.",
+      "stats": {
+        "blocks": "Bloques",
+        "validators": "Validadores",
+        "dailyTxs": "TXs Diarias",
+        "uptime": "Tiempo Activo"
+      },
       "ecosystem": "Ecosistema",
+      "ecosystemLinks": {
+        "validators": "Validadores",
+        "bridge": "Puente",
+        "explorer": "Explorador",
+        "staking": "Staking",
+        "dex": "DEX",
+        "nftMarketplace": "Mercado NFT",
+        "lending": "Préstamos",
+        "yieldFarming": "Yield Farming"
+      },
       "solutions": "Soluciones",
+      "solutionsLinks": {
+        "defiHub": "Hub DeFi",
+        "enterprise": "Empresarial",
+        "aiFeatures": "Funciones de IA",
+        "tokenExtensions": "Extensiones de Token",
+        "gameTooling": "Herramientas de Juegos",
+        "btcfi": "BTCfi",
+        "payments": "Pagos",
+        "actionsBlinks": "Acciones y Blinks"
+      },
       "developers": "Desarrolladores",
+      "developersLinks": {
+        "documentation": "Documentación",
+        "quickstart": "Inicio Rápido",
+        "apiReference": "Referencia API",
+        "sdkGuide": "Guía SDK",
+        "smartContracts": "Contratos Inteligentes",
+        "websocketApi": "API WebSocket",
+        "cliReference": "Referencia CLI",
+        "github": "GitHub"
+      },
       "resources": "Recursos",
+      "resourcesLinks": {
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Hoja de Ruta",
+        "apiStatus": "Estado API",
+        "rpcEndpoints": "Endpoints RPC",
+        "blockchainBasics": "Fundamentos de Blockchain",
+        "defiMastery": "Dominio de DeFi",
+        "educationPrograms": "Programas Educativos"
+      },
       "community": "Comunidad",
+      "communityLinks": {
+        "newsBlog": "Noticias y Blog",
+        "events": "Eventos",
+        "communityHub": "Hub de Comunidad",
+        "governance": "Gobernanza",
+        "fiatRamp": "Rampa Fiat"
+      },
       "legal": "Legal",
-      "stayUpdated": "Mantente actualizado",
+      "stayUpdated": "Mantente Actualizado",
       "newsletterDesc": "Recibe las últimas noticias y actualizaciones de TBurn Chain",
       "enterEmail": "Ingresa tu correo electrónico",
-      "copyright": "© 2024 TBurn Chain Foundation. Todos los derechos reservados.",
-      "termsOfService": "Términos de servicio",
-      "privacyPolicy": "Política de privacidad",
-      "disclaimer": "Descargo de responsabilidad",
-      "about": "Acerca de",
-      "company": "Empresa",
-      "products": "Productos",
-      "privacy": "Privacidad",
-      "terms": "Términos",
-      "cookies": "Cookies",
-      "social": {
-        "discord": "Discord",
-        "twitter": "Twitter",
-        "telegram": "Telegram",
-        "github": "GitHub",
-        "youtube": "YouTube",
-        "medium": "Medium"
-      }
+      "subscribe": "Suscribirse",
+      "copyright": "© 2025 TBurn Chain Foundation. Todos los derechos reservados.",
+      "termsOfService": "Términos de Servicio",
+      "privacyPolicy": "Política de Privacidad",
+      "disclaimer": "Descargo de Responsabilidad"
     },
     "home": {
       "heroTag": "MAINNET EN VIVO",

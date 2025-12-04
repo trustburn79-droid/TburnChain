@@ -7239,15 +7239,70 @@
       }
     },
     "footer": {
+      "brandDescription": "AI分析によって駆動される世界初のトラストネットワーク。プロジェクトの信頼性を検証し、透明性を確保します。",
+      "stats": {
+        "blocks": "ブロック",
+        "validators": "バリデーター",
+        "dailyTxs": "日次TX",
+        "uptime": "稼働時間"
+      },
       "ecosystem": "エコシステム",
+      "ecosystemLinks": {
+        "validators": "バリデーター",
+        "bridge": "ブリッジ",
+        "explorer": "エクスプローラー",
+        "staking": "ステーキング",
+        "dex": "DEX",
+        "nftMarketplace": "NFTマーケットプレイス",
+        "lending": "レンディング",
+        "yieldFarming": "イールドファーミング"
+      },
       "solutions": "ソリューション",
+      "solutionsLinks": {
+        "defiHub": "DeFiハブ",
+        "enterprise": "エンタープライズ",
+        "aiFeatures": "AI機能",
+        "tokenExtensions": "トークン拡張",
+        "gameTooling": "ゲームツーリング",
+        "btcfi": "BTCfi",
+        "payments": "ペイメント",
+        "actionsBlinks": "アクション & Blinks"
+      },
       "developers": "開発者",
+      "developersLinks": {
+        "documentation": "ドキュメント",
+        "quickstart": "クイックスタート",
+        "apiReference": "APIリファレンス",
+        "sdkGuide": "SDKガイド",
+        "smartContracts": "スマートコントラクト",
+        "websocketApi": "WebSocket API",
+        "cliReference": "CLIリファレンス",
+        "github": "GitHub"
+      },
       "resources": "リソース",
+      "resourcesLinks": {
+        "whitepaper": "ホワイトペーパー",
+        "tokenomics": "トークノミクス",
+        "roadmap": "ロードマップ",
+        "apiStatus": "APIステータス",
+        "rpcEndpoints": "RPCエンドポイント",
+        "blockchainBasics": "ブロックチェーン基礎",
+        "defiMastery": "DeFiマスタリー",
+        "educationPrograms": "教育プログラム"
+      },
       "community": "コミュニティ",
+      "communityLinks": {
+        "newsBlog": "ニュース & ブログ",
+        "events": "イベント",
+        "communityHub": "コミュニティハブ",
+        "governance": "ガバナンス",
+        "fiatRamp": "法定通貨ランプ"
+      },
       "legal": "法的情報",
       "stayUpdated": "最新情報を入手",
       "newsletterDesc": "TBurn Chainの最新ニュースとアップデートを受け取る",
       "enterEmail": "メールアドレスを入力",
+      "subscribe": "登録する",
       "copyright": "© 2025 TBurn Chain Foundation. All rights reserved.",
       "termsOfService": "利用規約",
       "privacyPolicy": "プライバシーポリシー",

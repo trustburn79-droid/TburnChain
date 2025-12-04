@@ -4666,15 +4666,70 @@
       }
     },
     "footer": {
+      "brandDescription": "أول شبكة ثقة في العالم مدعومة بتحليل الذكاء الاصطناعي. التحقق من موثوقية المشاريع وضمان الشفافية.",
+      "stats": {
+        "blocks": "الكتل",
+        "validators": "المدققون",
+        "dailyTxs": "المعاملات اليومية",
+        "uptime": "وقت التشغيل"
+      },
       "ecosystem": "النظام البيئي",
+      "ecosystemLinks": {
+        "validators": "المدققون",
+        "bridge": "الجسر",
+        "explorer": "المستكشف",
+        "staking": "الستاكينغ",
+        "dex": "DEX",
+        "nftMarketplace": "سوق NFT",
+        "lending": "الإقراض",
+        "yieldFarming": "زراعة العائد"
+      },
       "solutions": "الحلول",
+      "solutionsLinks": {
+        "defiHub": "مركز DeFi",
+        "enterprise": "المؤسسات",
+        "aiFeatures": "ميزات الذكاء الاصطناعي",
+        "tokenExtensions": "امتدادات الرموز",
+        "gameTooling": "أدوات الألعاب",
+        "btcfi": "BTCfi",
+        "payments": "المدفوعات",
+        "actionsBlinks": "الإجراءات والوميض"
+      },
       "developers": "المطورون",
+      "developersLinks": {
+        "documentation": "التوثيق",
+        "quickstart": "البدء السريع",
+        "apiReference": "مرجع API",
+        "sdkGuide": "دليل SDK",
+        "smartContracts": "العقود الذكية",
+        "websocketApi": "WebSocket API",
+        "cliReference": "مرجع CLI",
+        "github": "GitHub"
+      },
       "resources": "الموارد",
+      "resourcesLinks": {
+        "whitepaper": "الورقة البيضاء",
+        "tokenomics": "اقتصاديات الرموز",
+        "roadmap": "خارطة الطريق",
+        "apiStatus": "حالة API",
+        "rpcEndpoints": "نقاط نهاية RPC",
+        "blockchainBasics": "أساسيات البلوكتشين",
+        "defiMastery": "إتقان DeFi",
+        "educationPrograms": "البرامج التعليمية"
+      },
       "community": "المجتمع",
+      "communityLinks": {
+        "newsBlog": "الأخبار والمدونة",
+        "events": "الفعاليات",
+        "communityHub": "مركز المجتمع",
+        "governance": "الحوكمة",
+        "fiatRamp": "منصة العملات الورقية"
+      },
       "legal": "القانونية",
       "stayUpdated": "ابق على اطلاع",
       "newsletterDesc": "احصل على آخر الأخبار والتحديثات من TBurn Chain",
       "enterEmail": "أدخل بريدك الإلكتروني",
+      "subscribe": "اشترك",
       "copyright": "© 2025 مؤسسة TBurn Chain. جميع الحقوق محفوظة.",
       "termsOfService": "شروط الخدمة",
       "privacyPolicy": "سياسة الخصوصية",

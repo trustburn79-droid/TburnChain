@@ -2990,15 +2990,70 @@
       }
     },
     "footer": {
+      "brandDescription": "دنیا کا پہلا AI تجزیے سے چلنے والا اعتماد کا نیٹ ورک۔ پروجیکٹ کی قابل اعتمادی کی تصدیق اور شفافیت کو یقینی بنانا۔",
+      "stats": {
+        "blocks": "بلاکس",
+        "validators": "ویلیڈیٹرز",
+        "dailyTxs": "روزانہ TXs",
+        "uptime": "اپ ٹائم"
+      },
       "ecosystem": "ایکو سسٹم",
+      "ecosystemLinks": {
+        "validators": "ویلیڈیٹرز",
+        "bridge": "برج",
+        "explorer": "ایکسپلورر",
+        "staking": "اسٹیکنگ",
+        "dex": "DEX",
+        "nftMarketplace": "NFT مارکیٹ پلیس",
+        "lending": "لینڈنگ",
+        "yieldFarming": "یلڈ فارمنگ"
+      },
       "solutions": "حل",
+      "solutionsLinks": {
+        "defiHub": "DeFi ہب",
+        "enterprise": "انٹرپرائز",
+        "aiFeatures": "AI خصوصیات",
+        "tokenExtensions": "ٹوکن ایکسٹینشنز",
+        "gameTooling": "گیم ٹولنگ",
+        "btcfi": "BTCfi",
+        "payments": "ادائیگیاں",
+        "actionsBlinks": "ایکشنز اور بلنکس"
+      },
       "developers": "ڈویلپرز",
+      "developersLinks": {
+        "documentation": "دستاویزات",
+        "quickstart": "کوئیک اسٹارٹ",
+        "apiReference": "API حوالہ",
+        "sdkGuide": "SDK گائیڈ",
+        "smartContracts": "سمارٹ کنٹریکٹس",
+        "websocketApi": "WebSocket API",
+        "cliReference": "CLI حوالہ",
+        "github": "GitHub"
+      },
       "resources": "وسائل",
+      "resourcesLinks": {
+        "whitepaper": "وائٹ پیپر",
+        "tokenomics": "ٹوکنومکس",
+        "roadmap": "روڈ میپ",
+        "apiStatus": "API اسٹیٹس",
+        "rpcEndpoints": "RPC اینڈ پوائنٹس",
+        "blockchainBasics": "بلاکچین کی بنیادیں",
+        "defiMastery": "DeFi مہارت",
+        "educationPrograms": "تعلیمی پروگرامز"
+      },
       "community": "کمیونٹی",
+      "communityLinks": {
+        "newsBlog": "خبریں اور بلاگ",
+        "events": "تقریبات",
+        "communityHub": "کمیونٹی ہب",
+        "governance": "گورننس",
+        "fiatRamp": "فیاٹ ریمپ"
+      },
       "legal": "قانونی",
       "stayUpdated": "اپ ڈیٹ رہیں",
       "newsletterDesc": "TBurn Chain کی تازہ ترین خبریں اور اپڈیٹس حاصل کریں",
       "enterEmail": "اپنا ای میل درج کریں",
+      "subscribe": "سبسکرائب کریں",
       "copyright": "© 2025 TBurn Chain Foundation۔ تمام حقوق محفوظ ہیں۔",
       "termsOfService": "سروس کی شرائط",
       "privacyPolicy": "رازداری کی پالیسی",

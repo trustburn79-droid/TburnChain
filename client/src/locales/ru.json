@@ -3865,15 +3865,70 @@
       }
     },
     "footer": {
+      "brandDescription": "Первая в мире сеть доверия на основе ИИ-анализа. Проверка надёжности проектов и обеспечение прозрачности.",
+      "stats": {
+        "blocks": "Блоки",
+        "validators": "Валидаторы",
+        "dailyTxs": "Транзакций в день",
+        "uptime": "Время работы"
+      },
       "ecosystem": "Экосистема",
+      "ecosystemLinks": {
+        "validators": "Валидаторы",
+        "bridge": "Мост",
+        "explorer": "Обозреватель",
+        "staking": "Стейкинг",
+        "dex": "DEX",
+        "nftMarketplace": "NFT Маркетплейс",
+        "lending": "Кредитование",
+        "yieldFarming": "Yield Farming"
+      },
       "solutions": "Решения",
+      "solutionsLinks": {
+        "defiHub": "DeFi Хаб",
+        "enterprise": "Для бизнеса",
+        "aiFeatures": "ИИ-функции",
+        "tokenExtensions": "Расширения токенов",
+        "gameTooling": "Игровые инструменты",
+        "btcfi": "BTCfi",
+        "payments": "Платежи",
+        "actionsBlinks": "Actions и Blinks"
+      },
       "developers": "Разработчикам",
+      "developersLinks": {
+        "documentation": "Документация",
+        "quickstart": "Быстрый старт",
+        "apiReference": "Справочник API",
+        "sdkGuide": "Руководство по SDK",
+        "smartContracts": "Смарт-контракты",
+        "websocketApi": "WebSocket API",
+        "cliReference": "Справочник CLI",
+        "github": "GitHub"
+      },
       "resources": "Ресурсы",
+      "resourcesLinks": {
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Токеномика",
+        "roadmap": "Дорожная карта",
+        "apiStatus": "Статус API",
+        "rpcEndpoints": "RPC Эндпоинты",
+        "blockchainBasics": "Основы блокчейна",
+        "defiMastery": "Мастерство DeFi",
+        "educationPrograms": "Образовательные программы"
+      },
       "community": "Сообщество",
+      "communityLinks": {
+        "newsBlog": "Новости и блог",
+        "events": "Мероприятия",
+        "communityHub": "Хаб сообщества",
+        "governance": "Управление",
+        "fiatRamp": "Фиат-рампа"
+      },
       "legal": "Юридическая информация",
       "stayUpdated": "Будьте в курсе",
       "newsletterDesc": "Получайте последние новости и обновления от TBurn Chain",
       "enterEmail": "Введите ваш email",
+      "subscribe": "Подписаться",
       "copyright": "© 2025 TBurn Chain Foundation. Все права защищены.",
       "termsOfService": "Условия использования",
       "privacyPolicy": "Политика конфиденциальности",
