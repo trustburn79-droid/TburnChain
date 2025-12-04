@@ -30,7 +30,7 @@ import {
   Zap,
   Save,
 } from "lucide-react";
-import { SiSlack, SiDiscord, SiGithub, SiTelegram, SiAmazon, SiGooglecloud, SiMicrosoft } from "react-icons/si";
+import { SiSlack, SiDiscord, SiGithub, SiTelegram, SiAmazon, SiGooglecloud } from "react-icons/si";
 
 interface Integration {
   id: string;
@@ -107,7 +107,7 @@ export default function Integrations() {
       description: "Microsoft Azure cloud services",
       category: "cloud",
       status: "disconnected",
-      icon: SiMicrosoft,
+      icon: Cloud,
     },
   ];
 
