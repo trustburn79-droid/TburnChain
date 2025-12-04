@@ -1,62 +1,8 @@
 import { Link } from "wouter";
 import { SiX, SiGithub, SiDiscord, SiTelegram, SiMedium } from "react-icons/si";
 import { Mail, Globe, Shield, Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import "../styles/public.css";
-
-const footerLinks = {
-  ecosystem: [
-    { title: "Validators", href: "/network/validators" },
-    { title: "Bridge", href: "/solutions/cross-chain-bridge" },
-    { title: "Explorer", href: "/app" },
-    { title: "Staking", href: "/app/staking" },
-    { title: "DEX", href: "/app/dex" },
-    { title: "NFT Marketplace", href: "/app/nft-marketplace" },
-    { title: "Lending", href: "/app/lending" },
-    { title: "Yield Farming", href: "/app/yield-farming" },
-  ],
-  solutions: [
-    { title: "DeFi Hub", href: "/solutions/defi-hub" },
-    { title: "Enterprise", href: "/use-cases/enterprise" },
-    { title: "AI Features", href: "/solutions/ai-features" },
-    { title: "Token Extensions", href: "/solutions/token-extensions" },
-    { title: "Game Tooling", href: "/solutions/game-tooling" },
-    { title: "BTCfi", href: "/solutions/btcfi" },
-    { title: "Payments", href: "/solutions/payments" },
-    { title: "Actions & Blinks", href: "/solutions/actions-blinks" },
-  ],
-  developers: [
-    { title: "Documentation", href: "/developers/docs" },
-    { title: "Quickstart", href: "/developers/quickstart" },
-    { title: "API Reference", href: "/developers/api" },
-    { title: "SDK Guide", href: "/developers/sdk" },
-    { title: "Smart Contracts", href: "/developers/contracts" },
-    { title: "WebSocket API", href: "/developers/websocket" },
-    { title: "CLI Reference", href: "/developers/cli" },
-    { title: "GitHub", href: "https://github.com/tburnchain", external: true },
-  ],
-  resources: [
-    { title: "Whitepaper", href: "/learn/whitepaper" },
-    { title: "Tokenomics", href: "/learn/tokenomics" },
-    { title: "Roadmap", href: "/learn/roadmap" },
-    { title: "API Status", href: "/network/status" },
-    { title: "RPC Endpoints", href: "/network/rpc" },
-    { title: "Blockchain Basics", href: "/learn/blockchain-basics" },
-    { title: "DeFi Mastery", href: "/learn/defi-mastery" },
-    { title: "Education Programs", href: "/learn/education-programs" },
-  ],
-  community: [
-    { title: "News & Blog", href: "/community/news" },
-    { title: "Events", href: "/community/events" },
-    { title: "Community Hub", href: "/community/hub" },
-    { title: "Governance", href: "/app/governance" },
-    { title: "Fiat Ramp", href: "/network/ramp" },
-  ],
-  legal: [
-    { title: "Terms of Service", href: "/legal/terms-of-service" },
-    { title: "Privacy Policy", href: "/legal/privacy-policy" },
-    { title: "Disclaimer", href: "/legal/disclaimer" },
-  ],
-};
 
 const socialLinks = [
   { icon: SiX, href: "https://twitter.com/tburnchain", label: "Twitter" },
@@ -67,13 +13,73 @@ const socialLinks = [
 ];
 
 const stats = [
-  { value: "14M+", label: "Blocks" },
-  { value: "125", label: "Validators" },
-  { value: "50K+", label: "Daily TXs" },
-  { value: "99.9%", label: "Uptime" },
+  { value: "14M+", labelKey: "blocks" },
+  { value: "125", labelKey: "validators" },
+  { value: "50K+", labelKey: "dailyTxs" },
+  { value: "99.9%", labelKey: "uptime" },
+];
+
+const ecosystemLinks = [
+  { titleKey: "validators", href: "/network/validators" },
+  { titleKey: "bridge", href: "/solutions/cross-chain-bridge" },
+  { titleKey: "explorer", href: "/app" },
+  { titleKey: "staking", href: "/app/staking" },
+  { titleKey: "dex", href: "/app/dex" },
+  { titleKey: "nftMarketplace", href: "/app/nft-marketplace" },
+  { titleKey: "lending", href: "/app/lending" },
+  { titleKey: "yieldFarming", href: "/app/yield-farming" },
+];
+
+const solutionsLinks = [
+  { titleKey: "defiHub", href: "/solutions/defi-hub" },
+  { titleKey: "enterprise", href: "/use-cases/enterprise" },
+  { titleKey: "aiFeatures", href: "/solutions/ai-features" },
+  { titleKey: "tokenExtensions", href: "/solutions/token-extensions" },
+  { titleKey: "gameTooling", href: "/solutions/game-tooling" },
+  { titleKey: "btcfi", href: "/solutions/btcfi" },
+  { titleKey: "payments", href: "/solutions/payments" },
+  { titleKey: "actionsBlinks", href: "/solutions/actions-blinks" },
+];
+
+const developersLinks = [
+  { titleKey: "documentation", href: "/developers/docs" },
+  { titleKey: "quickstart", href: "/developers/quickstart" },
+  { titleKey: "apiReference", href: "/developers/api" },
+  { titleKey: "sdkGuide", href: "/developers/sdk" },
+  { titleKey: "smartContracts", href: "/developers/contracts" },
+  { titleKey: "websocketApi", href: "/developers/websocket" },
+  { titleKey: "cliReference", href: "/developers/cli" },
+  { titleKey: "github", href: "https://github.com/tburnchain", external: true },
+];
+
+const resourcesLinks = [
+  { titleKey: "whitepaper", href: "/learn/whitepaper" },
+  { titleKey: "tokenomics", href: "/learn/tokenomics" },
+  { titleKey: "roadmap", href: "/learn/roadmap" },
+  { titleKey: "apiStatus", href: "/network/status" },
+  { titleKey: "rpcEndpoints", href: "/network/rpc" },
+  { titleKey: "blockchainBasics", href: "/learn/blockchain-basics" },
+  { titleKey: "defiMastery", href: "/learn/defi-mastery" },
+  { titleKey: "educationPrograms", href: "/learn/education-programs" },
+];
+
+const communityLinks = [
+  { titleKey: "newsBlog", href: "/community/news" },
+  { titleKey: "events", href: "/community/events" },
+  { titleKey: "communityHub", href: "/community/hub" },
+  { titleKey: "governance", href: "/app/governance" },
+  { titleKey: "fiatRamp", href: "/network/ramp" },
+];
+
+const legalLinks = [
+  { titleKey: "termsOfService", href: "/legal/terms-of-service" },
+  { titleKey: "privacyPolicy", href: "/legal/privacy-policy" },
+  { titleKey: "disclaimer", href: "/legal/disclaimer" },
 ];
 
 export function PublicFooter() {
+  const { t } = useTranslation();
+
   return (
     <footer className="border-t border-white/5 bg-black/80 backdrop-blur-xl relative">
       <div className="absolute inset-0 bg-gradient-to-t from-[#7000ff]/5 to-transparent pointer-events-none" />
@@ -82,9 +88,9 @@ export function PublicFooter() {
         {/* Stats Bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 pb-12 border-b border-white/5">
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
+            <div key={stat.labelKey} className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-500">{stat.label}</div>
+              <div className="text-sm text-gray-500">{t(`publicPages.footer.stats.${stat.labelKey}`)}</div>
             </div>
           ))}
         </div>
@@ -100,7 +106,7 @@ export function PublicFooter() {
               <span className="text-xl font-bold text-white">TBurn Chain</span>
             </Link>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-              The world's first trust network powered by AI analysis. Verifying project reliability and ensuring transparency.
+              {t('publicPages.footer.brandDescription')}
             </p>
             
             {/* Social Links */}
@@ -134,16 +140,16 @@ export function PublicFooter() {
           <div>
             <h3 className="text-white font-bold mb-4 flex items-center gap-2">
               <Globe className="w-4 h-4 text-[#00f0ff]" />
-              Ecosystem
+              {t('publicPages.footer.ecosystem')}
             </h3>
             <ul className="space-y-2.5 text-sm text-gray-400">
-              {footerLinks.ecosystem.map((link) => (
+              {ecosystemLinks.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href} 
                     className="hover:text-[#00f0ff] transition inline-block"
                   >
-                    {link.title}
+                    {t(`publicPages.footer.ecosystemLinks.${link.titleKey}`)}
                   </Link>
                 </li>
               ))}
@@ -154,16 +160,16 @@ export function PublicFooter() {
           <div>
             <h3 className="text-white font-bold mb-4 flex items-center gap-2">
               <Zap className="w-4 h-4 text-[#7000ff]" />
-              Solutions
+              {t('publicPages.footer.solutions')}
             </h3>
             <ul className="space-y-2.5 text-sm text-gray-400">
-              {footerLinks.solutions.map((link) => (
+              {solutionsLinks.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href} 
                     className="hover:text-[#00f0ff] transition inline-block"
                   >
-                    {link.title}
+                    {t(`publicPages.footer.solutionsLinks.${link.titleKey}`)}
                   </Link>
                 </li>
               ))}
@@ -174,10 +180,10 @@ export function PublicFooter() {
           <div>
             <h3 className="text-white font-bold mb-4 flex items-center gap-2">
               <span className="text-[#00f0ff] font-mono text-xs">&lt;/&gt;</span>
-              Developers
+              {t('publicPages.footer.developers')}
             </h3>
             <ul className="space-y-2.5 text-sm text-gray-400">
-              {footerLinks.developers.map((link) => (
+              {developersLinks.map((link) => (
                 <li key={link.href}>
                   {link.external ? (
                     <a 
@@ -186,14 +192,14 @@ export function PublicFooter() {
                       rel="noopener noreferrer"
                       className="hover:text-[#00f0ff] transition inline-block"
                     >
-                      {link.title}
+                      {t(`publicPages.footer.developersLinks.${link.titleKey}`)}
                     </a>
                   ) : (
                     <Link 
                       href={link.href} 
                       className="hover:text-[#00f0ff] transition inline-block"
                     >
-                      {link.title}
+                      {t(`publicPages.footer.developersLinks.${link.titleKey}`)}
                     </Link>
                   )}
                 </li>
@@ -205,16 +211,16 @@ export function PublicFooter() {
           <div>
             <h3 className="text-white font-bold mb-4 flex items-center gap-2">
               <Shield className="w-4 h-4 text-emerald-400" />
-              Resources
+              {t('publicPages.footer.resources')}
             </h3>
             <ul className="space-y-2.5 text-sm text-gray-400">
-              {footerLinks.resources.map((link) => (
+              {resourcesLinks.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href} 
                     className="hover:text-[#00f0ff] transition inline-block"
                   >
-                    {link.title}
+                    {t(`publicPages.footer.resourcesLinks.${link.titleKey}`)}
                   </Link>
                 </li>
               ))}
@@ -225,16 +231,16 @@ export function PublicFooter() {
           <div>
             <h3 className="text-white font-bold mb-4 flex items-center gap-2">
               <span className="text-[#ffd700]">★</span>
-              Community
+              {t('publicPages.footer.community')}
             </h3>
             <ul className="space-y-2.5 text-sm text-gray-400">
-              {footerLinks.community.map((link) => (
+              {communityLinks.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href} 
                     className="hover:text-[#00f0ff] transition inline-block"
                   >
-                    {link.title}
+                    {t(`publicPages.footer.communityLinks.${link.titleKey}`)}
                   </Link>
                 </li>
               ))}
@@ -246,13 +252,13 @@ export function PublicFooter() {
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h4 className="text-white font-bold mb-1">Stay Updated</h4>
-              <p className="text-sm text-gray-400">Get the latest news and updates from TBurn Chain</p>
+              <h4 className="text-white font-bold mb-1">{t('publicPages.footer.stayUpdated')}</h4>
+              <p className="text-sm text-gray-400">{t('publicPages.footer.newsletterDesc')}</p>
             </div>
             <div className="flex gap-2 w-full md:w-auto">
               <input 
                 type="email" 
-                placeholder="Enter your email" 
+                placeholder={t('publicPages.footer.enterEmail')}
                 className="flex-1 md:w-64 px-4 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm placeholder:text-gray-500 focus:border-[#00f0ff] focus:outline-none transition"
                 data-testid="input-footer-email"
               />
@@ -260,7 +266,7 @@ export function PublicFooter() {
                 className="px-5 py-2.5 rounded-lg bg-[#7000ff] text-white font-semibold text-sm hover:bg-purple-600 transition whitespace-nowrap"
                 data-testid="button-footer-subscribe"
               >
-                Subscribe
+                {t('publicPages.footer.subscribe')}
               </button>
             </div>
           </div>
@@ -269,16 +275,16 @@ export function PublicFooter() {
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-gray-600">
-            &copy; 2025 TBurn Chain Foundation. All rights reserved.
+            {t('publicPages.footer.copyright')}
           </div>
           <div className="flex items-center gap-6 text-sm text-gray-500">
-            {footerLinks.legal.map((link) => (
+            {legalLinks.map((link) => (
               <Link 
                 key={link.href}
                 href={link.href} 
                 className="hover:text-gray-300 transition"
               >
-                {link.title}
+                {t(`publicPages.footer.${link.titleKey}`)}
               </Link>
             ))}
           </div>
