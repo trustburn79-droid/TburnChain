@@ -7098,10 +7098,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Configuration
   app.get("/api/admin/settings", async (_req, res) => {
     res.json({
-      general: { siteName: 'TBURN Admin', timezone: 'UTC', language: 'en' },
-      security: { sessionTimeout: 3600, mfaRequired: true, ipWhitelist: [] },
-      notifications: { email: true, slack: true, sms: false },
-      api: { rateLimit: 1000, timeout: 30000 }
+      general: {
+        chainName: "TBURN Mainnet",
+        chainId: "8888",
+        rpcEndpoint: "https://rpc.tburn.io",
+        wsEndpoint: "wss://ws.tburn.io",
+        explorerUrl: "https://explorer.tburn.io",
+        timezone: "utc",
+      },
+      database: {
+        autoBackup: true,
+        dataRetention: "90",
+      },
+      network: {
+        blockTime: 2,
+        maxBlockSize: 2,
+        gasLimit: "30000000",
+        minGasPrice: "1",
+        maxValidators: 200,
+        minStake: "1000000",
+        aiEnhancedBft: true,
+        dynamicSharding: true,
+      },
+      security: {
+        twoFactorAuth: true,
+        sessionTimeout: "30",
+        ipWhitelist: false,
+        rateLimiting: true,
+        autoKeyRotation: "90",
+      },
+      notifications: {
+        criticalAlerts: true,
+        securityEvents: true,
+        validatorStatus: true,
+        bridgeAlerts: false,
+        aiSystemAlerts: false,
+        maintenanceReminders: false,
+        alertEmail: "alerts@tburn.io",
+        smtpServer: "smtp.tburn.io",
+      },
+      appearance: {
+        defaultTheme: "system",
+        defaultLanguage: "en",
+        compactMode: false,
+      },
     });
   });
 
