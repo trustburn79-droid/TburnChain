@@ -8787,7 +8787,111 @@
       "educationPrograms": {
         "tag": "プログラム",
         "title": "教育プログラム",
-        "subtitle": "ブロックチェーン教育のための体系的な学習パスと認定プログラム。"
+        "subtitle": "ブロックチェーン教育のための体系的な学習パスと認定プログラム。",
+        "backToLearn": "学習に戻る",
+        "pathsTitle": "学習パス",
+        "pathsSubtitle": "目標と経験レベルに基づいて体系的なパスを選択してください。",
+        "coursesLabel": "コース",
+        "featuredTitle": "おすすめコース",
+        "featuredSubtitle": "ブロックチェーンの旅を始めるための人気コース。",
+        "benefitsTitle": "私たちと学ぶ理由",
+        "benefitsSubtitle": "ブロックチェーンのキャリアを発展させた数千人の学習者に参加しましょう。",
+        "levels": {
+          "beginner": "初級",
+          "intermediate": "中級",
+          "advanced": "上級"
+        },
+        "tags": {
+          "popular": "人気",
+          "advanced": "上級",
+          "certification": "認定"
+        },
+        "stats": {
+          "students": "登録学生",
+          "courses": "利用可能なコース",
+          "certified": "認定卒業生",
+          "satisfaction": "満足度"
+        },
+        "paths": {
+          "beginner": {
+            "title": "ブロックチェーン基礎",
+            "subtitle": "コア概念と用語でブロックチェーンの旅を始めましょう。",
+            "duration": "6時間",
+            "level": "初級"
+          },
+          "defi": {
+            "title": "DeFiスペシャリスト",
+            "subtitle": "分散型金融プロトコルと戦略をマスターしましょう。",
+            "duration": "12時間",
+            "level": "中級"
+          },
+          "developer": {
+            "title": "スマートコントラクト開発者",
+            "subtitle": "TBurnチェーン上でプロダクションレディなdAppを構築しましょう。",
+            "duration": "20時間",
+            "level": "上級"
+          },
+          "security": {
+            "title": "セキュリティ＆トラスト",
+            "subtitle": "Trust Score、セキュリティ監査、ベストプラクティスを学びましょう。",
+            "duration": "10時間",
+            "level": "中級"
+          }
+        },
+        "featured": {
+          "blockchainBasics": {
+            "title": "ブロックチェーン基礎",
+            "description": "ブロックチェーン技術、コンセンサスメカニズム、暗号化の基本概念を学びます。"
+          },
+          "introDefi": {
+            "title": "DeFi入門",
+            "description": "分散型金融、流動性プール、イールドファーミング、取引戦略を理解します。"
+          },
+          "defiMastery": {
+            "title": "DeFiマスタリー",
+            "description": "MEV保護、複雑な戦略、プロトコル設計を含む上級DeFi概念。"
+          },
+          "developerCourse": {
+            "title": "開発者コース",
+            "description": "スマートコントラクトを構築し、SDKを統合し、TBurnチェーンに本番アプリケーションをデプロイします。"
+          },
+          "trustScore": {
+            "title": "Trust Scoreシステム",
+            "description": "AI駆動のTrust Scoreシステムと検証メカニズムを深く掘り下げます。"
+          },
+          "tokenomics": {
+            "title": "トークノミクス",
+            "description": "TBURNトークン経済学、発行モデル、ステーキングメカニズムを理解します。"
+          }
+        },
+        "benefits": {
+          "certification": {
+            "title": "公式認定",
+            "description": "業界で認められた検証済み証明書を取得しましょう。"
+          },
+          "community": {
+            "title": "コミュニティアクセス",
+            "description": "限定Discordチャンネルとネットワーキングイベントに参加しましょう。"
+          },
+          "practical": {
+            "title": "実践的な学習",
+            "description": "実際のコードとライブテストネット環境で作業しましょう。"
+          },
+          "career": {
+            "title": "キャリア成長",
+            "description": "就職支援とポートフォリオ構築サポートを受けましょう。"
+          }
+        },
+        "universities": {
+          "title": "大学パートナーシップ",
+          "description": "主要機関との学術協力と研究プログラムを探索しましょう。"
+        },
+        "cta": {
+          "title": "学習を始める準備はできましたか？",
+          "description": "今日から包括的なコースでブロックチェーン教育の旅を始めましょう。",
+          "startLearning": "学習を始める",
+          "developerPath": "開発者パス"
+        }
       },
       "universities": {
         "tag": "アカデミア",

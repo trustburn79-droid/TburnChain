@@ -6132,14 +6132,118 @@
         }
       },
       "educationPrograms": {
-        "tag": "PROGRAMS",
-        "title": "Education Programs",
-        "subtitle": "Structured learning paths and certification programs for blockchain education."
+        "tag": "البرامج",
+        "title": "البرامج التعليمية",
+        "subtitle": "مسارات تعلم منظمة وبرامج شهادات لتعليم البلوكتشين.",
+        "backToLearn": "العودة إلى التعلم",
+        "pathsTitle": "مسارات التعلم",
+        "pathsSubtitle": "اختر مسارًا منظمًا بناءً على أهدافك ومستوى خبرتك.",
+        "coursesLabel": "دورات",
+        "featuredTitle": "الدورات المميزة",
+        "featuredSubtitle": "دورات شائعة لبدء رحلتك في البلوكتشين.",
+        "benefitsTitle": "لماذا تتعلم معنا",
+        "benefitsSubtitle": "انضم إلى آلاف المتعلمين الذين طوروا مسيرتهم المهنية في البلوكتشين.",
+        "levels": {
+          "beginner": "مبتدئ",
+          "intermediate": "متوسط",
+          "advanced": "متقدم"
+        },
+        "tags": {
+          "popular": "شائع",
+          "advanced": "متقدم",
+          "certification": "شهادة"
+        },
+        "stats": {
+          "students": "الطلاب المسجلين",
+          "courses": "الدورات المتاحة",
+          "certified": "الخريجون المعتمدون",
+          "satisfaction": "معدل الرضا"
+        },
+        "paths": {
+          "beginner": {
+            "title": "أساسيات البلوكتشين",
+            "subtitle": "ابدأ رحلتك في البلوكتشين بالمفاهيم والمصطلحات الأساسية.",
+            "duration": "٦ ساعات",
+            "level": "مبتدئ"
+          },
+          "defi": {
+            "title": "متخصص DeFi",
+            "subtitle": "إتقان بروتوكولات واستراتيجيات التمويل اللامركزي.",
+            "duration": "١٢ ساعة",
+            "level": "متوسط"
+          },
+          "developer": {
+            "title": "مطور العقود الذكية",
+            "subtitle": "بناء تطبيقات لامركزية جاهزة للإنتاج على سلسلة TBurn.",
+            "duration": "٢٠ ساعة",
+            "level": "متقدم"
+          },
+          "security": {
+            "title": "الأمان والثقة",
+            "subtitle": "تعرف على Trust Score والتدقيق الأمني وأفضل الممارسات.",
+            "duration": "١٠ ساعات",
+            "level": "متوسط"
+          }
+        },
+        "featured": {
+          "blockchainBasics": {
+            "title": "أساسيات البلوكتشين",
+            "description": "تعلم المفاهيم الأساسية لتقنية البلوكتشين وآليات الإجماع والتشفير."
+          },
+          "introDefi": {
+            "title": "مقدمة في DeFi",
+            "description": "فهم التمويل اللامركزي ومجمعات السيولة وزراعة العائد واستراتيجيات التداول."
+          },
+          "defiMastery": {
+            "title": "إتقان DeFi",
+            "description": "مفاهيم DeFi المتقدمة بما في ذلك حماية MEV والاستراتيجيات المعقدة وتصميم البروتوكول."
+          },
+          "developerCourse": {
+            "title": "دورة المطورين",
+            "description": "بناء العقود الذكية ودمج SDK ونشر تطبيقات الإنتاج على سلسلة TBurn."
+          },
+          "trustScore": {
+            "title": "نظام Trust Score",
+            "description": "نظرة عميقة على نظام Trust Score المدعوم بالذكاء الاصطناعي وآليات التحقق."
+          },
+          "tokenomics": {
+            "title": "اقتصاديات الرمز",
+            "description": "فهم اقتصاديات رمز TBURN ونماذج الإصدار وآليات الستاكينج."
+          }
+        },
+        "benefits": {
+          "certification": {
+            "title": "شهادة رسمية",
+            "description": "احصل على شهادات معتمدة ومعترف بها في الصناعة."
+          },
+          "community": {
+            "title": "الوصول إلى المجتمع",
+            "description": "انضم إلى قنوات Discord الحصرية وفعاليات التواصل."
+          },
+          "practical": {
+            "title": "التعلم العملي",
+            "description": "العمل مع كود حقيقي وبيئات شبكة اختبار مباشرة."
+          },
+          "career": {
+            "title": "النمو المهني",
+            "description": "احصل على دعم التوظيف وبناء المحفظة."
+          }
+        },
+        "universities": {
+          "title": "الشراكات الجامعية",
+          "description": "استكشف التعاون الأكاديمي وبرامج البحث مع المؤسسات الرائدة."
+        },
+        "cta": {
+          "title": "مستعد لبدء التعلم؟",
+          "description": "ابدأ رحلتك التعليمية في البلوكتشين اليوم مع دوراتنا الشاملة.",
+          "startLearning": "ابدأ التعلم",
+          "developerPath": "مسار المطور"
+        }
       },
       "universities": {
-        "tag": "ACADEMIA",
-        "title": "University Partnerships",
-        "subtitle": "Academic collaborations and research programs advancing blockchain education."
+        "tag": "الأكاديميا",
+        "title": "الشراكات الجامعية",
+        "subtitle": "التعاون الأكاديمي وبرامج البحث لتطوير تعليم البلوكتشين."
       }
     },
     "developers": {

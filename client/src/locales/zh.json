@@ -8115,7 +8115,111 @@
       "educationPrograms": {
         "tag": "项目",
         "title": "教育项目",
-        "subtitle": "区块链教育的结构化学习路径和认证项目。"
+        "subtitle": "区块链教育的结构化学习路径和认证项目。",
+        "backToLearn": "返回学习",
+        "pathsTitle": "学习路径",
+        "pathsSubtitle": "根据您的目标和经验水平选择结构化路径。",
+        "coursesLabel": "课程",
+        "featuredTitle": "精选课程",
+        "featuredSubtitle": "开启您区块链之旅的热门课程。",
+        "benefitsTitle": "为什么选择我们",
+        "benefitsSubtitle": "加入数千名已提升区块链职业生涯的学习者。",
+        "levels": {
+          "beginner": "初级",
+          "intermediate": "中级",
+          "advanced": "高级"
+        },
+        "tags": {
+          "popular": "热门",
+          "advanced": "高级",
+          "certification": "认证"
+        },
+        "stats": {
+          "students": "注册学生",
+          "courses": "可用课程",
+          "certified": "认证毕业生",
+          "satisfaction": "满意度"
+        },
+        "paths": {
+          "beginner": {
+            "title": "区块链基础",
+            "subtitle": "从核心概念和术语开始您的区块链之旅。",
+            "duration": "6小时",
+            "level": "初级"
+          },
+          "defi": {
+            "title": "DeFi专家",
+            "subtitle": "掌握去中心化金融协议和策略。",
+            "duration": "12小时",
+            "level": "中级"
+          },
+          "developer": {
+            "title": "智能合约开发者",
+            "subtitle": "在TBurn链上构建生产级dApp。",
+            "duration": "20小时",
+            "level": "高级"
+          },
+          "security": {
+            "title": "安全与信任",
+            "subtitle": "学习Trust Score、安全审计和最佳实践。",
+            "duration": "10小时",
+            "level": "中级"
+          }
+        },
+        "featured": {
+          "blockchainBasics": {
+            "title": "区块链基础",
+            "description": "学习区块链技术、共识机制和密码学的基本概念。"
+          },
+          "introDefi": {
+            "title": "DeFi入门",
+            "description": "了解去中心化金融、流动性池、收益耕作和交易策略。"
+          },
+          "defiMastery": {
+            "title": "DeFi精通",
+            "description": "高级DeFi概念，包括MEV保护、复杂策略和协议设计。"
+          },
+          "developerCourse": {
+            "title": "开发者课程",
+            "description": "构建智能合约、集成SDK，在TBurn链上部署生产应用。"
+          },
+          "trustScore": {
+            "title": "Trust Score系统",
+            "description": "深入了解AI驱动的Trust Score系统和验证机制。"
+          },
+          "tokenomics": {
+            "title": "代币经济学",
+            "description": "了解TBURN代币经济学、发行模型和质押机制。"
+          }
+        },
+        "benefits": {
+          "certification": {
+            "title": "官方认证",
+            "description": "获得业界认可的验证证书。"
+          },
+          "community": {
+            "title": "社区访问",
+            "description": "加入专属Discord频道和网络活动。"
+          },
+          "practical": {
+            "title": "实践学习",
+            "description": "使用真实代码和测试网环境进行操作。"
+          },
+          "career": {
+            "title": "职业发展",
+            "description": "获得就业支持和作品集构建帮助。"
+          }
+        },
+        "universities": {
+          "title": "大学合作",
+          "description": "探索与领先机构的学术合作和研究项目。"
+        },
+        "cta": {
+          "title": "准备开始学习了吗？",
+          "description": "立即通过我们的综合课程开始您的区块链教育之旅。",
+          "startLearning": "开始学习",
+          "developerPath": "开发者路径"
+        }
       },
       "universities": {
         "tag": "学术",

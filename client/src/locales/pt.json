@@ -5415,14 +5415,106 @@
         "tag": "PROGRAMAS",
         "title": "Programas de Educação",
         "subtitle": "Trilhas de aprendizado estruturadas e programas de certificação para educação blockchain.",
-        "pageTitle": "Programas Educacionais",
-        "pageSubtitle": "Cursos completos e certificações para dominar a tecnologia blockchain",
+        "backToLearn": "Voltar para Aprender",
+        "pathsTitle": "Trilhas de Aprendizado",
+        "pathsSubtitle": "Escolha uma trilha estruturada com base em seus objetivos e nível de experiência.",
+        "coursesLabel": "cursos",
+        "featuredTitle": "Cursos em Destaque",
+        "featuredSubtitle": "Cursos populares para começar sua jornada blockchain.",
+        "benefitsTitle": "Por Que Aprender Conosco",
+        "benefitsSubtitle": "Junte-se a milhares de alunos que avançaram suas carreiras em blockchain.",
+        "levels": {
+          "beginner": "Iniciante",
+          "intermediate": "Intermediário",
+          "advanced": "Avançado"
+        },
+        "tags": {
+          "popular": "Popular",
+          "advanced": "Avançado",
+          "certification": "Certificação"
+        },
         "stats": {
+          "students": "Alunos Inscritos",
+          "courses": "Cursos Disponíveis",
+          "certified": "Graduados Certificados",
+          "satisfaction": "Taxa de Satisfação",
           "totalCourses": "8 Cursos",
           "hoursContent": "50+ Horas",
           "activeLearners": "10K+ Alunos",
           "completionRate": "92% Taxa"
         },
+        "paths": {
+          "beginner": {
+            "title": "Fundamentos de Blockchain",
+            "subtitle": "Comece sua jornada blockchain com conceitos e terminologia básica.",
+            "duration": "6 horas",
+            "level": "Iniciante"
+          },
+          "defi": {
+            "title": "Especialista DeFi",
+            "subtitle": "Domine protocolos e estratégias de finanças descentralizadas.",
+            "duration": "12 horas",
+            "level": "Intermediário"
+          },
+          "developer": {
+            "title": "Desenvolvedor de Smart Contracts",
+            "subtitle": "Construa dApps prontos para produção no TBurn Chain.",
+            "duration": "20 horas",
+            "level": "Avançado"
+          },
+          "security": {
+            "title": "Segurança e Confiança",
+            "subtitle": "Aprenda sobre Trust Score, auditorias de segurança e melhores práticas.",
+            "duration": "10 horas",
+            "level": "Intermediário"
+          }
+        },
+        "featured": {
+          "blockchainBasics": {
+            "title": "Fundamentos de Blockchain",
+            "description": "Aprenda os conceitos fundamentais da tecnologia blockchain, mecanismos de consenso e criptografia."
+          },
+          "introDefi": {
+            "title": "Introdução ao DeFi",
+            "description": "Entenda finanças descentralizadas, pools de liquidez, yield farming e estratégias de trading."
+          },
+          "defiMastery": {
+            "title": "Domínio de DeFi",
+            "description": "Conceitos avançados de DeFi incluindo proteção MEV, estratégias complexas e design de protocolos."
+          },
+          "developerCourse": {
+            "title": "Curso de Desenvolvedor",
+            "description": "Construa smart contracts, integre SDKs e implante aplicações em produção no TBurn Chain."
+          },
+          "trustScore": {
+            "title": "Sistema Trust Score",
+            "description": "Mergulho profundo no sistema Trust Score alimentado por IA e mecanismos de verificação."
+          },
+          "tokenomics": {
+            "title": "Tokenomics",
+            "description": "Entenda a economia do token TBURN, modelos de emissão e mecânicas de staking."
+          }
+        },
+        "benefits": {
+          "certification": {
+            "title": "Certificação Oficial",
+            "description": "Obtenha certificados verificados reconhecidos na indústria."
+          },
+          "community": {
+            "title": "Acesso à Comunidade",
+            "description": "Participe de canais exclusivos do Discord e eventos de networking."
+          },
+          "practical": {
+            "title": "Aprendizado Prático",
+            "description": "Trabalhe com código real e ambientes de testnet ao vivo."
+          },
+          "career": {
+            "title": "Crescimento de Carreira",
+            "description": "Obtenha suporte para colocação profissional e construção de portfólio."
+          }
+        },
+        "pageTitle": "Programas Educacionais",
+        "pageSubtitle": "Cursos completos e certificações para dominar a tecnologia blockchain",
         "coursesTitle": "Trilhas de Aprendizado Disponíveis",
         "coursesSubtitle": "Escolha sua trilha e comece a aprender hoje",
         "courses": {
@@ -5464,7 +5556,17 @@
             "description": "Certificação em operação e manutenção de nós validadores"
           }
         },
-        "getCertified": "Obter Certificação"
+        "getCertified": "Obter Certificação",
+        "universities": {
+          "title": "Parcerias Universitárias",
+          "description": "Explore nossas colaborações acadêmicas e programas de pesquisa com instituições líderes."
+        },
+        "cta": {
+          "title": "Pronto para Começar a Aprender?",
+          "description": "Comece sua jornada de educação blockchain hoje com nossos cursos abrangentes.",
+          "startLearning": "Começar a Aprender",
+          "developerPath": "Trilha de Desenvolvedor"
+        }
       },
       "universities": {
         "tag": "ACADEMIA",
