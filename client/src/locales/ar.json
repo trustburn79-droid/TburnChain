@@ -6566,7 +6566,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "توكن BRC-20",
+            "title": "توكن TBC-20",
             "description": "توكن قياسي مع تحويلات واعية للثقة"
           },
           "nft": {
@@ -6734,7 +6734,7 @@
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Create BRC-20 Token",
+            "title": "Create TBC-20 Token",
             "description": "Deploy a trust-verified token with automatic burn mechanics",
             "category": "Smart Contract"
           },
@@ -7239,7 +7239,7 @@
           },
           "tokenExtensions": {
             "title": "امتدادات الرموز",
-            "subtitle": "معايير BRC-20"
+            "subtitle": "معايير TBC-20"
           },
           "wallets": {
             "title": "المحافظ",
@@ -7311,11 +7311,11 @@
         "tag": "معايير الرموز",
         "title": "امتدادات",
         "titleHighlight": "الرموز",
-        "subtitle": "معايير رموز BRC-20 المتقدمة مع التحقق المدمج من الثقة وآليات الحرق التلقائي.",
-        "exploreBrc20": "استكشف BRC-20",
+        "subtitle": "معايير رموز TBC-20 المتقدمة مع التحقق المدمج من الثقة وآليات الحرق التلقائي.",
+        "exploreBrc20": "استكشف TBC-20",
         "readSpecs": "اقرأ المواصفات",
         "buttons": {
-          "exploreBrc20": "استكشف BRC-20",
+          "exploreBrc20": "استكشف TBC-20",
           "readSpecs": "اقرأ المواصفات",
           "openConsole": "فتح وحدة تحكم المطور",
           "viewApiDocs": "عرض وثائق API"
@@ -7360,13 +7360,13 @@
           }
         },
         "brc20": {
-          "title": "معيار رمز BRC-20",
+          "title": "معيار رمز TBC-20",
           "subtitle": "الواجهات الأساسية لوظائف الثقة والحرق.",
           "trustScoreFunctions": "دوال درجة الثقة",
           "autoBurnFunctions": "دوال الحرق التلقائي"
         },
         "brc20Standard": {
-          "title": "معيار رمز BRC-20",
+          "title": "معيار رمز TBC-20",
           "subtitle": "الواجهات الأساسية لوظائف الثقة والحرق.",
           "trustScoreFunctions": "دوال درجة الثقة",
           "autoBurnFunctions": "دوال الحرق التلقائي"
@@ -7440,7 +7440,7 @@
           }
         },
         "cta": {
-          "title": "ابدأ بإصدار رموز BRC-20",
+          "title": "ابدأ بإصدار رموز TBC-20",
           "subtitle": "أصدر رموزاً مع ميزات تصنيف الثقة المدمجة في أقل من 5 دقائق.",
           "openConsole": "فتح وحدة تحكم المطور",
           "viewApiDocs": "عرض وثائق API"
@@ -7551,7 +7551,7 @@
           },
           "tokenExtensions": {
             "title": "امتدادات الرموز",
-            "subtitle": "معايير BRC-20"
+            "subtitle": "معايير TBC-20"
           }
         },
         "developerResources": {
@@ -8650,7 +8650,7 @@
           "description": "عزز تجربة BTCfi الخاصة بك بهذه الأدوات",
           "tokenExtensions": {
             "title": "امتدادات الرموز",
-            "subtitle": "معايير BRC-20"
+            "subtitle": "معايير TBC-20"
           },
           "wallets": {
             "title": "المحافظ",

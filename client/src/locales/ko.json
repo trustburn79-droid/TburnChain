@@ -9003,7 +9003,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 토큰",
+            "title": "TBC-20 토큰",
             "description": "신뢰 인식 전송이 가능한 표준 토큰"
           },
           "nft": {
@@ -9171,7 +9171,7 @@
             "category": "프론트엔드"
           },
           "createToken": {
-            "title": "BRC-20 토큰 생성",
+            "title": "TBC-20 토큰 생성",
             "description": "자동 소각 메커니즘이 포함된 신뢰 검증 토큰 배포",
             "category": "스마트 컨트랙트"
           },
@@ -9648,7 +9648,7 @@
           "description": "DeFi 경험을 확장하는 보완 솔루션",
           "tokenExtensions": {
             "title": "토큰 익스텐션",
-            "subtitle": "BRC-20 표준"
+            "subtitle": "TBC-20 표준"
           },
           "payments": {
             "title": "결제",
@@ -9769,8 +9769,8 @@
         "tag": "토큰 표준",
         "title": "토큰",
         "titleHighlight": "확장",
-        "subtitle": "내장 신뢰 검증 및 자동 소각 메커니즘을 갖춘 고급 BRC-20 토큰 표준.",
-        "exploreBrc20": "BRC-20 탐색",
+        "subtitle": "내장 신뢰 검증 및 자동 소각 메커니즘을 갖춘 고급 TBC-20 토큰 표준.",
+        "exploreBrc20": "TBC-20 탐색",
         "readSpecs": "사양 읽기",
         "features": {
           "builtInTrustRating": {
@@ -9812,7 +9812,7 @@
           }
         },
         "brc20Standard": {
-          "title": "BRC-20 토큰 표준",
+          "title": "TBC-20 토큰 표준",
           "subtitle": "신뢰 및 소각 기능을 위한 핵심 인터페이스.",
           "trustScoreFunctions": "신뢰도 점수 함수",
           "autoBurnFunctions": "자동 소각 함수"
@@ -9860,19 +9860,19 @@
           }
         },
         "cta": {
-          "title": "BRC-20 토큰 발행 시작하기",
+          "title": "TBC-20 토큰 발행 시작하기",
           "subtitle": "5분 이내에 내장 신뢰 등급 기능을 가진 토큰을 발행하세요.",
           "openConsole": "개발자 콘솔 열기",
           "viewApiDocs": "API 문서 보기"
         },
         "buttons": {
-          "exploreBrc20": "BRC-20 탐색",
+          "exploreBrc20": "TBC-20 탐색",
           "readSpecs": "사양 읽기",
           "openConsole": "개발자 콘솔 열기",
           "viewApiDocs": "API 문서 보기"
         },
         "brc20": {
-          "title": "BRC-20 토큰 표준",
+          "title": "TBC-20 토큰 표준",
           "subtitle": "신뢰 및 소각 기능을 위한 핵심 인터페이스.",
           "trustScoreFunctions": "신뢰도 점수 함수",
           "autoBurnFunctions": "자동 소각 함수"
@@ -10009,7 +10009,7 @@
           },
           "tokenExtensions": {
             "title": "토큰 익스텐션",
-            "subtitle": "BRC-20 표준"
+            "subtitle": "TBC-20 표준"
           },
           "title": "관련 솔루션"
         },
@@ -10156,7 +10156,7 @@
           },
           "tokenExtensions": {
             "title": "토큰 익스텐션",
-            "subtitle": "BRC-20 표준"
+            "subtitle": "TBC-20 표준"
           }
         },
         "developerResources": {
@@ -10709,7 +10709,7 @@
           },
           "tokenExtensions": {
             "title": "토큰 익스텐션",
-            "subtitle": "BRC-20 표준"
+            "subtitle": "TBC-20 표준"
           }
         },
         "developerResources": {
@@ -11233,7 +11233,7 @@
           "description": "이 도구로 BTCfi 경험을 향상시키세요",
           "tokenExtensions": {
             "title": "토큰 익스텐션",
-            "subtitle": "BRC-20 표준"
+            "subtitle": "TBC-20 표준"
           },
           "wallets": {
             "title": "지갑",

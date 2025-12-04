@@ -9219,7 +9219,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20トークン",
+            "title": "TBC-20トークン",
             "description": "信頼対応トランスファー付き標準トークン"
           },
           "nft": {
@@ -9387,7 +9387,7 @@
             "category": "フロントエンド"
           },
           "createToken": {
-            "title": "BRC-20トークンを作成",
+            "title": "TBC-20トークンを作成",
             "description": "自動バーンメカニクス付きの信頼検証済みトークンをデプロイ",
             "category": "スマートコントラクト"
           },
@@ -9891,7 +9891,7 @@
           },
           "tokenExtensions": {
             "title": "トークン拡張",
-            "subtitle": "BRC-20標準"
+            "subtitle": "TBC-20標準"
           },
           "wallets": {
             "title": "ウォレット",
@@ -9965,7 +9965,7 @@
         "title": "トークン拡張",
         "subtitle": "AI強化機能を備えた高度なTBC-20、TBC-721、TBC-1155トークン規格。",
         "titleHighlight": "拡張機能",
-        "exploreBrc20": "BRC-20を探索",
+        "exploreBrc20": "TBC-20を探索",
         "readSpecs": "仕様を読む",
         "features": {
           "builtInTrustRating": {
@@ -10008,7 +10008,7 @@
         },
         "standards": {
           "brc20": {
-            "title": "BRC-20",
+            "title": "TBC-20",
             "description": "トラスト統合を備えた代替可能トークン"
           },
           "brc721": {
@@ -10073,19 +10073,19 @@
           }
         },
         "buttons": {
-          "exploreBrc20": "BRC-20を探索",
+          "exploreBrc20": "TBC-20を探索",
           "readSpecs": "仕様を読む",
           "openConsole": "開発者コンソールを開く",
           "viewApiDocs": "APIドキュメントを見る"
         },
         "brc20": {
-          "title": "BRC-20トークン標準",
+          "title": "TBC-20トークン標準",
           "subtitle": "トラスト＆バーン機能のコアインターフェース。",
           "trustScoreFunctions": "トラストスコア関数",
           "autoBurnFunctions": "自動バーン関数"
         },
         "brc20Standard": {
-          "title": "BRC-20トークン標準",
+          "title": "TBC-20トークン標準",
           "subtitle": "トラスト＆バーン機能のコアインターフェース。",
           "trustScoreFunctions": "トラストスコア関数",
           "autoBurnFunctions": "自動バーン関数"
@@ -10159,7 +10159,7 @@
           }
         },
         "cta": {
-          "title": "BRC-20トークンの発行を開始",
+          "title": "TBC-20トークンの発行を開始",
           "subtitle": "5分以内に組み込みトラスト評価機能を持つトークンを発行。",
           "openConsole": "開発者コンソールを開く",
           "viewApiDocs": "APIドキュメントを見る"
@@ -10269,7 +10269,7 @@
           },
           "tokenExtensions": {
             "title": "トークン拡張",
-            "subtitle": "BRC-20標準"
+            "subtitle": "TBC-20標準"
           }
         },
         "developerResources": {
@@ -11562,7 +11562,7 @@
           "description": "これらのツールでBTCfi体験を強化",
           "tokenExtensions": {
             "title": "トークン拡張",
-            "subtitle": "BRC-20標準"
+            "subtitle": "TBC-20標準"
           },
           "wallets": {
             "title": "ウォレット",

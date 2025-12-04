@@ -138,7 +138,7 @@ export default function TokenExtensions() {
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <a 
-              href="#brc-20"
+              href="#tbc-20"
               className="px-8 py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition"
               style={{ boxShadow: "0 0 20px rgba(112,0,255,0.3)" }}
               data-testid="button-explore"
@@ -202,8 +202,8 @@ export default function TokenExtensions() {
         </div>
       </section>
 
-      {/* BRC-20 Token Standard Section */}
-      <section id="brc-20" className="py-20 px-6 bg-white/5 border-y border-white/5">
+      {/* TBC-20 Token Standard Section */}
+      <section id="tbc-20" className="py-20 px-6 bg-white/5 border-y border-white/5">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-white mb-2">{t('publicPages.solutions.tokenExtensions.brc20.title')}</h2>

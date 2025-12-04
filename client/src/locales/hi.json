@@ -7189,7 +7189,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 टोकन",
+            "title": "TBC-20 टोकन",
             "description": "मानक टोकन with trust-aware transfers"
           },
           "nft": {
@@ -7357,7 +7357,7 @@
             "category": "Frontend"
           },
           "createToken": {
-            "title": "बनाएं BRC-20 टोकन",
+            "title": "बनाएं TBC-20 टोकन",
             "description": "तैनात करें a trust-verified टोकन with automatic बर्न mechanics",
             "category": "स्मार्ट कॉन्ट्रैक्ट"
           },
@@ -7877,7 +7877,7 @@
           },
           "tokenExtensions": {
             "title": "टोकन एक्सटेंशन",
-            "subtitle": "BRC-20 मानक"
+            "subtitle": "TBC-20 मानक"
           },
           "wallets": {
             "title": "वॉलेट्स",
@@ -7943,8 +7943,8 @@
         "tag": "टोकन मानक",
         "title": "टोकन",
         "titleHighlight": "एक्सटेंशंस",
-        "subtitle": "बिल्ट-इन विश्वास सत्यापन और स्वचालित बर्न मैकेनिक्स के साथ उन्नत BRC-20 टोकन मानक।",
-        "exploreBrc20": "BRC-20 खोजें",
+        "subtitle": "बिल्ट-इन विश्वास सत्यापन और स्वचालित बर्न मैकेनिक्स के साथ उन्नत TBC-20 टोकन मानक।",
+        "exploreBrc20": "TBC-20 खोजें",
         "readSpecs": "स्पेक्स पढ़ें",
         "features": {
           "builtInTrustRating": {
@@ -7986,7 +7986,7 @@
           }
         },
         "brc20Standard": {
-          "title": "BRC-20 टोकन मानक",
+          "title": "TBC-20 टोकन मानक",
           "subtitle": "Trust & Burn कार्यक्षमता के लिए कोर इंटरफेस।",
           "trustScoreFunctions": "विश्वास स्कोर फंक्शन्स",
           "autoBurnFunctions": "ऑटो बर्न फंक्शन्स"
@@ -8034,19 +8034,19 @@
           }
         },
         "cta": {
-          "title": "BRC-20 टोकन जारी करना शुरू करें",
+          "title": "TBC-20 टोकन जारी करना शुरू करें",
           "subtitle": "5 मिनट से कम में बिल्ट-इन विश्वास रेटिंग सुविधाओं के साथ टोकन जारी करें।",
           "openConsole": "डेवलपर कंसोल खोलें",
           "viewApiDocs": "API दस्तावेज़ देखें"
         },
         "buttons": {
-          "exploreBrc20": "BRC-20 खोजें",
+          "exploreBrc20": "TBC-20 खोजें",
           "readSpecs": "स्पेक्स पढ़ें",
           "openConsole": "डेवलपर कंसोल खोलें",
           "viewApiDocs": "API दस्तावेज़ देखें"
         },
         "brc20": {
-          "title": "BRC-20 टोकन मानक",
+          "title": "TBC-20 टोकन मानक",
           "subtitle": "Trust & Burn कार्यक्षमता के लिए कोर इंटरफेस।",
           "trustScoreFunctions": "विश्वास स्कोर फंक्शन्स",
           "autoBurnFunctions": "ऑटो बर्न फंक्शन्स"
@@ -8183,7 +8183,7 @@
           },
           "tokenExtensions": {
             "title": "टोकन एक्सटेंशन",
-            "subtitle": "BRC-20 मानक"
+            "subtitle": "TBC-20 मानक"
           }
         },
         "developerResources": {
@@ -9284,7 +9284,7 @@
           "description": "इन टूल्स के साथ अपने BTCfi अनुभव को बढ़ाएं",
           "tokenExtensions": {
             "title": "टोकन एक्सटेंशन्स",
-            "subtitle": "BRC-20 मानक"
+            "subtitle": "TBC-20 मानक"
           },
           "wallets": {
             "title": "वॉलेट्स",

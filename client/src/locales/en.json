@@ -8384,7 +8384,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 Token",
+            "title": "TBC-20 Token",
             "description": "Standard token with trust-aware transfers"
           },
           "nft": {
@@ -8552,7 +8552,7 @@
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Create BRC-20 Token",
+            "title": "Create TBC-20 Token",
             "description": "Deploy a trust-verified token with automatic burn mechanics",
             "category": "Smart Contract"
           },
@@ -9057,7 +9057,7 @@
           },
           "tokenExtensions": {
             "title": "Token Extensions",
-            "subtitle": "BRC-20 standards"
+            "subtitle": "TBC-20 standards"
           },
           "wallets": {
             "title": "Wallets",
@@ -9129,11 +9129,11 @@
         "tag": "TOKEN STANDARDS",
         "title": "Token",
         "titleHighlight": "Extensions",
-        "subtitle": "Advanced BRC-20 token standards with built-in trust verification and automatic burn mechanics.",
-        "exploreBrc20": "Explore BRC-20",
+        "subtitle": "Advanced TBC-20 token standards with built-in trust verification and automatic burn mechanics.",
+        "exploreBrc20": "Explore TBC-20",
         "readSpecs": "Read Specs",
         "buttons": {
-          "exploreBrc20": "Explore BRC-20",
+          "exploreBrc20": "Explore TBC-20",
           "readSpecs": "Read Specs",
           "openConsole": "Open Developer Console",
           "viewApiDocs": "View API Docs"
@@ -9178,13 +9178,13 @@
           }
         },
         "brc20": {
-          "title": "BRC-20 Token Standard",
+          "title": "TBC-20 Token Standard",
           "subtitle": "Core interfaces for Trust & Burn functionality.",
           "trustScoreFunctions": "Trust Score Functions",
           "autoBurnFunctions": "Auto Burn Functions"
         },
         "brc20Standard": {
-          "title": "BRC-20 Token Standard",
+          "title": "TBC-20 Token Standard",
           "subtitle": "Core interfaces for Trust & Burn functionality.",
           "trustScoreFunctions": "Trust Score Functions",
           "autoBurnFunctions": "Auto Burn Functions"
@@ -9258,7 +9258,7 @@
           }
         },
         "cta": {
-          "title": "Start Issuing BRC-20 Tokens",
+          "title": "Start Issuing TBC-20 Tokens",
           "subtitle": "Issue tokens with built-in trust rating features in under 5 minutes.",
           "openConsole": "Open Developer Console",
           "viewApiDocs": "View API Docs"
@@ -9369,7 +9369,7 @@
           },
           "tokenExtensions": {
             "title": "Token Extensions",
-            "subtitle": "BRC-20 standards"
+            "subtitle": "TBC-20 standards"
           }
         },
         "developerResources": {
@@ -10468,7 +10468,7 @@
           "description": "Enhance your BTCfi experience with these tools",
           "tokenExtensions": {
             "title": "Token Extensions",
-            "subtitle": "BRC-20 standards"
+            "subtitle": "TBC-20 standards"
           },
           "wallets": {
             "title": "Wallets",

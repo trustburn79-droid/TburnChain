@@ -7588,7 +7588,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "Token BRC-20",
+            "title": "Token TBC-20",
             "description": "Token estándar con transferencias conscientes de confianza"
           },
           "nft": {
@@ -7798,7 +7798,7 @@
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Crear Token BRC-20",
+            "title": "Crear Token TBC-20",
             "description": "Despliega un token verificado por confianza con mecánicas de quema automática",
             "category": "Contrato Inteligente"
           },
@@ -8528,7 +8528,7 @@
           },
           "tokenExtensions": {
             "title": "Extensiones de Token",
-            "subtitle": "Estándares BRC-20"
+            "subtitle": "Estándares TBC-20"
           },
           "wallets": {
             "title": "Billeteras",
@@ -8595,7 +8595,7 @@
         "title": "Extensiones de Token",
         "titleHighlight": "Extensiones",
         "subtitle": "Características avanzadas de token para funcionalidad empresarial",
-        "exploreBrc20": "Explorar BRC-20",
+        "exploreBrc20": "Explorar TBC-20",
         "readSpecs": "Leer especificaciones",
         "features": {
           "builtInTrustRating": {
@@ -8653,7 +8653,7 @@
           }
         },
         "brc20Standard": {
-          "title": "Estándar de token BRC-20",
+          "title": "Estándar de token TBC-20",
           "subtitle": "Interfaces principales para funcionalidad de Confianza y Quema.",
           "trustScoreFunctions": "Funciones de puntuación de confianza",
           "autoBurnFunctions": "Funciones de auto quema"
@@ -8710,18 +8710,18 @@
         },
         "standards": {
           "title": "Estándares Soportados",
-          "brc20": "Tokens fungibles BRC-20",
+          "brc20": "Tokens fungibles TBC-20",
           "brc721": "Tokens no fungibles BRC-721",
           "brc1155": "Tokens multi BRC-1155"
         },
         "buttons": {
-          "exploreBrc20": "Explorar BRC-20",
+          "exploreBrc20": "Explorar TBC-20",
           "readSpecs": "Leer Especificaciones",
           "openConsole": "Abrir Consola de Desarrollador",
           "viewApiDocs": "Ver Documentación API"
         },
         "brc20": {
-          "title": "Estándar de Token BRC-20",
+          "title": "Estándar de Token TBC-20",
           "subtitle": "Interfaces principales para funcionalidad de Confianza y Quema.",
           "trustScoreFunctions": "Funciones de Puntuación de Confianza",
           "autoBurnFunctions": "Funciones de Auto Quema"
@@ -8858,7 +8858,7 @@
           },
           "tokenExtensions": {
             "title": "Extensiones de Token",
-            "subtitle": "Estándares BRC-20"
+            "subtitle": "Estándares TBC-20"
           }
         },
         "developerResources": {
@@ -10227,7 +10227,7 @@
           "description": "Mejora tu experiencia BTCfi con estas herramientas",
           "tokenExtensions": {
             "title": "Extensiones de Token",
-            "subtitle": "Estándares BRC-20"
+            "subtitle": "Estándares TBC-20"
           },
           "wallets": {
             "title": "Billeteras",

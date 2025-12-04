@@ -8616,7 +8616,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 代币",
+            "title": "TBC-20 代币",
             "description": "具有信任感知转账的标准代币"
           },
           "nft": {
@@ -8784,7 +8784,7 @@
             "category": "前端"
           },
           "createToken": {
-            "title": "创建 BRC-20 代币",
+            "title": "创建 TBC-20 代币",
             "description": "部署具有自动销毁机制的信任验证代币",
             "category": "智能合约"
           },
@@ -9304,7 +9304,7 @@
           },
           "tokenExtensions": {
             "title": "代币扩展",
-            "subtitle": "BRC-20标准"
+            "subtitle": "TBC-20标准"
           },
           "wallets": {
             "title": "钱包",
@@ -9370,8 +9370,8 @@
         "tag": "代币标准",
         "title": "代币",
         "titleHighlight": "扩展",
-        "subtitle": "具有内置信任验证和自动销毁机制的高级BRC-20代币标准。",
-        "exploreBrc20": "探索BRC-20",
+        "subtitle": "具有内置信任验证和自动销毁机制的高级TBC-20代币标准。",
+        "exploreBrc20": "探索TBC-20",
         "readSpecs": "阅读规格",
         "features": {
           "builtInTrustRating": {
@@ -9413,7 +9413,7 @@
           }
         },
         "brc20Standard": {
-          "title": "BRC-20代币标准",
+          "title": "TBC-20代币标准",
           "subtitle": "信任与销毁功能的核心接口。",
           "trustScoreFunctions": "信任评分函数",
           "autoBurnFunctions": "自动销毁函数"
@@ -9461,19 +9461,19 @@
           }
         },
         "cta": {
-          "title": "开始发行BRC-20代币",
+          "title": "开始发行TBC-20代币",
           "subtitle": "在5分钟内发行具有内置信任评级功能的代币。",
           "openConsole": "打开开发者控制台",
           "viewApiDocs": "查看API文档"
         },
         "buttons": {
-          "exploreBrc20": "探索 BRC-20",
+          "exploreBrc20": "探索 TBC-20",
           "readSpecs": "阅读规格",
           "openConsole": "打开开发者控制台",
           "viewApiDocs": "查看 API 文档"
         },
         "brc20": {
-          "title": "BRC-20 代币标准",
+          "title": "TBC-20 代币标准",
           "subtitle": "信任与销毁功能的核心接口。",
           "trustScoreFunctions": "信任评分函数",
           "autoBurnFunctions": "自动销毁函数"
@@ -9610,7 +9610,7 @@
           },
           "tokenExtensions": {
             "title": "代币扩展",
-            "subtitle": "BRC-20标准"
+            "subtitle": "TBC-20标准"
           }
         },
         "developerResources": {
@@ -10711,7 +10711,7 @@
           "description": "使用这些工具增强您的 BTCfi 体验",
           "tokenExtensions": {
             "title": "代币扩展",
-            "subtitle": "BRC-20 标准"
+            "subtitle": "TBC-20 标准"
           },
           "wallets": {
             "title": "钱包",

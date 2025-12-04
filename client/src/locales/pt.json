@@ -5960,7 +5960,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 Paraken",
+            "title": "TBC-20 Paraken",
             "description": "Padrão token with trust-aware transfers"
           },
           "nft": {
@@ -6128,7 +6128,7 @@
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Criar BRC-20 Paraken",
+            "title": "Criar TBC-20 Paraken",
             "description": "Implantar a trust-verified token with automatic burn mechanics",
             "category": "Contrato Inteligente"
           },
@@ -6703,7 +6703,7 @@
           },
           "tokenExtensions": {
             "title": "Extensões de Token",
-            "subtitle": "Padrões BRC-20"
+            "subtitle": "Padrões TBC-20"
           },
           "btcfi": {
             "title": "BTCfi",
@@ -6824,8 +6824,8 @@
         "tag": "PADRÕES DE TOKEN",
         "title": "Extensões de",
         "titleHighlight": "Token",
-        "subtitle": "Padrões avançados de tokens BRC-20 com verificação de confiança integrada e mecânicas de queima automática.",
-        "exploreBrc20": "Explorar BRC-20",
+        "subtitle": "Padrões avançados de tokens TBC-20 com verificação de confiança integrada e mecânicas de queima automática.",
+        "exploreBrc20": "Explorar TBC-20",
         "readSpecs": "Ler Especificações",
         "features": {
           "builtInTrustRating": {
@@ -6867,7 +6867,7 @@
           }
         },
         "brc20Standard": {
-          "title": "Padrão de Token BRC-20",
+          "title": "Padrão de Token TBC-20",
           "subtitle": "Interfaces principais para funcionalidade Trust & Burn.",
           "trustScoreFunctions": "Funções de Pontuação de Confiança",
           "autoBurnFunctions": "Funções de Auto Queima"
@@ -6915,7 +6915,7 @@
           }
         },
         "cta": {
-          "title": "Comece a Emitir Tokens BRC-20",
+          "title": "Comece a Emitir Tokens TBC-20",
           "subtitle": "Emita tokens com recursos de classificação de confiança integrados em menos de 5 minutos.",
           "openConsole": "Abrir Console do Desenvolvedor",
           "viewApiDocs": "Ver Documentação da API"
@@ -6933,13 +6933,13 @@
           }
         },
         "buttons": {
-          "exploreBrc20": "Explorar BRC-20",
+          "exploreBrc20": "Explorar TBC-20",
           "readSpecs": "Ler Especificações",
           "openConsole": "Abrir Console do Desenvolvedor",
           "viewApiDocs": "Ver Documentação da API"
         },
         "brc20": {
-          "title": "Padrão de Token BRC-20",
+          "title": "Padrão de Token TBC-20",
           "subtitle": "Interfaces principais para funcionalidade de Confiança e Queima.",
           "trustScoreFunctions": "Funções de Pontuação de Confiança",
           "autoBurnFunctions": "Funções de Auto Queima"
@@ -7076,7 +7076,7 @@
           },
           "tokenExtensions": {
             "title": "Extensões de Token",
-            "subtitle": "Padrões BRC-20"
+            "subtitle": "Padrões TBC-20"
           }
         },
         "developerResources": {
@@ -8260,7 +8260,7 @@
           "description": "Aprimore sua experiência BTCfi com estas ferramentas",
           "tokenExtensions": {
             "title": "Extensões de Token",
-            "subtitle": "Padrões BRC-20"
+            "subtitle": "Padrões TBC-20"
           },
           "wallets": {
             "title": "Carteiras",

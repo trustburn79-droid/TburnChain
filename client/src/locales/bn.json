@@ -5035,7 +5035,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 টোকেন",
+            "title": "TBC-20 টোকেন",
             "description": "বিশ্বাস-সচেতন ট্রান্সফার সহ স্ট্যান্ডার্ড টোকেন"
           },
           "nft": {
@@ -5203,7 +5203,7 @@
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Create BRC-20 Token",
+            "title": "Create TBC-20 Token",
             "description": "Deploy a trust-verified token with automatic burn mechanics",
             "category": "Smart Contract"
           },
@@ -5723,7 +5723,7 @@
           },
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "BRC-20 স্ট্যান্ডার্ড"
+            "subtitle": "TBC-20 স্ট্যান্ডার্ড"
           },
           "wallets": {
             "title": "ওয়ালেট",
@@ -5789,8 +5789,8 @@
         "tag": "টোকেন স্ট্যান্ডার্ড",
         "title": "টোকেন",
         "titleHighlight": "এক্সটেনশন",
-        "subtitle": "বিল্ট-ইন ট্রাস্ট ভেরিফিকেশন এবং স্বয়ংক্রিয় বার্ন মেকানিক্স সহ উন্নত BRC-20 টোকেন স্ট্যান্ডার্ড।",
-        "exploreBrc20": "BRC-20 অন্বেষণ করুন",
+        "subtitle": "বিল্ট-ইন ট্রাস্ট ভেরিফিকেশন এবং স্বয়ংক্রিয় বার্ন মেকানিক্স সহ উন্নত TBC-20 টোকেন স্ট্যান্ডার্ড।",
+        "exploreBrc20": "TBC-20 অন্বেষণ করুন",
         "readSpecs": "স্পেক পড়ুন",
         "features": {
           "builtInTrustRating": {
@@ -5832,7 +5832,7 @@
           }
         },
         "brc20Standard": {
-          "title": "BRC-20 টোকেন স্ট্যান্ডার্ড",
+          "title": "TBC-20 টোকেন স্ট্যান্ডার্ড",
           "subtitle": "ট্রাস্ট এবং বার্ন কার্যকারিতার জন্য কোর ইন্টারফেস।",
           "trustScoreFunctions": "ট্রাস্ট স্কোর ফাংশন",
           "autoBurnFunctions": "অটো বার্ন ফাংশন"
@@ -5880,19 +5880,19 @@
           }
         },
         "cta": {
-          "title": "BRC-20 টোকেন ইস্যু করা শুরু করুন",
+          "title": "TBC-20 টোকেন ইস্যু করা শুরু করুন",
           "subtitle": "৫ মিনিটের মধ্যে বিল্ট-ইন ট্রাস্ট রেটিং বৈশিষ্ট্য সহ টোকেন ইস্যু করুন।",
           "openConsole": "ডেভেলপার কনসোল খুলুন",
           "viewApiDocs": "API ডক্স দেখুন"
         },
         "buttons": {
-          "exploreBrc20": "BRC-20 অন্বেষণ করুন",
+          "exploreBrc20": "TBC-20 অন্বেষণ করুন",
           "readSpecs": "স্পেক পড়ুন",
           "openConsole": "ডেভেলপার কনসোল খুলুন",
           "viewApiDocs": "API ডক্স দেখুন"
         },
         "brc20": {
-          "title": "BRC-20 টোকেন স্ট্যান্ডার্ড",
+          "title": "TBC-20 টোকেন স্ট্যান্ডার্ড",
           "subtitle": "ট্রাস্ট ও বার্ন কার্যকারিতার জন্য কোর ইন্টারফেস।",
           "trustScoreFunctions": "ট্রাস্ট স্কোর ফাংশন",
           "autoBurnFunctions": "অটো বার্ন ফাংশন"
@@ -6029,7 +6029,7 @@
           },
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "BRC-20 স্ট্যান্ডার্ড"
+            "subtitle": "TBC-20 স্ট্যান্ডার্ড"
           }
         },
         "developerResources": {
@@ -7135,7 +7135,7 @@
           "description": "এই টুলগুলি দিয়ে আপনার BTCFi অভিজ্ঞতা উন্নত করুন",
           "tokenExtensions": {
             "title": "টোকেন এক্সটেনশন",
-            "subtitle": "BRC-20 স্ট্যান্ডার্ড"
+            "subtitle": "TBC-20 স্ট্যান্ডার্ড"
           },
           "wallets": {
             "title": "ওয়ালেট",

@@ -5035,7 +5035,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "BRC-20 ٹوکن",
+            "title": "TBC-20 ٹوکن",
             "description": "ٹرسٹ سے آگاہ ٹرانسفرز کے ساتھ معیاری ٹوکن"
           },
           "nft": {
@@ -5203,7 +5203,7 @@
             "category": "فرنٹ اینڈ"
           },
           "createToken": {
-            "title": "BRC-20 ٹوکن بنائیں",
+            "title": "TBC-20 ٹوکن بنائیں",
             "description": "خودکار برن میکانکس کے ساتھ ٹرسٹ تصدیق شدہ ٹوکن تعینات کریں",
             "category": "سمارٹ کنٹریکٹ"
           },
@@ -5723,7 +5723,7 @@
           },
           "tokenExtensions": {
             "title": "ٹوکن ایکسٹینشنز",
-            "subtitle": "BRC-20 معیارات"
+            "subtitle": "TBC-20 معیارات"
           },
           "wallets": {
             "title": "والیٹس",
@@ -5789,8 +5789,8 @@
         "tag": "ٹوکن معیارات",
         "title": "ٹوکن",
         "titleHighlight": "ایکسٹینشنز",
-        "subtitle": "بلٹ ان ٹرسٹ ویریفیکیشن اور خودکار برن میکانکس کے ساتھ ایڈوانسڈ BRC-20 ٹوکن معیارات۔",
-        "exploreBrc20": "BRC-20 دریافت کریں",
+        "subtitle": "بلٹ ان ٹرسٹ ویریفیکیشن اور خودکار برن میکانکس کے ساتھ ایڈوانسڈ TBC-20 ٹوکن معیارات۔",
+        "exploreBrc20": "TBC-20 دریافت کریں",
         "readSpecs": "وضاحتیں پڑھیں",
         "features": {
           "builtInTrustRating": {
@@ -5832,7 +5832,7 @@
           }
         },
         "brc20Standard": {
-          "title": "BRC-20 ٹوکن اسٹینڈرڈ",
+          "title": "TBC-20 ٹوکن اسٹینڈرڈ",
           "subtitle": "ٹرسٹ اور برن فنکشنالٹی کے لیے بنیادی انٹرفیسز۔",
           "trustScoreFunctions": "ٹرسٹ سکور فنکشنز",
           "autoBurnFunctions": "آٹو برن فنکشنز"
@@ -5880,19 +5880,19 @@
           }
         },
         "cta": {
-          "title": "BRC-20 ٹوکنز جاری کرنا شروع کریں",
+          "title": "TBC-20 ٹوکنز جاری کرنا شروع کریں",
           "subtitle": "5 منٹ سے کم میں بلٹ ان ٹرسٹ ریٹنگ خصوصیات کے ساتھ ٹوکنز جاری کریں۔",
           "openConsole": "ڈویلپر کنسول کھولیں",
           "viewApiDocs": "API دستاویزات دیکھیں"
         },
         "buttons": {
-          "exploreBrc20": "BRC-20 دریافت کریں",
+          "exploreBrc20": "TBC-20 دریافت کریں",
           "readSpecs": "وضاحتیں پڑھیں",
           "openConsole": "ڈویلپر کنسول کھولیں",
           "viewApiDocs": "API دستاویزات دیکھیں"
         },
         "brc20": {
-          "title": "BRC-20 ٹوکن معیار",
+          "title": "TBC-20 ٹوکن معیار",
           "subtitle": "ٹرسٹ اور برن فنکشنالٹی کے لیے بنیادی انٹرفیسز۔",
           "trustScoreFunctions": "ٹرسٹ سکور فنکشنز",
           "autoBurnFunctions": "آٹو برن فنکشنز"
@@ -6029,7 +6029,7 @@
           },
           "tokenExtensions": {
             "title": "تکken Extensiپرs",
-            "subtitle": "BRC-20 stاورایکrds"
+            "subtitle": "TBC-20 stاورایکrds"
           }
         },
         "developerResources": {
@@ -7130,7 +7130,7 @@
           "description": "ان ٹولز کے ساتھ اپنے BTCfi تجربے کو بہتر بنائیں",
           "tokenExtensions": {
             "title": "ٹوکن ایکسٹینشنز",
-            "subtitle": "BRC-20 معیارات"
+            "subtitle": "TBC-20 معیارات"
           },
           "wallets": {
             "title": "والیٹس",

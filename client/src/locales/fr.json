@@ -6493,7 +6493,7 @@
         },
         "templates": {
           "erc20": {
-            "title": "Token BRC-20",
+            "title": "Token TBC-20",
             "description": "Token standard avec transferts sensibles à la confiance"
           },
           "nft": {
@@ -6661,7 +6661,7 @@
             "category": "Frontend"
           },
           "createToken": {
-            "title": "Créer un Token BRC-20",
+            "title": "Créer un Token TBC-20",
             "description": "Déployez un token vérifié par confiance avec mécaniques de brûlage automatique",
             "category": "Contrat Intelligent"
           },
@@ -7261,7 +7261,7 @@
           },
           "tokenExtensions": {
             "title": "Extensions de Tokens",
-            "subtitle": "Standards BRC-20"
+            "subtitle": "Standards TBC-20"
           },
           "wallets": {
             "title": "Portefeuilles",
@@ -7333,8 +7333,8 @@
         "tag": "STANDARDS DE TOKENS",
         "title": "Extensions de",
         "titleHighlight": "tokens",
-        "subtitle": "Standards BRC-20 avancés avec vérification de confiance intégrée et mécaniques de brûlage automatique.",
-        "exploreBrc20": "Explorer BRC-20",
+        "subtitle": "Standards TBC-20 avancés avec vérification de confiance intégrée et mécaniques de brûlage automatique.",
+        "exploreBrc20": "Explorer TBC-20",
         "readSpecs": "Lire les spécifications",
         "features": {
           "builtInTrustRating": {
@@ -7376,7 +7376,7 @@
           }
         },
         "brc20Standard": {
-          "title": "Standard de token BRC-20",
+          "title": "Standard de token TBC-20",
           "subtitle": "Interfaces principales pour les fonctionnalités Trust & Burn.",
           "trustScoreFunctions": "Fonctions de score de confiance",
           "autoBurnFunctions": "Fonctions de brûlage automatique"
@@ -7424,19 +7424,19 @@
           }
         },
         "cta": {
-          "title": "Commencez à émettre des tokens BRC-20",
+          "title": "Commencez à émettre des tokens TBC-20",
           "subtitle": "Émettez des tokens avec des fonctionnalités de score de confiance intégrées en moins de 5 minutes.",
           "openConsole": "Ouvrir la console développeur",
           "viewApiDocs": "Voir la documentation API"
         },
         "buttons": {
-          "exploreBrc20": "Explorer BRC-20",
+          "exploreBrc20": "Explorer TBC-20",
           "readSpecs": "Lire les Spécifications",
           "openConsole": "Ouvrir la Console Développeur",
           "viewApiDocs": "Voir la Doc API"
         },
         "brc20": {
-          "title": "Standard de Token BRC-20",
+          "title": "Standard de Token TBC-20",
           "subtitle": "Interfaces de base pour les fonctionnalités Trust et Burn.",
           "trustScoreFunctions": "Fonctions Trust Score",
           "autoBurnFunctions": "Fonctions Auto Burn"
@@ -7573,7 +7573,7 @@
           },
           "tokenExtensions": {
             "title": "Extensions de Token",
-            "subtitle": "Standards BRC-20"
+            "subtitle": "Standards TBC-20"
           }
         },
         "developerResources": {
@@ -8674,7 +8674,7 @@
           "description": "Enrichissez votre expérience BTCfi avec ces outils",
           "tokenExtensions": {
             "title": "Extensions de Tokens",
-            "subtitle": "Standards BRC-20"
+            "subtitle": "Standards TBC-20"
           },
           "wallets": {
             "title": "Portefeuilles",
