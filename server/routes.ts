@@ -6663,19 +6663,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // BI Dashboard
-  app.get("/api/admin/bi/metrics", async (_req, res) => {
+  // BI Dashboard - supports both /metrics and /metrics/:range
+  app.get("/api/admin/bi/metrics/:range?", async (_req, res) => {
     res.json({
-      kpis: [
-        { name: 'Total Value Locked', value: '$2.5B', change: 5.2 },
-        { name: 'Daily Active Users', value: '150,000', change: 3.1 },
-        { name: 'Transaction Volume', value: '$500M', change: -2.3 },
-        { name: 'Revenue', value: '$1.2M', change: 8.5 }
+      kpiMetrics: [
+        { name: 'Total Value Locked', value: '$2.5B', change: '+5.2%', trend: 'up' },
+        { name: 'Daily Active Users', value: '150,000', change: '+3.1%', trend: 'up' },
+        { name: 'Transaction Volume', value: '$500M', change: '-2.3%', trend: 'down' },
+        { name: 'Revenue', value: '$1.2M', change: '+8.5%', trend: 'up' }
       ],
-      charts: {
-        tvl: Array.from({ length: 30 }, (_, i) => ({ date: new Date(Date.now() - i * 86400000).toISOString(), value: 2500000000 - i * 10000000 })),
-        users: Array.from({ length: 30 }, (_, i) => ({ date: new Date(Date.now() - i * 86400000).toISOString(), value: 150000 - i * 500 }))
-      }
+      revenueData: [
+        { month: 'Jan', revenue: 4500000, fees: 450000, burn: 225000 },
+        { month: 'Feb', revenue: 5200000, fees: 520000, burn: 260000 },
+        { month: 'Mar', revenue: 4800000, fees: 480000, burn: 240000 },
+        { month: 'Apr', revenue: 6100000, fees: 610000, burn: 305000 },
+        { month: 'May', revenue: 5800000, fees: 580000, burn: 290000 },
+        { month: 'Jun', revenue: 7200000, fees: 720000, burn: 360000 }
+      ],
+      userGrowth: [
+        { month: 'Jan', users: 120000 },
+        { month: 'Feb', users: 135000 },
+        { month: 'Mar', users: 145000 },
+        { month: 'Apr', users: 160000 },
+        { month: 'May', users: 175000 },
+        { month: 'Jun', users: 190000 }
+      ],
+      chainDistribution: [
+        { name: 'Ethereum', value: 45, color: '#627EEA' },
+        { name: 'BSC', value: 25, color: '#F0B90B' },
+        { name: 'Polygon', value: 20, color: '#8247E5' },
+        { name: 'Other', value: 10, color: '#888888' }
+      ],
+      totalVolume30d: '$15.2B',
+      newUsers30d: 45000,
+      transactions30d: 2500000
     });
   });
 
@@ -6985,9 +7006,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/access/policies", async (_req, res) => {
     res.json({
       policies: [
-        { id: 'pol-1', name: 'Admin Access', description: 'Full system access', enabled: true },
-        { id: 'pol-2', name: 'Read Only', description: 'View only access', enabled: true }
-      ]
+        { id: 1, name: 'Admin Access', description: 'Full system access for administrators', roles: ['admin', 'super_admin'], resources: '/admin/*', status: 'active' },
+        { id: 2, name: 'Operator Access', description: 'Operational access for network operators', roles: ['operator'], resources: '/operator/*', status: 'active' },
+        { id: 3, name: 'Read Only', description: 'View only access for auditors', roles: ['auditor', 'viewer'], resources: '/api/read/*', status: 'active' },
+        { id: 4, name: 'Developer Access', description: 'Development and testing access', roles: ['developer'], resources: '/dev/*', status: 'active' },
+        { id: 5, name: 'Bridge Control', description: 'Bridge operation permissions', roles: ['bridge_operator'], resources: '/api/bridge/*', status: 'active' }
+      ],
+      ipWhitelist: [
+        { ip: '10.0.0.0/8', description: 'Internal network', addedBy: 'admin@tburn.io', addedAt: '2024-11-01T00:00:00Z' },
+        { ip: '192.168.1.0/24', description: 'Office network', addedBy: 'admin@tburn.io', addedAt: '2024-11-15T00:00:00Z' },
+        { ip: '172.16.0.0/12', description: 'VPN network', addedBy: 'ops@tburn.io', addedAt: '2024-12-01T00:00:00Z' }
+      ],
+      recentAccess: [
+        { user: 'admin@tburn.io', action: 'Login', ip: '10.0.0.1', time: new Date(Date.now() - 3600000).toISOString(), status: 'success' },
+        { user: 'ops@tburn.io', action: 'Update Config', ip: '10.0.0.5', time: new Date(Date.now() - 7200000).toISOString(), status: 'success' },
+        { user: 'unknown@external.com', action: 'Login Attempt', ip: '45.33.32.156', time: new Date(Date.now() - 10800000).toISOString(), status: 'blocked' },
+        { user: 'dev@tburn.io', action: 'Deploy Contract', ip: '192.168.1.100', time: new Date(Date.now() - 14400000).toISOString(), status: 'success' }
+      ],
+      permissions: [
+        { resource: 'Dashboard', view: true, create: false, edit: false, delete: false },
+        { resource: 'Users', view: true, create: true, edit: true, delete: false },
+        { resource: 'Network', view: true, create: false, edit: true, delete: false },
+        { resource: 'Bridge', view: true, create: true, edit: true, delete: true },
+        { resource: 'Settings', view: true, create: false, edit: true, delete: false },
+        { resource: 'Audit Logs', view: true, create: false, edit: false, delete: false }
+      ],
+      stats: {
+        activePolicies: 5,
+        activeSessions: 12,
+        ipWhitelistCount: 3,
+        blockedToday: 7
+      }
     });
   });
 

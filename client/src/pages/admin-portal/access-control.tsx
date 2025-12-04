@@ -77,10 +77,7 @@ export default function AdminAccessControl() {
 
   const createPolicyMutation = useMutation({
     mutationFn: async (policyData: Partial<Policy>) => {
-      return apiRequest("/api/admin/access/policies", {
-        method: "POST",
-        body: JSON.stringify(policyData),
-      });
+      return apiRequest("POST", "/api/admin/access/policies", policyData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
@@ -100,10 +97,7 @@ export default function AdminAccessControl() {
 
   const updatePolicyMutation = useMutation({
     mutationFn: async ({ id, ...policyData }: Policy) => {
-      return apiRequest(`/api/admin/access/policies/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify(policyData),
-      });
+      return apiRequest("PATCH", `/api/admin/access/policies/${id}`, policyData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
@@ -116,9 +110,7 @@ export default function AdminAccessControl() {
 
   const deletePolicyMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest(`/api/admin/access/policies/${id}`, {
-        method: "DELETE",
-      });
+      return apiRequest("DELETE", `/api/admin/access/policies/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/access/policies"] });
