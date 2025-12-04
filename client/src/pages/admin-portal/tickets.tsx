@@ -215,9 +215,11 @@ export default function SupportTickets() {
   };
 
   const filteredTickets = tickets.filter((ticket) => {
+    const title = ticket.title || '';
+    const id = ticket.id || '';
     const matchesSearch = 
-      ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      ticket.id.toLowerCase().includes(searchQuery.toLowerCase());
+      title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      id.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesPriority = selectedPriority === "all" || ticket.priority === selectedPriority;
     const matchesTab = activeTab === "all" || 
       (activeTab === "open" && (ticket.status === "open" || ticket.status === "in-progress" || ticket.status === "waiting")) ||

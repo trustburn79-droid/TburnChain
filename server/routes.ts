@@ -7372,16 +7372,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/admin/tickets", async (_req, res) => {
+    const statuses = ['open', 'in-progress', 'waiting', 'resolved', 'closed'] as const;
+    const priorities = ['low', 'medium', 'high', 'critical'] as const;
+    const categories = ['Access Issue', 'Bug Report', 'Feature Request', 'Documentation', 'Training'];
     res.json({
-      tickets: Array.from({ length: 20 }, (_, i) => ({
-        id: `ticket-${i + 1}`,
-        subject: `Support ticket ${i + 1}`,
-        status: ['open', 'pending', 'resolved', 'closed'][i % 4],
-        priority: ['low', 'medium', 'high', 'urgent'][i % 4],
+      tickets: Array.from({ length: 15 }, (_, i) => ({
+        id: `TKT-${String(i + 1).padStart(3, '0')}`,
+        title: `Support ticket ${i + 1}`,
+        description: `Detailed description for support ticket ${i + 1}. This ticket requires attention.`,
+        category: categories[i % 5],
+        priority: priorities[i % 4],
+        status: statuses[i % 5],
+        requester: `user${i + 1}@tburn.io`,
+        assignee: i % 3 === 0 ? null : 'support@tburn.io',
         createdAt: new Date(Date.now() - i * 86400000).toISOString(),
-        updatedAt: new Date(Date.now() - i * 3600000).toISOString()
+        updatedAt: new Date(Date.now() - i * 3600000).toISOString(),
+        responses: Math.floor(Math.random() * 10)
       })),
-      stats: { open: 5, pending: 3, resolved: 10, closed: 100 }
+      messages: [
+        { id: "1", sender: "user@tburn.io", isAdmin: false, message: "I need help with this issue.", timestamp: new Date(Date.now() - 3600000).toISOString() },
+        { id: "2", sender: "Support Team", isAdmin: true, message: "We are looking into this issue.", timestamp: new Date(Date.now() - 1800000).toISOString() }
+      ]
     });
   });
 
