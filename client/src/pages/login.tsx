@@ -173,38 +173,20 @@ function NeuralCanvasLogin() {
   );
 }
 
-const benefits = [
-  {
-    icon: Check,
-    title: "Testnet Early Access",
-    description: "Be the first to test new features and earn contribution points.",
-    link: "/learn/roadmap",
-  },
-  {
-    icon: GitBranch,
-    title: "Governance Participation",
-    description: "Influence the future of TBurn Chain through proposal voting.",
-    link: "/solutions/ai-features",
-  },
-  {
-    icon: BookOpen,
-    title: "Technical Resources",
-    description: "Full access to developer documentation, SDKs, and API keys.",
-    link: "/developers/docs",
-  },
-  {
-    icon: Network,
-    title: "Ecosystem Rewards",
-    description: "Exclusive airdrops and rewards for active community members.",
-    link: "/learn/tokenomics",
-  },
+const benefitIcons = [Check, GitBranch, BookOpen, Network];
+const benefitLinks = [
+  "/learn/roadmap",
+  "/solutions/ai-features",
+  "/developers/docs",
+  "/learn/tokenomics",
 ];
+const benefitKeys = ["testnetAccess", "governance", "resources", "rewards"];
 
 export default function Login({ onLoginSuccess }: LoginProps) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { displayText } = useTextScramble("Authenticate", 500);
+  const { displayText } = useTextScramble(t('login.authenticate'), 500);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<LoginFormData>({
@@ -289,10 +271,10 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             
             <div className="hidden md:flex items-center gap-6">
               <Link href="/developers" className="text-sm font-medium text-gray-400 hover:text-white transition">
-                Developers
+                {t('login.nav.developers')}
               </Link>
               <Link href="/network" className="text-sm font-medium text-gray-400 hover:text-white transition">
-                Network
+                {t('login.nav.network')}
               </Link>
             </div>
           </div>
@@ -314,7 +296,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             <div className="mb-8">
               <div className="inline-flex items-center gap-2 px-2 py-1 rounded bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 text-xs font-mono mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                GATEWAY_SECURE
+                {t('login.gatewaySecure')}
               </div>
               <h1 
                 className="text-3xl font-bold text-white mb-2"
@@ -322,7 +304,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
               >
                 {displayText}
               </h1>
-              <p className="text-sm text-gray-400">Connect to the Neural Consensus Layer</p>
+              <p className="text-sm text-gray-400">{t('login.connectToNeural')}</p>
             </div>
 
             <Form {...form}>
@@ -336,7 +318,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                         <Input
                           {...field}
                           type="password"
-                          placeholder="Enter access key..."
+                          placeholder={t('login.enterAccessKey')}
                           disabled={isLoading}
                           data-testid="input-password"
                           autoFocus
@@ -355,7 +337,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                   className="w-full h-12 bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:-translate-y-0.5 transition-all"
                 >
                   <Wallet className="w-4 h-4 mr-2" />
-                  {isLoading ? "Authenticating..." : "Connect Node"}
+                  {isLoading ? t('login.authenticating') : t('login.connectNode')}
                 </Button>
               </form>
             </Form>
@@ -366,7 +348,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                 <span className="w-full border-t border-white/10"></span>
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-[#121216] px-2 text-gray-500">Or via OAuth</span>
+                <span className="bg-[#121216] px-2 text-gray-500">{t('login.orViaOAuth')}</span>
               </div>
             </div>
 
@@ -387,21 +369,21 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             </div>
 
             <p className="text-xs text-gray-600 text-center mt-6">
-              By connecting, you agree to the{" "}
+              {t('login.byConnecting')}{" "}
               <Link href="/legal/terms-of-service" className="text-cyan-400 hover:underline" data-testid="link-terms">
-                Terms of Service
+                {t('login.termsOfService')}
               </Link>
-              {" "}and{" "}
+              {" "}{t('login.and')}{" "}
               <Link href="/legal/privacy-policy" className="text-purple-400 hover:underline" data-testid="link-privacy">
-                Privacy Policy
+                {t('login.privacyPolicy')}
               </Link>.
             </p>
 
             <div className="mt-6 text-center">
               <p className="text-xs text-gray-500">
-                Don't have a node ID?{" "}
+                {t('login.noNodeId')}{" "}
                 <Link href="/signup" className="text-cyan-400 hover:text-white transition font-bold" data-testid="link-signup">
-                  Initialize Node
+                  {t('login.initializeNode')}
                 </Link>
               </p>
             </div>
@@ -414,18 +396,18 @@ export default function Login({ onLoginSuccess }: LoginProps) {
 
             <div className="mb-6 relative z-10">
               <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <span className="text-purple-500">◆</span> Why Connect?
+                <span className="text-purple-500">◆</span> {t('login.whyConnect')}
               </h2>
-              <p className="text-sm text-gray-400">Join the world's first trust-based Layer 1.</p>
+              <p className="text-sm text-gray-400">{t('login.whyConnectSubtitle')}</p>
             </div>
 
             <ul className="space-y-4 relative z-10">
-              {benefits.map((benefit, index) => {
-                const Icon = benefit.icon;
+              {benefitKeys.map((key, index) => {
+                const Icon = benefitIcons[index];
                 return (
                   <li key={index}>
                     <Link 
-                      href={benefit.link}
+                      href={benefitLinks[index]}
                       className="flex items-start gap-3 group/item p-2 -m-2 rounded-lg hover:bg-white/5 transition" 
                       data-testid={`link-benefit-${index}`}
                     >
@@ -433,8 +415,12 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                         <Icon className="w-2.5 h-2.5 text-cyan-400" />
                       </div>
                       <div>
-                        <span className="block text-sm text-white font-medium group-hover/item:text-cyan-400 transition">{benefit.title}</span>
-                        <span className="text-xs text-gray-500">{benefit.description}</span>
+                        <span className="block text-sm text-white font-medium group-hover/item:text-cyan-400 transition">
+                          {t(`login.benefits.${key}.title`)}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {t(`login.benefits.${key}.description`)}
+                        </span>
                       </div>
                     </Link>
                   </li>
@@ -454,19 +440,19 @@ export default function Login({ onLoginSuccess }: LoginProps) {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
               <p className="text-sm text-gray-500">
-                © 2025 TBurn Chain Foundation.{" "}
-                <span className="text-cyan-400/50">All systems operational.</span>
+                {t('login.footer.copyright')}{" "}
+                <span className="text-cyan-400/50">{t('login.footer.allSystemsOperational')}</span>
               </p>
             </div>
             <div className="flex gap-6 text-gray-500 text-sm">
               <Link href="/legal/privacy-policy" className="hover:text-cyan-400 transition" data-testid="footer-link-privacy">
-                Privacy
+                {t('login.footer.privacy')}
               </Link>
               <Link href="/legal/terms-of-service" className="hover:text-cyan-400 transition" data-testid="footer-link-terms">
-                Terms
+                {t('login.footer.terms')}
               </Link>
               <Link href="/learn/whitepaper" className="hover:text-cyan-400 transition" data-testid="footer-link-whitepaper">
-                Whitepaper
+                {t('login.footer.whitepaper')}
               </Link>
             </div>
           </div>

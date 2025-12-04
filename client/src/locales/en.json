@@ -5715,7 +5715,51 @@
     "welcomeMessage": "Welcome to TBURN Blockchain Explorer",
     "loginFailed": "Login Failed",
     "invalidPassword": "Invalid password. Please try again.",
-    "loginError": "Failed to login. Please try again."
+    "loginError": "Failed to login. Please try again.",
+    "authenticate": "Authenticate",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "Connect to the Neural Consensus Layer",
+    "enterAccessKey": "Enter access key...",
+    "authenticating": "Authenticating...",
+    "connectNode": "Connect Node",
+    "orViaOAuth": "Or via OAuth",
+    "byConnecting": "By connecting, you agree to the",
+    "termsOfService": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "noNodeId": "Don't have a node ID?",
+    "initializeNode": "Initialize Node",
+    "whyConnect": "Why Connect?",
+    "whyConnectSubtitle": "Join the world's first trust-based Layer 1.",
+    "benefits": {
+      "testnetAccess": {
+        "title": "Testnet Early Access",
+        "description": "Be the first to test new features and earn contribution points."
+      },
+      "governance": {
+        "title": "Governance Participation",
+        "description": "Influence the future of TBurn Chain through proposal voting."
+      },
+      "resources": {
+        "title": "Technical Resources",
+        "description": "Full access to developer documentation, SDKs, and API keys."
+      },
+      "rewards": {
+        "title": "Ecosystem Rewards",
+        "description": "Exclusive airdrops and rewards for active community members."
+      }
+    },
+    "nav": {
+      "developers": "Developers",
+      "network": "Network"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn Chain Foundation.",
+      "allSystemsOperational": "All systems operational.",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "whitepaper": "Whitepaper"
+    }
   },
   "notFound": {
     "title": "404 Page Not Found",
