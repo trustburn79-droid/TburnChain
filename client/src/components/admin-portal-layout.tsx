@@ -8,6 +8,7 @@ import { LogOut, Shield } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import Login from "@/pages/login";
 
 // Group 1: System Dashboard (5 pages)
 import UnifiedDashboard from "@/pages/admin-portal/unified-dashboard";
@@ -230,8 +231,6 @@ function AdminRouter() {
     </Switch>
   );
 }
-
-import Login from "@/pages/login";
 
 export function AdminPortalLayout() {
   const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
