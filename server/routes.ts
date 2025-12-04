@@ -6411,12 +6411,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/ai/params", async (_req, res) => {
     res.json({
-      params: {
-        temperature: 0.7,
-        maxTokens: 4096,
-        topP: 0.9,
-        frequencyPenalty: 0,
-        presencePenalty: 0
+      modelConfigs: [
+        { 
+          name: "GPT-5 Turbo", 
+          layer: "Strategic",
+          temperature: 0.7,
+          maxTokens: 4096,
+          topP: 0.9,
+          frequencyPenalty: 0.3,
+          presencePenalty: 0.3
+        },
+        { 
+          name: "Claude Sonnet 4.5", 
+          layer: "Tactical",
+          temperature: 0.5,
+          maxTokens: 8192,
+          topP: 0.95,
+          frequencyPenalty: 0.2,
+          presencePenalty: 0.2
+        },
+        { 
+          name: "Llama 3.3 70B", 
+          layer: "Operational",
+          temperature: 0.3,
+          maxTokens: 2048,
+          topP: 0.8,
+          frequencyPenalty: 0.1,
+          presencePenalty: 0.1
+        },
+      ],
+      decisionParams: [
+        { name: "Consensus Optimization", weight: 0.85, enabled: true },
+        { name: "Shard Rebalancing", weight: 0.75, enabled: true },
+        { name: "Gas Price Adjustment", weight: 0.90, enabled: true },
+        { name: "Validator Selection", weight: 0.80, enabled: true },
+        { name: "Bridge Risk Assessment", weight: 0.70, enabled: true },
+        { name: "Burn Rate Optimization", weight: 0.65, enabled: false },
+      ],
+      layerWeights: {
+        strategic: 50,
+        tactical: 30,
+        operational: 20
+      },
+      thresholds: {
+        autoExecute: 70,
+        humanReview: 50,
+        rejection: 30
+      },
+      rateLimits: {
+        strategicPerHour: 10,
+        tacticalPerMinute: 100,
+        operationalPerSecond: 1000
+      },
+      emergencySettings: {
+        allowEmergencyActions: true,
+        circuitBreaker: true
+      },
+      advancedConfig: {
+        consensusTimeout: 5000,
+        retryAttempts: 3,
+        backoffMultiplier: 1.5,
+        cacheTTL: 300
       }
     });
   });
