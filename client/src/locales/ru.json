@@ -3112,12 +3112,57 @@
     "subtitle": "Обозреватель блокчейна Mainnet",
     "password": "Пароль",
     "enterPassword": "Введите пароль",
-    "loggingIn": "Вход...",
-    "login": "Войти",
-    "authenticationRequired": "Требуется аутентификация",
-    "enterCredentials": "Введите свои учётные данные для продолжения",
-    "loginSuccess": "Вход выполнен успешно",
-    "loginFailed": "Не удалось войти. Пожалуйста, проверьте свои учётные данные."
+    "loggingIn": "Вход в систему...",
+    "accessExplorer": "Войти в обозреватель",
+    "loginSuccessful": "Вход выполнен успешно",
+    "welcomeMessage": "Добро пожаловать в TBURN Blockchain Explorer",
+    "loginFailed": "Ошибка входа",
+    "invalidPassword": "Неверный пароль. Пожалуйста, попробуйте снова.",
+    "loginError": "Не удалось войти. Пожалуйста, попробуйте снова.",
+    "authenticate": "Аутентификация",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "Подключиться к Neural Consensus Layer",
+    "enterAccessKey": "Введите ключ доступа...",
+    "authenticating": "Аутентификация...",
+    "connectNode": "Подключить узел",
+    "orViaOAuth": "Или через OAuth",
+    "byConnecting": "Подключаясь, вы соглашаетесь с",
+    "termsOfService": "Условиями использования",
+    "and": "и",
+    "privacyPolicy": "Политикой конфиденциальности",
+    "noNodeId": "Нет идентификатора узла?",
+    "initializeNode": "Инициализировать узел",
+    "whyConnect": "Зачем подключаться?",
+    "whyConnectSubtitle": "Присоединяйтесь к первому в мире Layer 1 на основе доверия.",
+    "benefits": {
+      "testnetAccess": {
+        "title": "Ранний доступ к Testnet",
+        "description": "Будьте первыми, кто тестирует новые функции и зарабатывает баллы за участие."
+      },
+      "governance": {
+        "title": "Участие в управлении",
+        "description": "Влияйте на будущее TBurn Chain через голосование по предложениям."
+      },
+      "resources": {
+        "title": "Технические ресурсы",
+        "description": "Полный доступ к документации для разработчиков, SDK и API-ключам."
+      },
+      "rewards": {
+        "title": "Награды экосистемы",
+        "description": "Эксклюзивные аирдропы и награды для активных участников сообщества."
+      }
+    },
+    "nav": {
+      "developers": "Разработчикам",
+      "network": "Сеть"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn Chain Foundation.",
+      "allSystemsOperational": "Все системы работают.",
+      "privacy": "Конфиденциальность",
+      "terms": "Условия",
+      "whitepaper": "Whitepaper"
+    }
   },
   "notFound": {
     "title": "404 Страница не найдена",

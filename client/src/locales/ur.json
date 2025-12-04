@@ -2238,11 +2238,56 @@
     "password": "پاس ورڈ",
     "enterPassword": "پاس ورڈ درج کریں",
     "loggingIn": "لاگ ان ہو رہا ہے...",
-    "login": "لاگ ان",
-    "authenticationRequired": "تصدیق ضروری ہے",
-    "enterCredentials": "جاری رکھنے کے لیے اپنی اسناد درج کریں",
-    "loginSuccess": "کامیابی سے لاگ ان ہو گیا",
-    "loginFailed": "لاگ ان ناکام۔ براہ کرم اپنی اسناد چیک کریں۔"
+    "accessExplorer": "ایکسپلورر تک رسائی",
+    "loginSuccessful": "لاگ ان کامیاب",
+    "welcomeMessage": "TBURN بلاکچین ایکسپلورر میں خوش آمدید",
+    "loginFailed": "لاگ ان ناکام",
+    "invalidPassword": "غلط پاس ورڈ۔ براہ کرم دوبارہ کوشش کریں۔",
+    "loginError": "لاگ ان ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+    "authenticate": "تصدیق کریں",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "نیورل کنسنسس لیئر سے جڑیں",
+    "enterAccessKey": "رسائی کلید درج کریں...",
+    "authenticating": "تصدیق ہو رہی ہے...",
+    "connectNode": "نوڈ جوڑیں",
+    "orViaOAuth": "یا OAuth کے ذریعے",
+    "byConnecting": "جڑ کر، آپ اتفاق کرتے ہیں",
+    "termsOfService": "سروس کی شرائط",
+    "and": "اور",
+    "privacyPolicy": "رازداری کی پالیسی",
+    "noNodeId": "نوڈ ID نہیں ہے؟",
+    "initializeNode": "نوڈ شروع کریں",
+    "whyConnect": "کیوں جڑیں؟",
+    "whyConnectSubtitle": "دنیا کی پہلی اعتماد پر مبنی Layer 1 میں شامل ہوں۔",
+    "benefits": {
+      "testnetAccess": {
+        "title": "ٹیسٹ نیٹ ابتدائی رسائی",
+        "description": "نئی خصوصیات کی جانچ کرنے والے پہلے بنیں اور شراکت پوائنٹس کمائیں۔"
+      },
+      "governance": {
+        "title": "گورننس میں شرکت",
+        "description": "تجویز ووٹنگ کے ذریعے TBurn چین کے مستقبل کو متاثر کریں۔"
+      },
+      "resources": {
+        "title": "تکنیکی وسائل",
+        "description": "ڈویلپر دستاویزات، SDK، اور API کلیدوں تک مکمل رسائی۔"
+      },
+      "rewards": {
+        "title": "ایکو سسٹم انعامات",
+        "description": "فعال کمیونٹی ممبرز کے لیے خصوصی ایئر ڈراپس اور انعامات۔"
+      }
+    },
+    "nav": {
+      "developers": "ڈویلپرز",
+      "network": "نیٹ ورک"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn چین فاؤنڈیشن۔",
+      "allSystemsOperational": "تمام سسٹمز فعال ہیں۔",
+      "privacy": "رازداری",
+      "terms": "شرائط",
+      "whitepaper": "وائٹ پیپر"
+    }
   },
   "notFound": {
     "title": "404 صفحہ نہیں ملا",

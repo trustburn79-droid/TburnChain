@@ -4535,16 +4535,56 @@
     "password": "Contraseña",
     "enterPassword": "Ingresa contraseña",
     "loggingIn": "Iniciando sesión...",
-    "login": "Iniciar Sesión",
     "accessExplorer": "Acceder al Explorador",
-    "authenticationRequired": "Autenticación Requerida",
-    "enterCredentials": "Ingresa tus credenciales para continuar",
-    "loginSuccess": "Sesión iniciada exitosamente",
     "loginSuccessful": "Inicio de Sesión Exitoso",
     "welcomeMessage": "Bienvenido al Explorador de Blockchain TBURN",
     "loginFailed": "Inicio de Sesión Fallido",
     "invalidPassword": "Contraseña inválida. Por favor intenta de nuevo.",
-    "loginError": "Error al iniciar sesión. Por favor intenta de nuevo."
+    "loginError": "Error al iniciar sesión. Por favor intenta de nuevo.",
+    "authenticate": "Autenticar",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "Conectar a la Capa de Consenso Neural",
+    "enterAccessKey": "Ingresa clave de acceso...",
+    "authenticating": "Autenticando...",
+    "connectNode": "Conectar Nodo",
+    "orViaOAuth": "O mediante OAuth",
+    "byConnecting": "Al conectarte, aceptas los",
+    "termsOfService": "Términos de Servicio",
+    "and": "y",
+    "privacyPolicy": "Política de Privacidad",
+    "noNodeId": "¿No tienes un ID de nodo?",
+    "initializeNode": "Inicializar Nodo",
+    "whyConnect": "¿Por qué Conectarse?",
+    "whyConnectSubtitle": "Únete a la primera Layer 1 basada en confianza del mundo.",
+    "benefits": {
+      "testnetAccess": {
+        "title": "Acceso Anticipado a Testnet",
+        "description": "Sé el primero en probar nuevas funciones y ganar puntos de contribución."
+      },
+      "governance": {
+        "title": "Participación en Gobernanza",
+        "description": "Influye en el futuro de TBurn Chain a través de la votación de propuestas."
+      },
+      "resources": {
+        "title": "Recursos Técnicos",
+        "description": "Acceso completo a documentación para desarrolladores, SDKs y claves API."
+      },
+      "rewards": {
+        "title": "Recompensas del Ecosistema",
+        "description": "Airdrops exclusivos y recompensas para miembros activos de la comunidad."
+      }
+    },
+    "nav": {
+      "developers": "Desarrolladores",
+      "network": "Red"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn Chain Foundation.",
+      "allSystemsOperational": "Todos los sistemas operativos.",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "whitepaper": "Whitepaper"
+    }
   },
   "notFound": {
     "title": "404 Página No Encontrada",

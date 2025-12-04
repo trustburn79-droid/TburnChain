@@ -4173,7 +4173,51 @@
     "welcomeMessage": "TBURN ब्लॉकचेन एक्सप्लोरर में आपका स्वागत है",
     "loginFailed": "लॉग इन विफल",
     "invalidPassword": "अमान्य पासवर्ड। कृपया पुनः प्रयास करें।",
-    "loginError": "लॉग इन करने में विफल। कृपया पुनः प्रयास करें।"
+    "loginError": "लॉग इन करने में विफल। कृपया पुनः प्रयास करें।",
+    "authenticate": "प्रमाणित करें",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "न्यूरल कंसेंसस लेयर से कनेक्ट करें",
+    "enterAccessKey": "एक्सेस कुंजी दर्ज करें...",
+    "authenticating": "प्रमाणित हो रहा है...",
+    "connectNode": "नोड कनेक्ट करें",
+    "orViaOAuth": "या OAuth के माध्यम से",
+    "byConnecting": "कनेक्ट करके, आप इससे सहमत होते हैं",
+    "termsOfService": "सेवा की शर्तें",
+    "and": "और",
+    "privacyPolicy": "गोपनीयता नीति",
+    "noNodeId": "नोड ID नहीं है?",
+    "initializeNode": "नोड प्रारंभ करें",
+    "whyConnect": "कनेक्ट क्यों करें?",
+    "whyConnectSubtitle": "दुनिया की पहली ट्रस्ट-आधारित Layer 1 से जुड़ें।",
+    "benefits": {
+      "testnetAccess": {
+        "title": "टेस्टनेट अर्ली एक्सेस",
+        "description": "नई सुविधाओं का पहले परीक्षण करें और योगदान अंक अर्जित करें।"
+      },
+      "governance": {
+        "title": "गवर्नेंस भागीदारी",
+        "description": "प्रस्ताव मतदान के माध्यम से TBurn चेन के भविष्य को प्रभावित करें।"
+      },
+      "resources": {
+        "title": "तकनीकी संसाधन",
+        "description": "डेवलपर डॉक्यूमेंटेशन, SDK और API कुंजियों तक पूर्ण पहुंच।"
+      },
+      "rewards": {
+        "title": "इकोसिस्टम रिवॉर्ड्स",
+        "description": "सक्रिय समुदाय सदस्यों के लिए विशेष एयरड्रॉप्स और रिवॉर्ड्स।"
+      }
+    },
+    "nav": {
+      "developers": "डेवलपर्स",
+      "network": "नेटवर्क"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn चेन फाउंडेशन।",
+      "allSystemsOperational": "सभी सिस्टम चालू हैं।",
+      "privacy": "गोपनीयता",
+      "terms": "शर्तें",
+      "whitepaper": "व्हाइटपेपर"
+    }
   },
   "notFound": {
     "title": "404 पेज नहीं मिला",

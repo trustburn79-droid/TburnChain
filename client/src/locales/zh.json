@@ -5520,7 +5520,51 @@
     "welcomeMessage": "欢迎来到 TBURN 区块链浏览器",
     "loginFailed": "登录失败",
     "invalidPassword": "密码无效。请重试。",
-    "loginError": "登录失败。请重试。"
+    "loginError": "登录失败。请重试。",
+    "authenticate": "身份验证",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "连接到神经共识层",
+    "enterAccessKey": "输入访问密钥...",
+    "authenticating": "验证中...",
+    "connectNode": "连接节点",
+    "orViaOAuth": "或通过 OAuth 登录",
+    "byConnecting": "连接即表示您同意",
+    "termsOfService": "服务条款",
+    "and": "和",
+    "privacyPolicy": "隐私政策",
+    "noNodeId": "没有节点 ID？",
+    "initializeNode": "初始化节点",
+    "whyConnect": "为什么要连接？",
+    "whyConnectSubtitle": "加入全球首个基于信任的 Layer 1 区块链。",
+    "benefits": {
+      "testnetAccess": {
+        "title": "测试网抢先体验",
+        "description": "率先测试新功能并赚取贡献积分。"
+      },
+      "governance": {
+        "title": "治理参与",
+        "description": "通过提案投票影响 TBurn 链的未来。"
+      },
+      "resources": {
+        "title": "技术资源",
+        "description": "完整访问开发者文档、SDK 和 API 密钥。"
+      },
+      "rewards": {
+        "title": "生态系统奖励",
+        "description": "为活跃社区成员提供专属空投和奖励。"
+      }
+    },
+    "nav": {
+      "developers": "开发者",
+      "network": "网络"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn 链基金会。",
+      "allSystemsOperational": "所有系统运行正常。",
+      "privacy": "隐私",
+      "terms": "条款",
+      "whitepaper": "白皮书"
+    }
   },
   "notFound": {
     "title": "404 页面未找到",

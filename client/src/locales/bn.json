@@ -2516,11 +2516,56 @@
     "password": "পাসওয়ার্ড",
     "enterPassword": "পাসওয়ার্ড দিন",
     "loggingIn": "লগ ইন হচ্ছে...",
-    "login": "লগ ইন",
-    "authenticationRequired": "অথেন্টিকেশন প্রয়োজন",
-    "enterCredentials": "চালিয়ে যেতে আপনার ক্রেডেনশিয়াল দিন",
-    "loginSuccess": "সফলভাবে লগ ইন হয়েছে",
-    "loginFailed": "লগ ইন ব্যর্থ। আপনার ক্রেডেনশিয়াল পরীক্ষা করুন।"
+    "accessExplorer": "এক্সপ্লোরার অ্যাক্সেস করুন",
+    "loginSuccessful": "লগ ইন সফল",
+    "welcomeMessage": "TBURN ব্লকচেইন এক্সপ্লোরারে স্বাগতম",
+    "loginFailed": "লগ ইন ব্যর্থ",
+    "invalidPassword": "ভুল পাসওয়ার্ড। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "loginError": "লগ ইন করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "authenticate": "প্রমাণীকরণ",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "নিউরাল কনসেনসাস লেয়ারে সংযোগ করুন",
+    "enterAccessKey": "অ্যাক্সেস কী দিন...",
+    "authenticating": "প্রমাণীকরণ হচ্ছে...",
+    "connectNode": "নোড সংযুক্ত করুন",
+    "orViaOAuth": "অথবা OAuth দিয়ে",
+    "byConnecting": "সংযোগ করে, আপনি সম্মত হচ্ছেন",
+    "termsOfService": "পরিষেবার শর্তাবলী",
+    "and": "এবং",
+    "privacyPolicy": "গোপনীয়তা নীতি",
+    "noNodeId": "নোড ID নেই?",
+    "initializeNode": "নোড শুরু করুন",
+    "whyConnect": "কেন সংযোগ করবেন?",
+    "whyConnectSubtitle": "বিশ্বের প্রথম বিশ্বাস-ভিত্তিক লেয়ার ১-এ যোগ দিন।",
+    "benefits": {
+      "testnetAccess": {
+        "title": "টেস্টনেট আগাম অ্যাক্সেস",
+        "description": "নতুন বৈশিষ্ট্য প্রথমে পরীক্ষা করুন এবং অবদান পয়েন্ট অর্জন করুন।"
+      },
+      "governance": {
+        "title": "গভর্নেন্স অংশগ্রহণ",
+        "description": "প্রস্তাব ভোটের মাধ্যমে TBurn চেইনের ভবিষ্যৎ প্রভাবিত করুন।"
+      },
+      "resources": {
+        "title": "প্রযুক্তিগত সম্পদ",
+        "description": "ডেভেলপার ডকুমেন্টেশন, SDK এবং API কী-তে সম্পূর্ণ অ্যাক্সেস।"
+      },
+      "rewards": {
+        "title": "ইকোসিস্টেম পুরস্কার",
+        "description": "সক্রিয় কমিউনিটি সদস্যদের জন্য এক্সক্লুসিভ এয়ারড্রপ এবং পুরস্কার।"
+      }
+    },
+    "nav": {
+      "developers": "ডেভেলপার",
+      "network": "নেটওয়ার্ক"
+    },
+    "footer": {
+      "copyright": "© ২০২৫ TBurn চেইন ফাউন্ডেশন।",
+      "allSystemsOperational": "সমস্ত সিস্টেম চালু আছে।",
+      "privacy": "গোপনীয়তা",
+      "terms": "শর্তাবলী",
+      "whitepaper": "হোয়াইটপেপার"
+    }
   },
   "notFound": {
     "title": "৪০৪ পেজ পাওয়া যায়নি",

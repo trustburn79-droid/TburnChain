@@ -6024,7 +6024,7 @@
     "failedToDeleteKey": "APIキーの削除に失敗しました"
   },
   "login": {
-    "title": "TBURNチェーン",
+    "title": "TBURN Chain",
     "subtitle": "メインネットブロックチェーンエクスプローラー",
     "password": "パスワード",
     "enterPassword": "パスワードを入力",
@@ -6034,7 +6034,51 @@
     "welcomeMessage": "TBURNブロックチェーンエクスプローラーへようこそ",
     "loginFailed": "ログイン失敗",
     "invalidPassword": "無効なパスワードです。再試行してください。",
-    "loginError": "ログインに失敗しました。再試行してください。"
+    "loginError": "ログインに失敗しました。再試行してください。",
+    "authenticate": "認証",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "ニューラルコンセンサスレイヤーに接続",
+    "enterAccessKey": "アクセスキーを入力...",
+    "authenticating": "認証中...",
+    "connectNode": "ノードに接続",
+    "orViaOAuth": "またはOAuthで",
+    "byConnecting": "接続することで、以下に同意したものとみなされます",
+    "termsOfService": "利用規約",
+    "and": "および",
+    "privacyPolicy": "プライバシーポリシー",
+    "noNodeId": "ノードIDをお持ちでないですか？",
+    "initializeNode": "ノードを初期化",
+    "whyConnect": "なぜ接続するのか？",
+    "whyConnectSubtitle": "世界初の信頼ベースのレイヤー1に参加しましょう。",
+    "benefits": {
+      "testnetAccess": {
+        "title": "テストネット早期アクセス",
+        "description": "新機能をいち早くテストし、貢献ポイントを獲得できます。"
+      },
+      "governance": {
+        "title": "ガバナンス参加",
+        "description": "提案投票を通じてTBurn Chainの未来に影響を与えられます。"
+      },
+      "resources": {
+        "title": "技術リソース",
+        "description": "開発者ドキュメント、SDK、APIキーへのフルアクセス。"
+      },
+      "rewards": {
+        "title": "エコシステム報酬",
+        "description": "アクティブなコミュニティメンバーへの限定エアドロップと報酬。"
+      }
+    },
+    "nav": {
+      "developers": "開発者",
+      "network": "ネットワーク"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn Chain Foundation.",
+      "allSystemsOperational": "全システム正常稼働中。",
+      "privacy": "プライバシー",
+      "terms": "利用規約",
+      "whitepaper": "ホワイトペーパー"
+    }
   },
   "notFound": {
     "title": "404 ページが見つかりません",

@@ -3076,7 +3076,51 @@
     "welcomeMessage": "مرحباً بك في مستكشف بلوكتشين TBURN",
     "loginFailed": "فشل تسجيل الدخول",
     "invalidPassword": "كلمة مرور غير صالحة. يرجى المحاولة مرة أخرى.",
-    "loginError": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى."
+    "loginError": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+    "authenticate": "المصادقة",
+    "gatewaySecure": "GATEWAY_SECURE",
+    "connectToNeural": "الاتصال بطبقة الإجماع العصبي",
+    "enterAccessKey": "أدخل مفتاح الوصول...",
+    "authenticating": "جاري المصادقة...",
+    "connectNode": "ربط العقدة",
+    "orViaOAuth": "أو عبر OAuth",
+    "byConnecting": "بالاتصال، فإنك توافق على",
+    "termsOfService": "شروط الخدمة",
+    "and": "و",
+    "privacyPolicy": "سياسة الخصوصية",
+    "noNodeId": "ليس لديك معرف عقدة؟",
+    "initializeNode": "تهيئة العقدة",
+    "whyConnect": "لماذا تتصل؟",
+    "whyConnectSubtitle": "انضم إلى أول طبقة أولى قائمة على الثقة في العالم.",
+    "benefits": {
+      "testnetAccess": {
+        "title": "الوصول المبكر للشبكة التجريبية",
+        "description": "كن أول من يختبر الميزات الجديدة واكسب نقاط المساهمة."
+      },
+      "governance": {
+        "title": "المشاركة في الحوكمة",
+        "description": "أثر على مستقبل TBurn Chain من خلال التصويت على المقترحات."
+      },
+      "resources": {
+        "title": "الموارد التقنية",
+        "description": "وصول كامل إلى وثائق المطورين وSDK ومفاتيح API."
+      },
+      "rewards": {
+        "title": "مكافآت النظام البيئي",
+        "description": "توزيعات ومكافآت حصرية لأعضاء المجتمع النشطين."
+      }
+    },
+    "nav": {
+      "developers": "المطورون",
+      "network": "الشبكة"
+    },
+    "footer": {
+      "copyright": "© 2025 TBurn Chain Foundation.",
+      "allSystemsOperational": "جميع الأنظمة تعمل.",
+      "privacy": "الخصوصية",
+      "terms": "الشروط",
+      "whitepaper": "الورقة البيضاء"
+    }
   },
   "notFound": {
     "title": "404 الصفحة غير موجودة",
