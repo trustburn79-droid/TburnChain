@@ -1,297 +1,648 @@
+import { useState, useEffect, useCallback } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Brain, Database, Play, Pause, Clock, CheckCircle, 
-  AlertTriangle, BarChart3, TrendingUp, Layers
+  AlertTriangle, BarChart3, TrendingUp, Layers, RefreshCw,
+  Download, Wifi, WifiOff, AlertCircle, X
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 
-export default function AdminAITraining() {
-  const trainingJobs = [
+interface TrainingJob {
+  id: number;
+  name: string;
+  model: string;
+  status: string;
+  progress: number;
+  eta: string;
+  dataPoints: string;
+}
+
+interface Dataset {
+  name: string;
+  records: string;
+  size: string;
+  lastUpdated: string;
+  quality: number;
+}
+
+interface AccuracyDataPoint {
+  epoch: number;
+  accuracy: number;
+  loss: number;
+}
+
+interface ModelVersion {
+  version: string;
+  date: string;
+  accuracy: number;
+  status: string;
+}
+
+interface TrainingData {
+  jobs: TrainingJob[];
+  datasets: Dataset[];
+  accuracyData: AccuracyDataPoint[];
+  modelVersions: ModelVersion[];
+  stats: {
+    activeJobs: number;
+    runningJobs: number;
+    queuedJobs: number;
+    totalData: string;
+    avgAccuracy: number;
+    modelVersions: number;
+  };
+}
+
+const mockData: TrainingData = {
+  jobs: [
     { id: 1, name: "Consensus Optimizer v2.1", model: "Llama 3.3", status: "running", progress: 67, eta: "2h 15m", dataPoints: "1.2M" },
     { id: 2, name: "Shard Balancer v1.8", model: "Custom", status: "completed", progress: 100, eta: "-", dataPoints: "850K" },
     { id: 3, name: "Gas Predictor v3.0", model: "Claude FT", status: "queued", progress: 0, eta: "~4h", dataPoints: "2.1M" },
     { id: 4, name: "Anomaly Detector v2.5", model: "Llama 3.3", status: "paused", progress: 45, eta: "-", dataPoints: "500K" },
-  ];
-
-  const datasets = [
+  ],
+  datasets: [
     { name: "Transaction Patterns", records: "15.2M", size: "8.5 GB", lastUpdated: "2024-12-03", quality: 98 },
     { name: "Validator Performance", records: "2.8M", size: "1.2 GB", lastUpdated: "2024-12-03", quality: 99 },
     { name: "Network Metrics", records: "45.6M", size: "12.3 GB", lastUpdated: "2024-12-02", quality: 97 },
     { name: "Security Events", records: "890K", size: "450 MB", lastUpdated: "2024-12-03", quality: 95 },
-  ];
-
-  const accuracyData = [
+  ],
+  accuracyData: [
     { epoch: 1, accuracy: 75, loss: 0.45 },
     { epoch: 2, accuracy: 82, loss: 0.32 },
     { epoch: 3, accuracy: 88, loss: 0.24 },
     { epoch: 4, accuracy: 92, loss: 0.18 },
     { epoch: 5, accuracy: 95, loss: 0.12 },
     { epoch: 6, accuracy: 97, loss: 0.08 },
-  ];
-
-  const modelVersions = [
+  ],
+  modelVersions: [
     { version: "v2.1.0", date: "2024-12-03", accuracy: 98.7, status: "production" },
     { version: "v2.0.5", date: "2024-11-28", accuracy: 97.2, status: "backup" },
     { version: "v2.0.0", date: "2024-11-15", accuracy: 96.5, status: "archived" },
-  ];
+  ],
+  stats: {
+    activeJobs: 2,
+    runningJobs: 1,
+    queuedJobs: 1,
+    totalData: "64.5M",
+    avgAccuracy: 97.4,
+    modelVersions: 12
+  }
+};
+
+export default function AdminAITraining() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+
+  const [wsConnected, setWsConnected] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [liveJobs, setLiveJobs] = useState<TrainingJob[]>([]);
+
+  const { data, isLoading, error, refetch } = useQuery<TrainingData>({
+    queryKey: ["/api/admin/ai/training"],
+    enabled: true,
+    refetchInterval: 30000,
+  });
+
+  const trainingData = data || mockData;
+  const jobs = liveJobs.length > 0 ? liveJobs : trainingData.jobs;
+
+  const pauseJobMutation = useMutation({
+    mutationFn: async (jobId: number) => {
+      return apiRequest(`/api/admin/ai/training/${jobId}/pause`, { method: 'POST' });
+    },
+    onSuccess: (_, jobId) => {
+      const job = jobs.find(j => j.id === jobId);
+      toast({
+        title: t("adminTraining.jobPaused"),
+        description: t("adminTraining.jobPausedDesc", { name: job?.name }),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/training"] });
+    },
+  });
+
+  const resumeJobMutation = useMutation({
+    mutationFn: async (jobId: number) => {
+      return apiRequest(`/api/admin/ai/training/${jobId}/resume`, { method: 'POST' });
+    },
+    onSuccess: (_, jobId) => {
+      const job = jobs.find(j => j.id === jobId);
+      toast({
+        title: t("adminTraining.jobStarted"),
+        description: t("adminTraining.jobStartedDesc", { name: job?.name }),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/training"] });
+    },
+  });
+
+  const cancelJobMutation = useMutation({
+    mutationFn: async (jobId: number) => {
+      return apiRequest(`/api/admin/ai/training/${jobId}/cancel`, { method: 'POST' });
+    },
+    onSuccess: (_, jobId) => {
+      const job = jobs.find(j => j.id === jobId);
+      toast({
+        title: t("adminTraining.jobCancelled"),
+        description: t("adminTraining.jobCancelledDesc", { name: job?.name }),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/ai/training"] });
+    },
+  });
+
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+    let reconnectTimeout: NodeJS.Timeout;
+
+    const connect = () => {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      ws = new WebSocket(`${protocol}//${window.location.host}/ws/ai-training`);
+
+      ws.onopen = () => {
+        setWsConnected(true);
+        setLastUpdate(new Date());
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const update = JSON.parse(event.data);
+          if (update.type === 'job_update') {
+            setLiveJobs(prev => {
+              const existing = prev.find(j => j.id === update.data.id);
+              if (existing) {
+                return prev.map(j => j.id === update.data.id ? update.data : j);
+              }
+              return [update.data, ...prev];
+            });
+            setLastUpdate(new Date());
+          }
+        } catch (e) {
+          console.error('WebSocket message parse error:', e);
+        }
+      };
+
+      ws.onclose = () => {
+        setWsConnected(false);
+        reconnectTimeout = setTimeout(connect, 5000);
+      };
+
+      ws.onerror = () => {
+        setWsConnected(false);
+      };
+    };
+
+    connect();
+
+    return () => {
+      if (ws) ws.close();
+      clearTimeout(reconnectTimeout);
+    };
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      setLastUpdate(new Date());
+      toast({
+        title: t("adminTraining.refreshSuccess"),
+        description: t("adminTraining.refreshSuccessDesc"),
+      });
+    } catch {
+      toast({
+        title: t("adminTraining.error.title"),
+        description: t("adminTraining.error.description"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportDate: new Date().toISOString(),
+      jobs,
+      datasets: trainingData.datasets,
+      accuracyData: trainingData.accuracyData,
+      modelVersions: trainingData.modelVersions,
+      stats: trainingData.stats
+    };
+    
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai-training-export-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    toast({
+      title: t("adminTraining.exportSuccess"),
+      description: t("adminTraining.exportSuccessDesc"),
+    });
+  }, [trainingData, jobs, toast, t]);
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-8" data-testid="error-container">
+        <AlertCircle className="w-16 h-16 text-destructive mb-4" />
+        <h2 className="text-xl font-semibold mb-2" data-testid="text-error-title">{t("adminTraining.error.title")}</h2>
+        <p className="text-muted-foreground mb-4" data-testid="text-error-description">{t("adminTraining.error.description")}</p>
+        <Button onClick={() => refetch()} data-testid="button-retry">
+          <RefreshCw className="w-4 h-4 mr-2" />
+          {t("adminTraining.retry")}
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <ScrollArea className="h-full">
+    <ScrollArea className="h-full" data-testid="scroll-area-ai-training">
       <div className="p-6 space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h1 className="text-2xl font-bold" data-testid="text-page-title">AI Training Management</h1>
-            <p className="text-muted-foreground">Manage model training, datasets, and deployments</p>
+            <h1 className="text-2xl font-bold" data-testid="text-page-title">{t("adminTraining.title")}</h1>
+            <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminTraining.subtitle")}</p>
           </div>
-          <Button>
-            <Play className="w-4 h-4 mr-2" />
-            New Training Job
-          </Button>
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground" data-testid="status-connection">
+              {wsConnected ? (
+                <>
+                  <Wifi className="w-4 h-4 text-green-500" />
+                  <span className="text-green-500">{t("adminTraining.connected")}</span>
+                </>
+              ) : (
+                <>
+                  <WifiOff className="w-4 h-4 text-yellow-500" />
+                  <span className="text-yellow-500">{t("adminTraining.reconnecting")}</span>
+                </>
+              )}
+            </div>
+            {lastUpdate && (
+              <span className="text-sm text-muted-foreground" data-testid="text-last-update">
+                {t("adminTraining.lastUpdate")}: {lastUpdate.toLocaleTimeString()}
+              </span>
+            )}
+            <Button 
+              variant="outline" 
+              onClick={handleRefresh} 
+              disabled={isRefreshing}
+              data-testid="button-refresh"
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+              {isRefreshing ? t("adminTraining.refreshing") : t("adminTraining.refresh")}
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={handleExport}
+              data-testid="button-export"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              {t("adminTraining.export")}
+            </Button>
+            <Button data-testid="button-new-job">
+              <Play className="w-4 h-4 mr-2" />
+              {t("adminTraining.newTrainingJob")}
+            </Button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Brain className="w-5 h-5 text-purple-500" />
-                <span className="text-sm text-muted-foreground">Active Jobs</span>
-              </div>
-              <div className="text-3xl font-bold">2</div>
-              <div className="text-sm text-muted-foreground">1 running, 1 queued</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Database className="w-5 h-5 text-blue-500" />
-                <span className="text-sm text-muted-foreground">Total Data</span>
-              </div>
-              <div className="text-3xl font-bold">64.5M</div>
-              <div className="text-sm text-muted-foreground">Records</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-5 h-5 text-green-500" />
-                <span className="text-sm text-muted-foreground">Avg Accuracy</span>
-              </div>
-              <div className="text-3xl font-bold">97.4%</div>
-              <div className="text-sm text-muted-foreground">Across all models</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Layers className="w-5 h-5 text-orange-500" />
-                <span className="text-sm text-muted-foreground">Model Versions</span>
-              </div>
-              <div className="text-3xl font-bold">12</div>
-              <div className="text-sm text-muted-foreground">In production</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Tabs defaultValue="jobs" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="jobs" data-testid="tab-jobs">
-              <Brain className="w-4 h-4 mr-2" />
-              Training Jobs
-            </TabsTrigger>
-            <TabsTrigger value="datasets" data-testid="tab-datasets">
-              <Database className="w-4 h-4 mr-2" />
-              Datasets
-            </TabsTrigger>
-            <TabsTrigger value="metrics" data-testid="tab-metrics">
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Metrics
-            </TabsTrigger>
-            <TabsTrigger value="versions" data-testid="tab-versions">
-              <Layers className="w-4 h-4 mr-2" />
-              Versions
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="jobs">
-            <Card>
-              <CardHeader>
-                <CardTitle>Training Jobs</CardTitle>
-                <CardDescription>Active and recent training runs</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Job Name</TableHead>
-                      <TableHead>Model</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Progress</TableHead>
-                      <TableHead>Data Points</TableHead>
-                      <TableHead>ETA</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {trainingJobs.map((job) => (
-                      <TableRow key={job.id}>
-                        <TableCell className="font-medium">{job.name}</TableCell>
-                        <TableCell>{job.model}</TableCell>
-                        <TableCell>
-                          <Badge variant={
-                            job.status === "running" ? "default" :
-                            job.status === "completed" ? "outline" :
-                            job.status === "queued" ? "secondary" : "destructive"
-                          } className={
-                            job.status === "running" ? "bg-blue-500" :
-                            job.status === "completed" ? "bg-green-500/10 text-green-500 border-green-500/30" : ""
-                          }>
-                            {job.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2 min-w-[100px]">
-                            <Progress value={job.progress} className="flex-1" />
-                            <span className="text-sm">{job.progress}%</span>
-                          </div>
-                        </TableCell>
-                        <TableCell>{job.dataPoints}</TableCell>
-                        <TableCell className="text-muted-foreground">{job.eta}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-1">
-                            {job.status === "running" && (
-                              <Button size="icon" variant="ghost">
-                                <Pause className="w-4 h-4" />
-                              </Button>
-                            )}
-                            {job.status === "paused" && (
-                              <Button size="icon" variant="ghost">
-                                <Play className="w-4 h-4" />
-                              </Button>
-                            )}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="datasets">
-            <Card>
-              <CardHeader>
-                <CardTitle>Training Datasets</CardTitle>
-                <CardDescription>Available data for model training</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Dataset Name</TableHead>
-                      <TableHead>Records</TableHead>
-                      <TableHead>Size</TableHead>
-                      <TableHead>Last Updated</TableHead>
-                      <TableHead>Quality Score</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {datasets.map((dataset, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{dataset.name}</TableCell>
-                        <TableCell>{dataset.records}</TableCell>
-                        <TableCell>{dataset.size}</TableCell>
-                        <TableCell className="text-muted-foreground">{dataset.lastUpdated}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Progress value={dataset.quality} className="w-16" />
-                            <span className={dataset.quality >= 95 ? "text-green-500" : "text-yellow-500"}>
-                              {dataset.quality}%
-                            </span>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="metrics">
-            <Card>
-              <CardHeader>
-                <CardTitle>Training Metrics</CardTitle>
-                <CardDescription>Accuracy and loss over training epochs</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={accuracyData}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="epoch" label={{ value: 'Epoch', position: 'bottom' }} />
-                      <YAxis yAxisId="left" domain={[70, 100]} />
-                      <YAxis yAxisId="right" orientation="right" domain={[0, 0.5]} />
-                      <Tooltip />
-                      <Line yAxisId="left" type="monotone" dataKey="accuracy" stroke="#22c55e" name="Accuracy %" strokeWidth={2} />
-                      <Line yAxisId="right" type="monotone" dataKey="loss" stroke="#ef4444" name="Loss" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4" data-testid="skeleton-stats">
+            {[1, 2, 3, 4].map((i) => (
+              <Card key={i}>
+                <CardContent className="pt-6">
+                  <Skeleton className="h-5 w-20 mb-2" />
+                  <Skeleton className="h-8 w-16 mb-1" />
+                  <Skeleton className="h-4 w-24" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4" data-testid="grid-stats">
+            <Card data-testid="card-stat-active-jobs">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Brain className="w-5 h-5 text-purple-500" />
+                  <span className="text-sm text-muted-foreground">{t("adminTraining.activeJobs")}</span>
+                </div>
+                <div className="text-3xl font-bold" data-testid="text-active-jobs">{trainingData.stats.activeJobs}</div>
+                <div className="text-sm text-muted-foreground">
+                  {trainingData.stats.runningJobs} {t("adminTraining.running")}, {trainingData.stats.queuedJobs} {t("adminTraining.queued")}
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
+            <Card data-testid="card-stat-total-data">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Database className="w-5 h-5 text-blue-500" />
+                  <span className="text-sm text-muted-foreground">{t("adminTraining.totalData")}</span>
+                </div>
+                <div className="text-3xl font-bold" data-testid="text-total-data">{trainingData.stats.totalData}</div>
+                <div className="text-sm text-muted-foreground">{t("adminTraining.records")}</div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-stat-accuracy">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="w-5 h-5 text-green-500" />
+                  <span className="text-sm text-muted-foreground">{t("adminTraining.avgAccuracy")}</span>
+                </div>
+                <div className="text-3xl font-bold" data-testid="text-avg-accuracy">{trainingData.stats.avgAccuracy}%</div>
+                <div className="text-sm text-muted-foreground">{t("adminTraining.acrossAllModels")}</div>
+              </CardContent>
+            </Card>
+            <Card data-testid="card-stat-versions">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Layers className="w-5 h-5 text-orange-500" />
+                  <span className="text-sm text-muted-foreground">{t("adminTraining.modelVersions")}</span>
+                </div>
+                <div className="text-3xl font-bold" data-testid="text-model-versions">{trainingData.stats.modelVersions}</div>
+                <div className="text-sm text-muted-foreground">{t("adminTraining.inProduction")}</div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
-          <TabsContent value="versions">
-            <Card>
+        <Tabs defaultValue="jobs" className="space-y-4" data-testid="tabs-training">
+          <TabsList data-testid="tabs-list">
+            <TabsTrigger value="jobs" data-testid="tab-jobs">
+              <Brain className="w-4 h-4 mr-2" />
+              {t("adminTraining.trainingJobs")}
+            </TabsTrigger>
+            <TabsTrigger value="datasets" data-testid="tab-datasets">
+              <Database className="w-4 h-4 mr-2" />
+              {t("adminTraining.datasets")}
+            </TabsTrigger>
+            <TabsTrigger value="metrics" data-testid="tab-metrics">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              {t("adminTraining.metrics")}
+            </TabsTrigger>
+            <TabsTrigger value="versions" data-testid="tab-versions">
+              <Layers className="w-4 h-4 mr-2" />
+              {t("adminTraining.versions")}
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="jobs" data-testid="tab-content-jobs">
+            <Card data-testid="card-training-jobs">
               <CardHeader>
-                <CardTitle>Model Versions</CardTitle>
-                <CardDescription>Deployed model versions and history</CardDescription>
+                <CardTitle data-testid="text-training-jobs-title">{t("adminTraining.trainingJobs")}</CardTitle>
+                <CardDescription data-testid="text-training-jobs-desc">{t("adminTraining.activeRecentRuns")}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Version</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Accuracy</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {modelVersions.map((version, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-mono font-medium">{version.version}</TableCell>
-                        <TableCell>{version.date}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline" className="bg-green-500/10 text-green-500">
-                            {version.accuracy}%
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={
-                            version.status === "production" ? "default" :
-                            version.status === "backup" ? "secondary" : "outline"
-                          }>
-                            {version.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          {version.status !== "production" && (
-                            <Button size="sm" variant="outline">Deploy</Button>
-                          )}
-                        </TableCell>
-                      </TableRow>
+                {isLoading ? (
+                  <div className="space-y-3" data-testid="skeleton-jobs">
+                    {[1, 2, 3, 4].map((i) => (
+                      <Skeleton key={i} className="h-12 w-full" />
                     ))}
-                  </TableBody>
-                </Table>
+                  </div>
+                ) : (
+                  <Table data-testid="table-jobs">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead data-testid="table-head-job-name">{t("adminTraining.jobName")}</TableHead>
+                        <TableHead data-testid="table-head-model">{t("adminTraining.model")}</TableHead>
+                        <TableHead data-testid="table-head-status">{t("adminTraining.status")}</TableHead>
+                        <TableHead data-testid="table-head-progress">{t("adminTraining.progress")}</TableHead>
+                        <TableHead data-testid="table-head-data-points">{t("adminTraining.dataPoints")}</TableHead>
+                        <TableHead data-testid="table-head-eta">{t("adminTraining.eta")}</TableHead>
+                        <TableHead data-testid="table-head-actions">{t("adminTraining.actions")}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {jobs.map((job) => (
+                        <TableRow key={job.id} data-testid={`row-job-${job.id}`}>
+                          <TableCell className="font-medium" data-testid={`text-job-name-${job.id}`}>{job.name}</TableCell>
+                          <TableCell data-testid={`text-job-model-${job.id}`}>{job.model}</TableCell>
+                          <TableCell>
+                            <Badge 
+                              variant={
+                                job.status === "running" ? "default" :
+                                job.status === "completed" ? "outline" :
+                                job.status === "queued" ? "secondary" : "destructive"
+                              } 
+                              className={
+                                job.status === "running" ? "bg-blue-500" :
+                                job.status === "completed" ? "bg-green-500/10 text-green-500 border-green-500/30" : ""
+                              }
+                              data-testid={`badge-job-status-${job.id}`}
+                            >
+                              {job.status === "running" ? t("adminTraining.running_status") :
+                               job.status === "completed" ? t("adminTraining.completed") :
+                               job.status === "queued" ? t("adminTraining.queued_status") :
+                               t("adminTraining.paused")}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2 min-w-[100px]">
+                              <Progress value={job.progress} className="flex-1" data-testid={`progress-job-${job.id}`} />
+                              <span className="text-sm" data-testid={`text-job-progress-${job.id}`}>{job.progress}%</span>
+                            </div>
+                          </TableCell>
+                          <TableCell data-testid={`text-job-data-points-${job.id}`}>{job.dataPoints}</TableCell>
+                          <TableCell className="text-muted-foreground" data-testid={`text-job-eta-${job.id}`}>{job.eta}</TableCell>
+                          <TableCell>
+                            <div className="flex gap-1">
+                              {job.status === "running" && (
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost"
+                                  onClick={() => pauseJobMutation.mutate(job.id)}
+                                  disabled={pauseJobMutation.isPending}
+                                  data-testid={`button-pause-job-${job.id}`}
+                                >
+                                  <Pause className="w-4 h-4" />
+                                </Button>
+                              )}
+                              {job.status === "paused" && (
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost"
+                                  onClick={() => resumeJobMutation.mutate(job.id)}
+                                  disabled={resumeJobMutation.isPending}
+                                  data-testid={`button-resume-job-${job.id}`}
+                                >
+                                  <Play className="w-4 h-4" />
+                                </Button>
+                              )}
+                              {(job.status === "running" || job.status === "paused" || job.status === "queued") && (
+                                <Button 
+                                  size="icon" 
+                                  variant="ghost"
+                                  onClick={() => cancelJobMutation.mutate(job.id)}
+                                  disabled={cancelJobMutation.isPending}
+                                  data-testid={`button-cancel-job-${job.id}`}
+                                >
+                                  <X className="w-4 h-4" />
+                                </Button>
+                              )}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="datasets" data-testid="tab-content-datasets">
+            <Card data-testid="card-datasets">
+              <CardHeader>
+                <CardTitle data-testid="text-datasets-title">{t("adminTraining.trainingDatasets")}</CardTitle>
+                <CardDescription data-testid="text-datasets-desc">{t("adminTraining.availableDatasets")}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {isLoading ? (
+                  <div className="space-y-3" data-testid="skeleton-datasets">
+                    {[1, 2, 3, 4].map((i) => (
+                      <Skeleton key={i} className="h-12 w-full" />
+                    ))}
+                  </div>
+                ) : (
+                  <Table data-testid="table-datasets">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead data-testid="table-head-dataset-name">{t("adminTraining.datasetName")}</TableHead>
+                        <TableHead data-testid="table-head-records">{t("adminTraining.records")}</TableHead>
+                        <TableHead data-testid="table-head-size">{t("adminTraining.size")}</TableHead>
+                        <TableHead data-testid="table-head-last-updated">{t("adminTraining.lastUpdated")}</TableHead>
+                        <TableHead data-testid="table-head-quality">{t("adminTraining.qualityScore")}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {trainingData.datasets.map((dataset, index) => (
+                        <TableRow key={index} data-testid={`row-dataset-${index}`}>
+                          <TableCell className="font-medium" data-testid={`text-dataset-name-${index}`}>{dataset.name}</TableCell>
+                          <TableCell data-testid={`text-dataset-records-${index}`}>{dataset.records}</TableCell>
+                          <TableCell data-testid={`text-dataset-size-${index}`}>{dataset.size}</TableCell>
+                          <TableCell className="text-muted-foreground" data-testid={`text-dataset-updated-${index}`}>{dataset.lastUpdated}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Progress value={dataset.quality} className="w-16" data-testid={`progress-dataset-quality-${index}`} />
+                              <span 
+                                className={dataset.quality >= 95 ? "text-green-500" : "text-yellow-500"}
+                                data-testid={`text-dataset-quality-${index}`}
+                              >
+                                {dataset.quality}%
+                              </span>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="metrics" data-testid="tab-content-metrics">
+            <Card data-testid="card-metrics">
+              <CardHeader>
+                <CardTitle data-testid="text-metrics-title">{t("adminTraining.trainingMetrics")}</CardTitle>
+                <CardDescription data-testid="text-metrics-desc">{t("adminTraining.accuracyLossDesc")}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {isLoading ? (
+                  <Skeleton className="h-80 w-full" data-testid="skeleton-chart" />
+                ) : (
+                  <div className="h-80" data-testid="chart-accuracy">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={trainingData.accuracyData}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                        <XAxis dataKey="epoch" label={{ value: t("adminTraining.epoch"), position: 'bottom' }} />
+                        <YAxis yAxisId="left" domain={[70, 100]} />
+                        <YAxis yAxisId="right" orientation="right" domain={[0, 0.5]} />
+                        <Tooltip />
+                        <Line yAxisId="left" type="monotone" dataKey="accuracy" stroke="#22c55e" name={t("adminTraining.accuracy")} strokeWidth={2} />
+                        <Line yAxisId="right" type="monotone" dataKey="loss" stroke="#ef4444" name={t("adminTraining.loss")} strokeWidth={2} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="versions" data-testid="tab-content-versions">
+            <Card data-testid="card-versions">
+              <CardHeader>
+                <CardTitle data-testid="text-versions-title">{t("adminTraining.modelVersions")}</CardTitle>
+                <CardDescription data-testid="text-versions-desc">{t("adminTraining.deployedVersions")}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {isLoading ? (
+                  <div className="space-y-3" data-testid="skeleton-versions">
+                    {[1, 2, 3].map((i) => (
+                      <Skeleton key={i} className="h-12 w-full" />
+                    ))}
+                  </div>
+                ) : (
+                  <Table data-testid="table-versions">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead data-testid="table-head-version">{t("adminTraining.version")}</TableHead>
+                        <TableHead data-testid="table-head-date">{t("adminTraining.date")}</TableHead>
+                        <TableHead data-testid="table-head-accuracy">{t("adminTraining.accuracy")}</TableHead>
+                        <TableHead data-testid="table-head-status">{t("adminTraining.status")}</TableHead>
+                        <TableHead data-testid="table-head-actions">{t("adminTraining.actions")}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {trainingData.modelVersions.map((version, index) => (
+                        <TableRow key={index} data-testid={`row-version-${index}`}>
+                          <TableCell className="font-mono font-medium" data-testid={`text-version-${index}`}>{version.version}</TableCell>
+                          <TableCell data-testid={`text-version-date-${index}`}>{version.date}</TableCell>
+                          <TableCell>
+                            <Badge 
+                              variant="outline" 
+                              className="bg-green-500/10 text-green-500"
+                              data-testid={`badge-version-accuracy-${index}`}
+                            >
+                              {version.accuracy}%
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge 
+                              variant={
+                                version.status === "production" ? "default" :
+                                version.status === "backup" ? "secondary" : "outline"
+                              }
+                              data-testid={`badge-version-status-${index}`}
+                            >
+                              {version.status === "production" ? t("adminTraining.production") :
+                               version.status === "backup" ? t("adminTraining.backup") :
+                               t("adminTraining.archived")}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            {version.status !== "production" && (
+                              <Button size="sm" variant="outline" data-testid={`button-deploy-${index}`}>
+                                {t("adminTraining.deploy")}
+                              </Button>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </CardContent>
             </Card>
           </TabsContent>

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState, useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,207 +8,465 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import { 
   Wrench, Clock, Calendar, AlertTriangle, 
-  CheckCircle, Play, Pause, Settings
+  CheckCircle, Play, Pause, Settings, RefreshCw, AlertCircle as AlertCircleIcon, Loader2
 } from "lucide-react";
 
+interface MaintenanceWindow {
+  id: number;
+  name: string;
+  start: string;
+  end: string;
+  status: "scheduled" | "in_progress" | "completed" | "cancelled";
+  type: "update" | "maintenance" | "security";
+}
+
+interface PastMaintenance {
+  id: number;
+  name: string;
+  date: string;
+  duration: string;
+  status: "completed" | "cancelled";
+  impact: string;
+}
+
+interface MaintenanceData {
+  maintenanceMode: boolean;
+  windows: MaintenanceWindow[];
+  pastMaintenance: PastMaintenance[];
+}
+
 export default function AdminMaintenance() {
-  const [maintenanceMode, setMaintenanceMode] = useState(false);
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [newWindow, setNewWindow] = useState({
+    title: "",
+    type: "",
+    startTime: "",
+    endTime: "",
+    description: "",
+    notification: "",
+  });
 
-  const maintenanceWindows = [
-    { id: 1, name: "Scheduled Update v4.1", start: "2024-12-10 02:00 UTC", end: "2024-12-10 04:00 UTC", status: "scheduled", type: "update" },
-    { id: 2, name: "Database Optimization", start: "2024-12-15 00:00 UTC", end: "2024-12-15 02:00 UTC", status: "scheduled", type: "maintenance" },
-    { id: 3, name: "Security Patch", start: "2024-12-08 03:00 UTC", end: "2024-12-08 03:30 UTC", status: "scheduled", type: "security" },
-  ];
+  const { data: maintenanceData, isLoading, error, refetch } = useQuery<MaintenanceData>({
+    queryKey: ["/api/admin/maintenance"],
+    refetchInterval: 30000,
+  });
 
-  const pastMaintenance = [
-    { id: 1, name: "v4.0 Release", date: "2024-12-01", duration: "3h 45m", status: "completed", impact: "minimal" },
-    { id: 2, name: "Network Upgrade", date: "2024-11-25", duration: "2h 15m", status: "completed", impact: "none" },
-    { id: 3, name: "Bridge Maintenance", date: "2024-11-20", duration: "1h 30m", status: "completed", impact: "bridge only" },
-  ];
+  const toggleMaintenanceModeMutation = useMutation({
+    mutationFn: async (enabled: boolean) => {
+      return apiRequest("/api/admin/maintenance/mode", {
+        method: "POST",
+        body: JSON.stringify({ enabled }),
+      });
+    },
+    onSuccess: (_, enabled) => {
+      toast({
+        title: enabled ? t("adminMaintenance.modeEnabled") : t("adminMaintenance.modeDisabled"),
+        description: enabled ? t("adminMaintenance.modeEnabledDesc") : t("adminMaintenance.modeDisabledDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/maintenance"] });
+    },
+    onError: () => {
+      toast({
+        title: t("adminMaintenance.modeError"),
+        description: t("adminMaintenance.modeErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
 
-  return (
-    <ScrollArea className="h-full">
-      <div className="p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold" data-testid="text-page-title">Maintenance Mode</h1>
-            <p className="text-muted-foreground">Schedule and manage maintenance windows</p>
-          </div>
-          <Badge variant="outline" className={maintenanceMode ? "bg-yellow-500/10 text-yellow-500" : "bg-green-500/10 text-green-500"}>
-            {maintenanceMode ? (
-              <><Wrench className="w-3 h-3 mr-1" /> Maintenance Active</>
-            ) : (
-              <><CheckCircle className="w-3 h-3 mr-1" /> Normal Operation</>
-            )}
-          </Badge>
-        </div>
+  const scheduleWindowMutation = useMutation({
+    mutationFn: async (data: typeof newWindow) => {
+      return apiRequest("/api/admin/maintenance/schedule", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminMaintenance.windowScheduled"),
+        description: t("adminMaintenance.windowScheduledDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/maintenance"] });
+      setNewWindow({ title: "", type: "", startTime: "", endTime: "", description: "", notification: "" });
+    },
+    onError: () => {
+      toast({
+        title: t("adminMaintenance.scheduleError"),
+        description: t("adminMaintenance.scheduleErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
 
-        <Card className={maintenanceMode ? "border-yellow-500/30 bg-yellow-500/5" : ""}>
-          <CardHeader>
-            <CardTitle>Quick Maintenance Toggle</CardTitle>
-            <CardDescription>Enable or disable maintenance mode immediately</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between p-4 border rounded-lg">
-              <div>
-                <p className="font-medium">Maintenance Mode</p>
-                <p className="text-sm text-muted-foreground">
-                  {maintenanceMode ? "System is in read-only mode" : "System is fully operational"}
-                </p>
-              </div>
-              <Switch checked={maintenanceMode} onCheckedChange={setMaintenanceMode} />
-            </div>
-            {maintenanceMode && (
-              <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                <div className="flex items-center gap-2 text-yellow-500 mb-2">
-                  <AlertTriangle className="w-4 h-4" />
-                  <span className="font-medium">Maintenance Mode Active</span>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Users cannot perform write operations. Only read operations are allowed.
-                </p>
-              </div>
-            )}
+  const cancelWindowMutation = useMutation({
+    mutationFn: async (id: number) => {
+      return apiRequest(`/api/admin/maintenance/cancel/${id}`, {
+        method: "POST",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminMaintenance.windowCancelled"),
+        description: t("adminMaintenance.windowCancelledDesc"),
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/maintenance"] });
+    },
+  });
+
+  const maintenanceMode = useMemo(() => {
+    return maintenanceData?.maintenanceMode ?? false;
+  }, [maintenanceData]);
+
+  const maintenanceWindows = useMemo(() => {
+    if (maintenanceData?.windows) return maintenanceData.windows;
+    return [
+      { id: 1, name: t("adminMaintenance.scheduledUpdateV41"), start: "2024-12-10 02:00 UTC", end: "2024-12-10 04:00 UTC", status: "scheduled" as const, type: "update" as const },
+      { id: 2, name: t("adminMaintenance.databaseOptimization"), start: "2024-12-15 00:00 UTC", end: "2024-12-15 02:00 UTC", status: "scheduled" as const, type: "maintenance" as const },
+      { id: 3, name: t("adminMaintenance.securityPatch"), start: "2024-12-08 03:00 UTC", end: "2024-12-08 03:30 UTC", status: "scheduled" as const, type: "security" as const },
+    ];
+  }, [maintenanceData, t]);
+
+  const pastMaintenance = useMemo(() => {
+    if (maintenanceData?.pastMaintenance) return maintenanceData.pastMaintenance;
+    return [
+      { id: 1, name: t("adminMaintenance.v40Release"), date: "2024-12-01", duration: "3h 45m", status: "completed" as const, impact: t("adminMaintenance.minimal") },
+      { id: 2, name: t("adminMaintenance.networkUpgrade"), date: "2024-11-25", duration: "2h 15m", status: "completed" as const, impact: t("adminMaintenance.none") },
+      { id: 3, name: t("adminMaintenance.bridgeMaintenanceName"), date: "2024-11-20", duration: "1h 30m", status: "completed" as const, impact: t("adminMaintenance.bridgeOnly") },
+    ];
+  }, [maintenanceData, t]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      toast({
+        title: t("adminMaintenance.refreshSuccess"),
+        description: t("adminMaintenance.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminMaintenance.refreshError"),
+        description: t("adminMaintenance.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetch, toast, t]);
+
+  const handleScheduleMaintenance = useCallback(() => {
+    scheduleWindowMutation.mutate(newWindow);
+  }, [scheduleWindowMutation, newWindow]);
+
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="maintenance-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircleIcon className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminMaintenance.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminMaintenance.error.description")}</p>
+            <Button onClick={() => refetch()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminMaintenance.retry")}
+            </Button>
           </CardContent>
         </Card>
-
-        <Tabs defaultValue="scheduled" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="scheduled">Scheduled</TabsTrigger>
-            <TabsTrigger value="create">Schedule New</TabsTrigger>
-            <TabsTrigger value="history">History</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="scheduled">
-            <Card>
-              <CardHeader>
-                <CardTitle>Upcoming Maintenance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Start</TableHead>
-                      <TableHead>End</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {maintenanceWindows.map((window) => (
-                      <TableRow key={window.id}>
-                        <TableCell className="font-medium">{window.name}</TableCell>
-                        <TableCell>{window.start}</TableCell>
-                        <TableCell>{window.end}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline">{window.type}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="secondary">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {window.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex gap-1">
-                            <Button size="sm" variant="ghost">Edit</Button>
-                            <Button size="sm" variant="ghost" className="text-red-500">Cancel</Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="create">
-            <Card>
-              <CardHeader>
-                <CardTitle>Schedule Maintenance Window</CardTitle>
-                <CardDescription>Plan a new maintenance period</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Title</Label>
-                    <Input placeholder="Maintenance window name" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Type</Label>
-                    <Input placeholder="update, maintenance, security" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Start Time</Label>
-                    <Input type="datetime-local" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>End Time</Label>
-                    <Input type="datetime-local" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label>Description</Label>
-                  <Textarea placeholder="Describe the maintenance activities..." />
-                </div>
-                <div className="space-y-2">
-                  <Label>Notification Message</Label>
-                  <Textarea placeholder="Message to display to users..." />
-                </div>
-                <Button>
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Schedule Maintenance
-                </Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="history">
-            <Card>
-              <CardHeader>
-                <CardTitle>Past Maintenance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Duration</TableHead>
-                      <TableHead>Impact</TableHead>
-                      <TableHead>Status</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {pastMaintenance.map((m) => (
-                      <TableRow key={m.id}>
-                        <TableCell className="font-medium">{m.name}</TableCell>
-                        <TableCell>{m.date}</TableCell>
-                        <TableCell>{m.duration}</TableCell>
-                        <TableCell>{m.impact}</TableCell>
-                        <TableCell>
-                          <Badge className="bg-green-500">
-                            <CheckCircle className="w-3 h-3 mr-1" />
-                            {m.status}
-                          </Badge>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
       </div>
-    </ScrollArea>
+    );
+  }
+
+  return (
+    <TooltipProvider>
+      <ScrollArea className="h-full" data-testid="maintenance-page">
+        <div className="p-6 space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold" data-testid="text-page-title">{t("adminMaintenance.title")}</h1>
+              <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminMaintenance.subtitle")}</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <Badge 
+                variant="outline" 
+                className={maintenanceMode ? "bg-yellow-500/10 text-yellow-500" : "bg-green-500/10 text-green-500"}
+                data-testid="badge-maintenance-status"
+              >
+                {maintenanceMode ? (
+                  <><Wrench className="w-3 h-3 mr-1" /> {t("adminMaintenance.maintenanceActive")}</>
+                ) : (
+                  <><CheckCircle className="w-3 h-3 mr-1" /> {t("adminMaintenance.normalOperation")}</>
+                )}
+              </Badge>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isRefreshing} data-testid="button-refresh">
+                    <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{t("adminMaintenance.refresh")}</TooltipContent>
+              </Tooltip>
+            </div>
+          </div>
+
+          <Card className={maintenanceMode ? "border-yellow-500/30 bg-yellow-500/5" : ""} data-testid="card-quick-toggle">
+            <CardHeader>
+              <CardTitle>{t("adminMaintenance.quickMaintenanceToggle")}</CardTitle>
+              <CardDescription>{t("adminMaintenance.quickMaintenanceToggleDesc")}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoading ? (
+                <Skeleton className="h-20 w-full" />
+              ) : (
+                <>
+                  <div className="flex items-center justify-between p-4 border rounded-lg">
+                    <div>
+                      <p className="font-medium">{t("adminMaintenance.maintenanceMode")}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {maintenanceMode ? t("adminMaintenance.systemReadOnly") : t("adminMaintenance.systemFullyOperational")}
+                      </p>
+                    </div>
+                    <Switch 
+                      checked={maintenanceMode} 
+                      onCheckedChange={(checked) => toggleMaintenanceModeMutation.mutate(checked)}
+                      disabled={toggleMaintenanceModeMutation.isPending}
+                      data-testid="switch-maintenance-mode"
+                    />
+                  </div>
+                  {maintenanceMode && (
+                    <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg" data-testid="maintenance-warning">
+                      <div className="flex items-center gap-2 text-yellow-500 mb-2">
+                        <AlertTriangle className="w-4 h-4" />
+                        <span className="font-medium">{t("adminMaintenance.maintenanceModeActive")}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {t("adminMaintenance.maintenanceModeActiveDesc")}
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          <Tabs defaultValue="scheduled" className="space-y-4" data-testid="tabs-maintenance">
+            <TabsList data-testid="tabs-list">
+              <TabsTrigger value="scheduled" data-testid="tab-scheduled">{t("adminMaintenance.scheduled")}</TabsTrigger>
+              <TabsTrigger value="create" data-testid="tab-create">{t("adminMaintenance.scheduleNew")}</TabsTrigger>
+              <TabsTrigger value="history" data-testid="tab-history">{t("adminMaintenance.history")}</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="scheduled">
+              <Card data-testid="card-upcoming-maintenance">
+                <CardHeader>
+                  <CardTitle>{t("adminMaintenance.upcomingMaintenance")}</CardTitle>
+                  <CardDescription>{t("adminMaintenance.upcomingMaintenanceDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <div className="space-y-2">
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <Skeleton key={i} className="h-12 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminMaintenance.name")}</TableHead>
+                          <TableHead>{t("adminMaintenance.start")}</TableHead>
+                          <TableHead>{t("adminMaintenance.end")}</TableHead>
+                          <TableHead>{t("adminMaintenance.type")}</TableHead>
+                          <TableHead>{t("adminMaintenance.status")}</TableHead>
+                          <TableHead>{t("adminMaintenance.actions")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {maintenanceWindows.map((window, index) => (
+                          <TableRow key={window.id} data-testid={`window-row-${index}`}>
+                            <TableCell className="font-medium" data-testid={`window-name-${index}`}>{window.name}</TableCell>
+                            <TableCell data-testid={`window-start-${index}`}>{window.start}</TableCell>
+                            <TableCell data-testid={`window-end-${index}`}>{window.end}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline" data-testid={`window-type-${index}`}>{window.type}</Badge>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="secondary" data-testid={`window-status-${index}`}>
+                                <Clock className="w-3 h-3 mr-1" />
+                                {window.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex gap-1">
+                                <Button size="sm" variant="ghost" data-testid={`button-edit-${index}`}>{t("adminMaintenance.edit")}</Button>
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  className="text-red-500"
+                                  onClick={() => cancelWindowMutation.mutate(window.id)}
+                                  disabled={cancelWindowMutation.isPending}
+                                  data-testid={`button-cancel-${index}`}
+                                >
+                                  {t("adminMaintenance.cancel")}
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="create">
+              <Card data-testid="card-schedule-window">
+                <CardHeader>
+                  <CardTitle>{t("adminMaintenance.scheduleMaintenanceWindow")}</CardTitle>
+                  <CardDescription>{t("adminMaintenance.scheduleMaintenanceWindowDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {isLoading ? (
+                    <div className="space-y-4">
+                      <Skeleton className="h-10 w-full" />
+                      <Skeleton className="h-10 w-full" />
+                      <Skeleton className="h-20 w-full" />
+                    </div>
+                  ) : (
+                    <>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label>{t("adminMaintenance.titleLabel")}</Label>
+                          <Input 
+                            placeholder={t("adminMaintenance.titlePlaceholder")} 
+                            value={newWindow.title}
+                            onChange={(e) => setNewWindow(prev => ({ ...prev, title: e.target.value }))}
+                            data-testid="input-title"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>{t("adminMaintenance.typeLabel")}</Label>
+                          <Input 
+                            placeholder={t("adminMaintenance.typePlaceholder")}
+                            value={newWindow.type}
+                            onChange={(e) => setNewWindow(prev => ({ ...prev, type: e.target.value }))}
+                            data-testid="input-type"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>{t("adminMaintenance.startTime")}</Label>
+                          <Input 
+                            type="datetime-local"
+                            value={newWindow.startTime}
+                            onChange={(e) => setNewWindow(prev => ({ ...prev, startTime: e.target.value }))}
+                            data-testid="input-start-time"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>{t("adminMaintenance.endTime")}</Label>
+                          <Input 
+                            type="datetime-local"
+                            value={newWindow.endTime}
+                            onChange={(e) => setNewWindow(prev => ({ ...prev, endTime: e.target.value }))}
+                            data-testid="input-end-time"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label>{t("adminMaintenance.description")}</Label>
+                        <Textarea 
+                          placeholder={t("adminMaintenance.descriptionPlaceholder")}
+                          value={newWindow.description}
+                          onChange={(e) => setNewWindow(prev => ({ ...prev, description: e.target.value }))}
+                          data-testid="textarea-description"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>{t("adminMaintenance.notificationMessage")}</Label>
+                        <Textarea 
+                          placeholder={t("adminMaintenance.notificationPlaceholder")}
+                          value={newWindow.notification}
+                          onChange={(e) => setNewWindow(prev => ({ ...prev, notification: e.target.value }))}
+                          data-testid="textarea-notification"
+                        />
+                      </div>
+                      <Button 
+                        onClick={handleScheduleMaintenance}
+                        disabled={scheduleWindowMutation.isPending}
+                        data-testid="button-schedule"
+                      >
+                        {scheduleWindowMutation.isPending ? (
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        ) : (
+                          <Calendar className="w-4 h-4 mr-2" />
+                        )}
+                        {t("adminMaintenance.scheduleMaintenance")}
+                      </Button>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="history">
+              <Card data-testid="card-past-maintenance">
+                <CardHeader>
+                  <CardTitle>{t("adminMaintenance.pastMaintenance")}</CardTitle>
+                  <CardDescription>{t("adminMaintenance.pastMaintenanceDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <div className="space-y-2">
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <Skeleton key={i} className="h-12 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminMaintenance.name")}</TableHead>
+                          <TableHead>{t("adminMaintenance.date")}</TableHead>
+                          <TableHead>{t("adminMaintenance.duration")}</TableHead>
+                          <TableHead>{t("adminMaintenance.impact")}</TableHead>
+                          <TableHead>{t("adminMaintenance.status")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {pastMaintenance.map((m, index) => (
+                          <TableRow key={m.id} data-testid={`past-row-${index}`}>
+                            <TableCell className="font-medium" data-testid={`past-name-${index}`}>{m.name}</TableCell>
+                            <TableCell data-testid={`past-date-${index}`}>{m.date}</TableCell>
+                            <TableCell data-testid={`past-duration-${index}`}>{m.duration}</TableCell>
+                            <TableCell data-testid={`past-impact-${index}`}>{m.impact}</TableCell>
+                            <TableCell>
+                              <Badge className={m.status === "completed" ? "bg-green-500" : "bg-red-500"} data-testid={`past-status-${index}`}>
+                                <CheckCircle className="w-3 h-3 mr-1" />
+                                {m.status}
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </ScrollArea>
+    </TooltipProvider>
   );
 }

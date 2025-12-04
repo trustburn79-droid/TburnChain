@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Bell,
   Mail,
@@ -26,6 +31,7 @@ import {
   Settings,
   Plus,
   Trash2,
+  AlertCircle,
 } from "lucide-react";
 import { SiSlack, SiDiscord, SiTelegram } from "react-icons/si";
 
@@ -37,13 +43,138 @@ interface NotificationChannel {
   destination: string;
 }
 
+interface NotificationSettings {
+  channels: NotificationChannel[];
+  preferences: {
+    soundEnabled: boolean;
+    volume: number;
+    desktopNotifications: boolean;
+    emailDigest: boolean;
+    duplicateSuppression: boolean;
+    batchWindow: string;
+  };
+  schedule: {
+    quietHoursEnabled: boolean;
+    quietHoursStart: string;
+    quietHoursEnd: string;
+    timezone: string;
+    weekendNotifications: boolean;
+  };
+}
+
+function MetricCard({ 
+  icon: Icon, 
+  label, 
+  value, 
+  change, 
+  changeType = "neutral",
+  isLoading = false,
+  bgColor = "bg-blue-500/10",
+  iconColor = "text-blue-500",
+  testId
+}: {
+  icon: any;
+  label: string;
+  value: string | number;
+  change?: string;
+  changeType?: "positive" | "negative" | "neutral";
+  isLoading?: boolean;
+  bgColor?: string;
+  iconColor?: string;
+  testId?: string;
+}) {
+  return (
+    <Card data-testid={testId}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+        <CardTitle className="text-sm font-medium">{label}</CardTitle>
+        <div className={`p-2 rounded-lg ${bgColor}`}>
+          <Icon className={`h-4 w-4 ${iconColor}`} />
+        </div>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Skeleton className="h-8 w-24" />
+        ) : (
+          <>
+            <div className="text-2xl font-bold">{value}</div>
+            {change && (
+              <p className={`text-xs ${
+                changeType === "positive" ? "text-green-500" : 
+                changeType === "negative" ? "text-red-500" : 
+                "text-muted-foreground"
+              }`}>
+                {change}
+              </p>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function NotificationSettings() {
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("channels");
-  const [saving, setSaving] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [notificationVolume, setNotificationVolume] = useState([70]);
 
-  const channels: NotificationChannel[] = [
+  const { data: notificationSettings, isLoading, error, refetch } = useQuery<NotificationSettings>({
+    queryKey: ["/api/admin/notifications/settings"],
+    refetchInterval: 30000,
+  });
+
+  const saveSettingsMutation = useMutation({
+    mutationFn: async (settings: Partial<NotificationSettings>) => {
+      const response = await apiRequest("POST", "/api/admin/notifications/settings", settings);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/notifications/settings"] });
+      toast({
+        title: t("adminNotifications.saveSuccess"),
+        description: t("adminNotifications.saveSuccessDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminNotifications.saveError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const testNotificationMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/admin/notifications/test");
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminNotifications.testSent"),
+        description: t("adminNotifications.testSentDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminNotifications.testError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminNotifications.refreshing"),
+      description: t("adminNotifications.refreshingDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const mockChannels: NotificationChannel[] = [
     { id: "1", type: "email", name: "Admin Email", enabled: true, destination: "admin@tburn.io" },
     { id: "2", type: "slack", name: "Alerts Channel", enabled: true, destination: "#tburn-alerts" },
     { id: "3", type: "discord", name: "Dev Server", enabled: true, destination: "#dev-notifications" },
@@ -51,10 +182,7 @@ export default function NotificationSettings() {
     { id: "5", type: "sms", name: "On-Call Phone", enabled: true, destination: "+1-xxx-xxx-xxxx" },
   ];
 
-  const handleSave = () => {
-    setSaving(true);
-    setTimeout(() => setSaving(false), 1000);
-  };
+  const channels = notificationSettings?.channels || mockChannels;
 
   const getChannelIcon = (type: string) => {
     switch (type) {
@@ -73,181 +201,222 @@ export default function NotificationSettings() {
     }
   };
 
+  const enabledChannels = channels.filter(c => c.enabled).length;
+
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto" data-testid="notification-settings-error-container">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-red-500/50 bg-red-500/10">
+            <CardContent className="flex items-center gap-4 py-6">
+              <AlertCircle className="h-8 w-8 text-red-500" />
+              <div>
+                <h3 className="font-semibold text-red-500">{t("adminNotifications.errorLoading")}</h3>
+                <p className="text-sm text-muted-foreground">{t("adminNotifications.errorLoadingDesc")}</p>
+              </div>
+              <Button variant="outline" onClick={() => refetch()} className="ml-auto" data-testid="button-retry">
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {t("adminNotifications.retry")}
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="notification-settings-container">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-notification-settings-title">
               <Bell className="h-8 w-8" />
-              Notification Settings
+              {t("adminNotifications.title")}
             </h1>
-            <p className="text-muted-foreground">알림 설정 관리 | Configure notification preferences and channels</p>
+            <p className="text-muted-foreground" data-testid="text-notification-settings-subtitle">
+              {t("adminNotifications.subtitle")} | {i18n.language === 'ko' ? 'Configure notification preferences and channels' : '알림 설정 관리'}
+            </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" data-testid="button-test-notification">
-              <Bell className="h-4 w-4 mr-2" />
-              Test Notification
+            <Button 
+              variant="outline" 
+              onClick={() => testNotificationMutation.mutate()}
+              disabled={testNotificationMutation.isPending}
+              data-testid="button-test-notification"
+            >
+              {testNotificationMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Bell className="h-4 w-4 mr-2" />}
+              {t("adminNotifications.testNotification")}
             </Button>
-            <Button onClick={handleSave} disabled={saving} data-testid="button-save">
-              {saving ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}
-              Save Changes
+            <Button variant="outline" onClick={handleRefresh} disabled={isLoading} data-testid="button-refresh">
+              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+              {t("adminNotifications.refresh")}
+            </Button>
+            <Button onClick={() => saveSettingsMutation.mutate({})} disabled={saveSettingsMutation.isPending} data-testid="button-save">
+              {saveSettingsMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}
+              {t("adminNotifications.saveChanges")}
             </Button>
           </div>
         </div>
 
-        {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Channels</CardTitle>
-              <Bell className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">4</div>
-              <p className="text-xs text-muted-foreground">of 5 channels enabled</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Notifications Sent (24h)</CardTitle>
-              <MessageSquare className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">847</div>
-              <p className="text-xs text-green-500">All delivered successfully</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Critical Alerts</CardTitle>
-              <AlertTriangle className="h-4 w-4 text-red-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-red-500">3</div>
-              <p className="text-xs text-muted-foreground">Pending acknowledgment</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg Delivery Time</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">1.2s</div>
-              <p className="text-xs text-muted-foreground">Across all channels</p>
-            </CardContent>
-          </Card>
+          <MetricCard
+            icon={Bell}
+            label={t("adminNotifications.metrics.activeChannels")}
+            value={enabledChannels}
+            change={`${t("adminNotifications.metrics.of")} ${channels.length} ${t("adminNotifications.metrics.channelsEnabled")}`}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-blue-500/10"
+            iconColor="text-blue-500"
+            testId="metric-active-channels"
+          />
+          <MetricCard
+            icon={MessageSquare}
+            label={t("adminNotifications.metrics.notificationsSent24h")}
+            value="847"
+            change={t("adminNotifications.metrics.allDelivered")}
+            changeType="positive"
+            isLoading={isLoading}
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
+            testId="metric-notifications-sent"
+          />
+          <MetricCard
+            icon={AlertTriangle}
+            label={t("adminNotifications.metrics.criticalAlerts")}
+            value="3"
+            change={t("adminNotifications.metrics.pendingAcknowledgment")}
+            changeType="negative"
+            isLoading={isLoading}
+            bgColor="bg-red-500/10"
+            iconColor="text-red-500"
+            testId="metric-critical-alerts"
+          />
+          <MetricCard
+            icon={Clock}
+            label={t("adminNotifications.metrics.avgDeliveryTime")}
+            value="1.2s"
+            change={t("adminNotifications.metrics.acrossAllChannels")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-orange-500/10"
+            iconColor="text-orange-500"
+            testId="metric-delivery-time"
+          />
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="channels">Channels</TabsTrigger>
-            <TabsTrigger value="alerts">Alert Rules</TabsTrigger>
-            <TabsTrigger value="schedule">Schedule</TabsTrigger>
-            <TabsTrigger value="preferences">Preferences</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} data-testid="notification-settings-tabs">
+          <TabsList className="grid w-full grid-cols-4" data-testid="notification-settings-tabs-list">
+            <TabsTrigger value="channels" data-testid="tab-channels">{t("adminNotifications.tabs.channels")}</TabsTrigger>
+            <TabsTrigger value="alerts" data-testid="tab-alerts">{t("adminNotifications.tabs.alertRules")}</TabsTrigger>
+            <TabsTrigger value="schedule" data-testid="tab-schedule">{t("adminNotifications.tabs.schedule")}</TabsTrigger>
+            <TabsTrigger value="preferences" data-testid="tab-preferences">{t("adminNotifications.tabs.preferences")}</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="channels" className="space-y-4">
+          <TabsContent value="channels" className="space-y-4" data-testid="content-channels">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
+              <CardHeader className="flex flex-row items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Notification Channels</CardTitle>
-                  <CardDescription>Configure where notifications are sent</CardDescription>
+                  <CardTitle>{t("adminNotifications.channels.title")}</CardTitle>
+                  <CardDescription>{t("adminNotifications.channels.description")}</CardDescription>
                 </div>
                 <Button data-testid="button-add-channel">
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Channel
+                  {t("adminNotifications.channels.addChannel")}
                 </Button>
               </CardHeader>
               <CardContent className="space-y-4">
-                {channels.map((channel) => (
-                  <div key={channel.id} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex items-center gap-4">
-                      <div className="p-2 bg-muted rounded-lg">
-                        {getChannelIcon(channel.type)}
+                {isLoading ? (
+                  [...Array(5)].map((_, i) => (
+                    <Skeleton key={i} className="h-16 w-full" />
+                  ))
+                ) : (
+                  channels.map((channel) => (
+                    <div key={channel.id} className="flex items-center justify-between p-4 border rounded-lg" data-testid={`channel-${channel.id}`}>
+                      <div className="flex items-center gap-4">
+                        <div className="p-2 bg-muted rounded-lg">
+                          {getChannelIcon(channel.type)}
+                        </div>
+                        <div>
+                          <p className="font-medium">{channel.name}</p>
+                          <p className="text-sm text-muted-foreground">{channel.destination}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-medium">{channel.name}</p>
-                        <p className="text-sm text-muted-foreground">{channel.destination}</p>
+                      <div className="flex items-center gap-4">
+                        <Badge variant={channel.enabled ? "default" : "secondary"}>
+                          {channel.enabled ? t("adminNotifications.channels.enabled") : t("adminNotifications.channels.disabled")}
+                        </Badge>
+                        <Switch defaultChecked={channel.enabled} data-testid={`switch-channel-${channel.id}`} />
+                        <Button variant="ghost" size="icon" data-testid={`button-settings-channel-${channel.id}`}>
+                          <Settings className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="text-red-500" data-testid={`button-delete-channel-${channel.id}`}>
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <Badge variant={channel.enabled ? "default" : "secondary"}>
-                        {channel.enabled ? "Enabled" : "Disabled"}
-                      </Badge>
-                      <Switch defaultChecked={channel.enabled} />
-                      <Button variant="ghost" size="icon">
-                        <Settings className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" className="text-red-500">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="alerts" className="space-y-4">
+          <TabsContent value="alerts" className="space-y-4" data-testid="content-alerts">
             <Card>
               <CardHeader>
-                <CardTitle>Alert Severity Routing</CardTitle>
-                <CardDescription>Configure which channels receive each alert type</CardDescription>
+                <CardTitle>{t("adminNotifications.alerts.title")}</CardTitle>
+                <CardDescription>{t("adminNotifications.alerts.description")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-red-500/10 border-red-500/30">
+                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-red-500/10 border-red-500/30" data-testid="alert-severity-critical">
                     <XCircle className="h-6 w-6 text-red-500" />
                     <div className="flex-1">
-                      <p className="font-medium text-red-500">Critical Alerts</p>
-                      <p className="text-sm text-muted-foreground">System down, security breach, consensus failure</p>
+                      <p className="font-medium text-red-500">{t("adminNotifications.alerts.critical")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminNotifications.alerts.criticalDesc")}</p>
                     </div>
-                    <div className="flex gap-2">
-                      <Badge variant="outline">Email</Badge>
-                      <Badge variant="outline">Slack</Badge>
-                      <Badge variant="outline">SMS</Badge>
-                      <Badge variant="outline">Discord</Badge>
+                    <div className="flex gap-2 flex-wrap">
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.email")}</Badge>
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.slack")}</Badge>
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.sms")}</Badge>
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.discord")}</Badge>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-orange-500/10 border-orange-500/30">
+                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-orange-500/10 border-orange-500/30" data-testid="alert-severity-high">
                     <AlertTriangle className="h-6 w-6 text-orange-500" />
                     <div className="flex-1">
-                      <p className="font-medium text-orange-500">High Priority</p>
-                      <p className="text-sm text-muted-foreground">Performance degradation, validator issues</p>
+                      <p className="font-medium text-orange-500">{t("adminNotifications.alerts.high")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminNotifications.alerts.highDesc")}</p>
                     </div>
-                    <div className="flex gap-2">
-                      <Badge variant="outline">Email</Badge>
-                      <Badge variant="outline">Slack</Badge>
-                      <Badge variant="outline">Discord</Badge>
+                    <div className="flex gap-2 flex-wrap">
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.email")}</Badge>
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.slack")}</Badge>
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.discord")}</Badge>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-yellow-500/10 border-yellow-500/30">
+                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-yellow-500/10 border-yellow-500/30" data-testid="alert-severity-medium">
                     <Info className="h-6 w-6 text-yellow-500" />
                     <div className="flex-1">
-                      <p className="font-medium text-yellow-500">Medium Priority</p>
-                      <p className="text-sm text-muted-foreground">Resource warnings, unusual activity</p>
+                      <p className="font-medium text-yellow-500">{t("adminNotifications.alerts.medium")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminNotifications.alerts.mediumDesc")}</p>
                     </div>
-                    <div className="flex gap-2">
-                      <Badge variant="outline">Email</Badge>
-                      <Badge variant="outline">Slack</Badge>
+                    <div className="flex gap-2 flex-wrap">
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.email")}</Badge>
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.slack")}</Badge>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-blue-500/10 border-blue-500/30">
+                  <div className="flex items-center gap-3 p-4 border rounded-lg bg-blue-500/10 border-blue-500/30" data-testid="alert-severity-low">
                     <CheckCircle className="h-6 w-6 text-blue-500" />
                     <div className="flex-1">
-                      <p className="font-medium text-blue-500">Low Priority</p>
-                      <p className="text-sm text-muted-foreground">Informational updates, scheduled events</p>
+                      <p className="font-medium text-blue-500">{t("adminNotifications.alerts.low")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminNotifications.alerts.lowDesc")}</p>
                     </div>
-                    <div className="flex gap-2">
-                      <Badge variant="outline">Slack</Badge>
+                    <div className="flex gap-2 flex-wrap">
+                      <Badge variant="outline">{t("adminNotifications.alerts.channels.slack")}</Badge>
                     </div>
                   </div>
                 </div>
@@ -255,25 +424,25 @@ export default function NotificationSettings() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="schedule" className="space-y-4">
+          <TabsContent value="schedule" className="space-y-4" data-testid="content-schedule">
             <Card>
               <CardHeader>
-                <CardTitle>Notification Schedule</CardTitle>
-                <CardDescription>Set quiet hours and delivery preferences</CardDescription>
+                <CardTitle>{t("adminNotifications.schedule.title")}</CardTitle>
+                <CardDescription>{t("adminNotifications.schedule.description")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Quiet Hours</p>
-                    <p className="text-sm text-muted-foreground">Only send critical alerts during these hours</p>
+                    <p className="font-medium">{t("adminNotifications.schedule.quietHours")}</p>
+                    <p className="text-sm text-muted-foreground">{t("adminNotifications.schedule.quietHoursDesc")}</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch defaultChecked data-testid="switch-quiet-hours" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Quiet Hours Start</Label>
+                    <Label data-testid="label-quiet-hours-start">{t("adminNotifications.schedule.quietHoursStart")}</Label>
                     <Select defaultValue="22:00">
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="select-quiet-hours-start">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -286,9 +455,9 @@ export default function NotificationSettings() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Quiet Hours End</Label>
+                    <Label data-testid="label-quiet-hours-end">{t("adminNotifications.schedule.quietHoursEnd")}</Label>
                     <Select defaultValue="08:00">
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="select-quiet-hours-end">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -303,9 +472,9 @@ export default function NotificationSettings() {
                 </div>
                 <Separator />
                 <div className="space-y-2">
-                  <Label>Timezone</Label>
+                  <Label data-testid="label-timezone">{t("adminNotifications.schedule.timezone")}</Label>
                   <Select defaultValue="UTC">
-                    <SelectTrigger>
+                    <SelectTrigger data-testid="select-timezone">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -319,41 +488,42 @@ export default function NotificationSettings() {
                 <Separator />
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Weekend Notifications</p>
-                    <p className="text-sm text-muted-foreground">Receive non-critical notifications on weekends</p>
+                    <p className="font-medium">{t("adminNotifications.schedule.weekendNotifications")}</p>
+                    <p className="text-sm text-muted-foreground">{t("adminNotifications.schedule.weekendNotificationsDesc")}</p>
                   </div>
-                  <Switch />
+                  <Switch data-testid="switch-weekend-notifications" />
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="preferences" className="space-y-4">
+          <TabsContent value="preferences" className="space-y-4" data-testid="content-preferences">
             <Card>
               <CardHeader>
-                <CardTitle>Notification Preferences</CardTitle>
-                <CardDescription>General notification settings</CardDescription>
+                <CardTitle>{t("adminNotifications.preferences.title")}</CardTitle>
+                <CardDescription>{t("adminNotifications.preferences.description")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     {soundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
                     <div>
-                      <p className="font-medium">Sound Notifications</p>
-                      <p className="text-sm text-muted-foreground">Play sound for incoming notifications</p>
+                      <p className="font-medium">{t("adminNotifications.preferences.soundNotifications")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminNotifications.preferences.soundNotificationsDesc")}</p>
                     </div>
                   </div>
-                  <Switch checked={soundEnabled} onCheckedChange={setSoundEnabled} />
+                  <Switch checked={soundEnabled} onCheckedChange={setSoundEnabled} data-testid="switch-sound-notifications" />
                 </div>
 
                 {soundEnabled && (
                   <div className="space-y-2 pl-8">
-                    <Label>Notification Volume</Label>
+                    <Label>{t("adminNotifications.preferences.notificationVolume")}</Label>
                     <Slider
                       value={notificationVolume}
                       onValueChange={setNotificationVolume}
                       max={100}
                       step={1}
+                      data-testid="slider-volume"
                     />
                     <p className="text-xs text-muted-foreground">{notificationVolume[0]}%</p>
                   </div>
@@ -363,49 +533,49 @@ export default function NotificationSettings() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Desktop Notifications</p>
-                    <p className="text-sm text-muted-foreground">Show browser notifications</p>
+                    <p className="font-medium">{t("adminNotifications.preferences.desktopNotifications")}</p>
+                    <p className="text-sm text-muted-foreground">{t("adminNotifications.preferences.desktopNotificationsDesc")}</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch defaultChecked data-testid="switch-desktop-notifications" />
                 </div>
 
                 <Separator />
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Email Digest</p>
-                    <p className="text-sm text-muted-foreground">Receive daily summary instead of individual emails</p>
+                    <p className="font-medium">{t("adminNotifications.preferences.emailDigest")}</p>
+                    <p className="text-sm text-muted-foreground">{t("adminNotifications.preferences.emailDigestDesc")}</p>
                   </div>
-                  <Switch />
+                  <Switch data-testid="switch-email-digest" />
                 </div>
 
                 <Separator />
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Duplicate Suppression</p>
-                    <p className="text-sm text-muted-foreground">Suppress repeated alerts within 5 minutes</p>
+                    <p className="font-medium">{t("adminNotifications.preferences.duplicateSuppression")}</p>
+                    <p className="text-sm text-muted-foreground">{t("adminNotifications.preferences.duplicateSuppressionDesc")}</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch defaultChecked data-testid="switch-duplicate-suppression" />
                 </div>
 
                 <Separator />
 
                 <div className="space-y-2">
-                  <Label>Alert Batch Window</Label>
+                  <Label data-testid="label-batch-window">{t("adminNotifications.preferences.alertBatchWindow")}</Label>
                   <Select defaultValue="5">
-                    <SelectTrigger>
+                    <SelectTrigger data-testid="select-batch-window">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="0">Immediate (no batching)</SelectItem>
-                      <SelectItem value="1">1 minute</SelectItem>
-                      <SelectItem value="5">5 minutes</SelectItem>
-                      <SelectItem value="15">15 minutes</SelectItem>
-                      <SelectItem value="30">30 minutes</SelectItem>
+                      <SelectItem value="0">{t("adminNotifications.preferences.batchImmediate")}</SelectItem>
+                      <SelectItem value="1">{t("adminNotifications.preferences.batch1min")}</SelectItem>
+                      <SelectItem value="5">{t("adminNotifications.preferences.batch5min")}</SelectItem>
+                      <SelectItem value="15">{t("adminNotifications.preferences.batch15min")}</SelectItem>
+                      <SelectItem value="30">{t("adminNotifications.preferences.batch30min")}</SelectItem>
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-muted-foreground">Group non-critical alerts within this window</p>
+                  <p className="text-xs text-muted-foreground">{t("adminNotifications.preferences.alertBatchWindowDesc")}</p>
                 </div>
               </CardContent>
             </Card>

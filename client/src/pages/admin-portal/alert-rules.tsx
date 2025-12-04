@@ -1,39 +1,39 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import {
   Bell,
   Plus,
   Search,
   Filter,
   RefreshCw,
-  Settings,
   Edit,
   Trash2,
   Copy,
   Play,
-  Pause,
   AlertTriangle,
   CheckCircle,
   XCircle,
-  Clock,
   Zap,
   Mail,
   MessageSquare,
   Smartphone,
   Webhook,
   Activity,
-  TrendingUp,
+  AlertCircle,
 } from "lucide-react";
 
 interface AlertRule {
@@ -50,16 +50,122 @@ interface AlertRule {
   cooldown: number;
 }
 
+interface AlertRulesData {
+  rules: AlertRule[];
+  totalCount: number;
+}
+
 export default function AlertRules() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [newRule, setNewRule] = useState({
+    name: "",
+    description: "",
+    condition: "",
+    severity: "medium" as const,
+    category: "performance",
+    cooldown: 300,
+    notifications: [] as string[],
+  });
 
-  const alertRules: AlertRule[] = [
+  const { data: alertData, isLoading, error, refetch } = useQuery<AlertRulesData>({
+    queryKey: ["/api/admin/alerts/rules"],
+  });
+
+  const createRuleMutation = useMutation({
+    mutationFn: async (rule: typeof newRule) => {
+      return apiRequest("/api/admin/alerts/rules", {
+        method: "POST",
+        body: JSON.stringify(rule),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
+      setIsCreateDialogOpen(false);
+      setNewRule({
+        name: "",
+        description: "",
+        condition: "",
+        severity: "medium",
+        category: "performance",
+        cooldown: 300,
+        notifications: [],
+      });
+      toast({
+        title: t("adminAlertRules.ruleCreated"),
+        description: t("adminAlertRules.ruleCreatedDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminAlertRules.error"),
+        description: t("adminAlertRules.createError"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateRuleMutation = useMutation({
+    mutationFn: async ({ id, enabled }: { id: string; enabled: boolean }) => {
+      return apiRequest(`/api/admin/alerts/rules/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ enabled }),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
+      toast({
+        title: t("adminAlertRules.ruleUpdated"),
+        description: t("adminAlertRules.ruleUpdatedDesc"),
+      });
+    },
+  });
+
+  const deleteRuleMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest(`/api/admin/alerts/rules/${id}`, {
+        method: "DELETE",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/alerts/rules"] });
+      toast({
+        title: t("adminAlertRules.ruleDeleted"),
+        description: t("adminAlertRules.ruleDeletedDesc"),
+      });
+    },
+  });
+
+  const testRulesMutation = useMutation({
+    mutationFn: async () => {
+      return apiRequest("/api/admin/alerts/rules/test", {
+        method: "POST",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminAlertRules.testComplete"),
+        description: t("adminAlertRules.testCompleteDesc"),
+      });
+    },
+  });
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminAlertRules.refreshed"),
+      description: t("adminAlertRules.refreshedDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const alertRules: AlertRule[] = alertData?.rules || [
     {
       id: "rule-001",
       name: "High TPS Drop",
-      description: "Alert when TPS drops below 100,000",
+      description: t("adminAlertRules.ruleDescriptions.highTpsDrop"),
       condition: "tburn_tps_current < 100000",
       severity: "critical",
       enabled: true,
@@ -72,7 +178,7 @@ export default function AlertRules() {
     {
       id: "rule-002",
       name: "Consensus Timeout",
-      description: "Alert when consensus time exceeds 500ms",
+      description: t("adminAlertRules.ruleDescriptions.consensusTimeout"),
       condition: "tburn_consensus_time_ms > 500",
       severity: "high",
       enabled: true,
@@ -85,7 +191,7 @@ export default function AlertRules() {
     {
       id: "rule-003",
       name: "Validator Offline",
-      description: "Alert when validator count drops below 100",
+      description: t("adminAlertRules.ruleDescriptions.validatorOffline"),
       condition: "tburn_validator_count < 100",
       severity: "critical",
       enabled: true,
@@ -98,7 +204,7 @@ export default function AlertRules() {
     {
       id: "rule-004",
       name: "High CPU Usage",
-      description: "Alert when CPU usage exceeds 90%",
+      description: t("adminAlertRules.ruleDescriptions.highCpu"),
       condition: "tburn_cpu_usage_percent > 90",
       severity: "high",
       enabled: true,
@@ -111,7 +217,7 @@ export default function AlertRules() {
     {
       id: "rule-005",
       name: "Memory Pressure",
-      description: "Alert when memory usage exceeds 85%",
+      description: t("adminAlertRules.ruleDescriptions.memoryPressure"),
       condition: "tburn_memory_usage_percent > 85",
       severity: "medium",
       enabled: true,
@@ -124,7 +230,7 @@ export default function AlertRules() {
     {
       id: "rule-006",
       name: "Bridge Delay",
-      description: "Alert when bridge transfer time exceeds 10 minutes",
+      description: t("adminAlertRules.ruleDescriptions.bridgeDelay"),
       condition: "tburn_bridge_transfer_time_seconds > 600",
       severity: "medium",
       enabled: false,
@@ -137,7 +243,7 @@ export default function AlertRules() {
     {
       id: "rule-007",
       name: "AI Error Rate",
-      description: "Alert when AI error rate exceeds 5%",
+      description: t("adminAlertRules.ruleDescriptions.aiErrorRate"),
       condition: "tburn_ai_error_rate_percent > 5",
       severity: "high",
       enabled: true,
@@ -150,7 +256,7 @@ export default function AlertRules() {
     {
       id: "rule-008",
       name: "Mempool Congestion",
-      description: "Alert when pending transactions exceed 10,000",
+      description: t("adminAlertRules.ruleDescriptions.mempoolCongestion"),
       condition: "tburn_tx_pending > 10000",
       severity: "medium",
       enabled: true,
@@ -163,14 +269,14 @@ export default function AlertRules() {
   ];
 
   const categories = [
-    { value: "all", label: "All Categories" },
-    { value: "performance", label: "Performance" },
-    { value: "consensus", label: "Consensus" },
-    { value: "validators", label: "Validators" },
-    { value: "resources", label: "Resources" },
-    { value: "bridge", label: "Bridge" },
-    { value: "ai", label: "AI Systems" },
-    { value: "transactions", label: "Transactions" },
+    { value: "all", label: t("adminAlertRules.categories.all") },
+    { value: "performance", label: t("adminAlertRules.categories.performance") },
+    { value: "consensus", label: t("adminAlertRules.categories.consensus") },
+    { value: "validators", label: t("adminAlertRules.categories.validators") },
+    { value: "resources", label: t("adminAlertRules.categories.resources") },
+    { value: "bridge", label: t("adminAlertRules.categories.bridge") },
+    { value: "ai", label: t("adminAlertRules.categories.ai") },
+    { value: "transactions", label: t("adminAlertRules.categories.transactions") },
   ];
 
   const getSeverityColor = (severity: string) => {
@@ -211,45 +317,125 @@ export default function AlertRules() {
     return triggered.toDateString() === today.toDateString();
   }).length;
 
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-destructive">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <AlertCircle className="h-8 w-8 text-destructive" />
+                <div className="flex-1">
+                  <h3 className="font-semibold">{t("adminAlertRules.errorTitle")}</h3>
+                  <p className="text-sm text-muted-foreground">{t("adminAlertRules.errorDescription")}</p>
+                </div>
+                <Button onClick={() => refetch()} data-testid="button-retry-rules">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  {t("adminAlertRules.retry")}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
+          <div className="flex justify-between items-center">
+            <div className="space-y-2">
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="h-4 w-64" />
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-10 w-24" />
+              <Skeleton className="h-10 w-32" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Card key={i}>
+                <CardContent className="p-4">
+                  <Skeleton className="h-16 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-6 w-32" />
+            </CardHeader>
+            <CardContent>
+              <Skeleton className="h-64 w-full" />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="alert-rules-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-alert-rules-title">
               <Bell className="h-8 w-8" />
-              Alert Rules
+              {t("adminAlertRules.title")}
             </h1>
-            <p className="text-muted-foreground">Configure and manage alerting rules</p>
+            <p className="text-muted-foreground" data-testid="text-alert-rules-description">
+              {t("adminAlertRules.description")}
+            </p>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" data-testid="button-test-alerts">
+            <Button variant="outline" onClick={handleRefresh} data-testid="button-refresh-rules">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminAlertRules.refresh")}
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => testRulesMutation.mutate()}
+              disabled={testRulesMutation.isPending}
+              data-testid="button-test-alerts"
+            >
               <Play className="h-4 w-4 mr-2" />
-              Test All
+              {t("adminAlertRules.testAll")}
             </Button>
             <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
               <DialogTrigger asChild>
                 <Button data-testid="button-create-rule">
                   <Plus className="h-4 w-4 mr-2" />
-                  Create Rule
+                  {t("adminAlertRules.createRule")}
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-2xl">
                 <DialogHeader>
-                  <DialogTitle>Create Alert Rule</DialogTitle>
-                  <DialogDescription>Define a new alerting rule</DialogDescription>
+                  <DialogTitle>{t("adminAlertRules.dialog.createTitle")}</DialogTitle>
+                  <DialogDescription>{t("adminAlertRules.dialog.createDescription")}</DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="rule-name">Rule Name</Label>
-                      <Input id="rule-name" placeholder="e.g., High CPU Alert" />
+                      <Label htmlFor="rule-name">{t("adminAlertRules.dialog.ruleName")}</Label>
+                      <Input 
+                        id="rule-name" 
+                        placeholder={t("adminAlertRules.dialog.ruleNamePlaceholder")}
+                        value={newRule.name}
+                        onChange={(e) => setNewRule({ ...newRule, name: e.target.value })}
+                        data-testid="input-rule-name"
+                      />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="rule-category">Category</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select category" />
+                      <Label htmlFor="rule-category">{t("adminAlertRules.dialog.category")}</Label>
+                      <Select 
+                        value={newRule.category}
+                        onValueChange={(v) => setNewRule({ ...newRule, category: v })}
+                      >
+                        <SelectTrigger data-testid="select-rule-category">
+                          <SelectValue placeholder={t("adminAlertRules.dialog.selectCategory")} />
                         </SelectTrigger>
                         <SelectContent>
                           {categories.slice(1).map((cat) => (
@@ -260,42 +446,74 @@ export default function AlertRules() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="rule-description">Description</Label>
-                    <Textarea id="rule-description" placeholder="Describe the alert rule..." />
+                    <Label htmlFor="rule-description">{t("adminAlertRules.dialog.description")}</Label>
+                    <Textarea 
+                      id="rule-description" 
+                      placeholder={t("adminAlertRules.dialog.descriptionPlaceholder")}
+                      value={newRule.description}
+                      onChange={(e) => setNewRule({ ...newRule, description: e.target.value })}
+                      data-testid="textarea-rule-description"
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="rule-condition">Condition (PromQL)</Label>
+                    <Label htmlFor="rule-condition">{t("adminAlertRules.dialog.condition")}</Label>
                     <Input 
                       id="rule-condition" 
-                      placeholder="e.g., tburn_cpu_usage_percent > 90"
+                      placeholder={t("adminAlertRules.dialog.conditionPlaceholder")}
                       className="font-mono"
+                      value={newRule.condition}
+                      onChange={(e) => setNewRule({ ...newRule, condition: e.target.value })}
+                      data-testid="input-rule-condition"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label>Severity</Label>
-                      <Select defaultValue="medium">
-                        <SelectTrigger>
+                      <Label>{t("adminAlertRules.dialog.severity")}</Label>
+                      <Select 
+                        value={newRule.severity}
+                        onValueChange={(v) => setNewRule({ ...newRule, severity: v as typeof newRule.severity })}
+                      >
+                        <SelectTrigger data-testid="select-rule-severity">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="critical">Critical</SelectItem>
-                          <SelectItem value="high">High</SelectItem>
-                          <SelectItem value="medium">Medium</SelectItem>
-                          <SelectItem value="low">Low</SelectItem>
+                          <SelectItem value="critical">{t("adminAlertRules.severity.critical")}</SelectItem>
+                          <SelectItem value="high">{t("adminAlertRules.severity.high")}</SelectItem>
+                          <SelectItem value="medium">{t("adminAlertRules.severity.medium")}</SelectItem>
+                          <SelectItem value="low">{t("adminAlertRules.severity.low")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="rule-cooldown">Cooldown (seconds)</Label>
-                      <Input id="rule-cooldown" type="number" defaultValue={300} />
+                      <Label htmlFor="rule-cooldown">{t("adminAlertRules.dialog.cooldown")}</Label>
+                      <Input 
+                        id="rule-cooldown" 
+                        type="number" 
+                        value={newRule.cooldown}
+                        onChange={(e) => setNewRule({ ...newRule, cooldown: parseInt(e.target.value) })}
+                        data-testid="input-rule-cooldown"
+                      />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label>Notification Channels</Label>
+                    <Label>{t("adminAlertRules.dialog.notifications")}</Label>
                     <div className="flex flex-wrap gap-2">
                       {["Email", "Slack", "SMS", "PagerDuty", "Webhook"].map((channel) => (
-                        <Button key={channel} variant="outline" size="sm">
+                        <Button 
+                          key={channel} 
+                          variant={newRule.notifications.includes(channel.toLowerCase()) ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => {
+                            const lower = channel.toLowerCase();
+                            setNewRule({
+                              ...newRule,
+                              notifications: newRule.notifications.includes(lower)
+                                ? newRule.notifications.filter(n => n !== lower)
+                                : [...newRule.notifications, lower],
+                            });
+                          }}
+                          data-testid={`button-notif-${channel.toLowerCase()}`}
+                        >
                           {channel}
                         </Button>
                       ))}
@@ -303,8 +521,16 @@ export default function AlertRules() {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>Cancel</Button>
-                  <Button onClick={() => setIsCreateDialogOpen(false)}>Create Rule</Button>
+                  <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)} data-testid="button-cancel-create">
+                    {t("adminAlertRules.dialog.cancel")}
+                  </Button>
+                  <Button 
+                    onClick={() => createRuleMutation.mutate(newRule)}
+                    disabled={createRuleMutation.isPending}
+                    data-testid="button-confirm-create"
+                  >
+                    {t("adminAlertRules.dialog.create")}
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -312,69 +538,71 @@ export default function AlertRules() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
+          <Card data-testid="card-active-rules">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-green-500/10 flex items-center justify-center">
                   <CheckCircle className="h-6 w-6 text-green-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Active Rules</p>
-                  <p className="text-2xl font-bold">{enabledCount}</p>
+                  <p className="text-sm text-muted-foreground">{t("adminAlertRules.stats.activeRules")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-active-count">{enabledCount}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-critical-rules">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-red-500/10 flex items-center justify-center">
                   <AlertTriangle className="h-6 w-6 text-red-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Critical Rules</p>
-                  <p className="text-2xl font-bold">{criticalCount}</p>
+                  <p className="text-sm text-muted-foreground">{t("adminAlertRules.stats.criticalRules")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-critical-count">{criticalCount}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-triggered-today">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-yellow-500/10 flex items-center justify-center">
                   <Zap className="h-6 w-6 text-yellow-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Triggered Today</p>
-                  <p className="text-2xl font-bold">{triggeredToday}</p>
+                  <p className="text-sm text-muted-foreground">{t("adminAlertRules.stats.triggeredToday")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-triggered-count">{triggeredToday}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-total-triggers">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
                   <Activity className="h-6 w-6 text-blue-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Triggers</p>
-                  <p className="text-2xl font-bold">{alertRules.reduce((sum, r) => sum + r.triggerCount, 0)}</p>
+                  <p className="text-sm text-muted-foreground">{t("adminAlertRules.stats.totalTriggers")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-total-triggers">
+                    {alertRules.reduce((sum, r) => sum + r.triggerCount, 0)}
+                  </p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <Card>
+        <Card data-testid="card-rules-table">
           <CardHeader>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <CardTitle>Alert Rules</CardTitle>
+              <CardTitle>{t("adminAlertRules.tableTitle")}</CardTitle>
               <div className="flex items-center gap-2">
                 <div className="relative w-64">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search rules..."
+                    placeholder={t("adminAlertRules.searchPlaceholder")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10"
@@ -399,22 +627,23 @@ export default function AlertRules() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Condition</TableHead>
-                  <TableHead>Severity</TableHead>
-                  <TableHead>Notifications</TableHead>
-                  <TableHead>Last Triggered</TableHead>
-                  <TableHead>Count</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>{t("adminAlertRules.table.status")}</TableHead>
+                  <TableHead>{t("adminAlertRules.table.name")}</TableHead>
+                  <TableHead>{t("adminAlertRules.table.condition")}</TableHead>
+                  <TableHead>{t("adminAlertRules.table.severity")}</TableHead>
+                  <TableHead>{t("adminAlertRules.table.notifications")}</TableHead>
+                  <TableHead>{t("adminAlertRules.table.lastTriggered")}</TableHead>
+                  <TableHead>{t("adminAlertRules.table.count")}</TableHead>
+                  <TableHead className="text-right">{t("adminAlertRules.table.actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredRules.map((rule) => (
-                  <TableRow key={rule.id}>
+                {filteredRules.map((rule, index) => (
+                  <TableRow key={rule.id} data-testid={`rule-row-${index}`}>
                     <TableCell>
                       <Switch
                         checked={rule.enabled}
+                        onCheckedChange={(enabled) => updateRuleMutation.mutate({ id: rule.id, enabled })}
                         data-testid={`switch-rule-${rule.id}`}
                       />
                     </TableCell>
@@ -429,7 +658,7 @@ export default function AlertRules() {
                     </TableCell>
                     <TableCell>
                       <Badge className={getSeverityColor(rule.severity)}>
-                        {rule.severity}
+                        {t(`adminAlertRules.severity.${rule.severity}`)}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -448,7 +677,7 @@ export default function AlertRules() {
                           {new Date(rule.lastTriggered).toLocaleString()}
                         </span>
                       ) : (
-                        <span className="text-sm text-muted-foreground">Never</span>
+                        <span className="text-sm text-muted-foreground">{t("adminAlertRules.never")}</span>
                       )}
                     </TableCell>
                     <TableCell>
@@ -456,16 +685,22 @@ export default function AlertRules() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" data-testid={`button-test-rule-${index}`}>
                           <Play className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" data-testid={`button-edit-rule-${index}`}>
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" data-testid={`button-copy-rule-${index}`}>
                           <Copy className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="text-destructive">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="text-destructive"
+                          onClick={() => deleteRuleMutation.mutate(rule.id)}
+                          data-testid={`button-delete-rule-${index}`}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -477,56 +712,64 @@ export default function AlertRules() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card data-testid="card-notification-channels">
           <CardHeader>
-            <CardTitle>Notification Channels</CardTitle>
-            <CardDescription>Configure where alerts are sent</CardDescription>
+            <CardTitle>{t("adminAlertRules.channels.title")}</CardTitle>
+            <CardDescription>{t("adminAlertRules.channels.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-4 border rounded-lg space-y-3">
+              <div className="p-4 border rounded-lg space-y-3" data-testid="channel-email">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Mail className="h-5 w-5" />
-                    <span className="font-medium">Email</span>
+                    <span className="font-medium">{t("adminAlertRules.channels.email")}</span>
                   </div>
-                  <Badge variant="default">Active</Badge>
+                  <Badge variant="default">{t("adminAlertRules.channels.active")}</Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">5 recipients configured</p>
-                <Button variant="outline" size="sm" className="w-full">Configure</Button>
+                <p className="text-sm text-muted-foreground">{t("adminAlertRules.channels.emailRecipients")}</p>
+                <Button variant="outline" size="sm" className="w-full" data-testid="button-configure-email">
+                  {t("adminAlertRules.channels.configure")}
+                </Button>
               </div>
-              <div className="p-4 border rounded-lg space-y-3">
+              <div className="p-4 border rounded-lg space-y-3" data-testid="channel-slack">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-5 w-5" />
-                    <span className="font-medium">Slack</span>
+                    <span className="font-medium">{t("adminAlertRules.channels.slack")}</span>
                   </div>
-                  <Badge variant="default">Active</Badge>
+                  <Badge variant="default">{t("adminAlertRules.channels.active")}</Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">#alerts channel</p>
-                <Button variant="outline" size="sm" className="w-full">Configure</Button>
+                <p className="text-sm text-muted-foreground">{t("adminAlertRules.channels.slackChannel")}</p>
+                <Button variant="outline" size="sm" className="w-full" data-testid="button-configure-slack">
+                  {t("adminAlertRules.channels.configure")}
+                </Button>
               </div>
-              <div className="p-4 border rounded-lg space-y-3">
+              <div className="p-4 border rounded-lg space-y-3" data-testid="channel-sms">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Smartphone className="h-5 w-5" />
-                    <span className="font-medium">SMS</span>
+                    <span className="font-medium">{t("adminAlertRules.channels.sms")}</span>
                   </div>
-                  <Badge variant="secondary">Inactive</Badge>
+                  <Badge variant="secondary">{t("adminAlertRules.channels.inactive")}</Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">Not configured</p>
-                <Button variant="outline" size="sm" className="w-full">Configure</Button>
+                <p className="text-sm text-muted-foreground">{t("adminAlertRules.channels.notConfigured")}</p>
+                <Button variant="outline" size="sm" className="w-full" data-testid="button-configure-sms">
+                  {t("adminAlertRules.channels.configure")}
+                </Button>
               </div>
-              <div className="p-4 border rounded-lg space-y-3">
+              <div className="p-4 border rounded-lg space-y-3" data-testid="channel-pagerduty">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Bell className="h-5 w-5" />
-                    <span className="font-medium">PagerDuty</span>
+                    <span className="font-medium">{t("adminAlertRules.channels.pagerduty")}</span>
                   </div>
-                  <Badge variant="default">Active</Badge>
+                  <Badge variant="default">{t("adminAlertRules.channels.active")}</Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">Service: TBURN-Mainnet</p>
-                <Button variant="outline" size="sm" className="w-full">Configure</Button>
+                <p className="text-sm text-muted-foreground">{t("adminAlertRules.channels.pagerdutyService")}</p>
+                <Button variant="outline" size="sm" className="w-full" data-testid="button-configure-pagerduty">
+                  {t("adminAlertRules.channels.configure")}
+                </Button>
               </div>
             </div>
           </CardContent>

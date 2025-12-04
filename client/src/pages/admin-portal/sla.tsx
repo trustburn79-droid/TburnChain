@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 import {
   Clock,
   CheckCircle,
@@ -14,16 +18,15 @@ import {
   TrendingUp,
   TrendingDown,
   Calendar,
-  Target,
   Activity,
-  Zap,
   Shield,
   RefreshCw,
   Download,
   ArrowUp,
   ArrowDown,
+  AlertCircle,
 } from "lucide-react";
-import { AreaChart, Area, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
+import { AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
 
 interface SLAMetric {
   name: string;
@@ -46,131 +49,175 @@ interface SLAIncident {
   resolved: boolean;
 }
 
+interface SLAData {
+  metrics: SLAMetric[];
+  incidents: SLAIncident[];
+  monthlyUptimeData: { month: string; uptime: number; target: number }[];
+  slaComplianceData: { name: string; value: number; color: string }[];
+}
+
 export default function SLAMonitoring() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [timeRange, setTimeRange] = useState("30d");
   const [activeTab, setActiveTab] = useState("overview");
 
-  const slaMetrics: SLAMetric[] = [
+  const { data: slaData, isLoading, error, refetch } = useQuery<SLAData>({
+    queryKey: ["/api/admin/sla"],
+  });
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminSla.refreshed"),
+      description: t("adminSla.refreshedDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      timestamp: new Date().toISOString(),
+      timeRange,
+      metrics: slaMetrics,
+      incidents,
+      monthlyUptimeData,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `sla-report-${new Date().toISOString().split("T")[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast({
+      title: t("adminSla.exported"),
+      description: t("adminSla.exportedDesc"),
+    });
+  }, [timeRange, toast, t]);
+
+  const slaMetrics: SLAMetric[] = slaData?.metrics || [
     {
-      name: "Uptime",
+      name: t("adminSla.metrics.uptime"),
       target: 99.9,
       current: 99.97,
       unit: "%",
       status: "met",
       trend: "up",
       history: Array.from({ length: 30 }, (_, i) => ({
-        period: `Day ${i + 1}`,
+        period: `${t("adminSla.day")} ${i + 1}`,
         value: 99.9 + Math.random() * 0.1,
       })),
     },
     {
-      name: "Transaction Latency",
+      name: t("adminSla.metrics.txLatency"),
       target: 100,
       current: 45,
       unit: "ms",
       status: "met",
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
-        period: `Day ${i + 1}`,
+        period: `${t("adminSla.day")} ${i + 1}`,
         value: 40 + Math.random() * 20,
       })),
     },
     {
-      name: "TPS Capacity",
+      name: t("adminSla.metrics.tpsCapacity"),
       target: 500000,
       current: 520000,
       unit: "tx/s",
       status: "met",
       trend: "up",
       history: Array.from({ length: 30 }, (_, i) => ({
-        period: `Day ${i + 1}`,
+        period: `${t("adminSla.day")} ${i + 1}`,
         value: 480000 + Math.random() * 50000,
       })),
     },
     {
-      name: "Block Time",
+      name: t("adminSla.metrics.blockTime"),
       target: 500,
       current: 498,
       unit: "ms",
       status: "met",
       trend: "stable",
       history: Array.from({ length: 30 }, (_, i) => ({
-        period: `Day ${i + 1}`,
+        period: `${t("adminSla.day")} ${i + 1}`,
         value: 490 + Math.random() * 20,
       })),
     },
     {
-      name: "API Response Time",
+      name: t("adminSla.metrics.apiResponse"),
       target: 200,
       current: 156,
       unit: "ms",
       status: "met",
       trend: "down",
       history: Array.from({ length: 30 }, (_, i) => ({
-        period: `Day ${i + 1}`,
+        period: `${t("adminSla.day")} ${i + 1}`,
         value: 140 + Math.random() * 40,
       })),
     },
     {
-      name: "Error Rate",
+      name: t("adminSla.metrics.errorRate"),
       target: 0.1,
       current: 0.02,
       unit: "%",
       status: "met",
       trend: "down",
       history: Array.from({ length: 30 }, (_, i) => ({
-        period: `Day ${i + 1}`,
+        period: `${t("adminSla.day")} ${i + 1}`,
         value: 0.01 + Math.random() * 0.05,
       })),
     },
   ];
 
-  const incidents: SLAIncident[] = [
+  const incidents: SLAIncident[] = slaData?.incidents || [
     {
       id: "INC-001",
-      type: "Network Latency Spike",
+      type: t("adminSla.incidentTypes.networkLatency"),
       startTime: "2024-12-01T10:30:00Z",
       endTime: "2024-12-01T10:45:00Z",
       duration: 15,
       impact: "minor",
-      rootCause: "Temporary network congestion",
+      rootCause: t("adminSla.rootCauses.networkCongestion"),
       resolved: true,
     },
     {
       id: "INC-002",
-      type: "Validator Sync Delay",
+      type: t("adminSla.incidentTypes.validatorSync"),
       startTime: "2024-11-28T14:00:00Z",
       endTime: "2024-11-28T14:20:00Z",
       duration: 20,
       impact: "minor",
-      rootCause: "Disk I/O bottleneck",
+      rootCause: t("adminSla.rootCauses.diskIO"),
       resolved: true,
     },
     {
       id: "INC-003",
-      type: "API Gateway Timeout",
+      type: t("adminSla.incidentTypes.apiTimeout"),
       startTime: "2024-11-25T08:15:00Z",
       endTime: "2024-11-25T08:35:00Z",
       duration: 20,
       impact: "major",
-      rootCause: "Memory leak in gateway service",
+      rootCause: t("adminSla.rootCauses.memoryLeak"),
       resolved: true,
     },
   ];
 
-  const monthlyUptimeData = [
-    { month: "Jul", uptime: 99.95, target: 99.9 },
-    { month: "Aug", uptime: 99.98, target: 99.9 },
-    { month: "Sep", uptime: 99.92, target: 99.9 },
-    { month: "Oct", uptime: 99.99, target: 99.9 },
-    { month: "Nov", uptime: 99.96, target: 99.9 },
-    { month: "Dec", uptime: 99.97, target: 99.9 },
+  const monthlyUptimeData = slaData?.monthlyUptimeData || [
+    { month: t("adminSla.months.jul"), uptime: 99.95, target: 99.9 },
+    { month: t("adminSla.months.aug"), uptime: 99.98, target: 99.9 },
+    { month: t("adminSla.months.sep"), uptime: 99.92, target: 99.9 },
+    { month: t("adminSla.months.oct"), uptime: 99.99, target: 99.9 },
+    { month: t("adminSla.months.nov"), uptime: 99.96, target: 99.9 },
+    { month: t("adminSla.months.dec"), uptime: 99.97, target: 99.9 },
   ];
 
-  const slaComplianceData = [
-    { name: "Met", value: 6, color: "hsl(var(--chart-1))" },
-    { name: "At Risk", value: 0, color: "hsl(var(--chart-3))" },
-    { name: "Breached", value: 0, color: "hsl(var(--chart-5))" },
+  const slaComplianceData = slaData?.slaComplianceData || [
+    { name: t("adminSla.status.met"), value: 6, color: "hsl(var(--chart-1))" },
+    { name: t("adminSla.status.atRisk"), value: 0, color: "hsl(var(--chart-3))" },
+    { name: t("adminSla.status.breached"), value: 0, color: "hsl(var(--chart-5))" },
   ];
 
   const getStatusColor = (status: string) => {
@@ -184,19 +231,19 @@ export default function SLAMonitoring() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "met": return <Badge className="bg-green-500">Met</Badge>;
-      case "at-risk": return <Badge className="bg-yellow-500">At Risk</Badge>;
-      case "breached": return <Badge className="bg-red-500">Breached</Badge>;
-      default: return <Badge>Unknown</Badge>;
+      case "met": return <Badge className="bg-green-500">{t("adminSla.status.met")}</Badge>;
+      case "at-risk": return <Badge className="bg-yellow-500">{t("adminSla.status.atRisk")}</Badge>;
+      case "breached": return <Badge className="bg-red-500">{t("adminSla.status.breached")}</Badge>;
+      default: return <Badge>{t("adminSla.status.unknown")}</Badge>;
     }
   };
 
   const getImpactBadge = (impact: string) => {
     switch (impact) {
-      case "critical": return <Badge className="bg-red-500">Critical</Badge>;
-      case "major": return <Badge className="bg-orange-500">Major</Badge>;
-      case "minor": return <Badge className="bg-yellow-500">Minor</Badge>;
-      default: return <Badge>Unknown</Badge>;
+      case "critical": return <Badge className="bg-red-500">{t("adminSla.impact.critical")}</Badge>;
+      case "major": return <Badge className="bg-orange-500">{t("adminSla.impact.major")}</Badge>;
+      case "minor": return <Badge className="bg-yellow-500">{t("adminSla.impact.minor")}</Badge>;
+      default: return <Badge>{t("adminSla.status.unknown")}</Badge>;
     }
   };
 
@@ -204,16 +251,79 @@ export default function SLAMonitoring() {
   const totalDowntimeMinutes = incidents.reduce((sum, inc) => sum + inc.duration, 0);
   const mttr = incidents.length > 0 ? Math.round(totalDowntimeMinutes / incidents.length) : 0;
 
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-destructive">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <AlertCircle className="h-8 w-8 text-destructive" />
+                <div className="flex-1">
+                  <h3 className="font-semibold">{t("adminSla.errorTitle")}</h3>
+                  <p className="text-sm text-muted-foreground">{t("adminSla.errorDescription")}</p>
+                </div>
+                <Button onClick={() => refetch()} data-testid="button-retry-sla">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  {t("adminSla.retry")}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
+          <div className="flex justify-between items-center">
+            <div className="space-y-2">
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="h-4 w-72" />
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-10 w-32" />
+              <Skeleton className="h-10 w-24" />
+              <Skeleton className="h-10 w-32" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Card key={i}>
+                <CardContent className="p-4">
+                  <Skeleton className="h-20 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-6 w-32" />
+            </CardHeader>
+            <CardContent>
+              <Skeleton className="h-80 w-full" />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="sla-monitoring-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-sla-title">
               <Clock className="h-8 w-8" />
-              SLA Monitoring
+              {t("adminSla.title")}
             </h1>
-            <p className="text-muted-foreground">Service Level Agreement compliance and metrics</p>
+            <p className="text-muted-foreground" data-testid="text-sla-description">
+              {t("adminSla.description")}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <Select value={timeRange} onValueChange={setTimeRange}>
@@ -222,70 +332,70 @@ export default function SLAMonitoring() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="7d">Last 7 days</SelectItem>
-                <SelectItem value="30d">Last 30 days</SelectItem>
-                <SelectItem value="90d">Last 90 days</SelectItem>
-                <SelectItem value="1y">Last year</SelectItem>
+                <SelectItem value="7d">{t("adminSla.timeRanges.7d")}</SelectItem>
+                <SelectItem value="30d">{t("adminSla.timeRanges.30d")}</SelectItem>
+                <SelectItem value="90d">{t("adminSla.timeRanges.90d")}</SelectItem>
+                <SelectItem value="1y">{t("adminSla.timeRanges.1y")}</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" data-testid="button-refresh-sla">
+            <Button variant="outline" onClick={handleRefresh} data-testid="button-refresh-sla">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Refresh
+              {t("adminSla.refresh")}
             </Button>
-            <Button variant="outline" data-testid="button-export-report">
+            <Button variant="outline" onClick={handleExport} data-testid="button-export-report">
               <Download className="h-4 w-4 mr-2" />
-              Export Report
+              {t("adminSla.exportReport")}
             </Button>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="border-l-4 border-l-green-500">
+          <Card className="border-l-4 border-l-green-500" data-testid="card-sla-compliance">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">SLA Compliance</p>
-                  <p className="text-3xl font-bold text-green-500">{metCount}/{slaMetrics.length}</p>
-                  <p className="text-xs text-muted-foreground">All targets met</p>
+                  <p className="text-sm text-muted-foreground">{t("adminSla.stats.compliance")}</p>
+                  <p className="text-3xl font-bold text-green-500" data-testid="text-compliance">{metCount}/{slaMetrics.length}</p>
+                  <p className="text-xs text-muted-foreground">{t("adminSla.stats.allTargetsMet")}</p>
                 </div>
                 <CheckCircle className="h-10 w-10 text-green-500" />
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-current-uptime">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Current Uptime</p>
-                  <p className="text-3xl font-bold">99.97%</p>
+                  <p className="text-sm text-muted-foreground">{t("adminSla.stats.currentUptime")}</p>
+                  <p className="text-3xl font-bold" data-testid="text-uptime">99.97%</p>
                   <p className="text-xs text-green-500 flex items-center gap-1">
                     <ArrowUp className="h-3 w-3" />
-                    +0.02% vs target
+                    {t("adminSla.stats.vsTarget")}
                   </p>
                 </div>
                 <Activity className="h-10 w-10 text-muted-foreground" />
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-mttr">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">MTTR</p>
-                  <p className="text-3xl font-bold">{mttr}m</p>
-                  <p className="text-xs text-muted-foreground">Mean time to recover</p>
+                  <p className="text-sm text-muted-foreground">{t("adminSla.stats.mttr")}</p>
+                  <p className="text-3xl font-bold" data-testid="text-mttr">{mttr}m</p>
+                  <p className="text-xs text-muted-foreground">{t("adminSla.stats.mttrDesc")}</p>
                 </div>
                 <Clock className="h-10 w-10 text-muted-foreground" />
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-incidents">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Incidents (30d)</p>
-                  <p className="text-3xl font-bold">{incidents.length}</p>
-                  <p className="text-xs text-green-500">All resolved</p>
+                  <p className="text-sm text-muted-foreground">{t("adminSla.stats.incidents30d")}</p>
+                  <p className="text-3xl font-bold" data-testid="text-incidents">{incidents.length}</p>
+                  <p className="text-xs text-green-500">{t("adminSla.stats.allResolved")}</p>
                 </div>
                 <Shield className="h-10 w-10 text-muted-foreground" />
               </div>
@@ -294,19 +404,19 @@ export default function SLAMonitoring() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="metrics">Metrics</TabsTrigger>
-            <TabsTrigger value="incidents">Incidents</TabsTrigger>
-            <TabsTrigger value="reports">Reports</TabsTrigger>
+          <TabsList data-testid="tabs-sla">
+            <TabsTrigger value="overview" data-testid="tab-overview">{t("adminSla.tabs.overview")}</TabsTrigger>
+            <TabsTrigger value="metrics" data-testid="tab-metrics">{t("adminSla.tabs.metrics")}</TabsTrigger>
+            <TabsTrigger value="incidents" data-testid="tab-incidents">{t("adminSla.tabs.incidents")}</TabsTrigger>
+            <TabsTrigger value="reports" data-testid="tab-reports">{t("adminSla.tabs.reports")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card className="lg:col-span-2">
+              <Card className="lg:col-span-2" data-testid="card-uptime-trend">
                 <CardHeader>
-                  <CardTitle>Uptime Trend</CardTitle>
-                  <CardDescription>Monthly uptime percentage vs target</CardDescription>
+                  <CardTitle>{t("adminSla.charts.uptimeTrend")}</CardTitle>
+                  <CardDescription>{t("adminSla.charts.uptimeTrendDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-80">
@@ -324,14 +434,14 @@ export default function SLAMonitoring() {
                           dataKey="uptime" 
                           stroke="hsl(var(--primary))" 
                           fill="hsl(var(--primary) / 0.2)"
-                          name="Actual Uptime"
+                          name={t("adminSla.charts.actualUptime")}
                         />
                         <Line 
                           type="monotone" 
                           dataKey="target" 
                           stroke="hsl(var(--chart-5))" 
                           strokeDasharray="5 5"
-                          name="Target"
+                          name={t("adminSla.charts.target")}
                         />
                       </AreaChart>
                     </ResponsiveContainer>
@@ -339,9 +449,9 @@ export default function SLAMonitoring() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card data-testid="card-status-distribution">
                 <CardHeader>
-                  <CardTitle>SLA Status Distribution</CardTitle>
+                  <CardTitle>{t("adminSla.charts.statusDistribution")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="h-64">
@@ -365,8 +475,8 @@ export default function SLAMonitoring() {
                     </ResponsiveContainer>
                   </div>
                   <div className="flex justify-center gap-4 mt-4">
-                    {slaComplianceData.map((item) => (
-                      <div key={item.name} className="flex items-center gap-2">
+                    {slaComplianceData.map((item, index) => (
+                      <div key={item.name} className="flex items-center gap-2" data-testid={`legend-item-${index}`}>
                         <div 
                           className="w-3 h-3 rounded-full" 
                           style={{ backgroundColor: item.color }}
@@ -379,14 +489,14 @@ export default function SLAMonitoring() {
               </Card>
             </div>
 
-            <Card>
+            <Card data-testid="card-metrics-overview">
               <CardHeader>
-                <CardTitle>SLA Metrics Overview</CardTitle>
+                <CardTitle>{t("adminSla.metricsOverview.title")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {slaMetrics.map((metric) => (
-                    <div key={metric.name} className="p-4 border rounded-lg space-y-3">
+                  {slaMetrics.map((metric, index) => (
+                    <div key={metric.name} className="p-4 border rounded-lg space-y-3" data-testid={`metric-card-${index}`}>
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{metric.name}</span>
                         {getStatusBadge(metric.status)}
@@ -396,12 +506,12 @@ export default function SLAMonitoring() {
                           {metric.current.toLocaleString()}{metric.unit}
                         </span>
                         <span className="text-sm text-muted-foreground">
-                          / {metric.target.toLocaleString()}{metric.unit} target
+                          / {metric.target.toLocaleString()}{metric.unit} {t("adminSla.metricsOverview.target")}
                         </span>
                       </div>
                       <Progress 
                         value={
-                          metric.name === "Error Rate" || metric.name === "Transaction Latency" || metric.name === "Block Time" || metric.name === "API Response Time"
+                          metric.name === t("adminSla.metrics.errorRate") || metric.name === t("adminSla.metrics.txLatency") || metric.name === t("adminSla.metrics.blockTime") || metric.name === t("adminSla.metrics.apiResponse")
                             ? Math.max(0, 100 - (metric.current / metric.target) * 100)
                             : Math.min(100, (metric.current / metric.target) * 100)
                         }
@@ -410,7 +520,7 @@ export default function SLAMonitoring() {
                         {metric.trend === "up" && <TrendingUp className="h-3 w-3 text-green-500" />}
                         {metric.trend === "down" && <TrendingDown className="h-3 w-3 text-red-500" />}
                         {metric.trend === "stable" && <Activity className="h-3 w-3" />}
-                        <span>Trend: {metric.trend}</span>
+                        <span>{t("adminSla.metricsOverview.trend")}: {t(`adminSla.trends.${metric.trend}`)}</span>
                       </div>
                     </div>
                   ))}
@@ -420,25 +530,25 @@ export default function SLAMonitoring() {
           </TabsContent>
 
           <TabsContent value="metrics" className="space-y-6">
-            <Card>
+            <Card data-testid="card-detailed-metrics">
               <CardHeader>
-                <CardTitle>Detailed Metrics</CardTitle>
+                <CardTitle>{t("adminSla.detailedMetrics.title")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Metric</TableHead>
-                      <TableHead>Current</TableHead>
-                      <TableHead>Target</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Trend</TableHead>
-                      <TableHead>30-Day Avg</TableHead>
+                      <TableHead>{t("adminSla.detailedMetrics.metric")}</TableHead>
+                      <TableHead>{t("adminSla.detailedMetrics.current")}</TableHead>
+                      <TableHead>{t("adminSla.detailedMetrics.target")}</TableHead>
+                      <TableHead>{t("adminSla.detailedMetrics.status")}</TableHead>
+                      <TableHead>{t("adminSla.detailedMetrics.trend")}</TableHead>
+                      <TableHead>{t("adminSla.detailedMetrics.avg30d")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {slaMetrics.map((metric) => (
-                      <TableRow key={metric.name}>
+                    {slaMetrics.map((metric, index) => (
+                      <TableRow key={metric.name} data-testid={`metric-row-${index}`}>
                         <TableCell className="font-medium">{metric.name}</TableCell>
                         <TableCell>
                           {metric.current.toLocaleString()}{metric.unit}
@@ -452,7 +562,7 @@ export default function SLAMonitoring() {
                             {metric.trend === "up" && <ArrowUp className="h-4 w-4 text-green-500" />}
                             {metric.trend === "down" && <ArrowDown className="h-4 w-4 text-red-500" />}
                             {metric.trend === "stable" && <Activity className="h-4 w-4" />}
-                            {metric.trend}
+                            {t(`adminSla.trends.${metric.trend}`)}
                           </div>
                         </TableCell>
                         <TableCell>
@@ -467,40 +577,40 @@ export default function SLAMonitoring() {
           </TabsContent>
 
           <TabsContent value="incidents" className="space-y-6">
-            <Card>
+            <Card data-testid="card-incident-history">
               <CardHeader>
-                <CardTitle>Incident History</CardTitle>
-                <CardDescription>SLA-impacting incidents</CardDescription>
+                <CardTitle>{t("adminSla.incidents.title")}</CardTitle>
+                <CardDescription>{t("adminSla.incidents.description")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Start Time</TableHead>
-                      <TableHead>Duration</TableHead>
-                      <TableHead>Impact</TableHead>
-                      <TableHead>Root Cause</TableHead>
-                      <TableHead>Status</TableHead>
+                      <TableHead>{t("adminSla.incidents.id")}</TableHead>
+                      <TableHead>{t("adminSla.incidents.type")}</TableHead>
+                      <TableHead>{t("adminSla.incidents.startTime")}</TableHead>
+                      <TableHead>{t("adminSla.incidents.duration")}</TableHead>
+                      <TableHead>{t("adminSla.incidents.impact")}</TableHead>
+                      <TableHead>{t("adminSla.incidents.rootCause")}</TableHead>
+                      <TableHead>{t("adminSla.incidents.status")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {incidents.map((incident) => (
-                      <TableRow key={incident.id}>
+                    {incidents.map((incident, index) => (
+                      <TableRow key={incident.id} data-testid={`incident-row-${index}`}>
                         <TableCell className="font-mono">{incident.id}</TableCell>
                         <TableCell>{incident.type}</TableCell>
                         <TableCell>
                           {new Date(incident.startTime).toLocaleString()}
                         </TableCell>
-                        <TableCell>{incident.duration} minutes</TableCell>
+                        <TableCell>{incident.duration} {t("adminSla.incidents.minutes")}</TableCell>
                         <TableCell>{getImpactBadge(incident.impact)}</TableCell>
                         <TableCell className="max-w-xs truncate">{incident.rootCause}</TableCell>
                         <TableCell>
                           {incident.resolved ? (
-                            <Badge className="bg-green-500">Resolved</Badge>
+                            <Badge className="bg-green-500">{t("adminSla.incidents.resolved")}</Badge>
                           ) : (
-                            <Badge className="bg-red-500">Active</Badge>
+                            <Badge className="bg-red-500">{t("adminSla.incidents.active")}</Badge>
                           )}
                         </TableCell>
                       </TableRow>
@@ -513,41 +623,41 @@ export default function SLAMonitoring() {
 
           <TabsContent value="reports" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Card className="hover-elevate cursor-pointer">
+              <Card className="hover-elevate cursor-pointer" data-testid="card-monthly-report">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
                       <Download className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="font-medium">Monthly SLA Report</p>
-                      <p className="text-sm text-muted-foreground">December 2024</p>
+                      <p className="font-medium">{t("adminSla.reports.monthly")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminSla.reports.december")}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate cursor-pointer">
+              <Card className="hover-elevate cursor-pointer" data-testid="card-quarterly-report">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
                       <Download className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="font-medium">Quarterly Report</p>
-                      <p className="text-sm text-muted-foreground">Q4 2024</p>
+                      <p className="font-medium">{t("adminSla.reports.quarterly")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminSla.reports.q4")}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="hover-elevate cursor-pointer">
+              <Card className="hover-elevate cursor-pointer" data-testid="card-annual-report">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
                       <Download className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="font-medium">Annual Report</p>
-                      <p className="text-sm text-muted-foreground">2024</p>
+                      <p className="font-medium">{t("adminSla.reports.annual")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminSla.reports.year")}</p>
                     </div>
                   </div>
                 </CardContent>

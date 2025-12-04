@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +11,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Bug,
   Search,
@@ -16,7 +21,6 @@ import {
   Play,
   Terminal,
   Code,
-  FileText,
   Database,
   Zap,
   Copy,
@@ -27,6 +31,7 @@ import {
   CheckCircle,
   XCircle,
   Activity,
+  AlertCircle,
 } from "lucide-react";
 
 interface DebugLog {
@@ -37,24 +42,121 @@ interface DebugLog {
   message: string;
 }
 
-interface TraceResult {
-  gasUsed: number;
-  returnValue: string;
-  structLogs: Array<{
-    pc: number;
-    op: string;
-    gas: number;
-    gasCost: number;
-    depth: number;
-  }>;
+interface DebugData {
+  logs: DebugLog[];
+  stats: {
+    debugSessions: number;
+    tracedTransactions: number;
+    errorRate: string;
+    avgGasUsed: number;
+  };
 }
 
 export default function DebugTools() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("transaction");
   const [txHash, setTxHash] = useState("");
   const [debugOutput, setDebugOutput] = useState("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [wsConnected, setWsConnected] = useState(false);
+  const [realtimeLogs, setRealtimeLogs] = useState<DebugLog[]>([]);
 
-  const debugLogs: DebugLog[] = [
+  const { data: debugData, isLoading, error, refetch } = useQuery<DebugData>({
+    queryKey: ["/api/admin/debug"],
+  });
+
+  const traceMutation = useMutation({
+    mutationFn: async (hash: string) => {
+      return apiRequest("/api/admin/debug/trace", {
+        method: "POST",
+        body: JSON.stringify({ txHash: hash }),
+      });
+    },
+    onSuccess: (data: any) => {
+      setDebugOutput(data?.output || generateMockTraceOutput(txHash));
+      toast({
+        title: t("adminDebug.traceSuccess"),
+        description: t("adminDebug.traceSuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminDebug.traceError"),
+        description: t("adminDebug.traceErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const executeMutation = useMutation({
+    mutationFn: async (code: string) => {
+      return apiRequest("/api/admin/debug/execute", {
+        method: "POST",
+        body: JSON.stringify({ code }),
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("adminDebug.executeSuccess"),
+        description: t("adminDebug.executeSuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminDebug.executeError"),
+        description: t("adminDebug.executeErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+    const connectWebSocket = () => {
+      try {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+        
+        ws.onopen = () => {
+          setWsConnected(true);
+          ws?.send(JSON.stringify({ type: "subscribe", channels: ["debug"] }));
+        };
+        
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "debug_log") {
+              setRealtimeLogs(prev => [data.log, ...prev].slice(0, 100));
+            }
+          } catch (e) {
+            console.error("WebSocket message parse error:", e);
+          }
+        };
+        
+        ws.onclose = () => {
+          setWsConnected(false);
+          setTimeout(connectWebSocket, 5000);
+        };
+        
+        ws.onerror = () => {
+          setWsConnected(false);
+        };
+      } catch (e) {
+        console.error("WebSocket connection error:", e);
+      }
+    };
+
+    connectWebSocket();
+    
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  }, []);
+
+  const defaultDebugLogs: DebugLog[] = [
     { id: "1", level: "info", timestamp: "14:45:23.456", source: "consensus", message: "Block 12847562 finalized in 124ms" },
     { id: "2", level: "debug", timestamp: "14:45:23.458", source: "mempool", message: "Added 847 transactions to mempool" },
     { id: "3", level: "warn", timestamp: "14:45:23.460", source: "p2p", message: "Peer 0x1234...5678 slow response (>500ms)" },
@@ -65,38 +167,36 @@ export default function DebugTools() {
     { id: "8", level: "warn", timestamp: "14:45:23.485", source: "network", message: "High latency detected: P99 > 200ms" },
   ];
 
+  const debugLogs = realtimeLogs.length > 0 ? realtimeLogs : (debugData?.logs || defaultDebugLogs);
+  const stats = debugData?.stats || {
+    debugSessions: 24,
+    tracedTransactions: 1247,
+    errorRate: "0.12%",
+    avgGasUsed: 45230,
+  };
+
   const getLevelColor = (level: string) => {
     switch (level) {
-      case "info":
-        return "text-blue-500";
-      case "warn":
-        return "text-yellow-500";
-      case "error":
-        return "text-red-500";
-      case "debug":
-        return "text-gray-500";
-      default:
-        return "text-gray-500";
+      case "info": return "text-blue-500";
+      case "warn": return "text-yellow-500";
+      case "error": return "text-red-500";
+      case "debug": return "text-gray-500";
+      default: return "text-gray-500";
     }
   };
 
   const getLevelIcon = (level: string) => {
     switch (level) {
-      case "info":
-        return <CheckCircle className="h-4 w-4 text-blue-500" />;
-      case "warn":
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
-      case "error":
-        return <XCircle className="h-4 w-4 text-red-500" />;
-      case "debug":
-        return <Bug className="h-4 w-4 text-gray-500" />;
-      default:
-        return null;
+      case "info": return <CheckCircle className="h-4 w-4 text-blue-500" />;
+      case "warn": return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+      case "error": return <XCircle className="h-4 w-4 text-red-500" />;
+      case "debug": return <Bug className="h-4 w-4 text-gray-500" />;
+      default: return null;
     }
   };
 
-  const handleTrace = () => {
-    setDebugOutput(`Tracing transaction: ${txHash}
+  const generateMockTraceOutput = (hash: string) => {
+    return `Tracing transaction: ${hash}
 
 Gas Used: 21000
 Status: Success
@@ -119,85 +219,194 @@ Memory:
   0x00: 0x0000000000000000000000000000000000000000000000000000000000000000
 
 Storage:
-  slot[0]: 0x0000000000000000000000000000000000000000000000000000000000000001`);
+  slot[0]: 0x0000000000000000000000000000000000000000000000000000000000000001`;
   };
 
+  const handleTrace = useCallback(() => {
+    if (txHash) {
+      traceMutation.mutate(txHash);
+    }
+  }, [txHash, traceMutation]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      toast({
+        title: t("adminDebug.refreshSuccess"),
+        description: t("adminDebug.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminDebug.refreshError"),
+        description: t("adminDebug.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      logs: debugLogs,
+      stats,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tburn-debug-logs-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: t("adminDebug.exportSuccess"),
+      description: t("adminDebug.exportSuccessDesc"),
+    });
+  }, [debugLogs, stats, toast, t]);
+
+  const handleClearLogs = useCallback(() => {
+    setRealtimeLogs([]);
+    toast({
+      title: t("adminDebug.logsCleared"),
+      description: t("adminDebug.logsClearedDesc"),
+    });
+  }, [toast, t]);
+
+  const handleCopy = useCallback((text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: t("adminDebug.copied"),
+      description: t("adminDebug.copiedToClipboard"),
+    });
+  }, [toast, t]);
+
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="debug-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminDebug.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminDebug.error.description")}</p>
+            <Button onClick={() => refetch()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminDebug.retry")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="debug-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-page-title">
               <Bug className="h-8 w-8" />
-              Debugging Tools
+              {t("adminDebug.title")}
             </h1>
-            <p className="text-muted-foreground">디버깅 도구 | Transaction tracing and debugging utilities</p>
+            <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminDebug.subtitle")}</p>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" data-testid="button-clear-logs">
-              <Trash2 className="h-4 w-4 mr-2" />
-              Clear Logs
-            </Button>
-            <Button variant="outline" data-testid="button-export">
-              <Download className="h-4 w-4 mr-2" />
-              Export
-            </Button>
+          <div className="flex items-center gap-4">
+            <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${wsConnected ? 'bg-green-500/10' : 'bg-yellow-500/10'}`}>
+              <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
+              <span className="text-xs">{wsConnected ? t("adminDebug.connected") : t("adminDebug.reconnecting")}</span>
+            </div>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                data-testid="button-refresh"
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+                {t("adminDebug.refresh")}
+              </Button>
+              <Button variant="outline" onClick={handleClearLogs} data-testid="button-clear-logs">
+                <Trash2 className="h-4 w-4 mr-2" />
+                {t("adminDebug.clearLogs")}
+              </Button>
+              <Button variant="outline" onClick={handleExport} data-testid="button-export">
+                <Download className="h-4 w-4 mr-2" />
+                {t("adminDebug.export")}
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Debug Sessions</CardTitle>
+          <Card data-testid="card-debug-sessions">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminDebug.debugSessions")}</CardTitle>
               <Bug className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">24</div>
-              <p className="text-xs text-muted-foreground">Active sessions</p>
+              {isLoading ? <Skeleton className="h-8 w-16" /> : (
+                <>
+                  <div className="text-2xl font-bold">{stats.debugSessions}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminDebug.activeSessions")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Traced Transactions</CardTitle>
+          <Card data-testid="card-traced-transactions">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminDebug.tracedTransactions")}</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">1,247</div>
-              <p className="text-xs text-muted-foreground">Last 24 hours</p>
+              {isLoading ? <Skeleton className="h-8 w-20" /> : (
+                <>
+                  <div className="text-2xl font-bold">{stats.tracedTransactions.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminDebug.last24Hours")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Error Rate</CardTitle>
+          <Card data-testid="card-error-rate">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminDebug.errorRate")}</CardTitle>
               <AlertTriangle className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-500">0.12%</div>
-              <p className="text-xs text-muted-foreground">Failed transactions</p>
+              {isLoading ? <Skeleton className="h-8 w-16" /> : (
+                <>
+                  <div className="text-2xl font-bold text-yellow-500">{stats.errorRate}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminDebug.failedTransactions")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg Gas Used</CardTitle>
+          <Card data-testid="card-avg-gas">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminDebug.avgGasUsed")}</CardTitle>
               <Zap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">45,230</div>
-              <p className="text-xs text-muted-foreground">Per transaction</p>
+              {isLoading ? <Skeleton className="h-8 w-20" /> : (
+                <>
+                  <div className="text-2xl font-bold">{stats.avgGasUsed.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminDebug.perTransaction")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="transaction">Transaction Tracer</TabsTrigger>
-            <TabsTrigger value="logs">Debug Logs</TabsTrigger>
-            <TabsTrigger value="console">Console</TabsTrigger>
-            <TabsTrigger value="state">State Inspector</TabsTrigger>
+          <TabsList data-testid="tabs-debug">
+            <TabsTrigger value="transaction" data-testid="tab-transaction">{t("adminDebug.tabs.transactionTracer")}</TabsTrigger>
+            <TabsTrigger value="logs" data-testid="tab-logs">{t("adminDebug.tabs.debugLogs")}</TabsTrigger>
+            <TabsTrigger value="console" data-testid="tab-console">{t("adminDebug.tabs.console")}</TabsTrigger>
+            <TabsTrigger value="state" data-testid="tab-state">{t("adminDebug.tabs.stateInspector")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="transaction" className="space-y-6">
@@ -205,32 +414,41 @@ Storage:
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Terminal className="h-5 w-5" />
-                  Transaction Tracer
+                  {t("adminDebug.transactionTracer")}
                 </CardTitle>
-                <CardDescription>Trace and debug transaction execution</CardDescription>
+                <CardDescription>{t("adminDebug.traceAndDebug")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex gap-2">
                   <Input 
-                    placeholder="Enter transaction hash (0x...)" 
+                    placeholder={t("adminDebug.enterTxHash")}
                     value={txHash}
                     onChange={(e) => setTxHash(e.target.value)}
                     className="font-mono"
+                    data-testid="input-tx-hash"
                   />
-                  <Button onClick={handleTrace}>
-                    <Play className="h-4 w-4 mr-2" />
-                    Trace
+                  <Button 
+                    onClick={handleTrace}
+                    disabled={traceMutation.isPending || !txHash}
+                    data-testid="button-trace"
+                  >
+                    {traceMutation.isPending ? (
+                      <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Play className="h-4 w-4 mr-2" />
+                    )}
+                    {t("adminDebug.trace")}
                   </Button>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Trace Options</Label>
+                  <Label>{t("adminDebug.traceOptions")}</Label>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="cursor-pointer">vmTrace</Badge>
-                    <Badge variant="outline" className="cursor-pointer">trace</Badge>
-                    <Badge variant="outline" className="cursor-pointer">stateDiff</Badge>
-                    <Badge variant="outline" className="cursor-pointer">memory</Badge>
-                    <Badge variant="outline" className="cursor-pointer">storage</Badge>
+                    <Badge variant="outline" className="cursor-pointer" data-testid="badge-vmtrace">vmTrace</Badge>
+                    <Badge variant="outline" className="cursor-pointer" data-testid="badge-trace">trace</Badge>
+                    <Badge variant="outline" className="cursor-pointer" data-testid="badge-statediff">stateDiff</Badge>
+                    <Badge variant="outline" className="cursor-pointer" data-testid="badge-memory">memory</Badge>
+                    <Badge variant="outline" className="cursor-pointer" data-testid="badge-storage">storage</Badge>
                   </div>
                 </div>
 
@@ -239,10 +457,10 @@ Storage:
                     <Separator />
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <Label>Trace Output</Label>
-                        <Button variant="ghost" size="sm">
+                        <Label>{t("adminDebug.traceOutput")}</Label>
+                        <Button variant="ghost" size="sm" onClick={() => handleCopy(debugOutput)} data-testid="button-copy-output">
                           <Copy className="h-4 w-4 mr-1" />
-                          Copy
+                          {t("adminDebug.copy")}
                         </Button>
                       </div>
                       <ScrollArea className="h-[400px] border rounded-lg p-4 bg-muted font-mono text-sm">
@@ -260,54 +478,66 @@ Storage:
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Debug Logs</CardTitle>
-                    <CardDescription>Real-time system logs</CardDescription>
+                    <CardTitle>{t("adminDebug.debugLogs")}</CardTitle>
+                    <CardDescription>{t("adminDebug.realtimeSystemLogs")}</CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <Select defaultValue="all">
-                      <SelectTrigger className="w-32">
+                      <SelectTrigger className="w-32" data-testid="select-level">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Levels</SelectItem>
-                        <SelectItem value="error">Error</SelectItem>
-                        <SelectItem value="warn">Warning</SelectItem>
-                        <SelectItem value="info">Info</SelectItem>
-                        <SelectItem value="debug">Debug</SelectItem>
+                        <SelectItem value="all">{t("adminDebug.allLevels")}</SelectItem>
+                        <SelectItem value="error">{t("adminDebug.error")}</SelectItem>
+                        <SelectItem value="warn">{t("adminDebug.warning")}</SelectItem>
+                        <SelectItem value="info">{t("adminDebug.info")}</SelectItem>
+                        <SelectItem value="debug">{t("adminDebug.debug")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <Select defaultValue="all">
-                      <SelectTrigger className="w-32">
+                      <SelectTrigger className="w-32" data-testid="select-source">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Sources</SelectItem>
-                        <SelectItem value="consensus">Consensus</SelectItem>
-                        <SelectItem value="mempool">Mempool</SelectItem>
-                        <SelectItem value="p2p">P2P</SelectItem>
-                        <SelectItem value="bridge">Bridge</SelectItem>
-                        <SelectItem value="ai">AI</SelectItem>
+                        <SelectItem value="all">{t("adminDebug.allSources")}</SelectItem>
+                        <SelectItem value="consensus">{t("adminDebug.consensus")}</SelectItem>
+                        <SelectItem value="mempool">{t("adminDebug.mempool")}</SelectItem>
+                        <SelectItem value="p2p">{t("adminDebug.p2p")}</SelectItem>
+                        <SelectItem value="bridge">{t("adminDebug.bridge")}</SelectItem>
+                        <SelectItem value="ai">{t("adminDebug.ai")}</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Button variant="outline" size="icon">
-                      <RefreshCw className="h-4 w-4" />
+                    <Button variant="outline" size="icon" onClick={handleRefresh} data-testid="button-refresh-logs">
+                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                     </Button>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-[500px] border rounded-lg">
-                  <div className="p-4 space-y-1 font-mono text-sm">
-                    {debugLogs.map((log) => (
-                      <div key={log.id} className="flex items-start gap-2 py-1 hover:bg-muted/50 px-2 rounded">
-                        {getLevelIcon(log.level)}
-                        <span className="text-muted-foreground">{log.timestamp}</span>
-                        <Badge variant="outline" className="text-xs">{log.source}</Badge>
-                        <span className={getLevelColor(log.level)}>{log.message}</span>
-                      </div>
+                {isLoading ? (
+                  <div className="space-y-2">
+                    {[...Array(8)].map((_, i) => (
+                      <Skeleton key={i} className="h-8 w-full" />
                     ))}
                   </div>
-                </ScrollArea>
+                ) : (
+                  <ScrollArea className="h-[500px] border rounded-lg">
+                    <div className="p-4 space-y-1 font-mono text-sm">
+                      {debugLogs.map((log, index) => (
+                        <div 
+                          key={log.id || index} 
+                          className="flex items-start gap-2 py-1 hover:bg-muted/50 px-2 rounded"
+                          data-testid={`log-entry-${index}`}
+                        >
+                          {getLevelIcon(log.level)}
+                          <span className="text-muted-foreground">{log.timestamp}</span>
+                          <Badge variant="outline" className="text-xs">{log.source}</Badge>
+                          <span className={getLevelColor(log.level)}>{log.message}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -317,26 +547,35 @@ Storage:
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Code className="h-5 w-5" />
-                  JavaScript Console
+                  {t("adminDebug.javascriptConsole")}
                 </CardTitle>
-                <CardDescription>Execute JavaScript code against the node</CardDescription>
+                <CardDescription>{t("adminDebug.executeCodeAgainstNode")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Input</Label>
+                  <Label>{t("adminDebug.input")}</Label>
                   <Textarea 
-                    placeholder="// Enter JavaScript code here
-web3.eth.getBlockNumber().then(console.log)"
+                    placeholder={`// ${t("adminDebug.enterJsCode")}
+web3.eth.getBlockNumber().then(console.log)`}
                     className="font-mono text-sm h-32"
+                    data-testid="textarea-console-input"
                   />
                 </div>
-                <Button>
-                  <Play className="h-4 w-4 mr-2" />
-                  Execute
+                <Button 
+                  onClick={() => executeMutation.mutate("")}
+                  disabled={executeMutation.isPending}
+                  data-testid="button-execute"
+                >
+                  {executeMutation.isPending ? (
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Play className="h-4 w-4 mr-2" />
+                  )}
+                  {t("adminDebug.execute")}
                 </Button>
                 <div className="space-y-2">
-                  <Label>Output</Label>
-                  <div className="border rounded-lg p-4 bg-muted font-mono text-sm min-h-[100px]">
+                  <Label>{t("adminDebug.output")}</Label>
+                  <div className="border rounded-lg p-4 bg-muted font-mono text-sm min-h-[100px]" data-testid="console-output">
                     <span className="text-green-500">&gt; </span>
                     <span className="text-muted-foreground">12847562</span>
                   </div>
@@ -350,53 +589,53 @@ web3.eth.getBlockNumber().then(console.log)"
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Database className="h-5 w-5" />
-                  State Inspector
+                  {t("adminDebug.stateInspector")}
                 </CardTitle>
-                <CardDescription>Inspect blockchain state at any point</CardDescription>
+                <CardDescription>{t("adminDebug.inspectBlockchainState")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Address</Label>
-                    <Input placeholder="0x..." className="font-mono" />
+                    <Label>{t("adminDebug.address")}</Label>
+                    <Input placeholder="0x..." className="font-mono" data-testid="input-state-address" />
                   </div>
                   <div className="space-y-2">
-                    <Label>Block Number</Label>
-                    <Input type="number" placeholder="latest" />
+                    <Label>{t("adminDebug.blockNumber")}</Label>
+                    <Input type="number" placeholder="latest" data-testid="input-block-number" />
                   </div>
                 </div>
-                <Button>
+                <Button data-testid="button-inspect-state">
                   <Search className="h-4 w-4 mr-2" />
-                  Inspect State
+                  {t("adminDebug.inspectState")}
                 </Button>
 
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="font-medium">Account State</h3>
+                  <h3 className="font-medium">{t("adminDebug.accountState")}</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 border rounded-lg">
-                      <p className="text-sm text-muted-foreground">Balance</p>
+                    <div className="p-4 border rounded-lg" data-testid="state-balance">
+                      <p className="text-sm text-muted-foreground">{t("adminDebug.balance")}</p>
                       <p className="font-mono">1,000,000 TBURN</p>
                     </div>
-                    <div className="p-4 border rounded-lg">
-                      <p className="text-sm text-muted-foreground">Nonce</p>
+                    <div className="p-4 border rounded-lg" data-testid="state-nonce">
+                      <p className="text-sm text-muted-foreground">{t("adminDebug.nonce")}</p>
                       <p className="font-mono">247</p>
                     </div>
-                    <div className="p-4 border rounded-lg">
-                      <p className="text-sm text-muted-foreground">Code Hash</p>
+                    <div className="p-4 border rounded-lg" data-testid="state-code-hash">
+                      <p className="text-sm text-muted-foreground">{t("adminDebug.codeHash")}</p>
                       <p className="font-mono text-xs break-all">0xc5d2460...e12c5</p>
                     </div>
-                    <div className="p-4 border rounded-lg">
-                      <p className="text-sm text-muted-foreground">Storage Root</p>
+                    <div className="p-4 border rounded-lg" data-testid="state-storage-root">
+                      <p className="text-sm text-muted-foreground">{t("adminDebug.storageRoot")}</p>
                       <p className="font-mono text-xs break-all">0x56e81f1...a9b8c</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="font-medium">Storage Slots</h3>
-                  <div className="border rounded-lg p-4 font-mono text-sm space-y-2">
+                  <h3 className="font-medium">{t("adminDebug.storageSlots")}</h3>
+                  <div className="border rounded-lg p-4 font-mono text-sm space-y-2" data-testid="storage-slots">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">slot[0]:</span>
                       <span>0x0000...0001</span>

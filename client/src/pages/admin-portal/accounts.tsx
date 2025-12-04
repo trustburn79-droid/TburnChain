@@ -1,12 +1,16 @@
-import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useCallback, useMemo } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Users,
   UserPlus,
@@ -16,9 +20,12 @@ import {
   MoreHorizontal,
   Mail,
   Clock,
-  CheckCircle2,
-  XCircle,
   Key,
+  RefreshCw,
+  Download,
+  AlertCircle,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -39,12 +46,168 @@ interface AdminAccount {
   permissions: string[];
 }
 
+interface AccountsData {
+  accounts: AdminAccount[];
+  stats: {
+    total: number;
+    active: number;
+    inactive: number;
+    suspended: number;
+    with2FA: number;
+  };
+}
+
+function MetricCard({ 
+  icon: Icon, 
+  label, 
+  value, 
+  change, 
+  changeType = "neutral",
+  isLoading = false,
+  bgColor = "bg-blue-500/10",
+  iconColor = "text-blue-500",
+  testId
+}: {
+  icon: any;
+  label: string;
+  value: string | number;
+  change?: string;
+  changeType?: "positive" | "negative" | "neutral";
+  isLoading?: boolean;
+  bgColor?: string;
+  iconColor?: string;
+  testId?: string;
+}) {
+  return (
+    <Card data-testid={testId}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+        <CardTitle className="text-sm font-medium">{label}</CardTitle>
+        <div className={`p-2 rounded-lg ${bgColor}`}>
+          <Icon className={`h-4 w-4 ${iconColor}`} />
+        </div>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Skeleton className="h-8 w-24" />
+        ) : (
+          <>
+            <div className="text-2xl font-bold">{value}</div>
+            {change && (
+              <p className={`text-xs ${
+                changeType === "positive" ? "text-green-500" : 
+                changeType === "negative" ? "text-red-500" : 
+                "text-muted-foreground"
+              }`}>
+                {change}
+              </p>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function AdminAccounts() {
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
   const [showCreateDialog, setShowCreateDialog] = useState(false);
 
-  const accounts: AdminAccount[] = useMemo(() => [
+  const { data: accountsData, isLoading, error, refetch } = useQuery<AccountsData>({
+    queryKey: ["/api/admin/accounts"],
+    refetchInterval: 30000,
+  });
+
+  const createAccountMutation = useMutation({
+    mutationFn: async (accountData: { name: string; email: string; role: string }) => {
+      const response = await apiRequest("POST", "/api/admin/accounts", accountData);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/accounts"] });
+      setShowCreateDialog(false);
+      toast({
+        title: t("adminAccounts.accountCreated"),
+        description: t("adminAccounts.accountCreatedDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminAccounts.createError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateAccountMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const response = await apiRequest("PATCH", `/api/admin/accounts/${id}`, { status });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/accounts"] });
+      toast({
+        title: t("adminAccounts.accountUpdated"),
+        description: t("adminAccounts.accountUpdatedDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminAccounts.updateError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteAccountMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const response = await apiRequest("DELETE", `/api/admin/accounts/${id}`);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/accounts"] });
+      toast({
+        title: t("adminAccounts.accountDeleted"),
+        description: t("adminAccounts.accountDeletedDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminAccounts.deleteError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminAccounts.refreshing"),
+      description: t("adminAccounts.refreshingDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const dataStr = JSON.stringify(accountsData, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `admin-accounts-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast({
+      title: t("adminAccounts.exported"),
+      description: t("adminAccounts.exportedDesc"),
+    });
+  }, [accountsData, toast, t]);
+
+  const mockAccounts: AdminAccount[] = useMemo(() => [
     { id: "1", email: "admin@tburn.io", name: "System Admin", role: "Super Admin", status: "active", lastLogin: new Date(Date.now() - 60000), createdAt: new Date("2024-01-01"), twoFactorEnabled: true, permissions: ["all"] },
     { id: "2", email: "ops@tburn.io", name: "Operations Lead", role: "Operator", status: "active", lastLogin: new Date(Date.now() - 300000), createdAt: new Date("2024-02-15"), twoFactorEnabled: true, permissions: ["read", "write", "manage_validators"] },
     { id: "3", email: "security@tburn.io", name: "Security Officer", role: "Security", status: "active", lastLogin: new Date(Date.now() - 900000), createdAt: new Date("2024-03-10"), twoFactorEnabled: true, permissions: ["read", "security_management"] },
@@ -53,6 +216,15 @@ export default function AdminAccounts() {
     { id: "6", email: "backup@tburn.io", name: "Backup Admin", role: "Admin", status: "inactive", lastLogin: new Date(Date.now() - 86400000 * 30), createdAt: new Date("2024-01-15"), twoFactorEnabled: true, permissions: ["read", "write"] },
     { id: "7", email: "suspended@tburn.io", name: "Former Employee", role: "Operator", status: "suspended", lastLogin: null, createdAt: new Date("2024-02-01"), twoFactorEnabled: false, permissions: [] },
   ], []);
+
+  const accounts = accountsData?.accounts || mockAccounts;
+  const stats = useMemo(() => ({
+    total: accounts.length,
+    active: accounts.filter(a => a.status === "active").length,
+    inactive: accounts.filter(a => a.status === "inactive").length,
+    suspended: accounts.filter(a => a.status === "suspended").length,
+    with2FA: accounts.filter(a => a.twoFactorEnabled).length,
+  }), [accounts]);
 
   const filteredAccounts = useMemo(() => {
     return accounts.filter(account => {
@@ -64,21 +236,13 @@ export default function AdminAccounts() {
     });
   }, [accounts, searchQuery, roleFilter]);
 
-  const stats = useMemo(() => ({
-    total: accounts.length,
-    active: accounts.filter(a => a.status === "active").length,
-    inactive: accounts.filter(a => a.status === "inactive").length,
-    suspended: accounts.filter(a => a.status === "suspended").length,
-    with2FA: accounts.filter(a => a.twoFactorEnabled).length,
-  }), [accounts]);
-
   const roles = ["Super Admin", "Admin", "Operator", "Security", "Developer", "Viewer"];
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "active": return <Badge className="bg-green-500/10 text-green-500">Active</Badge>;
-      case "inactive": return <Badge className="bg-yellow-500/10 text-yellow-500">Inactive</Badge>;
-      case "suspended": return <Badge className="bg-red-500/10 text-red-500">Suspended</Badge>;
+      case "active": return <Badge className="bg-green-500/10 text-green-500">{t("adminAccounts.status.active")}</Badge>;
+      case "inactive": return <Badge className="bg-yellow-500/10 text-yellow-500">{t("adminAccounts.status.inactive")}</Badge>;
+      case "suspended": return <Badge className="bg-red-500/10 text-red-500">{t("adminAccounts.status.suspended")}</Badge>;
       default: return <Badge variant="secondary">{status}</Badge>;
     }
   };
@@ -96,76 +260,135 @@ export default function AdminAccounts() {
   };
 
   const formatTimeAgo = (date: Date | null) => {
-    if (!date) return "Never";
+    if (!date) return t("adminAccounts.never");
     const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-    if (seconds < 60) return `${seconds}s ago`;
+    if (seconds < 60) return `${seconds}s ${t("adminAccounts.ago")}`;
     const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) return `${minutes}m ago`;
+    if (minutes < 60) return `${minutes}m ${t("adminAccounts.ago")}`;
     const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours}h ago`;
+    if (hours < 24) return `${hours}h ${t("adminAccounts.ago")}`;
     const days = Math.floor(hours / 24);
-    return `${days}d ago`;
+    return `${days}d ${t("adminAccounts.ago")}`;
   };
 
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto" data-testid="accounts-error-container">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-red-500/50 bg-red-500/10">
+            <CardContent className="flex items-center gap-4 py-6">
+              <AlertCircle className="h-8 w-8 text-red-500" />
+              <div>
+                <h3 className="font-semibold text-red-500">{t("adminAccounts.errorLoading")}</h3>
+                <p className="text-sm text-muted-foreground">{t("adminAccounts.errorLoadingDesc")}</p>
+              </div>
+              <Button variant="outline" onClick={() => refetch()} className="ml-auto" data-testid="button-retry">
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {t("adminAccounts.retry")}
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="accounts-container">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-accounts-title">
               <Users className="h-8 w-8" />
-              Admin Accounts
+              {t("adminAccounts.title")}
             </h1>
-            <p className="text-muted-foreground">Manage administrator accounts and access</p>
+            <p className="text-muted-foreground" data-testid="text-accounts-subtitle">
+              {t("adminAccounts.subtitle")} | {i18n.language === 'ko' ? 'Manage administrator accounts and access' : '관리자 계정 관리'}
+            </p>
           </div>
-          <Button onClick={() => setShowCreateDialog(true)} data-testid="button-create-account">
-            <UserPlus className="h-4 w-4 mr-2" />
-            Create Account
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExport} data-testid="button-export">
+              <Download className="h-4 w-4 mr-2" />
+              {t("adminAccounts.export")}
+            </Button>
+            <Button variant="outline" onClick={handleRefresh} disabled={isLoading} data-testid="button-refresh">
+              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+              {t("adminAccounts.refresh")}
+            </Button>
+            <Button onClick={() => setShowCreateDialog(true)} data-testid="button-create-account">
+              <UserPlus className="h-4 w-4 mr-2" />
+              {t("adminAccounts.createAccount")}
+            </Button>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <Card>
-            <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold">{stats.total}</p>
-              <p className="text-xs text-muted-foreground">Total Accounts</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold text-green-500">{stats.active}</p>
-              <p className="text-xs text-muted-foreground">Active</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold text-yellow-500">{stats.inactive}</p>
-              <p className="text-xs text-muted-foreground">Inactive</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold text-red-500">{stats.suspended}</p>
-              <p className="text-xs text-muted-foreground">Suspended</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <p className="text-2xl font-bold text-blue-500">{stats.with2FA}</p>
-              <p className="text-xs text-muted-foreground">2FA Enabled</p>
-            </CardContent>
-          </Card>
+          <MetricCard
+            icon={Users}
+            label={t("adminAccounts.metrics.totalAccounts")}
+            value={stats.total}
+            change={t("adminAccounts.metrics.allAccounts")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-blue-500/10"
+            iconColor="text-blue-500"
+            testId="metric-total-accounts"
+          />
+          <MetricCard
+            icon={CheckCircle}
+            label={t("adminAccounts.metrics.active")}
+            value={stats.active}
+            change={t("adminAccounts.metrics.currentlyActive")}
+            changeType="positive"
+            isLoading={isLoading}
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
+            testId="metric-active-accounts"
+          />
+          <MetricCard
+            icon={Clock}
+            label={t("adminAccounts.metrics.inactive")}
+            value={stats.inactive}
+            change={t("adminAccounts.metrics.dormant")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-yellow-500/10"
+            iconColor="text-yellow-500"
+            testId="metric-inactive-accounts"
+          />
+          <MetricCard
+            icon={XCircle}
+            label={t("adminAccounts.metrics.suspended")}
+            value={stats.suspended}
+            change={t("adminAccounts.metrics.restricted")}
+            changeType="negative"
+            isLoading={isLoading}
+            bgColor="bg-red-500/10"
+            iconColor="text-red-500"
+            testId="metric-suspended-accounts"
+          />
+          <MetricCard
+            icon={ShieldCheck}
+            label={t("adminAccounts.metrics.with2FA")}
+            value={stats.with2FA}
+            change={t("adminAccounts.metrics.secured")}
+            changeType="positive"
+            isLoading={isLoading}
+            bgColor="bg-purple-500/10"
+            iconColor="text-purple-500"
+            testId="metric-2fa-accounts"
+          />
         </div>
 
-        <Card>
+        <Card data-testid="card-accounts-list">
           <CardHeader>
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-              <CardTitle>Accounts</CardTitle>
+              <CardTitle>{t("adminAccounts.accountsList")}</CardTitle>
               <div className="flex items-center gap-2">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search accounts..."
+                    placeholder={t("adminAccounts.searchPlaceholder")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-9 w-[250px]"
@@ -173,11 +396,11 @@ export default function AdminAccounts() {
                   />
                 </div>
                 <Select value={roleFilter} onValueChange={setRoleFilter}>
-                  <SelectTrigger className="w-[150px]">
-                    <SelectValue placeholder="Role" />
+                  <SelectTrigger className="w-[150px]" data-testid="select-role-filter">
+                    <SelectValue placeholder={t("adminAccounts.role")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Roles</SelectItem>
+                    <SelectItem value="all">{t("adminAccounts.allRoles")}</SelectItem>
                     {roles.map((role) => (
                       <SelectItem key={role} value={role}>{role}</SelectItem>
                     ))}
@@ -187,75 +410,101 @@ export default function AdminAccounts() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4 font-medium">Account</th>
-                    <th className="text-left py-3 px-4 font-medium">Role</th>
-                    <th className="text-left py-3 px-4 font-medium">Status</th>
-                    <th className="text-center py-3 px-4 font-medium">2FA</th>
-                    <th className="text-right py-3 px-4 font-medium">Last Login</th>
-                    <th className="text-center py-3 px-4 font-medium">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredAccounts.map((account) => (
-                    <tr key={account.id} className="border-b hover-elevate">
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
-                            <span className="text-sm font-medium">{account.name.charAt(0)}</span>
-                          </div>
-                          <div>
-                            <p className="font-medium">{account.name}</p>
-                            <p className="text-xs text-muted-foreground flex items-center gap-1">
-                              <Mail className="h-3 w-3" />
-                              {account.email}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">{getRoleBadge(account.role)}</td>
-                      <td className="py-3 px-4">{getStatusBadge(account.status)}</td>
-                      <td className="py-3 px-4 text-center">
-                        {account.twoFactorEnabled ? (
-                          <ShieldCheck className="h-5 w-5 text-green-500 mx-auto" />
-                        ) : (
-                          <Shield className="h-5 w-5 text-muted-foreground mx-auto" />
-                        )}
-                      </td>
-                      <td className="py-3 px-4 text-right text-muted-foreground">
-                        <div className="flex items-center justify-end gap-1">
-                          <Clock className="h-3 w-3" />
-                          {formatTimeAgo(account.lastLogin)}
-                        </div>
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button size="icon" variant="ghost">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem>Edit Account</DropdownMenuItem>
-                            <DropdownMenuItem>Reset Password</DropdownMenuItem>
-                            <DropdownMenuItem>View Activity</DropdownMenuItem>
-                            {account.status === "active" ? (
-                              <DropdownMenuItem className="text-yellow-500">Deactivate</DropdownMenuItem>
-                            ) : account.status === "inactive" ? (
-                              <DropdownMenuItem className="text-green-500">Activate</DropdownMenuItem>
-                            ) : null}
-                            <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </td>
+            {isLoading ? (
+              <div className="space-y-4">
+                {[...Array(5)].map((_, i) => (
+                  <Skeleton key={i} className="h-16 w-full" />
+                ))}
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-3 px-4 font-medium">{t("adminAccounts.table.account")}</th>
+                      <th className="text-left py-3 px-4 font-medium">{t("adminAccounts.table.role")}</th>
+                      <th className="text-left py-3 px-4 font-medium">{t("adminAccounts.table.status")}</th>
+                      <th className="text-center py-3 px-4 font-medium">{t("adminAccounts.table.twoFA")}</th>
+                      <th className="text-right py-3 px-4 font-medium">{t("adminAccounts.table.lastLogin")}</th>
+                      <th className="text-center py-3 px-4 font-medium">{t("adminAccounts.table.actions")}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {filteredAccounts.map((account) => (
+                      <tr key={account.id} className="border-b hover-elevate" data-testid={`row-account-${account.id}`}>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-3">
+                            <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center">
+                              <span className="text-sm font-medium">{account.name.charAt(0)}</span>
+                            </div>
+                            <div>
+                              <p className="font-medium">{account.name}</p>
+                              <p className="text-xs text-muted-foreground flex items-center gap-1">
+                                <Mail className="h-3 w-3" />
+                                {account.email}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4">{getRoleBadge(account.role)}</td>
+                        <td className="py-3 px-4">{getStatusBadge(account.status)}</td>
+                        <td className="py-3 px-4 text-center">
+                          {account.twoFactorEnabled ? (
+                            <ShieldCheck className="h-5 w-5 text-green-500 mx-auto" />
+                          ) : (
+                            <Shield className="h-5 w-5 text-muted-foreground mx-auto" />
+                          )}
+                        </td>
+                        <td className="py-3 px-4 text-right text-muted-foreground">
+                          <div className="flex items-center justify-end gap-1">
+                            <Clock className="h-3 w-3" />
+                            {formatTimeAgo(account.lastLogin)}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-center">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button size="icon" variant="ghost" data-testid={`button-actions-${account.id}`}>
+                                <MoreHorizontal className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem data-testid={`action-edit-${account.id}`}>{t("adminAccounts.actions.edit")}</DropdownMenuItem>
+                              <DropdownMenuItem data-testid={`action-reset-${account.id}`}>{t("adminAccounts.actions.resetPassword")}</DropdownMenuItem>
+                              <DropdownMenuItem data-testid={`action-view-${account.id}`}>{t("adminAccounts.actions.viewActivity")}</DropdownMenuItem>
+                              {account.status === "active" ? (
+                                <DropdownMenuItem 
+                                  className="text-yellow-500" 
+                                  onClick={() => updateAccountMutation.mutate({ id: account.id, status: "inactive" })}
+                                  data-testid={`action-deactivate-${account.id}`}
+                                >
+                                  {t("adminAccounts.actions.deactivate")}
+                                </DropdownMenuItem>
+                              ) : account.status === "inactive" ? (
+                                <DropdownMenuItem 
+                                  className="text-green-500"
+                                  onClick={() => updateAccountMutation.mutate({ id: account.id, status: "active" })}
+                                  data-testid={`action-activate-${account.id}`}
+                                >
+                                  {t("adminAccounts.actions.activate")}
+                                </DropdownMenuItem>
+                              ) : null}
+                              <DropdownMenuItem 
+                                className="text-red-500"
+                                onClick={() => deleteAccountMutation.mutate(account.id)}
+                                data-testid={`action-delete-${account.id}`}
+                              >
+                                {t("adminAccounts.actions.delete")}
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -264,23 +513,23 @@ export default function AdminAccounts() {
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <UserPlus className="h-5 w-5" />
-                Create Admin Account
+                {t("adminAccounts.createDialog.title")}
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input id="name" placeholder="Enter full name" />
+                <Label htmlFor="name">{t("adminAccounts.createDialog.fullName")}</Label>
+                <Input id="name" placeholder={t("adminAccounts.createDialog.fullNamePlaceholder")} data-testid="input-create-name" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="Enter email address" />
+                <Label htmlFor="email">{t("adminAccounts.createDialog.email")}</Label>
+                <Input id="email" type="email" placeholder={t("adminAccounts.createDialog.emailPlaceholder")} data-testid="input-create-email" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="role">Role</Label>
+                <Label htmlFor="role">{t("adminAccounts.createDialog.role")}</Label>
                 <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select role" />
+                  <SelectTrigger data-testid="select-create-role">
+                    <SelectValue placeholder={t("adminAccounts.createDialog.selectRole")} />
                   </SelectTrigger>
                   <SelectContent>
                     {roles.map((role) => (
@@ -292,13 +541,18 @@ export default function AdminAccounts() {
               <div className="flex items-center gap-2 p-3 rounded-lg bg-muted/50">
                 <Key className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">
-                  A temporary password will be sent to the user's email
+                  {t("adminAccounts.createDialog.passwordNote")}
                 </span>
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowCreateDialog(false)}>Cancel</Button>
-              <Button>Create Account</Button>
+              <Button variant="outline" onClick={() => setShowCreateDialog(false)} data-testid="button-create-cancel">
+                {t("adminAccounts.createDialog.cancel")}
+              </Button>
+              <Button onClick={() => createAccountMutation.mutate({ name: "", email: "", role: "" })} disabled={createAccountMutation.isPending} data-testid="button-create-submit">
+                {createAccountMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : null}
+                {t("adminAccounts.createDialog.create")}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

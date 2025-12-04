@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Monitor,
   Search,
@@ -21,14 +25,14 @@ import {
   Shield,
   AlertTriangle,
   CheckCircle,
-  User,
-  Activity,
   Smartphone,
   Laptop,
   Tablet,
-  Trash2,
   Settings,
   Key,
+  AlertCircle,
+  Wifi,
+  WifiOff,
 } from "lucide-react";
 
 interface Session {
@@ -51,102 +55,232 @@ interface Session {
   isCurrent?: boolean;
 }
 
+interface SessionsData {
+  sessions: Session[];
+  stats: {
+    total: number;
+    active: number;
+    idle: number;
+    expired: number;
+  };
+  settings: {
+    timeout: number;
+    concurrentSessions: boolean;
+    sessionLockOnIdle: boolean;
+    deviceTrust: boolean;
+  };
+}
+
+function MetricCard({ 
+  icon: Icon, 
+  label, 
+  value, 
+  change, 
+  changeType = "neutral",
+  isLoading = false,
+  bgColor = "bg-blue-500/10",
+  iconColor = "text-blue-500",
+  testId
+}: {
+  icon: any;
+  label: string;
+  value: string | number;
+  change?: string;
+  changeType?: "positive" | "negative" | "neutral";
+  isLoading?: boolean;
+  bgColor?: string;
+  iconColor?: string;
+  testId?: string;
+}) {
+  return (
+    <Card data-testid={testId}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+        <CardTitle className="text-sm font-medium">{label}</CardTitle>
+        <div className={`p-2 rounded-lg ${bgColor}`}>
+          <Icon className={`h-4 w-4 ${iconColor}`} />
+        </div>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Skeleton className="h-8 w-24" />
+        ) : (
+          <>
+            <div className="text-2xl font-bold">{value}</div>
+            {change && (
+              <p className={`text-xs ${
+                changeType === "positive" ? "text-green-500" : 
+                changeType === "negative" ? "text-red-500" : 
+                "text-muted-foreground"
+              }`}>
+                {change}
+              </p>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function Sessions() {
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [wsConnected, setWsConnected] = useState(false);
+  const wsRef = useRef<WebSocket | null>(null);
 
-  const sessions: Session[] = [
-    {
-      id: "1",
-      user: { name: "John Admin", email: "john@tburn.io", role: "Super Admin" },
-      device: "MacBook Pro",
-      deviceType: "desktop",
-      browser: "Chrome 120",
-      os: "macOS Sonoma",
-      ip: "192.168.1.100",
-      location: "Seoul, South Korea",
-      startTime: "2024-12-04 14:45:23",
-      lastActivity: "Just now",
-      status: "active",
-      isCurrent: true,
+  const { data: sessionsData, isLoading, error, refetch } = useQuery<SessionsData>({
+    queryKey: ["/api/admin/sessions"],
+    refetchInterval: wsConnected ? false : 30000,
+  });
+
+  const terminateSessionMutation = useMutation({
+    mutationFn: async (sessionId: string) => {
+      const response = await apiRequest("DELETE", `/api/admin/sessions/${sessionId}`);
+      return response.json();
     },
-    {
-      id: "2",
-      user: { name: "Sarah Ops", email: "sarah@tburn.io", role: "Operator" },
-      device: "Windows PC",
-      deviceType: "desktop",
-      browser: "Firefox 121",
-      os: "Windows 11",
-      ip: "192.168.1.105",
-      location: "Busan, South Korea",
-      startTime: "2024-12-04 13:30:00",
-      lastActivity: "5 minutes ago",
-      status: "active",
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+      toast({
+        title: t("adminSessions.sessionTerminated"),
+        description: t("adminSessions.sessionTerminatedDesc"),
+      });
     },
-    {
-      id: "3",
-      user: { name: "Mike Dev", email: "mike@tburn.io", role: "Developer" },
-      device: "iPhone 15",
-      deviceType: "mobile",
-      browser: "Safari",
-      os: "iOS 17",
-      ip: "10.0.0.55",
-      location: "Tokyo, Japan",
-      startTime: "2024-12-04 12:00:00",
-      lastActivity: "30 minutes ago",
-      status: "idle",
+    onError: (error: Error) => {
+      toast({
+        title: t("adminSessions.terminateError"),
+        description: error.message,
+        variant: "destructive",
+      });
     },
-    {
-      id: "4",
-      user: { name: "John Admin", email: "john@tburn.io", role: "Super Admin" },
-      device: "iPad Pro",
-      deviceType: "tablet",
-      browser: "Safari",
-      os: "iPadOS 17",
-      ip: "192.168.1.101",
-      location: "Seoul, South Korea",
-      startTime: "2024-12-03 09:00:00",
-      lastActivity: "1 day ago",
-      status: "expired",
+  });
+
+  const terminateAllSessionsMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("DELETE", "/api/admin/sessions/all");
+      return response.json();
     },
-    {
-      id: "5",
-      user: { name: "Lisa Analyst", email: "lisa@tburn.io", role: "Analyst" },
-      device: "ThinkPad X1",
-      deviceType: "desktop",
-      browser: "Edge 120",
-      os: "Windows 11",
-      ip: "192.168.1.110",
-      location: "Incheon, South Korea",
-      startTime: "2024-12-04 10:15:00",
-      lastActivity: "15 minutes ago",
-      status: "active",
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+      toast({
+        title: t("adminSessions.allSessionsTerminated"),
+        description: t("adminSessions.allSessionsTerminatedDesc"),
+      });
     },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminSessions.terminateAllError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateSettingsMutation = useMutation({
+    mutationFn: async (settings: Partial<SessionsData['settings']>) => {
+      const response = await apiRequest("POST", "/api/admin/sessions/settings", settings);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+      toast({
+        title: t("adminSessions.settingsSaved"),
+        description: t("adminSessions.settingsSavedDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminSessions.settingsError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  useEffect(() => {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/ws/admin/sessions`;
+    
+    try {
+      wsRef.current = new WebSocket(wsUrl);
+      
+      wsRef.current.onopen = () => {
+        setWsConnected(true);
+        toast({
+          title: t("adminSessions.wsConnected"),
+          description: t("adminSessions.wsConnectedDesc"),
+        });
+      };
+      
+      wsRef.current.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.type === 'session_update') {
+            queryClient.invalidateQueries({ queryKey: ["/api/admin/sessions"] });
+          }
+        } catch (e) {
+          console.error('WebSocket message parse error:', e);
+        }
+      };
+      
+      wsRef.current.onclose = () => {
+        setWsConnected(false);
+      };
+      
+      wsRef.current.onerror = () => {
+        setWsConnected(false);
+      };
+    } catch (e) {
+      console.error('WebSocket connection error:', e);
+    }
+    
+    return () => {
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+    };
+  }, [toast, t]);
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminSessions.refreshing"),
+      description: t("adminSessions.refreshingDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const mockSessions: Session[] = [
+    { id: "1", user: { name: "John Admin", email: "john@tburn.io", role: "Super Admin" }, device: "MacBook Pro", deviceType: "desktop", browser: "Chrome 120", os: "macOS Sonoma", ip: "192.168.1.100", location: "Seoul, South Korea", startTime: "2024-12-04 14:45:23", lastActivity: "Just now", status: "active", isCurrent: true },
+    { id: "2", user: { name: "Sarah Ops", email: "sarah@tburn.io", role: "Operator" }, device: "Windows PC", deviceType: "desktop", browser: "Firefox 121", os: "Windows 11", ip: "192.168.1.105", location: "Busan, South Korea", startTime: "2024-12-04 13:30:00", lastActivity: "5 minutes ago", status: "active" },
+    { id: "3", user: { name: "Mike Dev", email: "mike@tburn.io", role: "Developer" }, device: "iPhone 15", deviceType: "mobile", browser: "Safari", os: "iOS 17", ip: "10.0.0.55", location: "Tokyo, Japan", startTime: "2024-12-04 12:00:00", lastActivity: "30 minutes ago", status: "idle" },
+    { id: "4", user: { name: "John Admin", email: "john@tburn.io", role: "Super Admin" }, device: "iPad Pro", deviceType: "tablet", browser: "Safari", os: "iPadOS 17", ip: "192.168.1.101", location: "Seoul, South Korea", startTime: "2024-12-03 09:00:00", lastActivity: "1 day ago", status: "expired" },
+    { id: "5", user: { name: "Lisa Analyst", email: "lisa@tburn.io", role: "Analyst" }, device: "ThinkPad X1", deviceType: "desktop", browser: "Edge 120", os: "Windows 11", ip: "192.168.1.110", location: "Incheon, South Korea", startTime: "2024-12-04 10:15:00", lastActivity: "15 minutes ago", status: "active" },
   ];
+
+  const sessions = sessionsData?.sessions || mockSessions;
+  const stats = sessionsData?.stats || {
+    total: sessions.length,
+    active: sessions.filter(s => s.status === "active").length,
+    idle: sessions.filter(s => s.status === "idle").length,
+    expired: sessions.filter(s => s.status === "expired").length,
+  };
 
   const getDeviceIcon = (deviceType: string) => {
     switch (deviceType) {
-      case "desktop":
-        return <Laptop className="h-5 w-5" />;
-      case "mobile":
-        return <Smartphone className="h-5 w-5" />;
-      case "tablet":
-        return <Tablet className="h-5 w-5" />;
-      default:
-        return <Monitor className="h-5 w-5" />;
+      case "desktop": return <Laptop className="h-5 w-5" />;
+      case "mobile": return <Smartphone className="h-5 w-5" />;
+      case "tablet": return <Tablet className="h-5 w-5" />;
+      default: return <Monitor className="h-5 w-5" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active":
-        return "bg-green-500";
-      case "idle":
-        return "bg-yellow-500";
-      case "expired":
-        return "bg-red-500";
-      default:
-        return "bg-gray-500";
+      case "active": return "bg-green-500";
+      case "idle": return "bg-yellow-500";
+      case "expired": return "bg-red-500";
+      default: return "bg-gray-500";
     }
   };
 
@@ -159,276 +293,316 @@ export default function Sessions() {
     return matchesSearch && matchesStatus;
   });
 
-  const activeCount = sessions.filter(s => s.status === "active").length;
-  const idleCount = sessions.filter(s => s.status === "idle").length;
-  const expiredCount = sessions.filter(s => s.status === "expired").length;
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto" data-testid="sessions-error-container">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-red-500/50 bg-red-500/10">
+            <CardContent className="flex items-center gap-4 py-6">
+              <AlertCircle className="h-8 w-8 text-red-500" />
+              <div>
+                <h3 className="font-semibold text-red-500">{t("adminSessions.errorLoading")}</h3>
+                <p className="text-sm text-muted-foreground">{t("adminSessions.errorLoadingDesc")}</p>
+              </div>
+              <Button variant="outline" onClick={() => refetch()} className="ml-auto" data-testid="button-retry">
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {t("adminSessions.retry")}
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="sessions-container">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-sessions-title">
               <Monitor className="h-8 w-8" />
-              Session Management
+              {t("adminSessions.title")}
+              <Badge variant={wsConnected ? "default" : "secondary"} className="ml-2">
+                {wsConnected ? <Wifi className="h-3 w-3 mr-1" /> : <WifiOff className="h-3 w-3 mr-1" />}
+                {wsConnected ? t("adminSessions.live") : t("adminSessions.offline")}
+              </Badge>
             </h1>
-            <p className="text-muted-foreground">세션 관리 | Manage active user sessions</p>
+            <p className="text-muted-foreground" data-testid="text-sessions-subtitle">
+              {t("adminSessions.subtitle")} | {i18n.language === 'ko' ? 'Manage active user sessions' : '세션 관리'}
+            </p>
           </div>
           <div className="flex gap-2">
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" data-testid="button-settings">
                   <Settings className="h-4 w-4 mr-2" />
-                  Session Settings
+                  {t("adminSessions.sessionSettings")}
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Session Settings</DialogTitle>
-                  <DialogDescription>Configure session timeout and security settings</DialogDescription>
+                  <DialogTitle>{t("adminSessions.settingsDialog.title")}</DialogTitle>
+                  <DialogDescription>{t("adminSessions.settingsDialog.description")}</DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Session Timeout (minutes)</Label>
+                    <Label>{t("adminSessions.settingsDialog.timeout")}</Label>
                     <Select defaultValue="30">
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="select-timeout">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="15">15 minutes</SelectItem>
-                        <SelectItem value="30">30 minutes</SelectItem>
-                        <SelectItem value="60">1 hour</SelectItem>
-                        <SelectItem value="120">2 hours</SelectItem>
-                        <SelectItem value="480">8 hours</SelectItem>
+                        <SelectItem value="15">{t("adminSessions.settingsDialog.timeouts.15min")}</SelectItem>
+                        <SelectItem value="30">{t("adminSessions.settingsDialog.timeouts.30min")}</SelectItem>
+                        <SelectItem value="60">{t("adminSessions.settingsDialog.timeouts.1hour")}</SelectItem>
+                        <SelectItem value="120">{t("adminSessions.settingsDialog.timeouts.2hours")}</SelectItem>
+                        <SelectItem value="480">{t("adminSessions.settingsDialog.timeouts.8hours")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">Concurrent Sessions</p>
-                      <p className="text-sm text-muted-foreground">Allow multiple sessions per user</p>
+                      <p className="font-medium">{t("adminSessions.settingsDialog.concurrentSessions")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminSessions.settingsDialog.concurrentSessionsDesc")}</p>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch defaultChecked data-testid="switch-concurrent-sessions" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">Session Lock on Idle</p>
-                      <p className="text-sm text-muted-foreground">Lock session after inactivity</p>
+                      <p className="font-medium">{t("adminSessions.settingsDialog.sessionLock")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminSessions.settingsDialog.sessionLockDesc")}</p>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch defaultChecked data-testid="switch-session-lock" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">Device Trust</p>
-                      <p className="text-sm text-muted-foreground">Remember trusted devices</p>
+                      <p className="font-medium">{t("adminSessions.settingsDialog.deviceTrust")}</p>
+                      <p className="text-sm text-muted-foreground">{t("adminSessions.settingsDialog.deviceTrustDesc")}</p>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch defaultChecked data-testid="switch-device-trust" />
                   </div>
-                  <Button className="w-full">Save Settings</Button>
+                  <Button className="w-full" onClick={() => updateSettingsMutation.mutate({})} disabled={updateSettingsMutation.isPending} data-testid="button-save-settings">
+                    {updateSettingsMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : null}
+                    {t("adminSessions.settingsDialog.saveSettings")}
+                  </Button>
                 </div>
               </DialogContent>
             </Dialog>
-            <Button variant="destructive" data-testid="button-terminate-all">
-              <LogOut className="h-4 w-4 mr-2" />
-              Terminate All
+            <Button 
+              variant="destructive" 
+              onClick={() => terminateAllSessionsMutation.mutate()}
+              disabled={terminateAllSessionsMutation.isPending}
+              data-testid="button-terminate-all"
+            >
+              {terminateAllSessionsMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <LogOut className="h-4 w-4 mr-2" />}
+              {t("adminSessions.terminateAll")}
             </Button>
-            <Button variant="outline" onClick={() => window.location.reload()} data-testid="button-refresh">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Refresh
+            <Button variant="outline" onClick={handleRefresh} disabled={isLoading} data-testid="button-refresh">
+              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+              {t("adminSessions.refresh")}
             </Button>
           </div>
         </div>
 
-        {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Sessions</CardTitle>
-              <Monitor className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{sessions.length}</div>
-              <p className="text-xs text-muted-foreground">Across all users</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Sessions</CardTitle>
-              <CheckCircle className="h-4 w-4 text-green-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-500">{activeCount}</div>
-              <Progress value={(activeCount / sessions.length) * 100} className="h-2 mt-2" />
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Idle Sessions</CardTitle>
-              <Clock className="h-4 w-4 text-yellow-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-yellow-500">{idleCount}</div>
-              <p className="text-xs text-muted-foreground">Inactive for 30+ min</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Expired Sessions</CardTitle>
-              <AlertTriangle className="h-4 w-4 text-red-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-red-500">{expiredCount}</div>
-              <p className="text-xs text-muted-foreground">Need cleanup</p>
-            </CardContent>
-          </Card>
+          <MetricCard
+            icon={Monitor}
+            label={t("adminSessions.metrics.totalSessions")}
+            value={stats.total}
+            change={t("adminSessions.metrics.acrossAllUsers")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-blue-500/10"
+            iconColor="text-blue-500"
+            testId="metric-total-sessions"
+          />
+          <MetricCard
+            icon={CheckCircle}
+            label={t("adminSessions.metrics.activeSessions")}
+            value={stats.active}
+            change={`${Math.round((stats.active / stats.total) * 100)}% ${t("adminSessions.metrics.ofTotal")}`}
+            changeType="positive"
+            isLoading={isLoading}
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
+            testId="metric-active-sessions"
+          />
+          <MetricCard
+            icon={Clock}
+            label={t("adminSessions.metrics.idleSessions")}
+            value={stats.idle}
+            change={t("adminSessions.metrics.inactive30min")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-yellow-500/10"
+            iconColor="text-yellow-500"
+            testId="metric-idle-sessions"
+          />
+          <MetricCard
+            icon={AlertTriangle}
+            label={t("adminSessions.metrics.expiredSessions")}
+            value={stats.expired}
+            change={t("adminSessions.metrics.needCleanup")}
+            changeType="negative"
+            isLoading={isLoading}
+            bgColor="bg-red-500/10"
+            iconColor="text-red-500"
+            testId="metric-expired-sessions"
+          />
         </div>
 
-        {/* Filters */}
-        <Card>
+        <Card data-testid="card-filters">
           <CardContent className="pt-6">
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search by user, email, or IP..."
+                  placeholder={t("adminSessions.searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-9"
+                  data-testid="input-search-sessions"
                 />
               </div>
               <Select value={filterStatus} onValueChange={setFilterStatus}>
-                <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="Status" />
+                <SelectTrigger className="w-[150px]" data-testid="select-filter-status">
+                  <SelectValue placeholder={t("adminSessions.status")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="idle">Idle</SelectItem>
-                  <SelectItem value="expired">Expired</SelectItem>
+                  <SelectItem value="all">{t("adminSessions.statusTypes.all")}</SelectItem>
+                  <SelectItem value="active">{t("adminSessions.statusTypes.active")}</SelectItem>
+                  <SelectItem value="idle">{t("adminSessions.statusTypes.idle")}</SelectItem>
+                  <SelectItem value="expired">{t("adminSessions.statusTypes.expired")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </CardContent>
         </Card>
 
-        {/* Sessions Table */}
-        <Card>
+        <Card data-testid="card-sessions-table">
           <CardHeader>
-            <CardTitle>Active Sessions</CardTitle>
-            <CardDescription>View and manage all user sessions</CardDescription>
+            <CardTitle>{t("adminSessions.sessionsTable.title")}</CardTitle>
+            <CardDescription>{t("adminSessions.sessionsTable.description")}</CardDescription>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>User</TableHead>
-                  <TableHead>Device</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Started</TableHead>
-                  <TableHead>Last Activity</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredSessions.map((session) => (
-                  <TableRow key={session.id} className={session.isCurrent ? "bg-primary/5" : ""}>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-10 w-10">
-                          <AvatarImage src={session.user.avatar} />
-                          <AvatarFallback>{session.user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <p className="font-medium">{session.user.name}</p>
-                            {session.isCurrent && (
-                              <Badge variant="outline" className="text-xs">Current</Badge>
-                            )}
-                          </div>
-                          <p className="text-sm text-muted-foreground">{session.user.email}</p>
-                          <Badge variant="secondary" className="text-xs">{session.user.role}</Badge>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        {getDeviceIcon(session.deviceType)}
-                        <div>
-                          <p className="font-medium">{session.device}</p>
-                          <p className="text-xs text-muted-foreground">{session.browser} · {session.os}</p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Globe className="h-4 w-4 text-muted-foreground" />
-                        <div>
-                          <p>{session.location}</p>
-                          <p className="text-xs text-muted-foreground">{session.ip}</p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">{session.startTime}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{session.lastActivity}</span>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={getStatusColor(session.status)}>
-                        {session.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex gap-1">
-                        <Button variant="ghost" size="icon" disabled={session.isCurrent}>
-                          <Key className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="text-red-500"
-                          disabled={session.isCurrent}
-                        >
-                          <LogOut className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
+            {isLoading ? (
+              <div className="space-y-4">
+                {[...Array(5)].map((_, i) => (
+                  <Skeleton key={i} className="h-16 w-full" />
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>{t("adminSessions.sessionsTable.user")}</TableHead>
+                    <TableHead>{t("adminSessions.sessionsTable.device")}</TableHead>
+                    <TableHead>{t("adminSessions.sessionsTable.location")}</TableHead>
+                    <TableHead>{t("adminSessions.sessionsTable.started")}</TableHead>
+                    <TableHead>{t("adminSessions.sessionsTable.lastActivity")}</TableHead>
+                    <TableHead>{t("adminSessions.sessionsTable.status")}</TableHead>
+                    <TableHead>{t("adminSessions.sessionsTable.actions")}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredSessions.map((session) => (
+                    <TableRow key={session.id} className={session.isCurrent ? "bg-primary/5" : ""} data-testid={`session-row-${session.id}`}>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-10 w-10">
+                            <AvatarImage src={session.user.avatar} />
+                            <AvatarFallback>{session.user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <p className="font-medium">{session.user.name}</p>
+                              {session.isCurrent && (
+                                <Badge variant="outline" className="text-xs">{t("adminSessions.current")}</Badge>
+                              )}
+                            </div>
+                            <p className="text-sm text-muted-foreground">{session.user.email}</p>
+                            <Badge variant="secondary" className="text-xs">{session.user.role}</Badge>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          {getDeviceIcon(session.deviceType)}
+                          <div>
+                            <p className="font-medium">{session.device}</p>
+                            <p className="text-xs text-muted-foreground">{session.browser} · {session.os}</p>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Globe className="h-4 w-4 text-muted-foreground" />
+                          <div>
+                            <p>{session.location}</p>
+                            <p className="text-xs text-muted-foreground">{session.ip}</p>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Clock className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm">{session.startTime}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{session.lastActivity}</span>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={getStatusColor(session.status)}>
+                          {t(`adminSessions.statusTypes.${session.status}`)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-1">
+                          <Button variant="ghost" size="icon" disabled={session.isCurrent} data-testid={`button-key-${session.id}`}>
+                            <Key className="h-4 w-4" />
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="text-red-500"
+                            disabled={session.isCurrent}
+                            onClick={() => terminateSessionMutation.mutate(session.id)}
+                            data-testid={`button-terminate-${session.id}`}
+                          >
+                            <LogOut className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
         </Card>
 
-        {/* Security Tips */}
-        <Card>
+        <Card data-testid="card-security-recommendations">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
-              Security Recommendations
+              {t("adminSessions.securityRecommendations.title")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="flex items-center gap-3 p-3 border rounded-lg bg-green-500/10">
+            <div className="flex items-center gap-3 p-3 border rounded-lg bg-green-500/10" data-testid="recommendation-known-locations">
               <CheckCircle className="h-5 w-5 text-green-500" />
               <div>
-                <p className="font-medium">All sessions are from known locations</p>
-                <p className="text-sm text-muted-foreground">No suspicious login attempts detected</p>
+                <p className="font-medium">{t("adminSessions.securityRecommendations.knownLocations")}</p>
+                <p className="text-sm text-muted-foreground">{t("adminSessions.securityRecommendations.knownLocationsDesc")}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 border rounded-lg bg-yellow-500/10">
+            <div className="flex items-center gap-3 p-3 border rounded-lg bg-yellow-500/10" data-testid="recommendation-expired-sessions">
               <AlertTriangle className="h-5 w-5 text-yellow-500" />
               <div>
-                <p className="font-medium">1 expired session found</p>
-                <p className="text-sm text-muted-foreground">Consider terminating expired sessions for security</p>
+                <p className="font-medium">{t("adminSessions.securityRecommendations.expiredSessions")}</p>
+                <p className="text-sm text-muted-foreground">{t("adminSessions.securityRecommendations.expiredSessionsDesc")}</p>
               </div>
             </div>
           </CardContent>

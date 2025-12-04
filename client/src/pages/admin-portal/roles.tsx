@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useState, useCallback, useMemo } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,6 +10,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   Shield,
   ShieldCheck,
@@ -20,6 +25,9 @@ import {
   Lock,
   Edit,
   Trash2,
+  RefreshCw,
+  Download,
+  AlertCircle,
 } from "lucide-react";
 
 interface Role {
@@ -39,35 +47,189 @@ interface Permission {
   category: string;
 }
 
+interface RolesData {
+  roles: Role[];
+  permissions: Permission[];
+}
+
+function MetricCard({ 
+  icon: Icon, 
+  label, 
+  value, 
+  change, 
+  changeType = "neutral",
+  isLoading = false,
+  bgColor = "bg-blue-500/10",
+  iconColor = "text-blue-500",
+  testId
+}: {
+  icon: any;
+  label: string;
+  value: string | number;
+  change?: string;
+  changeType?: "positive" | "negative" | "neutral";
+  isLoading?: boolean;
+  bgColor?: string;
+  iconColor?: string;
+  testId?: string;
+}) {
+  return (
+    <Card data-testid={testId}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+        <CardTitle className="text-sm font-medium">{label}</CardTitle>
+        <div className={`p-2 rounded-lg ${bgColor}`}>
+          <Icon className={`h-4 w-4 ${iconColor}`} />
+        </div>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Skeleton className="h-8 w-24" />
+        ) : (
+          <>
+            <div className="text-2xl font-bold">{value}</div>
+            {change && (
+              <p className={`text-xs ${
+                changeType === "positive" ? "text-green-500" : 
+                changeType === "negative" ? "text-red-500" : 
+                "text-muted-foreground"
+              }`}>
+                {change}
+              </p>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function AdminRoles() {
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
-  const roles: Role[] = useMemo(() => [
-    { id: "1", name: "Super Admin", description: "Full system access with all permissions", permissions: ["all"], userCount: 1, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "2", name: "Admin", description: "Administrative access without critical operations", permissions: ["read", "write", "manage_users", "view_logs"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "3", name: "Operator", description: "Network operations and validator management", permissions: ["read", "write", "manage_validators", "manage_nodes", "pause_services"], userCount: 3, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "4", name: "Security", description: "Security monitoring and incident response", permissions: ["read", "security_management", "view_logs", "manage_access"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "5", name: "Developer", description: "Contract deployment and development tools", permissions: ["read", "deploy_contracts", "use_testnet", "view_logs"], userCount: 4, isSystem: true, createdAt: new Date("2024-01-01") },
-    { id: "6", name: "Viewer", description: "Read-only access to dashboards and reports", permissions: ["read"], userCount: 5, isSystem: true, createdAt: new Date("2024-01-01") },
-  ], []);
+  const { data: rolesData, isLoading, error, refetch } = useQuery<RolesData>({
+    queryKey: ["/api/admin/roles"],
+    refetchInterval: 30000,
+  });
 
-  const permissions: Permission[] = useMemo(() => [
-    { id: "read", name: "Read Access", description: "View dashboards, reports, and data", category: "General" },
-    { id: "write", name: "Write Access", description: "Modify configurations and settings", category: "General" },
-    { id: "manage_users", name: "Manage Users", description: "Create, edit, and delete user accounts", category: "User Management" },
-    { id: "manage_roles", name: "Manage Roles", description: "Create and modify roles and permissions", category: "User Management" },
-    { id: "manage_validators", name: "Manage Validators", description: "Add, remove, and configure validators", category: "Network" },
-    { id: "manage_nodes", name: "Manage Nodes", description: "Configure and manage network nodes", category: "Network" },
-    { id: "pause_services", name: "Pause Services", description: "Pause network services and bridges", category: "Operations" },
-    { id: "emergency_controls", name: "Emergency Controls", description: "Access emergency shutdown and recovery", category: "Operations" },
-    { id: "security_management", name: "Security Management", description: "Manage security settings and incidents", category: "Security" },
-    { id: "manage_access", name: "Manage Access Control", description: "Configure IP whitelists and access policies", category: "Security" },
-    { id: "view_logs", name: "View Logs", description: "Access audit logs and system logs", category: "Monitoring" },
-    { id: "deploy_contracts", name: "Deploy Contracts", description: "Deploy smart contracts to mainnet", category: "Development" },
-    { id: "use_testnet", name: "Use Testnet", description: "Access testnet for development", category: "Development" },
-    { id: "all", name: "All Permissions", description: "Full access to all system functions", category: "System" },
-  ], []);
+  const createRoleMutation = useMutation({
+    mutationFn: async (roleData: { name: string; description: string; permissions: string[] }) => {
+      const response = await apiRequest("POST", "/api/admin/roles", roleData);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      setShowCreateDialog(false);
+      toast({
+        title: t("adminRoles.roleCreated"),
+        description: t("adminRoles.roleCreatedDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminRoles.createError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateRoleMutation = useMutation({
+    mutationFn: async ({ id, permissions }: { id: string; permissions: string[] }) => {
+      const response = await apiRequest("PATCH", `/api/admin/roles/${id}`, { permissions });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      toast({
+        title: t("adminRoles.roleUpdated"),
+        description: t("adminRoles.roleUpdatedDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminRoles.updateError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteRoleMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const response = await apiRequest("DELETE", `/api/admin/roles/${id}`);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/roles"] });
+      setSelectedRole(null);
+      toast({
+        title: t("adminRoles.roleDeleted"),
+        description: t("adminRoles.roleDeletedDesc"),
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: t("adminRoles.deleteError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminRoles.refreshing"),
+      description: t("adminRoles.refreshingDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const dataStr = JSON.stringify(rolesData, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `roles-permissions-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast({
+      title: t("adminRoles.exported"),
+      description: t("adminRoles.exportedDesc"),
+    });
+  }, [rolesData, toast, t]);
+
+  const mockRoles: Role[] = useMemo(() => [
+    { id: "1", name: "Super Admin", description: t("adminRoles.roleDescriptions.superAdmin"), permissions: ["all"], userCount: 1, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "2", name: "Admin", description: t("adminRoles.roleDescriptions.admin"), permissions: ["read", "write", "manage_users", "view_logs"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "3", name: "Operator", description: t("adminRoles.roleDescriptions.operator"), permissions: ["read", "write", "manage_validators", "manage_nodes", "pause_services"], userCount: 3, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "4", name: "Security", description: t("adminRoles.roleDescriptions.security"), permissions: ["read", "security_management", "view_logs", "manage_access"], userCount: 2, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "5", name: "Developer", description: t("adminRoles.roleDescriptions.developer"), permissions: ["read", "deploy_contracts", "use_testnet", "view_logs"], userCount: 4, isSystem: true, createdAt: new Date("2024-01-01") },
+    { id: "6", name: "Viewer", description: t("adminRoles.roleDescriptions.viewer"), permissions: ["read"], userCount: 5, isSystem: true, createdAt: new Date("2024-01-01") },
+  ], [t]);
+
+  const mockPermissions: Permission[] = useMemo(() => [
+    { id: "read", name: t("adminRoles.permissions.read"), description: t("adminRoles.permissionDescriptions.read"), category: "General" },
+    { id: "write", name: t("adminRoles.permissions.write"), description: t("adminRoles.permissionDescriptions.write"), category: "General" },
+    { id: "manage_users", name: t("adminRoles.permissions.manageUsers"), description: t("adminRoles.permissionDescriptions.manageUsers"), category: "User Management" },
+    { id: "manage_roles", name: t("adminRoles.permissions.manageRoles"), description: t("adminRoles.permissionDescriptions.manageRoles"), category: "User Management" },
+    { id: "manage_validators", name: t("adminRoles.permissions.manageValidators"), description: t("adminRoles.permissionDescriptions.manageValidators"), category: "Network" },
+    { id: "manage_nodes", name: t("adminRoles.permissions.manageNodes"), description: t("adminRoles.permissionDescriptions.manageNodes"), category: "Network" },
+    { id: "pause_services", name: t("adminRoles.permissions.pauseServices"), description: t("adminRoles.permissionDescriptions.pauseServices"), category: "Operations" },
+    { id: "emergency_controls", name: t("adminRoles.permissions.emergencyControls"), description: t("adminRoles.permissionDescriptions.emergencyControls"), category: "Operations" },
+    { id: "security_management", name: t("adminRoles.permissions.securityManagement"), description: t("adminRoles.permissionDescriptions.securityManagement"), category: "Security" },
+    { id: "manage_access", name: t("adminRoles.permissions.manageAccess"), description: t("adminRoles.permissionDescriptions.manageAccess"), category: "Security" },
+    { id: "view_logs", name: t("adminRoles.permissions.viewLogs"), description: t("adminRoles.permissionDescriptions.viewLogs"), category: "Monitoring" },
+    { id: "deploy_contracts", name: t("adminRoles.permissions.deployContracts"), description: t("adminRoles.permissionDescriptions.deployContracts"), category: "Development" },
+    { id: "use_testnet", name: t("adminRoles.permissions.useTestnet"), description: t("adminRoles.permissionDescriptions.useTestnet"), category: "Development" },
+    { id: "all", name: t("adminRoles.permissions.all"), description: t("adminRoles.permissionDescriptions.all"), category: "System" },
+  ], [t]);
+
+  const roles = rolesData?.roles || mockRoles;
+  const permissions = rolesData?.permissions || mockPermissions;
 
   const groupedPermissions = useMemo(() => {
     const groups: Record<string, Permission[]> = {};
@@ -77,6 +239,8 @@ export default function AdminRoles() {
     });
     return groups;
   }, [permissions]);
+
+  const totalUsers = useMemo(() => roles.reduce((sum, r) => sum + r.userCount, 0), [roles]);
 
   const getRoleBadge = (name: string) => {
     switch (name) {
@@ -104,87 +268,183 @@ export default function AdminRoles() {
     }
   };
 
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto" data-testid="roles-error-container">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-red-500/50 bg-red-500/10">
+            <CardContent className="flex items-center gap-4 py-6">
+              <AlertCircle className="h-8 w-8 text-red-500" />
+              <div>
+                <h3 className="font-semibold text-red-500">{t("adminRoles.errorLoading")}</h3>
+                <p className="text-sm text-muted-foreground">{t("adminRoles.errorLoadingDesc")}</p>
+              </div>
+              <Button variant="outline" onClick={() => refetch()} className="ml-auto" data-testid="button-retry">
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {t("adminRoles.retry")}
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="roles-container">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-roles-title">
               <ShieldCheck className="h-8 w-8" />
-              Role Management
+              {t("adminRoles.title")}
             </h1>
-            <p className="text-muted-foreground">Configure roles and permissions for admin accounts</p>
+            <p className="text-muted-foreground" data-testid="text-roles-subtitle">
+              {t("adminRoles.subtitle")} | {i18n.language === 'ko' ? 'Configure roles and permissions for admin accounts' : '역할 및 권한 관리'}
+            </p>
           </div>
-          <Button onClick={() => setShowCreateDialog(true)} data-testid="button-create-role">
-            <ShieldPlus className="h-4 w-4 mr-2" />
-            Create Role
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExport} data-testid="button-export">
+              <Download className="h-4 w-4 mr-2" />
+              {t("adminRoles.export")}
+            </Button>
+            <Button variant="outline" onClick={handleRefresh} disabled={isLoading} data-testid="button-refresh">
+              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+              {t("adminRoles.refresh")}
+            </Button>
+            <Button onClick={() => setShowCreateDialog(true)} data-testid="button-create-role">
+              <ShieldPlus className="h-4 w-4 mr-2" />
+              {t("adminRoles.createRole")}
+            </Button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <MetricCard
+            icon={ShieldCheck}
+            label={t("adminRoles.metrics.totalRoles")}
+            value={roles.length}
+            change={t("adminRoles.metrics.configured")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-blue-500/10"
+            iconColor="text-blue-500"
+            testId="metric-total-roles"
+          />
+          <MetricCard
+            icon={Lock}
+            label={t("adminRoles.metrics.systemRoles")}
+            value={roles.filter(r => r.isSystem).length}
+            change={t("adminRoles.metrics.protected")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-purple-500/10"
+            iconColor="text-purple-500"
+            testId="metric-system-roles"
+          />
+          <MetricCard
+            icon={Users}
+            label={t("adminRoles.metrics.totalUsers")}
+            value={totalUsers}
+            change={t("adminRoles.metrics.assigned")}
+            changeType="positive"
+            isLoading={isLoading}
+            bgColor="bg-green-500/10"
+            iconColor="text-green-500"
+            testId="metric-total-users"
+          />
+          <MetricCard
+            icon={Shield}
+            label={t("adminRoles.metrics.totalPermissions")}
+            value={permissions.length}
+            change={t("adminRoles.metrics.available")}
+            changeType="neutral"
+            isLoading={isLoading}
+            bgColor="bg-orange-500/10"
+            iconColor="text-orange-500"
+            testId="metric-total-permissions"
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
+          <Card data-testid="card-roles-list">
             <CardHeader>
-              <CardTitle>Roles</CardTitle>
-              <CardDescription>Click a role to view and edit permissions</CardDescription>
+              <CardTitle>{t("adminRoles.rolesTitle")}</CardTitle>
+              <CardDescription>{t("adminRoles.rolesDescription")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {roles.map((role) => (
-                  <div
-                    key={role.id}
-                    className={`p-4 rounded-lg border cursor-pointer hover-elevate ${selectedRole?.id === role.id ? "border-primary bg-primary/5" : ""}`}
-                    onClick={() => setSelectedRole(role)}
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        {getRoleBadge(role.name)}
-                        {role.isSystem && (
-                          <Badge variant="outline" className="ml-2 text-xs">System</Badge>
+              {isLoading ? (
+                <div className="space-y-3">
+                  {[...Array(6)].map((_, i) => (
+                    <Skeleton key={i} className="h-24 w-full" />
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {roles.map((role) => (
+                    <div
+                      key={role.id}
+                      className={`p-4 rounded-lg border cursor-pointer hover-elevate ${selectedRole?.id === role.id ? "border-primary bg-primary/5" : ""}`}
+                      onClick={() => setSelectedRole(role)}
+                      data-testid={`role-card-${role.id}`}
+                    >
+                      <div className="flex items-start justify-between mb-2 gap-2">
+                        <div>
+                          {getRoleBadge(role.name)}
+                          {role.isSystem && (
+                            <Badge variant="outline" className="ml-2 text-xs">{t("adminRoles.system")}</Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                          <Users className="h-3 w-3" />
+                          {role.userCount}
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{role.description}</p>
+                      <div className="flex flex-wrap gap-1 mt-3">
+                        {role.permissions.slice(0, 3).map((perm) => (
+                          <Badge key={perm} variant="secondary" className="text-xs">
+                            {perm}
+                          </Badge>
+                        ))}
+                        {role.permissions.length > 3 && (
+                          <Badge variant="secondary" className="text-xs">
+                            +{role.permissions.length - 3} {t("adminRoles.more")}
+                          </Badge>
                         )}
                       </div>
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Users className="h-3 w-3" />
-                        {role.userCount}
-                      </div>
                     </div>
-                    <p className="text-sm text-muted-foreground">{role.description}</p>
-                    <div className="flex flex-wrap gap-1 mt-3">
-                      {role.permissions.slice(0, 3).map((perm) => (
-                        <Badge key={perm} variant="secondary" className="text-xs">
-                          {perm}
-                        </Badge>
-                      ))}
-                      {role.permissions.length > 3 && (
-                        <Badge variant="secondary" className="text-xs">
-                          +{role.permissions.length - 3} more
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
+          <Card data-testid="card-permissions">
             <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>Permissions</span>
+              <CardTitle className="flex items-center justify-between gap-2">
+                <span>{t("adminRoles.permissionsTitle")}</span>
                 {selectedRole && !selectedRole.isSystem && (
                   <div className="flex items-center gap-2">
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" data-testid="button-edit-role">
                       <Edit className="h-4 w-4 mr-1" />
-                      Edit
+                      {t("adminRoles.edit")}
                     </Button>
-                    <Button size="sm" variant="outline" className="text-red-500">
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="text-red-500"
+                      onClick={() => deleteRoleMutation.mutate(selectedRole.id)}
+                      data-testid="button-delete-role"
+                    >
                       <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
+                      {t("adminRoles.delete")}
                     </Button>
                   </div>
                 )}
               </CardTitle>
               <CardDescription>
-                {selectedRole ? `Permissions for ${selectedRole.name}` : "Select a role to view permissions"}
+                {selectedRole ? `${t("adminRoles.permissionsFor")} ${selectedRole.name}` : t("adminRoles.selectRole")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -204,6 +464,7 @@ export default function AdminRoles() {
                               <div
                                 key={perm.id}
                                 className={`flex items-center gap-3 p-2 rounded-lg ${hasPermission ? "bg-green-500/5" : "bg-muted/50"}`}
+                                data-testid={`permission-${perm.id}`}
                               >
                                 <Checkbox checked={hasPermission} disabled={selectedRole.isSystem} />
                                 <div className="flex-1">
@@ -221,7 +482,7 @@ export default function AdminRoles() {
               ) : (
                 <div className="flex flex-col items-center justify-center h-[400px] text-muted-foreground">
                   <Shield className="h-12 w-12 mb-4 opacity-50" />
-                  <p>Select a role to view its permissions</p>
+                  <p>{t("adminRoles.selectRoleToView")}</p>
                 </div>
               )}
             </CardContent>
@@ -233,23 +494,23 @@ export default function AdminRoles() {
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <ShieldPlus className="h-5 w-5" />
-                Create New Role
+                {t("adminRoles.createDialog.title")}
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="roleName">Role Name</Label>
-                  <Input id="roleName" placeholder="Enter role name" />
+                  <Label htmlFor="roleName">{t("adminRoles.createDialog.roleName")}</Label>
+                  <Input id="roleName" placeholder={t("adminRoles.createDialog.roleNamePlaceholder")} data-testid="input-role-name" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="roleDesc">Description</Label>
-                  <Input id="roleDesc" placeholder="Enter description" />
+                  <Label htmlFor="roleDesc">{t("adminRoles.createDialog.description")}</Label>
+                  <Input id="roleDesc" placeholder={t("adminRoles.createDialog.descriptionPlaceholder")} data-testid="input-role-desc" />
                 </div>
               </div>
               <Separator />
               <div>
-                <Label className="mb-3 block">Permissions</Label>
+                <Label className="mb-3 block">{t("adminRoles.createDialog.permissions")}</Label>
                 <ScrollArea className="h-[300px] rounded border p-4">
                   <div className="space-y-6">
                     {Object.entries(groupedPermissions).filter(([cat]) => cat !== "System").map(([category, perms]) => (
@@ -261,7 +522,7 @@ export default function AdminRoles() {
                         <div className="grid grid-cols-2 gap-2">
                           {perms.map((perm) => (
                             <div key={perm.id} className="flex items-center gap-2">
-                              <Checkbox id={perm.id} />
+                              <Checkbox id={perm.id} data-testid={`checkbox-perm-${perm.id}`} />
                               <Label htmlFor={perm.id} className="text-sm font-normal cursor-pointer">
                                 {perm.name}
                               </Label>
@@ -275,8 +536,13 @@ export default function AdminRoles() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowCreateDialog(false)}>Cancel</Button>
-              <Button>Create Role</Button>
+              <Button variant="outline" onClick={() => setShowCreateDialog(false)} data-testid="button-create-cancel">
+                {t("adminRoles.createDialog.cancel")}
+              </Button>
+              <Button onClick={() => createRoleMutation.mutate({ name: "", description: "", permissions: [] })} disabled={createRoleMutation.isPending} data-testid="button-create-submit">
+                {createRoleMutation.isPending ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : null}
+                {t("adminRoles.createDialog.create")}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

@@ -1,68 +1,268 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
   ArrowLeftRight, Search, Filter, CheckCircle, Clock, 
-  AlertTriangle, XCircle, Eye, RefreshCw, Download
+  AlertTriangle, XCircle, Eye, RefreshCw, Download, AlertCircle
 } from "lucide-react";
 
-export default function AdminBridgeTransfers() {
-  const [selectedTransfer, setSelectedTransfer] = useState<any>(null);
+interface Transfer {
+  id: string;
+  from: { chain: string; address: string };
+  to: { chain: string; address: string };
+  amount: string;
+  fee: string;
+  status: "completed" | "pending" | "validating" | "failed";
+  confirmations: string;
+  timestamp: string;
+  duration: string;
+  error?: string;
+}
 
-  const transfers = [
-    { 
-      id: "0xabc123def456", 
-      from: { chain: "Ethereum", address: "0x1234...5678" }, 
-      to: { chain: "TBURN", address: "tburn1...xyz" }, 
-      amount: "50,000 USDT", 
-      fee: "25 USDT",
-      status: "completed", 
-      confirmations: "12/12",
-      timestamp: "2024-12-03 14:30:25",
-      duration: "3m 24s"
+function TableSkeleton({ rows = 5 }: { rows?: number }) {
+  return (
+    <Table data-testid="table-skeleton">
+      <TableHeader>
+        <TableRow>
+          {Array.from({ length: 9 }).map((_, i) => (
+            <TableHead key={i}><Skeleton className="h-4 w-16" /></TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Array.from({ length: rows }).map((_, i) => (
+          <TableRow key={i}>
+            {Array.from({ length: 9 }).map((_, j) => (
+              <TableCell key={j}><Skeleton className="h-4 w-full" /></TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+export default function AdminBridgeTransfers() {
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
+  const [selectedTransfer, setSelectedTransfer] = useState<Transfer | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [chainFilter, setChainFilter] = useState("all");
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [wsConnected, setWsConnected] = useState(false);
+
+  const { data: transfersData, isLoading, error, refetch } = useQuery<{ transfers: Transfer[]; total: number }>({
+    queryKey: ["/api/admin/bridge/transfers"],
+    refetchInterval: 10000,
+  });
+
+  const retryMutation = useMutation({
+    mutationFn: async (transferId: string) => {
+      const res = await apiRequest("POST", `/api/admin/bridge/transfers/${transferId}/retry`);
+      return res.json();
     },
-    { 
-      id: "0xdef456ghi789", 
-      from: { chain: "TBURN", address: "tburn1...abc" }, 
-      to: { chain: "BSC", address: "0x2345...6789" }, 
-      amount: "100,000 TBURN", 
-      fee: "100 TBURN",
-      status: "pending", 
-      confirmations: "8/12",
-      timestamp: "2024-12-03 14:25:00",
-      duration: "-"
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/bridge/transfers"] });
+      toast({
+        title: t("adminTransfers.retrySuccess"),
+        description: t("adminTransfers.retrySuccessDesc"),
+      });
     },
-    { 
-      id: "0xghi789jkl012", 
-      from: { chain: "Polygon", address: "0x3456...7890" }, 
-      to: { chain: "TBURN", address: "tburn1...def" }, 
-      amount: "25,000 USDC", 
-      fee: "12.5 USDC",
-      status: "validating", 
-      confirmations: "4/12",
-      timestamp: "2024-12-03 14:20:00",
-      duration: "-"
+    onError: () => {
+      toast({
+        title: t("adminTransfers.retryError"),
+        description: t("adminTransfers.retryErrorDesc"),
+        variant: "destructive",
+      });
     },
-    { 
-      id: "0xjkl012mno345", 
-      from: { chain: "Avalanche", address: "0x4567...8901" }, 
-      to: { chain: "TBURN", address: "tburn1...ghi" }, 
-      amount: "10,000 AVAX", 
-      fee: "5 AVAX",
-      status: "failed", 
-      confirmations: "0/12",
-      timestamp: "2024-12-03 14:15:00",
-      duration: "-",
-      error: "Insufficient liquidity"
+  });
+
+  const cancelMutation = useMutation({
+    mutationFn: async (transferId: string) => {
+      const res = await apiRequest("POST", `/api/admin/bridge/transfers/${transferId}/cancel`);
+      return res.json();
     },
-  ];
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/bridge/transfers"] });
+      toast({
+        title: t("adminTransfers.cancelSuccess"),
+        description: t("adminTransfers.cancelSuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminTransfers.cancelError"),
+        description: t("adminTransfers.cancelErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+    const connectWebSocket = () => {
+      try {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+        
+        ws.onopen = () => {
+          setWsConnected(true);
+          ws?.send(JSON.stringify({ type: "subscribe", channels: ["transfers"] }));
+        };
+        
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "transfer_update" || data.type === "transfer_status") {
+              refetch();
+              setLastUpdate(new Date());
+            }
+          } catch (e) {
+            console.error("WebSocket message parse error:", e);
+          }
+        };
+        
+        ws.onclose = () => {
+          setWsConnected(false);
+          setTimeout(connectWebSocket, 5000);
+        };
+        
+        ws.onerror = () => {
+          setWsConnected(false);
+        };
+      } catch (e) {
+        console.error("WebSocket connection error:", e);
+      }
+    };
+
+    connectWebSocket();
+    
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  }, [refetch]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      toast({
+        title: t("adminTransfers.refreshSuccess"),
+        description: t("adminTransfers.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminTransfers.refreshError"),
+        description: t("adminTransfers.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+      setLastUpdate(new Date());
+    }
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      transfers: transfers,
+      filters: { status: statusFilter, chain: chainFilter, search: searchQuery },
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `bridge-transfers-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: t("adminTransfers.exportSuccess"),
+      description: t("adminTransfers.exportSuccessDesc"),
+    });
+  }, [toast, t, statusFilter, chainFilter, searchQuery]);
+
+  const transfers = useMemo(() => {
+    if (transfersData?.transfers) return transfersData.transfers;
+    return [
+      { 
+        id: "0xabc123def456", 
+        from: { chain: "Ethereum", address: "0x1234...5678" }, 
+        to: { chain: "TBURN", address: "tburn1...xyz" }, 
+        amount: "50,000 USDT", 
+        fee: "25 USDT",
+        status: "completed" as const, 
+        confirmations: "12/12",
+        timestamp: "2024-12-03 14:30:25",
+        duration: "3m 24s"
+      },
+      { 
+        id: "0xdef456ghi789", 
+        from: { chain: "TBURN", address: "tburn1...abc" }, 
+        to: { chain: "BSC", address: "0x2345...6789" }, 
+        amount: "100,000 TBURN", 
+        fee: "100 TBURN",
+        status: "pending" as const, 
+        confirmations: "8/12",
+        timestamp: "2024-12-03 14:25:00",
+        duration: "-"
+      },
+      { 
+        id: "0xghi789jkl012", 
+        from: { chain: "Polygon", address: "0x3456...7890" }, 
+        to: { chain: "TBURN", address: "tburn1...def" }, 
+        amount: "25,000 USDC", 
+        fee: "12.5 USDC",
+        status: "validating" as const, 
+        confirmations: "4/12",
+        timestamp: "2024-12-03 14:20:00",
+        duration: "-"
+      },
+      { 
+        id: "0xjkl012mno345", 
+        from: { chain: "Avalanche", address: "0x4567...8901" }, 
+        to: { chain: "TBURN", address: "tburn1...ghi" }, 
+        amount: "10,000 AVAX", 
+        fee: "5 AVAX",
+        status: "failed" as const, 
+        confirmations: "0/12",
+        timestamp: "2024-12-03 14:15:00",
+        duration: "-",
+        error: "Insufficient liquidity"
+      },
+    ];
+  }, [transfersData]);
+
+  const filteredTransfers = useMemo(() => {
+    return transfers.filter(tx => {
+      if (statusFilter !== "all" && tx.status !== statusFilter) return false;
+      if (chainFilter !== "all" && tx.from.chain.toLowerCase() !== chainFilter && tx.to.chain.toLowerCase() !== chainFilter) return false;
+      if (searchQuery && !tx.id.toLowerCase().includes(searchQuery.toLowerCase()) && 
+          !tx.from.address.toLowerCase().includes(searchQuery.toLowerCase()) &&
+          !tx.to.address.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      return true;
+    });
+  }, [transfers, statusFilter, chainFilter, searchQuery]);
+
+  const pendingCount = useMemo(() => transfers.filter(t => t.status === "pending" || t.status === "validating").length, [transfers]);
+  const failedCount = useMemo(() => transfers.filter(t => t.status === "failed").length, [transfers]);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -81,241 +281,332 @@ export default function AdminBridgeTransfers() {
       validating: "bg-blue-500",
       failed: "bg-red-500"
     };
-    return <Badge className={variants[status] || ""}>{status}</Badge>;
+    return <Badge className={variants[status] || ""} data-testid={`badge-status-${status}`}>{t(`adminTransfers.${status}`)}</Badge>;
   };
 
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="transfers-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminTransfers.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminTransfers.error.description")}</p>
+            <Button onClick={() => refetch()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminTransfers.retry")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <ScrollArea className="h-full">
-      <div className="p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold" data-testid="text-page-title">Transfer Monitor</h1>
-            <p className="text-muted-foreground">Track and manage cross-chain transfers</p>
+    <TooltipProvider>
+      <ScrollArea className="h-full" data-testid="bridge-transfers">
+        <div className="p-6 space-y-6">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h1 className="text-2xl font-bold" data-testid="text-page-title">{t("adminTransfers.title")}</h1>
+              <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminTransfers.subtitle")}</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${wsConnected ? 'bg-green-500/10' : 'bg-yellow-500/10'}`}>
+                      <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
+                      <span className="text-xs">{wsConnected ? t("adminTransfers.connected") : t("adminTransfers.reconnecting")}</span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {wsConnected ? t("adminTransfers.wsConnected") : t("adminTransfers.wsReconnecting")}
+                  </TooltipContent>
+                </Tooltip>
+                <Clock className="h-4 w-4" />
+                <span data-testid="text-last-update">{t("adminTransfers.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+              </div>
+              <div className="flex gap-2">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing} data-testid="button-refresh">
+                      <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminTransfers.refresh")}</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" onClick={handleExport} data-testid="button-export">
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminTransfers.export")}</TooltipContent>
+                </Tooltip>
+              </div>
+            </div>
           </div>
-          <Button variant="outline">
-            <Download className="w-4 h-4 mr-2" />
-            Export
-          </Button>
-        </div>
 
-        <div className="flex gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input placeholder="Search by TX ID, address, or amount..." className="pl-10" />
+          <div className="flex gap-4" data-testid="filters-section">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input 
+                placeholder={t("adminTransfers.searchPlaceholder")}
+                className="pl-10" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                data-testid="input-search"
+              />
+            </div>
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-40" data-testid="select-status">
+                <SelectValue placeholder={t("adminTransfers.status")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all" data-testid="option-status-all">{t("adminTransfers.allStatus")}</SelectItem>
+                <SelectItem value="completed" data-testid="option-status-completed">{t("adminTransfers.completed")}</SelectItem>
+                <SelectItem value="pending" data-testid="option-status-pending">{t("adminTransfers.pending")}</SelectItem>
+                <SelectItem value="validating" data-testid="option-status-validating">{t("adminTransfers.validating")}</SelectItem>
+                <SelectItem value="failed" data-testid="option-status-failed">{t("adminTransfers.failed")}</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={chainFilter} onValueChange={setChainFilter}>
+              <SelectTrigger className="w-40" data-testid="select-chain">
+                <SelectValue placeholder={t("adminTransfers.chain")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all" data-testid="option-chain-all">{t("adminTransfers.allChains")}</SelectItem>
+                <SelectItem value="ethereum" data-testid="option-chain-eth">Ethereum</SelectItem>
+                <SelectItem value="bsc" data-testid="option-chain-bsc">BSC</SelectItem>
+                <SelectItem value="polygon" data-testid="option-chain-polygon">Polygon</SelectItem>
+                <SelectItem value="tburn" data-testid="option-chain-tburn">TBURN</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button variant="outline" size="icon" data-testid="button-filter">
+              <Filter className="w-4 h-4" />
+            </Button>
           </div>
-          <Select defaultValue="all">
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="completed">Completed</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="validating">Validating</SelectItem>
-              <SelectItem value="failed">Failed</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select defaultValue="all">
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Chain" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Chains</SelectItem>
-              <SelectItem value="ethereum">Ethereum</SelectItem>
-              <SelectItem value="bsc">BSC</SelectItem>
-              <SelectItem value="polygon">Polygon</SelectItem>
-              <SelectItem value="tburn">TBURN</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button variant="outline" size="icon">
-            <Filter className="w-4 h-4" />
-          </Button>
-        </div>
 
-        <Tabs defaultValue="all" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="all">All Transfers</TabsTrigger>
-            <TabsTrigger value="pending">Pending (156)</TabsTrigger>
-            <TabsTrigger value="failed">Failed (3)</TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue="all" className="space-y-4" data-testid="transfers-tabs">
+            <TabsList data-testid="tabs-list">
+              <TabsTrigger value="all" data-testid="tab-all">{t("adminTransfers.allTransfers")}</TabsTrigger>
+              <TabsTrigger value="pending" data-testid="tab-pending">{t("adminTransfers.pendingCount", { count: pendingCount })}</TabsTrigger>
+              <TabsTrigger value="failed" data-testid="tab-failed">{t("adminTransfers.failedCount", { count: failedCount })}</TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="all">
-            <Card>
-              <CardContent className="p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>TX ID</TableHead>
-                      <TableHead>From</TableHead>
-                      <TableHead>To</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Fee</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Confirmations</TableHead>
-                      <TableHead>Duration</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {transfers.map((tx) => (
-                      <TableRow key={tx.id}>
-                        <TableCell className="font-mono text-sm">{tx.id}</TableCell>
-                        <TableCell>
-                          <div>
-                            <p className="font-medium">{tx.from.chain}</p>
-                            <p className="text-xs text-muted-foreground font-mono">{tx.from.address}</p>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div>
-                            <p className="font-medium">{tx.to.chain}</p>
-                            <p className="text-xs text-muted-foreground font-mono">{tx.to.address}</p>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium">{tx.amount}</TableCell>
-                        <TableCell className="text-muted-foreground">{tx.fee}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            {getStatusIcon(tx.status)}
-                            {getStatusBadge(tx.status)}
-                          </div>
-                        </TableCell>
-                        <TableCell>{tx.confirmations}</TableCell>
-                        <TableCell className="text-muted-foreground">{tx.duration}</TableCell>
-                        <TableCell>
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button size="sm" variant="ghost" onClick={() => setSelectedTransfer(tx)}>
-                                <Eye className="w-4 h-4" />
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-2xl">
-                              <DialogHeader>
-                                <DialogTitle>Transfer Details</DialogTitle>
-                                <DialogDescription>Full transaction information</DialogDescription>
-                              </DialogHeader>
-                              {selectedTransfer && (
-                                <div className="space-y-4">
-                                  <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">Transaction ID</p>
-                                      <p className="font-mono">{selectedTransfer.id}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">Status</p>
-                                      {getStatusBadge(selectedTransfer.status)}
-                                    </div>
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">From</p>
-                                      <p className="font-medium">{selectedTransfer.from.chain}</p>
-                                      <p className="font-mono text-sm">{selectedTransfer.from.address}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">To</p>
-                                      <p className="font-medium">{selectedTransfer.to.chain}</p>
-                                      <p className="font-mono text-sm">{selectedTransfer.to.address}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">Amount</p>
-                                      <p className="font-medium">{selectedTransfer.amount}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">Fee</p>
-                                      <p>{selectedTransfer.fee}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">Timestamp</p>
-                                      <p>{selectedTransfer.timestamp}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-sm text-muted-foreground">Confirmations</p>
-                                      <p>{selectedTransfer.confirmations}</p>
-                                    </div>
-                                  </div>
-                                  {selectedTransfer.error && (
-                                    <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
-                                      <p className="text-red-500 font-medium">Error</p>
-                                      <p className="text-sm">{selectedTransfer.error}</p>
+            <TabsContent value="all" data-testid="tab-content-all">
+              <Card data-testid="card-all-transfers">
+                <CardContent className="p-0">
+                  {isLoading ? (
+                    <TableSkeleton rows={4} />
+                  ) : (
+                    <Table data-testid="table-transfers">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminTransfers.txId")}</TableHead>
+                          <TableHead>{t("adminTransfers.from")}</TableHead>
+                          <TableHead>{t("adminTransfers.to")}</TableHead>
+                          <TableHead>{t("adminTransfers.amount")}</TableHead>
+                          <TableHead>{t("adminTransfers.fee")}</TableHead>
+                          <TableHead>{t("adminTransfers.status")}</TableHead>
+                          <TableHead>{t("adminTransfers.confirmations")}</TableHead>
+                          <TableHead>{t("adminTransfers.duration")}</TableHead>
+                          <TableHead>{t("adminTransfers.actions")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredTransfers.map((tx) => (
+                          <TableRow key={tx.id} data-testid={`row-transfer-${tx.id}`}>
+                            <TableCell className="font-mono text-sm" data-testid={`text-tx-id-${tx.id}`}>{tx.id}</TableCell>
+                            <TableCell>
+                              <div>
+                                <p className="font-medium" data-testid={`text-from-chain-${tx.id}`}>{tx.from.chain}</p>
+                                <p className="text-xs text-muted-foreground font-mono">{tx.from.address}</p>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div>
+                                <p className="font-medium" data-testid={`text-to-chain-${tx.id}`}>{tx.to.chain}</p>
+                                <p className="text-xs text-muted-foreground font-mono">{tx.to.address}</p>
+                              </div>
+                            </TableCell>
+                            <TableCell className="font-medium" data-testid={`text-amount-${tx.id}`}>{tx.amount}</TableCell>
+                            <TableCell className="text-muted-foreground" data-testid={`text-fee-${tx.id}`}>{tx.fee}</TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                {getStatusIcon(tx.status)}
+                                {getStatusBadge(tx.status)}
+                              </div>
+                            </TableCell>
+                            <TableCell data-testid={`text-confirmations-${tx.id}`}>{tx.confirmations}</TableCell>
+                            <TableCell className="text-muted-foreground" data-testid={`text-duration-${tx.id}`}>{tx.duration}</TableCell>
+                            <TableCell>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button size="sm" variant="ghost" onClick={() => setSelectedTransfer(tx)} data-testid={`button-view-${tx.id}`}>
+                                    <Eye className="w-4 h-4" />
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent className="max-w-2xl" data-testid="dialog-transfer-details">
+                                  <DialogHeader>
+                                    <DialogTitle>{t("adminTransfers.transferDetails")}</DialogTitle>
+                                    <DialogDescription>{t("adminTransfers.transferDetailsDesc")}</DialogDescription>
+                                  </DialogHeader>
+                                  {selectedTransfer && (
+                                    <div className="space-y-4">
+                                      <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.transactionId")}</p>
+                                          <p className="font-mono" data-testid="dialog-tx-id">{selectedTransfer.id}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.status")}</p>
+                                          {getStatusBadge(selectedTransfer.status)}
+                                        </div>
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.from")}</p>
+                                          <p className="font-medium">{selectedTransfer.from.chain}</p>
+                                          <p className="font-mono text-sm">{selectedTransfer.from.address}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.to")}</p>
+                                          <p className="font-medium">{selectedTransfer.to.chain}</p>
+                                          <p className="font-mono text-sm">{selectedTransfer.to.address}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.amount")}</p>
+                                          <p className="font-medium">{selectedTransfer.amount}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.fee")}</p>
+                                          <p>{selectedTransfer.fee}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.timestamp")}</p>
+                                          <p>{selectedTransfer.timestamp}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-sm text-muted-foreground">{t("adminTransfers.confirmations")}</p>
+                                          <p>{selectedTransfer.confirmations}</p>
+                                        </div>
+                                      </div>
+                                      {selectedTransfer.error && (
+                                        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg" data-testid="dialog-error">
+                                          <p className="text-red-500 font-medium">{t("adminTransfers.error.label")}</p>
+                                          <p className="text-sm">{selectedTransfer.error}</p>
+                                        </div>
+                                      )}
+                                      <div className="flex gap-2">
+                                        {selectedTransfer.status === "failed" && (
+                                          <Button 
+                                            onClick={() => retryMutation.mutate(selectedTransfer.id)}
+                                            disabled={retryMutation.isPending}
+                                            data-testid="button-retry-transfer"
+                                          >
+                                            {retryMutation.isPending ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : null}
+                                            {t("adminTransfers.retryTransfer")}
+                                          </Button>
+                                        )}
+                                        {selectedTransfer.status === "pending" && (
+                                          <Button 
+                                            variant="destructive"
+                                            onClick={() => cancelMutation.mutate(selectedTransfer.id)}
+                                            disabled={cancelMutation.isPending}
+                                            data-testid="button-cancel-transfer"
+                                          >
+                                            {cancelMutation.isPending ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : null}
+                                            {t("adminTransfers.cancelTransfer")}
+                                          </Button>
+                                        )}
+                                      </div>
                                     </div>
                                   )}
-                                  <div className="flex gap-2">
-                                    {selectedTransfer.status === "failed" && (
-                                      <Button>Retry Transfer</Button>
-                                    )}
-                                    {selectedTransfer.status === "pending" && (
-                                      <Button variant="destructive">Cancel Transfer</Button>
-                                    )}
-                                  </div>
-                                </div>
-                              )}
-                            </DialogContent>
-                          </Dialog>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                                </DialogContent>
+                              </Dialog>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-          <TabsContent value="pending">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-yellow-500" />
-                  Pending Transfers
-                </CardTitle>
-                <CardDescription>Transfers awaiting confirmation</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8 text-muted-foreground">
-                  <p>156 pending transfers across all chains</p>
-                  <Button variant="outline" className="mt-4">View All Pending</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+            <TabsContent value="pending" data-testid="tab-content-pending">
+              <Card data-testid="card-pending-transfers">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-yellow-500" />
+                    {t("adminTransfers.pendingTransfers")}
+                  </CardTitle>
+                  <CardDescription>{t("adminTransfers.pendingTransfersDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <Skeleton className="h-32 w-full" />
+                  ) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <p data-testid="text-pending-count">{t("adminTransfers.pendingAcrossChains", { count: pendingCount })}</p>
+                      <Button variant="outline" className="mt-4" data-testid="button-view-pending">{t("adminTransfers.viewAllPending")}</Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-          <TabsContent value="failed">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="w-5 h-5 text-red-500" />
-                  Failed Transfers
-                </CardTitle>
-                <CardDescription>Transfers that require attention</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>TX ID</TableHead>
-                      <TableHead>Route</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Error</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {transfers.filter(t => t.status === "failed").map((tx) => (
-                      <TableRow key={tx.id}>
-                        <TableCell className="font-mono">{tx.id}</TableCell>
-                        <TableCell>{tx.from.chain} → {tx.to.chain}</TableCell>
-                        <TableCell>{tx.amount}</TableCell>
-                        <TableCell className="text-red-500">{tx.error}</TableCell>
-                        <TableCell>
-                          <Button size="sm">Retry</Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
-    </ScrollArea>
+            <TabsContent value="failed" data-testid="tab-content-failed">
+              <Card data-testid="card-failed-transfers">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5 text-red-500" />
+                    {t("adminTransfers.failedTransfers")}
+                  </CardTitle>
+                  <CardDescription>{t("adminTransfers.failedTransfersDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <TableSkeleton rows={2} />
+                  ) : (
+                    <Table data-testid="table-failed-transfers">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminTransfers.txId")}</TableHead>
+                          <TableHead>{t("adminTransfers.route")}</TableHead>
+                          <TableHead>{t("adminTransfers.amount")}</TableHead>
+                          <TableHead>{t("adminTransfers.error.label")}</TableHead>
+                          <TableHead>{t("adminTransfers.actions")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {transfers.filter(t => t.status === "failed").map((tx) => (
+                          <TableRow key={tx.id} data-testid={`row-failed-${tx.id}`}>
+                            <TableCell className="font-mono">{tx.id}</TableCell>
+                            <TableCell>{tx.from.chain} → {tx.to.chain}</TableCell>
+                            <TableCell>{tx.amount}</TableCell>
+                            <TableCell className="text-red-500">{tx.error}</TableCell>
+                            <TableCell>
+                              <Button 
+                                size="sm" 
+                                onClick={() => retryMutation.mutate(tx.id)}
+                                disabled={retryMutation.isPending}
+                                data-testid={`button-retry-${tx.id}`}
+                              >
+                                {t("adminTransfers.retry")}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </ScrollArea>
+    </TooltipProvider>
   );
 }

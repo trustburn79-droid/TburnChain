@@ -1,226 +1,502 @@
+import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Network, Server, Cpu, HardDrive, 
-  Activity, Zap, Globe, Clock
+  Activity, Zap, Globe, Clock, RefreshCw, Download, AlertCircle
 } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
+
+interface NetworkStats {
+  tps: string;
+  blockTime: string;
+  nodeCount: number;
+  avgLatency: string;
+}
+
+interface TPSHistory {
+  time: string;
+  tps: number;
+}
+
+interface LatencyHistory {
+  time: string;
+  p50: number;
+  p95: number;
+  p99: number;
+}
+
+interface ShardPerformance {
+  shard: string;
+  tps: number;
+  load: number;
+  nodes: number;
+}
+
+interface ResourceUsage {
+  resource: string;
+  usage: number;
+  trend: "up" | "down" | "stable";
+}
+
+interface NetworkAnalytics {
+  stats: NetworkStats;
+  tpsHistory: TPSHistory[];
+  latencyHistory: LatencyHistory[];
+  shardPerformance: ShardPerformance[];
+  resourceUsage: ResourceUsage[];
+}
+
+function StatCard({
+  icon: Icon,
+  iconColor,
+  label,
+  value,
+  isLoading,
+  testId,
+  bgClass = ""
+}: {
+  icon: any;
+  iconColor: string;
+  label: string;
+  value: string | number;
+  isLoading: boolean;
+  testId: string;
+  bgClass?: string;
+}) {
+  return (
+    <Card className={bgClass} data-testid={testId}>
+      <CardContent className="pt-6">
+        <div className="flex items-center gap-2 mb-2">
+          <Icon className={`w-5 h-5 ${iconColor}`} />
+          <span className="text-sm text-muted-foreground">{label}</span>
+        </div>
+        {isLoading ? (
+          <Skeleton className="h-9 w-24" />
+        ) : (
+          <div className="text-3xl font-bold" data-testid={`${testId}-value`}>{value}</div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function AdminNetworkAnalytics() {
-  const networkStats = {
-    tps: "52,478",
-    blockTime: "498ms",
-    nodeCount: 892,
-    avgLatency: "124ms",
-  };
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [wsConnected, setWsConnected] = useState(false);
 
-  const tpsHistory = [
-    { time: "00:00", tps: 45000 },
-    { time: "04:00", tps: 38000 },
-    { time: "08:00", tps: 52000 },
-    { time: "12:00", tps: 58000 },
-    { time: "16:00", tps: 55000 },
-    { time: "20:00", tps: 48000 },
-  ];
+  const { data: networkData, isLoading, error, refetch } = useQuery<NetworkAnalytics>({
+    queryKey: ["/api/admin/analytics/network"],
+    refetchInterval: 10000,
+  });
 
-  const latencyHistory = [
-    { time: "00:00", p50: 110, p95: 145, p99: 180 },
-    { time: "04:00", p50: 105, p95: 140, p99: 175 },
-    { time: "08:00", p50: 120, p95: 155, p99: 195 },
-    { time: "12:00", p50: 130, p95: 165, p99: 210 },
-    { time: "16:00", p50: 125, p95: 160, p99: 200 },
-    { time: "20:00", p50: 115, p95: 150, p99: 185 },
-  ];
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+    const connectWebSocket = () => {
+      try {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+        
+        ws.onopen = () => {
+          setWsConnected(true);
+          ws?.send(JSON.stringify({ type: "subscribe", channels: ["network_analytics"] }));
+        };
+        
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "network_update") {
+              refetch();
+            }
+            setLastUpdate(new Date());
+          } catch (e) {
+            console.error("WebSocket message parse error:", e);
+          }
+        };
+        
+        ws.onclose = () => {
+          setWsConnected(false);
+          setTimeout(connectWebSocket, 5000);
+        };
+        
+        ws.onerror = () => {
+          setWsConnected(false);
+        };
+      } catch (e) {
+        console.error("WebSocket connection error:", e);
+      }
+    };
 
-  const shardPerformance = [
-    { shard: "MainHub", tps: 8500, load: 72, nodes: 156 },
-    { shard: "DeFi-1", tps: 6200, load: 65, nodes: 45 },
-    { shard: "DeFi-2", tps: 5800, load: 58, nodes: 42 },
-    { shard: "NFT-1", tps: 4500, load: 48, nodes: 35 },
-    { shard: "Enterprise-1", tps: 7200, load: 68, nodes: 52 },
-  ];
+    connectWebSocket();
+    
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  }, [refetch]);
 
-  const resourceUsage = [
-    { resource: "CPU", usage: 68, trend: "stable" },
-    { resource: "Memory", usage: 72, trend: "up" },
-    { resource: "Disk I/O", usage: 45, trend: "stable" },
-    { resource: "Network", usage: 58, trend: "down" },
-  ];
+  const networkStats = useMemo(() => {
+    if (networkData?.stats) return networkData.stats;
+    return {
+      tps: "52,478",
+      blockTime: "498ms",
+      nodeCount: 892,
+      avgLatency: "124ms",
+    };
+  }, [networkData]);
+
+  const tpsHistory = useMemo(() => {
+    if (networkData?.tpsHistory) return networkData.tpsHistory;
+    return [
+      { time: "00:00", tps: 45000 },
+      { time: "04:00", tps: 38000 },
+      { time: "08:00", tps: 52000 },
+      { time: "12:00", tps: 58000 },
+      { time: "16:00", tps: 55000 },
+      { time: "20:00", tps: 48000 },
+    ];
+  }, [networkData]);
+
+  const latencyHistory = useMemo(() => {
+    if (networkData?.latencyHistory) return networkData.latencyHistory;
+    return [
+      { time: "00:00", p50: 110, p95: 145, p99: 180 },
+      { time: "04:00", p50: 105, p95: 140, p99: 175 },
+      { time: "08:00", p50: 120, p95: 155, p99: 195 },
+      { time: "12:00", p50: 130, p95: 165, p99: 210 },
+      { time: "16:00", p50: 125, p95: 160, p99: 200 },
+      { time: "20:00", p50: 115, p95: 150, p99: 185 },
+    ];
+  }, [networkData]);
+
+  const shardPerformance = useMemo(() => {
+    if (networkData?.shardPerformance) return networkData.shardPerformance;
+    return [
+      { shard: "MainHub", tps: 8500, load: 72, nodes: 156 },
+      { shard: "DeFi-1", tps: 6200, load: 65, nodes: 45 },
+      { shard: "DeFi-2", tps: 5800, load: 58, nodes: 42 },
+      { shard: "NFT-1", tps: 4500, load: 48, nodes: 35 },
+      { shard: "Enterprise-1", tps: 7200, load: 68, nodes: 52 },
+    ];
+  }, [networkData]);
+
+  const resourceUsage = useMemo(() => {
+    if (networkData?.resourceUsage) return networkData.resourceUsage;
+    return [
+      { resource: t("adminNetworkAnalytics.cpu"), usage: 68, trend: "stable" as const },
+      { resource: t("adminNetworkAnalytics.memory"), usage: 72, trend: "up" as const },
+      { resource: t("adminNetworkAnalytics.diskIO"), usage: 45, trend: "stable" as const },
+      { resource: t("adminNetworkAnalytics.network"), usage: 58, trend: "down" as const },
+    ];
+  }, [networkData, t]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      toast({
+        title: t("adminNetworkAnalytics.refreshSuccess"),
+        description: t("adminNetworkAnalytics.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminNetworkAnalytics.refreshError"),
+        description: t("adminNetworkAnalytics.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+      setLastUpdate(new Date());
+    }
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      stats: networkStats,
+      tpsHistory,
+      latencyHistory,
+      shardPerformance,
+      resourceUsage,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tburn-network-analytics-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: t("adminNetworkAnalytics.exportSuccess"),
+      description: t("adminNetworkAnalytics.exportSuccessDesc"),
+    });
+  }, [networkStats, tpsHistory, latencyHistory, shardPerformance, resourceUsage, toast, t]);
+
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="network-analytics-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminNetworkAnalytics.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminNetworkAnalytics.error.description")}</p>
+            <Button onClick={() => refetch()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminNetworkAnalytics.retry")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <ScrollArea className="h-full">
-      <div className="p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold" data-testid="text-page-title">Network Analytics</h1>
-            <p className="text-muted-foreground">Network performance and infrastructure metrics</p>
-          </div>
-          <Button variant="outline">Export Report</Button>
-        </div>
-
-        <div className="grid grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-blue-500/10 to-purple-500/10">
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Zap className="w-5 h-5 text-blue-500" />
-                <span className="text-sm text-muted-foreground">Current TPS</span>
-              </div>
-              <div className="text-3xl font-bold">{networkStats.tps}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Clock className="w-5 h-5 text-green-500" />
-                <span className="text-sm text-muted-foreground">Block Time</span>
-              </div>
-              <div className="text-3xl font-bold">{networkStats.blockTime}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Server className="w-5 h-5 text-purple-500" />
-                <span className="text-sm text-muted-foreground">Active Nodes</span>
-              </div>
-              <div className="text-3xl font-bold">{networkStats.nodeCount}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Activity className="w-5 h-5 text-orange-500" />
-                <span className="text-sm text-muted-foreground">Avg Latency</span>
-              </div>
-              <div className="text-3xl font-bold">{networkStats.avgLatency}</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Tabs defaultValue="tps" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="tps">Throughput</TabsTrigger>
-            <TabsTrigger value="latency">Latency</TabsTrigger>
-            <TabsTrigger value="shards">Shards</TabsTrigger>
-            <TabsTrigger value="resources">Resources</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="tps">
-            <Card>
-              <CardHeader>
-                <CardTitle>TPS History (24h)</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={tpsHistory}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="time" />
-                      <YAxis />
-                      <Tooltip />
-                      <Area type="monotone" dataKey="tps" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="latency">
-            <Card>
-              <CardHeader>
-                <CardTitle>Latency Distribution (24h)</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={latencyHistory}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="time" />
-                      <YAxis />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="p50" stroke="#22c55e" name="P50" strokeWidth={2} />
-                      <Line type="monotone" dataKey="p95" stroke="#f97316" name="P95" strokeWidth={2} />
-                      <Line type="monotone" dataKey="p99" stroke="#ef4444" name="P99" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="shards">
-            <Card>
-              <CardHeader>
-                <CardTitle>Shard Performance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Shard</TableHead>
-                      <TableHead>TPS</TableHead>
-                      <TableHead>Load</TableHead>
-                      <TableHead>Nodes</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {shardPerformance.map((shard, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{shard.shard}</TableCell>
-                        <TableCell>{shard.tps.toLocaleString()}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Progress value={shard.load} className="w-20" />
-                            <span className={shard.load > 70 ? "text-yellow-500" : "text-green-500"}>
-                              {shard.load}%
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>{shard.nodes}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="resources">
-            <Card>
-              <CardHeader>
-                <CardTitle>Resource Usage</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-4">
-                  {resourceUsage.map((resource, index) => (
-                    <div key={index} className="p-4 border rounded-lg">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium">{resource.resource}</span>
-                        <Badge variant={
-                          resource.trend === "up" ? "destructive" :
-                          resource.trend === "down" ? "default" : "secondary"
-                        }>
-                          {resource.trend}
-                        </Badge>
-                      </div>
-                      <Progress value={resource.usage} className="h-3" />
-                      <div className="text-right text-sm text-muted-foreground mt-1">
-                        {resource.usage}%
-                      </div>
+    <TooltipProvider>
+      <ScrollArea className="h-full" data-testid="network-analytics-page">
+        <div className="p-6 space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold" data-testid="text-page-title">{t("adminNetworkAnalytics.title")}</h1>
+              <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminNetworkAnalytics.subtitle")}</p>
+            </div>
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${wsConnected ? 'bg-green-500/10' : 'bg-yellow-500/10'}`}>
+                      <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
+                      <span className="text-xs">{wsConnected ? t("adminNetworkAnalytics.connected") : t("adminNetworkAnalytics.reconnecting")}</span>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
-    </ScrollArea>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {wsConnected ? t("adminNetworkAnalytics.wsConnected") : t("adminNetworkAnalytics.wsReconnecting")}
+                  </TooltipContent>
+                </Tooltip>
+                <Clock className="h-4 w-4" />
+                <span data-testid="text-last-update">{t("adminNetworkAnalytics.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+              </div>
+              <div className="flex gap-2">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isRefreshing} data-testid="button-refresh">
+                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminNetworkAnalytics.refresh")}</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" onClick={handleExport} data-testid="button-export">
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminNetworkAnalytics.export")}</TooltipContent>
+                </Tooltip>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" data-testid="network-stats-grid">
+            <StatCard
+              icon={Zap}
+              iconColor="text-blue-500"
+              label={t("adminNetworkAnalytics.currentTps")}
+              value={networkStats.tps}
+              isLoading={isLoading}
+              testId="stat-tps"
+              bgClass="bg-gradient-to-br from-blue-500/10 to-purple-500/10"
+            />
+            <StatCard
+              icon={Clock}
+              iconColor="text-green-500"
+              label={t("adminNetworkAnalytics.blockTime")}
+              value={networkStats.blockTime}
+              isLoading={isLoading}
+              testId="stat-block-time"
+            />
+            <StatCard
+              icon={Server}
+              iconColor="text-purple-500"
+              label={t("adminNetworkAnalytics.activeNodes")}
+              value={networkStats.nodeCount}
+              isLoading={isLoading}
+              testId="stat-node-count"
+            />
+            <StatCard
+              icon={Activity}
+              iconColor="text-orange-500"
+              label={t("adminNetworkAnalytics.avgLatency")}
+              value={networkStats.avgLatency}
+              isLoading={isLoading}
+              testId="stat-latency"
+            />
+          </div>
+
+          <Tabs defaultValue="tps" className="space-y-4" data-testid="tabs-network">
+            <TabsList data-testid="tabs-list">
+              <TabsTrigger value="tps" data-testid="tab-tps">{t("adminNetworkAnalytics.tabThroughput")}</TabsTrigger>
+              <TabsTrigger value="latency" data-testid="tab-latency">{t("adminNetworkAnalytics.tabLatency")}</TabsTrigger>
+              <TabsTrigger value="shards" data-testid="tab-shards">{t("adminNetworkAnalytics.tabShards")}</TabsTrigger>
+              <TabsTrigger value="resources" data-testid="tab-resources">{t("adminNetworkAnalytics.tabResources")}</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="tps">
+              <Card data-testid="card-tps-history">
+                <CardHeader>
+                  <CardTitle>{t("adminNetworkAnalytics.tpsHistory24h")}</CardTitle>
+                  <CardDescription>{t("adminNetworkAnalytics.tpsHistory24hDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <Skeleton className="h-80 w-full" />
+                  ) : (
+                    <div className="h-80">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={tpsHistory}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="time" />
+                          <YAxis />
+                          <RechartsTooltip />
+                          <Area type="monotone" dataKey="tps" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} name={t("adminNetworkAnalytics.tps")} />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="latency">
+              <Card data-testid="card-latency-history">
+                <CardHeader>
+                  <CardTitle>{t("adminNetworkAnalytics.latencyDistribution24h")}</CardTitle>
+                  <CardDescription>{t("adminNetworkAnalytics.latencyDistribution24hDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <Skeleton className="h-80 w-full" />
+                  ) : (
+                    <div className="h-80">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={latencyHistory}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="time" />
+                          <YAxis />
+                          <RechartsTooltip />
+                          <Line type="monotone" dataKey="p50" stroke="#22c55e" name="P50" strokeWidth={2} />
+                          <Line type="monotone" dataKey="p95" stroke="#f97316" name="P95" strokeWidth={2} />
+                          <Line type="monotone" dataKey="p99" stroke="#ef4444" name="P99" strokeWidth={2} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="shards">
+              <Card data-testid="card-shard-performance">
+                <CardHeader>
+                  <CardTitle>{t("adminNetworkAnalytics.shardPerformance")}</CardTitle>
+                  <CardDescription>{t("adminNetworkAnalytics.shardPerformanceDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <div className="space-y-2">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Skeleton key={i} className="h-12 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminNetworkAnalytics.shard")}</TableHead>
+                          <TableHead>{t("adminNetworkAnalytics.tps")}</TableHead>
+                          <TableHead>{t("adminNetworkAnalytics.load")}</TableHead>
+                          <TableHead>{t("adminNetworkAnalytics.nodes")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {shardPerformance.map((shard, index) => (
+                          <TableRow key={index} data-testid={`shard-row-${index}`}>
+                            <TableCell className="font-medium" data-testid={`shard-name-${index}`}>{shard.shard}</TableCell>
+                            <TableCell data-testid={`shard-tps-${index}`}>{shard.tps.toLocaleString()}</TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                <Progress value={shard.load} className="w-20" />
+                                <span className={shard.load > 70 ? "text-yellow-500" : "text-green-500"} data-testid={`shard-load-${index}`}>
+                                  {shard.load}%
+                                </span>
+                              </div>
+                            </TableCell>
+                            <TableCell data-testid={`shard-nodes-${index}`}>{shard.nodes}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="resources">
+              <Card data-testid="card-resource-usage">
+                <CardHeader>
+                  <CardTitle>{t("adminNetworkAnalytics.resourceUsage")}</CardTitle>
+                  <CardDescription>{t("adminNetworkAnalytics.resourceUsageDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <div className="grid grid-cols-2 gap-4">
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} className="h-24 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-4">
+                      {resourceUsage.map((resource, index) => (
+                        <div key={index} className="p-4 border rounded-lg" data-testid={`resource-card-${index}`}>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-medium" data-testid={`resource-name-${index}`}>{resource.resource}</span>
+                            <Badge variant={
+                              resource.trend === "up" ? "destructive" :
+                              resource.trend === "down" ? "default" : "secondary"
+                            } data-testid={`resource-trend-${index}`}>
+                              {resource.trend === "up" ? t("adminNetworkAnalytics.up") : 
+                               resource.trend === "down" ? t("adminNetworkAnalytics.down") : 
+                               t("adminNetworkAnalytics.stable")}
+                            </Badge>
+                          </div>
+                          <Progress value={resource.usage} className="h-3" />
+                          <div className="text-right text-sm text-muted-foreground mt-1" data-testid={`resource-usage-${index}`}>
+                            {resource.usage}%
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </ScrollArea>
+    </TooltipProvider>
   );
 }

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +11,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import {
   Briefcase,
   Plus,
@@ -18,14 +23,13 @@ import {
   RefreshCw,
   Calendar,
   TrendingUp,
-  TrendingDown,
   AlertTriangle,
   CheckCircle,
   DollarSign,
-  PieChart,
   Target,
   ArrowUp,
   ArrowDown,
+  AlertCircle,
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart as RechartsPie, Pie, Cell } from "recharts";
 
@@ -50,42 +54,146 @@ interface BudgetRequest {
   requester: string;
 }
 
+interface BudgetData {
+  budgetItems: BudgetItem[];
+  budgetRequests: BudgetRequest[];
+  monthlyBudgetData: { month: string; budget: number; actual: number }[];
+  departmentAllocation: { name: string; value: number; color: string }[];
+}
+
 export default function BudgetManagement() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [selectedPeriod, setSelectedPeriod] = useState("q4-2024");
   const [activeTab, setActiveTab] = useState("overview");
   const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
+  const [newRequest, setNewRequest] = useState({
+    title: "",
+    department: "",
+    amount: 0,
+    justification: "",
+  });
 
-  const budgetItems: BudgetItem[] = [
-    { id: "BUD-001", category: "Infrastructure", department: "Engineering", allocated: 5000000, spent: 3200000, remaining: 1800000, status: "on-track", forecast: 4500000 },
-    { id: "BUD-002", category: "Development", department: "Engineering", allocated: 8000000, spent: 6500000, remaining: 1500000, status: "at-risk", forecast: 8200000 },
-    { id: "BUD-003", category: "Marketing", department: "Marketing", allocated: 3000000, spent: 1800000, remaining: 1200000, status: "on-track", forecast: 2700000 },
-    { id: "BUD-004", category: "Security", department: "Security", allocated: 4000000, spent: 2100000, remaining: 1900000, status: "on-track", forecast: 3500000 },
-    { id: "BUD-005", category: "Operations", department: "Operations", allocated: 2500000, spent: 2800000, remaining: -300000, status: "over-budget", forecast: 3200000 },
-    { id: "BUD-006", category: "Research", department: "R&D", allocated: 3500000, spent: 1900000, remaining: 1600000, status: "on-track", forecast: 3200000 },
-    { id: "BUD-007", category: "Legal & Compliance", department: "Legal", allocated: 1500000, spent: 1100000, remaining: 400000, status: "at-risk", forecast: 1600000 },
-    { id: "BUD-008", category: "Human Resources", department: "HR", allocated: 1000000, spent: 650000, remaining: 350000, status: "on-track", forecast: 900000 },
+  const { data: budgetData, isLoading, error, refetch } = useQuery<BudgetData>({
+    queryKey: ["/api/admin/budget"],
+  });
+
+  const createRequestMutation = useMutation({
+    mutationFn: async (request: typeof newRequest) => {
+      return apiRequest("/api/admin/budget/requests", {
+        method: "POST",
+        body: JSON.stringify(request),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      setIsRequestDialogOpen(false);
+      setNewRequest({ title: "", department: "", amount: 0, justification: "" });
+      toast({
+        title: t("adminBudget.requestCreated"),
+        description: t("adminBudget.requestCreatedDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminBudget.error"),
+        description: t("adminBudget.createError"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const approveRequestMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest(`/api/admin/budget/requests/${id}/approve`, {
+        method: "POST",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      toast({
+        title: t("adminBudget.requestApproved"),
+        description: t("adminBudget.requestApprovedDesc"),
+      });
+    },
+  });
+
+  const rejectRequestMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest(`/api/admin/budget/requests/${id}/reject`, {
+        method: "POST",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/budget"] });
+      toast({
+        title: t("adminBudget.requestRejected"),
+        description: t("adminBudget.requestRejectedDesc"),
+      });
+    },
+  });
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminBudget.refreshed"),
+      description: t("adminBudget.refreshedDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      timestamp: new Date().toISOString(),
+      period: selectedPeriod,
+      budgetItems,
+      budgetRequests,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `budget-report-${selectedPeriod}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast({
+      title: t("adminBudget.exported"),
+      description: t("adminBudget.exportedDesc"),
+    });
+  }, [selectedPeriod, toast, t]);
+
+  const budgetItems: BudgetItem[] = budgetData?.budgetItems || [
+    { id: "BUD-001", category: t("adminBudget.categories.infrastructure"), department: t("adminBudget.departments.engineering"), allocated: 5000000, spent: 3200000, remaining: 1800000, status: "on-track", forecast: 4500000 },
+    { id: "BUD-002", category: t("adminBudget.categories.development"), department: t("adminBudget.departments.engineering"), allocated: 8000000, spent: 6500000, remaining: 1500000, status: "at-risk", forecast: 8200000 },
+    { id: "BUD-003", category: t("adminBudget.categories.marketing"), department: t("adminBudget.departments.marketing"), allocated: 3000000, spent: 1800000, remaining: 1200000, status: "on-track", forecast: 2700000 },
+    { id: "BUD-004", category: t("adminBudget.categories.security"), department: t("adminBudget.departments.security"), allocated: 4000000, spent: 2100000, remaining: 1900000, status: "on-track", forecast: 3500000 },
+    { id: "BUD-005", category: t("adminBudget.categories.operations"), department: t("adminBudget.departments.operations"), allocated: 2500000, spent: 2800000, remaining: -300000, status: "over-budget", forecast: 3200000 },
+    { id: "BUD-006", category: t("adminBudget.categories.research"), department: t("adminBudget.departments.rd"), allocated: 3500000, spent: 1900000, remaining: 1600000, status: "on-track", forecast: 3200000 },
+    { id: "BUD-007", category: t("adminBudget.categories.legal"), department: t("adminBudget.departments.legal"), allocated: 1500000, spent: 1100000, remaining: 400000, status: "at-risk", forecast: 1600000 },
+    { id: "BUD-008", category: t("adminBudget.categories.hr"), department: t("adminBudget.departments.hr"), allocated: 1000000, spent: 650000, remaining: 350000, status: "on-track", forecast: 900000 },
   ];
 
-  const budgetRequests: BudgetRequest[] = [
-    { id: "REQ-001", title: "Additional Cloud Infrastructure", department: "Engineering", amount: 500000, status: "pending", requestDate: "2024-12-02", requester: "John Smith" },
-    { id: "REQ-002", title: "Security Audit Tools", department: "Security", amount: 150000, status: "approved", requestDate: "2024-11-28", requester: "Jane Doe" },
-    { id: "REQ-003", title: "Marketing Campaign Q1", department: "Marketing", amount: 300000, status: "pending", requestDate: "2024-12-01", requester: "Mike Johnson" },
-    { id: "REQ-004", title: "AI Model Training Resources", department: "R&D", amount: 400000, status: "rejected", requestDate: "2024-11-25", requester: "Sarah Williams" },
+  const budgetRequests: BudgetRequest[] = budgetData?.budgetRequests || [
+    { id: "REQ-001", title: t("adminBudget.requestTitles.cloudInfra"), department: t("adminBudget.departments.engineering"), amount: 500000, status: "pending", requestDate: "2024-12-02", requester: "John Smith" },
+    { id: "REQ-002", title: t("adminBudget.requestTitles.securityAudit"), department: t("adminBudget.departments.security"), amount: 150000, status: "approved", requestDate: "2024-11-28", requester: "Jane Doe" },
+    { id: "REQ-003", title: t("adminBudget.requestTitles.marketingQ1"), department: t("adminBudget.departments.marketing"), amount: 300000, status: "pending", requestDate: "2024-12-01", requester: "Mike Johnson" },
+    { id: "REQ-004", title: t("adminBudget.requestTitles.aiTraining"), department: t("adminBudget.departments.rd"), amount: 400000, status: "rejected", requestDate: "2024-11-25", requester: "Sarah Williams" },
   ];
 
-  const monthlyBudgetData = [
-    { month: "Oct", budget: 28500000, actual: 26000000 },
-    { month: "Nov", budget: 28500000, actual: 27500000 },
-    { month: "Dec", budget: 28500000, actual: 20050000 },
+  const monthlyBudgetData = budgetData?.monthlyBudgetData || [
+    { month: t("adminBudget.months.oct"), budget: 28500000, actual: 26000000 },
+    { month: t("adminBudget.months.nov"), budget: 28500000, actual: 27500000 },
+    { month: t("adminBudget.months.dec"), budget: 28500000, actual: 20050000 },
   ];
 
-  const departmentAllocation = [
-    { name: "Engineering", value: 46, color: "hsl(var(--chart-1))" },
-    { name: "Security", value: 14, color: "hsl(var(--chart-2))" },
-    { name: "Marketing", value: 11, color: "hsl(var(--chart-3))" },
-    { name: "R&D", value: 12, color: "hsl(var(--chart-4))" },
-    { name: "Operations", value: 9, color: "hsl(var(--chart-5))" },
-    { name: "Other", value: 8, color: "hsl(var(--muted))" },
+  const departmentAllocation = budgetData?.departmentAllocation || [
+    { name: t("adminBudget.departments.engineering"), value: 46, color: "hsl(var(--chart-1))" },
+    { name: t("adminBudget.departments.security"), value: 14, color: "hsl(var(--chart-2))" },
+    { name: t("adminBudget.departments.marketing"), value: 11, color: "hsl(var(--chart-3))" },
+    { name: t("adminBudget.departments.rd"), value: 12, color: "hsl(var(--chart-4))" },
+    { name: t("adminBudget.departments.operations"), value: 9, color: "hsl(var(--chart-5))" },
+    { name: t("adminBudget.other"), value: 8, color: "hsl(var(--muted))" },
   ];
 
   const totalAllocated = budgetItems.reduce((sum, item) => sum + item.allocated, 0);
@@ -95,26 +203,86 @@ export default function BudgetManagement() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "on-track": return <Badge className="bg-green-500">On Track</Badge>;
-      case "at-risk": return <Badge className="bg-yellow-500">At Risk</Badge>;
-      case "over-budget": return <Badge className="bg-red-500">Over Budget</Badge>;
-      case "pending": return <Badge variant="secondary">Pending</Badge>;
-      case "approved": return <Badge className="bg-green-500">Approved</Badge>;
-      case "rejected": return <Badge className="bg-red-500">Rejected</Badge>;
+      case "on-track": return <Badge className="bg-green-500">{t("adminBudget.status.onTrack")}</Badge>;
+      case "at-risk": return <Badge className="bg-yellow-500">{t("adminBudget.status.atRisk")}</Badge>;
+      case "over-budget": return <Badge className="bg-red-500">{t("adminBudget.status.overBudget")}</Badge>;
+      case "pending": return <Badge variant="secondary">{t("adminBudget.status.pending")}</Badge>;
+      case "approved": return <Badge className="bg-green-500">{t("adminBudget.status.approved")}</Badge>;
+      case "rejected": return <Badge className="bg-red-500">{t("adminBudget.status.rejected")}</Badge>;
       default: return <Badge>{status}</Badge>;
     }
   };
 
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-destructive">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <AlertCircle className="h-8 w-8 text-destructive" />
+                <div className="flex-1">
+                  <h3 className="font-semibold">{t("adminBudget.errorTitle")}</h3>
+                  <p className="text-sm text-muted-foreground">{t("adminBudget.errorDescription")}</p>
+                </div>
+                <Button onClick={() => refetch()} data-testid="button-retry-budget">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  {t("adminBudget.retry")}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
+          <div className="flex justify-between items-center">
+            <div className="space-y-2">
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="h-4 w-64" />
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-10 w-36" />
+              <Skeleton className="h-10 w-32" />
+              <Skeleton className="h-10 w-24" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Card key={i}>
+                <CardContent className="p-4">
+                  <Skeleton className="h-16 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <Card>
+            <CardContent className="p-6">
+              <Skeleton className="h-80 w-full" />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="budget-management-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-budget-title">
               <Briefcase className="h-8 w-8" />
-              Budget Management
+              {t("adminBudget.title")}
             </h1>
-            <p className="text-muted-foreground">Plan, track, and optimize organizational budgets</p>
+            <p className="text-muted-foreground" data-testid="text-budget-description">
+              {t("adminBudget.description")}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
@@ -123,115 +291,146 @@ export default function BudgetManagement() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="q4-2024">Q4 2024</SelectItem>
-                <SelectItem value="q3-2024">Q3 2024</SelectItem>
-                <SelectItem value="q2-2024">Q2 2024</SelectItem>
-                <SelectItem value="2024">FY 2024</SelectItem>
+                <SelectItem value="q4-2024">{t("adminBudget.periods.q4-2024")}</SelectItem>
+                <SelectItem value="q3-2024">{t("adminBudget.periods.q3-2024")}</SelectItem>
+                <SelectItem value="q2-2024">{t("adminBudget.periods.q2-2024")}</SelectItem>
+                <SelectItem value="2024">{t("adminBudget.periods.fy2024")}</SelectItem>
               </SelectContent>
             </Select>
+            <Button variant="outline" onClick={handleRefresh} data-testid="button-refresh-budget">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminBudget.refresh")}
+            </Button>
             <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
               <DialogTrigger asChild>
                 <Button data-testid="button-new-request">
                   <Plus className="h-4 w-4 mr-2" />
-                  New Request
+                  {t("adminBudget.newRequest")}
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Budget Request</DialogTitle>
-                  <DialogDescription>Submit a new budget allocation request</DialogDescription>
+                  <DialogTitle>{t("adminBudget.dialog.createTitle")}</DialogTitle>
+                  <DialogDescription>{t("adminBudget.dialog.createDescription")}</DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Title</Label>
-                    <Input placeholder="Request title" />
+                    <Label>{t("adminBudget.dialog.title")}</Label>
+                    <Input 
+                      placeholder={t("adminBudget.dialog.titlePlaceholder")}
+                      value={newRequest.title}
+                      onChange={(e) => setNewRequest({ ...newRequest, title: e.target.value })}
+                      data-testid="input-request-title"
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label>Department</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select department" />
+                    <Label>{t("adminBudget.dialog.department")}</Label>
+                    <Select
+                      value={newRequest.department}
+                      onValueChange={(v) => setNewRequest({ ...newRequest, department: v })}
+                    >
+                      <SelectTrigger data-testid="select-request-department">
+                        <SelectValue placeholder={t("adminBudget.dialog.selectDepartment")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="engineering">Engineering</SelectItem>
-                        <SelectItem value="marketing">Marketing</SelectItem>
-                        <SelectItem value="security">Security</SelectItem>
-                        <SelectItem value="operations">Operations</SelectItem>
-                        <SelectItem value="rd">R&D</SelectItem>
+                        <SelectItem value="engineering">{t("adminBudget.departments.engineering")}</SelectItem>
+                        <SelectItem value="marketing">{t("adminBudget.departments.marketing")}</SelectItem>
+                        <SelectItem value="security">{t("adminBudget.departments.security")}</SelectItem>
+                        <SelectItem value="operations">{t("adminBudget.departments.operations")}</SelectItem>
+                        <SelectItem value="rd">{t("adminBudget.departments.rd")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Amount ($)</Label>
-                    <Input type="number" placeholder="0.00" />
+                    <Label>{t("adminBudget.dialog.amount")}</Label>
+                    <Input 
+                      type="number" 
+                      placeholder="0.00"
+                      value={newRequest.amount}
+                      onChange={(e) => setNewRequest({ ...newRequest, amount: parseFloat(e.target.value) })}
+                      data-testid="input-request-amount"
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label>Justification</Label>
-                    <Input placeholder="Reason for request" />
+                    <Label>{t("adminBudget.dialog.justification")}</Label>
+                    <Input 
+                      placeholder={t("adminBudget.dialog.justificationPlaceholder")}
+                      value={newRequest.justification}
+                      onChange={(e) => setNewRequest({ ...newRequest, justification: e.target.value })}
+                      data-testid="input-request-justification"
+                    />
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsRequestDialogOpen(false)}>Cancel</Button>
-                  <Button onClick={() => setIsRequestDialogOpen(false)}>Submit Request</Button>
+                  <Button variant="outline" onClick={() => setIsRequestDialogOpen(false)} data-testid="button-cancel-request">
+                    {t("adminBudget.dialog.cancel")}
+                  </Button>
+                  <Button 
+                    onClick={() => createRequestMutation.mutate(newRequest)}
+                    disabled={createRequestMutation.isPending}
+                    data-testid="button-submit-request"
+                  >
+                    {t("adminBudget.dialog.submit")}
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-            <Button variant="outline" data-testid="button-export">
+            <Button variant="outline" onClick={handleExport} data-testid="button-export-budget">
               <Download className="h-4 w-4 mr-2" />
-              Export
+              {t("adminBudget.export")}
             </Button>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
+          <Card data-testid="card-total-budget">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
                   <DollarSign className="h-6 w-6 text-blue-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Budget</p>
-                  <p className="text-2xl font-bold">${(totalAllocated / 1000000).toFixed(1)}M</p>
+                  <p className="text-sm text-muted-foreground">{t("adminBudget.stats.totalBudget")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-total-budget">${(totalAllocated / 1000000).toFixed(1)}M</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-spent">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-green-500/10 flex items-center justify-center">
                   <TrendingUp className="h-6 w-6 text-green-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Spent</p>
-                  <p className="text-2xl font-bold">${(totalSpent / 1000000).toFixed(1)}M</p>
+                  <p className="text-sm text-muted-foreground">{t("adminBudget.stats.spent")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-spent">${(totalSpent / 1000000).toFixed(1)}M</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-utilization">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center">
                   <Target className="h-6 w-6 text-purple-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Utilization</p>
-                  <p className="text-2xl font-bold">{utilizationRate}%</p>
+                  <p className="text-sm text-muted-foreground">{t("adminBudget.stats.utilization")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-utilization">{utilizationRate}%</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card data-testid="card-over-budget">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-red-500/10 flex items-center justify-center">
                   <AlertTriangle className="h-6 w-6 text-red-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Over Budget</p>
-                  <p className="text-2xl font-bold">{overBudgetCount}</p>
+                  <p className="text-sm text-muted-foreground">{t("adminBudget.stats.overBudget")}</p>
+                  <p className="text-2xl font-bold" data-testid="text-over-budget">{overBudgetCount}</p>
                 </div>
               </div>
             </CardContent>
@@ -239,19 +438,19 @@ export default function BudgetManagement() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="categories">By Category</TabsTrigger>
-            <TabsTrigger value="requests">Requests</TabsTrigger>
-            <TabsTrigger value="forecast">Forecast</TabsTrigger>
+          <TabsList data-testid="tabs-budget">
+            <TabsTrigger value="overview" data-testid="tab-overview">{t("adminBudget.tabs.overview")}</TabsTrigger>
+            <TabsTrigger value="categories" data-testid="tab-categories">{t("adminBudget.tabs.categories")}</TabsTrigger>
+            <TabsTrigger value="requests" data-testid="tab-requests">{t("adminBudget.tabs.requests")}</TabsTrigger>
+            <TabsTrigger value="forecast" data-testid="tab-forecast">{t("adminBudget.tabs.forecast")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card className="lg:col-span-2">
+              <Card className="lg:col-span-2" data-testid="card-budget-actual">
                 <CardHeader>
-                  <CardTitle>Budget vs Actual</CardTitle>
-                  <CardDescription>Monthly comparison</CardDescription>
+                  <CardTitle>{t("adminBudget.charts.budgetActual")}</CardTitle>
+                  <CardDescription>{t("adminBudget.charts.budgetActualDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-80">
@@ -265,17 +464,17 @@ export default function BudgetManagement() {
                           formatter={(value: number) => [`$${(value / 1000000).toFixed(2)}M`, ""]}
                         />
                         <Legend />
-                        <Bar dataKey="budget" fill="hsl(var(--chart-1))" name="Budget" />
-                        <Bar dataKey="actual" fill="hsl(var(--chart-2))" name="Actual" />
+                        <Bar dataKey="budget" fill="hsl(var(--chart-1))" name={t("adminBudget.charts.budget")} />
+                        <Bar dataKey="actual" fill="hsl(var(--chart-2))" name={t("adminBudget.charts.actual")} />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card data-testid="card-department-allocation">
                 <CardHeader>
-                  <CardTitle>Department Allocation</CardTitle>
+                  <CardTitle>{t("adminBudget.charts.departmentAllocation")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="h-64">
@@ -298,8 +497,8 @@ export default function BudgetManagement() {
                     </ResponsiveContainer>
                   </div>
                   <div className="space-y-2 mt-4">
-                    {departmentAllocation.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between">
+                    {departmentAllocation.map((item, index) => (
+                      <div key={item.name} className="flex items-center justify-between" data-testid={`allocation-item-${index}`}>
                         <div className="flex items-center gap-2">
                           <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
                           <span className="text-sm">{item.name}</span>
@@ -314,27 +513,27 @@ export default function BudgetManagement() {
           </TabsContent>
 
           <TabsContent value="categories" className="space-y-6">
-            <Card>
+            <Card data-testid="card-budget-categories">
               <CardHeader>
-                <CardTitle>Budget by Category</CardTitle>
+                <CardTitle>{t("adminBudget.categories.title")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Department</TableHead>
-                      <TableHead className="text-right">Allocated</TableHead>
-                      <TableHead className="text-right">Spent</TableHead>
-                      <TableHead className="text-right">Remaining</TableHead>
-                      <TableHead>Utilization</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
+                      <TableHead>{t("adminBudget.table.category")}</TableHead>
+                      <TableHead>{t("adminBudget.table.department")}</TableHead>
+                      <TableHead className="text-right">{t("adminBudget.table.allocated")}</TableHead>
+                      <TableHead className="text-right">{t("adminBudget.table.spent")}</TableHead>
+                      <TableHead className="text-right">{t("adminBudget.table.remaining")}</TableHead>
+                      <TableHead>{t("adminBudget.table.utilization")}</TableHead>
+                      <TableHead>{t("adminBudget.table.status")}</TableHead>
+                      <TableHead className="text-right">{t("adminBudget.table.actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {budgetItems.map((item) => (
-                      <TableRow key={item.id}>
+                    {budgetItems.map((item, index) => (
+                      <TableRow key={item.id} data-testid={`budget-row-${index}`}>
                         <TableCell className="font-medium">{item.category}</TableCell>
                         <TableCell>{item.department}</TableCell>
                         <TableCell className="text-right">${(item.allocated / 1000000).toFixed(2)}M</TableCell>
@@ -352,7 +551,7 @@ export default function BudgetManagement() {
                         </TableCell>
                         <TableCell>{getStatusBadge(item.status)}</TableCell>
                         <TableCell className="text-right">
-                          <Button variant="ghost" size="icon">
+                          <Button variant="ghost" size="icon" data-testid={`button-edit-budget-${index}`}>
                             <Edit className="h-4 w-4" />
                           </Button>
                         </TableCell>
@@ -365,28 +564,28 @@ export default function BudgetManagement() {
           </TabsContent>
 
           <TabsContent value="requests" className="space-y-6">
-            <Card>
+            <Card data-testid="card-budget-requests">
               <CardHeader>
-                <CardTitle>Budget Requests</CardTitle>
-                <CardDescription>Pending and processed budget requests</CardDescription>
+                <CardTitle>{t("adminBudget.requests.title")}</CardTitle>
+                <CardDescription>{t("adminBudget.requests.description")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>Title</TableHead>
-                      <TableHead>Department</TableHead>
-                      <TableHead>Requester</TableHead>
-                      <TableHead className="text-right">Amount</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
+                      <TableHead>{t("adminBudget.requests.id")}</TableHead>
+                      <TableHead>{t("adminBudget.requests.titleCol")}</TableHead>
+                      <TableHead>{t("adminBudget.requests.department")}</TableHead>
+                      <TableHead>{t("adminBudget.requests.requester")}</TableHead>
+                      <TableHead className="text-right">{t("adminBudget.requests.amount")}</TableHead>
+                      <TableHead>{t("adminBudget.requests.date")}</TableHead>
+                      <TableHead>{t("adminBudget.requests.status")}</TableHead>
+                      <TableHead className="text-right">{t("adminBudget.requests.actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {budgetRequests.map((request) => (
-                      <TableRow key={request.id}>
+                    {budgetRequests.map((request, index) => (
+                      <TableRow key={request.id} data-testid={`request-row-${index}`}>
                         <TableCell className="font-mono">{request.id}</TableCell>
                         <TableCell>{request.title}</TableCell>
                         <TableCell>{request.department}</TableCell>
@@ -397,10 +596,22 @@ export default function BudgetManagement() {
                         <TableCell className="text-right">
                           {request.status === "pending" && (
                             <div className="flex justify-end gap-1">
-                              <Button variant="ghost" size="icon" className="text-green-500">
+                              <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                className="text-green-500"
+                                onClick={() => approveRequestMutation.mutate(request.id)}
+                                data-testid={`button-approve-${index}`}
+                              >
                                 <CheckCircle className="h-4 w-4" />
                               </Button>
-                              <Button variant="ghost" size="icon" className="text-red-500">
+                              <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                className="text-red-500"
+                                onClick={() => rejectRequestMutation.mutate(request.id)}
+                                data-testid={`button-reject-${index}`}
+                              >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
                             </div>
@@ -415,15 +626,15 @@ export default function BudgetManagement() {
           </TabsContent>
 
           <TabsContent value="forecast" className="space-y-6">
-            <Card>
+            <Card data-testid="card-budget-forecast">
               <CardHeader>
-                <CardTitle>Budget Forecast</CardTitle>
-                <CardDescription>Projected spending vs allocation</CardDescription>
+                <CardTitle>{t("adminBudget.forecast.title")}</CardTitle>
+                <CardDescription>{t("adminBudget.forecast.description")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {budgetItems.map((item) => (
-                    <div key={item.id} className="p-4 border rounded-lg">
+                  {budgetItems.map((item, index) => (
+                    <div key={item.id} className="p-4 border rounded-lg" data-testid={`forecast-item-${index}`}>
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-medium">{item.category}</span>
                         <div className="flex items-center gap-2">
@@ -433,14 +644,14 @@ export default function BudgetManagement() {
                             <ArrowDown className="h-4 w-4 text-green-500" />
                           )}
                           <span className={item.forecast > item.allocated ? "text-red-500" : "text-green-500"}>
-                            ${(item.forecast / 1000000).toFixed(2)}M forecast
+                            ${(item.forecast / 1000000).toFixed(2)}M {t("adminBudget.forecast.projected")}
                           </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span>Allocated: ${(item.allocated / 1000000).toFixed(2)}M</span>
-                        <span>Spent: ${(item.spent / 1000000).toFixed(2)}M</span>
-                        <span>Variance: {((item.forecast / item.allocated - 1) * 100).toFixed(1)}%</span>
+                        <span>{t("adminBudget.forecast.allocated")}: ${(item.allocated / 1000000).toFixed(2)}M</span>
+                        <span>{t("adminBudget.forecast.spent")}: ${(item.spent / 1000000).toFixed(2)}M</span>
+                        <span>{t("adminBudget.forecast.variance")}: {((item.forecast / item.allocated - 1) * 100).toFixed(1)}%</span>
                       </div>
                     </div>
                   ))}

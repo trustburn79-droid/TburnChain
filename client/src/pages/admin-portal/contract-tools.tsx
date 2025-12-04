@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import {
   FileCode,
   Search,
@@ -17,7 +22,6 @@ import {
   Play,
   CheckCircle,
   XCircle,
-  AlertTriangle,
   Code,
   Eye,
   Upload,
@@ -26,7 +30,7 @@ import {
   Settings,
   Zap,
   Shield,
-  Terminal,
+  AlertCircle,
 } from "lucide-react";
 
 interface Contract {
@@ -38,44 +42,87 @@ interface Contract {
   transactions: number;
 }
 
+interface ContractsData {
+  contracts: Contract[];
+  stats: {
+    totalContracts: number;
+    verified: number;
+    interactions24h: string;
+    gasUsed24h: string;
+  };
+}
+
 export default function ContractTools() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("interact");
   const [contractAddress, setContractAddress] = useState("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const contracts: Contract[] = [
-    {
-      address: "0x1234...5678",
-      name: "TBURN Token",
-      verified: true,
-      compiler: "solidity 0.8.20",
-      deployedAt: "2024-01-15",
-      transactions: 1248567,
+  const { data: contractsData, isLoading, error, refetch } = useQuery<ContractsData>({
+    queryKey: ["/api/admin/developer/contracts"],
+  });
+
+  const deployMutation = useMutation({
+    mutationFn: async (data: { sourceCode: string; contractName: string; compiler: string }) => {
+      return apiRequest("/api/admin/developer/contracts/deploy", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
     },
-    {
-      address: "0xabcd...efgh",
-      name: "Staking Pool",
-      verified: true,
-      compiler: "solidity 0.8.20",
-      deployedAt: "2024-01-15",
-      transactions: 456789,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/developer/contracts"] });
+      toast({
+        title: t("adminContracts.deploySuccess"),
+        description: t("adminContracts.deploySuccessDesc"),
+      });
     },
-    {
-      address: "0x9876...5432",
-      name: "Bridge Contract",
-      verified: true,
-      compiler: "solidity 0.8.20",
-      deployedAt: "2024-02-20",
-      transactions: 234567,
+    onError: () => {
+      toast({
+        title: t("adminContracts.deployError"),
+        description: t("adminContracts.deployErrorDesc"),
+        variant: "destructive",
+      });
     },
-    {
-      address: "0xdead...beef",
-      name: "DEX Router",
-      verified: false,
-      compiler: "unknown",
-      deployedAt: "2024-03-10",
-      transactions: 89012,
+  });
+
+  const verifyMutation = useMutation({
+    mutationFn: async (data: { address: string; sourceCode: string; compiler: string }) => {
+      return apiRequest("/api/admin/developer/contracts/verify", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/developer/contracts"] });
+      toast({
+        title: t("adminContracts.verifySuccess"),
+        description: t("adminContracts.verifySuccessDesc"),
+      });
+    },
+    onError: () => {
+      toast({
+        title: t("adminContracts.verifyError"),
+        description: t("adminContracts.verifyErrorDesc"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const defaultContracts: Contract[] = [
+    { address: "0x1234...5678", name: "TBURN Token", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 1248567 },
+    { address: "0xabcd...efgh", name: "Staking Pool", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 456789 },
+    { address: "0x9876...5432", name: "Bridge Contract", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-02-20", transactions: 234567 },
+    { address: "0xdead...beef", name: "DEX Router", verified: false, compiler: "unknown", deployedAt: "2024-03-10", transactions: 89012 },
   ];
+
+  const contracts = contractsData?.contracts || defaultContracts;
+  const stats = contractsData?.stats || {
+    totalContracts: 12847,
+    verified: 8234,
+    interactions24h: "2.4M",
+    gasUsed24h: "847M",
+  };
 
   const abiExample = `[
   {
@@ -94,137 +141,224 @@ export default function ContractTools() {
   }
 ]`;
 
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      toast({
+        title: t("adminContracts.refreshSuccess"),
+        description: t("adminContracts.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminContracts.refreshError"),
+        description: t("adminContracts.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      contracts,
+      stats,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tburn-contracts-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: t("adminContracts.exportSuccess"),
+      description: t("adminContracts.exportSuccessDesc"),
+    });
+  }, [contracts, stats, toast, t]);
+
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="contracts-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminContracts.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminContracts.error.description")}</p>
+            <Button onClick={() => refetch()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminContracts.retry")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="contract-tools-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-page-title">
               <FileCode className="h-8 w-8" />
-              Smart Contract Tools
+              {t("adminContracts.title")}
             </h1>
-            <p className="text-muted-foreground">스마트 컨트랙트 도구 | Contract interaction and management</p>
+            <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminContracts.subtitle")}</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" data-testid="button-deploy">
+            <Button 
+              variant="outline" 
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              data-testid="button-refresh"
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+              {t("adminContracts.refresh")}
+            </Button>
+            <Button variant="outline" onClick={handleExport} data-testid="button-export">
+              <Download className="h-4 w-4 mr-2" />
+              {t("adminContracts.export")}
+            </Button>
+            <Button data-testid="button-deploy">
               <Upload className="h-4 w-4 mr-2" />
-              Deploy Contract
+              {t("adminContracts.deployContract")}
             </Button>
           </div>
         </div>
 
-        {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Contracts</CardTitle>
+          <Card data-testid="card-total-contracts">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminContracts.totalContracts")}</CardTitle>
               <FileCode className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">12,847</div>
-              <p className="text-xs text-muted-foreground">Deployed on mainnet</p>
+              {isLoading ? <Skeleton className="h-8 w-20" /> : (
+                <>
+                  <div className="text-2xl font-bold">{stats.totalContracts.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminContracts.deployedOnMainnet")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Verified</CardTitle>
+          <Card data-testid="card-verified">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminContracts.verified")}</CardTitle>
               <CheckCircle className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-500">8,234</div>
-              <p className="text-xs text-muted-foreground">Source verified</p>
+              {isLoading ? <Skeleton className="h-8 w-16" /> : (
+                <>
+                  <div className="text-2xl font-bold text-green-500">{stats.verified.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminContracts.sourceVerified")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Interactions (24h)</CardTitle>
+          <Card data-testid="card-interactions">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminContracts.interactions24h")}</CardTitle>
               <Zap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2.4M</div>
-              <p className="text-xs text-green-500">+18% from yesterday</p>
+              {isLoading ? <Skeleton className="h-8 w-16" /> : (
+                <>
+                  <div className="text-2xl font-bold">{stats.interactions24h}</div>
+                  <p className="text-xs text-green-500">{t("adminContracts.from yesterday", { percent: "+18%" })}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Gas Used (24h)</CardTitle>
+          <Card data-testid="card-gas-used">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminContracts.gasUsed24h")}</CardTitle>
               <Settings className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">847M</div>
-              <p className="text-xs text-muted-foreground">Gas units</p>
+              {isLoading ? <Skeleton className="h-8 w-16" /> : (
+                <>
+                  <div className="text-2xl font-bold">{stats.gasUsed24h}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminContracts.gasUnits")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="interact">Interact</TabsTrigger>
-            <TabsTrigger value="verify">Verify</TabsTrigger>
-            <TabsTrigger value="abi">ABI Tools</TabsTrigger>
-            <TabsTrigger value="deployed">Deployed Contracts</TabsTrigger>
+          <TabsList data-testid="tabs-contracts">
+            <TabsTrigger value="interact" data-testid="tab-interact">{t("adminContracts.tabs.interact")}</TabsTrigger>
+            <TabsTrigger value="verify" data-testid="tab-verify">{t("adminContracts.tabs.verify")}</TabsTrigger>
+            <TabsTrigger value="abi" data-testid="tab-abi">{t("adminContracts.tabs.abiTools")}</TabsTrigger>
+            <TabsTrigger value="deployed" data-testid="tab-deployed">{t("adminContracts.tabs.deployedContracts")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="interact" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Contract Interaction</CardTitle>
-                <CardDescription>Read and write to smart contracts</CardDescription>
+                <CardTitle>{t("adminContracts.contractInteraction")}</CardTitle>
+                <CardDescription>{t("adminContracts.readWriteToContracts")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Contract Address</Label>
+                    <Label>{t("adminContracts.contractAddress")}</Label>
                     <div className="flex gap-2">
                       <Input 
                         placeholder="0x..." 
                         value={contractAddress}
                         onChange={(e) => setContractAddress(e.target.value)}
+                        data-testid="input-contract-address"
                       />
-                      <Button variant="outline">
+                      <Button variant="outline" data-testid="button-search-contract">
                         <Search className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label>Network</Label>
+                    <Label>{t("adminContracts.network")}</Label>
                     <Select defaultValue="mainnet">
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="select-network">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="mainnet">Mainnet</SelectItem>
-                        <SelectItem value="testnet">Testnet</SelectItem>
+                        <SelectItem value="mainnet">{t("adminContracts.mainnet")}</SelectItem>
+                        <SelectItem value="testnet">{t("adminContracts.testnet")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>ABI (JSON)</Label>
+                  <Label>{t("adminContracts.abiJson")}</Label>
                   <Textarea 
-                    placeholder="Paste contract ABI here..." 
+                    placeholder={t("adminContracts.pasteAbi")}
                     className="font-mono text-sm h-32"
                     defaultValue={abiExample}
+                    data-testid="textarea-abi"
                   />
                 </div>
 
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="font-medium">Read Functions</h3>
+                  <h3 className="font-medium">{t("adminContracts.readFunctions")}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-4 border rounded-lg space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="font-mono text-sm">totalSupply()</span>
                         <Badge variant="outline">view</Badge>
                       </div>
-                      <Button size="sm" className="w-full">
+                      <Button size="sm" className="w-full" data-testid="button-query-totalsupply">
                         <Play className="h-4 w-4 mr-2" />
-                        Query
+                        {t("adminContracts.query")}
                       </Button>
                     </div>
                     <div className="p-4 border rounded-lg space-y-2">
@@ -232,10 +366,10 @@ export default function ContractTools() {
                         <span className="font-mono text-sm">balanceOf(address)</span>
                         <Badge variant="outline">view</Badge>
                       </div>
-                      <Input placeholder="Address" className="mb-2" />
-                      <Button size="sm" className="w-full">
+                      <Input placeholder={t("adminContracts.address")} className="mb-2" data-testid="input-balance-address" />
+                      <Button size="sm" className="w-full" data-testid="button-query-balance">
                         <Play className="h-4 w-4 mr-2" />
-                        Query
+                        {t("adminContracts.query")}
                       </Button>
                     </div>
                   </div>
@@ -244,18 +378,18 @@ export default function ContractTools() {
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="font-medium">Write Functions</h3>
+                  <h3 className="font-medium">{t("adminContracts.writeFunctions")}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-4 border rounded-lg space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="font-mono text-sm">transfer(address, uint256)</span>
                         <Badge variant="secondary">write</Badge>
                       </div>
-                      <Input placeholder="To Address" className="mb-2" />
-                      <Input placeholder="Amount" className="mb-2" />
-                      <Button size="sm" className="w-full" variant="secondary">
+                      <Input placeholder={t("adminContracts.toAddress")} className="mb-2" data-testid="input-transfer-to" />
+                      <Input placeholder={t("adminContracts.amount")} className="mb-2" data-testid="input-transfer-amount" />
+                      <Button size="sm" className="w-full" variant="secondary" data-testid="button-execute-transfer">
                         <Zap className="h-4 w-4 mr-2" />
-                        Execute
+                        {t("adminContracts.execute")}
                       </Button>
                     </div>
                   </div>
@@ -269,20 +403,20 @@ export default function ContractTools() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="h-5 w-5" />
-                  Verify Contract
+                  {t("adminContracts.verifyContract")}
                 </CardTitle>
-                <CardDescription>Submit source code for verification</CardDescription>
+                <CardDescription>{t("adminContracts.submitSourceCode")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Contract Address</Label>
-                    <Input placeholder="0x..." />
+                    <Label>{t("adminContracts.contractAddress")}</Label>
+                    <Input placeholder="0x..." data-testid="input-verify-address" />
                   </div>
                   <div className="space-y-2">
-                    <Label>Compiler Version</Label>
+                    <Label>{t("adminContracts.compilerVersion")}</Label>
                     <Select defaultValue="0.8.20">
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="select-compiler">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -293,44 +427,54 @@ export default function ContractTools() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Contract Name</Label>
-                    <Input placeholder="MyToken" />
+                    <Label>{t("adminContracts.contractName")}</Label>
+                    <Input placeholder="MyToken" data-testid="input-contract-name" />
                   </div>
                   <div className="space-y-2">
-                    <Label>Optimization</Label>
+                    <Label>{t("adminContracts.optimization")}</Label>
                     <Select defaultValue="yes">
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="select-optimization">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="yes">Yes (200 runs)</SelectItem>
-                        <SelectItem value="no">No</SelectItem>
+                        <SelectItem value="yes">{t("adminContracts.yes200runs")}</SelectItem>
+                        <SelectItem value="no">{t("adminContracts.no")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Source Code</Label>
+                  <Label>{t("adminContracts.sourceCode")}</Label>
                   <Textarea 
-                    placeholder="// SPDX-License-Identifier: MIT
+                    placeholder={`// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 contract MyToken {
     // Your source code here...
-}" 
+}`}
                     className="font-mono text-sm h-64"
+                    data-testid="textarea-source-code"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Constructor Arguments (ABI-encoded)</Label>
-                  <Input placeholder="0x..." />
+                  <Label>{t("adminContracts.constructorArguments")}</Label>
+                  <Input placeholder="0x..." data-testid="input-constructor-args" />
                 </div>
 
-                <Button className="w-full">
-                  <CheckCircle className="h-4 w-4 mr-2" />
-                  Verify Contract
+                <Button 
+                  className="w-full" 
+                  onClick={() => verifyMutation.mutate({ address: "", sourceCode: "", compiler: "0.8.20" })}
+                  disabled={verifyMutation.isPending}
+                  data-testid="button-verify-contract"
+                >
+                  {verifyMutation.isPending ? (
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <CheckCircle className="h-4 w-4 mr-2" />
+                  )}
+                  {t("adminContracts.verifyContract")}
                 </Button>
               </CardContent>
             </Card>
@@ -341,41 +485,41 @@ contract MyToken {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Code className="h-5 w-5" />
-                  ABI Encoder/Decoder
+                  {t("adminContracts.abiEncoderDecoder")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <h3 className="font-medium">Encode</h3>
+                    <h3 className="font-medium">{t("adminContracts.encode")}</h3>
                     <div className="space-y-2">
-                      <Label>Function Signature</Label>
-                      <Input placeholder="transfer(address,uint256)" />
+                      <Label>{t("adminContracts.functionSignature")}</Label>
+                      <Input placeholder="transfer(address,uint256)" data-testid="input-encode-signature" />
                     </div>
                     <div className="space-y-2">
-                      <Label>Parameters (comma-separated)</Label>
-                      <Input placeholder="0x1234...5678, 1000000000000000000" />
+                      <Label>{t("adminContracts.parameters")}</Label>
+                      <Input placeholder="0x1234...5678, 1000000000000000000" data-testid="input-encode-params" />
                     </div>
-                    <Button className="w-full">Encode</Button>
+                    <Button className="w-full" data-testid="button-encode">{t("adminContracts.encode")}</Button>
                     <div className="space-y-2">
-                      <Label>Encoded Data</Label>
-                      <Textarea readOnly className="font-mono text-xs" placeholder="Result will appear here..." />
+                      <Label>{t("adminContracts.encodedData")}</Label>
+                      <Textarea readOnly className="font-mono text-xs" placeholder={t("adminContracts.resultWillAppear")} data-testid="textarea-encoded-result" />
                     </div>
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="font-medium">Decode</h3>
+                    <h3 className="font-medium">{t("adminContracts.decode")}</h3>
                     <div className="space-y-2">
-                      <Label>Encoded Data</Label>
-                      <Textarea placeholder="0xa9059cbb..." className="font-mono text-xs h-20" />
+                      <Label>{t("adminContracts.encodedData")}</Label>
+                      <Textarea placeholder="0xa9059cbb..." className="font-mono text-xs h-20" data-testid="textarea-decode-input" />
                     </div>
                     <div className="space-y-2">
-                      <Label>ABI (Optional)</Label>
-                      <Textarea placeholder="Paste ABI for better decoding..." className="font-mono text-xs h-20" />
+                      <Label>{t("adminContracts.abiOptional")}</Label>
+                      <Textarea placeholder={t("adminContracts.pasteAbiForBetterDecoding")} className="font-mono text-xs h-20" data-testid="textarea-decode-abi" />
                     </div>
-                    <Button className="w-full">Decode</Button>
+                    <Button className="w-full" data-testid="button-decode">{t("adminContracts.decode")}</Button>
                     <div className="space-y-2">
-                      <Label>Decoded Output</Label>
+                      <Label>{t("adminContracts.decodedOutput")}</Label>
                       <div className="p-4 bg-muted rounded-lg font-mono text-sm">
                         <p>Function: transfer(address,uint256)</p>
                         <p>to: 0x1234...5678</p>
@@ -393,66 +537,74 @@ contract MyToken {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Deployed Contracts</CardTitle>
-                    <CardDescription>Core protocol contracts</CardDescription>
+                    <CardTitle>{t("adminContracts.deployedContracts")}</CardTitle>
+                    <CardDescription>{t("adminContracts.coreProtocolContracts")}</CardDescription>
                   </div>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search contracts..." className="pl-9 w-64" />
+                    <Input placeholder={t("adminContracts.searchContracts")} className="pl-9 w-64" data-testid="input-search-contracts" />
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Address</TableHead>
-                      <TableHead>Verified</TableHead>
-                      <TableHead>Compiler</TableHead>
-                      <TableHead>Deployed</TableHead>
-                      <TableHead>Transactions</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {contracts.map((contract) => (
-                      <TableRow key={contract.address}>
-                        <TableCell className="font-medium">{contract.name}</TableCell>
-                        <TableCell className="font-mono text-sm">{contract.address}</TableCell>
-                        <TableCell>
-                          {contract.verified ? (
-                            <Badge className="bg-green-500">
-                              <CheckCircle className="h-3 w-3 mr-1" />
-                              Verified
-                            </Badge>
-                          ) : (
-                            <Badge variant="secondary">
-                              <XCircle className="h-3 w-3 mr-1" />
-                              Unverified
-                            </Badge>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-sm">{contract.compiler}</TableCell>
-                        <TableCell className="text-sm text-muted-foreground">{contract.deployedAt}</TableCell>
-                        <TableCell>{contract.transactions.toLocaleString()}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-1">
-                            <Button variant="ghost" size="icon">
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="icon">
-                              <Code className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="icon">
-                              <Play className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
+                {isLoading ? (
+                  <div className="space-y-2">
+                    {[...Array(4)].map((_, i) => (
+                      <Skeleton key={i} className="h-12 w-full" />
                     ))}
-                  </TableBody>
-                </Table>
+                  </div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>{t("adminContracts.name")}</TableHead>
+                        <TableHead>{t("adminContracts.address")}</TableHead>
+                        <TableHead>{t("adminContracts.verified")}</TableHead>
+                        <TableHead>{t("adminContracts.compiler")}</TableHead>
+                        <TableHead>{t("adminContracts.deployed")}</TableHead>
+                        <TableHead>{t("adminContracts.transactions")}</TableHead>
+                        <TableHead>{t("adminContracts.actions")}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {contracts.map((contract, index) => (
+                        <TableRow key={contract.address} data-testid={`contract-row-${index}`}>
+                          <TableCell className="font-medium">{contract.name}</TableCell>
+                          <TableCell className="font-mono text-sm">{contract.address}</TableCell>
+                          <TableCell>
+                            {contract.verified ? (
+                              <Badge className="bg-green-500">
+                                <CheckCircle className="h-3 w-3 mr-1" />
+                                {t("adminContracts.verifiedBadge")}
+                              </Badge>
+                            ) : (
+                              <Badge variant="secondary">
+                                <XCircle className="h-3 w-3 mr-1" />
+                                {t("adminContracts.unverified")}
+                              </Badge>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-sm">{contract.compiler}</TableCell>
+                          <TableCell className="text-sm text-muted-foreground">{contract.deployedAt}</TableCell>
+                          <TableCell>{contract.transactions.toLocaleString()}</TableCell>
+                          <TableCell>
+                            <div className="flex gap-1">
+                              <Button variant="ghost" size="icon" data-testid={`button-view-${index}`}>
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                              <Button variant="ghost" size="icon" data-testid={`button-code-${index}`}>
+                                <Code className="h-4 w-4" />
+                              </Button>
+                              <Button variant="ghost" size="icon" data-testid={`button-interact-${index}`}>
+                                <Play className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </CardContent>
             </Card>
           </TabsContent>

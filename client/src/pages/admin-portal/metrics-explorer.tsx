@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 import {
   Gauge,
   Search,
-  Plus,
   RefreshCw,
   Download,
-  Settings,
   ChartLine,
   ChartBar,
   ChartArea,
@@ -25,14 +24,14 @@ import {
   Cpu,
   Activity,
   Zap,
-  HardDrive,
   Network,
   Star,
-  StarOff,
   Copy,
   ExternalLink,
+  AlertCircle,
+  Play,
 } from "lucide-react";
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 interface Metric {
   name: string;
@@ -45,46 +44,87 @@ interface Metric {
   isFavorite: boolean;
 }
 
+interface MetricsData {
+  metrics: Metric[];
+  chartData: { time: string; tburn_tps_current: number; tburn_consensus_time_ms: number; tburn_validator_count: number }[];
+}
+
 export default function MetricsExplorer() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [timeRange, setTimeRange] = useState("1h");
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>(["tburn_tps_current"]);
 
+  const { data: metricsData, isLoading, error, refetch } = useQuery<MetricsData>({
+    queryKey: ["/api/admin/monitoring/metrics"],
+  });
+
   const categories = [
-    { value: "all", label: "All Categories" },
-    { value: "network", label: "Network" },
-    { value: "consensus", label: "Consensus" },
-    { value: "resources", label: "Resources" },
-    { value: "transactions", label: "Transactions" },
-    { value: "ai", label: "AI Systems" },
-    { value: "bridge", label: "Bridge" },
+    { value: "all", label: t("adminMetrics.categories.all") },
+    { value: "network", label: t("adminMetrics.categories.network") },
+    { value: "consensus", label: t("adminMetrics.categories.consensus") },
+    { value: "resources", label: t("adminMetrics.categories.resources") },
+    { value: "transactions", label: t("adminMetrics.categories.transactions") },
+    { value: "ai", label: t("adminMetrics.categories.ai") },
+    { value: "bridge", label: t("adminMetrics.categories.bridge") },
   ];
 
-  const metrics: Metric[] = [
-    { name: "tburn_tps_current", description: "Current transactions per second", type: "gauge", category: "network", value: 485000, unit: "tx/s", labels: { node: "all" }, isFavorite: true },
-    { name: "tburn_block_height", description: "Current blockchain height", type: "counter", category: "network", value: 12847563, unit: "", labels: { chain: "mainnet" }, isFavorite: true },
-    { name: "tburn_consensus_time_ms", description: "Average consensus time", type: "histogram", category: "consensus", value: 124, unit: "ms", labels: { algorithm: "bft" }, isFavorite: false },
-    { name: "tburn_validator_count", description: "Active validator count", type: "gauge", category: "consensus", value: 156, unit: "", labels: { status: "active" }, isFavorite: true },
-    { name: "tburn_cpu_usage_percent", description: "CPU usage percentage", type: "gauge", category: "resources", value: 45.2, unit: "%", labels: { node: "primary" }, isFavorite: false },
-    { name: "tburn_memory_usage_gb", description: "Memory usage in GB", type: "gauge", category: "resources", value: 64.8, unit: "GB", labels: { node: "primary" }, isFavorite: false },
-    { name: "tburn_disk_io_mbps", description: "Disk I/O rate", type: "gauge", category: "resources", value: 256, unit: "MB/s", labels: { device: "nvme0" }, isFavorite: false },
-    { name: "tburn_tx_pending", description: "Pending transactions in mempool", type: "gauge", category: "transactions", value: 1247, unit: "txs", labels: { priority: "all" }, isFavorite: false },
-    { name: "tburn_tx_confirmed_24h", description: "Confirmed transactions (24h)", type: "counter", category: "transactions", value: 42560000, unit: "", labels: {}, isFavorite: true },
-    { name: "tburn_ai_decision_latency_ms", description: "AI decision latency", type: "histogram", category: "ai", value: 45, unit: "ms", labels: { model: "llama" }, isFavorite: false },
-    { name: "tburn_ai_accuracy_percent", description: "AI decision accuracy", type: "gauge", category: "ai", value: 98.7, unit: "%", labels: { model: "all" }, isFavorite: true },
-    { name: "tburn_bridge_pending", description: "Pending bridge transfers", type: "gauge", category: "bridge", value: 23, unit: "", labels: { chain: "all" }, isFavorite: false },
-    { name: "tburn_bridge_volume_24h", description: "Bridge volume (24h)", type: "counter", category: "bridge", value: 12500000, unit: "TBURN", labels: {}, isFavorite: false },
-    { name: "tburn_shard_count", description: "Active shard count", type: "gauge", category: "network", value: 48, unit: "", labels: {}, isFavorite: false },
-    { name: "tburn_cross_shard_latency_ms", description: "Cross-shard latency", type: "histogram", category: "network", value: 3.2, unit: "ms", labels: {}, isFavorite: false },
+  const metrics: Metric[] = metricsData?.metrics || [
+    { name: "tburn_tps_current", description: t("adminMetrics.metricDescriptions.tpsCurrent"), type: "gauge", category: "network", value: 485000, unit: "tx/s", labels: { node: "all" }, isFavorite: true },
+    { name: "tburn_block_height", description: t("adminMetrics.metricDescriptions.blockHeight"), type: "counter", category: "network", value: 12847563, unit: "", labels: { chain: "mainnet" }, isFavorite: true },
+    { name: "tburn_consensus_time_ms", description: t("adminMetrics.metricDescriptions.consensusTime"), type: "histogram", category: "consensus", value: 124, unit: "ms", labels: { algorithm: "bft" }, isFavorite: false },
+    { name: "tburn_validator_count", description: t("adminMetrics.metricDescriptions.validatorCount"), type: "gauge", category: "consensus", value: 156, unit: "", labels: { status: "active" }, isFavorite: true },
+    { name: "tburn_cpu_usage_percent", description: t("adminMetrics.metricDescriptions.cpuUsage"), type: "gauge", category: "resources", value: 45.2, unit: "%", labels: { node: "primary" }, isFavorite: false },
+    { name: "tburn_memory_usage_gb", description: t("adminMetrics.metricDescriptions.memoryUsage"), type: "gauge", category: "resources", value: 64.8, unit: "GB", labels: { node: "primary" }, isFavorite: false },
+    { name: "tburn_disk_io_mbps", description: t("adminMetrics.metricDescriptions.diskIO"), type: "gauge", category: "resources", value: 256, unit: "MB/s", labels: { device: "nvme0" }, isFavorite: false },
+    { name: "tburn_tx_pending", description: t("adminMetrics.metricDescriptions.txPending"), type: "gauge", category: "transactions", value: 1247, unit: "txs", labels: { priority: "all" }, isFavorite: false },
+    { name: "tburn_tx_confirmed_24h", description: t("adminMetrics.metricDescriptions.txConfirmed"), type: "counter", category: "transactions", value: 42560000, unit: "", labels: {}, isFavorite: true },
+    { name: "tburn_ai_decision_latency_ms", description: t("adminMetrics.metricDescriptions.aiLatency"), type: "histogram", category: "ai", value: 45, unit: "ms", labels: { model: "llama" }, isFavorite: false },
+    { name: "tburn_ai_accuracy_percent", description: t("adminMetrics.metricDescriptions.aiAccuracy"), type: "gauge", category: "ai", value: 98.7, unit: "%", labels: { model: "all" }, isFavorite: true },
+    { name: "tburn_bridge_pending", description: t("adminMetrics.metricDescriptions.bridgePending"), type: "gauge", category: "bridge", value: 23, unit: "", labels: { chain: "all" }, isFavorite: false },
+    { name: "tburn_bridge_volume_24h", description: t("adminMetrics.metricDescriptions.bridgeVolume"), type: "counter", category: "bridge", value: 12500000, unit: "TBURN", labels: {}, isFavorite: false },
+    { name: "tburn_shard_count", description: t("adminMetrics.metricDescriptions.shardCount"), type: "gauge", category: "network", value: 48, unit: "", labels: {}, isFavorite: false },
+    { name: "tburn_cross_shard_latency_ms", description: t("adminMetrics.metricDescriptions.crossShardLatency"), type: "histogram", category: "network", value: 3.2, unit: "ms", labels: {}, isFavorite: false },
   ];
 
-  const chartData = Array.from({ length: 60 }, (_, i) => ({
+  const chartData = metricsData?.chartData || Array.from({ length: 60 }, (_, i) => ({
     time: `${59 - i}m ago`,
     tburn_tps_current: Math.floor(Math.random() * 100000) + 400000,
     tburn_consensus_time_ms: Math.floor(Math.random() * 30) + 110,
     tburn_validator_count: 156 + Math.floor(Math.random() * 5) - 2,
   }));
+
+  const handleRefresh = useCallback(() => {
+    refetch();
+    toast({
+      title: t("adminMetrics.refreshed"),
+      description: t("adminMetrics.refreshedDesc"),
+    });
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      timestamp: new Date().toISOString(),
+      timeRange,
+      metrics: metrics.filter(m => selectedMetrics.includes(m.name)),
+      chartData,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `metrics-export-${new Date().toISOString().split("T")[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast({
+      title: t("adminMetrics.exported"),
+      description: t("adminMetrics.exportedDesc"),
+    });
+  }, [metrics, selectedMetrics, chartData, timeRange, toast, t]);
 
   const filteredMetrics = metrics.filter((metric) => {
     const matchesSearch = 
@@ -114,16 +154,86 @@ export default function MetricsExplorer() {
     }
   };
 
+  if (error) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6">
+          <Card className="border-destructive">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <AlertCircle className="h-8 w-8 text-destructive" />
+                <div className="flex-1">
+                  <h3 className="font-semibold">{t("adminMetrics.errorTitle")}</h3>
+                  <p className="text-sm text-muted-foreground">{t("adminMetrics.errorDescription")}</p>
+                </div>
+                <Button onClick={() => refetch()} data-testid="button-retry-metrics">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  {t("adminMetrics.retry")}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 overflow-auto">
+        <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
+          <div className="flex justify-between items-center">
+            <div className="space-y-2">
+              <Skeleton className="h-8 w-64" />
+              <Skeleton className="h-4 w-48" />
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-10 w-32" />
+              <Skeleton className="h-10 w-24" />
+              <Skeleton className="h-10 w-24" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <Card className="lg:col-span-1">
+              <CardHeader>
+                <Skeleton className="h-6 w-32" />
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <div className="space-y-2">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton key={i} className="h-20 w-full" />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="lg:col-span-3">
+              <CardHeader>
+                <Skeleton className="h-6 w-48" />
+              </CardHeader>
+              <CardContent>
+                <Skeleton className="h-96 w-full" />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="metrics-explorer-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-metrics-title">
               <Gauge className="h-8 w-8" />
-              Metrics Explorer
+              {t("adminMetrics.title")}
             </h1>
-            <p className="text-muted-foreground">Browse and analyze system metrics</p>
+            <p className="text-muted-foreground" data-testid="text-metrics-description">
+              {t("adminMetrics.description")}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <Select value={timeRange} onValueChange={setTimeRange}>
@@ -132,35 +242,35 @@ export default function MetricsExplorer() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="15m">Last 15m</SelectItem>
-                <SelectItem value="1h">Last 1h</SelectItem>
-                <SelectItem value="6h">Last 6h</SelectItem>
-                <SelectItem value="24h">Last 24h</SelectItem>
-                <SelectItem value="7d">Last 7d</SelectItem>
+                <SelectItem value="15m">{t("adminMetrics.timeRanges.15m")}</SelectItem>
+                <SelectItem value="1h">{t("adminMetrics.timeRanges.1h")}</SelectItem>
+                <SelectItem value="6h">{t("adminMetrics.timeRanges.6h")}</SelectItem>
+                <SelectItem value="24h">{t("adminMetrics.timeRanges.24h")}</SelectItem>
+                <SelectItem value="7d">{t("adminMetrics.timeRanges.7d")}</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" data-testid="button-refresh-metrics">
+            <Button variant="outline" onClick={handleRefresh} data-testid="button-refresh-metrics">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Refresh
+              {t("adminMetrics.refresh")}
             </Button>
-            <Button variant="outline" data-testid="button-export-metrics">
+            <Button variant="outline" onClick={handleExport} data-testid="button-export-metrics">
               <Download className="h-4 w-4 mr-2" />
-              Export
+              {t("adminMetrics.export")}
             </Button>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <Card className="lg:col-span-1">
+          <Card className="lg:col-span-1" data-testid="card-metrics-browser">
             <CardHeader>
-              <CardTitle className="text-lg">Metrics Browser</CardTitle>
-              <CardDescription>Select metrics to visualize</CardDescription>
+              <CardTitle className="text-lg">{t("adminMetrics.browser.title")}</CardTitle>
+              <CardDescription>{t("adminMetrics.browser.description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search metrics..."
+                  placeholder={t("adminMetrics.browser.searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10"
@@ -182,7 +292,7 @@ export default function MetricsExplorer() {
 
               <ScrollArea className="h-[400px]">
                 <div className="space-y-2">
-                  {filteredMetrics.map((metric) => (
+                  {filteredMetrics.map((metric, index) => (
                     <div
                       key={metric.name}
                       className={`p-3 rounded-lg cursor-pointer transition-colors ${
@@ -191,6 +301,7 @@ export default function MetricsExplorer() {
                           : "bg-muted/50 hover-elevate"
                       }`}
                       onClick={() => toggleMetricSelection(metric.name)}
+                      data-testid={`metric-item-${index}`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
@@ -217,23 +328,23 @@ export default function MetricsExplorer() {
             </CardContent>
           </Card>
 
-          <Card className="lg:col-span-3">
+          <Card className="lg:col-span-3" data-testid="card-metrics-visualization">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>Metrics Visualization</CardTitle>
+                  <CardTitle>{t("adminMetrics.visualization.title")}</CardTitle>
                   <CardDescription>
-                    {selectedMetrics.length} metric(s) selected
+                    {t("adminMetrics.visualization.selectedCount", { count: selectedMetrics.length })}
                   </CardDescription>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" size="icon" data-testid="button-chart-line">
                     <ChartLine className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" size="icon" data-testid="button-chart-bar">
                     <ChartBar className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" size="icon" data-testid="button-chart-area">
                     <ChartArea className="h-4 w-4" />
                   </Button>
                 </div>
@@ -257,7 +368,7 @@ export default function MetricsExplorer() {
                         stroke="hsl(var(--primary))" 
                         strokeWidth={2}
                         dot={false}
-                        name="TPS"
+                        name={t("adminMetrics.chartLabels.tps")}
                       />
                     )}
                     {selectedMetrics.includes("tburn_consensus_time_ms") && (
@@ -267,7 +378,7 @@ export default function MetricsExplorer() {
                         stroke="hsl(var(--chart-2))" 
                         strokeWidth={2}
                         dot={false}
-                        name="Consensus Time (ms)"
+                        name={t("adminMetrics.chartLabels.consensusTime")}
                       />
                     )}
                   </LineChart>
@@ -275,22 +386,22 @@ export default function MetricsExplorer() {
               </div>
 
               <div className="mt-6">
-                <h4 className="font-semibold mb-4">Selected Metrics Details</h4>
+                <h4 className="font-semibold mb-4">{t("adminMetrics.details.title")}</h4>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Metric</TableHead>
-                      <TableHead>Current</TableHead>
-                      <TableHead>Avg</TableHead>
-                      <TableHead>Min</TableHead>
-                      <TableHead>Max</TableHead>
-                      <TableHead>Labels</TableHead>
+                      <TableHead>{t("adminMetrics.details.metric")}</TableHead>
+                      <TableHead>{t("adminMetrics.details.current")}</TableHead>
+                      <TableHead>{t("adminMetrics.details.avg")}</TableHead>
+                      <TableHead>{t("adminMetrics.details.min")}</TableHead>
+                      <TableHead>{t("adminMetrics.details.max")}</TableHead>
+                      <TableHead>{t("adminMetrics.details.labels")}</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {metrics.filter(m => selectedMetrics.includes(m.name)).map((metric) => (
-                      <TableRow key={metric.name}>
+                    {metrics.filter(m => selectedMetrics.includes(m.name)).map((metric, index) => (
+                      <TableRow key={metric.name} data-testid={`metric-row-${index}`}>
                         <TableCell className="font-mono text-sm">{metric.name}</TableCell>
                         <TableCell className="font-semibold">
                           {metric.value.toLocaleString()}{metric.unit}
@@ -308,7 +419,7 @@ export default function MetricsExplorer() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Button variant="ghost" size="icon">
+                          <Button variant="ghost" size="icon" data-testid={`button-copy-metric-${index}`}>
                             <Copy className="h-4 w-4" />
                           </Button>
                         </TableCell>
@@ -321,10 +432,10 @@ export default function MetricsExplorer() {
           </Card>
         </div>
 
-        <Card>
+        <Card data-testid="card-promql-builder">
           <CardHeader>
-            <CardTitle>PromQL Query Builder</CardTitle>
-            <CardDescription>Build custom metric queries</CardDescription>
+            <CardTitle>{t("adminMetrics.promql.title")}</CardTitle>
+            <CardDescription>{t("adminMetrics.promql.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex gap-4">
@@ -335,12 +446,12 @@ export default function MetricsExplorer() {
               />
               <Button data-testid="button-execute-query">
                 <Play className="h-4 w-4 mr-2" />
-                Execute
+                {t("adminMetrics.promql.execute")}
               </Button>
             </div>
             <div className="mt-4 p-4 bg-muted rounded-lg">
               <p className="text-sm text-muted-foreground">
-                Examples: <code className="bg-background px-1 rounded">sum(tburn_tps_current)</code>,{" "}
+                {t("adminMetrics.promql.examples")}: <code className="bg-background px-1 rounded">sum(tburn_tps_current)</code>,{" "}
                 <code className="bg-background px-1 rounded">avg_over_time(tburn_cpu_usage_percent[1h])</code>,{" "}
                 <code className="bg-background px-1 rounded">histogram_quantile(0.95, tburn_latency_bucket)</code>
               </p>
@@ -349,22 +460,5 @@ export default function MetricsExplorer() {
         </Card>
       </div>
     </div>
-  );
-}
-
-function Play(props: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={props.className}
-    >
-      <polygon points="5 3 19 12 5 21 5 3" />
-    </svg>
   );
 }

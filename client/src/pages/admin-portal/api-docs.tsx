@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 import {
   Book,
   Code,
@@ -21,6 +25,8 @@ import {
   Zap,
   Database,
   Shield,
+  AlertCircle,
+  Download,
 } from "lucide-react";
 
 interface ApiEndpoint {
@@ -31,26 +37,51 @@ interface ApiEndpoint {
   category: string;
 }
 
+interface ApiDocsData {
+  endpoints: ApiEndpoint[];
+  stats: {
+    totalEndpoints: number;
+    publicApis: number;
+    protectedApis: number;
+    apiVersion: string;
+  };
+}
+
 export default function ApiDocs() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const endpoints: ApiEndpoint[] = [
-    { method: "GET", path: "/api/blocks", description: "Get list of blocks", auth: false, category: "Blocks" },
-    { method: "GET", path: "/api/blocks/:height", description: "Get block by height", auth: false, category: "Blocks" },
-    { method: "GET", path: "/api/transactions", description: "Get list of transactions", auth: false, category: "Transactions" },
-    { method: "GET", path: "/api/transactions/:hash", description: "Get transaction by hash", auth: false, category: "Transactions" },
-    { method: "POST", path: "/api/transactions", description: "Submit new transaction", auth: true, category: "Transactions" },
-    { method: "GET", path: "/api/wallets/:address", description: "Get wallet information", auth: false, category: "Wallets" },
-    { method: "GET", path: "/api/wallets/:address/balance", description: "Get wallet balance", auth: false, category: "Wallets" },
-    { method: "GET", path: "/api/validators", description: "Get list of validators", auth: false, category: "Validators" },
-    { method: "POST", path: "/api/staking/delegate", description: "Delegate to validator", auth: true, category: "Staking" },
-    { method: "POST", path: "/api/staking/undelegate", description: "Undelegate from validator", auth: true, category: "Staking" },
-    { method: "GET", path: "/api/admin/dashboard", description: "Get admin dashboard data", auth: true, category: "Admin" },
-    { method: "GET", path: "/api/admin/nodes", description: "Get node list", auth: true, category: "Admin" },
-    { method: "POST", path: "/api/admin/nodes/:id/restart", description: "Restart node", auth: true, category: "Admin" },
+  const { data: apiDocsData, isLoading, error, refetch } = useQuery<ApiDocsData>({
+    queryKey: ["/api/admin/developer/docs"],
+  });
+
+  const defaultEndpoints: ApiEndpoint[] = [
+    { method: "GET", path: "/api/blocks", description: t("adminApiDocs.endpoints.getBlocks"), auth: false, category: "Blocks" },
+    { method: "GET", path: "/api/blocks/:height", description: t("adminApiDocs.endpoints.getBlockByHeight"), auth: false, category: "Blocks" },
+    { method: "GET", path: "/api/transactions", description: t("adminApiDocs.endpoints.getTransactions"), auth: false, category: "Transactions" },
+    { method: "GET", path: "/api/transactions/:hash", description: t("adminApiDocs.endpoints.getTransactionByHash"), auth: false, category: "Transactions" },
+    { method: "POST", path: "/api/transactions", description: t("adminApiDocs.endpoints.submitTransaction"), auth: true, category: "Transactions" },
+    { method: "GET", path: "/api/wallets/:address", description: t("adminApiDocs.endpoints.getWalletInfo"), auth: false, category: "Wallets" },
+    { method: "GET", path: "/api/wallets/:address/balance", description: t("adminApiDocs.endpoints.getWalletBalance"), auth: false, category: "Wallets" },
+    { method: "GET", path: "/api/validators", description: t("adminApiDocs.endpoints.getValidators"), auth: false, category: "Validators" },
+    { method: "POST", path: "/api/staking/delegate", description: t("adminApiDocs.endpoints.delegateToValidator"), auth: true, category: "Staking" },
+    { method: "POST", path: "/api/staking/undelegate", description: t("adminApiDocs.endpoints.undelegateFromValidator"), auth: true, category: "Staking" },
+    { method: "GET", path: "/api/admin/dashboard", description: t("adminApiDocs.endpoints.getAdminDashboard"), auth: true, category: "Admin" },
+    { method: "GET", path: "/api/admin/nodes", description: t("adminApiDocs.endpoints.getNodeList"), auth: true, category: "Admin" },
+    { method: "POST", path: "/api/admin/nodes/:id/restart", description: t("adminApiDocs.endpoints.restartNode"), auth: true, category: "Admin" },
   ];
+
+  const endpoints = apiDocsData?.endpoints || defaultEndpoints;
+  const stats = apiDocsData?.stats || {
+    totalEndpoints: 340,
+    publicApis: 180,
+    protectedApis: 160,
+    apiVersion: "v4.0",
+  };
 
   const categories = ["all", ...new Set(endpoints.map(e => e.category))];
 
@@ -64,113 +95,204 @@ export default function ApiDocs() {
 
   const getMethodColor = (method: string) => {
     switch (method) {
-      case "GET":
-        return "bg-green-500";
-      case "POST":
-        return "bg-blue-500";
-      case "PUT":
-        return "bg-yellow-500";
-      case "DELETE":
-        return "bg-red-500";
-      case "PATCH":
-        return "bg-purple-500";
-      default:
-        return "bg-gray-500";
+      case "GET": return "bg-green-500";
+      case "POST": return "bg-blue-500";
+      case "PUT": return "bg-yellow-500";
+      case "DELETE": return "bg-red-500";
+      case "PATCH": return "bg-purple-500";
+      default: return "bg-gray-500";
     }
   };
 
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      toast({
+        title: t("adminApiDocs.refreshSuccess"),
+        description: t("adminApiDocs.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminApiDocs.refreshError"),
+        description: t("adminApiDocs.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      endpoints,
+      stats,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tburn-api-docs-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: t("adminApiDocs.exportSuccess"),
+      description: t("adminApiDocs.exportSuccessDesc"),
+    });
+  }, [endpoints, stats, toast, t]);
+
+  const handleCopy = useCallback((text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: t("adminApiDocs.copied"),
+      description: t("adminApiDocs.copiedToClipboard"),
+    });
+  }, [toast, t]);
+
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="api-docs-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminApiDocs.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminApiDocs.error.description")}</p>
+            <Button onClick={() => refetch()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminApiDocs.retry")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto" data-testid="api-docs-page">
       <div className="container max-w-[1800px] mx-auto p-6 space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2" data-testid="text-page-title">
               <Book className="h-8 w-8" />
-              API Documentation
+              {t("adminApiDocs.title")}
             </h1>
-            <p className="text-muted-foreground">API 문서 | Complete API reference and documentation</p>
+            <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminApiDocs.subtitle")}</p>
           </div>
           <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              data-testid="button-refresh"
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+              {t("adminApiDocs.refresh")}
+            </Button>
             <Button variant="outline" data-testid="button-try-api">
               <Play className="h-4 w-4 mr-2" />
-              Try API
+              {t("adminApiDocs.tryApi")}
             </Button>
-            <Button variant="outline" data-testid="button-export">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Export OpenAPI
+            <Button variant="outline" onClick={handleExport} data-testid="button-export">
+              <Download className="h-4 w-4 mr-2" />
+              {t("adminApiDocs.exportOpenApi")}
             </Button>
           </div>
         </div>
 
-        {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Endpoints</CardTitle>
+          <Card data-testid="card-total-endpoints">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminApiDocs.totalEndpoints")}</CardTitle>
               <Globe className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">340+</div>
-              <p className="text-xs text-muted-foreground">REST API endpoints</p>
+              {isLoading ? (
+                <Skeleton className="h-8 w-20" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.totalEndpoints}+</div>
+                  <p className="text-xs text-muted-foreground">{t("adminApiDocs.restApiEndpoints")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Public APIs</CardTitle>
+          <Card data-testid="card-public-apis">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminApiDocs.publicApis")}</CardTitle>
               <Unlock className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-500">180</div>
-              <p className="text-xs text-muted-foreground">No auth required</p>
+              {isLoading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold text-green-500">{stats.publicApis}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminApiDocs.noAuthRequired")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Protected APIs</CardTitle>
+          <Card data-testid="card-protected-apis">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminApiDocs.protectedApis")}</CardTitle>
               <Lock className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-500">160</div>
-              <p className="text-xs text-muted-foreground">API key required</p>
+              {isLoading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold text-yellow-500">{stats.protectedApis}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminApiDocs.apiKeyRequired")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">API Version</CardTitle>
+          <Card data-testid="card-api-version">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
+              <CardTitle className="text-sm font-medium">{t("adminApiDocs.apiVersion")}</CardTitle>
               <Zap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">v4.0</div>
-              <p className="text-xs text-muted-foreground">Latest stable</p>
+              {isLoading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.apiVersion}</div>
+                  <p className="text-xs text-muted-foreground">{t("adminApiDocs.latestStable")}</p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="endpoints">Endpoints</TabsTrigger>
-            <TabsTrigger value="authentication">Authentication</TabsTrigger>
-            <TabsTrigger value="websocket">WebSocket</TabsTrigger>
+          <TabsList data-testid="tabs-api-docs">
+            <TabsTrigger value="overview" data-testid="tab-overview">{t("adminApiDocs.tabs.overview")}</TabsTrigger>
+            <TabsTrigger value="endpoints" data-testid="tab-endpoints">{t("adminApiDocs.tabs.endpoints")}</TabsTrigger>
+            <TabsTrigger value="authentication" data-testid="tab-authentication">{t("adminApiDocs.tabs.authentication")}</TabsTrigger>
+            <TabsTrigger value="websocket" data-testid="tab-websocket">{t("adminApiDocs.tabs.websocket")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Getting Started</CardTitle>
-                <CardDescription>Quick start guide for TBURN API</CardDescription>
+                <CardTitle>{t("adminApiDocs.gettingStarted")}</CardTitle>
+                <CardDescription>{t("adminApiDocs.quickStartGuide")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h3 className="font-medium mb-2">Base URL</h3>
+                  <h3 className="font-medium mb-2">{t("adminApiDocs.baseUrl")}</h3>
                   <div className="flex items-center gap-2">
                     <code className="px-4 py-2 bg-muted rounded-lg font-mono text-sm flex-1">
                       https://api.tburn.io/v1
                     </code>
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" onClick={() => handleCopy("https://api.tburn.io/v1")} data-testid="button-copy-base-url">
                       <Copy className="h-4 w-4" />
                     </Button>
                   </div>
@@ -179,7 +301,7 @@ export default function ApiDocs() {
                 <Separator />
 
                 <div>
-                  <h3 className="font-medium mb-2">Example Request</h3>
+                  <h3 className="font-medium mb-2">{t("adminApiDocs.exampleRequest")}</h3>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                     <pre>{`curl -X GET "https://api.tburn.io/v1/blocks/latest" \\
   -H "Content-Type: application/json"`}</pre>
@@ -189,7 +311,7 @@ export default function ApiDocs() {
                 <Separator />
 
                 <div>
-                  <h3 className="font-medium mb-2">Example Response</h3>
+                  <h3 className="font-medium mb-2">{t("adminApiDocs.exampleResponse")}</h3>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                     <pre>{`{
   "height": 12847562,
@@ -204,76 +326,76 @@ export default function ApiDocs() {
             </Card>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card>
+              <Card data-testid="card-blockchain-apis">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Database className="h-5 w-5" />
-                    Blockchain APIs
+                    {t("adminApiDocs.blockchainApis")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Blocks & Transactions
+                      {t("adminApiDocs.blocksTransactions")}
                     </li>
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Wallets & Balances
+                      {t("adminApiDocs.walletsBalances")}
                     </li>
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Smart Contracts
+                      {t("adminApiDocs.smartContracts")}
                     </li>
                   </ul>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card data-testid="card-staking-apis">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Shield className="h-5 w-5" />
-                    Staking APIs
+                    {t("adminApiDocs.stakingApis")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Validators
+                      {t("adminApiDocs.validators")}
                     </li>
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Delegation
+                      {t("adminApiDocs.delegation")}
                     </li>
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Rewards
+                      {t("adminApiDocs.rewards")}
                     </li>
                   </ul>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card data-testid="card-defi-apis">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Zap className="h-5 w-5" />
-                    DeFi APIs
+                    {t("adminApiDocs.defiApis")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      DEX & Swaps
+                      {t("adminApiDocs.dexSwaps")}
                     </li>
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Lending
+                      {t("adminApiDocs.lending")}
                     </li>
                     <li className="flex items-center gap-2">
                       <ChevronRight className="h-4 w-4" />
-                      Yield Farming
+                      {t("adminApiDocs.yieldFarming")}
                     </li>
                   </ul>
                 </CardContent>
@@ -288,10 +410,11 @@ export default function ApiDocs() {
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
-                      placeholder="Search endpoints..."
+                      placeholder={t("adminApiDocs.searchEndpoints")}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="pl-9"
+                      data-testid="input-search-endpoints"
                     />
                   </div>
                   <div className="flex gap-2 flex-wrap">
@@ -301,8 +424,9 @@ export default function ApiDocs() {
                         variant={selectedCategory === category ? "default" : "outline"}
                         size="sm"
                         onClick={() => setSelectedCategory(category)}
+                        data-testid={`button-category-${category}`}
                       >
-                        {category === "all" ? "All" : category}
+                        {category === "all" ? t("adminApiDocs.all") : category}
                       </Button>
                     ))}
                   </div>
@@ -312,34 +436,43 @@ export default function ApiDocs() {
 
             <Card>
               <CardHeader>
-                <CardTitle>API Endpoints</CardTitle>
-                <CardDescription>{filteredEndpoints.length} endpoints found</CardDescription>
+                <CardTitle>{t("adminApiDocs.apiEndpoints")}</CardTitle>
+                <CardDescription>{filteredEndpoints.length} {t("adminApiDocs.endpointsFound")}</CardDescription>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-[500px]">
+                {isLoading ? (
                   <div className="space-y-2">
-                    {filteredEndpoints.map((endpoint, index) => (
-                      <div 
-                        key={index} 
-                        className="flex items-center gap-4 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
-                      >
-                        <Badge className={`${getMethodColor(endpoint.method)} w-16 justify-center`}>
-                          {endpoint.method}
-                        </Badge>
-                        <code className="font-mono text-sm flex-1">{endpoint.path}</code>
-                        <span className="text-sm text-muted-foreground hidden md:block">{endpoint.description}</span>
-                        {endpoint.auth ? (
-                          <Lock className="h-4 w-4 text-yellow-500" />
-                        ) : (
-                          <Unlock className="h-4 w-4 text-green-500" />
-                        )}
-                        <Button variant="ghost" size="icon">
-                          <ChevronRight className="h-4 w-4" />
-                        </Button>
-                      </div>
+                    {[...Array(5)].map((_, i) => (
+                      <Skeleton key={i} className="h-14 w-full" />
                     ))}
                   </div>
-                </ScrollArea>
+                ) : (
+                  <ScrollArea className="h-[500px]">
+                    <div className="space-y-2">
+                      {filteredEndpoints.map((endpoint, index) => (
+                        <div 
+                          key={index} 
+                          className="flex items-center gap-4 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+                          data-testid={`endpoint-row-${index}`}
+                        >
+                          <Badge className={`${getMethodColor(endpoint.method)} w-16 justify-center`}>
+                            {endpoint.method}
+                          </Badge>
+                          <code className="font-mono text-sm flex-1">{endpoint.path}</code>
+                          <span className="text-sm text-muted-foreground hidden md:block">{endpoint.description}</span>
+                          {endpoint.auth ? (
+                            <Lock className="h-4 w-4 text-yellow-500" />
+                          ) : (
+                            <Unlock className="h-4 w-4 text-green-500" />
+                          )}
+                          <Button variant="ghost" size="icon" data-testid={`button-endpoint-details-${index}`}>
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -347,14 +480,14 @@ export default function ApiDocs() {
           <TabsContent value="authentication" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Authentication</CardTitle>
-                <CardDescription>How to authenticate with the TBURN API</CardDescription>
+                <CardTitle>{t("adminApiDocs.authentication")}</CardTitle>
+                <CardDescription>{t("adminApiDocs.howToAuthenticate")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h3 className="font-medium mb-2">API Key Authentication</h3>
+                  <h3 className="font-medium mb-2">{t("adminApiDocs.apiKeyAuthentication")}</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Include your API key in the request header for authenticated endpoints.
+                    {t("adminApiDocs.includeApiKey")}
                   </p>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                     <pre>{`curl -X GET "https://api.tburn.io/v1/admin/dashboard" \\
@@ -366,9 +499,9 @@ export default function ApiDocs() {
                 <Separator />
 
                 <div>
-                  <h3 className="font-medium mb-2">Request Signing (for sensitive operations)</h3>
+                  <h3 className="font-medium mb-2">{t("adminApiDocs.requestSigning")}</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Some operations require HMAC signature for additional security.
+                    {t("adminApiDocs.requestSigningDesc")}
                   </p>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                     <pre>{`const signature = crypto
@@ -387,12 +520,12 @@ headers['X-Timestamp'] = timestamp;`}</pre>
           <TabsContent value="websocket" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>WebSocket API</CardTitle>
-                <CardDescription>Real-time data streaming</CardDescription>
+                <CardTitle>{t("adminApiDocs.websocketApi")}</CardTitle>
+                <CardDescription>{t("adminApiDocs.realtimeDataStreaming")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h3 className="font-medium mb-2">Connection</h3>
+                  <h3 className="font-medium mb-2">{t("adminApiDocs.connection")}</h3>
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                     <pre>{`const ws = new WebSocket('wss://ws.tburn.io');
 
@@ -413,7 +546,7 @@ ws.onmessage = (event) => {
                 <Separator />
 
                 <div>
-                  <h3 className="font-medium mb-2">Available Channels</h3>
+                  <h3 className="font-medium mb-2">{t("adminApiDocs.availableChannels")}</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     <Badge variant="outline">blocks</Badge>
                     <Badge variant="outline">transactions</Badge>

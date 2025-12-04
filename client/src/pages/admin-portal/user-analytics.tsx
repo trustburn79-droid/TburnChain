@@ -1,269 +1,576 @@
+import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Users, UserPlus, Activity, TrendingUp, 
-  Globe, Clock, BarChart3
+  Globe, Clock, BarChart3, RefreshCw, Download, AlertCircle
 } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
+
+interface UserStats {
+  totalUsers: string;
+  activeToday: string;
+  newToday: string;
+  retention: string;
+}
+
+interface UserGrowth {
+  date: string;
+  new: number;
+  total: number;
+}
+
+interface UserTier {
+  tier: string;
+  count: number;
+  percentage: number;
+}
+
+interface GeoDistribution {
+  region: string;
+  users: number;
+  percentage: number;
+}
+
+interface ActivityDistribution {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface UserAnalytics {
+  stats: UserStats;
+  growth: UserGrowth[];
+  tiers: UserTier[];
+  geoDistribution: GeoDistribution[];
+  activityDistribution: ActivityDistribution[];
+  sessionMetrics: {
+    avgDuration: string;
+    pagesPerSession: string;
+    bounceRate: string;
+    returnRate: string;
+  };
+}
+
+function StatCard({
+  icon: Icon,
+  iconColor,
+  label,
+  value,
+  isLoading,
+  testId,
+  valueColor = "",
+  prefix = ""
+}: {
+  icon: any;
+  iconColor: string;
+  label: string;
+  value: string;
+  isLoading: boolean;
+  testId: string;
+  valueColor?: string;
+  prefix?: string;
+}) {
+  return (
+    <Card data-testid={testId}>
+      <CardContent className="pt-6">
+        <div className="flex items-center gap-2 mb-2">
+          <Icon className={`w-5 h-5 ${iconColor}`} />
+          <span className="text-sm text-muted-foreground">{label}</span>
+        </div>
+        {isLoading ? (
+          <Skeleton className="h-9 w-24" />
+        ) : (
+          <div className={`text-3xl font-bold ${valueColor}`} data-testid={`${testId}-value`}>{prefix}{value}</div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function AdminUserAnalytics() {
-  const userStats = {
-    totalUsers: "125,234",
-    activeToday: "45,678",
-    newToday: "1,234",
-    retention: "68.5%",
-  };
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [wsConnected, setWsConnected] = useState(false);
 
-  const userGrowth = [
-    { date: "Nov 27", new: 980, total: 120500 },
-    { date: "Nov 28", new: 1050, total: 121550 },
-    { date: "Nov 29", new: 1120, total: 122670 },
-    { date: "Nov 30", new: 1080, total: 123750 },
-    { date: "Dec 1", new: 1150, total: 124900 },
-    { date: "Dec 2", new: 1200, total: 126100 },
-    { date: "Dec 3", new: 1234, total: 127334 },
-  ];
+  const { data: userData, isLoading, error, refetch } = useQuery<UserAnalytics>({
+    queryKey: ["/api/admin/analytics/users"],
+    refetchInterval: 30000,
+  });
 
-  const userTiers = [
-    { tier: "Whale", count: 156, percentage: 0.12 },
-    { tier: "Large", count: 2340, percentage: 1.87 },
-    { tier: "Medium", count: 18500, percentage: 14.78 },
-    { tier: "Small", count: 104238, percentage: 83.23 },
-  ];
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+    const connectWebSocket = () => {
+      try {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+        
+        ws.onopen = () => {
+          setWsConnected(true);
+          ws?.send(JSON.stringify({ type: "subscribe", channels: ["user_analytics"] }));
+        };
+        
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "user_update") {
+              refetch();
+            }
+            setLastUpdate(new Date());
+          } catch (e) {
+            console.error("WebSocket message parse error:", e);
+          }
+        };
+        
+        ws.onclose = () => {
+          setWsConnected(false);
+          setTimeout(connectWebSocket, 5000);
+        };
+        
+        ws.onerror = () => {
+          setWsConnected(false);
+        };
+      } catch (e) {
+        console.error("WebSocket connection error:", e);
+      }
+    };
 
-  const geoDistribution = [
-    { region: "North America", users: 35000, percentage: 28 },
-    { region: "Europe", users: 30000, percentage: 24 },
-    { region: "Asia Pacific", users: 40000, percentage: 32 },
-    { region: "Others", users: 20234, percentage: 16 },
-  ];
+    connectWebSocket();
+    
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  }, [refetch]);
 
-  const activityDistribution = [
-    { name: "Daily Active", value: 45, color: "#22c55e" },
-    { name: "Weekly Active", value: 30, color: "#3b82f6" },
-    { name: "Monthly Active", value: 15, color: "#f97316" },
-    { name: "Inactive", value: 10, color: "#6b7280" },
-  ];
+  const userStats = useMemo(() => {
+    if (userData?.stats) return userData.stats;
+    return {
+      totalUsers: "125,234",
+      activeToday: "45,678",
+      newToday: "1,234",
+      retention: "68.5%",
+    };
+  }, [userData]);
+
+  const userGrowth = useMemo(() => {
+    if (userData?.growth) return userData.growth;
+    return [
+      { date: "Nov 27", new: 980, total: 120500 },
+      { date: "Nov 28", new: 1050, total: 121550 },
+      { date: "Nov 29", new: 1120, total: 122670 },
+      { date: "Nov 30", new: 1080, total: 123750 },
+      { date: "Dec 1", new: 1150, total: 124900 },
+      { date: "Dec 2", new: 1200, total: 126100 },
+      { date: "Dec 3", new: 1234, total: 127334 },
+    ];
+  }, [userData]);
+
+  const userTiers = useMemo(() => {
+    if (userData?.tiers) return userData.tiers;
+    return [
+      { tier: t("adminUserAnalytics.whale"), count: 156, percentage: 0.12 },
+      { tier: t("adminUserAnalytics.large"), count: 2340, percentage: 1.87 },
+      { tier: t("adminUserAnalytics.medium"), count: 18500, percentage: 14.78 },
+      { tier: t("adminUserAnalytics.small"), count: 104238, percentage: 83.23 },
+    ];
+  }, [userData, t]);
+
+  const geoDistribution = useMemo(() => {
+    if (userData?.geoDistribution) return userData.geoDistribution;
+    return [
+      { region: t("adminUserAnalytics.northAmerica"), users: 35000, percentage: 28 },
+      { region: t("adminUserAnalytics.europe"), users: 30000, percentage: 24 },
+      { region: t("adminUserAnalytics.asiaPacific"), users: 40000, percentage: 32 },
+      { region: t("adminUserAnalytics.others"), users: 20234, percentage: 16 },
+    ];
+  }, [userData, t]);
+
+  const activityDistribution = useMemo(() => {
+    if (userData?.activityDistribution) return userData.activityDistribution;
+    return [
+      { name: t("adminUserAnalytics.dailyActive"), value: 45, color: "#22c55e" },
+      { name: t("adminUserAnalytics.weeklyActive"), value: 30, color: "#3b82f6" },
+      { name: t("adminUserAnalytics.monthlyActive"), value: 15, color: "#f97316" },
+      { name: t("adminUserAnalytics.inactive"), value: 10, color: "#6b7280" },
+    ];
+  }, [userData, t]);
+
+  const sessionMetrics = useMemo(() => {
+    if (userData?.sessionMetrics) return userData.sessionMetrics;
+    return {
+      avgDuration: "12m 34s",
+      pagesPerSession: "4.2",
+      bounceRate: "24.5%",
+      returnRate: "68.5%",
+    };
+  }, [userData]);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+      toast({
+        title: t("adminUserAnalytics.refreshSuccess"),
+        description: t("adminUserAnalytics.dataUpdated"),
+      });
+    } catch (error) {
+      toast({
+        title: t("adminUserAnalytics.refreshError"),
+        description: t("adminUserAnalytics.refreshErrorDesc"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+      setLastUpdate(new Date());
+    }
+  }, [refetch, toast, t]);
+
+  const handleExport = useCallback(() => {
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      stats: userStats,
+      growth: userGrowth,
+      tiers: userTiers,
+      geoDistribution,
+      activityDistribution,
+      sessionMetrics,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tburn-user-analytics-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: t("adminUserAnalytics.exportSuccess"),
+      description: t("adminUserAnalytics.exportSuccessDesc"),
+    });
+  }, [userStats, userGrowth, userTiers, geoDistribution, activityDistribution, sessionMetrics, toast, t]);
+
+  if (error) {
+    return (
+      <div className="flex-1 flex items-center justify-center" data-testid="user-analytics-error">
+        <Card className="max-w-md">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">{t("adminUserAnalytics.error.title")}</h2>
+            <p className="text-muted-foreground mb-4">{t("adminUserAnalytics.error.description")}</p>
+            <Button onClick={() => refetch()} data-testid="button-retry">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t("adminUserAnalytics.retry")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <ScrollArea className="h-full">
-      <div className="p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold" data-testid="text-page-title">User Analytics</h1>
-            <p className="text-muted-foreground">User behavior and demographics analysis</p>
+    <TooltipProvider>
+      <ScrollArea className="h-full" data-testid="user-analytics-page">
+        <div className="p-6 space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold" data-testid="text-page-title">{t("adminUserAnalytics.title")}</h1>
+              <p className="text-muted-foreground" data-testid="text-page-subtitle">{t("adminUserAnalytics.subtitle")}</p>
+            </div>
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${wsConnected ? 'bg-green-500/10' : 'bg-yellow-500/10'}`}>
+                      <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
+                      <span className="text-xs">{wsConnected ? t("adminUserAnalytics.connected") : t("adminUserAnalytics.reconnecting")}</span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {wsConnected ? t("adminUserAnalytics.wsConnected") : t("adminUserAnalytics.wsReconnecting")}
+                  </TooltipContent>
+                </Tooltip>
+                <Clock className="h-4 w-4" />
+                <span data-testid="text-last-update">{t("adminUserAnalytics.lastUpdate")}: {lastUpdate.toLocaleTimeString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}</span>
+              </div>
+              <div className="flex gap-2">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isRefreshing} data-testid="button-refresh">
+                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminUserAnalytics.refresh")}</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" onClick={handleExport} data-testid="button-export">
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminUserAnalytics.export")}</TooltipContent>
+                </Tooltip>
+              </div>
+            </div>
           </div>
-          <Button variant="outline">Export Report</Button>
-        </div>
 
-        <div className="grid grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Users className="w-5 h-5 text-blue-500" />
-                <span className="text-sm text-muted-foreground">Total Users</span>
-              </div>
-              <div className="text-3xl font-bold">{userStats.totalUsers}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Activity className="w-5 h-5 text-green-500" />
-                <span className="text-sm text-muted-foreground">Active Today</span>
-              </div>
-              <div className="text-3xl font-bold">{userStats.activeToday}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <UserPlus className="w-5 h-5 text-purple-500" />
-                <span className="text-sm text-muted-foreground">New Today</span>
-              </div>
-              <div className="text-3xl font-bold text-green-500">+{userStats.newToday}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-5 h-5 text-orange-500" />
-                <span className="text-sm text-muted-foreground">Retention Rate</span>
-              </div>
-              <div className="text-3xl font-bold">{userStats.retention}</div>
-            </CardContent>
-          </Card>
-        </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" data-testid="user-stats-grid">
+            <StatCard
+              icon={Users}
+              iconColor="text-blue-500"
+              label={t("adminUserAnalytics.totalUsers")}
+              value={userStats.totalUsers}
+              isLoading={isLoading}
+              testId="stat-total-users"
+            />
+            <StatCard
+              icon={Activity}
+              iconColor="text-green-500"
+              label={t("adminUserAnalytics.activeToday")}
+              value={userStats.activeToday}
+              isLoading={isLoading}
+              testId="stat-active-today"
+            />
+            <StatCard
+              icon={UserPlus}
+              iconColor="text-purple-500"
+              label={t("adminUserAnalytics.newToday")}
+              value={userStats.newToday}
+              isLoading={isLoading}
+              testId="stat-new-today"
+              valueColor="text-green-500"
+              prefix="+"
+            />
+            <StatCard
+              icon={TrendingUp}
+              iconColor="text-orange-500"
+              label={t("adminUserAnalytics.retentionRate")}
+              value={userStats.retention}
+              isLoading={isLoading}
+              testId="stat-retention"
+            />
+          </div>
 
-        <Tabs defaultValue="growth" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="growth">Growth</TabsTrigger>
-            <TabsTrigger value="segments">Segments</TabsTrigger>
-            <TabsTrigger value="geography">Geography</TabsTrigger>
-            <TabsTrigger value="activity">Activity</TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue="growth" className="space-y-4" data-testid="tabs-users">
+            <TabsList data-testid="tabs-list">
+              <TabsTrigger value="growth" data-testid="tab-growth">{t("adminUserAnalytics.tabGrowth")}</TabsTrigger>
+              <TabsTrigger value="segments" data-testid="tab-segments">{t("adminUserAnalytics.tabSegments")}</TabsTrigger>
+              <TabsTrigger value="geography" data-testid="tab-geography">{t("adminUserAnalytics.tabGeography")}</TabsTrigger>
+              <TabsTrigger value="activity" data-testid="tab-activity">{t("adminUserAnalytics.tabActivity")}</TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="growth">
-            <Card>
-              <CardHeader>
-                <CardTitle>User Growth (7 Days)</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={userGrowth}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="date" />
-                      <YAxis yAxisId="left" />
-                      <YAxis yAxisId="right" orientation="right" />
-                      <Tooltip />
-                      <Area yAxisId="right" type="monotone" dataKey="total" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} name="Total Users" />
-                      <Line yAxisId="left" type="monotone" dataKey="new" stroke="#22c55e" name="New Users" strokeWidth={2} />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="segments">
-            <Card>
-              <CardHeader>
-                <CardTitle>User Tiers</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Tier</TableHead>
-                      <TableHead>Count</TableHead>
-                      <TableHead>Percentage</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {userTiers.map((tier, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">
-                          <Badge variant={
-                            tier.tier === "Whale" ? "default" :
-                            tier.tier === "Large" ? "secondary" : "outline"
-                          }>
-                            {tier.tier}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{tier.count.toLocaleString()}</TableCell>
-                        <TableCell>{tier.percentage}%</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="geography">
-            <Card>
-              <CardHeader>
-                <CardTitle>Geographic Distribution</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Region</TableHead>
-                      <TableHead>Users</TableHead>
-                      <TableHead>Percentage</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {geoDistribution.map((region, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-2">
-                            <Globe className="w-4 h-4" />
-                            {region.region}
-                          </div>
-                        </TableCell>
-                        <TableCell>{region.users.toLocaleString()}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline">{region.percentage}%</Badge>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="activity">
-            <div className="grid grid-cols-2 gap-4">
-              <Card>
+            <TabsContent value="growth">
+              <Card data-testid="card-user-growth">
                 <CardHeader>
-                  <CardTitle>Activity Distribution</CardTitle>
+                  <CardTitle>{t("adminUserAnalytics.userGrowth7Days")}</CardTitle>
+                  <CardDescription>{t("adminUserAnalytics.userGrowth7DaysDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={activityDistribution}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={80}
-                          dataKey="value"
-                        >
-                          {activityDistribution.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 mt-4">
-                    {activityDistribution.map((item, index) => (
-                      <div key={index} className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                        <span>{item.name}: {item.value}%</span>
-                      </div>
-                    ))}
-                  </div>
+                  {isLoading ? (
+                    <Skeleton className="h-80 w-full" />
+                  ) : (
+                    <div className="h-80">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={userGrowth}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="date" />
+                          <YAxis yAxisId="left" />
+                          <YAxis yAxisId="right" orientation="right" />
+                          <RechartsTooltip />
+                          <Area yAxisId="right" type="monotone" dataKey="total" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} name={t("adminUserAnalytics.totalUsers")} />
+                          <Line yAxisId="left" type="monotone" dataKey="new" stroke="#22c55e" name={t("adminUserAnalytics.newUsers")} strokeWidth={2} />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
+            </TabsContent>
 
-              <Card>
+            <TabsContent value="segments">
+              <Card data-testid="card-user-tiers">
                 <CardHeader>
-                  <CardTitle>Session Metrics</CardTitle>
+                  <CardTitle>{t("adminUserAnalytics.userTiers")}</CardTitle>
+                  <CardDescription>{t("adminUserAnalytics.userTiersDesc")}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <span>Avg Session Duration</span>
-                    <span className="font-medium">12m 34s</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <span>Pages per Session</span>
-                    <span className="font-medium">4.2</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <span>Bounce Rate</span>
-                    <span className="font-medium">24.5%</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <span>Return Rate</span>
-                    <span className="font-medium">68.5%</span>
-                  </div>
+                <CardContent>
+                  {isLoading ? (
+                    <div className="space-y-2">
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} className="h-12 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminUserAnalytics.tier")}</TableHead>
+                          <TableHead>{t("adminUserAnalytics.count")}</TableHead>
+                          <TableHead>{t("adminUserAnalytics.percentage")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {userTiers.map((tier, index) => (
+                          <TableRow key={index} data-testid={`tier-row-${index}`}>
+                            <TableCell className="font-medium">
+                              <Badge variant={
+                                tier.tier.includes(t("adminUserAnalytics.whale")) ? "default" :
+                                tier.tier.includes(t("adminUserAnalytics.large")) ? "secondary" : "outline"
+                              } data-testid={`tier-badge-${index}`}>
+                                {tier.tier}
+                              </Badge>
+                            </TableCell>
+                            <TableCell data-testid={`tier-count-${index}`}>{tier.count.toLocaleString()}</TableCell>
+                            <TableCell data-testid={`tier-pct-${index}`}>{tier.percentage}%</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
                 </CardContent>
               </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
-    </ScrollArea>
+            </TabsContent>
+
+            <TabsContent value="geography">
+              <Card data-testid="card-geo-distribution">
+                <CardHeader>
+                  <CardTitle>{t("adminUserAnalytics.geographicDistribution")}</CardTitle>
+                  <CardDescription>{t("adminUserAnalytics.geographicDistributionDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <div className="space-y-2">
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} className="h-12 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>{t("adminUserAnalytics.region")}</TableHead>
+                          <TableHead>{t("adminUserAnalytics.users")}</TableHead>
+                          <TableHead>{t("adminUserAnalytics.percentage")}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {geoDistribution.map((region, index) => (
+                          <TableRow key={index} data-testid={`geo-row-${index}`}>
+                            <TableCell className="font-medium">
+                              <div className="flex items-center gap-2">
+                                <Globe className="w-4 h-4" />
+                                <span data-testid={`geo-region-${index}`}>{region.region}</span>
+                              </div>
+                            </TableCell>
+                            <TableCell data-testid={`geo-users-${index}`}>{region.users.toLocaleString()}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline" data-testid={`geo-pct-${index}`}>{region.percentage}%</Badge>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="activity">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <Card data-testid="card-activity-distribution">
+                  <CardHeader>
+                    <CardTitle>{t("adminUserAnalytics.activityDistribution")}</CardTitle>
+                    <CardDescription>{t("adminUserAnalytics.activityDistributionDesc")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {isLoading ? (
+                      <>
+                        <Skeleton className="h-64 w-full mb-4" />
+                        <Skeleton className="h-20 w-full" />
+                      </>
+                    ) : (
+                      <>
+                        <div className="h-64 flex items-center justify-center">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <PieChart>
+                              <Pie
+                                data={activityDistribution}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={60}
+                                outerRadius={80}
+                                dataKey="value"
+                              >
+                                {activityDistribution.map((entry, index) => (
+                                  <Cell key={`cell-${index}`} fill={entry.color} />
+                                ))}
+                              </Pie>
+                              <RechartsTooltip />
+                            </PieChart>
+                          </ResponsiveContainer>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 mt-4">
+                          {activityDistribution.map((item, index) => (
+                            <div key={index} className="flex items-center gap-2 text-sm" data-testid={`activity-item-${index}`}>
+                              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                              <span>{item.name}: {item.value}%</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card data-testid="card-session-metrics">
+                  <CardHeader>
+                    <CardTitle>{t("adminUserAnalytics.sessionMetrics")}</CardTitle>
+                    <CardDescription>{t("adminUserAnalytics.sessionMetricsDesc")}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {isLoading ? (
+                      Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} className="h-12 w-full" />
+                      ))
+                    ) : (
+                      <>
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg" data-testid="metric-avg-duration">
+                          <span>{t("adminUserAnalytics.avgSessionDuration")}</span>
+                          <span className="font-medium">{sessionMetrics.avgDuration}</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg" data-testid="metric-pages-per-session">
+                          <span>{t("adminUserAnalytics.pagesPerSession")}</span>
+                          <span className="font-medium">{sessionMetrics.pagesPerSession}</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg" data-testid="metric-bounce-rate">
+                          <span>{t("adminUserAnalytics.bounceRate")}</span>
+                          <span className="font-medium">{sessionMetrics.bounceRate}</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg" data-testid="metric-return-rate">
+                          <span>{t("adminUserAnalytics.returnRate")}</span>
+                          <span className="font-medium">{sessionMetrics.returnRate}</span>
+                        </div>
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </ScrollArea>
+    </TooltipProvider>
   );
 }
