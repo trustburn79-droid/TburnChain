@@ -253,7 +253,7 @@ function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
     >
       <TableCell>
         <Link 
-          href={`/blocks/${block.blockNumber}`} 
+          href={`/app/blocks/${block.blockNumber}`} 
           className="font-mono text-primary hover:underline font-semibold"
           data-testid={`link-block-${block.blockNumber}`}
         >
@@ -637,7 +637,7 @@ export default function Blocks() {
           description: t('blocks.tryDifferentSearchTerm'),
         });
       } else if (data.length === 1) {
-        setLocation(`/blocks/${data[0].blockNumber}`);
+        setLocation(`/app/blocks/${data[0].blockNumber}`);
       } else {
         toast({
           title: t('blocks.foundBlocks', { count: data.length }),
@@ -1068,7 +1068,7 @@ export default function Blocks() {
                     <BlockRow
                       key={block.id}
                       block={block}
-                      onClick={() => setLocation(`/blocks/${block.blockNumber}`)}
+                      onClick={() => setLocation(`/app/blocks/${block.blockNumber}`)}
                     />
                   ))}
                 </TableBody>

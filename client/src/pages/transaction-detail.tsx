@@ -149,7 +149,7 @@ export default function TransactionDetail() {
               <div>
                 <p className="text-sm text-muted-foreground">{t('transactions.blockNumber', 'Block Number')}</p>
                 <Link 
-                  href={`/blocks/${transaction.blockNumber}`}
+                  href={`/app/blocks/${transaction.blockNumber}`}
                   className="font-mono text-sm text-primary hover:underline"
                   data-testid="link-block-number"
                 >

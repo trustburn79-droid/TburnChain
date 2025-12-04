@@ -112,7 +112,7 @@ const typeLabels: Record<string, string> = {
 function getNavigationPath(result: SearchResult): string {
   switch (result.type) {
     case 'block':
-      return `/blocks/${result.data.blockNumber || result.id}`;
+      return `/app/blocks/${result.data.blockNumber || result.id}`;
     case 'transaction':
       return `/transactions/${result.id}`;
     case 'address':

@@ -122,7 +122,7 @@ export function SearchBar({
     
     switch (result.type) {
       case 'block':
-        navigate(`/blocks/${result.data.blockNumber || result.id}`);
+        navigate(`/app/blocks/${result.data.blockNumber || result.id}`);
         break;
       case 'transaction':
         navigate(`/transactions/${result.id}`);

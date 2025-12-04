@@ -1296,7 +1296,7 @@ export default function Dashboard() {
                 <Button variant="outline" onClick={() => setSelectedBlock(null)}>
                   {t("dashboard.close")}
                 </Button>
-                <Link href={`/blocks/${selectedBlock.blockNumber}`}>
+                <Link href={`/app/blocks/${selectedBlock.blockNumber}`}>
                   <Button data-testid="button-view-block-details">
                     {t("dashboard.viewFullDetails")}
                     <ArrowRight className="h-4 w-4 ml-1" />

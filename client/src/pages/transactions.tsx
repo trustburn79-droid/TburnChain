@@ -239,7 +239,7 @@ function TransactionRow({
       </TableCell>
       <TableCell>
         <Link 
-          href={`/blocks/${tx.blockNumber}`}
+          href={`/app/blocks/${tx.blockNumber}`}
           className="font-mono text-xs text-primary hover:underline"
         >
           #{tx.blockNumber?.toLocaleString() || '-'}
