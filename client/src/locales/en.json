@@ -6301,6 +6301,73 @@
       "securitySolutions": "Security Solutions",
       "forDevelopers": "For Developers"
     },
+    "signup": {
+      "gatewayRegister": "GATEWAY_REGISTER",
+      "title": "Initialize",
+      "subtitle": "Create a new identity on the Neural Layer",
+      "nodeAlias": "NODE ALIAS",
+      "usernamePlaceholder": "Enter username",
+      "signalFrequency": "SIGNAL FREQUENCY (EMAIL)",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "ENCRYPTION KEY",
+      "passwordPlaceholder": "Password",
+      "verifyKey": "VERIFY KEY",
+      "confirmPlaceholder": "Confirm",
+      "nodeClass": "NODE CLASS",
+      "memberTiers": {
+        "basicUser": {
+          "label": "Basic User",
+          "description": "Standard network access and transaction capabilities"
+        },
+        "delegatedStaker": {
+          "label": "Delegated Staker",
+          "description": "Delegate tokens to validators and earn rewards"
+        }
+      },
+      "terms": {
+        "prefix": "I accept the",
+        "genesisProtocols": "Genesis Protocols",
+        "suffix": "and acknowledge that my node data will be immutable on the chain."
+      },
+      "initializeNode": "Initialize Node",
+      "initializing": "Initializing...",
+      "alreadyHaveNode": "Already have a node ID?",
+      "accessGateway": "Access Gateway",
+      "systemPrivileges": "System Privileges",
+      "privilegesSubtitle": "Initializing your account grants immediate access to:",
+      "privileges": {
+        "validator": {
+          "title": "High-Speed Validator",
+          "description": "Participate in consensus with 100,000 TPS capability directly from your dashboard."
+        },
+        "analytics": {
+          "title": "Token Analytics",
+          "description": "Real-time portfolio tracking with AI-powered insights and burn metrics."
+        },
+        "network": {
+          "title": "Global Network Access",
+          "description": "Connect to validators across all shards with latency-optimized routing."
+        }
+      },
+      "nav": {
+        "developers": "Developers",
+        "network": "Network"
+      },
+      "toast": {
+        "successTitle": "Node Initialized",
+        "successDescription": "Welcome to TBurn Chain! Your account is now active.",
+        "errorTitle": "Initialization Failed",
+        "errorDescription": "Unable to create account. Please try again."
+      },
+      "validation": {
+        "usernameMin": "Username must be at least 3 characters",
+        "usernameMax": "Username must be at most 20 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "passwordMin": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match",
+        "termsRequired": "You must accept the terms"
+      }
+    },
     "header": {
       "learn": "Learn",
       "developers": "Developers",

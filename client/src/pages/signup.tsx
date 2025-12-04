@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useLocation } from "wouter";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -168,52 +169,64 @@ function NeuralCanvasSignup() {
   );
 }
 
-const memberTierOptions = [
-  { value: "basic_user", label: "Basic User", description: "Standard network access and transaction capabilities" },
-  { value: "delegated_staker", label: "Delegated Staker", description: "Delegate tokens to validators and earn rewards" },
-] as const;
+type SignupFormData = {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  memberTier: "basic_user" | "delegated_staker";
+  terms: boolean;
+};
 
-const signupSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username must be at most 20 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  confirmPassword: z.string(),
-  memberTier: z.enum(["basic_user", "delegated_staker"]),
-  terms: z.boolean().refine(val => val === true, "You must accept the terms"),
-}).refine(data => data.password === data.confirmPassword, {
-  message: "Passwords do not match",
-  path: ["confirmPassword"],
-});
-
-type SignupFormData = z.infer<typeof signupSchema>;
-
-const privileges = [
-  {
-    icon: Zap,
-    title: "High-Speed Validator",
-    description: "Participate in consensus with 100,000 TPS capability directly from your dashboard.",
-    color: "purple",
-  },
-  {
-    icon: TrendingUp,
-    title: "Token Analytics",
-    description: "Real-time portfolio tracking with AI-powered insights and burn metrics.",
-    color: "cyan",
-  },
-  {
-    icon: Globe,
-    title: "Global Network Access",
-    description: "Connect to validators across all shards with latency-optimized routing.",
-    color: "purple",
-  },
-];
+function createSignupSchema(t: (key: string) => string) {
+  return z.object({
+    username: z.string().min(3, t("publicPages.signup.validation.usernameMin")).max(20, t("publicPages.signup.validation.usernameMax")),
+    email: z.string().email(t("publicPages.signup.validation.emailInvalid")),
+    password: z.string().min(8, t("publicPages.signup.validation.passwordMin")),
+    confirmPassword: z.string(),
+    memberTier: z.enum(["basic_user", "delegated_staker"]),
+    terms: z.boolean().refine(val => val === true, t("publicPages.signup.validation.termsRequired")),
+  }).refine(data => data.password === data.confirmPassword, {
+    message: t("publicPages.signup.validation.passwordMismatch"),
+    path: ["confirmPassword"],
+  });
+}
 
 export default function Signup() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const [, navigate] = useLocation();
-  const displayText = useTextScramble("Initialize", 500);
+  const displayText = useTextScramble(t("publicPages.signup.title"), 500);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const signupSchema = createSignupSchema(t);
+  
+  const memberTierOptions = [
+    { value: "basic_user" as const, label: t("publicPages.signup.memberTiers.basicUser.label"), description: t("publicPages.signup.memberTiers.basicUser.description") },
+    { value: "delegated_staker" as const, label: t("publicPages.signup.memberTiers.delegatedStaker.label"), description: t("publicPages.signup.memberTiers.delegatedStaker.description") },
+  ];
+
+  const privileges = [
+    {
+      icon: Zap,
+      title: t("publicPages.signup.privileges.validator.title"),
+      description: t("publicPages.signup.privileges.validator.description"),
+      color: "purple",
+    },
+    {
+      icon: TrendingUp,
+      title: t("publicPages.signup.privileges.analytics.title"),
+      description: t("publicPages.signup.privileges.analytics.description"),
+      color: "cyan",
+    },
+    {
+      icon: Globe,
+      title: t("publicPages.signup.privileges.network.title"),
+      description: t("publicPages.signup.privileges.network.description"),
+      color: "purple",
+    },
+  ];
 
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
@@ -259,15 +272,15 @@ export default function Signup() {
       await queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
       
       toast({
-        title: "Node Initialized",
-        description: "Welcome to TBurn Chain! Your account is now active.",
+        title: t("publicPages.signup.toast.successTitle"),
+        description: t("publicPages.signup.toast.successDescription"),
       });
       
       navigate("/app");
     } catch (error: any) {
       toast({
-        title: "Initialization Failed",
-        description: error.message || "Unable to create account. Please try again.",
+        title: t("publicPages.signup.toast.errorTitle"),
+        description: error.message || t("publicPages.signup.toast.errorDescription"),
         variant: "destructive",
       });
     } finally {
@@ -297,10 +310,10 @@ export default function Signup() {
             
             <div className="hidden md:flex items-center gap-6">
               <Link href="/developers">
-                <a className="text-sm font-medium text-gray-400 hover:text-white transition">Developers</a>
+                <a className="text-sm font-medium text-gray-400 hover:text-white transition">{t("publicPages.signup.nav.developers")}</a>
               </Link>
               <Link href="/network">
-                <a className="text-sm font-medium text-gray-400 hover:text-white transition">Network</a>
+                <a className="text-sm font-medium text-gray-400 hover:text-white transition">{t("publicPages.signup.nav.network")}</a>
               </Link>
             </div>
           </div>
@@ -322,7 +335,7 @@ export default function Signup() {
             <div className="mb-6">
               <div className="inline-flex items-center gap-2 px-2 py-1 rounded bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
-                GATEWAY_REGISTER
+                {t("publicPages.signup.gatewayRegister")}
               </div>
               <h1 
                 className="text-3xl font-bold text-white mb-2"
@@ -330,14 +343,14 @@ export default function Signup() {
               >
                 {displayText}
               </h1>
-              <p className="text-sm text-gray-400">Create a new identity on the Neural Layer</p>
+              <p className="text-sm text-gray-400">{t("publicPages.signup.subtitle")}</p>
             </div>
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 {/* Username */}
                 <div className="space-y-1">
-                  <label className="text-xs font-mono text-gray-500 ml-1">NODE ALIAS</label>
+                  <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.nodeAlias")}</label>
                   <FormField
                     control={form.control}
                     name="username"
@@ -348,7 +361,7 @@ export default function Signup() {
                             <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                             <Input
                               {...field}
-                              placeholder="Enter username"
+                              placeholder={t("publicPages.signup.usernamePlaceholder")}
                               disabled={isLoading}
                               data-testid="input-username"
                               className="bg-black/30 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-400 focus:ring-purple-400/20 pl-10 h-11"
@@ -363,7 +376,7 @@ export default function Signup() {
 
                 {/* Email */}
                 <div className="space-y-1">
-                  <label className="text-xs font-mono text-gray-500 ml-1">SIGNAL FREQUENCY (EMAIL)</label>
+                  <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.signalFrequency")}</label>
                   <FormField
                     control={form.control}
                     name="email"
@@ -375,7 +388,7 @@ export default function Signup() {
                             <Input
                               {...field}
                               type="email"
-                              placeholder="name@example.com"
+                              placeholder={t("publicPages.signup.emailPlaceholder")}
                               disabled={isLoading}
                               data-testid="input-email"
                               className="bg-black/30 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-400 focus:ring-purple-400/20 pl-10 h-11"
@@ -391,7 +404,7 @@ export default function Signup() {
                 {/* Password Fields */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-mono text-gray-500 ml-1">ENCRYPTION KEY</label>
+                    <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.encryptionKey")}</label>
                     <FormField
                       control={form.control}
                       name="password"
@@ -403,7 +416,7 @@ export default function Signup() {
                               <Input
                                 {...field}
                                 type="password"
-                                placeholder="Password"
+                                placeholder={t("publicPages.signup.passwordPlaceholder")}
                                 disabled={isLoading}
                                 data-testid="input-password"
                                 className="bg-black/30 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-400 focus:ring-purple-400/20 pl-10 h-11"
@@ -416,7 +429,7 @@ export default function Signup() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-mono text-gray-500 ml-1">VERIFY KEY</label>
+                    <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.verifyKey")}</label>
                     <FormField
                       control={form.control}
                       name="confirmPassword"
@@ -428,7 +441,7 @@ export default function Signup() {
                               <Input
                                 {...field}
                                 type="password"
-                                placeholder="Confirm"
+                                placeholder={t("publicPages.signup.confirmPlaceholder")}
                                 disabled={isLoading}
                                 data-testid="input-confirm-password"
                                 className="bg-black/30 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-400 focus:ring-purple-400/20 pl-10 h-11"
@@ -444,7 +457,7 @@ export default function Signup() {
 
                 {/* Member Tier Selection */}
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-gray-500 ml-1">NODE CLASS</label>
+                  <label className="text-xs font-mono text-gray-500 ml-1">{t("publicPages.signup.nodeClass")}</label>
                   <FormField
                     control={form.control}
                     name="memberTier"
@@ -510,9 +523,9 @@ export default function Signup() {
                         />
                       </FormControl>
                       <label className="text-xs text-gray-400 leading-relaxed cursor-pointer" onClick={() => field.onChange(!field.value)}>
-                        I accept the{" "}
-                        <a href="#" className="text-cyan-400 hover:underline">Genesis Protocols</a>
-                        {" "}and acknowledge that my node data will be immutable on the chain.
+                        {t("publicPages.signup.terms.prefix")}{" "}
+                        <a href="#" className="text-cyan-400 hover:underline">{t("publicPages.signup.terms.genesisProtocols")}</a>
+                        {" "}{t("publicPages.signup.terms.suffix")}
                       </label>
                     </FormItem>
                   )}
@@ -526,16 +539,16 @@ export default function Signup() {
                   className="w-full h-12 bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:-translate-y-0.5 transition-all mt-4"
                 >
                   <Rocket className="w-4 h-4 mr-2" />
-                  {isLoading ? "Initializing..." : "Initialize Node"}
+                  {isLoading ? t("publicPages.signup.initializing") : t("publicPages.signup.initializeNode")}
                 </Button>
               </form>
             </Form>
 
             <div className="mt-6 text-center">
               <p className="text-xs text-gray-500">
-                Already have a node ID?{" "}
+                {t("publicPages.signup.alreadyHaveNode")}{" "}
                 <Link href="/app">
-                  <a className="text-purple-400 hover:text-white transition ml-1 font-bold">Access Gateway</a>
+                  <a className="text-purple-400 hover:text-white transition ml-1 font-bold">{t("publicPages.signup.accessGateway")}</a>
                 </Link>
               </p>
             </div>
@@ -548,9 +561,9 @@ export default function Signup() {
 
             <div className="mb-8 relative z-10">
               <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <Shield className="w-6 h-6 text-cyan-400" /> System Privileges
+                <Shield className="w-6 h-6 text-cyan-400" /> {t("publicPages.signup.systemPrivileges")}
               </h2>
-              <p className="text-sm text-gray-400">Initializing your account grants immediate access to:</p>
+              <p className="text-sm text-gray-400">{t("publicPages.signup.privilegesSubtitle")}</p>
             </div>
 
             <div className="space-y-6 relative z-10">

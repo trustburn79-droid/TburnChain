@@ -3683,6 +3683,73 @@
       "securitySolutions": "Решения безопасности",
       "forDevelopers": "Для разработчиков"
     },
+    "signup": {
+      "gatewayRegister": "РЕГИСТРАЦИЯ_ШЛЮЗА",
+      "title": "Инициализация",
+      "subtitle": "Создайте новую идентичность в нейронном слое",
+      "nodeAlias": "ПСЕВДОНИМ УЗЛА",
+      "usernamePlaceholder": "Введите имя пользователя",
+      "signalFrequency": "ЧАСТОТА СИГНАЛА (EMAIL)",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "КЛЮЧ ШИФРОВАНИЯ",
+      "passwordPlaceholder": "Пароль",
+      "verifyKey": "ПОДТВЕРДИТЬ КЛЮЧ",
+      "confirmPlaceholder": "Подтвердить",
+      "nodeClass": "КЛАСС УЗЛА",
+      "memberTiers": {
+        "basicUser": {
+          "label": "Базовый пользователь",
+          "description": "Стандартный доступ к сети и возможности транзакций"
+        },
+        "delegatedStaker": {
+          "label": "Делегированный стейкер",
+          "description": "Делегируйте токены валидаторам и получайте вознаграждения"
+        }
+      },
+      "terms": {
+        "prefix": "Я принимаю",
+        "genesisProtocols": "Протоколы Genesis",
+        "suffix": "и признаю, что данные моего узла будут неизменными в блокчейне."
+      },
+      "initializeNode": "Инициализировать узел",
+      "initializing": "Инициализация...",
+      "alreadyHaveNode": "Уже есть ID узла?",
+      "accessGateway": "Доступ к шлюзу",
+      "systemPrivileges": "Системные привилегии",
+      "privilegesSubtitle": "Инициализация аккаунта дает немедленный доступ к:",
+      "privileges": {
+        "validator": {
+          "title": "Высокоскоростной валидатор",
+          "description": "Участвуйте в консенсусе с производительностью 100 000 TPS прямо из панели управления."
+        },
+        "analytics": {
+          "title": "Аналитика токенов",
+          "description": "Отслеживание портфеля в реальном времени с AI-аналитикой и метриками сжигания."
+        },
+        "network": {
+          "title": "Глобальный доступ к сети",
+          "description": "Подключайтесь к валидаторам всех шардов с оптимизированной маршрутизацией."
+        }
+      },
+      "nav": {
+        "developers": "Разработчики",
+        "network": "Сеть"
+      },
+      "toast": {
+        "successTitle": "Узел инициализирован",
+        "successDescription": "Добро пожаловать в TBurn Chain! Ваш аккаунт активирован.",
+        "errorTitle": "Ошибка инициализации",
+        "errorDescription": "Не удалось создать аккаунт. Пожалуйста, попробуйте снова."
+      },
+      "validation": {
+        "usernameMin": "Имя пользователя должно содержать минимум 3 символа",
+        "usernameMax": "Имя пользователя должно содержать максимум 20 символов",
+        "emailInvalid": "Пожалуйста, введите корректный email",
+        "passwordMin": "Пароль должен содержать минимум 8 символов",
+        "passwordMismatch": "Пароли не совпадают",
+        "termsRequired": "Вы должны принять условия"
+      }
+    },
     "header": {
       "learn": "Обучение",
       "developers": "Разработчики",

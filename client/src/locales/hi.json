@@ -4962,6 +4962,73 @@
       "securitySolutions": "सुरक्षा समाधान",
       "forDevelopers": "डेवलपर्स के लिए"
     },
+    "signup": {
+      "gatewayRegister": "गेटवे_पंजीकरण",
+      "title": "प्रारंभ करें",
+      "subtitle": "न्यूरल लेयर पर नई पहचान बनाएं",
+      "nodeAlias": "नोड उपनाम",
+      "usernamePlaceholder": "उपयोगकर्ता नाम दर्ज करें",
+      "signalFrequency": "सिग्नल फ्रीक्वेंसी (ईमेल)",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "एन्क्रिप्शन कुंजी",
+      "passwordPlaceholder": "पासवर्ड",
+      "verifyKey": "कुंजी सत्यापित करें",
+      "confirmPlaceholder": "पुष्टि करें",
+      "nodeClass": "नोड क्लास",
+      "memberTiers": {
+        "basicUser": {
+          "label": "बेसिक यूजर",
+          "description": "मानक नेटवर्क एक्सेस और लेनदेन क्षमताएं"
+        },
+        "delegatedStaker": {
+          "label": "डेलीगेटेड स्टेकर",
+          "description": "वैलिडेटर्स को टोकन डेलीगेट करें और पुरस्कार अर्जित करें"
+        }
+      },
+      "terms": {
+        "prefix": "मैं स्वीकार करता/करती हूं",
+        "genesisProtocols": "जेनेसिस प्रोटोकॉल",
+        "suffix": "और स्वीकार करता/करती हूं कि मेरा नोड डेटा चेन पर अपरिवर्तनीय होगा।"
+      },
+      "initializeNode": "नोड प्रारंभ करें",
+      "initializing": "प्रारंभ हो रहा है...",
+      "alreadyHaveNode": "पहले से नोड आईडी है?",
+      "accessGateway": "गेटवे एक्सेस करें",
+      "systemPrivileges": "सिस्टम विशेषाधिकार",
+      "privilegesSubtitle": "खाता प्रारंभ करने पर तुरंत एक्सेस मिलता है:",
+      "privileges": {
+        "validator": {
+          "title": "हाई-स्पीड वैलिडेटर",
+          "description": "अपने डैशबोर्ड से सीधे 100,000 TPS सहमति में भाग लें।"
+        },
+        "analytics": {
+          "title": "टोकन एनालिटिक्स",
+          "description": "AI-पावर्ड इनसाइट्स और बर्न मेट्रिक्स के साथ रियल-टाइम पोर्टफोलियो ट्रैकिंग।"
+        },
+        "network": {
+          "title": "ग्लोबल नेटवर्क एक्सेस",
+          "description": "लेटेंसी-ऑप्टिमाइज़्ड रूटिंग के साथ सभी शार्ड्स के वैलिडेटर्स से कनेक्ट करें।"
+        }
+      },
+      "nav": {
+        "developers": "डेवलपर्स",
+        "network": "नेटवर्क"
+      },
+      "toast": {
+        "successTitle": "नोड प्रारंभ हो गया",
+        "successDescription": "TBurn Chain में आपका स्वागत है! आपका खाता अब सक्रिय है।",
+        "errorTitle": "प्रारंभ विफल",
+        "errorDescription": "खाता नहीं बनाया जा सका। कृपया पुनः प्रयास करें।"
+      },
+      "validation": {
+        "usernameMin": "उपयोगकर्ता नाम कम से कम 3 अक्षरों का होना चाहिए",
+        "usernameMax": "उपयोगकर्ता नाम अधिकतम 20 अक्षरों का होना चाहिए",
+        "emailInvalid": "कृपया वैध ईमेल पता दर्ज करें",
+        "passwordMin": "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए",
+        "passwordMismatch": "पासवर्ड मेल नहीं खाते",
+        "termsRequired": "आपको शर्तें स्वीकार करनी होंगी"
+      }
+    },
     "header": {
       "learn": "सीखें",
       "developers": "डेवलपर्स",

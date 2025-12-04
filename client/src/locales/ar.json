@@ -4483,6 +4483,73 @@
       "securitySolutions": "حلول الأمان",
       "forDevelopers": "للمطورين"
     },
+    "signup": {
+      "gatewayRegister": "تسجيل_البوابة",
+      "title": "تهيئة",
+      "subtitle": "أنشئ هوية جديدة على الطبقة العصبية",
+      "nodeAlias": "اسم العقدة",
+      "usernamePlaceholder": "أدخل اسم المستخدم",
+      "signalFrequency": "تردد الإشارة (البريد الإلكتروني)",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "مفتاح التشفير",
+      "passwordPlaceholder": "كلمة المرور",
+      "verifyKey": "تحقق من المفتاح",
+      "confirmPlaceholder": "تأكيد",
+      "nodeClass": "فئة العقدة",
+      "memberTiers": {
+        "basicUser": {
+          "label": "مستخدم أساسي",
+          "description": "الوصول القياسي للشبكة وقدرات المعاملات"
+        },
+        "delegatedStaker": {
+          "label": "مفوض التخزين",
+          "description": "فوض الرموز للمدققين واكسب المكافآت"
+        }
+      },
+      "terms": {
+        "prefix": "أقبل",
+        "genesisProtocols": "بروتوكولات التكوين",
+        "suffix": "وأقر بأن بيانات العقدة الخاصة بي ستكون غير قابلة للتغيير على السلسلة."
+      },
+      "initializeNode": "تهيئة العقدة",
+      "initializing": "جاري التهيئة...",
+      "alreadyHaveNode": "لديك معرف عقدة بالفعل؟",
+      "accessGateway": "الوصول إلى البوابة",
+      "systemPrivileges": "امتيازات النظام",
+      "privilegesSubtitle": "تهيئة حسابك تمنحك وصولاً فورياً إلى:",
+      "privileges": {
+        "validator": {
+          "title": "مدقق عالي السرعة",
+          "description": "شارك في الإجماع بقدرة ١٠٠,٠٠٠ TPS مباشرة من لوحة التحكم."
+        },
+        "analytics": {
+          "title": "تحليلات الرموز",
+          "description": "تتبع المحفظة في الوقت الفعلي مع رؤى AI ومقاييس الحرق."
+        },
+        "network": {
+          "title": "الوصول العالمي للشبكة",
+          "description": "اتصل بالمدققين عبر جميع الشظايا مع توجيه محسن للتأخير."
+        }
+      },
+      "nav": {
+        "developers": "المطورون",
+        "network": "الشبكة"
+      },
+      "toast": {
+        "successTitle": "تم تهيئة العقدة",
+        "successDescription": "مرحباً بك في TBurn Chain! حسابك نشط الآن.",
+        "errorTitle": "فشل التهيئة",
+        "errorDescription": "تعذر إنشاء الحساب. يرجى المحاولة مرة أخرى."
+      },
+      "validation": {
+        "usernameMin": "يجب أن يتكون اسم المستخدم من ٣ أحرف على الأقل",
+        "usernameMax": "يجب أن يتكون اسم المستخدم من ٢٠ حرفاً كحد أقصى",
+        "emailInvalid": "الرجاء إدخال عنوان بريد إلكتروني صالح",
+        "passwordMin": "يجب أن تتكون كلمة المرور من ٨ أحرف على الأقل",
+        "passwordMismatch": "كلمات المرور غير متطابقة",
+        "termsRequired": "يجب قبول الشروط"
+      }
+    },
     "header": {
       "learn": "تعلم",
       "developers": "المطورون",

@@ -6514,6 +6514,73 @@
       "securitySolutions": "보안 솔루션",
       "forDevelopers": "개발자용"
     },
+    "signup": {
+      "gatewayRegister": "게이트웨이_등록",
+      "title": "초기화",
+      "subtitle": "뉴럴 레이어에서 새 아이덴티티 생성",
+      "nodeAlias": "노드 별칭",
+      "usernamePlaceholder": "사용자명 입력",
+      "signalFrequency": "신호 주파수 (이메일)",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "암호화 키",
+      "passwordPlaceholder": "비밀번호",
+      "verifyKey": "키 확인",
+      "confirmPlaceholder": "확인",
+      "nodeClass": "노드 클래스",
+      "memberTiers": {
+        "basicUser": {
+          "label": "기본 사용자",
+          "description": "표준 네트워크 액세스 및 거래 기능"
+        },
+        "delegatedStaker": {
+          "label": "위임 스테이커",
+          "description": "검증자에게 토큰을 위임하고 보상 획득"
+        }
+      },
+      "terms": {
+        "prefix": "본인은",
+        "genesisProtocols": "제네시스 프로토콜",
+        "suffix": "에 동의하며 노드 데이터가 체인에 불변으로 기록됨을 인정합니다."
+      },
+      "initializeNode": "노드 초기화",
+      "initializing": "초기화 중...",
+      "alreadyHaveNode": "이미 노드 ID가 있으신가요?",
+      "accessGateway": "게이트웨이 접속",
+      "systemPrivileges": "시스템 권한",
+      "privilegesSubtitle": "계정 초기화 시 다음 기능에 즉시 액세스 가능:",
+      "privileges": {
+        "validator": {
+          "title": "고속 검증자",
+          "description": "대시보드에서 직접 100,000 TPS 합의 참여 가능"
+        },
+        "analytics": {
+          "title": "토큰 분석",
+          "description": "AI 기반 인사이트와 번 메트릭스로 실시간 포트폴리오 추적"
+        },
+        "network": {
+          "title": "글로벌 네트워크 접속",
+          "description": "지연 최적화 라우팅으로 모든 샤드의 검증자에 연결"
+        }
+      },
+      "nav": {
+        "developers": "개발자",
+        "network": "네트워크"
+      },
+      "toast": {
+        "successTitle": "노드 초기화 완료",
+        "successDescription": "TBurn 체인에 오신 것을 환영합니다! 계정이 활성화되었습니다.",
+        "errorTitle": "초기화 실패",
+        "errorDescription": "계정을 생성할 수 없습니다. 다시 시도해 주세요."
+      },
+      "validation": {
+        "usernameMin": "사용자명은 최소 3자 이상이어야 합니다",
+        "usernameMax": "사용자명은 최대 20자까지 가능합니다",
+        "emailInvalid": "유효한 이메일 주소를 입력해 주세요",
+        "passwordMin": "비밀번호는 최소 8자 이상이어야 합니다",
+        "passwordMismatch": "비밀번호가 일치하지 않습니다",
+        "termsRequired": "약관에 동의해야 합니다"
+      }
+    },
     "header": {
       "learn": "학습",
       "developers": "개발자",

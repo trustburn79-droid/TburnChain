@@ -2808,6 +2808,73 @@
       "securitySolutions": "سیکیورٹی حل",
       "forDevelopers": "ڈویلپرز کے لیے"
     },
+    "signup": {
+      "gatewayRegister": "گیٹ_وے_رجسٹریشن",
+      "title": "ابتدا کریں",
+      "subtitle": "نیورل لیئر پر نئی شناخت بنائیں",
+      "nodeAlias": "نوڈ عرفیت",
+      "usernamePlaceholder": "صارف نام درج کریں",
+      "signalFrequency": "سگنل فریکوئنسی (ای میل)",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "انکرپشن کلید",
+      "passwordPlaceholder": "پاس ورڈ",
+      "verifyKey": "کلید تصدیق کریں",
+      "confirmPlaceholder": "تصدیق کریں",
+      "nodeClass": "نوڈ کلاس",
+      "memberTiers": {
+        "basicUser": {
+          "label": "بنیادی صارف",
+          "description": "معیاری نیٹ ورک رسائی اور لین دین کی صلاحیتیں"
+        },
+        "delegatedStaker": {
+          "label": "مفوض سٹیکر",
+          "description": "ویلیڈیٹرز کو ٹوکن تفویض کریں اور انعامات کمائیں"
+        }
+      },
+      "terms": {
+        "prefix": "میں قبول کرتا/کرتی ہوں",
+        "genesisProtocols": "جینیسس پروٹوکولز",
+        "suffix": "اور تسلیم کرتا/کرتی ہوں کہ میرا نوڈ ڈیٹا چین پر ناقابل تبدیل ہوگا۔"
+      },
+      "initializeNode": "نوڈ شروع کریں",
+      "initializing": "شروع ہو رہا ہے...",
+      "alreadyHaveNode": "پہلے سے نوڈ آئی ڈی ہے؟",
+      "accessGateway": "گیٹ وے تک رسائی",
+      "systemPrivileges": "سسٹم مراعات",
+      "privilegesSubtitle": "اکاؤنٹ شروع کرنے پر فوری رسائی ملے گی:",
+      "privileges": {
+        "validator": {
+          "title": "تیز رفتار ویلیڈیٹر",
+          "description": "اپنے ڈیش بورڈ سے براہ راست 100,000 TPS اتفاق رائے میں حصہ لیں۔"
+        },
+        "analytics": {
+          "title": "ٹوکن تجزیات",
+          "description": "AI سے چلنے والی بصیرت اور برن میٹرکس کے ساتھ ریئل ٹائم پورٹ فولیو ٹریکنگ۔"
+        },
+        "network": {
+          "title": "عالمی نیٹ ورک رسائی",
+          "description": "تاخیر کے لیے بہترین روٹنگ کے ساتھ تمام شارڈز کے ویلیڈیٹرز سے جڑیں۔"
+        }
+      },
+      "nav": {
+        "developers": "ڈویلپرز",
+        "network": "نیٹ ورک"
+      },
+      "toast": {
+        "successTitle": "نوڈ شروع ہو گیا",
+        "successDescription": "TBurn Chain میں خوش آمدید! آپ کا اکاؤنٹ اب فعال ہے۔",
+        "errorTitle": "ابتدا ناکام",
+        "errorDescription": "اکاؤنٹ نہیں بنایا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔"
+      },
+      "validation": {
+        "usernameMin": "صارف نام کم از کم 3 حروف کا ہونا چاہیے",
+        "usernameMax": "صارف نام زیادہ سے زیادہ 20 حروف کا ہونا چاہیے",
+        "emailInvalid": "براہ کرم درست ای میل پتہ درج کریں",
+        "passwordMin": "پاس ورڈ کم از کم 8 حروف کا ہونا چاہیے",
+        "passwordMismatch": "پاس ورڈ میل نہیں کھاتے",
+        "termsRequired": "آپ کو شرائط قبول کرنی ہوں گی"
+      }
+    },
     "header": {
       "learn": "سیکھیں",
       "developers": "ڈویلپرز",

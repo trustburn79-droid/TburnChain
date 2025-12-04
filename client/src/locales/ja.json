@@ -7056,6 +7056,73 @@
       "securitySolutions": "セキュリティソリューション",
       "forDevelopers": "開発者向け"
     },
+    "signup": {
+      "gatewayRegister": "ゲートウェイ登録",
+      "title": "初期化",
+      "subtitle": "ニューラルレイヤーで新しいIDを作成",
+      "nodeAlias": "ノードエイリアス",
+      "usernamePlaceholder": "ユーザー名を入力",
+      "signalFrequency": "信号周波数（メール）",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "暗号化キー",
+      "passwordPlaceholder": "パスワード",
+      "verifyKey": "キー確認",
+      "confirmPlaceholder": "確認",
+      "nodeClass": "ノードクラス",
+      "memberTiers": {
+        "basicUser": {
+          "label": "ベーシックユーザー",
+          "description": "標準ネットワークアクセスと取引機能"
+        },
+        "delegatedStaker": {
+          "label": "委任ステーカー",
+          "description": "バリデーターにトークンを委任して報酬を獲得"
+        }
+      },
+      "terms": {
+        "prefix": "私は",
+        "genesisProtocols": "ジェネシスプロトコル",
+        "suffix": "に同意し、ノードデータがチェーン上で不変であることを認めます。"
+      },
+      "initializeNode": "ノードを初期化",
+      "initializing": "初期化中...",
+      "alreadyHaveNode": "すでにノードIDをお持ちですか？",
+      "accessGateway": "ゲートウェイにアクセス",
+      "systemPrivileges": "システム権限",
+      "privilegesSubtitle": "アカウントを初期化すると、以下に即座にアクセスできます：",
+      "privileges": {
+        "validator": {
+          "title": "高速バリデーター",
+          "description": "ダッシュボードから直接100,000 TPSコンセンサスに参加"
+        },
+        "analytics": {
+          "title": "トークン分析",
+          "description": "AI駆動のインサイトとバーンメトリクスによるリアルタイムポートフォリオ追跡"
+        },
+        "network": {
+          "title": "グローバルネットワークアクセス",
+          "description": "レイテンシ最適化ルーティングですべてのシャードのバリデーターに接続"
+        }
+      },
+      "nav": {
+        "developers": "開発者",
+        "network": "ネットワーク"
+      },
+      "toast": {
+        "successTitle": "ノード初期化完了",
+        "successDescription": "TBurn Chainへようこそ！アカウントがアクティブになりました。",
+        "errorTitle": "初期化失敗",
+        "errorDescription": "アカウントを作成できません。もう一度お試しください。"
+      },
+      "validation": {
+        "usernameMin": "ユーザー名は3文字以上必要です",
+        "usernameMax": "ユーザー名は20文字以内にしてください",
+        "emailInvalid": "有効なメールアドレスを入力してください",
+        "passwordMin": "パスワードは8文字以上必要です",
+        "passwordMismatch": "パスワードが一致しません",
+        "termsRequired": "利用規約に同意する必要があります"
+      }
+    },
     "header": {
       "learn": "学習",
       "developers": "開発者",

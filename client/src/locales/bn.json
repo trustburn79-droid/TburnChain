@@ -2808,6 +2808,73 @@
       "securitySolutions": "নিরাপত্তা সমাধান",
       "forDevelopers": "ডেভেলপারদের জন্য"
     },
+    "signup": {
+      "gatewayRegister": "গেটওয়ে_রেজিস্ট্রেশন",
+      "title": "ইনিশিয়ালাইজ",
+      "subtitle": "নিউরাল লেয়ারে নতুন পরিচয় তৈরি করুন",
+      "nodeAlias": "নোড এলিয়াস",
+      "usernamePlaceholder": "ইউজারনেম লিখুন",
+      "signalFrequency": "সিগন্যাল ফ্রিকোয়েন্সি (ইমেল)",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "এনক্রিপশন কী",
+      "passwordPlaceholder": "পাসওয়ার্ড",
+      "verifyKey": "কী যাচাই করুন",
+      "confirmPlaceholder": "নিশ্চিত করুন",
+      "nodeClass": "নোড ক্লাস",
+      "memberTiers": {
+        "basicUser": {
+          "label": "বেসিক ইউজার",
+          "description": "স্ট্যান্ডার্ড নেটওয়ার্ক অ্যাক্সেস এবং লেনদেনের ক্ষমতা"
+        },
+        "delegatedStaker": {
+          "label": "ডেলিগেটেড স্টেকার",
+          "description": "ভ্যালিডেটরদের কাছে টোকেন ডেলিগেট করুন এবং পুরস্কার অর্জন করুন"
+        }
+      },
+      "terms": {
+        "prefix": "আমি গ্রহণ করি",
+        "genesisProtocols": "জেনেসিস প্রোটোকল",
+        "suffix": "এবং স্বীকার করি যে আমার নোড ডেটা চেইনে অপরিবর্তনীয় হবে।"
+      },
+      "initializeNode": "নোড ইনিশিয়ালাইজ করুন",
+      "initializing": "ইনিশিয়ালাইজ হচ্ছে...",
+      "alreadyHaveNode": "ইতিমধ্যে নোড আইডি আছে?",
+      "accessGateway": "গেটওয়ে অ্যাক্সেস করুন",
+      "systemPrivileges": "সিস্টেম প্রিভিলেজ",
+      "privilegesSubtitle": "অ্যাকাউন্ট ইনিশিয়ালাইজ করলে তাৎক্ষণিক অ্যাক্সেস পাবেন:",
+      "privileges": {
+        "validator": {
+          "title": "হাই-স্পিড ভ্যালিডেটর",
+          "description": "আপনার ড্যাশবোর্ড থেকে সরাসরি ১০০,০০০ TPS কনসেনসাসে অংশ নিন।"
+        },
+        "analytics": {
+          "title": "টোকেন অ্যানালিটিক্স",
+          "description": "AI-চালিত ইনসাইট এবং বার্ন মেট্রিক্স সহ রিয়েল-টাইম পোর্টফোলিও ট্র্যাকিং।"
+        },
+        "network": {
+          "title": "গ্লোবাল নেটওয়ার্ক অ্যাক্সেস",
+          "description": "লেটেন্সি-অপ্টিমাইজড রাউটিং সহ সব শার্ডের ভ্যালিডেটরদের সাথে সংযুক্ত হন।"
+        }
+      },
+      "nav": {
+        "developers": "ডেভেলপার",
+        "network": "নেটওয়ার্ক"
+      },
+      "toast": {
+        "successTitle": "নোড ইনিশিয়ালাইজ হয়েছে",
+        "successDescription": "TBurn Chain-এ স্বাগতম! আপনার অ্যাকাউন্ট এখন সক্রিয়।",
+        "errorTitle": "ইনিশিয়ালাইজেশন ব্যর্থ",
+        "errorDescription": "অ্যাকাউন্ট তৈরি করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।"
+      },
+      "validation": {
+        "usernameMin": "ইউজারনেম কমপক্ষে ৩ অক্ষরের হতে হবে",
+        "usernameMax": "ইউজারনেম সর্বোচ্চ ২০ অক্ষরের হতে হবে",
+        "emailInvalid": "অনুগ্রহ করে বৈধ ইমেল ঠিকানা লিখুন",
+        "passwordMin": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে",
+        "passwordMismatch": "পাসওয়ার্ড মিলছে না",
+        "termsRequired": "আপনাকে শর্তাবলী গ্রহণ করতে হবে"
+      }
+    },
     "header": {
       "learn": "শিখুন",
       "developers": "ডেভেলপার",

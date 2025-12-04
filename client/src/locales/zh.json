@@ -6384,6 +6384,73 @@
       "securitySolutions": "安全解决方案",
       "forDevelopers": "面向开发者"
     },
+    "signup": {
+      "gatewayRegister": "网关注册",
+      "title": "初始化",
+      "subtitle": "在神经层创建新身份",
+      "nodeAlias": "节点别名",
+      "usernamePlaceholder": "输入用户名",
+      "signalFrequency": "信号频率（邮箱）",
+      "emailPlaceholder": "name@example.com",
+      "encryptionKey": "加密密钥",
+      "passwordPlaceholder": "密码",
+      "verifyKey": "验证密钥",
+      "confirmPlaceholder": "确认",
+      "nodeClass": "节点类别",
+      "memberTiers": {
+        "basicUser": {
+          "label": "基础用户",
+          "description": "标准网络访问和交易功能"
+        },
+        "delegatedStaker": {
+          "label": "委托质押者",
+          "description": "将代币委托给验证者并获得奖励"
+        }
+      },
+      "terms": {
+        "prefix": "我接受",
+        "genesisProtocols": "创世协议",
+        "suffix": "并确认我的节点数据将在链上不可更改。"
+      },
+      "initializeNode": "初始化节点",
+      "initializing": "初始化中...",
+      "alreadyHaveNode": "已有节点ID？",
+      "accessGateway": "访问网关",
+      "systemPrivileges": "系统权限",
+      "privilegesSubtitle": "初始化账户后立即获得以下访问权限：",
+      "privileges": {
+        "validator": {
+          "title": "高速验证者",
+          "description": "直接从仪表板参与100,000 TPS共识"
+        },
+        "analytics": {
+          "title": "代币分析",
+          "description": "AI驱动的洞察和销毁指标实时投资组合跟踪"
+        },
+        "network": {
+          "title": "全球网络访问",
+          "description": "通过延迟优化路由连接所有分片的验证者"
+        }
+      },
+      "nav": {
+        "developers": "开发者",
+        "network": "网络"
+      },
+      "toast": {
+        "successTitle": "节点初始化完成",
+        "successDescription": "欢迎来到TBurn链！您的账户已激活。",
+        "errorTitle": "初始化失败",
+        "errorDescription": "无法创建账户，请重试。"
+      },
+      "validation": {
+        "usernameMin": "用户名至少需要3个字符",
+        "usernameMax": "用户名最多20个字符",
+        "emailInvalid": "请输入有效的电子邮件地址",
+        "passwordMin": "密码至少需要8个字符",
+        "passwordMismatch": "密码不匹配",
+        "termsRequired": "您必须接受条款"
+      }
+    },
     "header": {
       "learn": "学习",
       "developers": "开发者",

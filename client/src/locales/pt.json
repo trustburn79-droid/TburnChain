@@ -3683,6 +3683,73 @@
       "securitySolutions": "Soluções de Segurança",
       "forDevelopers": "Para Desenvolvedores"
     },
+    "signup": {
+      "gatewayRegister": "REGISTRO_GATEWAY",
+      "title": "Inicializar",
+      "subtitle": "Crie uma nova identidade na Camada Neural",
+      "nodeAlias": "ALIAS DO NÓ",
+      "usernamePlaceholder": "Digite o nome de usuário",
+      "signalFrequency": "FREQUÊNCIA DO SINAL (EMAIL)",
+      "emailPlaceholder": "nome@exemplo.com",
+      "encryptionKey": "CHAVE DE CRIPTOGRAFIA",
+      "passwordPlaceholder": "Senha",
+      "verifyKey": "VERIFICAR CHAVE",
+      "confirmPlaceholder": "Confirmar",
+      "nodeClass": "CLASSE DO NÓ",
+      "memberTiers": {
+        "basicUser": {
+          "label": "Usuário Básico",
+          "description": "Acesso padrão à rede e capacidades de transação"
+        },
+        "delegatedStaker": {
+          "label": "Staker Delegado",
+          "description": "Delegue tokens para validadores e ganhe recompensas"
+        }
+      },
+      "terms": {
+        "prefix": "Eu aceito os",
+        "genesisProtocols": "Protocolos Genesis",
+        "suffix": "e reconheço que meus dados do nó serão imutáveis na cadeia."
+      },
+      "initializeNode": "Inicializar Nó",
+      "initializing": "Inicializando...",
+      "alreadyHaveNode": "Já tem um ID de nó?",
+      "accessGateway": "Acessar Gateway",
+      "systemPrivileges": "Privilégios do Sistema",
+      "privilegesSubtitle": "Inicializar sua conta concede acesso imediato a:",
+      "privileges": {
+        "validator": {
+          "title": "Validador de Alta Velocidade",
+          "description": "Participe do consenso com capacidade de 100.000 TPS diretamente do seu painel."
+        },
+        "analytics": {
+          "title": "Análise de Tokens",
+          "description": "Rastreamento de portfólio em tempo real com insights de IA e métricas de queima."
+        },
+        "network": {
+          "title": "Acesso à Rede Global",
+          "description": "Conecte-se a validadores em todos os shards com roteamento otimizado para latência."
+        }
+      },
+      "nav": {
+        "developers": "Desenvolvedores",
+        "network": "Rede"
+      },
+      "toast": {
+        "successTitle": "Nó Inicializado",
+        "successDescription": "Bem-vindo ao TBurn Chain! Sua conta está ativa.",
+        "errorTitle": "Falha na Inicialização",
+        "errorDescription": "Não foi possível criar a conta. Por favor, tente novamente."
+      },
+      "validation": {
+        "usernameMin": "O nome de usuário deve ter pelo menos 3 caracteres",
+        "usernameMax": "O nome de usuário deve ter no máximo 20 caracteres",
+        "emailInvalid": "Por favor, insira um endereço de email válido",
+        "passwordMin": "A senha deve ter pelo menos 8 caracteres",
+        "passwordMismatch": "As senhas não coincidem",
+        "termsRequired": "Você deve aceitar os termos"
+      }
+    },
     "header": {
       "learn": "Aprender",
       "developers": "Desenvolvedores",
