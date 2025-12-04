@@ -6512,30 +6512,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // System Resources (for performance and unified dashboard)
+  // Returns simple percentage values for the dashboard
   app.get("/api/admin/system/resources", async (_req, res) => {
     res.json({
-      cpu: {
-        usage: 45 + Math.random() * 20,
-        cores: 8,
-        model: 'Intel Xeon Platinum 8175M'
-      },
-      memory: {
-        used: 12 + Math.random() * 4,
-        total: 32,
-        percentage: 40 + Math.random() * 20
-      },
-      disk: {
-        used: 250,
-        total: 500,
-        percentage: 50
-      },
-      network: {
-        inbound: Math.floor(Math.random() * 100000000),
-        outbound: Math.floor(Math.random() * 100000000),
-        connections: 5000 + Math.floor(Math.random() * 500)
-      },
-      uptime: 99.99,
-      lastRestart: new Date(Date.now() - 30 * 86400000).toISOString()
+      cpu: Math.floor(40 + Math.random() * 25),
+      memory: Math.floor(60 + Math.random() * 20),
+      disk: Math.floor(45 + Math.random() * 15),
+      networkIO: Math.floor(70 + Math.random() * 20)
     });
   });
 
