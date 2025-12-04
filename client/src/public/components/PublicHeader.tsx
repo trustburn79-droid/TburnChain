@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Menu, X, Sun, Moon, Globe, Check } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon, Globe, Check, LogIn } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { useTranslation } from "react-i18next";
 import { languages } from "@/lib/i18n";
@@ -239,9 +239,19 @@ export function PublicHeader() {
             >
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-            <Link href="/app">
+            {/* Mobile: Icon only button */}
+            <Link href="/app" className="sm:hidden">
               <button 
-                className="glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
+                className="glass-panel border border-cyan-400/30 text-cyan-400 p-2 rounded-lg hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]"
+                data-testid="button-login-mobile"
+              >
+                <LogIn className="w-5 h-5" />
+              </button>
+            </Link>
+            {/* Desktop: Full text button */}
+            <Link href="/app" className="hidden sm:block">
+              <button 
+                className="glass-panel border border-cyan-400/30 text-cyan-400 px-6 py-2 rounded-lg text-sm font-bold hover:bg-cyan-400/10 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)] whitespace-nowrap"
                 data-testid="button-login"
               >
                 {t('publicPages.header.loginInterface')}
