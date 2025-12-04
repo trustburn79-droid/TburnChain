@@ -12185,19 +12185,31 @@
       "validators": {
         "tag": "ネットワークバリデーター",
         "title": "バリデーター",
-        "subtitle": "TBurnバリデーターネットワークに参加してブロックチェーンを保護しながら報酬を獲得。",
+        "subtitle": "TBurnバリデーターネットワークに参加してブロックチェーンを保護しながら報酬を獲得しましょう。",
         "becomeValidator": "バリデーターになる",
+        "validatorDocs": "バリデータードキュメントを見る",
+        "stats": {
+          "activeValidators": "アクティブバリデーター",
+          "totalStaked": "総ステーク量",
+          "averageUptime": "平均稼働率",
+          "operatingCountries": "運用国数"
+        },
+        "applyNow": "今すぐ申請",
+        "consensus": {
+          "title": "コンセンサスメカニズム",
+          "subtitle": "AI搭載バリデーションによるProof of Trust"
+        },
         "consensusSpecs": {
           "title": "コンセンサス仕様",
           "blockTime": {
             "label": "ブロック時間",
             "value": "1秒",
-            "description": "コンセンサスあたりの平均ブロック時間"
+            "description": "新しいブロック生成の平均時間"
           },
           "finality": {
             "label": "ファイナリティ",
             "value": "6秒",
-            "description": "ネットワーク全体のトランザクションファイナリティ"
+            "description": "トランザクションが不可逆になるまでの時間"
           },
           "validatorSet": {
             "label": "バリデーターセット",
@@ -12210,12 +12222,60 @@
           "tps": {
             "label": "TPS",
             "value": "50,000+",
-            "description": "Maximum transactions per second"
+            "description": "1秒あたりの最大トランザクション数"
           },
           "uptime": {
-            "label": "Uptime",
+            "label": "稼働率",
             "value": "99.99%",
-            "description": "Network availability guarantee"
+            "description": "ネットワーク可用性保証"
+          }
+        },
+        "cta": {
+          "title": "バリデーターになる準備はできましたか？",
+          "subtitle": "ネットワークに参加してTBurn Chainを保護しながら報酬を獲得しましょう。",
+          "startValidating": "バリデーションを開始",
+          "readDocs": "ドキュメントを読む"
+        },
+        "tierSystem": {
+          "title": "バリデーターティアシステム",
+          "stake": "最小ステーク",
+          "apy": "APY",
+          "slots": "利用可能スロット",
+          "elite": {
+            "name": "エリートバリデーター",
+            "badge": "エリート",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21スロット",
+            "benefits": {
+              "blockPriority": "ブロック生成優先権",
+              "revenueShare": "追加収益分配",
+              "aiDecision": "AI意思決定への参加"
+            }
+          },
+          "standard": {
+            "name": "スタンダードバリデーター",
+            "badge": "スタンダード",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50スロット",
+            "benefits": {
+              "blockValidation": "ブロック検証権",
+              "feeDistribution": "トランザクション手数料分配",
+              "votingRights": "ガバナンス投票権"
+            }
+          },
+          "starter": {
+            "name": "スターターバリデーター",
+            "badge": "スターター",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "無制限",
+            "benefits": {
+              "delegate": "大規模バリデーターへの委任",
+              "autoRewards": "自動報酬分配",
+              "unstakePeriod": "21日間のアンステーク期間"
+            }
           }
         },
         "validatorTiers": {
@@ -12228,12 +12288,33 @@
           "core": {
             "name": "コア",
             "stake": "500,000 TBURN",
-            "rewards": "標準報酬 + 投票"
+            "rewards": "標準報酬 + 投票権"
           },
           "community": {
             "name": "コミュニティ",
             "stake": "100,000 TBURN",
             "rewards": "基本報酬"
+          }
+        },
+        "hardware": {
+          "title": "ハードウェア要件",
+          "cpu": "CPU: 16コア以上（AMD EPYCまたはIntel Xeon）",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "ストレージ: 2TB NVMe SSD",
+          "network": "ネットワーク: 1Gbps専用線",
+          "superNode": {
+            "title": "スーパーノード要件",
+            "cpu": "CPU: 32コア以上",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "ストレージ: 4TB NVMe RAID",
+            "network": "ネットワーク: 10Gbps専用線"
+          },
+          "standardNode": {
+            "title": "スタンダードノード要件",
+            "cpu": "CPU: 8コア以上",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "ストレージ: 1TB NVMe SSD",
+            "network": "ネットワーク: 500Mbps"
           }
         },
         "hardwareRequirements": {
@@ -12243,144 +12324,125 @@
           "storage": "ストレージ: 1TB NVMe SSD",
           "bandwidth": "帯域幅: 1Gbps"
         },
+        "slashing": {
+          "title": "スラッシング条件",
+          "subtitle": "バリデーターは高い基準を維持する必要があります。違反はステークペナルティにつながります。",
+          "minor": {
+            "title": "軽微な違反",
+            "badge": "警告",
+            "description": "短時間のダウンタイムまたはブロック欠落",
+            "penalty": "ステーク0.1%削減"
+          },
+          "moderate": {
+            "title": "中程度の違反",
+            "badge": "ペナルティ",
+            "description": "24時間を超える長期ダウンタイム",
+            "penalty": "ステーク1-5%削減"
+          },
+          "severe": {
+            "title": "重大な違反",
+            "badge": "重大",
+            "description": "悪意のある投票または検閲の試み",
+            "penalty": "ステーク25-50%削減"
+          },
+          "critical": {
+            "title": "致命的な違反",
+            "badge": "致命的",
+            "description": "二重署名またはネットワーク攻撃",
+            "penalty": "ステーク100%没収"
+          }
+        },
         "slashingPolicy": {
           "title": "スラッシングポリシー",
           "doubleSign": {
             "offense": "二重署名",
-            "penalty": "ステーク100%スラッシュ"
+            "penalty": "ステーク100%没収"
           },
           "downtime": {
             "offense": "長期ダウンタイム",
-            "penalty": "ステーク1-5%スラッシュ"
+            "penalty": "ステーク1-5%没収"
           },
           "maliciousVoting": {
             "offense": "悪意のある投票",
-            "penalty": "ステーク50%スラッシュ"
-          }
-        },
-        "validatorDocs": "View バリデーター ドキュメント",
-        "stats": {
-          "activeValidators": "アクティブバリデーター",
-          "totalStaked": "総ステーク量",
-          "averageUptime": "平均稼働率",
-          "operatingCountries": "Operating Countries"
-        },
-        "tierSystem": {
-          "title": "バリデーター Tier System",
-          "stake": "Minimum ステーク",
-          "apy": "APY",
-          "slots": "Available Slots",
-          "elite": {
-            "name": "Elite バリデーター",
-            "badge": "Elite",
-            "stakeAmount": "1,000,000 TBURN",
-            "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
-            "benefits": {
-              "blockPriority": "Block production priority",
-              "revenueShare": "Additional revenue 共有",
-              "aiDecision": "AI decision participation"
-            }
-          },
-          "standard": {
-            "name": "Standard バリデーター",
-            "badge": "Standard",
-            "stakeAmount": "500,000 TBURN",
-            "apyAmount": "12-18%",
-            "slotsAmount": "50 slots",
-            "benefits": {
-              "blockValidation": "Block validation rights",
-              "feeDistribution": "Transaction fee distribution",
-              "votingRights": "ガバナンス 投票 rights"
-            }
-          },
-          "starter": {
-            "name": "Starter バリデーター",
-            "badge": "Starter",
-            "stakeAmount": "100,000 TBURN",
-            "apyAmount": "8-12%",
-            "slotsAmount": "Unlimited",
-            "benefits": {
-              "delegate": "委任 to larger バリデーター",
-              "autoRewards": "Automatic reward distribution",
-              "unstakePeriod": "21-day unステーキング period"
-            }
-          }
-        },
-        "hardware": {
-          "title": "ハードウェア 要件",
-          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
-          "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "Network: 1Gbps dedicated",
-          "superNode": {
-            "title": "Super Node 要件",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RAID",
-            "network": "Network: 10Gbps dedicated"
-          },
-          "standardNode": {
-            "title": "Standard Node Requirements",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RAM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Network: 500Mbps"
-          }
-        },
-        "slashing": {
-          "title": "Slashing Conditions",
-          "subtitle": "バリデーター must maintain high スタンダード. Violations result in ステーク penalties.",
-          "minor": {
-            "title": "Minor Violation",
-            "badge": "警告",
-            "description": "Brief downtime or missed ブロック",
-            "penalty": "0.1% ステーク reduction"
-          },
-          "moderate": {
-            "title": "Moderate Violation",
-            "badge": "Penalty",
-            "description": "Extended downtime over 24 時間",
-            "penalty": "1-5% ステーク reduction"
-          },
-          "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious 投票 or censorship attempts",
-            "penalty": "25-50% ステーク reduction"
-          },
-          "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% ステーク slashed"
+            "penalty": "ステーク50%没収"
           }
         },
         "geography": {
-          "title": "地理的 Distribution"
+          "title": "地理的分布"
         },
         "activeValidators": {
           "title": "アクティブバリデーター",
-          "searchPlaceholder": "Search バリデーター...",
-          "viewAll": "すべて見る バリデーター"
-        },
-        "applyNow": "今すぐ申請",
-        "consensus": {
-          "title": "コンセンサス仕様",
-          "subtitle": "高性能ブロックチェーンを支える技術詳細"
-        },
-        "cta": {
-          "title": "Ready to Become a Validator?",
-          "subtitle": "Join the network and earn rewards while securing TBurn Chain.",
-          "startValidating": "Start Validating",
-          "readDocs": "Read Documentation"
+          "searchPlaceholder": "バリデーターを検索...",
+          "viewAll": "すべてのバリデーターを見る"
         }
       },
       "rpc": {
-        "tag": "RPCインフラ",
-        "title": "RPCエンドポイント",
-        "subtitle": "信頼性の高いネットワークアクセスのための公式RPCノードに接続。WebSocketとHTTP接続をサポート。",
+        "tag": "RPCインフラストラクチャ",
+        "title": "RPCプロバイダー",
+        "subtitle": "エンタープライズグレードの信頼性を持つ高性能RPCエンドポイント。WebSocketとHTTP接続をサポート。",
         "getApiKey": "APIキーを取得",
+        "buttons": {
+          "getApiKey": "APIキーを取得",
+          "viewDocs": "ドキュメントを見る"
+        },
+        "sections": {
+          "apiPlans": "APIプラン",
+          "coreEndpoints": "コアエンドポイント",
+          "sdkExamples": "SDK例",
+          "support": "サポート"
+        },
+        "plans": {
+          "free": {
+            "name": "無料"
+          },
+          "basic": {
+            "name": "ベーシック"
+          },
+          "pro": {
+            "name": "プロ"
+          },
+          "enterprise": {
+            "name": "エンタープライズ"
+          },
+          "requestsMin": "リクエスト/分",
+          "requestsDay": "リクエスト/日",
+          "perMonth": "/月",
+          "unlimited": "無制限",
+          "contact": "お問い合わせ"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "スコアクエリAPI"
+          },
+          "projectApi": {
+            "title": "プロジェクトAPI"
+          },
+          "analyticsApi": {
+            "title": "アナリティクスAPI"
+          },
+          "webhookApi": {
+            "title": "Webhook API",
+            "events": "イベント: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "TypeScript SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "cURL例"
+          }
+        },
+        "cta": {
+          "title": "構築する準備はできましたか？",
+          "subtitle": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
+          "desc": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
+          "getStartedFree": "無料で始める",
+          "contactSales": "営業に連絡"
+        },
         "apiPlans": {
           "title": "APIプラン＆制限",
           "free": {
@@ -12452,79 +12514,17 @@
           "documentation": {
             "title": "ドキュメント",
             "description": "詳細なAPIリファレンスとガイド。",
-            "desc": "Comprehensive API documentation and integration guides."
+            "desc": "包括的なAPIドキュメントと統合ガイド。"
           },
           "apiStatus": {
             "title": "APIステータス",
             "description": "リアルタイムシステムステータスと稼働時間。",
-            "desc": "Real-time system status, uptime metrics, and incident reports."
+            "desc": "リアルタイムシステムステータス、稼働率メトリクス、インシデントレポート。"
           },
           "developerHub": {
             "title": "開発者ハブ",
             "description": "オープンソースSDKと例。",
-            "desc": "Open source SDKs, code examples, and community resources."
-          }
-        },
-        "cta": {
-          "title": "構築する準備はできましたか？",
-          "subtitle": "今日からTBurn Chain APIで構築を始めましょう。無料のAPIキーを取得してエンタープライズグレードのブロックチェーンインフラにアクセス。",
-          "getStartedFree": "無料で始める",
-          "contactSales": "営業に連絡",
-          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
-        },
-        "buttons": {
-          "getApiKey": "Get API Key",
-          "viewDocs": "View ドキュメント"
-        },
-        "sections": {
-          "apiPlans": "API Plans",
-          "coreEndpoints": "Core エンドポイント",
-          "sdkExamples": "SDK 例",
-          "support": "Support"
-        },
-        "plans": {
-          "free": {
-            "name": "Free"
-          },
-          "basic": {
-            "name": "ベーシック"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "Enterprise"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "Unlimited",
-          "contact": "お問い合わせ"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "Score Query API"
-          },
-          "projectApi": {
-            "title": "Project API"
-          },
-          "analyticsApi": {
-            "title": "アナリティクス API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "イベント: score.updated, score.alert, project.登録ed"
-          }
-        },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL Example"
+            "desc": "オープンソースSDK、コード例、コミュニティリソース。"
           }
         }
       },
@@ -12532,97 +12532,97 @@
         "tag": "ステータス",
         "title": "ネットワークステータス",
         "subtitle": "リアルタイムのネットワーク健全性とパフォーマンス指標。",
-        "operational": "Operational",
-        "lastUpdated": "最終更新日",
-        "daysAgo": "日 前",
+        "operational": "稼働中",
+        "lastUpdated": "最終更新",
+        "daysAgo": "日前",
+        "today": "本日",
+        "uptimeAvg": "平均稼働率",
         "buttons": {
-          "refreshData": "Refresh Data"
+          "refreshData": "データを更新"
         },
         "sections": {
-          "coreMetrics": "Core Metrics",
-          "coreMetricsDesc": "Real-time ブロックチェーン performance indicators",
-          "serviceStatus": "Service ステータス",
-          "serviceStatusDesc": "Current ステータス of すべて network services",
-          "uptimeHistory": "稼働率 History",
-          "uptimeHistoryDesc": "Network 可用性 over the past 90 日",
-          "aiSystem": "AI Orchestration System",
-          "aiSystemDesc": "Triple-band AI model performance and ステータス",
-          "validatorNetwork": "バリデーター Network",
-          "validatorNetworkDesc": "アクティブバリデーター and 地理的 distribution"
+          "coreMetrics": "コアメトリクス",
+          "coreMetricsDesc": "リアルタイムブロックチェーンパフォーマンス指標",
+          "serviceStatus": "サービスステータス",
+          "serviceStatusDesc": "すべてのネットワークサービスの現在のステータス",
+          "uptimeHistory": "稼働履歴",
+          "uptimeHistoryDesc": "過去90日間のネットワーク可用性",
+          "aiSystem": "AIオーケストレーションシステム",
+          "aiSystemDesc": "トリプルバンドAIモデルのパフォーマンスとステータス",
+          "validatorNetwork": "バリデーターネットワーク",
+          "validatorNetworkDesc": "アクティブバリデーターと地理的分布"
         },
         "metrics": {
-          "tps": "トランザクション Per Second",
-          "peak": "Peak",
-          "blockHeight": "Block Height",
-          "latency": "Network レイテンシ",
-          "finality": "Finality Time",
-          "avgFee": "Average Fee",
-          "cheapFast": "Cheap & Fast",
-          "shards": "アクティブ Shards"
+          "tps": "1秒あたりのトランザクション数",
+          "peak": "ピーク",
+          "blockHeight": "ブロック高",
+          "latency": "ネットワークレイテンシ",
+          "finality": "ファイナリティ時間",
+          "avgFee": "平均手数料",
+          "cheapFast": "低コスト＆高速",
+          "shards": "アクティブシャード"
         },
         "services": {
           "mainnetRpc": {
-            "name": "メインネット RPC",
-            "desc": "Primary JSON-RPC エンドポイント for メインネット"
+            "name": "メインネットRPC",
+            "desc": "メインネット用プライマリJSON-RPCエンドポイント"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "Real-time event streaming and subscriptions"
+            "desc": "リアルタイムイベントストリーミングとサブスクリプション"
           },
           "explorerApi": {
-            "name": "探索r API",
-            "desc": "Block 探索r data エンドポイント"
+            "name": "エクスプローラーAPI",
+            "desc": "ブロックエクスプローラーデータエンドポイント"
           },
           "trustScoreApi": {
-            "name": "トラストスコア API",
-            "desc": "Project 検証 and scoring エンドポイント"
-          },
-          "crossChainBridge": {
-            "name": "Cross-Chain Bridge",
-            "desc": "マルチチェーン asset transfer service"
-          },
-          "quantumSecurity": {
-            "name": "Quantum セキュリティ Module",
-            "desc": "CRYSTALS-Dilithium signature 検証"
+            "name": "トラストスコアAPI",
+            "desc": "プロジェクト検証とスコアリングエンドポイント"
           },
           "trustScore": {
-            "name": "Trust Score Service",
-            "desc": "AI-powered trust verification and project scoring"
+            "name": "トラストスコアサービス",
+            "desc": "AI搭載の信頼性検証とプロジェクトスコアリング"
+          },
+          "crossChainBridge": {
+            "name": "クロスチェーンブリッジ",
+            "desc": "マルチチェーン資産転送サービス"
+          },
+          "quantumSecurity": {
+            "name": "量子セキュリティモジュール",
+            "desc": "CRYSTALS-Dilithium署名検証"
           }
         },
         "ai": {
           "active": "アクティブ",
-          "accuracy": "Accuracy",
+          "accuracy": "精度",
           "latency": "レイテンシ",
           "strategic": {
-            "title": "Strategic AI",
+            "title": "戦略AI",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "戦術AI",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational AI",
+            "title": "運用AI",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "Monthly Average",
-          "uptimeGuarantee": "稼働率 Guarantee",
-          "lastIncident": "Last Incident"
+          "monthlyAverage": "月間平均",
+          "uptimeGuarantee": "稼働率保証",
+          "lastIncident": "最後のインシデント"
         },
         "validators": {
           "active": "アクティブバリデーター",
-          "countries": "Operating Countries",
+          "countries": "運用国数",
           "totalStaked": "総ステーク量",
           "avgUptime": "平均稼働率",
-          "nodeCount": "Node Count",
-          "regions": "Regions",
-          "superNodes": "Super Nodes"
-        },
-        "today": "Today",
-        "uptimeAvg": "Uptime Average"
+          "nodeCount": "ノード数",
+          "regions": "リージョン",
+          "superNodes": "スーパーノード"
+        }
       },
       "ramp": {
         "tag": "法定通貨ゲートウェイ",
@@ -12636,23 +12636,23 @@
           "whyBurnRamp": "Burn Rampを選ぶ理由"
         },
         "buy": {
-          "title": "TBURN を購入",
+          "title": "TBURNを購入",
           "desc": "お好みの支払い方法でTBURNトークンを購入",
           "amountPlaceholder": "USD金額を入力",
-          "estTburn": "推定 TBURN",
-          "button": "TBURN を購入"
+          "estTburn": "推定TBURN",
+          "button": "TBURNを購入"
         },
         "sell": {
-          "title": "TBURN を売却",
+          "title": "TBURNを売却",
           "desc": "TBURNトークンを法定通貨に交換",
           "amountPlaceholder": "TBURN数量を入力",
-          "estUsd": "推定 USD",
-          "button": "TBURN を売却"
+          "estUsd": "推定USD",
+          "button": "TBURNを売却"
         },
         "steps": {
           "step1": {
             "title": "アカウント作成",
-            "desc": "登録とKYC認証を完了"
+            "desc": "登録してKYC認証を完了"
           },
           "step2": {
             "title": "金額選択",
@@ -12674,8 +12674,8 @@
           "bankTransfer": "銀行振込（ACH/SEPA）",
           "digitalWallets": "デジタルウォレット（Apple Pay、Google Pay）",
           "bankWithdrawal": "銀行出金",
-          "paypalWithdrawal": "PayPal 出金",
-          "physicalCheck": "物理的な小切手"
+          "paypalWithdrawal": "PayPal出金",
+          "physicalCheck": "小切手"
         },
         "accounts": {
           "basic": {
@@ -12687,8 +12687,8 @@
             "desc": "完全なKYC認証完了"
           },
           "institutional": {
-            "title": "機関",
-            "desc": "拡張された上限を持つ法人アカウント"
+            "title": "機関投資家",
+            "desc": "拡張上限付き法人アカウント"
           },
           "dailyLimit": "日次上限",
           "monthlyLimit": "月次上限",

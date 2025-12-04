@@ -11871,17 +11871,29 @@
         "title": "검증자",
         "subtitle": "TBurn 검증자 네트워크에 참여하고 블록체인을 보호하면서 보상을 획득하세요.",
         "becomeValidator": "검증자 되기",
+        "validatorDocs": "검증자 문서 보기",
+        "stats": {
+          "activeValidators": "활성 검증자",
+          "totalStaked": "총 스테이킹",
+          "averageUptime": "평균 가동 시간",
+          "operatingCountries": "운영 국가"
+        },
+        "applyNow": "지금 지원하기",
+        "consensus": {
+          "title": "합의 메커니즘",
+          "subtitle": "AI 기반 검증을 통한 신뢰 증명"
+        },
         "consensusSpecs": {
           "title": "합의 사양",
           "blockTime": {
             "label": "블록 시간",
             "value": "1초",
-            "description": "합의당 평균 블록 시간"
+            "description": "새 블록 생성 평균 시간"
           },
           "finality": {
             "label": "완결성",
             "value": "6초",
-            "description": "네트워크 전체 트랜잭션 최종성"
+            "description": "트랜잭션이 되돌릴 수 없게 되는 시간"
           },
           "validatorSet": {
             "label": "검증자 세트",
@@ -11894,12 +11906,60 @@
           "tps": {
             "label": "TPS",
             "value": "50,000+",
-            "description": "Maximum transactions per second"
+            "description": "초당 최대 트랜잭션 처리량"
           },
           "uptime": {
-            "label": "Uptime",
+            "label": "가동 시간",
             "value": "99.99%",
-            "description": "Network availability guarantee"
+            "description": "네트워크 가용성 보장"
+          }
+        },
+        "cta": {
+          "title": "검증자가 될 준비가 되셨나요?",
+          "subtitle": "네트워크에 참여하고 TBurn 체인을 보호하면서 보상을 획득하세요.",
+          "startValidating": "검증 시작하기",
+          "readDocs": "문서 읽기"
+        },
+        "tierSystem": {
+          "title": "검증자 티어 시스템",
+          "stake": "최소 스테이크",
+          "apy": "APY",
+          "slots": "사용 가능 슬롯",
+          "elite": {
+            "name": "엘리트 검증자",
+            "badge": "엘리트",
+            "stakeAmount": "1,000,000 TBURN",
+            "apyAmount": "18-25%",
+            "slotsAmount": "21 슬롯",
+            "benefits": {
+              "blockPriority": "블록 생성 우선권",
+              "revenueShare": "추가 수익 배분",
+              "aiDecision": "AI 의사결정 참여"
+            }
+          },
+          "standard": {
+            "name": "표준 검증자",
+            "badge": "표준",
+            "stakeAmount": "500,000 TBURN",
+            "apyAmount": "12-18%",
+            "slotsAmount": "50 슬롯",
+            "benefits": {
+              "blockValidation": "블록 검증 권한",
+              "feeDistribution": "트랜잭션 수수료 분배",
+              "votingRights": "거버넌스 투표권"
+            }
+          },
+          "starter": {
+            "name": "스타터 검증자",
+            "badge": "스타터",
+            "stakeAmount": "100,000 TBURN",
+            "apyAmount": "8-12%",
+            "slotsAmount": "무제한",
+            "benefits": {
+              "delegate": "대형 검증자에게 위임",
+              "autoRewards": "자동 보상 분배",
+              "unstakePeriod": "21일 언스테이킹 기간"
+            }
           }
         },
         "validatorTiers": {
@@ -11920,12 +11980,61 @@
             "rewards": "기본 보상"
           }
         },
+        "hardware": {
+          "title": "하드웨어 요구사항",
+          "cpu": "CPU: 16+ 코어 (AMD EPYC 또는 Intel Xeon)",
+          "ram": "RAM: 64GB DDR4 ECC",
+          "storage": "스토리지: 2TB NVMe SSD",
+          "network": "네트워크: 1Gbps 전용선",
+          "superNode": {
+            "title": "슈퍼 노드 요구사항",
+            "cpu": "CPU: 32+ 코어",
+            "ram": "RAM: 128GB DDR4 ECC",
+            "storage": "스토리지: 4TB NVMe RAID",
+            "network": "네트워크: 10Gbps 전용선"
+          },
+          "standardNode": {
+            "title": "표준 노드 요구사항",
+            "cpu": "CPU: 8+ 코어",
+            "ram": "RAM: 32GB DDR4",
+            "storage": "스토리지: 1TB NVMe SSD",
+            "network": "네트워크: 500Mbps"
+          }
+        },
         "hardwareRequirements": {
           "title": "하드웨어 요구사항",
           "cpu": "CPU: 8+ 코어",
           "ram": "RAM: 32GB+",
           "storage": "스토리지: 1TB NVMe SSD",
           "bandwidth": "대역폭: 1Gbps"
+        },
+        "slashing": {
+          "title": "슬래싱 조건",
+          "subtitle": "검증자는 높은 기준을 유지해야 합니다. 위반 시 스테이크 페널티가 부과됩니다.",
+          "minor": {
+            "title": "경미한 위반",
+            "badge": "경고",
+            "description": "짧은 다운타임 또는 누락된 블록",
+            "penalty": "스테이크 0.1% 감소"
+          },
+          "moderate": {
+            "title": "중간 위반",
+            "badge": "페널티",
+            "description": "24시간 이상 장기 다운타임",
+            "penalty": "스테이크 1-5% 감소"
+          },
+          "severe": {
+            "title": "심각한 위반",
+            "badge": "심각",
+            "description": "악의적 투표 또는 검열 시도",
+            "penalty": "스테이크 25-50% 감소"
+          },
+          "critical": {
+            "title": "치명적 위반",
+            "badge": "치명적",
+            "description": "이중 서명 또는 네트워크 공격",
+            "penalty": "스테이크 100% 슬래싱"
+          }
         },
         "slashingPolicy": {
           "title": "슬래싱 정책",
@@ -11942,131 +12051,84 @@
             "penalty": "스테이크 50% 슬래싱"
           }
         },
-        "validatorDocs": "보기 검증자 문서",
-        "stats": {
-          "activeValidators": "활성 검증자",
-          "totalStaked": "총 스테이킹",
-          "averageUptime": "평균 가동 시간",
-          "operatingCountries": "운영 국가"
-        },
-        "tierSystem": {
-          "title": "검증자 티어 시스템",
-          "stake": "최소 스테이크",
-          "apy": "APY",
-          "slots": "사용 가능 Slots",
-          "elite": {
-            "name": "Elite 검증자",
-            "badge": "엘리트",
-            "stakeAmount": "1,000,000 TBURN",
-            "apyAmount": "18-25%",
-            "slotsAmount": "21 slots",
-            "benefits": {
-              "blockPriority": "블록 production priority",
-              "revenueShare": "Additional revenue share",
-              "aiDecision": "AI decision participation"
-            }
-          },
-          "standard": {
-            "name": "표준 검증자",
-            "badge": "표준",
-            "stakeAmount": "500,000 TBURN",
-            "apyAmount": "12-18%",
-            "slotsAmount": "50 슬롯",
-            "benefits": {
-              "blockValidation": "블록 validation rights",
-              "feeDistribution": "트랜잭션 fee distribution",
-              "votingRights": "거버넌스 voting rights"
-            }
-          },
-          "starter": {
-            "name": "Starter 검증자",
-            "badge": "Starter",
-            "stakeAmount": "100,000 TBURN",
-            "apyAmount": "8-12%",
-            "slotsAmount": "무제한",
-            "benefits": {
-              "delegate": "Delegate to larger validators",
-              "autoRewards": "Automatic reward distribution",
-              "unstakePeriod": "21-day unstaking period"
-            }
-          }
-        },
-        "hardware": {
-          "title": "하드웨어 요구사항",
-          "cpu": "CPU: 16+ cores (AMD EPYC or Intel Xeon)",
-          "ram": "RAM: 64GB DDR4 ECC",
-          "storage": "Storage: 2TB NVMe SSD",
-          "network": "네트워크: 1Gbps dedicated",
-          "superNode": {
-            "title": "Super 노드 요구사항",
-            "cpu": "CPU: 32+ cores",
-            "ram": "RAM: 128GB DDR4 ECC",
-            "storage": "Storage: 4TB NVMe RAID",
-            "network": "네트워크: 10Gbps dedicated"
-          },
-          "standardNode": {
-            "title": "Standard Node Requirements",
-            "cpu": "CPU: 8+ cores",
-            "ram": "RAM: 32GB DDR4",
-            "storage": "Storage: 1TB NVMe SSD",
-            "network": "Network: 500Mbps"
-          }
-        },
-        "slashing": {
-          "title": "Slashing 조건",
-          "subtitle": "검증자 must maintain high standards. Violations result in stake penalties.",
-          "minor": {
-            "title": "Minor Violation",
-            "badge": "경고",
-            "description": "Brief downtime or missed blocks",
-            "penalty": "0.1% stake reduction"
-          },
-          "moderate": {
-            "title": "Moderate Violation",
-            "badge": "페널티",
-            "description": "Extended downtime over 24 hours",
-            "penalty": "1-5% stake reduction"
-          },
-          "severe": {
-            "title": "Severe Violation",
-            "badge": "Severe",
-            "description": "Malicious voting or censorship attempts",
-            "penalty": "25-50% stake reduction"
-          },
-          "critical": {
-            "title": "Critical Violation",
-            "badge": "Critical",
-            "description": "Double signing or network attacks",
-            "penalty": "100% stake slashed"
-          }
-        },
         "geography": {
-          "title": "Geographic Distribution"
+          "title": "지리적 분포"
         },
         "activeValidators": {
           "title": "활성 검증자",
-          "searchPlaceholder": "검색 validators...",
-          "viewAll": "전체 보기 검증자"
-        },
-        "applyNow": "지금 지원하기",
-        "consensus": {
-          "title": "합의 사양",
-          "subtitle": "고성능 블록체인을 구동하는 기술 세부 사항"
-        },
-        "cta": {
-          "title": "Ready to Become a Validator?",
-          "subtitle": "Join the network and earn rewards while securing TBurn Chain.",
-          "startValidating": "Start Validating",
-          "readDocs": "Read Documentation"
+          "searchPlaceholder": "검증자 검색...",
+          "viewAll": "모든 검증자 보기"
         }
       },
       "rpc": {
         "tag": "RPC 인프라",
-        "title": "RPC 엔드포인트",
-        "subtitle": "안정적인 네트워크 액세스를 위한 공식 RPC 노드에 연결하세요. WebSocket 및 HTTP 연결 지원.",
+        "title": "RPC 제공자",
+        "subtitle": "엔터프라이즈급 안정성을 갖춘 고성능 RPC 엔드포인트. WebSocket 및 HTTP 연결 지원.",
         "getApiKey": "API 키 받기",
+        "buttons": {
+          "getApiKey": "API 키 받기",
+          "viewDocs": "문서 보기"
+        },
+        "sections": {
+          "apiPlans": "API 요금제",
+          "coreEndpoints": "핵심 엔드포인트",
+          "sdkExamples": "SDK 예제",
+          "support": "지원"
+        },
+        "plans": {
+          "free": {
+            "name": "무료"
+          },
+          "basic": {
+            "name": "베이직"
+          },
+          "pro": {
+            "name": "프로"
+          },
+          "enterprise": {
+            "name": "엔터프라이즈"
+          },
+          "requestsMin": "요청/분",
+          "requestsDay": "요청/일",
+          "perMonth": "/월",
+          "unlimited": "무제한",
+          "contact": "문의하기"
+        },
+        "endpoints": {
+          "scoreQuery": {
+            "title": "점수 조회 API"
+          },
+          "projectApi": {
+            "title": "프로젝트 API"
+          },
+          "analyticsApi": {
+            "title": "분석 API"
+          },
+          "webhookApi": {
+            "title": "Webhook API",
+            "events": "이벤트: score.updated, score.alert, project.registered"
+          }
+        },
+        "sdk": {
+          "typescript": {
+            "title": "TypeScript SDK"
+          },
+          "python": {
+            "title": "Python SDK"
+          },
+          "curl": {
+            "title": "cURL 예제"
+          }
+        },
+        "cta": {
+          "title": "개발을 시작할 준비가 되셨나요?",
+          "subtitle": "오늘 TBurn 체인 API로 개발을 시작하세요. 무료 API 키를 받고 엔터프라이즈급 블록체인 인프라에 접근하세요.",
+          "desc": "오늘 TBurn 체인 API로 개발을 시작하세요. 무료 API 키를 받고 엔터프라이즈급 블록체인 인프라에 접근하세요.",
+          "getStartedFree": "무료로 시작하기",
+          "contactSales": "영업팀 문의"
+        },
         "apiPlans": {
-          "title": "API 플랜 & 한도",
+          "title": "API 요금제 및 한도",
           "free": {
             "name": "무료",
             "requestsPerMin": "20",
@@ -12111,7 +12173,7 @@
             ]
           },
           "analytics": {
-            "title": "애널리틱스 API",
+            "title": "분석 API",
             "endpoints": [
               "GET /analytics/trends",
               "GET /analytics/leaderboard"
@@ -12126,89 +12188,27 @@
           }
         },
         "sdkExamples": {
-          "title": "SDK & 엔터프라이즈 예제",
+          "title": "SDK 및 엔터프라이즈 예제",
           "typescript": "TypeScript 엔터프라이즈 SDK",
           "python": "Python 엔터프라이즈 SDK",
           "curl": "cURL 프로덕션 예제"
         },
         "support": {
-          "title": "지원 & 연락처",
+          "title": "지원 및 문의",
           "documentation": {
             "title": "문서",
             "description": "상세한 API 레퍼런스 및 가이드.",
-            "desc": "Comprehensive API documentation and integration guides."
+            "desc": "종합적인 API 문서 및 통합 가이드."
           },
           "apiStatus": {
             "title": "API 상태",
             "description": "실시간 시스템 상태 및 가동률.",
-            "desc": "Real-time system status, uptime metrics, and incident reports."
+            "desc": "실시간 시스템 상태, 가동률 지표 및 인시던트 보고서."
           },
           "developerHub": {
             "title": "개발자 허브",
             "description": "오픈소스 SDK 및 예제.",
-            "desc": "Open source SDKs, code examples, and community resources."
-          }
-        },
-        "cta": {
-          "title": "개발 시작할 준비되셨나요?",
-          "subtitle": "오늘 TBurn 체인 API로 개발을 시작하세요. 무료 API 키를 받고 엔터프라이즈급 블록체인 인프라에 접근하세요.",
-          "getStartedFree": "무료로 시작하기",
-          "contactSales": "영업팀 연락",
-          "desc": "Start building with TBurn Chain API today. Get your free API key and access enterprise-grade blockchain infrastructure."
-        },
-        "buttons": {
-          "getApiKey": "가져오기 API 키",
-          "viewDocs": "문서 보기"
-        },
-        "sections": {
-          "apiPlans": "API 요금제",
-          "coreEndpoints": "Core 엔드포인트",
-          "sdkExamples": "SDK 예제",
-          "support": "지원"
-        },
-        "plans": {
-          "free": {
-            "name": "무료"
-          },
-          "basic": {
-            "name": "기본"
-          },
-          "pro": {
-            "name": "Pro"
-          },
-          "enterprise": {
-            "name": "엔터프라이즈"
-          },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
-          "unlimited": "무제한",
-          "contact": "연락처 Us"
-        },
-        "endpoints": {
-          "scoreQuery": {
-            "title": "점수 쿼리 API"
-          },
-          "projectApi": {
-            "title": "Project API"
-          },
-          "analyticsApi": {
-            "title": "Analytics API"
-          },
-          "webhookApi": {
-            "title": "Webhook API",
-            "events": "이벤트: score.updated, score.alert, project.registered"
-          }
-        },
-        "sdk": {
-          "typescript": {
-            "title": "TypeScript SDK"
-          },
-          "python": {
-            "title": "Python SDK"
-          },
-          "curl": {
-            "title": "cURL 예제"
+            "desc": "오픈소스 SDK, 코드 예제 및 커뮤니티 리소스."
           }
         }
       },
@@ -12216,97 +12216,97 @@
         "tag": "상태",
         "title": "네트워크 상태",
         "subtitle": "실시간 네트워크 상태 및 성능 지표.",
-        "operational": "Operational",
-        "lastUpdated": "마지막 updated",
-        "daysAgo": "days ago",
+        "operational": "정상 운영 중",
+        "lastUpdated": "마지막 업데이트",
+        "daysAgo": "일 전",
+        "today": "오늘",
+        "uptimeAvg": "평균 가동률",
         "buttons": {
-          "refreshData": "새로고침 데이터"
+          "refreshData": "데이터 새로고침"
         },
         "sections": {
-          "coreMetrics": "Core Metrics",
-          "coreMetricsDesc": "실시간 blockchain performance indicators",
+          "coreMetrics": "핵심 지표",
+          "coreMetricsDesc": "실시간 블록체인 성능 지표",
           "serviceStatus": "서비스 상태",
-          "serviceStatusDesc": "현재 status of all network services",
-          "uptimeHistory": "Uptime History",
-          "uptimeHistoryDesc": "네트워크 availability over the past 90 days",
-          "aiSystem": "AI Orchestration 시스템",
-          "aiSystemDesc": "Triple-band AI model performance and status",
+          "serviceStatusDesc": "모든 네트워크 서비스의 현재 상태",
+          "uptimeHistory": "가동 시간 이력",
+          "uptimeHistoryDesc": "최근 90일간 네트워크 가용성",
+          "aiSystem": "AI 오케스트레이션 시스템",
+          "aiSystemDesc": "트리플밴드 AI 모델 성능 및 상태",
           "validatorNetwork": "검증자 네트워크",
-          "validatorNetworkDesc": "활성 validators and geographic distribution"
+          "validatorNetworkDesc": "활성 검증자 및 지리적 분포"
         },
         "metrics": {
-          "tps": "트랜잭션 Per Second",
-          "peak": "Peak",
+          "tps": "초당 트랜잭션",
+          "peak": "최고치",
           "blockHeight": "블록 높이",
           "latency": "네트워크 지연 시간",
-          "finality": "완결성 Time",
+          "finality": "완결성 시간",
           "avgFee": "평균 수수료",
-          "cheapFast": "Cheap & Fast",
-          "shards": "활성 Shards"
+          "cheapFast": "저렴하고 빠름",
+          "shards": "활성 샤드"
         },
         "services": {
           "mainnetRpc": {
             "name": "메인넷 RPC",
-            "desc": "기본 JSON-RPC endpoints for mainnet"
+            "desc": "메인넷용 기본 JSON-RPC 엔드포인트"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "실시간 event streaming and subscriptions"
+            "desc": "실시간 이벤트 스트리밍 및 구독"
           },
           "explorerApi": {
-            "name": "Explorer API",
-            "desc": "블록 explorer data endpoints"
+            "name": "익스플로러 API",
+            "desc": "블록 익스플로러 데이터 엔드포인트"
           },
           "trustScoreApi": {
-            "name": "Trust 점수 API",
-            "desc": "Project verification and scoring endpoints"
+            "name": "신뢰 점수 API",
+            "desc": "프로젝트 검증 및 점수 산정 엔드포인트"
+          },
+          "trustScore": {
+            "name": "신뢰 점수 서비스",
+            "desc": "AI 기반 신뢰 검증 및 프로젝트 점수 산정"
           },
           "crossChainBridge": {
             "name": "크로스체인 브릿지",
-            "desc": "멀티체인 asset transfer service"
+            "desc": "멀티체인 자산 전송 서비스"
           },
           "quantumSecurity": {
-            "name": "Quantum 보안 모듈",
-            "desc": "CRYSTALS-Dilithium signature verification"
-          },
-          "trustScore": {
-            "name": "Trust Score Service",
-            "desc": "AI-powered trust verification and project scoring"
+            "name": "양자 보안 모듈",
+            "desc": "CRYSTALS-Dilithium 서명 검증"
           }
         },
         "ai": {
           "active": "활성",
-          "accuracy": "Accuracy",
+          "accuracy": "정확도",
           "latency": "지연 시간",
           "strategic": {
-            "title": "Strategic AI",
+            "title": "전략적 AI",
             "model": "GPT-5"
           },
           "tactical": {
-            "title": "Tactical AI",
+            "title": "전술적 AI",
             "model": "Claude Sonnet 4.5"
           },
           "operational": {
-            "title": "Operational AI",
+            "title": "운영 AI",
             "model": "Llama 4"
           }
         },
         "uptime": {
-          "monthlyAverage": "매월 평균",
-          "uptimeGuarantee": "Uptime Guarantee",
-          "lastIncident": "마지막 Incident"
+          "monthlyAverage": "월간 평균",
+          "uptimeGuarantee": "가동 시간 보장",
+          "lastIncident": "마지막 인시던트"
         },
         "validators": {
           "active": "활성 검증자",
           "countries": "운영 국가",
           "totalStaked": "총 스테이킹",
           "avgUptime": "평균 가동 시간",
-          "nodeCount": "Node Count",
-          "regions": "Regions",
-          "superNodes": "Super Nodes"
-        },
-        "today": "Today",
-        "uptimeAvg": "Uptime Average"
+          "nodeCount": "노드 수",
+          "regions": "지역",
+          "superNodes": "슈퍼 노드"
+        }
       },
       "ramp": {
         "tag": "법정화폐 게이트웨이",

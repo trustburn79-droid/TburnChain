@@ -11479,30 +11479,30 @@
         },
         "slashing": {
           "title": "罚没条件",
-          "subtitle": "验证者 must maintain high standards. Violations result in stake penalties.",
+          "subtitle": "验证者必须维持高标准。违规将导致质押惩罚。",
           "minor": {
             "title": "轻微违规",
             "badge": "警告",
-            "description": "Brief downtime or missed blocks",
-            "penalty": "0.1% stake reduction"
+            "description": "短暂离线或错过区块",
+            "penalty": "0.1% 质押扣减"
           },
           "moderate": {
             "title": "中度违规",
             "badge": "惩罚",
-            "description": "Extended downtime over 24 hours",
-            "penalty": "1-5% stake reduction"
+            "description": "超过24小时的长时间离线",
+            "penalty": "1-5% 质押扣减"
           },
           "severe": {
             "title": "严重违规",
             "badge": "严重",
-            "description": "Malicious voting or censorship attem分",
-            "penalty": "25-50% stake reduction"
+            "description": "恶意投票或审查尝试",
+            "penalty": "25-50% 质押扣减"
           },
           "critical": {
             "title": "关键违规",
             "badge": "关键",
-            "description": "Double signing or network attacks",
-            "penalty": "100% stake slashed"
+            "description": "双重签名或网络攻击",
+            "penalty": "100% 质押罚没"
           }
         },
         "geography": {
@@ -11510,7 +11510,7 @@
         },
         "activeValidators": {
           "title": "活跃验证者",
-          "searchPlaceholder": "搜索 validators...",
+          "searchPlaceholder": "搜索验证者...",
           "viewAll": "查看所有验证者"
         },
         "applyNow": "立即申请",
@@ -11644,11 +11644,11 @@
           "enterprise": {
             "name": "企业"
           },
-          "requestsMin": "requests/min",
-          "requestsDay": "requests/day",
-          "perMonth": "/month",
+          "requestsMin": "请求/分钟",
+          "requestsDay": "请求/天",
+          "perMonth": "/月",
           "unlimited": "无限制",
-          "contact": "联系 Us"
+          "contact": "联系我们"
         },
         "endpoints": {
           "scoreQuery": {
@@ -11667,7 +11667,7 @@
         },
         "sdk": {
           "typescript": {
-            "title": "类型脚本 SDK"
+            "title": "TypeScript SDK"
           },
           "python": {
             "title": "Python SDK"
@@ -11681,68 +11681,70 @@
         "tag": "状态",
         "title": "网络状态",
         "subtitle": "实时网络健康和性能指标。",
-        "operational": "Operational",
-        "lastUpdated": "最后 updated",
-        "daysAgo": "days ago",
+        "operational": "运行中",
+        "lastUpdated": "最后更新",
+        "daysAgo": "天前",
+        "today": "今日",
+        "uptimeAvg": "平均运行时间",
         "buttons": {
-          "refreshData": "刷新 数据"
+          "refreshData": "刷新数据"
         },
         "sections": {
-          "coreMetrics": "Core 指标",
-          "coreMetricsDesc": "实时 blockchain performance indicators",
-          "serviceStatus": "服务 状态",
-          "serviceStatusDesc": "Current status of all network services",
-          "uptimeHistory": "Uptime 历史",
-          "uptimeHistoryDesc": "网络 availability over the past 90 days",
-          "aiSystem": "AI Orchestration System",
-          "aiSystemDesc": "Triple-band AI model performance and status",
-          "validatorNetwork": "有效ator 网络",
-          "validatorNetworkDesc": "活跃 validators and geographic distribution"
+          "coreMetrics": "核心指标",
+          "coreMetricsDesc": "实时区块链性能指标",
+          "serviceStatus": "服务状态",
+          "serviceStatusDesc": "所有网络服务的当前状态",
+          "uptimeHistory": "运行时间历史",
+          "uptimeHistoryDesc": "过去90天的网络可用性",
+          "aiSystem": "AI 编排系统",
+          "aiSystemDesc": "三频段 AI 模型性能和状态",
+          "validatorNetwork": "验证者网络",
+          "validatorNetworkDesc": "活跃验证者和地理分布"
         },
         "metrics": {
-          "tps": "交易s Per Second",
-          "peak": "Peak",
-          "blockHeight": "区块 Height",
-          "latency": "网络 Latency",
-          "finality": "Finality 时间",
-          "avgFee": "平均 费用",
-          "cheapFast": "Cheap & 快速",
-          "shards": "活跃 Shards"
+          "tps": "每秒交易数",
+          "peak": "峰值",
+          "blockHeight": "区块高度",
+          "latency": "网络延迟",
+          "finality": "最终确认时间",
+          "avgFee": "平均费用",
+          "cheapFast": "便宜快捷",
+          "shards": "活跃分片"
         },
         "services": {
           "mainnetRpc": {
             "name": "主网 RPC",
-            "desc": "Primary JSON-RPC end分 for mainnet"
+            "desc": "主网的主要 JSON-RPC 端点"
           },
           "wsApi": {
             "name": "WebSocket API",
-            "desc": "实时 event streaming and subscriptions"
+            "desc": "实时事件流和订阅"
           },
           "explorerApi": {
-            "name": "探索r API",
-            "desc": "区块 explorer data end分"
+            "name": "浏览器 API",
+            "desc": "区块浏览器数据端点"
           },
           "trustScoreApi": {
-            "name": "Trust Score API",
-            "desc": "项目 verification and scoring end分"
-          },
-          "crossChainBridge": {
-            "name": "Cross-链 桥接",
-            "desc": "Multi-chain asset transfer service"
-          },
-          "quantumSecurity": {
-            "name": "量子安全 Module",
-            "desc": "CRYSTALS-Dilithium signature verification"
+            "name": "信任评分 API",
+            "desc": "项目验证和评分端点"
           },
           "trustScore": {
             "name": "信任评分服务",
             "desc": "AI 驱动的信任验证和项目评分"
+          },
+          "crossChainBridge": {
+            "name": "跨链桥",
+            "desc": "多链资产转移服务"
+          },
+          "quantumSecurity": {
+            "name": "量子安全模块",
+            "desc": "CRYSTALS-Dilithium 签名验证"
           }
         },
         "ai": {
           "active": "活跃",
-          "accuracy": "Accuracy",
-          "latency": "Latency",
+          "accuracy": "准确率",
+          "latency": "延迟",
           "strategic": {
             "title": "战略 AI",
             "model": "GPT-5"
@@ -11757,9 +11759,9 @@
           }
         },
         "uptime": {
-          "monthlyAverage": "月ly 平均",
+          "monthlyAverage": "月平均",
           "uptimeGuarantee": "运行时间保证",
-          "lastIncident": "最后 Incident"
+          "lastIncident": "最后事件"
         },
         "validators": {
           "active": "活跃验证者",
@@ -11769,9 +11771,7 @@
           "nodeCount": "节点数量",
           "regions": "地区",
           "superNodes": "超级节点"
-        },
-        "today": "今日",
-        "uptimeAvg": "平均运行时间"
+        }
       },
       "ramp": {
         "tag": "法币通道",
