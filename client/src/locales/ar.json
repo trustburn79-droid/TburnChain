@@ -5763,304 +5763,304 @@
         }
       },
       "defiMastery": {
-        "tag": "INTERMEDIATE",
-        "title": "DeFi Mastery",
-        "subtitle": "Master decentralized finance protocols. Learn advanced yield strategies, liquidity provision, and risk management techniques.",
-        "duration": "8 hours",
-        "backToEducation": "Back to Education Programs",
+        "tag": "متوسط",
+        "title": "إتقان DeFi",
+        "subtitle": "إتقان بروتوكولات التمويل اللامركزي. تعلم استراتيجيات العائد المتقدمة وتوفير السيولة وتقنيات إدارة المخاطر.",
+        "duration": "٨ ساعات",
+        "backToEducation": "العودة إلى برامج التعليم",
         "stats": {
           "tvl": {
             "value": "$2.1B",
-            "label": "Total Value Locked"
+            "label": "القيمة الإجمالية المقفلة"
           },
           "apy": {
             "value": "18.5%",
-            "label": "Average APY"
+            "label": "متوسط APY"
           },
           "protocols": {
             "value": "45+",
-            "label": "Active Protocols"
+            "label": "البروتوكولات النشطة"
           }
         },
         "courseOverview": {
-          "title": "Course Overview",
-          "description": "This advanced course covers everything you need to know about decentralized finance on TBurn Chain. From understanding AMM mechanics to implementing complex yield farming strategies, you'll gain practical skills for navigating the DeFi ecosystem.",
-          "videoTitle": "DeFi Fundamentals",
-          "videoSubtitle": "Course Preview",
-          "figureCaption": "Figure: DeFi Protocol Overview"
+          "title": "نظرة عامة على الدورة",
+          "description": "تغطي هذه الدورة المتقدمة كل ما تحتاج لمعرفته حول التمويل اللامركزي على TBurn Chain. من فهم آليات AMM إلى تنفيذ استراتيجيات زراعة العوائد المعقدة، ستكتسب مهارات عملية للتنقل في نظام DeFi البيئي.",
+          "videoTitle": "أساسيات DeFi",
+          "videoSubtitle": "معاينة الدورة",
+          "figureCaption": "الشكل: نظرة عامة على بروتوكول DeFi"
         },
-        "curriculumTitle": "Course Curriculum",
+        "curriculumTitle": "منهج الدورة",
         "curriculum": {
           "module1": {
-            "title": "DEX & AMM Mechanics",
-            "subtitle": "Understanding automated market makers",
-            "duration": "90 min"
+            "title": "آليات DEX و AMM",
+            "subtitle": "فهم صانعي السوق الآليين",
+            "duration": "٩٠ دقيقة"
           },
           "module2": {
-            "title": "Lending Protocols",
-            "subtitle": "Collateralized borrowing and lending",
-            "duration": "120 min"
+            "title": "بروتوكولات الإقراض",
+            "subtitle": "الاقتراض والإقراض المضمون",
+            "duration": "١٢٠ دقيقة"
           },
           "module3": {
-            "title": "Liquidity Provision",
-            "subtitle": "LP tokens, impermanent loss, and rewards",
-            "duration": "90 min"
+            "title": "توفير السيولة",
+            "subtitle": "رموز LP والخسارة غير الدائمة والمكافآت",
+            "duration": "٩٠ دقيقة"
           },
           "module4": {
-            "title": "Yield Strategies",
-            "subtitle": "Optimizing returns with trust-boosted yields",
-            "duration": "120 min"
+            "title": "استراتيجيات العائد",
+            "subtitle": "تحسين العوائد مع العوائد المعززة بالثقة",
+            "duration": "١٢٠ دقيقة"
           }
         },
-        "keyTakeawaysTitle": "Key Takeaways",
+        "keyTakeawaysTitle": "النقاط الرئيسية",
         "keyTakeaways": {
-          "item1": "Master AMM mechanics and liquidity pool dynamics",
-          "item2": "Understand lending protocols and collateral management",
-          "item3": "Implement yield optimization strategies"
+          "item1": "إتقان آليات AMM وديناميكيات مجمع السيولة",
+          "item2": "فهم بروتوكولات الإقراض وإدارة الضمانات",
+          "item3": "تنفيذ استراتيجيات تحسين العائد"
         },
-        "prerequisitesTitle": "Prerequisites",
+        "prerequisitesTitle": "المتطلبات المسبقة",
         "prerequisites": {
-          "item1": "Blockchain Basics course",
-          "item2": "Understanding of wallet operations"
+          "item1": "دورة أساسيات البلوكتشين",
+          "item2": "فهم عمليات المحفظة"
         },
         "developerResources": {
           "title": "موارد المطورين",
-          "description": "Build and integrate with TBurn DeFi protocols using these resources.",
+          "description": "قم بالبناء والتكامل مع بروتوكولات TBurn DeFi باستخدام هذه الموارد.",
           "smartContracts": {
-            "title": "DeFi Contracts",
-            "subtitle": "AMM & lending contracts"
+            "title": "عقود DeFi",
+            "subtitle": "عقود AMM والإقراض"
           },
           "sdkGuide": {
             "title": "DeFi SDK",
-            "subtitle": "Protocol integration"
+            "subtitle": "تكامل البروتوكول"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GraphQL APIs"
+            "title": "مرجع API",
+            "subtitle": "REST و GraphQL APIs"
           },
           "websocket": {
-            "title": "WebSocket Feeds",
-            "subtitle": "Real-time price data"
+            "title": "تغذيات WebSocket",
+            "subtitle": "بيانات الأسعار في الوقت الفعلي"
           },
           "codeExamples": {
-            "title": "Code Examples",
-            "subtitle": "Sample integrations"
+            "title": "أمثلة الكود",
+            "subtitle": "تكاملات نموذجية"
           },
           "quickStart": {
-            "title": "Quick Start",
-            "subtitle": "5-minute setup guide"
+            "title": "البداية السريعة",
+            "subtitle": "دليل إعداد ٥ دقائق"
           }
         },
         "upNext": {
-          "label": "Up Next",
+          "label": "التالي",
           "title": "دورة المطور",
-          "subtitle": "Build your own dApps"
+          "subtitle": "ابنِ تطبيقاتك اللامركزية الخاصة"
         }
       },
       "developerCourse": {
-        "tag": "ADVANCED",
+        "tag": "متقدم",
         "title": "دورة المطور",
-        "subtitle": "Build production-ready dApps on TBurn Chain. Master smart contracts, SDK integration, and deployment strategies.",
-        "duration": "20 hours",
-        "backToEducation": "Back to Education Programs",
+        "subtitle": "بناء تطبيقات dApps جاهزة للإنتاج على TBurn Chain. إتقان العقود الذكية وتكامل SDK واستراتيجيات النشر.",
+        "duration": "٢٠ ساعة",
+        "backToEducation": "العودة إلى برامج التعليم",
         "courseOverview": {
-          "title": "Course Overview",
-          "description": "This comprehensive developer course takes you from zero to deploying production-ready dApps on TBurn Chain. You'll learn smart contract development, SDK integration, testing strategies, and best practices for building secure, scalable applications."
+          "title": "نظرة عامة على الدورة",
+          "description": "تأخذك هذه الدورة الشاملة للمطورين من الصفر إلى نشر تطبيقات dApps جاهزة للإنتاج على TBurn Chain. ستتعلم تطوير العقود الذكية وتكامل SDK واستراتيجيات الاختبار وأفضل الممارسات لبناء تطبيقات آمنة وقابلة للتوسع."
         },
-        "curriculumTitle": "Course Curriculum",
+        "curriculumTitle": "منهج الدورة",
         "curriculum": {
           "module1": {
-            "title": "SDK Setup & Configuration",
-            "subtitle": "Environment setup and project initialization",
-            "duration": "2 hours"
+            "title": "إعداد وتكوين SDK",
+            "subtitle": "إعداد البيئة وتهيئة المشروع",
+            "duration": "ساعتان"
           },
           "module2": {
-            "title": "Smart Contract Development",
-            "subtitle": "Writing secure, optimized contracts",
-            "duration": "6 hours"
+            "title": "تطوير العقود الذكية",
+            "subtitle": "كتابة عقود آمنة ومُحسّنة",
+            "duration": "٦ ساعات"
           },
           "module3": {
             "title": "تكامل API",
-            "subtitle": "REST, GraphQL, and WebSocket APIs",
-            "duration": "4 hours"
+            "subtitle": "REST وGraphQL وWebSocket APIs",
+            "duration": "٤ ساعات"
           },
           "module4": {
-            "title": "Deployment & DevOps",
-            "subtitle": "Mainnet deployment and monitoring",
-            "duration": "4 hours"
+            "title": "النشر وDevOps",
+            "subtitle": "نشر الشبكة الرئيسية والمراقبة",
+            "duration": "٤ ساعات"
           }
         },
         "codeExample": {
-          "title": "Code Example",
+          "title": "مثال على الكود",
           "language": "TypeScript"
         },
         "developerTools": {
-          "title": "Developer Tools",
-          "description": "Access all the tools you need to build on TBurn Chain.",
+          "title": "أدوات المطور",
+          "description": "الوصول إلى جميع الأدوات التي تحتاجها للبناء على TBurn Chain.",
           "quickStart": {
-            "title": "Quick Start",
-            "subtitle": "5-minute setup guide"
+            "title": "البداية السريعة",
+            "subtitle": "دليل إعداد ٥ دقائق"
           },
           "installation": {
-            "title": "Installation",
-            "subtitle": "Step-by-step guide"
+            "title": "التثبيت",
+            "subtitle": "دليل خطوة بخطوة"
           },
           "documentation": {
             "title": "الوثائق",
-            "subtitle": "Full API reference"
+            "subtitle": "مرجع API الكامل"
           },
           "evmMigration": {
-            "title": "EVM Migration",
-            "subtitle": "Port Ethereum dApps"
+            "title": "ترحيل EVM",
+            "subtitle": "نقل تطبيقات Ethereum dApps"
           }
         },
-        "keyTakeawaysTitle": "Key Takeaways",
+        "keyTakeawaysTitle": "النقاط الرئيسية",
         "keyTakeaways": {
-          "item1": "Set up and configure the TBurn SDK",
-          "item2": "Write secure smart contracts with testing",
-          "item3": "Integrate with Trust Score APIs",
-          "item4": "Deploy to mainnet with best practices"
+          "item1": "إعداد وتكوين TBurn SDK",
+          "item2": "كتابة عقود ذكية آمنة مع الاختبار",
+          "item3": "التكامل مع Trust Score APIs",
+          "item4": "النشر على الشبكة الرئيسية بأفضل الممارسات"
         },
-        "prerequisitesTitle": "Prerequisites",
+        "prerequisitesTitle": "المتطلبات المسبقة",
         "prerequisites": {
-          "item1": "JavaScript/TypeScript proficiency",
-          "item2": "Solidity basics recommended",
-          "item3": "Blockchain fundamentals"
+          "item1": "إتقان JavaScript/TypeScript",
+          "item2": "يُوصى بأساسيات Solidity",
+          "item3": "أساسيات البلوكتشين"
         },
         "certification": {
-          "title": "Earn Certification",
-          "description": "Complete the course to receive your TBurn Developer certification badge."
+          "title": "الحصول على الشهادة",
+          "description": "أكمل الدورة للحصول على شارة شهادة مطور TBurn."
         },
         "resourcesTitle": "الموارد",
         "resources": {
-          "apiReference": "API Reference",
-          "sdkGuide": "SDK Guide",
+          "apiReference": "مرجع API",
+          "sdkGuide": "دليل SDK",
           "smartContracts": "العقود الذكية",
-          "cliReference": "CLI Reference",
+          "cliReference": "مرجع CLI",
           "websocketApi": "WebSocket API",
-          "codeExamples": "Code Examples"
+          "codeExamples": "أمثلة الكود"
         }
       },
       "introToDefi": {
-        "tag": "BEGINNER FRIENDLY",
-        "title": "Introduction to DeFi",
-        "subtitle": "Your gateway to decentralized finance. Learn the core concepts of Trust Scores, verification systems, and how TBurn Chain protects investors.",
-        "duration": "2 hours",
-        "backToEducation": "Back to Education Programs",
+        "tag": "مناسب للمبتدئين",
+        "title": "مقدمة في DeFi",
+        "subtitle": "بوابتك إلى التمويل اللامركزي. تعلم المفاهيم الأساسية لدرجات الثقة وأنظمة التحقق وكيف تحمي TBurn Chain المستثمرين.",
+        "duration": "ساعتان",
+        "backToEducation": "العودة إلى برامج التعليم",
         "scoreFormula": {
-          "title": "Trust Score Formula",
+          "title": "صيغة درجة الثقة",
           "burnCompliance": {
             "percentage": "40%",
-            "title": "Burn Compliance",
-            "subtitle": "Token burning schedule adherence"
+            "title": "الالتزام بالحرق",
+            "subtitle": "الالتزام بجدول حرق الرموز"
           },
           "devProgress": {
             "percentage": "35%",
-            "title": "Dev Progress",
-            "subtitle": "Development milestone completion"
+            "title": "تقدم التطوير",
+            "subtitle": "إكمال المراحل التطويرية"
           },
           "transparency": {
             "percentage": "25%",
-            "title": "Transparency",
-            "subtitle": "On-chain data disclosure"
+            "title": "الشفافية",
+            "subtitle": "الكشف عن البيانات على السلسلة"
           }
         },
         "verification": {
-          "title": "3-Stage Verification Process",
+          "title": "عملية التحقق من ٣ مراحل",
           "stage1": {
-            "title": "AI Analysis",
-            "description": "Triple-Band AI scans project data, smart contracts, and social presence.",
-            "duration": "24 hours"
+            "title": "تحليل AI",
+            "description": "يقوم AI ثلاثي النطاق بفحص بيانات المشروع والعقود الذكية والتواجد الاجتماعي.",
+            "duration": "٢٤ ساعة"
           },
           "stage2": {
-            "title": "Expert Review",
-            "description": "Human experts validate AI findings and perform deep-dive analysis.",
-            "duration": "7-14 days"
+            "title": "مراجعة الخبراء",
+            "description": "يتحقق الخبراء البشريون من نتائج AI ويجرون تحليلاً معمقاً.",
+            "duration": "٧-١٤ يوم"
           },
           "stage3": {
-            "title": "Community Vote",
-            "description": "Token holders vote on final approval after expert review.",
-            "duration": "3-5 days"
+            "title": "تصويت المجتمع",
+            "description": "يصوت حاملو الرموز على الموافقة النهائية بعد مراجعة الخبراء.",
+            "duration": "٣-٥ أيام"
           }
         },
         "scoreActions": {
-          "title": "Actions Based on Trust Score",
+          "title": "الإجراءات بناءً على درجة الثقة",
           "excellent": {
-            "label": "Excellent",
-            "description": "Full trading access, priority listings, and yield boost eligibility."
+            "label": "ممتاز",
+            "description": "وصول كامل للتداول وإدراجات ذات أولوية وأهلية تعزيز العائد."
           },
           "good": {
-            "label": "Good",
-            "description": "Standard trading access with enhanced visibility."
+            "label": "جيد",
+            "description": "وصول قياسي للتداول مع رؤية محسنة."
           },
           "warning": {
-            "label": "Warning",
-            "description": "Limited trading, warning labels displayed to users."
+            "label": "تحذير",
+            "description": "تداول محدود وعرض تسميات تحذيرية للمستخدمين."
           },
           "danger": {
-            "label": "Restricted",
-            "description": "Trading suspended, project under investigation."
+            "label": "مقيد",
+            "description": "التداول معلق والمشروع قيد التحقيق."
           }
         },
         "hybridBurn": {
-          "title": "Hybrid Forced Burn Mechanism",
-          "description": "When projects fail to meet burn schedule commitments, our smart contracts automatically enforce token destruction. This protects investors by ensuring deflationary promises are kept.",
-          "figureCaption": "Figure: Auto-Burn Flow Diagram"
+          "title": "آلية الحرق الإجباري الهجينة",
+          "description": "عندما تفشل المشاريع في الوفاء بالتزامات جدول الحرق، تفرض عقودنا الذكية تلقائياً تدمير الرموز. هذا يحمي المستثمرين من خلال ضمان الوفاء بوعود الانكماش.",
+          "figureCaption": "الشكل: مخطط تدفق الحرق التلقائي"
         },
         "burnSteps": {
           "step1": {
-            "title": "Schedule Monitoring",
-            "description": "AI monitors burn schedule compliance in real-time"
+            "title": "مراقبة الجدول",
+            "description": "يراقب AI الالتزام بجدول الحرق في الوقت الفعلي"
           },
           "step2": {
-            "title": "Warning Period",
-            "description": "48-hour grace period with notifications to project"
+            "title": "فترة التحذير",
+            "description": "فترة سماح ٤٨ ساعة مع إشعارات للمشروع"
           },
           "step3": {
-            "title": "Auto-Execution",
-            "description": "Smart contract burns tokens from reserve wallet"
+            "title": "التنفيذ التلقائي",
+            "description": "يحرق العقد الذكي الرموز من محفظة الاحتياطي"
           }
         },
         "developerResources": {
           "title": "موارد المطورين",
-          "description": "Ready to build? Explore our developer tools and documentation.",
+          "description": "مستعد للبناء؟ استكشف أدوات المطورين والوثائق الخاصة بنا.",
           "smartContracts": {
             "title": "العقود الذكية",
-            "subtitle": "Trust Score integration"
+            "subtitle": "تكامل درجة الثقة"
           },
           "sdkGuide": {
-            "title": "SDK Guide",
-            "subtitle": "Quick integration"
+            "title": "دليل SDK",
+            "subtitle": "تكامل سريع"
           },
           "apiReference": {
-            "title": "API Reference",
-            "subtitle": "REST & GraphQL"
+            "title": "مرجع API",
+            "subtitle": "REST و GraphQL"
           },
           "websocket": {
             "title": "WebSocket",
-            "subtitle": "Real-time updates"
+            "subtitle": "تحديثات في الوقت الفعلي"
           },
           "quickStart": {
-            "title": "Quick Start",
-            "subtitle": "5-minute setup"
+            "title": "البداية السريعة",
+            "subtitle": "إعداد ٥ دقائق"
           },
           "codeExamples": {
-            "title": "Code Examples",
-            "subtitle": "Sample projects"
+            "title": "أمثلة الكود",
+            "subtitle": "مشاريع نموذجية"
           }
         },
         "continueLearning": {
-          "label": "Continue Learning",
+          "label": "متابعة التعلم",
           "defiMastery": {
-            "title": "DeFi Mastery",
-            "level": "Intermediate Level"
+            "title": "إتقان DeFi",
+            "level": "المستوى المتوسط"
           }
         },
         "forDevelopers": {
           "label": "للمطورين",
           "developerCourse": {
             "title": "دورة المطور",
-            "level": "Advanced Level"
+            "level": "المستوى المتقدم"
           }
         }
       },
