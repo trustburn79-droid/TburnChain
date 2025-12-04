@@ -6484,15 +6484,70 @@
       }
     },
     "footer": {
+      "brandDescription": "The world's first trust network powered by AI analysis. Verifying project reliability and ensuring transparency.",
+      "stats": {
+        "blocks": "Blocks",
+        "validators": "Validators",
+        "dailyTxs": "Daily TXs",
+        "uptime": "Uptime"
+      },
       "ecosystem": "Ecosystem",
+      "ecosystemLinks": {
+        "validators": "Validators",
+        "bridge": "Bridge",
+        "explorer": "Explorer",
+        "staking": "Staking",
+        "dex": "DEX",
+        "nftMarketplace": "NFT Marketplace",
+        "lending": "Lending",
+        "yieldFarming": "Yield Farming"
+      },
       "solutions": "Solutions",
+      "solutionsLinks": {
+        "defiHub": "DeFi Hub",
+        "enterprise": "Enterprise",
+        "aiFeatures": "AI Features",
+        "tokenExtensions": "Token Extensions",
+        "gameTooling": "Game Tooling",
+        "btcfi": "BTCfi",
+        "payments": "Payments",
+        "actionsBlinks": "Actions & Blinks"
+      },
       "developers": "Developers",
+      "developersLinks": {
+        "documentation": "Documentation",
+        "quickstart": "Quickstart",
+        "apiReference": "API Reference",
+        "sdkGuide": "SDK Guide",
+        "smartContracts": "Smart Contracts",
+        "websocketApi": "WebSocket API",
+        "cliReference": "CLI Reference",
+        "github": "GitHub"
+      },
       "resources": "Resources",
+      "resourcesLinks": {
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roadmap",
+        "apiStatus": "API Status",
+        "rpcEndpoints": "RPC Endpoints",
+        "blockchainBasics": "Blockchain Basics",
+        "defiMastery": "DeFi Mastery",
+        "educationPrograms": "Education Programs"
+      },
       "community": "Community",
+      "communityLinks": {
+        "newsBlog": "News & Blog",
+        "events": "Events",
+        "communityHub": "Community Hub",
+        "governance": "Governance",
+        "fiatRamp": "Fiat Ramp"
+      },
       "legal": "Legal",
       "stayUpdated": "Stay Updated",
       "newsletterDesc": "Get the latest news and updates from TBurn Chain",
       "enterEmail": "Enter your email",
+      "subscribe": "Subscribe",
       "copyright": "© 2025 TBurn Chain Foundation. All rights reserved.",
       "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
