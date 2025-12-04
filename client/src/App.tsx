@@ -72,6 +72,8 @@ import OperatorSecurity from "@/pages/operator/security";
 import OperatorReports from "@/pages/operator/reports";
 import OperatorStaking from "@/pages/operator/staking";
 
+import { AdminPortalLayout } from "@/components/admin-portal-layout";
+
 function ProtectedOperatorDashboard() {
   return <OperatorAuthGuard><OperatorDashboard /></OperatorAuthGuard>;
 }
@@ -240,6 +242,10 @@ function AuthenticatedApp() {
 
 function RootRouter() {
   const [location] = useLocation();
+  
+  if (location.startsWith("/admin")) {
+    return <AdminPortalLayout />;
+  }
   
   if (location.startsWith("/app")) {
     return <AuthenticatedApp />;
