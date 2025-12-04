@@ -1462,17 +1462,44 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
 
   async getTransaction(hash: string): Promise<any> {
+    // Use hash-based seeding for deterministic values
+    // This ensures the same hash always produces the same transaction data
+    const hashBuffer = crypto.createHash('sha256').update(hash).digest();
+    const seed = hashBuffer.readUInt32BE(0);
+    
+    // Deterministic pseudo-random based on hash
+    const seededRandom = (offset: number = 0) => {
+      const h = crypto.createHash('sha256').update(hash + offset.toString()).digest();
+      return h.readUInt32BE(0) / 0xFFFFFFFF;
+    };
+    
+    // Deterministic status: ~95% success rate based on hash
+    const statusSeed = seededRandom(0);
+    const status = statusSeed > 0.05 ? 'success' : 'failed';
+    
+    // Deterministic block height offset
+    const blockOffset = Math.floor(seededRandom(1) * 100);
+    
+    // Deterministic addresses using hash derivation
+    const fromHash = crypto.createHash('sha256').update(hash + 'from').digest('hex');
+    const toHash = crypto.createHash('sha256').update(hash + 'to').digest('hex');
+    
+    // Deterministic value and gas
+    const valueMultiplier = Math.floor(seededRandom(2) * 1000000);
+    const gasUsedExtra = Math.floor(seededRandom(3) * 100000);
+    const nonce = Math.floor(seededRandom(4) * 1000);
+    
     return {
       hash,
-      blockHeight: this.currentBlockHeight - Math.floor(Math.random() * 100),
-      from: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-      to: `tburn1${crypto.randomBytes(20).toString('hex')}`,
-      value: (BigInt(Math.floor(Math.random() * 1000000)) * BigInt('1000000000000000000')).toString(),
+      blockHeight: this.currentBlockHeight - blockOffset,
+      from: `tburn1${fromHash.slice(0, 40)}`,
+      to: `tburn1${toHash.slice(0, 40)}`,
+      value: (BigInt(valueMultiplier) * BigInt('1000000000000000000')).toString(),
       gasPrice: this.DEFAULT_GAS_PRICE_WEI, // 10 EMB
-      gasUsed: (21000 + Math.floor(Math.random() * 100000)).toString(),
+      gasUsed: (21000 + gasUsedExtra).toString(),
       timestamp: Math.floor(Date.now() / 1000),
-      status: Math.random() > 0.05 ? 'success' : 'failed',
-      nonce: Math.floor(Math.random() * 1000)
+      status,
+      nonce
     };
   }
 
