@@ -13692,11 +13692,68 @@
     "totalStaked": "Total Staked",
     "stakingRatio": "Staking Ratio",
     "avgApy": "Average APY",
+    "rewardsDistributed": "Rewards Distributed",
     "tokenEconomics": "Token Economics",
     "circulatingSupply": "Circulating Supply",
     "totalBurned": "Total Burned",
     "inflationRate": "Inflation Rate",
-    "deflationary": "Deflationary Rate"
+    "deflationary": "Deflationary Rate",
+    "networkPerformance": "Network Performance",
+    "viewDetails": "View Details",
+    "validators": "Validators",
+    "validatorOnline": "Online",
+    "validatorOffline": "Offline",
+    "validatorJailed": "Jailed",
+    "networkIO": "Network I/O",
+    "pending": "pending",
+    "noAlerts": "No alerts",
+    "deflationaryRate": "Deflationary Rate",
+    "emergencyControls": "Emergency Controls",
+    "maintenanceMode": "Maintenance Mode",
+    "backupRestore": "Backup & Restore",
+    "governance": "Governance",
+    "refresh": "Refresh",
+    "export": "Export",
+    "settings": "Settings",
+    "connected": "Live",
+    "reconnecting": "Reconnecting",
+    "wsConnected": "WebSocket connected - receiving live updates",
+    "wsReconnecting": "WebSocket reconnecting...",
+    "lastUpdate": "Last Update",
+    "refreshSuccess": "Data Refreshed",
+    "dataUpdated": "Dashboard data has been updated",
+    "refreshError": "Refresh Failed",
+    "refreshErrorDesc": "Failed to refresh dashboard data",
+    "exportSuccess": "Export Complete",
+    "exportSuccessDesc": "Dashboard data exported successfully",
+    "retry": "Retry",
+    "criticalAlert": "Critical Alert",
+    "alerts": {
+      "suspiciousActivity": "Suspicious Activity Detected",
+      "suspiciousActivityDesc": "Multiple failed login attempts from unknown IP addresses",
+      "validatorOffline": "Validator Node Offline",
+      "validatorOfflineDesc": "Validator node 0x4567...89ab has been offline for 15 minutes",
+      "bridgeDegraded": "Bridge Performance Degraded",
+      "bridgeDegradedDesc": "Arbitrum bridge experiencing higher than normal latency",
+      "scheduledMaintenance": "Scheduled Maintenance",
+      "scheduledMaintenanceDesc": "System maintenance scheduled for 02:00 UTC"
+    },
+    "activity": {
+      "validatorJoined": "Validator Joined",
+      "proposalExecuted": "Proposal Executed",
+      "bridgeTransfer": "Bridge Transfer",
+      "burnEvent": "Burn Event",
+      "configUpdate": "Config Update",
+      "securityScan": "Security Scan",
+      "gasParams": "Gas Parameters",
+      "completed": "Completed",
+      "minAgo": "{{count}}m ago",
+      "hourAgo": "{{count}}h ago"
+    },
+    "error": {
+      "title": "Failed to Load Dashboard",
+      "description": "Unable to fetch dashboard data. Please try again."
+    }
   },
   "adminPerformance": {
     "title": "Performance Metrics",
@@ -15558,6 +15615,113 @@
       "schedule": "Schedule for later (optional)",
       "saveDraft": "Save as Draft",
       "publish": "Publish Now"
+    }
+  },
+  "adminFinance": {
+    "title": "Finance Overview",
+    "description": "Financial metrics and treasury management",
+    "refresh": "Refresh",
+    "export": "Export",
+    "refreshed": "Data Refreshed",
+    "refreshedDesc": "Finance data has been updated",
+    "exported": "Export Complete",
+    "exportedDesc": "Finance report exported successfully",
+    "errorTitle": "Failed to Load Finance Data",
+    "errorDescription": "Unable to fetch financial data. Please try again.",
+    "retry": "Retry",
+    "metrics": {
+      "marketCap": "Market Cap",
+      "circulatingSupply": "Circulating Supply",
+      "totalBurned": "Total Burned",
+      "treasuryBalance": "Treasury Balance"
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "breakdown": {
+      "txFees": "Transaction Fees",
+      "bridgeFees": "Bridge Fees",
+      "stakingRewards": "Staking Rewards",
+      "dexFees": "DEX Fees",
+      "other": "Other"
+    },
+    "categories": {
+      "txFees": "Transaction Fees",
+      "validatorRewards": "Validator Rewards",
+      "bridgeFees": "Bridge Fees",
+      "operations": "Operations",
+      "staking": "Staking",
+      "development": "Development"
+    },
+    "txDescriptions": {
+      "dailyFees": "Daily fee collection",
+      "validatorRewards": "Weekly validator rewards distribution",
+      "bridgeFees": "Cross-chain bridge fees",
+      "infraCosts": "Infrastructure costs",
+      "stakingFees": "Staking platform fees",
+      "devPayroll": "Development team payroll"
+    },
+    "treasury": {
+      "title": "Treasury Allocation",
+      "description": "Current treasury fund distribution",
+      "reserveFund": "Reserve Fund",
+      "developmentFund": "Development Fund",
+      "marketing": "Marketing",
+      "operations": "Operations",
+      "emergencyFund": "Emergency Fund"
+    },
+    "timeRanges": {
+      "7d": "7 Days",
+      "30d": "30 Days",
+      "90d": "90 Days",
+      "1y": "1 Year"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "revenue": "Revenue",
+      "treasury": "Treasury",
+      "transactions": "Transactions"
+    },
+    "charts": {
+      "revenueExpenses": "Revenue vs Expenses",
+      "revenueExpensesDesc": "Monthly revenue and expense comparison",
+      "revenue": "Revenue",
+      "expenses": "Expenses",
+      "revenueBreakdown": "Revenue Breakdown",
+      "profitTrend": "Profit Trend",
+      "profit": "Profit"
+    },
+    "revenue": {
+      "totalRevenue": "Total Revenue",
+      "totalExpenses": "Total Expenses",
+      "netProfit": "Net Profit",
+      "vsLastMonth": "{{value}} vs last month"
+    },
+    "transactions": {
+      "title": "Recent Transactions",
+      "id": "ID",
+      "type": "Type",
+      "category": "Category",
+      "amount": "Amount",
+      "date": "Date",
+      "description": "Description",
+      "status": "Status",
+      "inflow": "Inflow",
+      "outflow": "Outflow",
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed"
     }
   }
 }

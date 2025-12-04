@@ -1,5 +1,28 @@
 # TBURN Blockchain Mainnet Explorer
 
+## Recent Changes (December 4, 2024)
+### Translation System Fixes
+- Fixed critical translation issue where raw translation keys (e.g., "adminDashboard.title") were displaying instead of translated text
+- Added comprehensive Korean translations for all 72 Admin Portal pages
+- Added missing translation sections to ko.json:
+  - adminAI (AI Orchestration system)
+  - adminBridge (Bridge Dashboard)
+  - adminTransfers (Bridge Transfers)
+  - adminTraining (AI Training Management)
+  - adminAnnouncements (System Announcements)
+  - adminSecurity (Security Center)
+  - adminCompliance (Compliance Monitoring)
+  - adminLiquidity (Liquidity Management)
+  - adminFeedback (User Feedback)
+  - adminAudit (Audit Logs)
+  - adminChains (Chain Management)
+  - adminBridgeValidators (Bridge Validators)
+  - adminAIAnalytics (AI Analytics)
+  - adminAITuning (AI Tuning)
+  - adminThreats (Threat Detection)
+- Added missing nested keys to adminDashboard section (networkPerformance, viewDetails, validators, deflationaryRate, emergencyControls, maintenanceMode, backupRestore, governance, etc.)
+- Added complete adminFinance section for Finance Overview page
+
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a production-ready DeFi ecosystem platform designed to provide comprehensive insights into the TBURN Mainnet. It features extensive public and authenticated application pages, supporting 12 languages with full RTL compatibility. The platform integrates advanced AI for various functionalities, from burn optimization to governance analysis, aiming to be a leading solution in the DeFi space.
 
