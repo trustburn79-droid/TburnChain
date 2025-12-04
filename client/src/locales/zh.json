@@ -7113,23 +7113,23 @@
           },
           "s": {
             "title": "S 级 - 钻石",
-            "description": "Exceptional project with perfect verification. 完整 trading access and priority DEX listing."
+            "description": "完美验证的卓越项目。完整交易权限和优先DEX上市。"
           },
           "a": {
             "title": "A 级 - 金牌",
-            "description": "高ly reliable project with strong fundamentals. 标准 trading access with enhanced visibility."
+            "description": "基本面强劲的高度可靠项目。具有增强可见性的标准交易权限。"
           },
           "b": {
             "title": "B 级 - 银牌",
-            "description": "好 project with minor concerns. Trading allowed with standard monitoring."
+            "description": "有轻微问题的良好项目。允许标准监控下的交易。"
           },
           "c": {
             "title": "C 级 - 青铜",
-            "description": "项目 requires attention. Trading allowed with warning labels displayed."
+            "description": "需要关注的项目。允许交易但显示警告标签。"
           },
           "f": {
             "title": "F 级 - 受限",
-            "description": "失败 verification or serious concerns. Trading suspended pending investigation."
+            "description": "验证失败或存在严重问题。交易暂停待调查。"
           }
         },
         "stages": {
@@ -7150,7 +7150,7 @@
             "description": "代币持有者投票最终批准"
           }
         },
-        "evaluationPhilosophy": "Our evaluation methodology combines automated analysis with human expertise to provide comprehensive project assessments.",
+        "evaluationPhilosophy": "我们的评估方法结合自动化分析和人类专业知识，提供全面的项目评估。",
         "gradeSystem": "信任等级分类",
         "scoreComponents": "评分组成",
         "scoreComponentsStatus": "实时组件追踪",
@@ -7158,23 +7158,23 @@
         "pts": "分",
         "ptsUnit": "分",
         "importantLabel": "重要",
-        "importantNote": "Trust Scores are dynamic and updated in real-time based on ongoing project behavior and community feedback.",
+        "importantNote": "信任评分是动态的，基于持续的项目行为和社区反馈实时更新。",
         "process": {
           "dataCollection": {
             "title": "数据收集",
-            "description": "Automated gathering of on-chain data, social metrics, and project documentation"
+            "description": "自动收集链上数据、社交指标和项目文档"
           },
           "aiAnalysis": {
             "title": "AI 分析",
-            "description": "三频段 AI performs comprehensive analysis across all scoring dimensions"
+            "description": "三频段AI对所有评分维度进行全面分析"
           },
           "expertReview": {
             "title": "专家审核",
-            "description": "Human experts validate AI findings and perform deep-dive investigation"
+            "description": "人类专家验证AI发现并进行深入调查"
           },
           "onchainCommit": {
             "title": "链上提交",
-            "description": "Final score is committed to blockchain with full audit trail and transparency"
+            "description": "最终评分提交到区块链，具有完整的审计追踪和透明度"
           }
         }
       },
@@ -7198,7 +7198,7 @@
           },
           "software": {
             "title": "软件钱包",
-            "description": "Desktop and mobile applications for convenient access to your crypto assets"
+            "description": "便于访问加密资产的桌面和移动应用程序"
           }
         },
         "security": {
@@ -7211,35 +7211,35 @@
           },
           "neverShare": {
             "title": "切勿分享私钥",
-            "description": "Your private keys and seed phrase should never be shared with anyone. 否 legitimate service will ever ask for them."
+            "description": "您的私钥和助记词永远不应与任何人分享。任何正规服务都不会要求您提供这些信息。"
           },
           "offlineStorage": {
             "title": "使用离线存储",
-            "description": "Store large amounts in cold wallets. Keep only small amounts in hot wallets for daily transactions."
+            "description": "将大量资产存储在冷钱包中。热钱包仅保留少量用于日常交易。"
           },
           "verifyTransactions": {
             "title": "验证所有交易",
-            "description": "始终 double-check recipient addresses and transaction amounts before confirming any transfer."
+            "description": "在确认任何转账前，始终仔细核对收款地址和交易金额。"
           }
         },
         "understanding": {
           "title": "了解加密钱包",
-          "description": "A cryptocurrency wallet is a digital tool that stores your private keys and allows you to send, receive, and manage your digital assets securely."
+          "description": "加密货币钱包是一种数字工具，用于存储您的私钥，让您能够安全地发送、接收和管理数字资产。"
         },
         "walletTypes": {
           "title": "钱包类型说明",
-          "subtitle": "选择 the right wallet type based on your security needs and usage patterns"
+          "subtitle": "根据您的安全需求和使用模式选择合适的钱包类型"
         },
         "keys": {
           "title": "了解密钥",
-          "description": "Your wallet security depends on proper key management. Learn the difference between public and private keys.",
+          "description": "您的钱包安全取决于正确的密钥管理。了解公钥和私钥的区别。",
           "public": {
             "title": "公钥",
-            "description": "Your wallet address that others use to send you cryptocurrency. Safe to share publicly."
+            "description": "其他人用来向您发送加密货币的钱包地址。可以安全地公开分享。"
           },
           "private": {
             "title": "私钥",
-            "description": "密钥 key that controls access to your funds. 从不 share this with anyone."
+            "description": "控制您资金访问权限的密钥。绝对不要与任何人分享。"
           }
         },
         "securityProtocol": {
@@ -7247,7 +7247,7 @@
         },
         "cta": {
           "title": "准备好开始了吗？",
-          "description": "创建 your first T销毁 wallet and start exploring the ecosystem. Our setup guide will walk you through every step.",
+          "description": "创建您的第一个TBurn钱包并开始探索生态系统。我们的设置指南将引导您完成每一步。",
           "button": "创建钱包"
         }
       },
