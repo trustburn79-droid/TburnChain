@@ -7683,20 +7683,20 @@
           "title": "評価哲学",
           "description": "トラストスコアは、複数の次元でプロジェクトの信頼性を評価することで投資家を保護するように設計されています",
           "objective": {
-            "title": "Objective Analysis",
-            "description": "Data-driven evaluation eliminating human bias through standardized metrics and AI-powered assessment"
+            "title": "客観的分析",
+            "description": "標準化されたメトリクスとAI評価を通じて人間のバイアスを排除したデータ駆動型評価"
           },
           "comprehensive": {
-            "title": "Comprehensive Review",
-            "description": "Multi-dimensional analysis covering team, technology, 金融s, and execution capabilities"
+            "title": "包括的レビュー",
+            "description": "チーム、技術、財務、実行能力をカバーする多次元分析"
           },
           "transparent": {
-            "title": "Full Transparency",
-            "description": "すべて scoring factors and methodologies are publicly documented and on-chain verifiable"
+            "title": "完全な透明性",
+            "description": "すべてのスコアリング要因と方法論は公開文書化され、オンチェーンで検証可能"
           },
           "realtime": {
-            "title": "Real-time Updates",
-            "description": "Continuous monitoring with instant score adjustments based on project behavior 変更"
+            "title": "リアルタイム更新",
+            "description": "プロジェクトの行動変化に基づく即時スコア調整による継続的監視"
           }
         },
         "components": {
@@ -7729,30 +7729,30 @@
             }
           },
           "teamTransparency": {
-            "title": "Team Transparency",
+            "title": "チーム透明性",
             "items": {
-              "kyc": "KYC 検証 ステータス",
-              "realName": "Real Name Disclosure",
-              "experience": "Industry Experience & Track Record",
-              "communication": "コミュニティ Communication Quality"
+              "kyc": "KYC検証ステータス",
+              "realName": "実名開示",
+              "experience": "業界経験と実績",
+              "communication": "コミュニティコミュニケーション品質"
             }
           },
           "technical": {
-            "title": "技術 Assessment",
+            "title": "技術評価",
             "items": {
-              "codeQuality": "Code Quality & スタンダード",
-              "securityAudit": "セキュリティ Audit Results",
-              "testCoverage": "Test Coverage Percentage",
-              "documentation": "技術 ドキュメント"
+              "codeQuality": "コード品質と標準",
+              "securityAudit": "セキュリティ監査結果",
+              "testCoverage": "テストカバレッジ率",
+              "documentation": "技術ドキュメント"
             }
           },
           "financial": {
-            "title": "金融 Health",
+            "title": "財務健全性",
             "items": {
-              "fundingReport": "Funding Source Transparency",
-              "walletDisclosure": "ウォレット Disclosure ステータス",
-              "accountingAudit": "金融 Audit Results",
-              "distributionData": "Token Distribution Data"
+              "fundingReport": "資金源の透明性",
+              "walletDisclosure": "ウォレット開示ステータス",
+              "accountingAudit": "財務監査結果",
+              "distributionData": "トークン配分データ"
             }
           }
         },
@@ -7784,24 +7784,24 @@
             "description": "取引停止"
           },
           "s": {
-            "title": "S Grade - Diamond",
-            "description": "Exceptional project with perfect 検証. Full trading access and priority DEX listing."
+            "title": "Sグレード - ダイヤモンド",
+            "description": "完璧な検証を受けた優れたプロジェクト。完全な取引アクセスと優先DEXリスティング。"
           },
           "a": {
-            "title": "A Grade - Gold",
-            "description": "Highly reliable project with strong fundamentals. Standard trading access with enhanced visibility."
+            "title": "Aグレード - ゴールド",
+            "description": "強固な基盤を持つ高信頼性プロジェクト。強化された可視性を持つ標準取引アクセス。"
           },
           "b": {
-            "title": "B Grade - Silver",
-            "description": "Good project with minor concerns. Trading すべてowed with standard monitoring."
+            "title": "Bグレード - シルバー",
+            "description": "軽微な懸念事項のある良好なプロジェクト。標準監視下での取引可能。"
           },
           "c": {
-            "title": "C Grade - Bronze",
-            "description": "Project requires attention. Trading すべてowed with 警告 labels displayed."
+            "title": "Cグレード - ブロンズ",
+            "description": "注意が必要なプロジェクト。警告ラベル表示付きで取引可能。"
           },
           "f": {
-            "title": "F Grade - Restricted",
-            "description": "Failed 検証 or serious concerns. Trading suspended 保留中 investigation."
+            "title": "Fグレード - 制限",
+            "description": "検証失敗または重大な懸念事項。調査中につき取引停止。"
           }
         },
         "stages": {
@@ -7822,31 +7822,31 @@
             "description": "トークンホルダーが最終承認に投票"
           }
         },
-        "evaluationPhilosophy": "Our evaluation methodology combines automated analysis with human expertise to provide comprehensive project assessments.",
-        "gradeSystem": "Trust Grade Classification",
-        "scoreComponents": "Score Components",
-        "scoreComponentsStatus": "Real-time component tracking",
-        "verificationProcess": "検証 Process",
-        "pts": "pts",
-        "ptsUnit": "points",
-        "importantLabel": "Important",
-        "importantNote": "トラストスコアs are dynamic and updated in real-time based on ongoing project behavior and コミュニティ feed戻る.",
+        "evaluationPhilosophy": "私たちの評価方法論は、包括的なプロジェクト評価を提供するために、自動分析と人間の専門知識を組み合わせています。",
+        "gradeSystem": "トラストグレード分類",
+        "scoreComponents": "スコアコンポーネント",
+        "scoreComponentsStatus": "リアルタイムコンポーネント追跡",
+        "verificationProcess": "検証プロセス",
+        "pts": "点",
+        "ptsUnit": "ポイント",
+        "importantLabel": "重要",
+        "importantNote": "トラストスコアは動的であり、継続的なプロジェクトの行動とコミュニティのフィードバックに基づいてリアルタイムで更新されます。",
         "process": {
           "dataCollection": {
-            "title": "情報の収集",
-            "description": "Automated gathering of on-chain data, ソーシャル metrics, and project ドキュメント"
+            "title": "データ収集",
+            "description": "オンチェーンデータ、ソーシャルメトリクス、プロジェクトドキュメントの自動収集"
           },
           "aiAnalysis": {
-            "title": "AI Analysis",
-            "description": "Triple-Band AI performs comprehensive analysis across すべて scoring dimensions"
+            "title": "AI分析",
+            "description": "トリプルバンドAIがすべてのスコアリング次元にわたる包括的分析を実行"
           },
           "expertReview": {
-            "title": "Expert Review",
-            "description": "Human experts validate AI findings and perform deep-dive investigation"
+            "title": "専門家レビュー",
+            "description": "人間の専門家がAIの発見を検証し、詳細な調査を実施"
           },
           "onchainCommit": {
-            "title": "On-Chain Commit",
-            "description": "Final score is committed to ブロックチェーン with full audit trail and transparency"
+            "title": "オンチェーンコミット",
+            "description": "最終スコアは完全な監査証跡と透明性を持ってブロックチェーンにコミット"
           }
         }
       },
@@ -7869,8 +7869,8 @@
             "description": "安全な鍵保管のための物理デバイス"
           },
           "software": {
-            "title": "ソフトウェア ウォレットs",
-            "description": "Desktop and モバイル applications for convenient access to your crypto assets"
+            "title": "ソフトウェアウォレット",
+            "description": "暗号資産への便利なアクセスのためのデスクトップおよびモバイルアプリケーション"
           }
         },
         "security": {
@@ -7882,45 +7882,45 @@
             "regularBackups": "定期的にバックアップを作成"
           },
           "neverShare": {
-            "title": "Never 共有 Private Keys",
-            "description": "Your private keys and seed phrase should never be 共有d with anyone. No legitimate service will ever ask for them."
+            "title": "秘密鍵を絶対に共有しない",
+            "description": "秘密鍵とシードフレーズは誰とも共有してはいけません。正当なサービスがこれらを要求することは決してありません。"
           },
           "offlineStorage": {
-            "title": "Use Offline Storage",
-            "description": "Store large amounts in cold ウォレットs. Keep only smすべて amounts in hot ウォレットs for 日次トランザクション."
+            "title": "オフラインストレージを使用",
+            "description": "大量の資産はコールドウォレットに保管してください。日常取引用にはホットウォレットに少額のみ保管してください。"
           },
           "verifyTransactions": {
-            "title": "Verify すべて トランザクション",
-            "description": "Always double-check recipient addresses and transaction amounts before confirming any transfer."
+            "title": "すべての取引を確認",
+            "description": "転送を確認する前に、常に受信者アドレスと取引金額を再確認してください。"
           }
         },
         "understanding": {
-          "title": "Understanding Crypto ウォレットs",
-          "description": "A cryptocurrency ウォレット is a digital tool that stores your private keys and すべてows you to send, receive, and manage your digital assets securely."
+          "title": "暗号ウォレットを理解する",
+          "description": "暗号通貨ウォレットは、秘密鍵を保管し、デジタル資産を安全に送受信・管理できるデジタルツールです。"
         },
         "walletTypes": {
-          "title": "ウォレット Types Explained",
-          "subtitle": "Choose the right ウォレット type based on your セキュリティ needs and 使用法 patterns"
+          "title": "ウォレットタイプの説明",
+          "subtitle": "セキュリティ要件と使用パターンに基づいて適切なウォレットタイプを選択"
         },
         "keys": {
-          "title": "Understanding Keys",
-          "description": "Your ウォレット セキュリティ depends on proper key management. 学ぶ the difference between public and private keys.",
+          "title": "鍵を理解する",
+          "description": "ウォレットのセキュリティは適切な鍵管理に依存します。公開鍵と秘密鍵の違いを学びましょう。",
           "public": {
-            "title": "Public Key",
-            "description": "Your ウォレット address that others use to send you cryptocurrency. Safe to 共有 publicly."
+            "title": "公開鍵",
+            "description": "他の人があなたに暗号通貨を送信するために使用するウォレットアドレス。公開しても安全です。"
           },
           "private": {
-            "title": "Private Key",
-            "description": "Secret key that controls access to your funds. Never 共有 this with anyone."
+            "title": "秘密鍵",
+            "description": "あなたの資金へのアクセスを制御する秘密の鍵。誰とも共有しないでください。"
           }
         },
         "securityProtocol": {
-          "title": "セキュリティ プロトコル"
+          "title": "セキュリティプロトコル"
         },
         "cta": {
-          "title": "Ready to 始める?",
-          "description": "Create your first TBurn ウォレット and start exploring the ecosystem. Our セットアップガイド will walk you through every step.",
-          "button": "Create ウォレット"
+          "title": "始める準備はできましたか？",
+          "description": "最初のTBurnウォレットを作成し、エコシステムの探索を始めましょう。セットアップガイドがすべてのステップを案内します。",
+          "button": "ウォレットを作成"
         }
       },
       "whitepaper": {
