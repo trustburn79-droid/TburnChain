@@ -67,7 +67,7 @@ export function AdminPortalLayout() {
 
   return (
     <TooltipProvider>
-      <SidebarProvider style={sidebarStyle as React.CSSProperties}>
+      <SidebarProvider defaultOpen={true} style={sidebarStyle as React.CSSProperties}>
         <div className="flex h-screen w-full">
           <AdminPortalSidebar />
           <div className="flex flex-col flex-1 overflow-hidden">
