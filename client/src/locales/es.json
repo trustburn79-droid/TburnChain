@@ -5391,13 +5391,10 @@
         "subtitle": "Monitoreo de orquestación de IA en tiempo real"
       },
       "cta": {
-        "title": "¿Listo para Construir en TBurn Chain?",
+        "title": "¿Listo para Construir Confianza?",
         "subtitle": "Únete a miles de desarrolladores construyendo el futuro del blockchain basado en confianza",
-        "getStarted": "Comenzar",
-        "viewDocs": "Ver documentación",
-        "description": "Únete a miles de desarrolladores construyendo el futuro de las finanzas descentralizadas",
-        "startBuilding": "Comenzar a Construir",
-        "readDocs": "Leer Documentación"
+        "exploreEcosystem": "Explorar Ecosistema",
+        "joinCommunity": "Unirse a la Comunidad"
       },
       "hero": {
         "title": "La Blockchain de Próxima Generación para Confianza y Transparencia",

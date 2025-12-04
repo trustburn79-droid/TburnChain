@@ -6862,10 +6862,10 @@
         "subtitle": "실시간 AI 오케스트레이션 모니터링"
       },
       "cta": {
-        "title": "TBurn 체인에서 개발할 준비가 되셨나요?",
+        "title": "신뢰를 구축할 준비가 되셨나요?",
         "subtitle": "신뢰 기반 블록체인의 미래를 함께 만들어가는 수천 명의 개발자와 함께하세요",
-        "getStarted": "시작하기",
-        "viewDocs": "문서 보기"
+        "exploreEcosystem": "생태계 탐색",
+        "joinCommunity": "커뮤니티 참여"
       }
     },
     "learn": {

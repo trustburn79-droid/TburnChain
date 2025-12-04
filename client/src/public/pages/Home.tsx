@@ -370,14 +370,14 @@ export default function Home() {
         <section className="max-w-4xl mx-auto px-6 mb-24">
           <div className="glass-panel rounded-2xl p-12 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 pointer-events-none"></div>
-            <h2 className="text-3xl font-bold text-white mb-6" data-testid="text-cta-title">Ready to Build Trust?</h2>
+            <h2 className="text-3xl font-bold text-white mb-6" data-testid="text-cta-title">{t('publicPages.home.cta.title')}</h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
               <Link href="/learn">
                 <button 
                   className="bg-cyan-400 text-black px-8 py-3 rounded-lg font-bold hover:bg-cyan-300 transition glow-cyan"
                   data-testid="button-explore-ecosystem"
                 >
-                  Explore Ecosystem
+                  {t('publicPages.home.cta.exploreEcosystem')}
                 </button>
               </Link>
               <Link href="/community/hub">
@@ -385,7 +385,7 @@ export default function Home() {
                   className="text-white border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition"
                   data-testid="button-join-community"
                 >
-                  Join Community
+                  {t('publicPages.home.cta.joinCommunity')}
                 </button>
               </Link>
             </div>
