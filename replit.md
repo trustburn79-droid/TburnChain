@@ -1,6 +1,17 @@
 # TBURN Blockchain Mainnet Explorer
 
 ## Recent Changes (December 4, 2024)
+
+### Admin Portal Authentication & Dashboard Fixes
+- Fixed UnifiedDashboard crash caused by null `aiStatus.models` and `validatorSummary.topValidators`
+  - Added proper null checks and fallback empty arrays in useMemo hooks
+- Fixed `/api/admin/ai/status` endpoint to return correct data structure matching frontend expectations
+  - Response now includes: `models[]`, `totalDecisionsToday`, `avgConfidence`
+- Added authentication check to admin portal layout
+  - Unauthenticated users now see login page instead of blank screen
+  - Login uses password-only authentication against ADMIN_PASSWORD secret
+- Fixed import placement in admin-portal-layout.tsx (moved Login import to file top)
+
 ### Translation System Fixes
 - Fixed critical translation issue where raw translation keys (e.g., "adminDashboard.title") were displaying instead of translated text
 - Added comprehensive Korean translations for all 72 Admin Portal pages
